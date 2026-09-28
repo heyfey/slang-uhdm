@@ -1,0 +1,76 @@
+EXTRA:defer STAGE1-CLOSER=2 UNFIRED=4
+EXTRA:gate UNFIRED=6
+EXTRA:tpuse STAGE1-CLOSER=2 UNFIRED=4
+X/x01_tp_enum_keyword_el alloff=1 off2_tpEnumCopyAtTypedef184_classTpKeywordTsAtDefault188=1 off2_tpEnumCopyAtTypedef184_typeParamDefersToTpUse186=1 off2_typeParamDefersToTpUse186_classTpKeywordTsAtDefault188=1 offL184=1 offL186=1 offL188=1 off_classTpKeywordTsAtDefault188=1 off_tpEnumCopyAtTypedef184=1 off_typeParamDefersToTpUse186=1 off_typeParamUseSharesOwnTs183=1 on=1 wide=1
+     alloff CRASH-OR-TIMEOUT
+     off2_tpEnumCopyAtTypedef184_classTpKeywordTsAtDefault188 CRASH-OR-TIMEOUT
+     off2_tpEnumCopyAtTypedef184_typeParamDefersToTpUse186 CRASH-OR-TIMEOUT
+     off2_typeParamDefersToTpUse186_classTpKeywordTsAtDefault188 CRASH-OR-TIMEOUT
+     offL184 CRASH-OR-TIMEOUT
+     offL186 CRASH-OR-TIMEOUT
+     offL188 CRASH-OR-TIMEOUT
+     off_classTpKeywordTsAtDefault188 CRASH-OR-TIMEOUT
+     off_tpEnumCopyAtTypedef184 CRASH-OR-TIMEOUT
+     off_typeParamDefersToTpUse186 CRASH-OR-TIMEOUT
+     off_typeParamUseSharesOwnTs183 CRASH-OR-TIMEOUT
+     on CRASH-OR-TIMEOUT
+     wide CRASH-OR-TIMEOUT
+Z/z01_module_param_class_elab_el alloff=1 on=1 wide=1
+     alloff CRASH-OR-TIMEOUT
+     on CRASH-OR-TIMEOUT
+     wide CRASH-OR-TIMEOUT
+aliasOfTdSharedKeepsModName183 STAGE1-CLOSER=2 UNFIRED=2
+assocBracketPkgOnly186 STAGE1-CLOSER=2
+assocPromotedBoundAtBracket183 TOWARD=2 UNFIRED=6
+bareDecUnderscoreDropped181 STAGE1-CLOSER=2
+boundLitUnderscoreDropped186 STAGE1-CLOSER=4
+classImportParamOwnRefs183 STAGE1-CLOSER=4
+classPropElemClassTsAtType183 MIXED=2 STAGE1-CLOSER=2 TOWARD=2
+     MIXED U/u04_param_elem_class U/u04_param_elem_class_el
+classPropElemQualTs186 STAGE1-CLOSER=4
+classTpKeywordTsAtDefault188 NODB=1 UNFIRED=1
+     NODB X/x01_tp_enum_keyword_el
+enumConstUnderscoreDropped186 STAGE1-CLOSER=6
+foreachAssocLocalSharesDeclTs183 STAGE1-CLOSER=2 TOWARD=2 UNFIRED=2
+foreachAssocLoopVarIdxTs183 STAGE1-CLOSER=2 TOWARD=2 UNFIRED=2
+genLocalEnumConstShared184 TOWARD=6 UNFIRED=4
+genScopeTrailSelNameLate184 TOWARD=4
+hpIdxCallNameSpan184 STAGE1-CLOSER=2 TOWARD=4 UNFIRED=2
+ifaceArrPortSizeDimAtExpr183 STAGE1-CLOSER=4
+ifaceTwoPkgTdNameOrder186 STAGE1-SAME=4 TOWARD=2 UNFIRED=2
+     STAGE1-SAME W/w01_three_pkgs_empty W/w01_three_pkgs_empty_el W/w02_shadow_local W/w02_shadow_local_el
+importNetTsToInitEnd183 STAGE1-CLOSER=4
+incDecMemberSelIsLvalue184 STAGE1-CLOSER=8 TOWARD=4
+incDecMixedPathIsLvalue181 UNFIRED=2
+incDecSelTopRestore184v TOWARD=2 UNFIRED=2
+lawSCopyIdOrder186 BYTES-ONLY=2
+     BYTES-ONLY LS/l01_scale LS/l01_scale_el
+lvIdxMemberSelIsRead184 MIXED=2 STAGE1-CLOSER=4 TOWARD=2 UNFIRED=2
+     MIXED L/l03_stream_target_select L/l03_stream_target_select_el
+lvIdxMixedPathIsRead181 UNFIRED=6
+macroPathTokOneBuffer186 UNFIRED=8
+macroPathTokSpans183 TOWARD=2 UNFIRED=6
+memberBareTdAliasNamedByUse183 TOWARD=4
+memberSelParenIdxSpan184 TOWARD=6
+nestRdIdxOnly190v UNFIRED=6
+pkgParamElabCaSharesDefFold183 STAGE1-CLOSER=2 UNFIRED=2
+pkgParamFoldOwnTs183 STAGE1-CLOSER=2
+rootElemAtNextTok186 STAGE1-CLOSER=4 TOWARD=2
+rootLvalueSpanAtRoot184 STAGE1-CLOSER=6 TOWARD=2
+rootNetPathOwnNames181 STAGE1-CLOSER=2
+streamLvMemberPathRead184 MIXED=2 TOWARD=2
+     MIXED S/s01_member_ending_select S/s01_member_ending_select_el
+synLitUnderscoreDropped186 STAGE1-CLOSER=2
+tpEnumCaBindsInstVar184v STAGE1-AWAY=8 STAGE1-CLOSER=2 TOWARD=2 UNFIRED=14
+     STAGE1-AWAY T/t05_output_net_port T/t05_output_net_port_el T/t09_port_net_ca T/t09_port_net_ca_el T/t13_inout_net T/t13_inout_net_el T/t14_nonansi_port_net T/t14_nonansi_port_net_el
+tpEnumCopyAtTypedef184 NODB=1 STAGE1-CLOSER=23 STAGE1-SAME=2 TOWARD=6
+     NODB X/x01_tp_enum_keyword_el
+     STAGE1-SAME T/t03_positional_proc T/t03_positional_proc_el
+trailIdxCallArgNamesByPath187 TOWARD=2
+trailIdxSelNamesByPath187 TOWARD=2
+typeParamDefersToTpUse186 NODB=1 STAGE1-AWAY=2 UNFIRED=5
+     NODB X/x01_tp_enum_keyword_el
+     STAGE1-AWAY TP/t03_class_default_locals TP/t03_class_default_locals_el
+typeParamGateNoLookup186 UNFIRED=4
+typeParamUseSharesOwnTs183 NODB=1 UNFIRED=7
+     NODB X/x01_tp_enum_keyword_el

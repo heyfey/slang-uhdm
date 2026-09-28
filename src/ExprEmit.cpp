@@ -912,6 +912,22 @@ static const Expression*& incDecSelTop184() {
     static thread_local const Expression* e = nullptr;
     return e;
 }
+// § incDecSelCallArgRead194v (r11u194) — the call-argument depth at which
+// § incDecMemberSelIsLvalue184 raised `inLhs` (-1: the law is not active).
+// A path that is a CALL ARGUMENT inside the operand's index (`--s.g[ix(s.f[j])]`)
+// is compiled by Surelog as an ordinary read: compileTfCallArguments
+// (CompileHelper.cpp) compiles each argument afresh with compileExpression,
+// outside the Variable_lvalue arm the operand itself goes through, so golden
+// has the read shape there (`s` 8:14-15 on its own token, the bit_select
+// `s.f[j]` at its index 8:18-19), which pristine wrote and the law replaced
+// by the lvalue shape (8:16-17, 8:16-20; tools/probe/r11u194verify/cases/I
+// i01, i04).  emitExpr lowers `inLhs` for every expression emitted deeper in
+// call arguments than the operand.  Switch R11V194_IDCALLARG_OFF (and
+// R11V194_OFF).
+static int& incDecSelArgDepth194() {
+    static thread_local int d = -1;
+    return d;
+}
 static bool incDecMemberSel184(const Expression& e) {
     if (!r11u184Law("R11U184_INCDECSEL_OFF"))
         return false;
@@ -16390,6 +16406,23 @@ static void tagKey177f(const slang::SourceManager* sm, const UHDM::any* tp,
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
+    // § incDecSelCallArgRead194v — see incDecSelArgDepth194.
+    struct LhsGuard194 {
+        bool& r; bool v; bool on;
+        ~LhsGuard194() { if (on) r = v; }
+    } lhsGuard194{inLhs, inLhs, false};
+    // (a handle's METHOD call emits its arguments under the method_func_call
+    // without raising callArgDepth, so a call parent counts too:
+    // `s.f[o.pick(s.g[k])]--`, cases/I i05)
+    if (inLhs && incDecSelArgDepth194() >= 0 &&
+        (callArgDepth > incDecSelArgDepth194() ||
+         (parent && (((UHDM::any*)parent)->UhdmType() == UHDM::uhdmmethod_func_call ||
+                     ((UHDM::any*)parent)->UhdmType() == UHDM::uhdmfunc_call ||
+                     ((UHDM::any*)parent)->UhdmType() == UHDM::uhdmsys_func_call)))) {
+        trace184("V194 IDCALLARG read");
+        lhsGuard194.on = true;
+        inLhs = false;
+    }
     // § genLpIdxOpOperandFold112 — an operand of the index operation.
     if (genLpIdxOpPrefix112 && parent &&
         ((UHDM::any*)parent)->UhdmType() == UHDM::uhdmoperation &&
@@ -24455,6 +24488,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // pristine right: tools/probe/r11v184repro/cases/I/vi01).
             // Switch R11V184_IDTOP_OFF (the law's clearing).
             const Expression* idTopSaved184v = incDecSelTop184();
+            const int idArgSaved194 = incDecSelArgDepth194();
             if ((opType == vpiPostIncOp || opType == vpiPreIncOp ||
                  opType == vpiPostDecOp || opType == vpiPreDecOp) &&
                 !inLhs && incDecMixedPath181(stripImplicitConv(ue.operand()))) {
@@ -24467,6 +24501,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 trace184("INCDECSEL");
                 inLhs = true;
                 incDecSelTop184() = &stripImplicitConv(ue.operand());
+                if (getenv("R11V194_OFF") == nullptr &&
+                    getenv("R11V194_IDCALLARG_OFF") == nullptr)
+                    incDecSelArgDepth194() = callArgDepth;
             }
             if (auto* e = emitExpr(ue.operand(), op, prefix, netMap))
                 operands->push_back(e);
@@ -24476,6 +24513,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             else
                 incDecSelTop184() = nullptr;
+            incDecSelArgDepth194() = idArgSaved194;
             inLhs = savedLhs181;
             incDecOperand124() = idSaved124;
             if (armed21)

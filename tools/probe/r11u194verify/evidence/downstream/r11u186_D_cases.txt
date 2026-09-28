@@ -1,0 +1,8 @@
+ON | tp/r11u186repro/cases/D/d01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u186repro/cases/D/d02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u186repro/cases/D/d07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u186repro/cases/D/x01 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 4 common constant assignments match
+ALLOFF | tp/r11u186repro/cases/D/d01 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u186repro/cases/D/d02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u186repro/cases/D/d07 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u186repro/cases/D/x01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u194_dsc/ALL

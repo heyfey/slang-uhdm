@@ -1,0 +1,49 @@
+EXTRA:defer cells=6 unfired=4
+EXTRA:gate cells=6 unfired=6
+EXTRA:tpuse cells=6 unfired=4
+WIDE cells=172 unfired=21
+X/x01_tp_enum_keyword_el cells=1
+Z/z01_module_param_class_elab_el cells=1
+aliasOfTdSharedKeepsModName183 cells=4 cmp:same=2 ds:same=1 strict:ne-both=2 unfired=2
+assocBracketPkgOnly186 cells=2 cmp:same=2 ds:same=1 strict:ne-both=2
+assocPromotedBoundAtBracket183 cells=8 cmp:same=2 ds:same=1 strict:gained=2 unfired=6
+bareDecUnderscoreDropped181 cells=2 cmp:UP=2 ds:same=1 strict:ne-both=2
+boundLitUnderscoreDropped186 cells=4 cmp:UP=2 cmp:down=2 ds:same=2 strict:gained=2 strict:ne-both=2
+classImportParamOwnRefs183 cells=4 cmp:same=4 ds:same=2 strict:ne-both=4
+classPropElemClassTsAtType183 cells=6 cmp:down=2 cmp:same=4 ds:same=3 strict:gained=4 strict:ne-both=2
+classPropElemQualTs186 cells=4 cmp:down=2 cmp:same=2 ds:same=2 strict:gained=2 strict:ne-both=2
+classTpKeywordTsAtDefault188 cells=2 unfired=1
+enumConstUnderscoreDropped186 cells=6 cmp:down=6 ds:EQUIVALENT->IDENTICAL=2 ds:same=1 strict:gained=6
+foreachAssocLocalSharesDeclTs183 cells=6 cmp:same=4 ds:same=2 strict:gained=2 strict:ne-both=2 unfired=2
+foreachAssocLoopVarIdxTs183 cells=6 cmp:same=4 ds:same=2 strict:gained=2 strict:ne-both=2 unfired=2
+genLocalEnumConstShared184 cells=10 cmp:same=6 ds:EQUIVALENT->IDENTICAL=1 ds:same=2 strict:gained=6 unfired=4
+genScopeTrailSelNameLate184 cells=4 cmp:same=4 ds:same=2 strict:gained=2 strict:ne-both=2
+hpIdxCallNameSpan184 cells=8 cmp:same=6 ds:same=3 strict:ne-both=6 unfired=2
+ifaceArrPortSizeDimAtExpr183 cells=4 cmp:same=4 ds:same=2 strict:ne-both=4
+ifaceTwoPkgTdNameOrder186 cells=8 cmp:same=6 ds:same=3 strict:gained=2 strict:ne-both=4 unfired=2
+importNetTsToInitEnd183 cells=4 cmp:same=4 ds:same=2 strict:ne-both=4
+incDecMemberSelIsLvalue184 cells=12 cmp:down=6 cmp:same=6 ds:same=4 dump-lost-cells=6 rec-away-cells=2 strict:gained=2 strict:ne-both=10
+incDecMixedPathIsLvalue181 cells=2 unfired=2
+incDecSelTopRestore184v cells=4 cmp:same=2 ds:same=1 strict:ne-both=2 unfired=2
+lawSCopyIdOrder186 cells=2 cmp:same=2 strict:ne-both=2
+lvIdxMemberSelIsRead184 cells=10 cmp:same=8 ds:EQUIVALENT->IDENTICAL=1 ds:same=3 strict:ne-both=8 unfired=2
+lvIdxMixedPathIsRead181 cells=6 unfired=6
+macroPathTokOneBuffer186 cells=8 unfired=8
+macroPathTokSpans183 cells=8 cmp:same=2 ds:same=1 strict:gained=2 unfired=6
+memberBareTdAliasNamedByUse183 cells=4 cmp:same=4 ds:same=2 strict:gained=2 strict:ne-both=2
+memberSelParenIdxSpan184 cells=6 cmp:same=6 ds:same=3 strict:gained=4 strict:ne-both=2
+nestRdIdxOnly190v cells=6 unfired=6
+pkgParamElabCaSharesDefFold183 cells=4 cmp:same=2 ds:same=1 strict:ne-both=2 unfired=2
+pkgParamFoldOwnTs183 cells=2 cmp:down=2 ds:same=1 strict:gained=2
+rootElemAtNextTok186 cells=6 cmp:same=6 ds:same=3 strict:gained=2 strict:ne-both=4
+rootLvalueSpanAtRoot184 cells=8 cmp:same=8 ds:same=4 strict:gained=2 strict:ne-both=6
+rootNetPathOwnNames181 cells=2 cmp:same=2 ds:same=1 strict:ne-both=2
+streamLvMemberPathRead184 cells=4 cmp:same=4 ds:EQUIVALENT->IDENTICAL=1 ds:same=1 strict:ne-both=4
+synLitUnderscoreDropped186 cells=2 cmp:down=2 ds:same=1 strict:gained=2
+tpEnumCaBindsInstVar184v cells=26 cmp:same=12 ds:same=6 strict:gained=2 strict:ne-both=10 unfired=14
+tpEnumCopyAtTypedef184 cells=32 cmp:same=31 ds:same=16 strict:gained=6 strict:ne-both=25
+trailIdxCallArgNamesByPath187 cells=2 cmp:same=2 ds:same=1 strict:ne-both=2
+trailIdxSelNamesByPath187 cells=2 cmp:same=2 ds:same=1 strict:ne-both=2
+typeParamDefersToTpUse186 cells=8 cmp:same=2 strict:ne-both=2 unfired=5
+typeParamGateNoLookup186 cells=4 unfired=4
+typeParamUseSharesOwnTs183 cells=8 unfired=7

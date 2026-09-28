@@ -1,0 +1,5 @@
+r10uvm143repro/g143_c_index bad(ours-not-golden): A=7 off180=3 off181=4 H=0 miss(golden-not-ours): A=7 off180=3 off181=4 H=0 | fix180=3 fix181=4 overlap=0 | intro180=0 intro181=0 CANCELLED=0 paired=0 {} UNPAIRED=0
+r10uvm79repro/c2_idxkind bad(ours-not-golden): A=9 off180=6 off181=8 H=5 miss(golden-not-ours): A=9 off180=6 off181=8 H=5 | fix180=1 fix181=3 overlap=0 | intro180=0 intro181=0 CANCELLED=0 paired=0 {} UNPAIRED=0
+surelog/default/Earlgrey_0_1 bad(ours-not-golden): A=6809 off180=6809 off181=6784 H=6784 miss(golden-not-ours): A=6165 off180=6165 off181=6140 H=6140 | fix180=25 fix181=0 overlap=0 | intro180=0 intro181=0 CANCELLED=0 paired=0 {} UNPAIRED=0
+surelog/default/BuildUVMPkg bad(ours-not-golden): A=1265 off180=1052 off181=1249 H=1036 miss(golden-not-ours): A=1312 off180=1051 off181=1296 H=1035 | fix180=16 fix181=217 overlap=0 | intro180=0 intro181=4 CANCELLED=0 paired=0 {} UNPAIRED=0
+surelog/default/SimpleUVM bad(ours-not-golden): A=2781 off180=2595 off181=2765 H=2579 miss(golden-not-ours): A=3505 off180=2507 off181=3489 H=2491 | fix180=16 fix181=188 overlap=0 | intro180=0 intro181=2 CANCELLED=0 paired=0 {} UNPAIRED=0

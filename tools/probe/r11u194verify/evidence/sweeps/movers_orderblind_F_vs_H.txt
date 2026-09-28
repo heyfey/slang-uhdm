@@ -1,0 +1,6 @@
+surelog/default/MiniAmiq-055eab74 dump_lines_diff=4 orderblind_diff=4
+surelog/default/SeqDriver-65178d3a dump_lines_diff=0 orderblind_diff=0
+surelog/default/SimpleUVM-267de3ff dump_lines_diff=4 orderblind_diff=4
+surelog/testflags/MiniAmiq-055eab74 dump_lines_diff=4 orderblind_diff=4
+probe movers 0 / 4087
+downstream slang-lane movers 0 / 805

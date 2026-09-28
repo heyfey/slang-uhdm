@@ -1,0 +1,18 @@
+MOVER I/i01_call_index strict=STRICT_NOTEQUAL_col -> strict=STRICT_EQUAL_270_objects dist 6 -> 0 golden-lines lost 0 gained 3
+MOVER I/i01_call_index_el strict=STRICT_NOTEQUAL_col -> strict=STRICT_EQUAL_305_objects dist 12 -> 0 golden-lines lost 0 gained 6
+MOVER I/i04_call_arg_paths strict=STRICT_NOTEQUAL_col -> strict=STRICT_NOTEQUAL_fullname dist 60 -> 36 golden-lines lost 0 gained 12
+MOVER I/i04_call_arg_paths_el strict=STRICT_NOTEQUAL_col -> strict=STRICT_NOTEQUAL_fullname dist 120 -> 72 golden-lines lost 0 gained 24
+MOVER I/i05_class_method_arg strict=STRICT_NOTEQUAL_col -> strict=STRICT_EQUAL_111_objects dist 12 -> 0 golden-lines lost 0 gained 6
+MOVER I/i05_class_method_arg_el strict=STRICT_NOTEQUAL_col -> strict=STRICT_EQUAL_153_objects dist 12 -> 0 golden-lines lost 0 gained 6
+MOVER T/t05_output_net_port strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1 dist 31 -> 27 golden-lines lost 0 gained 2
+MOVER T/t05_output_net_port_el strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1 dist 55 -> 51 golden-lines lost 0 gained 2
+MOVER T/t09_port_net_ca strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1 dist 16 -> 12 golden-lines lost 0 gained 2
+MOVER T/t09_port_net_ca_el strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1 dist 18 -> 14 golden-lines lost 0 gained 2
+MOVER T/t12_port_net_packed strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1 dist 7 -> 3 golden-lines lost 0 gained 2
+MOVER T/t12_port_net_packed_el strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1 dist 7 -> 3 golden-lines lost 0 gained 2
+MOVER T/t13_inout_net strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1 dist 16 -> 12 golden-lines lost 0 gained 2
+MOVER T/t13_inout_net_el strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1 dist 18 -> 14 golden-lines lost 0 gained 2
+MOVER T/t14_nonansi_port_net strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1 dist 16 -> 12 golden-lines lost 0 gained 2
+MOVER T/t14_nonansi_port_net_el strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1 dist 18 -> 14 golden-lines lost 0 gained 2
+MOVED-NODB X/x01_tp_enum_keyword_el (no database on either binary)
+{'case-modes': 484, 'movers': 16, 'lost': 0}

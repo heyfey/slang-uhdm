@@ -1,0 +1,1850 @@
+A/a01_pkg_keys alloff FTOWARD lost=20 neutral=0
+A/a01_pkg_keys fix FSAME lost=0 neutral=0
+A/a01_pkg_keys fixoff FSAME lost=0 neutral=0
+A/a01_pkg_keys offL186 FTOWARD lost=20 neutral=0
+A/a01_pkg_keys off_assocPromotedBoundAtBracket183 FTOWARD lost=20 neutral=0
+A/a01_pkg_keys wide FTOWARD lost=20 neutral=0
+A/a01_pkg_keys_el alloff FTOWARD lost=60 neutral=0
+A/a01_pkg_keys_el fix FSAME lost=0 neutral=0
+A/a01_pkg_keys_el fixoff FSAME lost=0 neutral=0
+A/a01_pkg_keys_el offL186 FTOWARD lost=60 neutral=0
+A/a01_pkg_keys_el off_assocPromotedBoundAtBracket183 FTOWARD lost=60 neutral=0
+A/a01_pkg_keys_el wide FTOWARD lost=60 neutral=0
+A/a02_module_task_keys alloff FSAME lost=0 neutral=0
+A/a02_module_task_keys fix FSAME lost=0 neutral=0
+A/a02_module_task_keys fixoff FSAME lost=0 neutral=0
+A/a02_module_task_keys offL186 FSAME lost=0 neutral=0
+A/a02_module_task_keys off_assocPromotedBoundAtBracket183 FSAME lost=0 neutral=0
+A/a02_module_task_keys wide FSAME lost=0 neutral=0
+A/a02_module_task_keys_el alloff FSAME lost=0 neutral=0
+A/a02_module_task_keys_el fix FSAME lost=0 neutral=0
+A/a02_module_task_keys_el fixoff FSAME lost=0 neutral=0
+A/a02_module_task_keys_el offL186 FSAME lost=0 neutral=0
+A/a02_module_task_keys_el off_assocPromotedBoundAtBracket183 FSAME lost=0 neutral=0
+A/a02_module_task_keys_el wide FSAME lost=0 neutral=0
+A/a03_pkg_class_props alloff FSAME lost=0 neutral=0
+A/a03_pkg_class_props fix FSAME lost=0 neutral=0
+A/a03_pkg_class_props fixoff FSAME lost=0 neutral=0
+A/a03_pkg_class_props offL186 FSAME lost=0 neutral=0
+A/a03_pkg_class_props off_assocPromotedBoundAtBracket183 FSAME lost=0 neutral=0
+A/a03_pkg_class_props wide FSAME lost=0 neutral=0
+A/a03_pkg_class_props_el alloff FSAME lost=0 neutral=0
+A/a03_pkg_class_props_el fix FSAME lost=0 neutral=0
+A/a03_pkg_class_props_el fixoff FSAME lost=0 neutral=0
+A/a03_pkg_class_props_el offL186 FSAME lost=0 neutral=0
+A/a03_pkg_class_props_el off_assocPromotedBoundAtBracket183 FSAME lost=0 neutral=0
+A/a03_pkg_class_props_el wide FSAME lost=0 neutral=0
+A/a04_unit_class_assoc alloff SKIP STAGE1
+A/a04_unit_class_assoc fix SKIP STAGE1
+A/a04_unit_class_assoc fixoff SKIP STAGE1
+A/a04_unit_class_assoc offL186 SKIP STAGE1
+A/a04_unit_class_assoc off_assocBracketPkgOnly186 SKIP STAGE1
+A/a04_unit_class_assoc off_assocPromotedBoundAtBracket183 SKIP STAGE1
+A/a04_unit_class_assoc wide SKIP STAGE1
+A/a04_unit_class_assoc_el alloff SKIP STAGE1
+A/a04_unit_class_assoc_el fix SKIP STAGE1
+A/a04_unit_class_assoc_el fixoff SKIP STAGE1
+A/a04_unit_class_assoc_el offL186 SKIP STAGE1
+A/a04_unit_class_assoc_el off_assocBracketPkgOnly186 SKIP STAGE1
+A/a04_unit_class_assoc_el off_assocPromotedBoundAtBracket183 SKIP STAGE1
+A/a04_unit_class_assoc_el wide SKIP STAGE1
+AL/a01_two_pkg_alias alloff SKIP STAGE1
+AL/a01_two_pkg_alias fix SKIP STAGE1
+AL/a01_two_pkg_alias fixoff SKIP STAGE1
+AL/a01_two_pkg_alias offL186 SKIP STAGE1
+AL/a01_two_pkg_alias off_aliasOfTdSharedKeepsModName183 SKIP STAGE1
+AL/a01_two_pkg_alias wide SKIP STAGE1
+AL/a01_two_pkg_alias_el alloff SKIP STAGE1
+AL/a01_two_pkg_alias_el fix SKIP STAGE1
+AL/a01_two_pkg_alias_el fixoff SKIP STAGE1
+AL/a01_two_pkg_alias_el offL186 SKIP STAGE1
+AL/a01_two_pkg_alias_el off_aliasOfTdSharedKeepsModName183 SKIP STAGE1
+AL/a01_two_pkg_alias_el wide SKIP STAGE1
+AL/a02_alias_chain alloff SKIP STAGE1
+AL/a02_alias_chain fix SKIP STAGE1
+AL/a02_alias_chain fixoff SKIP STAGE1
+AL/a02_alias_chain offL186 SKIP STAGE1
+AL/a02_alias_chain off_aliasOfTdSharedKeepsModName183 SKIP STAGE1
+AL/a02_alias_chain wide SKIP STAGE1
+AL/a02_alias_chain_el alloff SKIP STAGE1
+AL/a02_alias_chain_el fix SKIP STAGE1
+AL/a02_alias_chain_el fixoff SKIP STAGE1
+AL/a02_alias_chain_el offL186 SKIP STAGE1
+AL/a02_alias_chain_el off_aliasOfTdSharedKeepsModName183 SKIP STAGE1
+AL/a02_alias_chain_el wide SKIP STAGE1
+BT/b01_two_importers alloff FSAME lost=0 neutral=0
+BT/b01_two_importers fix FSAME lost=0 neutral=0
+BT/b01_two_importers fixoff FSAME lost=0 neutral=0
+BT/b01_two_importers offL186 FSAME lost=0 neutral=0
+BT/b01_two_importers off_memberBareTdAliasNamedByUse183 FSAME lost=0 neutral=0
+BT/b01_two_importers wide FSAME lost=0 neutral=0
+BT/b01_two_importers_el alloff FSAME lost=0 neutral=0
+BT/b01_two_importers_el fix FSAME lost=0 neutral=0
+BT/b01_two_importers_el fixoff FSAME lost=0 neutral=0
+BT/b01_two_importers_el offL186 FSAME lost=0 neutral=0
+BT/b01_two_importers_el off_memberBareTdAliasNamedByUse183 FSAME lost=0 neutral=0
+BT/b01_two_importers_el wide FSAME lost=0 neutral=0
+BT/b02_nested_pkg_struct alloff FSAME lost=0 neutral=0
+BT/b02_nested_pkg_struct fix FSAME lost=0 neutral=0
+BT/b02_nested_pkg_struct fixoff FSAME lost=0 neutral=0
+BT/b02_nested_pkg_struct offL186 FSAME lost=0 neutral=0
+BT/b02_nested_pkg_struct off_memberBareTdAliasNamedByUse183 FSAME lost=0 neutral=0
+BT/b02_nested_pkg_struct wide FSAME lost=0 neutral=0
+BT/b02_nested_pkg_struct_el alloff FSAME lost=0 neutral=0
+BT/b02_nested_pkg_struct_el fix FSAME lost=0 neutral=0
+BT/b02_nested_pkg_struct_el fixoff FSAME lost=0 neutral=0
+BT/b02_nested_pkg_struct_el offL186 FSAME lost=0 neutral=0
+BT/b02_nested_pkg_struct_el off_memberBareTdAliasNamedByUse183 FSAME lost=0 neutral=0
+BT/b02_nested_pkg_struct_el wide FSAME lost=0 neutral=0
+C/c01_pkg_method_call alloff FTOWARD lost=4 neutral=0
+C/c01_pkg_method_call fix FSAME lost=0 neutral=0
+C/c01_pkg_method_call fixoff FSAME lost=0 neutral=0
+C/c01_pkg_method_call offL184 FTOWARD lost=4 neutral=0
+C/c01_pkg_method_call off_hpIdxCallNameSpan184 FTOWARD lost=4 neutral=0
+C/c01_pkg_method_call wide FTOWARD lost=4 neutral=0
+C/c01_pkg_method_call_el alloff FTOWARD lost=4 neutral=0
+C/c01_pkg_method_call_el fix FSAME lost=0 neutral=0
+C/c01_pkg_method_call_el fixoff FSAME lost=0 neutral=0
+C/c01_pkg_method_call_el offL184 FTOWARD lost=4 neutral=0
+C/c01_pkg_method_call_el off_hpIdxCallNameSpan184 FTOWARD lost=4 neutral=0
+C/c01_pkg_method_call_el wide FTOWARD lost=4 neutral=0
+C/c02_method_call_idx alloff SKIP STAGE1
+C/c02_method_call_idx fix SKIP STAGE1
+C/c02_method_call_idx fixoff SKIP STAGE1
+C/c02_method_call_idx offL184 SKIP STAGE1
+C/c02_method_call_idx off_hpIdxCallNameSpan184 SKIP STAGE1
+C/c02_method_call_idx wide SKIP STAGE1
+C/c02_method_call_idx_el alloff SKIP STAGE1
+C/c02_method_call_idx_el fix SKIP STAGE1
+C/c02_method_call_idx_el fixoff SKIP STAGE1
+C/c02_method_call_idx_el offL184 SKIP STAGE1
+C/c02_method_call_idx_el off_hpIdxCallNameSpan184 SKIP STAGE1
+C/c02_method_call_idx_el wide SKIP STAGE1
+D/d01_enum_values alloff SKIP STAGE1->EQUAL
+D/d01_enum_values fix FSAME lost=0 neutral=0
+D/d01_enum_values fixoff FSAME lost=0 neutral=0
+D/d01_enum_values offL186 SKIP STAGE1->EQUAL
+D/d01_enum_values off_enumConstUnderscoreDropped186 SKIP STAGE1->EQUAL
+D/d01_enum_values wide SKIP STAGE1->EQUAL
+D/d01_enum_values_el alloff SKIP STAGE1->EQUAL
+D/d01_enum_values_el fix FSAME lost=0 neutral=0
+D/d01_enum_values_el fixoff FSAME lost=0 neutral=0
+D/d01_enum_values_el offL186 SKIP STAGE1->EQUAL
+D/d01_enum_values_el off_enumConstUnderscoreDropped186 SKIP STAGE1->EQUAL
+D/d01_enum_values_el wide SKIP STAGE1->EQUAL
+D/d02_gen_conditions alloff SKIP STAGE1->EQUAL
+D/d02_gen_conditions fix FSAME lost=0 neutral=0
+D/d02_gen_conditions fixoff FSAME lost=0 neutral=0
+D/d02_gen_conditions offL186 SKIP STAGE1->EQUAL
+D/d02_gen_conditions off_synLitUnderscoreDropped186 SKIP STAGE1->EQUAL
+D/d02_gen_conditions wide SKIP STAGE1->EQUAL
+D/d02_gen_conditions_el alloff SKIP STAGE1->EQUAL
+D/d02_gen_conditions_el fix FSAME lost=0 neutral=0
+D/d02_gen_conditions_el fixoff FSAME lost=0 neutral=0
+D/d02_gen_conditions_el offL186 SKIP STAGE1->EQUAL
+D/d02_gen_conditions_el off_synLitUnderscoreDropped186 SKIP STAGE1->EQUAL
+D/d02_gen_conditions_el wide SKIP STAGE1->EQUAL
+D/d03_bounds_case_params alloff SKIP STAGE1
+D/d03_bounds_case_params fix SKIP STAGE1
+D/d03_bounds_case_params fixoff SKIP STAGE1
+D/d03_bounds_case_params offL181 SKIP STAGE1
+D/d03_bounds_case_params offL186 SKIP STAGE1
+D/d03_bounds_case_params off_bareDecUnderscoreDropped181 SKIP STAGE1
+D/d03_bounds_case_params off_boundLitUnderscoreDropped186 SKIP STAGE1
+D/d03_bounds_case_params wide SKIP STAGE1
+D/d03_bounds_case_params_el alloff SKIP STAGE1
+D/d03_bounds_case_params_el fix SKIP STAGE1
+D/d03_bounds_case_params_el fixoff SKIP STAGE1
+D/d03_bounds_case_params_el offL181 SKIP STAGE1
+D/d03_bounds_case_params_el offL186 SKIP STAGE1
+D/d03_bounds_case_params_el off_bareDecUnderscoreDropped181 SKIP STAGE1
+D/d03_bounds_case_params_el off_boundLitUnderscoreDropped186 SKIP STAGE1
+D/d03_bounds_case_params_el wide SKIP STAGE1
+D/d04_iface_typedef_bounds alloff SKIP STAGE1->EQUAL
+D/d04_iface_typedef_bounds fix FSAME lost=0 neutral=0
+D/d04_iface_typedef_bounds fixoff FSAME lost=0 neutral=0
+D/d04_iface_typedef_bounds offL186 SKIP STAGE1->EQUAL
+D/d04_iface_typedef_bounds off_boundLitUnderscoreDropped186 SKIP STAGE1->EQUAL
+D/d04_iface_typedef_bounds off_enumConstUnderscoreDropped186 SKIP STAGE1->EQUAL
+D/d04_iface_typedef_bounds wide SKIP STAGE1->EQUAL
+D/d04_iface_typedef_bounds_el alloff SKIP STAGE1->EQUAL
+D/d04_iface_typedef_bounds_el fix FSAME lost=0 neutral=0
+D/d04_iface_typedef_bounds_el fixoff FSAME lost=0 neutral=0
+D/d04_iface_typedef_bounds_el offL186 SKIP STAGE1->EQUAL
+D/d04_iface_typedef_bounds_el off_boundLitUnderscoreDropped186 SKIP STAGE1->EQUAL
+D/d04_iface_typedef_bounds_el off_enumConstUnderscoreDropped186 SKIP STAGE1->EQUAL
+D/d04_iface_typedef_bounds_el wide SKIP STAGE1->EQUAL
+E/e01_nested_gen_decl alloff FTOWARD lost=25 neutral=0
+E/e01_nested_gen_decl fix FSAME lost=0 neutral=0
+E/e01_nested_gen_decl fixoff FSAME lost=0 neutral=0
+E/e01_nested_gen_decl offL184 FTOWARD lost=25 neutral=0
+E/e01_nested_gen_decl off_genLocalEnumConstShared184 FTOWARD lost=25 neutral=0
+E/e01_nested_gen_decl wide FTOWARD lost=25 neutral=0
+E/e01_nested_gen_decl_el alloff FTOWARD lost=15 neutral=0
+E/e01_nested_gen_decl_el fix FSAME lost=0 neutral=0
+E/e01_nested_gen_decl_el fixoff FSAME lost=0 neutral=0
+E/e01_nested_gen_decl_el offL184 FTOWARD lost=15 neutral=0
+E/e01_nested_gen_decl_el off_genLocalEnumConstShared184 FTOWARD lost=15 neutral=0
+E/e01_nested_gen_decl_el wide FTOWARD lost=15 neutral=0
+E/e02_genfor_decl_var alloff FTOWARD lost=20 neutral=0
+E/e02_genfor_decl_var fix FSAME lost=0 neutral=0
+E/e02_genfor_decl_var fixoff FSAME lost=0 neutral=0
+E/e02_genfor_decl_var offL184 FTOWARD lost=20 neutral=0
+E/e02_genfor_decl_var off_genLocalEnumConstShared184 FTOWARD lost=20 neutral=0
+E/e02_genfor_decl_var wide FTOWARD lost=20 neutral=0
+E/e02_genfor_decl_var_el alloff FTOWARD lost=20 neutral=0
+E/e02_genfor_decl_var_el fix FSAME lost=0 neutral=0
+E/e02_genfor_decl_var_el fixoff FSAME lost=0 neutral=0
+E/e02_genfor_decl_var_el offL184 FTOWARD lost=20 neutral=0
+E/e02_genfor_decl_var_el off_genLocalEnumConstShared184 FTOWARD lost=20 neutral=0
+E/e02_genfor_decl_var_el wide FTOWARD lost=20 neutral=0
+E/e03_var_two_down alloff FSAME lost=0 neutral=0
+E/e03_var_two_down fix FSAME lost=0 neutral=0
+E/e03_var_two_down fixoff FSAME lost=0 neutral=0
+E/e03_var_two_down offL184 FSAME lost=0 neutral=0
+E/e03_var_two_down off_genLocalEnumConstShared184 FSAME lost=0 neutral=0
+E/e03_var_two_down wide FSAME lost=0 neutral=0
+E/e03_var_two_down_el alloff FSAME lost=0 neutral=0
+E/e03_var_two_down_el fix FSAME lost=0 neutral=0
+E/e03_var_two_down_el fixoff FSAME lost=0 neutral=0
+E/e03_var_two_down_el offL184 FSAME lost=0 neutral=0
+E/e03_var_two_down_el off_genLocalEnumConstShared184 FSAME lost=0 neutral=0
+E/e03_var_two_down_el wide FSAME lost=0 neutral=0
+E/e04_unit_enum_noblockvar alloff FSAME lost=0 neutral=0
+E/e04_unit_enum_noblockvar fix FSAME lost=0 neutral=0
+E/e04_unit_enum_noblockvar fixoff FSAME lost=0 neutral=0
+E/e04_unit_enum_noblockvar offL184 FSAME lost=0 neutral=0
+E/e04_unit_enum_noblockvar off_genLocalEnumConstShared184 FSAME lost=0 neutral=0
+E/e04_unit_enum_noblockvar wide FSAME lost=0 neutral=0
+E/e04_unit_enum_noblockvar_el alloff FSAME lost=0 neutral=0
+E/e04_unit_enum_noblockvar_el fix FSAME lost=0 neutral=0
+E/e04_unit_enum_noblockvar_el fixoff FSAME lost=0 neutral=0
+E/e04_unit_enum_noblockvar_el offL184 FSAME lost=0 neutral=0
+E/e04_unit_enum_noblockvar_el off_genLocalEnumConstShared184 FSAME lost=0 neutral=0
+E/e04_unit_enum_noblockvar_el wide FSAME lost=0 neutral=0
+F/f01_foreach_key_kinds alloff SKIP DIVERGED->EQUAL
+F/f01_foreach_key_kinds fix FSAME lost=0 neutral=0
+F/f01_foreach_key_kinds fixoff FSAME lost=0 neutral=0
+F/f01_foreach_key_kinds offL186 SKIP DIVERGED->EQUAL
+F/f01_foreach_key_kinds off_foreachAssocLocalSharesDeclTs183 SKIP DIVERGED->EQUAL
+F/f01_foreach_key_kinds off_foreachAssocLoopVarIdxTs183 FTOWARD lost=7 neutral=0
+F/f01_foreach_key_kinds wide SKIP DIVERGED->EQUAL
+F/f01_foreach_key_kinds_el alloff SKIP DIVERGED->EQUAL
+F/f01_foreach_key_kinds_el fix FSAME lost=0 neutral=0
+F/f01_foreach_key_kinds_el fixoff FSAME lost=0 neutral=0
+F/f01_foreach_key_kinds_el offL186 SKIP DIVERGED->EQUAL
+F/f01_foreach_key_kinds_el off_foreachAssocLocalSharesDeclTs183 SKIP DIVERGED->EQUAL
+F/f01_foreach_key_kinds_el off_foreachAssocLoopVarIdxTs183 FTOWARD lost=14 neutral=0
+F/f01_foreach_key_kinds_el wide SKIP DIVERGED->EQUAL
+F/f02_foreach_class_member alloff SKIP STAGE1
+F/f02_foreach_class_member fix SKIP STAGE1
+F/f02_foreach_class_member fixoff SKIP STAGE1
+F/f02_foreach_class_member offL186 SKIP STAGE1
+F/f02_foreach_class_member off_foreachAssocLocalSharesDeclTs183 SKIP STAGE1
+F/f02_foreach_class_member off_foreachAssocLoopVarIdxTs183 SKIP STAGE1
+F/f02_foreach_class_member wide SKIP STAGE1
+F/f02_foreach_class_member_el alloff SKIP STAGE1
+F/f02_foreach_class_member_el fix SKIP STAGE1
+F/f02_foreach_class_member_el fixoff SKIP STAGE1
+F/f02_foreach_class_member_el offL186 SKIP STAGE1
+F/f02_foreach_class_member_el off_foreachAssocLocalSharesDeclTs183 SKIP STAGE1
+F/f02_foreach_class_member_el off_foreachAssocLoopVarIdxTs183 SKIP STAGE1
+F/f02_foreach_class_member_el wide SKIP STAGE1
+F/f03_all_assoc_2d alloff SKIP STAGE1
+F/f03_all_assoc_2d fix SKIP STAGE1
+F/f03_all_assoc_2d fixoff SKIP STAGE1
+F/f03_all_assoc_2d offL186 SKIP STAGE1
+F/f03_all_assoc_2d off_foreachAssocLocalSharesDeclTs183 SKIP STAGE1
+F/f03_all_assoc_2d off_foreachAssocLoopVarIdxTs183 SKIP STAGE1
+F/f03_all_assoc_2d wide SKIP STAGE1
+F/f03_all_assoc_2d_el alloff SKIP STAGE1
+F/f03_all_assoc_2d_el fix SKIP STAGE1
+F/f03_all_assoc_2d_el fixoff SKIP STAGE1
+F/f03_all_assoc_2d_el offL186 SKIP STAGE1
+F/f03_all_assoc_2d_el off_foreachAssocLocalSharesDeclTs183 SKIP STAGE1
+F/f03_all_assoc_2d_el off_foreachAssocLoopVarIdxTs183 SKIP STAGE1
+F/f03_all_assoc_2d_el wide SKIP STAGE1
+G/g01_nested_scopes alloff FTOWARD lost=6 neutral=0
+G/g01_nested_scopes fix FSAME lost=0 neutral=0
+G/g01_nested_scopes fixoff FSAME lost=0 neutral=0
+G/g01_nested_scopes offL184 FTOWARD lost=6 neutral=0
+G/g01_nested_scopes off_genScopeTrailSelNameLate184 FTOWARD lost=6 neutral=0
+G/g01_nested_scopes wide FTOWARD lost=6 neutral=0
+G/g01_nested_scopes_el alloff FTOWARD lost=6 neutral=0
+G/g01_nested_scopes_el fix FSAME lost=0 neutral=0
+G/g01_nested_scopes_el fixoff FSAME lost=0 neutral=0
+G/g01_nested_scopes_el offL184 FTOWARD lost=6 neutral=0
+G/g01_nested_scopes_el off_genScopeTrailSelNameLate184 FTOWARD lost=6 neutral=0
+G/g01_nested_scopes_el wide FTOWARD lost=6 neutral=0
+G/g02_genvar_call_index alloff FTOWARD lost=16 neutral=0
+G/g02_genvar_call_index fix FSAME lost=0 neutral=0
+G/g02_genvar_call_index fixoff FSAME lost=0 neutral=0
+G/g02_genvar_call_index offL184 FTOWARD lost=16 neutral=0
+G/g02_genvar_call_index off_genScopeTrailSelNameLate184 FTOWARD lost=16 neutral=0
+G/g02_genvar_call_index off_hpIdxCallNameSpan184 FSAME lost=0 neutral=0
+G/g02_genvar_call_index wide FTOWARD lost=18 neutral=0
+G/g02_genvar_call_index_el alloff FTOWARD lost=16 neutral=0
+G/g02_genvar_call_index_el fix FSAME lost=0 neutral=0
+G/g02_genvar_call_index_el fixoff FSAME lost=0 neutral=0
+G/g02_genvar_call_index_el offL184 FTOWARD lost=16 neutral=0
+G/g02_genvar_call_index_el off_genScopeTrailSelNameLate184 FTOWARD lost=16 neutral=0
+G/g02_genvar_call_index_el off_hpIdxCallNameSpan184 FSAME lost=0 neutral=0
+G/g02_genvar_call_index_el wide FTOWARD lost=18 neutral=0
+H/h01_struct_multiline alloff SKIP STAGE1
+H/h01_struct_multiline fix SKIP STAGE1
+H/h01_struct_multiline fixoff SKIP STAGE1
+H/h01_struct_multiline offL186 SKIP STAGE1
+H/h01_struct_multiline off_importNetTsToInitEnd183 SKIP STAGE1
+H/h01_struct_multiline wide SKIP STAGE1
+H/h01_struct_multiline_el alloff SKIP STAGE1
+H/h01_struct_multiline_el fix SKIP STAGE1
+H/h01_struct_multiline_el fixoff SKIP STAGE1
+H/h01_struct_multiline_el offL186 SKIP STAGE1
+H/h01_struct_multiline_el off_importNetTsToInitEnd183 SKIP STAGE1
+H/h01_struct_multiline_el wide SKIP STAGE1
+H/h02_iface_explicit alloff SKIP STAGE1
+H/h02_iface_explicit fix SKIP STAGE1
+H/h02_iface_explicit fixoff SKIP STAGE1
+H/h02_iface_explicit offL186 SKIP STAGE1
+H/h02_iface_explicit off_importNetTsToInitEnd183 SKIP STAGE1
+H/h02_iface_explicit wide SKIP STAGE1
+H/h02_iface_explicit_el alloff SKIP STAGE1
+H/h02_iface_explicit_el fix SKIP STAGE1
+H/h02_iface_explicit_el fixoff SKIP STAGE1
+H/h02_iface_explicit_el offL186 SKIP STAGE1
+H/h02_iface_explicit_el off_importNetTsToInitEnd183 SKIP STAGE1
+H/h02_iface_explicit_el wide SKIP STAGE1
+I/i01_call_index alloff SKIP STAGE1->ALIGNED
+I/i01_call_index fix FAWAY lost=0 neutral=0 | #186 col gold='18' ours='16' ; #186 endcol gold='19' ours='20' ; #185 col gold='14' ours='16' ; #185 endcol gold='15' ours='17'
+I/i01_call_index fixoff FSAME lost=0 neutral=0
+I/i01_call_index offL184 SKIP STAGE1->ALIGNED
+I/i01_call_index off_incDecMemberSelIsLvalue184 SKIP STAGE1->ALIGNED
+I/i01_call_index off_incDecSelTopRestore184v FTOWARD lost=2 neutral=0
+I/i01_call_index wide SKIP STAGE1->ALIGNED
+I/i01_call_index_el alloff SKIP STAGE1->ALIGNED
+I/i01_call_index_el fix FAWAY lost=0 neutral=0 | #64 col gold='18' ours='16' ; #64 endcol gold='19' ours='20' ; #240 col gold='18' ours='16' ; #240 endcol gold='19' ours='20'
+I/i01_call_index_el fixoff FSAME lost=0 neutral=0
+I/i01_call_index_el offL184 SKIP STAGE1->ALIGNED
+I/i01_call_index_el off_incDecMemberSelIsLvalue184 SKIP STAGE1->ALIGNED
+I/i01_call_index_el off_incDecSelTopRestore184v FTOWARD lost=2 neutral=0
+I/i01_call_index_el wide SKIP STAGE1->ALIGNED
+I/i02_this_super_2d alloff SKIP STAGE1
+I/i02_this_super_2d fix SKIP STAGE1
+I/i02_this_super_2d fixoff SKIP STAGE1
+I/i02_this_super_2d offL184 SKIP STAGE1
+I/i02_this_super_2d off_incDecMemberSelIsLvalue184 SKIP STAGE1
+I/i02_this_super_2d wide SKIP STAGE1
+I/i02_this_super_2d_el alloff SKIP STAGE1
+I/i02_this_super_2d_el fix SKIP STAGE1
+I/i02_this_super_2d_el fixoff SKIP STAGE1
+I/i02_this_super_2d_el offL184 SKIP STAGE1
+I/i02_this_super_2d_el off_incDecMemberSelIsLvalue184 SKIP STAGE1
+I/i02_this_super_2d_el wide SKIP STAGE1
+I/i03_compound_ops alloff FTOWARD lost=21 neutral=0
+I/i03_compound_ops fix FSAME lost=0 neutral=0
+I/i03_compound_ops fixoff FSAME lost=0 neutral=0
+I/i03_compound_ops offL184 FTOWARD lost=21 neutral=0
+I/i03_compound_ops off_incDecMemberSelIsLvalue184 FTOWARD lost=16 neutral=0
+I/i03_compound_ops wide FTOWARD lost=21 neutral=0
+I/i03_compound_ops_el alloff FTOWARD lost=21 neutral=0
+I/i03_compound_ops_el fix FSAME lost=0 neutral=0
+I/i03_compound_ops_el fixoff FSAME lost=0 neutral=0
+I/i03_compound_ops_el offL184 FTOWARD lost=21 neutral=0
+I/i03_compound_ops_el off_incDecMemberSelIsLvalue184 FTOWARD lost=16 neutral=0
+I/i03_compound_ops_el wide FTOWARD lost=21 neutral=0
+I/i04_call_arg_paths alloff SKIP STAGE1->ALIGNED
+I/i04_call_arg_paths fix FAWAY lost=0 neutral=0 | #145 col gold='12' ours='14' ; #145 endcol gold='13' ours='15' ; #146 col gold='16' ours='14' ; #146 endcol gold='17' ours='18'
+I/i04_call_arg_paths fixoff FSAME lost=0 neutral=0
+I/i04_call_arg_paths offL181 FTOWARD lost=8 neutral=0
+I/i04_call_arg_paths offL184 SKIP STAGE1->ALIGNED
+I/i04_call_arg_paths off_incDecMemberSelIsLvalue184 SKIP STAGE1->ALIGNED
+I/i04_call_arg_paths off_incDecMixedPathIsLvalue181 FSAME lost=0 neutral=0
+I/i04_call_arg_paths off_incDecSelTopRestore184v FSAME lost=0 neutral=0
+I/i04_call_arg_paths wide SKIP STAGE1->ALIGNED
+I/i04_call_arg_paths_el alloff SKIP STAGE1->ALIGNED
+I/i04_call_arg_paths_el fix FAWAY lost=0 neutral=0 | #389 col gold='17' ours='19' ; #389 endcol gold='18' ours='20' ; #390 col gold='21' ours='19' ; #390 endcol gold='22' ours='23'
+I/i04_call_arg_paths_el fixoff FSAME lost=0 neutral=0
+I/i04_call_arg_paths_el offL181 FTOWARD lost=8 neutral=0
+I/i04_call_arg_paths_el offL184 SKIP STAGE1->ALIGNED
+I/i04_call_arg_paths_el off_incDecMemberSelIsLvalue184 SKIP STAGE1->ALIGNED
+I/i04_call_arg_paths_el off_incDecMixedPathIsLvalue181 FSAME lost=0 neutral=0
+I/i04_call_arg_paths_el off_incDecSelTopRestore184v FSAME lost=0 neutral=0
+I/i04_call_arg_paths_el wide SKIP STAGE1->ALIGNED
+I/i05_class_method_arg alloff SKIP STAGE1->ALIGNED
+I/i05_class_method_arg fix FAWAY lost=0 neutral=0 | #96 col gold='20' ours='18' ; #96 endcol gold='21' ours='22' ; #106 col gold='18' ours='20' ; #106 endcol gold='19' ours='21'
+I/i05_class_method_arg fixoff FSAME lost=0 neutral=0
+I/i05_class_method_arg offL184 SKIP STAGE1->ALIGNED
+I/i05_class_method_arg off_incDecMemberSelIsLvalue184 SKIP STAGE1->ALIGNED
+I/i05_class_method_arg wide SKIP STAGE1->ALIGNED
+I/i05_class_method_arg_el alloff SKIP STAGE1->ALIGNED
+I/i05_class_method_arg_el fix FAWAY lost=0 neutral=0 | #148 col gold='18' ours='20' ; #148 endcol gold='19' ours='21' ; #125 col gold='16' ours='18' ; #125 endcol gold='17' ours='19'
+I/i05_class_method_arg_el fixoff FSAME lost=0 neutral=0
+I/i05_class_method_arg_el offL184 SKIP STAGE1->ALIGNED
+I/i05_class_method_arg_el off_incDecMemberSelIsLvalue184 SKIP STAGE1->ALIGNED
+I/i05_class_method_arg_el wide SKIP STAGE1->ALIGNED
+IA/i01_size_forms alloff SKIP STAGE1
+IA/i01_size_forms fix SKIP STAGE1
+IA/i01_size_forms fixoff SKIP STAGE1
+IA/i01_size_forms offL186 SKIP STAGE1
+IA/i01_size_forms off_ifaceArrPortSizeDimAtExpr183 SKIP STAGE1
+IA/i01_size_forms wide SKIP STAGE1
+IA/i01_size_forms_el alloff SKIP STAGE1
+IA/i01_size_forms_el fix SKIP STAGE1
+IA/i01_size_forms_el fixoff SKIP STAGE1
+IA/i01_size_forms_el offL186 SKIP STAGE1
+IA/i01_size_forms_el off_ifaceArrPortSizeDimAtExpr183 SKIP STAGE1
+IA/i01_size_forms_el wide SKIP STAGE1
+IA/i02_spaced_generic alloff SKIP STAGE1
+IA/i02_spaced_generic fix SKIP STAGE1
+IA/i02_spaced_generic fixoff SKIP STAGE1
+IA/i02_spaced_generic offL186 SKIP STAGE1
+IA/i02_spaced_generic off_ifaceArrPortSizeDimAtExpr183 SKIP STAGE1
+IA/i02_spaced_generic wide SKIP STAGE1
+IA/i02_spaced_generic_el alloff SKIP STAGE1
+IA/i02_spaced_generic_el fix SKIP STAGE1
+IA/i02_spaced_generic_el fixoff SKIP STAGE1
+IA/i02_spaced_generic_el offL186 SKIP STAGE1
+IA/i02_spaced_generic_el off_ifaceArrPortSizeDimAtExpr183 SKIP STAGE1
+IA/i02_spaced_generic_el wide SKIP STAGE1
+K/k01_param_kinds alloff SKIP STAGE1
+K/k01_param_kinds fix SKIP STAGE1
+K/k01_param_kinds fixoff SKIP STAGE1
+K/k01_param_kinds offL186 SKIP STAGE1
+K/k01_param_kinds off_classImportParamOwnRefs183 SKIP STAGE1
+K/k01_param_kinds wide SKIP STAGE1
+K/k01_param_kinds_el alloff SKIP STAGE1
+K/k01_param_kinds_el fix SKIP STAGE1
+K/k01_param_kinds_el fixoff SKIP STAGE1
+K/k01_param_kinds_el offL186 SKIP STAGE1
+K/k01_param_kinds_el off_classImportParamOwnRefs183 SKIP STAGE1
+K/k01_param_kinds_el wide SKIP STAGE1
+K/k02_expr_consts alloff SKIP STAGE1
+K/k02_expr_consts fix SKIP STAGE1
+K/k02_expr_consts fixoff SKIP STAGE1
+K/k02_expr_consts offL186 SKIP STAGE1
+K/k02_expr_consts off_classImportParamOwnRefs183 SKIP STAGE1
+K/k02_expr_consts wide SKIP STAGE1
+K/k02_expr_consts_el alloff SKIP STAGE1
+K/k02_expr_consts_el fix SKIP STAGE1
+K/k02_expr_consts_el fixoff SKIP STAGE1
+K/k02_expr_consts_el offL186 SKIP STAGE1
+K/k02_expr_consts_el off_classImportParamOwnRefs183 SKIP STAGE1
+K/k02_expr_consts_el wide SKIP STAGE1
+L/l01_call_in_idx_path alloff SKIP STAGE1
+L/l01_call_in_idx_path fix SKIP STAGE1
+L/l01_call_in_idx_path fixoff SKIP STAGE1
+L/l01_call_in_idx_path offL181 SKIP STAGE1
+L/l01_call_in_idx_path offL184 SKIP STAGE1
+L/l01_call_in_idx_path offL190 SKIP STAGE1
+L/l01_call_in_idx_path off_lvIdxMemberSelIsRead184 SKIP STAGE1
+L/l01_call_in_idx_path off_lvIdxMixedPathIsRead181 SKIP STAGE1
+L/l01_call_in_idx_path off_nestRdIdxOnly190v SKIP STAGE1
+L/l01_call_in_idx_path wide SKIP STAGE1
+L/l01_call_in_idx_path_el alloff SKIP STAGE1
+L/l01_call_in_idx_path_el fix SKIP STAGE1
+L/l01_call_in_idx_path_el fixoff SKIP STAGE1
+L/l01_call_in_idx_path_el offL181 SKIP STAGE1
+L/l01_call_in_idx_path_el offL184 SKIP STAGE1
+L/l01_call_in_idx_path_el offL190 SKIP STAGE1
+L/l01_call_in_idx_path_el off_lvIdxMemberSelIsRead184 SKIP STAGE1
+L/l01_call_in_idx_path_el off_lvIdxMixedPathIsRead181 SKIP STAGE1
+L/l01_call_in_idx_path_el off_nestRdIdxOnly190v SKIP STAGE1
+L/l01_call_in_idx_path_el wide SKIP STAGE1
+L/l02_compound_class alloff FTOWARD lost=24 neutral=0
+L/l02_compound_class fix FSAME lost=0 neutral=0
+L/l02_compound_class fixoff FSAME lost=0 neutral=0
+L/l02_compound_class offL184 FTOWARD lost=24 neutral=0
+L/l02_compound_class off_lvIdxMemberSelIsRead184 FTOWARD lost=24 neutral=0
+L/l02_compound_class wide FTOWARD lost=26 neutral=0
+L/l02_compound_class_el alloff FTOWARD lost=24 neutral=0
+L/l02_compound_class_el fix FSAME lost=0 neutral=0
+L/l02_compound_class_el fixoff FSAME lost=0 neutral=0
+L/l02_compound_class_el offL184 FTOWARD lost=24 neutral=0
+L/l02_compound_class_el off_lvIdxMemberSelIsRead184 FTOWARD lost=24 neutral=0
+L/l02_compound_class_el wide FTOWARD lost=26 neutral=0
+L/l03_stream_target_select alloff FTOWARD lost=12 neutral=0
+L/l03_stream_target_select fix FSAME lost=0 neutral=0
+L/l03_stream_target_select fixoff FSAME lost=0 neutral=0
+L/l03_stream_target_select offL184 FTOWARD lost=12 neutral=0
+L/l03_stream_target_select off_lvIdxMemberSelIsRead184 FTOWARD lost=8 neutral=0
+L/l03_stream_target_select off_streamLvMemberPathRead184 FTOWARD lost=4 neutral=0
+L/l03_stream_target_select wide FTOWARD lost=12 neutral=0
+L/l03_stream_target_select_el alloff FTOWARD lost=12 neutral=0
+L/l03_stream_target_select_el fix FSAME lost=0 neutral=0
+L/l03_stream_target_select_el fixoff FSAME lost=0 neutral=0
+L/l03_stream_target_select_el offL184 FTOWARD lost=12 neutral=0
+L/l03_stream_target_select_el off_lvIdxMemberSelIsRead184 FTOWARD lost=8 neutral=0
+L/l03_stream_target_select_el off_streamLvMemberPathRead184 FTOWARD lost=4 neutral=0
+L/l03_stream_target_select_el wide FTOWARD lost=12 neutral=0
+LS/l01_scale alloff SKIP DIVERGED
+LS/l01_scale offL186 SKIP DIVERGED
+LS/l01_scale off_lawSCopyIdOrder186 SKIP DIVERGED
+LS/l01_scale wide SKIP DIVERGED
+LS/l01_scale_el alloff SKIP DIVERGED
+LS/l01_scale_el offL186 SKIP DIVERGED
+LS/l01_scale_el off_lawSCopyIdOrder186 SKIP DIVERGED
+LS/l01_scale_el wide SKIP DIVERGED
+P/p01_gen_ca_pkg_param alloff FSAME lost=0 neutral=0
+P/p01_gen_ca_pkg_param fix FSAME lost=0 neutral=0
+P/p01_gen_ca_pkg_param fixoff FSAME lost=0 neutral=0
+P/p01_gen_ca_pkg_param offL186 FSAME lost=0 neutral=0
+P/p01_gen_ca_pkg_param off_pkgParamElabCaSharesDefFold183 FSAME lost=0 neutral=0
+P/p01_gen_ca_pkg_param wide FSAME lost=0 neutral=0
+P/p01_gen_ca_pkg_param_el alloff FSAME lost=0 neutral=0
+P/p01_gen_ca_pkg_param_el fix FSAME lost=0 neutral=0
+P/p01_gen_ca_pkg_param_el fixoff FSAME lost=0 neutral=0
+P/p01_gen_ca_pkg_param_el offL186 FSAME lost=0 neutral=0
+P/p01_gen_ca_pkg_param_el off_pkgParamElabCaSharesDefFold183 FSAME lost=0 neutral=0
+P/p01_gen_ca_pkg_param_el wide FSAME lost=0 neutral=0
+P/p01_nested_paren_call alloff FTOWARD lost=16 neutral=0
+P/p01_nested_paren_call fix FSAME lost=0 neutral=0
+P/p01_nested_paren_call fixoff FSAME lost=0 neutral=0
+P/p01_nested_paren_call offL184 FTOWARD lost=16 neutral=0
+P/p01_nested_paren_call off_memberSelParenIdxSpan184 FTOWARD lost=16 neutral=0
+P/p01_nested_paren_call wide FTOWARD lost=18 neutral=0
+P/p01_nested_paren_call_el alloff FTOWARD lost=16 neutral=0
+P/p01_nested_paren_call_el fix FSAME lost=0 neutral=0
+P/p01_nested_paren_call_el fixoff FSAME lost=0 neutral=0
+P/p01_nested_paren_call_el offL184 FTOWARD lost=16 neutral=0
+P/p01_nested_paren_call_el off_memberSelParenIdxSpan184 FTOWARD lost=16 neutral=0
+P/p01_nested_paren_call_el wide FTOWARD lost=18 neutral=0
+P/p02_class_this_super alloff FTOWARD lost=2 neutral=0
+P/p02_class_this_super fix FSAME lost=0 neutral=0
+P/p02_class_this_super fixoff FSAME lost=0 neutral=0
+P/p02_class_this_super offL184 FTOWARD lost=2 neutral=0
+P/p02_class_this_super off_memberSelParenIdxSpan184 FTOWARD lost=2 neutral=0
+P/p02_class_this_super wide FTOWARD lost=2 neutral=0
+P/p02_class_this_super_el alloff FTOWARD lost=2 neutral=0
+P/p02_class_this_super_el fix FSAME lost=0 neutral=0
+P/p02_class_this_super_el fixoff FSAME lost=0 neutral=0
+P/p02_class_this_super_el offL184 FTOWARD lost=2 neutral=0
+P/p02_class_this_super_el off_memberSelParenIdxSpan184 FTOWARD lost=2 neutral=0
+P/p02_class_this_super_el wide FTOWARD lost=2 neutral=0
+P/p02_two_pkgs_qualified alloff SKIP STAGE1
+P/p02_two_pkgs_qualified fix SKIP STAGE1
+P/p02_two_pkgs_qualified fixoff SKIP STAGE1
+P/p02_two_pkgs_qualified offL186 SKIP STAGE1
+P/p02_two_pkgs_qualified off_pkgParamElabCaSharesDefFold183 SKIP STAGE1
+P/p02_two_pkgs_qualified wide SKIP STAGE1
+P/p02_two_pkgs_qualified_el alloff SKIP STAGE1
+P/p02_two_pkgs_qualified_el fix SKIP STAGE1
+P/p02_two_pkgs_qualified_el fixoff SKIP STAGE1
+P/p02_two_pkgs_qualified_el offL186 SKIP STAGE1
+P/p02_two_pkgs_qualified_el off_pkgParamElabCaSharesDefFold183 SKIP STAGE1
+P/p02_two_pkgs_qualified_el wide SKIP STAGE1
+P/p03_pkg_param_own_ts alloff SKIP STAGE1->EQUAL
+P/p03_pkg_param_own_ts fix FSAME lost=0 neutral=0
+P/p03_pkg_param_own_ts fixoff FSAME lost=0 neutral=0
+P/p03_pkg_param_own_ts offL186 SKIP STAGE1->EQUAL
+P/p03_pkg_param_own_ts off_pkgParamFoldOwnTs183 SKIP STAGE1->EQUAL
+P/p03_pkg_param_own_ts wide SKIP STAGE1->EQUAL
+P/p03_pkg_param_own_ts_el alloff SKIP STAGE1->EQUAL
+P/p03_pkg_param_own_ts_el fix FSAME lost=0 neutral=0
+P/p03_pkg_param_own_ts_el fixoff FSAME lost=0 neutral=0
+P/p03_pkg_param_own_ts_el offL186 SKIP STAGE1->EQUAL
+P/p03_pkg_param_own_ts_el off_pkgParamFoldOwnTs183 SKIP STAGE1->EQUAL
+P/p03_pkg_param_own_ts_el wide SKIP STAGE1->EQUAL
+P/p03_two_dim_member alloff FTOWARD lost=4 neutral=0
+P/p03_two_dim_member fix FSAME lost=0 neutral=0
+P/p03_two_dim_member fixoff FSAME lost=0 neutral=0
+P/p03_two_dim_member offL184 FTOWARD lost=4 neutral=0
+P/p03_two_dim_member off_memberSelParenIdxSpan184 FTOWARD lost=4 neutral=0
+P/p03_two_dim_member wide FTOWARD lost=4 neutral=0
+P/p03_two_dim_member_el alloff FTOWARD lost=4 neutral=0
+P/p03_two_dim_member_el fix FSAME lost=0 neutral=0
+P/p03_two_dim_member_el fixoff FSAME lost=0 neutral=0
+P/p03_two_dim_member_el offL184 FTOWARD lost=4 neutral=0
+P/p03_two_dim_member_el off_memberSelParenIdxSpan184 FTOWARD lost=4 neutral=0
+P/p03_two_dim_member_el wide FTOWARD lost=4 neutral=0
+Q/q01_nested_macro alloff FSAME lost=0 neutral=0
+Q/q01_nested_macro fix FSAME lost=0 neutral=0
+Q/q01_nested_macro fixoff FSAME lost=0 neutral=0
+Q/q01_nested_macro offL186 FSAME lost=0 neutral=0
+Q/q01_nested_macro off_macroPathTokOneBuffer186 FSAME lost=0 neutral=0
+Q/q01_nested_macro off_macroPathTokSpans183 FSAME lost=0 neutral=0
+Q/q01_nested_macro wide FSAME lost=0 neutral=0
+Q/q01_nested_macro_el alloff FSAME lost=0 neutral=0
+Q/q01_nested_macro_el fix FSAME lost=0 neutral=0
+Q/q01_nested_macro_el fixoff FSAME lost=0 neutral=0
+Q/q01_nested_macro_el offL186 FSAME lost=0 neutral=0
+Q/q01_nested_macro_el off_macroPathTokOneBuffer186 FSAME lost=0 neutral=0
+Q/q01_nested_macro_el off_macroPathTokSpans183 FSAME lost=0 neutral=0
+Q/q01_nested_macro_el wide FSAME lost=0 neutral=0
+Q/q02_include_macro alloff FTOWARD lost=8 neutral=0
+Q/q02_include_macro fix FSAME lost=0 neutral=0
+Q/q02_include_macro fixoff FSAME lost=0 neutral=0
+Q/q02_include_macro offL186 FTOWARD lost=8 neutral=0
+Q/q02_include_macro off_macroPathTokOneBuffer186 FSAME lost=0 neutral=0
+Q/q02_include_macro off_macroPathTokSpans183 FTOWARD lost=8 neutral=0
+Q/q02_include_macro wide FTOWARD lost=8 neutral=0
+Q/q02_include_macro_el alloff FTOWARD lost=8 neutral=0
+Q/q02_include_macro_el fix FSAME lost=0 neutral=0
+Q/q02_include_macro_el fixoff FSAME lost=0 neutral=0
+Q/q02_include_macro_el offL186 FTOWARD lost=8 neutral=0
+Q/q02_include_macro_el off_macroPathTokOneBuffer186 FSAME lost=0 neutral=0
+Q/q02_include_macro_el off_macroPathTokSpans183 FTOWARD lost=8 neutral=0
+Q/q02_include_macro_el wide FTOWARD lost=8 neutral=0
+Q/q03_one_two_buffers alloff FSAME lost=0 neutral=0
+Q/q03_one_two_buffers fix FSAME lost=0 neutral=0
+Q/q03_one_two_buffers fixoff FSAME lost=0 neutral=0
+Q/q03_one_two_buffers offL186 FSAME lost=0 neutral=0
+Q/q03_one_two_buffers off_macroPathTokOneBuffer186 FSAME lost=0 neutral=0
+Q/q03_one_two_buffers off_macroPathTokSpans183 FSAME lost=0 neutral=0
+Q/q03_one_two_buffers wide FSAME lost=0 neutral=0
+Q/q03_one_two_buffers_el alloff FSAME lost=0 neutral=0
+Q/q03_one_two_buffers_el fix FSAME lost=0 neutral=0
+Q/q03_one_two_buffers_el fixoff FSAME lost=0 neutral=0
+Q/q03_one_two_buffers_el offL186 FSAME lost=0 neutral=0
+Q/q03_one_two_buffers_el off_macroPathTokOneBuffer186 FSAME lost=0 neutral=0
+Q/q03_one_two_buffers_el off_macroPathTokSpans183 FSAME lost=0 neutral=0
+Q/q03_one_two_buffers_el wide FSAME lost=0 neutral=0
+R/r01_two_dim_part alloff SKIP STAGE1
+R/r01_two_dim_part fix SKIP STAGE1
+R/r01_two_dim_part fixoff SKIP STAGE1
+R/r01_two_dim_part offL184 SKIP STAGE1
+R/r01_two_dim_part off_rootLvalueSpanAtRoot184 SKIP STAGE1
+R/r01_two_dim_part wide SKIP STAGE1
+R/r01_two_dim_part_el alloff SKIP STAGE1
+R/r01_two_dim_part_el fix SKIP STAGE1
+R/r01_two_dim_part_el fixoff SKIP STAGE1
+R/r01_two_dim_part_el offL184 SKIP STAGE1
+R/r01_two_dim_part_el off_rootLvalueSpanAtRoot184 SKIP STAGE1
+R/r01_two_dim_part_el wide SKIP STAGE1
+R/r02_net_target_class alloff FTOWARD lost=5 neutral=0
+R/r02_net_target_class fix FSAME lost=0 neutral=0
+R/r02_net_target_class fixoff FSAME lost=0 neutral=0
+R/r02_net_target_class offL184 FTOWARD lost=5 neutral=0
+R/r02_net_target_class off_rootLvalueSpanAtRoot184 FTOWARD lost=5 neutral=0
+R/r02_net_target_class wide FTOWARD lost=10 neutral=0
+R/r02_net_target_class_el alloff FTOWARD lost=7 neutral=0
+R/r02_net_target_class_el fix FSAME lost=0 neutral=0
+R/r02_net_target_class_el fixoff FSAME lost=0 neutral=0
+R/r02_net_target_class_el offL184 FTOWARD lost=7 neutral=0
+R/r02_net_target_class_el off_rootLvalueSpanAtRoot184 FTOWARD lost=7 neutral=0
+R/r02_net_target_class_el wide FTOWARD lost=14 neutral=0
+RE/r01_nested_gen alloff FTOWARD lost=4 neutral=0
+RE/r01_nested_gen fix FSAME lost=0 neutral=0
+RE/r01_nested_gen fixoff FSAME lost=0 neutral=0
+RE/r01_nested_gen offL186 FTOWARD lost=4 neutral=0
+RE/r01_nested_gen off_rootElemAtNextTok186 FTOWARD lost=4 neutral=0
+RE/r01_nested_gen wide FTOWARD lost=20 neutral=0
+RE/r01_nested_gen_el alloff FTOWARD lost=4 neutral=0
+RE/r01_nested_gen_el fix FSAME lost=0 neutral=0
+RE/r01_nested_gen_el fixoff FSAME lost=0 neutral=0
+RE/r01_nested_gen_el offL186 FTOWARD lost=4 neutral=0
+RE/r01_nested_gen_el off_rootElemAtNextTok186 FTOWARD lost=4 neutral=0
+RE/r01_nested_gen_el wide FTOWARD lost=20 neutral=0
+RE/r02_gen_select_proc alloff SKIP STAGE1
+RE/r02_gen_select_proc fix SKIP STAGE1
+RE/r02_gen_select_proc fixoff SKIP STAGE1
+RE/r02_gen_select_proc offL184 SKIP STAGE1
+RE/r02_gen_select_proc offL186 SKIP STAGE1
+RE/r02_gen_select_proc off_rootElemAtNextTok186 SKIP STAGE1
+RE/r02_gen_select_proc off_rootLvalueSpanAtRoot184 SKIP STAGE1
+RE/r02_gen_select_proc wide SKIP STAGE1
+RE/r02_gen_select_proc_el alloff SKIP STAGE1
+RE/r02_gen_select_proc_el fix SKIP STAGE1
+RE/r02_gen_select_proc_el fixoff SKIP STAGE1
+RE/r02_gen_select_proc_el offL184 SKIP STAGE1
+RE/r02_gen_select_proc_el offL186 SKIP STAGE1
+RE/r02_gen_select_proc_el off_rootElemAtNextTok186 SKIP STAGE1
+RE/r02_gen_select_proc_el off_rootLvalueSpanAtRoot184 SKIP STAGE1
+RE/r02_gen_select_proc_el wide SKIP STAGE1
+S/s01_member_ending_select alloff FTOWARD lost=14 neutral=0
+S/s01_member_ending_select fix FSAME lost=0 neutral=0
+S/s01_member_ending_select fixoff FSAME lost=0 neutral=0
+S/s01_member_ending_select offL184 FTOWARD lost=14 neutral=0
+S/s01_member_ending_select off_streamLvMemberPathRead184 FTOWARD lost=14 neutral=0
+S/s01_member_ending_select wide FTOWARD lost=14 neutral=0
+S/s01_member_ending_select_el alloff FTOWARD lost=13 neutral=0
+S/s01_member_ending_select_el fix FSAME lost=0 neutral=0
+S/s01_member_ending_select_el fixoff FSAME lost=0 neutral=0
+S/s01_member_ending_select_el offL184 FTOWARD lost=13 neutral=0
+S/s01_member_ending_select_el off_streamLvMemberPathRead184 FTOWARD lost=13 neutral=0
+S/s01_member_ending_select_el wide FTOWARD lost=13 neutral=0
+T/t01_two_specializations alloff FTOWARD lost=30 neutral=0
+T/t01_two_specializations fix FSAME lost=0 neutral=0
+T/t01_two_specializations fixoff FSAME lost=0 neutral=0
+T/t01_two_specializations offL184 FTOWARD lost=30 neutral=0
+T/t01_two_specializations off_tpEnumCaBindsInstVar184v FSAME lost=0 neutral=0
+T/t01_two_specializations off_tpEnumCopyAtTypedef184 FTOWARD lost=30 neutral=0
+T/t01_two_specializations wide FTOWARD lost=30 neutral=0
+T/t01_two_specializations_el alloff FTOWARD lost=30 neutral=0
+T/t01_two_specializations_el fix FSAME lost=0 neutral=0
+T/t01_two_specializations_el fixoff FSAME lost=0 neutral=0
+T/t01_two_specializations_el offL184 FTOWARD lost=30 neutral=0
+T/t01_two_specializations_el off_tpEnumCaBindsInstVar184v FSAME lost=0 neutral=0
+T/t01_two_specializations_el off_tpEnumCopyAtTypedef184 FTOWARD lost=30 neutral=0
+T/t01_two_specializations_el wide FTOWARD lost=30 neutral=0
+T/t02_defparam alloff FTOWARD lost=15 neutral=0
+T/t02_defparam fix FSAME lost=0 neutral=0
+T/t02_defparam fixoff FSAME lost=0 neutral=0
+T/t02_defparam offL184 FTOWARD lost=15 neutral=0
+T/t02_defparam off_tpEnumCopyAtTypedef184 FTOWARD lost=15 neutral=0
+T/t02_defparam wide FTOWARD lost=15 neutral=0
+T/t02_defparam_el alloff FTOWARD lost=15 neutral=0
+T/t02_defparam_el fix FSAME lost=0 neutral=0
+T/t02_defparam_el fixoff FSAME lost=0 neutral=0
+T/t02_defparam_el offL184 FTOWARD lost=15 neutral=0
+T/t02_defparam_el off_tpEnumCopyAtTypedef184 FTOWARD lost=15 neutral=0
+T/t02_defparam_el wide FTOWARD lost=15 neutral=0
+T/t03_positional_proc alloff SKIP STAGE1
+T/t03_positional_proc fix SKIP STAGE1
+T/t03_positional_proc fixoff SKIP STAGE1
+T/t03_positional_proc offL184 SKIP STAGE1
+T/t03_positional_proc off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t03_positional_proc wide SKIP STAGE1
+T/t03_positional_proc_el alloff SKIP STAGE1
+T/t03_positional_proc_el fix SKIP STAGE1
+T/t03_positional_proc_el fixoff SKIP STAGE1
+T/t03_positional_proc_el offL184 SKIP STAGE1
+T/t03_positional_proc_el off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t03_positional_proc_el wide SKIP STAGE1
+T/t04_genfor_if_ca alloff FTOWARD lost=20 neutral=0
+T/t04_genfor_if_ca fix FSAME lost=0 neutral=0
+T/t04_genfor_if_ca fixoff FSAME lost=0 neutral=0
+T/t04_genfor_if_ca offL184 FTOWARD lost=20 neutral=0
+T/t04_genfor_if_ca off_tpEnumCaBindsInstVar184v FSAME lost=0 neutral=0
+T/t04_genfor_if_ca off_tpEnumCopyAtTypedef184 FTOWARD lost=20 neutral=0
+T/t04_genfor_if_ca wide FTOWARD lost=20 neutral=0
+T/t04_genfor_if_ca_el alloff FTOWARD lost=20 neutral=0
+T/t04_genfor_if_ca_el fix FSAME lost=0 neutral=0
+T/t04_genfor_if_ca_el fixoff FSAME lost=0 neutral=0
+T/t04_genfor_if_ca_el offL184 FTOWARD lost=20 neutral=0
+T/t04_genfor_if_ca_el off_tpEnumCaBindsInstVar184v FSAME lost=0 neutral=0
+T/t04_genfor_if_ca_el off_tpEnumCopyAtTypedef184 FTOWARD lost=20 neutral=0
+T/t04_genfor_if_ca_el wide FTOWARD lost=20 neutral=0
+T/t05_output_net_port alloff SKIP STAGE1
+T/t05_output_net_port fix SKIP STAGE1
+T/t05_output_net_port fixoff SKIP STAGE1
+T/t05_output_net_port offL184 SKIP STAGE1
+T/t05_output_net_port off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t05_output_net_port off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t05_output_net_port wide SKIP STAGE1
+T/t05_output_net_port_el alloff SKIP STAGE1
+T/t05_output_net_port_el fix SKIP STAGE1
+T/t05_output_net_port_el fixoff SKIP STAGE1
+T/t05_output_net_port_el offL184 SKIP STAGE1
+T/t05_output_net_port_el off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t05_output_net_port_el off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t05_output_net_port_el wide SKIP STAGE1
+T/t06_iface_modport_gen alloff SKIP STAGE1
+T/t06_iface_modport_gen fix SKIP STAGE1
+T/t06_iface_modport_gen fixoff SKIP STAGE1
+T/t06_iface_modport_gen offL184 SKIP STAGE1
+T/t06_iface_modport_gen off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t06_iface_modport_gen off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t06_iface_modport_gen wide SKIP STAGE1
+T/t06_iface_modport_gen_el alloff SKIP STAGE1
+T/t06_iface_modport_gen_el fix SKIP STAGE1
+T/t06_iface_modport_gen_el fixoff SKIP STAGE1
+T/t06_iface_modport_gen_el offL184 SKIP STAGE1
+T/t06_iface_modport_gen_el off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t06_iface_modport_gen_el off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t06_iface_modport_gen_el wide SKIP STAGE1
+T/t07_packed_arr_port_gen alloff SKIP STAGE1
+T/t07_packed_arr_port_gen fix SKIP STAGE1
+T/t07_packed_arr_port_gen fixoff SKIP STAGE1
+T/t07_packed_arr_port_gen offL184 SKIP STAGE1
+T/t07_packed_arr_port_gen off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t07_packed_arr_port_gen off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t07_packed_arr_port_gen wide SKIP STAGE1
+T/t07_packed_arr_port_gen_el alloff SKIP STAGE1
+T/t07_packed_arr_port_gen_el fix SKIP STAGE1
+T/t07_packed_arr_port_gen_el fixoff SKIP STAGE1
+T/t07_packed_arr_port_gen_el offL184 SKIP STAGE1
+T/t07_packed_arr_port_gen_el off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t07_packed_arr_port_gen_el off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t07_packed_arr_port_gen_el wide SKIP STAGE1
+T/t08_struct_of_t alloff SKIP STAGE1
+T/t08_struct_of_t fix SKIP STAGE1
+T/t08_struct_of_t fixoff SKIP STAGE1
+T/t08_struct_of_t offL184 SKIP STAGE1
+T/t08_struct_of_t off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t08_struct_of_t off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t08_struct_of_t wide SKIP STAGE1
+T/t08_struct_of_t_el alloff SKIP STAGE1
+T/t08_struct_of_t_el fix SKIP STAGE1
+T/t08_struct_of_t_el fixoff SKIP STAGE1
+T/t08_struct_of_t_el offL184 SKIP STAGE1
+T/t08_struct_of_t_el off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t08_struct_of_t_el off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t08_struct_of_t_el wide SKIP STAGE1
+T/t09_port_net_ca alloff SKIP STAGE1
+T/t09_port_net_ca fix SKIP STAGE1
+T/t09_port_net_ca fixoff SKIP STAGE1
+T/t09_port_net_ca lOFF SKIP STAGE1
+T/t09_port_net_ca offL184 SKIP STAGE1
+T/t09_port_net_ca off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t09_port_net_ca off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t09_port_net_ca rOFF SKIP STAGE1
+T/t09_port_net_ca wide SKIP STAGE1
+T/t09_port_net_ca_el alloff SKIP STAGE1
+T/t09_port_net_ca_el fix SKIP STAGE1
+T/t09_port_net_ca_el fixoff SKIP STAGE1
+T/t09_port_net_ca_el offL184 SKIP STAGE1
+T/t09_port_net_ca_el off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t09_port_net_ca_el off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t09_port_net_ca_el wide SKIP STAGE1
+T/t10_net_decl_assign_only alloff SKIP STAGE1
+T/t10_net_decl_assign_only fix SKIP STAGE1
+T/t10_net_decl_assign_only fixoff SKIP STAGE1
+T/t10_net_decl_assign_only lOFF SKIP STAGE1
+T/t10_net_decl_assign_only offL184 SKIP STAGE1
+T/t10_net_decl_assign_only off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t10_net_decl_assign_only off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t10_net_decl_assign_only rOFF SKIP STAGE1
+T/t10_net_decl_assign_only wide SKIP STAGE1
+T/t10_net_decl_assign_only_el alloff SKIP STAGE1
+T/t10_net_decl_assign_only_el fix SKIP STAGE1
+T/t10_net_decl_assign_only_el fixoff SKIP STAGE1
+T/t10_net_decl_assign_only_el offL184 SKIP STAGE1
+T/t10_net_decl_assign_only_el off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t10_net_decl_assign_only_el off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t10_net_decl_assign_only_el wide SKIP STAGE1
+T/t11_port_var_ca alloff SKIP STAGE1
+T/t11_port_var_ca fix SKIP STAGE1
+T/t11_port_var_ca fixoff SKIP STAGE1
+T/t11_port_var_ca lOFF SKIP STAGE1
+T/t11_port_var_ca offL184 SKIP STAGE1
+T/t11_port_var_ca off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t11_port_var_ca off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t11_port_var_ca rOFF SKIP STAGE1
+T/t11_port_var_ca wide SKIP STAGE1
+T/t11_port_var_ca_el alloff SKIP STAGE1
+T/t11_port_var_ca_el fix SKIP STAGE1
+T/t11_port_var_ca_el fixoff SKIP STAGE1
+T/t11_port_var_ca_el offL184 SKIP STAGE1
+T/t11_port_var_ca_el off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t11_port_var_ca_el off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t11_port_var_ca_el wide SKIP STAGE1
+T/t12_port_net_packed alloff SKIP STAGE1
+T/t12_port_net_packed fix SKIP STAGE1
+T/t12_port_net_packed fixoff SKIP STAGE1
+T/t12_port_net_packed offL184 SKIP STAGE1
+T/t12_port_net_packed off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t12_port_net_packed off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t12_port_net_packed rOFF SKIP STAGE1
+T/t12_port_net_packed wide SKIP STAGE1
+T/t12_port_net_packed_el alloff SKIP STAGE1
+T/t12_port_net_packed_el fix SKIP STAGE1
+T/t12_port_net_packed_el fixoff SKIP STAGE1
+T/t12_port_net_packed_el offL184 SKIP STAGE1
+T/t12_port_net_packed_el off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t12_port_net_packed_el off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t12_port_net_packed_el wide SKIP STAGE1
+T/t13_inout_net alloff SKIP STAGE1
+T/t13_inout_net fix SKIP STAGE1
+T/t13_inout_net fixoff SKIP STAGE1
+T/t13_inout_net offL184 SKIP STAGE1
+T/t13_inout_net off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t13_inout_net off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t13_inout_net rOFF SKIP STAGE1
+T/t13_inout_net wide SKIP STAGE1
+T/t13_inout_net_el alloff SKIP STAGE1
+T/t13_inout_net_el fix SKIP STAGE1
+T/t13_inout_net_el fixoff SKIP STAGE1
+T/t13_inout_net_el offL184 SKIP STAGE1
+T/t13_inout_net_el off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t13_inout_net_el off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t13_inout_net_el wide SKIP STAGE1
+T/t14_nonansi_port_net alloff SKIP STAGE1
+T/t14_nonansi_port_net fix SKIP STAGE1
+T/t14_nonansi_port_net fixoff SKIP STAGE1
+T/t14_nonansi_port_net offL184 SKIP STAGE1
+T/t14_nonansi_port_net off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t14_nonansi_port_net off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t14_nonansi_port_net rOFF SKIP STAGE1
+T/t14_nonansi_port_net wide SKIP STAGE1
+T/t14_nonansi_port_net_el alloff SKIP STAGE1
+T/t14_nonansi_port_net_el fix SKIP STAGE1
+T/t14_nonansi_port_net_el fixoff SKIP STAGE1
+T/t14_nonansi_port_net_el offL184 SKIP STAGE1
+T/t14_nonansi_port_net_el off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t14_nonansi_port_net_el off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t14_nonansi_port_net_el wide SKIP STAGE1
+T/t15_implicit_port_net alloff SKIP STAGE1
+T/t15_implicit_port_net fix SKIP STAGE1
+T/t15_implicit_port_net fixoff SKIP STAGE1
+T/t15_implicit_port_net offL184 SKIP STAGE1
+T/t15_implicit_port_net off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t15_implicit_port_net off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t15_implicit_port_net rOFF SKIP STAGE1
+T/t15_implicit_port_net wide SKIP STAGE1
+T/t15_implicit_port_net_el alloff SKIP STAGE1
+T/t15_implicit_port_net_el fix SKIP STAGE1
+T/t15_implicit_port_net_el fixoff SKIP STAGE1
+T/t15_implicit_port_net_el offL184 SKIP STAGE1
+T/t15_implicit_port_net_el off_tpEnumCaBindsInstVar184v SKIP STAGE1
+T/t15_implicit_port_net_el off_tpEnumCopyAtTypedef184 SKIP STAGE1
+T/t15_implicit_port_net_el wide SKIP STAGE1
+TP/t01_prop_formal_local alloff FSAME lost=0 neutral=0
+TP/t01_prop_formal_local fix FSAME lost=0 neutral=0
+TP/t01_prop_formal_local fixoff FSAME lost=0 neutral=0
+TP/t01_prop_formal_local offL186 FSAME lost=0 neutral=0
+TP/t01_prop_formal_local off_typeParamDefersToTpUse186 FSAME lost=0 neutral=0
+TP/t01_prop_formal_local off_typeParamGateNoLookup186 FSAME lost=0 neutral=0
+TP/t01_prop_formal_local off_typeParamUseSharesOwnTs183 FSAME lost=0 neutral=0
+TP/t01_prop_formal_local wide FTOWARD lost=14 neutral=0
+TP/t01_prop_formal_local x_defer_off FSAME lost=0 neutral=0
+TP/t01_prop_formal_local x_defer_on FSAME lost=0 neutral=0
+TP/t01_prop_formal_local x_gate_off FTOWARD lost=10 neutral=0
+TP/t01_prop_formal_local x_gate_on FTOWARD lost=10 neutral=0
+TP/t01_prop_formal_local x_tpuse_off FTOWARD lost=10 neutral=0
+TP/t01_prop_formal_local x_tpuse_on FTOWARD lost=10 neutral=0
+TP/t01_prop_formal_local_el alloff FSAME lost=0 neutral=0
+TP/t01_prop_formal_local_el fix FSAME lost=0 neutral=0
+TP/t01_prop_formal_local_el fixoff FSAME lost=0 neutral=0
+TP/t01_prop_formal_local_el offL186 FSAME lost=0 neutral=0
+TP/t01_prop_formal_local_el off_typeParamDefersToTpUse186 FSAME lost=0 neutral=0
+TP/t01_prop_formal_local_el off_typeParamGateNoLookup186 FSAME lost=0 neutral=0
+TP/t01_prop_formal_local_el off_typeParamUseSharesOwnTs183 FSAME lost=0 neutral=0
+TP/t01_prop_formal_local_el wide FTOWARD lost=22 neutral=0
+TP/t01_prop_formal_local_el x_defer_off FSAME lost=0 neutral=0
+TP/t01_prop_formal_local_el x_defer_on FSAME lost=0 neutral=0
+TP/t01_prop_formal_local_el x_gate_off FTOWARD lost=18 neutral=0
+TP/t01_prop_formal_local_el x_gate_on FTOWARD lost=18 neutral=0
+TP/t01_prop_formal_local_el x_tpuse_off FTOWARD lost=18 neutral=0
+TP/t01_prop_formal_local_el x_tpuse_on FTOWARD lost=18 neutral=0
+TP/t02_class_default_use alloff FSAME lost=0 neutral=0
+TP/t02_class_default_use fix FSAME lost=0 neutral=0
+TP/t02_class_default_use fixoff FSAME lost=0 neutral=0
+TP/t02_class_default_use offL186 FSAME lost=0 neutral=0
+TP/t02_class_default_use off_typeParamDefersToTpUse186 FSAME lost=0 neutral=0
+TP/t02_class_default_use off_typeParamUseSharesOwnTs183 FSAME lost=0 neutral=0
+TP/t02_class_default_use wide FTOWARD lost=13 neutral=0
+TP/t02_class_default_use x_defer_off FSAME lost=0 neutral=0
+TP/t02_class_default_use x_defer_on FSAME lost=0 neutral=0
+TP/t02_class_default_use x_gate_off FTOWARD lost=9 neutral=0
+TP/t02_class_default_use x_gate_on FTOWARD lost=9 neutral=0
+TP/t02_class_default_use x_tpuse_off FTOWARD lost=9 neutral=0
+TP/t02_class_default_use x_tpuse_on FTOWARD lost=9 neutral=0
+TP/t02_class_default_use_el alloff FSAME lost=0 neutral=0
+TP/t02_class_default_use_el fix FSAME lost=0 neutral=0
+TP/t02_class_default_use_el fixoff FSAME lost=0 neutral=0
+TP/t02_class_default_use_el offL186 FSAME lost=0 neutral=0
+TP/t02_class_default_use_el off_typeParamDefersToTpUse186 FSAME lost=0 neutral=0
+TP/t02_class_default_use_el off_typeParamUseSharesOwnTs183 FSAME lost=0 neutral=0
+TP/t02_class_default_use_el wide FTOWARD lost=13 neutral=0
+TP/t02_class_default_use_el x_defer_off FSAME lost=0 neutral=0
+TP/t02_class_default_use_el x_defer_on FSAME lost=0 neutral=0
+TP/t02_class_default_use_el x_gate_off FTOWARD lost=9 neutral=0
+TP/t02_class_default_use_el x_gate_on FTOWARD lost=9 neutral=0
+TP/t02_class_default_use_el x_tpuse_off FTOWARD lost=9 neutral=0
+TP/t02_class_default_use_el x_tpuse_on FTOWARD lost=9 neutral=0
+U/u01_elem_kinds alloff FTOWARD lost=15 neutral=0
+U/u01_elem_kinds fix FSAME lost=0 neutral=0
+U/u01_elem_kinds fixoff FSAME lost=0 neutral=0
+U/u01_elem_kinds offL186 FTOWARD lost=15 neutral=0
+U/u01_elem_kinds off_classPropElemClassTsAtType183 FTOWARD lost=15 neutral=0
+U/u01_elem_kinds wide FTOWARD lost=15 neutral=0
+U/u01_elem_kinds_el alloff FTOWARD lost=15 neutral=0
+U/u01_elem_kinds_el fix FSAME lost=0 neutral=0
+U/u01_elem_kinds_el fixoff FSAME lost=0 neutral=0
+U/u01_elem_kinds_el offL186 FTOWARD lost=15 neutral=0
+U/u01_elem_kinds_el off_classPropElemClassTsAtType183 FTOWARD lost=15 neutral=0
+U/u01_elem_kinds_el wide FTOWARD lost=15 neutral=0
+U/u02_qual_elem_forms alloff SKIP STAGE1->EQUAL
+U/u02_qual_elem_forms fix FSAME lost=0 neutral=0
+U/u02_qual_elem_forms fixoff FSAME lost=0 neutral=0
+U/u02_qual_elem_forms offL186 SKIP STAGE1->EQUAL
+U/u02_qual_elem_forms off_classPropElemClassTsAtType183 SKIP STAGE1->EQUAL
+U/u02_qual_elem_forms off_classPropElemQualTs186 SKIP STAGE1->EQUAL
+U/u02_qual_elem_forms wide SKIP STAGE1->EQUAL
+U/u02_qual_elem_forms_el alloff SKIP STAGE1->EQUAL
+U/u02_qual_elem_forms_el fix FSAME lost=0 neutral=0
+U/u02_qual_elem_forms_el fixoff FSAME lost=0 neutral=0
+U/u02_qual_elem_forms_el offL186 SKIP STAGE1->EQUAL
+U/u02_qual_elem_forms_el off_classPropElemClassTsAtType183 SKIP STAGE1->EQUAL
+U/u02_qual_elem_forms_el off_classPropElemQualTs186 SKIP STAGE1->EQUAL
+U/u02_qual_elem_forms_el wide SKIP STAGE1->EQUAL
+U/u03_nested_qual alloff SKIP STAGE1
+U/u03_nested_qual fix SKIP STAGE1
+U/u03_nested_qual fixoff SKIP STAGE1
+U/u03_nested_qual offL186 SKIP STAGE1
+U/u03_nested_qual off_classPropElemQualTs186 SKIP STAGE1
+U/u03_nested_qual wide SKIP STAGE1
+U/u03_nested_qual_el alloff SKIP STAGE1
+U/u03_nested_qual_el fix SKIP STAGE1
+U/u03_nested_qual_el fixoff SKIP STAGE1
+U/u03_nested_qual_el offL186 SKIP STAGE1
+U/u03_nested_qual_el off_classPropElemQualTs186 SKIP STAGE1
+U/u03_nested_qual_el wide SKIP STAGE1
+U/u04_param_elem_class alloff FTOWARD lost=8 neutral=2
+U/u04_param_elem_class fix FSAME lost=0 neutral=0
+U/u04_param_elem_class fixoff FSAME lost=0 neutral=0
+U/u04_param_elem_class offL186 FTOWARD lost=8 neutral=2
+U/u04_param_elem_class off_classPropElemClassTsAtType183 FTOWARD lost=8 neutral=2
+U/u04_param_elem_class wide FTOWARD lost=8 neutral=2
+U/u04_param_elem_class_el alloff FTOWARD lost=8 neutral=2
+U/u04_param_elem_class_el fix FSAME lost=0 neutral=0
+U/u04_param_elem_class_el fixoff FSAME lost=0 neutral=0
+U/u04_param_elem_class_el offL186 FTOWARD lost=8 neutral=2
+U/u04_param_elem_class_el off_classPropElemClassTsAtType183 FTOWARD lost=8 neutral=2
+U/u04_param_elem_class_el wide FTOWARD lost=8 neutral=2
+W/w01_three_pkgs_empty alloff SKIP STAGE1
+W/w01_three_pkgs_empty fix SKIP STAGE1
+W/w01_three_pkgs_empty fixoff SKIP STAGE1
+W/w01_three_pkgs_empty offL186 SKIP STAGE1
+W/w01_three_pkgs_empty off_ifaceTwoPkgTdNameOrder186 SKIP STAGE1
+W/w01_three_pkgs_empty wide SKIP STAGE1
+W/w01_three_pkgs_empty_el alloff SKIP STAGE1
+W/w01_three_pkgs_empty_el fix SKIP STAGE1
+W/w01_three_pkgs_empty_el fixoff SKIP STAGE1
+W/w01_three_pkgs_empty_el offL186 SKIP STAGE1
+W/w01_three_pkgs_empty_el off_ifaceTwoPkgTdNameOrder186 SKIP STAGE1
+W/w01_three_pkgs_empty_el wide SKIP STAGE1
+W/w02_shadow_local alloff SKIP STAGE1
+W/w02_shadow_local fix SKIP STAGE1
+W/w02_shadow_local fixoff SKIP STAGE1
+W/w02_shadow_local offL186 SKIP STAGE1
+W/w02_shadow_local off_ifaceTwoPkgTdNameOrder186 SKIP STAGE1
+W/w02_shadow_local wide SKIP STAGE1
+W/w02_shadow_local_el alloff SKIP STAGE1
+W/w02_shadow_local_el fix SKIP STAGE1
+W/w02_shadow_local_el fixoff SKIP STAGE1
+W/w02_shadow_local_el offL186 SKIP STAGE1
+W/w02_shadow_local_el off_ifaceTwoPkgTdNameOrder186 SKIP STAGE1
+W/w02_shadow_local_el wide SKIP STAGE1
+W/w03_header_body_modport alloff SKIP DIVERGED->EQUAL
+W/w03_header_body_modport fix FSAME lost=0 neutral=0
+W/w03_header_body_modport fixoff FSAME lost=0 neutral=0
+W/w03_header_body_modport offL186 SKIP DIVERGED->EQUAL
+W/w03_header_body_modport off_ifaceTwoPkgTdNameOrder186 SKIP DIVERGED->EQUAL
+W/w03_header_body_modport wide SKIP DIVERGED->EQUAL
+W/w03_header_body_modport_el alloff SKIP DIVERGED->EQUAL
+W/w03_header_body_modport_el fix FSAME lost=0 neutral=0
+W/w03_header_body_modport_el fixoff FSAME lost=0 neutral=0
+W/w03_header_body_modport_el offL186 SKIP DIVERGED->EQUAL
+W/w03_header_body_modport_el off_ifaceTwoPkgTdNameOrder186 SKIP DIVERGED->EQUAL
+W/w03_header_body_modport_el wide SKIP DIVERGED->EQUAL
+W/w04_wild_plus_explicit alloff SKIP STAGE1
+W/w04_wild_plus_explicit fix SKIP STAGE1
+W/w04_wild_plus_explicit fixoff SKIP STAGE1
+W/w04_wild_plus_explicit offL186 SKIP STAGE1
+W/w04_wild_plus_explicit off_ifaceTwoPkgTdNameOrder186 SKIP STAGE1
+W/w04_wild_plus_explicit wide SKIP STAGE1
+W/w04_wild_plus_explicit_el alloff SKIP STAGE1
+W/w04_wild_plus_explicit_el fix SKIP STAGE1
+W/w04_wild_plus_explicit_el fixoff SKIP STAGE1
+W/w04_wild_plus_explicit_el offL186 SKIP STAGE1
+W/w04_wild_plus_explicit_el off_ifaceTwoPkgTdNameOrder186 SKIP STAGE1
+W/w04_wild_plus_explicit_el wide SKIP STAGE1
+X/x01_tp_enum_keyword alloff SKIP STAGE1
+X/x01_tp_enum_keyword fix SKIP STAGE1
+X/x01_tp_enum_keyword fixoff SKIP STAGE1
+X/x01_tp_enum_keyword off2_tpEnumCopyAtTypedef184_classTpKeywordTsAtDefault188 SKIP STAGE1
+X/x01_tp_enum_keyword off2_tpEnumCopyAtTypedef184_typeParamDefersToTpUse186 SKIP STAGE1
+X/x01_tp_enum_keyword off2_typeParamDefersToTpUse186_classTpKeywordTsAtDefault188 SKIP STAGE1
+X/x01_tp_enum_keyword offL184 SKIP STAGE1
+X/x01_tp_enum_keyword offL186 SKIP STAGE1
+X/x01_tp_enum_keyword offL188 SKIP STAGE1
+X/x01_tp_enum_keyword off_classTpKeywordTsAtDefault188 SKIP STAGE1
+X/x01_tp_enum_keyword off_tpEnumCopyAtTypedef184 SKIP STAGE1
+X/x01_tp_enum_keyword off_typeParamDefersToTpUse186 SKIP STAGE1
+X/x01_tp_enum_keyword off_typeParamUseSharesOwnTs183 SKIP STAGE1
+X/x01_tp_enum_keyword wide SKIP STAGE1
+X/x02_incdec_macro alloff FTOWARD lost=36 neutral=0
+X/x02_incdec_macro fix FSAME lost=0 neutral=0
+X/x02_incdec_macro fixoff FSAME lost=0 neutral=0
+X/x02_incdec_macro off2_incDecMemberSelIsLvalue184_macroPathTokOneBuffer186 FTOWARD lost=32 neutral=0
+X/x02_incdec_macro off2_incDecMemberSelIsLvalue184_macroPathTokSpans183 FTOWARD lost=32 neutral=0
+X/x02_incdec_macro off2_macroPathTokSpans183_macroPathTokOneBuffer186 FSAME lost=0 neutral=0
+X/x02_incdec_macro offL184 FTOWARD lost=36 neutral=0
+X/x02_incdec_macro offL186 FSAME lost=0 neutral=0
+X/x02_incdec_macro off_incDecMemberSelIsLvalue184 FTOWARD lost=32 neutral=0
+X/x02_incdec_macro off_macroPathTokOneBuffer186 FSAME lost=0 neutral=0
+X/x02_incdec_macro off_macroPathTokSpans183 FSAME lost=0 neutral=0
+X/x02_incdec_macro wide FTOWARD lost=36 neutral=0
+X/x02_incdec_macro_el alloff FTOWARD lost=36 neutral=0
+X/x02_incdec_macro_el fix FSAME lost=0 neutral=0
+X/x02_incdec_macro_el fixoff FSAME lost=0 neutral=0
+X/x02_incdec_macro_el off2_incDecMemberSelIsLvalue184_macroPathTokOneBuffer186 FTOWARD lost=32 neutral=0
+X/x02_incdec_macro_el off2_incDecMemberSelIsLvalue184_macroPathTokSpans183 FTOWARD lost=32 neutral=0
+X/x02_incdec_macro_el off2_macroPathTokSpans183_macroPathTokOneBuffer186 FSAME lost=0 neutral=0
+X/x02_incdec_macro_el offL184 FTOWARD lost=36 neutral=0
+X/x02_incdec_macro_el offL186 FSAME lost=0 neutral=0
+X/x02_incdec_macro_el off_incDecMemberSelIsLvalue184 FTOWARD lost=32 neutral=0
+X/x02_incdec_macro_el off_macroPathTokOneBuffer186 FSAME lost=0 neutral=0
+X/x02_incdec_macro_el off_macroPathTokSpans183 FSAME lost=0 neutral=0
+X/x02_incdec_macro_el wide FTOWARD lost=36 neutral=0
+X/x03_genenum_separator alloff SKIP STAGE1->EQUAL
+X/x03_genenum_separator fix FSAME lost=0 neutral=0
+X/x03_genenum_separator fixoff FSAME lost=0 neutral=0
+X/x03_genenum_separator off2_genLocalEnumConstShared184_enumConstUnderscoreDropped186 SKIP STAGE1->EQUAL
+X/x03_genenum_separator offL184 FTOWARD lost=25 neutral=0
+X/x03_genenum_separator offL186 SKIP STAGE1->EQUAL
+X/x03_genenum_separator off_enumConstUnderscoreDropped186 SKIP STAGE1->EQUAL
+X/x03_genenum_separator off_genLocalEnumConstShared184 FTOWARD lost=25 neutral=0
+X/x03_genenum_separator wide SKIP STAGE1->EQUAL
+X/x03_genenum_separator_el alloff SKIP STAGE1->EQUAL
+X/x03_genenum_separator_el fix FSAME lost=0 neutral=0
+X/x03_genenum_separator_el fixoff FSAME lost=0 neutral=0
+X/x03_genenum_separator_el off2_genLocalEnumConstShared184_enumConstUnderscoreDropped186 SKIP STAGE1->EQUAL
+X/x03_genenum_separator_el offL184 FTOWARD lost=25 neutral=0
+X/x03_genenum_separator_el offL186 SKIP STAGE1->EQUAL
+X/x03_genenum_separator_el off_enumConstUnderscoreDropped186 SKIP STAGE1->EQUAL
+X/x03_genenum_separator_el off_genLocalEnumConstShared184 FTOWARD lost=25 neutral=0
+X/x03_genenum_separator_el wide SKIP STAGE1->EQUAL
+X/x04_root_gen_lvalue alloff SKIP STAGE1
+X/x04_root_gen_lvalue fix SKIP STAGE1
+X/x04_root_gen_lvalue fixoff SKIP STAGE1
+X/x04_root_gen_lvalue off2_rootElemAtNextTok186_rootNetPathOwnNames181 SKIP STAGE1
+X/x04_root_gen_lvalue off2_rootLvalueSpanAtRoot184_rootElemAtNextTok186 SKIP STAGE1
+X/x04_root_gen_lvalue off2_rootLvalueSpanAtRoot184_rootNetPathOwnNames181 SKIP STAGE1
+X/x04_root_gen_lvalue offL181 SKIP STAGE1
+X/x04_root_gen_lvalue offL184 SKIP STAGE1
+X/x04_root_gen_lvalue offL186 SKIP STAGE1
+X/x04_root_gen_lvalue off_rootElemAtNextTok186 SKIP STAGE1
+X/x04_root_gen_lvalue off_rootLvalueSpanAtRoot184 SKIP STAGE1
+X/x04_root_gen_lvalue off_rootNetPathOwnNames181 SKIP STAGE1
+X/x04_root_gen_lvalue wide SKIP STAGE1
+X/x04_root_gen_lvalue_el alloff SKIP STAGE1
+X/x04_root_gen_lvalue_el fix SKIP STAGE1
+X/x04_root_gen_lvalue_el fixoff SKIP STAGE1
+X/x04_root_gen_lvalue_el off2_rootElemAtNextTok186_rootNetPathOwnNames181 SKIP STAGE1
+X/x04_root_gen_lvalue_el off2_rootLvalueSpanAtRoot184_rootElemAtNextTok186 SKIP STAGE1
+X/x04_root_gen_lvalue_el off2_rootLvalueSpanAtRoot184_rootNetPathOwnNames181 SKIP STAGE1
+X/x04_root_gen_lvalue_el offL181 SKIP STAGE1
+X/x04_root_gen_lvalue_el offL184 SKIP STAGE1
+X/x04_root_gen_lvalue_el offL186 SKIP STAGE1
+X/x04_root_gen_lvalue_el off_rootElemAtNextTok186 SKIP STAGE1
+X/x04_root_gen_lvalue_el off_rootLvalueSpanAtRoot184 SKIP STAGE1
+X/x04_root_gen_lvalue_el off_rootNetPathOwnNames181 SKIP STAGE1
+X/x04_root_gen_lvalue_el wide SKIP STAGE1
+X/x05_lvidx_call_args alloff FSAME lost=0 neutral=0
+X/x05_lvidx_call_args fix FSAME lost=0 neutral=0
+X/x05_lvidx_call_args fixoff FSAME lost=0 neutral=0
+X/x05_lvidx_call_args off2_lvIdxMemberSelIsRead184_lvIdxMixedPathIsRead181 FSAME lost=0 neutral=0
+X/x05_lvidx_call_args off2_lvIdxMemberSelIsRead184_nestRdIdxOnly190v FSAME lost=0 neutral=0
+X/x05_lvidx_call_args off2_nestRdIdxOnly190v_lvIdxMixedPathIsRead181 FSAME lost=0 neutral=0
+X/x05_lvidx_call_args offL181 FTOWARD lost=4 neutral=0
+X/x05_lvidx_call_args offL184 FSAME lost=0 neutral=0
+X/x05_lvidx_call_args offL190 FSAME lost=0 neutral=0
+X/x05_lvidx_call_args off_lvIdxMemberSelIsRead184 FSAME lost=0 neutral=0
+X/x05_lvidx_call_args off_lvIdxMixedPathIsRead181 FSAME lost=0 neutral=0
+X/x05_lvidx_call_args off_nestRdIdxOnly190v FSAME lost=0 neutral=0
+X/x05_lvidx_call_args wide FTOWARD lost=4 neutral=0
+X/x05_lvidx_call_args_el alloff FSAME lost=0 neutral=0
+X/x05_lvidx_call_args_el fix FSAME lost=0 neutral=0
+X/x05_lvidx_call_args_el fixoff FSAME lost=0 neutral=0
+X/x05_lvidx_call_args_el off2_lvIdxMemberSelIsRead184_lvIdxMixedPathIsRead181 FSAME lost=0 neutral=0
+X/x05_lvidx_call_args_el off2_lvIdxMemberSelIsRead184_nestRdIdxOnly190v FSAME lost=0 neutral=0
+X/x05_lvidx_call_args_el off2_nestRdIdxOnly190v_lvIdxMixedPathIsRead181 FSAME lost=0 neutral=0
+X/x05_lvidx_call_args_el offL181 FTOWARD lost=4 neutral=0
+X/x05_lvidx_call_args_el offL184 FSAME lost=0 neutral=0
+X/x05_lvidx_call_args_el offL190 FSAME lost=0 neutral=0
+X/x05_lvidx_call_args_el off_lvIdxMemberSelIsRead184 FSAME lost=0 neutral=0
+X/x05_lvidx_call_args_el off_lvIdxMixedPathIsRead181 FSAME lost=0 neutral=0
+X/x05_lvidx_call_args_el off_nestRdIdxOnly190v FSAME lost=0 neutral=0
+X/x05_lvidx_call_args_el wide FTOWARD lost=4 neutral=0
+X/x06_trail_call_idx alloff FTOWARD lost=4 neutral=0
+X/x06_trail_call_idx fix FSAME lost=0 neutral=0
+X/x06_trail_call_idx fixoff FSAME lost=0 neutral=0
+X/x06_trail_call_idx off2_hpIdxCallNameSpan184_trailIdxCallArgNamesByPath187 FTOWARD lost=10 neutral=0
+X/x06_trail_call_idx off2_hpIdxCallNameSpan184_trailIdxSelNamesByPath187 FTOWARD lost=10 neutral=0
+X/x06_trail_call_idx off2_trailIdxCallArgNamesByPath187_trailIdxSelNamesByPath187 FTOWARD lost=8 neutral=0
+X/x06_trail_call_idx offL184 FTOWARD lost=4 neutral=0
+X/x06_trail_call_idx offL187 FTOWARD lost=8 neutral=0
+X/x06_trail_call_idx off_hpIdxCallNameSpan184 FTOWARD lost=4 neutral=0
+X/x06_trail_call_idx off_trailIdxCallArgNamesByPath187 FTOWARD lost=6 neutral=0
+X/x06_trail_call_idx off_trailIdxSelNamesByPath187 FTOWARD lost=6 neutral=0
+X/x06_trail_call_idx wide FTOWARD lost=12 neutral=0
+X/x06_trail_call_idx_el alloff FTOWARD lost=4 neutral=0
+X/x06_trail_call_idx_el fix FSAME lost=0 neutral=0
+X/x06_trail_call_idx_el fixoff FSAME lost=0 neutral=0
+X/x06_trail_call_idx_el off2_hpIdxCallNameSpan184_trailIdxCallArgNamesByPath187 FTOWARD lost=10 neutral=0
+X/x06_trail_call_idx_el off2_hpIdxCallNameSpan184_trailIdxSelNamesByPath187 FTOWARD lost=10 neutral=0
+X/x06_trail_call_idx_el off2_trailIdxCallArgNamesByPath187_trailIdxSelNamesByPath187 FTOWARD lost=8 neutral=0
+X/x06_trail_call_idx_el offL184 FTOWARD lost=4 neutral=0
+X/x06_trail_call_idx_el offL187 FTOWARD lost=8 neutral=0
+X/x06_trail_call_idx_el off_hpIdxCallNameSpan184 FTOWARD lost=4 neutral=0
+X/x06_trail_call_idx_el off_trailIdxCallArgNamesByPath187 FTOWARD lost=6 neutral=0
+X/x06_trail_call_idx_el off_trailIdxSelNamesByPath187 FTOWARD lost=6 neutral=0
+X/x06_trail_call_idx_el wide FTOWARD lost=12 neutral=0
+X/x07_lvidx_nested_call alloff SKIP STAGE1
+X/x07_lvidx_nested_call fix SKIP STAGE1
+X/x07_lvidx_nested_call fixoff SKIP STAGE1
+X/x07_lvidx_nested_call off2_lvIdxMemberSelIsRead184_nestRdIdxOnly190v SKIP STAGE1
+X/x07_lvidx_nested_call offL181 SKIP STAGE1
+X/x07_lvidx_nested_call offL184 SKIP STAGE1
+X/x07_lvidx_nested_call offL190 SKIP STAGE1
+X/x07_lvidx_nested_call off_lvIdxMemberSelIsRead184 SKIP STAGE1
+X/x07_lvidx_nested_call off_lvIdxMixedPathIsRead181 SKIP STAGE1
+X/x07_lvidx_nested_call off_nestRdIdxOnly190v SKIP STAGE1
+X/x07_lvidx_nested_call wide SKIP STAGE1
+X/x07_lvidx_nested_call_el alloff SKIP STAGE1
+X/x07_lvidx_nested_call_el fix SKIP STAGE1
+X/x07_lvidx_nested_call_el fixoff SKIP STAGE1
+X/x07_lvidx_nested_call_el off2_lvIdxMemberSelIsRead184_nestRdIdxOnly190v SKIP STAGE1
+X/x07_lvidx_nested_call_el offL181 SKIP STAGE1
+X/x07_lvidx_nested_call_el offL184 SKIP STAGE1
+X/x07_lvidx_nested_call_el offL190 SKIP STAGE1
+X/x07_lvidx_nested_call_el off_lvIdxMemberSelIsRead184 SKIP STAGE1
+X/x07_lvidx_nested_call_el off_lvIdxMixedPathIsRead181 SKIP STAGE1
+X/x07_lvidx_nested_call_el off_nestRdIdxOnly190v SKIP STAGE1
+X/x07_lvidx_nested_call_el wide SKIP STAGE1
+Z/z01_module_param_class_elab alloff SKIP STAGE1
+Z/z01_module_param_class_elab wide SKIP STAGE1
+tp/r11u181repro/cases/im/m01 fix FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m01 fixoff FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m01_el fix FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m01_el fixoff FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m02 fix SKIP STAGE1
+tp/r11u181repro/cases/im/m02 fixoff SKIP STAGE1
+tp/r11u181repro/cases/im/m02_el fix SKIP STAGE1
+tp/r11u181repro/cases/im/m02_el fixoff SKIP STAGE1
+tp/r11u181repro/cases/im/m03 fix FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m03 fixoff FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m03_el fix FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m03_el fixoff FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m04 fix FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m04 fixoff FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m04_el fix FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m04_el fixoff FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m05 fix FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m05 fixoff FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m05_el fix FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m05_el fixoff FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m06 fix FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m06 fixoff FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m06_el fix FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m06_el fixoff FSAME lost=0 neutral=0
+tp/r11u181repro/cases/im/m07 fix SKIP STAGE1
+tp/r11u181repro/cases/im/m07 fixoff SKIP STAGE1
+tp/r11u181repro/cases/im/m07_el fix SKIP STAGE1
+tp/r11u181repro/cases/im/m07_el fixoff SKIP STAGE1
+tp/r11u181repro/cases/rt/g06 pathbufoff SKIP STAGE1
+tp/r11u181repro/cases/rt/g06_el pathbufoff SKIP STAGE1
+tp/r11u184repro/cases/C/c01 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/C/c01 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/C/c01_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/C/c01_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/C/c02 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/C/c02 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/C/c02_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/C/c02_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/C/c03 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/C/c03 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/C/c03_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/C/c03_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e01_genblk_enum_case fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e01_genblk_enum_case fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e01_genblk_enum_case_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e01_genblk_enum_case_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e02_modenum_genvar fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e02_modenum_genvar fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e02_modenum_genvar_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e02_modenum_genvar_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e03_modenum_modvar fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e03_modenum_modvar fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e03_modenum_modvar_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e03_modenum_modvar_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e04_pkgenum_genvar fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e04_pkgenum_genvar fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e04_pkgenum_genvar_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e04_pkgenum_genvar_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e05_genenum_ca fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e05_genenum_ca fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e05_genenum_ca_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e05_genenum_ca_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e06_nested_gen fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e06_nested_gen fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e06_nested_gen_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e06_nested_gen_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e07_genfor_enum fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e07_genfor_enum fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e07_genfor_enum_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e07_genfor_enum_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e08_genenum_task fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e08_genenum_task fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e08_genenum_task_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e08_genenum_task_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e09_alias_in_block fix SKIP STAGE1
+tp/r11u184repro/cases/E/e09_alias_in_block fixoff SKIP STAGE1
+tp/r11u184repro/cases/E/e09_alias_in_block_el fix SKIP STAGE1
+tp/r11u184repro/cases/E/e09_alias_in_block_el fixoff SKIP STAGE1
+tp/r11u184repro/cases/E/e10_macro_enum fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e10_macro_enum fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e10_macro_enum_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e10_macro_enum_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e11_nested_var_outer_enum fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e11_nested_var_outer_enum fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e11_nested_var_outer_enum_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e11_nested_var_outer_enum_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e12_iface_gen_enum fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e12_iface_gen_enum fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e12_iface_gen_enum_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e12_iface_gen_enum_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e13_genfor_pkg_var fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e13_genfor_pkg_var fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e13_genfor_pkg_var_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/E/e13_genfor_pkg_var_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/G/g01 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/G/g01 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/G/g01_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/G/g01_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/G/g02 fix SKIP STAGE1
+tp/r11u184repro/cases/G/g02 fixoff SKIP STAGE1
+tp/r11u184repro/cases/G/g02_el fix SKIP STAGE1
+tp/r11u184repro/cases/G/g02_el fixoff SKIP STAGE1
+tp/r11u184repro/cases/G/g03 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/G/g03 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/G/g03_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/G/g03_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/I/i01 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/I/i01 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/I/i01_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/I/i01_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/I/i02 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/I/i02 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/I/i02_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/I/i02_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/I/i03 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/I/i03 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/I/i03_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/I/i03_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/L/l01 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/L/l01 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/L/l01_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/L/l01_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/L/l02 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/L/l02 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/L/l02_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/L/l02_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/L/l03 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/L/l03 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/L/l03_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/L/l03_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/L/l04 fix SKIP STAGE1
+tp/r11u184repro/cases/L/l04 fixoff SKIP STAGE1
+tp/r11u184repro/cases/L/l04_el fix SKIP STAGE1
+tp/r11u184repro/cases/L/l04_el fixoff SKIP STAGE1
+tp/r11u184repro/cases/P/p01 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p01 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p01_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p01_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p02 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p02 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p02_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p02_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p03 fix SKIP STAGE1
+tp/r11u184repro/cases/P/p03 fixoff SKIP STAGE1
+tp/r11u184repro/cases/P/p03_el fix SKIP STAGE1
+tp/r11u184repro/cases/P/p03_el fixoff SKIP STAGE1
+tp/r11u184repro/cases/P/p04 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p04 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p04_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p04_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p05 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p05 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p05_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p05_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p06 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p06 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p06_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p06_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p07 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p07 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p07_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/P/p07_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r01 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r01 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r01_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r01_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r02 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r02 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r02_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r02_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r03 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r03 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r03_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r03_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r04 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r04 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/R/r04_el fix SKIP STAGE1
+tp/r11u184repro/cases/R/r04_el fixoff SKIP STAGE1
+tp/r11u184repro/cases/S/s01 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s01 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s01_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s01_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s02 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s02 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s02_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s02_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s03 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s03 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s03_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s03_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s04 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s04 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s04_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/S/s04_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t01_row_shape fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t01_row_shape fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t01_row_shape_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t01_row_shape_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t02_param_width fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t02_param_width fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t02_param_width_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t02_param_width_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t03_direct_enum_ctl fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t03_direct_enum_ctl fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t03_direct_enum_ctl_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t03_direct_enum_ctl_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t04_pkg_enum fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t04_pkg_enum fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t04_pkg_enum_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t04_pkg_enum_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t05_macro_typedef fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t05_macro_typedef fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t05_macro_typedef_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t05_macro_typedef_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t06_header_param_width fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t06_header_param_width fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t06_header_param_width_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t06_header_param_width_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t07_repass_chain fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t07_repass_chain fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t07_repass_chain_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t07_repass_chain_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t08_genblock_typedef fix SKIP STAGE1
+tp/r11u184repro/cases/T/t08_genblock_typedef fixoff SKIP STAGE1
+tp/r11u184repro/cases/T/t08_genblock_typedef_el fix SKIP STAGE1
+tp/r11u184repro/cases/T/t08_genblock_typedef_el fixoff SKIP STAGE1
+tp/r11u184repro/cases/T/t09_named_base fix SKIP STAGE1
+tp/r11u184repro/cases/T/t09_named_base fixoff SKIP STAGE1
+tp/r11u184repro/cases/T/t09_named_base_el fix SKIP STAGE1
+tp/r11u184repro/cases/T/t09_named_base_el fixoff SKIP STAGE1
+tp/r11u184repro/cases/T/t10_pkg_import_values fix SKIP STAGE1
+tp/r11u184repro/cases/T/t10_pkg_import_values fixoff SKIP STAGE1
+tp/r11u184repro/cases/T/t10_pkg_import_values_el fix SKIP STAGE1
+tp/r11u184repro/cases/T/t10_pkg_import_values_el fixoff SKIP STAGE1
+tp/r11u184repro/cases/T/t11_default_and_override fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t11_default_and_override fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t11_default_and_override_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t11_default_and_override_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t12_int_base fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t12_int_base fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t12_int_base_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/T/t12_int_base_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x10 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x10 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x10_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x10_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x11 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x11 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x11_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x11_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x12 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x12 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x12_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x12_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x13 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x13 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x13_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x13_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x14 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x14 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x14_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x14_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x15 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x15 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x15_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x15_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x18 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x18 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x18_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x18_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x19 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x19 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x19_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x19_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x2 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x2 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x20 fix SKIP STAGE1
+tp/r11u184repro/cases/X/x20 fixoff SKIP STAGE1
+tp/r11u184repro/cases/X/x20_el fix SKIP STAGE1
+tp/r11u184repro/cases/X/x20_el fixoff SKIP STAGE1
+tp/r11u184repro/cases/X/x21 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x21 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x21_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x21_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x22 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x22 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x22_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x22_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x2_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x2_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x4 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x4 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x4_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x4_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x5 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x5 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x5_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x5_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x6 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x6 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x6_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x6_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x7 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x7 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x7_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x7_el fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x9 fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x9 fixoff FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x9_el fix FSAME lost=0 neutral=0
+tp/r11u184repro/cases/X/x9_el fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/ID/i01 fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/ID/i01 fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/ID/i01_el fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/ID/i01_el fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/ID/i02 fix SKIP STAGE1
+tp/r11u190verify/cases/ID/i02 fixoff SKIP STAGE1
+tp/r11u190verify/cases/ID/i02_el fix SKIP STAGE1
+tp/r11u190verify/cases/ID/i02_el fixoff SKIP STAGE1
+tp/r11u190verify/cases/ID/i03 fix SKIP STAGE1
+tp/r11u190verify/cases/ID/i03 fixoff SKIP STAGE1
+tp/r11u190verify/cases/ID/i03_el fix SKIP STAGE1
+tp/r11u190verify/cases/ID/i03_el fixoff SKIP STAGE1
+tp/r11u190verify/cases/LC/c01 fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c01 fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c01_el fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c01_el fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c02 fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c02 fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c02_el fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c02_el fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c03 fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c03 fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c03_el fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c03_el fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c04 fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c04 fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c04_el fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/LC/c04_el fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x01 fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x01 fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x01_el fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x01_el fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x02 fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x02 fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x02_el fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x02_el fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x03 fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x03 fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x03_el fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x03_el fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x04 fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x04 fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x04_el fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x04_el fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x05 fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x05 fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x05_el fix FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x05_el fixoff FSAME lost=0 neutral=0
+tp/r11u190verify/cases/X/x06 fix SKIP STAGE1
+tp/r11u190verify/cases/X/x06 fixoff SKIP STAGE1
+tp/r11u190verify/cases/X/x06_el fix SKIP STAGE1
+tp/r11u190verify/cases/X/x06_el fixoff SKIP STAGE1
+tp/r11u190verify/cases/X/x07 fix SKIP STAGE1
+tp/r11u190verify/cases/X/x07 fixoff SKIP STAGE1
+tp/r11u190verify/cases/X/x07_el fix SKIP STAGE1
+tp/r11u190verify/cases/X/x07_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/C/vc01_nested_member_idx fix SKIP STAGE1
+tp/r11v184repro/cases/C/vc01_nested_member_idx fixoff SKIP STAGE1
+tp/r11v184repro/cases/C/vc01_nested_member_idx_el fix SKIP STAGE1
+tp/r11v184repro/cases/C/vc01_nested_member_idx_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/C/vc02_ca_gen_class fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc02_ca_gen_class fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc02_ca_gen_class_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc02_ca_gen_class_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc03_member_sel_in_idx fix SKIP STAGE1
+tp/r11v184repro/cases/C/vc03_member_sel_in_idx fixoff SKIP STAGE1
+tp/r11v184repro/cases/C/vc03_member_sel_in_idx_el fix SKIP STAGE1
+tp/r11v184repro/cases/C/vc03_member_sel_in_idx_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/C/vc04_path_as_call_arg fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc04_path_as_call_arg fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc04_path_as_call_arg_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc04_path_as_call_arg_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc05_in_lvalue_index fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc05_in_lvalue_index fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc05_in_lvalue_index_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc05_in_lvalue_index_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc06_trailing_after_member fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc06_trailing_after_member fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc06_trailing_after_member_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc06_trailing_after_member_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc07_two_dim fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc07_two_dim fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc07_two_dim_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc07_two_dim_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc08_ca_only fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc08_ca_only fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc08_ca_only_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc08_ca_only_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc09_class_method_named_args fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc09_class_method_named_args fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc09_class_method_named_args_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/C/vc09_class_method_named_args_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve01_inline_enum_var fix SKIP STAGE1
+tp/r11v184repro/cases/E/ve01_inline_enum_var fixoff SKIP STAGE1
+tp/r11v184repro/cases/E/ve01_inline_enum_var_el fix SKIP STAGE1
+tp/r11v184repro/cases/E/ve01_inline_enum_var_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/E/ve02_two_instances fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve02_two_instances fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve02_two_instances_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve02_two_instances_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve03_unit_enum fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve03_unit_enum fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve03_unit_enum_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve03_unit_enum_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve04_localparam_func_named_begin fix SKIP STAGE1
+tp/r11v184repro/cases/E/ve04_localparam_func_named_begin fixoff SKIP STAGE1
+tp/r11v184repro/cases/E/ve04_localparam_func_named_begin_el fix SKIP STAGE1
+tp/r11v184repro/cases/E/ve04_localparam_func_named_begin_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/E/ve05_gencase_else fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve05_gencase_else fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve05_gencase_else_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve05_gencase_else_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve06_struct_member_enum fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve06_struct_member_enum fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve06_struct_member_enum_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve06_struct_member_enum_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve07_localparam_only fix SKIP STAGE1
+tp/r11v184repro/cases/E/ve07_localparam_only fixoff SKIP STAGE1
+tp/r11v184repro/cases/E/ve07_localparam_only_el fix SKIP STAGE1
+tp/r11v184repro/cases/E/ve07_localparam_only_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/E/ve08_inline_enum_simple fix SKIP STAGE1
+tp/r11v184repro/cases/E/ve08_inline_enum_simple fixoff SKIP STAGE1
+tp/r11v184repro/cases/E/ve08_inline_enum_simple_el fix SKIP STAGE1
+tp/r11v184repro/cases/E/ve08_inline_enum_simple_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/E/ve09_named_begin_var fix SKIP STAGE1
+tp/r11v184repro/cases/E/ve09_named_begin_var fixoff SKIP STAGE1
+tp/r11v184repro/cases/E/ve09_named_begin_var_el fix SKIP STAGE1
+tp/r11v184repro/cases/E/ve09_named_begin_var_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/E/ve10_packed_arr_var fix SKIP STAGE1
+tp/r11v184repro/cases/E/ve10_packed_arr_var fixoff SKIP STAGE1
+tp/r11v184repro/cases/E/ve10_packed_arr_var_el fix SKIP STAGE1
+tp/r11v184repro/cases/E/ve10_packed_arr_var_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/E/ve11_unit_enum_no_blockvar fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve11_unit_enum_no_blockvar fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve11_unit_enum_no_blockvar pathbufoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve11_unit_enum_no_blockvar_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve11_unit_enum_no_blockvar_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve11_unit_enum_no_blockvar_el pathbufoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve12_two_blocks_same_names fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve12_two_blocks_same_names fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve12_two_blocks_same_names_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/E/ve12_two_blocks_same_names_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/G/vg01_gen_func_task_genvar fix SKIP STAGE1
+tp/r11v184repro/cases/G/vg01_gen_func_task_genvar fixoff SKIP STAGE1
+tp/r11v184repro/cases/G/vg01_gen_func_task_genvar_el fix SKIP STAGE1
+tp/r11v184repro/cases/G/vg01_gen_func_task_genvar_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/G/vg02_gen_func_read fix SKIP STAGE1
+tp/r11v184repro/cases/G/vg02_gen_func_read fixoff SKIP STAGE1
+tp/r11v184repro/cases/G/vg02_gen_func_read_el fix SKIP STAGE1
+tp/r11v184repro/cases/G/vg02_gen_func_read_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/G/vg03_gen_task_write fix SKIP STAGE1
+tp/r11v184repro/cases/G/vg03_gen_task_write fixoff SKIP STAGE1
+tp/r11v184repro/cases/G/vg03_gen_task_write_el fix SKIP STAGE1
+tp/r11v184repro/cases/G/vg03_gen_task_write_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/G/vg04_genfor_genvar_idx fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/G/vg04_genfor_genvar_idx fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/G/vg04_genfor_genvar_idx_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/G/vg04_genfor_genvar_idx_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/G/vg05_named_begin fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/G/vg05_named_begin fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/G/vg05_named_begin_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/G/vg05_named_begin_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi01_unary_index fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi01_unary_index fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi01_unary_index_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi01_unary_index_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi02_pkg_class_vif fix SKIP STAGE1
+tp/r11v184repro/cases/I/vi02_pkg_class_vif fixoff SKIP STAGE1
+tp/r11v184repro/cases/I/vi02_pkg_class_vif_el fix SKIP STAGE1
+tp/r11v184repro/cases/I/vi02_pkg_class_vif_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/I/vi03_genfor_nested fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi03_genfor_nested fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi03_genfor_nested_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi03_genfor_nested_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi04_unary_func_only fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi04_unary_func_only fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi04_unary_func_only_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi04_unary_func_only_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi05_expr_position fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi05_expr_position fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi05_expr_position_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi05_expr_position_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi06_class_implicit_this fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi06_class_implicit_this fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi06_class_implicit_this_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi06_class_implicit_this_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi07_pkg_var fix SKIP STAGE1
+tp/r11v184repro/cases/I/vi07_pkg_var fixoff SKIP STAGE1
+tp/r11v184repro/cases/I/vi07_pkg_var_el fix SKIP STAGE1
+tp/r11v184repro/cases/I/vi07_pkg_var_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/I/vi08_formal_local fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi08_formal_local fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi08_formal_local_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/I/vi08_formal_local_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl01_member_target fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl01_member_target fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl01_member_target_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl01_member_target_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl02_incdec_target fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl02_incdec_target fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl02_incdec_target_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl02_incdec_target_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl03_member_target_only fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl03_member_target_only fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl03_member_target_only_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl03_member_target_only_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl04_func_partsel fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl04_func_partsel fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl04_func_partsel_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/L/vl04_func_partsel_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/P/vp01_paren_shapes fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/P/vp01_paren_shapes fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/P/vp01_paren_shapes_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/P/vp01_paren_shapes_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/P/vp02_paren_lvalue_ctl fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/P/vp02_paren_lvalue_ctl fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/P/vp02_paren_lvalue_ctl_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/P/vp02_paren_lvalue_ctl_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/R/vr01_select_shapes fix SKIP STAGE1
+tp/r11v184repro/cases/R/vr01_select_shapes fixoff SKIP STAGE1
+tp/r11v184repro/cases/R/vr01_select_shapes_el fix SKIP STAGE1
+tp/r11v184repro/cases/R/vr01_select_shapes_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/R/vr02_delay_force_incdec fix SKIP STAGE1
+tp/r11v184repro/cases/R/vr02_delay_force_incdec fixoff SKIP STAGE1
+tp/r11v184repro/cases/R/vr02_delay_force_incdec_el fix SKIP STAGE1
+tp/r11v184repro/cases/R/vr02_delay_force_incdec_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/R/vr03_concat_func_gen fix SKIP STAGE1
+tp/r11v184repro/cases/R/vr03_concat_func_gen fixoff SKIP STAGE1
+tp/r11v184repro/cases/R/vr03_concat_func_gen_el fix SKIP STAGE1
+tp/r11v184repro/cases/R/vr03_concat_func_gen_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/R/vr04_part_select fix SKIP STAGE1
+tp/r11v184repro/cases/R/vr04_part_select fixoff SKIP STAGE1
+tp/r11v184repro/cases/R/vr04_part_select_el fix SKIP STAGE1
+tp/r11v184repro/cases/R/vr04_part_select_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/R/vr05_two_dim fix SKIP STAGE1
+tp/r11v184repro/cases/R/vr05_two_dim fixoff SKIP STAGE1
+tp/r11v184repro/cases/R/vr05_two_dim_el fix SKIP STAGE1
+tp/r11v184repro/cases/R/vr05_two_dim_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/R/vr06_delay_bitsel fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/R/vr06_delay_bitsel fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/R/vr06_delay_bitsel_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/R/vr06_delay_bitsel_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/R/vr07_concat fix SKIP STAGE1
+tp/r11v184repro/cases/R/vr07_concat fixoff SKIP STAGE1
+tp/r11v184repro/cases/R/vr07_concat_el fix SKIP STAGE1
+tp/r11v184repro/cases/R/vr07_concat_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/R/vr08_function fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/R/vr08_function fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/R/vr08_function_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/R/vr08_function_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/R/vr09_gen_scope fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/R/vr09_gen_scope fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/R/vr09_gen_scope_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/R/vr09_gen_scope_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/S/vs01_member_sel_stream fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/S/vs01_member_sel_stream fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/S/vs01_member_sel_stream pathbufoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/S/vs01_member_sel_stream_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/S/vs01_member_sel_stream_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/S/vs01_member_sel_stream_el pathbufoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/S/vs02_member_sel_operand fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/S/vs02_member_sel_operand fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/S/vs02_member_sel_operand pathbufoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/S/vs02_member_sel_operand_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/S/vs02_member_sel_operand_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/S/vs02_member_sel_operand_el pathbufoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt01_net_decl_assign fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt01_net_decl_assign fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt01_net_decl_assign lOFF SKIP STAGE1
+tp/r11v184repro/cases/T/vt01_net_decl_assign rOFF SKIP STAGE1
+tp/r11v184repro/cases/T/vt01_net_decl_assign_el fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt01_net_decl_assign_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt02_gen_ca fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt02_gen_ca fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt02_gen_ca_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt02_gen_ca_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt03_typedef_of_typedef fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt03_typedef_of_typedef fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt03_typedef_of_typedef_el fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt03_typedef_of_typedef_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt04_include_macro fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt04_include_macro fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt04_include_macro_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt04_include_macro_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt05_packed_arr_ca fix SKIP DIVERGED
+tp/r11v184repro/cases/T/vt05_packed_arr_ca fixoff SKIP DIVERGED
+tp/r11v184repro/cases/T/vt05_packed_arr_ca_el fix SKIP DIVERGED
+tp/r11v184repro/cases/T/vt05_packed_arr_ca_el fixoff SKIP DIVERGED
+tp/r11v184repro/cases/T/vt06_repass_ca fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt06_repass_ca fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt06_repass_ca_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt06_repass_ca_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt07_iface_child fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt07_iface_child fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt07_iface_child_el fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt07_iface_child_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt08_cast_ca_param_width fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt08_cast_ca_param_width fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt08_cast_ca_param_width_el fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt08_cast_ca_param_width_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt09_packed_arr_only fix SKIP DIVERGED
+tp/r11v184repro/cases/T/vt09_packed_arr_only fixoff SKIP DIVERGED
+tp/r11v184repro/cases/T/vt09_packed_arr_only_el fix SKIP DIVERGED
+tp/r11v184repro/cases/T/vt09_packed_arr_only_el fixoff SKIP DIVERGED
+tp/r11v184repro/cases/T/vt10_concat_lhs_only fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt10_concat_lhs_only fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt10_concat_lhs_only_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt10_concat_lhs_only_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt11_genfor_ca fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt11_genfor_ca fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt11_genfor_ca_el fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt11_genfor_ca_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt12_wire_ca fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt12_wire_ca fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt12_wire_ca lOFF SKIP STAGE1
+tp/r11v184repro/cases/T/vt12_wire_ca rOFF SKIP STAGE1
+tp/r11v184repro/cases/T/vt12_wire_ca_el fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt12_wire_ca_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt13_gen_if_nested_ca fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt13_gen_if_nested_ca fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt13_gen_if_nested_ca_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt13_gen_if_nested_ca_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt14_gen_ca_select_ctl fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt14_gen_ca_select_ctl fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt14_gen_ca_select_ctl_el fix FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt14_gen_ca_select_ctl_el fixoff FSAME lost=0 neutral=0
+tp/r11v184repro/cases/T/vt15_class_specialization fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt15_class_specialization fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt15_class_specialization_el fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt15_class_specialization_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt16_inst_in_generate fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt16_inst_in_generate fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt16_inst_in_generate_el fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt16_inst_in_generate_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt17_positional_two_ca fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt17_positional_two_ca fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt17_positional_two_ca pathbufoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt17_positional_two_ca_el fix SKIP STAGE1
+tp/r11v184repro/cases/T/vt17_positional_two_ca_el fixoff SKIP STAGE1
+tp/r11v184repro/cases/T/vt17_positional_two_ca_el pathbufoff SKIP STAGE1
+tp/v11u186repro/cases/D/x01 pathbufoff FSAME lost=0 neutral=0
+tp/v11u186repro/cases/D/x01_el pathbufoff FSAME lost=0 neutral=0
+tp/v11u186repro/cases/D/x03 pathbufoff SKIP STAGE1
+tp/v11u186repro/cases/D/x03_el pathbufoff SKIP STAGE1
+tp/v11u186repro/cases/D/x04 pathbufoff SKIP STAGE1
+tp/v11u186repro/cases/D/x04_el pathbufoff SKIP STAGE1
+tp/v11u186repro/cases/D/x06 pathbufoff SKIP STAGE1
+tp/v11u186repro/cases/D/x06_el pathbufoff SKIP STAGE1
+tp/v11u186repro/cases/Q/x01 pathbufoff FAWAY lost=0 neutral=0 | #41 line gold='7' ours='8' ; #41 col gold='26' ours='1' ; #41 endline gold='7' ours='8' ; #41 endcol gold='27' ours='2'
+tp/v11u186repro/cases/Q/x01_el pathbufoff FAWAY lost=0 neutral=0 | #41 line gold='7' ours='8' ; #41 col gold='26' ours='1' ; #41 endline gold='7' ours='8' ; #41 endcol gold='27' ours='2'
+tp/v11u186repro/cases/Q/x02 pathbufoff FAWAY lost=0 neutral=3 | #33 line gold='3' ours='9' ; #33 endline gold='3' ours='9' ; #31 endline gold='3' ours='9'
+tp/v11u186repro/cases/Q/x02_el pathbufoff FAWAY lost=0 neutral=3 | #33 line gold='3' ours='9' ; #33 endline gold='3' ours='9' ; #31 endline gold='3' ours='9'

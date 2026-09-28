@@ -1,0 +1,6 @@
+Earlgrey_0_1 default hashes=2
+   94a33ef3f8de [E6/Earlgrey_0_1_default_1 E6/Earlgrey_0_1_default_2 E6/Earlgrey_0_1_default_3 E6off/Earlgrey_0_1_default_1 E6off/Earlgrey_0_1_default_2 swH:sweep] strict=[objects 2173209 vs 2173853 STRICT_NOTEQUAL col ] cmp_lines=0
+   56cafd12bba6 [E6off/Earlgrey_0_1_default_3] strict=[objects 2173209 vs 2173853 STRICT_NOTEQUAL col ] cmp_lines=0
+   94a33ef3f8de vs 56cafd12bba6: order-blind lines 0
+Earlgrey_0_1 testflags hashes=1
+   f641f7fbc784 [E6/Earlgrey_0_1_testflags_1 E6/Earlgrey_0_1_testflags_2 E6/Earlgrey_0_1_testflags_3 E6off/Earlgrey_0_1_testflags_1 E6off/Earlgrey_0_1_testflags_2 E6off/Earlgrey_0_1_testflags_3 swH:sweep] strict=[objects 1342584 vs 1342870 STRICT_NOTEQUAL col ] cmp_lines=0

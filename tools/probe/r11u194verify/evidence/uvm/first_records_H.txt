@@ -1,0 +1,50 @@
+== MiniAmiq/default
+#899 file
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73				
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16				
+#1694 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	483	42	483	57				
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	483	42	483	57				
+objects 435559 vs 433774
+fields: depth=1 type=1 name=1 fullname=14 file=11 line=3 col=4 endline=3 endcol=5 size=1 objects_differing=27 (walk diverged)
+STRICT_NOTEQUAL file
+== SeqDriver/default
+#1677 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	483	42	483	57				
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	483	42	483	57				
+#1841 file
+  A: 5	logic_typespec	uvm_integral_t			uvm_misc.svh	515	41	515	55				
+  B: 5	logic_typespec	uvm_integral_t			uvm_object_globals.svh	515	41	515	55				
+objects 475526 vs 474667
+fields: depth=1 type=1 name=1 fullname=14 file=10 line=2 col=3 endline=2 endcol=4 size=1 objects_differing=26 (walk diverged)
+STRICT_NOTEQUAL file
+== SimpleUVM/default
+#458 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#464 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+objects 334285 vs 334373
+fields: depth=1 type=1 name=1 fullname=42 file=10 line=2 col=3 endline=2 endcol=4 size=1 objects_differing=54 (walk diverged)
+STRICT_NOTEQUAL fullname
+== Scoreboard/default
+#466 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#472 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+objects 269656 vs 269679
+fields: depth=1 type=1 name=1 fullname=42 file=10 line=2 col=3 endline=2 endcol=4 size=1 objects_differing=54 (walk diverged)
+STRICT_NOTEQUAL fullname
+== BuildUVMPkg/default
+#2834 fullname
+  A: 6	ref_obj	severity		uvm_pkg::uvm_report::verbosity::severity	uvm_pkg.sv	9563	44	9563	52		0		
+  B: 6	ref_obj	severity		uvm_pkg::uvm_report::severity	uvm_pkg.sv	9563	44	9563	52		0		
+#2836 fullname
+  A: 7	ref_typespec			uvm_pkg::uvm_report::verbosity		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::uvm_report		0	0	0	0		0		
+objects 201533 vs 201534
+fields: depth=1 type=1 name=1 fullname=16 file=1 line=5 col=5 endline=5 endcol=5 size=1 objects_differing=20 (walk diverged)
+STRICT_NOTEQUAL fullname

@@ -23642,13 +23642,44 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     if (lhs.kind != ExpressionKind::NamedValue)
                                         continue;
                                     auto& ls = lhs.as<NamedValueExpression>().symbol;
-                                    if (ls.kind != SymbolKind::Variable ||
+                                    // § tpCaPortNetIsVar194v (r11u194) — a PORT
+                                    // declared as a net of T (`output wire T
+                                    // so`, `inout wire T io`, a non-ANSI
+                                    // `output wire T so;`) is a variable in
+                                    // Surelog's elaborated instance: elabSignal
+                                    // (NetlistElaboration.cpp, the isNet
+                                    // decision) compiles the port's typespec,
+                                    // and an enum typespec (or a packed array
+                                    // of one) sets isNet = false after the
+                                    // net-keyword override, so the port lands
+                                    // in Variables() as an enum_var /
+                                    // packed_array_var and bindVariable
+                                    // unparents the copy (cases/T t09, t12,
+                                    // t13, t14: golden `je_t`; a BODY net
+                                    // `wire T w` stays a logic_net, vt12, t10:
+                                    // parented).  Switch R11V194_TPCAPORT_OFF.
+                                    bool portNet194 = false;
+                                    if (ls.kind == SymbolKind::Net &&
+                                        ls.getParentScope() == &body &&
+                                        getenv("R11V194_TPCAPORT_OFF") == nullptr &&
+                                        getenv("R11V194_OFF") == nullptr)
+                                        for (auto* ps194 : body.asSymbol()
+                                                               .as<InstanceBodySymbol>()
+                                                               .getPortList())
+                                            if (ps194->kind == SymbolKind::Port &&
+                                                ps194->as<PortSymbol>().internalSymbol == &ls) {
+                                                portNet194 = true;
+                                                break;
+                                            }
+                                    if ((ls.kind != SymbolKind::Variable && !portNet194) ||
                                         ls.getParentScope() != &body)
                                         continue;
-                                    const Type* lt = &ls.as<VariableSymbol>().getType();
+                                    const Type* lt = &ls.as<ValueSymbol>().getType();
                                     while (lt->kind == SymbolKind::PackedArrayType)
                                         lt = &lt->as<PackedArrayType>().elementType;
                                     if (lt == tAlias184v) {
+                                        if (portNet194)
+                                            trace184("V194 TPCAPORT unparent");
                                         trace184("V184 TPCA unparent");
                                         caLhs184 = true;
                                     }

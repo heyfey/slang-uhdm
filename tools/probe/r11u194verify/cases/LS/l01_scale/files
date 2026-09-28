@@ -1,0 +1,15 @@
+pkg0.sv
+pkg1.sv
+pkg2.sv
+pkg3.sv
+pkg4.sv
+pkg5.sv
+mod0.sv
+mod1.sv
+mod2.sv
+mod3.sv
+mod4.sv
+mod5.sv
+mod6.sv
+mod7.sv
+dut.sv

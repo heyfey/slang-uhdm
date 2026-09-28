@@ -1,0 +1,16 @@
+### pass187_trail_laws: /tmp/r11u194_swT (baseline) -> /tmp/r11u194_swH
+-- probe
+CONVERSION r10earl29repro/v5_gen STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r10earl29repro/v6_genvar STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r10earl29repro/v7_lval STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CHANGE r10earl29repro/a1_hp2 STRICT_NOTEQUAL differ:fullname(8) -> differ:fullname(4) [fullname -4]
+CHANGE r10earl29repro/a2_hp1 STRICT_NOTEQUAL differ:fullname(8) -> differ:fullname(4) [fullname -4]
+CHANGE r10earl29repro/b2_kinds STRICT_NOTEQUAL differ:fullname(8) -> differ:fullname(2) [fullname -6]
+CHANGE r10earl29repro/b3_edges STRICT_NOTEQUAL differ:fullname(8) -> differ:fullname(4) [fullname -4]
+CHANGE r10earl29repro/v8_sites2 STRICT_NOTEQUAL differ:fullname(8) -> differ:fullname(1) [fullname -7]
+CHANGE r10uvm92repro/v92_b2_varsel STRICT_NOTEQUAL differ:fullname(24) -> differ:fullname(22) [fullname -2]
+regressions=0 conversions=3 changes=6 only-fresh=0 only-committed=0
+-- surelog
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+-- uhdm2rtlil
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

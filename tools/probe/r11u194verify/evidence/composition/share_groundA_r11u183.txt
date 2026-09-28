@@ -1,0 +1,44 @@
+### groundA_r11u183: /tmp/r11u194_sw7 (baseline) -> /tmp/r11u194_swT
+-- probe
+CONVERSION r10uvm151repro/g151_a_body STRICT_NOTEQUAL differ:endcol(3) -> EQUAL
+CONVERSION r10uvm153repro/g153_a_mech STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm21repro/t STRICT_NOTEQUAL differ:file(2) -> EQUAL
+CONVERSION r10uvm21repro/t32b_t STRICT_NOTEQUAL differ:file(6) -> EQUAL
+CONVERSION r10uvm57repro/b2_shape STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10uvm57repro/v1_prodcell STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10uvm80repro/c2_autokinds STRICT_NOTEQUAL differ:endcol(4) -> EQUAL
+CONVERSION r10uvm80repro/v5_edges80 STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r10uvm88repro/g88_a2_bound STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v152repro/v152_e_pos STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CHANGE r10uvm151repro/g151_e_ctx STRICT_NOTEQUAL differ:endcol(7) -> differ:endcol(2) [endcol -5]
+CHANGE r10uvm193repro/g193_c_argface STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(102) [fullname +99]
+CHANGE r10uvm21repro/t32d_t STRICT_NOTEQUAL differ:fullname(3) -> differ:type(1)
+CHANGE r10uvm21repro/t32g_t STRICT_NOTEQUAL differ:endcol(14) -> differ:endcol(10) [endcol -4]
+CHANGE r10uvm22repro/t33e_t STRICT_NOTEQUAL differ:endcol(9) -> differ:endcol(8) [endcol -1]
+CHANGE r10uvm37repro/t51a STRICT_NOTEQUAL differ:fullname(4) -> differ:fullname(2) [fullname -2]
+CHANGE r10v151repro/v151_5_ctx STRICT_NOTEQUAL differ:endcol(3) -> differ:endcol(1) [endcol -2]
+CHANGE r10v181repro/v181_e_idxbase STRICT_NOTEQUAL differ:fullname(5) -> differ:fullname(3) [fullname -2]
+CHANGE r10v181repro/v181_f_mixed STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(5) [fullname -2]
+CHANGE r10v181repro/v181_h_nofe STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(11)
+CHANGE r10v208repro/v208_f_io STRICT_NOTEQUAL differ:fullname(3) -> differ:name(15)
+CHANGE r11u111repro/grid/f1/a10_q_chain STRICT_NOTEQUAL differ:fullname(25) -> differ:fullname(5) [fullname -20]
+CHANGE v11u110repro/brk/v6/s01_single_chain2_ctl STRICT_NOTEQUAL differ:fullname(11) -> differ:fullname(7) [fullname -4]
+CHANGE v11u111repro/brk/f6/x65_chain_td_dims STRICT_NOTEQUAL differ:fullname(15) -> differ:fullname(3) [fullname -12]
+regressions=0 conversions=10 changes=14 only-fresh=0 only-committed=0
+-- surelog
+CONVERSION ApbSlave default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION ApbSlave testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION ArrayMethodIterator default STRICT_NOTEQUAL differ:endcol(1) -> CMP_EQUAL
+CONVERSION ArrayMethodIterator testflags STRICT_NOTEQUAL differ:endcol(1) -> CMP_EQUAL
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(5) -> differ:file(27) [file +22]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(5) -> differ:file(27) [file +22]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(20) -> differ:fullname(54) [fullname +34]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:file(4) -> differ:file(26) [file +22]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:file(4) -> differ:file(26) [file +22]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(20) -> differ:fullname(54) [fullname +34]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(20) -> differ:fullname(54) [fullname +34]
+regressions=0 conversions=4 changes=7 only-fresh=0 only-committed=0
+-- uhdm2rtlil
+CONVERSION jeras_union default STRICT_NOTEQUAL differ:file(60) -> CMP_EQUAL
+CONVERSION jeras_union testflags STRICT_NOTEQUAL differ:file(60) -> CMP_EQUAL
+regressions=0 conversions=2 changes=0 only-fresh=0 only-committed=0

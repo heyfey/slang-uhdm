@@ -1,0 +1,83 @@
+module m1 (input logic clk);
+  import p0::*;
+  import p2::*;
+  import p4::*;
+  t0_0_t v0_0;
+  t0_2_t v0_2;
+  t0_4_t v0_4;
+  t0_6_t v0_6;
+  t0_8_t v0_8;
+  t0_10_t v0_10;
+  t0_12_t v0_12;
+  t0_14_t v0_14;
+  function automatic p0::t0_1_t f0(input p0::t0_1_t a);
+    p0::t0_1_t l;
+    l = a;
+    return l;
+  endfunction
+  p1::t1_0_t v1_0;
+  p1::t1_2_t v1_2;
+  p1::t1_4_t v1_4;
+  p1::t1_6_t v1_6;
+  p1::t1_8_t v1_8;
+  p1::t1_10_t v1_10;
+  p1::t1_12_t v1_12;
+  p1::t1_14_t v1_14;
+  function automatic p1::t1_1_t f1(input p1::t1_1_t a);
+    p1::t1_1_t l;
+    l = a;
+    return l;
+  endfunction
+  t2_0_t v2_0;
+  t2_2_t v2_2;
+  t2_4_t v2_4;
+  t2_6_t v2_6;
+  t2_8_t v2_8;
+  t2_10_t v2_10;
+  t2_12_t v2_12;
+  t2_14_t v2_14;
+  function automatic p2::t2_1_t f2(input p2::t2_1_t a);
+    p2::t2_1_t l;
+    l = a;
+    return l;
+  endfunction
+  p3::t3_0_t v3_0;
+  p3::t3_2_t v3_2;
+  p3::t3_4_t v3_4;
+  p3::t3_6_t v3_6;
+  p3::t3_8_t v3_8;
+  p3::t3_10_t v3_10;
+  p3::t3_12_t v3_12;
+  p3::t3_14_t v3_14;
+  function automatic p3::t3_1_t f3(input p3::t3_1_t a);
+    p3::t3_1_t l;
+    l = a;
+    return l;
+  endfunction
+  t4_0_t v4_0;
+  t4_2_t v4_2;
+  t4_4_t v4_4;
+  t4_6_t v4_6;
+  t4_8_t v4_8;
+  t4_10_t v4_10;
+  t4_12_t v4_12;
+  t4_14_t v4_14;
+  function automatic p4::t4_1_t f4(input p4::t4_1_t a);
+    p4::t4_1_t l;
+    l = a;
+    return l;
+  endfunction
+  p5::t5_0_t v5_0;
+  p5::t5_2_t v5_2;
+  p5::t5_4_t v5_4;
+  p5::t5_6_t v5_6;
+  p5::t5_8_t v5_8;
+  p5::t5_10_t v5_10;
+  p5::t5_12_t v5_12;
+  p5::t5_14_t v5_14;
+  function automatic p5::t5_1_t f5(input p5::t5_1_t a);
+    p5::t5_1_t l;
+    l = a;
+    return l;
+  endfunction
+endmodule

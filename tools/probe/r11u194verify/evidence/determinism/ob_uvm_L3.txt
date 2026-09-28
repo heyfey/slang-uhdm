@@ -1,0 +1,36 @@
+MiniAmiq default hashes=3
+   904e192037fc [L3/MiniAmiq_default_1 L3/MiniAmiq_default_2] strict=[objects 435559 vs 433774 STRICT_NOTEQUAL file ] cmp_lines=0
+   a2174c6ea767 [L3/MiniAmiq_default_3] strict=[objects 435559 vs 433774 STRICT_NOTEQUAL file ] cmp_lines=0
+   456630f965bd [swH:sweep] strict=[objects 435559 vs 433774 STRICT_NOTEQUAL file ] cmp_lines=0
+   904e192037fc vs a2174c6ea767: order-blind lines 4
+   904e192037fc vs 456630f965bd: order-blind lines 4
+   a2174c6ea767 vs 456630f965bd: order-blind lines 4
+MiniAmiq testflags hashes=4
+   904e192037fc [L3/MiniAmiq_testflags_1] strict=[objects 435559 vs 433774 STRICT_NOTEQUAL file ] cmp_lines=0
+   76aee8d14a0f [L3/MiniAmiq_testflags_2] strict=[objects 435559 vs 433774 STRICT_NOTEQUAL file ] cmp_lines=0
+   e7b4c98ae343 [L3/MiniAmiq_testflags_3] strict=[objects 435559 vs 433774 STRICT_NOTEQUAL file ] cmp_lines=0
+   fa143ab89a11 [swH:sweep] strict=[objects 435559 vs 433774 STRICT_NOTEQUAL file ] cmp_lines=0
+   904e192037fc vs 76aee8d14a0f: order-blind lines 4
+   904e192037fc vs e7b4c98ae343: order-blind lines 4
+   904e192037fc vs fa143ab89a11: order-blind lines 4
+   76aee8d14a0f vs e7b4c98ae343: order-blind lines 4
+   76aee8d14a0f vs fa143ab89a11: order-blind lines 4
+   e7b4c98ae343 vs fa143ab89a11: order-blind lines 4
+SeqDriver default hashes=4
+   b6672b2151f4 [L3/SeqDriver_default_1] strict=[objects 475526 vs 474667 STRICT_NOTEQUAL file ] cmp_lines=0
+   0712cac971dd [L3/SeqDriver_default_2] strict=[objects 475526 vs 474667 STRICT_NOTEQUAL file ] cmp_lines=0
+   7b11af1769fa [L3/SeqDriver_default_3] strict=[objects 475526 vs 474667 STRICT_NOTEQUAL file ] cmp_lines=0
+   6b509753c13c [swH:sweep] strict=[objects 475526 vs 474667 STRICT_NOTEQUAL file ] cmp_lines=0
+   b6672b2151f4 vs 0712cac971dd: order-blind lines 4
+   b6672b2151f4 vs 7b11af1769fa: order-blind lines 4
+   b6672b2151f4 vs 6b509753c13c: order-blind lines 0
+   0712cac971dd vs 7b11af1769fa: order-blind lines 4
+   0712cac971dd vs 6b509753c13c: order-blind lines 4
+   7b11af1769fa vs 6b509753c13c: order-blind lines 4
+SeqDriver testflags hashes=3
+   ab72a0abc397 [L3/SeqDriver_testflags_1] strict=[objects 475538 vs 474679 STRICT_NOTEQUAL file ] cmp_lines=0
+   1ef5a8aa9397 [L3/SeqDriver_testflags_2 L3/SeqDriver_testflags_3] strict=[objects 475538 vs 474679 STRICT_NOTEQUAL file ] cmp_lines=0
+   28c3ba6b0120 [swH:sweep] strict=[objects 475538 vs 474679 STRICT_NOTEQUAL file ] cmp_lines=0
+   ab72a0abc397 vs 1ef5a8aa9397: order-blind lines 4
+   ab72a0abc397 vs 28c3ba6b0120: order-blind lines 4
+   1ef5a8aa9397 vs 28c3ba6b0120: order-blind lines 0

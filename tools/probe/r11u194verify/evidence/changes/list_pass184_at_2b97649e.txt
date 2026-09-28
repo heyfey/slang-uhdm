@@ -1,0 +1,27 @@
+-- probe
+CONVERSION r10buvm21repro/g21c STRICT_NOTEQUAL differ:col(2) -> EQUAL
+CONVERSION r10earl_repro/qa23 STRICT_NOTEQUAL differ:file(2) -> EQUAL
+CONVERSION r11u108repro/grid/f5/f5a07_enumelem STRICT_NOTEQUAL differ:file(3) -> EQUAL
+CHANGE r10uvm143repro/g143_c_index STRICT_NOTEQUAL differ:endcol(7) -> differ:file(4)
+CHANGE r10uvm79repro/c2_idxkind STRICT_NOTEQUAL differ:file(9) -> differ:file(8) [file -1]
+CHANGE r11u32repro/k9b STRICT_NOTEQUAL differ:endline(6) -> differ:endline(4) [endline -2]
+regressions=0 conversions=3 changes=3 only-fresh=0 only-committed=0
+-- surelog
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:fullname(23) -> differ:fullname(21) [fullname -2]
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:fullname(23) -> differ:fullname(21) [fullname -2]
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:fullname(8) -> differ:fullname(6) [fullname -2]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:fullname(8) -> differ:fullname(6) [fullname -2]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(23) -> differ:fullname(21) [fullname -2]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(5) [fullname -2]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(5) [fullname -2]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(23) -> differ:fullname(21) [fullname -2]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(23) -> differ:fullname(21) [fullname -2]
+regressions=0 conversions=0 changes=9 only-fresh=0 only-committed=0
+-- uhdm2rtlil
+CONVERSION TypeParameterAsPortTypeWithEnum default STRICT_NOTEQUAL differ:file(8) -> CMP_EQUAL
+CONVERSION TypeParameterAsPortTypeWithEnum testflags STRICT_NOTEQUAL differ:file(8) -> CMP_EQUAL
+CONVERSION TypeParameterAsPortTypeWithEnumOfParametrizedWidth default STRICT_NOTEQUAL differ:file(6) -> CMP_EQUAL
+CONVERSION TypeParameterAsPortTypeWithEnumOfParametrizedWidth testflags STRICT_NOTEQUAL differ:file(6) -> CMP_EQUAL
+CONVERSION ibex_multdiv_fast default STRICT_NOTEQUAL differ:file(11) -> CMP_EQUAL
+CONVERSION ibex_multdiv_fast testflags STRICT_NOTEQUAL differ:file(11) -> CMP_EQUAL
+regressions=0 conversions=6 changes=0 only-fresh=0 only-committed=0

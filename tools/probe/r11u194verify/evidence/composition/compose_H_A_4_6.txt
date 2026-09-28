@@ -1,0 +1,64 @@
+== probe: rows 4087; conversions L vs A = 196: JOINT=1 OWN184=3 OWN186=192
+  CONV JOINT: r10uvm143repro/g143_c_index
+  CONV OWN184: r10buvm21repro/g21c, r10earl_repro/qa23, r11u108repro/grid/f5/f5a07_enumelem
+  CONV OWN186: r10buvm15repro/a1_collargs15, r10earl52repro/v3_earl52, r10rgg3repro/c1_arr_whole_norecvp, r10rgg3repro/c2_arr_whole_recvp, r10rgg3repro/e3_namedovr_arr_recvp, r10rgg3repro/e4_namedovr_arr_norecvp, r10rgg3repro/g1_arr_recv_awbw, r10rgg3repro/h1_two_level_arr, r10rgg3repro/j1_rggen_shape, r10rgg3repro/n1_transitive_vw, r10rgg3repro/n3_recv_var_notparam, r10rgg3repro/n5_gen_scope_recv, r10rgg3repro/n6_recv_param_overridden, r10rgg3repro/n8_recv_ovr_disambig, r10rgg3repro/n9_recv_type_param, r10rgg3repro/p1_multiparam_arr_recvp, r10rgg3repro/p2_multiparam_arr_norecvp, r10rgg3repro/p4_textmulti_arr_recvp, r10rgg3repro/p5_gen_iface_arr_recvp, r10rgg4repro/a7_ovr_pos_paramref, r10rgg4repro/b2_untyped_noovr, r10rgg4repro/b3_bit8_noovr, r10rgg4repro/b4_logic8_noovr, r10rgg4repro/b5_integer_noovr, r10rgg4repro/b6_longint_noovr, r10rgg4repro/b7_shortint_noovr, r10rgg4repro/b8_byte_noovr, r10rgg4repro/b9_intu_noovr, r10rgg4repro/c8_lit_noovr, r10rggen7repro/t4, r10sd10repro/g3_class_own_assoc_control, r10sd10repro/g4_class_own_assoc_control, r10sd5repro/v5_class_in_module, r10svs4repro/g3_assoc, r10uvm114repro/g114_f_twopkg, r10uvm11repro/t1, r10uvm11repro/t2, r10uvm11repro/t4, r10uvm134repro/g134_a_kinds, r10uvm134repro/g134_d_bodies, r10uvm134repro/g134_e_mult, r10uvm143repro/g143_a_shapes, r10uvm151repro/g151_a_body, r10uvm153repro/g153_a_mech, r10uvm175repro/g175_a_pos, r10uvm175repro/g175_f_fence, r10uvm203repro/g203_c_mult, r10uvm203repro/g203_e_ctl, r10uvm207repro/g207_f_home, r10uvm209repro/g209_d_modimport, r10uvm211repro/g211_d_noimport, r10uvm21repro/t, r10uvm21repro/t32b_t, r10uvm227repro/grid227/a1_iface_uninst, r10uvm227repro/grid227/a3_module, r10uvm227repro/grid227/a5_order_p1first, r10uvm23repro/t34e_t, r10uvm30repro/t40d, r10uvm47repro/t65d, r10uvm57repro/b2_shape, r10uvm57repro/v1_prodcell, r10uvm74repro/b1_idxkind, r10uvm74repro/b2_position, r10uvm74repro/b3_context, r10uvm75repro/b2_inbody, r10uvm75repro/v75_nohoist, r10uvm79repro/v79v2_recv, r10uvm80repro/c2_autokinds, r10uvm80repro/v5_edges80, r10uvm82repro/v82v_arm36_chain2hop, r10uvm82repro/v82v_arm37_extends_imported, r10uvm84repro/v84x1_depth, r10uvm85repro/ast85, r10uvm88repro/g88_a2_bound, r10v121repro/v121_a, r10v121repro/v121_d, r10v121repro/v121_e2, r10v121repro/v121_f, r10v134repro/v134_1kinds, r10v134repro/v134_4bodies, r10v135repro/v135_b3, r10v135repro/v135_b8, r10v143repro/v143_z_probe, r10v150repro/v150_g, r10v151repro/v151_1_withexpr, r10v152repro/v152_e_pos, r10v160repro/c01_scopedname, r10v160repro/c02_scopedcall, r10v160repro/c03_scoped3, r10v160repro/c04_scopedarg, r10v160repro/d01_dotcall, r10v160repro/d02_dotname, r10v160repro/d03_dotcallarg, r10v160repro/d04_dotcalldot, r10v160repro/f01_allfive, r10v160repro/h01_task, r10v160repro/h02_static, r10v160repro/h03_twoparam, r10v160repro/h04_classspec, r10v160repro/h05_twospec, r10v160repro/h08_defonly, r10v160repro/i01_formal, r10v160repro/i02_local, r10v160repro/i03_prop, r10v160repro/i04_static, r10v160repro/i05_lparam, r10v160repro/i06_typeparam, r10v160repro/i07_pkgparam, r10v160repro/i08_inherited, r10v160repro/k01_escquote, r10v160repro/k02_escnl, r10v160repro/k03_escbs, r10v160repro/k04_empty, r10v160repro/k06_esctab, r10v160repro/l01_escquote, r10v160repro/l02_escnl, r10v160repro/l03_escbs, r10v160repro/l04_empty, r10v160repro/l05_colons, r10v160repro/l06_esctab, r10v160repro/l07_space, r10v160repro/l08_pct, r10v160repro/o04_paren, r10v160repro/o05_ternary, r10v160repro/o06_nestcat, r10v160repro/o08_repl, r10v160repro/o10_binary, r10v160repro/x01_membersel, r10v160repro/x02_scopedcall, r10v160repro/x05_onlybad, r10v160repro/x06_firstbad, r10v160repro/x07_twobad, r10v160repro/x08_str, r10v160repro/x11_class, r10v160repro/x12_bit, r10v160repro/x13_real, r10v160repro/y01_init, r10v160repro/y02_return, r10v160repro/y03_arg, r10v160repro/y04_sysarg, r10v160repro/y05_ternarm, r10v160repro/y06_cond, r10v160repro/y07_caseexpr, r10v160repro/y08_caseitem, r10v160repro/y09_lvalue, r10v160repro/y10_nestgood, r10v160repro/y12_binary, r10v160repro/y16_two, r10v175repro/v175_deep, r10v175repro/v175_scope, r10v184repro/gv184_i_minimal, r10v223repro/arms/v10_paramiface, r10v223repro/arms/v13_gen_iface, r10v223repro/arms/v3_collide, r10v223repro/arms/v7_filescope_noimport_iface, r10v223repro/arms/v8_inst_uninst, r10vbuvm24repro/gv24g, r10vrgg3repro/v13_recv_clog2, r10vrgg3repro/v1_recv_aw_zero, r10vrgg3repro/v3_recv_aw_huge, r10vrgg3repro/v5_iface_gen_depends_on_aw, r10vrgg3repro/v7_iface_assert_range, r10vrgg3repro/v9_recv_aw_intmax, r10vrgg3repro/x1_mixed_override_arr, r10vrgg3repro/x7_two_recvs_diff_aw, r10vrgg3repro/x8_same_recv_two_insts_diff_ovr, r10vrgg3repro/x9_nested_iface_port, r10vrgg3repro/xg_iface_untyped_param, r10vrgg3repro/xk_iface_no_default_param, r10vrgg3repro/xl_deep_transitive, r10vrgg3repro/y2_modport_used, r10vrgg3repro/y3_recv_bw_only, r10vrgg3repro/z5_textmulti_arr_norecvp, r10vrgg3repro/z6_gen_arr_norecvp, r10vrgg3repro/z9_multiparam_arr_valdiff, r10vrgg4repro/v5c_noovr_time, r10vrgg4repro/v5d_noovr_enumparam, r10vrgg4repro/v5e_noovr_reg8, r10vrgg4repro/v5f_noovr_packed2d, r10vrgg4repro/v5g_noovr_integer_u, r10vrgg4repro/v5h_noovr_longint_u, r10vrgg4repro/v5i_noovr_shortint_u, r10vrgg4repro/v5j_noovr_byte_u, r10vrgg4repro/v5n_noovr_bit1, r11u111repro/grid/f1/a25_pkg_self_qualified, r11u115repro/grid/i/s11_arr_mp_recvA_D, r11u115repro/grid/i/w01_arr_mp_named, r11u115repro/grid/i/w02_arr_mp_named_recvB, r11u115repro/grid/i/w03_arr_mp_named_recvA, r11u115repro/grid/i/w06_arr_mp_pos, r11u51repro/grid/b3_leafsubst_ca, v11u111repro/brk/f1/x02_pkgparam_qual_ref
+  CHANGE (L vs A, not a conversion): JOINT=1 OWN184=1 OWN186=35
+    JOINT r10uvm79repro/c2_idxkind: A=('STRICT_NOTEQUAL', 'differ:file(9)') L=('STRICT_NOTEQUAL', 'differ:col(5)')
+    OWN184 r11u32repro/k9b: A=('STRICT_NOTEQUAL', 'differ:endline(6)') L=('STRICT_NOTEQUAL', 'differ:endline(4)')
+    OWN186 r10rgg3repro/f1_noovr_arr_recvp: A=('STRICT_NOTEQUAL', 'differ:endcol(7)') L=('STRICT_NOTEQUAL', 'differ:file(3)')
+    OWN186 r10rgg3repro/n2_recv_localparam: A=('STRICT_NOTEQUAL', 'differ:endcol(7)') L=('STRICT_NOTEQUAL', 'differ:line(3)')
+    OWN186 r10rgg4repro/a1_noovr: A=('STRICT_NOTEQUAL', 'differ:endcol(6)') L=('STRICT_NOTEQUAL', 'differ:fullname(2)')
+    OWN186 r10rgg4repro/b1_int_noovr: A=('STRICT_NOTEQUAL', 'differ:endcol(6)') L=('STRICT_NOTEQUAL', 'differ:fullname(2)')
+    OWN186 r10rgg4repro/c1_p_noovr: A=('STRICT_NOTEQUAL', 'differ:endcol(6)') L=('STRICT_NOTEQUAL', 'differ:fullname(2)')
+    OWN186 r10rgg4repro/c9_litarith_noovr: A=('STRICT_NOTEQUAL', 'differ:endcol(5)') L=('STRICT_NOTEQUAL', 'differ:endcol(1)')
+    OWN186 r10svs11repro/v3_arr: A=('STRICT_NOTEQUAL', 'differ:endcol(14)') L=('STRICT_NOTEQUAL', 'differ:depth(1)')
+    OWN186 r10svs6repro/b4_qual: A=('STRICT_NOTEQUAL', 'differ:file(3)') L=('STRICT_NOTEQUAL', 'differ:line(2)')
+    OWN186 r10uvm151repro/g151_e_ctx: A=('STRICT_NOTEQUAL', 'differ:file(8)') L=('STRICT_NOTEQUAL', 'differ:endcol(2)')
+    OWN186 r10uvm175repro/g175_c_tail: A=('STRICT_NOTEQUAL', 'differ:file(3)') L=('STRICT_NOTEQUAL', 'differ:fullname(2)')
+    OWN186 r10uvm193repro/g193_c_argface: A=('STRICT_NOTEQUAL', 'differ:fullname(3)') L=('STRICT_NOTEQUAL', 'differ:fullname(102)')
+    OWN186 r10uvm207repro/g207_c_share: A=('STRICT_NOTEQUAL', 'differ:fullname(23)') L=('STRICT_NOTEQUAL', 'differ:fullname(13)')
+    OWN186 r10uvm207repro/g207_e_head: A=('STRICT_NOTEQUAL', 'differ:fullname(27)') L=('STRICT_NOTEQUAL', 'differ:fullname(13)')
+    OWN186 r10uvm207repro/g207_h_foreign: A=('STRICT_NOTEQUAL', 'differ:fullname(66)') L=('STRICT_NOTEQUAL', 'differ:fullname(41)')
+    OWN186 r10uvm21repro/t32d_t: A=('STRICT_NOTEQUAL', 'differ:fullname(3)') L=('STRICT_NOTEQUAL', 'differ:type(1)')
+    OWN186 r10uvm21repro/t32g_t: A=('STRICT_NOTEQUAL', 'differ:endcol(15)') L=('STRICT_NOTEQUAL', 'differ:endcol(10)')
+    OWN186 r10uvm22repro/t33e_t: A=('STRICT_NOTEQUAL', 'differ:endcol(9)') L=('STRICT_NOTEQUAL', 'differ:endcol(8)')
+    OWN186 r10uvm37repro/t51a: A=('STRICT_NOTEQUAL', 'differ:fullname(4)') L=('STRICT_NOTEQUAL', 'differ:fullname(2)')
+    OWN186 r10uvm92repro/v92_b2_varsel: A=('STRICT_NOTEQUAL', 'differ:file(23)') L=('STRICT_NOTEQUAL', 'differ:fullname(22)')
+    OWN186 r10v121repro/v121_c: A=('STRICT_NOTEQUAL', 'differ:file(3)') L=('STRICT_NOTEQUAL', 'differ:endcol(1)')
+    OWN186 r10v151repro/v151_5_ctx: A=('STRICT_NOTEQUAL', 'differ:file(4)') L=('STRICT_NOTEQUAL', 'differ:endcol(1)')
+    OWN186 r10v160repro/x09_struct: A=('STRICT_NOTEQUAL', 'differ:depth(1)') L=('STRICT_NOTEQUAL', 'differ:type(1)')
+    OWN186 r10v160repro/x10_enum: A=('STRICT_NOTEQUAL', 'differ:depth(1)') L=('STRICT_NOTEQUAL', 'differ:name(2)')
+    OWN186 r10v160repro/y13_foreach: A=('STRICT_NOTEQUAL', 'differ:depth(1)') L=('STRICT_NOTEQUAL', 'differ:file(1)')
+    OWN186 r10v160repro/y14_fork: A=('STRICT_NOTEQUAL', 'differ:depth(1)') L=('STRICT_NOTEQUAL', 'differ:file(1)')
+    OWN186 r10v181repro/v181_e_idxbase: A=('STRICT_NOTEQUAL', 'differ:fullname(5)') L=('STRICT_NOTEQUAL', 'differ:fullname(3)')
+    OWN186 r10v181repro/v181_f_mixed: A=('STRICT_NOTEQUAL', 'differ:fullname(7)') L=('STRICT_NOTEQUAL', 'differ:fullname(5)')
+    OWN186 r10v181repro/v181_h_nofe: A=('STRICT_NOTEQUAL', 'differ:depth(1)') L=('STRICT_NOTEQUAL', 'differ:fullname(11)')
+    OWN186 r10v208repro/v208_f_io: A=('STRICT_NOTEQUAL', 'differ:fullname(3)') L=('STRICT_NOTEQUAL', 'differ:name(15)')
+    OWN186 r10v223repro/arms/v16_oobctor: A=('STRICT_NOTEQUAL', 'differ:col(9)') L=('STRICT_NOTEQUAL', 'differ:col(5)')
+    OWN186 r10vrgg3repro/xc_recv_localparam_only: A=('STRICT_NOTEQUAL', 'differ:endcol(7)') L=('STRICT_NOTEQUAL', 'differ:line(3)')
+    OWN186 r10vrgg4repro/v5k_noovr_int_signed: A=('STRICT_NOTEQUAL', 'differ:endcol(6)') L=('STRICT_NOTEQUAL', 'differ:fullname(2)')
+    OWN186 r11u111repro/grid/f1/a10_q_chain: A=('STRICT_NOTEQUAL', 'differ:fullname(25)') L=('STRICT_NOTEQUAL', 'differ:fullname(5)')
+    OWN186 v11u110repro/brk/v6/s01_single_chain2_ctl: A=('STRICT_NOTEQUAL', 'differ:fullname(11)') L=('STRICT_NOTEQUAL', 'differ:fullname(7)')
+    OWN186 v11u111repro/brk/f6/x65_chain_td_dims: A=('STRICT_NOTEQUAL', 'differ:fullname(15)') L=('STRICT_NOTEQUAL', 'differ:fullname(3)')
+  CANCEL (same in L and A, different with one landing off): 0
+== surelog: rows 1588; conversions L vs A = 4: OWN186=4
+  CONV OWN186: ApbSlave/d, ApbSlave/t, ArrayMethodIterator/d, ArrayMethodIterator/t
+  CHANGE (L vs A, not a conversion): JOINT=9 OWN186=3
+    JOINT BuildUVMPkg/d: A=('STRICT_NOTEQUAL', 'differ:fullname(23)') L=('STRICT_NOTEQUAL', 'differ:fullname(20)')
+    JOINT BuildUVMPkg/t: A=('STRICT_NOTEQUAL', 'differ:fullname(23)') L=('STRICT_NOTEQUAL', 'differ:fullname(20)')
+    JOINT MiniAmiq/d: A=('STRICT_NOTEQUAL', 'differ:fullname(8)') L=('STRICT_NOTEQUAL', 'differ:file(27)')
+    JOINT MiniAmiq/t: A=('STRICT_NOTEQUAL', 'differ:fullname(8)') L=('STRICT_NOTEQUAL', 'differ:file(27)')
+    JOINT Scoreboard/d: A=('STRICT_NOTEQUAL', 'differ:fullname(23)') L=('STRICT_NOTEQUAL', 'differ:fullname(54)')
+    JOINT SeqDriver/d: A=('STRICT_NOTEQUAL', 'differ:fullname(7)') L=('STRICT_NOTEQUAL', 'differ:file(26)')
+    JOINT SeqDriver/t: A=('STRICT_NOTEQUAL', 'differ:fullname(7)') L=('STRICT_NOTEQUAL', 'differ:file(26)')
+    JOINT SimpleUVM/d: A=('STRICT_NOTEQUAL', 'differ:fullname(23)') L=('STRICT_NOTEQUAL', 'differ:fullname(54)')
+    JOINT SimpleUVM/t: A=('STRICT_NOTEQUAL', 'differ:fullname(23)') L=('STRICT_NOTEQUAL', 'differ:fullname(54)')
+    OWN186 Rggen/d: A=('STRICT_NOTEQUAL', 'differ:endcol(634)') L=('STRICT_NOTEQUAL', 'differ:endcol(144)')
+    OWN186 SVSwitch/d: A=('STRICT_NOTEQUAL', 'differ:file(15)') L=('STRICT_NOTEQUAL', 'differ:fullname(13)')
+    OWN186 SVSwitch/t: A=('STRICT_NOTEQUAL', 'differ:file(15)') L=('STRICT_NOTEQUAL', 'differ:fullname(13)')
+  CANCEL (same in L and A, different with one landing off): 0
+== uhdm2rtlil: rows 1742; conversions L vs A = 12: OWN184=6 OWN186=6
+  CONV OWN184: TypeParameterAsPortTypeWithEnum/d, TypeParameterAsPortTypeWithEnum/t, TypeParameterAsPortTypeWithEnumOfParametrizedWidth/d, TypeParameterAsPortTypeWithEnumOfParametrizedWidth/t, ibex_multdiv_fast/d, ibex_multdiv_fast/t
+  CONV OWN186: ParameterFromPkgInNestedModule/d, ParameterFromPkgInNestedModule/t, ParameterFromPkgOnParameterPortList/d, ParameterFromPkgOnParameterPortList/t, jeras_union/d, jeras_union/t
+  CHANGE (L vs A, not a conversion): 
+  CANCEL (same in L and A, different with one landing off): 0

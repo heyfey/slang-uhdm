@@ -1,0 +1,84 @@
+FIX | A/a01_pkg_keys | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | A/a02_module_task_keys | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | A/a03_pkg_class_props | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | A/a04_unit_class_assoc | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | AL/a01_two_pkg_alias | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | AL/a02_alias_chain | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+FIX | BT/b01_two_importers | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | BT/b02_nested_pkg_struct | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | C/c01_pkg_method_call | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+FIX | C/c02_method_call_idx | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | D/d01_enum_values | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | D/d02_gen_conditions | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | D/d03_bounds_case_params | STATUS_DIFF | OK | READ_FAIL | 15 | 0 | - | -
+FIX | D/d04_iface_typedef_bounds | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e01_nested_gen_decl | IDENTICAL | OK | OK | 5 | 5 | - | -
+FIX | E/e02_genfor_decl_var | IDENTICAL | OK | OK | 1 | 1 | - | -
+FIX | E/e03_var_two_down | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e04_unit_enum_noblockvar | IDENTICAL | OK | OK | 5 | 5 | - | -
+FIX | F/f01_foreach_key_kinds | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | F/f02_foreach_class_member | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | F/f03_all_assoc_2d | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | G/g01_nested_scopes | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | G/g02_genvar_call_index | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+FIX | H/h01_struct_multiline | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in /tmp/r11u194_dsc/FIX/H__h01_struct_multiline/
+FIX | H/h02_iface_explicit | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 4 common constant assignments match
+FIX | IA/i01_size_forms | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | IA/i02_spaced_generic | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | I/i01_call_index | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | I/i02_this_super_2d | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | I/i03_compound_ops | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | K/k01_param_kinds | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | K/k02_expr_consts | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | L/l01_call_in_idx_path | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | L/l02_compound_class | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | L/l03_stream_target_select | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | P/p01_gen_ca_pkg_param | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | P/p01_nested_paren_call | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | P/p02_class_this_super | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | P/p02_two_pkgs_qualified | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | P/p03_pkg_param_own_ts | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | P/p03_two_dim_member | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | Q/q01_nested_macro | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | Q/q02_include_macro | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | Q/q03_one_two_buffers | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | RE/r01_nested_gen | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | RE/r02_gen_select_proc | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | R/r01_two_dim_part | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | R/r02_net_target_class | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | S/s01_member_ending_select | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | TP/t01_prop_formal_local | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | TP/t02_class_default_use | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | T/t01_two_specializations | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | T/t02_defparam | IDENTICAL | OK | OK | 5 | 5 | - | -
+FIX | T/t03_positional_proc | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+FIX | T/t04_genfor_if_ca | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | T/t05_output_net_port | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in /tmp/r11u194_dsc/FIX/T__t05_output_net_port/e
+FIX | T/t06_iface_modport_gen | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+FIX | T/t07_packed_arr_port_gen | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | T/t08_struct_of_t | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u194_dsc/FIX
+FIX | T/t09_port_net_ca | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 2 common constant assignments match
+FIX | T/t10_net_decl_assign_only | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in /tmp/r11u194_dsc/FIX/T__t10_net_decl_assign_o
+FIX | T/t11_port_var_ca | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 2 common constant assignments match
+FIX | T/t12_port_net_packed | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | T/t13_inout_net | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 2 common constant assignments match
+FIX | T/t14_nonansi_port_net | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 2 common constant assignments match
+FIX | T/t15_implicit_port_net | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 2 common constant assignments match
+FIX | U/u01_elem_kinds | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | U/u02_qual_elem_forms | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | U/u03_nested_qual | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | U/u04_param_elem_class | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | W/w01_three_pkgs_empty | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | W/w02_shadow_local | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+FIX | W/w03_header_body_modport | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | W/w04_wild_plus_explicit | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x01_tp_enum_keyword | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+FIX | X/x02_incdec_macro | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x03_genenum_separator | IDENTICAL | OK | OK | 13 | 13 | - | -
+FIX | X/x04_root_gen_lvalue | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | X/x05_lvidx_call_args | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x06_trail_call_idx | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x07_lvidx_nested_call | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | I/i04_call_arg_paths | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | I/i05_class_method_arg | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | TP/t03_class_default_locals | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -

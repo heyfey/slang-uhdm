@@ -1,0 +1,15 @@
+dump_lines_diff=6 orderblind_diff=6
+448193c448193
+< L3/MiniAmiq_default_1.uhdm: Restored design Pre-Elab: 
+---
+> L3/MiniAmiq_default_3.uhdm: Restored design Pre-Elab: 
+751878d751877
+<       |UINT:0
+1856948c1856948
+<       |vpiDecompile:0
+---
+>       |vpiDecompile:519
+1856950c1856950
+<       |UINT:0
+---
+>       |UINT:519

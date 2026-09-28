@@ -1,0 +1,15 @@
+swH    3273 /tmp/r11u194_bin/law.bin 
+swA    3273 /tmp/r11u194_bin/alloff.sh 
+sw4    3273 /tmp/r11u194_bin/off184.sh 
+sw6    3273 /tmp/r11u194_bin/off186.sh 
+sw7    3273 /tmp/r11u194_bin/off187.sh 
+swT    3273 /tmp/r11u194_bin/off187T.sh 
+swB    3273 /tmp/r11u194_bin/o187x183.sh 
+swC    3273 /tmp/r11u194_bin/o187x186.sh 
+swQ    3273 /tmp/r11u194_bin/pre184.sh 
+swR    3273 /tmp/r11u194_bin/post184.sh 
+swS    3273 /tmp/r11u194_bin/post186.sh 
+swW    3273 /tmp/r11u194_bin/wide.sh 
+swO    3273 /tmp/r11u194_bin/wideon.sh 
+swE    3273 /tmp/r11u194_bin/s1eef.sh 
+swF    3273 /tmp/r11u194_bin/fix.bin 

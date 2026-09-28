@@ -1,0 +1,10 @@
+# fix.bin d5385ee2ee38 = 706ab521 + fix.patch (§ tpCaPortNetIsVar194v + § incDecSelCallArgRead194v); written before the fix sweep
+probe cases listed 4087
+predicted probe databases: 0
+corpus rows run: 14 firing lines: 0
+Sun Sep 27 22:40:23 EDT 2026
+control cases/I/i01_call_index:       3 R11U184 law V194 IDCALLARG read 
+control cases/I/i05_class_method_arg:       2 R11U184 law V194 IDCALLARG read 
+control cases/T/t09_port_net_ca:       1 R11U184 law V194 TPCAPORT unparent 
+control cases/T/t11_port_var_ca: 
+control cases/I/i02_this_super_2d: 

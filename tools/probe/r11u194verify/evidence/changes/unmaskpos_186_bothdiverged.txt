@@ -1,0 +1,2 @@
+r10v160repro/x09_struct: off 1 rec, diverged "fields: depth=1 type=1 fullname=1 file=1 line=1 col=1 endlin" (last off record #65); on 1 rec (diverged); new records at [139] -> UNMASK (all at/after off divergence)
+r10v160repro/x10_enum: off 1 rec, diverged "fields: depth=1 type=1 fullname=1 file=1 line=1 col=1 endlin" (last off record #57); on 2 rec (diverged); new records at [127, 128] -> UNMASK (all at/after off divergence)
