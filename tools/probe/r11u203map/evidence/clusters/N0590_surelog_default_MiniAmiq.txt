@@ -1,0 +1,64 @@
+cluster N0590 (id kept from an earlier map; COVERED r11u200 (law patches, MEASURED: gone under the patch binary) | ground B | site operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneBodyBareTdAlias180) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): fullname|ref_typespec|tok:id::id::id::id::->|under:int_typespec
+row: surelog/default/MiniAmiq  strict=differ:file(17)  records golden=435559 ours=433772
+object: #84230 (golden) / #83857 (ours)  type=ref_typespec name= STABLE
+  golden: svaunit_pkg::uvm_component::set_report_severity_action_hier::action::uvm_action
+  ours:   uvm_action
+  walk parents: int_typespec(uvm_action) < ref_typespec < io_decl(action) < function(uvm_component::set_report_severity_action_hier)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 84224..84236 ('>' = the object)
+  #84224	6	enum_const	UVM_WARNING			uvm_object_globals.svh	245	3	245	14						001
+  #84225	6	enum_const	UVM_ERROR			uvm_object_globals.svh	246	3	246	12						001
+  #84226	6	enum_const	UVM_FATAL			uvm_object_globals.svh	247	3	247	12						001
+  #84227	3	io_decl	action			uvm_component.svh	2217	71	2217	77						000
+  #84228	4	ref_typespec			svaunit_pkg::uvm_component::set_report_severity_action_hier::action		0	0	0	0		0			svaunit_pkg::uvm_component::set_report_severity_action_hier::action	000
+  #84229	5	int_typespec	uvm_action			uvm_component.svh	2217	60	2217	70						110
+> #84230	6	ref_typespec			<in>uvm_action		0	0	0	0		0			svaunit_pkg::uvm_component::set_report_severity_action_hier::action::uvm_action	001
+  #84231	7	int_typespec	uvm_action			uvm_object_globals.svh	272	9	272	12						001
+  #84232	3	begin			svaunit_pkg::uvm_component::set_report_severity_action_hier	uvm_component.svh	2219	3	2220	69					svaunit_pkg::uvm_component::set_report_severity_action_hier	000
+  #84233	4	func_call	set_report_severity_action			uvm_component.svh	2218	3	2218	47		0				000
+  #84234	5	ref_obj	severity		svaunit_pkg::uvm_component::set_report_severity_action_hier::severity	uvm_component.svh	2218	30	2218	38		0			svaunit_pkg::uvm_component::set_report_severity_action_hier::severity	000
+  #84235	5	ref_obj	action		svaunit_pkg::uvm_component::set_report_severity_action_hier::action	uvm_component.svh	2218	40	2218	46		0			svaunit_pkg::uvm_component::set_report_severity_action_hier::action	000
+  #84236	4	foreach_stmt			svaunit_pkg::uvm_component::set_report_severity_action_hier	uvm_component.svh	2219	3	2219	10					svaunit_pkg::uvm_component::set_report_severity_action_hier	000
+
+--- OURS (B) records 83851..83863 ('>' = the object)
+  #83851	6	enum_const	UVM_WARNING			uvm_object_globals.svh	245	3	245	14						001
+  #83852	6	enum_const	UVM_ERROR			uvm_object_globals.svh	246	3	246	12						001
+  #83853	6	enum_const	UVM_FATAL			uvm_object_globals.svh	247	3	247	12						001
+  #83854	3	io_decl	action			uvm_component.svh	2217	71	2217	77						000
+  #83855	4	ref_typespec			svaunit_pkg::uvm_component::set_report_severity_action_hier::action		0	0	0	0		0			svaunit_pkg::uvm_component::set_report_severity_action_hier::action	000
+  #83856	5	int_typespec	uvm_action			uvm_object_globals.svh	272	9	272	12						110
+> #83857	6	ref_typespec			<in>uvm_action		0	0	0	0		0			uvm_action	001
+  #83858	7	int_typespec	uvm_action			uvm_object_globals.svh	272	9	272	12						001
+  #83859	3	begin			svaunit_pkg::uvm_component::set_report_severity_action_hier	uvm_component.svh	2219	3	2220	69					svaunit_pkg::uvm_component::set_report_severity_action_hier	000
+  #83860	4	func_call	set_report_severity_action			uvm_component.svh	2218	3	2218	47		0				000
+  #83861	5	ref_obj	severity		svaunit_pkg::uvm_component::set_report_severity_action_hier::severity	uvm_component.svh	2218	30	2218	38		0			svaunit_pkg::uvm_component::set_report_severity_action_hier::severity	000
+  #83862	5	ref_obj	action		svaunit_pkg::uvm_component::set_report_severity_action_hier::action	uvm_component.svh	2218	40	2218	46		0			svaunit_pkg::uvm_component::set_report_severity_action_hier::action	000
+  #83863	4	foreach_stmt			svaunit_pkg::uvm_component::set_report_severity_action_hier	uvm_component.svh	2219	3	2219	10					svaunit_pkg::uvm_component::set_report_severity_action_hier	000
+
+facets of this row (8312, first 25):
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20803 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21739 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0678 #-1/63709 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63775 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66835 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66923 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67150 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68134 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68154 unsupported_typespec index G[] O[1 objs]

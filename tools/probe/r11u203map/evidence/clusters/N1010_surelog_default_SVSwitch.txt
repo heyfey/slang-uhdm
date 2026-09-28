@@ -1,0 +1,64 @@
+cluster N1010 (id kept from an earlier map; COVERED r11u200 (law patches, MEASURED: gone under the patch binary) | ground B | site makeVar (TypeEmit.cpp, law tpPackedArrayTsVarInit110) < emitInterfaceInstance (ModuleEmit.cpp, law defNetEndOnlyLoc130) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v) [r11u138map pin] [r11u142map pin]): fullname|bit_var|tok:id->id@id.id|under:interface_inst
+row: surelog/default/SVSwitch  strict=differ:fullname(13)  records golden=5787 ours=5799
+object: #3381 (golden) / #3381 (ours)  type=bit_var name=clock OUT
+  golden: output_intf.output_intf[0].clock
+  ours:   work@top.TC.output_intf[0].clock
+  walk parents: interface_inst(output_intf[0]) < interface_array(output_intf) < ref_obj < port(output_intf)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 3375..3387 ('>' = the object)
+  #3375	6	range				testcase.sv	18	107	18	108						000
+  #3376	7	constant					0	0	0	0	0	64	UINT:0	9		000
+  #3377	7	operation				testcase.sv	18	107	18	108		0				000
+  #3378	8	constant				testcase.sv	18	107	18	108	4	64	UINT:4	9		000
+  #3379	8	constant					0	0	0	0		64	INT:1	7		000
+  #3380	6	interface_inst	output_intf[0]	work@output_interface	output_intf.output_intf[0]	top.sv	44	0	0	0					output_intf.output_intf[0]	000
+> #3381	7	bit_var	clock		output_intf.output_intf[0].clock	interface.sv	58	38	58	43		0			output_intf.output_intf[0].clock	000
+  #3382	8	ref_typespec			output_intf.output_intf[0].clock		0	0	0	0		0			output_intf.output_intf[0].clock	000
+  #3383	9	bit_typespec				interface.sv	58	34	58	37						000
+  #3384	7	logic_var	data_out		output_intf.output_intf[0].data_out	interface.sv	59	18	59	26		0			output_intf.output_intf[0].data_out	000
+  #3385	8	ref_typespec			output_intf.output_intf[0].data_out		0	0	0	0		0			output_intf.output_intf[0].data_out	000
+  #3386	9	logic_typespec				interface.sv	59	3	59	17						000
+  #3387	10	range				interface.sv	59	12	59	17						001
+
+--- OURS (B) records 3375..3387 ('>' = the object)
+  #3375	6	range				testcase.sv	18	107	18	108						000
+  #3376	7	constant					0	0	0	0	0	64	UINT:0	9		000
+  #3377	7	operation				testcase.sv	18	107	18	108		0				000
+  #3378	8	constant				testcase.sv	18	107	18	108	4	64	UINT:4	9		000
+  #3379	8	constant					0	0	0	0		64	INT:1	7		000
+  #3380	6	interface_inst	output_intf[0]	work@output_interface	work@top.TC.output_intf[0]	top.sv	44	0	0	0					work@top.TC.output_intf[0]	000
+> #3381	7	bit_var	clock		work@top.TC.output_intf[0].clock	interface.sv	58	38	58	43		0			work@top.TC.output_intf[0].clock	000
+  #3382	8	ref_typespec			work@top.TC.output_intf[0].clock		0	0	0	0		0			work@top.TC.output_intf[0].clock	000
+  #3383	9	bit_typespec				interface.sv	58	34	58	37						000
+  #3384	7	logic_var	data_out		work@top.TC.output_intf[0].data_out	interface.sv	59	18	59	26		0			work@top.TC.output_intf[0].data_out	000
+  #3385	8	ref_typespec			work@top.TC.output_intf[0].data_out		0	0	0	0		0			work@top.TC.output_intf[0].data_out	000
+  #3386	9	logic_typespec				interface.sv	59	3	59	17						000
+  #3387	10	range				interface.sv	59	12	59	17						001
+
+facets of this row (49, first 25):
+  N0526 #-1/3398 logic_net clock G[] O[3 objs]
+  N0526 #-1/3423 logic_net clock G[] O[3 objs]
+  N0526 #-1/3448 logic_net clock G[] O[3 objs]
+  N0526 #-1/3473 logic_net clock G[] O[3 objs]
+  N0007 #651/651 ref_obj size G[] O[work@Receiver::start::size]
+  N0007 #980/980 ref_obj size G[] O[work@packet::byte_pack::size]
+  N0090 #1951/1951 logic_typespec  G[2:6:1:479] O[2:6:2:6]
+  N1011 #3380/3380 interface_inst output_intf[0] G[output_intf.output_intf[0]] O[work@top.TC.output_intf[0]]
+  N1010 #3381/3381 bit_var clock G[output_intf.output_intf[0].clock] O[work@top.TC.output_intf[0].clock]
+  N1019 #3382/3382 ref_typespec  G[output_intf.output_intf[0].clock] O[work@top.TC.output_intf[0].clock]
+  N0954 #3384/3384 logic_var data_out G[output_intf.output_intf[0].data_out] O[work@top.TC.output_intf[0].data_out]
+  N0958 #3385/3385 ref_typespec  G[output_intf.output_intf[0].data_out] O[work@top.TC.output_intf[0].data_out]
+  N0954 #3390/3390 logic_var ready G[output_intf.output_intf[0].ready] O[work@top.TC.output_intf[0].ready]
+  N0958 #3391/3391 ref_typespec  G[output_intf.output_intf[0].ready] O[work@top.TC.output_intf[0].ready]
+  N0954 #3393/3393 logic_var read G[output_intf.output_intf[0].read] O[work@top.TC.output_intf[0].read]
+  N0958 #3394/3394 ref_typespec  G[output_intf.output_intf[0].read] O[work@top.TC.output_intf[0].read]
+  N1020 #3400/3403 ref_typespec  G[output_intf.output_intf[0].clock] O[work@top.TC.output_intf[0].clock]
+  N1011 #3402/3405 interface_inst output_intf[1] G[output_intf.output_intf[1]] O[work@top.TC.output_intf[1]]
+  N1010 #3403/3406 bit_var clock G[output_intf.output_intf[1].clock] O[work@top.TC.output_intf[1].clock]
+  N1019 #3404/3407 ref_typespec  G[output_intf.output_intf[1].clock] O[work@top.TC.output_intf[1].clock]
+  N0954 #3406/3409 logic_var data_out G[output_intf.output_intf[1].data_out] O[work@top.TC.output_intf[1].data_out]
+  N0958 #3407/3410 ref_typespec  G[output_intf.output_intf[1].data_out] O[work@top.TC.output_intf[1].data_out]
+  N0954 #3412/3415 logic_var ready G[output_intf.output_intf[1].ready] O[work@top.TC.output_intf[1].ready]
+  N0958 #3413/3416 ref_typespec  G[output_intf.output_intf[1].ready] O[work@top.TC.output_intf[1].ready]
+  N0954 #3415/3418 logic_var read G[output_intf.output_intf[1].read] O[work@top.TC.output_intf[1].read]

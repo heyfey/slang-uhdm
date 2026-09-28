@@ -1,0 +1,64 @@
+cluster N0915 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 13; passes 193-198 left it) | ground A | site -): fullname|bit_select|tok:id[n].id.id.id.id[n->id.id.id.id[id|under:hier_path
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(82)  records golden=1342584 ours=1342870
+object: #1099664 (golden) / #1099797 (ours)  type=bit_select name=class_en OUT
+  golden: work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i.reg2hw_wrap.class_en[0].class_en
+  ours:   work@top_earlgrey.u_alert_handler.i_accu.class_en_i.reg2hw_wrap.class_en[k].class_en
+  walk parents: hier_path(reg2hw_wrap.class_en[0]) < port(class_en_i) < module_inst(i_accu) < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1099658..1099670 ('>' = the object)
+  #1099658	8	logic_typespec				alert_handler_accu.sv	17	32	17	32						000
+  #1099659	6	port	class_en_i			alert_handler_accu.sv	18	32	18	42						000
+  #1099660	7	hier_path	reg2hw_wrap.class_en[0]			alert_handler.sv	148	23	148	46		0				000
+  #1099661	8	ref_typespec			work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i.reg2hw_wrap.class_en[0]		0	0	0	0		0			work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i.reg2hw_wrap.class_en[0]	000
+  #1099662	9	struct_typespec	alert_pkg::reg2hw_wrap_t			alert_pkg.sv	57	11	74	4						110
+  #1099663	8	ref_obj	reg2hw_wrap			alert_handler.sv	148	23	148	34		0				000
+> #1099664	8	bit_select	class_en		work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i.reg2hw_wrap.class_en[0].class_en	alert_handler.sv	148	44	148	45		0			work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i.reg2hw_wrap.class_en[0].class_en	000
+  #1099665	9	constant				alert_handler.sv	148	44	148	45	0	64	UINT:0	9		000
+  #1099666	7	ref_obj	class_en_i		work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i	alert_handler.sv	148	8	148	18		0			work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i	000
+  #1099667	7	ref_typespec			work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i		0	0	0	0		0			work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i	000
+  #1099668	8	logic_typespec				alert_handler_accu.sv	18	32	18	32						000
+  #1099669	6	port	clr_i			alert_handler_accu.sv	19	32	19	37						000
+  #1099670	7	hier_path	reg2hw_wrap.class_clr[0]			alert_handler.sv	149	23	149	47		0				000
+
+--- OURS (B) records 1099791..1099803 ('>' = the object)
+  #1099791	8	logic_typespec				alert_handler_accu.sv	17	32	17	32						000
+  #1099792	6	port	class_en_i			alert_handler_accu.sv	18	32	18	42						000
+  #1099793	7	hier_path	reg2hw_wrap.class_en[0]			alert_handler.sv	148	23	148	46		0				000
+  #1099794	8	ref_typespec			work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i.reg2hw_wrap.class_en[0]		0	0	0	0		0			work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i.reg2hw_wrap.class_en[0]	000
+  #1099795	9	struct_typespec	alert_pkg::reg2hw_wrap_t			alert_pkg.sv	57	11	74	4						110
+  #1099796	8	ref_obj	reg2hw_wrap			alert_handler.sv	148	23	148	34		0				000
+> #1099797	8	bit_select	class_en		work@top_earlgrey.u_alert_handler.i_accu.class_en_i.reg2hw_wrap.class_en[k].class_en	alert_handler.sv	148	44	148	45		0			work@top_earlgrey.u_alert_handler.i_accu.class_en_i.reg2hw_wrap.class_en[k].class_en	000
+  #1099798	9	constant				alert_handler.sv	148	44	148	45	0	64	UINT:0	9		000
+  #1099799	7	ref_obj	class_en_i		work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i	alert_handler.sv	148	8	148	18		0			work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i	000
+  #1099800	7	ref_typespec			work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i		0	0	0	0		0			work@top_earlgrey.u_alert_handler.gen_classes[0].i_accu.class_en_i	000
+  #1099801	8	logic_typespec				alert_handler_accu.sv	18	32	18	32						000
+  #1099802	6	port	clr_i			alert_handler_accu.sv	19	32	19	37						000
+  #1099803	7	hier_path	reg2hw_wrap.class_clr[0]			alert_handler.sv	149	23	149	47		0				000
+
+facets of this row (4052, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

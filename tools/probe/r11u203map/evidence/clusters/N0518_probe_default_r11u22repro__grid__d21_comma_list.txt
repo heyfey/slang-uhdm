@@ -1,0 +1,41 @@
+cluster N0518 (id kept from an earlier map; OPEN | ground B | site operator() (ModuleEmit.cpp, law genConnReplCastActual) < emitDefGenStmts (ModuleEmit.cpp, law genRegionCondNoEnumBind) < emitModuleDef (ModuleEmit.cpp, law caProgramGenFlattensEveryKind95) [r11u150map pin]): span|cont_assign|endcol|under:named_begin
+row: probe/default/r11u22repro__grid__d21_comma_list  strict=endcol  records golden=187 ours=187
+object: #66 (golden) / #66 (ours)  type=cont_assign name= 
+  golden: 7:12:7:66
+  ours:   7:12:7:38
+  walk parents: named_begin(gb) < gen_if < module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 60..72 ('>' = the object)
+  #60	5	range				dut.sv	5	84	5	90						001
+  #61	6	constant				dut.sv	5	85	5	87	31	64	UINT:31	9		001
+  #62	6	constant				dut.sv	5	88	5	89	0	64	UINT:0	9		001
+  #63	2	gen_if				dut.sv	6	3	6	5						000
+  #64	3	constant				dut.sv	6	7	6	8	1	64	UINT:1	9		000
+  #65	3	named_begin	gb		work@top.gb		0	0	0	0					work@top.gb	000
+> #66	4	cont_assign				dut.sv	7	12	7	66						000
+  #67	5	operation				dut.sv	7	17	7	38		0				000
+  #68	6	operation				dut.sv	7	18	7	28		0				000
+  #69	7	ref_obj	P		work@top.gb.P	dut.sv	7	18	7	19		0			work@top.gb.P	000
+  #70	7	ref_obj	PNone		work@top.gb.PNone	dut.sv	7	23	7	28		0			work@top.gb.PNone	000
+  #71	6	ref_obj	a		work@top.gb.a	dut.sv	7	32	7	33		0			work@top.gb.a	000
+  #72	6	constant				dut.sv	7	36	7	38	'0	-1	BIN:0	3		000
+
+--- OURS (B) records 60..72 ('>' = the object)
+  #60	5	range				dut.sv	5	84	5	90						001
+  #61	6	constant				dut.sv	5	85	5	87	31	64	UINT:31	9		001
+  #62	6	constant				dut.sv	5	88	5	89	0	64	UINT:0	9		001
+  #63	2	gen_if				dut.sv	6	3	6	5						000
+  #64	3	constant				dut.sv	6	7	6	8	1	64	UINT:1	9		000
+  #65	3	named_begin	gb		work@top.gb		0	0	0	0					work@top.gb	000
+> #66	4	cont_assign				dut.sv	7	12	7	38						000
+  #67	5	operation				dut.sv	7	17	7	38		0				000
+  #68	6	operation				dut.sv	7	18	7	28		0				000
+  #69	7	ref_obj	P		work@top.gb.P	dut.sv	7	18	7	19		0			work@top.gb.P	000
+  #70	7	ref_obj	PNone		work@top.gb.PNone	dut.sv	7	23	7	28		0			work@top.gb.PNone	000
+  #71	6	ref_obj	a		work@top.gb.a	dut.sv	7	32	7	33		0			work@top.gb.a	000
+  #72	6	constant				dut.sv	7	36	7	38	'0	-1	BIN:0	3		000
+
+facets of this row (2, first 25):
+  N0518 #66/66 cont_assign  G[7:12:7:66] O[7:12:7:38]
+  N1973 #74/74 cont_assign  G[7:12:7:66] O[7:40:7:66]

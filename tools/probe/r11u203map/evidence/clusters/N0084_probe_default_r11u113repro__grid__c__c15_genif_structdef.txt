@@ -1,0 +1,43 @@
+cluster N0084 (id kept from an earlier map; OPEN | ground A | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < operator() (TypeEmit.cpp, law anonPackedAggDimTs107) < makeTypeParamDefaultTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) [r11u142map pin]): fullname|ref_typespec|tok:id@id.id.->|under:typespec_member
+row: probe/default/r11u113repro__grid__c__c15_genif_structdef  strict=fullname  records golden=71 ours=71
+object: #6 (golden) / #6 (ours)  type=ref_typespec name= TAIL
+  golden: work@top.idx_t.p
+  ours:   p
+  walk parents: typespec_member(p) < struct_typespec < ref_typespec < type_parameter(idx_t)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 0..12 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0						000
+  #1	1	module_inst		work@top	work@top	dut.sv	1	1	5	10					work@top	000
+  #2	2	type_parameter	idx_t		work@top.idx_t	dut.sv	1	29	1	34					work@top.idx_t	010
+  #3	3	ref_typespec			<in>idx_t		0	0	0	0		0			work@top.idx_t	001
+  #4	4	struct_typespec				dut.sv	1	37	1	43						001
+  #5	5	typespec_member	p			dut.sv	1	59	1	60						001
+> #6	6	ref_typespec			<in>idx_t.p		0	0	0	0		0			work@top.idx_t.p	001
+  #7	7	logic_typespec				dut.sv	1	53	1	58						001
+  #8	5	typespec_member	q			dut.sv	1	68	1	69						001
+  #9	6	ref_typespec			<in>idx_t.q		0	0	0	0		0			work@top.idx_t.q	001
+  #10	7	logic_typespec				dut.sv	1	62	1	67						001
+  #11	2	logic_net	a		work@top.a	dut.sv	1	87	1	88		0			work@top.a	000
+  #12	2	logic_net	y		work@top.y	dut.sv	1	109	1	110		0			work@top.y	000
+
+--- OURS (B) records 0..12 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0						000
+  #1	1	module_inst		work@top	work@top	dut.sv	1	1	5	10					work@top	000
+  #2	2	type_parameter	idx_t		work@top.idx_t	dut.sv	1	29	1	34					work@top.idx_t	010
+  #3	3	ref_typespec			<in>idx_t		0	0	0	0		0			work@top.idx_t	001
+  #4	4	struct_typespec				dut.sv	1	37	1	43						001
+  #5	5	typespec_member	p			dut.sv	1	59	1	60						001
+> #6	6	ref_typespec			p		0	0	0	0		0			p	001
+  #7	7	logic_typespec				dut.sv	1	53	1	58						001
+  #8	5	typespec_member	q			dut.sv	1	68	1	69						001
+  #9	6	ref_typespec			q		0	0	0	0		0			q	001
+  #10	7	logic_typespec				dut.sv	1	62	1	67						001
+  #11	2	logic_net	a		work@top.a	dut.sv	1	87	1	88		0			work@top.a	000
+  #12	2	logic_net	y		work@top.y	dut.sv	1	109	1	110		0			work@top.y	000
+
+facets of this row (4, first 25):
+  N0084 #6/6 ref_typespec  G[work@top.idx_t.p] O[p]
+  N0084 #9/9 ref_typespec  G[work@top.idx_t.q] O[q]
+  N0084 #38/38 ref_typespec  G[work@top.idx_t.p] O[p]
+  N0084 #41/41 ref_typespec  G[work@top.idx_t.q] O[q]

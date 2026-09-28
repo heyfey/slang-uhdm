@@ -1,0 +1,64 @@
+cluster N0018 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 13; passes 193-198 left it) | ground A | site emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law namedTfArgsFormalSlots4) < emitParameters (ParamEmit.cpp, law foldSigned9) [r11u165map pin]): fullname|ref_obj|ours-empty|under:hier_path
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(82)  records golden=1342584 ours=1342870
+object: #123456 (golden) / #123456 (ours)  type=ref_obj name=req OUT
+  golden: work@flash_phy.gen_flash_banks.i_core.req_i.req
+  ours:   
+  walk parents: hier_path(flash_ctrl_i.req) < operation < port(req_i) < ref_module(i_core)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 123450..123462 ('>' = the object)
+  #123450	5	port	clk_i			flash_phy.sv	122	7	122	13						000
+  #123451	5	port	rst_ni			flash_phy.sv	123	7	123	14						000
+  #123452	5	port	req_i			flash_phy.sv	124	7	124	57						000
+  #123453	6	operation				flash_phy.sv	124	14	124	56		0				000
+  #123454	7	hier_path	flash_ctrl_i.req			flash_phy.sv	124	14	124	30		0				000
+  #123455	8	ref_obj	flash_ctrl_i			flash_phy.sv	124	14	124	26		0				000
+> #123456	8	ref_obj	req		work@flash_phy.gen_flash_banks.i_core.req_i.req	flash_phy.sv	124	27	124	30		0			work@flash_phy.gen_flash_banks.i_core.req_i.req	000
+  #123457	7	operation				flash_phy.sv	124	34	124	55		0				000
+  #123458	8	ref_obj	ctrl_bank_sel		work@flash_phy.gen_flash_banks.i_core.req_i.ctrl_bank_sel	flash_phy.sv	124	34	124	47		0			work@flash_phy.gen_flash_banks.i_core.req_i.ctrl_bank_sel	000
+  #123459	8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.req_i.bank	flash_phy.sv	124	51	124	55		0			work@flash_phy.gen_flash_banks.i_core.req_i.bank	000
+  #123460	5	port	host_req_i			flash_phy.sv	127	7	127	79						000
+  #123461	6	operation				flash_phy.sv	127	19	127	78		0				000
+  #123462	7	operation				flash_phy.sv	127	19	127	55		0				000
+
+--- OURS (B) records 123450..123462 ('>' = the object)
+  #123450	5	port	clk_i			flash_phy.sv	122	7	122	13						000
+  #123451	5	port	rst_ni			flash_phy.sv	123	7	123	14						000
+  #123452	5	port	req_i			flash_phy.sv	124	7	124	57						000
+  #123453	6	operation				flash_phy.sv	124	14	124	56		0				000
+  #123454	7	hier_path	flash_ctrl_i.req			flash_phy.sv	124	14	124	30		0				000
+  #123455	8	ref_obj	flash_ctrl_i			flash_phy.sv	124	14	124	26		0				000
+> #123456	8	ref_obj	req			flash_phy.sv	124	27	124	30		0				000
+  #123457	7	operation				flash_phy.sv	124	34	124	55		0				000
+  #123458	8	ref_obj	ctrl_bank_sel		work@flash_phy.gen_flash_banks.i_core.req_i.ctrl_bank_sel	flash_phy.sv	124	34	124	47		0			work@flash_phy.gen_flash_banks.i_core.req_i.ctrl_bank_sel	000
+  #123459	8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.req_i.bank	flash_phy.sv	124	51	124	55		0			work@flash_phy.gen_flash_banks.i_core.req_i.bank	000
+  #123460	5	port	host_req_i			flash_phy.sv	127	7	127	79						000
+  #123461	6	operation				flash_phy.sv	127	19	127	78		0				000
+  #123462	7	operation				flash_phy.sv	127	19	127	55		0				000
+
+facets of this row (4052, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

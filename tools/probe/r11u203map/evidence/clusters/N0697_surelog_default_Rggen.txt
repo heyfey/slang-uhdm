@@ -1,0 +1,64 @@
+cluster N0697 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 12; passes 193-198 left it) | ground B | site makeTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitInterfaceInstance (ModuleEmit.cpp, law caIfaceElabNetDeclAssignListing88) [r11u142map pin]): file|range|other-file+span|under:logic_typespec
+row: surelog/default/Rggen  strict=differ:endcol(144)  records golden=314498 ours=312769
+object: #23165 (golden) / #23165 (ours)  type=range name= 
+  golden: rggen_adapter_common.sv 43:11:43:30
+  ours:   rggen_bus_if.sv 9:9:9:28
+  walk parents: logic_typespec < ref_typespec < logic_var(address) < io_decl(address)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 23159..23171 ('>' = the object)
+  #23159	12	enum_const	RGGEN_POSTED_WRITE			rggen_rtl_pkg.sv	4	5	4	32						001
+  #23160	12	enum_const	RGGEN_WRITE			rggen_rtl_pkg.sv	5	5	5	32						001
+  #23161	8	io_decl	address			rggen_bus_if.sv	30	13	30	20						000
+  #23162	9	logic_var	address		work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.address	rggen_bus_if.sv	9	29	9	36		0			work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.address	000
+  #23163	10	ref_typespec			work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.address		0	0	0	0		0			work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.address	000
+  #23164	11	logic_typespec				rggen_adapter_common.sv	43	5	43	10						000
+> #23165	12	range				rggen_adapter_common.sv	43	11	43	30						001
+  #23166	13	operation				rggen_adapter_common.sv	43	12	43	27		0				001
+  #23167	14	ref_obj	ADDRESS_WIDTH			rggen_adapter_common.sv	43	12	43	25		0				001
+  #23168	14	constant				rggen_adapter_common.sv	43	26	43	27	1	64	UINT:1	9		001
+  #23169	13	constant				rggen_adapter_common.sv	43	28	43	29	0	64	UINT:0	9		001
+  #23170	8	io_decl	write_data			rggen_bus_if.sv	31	13	31	23						000
+  #23171	9	logic_var	write_data		work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.write_data	rggen_bus_if.sv	10	29	10	39		0			work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.write_data	000
+
+--- OURS (B) records 23159..23171 ('>' = the object)
+  #23159	12	enum_const	RGGEN_POSTED_WRITE			rggen_rtl_pkg.sv	4	5	4	32						001
+  #23160	12	enum_const	RGGEN_WRITE			rggen_rtl_pkg.sv	5	5	5	32						001
+  #23161	8	io_decl	address			rggen_bus_if.sv	30	13	30	20						000
+  #23162	9	logic_var	address		work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.address	rggen_bus_if.sv	9	29	9	36		0			work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.address	000
+  #23163	10	ref_typespec			work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.address		0	0	0	0		0			work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.address	000
+  #23164	11	logic_typespec				rggen_bus_if.sv	9	3	9	28						000
+> #23165	12	range				rggen_bus_if.sv	9	9	9	28						001
+  #23166	13	constant				rggen_bus_if.sv	9	10	9	23	15	64	INT:15	7		001
+  #23167	13	constant				rggen_bus_if.sv	9	26	9	27	0	64	UINT:0	9		001
+  #23168	8	io_decl	write_data			rggen_bus_if.sv	31	13	31	23						000
+  #23169	9	logic_var	write_data		work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.write_data	rggen_bus_if.sv	10	29	10	39		0			work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.write_data	000
+  #23170	10	ref_typespec			work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.write_data		0	0	0	0		0			work@rggen.u_block_0.u_adapter.u_adapter_common.bus_if.write_data	000
+  #23171	11	logic_typespec				rggen_bus_if.sv	10	3	10	24						000
+
+facets of this row (5559, first 25):
+  N0683 #23168/23166 constant  G[14 operation < range] O[13 range < logic_typespec]
+  N1172 #23166/-1 operation  G[2 objs] O[]
+  N0683 #26509/26505 constant  G[16 operation < range] O[15 range < logic_typespec]
+  N1172 #26507/-1 operation  G[2 objs] O[]
+  N0683 #28776/28770 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28774/-1 operation  G[2 objs] O[]
+  N0683 #28785/28777 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28783/-1 operation  G[2 objs] O[]
+  N0683 #28794/28784 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28792/-1 operation  G[2 objs] O[]
+  N0683 #29654/29642 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29652/-1 operation  G[2 objs] O[]
+  N0683 #29663/29649 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29661/-1 operation  G[2 objs] O[]
+  N0683 #29672/29656 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29670/-1 operation  G[2 objs] O[]
+  N0683 #30427/30409 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30425/-1 operation  G[2 objs] O[]
+  N0683 #30436/30416 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30434/-1 operation  G[2 objs] O[]
+  N0683 #30445/30423 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30443/-1 operation  G[2 objs] O[]
+  N0683 #31206/31182 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #31204/-1 operation  G[2 objs] O[]
+  N0683 #31215/31189 constant  G[17 operation < range] O[16 range < logic_typespec]

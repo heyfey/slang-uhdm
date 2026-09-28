@@ -1,0 +1,264 @@
+diff --git a/src/ExprEmit.cpp b/src/ExprEmit.cpp
+index e3d4a2639..11659c035 100644
+--- a/src/ExprEmit.cpp
++++ b/src/ExprEmit.cpp
+@@ -24,6 +24,48 @@
+ #include "slang/ast/symbols/CoverSymbols.h"
+ 
+ namespace slang_uhdm {
++// The r11u200 switches of this file (ground A; the switch table is in
++// UhdmExporter.cpp).  Local so this file's laws land and build alone:
++// R11U200_OFF drops all of them; R11U200_TRACE=<dir> appends one
++// `<law> <detail>` line per firing to `<dir>/<pid>.200E` (ExprEmit) or `.200P` (ParamEmit), first line
++// `OUT <-o path>`.
++static bool r11u200Law(const char* sw) {
++    if (getenv("R11U200_OFF") != nullptr)
++        return false;
++    return getenv(sw) == nullptr;
++}
++static void trace200(const char* law, const std::string& detail) {
++    static FILE* tf = []() -> FILE* {
++        const char* d = getenv("R11U200_TRACE");
++        if (!d)
++            return nullptr;
++        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".200E";
++        FILE* fp = fopen(fn.c_str(), "a");
++        if (!fp)
++            return nullptr;
++        std::string cl, prev, outp;
++        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
++            int ch;
++            while ((ch = fgetc(c)) != EOF) {
++                if (ch == 0) {
++                    if (prev == "-o")
++                        outp = cl;
++                    prev = cl;
++                    cl.clear();
++                }
++                else
++                    cl += (char)ch;
++            }
++            fclose(c);
++        }
++        fprintf(fp, "OUT %s\n", outp.c_str());
++        return fp;
++    }();
++    if (tf) {
++        fprintf(tf, "%s %s\n", law, detail.c_str());
++        fflush(tf);
++    }
++}
+ 
+ // The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
+ // reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them.
+@@ -2917,6 +2959,24 @@ static void stripRefFullNames11(UHDM::any* o, int depth = 0) {
+                 for (auto* a : *as)
+                     stripRefFullNames11(a, depth + 1);
+             return;
++        // § newArrayArgPathElemsStripped200 (r11u200, SVSwitch's N0007) — the
++        // strip reaches a hier_path's elements too: the paren-less built-in
++        // `bytes.size` in `new[bytes.size + 1]` is a hier_path whose trailing
++        // `size` ref_obj golden leaves unnamed like every other reference
++        // compiled under the unparented `new` call (Receiver.sv 40:26,
++        // Packet.sv 71:20; ours `work@Receiver::start::size`).  Grid
++        // tools/probe/r11u200dec/cases/N.  Switch R11U200_NEWARRHP_OFF.
++        case UHDM::uhdmhier_path:
++            if (r11u200Law("R11U200_NEWARRHP_OFF"))
++                if (auto* pe = ((UHDM::hier_path*)o)->Path_elems())
++                    for (auto* e : *pe)
++                        if (e && e->UhdmType() == UHDM::uhdmref_obj &&
++                            !((UHDM::ref_obj*)e)->VpiFullName().empty()) {
++                            ((UHDM::ref_obj*)e)->VpiFullName(std::string());
++                            trace200("newArrayArgPathElemsStripped200",
++                                     std::string(((UHDM::ref_obj*)e)->VpiName()));
++                        }
++            return;
+         default:
+             return;
+     }
+@@ -7478,6 +7538,40 @@ static bool inGenerateBlock27v(const slang::ast::Expression& arg0) {
+     return false;
+ }
+ 
++// § genBlockBitsKeepsSelect200 — inside a generate construct's BODY (a
++// generate region, a begin-end generate block, the block or else-branch of a
++// gen-if, the block of a gen-for, a gen-case item's clause), not in its
++// condition or loop header: Surelog evaluates those (HierPathPackedStruct's
++// gen-if condition `$bits(a.pair[0]) != 42` folds in golden).
++static bool genBody200(const slang::syntax::SyntaxNode* n) {
++    using namespace slang::syntax;
++    const SyntaxNode* prev = nullptr;
++    for (const SyntaxNode* p = n; p; prev = p, p = p->parent) {
++        switch (p->kind) {
++            case SyntaxKind::IfGenerate: {
++                auto& ig = p->as<IfGenerateSyntax>();
++                return prev && (prev == ig.block.get() ||
++                                prev == (const SyntaxNode*)ig.elseClause);
++            }
++            case SyntaxKind::LoopGenerate:
++                return prev && prev == p->as<LoopGenerateSyntax>().block.get();
++            case SyntaxKind::CaseGenerate:
++                return prev && prev != p->as<CaseGenerateSyntax>().condition.get();
++            case SyntaxKind::StandardCaseItem:
++                if (p->parent && p->parent->kind == SyntaxKind::CaseGenerate &&
++                    prev != p->as<StandardCaseItemSyntax>().clause.get())
++                    return false;
++                break;
++            case SyntaxKind::GenerateRegion:
++            case SyntaxKind::GenerateBlock:
++                return true;
++            default:
++                break;
++        }
++    }
++    return false;
++}
++
+ // § binOpLeftmostSelectBits27 — `compileBits` TYPES AN EXPRESSION ARGUMENT BY
+ // ITS LEFTMOST OPERAND, AND ONLY WHEN THAT OPERAND CARRIES A SELECT.
+ //
+@@ -34519,6 +34613,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+             // listing versus ELABORATED listing, gated on the package clone
+             // window.  What is still open is the MODULE's own `C::m` listing
+             // (uvm174 residue R5) — not this site, and no longer the head.
++            // § genBlockBitsKeepsSelect200 (r11u200, r11u199's N7 and the
++            // residue R-GENFOLD of § genBlockBitsNoLeftmostFold27v) — inside
++            // a generate block Surelog keeps EVERY `$bits` call (the
++            // verifier's cells f01-f12), the single-SELECT argument too:
++            // golden `assign z = $bits(x[W:0]);` in a for-generate keeps the
++            // sys_func_call and the downstream plugin reads 5, while ours
++            // folded it to the ROOT width 32 (§ bitsSelectIgnoredRootBits95's
++            // quirk, which Surelog applies only where it folds) and the
++            // netlist diverged.  Grid tools/probe/r11u200dec/cases/B.  Switch
++            // R11U200_GENBITS_OFF.
++            if (name == "$bits" && !bitsKeep && bitsArg27 &&
++                genBody200(bitsArg27->syntax)) {
++                auto sk200 = stripImplicitConv(*bitsArg27).kind;
++                if ((sk200 == ExpressionKind::RangeSelect ||
++                     sk200 == ExpressionKind::ElementSelect) &&
++                    r11u200Law("R11U200_GENBITS_OFF")) {
++                    bitsKeep = true;
++                    ownPropFold61 = false;
++                    trace200("genBlockBitsKeepsSelect200", std::string(name));
++                }
++            }
+             if (name == "$bits" && !bitsKeep) {
+                 bool localParamArg =
+                     !call.arguments().empty() &&
+diff --git a/src/ParamEmit.cpp b/src/ParamEmit.cpp
+index 1b9653f9c..8ffdd09a7 100644
+--- a/src/ParamEmit.cpp
++++ b/src/ParamEmit.cpp
+@@ -17,6 +17,48 @@
+ #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
+ 
+ namespace slang_uhdm {
++// The r11u200 switches of this file (ground A; the switch table is in
++// UhdmExporter.cpp).  Local so this file's laws land and build alone:
++// R11U200_OFF drops all of them; R11U200_TRACE=<dir> appends one
++// `<law> <detail>` line per firing to `<dir>/<pid>.200E` (ExprEmit) or `.200P` (ParamEmit), first line
++// `OUT <-o path>`.
++static bool r11u200Law(const char* sw) {
++    if (getenv("R11U200_OFF") != nullptr)
++        return false;
++    return getenv(sw) == nullptr;
++}
++static void trace200(const char* law, const std::string& detail) {
++    static FILE* tf = []() -> FILE* {
++        const char* d = getenv("R11U200_TRACE");
++        if (!d)
++            return nullptr;
++        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".200P";
++        FILE* fp = fopen(fn.c_str(), "a");
++        if (!fp)
++            return nullptr;
++        std::string cl, prev, outp;
++        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
++            int ch;
++            while ((ch = fgetc(c)) != EOF) {
++                if (ch == 0) {
++                    if (prev == "-o")
++                        outp = cl;
++                    prev = cl;
++                    cl.clear();
++                }
++                else
++                    cl += (char)ch;
++            }
++            fclose(c);
++        }
++        fprintf(fp, "OUT %s\n", outp.c_str());
++        return fp;
++    }();
++    if (tf) {
++        fprintf(tf, "%s %s\n", law, detail.c_str());
++        fflush(tf);
++    }
++}
+ 
+ // The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
+ // reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them.
+@@ -27673,16 +27715,57 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
+                             // Surelog's reduceExpr rewrote.
+                             if (es) {
+                                 const syntax::ExpressionSyntax* le8 = es;
++                                // § unitBoundFoldAtLeftOperand200 (r11u200,
++                                // Scr1SvTests' `localparam [`SCR1_XLEN-1:0]`)
++                                // — Surelog populates a bound it REDUCED at
++                                // the ROOT operation's LEFT OPERAND node, one
++                                // level only (golden `[2*4-1:0]` -> `2*4`
++                                // 2:15-2:18, `[1+2+3:0]` -> `1+2`; ours walked
++                                // to the leftmost leaf `2` / `1`), and a
++                                // $unit parameter's bound reduces the same way
++                                // (golden `[`SCR1_XLEN-1:0]` 211:13-211:15,
++                                // ours the whole `32-1`).  Grid
++                                // tools/probe/r11u200dec/cases/U.  Switches
++                                // R11U200_UNITFOLD_OFF (the $unit arm) and
++                                // R11U200_FOLDDEPTH_OFF (one level).
++                                bool oneLevel200 =
++                                    r11u200Law("R11U200_FOLDDEPTH_OFF");
+                                 if (auto* psc8 = ps.getParentScope();
+                                     psc8 &&
+                                     psc8->asSymbol().kind ==
+                                         SymbolKind::Package &&
+-                                    !pkgParamOwnDefView(ps))
+-                                    while (syntax::BinaryExpressionSyntax::
+-                                               isKind(le8->kind))
+-                                        le8 = le8->as<syntax::
+-                                                          BinaryExpressionSyntax>()
+-                                                  .left;
++                                    !pkgParamOwnDefView(ps)) {
++                                    if (oneLevel200) {
++                                        if (syntax::BinaryExpressionSyntax::isKind(
++                                                le8->kind)) {
++                                            le8 = le8->as<syntax::
++                                                              BinaryExpressionSyntax>()
++                                                      .left;
++                                            if (syntax::BinaryExpressionSyntax::isKind(
++                                                    le8->kind))
++                                                trace200("unitBoundFoldAtLeftOperand200",
++                                                         "depth " +
++                                                             std::string(ps.name));
++                                        }
++                                    }
++                                    else
++                                        while (syntax::BinaryExpressionSyntax::
++                                                   isKind(le8->kind))
++                                            le8 = le8->as<syntax::
++                                                              BinaryExpressionSyntax>()
++                                                      .left;
++                                }
++                                else if (psc8 &&
++                                         psc8->asSymbol().kind ==
++                                             SymbolKind::CompilationUnit &&
++                                         syntax::BinaryExpressionSyntax::isKind(
++                                             le8->kind) &&
++                                         r11u200Law("R11U200_UNITFOLD_OFF")) {
++                                    le8 = le8->as<syntax::BinaryExpressionSyntax>()
++                                              .left;
++                                    trace200("unitBoundFoldAtLeftOperand200",
++                                             "unit " + std::string(ps.name));
++                                }
+                                 setLoc(c, le8->sourceRange());
+                             }
+                             return (UHDM::expr*)c;

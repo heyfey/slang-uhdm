@@ -1,0 +1,64 @@
+cluster N0836 (id kept from an earlier map; COVERED r11u201 (pass 198 R8 / map 11 A1: Scr1SvTests' ground-A half) | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold) < emitInstance (ModuleEmit.cpp, law elabPortConnUnitEnumNet) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id.id.->|under:sys_func_call
+row: surelog/testflags/Scr1SvTests  strict=differ:endcol(29)  records golden=83997 ours=84036
+object: #76098 (golden) / #76137 (ours)  type=ref_obj name=SCR1_TCM_SIZE OUT
+  golden: work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra.imem_addr.SCR1_TCM_SIZE
+  ours:   work@scr1_top_tb_axi.i_top.i_tcm.imem_addr.SCR1_TCM_SIZE
+  walk parents: sys_func_call($clog2) < operation < part_select(imem_addr) < port(addra)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 76092..76104 ('>' = the object)
+  #76092	6	ref_typespec			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.rena		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.rena	000
+  #76093	7	logic_typespec				scr1_dp_memory.sv	18	13	18	18						000
+  #76094	5	port	addra			scr1_dp_memory.sv	19	45	19	50						000
+  #76095	6	part_select	imem_addr	imem_addr	work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra.imem_addr	scr1_tcm.sv	107	15	107	51		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra.imem_addr	000
+  #76096	7	operation				scr1_tcm.sv	107	25	107	48		0				000
+  #76097	8	sys_func_call	$clog2			scr1_tcm.sv	107	25	107	46		0				000
+> #76098	9	ref_obj	SCR1_TCM_SIZE		work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra.imem_addr.SCR1_TCM_SIZE	scr1_tcm.sv	107	32	107	45		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra.imem_addr.SCR1_TCM_SIZE	000
+  #76099	8	constant				scr1_tcm.sv	107	47	107	48	1	64	UINT:1	9		000
+  #76100	7	constant				scr1_tcm.sv	107	49	107	50	2	64	UINT:2	9		000
+  #76101	6	ref_obj	addra		work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra	scr1_tcm.sv	107	6	107	11		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra	000
+  #76102	6	ref_typespec			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra	000
+  #76103	7	logic_typespec				scr1_dp_memory.sv	19	13	19	42						000
+  #76104	8	range				scr1_dp_memory.sv	19	19	19	42						001
+
+--- OURS (B) records 76131..76143 ('>' = the object)
+  #76131	6	ref_typespec			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.rena		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.rena	000
+  #76132	7	logic_typespec				scr1_dp_memory.sv	18	13	18	18						000
+  #76133	5	port	addra			scr1_dp_memory.sv	19	45	19	50						000
+  #76134	6	part_select	imem_addr	imem_addr	work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra.imem_addr	scr1_tcm.sv	107	15	107	51		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra.imem_addr	000
+  #76135	7	operation				scr1_tcm.sv	107	25	107	48		0				000
+  #76136	8	sys_func_call	$clog2			scr1_tcm.sv	107	25	107	46		0				000
+> #76137	9	ref_obj	SCR1_TCM_SIZE		work@scr1_top_tb_axi.i_top.i_tcm.imem_addr.SCR1_TCM_SIZE	scr1_tcm.sv	107	32	107	45		0			work@scr1_top_tb_axi.i_top.i_tcm.imem_addr.SCR1_TCM_SIZE	000
+  #76138	8	constant				scr1_tcm.sv	107	47	107	48	1	64	UINT:1	9		000
+  #76139	7	constant				scr1_tcm.sv	107	49	107	50	2	64	UINT:2	9		000
+  #76140	6	ref_obj	addra		work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra	scr1_tcm.sv	107	6	107	11		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra	000
+  #76141	6	ref_typespec			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra	000
+  #76142	7	logic_typespec				scr1_dp_memory.sv	19	13	19	42						000
+  #76143	8	range				scr1_dp_memory.sv	19	19	19	42						001
+
+facets of this row (109, first 25):
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48791 constant  G[] O[1 objs]
+  N2405 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N0921 #-1/70149 operation  G[] O[5 objs]
+  N0921 #-1/70158 operation  G[] O[7 objs]
+  N0921 #-1/70169 operation  G[] O[11 objs]
+  N0921 #-1/70184 operation  G[] O[13 objs]
+  N0921 #-1/76049 operation  G[] O[7 objs]
+  N0448 #30855/30855 constant  G[211:13:211:15] O[211:13:211:17]
+  N0040 #31055/31055 logic_typespec  G[29:12:29:39] O[29:12:29:28]
+  N0040 #31069/31069 logic_typespec  G[30:12:30:40] O[30:12:30:28]
+  N0040 #31083/31083 logic_typespec  G[31:12:31:34] O[31:12:31:28]
+  N0040 #31095/31095 logic_typespec  G[32:12:32:34] O[32:12:32:28]
+  N0040 #31125/31125 logic_typespec  G[37:12:37:41] O[37:12:37:28]
+  N0040 #31139/31139 logic_typespec  G[38:12:38:43] O[38:12:38:28]
+  N0040 #31191/31191 logic_typespec  G[45:12:45:39] O[45:12:45:28]
+  N0040 #31205/31205 logic_typespec  G[46:12:46:34] O[46:12:46:28]
+  N0040 #31226/31226 logic_typespec  G[50:12:50:39] O[50:12:50:28]
+  N0040 #31240/31240 logic_typespec  G[51:12:51:40] O[51:12:51:28]
+  N0040 #31254/31254 logic_typespec  G[52:12:52:34] O[52:12:52:28]
+  N0040 #31266/31266 logic_typespec  G[53:12:53:34] O[53:12:53:28]
+  N0040 #31278/31278 logic_typespec  G[54:12:54:34] O[54:12:54:28]
+  N0040 #31317/31317 logic_typespec  G[60:12:60:39] O[60:12:60:28]
+  N0040 #31331/31331 logic_typespec  G[61:12:61:41] O[61:12:61:28]
+  N0040 #31354/31354 logic_typespec  G[63:12:63:34] O[63:12:63:28]

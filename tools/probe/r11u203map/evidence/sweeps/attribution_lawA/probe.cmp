@@ -1,0 +1,4 @@
+[probe] EQUAL=3347 STRICT_NOTEQUAL=740
+CONVERSION r10svs2repro/s4_context STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r10svs3repro/a1_newlhs STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+regressions=0 conversions=2 changes=0 only-fresh=0 only-committed=0

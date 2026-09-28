@@ -1,0 +1,64 @@
+cluster N0118 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 8; passes 193-198 left it) | ground A | site emitBadConcatOperand160 (ExprEmit.cpp, law typeParamScopedCallRef59) < emitBadConcatFromSyntax160 (ExprEmit.cpp, law classArgBind12) < emitExpr (ExprEmit.cpp, law droppedIdxRecvCall26) [r11u142map pin]): span|constant|line+col+endline+endcol|under:operation
+row: surelog/testflags/BlackBePipeInt  strict=differ:fullname(2)  records golden=338504 ours=340984
+object: #44885 (golden) / #47109 (ours)  type=constant name= 
+  golden: 2047:16:2047:17
+  ours:   3807:14:3809:54
+  walk parents: operation < param_assign < package(bp_be_pkg) < design(work@bp_be_pipe_int)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 44879..44891 ('>' = the object)
+  #44879	6	typespec_member	io_noc_len_width			dut.sv	2040	19	2040	35						001
+  #44880	7	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_len_width		0	0	0	0		0			bp_be_pkg::bp_common_pkg::bp_proc_param_s::io_noc_len_width	001
+  #44881	8	integer_typespec				dut.sv	2040	2	2040	18						001
+  #44882	6	typespec_member	io_noc_max_credits			dut.sv	2042	19	2042	37						001
+  #44883	7	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_max_credits		0	0	0	0		0			bp_be_pkg::bp_common_pkg::bp_proc_param_s::io_noc_max_credits	001
+  #44884	8	integer_typespec				dut.sv	2042	2	2042	18						001
+> #44885	4	constant				dut.sv	2047	16	2047	17	1	32	UINT:1	9		000
+  #44886	4	constant				dut.sv	2048	16	2048	17	1	32	UINT:1	9		000
+  #44887	4	constant				dut.sv	3792	28	3792	29	1	32	UINT:1	9		000
+  #44888	4	constant				dut.sv	2050	16	2050	17	0	32	UINT:0	9		000
+  #44889	4	constant				dut.sv	2051	16	2051	17	0	32	UINT:0	9		000
+  #44890	4	constant				dut.sv	2052	16	2052	17	0	32	UINT:0	9		000
+  #44891	4	constant				dut.sv	2053	16	2053	27	0	32	UINT:0	9		000
+
+--- OURS (B) records 47103..47115 ('>' = the object)
+  #47103	6	typespec_member	io_noc_len_width			dut.sv	2040	19	2040	35						001
+  #47104	7	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_len_width		0	0	0	0		0			bp_be_pkg::bp_multicore_1_cfg_p.bp_common_pkg::bp_proc_param_s.io_noc_len_width	001
+  #47105	8	integer_typespec				dut.sv	2040	2	2040	18						001
+  #47106	6	typespec_member	io_noc_max_credits			dut.sv	2042	19	2042	37						001
+  #47107	7	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_max_credits		0	0	0	0		0			bp_be_pkg::bp_multicore_1_cfg_p.bp_common_pkg::bp_proc_param_s.io_noc_max_credits	001
+  #47108	8	integer_typespec				dut.sv	2042	2	2042	18						001
+> #47109	4	constant				dut.sv	3807	14	3809	54	1	32	UINT:1	9		000
+  #47110	4	constant				dut.sv	3812	14	3814	54	1	32	UINT:1	9		000
+  #47111	4	constant				dut.sv	3817	14	3819	54	1	32	UINT:1	9		000
+  #47112	4	constant				dut.sv	3822	14	3824	54	0	32	UINT:0	9		000
+  #47113	4	constant				dut.sv	3827	15	3829	55	0	32	UINT:0	9		000
+  #47114	4	constant				dut.sv	3832	15	3834	55	0	32	UINT:0	9		000
+  #47115	4	constant				dut.sv	3837	15	3839	55	0	32	UINT:0	9		000
+
+facets of this row (57038, first 25):
+  N0897 #-1/66 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/14409 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15104 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15118 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15132 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15146 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15160 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15174 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15188 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15202 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15216 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15230 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15244 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15258 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15272 parameter dev_addr_width_gp G[] O[8 objs]
+  N0868 #-1/15388 constant  G[] O[1 objs]
+  N0868 #-1/15392 constant  G[] O[1 objs]
+  N0868 #-1/15396 constant  G[] O[1 objs]
+  N0868 #-1/15400 constant  G[] O[1 objs]
+  N0868 #-1/15404 constant  G[] O[1 objs]
+  N0868 #-1/15408 constant  G[] O[1 objs]
+  N0868 #-1/15412 constant  G[] O[1 objs]
+  N0868 #-1/15416 constant  G[] O[1 objs]
+  N0868 #-1/15420 constant  G[] O[1 objs]
+  N0868 #-1/15424 constant  G[] O[1 objs]

@@ -1,0 +1,40 @@
+cluster N1174 (id kept from an earlier map; COVERED r11u202 (map 11 pair-B route carried: HierPathTypespec t (OPTIMISTIC: naming context-dependent, never attempted)) | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < buildClassTypedefTs (UhdmExporter.cpp, law typedefAliasSharesTypespec25) < emitClassTypedefs (UhdmExporter.cpp, law typedefAliasSharesTypespec25) [r11u142map pin]): fullname|ref_typespec|tok:id::id::->|under:typespec_member
+row: surelog/testflags/HierPathTypespec  strict=differ:fullname(1)  records golden=113 ours=113
+object: #105 (golden) / #105 (ours)  type=ref_typespec name= OUT
+  golden: pkg::pkg::b::pkg::a::x
+  ours:   pkg::pkg::a::x
+  walk parents: typespec_member(x) < ref_obj(x) < hier_path(c[1].x) < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 99..111 ('>' = the object)
+  #99	3	constant				dut.sv	12	20	12	21	1	64	UINT:1	9		000
+  #100	3	hier_path	c[1].x			dut.sv	12	11	12	12		0				000
+  #101	4	bit_select	c		c[1]	dut.sv	12	11	12	12		0			c[1]	000
+  #102	5	constant				dut.sv	12	13	12	14	1	64	UINT:1	9		000
+  #103	4	ref_obj	x		c[1].x	dut.sv	12	16	12	17		0			c[1].x	000
+  #104	5	typespec_member	x			dut.sv	3	19	3	20						000
+> #105	6	ref_typespec			pkg::pkg::b::pkg::a::x		0	0	0	0		0			pkg::pkg::b::pkg::a::x	000
+  #106	7	logic_typespec				dut.sv	3	7	3	12						000
+  #107	2	cont_assign				dut.sv	13	11	13	21						000
+  #108	3	hier_path	c[1].x			dut.sv	13	15	13	21		0				000
+  #109	4	bit_select	c		c[1]	dut.sv	13	15	13	16		0			c[1]	000
+  #110	5	constant				dut.sv	13	17	13	18	1	64	UINT:1	9		000
+  #111	4	ref_obj	x		work@top.x	dut.sv	13	20	13	21		0			work@top.x	000
+
+--- OURS (B) records 99..111 ('>' = the object)
+  #99	3	constant				dut.sv	12	20	12	21	1	64	UINT:1	9		000
+  #100	3	hier_path	c[1].x			dut.sv	12	11	12	12		0				000
+  #101	4	bit_select	c		c[1]	dut.sv	12	11	12	12		0			c[1]	000
+  #102	5	constant				dut.sv	12	13	12	14	1	64	UINT:1	9		000
+  #103	4	ref_obj	x		c[1].x	dut.sv	12	16	12	17		0			c[1].x	000
+  #104	5	typespec_member	x			dut.sv	3	19	3	20						000
+> #105	6	ref_typespec			pkg::pkg::a::x		0	0	0	0		0			pkg::pkg::a::x	000
+  #106	7	logic_typespec				dut.sv	3	7	3	12						000
+  #107	2	cont_assign				dut.sv	13	11	13	21						000
+  #108	3	hier_path	c[1].x			dut.sv	13	15	13	21		0				000
+  #109	4	bit_select	c		c[1]	dut.sv	13	15	13	16		0			c[1]	000
+  #110	5	constant				dut.sv	13	17	13	18	1	64	UINT:1	9		000
+  #111	4	ref_obj	x		work@top.x	dut.sv	13	20	13	21		0			work@top.x	000
+
+facets of this row (1, first 25):
+  N1174 #105/105 ref_typespec  G[pkg::pkg::b::pkg::a::x] O[pkg::pkg::a::x]

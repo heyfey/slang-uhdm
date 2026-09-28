@@ -1,0 +1,64 @@
+cluster N0658 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 15; passes 193-198 left it) | ground B | site exportDesign (UhdmExporter.cpp, law enumNoBind13) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): struct|ours-only:elsewhere|array_typespec|under:ref_typespec
+row: surelog/default/MiniAmiq  strict=differ:file(17)  records golden=435559 ours=433772
+object: #-1 (golden) / #150083 (ours)  type=array_typespec name= 
+  golden: 
+  ours:   1 objs
+  walk parents: ref_typespec < ref_var(values) < foreach_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 150077..150089 ('>' = the object)
+  #150077	7	constant				uvm_component.svh	3390	43	3390	64	"+uvm_set_verbosity="	152	STRING:+uvm_set_verbosity=	6		000
+  #150078	7	ref_obj	values		uvm_pkg::uvm_component::m_set_cl_verb::values	uvm_component.svh	3390	65	3390	71		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+  #150079	7	ref_obj	uvm_cmdline_proc		uvm_pkg::uvm_component::m_set_cl_verb::uvm_cmdline_proc	uvm_component.svh	3390	11	3390	27		0			uvm_pkg::uvm_component::m_set_cl_verb::uvm_cmdline_proc	000
+  #150080	5	foreach_stmt			uvm_pkg::uvm_component::m_set_cl_verb	uvm_component.svh	3392	3	3392	10					uvm_pkg::uvm_component::m_set_cl_verb	000
+  #150081	6	ref_var	values		uvm_pkg::uvm_component::m_set_cl_verb::values	uvm_component.svh	3392	11	3392	17		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+  #150082	7	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::values		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+> #150083	8	array_typespec					0	0	0	0						000
+  #150084	6	string_var	i		uvm_pkg::uvm_component::m_set_cl_verb::i	uvm_component.svh	3392	18	3392	19		0			uvm_pkg::uvm_component::m_set_cl_verb::i	000
+  #150085	7	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::i		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::i	000
+  #150086	8	string_typespec				uvm_component.svh	3380	10	3380	16						000
+  #150087	6	begin			uvm_pkg::uvm_component::m_set_cl_verb	uvm_component.svh	3392	22	3430	6					uvm_pkg::uvm_component::m_set_cl_verb	000
+  #150088	7	ref_var	setting		uvm_pkg::uvm_component::m_set_cl_verb::setting	uvm_component.svh	3393	25	3393	32		0			uvm_pkg::uvm_component::m_set_cl_verb::setting	000
+  #150089	8	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::setting		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::setting	000
+
+--- the holder #150082 on the other side: exact-record matches at [151011]
+  #151008	7	ref_obj	uvm_cmdline_proc		uvm_pkg::uvm_component::m_set_cl_verb::uvm_cmdline_proc	uvm_component.svh	3390	11	3390	27		0			uvm_pkg::uvm_component::m_set_cl_verb::uvm_cmdline_proc	000
+  #151009	5	foreach_stmt			uvm_pkg::uvm_component::m_set_cl_verb	uvm_component.svh	3392	3	3392	10					uvm_pkg::uvm_component::m_set_cl_verb	000
+  #151010	6	ref_var	values		uvm_pkg::uvm_component::m_set_cl_verb::values	uvm_component.svh	3392	11	3392	17		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+> #151011	7	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::values		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+  #151012	8	string_typespec				uvm_component.svh	3380	10	3380	16						000
+  #151013	6	string_var	i		uvm_pkg::uvm_component::m_set_cl_verb::i	uvm_component.svh	3392	18	3392	19		0			uvm_pkg::uvm_component::m_set_cl_verb::i	000
+  #151014	7	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::i		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::i	000
+  #151015	8	string_typespec				uvm_component.svh	3380	10	3380	16						000
+  #151016	6	begin			uvm_pkg::uvm_component::m_set_cl_verb	uvm_component.svh	3392	22	3430	6					uvm_pkg::uvm_component::m_set_cl_verb	000
+  #151017	7	ref_var	setting		uvm_pkg::uvm_component::m_set_cl_verb::setting	uvm_component.svh	3393	25	3393	32		0			uvm_pkg::uvm_component::m_set_cl_verb::setting	000
+  #151018	8	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::setting		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::setting	000
+  #151019	9	struct_typespec	m_verbosity_setting			uvm_component.svh	1686	11	1692	4						110
+  #151020	10	typespec_member	comp			uvm_pkg.sv	1687	12	1687	16						001
+
+facets of this row (8312, first 25):
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20803 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21739 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0678 #-1/63709 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63775 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66835 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66923 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67150 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68134 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68154 unsupported_typespec index G[] O[1 objs]

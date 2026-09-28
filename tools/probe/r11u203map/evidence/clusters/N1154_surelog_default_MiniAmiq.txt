@@ -1,0 +1,64 @@
+cluster N1154 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 16; passes 193-198 left it) | ground A | site emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u138map pin] [r11u142map pin]): span|ref_obj|endline+endcol|under:assignment
+row: surelog/default/MiniAmiq  strict=differ:file(17)  records golden=435559 ours=433772
+object: #434285 (golden) / #432498 (ours)  type=ref_obj name=svaunit_concurrent_assertion_info::create 
+  golden: 239:55:239:99
+  ours:   239:55:240:13
+  walk parents: assignment < begin < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 434279..434291 ('>' = the object)
+  #434279	13	ref_obj	property_info			svaunit_vpi_interface.sv	238	33	238	46		0				000
+  #434280	13	method_func_call	size			svaunit_vpi_interface.sv	238	47	238	51		0				000
+  #434281	12	constant				svaunit_vpi_interface.sv	238	56	238	57	1	64	UINT:1	9		000
+  #434282	11	ref_obj	property_info			svaunit_vpi_interface.sv	238	60	238	73		0				000
+  #434283	10	ref_obj	property_info		work@svaunit_vpi_interface.create_assertion_dpi.property_info	svaunit_vpi_interface.sv	238	13	238	26		0			work@svaunit_vpi_interface.create_assertion_dpi.property_info	000
+  #434284	9	assignment				svaunit_vpi_interface.sv	239	13	240	63						000
+> #434285	10	ref_obj	svaunit_concurrent_assertion_info::create		work@svaunit_vpi_interface.create_assertion_dpi.svaunit_concurrent_assertion_info::create	svaunit_vpi_interface.sv	239	55	239	99		0			work@svaunit_vpi_interface.create_assertion_dpi.svaunit_concurrent_assertion_info::create	000
+  #434286	10	bit_select	property_info		work@svaunit_vpi_interface.create_assertion_dpi.property_info	svaunit_vpi_interface.sv	239	13	239	52		0			work@svaunit_vpi_interface.create_assertion_dpi.property_info	000
+  #434287	11	operation				svaunit_vpi_interface.sv	239	27	239	51		0				000
+  #434288	12	hier_path	property_info.size			svaunit_vpi_interface.sv	239	27	239	47		0				000
+  #434289	13	ref_obj	property_info			svaunit_vpi_interface.sv	239	27	239	40		0				000
+  #434290	13	method_func_call	size			svaunit_vpi_interface.sv	239	41	239	45		0				000
+  #434291	12	constant				svaunit_vpi_interface.sv	239	50	239	51	1	64	UINT:1	9		000
+
+--- OURS (B) records 432492..432504 ('>' = the object)
+  #432492	13	ref_obj	property_info			svaunit_vpi_interface.sv	238	33	238	46		0				000
+  #432493	13	method_func_call	size			svaunit_vpi_interface.sv	238	47	238	51		0				000
+  #432494	12	constant				svaunit_vpi_interface.sv	238	56	238	57	1	64	UINT:1	9		000
+  #432495	11	ref_obj	property_info			svaunit_vpi_interface.sv	238	60	238	73		0				000
+  #432496	10	ref_obj	property_info		work@svaunit_vpi_interface.create_assertion_dpi.property_info	svaunit_vpi_interface.sv	238	13	238	26		0			work@svaunit_vpi_interface.create_assertion_dpi.property_info	000
+  #432497	9	assignment				svaunit_vpi_interface.sv	239	13	240	63						000
+> #432498	10	ref_obj	svaunit_concurrent_assertion_info::create		work@svaunit_vpi_interface.create_assertion_dpi.svaunit_concurrent_assertion_info::create	svaunit_vpi_interface.sv	239	55	240	13		0			work@svaunit_vpi_interface.create_assertion_dpi.svaunit_concurrent_assertion_info::create	000
+  #432499	10	bit_select	property_info		work@svaunit_vpi_interface.create_assertion_dpi.property_info	svaunit_vpi_interface.sv	239	13	239	52		0			work@svaunit_vpi_interface.create_assertion_dpi.property_info	000
+  #432500	11	operation				svaunit_vpi_interface.sv	239	27	239	51		0				000
+  #432501	12	hier_path	property_info.size			svaunit_vpi_interface.sv	239	27	239	47		0				000
+  #432502	13	ref_obj	property_info			svaunit_vpi_interface.sv	239	27	239	40		0				000
+  #432503	13	method_func_call	size			svaunit_vpi_interface.sv	239	41	239	45		0				000
+  #432504	12	constant				svaunit_vpi_interface.sv	239	50	239	51	1	64	UINT:1	9		000
+
+facets of this row (8312, first 25):
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20803 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21739 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0678 #-1/63709 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63775 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66835 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66923 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67150 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68134 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68154 unsupported_typespec index G[] O[1 objs]

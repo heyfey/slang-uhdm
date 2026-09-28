@@ -1,0 +1,64 @@
+cluster N0097 (id kept from an earlier map; COVERED r11u201 (pass 198 R8 / map 11 A3: the UVM ground-A families) | ground A | site emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u197 pin] [r11u197map pin]): span|hier_path|endcol|under:assignment
+row: surelog/default/BuildUVMPkg  strict=differ:line(11)  records golden=201533 ours=201534
+object: #72809 (golden) / #72791 (ours)  type=hier_path name=m_t_inst.m_tw_cb_q 
+  golden: 26721:7:26721:15
+  ours:   26721:7:26721:25
+  walk parents: assignment < begin < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 72803..72815 ('>' = the object)
+  #72803	8	assignment				uvm_pkg.sv	26720	7	26720	21						000
+  #72804	9	method_func_call	new				0	0	0	0		0				000
+  #72805	9	ref_obj	m_t_inst		uvm_pkg::uvm_typed_callbacks::m_initialize::m_t_inst	uvm_pkg.sv	26720	7	26720	15		0			uvm_pkg::uvm_typed_callbacks::m_initialize::m_t_inst	000
+  #72806	8	assignment				uvm_pkg.sv	26721	7	26721	49						000
+  #72807	9	method_func_call	new				0	0	0	0		0				000
+  #72808	10	constant				uvm_pkg.sv	26721	32	26721	48	"typewide_queue"	112	STRING:typewide_queue	6		000
+> #72809	9	hier_path	m_t_inst.m_tw_cb_q			uvm_pkg.sv	26721	7	26721	15		0				000
+  #72810	10	ref_obj	m_t_inst			uvm_pkg.sv	26721	16	26721	25		0				000
+  #72811	10	ref_obj	m_tw_cb_q			uvm_pkg.sv	26721	16	26721	25		0				000
+  #72812	6	return_stmt				uvm_pkg.sv	26723	5	26723	11						000
+  #72813	7	ref_obj	m_t_inst		uvm_pkg::uvm_typed_callbacks::m_initialize::m_t_inst	uvm_pkg.sv	26723	12	26723	20		0			uvm_pkg::uvm_typed_callbacks::m_initialize::m_t_inst	000
+  #72814	4	function	m_am_i_a		uvm_pkg::uvm_typed_callbacks::m_am_i_a	uvm_pkg.sv	26727	3	26727	10					uvm_pkg::uvm_typed_callbacks::m_am_i_a	000
+  #72815	5	class_var	this_type		uvm_pkg::uvm_typed_callbacks::m_am_i_a::this_type	uvm_pkg.sv	26728	7	26728	16		0			uvm_pkg::uvm_typed_callbacks::m_am_i_a::this_type	000
+
+--- OURS (B) records 72785..72797 ('>' = the object)
+  #72785	8	assignment				uvm_pkg.sv	26720	7	26720	21						000
+  #72786	9	method_func_call	new				0	0	0	0		0				000
+  #72787	9	ref_obj	m_t_inst		uvm_pkg::uvm_typed_callbacks::m_initialize::m_t_inst	uvm_pkg.sv	26720	7	26720	15		0			uvm_pkg::uvm_typed_callbacks::m_initialize::m_t_inst	000
+  #72788	8	assignment				uvm_pkg.sv	26721	7	26721	49						000
+  #72789	9	method_func_call	new				0	0	0	0		0				000
+  #72790	10	constant				uvm_pkg.sv	26721	32	26721	48	"typewide_queue"	112	STRING:typewide_queue	6		000
+> #72791	9	hier_path	m_t_inst.m_tw_cb_q			uvm_pkg.sv	26721	7	26721	25		0				000
+  #72792	10	ref_obj	m_t_inst			uvm_pkg.sv	26721	16	26721	25		0				000
+  #72793	10	ref_obj	m_tw_cb_q			uvm_pkg.sv	26721	16	26721	25		0				000
+  #72794	6	return_stmt				uvm_pkg.sv	26723	5	26723	11						000
+  #72795	7	ref_obj	m_t_inst		uvm_pkg::uvm_typed_callbacks::m_initialize::m_t_inst	uvm_pkg.sv	26723	12	26723	20		0			uvm_pkg::uvm_typed_callbacks::m_initialize::m_t_inst	000
+  #72796	4	function	m_am_i_a		uvm_pkg::uvm_typed_callbacks::m_am_i_a	uvm_pkg.sv	26727	3	26727	10					uvm_pkg::uvm_typed_callbacks::m_am_i_a	000
+  #72797	5	class_var	this_type		uvm_pkg::uvm_typed_callbacks::m_am_i_a::this_type	uvm_pkg.sv	26728	7	26728	16		0			uvm_pkg::uvm_typed_callbacks::m_am_i_a::this_type	000
+
+facets of this row (830, first 25):
+  N2465 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22504 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22588 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23501 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56188 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74743 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74826 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76333 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76354 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76414 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79777 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79788 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79842 array_typespec  G[] O[1 objs]
+  N0423 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]

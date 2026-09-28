@@ -1,0 +1,6 @@
+# r11u203: the HEAD binary's multi-hash UVM rows (det_head.log / ob_head.log), raw uhdm-dump (paths normalised, NOT sorted) diff
+# between the two hashes, and uhdm-strictcmp --max 0 objects_differing per run (drivers/det.sh runs 1-3)
+MiniAmiq testflags   hashes=2 raw-dump diff lines: 0   objects_differing 17 / 17 / 17
+SeqDriver default    hashes=2 raw-dump diff lines: 0   objects_differing 16 / 16 / 16
+SimpleUVM default    hashes=2 raw-dump diff lines: 0   objects_differing 44 / 44 / 44
+Scoreboard default   hashes=2 raw-dump diff lines: 92  objects_differing 44 / 44 / 44   (the svunit vpiTaskFunc listing-order flip, RESUME section 9; order-blind 0)

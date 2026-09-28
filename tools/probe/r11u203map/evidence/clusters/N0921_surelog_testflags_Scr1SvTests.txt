@@ -1,0 +1,64 @@
+cluster N0921 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 7; passes 193-198 left it) | ground B | site cloneUnitParamRhs (UhdmExporter.cpp, law unitRefSubst) < emitExpr (ExprEmit.cpp, law elabVarRangeMisevalSubst) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) [r11u138map pin] [r11u142map pin]): struct|ours-only:fewer-copies|operation|under:operation
+row: surelog/testflags/Scr1SvTests  strict=differ:endcol(29)  records golden=83997 ours=84036
+object: #-1 (golden) / #70149 (ours)  type=operation name= 
+  golden: 
+  ours:   5 objs
+  walk parents: operation < param_assign < module_inst(i_dmi) < module_inst(i_core_top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 70143..70155 ('>' = the object)
+  #70143	7	operation				scr1_dmi.sv	70	29	70	64		0				000
+  #70144	8	constant				scr1_dmi.sv	70	29	70	38	0	5	INT:0	7		000
+  #70145	8	ref_obj	SCR1_DBG_DMI_OP_WIDTH		work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_OP_WIDTH	scr1_dmi.sv	70	43	70	64		0			work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_OP_WIDTH	000
+  #70146	7	constant				scr1_dmi.sv	70	69	70	70	1	64	UINT:1	9		000
+  #70147	5	param_assign				scr1_dmi.sv	71	15	71	44						000
+  #70148	6	operation				scr1_dmi.sv	71	29	71	44		0				000
+> #70149	7	operation				scr1_dmi.sv	70	29	70	70		0				000
+  #70150	8	operation				scr1_dmi.sv	70	29	70	64		0				000
+  #70151	9	constant				scr1_dmi.sv	70	29	70	38	0	5	INT:0	7		000
+  #70152	9	ref_obj	SCR1_DBG_DMI_OP_WIDTH		work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_OP_WIDTH	scr1_dmi.sv	70	43	70	64		0			work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_OP_WIDTH	000
+  #70153	8	constant				scr1_dmi.sv	70	69	70	70	1	64	UINT:1	9		000
+  #70154	7	constant				scr1_dmi.sv	71	43	71	44	1	64	UINT:1	9		000
+  #70155	5	param_assign				scr1_dmi.sv	72	15	72	70						000
+
+--- the holder #70148 on the other side: exact-record matches at [70152]
+  #70149	8	ref_obj	SCR1_DBG_DMI_OP_WIDTH		work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_OP_WIDTH	scr1_dmi.sv	70	43	70	64		0			work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_OP_WIDTH	000
+  #70150	7	constant				scr1_dmi.sv	70	69	70	70	1	64	UINT:1	9		000
+  #70151	5	param_assign				scr1_dmi.sv	71	15	71	44						000
+> #70152	6	operation				scr1_dmi.sv	71	29	71	44		0				000
+  #70153	7	constant				scr1_dmi.sv	71	43	71	44	1	64	UINT:1	9		000
+  #70154	5	param_assign				scr1_dmi.sv	72	15	72	70						000
+  #70155	6	operation				scr1_dmi.sv	72	29	72	70		0				000
+  #70156	7	operation				scr1_dmi.sv	72	29	72	66		0				000
+  #70157	8	ref_obj	SCR1_DBG_DMI_DATA_WIDTH		work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_DATA_WIDTH	scr1_dmi.sv	72	43	72	66		0			work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_DATA_WIDTH	000
+  #70158	7	constant				scr1_dmi.sv	72	69	72	70	1	64	UINT:1	9		000
+  #70159	5	param_assign				scr1_dmi.sv	73	15	73	44						000
+  #70160	6	operation				scr1_dmi.sv	73	29	73	44		0				000
+  #70161	7	constant				scr1_dmi.sv	73	43	73	44	1	64	UINT:1	9		000
+
+facets of this row (109, first 25):
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48791 constant  G[] O[1 objs]
+  N2405 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N0921 #-1/70149 operation  G[] O[5 objs]
+  N0921 #-1/70158 operation  G[] O[7 objs]
+  N0921 #-1/70169 operation  G[] O[11 objs]
+  N0921 #-1/70184 operation  G[] O[13 objs]
+  N0921 #-1/76049 operation  G[] O[7 objs]
+  N0448 #30855/30855 constant  G[211:13:211:15] O[211:13:211:17]
+  N0040 #31055/31055 logic_typespec  G[29:12:29:39] O[29:12:29:28]
+  N0040 #31069/31069 logic_typespec  G[30:12:30:40] O[30:12:30:28]
+  N0040 #31083/31083 logic_typespec  G[31:12:31:34] O[31:12:31:28]
+  N0040 #31095/31095 logic_typespec  G[32:12:32:34] O[32:12:32:28]
+  N0040 #31125/31125 logic_typespec  G[37:12:37:41] O[37:12:37:28]
+  N0040 #31139/31139 logic_typespec  G[38:12:38:43] O[38:12:38:28]
+  N0040 #31191/31191 logic_typespec  G[45:12:45:39] O[45:12:45:28]
+  N0040 #31205/31205 logic_typespec  G[46:12:46:34] O[46:12:46:28]
+  N0040 #31226/31226 logic_typespec  G[50:12:50:39] O[50:12:50:28]
+  N0040 #31240/31240 logic_typespec  G[51:12:51:40] O[51:12:51:28]
+  N0040 #31254/31254 logic_typespec  G[52:12:52:34] O[52:12:52:28]
+  N0040 #31266/31266 logic_typespec  G[53:12:53:34] O[53:12:53:28]
+  N0040 #31278/31278 logic_typespec  G[54:12:54:34] O[54:12:54:28]
+  N0040 #31317/31317 logic_typespec  G[60:12:60:39] O[60:12:60:28]
+  N0040 #31331/31331 logic_typespec  G[61:12:61:41] O[61:12:61:28]
+  N0040 #31354/31354 logic_typespec  G[63:12:63:34] O[63:12:63:28]

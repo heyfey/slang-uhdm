@@ -1,0 +1,47 @@
+cluster N1905 (id kept from an earlier map; OPEN | ground B | site makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) [r11u138map pin] [r11u142map pin]): span|logic_typespec|line+endline+endcol|under:ref_typespec
+row: probe/default/r11u45repro__g9  strict=line  records golden=93 ours=81
+object: #10 (golden) / #10 (ours)  type=logic_typespec name= 
+  golden: 3:25:3:36
+  ours:   4:25:4:28
+  walk parents: ref_typespec < type_parameter(b_t) < module_inst < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 4..16 ('>' = the object)
+  #4	4	logic_typespec				dut.sv	3	25	3	36						001
+  #5	5	range				dut.sv	3	31	3	36						001
+  #6	6	constant				dut.sv	3	32	3	33	2	64	UINT:2	9		001
+  #7	6	constant				dut.sv	3	34	3	35	0	64	UINT:0	9		001
+  #8	2	type_parameter	b_t		work@dut.b_t	dut.sv	4	19	4	22					work@dut.b_t	010
+  #9	3	ref_typespec			<in>b_t		0	0	0	0		0			work@dut.b_t	001
+> #10	4	logic_typespec				dut.sv	3	25	3	36						001
+  #11	5	range				dut.sv	3	31	3	36						001
+  #12	6	constant				dut.sv	3	32	3	33	2	64	UINT:2	9		001
+  #13	6	constant				dut.sv	3	34	3	35	0	64	UINT:0	9		001
+  #14	2	logic_net	i		work@dut.i	dut.sv	2	32	2	33		0			work@dut.i	000
+  #15	2	logic_net	o		work@dut.o	dut.sv	2	48	2	49		0			work@dut.o	000
+  #16	2	logic_net	x		work@dut.x	dut.sv	5	7	5	8		0			work@dut.x	000
+
+--- OURS (B) records 4..16 ('>' = the object)
+  #4	4	logic_typespec				dut.sv	3	25	3	36						001
+  #5	5	range				dut.sv	3	31	3	36						001
+  #6	6	constant				dut.sv	3	32	3	33	2	64	UINT:2	9		001
+  #7	6	constant				dut.sv	3	34	3	35	0	64	UINT:0	9		001
+  #8	2	type_parameter	b_t		work@dut.b_t	dut.sv	4	19	4	22					work@dut.b_t	010
+  #9	3	ref_typespec			<in>b_t		0	0	0	0		0			work@dut.b_t	001
+> #10	4	logic_typespec				dut.sv	4	25	4	28						001
+  #11	2	logic_net	i		work@dut.i	dut.sv	2	32	2	33		0			work@dut.i	000
+  #12	2	logic_net	o		work@dut.o	dut.sv	2	48	2	49		0			work@dut.o	000
+  #13	2	logic_net	x		work@dut.x	dut.sv	5	7	5	8		0			work@dut.x	000
+  #14	3	ref_typespec			work@dut.x		0	0	0	0		0			work@dut.x	000
+  #15	4	logic_typespec				dut.sv	4	25	4	28						000
+  #16	2	port	i			dut.sv	2	32	2	33						000
+
+facets of this row (8, first 25):
+  N0083 #11/-1 range  G[3 objs] O[]
+  N0083 #19/-1 range  G[3 objs] O[]
+  N0083 #56/-1 range  G[3 objs] O[]
+  N0083 #86/-1 range  G[3 objs] O[]
+  N1905 #10/10 logic_typespec  G[3:25:3:36] O[4:25:4:28]
+  N1905 #18/15 logic_typespec  G[3:25:3:36] O[4:25:4:28]
+  N1905 #55/49 logic_typespec  G[3:25:3:36] O[4:25:4:28]
+  N1905 #85/76 logic_typespec  G[3:25:3:36] O[4:25:4:28]

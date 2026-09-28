@@ -1,0 +1,43 @@
+cluster N1939 (id kept from an earlier map; OPEN | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law assocLocalArrayVar40) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) [r11u138map pin] [r11u142map pin]): span|string_var|col+endcol|under:function
+row: probe/default/r10v139repro__v139_d_shapes  strict=col  records golden=123 ours=123
+object: #32 (golden) / #32 (ours)  type=string_var name=s1 
+  golden: 12:7:12:13
+  ours:   12:19:12:21
+  walk parents: function(multiDecl139) < class_defn(Ferrule139) < package(Gasket139) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 26..38 ('>' = the object)
+  #26	4	int_var	p3		Gasket139::Ferrule139::multiDecl139::p3	dut.sv	11	7	11	10		0			Gasket139::Ferrule139::multiDecl139::p3	000
+  #27	5	ref_typespec			Gasket139::Ferrule139::multiDecl139::p3		0	0	0	0		0			Gasket139::Ferrule139::multiDecl139::p3	000
+  #28	6	int_typespec				dut.sv	11	7	11	10						000
+  #29	4	int_var	p4		Gasket139::Ferrule139::multiDecl139::p4	dut.sv	11	7	11	10		0			Gasket139::Ferrule139::multiDecl139::p4	000
+  #30	5	ref_typespec			Gasket139::Ferrule139::multiDecl139::p4		0	0	0	0		0			Gasket139::Ferrule139::multiDecl139::p4	000
+  #31	6	int_typespec				dut.sv	11	7	11	10						000
+> #32	4	string_var	s1		Gasket139::Ferrule139::multiDecl139::s1	dut.sv	12	7	12	13		0			Gasket139::Ferrule139::multiDecl139::s1	000
+  #33	5	ref_typespec			Gasket139::Ferrule139::multiDecl139::s1		0	0	0	0		0			Gasket139::Ferrule139::multiDecl139::s1	000
+  #34	6	string_typespec				dut.sv	12	7	12	13						000
+  #35	4	string_var	s2		Gasket139::Ferrule139::multiDecl139::s2	dut.sv	12	7	12	13		0			Gasket139::Ferrule139::multiDecl139::s2	000
+  #36	5	ref_typespec			Gasket139::Ferrule139::multiDecl139::s2		0	0	0	0		0			Gasket139::Ferrule139::multiDecl139::s2	000
+  #37	6	string_typespec				dut.sv	12	7	12	13						000
+  #38	4	string_var	t1		Gasket139::Ferrule139::multiDecl139::t1	dut.sv	13	14	13	20		0			Gasket139::Ferrule139::multiDecl139::t1	000
+
+--- OURS (B) records 26..38 ('>' = the object)
+  #26	4	int_var	p3		Gasket139::Ferrule139::multiDecl139::p3	dut.sv	11	7	11	10		0			Gasket139::Ferrule139::multiDecl139::p3	000
+  #27	5	ref_typespec			Gasket139::Ferrule139::multiDecl139::p3		0	0	0	0		0			Gasket139::Ferrule139::multiDecl139::p3	000
+  #28	6	int_typespec				dut.sv	11	7	11	10						000
+  #29	4	int_var	p4		Gasket139::Ferrule139::multiDecl139::p4	dut.sv	11	7	11	10		0			Gasket139::Ferrule139::multiDecl139::p4	000
+  #30	5	ref_typespec			Gasket139::Ferrule139::multiDecl139::p4		0	0	0	0		0			Gasket139::Ferrule139::multiDecl139::p4	000
+  #31	6	int_typespec				dut.sv	11	7	11	10						000
+> #32	4	string_var	s1		Gasket139::Ferrule139::multiDecl139::s1	dut.sv	12	19	12	21		0			Gasket139::Ferrule139::multiDecl139::s1	000
+  #33	5	ref_typespec			Gasket139::Ferrule139::multiDecl139::s1		0	0	0	0		0			Gasket139::Ferrule139::multiDecl139::s1	000
+  #34	6	string_typespec				dut.sv	12	7	12	13						000
+  #35	4	string_var	s2		Gasket139::Ferrule139::multiDecl139::s2	dut.sv	12	29	12	31		0			Gasket139::Ferrule139::multiDecl139::s2	000
+  #36	5	ref_typespec			Gasket139::Ferrule139::multiDecl139::s2		0	0	0	0		0			Gasket139::Ferrule139::multiDecl139::s2	000
+  #37	6	string_typespec				dut.sv	12	7	12	13						000
+  #38	4	string_var	t1		Gasket139::Ferrule139::multiDecl139::t1	dut.sv	13	21	13	23		0			Gasket139::Ferrule139::multiDecl139::t1	000
+
+facets of this row (4, first 25):
+  N1939 #32/32 string_var s1 G[12:7:12:13] O[12:19:12:21]
+  N1939 #35/35 string_var s2 G[12:7:12:13] O[12:29:12:31]
+  N1939 #38/38 string_var t1 G[13:14:13:20] O[13:21:13:23]
+  N1939 #41/41 string_var t2 G[13:14:13:20] O[13:31:13:33]

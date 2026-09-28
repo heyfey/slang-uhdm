@@ -1,0 +1,45 @@
+cluster N1128 (id kept from an earlier map; COVERED r11u202 (map 11 pair-B route carried: InterfaceStructMemberPort) | ground B | site emitInterfaceInstance (ModuleEmit.cpp, law caIfaceElabNetDeclAssignListing88) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:->id@id.id.id.|under:logic_var
+row: surelog/testflags/InterfaceStructMemberPort  strict=differ:fullname(6)  records golden=352 ours=352
+object: #260 (golden) / #260 (ours)  type=ref_typespec name= OUT
+  golden: trn
+  ours:   work@top.w.sub.trn
+  walk parents: logic_var(trn) < io_decl(trn) < modport(sub) < ref_obj
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 254..266 ('>' = the object)
+  #254	14	constant				dut.sv	8	37	8	38	0	64	UINT:0	9		001
+  #255	10	typespec_member	wen			dut.sv	8	51	8	54						001
+  #256	11	ref_typespec			<in>p::req_t.wen		0	0	0	0		0			p::p::req_t::wen	001
+  #257	12	logic_typespec				dut.sv	8	45	8	50						001
+  #258	6	io_decl	trn			dut.sv	14	33	14	36						000
+  #259	7	logic_var	trn			dut.sv	13	12	13	15		0				000
+> #260	8	ref_typespec			trn		0	0	0	0		0			trn	000
+  #261	9	logic_typespec				dut.sv	13	3	13	8						000
+  #262	4	ref_typespec			work@top.w.sub		0	0	0	0		0			work@top.w.sub	000
+  #263	5	interface_typespec	sub			dut.sv	22	21	22	24						110
+  #264	3	port	o			dut.sv	22	50	22	51						000
+  #265	4	ref_obj	o		work@top.o	dut.sv	32	30	32	31		0			work@top.o	000
+  #266	4	ref_obj	o		work@top.w.o	dut.sv	32	28	32	29		0			work@top.w.o	000
+
+--- OURS (B) records 254..266 ('>' = the object)
+  #254	14	constant				dut.sv	8	37	8	38	0	64	UINT:0	9		001
+  #255	10	typespec_member	wen			dut.sv	8	51	8	54						001
+  #256	11	ref_typespec			<in>p::req_t.wen		0	0	0	0		0			p::p::req_t::wen	001
+  #257	12	logic_typespec				dut.sv	8	45	8	50						001
+  #258	6	io_decl	trn			dut.sv	14	33	14	36						000
+  #259	7	logic_var	trn		work@top.w.sub.trn	dut.sv	13	12	13	15		0			work@top.w.sub.trn	000
+> #260	8	ref_typespec			work@top.w.sub.trn		0	0	0	0		0			work@top.w.sub.trn	000
+  #261	9	logic_typespec				dut.sv	13	3	13	8						000
+  #262	4	ref_typespec			work@top.w.sub		0	0	0	0		0			work@top.w.sub	000
+  #263	5	interface_typespec	sub			dut.sv	22	21	22	24						110
+  #264	3	port	o			dut.sv	22	50	22	51						000
+  #265	4	ref_obj	o		work@top.o	dut.sv	32	30	32	31		0			work@top.o	000
+  #266	4	ref_obj	o		work@top.w.o	dut.sv	32	28	32	29		0			work@top.w.o	000
+
+facets of this row (6, first 25):
+  N1134 #246/246 struct_net req G[] O[work@top.w.sub.sub.req.req]
+  N1126 #247/247 ref_typespec  G[req] O[work@top.w.sub.sub.req.req]
+  N1117 #259/259 logic_var trn G[] O[work@top.w.sub.trn]
+  N1128 #260/260 ref_typespec  G[trn] O[work@top.w.sub.trn]
+  N0519 #311/311 ref_obj wen G[work@top.w.u.sys_wen.wen] O[work@top.w.wen]
+  N0519 #317/317 ref_obj trn G[work@top.w.u.sys_wen.trn] O[work@top.w.trn]

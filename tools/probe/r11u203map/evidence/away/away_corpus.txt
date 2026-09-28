@@ -1,0 +1,57 @@
+surelog/default/BlackBePipeInt lost=0 gained=0 net=0
+surelog/testflags/BlackBePipeInt lost=0 gained=0 net=0
+surelog/default/BuildUVMPkg lost=5 gained=107 net=102
+surelog/testflags/BuildUVMPkg lost=5 gained=107 net=102
+surelog/default/ClassTypeParam lost=0 gained=0 net=0
+surelog/testflags/ClassTypeParam lost=0 gained=0 net=0
+surelog/default/Earlgrey_0_1 lost=4 gained=8 net=4
+surelog/testflags/Earlgrey_0_1 lost=4 gained=8 net=4
+surelog/default/FuncStructVal lost=0 gained=0 net=0
+surelog/testflags/FuncStructVal lost=0 gained=0 net=0
+surelog/default/FuncStructValSimple lost=0 gained=0 net=0
+surelog/testflags/FuncStructValSimple lost=0 gained=0 net=0
+surelog/testflags/HierPathTypespec lost=0 gained=0 net=0
+surelog/default/InterfaceModPort lost=0 gained=0 net=0
+surelog/testflags/InterfaceModPort lost=0 gained=0 net=0
+surelog/default/InterfaceStructMemberPort lost=0 gained=0 net=0
+surelog/testflags/InterfaceStructMemberPort lost=0 gained=0 net=0
+surelog/default/InterfArrayBind lost=0 gained=0 net=0
+surelog/default/LogicTypespec lost=0 gained=0 net=0
+surelog/testflags/LogicTypespec lost=0 gained=0 net=0
+surelog/default/MiniAmiq lost=8 gained=103 net=95
+surelog/testflags/MiniAmiq lost=8 gained=103 net=95
+surelog/default/PreprocTest lost=0 gained=0 net=0
+surelog/testflags/PreprocTest lost=0 gained=0 net=0
+surelog/default/Rggen lost=0 gained=2 net=2
+surelog/default/Scoreboard lost=8 gained=92 net=84
+surelog/default/Scr1SvTests lost=0 gained=28 net=28
+surelog/testflags/Scr1SvTests lost=0 gained=28 net=28
+surelog/default/SeqDriver lost=8 gained=97 net=89
+surelog/testflags/SeqDriver lost=8 gained=97 net=89
+surelog/default/SimpleUVM lost=8 gained=93 net=85
+surelog/testflags/SimpleUVM lost=8 gained=93 net=85
+surelog/default/UnitElabBlock lost=0 gained=11 net=11
+surelog/testflags/UnitElabBlock lost=0 gained=11 net=11
+uhdm2rtlil/default/anon_struct_packed_dim lost=0 gained=0 net=0
+uhdm2rtlil/testflags/anon_struct_packed_dim lost=0 gained=0 net=0
+uhdm2rtlil/default/arb_idx_cast lost=0 gained=0 net=0
+uhdm2rtlil/testflags/arb_idx_cast lost=0 gained=0 net=0
+uhdm2rtlil/default/cfg_func_width_loop lost=0 gained=0 net=0
+uhdm2rtlil/testflags/cfg_func_width_loop lost=0 gained=0 net=0
+uhdm2rtlil/default/ibex_tracer lost=0 gained=0 net=0
+uhdm2rtlil/testflags/ibex_tracer lost=0 gained=0 net=0
+uhdm2rtlil/default/OutputSizeWithParameterOfInstanceInitializedByStructMember lost=0 gained=0 net=0
+uhdm2rtlil/testflags/OutputSizeWithParameterOfInstanceInitializedByStructMember lost=0 gained=0 net=0
+uhdm2rtlil/default/struct_param_func_config lost=0 gained=0 net=0
+uhdm2rtlil/testflags/struct_param_func_config lost=0 gained=0 net=0
+TOTAL {'lost': 74, 'gained': 988}
+  lost    12 class_var              MiniAmiq   e.g. 'class_var\t\t\tuvm_pkg::uvm_resource_pool::lookup_name\tuvm_pkg.sv\t16092\t12\t16092\t40\t\t0\t\t\tuvm_pkg::uvm_resource_pool::lookup_name\x1f0\x1f0\x1f0'
+  lost    12 class_var              SeqDriver   e.g. 'class_var\t\t\tuvm_pkg::uvm_resource_pool::lookup_name\tuvm_pkg.sv\t16092\t12\t16092\t40\t\t0\t\t\tuvm_pkg::uvm_resource_pool::lookup_name\x1f0\x1f0\x1f0'
+  lost    12 class_var              SimpleUVM   e.g. 'class_var\t\t\tuvm_pkg::uvm_resource_pool::lookup_name\tuvm_pkg.sv\t16092\t12\t16092\t40\t\t0\t\t\tuvm_pkg::uvm_resource_pool::lookup_name\x1f0\x1f0\x1f0'
+  lost    10 class_var              BuildUVMPkg   e.g. 'class_var\t\t\tuvm_pkg::uvm_resource_pool::lookup_name\tuvm_pkg.sv\t16092\t12\t16092\t40\t\t0\t\t\tuvm_pkg::uvm_resource_pool::lookup_name\x1f0\x1f0\x1f0'
+  lost     8 logic_typespec         Earlgrey_0_1   e.g. 'logic_typespec\t\t\t\talert_handler_class.sv\t15\t9\t15\t22\t\t\t\t\t\x1f0\x1f0\x1f0'
+  lost     6 class_var              Scoreboard   e.g. 'class_var\t\t\tuvm_pkg::uvm_resource_pool::lookup_name\tuvm_pkg.sv\t16092\t12\t16092\t40\t\t0\t\t\tuvm_pkg::uvm_resource_pool::lookup_name\x1f0\x1f0\x1f0'
+  lost     4 ref_var                MiniAmiq   e.g. 'ref_var\t\t\tuvm_pkg::uvm_callbacks::get\tuvm_callback.svh\t507\t19\t507\t28\t\t0\t\t\tuvm_pkg::uvm_callbacks::get\x1f0\x1f0\x1f0'
+  lost     4 ref_var                SeqDriver   e.g. 'ref_var\t\t\tuvm_pkg::uvm_callbacks::get\tuvm_callback.svh\t507\t19\t507\t28\t\t0\t\t\tuvm_pkg::uvm_callbacks::get\x1f0\x1f0\x1f0'
+  lost     4 ref_var                SimpleUVM   e.g. 'ref_var\t\t\tuvm_pkg::uvm_callbacks::get\tuvm_callback.svh\t507\t19\t507\t28\t\t0\t\t\tuvm_pkg::uvm_callbacks::get\x1f0\x1f0\x1f0'
+  lost     2 ref_var                Scoreboard   e.g. 'ref_var\t\t\tuvm_pkg::uvm_callbacks::get\tuvm_callback.svh\t507\t19\t507\t28\t\t0\t\t\tuvm_pkg::uvm_callbacks::get\x1f0\x1f0\x1f0'

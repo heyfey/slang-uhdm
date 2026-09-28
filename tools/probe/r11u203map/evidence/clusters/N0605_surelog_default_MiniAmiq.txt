@@ -1,0 +1,64 @@
+cluster N0605 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 15; passes 193-198 left it) | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): fullname|ref_obj|tok:id[id].id::id[id].id::->|under:bit_select
+row: surelog/default/MiniAmiq  strict=differ:file(17)  records golden=435559 ours=433772
+object: #81573 (golden) / #81209 (ours)  type=ref_obj name=i OUT
+  golden: svaunit_pkg::uvm_root::m_do_factory_settings::args[i].substr::args[i].len::i
+  ours:   svaunit_pkg::uvm_root::m_do_factory_settings::i
+  walk parents: bit_select(args) < hier_path(args[i].len) < operation < method_func_call(substr)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 81567..81579 ('>' = the object)
+  #81567	9	ref_obj	i		svaunit_pkg::uvm_root::m_do_factory_settings::args[i].substr::i	uvm_root.svh	731	34	731	35		0			svaunit_pkg::uvm_root::m_do_factory_settings::args[i].substr::i	000
+  #81568	8	method_func_call	substr			uvm_root.svh	731	37	731	43		0				000
+  #81569	9	constant				uvm_root.svh	731	44	731	46	23	64	UINT:23	9		000
+  #81570	9	operation				uvm_root.svh	731	48	731	63		0				000
+  #81571	10	hier_path	args[i].len			uvm_root.svh	731	48	731	61		0				000
+  #81572	11	bit_select	args		args[i]	uvm_root.svh	731	48	731	52		0			args[i]	000
+> #81573	12	ref_obj	i		svaunit_pkg::uvm_root::m_do_factory_settings::args[i].substr::args[i].len::i	uvm_root.svh	731	53	731	54		0			svaunit_pkg::uvm_root::m_do_factory_settings::args[i].substr::args[i].len::i	000
+  #81574	11	method_func_call	len			uvm_root.svh	731	56	731	59		0				000
+  #81575	10	constant				uvm_root.svh	731	62	731	63	1	64	UINT:1	9		000
+  #81576	4	method_func_call	get_arg_matches			uvm_root.svh	733	13	733	28		0				000
+  #81577	5	constant				uvm_root.svh	733	29	733	83	"/^\\\\+(UVM_SET_TYPE_OVERRIDE|uvm_set_type_override)=/"	416	STRING:/^\\\\+(UVM_SET_TYPE_OVERRIDE|uvm_set_type_override)=/	6		000
+  #81578	5	ref_obj	args		svaunit_pkg::uvm_root::m_do_factory_settings::args	uvm_root.svh	733	84	733	88		0			svaunit_pkg::uvm_root::m_do_factory_settings::args	000
+  #81579	5	ref_obj	clp		svaunit_pkg::uvm_root::m_do_factory_settings::clp	uvm_root.svh	733	9	733	12		0			svaunit_pkg::uvm_root::m_do_factory_settings::clp	000
+
+--- OURS (B) records 81203..81215 ('>' = the object)
+  #81203	9	ref_obj	i		svaunit_pkg::uvm_root::m_do_factory_settings::i	uvm_root.svh	731	34	731	35		0			svaunit_pkg::uvm_root::m_do_factory_settings::i	000
+  #81204	8	method_func_call	substr			uvm_root.svh	731	37	731	43		0				000
+  #81205	9	constant				uvm_root.svh	731	44	731	46	23	64	UINT:23	9		000
+  #81206	9	operation				uvm_root.svh	731	48	731	63		0				000
+  #81207	10	hier_path	args[i].len			uvm_root.svh	731	48	731	61		0				000
+  #81208	11	bit_select	args		args[i]	uvm_root.svh	731	48	731	52		0			args[i]	000
+> #81209	12	ref_obj	i		svaunit_pkg::uvm_root::m_do_factory_settings::i	uvm_root.svh	731	53	731	54		0			svaunit_pkg::uvm_root::m_do_factory_settings::i	000
+  #81210	11	method_func_call	len			uvm_root.svh	731	56	731	59		0				000
+  #81211	10	constant				uvm_root.svh	731	62	731	63	1	64	UINT:1	9		000
+  #81212	4	method_func_call	get_arg_matches			uvm_root.svh	733	13	733	28		0				000
+  #81213	5	constant				uvm_root.svh	733	29	733	83	"/^\\\\+(UVM_SET_TYPE_OVERRIDE|uvm_set_type_override)=/"	416	STRING:/^\\\\+(UVM_SET_TYPE_OVERRIDE|uvm_set_type_override)=/	6		000
+  #81214	5	ref_obj	args		svaunit_pkg::uvm_root::m_do_factory_settings::args	uvm_root.svh	733	84	733	88		0			svaunit_pkg::uvm_root::m_do_factory_settings::args	000
+  #81215	5	ref_obj	clp		svaunit_pkg::uvm_root::m_do_factory_settings::clp	uvm_root.svh	733	9	733	12		0			svaunit_pkg::uvm_root::m_do_factory_settings::clp	000
+
+facets of this row (8312, first 25):
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20803 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21739 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0678 #-1/63709 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63775 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66835 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66923 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67150 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68134 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68154 unsupported_typespec index G[] O[1 objs]

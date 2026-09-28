@@ -1,0 +1,64 @@
+cluster N0957 (id kept from an earlier map; COVERED r11u201 (map 11 pair-A route carried: ibex_tracer's A half) | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitStmt (StmtEmit.cpp, law assertCondIsAClassMethodWindow161) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id@id.id.->id::|under:case_item
+row: uhdm2rtlil/testflags/ibex_tracer  strict=differ:fullname(579)  records golden=35832 ours=35832
+object: #24139 (golden) / #24139 (ours)  type=ref_obj name=INSN_CMPUSH OUT
+  golden: work@ibex_tracer.decode_expanded_insn.INSN_CMPUSH
+  ours:   ibex_tracer_pkg::INSN_CMPUSH
+  walk parents: case_item < case_stmt < function(decode_expanded_insn) < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 24133..24145 ('>' = the object)
+  #24133	3	string_var			work@ibex_tracer.decode_expanded_insn	ibex_tracer.sv	734	22	734	28		0			work@ibex_tracer.decode_expanded_insn	000
+  #24134	4	ref_typespec			work@ibex_tracer.decode_expanded_insn		0	0	0	0		0			work@ibex_tracer.decode_expanded_insn	000
+  #24135	5	string_typespec				ibex_tracer.sv	734	22	734	28						000
+  #24136	3	case_stmt				ibex_tracer.sv	735	5	743	12						000
+  #24137	4	ref_obj	rvfi_ext_expanded_insn		work@ibex_tracer.decode_expanded_insn.rvfi_ext_expanded_insn	ibex_tracer.sv	735	19	735	41		0			work@ibex_tracer.decode_expanded_insn.rvfi_ext_expanded_insn	000
+  #24138	4	case_item				ibex_tracer.sv	736	7	736	63						000
+> #24139	5	ref_obj	INSN_CMPUSH		work@ibex_tracer.decode_expanded_insn.INSN_CMPUSH	ibex_tracer.sv	736	7	736	18		0			work@ibex_tracer.decode_expanded_insn.INSN_CMPUSH	000
+  #24140	5	return_stmt				ibex_tracer.sv	736	23	736	29						000
+  #24141	6	func_call	decode_Zcmp_cmpp_insn			ibex_tracer.sv	736	30	736	62		0				000
+  #24142	7	constant				ibex_tracer.sv	736	52	736	61	"cm.push"	56	STRING:cm.push	6		000
+  #24143	4	case_item				ibex_tracer.sv	737	7	737	62						000
+  #24144	5	ref_obj	INSN_CMPOP		work@ibex_tracer.decode_expanded_insn.INSN_CMPOP	ibex_tracer.sv	737	7	737	17		0			work@ibex_tracer.decode_expanded_insn.INSN_CMPOP	000
+  #24145	5	return_stmt				ibex_tracer.sv	737	23	737	29						000
+
+--- OURS (B) records 24133..24145 ('>' = the object)
+  #24133	3	string_var			work@ibex_tracer.decode_expanded_insn	ibex_tracer.sv	734	22	734	28		0			work@ibex_tracer.decode_expanded_insn	000
+  #24134	4	ref_typespec			work@ibex_tracer.decode_expanded_insn		0	0	0	0		0			work@ibex_tracer.decode_expanded_insn	000
+  #24135	5	string_typespec				ibex_tracer.sv	734	22	734	28						000
+  #24136	3	case_stmt				ibex_tracer.sv	735	5	743	12						000
+  #24137	4	ref_obj	rvfi_ext_expanded_insn		work@ibex_tracer.decode_expanded_insn.rvfi_ext_expanded_insn	ibex_tracer.sv	735	19	735	41		0			work@ibex_tracer.decode_expanded_insn.rvfi_ext_expanded_insn	000
+  #24138	4	case_item				ibex_tracer.sv	736	7	736	63						000
+> #24139	5	ref_obj	INSN_CMPUSH		ibex_tracer_pkg::INSN_CMPUSH	ibex_tracer.sv	736	7	736	18		0			ibex_tracer_pkg::INSN_CMPUSH	000
+  #24140	5	return_stmt				ibex_tracer.sv	736	23	736	29						000
+  #24141	6	func_call	decode_Zcmp_cmpp_insn			ibex_tracer.sv	736	30	736	62		0				000
+  #24142	7	constant				ibex_tracer.sv	736	52	736	61	"cm.push"	56	STRING:cm.push	6		000
+  #24143	4	case_item				ibex_tracer.sv	737	7	737	62						000
+  #24144	5	ref_obj	INSN_CMPOP		ibex_tracer_pkg::INSN_CMPOP	ibex_tracer.sv	737	7	737	17		0			ibex_tracer_pkg::INSN_CMPOP	000
+  #24145	5	return_stmt				ibex_tracer.sv	737	23	737	29						000
+
+facets of this row (579, first 25):
+  N0563 #2072/2072 ref_typespec  G[ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2075/2075 ref_typespec  G[ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2078/2078 ref_typespec  G[ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2087/2087 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallMMode::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseEcallMMode.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2090/2090 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallMMode::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseEcallMMode.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2093/2093 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallMMode::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseEcallMMode.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2102/2102 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallUMode::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseEcallUMode.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2105/2105 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallUMode::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseEcallUMode.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2108/2108 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallUMode::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseEcallUMode.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2117/2117 ref_typespec  G[ibex_tracer_pkg::ExcCauseIllegalInsn::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseIllegalInsn.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2120/2120 ref_typespec  G[ibex_tracer_pkg::ExcCauseIllegalInsn::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseIllegalInsn.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2123/2123 ref_typespec  G[ibex_tracer_pkg::ExcCauseIllegalInsn::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseIllegalInsn.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2132/2132 ref_typespec  G[ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2135/2135 ref_typespec  G[ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2138/2138 ref_typespec  G[ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2147/2147 ref_typespec  G[ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2150/2150 ref_typespec  G[ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2153/2153 ref_typespec  G[ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2162/2162 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2165/2165 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2168/2168 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2177/2177 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2180/2180 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2183/2183 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2192/2192 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.irq_int]

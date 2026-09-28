@@ -1,0 +1,64 @@
+cluster N0067 (id kept from an earlier map; COVERED r11u202 (the UVM ground-B families (map 11 B6 + map 10's list)) | ground B | site makeTypespec (TypeEmit.cpp, law unsupportedTsInitEnd152) < makeTypespec (TypeEmit.cpp, law tpFormalIncludeOrder188) < drainFuncRet (ModuleEmit.cpp, law r10fsv3) [r11u197 pin] [r11u189map pin (other example): classElemVar (UhdmExporter.cpp, law sharedAliasNoStamp41) < emitClassDefn (UhdmExporter.cpp, law fixedClassPropIsArrayVar6) < emitPackageClasses (UhdmExporter.c]): file|class_typespec|ours-empty|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:line(11)  records golden=201533 ours=201534
+object: #87882 (golden) / #87822 (ours)  type=class_typespec name=rsp_type 
+  golden: uvm_pkg.sv 53934:58:53934:61
+  ours:    0:0:0:0
+  walk parents: ref_typespec < class_var < array_var(m_last_req_buffer) < class_defn(uvm_sequencer_param_base)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 87876..87888 ('>' = the object)
+  #87876	4	class_defn	uvm_sequencer_param_base		uvm_pkg::uvm_sequencer_param_base	uvm_pkg.sv	53754	2	53938	9					uvm_pkg::uvm_sequencer_param_base	000
+  #87877	5	array_var	m_last_req_buffer		uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer	uvm_pkg.sv	53761	7	53761	24		1			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer	000
+  #87878	6	ref_typespec			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer	000
+  #87879	7	array_typespec					0	0	0	0						000
+  #87880	6	class_var			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer	uvm_pkg.sv	53761	7	53761	24		0			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer	000
+  #87881	7	ref_typespec			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer	000
+> #87882	8	class_typespec	rsp_type			uvm_pkg.sv	53934	58	53934	61						110
+  #87883	5	array_var	m_last_rsp_buffer		uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer	uvm_pkg.sv	53762	7	53762	24		1			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer	000
+  #87884	6	ref_typespec			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer	000
+  #87885	7	array_typespec					0	0	0	0						000
+  #87886	6	class_var			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer	uvm_pkg.sv	53762	7	53762	24		0			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer	000
+  #87887	7	ref_typespec			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer	000
+  #87888	8	class_typespec	rsp_type			uvm_pkg.sv	53934	58	53934	61						110
+
+--- OURS (B) records 87816..87828 ('>' = the object)
+  #87816	4	class_defn	uvm_sequencer_param_base		uvm_pkg::uvm_sequencer_param_base	uvm_pkg.sv	53754	2	53938	9					uvm_pkg::uvm_sequencer_param_base	000
+  #87817	5	array_var	m_last_req_buffer		uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer	uvm_pkg.sv	53761	7	53761	24		1			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer	000
+  #87818	6	ref_typespec			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer	000
+  #87819	7	array_typespec					0	0	0	0						000
+  #87820	6	class_var			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer	uvm_pkg.sv	53761	7	53761	24		0			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer	000
+  #87821	7	ref_typespec			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base::m_last_req_buffer	000
+> #87822	8	class_typespec	rsp_type				0	0	0	0						110
+  #87823	5	array_var	m_last_rsp_buffer		uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer	uvm_pkg.sv	53762	7	53762	24		1			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer	000
+  #87824	6	ref_typespec			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer	000
+  #87825	7	array_typespec					0	0	0	0						000
+  #87826	6	class_var			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer	uvm_pkg.sv	53762	7	53762	24		0			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer	000
+  #87827	7	ref_typespec			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base::m_last_rsp_buffer	000
+  #87828	8	class_typespec	rsp_type				0	0	0	0						110
+
+facets of this row (830, first 25):
+  N2465 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22504 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22588 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23501 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56188 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74743 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74826 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76333 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76354 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76414 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79777 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79788 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79842 array_typespec  G[] O[1 objs]
+  N0423 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]

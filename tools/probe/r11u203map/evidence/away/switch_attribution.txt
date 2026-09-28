@@ -1,0 +1,16 @@
+# r11u203: the AWAY records of the r11u200 law binary (awaycensus.py: strict records golden and the PRISTINE database share
+# that the law database lost), attributed by re-running the law binary with one switch on the row's command line
+# (sw.sh below; strictcmp_x record dumps; order-blind multiset against golden).
+BuildUVMPkg default  R11U200_CLASSTDRET_OFF=1: the return class_var of `function uvm_resource_types::rsrc_q_t lookup_name(...)`
+                     law 200: uvm_pkg.sv 15203:11-15203:20 (the typedef `rsrc_q_t`)   switch off: 16092:12-16092:40 (= golden, = pristine)
+Scoreboard default   R11U200_CLASSTDRET_OFF=1: lost 8 -> 0, gained 92 -> 4 (the 4 are the signing law's)
+                     the ref_var return of `static function this_type get();` (uvm-1.2 uvm_callback.svh 507:19-28):
+                     law 200 file uvm_heartbeat.svh, golden = pristine uvm_callback.svh
+Earlgrey_0_1 default R11U200_PORTPACKED_OFF=1: lost 4 -> 0, gained 8 -> 0
+                     lost (golden = pristine truncate to the first dimension): IMPLICIT-typed multi-dimensional ports
+                       alert_handler_class.sv 15 `input [NAlerts-1:0] [CLASS_DW-1:0] alert_class_i`   golden 15:9-15:22, law 15:9-15:40
+                       alert_handler_class.sv 16 `input [N_LOC_ALERT-1:0][CLASS_DW-1:0] loc_alert_class_i` golden 16:9-16:26
+                       alert_handler_esc_timer.sv 30 / 32 (`input [N_ESC_SEV-1:0]\n [PHASE_DW-1:0] esc_map_i`, `phase_cyc_i`)
+                     gained (golden whole span): multi-dimensional ports written with the `logic` keyword (dm_csrs.sv 55/56/58,
+                       dm_mem.sv 38/40/41, padctrl.sv 25/26: `output logic [dm::ProgBufSize-1:0][31:0] progbuf_o`,
+                       `output logic[NMioPads-1:0][AttrDw-1:0] mio_attr_o`)

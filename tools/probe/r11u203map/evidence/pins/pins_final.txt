@@ -1,0 +1,59 @@
+== N0543 probe/default/r10uvm207repro__g207_e_head object #119 ref_typespec ''  0:0:0:0 id=188 db=SAME
+  rank 37:
+    #0 MakeRef_typespec at ?:0
+    #1 operator() at /tmp/wt_r11u203g/src/TypeEmit.cpp:11387
+    #2 operator() at /tmp/wt_r11u203g/src/TypeEmit.cpp:12082
+    #3 __invoke_impl at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/invoke.h:61
+    #4 __invoke_r at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/invoke.h:114
+    #5 _M_invoke at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:290
+    #6 operator() at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #7 importCloneBareTdAlias16 at /tmp/wt_r11u203g/src/TypeEmit.cpp:12172
+    #8 exportDesign at /tmp/wt_r11u203g/src/UhdmExporter.cpp:12964
+    #9 realMain at /tmp/wt_r11u203g/uhdm_main.cpp:1101
+    #10 main at /tmp/wt_r11u203g/uhdm_main.cpp:1268
+== N0164 probe/default/r10uvm207repro__g207_h_foreign object #272 ref_typespec ''  0:0:0:0 id=217 db=SAME
+  rank 52:
+    #0 MakeRef_typespec at ?:0
+    #1 operator() at /tmp/wt_r11u203g/src/TypeEmit.cpp:11387
+    #2 operator() at /tmp/wt_r11u203g/src/TypeEmit.cpp:12082
+    #3 __invoke_impl at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/invoke.h:61
+    #4 __invoke_r at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/invoke.h:114
+    #5 _M_invoke at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:290
+    #6 operator() at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #7 importCloneBareTdAlias16 at /tmp/wt_r11u203g/src/TypeEmit.cpp:12172
+    #8 exportDesign at /tmp/wt_r11u203g/src/UhdmExporter.cpp:12964
+    #9 realMain at /tmp/wt_r11u203g/uhdm_main.cpp:1101
+    #10 main at /tmp/wt_r11u203g/uhdm_main.cpp:1268
+== N0784 probe/default/r10uvm207repro__g207_h_foreign object #145 ref_typespec ''  0:0:0:0 id=217 db=SAME
+  rank 52:
+    #0 MakeRef_typespec at ?:0
+    #1 operator() at /tmp/wt_r11u203g/src/TypeEmit.cpp:11387
+    #2 operator() at /tmp/wt_r11u203g/src/TypeEmit.cpp:12082
+    #3 __invoke_impl at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/invoke.h:61
+    #4 __invoke_r at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/invoke.h:114
+    #5 _M_invoke at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:290
+    #6 operator() at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #7 importCloneBareTdAlias16 at /tmp/wt_r11u203g/src/TypeEmit.cpp:12172
+    #8 exportDesign at /tmp/wt_r11u203g/src/UhdmExporter.cpp:12964
+    #9 realMain at /tmp/wt_r11u203g/uhdm_main.cpp:1101
+    #10 main at /tmp/wt_r11u203g/uhdm_main.cpp:1268
+== N0014 probe/default/r11u107repro__grid__a18_anon_typedef object #13 ref_typespec ''  0:0:0:0 id=10 db=SAME
+  rank 1:
+    #0 MakeRef_typespec at ?:0
+    #1 buildStructTs at /tmp/wt_r11u203g/src/TypeEmit.cpp:16314
+    #2 operator() at /tmp/wt_r11u203g/src/TypeEmit.cpp:5390
+    #3 makeTypespec at /tmp/wt_r11u203g/src/TypeEmit.cpp:7616
+    #4 exportDesign at /tmp/wt_r11u203g/src/UhdmExporter.cpp:11473
+    #5 realMain at /tmp/wt_r11u203g/uhdm_main.cpp:1101
+    #6 main at /tmp/wt_r11u203g/uhdm_main.cpp:1268
+== N0448 probe/default/v11u110repro__brk__v5__k11_logic_param_range object #14 constant '' dut.sv 13:24:13:29 id=68 db=SAME
+  rank 9:
+    #0 MakeConstant at ?:0
+    #1 operator() at /tmp/wt_r11u203g/src/TypeEmit.cpp:6802
+    #2 makeTypespec at /tmp/wt_r11u203g/src/TypeEmit.cpp:7610
+    #3 emitParameters at /tmp/wt_r11u203g/src/ParamEmit.cpp:24007
+    #4 emitInstance at /tmp/wt_r11u203g/src/ModuleEmit.cpp:14041
+    #5 emitInstance at /tmp/wt_r11u203g/src/ModuleEmit.cpp:17902
+    #6 exportDesign at /tmp/wt_r11u203g/src/UhdmExporter.cpp:12229
+    #7 realMain at /tmp/wt_r11u203g/uhdm_main.cpp:1101
+    #8 main at /tmp/wt_r11u203g/uhdm_main.cpp:1268

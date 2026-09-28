@@ -1,0 +1,27 @@
+[probe] EQUAL=3357 STRICT_NOTEQUAL=730
+CONVERSION r10earl109repro/g6_carrier109 STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r10rgg6repro/cells/genfor_p2_n4_yes_typed_param STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10rgg6repro/cells/one_p2_n2_yes_typed_param STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10rgg6repro/cells/one_p2_n4_yes_typed_param STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10rgg6repro/cells/one_p2_n4_yes_typed_param_2ts STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10rgg6repro/cells/rec_p2_n4_yes_typed_param STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10rgg6repro/cells/two_p2_n4_yes_typed_param STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10svs11repro/v3_arr STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm70repro/a1_ret STRICT_NOTEQUAL differ:endcol(10) -> EQUAL
+CONVERSION r10uvm97repro/g97_a1_selftd STRICT_NOTEQUAL differ:name(1) -> EQUAL
+CONVERSION r10uvm97repro/g97_a4_plainclass STRICT_NOTEQUAL differ:name(1) -> EQUAL
+CONVERSION r10v97repro/v97_c1_mixedgroup STRICT_NOTEQUAL differ:name(1) -> EQUAL
+CHANGE r10rgg6repro/cells/genfor_none_n4_yes_typed_param STRICT_NOTEQUAL differ:endcol(4) -> differ:line(3)
+CHANGE r10rgg6repro/cells/genfor_p1_n4_yes_typed_param STRICT_NOTEQUAL differ:endcol(4) -> differ:line(3)
+CHANGE r10rgg6repro/cells/one_none_n4_yes_typed_ca STRICT_NOTEQUAL differ:endcol(3) -> differ:line(2)
+CHANGE r10rgg6repro/cells/one_none_n4_yes_typed_param STRICT_NOTEQUAL differ:endcol(2) -> differ:line(1)
+CHANGE r10rgg6repro/cells/one_none_n4_yes_typed_proc STRICT_NOTEQUAL differ:endcol(2) -> differ:line(1)
+CHANGE r10rgg6repro/cells/one_p1_n2_yes_typed_param STRICT_NOTEQUAL differ:endcol(2) -> differ:line(1)
+CHANGE r10rgg6repro/cells/one_p1_n4_yes_typed_param STRICT_NOTEQUAL differ:endcol(2) -> differ:line(1)
+CHANGE r10rgg6repro/cells/one_p1_n4_yes_typed_param_2ts STRICT_NOTEQUAL differ:endcol(2) -> differ:line(1)
+CHANGE r10rgg6repro/cells/rec_p1_n4_yes_typed_param STRICT_NOTEQUAL differ:endcol(2) -> differ:line(1)
+CHANGE r10rgg6repro/cells/twoN_none_n4_yes_typed_param STRICT_NOTEQUAL differ:endcol(3) -> differ:line(2)
+CHANGE r10rgg6repro/cells/two_none_n4_yes_typed_param STRICT_NOTEQUAL differ:endcol(3) -> differ:line(2)
+CHANGE r10rgg6repro/cells/two_p1_n4_yes_typed_param STRICT_NOTEQUAL differ:endcol(3) -> differ:line(2)
+CHANGE r10v78repro/v6_ndecl78 STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(2) [fullname -1]
+regressions=0 conversions=12 changes=13 only-fresh=0 only-committed=0

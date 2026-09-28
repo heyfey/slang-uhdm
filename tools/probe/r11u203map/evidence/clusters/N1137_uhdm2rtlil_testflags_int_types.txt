@@ -1,0 +1,64 @@
+cluster N1137 (id kept from an earlier map; COVERED r11u200 (law patches, MEASURED: gone under the patch binary) | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < operator() (ModuleEmit.cpp, law genScopeIface) < operator() (ModuleEmit.cpp, law elseArmFirstItemReplaces48) [r11u138map pin] [r11u142map pin]): span|byte_var|endcol|under:function
+row: uhdm2rtlil/testflags/int_types  strict=differ:fullname(82)  records golden=5202 ours=5202
+object: #3589 (golden) / #3589 (ours)  type=byte_var name= 
+  golden: 11:28:11:39
+  ours:   11:28:11:32
+  walk parents: function(f) < gen_scope < gen_scope_array(genblk14) < module_inst(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 3583..3595 ('>' = the object)
+  #3583	9	operation				dut.sv	20	22	20	29		0				000
+  #3584	10	ref_obj	a		work@top.genblk14.a	dut.sv	20	22	20	23		0			work@top.genblk14.a	000
+  #3585	10	operation				dut.sv	20	27	20	29		0				000
+  #3586	11	constant				dut.sv	20	28	20	29	1	64	UINT:1	9		000
+  #3587	9	constant				dut.sv	20	34	20	35	1	64	UINT:1	9		000
+  #3588	4	function	f		work@top.genblk14.f	dut.sv	11	9	14	20					work@top.genblk14.f	000
+> #3589	5	byte_var			work@top.genblk14.f	dut.sv	11	28	11	39		0			work@top.genblk14.f	000
+  #3590	6	ref_typespec			work@top.genblk14.f		0	0	0	0		0			work@top.genblk14.f	000
+  #3591	7	byte_typespec				dut.sv	11	28	11	32						000
+  #3592	5	io_decl	x			dut.sv	12	27	12	28						000
+  #3593	6	ref_typespec			work@top.genblk14.f.x		0	0	0	0		0			work@top.genblk14.f.x	000
+  #3594	7	integer_typespec				dut.sv	12	19	12	26						000
+  #3595	5	assignment				dut.sv	13	13	13	18						000
+
+--- OURS (B) records 3583..3595 ('>' = the object)
+  #3583	9	operation				dut.sv	20	22	20	29		0				000
+  #3584	10	ref_obj	a		work@top.genblk14.a	dut.sv	20	22	20	23		0			work@top.genblk14.a	000
+  #3585	10	operation				dut.sv	20	27	20	29		0				000
+  #3586	11	constant				dut.sv	20	28	20	29	1	64	UINT:1	9		000
+  #3587	9	constant				dut.sv	20	34	20	35	1	64	UINT:1	9		000
+  #3588	4	function	f		work@top.genblk14.f	dut.sv	11	9	14	20					work@top.genblk14.f	000
+> #3589	5	byte_var			work@top.genblk14.f	dut.sv	11	28	11	32		0			work@top.genblk14.f	000
+  #3590	6	ref_typespec			work@top.genblk14.f		0	0	0	0		0			work@top.genblk14.f	000
+  #3591	7	byte_typespec				dut.sv	11	28	11	32						000
+  #3592	5	io_decl	x			dut.sv	12	27	12	28						000
+  #3593	6	ref_typespec			work@top.genblk14.f.x		0	0	0	0		0			work@top.genblk14.f.x	000
+  #3594	7	integer_typespec				dut.sv	12	19	12	26						000
+  #3595	5	assignment				dut.sv	13	13	13	18						000
+
+facets of this row (82, first 25):
+  N0912 #18/18 ref_obj x G[work@top.x] O[]
+  N0912 #26/26 ref_obj y G[work@top.y] O[]
+  N0912 #94/94 ref_obj x G[work@top.x] O[]
+  N0912 #102/102 ref_obj y G[work@top.y] O[]
+  N0912 #170/170 ref_obj x G[work@top.x] O[]
+  N0912 #178/178 ref_obj y G[work@top.y] O[]
+  N0912 #246/246 ref_obj x G[work@top.x] O[]
+  N0912 #254/254 ref_obj y G[work@top.y] O[]
+  N0912 #322/322 ref_obj x G[work@top.x] O[]
+  N0912 #330/330 ref_obj y G[work@top.y] O[]
+  N0912 #398/398 ref_obj x G[work@top.x] O[]
+  N0912 #406/406 ref_obj y G[work@top.y] O[]
+  N0912 #474/474 ref_obj x G[work@top.x] O[]
+  N0912 #482/482 ref_obj y G[work@top.y] O[]
+  N0912 #550/550 ref_obj x G[work@top.x] O[]
+  N0912 #558/558 ref_obj y G[work@top.y] O[]
+  N0912 #626/626 ref_obj x G[work@top.x] O[]
+  N0912 #634/634 ref_obj y G[work@top.y] O[]
+  N0912 #702/702 ref_obj x G[work@top.x] O[]
+  N0912 #710/710 ref_obj y G[work@top.y] O[]
+  N0912 #778/778 ref_obj x G[work@top.x] O[]
+  N0912 #786/786 ref_obj y G[work@top.y] O[]
+  N0912 #854/854 ref_obj x G[work@top.x] O[]
+  N0912 #862/862 ref_obj y G[work@top.y] O[]
+  N0912 #930/930 ref_obj x G[work@top.x] O[]

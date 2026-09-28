@@ -1,0 +1,64 @@
+cluster N0980 (id kept from an earlier map; COVERED r11u201 (pass 198 R8 / pass 195 R10: FuncStructVal's leftovers (OPTIMISTIC: first record judge-unequal in every small shape, pass 187 R5)) | ground A | site emitExpr (ExprEmit.cpp, law packageVarAutomaticIsDataDeclShape26) < emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:id@id.id.id::id.id->id|under:operation
+row: surelog/default/FuncStructVal  strict=differ:endcol(95)  records golden=18222 ours=17934
+object: #17114 (golden) / #16826 (ours)  type=ref_typespec name= TAIL
+  golden: work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NonIdempotentAddrBase
+  ours:   cva6_config_pkg
+  walk parents: operation < typespec_member(NonIdempotentAddrBase) < struct_typespec(config_pkg::cva6_cfg_t) < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 17108..17120 ('>' = the object)
+  #17108	9	constant				dut.sv	362	12	362	22	15	64	INT:15	7		001
+  #17109	9	constant				dut.sv	362	25	362	26	0	64	UINT:0	9		001
+  #17110	8	range				dut.sv	362	27	362	33						001
+  #17111	9	constant				dut.sv	362	28	362	30	63	64	UINT:63	9		001
+  #17112	9	constant				dut.sv	362	31	362	32	0	64	UINT:0	9		001
+  #17113	6	operation				dut.sv	108	30	108	51		0				001
+> #17114	7	ref_typespec			<in>config_pkg::cva6_cfg_t.NonIdempotentAddrBase		0	0	0	0		0			work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NonIdempotentAddrBase	001
+  #17115	8	integer_typespec				dut.sv	108	30	108	34						001
+  #17116	7	constant				dut.sv	108	36	108	50		128	BIN:00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000	3		001
+  #17117	6	operation				dut.sv	108	30	108	51		0				001
+  #17118	7	ref_typespec			<in>config_pkg::cva6_cfg_t.NonIdempotentAddrBase		0	0	0	0		0			work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NonIdempotentAddrBase	001
+  #17119	8	integer_typespec				dut.sv	108	30	108	34						001
+  #17120	7	constant				dut.sv	108	36	108	50		128	BIN:00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000	3		001
+
+--- OURS (B) records 16820..16832 ('>' = the object)
+  #16820	9	constant				dut.sv	362	12	362	22	15	64	INT:15	7		001
+  #16821	9	constant				dut.sv	362	25	362	26	0	64	UINT:0	9		001
+  #16822	8	range				dut.sv	362	27	362	33						001
+  #16823	9	constant				dut.sv	362	28	362	30	63	64	UINT:63	9		001
+  #16824	9	constant				dut.sv	362	31	362	32	0	64	UINT:0	9		001
+  #16825	6	operation				dut.sv	108	30	108	51		0				001
+> #16826	7	ref_typespec			cva6_config_pkg		0	0	0	0		0			cva6_config_pkg	001
+  #16827	8	integer_typespec				dut.sv	108	30	108	34						001
+  #16828	7	constant				dut.sv	108	36	108	50		128	BIN:00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000	3		001
+  #16829	6	operation				dut.sv	108	30	108	51		0				001
+  #16830	7	ref_typespec			cva6_config_pkg		0	0	0	0		0			cva6_config_pkg	001
+  #16831	8	integer_typespec				dut.sv	108	30	108	34						001
+  #16832	7	constant				dut.sv	108	36	108	50		128	BIN:00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000	3		001
+
+facets of this row (1060, first 25):
+  N0891 #7975/-1 operation  G[4 objs] O[]
+  N0891 #7979/-1 operation  G[4 objs] O[]
+  N0891 #7992/-1 operation  G[4 objs] O[]
+  N0891 #7996/-1 operation  G[4 objs] O[]
+  N0891 #8014/-1 operation  G[4 objs] O[]
+  N0891 #8018/-1 operation  G[4 objs] O[]
+  N0891 #8031/-1 operation  G[4 objs] O[]
+  N0891 #8035/-1 operation  G[4 objs] O[]
+  N0891 #8680/-1 operation  G[4 objs] O[]
+  N0891 #8684/-1 operation  G[4 objs] O[]
+  N0891 #8697/-1 operation  G[4 objs] O[]
+  N0891 #8701/-1 operation  G[4 objs] O[]
+  N0891 #8719/-1 operation  G[4 objs] O[]
+  N0891 #8723/-1 operation  G[4 objs] O[]
+  N0891 #8736/-1 operation  G[4 objs] O[]
+  N0891 #8740/-1 operation  G[4 objs] O[]
+  N0891 #9379/-1 operation  G[4 objs] O[]
+  N0891 #9383/-1 operation  G[4 objs] O[]
+  N0891 #9396/-1 operation  G[4 objs] O[]
+  N0891 #9400/-1 operation  G[4 objs] O[]
+  N0891 #9418/-1 operation  G[4 objs] O[]
+  N0891 #9422/-1 operation  G[4 objs] O[]
+  N0891 #9435/-1 operation  G[4 objs] O[]
+  N0891 #9439/-1 operation  G[4 objs] O[]
+  N0891 #10326/-1 operation  G[4 objs] O[]

@@ -1,0 +1,64 @@
+cluster N0014 (id kept from an earlier map; COVERED r11u202 (pass 196 section 7 (2): anon_struct_packed_dim's 39 N0014 records, buildStructTs (not convertible alone)) | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < operator() (TypeEmit.cpp, law anonPackedAggDimTs107) < makeTypespec (TypeEmit.cpp, law anonPackedAggDimTs107) [r11u203 pin]): fullname|ref_typespec|tok:id.->|under:typespec_member
+row: uhdm2rtlil/testflags/anon_struct_packed_dim  strict=differ:fullname(43)  records golden=1130 ours=1130
+object: #22 (golden) / #22 (ours)  type=ref_typespec name= STABLE
+  golden: gpte.pte_t.ppn
+  ours:   pte_t.ppn
+  walk parents: typespec_member(ppn) < struct_typespec(pte_t) < ref_typespec < typespec_member(pte)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 16..28 ('>' = the object)
+  #16	5	ref_typespec					0	0	0	0		0				001
+  #17	6	struct_typespec				dut.sv	35	3	35	9						001
+  #18	7	typespec_member	pte			dut.sv	36	11	36	14						001
+  #19	8	ref_typespec			<in>pte		0	0	0	0		0			pte	001
+  #20	9	struct_typespec	pte_t			dut.sv	19	9	23	2						001
+  #21	10	typespec_member	ppn			dut.sv	20	15	20	18						001
+> #22	11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0			gpte.pte_t.ppn	001
+  #23	12	logic_typespec				dut.sv	20	3	20	14						001
+  #24	13	range				dut.sv	20	9	20	14						001
+  #25	14	constant				dut.sv	20	10	20	11	7	64	UINT:7	9		001
+  #26	14	constant				dut.sv	20	12	20	13	0	64	UINT:0	9		001
+  #27	10	typespec_member	g			dut.sv	21	15	21	16						001
+  #28	11	ref_typespec			<in>pte_t.g		0	0	0	0		0			gpte.pte_t.g	001
+
+--- OURS (B) records 16..28 ('>' = the object)
+  #16	5	ref_typespec					0	0	0	0		0				001
+  #17	6	struct_typespec				dut.sv	35	3	35	9						001
+  #18	7	typespec_member	pte			dut.sv	36	11	36	14						001
+  #19	8	ref_typespec			<in>pte		0	0	0	0		0			pte	001
+  #20	9	struct_typespec	pte_t			dut.sv	19	9	23	2						001
+  #21	10	typespec_member	ppn			dut.sv	20	15	20	18						001
+> #22	11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0			pte_t.ppn	001
+  #23	12	logic_typespec				dut.sv	20	3	20	14						001
+  #24	13	range				dut.sv	20	9	20	14						001
+  #25	14	constant				dut.sv	20	10	20	11	7	64	UINT:7	9		001
+  #26	14	constant				dut.sv	20	12	20	13	0	64	UINT:0	9		001
+  #27	10	typespec_member	g			dut.sv	21	15	21	16						001
+  #28	11	ref_typespec			<in>pte_t.g		0	0	0	0		0			pte_t.g	001
+
+facets of this row (43, first 25):
+  N0014 #22/22 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #28/28 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #31/31 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #37/37 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #43/43 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #46/46 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #60/60 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #66/66 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #69/69 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #75/75 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #81/81 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #84/84 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #305/305 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #311/311 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #314/314 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #389/389 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #395/395 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #398/398 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #404/404 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #410/410 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #413/413 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #427/427 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #433/433 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #436/436 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #442/442 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]

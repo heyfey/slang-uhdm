@@ -1,0 +1,27 @@
+{
+ "N0543": {
+  "site": "operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm207repro__g207_e_head object #119 ref_typespec ''  0:0:0:0 id=188 db=SAME"
+ },
+ "N0164": {
+  "site": "operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm207repro__g207_h_foreign object #272 ref_typespec ''  0:0:0:0 id=217 db=SAME"
+ },
+ "N0784": {
+  "site": "operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm207repro__g207_h_foreign object #145 ref_typespec ''  0:0:0:0 id=217 db=SAME"
+ },
+ "N0014": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < operator() (TypeEmit.cpp, law anonPackedAggDimTs107) < makeTypespec (TypeEmit.cpp, law anonPackedAggDimTs107)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u107repro__grid__a18_anon_typedef object #13 ref_typespec ''  0:0:0:0 id=10 db=SAME"
+ },
+ "N0448": {
+  "site": "operator() (TypeEmit.cpp, law shadowedImportParamFold) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) < emitParameters (ParamEmit.cpp, law elabTpDefaultDefNamed163)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/v11u110repro__brk__v5__k11_logic_param_range object #14 constant '' dut.sv 13:24:13:29 id=68 db=SAME"
+ }
+}

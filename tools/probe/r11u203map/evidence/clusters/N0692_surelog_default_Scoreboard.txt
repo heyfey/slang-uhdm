@@ -1,0 +1,64 @@
+cluster N0692 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 10; passes 193-198 left it) | ground B | site designImportParamCopy146 (UhdmExporter.cpp, law unitImportHoistsPkgParams146) < designImportPaCopy146 (UhdmExporter.cpp, law unitImportHoistsPkgParams146) < exportDesign (UhdmExporter.cpp, law unitImportHoistsPkgParams146v) [r11u142map pin]): value|parameter|value:INT->UINT|under:param_assign
+row: surelog/default/Scoreboard  strict=differ:fullname(44)  records golden=269656 ours=269677
+object: #269301 (golden) / #269326 (ours)  type=parameter name=UVM_SMALL_STRING 
+  golden: |0|INT:959|
+  ours:   |0|UINT:959|
+  walk parents: param_assign < design(work@my_scoreboard_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 269295..269307 ('>' = the object)
+  #269295	3	ref_typespec			UVM_NUM_LINES		0	0	0	0		0			UVM_NUM_LINES	000
+  #269296	4	int_typespec				uvm_globals.svh	408	1	408	30						000
+  #269297	1	param_assign				uvm_globals.svh	409	11	409	48						000
+  #269298	2	constant				uvm_globals.svh	409	30	409	46	959	32	INT:959	7		000
+  #269299	3	ref_typespec					0	0	0	0		0				000
+  #269300	4	int_typespec				uvm_globals.svh	409	1	409	48						000
+> #269301	2	parameter	UVM_SMALL_STRING			uvm_globals.svh	409	11	409	27		0	INT:959			000
+  #269302	3	ref_typespec			UVM_SMALL_STRING		0	0	0	0		0			UVM_SMALL_STRING	000
+  #269303	4	int_typespec				uvm_globals.svh	409	1	409	48						000
+  #269304	1	param_assign				uvm_globals.svh	410	11	410	62						000
+  #269305	2	constant				uvm_globals.svh	410	30	410	60	115199	32	INT:115199	7		000
+  #269306	3	ref_typespec					0	0	0	0		0				000
+  #269307	4	int_typespec				uvm_globals.svh	410	1	410	62						000
+
+--- OURS (B) records 269320..269332 ('>' = the object)
+  #269320	4	int_typespec				uvm_globals.svh	408	1	408	30						000
+  #269321	2	parameter	UVM_NUM_LINES			uvm_globals.svh	408	11	408	24		0	UINT:120			000
+  #269322	1	param_assign				uvm_globals.svh	409	11	409	48						000
+  #269323	2	constant				uvm_globals.svh	409	30	409	46	959	32	INT:959	7		000
+  #269324	3	ref_typespec			uvm_pkg		0	0	0	0		0			uvm_pkg	000
+  #269325	4	int_typespec				uvm_globals.svh	409	1	409	48						000
+> #269326	2	parameter	UVM_SMALL_STRING			uvm_globals.svh	409	11	409	27		0	UINT:959			000
+  #269327	1	param_assign				uvm_globals.svh	410	11	410	62						000
+  #269328	2	constant				uvm_globals.svh	410	30	410	60	115199	32	INT:115199	7		000
+  #269329	3	ref_typespec			uvm_pkg		0	0	0	0		0			uvm_pkg	000
+  #269330	4	int_typespec				uvm_globals.svh	410	1	410	62						000
+  #269331	2	parameter	UVM_LARGE_STRING			uvm_globals.svh	410	11	410	27		0	UINT:115199			000
+  #269332	1	module_inst	work@my_scoreboard_unit_test	work@my_scoreboard_unit_test		testbench.sv	5	1	71	10						000
+
+facets of this row (1477, first 25):
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20911 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21847 bit_typespec  G[] O[1 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74775 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74796 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74852 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79114 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79133 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80109 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82238/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82246/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82254/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82262/-1 ref_typespec  G[2 objs] O[]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]

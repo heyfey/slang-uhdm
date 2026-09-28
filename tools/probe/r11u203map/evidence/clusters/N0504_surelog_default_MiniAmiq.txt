@@ -1,0 +1,64 @@
+cluster N0504 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 15; passes 193-198 left it) | ground B | site importVarCopy5 (ModuleEmit.cpp, law importCopyTsSubtreeNoInstance7) < classInheritsContainerImports23 (ModuleEmit.cpp, law importPublishesPackageClasses24) < exportDesign (UhdmExporter.cpp, law classInheritsContainerImports23) [r11u189 pin] [r11u189map pin]): fullname|ref_typespec|tok:id::id->id|under:class_var
+row: surelog/default/MiniAmiq  strict=differ:file(17)  records golden=435559 ours=433772
+object: #161021 (golden) / #160038 (ours)  type=ref_typespec name= OUT
+  golden: svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup
+  ours:   uvm_pkg::uvm_random_seed_table_lookup
+  walk parents: class_var < array_var(uvm_random_seed_table_lookup) < class_defn(svaunit_sequencer) < class_defn(uvm_sequencer)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 161015..161027 ('>' = the object)
+  #161015	7	array_var	uvm_random_seed_table_lookup		svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup	uvm_misc.svh	328	14	328	42		1			svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup	000
+  #161016	8	ref_typespec			svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup		0	0	0	0		0			svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup	000
+  #161017	9	array_typespec					0	0	0	0						000
+  #161018	10	ref_typespec					0	0	0	0		0				001
+  #161019	11	string_typespec				uvm_misc.svh	328	44	328	50						001
+  #161020	8	class_var			svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup	uvm_misc.svh	328	14	328	42		0			svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup	000
+> #161021	9	ref_typespec			svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup		0	0	0	0		0			svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup	000
+  #161022	10	class_typespec	uvm_seed_map			uvm_misc.svh	328	1	328	13						110
+  #161023	7	class_var	uvm_resources		svaunit_pkg::svaunit_sequencer::uvm_resources	uvm_resource.svh	1694	25	1694	38		0			svaunit_pkg::svaunit_sequencer::uvm_resources	000
+  #161024	8	ref_typespec			svaunit_pkg::svaunit_sequencer::uvm_resources		0	0	0	0		0			svaunit_pkg::svaunit_sequencer::uvm_resources	000
+  #161025	9	class_typespec	uvm_resource_pool			uvm_resource.svh	1694	7	1694	24						110
+  #161026	8	ref_obj	uvm_resource_pool::get		svaunit_pkg::svaunit_sequencer::uvm_resources::uvm_resource_pool::get	uvm_resource.svh	1694	41	1694	60		0			svaunit_pkg::svaunit_sequencer::uvm_resources::uvm_resource_pool::get	000
+  #161027	7	class_var	clp		svaunit_pkg::svaunit_sequencer::clp	uvm_phase.svh	801	27	801	30		0			svaunit_pkg::svaunit_sequencer::clp	000
+
+--- OURS (B) records 160032..160044 ('>' = the object)
+  #160032	7	array_var	uvm_random_seed_table_lookup		svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup	uvm_misc.svh	328	14	328	42		1			svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup	000
+  #160033	8	ref_typespec			svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup		0	0	0	0		0			svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup	000
+  #160034	9	array_typespec					0	0	0	0						000
+  #160035	10	ref_typespec			<in>		0	0	0	0		0			svaunit_pkg::svaunit_sequencer::uvm_random_seed_table_lookup	001
+  #160036	11	string_typespec				uvm_misc.svh	328	44	328	50						001
+  #160037	8	class_var			uvm_pkg::uvm_random_seed_table_lookup	uvm_misc.svh	328	14	328	42		0			uvm_pkg::uvm_random_seed_table_lookup	000
+> #160038	9	ref_typespec			uvm_pkg::uvm_random_seed_table_lookup		0	0	0	0		0			uvm_pkg::uvm_random_seed_table_lookup	000
+  #160039	10	class_typespec	uvm_seed_map			uvm_misc.svh	328	1	328	13						110
+  #160040	7	class_var	uvm_resources		svaunit_pkg::svaunit_sequencer::uvm_resources	uvm_resource.svh	1694	25	1694	38		0			svaunit_pkg::svaunit_sequencer::uvm_resources	000
+  #160041	8	ref_typespec			svaunit_pkg::svaunit_sequencer::uvm_resources		0	0	0	0		0			svaunit_pkg::svaunit_sequencer::uvm_resources	000
+  #160042	9	class_typespec	uvm_resource_pool			uvm_resource.svh	1694	7	1694	24						110
+  #160043	8	ref_obj	uvm_resource_pool::get		svaunit_pkg::svaunit_sequencer::uvm_resources::uvm_resource_pool::get	uvm_resource.svh	1694	41	1694	60		0			svaunit_pkg::svaunit_sequencer::uvm_resources::uvm_resource_pool::get	000
+  #160044	7	class_var	clp		svaunit_pkg::svaunit_sequencer::clp	uvm_phase.svh	801	27	801	30		0			svaunit_pkg::svaunit_sequencer::clp	000
+
+facets of this row (8312, first 25):
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20803 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21739 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0678 #-1/63709 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63775 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66835 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66923 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67150 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68134 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68154 unsupported_typespec index G[] O[1 objs]

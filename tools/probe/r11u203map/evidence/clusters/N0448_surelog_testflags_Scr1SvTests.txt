@@ -1,0 +1,64 @@
+cluster N0448 (id kept from an earlier map; COVERED r11u202 (map 11 pair-B route carried (pass 198 section 8: TypeEmit makeTypeParamDefaultTs / emitTypeParamArrayVar): arb_idx_cast's last records, UnitElabBlock, SVSwitch, Scr1SvTests) | ground B | site operator() (TypeEmit.cpp, law shadowedImportParamFold) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) < emitParameters (ParamEmit.cpp, law elabTpDefaultDefNamed163) [r11u203 pin]): span|constant|endcol|under:range
+row: surelog/testflags/Scr1SvTests  strict=differ:endcol(29)  records golden=83997 ours=84036
+object: #30855 (golden) / #30855 (ours)  type=constant name= 
+  golden: 211:13:211:15
+  ours:   211:13:211:17
+  walk parents: range < int_typespec < ref_typespec < parameter(SCR1_SIM_PRINT_ADDR)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 30849..30861 ('>' = the object)
+  #30849	9	ref_obj	adr		work@scr1_memory_tb_axi.mem_write.adr	scr1_memory_tb_axi.sv	159	26	159	29		0			work@scr1_memory_tb_axi.mem_write.adr	000
+  #30850	9	ref_obj	SCR1_SIM_PRINT_ADDR		work@scr1_memory_tb_axi.mem_write.SCR1_SIM_PRINT_ADDR	scr1_memory_tb_axi.sv	159	33	159	52		0			work@scr1_memory_tb_axi.mem_write.SCR1_SIM_PRINT_ADDR	000
+  #30851	10	parameter	SCR1_SIM_PRINT_ADDR			scr1_arch_description.svh	211	26	211	45		0	HEX:F0000000			000
+  #30852	11	ref_typespec			SCR1_SIM_PRINT_ADDR		0	0	0	0		0			SCR1_SIM_PRINT_ADDR	000
+  #30853	12	int_typespec				scr1_arch_description.svh	211	12	211	20						000
+  #30854	13	range				scr1_arch_description.svh	211	12	211	20						001
+> #30855	14	constant				scr1_arch_description.svh	211	13	211	15	31	64	INT:31	7		001
+  #30856	14	constant				scr1_arch_description.svh	211	18	211	19	0	64	UINT:0	9		001
+  #30857	7	begin			work@scr1_memory_tb_axi.mem_write	scr1_memory_tb_axi.sv	159	54	162	12					work@scr1_memory_tb_axi.mem_write	000
+  #30858	8	sys_func_call	$write			scr1_memory_tb_axi.sv	160	13	160	40		0				000
+  #30859	9	constant				scr1_memory_tb_axi.sv	160	20	160	24	"%c"	16	STRING:%c	6		000
+  #30860	9	indexed_part_select	data	data	work@scr1_memory_tb_axi.mem_write.data	scr1_memory_tb_axi.sv	160	30	160	38		0			work@scr1_memory_tb_axi.mem_write.data	000
+  #30861	10	operation				scr1_memory_tb_axi.sv	160	31	160	34		0				000
+
+--- OURS (B) records 30849..30861 ('>' = the object)
+  #30849	9	ref_obj	adr		work@scr1_memory_tb_axi.mem_write.adr	scr1_memory_tb_axi.sv	159	26	159	29		0			work@scr1_memory_tb_axi.mem_write.adr	000
+  #30850	9	ref_obj	SCR1_SIM_PRINT_ADDR		work@scr1_memory_tb_axi.mem_write.SCR1_SIM_PRINT_ADDR	scr1_memory_tb_axi.sv	159	33	159	52		0			work@scr1_memory_tb_axi.mem_write.SCR1_SIM_PRINT_ADDR	000
+  #30851	10	parameter	SCR1_SIM_PRINT_ADDR			scr1_arch_description.svh	211	26	211	45		0	HEX:F0000000			000
+  #30852	11	ref_typespec			SCR1_SIM_PRINT_ADDR		0	0	0	0		0			SCR1_SIM_PRINT_ADDR	000
+  #30853	12	int_typespec				scr1_arch_description.svh	211	12	211	20						000
+  #30854	13	range				scr1_arch_description.svh	211	12	211	20						001
+> #30855	14	constant				scr1_arch_description.svh	211	13	211	17	31	64	INT:31	7		001
+  #30856	14	constant				scr1_arch_description.svh	211	18	211	19	0	64	UINT:0	9		001
+  #30857	7	begin			work@scr1_memory_tb_axi.mem_write	scr1_memory_tb_axi.sv	159	54	162	12					work@scr1_memory_tb_axi.mem_write	000
+  #30858	8	sys_func_call	$write			scr1_memory_tb_axi.sv	160	13	160	40		0				000
+  #30859	9	constant				scr1_memory_tb_axi.sv	160	20	160	24	"%c"	16	STRING:%c	6		000
+  #30860	9	indexed_part_select	data	data	work@scr1_memory_tb_axi.mem_write.data	scr1_memory_tb_axi.sv	160	30	160	38		0			work@scr1_memory_tb_axi.mem_write.data	000
+  #30861	10	operation				scr1_memory_tb_axi.sv	160	31	160	34		0				000
+
+facets of this row (109, first 25):
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48791 constant  G[] O[1 objs]
+  N2405 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N0921 #-1/70149 operation  G[] O[5 objs]
+  N0921 #-1/70158 operation  G[] O[7 objs]
+  N0921 #-1/70169 operation  G[] O[11 objs]
+  N0921 #-1/70184 operation  G[] O[13 objs]
+  N0921 #-1/76049 operation  G[] O[7 objs]
+  N0448 #30855/30855 constant  G[211:13:211:15] O[211:13:211:17]
+  N0040 #31055/31055 logic_typespec  G[29:12:29:39] O[29:12:29:28]
+  N0040 #31069/31069 logic_typespec  G[30:12:30:40] O[30:12:30:28]
+  N0040 #31083/31083 logic_typespec  G[31:12:31:34] O[31:12:31:28]
+  N0040 #31095/31095 logic_typespec  G[32:12:32:34] O[32:12:32:28]
+  N0040 #31125/31125 logic_typespec  G[37:12:37:41] O[37:12:37:28]
+  N0040 #31139/31139 logic_typespec  G[38:12:38:43] O[38:12:38:28]
+  N0040 #31191/31191 logic_typespec  G[45:12:45:39] O[45:12:45:28]
+  N0040 #31205/31205 logic_typespec  G[46:12:46:34] O[46:12:46:28]
+  N0040 #31226/31226 logic_typespec  G[50:12:50:39] O[50:12:50:28]
+  N0040 #31240/31240 logic_typespec  G[51:12:51:40] O[51:12:51:28]
+  N0040 #31254/31254 logic_typespec  G[52:12:52:34] O[52:12:52:28]
+  N0040 #31266/31266 logic_typespec  G[53:12:53:34] O[53:12:53:28]
+  N0040 #31278/31278 logic_typespec  G[54:12:54:34] O[54:12:54:28]
+  N0040 #31317/31317 logic_typespec  G[60:12:60:39] O[60:12:60:28]
+  N0040 #31331/31331 logic_typespec  G[61:12:61:41] O[61:12:61:28]
+  N0040 #31354/31354 logic_typespec  G[63:12:63:34] O[63:12:63:28]

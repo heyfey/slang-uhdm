@@ -1,0 +1,64 @@
+cluster N1780 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 8; passes 193-198 left it) | ground A | site emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) [r11u138map pin] [r11u142map pin]): fullname|parameter|tok:id::->id@id.@in-typespec|under:ref_obj
+row: surelog/default/BlackBePipeInt  strict=differ:fullname(2)  records golden=339479 ours=341862
+object: #38807 (golden) / #40916 (ours)  type=parameter name=dev_addr_width_gp TAIL
+  golden: bp_common_pkg::dev_addr_width_gp
+  ours:   work@bp_be_pipe_int.dev_addr_width_gp
+  walk parents: ref_obj(dev_addr_width_gp) < int_typespec < ref_typespec < parameter(dev_addr_width_gp)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 38801..38813 ('>' = the object)
+  #38801	3	ref_typespec			bp_be_pkg::debug_reg_match_addr_gp		0	0	0	0		0			bp_be_pkg::debug_reg_match_addr_gp	000
+  #38802	4	int_typespec				dut.sv	14656	1	14656	69						000
+  #38803	2	parameter	dev_addr_width_gp		bp_be_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20		bp_be_pkg::dev_addr_width_gp	000
+  #38804	3	ref_typespec			bp_be_pkg::dev_addr_width_gp		0	0	0	0		0			bp_be_pkg::dev_addr_width_gp	000
+  #38805	4	int_typespec				dut.sv	1793	1	1793	34						000
+  #38806	5	ref_obj	dev_addr_width_gp				0	0	0	0		0				001
+> #38807	6	parameter	dev_addr_width_gp		bp_common_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20		bp_common_pkg::dev_addr_width_gp	001
+  #38808	7	ref_typespec			bp_common_pkg::dev_addr_width_gp		0	0	0	0		0			bp_common_pkg::dev_addr_width_gp	001
+  #38809	8	int_typespec				dut.sv	1793	1	1793	34						001
+  #38810	2	parameter	dev_id_width_gp		bp_be_pkg::dev_id_width_gp	dut.sv	1792	12	1792	27		0	UINT:4		bp_be_pkg::dev_id_width_gp	000
+  #38811	3	ref_typespec			bp_be_pkg::dev_id_width_gp		0	0	0	0		0			bp_be_pkg::dev_id_width_gp	000
+  #38812	4	int_typespec				dut.sv	1792	1	1792	33						000
+  #38813	2	parameter	dram_base_addr_gp		bp_be_pkg::dram_base_addr_gp	dut.sv	1809	12	1809	29		0	HEX:0080000000		bp_be_pkg::dram_base_addr_gp	000
+
+--- OURS (B) records 40910..40922 ('>' = the object)
+  #40910	3	ref_typespec			bp_be_pkg::debug_reg_match_addr_gp		0	0	0	0		0			bp_be_pkg::debug_reg_match_addr_gp	000
+  #40911	4	int_typespec				dut.sv	14656	1	14656	69						000
+  #40912	2	parameter	dev_addr_width_gp		bp_be_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20		bp_be_pkg::dev_addr_width_gp	000
+  #40913	3	ref_typespec			bp_be_pkg::dev_addr_width_gp		0	0	0	0		0			bp_be_pkg::dev_addr_width_gp	000
+  #40914	4	int_typespec				dut.sv	1793	1	1793	34						000
+  #40915	5	ref_obj	dev_addr_width_gp		<in>dev_addr_width_gp		0	0	0	0		0			work@bp_be_pipe_int.dev_addr_width_gp.dev_addr_width_gp	001
+> #40916	6	parameter	dev_addr_width_gp		work@bp_be_pipe_int.dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20		work@bp_be_pipe_int.dev_addr_width_gp	001
+  #40917	7	ref_typespec			work@bp_be_pipe_int.dev_addr_width_gp		0	0	0	0		0			work@bp_be_pipe_int.dev_addr_width_gp	001
+  #40918	8	int_typespec				dut.sv	1793	1	1793	34						001
+  #40919	9	ref_obj	dev_addr_width_gp		<in>dev_addr_width_gp		0	0	0	0		0			work@bp_be_pipe_int.dev_addr_width_gp.dev_addr_width_gp	001
+  #40920	2	parameter	dev_id_width_gp		bp_be_pkg::dev_id_width_gp	dut.sv	1792	12	1792	27		0	UINT:4		bp_be_pkg::dev_id_width_gp	000
+  #40921	3	ref_typespec			bp_be_pkg::dev_id_width_gp		0	0	0	0		0			bp_be_pkg::dev_id_width_gp	000
+  #40922	4	int_typespec				dut.sv	1792	1	1792	33						000
+
+facets of this row (57060, first 25):
+  N0897 #-1/67 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/14409 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/15100 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/15110 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/15120 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/15130 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/15140 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/15150 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/15160 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/15170 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/15180 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/15190 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/15200 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/15210 parameter dev_addr_width_gp G[] O[4 objs]
+  N0897 #-1/15220 parameter dev_addr_width_gp G[] O[4 objs]
+  N0868 #-1/15332 constant  G[] O[1 objs]
+  N0868 #-1/15336 constant  G[] O[1 objs]
+  N0868 #-1/15340 constant  G[] O[1 objs]
+  N0868 #-1/15344 constant  G[] O[1 objs]
+  N0868 #-1/15348 constant  G[] O[1 objs]
+  N0868 #-1/15352 constant  G[] O[1 objs]
+  N0868 #-1/15356 constant  G[] O[1 objs]
+  N0868 #-1/15360 constant  G[] O[1 objs]
+  N0868 #-1/15364 constant  G[] O[1 objs]
+  N0868 #-1/15368 constant  G[] O[1 objs]

@@ -1,0 +1,64 @@
+cluster N1081 (id kept from an earlier map; COVERED r11u202 (row named: pass 196 section 7 (4) ClassTypeParam (OPTIMISTIC: pass 188 R7 read, not attempted)) | ground B | site exportDesign (UhdmExporter.cpp, law unitImportHoistsPkgParams146v) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u138map pin] [r11u142map pin]): span|class_typespec|endline+endcol|under:ref_typespec
+row: surelog/testflags/ClassTypeParam  strict=differ:file(30)  records golden=146 ours=146
+object: #87 (golden) / #87 (ours)  type=class_typespec name=m_uvm_config_obj_misc 
+  golden: 20:9:24:36
+  ours:   20:9:20:43
+  walk parents: ref_typespec < logic_net(misc1) < module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 81..93 ('>' = the object)
+  #81	3	io_decl	a_error_msg			dut.sv	11	52	11	63						000
+  #82	4	ref_typespec			work@uvm_resource_db::check_all_sva_passed::a_error_msg		0	0	0	0		0			work@uvm_resource_db::check_all_sva_passed::a_error_msg	000
+  #83	5	string_typespec				dut.sv	11	45	11	51						000
+  #84	1	module_inst		work@top	work@top	dut.sv	22	1	27	10					work@top	000
+  #85	2	logic_net	misc1		work@top.misc1	dut.sv	24	25	24	30		0			work@top.misc1	000
+  #86	3	ref_typespec			work@top.misc1		0	0	0	0		0			work@top.misc1	000
+> #87	4	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	24	36						110
+  #88	5	type_parameter	T		<in>m_uvm_config_obj_misc.T		0	0	0	0					m_uvm_config_obj_misc.T	001
+  #89	6	ref_typespec			<in>T		0	0	0	0		0			m_uvm_config_obj_misc.T	001
+  #90	7	class_typespec	uvm_object			dut.sv	20	22	20	43						001
+  #91	5	type_parameter	T2		<in>m_uvm_config_obj_misc.T2	dut.sv	16	39	16	41					m_uvm_config_obj_misc.T2	001
+  #92	6	ref_typespec			<in>T2		0	0	0	0		0			m_uvm_config_obj_misc.T2	001
+  #93	7	string_typespec				dut.sv	20	36	20	42						001
+
+--- OURS (B) records 81..93 ('>' = the object)
+  #81	3	io_decl	a_error_msg			dut.sv	11	52	11	63						000
+  #82	4	ref_typespec			work@uvm_resource_db::check_all_sva_passed::a_error_msg		0	0	0	0		0			work@uvm_resource_db::check_all_sva_passed::a_error_msg	000
+  #83	5	string_typespec				dut.sv	11	45	11	51						000
+  #84	1	module_inst		work@top	work@top	dut.sv	22	1	27	10					work@top	000
+  #85	2	logic_net	misc1		work@top.misc1	dut.sv	24	25	24	30		0			work@top.misc1	000
+  #86	3	ref_typespec			work@top.misc1		0	0	0	0		0			work@top.misc1	000
+> #87	4	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	20	43						110
+  #88	5	type_parameter	T		<in>m_uvm_config_obj_misc.T	dut.sv	16	27	16	28					m_uvm_config_obj_misc.T	001
+  #89	6	ref_typespec			<in>T		0	0	0	0		0			m_uvm_config_obj_misc.T	001
+  #90	7	class_typespec	uvm_object			dut.sv	20	24	20	34						001
+  #91	5	type_parameter	T2		<in>m_uvm_config_obj_misc.T2	dut.sv	16	39	16	41					m_uvm_config_obj_misc.T2	001
+  #92	6	ref_typespec			<in>T2		0	0	0	0		0			m_uvm_config_obj_misc.T2	001
+  #93	7	string_typespec				dut.sv	20	36	20	42						001
+
+facets of this row (40, first 25):
+  N1599 #9/9 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  N1631 #9/9 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  N0116 #11/11 class_typespec uvm_object G[20:22:20:43] O[20:24:20:34]
+  N1599 #23/23 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  N1631 #23/23 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  N0072 #25/25 class_typespec uvm_object G[26:16:26:37] O[20:24:20:34]
+  N0069 #32/32 string_typespec  G[26:30:26:36] O[20:36:20:42]
+  N1599 #45/45 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  N1631 #45/45 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  N0116 #47/47 class_typespec uvm_object G[20:22:20:43] O[20:24:20:34]
+  N1599 #52/52 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  N1631 #52/52 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  N0072 #54/54 class_typespec uvm_object G[26:16:26:37] O[20:24:20:34]
+  N1599 #66/66 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  N1631 #66/66 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  N0116 #68/68 class_typespec uvm_object G[20:22:20:43] O[20:24:20:34]
+  N1599 #73/73 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  N1631 #73/73 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  N0072 #75/75 class_typespec uvm_object G[26:16:26:37] O[20:24:20:34]
+  N1081 #87/87 class_typespec m_uvm_config_obj_misc G[20:9:24:36] O[20:9:20:43]
+  N0781 #88/88 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  N0783 #88/88 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  N0116 #90/90 class_typespec uvm_object G[20:22:20:43] O[20:24:20:34]
+  N0782 #94/94 param_assign  G[0:0:0:0] O[16:27:16:28]
+  N0781 #105/105 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]

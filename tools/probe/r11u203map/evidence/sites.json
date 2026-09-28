@@ -1,0 +1,9 @@
+{
+ "N0543": "operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) [r11u203 pin]",
+ "N0164": "operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) [r11u203 pin]",
+ "N0784": "operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) [r11u203 pin]",
+ "N0014": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < operator() (TypeEmit.cpp, law anonPackedAggDimTs107) < makeTypespec (TypeEmit.cpp, law anonPackedAggDimTs107) [r11u203 pin]",
+ "N0448": "operator() (TypeEmit.cpp, law shadowedImportParamFold) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) < emitParameters (ParamEmit.cpp, law elabTpDefaultDefNamed163) [r11u203 pin]",
+ "N2467": "emitTaskFuncs (TaskFuncEmit.cpp, law classTdRetSharesTypedefTs200: the return variable's location) [not pinned: exists only under the r11u200 patches; attributed by R11U200_CLASSTDRET_OFF on BuildUVMPkg default, which restores golden's 16092:12-16092:40]",
+ "N2468": "emitTaskFuncs (TaskFuncEmit.cpp, law classTdRetSharesTypedefTs200: the late-bound ref_var return's file) [not pinned: exists only under the r11u200 patches; attributed by R11U200_CLASSTDRET_OFF on Scoreboard default: lost 8 -> 0]"
+}

@@ -1,0 +1,64 @@
+cluster N0459 (id kept from an earlier map; COVERED r11u200 (law patches, MEASURED: gone under the patch binary) | ground B | site tdVecNamedClone42 (TypeEmit.cpp, law sharedAliasNoStamp41) < classElemVar (UhdmExporter.cpp, law arrayElemTsSignedParented9) < emitClassDefn (UhdmExporter.cpp, law fixedClassPropIsArrayVar6) [r11u142map pin]): fullname|ref_typespec|tok:id::id::id::->|under:int_typespec
+row: surelog/default/Scoreboard  strict=differ:fullname(44)  records golden=269656 ours=269677
+object: #168162 (golden) / #168166 (ours)  type=ref_typespec name= STABLE
+  golden: uvm_pkg::uvm_report_handler::severity_actions::uvm_action
+  ours:   uvm_action
+  walk parents: int_typespec(uvm_action) < ref_typespec < int_var < array_var(severity_actions)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 168156..168168 ('>' = the object)
+  #168156	9	enum_const	UVM_WARNING			uvm_object_globals.svh	245	3	245	14						001
+  #168157	9	enum_const	UVM_ERROR			uvm_object_globals.svh	246	3	246	12						001
+  #168158	9	enum_const	UVM_FATAL			uvm_object_globals.svh	247	3	247	12						001
+  #168159	5	int_var			uvm_pkg::uvm_report_handler::severity_actions	uvm_report_handler.svh	67	14	67	30		0			uvm_pkg::uvm_report_handler::severity_actions	000
+  #168160	6	ref_typespec			uvm_pkg::uvm_report_handler::severity_actions		0	0	0	0		0			uvm_pkg::uvm_report_handler::severity_actions	000
+  #168161	7	int_typespec	uvm_action			uvm_object_globals.svh	272	9	272	12						110
+> #168162	8	ref_typespec			<in>uvm_action		0	0	0	0		0			uvm_pkg::uvm_report_handler::severity_actions::uvm_action	001
+  #168163	9	int_typespec	uvm_pkg::uvm_action			uvm_object_globals.svh	272	9	272	12						001
+  #168164	4	array_var	severity_id_actions		uvm_pkg::uvm_report_handler::severity_id_actions	uvm_report_handler.svh	68	24	68	43		1			uvm_pkg::uvm_report_handler::severity_id_actions	000
+  #168165	5	ref_typespec			uvm_pkg::uvm_report_handler::severity_id_actions		0	0	0	0		0			uvm_pkg::uvm_report_handler::severity_id_actions	000
+  #168166	6	array_typespec					0	0	0	0						000
+  #168167	7	ref_typespec					0	0	0	0		0				001
+  #168168	8	enum_typespec	uvm_pkg::uvm_severity			uvm_sequence_item.svh	352	37	352	49						001
+
+--- OURS (B) records 168160..168172 ('>' = the object)
+  #168160	9	enum_const	UVM_WARNING			uvm_object_globals.svh	245	3	245	14						001
+  #168161	9	enum_const	UVM_ERROR			uvm_object_globals.svh	246	3	246	12						001
+  #168162	9	enum_const	UVM_FATAL			uvm_object_globals.svh	247	3	247	12						001
+  #168163	5	int_var			uvm_pkg::uvm_report_handler::severity_actions	uvm_report_handler.svh	67	14	67	30		0			uvm_pkg::uvm_report_handler::severity_actions	000
+  #168164	6	ref_typespec			uvm_pkg::uvm_report_handler::severity_actions		0	0	0	0		0			uvm_pkg::uvm_report_handler::severity_actions	000
+  #168165	7	int_typespec	uvm_action			uvm_object_globals.svh	272	9	272	12						110
+> #168166	8	ref_typespec			<in>uvm_action		0	0	0	0		0			uvm_action	001
+  #168167	9	int_typespec	uvm_pkg::uvm_action			uvm_object_globals.svh	272	9	272	12						001
+  #168168	4	array_var	severity_id_actions		uvm_pkg::uvm_report_handler::severity_id_actions	uvm_report_handler.svh	68	24	68	43		1			uvm_pkg::uvm_report_handler::severity_id_actions	000
+  #168169	5	ref_typespec			uvm_pkg::uvm_report_handler::severity_id_actions		0	0	0	0		0			uvm_pkg::uvm_report_handler::severity_id_actions	000
+  #168170	6	array_typespec					0	0	0	0						000
+  #168171	7	ref_typespec					0	0	0	0		0				001
+  #168172	8	enum_typespec	uvm_pkg::uvm_severity			uvm_sequence_item.svh	352	37	352	49						001
+
+facets of this row (1477, first 25):
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20911 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21847 bit_typespec  G[] O[1 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74775 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74796 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74852 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79114 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79133 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80109 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82238/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82246/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82254/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82262/-1 ref_typespec  G[2 objs] O[]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]

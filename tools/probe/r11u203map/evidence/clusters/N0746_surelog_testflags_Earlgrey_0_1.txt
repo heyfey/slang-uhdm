@@ -1,0 +1,64 @@
+cluster N0746 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 13; passes 193-198 left it) | ground A | site makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < emitParameters (ParamEmit.cpp, law pkgParamTsRefColons131) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) [r11u138map pin] [r11u142map pin]): file|int_typespec|golden-empty|under:ref_typespec
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(82)  records golden=1342584 ours=1342870
+object: #1141614 (golden) / #1141747 (ours)  type=int_typespec name= 
+  golden:  0:0:0:0
+  ours:   usbdev.sv 83:14:83:17
+  walk parents: ref_typespec < constant < param_assign < module_inst(u_usbdev)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1141608..1141620 ('>' = the object)
+  #1141608	4	constant				usbdev.sv	80	30	80	42	5	32	UINT:5	9		000
+  #1141609	5	ref_typespec			work@top_earlgrey.u_usbdev		0	0	0	0		0			work@top_earlgrey.u_usbdev	000
+  #1141610	6	int_typespec				usbdev.sv	80	14	80	17						000
+  #1141611	3	param_assign				usbdev.sv	83	18	83	41						000
+  #1141612	4	constant				usbdev.sv	83	32	83	41	5	32	UINT:5	9		000
+  #1141613	5	ref_typespec			work@top_earlgrey.u_usbdev		0	0	0	0		0			work@top_earlgrey.u_usbdev	000
+> #1141614	6	int_typespec					0	0	0	0						000
+  #1141615	3	param_assign				usbdev.sv	84	18	84	33						000
+  #1141616	4	constant				usbdev.sv	84	32	84	33	4	32	UINT:4	9		000
+  #1141617	5	ref_typespec			work@top_earlgrey.u_usbdev		0	0	0	0		0			work@top_earlgrey.u_usbdev	000
+  #1141618	6	int_typespec				usbdev.sv	84	14	84	17						000
+  #1141619	3	param_assign				usbdev.sv	87	18	87	74						000
+  #1141620	4	constant				usbdev.sv	87	32	87	74	17	32	UINT:17	9		000
+
+--- OURS (B) records 1141741..1141753 ('>' = the object)
+  #1141741	4	constant				usbdev.sv	80	30	80	42	5	32	UINT:5	9		000
+  #1141742	5	ref_typespec			work@top_earlgrey.u_usbdev		0	0	0	0		0			work@top_earlgrey.u_usbdev	000
+  #1141743	6	int_typespec				usbdev.sv	80	14	80	17						000
+  #1141744	3	param_assign				usbdev.sv	83	18	83	41						000
+  #1141745	4	constant				usbdev.sv	83	32	83	41	5	32	UINT:5	9		000
+  #1141746	5	ref_typespec			work@top_earlgrey.u_usbdev		0	0	0	0		0			work@top_earlgrey.u_usbdev	000
+> #1141747	6	int_typespec				usbdev.sv	83	14	83	17						000
+  #1141748	3	param_assign				usbdev.sv	84	18	84	33						000
+  #1141749	4	constant				usbdev.sv	84	32	84	33	4	32	UINT:4	9		000
+  #1141750	5	ref_typespec			work@top_earlgrey.u_usbdev		0	0	0	0		0			work@top_earlgrey.u_usbdev	000
+  #1141751	6	int_typespec				usbdev.sv	84	14	84	17						000
+  #1141752	3	param_assign				usbdev.sv	87	18	87	74						000
+  #1141753	4	constant				usbdev.sv	87	32	87	74	17	32	UINT:17	9		000
+
+facets of this row (4052, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

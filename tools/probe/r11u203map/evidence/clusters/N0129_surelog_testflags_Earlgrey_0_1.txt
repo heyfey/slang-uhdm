@@ -1,0 +1,64 @@
+cluster N0129 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 13; passes 193-198 left it) | ground A | site emitExpr (ExprEmit.cpp, law elabCaPortParamPaCopy64) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30) < emitExpr (ExprEmit.cpp, law psBoundPkgParamTs31) [r11u179 pin] [r11u179map pin]): fullname|ref_typespec|tok:->.id|under:constant
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(82)  records golden=1342584 ours=1342870
+object: #194478 (golden) / #194438 (ours)  type=ref_typespec name= OUT
+  golden: work@pinmux
+  ours:   work@pinmux.p_sleep
+  walk parents: constant < operation < assignment < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 194472..194484 ('>' = the object)
+  #194472	7	assignment				pinmux.sv	133	7	133	34						000
+  #194473	8	constant				pinmux.sv	133	30	133	34	1'b0	1	BIN:0	3		000
+  #194474	8	ref_obj	sleep_en_q		work@pinmux.p_sleep.sleep_en_q	pinmux.sv	133	7	133	17		0			work@pinmux.p_sleep.sleep_en_q	000
+  #194475	7	assignment				pinmux.sv	134	7	134	47						000
+  #194476	8	operation				pinmux.sv	134	30	134	47		0				000
+  #194477	9	constant				pinmux.sv	134	31	134	39	15	32	UINT:15	9		000
+> #194478	10	ref_typespec			work@pinmux		0	0	0	0		0			work@pinmux	000
+  #194479	11	int_typespec				pinmux_reg_pkg.sv	13	13	13	16						000
+  #194480	9	operation				pinmux.sv	134	39	134	46		0				000
+  #194481	10	constant				pinmux.sv	134	40	134	45	2'b10	2	BIN:10	3		000
+  #194482	8	ref_obj	dio_out_sleep_val_q		work@pinmux.p_sleep.dio_out_sleep_val_q	pinmux.sv	134	7	134	26		0			work@pinmux.p_sleep.dio_out_sleep_val_q	000
+  #194483	7	assignment				pinmux.sv	135	7	135	32						000
+  #194484	8	constant				pinmux.sv	135	30	135	32	'0	-1	BIN:0	3		000
+
+--- OURS (B) records 194432..194444 ('>' = the object)
+  #194432	7	assignment				pinmux.sv	133	7	133	34						000
+  #194433	8	constant				pinmux.sv	133	30	133	34	1'b0	1	BIN:0	3		000
+  #194434	8	ref_obj	sleep_en_q		work@pinmux.p_sleep.sleep_en_q	pinmux.sv	133	7	133	17		0			work@pinmux.p_sleep.sleep_en_q	000
+  #194435	7	assignment				pinmux.sv	134	7	134	47						000
+  #194436	8	operation				pinmux.sv	134	30	134	47		0				000
+  #194437	9	constant				pinmux.sv	134	31	134	39	15	32	UINT:15	9		000
+> #194438	10	ref_typespec			work@pinmux.p_sleep		0	0	0	0		0			work@pinmux.p_sleep	000
+  #194439	11	int_typespec				pinmux_reg_pkg.sv	13	13	13	16						000
+  #194440	9	operation				pinmux.sv	134	39	134	46		0				000
+  #194441	10	constant				pinmux.sv	134	40	134	45	2'b10	2	BIN:10	3		000
+  #194442	8	ref_obj	dio_out_sleep_val_q		work@pinmux.p_sleep.dio_out_sleep_val_q	pinmux.sv	134	7	134	26		0			work@pinmux.p_sleep.dio_out_sleep_val_q	000
+  #194443	7	assignment				pinmux.sv	135	7	135	32						000
+  #194444	8	constant				pinmux.sv	135	30	135	32	'0	-1	BIN:0	3		000
+
+facets of this row (4052, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

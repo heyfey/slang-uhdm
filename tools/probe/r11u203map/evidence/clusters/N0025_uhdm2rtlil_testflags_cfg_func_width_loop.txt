@@ -1,0 +1,46 @@
+cluster N0025 (id kept from an earlier map; COVERED r11u201 (r11u200 3e (decoded, no law): cfg_func_width_loop's evaluator-stamped formal typespec on the shared parameter constant (ParamEmit) and the range copy behind it) | ground A | site emitSyntaxExpr (TypeEmit.cpp, law fnLocalParamRangeNet) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12) [DECODED (r11u130 R5): TypedefWithParameter: our net typespec carries a Typedef_alias clone golden lacks (class B), so the walk diverges before the range] [r11u142map pin]): depth|constant|range->operation
+row: uhdm2rtlil/testflags/cfg_func_width_loop  strict=differ:line(3)  records golden=435 ours=436
+object: #382 (golden) / #384 (ours)  type=constant name= 
+  golden: 8 range < logic_typespec(mask_t)
+  ours:   9 operation < range
+  walk parents: range < logic_typespec(mask_t) < ref_typespec < constant
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 376..388 ('>' = the object)
+  #376	8	logic_typespec	q::mask_t			dut.sv	16	11	16	25						001
+  #377	9	range				dut.sv	16	17	16	25						001
+  #378	10	constant				dut.sv	16	18	16	19	0	64	UINT:0	9		001
+  #379	10	constant				dut.sv	16	20	16	22	2	64	INT:2	7		001
+  #380	7	range				dut.sv	16	17	16	25						001
+  #381	8	constant				dut.sv	16	18	16	19	0	64	UINT:0	9		001
+> #382	8	constant				dut.sv	16	20	16	22	2	64	INT:2	7		001
+  #383	3	logic_net	a		work@cfg_func_width_loop.u.a	dut.sv	39	35	39	36		0			work@cfg_func_width_loop.u.a	000
+  #384	4	ref_typespec			work@cfg_func_width_loop.u.a		0	0	0	0		0			work@cfg_func_width_loop.u.a	000
+  #385	5	logic_typespec				dut.sv	39	12	39	34						000
+  #386	6	range				dut.sv	39	18	39	34						001
+  #387	7	constant				dut.sv	39	19	39	29	9	64	INT:9	7		001
+  #388	7	constant				dut.sv	39	32	39	33	0	64	UINT:0	9		001
+
+--- OURS (B) records 378..390 ('>' = the object)
+  #378	10	constant				dut.sv	16	18	16	19	0	64	UINT:0	9		001
+  #379	10	constant				dut.sv	16	20	16	22	2	64	INT:2	7		001
+  #380	7	range				dut.sv	16	17	16	25						001
+  #381	8	constant				dut.sv	16	18	16	19	0	64	UINT:0	9		001
+  #382	8	operation				dut.sv	16	20	16	24		0				001
+  #383	9	ref_obj	NF		work@sub.M.NF	dut.sv	16	20	16	22		0			work@sub.M.NF	001
+> #384	9	constant				dut.sv	16	23	16	24	1	64	UINT:1	9		001
+  #385	3	logic_net	a		work@cfg_func_width_loop.u.a	dut.sv	39	35	39	36		0			work@cfg_func_width_loop.u.a	000
+  #386	4	ref_typespec			work@cfg_func_width_loop.u.a		0	0	0	0		0			work@cfg_func_width_loop.u.a	000
+  #387	5	logic_typespec				dut.sv	39	12	39	34						000
+  #388	6	range				dut.sv	39	18	39	34						001
+  #389	7	constant				dut.sv	39	19	39	29	9	64	INT:9	7		001
+  #390	7	constant				dut.sv	39	32	39	33	0	64	UINT:0	9		001
+
+facets of this row (7, first 25):
+  N0025 #382/384 constant  G[8 range < logic_typespec(mask_t)] O[9 operation < range]
+  N0033 #-1/382 operation  G[] O[2 objs]
+  N0133 #426/-1 func_call q::maxw G[2 objs] O[]
+  N0487 #-1/428 constant  G[] O[1 objs]
+  N0263 #374/374 logic_typespec mask_t G[27:40:27:46] O[16:11:16:25]
+  N0794 #375/375 ref_typespec  G[mask_t] O[work@sub.M.mask_t]
+  N0754 #428/429 ref_obj o G[work@sub.o] O[work@cfg_func_width_loop.u.o]

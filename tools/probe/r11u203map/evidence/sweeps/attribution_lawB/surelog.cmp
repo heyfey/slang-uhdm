@@ -1,0 +1,21 @@
+[default] CMP_EQUAL=19 STRICT_NOTEQUAL=11
+[testflags] CMP_EQUAL=18 NO_DATABASE=1 SLANG_REJECT=1 STRICT_NOTEQUAL=9 SURELOG_FAIL=1
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:line(11) -> differ:line(24) [line +13]
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:line(11) -> differ:line(24) [line +13]
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:fullname(82) -> differ:endcol(80)
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(82) -> differ:endcol(80)
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(17) -> differ:file(91) [file +74]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(17) -> differ:file(91) [file +74]
+CHANGE Rggen default STRICT_NOTEQUAL differ:endcol(144) -> differ:defname(142)
+CHANGE SVSwitch default STRICT_NOTEQUAL differ:fullname(13) -> differ:fullname(2) [fullname -11]
+CHANGE SVSwitch testflags STRICT_NOTEQUAL differ:fullname(13) -> differ:fullname(2) [fullname -11]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(44) -> differ:fullname(123) [fullname +79]
+CHANGE Scr1SvTests default STRICT_NOTEQUAL differ:endcol(29) -> differ:endcol(11) [endcol -18]
+CHANGE Scr1SvTests testflags STRICT_NOTEQUAL differ:endcol(29) -> differ:endcol(11) [endcol -18]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:fullname(16) -> differ:fullname(85) [fullname +69]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:fullname(16) -> differ:fullname(85) [fullname +69]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(44) -> differ:fullname(115) [fullname +71]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(44) -> differ:fullname(115) [fullname +71]
+CHANGE UnitElabBlock default STRICT_NOTEQUAL differ:endline(13) -> differ:file(2)
+CHANGE UnitElabBlock testflags STRICT_NOTEQUAL differ:endline(12) -> differ:file(1)
+regressions=0 conversions=0 changes=18 only-fresh=0 only-committed=0

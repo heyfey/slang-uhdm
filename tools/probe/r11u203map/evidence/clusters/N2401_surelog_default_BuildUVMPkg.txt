@@ -1,0 +1,64 @@
+cluster N2401 (id kept from an earlier map; COVERED r11u201 (pass 198 R8 / map 11 A3: the UVM ground-A families) | ground A | site emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law hpTrailSelIdxNamesByPath133) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) [r11u165map pin]): fullname|ref_obj|tok:id.id.id[]::id::->|under:hier_path
+row: surelog/default/BuildUVMPkg  strict=differ:line(11)  records golden=201533 ours=201534
+object: #164660 (golden) / #164652 (ours)  type=ref_obj name=obj OUT
+  golden: uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts::obj
+  ours:   uvm_pkg::uvm_objection::m_execute_scheduled_forks::obj
+  walk parents: hier_path(c.obj) < bit_select(m_scheduled_contexts) < hier_path(c.objection.m_scheduled_contexts[]) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 164654..164666 ('>' = the object)
+  #164654	11	hier_path	c.objection.m_scheduled_contexts[]			uvm_pkg.sv	42134	11	42134	50		0				000
+  #164655	12	ref_obj	c			uvm_pkg.sv	42134	13	42134	22		0				000
+  #164656	12	ref_obj	objection			uvm_pkg.sv	42134	13	42134	22		0				000
+  #164657	12	bit_select	m_scheduled_contexts		uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts	uvm_pkg.sv	42134	23	42134	50		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts	000
+  #164658	13	hier_path	c.obj			uvm_pkg.sv	42134	44	42134	49		0				000
+  #164659	14	ref_obj	c			uvm_pkg.sv	42134	44	42134	45		0				000
+> #164660	14	ref_obj	obj		uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts::obj	uvm_pkg.sv	42134	46	42134	49		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts::obj	000
+  #164661	10	method_func_call	objection			uvm_pkg.sv	42136	13	42136	22		0				000
+  #164662	11	ref_obj	c		uvm_pkg::uvm_objection::m_execute_scheduled_forks::c	uvm_pkg.sv	42136	11	42136	12		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::c	000
+  #164663	10	named_fork	guard		uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard	uvm_pkg.sv	42140	11	42171	28					uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard	000
+  #164664	11	class_var	objection		uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection	uvm_pkg.sv	42141	39	42141	48		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection	000
+  #164665	12	ref_typespec			uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection		0	0	0	0		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection	000
+  #164666	13	class_typespec				uvm_pkg.sv	42141	25	42141	38						000
+
+--- OURS (B) records 164646..164658 ('>' = the object)
+  #164646	11	hier_path	c.objection.m_scheduled_contexts[]			uvm_pkg.sv	42134	11	42134	50		0				000
+  #164647	12	ref_obj	c			uvm_pkg.sv	42134	13	42134	22		0				000
+  #164648	12	ref_obj	objection			uvm_pkg.sv	42134	13	42134	22		0				000
+  #164649	12	bit_select	m_scheduled_contexts		uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts	uvm_pkg.sv	42134	23	42134	50		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts	000
+  #164650	13	hier_path	c.obj			uvm_pkg.sv	42134	44	42134	49		0				000
+  #164651	14	ref_obj	c			uvm_pkg.sv	42134	44	42134	45		0				000
+> #164652	14	ref_obj	obj		uvm_pkg::uvm_objection::m_execute_scheduled_forks::obj	uvm_pkg.sv	42134	46	42134	49		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::obj	000
+  #164653	10	method_func_call	objection			uvm_pkg.sv	42136	13	42136	22		0				000
+  #164654	11	ref_obj	c		uvm_pkg::uvm_objection::m_execute_scheduled_forks::c	uvm_pkg.sv	42136	11	42136	12		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::c	000
+  #164655	10	named_fork	guard		uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard	uvm_pkg.sv	42140	11	42171	28					uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard	000
+  #164656	11	class_var	objection		uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection	uvm_pkg.sv	42141	39	42141	48		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection	000
+  #164657	12	ref_typespec			uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection		0	0	0	0		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection	000
+  #164658	13	class_typespec				uvm_pkg.sv	42141	25	42141	38						000
+
+facets of this row (830, first 25):
+  N2465 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22504 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22588 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23501 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56188 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74743 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74826 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76333 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76354 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76414 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79777 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79788 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79842 array_typespec  G[] O[1 objs]
+  N0423 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]

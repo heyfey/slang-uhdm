@@ -1,0 +1,64 @@
+cluster N0454 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 14; passes 193-198 left it) | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeTypespec (TypeEmit.cpp, law memberAnonUnionAtKeyword134) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) [r11u142map pin]): fullname|ref_typespec|tok:id@id.id.id.id.->|under:typespec_member
+row: surelog/default/Earlgrey_0_1  strict=differ:fullname(82)  records golden=2173209 ours=2173853
+object: #407902 (golden) / #407862 (ours)  type=ref_typespec name= STABLE
+  golden: work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.CpuCtrl_t.unused_ctrl
+  ours:   CpuCtrl_t.unused_ctrl
+  walk parents: typespec_member(unused_ctrl) < struct_typespec(CpuCtrl_t) < ref_typespec < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 407896..407908 ('>' = the object)
+  #407896	7	ref_obj	unused_ctrl			ibex_cs_registers.sv	1055	24	1055	35		0				000
+  #407897	5	cont_assign				ibex_cs_registers.sv	1057	10	1057	51						000
+  #407898	6	operation				ibex_cs_registers.sv	1057	26	1057	51		0				000
+  #407899	7	ref_typespec			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i		0	0	0	0		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i	000
+  #407900	8	struct_typespec	CpuCtrl_t			ibex_cs_registers.sv	166	11	172	4						110
+  #407901	9	typespec_member	unused_ctrl			ibex_cs_registers.sv	167	18	167	29						001
+> #407902	10	ref_typespec			<in>CpuCtrl_t.unused_ctrl		0	0	0	0		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.CpuCtrl_t.unused_ctrl	001
+  #407903	11	logic_typespec				ibex_cs_registers.sv	167	5	167	17						001
+  #407904	12	range				ibex_cs_registers.sv	167	11	167	17						001
+  #407905	13	constant				ibex_cs_registers.sv	167	12	167	14	31	64	UINT:31	9		001
+  #407906	13	constant				ibex_cs_registers.sv	167	15	167	16	6	64	UINT:6	9		001
+  #407907	9	typespec_member	dummy_instr_mask			ibex_cs_registers.sv	168	18	168	34						001
+  #407908	10	ref_typespec			<in>CpuCtrl_t.dummy_instr_mask		0	0	0	0		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.CpuCtrl_t.dummy_instr_mask	001
+
+--- OURS (B) records 407856..407868 ('>' = the object)
+  #407856	7	ref_obj	unused_ctrl			ibex_cs_registers.sv	1055	24	1055	35		0				000
+  #407857	5	cont_assign				ibex_cs_registers.sv	1057	10	1057	51						000
+  #407858	6	operation				ibex_cs_registers.sv	1057	26	1057	51		0				000
+  #407859	7	ref_typespec			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i		0	0	0	0		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i	000
+  #407860	8	struct_typespec	CpuCtrl_t			ibex_cs_registers.sv	166	11	172	4						110
+  #407861	9	typespec_member	unused_ctrl			ibex_cs_registers.sv	167	18	167	29						001
+> #407862	10	ref_typespec			<in>CpuCtrl_t.unused_ctrl		0	0	0	0		0			CpuCtrl_t.unused_ctrl	001
+  #407863	11	logic_typespec				ibex_cs_registers.sv	167	5	167	17						001
+  #407864	12	range				ibex_cs_registers.sv	167	11	167	17						001
+  #407865	13	constant				ibex_cs_registers.sv	167	12	167	14	31	64	UINT:31	9		001
+  #407866	13	constant				ibex_cs_registers.sv	167	15	167	16	6	64	UINT:6	9		001
+  #407867	9	typespec_member	dummy_instr_mask			ibex_cs_registers.sv	168	18	168	34						001
+  #407868	10	ref_typespec			<in>CpuCtrl_t.dummy_instr_mask		0	0	0	0		0			CpuCtrl_t.dummy_instr_mask	001
+
+facets of this row (4238, first 25):
+  N0142 #130430/-1 range  G[5 objs] O[]
+  N0142 #130519/-1 range  G[5 objs] O[]
+  N0142 #134891/-1 range  G[5 objs] O[]
+  N0142 #134980/-1 range  G[5 objs] O[]
+  N0142 #136112/-1 range  G[5 objs] O[]
+  N0142 #136201/-1 range  G[5 objs] O[]
+  N0142 #137221/-1 range  G[5 objs] O[]
+  N0142 #137310/-1 range  G[5 objs] O[]
+  N1173 #-1/658520 hier_path tl_h_o.a_ready G[] O[3 objs]
+  N1184 #-1/658523 cont_assign  G[] O[4 objs]
+  N1181 #-1/658527 cont_assign  G[] O[1 objs]
+  N1173 #-1/658540 hier_path tl_h_o.d_opcode G[] O[3 objs]
+  N1181 #-1/658543 cont_assign  G[] O[1 objs]
+  N1184 #-1/670225 cont_assign  G[] O[4 objs]
+  N1184 #-1/670229 cont_assign  G[] O[4 objs]
+  N1184 #-1/670233 cont_assign  G[] O[4 objs]
+  N1184 #-1/670237 cont_assign  G[] O[4 objs]
+  N1184 #-1/670241 cont_assign  G[] O[4 objs]
+  N1184 #-1/670245 cont_assign  G[] O[4 objs]
+  N1184 #-1/670249 cont_assign  G[] O[4 objs]
+  N1184 #-1/670253 cont_assign  G[] O[4 objs]
+  N1184 #-1/670257 cont_assign  G[] O[4 objs]
+  N1184 #-1/670261 cont_assign  G[] O[4 objs]
+  N1184 #-1/670265 cont_assign  G[] O[5 objs]
+  N1184 #-1/670270 cont_assign  G[] O[5 objs]

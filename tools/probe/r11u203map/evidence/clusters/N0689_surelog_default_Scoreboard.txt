@@ -1,0 +1,64 @@
+cluster N0689 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 10; passes 193-198 left it) | ground A | site emitPackage (ParamEmit.cpp, law classNestedClassTdJoinsPkgGroup50) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u142map pin]): fullname|ref_typespec|tok:id@id->id|under:class_typespec
+row: surelog/default/Scoreboard  strict=differ:fullname(44)  records golden=269656 ours=269677
+object: #29283 (golden) / #29269 (ours)  type=ref_typespec name= STABLE
+  golden: work@my_scoreboard::uvm_pkg::uvm_reg_field_cb_iter
+  ours:   uvm_pkg::uvm_pkg::uvm_reg_field_cb_iter
+  walk parents: class_typespec(uvm_pkg::uvm_reg_field_cb_iter) < ref_typespec < ref_var(cbs) < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 29277..29289 ('>' = the object)
+  #29277	6	ref_obj	UVM_PREDICT_WRITE		uvm_pkg::uvm_reg_field::do_predict::UVM_PREDICT_WRITE	uvm_reg_field.svh	1126	6	1126	23		0			uvm_pkg::uvm_reg_field::do_predict::UVM_PREDICT_WRITE	000
+  #29278	7	enum_const	UVM_PREDICT_WRITE			uvm_reg_model.svh	259	7	259	24						010
+  #29279	6	begin			uvm_pkg::uvm_reg_field::do_predict	uvm_reg_field.svh	1127	8	1141	11					uvm_pkg::uvm_reg_field::do_predict	000
+  #29280	7	ref_var	cbs		uvm_pkg::uvm_reg_field::do_predict::cbs	uvm_reg_field.svh	1128	32	1128	35		0			uvm_pkg::uvm_reg_field::do_predict::cbs	000
+  #29281	8	ref_typespec			uvm_pkg::uvm_reg_field::do_predict::cbs		0	0	0	0		0			uvm_pkg::uvm_reg_field::do_predict::cbs	000
+  #29282	9	class_typespec	uvm_pkg::uvm_reg_field_cb_iter			uvm_reg_cbs.svh	334	9	334	26						110
+> #29283	10	ref_typespec			<in>uvm_pkg::uvm_reg_field_cb_iter		0	0	0	0		0			work@my_scoreboard::uvm_pkg::uvm_reg_field_cb_iter	001
+  #29284	11	class_typespec	uvm_pkg::uvm_mem_cb_iter			uvm_reg_cbs.svh	334	9	334	26						001
+  #29285	7	if_stmt				uvm_reg_field.svh	1130	10	1131	66						000
+  #29286	8	operation				uvm_reg_field.svh	1130	14	1130	64		0				000
+  #29287	9	operation				uvm_reg_field.svh	1130	14	1130	38		0				000
+  #29288	10	hier_path	rw.path			uvm_reg_field.svh	1130	14	1130	21		0				000
+  #29289	11	ref_obj	rw			uvm_reg_field.svh	1130	14	1130	16		0				000
+
+--- OURS (B) records 29263..29275 ('>' = the object)
+  #29263	6	ref_obj	UVM_PREDICT_WRITE		uvm_pkg::uvm_reg_field::do_predict::UVM_PREDICT_WRITE	uvm_reg_field.svh	1126	6	1126	23		0			uvm_pkg::uvm_reg_field::do_predict::UVM_PREDICT_WRITE	000
+  #29264	7	enum_const	UVM_PREDICT_WRITE			uvm_reg_model.svh	259	7	259	24						010
+  #29265	6	begin			uvm_pkg::uvm_reg_field::do_predict	uvm_reg_field.svh	1127	8	1141	11					uvm_pkg::uvm_reg_field::do_predict	000
+  #29266	7	ref_var	cbs		uvm_pkg::uvm_reg_field::do_predict::cbs	uvm_reg_field.svh	1128	32	1128	35		0			uvm_pkg::uvm_reg_field::do_predict::cbs	000
+  #29267	8	ref_typespec			uvm_pkg::uvm_reg_field::do_predict::cbs		0	0	0	0		0			uvm_pkg::uvm_reg_field::do_predict::cbs	000
+  #29268	9	class_typespec	uvm_pkg::uvm_reg_field_cb_iter			uvm_reg_cbs.svh	334	9	334	26						110
+> #29269	10	ref_typespec			<in>uvm_pkg::uvm_reg_field_cb_iter		0	0	0	0		0			uvm_pkg::uvm_pkg::uvm_reg_field_cb_iter	001
+  #29270	11	class_typespec	uvm_pkg::uvm_mem_cb_iter			uvm_reg_cbs.svh	334	9	334	26						001
+  #29271	7	if_stmt				uvm_reg_field.svh	1130	10	1131	66						000
+  #29272	8	operation				uvm_reg_field.svh	1130	14	1130	64		0				000
+  #29273	9	operation				uvm_reg_field.svh	1130	14	1130	38		0				000
+  #29274	10	hier_path	rw.path			uvm_reg_field.svh	1130	14	1130	21		0				000
+  #29275	11	ref_obj	rw			uvm_reg_field.svh	1130	14	1130	16		0				000
+
+facets of this row (1477, first 25):
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20911 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21847 bit_typespec  G[] O[1 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74775 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74796 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74852 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79114 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79133 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80109 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82238/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82246/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82254/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82262/-1 ref_typespec  G[2 objs] O[]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]

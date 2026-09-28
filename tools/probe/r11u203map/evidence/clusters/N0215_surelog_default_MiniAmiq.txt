@@ -1,0 +1,64 @@
+cluster N0215 (id kept from an earlier map; OPEN (map 11 listed it: ground-A+B step 15; passes 193-198 left it) | ground B | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law memberActualLeak) [r11u142map pin]): fullname|ref_obj|tok:id::->|under:operation
+row: surelog/default/MiniAmiq  strict=differ:file(17)  records golden=435559 ours=433772
+object: #72161 (golden) / #71968 (ours)  type=ref_obj name=i OUT
+  golden: svaunit_pkg::uvm_tree_printer::emit::m_rows[i + 1].level::m_rows::i
+  ours:   svaunit_pkg::uvm_tree_printer::emit::m_rows[i + 1].level::i
+  walk parents: operation < bit_select(m_rows) < hier_path(m_rows[i + 1].level) < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 72155..72167 ('>' = the object)
+  #72155	9	begin			svaunit_pkg::uvm_tree_printer::emit	uvm_printer.svh	1187	32	1192	10					svaunit_pkg::uvm_tree_printer::emit	000
+  #72156	10	if_stmt				uvm_printer.svh	1188	9	1191	12						000
+  #72157	11	operation				uvm_printer.svh	1188	13	1188	42		0				000
+  #72158	12	hier_path	m_rows[i + 1].level			uvm_printer.svh	1188	13	1188	30		0				000
+  #72159	13	bit_select	m_rows		m_rows[i + 1]	uvm_printer.svh	1188	13	1188	19		0			m_rows[i + 1]	000
+  #72160	14	operation				uvm_printer.svh	1188	20	1188	23		0				000
+> #72161	15	ref_obj	i		svaunit_pkg::uvm_tree_printer::emit::m_rows[i + 1].level::m_rows::i	uvm_printer.svh	1188	20	1188	21		0			svaunit_pkg::uvm_tree_printer::emit::m_rows[i + 1].level::m_rows::i	000
+  #72162	15	constant				uvm_printer.svh	1188	22	1188	23	1	64	UINT:1	9		000
+  #72163	13	ref_obj	level		svaunit_pkg::uvm_tree_printer::emit::level	uvm_printer.svh	1188	25	1188	30		0			svaunit_pkg::uvm_tree_printer::emit::level	000
+  #72164	12	hier_path	row.level			uvm_printer.svh	1188	33	1188	42		0				000
+  #72165	13	ref_obj	row			uvm_printer.svh	1188	33	1188	36		0				000
+  #72166	13	ref_obj	level		svaunit_pkg::uvm_tree_printer::emit::level	uvm_printer.svh	1188	37	1188	42		0			svaunit_pkg::uvm_tree_printer::emit::level	000
+  #72167	11	begin			svaunit_pkg::uvm_tree_printer::emit	uvm_printer.svh	1188	44	1191	12					svaunit_pkg::uvm_tree_printer::emit	000
+
+--- OURS (B) records 71962..71974 ('>' = the object)
+  #71962	9	begin			svaunit_pkg::uvm_tree_printer::emit	uvm_printer.svh	1187	32	1192	10					svaunit_pkg::uvm_tree_printer::emit	000
+  #71963	10	if_stmt				uvm_printer.svh	1188	9	1191	12						000
+  #71964	11	operation				uvm_printer.svh	1188	13	1188	42		0				000
+  #71965	12	hier_path	m_rows[i + 1].level			uvm_printer.svh	1188	13	1188	30		0				000
+  #71966	13	bit_select	m_rows		m_rows[i + 1]	uvm_printer.svh	1188	13	1188	19		0			m_rows[i + 1]	000
+  #71967	14	operation				uvm_printer.svh	1188	20	1188	23		0				000
+> #71968	15	ref_obj	i		svaunit_pkg::uvm_tree_printer::emit::m_rows[i + 1].level::i	uvm_printer.svh	1188	20	1188	21		0			svaunit_pkg::uvm_tree_printer::emit::m_rows[i + 1].level::i	000
+  #71969	15	constant				uvm_printer.svh	1188	22	1188	23	1	64	UINT:1	9		000
+  #71970	13	ref_obj	level		svaunit_pkg::uvm_tree_printer::emit::level	uvm_printer.svh	1188	25	1188	30		0			svaunit_pkg::uvm_tree_printer::emit::level	000
+  #71971	12	hier_path	row.level			uvm_printer.svh	1188	33	1188	42		0				000
+  #71972	13	ref_obj	row			uvm_printer.svh	1188	33	1188	36		0				000
+  #71973	13	ref_obj	level		svaunit_pkg::uvm_tree_printer::emit::level	uvm_printer.svh	1188	37	1188	42		0			svaunit_pkg::uvm_tree_printer::emit::level	000
+  #71974	11	begin			svaunit_pkg::uvm_tree_printer::emit	uvm_printer.svh	1188	44	1191	12					svaunit_pkg::uvm_tree_printer::emit	000
+
+facets of this row (8312, first 25):
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20803 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21739 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0678 #-1/63709 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63775 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66835 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66923 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67150 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68134 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68154 unsupported_typespec index G[] O[1 objs]

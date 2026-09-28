@@ -1,0 +1,64 @@
+cluster N2400 (id kept from an earlier map; COVERED r11u201 (pass 198 R8 / map 11 A3: the UVM ground-A families) | ground A | site emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law hpTrailSelIdxNamesByPath133) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) [r11u165map pin]): fullname|ref_obj|tok:id.id[]::id::->|under:hier_path
+row: surelog/default/BuildUVMPkg  strict=differ:line(11)  records golden=201533 ours=201534
+object: #82349 (golden) / #82289 (ours)  type=ref_obj name=addr OUT
+  golden: uvm_pkg::uvm_reg_predictor::write::predict_info.addr[]::addr::addr
+  ours:   uvm_pkg::uvm_reg_predictor::write::addr
+  walk parents: hier_path(rw.addr) < bit_select(addr) < hier_path(predict_info.addr[]) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 82343..82355 ('>' = the object)
+  #82343	13	constant				uvm_pkg.sv	61920	41	61920	42	1	64	UINT:1	9		000
+  #82344	13	hier_path	predict_info.addr[]			uvm_pkg.sv	61920	12	61920	38		0				000
+  #82345	14	ref_obj	predict_info			uvm_pkg.sv	61920	25	61920	29		0				000
+  #82346	14	bit_select	addr		uvm_pkg::uvm_reg_predictor::write::predict_info.addr[]::addr	uvm_pkg.sv	61920	25	61920	38		0			uvm_pkg::uvm_reg_predictor::write::predict_info.addr[]::addr	000
+  #82347	15	hier_path	rw.addr			uvm_pkg.sv	61920	30	61920	37		0				000
+  #82348	16	ref_obj	rw			uvm_pkg.sv	61920	30	61920	32		0				000
+> #82349	16	ref_obj	addr		uvm_pkg::uvm_reg_predictor::write::predict_info.addr[]::addr::addr	uvm_pkg.sv	61920	33	61920	37		0			uvm_pkg::uvm_reg_predictor::write::predict_info.addr[]::addr::addr	000
+  #82350	12	if_stmt				uvm_pkg.sv	61921	12	61965	15						000
+  #82351	13	operation				uvm_pkg.sv	61921	16	61921	63		0				000
+  #82352	14	hier_path	predict_info.addr.num			uvm_pkg.sv	61921	16	61921	39		0				000
+  #82353	15	ref_obj	predict_info			uvm_pkg.sv	61921	16	61921	28		0				000
+  #82354	15	ref_obj	addr			uvm_pkg.sv	61921	29	61921	33		0				000
+  #82355	15	method_func_call	num			uvm_pkg.sv	61921	34	61921	37		0				000
+
+--- OURS (B) records 82283..82295 ('>' = the object)
+  #82283	13	constant				uvm_pkg.sv	61920	41	61920	42	1	64	UINT:1	9		000
+  #82284	13	hier_path	predict_info.addr[]			uvm_pkg.sv	61920	12	61920	38		0				000
+  #82285	14	ref_obj	predict_info			uvm_pkg.sv	61920	25	61920	29		0				000
+  #82286	14	bit_select	addr		uvm_pkg::uvm_reg_predictor::write::predict_info.addr[]::addr	uvm_pkg.sv	61920	25	61920	38		0			uvm_pkg::uvm_reg_predictor::write::predict_info.addr[]::addr	000
+  #82287	15	hier_path	rw.addr			uvm_pkg.sv	61920	30	61920	37		0				000
+  #82288	16	ref_obj	rw			uvm_pkg.sv	61920	30	61920	32		0				000
+> #82289	16	ref_obj	addr		uvm_pkg::uvm_reg_predictor::write::addr	uvm_pkg.sv	61920	33	61920	37		0			uvm_pkg::uvm_reg_predictor::write::addr	000
+  #82290	12	if_stmt				uvm_pkg.sv	61921	12	61965	15						000
+  #82291	13	operation				uvm_pkg.sv	61921	16	61921	63		0				000
+  #82292	14	hier_path	predict_info.addr.num			uvm_pkg.sv	61921	16	61921	39		0				000
+  #82293	15	ref_obj	predict_info			uvm_pkg.sv	61921	16	61921	28		0				000
+  #82294	15	ref_obj	addr			uvm_pkg.sv	61921	29	61921	33		0				000
+  #82295	15	method_func_call	num			uvm_pkg.sv	61921	34	61921	37		0				000
+
+facets of this row (830, first 25):
+  N2465 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22504 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22588 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23501 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56188 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74743 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74826 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76333 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76354 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76414 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79777 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79788 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79842 array_typespec  G[] O[1 objs]
+  N0423 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
