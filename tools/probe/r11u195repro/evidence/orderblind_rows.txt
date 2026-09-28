@@ -1,0 +1,16 @@
+/tmp/r11u195_swP surelog/default/BlackBePipeInt dist=17112 rev=14729 total=31841
+/tmp/r11u195_swP surelog/default/Earlgrey_0_1 dist=6754 rev=6110 total=12864
+/tmp/r11u195_swP surelog/default/Scr1SvTests dist=145 rev=116 total=261
+/tmp/r11u195_swP surelog/default/StructParamPatternInitCast dist=1 rev=1 total=2
+/tmp/r11u195_swP surelog/testflags/BlackBePipeInt dist=17183 rev=14703 total=31886
+/tmp/r11u195_swP surelog/testflags/Earlgrey_0_1 dist=6321 rev=6035 total=12356
+/tmp/r11u195_swP surelog/testflags/Scr1SvTests dist=145 rev=116 total=261
+/tmp/r11u195_swP surelog/testflags/StructParamPatternInitCast dist=1 rev=1 total=2
+/tmp/r11u195_swG surelog/default/BlackBePipeInt dist=17110 rev=14727 total=31837
+/tmp/r11u195_swG surelog/default/Earlgrey_0_1 dist=6737 rev=6093 total=12830
+/tmp/r11u195_swG surelog/default/Scr1SvTests dist=145 rev=106 total=251
+/tmp/r11u195_swG surelog/default/StructParamPatternInitCast dist=0 rev=0 total=0
+/tmp/r11u195_swG surelog/testflags/BlackBePipeInt dist=17181 rev=14701 total=31882
+/tmp/r11u195_swG surelog/testflags/Earlgrey_0_1 dist=6304 rev=6018 total=12322
+/tmp/r11u195_swG surelog/testflags/Scr1SvTests dist=145 rev=106 total=251
+/tmp/r11u195_swG surelog/testflags/StructParamPatternInitCast dist=0 rev=0 total=0

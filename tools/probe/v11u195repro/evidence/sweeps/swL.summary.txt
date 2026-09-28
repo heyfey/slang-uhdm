@@ -1,0 +1,43 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u195_swL/probe.csv
+probe cases: EQUAL=3162 STRICT_NOTEQUAL=925 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=3162 STRICT_NOTEQUAL=925
+CONVERSION r10earl62repro/g1_earl62 STRICT_NOTEQUAL differ:col(1) -> EQUAL
+CONVERSION r10earl62repro/g2_earl62 STRICT_NOTEQUAL differ:col(2) -> EQUAL
+CONVERSION r10fiot_repro/a9 STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION r11u109repro/grid/f1/c01_x64 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r11u109repro/grid/f1/c02_x3 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r11u109repro/grid/f1/c03_x8 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r11u109repro/grid/f1/c05_x3sub STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CHANGE r11u109repro/grid/f1/c04_x64cast STRICT_NOTEQUAL differ:fullname(5) -> differ:value(2)
+CHANGE r11u109repro/grid/f1/c06_x64plain STRICT_NOTEQUAL differ:fullname(5) -> differ:value(2)
+CHANGE r11u26repro/m12 STRICT_NOTEQUAL differ:line(5) -> differ:fullname(4)
+regressions=0 conversions=7 changes=3 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u195_swL/surelog.csv
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=461 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=19 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=457 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=17 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CONVERSION StructParamPatternInitCast default STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION StructParamPatternInitCast testflags STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:col(91) -> differ:fullname(82)
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:col(91) -> differ:fullname(82)
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(27) -> differ:file(25) [file -2]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(27) -> differ:file(25) [file -2]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+CHANGE Scr1SvTests default STRICT_NOTEQUAL differ:type(1) -> differ:endcol(29)
+CHANGE Scr1SvTests testflags STRICT_NOTEQUAL differ:type(1) -> differ:endcol(29)
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:file(26) -> differ:file(24) [file -2]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:file(26) -> differ:file(24) [file -2]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+regressions=0 conversions=2 changes=11 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u195_swL/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=792 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=11
+[testflags] CMP_EQUAL=792 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=11
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0

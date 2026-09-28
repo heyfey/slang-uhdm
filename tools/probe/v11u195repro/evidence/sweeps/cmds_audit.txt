@@ -1,0 +1,11 @@
+swP surelog cmds=1581    1531 /tmp/v11u195_bin/pris.bin 
+swP uhdm2rtlil cmds=1742    1742 /tmp/v11u195_bin/pris.bin 
+swP downstream cmds=0 
+swP probe cmds=0 
+swL surelog cmds=1581    1531 /tmp/v11u195_bin/law.bin 
+swL uhdm2rtlil cmds=1742    1742 /tmp/v11u195_bin/law.bin 
+swL downstream cmds=0 
+swL probe cmds=0 
+swP slang: lines=3273 naming its own frozen binary=3273
+swL slang: lines=3273 naming its own frozen binary=3273
+swF slang: lines=3273 naming its own frozen binary=3273

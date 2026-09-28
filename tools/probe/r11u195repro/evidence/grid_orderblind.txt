@@ -1,0 +1,37 @@
+A/a04 same-bytes
+B/b01 pris=42 law=26
+B/b04 same-bytes
+B/b05 pris=64 law=54
+C/c03 pris=22 law=8
+C/c05 same-bytes
+G/g16 same-bytes
+K/k03 pris=58 law=46
+K/k08 pris=31 law=19
+K/k10 same-bytes
+K/k13 pris=33 law=29
+P/p03 pris=25 law=21
+P/p05 pris=12 law=8
+P/p06 same-bytes
+P/p08 pris=14 law=10
+P/p10 pris=80 law=76
+P/p11 same-bytes
+P/p12 pris=92 law=88
+P/p13 pris=209 law=205
+S/s04 same-bytes
+S/s05 same-bytes
+S/s07 same-bytes
+S/s08 same-bytes
+S/s14 same-bytes
+S/s18 same-bytes
+S/s19 same-bytes
+S/s20 pris=61 law=48
+S/s22 same-bytes
+S/s25 same-bytes
+S/s26 same-bytes
+S/s27 same-bytes
+S/s28 pris=159 law=144
+S/s29 same-bytes
+T/t01 pris=22 law=16
+T/t02 pris=28 law=16
+T/t05 same-bytes
+T/t07 pris=20 law=14

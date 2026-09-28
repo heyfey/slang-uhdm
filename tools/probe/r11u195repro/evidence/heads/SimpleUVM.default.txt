@@ -1,0 +1,22 @@
+SimpleUVM/default golden=/home/heyfey/.cache/slang-uhdm-goldens/9d660175dbf995fc9f83/golden.uhdm
+#458 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#464 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+#483 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+#490 fullname
+  A: 6	ref_typespec			UVM_START_FUNCS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_START_FUNCS		0	0	0	0		0		
+#496 fullname
+  A: 5	ref_typespec			UVM_SET		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SET		0	0	0	0		0		
+#509 fullname
+  A: 5	ref_typespec			UVM_SETSTR		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SETSTR		0	0	0	0		0		
+objects 334285 vs 334373
+fields: depth=1 type=1 name=1 fullname=42 file=10 line=2 col=2 endline=2 endcol=3 size=1 objects_differing=52 (walk diverged)
+STRICT_NOTEQUAL fullname

@@ -1,0 +1,22 @@
+MiniAmiq/default golden=/home/heyfey/.cache/slang-uhdm-goldens/60cee2244793fd272860/golden.uhdm
+#899 file
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73				
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16				
+#1694 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	483	42	483	57				
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	483	42	483	57				
+#1858 file
+  A: 5	logic_typespec	uvm_integral_t			uvm_misc.svh	515	41	515	55				
+  B: 5	logic_typespec	uvm_integral_t			uvm_object_globals.svh	515	41	515	55				
+#2014 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	545	38	545	53				
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	545	38	545	53				
+#2546 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_object.svh	925	43	925	58				
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	925	43	925	58				
+#5404 fullname
+  A: 19	ref_obj	i		uvm_pkg::uvm_default_factory::print::space.substr::i	uvm_factory.svh	1586	47	1586	48		0		
+  B: 19	ref_obj	i		uvm_pkg::uvm_default_factory::print::i	uvm_factory.svh	1586	47	1586	48		0		
+objects 435559 vs 433774
+fields: depth=1 type=1 name=1 fullname=14 file=11 line=3 col=3 endline=3 endcol=4 size=1 objects_differing=25 (walk diverged)
+STRICT_NOTEQUAL file

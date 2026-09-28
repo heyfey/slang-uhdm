@@ -1,0 +1,3 @@
+R11U195_PROCNETSEL_OFF Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(90),,differ:fullname(90)
+R11U191_EARLCOL_OFF Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:col(83),,differ:col(83)
+R11U191_EVALTS_OFF Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(82),,differ:fullname(82)

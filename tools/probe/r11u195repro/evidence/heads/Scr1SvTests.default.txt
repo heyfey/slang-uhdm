@@ -1,0 +1,22 @@
+Scr1SvTests/default golden=/home/heyfey/.cache/slang-uhdm-goldens/e2822738bc9ea2cd6c49/golden.uhdm
+#30855 endcol
+  A: 14	constant				scr1_arch_description.svh	211	13	211	15	31	64	INT:31	7
+  B: 14	constant				scr1_arch_description.svh	211	13	211	17	31	64	INT:31	7
+#31055 endcol
+  A: 4	logic_typespec				scr1_memory_tb_axi.sv	29	12	29	39				
+  B: 4	logic_typespec				scr1_memory_tb_axi.sv	29	12	29	28				
+#31069 endcol
+  A: 4	logic_typespec				scr1_memory_tb_axi.sv	30	12	30	40				
+  B: 4	logic_typespec				scr1_memory_tb_axi.sv	30	12	30	28				
+#31083 endcol
+  A: 4	logic_typespec				scr1_memory_tb_axi.sv	31	12	31	34				
+  B: 4	logic_typespec				scr1_memory_tb_axi.sv	31	12	31	28				
+#31095 endcol
+  A: 4	logic_typespec				scr1_memory_tb_axi.sv	32	12	32	34				
+  B: 4	logic_typespec				scr1_memory_tb_axi.sv	32	12	32	28				
+#31125 endcol
+  A: 4	logic_typespec				scr1_memory_tb_axi.sv	37	12	37	41				
+  B: 4	logic_typespec				scr1_memory_tb_axi.sv	37	12	37	28				
+objects 84098 vs 84137
+fields: type=1 name=1 fullname=1 file=1 line=1 col=2 endline=3 endcol=29 decompile=1 size=1 value=1 consttype=1 objects_differing=29 (walk diverged)
+STRICT_NOTEQUAL endcol

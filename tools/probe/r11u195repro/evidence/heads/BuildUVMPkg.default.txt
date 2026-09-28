@@ -1,0 +1,22 @@
+BuildUVMPkg/default golden=/home/heyfey/.cache/slang-uhdm-goldens/81ab13ea36d84ed9510f/golden.uhdm
+#2834 fullname
+  A: 6	ref_obj	severity		uvm_pkg::uvm_report::verbosity::severity	uvm_pkg.sv	9563	44	9563	52		0		
+  B: 6	ref_obj	severity		uvm_pkg::uvm_report::severity	uvm_pkg.sv	9563	44	9563	52		0		
+#2836 fullname
+  A: 7	ref_typespec			uvm_pkg::uvm_report::verbosity		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::uvm_report		0	0	0	0		0		
+#2847 fullname
+  A: 7	ref_obj	UVM_ERROR		uvm_pkg::uvm_report::verbosity::UVM_ERROR	uvm_pkg.sv	9563	70	9563	79		0		
+  B: 7	ref_obj	UVM_ERROR		uvm_pkg::uvm_report::UVM_ERROR	uvm_pkg.sv	9563	70	9563	79		0		
+#2849 fullname
+  A: 5	ref_obj	UVM_LOW		uvm_pkg::uvm_report::verbosity::UVM_LOW	uvm_pkg.sv	9563	84	9563	91		0		
+  B: 5	ref_obj	UVM_LOW		uvm_pkg::uvm_report::UVM_LOW	uvm_pkg.sv	9563	84	9563	91		0		
+#2853 fullname
+  A: 7	ref_obj	severity		uvm_pkg::uvm_report::verbosity::severity	uvm_pkg.sv	9564	44	9564	52		0		
+  B: 7	ref_obj	severity		uvm_pkg::uvm_report::severity	uvm_pkg.sv	9564	44	9564	52		0		
+#2855 fullname
+  A: 8	ref_typespec			uvm_pkg::uvm_report::verbosity		0	0	0	0		0		
+  B: 8	ref_typespec			uvm_pkg::uvm_report		0	0	0	0		0		
+objects 201533 vs 201534
+fields: depth=1 type=1 name=1 fullname=16 file=1 line=5 col=5 endline=5 endcol=5 size=1 objects_differing=20 (walk diverged)
+STRICT_NOTEQUAL fullname

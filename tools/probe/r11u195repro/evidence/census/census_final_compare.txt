@@ -1,0 +1,27 @@
+# final census (lawG.bin): compare against the committed baselines
+CONVERSION r10earl62repro/g1_earl62 STRICT_NOTEQUAL differ:col(1) -> EQUAL
+CONVERSION r10earl62repro/g2_earl62 STRICT_NOTEQUAL differ:col(2) -> EQUAL
+CONVERSION r10fiot_repro/a9 STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION r11u109repro/grid/f1/c01_x64 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r11u109repro/grid/f1/c02_x3 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r11u109repro/grid/f1/c03_x8 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r11u109repro/grid/f1/c05_x3sub STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CHANGE r11u109repro/grid/f1/c04_x64cast STRICT_NOTEQUAL differ:fullname(5) -> differ:value(2)
+CHANGE r11u109repro/grid/f1/c06_x64plain STRICT_NOTEQUAL differ:fullname(5) -> differ:value(2)
+CHANGE r11u26repro/m12 STRICT_NOTEQUAL differ:line(5) -> differ:fullname(4)
+regressions=0 conversions=7 changes=3 only-fresh=0 only-committed=0
+CONVERSION StructParamPatternInitCast default STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION StructParamPatternInitCast testflags STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:col(91) -> differ:fullname(82)
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:col(91) -> differ:fullname(82)
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(27) -> differ:file(25) [file -2]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(27) -> differ:file(25) [file -2]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+CHANGE Scr1SvTests default STRICT_NOTEQUAL differ:type(1) -> differ:endcol(29)
+CHANGE Scr1SvTests testflags STRICT_NOTEQUAL differ:type(1) -> differ:endcol(29)
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:file(26) -> differ:file(24) [file -2]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:file(26) -> differ:file(24) [file -2]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+regressions=0 conversions=2 changes=11 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

@@ -1,0 +1,1 @@
+R11U195_OFF=1 alone on lawG: 106 of 106 grid cases byte-identical to pristine

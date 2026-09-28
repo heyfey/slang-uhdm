@@ -17,6 +17,99 @@
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
 
 namespace slang_uhdm {
+
+// The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
+// reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them.
+// R11U191_TRACE=<dir> names every firing of an r11u191 law (the mover
+// census): one file per process, `<dir>/<pid>.PE`, its first line the
+// `-o` database path read off the command line, then one law name per firing.
+static void tr191PE(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U191_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".PE";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+static bool r191PE(const char* sw) {
+    // R11U195_OFF: pass 195 lands these laws, and its one switch restores
+    // the pristine bytes of the whole pass
+    if (getenv("R11U191_OFF") != nullptr || getenv("R11U195_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// The r11u195 switches (tools/probe/r11u195repro/README.md): every r11u195
+// law reads its own R11U195_<LAW>_OFF switch; R11U195_OFF drops all of them.
+// R11U195_TRACE=<dir>: one file per process, `<dir>/<pid>.PE195`, its first
+// line the `-o` database path, then one law name per firing.
+static void tr195PE(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U195_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".PE195";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+static bool r195PE(const char* sw) {
+    if (getenv("R11U195_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// The v11u195 refinements (tools/probe/v11u195repro/README.md): each reads its
+// own R11V195_<LAW>_OFF switch; R11V195_OFF and R11U195_OFF drop them all.
+static bool v195PE(const char* sw) {
+    if (getenv("R11U195_OFF") != nullptr || getenv("R11V195_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
 // The r11u184 switches and census trace (defined in ExprEmit.cpp).
 bool r11u184Law(const char* sw);
 void trace184(const char* law);
@@ -21519,6 +21612,141 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             }
                     }
                 }
+                // § pkgFoldAtLeadingLeaf191 (r11u191, R11U191_EARLCOL_OFF; map
+                // 10's N1082, Earlgrey_0_1's first record: flash_phy_pkg.sv 43
+                // `parameter int WordSelW = WidthMultiple == 1 ? 1 :
+                // LsbAddrBit`, golden 43:53-43:63, ours 43:28-43:63) — a
+                // PACKAGE parameter whose initializer folds is located by
+                // Surelog at the LEADING LEAF of what it reduced: a constant-
+                // condition ternary reduces the taken arm only
+                // (ExprEval::reduceExpr vpiConditionOp), a binary operation is
+                // located at its first operand, parentheses are not a node of
+                // their own.  Grid tools/probe/r11u191dec/cases/E (e01 S / T
+                // / U, e03 B `(L)` 7:22-23, C nested ternary 8:41-42, D `2 * L`
+                // 9:30-31, E `(L)` 10:31-32); ours located the whole
+                // initializer in the definition listing (the elaborated
+                // package listing already agreed for the ternaries).  Only a
+                // constant located at the whole initializer moves.
+                if (inPackage && init && rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                    r191PE("R11U191_EARLCOL_OFF")) {
+                    const Expression* l191 = &stripImplicitConv(*init);
+                    bool moved191 = false;
+                    for (int g191 = 0; g191 < 32; ++g191) {
+                        if (l191->kind == ExpressionKind::ConditionalOp) {
+                            auto& co191 = l191->as<ConditionalExpression>();
+                            if (co191.conditions.size() != 1 ||
+                                co191.conditions[0].pattern)
+                                break;
+                            ASTContext cx191(comp.getRoot(), LookupLocation::max);
+                            ConstantValue pv191 = cx191.tryEval(*co191.conditions[0].expr);
+                            if (!pv191 || !pv191.isInteger() ||
+                                pv191.integer().hasUnknown())
+                                break;
+                            l191 = &stripImplicitConv(pv191.isTrue() ? co191.left()
+                                                                     : co191.right());
+                            moved191 = true;
+                            continue;
+                        }
+                        if (l191->kind == ExpressionKind::BinaryOp && moved191) {
+                            l191 = &stripImplicitConv(l191->as<BinaryExpression>().left());
+                            continue;
+                        }
+                        break;
+                    }
+                    const syntax::SyntaxNode* ls191 = l191->syntax;
+                    while (ls191 && ls191->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                        ls191 = ls191->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                    // the whole initializer's candidate spans: its own range and
+                    // every parenthesized syntax wrapping it
+                    std::vector<SourceRange> whole191{stripImplicitConv(*init).sourceRange};
+                    for (const syntax::SyntaxNode* w191 = stripImplicitConv(*init).syntax;
+                         w191; w191 = w191->parent) {
+                        if (w191->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                            whole191.push_back(w191->sourceRange());
+                        else if (w191 != stripImplicitConv(*init).syntax)
+                            break;
+                    }
+                    bool paren191 = whole191.size() > 1;
+                    if ((moved191 || paren191) && ls191) {
+                        auto* rc191 = (UHDM::constant*)rhs;
+                        for (auto& wr191 : whole191) {
+                            if (wr191.start() == SourceLocation::NoLocation ||
+                                wr191.end() == SourceLocation::NoLocation ||
+                                wr191 == ls191->sourceRange())
+                                continue;
+                            uint32_t wl = 0, wc = 0, el = 0, ec = 0;
+                            locLineCol(wr191.start(), wl, wc);
+                            locLineCol(wr191.end(), el, ec);
+                            if (rc191->VpiLineNo() == wl && rc191->VpiColumnNo() == wc &&
+                                rc191->VpiEndLineNo() == el && rc191->VpiEndColumnNo() == ec) {
+                                tr191PE("pkgFoldAtLeadingLeaf191");
+                                setLoc(rc191, ls191->sourceRange());
+                                break;
+                            }
+                        }
+                    }
+                }
+                // § pkgPatMemberReadAtValue195 (r11u195, R11U195_PATMEMLOC_OFF;
+                // pass 192's R4, pass 178's z04, r11v178's u08 u09) — a
+                // PACKAGE parameter whose initializer is a member read of a
+                // pattern parameter (`localparam int W = B.D;` with `B =
+                // '{A:2, D:8}`) folds to the member's VALUE object, which
+                // Surelog located when it compiled the pattern: golden sits
+                // at the member value (4:33-34), ours at the read (5:22-25).
+                // The value's own location follows the fold rule of
+                // § pkgFoldAtLeadingLeaf191: parentheses are not a node
+                // (`(8)` -> `8`), a binary operation sits at its first
+                // operand (`L + 1` -> `L`, `B.D + 1` -> `B.D`: u09), a cast
+                // keeps its whole span (`8'(7)`).  Only a constant located at
+                // the whole read moves; a `default:` or positional pattern, a
+                // ternary value and a module scope are not claimed (grid
+                // tools/probe/r11u195repro/cases/P).
+                if (inPackage && init && rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                    r195PE("R11U195_PATMEMLOC_OFF")) {
+                    auto& mr195 = stripImplicitConv(*init);
+                    if (mr195.kind == ExpressionKind::MemberAccess) {
+                        auto& ma195 = mr195.as<MemberAccessExpression>();
+                        auto& bv195 = stripImplicitConv(ma195.value());
+                        const Expression* val195 = nullptr;
+                        if (bv195.kind == ExpressionKind::NamedValue &&
+                            bv195.as<NamedValueExpression>().symbol.kind == SymbolKind::Parameter) {
+                            auto& bp195 = bv195.as<NamedValueExpression>().symbol.as<ParameterSymbol>();
+                            if (auto* bi195 = bp195.getInitializer()) {
+                                auto& pat195 = stripImplicitConv(*bi195);
+                                if (pat195.kind == ExpressionKind::StructuredAssignmentPattern)
+                                    for (auto& ms195 :
+                                         pat195.as<StructuredAssignmentPatternExpression>().memberSetters)
+                                        if (ms195.member == &ma195.member)
+                                            val195 = &stripImplicitConv(*ms195.expr);
+                            }
+                        }
+                        const syntax::SyntaxNode* lf195 = val195 ? val195->syntax : nullptr;
+                        for (int g195 = 0; lf195 && g195 < 32; ++g195) {
+                            if (lf195->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                                lf195 = lf195->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                            else if (syntax::BinaryExpressionSyntax::isKind(lf195->kind))
+                                lf195 = lf195->as<syntax::BinaryExpressionSyntax>().left;
+                            else
+                                break;
+                        }
+                        if (lf195 && val195 &&
+                            stripImplicitConv(*val195).kind != ExpressionKind::ConditionalOp) {
+                            uint32_t wl = 0, wc = 0, el = 0, ec = 0;
+                            locLineCol(mr195.sourceRange.start(), wl, wc);
+                            locLineCol(mr195.sourceRange.end(), el, ec);
+                            auto* rc195 = (UHDM::constant*)rhs;
+                            if (rc195->VpiLineNo() == wl && rc195->VpiColumnNo() == wc &&
+                                rc195->VpiEndLineNo() == el && rc195->VpiEndColumnNo() == ec) {
+                                tr195PE("pkgPatMemberReadAtValue195");
+                                // the value may sit in another file (the
+                                // pattern's package in another root file):
+                                // setLoc keeps a file already stamped
+                                rc195->VpiFile(std::string());
+                                setLoc(rc195, lf195->sourceRange());
+                            }
+                        }
+                    }
+                }
                 pa->Rhs(rhs);
                 paramRhsObj[&member] = rhs;
                 // § nestedParamActualTs6 VIEW GUARD.  paramRhsObj is keyed by
@@ -27965,6 +28193,253 @@ static void opCloneRelocSpan163(const ParameterSymbol& ps, UHDM::typespec* opClo
     opClone->VpiEndColumnNo(sh->VpiEndColumnNo());
 }
 
+// § funcCfgPatOpRefBare195 (r11u195, R11U195_FUNCCFGPAT_OFF;
+// StructParamPatternInitCast d/t `fullname(3)`, pass 192's R3) — the
+// elaborated pattern of a module's packed-struct parameter whose struct type
+// is SIZED by a struct-valued parameter a constant FUNCTION computes
+// (`parameter cfg_t Cfg = build_config(Base)`, `logic [Cfg.XLEN-1:0] S_SW`,
+// directly, through another parameter `X = Cfg.XLEN`, or through a package
+// parameter `Def = mk(8)`): Surelog cannot size the struct while it compiles
+// the module, keeps the parameter as a COMPLEX value, and NetlistElaboration
+// (the parameter clone path: `rhs = clone_tree(complexVal)`,
+// expandPatternAssignment with the parameter's own typespec) lists a pattern
+// operation whose ref_typespec has NO parent (full name empty) and binds a
+// struct copy parented at the parameter's reference, so its member
+// references are named through the parameter (`work@top.INT.S_SW`); ours
+// parented the ref at the operation and named the members at the module
+// (`work@top.S_SW`).  A literal-pattern or package-reference `Cfg`, an `int`
+// parameter a function computes, and a struct whose ranges do not read `Cfg`
+// keep the pristine shape (grid tools/probe/r11u195repro/cases/S: s01 s02
+// s09 s11 s15-s17 s21 s23 s24 s30 move; s03 s06 s10 s12-s14 s27 s29 hold).
+// An overridden parameter on the way declines (golden judge-unequal there).
+// § funcCfgPatOpRefBare195's evaluator gate: Surelog's ExprEval runs the
+// constant function when the parameter is compiled; only a body it carries
+// through to a struct value makes the parameter the complex value the law
+// describes.  The model admits the measured shape only: local declarations,
+// member assignments from a formal, a formal's member or a literal, and
+// `return <local>;` (grid S: `r.XLEN = c.XLEN; return r;`), the right sides
+// built from those by + - * / % << >> within 64 bits (s30).  Anything else
+// declines (tests/probe r11u109repro/grid/f1 b01-b04: a member computed from
+// a 1024-bit member, `(c.NrRules > 0) && (c.Length > 0)`, keeps golden's
+// parented reference).
+static bool straightCopyBody195(const slang::ast::CallExpression& call) {
+    using namespace slang::ast;
+    auto sp = std::get_if<const SubroutineSymbol*>(&call.subroutine);
+    if (!sp || !*sp)
+        return false;
+    std::function<bool(const Expression&)> okRhs = [&](const Expression& e0) -> bool {
+        auto& e = stripImplicitConv(e0);
+        // every value the evaluator computes fits its 64-bit words
+        if (e.type && e.type->isIntegral() && e.type->getBitWidth() > 64)
+            return false;
+        if (e.kind == ExpressionKind::IntegerLiteral)
+            return true;
+        // the arithmetic reduceExpr folds (s30: `r.XLEN = x * 2`)
+        if (e.kind == ExpressionKind::BinaryOp) {
+            auto& be = e.as<BinaryExpression>();
+            switch (be.op) {
+                case BinaryOperator::Add: case BinaryOperator::Subtract:
+                case BinaryOperator::Multiply: case BinaryOperator::Divide:
+                case BinaryOperator::Mod: case BinaryOperator::LogicalShiftLeft:
+                case BinaryOperator::LogicalShiftRight:
+                    return okRhs(be.left()) && okRhs(be.right());
+                default:
+                    return false;
+            }
+        }
+        if (e.kind == ExpressionKind::NamedValue)
+            return e.as<NamedValueExpression>().symbol.kind == SymbolKind::FormalArgument;
+        if (e.kind == ExpressionKind::MemberAccess) {
+            auto& b = stripImplicitConv(e.as<MemberAccessExpression>().value());
+            return b.kind == ExpressionKind::NamedValue &&
+                   b.as<NamedValueExpression>().symbol.kind == SymbolKind::FormalArgument;
+        }
+        return false;
+    };
+    bool ok = true;
+    std::function<void(const Statement&)> walk = [&](const Statement& st) {
+        if (!ok)
+            return;
+        switch (st.kind) {
+            case StatementKind::List:
+                for (auto* it : st.as<StatementList>().list)
+                    walk(*it);
+                return;
+            case StatementKind::Block:
+                walk(st.as<BlockStatement>().body);
+                return;
+            case StatementKind::Empty:
+                return;
+            case StatementKind::VariableDeclaration:
+                if (auto* in = st.as<VariableDeclStatement>().symbol.getInitializer())
+                    ok = okRhs(*in);
+                return;
+            case StatementKind::ExpressionStatement: {
+                auto& e = st.as<ExpressionStatement>().expr;
+                if (e.kind != ExpressionKind::Assignment) {
+                    ok = false;
+                    return;
+                }
+                auto& ae = e.as<AssignmentExpression>();
+                auto& l = stripImplicitConv(ae.left());
+                bool lok = l.kind == ExpressionKind::NamedValue ||
+                           (l.kind == ExpressionKind::MemberAccess &&
+                            stripImplicitConv(l.as<MemberAccessExpression>().value()).kind ==
+                                ExpressionKind::NamedValue);
+                ok = lok && !ae.isCompound() && okRhs(ae.right());
+                return;
+            }
+            case StatementKind::Return: {
+                auto* re = st.as<ReturnStatement>().expr;
+                ok = re && stripImplicitConv(*re).kind == ExpressionKind::NamedValue;
+                return;
+            }
+            default:
+                ok = false;
+                return;
+        }
+    };
+    walk((*sp)->getBody());
+    return ok;
+}
+
+static bool funcCfgPatSized195(const slang::ast::ParameterSymbol& ps) {
+    using namespace slang::ast;
+    namespace sx = slang::syntax;
+    if (!r195PE("R11U195_FUNCCFGPAT_OFF"))
+        return false;
+    auto* psc = ps.getParentScope();
+    if (!psc || psc->asSymbol().kind != SymbolKind::InstanceBody ||
+        psc->asSymbol().as<InstanceBodySymbol>().getDefinition().definitionKind !=
+            DefinitionKind::Module ||
+        ps.isOverridden())
+        return false;
+    auto& ct = ps.getType().getCanonicalType();
+    if (ct.kind != SymbolKind::PackedStructType)
+        return false;
+    // § funcCfgPatDeclScope195v (v11u195, R11V195_FCPSCOPE_OFF; refines
+    // § funcCfgPatOpRefBare195) — the dimension names below are resolved
+    // from the parameter's module, which is the struct's own scope only when
+    // the struct is declared there: a PACKAGE struct sized by the package's
+    // constant `X` beside a module `X = Cfg.XLEN` (tools/probe/v11u195repro
+    // cases/F f05: EQUAL on the pristine binary, fullname(3) with the law)
+    // is sized when the package compiles and keeps golden's parented
+    // reference.  A struct declared outside the module declines.
+    const bool declScope195v = v195PE("R11V195_FCPSCOPE_OFF") && ct.getParentScope() != psc;
+    bool positional195v = false;
+    // a NESTED pattern member (`'{I: '{S: 1}, M: 3}`) keeps golden's parented
+    // reference (grid S/s27; a nested struct TYPE with a flat pattern, s28,
+    // moves)
+    if (auto* pin = ps.getInitializer()) {
+        auto& pi = stripImplicitConv(*pin);
+        auto isPat = [](const Expression& e) {
+            auto& x = stripImplicitConv(e);
+            return x.kind == ExpressionKind::StructuredAssignmentPattern ||
+                   x.kind == ExpressionKind::SimpleAssignmentPattern ||
+                   x.kind == ExpressionKind::ReplicatedAssignmentPattern;
+        };
+        if (pi.kind == ExpressionKind::StructuredAssignmentPattern) {
+            auto& sp = pi.as<StructuredAssignmentPatternExpression>();
+            for (auto& ms : sp.memberSetters)
+                if (isPat(*ms.expr))
+                    return false;
+            if (sp.defaultSetter && isPat(*sp.defaultSetter))
+                return false;
+        }
+        else if (pi.kind == ExpressionKind::SimpleAssignmentPattern) {
+            // § funcCfgPatNamedOnly195v (v11u195, R11V195_FCPPOS_OFF;
+            // refines § funcCfgPatOpRefBare195) — a POSITIONAL pattern
+            // (`'{1, 3}`) keeps golden's parented reference (cases/F f10:
+            // EQUAL on the pristine binary, fullname(1) with the law; the
+            // named twin f11 and the default setters f14 f15 move).
+            positional195v = v195PE("R11V195_FCPPOS_OFF");
+            for (auto* el : pi.as<SimpleAssignmentPatternExpression>().elements())
+                if (isPat(*el))
+                    return false;
+        }
+    }
+    // a parameter reaches a struct-valued constant function call
+    std::set<const ParameterSymbol*> seen;
+    std::function<int(const ParameterSymbol&, int)> reach =
+        [&](const ParameterSymbol& p, int depth) -> int {
+        if (depth > 8 || !seen.insert(&p).second)
+            return 0;
+        if (p.isOverridden())
+            return -1;
+        auto* in = p.getInitializer();
+        if (!in)
+            return 0;
+        auto& si = stripImplicitConv(*in);
+        auto pk = p.getType().getCanonicalType().kind;
+        if (si.kind == ExpressionKind::Call && !si.as<CallExpression>().isSystemCall() &&
+            (pk == SymbolKind::PackedStructType || pk == SymbolKind::UnpackedStructType))
+            return straightCopyBody195(si.as<CallExpression>()) ? 1 : -1;
+        int r = 0;
+        si.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+            if (r == 0 && nv.symbol.kind == SymbolKind::Parameter)
+                r = reach(nv.symbol.as<ParameterSymbol>(), depth + 1);
+            v.visitDefault(nv);
+        }));
+        return r;
+    };
+    int verdict = 0;
+    std::function<void(const sx::SyntaxNode&)> scan = [&](const sx::SyntaxNode& n) {
+        if (verdict < 0)
+            return;
+        if (n.kind == sx::SyntaxKind::ScopedName &&
+            n.as<sx::ScopedNameSyntax>().separator.kind == slang::parsing::TokenKind::DoubleColon) {
+            std::string q = n.toString();
+            q.erase(std::remove_if(q.begin(), q.end(), ::isspace), q.end());
+            if (auto* sym = psc->lookupName(q); sym && sym->kind == SymbolKind::Parameter) {
+                int r = reach(sym->as<ParameterSymbol>(), 0);
+                if (r != 0)
+                    verdict = verdict < 0 || r < 0 ? -1 : 1;
+            }
+            return;
+        }
+        if (n.kind == sx::SyntaxKind::IdentifierName) {
+            auto nm = n.as<sx::IdentifierNameSyntax>().identifier.valueText();
+            if (auto* sym = psc->lookupName(nm); sym && sym->kind == SymbolKind::Parameter) {
+                int r = reach(sym->as<ParameterSymbol>(), 0);
+                if (r != 0)
+                    verdict = verdict < 0 || r < 0 ? -1 : 1;
+            }
+            return;
+        }
+        for (size_t i = 0; i < n.getChildCount(); i++)
+            if (auto* c = n.childNode(i))
+                scan(*c);
+    };
+    for (auto& fld : ct.as<PackedStructType>().membersOfType<FieldSymbol>()) {
+        // the member's syntax: StructUnionMember(type, declarators); the
+        // dimensions only, the data type's packed ones and the declarator's
+        const sx::SyntaxNode* fs = fld.getSyntax();
+        const sx::SyntaxNode* mem = fs ? fs->parent : nullptr;
+        if (!mem || mem->kind != sx::SyntaxKind::StructUnionMember)
+            continue;
+        std::function<void(const sx::SyntaxNode&)> dims = [&](const sx::SyntaxNode& n) {
+            if (n.kind == sx::SyntaxKind::VariableDimension) {
+                scan(n);
+                return;
+            }
+            for (size_t i = 0; i < n.getChildCount(); i++)
+                if (auto* c = n.childNode(i))
+                    dims(*c);
+        };
+        dims(*mem->as<sx::StructUnionMemberSyntax>().type);
+        dims(*fs);
+    }
+    if (verdict > 0 && declScope195v) {  // § funcCfgPatDeclScope195v
+        tr195PE("funcCfgPatDeclScope195v");
+        return false;
+    }
+    if (verdict > 0 && positional195v) {  // § funcCfgPatNamedOnly195v
+        tr195PE("funcCfgPatNamedOnly195v");
+        return false;
+    }
+    return verdict > 0;
+}
+
 void UhdmExporter::mintParamOpClones(size_t lo, size_t hi) {
     for (size_t i = lo; i < hi && i < pendingParamTs.size(); i++) {
         auto& [ps, up, prt, rhsRt, typedParam] = pendingParamTs[i];
@@ -27991,6 +28466,10 @@ void UhdmExporter::mintParamOpClones(size_t lo, size_t hi) {
         syntaxRefPrefix = dot == std::string::npos ? full : full.substr(0, dot);
         if (importPatOpCloneParamNamed163(*ps))  // § importPatOpCloneParamNamed163
             syntaxRefPrefix = full;
+        // § funcCfgPatOpRefBare195 (the law's statement is above)
+        const bool bare195 = tsPs == ps && funcCfgPatSized195(*ps);
+        if (bare195)
+            syntaxRefPrefix = full;
         structCloneMemberRefParent = true;
         paramOpCloneCtx = true;
         auto* opClone = makeParamTs(*tsPs, typedParam, /*parentBounds=*/true);
@@ -27999,7 +28478,12 @@ void UhdmExporter::mintParamOpClones(size_t lo, size_t hi) {
         rhsRt->Actual_typespec(opClone);
         opClone->VpiParent(rhsRt); spOpTsFoldAt106(s, rhsRt, opClone, tsPs->getType(), *ps);
         opCloneRelocSpan163(*tsPs, opClone, pkgTopTypedefTs);  // § paramOpCloneRelocatedSpan163
-        if (rhsRt->VpiFullName().empty())
+        if (bare195) {
+            tr195PE("funcCfgPatOpRefBare195");
+            opClone->VpiParent(prt);
+            rhsRt->VpiParent(nullptr);
+        }
+        else if (rhsRt->VpiFullName().empty())
             rhsRt->VpiFullName(syntaxRefPrefix);
         syntaxRefPrefix = savedPfx;
         paramOpClones[rhsRt] = opClone;
@@ -28126,6 +28610,9 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             syntaxRefPrefix = dot == std::string::npos ? full : full.substr(0, dot);
             if (importPatOpCloneParamNamed163(*ps))  // § importPatOpCloneParamNamed163
                 syntaxRefPrefix = full;
+            const bool bare195 = funcCfgPatSized195(*ps);  // § funcCfgPatOpRefBare195
+            if (bare195)
+                syntaxRefPrefix = full;
             structCloneMemberRefParent = true;
             paramOpCloneCtx = true;
             opClone = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
@@ -28134,7 +28621,12 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             rhsRt->Actual_typespec(opClone);
             opClone->VpiParent(rhsRt); spOpTsFoldAt106(s, rhsRt, opClone, ps->getType(), *ps);
             opCloneRelocSpan163(*ps, opClone, pkgTopTypedefTs);  // § paramOpCloneRelocatedSpan163
-            if (rhsRt->VpiFullName().empty())
+            if (bare195) {
+                tr195PE("funcCfgPatOpRefBare195");
+                opClone->VpiParent(prt);
+                rhsRt->VpiParent(nullptr);
+            }
+            else if (rhsRt->VpiFullName().empty())
                 rhsRt->VpiFullName(syntaxRefPrefix);
         }
         // A param typed by a PACKAGE typedef shares the pkg's TOP typespec

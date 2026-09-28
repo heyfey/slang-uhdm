@@ -1,0 +1,8 @@
+R11U191_HPENDCOL_OFF grid=A cases=6 restored=6 others:
+R11U191_EARLCOL_OFF grid=B cases=5 restored=5 others:
+R11U191_EVALTS_OFF grid=C cases=5 restored=5 others:
+R11U195_EVALOP_OFF grid=G cases=20 restored=20 others:
+R11U195_FUNCCFGPAT_OFF grid=S cases=30 restored=30 others:
+R11U195_PROCNETSEL_OFF grid=K cases=17 restored=17 others:
+R11U195_PATMEMLOC_OFF grid=P cases=13 restored=12 others: P/p02
+R11U195_TPPAREN_OFF grid=T cases=10 restored=10 others:

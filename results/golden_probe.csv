@@ -136,8 +136,8 @@ r10earl59repro/v59v2_earl59,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3
 r10earl59repro/v59v3_earl59,EQUAL,,equal
 r10earl60repro/v60d_earl60,EQUAL,,equal
 r10earl61repro/g3_earl61,EQUAL,,equal
-r10earl62repro/g1_earl62,STRICT_NOTEQUAL,differ:col(1),differ:col(1)
-r10earl62repro/g2_earl62,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
+r10earl62repro/g1_earl62,EQUAL,,equal
+r10earl62repro/g2_earl62,EQUAL,,equal
 r10earl63repro/abl_c,EQUAL,,equal
 r10earl63repro/c2_head63,EQUAL,,equal
 r10earl76repro/g2_orig76,STRICT_NOTEQUAL,differ:fullname(13),differ:fullname(13)
@@ -261,7 +261,7 @@ r10earl_repro/y,EQUAL,,equal
 r10fiot_repro/a5,EQUAL,,equal
 r10fiot_repro/a6,EQUAL,,equal
 r10fiot_repro/a7,EQUAL,,equal
-r10fiot_repro/a9,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+r10fiot_repro/a9,EQUAL,,equal
 r10imex_repro/t1,EQUAL,,equal
 r10imex_repro/t2,EQUAL,,equal
 r10imex_repro/t3,EQUAL,,equal
@@ -1828,12 +1828,12 @@ r11u109repro/grid/f1/b01_casts,EQUAL,,equal
 r11u109repro/grid/f1/b02_shl,EQUAL,,equal
 r11u109repro/grid/f1/b03_x32,EQUAL,,equal
 r11u109repro/grid/f1/b04_dec,EQUAL,,equal
-r11u109repro/grid/f1/c01_x64,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)
-r11u109repro/grid/f1/c02_x3,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)
-r11u109repro/grid/f1/c03_x8,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)
-r11u109repro/grid/f1/c04_x64cast,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
-r11u109repro/grid/f1/c05_x3sub,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)
-r11u109repro/grid/f1/c06_x64plain,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+r11u109repro/grid/f1/c01_x64,EQUAL,,equal
+r11u109repro/grid/f1/c02_x3,EQUAL,,equal
+r11u109repro/grid/f1/c03_x8,EQUAL,,equal
+r11u109repro/grid/f1/c04_x64cast,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
+r11u109repro/grid/f1/c05_x3sub,EQUAL,,equal
+r11u109repro/grid/f1/c06_x64plain,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
 r11u109repro/grid/f1/f02_xlen32,EQUAL,,equal
 r11u109repro/grid/f1/f03_const_first,EQUAL,,equal
 r11u109repro/grid/f1/f04_const_after,EQUAL,,equal
@@ -2794,7 +2794,7 @@ r11u25repro/grid/r11_modvar_constop_ctl,EQUAL,,equal
 r11u25repro/grid/r12_net_constop,EQUAL,,equal
 r11u25repro/grid/r13_ancestor_constop,EQUAL,,equal
 r11u26repro/m10,EQUAL,,equal
-r11u26repro/m12,STRICT_NOTEQUAL,differ:line(5),differ:line(5)
+r11u26repro/m12,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
 r11u26repro/m13,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
 r11u26repro/m14,EQUAL,,equal
 r11u26repro/m15,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)

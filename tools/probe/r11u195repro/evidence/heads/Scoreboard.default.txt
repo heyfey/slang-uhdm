@@ -1,0 +1,22 @@
+Scoreboard/default golden=/home/heyfey/.cache/slang-uhdm-goldens/a738f08e1da542561f1c/golden.uhdm
+#466 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#472 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+#491 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+#498 fullname
+  A: 6	ref_typespec			UVM_START_FUNCS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_START_FUNCS		0	0	0	0		0		
+#504 fullname
+  A: 5	ref_typespec			UVM_SET		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SET		0	0	0	0		0		
+#517 fullname
+  A: 5	ref_typespec			UVM_SETSTR		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SETSTR		0	0	0	0		0		
+objects 269656 vs 269679
+fields: depth=1 type=1 name=1 fullname=42 file=10 line=2 col=2 endline=2 endcol=3 size=1 objects_differing=52 (walk diverged)
+STRICT_NOTEQUAL fullname

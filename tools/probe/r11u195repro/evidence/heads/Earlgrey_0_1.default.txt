@@ -1,0 +1,22 @@
+Earlgrey_0_1/default golden=/home/heyfey/.cache/slang-uhdm-goldens/380b258d0b452a7ad5fa/golden.uhdm
+#90097 fullname
+  A: 7	bit_select	class_en		work@alert_handler.gen_classes.i_accu.class_en_i.reg2hw_wrap.class_en[k].class_en	alert_handler.sv	148	44	148	45		0		
+  B: 7	bit_select	class_en		reg2hw_wrap.class_en[k]	alert_handler.sv	148	35	148	43		0		
+#90098 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_en_i.reg2hw_wrap.class_en[k].k	alert_handler.sv	148	44	148	45		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_en_i.k	alert_handler.sv	148	44	148	45		0		
+#90102 fullname
+  A: 7	bit_select	class_clr		work@alert_handler.gen_classes.i_accu.clr_i.reg2hw_wrap.class_clr[k].class_clr	alert_handler.sv	149	45	149	46		0		
+  B: 7	bit_select	class_clr		reg2hw_wrap.class_clr[k]	alert_handler.sv	149	35	149	44		0		
+#90103 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.clr_i.reg2hw_wrap.class_clr[k].k	alert_handler.sv	149	45	149	46		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.clr_i.k	alert_handler.sv	149	45	149	46		0		
+#90107 fullname
+  A: 7	bit_select	class_trig		work@alert_handler.gen_classes.i_accu.class_trig_i.hw2reg_wrap.class_trig[k].class_trig	alert_handler.sv	150	46	150	47		0		
+  B: 7	bit_select	class_trig		hw2reg_wrap.class_trig[k]	alert_handler.sv	150	35	150	45		0		
+#90108 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_trig_i.hw2reg_wrap.class_trig[k].k	alert_handler.sv	150	46	150	47		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_trig_i.k	alert_handler.sv	150	46	150	47		0		
+objects 2173209 vs 2173853
+fields: type=1 defname=2 fullname=56 file=1 line=1 col=19 endline=1 endcol=41 size=1 objects_differing=82 (walk diverged)
+STRICT_NOTEQUAL fullname

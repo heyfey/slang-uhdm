@@ -1,0 +1,68 @@
+# census 0 (law.bin, the first draft): compare against the committed baselines
+REGRESSION r11u109repro/grid/f1/b01_casts EQUAL -> STRICT_NOTEQUAL differ:fullname(1)
+REGRESSION r11u109repro/grid/f1/b02_shl EQUAL -> STRICT_NOTEQUAL differ:fullname(1)
+REGRESSION r11u109repro/grid/f1/b03_x32 EQUAL -> STRICT_NOTEQUAL differ:fullname(1)
+REGRESSION r11u109repro/grid/f1/b04_dec EQUAL -> STRICT_NOTEQUAL differ:fullname(1)
+CONVERSION r10earl62repro/g1_earl62 STRICT_NOTEQUAL differ:col(1) -> EQUAL
+CONVERSION r10earl62repro/g2_earl62 STRICT_NOTEQUAL differ:col(2) -> EQUAL
+CONVERSION r10fiot_repro/a9 STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION r11u109repro/grid/f1/c01_x64 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r11u109repro/grid/f1/c02_x3 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r11u109repro/grid/f1/c03_x8 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r11u109repro/grid/f1/c05_x3sub STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CHANGE r11u109repro/grid/f1/c04_x64cast STRICT_NOTEQUAL differ:fullname(5) -> differ:value(2)
+CHANGE r11u109repro/grid/f1/c06_x64plain STRICT_NOTEQUAL differ:fullname(5) -> differ:value(2)
+CHANGE r11u26repro/m12 STRICT_NOTEQUAL differ:line(5) -> differ:fullname(4)
+regressions=4 conversions=7 changes=3 only-fresh=0 only-committed=0
+REGRESSION StructParamFuncBodyFieldCompare default CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(1)
+REGRESSION StructParamFuncBodyFieldCompare testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(1)
+CONVERSION StructParamPatternInitCast default STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION StructParamPatternInitCast testflags STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:col(91) -> differ:fullname(82)
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:col(91) -> differ:fullname(82)
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(27) -> differ:file(25) [file -2]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(27) -> differ:file(25) [file -2]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+CHANGE Scr1SvTests default STRICT_NOTEQUAL differ:type(1) -> differ:endcol(29)
+CHANGE Scr1SvTests testflags STRICT_NOTEQUAL differ:type(1) -> differ:endcol(29)
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:file(26) -> differ:file(24) [file -2]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:file(26) -> differ:file(24) [file -2]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+regressions=2 conversions=2 changes=11 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+# firing summary (censum.py)
+probe/r10earl62repro/g1_earl62 tagPatParenSpan195:1
+probe/r10earl62repro/g2_earl62 tagPatParenSpan195:2
+probe/r10fiot_repro/a9 evalFuncExecCallArgTs191:3
+probe/r11u109repro/grid/f1/b01_casts funcCfgPatOpRefBare195:1
+probe/r11u109repro/grid/f1/b02_shl funcCfgPatOpRefBare195:1
+probe/r11u109repro/grid/f1/b03_x32 funcCfgPatOpRefBare195:1
+probe/r11u109repro/grid/f1/b04_dec funcCfgPatOpRefBare195:1
+probe/r11u109repro/grid/f1/c01_x64 funcCfgPatOpRefBare195:1
+probe/r11u109repro/grid/f1/c02_x3 funcCfgPatOpRefBare195:1
+probe/r11u109repro/grid/f1/c03_x8 funcCfgPatOpRefBare195:1
+probe/r11u109repro/grid/f1/c04_x64cast funcCfgPatOpRefBare195:1
+probe/r11u109repro/grid/f1/c05_x3sub funcCfgPatOpRefBare195:1
+probe/r11u109repro/grid/f1/c06_x64plain funcCfgPatOpRefBare195:1
+probe/r11u26repro/m12 pkgPatMemberReadAtValue195:1
+surelog/default/BlackBePipeInt tagPatParenSpan195:2
+surelog/default/BuildUVMPkg idxCallPathAtDots191:9
+surelog/default/Earlgrey_0_1 evalFuncExecCallArgTs191:2 pkgFoldAtLeadingLeaf191:1 procNetMidSelDotted195:8
+surelog/default/MiniAmiq idxCallPathAtDots191:22
+surelog/default/Scoreboard idxCallPathAtDots191:11
+surelog/default/Scr1SvTests evalFuncExecCallArgTs191:1
+surelog/default/SeqDriver idxCallPathAtDots191:21
+surelog/default/SimpleUVM idxCallPathAtDots191:11
+surelog/default/StructParamFuncBodyFieldCompare funcCfgPatOpRefBare195:1
+surelog/default/StructParamPatternInitCast funcCfgPatOpRefBare195:1
+surelog/testflags/BlackBePipeInt tagPatParenSpan195:2
+surelog/testflags/BuildUVMPkg idxCallPathAtDots191:9
+surelog/testflags/Earlgrey_0_1 evalFuncExecCallArgTs191:2 pkgFoldAtLeadingLeaf191:1 procNetMidSelDotted195:8
+surelog/testflags/MiniAmiq idxCallPathAtDots191:22
+surelog/testflags/Scr1SvTests evalFuncExecCallArgTs191:1
+surelog/testflags/SeqDriver idxCallPathAtDots191:21
+surelog/testflags/SimpleUVM idxCallPathAtDots191:11
+surelog/testflags/StructParamFuncBodyFieldCompare funcCfgPatOpRefBare195:1
+surelog/testflags/StructParamPatternInitCast funcCfgPatOpRefBare195:1
+ROWS 33

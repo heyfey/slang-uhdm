@@ -25,6 +25,672 @@
 
 namespace slang_uhdm {
 
+// The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
+// reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them.
+// R11U191_TRACE=<dir> names every firing of an r11u191 law (the mover
+// census): one file per process, `<dir>/<pid>.EX`, its first line the
+// `-o` database path read off the command line, then one law name per firing.
+static void tr191EX(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U191_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".EX";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+static bool r191EX(const char* sw) {
+    // R11U195_OFF: pass 195 lands these laws, and its one switch restores
+    // the pristine bytes of the whole pass
+    if (getenv("R11U191_OFF") != nullptr || getenv("R11U195_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
+// The r11u195 switches (tools/probe/r11u195repro/README.md): every r11u195
+// law reads its own R11U195_<LAW>_OFF switch; R11U195_OFF drops all of them.
+// R11U195_TRACE=<dir> names every firing of an r11u195 law (the mover
+// census): one file per process, `<dir>/<pid>.EX195`, its first line the
+// `-o` database path, then one law name per firing.
+static void tr195EX(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U195_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".EX195";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+static bool r195EX(const char* sw) {
+    if (getenv("R11U195_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// The v11u195 refinements (tools/probe/v11u195repro/README.md, the
+// adversarial verification of pass 195): each reads its own
+// R11V195_<LAW>_OFF switch; R11V195_OFF drops all of them and R11U195_OFF
+// (the whole pass) drops them too.  Firings go to the R11U195_TRACE file.
+static bool v195EX(const char* sw) {
+    if (getenv("R11U195_OFF") != nullptr || getenv("R11V195_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
+// § idxCallPathAtDots191 (r11u191, R11U191_HPENDCOL_OFF) — the index of a
+// select that a member access CONTINUES (`m[obj.get_type_name()].queue`,
+// `m_streams[stream.get_name()].exists(...)`), or a range select's bound
+// (`q[b:q.size()-1]`): Surelog's grammar reads such a select as a
+// hierarchical identifier's `constant_bit_select` (a range as a
+// `constant_range`), so its index is a constant_expression, and a method call
+// written there — whole or inside the index's operators — parses as
+// `Subroutine_call(obj, Constant_bit_select, nxt, Constant_bit_select,
+// get_type_name, List_of_arguments)` whose EMPTY Constant_bit_select nodes sit
+// zero-width at the dots (`-d ast`: l<8:25> el<8:25>).  compileComplexFuncCall
+// (CompileExpression.cpp:5523-5716) pushes a component's ref_obj when it meets
+// the NEXT name and locates it at `name`, which the loop has already advanced
+// to that empty select (`name = dotedName;`, :5715): every component but the
+// call sits zero-width at the dot after it.  The hier_path takes the location
+// of the Subroutine_call's first child (compileExpression's parent node), the
+// first name alone.  A plain select (`q = m[obj.get_type_name()]`) parses the
+// index as an Expression and keeps both spans (grid tools/probe/r11u191dec/
+// cases/H: h01-h04 move, h02's plain forms and every other context are
+// controls).  Map 10's N0228 (hier_path endcol under bit_select, the first
+// open record of the UVM rows) and N0224 (its ref_obj col).
+static const slang::ast::Expression* g191IdxCall = nullptr;
+static bool idxOfContinuedSelect191(const slang::ast::Expression& e) {
+    namespace sx = slang::syntax;
+    const sx::SyntaxNode* n = e.syntax;
+    if (!n || n->kind != sx::SyntaxKind::InvocationExpression)
+        return false;
+    // Up through the operators of the index expression (a call nested in
+    // `sva_details.size() - 1` is written in the same constant_expression);
+    // another call, a member access or a select on the way is a boundary.
+    const sx::SyntaxNode* child = n;
+    const sx::SyntaxNode* p = n->parent;
+    while (p && sx::ExpressionSyntax::isKind(p->kind) &&
+           p->kind != sx::SyntaxKind::InvocationExpression &&
+           p->kind != sx::SyntaxKind::MemberAccessExpression &&
+           p->kind != sx::SyntaxKind::ElementSelectExpression &&
+           !sx::NameSyntax::isKind(p->kind)) {
+        child = p;
+        p = p->parent;
+    }
+    if (!p)
+        return false;
+    // A RANGE select's bounds are a constant_range (both sides) or, for an
+    // indexed `+:` / `-:` range, the width side (`q[b:q.size()-1]`,
+    // uvm_sequencer_base.svh 694).
+    if (p->kind == sx::SyntaxKind::SimpleRangeSelect)
+        return true;
+    if (p->kind == sx::SyntaxKind::AscendingRangeSelect ||
+        p->kind == sx::SyntaxKind::DescendingRangeSelect)
+        return p->as<sx::RangeSelectSyntax>().right.get() == (const sx::ExpressionSyntax*)child;
+    if (p->kind != sx::SyntaxKind::BitSelect)
+        return false;
+    p = p->parent;
+    if (!p || p->kind != sx::SyntaxKind::ElementSelect)
+        return false;
+    const sx::SyntaxNode* x = p->parent;
+    if (!x)
+        return false;
+    // A NAME path (slang: IdentifierSelectName inside ScopedName with `.`):
+    // the select is continued when some enclosing ScopedName has it (or the
+    // name it ends) on its LEFT of a `.` separator.
+    if (x->kind == sx::SyntaxKind::IdentifierSelectName) {
+        for (const sx::SyntaxNode* q = x->parent; q && q->kind == sx::SyntaxKind::ScopedName;
+             x = q, q = q->parent) {
+            auto& sn = q->as<sx::ScopedNameSyntax>();
+            if (sn.left.get() == (const sx::NameSyntax*)x)
+                return sn.separator.kind == slang::parsing::TokenKind::Dot;
+        }
+        return false;
+    }
+    // An EXPRESSION path: ElementSelectExpression on a member access's left.
+    if (x->kind != sx::SyntaxKind::ElementSelectExpression)
+        return false;
+    const sx::SyntaxNode* ma = x->parent;
+    if (!ma || ma->kind != sx::SyntaxKind::MemberAccessExpression)
+        return false;
+    return ma->as<sx::MemberAccessExpressionSyntax>().left.get() ==
+           (const sx::ExpressionSyntax*)x;
+}
+
+// § evalFuncExecCallArgTs191 (r11u191, R11U191_EVALTS_OFF; map 10's N0965,
+// Scr1SvTests d/t `type(1)`) — UhdmWriter::writeCont_assign reduces a
+// continuous assignment whose whole right side is a user function call:
+// ExprEval::evalFunc (UHDM templates/ExprEval.cpp) binds every actual to its
+// formal (`if (expr* exparg = reduceExpr(ioexp, ...)) exparg->Typespec(<the
+// formal's typespec>)`) and then EXECUTES the body.  A call met on the way is
+// evaluated the same way, so ITS actuals take ITS formal's typespec — and an
+// actual reduceExpr hands back unreduced, a PART SELECT or an INDEXED PART
+// SELECT (of a formal or of a body local), is the SOURCE object of the
+// function body, mutated in place; a formal or local REFERENCE reduces to its
+// bound value and the source ref stays bare (r10fiot a9 x3 / x5, r10uvm60
+// b6 R5).  What the body executes is § evalReachedCallees's prefix (the taint
+// model: a controlling expression reading a formal stops the run, plain
+// statements do not); when the module calls the function with an argument
+// that is not constant, the FIRST call met is also the last one (its own body
+// cannot be reduced and the run stops inside it: grid
+// tools/probe/r11u191dec/cases/V v01 `t = g(x[1:0])` stamped, `u =
+// g(x[3:2])` bare; v02 the Scr1 loop `g(din[(i+1)*2-1-:2])` stamped, the
+// later `g(s1)` bare; v04 = r10fiot a9: `lv[3:1]` after `lv[3:0] = a;`
+// stamped, nothing inside an unfoldable `if`); when every argument is
+// constant every call of the prefix is stamped (v03).  Only straight-line
+// statements and for loops are walked (a branch stops the walk: abstain).
+namespace {
+struct EvalStamp191 {
+    bool done = false;
+    std::set<const slang::ast::Expression*> calls;
+};
+std::map<const slang::ast::SubroutineSymbol*, EvalStamp191> g191Eval;
+} // namespace
+namespace {
+// § evalFuncOpReduceGate195's ancestor finder: the expressions above
+// `target` inside the visited root, outermost first.
+struct PathFind195
+    : public slang::ast::ASTVisitor<PathFind195, slang::ast::VisitFlags::Expressions> {
+    const slang::ast::Expression* target = nullptr;
+    std::vector<const slang::ast::Expression*> stack, path;
+    bool found = false;
+    template<typename T>
+    void handle(const T& t) {
+        if (found)
+            return;
+        if constexpr (std::is_base_of_v<slang::ast::Expression, T>) {
+            if ((const slang::ast::Expression*)&t == target) {
+                found = true;
+                path = stack;
+                return;
+            }
+            stack.push_back(&t);
+            visitDefault(t);
+            stack.pop_back();
+        }
+        else
+            visitDefault(t);
+    }
+};
+} // namespace
+// § evalFuncOpReduceGate195 (r11u195, R11U195_EVALOP_OFF; refines
+// § evalFuncExecCallArgTs191) — ExprEval::reduceExpr (UHDM
+// templates/ExprEval.cpp) reduces an operation's operands, and so evaluates a
+// user call written there, only for the operator kinds its switch lists
+// (+ - * / % & | == != < <= > >= && || << >> <<< >>> ** and the unary ones,
+// ?:, concatenation, replication, cast): `r ^ g(x[1:0])`, `g(...) === 1'b1`
+// leave the call unevaluated, so its actuals are never stamped; and it
+// reduces nothing when a NAME operand has no value yet (`t + g(...)` with `t`
+// an unassigned local: getValue returns null, constantOperands is false).
+// Grid tools/probe/r11u195repro/cases/C/c01 (`r = r ^ g(x[i*2+:2])` in a
+// for loop, golden bare, the 191 law stamped it) and cases/G.  Where the gate
+// fails the walk stops (abstains): golden runs on after an XOR statement
+// (G/g16's second call is stamped) but stops after a case equality (G/g19),
+// a difference this law does not model.
+static bool evalOpPathOk195(const slang::ast::Expression& root,
+                            const slang::ast::Expression& call,
+                            const std::set<const slang::ast::Symbol*>& assigned,
+                            bool sibling = false, bool allowCall = false) {
+    using namespace slang::ast;
+    if (!r195EX("R11U195_EVALOP_OFF"))
+        return true;
+    PathFind195 pf;
+    pf.target = &call;
+    root.visit(pf);
+    if (!pf.found)
+        return true;
+    auto unboundName = [&](const Expression& o) {
+        auto& so = stripImplicitConv(o);
+        if (so.kind != ExpressionKind::NamedValue)
+            return false;
+        auto& sym = so.as<NamedValueExpression>().symbol;
+        if (sym.kind != SymbolKind::Variable)
+            return false;
+        for (auto sc = sym.getParentScope(); sc; sc = sc->asSymbol().getParentScope()) {
+            auto ks = sc->asSymbol().kind;
+            if (ks == SymbolKind::Subroutine || ks == SymbolKind::StatementBlock)
+                return !assigned.count(&sym);
+            if (ks == SymbolKind::InstanceBody || ks == SymbolKind::Package ||
+                ks == SymbolKind::CompilationUnit)
+                break;
+        }
+        return false;
+    };
+    // § evalFuncOperandKinds195v (v11u195, R11V195_EVALOPND_OFF; refines
+    // § evalFuncOpReduceGate195) — reduceExpr's constantOperands pre-check
+    // (UHDM templates/ExprEval.cpp, the operation branch) admits an operand
+    // only when it is a constant, an operation, a call, a bit/var select, a
+    // hier_path, an enum or a ref_obj whose getValue finds a value: a PART
+    // SELECT or an INDEXED PART SELECT (`lv[7:6] + g(lv[1:0])`) and a module
+    // net or variable read inside the function (`w + g(...)`, getValue finds
+    // no binding) make the whole operation come back unreduced, its call
+    // never evaluated, the actual bare (cases/E e01 e06 e07 e12 e16 e18 of
+    // tools/probe/v11u195repro; a formal, a module parameter, a bit select
+    // or an operation over a part select keep the stamp: e11 e19 e33 e34
+    // e38).
+    auto badOperand = [&](const Expression& o) {
+        if (!v195EX("R11V195_EVALOPND_OFF"))
+            return false;
+        auto& so = stripImplicitConv(o);
+        if (so.kind == ExpressionKind::RangeSelect)
+            return true;
+        if (so.kind != ExpressionKind::NamedValue)
+            return false;
+        auto& sym = so.as<NamedValueExpression>().symbol;
+        if (sym.kind == SymbolKind::Net)
+            return true;
+        if (sym.kind != SymbolKind::Variable)
+            return false;
+        for (auto sc = sym.getParentScope(); sc; sc = sc->asSymbol().getParentScope()) {
+            auto ks = sc->asSymbol().kind;
+            if (ks == SymbolKind::Subroutine || ks == SymbolKind::StatementBlock)
+                return false;
+            if (ks == SymbolKind::InstanceBody || ks == SymbolKind::Package ||
+                ks == SymbolKind::CompilationUnit)
+                return true;
+        }
+        return false;
+    };
+    auto badOperandT = [&](const Expression& o) {
+        if (!badOperand(o))
+            return false;
+        tr195EX("evalFuncOperandKinds195v");
+        return true;
+    };
+    for (size_t pi = 0; pi < pf.path.size(); pi++) {
+        auto* a = pf.path[pi];
+        const Expression* nxt = pi + 1 < pf.path.size() ? pf.path[pi + 1] : &call;
+        switch (a->kind) {
+            case ExpressionKind::Assignment:
+                // the statement's own plain assignment (a compound `^=` is
+                // another operator: abstain)
+                if (a != &root || a->as<AssignmentExpression>().isCompound())
+                    return false;
+                break;
+            case ExpressionKind::Call:
+                // § evalFuncConstVisitGate195v: a call argument (evalFunc
+                // reduces its actuals) passes through
+                if (allowCall)
+                    break;
+                return false;
+            case ExpressionKind::ConditionalOp: {
+                if (sibling)
+                    return false;
+                // § evalFuncTernaryArm195v (v11u195, R11V195_EVALTERN_OFF;
+                // refines § evalFuncOpReduceGate195) — the vpiConditionOp
+                // branch of reduceExpr reduces the condition and then the
+                // TAKEN arm only; a condition it cannot bring to a value
+                // (a local of a non-constant run, a comparison over a module
+                // parameter: cases/E e05 e31 e36) breaks before either arm.
+                // A call written in an arm is met only when the condition
+                // is a literal selecting that arm (e32 e35); otherwise the
+                // walk abstains (e04 e08 e15 e31 e36 were EQUAL on the
+                // pristine binary and read type(1) with the stamp).
+                auto& co = a->as<ConditionalExpression>();
+                const bool inCond = co.conditions.size() == 1 &&
+                                    nxt == co.conditions[0].expr;
+                if (!inCond && v195EX("R11V195_EVALTERN_OFF")) {
+                    bool armOk = false;
+                    if (co.conditions.size() == 1 && !co.conditions[0].pattern) {
+                        auto& ce = stripImplicitConv(*co.conditions[0].expr);
+                        if (ce.kind == ExpressionKind::IntegerLiteral) {
+                            slang::SVInt cv = ce.as<IntegerLiteral>().getValue();
+                            if (!cv.hasUnknown()) {
+                                const bool tk = (bool)cv.reductionOr();
+                                armOk = nxt == (tk ? &co.left() : &co.right());
+                            }
+                        }
+                    }
+                    if (!armOk) {
+                        tr195EX("evalFuncTernaryArm195v");
+                        return false;
+                    }
+                }
+                if (badOperandT(*co.conditions[0].expr) || badOperandT(co.left()) ||
+                    badOperandT(co.right()))
+                    return false;
+                break;
+            }
+            case ExpressionKind::Concatenation:
+            case ExpressionKind::Replication:
+                // a sibling call behind a ternary or inside a concatenation
+                // (reduced operand by operand, stopping at the first
+                // unreducible one: G/g24) is not claimed
+                if (sibling)
+                    return false;
+                break;
+            case ExpressionKind::Conversion:
+                break;
+            case ExpressionKind::UnaryOp:
+                switch (a->as<UnaryExpression>().op) {
+                    case UnaryOperator::Plus: case UnaryOperator::Minus:
+                    case UnaryOperator::BitwiseNot: case UnaryOperator::BitwiseAnd:
+                    case UnaryOperator::BitwiseOr: case UnaryOperator::BitwiseXor:
+                    case UnaryOperator::BitwiseNand: case UnaryOperator::BitwiseNor:
+                    case UnaryOperator::BitwiseXnor: case UnaryOperator::LogicalNot:
+                        break;
+                    default:
+                        return false;
+                }
+                break;
+            case ExpressionKind::BinaryOp: {
+                auto& be = a->as<BinaryExpression>();
+                switch (be.op) {
+                    case BinaryOperator::Add: case BinaryOperator::Subtract:
+                    case BinaryOperator::Multiply: case BinaryOperator::Divide:
+                    case BinaryOperator::Mod: case BinaryOperator::BinaryAnd:
+                    case BinaryOperator::BinaryOr: case BinaryOperator::Equality:
+                    case BinaryOperator::Inequality: case BinaryOperator::GreaterThanEqual:
+                    case BinaryOperator::GreaterThan: case BinaryOperator::LessThanEqual:
+                    case BinaryOperator::LessThan: case BinaryOperator::LogicalAnd:
+                    case BinaryOperator::LogicalOr: case BinaryOperator::LogicalShiftLeft:
+                    case BinaryOperator::LogicalShiftRight:
+                    case BinaryOperator::ArithmeticShiftLeft:
+                    case BinaryOperator::ArithmeticShiftRight: case BinaryOperator::Power:
+                        break;
+                    default:
+                        return false;
+                }
+                if (unboundName(be.left()) || unboundName(be.right()))
+                    return false;
+                if (badOperandT(be.left()) || badOperandT(be.right()))  // § evalFuncOperandKinds195v
+                    return false;
+                break;
+            }
+            default:
+                return false;
+        }
+    }
+    return true;
+}
+static bool evalFuncStampsCall191(slang::ast::Compilation& comp,
+                                  const slang::ast::SubroutineSymbol& sub,
+                                  const slang::ast::Expression& callExpr) {
+    using namespace slang::ast;
+    auto& es = g191Eval[&sub];
+    if (!es.done) {
+        es.done = true;
+        bool nonConst = false, allConst = false;
+        auto* sc = sub.getParentScope();
+        if (sc && sc->asSymbol().kind == SymbolKind::InstanceBody &&
+            sub.subroutineKind == SubroutineKind::Function) {
+            for (auto& mb : sc->members()) {
+                if (mb.kind != SymbolKind::ContinuousAssign)
+                    continue;
+                auto& ae = mb.as<ContinuousAssignSymbol>().getAssignment();
+                if (ae.kind != ExpressionKind::Assignment)
+                    continue;
+                auto& r = stripImplicitConv(ae.as<AssignmentExpression>().right());
+                if (r.kind != ExpressionKind::Call)
+                    continue;
+                auto& c = r.as<CallExpression>();
+                auto sp = std::get_if<const SubroutineSymbol*>(&c.subroutine);
+                if (c.isSystemCall() || !sp || *sp != &sub)
+                    continue;
+                bool k = true;
+                ASTContext cx(comp.getRoot(), LookupLocation::max);
+                for (auto* a : c.arguments()) {
+                    auto cv = cx.tryEval(*a);
+                    if (!cv)
+                        k = false;
+                }
+                (k ? allConst : nonConst) = true;
+            }
+        }
+        // The first user call a statement's expression evaluates (pre-order,
+        // left to right: `x + g(y)` binds g's actuals too, r10uvm60 b6 R1).
+        auto firstCall = [](const Expression& e) -> const Expression* {
+            const Expression* found = nullptr;
+            e.visit(makeVisitor([&](auto& v, const CallExpression& ce) {
+                if (found)
+                    return;
+                if (!ce.isSystemCall() &&
+                    std::get_if<const SubroutineSymbol*>(&ce.subroutine)) {
+                    found = &ce;
+                    return;
+                }
+                v.visitDefault(ce);
+            }));
+            return found;
+        };
+        // § evalReachedCallees's taint model (TaskFuncEmit.cpp): a formal, a
+        // signal outside the subroutine, or a local assigned from one.
+        std::set<const Symbol*> tainted;
+        // § evalFuncOpReduceGate195: locals given a value so far (a for
+        // loop's own variables count, see ForLoop below).
+        std::set<const Symbol*> assigned195;
+        auto unknown = [&](const Expression& e) -> bool {
+            bool bad = false;
+            e.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+                auto k0 = nv.symbol.kind;
+                if (k0 == SymbolKind::FormalArgument || tainted.count(&nv.symbol))
+                    bad = true;
+                else if (k0 == SymbolKind::Variable || k0 == SymbolKind::Net) {
+                    bool local = false;
+                    for (auto sc2 = nv.symbol.getParentScope(); sc2;
+                         sc2 = sc2->asSymbol().getParentScope()) {
+                        auto ks = sc2->asSymbol().kind;
+                        if (ks == SymbolKind::Subroutine || ks == SymbolKind::StatementBlock) {
+                            local = true;
+                            break;
+                        }
+                        if (ks == SymbolKind::InstanceBody || ks == SymbolKind::Package ||
+                            ks == SymbolKind::CompilationUnit)
+                            break;
+                    }
+                    if (!local)
+                        bad = true;
+                }
+                v.visitDefault(nv);
+            }));
+            return bad;
+        };
+        // Walk the executed prefix.  nonConst: the first call met is stamped
+        // and ends the run (its body cannot be reduced); allConst: every call
+        // met is stamped.  Returns false where the run stops.
+        const bool stopAtCall = nonConst && !allConst;
+        std::set<const Expression*> met;
+        std::function<bool(const Statement&)> walk = [&](const Statement& st) -> bool {
+            auto meet = [&](const Expression& e) -> bool {
+                if (auto* c = firstCall(e)) {
+                    // § evalFuncOpReduceGate195 — the call is evaluated only
+                    // when every operator above it is one reduceExpr reduces
+                    // and none of their direct name operands is unbound.
+                    if (!evalOpPathOk195(e, *c, assigned195)) {
+                        tr195EX("evalFuncOpReduceGate195");
+                        return false;
+                    }
+                    met.insert(c);
+                    if (stopAtCall) {
+                        // § evalFuncOpReduceGate195 — the reduction of that
+                        // statement's expression evaluates EVERY call its
+                        // operators reach (reduceExpr reduces both operands
+                        // of `|` / `+` before it looks at invalidValue:
+                        // G/g21 `g(lv[2:0]) | g(lv[5:3])`, both stamped);
+                        // the run stops after the statement.  A call inside
+                        // another call's arguments, behind a ternary or in a
+                        // concatenation is not claimed.
+                        if (r195EX("R11U195_EVALOP_OFF"))
+                            e.visit(makeVisitor([&](auto& v, const CallExpression& ce) {
+                                if (&ce == c)
+                                    return;  // its own arguments: not claimed
+                                if (!ce.isSystemCall() &&
+                                    std::get_if<const SubroutineSymbol*>(&ce.subroutine)) {
+                                    if (evalOpPathOk195(e, ce, assigned195, true) &&
+                                        met.insert(&ce).second)
+                                        tr195EX("evalFuncOpReduceGate195");
+                                    return;  // nested calls: not claimed
+                                }
+                                v.visitDefault(ce);
+                            }));
+                        return false;
+                    }
+                    e.visit(makeVisitor([&](auto& v, const CallExpression& ce) {
+                        if (!ce.isSystemCall() &&
+                            std::get_if<const SubroutineSymbol*>(&ce.subroutine)) {
+                            // § evalFuncConstVisitGate195v (v11u195,
+                            // R11V195_EVALVISIT_OFF; refines
+                            // § evalFuncExecCallArgTs191) — the all-constant
+                            // run meets every OTHER call of the statement
+                            // through the same operator gate as the first
+                            // (a call under an XOR or beside a part select
+                            // stays unevaluated: cases/E e39 e40); a call
+                            // argument passes through (evalFunc reduces
+                            // its actuals).
+                            if (&ce == c || !v195EX("R11V195_EVALVISIT_OFF") ||
+                                evalOpPathOk195(e, ce, assigned195, false, true))
+                                met.insert(&ce);
+                            else
+                                tr195EX("evalFuncConstVisitGate195v");
+                        }
+                        v.visitDefault(ce);
+                    }));
+                }
+                return true;
+            };
+            switch (st.kind) {
+                case StatementKind::Empty:
+                    return true;
+                case StatementKind::List:
+                    for (auto* it : st.as<StatementList>().list)
+                        if (!walk(*it))
+                            return false;
+                    return true;
+                case StatementKind::Block:
+                    return walk(st.as<BlockStatement>().body);
+                case StatementKind::VariableDeclaration: {
+                    auto& vs = st.as<VariableDeclStatement>().symbol;
+                    if (auto* in = vs.getInitializer()) {
+                        assigned195.insert(&vs);
+                        if (!meet(*in))
+                            return false;
+                        if (unknown(*in))
+                            tainted.insert(&vs);
+                    }
+                    return true;
+                }
+                case StatementKind::ExpressionStatement: {
+                    auto& e0 = st.as<ExpressionStatement>().expr;
+                    if (!meet(e0))
+                        return false;
+                    if (e0.kind == ExpressionKind::Assignment) {
+                        auto& ae = e0.as<AssignmentExpression>();
+                        const Expression* l0 = &stripImplicitConv(ae.left());
+                        while (l0->kind == ExpressionKind::ElementSelect ||
+                               l0->kind == ExpressionKind::RangeSelect ||
+                               l0->kind == ExpressionKind::MemberAccess)
+                            l0 = &stripImplicitConv(
+                                l0->kind == ExpressionKind::ElementSelect
+                                    ? l0->as<ElementSelectExpression>().value()
+                                : l0->kind == ExpressionKind::RangeSelect
+                                    ? l0->as<RangeSelectExpression>().value()
+                                    : l0->as<MemberAccessExpression>().value());
+                        if (l0->kind == ExpressionKind::NamedValue) {
+                            auto& ls = l0->as<NamedValueExpression>().symbol;
+                            assigned195.insert(&ls);
+                            if (unknown(ae.right()))
+                                tainted.insert(&ls);
+                            else
+                                tainted.erase(&ls);
+                        }
+                    }
+                    return true;
+                }
+                case StatementKind::Return:
+                    if (auto* re = st.as<ReturnStatement>().expr) {
+                        // § evalFuncConstReturnBare195v (v11u195,
+                        // R11V195_EVALRET_OFF; refines
+                        // § evalFuncExecCallArgTs191) — when every argument
+                        // of the module's call is constant, the calls of the
+                        // function's RETURN expression keep their actuals
+                        // bare in golden (cases/E e13 e14 e26 e28: `return
+                        // 4'd1 + g(lv[1:0]);` bare, the same call in an
+                        // assignment before the return stamped, e25 e27
+                        // e28); a non-constant run stamps them (e11, the
+                        // r11u195 grid's C/c02).
+                        if (!stopAtCall && v195EX("R11V195_EVALRET_OFF")) {
+                            if (firstCall(*re))
+                                tr195EX("evalFuncConstReturnBare195v");
+                            return false;
+                        }
+                        meet(*re);
+                    }
+                    return false;
+                case StatementKind::ForLoop: {
+                    auto& fl = st.as<ForLoopStatement>();
+                    for (auto* i0 : fl.initializers)
+                        if (unknown(*i0))
+                            return false;
+                    for (auto* lv0 : fl.loopVars)
+                        assigned195.insert(lv0);
+                    for (auto* i0 : fl.initializers)
+                        if (i0->kind == ExpressionKind::Assignment) {
+                            auto& il0 = stripImplicitConv(i0->as<AssignmentExpression>().left());
+                            if (il0.kind == ExpressionKind::NamedValue)
+                                assigned195.insert(&il0.as<NamedValueExpression>().symbol);
+                        }
+                    if (!fl.stopExpr || unknown(*fl.stopExpr))
+                        return false;
+                    return walk(fl.body);
+                }
+                default:
+                    // a branch, a case, any other loop: the executed arm is
+                    // not modelled here — stop (abstain on what follows)
+                    return false;
+            }
+        };
+        if (nonConst || allConst) {
+            walk(sub.getBody());
+            es.calls = std::move(met);
+        }
+    }
+    return es.calls.count(&stripImplicitConv(callExpr)) != 0;
+}
+
 // The r11u183 switches (tools/probe/r11u183dec/README.md, landed by r11u187:
 // tools/probe/r11u187repro/README.md): every r11u183 law
 // reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
@@ -11014,6 +11680,42 @@ static bool firstOrderedConnSel147(const Expression& e, const UHDM::any* parent)
     return conns.size() > 1 && (const slang::syntax::SyntaxNode*)conns[0] == oc;
 }
 
+// § procNetMidSelDotted195's nesting gate: a path written inside the
+// brackets of ANOTHER PATH's select, at any depth
+// (`reg2hw.key[idx[reg2hw.key[0].qe]].q`: golden names the inner mid select
+// through the parents and spans member + index, a form neither branch
+// writes) declines (grid r11u195repro/cases/K k12); inside a plain array's
+// brackets (`cnt[reg2hw.key[1].qe]++`, k14) the law holds.
+static bool idxNestedPath195(const slang::ast::Expression& e) {
+    namespace sx = slang::syntax;
+    // the select owning the brackets is a component of a dotted path
+    auto pathSel = [](const sx::SyntaxNode* bs) {
+        const sx::SyntaxNode* es = bs->parent;  // ElementSelect
+        const sx::SyntaxNode* x = es ? es->parent : nullptr;
+        if (!x)
+            return false;
+        if (x->kind == sx::SyntaxKind::IdentifierSelectName)
+            return x->parent && x->parent->kind == sx::SyntaxKind::ScopedName;
+        if (x->kind == sx::SyntaxKind::ElementSelectExpression) {
+            auto* l = x->as<sx::ElementSelectExpressionSyntax>().left.get();
+            return (x->parent && x->parent->kind == sx::SyntaxKind::MemberAccessExpression) ||
+                   (l && (l->kind == sx::SyntaxKind::MemberAccessExpression ||
+                          l->kind == sx::SyntaxKind::ScopedName));
+        }
+        return false;
+    };
+    for (const sx::SyntaxNode* p = e.syntax ? e.syntax->parent : nullptr; p; p = p->parent) {
+        if ((p->kind == sx::SyntaxKind::BitSelect || p->kind == sx::SyntaxKind::SimpleRangeSelect ||
+             p->kind == sx::SyntaxKind::AscendingRangeSelect ||
+             p->kind == sx::SyntaxKind::DescendingRangeSelect) &&
+            pathSel(p))
+            return true;
+        if (sx::StatementSyntax::isKind(p->kind) || sx::MemberSyntax::isKind(p->kind))
+            break;
+    }
+    return false;
+}
+
 UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                                                  UHDM::BaseClass* parent,
                                                  const std::string& prefix, NetMap& netMap) {
@@ -11877,7 +12579,22 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 if (auto* ix = emitExpr(*sel.sel, bs, idxPfx79b, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
-            else if (baseNv->symbol.kind == SymbolKind::Variable &&
+            else if ((baseNv->symbol.kind == SymbolKind::Variable ||
+                      // § procNetMidSelDotted195 (r11u195,
+                      // R11U195_PROCNETSEL_OFF; Earlgrey_0_1's N0941 / N0061,
+                      // aes_core.sv 109 `key_init[i] = reg2hw.key[i].q;` in an
+                      // always_comb) — the same rvalue on a NET base (a struct
+                      // input port, a wire) in a PROCESS: golden keeps the
+                      // simple dotted form `reg2hw.key[i]` at the member
+                      // name (109:31-34) as for a variable, where ours took
+                      // the doubled lazy name at the index below.  A trailing
+                      // select, an interface or modport base, a function body
+                      // and a continuous assignment keep their branches (grid
+                      // tools/probe/r11u195repro/cases/K: k01 k02 k04 k07
+                      // move; k05 k06 k09 controls).
+                      (baseNv->symbol.kind == SymbolKind::Net && inProcessEmit &&
+                       r195EX("R11U195_PROCNETSEL_OFF") && !idxNestedPath195(expr) &&
+                       (tr195EX("procNetMidSelDotted195"), true))) &&
                      !lastMember) {
                 // An rvalue element-select on a struct VARIABLE member array
                 // that is FOLLOWED by a further member (t.my_array[0].a):
@@ -16403,6 +17120,33 @@ static void tagKey177f(const slang::SourceManager* sm, const UHDM::any* tp,
     tagKeys177[tp] = ((uint64_t)l.buffer().getId() << 32) | (uint64_t)l.offset();
 }
 
+// § tagPatParenSpan195 (r11u195, R11U195_TPPAREN_OFF; pass 192's P face
+// `'{A:2, D:(8)}`) — a tagged_pattern of a MEMBER or INDEX setter whose value
+// is written in parentheses spans the parentheses (golden 4:33-36 `(8)`,
+// `((2))` the outer pair, `(4'd2 + 4'd1)`); ours spanned the value inside.
+// The key tagKey177f recorded stays the value's.  Grid
+// tools/probe/r11u195repro/cases/T.
+static slang::SourceRange tagPatParenSpan195(const slang::ast::Expression& val) {
+    if (!r195EX("R11U195_TPPAREN_OFF"))
+        return slang::SourceRange();
+    const slang::ast::Expression& v = slang_uhdm::stripImplicitConv(val);
+    // slang keeps the value's range without the parentheses but hands the
+    // ParenthesizedExpression as its syntax
+    const slang::syntax::SyntaxNode* n = v.syntax;
+    const slang::syntax::SyntaxNode* outer = nullptr;
+    if (n && n->kind == slang::syntax::SyntaxKind::ParenthesizedExpression)
+        outer = n;
+    while (n && n->parent &&
+           n->parent->kind == slang::syntax::SyntaxKind::ParenthesizedExpression) {
+        n = n->parent;
+        outer = n;
+    }
+    if (!outer)
+        return slang::SourceRange();
+    tr195EX("tagPatParenSpan195");
+    return outer->sourceRange();
+}
+
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
@@ -16422,6 +17166,56 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         trace184("V194 IDCALLARG read");
         lhsGuard194.on = true;
         inLhs = false;
+    }
+    // § idxCallPathAtDots191 — the wrapper (the law's header is above).
+    if (expr.kind == ExpressionKind::Call && g191IdxCall != &expr &&
+        idxOfContinuedSelect191(expr) && r191EX("R11U191_HPENDCOL_OFF")) {
+        const Expression* sv191 = g191IdxCall;
+        g191IdxCall = &expr;
+        UHDM::any* r191 = emitExpr(expr, parent, prefix, netMap);
+        g191IdxCall = sv191;
+        if (r191 && r191->UhdmType() == UHDM::uhdmhier_path) {
+            auto* hp191 = (UHDM::hier_path*)r191;
+            auto* el191 = hp191->Path_elems();
+            std::vector<SourceLocation> dots191;
+            const syntax::SyntaxNode* l191 =
+                expr.syntax->as<syntax::InvocationExpressionSyntax>().left;
+            for (;;) {
+                if (l191 && l191->kind == syntax::SyntaxKind::MemberAccessExpression) {
+                    auto& ma191 = l191->as<syntax::MemberAccessExpressionSyntax>();
+                    dots191.insert(dots191.begin(), ma191.dot.location());
+                    l191 = ma191.left;
+                }
+                else if (l191 && l191->kind == syntax::SyntaxKind::ScopedName &&
+                         l191->as<syntax::ScopedNameSyntax>().separator.kind ==
+                             parsing::TokenKind::Dot) {
+                    auto& sn191 = l191->as<syntax::ScopedNameSyntax>();
+                    dots191.insert(dots191.begin(), sn191.separator.location());
+                    l191 = sn191.left;
+                }
+                else
+                    break;
+            }
+            bool ok191 = el191 && el191->size() >= 2 &&
+                         dots191.size() + 1 == el191->size() &&
+                         l191 && l191->kind == syntax::SyntaxKind::IdentifierName &&
+                         el191->back()->UhdmType() == UHDM::uhdmmethod_func_call;
+            for (size_t i = 0; ok191 && i + 1 < el191->size(); i++)
+                if ((*el191)[i]->UhdmType() != UHDM::uhdmref_obj ||
+                    (*el191)[i]->VpiLineNo() == 0)
+                    ok191 = false;
+            if (ok191) {
+                tr191EX("idxCallPathAtDots191");
+                auto* f191 = (*el191)[0];
+                hp191->VpiLineNo(f191->VpiLineNo());
+                hp191->VpiColumnNo(f191->VpiColumnNo());
+                hp191->VpiEndLineNo(f191->VpiEndLineNo());
+                hp191->VpiEndColumnNo(f191->VpiEndColumnNo());
+                for (size_t i = 0; i + 1 < el191->size(); i++)
+                    setLoc((*el191)[i], SourceRange(dots191[i], dots191[i]));
+            }
+        }
+        return r191;
     }
     // § genLpIdxOpOperandFold112 — an operand of the index operation.
     if (genLpIdxOpPrefix112 && parent &&
@@ -30834,7 +31628,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         const bool stampCond48 =
                             isFunc && !inProcessEmit && !inGenScopeProc &&
                             !defGenProcessEmit &&
-                            !caCondReduceStop && (argCtxOk || pkgRetArgTs8) &&
+                            !caCondReduceStop &&
+                            (argCtxOk || pkgRetArgTs8 ||
+                             // § evalFuncExecCallArgTs191 (the law's header
+                             // is at the top of this file)
+                             ((a->UhdmType() == UHDM::uhdmpart_select ||
+                               a->UhdmType() == UHDM::uhdmindexed_part_select) &&
+                              currentSubSym && currentTf &&
+                              r191EX("R11U191_EVALTS_OFF") &&
+                              evalFuncStampsCall191(comp, *currentSubSym, expr) &&
+                              (tr191EX("evalFuncExecCallArgTs191"), true))) &&
                             !shadowSkip8v && !pkgScopedRef &&
                             !strFormalConst && !paramInitLit9 && !namedArgs9 &&
                             // A PROPERTY-DECL body's call args carry no
@@ -39187,6 +39990,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         tpr9 = SourceRange(tpr9.start(), tpr9.end() - sp9);
                     setLoc(tp, tpr9);
                     tagKey177f(sm, tp, tpr9);
+                    if (auto pr195 = tagPatParenSpan195(*setter.expr);  // § tagPatParenSpan195
+                        pr195.start().valid())
+                        setLoc(tp, pr195);
                 }
                 bool savedPV2 = inPatternValue;
                 inPatternValue = true;
@@ -39778,6 +40584,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 tp->VpiParent(op);
                 setLoc(tp, setter.expr->sourceRange);
                 tagKey177f(sm, tp, setter.expr->sourceRange);
+                if (auto pr195 = tagPatParenSpan195(*setter.expr);  // § tagPatParenSpan195
+                    pr195.start().valid())
+                    setLoc(tp, pr195);
                 bool sup9 = suppressConstParent, fcp9 = forceConstParent;
                 suppressConstParent = true;
                 forceConstParent = false;
@@ -39827,6 +40636,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 tp->VpiParent(op);
                 setLoc(tp, setter.expr->sourceRange);
                 tagKey177f(sm, tp, setter.expr->sourceRange);
+                if (auto pr195 = tagPatParenSpan195(*setter.expr);  // § tagPatParenSpan195
+                    pr195.start().valid())
+                    setLoc(tp, pr195);
                 bool sup0 = suppressConstParent, fcp0 = forceConstParent;
                 suppressConstParent = true;
                 forceConstParent = false;
