@@ -5447,6 +5447,34 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                     }
                                 }
                             }
+                        // § caseItemImpWildParamScopeName210 (r11u210;
+                        // ibex_tracer's 388 A-half records) — an UNQUALIFIED
+                        // imported package parameter whose value carries
+                        // x/z digits (`{3'b010, 11'h?, ...}`) cannot fold,
+                        // and golden names the kept reference by the
+                        // enclosing scope like the concat-bearing copies of
+                        // § imppCopyOpReadIsRef114 (`work@ibex_tracer.
+                        // INSN_CLW`, in a function `work@ibex_tracer.
+                        // decode_expanded_insn.INSN_CMPUSH`); ours kept the
+                        // package's `ibex_tracer_pkg::INSN_CLW`.  Cases/C.
+                        // Switch R11U210_CASEWILD_OFF.
+                        if (ue->UhdmType() == UHDM::uhdmref_obj &&
+                            r11u210On("R11U210_CASEWILD_OFF")) {
+                            bool q210 = false;
+                            if (auto* pp210 = caseItemPkgParam114(*e, q210);
+                                pp210 && !q210 &&
+                                ((UHDM::ref_obj*)ue)->VpiName() == pp210->name) {
+                                auto& pv210 = pp210->getValue();
+                                if (pv210.isInteger() &&
+                                    pv210.integer().hasUnknown()) {
+                                    std::string fn210 = joinRef(prefix, pp210->name);
+                                    if (((UHDM::ref_obj*)ue)->VpiFullName() != fn210) {
+                                        ((UHDM::ref_obj*)ue)->VpiFullName(fn210);
+                                        trace210("caseItemImpWildParamScopeName210");
+                                    }
+                                }
+                            }
+                        }
                         // Case-item expr refs and calls parent at the
                         // enclosing scope (constants stay at the case_item).
                         if (ue->UhdmType() == UHDM::uhdmref_obj ||

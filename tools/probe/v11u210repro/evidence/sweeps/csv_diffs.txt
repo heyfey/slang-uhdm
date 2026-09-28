@@ -1,0 +1,30 @@
+== surelog.csv: pristine sweep vs law sweep
+< FuncStructVal,default,STRICT_NOTEQUAL,differ:endcol(95),,differ:endcol(95)
+< FuncStructVal,testflags,STRICT_NOTEQUAL,differ:endcol(165),,differ:endcol(165)
+< FuncStructValSimple,default,STRICT_NOTEQUAL,differ:file(39),,differ:file(39)
+< FuncStructValSimple,testflags,STRICT_NOTEQUAL,differ:file(59),,differ:file(59)
+> FuncStructVal,default,STRICT_NOTEQUAL,differ:endcol(7),,differ:endcol(7)
+> FuncStructVal,testflags,STRICT_NOTEQUAL,differ:endcol(10),,differ:endcol(10)
+> FuncStructValSimple,default,CMP_EQUAL,,,equal
+> FuncStructValSimple,testflags,CMP_EQUAL,,,equal
+< InterfArrayBind,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+> InterfArrayBind,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u210_swP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u210_swL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u210_swP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u210_swL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+== uhdm2rtlil.csv: pristine sweep vs law sweep
+< ibex_tracer,default,STRICT_NOTEQUAL,differ:fullname(579),,differ:fullname(579)
+< ibex_tracer,testflags,STRICT_NOTEQUAL,differ:fullname(579),,differ:fullname(579)
+> ibex_tracer,default,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)
+> ibex_tracer,testflags,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)
+== probe.csv: pristine sweep vs law sweep
+< r11u114repro/grid/f2/b02,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+> r11u114repro/grid/f2/b02,EQUAL,,equal
+< v11u111repro/brk/f5/x57_case_item,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+> v11u111repro/brk/f5/x57_case_item,EQUAL,,equal
+< v11u114repro/grid/set1/e04,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+> v11u114repro/grid/set1/e04,EQUAL,,equal
+== downstream.csv: pristine sweep vs law sweep
+== fenced rows changed between the two csvs: 0
+== probe.csv of the pristine sweep vs results/golden_probe.csv: byte-identical

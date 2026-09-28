@@ -1,0 +1,14 @@
+swP probe.csv is byte-identical to results/golden_probe.csv at 62ac216e
+swP -> swL probe.csv diff:
+2180c2180
+< r11u114repro/grid/f2/b02,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+---
+> r11u114repro/grid/f2/b02,EQUAL,,equal
+3763c3763
+< v11u111repro/brk/f5/x57_case_item,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+---
+> v11u111repro/brk/f5/x57_case_item,EQUAL,,equal
+3857c3857
+< v11u114repro/grid/set1/e04,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+---
+> v11u114repro/grid/set1/e04,EQUAL,,equal

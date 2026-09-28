@@ -1,0 +1,7 @@
+./default/MiniAmiq SAME f1dbe61971fc f1dbe61971fc f1dbe61971fc
+./default/Scoreboard SAME 24ba24eb6c91 24ba24eb6c91 24ba24eb6c91
+./default/SeqDriver SAME 05bc42521016 05bc42521016 05bc42521016
+./default/SimpleUVM DIFF efa957a0a9b1 09716ef0d4fa efa957a0a9b1
+./testflags/MiniAmiq SAME f1dbe61971fc f1dbe61971fc f1dbe61971fc
+./testflags/SeqDriver SAME 0d4f5053d8bf 0d4f5053d8bf 0d4f5053d8bf
+./testflags/SimpleUVM SAME c1e7937a038e c1e7937a038e c1e7937a038e

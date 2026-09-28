@@ -1,0 +1,41 @@
+#27582 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+#27601 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+#27620 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+#27639 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+#27658 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+#27677 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+#27696 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+#27715 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+#27734 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+#27753 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+#27772 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+#27791 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+#28423 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+fields: fullname=13 objects_differing=13
+STRICT_NOTEQUAL fullname

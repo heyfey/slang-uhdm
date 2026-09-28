@@ -1,0 +1,2 @@
+   3273 /tmp/r11u210_bin/pris.bin
+   3273 /tmp/r11u210_bin/law12.bin

@@ -1,0 +1,23 @@
+law index current
+probe cases: EQUAL=3373 STRICT_NOTEQUAL=714 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=3373 STRICT_NOTEQUAL=714
+CONVERSION r11u114repro/grid/f2/b02 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u111repro/brk/f5/x57_case_item STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION v11u114repro/grid/set1/e04 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+regressions=0 conversions=3 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=465 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=15 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=461 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=13 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CONVERSION FuncStructValSimple default STRICT_NOTEQUAL differ:file(39) -> CMP_EQUAL
+CONVERSION FuncStructValSimple testflags STRICT_NOTEQUAL differ:file(59) -> CMP_EQUAL
+CHANGE FuncStructVal default STRICT_NOTEQUAL differ:endcol(95) -> differ:endcol(7) [endcol -88]
+CHANGE FuncStructVal testflags STRICT_NOTEQUAL differ:endcol(165) -> differ:endcol(10) [endcol -155]
+CHANGE InterfArrayBind default STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(1) [fullname -2]
+regressions=0 conversions=2 changes=3 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+[testflags] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+CHANGE ibex_tracer default STRICT_NOTEQUAL differ:fullname(579) -> differ:fullname(13) [fullname -566]
+CHANGE ibex_tracer testflags STRICT_NOTEQUAL differ:fullname(579) -> differ:fullname(13) [fullname -566]
+regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+SWEEP_RC=0

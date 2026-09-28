@@ -1,0 +1,28 @@
+C/vc02 parse R11U210_CASEWILD_OFF alone: bytes=same vs pristine
+C/vc02 elab1 R11U210_CASEWILD_OFF alone: bytes=same vs pristine
+C/vc07 parse R11U210_CASEWILD_OFF alone: bytes=same vs pristine
+C/vc07 elab1 R11U210_CASEWILD_OFF alone: bytes=same vs pristine
+IA/va01 parse R11U205_IFARRIDX_OFF alone: bytes=same vs pristine
+IA/va01 elab1 R11U205_IFARRIDX_OFF alone: bytes=same vs pristine
+IA/va06 parse R11U205_OFF alone: bytes=same vs pristine
+IA/va06 elab1 R11U205_OFF alone: bytes=same vs pristine
+M/vm02 parse R11U210_MLPATLOC_OFF alone: bytes=same vs pristine
+M/vm02 elab1 R11U210_MLPATLOC_OFF alone: bytes=same vs pristine
+W/vw01 parse R11U210_PKGREPLTS_OFF alone: bytes=same vs pristine
+W/vw01 elab1 R11U210_PKGREPLTS_OFF alone: bytes=same vs pristine
+M/vm03 parse R11U210_PKGREPLTS_OFF alone: bytes=same vs pristine
+M/vm03 elab1 R11U210_PKGREPLTS_OFF alone: bytes=same vs pristine
+P/vp01 parse R11U210_PKGIMPCOLON_OFF alone: bytes=same vs pristine
+P/vp01 elab1 R11U210_PKGIMPCOLON_OFF alone: bytes=same vs pristine
+P/vp06 parse R11U210_PKGIMPCOLON_OFF alone: bytes=same vs pristine
+P/vp06 elab1 R11U210_PKGIMPCOLON_OFF alone: bytes=same vs pristine
+P/vp03 parse R11U210_PKGIMPALIAS_OFF alone: bytes=same vs pristine
+P/vp03 elab1 R11U210_PKGIMPALIAS_OFF alone: bytes=same vs pristine
+P/vp05 parse R11U210_PKGIMPALIAS_OFF alone: bytes=same vs pristine
+P/vp05 elab1 R11U210_PKGIMPALIAS_OFF alone: bytes=same vs pristine
+IA/va03 parse [R11U205_IFARRIDX_OFF=1]: bytes=moved vs pristine
+IA/va03 parse [R11U210_IFARREXPR_OFF=1]: bytes=moved vs pristine
+IA/va03 parse [R11U205_IFARRIDX_OFF=1 R11U210_IFARREXPR_OFF=1]: bytes=same vs pristine
+M/vm04 parse [R11U210_MLPATLOC_OFF=1]: law=cmp0:rc=0:file(15) bytes=moved vs pristine
+M/vm04 parse [R11U210_PKGREPLTS_OFF=1]: law=cmp0:rc=0:fullname(14) bytes=moved vs pristine
+M/vm04 parse [R11U210_MLPATLOC_OFF=1 R11U210_PKGREPLTS_OFF=1]: law=cmp0:rc=0:fullname(26) bytes=same vs pristine

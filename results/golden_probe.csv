@@ -2177,7 +2177,7 @@ r11u114repro/grid/f1/a24,EQUAL,,equal
 r11u114repro/grid/f1/a25,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 r11u114repro/grid/f1/a28,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 r11u114repro/grid/f2/b01,EQUAL,,equal
-r11u114repro/grid/f2/b02,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r11u114repro/grid/f2/b02,EQUAL,,equal
 r11u114repro/grid/f2/b03,EQUAL,,equal
 r11u114repro/grid/f2/b04,EQUAL,,equal
 r11u114repro/grid/f2/b06,EQUAL,,equal
@@ -3760,7 +3760,7 @@ v11u111repro/brk/f3/y31_two_pkgs_rows,STRICT_NOTEQUAL,differ:fullname(8),differ:
 v11u111repro/brk/f5/x51_clog2_concat,EQUAL,,equal
 v11u111repro/brk/f5/x53_nested_param_concat,EQUAL,,equal
 v11u111repro/brk/f5/x54_both_mod_and_pkg_import,EQUAL,,equal
-v11u111repro/brk/f5/x57_case_item,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+v11u111repro/brk/f5/x57_case_item,EQUAL,,equal
 v11u111repro/brk/f5/x58_unused_concat_param,EQUAL,,equal
 v11u111repro/brk/f5/x60_hdr_import_sub,EQUAL,,equal
 v11u111repro/brk/f5/y54_sized_cast_enum,EQUAL,,equal
@@ -3854,7 +3854,7 @@ v11u114repro/grid/set1/d15,EQUAL,,equal
 v11u114repro/grid/set1/d16,EQUAL,,equal
 v11u114repro/grid/set1/e01,EQUAL,,equal
 v11u114repro/grid/set1/e03,EQUAL,,equal
-v11u114repro/grid/set1/e04,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+v11u114repro/grid/set1/e04,EQUAL,,equal
 v11u114repro/grid/set1/e05,EQUAL,,equal
 v11u114repro/grid/set1/e09,EQUAL,,equal
 v11u114repro/grid/set1/e12,EQUAL,,equal

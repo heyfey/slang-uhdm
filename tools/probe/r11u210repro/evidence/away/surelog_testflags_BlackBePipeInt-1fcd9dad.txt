@@ -1,0 +1,1 @@
+dist 17132 -> 17132 lost=0 gained=0

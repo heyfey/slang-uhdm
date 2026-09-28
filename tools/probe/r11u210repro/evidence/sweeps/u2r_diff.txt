@@ -1,0 +1,6 @@
+656,657c656,657
+< ibex_tracer,default,STRICT_NOTEQUAL,differ:fullname(579),,differ:fullname(579)
+< ibex_tracer,testflags,STRICT_NOTEQUAL,differ:fullname(579),,differ:fullname(579)
+---
+> ibex_tracer,default,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)
+> ibex_tracer,testflags,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)

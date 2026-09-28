@@ -1,0 +1,33 @@
+#746 endcol
+  A: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	28		0		
+  B: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	46		0		
+#7129 file
+  A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 7	constant					0	0	0	0	2	64	INT:2	7
+#7130 file
+  A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 7	constant					0	0	0	0	2	64	INT:2	7
+#8781 file
+  A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 7	constant					0	0	0	0	2	64	INT:2	7
+#8782 file
+  A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 7	constant					0	0	0	0	2	64	INT:2	7
+#10722 file
+  A: 8	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 8	constant					0	0	0	0	2	64	INT:2	7
+#10723 file
+  A: 8	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 8	constant					0	0	0	0	2	64	INT:2	7
+#11939 file
+  A: 11	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 11	constant					0	0	0	0	2	64	INT:2	7
+#11940 file
+  A: 11	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 11	constant					0	0	0	0	2	64	INT:2	7
+#13254 depth
+  A: 4	assignment				dut.sv	584	5	584	50				
+  B: 8	constant				dut.sv	76	31	76	54	32	32	UINT:32	9
+objects 45362 vs 45097
+fields: depth=1 type=1 file=8 line=9 col=9 endline=9 endcol=10 decompile=1 size=1 value=1 consttype=1 objects_differing=10 (walk diverged)
+STRICT_NOTEQUAL endcol

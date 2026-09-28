@@ -1,0 +1,3 @@
+./default/Scoreboard SAME 24ba24eb6c91 24ba24eb6c91 24ba24eb6c91
+./default/SimpleUVM SAME efa957a0a9b1 efa957a0a9b1 efa957a0a9b1
+./testflags/SimpleUVM SAME c1e7937a038e c1e7937a038e c1e7937a038e

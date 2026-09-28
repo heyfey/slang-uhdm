@@ -1,0 +1,58 @@
+cases/C/vc01 parse 
+cases/C/vc01 elab1 
+cases/C/vc02 parse caseItemImpWildParamScopeName210×1 
+cases/C/vc02 elab1 caseItemImpWildParamScopeName210×1 
+cases/C/vc03 parse caseItemImpWildParamScopeName210×1 
+cases/C/vc03 elab1 caseItemImpWildParamScopeName210×1 
+cases/C/vc04 parse caseItemImpWildParamScopeName210×1 
+cases/C/vc04 elab1 caseItemImpWildParamScopeName210×1 
+cases/C/vc05 parse caseItemImpWildParamScopeName210×2 
+cases/C/vc05 elab1 caseItemImpWildParamScopeName210×2 
+cases/C/vc06 parse caseItemImpWildParamScopeName210×3 
+cases/C/vc06 elab1 caseItemImpWildParamScopeName210×3 
+cases/C/vc07 parse caseItemImpWildParamScopeName210×1 
+cases/C/vc07 elab1 caseItemImpWildParamScopeName210×1 
+cases/C/vc08 parse 
+cases/C/vc08 elab1 
+cases/C/vc09 parse caseItemImpWildParamScopeName210×1 
+cases/C/vc09 elab1 caseItemImpWildParamScopeName210×1 
+cases/IA/va01 parse elabIfArrIdxChainName205×4 
+cases/IA/va01 elab1 
+cases/IA/va02 parse elabIfArrIdxChainName205×2 elabIfArrIdxExprChainName210×1 
+cases/IA/va02 elab1 
+cases/IA/va03 parse elabIfArrIdxChainName205×4 elabIfArrIdxExprChainName210×2 
+cases/IA/va03 elab1 
+cases/IA/va04 parse elabIfArrIdxChainName205×5 
+cases/IA/va04 elab1 
+cases/IA/va05 parse elabIfArrIdxChainName205×3 
+cases/IA/va05 elab1 
+cases/IA/va06 parse elabIfArrIdxChainName205×2 
+cases/IA/va06 elab1 
+cases/M/vm01 parse 
+cases/M/vm01 elab1 
+cases/M/vm02 parse memLeftReadsPatUnlocated210×2 
+cases/M/vm02 elab1 memLeftReadsPatUnlocated210×2 
+cases/M/vm03 parse pkgTopWidePatReplTsName210×1 
+cases/M/vm03 elab1 pkgTopWidePatReplTsName210×1 
+cases/M/vm04 parse memLeftReadsPatUnlocated210×1 pkgTopWidePatReplTsName210×1 
+cases/M/vm04 elab1 memLeftReadsPatUnlocated210×1 pkgTopWidePatReplTsName210×1 
+cases/P/vp01 parse pkgImpParamMemberColons210×4 
+cases/P/vp01 elab1 pkgImpParamMemberColons210×4 
+cases/P/vp02 parse pkgImpParamAliasColons210×2 pkgImpParamMemberColons210×2 
+cases/P/vp02 elab1 pkgImpParamAliasColons210×2 pkgImpParamMemberColons210×2 
+cases/P/vp03 parse pkgImpParamAliasColons210×4 
+cases/P/vp03 elab1 pkgImpParamAliasColons210×4 
+cases/P/vp04 parse 
+cases/P/vp04 elab1 
+cases/P/vp05 parse pkgImpParamAliasColons210×2 
+cases/P/vp05 elab1 pkgImpParamAliasColons210×2 
+cases/P/vp06 parse pkgImpParamMemberColons210×4 
+cases/P/vp06 elab1 pkgImpParamMemberColons210×4 
+cases/W/vw01 parse pkgTopWidePatReplTsName210×2 
+cases/W/vw01 elab1 pkgTopWidePatReplTsName210×2 
+cases/W/vw02 parse pkgTopWidePatReplTsName210×1 
+cases/W/vw02 elab1 pkgTopWidePatReplTsName210×1 
+cases/W/vw03 parse 
+cases/W/vw03 elab1 
+cases/W/vw04 parse pkgTopWidePatReplTsName210×1 
+cases/W/vw04 elab1 pkgTopWidePatReplTsName210×1 

@@ -1,0 +1,11 @@
+surelog/default/BlackBePipeInt-1fcd9dad strict: dist 16907 -> 16907 lost=0 gained=0 | dump: lost=0 gained=27216 removed=27216 added=27216 added_not_golden=0
+surelog/default/FuncStructVal-9244d8c4 strict: dist 532 -> 30 lost=0 gained=502 | dump: lost=0 gained=78 removed=72 added=84 added_not_golden=0
+surelog/default/FuncStructValSimple-7042c7a5 strict: dist 39 -> 0 lost=0 gained=39 | dump: lost=0 gained=11 removed=6 added=12 added_not_golden=0
+surelog/default/InterfArrayBind-a617199d strict: dist 3 -> 1 lost=0 gained=2 | dump: lost=0 gained=4 removed=4 added=4 added_not_golden=0
+surelog/testflags/BlackBePipeInt-1fcd9dad strict: dist 17132 -> 17132 lost=0 gained=0 | dump: lost=0 gained=27216 removed=27216 added=27216 added_not_golden=0
+surelog/testflags/FuncStructVal-9244d8c4 strict: dist 879 -> 53 lost=0 gained=826 | dump: lost=0 gained=78 removed=72 added=84 added_not_golden=0
+surelog/testflags/FuncStructValSimple-7042c7a5 strict: dist 59 -> 0 lost=0 gained=59 | dump: lost=0 gained=11 removed=6 added=12 added_not_golden=0
+uhdm2rtlil/default/ibex_tracer-5e24e441 strict: dist 407 -> 19 lost=0 gained=388 | dump: lost=0 gained=646 removed=646 added=646 added_not_golden=0
+uhdm2rtlil/testflags/ibex_tracer-5e24e441 strict: dist 407 -> 19 lost=0 gained=388 | dump: lost=0 gained=646 removed=646 added=646 added_not_golden=0
+grep: /tmp/v11u210_swP/9/cmds.txt: No such file or directory
+9 strict: dist 0 -> 0 lost=0 gained=0 | dump: lost=0 gained=0 removed=0 added=0 added_not_golden=0

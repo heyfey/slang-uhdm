@@ -15178,8 +15178,21 @@ inline void trace198(const char* law) {
 // (one file per process, `<dir>/<pid>.T201`, first line `OUT <-o path>`,
 // then one law name per firing): the firing census that predicts the movers.
 // ===========================================================================
+/// § landingSwitchReach210 (r11u210; r11u208's switch-reach finding) —
+/// R11U210_LANDING201_OFF drops landing 201's WHOLE ground-A state: the six
+/// r11u201 laws, the v11u201 refinements and the three r11u200 laws that
+/// landing carried (ExprEmit's and ParamEmit's local r11u200Law copies:
+/// NEWARRHP, UNITFOLD, FOLDDEPTH and the ExprEmit half of GENBITS).  The old
+/// switches keep their meaning (R11U201_OFF the six laws and the new[]
+/// refinement, R11U200_OFF every r11u200 law of both grounds); the reach
+/// table is tools/probe/r11u210repro/README.md section 2.
+inline bool r11u210Landing201Off() {
+    static const bool off = getenv("R11U210_LANDING201_OFF") != nullptr;
+    return off;
+}
 inline bool r11u201On(const char* one) {
-    static const bool all = getenv("R11U201_OFF") != nullptr;
+    static const bool all = getenv("R11U201_OFF") != nullptr ||
+                            r11u210Landing201Off();
     return !all && getenv(one) == nullptr;
 }
 inline void trace201(const char* law) {
@@ -15221,7 +15234,8 @@ inline void trace201(const char* law) {
 // patch's own bytes).  Firings are traced through trace201 (R11U201_TRACE).
 // ===========================================================================
 inline bool r11v201On(const char* one) {
-    static const bool all = getenv("R11V201_OFF") != nullptr;
+    static const bool all = getenv("R11V201_OFF") != nullptr ||
+                            r11u210Landing201Off();
     return !all && getenv(one) == nullptr;
 }
 // ===========================================================================
@@ -15248,6 +15262,74 @@ inline void trace207(const char* law) {
         if (!d)
             return nullptr;
         std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".T207";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+// ===========================================================================
+// r11u210 — the expression/parameter ground (tools/probe/r11u210repro).
+// Every law reads its own R11U210_<LAW>_OFF switch; R11U210_OFF drops every
+// one of them, and the r11u205 law this pass lands (R11U205_<LAW>_OFF,
+// R11U205_OFF) too: one switch restores the pristine bytes.
+// R11U210_TRACE=<dir> names every firing (one file per process,
+// `<dir>/<pid>.T210`, first line `OUT <-o path>`, then one law name per
+// firing): the firing census that predicts the movers.
+// ===========================================================================
+inline bool r11u210On(const char* one) {
+    static const bool all = getenv("R11U210_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+/// The r11u205 decode's ground-A law landed by r11u210
+/// (tools/probe/r11u205dec/README.md section 3.6): its own
+/// R11U205_<LAW>_OFF switch, R11U205_OFF, and R11U210_OFF.
+inline bool r11u205aOn(const char* one) {
+    static const bool all = getenv("R11U205_OFF") != nullptr ||
+                            getenv("R11U210_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+/// § pkgTopWidePatReplTsName210 — the package name while ParamEmit emits a
+/// WIDE package struct-pattern parameter's ELABORATED (uhdmtopPackages)
+/// listing down the definition path (`paramInitDef` under `structWidePkg`);
+/// empty otherwise.  Read by ExprEmit's replication-member fold.
+inline std::string& pkgTopWidePat210() {
+    static std::string name;
+    return name;
+}
+/// § pkgImpParamMemberColons210 — true while ParamEmit builds the typespec
+/// of an IMPORTED parameter's copy in an importing PACKAGE (the listing
+/// § pkgParamTsRefColons131 already joins with `::`).
+inline bool& pkgImpParamTs210() {
+    static bool on = false;
+    return on;
+}
+inline void trace210(const char* law) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U210_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".T210";
         FILE* fp = fopen(fn.c_str(), "a");
         if (!fp)
             return nullptr;

@@ -1,0 +1,3 @@
+dist 59 -> 0 lost=0 gained=59
+  GAIN 29 ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  GAIN 30 constant					0	0	0	0	2	64	INT:2	7

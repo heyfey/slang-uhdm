@@ -1,0 +1,11 @@
+r11u169repro/cases/ml/m18 MOVED
+r11u195repro/cases/P/p13 MOVED
+r11u205dec/cases/FT/f03 NODB
+r11u205dec/cases/IA/a02 MOVED
+r11u205dec/cases/IA/a05 MOVED
+r11v124repro/pv/v14_string NODB
+r11v124repro/qx/q08_string NODB
+v11u198repro/cases/N/z03_varsel_both NODB
+v11u201repro/cases/B/b09_two_roots NODB
+v11u206repro/cases/C/c12 NODB
+LISTED 2190

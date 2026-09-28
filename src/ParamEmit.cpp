@@ -25,6 +25,10 @@ namespace slang_uhdm {
 static bool r11u200Law(const char* sw) {
     if (getenv("R11U200_OFF") != nullptr)
         return false;
+    // § landingSwitchReach210: every r11u200 law of this file landed with
+    // pass 201 (ground A), so the landing-201 switch drops it.
+    if (r11u210Landing201Off())
+        return false;
     return getenv(sw) == nullptr;
 }
 static void trace200(const char* law, const std::string& detail) {
@@ -4588,10 +4592,21 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                 for (auto& [rp, mn] : st.reads[i])
                     if (patElabElems.count(rp))
                         pat169 = true;
-                if (pat169) {
+                // § memLeftReadsPatUnlocated210 (r11u210) — the pattern
+                // keep does not hold: a computed leftover that reads a
+                // formal member whose caller actual IS a recorded pattern
+                // parameter is ExprEval's fresh reduction too, unlocated and
+                // with no file (golden FuncStructValSimple `INSTR_PER_FETCH`
+                // INT:2 at every listing, FuncStructVal's INT:32 / INT:34 /
+                // UINT:2 ...; ours parked them at the call).  The one read
+                // site golden locates (FuncStructVal 618:22-45) is not
+                // modelled either way.  Switch R11U210_MLPATLOC_OFF.
+                if (pat169 && !r11u210On("R11U210_MLPATLOC_OFF")) {
                     trace169("MLLOC reads pattern keep");
                     continue;
                 }
+                if (pat169)
+                    trace210("memLeftReadsPatUnlocated210");
                 v169->VpiFile("");
                 v169->VpiLineNo(0);
                 v169->VpiColumnNo(0);
@@ -19591,6 +19606,28 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 paramInitDef = !topView || structWidePkg || structModDefTagged9;
                 paramInitElabFold = topView && structNoScopedRefPkg;
                 paramInitPkg = inPackage;
+                // § pkgTopWidePatReplTsName210: the elaborated package
+                // listing of a wide struct-pattern parameter.
+                // Only a parameter some other scope reads by its qualified
+                // name `pkg::NAME` outside a parameter declaration
+                // (§ pkgNestedPatElabNoExpandSize34's predicate) or as a call
+                // argument inside a live parameter context
+                // (§ pkgElabPatMemberStamp58's): CompileHelper::getValue's
+                // qualified-name arm
+                // writes the expanded pattern back as the param_assign Rhs,
+                // parented and named; a parameter read only through an
+                // import or not at all keeps the bare listing (cases/W w01,
+                // w03's second package).
+                pkgTopWidePat210().clear();
+                if (topView && inPackage && structWidePkg &&
+                    ps.getParentScope() &&
+                    ps.getParentScope()->asSymbol().kind == SymbolKind::Package &&
+                    (pkgPatScopedRef34(ps.getParentScope()->asSymbol().name,
+                                       ps.name) ||
+                     pkgPatCallArgParam58(ps.getParentScope()->asSymbol().name,
+                                          ps.name)))
+                    pkgTopWidePat210() =
+                        std::string(ps.getParentScope()->asSymbol().name);
                 // § pkgNestedPatElabNoExpandSize34 (r11u34) — see the
                 // declaration in UhdmExporter.h for the producer road and the
                 // six-arm golden grid.  The predicate is a SELECT-TOLERANT
@@ -20596,6 +20633,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 elabMdimParamInit = false;
                 misevalParamRhsScope = nullptr;
                 paramInitPkg = false;
+                pkgTopWidePat210().clear();
                 pkgPatNoExpand34 = false;
                 paramInitDef = false;
                 paramInitElabFold = false;
@@ -23201,7 +23239,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // § defPkgStructParamMemberNames154 — the listing view.
                 bool savedDv154 = defListingParamTs154;
                 defListingParamTs154 = !topView && !inPackage;
+                // § pkgImpParamMemberColons210: an imported copy in a package.
+                bool savedImp210 = pkgImpParamTs210();
+                pkgImpParamTs210() = inPackage && isImported;
                 auto* its = makeParamTs(ps, typedParam);
+                pkgImpParamTs210() = savedImp210;
                 defListingParamTs154 = savedDv154;
                 syntaxRefSep = savedSep131;
                 stampCastSizeParamTs(ps, up, its);
@@ -27325,10 +27367,23 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                                      std::string(
                                          ps.getParentScope()->asSymbol().name),
                                      0) == 0;
+                    // § pkgImpParamAliasColons210 (r11u210; ibex_tracer's
+                    // 35 vector-typedef records) — an imported parameter's
+                    // copy in an importing PACKAGE joins with `::` too (the
+                    // prefix starts with the IMPORTING package, which the
+                    // home-package test above does not see): golden
+                    // `ibex_tracer_pkg::IbexMuBiOff::ibex_mubi_t`, ours
+                    // `ibex_tracer_pkg::IbexMuBiOff.ibex_mubi_t`.  Switch
+                    // R11U210_PKGIMPALIAS_OFF.
+                    bool impAlias210 = !psPkg && pkgImpParamTs210() &&
+                                       !syntaxRefPrefix.empty() &&
+                                       r11u210On("R11U210_PKGIMPALIAS_OFF");
+                    if (impAlias210)
+                        trace210("pkgImpParamAliasColons210");
                     art->VpiFullName(syntaxRefPrefix.empty()
                                          ? std::string(taSym.name)
                                          : syntaxRefPrefix +
-                                               (psPkg ? "::" : ".") +
+                                               ((psPkg || impAlias210) ? "::" : ".") +
                                                std::string(taSym.name));
                     art->VpiParent(cl);
                     // An IMPORTED vector typedef in MODULE context aliases to
@@ -27560,9 +27615,29 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                     memberScope = std::string(aliasPkg->name) + "::" + alias;
                     ifDefPkgSep154 = true;
                 }
+            // § pkgImpParamMemberColons210 (r11u210; ibex_tracer's 156
+            // struct-member records) — an IMPORTED parameter's copy in an
+            // importing PACKAGE lives in that package, so UHDM's
+            // ComputeFullName joins every segment with `::` once the package
+            // is on the chain (§ pkgParamTsRefColons131's rule for the bounds
+            // of the same listing): golden `ibex_tracer_pkg::
+            // ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_int`, ours
+            // `...ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_int`.  The
+            // copy is built by the package emission (a package's imported
+            // parameter) or by drainDefParamTs's deferred clone of an import
+            // copy listed in a package.  Switch R11U210_PKGIMPCOLON_OFF.
+            bool impColon210 = false;
+            if (!tpAnon47 && !ifDefPkgSep154 && pkgImpParamTs210() &&
+                !syntaxRefPrefix.empty() &&
+                !alias.empty() && r11u210On("R11U210_PKGIMPCOLON_OFF")) {
+                memberScope = syntaxRefPrefix + "::" + alias;
+                impColon210 = true;
+                trace210("pkgImpParamMemberColons210");
+            }
             // The package spelling joins with `::` (the package listing's own
             // member separator).
-            const std::string memberSep154 = ifDefPkgSep154 ? "::" : ".";
+            const std::string memberSep154 =
+                (ifDefPkgSep154 || impColon210) ? "::" : ".";
             its = ct.kind == SymbolKind::PackedStructType
                       ? (UHDM::typespec*)buildStructTs(ct.as<PackedStructType>(), true,
                                                        memberScope, memberSep154)
@@ -31256,7 +31331,12 @@ void UhdmExporter::drainDefParamTs() {
                     psc0->asSymbol().kind == SymbolKind::Package)
                     paramCloneImportedCopy = true;
             }
+            // § pkgImpParamMemberColons210: the deferred clone of an
+            // imported parameter's copy in an importing package.
+            bool savedImp210d = pkgImpParamTs210();
+            pkgImpParamTs210() = pd.inPackage && importCopy0;
             its = makeParamTs(*pd.ps, pd.typedParam);
+            pkgImpParamTs210() = savedImp210d;
             structCloneMemberRefParent = false;
             paramCloneImportedCopy = false;
             if (aggClone0)

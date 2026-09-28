@@ -1,0 +1,73 @@
+case	form	pristine	law	bytes	dump_lost	dump_gained	firings
+C/vc01	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	same	0	0	-
+C/vc01	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	same	0	0	-
+C/vc02	parse	cmp0:rc=0:fullname(3)	cmp0:rc=0:equal	moved	0	2	caseItemImpWildParamScopeName210×1 
+C/vc02	elab	cmp0:rc=0:fullname(3)	cmp0:rc=0:equal	moved	0	2	caseItemImpWildParamScopeName210×1 
+C/vc03	parse	cmp0:rc=0:fullname(1)	cmp0:rc=0:equal	moved	0	2	caseItemImpWildParamScopeName210×1 
+C/vc03	elab	cmp0:rc=0:fullname(1)	cmp0:rc=0:equal	moved	0	4	caseItemImpWildParamScopeName210×1 
+C/vc04	parse	cmp0:rc=0:type(1)	cmp0:rc=0:type(1)	moved	0	2	caseItemImpWildParamScopeName210×1 
+C/vc04	elab	cmp0:rc=0:depth(1)	cmp0:rc=0:depth(1)	moved	0	2	caseItemImpWildParamScopeName210×1 
+C/vc05	parse	cmp0:rc=0:fullname(6)	cmp0:rc=0:fullname(2)	moved	0	4	caseItemImpWildParamScopeName210×2 
+C/vc05	elab	cmp0:rc=0:fullname(4)	cmp0:rc=0:fullname(2)	moved	0	4	caseItemImpWildParamScopeName210×2 
+C/vc06	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	6	caseItemImpWildParamScopeName210×3 
+C/vc06	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	2	caseItemImpWildParamScopeName210×3 
+C/vc07	parse	cmp0:rc=0:fullname(2)	cmp0:rc=0:equal	moved	0	2	caseItemImpWildParamScopeName210×1 
+C/vc07	elab	cmp0:rc=0:fullname(1)	cmp0:rc=0:equal	moved	0	2	caseItemImpWildParamScopeName210×1 
+C/vc08	parse	cmp0:rc=0:equal	cmp0:rc=0:equal	same	0	0	-
+C/vc08	elab	cmp0:rc=0:equal	cmp0:rc=0:equal	same	0	0	-
+C/vc09	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	0	caseItemImpWildParamScopeName210×1 
+C/vc09	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	0	caseItemImpWildParamScopeName210×1 
+C/vc10	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	2	caseItemImpWildParamScopeName210×1 
+C/vc10	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	2	caseItemImpWildParamScopeName210×1 
+C/vc11	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	2	caseItemImpWildParamScopeName210×1 
+C/vc11	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	2	caseItemImpWildParamScopeName210×1 
+IA/va01	parse	cmp0:rc=0:fullname(4)	cmp0:rc=0:equal	moved	0	8	elabIfArrIdxChainName205×4 
+IA/va01	elab	cmp0:rc=0:equal	cmp0:rc=0:equal	same	0	0	-
+IA/va02	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	0	elabIfArrIdxChainName205×2 elabIfArrIdxExprChainName210×1 
+IA/va02	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	same	0	0	-
+IA/va03	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	0	elabIfArrIdxChainName205×4 elabIfArrIdxExprChainName210×2 
+IA/va03	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	same	0	0	-
+IA/va04	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	10	elabIfArrIdxChainName205×5 
+IA/va04	elab	cmp0:rc=0:file(1)	cmp0:rc=0:file(1)	same	0	0	-
+IA/va05	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	6	elabIfArrIdxChainName205×3 
+IA/va05	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	same	0	0	-
+IA/va06	parse	cmp0:rc=0:fullname(2)	cmp0:rc=0:equal	moved	0	4	elabIfArrIdxChainName205×2 
+IA/va06	elab	cmp0:rc=0:equal	cmp0:rc=0:equal	same	0	0	-
+IA/va07	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	4	elabIfArrIdxChainName205×2 
+IA/va07	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	same	0	0	-
+IA/va08	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	4	elabIfArrIdxChainName205×2 
+IA/va08	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	same	0	0	-
+IA/va09	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	8	elabIfArrIdxChainName205×4 
+IA/va09	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	same	0	0	-
+IA/va10	parse	cmp0:rc=0:endcol(5)	cmp0:rc=0:endcol(5)	same	0	0	-
+IA/va10	elab	cmp0:rc=0:endcol(6)	cmp0:rc=0:endcol(6)	same	0	0	-
+IA/va11	parse	cmp0:rc=0:fullname(6)	cmp0:rc=0:equal	moved	0	12	elabIfArrIdxChainName205×6 
+IA/va11	elab	cmp0:rc=0:equal	cmp0:rc=0:equal	same	0	0	-
+M/vm01	parse	cmp0:rc=0:line(12)	cmp0:rc=0:line(12)	same	0	0	-
+M/vm01	elab	cmp0:rc=0:line(17)	cmp0:rc=0:line(17)	same	0	0	-
+M/vm02	parse	cmp0:rc=0:file(32)	cmp0:rc=0:equal	moved	0	4	memLeftReadsPatUnlocated210×2 
+M/vm02	elab	cmp0:rc=0:file(52)	cmp0:rc=0:equal	moved	0	4	memLeftReadsPatUnlocated210×2 
+M/vm03	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	7	pkgTopWidePatReplTsName210×1 
+M/vm03	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	7	pkgTopWidePatReplTsName210×1 
+M/vm04	parse	cmp0:rc=0:fullname(26)	cmp0:rc=0:fullname(3)	moved	0	11	memLeftReadsPatUnlocated210×1 pkgTopWidePatReplTsName210×1 
+M/vm04	elab	cmp0:rc=0:fullname(35)	cmp0:rc=0:fullname(2)	moved	0	11	memLeftReadsPatUnlocated210×1 pkgTopWidePatReplTsName210×1 
+P/vp01	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	20	pkgImpParamMemberColons210×4 
+P/vp01	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	20	pkgImpParamMemberColons210×4 
+P/vp02	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	18	pkgImpParamAliasColons210×2 pkgImpParamMemberColons210×2 
+P/vp02	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	18	pkgImpParamAliasColons210×2 pkgImpParamMemberColons210×2 
+P/vp03	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	12	pkgImpParamAliasColons210×4 
+P/vp03	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	12	pkgImpParamAliasColons210×4 
+P/vp04	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	same	0	0	-
+P/vp04	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	same	0	0	-
+P/vp05	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	6	pkgImpParamAliasColons210×2 
+P/vp05	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	6	pkgImpParamAliasColons210×2 
+P/vp06	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	20	pkgImpParamMemberColons210×4 
+P/vp06	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	20	pkgImpParamMemberColons210×4 
+W/vw01	parse	cmp0:rc=0:fullname(2)	cmp0:rc=0:equal	moved	0	8	pkgTopWidePatReplTsName210×2 
+W/vw01	elab	cmp0:rc=0:fullname(2)	cmp0:rc=0:equal	moved	0	8	pkgTopWidePatReplTsName210×2 
+W/vw02	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	4	pkgTopWidePatReplTsName210×1 
+W/vw02	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	4	pkgTopWidePatReplTsName210×1 
+W/vw03	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	same	0	0	-
+W/vw03	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	same	0	0	-
+W/vw04	parse	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	4	pkgTopWidePatReplTsName210×1 
+W/vw04	elab	cmp255:rc=0:stage1	cmp255:rc=0:stage1	moved	0	4	pkgTopWidePatReplTsName210×1 

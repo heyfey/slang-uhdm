@@ -32,8 +32,41 @@ namespace slang_uhdm {
 // R11U200_OFF drops all of them; R11U200_TRACE=<dir> appends one
 // `<law> <detail>` line per firing to `<dir>/<pid>.200E` (ExprEmit) or `.200P` (ParamEmit), first line
 // `OUT <-o path>`.
+// § elabIfArrIdxChainName205 — is `n` inside the LEFT side of an
+// assignment whose right side is an integer literal (parentheses seen
+// through)?  Surelog's parse-form elaboration binds nothing there and so
+// stores no full name on the target's index references.
+static bool lhsOfLiteralAssign205(const syntax::SyntaxNode* n5) {
+    const syntax::SyntaxNode* child5 = nullptr;
+    while (n5 && n5->kind != syntax::SyntaxKind::AssignmentExpression) {
+        child5 = n5;
+        n5 = n5->parent;
+    }
+    if (!n5)
+        return false;
+    auto& be5 = n5->as<syntax::BinaryExpressionSyntax>();
+    if (be5.left != child5)
+        return false;
+    const syntax::SyntaxNode* r5 = be5.right;
+    while (r5 && r5->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        r5 = r5->as<syntax::ParenthesizedExpressionSyntax>().expression;
+    if (!r5)
+        return false;
+    switch (r5->kind) {
+        case syntax::SyntaxKind::IntegerLiteralExpression:
+        case syntax::SyntaxKind::IntegerVectorExpression:
+        case syntax::SyntaxKind::UnbasedUnsizedLiteralExpression:
+            return true;
+        default:
+            return false;
+    }
+}
 static bool r11u200Law(const char* sw) {
     if (getenv("R11U200_OFF") != nullptr)
+        return false;
+    // § landingSwitchReach210: every r11u200 law of this file landed with
+    // pass 201 (ground A), so the landing-201 switch drops it.
+    if (r11u210Landing201Off())
         return false;
     return getenv(sw) == nullptr;
 }
@@ -35503,9 +35536,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (name == "$bits" && !bitsKeep && bitsArg27 &&
                 genBody200(bitsArg27->syntax)) {
                 auto sk200 = stripImplicitConv(*bitsArg27).kind;
+                // § landingSwitchReach210: R11U210_GENBITS201_OFF drops
+                // this (ExprEmit, landing 201) half of the law alone; the
+                // TypeEmit half (landing 202) keeps R11U200_GENBITS_OFF.
                 if ((sk200 == ExpressionKind::RangeSelect ||
                      sk200 == ExpressionKind::ElementSelect) &&
-                    r11u200Law("R11U200_GENBITS_OFF")) {
+                    r11u200Law("R11U200_GENBITS_OFF") &&
+                    getenv("R11U210_GENBITS201_OFF") == nullptr) {
                     bitsKeep = true;
                     ownPropFold61 = false;
                     trace200("genBlockBitsKeepsSelect200", std::string(name));
@@ -41534,6 +41571,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         rrt7->VpiFullName("");
                         rrt7->Actual_typespec(s.MakeInt_typespec());
                         rc7->Typespec(rrt7);
+                        // § pkgTopWidePatReplTsName210 (r11u210) — in the
+                        // package's ELABORATED listing (uhdmtopPackages) the
+                        // folded member constant is parented at the
+                        // operation and its ref_typespec stores the chain
+                        // name, which is the package's alone (constant ->
+                        // operation -> param_assign -> package): golden
+                        // FuncStructValSimple `ref_typespec cva6_config_pkg`
+                        // under `PMPCfgRstVal: {16{64'h0}}`; the definition
+                        // listing keeps both bare.  Only a package's own
+                        // wide struct-pattern parameter (the elaborated
+                        // listing that runs down this definition path).
+                        // Switch R11U210_PKGREPLTS_OFF.
+                        if (paramInitPkg && !pkgTopWidePat210().empty() &&
+                            r11u210On("R11U210_PKGREPLTS_OFF")) {
+                            rc7->VpiParent(op);
+                            rrt7->VpiFullName(pkgTopWidePat210());
+                            trace210("pkgTopWidePatReplTsName210");
+                        }
                         preE = rc7;
                     }
                 }
@@ -42758,6 +42813,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     std::string savedSep = syntaxRefSep;
                     syntaxRefPrefix = prefix + "." + raw;
                     syntaxRefSep = ".";
+                    // § elabIfArrIdxExprChainName210 (r11u210) — the
+                    // expression-index twin of § elabIfArrIdxChainName205:
+                    // with a LITERAL right side the index's references store
+                    // no full name either, and the chain runs through the
+                    // index's operation to the bit_select, whose name UHDM's
+                    // ComputeFullName keeps (it skips a bit_select only
+                    // directly above a ref_obj): golden
+                    // `work@dut.g[0].q[0].b[i * 2 + k].w.b.i`, ours
+                    // `...b[i * 2 + k].w.i` (cases/IA i02).  Same gate as the
+                    // simple-identifier law.  Switch R11U210_IFARREXPR_OFF.
+                    if (inLhs && !moduleDefEmit && !elabUhdmView121 &&
+                        !inGenScopeProc &&
+                        r11u210On("R11U210_IFARREXPR_OFF") &&
+                        lhsOfLiteralAssign205(expr.syntax)) {
+                        syntaxRefPrefix += "." + base;
+                        trace210("elabIfArrIdxExprChainName210");
+                    }
                     if (auto* ix = emitSyntaxExpr(*baseSelSyn, hp))
                         bs->VpiIndex((UHDM::expr*)ix);
                     syntaxRefPrefix = savedPfx;
@@ -42801,6 +42873,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* ir = s.MakeRef_obj();
                         ir->VpiName(idx);
                         ir->VpiFullName(prefix + "." + idx);
+                        // § elabIfArrIdxChainName205 (the r11u205 decode,
+                        // map N0427: InterfArrayBind d; landed by r11u210) —
+                        // in the ELABORATED view of the parse form (no
+                        // -elabuhdm), when the continuous assignment's RIGHT
+                        // side is a LITERAL, Surelog's elaboration has nothing
+                        // to bind and stores no full name on the target's
+                        // base-select index, which then reads its name off the
+                        // chain through the path text (golden
+                        // `work@dut.g[0].b[i].w.i`, ours `work@dut.g[0].i`:
+                        // tools/probe/r11u205dec cases/IA a02, a05).  A right
+                        // side that reads anything keeps the scoped name (a06,
+                        // a07; uhdm2rtlil genvar_iface_struct and
+                        // iface_array_modport_drive, whose right sides read
+                        // references: the first draft's interface-array gate
+                        // regressed both), and so do the definition view and
+                        // the -elabuhdm clone.  The module-scope target is
+                        // emitted by another branch this law does not reach
+                        // (a01, a03, InterfArrayBind's own #183).  Switch
+                        // R11U205_IFARRIDX_OFF (and R11U205_OFF, R11U210_OFF).
+                        if (i == 0 && inLhs && !moduleDefEmit &&
+                            !elabUhdmView121 && !inGenScopeProc &&
+                            r11u205aOn("R11U205_IFARRIDX_OFF") &&
+                            lhsOfLiteralAssign205(expr.syntax)) {
+                            ir->VpiFullName(prefix + "." + raw + "." + idx);
+                            trace210("elabIfArrIdxChainName205");
+                        }
                         ir->VpiParent(hp);
                         // An ENUM-CONSTANT selector
                         // (peripheral_io_bus[IO_ONES].write_en) binds its

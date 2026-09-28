@@ -1,0 +1,9 @@
+surelog/default/BlackBePipeInt-1fcd9dad strict: dist 16907 -> 16907 lost=0 gained=0 | dump: lost=27216 gained=0 removed=27216 added=27216 added_not_golden=27216
+surelog/default/FuncStructVal-9244d8c4 strict: dist 30 -> 532 lost=502 gained=0 | dump: lost=78 gained=0 removed=84 added=72 added_not_golden=70
+surelog/default/FuncStructValSimple-7042c7a5 strict: dist 0 -> 39 lost=39 gained=0 | dump: lost=11 gained=0 removed=12 added=6 added_not_golden=4
+surelog/default/InterfArrayBind-a617199d strict: dist 1 -> 3 lost=2 gained=0 | dump: lost=4 gained=0 removed=4 added=4 added_not_golden=4
+surelog/testflags/BlackBePipeInt-1fcd9dad strict: dist 17132 -> 17132 lost=0 gained=0 | dump: lost=27216 gained=0 removed=27216 added=27216 added_not_golden=27216
+surelog/testflags/FuncStructVal-9244d8c4 strict: dist 53 -> 879 lost=826 gained=0 | dump: lost=78 gained=0 removed=84 added=72 added_not_golden=70
+surelog/testflags/FuncStructValSimple-7042c7a5 strict: dist 0 -> 59 lost=59 gained=0 | dump: lost=11 gained=0 removed=12 added=6 added_not_golden=4
+uhdm2rtlil/default/ibex_tracer-5e24e441 strict: dist 19 -> 407 lost=388 gained=0 | dump: lost=646 gained=0 removed=646 added=646 added_not_golden=646
+uhdm2rtlil/testflags/ibex_tracer-5e24e441 strict: dist 19 -> 407 lost=388 gained=0 | dump: lost=646 gained=0 removed=646 added=646 added_not_golden=646

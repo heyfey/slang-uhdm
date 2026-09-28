@@ -1,0 +1,12 @@
+dist 879 -> 53 lost=0 gained=826
+  GAIN 90 ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  GAIN 46 constant					0	0	0	0	32	64	INT:32	7
+  GAIN 46 constant					0	0	0	0	34	64	INT:34	7
+  GAIN 184 constant					0	0	0	0	1	64	INT:1	7
+  GAIN 92 constant					0	0	0	0	2	64	UINT:2	9
+  GAIN 92 constant					0	0	0	0	3	64	UINT:3	9
+  GAIN 46 constant					0	0	0	0	4	64	INT:4	7
+  GAIN 46 constant					0	0	0	0	22	64	INT:22	7
+  GAIN 92 constant					0	0	0	0	128	64	INT:128	7
+  GAIN 46 constant					0	0	0	0	0	64	UINT:0	9
+  GAIN 46 constant					0	0	0	0	9	64	INT:9	7

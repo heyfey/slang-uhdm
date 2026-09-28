@@ -1,0 +1,2 @@
+swP: 3323 cmds.txt; slang lines by binary:    3273 /tmp/v11u210_bin/pris.bin 
+swL: 3323 cmds.txt; slang lines by binary:    3273 /tmp/v11u210_bin/law.bin 

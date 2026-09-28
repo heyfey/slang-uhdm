@@ -539,10 +539,10 @@ FuncStatic,default,CMP_EQUAL,,,equal
 FuncStatic,testflags,CMP_EQUAL,,,equal
 FuncStruct,default,CMP_EQUAL,,,equal
 FuncStruct,testflags,CMP_EQUAL,,,equal
-FuncStructVal,default,STRICT_NOTEQUAL,differ:endcol(95),,differ:endcol(95)
-FuncStructVal,testflags,STRICT_NOTEQUAL,differ:endcol(165),,differ:endcol(165)
-FuncStructValSimple,default,STRICT_NOTEQUAL,differ:file(39),,differ:file(39)
-FuncStructValSimple,testflags,STRICT_NOTEQUAL,differ:file(59),,differ:file(59)
+FuncStructVal,default,STRICT_NOTEQUAL,differ:endcol(7),,differ:endcol(7)
+FuncStructVal,testflags,STRICT_NOTEQUAL,differ:endcol(10),,differ:endcol(10)
+FuncStructValSimple,default,CMP_EQUAL,,,equal
+FuncStructValSimple,testflags,CMP_EQUAL,,,equal
 FuncWidthScope,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScope/dut.sv:13:19: error: cannot call a function declared inside a generate block in a consta,,
 FuncWidthScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScope/dut.sv:13:19: error: cannot call a function declared inside a generate block in a consta,,
 FuncWidthScopeOverride,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScopeOverride/dut.sv:8:34: error: reference to 'WIDTH_A' by hierarchical name is not allowed i,,
@@ -759,7 +759,7 @@ InterfaceUnpackedStructArrayDim,default,CMP_EQUAL,,,equal
 InterfaceUnpackedStructArrayDim,testflags,CMP_EQUAL,,,equal
 InterfAlways,default,CMP_EQUAL,,,equal
 InterfAlways,testflags,CMP_EQUAL,,,equal
-InterfArrayBind,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+InterfArrayBind,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 InterfArrayBind,testflags,CMP_EQUAL,,,equal
 InterfBinding,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfBinding/dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctr,,
 InterfBinding,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfBinding/dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctr,,
