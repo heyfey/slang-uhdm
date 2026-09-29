@@ -1,0 +1,10 @@
+law7off BuildUVMPkg/default       4 6463b4cd1d46  rc:      4 0
+law7off MiniAmiq/default       1 6221448939c6       3 c31175d90492  rc:      4 0
+law7off SeqDriver/default       4 0218e5d990c4  rc:      4 0
+law7off SimpleUVM/default       4 40e2f8a8c05e  rc:      4 0
+law7off BuildUVMPkg/testflags       4 6463b4cd1d46  rc:      4 0
+law7off MiniAmiq/testflags       4 c31175d90492  rc:      4 0
+law7off SeqDriver/testflags       4 e628b31f76ed  rc:      4 0
+law7off SimpleUVM/testflags       4 0267d39f3d40  rc:      4 0
+FuncStructVal/default OFF=075a18073081 pristine=075a18073081
+FuncStructVal/testflags OFF=bea4eecf691a pristine=bea4eecf691a

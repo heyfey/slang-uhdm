@@ -29,6 +29,7 @@
 #include "R220.h"
 #include "R224.h"
 #include "R226.h"
+#include "R227.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -1795,7 +1796,8 @@ static bool r11v192WholeLhsOn() {
 // (R11V199_OFF drops it).
 static bool caRhsRootIsCall199v(const Expression& e) {
     static const bool on = getenv("R11V199_GFCALLROOT_OFF") == nullptr &&
-                           getenv("R11V199_OFF") == nullptr;
+                           getenv("R11V199_OFF") == nullptr &&
+                           !r11u227SplitAOff("R11U227_SPLITV199A_OFF");
     if (!on)
         return false;
     const syntax::SyntaxNode* asg = nullptr;
@@ -2239,6 +2241,180 @@ static std::string chainFullName175(const UHDM::BaseClass* o) {
             full += column ? "::" : ".";
     }
     return full;
+}
+
+// § fwdPkgRefClassScopeSpan227 (r11u227, R11U227_FWDPKGSPAN_OFF; map 14's
+// N1096, FuncStructVal d/t #747 `NOCType: config_pkg::NOC_TYPE_AXI4_ATOP`,
+// r11u218's decode without a strict grid) — A REFERENCE `Q::name` INSIDE A
+// PACKAGE TO A PACKAGE Q DECLARED LATER IN THE SAME FILE, WRITTEN IN
+// EXPRESSION GRAMMAR, SPANS ONLY `Q::`.  Surelog compiles the packages in
+// file order, so Q's parameters and enum constants do not exist yet when the
+// earlier package is compiled: the reference stays an unresolved ref_obj
+// (full name `P::Q::name`, both views).  Its location is the parse node
+// CompileExpression populates it from.  Surelog's grammar reads `Q::name` in
+// a constant_expression as constant_primary (package_scope identifier: the
+// whole name, golden `localparam e_t Q = p2::E1;` 7:26-32, and every operand,
+// parenthesis, concatenation and ternary condition under it), but in
+// expression grammar as complex_func_call (class_scope identifier), and the
+// class_scope node spans only `Q::` (golden 4:10-14 for `x: p2::E1`, the
+// parse tree `Class_scope l<4:10> el<4:14>`).  Expression grammar is reached
+// through an assignment-pattern member (keyed or positional), a subroutine
+// or system-call argument (`$clog2(p2::K)` 5:30-34), the FIRST branch of a
+// constant ternary (`constant_expression ? expression : constant_expression`,
+// `1 ? p2::K : 2` 9:27-31) and a subroutine body (`return p2::K;` 3:12-16);
+// once reached, every sub-expression is expression grammar.  A backward
+// reference (Q declared first) folds in golden and is never an unresolved
+// ref_obj, so the law reads Q's position: another file, a class or module
+// scope, a name holding more than one `::`, a spaced or macro-shaped span
+// (ours not exactly the written name) all decline.  Applied design-final to
+// every listing (the AllPackages and TopPackages copies alike).  Grid
+// tools/probe/r11u227repro/cases/FW.
+// § fwdPkgRefConstSlotWhole227v (v11u227, the adversarial verification of
+// pass 227; switch R11V227_CONSTSLOT_OFF, R11V227_OFF drops every v11u227
+// refinement) — A CONSTANT-GRAMMAR SLOT INSIDE EXPRESSION GRAMMAR RESETS THE
+// GRAMMAR: the innermost production decides the span.  Surelog's `select`
+// takes `[ part_select_range ]`, whose constant_range is `constant_expression
+// : constant_expression` and whose indexed_range is `expression +:
+// constant_expression`, and an assignment pattern's replication is
+// `'{ constant_expression { expression, ... } }`; a forward `Q::name` in one of
+// those slots is constant_primary (package_scope, the whole name) even when
+// the select or pattern sits in a pattern member or a call argument: golden
+// `y: W[p2::E2:0]` 7:12-18, `W[0 +: p2::E2]` 7:17-23, `W[5 -: p2::E2]`,
+// `'{p2::E4{64'h0}}` 4:12-18, `$countones(W[p2::E3:0])` 7:23-29 (pristine
+// right on every one, § fwdPkgRefClassScopeSpan227 cut them to `Q::`); an
+// expression-grammar node below the slot still decides first (`W[$clog2(
+// p2::E4):0]` 7:19-23 and `W[(C ? p2::E3 : 1):0]` 8:17-21 are `Q::` in
+// golden), and the base of an indexed part select and a bit-select index
+// are expression grammar (`W[p2::E1 +: 2]`, `W[p2::E1]`: `Q::`).  Grid
+// tools/probe/v11u227repro/cases/BF.
+static bool fwdConstSlot227v(const UHDM::BaseClass* p, const UHDM::BaseClass* child) {
+    switch (p->UhdmType()) {
+    case UHDM::uhdmpart_select: {
+        auto* ps = (const UHDM::part_select*)p;
+        return ps->Left_range() == child || ps->Right_range() == child;
+    }
+    case UHDM::uhdmindexed_part_select:
+        return ((const UHDM::indexed_part_select*)p)->Width_expr() == child;
+    case UHDM::uhdmoperation: {
+        auto* op = (const UHDM::operation*)p;
+        return op->VpiOpType() == vpiMultiAssignmentPatternOp && op->Operands() &&
+               !op->Operands()->empty() && (*op->Operands())[0] == child;
+    }
+    default:
+        return false;
+    }
+}
+void fwdPkgRefClassScopeSpanDrain227(UHDM::Serializer& s) {
+    if (!r11u227On("R11U227_FWDPKGSPAN_OFF"))
+        return;
+    struct Pos227 { std::string file; int line = 0, col = 0; bool bad = false; };
+    std::map<std::string, Pos227> pkgs;
+    std::vector<UHDM::ref_obj*> refs;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (!o)
+            continue;
+        if (o->UhdmType() == UHDM::uhdmpackage) {
+            std::string nm(o->VpiName());
+            Pos227 ps{std::string(o->VpiFile()), (int)o->VpiLineNo(), (int)o->VpiColumnNo()};
+            auto it = pkgs.find(nm);
+            if (it == pkgs.end())
+                pkgs[nm] = ps;
+            else if (it->second.file != ps.file || it->second.line != ps.line ||
+                     it->second.col != ps.col)
+                it->second.bad = true;
+        }
+        else if (o->UhdmType() == UHDM::uhdmref_obj)
+            refs.push_back((UHDM::ref_obj*)o);
+    }
+    std::sort(refs.begin(), refs.end(),
+              [](const UHDM::ref_obj* a, const UHDM::ref_obj* b) {
+                  return a->UhdmId() < b->UhdmId();
+              });
+    for (auto* r : refs) {
+        const std::string n(r->VpiName());
+        const size_t k = n.find("::");
+        if (k == std::string::npos || k == 0 || k + 2 >= n.size() ||
+            n.find("::", k + 2) != std::string::npos)
+            continue;
+        const std::string q = n.substr(0, k);
+        // (The full name is never read here: ref_obj's getter stores the
+        // chain name it computes on an unnamed reference, a byte change of
+        // its own; the forward position alone decides the shape.)
+        if (r->VpiLineNo() == 0 || r->VpiEndLineNo() != r->VpiLineNo() ||
+            r->VpiEndColumnNo() != r->VpiColumnNo() + (int)n.size())
+            continue;
+        const UHDM::BaseClass* child = r;
+        const UHDM::BaseClass* p = r->VpiParent();
+        const UHDM::BaseClass* pkg = nullptr;
+        bool exprGr = false, stop = false;
+        // § fwdPkgRefConstSlotWhole227v (v11u227, R11V227_CONSTSLOT_OFF;
+        // R11V227_OFF drops it): set when the walk meets a constant-grammar
+        // slot before any expression-grammar node (the innermost grammar
+        // decides the span; see fwdConstSlot227v).
+        bool slot227v = false;
+        static const bool on227v = r11v227On("R11V227_CONSTSLOT_OFF");
+        for (int d = 0; p && d < 256 && !stop; d++) {
+            if (on227v && !exprGr && !slot227v && fwdConstSlot227v(p, child))
+                slot227v = true;
+            switch (p->UhdmType()) {
+            case UHDM::uhdmpackage:
+                pkg = p;
+                stop = true;
+                break;
+            case UHDM::uhdmclass_defn: case UHDM::uhdmmodule_inst:
+            case UHDM::uhdminterface_inst: case UHDM::uhdmprogram:
+            case UHDM::uhdmgen_scope: case UHDM::uhdmgen_scope_array:
+            case UHDM::uhdmdesign:
+                stop = true;
+                break;
+            case UHDM::uhdmtagged_pattern:
+            case UHDM::uhdmfunc_call: case UHDM::uhdmsys_func_call:
+            case UHDM::uhdmmethod_func_call:
+            case UHDM::uhdmfunction: case UHDM::uhdmtask:
+                exprGr = true;
+                break;
+            case UHDM::uhdmoperation: {
+                auto* op = (const UHDM::operation*)p;
+                const int ot = op->VpiOpType();
+                if (ot == vpiAssignmentPatternOp || ot == vpiMultiAssignmentPatternOp)
+                    exprGr = true;
+                else if (ot == vpiConditionOp && op->Operands() &&
+                         op->Operands()->size() == 3 &&
+                         (*op->Operands())[1] == child)
+                    exprGr = true;
+                break;
+            }
+            default:
+                break;
+            }
+            if (stop)
+                break;
+            child = p;
+            p = p->VpiParent();
+        }
+        if (!pkg || !exprGr)
+            continue;
+        const std::string pn(pkg->VpiName());
+        if (pn == q)
+            continue;
+        auto qi = pkgs.find(q), pi = pkgs.find(pn);
+        if (qi == pkgs.end() || pi == pkgs.end() || qi->second.bad || pi->second.bad)
+            continue;
+        const Pos227& qp = qi->second;
+        const Pos227& pp = pi->second;
+        if (qp.file.empty() || qp.file != pp.file ||
+            std::make_pair(qp.line, qp.col) <= std::make_pair(pp.line, pp.col))
+            continue;
+        if (slot227v) {
+            tr227("fwdPkgRefConstSlotWhole227v", n + " @" + std::to_string(r->VpiLineNo()) + ":" +
+                                                     std::to_string(r->VpiColumnNo()));
+            continue;
+        }
+        tr227("fwdPkgRefClassScopeSpan227", n + " @" + std::to_string(r->VpiLineNo()) + ":" +
+                                                std::to_string(r->VpiColumnNo()));
+        r->VpiEndColumnNo(r->VpiColumnNo() + (int)q.size() + 2);
+    }
 }
 
 // § cloneHpIdxNamesByChain220 (r11u220; map 13's MiniAmiq / SeqDriver
@@ -3713,7 +3889,8 @@ static bool caSelIdxOpFoldTs112() {
 /// `R11U113_OFF=1` / `R11U113_VSIDX_OFF=1` drop it.
 static bool caVarSelIdxOpFoldTs113() {
     static const bool on = getenv("R11U113_OFF") == nullptr &&
-                           getenv("R11U113_VSIDX_OFF") == nullptr;
+                           getenv("R11U113_VSIDX_OFF") == nullptr &&
+                           !r11u227SplitAOff("R11U227_SPLIT113A_OFF");  // § landingSwitchReach227
     return on;
 }
 
@@ -3745,7 +3922,8 @@ static bool caVarSelIdxOpFoldTs113() {
 /// `R11U115_OFF=1` / `R11U115_GSOP_OFF=1` drop it.
 static bool genCaOpFoldElabTs115() {
     static const bool on = getenv("R11U115_OFF") == nullptr &&
-                           getenv("R11U115_GSOP_OFF") == nullptr;
+                           getenv("R11U115_GSOP_OFF") == nullptr &&
+                           !r11u227SplitAOff("R11U227_SPLIT115A_OFF");
     return on;
 }
 
@@ -3761,7 +3939,8 @@ static bool genCaOpFoldElabTs115() {
 /// `R11U115_OFF=1` / `R11U115_SYSARG_OFF=1` drop it.
 static bool caSysArgOpFoldTs115() {
     static const bool on = getenv("R11U115_OFF") == nullptr &&
-                           getenv("R11U115_SYSARG_OFF") == nullptr;
+                           getenv("R11U115_SYSARG_OFF") == nullptr &&
+                           !r11u227SplitAOff("R11U227_SPLIT115A_OFF");
     return on;
 }
 
@@ -3785,7 +3964,8 @@ static bool caSysArgOpFoldTs115() {
 /// `R11U115_OFF=1` / `R11U115_VSBARE_OFF=1` drop it.
 static bool caVarSelBareIdxTs115() {
     static const bool on = getenv("R11U115_OFF") == nullptr &&
-                           getenv("R11U115_VSBARE_OFF") == nullptr;
+                           getenv("R11U115_VSBARE_OFF") == nullptr &&
+                           !r11u227SplitAOff("R11U227_SPLIT115A_OFF");
     return on;
 }
 
@@ -4369,10 +4549,43 @@ UHDM::constant* UhdmExporter::emptySlotArg24(
 // any scope, so nothing scopes their names.  The refs are minted by the
 // ordinary emitExpr paths, which always scope, so strip afterwards over the
 // shapes an allocation size/source can take (repro t3 n_array_ref).
+// § newArrayPartSelStripped227 (r11u227, R11U227_NEWARRPS_OFF; pass 224's
+// residue v11u224 NX/nx05 `new[arr[k][k][1:0]]`) — THE DEFAULT (PARSE) VIEW
+// ONLY: under the unparented `new[...]` call a part select or an indexed
+// part select stores no name, nor do the references of its bounds, base and
+// width.  Golden `la = new[v[k+:2]];` in `p::c::f`: `indexed_part_select v`
+// and `ref_obj k` unnamed (the writer's chain stops at the unparented call),
+// ours `p::c::f::v` / `p::c::f::k`; as an index of a var_select the chain
+// runs through it (`new[arr[k][k][1:0]]`: golden `part_select arr` =
+// `arr.arr`, `new[arr[k][k+:2]]`'s `k` = `arr.k`); as a hier_path's
+// trailing select (`new[s.f[k+:2]]`) the base reference is `s.f[k+:2].k`.
+// In the --elabuhdm view UHDM's ElaboratorListener runs over the database and
+// golden names every one of them by the parented chain (`p::c::f::v`,
+// `p::c::f::arr::arr`), where the pristine binary is already right for the
+// indexed part select (grid NP np03 np04 --elabuhdm: EQUAL), so the law is
+// the parse view's alone (set by the caller).  Grid
+// tools/probe/r11u227repro/cases/NP.
+static bool newArrPsParseView227 = false;
 static void stripRefFullNames11(UHDM::any* o, int depth = 0) {
     if (!o || depth > 8)
         return;
     switch (o->UhdmType()) {
+        case UHDM::uhdmpart_select:
+            if (newArrPsParseView227) {
+                tr227("newArrayPartSelStripped227", "part_select");
+                ((UHDM::part_select*)o)->VpiFullName(std::string());
+                stripRefFullNames11(((UHDM::part_select*)o)->Left_range(), depth + 1);
+                stripRefFullNames11(((UHDM::part_select*)o)->Right_range(), depth + 1);
+            }
+            return;
+        case UHDM::uhdmindexed_part_select:
+            if (newArrPsParseView227) {
+                tr227("newArrayPartSelStripped227", "indexed_part_select");
+                ((UHDM::indexed_part_select*)o)->VpiFullName(std::string());
+                stripRefFullNames11(((UHDM::indexed_part_select*)o)->Base_expr(), depth + 1);
+                stripRefFullNames11(((UHDM::indexed_part_select*)o)->Width_expr(), depth + 1);
+            }
+            return;
         case UHDM::uhdmref_obj:
             ((UHDM::ref_obj*)o)->VpiFullName(std::string());
             return;
@@ -4478,6 +4691,24 @@ static void stripRefFullNames11(UHDM::any* o, int depth = 0) {
             // EQUAL -> fullname).  Only the TRAILING element ever carries a
             // stored name here (the leading ones are minted bare), so strip
             // that one, without reading it.
+            // § newArrayPartSelStripped227: a trailing part select of the
+            // path keeps its own name (EQUAL at the base, np10) and its
+            // bounds' references store none (`s.f[k+:2].k` by the chain).
+            if (newArrPsParseView227)
+                if (auto* pe = ((UHDM::hier_path*)o)->Path_elems();
+                    pe && !pe->empty() && pe->back()) {
+                    auto* tl227 = pe->back();
+                    if (tl227->UhdmType() == UHDM::uhdmindexed_part_select) {
+                        tr227("newArrayPartSelStripped227", "path ips bounds");
+                        stripRefFullNames11(((UHDM::indexed_part_select*)tl227)->Base_expr(), depth + 1);
+                        stripRefFullNames11(((UHDM::indexed_part_select*)tl227)->Width_expr(), depth + 1);
+                    }
+                    else if (tl227->UhdmType() == UHDM::uhdmpart_select) {
+                        tr227("newArrayPartSelStripped227", "path ps bounds");
+                        stripRefFullNames11(((UHDM::part_select*)tl227)->Left_range(), depth + 1);
+                        stripRefFullNames11(((UHDM::part_select*)tl227)->Right_range(), depth + 1);
+                    }
+                }
             if (r11u200Law("R11U200_NEWARRHP_OFF") &&
                 r11u201On("R11U201_NEWARRLAST_OFF")) {
                 if (auto* pe = ((UHDM::hier_path*)o)->Path_elems();
@@ -13812,7 +14043,8 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     // golden `p` 12:21-22 on the member token).  Switch R11V190_NESTIDX_OFF
     // (and R11V190_OFF).
     const bool nestIdxOnly190v = getenv("R11V190_OFF") == nullptr &&
-                                 getenv("R11V190_NESTIDX_OFF") == nullptr;
+                                 getenv("R11V190_NESTIDX_OFF") == nullptr &&
+                                 !r11u227SplitAOff("R11U227_SPLITV190A_OFF");
     if (!lvIdxReadFired181 && !inLhs && lvIdxReadNow181() &&
         r11v181On("R11V181_NESTRD_OFF") &&
         (!nestIdxOnly190v || lvIdxParent154(parent) ||
@@ -23115,7 +23347,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // `R11U113_OFF=1` / `R11U113_GSBS_OFF=1` drop it.
                     static const bool gsBsOn113 =
                         getenv("R11U113_OFF") == nullptr &&
-                        getenv("R11U113_GSBS_OFF") == nullptr;
+                        getenv("R11U113_GSBS_OFF") == nullptr &&
+                        !r11u227SplitAOff("R11U227_SPLIT113A_OFF");
                     const bool gsBs113 = contAssignView == 0 &&
                                          inGenScopeCaRhs &&
                                          !defGenProcessEmit &&
@@ -28385,7 +28618,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             {
                 static const bool parenOn115 =
                     getenv("R11U115_OFF") == nullptr &&
-                    getenv("R11U115_TPPAREN_OFF") == nullptr;
+                    getenv("R11U115_TPPAREN_OFF") == nullptr &&
+                    !r11u227SplitAOff("R11U227_SPLIT115A_OFF");
                 if (parenOn115 && inGenScopeCaRhs && !defGenProcessEmit &&
                     castSiteScope57 && effCastSyn &&
                     effCastSyn->kind ==
@@ -28545,8 +28779,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 {
                     static const bool off113 =
                         getenv("R11U113_OFF") != nullptr ||
-                        getenv("R11U113_TPCAST_OFF") != nullptr;
-                    static const bool off115 = getenv("R11U115_OFF") != nullptr;
+                        getenv("R11U113_TPCAST_OFF") != nullptr ||
+                        r11u227SplitAOff("R11U227_SPLIT113A_OFF");
+                    static const bool off115 = getenv("R11U115_OFF") != nullptr ||
+                                               r11u227SplitAOff("R11U227_SPLIT115A_OFF");
                     static const bool ifOpOn115 =
                         !off115 && getenv("R11U115_TPIFOP_OFF") == nullptr;
                     static const bool outerOn115 =
@@ -28920,6 +29156,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // of the pass; the trace reads R11U174_TRACE.)
                     if (pkgTopEmit && currentSubSym &&
                         getenv("R11U172_OFF") == nullptr &&
+                        !r11u227SplitAOff("R11U227_SPLIT172A_OFF") &&
                         getenv("R11U172_DEPTH_OFF") == nullptr &&
                         r11u174On("R11U172_DEPTH_OFF")) {
                         auto ps172 = currentSubSym->getParentScope();
@@ -34203,7 +34440,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // PREDICTED BY NAME off the pristine corpus.
                         static const bool r11u48OffE = [] {
                             const char* v = getenv("R11U48_OFF");
-                            return v && *v && *v != '0';
+                            return (v && *v && *v != '0') ||
+                                   r11u227SplitAOff("R11U227_SPLIT48A_OFF");
                         }();
                         static const bool r11u48DbgE = [] {
                             const char* v = getenv("R11U48_DBG");
@@ -44673,7 +44911,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // `Compare` (RESUME §9), so neither half is worth a cell to the
             // judge and the AWAY is not worth taking.  The strip stays
             // unconditional; the clone's missing fullname is R2.
+            newArrPsParseView227 =
+                !elabUhdmView121 && r11u227On("R11U227_NEWARRPS_OFF");
             stripRefFullNames11(mfc);
+            newArrPsParseView227 = false;
             return mfc;
         }
         // § copyClassIsNewCall4 — the SHALLOW-COPY constructor `pkt = new gpkt`

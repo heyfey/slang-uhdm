@@ -1,0 +1,3 @@
+r10buvm13repro/v3_clone13 P:md5=8fc36d06 L:md5=74ed8fd3 IDORDER_OFF:md5=8fc36d06  records: STRICT_EQUAL 403 objects
+r10uvm17repro/t29_t P:md5=7d05d506 L:md5=81fc1cdd IDORDER_OFF:md5=7d05d506  records: STRICT_EQUAL 116 objects
+r10v179repro/v179_f_nomod P:md5=66cd1467 L:md5=7f4d60a9 IDORDER_OFF:md5=66cd1467  records: STRICT_EQUAL 155 objects

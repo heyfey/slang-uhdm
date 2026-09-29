@@ -539,8 +539,8 @@ FuncStatic,default,CMP_EQUAL,,,equal
 FuncStatic,testflags,CMP_EQUAL,,,equal
 FuncStruct,default,CMP_EQUAL,,,equal
 FuncStruct,testflags,CMP_EQUAL,,,equal
-FuncStructVal,default,STRICT_NOTEQUAL,differ:endcol(7),,differ:endcol(7)
-FuncStructVal,testflags,STRICT_NOTEQUAL,differ:endcol(10),,differ:endcol(10)
+FuncStructVal,default,STRICT_NOTEQUAL,differ:file(5),,differ:file(5)
+FuncStructVal,testflags,STRICT_NOTEQUAL,differ:file(9),,differ:file(9)
 FuncStructValSimple,default,CMP_EQUAL,,,equal
 FuncStructValSimple,testflags,CMP_EQUAL,,,equal
 FuncWidthScope,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScope/dut.sv:13:19: error: cannot call a function declared inside a generate block in a consta,,

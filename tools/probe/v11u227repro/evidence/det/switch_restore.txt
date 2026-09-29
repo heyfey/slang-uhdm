@@ -1,0 +1,21 @@
+# det16.sh (tools/probe/r11u227repro/drivers) with DET_TESTS="FuncStructVal BuildUVMPkg SeqDriver", 2 draws per row-mode,
+# the harness's own command line from /tmp/v11u227_swP's cmds.txt. tag = binary + environment:
+#   offP  pris.bin                       | offL law.bin R11U227_OFF=1       | fwoff law.bin R11U227_FWDPKGSPAN_OFF=1
+#   fixoff fix.bin R11U227_OFF=1         | fixv fix.bin R11V227_OFF=1       | lawon law.bin
+offP FuncStructVal/default 2 075a18073081 | offP BuildUVMPkg/default 2 6463b4cd1d46 | offP SeqDriver/default 2 0218e5d990c4
+offP FuncStructVal/testflags 2 bea4eecf691a | offP BuildUVMPkg/testflags 2 6463b4cd1d46 | offP SeqDriver/testflags 2 e628b31f76ed
+offL FuncStructVal/default 2 075a18073081 | offL BuildUVMPkg/default 2 6463b4cd1d46 | offL SeqDriver/default 2 0218e5d990c4
+offL FuncStructVal/testflags 2 bea4eecf691a | offL BuildUVMPkg/testflags 2 6463b4cd1d46 | offL SeqDriver/testflags 2 e628b31f76ed
+fwoff FuncStructVal/default 2 075a18073081 | fwoff BuildUVMPkg/default 2 6a6d62e38946 | fwoff SeqDriver/default 2 a3349e9731b2
+fwoff FuncStructVal/testflags 2 bea4eecf691a | fwoff BuildUVMPkg/testflags 2 6a6d62e38946 | fwoff SeqDriver/testflags 2 248ae493bf34
+fixoff FuncStructVal/default 2 075a18073081 | fixoff BuildUVMPkg/default 2 6463b4cd1d46 | fixoff SeqDriver/default 2 0218e5d990c4
+fixoff FuncStructVal/testflags 2 bea4eecf691a | fixoff BuildUVMPkg/testflags 2 6463b4cd1d46 | fixoff SeqDriver/testflags 2 e628b31f76ed
+fixv FuncStructVal/default 2 469dc7bb60f5 | fixv BuildUVMPkg/default 2 6a6d62e38946 | fixv SeqDriver/default 2 a3349e9731b2
+fixv FuncStructVal/testflags 2 3a19eee303f6 | fixv BuildUVMPkg/testflags 2 6a6d62e38946 | fixv SeqDriver/testflags 2 248ae493bf34
+lawon FuncStructVal/default 2 469dc7bb60f5 | lawon BuildUVMPkg/default 2 6a6d62e38946 | lawon SeqDriver/default 2 a3349e9731b2
+lawon FuncStructVal/testflags 2 3a19eee303f6 | lawon BuildUVMPkg/testflags 2 6a6d62e38946 | lawon SeqDriver/testflags 2 248ae493bf34
+# every rc 0. The pristine sweep's FuncStructVal default database is 075a18073081, the law sweep's 469dc7bb60f5.
+# Earlgrey_0_1 / MiniAmiq / SimpleUVM database hashes per sweep (default | testflags):
+#   swP Earlgrey ede36385c330 | 260e88febe42  MiniAmiq c31175d90492 | c31175d90492  SimpleUVM 40e2f8a8c05e | 0267d39f3d40
+#   swL Earlgrey ede36385c330 | 260e88febe42  MiniAmiq 7d6c076f4328 | 7d6c076f4328  SimpleUVM 83c1a233ad99 | 61cbfaab4940
+#   swF Earlgrey ede36385c330 | 260e88febe42  MiniAmiq 7d6c076f4328 | 7d6c076f4328  SimpleUVM 83c1a233ad99 | 61cbfaab4940

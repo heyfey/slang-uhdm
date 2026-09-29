@@ -1,0 +1,9 @@
+pris MiniAmiq/default       6 6221448939c6      10 c31175d90492  rc:     16 0
+pris SeqDriver/default      16 0218e5d990c4  rc:     16 0
+pris SimpleUVM/default      14 40e2f8a8c05e       2 eefa91ea5c73  rc:     16 0
+pris BuildUVMPkg/default      16 6463b4cd1d46  rc:     16 0
+pris Scoreboard/default       5 116208939760       1 305407765b45      10 60ca9a0cc754  rc:     16 0
+pris MiniAmiq/testflags       3 6221448939c6      13 c31175d90492  rc:     16 0
+pris SeqDriver/testflags      16 e628b31f76ed  rc:     16 0
+pris SimpleUVM/testflags      16 0267d39f3d40  rc:     16 0
+pris BuildUVMPkg/testflags      16 6463b4cd1d46  rc:     16 0

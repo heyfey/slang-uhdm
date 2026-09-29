@@ -1,0 +1,11 @@
+detF Earlgrey_0_1/default       8 ede36385c330  rc:      8 0 
+detF MiniAmiq/default       8 7d6c076f4328  rc:      8 0 
+detF SeqDriver/default       8 a3349e9731b2  rc:      8 0 
+detF SimpleUVM/default       8 83c1a233ad99  rc:      8 0 
+detF BuildUVMPkg/default       8 6a6d62e38946  rc:      8 0 
+detF Scoreboard/default       3 a7eaa666dd3b       5 dbb7fce68eb4  rc:      8 0 
+detF Earlgrey_0_1/testflags       8 260e88febe42  rc:      8 0 
+detF MiniAmiq/testflags       8 7d6c076f4328  rc:      8 0 
+detF SeqDriver/testflags       8 248ae493bf34  rc:      8 0 
+detF SimpleUVM/testflags       8 61cbfaab4940  rc:      8 0 
+detF BuildUVMPkg/testflags       8 6a6d62e38946  rc:      8 0 

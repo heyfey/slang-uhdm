@@ -1,0 +1,11 @@
+surelog_default_BuildUVMPkg-fc55bd0c_slang.uhdm dist 230 -> 230 lost=0 gained=0
+surelog_default_FuncStructVal-9244d8c4_slang.uhdm dist 28 -> 30 lost=2 gained=0
+surelog_default_MiniAmiq-055eab74_slang.uhdm dist 1761 -> 1761 lost=0 gained=0
+surelog_default_Scoreboard-72aa0ba8_slang.uhdm dist 585 -> 585 lost=0 gained=0
+surelog_default_SeqDriver-65178d3a_slang.uhdm dist 1304 -> 1304 lost=0 gained=0
+surelog_default_SimpleUVM-267de3ff_slang.uhdm dist 914 -> 914 lost=0 gained=0
+surelog_testflags_BuildUVMPkg-fc55bd0c_slang.uhdm dist 230 -> 230 lost=0 gained=0
+surelog_testflags_FuncStructVal-9244d8c4_slang.uhdm dist 51 -> 53 lost=2 gained=0
+surelog_testflags_MiniAmiq-055eab74_slang.uhdm dist 1761 -> 1761 lost=0 gained=0
+surelog_testflags_SeqDriver-65178d3a_slang.uhdm dist 1304 -> 1304 lost=0 gained=0
+surelog_testflags_SimpleUVM-267de3ff_slang.uhdm dist 914 -> 914 lost=0 gained=0

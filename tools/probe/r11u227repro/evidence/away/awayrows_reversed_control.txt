@@ -1,0 +1,35 @@
+# 34 databases differ between /tmp/r11u227_swL and /tmp/r11u227_swP
+probe/r10buvm13repro/v3_clone13 away=0 toward=0 flat_away=0 flat_toward=0
+probe/r10uvm17repro/t29_t away=0 toward=0 flat_away=0 flat_toward=0
+probe/r10v179repro/v179_f_nomod away=0 toward=0 flat_away=0 flat_toward=0
+probe/r11u24repro/n12 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u24repro/n3 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u26repro/m13 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u26repro/m15 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u26repro/m6 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u26repro/m8 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u26repro/m9 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u28repro/a13 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u28repro/a16 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u28repro/a4 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u28repro/a5 away=2 toward=0 flat_away=2 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u28repro/a6 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u28repro/a7 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v12 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v13 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v15 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v16 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v18 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v2 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v9 away=1 toward=0 flat_away=1 flat_toward=0 | ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+surelog/default/BuildUVMPkg away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/FuncStructVal away=2 toward=0 flat_away=2 flat_toward=0 | ref_obj|config_pkg::NOC_TYPE_AXI4_ATOP||cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP|dut.sv|106|16|106|28||0|| @ tagged_pattern: < operation: < param_assign: < package:cva6_config_pkg < design:work@top
+surelog/default/MiniAmiq away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/Scoreboard away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/SeqDriver away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/SimpleUVM away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/BuildUVMPkg away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/FuncStructVal away=2 toward=0 flat_away=2 flat_toward=0 | ref_obj|config_pkg::NOC_TYPE_AXI4_ATOP||cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP|dut.sv|106|16|106|28||0|| @ tagged_pattern: < operation: < param_assign: < package:cva6_config_pkg < design:work@top
+surelog/testflags/MiniAmiq away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/SeqDriver away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/SimpleUVM away=0 toward=0 flat_away=0 flat_toward=0

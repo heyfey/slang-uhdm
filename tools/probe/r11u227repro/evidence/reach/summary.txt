@@ -1,0 +1,6 @@
+113 (R11U113_OFF vs R11U227_SPLIT113A_OFF): 284 case-views; old moves 216; split moves 78; split moves where old does not 0; split==old bytes 146
+115 (R11U115_OFF vs R11U227_SPLIT115A_OFF): 386 case-views; old moves 260; split moves 140; split moves where old does not 0; split==old bytes 266
+172 (R11U172_OFF vs R11U227_SPLIT172A_OFF): 104 case-views; old moves 60; split moves 14; split moves where old does not 0; split==old bytes 58
+48 (R11U48_OFF vs R11U227_SPLIT48A_OFF): 112 case-views; old moves 30; split moves 2; split moves where old does not 0; split==old bytes 84
+v190 (R11V190_OFF vs R11U227_SPLITV190A_OFF): 146 case-views; old moves 14; split moves 4; split moves where old does not 0; split==old bytes 136
+v199 (R11V199_OFF vs R11U227_SPLITV199A_OFF): 170 case-views; old moves 30; split moves 18; split moves where old does not 0; split==old bytes 158

@@ -1,0 +1,132 @@
+BF {'views': 74, 'L_moves': 48, 'F_moves': 42, 'F_vs_L_moves': 20, 'FO==L': 74, 'FU==P': 74, 'L_conv': 0, 'F_conv': 0, 'L_leave': 0, 'F_leave': 0, 'L_to_stage1': 0, 'F_to_stage1': 0, 'rc_nonzero': 2, 'L_away': 10, 'L_toward': 20, 'F_away': 0, 'F_toward': 20}
+BN {'views': 30, 'L_moves': 6, 'F_moves': 6, 'F_vs_L_moves': 0, 'FO==L': 30, 'FU==P': 30, 'L_conv': 4, 'F_conv': 4, 'L_leave': 0, 'F_leave': 0, 'L_to_stage1': 0, 'F_to_stage1': 0, 'rc_nonzero': 0, 'L_away': 0, 'L_toward': 10, 'F_away': 0, 'F_toward': 10}
+BP {'views': 24, 'L_moves': 10, 'F_moves': 10, 'F_vs_L_moves': 0, 'FO==L': 24, 'FU==P': 24, 'L_conv': 0, 'F_conv': 0, 'L_leave': 0, 'F_leave': 0, 'L_to_stage1': 0, 'F_to_stage1': 0, 'rc_nonzero': 0, 'L_away': 0, 'L_toward': 0, 'F_away': 0, 'F_toward': 0}
+
+BF/bf01_array_key P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf01_array_key_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf02_psel_range_member P:STRICT_NOTEQUAL_endcol L:STRICT_NOTEQUAL_endcol F:STRICT_NOTEQUAL_type L:[moved=4 away=2 toward=2 other=0] F:[moved=2 away=0 toward=2 other=0]
+BF/bf02_psel_range_member_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf03_ipsel_width_member P:STRICT_NOTEQUAL_endcol L:STRICT_NOTEQUAL_col F:STRICT_NOTEQUAL_col L:[moved=4 away=2 toward=2 other=0] F:[moved=2 away=0 toward=2 other=0]
+BF/bf03_ipsel_width_member_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf04_pat_repl_count P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf04_pat_repl_count_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf05_cast_size_member P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf05_cast_size_member_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf06_func_local_lparam P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf06_func_local_lparam_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf07_func_body_psel P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf07_func_body_psel_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf08_func_body_ipsel_width P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf08_func_body_ipsel_width_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf09_func_body_hier_idx P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf09_func_body_hier_idx_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf10_func_body_stream P:STRICT_EQUAL_193_objects L:STRICT_EQUAL_193_objects F:STRICT_EQUAL_193_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BF/bf10_func_body_stream_el P:STRICT_EQUAL_191_objects L:STRICT_EQUAL_191_objects F:STRICT_EQUAL_191_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BF/bf11_func_body_cast_size P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf11_func_body_cast_size_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf12_func_local_var_range P:STRICT_EQUAL_196_objects L:STRICT_EQUAL_196_objects F:STRICT_EQUAL_196_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BF/bf12_func_local_var_range_el P:STRICT_EQUAL_218_objects L:STRICT_EQUAL_218_objects F:STRICT_EQUAL_218_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BF/bf13_func_body_enum_ctl P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf13_func_body_enum_ctl_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf14_task_body_psel P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf14_task_body_psel_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf15_member_psel_of_param_in_call P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf15_member_psel_of_param_in_call_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf16_ternary_third_nested P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf16_ternary_third_nested_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf17_func_arg_default P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf17_func_arg_default_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf18_func_case_item P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf18_func_case_item_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf19_stream_slice_member P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf19_stream_slice_member_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf20_bitsel_idx_ctl P:STRICT_NOTEQUAL_endcol L:STRICT_NOTEQUAL_col F:STRICT_NOTEQUAL_col L:[moved=4 away=0 toward=4 other=0] F:[moved=4 away=0 toward=4 other=0]
+BF/bf20_bitsel_idx_ctl_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf21_ipsel_base P:STRICT_NOTEQUAL_endcol L:STRICT_NOTEQUAL_col F:STRICT_NOTEQUAL_col L:[moved=4 away=0 toward=4 other=0] F:[moved=4 away=0 toward=4 other=0]
+BF/bf21_ipsel_base_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf22_concat_repl_count P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf22_concat_repl_count_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf23_psel_range_call_inside P:STRICT_NOTEQUAL_endcol L:STRICT_NOTEQUAL_type F:STRICT_NOTEQUAL_type L:[moved=4 away=0 toward=4 other=0] F:[moved=4 away=0 toward=4 other=0]
+BF/bf23_psel_range_call_inside_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf24_psel_range_ternary_inside P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf24_psel_range_ternary_inside_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf25_psel_both_bounds P:STRICT_NOTEQUAL_endcol L:STRICT_NOTEQUAL_endcol F:STRICT_NOTEQUAL_type L:[moved=6 away=4 toward=2 other=0] F:[moved=2 away=0 toward=2 other=0]
+BF/bf25_psel_both_bounds_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf26_ipsel_minus_width P:STRICT_NOTEQUAL_endcol L:STRICT_NOTEQUAL_col F:STRICT_NOTEQUAL_col L:[moved=4 away=2 toward=2 other=0] F:[moved=2 away=0 toward=2 other=0]
+BF/bf26_ipsel_minus_width_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf27_psel_in_call_arg P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf27_psel_in_call_arg_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf28_multi_pattern_member P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf28_multi_pattern_member_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf29_hier_predot_unpacked P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf29_hier_predot_unpacked_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf30_concat_range_select P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf30_concat_range_select_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf31_psel_range_sysarg_toplevel P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf31_psel_range_sysarg_toplevel_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf32_named_call_arg P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf32_named_call_arg_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf33_class_spec_param P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf33_class_spec_param_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf34_func_for_bound P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf34_func_for_bound_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf35_call_in_psel_range_in_call P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf35_call_in_psel_range_in_call_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf36_default_member_psel P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf36_default_member_psel_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf37_ternary_first_psel P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BF/bf37_ternary_first_psel_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BN/bn01_ips_base_operation P:STRICT_NOTEQUAL_fullname L:STRICT_EQUAL_53_objects F:STRICT_EQUAL_53_objects L:[moved=2 away=0 toward=2 other=0] F:[moved=2 away=0 toward=2 other=0]
+BN/bn01_ips_base_operation_el P:STRICT_EQUAL_73_objects L:STRICT_EQUAL_73_objects F:STRICT_EQUAL_73_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn02_sysarg_partsel P:STRICT_EQUAL_52_objects L:STRICT_EQUAL_52_objects F:STRICT_EQUAL_52_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn02_sysarg_partsel_el P:STRICT_NOTEQUAL_fullname L:STRICT_NOTEQUAL_fullname F:STRICT_NOTEQUAL_fullname L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn03_partsel_in_bitsel_idx P:STRICT_EQUAL_52_objects L:STRICT_EQUAL_52_objects F:STRICT_EQUAL_52_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn03_partsel_in_bitsel_idx_el P:STRICT_NOTEQUAL_fullname L:STRICT_NOTEQUAL_fullname F:STRICT_NOTEQUAL_fullname L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn04_partsel_times P:STRICT_EQUAL_53_objects L:STRICT_EQUAL_53_objects F:STRICT_EQUAL_53_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn04_partsel_times_el P:STRICT_NOTEQUAL_fullname L:STRICT_NOTEQUAL_fullname F:STRICT_NOTEQUAL_fullname L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn05_two_partsels P:STRICT_EQUAL_55_objects L:STRICT_EQUAL_55_objects F:STRICT_EQUAL_55_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn05_two_partsels_el P:STRICT_NOTEQUAL_fullname L:STRICT_NOTEQUAL_fullname F:STRICT_NOTEQUAL_fullname L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn06_ips_minus P:STRICT_NOTEQUAL_fullname L:STRICT_EQUAL_51_objects F:STRICT_EQUAL_51_objects L:[moved=2 away=0 toward=2 other=0] F:[moved=2 away=0 toward=2 other=0]
+BN/bn06_ips_minus_el P:STRICT_EQUAL_71_objects L:STRICT_EQUAL_71_objects F:STRICT_EQUAL_71_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn07_copy_form_partsel P:STRICT_EQUAL_52_objects L:STRICT_EQUAL_52_objects F:STRICT_EQUAL_52_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn07_copy_form_partsel_el P:STRICT_NOTEQUAL_fullname L:STRICT_NOTEQUAL_fullname F:STRICT_NOTEQUAL_fullname L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn08_copy_form_ips_op P:STRICT_NOTEQUAL_fullname L:STRICT_EQUAL_54_objects F:STRICT_EQUAL_54_objects L:[moved=2 away=0 toward=2 other=0] F:[moved=2 away=0 toward=2 other=0]
+BN/bn08_copy_form_ips_op_el P:STRICT_EQUAL_79_objects L:STRICT_EQUAL_79_objects F:STRICT_EQUAL_79_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn09_task_module P:STRICT_NOTEQUAL_fullname L:STRICT_EQUAL_79_objects F:STRICT_EQUAL_79_objects L:[moved=4 away=0 toward=4 other=0] F:[moved=4 away=0 toward=4 other=0]
+BN/bn09_task_module_el P:STRICT_NOTEQUAL_fullname L:STRICT_NOTEQUAL_fullname F:STRICT_NOTEQUAL_fullname L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn10_pkgvar_qualified P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BN/bn10_pkgvar_qualified_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BN/bn11_super_member P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BN/bn11_super_member_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BN/bn12_struct_local_partsel P:STRICT_EQUAL_78_objects L:STRICT_EQUAL_78_objects F:STRICT_EQUAL_78_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn12_struct_local_partsel_el P:STRICT_EQUAL_134_objects L:STRICT_EQUAL_134_objects F:STRICT_EQUAL_134_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn13_interface_func P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BN/bn13_interface_func_el P:STRICT_NOTEQUAL_fullname L:STRICT_NOTEQUAL_fullname F:STRICT_NOTEQUAL_fullname L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn14_gen_block P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BN/bn14_gen_block_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BN/bn15_outside_new_ctl P:STRICT_EQUAL_43_objects L:STRICT_EQUAL_43_objects F:STRICT_EQUAL_43_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BN/bn15_outside_new_ctl_el P:STRICT_EQUAL_57_objects L:STRICT_EQUAL_57_objects F:STRICT_EQUAL_57_objects L:[moved=0 away=0 toward=0 other=0] F:[moved=0 away=0 toward=0 other=0]
+BP/bp01_direct_pattern_member P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp01_direct_pattern_member_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp02_direct_member_and_field P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp02_direct_member_and_field_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp03_parameter_kw P:STRICT_NOTEQUAL_fullname L:STRICT_NOTEQUAL_fullname F:STRICT_NOTEQUAL_fullname L:[moved=1 away=0 toward=0 other=1] F:[moved=1 away=0 toward=0 other=1]
+BP/bp03_parameter_kw_el P:STRICT_NOTEQUAL_fullname L:STRICT_NOTEQUAL_fullname F:STRICT_NOTEQUAL_fullname L:[moved=1 away=0 toward=0 other=1] F:[moved=1 away=0 toward=0 other=1]
+BP/bp04_module_default_pattern P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp04_module_default_pattern_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp05_func_arg_whole P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp05_func_arg_whole_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp06_func_ternary_read P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp06_func_ternary_read_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp07_func_two_params P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp07_func_two_params_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp08_func_read_and_module_read P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp08_func_read_and_module_read_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp09_func_with_loop P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp09_func_with_loop_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp10_two_packages P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp10_two_packages_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp11_whole_in_if P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp11_whole_in_if_el P:NOT_EQUAL_stage1 L:NOT_EQUAL_stage1 F:NOT_EQUAL_stage1
+BP/bp12_default_key_param P:STRICT_NOTEQUAL_fullname L:STRICT_NOTEQUAL_fullname F:STRICT_NOTEQUAL_fullname L:[moved=1 away=0 toward=0 other=1] F:[moved=1 away=0 toward=0 other=1]
+BP/bp12_default_key_param_el P:STRICT_NOTEQUAL_fullname L:STRICT_NOTEQUAL_fullname F:STRICT_NOTEQUAL_fullname L:[moved=1 away=0 toward=0 other=1] F:[moved=1 away=0 toward=0 other=1]

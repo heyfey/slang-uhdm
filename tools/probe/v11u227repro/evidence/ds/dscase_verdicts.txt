@@ -1,0 +1,30 @@
+pris BF/bf02_psel_range_member IDENTICAL CRASH CRASH -
+pris BF/bf03_ipsel_width_member IDENTICAL CRASH CRASH -
+pris BF/bf25_psel_both_bounds IDENTICAL CRASH CRASH -
+pris BF/bf26_ipsel_minus_width IDENTICAL CRASH CRASH -
+pris BF/bf20_bitsel_idx_ctl IDENTICAL CRASH CRASH -
+pris BN/bn01_ips_base_operation IDENTICAL NO_GATES NO_GATES -
+pris BN/bn09_task_module IDENTICAL NO_GATES NO_GATES -
+pris BN/bn14_gen_block EQUIVALENT NO_GATES NO_GATES nohier il synth
+pris BP/bp03_parameter_kw IDENTICAL NO_GATES NO_GATES -
+pris BP/bp12_default_key_param IDENTICAL NO_GATES NO_GATES -
+law BF/bf02_psel_range_member IDENTICAL CRASH CRASH -
+law BF/bf03_ipsel_width_member IDENTICAL CRASH CRASH -
+law BF/bf25_psel_both_bounds IDENTICAL CRASH CRASH -
+law BF/bf26_ipsel_minus_width IDENTICAL CRASH CRASH -
+law BF/bf20_bitsel_idx_ctl IDENTICAL CRASH CRASH -
+law BN/bn01_ips_base_operation IDENTICAL NO_GATES NO_GATES -
+law BN/bn09_task_module IDENTICAL NO_GATES NO_GATES -
+law BN/bn14_gen_block EQUIVALENT NO_GATES NO_GATES nohier il synth
+law BP/bp03_parameter_kw IDENTICAL NO_GATES NO_GATES -
+law BP/bp12_default_key_param IDENTICAL NO_GATES NO_GATES -
+fix BF/bf02_psel_range_member IDENTICAL CRASH CRASH -
+fix BF/bf03_ipsel_width_member IDENTICAL CRASH CRASH -
+fix BF/bf25_psel_both_bounds IDENTICAL CRASH CRASH -
+fix BF/bf26_ipsel_minus_width IDENTICAL CRASH CRASH -
+fix BF/bf20_bitsel_idx_ctl IDENTICAL CRASH CRASH -
+fix BN/bn01_ips_base_operation IDENTICAL NO_GATES NO_GATES -
+fix BN/bn09_task_module IDENTICAL NO_GATES NO_GATES -
+fix BN/bn14_gen_block EQUIVALENT NO_GATES NO_GATES nohier il synth
+fix BP/bp03_parameter_kw IDENTICAL NO_GATES NO_GATES -
+fix BP/bp12_default_key_param IDENTICAL NO_GATES NO_GATES -

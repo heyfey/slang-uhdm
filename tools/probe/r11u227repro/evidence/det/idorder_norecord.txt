@@ -1,0 +1,12 @@
+Earlgrey_0_1/default raw-walk: STRICT_EQUAL 868154 objects uhdm-cmp rc=0 bytes=same
+MiniAmiq/default raw-walk: STRICT_EQUAL 390916 objects uhdm-cmp rc=0 bytes=moved
+SeqDriver/default raw-walk: STRICT_EQUAL 427329 objects uhdm-cmp rc=0 bytes=moved
+SimpleUVM/default raw-walk: STRICT_EQUAL 300133 objects uhdm-cmp rc=0 bytes=moved
+BuildUVMPkg/default raw-walk: STRICT_EQUAL 181148 objects uhdm-cmp rc=0 bytes=moved
+Scoreboard/default raw-walk: STRICT_NOTEQUAL name uhdm-cmp rc=0 bytes=moved
+Earlgrey_0_1/testflags raw-walk: STRICT_EQUAL 908551 objects uhdm-cmp rc=0 bytes=same
+MiniAmiq/testflags raw-walk: STRICT_EQUAL 390916 objects uhdm-cmp rc=0 bytes=moved
+SeqDriver/testflags raw-walk: STRICT_EQUAL 427341 objects uhdm-cmp rc=0 bytes=moved
+SimpleUVM/testflags raw-walk: STRICT_EQUAL 300145 objects uhdm-cmp rc=0 bytes=moved
+BuildUVMPkg/testflags raw-walk: STRICT_EQUAL 181148 objects uhdm-cmp rc=0 bytes=moved
+Scoreboard/default sorted-dump diff lines: 0

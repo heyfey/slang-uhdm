@@ -14,6 +14,7 @@
 #include "EmitHelpers.h"
 #include "R218.h"
 #include "R224.h"
+#include "R227.h"
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
@@ -2860,6 +2861,14 @@ bool UhdmExporter::memLeftNestedAsmBits(const Type& st,
 // `expr::Compare` reads `VpiDecompile`/`VpiSize`/`Typespec` and
 // `operation::Compare` reads `VpiOpType`/`VpiReordered`/`VpiFlattened`/
 // `VpiOpStrong`/`Operands`, so every one of those is copied.
+// § pkgPatFuncBodyLeftoverNoParent227 (r11u227) — every read pattern
+// parameter's Rhs operation that § patParamLeftoverShare26 cloned into a
+// typespec member's leftover, with its clones (law at drainShareDefParamTs).
+static std::map<const UHDM::operation*, std::vector<UHDM::operation*>>&
+patLeftoverClones227() {
+    static std::map<const UHDM::operation*, std::vector<UHDM::operation*>> m;
+    return m;
+}
 UHDM::operation* UhdmExporter::memLeftPatParamClone26(const UHDM::any* src) {
     if (!src || src->UhdmType() != UHDM::uhdmoperation)
         return nullptr;
@@ -2927,6 +2936,9 @@ UHDM::operation* UhdmExporter::memLeftPatParamClone26(const UHDM::any* src) {
         nops->push_back(c);
     }
     op->Operands(nops);
+    // § pkgPatFuncBodyLeftoverNoParent227 — the read parameter's Rhs and its
+    // leftover clone, for the law at drainShareDefParamTs.
+    patLeftoverClones227()[so].push_back(op);
     return op;
 }
 
@@ -24992,6 +25004,8 @@ void cloneHpIdxDrain220(UHDM::Serializer& s);
 // in ExprEmit.cpp.
 void strLitContOwnerDrain224(UHDM::Serializer& s);
 void strLitPpLineShiftDrain224(UHDM::Serializer& s);
+// § fwdPkgRefClassScopeSpan227 (r11u227) — defined in ExprEmit.cpp.
+void fwdPkgRefClassScopeSpanDrain227(UHDM::Serializer& s);
 
 void UhdmExporter::drainPaNameCopySrc38() {
     // § pkgTdAliasLastWriter215 and § impPatCopyFirstListingUnparented215
@@ -25014,6 +25028,9 @@ void UhdmExporter::drainPaNameCopySrc38() {
     // § cloneHpIdxNamesByChain220 (r11u220): after the path-index drains
     // (it renames only the clone bodies' select-index references).
     cloneHpIdxDrain220(s);
+    // § fwdPkgRefClassScopeSpan227 (r11u227): a forward package reference
+    // in expression grammar spans its `Q::` (every listing is built here).
+    fwdPkgRefClassScopeSpanDrain227(s);
     // § portViewNestedPatTsNamed154 — A PORT VIEW'S NESTED PATTERN TYPESPEC
     // IS NAMED BY THE VIEW.  An interface parameter whose default is a
     // NESTED assignment pattern (`parameter cfg_t CFG = '{BUS: '{DAT:
@@ -31328,6 +31345,7 @@ void UhdmExporter::drainShareDefParamTs() {
                     mod131(m);
         }
         std::set<const UHDM::any*> pk131;
+        const bool on227pl = on131 && r11u227On("R11U227_PATLEFTOVER_OFF");
         if (on131)
             for (auto* pv : {d->AllPackages(), d->TopPackages()})
                 if (pv)
@@ -31370,6 +31388,49 @@ void UhdmExporter::drainShareDefParamTs() {
                                 pkgPatUnqualRead178(comp, pn, l->VpiName()) &&
                                 patFlattened178((UHDM::operation*)r))
                                 rd167 = true;
+                            // § pkgPatFuncBodyLeftoverNoParent227 (r11u227,
+                            // R11U227_PATLEFTOVER_OFF; map 14's N0003, the
+                            // first cluster of 24 probe cases: r11u24repro
+                            // n3 n12, r11u26repro m4-m15, r11u28repro a2-a16,
+                            // r11v26repro v2-v18) — the read set also holds a
+                            // NAMED-member pattern parameter read as a WHOLE
+                            // value inside a subroutine the producer
+                            // evaluates (`c.u = UU;` in a package function a
+                            // parameter's initializer calls): ExprEval's
+                            // evalFunc reduces the read through
+                            // CompileHelper::getValue, which runs
+                            // expandPatternAssignment and writes the
+                            // flattened copy back to the package's
+                            // param_assign, its ref_typespec minted without a
+                            // parent (golden n12 `UU`: the listing's pattern
+                            // reference and its copy as the typespec member
+                            // `u`'s leftover are unnamed, ours `pk`).  Ours
+                            // marks that read by the leftover itself:
+                            // § patParamLeftoverShare26 cloned this listing's
+                            // (flattened) operation into a typespec member's
+                            // leftover.  The package listing's clones keep
+                            // their parented reference in golden (n12 `pk`
+                            // under `pk::C`'s typespec: a clone of the
+                            // parented original), so only the listing's own
+                            // operation takes the fresh one; the module
+                            // listing's leftovers (golden a separate copy per
+                            // typespec copy, `<in>pk::c_t.u`) are the
+                            // typespec-copy family, not this law.  A read
+                            // that leaves no leftover (a whole-value
+                            // localparam, z08; a concatenation `CAT`, m9)
+                            // keeps the parent.  Grid
+                            // tools/probe/r11u227repro/cases/PL.
+                            if (!rd167 && rt && on227pl &&
+                                pkgPatInit131().count(pn + "::" + std::string(l->VpiName())) &&
+                                patFlattened178((UHDM::operation*)r)) {
+                                auto it227 = patLeftoverClones227().find(
+                                    (const UHDM::operation*)r);
+                                if (it227 != patLeftoverClones227().end()) {
+                                    tr227("pkgPatFuncBodyLeftoverNoParent227",
+                                          pn + "::" + std::string(l->VpiName()));
+                                    rd167 = true;
+                                }
+                            }
                             if (!rd167 && rt &&
                                 pkgPatInit131().count(pn + "::" + std::string(l->VpiName())) &&
                                 r11u167On("R11U167_PATCALLARG_OFF") &&
