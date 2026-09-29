@@ -1,0 +1,12 @@
+== swP surelog: ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+== swP u2r: ---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== swP ctcan2 sl: PASS: every supplementary canary row is byte-identical to the baseline.
+== swP ctcan2 u2r: PASS: every supplementary canary row is byte-identical to the baseline.
+== swL surelog: ---- canary rows: ok=45 changed=7 absent=0 unknown-names=7
+== swL u2r: ---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== swL ctcan2 sl: PASS: every supplementary canary row is byte-identical to the baseline.
+== swL ctcan2 u2r: PASS: every supplementary canary row is byte-identical to the baseline.
+== swF surelog: ---- canary rows: ok=45 changed=7 absent=0 unknown-names=7
+== swF u2r: ---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== swF ctcan2 sl: PASS: every supplementary canary row is byte-identical to the baseline.
+== swF ctcan2 u2r: PASS: every supplementary canary row is byte-identical to the baseline.

@@ -1,0 +1,12 @@
+r10uvm202repro/g202_e_head,EQUAL,,equal
+r10uvm206repro/g206_b_dedup,EQUAL,,equal
+r10uvm49repro/a3,EQUAL,,equal
+r10uvm49repro/a4,EQUAL,,equal
+r10uvm49repro/a5,EQUAL,,equal
+r10uvm49repro/a6,EQUAL,,equal
+r10uvm50repro/a1,EQUAL,,equal
+r10uvm50repro/a7,EQUAL,,equal
+r10v136repro/v136_g_param,EQUAL,,equal
+r10v202repro/v202_6_twotd,EQUAL,,equal
+r10v206repro/v206_d_selfname,EQUAL,,equal
+r11u111repro/grid/f5/e08_explicit_import,EQUAL,,equal

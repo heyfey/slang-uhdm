@@ -1,0 +1,11 @@
+# v11u215: raw vpiFullName multiset census (drivers/fnaway.py) on the corpus movers' uhdm-dumps, golden / pristine
+# sweep / law sweep (default mode; testflags is byte-identical to default on BuildUVMPkg, MiniAmiq, and the census
+# per mode reads the same counts on the chain-keyed walk): away = golden-agreeing name lines pristine held and the law
+# lost; toward = the reverse; new_not_in_golden = law lines golden does not hold.
+surelog/default/SeqDriver fn away=0 toward=98 changed_lines=103->99 new_not_in_golden=0
+surelog/default/BuildUVMPkg fn away=0 toward=38 changed_lines=40->38 new_not_in_golden=0
+surelog/default/SimpleUVM fn away=0 toward=62 changed_lines=64->62 new_not_in_golden=0
+surelog/default/Scoreboard fn away=0 toward=66 changed_lines=68->66 new_not_in_golden=0
+surelog/default/MiniAmiq fn away=0 toward=101 changed_lines=108->104 new_not_in_golden=2   (NEWBAD 1 work@svaunit_vpi_interface.uvm_pkg::UVM_SEQ_ARB_TYPE, 1 work@svaunit_vpi_interface.uvm_pkg::uvm_severity_type: a count golden holds one fewer of; wrong-to-wrong, 0 away)
+surelog/default/BlackBePipeInt fn away=0 toward=21 changed_lines=0->21 new_not_in_golden=0
+uhdm2rtlil/default/ibex_tracer fn away=0 toward=0 changed_lines=13->0 new_not_in_golden=0   (the 13 unparented refs print no full name)

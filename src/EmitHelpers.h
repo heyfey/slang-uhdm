@@ -15356,4 +15356,57 @@ inline void trace210(const char* law) {
         fflush(tf);
     }
 }
+// ===========================================================================
+// r11u215 — the expression/parameter ground (tools/probe/r11u215repro).
+// Every law reads its own R11U215_<LAW>_OFF switch; R11U215_OFF drops every
+// one of them (the pristine bytes).  R11U215_TRACE=<dir> names every firing
+// (one file per process, `<dir>/<pid>.T215`, first line `OUT <-o path>`,
+// then one `<law> <detail>` line per firing): the firing census that
+// predicts the movers.
+// ===========================================================================
+inline bool r11u215On(const char* one) {
+    static const bool all = getenv("R11U215_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+/// r11u215 — the full name a ref_typespec / ref_obj STORES, without the
+/// generated getter's side effect: `VpiFullName()` computes and caches
+/// BaseClass::ComputeFullName when nothing is stored, which interns a string
+/// read from the parent chain as it stands at that moment (a law reading it
+/// early left an orphan symbol whose text followed an emission-order draw:
+/// the determinism runs' storage-only second hash on SeqDriver testflags).
+/// Returns false (and leaves `out` empty) when nothing is stored.  Defined in
+/// ParamEmit.cpp.
+bool r215StoredFullName(const UHDM::BaseClass* o, std::string& out);
+inline void trace215(const char* law, const std::string& detail = std::string()) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U215_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".T215";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
+}
 } // namespace slang_uhdm

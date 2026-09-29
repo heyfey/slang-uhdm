@@ -1,0 +1,2 @@
+swP    3273 /tmp/r11u215_bin/pris.bin
+swL    3273 /tmp/r11u215_bin/law26.bin

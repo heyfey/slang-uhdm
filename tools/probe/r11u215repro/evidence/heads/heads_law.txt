@@ -1,0 +1,147 @@
+== MiniAmiq default
+#899 file
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16
+#11306 endline
+  A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12236 endline
+  A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12285 line
+  A: 11	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 11	method_func_call	get_full_name			uvm_message_defines.svh	115	89	1346	16		0
+fields: depth=1 type=1 name=1 file=19 line=61 col=61 endline=73 endcol=75 objects_differing=75 (walk diverged)
+STRICT_NOTEQUAL file
+== MiniAmiq testflags
+#899 file
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16
+#11306 endline
+  A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12236 endline
+  A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12285 line
+  A: 11	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 11	method_func_call	get_full_name			uvm_message_defines.svh	115	89	1346	16		0
+fields: depth=1 type=1 name=1 file=19 line=61 col=61 endline=73 endcol=75 objects_differing=75 (walk diverged)
+STRICT_NOTEQUAL file
+== SeqDriver default
+#11289 endline
+  A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12219 endline
+  A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12268 line
+  A: 11	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 11	method_func_call	get_full_name			uvm_message_defines.svh	115	89	1346	16		0
+#12270 line
+  A: 11	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 11	method_func_call	get_inst_id			uvm_message_defines.svh	115	111	1346	14		0
+fields: depth=1 type=1 name=1 file=5 line=47 col=47 endline=59 endcol=61 objects_differing=61 (walk diverged)
+STRICT_NOTEQUAL endline
+== SeqDriver testflags
+#11301 endline
+  A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12231 endline
+  A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12280 line
+  A: 11	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 11	method_func_call	get_full_name			uvm_message_defines.svh	115	89	1346	16		0
+#12282 line
+  A: 11	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 11	method_func_call	get_inst_id			uvm_message_defines.svh	115	111	1346	14		0
+fields: depth=1 type=1 name=1 file=5 line=47 col=47 endline=59 endcol=61 objects_differing=61 (walk diverged)
+STRICT_NOTEQUAL endline
+== SimpleUVM default
+#458 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#464 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+#483 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0
+#490 fullname
+  A: 6	ref_typespec			UVM_START_FUNCS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_START_FUNCS		0	0	0	0		0
+fields: depth=1 type=1 fullname=97 file=19 line=61 col=61 endline=80 endcol=94 decompile=1 value=1 consttype=1 objects_differing=190 (walk diverged)
+STRICT_NOTEQUAL fullname
+== SimpleUVM testflags
+#470 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#476 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+#495 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0
+#502 fullname
+  A: 6	ref_typespec			UVM_START_FUNCS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_START_FUNCS		0	0	0	0		0
+fields: depth=1 type=1 fullname=97 file=19 line=61 col=61 endline=80 endcol=94 decompile=1 value=1 consttype=1 objects_differing=190 (walk diverged)
+STRICT_NOTEQUAL fullname
+== Scoreboard default
+#466 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#472 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+#491 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0
+#498 fullname
+  A: 6	ref_typespec			UVM_START_FUNCS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_START_FUNCS		0	0	0	0		0
+fields: depth=1 type=1 fullname=45 file=18 line=59 col=59 endline=78 endcol=92 decompile=1 value=1 consttype=1 objects_differing=136 (walk diverged)
+STRICT_NOTEQUAL fullname
+== BuildUVMPkg default
+#22884 endcol
+  A: 11	typespec_member	args			uvm_pkg.sv	38390	9	38390	16
+  B: 11	typespec_member	args			uvm_pkg.sv	38390	9	38390	13
+#23179 endcol
+  A: 11	typespec_member	args			uvm_pkg.sv	38390	9	38390	16
+  B: 11	typespec_member	args			uvm_pkg.sv	38390	9	38390	13
+#26855 line
+  A: 5	class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42
+  B: 5	class_typespec	this_type			uvm_pkg.sv	56391	12	56391	32
+#42260 endcol
+  A: 4	assignment				uvm_pkg.sv	70758	4	70758	50
+  B: 4	assignment				uvm_pkg.sv	70758	4	70758	52
+fields: type=1 name=1 fullname=13 line=5 col=5 endline=9 endcol=20 objects_differing=33 (walk diverged)
+STRICT_NOTEQUAL endcol
+== BuildUVMPkg testflags
+#22884 endcol
+  A: 11	typespec_member	args			uvm_pkg.sv	38390	9	38390	16
+  B: 11	typespec_member	args			uvm_pkg.sv	38390	9	38390	13
+#23179 endcol
+  A: 11	typespec_member	args			uvm_pkg.sv	38390	9	38390	16
+  B: 11	typespec_member	args			uvm_pkg.sv	38390	9	38390	13
+#26855 line
+  A: 5	class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42
+  B: 5	class_typespec	this_type			uvm_pkg.sv	56391	12	56391	32
+#42260 endcol
+  A: 4	assignment				uvm_pkg.sv	70758	4	70758	50
+  B: 4	assignment				uvm_pkg.sv	70758	4	70758	52
+fields: type=1 name=1 fullname=13 line=5 col=5 endline=9 endcol=20 objects_differing=33 (walk diverged)
+STRICT_NOTEQUAL endcol
+== BlackBePipeInt default
+#15272 type
+  A: 5	ref_typespec			bp_common_pkg		0	0	0	0		0
+  B: 5	constant				dut.sv	2047	16	2047	17	1	64	UINT:1	9
+fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== BlackBePipeInt testflags
+#66 depth
+  A: 2	parameter	host_dev_gp		bp_common_pkg::host_dev_gp	dut.sv	1795	12	1795	23		0	UINT:1
+  B: 6	parameter	dev_addr_width_gp		bp_common_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20
+fields: depth=1 name=1 fullname=1 line=1 endline=1 endcol=1 value=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth

@@ -1371,7 +1371,12 @@ static bool varSelRangeIdx198(const UHDM::var_select* vs) {
 // The pristine bit_select rule stamps under a non-reducing system call too
 // (t18, a pristine residue this refinement does not touch).
 static bool vsStampReducedCtxOnly198v(const UHDM::any* parent, bool opBare) {
-    static const bool off = getenv("R11V198_VSSYS_OFF") != nullptr;
+    // § landingSwitchReach215 (r11u215, item 8 of the brief): the verifier's
+    // pass switch R11V198_OFF was read nowhere; it now drops v11u198's one
+    // refinement of this ground like R11V198_VSSYS_OFF (the old switch keeps
+    // its meaning).
+    static const bool off = getenv("R11V198_VSSYS_OFF") != nullptr ||
+                            getenv("R11V198_OFF") != nullptr;
     if (off || !parent)
         return false;
     int d = 0;
@@ -30063,10 +30068,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             else
                                 dotIdx23 = false;
                         }
+                        // § opIdxRecvElemFollowsPath215 — the per-segment
+                        // pretty-printed OPERATION index text (below).
+                        std::vector<std::string> ppSeg215(segs11.size());
+                        bool pp215 = false;
                         if (!dotIdx23) {
                             std::string rb92;
                             bool ok92 = !segs11.empty(), any92 = false;
+                            size_t si215 = 0;
                             for (auto& sg92 : segs11) {
+                                size_t i215 = si215++;
                                 if (!rb92.empty())
                                     rb92 += ".";
                                 rb92 += sg92.name;
@@ -30081,6 +30092,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     }
                                     rb92 += "[" + ip92 + "]";
                                     any92 = true;
+                                    ppSeg215[i215] = rb92;
                                 }
                                 else {
                                     std::string rw92 =
@@ -30094,6 +30106,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             }
                             if (ok92 && any92)
                                 recvTx11 = rb92;
+                            pp215 = ok92 && any92 &&
+                                    r11u215On("R11U215_OPIDXRECV_OFF");
                         }
                         std::string dotted11 =
                             recvTx11 + "." + std::string(sub.name);
@@ -30103,7 +30117,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         hp11->VpiParent(parent);
                         setLoc(hp11, callRng11);
                         auto* elems11 = s.MakeAnyVec();
+                        size_t seg215 = 0;
                         for (auto& sg11 : segs11) {
+                            const size_t i215 = seg215++;
                             if (!sg11.idx) {
                                 auto* r11 = s.MakeRef_obj();
                                 r11->VpiName(sg11.name);
@@ -30150,6 +30166,102 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 if (dotIdx23 &&
                                     ix11->UhdmType() != UHDM::uhdmconstant)
                                     ((UHDM::any*)ix11)->VpiParent(hp11);
+                                // § opIdxRecvElemFollowsPath215 (r11u215;
+                                // BuildUVMPkg `fields[fld_idx-1].get_lsb_pos()`
+                                // uvm_pkg.sv:64845, grid tools/probe/r11u215repro/
+                                // cases/R) — an OPERATION index of a deep
+                                // receiver's element takes the path convention
+                                // § dottedIdxRecvFromSyntax23 gives a dotted
+                                // index: Surelog's element (the `paBit_select`
+                                // arm of compileComplexFuncCall) names the
+                                // bit_select `<name>[<decompiled index>]` (the
+                                // same text § hpIdxOpPrettyPrint92 writes into
+                                // the path's name: golden `fields[fld_idx -
+                                // 1]`, ours the written `fields[fld_idx-1]`),
+                                // and the operation hangs at the HIER_PATH, its
+                                // references storing no full name, so they read
+                                // BaseClass::ComputeFullName through the path:
+                                // golden `p::reg_c::f::fields[fld_idx -
+                                // 1].get_lsb_pos::fld_idx`, ours the scope's
+                                // `p::reg_c::f::fld_idx`.  A reference whose
+                                // stored name is not the scope-joined one is
+                                // left alone.  Switch R11U215_OPIDXRECV_OFF.
+                                else if (pp215 && !ppSeg215[i215].empty() &&
+                                         ix11->UhdmType() == UHDM::uhdmoperation) {
+                                    // the written path through this
+                                    // element, every operation index
+                                    // decompiled (golden `one.fields[i - 1]`)
+                                    bs11->VpiFullName(ppSeg215[i215]);
+                                    ((UHDM::any*)ix11)->VpiParent(hp11);
+                                    const std::string hpFull215 =
+                                        joinRef(prefix, std::string(hp11->VpiName()));
+                                    std::function<void(const UHDM::VectorOfany*)> ren215 =
+                                        [&](const UHDM::VectorOfany* v215) {
+                                            if (!v215)
+                                                return;
+                                            for (auto* x215 : *v215) {
+                                                auto k215 = x215->UhdmType();
+                                                if (k215 == UHDM::uhdmoperation)
+                                                    ren215(((UHDM::operation*)x215)->Operands());
+                                                // a call's arguments: the chain
+                                                // skips the call's own name
+                                                else if (k215 == UHDM::uhdmfunc_call ||
+                                                         k215 == UHDM::uhdmsys_func_call)
+                                                    ren215(((UHDM::tf_call*)x215)->Tf_call_args());
+                                                else if (k215 == UHDM::uhdmref_obj) {
+                                                    auto* r215 = (UHDM::ref_obj*)x215;
+                                                    std::string nm215(r215->VpiName());
+                                                    std::string cur215;
+                                                    if (r215StoredFullName(r215, cur215) &&
+                                                        cur215 == joinRef(prefix, nm215))
+                                                        r215->VpiFullName(joinRef(hpFull215, nm215));
+                                                }
+                                            }
+                                        };
+                                    ren215(((UHDM::operation*)ix11)->Operands());
+                                    trace215("opIdxRecvElemFollowsPath215",
+                                             std::string(bs11->VpiFullName()));
+                                }
+                                // § opIdxRecvPlainElab215 (r11u215, grid
+                                // cases/R r06, r01 in the `--elabuhdm` view) —
+                                // in the elaborated view golden names a PLAIN
+                                // reference index of the element through the
+                                // path too (`work@m.f.fields[i].get_lsb_pos.i`,
+                                // the parse view keeps the scope's
+                                // `work@m.f.i`): the elaboration run's binding
+                                // stores no full name there.  A module's
+                                // DEFINITION listing (`moduleDefEmit`) keeps
+                                // the scope's name in both views (r06 #53,
+                                // #72: the first draft renamed it), and the
+                                // elaborated instance's copy of a module body is
+                                // not re-emitted here, so the law is held to a
+                                // PACKAGE CLASS METHOD (residues: the module
+                                // instance's copy; a package FREE function's
+                                // clone keeps the scope's name in golden,
+                                // r10uvm39repro/t55b `home56::fIndex56::i4`,
+                                // which the first draft renamed: found by the
+                                // byte controls' chain census).  Switch
+                                // R11U215_OPIDXRECVELAB_OFF.
+                                else if (!dotIdx23 && elabUhdmView121 && !moduleDefEmit &&
+                                         prefix.find("::") != std::string::npos &&
+                                         prefix.find("::") < prefix.find('.') &&
+                                         currentSubSym && currentSubSym->getParentScope() &&
+                                         currentSubSym->getParentScope()->asSymbol().kind ==
+                                             SymbolKind::ClassType &&
+                                         ix11->UhdmType() == UHDM::uhdmref_obj &&
+                                         r11u215On("R11U215_OPIDXRECV_OFF") &&
+                                         r11u215On("R11U215_OPIDXRECVELAB_OFF")) {
+                                    auto* r215 = (UHDM::ref_obj*)ix11;
+                                    std::string nm215(r215->VpiName());
+                                    std::string cur215;
+                                    if (r215StoredFullName(r215, cur215) &&
+                                        cur215 == joinRef(prefix, nm215)) {
+                                        r215->VpiFullName(joinRef(
+                                            joinRef(prefix, std::string(hp11->VpiName())),
+                                            nm215));
+                                        trace215("opIdxRecvPlainElab215", nm215);
+                                    }
+                                }
                                 bs11->VpiIndex((UHDM::expr*)ix11);
                             }
                             forceConstParent = fsx11;
@@ -39711,7 +39823,41 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // component, not `this`).  SPAN: the base anchor; NAME: the leaf.
             const bool legacyLv157 = lhsM154 || paramInitStructMember || incDecLv124;
             bool selSpan157 = legacyLv157, selName157 = legacyLv157;
-            if (!pkgQualBase9 && vifComps5.empty() && !thisPath && !chain.empty())
+            // § incDecOperandKeepsLvalueForm215 (r11u215; BuildUVMPkg
+            // `param_t.set_transaction_id(sequence_ptr.m_next_transaction_id++)`
+            // 54011:34-68, grid tools/probe/r11u215repro/cases/D) — the
+            // operand of a pre/post increment or decrement is compiled
+            // through Surelog's Variable_lvalue arm whatever position the
+            // operation stands in (§ incDecMemberPathIsLvalue124's decode),
+            // so § hpSelRoute157's grammar route, which reads the positions
+            // ABOVE the operation (a subroutine argument: CFC), does not
+            // re-decide it: the base ref sits on the first member's token and
+            // the leaf keeps a name-only full name.  The route reached the
+            // path only when the operation was already parented (a prefix
+            // operator, or any operator inside a method call's argument
+            // list); a postfix one in a plain call kept the lvalue form.
+            // Switch R11U215_INCDECROUTE_OFF.
+            // The operand inside an assignment target's index (`arr[s.n++] =
+            // 1;`, cases/D d04) is the same operator: `inLhs` does not reach it.
+            const bool idKeep215 = !offId124 && incDecOperand124() == &expr &&
+                                   nv.symbol.name != "this" &&
+                                   r11u215On("R11U215_INCDECROUTE_OFF");
+            if (idKeep215 && !pkgQualBase9 && vifComps5.empty() && !thisPath &&
+                !chain.empty()) {
+                bool span215 = legacyLv157, name215 = legacyLv157;
+                if (HpRoute157 r215 = hpRoute157(parent, ternTrueArmOps31, hp, inCastSize);
+                    r215 != HpRoute157::Keep) {
+                    if (hpRoute157SpanOn())
+                        span215 = r215 == HpRoute157::Sel;
+                    if (hpRoute157NameOn())
+                        name215 = r215 == HpRoute157::Sel;
+                }
+                if (!span215 || !name215)
+                    trace215("incDecOperandKeepsLvalueForm215", std::string(nv.symbol.name));
+                selSpan157 = selName157 = true;
+            }
+            if (!pkgQualBase9 && vifComps5.empty() && !thisPath && !chain.empty() &&
+                !idKeep215)
                 if (HpRoute157 r157 = hpRoute157(parent, ternTrueArmOps31, hp, inCastSize);
                     r157 != HpRoute157::Keep) {
                     if (hpRoute157SpanOn())

@@ -4335,6 +4335,694 @@ static void leftRefRepointGs174(UHDM::gen_scope* g) {
                     leftRefRepointGs174(g2);
 }
 
+// r11u215 — the stored-full-name probe (declaration in EmitHelpers.h).  The
+// generated classes keep the symbol id private; an explicit instantiation may
+// name a private member ([temp.explicit]), which is how the probe reads it.
+namespace {
+template <typename Tag, typename Tag::type M>
+struct Rob215 {
+    friend typename Tag::type get215(Tag) { return M; }
+};
+struct RtsFull215 {
+    typedef UHDM::SymbolId UHDM::ref_typespec::*type;
+    friend type get215(RtsFull215);
+};
+struct RobjFull215 {
+    typedef UHDM::SymbolId UHDM::ref_obj::*type;
+    friend type get215(RobjFull215);
+};
+} // namespace
+template struct Rob215<RtsFull215, &UHDM::ref_typespec::vpiFullName_>;
+template struct Rob215<RobjFull215, &UHDM::ref_obj::vpiFullName_>;
+bool r215StoredFullName(const UHDM::BaseClass* o, std::string& out) {
+    out.clear();
+    if (!o)
+        return false;
+    if (o->UhdmType() == UHDM::uhdmref_typespec) {
+        auto* r = (const UHDM::ref_typespec*)o;
+        if (!(r->*get215(RtsFull215())))
+            return false;
+        out = std::string(r->VpiFullName());
+        return true;
+    }
+    if (o->UhdmType() == UHDM::uhdmref_obj) {
+        auto* r = (const UHDM::ref_obj*)o;
+        if (!(r->*get215(RobjFull215())))
+            return false;
+        out = std::string(r->VpiFullName());
+        return true;
+    }
+    return false;
+}
+// § pkgTdAliasLastWriter215 (r11u215, map 13 N0540 N0582 N0689 N0900 N1424 and
+// the TypeEmit twin N0778; grid tools/probe/r11u215repro/cases/A) — the
+// Typedef_alias ref of a PACKAGE typedef that aliases another typedef (an enum
+// alias `typedef e_t alias_t;`, a class specialization `typedef gen#(int)
+// g_int_t;`) carries the full name its ONE shared typedef object computes at
+// save time.  UHDM's generated VpiFullName() getter caches
+// BaseClass::ComputeFullName on first read (third_party/Surelog/third_party/
+// UHDM/scripts/classes.py, the vpiFullName getter), and the serializer reads
+// it at save (Serializer_save.cpp), so the name follows the typedef object's
+// FINAL vpiParent: UhdmWriter::writeDataTypes(setParent) re-parents every
+// DataTypeMap entry at its writer (UhdmWriter.cpp writeDataTypes), and
+// UhdmWriter::write runs the writers in a fixed order: the `$unit` file
+// contents (parent design: no prefix), the packages in their compile order
+// (getOrderedPackageDefinitions: the home package and every package whose
+// DataTypeMap received the typedef through importPackage, directly or
+// through another importing package), the programs, the interfaces and the
+// modules each in definition-NAME order (writeModule / writeInterface /
+// writeProgram, a module-local class written right after its module), and
+// last the `$unit` classes in class-NAME order (the top-level class loop,
+// CompileClass imports the `$unit` import items of its own FILE only).  The
+// last writer names the ref: `<pkg>::<home>::T` (a package writer, the
+// column join), `work@<def>.<home>::T` (a program, interface or module),
+// `work@<mod>::<cls>::<home>::T` (a module-local class), `work@<cls>::<home>::T`
+// (a `$unit` class).  Ours named the ref at creation (bare `<home>::T`, the
+// package's own `<home>::<home>::T`, or the importing module's through
+// § enumImportParentLastWriter180's drain, which runs later and keeps its own
+// module and interface decisions); this design-final stamp writes the
+// last-writer name on every enum or class typedef object's alias ref whose
+// name is the package typedef's.  Switch R11U215_TDALIAS_OFF.
+namespace {
+struct TdWriter215 {
+    std::string prefix;   // "" = none (the $unit design parent)
+    bool column = false;  // a package or class on the chain joins with ::
+};
+} // namespace
+static void pkgTdAliasLastWriter215(
+    UHDM::Serializer& s, UHDM::design* d, Compilation& comp,
+    const std::function<std::string(SourceLocation)>& rootOf) {
+    if (!r11u215On("R11U215_TDALIAS_OFF") || !d)
+        return;
+    struct Cand {
+        UHDM::ref_typespec* r;
+        const PackageSymbol* pkg;
+        std::string td;
+        uint32_t id;
+        bool clone = false;  // § pkgImportEnumCloneLastWriter215's candidate
+        int sub = 0;         // 0 the alias ref, 1 the base ref of the same object
+        const UHDM::BaseClass* obj = nullptr;  // the clone candidate's enum object
+    };
+    std::vector<Cand> cands;
+    // § enumCloneValueItemKeepsBare215v (v11u215) — the packages that list
+    // each clone candidate's enum object (every listing, not only the first).
+    std::map<const UHDM::BaseClass*, std::vector<const PackageSymbol*>> listers215v;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        UHDM::ref_typespec* al = nullptr;
+        bool isClass = false;
+        if (o->UhdmType() == UHDM::uhdmenum_typespec)
+            al = ((UHDM::enum_typespec*)o)->Typedef_alias();
+        else if (o->UhdmType() == UHDM::uhdmclass_typespec) {
+            al = ((UHDM::class_typespec*)o)->Typedef_alias();
+            isClass = true;
+        }
+        if (!al)
+            continue;
+        std::string nm(o->VpiName());
+        size_t c = nm.find("::");
+        if (c == std::string::npos || c == 0 || nm.find("::", c + 2) != std::string::npos)
+            continue;
+        auto* pkg = comp.getPackage(nm.substr(0, c));
+        if (!pkg)
+            continue;
+        std::string td = nm.substr(c + 2);
+        auto* sym = pkg->find(td);
+        if (!sym || sym->kind != SymbolKind::TypeAlias)
+            continue;
+        auto& ta = sym->as<TypeAliasType>();
+        auto& ct = ta.getCanonicalType();
+        if (isClass ? ct.kind != SymbolKind::ClassType
+                    : (ct.kind != SymbolKind::EnumType ||
+                       ta.targetType.getType().kind != SymbolKind::TypeAlias))
+            continue;
+        cands.push_back({al, pkg, td, o->UhdmId()});
+        // The enum object's base-type ref is the same chain's unnamed child
+        // (ComputeFullName reads the same parent): the same name.
+        if (!isClass)
+            if (auto* br = ((UHDM::enum_typespec*)o)->Base_typespec())
+                cands.push_back({br, pkg, td, o->UhdmId(), false, 1});
+    }
+    // § pkgImportEnumCloneLastWriter215 — a PLAIN package enum typedef
+    // (`typedef enum logic [1:0] {...} e_t;`) has two objects in golden: the
+    // home package's own listing object (base ref `<home>::<home>::e_t`) and
+    // the one importPackage hands every importer's DataTypeMap, re-parented
+    // by each writer in turn (cases/A q1, q3: `q::p::e_t` under the importing
+    // package `q`).  Ours is the shared import clone ParamEmit's emitPackage
+    // builds for the first importing package (§ pkgImportAggCloneLastWriter32),
+    // listed by that package with a bare base ref; module and interface
+    // importers rename it through § enumImportParentLastWriter180's drain,
+    // which runs later.  The clone an importing package lists, its base ref
+    // still bare, takes the last writer's name.  Switch R11U215_ENUMCLONE_OFF.
+    if (r11u215On("R11U215_ENUMCLONE_OFF")) {
+        std::set<const UHDM::BaseClass*> seen;
+        auto scanPkgs = [&](const UHDM::VectorOfpackage* v) {
+            if (!v)
+                return;
+            for (auto* lp : *v) {
+                if (!lp->Typespecs())
+                    continue;
+                for (auto* t : *lp->Typespecs()) {
+                    if (t->UhdmType() != UHDM::uhdmenum_typespec)
+                        continue;
+                    auto* et = (UHDM::enum_typespec*)t;
+                    auto* br = et->Base_typespec();
+                    if (!br || et->Typedef_alias())
+                        continue;
+                    std::string nm(t->VpiName());
+                    size_t c = nm.find("::");
+                    if (c == std::string::npos || c == 0 ||
+                        nm.find("::", c + 2) != std::string::npos ||
+                        nm.substr(0, c) == lp->VpiName())
+                        continue;
+                    listers215v[t].push_back(comp.getPackage(lp->VpiName()));
+                    if (!seen.insert(t).second)
+                        continue;
+                    auto* pkg = comp.getPackage(nm.substr(0, c));
+                    if (!pkg)
+                        continue;
+                    std::string td = nm.substr(c + 2);
+                    auto* sym = pkg->find(td);
+                    if (!sym || sym->kind != SymbolKind::TypeAlias ||
+                        sym->as<TypeAliasType>().getCanonicalType().kind !=
+                            SymbolKind::EnumType ||
+                        sym->as<TypeAliasType>().targetType.getType().kind ==
+                            SymbolKind::TypeAlias)
+                        continue;
+                    std::string bn215;
+                    if (!r215StoredFullName(br, bn215) || bn215 != nm)
+                        continue;
+                    cands.push_back({br, pkg, td, t->UhdmId(), true});
+                    cands.back().obj = t;
+                    trace215("diagEnumClone215", nm + " listed by " + std::string(lp->VpiName()));
+                }
+            }
+        };
+        scanPkgs(d->TopPackages());
+        scanPkgs(d->AllPackages());
+    }
+    if (cands.empty())
+        return;
+    // An enum object an elaborated continuous assignment's left side is
+    // typed by ends UNPARENTED in golden (writeCont_assign clears the LHS
+    // typespec's parent after every writer, § contAssignLhsTsUnparented134):
+    // its refs keep the bare name (uhdm2rtlil TypedefEnum `output pkg::b o;
+    // assign o = pkg::x;`: golden `pkg::b`, the first draft `pkg::pkg::b`).
+    // The same (kind, name, file, line:col) key and LHS binding as
+    // typedefParentModel134's caUnparent half (UhdmExporter.cpp), which runs
+    // after this stamp and renames only the objects whose parent it moves.
+    std::set<std::string> caKeys;
+    {
+        auto key = [](const UHDM::BaseClass* t) {
+            return std::to_string((int)t->UhdmType()) + "|" + std::string(t->VpiName()) +
+                   "|" + std::string(t->VpiFile()) + "|" + std::to_string(t->VpiLineNo()) +
+                   ":" + std::to_string(t->VpiColumnNo());
+        };
+        auto noteCa = [&](const UHDM::cont_assign* ca, const UHDM::module_inst* scope) {
+            auto* lhs = ca->Lhs();
+            if (!lhs)
+                return;
+            const UHDM::typespec* tps = nullptr;
+            if (auto* rt = lhs->Typespec())
+                tps = rt->Actual_typespec();
+            if (lhs->UhdmType() == UHDM::uhdmref_obj && scope) {
+                const UHDM::expr* var = nullptr;
+                if (auto* v = scope->Variables())
+                    for (auto* x : *v)
+                        if (x->VpiName() == lhs->VpiName()) {
+                            var = x;
+                            break;
+                        }
+                if (!var)
+                    if (auto* v = scope->Nets())
+                        for (auto* x : *v)
+                            if (x->VpiName() == lhs->VpiName()) {
+                                var = x;
+                                break;
+                            }
+                if (var)
+                    if (auto* rt = var->Typespec())
+                        if (auto* t = rt->Actual_typespec())
+                            tps = t;
+            }
+            if (tps && tps->UhdmType() == UHDM::uhdmenum_typespec && !tps->VpiName().empty())
+                caKeys.insert(key(tps));
+        };
+        const UHDM::module_inst* bindScope = nullptr;
+        std::function<void(const UHDM::any*)> walk = [&](const UHDM::any* o) {
+            if (!o)
+                return;
+            auto doScope = [&](auto* sc) {
+                if (auto* v = sc->Cont_assigns())
+                    for (auto* ca : *v)
+                        noteCa(ca, bindScope);
+                if (auto* v = sc->Gen_scope_arrays())
+                    for (auto* ga : *v)
+                        if (auto* gs = ga->Gen_scopes())
+                            for (auto* g : *gs)
+                                walk(g);
+            };
+            if (o->UhdmType() == UHDM::uhdmmodule_inst) {
+                auto* m = (const UHDM::module_inst*)o;
+                auto* saved = bindScope;
+                bindScope = m;
+                doScope(m);
+                if (auto* v = m->Modules())
+                    for (auto* c : *v)
+                        walk(c);
+                if (auto* v = m->Interfaces())
+                    for (auto* c : *v)
+                        walk(c);
+                bindScope = saved;
+            } else if (o->UhdmType() == UHDM::uhdminterface_inst) {
+                auto* m = (const UHDM::interface_inst*)o;
+                auto* saved = bindScope;
+                bindScope = nullptr;
+                doScope(m);
+                if (auto* v = m->Interfaces())
+                    for (auto* c : *v)
+                        walk(c);
+                bindScope = saved;
+            } else if (o->UhdmType() == UHDM::uhdmgen_scope) {
+                auto* g = (const UHDM::gen_scope*)o;
+                doScope(g);
+                if (auto* v = g->Modules())
+                    for (auto* c : *v)
+                        walk(c);
+                if (auto* v = g->Interfaces())
+                    for (auto* c : *v)
+                        walk(c);
+            }
+        };
+        if (auto* tops = d->TopModules())
+            for (auto* t : *tops)
+                walk(t);
+        if (!caKeys.empty())
+            cands.erase(std::remove_if(cands.begin(), cands.end(),
+                                       [&](const Cand& c) {
+                                           auto* o = c.r->VpiParent();
+                                           if (!o || !caKeys.count(key(o)))
+                                               return false;
+                                           trace215("diagTdAliasCaUnparent215",
+                                                    std::string(o->VpiName()));
+                                           return true;
+                                       }),
+                        cands.end());
+        if (cands.empty())
+            return;
+    }
+    // Id order, the alias ref before the base ref of one object: AllObjects()
+    // iterates by address, and a read of a ref with no stored full name
+    // interns a symbol, so the order must not depend on the allocation
+    // (the determinism runs drew a second storage-only hash on law23).
+    std::sort(cands.begin(), cands.end(), [](const Cand& a, const Cand& b) {
+        return std::make_pair(a.id, a.sub) < std::make_pair(b.id, b.sub);
+    });
+    // Does scope Q's DataTypeMap hold home::td (importPackage copies the
+    // imported package's map: transitive; an explicit import copies only
+    // the item it names, § enumImpNamedItemWrites190v's decode)?
+    std::map<std::pair<const PackageSymbol*, const PackageSymbol*>, int> memo;
+    std::function<bool(const PackageSymbol*, const PackageSymbol*,
+                       const std::string&)>
+        reach = [&](const PackageSymbol* q, const PackageSymbol* home,
+                    const std::string& td) -> bool {
+        if (!q)
+            return false;
+        if (q == home)
+            return true;
+        auto key = std::make_pair(q, home);
+        if (auto it = memo.find(key); it != memo.end())
+            return it->second == 1;
+        memo[key] = 2;  // in progress: a cycle reads false
+        bool r = false;
+        for (auto& m : q->members()) {
+            if (m.kind == SymbolKind::WildcardImport) {
+                if (reach(comp.getPackage(m.as<WildcardImportSymbol>().packageName),
+                          home, td)) {
+                    r = true;
+                    break;
+                }
+            }
+            else if (m.kind == SymbolKind::ExplicitImport) {
+                auto& ei = m.as<ExplicitImportSymbol>();
+                if (ei.importName == td &&
+                    reach(comp.getPackage(ei.packageName), home, td)) {
+                    r = true;
+                    break;
+                }
+            }
+        }
+        memo[key] = r ? 1 : 0;
+        return r;
+    };
+    // An import item (package, item) that brings home::td.
+    auto itemBrings = [&](std::string_view pn, std::string_view item,
+                          const PackageSymbol* home, const std::string& td) {
+        if (item != "*" && item != td)
+            return false;
+        return reach(comp.getPackage(pn), home, td);
+    };
+    // The `$unit` import items per root file.
+    std::vector<std::tuple<std::string, std::string, std::string>> unitImports;
+    std::vector<std::pair<std::string, std::string>> unitClasses;  // (name, root file)
+    for (auto* cu : comp.getCompilationUnits())
+        for (auto& m : cu->members()) {
+            if (m.kind == SymbolKind::WildcardImport)
+                unitImports.emplace_back(rootOf(m.location),
+                                         std::string(m.as<WildcardImportSymbol>().packageName),
+                                         "*");
+            else if (m.kind == SymbolKind::ExplicitImport)
+                unitImports.emplace_back(rootOf(m.location),
+                                         std::string(m.as<ExplicitImportSymbol>().packageName),
+                                         std::string(m.as<ExplicitImportSymbol>().importName));
+            else if ((m.kind == SymbolKind::ClassType ||
+                      m.kind == SymbolKind::GenericClassDef) &&
+                     !m.name.empty())
+                unitClasses.emplace_back(std::string(m.name), rootOf(m.location));
+        }
+    auto unitBrings = [&](const std::string& file, const PackageSymbol* home,
+                          const std::string& td) {
+        for (auto& [f, pn, item] : unitImports)
+            if (f == file && itemBrings(pn, item, home, td))
+                return true;
+        return false;
+    };
+    // The definitions Surelog writes (our design lists, by definition name).
+    std::set<std::string> listed;
+    if (auto* v = d->AllModules())
+        for (auto* x : *v)
+            listed.insert(std::string(x->VpiDefName()));
+    if (auto* v = d->AllInterfaces())
+        for (auto* x : *v)
+            listed.insert(std::string(x->VpiDefName()));
+    if (auto* v = d->AllPrograms())
+        for (auto* x : *v)
+            listed.insert(std::string(x->VpiDefName()));
+    struct Def215 {
+        int rank;  // 0 program, 1 interface, 2 module (UhdmWriter's loops)
+        std::string name;
+        std::string file;
+        std::vector<std::pair<std::string, std::string>> imports;
+        std::vector<std::string> classes;
+    };
+    std::vector<Def215> defs;
+    for (auto* sym : comp.getDefinitions()) {
+        if (sym->kind != SymbolKind::Definition)
+            continue;
+        auto& ds = sym->as<DefinitionSymbol>();
+        int rank = ds.definitionKind == DefinitionKind::Program     ? 0
+                   : ds.definitionKind == DefinitionKind::Interface ? 1
+                   : ds.definitionKind == DefinitionKind::Module    ? 2
+                                                                    : -1;
+        if (rank < 0 || !listed.count("work@" + std::string(ds.name)))
+            continue;
+        auto* syn = ds.getSyntax();
+        if (!syn || !syntax::ModuleDeclarationSyntax::isKind(syn->kind))
+            continue;
+        auto& md = syn->as<syntax::ModuleDeclarationSyntax>();
+        Def215 df{rank, std::string(ds.name), rootOf(ds.location), {}, {}};
+        auto addDecl = [&](const syntax::PackageImportDeclarationSyntax& pd) {
+            for (auto* it : pd.items)
+                df.imports.emplace_back(std::string(it->package.valueText()),
+                                        std::string(it->item.rawText()));
+        };
+        for (auto* pd : md.header->imports)
+            addDecl(*pd);
+        for (auto* mem : md.members) {
+            if (mem->kind == syntax::SyntaxKind::PackageImportDeclaration)
+                addDecl(mem->as<syntax::PackageImportDeclarationSyntax>());
+            else if (mem->kind == syntax::SyntaxKind::ClassDeclaration)
+                df.classes.emplace_back(
+                    std::string(mem->as<syntax::ClassDeclarationSyntax>().name.valueText()));
+        }
+        std::sort(df.classes.begin(), df.classes.end());
+        defs.push_back(std::move(df));
+    }
+    std::sort(defs.begin(), defs.end(), [](const Def215& a, const Def215& b) {
+        return std::make_pair(a.rank, a.name) < std::make_pair(b.rank, b.name);
+    });
+    std::sort(unitClasses.begin(), unitClasses.end());
+    // The packages in compile (source) order.
+    auto& sm = *comp.getSourceManager();
+    std::vector<const PackageSymbol*> pkgs = comp.getPackages();
+    std::stable_sort(pkgs.begin(), pkgs.end(),
+                     [&](const PackageSymbol* a, const PackageSymbol* b) {
+                         return includeExpandedLess(
+                             includeExpandedKey(sm, sm.getFullyOriginalLoc(a->location)),
+                             includeExpandedKey(sm, sm.getFullyOriginalLoc(b->location)));
+                     });
+    std::map<std::pair<const PackageSymbol*, std::string>, std::string> names;
+    for (auto& cd : cands) {
+        // § enumCloneValueItemKeepsBare215v (v11u215, the verifier's
+        // refinement of § pkgImportEnumCloneLastWriter215; cases
+        // tools/probe/v11u215repro/cases/TC c04-c06, r11v84repro/grid/
+        // v3_expedge) — a package that imports only an enum VALUE by explicit
+        // item (`import p::B;`) lists a clone of the enum whose base ref golden
+        // keeps BARE (`p::e_t`): importPackage copies that item, not the
+        // typedef, so no DataTypeMap writer re-parents that object.  The law
+        // renamed it to the last writer's name (`p::p::e_t`) whenever the
+        // clone was listed, moving a golden-agreeing name away (pristine was
+        // right; stage 1 on both binaries, so no gate saw it).  The stamp
+        // now needs at least one listing package that brings the typedef
+        // itself (a wildcard or the typedef's own item, directly or through
+        // another package: the law's own `reach`).  Switch
+        // R11V215_ENUMVALITEM_OFF.
+        if (cd.clone && getenv("R11V215_ENUMVALITEM_OFF") == nullptr) {
+            bool any215v = false;
+            if (auto it215v = listers215v.find(cd.obj); it215v != listers215v.end())
+                for (auto* L : it215v->second)
+                    if (L && reach(L, cd.pkg, cd.td)) {
+                        any215v = true;
+                        break;
+                    }
+            if (!any215v) {
+                trace215("enumCloneValueItemKeepsBare215v",
+                         std::string(cd.pkg->name) + "::" + cd.td);
+                continue;
+            }
+        }
+        auto key = std::make_pair(cd.pkg, cd.td);
+        auto nit = names.find(key);
+        if (nit == names.end()) {
+            TdWriter215 w;
+            std::string who = "none";
+            for (auto* q : pkgs)
+                if (reach(q, cd.pkg, cd.td)) {
+                    w = {std::string(q->name), true};
+                    who = "pkg " + std::string(q->name);
+                }
+            for (auto& df : defs) {
+                bool writes = unitBrings(df.file, cd.pkg, cd.td);
+                for (auto& [pn, item] : df.imports)
+                    if (!writes && itemBrings(pn, item, cd.pkg, cd.td))
+                        writes = true;
+                if (!writes)
+                    continue;
+                w = {"work@" + df.name, false};
+                who = "def " + df.name;
+                if (!df.classes.empty()) {
+                    w = {"work@" + df.name + "::" + df.classes.back(), true};
+                    who = "defclass " + df.name + "::" + df.classes.back();
+                }
+            }
+            for (auto& [cn, file] : unitClasses)
+                if (unitBrings(file, cd.pkg, cd.td)) {
+                    w = {"work@" + cn, true};
+                    who = "class " + cn;
+                }
+            std::string home = std::string(cd.pkg->name) + "::" + cd.td;
+            std::string full = w.prefix.empty() ? home
+                                                : w.prefix + (w.column ? "::" : ".") + home;
+            nit = names.emplace(key, full).first;
+            trace215("diagTdAliasWriter215", home + " <- " + who);
+        }
+        // A ref storing no name would compute one ending with the object's
+        // own `<P>::<T>` (its parent's name is the first on the chain): the
+        // name is written without reading (and interning) it.
+        std::string cur;
+        std::string home = std::string(cd.pkg->name) + "::" + cd.td;
+        if (r215StoredFullName(cd.r, cur) &&
+            (cur.size() < home.size() ||
+             cur.compare(cur.size() - home.size(), home.size(), home) != 0))
+            continue;
+        if (cur == nit->second)
+            continue;
+        cd.r->VpiFullName(nit->second);
+        trace215(cd.clone ? "pkgImportEnumCloneLastWriter215" : "pkgTdAliasLastWriter215",
+                 cur + " -> " + nit->second);
+    }
+}
+
+// § impPatCopyFirstListingUnparented215 (r11u215; pass 210's residue R1:
+// ibex_tracer d/t's last 13 records, map 13 routes; grid
+// tools/probe/r11u215repro/cases/I) — in an ELABORATED module instance's
+// listing, the parameters a module imports from a package are copied per
+// import item (vpiImported names the item's package), so a struct-pattern
+// parameter of a home package reached through two import items is listed
+// twice.  Golden's FIRST copy of a parameter name is the one Surelog's
+// elaboration minted fresh (expandPatternAssignment: its pattern operation's
+// typespec ref has no parent, so its full name computes empty), and every
+// LATER copy is a clone of an earlier listing, whose ref clone_tree parents
+// at the operation (full name `work@<instance>`): cases/I v2 (`import hp::*;
+// import ip::*;` where ip imports hp) golden unparented / parented, v1 (the
+// reverse order) the same by POSITION, v4 and ibex_tracer (`import ip::*;`
+// only) unparented, v6 the same one instance down.  Ours decided by the
+// import's directness (a home-package import unparented, a re-exporting
+// package's parented), the inverse on v4 and v2's second block.  Design-final
+// over every elaborated module instance: the first imported copy of a name
+// whose right side is an assignment-pattern operation with a typespec ref
+// leaves the ref unparented, a later one parents it at the operation, for a
+// PACKED struct pattern only (refinement of the first draft: an unpacked
+// struct or array pattern stays parented at every listing in golden).
+// Switch R11U215_IMPPATFIRST_OFF.
+// § impPatMemberReadKeepsParent215v — the names some expression of the design
+// reads by a MEMBER SELECT (`EA.b`, `pkg::EA.b`, in a package, a function or a
+// module), from the SYNTAX trees: a semantic AST visit would force slang to
+// elaborate bodies it has not elaborated (the first draft's visitor drew a
+// storage-only second hash on SeqDriver testflags in the determinism runs).
+// A name, not a symbol: a struct variable of the same name also declines.
+static void memberReadNames215(slang::ast::Compilation& comp, std::set<std::string>& out) {
+    auto leftName = [](const syntax::SyntaxNode* l) -> std::string_view {
+        while (l && l->kind == syntax::SyntaxKind::ScopedName &&
+               l->as<syntax::ScopedNameSyntax>().separator.kind == parsing::TokenKind::DoubleColon)
+            l = l->as<syntax::ScopedNameSyntax>().right;
+        if (l && l->kind == syntax::SyntaxKind::IdentifierName)
+            return l->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        return {};
+    };
+    auto scan = [&](auto& self, const syntax::SyntaxNode& node) -> void {
+        if (node.kind == syntax::SyntaxKind::ScopedName) {
+            auto& sn = node.as<syntax::ScopedNameSyntax>();
+            if (sn.separator.kind == parsing::TokenKind::Dot)
+                if (auto x = leftName(sn.left); !x.empty())
+                    out.insert(std::string(x));
+        }
+        else if (node.kind == syntax::SyntaxKind::MemberAccessExpression) {
+            if (auto x = leftName(node.as<syntax::MemberAccessExpressionSyntax>().left);
+                !x.empty())
+                out.insert(std::string(x));
+        }
+        for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+            if (auto* ch = node.childNode(i))
+                self(self, *ch);
+    };
+    for (auto& tree : comp.getSyntaxTrees())
+        scan(scan, tree->root());
+}
+static void impPatCopyFirstListing215(UHDM::design* d, Compilation& comp) {
+    if (!r11u215On("R11U215_IMPPATFIRST_OFF") || !d)
+        return;
+    // § impPatMemberReadKeepsParent215v (r11u215, found by the byte controls:
+    // v11u210repro/cases/P/vp06 moved one record away; grid cases/I i13-i16) —
+    // a struct-pattern parameter that some expression reads by a MEMBER
+    // SELECT is expanded where it is read (expandPatternAssignment runs to
+    // evaluate the member), and the module's copies are clones of that
+    // expansion: golden parents the op ref of EVERY listing of it (i13 the
+    // re-exporting package reads `EA.b`, i14 in a function, i15 the home
+    // package, i16 the module itself), while an unread parameter (EB beside
+    // it) or a whole-value read (`EC = EA`) keeps the fresh unparented first
+    // copy.  Such a parameter is left as the base emits it (the names come from a
+    // syntax scan, memberReadNames215).  Switch R11V215_MEMBERREAD_OFF (a
+    // refinement: dropping it re-opens the break).
+    std::set<std::string> memberRead;
+    if (getenv("R11V215_MEMBERREAD_OFF") == nullptr)
+        memberReadNames215(comp, memberRead);
+    std::function<void(UHDM::module_inst*)> inst;
+    std::function<void(UHDM::gen_scope*)> gscope;
+    auto fix = [&](const UHDM::VectorOfparam_assign* v, const std::string& where) {
+        if (!v)
+            return;
+        std::set<std::string> seen;
+        // A name the scope also declares itself (`#(parameter cfg_t Cfg =
+        // cfg_pkg::Cfg)` beside `import cfg_pkg::*;`): Surelog's elaboration
+        // updates the import copy BY NAME from the local parameter (the
+        // § pkgQualPsParenSpan118v / r11u133 PATQUAL decode), a clone whose
+        // ref stays parented (uhdm2rtlil ff_dead_both_branches,
+        // ff_dead_guarded_reset: the first draft unparented it).
+        std::set<std::string> local;
+        for (auto* pa : *v)
+            if (auto* l0 = pa ? pa->Lhs() : nullptr;
+                l0 && l0->UhdmType() == UHDM::uhdmparameter &&
+                ((UHDM::parameter*)l0)->VpiImported().empty())
+                local.insert(std::string(l0->VpiName()));
+        for (auto* pa : *v) {
+            auto* l = pa ? pa->Lhs() : nullptr;
+            if (!l || l->UhdmType() != UHDM::uhdmparameter)
+                continue;
+            auto* p = (UHDM::parameter*)l;
+            if (p->VpiImported().empty() || local.count(std::string(p->VpiName())))
+                continue;
+            if (memberRead.count(std::string(p->VpiName()))) {
+                trace215("diagImpPatMemberRead215", std::string(p->VpiName()));
+                continue;
+            }
+            bool first = seen.insert(std::string(p->VpiName())).second;
+            auto* r = pa->Rhs();
+            if (!r || r->UhdmType() != UHDM::uhdmoperation)
+                continue;
+            auto* op = (UHDM::operation*)r;
+            if (op->VpiOpType() != vpiAssignmentPatternOp)
+                continue;
+            auto* rt = op->Typespec();
+            if (!rt)
+                continue;
+            // A PACKED struct pattern only: expandPatternAssignment flattens
+            // it (the fresh, unparented ref); an unpacked struct or an array
+            // pattern keeps the parented ref at every listing (probe
+            // r11u60repro/g4, r11u61repro/h1, r11u10repro/grid/h9_1e1m_port,
+            // hD_1e1mvec: the first draft moved them away).
+            auto* at = rt->Actual_typespec();
+            if (!at || at->UhdmType() != UHDM::uhdmstruct_typespec ||
+                !((UHDM::struct_typespec*)at)->VpiPacked())
+                continue;
+            if (first && rt->VpiParent()) {
+                rt->VpiParent(nullptr);
+                std::string rn215;
+                if (r215StoredFullName(rt, rn215) && !rn215.empty())
+                    rt->VpiFullName("");
+                trace215("impPatCopyFirstListingUnparented215",
+                         where + " first " + std::string(p->VpiName()));
+            }
+            else if (!first && !rt->VpiParent()) {
+                rt->VpiParent(op);
+                // ComputeFullName over ref -> operation -> param_assign ->
+                // the instance: the instance's own full name.
+                rt->VpiFullName(where);
+                trace215("impPatCopyFirstListingUnparented215",
+                         where + " later " + std::string(p->VpiName()));
+            }
+        }
+    };
+    inst = [&](UHDM::module_inst* m) {
+        if (!m)
+            return;
+        fix(m->Param_assigns(), std::string(m->VpiFullName()));
+        if (auto* v = m->Modules())
+            for (auto* c : *v)
+                inst((UHDM::module_inst*)c);
+        if (auto* v = m->Gen_scope_arrays())
+            for (auto* ga : *v)
+                if (ga && ga->Gen_scopes())
+                    for (auto* g : *ga->Gen_scopes())
+                        gscope(g);
+    };
+    gscope = [&](UHDM::gen_scope* g) {
+        if (!g)
+            return;
+        if (auto* v = g->Modules())
+            for (auto* c : *v)
+                inst((UHDM::module_inst*)c);
+        if (auto* v = g->Gen_scope_arrays())
+            for (auto* ga : *v)
+                if (ga && ga->Gen_scopes())
+                    for (auto* g2 : *ga->Gen_scopes())
+                        gscope(g2);
+    };
+    if (auto* v = d->TopModules())
+        for (auto* m : *v)
+            inst((UHDM::module_inst*)m);
+}
+
 void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     // § evalFuncBodyRhsStampClone167 — the S2 leftovers (function-body Rhs).
     std::set<const UHDM::any*> bodyRhsStamps167;
@@ -24288,6 +24976,14 @@ void drainLvSelChain181(UHDM::Serializer& s);
 void drainLvIdxRead181(UHDM::Serializer& s);
 
 void UhdmExporter::drainPaNameCopySrc38() {
+    // § pkgTdAliasLastWriter215 and § impPatCopyFirstListingUnparented215
+    // (r11u215) — design-final: every emitter and every typedef clone pass
+    // (pkgImportCloneLastWriter32 included) has run; § enumImportParentLastWriter180's
+    // drain and the parent model still follow (laws and decodes above
+    // stampEvalFuncLeftovers).
+    pkgTdAliasLastWriter215(s, d, comp,
+                            [this](SourceLocation l) { return rootFilePath(l); });
+    impPatCopyFirstListing215(d, comp);
     drainImportCloneLocalCopies175(s);
     refFullNameThroughNamedExpr175(s);
     drainHierPathSelIdx178(s);

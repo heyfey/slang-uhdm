@@ -1,0 +1,13 @@
+surelog/default/BlackBePipeInt written=0 written_in_golden=0 written_not_in_golden=0 removed=0 removed_in_golden=0 removed_not_in_golden=0
+surelog/default/BuildUVMPkg written=15 written_in_golden=15 written_not_in_golden=0 removed=7 removed_in_golden=0 removed_not_in_golden=7
+surelog/default/MiniAmiq written=50 written_in_golden=41 written_not_in_golden=9 removed=35 removed_in_golden=0 removed_not_in_golden=35
+surelog/default/Scoreboard written=42 written_in_golden=42 written_not_in_golden=0 removed=34 removed_in_golden=0 removed_not_in_golden=34
+surelog/default/SeqDriver written=48 written_in_golden=39 written_not_in_golden=9 removed=33 removed_in_golden=0 removed_not_in_golden=33
+surelog/default/SimpleUVM written=39 written_in_golden=39 written_not_in_golden=0 removed=31 removed_in_golden=0 removed_not_in_golden=31
+surelog/testflags/BlackBePipeInt written=0 written_in_golden=0 written_not_in_golden=0 removed=0 removed_in_golden=0 removed_not_in_golden=0
+surelog/testflags/BuildUVMPkg written=15 written_in_golden=15 written_not_in_golden=0 removed=7 removed_in_golden=0 removed_not_in_golden=7
+surelog/testflags/MiniAmiq written=50 written_in_golden=41 written_not_in_golden=9 removed=35 removed_in_golden=0 removed_not_in_golden=35
+surelog/testflags/SeqDriver written=48 written_in_golden=39 written_not_in_golden=9 removed=33 removed_in_golden=0 removed_not_in_golden=33
+surelog/testflags/SimpleUVM written=39 written_in_golden=39 written_not_in_golden=0 removed=31 removed_in_golden=0 removed_not_in_golden=31
+uhdm2rtlil/default/ibex_tracer written=0 written_in_golden=0 written_not_in_golden=0 removed=0 removed_in_golden=0 removed_not_in_golden=0
+uhdm2rtlil/testflags/ibex_tracer written=0 written_in_golden=0 written_not_in_golden=0 removed=0 removed_in_golden=0 removed_not_in_golden=0

@@ -1,0 +1,3 @@
+swP: 3273 slang lines;    3273 /tmp/v11u215_bin/pris.bin 
+swL: 3273 slang lines;    3273 /tmp/v11u215_bin/law.bin 
+swF: 3273 slang lines;    3273 /tmp/v11u215_bin/fix.bin 

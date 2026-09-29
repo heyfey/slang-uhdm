@@ -1,0 +1,36 @@
+# v11u215: SeqDriver draws (drivers/draw.sh: the surelog corpus command line of SeqDriver, run directly with one frozen
+# binary, <batches> x <concurrent>), md5 prefix counts.  pris.bin = a727b8c7 (11b349f4), law.bin = r11u215 (6a021c3c),
+# fix.bin = r11u215 + § enumCloneValueItemKeepsBare215v (6dd6c032).  Measured 2026-09-28 21:0x-23:xx under the
+# other agents' load (load average 10-19).
+testflags  law.bin                         3x1  : 1 5d55bb5ae431  2 756a5480d8e9      (the first batch)
+testflags  law.bin                         3x20 : 41 5d55bb5ae431 19 756a5480d8e9
+testflags  pris.bin                        3x20 : 60 66245e815425
+testflags  pris.bin                        6x15 : 90 66245e815425
+testflags  law.bin                         6x15 : 55 5d55bb5ae431 35 756a5480d8e9
+testflags  pris.bin                        1x30 : 30 66245e815425
+testflags  law.bin                         1x30 : 15 5d55bb5ae431 15 756a5480d8e9
+testflags  law.bin R11U215_OFF=1           3x10 : 26 66245e815425  4 b566ab77af8e
+testflags  law.bin R11U215_TDALIAS_OFF=1   3x10 :  2 3e2ba09a3c6f 28 e680351291e1
+testflags  law.bin R11U215_ENUMCLONE_OFF=1 3x10 :  2 5d55bb5ae431 28 756a5480d8e9
+testflags  law.bin R11U215_IMPPATFIRST_OFF 3x10 :  3 5d55bb5ae431 27 756a5480d8e9
+testflags  law.bin R11V215_MEMBERREAD_OFF  3x10 :  3 5d55bb5ae431 27 756a5480d8e9
+testflags  law.bin R11U215_INCDECROUTE_OFF 3x10 : 30 4d94fadeb921
+testflags  law.bin R11U215_OPIDXRECV_OFF   3x10 : 30 aa132562c9b1
+testflags  law.bin (no switch)             3x20 : 20 5d55bb5ae431 40 756a5480d8e9
+testflags  law.bin R11U215_OFF=1           3x20 : 52 66245e815425  8 b566ab77af8e
+testflags  law.bin R11U215_TDALIAS_OFF=1   3x20 : 23 3e2ba09a3c6f 37 e680351291e1
+testflags  law.bin R11U215_INCDECROUTE_OFF 3x20 :  6 128e5d23b9aa 54 4d94fadeb921
+testflags  law.bin R11U215_OPIDXRECV_OFF   3x20 : 60 aa132562c9b1
+testflags  law.bin R11U215_IMPPATFIRST_OFF 3x20 : 22 5d55bb5ae431 38 756a5480d8e9
+testflags  pris.bin                        3x20 : 58 66245e815425  2 b566ab77af8e   <- the base draws the same coin (b566ab77 = law.bin under R11U215_OFF)
+default*   law.bin                         3x20 : 39 5d55bb5ae431 21 756a5480d8e9   (* draw.sh's default line: no --timescale)
+default*   pris.bin                        3x20 : 60 66245e815425
+testflags  fix.bin                         3x20 : 18 5d55bb5ae431 42 756a5480d8e9
+# the two law draws (5d55bb5a vs 756a5480, 331 bytes apart): uhdm-dump identical (ids kept) but for the header path;
+# the symbol table identical (drivers/sym.cpp: 39031 symbols, same ids); drivers/ord.cpp (objects in storage order):
+# 15 objects differ, all ref_var (UhdmType 2305), UhdmIds 298130-298144, created LAST, named param_t / response / t /
+# req_item / cbs / m_reg_process and parented at package-clone subroutines (uvm_sequencer_param_base::send_request,
+# uvm_vreg_field::write, uvm_reg::XatomicX, uvm_mem::do_write, ...): the same 15 objects minted in another order.
+# They are the unbound twins of § cloneTfOwnVarListingIsUnbound195 (src/UhdmExporter.cpp, `tw195 = s.MakeRef_var()`),
+# minted while iterating `pkgCloneBodyLocals9`, a std::map keyed by `const UHDM::task_func*` (include/UhdmExporter.h):
+# address order, which follows the heap layout.  The base draws it rarely (2 of 240), the r11u215 binary often.

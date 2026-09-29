@@ -1,0 +1,1 @@
+ibex_tracer,IDENTICAL,NO_GATES,NO_GATES,0,0,,

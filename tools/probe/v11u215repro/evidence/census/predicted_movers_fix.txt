@@ -1,0 +1,4 @@
+v11u215 fix prediction (frozen before the fix sweep): § enumCloneValueItemKeepsBare215v only declines § pkgImportEnumCloneLastWriter215
+firings whose clone object has no listing package that reaches the typedef. The law census (/tmp/v11u215_predicted.txt) shows the clone
+law firing on exactly one gate database, probe r11u111repro/grid/f5/e08_explicit_import, whose listing package p1 imports p0::* (reach
+true). Predicted movers fix.bin vs law.bin: corpus 0 of 2560, probe 0 of 4087, downstream lanes 0 of 805.

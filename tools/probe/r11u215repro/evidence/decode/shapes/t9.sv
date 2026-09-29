@@ -1,0 +1,16 @@
+package p;
+  class gen #(type T=int); T v; endclass
+  typedef gen#(int) g_int_t;
+  typedef gen#(bit) g_bit_t;
+  class c;
+    function void set(g_int_t v); endfunction
+  endclass
+endpackage
+package q;
+  import p::g_bit_t;
+endpackage
+package r;
+  import p::g_int_t;
+endpackage
+module m;
+endmodule

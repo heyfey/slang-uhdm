@@ -1,0 +1,18 @@
+// § impPatCopyFirstListingUnparented215 — an interface importing the re-exporting package (an interface instance's listing)
+package hp;
+  typedef struct packed { logic a; logic b; logic [3:0] c; } e_t;
+  parameter e_t EA = '{ a: 1'b0, b: 1'b1, c: 4'd3 };
+  parameter e_t EB = '{ a: 1'b1, b: 1'b0, c: 4'd9 };
+endpackage
+package ip;
+  import hp::*;
+  parameter logic [1:0] LOC = 2'b01;
+endpackage
+interface ifc import ip::*; ();
+  logic [1:0] w;
+  assign w = LOC;
+endinterface
+module dut(output logic [1:0] o);
+  ifc i();
+  assign o = i.w;
+endmodule

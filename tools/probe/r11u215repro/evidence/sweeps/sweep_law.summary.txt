@@ -1,0 +1,41 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=3418 STRICT_NOTEQUAL=669
+CONVERSION r10uvm202repro/g202_e_head STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10uvm206repro/g206_b_dedup STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r10uvm49repro/a3 STRICT_NOTEQUAL differ:fullname(6) -> EQUAL
+CONVERSION r10uvm49repro/a4 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r10uvm49repro/a5 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r10uvm49repro/a6 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r10uvm50repro/a1 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r10uvm50repro/a7 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r10v136repro/v136_g_param STRICT_NOTEQUAL differ:fullname(9) -> EQUAL
+CONVERSION r10v202repro/v202_6_twotd STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10v206repro/v206_d_selfname STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r11u111repro/grid/f5/e08_explicit_import STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CHANGE r10uvm202repro/g202_a_kinds STRICT_NOTEQUAL differ:fullname(6) -> differ:fullname(4) [fullname -2]
+regressions=0 conversions=12 changes=1 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=466 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=14 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:endcol(57) -> differ:endcol(33) [endcol -24]
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:endcol(57) -> differ:endcol(33) [endcol -24]
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(77) -> differ:file(75) [file -2]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(77) -> differ:file(75) [file -2]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(193) -> differ:fullname(136) [fullname -57]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:fullname(63) -> differ:endline(61)
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:fullname(63) -> differ:endline(61)
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(241) -> differ:fullname(190) [fullname -51]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(241) -> differ:fullname(190) [fullname -51]
+regressions=0 conversions=0 changes=9 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=799 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=4
+[testflags] CMP_EQUAL=799 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=4
+CONVERSION ibex_tracer default STRICT_NOTEQUAL differ:fullname(13) -> CMP_EQUAL
+CONVERSION ibex_tracer testflags STRICT_NOTEQUAL differ:fullname(13) -> CMP_EQUAL
+regressions=0 conversions=2 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+EXIT=1

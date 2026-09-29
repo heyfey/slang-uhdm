@@ -1,0 +1,2 @@
+ibex_tracer,default,CMP_EQUAL,,,equal
+ibex_tracer,testflags,CMP_EQUAL,,,equal

@@ -1,0 +1,24 @@
+#17 fullname
+  A: 6	ref_typespec			NF		0	0	0	0		0
+  B: 6	ref_typespec			p::NF		0	0	0	0		0
+#35 value
+  A: 2	parameter	EX		work@m.EX	dut.sv	3	17	3	19		0	UINT:131072
+  B: 2	parameter	EX		work@m.EX	dut.sv	3	17	3	19		0
+#41 value
+  A: 2	parameter	EX		work@m.EX	dut.sv	3	17	3	19		0	UINT:131072
+  B: 2	parameter	EX		work@m.EX	dut.sv	3	17	3	19		0
+#76 fullname
+  A: 2	ref_typespec			EX		0	0	0	0		0
+  B: 2	ref_typespec			p::EX		0	0	0	0		0
+#79 fullname
+  A: 2	ref_typespec			NF		0	0	0	0		0
+  B: 2	ref_typespec			p::NF		0	0	0	0		0
+#83 fullname
+  A: 3	ref_typespec					0	0	0	0		0
+  B: 3	ref_typespec			p		0	0	0	0		0
+#86 depth
+  A: 3	ref_typespec			NF		0	0	0	0		0
+  B: 1	param_assign				dut.sv	3	17	3	29
+objects 124 vs 120
+fields: depth=1 type=1 fullname=5 file=1 line=1 col=1 endline=1 endcol=1 size=1 value=2 objects_differing=7 (walk diverged)
+STRICT_NOTEQUAL fullname
