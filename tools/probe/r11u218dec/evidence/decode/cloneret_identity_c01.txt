@@ -1,0 +1,19 @@
+# retshare (drivers/retshare.cpp) on CR/c01_int_ret: listing, owner, function, span, return-variable identity, its parent
+## golden
+all	p1/task_funcs	p1::c::f	6:3-8:14	ret#1	ret_parent=p1::c::f 6:3
+all	p2/task_funcs	p2::c::f	6:3-8:14	ret#2	ret_parent=p1::c::f 6:3
+top	p1/c/task_funcs	p1::c::f	4:5-4:11	ret#3	ret_parent=p1::c::f 4:5
+top	p1/c/task_funcs	p1::c::f	6:3-8:14	ret#2	ret_parent=p1::c::f 6:3
+top	p2/task_funcs	p2::c::f	6:3-8:14	ret#2	ret_parent=p1::c::f 6:3
+## pristine (c4f26079)
+all	p1/task_funcs	p1::c::f	6:3-8:14	ret#1	ret_parent=p1::c::f 6:3
+all	p2/task_funcs	p2::c::f	6:3-8:14	ret#2	ret_parent=p2::c::f 6:3
+top	p1/c/task_funcs	p1::c::f	4:5-4:11	ret#3	ret_parent=p1::c::f 4:5
+top	p1/c/task_funcs	p1::c::f	6:3-8:14	ret#4	ret_parent=p1::c::f 6:3
+top	p2/task_funcs	p2::c::f	6:3-8:14	ret#5	ret_parent=p2::c::f 6:3
+## law (r11u218)
+all	p1/task_funcs	p1::c::f	6:3-8:14	ret#1	ret_parent=p1::c::f 6:3
+all	p2/task_funcs	p2::c::f	6:3-8:14	ret#2	ret_parent=p1::c::f 6:3
+top	p1/c/task_funcs	p1::c::f	4:5-4:11	ret#3	ret_parent=p1::c::f 4:5
+top	p1/c/task_funcs	p1::c::f	6:3-8:14	ret#2	ret_parent=p1::c::f 6:3
+top	p2/task_funcs	p2::c::f	6:3-8:14	ret#2	ret_parent=p1::c::f 6:3

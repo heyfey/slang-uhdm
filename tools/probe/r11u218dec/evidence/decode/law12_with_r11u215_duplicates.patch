@@ -1,0 +1,615 @@
+diff --git a/src/ExprEmit.cpp b/src/ExprEmit.cpp
+index 7c7b5c50f..b9ff1d1bd 100644
+--- a/src/ExprEmit.cpp
++++ b/src/ExprEmit.cpp
+@@ -25,8 +25,141 @@
+ #include "R204.h"
+ #include "R208.h"
+ #include "R213.h"
++#include "R218.h"
+ 
+ namespace slang_uhdm {
++// § pkgQualOperandSpanInParam218 (r11u218) — A PACKAGE-QUALIFIED OPERAND
++// FOLDED INSIDE A MODULE OR INTERFACE PARAMETER'S INITIALIZER, IN THE
++// DEFINITION LISTING, SPANS THE QUALIFIER WITH ITS COLONS.  Surelog compiles
++// a parameter's value in elaboration mode (m_elabMode), where
++// CompileExpression's primary arm for a `paPackage_scope` reference clones
++// the package parameter's value (or builds the constant from the package's
++// Value for an enum constant) and locates it on the Package_scope node,
++// `fC->populateCoreMembers(child, child, result)` (CompileExpression.cpp,
++// the `case VObjectType::paPackage_scope` arm): `dm::` alone.  Laws
++// pkgQualFoldSpanByView124 and enumQualDefaultDefSpan147 wrote that span
++// only for a qualified name that IS the whole initializer; the same arm
++// runs for every operand below the initializer's operations (a sum, a
++// product, a cast, a concatenation, a replication's count and operand,
++// parentheses seen through): Earlgrey dm_csrs.sv:91 `dm::dm_csr_e'((
++// dm::Data0 + {4'b0, dm::DataCount}))` and dm_mem.sv:64-67 `(dm::DataAddr +
++// 4*dm::DataCount)`, golden `dm::` 91:52-56, ours 91:52-61.  A call's or a
++// system call's argument and a part select's base keep the whole name
++// (golden and ours agree: grid q07 q12 q13), so the walk from the folded
++// constant to the param_assign passes operations only; a conditional is
++// not measured (grid q06 is stage 1) and stops the walk, and so does an
++// assignment pattern (grid q23-q25; the first census found the three corpus
++// rows and one probe case where a pattern member keeps the whole name).  A package's own
++// parameters are not reached (paramInitPkg).  Grid
++// tools/probe/r11u218dec/cases/QS.  Switch R11U218_QUALSPAN_OFF.
++static bool qualOperandInParamDef218(const UHDM::any* parent) {
++    if (!parent || parent->UhdmType() != UHDM::uhdmoperation)
++        return false;
++    const UHDM::any* up = parent;
++    for (int g = 0; g < 64 && up && up->UhdmType() == UHDM::uhdmoperation; ++g) {
++        const int op218 = ((const UHDM::operation*)up)->VpiOpType();
++        // An assignment pattern's member keeps the whole name (golden
++        // MultiConcatValueSize / ParamElabMulti `{pinmux_pkg::NDioPads{
++        // prim_pad_wrapper_pkg::B}}` 54:22-42 and 54:43-66, probe
++        // r11u88repro x6 `8'(pk::K + 1)`); measured, the Surelog path that
++        // spans it whole is not pinned.
++        if (op218 == vpiConditionOp || op218 == vpiAssignmentPatternOp ||
++            op218 == vpiMultiAssignmentPatternOp)
++            return false;
++        up = up->VpiParent();
++    }
++    return up && up->UhdmType() == UHDM::uhdmparam_assign;
++}
++// The whole initializer written in parentheses, `= (dm::DataAddr);` (Earlgrey
++// dm_mem.sv:64): law pkgQualFoldSpanByView124 reads the ScopedName syntax
++// only, so the parenthesized whole initializer is this law's too (grid q19).
++static bool qualWholeParenInParamDef218(const UHDM::any* parent,
++                                        const syntax::SyntaxNode* n) {
++    return parent && parent->UhdmType() == UHDM::uhdmparam_assign && n &&
++           n->kind == syntax::SyntaxKind::ParenthesizedExpression;
++}
++// § lvIdxPathRangeTailIsRead218 (r11u218) — A DOTTED PATH ENDING IN A PART
++// SELECT OR AN INDEXED PART SELECT, WRITTEN INSIDE AN LVALUE SELECT'S INDEX,
++// IS A READ.  `data_d[dmi_req_i.addr[$clog2(dm::DataCount)-1:0]] = ...`
++// (Earlgrey dm_csrs.sv:362 and 417): golden spans the path's base reference
++// at its own token (`dmi_req_i` 362:20-29) and leaves the trailing
++// part_select bare with the path text as its full name
++// (`dmi_req_i.addr[$clog2(4'h2) - 1:0]`), exactly the shape the same path
++// has on a right side; ours applied the written-path convention (the base
++// on the first member's token, 362:30-39, and the select named `addr` with
++// the frozen chain name) because the whole left side is emitted under
++// `inLhs`.  Law lvIdxPathIsRead154 made the bit-select tail and the plain
++// member a read (its gate is this law's, lvIdxParent154: the path's parent
++// is a select, directly or through operations); the range-select tail's
++// base span and the simple part select's naming were left on `inLhs` (the
++// indexed part select's naming already reads lvSelNamedByChain154).  Surelog
++// compiles a select's index through compileSelectExpression, whose bit
++// expression goes to compileExpression like any read (CompileExpression.cpp,
++// compileSelectExpression's Bit_select loop), so the written-path shape never
++// reaches it.  Grid tools/probe/r11u218dec/cases/HX.
++// Switch R11U218_LVIDXPS_OFF.
++static bool lvIdxRangeTailRead218(const UHDM::BaseClass* parent) {
++    static const bool on = r11u218On("R11U218_LVIDXPS_OFF");
++    if (!on || !lvIdxParent154(parent))
++        return false;
++    tr218("lvIdxPathRangeTailIsRead218");
++    return true;
++}
++// § hpTrailIpsNamesByPath218 (r11u218) — A REFERENCE IN THE BASE OR THE
++// WIDTH OF A DOTTED PATH'S TRAILING INDEXED PART SELECT IS NAMED THROUGH THE
++// PATH.  Surelog compiles the trailing `name[b +: w]` of a dotted path with
++// compilePartSelectRange (the hier_path loop's part-select arms) and stores
++// no full name on the references it compiles for the base and the width, so
++// the writer's ComputeFullName walks the parent chain: a reference that is
++// the base or the width itself skips the indexed part select (a
++// ref_obj's indexed_part_select parent is skipped) and takes the hier_path's
++// name, `work@tlul_adapter_sram.tl_i.a_address[DataBitWidth+:SramAw].
++// DataBitWidth` (Earlgrey tlul_adapter_sram.sv:153, flash_ctrl.sv:171 in a
++// port connection); a reference under an operation keeps the select's name
++// too, `work@tlul_adapter_sram.tl_i.a_data[8 * i+:8].a_data.i` (:163).
++// Ours kept the scope's `work@tlul_adapter_sram.i`.  The simple part-select
++// twin is law hpPartSelBoundNamesBySelect154 and the bit-select twin law
++// hpTrailSelIdxNamesByPath133; a written path's base is law
++// lvPathSelNamedByChain154's (left alone here).  The walk descends only
++// through operations parented at their owner, as the twins' do.  Grid
++// tools/probe/r11u218dec/cases/IX.  Switch R11U218_HPIPSNAME_OFF.
++static void hpTrailIpsNames218(UHDM::indexed_part_select* ips,
++                               const std::string& prefix,
++                               const UHDM::hier_path* hp) {
++    static const bool on = r11u218On("R11U218_HPIPSNAME_OFF");
++    if (!on || !ips || !hp || hp->VpiName().empty())
++        return;
++    const std::string base = joinRef(prefix, hp->VpiName());
++    std::function<void(UHDM::any*, const UHDM::any*, bool)> nm =
++        [&](UHDM::any* e, const UHDM::any* owner, bool direct) {
++            if (!e || e->VpiParent() != owner)
++                return;
++            if (e->UhdmType() == UHDM::uhdmref_obj) {
++                auto* r = (UHDM::ref_obj*)e;
++                if (r->VpiName().empty())
++                    return;
++                r->VpiFullName(direct ? joinRef(base, r->VpiName())
++                                      : joinRef(joinRef(base, ips->VpiName()),
++                                                r->VpiName()));
++                tr218("hpTrailIpsNamesByPath218", std::string(r->VpiName()));
++            }
++            else if (e->UhdmType() == UHDM::uhdmoperation) {
++                if (auto* os = ((UHDM::operation*)e)->Operands())
++                    for (auto* o : *os)
++                        nm(o, e, false);
++            }
++        };
++    nm((UHDM::any*)ips->Base_expr(), ips, true);
++    nm((UHDM::any*)ips->Width_expr(), ips, true);
++}
++// The folded reference's syntax, parentheses seen through (slang leaves a
++// parenthesized operand's ParenthesizedExpression as the inner expression's
++// syntax: grid q15 `((dm::DataAddr)) + 1`).
++static bool scopedNameSyntax218(const syntax::SyntaxNode* n) {
++    for (int g = 0; g < 16 && n && n->kind == syntax::SyntaxKind::ParenthesizedExpression; ++g)
++        n = n->as<syntax::ParenthesizedExpressionSyntax>().expression;
++    return n && n->kind == syntax::SyntaxKind::ScopedName;
++}
+ // The r11u200 switches of this file (ground A; the switch table is in
+ // UhdmExporter.cpp).  Local so this file's laws land and build alone:
+ // R11U200_OFF drops all of them; R11U200_TRACE=<dir> appends one
+@@ -11596,6 +11729,44 @@ static HpRoute157 hpRoute157(const UHDM::BaseClass* parent,
+         switch (p->UhdmType()) {
+             case UHDM::uhdmoperation: {
+                 int ot = ((const UHDM::operation*)p)->VpiOpType();
++                // § incDecOperandRouteKeep218 (r11u218) — THE OPERAND OF AN
++                // INCREMENT OR DECREMENT IS NOT ROUTED BY ITS CONTAINER.
++                // Surelog compiles `++` / `--` operands through the
++                // Variable_lvalue / IncDec arm wherever the operation sits,
++                // so a dotted path that IS the operand takes the lvalue shape
++                // (law incDecMemberPathIsLvalue124: both elements on the
++                // member token, the leaf name-only) also as a call's argument:
++                // golden BuildUVMPkg uvm_pkg.sv:54011
++                // `set_transaction_id(sequence_ptr.m_next_transaction_id++)`
++                // (both refs 54011:47-68), which law124's own comment names;
++                // this walk passed the operation and reached the call
++                // (`call-arg`, CFC), whose shape overrode law124's flags.  The
++                // path must be the operand itself (its parent the operation);
++                // a path inside the operand's index keeps its own route.  Grid
++                // tools/probe/r11u218dec/cases/ID.  Switch
++                // R11U218_INCDECARG_OFF.
++                if (p == parent &&
++                    (ot == vpiPostIncOp || ot == vpiPreIncOp ||
++                     ot == vpiPostDecOp || ot == vpiPreDecOp) &&
++                    r11u218On("R11U218_INCDECARG_OFF")) {
++                    bool viaCall218 = false;
++                    for (const UHDM::BaseClass* q = p->VpiParent(); q; q = q->VpiParent()) {
++                        auto qt = q->UhdmType();
++                        if (qt == UHDM::uhdmoperation)
++                            continue;
++                        viaCall218 = qt == UHDM::uhdmfunc_call ||
++                                     qt == UHDM::uhdmsys_func_call ||
++                                     qt == UHDM::uhdmmethod_func_call ||
++                                     qt == UHDM::uhdmtask_call ||
++                                     qt == UHDM::uhdmsys_task_call ||
++                                     qt == UHDM::uhdmmethod_task_call;
++                        break;
++                    }
++                    if (viaCall218) {
++                        tr218("incDecOperandRouteKeep218");
++                        return HpRoute157::Keep;
++                    }
++                }
+                 if (ot == vpiAssignmentPatternOp ||
+                     ot == vpiMultiAssignmentPatternOp) {
+                     r = HpRoute157::Cfc; why = "pattern";
+@@ -21598,6 +21769,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                                                       expr.sourceRange.start() +
+                                                           (qp124 + 2)));
+                         }
++                        // § pkgQualOperandSpanInParam218 (law at
++                        // qualOperandInParamDef218): the same span for an
++                        // OPERAND of the initializer's operations.
++                        static const bool on218qs = r11u218On("R11U218_QUALSPAN_OFF");
++                        const Scope* psc218 = nv.symbol.getParentScope();
++                        if (on218qs && inParamInit && paramInitDef && !paramInitPkg &&
++                            scopedNameSyntax218(expr.syntax) &&
++                            psc218 && psc218->asSymbol().kind == SymbolKind::Package &&
++                            (qualOperandInParamDef218(parent) ||
++                             qualWholeParenInParamDef218(parent, expr.syntax))) {
++                            std::string rq218(rawText(expr.sourceRange));
++                            auto qp218 = rq218.rfind("::");
++                            if (qp218 != std::string::npos && qp218 + 2 < rq218.size()) {
++                                setLoc(c, SourceRange(expr.sourceRange.start(),
++                                                      expr.sourceRange.start() +
++                                                          (qp218 + 2)));
++                                tr218("pkgQualOperandSpanInParam218", "param");
++                            }
++                        }
+                     }
+                     // § pkgQualBoundSpanQualifier192 (r11u192) — a written
+                     // `pkg::P` folded inside a PART SELECT's range (the bound
+@@ -23076,6 +23266,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                                         trace147("ENUMQSPAN");
+                                     }
+                                 }
++                                // § pkgQualOperandSpanInParam218 — a qualified
++                                // package ENUM constant as an operand (law at
++                                // qualOperandInParamDef218).
++                                static const bool on218qe =
++                                    r11u218On("R11U218_QUALSPAN_OFF");
++                                if (on218qe && inParamInit && paramInitDef &&
++                                    !paramInitPkg &&
++                                    scopedNameSyntax218(expr.syntax) &&
++                                    (qualOperandInParamDef218(parent) ||
++                             qualWholeParenInParamDef218(parent, expr.syntax))) {
++                                    std::string rq218(rawText(expr.sourceRange));
++                                    auto qp218 = rq218.rfind("::");
++                                    if (qp218 != std::string::npos &&
++                                        qp218 + 2 < rq218.size()) {
++                                        setLoc(c, SourceRange(
++                                                      expr.sourceRange.start(),
++                                                      expr.sourceRange.start() +
++                                                          (qp218 + 2)));
++                                        tr218("pkgQualOperandSpanInParam218", "enum");
++                                    }
++                                }
+                             }
+                             // § pkgQualBoundSpanQualifier192 — the same rule
+                             // for a qualified package ENUM constant folded in
+@@ -30126,6 +30337,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                                     ? sg11.name + "[" +
+                                           hpCompIdxDecompile23(*sg11.idx) + "]"
+                                     : rawText(sg11.node->sourceRange));
++                            // § deepRecvIdxAtPath218 (law at the index
++                            // below): an OPERATION index names the element
++                            // with the decompiled text, as the path's own
++                            // name (§ hpIdxOpPrettyPrint92) already does.
++                            static const bool on218ri =
++                                r11u218On("R11U218_RECVIDX_OFF");
++                            if (on218ri && !dotIdx23 && isPpOperation92(*sg11.idx)) {
++                                // The element's name is the path so far
++                                // (`h.fields[k - 1]`): the written text up
++                                // to this index, then the decompiled index.
++                                std::string ip218;
++                                std::string raw218(rawText(sg11.node->sourceRange));
++                                const auto ns218 = sg11.node->sourceRange.start();
++                                const auto is218 = sg11.idx->sourceRange.start();
++                                if (ns218.buffer() == is218.buffer() &&
++                                    is218.offset() > ns218.offset() &&
++                                    is218.offset() - ns218.offset() <= raw218.size() &&
++                                    ppIdxText92(*sg11.idx, nullptr, 0, ip218)) {
++                                    std::string nn218 =
++                                        raw218.substr(0, is218.offset() - ns218.offset()) +
++                                        ip218 + "]";
++                                    if (nn218 != raw218)
++                                        tr218("deepRecvIdxAtPath218", "elemname");
++                                    bs11->VpiFullName(nn218);
++                                }
++                            }
+                             bs11->VpiParent(hp11);
+                             setLoc(bs11, sg11.nameRng);
+                             // The index of a hier_path element is UNPARENTED
+@@ -30150,6 +30387,49 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                                 if (dotIdx23 &&
+                                     ix11->UhdmType() != UHDM::uhdmconstant)
+                                     ((UHDM::any*)ix11)->VpiParent(hp11);
++                                // § deepRecvIdxAtPath218 (r11u218) — THE SAME
++                                // PARENT FOR EVERY NON-CONSTANT INDEX, AND THE
++                                // REFERENCES UNDER IT NAMED BY THEIR CHAIN.
++                                // Golden `fields[fld_idx-1].get_lsb_pos()`
++                                // (BuildUVMPkg uvm_pkg.sv:64845, the buvm14
++                                // R5 family): the operation index sits under
++                                // the hier_path and its reference carries no
++                                // stored full name, so it reads
++                                // `p::r_t::g::fields[fld_idx - 1].get_lsb_pos::
++                                // fld_idx` (a bare reference index skips the
++                                // path, `p::r_t::g::fld_idx`), and the
++                                // --elabuhdm listener's DeepClone parents the
++                                // copy at the bit_select, where the chain reads
++                                // `...get_lsb_pos::fields::fld_idx` and, bare,
++                                // `...get_lsb_pos::fld_idx`.  Ours parented
++                                // the index at the bit_select and stored the
++                                // scope's `p::r_t::g::fld_idx` on the
++                                // reference, which both views then kept.  The
++                                // references (through operations parented at
++                                // their owner) are left unstored, which the
++                                // writer and the listener compute from the
++                                // chain.  Grid tools/probe/r11u218dec/cases/MS.
++                                // Switch R11U218_RECVIDX_OFF.
++                                if (on218ri && !dotIdx23 &&
++                                    ix11->UhdmType() != UHDM::uhdmconstant) {
++                                    ((UHDM::any*)ix11)->VpiParent(hp11);
++                                    tr218("deepRecvIdxAtPath218", "parent");
++                                    std::function<void(UHDM::any*, const UHDM::any*)> un218 =
++                                        [&](UHDM::any* e, const UHDM::any* owner) {
++                                            if (!e || e->VpiParent() != owner)
++                                                return;
++                                            if (e->UhdmType() == UHDM::uhdmref_obj) {
++                                                ((UHDM::ref_obj*)e)->VpiFullName("");
++                                                tr218("deepRecvIdxAtPath218");
++                                            }
++                                            else if (e->UhdmType() == UHDM::uhdmoperation) {
++                                                if (auto* os = ((UHDM::operation*)e)->Operands())
++                                                    for (auto* o : *os)
++                                                        un218(o, e);
++                                            }
++                                        };
++                                    un218((UHDM::any*)ix11, hp11);
++                                }
+                                 bs11->VpiIndex((UHDM::expr*)ix11);
+                             }
+                             forceConstParent = fsx11;
+@@ -37908,7 +38188,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                         // name's start (the select anchor), not the base's own
+                         // token, keeping only its own length.
+                         SourceRange bsr9 = base->sourceRange;
+-                        if (inLhs && !chain.empty()) {
++                        // § lvIdxPathRangeTailIsRead218 (law at
++                        // lvIdxRangeTailRead218): a path inside an lvalue
++                        // select's index keeps its base at its own token.
++                        if (inLhs && !chain.empty() &&
++                            !lvIdxRangeTailRead218(parent)) {
+                             // § vifClockingPathComponent5 — SITE 3 of 3.  With a
+                             // recovered component the anchor is that component's
+                             // WHOLE token, not "the first member's start plus the
+@@ -37976,14 +38260,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                         if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
+                             auto* ps = s.MakePart_select();
+                             ps->VpiName(ma.member.name);
++                            // § lvIdxPathRangeTailIsRead218 — inside an
++                            // lvalue select's index the select is a READ.
++                            const bool lvPs218 =
++                                inLhs && !lvIdxRangeTailRead218(parent);
+                             // A procedural WRITE names the select (Surelog);
+                             // a read leaves it bare.
+-                            if (inLhs)
++                            if (lvPs218)
+                                 ps->VpiDefName(ma.member.name);
+                             ps->VpiParent(hp);
+                             // A READ's select keeps the hier text as its
+                             // fullname; a write freezes the lazy chain name.
+-                            if (inLhs)
++                            if (lvPs218)
+                                 (void)ps->VpiFullName();
+                             else
+                                 ps->VpiFullName(dotted);
+@@ -38106,6 +38394,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                                                         netMap))
+                                 ips->Width_expr((UHDM::expr*)w);
+                             suppressConstParent = sup;
++                            // § hpTrailIpsNamesByPath218 (law at
++                            // hpTrailIpsNames218): a read's base and width
++                            // references are named through the path.
++                            if (!lvIps154)
++                                hpTrailIpsNames218(ips, prefix, hp);
+                             elems->push_back(ips);
+                         }
+                     }
+diff --git a/src/ParamEmit.cpp b/src/ParamEmit.cpp
+index 465498e67..1d799a39a 100644
+--- a/src/ParamEmit.cpp
++++ b/src/ParamEmit.cpp
+@@ -12,6 +12,7 @@
+ #include "UhdmExporter.h"
+ 
+ #include "EmitHelpers.h"
++#include "R218.h"
+ 
+ #include "slang/ast/EvalContext.h"
+ #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
+@@ -30758,6 +30759,60 @@ void UhdmExporter::drainShareDefParamTs() {
+             for (auto* m : *d->AllInterfaces())
+                 noteOwn131(m, m->Param_assigns());
+         std::set<const UHDM::any*> seen131;
++        // § impPatParamFirstCopyNoParent218 (r11u218) — THE FIRST COPY OF A
++        // PACKAGE PATTERN PARAMETER IN ONE ELABORATED LISTING IS THE
++        // UNPARENTED ONE, WHICHEVER IMPORT BROUGHT IT.  NetlistElaboration
++        // (elabParams, the `getComplexValue(paramName)` arm) reduces the
++        // instance's complex value of the NAME once per listed param_assign;
++        // the complex value is the HOME package's pattern (CompileHelper::
++        // importPackage shares `def->getComplexValues()` through every
++        // re-exporting package), and its first reduction goes through
++        // ExprEval::flattenPatternAssignments, whose fresh ref_typespec has
++        // no parent (ExprEval.cpp, `rtps = s.MakeRef_typespec()` never
++        // parented), while a later copy of the same name in the same
++        // listing is a clone of the flattened operation (clone_tree parents
++        // it).  So the key is the parameter's HOME package and name, not
++        // the importing package the copy's vpiImported names (ibex_tracer
++        // `import ibex_tracer_pkg::*`, which re-lists ibex_pkg's exc_cause_t
++        // patterns: golden's 13 module-listing references unnamed, ours
++        // `work@ibex_tracer`), and only the first copy per listing (grid
++        // tools/probe/r11u218dec/cases/IP: i02 `import hp::*; import
++        // ip::*;` and i03 in the reverse order both leave the FIRST of the
++        // two copies unparented and the second named; i06 / i07 per
++        // instance).  Switch R11U218_IMPPATTS_OFF.
++        static const bool on218ip = r11u218On("R11U218_IMPPATTS_OFF");
++        // (pkg, name) -> the importing package's own vpiImported, followed to
++        // the package that declares the name (the listing copies of an
++        // importing package carry the package they came from).
++        std::map<std::string, std::string> via218;
++        if (on218ip)
++            for (auto* pv : {d->AllPackages(), d->TopPackages()})
++                if (pv)
++                    for (auto* pk : *pv) {
++                        if (!pk || !pk->Param_assigns())
++                            continue;
++                        std::string pn(pk->VpiName());
++                        if (auto at = pn.find('@'); at != std::string::npos)
++                            pn = pn.substr(at + 1);
++                        for (auto* pa : *pk->Param_assigns()) {
++                            auto* l = pa ? pa->Lhs() : nullptr;
++                            if (!l || l->UhdmType() != UHDM::uhdmparameter)
++                                continue;
++                            std::string_view im = ((const UHDM::parameter*)l)->VpiImported();
++                            if (!im.empty() && im != pn)
++                                via218.emplace(pn + "::" + std::string(l->VpiName()),
++                                               std::string(im));
++                        }
++                    }
++        auto home218 = [&](std::string pkg, const std::string& nm) {
++            for (int i = 0; i < 16; ++i) {
++                auto it = via218.find(pkg + "::" + nm);
++                if (it == via218.end())
++                    break;
++                pkg = it->second;
++            }
++            return pkg;
++        };
+         std::function<void(const UHDM::any*)> walk131 = [&](const UHDM::any* o) {
+             if (!on131 || !o || !seen131.insert(o).second)
+                 return;
+@@ -30782,10 +30837,64 @@ void UhdmExporter::drainShareDefParamTs() {
+                 pas = g->Param_assigns(); mods = g->Modules();
+                 ifs = g->Interfaces(); gas = g->Gen_scope_arrays();
+             }
++            std::set<std::string> first218;
+             if (pas)
+                 for (auto* pa : *pas) {
+                     auto* r = pa ? pa->Rhs() : nullptr;
+                     auto* l = pa ? pa->Lhs() : nullptr;
++                    if (on218ip && r && l && r->UhdmType() == UHDM::uhdmoperation &&
++                        ((UHDM::operation*)r)->VpiOpType() == vpiAssignmentPatternOp &&
++                        l->UhdmType() == UHDM::uhdmparameter &&
++                        !((const UHDM::parameter*)l)->VpiImported().empty() &&
++                        !(ownHere && ownHere->count(std::string(l->VpiName())))) {
++                        // § impPatParamFirstCopyNoParent218 (law above).
++                        // Where law131's own key (the importing package's
++                        // vpiImported and the name) holds, the FIRST copy is
++                        // treated exactly as law131 treats it (a fresh
++                        // unparented reference), so the bytes stay the base's;
++                        // the law changes only the later copies of a name
++                        // (parented) and a first copy law131's key misses
++                        // (unparented).
++                        std::string nm(l->VpiName());
++                        const std::string ik218 =
++                            std::string(((const UHDM::parameter*)l)->VpiImported()) + "::" + nm;
++                        const bool k131 = pkgPatInit131().count(ik218) > 0;
++                        std::string hk = home218(std::string(((const UHDM::parameter*)l)->VpiImported()), nm) +
++                                         "::" + nm;
++                        if (!k131 && !pkgPatInit131().count(hk))
++                            continue;
++                        auto* rt = ((UHDM::operation*)r)->Typespec();
++                        auto* at = rt ? rt->Actual_typespec() : nullptr;
++                        bool packed218 =
++                            at && ((at->UhdmType() == UHDM::uhdmstruct_typespec &&
++                                    ((UHDM::struct_typespec*)at)->VpiPacked()) ||
++                                   at->UhdmType() == UHDM::uhdmpacked_array_typespec ||
++                                   at->UhdmType() == UHDM::uhdmlogic_typespec ||
++                                   at->UhdmType() == UHDM::uhdmbit_typespec);
++                        if (!packed218)
++                            continue;
++                        const bool first = first218.insert(hk).second;
++                        const bool unparented = rt && rt->VpiParent() == nullptr;
++                        if (first) {
++                            if (k131 || !unparented) {
++                                auto* nrt = s.MakeRef_typespec();
++                                nrt->Actual_typespec(at);
++                                ((UHDM::operation*)r)->Typespec(nrt);
++                                if (!k131)
++                                    tr218("impPatParamFirstCopyNoParent218", "unparent " + hk);
++                            }
++                        }
++                        else if (k131 || unparented) {
++                            if (unparented) {
++                                auto* nrt = s.MakeRef_typespec();
++                                nrt->VpiParent(r);
++                                nrt->Actual_typespec(at);
++                                ((UHDM::operation*)r)->Typespec(nrt);
++                            }
++                            tr218("impPatParamFirstCopyNoParent218", "parent " + hk);
++                        }
++                        continue;
++                    }
+                     if (!r || !l || r->UhdmType() != UHDM::uhdmoperation ||
+                         ((UHDM::operation*)r)->VpiOpType() != vpiAssignmentPatternOp ||
+                         l->UhdmType() != UHDM::uhdmparameter ||
+@@ -36216,6 +36325,46 @@ void UhdmExporter::emitImportedPkgClassMethodClones(const PackageSymbol& pkg,
+                 target->Task_funcs()->size() <= before)
+                 continue;
+             auto* cp = (*target->Task_funcs())[before];
++            // § importCloneSharesHomeReturn218 (r11u218) — THE IMPORTER'S
++            // CLONE OF A CLASS METHOD SHARES THE HOME METHOD'S RETURN
++            // VARIABLE.  Surelog's importer clone is a UHDM function::DeepClone
++            // of the home class's out-of-body method, and DeepClone copies
++            // vpiReturn by pointer (UHDM templates/clone_tree.cpp,
++            // `clone->Return((variables*)obj)`, where task::DeepClone clones
++            // it), so every listing of the clone (both package views) holds
++            // the one return variable of the ELABORATED class_defn's
++            // definition entry, parented at that method: golden MiniAmiq
++            // `svaunit_pkg::uvm_object::get_name` returns `string_var
++            // uvm_pkg::uvm_object::get_name`, all 600 of svaunit_pkg's
++            // subroutine listings (the free-subroutine half already shared,
++            // § pkgCloneRetFixups9's caller above).  Ours minted a fresh
++            // variable parented at the clone (`svaunit_pkg::...`; r11u214's
++            // "544 / 597 split" counted the first variable child, which is a
++            // local for a void method).  The home method is the class_defn's
++            // task_func of the method's name at the clone's own span (the
++            // definition, not the extern prototype).  The minted variable is
++            // left unreferenced, as the free-subroutine half leaves its own.
++            // Grid tools/probe/r11u218dec/cases/CR.  Switch
++            // R11U218_CLONERET_OFF.
++            static const bool on218cr = r11u218On("R11U218_CLONERET_OFF");
++            if (on218cr && cp->UhdmType() == UHDM::uhdmfunction &&
++                cdit->second && cdit->second->Task_funcs()) {
++                UHDM::function* hf218 = nullptr;
++                for (auto* t218 : *cdit->second->Task_funcs())
++                    if (t218 && t218 != cp &&
++                        t218->UhdmType() == UHDM::uhdmfunction &&
++                        t218->VpiName() == e.sub->name &&
++                        t218->VpiLineNo() == cp->VpiLineNo() &&
++                        t218->VpiColumnNo() == cp->VpiColumnNo() &&
++                        t218->VpiEndLineNo() == cp->VpiEndLineNo())
++                        hf218 = (UHDM::function*)t218;
++                if (hf218 && hf218->Return() &&
++                    ((UHDM::function*)cp)->Return() != hf218->Return()) {
++                    ((UHDM::function*)cp)->Return(hf218->Return());
++                    tr218("importCloneSharesHomeReturn218",
++                          std::string(cp->VpiFullName()));
++                }
++            }
+             pkgTfOrder9[cp] = {0, impAt};
+             pkgTfSeq9[cp] = myIdx;
+             any9 = true;
+diff --git a/src/R218.h b/src/R218.h
+new file mode 100644
+index 000000000..b53731e32
+--- /dev/null
++++ b/src/R218.h
+@@ -0,0 +1,50 @@
++// r11u218 (the ground-A decode of the r11u214 hand-offs and map 13,
++// tools/probe/r11u218dec/README.md): every law reads its own
++// R11U218_<LAW>_OFF switch; R11U218_OFF drops all of them (the base's bytes).
++// R11U218_TRACE=<dir> names every firing: one file per process,
++// `<dir>/<pid>.218`, its first line `OUT <-o path>`, then `<law> <detail>`.
++#pragma once
++#include <cstdio>
++#include <cstdlib>
++#include <string>
++#include <unistd.h>
++
++namespace slang_uhdm {
++inline bool r11u218On(const char* sw) {
++    if (getenv("R11U218_OFF") != nullptr)
++        return false;
++    return getenv(sw) == nullptr;
++}
++inline void tr218(const char* law, const std::string& detail = std::string()) {
++    static FILE* tf = []() -> FILE* {
++        const char* d = getenv("R11U218_TRACE");
++        if (!d)
++            return nullptr;
++        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".218";
++        FILE* fp = fopen(fn.c_str(), "a");
++        if (!fp)
++            return nullptr;
++        std::string cl, prev, outp;
++        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
++            int ch;
++            while ((ch = fgetc(c)) != EOF) {
++                if (ch == 0) {
++                    if (prev == "-o")
++                        outp = cl;
++                    prev = cl;
++                    cl.clear();
++                }
++                else
++                    cl += (char)ch;
++            }
++            fclose(c);
++        }
++        fprintf(fp, "OUT %s\n", outp.c_str());
++        return fp;
++    }();
++    if (tf) {
++        fprintf(tf, "%s %s\n", law, detail.c_str());
++        fflush(tf);
++    }
++}
++} // namespace slang_uhdm

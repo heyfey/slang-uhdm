@@ -1,0 +1,35 @@
+// r11u218 decode (no law written; the face named memLeftReadSiteLoc218 in the README) — r06_param_named_as_formal: the module parameter carries the function formal's name (FuncStructVal CVA6Cfg)
+package cfgp;
+  typedef struct packed {
+    bit                 EN;
+    logic [7:0][63:0]   RST;
+  } user_t;
+  typedef struct packed {
+    int unsigned WIDTH;
+    int unsigned PER;
+    logic [7:0][63:0]   RST;
+  } full_t;
+endpackage
+package valp;
+  localparam EnOn = 1;
+  localparam cfgp::user_t ucfg = '{
+      EN: bit'(EnOn),
+      RST: {8{64'h0}}
+  };
+endpackage
+package bldp;
+  function automatic cfgp::full_t build(cfgp::user_t U);
+    cfgp::full_t f;
+    f.RST = U.RST;
+    f.WIDTH = 32;
+    f.PER = U.EN == 1'b1 ? (f.WIDTH / 16) : 1;
+    return f;
+  endfunction
+endpackage
+module dut();
+  parameter cfgp::full_t U = bldp::build(
+        valp::ucfg);
+  sub #(.N(U.PER)) u1();
+endmodule
+module sub #(parameter int unsigned N = 2, localparam int unsigned W = $clog2(N)+1) ();
+endmodule

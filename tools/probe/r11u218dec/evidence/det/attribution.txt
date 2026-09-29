@@ -1,0 +1,13 @@
+# drivers/det.sh: three concurrent harness runs per binary (verify_golden.py --jobs 2 each), Earlgrey_0_1 and the
+# five UVM rows, both modes (Scoreboard testflags is SLANG_REJECT: no database). Hash counts in det_*.txt.
+# Order-blind attribution of the multi-hash row-modes (uhdm-dump with the run directory stripped, md5 of the dump):
+pristine216 Scoreboard/default: binary 3a943a4a6e65 x1, de42a8e468b9 x2; dumps 8a2d4c751efe x1, 7ac6234aac6a x2
+  -> two dump orders: the known svunit listing-order coin (92 unsorted lines, 0 sorted).
+law13 Scoreboard/default: binary 6f4128e97cc4 / d1fe8c6cde2c / f38b5d69f3a8; dumps de64785450e3 x3
+  -> one dump, storage order only (unsorted diff 0 between every pair).
+law13 MiniAmiq/testflags: binary 780f55b86401 x3 against the gate sweep's 1d77ec998e82; dump identical to the
+  sweep's -> the known MiniAmiq storage-order coin (pristine216 draws 97fe4a62b2d0 here against its sweep's
+  ae2f0060a863 the same way).
+Every other row-mode: one hash per binary and mode, equal to the gate sweep's (Earlgrey d 59b7563b3901 / t
+1613867749ab, SeqDriver d 974a28de7919 / t 732c0e7a6611, SimpleUVM d 854827535275 / t 6a5744a7802e, BuildUVMPkg
+b352e84424ec both modes, MiniAmiq d 1d77ec998e82). No new reader-visible coin.

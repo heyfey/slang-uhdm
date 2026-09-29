@@ -1,0 +1,12 @@
+pris216 Earlgrey_0_1/default       3 5bb5b3b989b4 
+pris216 MiniAmiq/default       3 97fe4a62b2d0 
+pris216 SeqDriver/default       3 602689e9f8a3 
+pris216 SimpleUVM/default       3 3c1292b40f57 
+pris216 Scoreboard/default       1 3a943a4a6e65       2 de42a8e468b9 
+pris216 BuildUVMPkg/default       3 c020394bcdbc 
+pris216 Earlgrey_0_1/testflags       3 1961f9984a06 
+pris216 MiniAmiq/testflags       3 97fe4a62b2d0 
+pris216 SeqDriver/testflags       3 69640b807a50 
+pris216 SimpleUVM/testflags       3 61f25c6da659 
+pris216 Scoreboard/testflags 
+pris216 BuildUVMPkg/testflags       3 c020394bcdbc 

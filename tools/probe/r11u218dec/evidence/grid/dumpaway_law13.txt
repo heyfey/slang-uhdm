@@ -1,0 +1,15 @@
+CR/c03_class_ret_el lost=1 toward=8 reversed:lost=8 toward=1
+CR/c03_class_ret lost=1 toward=6 reversed:lost=6 toward=1
+CR/c08_importer_class_el lost=13 toward=8 reversed:lost=8 toward=13
+QS/q01_cast_add_concat_el lost=0 toward=3 reversed:lost=3 toward=0
+QS/q01_cast_add_concat lost=0 toward=3 reversed:lost=3 toward=0
+QS/q05_unary_el lost=0 toward=2 reversed:lost=2 toward=0
+QS/q05_unary lost=0 toward=2 reversed:lost=2 toward=0
+QS/q10_iface_el lost=0 toward=2 reversed:lost=2 toward=0
+QS/q10_iface lost=0 toward=2 reversed:lost=2 toward=0
+QS/q19_whole_paren_el lost=0 toward=2 reversed:lost=2 toward=0
+QS/q19_whole_paren lost=0 toward=2 reversed:lost=2 toward=0
+QS/q21_whole_paren_iface_el lost=0 toward=2 reversed:lost=2 toward=0
+QS/q21_whole_paren_iface lost=0 toward=2 reversed:lost=2 toward=0
+QS/q22_whole_paren_param_el lost=0 toward=2 reversed:lost=2 toward=0
+QS/q22_whole_paren_param lost=0 toward=2 reversed:lost=2 toward=0

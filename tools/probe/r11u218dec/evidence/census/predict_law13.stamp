@@ -1,0 +1,4 @@
+2026-09-28 21:28:52
+a818fd60e4cc161bcbbac81328c4bbf9  /tmp/r11u218_s/predict_law13.txt
+4861740f09cb67ba171ffadc557ecaf2  /tmp/r11u218_bin/law13.bin
+census: rows of predict_law7.txt (md5 fa2fbfb5b055fb4af6c64deecfa5eadd), a superset since law13 = law7 minus one law

@@ -1,0 +1,50 @@
+# MiniAmiq default: every package-level vpiTaskFunc function of svaunit_pkg, the kind of its vpiReturn variable and whether the variable is the home (uvm_pkg) object or a clone-parented copy (retvar.py over uhdm-dump)
+## golden
+('\\_bit_var', 'home') 166 ('svaunit_pkg::uvm_is_array', '\\_bit_var: (uvm_pkg::
+('\\_byte_var', 'home') 2 ('svaunit_pkg::uvm_packer::get_byte', '\\_byte_var: (u
+('\\_chandle_var', 'home') 2 ('svaunit_pkg::uvm_dpi_regcomp', '\\_chandle_var: (
+('\\_class_var', 'home') 186 ('svaunit_pkg::uvm_object::get_type', '\\_class_var
+('\\_enum_var', 'home') 12 ('svaunit_pkg::uvm_phase::get_phase_type', '\\_enum_v
+('\\_int_var', 'home') 112 ('svaunit_pkg::uvm_hdl_check_path', '\\_int_var: (uvm
+('\\_integer_var', 'home') 14 ('svaunit_pkg::uvm_transaction::get_transaction_id
+('\\_logic_var', 'home') 6 ('svaunit_pkg::uvm_packer::unpack_field', '\\_logic_v
+('\\_long_int_var', 'home') 2 ('svaunit_pkg::uvm_mem::get_size', '\\_long_int_va
+('\\_real_var', 'home') 2 ('svaunit_pkg::uvm_packer::unpack_real', '\\_real_var:
+('\\_ref_var', 'home') 2 ('svaunit_pkg::uvm_transaction::get_event_pool', '\\_re
+('\\_string_var', 'home') 86 ('svaunit_pkg::uvm_dpi_get_next_arg_c', '\\_string_
+('\\_time_var', 'home') 8 ('svaunit_pkg::uvm_packer::unpack_time', '\\_time_var:
+600
+## pristine c4f26079
+('\\_bit_var', 'clone') 160 ('svaunit_pkg::uvm_object::do_compare', '\\_bit_var:
+('\\_bit_var', 'home') 6 ('svaunit_pkg::uvm_is_array', '\\_bit_var: (uvm_pkg::uv
+('\\_byte_var', 'clone') 2 ('svaunit_pkg::uvm_packer::get_byte', '\\_byte_var: (
+('\\_chandle_var', 'home') 2 ('svaunit_pkg::uvm_dpi_regcomp', '\\_chandle_var: (
+('\\_class_var', 'clone') 186 ('svaunit_pkg::uvm_object::get_type', '\\_class_va
+('\\_enum_var', 'clone') 12 ('svaunit_pkg::uvm_phase::get_phase_type', '\\_enum_
+('\\_int_var', 'clone') 96 ('svaunit_pkg::uvm_object::get_inst_id', '\\_int_var:
+('\\_int_var', 'home') 16 ('svaunit_pkg::uvm_hdl_check_path', '\\_int_var: (uvm_
+('\\_integer_var', 'clone') 14 ('svaunit_pkg::uvm_transaction::get_transaction_i
+('\\_logic_var', 'clone') 4 ('svaunit_pkg::uvm_packer::unpack_field', '\\_logic_
+('\\_logic_var', 'home') 2 ('svaunit_pkg::uvm_string_to_bits', '\\_logic_var: (u
+('\\_long_int_var', 'clone') 2 ('svaunit_pkg::uvm_mem::get_size', '\\_long_int_v
+('\\_real_var', 'clone') 2 ('svaunit_pkg::uvm_packer::unpack_real', '\\_real_var
+('\\_ref_var', 'clone') 2 ('svaunit_pkg::uvm_transaction::get_event_pool', '\\_r
+('\\_string_var', 'clone') 56 ('svaunit_pkg::uvm_object::get_name', '\\_string_v
+('\\_string_var', 'home') 30 ('svaunit_pkg::uvm_dpi_get_next_arg_c', '\\_string_
+('\\_time_var', 'clone') 8 ('svaunit_pkg::uvm_packer::unpack_time', '\\_time_var
+600
+## law13
+('\\_bit_var', 'home') 166 ('svaunit_pkg::uvm_is_array', '\\_bit_var: (uvm_pkg::
+('\\_byte_var', 'home') 2 ('svaunit_pkg::uvm_packer::get_byte', '\\_byte_var: (u
+('\\_chandle_var', 'home') 2 ('svaunit_pkg::uvm_dpi_regcomp', '\\_chandle_var: (
+('\\_class_var', 'home') 186 ('svaunit_pkg::uvm_object::get_type', '\\_class_var
+('\\_enum_var', 'home') 12 ('svaunit_pkg::uvm_phase::get_phase_type', '\\_enum_v
+('\\_int_var', 'home') 112 ('svaunit_pkg::uvm_hdl_check_path', '\\_int_var: (uvm
+('\\_integer_var', 'home') 14 ('svaunit_pkg::uvm_transaction::get_transaction_id
+('\\_logic_var', 'home') 6 ('svaunit_pkg::uvm_packer::unpack_field', '\\_logic_v
+('\\_long_int_var', 'home') 2 ('svaunit_pkg::uvm_mem::get_size', '\\_long_int_va
+('\\_real_var', 'home') 2 ('svaunit_pkg::uvm_packer::unpack_real', '\\_real_var:
+('\\_ref_var', 'home') 2 ('svaunit_pkg::uvm_transaction::get_event_pool', '\\_re
+('\\_string_var', 'home') 86 ('svaunit_pkg::uvm_dpi_get_next_arg_c', '\\_string_
+('\\_time_var', 'home') 8 ('svaunit_pkg::uvm_packer::unpack_time', '\\_time_var:
+600

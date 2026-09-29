@@ -1,0 +1,13 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u218_wF/probe.csv
+== probe vs golden_probe.csv
+regressions=0 conversions=8 changes=11 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u218_wF/surelog.csv
+== surelog vs golden_surelog.csv
+regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u218_wF/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
