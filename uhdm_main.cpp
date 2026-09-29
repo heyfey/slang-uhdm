@@ -8,6 +8,7 @@
 #include "UhdmExporter.h"
 #include "src/R223.h"
 #include "src/R228.h"
+#include "src/R233.h"
 
 #include <cstdio>
 #include <filesystem>
@@ -1384,6 +1385,165 @@ static int realMain(int argc, char** argv) {
                     }
                 }
         }
+        // § pvSizeFwdPkgDimDeclines233v (r11u233, the second adversarial
+        // verification of pass 228: case tools/probe/r11u233verify/cases/X
+        // x03) — a package holding a reference `Q::n` to a package Q
+        // declared LATER in the same file (the forward shape of
+        // § fwdPkgRefClassScopeSpan227) leaves that reference unresolved in
+        // golden, and every value computed from it with it: an operand
+        // whose dimension reads such a package's parameter (`bit [3:0]
+        // [p1::S.x:0] c` with `S = '{x: p2::E1}`) cannot be sized by
+        // golden's ExprEval, which keeps `$size(c, 2)`; ours binds the
+        // reference and sized it (11 records away: the call, its argument,
+        // the net).  Such an operand keeps the call, the base's bytes.
+        // Switch R11V233_PVSIZEFWD_OFF.
+        std::set<std::string> fwdTainted233;
+        const bool fwd233 = slang_uhdm::r11v233Law("R11V233_PVSIZEFWD_OFF");
+        bool fwdDone233 = false;
+        auto fwdCompute233 = [&]() {
+            if (fwdDone233)
+                return;
+            fwdDone233 = true;
+            struct P233 { std::string file; int line = 0, col = 0; };
+            std::map<std::string, P233> pk233;
+            std::vector<const UHDM::ref_obj*> rf233;
+            for (auto& kv : serializer.AllObjects()) {
+                auto* o = (const UHDM::BaseClass*)kv.first;
+                if (!o)
+                    continue;
+                if (o->UhdmType() == UHDM::uhdmpackage)
+                    pk233.emplace(std::string(o->VpiName()),
+                                  P233{std::string(o->VpiFile()), (int)o->VpiLineNo(),
+                                       (int)o->VpiColumnNo()});
+                else if (o->UhdmType() == UHDM::uhdmref_obj)
+                    rf233.push_back((const UHDM::ref_obj*)o);
+            }
+            for (auto* r : rf233) {
+                const std::string n(r->VpiName());
+                const size_t k = n.find("::");
+                if (k == std::string::npos || k == 0)
+                    continue;
+                const UHDM::BaseClass* p = r->VpiParent();
+                for (int d = 0; p && d < 256 && p->UhdmType() != UHDM::uhdmpackage &&
+                                p->UhdmType() != UHDM::uhdmdesign;
+                     d++)
+                    p = p->VpiParent();
+                if (!p || p->UhdmType() != UHDM::uhdmpackage)
+                    continue;
+                auto qi = pk233.find(n.substr(0, k));
+                auto pi = pk233.find(std::string(p->VpiName()));
+                if (qi == pk233.end() || pi == pk233.end() || qi == pi ||
+                    qi->second.file.empty() || qi->second.file != pi->second.file)
+                    continue;
+                if (std::make_pair(qi->second.line, qi->second.col) >
+                    std::make_pair(pi->second.line, pi->second.col))
+                    fwdTainted233.insert(std::string(p->VpiName()));
+            }
+        };
+        // the package prefixes an operand's dimensions read
+        std::function<bool(const UHDM::any*, int)> exprFwd233 =
+            [&](const UHDM::any* e, int d) -> bool {
+            if (!e || d > 32)
+                return false;
+            switch (e->UhdmType()) {
+            case UHDM::uhdmref_obj: {
+                const std::string n(((const UHDM::ref_obj*)e)->VpiName());
+                const size_t k = n.find("::");
+                return k != std::string::npos && fwdTainted233.count(n.substr(0, k));
+            }
+            case UHDM::uhdmhier_path:
+                if (auto* pe = ((const UHDM::hier_path*)e)->Path_elems())
+                    for (auto* x : *pe)
+                        if (exprFwd233(x, d + 1))
+                            return true;
+                return false;
+            case UHDM::uhdmoperation:
+                if (auto* ops = ((const UHDM::operation*)e)->Operands())
+                    for (auto* x : *ops)
+                        if (exprFwd233(x, d + 1))
+                            return true;
+                return false;
+            case UHDM::uhdmsys_func_call:
+            case UHDM::uhdmfunc_call:
+                if (auto* as = ((const UHDM::tf_call*)e)->Tf_call_args())
+                    for (auto* x : *as)
+                        if (exprFwd233(x, d + 1))
+                            return true;
+                return false;
+            case UHDM::uhdmbit_select:
+                return exprFwd233(((const UHDM::bit_select*)e)->VpiIndex(), d + 1);
+            default:
+                return false;
+            }
+        };
+        std::function<bool(const UHDM::any*, int)> tsFwd233 =
+            [&](const UHDM::any* ts, int d) -> bool {
+            if (!ts || d > 16)
+                return false;
+            if (ts->UhdmType() == UHDM::uhdmref_typespec)
+                ts = ((const UHDM::ref_typespec*)ts)->Actual_typespec();
+            if (!ts)
+                return false;
+            const UHDM::VectorOfrange* rs = nullptr;
+            const UHDM::ref_typespec* el = nullptr;
+            switch (ts->UhdmType()) {
+            case UHDM::uhdmlogic_typespec:
+                rs = ((const UHDM::logic_typespec*)ts)->Ranges();
+                el = ((const UHDM::logic_typespec*)ts)->Elem_typespec();
+                break;
+            case UHDM::uhdmbit_typespec:
+                rs = ((const UHDM::bit_typespec*)ts)->Ranges();
+                break;
+            case UHDM::uhdmint_typespec:
+                rs = ((const UHDM::int_typespec*)ts)->Ranges();
+                break;
+            case UHDM::uhdmpacked_array_typespec:
+                rs = ((const UHDM::packed_array_typespec*)ts)->Ranges();
+                el = ((const UHDM::packed_array_typespec*)ts)->Elem_typespec();
+                break;
+            case UHDM::uhdmarray_typespec:
+                rs = ((const UHDM::array_typespec*)ts)->Ranges();
+                el = ((const UHDM::array_typespec*)ts)->Elem_typespec();
+                break;
+            default:
+                break;
+            }
+            if (rs)
+                for (auto* r : *rs)
+                    if (r && (exprFwd233(r->Left_expr(), 0) || exprFwd233(r->Right_expr(), 0)))
+                        return true;
+            return el && tsFwd233(el, d + 1);
+        };
+        auto operandFwd233 = [&](const UHDM::any* act) -> bool {
+            if (!fwd233 || !act)
+                return false;
+            fwdCompute233();
+            if (fwdTainted233.empty())
+                return false;
+            const UHDM::VectorOfrange* rs = nullptr;
+            const UHDM::any* ets = nullptr;
+            if (act->UhdmType() == UHDM::uhdmarray_var) {
+                auto* av = (const UHDM::array_var*)act;
+                rs = av->Ranges();
+                if (av->Variables() && !av->Variables()->empty() && (*av->Variables())[0])
+                    ets = (*av->Variables())[0]->Typespec();
+            }
+            else if (act->UhdmType() == UHDM::uhdmarray_net) {
+                auto* an = (const UHDM::array_net*)act;
+                rs = an->Ranges();
+                if (an->Nets() && !an->Nets()->empty() && (*an->Nets())[0])
+                    ets = (*an->Nets())[0]->Typespec();
+            }
+            else if (auto* v = dynamic_cast<const UHDM::variables*>(act))
+                ets = v->Typespec();
+            else if (auto* n = dynamic_cast<const UHDM::net*>(act))
+                ets = n->Typespec();
+            if (rs)
+                for (auto* r : *rs)
+                    if (r && (exprFwd233(r->Left_expr(), 0) || exprFwd233(r->Right_expr(), 0)))
+                        return true;
+            return tsFwd233(ets, 0);
+        };
         auto isDefModule228 = [&](const UHDM::any* o) {
             if (auto* am = design->AllModules())
                 for (auto* m228 : *am)
@@ -1435,6 +1595,11 @@ static int realMain(int argc, char** argv) {
             if (!(dynamic_cast<const UHDM::net*>(act) || dynamic_cast<const UHDM::variables*>(act) ||
                   act->UhdmType() == UHDM::uhdmarray_net))
                 continue;
+            if (operandFwd233(act)) {
+                slang_uhdm::tr233("pvSizeFwdPkgDimDeclines233v",
+                                  std::string(ca->Lhs()->VpiName()));
+                continue;
+            }
             const UHDM::any* lhs = ca->Lhs();
             const UHDM::ref_typespec* lrt = nullptr;
             if (lhs->UhdmType() == UHDM::uhdmlogic_net)

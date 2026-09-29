@@ -31,6 +31,7 @@
 #include "R221.h"
 #include "R225.h"
 #include "R228.h"
+#include "R233.h"
 #include "R229.h"
 
 namespace slang_uhdm {
@@ -1159,11 +1160,33 @@ static bool rqSizePlan216(const slang::ast::Expression& rhs, int64_t& count,
         if (sym.kind != SymbolKind::Net || !r11u228Law("R11U228_SIZEBITNET_OFF"))
             return false;
         const Type* e = &ct;
-        while (e->getCanonicalType().kind == SymbolKind::PackedArrayType)
+        // § sizeBitNetAliasVecDeclines233v (r11u233, the second adversarial
+        // verification of pass 228: cases tools/probe/r11u233verify/cases/B
+        // b07 b09 b11) — ExprEval answers golden's value only where our
+        // net's typespec has golden's shape; a packed dimension written over
+        // a TYPEDEF'D BIT VECTOR (`typedef bit [1:0] b2_t; input b2_t [3:0]
+        // pp`) is not such a net: golden's ExprEval reads `$size(pp)` and
+        // `$size(pp, 2)` as 2 and 2 (b07), 8 and 8 (b09 `b2_t [3:0]` behind
+        // a second typedef), where ExprEval over ours reads 1 and 1 (4 and
+        // 4), and the landed count had `$size(pp, 2)` right (2): the law
+        // moved that constant away from golden in both views.  A typedef'd
+        // SCALAR bit element (`b1_t [3:0][1:0]`, b10) reads golden's value
+        // and keeps the law.  Such a net keeps the base's count.  Switch
+        // R11V233_BITNETALIAS_OFF.
+        bool aliasVec233 = false;
+        while (e->getCanonicalType().kind == SymbolKind::PackedArrayType) {
             e = &e->getCanonicalType().as<PackedArrayType>().elementType;
+            if (e->isAlias() &&
+                e->getCanonicalType().kind == SymbolKind::PackedArrayType)
+                aliasVec233 = true;
+        }
         auto& ec = e->getCanonicalType();
         if (ec.kind == SymbolKind::ScalarType &&
             ec.as<ScalarType>().scalarKind == ScalarType::Bit) {
+            if (aliasVec233 && slang_uhdm::r11v233Law("R11V233_BITNETALIAS_OFF")) {
+                slang_uhdm::tr233("sizeBitNetAliasVecDeclines233v", std::string(sym.name));
+                return false;
+            }
             slang_uhdm::tr228("sizeBitNetIsVar228", std::string(sym.name));
             return true;
         }

@@ -1,0 +1,2 @@
+databases 7452 {'OWN227': 22, 'SAME': 7430}
+  OWN227: probe 20, corpus 2: surelog/default/FuncStructVal surelog/testflags/FuncStructVal | lanes 0: 

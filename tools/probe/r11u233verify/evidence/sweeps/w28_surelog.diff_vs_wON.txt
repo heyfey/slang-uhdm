@@ -1,0 +1,8 @@
+841c841
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u233_wON/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u233_w28/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+843c843
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u233_wON/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u233_w28/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,

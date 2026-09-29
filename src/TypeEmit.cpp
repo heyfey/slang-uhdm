@@ -17,6 +17,8 @@
 #include "R223.h"
 #include "R225.h"
 #include "R228.h"
+#include "R233.h"
+#include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
 
@@ -6709,6 +6711,60 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                                                declSymbol.getHierarchicalPath()));
                                                 }
                                         }
+                                        // § memberRootAncestorInstance233v
+                                        // (r11u233, the second adversarial
+                                        // verification of pass 228: case
+                                        // tools/probe/r11u233verify/cases/X
+                                        // x04) — the same stale scope one
+                                        // level up: a CHILD's range bound
+                                        // read through its own parameter
+                                        // overridden by the parent's member
+                                        // localparam (`sub #(.Depth(N))`,
+                                        // `N = Info.x` in mid) binds the root
+                                        // in the FIRST instance of the
+                                        // parent's definition, so with mid
+                                        // m1 untyped (`'{x: 5}`) and m2 a
+                                        // cast (`info_t'(6)`) the law folded
+                                        // m2's child range, whose golden
+                                        // keeps `Info.x` (14 records away in
+                                        // both views; in the other order it
+                                        // kept m2's untyped one, a miss).
+                                        // The root is read in the instance
+                                        // of the root's definition that
+                                        // encloses the signal's own
+                                        // instance; a root that cannot be
+                                        // mapped there keeps the base's
+                                        // substitution.  Switch
+                                        // R11V233_ROOTANC_OFF.
+                                        else if (ibD && ibB && ibD != ibB &&
+                                                 bp9.getParentScope() == ibB &&
+                                                 r11v233Law("R11V233_ROOTANC_OFF")) {
+                                            const InstanceBodySymbol* anc233 = nullptr;
+                                            bool enc233 = false;
+                                            for (auto* b233 = ibD; b233 && b233->parentInstance;) {
+                                                auto* nb233 = ibOf(*b233->parentInstance);
+                                                if (!nb233)
+                                                    break;
+                                                if (&nb233->getDefinition() ==
+                                                    &ibB->getDefinition()) {
+                                                    anc233 = nb233;
+                                                    break;
+                                                }
+                                                b233 = nb233;
+                                            }
+                                            enc233 = anc233 != nullptr;
+                                            if (enc233 && anc233 != ibB) {
+                                                if (auto* s233 = anc233->find(bp9.name);
+                                                    s233 && s233->kind == SymbolKind::Parameter) {
+                                                    root228v = &s233->as<ParameterSymbol>();
+                                                    tr233("memberRootAncestorInstance233v",
+                                                          std::string(
+                                                              declSymbol.getHierarchicalPath()));
+                                                }
+                                                else
+                                                    rootOk228v = false;
+                                            }
+                                        }
                                     }
                                     // § memberRootFoldShapes228v (v11u228,
                                     // cases v11u228repro/cases/FM f03 f06
@@ -6738,6 +6794,10 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                     // shape keeps the base's substitution.
                                     // Switch R11V228_ROOTSHAPE_OFF.
                                     const syntax::SyntaxNode* sxv228 = nullptr;
+                                    // § memberRootNoStructReadFolds233v: the
+                                    // root value the shape test reads (after
+                                    // the chain and the selected arm).
+                                    const Expression* ev233 = nullptr;
                                     bool shape228v =
                                         r11v228Law("R11V228_ROOTSHAPE_OFF");
                                     if (shape228v && rootOk228v) {
@@ -6782,6 +6842,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                             sxv228 = e228->syntax
                                                          ? e228->syntax
                                                          : stripImplicitConv(*e228).syntax;
+                                        ev233 = e228;
                                     }
                                     std::function<bool(const syntax::SyntaxNode*, int)>
                                         scalar228v = [&](const syntax::SyntaxNode* n,
@@ -6868,8 +6929,201 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                     bool fold228 = implFold228;
                                     if (!rootOk228v)
                                         fold228 = false;
-                                    else if (shape228v)
+                                    else if (shape228v) {
                                         fold228 = sxv228 && folds228v(sxv228, 0);
+                                        // § memberRootNoStructReadFolds233v
+                                        // (r11u233, the second adversarial
+                                        // verification of pass 228: cases
+                                        // tools/probe/r11u233verify/cases/J
+                                        // and M m23 m24 m29 m32 m35) — the
+                                        // shape test reads the root's written
+                                        // form only, but Surelog reduces the
+                                        // member only when every value under
+                                        // the root reduces: golden KEEPS the
+                                        // `Info.x` path when the root reads a
+                                        // struct parameter as a whole value
+                                        // (`B + 0`, `B | 0`, `{B}`,
+                                        // `'{x: int'(B)}`, whatever B's
+                                        // shape), reads a member of a struct
+                                        // parameter whose own root keeps
+                                        // (`'{x: B.x}` with B a cast, two hops
+                                        // `B = '{x: C.x}` with C a cast, an
+                                        // int localparam `W = B.x` read as
+                                        // `'{x: W}`), holds a cast to a struct
+                                        // type below the root (`{info_t'(16)}`,
+                                        // `({info_t'(16)})`), holds a unary
+                                        // plus (`'{x: +16}`: golden keeps the
+                                        // unreduced `+16` operation), or is a
+                                        // concatenation of two or more
+                                        // operands one of which is an
+                                        // arithmetic (`{16'd0, 32'd20 -
+                                        // 32'd4}`).  The member law folded all
+                                        // of them (7 records away from golden
+                                        // in the parse view, 13 in the
+                                        // elaborated one: the `Info.x - 1`
+                                        // operation, its hier_path and the
+                                        // path's ref_typespec chain that
+                                        // pristine wrote); a member of a
+                                        // struct parameter whose own root
+                                        // folds (`'{x: B.x}` with B untyped,
+                                        // `'{x: C.y}`), int casts (`{int'(
+                                        // 16)}`, `'{x: int'(16)}`), a unary
+                                        // minus, a single-operand
+                                        // concatenation of an arithmetic and a
+                                        // multi-operand one of literals, casts,
+                                        // conditionals and parameters, and a
+                                        // member of a struct parameter a
+                                        // constant function builds (`'{x:
+                                        // pk::C.u.x}`, `C = mk()`), still
+                                        // fold, as golden does.  Such a root
+                                        // keeps the base's substitution.
+                                        // Switch R11V233_ROOTREAD_OFF.
+                                        if (fold228 && ev233 &&
+                                            r11v233Law("R11V233_ROOTREAD_OFF")) {
+                                            std::function<bool(const ParameterSymbol&, int)>
+                                                rootFolds233;
+                                            std::function<bool(const Expression&, int)>
+                                                tainted233 = [&](const Expression& ex,
+                                                                 int d) -> bool {
+                                                if (d > 16)
+                                                    return true;
+                                                bool bad = false;
+                                                auto readSym = [&](const Symbol& sy) {
+                                                    if (bad || sy.kind != SymbolKind::Parameter)
+                                                        return;
+                                                    auto& ps = sy.as<ParameterSymbol>();
+                                                    auto& ct = ps.getType().getCanonicalType();
+                                                    if (ct.isStruct() || ct.isUnion()) {
+                                                        bad = true;  // a whole struct value
+                                                        return;
+                                                    }
+                                                    if (auto* in = ps.getInitializer())
+                                                        if (tainted233(*in, d + 1))
+                                                            bad = true;
+                                                };
+                                                ex.visit(makeVisitor(
+                                                    [&](auto& v, const MemberAccessExpression& ma) {
+                                                        if (bad)
+                                                            return;
+                                                        auto& b = stripImplicitConv(ma.value());
+                                                        const Symbol* bs = nullptr;
+                                                        if (b.kind == ExpressionKind::NamedValue)
+                                                            bs = &b.as<NamedValueExpression>().symbol;
+                                                        else if (b.kind ==
+                                                                 ExpressionKind::HierarchicalValue)
+                                                            bs = &b.as<HierarchicalValueExpression>()
+                                                                      .symbol;
+                                                        if (bs && bs->kind == SymbolKind::Parameter) {
+                                                            auto& bt = bs->as<ParameterSymbol>()
+                                                                           .getType()
+                                                                           .getCanonicalType();
+                                                            if (bt.isStruct() || bt.isUnion()) {
+                                                                // a member of a struct parameter
+                                                                // built by a constant function
+                                                                // (`pk::C.u.x`, `C = mk()`)
+                                                                // reduces in golden (case X x02)
+                                                                const Expression* bi = bs->as<ParameterSymbol>()
+                                                                                           .getInitializer();
+                                                                if (bi && stripImplicitConv(*bi).kind ==
+                                                                              ExpressionKind::Call)
+                                                                    return;
+                                                                if (!rootFolds233(
+                                                                        bs->as<ParameterSymbol>(),
+                                                                        d + 1))
+                                                                    bad = true;
+                                                                return;
+                                                            }
+                                                        }
+                                                        v.visitDefault(ma);
+                                                    },
+                                                    [&](auto&, const NamedValueExpression& nv) {
+                                                        readSym(nv.symbol);
+                                                    },
+                                                    [&](auto&, const HierarchicalValueExpression& hv) {
+                                                        readSym(hv.symbol);
+                                                    },
+                                                    [&](auto& v, const ConversionExpression& ce) {
+                                                        if (bad)
+                                                            return;
+                                                        auto& tt = ce.type->getCanonicalType();
+                                                        if (!ce.isImplicit() &&
+                                                            (tt.isStruct() || tt.isUnion())) {
+                                                            bad = true;
+                                                            return;
+                                                        }
+                                                        v.visitDefault(ce);
+                                                    },
+                                                    [&](auto& v, const UnaryExpression& ue) {
+                                                        if (bad)
+                                                            return;
+                                                        if (ue.op == UnaryOperator::Plus) {
+                                                            bad = true;
+                                                            return;
+                                                        }
+                                                        v.visitDefault(ue);
+                                                    },
+                                                    [&](auto& v, const ConcatenationExpression& cc) {
+                                                        if (bad)
+                                                            return;
+                                                        if (cc.operands().size() >= 2)
+                                                            for (auto* o : cc.operands())
+                                                                if (o && stripImplicitConv(*o).kind ==
+                                                                             ExpressionKind::BinaryOp) {
+                                                                    bad = true;
+                                                                    return;
+                                                                }
+                                                        v.visitDefault(cc);
+                                                    }));
+                                                return bad;
+                                            };
+                                            rootFolds233 = [&](const ParameterSymbol& p0,
+                                                               int d) -> bool {
+                                                if (d > 16)
+                                                    return false;
+                                                const Expression* e = p0.getInitializer();
+                                                for (int g = 0; e && g < 8; g++) {
+                                                    auto& s0 = stripImplicitConv(*e);
+                                                    const Symbol* r0 = nullptr;
+                                                    if (s0.kind == ExpressionKind::NamedValue)
+                                                        r0 = &s0.as<NamedValueExpression>().symbol;
+                                                    else if (s0.kind ==
+                                                             ExpressionKind::HierarchicalValue)
+                                                        r0 = &s0.as<HierarchicalValueExpression>()
+                                                                  .symbol;
+                                                    if (!r0 || r0->kind != SymbolKind::Parameter)
+                                                        break;
+                                                    if (r0->as<ParameterSymbol>()
+                                                            .getType()
+                                                            .getCanonicalType()
+                                                            .kind != SymbolKind::PackedStructType)
+                                                        return false;
+                                                    e = r0->as<ParameterSymbol>().getInitializer();
+                                                }
+                                                for (int g = 0; e && g < 8; g++) {
+                                                    auto& c0 = stripImplicitConv(*e);
+                                                    if (c0.kind != ExpressionKind::ConditionalOp)
+                                                        break;
+                                                    auto* ks = c0.as<ConditionalExpression>()
+                                                                   .knownSide();
+                                                    if (!ks)
+                                                        break;
+                                                    e = ks;
+                                                }
+                                                if (!e)
+                                                    return false;
+                                                auto* sx = e->syntax
+                                                               ? e->syntax
+                                                               : stripImplicitConv(*e).syntax;
+                                                return sx && folds228v(sx, 0) &&
+                                                       !tainted233(*e, d);
+                                            };
+                                            if (tainted233(*ev233, 0)) {
+                                                fold228 = false;
+                                                tr233("memberRootNoStructReadFolds233v",
+                                                      std::string(declSymbol.getHierarchicalPath()));
+                                            }
+                                        }
+                                    }
                                     else if (root228v != &bp9) {
                                         // the landed test on the own
                                         // instance's root (the chain through

@@ -1,0 +1,24 @@
+# firing census of the HEAD binary (law.bin 8d6b7668) over the gate sweep /tmp/r11u233_wON (probe, surelog, uhdm2rtlil both modes, downstream lanes) with R11U227_TRACE and R11U228_TRACE: one line per database whose process fired, the law names and counts
+probe/r11u24repro__n12.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11u24repro__n3.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11u26repro__m13.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11u26repro__m15.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11u26repro__m6.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11u26repro__m8.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11u26repro__m9.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11u28repro__a13.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11u28repro__a16.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11u28repro__a4.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11u28repro__a5.uhdm |  2 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11u28repro__a6.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11u28repro__a7.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11v26repro__v12.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11v26repro__v13.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11v26repro__v15.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11v26repro__v16.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11v26repro__v18.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11v26repro__v2.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+probe/r11v26repro__v9.uhdm |  1 pkgPatFuncBodyLeftoverNoParent227 
+surelog/default/FuncStructVal-9244d8c4 |  2 fwdPkgRefClassScopeSpan227 
+surelog/testflags/FuncStructVal-9244d8c4 |  2 fwdPkgRefClassScopeSpan227 
+# trace files: 22; pass 228 trace files (.228): 0

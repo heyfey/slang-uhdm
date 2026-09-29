@@ -1,0 +1,31 @@
+== probe: rows 4087; conversions L vs A = 0: 
+  CHANGE (L vs A, not a conversion): OWN227=20
+    OWN227 r11u24repro/n12: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11u24repro/n3: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11u26repro/m13: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11u26repro/m15: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11u26repro/m6: A=differ:fullname(9) L=differ:fullname(8) off227=differ:fullname(9)
+    OWN227 r11u26repro/m8: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11u26repro/m9: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11u28repro/a13: A=differ:fullname(3) L=differ:fullname(2) off227=differ:fullname(3)
+    OWN227 r11u28repro/a16: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11u28repro/a4: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11u28repro/a5: A=differ:fullname(10) L=differ:fullname(8) off227=differ:fullname(10)
+    OWN227 r11u28repro/a6: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11u28repro/a7: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11v26repro/v12: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11v26repro/v13: A=differ:fullname(9) L=differ:fullname(8) off227=differ:fullname(9)
+    OWN227 r11v26repro/v15: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11v26repro/v16: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11v26repro/v18: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+    OWN227 r11v26repro/v2: A=differ:fullname(9) L=differ:fullname(8) off227=differ:fullname(9)
+    OWN227 r11v26repro/v9: A=differ:fullname(5) L=differ:fullname(4) off227=differ:fullname(5)
+  CANCEL (same in L and A, different with one landing off): 0
+== surelog: rows 1588; conversions L vs A = 0: 
+  CHANGE (L vs A, not a conversion): OWN227=2
+    OWN227 FuncStructVal/d: A=differ:endcol(7) L=differ:file(5) off227=differ:endcol(7)
+    OWN227 FuncStructVal/t: A=differ:endcol(10) L=differ:file(9) off227=differ:endcol(10)
+  CANCEL (same in L and A, different with one landing off): 0
+== uhdm2rtlil: rows 1742; conversions L vs A = 0: 
+  CHANGE (L vs A, not a conversion): 
+  CANCEL (same in L and A, different with one landing off): 0

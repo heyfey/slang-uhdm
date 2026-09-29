@@ -1,0 +1,90 @@
+# 22 databases differ between /tmp/r11u233_wON and /tmp/r11u233_wNO (canonical records)
+probe/r11u24repro/n12 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u24repro/n3 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u26repro/m13 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u26repro/m15 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u26repro/m6 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u26repro/m8 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u26repro/m9 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u28repro/a13 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u28repro/a16 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u28repro/a4 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u28repro/a5 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0 flat_unpaired=2 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=2 on=0 golden=2 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u28repro/a6 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11u28repro/a7 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v12 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v13 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v15 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v16 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v18 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v2 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+probe/r11v26repro/v9 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_typespec|||||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=1 @ operation: < param_assign: < package:pk < design:work@dut
+surelog/default/FuncStructVal chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0 flat_unpaired=2 flat_excess_removed=0
+  CHAIN_LOST ref_obj|config_pkg::NOC_TYPE_AXI4_ATOP||cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP|dut.sv|106|16|106|28||0|| @ tagged_pattern: < operation: < param_assign: < package:cva6_config_pkg < design:work@top
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) ref_obj|config_pkg::NOC_TYPE_AXI4_ATOP||cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP|dut.sv|106|16|106|28||0||
+     chain off=2 on=0 golden=2 @ tagged_pattern: < operation: < param_assign: < package:cva6_config_pkg < design:work@top
+surelog/testflags/FuncStructVal chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0 flat_unpaired=2 flat_excess_removed=0
+  CHAIN_LOST ref_obj|config_pkg::NOC_TYPE_AXI4_ATOP||cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP|dut.sv|106|16|106|28||0|| @ tagged_pattern: < operation: < param_assign: < package:cva6_config_pkg < design:work@top
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) ref_obj|config_pkg::NOC_TYPE_AXI4_ATOP||cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP|dut.sv|106|16|106|28||0||
+     chain off=2 on=0 golden=2 @ tagged_pattern: < operation: < param_assign: < package:cva6_config_pkg < design:work@top
+TOTAL chain_lost=25 chain_toward=0 flat_lost=25 flat_toward=0 flat_unpaired=25 flat_excess_removed=0 flat_lost_unexplained=25

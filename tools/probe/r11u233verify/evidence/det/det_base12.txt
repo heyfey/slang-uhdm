@@ -1,0 +1,4 @@
+base12 MiniAmiq default 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0  ref=7d6c076f4328
+base12 MiniAmiq testflags 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0  ref=7d6c076f4328
+base12 Scoreboard default dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0  ref=dbb7fce68eb4
+Scoreboard testflags skip SLANG_REJECT

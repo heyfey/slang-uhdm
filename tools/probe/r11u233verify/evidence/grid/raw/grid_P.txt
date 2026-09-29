@@ -1,0 +1,264 @@
+FIRED P/p01_el -
+  P/p01_el on cmp=255 cmplines=116 strict=NOT_EQUAL_stage1 rc=0 md5=45d26a32
+  P/p01_el tr cmp=255 cmplines=116 strict=NOT_EQUAL_stage1 rc=0 md5=45d26a32
+  P/p01_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=116 strict=NOT_EQUAL_stage1 rc=0 md5=45d26a32
+  P/p01_el offL227 cmp=255 cmplines=116 strict=NOT_EQUAL_stage1 rc=0 md5=45d26a32
+  P/p01_el alloff cmp=255 cmplines=116 strict=NOT_EQUAL_stage1 rc=0 md5=45d26a32
+  P/p01_el wide cmp=255 cmplines=116 strict=NOT_EQUAL_stage1 rc=0 md5=45d26a32
+RESULT P/p01_el pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p01_el LANDING227 UNFIRED 
+RESULT P/p01_el ALLOFF UNFIRED 
+RESULT P/p01_el IMPL UNFIRED 
+FIRED P/p01 -
+  P/p01 on cmp=255 cmplines=116 strict=NOT_EQUAL_stage1 rc=0 md5=4f4826a9
+  P/p01 tr cmp=255 cmplines=116 strict=NOT_EQUAL_stage1 rc=0 md5=4f4826a9
+  P/p01 off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=116 strict=NOT_EQUAL_stage1 rc=0 md5=4f4826a9
+  P/p01 offL227 cmp=255 cmplines=116 strict=NOT_EQUAL_stage1 rc=0 md5=4f4826a9
+  P/p01 alloff cmp=255 cmplines=116 strict=NOT_EQUAL_stage1 rc=0 md5=4f4826a9
+  P/p01 wide cmp=255 cmplines=116 strict=NOT_EQUAL_stage1 rc=0 md5=4f4826a9
+RESULT P/p01 pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p01 LANDING227 UNFIRED 
+RESULT P/p01 ALLOFF UNFIRED 
+RESULT P/p01 IMPL UNFIRED 
+FIRED P/p02_el -
+  P/p02_el on cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=1c38ec1e
+  P/p02_el tr cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=1c38ec1e
+  P/p02_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=1c38ec1e
+  P/p02_el offL227 cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=1c38ec1e
+  P/p02_el alloff cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=1c38ec1e
+  P/p02_el wide cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=1c38ec1e
+RESULT P/p02_el pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p02_el LANDING227 UNFIRED 
+RESULT P/p02_el ALLOFF UNFIRED 
+RESULT P/p02_el IMPL UNFIRED 
+FIRED P/p02 -
+  P/p02 on cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=5e4da142
+  P/p02 tr cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=5e4da142
+  P/p02 off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=5e4da142
+  P/p02 offL227 cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=5e4da142
+  P/p02 alloff cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=5e4da142
+  P/p02 wide cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=5e4da142
+RESULT P/p02 pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p02 LANDING227 UNFIRED 
+RESULT P/p02 ALLOFF UNFIRED 
+RESULT P/p02 IMPL UNFIRED 
+FIRED P/p03_el -
+  P/p03_el on cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=80bbfbc4
+  P/p03_el tr cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=80bbfbc4
+  P/p03_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=80bbfbc4
+  P/p03_el offL227 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=80bbfbc4
+  P/p03_el alloff cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=80bbfbc4
+  P/p03_el wide cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=80bbfbc4
+RESULT P/p03_el pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p03_el LANDING227 UNFIRED 
+RESULT P/p03_el ALLOFF UNFIRED 
+RESULT P/p03_el IMPL UNFIRED 
+FIRED P/p03 -
+  P/p03 on cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=ad343ff5
+  P/p03 tr cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=ad343ff5
+  P/p03 off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=ad343ff5
+  P/p03 offL227 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=ad343ff5
+  P/p03 alloff cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=ad343ff5
+  P/p03 wide cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=ad343ff5
+RESULT P/p03 pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p03 LANDING227 UNFIRED 
+RESULT P/p03 ALLOFF UNFIRED 
+RESULT P/p03 IMPL UNFIRED 
+FIRED P/p04_el pkgPatFuncBodyLeftoverNoParent227:1
+  P/p04_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=90fbb996
+  P/p04_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=90fbb996
+  P/p04_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ed7b2f52
+  P/p04_el offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ed7b2f52
+  P/p04_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ed7b2f52
+  P/p04_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=90fbb996
+RESULT P/p04_el pkgPatFuncBodyLeftoverNoParent227 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT P/p04_el LANDING227 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT P/p04_el ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT P/p04_el IMPL UNFIRED 
+FIRED P/p04 pkgPatFuncBodyLeftoverNoParent227:1
+  P/p04 on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=701c4649
+  P/p04 tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=701c4649
+  P/p04 off_pkgPatFuncBodyLeftoverNoParent227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d7426c9e
+  P/p04 offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d7426c9e
+  P/p04 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d7426c9e
+  P/p04 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=701c4649
+RESULT P/p04 pkgPatFuncBodyLeftoverNoParent227 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT P/p04 LANDING227 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT P/p04 ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT P/p04 IMPL UNFIRED 
+FIRED P/p05_el pkgPatFuncBodyLeftoverNoParent227:1
+  P/p05_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=75b60c11
+  P/p05_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=75b60c11
+  P/p05_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=6b039233
+  P/p05_el offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=6b039233
+  P/p05_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=6b039233
+  P/p05_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=75b60c11
+RESULT P/p05_el pkgPatFuncBodyLeftoverNoParent227 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT P/p05_el LANDING227 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT P/p05_el ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT P/p05_el IMPL UNFIRED 
+FIRED P/p05 pkgPatFuncBodyLeftoverNoParent227:1
+  P/p05 on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a93e78bd
+  P/p05 tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a93e78bd
+  P/p05 off_pkgPatFuncBodyLeftoverNoParent227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ad006b62
+  P/p05 offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ad006b62
+  P/p05 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ad006b62
+  P/p05 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a93e78bd
+RESULT P/p05 pkgPatFuncBodyLeftoverNoParent227 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT P/p05 LANDING227 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT P/p05 ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT P/p05 IMPL UNFIRED 
+FIRED P/p06_el pkgPatFuncBodyLeftoverNoParent227:1
+  P/p06_el on cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=a612c3d5
+  P/p06_el tr cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=a612c3d5
+  P/p06_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=75de4a3d
+  P/p06_el offL227 cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=75de4a3d
+  P/p06_el alloff cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=75de4a3d
+  P/p06_el wide cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=a612c3d5
+RESULT P/p06_el pkgPatFuncBodyLeftoverNoParent227 STAGE1-CLOSER off:stage1 on:stage1 dump off=15 on=12 newbad=0
+RESULT P/p06_el LANDING227 STAGE1-CLOSER off:stage1 on:stage1 dump off=15 on=12 newbad=0
+RESULT P/p06_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=15 on=12 newbad=0
+RESULT P/p06_el IMPL UNFIRED 
+FIRED P/p06 pkgPatFuncBodyLeftoverNoParent227:1
+  P/p06 on cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=257251c0
+  P/p06 tr cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=257251c0
+  P/p06 off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=afd99356
+  P/p06 offL227 cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=afd99356
+  P/p06 alloff cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=afd99356
+  P/p06 wide cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=257251c0
+RESULT P/p06 pkgPatFuncBodyLeftoverNoParent227 STAGE1-CLOSER off:stage1 on:stage1 dump off=15 on=12 newbad=0
+RESULT P/p06 LANDING227 STAGE1-CLOSER off:stage1 on:stage1 dump off=15 on=12 newbad=0
+RESULT P/p06 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=15 on=12 newbad=0
+RESULT P/p06 IMPL UNFIRED 
+FIRED P/p07_el pkgPatFuncBodyLeftoverNoParent227:1
+  P/p07_el on cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=17d7bcc3
+  P/p07_el tr cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=17d7bcc3
+  P/p07_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=fdaf5206
+  P/p07_el offL227 cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=fdaf5206
+  P/p07_el alloff cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=fdaf5206
+  P/p07_el wide cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=17d7bcc3
+RESULT P/p07_el pkgPatFuncBodyLeftoverNoParent227 STAGE1-CLOSER off:stage1 on:stage1 dump off=109 on=106 newbad=1
+RESULT P/p07_el LANDING227 STAGE1-CLOSER off:stage1 on:stage1 dump off=109 on=106 newbad=1
+RESULT P/p07_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=109 on=106 newbad=1
+RESULT P/p07_el IMPL UNFIRED 
+FIRED P/p07 pkgPatFuncBodyLeftoverNoParent227:1
+  P/p07 on cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=032c41bc
+  P/p07 tr cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=032c41bc
+  P/p07 off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=345a5ced
+  P/p07 offL227 cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=345a5ced
+  P/p07 alloff cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=345a5ced
+  P/p07 wide cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=032c41bc
+RESULT P/p07 pkgPatFuncBodyLeftoverNoParent227 STAGE1-CLOSER off:stage1 on:stage1 dump off=109 on=106 newbad=1
+RESULT P/p07 LANDING227 STAGE1-CLOSER off:stage1 on:stage1 dump off=109 on=106 newbad=1
+RESULT P/p07 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=109 on=106 newbad=1
+RESULT P/p07 IMPL UNFIRED 
+FIRED P/p08_el -
+  P/p08_el on cmp=255 cmplines=34 strict=NOT_EQUAL_stage1 rc=0 md5=498156b5
+  P/p08_el tr cmp=255 cmplines=34 strict=NOT_EQUAL_stage1 rc=0 md5=498156b5
+  P/p08_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=34 strict=NOT_EQUAL_stage1 rc=0 md5=498156b5
+  P/p08_el offL227 cmp=255 cmplines=34 strict=NOT_EQUAL_stage1 rc=0 md5=498156b5
+  P/p08_el alloff cmp=255 cmplines=34 strict=NOT_EQUAL_stage1 rc=0 md5=498156b5
+  P/p08_el wide cmp=255 cmplines=34 strict=NOT_EQUAL_stage1 rc=0 md5=498156b5
+RESULT P/p08_el pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p08_el LANDING227 UNFIRED 
+RESULT P/p08_el ALLOFF UNFIRED 
+RESULT P/p08_el IMPL UNFIRED 
+FIRED P/p08 -
+  P/p08 on cmp=255 cmplines=34 strict=NOT_EQUAL_stage1 rc=0 md5=6264d7b3
+  P/p08 tr cmp=255 cmplines=34 strict=NOT_EQUAL_stage1 rc=0 md5=6264d7b3
+  P/p08 off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=34 strict=NOT_EQUAL_stage1 rc=0 md5=6264d7b3
+  P/p08 offL227 cmp=255 cmplines=34 strict=NOT_EQUAL_stage1 rc=0 md5=6264d7b3
+  P/p08 alloff cmp=255 cmplines=34 strict=NOT_EQUAL_stage1 rc=0 md5=6264d7b3
+  P/p08 wide cmp=255 cmplines=34 strict=NOT_EQUAL_stage1 rc=0 md5=6264d7b3
+RESULT P/p08 pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p08 LANDING227 UNFIRED 
+RESULT P/p08 ALLOFF UNFIRED 
+RESULT P/p08 IMPL UNFIRED 
+FIRED P/p09_el pkgPatFuncBodyLeftoverNoParent227:1
+  P/p09_el on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=0ec9b3dd
+  P/p09_el tr cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=0ec9b3dd
+  P/p09_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=9e904679
+  P/p09_el offL227 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=9e904679
+  P/p09_el alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=9e904679
+  P/p09_el wide cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=0ec9b3dd
+RESULT P/p09_el pkgPatFuncBodyLeftoverNoParent227 STAGE1-AWAY off:stage1 on:stage1 dump off=144 on=145 newbad=1 | +\_ref_typespec:
+RESULT P/p09_el LANDING227 STAGE1-AWAY off:stage1 on:stage1 dump off=144 on=145 newbad=1 | +\_ref_typespec:
+RESULT P/p09_el ALLOFF STAGE1-AWAY off:stage1 on:stage1 dump off=144 on=145 newbad=1 | +\_ref_typespec:
+RESULT P/p09_el IMPL UNFIRED 
+FIRED P/p09 pkgPatFuncBodyLeftoverNoParent227:1
+  P/p09 on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=fa3ddfe1
+  P/p09 tr cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=fa3ddfe1
+  P/p09 off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=3d38aeec
+  P/p09 offL227 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=3d38aeec
+  P/p09 alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=3d38aeec
+  P/p09 wide cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=fa3ddfe1
+RESULT P/p09 pkgPatFuncBodyLeftoverNoParent227 STAGE1-AWAY off:stage1 on:stage1 dump off=144 on=145 newbad=1 | +\_ref_typespec:
+RESULT P/p09 LANDING227 STAGE1-AWAY off:stage1 on:stage1 dump off=144 on=145 newbad=1 | +\_ref_typespec:
+RESULT P/p09 ALLOFF STAGE1-AWAY off:stage1 on:stage1 dump off=144 on=145 newbad=1 | +\_ref_typespec:
+RESULT P/p09 IMPL UNFIRED 
+FIRED P/p10_el -
+  P/p10_el on cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=7e93dcf3
+  P/p10_el tr cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=7e93dcf3
+  P/p10_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=7e93dcf3
+  P/p10_el offL227 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=7e93dcf3
+  P/p10_el alloff cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=7e93dcf3
+  P/p10_el wide cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=7e93dcf3
+RESULT P/p10_el pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p10_el LANDING227 UNFIRED 
+RESULT P/p10_el ALLOFF UNFIRED 
+RESULT P/p10_el IMPL UNFIRED 
+FIRED P/p10 -
+  P/p10 on cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=1dcffbf0
+  P/p10 tr cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=1dcffbf0
+  P/p10 off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=1dcffbf0
+  P/p10 offL227 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=1dcffbf0
+  P/p10 alloff cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=1dcffbf0
+  P/p10 wide cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=1dcffbf0
+RESULT P/p10 pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p10 LANDING227 UNFIRED 
+RESULT P/p10 ALLOFF UNFIRED 
+RESULT P/p10 IMPL UNFIRED 
+FIRED P/p11_el -
+  P/p11_el on cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=2d70a412
+  P/p11_el tr cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=2d70a412
+  P/p11_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=2d70a412
+  P/p11_el offL227 cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=2d70a412
+  P/p11_el alloff cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=2d70a412
+  P/p11_el wide cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=2d70a412
+RESULT P/p11_el pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p11_el LANDING227 UNFIRED 
+RESULT P/p11_el ALLOFF UNFIRED 
+RESULT P/p11_el IMPL UNFIRED 
+FIRED P/p11 -
+  P/p11 on cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=a04db9fd
+  P/p11 tr cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=a04db9fd
+  P/p11 off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=a04db9fd
+  P/p11 offL227 cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=a04db9fd
+  P/p11 alloff cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=a04db9fd
+  P/p11 wide cmp=255 cmplines=59 strict=NOT_EQUAL_stage1 rc=0 md5=a04db9fd
+RESULT P/p11 pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p11 LANDING227 UNFIRED 
+RESULT P/p11 ALLOFF UNFIRED 
+RESULT P/p11 IMPL UNFIRED 
+FIRED P/p12_el -
+  P/p12_el on cmp=255 cmplines=72 strict=NOT_EQUAL_stage1 rc=0 md5=62d43d32
+  P/p12_el tr cmp=255 cmplines=72 strict=NOT_EQUAL_stage1 rc=0 md5=62d43d32
+  P/p12_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=72 strict=NOT_EQUAL_stage1 rc=0 md5=62d43d32
+  P/p12_el offL227 cmp=255 cmplines=72 strict=NOT_EQUAL_stage1 rc=0 md5=62d43d32
+  P/p12_el alloff cmp=255 cmplines=72 strict=NOT_EQUAL_stage1 rc=0 md5=62d43d32
+  P/p12_el wide cmp=255 cmplines=72 strict=NOT_EQUAL_stage1 rc=0 md5=62d43d32
+RESULT P/p12_el pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p12_el LANDING227 UNFIRED 
+RESULT P/p12_el ALLOFF UNFIRED 
+RESULT P/p12_el IMPL UNFIRED 
+FIRED P/p12 -
+  P/p12 on cmp=255 cmplines=72 strict=NOT_EQUAL_stage1 rc=0 md5=889d0d39
+  P/p12 tr cmp=255 cmplines=72 strict=NOT_EQUAL_stage1 rc=0 md5=889d0d39
+  P/p12 off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=72 strict=NOT_EQUAL_stage1 rc=0 md5=889d0d39
+  P/p12 offL227 cmp=255 cmplines=72 strict=NOT_EQUAL_stage1 rc=0 md5=889d0d39
+  P/p12 alloff cmp=255 cmplines=72 strict=NOT_EQUAL_stage1 rc=0 md5=889d0d39
+  P/p12 wide cmp=255 cmplines=72 strict=NOT_EQUAL_stage1 rc=0 md5=889d0d39
+RESULT P/p12 pkgPatFuncBodyLeftoverNoParent227 UNFIRED 
+RESULT P/p12 LANDING227 UNFIRED 
+RESULT P/p12 ALLOFF UNFIRED 
+RESULT P/p12 IMPL UNFIRED 

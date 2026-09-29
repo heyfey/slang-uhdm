@@ -15,6 +15,7 @@
 #include "R218.h"
 #include "R224.h"
 #include "R227.h"
+#include "R233.h"
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
@@ -302,6 +303,12 @@ std::vector<TpStructUse167>& tpStructUses167() {
 // § pkgPatReadTsNoParent131 — the package parameters whose initializer is
 // WRITTEN as an assignment pattern (`pkg::NAME`).
 std::set<std::string>& pkgPatInit131() {
+    static std::set<std::string> s;
+    return s;
+}
+// § pkgPatTypedKeepsParent233v (r11u233): the package parameters of
+// pkgPatInit131 written as a TYPED pattern (`in_t'{a: 11, b: 22}`).
+std::set<std::string>& pkgPatTyped233() {
     static std::set<std::string> s;
     return s;
 }
@@ -8261,9 +8268,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     const syntax::ExpressionSyntax* e131 = d131.initializer->expr;
                     while (e131->kind == syntax::SyntaxKind::ParenthesizedExpression)
                         e131 = e131->as<syntax::ParenthesizedExpressionSyntax>().expression;
-                    if (e131->kind == syntax::SyntaxKind::AssignmentPatternExpression)
+                    if (e131->kind == syntax::SyntaxKind::AssignmentPatternExpression) {
                         pkgPatInit131().insert(std::string(sc131->asSymbol().name) +
                                                "::" + std::string(ps.name));
+                        if (e131->as<syntax::AssignmentPatternExpressionSyntax>().type)
+                            pkgPatTyped233().insert(std::string(sc131->asSymbol().name) +
+                                                    "::" + std::string(ps.name));
+                    }
                 }
         (void)[&](const ParameterSymbol& ps) -> bool {
             static const bool on = r11u131On("R11U131_PAREN_OFF");
@@ -31420,7 +31431,28 @@ void UhdmExporter::drainShareDefParamTs() {
                             // localparam, z08; a concatenation `CAT`, m9)
                             // keeps the parent.  Grid
                             // tools/probe/r11u227repro/cases/PL.
-                            if (!rd167 && rt && on227pl &&
+                            // § pkgPatTypedKeepsParent233v (r11u233, the
+                            // second adversarial verification of pass 227:
+                            // case tools/probe/r11u233verify/cases/P p09) —
+                            // a TYPED pattern parameter (`localparam in_t UU
+                            // = in_t'{a: 11, b: 22};`) read whole in the
+                            // evaluated function keeps its listing
+                            // operation's parented reference in golden (the
+                            // record `ref_typespec pk` under the package
+                            // listing's param_assign, both views): the law
+                            // unparented it, one record away.  A typed
+                            // pattern is not in the law's read set.  Switch
+                            // R11V233_PATTYPED_OFF.
+                            static const bool on233pt =
+                                r11v233Law("R11V233_PATTYPED_OFF");
+                            const bool typed233 =
+                                on227pl && on233pt &&
+                                pkgPatTyped233().count(pn + "::" + std::string(l->VpiName()));
+                            if (typed233 && !rd167 && rt &&
+                                patLeftoverClones227().count((const UHDM::operation*)r))
+                                tr233("pkgPatTypedKeepsParent233v",
+                                      pn + "::" + std::string(l->VpiName()));
+                            if (!rd167 && rt && on227pl && !typed233 &&
                                 pkgPatInit131().count(pn + "::" + std::string(l->VpiName())) &&
                                 patFlattened178((UHDM::operation*)r)) {
                                 auto it227 = patLeftoverClones227().find(

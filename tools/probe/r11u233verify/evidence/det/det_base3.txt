@@ -1,0 +1,12 @@
+base3 Earlgrey_0_1 default ede36385c330/rc=0 ede36385c330/rc=0 ede36385c330/rc=0  ref=ede36385c330
+base3 Earlgrey_0_1 testflags 260e88febe42/rc=0 260e88febe42/rc=0 260e88febe42/rc=0  ref=260e88febe42
+base3 MiniAmiq default 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0  ref=7d6c076f4328
+base3 MiniAmiq testflags 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0  ref=7d6c076f4328
+base3 SeqDriver default a3349e9731b2/rc=0 a3349e9731b2/rc=0 a3349e9731b2/rc=0  ref=a3349e9731b2
+base3 SeqDriver testflags 248ae493bf34/rc=0 248ae493bf34/rc=0 248ae493bf34/rc=0  ref=248ae493bf34
+base3 SimpleUVM default 83c1a233ad99/rc=0 83c1a233ad99/rc=0 83c1a233ad99/rc=0  ref=83c1a233ad99
+base3 SimpleUVM testflags 61cbfaab4940/rc=0 61cbfaab4940/rc=0 61cbfaab4940/rc=0  ref=61cbfaab4940
+base3 Scoreboard default dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0  ref=dbb7fce68eb4
+Scoreboard testflags skip SLANG_REJECT
+base3 BuildUVMPkg default 6a6d62e38946/rc=0 6a6d62e38946/rc=0 6a6d62e38946/rc=0  ref=6a6d62e38946
+base3 BuildUVMPkg testflags 6a6d62e38946/rc=0 6a6d62e38946/rc=0 6a6d62e38946/rc=0  ref=6a6d62e38946

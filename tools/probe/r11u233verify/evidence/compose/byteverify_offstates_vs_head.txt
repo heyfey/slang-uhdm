@@ -1,0 +1,19 @@
+if len(F) != 4: sys.exit('bytecancel.py: source drivers/env.sh first')
+== w27
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/FuncStructVal-9244d8c4  patched=075a18073081 pristine=469dc7bb60f5
+MOVER ./surelog/testflags/FuncStructVal-9244d8c4  patched=bea4eecf691a pristine=3a19eee303f6
+MOVERS: 2 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+== w28
+PATH_SETS_IDENTICAL (2560 paths)
+MOVERS: 0 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+== wNO
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/FuncStructVal-9244d8c4  patched=075a18073081 pristine=469dc7bb60f5
+MOVER ./surelog/testflags/FuncStructVal-9244d8c4  patched=bea4eecf691a pristine=3a19eee303f6
+MOVERS: 2 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+
+[exited with code 0]

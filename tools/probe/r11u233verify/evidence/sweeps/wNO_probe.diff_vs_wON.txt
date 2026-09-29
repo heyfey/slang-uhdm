@@ -1,0 +1,58 @@
+2728c2728
+< r11u24repro/n12,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+---
+> r11u24repro/n12,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+2730c2730
+< r11u24repro/n3,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+---
+> r11u24repro/n3,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+2798c2798
+< r11u26repro/m13,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+---
+> r11u26repro/m13,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+2800c2800
+< r11u26repro/m15,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+---
+> r11u26repro/m15,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+2803c2803
+< r11u26repro/m6,STRICT_NOTEQUAL,differ:fullname(8),differ:fullname(8)
+---
+> r11u26repro/m6,STRICT_NOTEQUAL,differ:fullname(9),differ:fullname(9)
+2805,2806c2805,2806
+< r11u26repro/m8,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+< r11u26repro/m9,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+---
+> r11u26repro/m8,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+> r11u26repro/m9,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+3007,3008c3007,3008
+< r11u28repro/a13,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+< r11u28repro/a16,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+---
+> r11u28repro/a13,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)
+> r11u28repro/a16,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+3010,3013c3010,3013
+< r11u28repro/a4,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+< r11u28repro/a5,STRICT_NOTEQUAL,differ:fullname(8),differ:fullname(8)
+< r11u28repro/a6,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+< r11u28repro/a7,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+---
+> r11u28repro/a4,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+> r11u28repro/a5,STRICT_NOTEQUAL,differ:fullname(10),differ:fullname(10)
+> r11u28repro/a6,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+> r11u28repro/a7,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+3466,3472c3466,3472
+< r11v26repro/v12,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+< r11v26repro/v13,STRICT_NOTEQUAL,differ:fullname(8),differ:fullname(8)
+< r11v26repro/v15,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+< r11v26repro/v16,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+< r11v26repro/v18,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+< r11v26repro/v2,STRICT_NOTEQUAL,differ:fullname(8),differ:fullname(8)
+< r11v26repro/v9,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+---
+> r11v26repro/v12,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+> r11v26repro/v13,STRICT_NOTEQUAL,differ:fullname(9),differ:fullname(9)
+> r11v26repro/v15,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+> r11v26repro/v16,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+> r11v26repro/v18,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+> r11v26repro/v2,STRICT_NOTEQUAL,differ:fullname(9),differ:fullname(9)
+> r11v26repro/v9,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)

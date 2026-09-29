@@ -1,0 +1,390 @@
+FIRED X/x01_el memberInitReducedRootFolds228:1 pkgPatFuncBodyLeftoverNoParent227:1
+  X/x01_el on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=950df34d
+  X/x01_el tr cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=950df34d
+  X/x01_el off_memberInitReducedRootFolds228 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=e7a37f64
+  X/x01_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=d8280f1a
+  X/x01_el off_memberRootFoldShapes228v cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=950df34d
+  X/x01_el off_memberRootOwnInstance228v cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=950df34d
+  X/x01_el offL227 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=d8280f1a
+  X/x01_el offL228 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=e7a37f64
+  X/x01_el off2_memberInitReducedRootFolds228_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=52439a8c
+  X/x01_el alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=52439a8c
+  X/x01_el wide cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=950df34d
+RESULT X/x01_el memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=23 on=23 newbad=0
+RESULT X/x01_el pkgPatFuncBodyLeftoverNoParent227 STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=23 newbad=0
+RESULT X/x01_el memberRootFoldShapes228v UNFIRED 
+RESULT X/x01_el memberRootOwnInstance228v UNFIRED 
+RESULT X/x01_el LANDING227 STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=23 newbad=0
+RESULT X/x01_el LANDING228 STAGE1-SAME off:stage1 on:stage1 dump off=23 on=23 newbad=0
+RESULT X/x01_el PAIR:memberInitReducedRootFolds228+pkgPatFuncBodyLeftoverNoParent227 STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=23 newbad=0
+RESULT X/x01_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=23 newbad=0
+RESULT X/x01_el IMPL UNFIRED 
+FIRED X/x01 memberInitReducedRootFolds228:1 pkgPatFuncBodyLeftoverNoParent227:1
+  X/x01 on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=835b8efe
+  X/x01 tr cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=835b8efe
+  X/x01 off_memberInitReducedRootFolds228 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=83ce07c8
+  X/x01 off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=772001cc
+  X/x01 off_memberRootFoldShapes228v cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=835b8efe
+  X/x01 off_memberRootOwnInstance228v cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=835b8efe
+  X/x01 offL227 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=772001cc
+  X/x01 offL228 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=83ce07c8
+  X/x01 off2_memberInitReducedRootFolds228_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=a27b4ee6
+  X/x01 alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=a27b4ee6
+  X/x01 wide cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=835b8efe
+RESULT X/x01 memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=23 on=23 newbad=0
+RESULT X/x01 pkgPatFuncBodyLeftoverNoParent227 STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=23 newbad=0
+RESULT X/x01 memberRootFoldShapes228v UNFIRED 
+RESULT X/x01 memberRootOwnInstance228v UNFIRED 
+RESULT X/x01 LANDING227 STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=23 newbad=0
+RESULT X/x01 LANDING228 STAGE1-SAME off:stage1 on:stage1 dump off=23 on=23 newbad=0
+RESULT X/x01 PAIR:memberInitReducedRootFolds228+pkgPatFuncBodyLeftoverNoParent227 STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=23 newbad=0
+RESULT X/x01 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=23 newbad=0
+RESULT X/x01 IMPL UNFIRED 
+FIRED X/x02_el memberInitReducedRootFolds228:1 pkgPatFuncBodyLeftoverNoParent227:1
+  X/x02_el on cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=58fd9f4c
+  X/x02_el tr cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=58fd9f4c
+  X/x02_el off_memberInitReducedRootFolds228 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=981c1af4
+  X/x02_el off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=e2e805eb
+  X/x02_el off_memberRootFoldShapes228v cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=58fd9f4c
+  X/x02_el off_memberRootOwnInstance228v cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=58fd9f4c
+  X/x02_el offL227 cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=e2e805eb
+  X/x02_el offL228 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=981c1af4
+  X/x02_el off2_memberInitReducedRootFolds228_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=a3b13025
+  X/x02_el alloff cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=a3b13025
+  X/x02_el wide cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=58fd9f4c
+RESULT X/x02_el memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=33 on=33 newbad=0
+RESULT X/x02_el pkgPatFuncBodyLeftoverNoParent227 STAGE1-CLOSER off:stage1 on:stage1 dump off=36 on=33 newbad=0
+RESULT X/x02_el memberRootFoldShapes228v UNFIRED 
+RESULT X/x02_el memberRootOwnInstance228v UNFIRED 
+RESULT X/x02_el LANDING227 STAGE1-CLOSER off:stage1 on:stage1 dump off=36 on=33 newbad=0
+RESULT X/x02_el LANDING228 STAGE1-SAME off:stage1 on:stage1 dump off=33 on=33 newbad=0
+RESULT X/x02_el PAIR:memberInitReducedRootFolds228+pkgPatFuncBodyLeftoverNoParent227 STAGE1-CLOSER off:stage1 on:stage1 dump off=36 on=33 newbad=0
+RESULT X/x02_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=36 on=33 newbad=0
+RESULT X/x02_el IMPL UNFIRED 
+FIRED X/x02 memberInitReducedRootFolds228:1 pkgPatFuncBodyLeftoverNoParent227:1
+  X/x02 on cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=cbbf8607
+  X/x02 tr cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=cbbf8607
+  X/x02 off_memberInitReducedRootFolds228 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=5c71a0b8
+  X/x02 off_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=31e13b7b
+  X/x02 off_memberRootFoldShapes228v cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=cbbf8607
+  X/x02 off_memberRootOwnInstance228v cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=cbbf8607
+  X/x02 offL227 cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=31e13b7b
+  X/x02 offL228 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=5c71a0b8
+  X/x02 off2_memberInitReducedRootFolds228_pkgPatFuncBodyLeftoverNoParent227 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=4b073646
+  X/x02 alloff cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=4b073646
+  X/x02 wide cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=cbbf8607
+RESULT X/x02 memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=33 on=33 newbad=0
+RESULT X/x02 pkgPatFuncBodyLeftoverNoParent227 STAGE1-CLOSER off:stage1 on:stage1 dump off=36 on=33 newbad=0
+RESULT X/x02 memberRootFoldShapes228v UNFIRED 
+RESULT X/x02 memberRootOwnInstance228v UNFIRED 
+RESULT X/x02 LANDING227 STAGE1-CLOSER off:stage1 on:stage1 dump off=36 on=33 newbad=0
+RESULT X/x02 LANDING228 STAGE1-SAME off:stage1 on:stage1 dump off=33 on=33 newbad=0
+RESULT X/x02 PAIR:memberInitReducedRootFolds228+pkgPatFuncBodyLeftoverNoParent227 STAGE1-CLOSER off:stage1 on:stage1 dump off=36 on=33 newbad=0
+RESULT X/x02 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=36 on=33 newbad=0
+RESULT X/x02 IMPL UNFIRED 
+FIRED X/x03_el fwdPkgRefClassScopeSpan227:1
+  X/x03_el on cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=4f8ea53f
+  X/x03_el tr cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=4f8ea53f
+  X/x03_el off_parseViewSizeExprEval228 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=4f8ea53f
+  X/x03_el off_fwdPkgRefClassScopeSpan227 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=547ad093
+  X/x03_el off_pvSizeNoElemDeclines228v cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=4f8ea53f
+  X/x03_el off_fwdPkgRefConstSlotWhole227v cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=4f8ea53f
+  X/x03_el offL227 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=547ad093
+  X/x03_el offL228 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=4f8ea53f
+  X/x03_el off2_parseViewSizeExprEval228_fwdPkgRefClassScopeSpan227 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=547ad093
+  X/x03_el alloff cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=547ad093
+  X/x03_el wide cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=4f8ea53f
+RESULT X/x03_el parseViewSizeExprEval228 UNFIRED 
+RESULT X/x03_el fwdPkgRefClassScopeSpan227 STAGE1-CLOSER off:stage1 on:stage1 dump off=58 on=56 newbad=0
+RESULT X/x03_el pvSizeNoElemDeclines228v UNFIRED 
+RESULT X/x03_el fwdPkgRefConstSlotWhole227v UNFIRED 
+RESULT X/x03_el LANDING227 STAGE1-CLOSER off:stage1 on:stage1 dump off=58 on=56 newbad=0
+RESULT X/x03_el LANDING228 UNFIRED 
+RESULT X/x03_el PAIR:parseViewSizeExprEval228+fwdPkgRefClassScopeSpan227 STAGE1-CLOSER off:stage1 on:stage1 dump off=58 on=56 newbad=0
+RESULT X/x03_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=58 on=56 newbad=0
+RESULT X/x03_el IMPL UNFIRED 
+FIRED X/x03 fwdPkgRefClassScopeSpan227:1 parseViewSizeExprEval228:2
+  X/x03 on cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=c7a7f1ee
+  X/x03 tr cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=c7a7f1ee
+  X/x03 off_parseViewSizeExprEval228 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=0a1cbd0f
+  X/x03 off_fwdPkgRefClassScopeSpan227 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=54426b26
+  X/x03 off_pvSizeNoElemDeclines228v cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=c7a7f1ee
+  X/x03 off_fwdPkgRefConstSlotWhole227v cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=c7a7f1ee
+  X/x03 offL227 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=54426b26
+  X/x03 offL228 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=0a1cbd0f
+  X/x03 off2_parseViewSizeExprEval228_fwdPkgRefClassScopeSpan227 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=8c2922ac
+  X/x03 alloff cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=8c2922ac
+  X/x03 wide cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=c7a7f1ee
+RESULT X/x03 parseViewSizeExprEval228 STAGE1-AWAY off:stage1 on:stage1 dump off=56 on=60 newbad=3 | +|vpiConstType:9 | +\_constant: | +|vpiSize:8
+RESULT X/x03 fwdPkgRefClassScopeSpan227 STAGE1-CLOSER off:stage1 on:stage1 dump off=62 on=60 newbad=0
+RESULT X/x03 pvSizeNoElemDeclines228v UNFIRED 
+RESULT X/x03 fwdPkgRefConstSlotWhole227v UNFIRED 
+RESULT X/x03 LANDING227 STAGE1-CLOSER off:stage1 on:stage1 dump off=62 on=60 newbad=0
+RESULT X/x03 LANDING228 STAGE1-AWAY off:stage1 on:stage1 dump off=56 on=60 newbad=3 | +|vpiConstType:9 | +\_constant: | +|vpiSize:8
+RESULT X/x03 PAIR:parseViewSizeExprEval228+fwdPkgRefClassScopeSpan227 STAGE1-AWAY off:stage1 on:stage1 dump off=58 on=60 newbad=3 | +|vpiConstType:9 | +\_constant: | +|vpiSize:8
+RESULT X/x03 ALLOFF STAGE1-AWAY off:stage1 on:stage1 dump off=58 on=60 newbad=3 | +|vpiConstType:9 | +\_constant: | +|vpiSize:8
+RESULT X/x03 IMPL UNFIRED 
+FIRED X/x04_el memberInitReducedRootFolds228:5
+  X/x04_el on cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=37b16250
+  X/x04_el tr cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=37b16250
+  X/x04_el off_memberRootOwnInstance228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=37b16250
+  X/x04_el off_initHierFillKept225 cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=37b16250
+  X/x04_el off_fillSymbolicRootOnly225v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=37b16250
+  X/x04_el off_memberInitReducedRootFolds228 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=8eb65d83
+  X/x04_el off_memberRootFoldShapes228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=37b16250
+  X/x04_el offL225 cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=37b16250
+  X/x04_el offL228 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=8eb65d83
+  X/x04_el off2_memberRootOwnInstance228v_initHierFillKept225 cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=37b16250
+  X/x04_el off2_memberRootOwnInstance228v_fillSymbolicRootOnly225v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=37b16250
+  X/x04_el off2_initHierFillKept225_fillSymbolicRootOnly225v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=37b16250
+  X/x04_el alloff cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=8eb65d83
+  X/x04_el wide cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=37b16250
+RESULT X/x04_el memberRootOwnInstance228v UNFIRED 
+RESULT X/x04_el initHierFillKept225 UNFIRED 
+RESULT X/x04_el fillSymbolicRootOnly225v UNFIRED 
+RESULT X/x04_el memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=57 on=57 newbad=0
+RESULT X/x04_el memberRootFoldShapes228v UNFIRED 
+RESULT X/x04_el LANDING225 UNFIRED 
+RESULT X/x04_el LANDING228 STAGE1-SAME off:stage1 on:stage1 dump off=57 on=57 newbad=0
+RESULT X/x04_el PAIR:memberRootOwnInstance228v+initHierFillKept225 UNFIRED 
+RESULT X/x04_el PAIR:memberRootOwnInstance228v+fillSymbolicRootOnly225v UNFIRED 
+RESULT X/x04_el PAIR:initHierFillKept225+fillSymbolicRootOnly225v UNFIRED 
+RESULT X/x04_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=57 on=57 newbad=0
+RESULT X/x04_el IMPL UNFIRED 
+FIRED X/x04 memberInitReducedRootFolds228:5
+  X/x04 on cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=c1452088
+  X/x04 tr cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=c1452088
+  X/x04 off_memberRootOwnInstance228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=c1452088
+  X/x04 off_initHierFillKept225 cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=c1452088
+  X/x04 off_fillSymbolicRootOnly225v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=c1452088
+  X/x04 off_memberInitReducedRootFolds228 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=10d484ce
+  X/x04 off_memberRootFoldShapes228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=c1452088
+  X/x04 offL225 cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=c1452088
+  X/x04 offL228 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=10d484ce
+  X/x04 off2_memberRootOwnInstance228v_initHierFillKept225 cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=c1452088
+  X/x04 off2_memberRootOwnInstance228v_fillSymbolicRootOnly225v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=c1452088
+  X/x04 off2_initHierFillKept225_fillSymbolicRootOnly225v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=c1452088
+  X/x04 alloff cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=10d484ce
+  X/x04 wide cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=c1452088
+RESULT X/x04 memberRootOwnInstance228v UNFIRED 
+RESULT X/x04 initHierFillKept225 UNFIRED 
+RESULT X/x04 fillSymbolicRootOnly225v UNFIRED 
+RESULT X/x04 memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=53 on=53 newbad=0
+RESULT X/x04 memberRootFoldShapes228v UNFIRED 
+RESULT X/x04 LANDING225 UNFIRED 
+RESULT X/x04 LANDING228 STAGE1-SAME off:stage1 on:stage1 dump off=53 on=53 newbad=0
+RESULT X/x04 PAIR:memberRootOwnInstance228v+initHierFillKept225 UNFIRED 
+RESULT X/x04 PAIR:memberRootOwnInstance228v+fillSymbolicRootOnly225v UNFIRED 
+RESULT X/x04 PAIR:initHierFillKept225+fillSymbolicRootOnly225v UNFIRED 
+RESULT X/x04 ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=53 on=53 newbad=0
+RESULT X/x04 IMPL UNFIRED 
+FIRED X/x05_el -
+  X/x05_el on cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=310f5a73
+  X/x05_el tr cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=310f5a73
+  X/x05_el off_memberRootOwnInstance228v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=310f5a73
+  X/x05_el off_initHierFillKept225 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=8735aeb9
+  X/x05_el off_fillSymbolicRootOnly225v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=310f5a73
+  X/x05_el off_memberInitReducedRootFolds228 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=310f5a73
+  X/x05_el off_memberRootFoldShapes228v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=310f5a73
+  X/x05_el offL225 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=156f58f8
+  X/x05_el offL228 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=310f5a73
+  X/x05_el off2_memberRootOwnInstance228v_initHierFillKept225 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=8735aeb9
+  X/x05_el off2_memberRootOwnInstance228v_fillSymbolicRootOnly225v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=310f5a73
+  X/x05_el off2_initHierFillKept225_fillSymbolicRootOnly225v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=8735aeb9
+  X/x05_el alloff cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=310f5a73
+  X/x05_el wide cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=310f5a73
+RESULT X/x05_el memberRootOwnInstance228v UNFIRED 
+RESULT X/x05_el initHierFillKept225 STAGE1-SAME off:stage1 on:stage1 dump off=57 on=57 newbad=0
+RESULT X/x05_el fillSymbolicRootOnly225v UNFIRED 
+RESULT X/x05_el memberInitReducedRootFolds228 UNFIRED 
+RESULT X/x05_el memberRootFoldShapes228v UNFIRED 
+RESULT X/x05_el LANDING225 STAGE1-SAME off:stage1 on:stage1 dump off=57 on=57 newbad=0
+RESULT X/x05_el LANDING228 UNFIRED 
+RESULT X/x05_el PAIR:memberRootOwnInstance228v+initHierFillKept225 STAGE1-SAME off:stage1 on:stage1 dump off=57 on=57 newbad=0
+RESULT X/x05_el PAIR:memberRootOwnInstance228v+fillSymbolicRootOnly225v UNFIRED 
+RESULT X/x05_el PAIR:initHierFillKept225+fillSymbolicRootOnly225v STAGE1-SAME off:stage1 on:stage1 dump off=57 on=57 newbad=0
+RESULT X/x05_el ALLOFF UNFIRED 
+RESULT X/x05_el IMPL UNFIRED 
+FIRED X/x05 -
+  X/x05 on cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=21ec6d62
+  X/x05 tr cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=21ec6d62
+  X/x05 off_memberRootOwnInstance228v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=21ec6d62
+  X/x05 off_initHierFillKept225 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=dbc5cb4c
+  X/x05 off_fillSymbolicRootOnly225v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=21ec6d62
+  X/x05 off_memberInitReducedRootFolds228 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=21ec6d62
+  X/x05 off_memberRootFoldShapes228v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=21ec6d62
+  X/x05 offL225 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=3379ffb1
+  X/x05 offL228 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=21ec6d62
+  X/x05 off2_memberRootOwnInstance228v_initHierFillKept225 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=dbc5cb4c
+  X/x05 off2_memberRootOwnInstance228v_fillSymbolicRootOnly225v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=21ec6d62
+  X/x05 off2_initHierFillKept225_fillSymbolicRootOnly225v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=dbc5cb4c
+  X/x05 alloff cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=21ec6d62
+  X/x05 wide cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=21ec6d62
+RESULT X/x05 memberRootOwnInstance228v UNFIRED 
+RESULT X/x05 initHierFillKept225 STAGE1-CLOSER off:stage1 on:stage1 dump off=53 on=49 newbad=0
+RESULT X/x05 fillSymbolicRootOnly225v UNFIRED 
+RESULT X/x05 memberInitReducedRootFolds228 UNFIRED 
+RESULT X/x05 memberRootFoldShapes228v UNFIRED 
+RESULT X/x05 LANDING225 STAGE1-CLOSER off:stage1 on:stage1 dump off=53 on=49 newbad=0
+RESULT X/x05 LANDING228 UNFIRED 
+RESULT X/x05 PAIR:memberRootOwnInstance228v+initHierFillKept225 STAGE1-CLOSER off:stage1 on:stage1 dump off=53 on=49 newbad=0
+RESULT X/x05 PAIR:memberRootOwnInstance228v+fillSymbolicRootOnly225v UNFIRED 
+RESULT X/x05 PAIR:initHierFillKept225+fillSymbolicRootOnly225v STAGE1-CLOSER off:stage1 on:stage1 dump off=53 on=49 newbad=0
+RESULT X/x05 ALLOFF UNFIRED 
+RESULT X/x05 IMPL UNFIRED 
+FIRED X/x06_el -
+  X/x06_el on cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a6f50680
+  X/x06_el tr cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a6f50680
+  X/x06_el off_memberRootOwnInstance228v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a6f50680
+  X/x06_el off_initHierFillKept225 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a6f50680
+  X/x06_el off_fillSymbolicRootOnly225v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=77da8993
+  X/x06_el off_memberInitReducedRootFolds228 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a6f50680
+  X/x06_el off_memberRootFoldShapes228v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a6f50680
+  X/x06_el offL225 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=6aeaaa43
+  X/x06_el offL228 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a6f50680
+  X/x06_el off2_memberRootOwnInstance228v_initHierFillKept225 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a6f50680
+  X/x06_el off2_memberRootOwnInstance228v_fillSymbolicRootOnly225v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=77da8993
+  X/x06_el off2_initHierFillKept225_fillSymbolicRootOnly225v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a6f50680
+  X/x06_el alloff cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a6f50680
+  X/x06_el wide cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a6f50680
+RESULT X/x06_el memberRootOwnInstance228v UNFIRED 
+RESULT X/x06_el initHierFillKept225 UNFIRED 
+RESULT X/x06_el fillSymbolicRootOnly225v STAGE1-SAME off:stage1 on:stage1 dump off=57 on=57 newbad=1
+RESULT X/x06_el memberInitReducedRootFolds228 UNFIRED 
+RESULT X/x06_el memberRootFoldShapes228v UNFIRED 
+RESULT X/x06_el LANDING225 STAGE1-SAME off:stage1 on:stage1 dump off=57 on=57 newbad=0
+RESULT X/x06_el LANDING228 UNFIRED 
+RESULT X/x06_el PAIR:memberRootOwnInstance228v+initHierFillKept225 UNFIRED 
+RESULT X/x06_el PAIR:memberRootOwnInstance228v+fillSymbolicRootOnly225v STAGE1-SAME off:stage1 on:stage1 dump off=57 on=57 newbad=1
+RESULT X/x06_el PAIR:initHierFillKept225+fillSymbolicRootOnly225v UNFIRED 
+RESULT X/x06_el ALLOFF UNFIRED 
+RESULT X/x06_el IMPL UNFIRED 
+FIRED X/x06 -
+  X/x06 on cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a05f2499
+  X/x06 tr cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a05f2499
+  X/x06 off_memberRootOwnInstance228v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a05f2499
+  X/x06 off_initHierFillKept225 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a05f2499
+  X/x06 off_fillSymbolicRootOnly225v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=e0c5dfc3
+  X/x06 off_memberInitReducedRootFolds228 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a05f2499
+  X/x06 off_memberRootFoldShapes228v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a05f2499
+  X/x06 offL225 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=038fde1d
+  X/x06 offL228 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a05f2499
+  X/x06 off2_memberRootOwnInstance228v_initHierFillKept225 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a05f2499
+  X/x06 off2_memberRootOwnInstance228v_fillSymbolicRootOnly225v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=e0c5dfc3
+  X/x06 off2_initHierFillKept225_fillSymbolicRootOnly225v cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a05f2499
+  X/x06 alloff cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a05f2499
+  X/x06 wide cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=a05f2499
+RESULT X/x06 memberRootOwnInstance228v UNFIRED 
+RESULT X/x06 initHierFillKept225 UNFIRED 
+RESULT X/x06 fillSymbolicRootOnly225v STAGE1-AWAY off:stage1 on:stage1 dump off=49 on=53 newbad=5 | +|vpiConstType:9 | +\_cont_assign: , line:4:11, endln:4:17 | +|vpiDecompile:63
+RESULT X/x06 memberInitReducedRootFolds228 UNFIRED 
+RESULT X/x06 memberRootFoldShapes228v UNFIRED 
+RESULT X/x06 LANDING225 STAGE1-SAME off:stage1 on:stage1 dump off=53 on=53 newbad=0
+RESULT X/x06 LANDING228 UNFIRED 
+RESULT X/x06 PAIR:memberRootOwnInstance228v+initHierFillKept225 UNFIRED 
+RESULT X/x06 PAIR:memberRootOwnInstance228v+fillSymbolicRootOnly225v STAGE1-AWAY off:stage1 on:stage1 dump off=49 on=53 newbad=5 | +|vpiConstType:9 | +\_cont_assign: , line:4:11, endln:4:17 | +|vpiDecompile:63
+RESULT X/x06 PAIR:initHierFillKept225+fillSymbolicRootOnly225v UNFIRED 
+RESULT X/x06 ALLOFF UNFIRED 
+RESULT X/x06 IMPL UNFIRED 
+FIRED X/x07_el memberInitReducedRootFolds228:5
+  X/x07_el on cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=f96abf35
+  X/x07_el tr cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=f96abf35
+  X/x07_el off_memberRootOwnInstance228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=f96abf35
+  X/x07_el off_memberInitReducedRootFolds228 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=d90490ba
+  X/x07_el off_memberRootFoldShapes228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=f96abf35
+  X/x07_el offL228 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=d90490ba
+  X/x07_el off2_memberRootOwnInstance228v_memberInitReducedRootFolds228 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=d90490ba
+  X/x07_el alloff cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=d90490ba
+  X/x07_el wide cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=f96abf35
+RESULT X/x07_el memberRootOwnInstance228v UNFIRED 
+RESULT X/x07_el memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=53 on=53 newbad=0
+RESULT X/x07_el memberRootFoldShapes228v UNFIRED 
+RESULT X/x07_el LANDING228 STAGE1-SAME off:stage1 on:stage1 dump off=53 on=53 newbad=0
+RESULT X/x07_el PAIR:memberRootOwnInstance228v+memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=53 on=53 newbad=0
+RESULT X/x07_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=53 on=53 newbad=0
+RESULT X/x07_el IMPL UNFIRED 
+FIRED X/x07 memberInitReducedRootFolds228:5
+  X/x07 on cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=273beab3
+  X/x07 tr cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=273beab3
+  X/x07 off_memberRootOwnInstance228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=273beab3
+  X/x07 off_memberInitReducedRootFolds228 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=91dcbd5b
+  X/x07 off_memberRootFoldShapes228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=273beab3
+  X/x07 offL228 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=91dcbd5b
+  X/x07 off2_memberRootOwnInstance228v_memberInitReducedRootFolds228 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=91dcbd5b
+  X/x07 alloff cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=91dcbd5b
+  X/x07 wide cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=273beab3
+RESULT X/x07 memberRootOwnInstance228v UNFIRED 
+RESULT X/x07 memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=49 on=49 newbad=0
+RESULT X/x07 memberRootFoldShapes228v UNFIRED 
+RESULT X/x07 LANDING228 STAGE1-SAME off:stage1 on:stage1 dump off=49 on=49 newbad=0
+RESULT X/x07 PAIR:memberRootOwnInstance228v+memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=49 on=49 newbad=0
+RESULT X/x07 ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=49 on=49 newbad=0
+RESULT X/x07 IMPL UNFIRED 
+FIRED X/x08_el memberInitReducedRootFolds228:6
+  X/x08_el on cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=ed4654df
+  X/x08_el tr cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=ed4654df
+  X/x08_el off_memberRootOwnInstance228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=ed4654df
+  X/x08_el off_memberInitReducedRootFolds228 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=4a83f7da
+  X/x08_el off_memberRootFoldShapes228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=ed4654df
+  X/x08_el offL228 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=4a83f7da
+  X/x08_el off2_memberRootOwnInstance228v_memberInitReducedRootFolds228 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=4a83f7da
+  X/x08_el alloff cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=4a83f7da
+  X/x08_el wide cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=ed4654df
+RESULT X/x08_el memberRootOwnInstance228v UNFIRED 
+RESULT X/x08_el memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=88 on=88 newbad=0
+RESULT X/x08_el memberRootFoldShapes228v UNFIRED 
+RESULT X/x08_el LANDING228 STAGE1-SAME off:stage1 on:stage1 dump off=88 on=88 newbad=0
+RESULT X/x08_el PAIR:memberRootOwnInstance228v+memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=88 on=88 newbad=0
+RESULT X/x08_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=88 on=88 newbad=0
+RESULT X/x08_el IMPL UNFIRED 
+FIRED X/x08 memberInitReducedRootFolds228:6
+  X/x08 on cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=216158f6
+  X/x08 tr cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=216158f6
+  X/x08 off_memberRootOwnInstance228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=216158f6
+  X/x08 off_memberInitReducedRootFolds228 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=42a35234
+  X/x08 off_memberRootFoldShapes228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=216158f6
+  X/x08 offL228 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=42a35234
+  X/x08 off2_memberRootOwnInstance228v_memberInitReducedRootFolds228 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=42a35234
+  X/x08 alloff cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=42a35234
+  X/x08 wide cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=216158f6
+RESULT X/x08 memberRootOwnInstance228v UNFIRED 
+RESULT X/x08 memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=84 on=84 newbad=0
+RESULT X/x08 memberRootFoldShapes228v UNFIRED 
+RESULT X/x08 LANDING228 STAGE1-SAME off:stage1 on:stage1 dump off=84 on=84 newbad=0
+RESULT X/x08 PAIR:memberRootOwnInstance228v+memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=84 on=84 newbad=0
+RESULT X/x08 ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=84 on=84 newbad=0
+RESULT X/x08 IMPL UNFIRED 
+FIRED X/x09_el memberInitReducedRootFolds228:5
+  X/x09_el on cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=eec5c960
+  X/x09_el tr cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=eec5c960
+  X/x09_el off_memberRootOwnInstance228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=eec5c960
+  X/x09_el off_memberInitReducedRootFolds228 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=9d7e8f4d
+  X/x09_el off_memberRootFoldShapes228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=eec5c960
+  X/x09_el offL228 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=9d7e8f4d
+  X/x09_el off2_memberRootOwnInstance228v_memberInitReducedRootFolds228 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=9d7e8f4d
+  X/x09_el alloff cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=9d7e8f4d
+  X/x09_el wide cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=eec5c960
+RESULT X/x09_el memberRootOwnInstance228v UNFIRED 
+RESULT X/x09_el memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=54 on=54 newbad=0
+RESULT X/x09_el memberRootFoldShapes228v UNFIRED 
+RESULT X/x09_el LANDING228 STAGE1-SAME off:stage1 on:stage1 dump off=54 on=54 newbad=0
+RESULT X/x09_el PAIR:memberRootOwnInstance228v+memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=54 on=54 newbad=0
+RESULT X/x09_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=54 on=54 newbad=0
+RESULT X/x09_el IMPL UNFIRED 
+FIRED X/x09 memberInitReducedRootFolds228:5
+  X/x09 on cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=e65e72c0
+  X/x09 tr cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=e65e72c0
+  X/x09 off_memberRootOwnInstance228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=e65e72c0
+  X/x09 off_memberInitReducedRootFolds228 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=6bf14f3b
+  X/x09 off_memberRootFoldShapes228v cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=e65e72c0
+  X/x09 offL228 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=6bf14f3b
+  X/x09 off2_memberRootOwnInstance228v_memberInitReducedRootFolds228 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=6bf14f3b
+  X/x09 alloff cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=6bf14f3b
+  X/x09 wide cmp=255 cmplines=82 strict=NOT_EQUAL_stage1 rc=0 md5=e65e72c0
+RESULT X/x09 memberRootOwnInstance228v UNFIRED 
+RESULT X/x09 memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=55 on=55 newbad=0
+RESULT X/x09 memberRootFoldShapes228v UNFIRED 
+RESULT X/x09 LANDING228 STAGE1-SAME off:stage1 on:stage1 dump off=55 on=55 newbad=0
+RESULT X/x09 PAIR:memberRootOwnInstance228v+memberInitReducedRootFolds228 STAGE1-SAME off:stage1 on:stage1 dump off=55 on=55 newbad=0
+RESULT X/x09 ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=55 on=55 newbad=0
+RESULT X/x09 IMPL UNFIRED 

@@ -1,0 +1,154 @@
+FIRED N/n01_el -
+  N/n01_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=22faa4fe
+  N/n01_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=22faa4fe
+  N/n01_el off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=22faa4fe
+  N/n01_el offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=22faa4fe
+  N/n01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=22faa4fe
+  N/n01_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=22faa4fe
+RESULT N/n01_el newArrayPartSelStripped227 UNFIRED 
+RESULT N/n01_el LANDING227 UNFIRED 
+RESULT N/n01_el ALLOFF UNFIRED 
+RESULT N/n01_el IMPL UNFIRED 
+FIRED N/n01 newArrayPartSelStripped227:3
+  N/n01 on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=cbb8daa6
+  N/n01 tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=cbb8daa6
+  N/n01 off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=d3e9b8ed
+  N/n01 offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=d3e9b8ed
+  N/n01 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=d3e9b8ed
+  N/n01 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=cbb8daa6
+RESULT N/n01 newArrayPartSelStripped227 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_endcol
+RESULT N/n01 LANDING227 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_endcol
+RESULT N/n01 ALLOFF TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_endcol
+RESULT N/n01 IMPL UNFIRED 
+FIRED N/n02_el -
+  N/n02_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=027219af
+  N/n02_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=027219af
+  N/n02_el off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=027219af
+  N/n02_el offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=027219af
+  N/n02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=027219af
+  N/n02_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=027219af
+RESULT N/n02_el newArrayPartSelStripped227 UNFIRED 
+RESULT N/n02_el LANDING227 UNFIRED 
+RESULT N/n02_el ALLOFF UNFIRED 
+RESULT N/n02_el IMPL UNFIRED 
+FIRED N/n02 newArrayPartSelStripped227:3
+  N/n02 on cmp=0 cmplines=0 strict=STRICT_EQUAL_68_objects rc=0 md5=cca47458
+  N/n02 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_68_objects rc=0 md5=cca47458
+  N/n02 off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=3d8b967d
+  N/n02 offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=3d8b967d
+  N/n02 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=3d8b967d
+  N/n02 wide cmp=0 cmplines=0 strict=STRICT_EQUAL_68_objects rc=0 md5=cca47458
+RESULT N/n02 newArrayPartSelStripped227 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_68_objects
+RESULT N/n02 LANDING227 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_68_objects
+RESULT N/n02 ALLOFF TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_68_objects
+RESULT N/n02 IMPL UNFIRED 
+FIRED N/n03_el -
+  N/n03_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=591f080d
+  N/n03_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=591f080d
+  N/n03_el off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=591f080d
+  N/n03_el offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=591f080d
+  N/n03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=591f080d
+  N/n03_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=591f080d
+RESULT N/n03_el newArrayPartSelStripped227 UNFIRED 
+RESULT N/n03_el LANDING227 UNFIRED 
+RESULT N/n03_el ALLOFF UNFIRED 
+RESULT N/n03_el IMPL UNFIRED 
+FIRED N/n03 newArrayPartSelStripped227:5
+  N/n03 on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=074d44a8
+  N/n03 tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=074d44a8
+  N/n03 off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=5029e2ab
+  N/n03 offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=5029e2ab
+  N/n03 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=5029e2ab
+  N/n03 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=074d44a8
+RESULT N/n03 newArrayPartSelStripped227 MIXED new=1 gone=7 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_col | first new: col / A: 8	bit_select	PA		v.PA	dut.sv	11	16	11	21		0 / B: 8	bit_select	PA		v.PA	dut.sv	11	19	11	20		0
+RESULT N/n03 LANDING227 MIXED new=1 gone=7 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_col | first new: col / A: 8	bit_select	PA		v.PA	dut.sv	11	16	11	21		0 / B: 8	bit_select	PA		v.PA	dut.sv	11	19	11	20		0
+RESULT N/n03 ALLOFF MIXED new=1 gone=7 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_col | first new: col / A: 8	bit_select	PA		v.PA	dut.sv	11	16	11	21		0 / B: 8	bit_select	PA		v.PA	dut.sv	11	19	11	20		0
+RESULT N/n03 IMPL UNFIRED 
+FIRED N/n04_el -
+  N/n04_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_90_objects rc=0 md5=d01b5732
+  N/n04_el tr cmp=0 cmplines=0 strict=STRICT_EQUAL_90_objects rc=0 md5=d01b5732
+  N/n04_el off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_EQUAL_90_objects rc=0 md5=d01b5732
+  N/n04_el offL227 cmp=0 cmplines=0 strict=STRICT_EQUAL_90_objects rc=0 md5=d01b5732
+  N/n04_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_90_objects rc=0 md5=d01b5732
+  N/n04_el wide cmp=0 cmplines=0 strict=STRICT_EQUAL_90_objects rc=0 md5=d01b5732
+RESULT N/n04_el newArrayPartSelStripped227 UNFIRED 
+RESULT N/n04_el LANDING227 UNFIRED 
+RESULT N/n04_el ALLOFF UNFIRED 
+RESULT N/n04_el IMPL UNFIRED 
+FIRED N/n04 newArrayPartSelStripped227:2
+  N/n04 on cmp=0 cmplines=0 strict=STRICT_EQUAL_50_objects rc=0 md5=a92db2bd
+  N/n04 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_50_objects rc=0 md5=a92db2bd
+  N/n04 off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=b5120af3
+  N/n04 offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=b5120af3
+  N/n04 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=b5120af3
+  N/n04 wide cmp=0 cmplines=0 strict=STRICT_EQUAL_50_objects rc=0 md5=a92db2bd
+RESULT N/n04 newArrayPartSelStripped227 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_50_objects
+RESULT N/n04 LANDING227 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_50_objects
+RESULT N/n04 ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_50_objects
+RESULT N/n04 IMPL UNFIRED 
+FIRED N/n05_el -
+  N/n05_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d3164571
+  N/n05_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d3164571
+  N/n05_el off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d3164571
+  N/n05_el offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d3164571
+  N/n05_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d3164571
+  N/n05_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d3164571
+RESULT N/n05_el newArrayPartSelStripped227 UNFIRED 
+RESULT N/n05_el LANDING227 UNFIRED 
+RESULT N/n05_el ALLOFF UNFIRED 
+RESULT N/n05_el IMPL UNFIRED 
+FIRED N/n05 newArrayPartSelStripped227:4
+  N/n05 on cmp=0 cmplines=0 strict=STRICT_EQUAL_54_objects rc=0 md5=dfcc5f50
+  N/n05 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_54_objects rc=0 md5=dfcc5f50
+  N/n05 off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=3bfe5f66
+  N/n05 offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=3bfe5f66
+  N/n05 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=3bfe5f66
+  N/n05 wide cmp=0 cmplines=0 strict=STRICT_EQUAL_54_objects rc=0 md5=dfcc5f50
+RESULT N/n05 newArrayPartSelStripped227 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_54_objects
+RESULT N/n05 LANDING227 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_54_objects
+RESULT N/n05 ALLOFF TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_54_objects
+RESULT N/n05 IMPL UNFIRED 
+FIRED N/n06_el -
+  N/n06_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_84_objects rc=0 md5=35be173d
+  N/n06_el tr cmp=0 cmplines=0 strict=STRICT_EQUAL_84_objects rc=0 md5=35be173d
+  N/n06_el off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_EQUAL_84_objects rc=0 md5=35be173d
+  N/n06_el offL227 cmp=0 cmplines=0 strict=STRICT_EQUAL_84_objects rc=0 md5=35be173d
+  N/n06_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_84_objects rc=0 md5=35be173d
+  N/n06_el wide cmp=0 cmplines=0 strict=STRICT_EQUAL_84_objects rc=0 md5=35be173d
+RESULT N/n06_el newArrayPartSelStripped227 UNFIRED 
+RESULT N/n06_el LANDING227 UNFIRED 
+RESULT N/n06_el ALLOFF UNFIRED 
+RESULT N/n06_el IMPL UNFIRED 
+FIRED N/n06 newArrayPartSelStripped227:2
+  N/n06 on cmp=0 cmplines=0 strict=STRICT_EQUAL_55_objects rc=0 md5=ac257474
+  N/n06 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_55_objects rc=0 md5=ac257474
+  N/n06 off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=45782042
+  N/n06 offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=45782042
+  N/n06 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=45782042
+  N/n06 wide cmp=0 cmplines=0 strict=STRICT_EQUAL_55_objects rc=0 md5=ac257474
+RESULT N/n06 newArrayPartSelStripped227 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_55_objects
+RESULT N/n06 LANDING227 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_55_objects
+RESULT N/n06 ALLOFF TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_55_objects
+RESULT N/n06 IMPL UNFIRED 
+FIRED N/n07_el -
+  N/n07_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=78601ed5
+  N/n07_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=78601ed5
+  N/n07_el off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=78601ed5
+  N/n07_el offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=78601ed5
+  N/n07_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=78601ed5
+  N/n07_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=78601ed5
+RESULT N/n07_el newArrayPartSelStripped227 UNFIRED 
+RESULT N/n07_el LANDING227 UNFIRED 
+RESULT N/n07_el ALLOFF UNFIRED 
+RESULT N/n07_el IMPL UNFIRED 
+FIRED N/n07 newArrayPartSelStripped227:2
+  N/n07 on cmp=0 cmplines=0 strict=STRICT_EQUAL_49_objects rc=0 md5=fd9abf96
+  N/n07 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_49_objects rc=0 md5=fd9abf96
+  N/n07 off_newArrayPartSelStripped227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=19fb001d
+  N/n07 offL227 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=19fb001d
+  N/n07 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=19fb001d
+  N/n07 wide cmp=0 cmplines=0 strict=STRICT_EQUAL_49_objects rc=0 md5=fd9abf96
+RESULT N/n07 newArrayPartSelStripped227 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_49_objects
+RESULT N/n07 LANDING227 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_49_objects
+RESULT N/n07 ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_49_objects
+RESULT N/n07 IMPL UNFIRED 

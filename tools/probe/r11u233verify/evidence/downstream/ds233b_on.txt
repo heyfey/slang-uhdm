@@ -1,0 +1,64 @@
+F/f01 on DIVERGENT differs=nohier il synth slang=c7b2a8d94b surelog=df4fdabe08
+F/f02 on DIVERGENT differs=nohier il synth slang=29ef35cb10 surelog=4d11d5cf3a
+F/f03 on DIVERGENT differs=nohier il synth slang=ff1977ae4c surelog=b8838f20cf
+F/f04 on DIVERGENT differs=nohier il synth slang=17fa0c3381 surelog=5ae0e704a5
+F/f05 on STATUS_DIFF differs=- slang=4d11d5cf3a surelog=-
+F/f06 on DIVERGENT differs=nohier il synth slang=b3ed394a09 surelog=5ae0e704a5
+F/f07 on IDENTICAL differs=- slang=086332e613 surelog=086332e613
+F/f08 on IDENTICAL differs=- slang=4d11d5cf3a surelog=4d11d5cf3a
+F/f09 on STATUS_DIFF differs=- slang=b8d57f4b97 surelog=-
+F/f10 on STATUS_DIFF differs=- slang=4d11d5cf3a surelog=-
+F/f11 on STATUS_DIFF differs=- slang=2fa053243e surelog=-
+F/f12 on STATUS_DIFF differs=- slang=b3ed394a09 surelog=-
+F/f13 on STATUS_DIFF differs=- slang=2687f264b8 surelog=-
+F/f14 on IDENTICAL differs=- slang=- surelog=-
+F/f15 on DIVERGENT differs=nohier il synth slang=33e3e3512e surelog=55ee32c19b
+F/f16 on DIVERGENT differs=nohier il synth slang=de6abfec0a surelog=9fb62807a4
+F/f17 on STATUS_DIFF differs=- slang=016ba99013 surelog=-
+F/f18 on IDENTICAL differs=- slang=cf6be606ba surelog=cf6be606ba
+F/f19 on DIVERGENT differs=nohier il synth slang=f22f89c6ca surelog=1de3f07bba
+F/f20 on DIVERGENT differs=nohier il synth slang=b29e934650 surelog=2cc23fc692
+F/f21 on DIVERGENT differs=nohier il synth slang=ef97a86407 surelog=f7da1eb0d2
+F/f22 on DIVERGENT differs=nohier il synth slang=c00a2a8ff4 surelog=5af8f90a29
+F/f23 on DIVERGENT differs=nohier il synth slang=4f469614b8 surelog=2cc23fc692
+F/f24 on DIVERGENT differs=nohier il synth slang=6af07d8533 surelog=9b6a28eb0e
+F/f25 on DIVERGENT differs=nohier il synth slang=cde7d30bef surelog=930a732322
+F/f26 on STATUS_DIFF differs=- slang=935f370862 surelog=-
+F/f27 on DIVERGENT differs=nohier il synth slang=9880a38beb surelog=cf6be606ba
+F/f28 on DIVERGENT differs=nohier il synth slang=51f3e26be1 surelog=cf6be606ba
+F/f29 on STATUS_DIFF differs=- slang=7479bdd3af surelog=-
+F/f30 on STATUS_DIFF differs=- slang=3fa22ef38e surelog=-
+F/f31 on DIVERGENT differs=nohier il synth slang=845e2a071a surelog=ca6031c4f8
+F/f32 on STATUS_DIFF differs=- slang=cf6be606ba surelog=-
+F/f33 on STATUS_DIFF differs=- slang=cf6be606ba surelog=-
+F/f34 on IDENTICAL differs=- slang=cf6be606ba surelog=cf6be606ba
+F/f35 on IDENTICAL differs=- slang=4ea728193c surelog=4ea728193c
+F/f36 on IDENTICAL differs=- slang=a446d189e6 surelog=a446d189e6
+N/n01 on IDENTICAL differs=- slang=c279500faa surelog=c279500faa
+N/n02 on IDENTICAL differs=- slang=c279500faa surelog=c279500faa
+N/n03 on IDENTICAL differs=- slang=bff2365ae4 surelog=bff2365ae4
+N/n04 on IDENTICAL differs=- slang=bafa79ae45 surelog=bafa79ae45
+N/n05 on IDENTICAL differs=- slang=bafa79ae45 surelog=bafa79ae45
+N/n06 on IDENTICAL differs=- slang=4ac1beb066 surelog=4ac1beb066
+N/n07 on IDENTICAL differs=- slang=bafa79ae45 surelog=bafa79ae45
+P/p01 on EQUIVALENT differs=nohier il synth slang=5a7091e5ae surelog=275136468a
+P/p02 on STATUS_DIFF differs=- slang=6e6c3a5bb3 surelog=-
+P/p03 on IDENTICAL differs=- slang=db64b32030 surelog=db64b32030
+P/p04 on IDENTICAL differs=- slang=5a7091e5ae surelog=5a7091e5ae
+P/p05 on IDENTICAL differs=- slang=8ce42aedb7 surelog=8ce42aedb7
+P/p06 on IDENTICAL differs=- slang=5bbe8a1d3e surelog=5bbe8a1d3e
+P/p07 on EQUIVALENT differs=nohier il synth slang=52034dc27c surelog=a8d46d01aa
+P/p08 on IDENTICAL differs=- slang=00390e2540 surelog=00390e2540
+P/p09 on EQUIVALENT differs=nohier il synth slang=6e6c3a5bb3 surelog=68924fa101
+P/p10 on IDENTICAL differs=- slang=6e6c3a5bb3 surelog=6e6c3a5bb3
+P/p11 on STATUS_DIFF differs=- slang=- surelog=6e6c3a5bb3
+P/p12 on IDENTICAL differs=- slang=5a1adb40ac surelog=5a1adb40ac
+X/x01 on IDENTICAL differs=- slang=f5866bf7cc surelog=f5866bf7cc
+X/x02 on IDENTICAL differs=- slang=7ab3fdc003 surelog=7ab3fdc003
+X/x03 on STATUS_DIFF differs=- slang=7c3a1c01d2 surelog=-
+X/x04 on EQUIVALENT differs=nohier il synth slang=c0d89313da surelog=b284b7e610
+X/x05 on EQUIVALENT differs=nohier il synth slang=0879903f53 surelog=b71493924f
+X/x06 on EQUIVALENT differs=nohier il synth slang=9bd3e000e7 surelog=b71493924f
+X/x07 on EQUIVALENT differs=nohier il synth slang=52e2e97ab7 surelog=b284b7e610
+X/x08 on EQUIVALENT differs=nohier il synth slang=c01e8be8b2 surelog=8df200f96e
+X/x09 on EQUIVALENT differs=nohier il synth slang=9d2cbac49e surelog=10bc6fbabe

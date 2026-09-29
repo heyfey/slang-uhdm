@@ -1,0 +1,78 @@
+/tmp/r11u233_g/B/b01 alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b01 offL228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b01 off_parseViewSizeExprEval228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b01 off_sizeBitNetIsVar228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b01_el alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b01_el offL228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b01_el off_sizeBitNetIsVar228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b02 alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b02 offL228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b02 off_parseViewSizeExprEval228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b02 off_sizeBitNetIsVar228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b02_el alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b02_el offL228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b02_el off_sizeBitNetIsVar228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b05 alloff chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b05 offL228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b05 off_parseViewSizeExprEval228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b05 off_sizeBitNetIsVar228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b05_el alloff chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b05_el offL228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b05_el off_sizeBitNetIsVar228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b06 alloff chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b06 offL228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b06 off_parseViewSizeExprEval228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b07 alloff chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:u < module_inst:work@dut < design:work@dut
+/tmp/r11u233_g/B/b07 fix chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:u < module_inst:work@dut < design:work@dut
+/tmp/r11u233_g/B/b07 fx1 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:u < module_inst:work@dut < design:work@dut
+/tmp/r11u233_g/B/b07 offL228 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:u < module_inst:work@dut < design:work@dut
+/tmp/r11u233_g/B/b07 off_parseViewSizeExprEval228 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b07 off_sizeBitNetIsVar228 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:u < module_inst:work@dut < design:work@dut
+/tmp/r11u233_g/B/b07_el alloff chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:u < module_inst:work@dut < design:work@dut
+/tmp/r11u233_g/B/b07_el fix chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:u < module_inst:work@dut < design:work@dut
+/tmp/r11u233_g/B/b07_el fx1 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:u < module_inst:work@dut < design:work@dut
+/tmp/r11u233_g/B/b07_el offL228 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:u < module_inst:work@dut < design:work@dut
+/tmp/r11u233_g/B/b07_el off_sizeBitNetIsVar228 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:u < module_inst:work@dut < design:work@dut
+/tmp/r11u233_g/B/b08 alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b08 offL228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b08 off_parseViewSizeExprEval228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b08 off_sizeBitNetIsVar228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b08_el alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b08_el offL228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b08_el off_sizeBitNetIsVar228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/B/b09 alloff chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b09 fix chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b09 offL228 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b09 off_parseViewSizeExprEval228 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b09 off_sizeBitNetIsVar228 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b09_el alloff chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b09_el fix chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b09_el offL228 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b09_el off_sizeBitNetIsVar228 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b10 alloff chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b10 offL228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b10 off_parseViewSizeExprEval228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b10 off_sizeBitNetIsVar228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b10_el alloff chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b10_el offL228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b10_el off_sizeBitNetIsVar228 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/B/b11 alloff chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b11 fix chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b11 offL228 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b11 off_parseViewSizeExprEval228 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b11 off_sizeBitNetIsVar228 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b11_el alloff chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b11_el fix chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b11_el offL228 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/B/b11_el off_sizeBitNetIsVar228 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TOTAL {'alloff_lost': 2, 'chain_lost': 10, 'chain_toward': 57, 'flat_lost': 10, 'flat_toward': 57, 'offL228_lost': 2, 'off_lost': 2, 'fix_lost': 2, 'fx1_lost': 2}

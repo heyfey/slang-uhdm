@@ -1,0 +1,329 @@
+/tmp/r11u233_g/M/m01 alloff chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m01 offL228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m01 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m01 off_memberRootOwnInstance228v chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m01 wide chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m01_el alloff chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m01_el offL228 chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m01_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m01_el off_memberRootOwnInstance228v chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m01_el wide chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m02 alloff chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m02 offL228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m02 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m02 off_memberRootOwnInstance228v chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m02 wide chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m02_el alloff chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m02_el offL228 chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m02_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m02_el off_memberRootOwnInstance228v chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m02_el wide chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m03 alloff chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m03 offL228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m03 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m03 off_memberRootOwnInstance228v chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m03 wide chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m03_el alloff chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m03_el offL228 chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m03_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m03_el off_memberRootOwnInstance228v chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m03_el wide chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m04 alloff chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m04 offL228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m04 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m04 off_memberRootOwnInstance228v chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m04 wide chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m04_el alloff chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m04_el offL228 chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m04_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m04_el off_memberRootOwnInstance228v chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m04_el wide chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m05 alloff chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m05 offL228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m05 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m05 off_memberRootOwnInstance228v chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m05 wide chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m05_el alloff chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m05_el offL228 chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m05_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m05_el off_memberRootOwnInstance228v chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m05_el wide chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m06 alloff chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m06 offL228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m06 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m06 off_memberRootOwnInstance228v chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m06 wide chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m06_el alloff chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m06_el offL228 chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m06_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m06_el off_memberRootOwnInstance228v chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m06_el wide chain_lost=0 chain_toward=2 flat_lost=5 flat_toward=2
+/tmp/r11u233_g/M/m07 alloff chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m07 offL228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m07 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m07 off_memberRootOwnInstance228v chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m07 wide chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m07_el alloff chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m07_el offL228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m07_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m07_el off_memberRootOwnInstance228v chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m07_el wide chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m08 alloff chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m08 offL228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m08 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m08 off_memberRootOwnInstance228v chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m08 wide chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m08_el alloff chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m08_el offL228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m08_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=4 flat_toward=2
+/tmp/r11u233_g/M/m08_el off_memberRootOwnInstance228v chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m08_el wide chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m09 alloff chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m09 offL228 chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m09 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m09 off_memberRootFoldShapes228v chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m09 off_memberRootOwnInstance228v chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m09 wide chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m09_el alloff chain_lost=0 chain_toward=1 flat_lost=5 flat_toward=1
+/tmp/r11u233_g/M/m09_el offL228 chain_lost=0 chain_toward=1 flat_lost=5 flat_toward=1
+/tmp/r11u233_g/M/m09_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=5 flat_toward=1
+/tmp/r11u233_g/M/m09_el off_memberRootFoldShapes228v chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m09_el off_memberRootOwnInstance228v chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m09_el wide chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m10 alloff chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m10 offL228 chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m10 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m10 off_memberRootOwnInstance228v chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m10 wide chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m10_el alloff chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m10_el offL228 chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m10_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m10_el off_memberRootOwnInstance228v chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m10_el wide chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+/tmp/r11u233_g/M/m11 alloff chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m11 offL228 chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m11 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m11 off_memberRootOwnInstance228v chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m11 wide chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m11_el alloff chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m11_el offL228 chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m11_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m11_el off_memberRootOwnInstance228v chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m11_el wide chain_lost=0 chain_toward=1 flat_lost=3 flat_toward=1
+/tmp/r11u233_g/M/m12 alloff chain_lost=0 chain_toward=0 flat_lost=2 flat_toward=0
+/tmp/r11u233_g/M/m12 offL228 chain_lost=0 chain_toward=0 flat_lost=2 flat_toward=0
+/tmp/r11u233_g/M/m12 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=0 flat_lost=2 flat_toward=0
+/tmp/r11u233_g/M/m12_el alloff chain_lost=0 chain_toward=0 flat_lost=2 flat_toward=0
+/tmp/r11u233_g/M/m12_el offL228 chain_lost=0 chain_toward=0 flat_lost=2 flat_toward=0
+/tmp/r11u233_g/M/m12_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=0 flat_lost=2 flat_toward=0
+/tmp/r11u233_g/M/m13 off_memberRootFoldShapes228v chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m13 wide chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+/tmp/r11u233_g/M/m13_el off_memberRootFoldShapes228v chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=9
+/tmp/r11u233_g/M/m13_el wide chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=9
+/tmp/r11u233_g/M/m14 alloff chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m14 offL228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m14 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m14_el alloff chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m14_el offL228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m14_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m18 off_memberRootFoldShapes228v chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|8|11|8|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m18 wide chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|8|11|8|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m18_el off_memberRootFoldShapes228v chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=5
+  CHAIN_LOST constant||||dut.sv|8|11|8|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m18_el wide chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=5
+  CHAIN_LOST constant||||dut.sv|8|11|8|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m19 alloff chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m19 offL228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m19 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m19_el alloff chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m19_el offL228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m19_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m21 alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m21 offL228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m21 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m21_el alloff chain_lost=0 chain_toward=1 flat_lost=7 flat_toward=1
+/tmp/r11u233_g/M/m21_el offL228 chain_lost=0 chain_toward=1 flat_lost=7 flat_toward=1
+/tmp/r11u233_g/M/m21_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=7 flat_toward=1
+/tmp/r11u233_g/M/m22 alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m22 offL228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m22 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m22_el alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m22_el offL228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m22_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m23 alloff chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m23 offL228 chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m23 off_memberInitReducedRootFolds228 chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m23_el alloff chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m23_el offL228 chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m23_el off_memberInitReducedRootFolds228 chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m24 alloff chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m24 offL228 chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m24 off_memberInitReducedRootFolds228 chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m24_el alloff chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m24_el offL228 chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m24_el off_memberInitReducedRootFolds228 chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m26 alloff chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m26 offL228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m26 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m26_el alloff chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m26_el offL228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m26_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m27 alloff chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m27 offL228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m27 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m27_el alloff chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m27_el offL228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m27_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m28 off_memberRootFoldShapes228v chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m28 wide chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m28_el off_memberRootFoldShapes228v chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=4
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m28_el wide chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=4
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m29 alloff chain_lost=2 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|6|11|6|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|6|13|6|14|1|64|UINT:1|9 @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m29 offL228 chain_lost=2 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|6|11|6|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|6|13|6|14|1|64|UINT:1|9 @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m29 off_memberInitReducedRootFolds228 chain_lost=2 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|6|11|6|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|6|13|6|14|1|64|UINT:1|9 @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m29_el alloff chain_lost=2 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|6|11|6|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|6|13|6|14|1|64|UINT:1|9 @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m29_el offL228 chain_lost=2 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|6|11|6|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|6|13|6|14|1|64|UINT:1|9 @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m29_el off_memberInitReducedRootFolds228 chain_lost=2 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|6|11|6|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|6|13|6|14|1|64|UINT:1|9 @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m30 alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m30 offL228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m30 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m30_el alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m30_el offL228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m30_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m32 alloff chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m32 offL228 chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m32 off_memberInitReducedRootFolds228 chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m32_el alloff chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m32_el offL228 chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m32_el off_memberInitReducedRootFolds228 chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|7|11|7|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m33 alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m33 offL228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m33 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/M/m33_el alloff chain_lost=0 chain_toward=1 flat_lost=4 flat_toward=1
+/tmp/r11u233_g/M/m33_el offL228 chain_lost=0 chain_toward=1 flat_lost=4 flat_toward=1
+/tmp/r11u233_g/M/m33_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=4 flat_toward=1
+/tmp/r11u233_g/M/m34 off_memberRootFoldShapes228v chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|14|64|INT:14|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m34 wide chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|14|64|INT:14|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m34_el off_memberRootFoldShapes228v chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=4
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|14|64|INT:14|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m34_el wide chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=4
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|14|64|INT:14|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m35 alloff chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|6|11|6|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m35 offL228 chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|6|11|6|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m35 off_memberInitReducedRootFolds228 chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|6|11|6|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m35_el alloff chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|6|11|6|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m35_el offL228 chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|6|11|6|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m35_el off_memberInitReducedRootFolds228 chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST operation||||dut.sv|6|11|6|14||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>Info.x||0|0|0|0||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m36 off_memberRootFoldShapes228v chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m36 wide chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m36_el off_memberRootFoldShapes228v chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m36_el wide chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+/tmp/r11u233_g/M/m39 alloff chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m39 offL228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m39 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m39_el alloff chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m39_el offL228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m39_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=1 flat_lost=1 flat_toward=1
+/tmp/r11u233_g/M/m40 alloff chain_lost=0 chain_toward=2 flat_lost=2 flat_toward=2
+/tmp/r11u233_g/M/m40 offL228 chain_lost=0 chain_toward=2 flat_lost=2 flat_toward=2
+/tmp/r11u233_g/M/m40 off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=2 flat_toward=2
+/tmp/r11u233_g/M/m40_el alloff chain_lost=0 chain_toward=2 flat_lost=2 flat_toward=2
+/tmp/r11u233_g/M/m40_el offL228 chain_lost=0 chain_toward=2 flat_lost=2 flat_toward=2
+/tmp/r11u233_g/M/m40_el off_memberInitReducedRootFolds228 chain_lost=0 chain_toward=2 flat_lost=2 flat_toward=2
+TOTAL {'alloff_lost': 84, 'chain_lost': 268, 'chain_toward': 574, 'flat_lost': 661, 'flat_toward': 596, 'offL228_lost': 84, 'off_lost': 92, 'wide_lost': 8}

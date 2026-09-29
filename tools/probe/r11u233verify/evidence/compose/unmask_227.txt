@@ -1,0 +1,72 @@
+== probe: 20 rows differ
+r11u24repro/n12 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #153 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #471 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11u24repro/n3 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #258 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #748 fullname golden[8 ref_typespec   <in>pk::nw_t.un  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11u26repro/m13 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #213 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #663 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11u26repro/m15 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #301 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #935 fullname golden[8 ref_typespec   <in>pk::k_t.n  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11u26repro/m6 SUBSET | STRICT_NOTEQUAL differ:fullname(9) -> STRICT_NOTEQUAL differ:fullname(8) | off 9 rec on 8 rec | new=0 gone=1 first-record-same=False
+    off first: #266 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #845 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11u26repro/m8 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #333 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #934 fullname golden[8 ref_typespec   <in>pk::n_t.un  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11u26repro/m9 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #312 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #826 fullname golden[8 ref_typespec   <in>pk::k_t.n  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11u28repro/a13 SUBSET | STRICT_NOTEQUAL differ:fullname(3) -> STRICT_NOTEQUAL differ:fullname(2) | off 3 rec on 2 rec | new=0 gone=1 first-record-same=False
+    off first: #203 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #576 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11u28repro/a16 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #153 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #471 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11u28repro/a4 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #260 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #755 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11u28repro/a5 SUBSET | STRICT_NOTEQUAL differ:fullname(10) -> STRICT_NOTEQUAL differ:fullname(8) | off 10 rec on 8 rec | new=0 gone=2 first-record-same=False
+    off first: #518 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #1494 fullname golden[8 ref_typespec   <in>pk::c_t.p  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11u28repro/a6 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #138 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #432 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11u28repro/a7 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #138 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #432 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11v26repro/v12 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #153 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #471 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11v26repro/v13 SUBSET | STRICT_NOTEQUAL differ:fullname(9) -> STRICT_NOTEQUAL differ:fullname(8) | off 9 rec on 8 rec | new=0 gone=1 first-record-same=False
+    off first: #189 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #599 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11v26repro/v15 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #253 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #779 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11v26repro/v16 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #220 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #677 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11v26repro/v18 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #213 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #663 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11v26repro/v2 SUBSET | STRICT_NOTEQUAL differ:fullname(9) -> STRICT_NOTEQUAL differ:fullname(8) | off 9 rec on 8 rec | new=0 gone=1 first-record-same=False
+    off first: #225 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #747 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+r11v26repro/v9 SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec on 4 rec | new=0 gone=1 first-record-same=False
+    off first: #181 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   pk  0 0 0 0  0]
+    on  first: #509 fullname golden[8 ref_typespec   <in>pk::c_t.u  0 0 0 0  0] ours[8 ref_typespec   pk  0 0 0 0  0]
+   tally probe: SUBSET=20
+== surelog: 2 rows differ
+surelog/default/FuncStructVal SUBSET | STRICT_NOTEQUAL differ:endcol(7) -> STRICT_NOTEQUAL differ:file(5) | off 7 rec div@7975 on 5 rec div@7975 | new=0 gone=2 first-record-same=False
+    off first: #747 endcol golden[5 ref_obj config_pkg::NOC_TYPE_AXI4_ATOP  cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP ] ours[5 ref_obj config_pkg::NOC_TYPE_AXI4_ATOP  cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP ]
+    on  first: #4782 file golden[7 constant    dut.sv 618 22 618 45 2 64 INT:2 7] ours[7 constant     0 0 0 0 2 64 INT:2 7]
+surelog/testflags/FuncStructVal SUBSET | STRICT_NOTEQUAL differ:endcol(10) -> STRICT_NOTEQUAL differ:file(9) | off 10 rec div@13254 on 9 rec div@13254 | new=0 gone=1 first-record-same=False
+    off first: #746 endcol golden[5 ref_obj config_pkg::NOC_TYPE_AXI4_ATOP  cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP ] ours[5 ref_obj config_pkg::NOC_TYPE_AXI4_ATOP  cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP ]
+    on  first: #7129 file golden[7 constant    dut.sv 618 22 618 45 2 64 INT:2 7] ours[7 constant     0 0 0 0 2 64 INT:2 7]
+   tally surelog: SUBSET=2
+== uhdm2rtlil: 0 rows differ
+   tally uhdm2rtlil: 

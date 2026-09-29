@@ -1,0 +1,34 @@
+# the minted clone return variables (tools/probe/r11u229verify/drivers/tool/retvars.cpp) on the HEAD sweep's MiniAmiq databases
+MiniAmiq default functions=6108 returns=2573 unreferenced_return_like_vars=0 function_parented_vars_neither_return_nor_listed=788
+MiniAmiq testflags functions=6108 returns=2573 unreferenced_return_like_vars=0 function_parented_vars_neither_return_nor_listed=788
+# pass 228 residue 3 cases, downstream at the base (HEAD binary, drivers/dscases.py)
+r11u225repro/cases/OS/o05 on EQUIVALENT differs=nohier il slang=981b6c8746 surelog=bfeddcb039
+r11u225repro/cases/OS/o19 on EQUIVALENT differs=nohier il slang=4bebbf0bc9 surelog=28781d33be
+r11u225repro/cases/OS/o12 on IDENTICAL differs=- slang=3976865a4e surelog=3976865a4e
+r11u225repro/cases/OS/o21 on EQUIVALENT differs=nohier il synth slang=11ef7c6166 surelog=4ebc4917f2
+# pass 227 residue 2: the unreached N0003 cases (HEAD probe csv)
+r11u26repro/m4,STRICT_NOTEQUAL,differ:fullname(39),differ:fullname(39)
+r11u28repro/a2,STRICT_NOTEQUAL,differ:fullname(39),differ:fullname(39)
+r11v4repro/v5,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r11v4repro/v6,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+# the target rows at the base (HEAD sweep csvs)
+BlackBePipeInt default STRICT_NOTEQUAL differ:type(1)
+BlackBePipeInt testflags STRICT_NOTEQUAL differ:type(1)
+BuildUVMPkg default STRICT_NOTEQUAL differ:line(14)
+BuildUVMPkg testflags STRICT_NOTEQUAL differ:line(14)
+Earlgrey_0_1 default STRICT_NOTEQUAL differ:fullname(19)
+Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(19)
+FuncStructVal default STRICT_NOTEQUAL differ:file(5)
+FuncStructVal testflags STRICT_NOTEQUAL differ:file(9)
+MiniAmiq default STRICT_NOTEQUAL differ:line(2)
+MiniAmiq testflags STRICT_NOTEQUAL differ:line(2)
+Scoreboard default STRICT_NOTEQUAL differ:file(12)
+Scoreboard testflags SLANG_REJECT 
+SeqDriver default STRICT_NOTEQUAL differ:line(2)
+SeqDriver testflags STRICT_NOTEQUAL differ:line(2)
+SimpleUVM default STRICT_NOTEQUAL differ:file(36)
+SimpleUVM testflags STRICT_NOTEQUAL differ:file(36)
+cfg_func_width_loop default STRICT_NOTEQUAL differ:line(3)
+cfg_func_width_loop testflags STRICT_NOTEQUAL differ:line(3)
+struct_param_func_config default STRICT_NOTEQUAL differ:fullname(5)
+struct_param_func_config testflags STRICT_NOTEQUAL differ:fullname(5)

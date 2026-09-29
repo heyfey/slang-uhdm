@@ -1,0 +1,24 @@
+# 22 databases differ between /tmp/r11u233_w27 and /tmp/r11u233_wON (raw records)
+probe/r11u24repro/n12 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11u24repro/n3 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11u26repro/m13 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11u26repro/m15 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11u26repro/m6 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11u26repro/m8 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11u26repro/m9 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11u28repro/a13 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11u28repro/a16 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11u28repro/a4 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11u28repro/a5 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0 flat_excess_removed=0
+probe/r11u28repro/a6 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11u28repro/a7 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11v26repro/v12 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11v26repro/v13 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11v26repro/v15 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11v26repro/v16 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11v26repro/v18 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11v26repro/v2 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r11v26repro/v9 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+surelog/default/FuncStructVal chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/FuncStructVal chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0 flat_excess_removed=0
+TOTAL chain_lost=0 chain_toward=25 flat_lost=0 flat_toward=25 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0

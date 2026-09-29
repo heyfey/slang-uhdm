@@ -1,0 +1,1 @@
+# trace files 0; fenced-named outputs 0; databases 0

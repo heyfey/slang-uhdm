@@ -1,0 +1,22 @@
+/tmp/r11u233_g/N/n01 alloff chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+/tmp/r11u233_g/N/n01 offL227 chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+/tmp/r11u233_g/N/n01 off_newArrayPartSelStripped227 chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+/tmp/r11u233_g/N/n02 alloff chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6
+/tmp/r11u233_g/N/n02 offL227 chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6
+/tmp/r11u233_g/N/n02 off_newArrayPartSelStripped227 chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6
+/tmp/r11u233_g/N/n03 alloff chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6
+/tmp/r11u233_g/N/n03 offL227 chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6
+/tmp/r11u233_g/N/n03 off_newArrayPartSelStripped227 chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6
+/tmp/r11u233_g/N/n04 alloff chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/N/n04 offL227 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/N/n04 off_newArrayPartSelStripped227 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/N/n05 alloff chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+/tmp/r11u233_g/N/n05 offL227 chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+/tmp/r11u233_g/N/n05 off_newArrayPartSelStripped227 chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+/tmp/r11u233_g/N/n06 alloff chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+/tmp/r11u233_g/N/n06 offL227 chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+/tmp/r11u233_g/N/n06 off_newArrayPartSelStripped227 chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+/tmp/r11u233_g/N/n07 alloff chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/N/n07 offL227 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+/tmp/r11u233_g/N/n07 off_newArrayPartSelStripped227 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+TOTAL {'alloff_lost': 0, 'chain_lost': 0, 'chain_toward': 84, 'flat_lost': 0, 'flat_toward': 84, 'offL227_lost': 0, 'off_lost': 0}

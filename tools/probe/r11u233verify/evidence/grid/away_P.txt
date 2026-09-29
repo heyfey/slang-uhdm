@@ -1,0 +1,37 @@
+/tmp/r11u233_g/P/p04 alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p04 offL227 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p04 off_pkgPatFuncBodyLeftoverNoParent227 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p04_el alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p04_el offL227 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p04_el off_pkgPatFuncBodyLeftoverNoParent227 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p05 alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p05 offL227 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p05 off_pkgPatFuncBodyLeftoverNoParent227 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p05_el alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p05_el offL227 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p05_el off_pkgPatFuncBodyLeftoverNoParent227 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p06 alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p06 offL227 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p06 off_pkgPatFuncBodyLeftoverNoParent227 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p06_el alloff chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p06_el offL227 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p06_el off_pkgPatFuncBodyLeftoverNoParent227 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+/tmp/r11u233_g/P/p07 alloff chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/P/p07 offL227 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/P/p07 off_pkgPatFuncBodyLeftoverNoParent227 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/P/p07_el alloff chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/P/p07_el offL227 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/P/p07_el off_pkgPatFuncBodyLeftoverNoParent227 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u233_g/P/p09 alloff chain_lost=1 chain_toward=0 flat_lost=0 flat_toward=0
+  CHAIN_LOST ref_typespec|||pk||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+/tmp/r11u233_g/P/p09 offL227 chain_lost=1 chain_toward=0 flat_lost=0 flat_toward=0
+  CHAIN_LOST ref_typespec|||pk||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+/tmp/r11u233_g/P/p09 off_pkgPatFuncBodyLeftoverNoParent227 chain_lost=1 chain_toward=0 flat_lost=0 flat_toward=0
+  CHAIN_LOST ref_typespec|||pk||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+/tmp/r11u233_g/P/p09_el alloff chain_lost=1 chain_toward=0 flat_lost=0 flat_toward=0
+  CHAIN_LOST ref_typespec|||pk||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+/tmp/r11u233_g/P/p09_el offL227 chain_lost=1 chain_toward=0 flat_lost=0 flat_toward=0
+  CHAIN_LOST ref_typespec|||pk||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+/tmp/r11u233_g/P/p09_el off_pkgPatFuncBodyLeftoverNoParent227 chain_lost=1 chain_toward=0 flat_lost=0 flat_toward=0
+  CHAIN_LOST ref_typespec|||pk||0|0|0|0||0|| @ operation: < param_assign: < package:pk < design:work@dut
+TOTAL {'alloff_lost': 2, 'chain_lost': 6, 'chain_toward': 18, 'flat_lost': 0, 'flat_toward': 18, 'offL227_lost': 2, 'off_lost': 2}
