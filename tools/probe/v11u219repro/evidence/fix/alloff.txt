@@ -1,0 +1,19 @@
+# v11u219: the fix binary (fix1, c8b9557a) with R11U219_OFF=1, sweep /tmp/v11u219_wO (tests/sweep.sh --corpus "probe surelog uhdm2rtlil", from the law worktree)
+probe cases: EQUAL=3410 STRICT_NOTEQUAL=677 (of 4087); goldens built now=0, from cache=4087
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=466 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=14 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+[testflags] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+# byte movers against the pristine sweeps (corpus: /tmp/v11u219_wP; probe: /tmp/v11u219_wQ, the pristine probe run from the same worktree)
+MOVER surelog/default/Scoreboard-72aa0ba8/
+# corpus row-mode dirs compared 3316, fenced skipped unread 8, probe databases 4087
+probe databases moving against the pristine probe run: 0 of 4087
+Scoreboard default (the svunit coin): uhdm-dump diff against pristine 0 lines unsorted, 0 sorted
+=> R11U219_OFF restores the base's bytes on every corpus row-mode and probe case of the fix binary (the coin aside).

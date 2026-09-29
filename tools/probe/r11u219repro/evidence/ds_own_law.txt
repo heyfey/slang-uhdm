@@ -1,0 +1,33 @@
+I/i01_spaced IDENTICAL 
+I/i02_parambase IDENTICAL 
+I/i03_rhs_and_top IDENTICAL 
+I/i04_iface IDENTICAL 
+M/m01_macro_method IDENTICAL 
+M/m02_strfy IDENTICAL 
+M/m03_nested IDENTICAL 
+M/m04_pasted IDENTICAL 
+M/m05_inactive IDENTICAL 
+M/m06_nested_calls IDENTICAL 
+M/m07_multiline_actual IDENTICAL 
+M/m08_direct_arg_call IDENTICAL 
+M/m09_crlf IDENTICAL 
+M/m10_hdr IDENTICAL 
+R/r01_hexbound IDENTICAL 
+S/s01_2d IDENTICAL 
+S/s02_gen_iface IDENTICAL 
+S/s03_struct_dimarg EQUIVALENT nohier il synth
+S/s04_shapes EQUIVALENT nohier il synth
+S/s05_more IDENTICAL 
+Z/u01_unit_typed IDENTICAL 
+Z/u02_unit_value IDENTICAL 
+Z/v01_dynarr_cls IDENTICAL 
+Z/v02_queue_cls IDENTICAL 
+Z/x01_iface_then_mod IDENTICAL 
+Z/x02_pkgimp_and_mod IDENTICAL 
+Z/x03_unitclass_and_mod IDENTICAL 
+Z/x04_hdr_two_mods IDENTICAL 
+Z/y01_clsalias_mod IDENTICAL 
+Z/y02_clsalias_unitcls IDENTICAL 
+Z/y03_clsscope_two IDENTICAL 
+Z/z01_qualspan_mul IDENTICAL 
+Z/z02_qualspan_union IDENTICAL 

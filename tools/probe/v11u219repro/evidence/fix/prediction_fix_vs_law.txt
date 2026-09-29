@@ -1,0 +1,10 @@
+# v11u219: the byte movers PREDICTED between the r11u219 law binary (49c50c74) and the fix binary (c8b9557a =
+# law + § sizeReachFollowsWalker219v), frozen before the fix's gate sweep.
+# Derivation: the refinement changes bytes only where § ndaSizeFoldReach219 folded (it declines a subset of that
+# law's folds and never adds one), and r11u219's frozen firing census over every non-fenced corpus row-mode and
+# every probe case (tools/probe/r11u219repro/evidence/census/prediction.txt, md5 3651a45b) holds no
+# ndaSizeFoldReach219 firing: the predicted mover set is empty on the corpora, the probe cases and the
+# downstream lanes.  The fix moves bytes only on this directory's S cases s01 s01b s01c s04 s08 (both views;
+# evidence/lawfix_fix1.tsv) and on no other case holding `$size` under tools/probe or tests/probe
+# (evidence/lawfix_sizescan_fix1.tsv, 38 case dirs x 2 views).
+PREDICTED_MOVERS corpus=0 probe=0 downstream_lanes=0

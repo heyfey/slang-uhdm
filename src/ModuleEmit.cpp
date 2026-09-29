@@ -814,6 +814,9 @@ void trace209(const char* law, const std::string& detail);  // R11U209_TRACE
 bool r11u216Law(const char* sw);  // the r11u216 switches (UhdmExporter.cpp)
 bool r11v216Law(const char* sw);  // the v11u216 switches (UhdmExporter.cpp)
 void trace216(const char* law, const std::string& detail);  // R11U216_TRACE
+bool r11u219Law(const char* sw);  // the r11u219 switches (UhdmExporter.cpp)
+bool r11v219Law(const char* sw);  // the v11u219 switches (UhdmExporter.cpp)
+void trace219(const char* law, const std::string& detail);  // R11U219_TRACE
 // § genScopeRangeQueryFold216 / § ndaRangeQueryFold216 (r11u216) — the RANGE
 // QUERY an elaborated generate-scope cont_assign or an elaborated net
 // declaration assignment writes as its whole right side (`assign c =
@@ -1086,7 +1089,28 @@ static bool rqSizePlan216(const slang::ast::Expression& rhs, int64_t& count,
     std::string nm(call.getSubroutineName());
     if (!nm.empty() && nm[0] != '$')
         nm.insert(nm.begin(), '$');
-    if (nm != "$size" || call.arguments().size() != 1 || !call.arguments()[0])
+    // § ndaSizeFoldReach219 (r11u219, pass 216's residue f14) — the reach of
+    // § ndaSizeQueryFold216 is every shape Surelog's ExprEval reduces (grid
+    // tools/probe/r11u219repro/cases/S, golden s01 s02 s04): writeCont_assign
+    // folds `$size` of a net or variable to the location-less `UINT:<count>`
+    // adjustSize sizes to the net for
+    //   * a multi-dimensional operand, the count of its FIRST dimension
+    //     (unpacked dimensions first, then packed: `logic [1:0] m [2][3]` ->
+    //     2, `logic [3:0][1:0] pv` -> 4), whatever the element is (an
+    //     unpacked struct `us_t su [4]` -> 4, `string st [3]` -> 3), where
+    //     the law declined everything but a one-dimensional integral shape
+    //     (switch R11U219_SIZE2D_OFF);
+    //   * the two-argument form `$size(m, d)` with a literal dimension: the
+    //     count of dimension d in the same order (`$size(m, 3)` -> 2,
+    //     `$size(pv, 2)` -> 2) (switch R11U219_SIZEDIM_OFF).
+    // A dynamic dimension (a queue, a dynamic or associative array) and a
+    // parameter operand stay declined, as in the law.  Switch R11U219_OFF
+    // with the pass.
+    const bool reach219 = r11u219Law("R11U219_SIZE2D_OFF");
+    const bool dim219 = r11u219Law("R11U219_SIZEDIM_OFF");
+    const size_t nargs = call.arguments().size();
+    if (nm != "$size" || nargs < 1 || nargs > 2 || !call.arguments()[0] ||
+        (nargs == 2 && (!dim219 || !call.arguments()[1])))
         return false;
     auto& a = stripImplicitConv(*call.arguments()[0]);
     if (a.kind != ExpressionKind::NamedValue)
@@ -1095,18 +1119,162 @@ static bool rqSizePlan216(const slang::ast::Expression& rhs, int64_t& count,
     if (sym.kind != SymbolKind::Net && sym.kind != SymbolKind::Variable)
         return false;
     auto& ct = sym.getType().getCanonicalType();
-    if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+    // § sizeReachFollowsWalker219v (v11u219, the adversarial verification of
+    // r11u219: fresh cases tools/probe/v11u219repro/cases/S s01c s04 s08) —
+    // golden's fold is UHDM ExprEval::reduceExpr's `$size` arm
+    // (third_party/Surelog/third_party/UHDM/templates/ExprEval.cpp): its
+    // walker collects the dimensions of the call's first argument only
+    // through an array_var / array_net (their unpacked ranges, then the
+    // element's typespec), a logic_var or a logic_net, and walk_ts reads
+    // ranges only off a logic, bit, int, packed-array or array typespec, so
+    // an enum's, a predefined integer's, a struct's element range adds no
+    // dimension and a bit, int, byte, enum or struct VARIABLE is not walked
+    // at all.  When the walker misses (the requested dimension past its
+    // list, or no list) reduceExpr falls to the generic `$bits`-style
+    // handler, whose value is not the dimension's count (golden
+    // `$size(ea, 2)` of `e_t ea [3]` is 9, `$size(bp)` of `bit [3:0][1:0]`
+    // is 2, `$size(ma)` of `int ma [4][int]` is 32), and our elaborated
+    // view already writes that value through the same ExprEval (the parse
+    // view keeps the call, which the downstream plugin reduces the same
+    // way).  § ndaSizeFoldReach219 folded its own count there (3, 4, 4):
+    // s04 went IDENTICAL -> DIVERGENT downstream and moved the elaborated
+    // view's value away from golden's.  The reach now folds only where the
+    // walker resolves the dimension (it computes the same count there);
+    // elsewhere it declines, leaving the base's output.  § ndaSizeQueryFold216's
+    // own one-dimensional cell is unchanged.  Switch R11V219_SIZEWALK_OFF.
+    const bool walk219v = r11v219Law("R11V219_SIZEWALK_OFF");
+    auto walkerDims219v = [&](std::vector<int64_t>& wd) -> bool {
+        const Type* t = &ct;
+        if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+            while (t->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                auto& u = t->getCanonicalType().as<FixedSizeUnpackedArrayType>();
+                wd.push_back((int64_t)u.range.width());
+                t = &u.elementType;
+            }
+            if (t->getCanonicalType().isUnpackedArray())
+                return false;  // a dynamic, queue or associative inner dimension
+        }
+        else if (sym.kind != SymbolKind::Net) {
+            // a variable is walked only as a logic_var: a 4-state vector
+            const Type* e = &ct;
+            while (e->getCanonicalType().kind == SymbolKind::PackedArrayType)
+                e = &e->getCanonicalType().as<PackedArrayType>().elementType;
+            auto& ec = e->getCanonicalType();
+            if (ec.kind != SymbolKind::ScalarType ||
+                ec.as<ScalarType>().scalarKind == ScalarType::Bit)
+                return false;
+        }
+        while (t->getCanonicalType().kind == SymbolKind::PackedArrayType) {
+            auto& pa = t->getCanonicalType().as<PackedArrayType>();
+            wd.push_back((int64_t)pa.range.width());
+            t = &pa.elementType;
+        }
+        return !wd.empty();
+    };
+    if (nargs == 1 && ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
         auto& at = ct.as<FixedSizeUnpackedArrayType>();
         if (at.elementType.getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType ||
-            !at.elementType.isIntegral())
-            return false;
+            !at.elementType.isIntegral()) {
+            if (!reach219)
+                return false;
+            if (walk219v) {
+                std::vector<int64_t> wd;
+                if (!walkerDims219v(wd)) {
+                    trace219("sizeReachFollowsWalker219v", "declined first " + std::string(sym.name));
+                    return false;
+                }
+            }
+            // the element may be anything with a first dimension known
+            trace219("ndaSizeFoldReach219", "first " + std::string(sym.name));
+        }
         count = (int64_t)at.range.width();
     }
-    else if (ct.isIntegral() && ct.hasFixedRange() &&
+    else if (nargs == 1 && ct.isIntegral() && ct.hasFixedRange() &&
              (ct.kind != SymbolKind::PackedArrayType ||
               ct.as<PackedArrayType>().elementType.getCanonicalType().kind ==
                   SymbolKind::ScalarType)) {
         count = (int64_t)ct.getFixedRange().width();
+    }
+    else if (reach219 || (nargs == 2 && dim219)) {
+        // The dimension list, unpacked dimensions first, then packed.
+        std::vector<int64_t> dims;
+        const Type* t = &ct;
+        for (int guard = 0; guard < 64; guard++) {
+            auto& c = t->getCanonicalType();
+            if (c.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                dims.push_back((int64_t)c.as<FixedSizeUnpackedArrayType>().range.width());
+                t = &c.as<FixedSizeUnpackedArrayType>().elementType;
+                continue;
+            }
+            if (c.kind == SymbolKind::PackedArrayType) {
+                dims.push_back((int64_t)c.as<PackedArrayType>().range.width());
+                t = &c.as<PackedArrayType>().elementType;
+                continue;
+            }
+            if (c.isUnpackedArray())
+                return false;  // a dynamic dimension
+            if (c.isIntegral() && c.hasFixedRange() && c.kind != SymbolKind::ScalarType &&
+                !c.isStruct() && !c.isUnion())
+                dims.push_back((int64_t)c.getFixedRange().width());
+            break;
+        }
+        size_t d = 1;
+        if (nargs == 2) {
+            auto& da = stripImplicitConv(*call.arguments()[1]);
+            if (da.kind != ExpressionKind::IntegerLiteral)
+                return false;
+            auto v = da.as<IntegerLiteral>().getValue().as<int64_t>();
+            if (!v || *v < 1)
+                return false;
+            d = (size_t)*v;
+        }
+        if (dims.empty() || d > dims.size())
+            return false;
+        // One argument over a one-dimensional shape is the law's own cell
+        // above; this arm is the reach.
+        if (nargs == 1 && !reach219)
+            return false;
+        if (walk219v) {
+            // § sizeReachFollowsWalker219v: the walker's list is the law's
+            // without the element range it does not read, so a count it
+            // resolves is the law's; a dimension it misses is declined,
+            // except where the generic handler's value is that count too:
+            // a one-dimensional bit vector, predefined integer (not time) or
+            // enum VARIABLE asked for dimension 1 (ExprEval::size of its
+            // typespec: the one range, 8 / 16 / 32 / 64, the enum's base;
+            // golden `$size(bv, 1)` 8, `$size(iv, 1)` 32, `$size(yv, 1)` 8).
+            std::vector<int64_t> wd;
+            const bool walked = walkerDims219v(wd) && d <= wd.size() && wd[d - 1] == dims[d - 1];
+            bool generic1d = false;
+            if (!walked && sym.kind == SymbolKind::Variable && dims.size() == 1 && d == 1 &&
+                ct.kind != SymbolKind::FixedSizeUnpackedArrayType) {
+                if (ct.kind == SymbolKind::PackedArrayType) {
+                    auto& ec = ct.as<PackedArrayType>().elementType.getCanonicalType();
+                    generic1d = ec.kind == SymbolKind::ScalarType &&
+                                ec.as<ScalarType>().scalarKind == ScalarType::Bit;
+                }
+                else if (ct.kind == SymbolKind::PredefinedIntegerType)
+                    generic1d = ct.as<PredefinedIntegerType>().integerKind !=
+                                PredefinedIntegerType::Time;
+                else if (ct.kind == SymbolKind::EnumType) {
+                    // the base's own size: one range or a predefined integer
+                    auto& bc = ct.as<EnumType>().baseType.getCanonicalType();
+                    generic1d = bc.kind == SymbolKind::PredefinedIntegerType ||
+                                (bc.kind == SymbolKind::PackedArrayType &&
+                                 bc.as<PackedArrayType>().elementType.getCanonicalType().kind ==
+                                     SymbolKind::ScalarType);
+                }
+            }
+            if (!walked && !generic1d) {
+                trace219("sizeReachFollowsWalker219v",
+                         std::string(nargs == 2 ? "declined dim " : "declined first ") +
+                             std::string(sym.name));
+                return false;
+            }
+        }
+        count = dims[d - 1];
+        trace219("ndaSizeFoldReach219", (nargs == 2 ? "dim " : "first ") +
+                                            std::string(sym.name));
     }
     else
         return false;
@@ -1147,6 +1315,8 @@ static UHDM::any* ndaQueryFold216(
     return nullptr;
 }
 bool r11u212Law(const char* sw);  // the r11u212 switches (UhdmExporter.cpp)
+bool r11u214Law(const char* sw);  // the r11u214 switches (UhdmExporter.cpp)
+void trace214(const char* law, const std::string& detail);
 void trace212(const char* law, const std::string& detail);  // R11U212_TRACE
 void trace205(const char* law, const std::string& detail);  // R11U205_TRACE
 bool& defGenInitRvalue202();  // § defGenInitBitSelAtIndex202 (TypeEmit.cpp)
@@ -11523,6 +11693,48 @@ static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src
     }
     // § importCopyElemVarTsNoInstance8 — see the header above importCopyElem8.
     importCopyElem8(cp, src, srcPkgName);
+    // § importVarElemOwnName214 (r11u214, map 13 N0503 / N0504 / N0732 /
+    // N0734 / N0288: the class copies of uvm_pkg's `uvm_random_seed_table
+    // uvm_random_seed_table_lookup [string]`, golden `svaunit_pkg::
+    // svaunit_sequencer::` / `work@my_scoreboard::uvm_random_seed_table_
+    // lookup` on the element class_var and its ref, ours the package's
+    // `uvm_pkg::uvm_random_seed_table_lookup`, and golden's index-type ref
+    // under the array typespec unnamed where ours read the copy's name) —
+    // the copy Surelog's importPackage makes of an ARRAY variable is a
+    // re-elaborated declaration in the class: its element variables are
+    // named by the copy's own chain like the array variable itself (grid
+    // tools/probe/r11u214dec/cases/E k01 k02: `p::seed_map::lookup` for the
+    // element of the class seed_map's inherited copy, ours `p::lookup`),
+    // while its array typespec stays a free object with no parent, as in the
+    // package listing it was cloned from (clone_tree parents the clone at
+    // the copied ref, which put the copy's name on the index ref).  Switch
+    // R11U214_IMPVARELEM_OFF.
+    if (r11u214Law("R11U214_IMPVARELEM_OFF") && cp->UhdmType() == UHDM::uhdmarray_var &&
+        !fn.empty() && !nm.empty()) {
+        const std::string own214 = fn + "::" + nm;
+        if (auto* evs = ((UHDM::array_var*)cp)->Variables())
+            for (auto* ev : *evs) {
+                if (!ev || ev->VpiParent() != cp)
+                    continue;
+                if (ev->VpiFullName() != own214) {
+                    ev->VpiFullName(own214);
+                    trace214("IMPVARELEM", own214);
+                }
+                if (auto* ert = ev->Typespec(); ert && ert->VpiParent() == ev &&
+                                                ert->VpiFullName() != own214)
+                    ert->VpiFullName(own214);
+            }
+        if (auto* rt214 = cp->Typespec())
+            if (auto* at214 = rt214->Actual_typespec();
+                at214 && at214->UhdmType() == UHDM::uhdmarray_typespec &&
+                at214->VpiParent() == rt214)
+                if (auto* srt214 = src->Typespec())
+                    if (auto* sat214 = srt214->Actual_typespec();
+                        sat214 && sat214 != at214 && !sat214->VpiParent()) {
+                        at214->VpiParent(nullptr);
+                        trace214("IMPVARELEM", own214 + " ts");
+                    }
+    }
     if (auto* e5 = cp->Expr())
         e5->VpiParent(cp);
     // § importCopyInitRefIsOwnedAndUnbound6 — see the header above

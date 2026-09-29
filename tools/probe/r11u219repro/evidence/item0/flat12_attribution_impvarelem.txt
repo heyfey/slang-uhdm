@@ -1,0 +1,3 @@
+# MiniAmiq default, r11u214 laws alone (law214) against the same with R11U214_IMPVARELEM_OFF: the 12 flat records return
+flat_lost=12 flat_toward=24 chain_lost=0 chain_toward=36
+  FLAT_LOST 12 ref_typespec			<in>		0	0	0	0		0		

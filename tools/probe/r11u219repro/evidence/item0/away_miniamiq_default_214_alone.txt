@@ -1,0 +1,2 @@
+flat_lost=12 flat_toward=30 chain_lost=0 chain_toward=42
+  FLAT_LOST 12 ref_typespec			<in>		0	0	0	0		0		

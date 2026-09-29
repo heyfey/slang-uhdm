@@ -392,9 +392,41 @@ bool r11u193Law(const char* sw) {
 //   R11U200_UNITINIT_OFF   § unitBoundFoldAtLeftOperand200        (UhdmExporter.cpp: a $unit initializer, one level)
 //   R11U200_CLASSTDRET_OFF § classTdRetSharesTypedefTs200         (TaskFuncEmit.cpp)
 //   R11U200_GENBITS_OFF    § genBlockBitsKeepsSelect200           (ExprEmit.cpp, ground A)
+// § landingSwitchReach219 (r11u219, item (8) of its brief: r11u213's and
+// r11u217's switch-reach findings on this ground) — a PER-LANDING switch for
+// every recent module/type landing whose whole ground-B state no single old
+// switch drops exactly (like pass 210's R11U210_LANDING201_OFF on ground A);
+// the old switches keep their meaning.  The reach table (each switch, the
+// laws it drops, measured by bytes on the landing's own cases) is
+// tools/probe/r11u219repro/README.md section 8.
+//   R11U219_LANDING202_OFF  landing 202's ground-B state: the r11u202 laws,
+//                           the v11u202 refinements and the ground-B r11u200
+//                           laws it carried, but NOT pass 206's two laws
+//                           nested under their gates (R11U202_OFF drops
+//                           those too: § unitClassTdEndAtInitIfcPrg206 keeps
+//                           its interface and program writers,
+//                           § classScopeTdRetBuildsOwner206 its on-demand
+//                           owner build)
+//   R11U219_LANDING212_OFF  landing 212: the r11u212 laws and the v11u212
+//                           refinement (R11U212_OFF + R11V212_OFF)
+//   R11U219_LANDING216_OFF  landing 216: the r11u216 laws and the v11u216
+//                           refinements (R11U216_OFF + R11V216_OFF)
+// Landings with an exact single switch already: 206 (R11U206_OFF), 209
+// (R11U209_OFF: pass 209, v11u209 and the r11u205 ground-B laws;
+// R11U205_OFF also drops landing 210's ground-A § elabIfArrIdxChainName205),
+// 219 (R11U219_OFF: this pass and the r11u214 laws it lands).
+bool landingOff219(int n) {
+    switch (n) {
+    case 202: { static const bool o = getenv("R11U219_LANDING202_OFF") != nullptr; return o; }
+    case 212: { static const bool o = getenv("R11U219_LANDING212_OFF") != nullptr; return o; }
+    case 216: { static const bool o = getenv("R11U219_LANDING216_OFF") != nullptr; return o; }
+    }
+    return false;
+}
 bool r11u200Law(const char* sw) {
     // r11u202 landed these laws: its pass-wide R11U202_OFF drops them too.
-    if (getenv("R11U200_OFF") != nullptr || getenv("R11U202_OFF") != nullptr)
+    if (getenv("R11U200_OFF") != nullptr || getenv("R11U202_OFF") != nullptr ||
+        landingOff219(202))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -445,7 +477,7 @@ void trace200(const char* law, const std::string& detail) {
 //   R11U202_GENINITBIND_OFF § genVarInitOuterRefUnbound202  (ModuleEmit.cpp)
 //   R11U202_GENINITBS_OFF   § defGenInitBitSelAtIndex202    (TypeEmit.cpp, ModuleEmit.cpp)
 bool r11u202Law(const char* sw) {
-    if (getenv("R11U202_OFF") != nullptr)
+    if (getenv("R11U202_OFF") != nullptr || landingOff219(202))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -457,7 +489,8 @@ bool r11u202Law(const char* sw) {
 //   R11V202_IMPLCMT_OFF    § implicitTsEndAfterLineComment202v   (TypeEmit.cpp)
 //   R11V202_IMPLCR_OFF     § implicitTsEndSkipsCarriageReturn202v (TypeEmit.cpp)
 bool r11v202Law(const char* sw) {
-    if (getenv("R11V202_OFF") != nullptr || getenv("R11U202_OFF") != nullptr)
+    if (getenv("R11V202_OFF") != nullptr || getenv("R11U202_OFF") != nullptr ||
+        landingOff219(202))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -597,12 +630,12 @@ void trace209(const char* law, const std::string& detail) {
 // switch; R11V216_OFF drops all of them (r11u216's bytes).  Each runs only
 // where its r11u216 law fires, so R11U216_OFF drops them too.
 bool r11v216Law(const char* sw) {
-    if (getenv("R11V216_OFF") != nullptr)
+    if (getenv("R11V216_OFF") != nullptr || landingOff219(216))
         return false;
     return getenv(sw) == nullptr;
 }
 bool r11u216Law(const char* sw) {
-    if (getenv("R11U216_OFF") != nullptr)
+    if (getenv("R11U216_OFF") != nullptr || landingOff219(216))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -644,7 +677,7 @@ void trace216(const char* law, const std::string& detail) {
 // file per process, `<dir>/<pid>.212`, first line `OUT <-o path>`, then
 // `<law> <detail>`).
 bool r11u212Law(const char* sw) {
-    if (getenv("R11U212_OFF") != nullptr)
+    if (getenv("R11U212_OFF") != nullptr || landingOff219(212))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -685,7 +718,7 @@ void trace212(const char* law, const std::string& detail) {
 // R11V212_<LAW>_OFF switch; R11V212_OFF drops all of them (the pass-212 law as
 // delivered).  Firings are traced through trace212 (R11U212_TRACE).
 bool r11v212Law(const char* sw) {
-    if (getenv("R11V212_OFF") != nullptr)
+    if (getenv("R11V212_OFF") != nullptr || landingOff219(212))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -1170,6 +1203,495 @@ static void pkgTsRefObjChainName134(UHDM::Serializer& s) {
     }
     for (auto& [r, nm] : renames)
         r->VpiFullName(nm);
+}
+
+// ===== r11u214 — the enum typedef's last writer (map 13's UVM_SEQ_ARB_TYPE head) ==
+// § enumTdLastWriter214 (r11u214, map 13 N0778 / N0582 / N0900 / N1424: the
+// ref_typespec under uvm_pkg's enum alias `UVM_SEQ_ARB_TYPE`, the first open
+// record of all nine UVM row-modes) — WHICH container parents a package enum
+// typedef's shared object, and so which name BaseClass::ComputeFullName gives
+// its base-type and typedef-alias refs.  UhdmWriter::write
+// (third_party/Surelog/src/DesignCompile/UhdmWriter.cpp) runs
+// writeDataTypes(map, parent, .., setParent=true) — `tps->VpiParent(parent)`
+// — over the elaborated packages (TopPackages, getOrderedPackageDefinitions
+// order), the unelaborated packages, the programs, the interfaces and the
+// modules (getModuleDefinitions, a map by name) and LAST over the
+// compilation-unit classes (`classes` loop: getClassDefinitions, a multimap by
+// name; only a class with no package parent, writeClass(classDef, v4, s, d)),
+// whose DataTypeMap holds the typedefs a file-scope `import p::*` brought in
+// (CompileClass).  The last writer owns the object for the whole design:
+//   no importer                 `p::p::ALIAS_T`        (the elaborated home package lists it)
+//   a package q imports p       `q::p::ALIAS_T`
+//   an interface ifc imports p  `work@ifc.p::ALIAS_T`
+//   a $unit class env           `work@env::p::ALIAS_T` (over a module top)
+//   two $unit classes           the one last by name (zz_c over aa_c)
+// (grid tools/probe/r11u214dec/cases/A; a class inside a package is not the
+// last writer, c01; an explicit import of a literal writes nothing, c06).
+// § enumImportParentLastWriter180 already models the interface and module
+// writers from the AST (with its explicit-item refinement); this pass adds
+// the three it lacks, read off our own listings (the judge compares every
+// listing, so ours lists what golden lists): the home and importing PACKAGES
+// when no interface or module wrote the object (ours left it unparented:
+// the import clone and the alias object are nobody's child), and the $UNIT
+// CLASSES, which write after every module.  An enum ALIAS typedef is ONE
+// object in golden (its home package never lists it in the definition view,
+// § enumAliasHomeDefFollowsImporter36): ours keeps up to three (the def-view
+// object, the elaborated one, the import clone) and the pass moves them as
+// one, so the object an interface's listing reparented and the twin a formal
+// binds read the same name (c04, SeqDriver's first record).  Only the parent
+// and the two refs' stored full names move (vpiParent is read by no Compare).
+// Composition with § pkgEnumAliasListingParent212 (pass 212, in
+// typedefParentModel134, after this pass): that law parents an enum-alias
+// copy left WITHOUT a parent at its package (the no-importer cell, map 13
+// N0778); this pass runs first and parents every alias copy by its last
+// writer, so the later law finds none left parentless unless this one is
+// switched off, when it restores exactly its own cell (grid A a05 a08).
+// Switches: R11U214_SEQARBNAME_OFF (the whole law), R11U214_ENUMPKGW_OFF (the
+// package writers), R11U214_ENUMCLSW_OFF (the $unit class writers),
+// R11U214_ENUMALIASGRP_OFF (the alias objects moved as one),
+// R11U214_ENUMALIASNAME_OFF (an interface-parented alias's alias-ref name
+// following its parent, a09 / b03 / c04), R11U214_CLASSTDW_OFF (the class
+// specialization-alias typedefs, § classTdAliasLastWriter214); R11U214_OFF
+// drops every r11u214 law.  R11U214_TRACE=1 names each move on stderr.
+bool r11u214Law(const char* sw) {
+    // R11U219_OFF (the landing of these laws with pass 219's) drops them too.
+    if (getenv("R11U214_OFF") != nullptr || getenv("R11U219_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// ===== r11u219 — pass 219's switches (the module/type ground) =====
+// Every law of pass 219 sits behind its own R11U219_<LAW>_OFF switch;
+// R11U219_OFF drops all of them AND the r11u214 decode's laws this pass
+// lands (tools/probe/r11u214dec), restoring the base's bytes.
+// R11U219_TRACE=1 names every firing on stderr (`R11U219 <law> <detail>`);
+// R11U219_TRACE=<dir> writes one file per process, `<dir>/<pid>.219`, its
+// first line `OUT <-o path>` (the mover census,
+// tools/probe/r11u219repro/drivers/census.sh).
+bool r11u219Law(const char* sw) {
+    if (getenv("R11U219_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// ===== v11u219 — the refinements of r11u219's adversarial verification =====
+// Every refinement sits behind its own R11V219_<LAW>_OFF switch; R11V219_OFF
+// drops all of them (r11u219's bytes).  Each refines a law of pass 219 and
+// runs only where that law fires, so R11U219_OFF drops them too.
+bool r11v219Law(const char* sw) {
+    if (getenv("R11V219_OFF") != nullptr || getenv("R11U219_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+void trace219(const char* law, const std::string& detail) {
+    static const char* d = getenv("R11U219_TRACE");
+    if (!d)
+        return;
+    static FILE* tf = []() -> FILE* {
+        const char* dd = getenv("R11U219_TRACE");
+        if (!dd || std::string(dd) == "1")
+            return stderr;
+        std::string fn = std::string(dd) + "/" + std::to_string(getpid()) + ".219";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s%s %s\n", tf == stderr ? "R11U219 " : "", law,
+                detail.c_str());
+        fflush(tf);
+    }
+}
+// R11U214_TRACE=1 names every firing on stderr (`R11U214 <LAW> <detail>`);
+// R11U214_TRACE=<dir> writes one file per process instead, `<dir>/<pid>.214`,
+// its first line `OUT <-o path>`, then one `<LAW> <detail>` line per firing
+// (the mover census, tools/probe/r11u214dec/drivers/census.sh).
+void trace214(const char* law, const std::string& detail) {
+    static const char* d = getenv("R11U214_TRACE");
+    if (!d)
+        return;
+    static FILE* tf = []() -> FILE* {
+        const char* dd = getenv("R11U214_TRACE");
+        if (!dd || std::string(dd) == "1")
+            return stderr;
+        std::string fn = std::string(dd) + "/" + std::to_string(getpid()) + ".214";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s%s %s\n", tf == stderr ? "R11U214 " : "", law,
+                detail.c_str());
+        fflush(tf);
+    }
+}
+// The r11u219 refinements of § enumTdLastWriter214 (r11u219's away census on
+// raw full names over 13495 earlier case directories, tools/probe/
+// r11u219repro/README.md section 3: records golden holds and the law moved
+// away):
+// § enumClsWriterUnitScopeOnly219 (R11U219_UNITCLSONLY_OFF) — only a class
+//   declared at COMPILATION-UNIT scope is a $unit class writer: a class
+//   declared inside an interface or a module is also parented at the design
+//   in both databases (golden `work@M`), but it is no writer (golden
+//   r11u216repro TW/w11: `work@top.p::e_t` on every listing, the law wrote
+//   the interface class's `work@M::p::e_t`; r10v221repro v7_window);
+//   `unitCls219` holds the class_defn objects of compilation-unit classes.
+// § enumPkgWriterImportsType219 (R11U219_PKGWIMPORT_OFF) — a package other
+//   than the typedef's home is a writer only when it imports the home
+//   package with a wildcard or imports the typedef itself by name:
+//   importPackage copies only the named item, so `import eh1::XE1;` (an enum
+//   VALUE) writes nothing (golden r11v84repro v3_expedge: the object
+//   ep_ev's listing holds keeps its base reference's `eh1::xe_t`, which the
+//   law's package writer moved away);
+//   `pkgImports219(pkg, home, name)` answers it.
+// § enumPkgWriterImportsType219 also declines the whole object when a package
+//   that neither is its home nor imports it lists it (a listing the writer
+//   model does not explain: golden leaves such an object where it was).
+static void enumTdLastWriter214(
+    UHDM::design* d, const std::vector<std::vector<UHDM::typespec*>>& aliasGroups,
+    const std::set<const UHDM::BaseClass*>& unitCls219,
+    const std::function<bool(const UHDM::BaseClass*, std::string_view, std::string_view)>&
+        pkgImports219) {
+    if (!d || !r11u214Law("R11U214_SEQARBNAME_OFF"))
+        return;
+    const bool unitOnly219 = r11u219Law("R11U219_UNITCLSONLY_OFF");
+    const bool pkgImp219 = r11u219Law("R11U219_PKGWIMPORT_OFF");
+    std::set<size_t> unexpl219;  // § enumPkgWriterImportsType219
+    // home package and bare name of a package typespec `home::name`
+    auto homeName219 = [](const UHDM::typespec* t) {
+        std::string_view n = t->VpiName();
+        auto k = n.find("::");
+        return std::make_pair(n.substr(0, k), k == std::string_view::npos ? n : n.substr(k + 2));
+    };
+    const bool pkgW = r11u214Law("R11U214_ENUMPKGW_OFF");
+    const bool clsW = r11u214Law("R11U214_ENUMCLSW_OFF");
+    const bool grp = r11u214Law("R11U214_ENUMALIASGRP_OFF");
+    const bool aliasNm = r11u214Law("R11U214_ENUMALIASNAME_OFF");
+    // BaseClass::ComputeFullName's per-link name.
+    auto linkName = [](const UHDM::BaseClass* a,
+                       const UHDM::BaseClass* child) -> std::string_view {
+        const UHDM::BaseClass* ap = a->VpiParent();
+        auto t = a->UhdmType();
+        bool skip = (ap && ap->UhdmType() == UHDM::uhdmref_obj) ||
+                    t == UHDM::uhdmmethod_func_call ||
+                    t == UHDM::uhdmmethod_task_call || t == UHDM::uhdmfunc_call ||
+                    t == UHDM::uhdmtask_call || t == UHDM::uhdmsys_func_call ||
+                    t == UHDM::uhdmsys_task_call;
+        if (child) {
+            auto ct = child->UhdmType();
+            if (ct == UHDM::uhdmbit_select && t == UHDM::uhdmport)
+                skip = true;
+            if (ct == UHDM::uhdmref_obj &&
+                (t == UHDM::uhdmbit_select || t == UHDM::uhdmindexed_part_select ||
+                 t == UHDM::uhdmhier_path))
+                skip = true;
+        }
+        if (skip)
+            return {};
+        return a->VpiName().empty() ? a->VpiDefName() : a->VpiName();
+    };
+    // The full name a ref_typespec child of `e` synthesises (no name of its
+    // own; ComputeFullName with the ref as the start).
+    auto refName = [&](const UHDM::BaseClass* e) {
+        std::vector<std::string_view> names;
+        bool column = false;
+        const UHDM::BaseClass* child = nullptr;
+        for (const UHDM::BaseClass* a = e; a; child = a, a = a->VpiParent()) {
+            auto t = a->UhdmType();
+            if (t == UHDM::uhdmdesign)
+                break;
+            if (t == UHDM::uhdmpackage || t == UHDM::uhdmclass_defn)
+                column = true;
+            auto nm = linkName(a, child);
+            if (!nm.empty())
+                names.push_back(nm);
+        }
+        std::string out;
+        for (auto it = names.rbegin(); it != names.rend(); ++it) {
+            if (!out.empty())
+                out += column ? "::" : ".";
+            out += *it;
+        }
+        return out;
+    };
+    // The units: every named package enum listed anywhere, one object each,
+    // except the alias groups, which move as one.
+    std::map<const UHDM::typespec*, size_t> unitOf;
+    std::vector<std::vector<UHDM::typespec*>> units;
+    if (grp)
+        for (auto& g : aliasGroups) {
+            size_t u = units.size();
+            units.push_back({});
+            for (auto* t : g)
+                if (t && t->UhdmType() == UHDM::uhdmenum_typespec &&
+                    !unitOf.count(t)) {
+                    unitOf[t] = u;
+                    units.back().push_back(t);
+                }
+        }
+    auto unit = [&](UHDM::typespec* t) -> size_t {
+        auto it = unitOf.find(t);
+        if (it != unitOf.end())
+            return it->second;
+        size_t u = units.size();
+        units.push_back({t});
+        unitOf[t] = u;
+        return u;
+    };
+    auto pkgEnum = [](const UHDM::typespec* t) {
+        return t && t->UhdmType() == UHDM::uhdmenum_typespec &&
+               t->VpiName().find("::") != std::string_view::npos;
+    };
+    // § classTdAliasLastWriter214 — the CLASS face of the same writer
+    // (map 13 N0540 / N0689: uvm_pkg's `uvm_event_pool`, a specialization
+    // typedef Surelog aliases to the earlier `uvm_barrier_pool`, golden
+    // `work@top_tb.` / `work@my_scoreboard::uvm_pkg::uvm_event_pool` on its
+    // typedef-alias ref, ours `uvm_pkg::` / `uvm_pkg::uvm_pkg::`): a named
+    // package class typedef that carries a typedef-alias ref (the
+    // specialization-alias shape, grid cases/C i01-i05) is written by the
+    // same listings in the same order, and no pass of ours parents it at an
+    // importing interface, module or class (§ enumImportParentLastWriter180
+    // is enum-only), so for it the interface and module listings are
+    // replayed here too.  Switch R11U214_CLASSTDW_OFF.
+    const bool clsTd = r11u214Law("R11U214_CLASSTDW_OFF");
+    // § classScopeTdPkgListingParent214 (r11u214, map 13 N1910 / N1911: 14
+    // probe cases each, r10uvm112repro a8_single `typedef BoxS8 #(solo8,
+    // "solo8") sid8;` inside `class solo8` of package pk8use) — a CLASS-SCOPE
+    // specialization typedef that the package's own listing holds
+    // (Surelog's package DataTypeMap carries it, writeDataTypes prefixes its
+    // name `pk8use::sid8`) is parented by that package listing, written after
+    // the class (golden `pk8use::pk8use::sid8::Q` on its type parameter,
+    // ours `pk8use::solo8::pk8use::sid8::Q` under the class_defn); the
+    // stored full names below it move with the chain.  Switch
+    // R11U214_CLSSCOPETD_OFF.
+    const bool clsScope = r11u214Law("R11U214_CLSSCOPETD_OFF");
+    auto pkgClsTd = [&](const UHDM::typespec* t) {
+        if (!clsTd || !t || t->UhdmType() != UHDM::uhdmclass_typespec ||
+            t->VpiName().find("::") == std::string_view::npos)
+            return false;
+        if (((const UHDM::class_typespec*)t)->Typedef_alias())
+            return true;
+        const UHDM::BaseClass* p = t->VpiParent();
+        return clsScope && p && p->UhdmType() == UHDM::uhdmclass_defn;
+    };
+    std::map<size_t, UHDM::BaseClass*> pkgLast, clsLast, modLast;
+    std::set<const UHDM::BaseClass*> topPk;
+    // § enumPkgWriterImportsType219: a package writes an enum it lists only
+    // as the typedef's home or as an importer of it (class typedefs keep the
+    // law's listing rule).
+    auto pkgWrites219 = [&](const UHDM::BaseClass* p, const UHDM::typespec* t) {
+        if (!pkgImp219 || !t || t->UhdmType() != UHDM::uhdmenum_typespec)
+            return true;
+        auto [home, nm] = homeName219(t);
+        if (p->VpiName() == home)
+            return true;
+        bool w = pkgImports219(p, home, nm);
+        if (!w)
+            unexpl219.insert(unit((UHDM::typespec*)t));
+        return w;
+    };
+    if (auto* v = d->TopPackages())
+        for (auto* p : *v) {
+            topPk.insert(p);
+            if (auto* ts = p->Typespecs())
+                for (auto* t : *ts)
+                    if ((pkgEnum(t) || pkgClsTd(t)) && pkgWrites219(p, t))
+                        pkgLast[unit(t)] = p;
+        }
+    if (auto* v = d->AllPackages())
+        for (auto* p : *v)
+            if (!topPk.count(p))
+                if (auto* ts = p->Typespecs())
+                    for (auto* t : *ts)
+                        if ((pkgEnum(t) || pkgClsTd(t)) && pkgWrites219(p, t))
+                            pkgLast[unit(t)] = p;
+    // The interface then module listings (UhdmWriter's order), for the class
+    // typedefs only: the enum ones are § enumImportParentLastWriter180's.
+    if (clsTd) {
+        if (auto* v = d->AllInterfaces())
+            for (auto* m : *v)
+                if (auto* ts = m->Typespecs())
+                    for (auto* t : *ts)
+                        if (pkgClsTd(t))
+                            modLast[unit(t)] = m;
+        if (auto* v = d->AllModules())
+            for (auto* m : *v)
+                if (auto* ts = m->Typespecs())
+                    for (auto* t : *ts)
+                        if (pkgClsTd(t))
+                            modLast[unit(t)] = m;
+    }
+    if (clsW)
+        if (auto* v = d->AllClasses())
+            for (auto* c : *v) {
+                auto* cp = c->VpiParent();
+                if (cp && cp->UhdmType() != UHDM::uhdmdesign)
+                    continue;
+                // § enumClsWriterUnitScopeOnly219
+                if (unitOnly219 && !unitCls219.count(c)) {
+                    // traced only when the class lists an object the law
+                    // would have written (the byte-moving cell)
+                    if (auto* ts = c->Typespecs())
+                        for (auto* t : *ts)
+                            if (pkgEnum(t) || pkgClsTd(t)) {
+                                trace219("enumClsWriterUnitScopeOnly219",
+                                         std::string(c->VpiName()) + " " +
+                                             std::string(t->VpiName()));
+                                break;
+                            }
+                    continue;
+                }
+                if (auto* ts = c->Typespecs())
+                    for (auto* t : *ts)
+                        if (pkgEnum(t) || pkgClsTd(t))
+                            clsLast[unit(t)] = c;
+            }
+    for (size_t u = 0; u < units.size(); ++u) {
+        auto& ms = units[u];
+        // The interface / module writer § enumImportParentLastWriter180 chose.
+        UHDM::BaseClass* modW = nullptr;
+        const bool isCls = ms.size() == 1 &&
+                           ms[0]->UhdmType() == UHDM::uhdmclass_typespec;
+        if (isCls) {
+            if (auto it = modLast.find(u); it != modLast.end())
+                modW = it->second;
+        }
+        else
+        for (auto* t : ms)
+            if (auto* p = t->VpiParent();
+                p && (p->UhdmType() == UHDM::uhdmmodule_inst ||
+                      p->UhdmType() == UHDM::uhdminterface_inst)) {
+                modW = p;
+                break;
+            }
+        UHDM::BaseClass* w = nullptr;
+        const char* why = "";
+        if (auto it = clsLast.find(u); it != clsLast.end()) {
+            w = it->second;
+            why = "ENUMCLSW";
+        } else if (modW) {
+            w = modW;
+            why = "ENUMALIASGRP";
+        } else if (auto it = pkgLast.find(u); pkgW && it != pkgLast.end()) {
+            w = it->second;
+            why = "ENUMPKGW";
+        }
+        if (!w)
+            continue;
+        if (unexpl219.count(u)) {
+            trace219("enumPkgWriterImportsType219", "declined " + std::string(ms[0]->VpiName()));
+            continue;
+        }
+        for (auto* t : ms) {
+            if (t->VpiParent() == w) {
+                // The interface writer's path (emitImportArtifacts, the
+                // interface arm) re-scopes the base ref and leaves the alias
+                // ref's stored name at the package's: the name follows the
+                // parent (ComputeFullName), as the module arm writes it.
+                if (t->UhdmType() == UHDM::uhdmclass_typespec) {
+                    // An interface's listing reparents the class typedef
+                    // (emitImportArtifacts) but leaves its alias ref's
+                    // stored name at the package's (grid C i03).
+                    auto* ct = (UHDM::class_typespec*)t;
+                    if (auto* ar = ct->Typedef_alias()) {
+                        std::string nm = refName(t);
+                        if (ar->VpiFullName() != nm) {
+                            ar->VpiFullName(nm);
+                            trace214("CLASSTDW", std::string(t->VpiName()) + " -> " + nm);
+                        }
+                    }
+                    continue;
+                }
+                auto* e = (UHDM::enum_typespec*)t;
+                if (aliasNm && e->Typedef_alias()) {
+                    std::string nm = refName(e);
+                    if (e->Typedef_alias()->VpiFullName() != nm) {
+                        e->Typedef_alias()->VpiFullName(nm);
+                        trace214("ENUMALIASNAME", std::string(t->VpiName()) + " -> " + nm);
+                    }
+                }
+                continue;
+            }
+            std::string oldNm = refName(t);
+            t->VpiParent(w);
+            std::string nm = refName(t);
+            if (t->UhdmType() == UHDM::uhdmclass_typespec) {
+                auto* ct = (UHDM::class_typespec*)t;
+                if (ct->Typedef_alias())
+                    ct->Typedef_alias()->VpiFullName(nm);
+                // The stored full names of its own parameters (and their
+                // type refs) follow the chain: a name under the old chain
+                // (`<old>::Q`) takes the new one (§ classScopeTdPkgListingParent214).
+                auto moveName = [&](auto* o) {
+                    if (!o)
+                        return;
+                    std::string f(o->VpiFullName());
+                    if (f.size() > oldNm.size() + 2 &&
+                        f.compare(0, oldNm.size() + 2, oldNm + "::") == 0)
+                        o->VpiFullName(nm + f.substr(oldNm.size()));
+                };
+                if (clsScope && !ct->Typedef_alias())
+                    if (auto* ps = ct->Parameters())
+                        for (auto* a : *ps) {
+                            if (!a || a->VpiParent() != ct)
+                                continue;
+                            if (a->UhdmType() == UHDM::uhdmtype_parameter) {
+                                auto* tp = (UHDM::type_parameter*)a;
+                                moveName(tp);
+                                if (auto* r = tp->Typespec())
+                                    moveName((UHDM::ref_typespec*)r);
+                            }
+                            else if (a->UhdmType() == UHDM::uhdmparameter) {
+                                auto* pp = (UHDM::parameter*)a;
+                                moveName(pp);
+                                if (auto* r = pp->Typespec())
+                                    moveName((UHDM::ref_typespec*)r);
+                            }
+                        }
+                trace214(isCls ? "CLASSTDW" : why,
+                         std::string(t->VpiName()) + " -> " + nm);
+                continue;
+            }
+            auto* e = (UHDM::enum_typespec*)t;
+            if (e->Base_typespec())
+                e->Base_typespec()->VpiFullName(nm);
+            if (e->Typedef_alias())
+                e->Typedef_alias()->VpiFullName(nm);
+            trace214(why, std::string(t->VpiName()) + " -> " + nm);
+        }
+    }
 }
 
 static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
@@ -3855,6 +4377,24 @@ struct Model {
     std::map<std::pair<uint32_t, uint32_t>, Pos> tokEndPos;
     bool endQuery = false; // setLoc is converting a span END ...
     SourceLocation endOf;  // ... of the span starting here
+    // § ppDotNameAfterArgToken219: the place after `<actual token>.` for a
+    // location one past the actual's last token (see find).
+    const Pos* dotName(uint32_t b, uint32_t o) const {
+        auto pe = tokEndPos.find({b, o - 1});
+        if (pe == tokEndPos.end() || pe->second.region < 0 || tokPos.count({b, o - 1}))
+            return nullptr;
+        auto& out = regions[(size_t)pe->second.region].out;
+        uint32_t d = pe->second.off;
+        if (d + 1 >= out.size() || out[d] != '.')
+            return nullptr;
+        char c = out[d + 1];
+        if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_'))
+            return nullptr;
+        static thread_local Pos tmp3;
+        tmp3 = pe->second;
+        tmp3.off = d + 1;
+        return &tmp3;
+    }
     const Pos* find(uint32_t b, uint32_t o) const {
         // A ONE-TOKEN span's end is its start token's end in the rebuilt
         // text: a pasted token's end offset collides with other tokens'
@@ -3881,7 +4421,81 @@ struct Model {
                 return endQuery && ie->second.region >= 0 ? &ie->second : nullptr;
             return it->second.region < 0 ? nullptr : &it->second;
         }
-        return ie == tokEndPos.end() || ie->second.region < 0 ? nullptr : &ie->second;
+        if (ie != tokEndPos.end() && ie->second.region >= 0)
+            return &ie->second;
+        // § ppDotNameAfterArgToken219 (r11u219, map 13's F1 family: the UVM
+        // rows' `CB.get_name()` / `get_full_name()` inside uvm_info's
+        // message actual, golden uvm_message_defines.svh 116:13-116:26, ours
+        // 115:89-1346:16) — slang places a member name whose object is a
+        // macro ACTUAL (`CB.get_name()` with CB = `cb`) one past the
+        // actual's last token in the ACTUAL's own buffer (the `.` sits in
+        // the body's buffer), where the model holds no token; that place is
+        // the output text right after the `.` that follows the actual's
+        // token.  Only when the rebuilt text there reads `.` then an
+        // identifier.  Grid tools/probe/r11u219repro/cases/M.  Switch
+        // R11U219_PPDOTNAME_OFF.
+        if (!endQuery && o > 0 && r11u219Law("R11U219_PPDOTNAME_OFF"))
+            if (const Pos* dp = dotName(b, o)) {
+                trace219("ppDotNameAfterArgToken219", "start");
+                return dp;
+            }
+        // § ppIdentEndInRebuiltText219 (r11u219, map 13's F1 family: the
+        // UVM rows' first record `cb.METHOD` in uvm_do_obj_callbacks with
+        // METHOD = `phase_state_change(this, state_chg)` passed through
+        // uvm_do_callbacks, golden uvm_callback_defines.svh 168:11-168:29,
+        // ours 168:11-169:9) — the END of a one-identifier span whose START
+        // the model placed (as a token start, or as the end of the token
+        // before it) but whose own token the model did not align (an actual
+        // forwarded through a second macro): Surelog's end is the start's
+        // place in its output text plus the identifier's length, on the
+        // start's output line (the parser's token ends where the name ends),
+        // where the pristine arithmetic added the length to the macro
+        // body's source offset and ran past the body line's end into the
+        // next line.  Only when the rebuilt text at the start's place holds
+        // an identifier of exactly the span's length.  Grid
+        // tools/probe/r11u219repro/cases/M.  Switch R11U219_PPIDENTEND_OFF.
+        if (endQuery && endOf.buffer().valid() && endOf.buffer().getId() == b &&
+            o > (uint32_t)endOf.offset() && r11u219Law("R11U219_PPIDENTEND_OFF")) {
+            const uint32_t so = (uint32_t)endOf.offset(), n = o - so;
+            const Pos* sp = nullptr;
+            auto it2 = tokPos.find({b, so});
+            auto ie2 = tokEndPos.find({b, so});
+            if (it2 != tokPos.end() && it2->second.region >= 0)
+                sp = &it2->second;
+            else if (it2 == tokPos.end() && ie2 != tokEndPos.end() && ie2->second.region >= 0)
+                sp = &ie2->second;
+            else if (it2 == tokPos.end() && ie2 == tokEndPos.end() && so > 0 &&
+                     r11u219Law("R11U219_PPDOTNAME_OFF")) {
+                sp = dotName(b, so);
+                if (sp)
+                    trace219("ppDotNameAfterArgToken219", "end");
+            }
+            if (sp) {
+                auto& out = regions[(size_t)sp->region].out;
+                auto idc = [](char c) {
+                    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+                           (c >= '0' && c <= '9') || c == '_' || c == '$';
+                };
+                bool ok = sp->off + n <= out.size() && n > 0 &&
+                          !(out[sp->off] >= '0' && out[sp->off] <= '9');
+                for (uint32_t i = 0; ok && i < n; i++)
+                    if (!idc(out[sp->off + i]))
+                        ok = false;
+                if (ok && sp->off + n < out.size() && idc(out[sp->off + n]))
+                    ok = false;
+                if (ok && sp->off > 0 && idc(out[sp->off - 1]))
+                    ok = false;
+                if (ok) {
+                    static thread_local Pos tmp2;
+                    tmp2 = *sp;
+                    tmp2.off = sp->off + n;
+                    trace219("ppIdentEndInRebuiltText219",
+                             out.substr(sp->off, n));
+                    return &tmp2;
+                }
+            }
+        }
+        return nullptr;
     }
     std::map<std::pair<uint32_t, uint32_t>, int> lineGroup; // (buf, line) -> group
     std::map<uint64_t, int> regionOfKey;                    // (buf<<32|offset) -> region
@@ -13097,7 +13711,16 @@ UHDM::design* UhdmExporter::exportDesign() {
                     // uninstantiated definition writing too (u16).
                     static const bool ifcPrg206 =
                         r11u206Law("R11U206_UTIFCPRG_OFF");
-                    if (r11u202Law("R11U202_CLSTDINITEND_OFF")) {
+                    // § landingSwitchReach219: under R11U219_LANDING202_OFF
+                    // (and no old switch of landing 202) the module writers
+                    // of § unitClassTdEndAtInit202 are dropped and the
+                    // interface and program writers of pass 206 stay.
+                    const bool mod202 = r11u202Law("R11U202_CLSTDINITEND_OFF");
+                    const bool only206 =
+                        !mod202 && ifcPrg206 && landingOff219(202) &&
+                        getenv("R11U202_OFF") == nullptr &&
+                        getenv("R11U202_CLSTDINITEND_OFF") == nullptr;
+                    if (mod202 || only206) {
                         std::string bestKey202;
                         const syntax::ExpressionSyntax* best202 = nullptr;
                         auto rank206 = [](DefinitionKind k) {
@@ -13113,6 +13736,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                             if (dk206 != DefinitionKind::Module &&
                                 !(ifcPrg206 && (dk206 == DefinitionKind::Interface ||
                                                 dk206 == DefinitionKind::Program)))
+                                continue;
+                            if (only206 && dk206 == DefinitionKind::Module)
                                 continue;
                             int rk206 = rank206(dk206);
                             std::string key202 =
@@ -13146,8 +13771,9 @@ UHDM::design* UhdmExporter::exportDesign() {
                             auto& sm202 = *comp.getSourceManager();
                             cts->VpiEndLineNo(sm202.getLineNumber(e202));
                             cts->VpiEndColumnNo(sm202.getColumnNumber(e202));
-                            trace202("unitClassTdEndAtInit202",
-                                     std::string(ta.name) + " " + bestKey202);
+                            if (mod202)
+                                trace202("unitClassTdEndAtInit202",
+                                         std::string(ta.name) + " " + bestKey202);
                             if (bestRank206 < 2)
                                 trace206("unitClassTdEndAtInitIfcPrg206",
                                          std::string(ta.name) + " " + bestKey202);
@@ -14395,6 +15021,106 @@ UHDM::design* UhdmExporter::exportDesign() {
     // Elab param_assign Rhs ts refs -> the def parameter's FINAL typespec.
     // Dead last: every deferred def-view typespec rebind is done by now.
     drainShareDefParamTs();
+    // § unitImportCopyValueFollowsPkg214 (r11u214, map 13 N0691 / N0692:
+    // Scoreboard d's `UVM_LARGE_STRING` / `UVM_SMALL_STRING` in the design
+    // listing, golden `INT:115199` / `INT:959`, ours `UINT:`) — the design
+    // listing's copy of a `$unit`-imported package parameter carries the
+    // package parameter's own final value.  Surelog's importPackage
+    // (CompileHelper.cpp) copies the parameter object the package already
+    // holds, whose value is its definition's (§ paramValueIsDefRhs124, the
+    // reduced Rhs constant's encoding); our copies are made by
+    // § unitImportHoistsPkgParams146 while the elaborated package
+    // parameter still holds the emission-time fold (`UINT:` for an untyped
+    // arithmetic initializer), and § paramValueIsDefRhs124 rewrites the
+    // package's object design-final without reaching the copies.  The
+    // copies (the design's vpiParameter entries and its param_assigns' Lhs
+    // copies, both carrying vpiImported) take the elaborated package
+    // parameter's final value; the first same-named parameter of the
+    // package wins, as importPackage's map keeps the first.  Grid
+    // tools/probe/r11u214dec/cases/D/g01.  Switch R11U214_VALENC_OFF.
+    if (r11u214Law("R11U214_VALENC_OFF") && d && d->TopPackages() &&
+        (d->Parameters() || d->Param_assigns())) {
+        std::map<std::pair<std::string, std::string>, const UHDM::parameter*> src214;
+        for (auto* pk : *d->TopPackages())
+            if (pk && pk->Parameters())
+                for (auto* a : *pk->Parameters())
+                    if (a && a->UhdmType() == UHDM::uhdmparameter)
+                        src214.emplace(std::make_pair(std::string(pk->VpiName()),
+                                                      std::string(a->VpiName())),
+                                       (const UHDM::parameter*)a);
+        auto sync214 = [&](const UHDM::any* o) {
+            if (!o || o->UhdmType() != UHDM::uhdmparameter)
+                return;
+            auto* cp = (UHDM::parameter*)o;
+            if (cp->VpiImported().empty())
+                return;
+            auto it = src214.find({std::string(cp->VpiImported()),
+                                   std::string(cp->VpiName())});
+            if (it == src214.end() || it->second->VpiValue() == cp->VpiValue())
+                return;
+            trace214("VALENC", std::string(cp->VpiName()) + " " +
+                                   std::string(cp->VpiValue()) + " -> " +
+                                   std::string(it->second->VpiValue()));
+            cp->VpiValue(std::string(it->second->VpiValue()));
+        };
+        if (auto* v = d->Parameters())
+            for (auto* a : *v)
+                sync214(a);
+        if (auto* v = d->Param_assigns())
+            for (auto* pa : *v)
+                if (pa)
+                    sync214(pa->Lhs());
+    }
+    // § unitImportCopyOwnTsRef214 (r11u214, map 13 N0682: the head of
+    // SimpleUVM d/t and Scoreboard d, `UVM_MACRO_NUMFLAGS` / `UVM_MACRO_EXTRAS`
+    // / `UVM_SET` ... read through uvm_pkg's own param_assigns, golden
+    // `ref_typespec (UVM_MACRO_NUMFLAGS)`, ours `uvm_pkg::UVM_MACRO_NUMFLAGS`)
+    // — the design listing's copy of a `$unit`-imported package parameter
+    // holds its OWN typespec reference: importPackage's copy is a new
+    // parameter object whose ref_typespec Surelog stores no full name on, so
+    // ComputeFullName reads the copy's chain (the bare parameter name under
+    // the design).  § unitImportHoistsPkgParams146's copy shared the package
+    // parameter's ref (its stored `uvm_pkg::` name), and a reference that
+    // § unitImportHoistsPkgParams146v binds to the design copy (the package's
+    // own param_assign right sides, lateBinding's parent-chain walk) walks
+    // into it.  Design-final (after every drain that re-points a package
+    // parameter's typespec): a copy still sharing its source's ref takes a
+    // private ref to the same actual, with no stored name.  Grid
+    // tools/probe/r11u214dec/cases/D g01-g03.  Switch
+    // R11U214_UNITCOPYTS_OFF.
+    if (r11u214Law("R11U214_UNITCOPYTS_OFF") && d && d->TopPackages()) {
+        std::map<std::pair<std::string, std::string>, const UHDM::parameter*> srcTs214;
+        for (auto* pk : *d->TopPackages())
+            if (pk && pk->Parameters())
+                for (auto* a : *pk->Parameters())
+                    if (a && a->UhdmType() == UHDM::uhdmparameter)
+                        srcTs214.emplace(std::make_pair(std::string(pk->VpiName()),
+                                                        std::string(a->VpiName())),
+                                         (const UHDM::parameter*)a);
+        auto ownTs214 = [&](const UHDM::any* o) {
+            if (!o || o->UhdmType() != UHDM::uhdmparameter)
+                return;
+            auto* cp = (UHDM::parameter*)o;
+            if (cp->VpiImported().empty() || !cp->Typespec())
+                return;
+            auto it = srcTs214.find({std::string(cp->VpiImported()),
+                                     std::string(cp->VpiName())});
+            if (it == srcTs214.end() || it->second->Typespec() != cp->Typespec())
+                return;
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiParent(cp);
+            rt->Actual_typespec((UHDM::typespec*)cp->Typespec()->Actual_typespec());
+            cp->Typespec(rt);
+            trace214("UNITCOPYTS", std::string(cp->VpiName()));
+        };
+        if (auto* v = d->Parameters())
+            for (auto* a : *v)
+                ownTs214(a);
+        if (auto* v = d->Param_assigns())
+            for (auto* pa : *v)
+                if (pa)
+                    ownTs214(pa->Lhs());
+    }
     // In-body func_call operation-arg stamps: reachability needs the whole
     // design's call set, so it is resolved here.
     drainBodyOpArgTs();
@@ -15615,6 +16341,91 @@ UHDM::design* UhdmExporter::exportDesign() {
     // object's importer parent, before the parent model (law and decode at
     // ModuleEmit.cpp).
     enumImportParentDrain180(d);
+    // § enumTdLastWriter214 (r11u214) — the package and $unit-class writers
+    // the drain above does not model, and an enum alias's objects moved as
+    // one (law and decode at the function).  The alias groups: every object
+    // of ours standing for one package enum-ALIAS typedef.
+    {
+        std::vector<std::vector<UHDM::typespec*>> aliasGroups214;
+        std::set<const Symbol*> syms214;
+        for (auto& [sym, t] : typedefTs)
+            syms214.insert(sym);
+        for (auto& [sym, t] : pkgImportCloneTs)
+            syms214.insert(sym);
+        // Deterministic: by source position, not by pointer.
+        std::vector<const Symbol*> ord214(syms214.begin(), syms214.end());
+        std::stable_sort(ord214.begin(), ord214.end(),
+                         [](const Symbol* a, const Symbol* b) {
+                             if (a->location.buffer() != b->location.buffer())
+                                 return a->location.buffer().getId() <
+                                        b->location.buffer().getId();
+                             if (a->location.offset() != b->location.offset())
+                                 return a->location.offset() < b->location.offset();
+                             return a->name < b->name;
+                         });
+        for (auto* sym : ord214) {
+            if (!sym || sym->kind != SymbolKind::TypeAlias)
+                continue;
+            auto& ta = sym->as<TypeAliasType>();
+            auto* home = sym->getParentScope();
+            if (!home || home->asSymbol().kind != SymbolKind::Package ||
+                ta.targetType.getType().kind != SymbolKind::TypeAlias ||
+                ta.getCanonicalType().kind != SymbolKind::EnumType)
+                continue;
+            std::vector<UHDM::typespec*> g;
+            auto add = [&](UHDM::typespec* t) {
+                if (t && std::find(g.begin(), g.end(), t) == g.end())
+                    g.push_back(t);
+            };
+            if (auto it = typedefTs.find(sym); it != typedefTs.end())
+                add(it->second);
+            if (auto it = pkgTopTypedefTs.find(sym); it != pkgTopTypedefTs.end())
+                add(it->second);
+            if (auto it = pkgImportCloneTs.find(sym); it != pkgImportCloneTs.end())
+                add(it->second);
+            if (g.size() > 0)
+                aliasGroups214.push_back(std::move(g));
+        }
+        // § enumClsWriterUnitScopeOnly219: the compilation-unit classes.
+        std::set<const UHDM::BaseClass*> unitCls219;
+        for (auto& [csym, cdef] : classDefnMap)
+            if (auto* ps = csym->getParentScope();
+                cdef && ps && ps->asSymbol().kind == SymbolKind::CompilationUnit)
+                unitCls219.insert(cdef);
+        // § enumPkgWriterImportsType219: which package imports what, read
+        // off the package's own import declarations.
+        std::map<std::string, std::set<std::pair<std::string, std::string>>> imps219;
+        for (auto* pk : comp.getPackages()) {
+            if (!pk)
+                continue;
+            auto& set = imps219[std::string(pk->name)];
+            if (auto* psyn = pk->getSyntax();
+                psyn && psyn->kind == syntax::SyntaxKind::PackageDeclaration)
+                for (auto* mem : psyn->as<syntax::ModuleDeclarationSyntax>().members)
+                    if (mem && mem->kind == syntax::SyntaxKind::PackageImportDeclaration)
+                        for (auto* it : mem->as<syntax::PackageImportDeclarationSyntax>().items)
+                            if (it)
+                                set.insert({std::string(it->package.valueText()),
+                                            std::string(it->item.valueText())});
+            if (auto* hsyn = pk->getSyntax();
+                hsyn && hsyn->kind == syntax::SyntaxKind::PackageDeclaration)
+                for (auto* ih : hsyn->as<syntax::ModuleDeclarationSyntax>().header->imports)
+                    if (ih)
+                        for (auto* it : ih->items)
+                            if (it)
+                                set.insert({std::string(it->package.valueText()),
+                                            std::string(it->item.valueText())});
+        }
+        auto pkgImports219 = [&](const UHDM::BaseClass* p, std::string_view home,
+                                 std::string_view nm) {
+            auto it = imps219.find(std::string(p->VpiName()));
+            if (it == imps219.end())
+                return true;  // unknown: keep the law's listing rule
+            return it->second.count({std::string(home), "*"}) > 0 ||
+                   it->second.count({std::string(home), std::string(nm)}) > 0;
+        };
+        enumTdLastWriter214(d, aliasGroups214, unitCls219, pkgImports219);
+    }
     // § classTpDefaultTsAtUse180 (r11u180) — design-final (law and decode at
     // TypeEmit.cpp).
     classTpDefaultTsDrain180();

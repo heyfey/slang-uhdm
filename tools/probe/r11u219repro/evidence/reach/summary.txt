@@ -1,0 +1,8 @@
+reach202.tsv: case-views 518; A moves 336; B moves 338; C moves 438; D moves 438; E moves 338; A==B 426; C==D 518; E==B 518; A==C 310
+reach209.tsv: case-views 504; A moves 280; B moves 78; C moves 286; A==B 290; A==C 498
+reach212.tsv: case-views 298; A moves 210; B moves 210; A==B 298
+reach216.tsv: case-views 200; A moves 182; B moves 182; A==B 200
+reach209 A!=B by tree: ['r11u205dec', 'r11u209repro', 'r11u210repro', 'v11u209repro']
+reach209 A!=B count: 214 of which in r11u210repro: 4
+reach202 A!=B trees: ['r11u206repro/cases/TR', 'r11u206repro/cases/UT', 'v11u202repro/cases/TR', 'v11u202repro/cases/UT', 'v11u206repro/cases/C', 'v11u206repro/cases/D']
+reach209: R11U209_OFF alone vs R11U209_OFF + R11U205_OFF differ on 6 case-views (R11U205_OFF's extra reach into landing 210's ground-A § elabIfArrIdxChainName205): r11u205dec/cases/IA/a02 r11u205dec/cases/IA/a05 r11u210repro/cases/IA/i01 r11u210repro/cases/IA/i02 r11u210repro/cases/IA/i03 r11u210repro/cases/IA/i05

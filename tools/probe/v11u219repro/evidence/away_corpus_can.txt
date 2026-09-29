@@ -1,0 +1,54 @@
+# 32 databases differ between /tmp/v11u219_wP and /tmp/v11u219_wL (canonical records)
+surelog/default/BlackBePipeInt chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+surelog/default/BuildUVMPkg chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+surelog/default/Earlgrey_0_1 chain_lost=0 chain_toward=60 flat_lost=0 flat_toward=60 flat_unpaired=0
+surelog/default/EnumVar chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+surelog/default/MiniAmiq chain_lost=0 chain_toward=349 flat_lost=12 flat_toward=337 flat_unpaired=0
+  FLAT_LOST 12 (paired in place with a golden record at the same chain: 12) ref_typespec|||<in>||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:svaunit_base < class_defn:uvm_test < class_defn:uvm_component < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:svaunit_test_suite < class_defn:svaunit_test < class_defn:svaunit_base < class_defn:uvm_test < class_defn:uvm_component < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:svaunit_concurrent_assertion_details < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:svaunit_immediate_assertion_info < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+surelog/default/PackedEnumPort chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+surelog/default/Rggen chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+surelog/default/Scoreboard chain_lost=0 chain_toward=408 flat_lost=0 flat_toward=408 flat_unpaired=0
+surelog/default/SeqDriver chain_lost=0 chain_toward=381 flat_lost=5 flat_toward=376 flat_unpaired=0
+  FLAT_LOST 5 (paired in place with a golden record at the same chain: 5) ref_typespec|||<in>||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:adpcm_sequencer < class_defn:uvm_sequencer < class_defn:uvm_sequencer_param_base < class_defn:uvm_sequencer_base < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:adpcm_test < class_defn:uvm_test < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:adpcm_driver < class_defn:uvm_driver < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:adpcm_tx_seq < class_defn:uvm_sequence < class_defn:uvm_sequence_base < class_defn:uvm_sequence_item < class_defn:uvm_transaction < class_defn:uvm_object < package:uvm_pkg < design:work@top_tb
+surelog/default/SimpleUVM chain_lost=0 chain_toward=479 flat_lost=0 flat_toward=479 flat_unpaired=0
+surelog/default/TypedefPack chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+surelog/testflags/BlackBePipeInt chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+surelog/testflags/BuildUVMPkg chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+surelog/testflags/Earlgrey_0_1 chain_lost=0 chain_toward=14 flat_lost=0 flat_toward=14 flat_unpaired=0
+surelog/testflags/EnumVar chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+surelog/testflags/MiniAmiq chain_lost=0 chain_toward=349 flat_lost=12 flat_toward=337 flat_unpaired=0
+  FLAT_LOST 12 (paired in place with a golden record at the same chain: 12) ref_typespec|||<in>||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:svaunit_base < class_defn:uvm_test < class_defn:uvm_component < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:svaunit_test_suite < class_defn:svaunit_test < class_defn:svaunit_base < class_defn:uvm_test < class_defn:uvm_component < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:svaunit_concurrent_assertion_details < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:svaunit_immediate_assertion_info < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+surelog/testflags/PackedEnumPort chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+surelog/testflags/SeqDriver chain_lost=0 chain_toward=381 flat_lost=5 flat_toward=376 flat_unpaired=0
+  FLAT_LOST 5 (paired in place with a golden record at the same chain: 5) ref_typespec|||<in>||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:adpcm_sequencer < class_defn:uvm_sequencer < class_defn:uvm_sequencer_param_base < class_defn:uvm_sequencer_base < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:adpcm_test < class_defn:uvm_test < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:adpcm_driver < class_defn:uvm_driver < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ array_typespec: < ref_typespec: < array_var:uvm_random_seed_table_lookup < class_defn:adpcm_tx_seq < class_defn:uvm_sequence < class_defn:uvm_sequence_base < class_defn:uvm_sequence_item < class_defn:uvm_transaction < class_defn:uvm_object < package:uvm_pkg < design:work@top_tb
+surelog/testflags/SimpleUVM chain_lost=0 chain_toward=479 flat_lost=0 flat_toward=479 flat_unpaired=0
+surelog/testflags/TypedefPack chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+uhdm2rtlil/default/PackageCast chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+uhdm2rtlil/default/TypedefAliasInPackage chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+uhdm2rtlil/default/TypedefEnum chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+uhdm2rtlil/default/VarPassedTo2Submodules chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+uhdm2rtlil/default/ibex_branch_predict chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+uhdm2rtlil/default/ibex_decoder chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+uhdm2rtlil/testflags/PackageCast chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+uhdm2rtlil/testflags/TypedefAliasInPackage chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+uhdm2rtlil/testflags/TypedefEnum chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+uhdm2rtlil/testflags/VarPassedTo2Submodules chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+uhdm2rtlil/testflags/ibex_branch_predict chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+uhdm2rtlil/testflags/ibex_decoder chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+TOTAL chain_lost=0 chain_toward=2900 flat_lost=34 flat_toward=2866 flat_unpaired=0

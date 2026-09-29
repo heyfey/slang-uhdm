@@ -1,0 +1,3 @@
+118c883ec36610e0c5cb715a157eaa35  evidence/fix/prediction_fix_vs_law.txt
+2026-09-28 23:45:58 prediction frozen
+2026-09-28 23:46:09 fix sweep start (fix1, /tmp/v11u219_wF)

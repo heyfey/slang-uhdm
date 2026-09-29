@@ -130,6 +130,10 @@ void trace202(const char* law, const std::string& detail); // R11U202_TRACE
 bool r11u205Law(const char* sw); // the r11u205 switches (UhdmExporter.cpp)
 bool r11u209Law(const char* sw); // the r11u209 switches (UhdmExporter.cpp)
 bool r11u212Law(const char* sw); // the r11u212 switches (UhdmExporter.cpp)
+bool r11u214Law(const char* sw); // the r11u214 switches (UhdmExporter.cpp)
+void trace214(const char* law, const std::string& detail);
+bool r11u219Law(const char* sw); // the r11u219 switches (UhdmExporter.cpp)
+void trace219(const char* law, const std::string& detail); // R11U219_TRACE
 void trace212(const char* law, const std::string& detail); // R11U212_TRACE
 void trace209(const char* law, const std::string& detail); // R11U209_TRACE
 void trace205(const char* law, const std::string& detail); // R11U205_TRACE
@@ -21381,12 +21385,38 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 // a `[pkg::WIDTH-1:0]` OUTPUT PORT bound, which Surelog leaves
                 // unfolded (fail_detect_width) — is untouched: it carries no
                 // structMemberTsCtx.
+                // § modStructMemberQualSpan214 (r11u214, map 13 N0073:
+                // Earlgrey_0_1 tlul_adapter_sram.sv:56-57) — the substituted
+                // constant is anchored at the SCOPE QUALIFIER `pkg::`, like
+                // the enum-member substitution above and the generate
+                // condition's below: Surelog's compileExpression folds a
+                // `paPackage_scope` reference in elaboration mode by cloning
+                // the package parameter's value and locating the clone with
+                // populateCoreMembers(child, child, ..) on the Package_scope
+                // node itself (third_party/Surelog/src/DesignCompile/
+                // CompileExpression.cpp, the paPackage_scope arm), which spans
+                // `top_pkg::` (golden 56:12-56:21, ours 56:12-56:27).  Grid
+                // tools/probe/r11u214dec/cases/B/e03.  Switch
+                // R11U214_QUALSPAN_OFF.
                 if (!curPkgEmitSym && structMemberTsCtx && structModScope &&
                     !tfTypeScope && !structMemberAliasTs && !defNetTsScope)
-                    if (const ParameterSymbol* qp9 = crossPkgBoundParam9(raw))
-                        if (auto* c9 = modStructMemberPkgSubst9(
-                                *qp9, parent, syn.sourceRange()))
+                    if (const ParameterSymbol* qp9 = crossPkgBoundParam9(raw)) {
+                        SourceRange sp214 = syn.sourceRange();
+                        if (r11u214Law("R11U214_QUALSPAN_OFF")) {
+                            auto& sep214 =
+                                syn.as<syntax::ScopedNameSyntax>().separator;
+                            if (sep214.kind == parsing::TokenKind::DoubleColon &&
+                                sep214.range().end().buffer() ==
+                                    syn.sourceRange().start().buffer()) {
+                                sp214 = SourceRange(syn.sourceRange().start(),
+                                                    sep214.range().end());
+                                trace214("QUALSPAN", std::string(raw));
+                            }
+                        }
+                        if (auto* c9 = modStructMemberPkgSubst9(*qp9, parent,
+                                                                  sp214))
                             return c9;
+                    }
                 // § genCondQualPkgParamFold — the SIXTH position of the
                 // package-parameter fold: a def-view GENERATE CONDITION that
                 // names a package parameter WITH ITS QUALIFIER.
@@ -22195,6 +22225,31 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             ip9->Base_expr(bx9);
                         if (auto* wx9 = mkBound9(*rs9.right, ip9))
                             ip9->Width_expr(wx9);
+                        // § defGenTargetIpsSelArm219 (r11u219, r11u217's
+                        // under-reach of § defGenTargetIpsDefName205: the
+                        // SPACED forms `o.s.f[2 +: 2]` / `[7 -: 3]` and a
+                        // parameter or expression base reach this arm, not
+                        // the digits-only text arm above) — Surelog's
+                        // compilePartSelectRange names the definition-view
+                        // generate assignment TARGET's indexed part select
+                        // the same way whatever the bound's spelling:
+                        // VpiDefName = the member and no stored full name
+                        // (golden `work@top.gl.gi.o.s.f[2+:2].f`, ours the
+                        // bare `o.s.f[2+:2]` and no definition name), as
+                        // this arm's [l:r] part select already writes
+                        // (§ defGenPathSel161).  Grid
+                        // tools/probe/r11u219repro/cases/I.  Switch
+                        // R11U219_IPSSELARM_OFF (and R11U205_IPSNAME_OFF, the
+                        // law it extends).
+                        if (sel161 && i > 0 && name161 &&
+                            r11u205Law("R11U205_IPSNAME_OFF") &&
+                            r11u219Law("R11U219_IPSSELARM_OFF")) {
+                            trace219("defGenTargetIpsSelArm219", dispRaw);
+                            ip9->VpiDefName(base9);
+                            if (!savedSRP9.empty())
+                                ip9->VpiFullName(savedSRP9 + "." + dispRaw +
+                                                 "." + base9);
+                        }
                         elems->push_back(ip9);
                         continue;
                     }

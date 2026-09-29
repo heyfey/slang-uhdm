@@ -1,0 +1,13 @@
+# UVM default rows: law_d2 (r11u214 + size + ips) -> law_d4 (+ ppIdentEndInRebuiltText219) -> law_d6 (+ ppDotNameAfterArgToken219)
+## law_d4
+name,mode,status,detail,blocked_by,strict
+MiniAmiq,default,STRICT_NOTEQUAL,differ:line(47),,differ:line(47)
+Scoreboard,default,STRICT_NOTEQUAL,differ:line(99),,differ:line(99)
+SeqDriver,default,STRICT_NOTEQUAL,differ:line(47),,differ:line(47)
+SimpleUVM,default,STRICT_NOTEQUAL,differ:line(123),,differ:line(123)
+## law_d6
+name,mode,status,detail,blocked_by,strict
+MiniAmiq,default,STRICT_NOTEQUAL,differ:file(7),,differ:file(7)
+Scoreboard,default,STRICT_NOTEQUAL,differ:file(52),,differ:file(52)
+SeqDriver,default,STRICT_NOTEQUAL,differ:file(7),,differ:file(7)
+SimpleUVM,default,STRICT_NOTEQUAL,differ:file(76),,differ:file(76)

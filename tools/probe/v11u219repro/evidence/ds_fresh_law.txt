@@ -1,0 +1,49 @@
+v11u219repro/cases/C/c01_two_ifcs_mod IDENTICAL -> IDENTICAL 
+v11u219repro/cases/C/c02_unitcls_program IDENTICAL -> IDENTICAL 
+v11u219repro/cases/C/c03_clsscope_imported IDENTICAL -> IDENTICAL 
+v11u219repro/cases/E/e01_export_chain IDENTICAL -> IDENTICAL 
+v11u219repro/cases/E/e02_named_import_pkg_then_mod IDENTICAL -> IDENTICAL 
+v11u219repro/cases/E/e05_nested_unitcls IDENTICAL -> IDENTICAL 
+v11u219repro/cases/E/e06_program_importer IDENTICAL -> IDENTICAL 
+v11u219repro/cases/E/e07_fnlocal_import DIVERGENT -> DIVERGENT nohier il synth
+v11u219repro/cases/E/e08_pkg_import_unused IDENTICAL -> IDENTICAL 
+v11u219repro/cases/E/e09_hdr_in_two_pkgs IDENTICAL -> IDENTICAL 
+v11u219repro/cases/E/e10_macro_typedef IDENTICAL -> IDENTICAL 
+v11u219repro/cases/E/e11_pkg_decl_vs_name_order IDENTICAL -> IDENTICAL 
+v11u219repro/cases/E/e13_class_writer_pkg_order IDENTICAL -> IDENTICAL 
+v11u219repro/cases/E/e14_anon_member_and_pkg_writer IDENTICAL -> IDENTICAL 
+v11u219repro/cases/E/e15_param_copy_and_unitcls EQUIVALENT -> EQUIVALENT nohier
+v11u219repro/cases/I/i01_genvar_base IDENTICAL -> IDENTICAL 
+v11u219repro/cases/I/i02_procedural_in_gen IDENTICAL -> IDENTICAL 
+v11u219repro/cases/I/i03_iface_arr_elem EQUIVALENT -> EQUIVALENT nohier il synth
+v11u219repro/cases/M/m01_three_level IDENTICAL -> IDENTICAL 
+v11u219repro/cases/M/m02_index_actual IDENTICAL -> IDENTICAL 
+v11u219repro/cases/M/m03_multitoken_actual IDENTICAL -> IDENTICAL 
+v11u219repro/cases/M/m04_property_two_levels IDENTICAL -> IDENTICAL 
+v11u219repro/cases/M/m05_hdr_crlf_module IDENTICAL -> IDENTICAL 
+v11u219repro/cases/M/m06_macro_in_actual IDENTICAL -> IDENTICAL 
+v11u219repro/cases/M/m07_multiline_method_actual IDENTICAL -> IDENTICAL 
+v11u219repro/cases/M/m08_digits_dollar IDENTICAL -> IDENTICAL 
+v11u219repro/cases/M/m09_struct_field_macro IDENTICAL -> IDENTICAL 
+v11u219repro/cases/M/m10_iface_member_macro IDENTICAL -> IDENTICAL 
+v11u219repro/cases/M/m11_hier_actual_macro EQUIVALENT -> EQUIVALENT nohier il synth
+v11u219repro/cases/Q/q01_spaced_qual IDENTICAL -> IDENTICAL 
+v11u219repro/cases/Q/q02_macro_qual IDENTICAL -> IDENTICAL 
+v11u219repro/cases/Q/q03_crlf_iface IDENTICAL -> IDENTICAL 
+v11u219repro/cases/Q/q04_formal_qual IDENTICAL -> IDENTICAL 
+v11u219repro/cases/S/s01_dyn_inner SURELOG_FAIL -> SURELOG_FAIL 
+v11u219repro/cases/S/s01b_queue_inner SURELOG_FAIL -> SURELOG_FAIL 
+v11u219repro/cases/S/s01c_assoc_inner DIVERGENT -> DIVERGENT nohier il synth
+v11u219repro/cases/S/s02_dim_forms DIVERGENT -> IDENTICAL 
+v11u219repro/cases/S/s03_typedef_arr DIVERGENT -> IDENTICAL 
+v11u219repro/cases/S/s04_enum_packedstruct IDENTICAL -> DIVERGENT nohier il synth
+v11u219repro/cases/S/s05_iface_gen DIVERGENT -> IDENTICAL 
+v11u219repro/cases/S/s06_contassign_untouched DIVERGENT -> DIVERGENT nohier il synth
+v11u219repro/cases/S/s07_bit_int_kinds DIVERGENT -> IDENTICAL 
+v11u219repro/cases/S/s08_bit_packed2d DIVERGENT -> DIVERGENT nohier il synth
+v11u219repro/cases/U/u01_string_logic IDENTICAL -> IDENTICAL 
+v11u219repro/cases/U/u02_two_pkgs_same_name EQUIVALENT -> EQUIVALENT nohier il
+v11u219repro/cases/U/u03_typed_from_other_pkg IDENTICAL -> IDENTICAL 
+v11u219repro/cases/V/v01_fixed_enum_arr IDENTICAL -> IDENTICAL 
+v11u219repro/cases/V/v02_queue_two_pkgs IDENTICAL -> IDENTICAL 
+v11u219repro/cases/V/v03_assoc_nested_cls IDENTICAL -> IDENTICAL 

@@ -1,0 +1,5 @@
+case-views 70; R11U219_OFF gives pristine bytes on 70; law moves 48
+Z: case-views 32 moved 22, off214 restores 22, other families' switches moving bytes 0; ucls alone moves 2 (restores 0); pimp alone moves 2 (restores 0)
+I: case-views 8 moved 6, ips restores 6, other families' switches moving bytes 0
+S: case-views 10 moved 10, sboth restores 10, other families' switches moving bytes 0; s2d alone moves 8 (restores 4); sdim alone moves 6 (restores 2)
+M: case-views 20 moved 10, pboth restores 10, other families' switches moving bytes 0; pend alone moves 10 (restores 0); pdot alone moves 10 (restores 4)

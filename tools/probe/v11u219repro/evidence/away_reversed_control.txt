@@ -1,0 +1,4 @@
+TOTAL chain_lost=2900 chain_toward=0 flat_lost=2866 flat_toward=34 flat_unpaired=2866
+TOTAL chain_lost=191 chain_toward=0 flat_lost=191 flat_toward=0 flat_unpaired=191
+TOTAL chain_lost=4166 chain_toward=0 flat_lost=4088 flat_toward=0 flat_unpaired=4088
+TOTAL chain_lost=319 chain_toward=0 flat_lost=315 flat_toward=0 flat_unpaired=315

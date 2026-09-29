@@ -74,6 +74,9 @@ bool r11v202Law(const char* sw); // the v11u202 switches (UhdmExporter.cpp)
 void trace202(const char* law, const std::string& detail); // R11U202_TRACE
 bool r11u206Law(const char* sw); // the r11u206 switches (UhdmExporter.cpp)
 bool r11u209Law(const char* sw); // the r11u209 switches (UhdmExporter.cpp)
+bool landingOff219(int n); // § landingSwitchReach219 (UhdmExporter.cpp)
+bool r11u214Law(const char* sw); // the r11u214 switches (UhdmExporter.cpp)
+void trace214(const char* law, const std::string& detail);
 void trace209(const char* law, const std::string& detail); // R11U209_TRACE
 void trace206(const char* law, const std::string& detail); // R11U206_TRACE
 void noteTpUse180(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
@@ -4723,7 +4726,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 sub.getReturnType().kind == SymbolKind::TypeAlias &&
                 sub.getReturnType().getCanonicalType().kind == SymbolKind::ClassType &&
                 !typedefTs.count(&sub.getReturnType()) &&
-                r11u200Law("R11U200_CLASSTDRET_OFF") &&
+                // § landingSwitchReach219: R11U219_LANDING202_OFF drops the
+                // bind of § classTdRetSharesTypedefTs200 below and keeps this
+                // on-demand owner build of pass 206 (R11U202_OFF, R11U200_OFF
+                // and R11U200_CLASSTDRET_OFF keep dropping both).
+                (r11u200Law("R11U200_CLASSTDRET_OFF") ||
+                 (landingOff219(202) && getenv("R11U200_OFF") == nullptr &&
+                  getenv("R11U202_OFF") == nullptr &&
+                  getenv("R11U200_CLASSTDRET_OFF") == nullptr)) &&
                 r11u206Law("R11U206_CLSCOPETDRET_OFF"))
                 if (auto* osc206 = sub.getReturnType().getParentScope();
                     osc206 && osc206->asSymbol().kind == SymbolKind::ClassType &&
@@ -6177,6 +6187,48 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             if (auto p36 = qn36.rfind("::");
                                 p36 != std::string::npos)
                                 acp32->VpiName(qn36.substr(p36 + 2));
+                            // § cloneAliasFormalOwnChain214 (r11u214, map 13's
+                            // UVM_SEQ_ARB_TYPE family, the clone half: golden
+                            // MiniAmiq / SeqDriver `svaunit_pkg::` /
+                            // `adpcm_pkg::uvm_sequencer_base::set_arbitration::
+                            // val::UVM_SEQ_ARB_TYPE`, ours the shared object's
+                            // `work@<importer>.uvm_pkg::UVM_SEQ_ARB_TYPE`) —
+                            // the bare copy Surelog mints for the clone's
+                            // formal is the formal's OWN typespec:
+                            // compileTfPortList compiles the type in the
+                            // subroutine and populateCoreMembers(type, type,
+                            // ts) places it at the formal's type token (golden
+                            // uvm_sequencer_base.svh 1381:51-1381:67), under
+                            // the io_decl, with its own typedef-alias ref,
+                            // whose full name ComputeFullName reads through
+                            // that parent.  Ours shared the listing object's
+                            // alias ref (its importer-scoped stored name) and
+                            // kept the base typedef's span.  The copy takes
+                            // the io_decl as parent, a private alias ref to
+                            // the same target (no stored name) and the type
+                            // token's span and file.  Switch
+                            // R11U214_CLONENAME_OFF.
+                            if (r11u214Law("R11U214_CLONENAME_OFF") &&
+                                acp32->UhdmType() == UHDM::uhdmenum_typespec) {
+                                auto* ce214 = (UHDM::enum_typespec*)acp32;
+                                acp32->VpiParent(io);
+                                if (auto* oa214 = ce214->Typedef_alias();
+                                    oa214 && oa214->VpiParent() != acp32) {
+                                    auto* na214 = s.MakeRef_typespec();
+                                    na214->VpiParent(acp32);
+                                    na214->Actual_typespec(
+                                        (UHDM::typespec*)oa214->Actual_typespec());
+                                    ce214->Typedef_alias(na214);
+                                }
+                                if (argTsyn &&
+                                    argTsyn->sourceRange().start() !=
+                                        SourceLocation::NoLocation) {
+                                    acp32->VpiFile(fullFilePath(
+                                        argTsyn->sourceRange().start()));
+                                    setLoc(acp32, argTsyn->sourceRange());
+                                }
+                                trace214("CLONENAME", std::string(arg->name));
+                            }
                         }
                     }
                 // § sharedTdRefNoRestamp9, SITE 3 of 4 — the FORMAL.

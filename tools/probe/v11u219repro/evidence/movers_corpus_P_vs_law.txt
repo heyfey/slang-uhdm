@@ -1,0 +1,34 @@
+# corpus byte movers, pristine sweep /tmp/v11u219_wP vs law sweep /tmp/v11u219_wL (drivers/movers.sh; the probe lines of that run are dropped: the two sweeps ran from different worktrees, so every probe database differs by its source path; the probe movers are probe_movers_Q_vs_law.txt, both probe runs from one worktree)
+MOVER surelog/default/BlackBePipeInt-1fcd9dad/
+MOVER surelog/default/BuildUVMPkg-fc55bd0c/
+MOVER surelog/default/Earlgrey_0_1-a898def8/
+MOVER surelog/default/EnumVar-f65a6e16/
+MOVER surelog/default/MiniAmiq-055eab74/
+MOVER surelog/default/PackedEnumPort-e05dd099/
+MOVER surelog/default/Rggen-ee9ac8af/
+MOVER surelog/default/Scoreboard-72aa0ba8/
+MOVER surelog/default/SeqDriver-65178d3a/
+MOVER surelog/default/SimpleUVM-267de3ff/
+MOVER surelog/default/TypedefPack-82970c33/
+MOVER surelog/testflags/BlackBePipeInt-1fcd9dad/
+MOVER surelog/testflags/BuildUVMPkg-fc55bd0c/
+MOVER surelog/testflags/Earlgrey_0_1-a898def8/
+MOVER surelog/testflags/EnumVar-f65a6e16/
+MOVER surelog/testflags/MiniAmiq-055eab74/
+MOVER surelog/testflags/PackedEnumPort-e05dd099/
+MOVER surelog/testflags/SeqDriver-65178d3a/
+MOVER surelog/testflags/SimpleUVM-267de3ff/
+MOVER surelog/testflags/TypedefPack-82970c33/
+MOVER uhdm2rtlil/default/ibex_branch_predict-d5a3346b/
+MOVER uhdm2rtlil/default/ibex_decoder-a147b711/
+MOVER uhdm2rtlil/default/PackageCast-0f796353/
+MOVER uhdm2rtlil/default/TypedefAliasInPackage-f49707f3/
+MOVER uhdm2rtlil/default/TypedefEnum-1d0a2b11/
+MOVER uhdm2rtlil/default/VarPassedTo2Submodules-f4e87b74/
+MOVER uhdm2rtlil/testflags/ibex_branch_predict-d5a3346b/
+MOVER uhdm2rtlil/testflags/ibex_decoder-a147b711/
+MOVER uhdm2rtlil/testflags/PackageCast-0f796353/
+MOVER uhdm2rtlil/testflags/TypedefAliasInPackage-f49707f3/
+MOVER uhdm2rtlil/testflags/TypedefEnum-1d0a2b11/
+MOVER uhdm2rtlil/testflags/VarPassedTo2Submodules-f4e87b74/
+# corpus row-mode dirs compared 3316, fenced skipped unread 8, probe databases not compared here
