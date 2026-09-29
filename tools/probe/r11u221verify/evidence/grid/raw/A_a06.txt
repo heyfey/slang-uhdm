@@ -1,0 +1,11 @@
+FIRED A/a06 diagTdAliasWriter215:1 pkgTdAliasLastWriter215:1
+  A/a06 on cmp=255 cmplines=138 strict=NOT_EQUAL_stage1 rc=0 md5=6f60889f
+  A/a06 tr cmp=255 cmplines=138 strict=NOT_EQUAL_stage1 rc=0 md5=6f60889f
+  A/a06 off_pkgTdAliasLastWriter215 cmp=255 cmplines=138 strict=NOT_EQUAL_stage1 rc=0 md5=0ba37e4f
+  A/a06 offL215 cmp=255 cmplines=138 strict=NOT_EQUAL_stage1 rc=0 md5=0ba37e4f
+  A/a06 alloff cmp=255 cmplines=138 strict=NOT_EQUAL_stage1 rc=0 md5=0ba37e4f
+  A/a06 wide cmp=255 cmplines=138 strict=NOT_EQUAL_stage1 rc=0 md5=0ba37e4f
+RESULT A/a06 pkgTdAliasLastWriter215 STAGE1-CLOSER off:stage1 on:stage1 dump off=12 on=8 newbad=0
+RESULT A/a06 LANDING215 STAGE1-CLOSER off:stage1 on:stage1 dump off=12 on=8 newbad=0
+RESULT A/a06 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=12 on=8 newbad=0
+RESULT A/a06 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=12 on=8 newbad=0

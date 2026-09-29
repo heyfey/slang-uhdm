@@ -1,0 +1,12 @@
+probe/r10uvm195repro/g195_e_head subroutines=2 with_twins=2 twins=2 reordered=0
+probe/r10uvm198repro/g198_a_homes subroutines=2 with_twins=2 twins=4 reordered=0
+probe/r10uvm202repro/g202_a_kinds subroutines=2 with_twins=2 twins=6 reordered=0
+probe/r10uvm213repro/g213_c_pkgimp subroutines=2 with_twins=2 twins=2 reordered=0
+probe/r10v179repro/v179_f_nomod subroutines=4 with_twins=4 twins=4 reordered=0
+probe/r10v195repro/v195_b_reads subroutines=4 with_twins=4 twins=8 reordered=0
+probe/r10v195repro/v195_d_tfitem subroutines=12 with_twins=4 twins=4 reordered=1
+probe/r10v202repro/v202_6_twotd subroutines=2 with_twins=2 twins=4 reordered=0
+surelog/default/MiniAmiq subroutines=1788 with_twins=34 twins=34 reordered=1
+surelog/default/SeqDriver subroutines=1788 with_twins=34 twins=34 reordered=1
+surelog/testflags/MiniAmiq subroutines=1788 with_twins=34 twins=34 reordered=1
+surelog/testflags/SeqDriver subroutines=1788 with_twins=34 twins=34 reordered=1

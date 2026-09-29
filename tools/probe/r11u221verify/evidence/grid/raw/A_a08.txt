@@ -1,0 +1,13 @@
+FIRED A/a08 -
+  A/a08 on cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=03911561
+  A/a08 tr cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=03911561
+  A/a08 off_enumCloneValueItemKeepsBare215v cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=03911561
+  A/a08 off_pkgImportEnumCloneLastWriter215 cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=03911561
+  A/a08 offL215 cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=03911561
+  A/a08 alloff cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=03911561
+  A/a08 wide cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=03911561
+RESULT A/a08 enumCloneValueItemKeepsBare215v UNFIRED 
+RESULT A/a08 pkgImportEnumCloneLastWriter215 UNFIRED 
+RESULT A/a08 LANDING215 UNFIRED 
+RESULT A/a08 ALLOFF UNFIRED 
+RESULT A/a08 WIDE UNFIRED 

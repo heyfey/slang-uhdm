@@ -1,0 +1,16 @@
+IR/mr1_always_ff  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=1 away=0 other=0
+IR/mr1_always_ff_el  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=1 away=0 other=0
+IR/mr2_module_function  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=1 away=0 other=0
+IR/mr2_module_function_el  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=1 away=0 other=0
+IR/mr3_qualified_assign  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=0 away=1 other=0
+IR/mr3_qualified_assign_el  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=0 away=1 other=0
+IR/mr4_assign  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=1 away=0 other=0
+IR/mr4_assign_el  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=1 away=0 other=0
+IR/mr5_localparam  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=1 away=0 other=0
+IR/mr5_localparam_el  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=1 away=0 other=0
+IR/mr6_initial  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=1 away=0 other=0
+IR/mr6_initial_el  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=1 away=0 other=0
+I/i03  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=0 away=0 other=0
+I/i03_el  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=0 away=0 other=0
+I/i06  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=1 away=1 other=0
+I/i06_el  refinement ON vs its switch OFF (refinement dropped): parent-state positions: toward=1 away=1 other=0

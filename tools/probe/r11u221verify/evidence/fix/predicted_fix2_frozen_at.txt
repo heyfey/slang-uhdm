@@ -1,0 +1,3 @@
+004f1f3cf6af174fa5fb0f5b97679d91  evidence/fix/predicted_movers_fix2.txt
+2026-09-29T03:45:57Z
+fix2 /tmp/r11u221_bin/fix2.bin d7566e763c11 via G2.sh; ndaPortQueryKeepsStamp221v firings = predicted movers; cloneTwinMintIdOrder221v with reordered=1 = expected byte movers (with_twins>=2 = possible); frozen before any byte comparison of sweep 2

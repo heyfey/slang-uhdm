@@ -1,0 +1,11 @@
+FIRED D/d04 -
+  D/d04 on cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=c90931dc
+  D/d04 tr cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=c90931dc
+  D/d04 off_incDecOperandKeepsLvalueForm215 cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=c90931dc
+  D/d04 offL215 cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=c90931dc
+  D/d04 alloff cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=c90931dc
+  D/d04 wide cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=c90931dc
+RESULT D/d04 incDecOperandKeepsLvalueForm215 UNFIRED 
+RESULT D/d04 LANDING215 UNFIRED 
+RESULT D/d04 ALLOFF UNFIRED 
+RESULT D/d04 WIDE UNFIRED 

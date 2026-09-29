@@ -1,0 +1,13 @@
+FIRED R/r02 opIdxRecvElemFollowsPath215:5
+  R/r02 on cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=545617da
+  R/r02 tr cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=545617da
+  R/r02 off_opIdxRecvElemFollowsPath215 cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=310d59a6
+  R/r02 off_opIdxRecvPlainElab215 cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=545617da
+  R/r02 offL215 cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=310d59a6
+  R/r02 alloff cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=310d59a6
+  R/r02 wide cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=310d59a6
+RESULT R/r02 opIdxRecvElemFollowsPath215 STAGE1-CLOSER off:stage1 on:stage1 dump off=130 on=88 newbad=0
+RESULT R/r02 opIdxRecvPlainElab215 UNFIRED 
+RESULT R/r02 LANDING215 STAGE1-CLOSER off:stage1 on:stage1 dump off=130 on=88 newbad=0
+RESULT R/r02 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=130 on=88 newbad=0
+RESULT R/r02 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=130 on=88 newbad=0

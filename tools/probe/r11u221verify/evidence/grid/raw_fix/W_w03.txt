@@ -1,0 +1,13 @@
+FIRED W/w03 tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+  W/w03 on cmp=0 cmplines=0 strict=STRICT_EQUAL_253_objects rc=0 md5=87c0f11f
+  W/w03 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_253_objects rc=0 md5=87c0f11f
+  W/w03 off_tfArgOutsideClassKeyOrder216v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=51ae6df0
+  W/w03 off_tfArgOutsideClassOrder216 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=da99f7bd
+  W/w03 offL216 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=da99f7bd
+  W/w03 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=da99f7bd
+  W/w03 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=da99f7bd
+RESULT W/w03 tfArgOutsideClassKeyOrder216v TOWARD new=0 gone=18 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_253_objects
+RESULT W/w03 tfArgOutsideClassOrder216 TOWARD new=0 gone=22 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_253_objects
+RESULT W/w03 LANDING216 TOWARD new=0 gone=22 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_253_objects
+RESULT W/w03 ALLOFF TOWARD new=0 gone=22 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_253_objects
+RESULT W/w03 WIDE TOWARD new=0 gone=22 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_253_objects

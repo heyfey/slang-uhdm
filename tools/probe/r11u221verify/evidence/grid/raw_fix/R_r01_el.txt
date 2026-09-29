@@ -1,0 +1,11 @@
+FIRED R/r01_el opIdxRecvElemFollowsPath215:5
+  R/r01_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=9b59d621
+  R/r01_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=9b59d621
+  R/r01_el off_opIdxRecvElemFollowsPath215 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ccb66efe
+  R/r01_el offL215 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ccb66efe
+  R/r01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ccb66efe
+  R/r01_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ccb66efe
+RESULT R/r01_el opIdxRecvElemFollowsPath215 TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_endcol
+RESULT R/r01_el LANDING215 TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_endcol
+RESULT R/r01_el ALLOFF TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_endcol
+RESULT R/r01_el WIDE TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_endcol

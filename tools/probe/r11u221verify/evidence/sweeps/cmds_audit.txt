@@ -1,0 +1,6 @@
+sweep H: slang lines 3273, naming /tmp/r11u221_bin/H.sh: 3273
+sweep A: slang lines 3273, naming /tmp/r11u221_bin/A.sh: 3273
+sweep 6: slang lines 3273, naming /tmp/r11u221_bin/S6.sh: 3273
+sweep 5: slang lines 3273, naming /tmp/r11u221_bin/S5.sh: 3273
+sweep 2: slang lines 3273, naming /tmp/r11u221_bin/G2.sh: 3273
+sweep G: naming /tmp/r11u221_bin/G.sh: 3273

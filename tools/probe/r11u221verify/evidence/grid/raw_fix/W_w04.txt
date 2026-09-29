@@ -1,0 +1,11 @@
+FIRED W/w04 -
+  W/w04 on cmp=255 cmplines=396 strict=NOT_EQUAL_stage1 rc=0 md5=7235c0f1
+  W/w04 tr cmp=255 cmplines=396 strict=NOT_EQUAL_stage1 rc=0 md5=7235c0f1
+  W/w04 off_tfArgOutsideClassOrder216 cmp=255 cmplines=396 strict=NOT_EQUAL_stage1 rc=0 md5=7235c0f1
+  W/w04 offL216 cmp=255 cmplines=396 strict=NOT_EQUAL_stage1 rc=0 md5=7235c0f1
+  W/w04 alloff cmp=255 cmplines=396 strict=NOT_EQUAL_stage1 rc=0 md5=7235c0f1
+  W/w04 wide cmp=255 cmplines=396 strict=NOT_EQUAL_stage1 rc=0 md5=7235c0f1
+RESULT W/w04 tfArgOutsideClassOrder216 UNFIRED 
+RESULT W/w04 LANDING216 UNFIRED 
+RESULT W/w04 ALLOFF UNFIRED 
+RESULT W/w04 WIDE UNFIRED 

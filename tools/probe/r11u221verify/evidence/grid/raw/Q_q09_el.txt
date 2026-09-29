@@ -1,0 +1,13 @@
+FIRED Q/q09_el genScopeRangeQueryFold216:1 ndaRangeQueryFold216:1
+  Q/q09_el on cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=995f48ad
+  Q/q09_el tr cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=995f48ad
+  Q/q09_el off_genScopeRangeQueryFold216 cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=d5073420
+  Q/q09_el off_ndaRangeQueryFold216 cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=3a2cc111
+  Q/q09_el offL216 cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=4d137257
+  Q/q09_el alloff cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=4d137257
+  Q/q09_el wide cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=4d137257
+RESULT Q/q09_el genScopeRangeQueryFold216 STAGE1-CLOSER off:stage1 on:stage1 dump off=38 on=0 newbad=0
+RESULT Q/q09_el ndaRangeQueryFold216 STAGE1-CLOSER off:stage1 on:stage1 dump off=53 on=0 newbad=0
+RESULT Q/q09_el LANDING216 STAGE1-CLOSER off:stage1 on:stage1 dump off=91 on=0 newbad=0
+RESULT Q/q09_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=91 on=0 newbad=0
+RESULT Q/q09_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=91 on=0 newbad=0

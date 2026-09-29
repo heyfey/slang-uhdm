@@ -1,0 +1,19 @@
+FIRED NP/p04_el ndaPortQueryKeepsStamp221v:1 ndaSysCallNetTs212:1
+  NP/p04_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_75_objects rc=0 md5=b469c390
+  NP/p04_el tr cmp=0 cmplines=0 strict=STRICT_EQUAL_75_objects rc=0 md5=b469c390
+  NP/p04_el off_ndaPortQueryKeepsStamp221v cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=79cb2bd7
+  NP/p04_el off_ndaQueryFoldsNoStamp217v cmp=0 cmplines=0 strict=STRICT_EQUAL_75_objects rc=0 md5=b469c390
+  NP/p04_el off_ndaSysCallNetTs212 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=79cb2bd7
+  NP/p04_el offL212 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=79cb2bd7
+  NP/p04_el offL217 cmp=0 cmplines=0 strict=STRICT_EQUAL_75_objects rc=0 md5=b469c390
+  NP/p04_el offL221 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=79cb2bd7
+  NP/p04_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_75_objects rc=0 md5=b469c390
+  NP/p04_el wide cmp=0 cmplines=0 strict=STRICT_EQUAL_75_objects rc=0 md5=b469c390
+RESULT NP/p04_el ndaPortQueryKeepsStamp221v STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 75 objects dump off=23 on=20 newbad=2
+RESULT NP/p04_el ndaQueryFoldsNoStamp217v UNFIRED 
+RESULT NP/p04_el ndaSysCallNetTs212 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 75 objects dump off=23 on=20 newbad=2
+RESULT NP/p04_el LANDING212 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 75 objects dump off=23 on=20 newbad=2
+RESULT NP/p04_el LANDING217 UNFIRED 
+RESULT NP/p04_el LANDING221 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 75 objects dump off=23 on=20 newbad=2
+RESULT NP/p04_el ALLOFF UNFIRED 
+RESULT NP/p04_el WIDE UNFIRED 

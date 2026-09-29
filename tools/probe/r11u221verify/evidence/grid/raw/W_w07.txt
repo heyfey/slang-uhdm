@@ -1,0 +1,11 @@
+FIRED W/w07 tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+  W/w07 on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=006f6d3b
+  W/w07 tr cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=006f6d3b
+  W/w07 off_tfArgImportCloneFollows216 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=6867637d
+  W/w07 offL216 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=9173812e
+  W/w07 alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=9173812e
+  W/w07 wide cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=9173812e
+RESULT W/w07 tfArgImportCloneFollows216 STAGE1-CLOSER off:stage1 on:stage1 dump off=253 on=243 newbad=0
+RESULT W/w07 LANDING216 STAGE1-CLOSER off:stage1 on:stage1 dump off=307 on=243 newbad=1
+RESULT W/w07 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=307 on=243 newbad=1
+RESULT W/w07 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=307 on=243 newbad=1

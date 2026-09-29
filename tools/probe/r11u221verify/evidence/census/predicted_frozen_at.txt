@@ -1,0 +1,3 @@
+2dba817b87f91ea7c73acba2f9d7c347  evidence/census/predicted_movers_H_vs_A.txt
+2026-09-29T02:57:42Z
+binary /tmp/r11u221_bin/law.bin de9af7b93a57 via H.sh (R11U216_TRACE R11U215_TRACE); frozen before any byte comparison of sweeps H, A, S6, S5

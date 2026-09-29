@@ -1,0 +1,11 @@
+FIRED Q/q10_el ndaQueryFoldsNoStamp217v:1 ndaRangeQueryFold216:2
+  Q/q10_el on cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=2ed7ece4
+  Q/q10_el tr cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=2ed7ece4
+  Q/q10_el off_ndaRangeQueryFold216 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=9fb19a1c
+  Q/q10_el offL216 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=9fb19a1c
+  Q/q10_el alloff cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=9fb19a1c
+  Q/q10_el wide cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=9fb19a1c
+RESULT Q/q10_el ndaRangeQueryFold216 STAGE1-CLOSER off:stage1 on:stage1 dump off=123 on=54 newbad=0
+RESULT Q/q10_el LANDING216 STAGE1-CLOSER off:stage1 on:stage1 dump off=123 on=54 newbad=0
+RESULT Q/q10_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=123 on=54 newbad=0
+RESULT Q/q10_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=123 on=54 newbad=0

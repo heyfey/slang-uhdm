@@ -1,0 +1,11 @@
+FIRED A/a09 -
+  A/a09 on cmp=255 cmplines=216 strict=NOT_EQUAL_stage1 rc=0 md5=dad4cdd8
+  A/a09 tr cmp=255 cmplines=216 strict=NOT_EQUAL_stage1 rc=0 md5=dad4cdd8
+  A/a09 off_pkgImportEnumCloneLastWriter215 cmp=255 cmplines=216 strict=NOT_EQUAL_stage1 rc=0 md5=dad4cdd8
+  A/a09 offL215 cmp=255 cmplines=216 strict=NOT_EQUAL_stage1 rc=0 md5=dad4cdd8
+  A/a09 alloff cmp=255 cmplines=216 strict=NOT_EQUAL_stage1 rc=0 md5=dad4cdd8
+  A/a09 wide cmp=255 cmplines=216 strict=NOT_EQUAL_stage1 rc=0 md5=dad4cdd8
+RESULT A/a09 pkgImportEnumCloneLastWriter215 UNFIRED 
+RESULT A/a09 LANDING215 UNFIRED 
+RESULT A/a09 ALLOFF UNFIRED 
+RESULT A/a09 WIDE UNFIRED 

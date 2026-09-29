@@ -1,0 +1,17 @@
+FIRED X/x02 impPatCopyFirstListingUnparented215:1 ndaQueryFoldsNoStamp217v:2 ndaRangeQueryFold216:1
+  X/x02 on cmp=255 cmplines=944 strict=NOT_EQUAL_stage1 rc=0 md5=952286b6
+  X/x02 tr cmp=255 cmplines=944 strict=NOT_EQUAL_stage1 rc=0 md5=952286b6
+  X/x02 off_ndaRangeQueryFold216 cmp=255 cmplines=944 strict=NOT_EQUAL_stage1 rc=0 md5=27c83607
+  X/x02 off_impPatCopyFirstListingUnparented215 cmp=255 cmplines=944 strict=NOT_EQUAL_stage1 rc=0 md5=1010da92
+  X/x02 offL215 cmp=255 cmplines=944 strict=NOT_EQUAL_stage1 rc=0 md5=1010da92
+  X/x02 offL216 cmp=255 cmplines=944 strict=NOT_EQUAL_stage1 rc=0 md5=27c83607
+  X/x02 off2_ndaRangeQueryFold216_impPatCopyFirstListingUnparented215 cmp=255 cmplines=944 strict=NOT_EQUAL_stage1 rc=0 md5=6199f2b7
+  X/x02 alloff cmp=255 cmplines=944 strict=NOT_EQUAL_stage1 rc=0 md5=6199f2b7
+  X/x02 wide cmp=255 cmplines=944 strict=NOT_EQUAL_stage1 rc=0 md5=6199f2b7
+RESULT X/x02 ndaRangeQueryFold216 STAGE1-CLOSER off:stage1 on:stage1 dump off=1589 on=1584 newbad=0
+RESULT X/x02 impPatCopyFirstListingUnparented215 STAGE1-CLOSER off:stage1 on:stage1 dump off=1589 on=1584 newbad=0
+RESULT X/x02 LANDING215 STAGE1-CLOSER off:stage1 on:stage1 dump off=1589 on=1584 newbad=0
+RESULT X/x02 LANDING216 STAGE1-CLOSER off:stage1 on:stage1 dump off=1589 on=1584 newbad=0
+RESULT X/x02 PAIR:ndaRangeQueryFold216+impPatCopyFirstListingUnparented215 STAGE1-CLOSER off:stage1 on:stage1 dump off=1594 on=1584 newbad=0
+RESULT X/x02 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=1594 on=1584 newbad=0
+RESULT X/x02 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=1594 on=1584 newbad=0

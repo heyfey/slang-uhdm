@@ -1,0 +1,13 @@
+FIRED IR/mr3_qualified_assign diagImpPatMemberRead215:2 impPatCopyFirstListingUnparented215:1
+  IR/mr3_qualified_assign on cmp=255 cmplines=1070 strict=NOT_EQUAL_stage1 rc=0 md5=b15d27e7
+  IR/mr3_qualified_assign tr cmp=255 cmplines=1070 strict=NOT_EQUAL_stage1 rc=0 md5=b15d27e7
+  IR/mr3_qualified_assign off_impPatMemberReadKeepsParent215v cmp=255 cmplines=1070 strict=NOT_EQUAL_stage1 rc=0 md5=c5956d73
+  IR/mr3_qualified_assign off_impPatCopyFirstListingUnparented215 cmp=255 cmplines=1070 strict=NOT_EQUAL_stage1 rc=0 md5=35e7ce01
+  IR/mr3_qualified_assign offL215 cmp=255 cmplines=1070 strict=NOT_EQUAL_stage1 rc=0 md5=35e7ce01
+  IR/mr3_qualified_assign alloff cmp=255 cmplines=1070 strict=NOT_EQUAL_stage1 rc=0 md5=35e7ce01
+  IR/mr3_qualified_assign wide cmp=255 cmplines=1070 strict=NOT_EQUAL_stage1 rc=0 md5=35e7ce01
+RESULT IR/mr3_qualified_assign impPatMemberReadKeepsParent215v STAGE1-CLOSER off:stage1 on:stage1 dump off=1753 on=1746 newbad=0
+RESULT IR/mr3_qualified_assign impPatCopyFirstListingUnparented215 STAGE1-AWAY off:stage1 on:stage1 dump off=1743 on=1746 newbad=0
+RESULT IR/mr3_qualified_assign LANDING215 STAGE1-AWAY off:stage1 on:stage1 dump off=1743 on=1746 newbad=0
+RESULT IR/mr3_qualified_assign ALLOFF STAGE1-AWAY off:stage1 on:stage1 dump off=1743 on=1746 newbad=0
+RESULT IR/mr3_qualified_assign WIDE STAGE1-AWAY off:stage1 on:stage1 dump off=1743 on=1746 newbad=0

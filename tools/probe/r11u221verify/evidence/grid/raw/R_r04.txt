@@ -1,0 +1,13 @@
+FIRED R/r04 opIdxRecvElemFollowsPath215:3
+  R/r04 on cmp=0 cmplines=0 strict=STRICT_EQUAL_121_objects rc=0 md5=0c0eea49
+  R/r04 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_121_objects rc=0 md5=0c0eea49
+  R/r04 off_opIdxRecvPlainElab215 cmp=0 cmplines=0 strict=STRICT_EQUAL_121_objects rc=0 md5=0c0eea49
+  R/r04 off_opIdxRecvElemFollowsPath215 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=72021d4a
+  R/r04 offL215 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=72021d4a
+  R/r04 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=72021d4a
+  R/r04 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=72021d4a
+RESULT R/r04 opIdxRecvPlainElab215 UNFIRED 
+RESULT R/r04 opIdxRecvElemFollowsPath215 TOWARD new=0 gone=7 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_121_objects
+RESULT R/r04 LANDING215 TOWARD new=0 gone=7 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_121_objects
+RESULT R/r04 ALLOFF TOWARD new=0 gone=7 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_121_objects
+RESULT R/r04 WIDE TOWARD new=0 gone=7 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_121_objects

@@ -1,0 +1,13 @@
+FIRED I/i03 diagImpPatMemberRead215:4
+  I/i03 on cmp=255 cmplines=68 strict=NOT_EQUAL_stage1 rc=0 md5=4334c8a1
+  I/i03 tr cmp=255 cmplines=68 strict=NOT_EQUAL_stage1 rc=0 md5=4334c8a1
+  I/i03 off_impPatMemberReadKeepsParent215v cmp=255 cmplines=68 strict=NOT_EQUAL_stage1 rc=0 md5=4334c8a1
+  I/i03 off_impPatCopyFirstListingUnparented215 cmp=255 cmplines=68 strict=NOT_EQUAL_stage1 rc=0 md5=4334c8a1
+  I/i03 offL215 cmp=255 cmplines=68 strict=NOT_EQUAL_stage1 rc=0 md5=4334c8a1
+  I/i03 alloff cmp=255 cmplines=68 strict=NOT_EQUAL_stage1 rc=0 md5=4334c8a1
+  I/i03 wide cmp=255 cmplines=68 strict=NOT_EQUAL_stage1 rc=0 md5=4334c8a1
+RESULT I/i03 impPatMemberReadKeepsParent215v UNFIRED 
+RESULT I/i03 impPatCopyFirstListingUnparented215 UNFIRED 
+RESULT I/i03 LANDING215 UNFIRED 
+RESULT I/i03 ALLOFF UNFIRED 
+RESULT I/i03 WIDE UNFIRED 

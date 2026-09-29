@@ -1,0 +1,11 @@
+FIRED I/i02_el diagImpPatMemberRead215:2
+  I/i02_el on cmp=255 cmplines=2686 strict=NOT_EQUAL_stage1 rc=0 md5=22a920d8
+  I/i02_el tr cmp=255 cmplines=2686 strict=NOT_EQUAL_stage1 rc=0 md5=22a920d8
+  I/i02_el off_impPatCopyFirstListingUnparented215 cmp=255 cmplines=2686 strict=NOT_EQUAL_stage1 rc=0 md5=22a920d8
+  I/i02_el offL215 cmp=255 cmplines=2686 strict=NOT_EQUAL_stage1 rc=0 md5=22a920d8
+  I/i02_el alloff cmp=255 cmplines=2686 strict=NOT_EQUAL_stage1 rc=0 md5=22a920d8
+  I/i02_el wide cmp=255 cmplines=2686 strict=NOT_EQUAL_stage1 rc=0 md5=22a920d8
+RESULT I/i02_el impPatCopyFirstListingUnparented215 UNFIRED 
+RESULT I/i02_el LANDING215 UNFIRED 
+RESULT I/i02_el ALLOFF UNFIRED 
+RESULT I/i02_el WIDE UNFIRED 

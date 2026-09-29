@@ -1,0 +1,2 @@
+probe: compared=4087 movers=0
+downstream: compared=805 movers=0

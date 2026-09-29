@@ -1,0 +1,47 @@
+#!/bin/bash
+# (r11u213: copied from r11u208verify/drivers, paths renamed; the landings under test are passes 206 and 207.)
+# (r11u208: copied from r11u204verify/drivers, paths renamed; the landings under test are passes 202 and 201.)
+# (r11u204: copied from r11u199verify/drivers, paths renamed; the landings under test are passes 196 and 198.)
+# (r11u199: copied from r11u194verify/drivers, paths renamed; the landings under test are passes 192 and 193.)
+# (r11u194: copied from r11u190verify/drivers, paths renamed; the landings under test are passes 184 and 186.)
+# uvmdist.sh <sweep workdir>...: for the UVM rows (MiniAmiq, SeqDriver, SimpleUVM, Scoreboard; both modes), the
+# ORDER-BLIND distance of each sweep's database to its golden: uhdm-strictcmp's per-object records (--dump-a/-b:
+# depth type name defname fullname file line col endline endcol decompile size value consttype) as multisets, the
+# depth column dropped; prints ours-not-in-golden records (dist), and the same restricted to the file facet of
+# method_func_call records (mfc_file_away: (name,file) pairs ours holds more often than golden).
+# (r11u185 (from r11u182verify): copied from r11u177verify (r11u168repro), plus all_file_away = (type, name, file) triples of every kind.)
+# (r11u208: plus sym = ours-not-in-golden + golden-not-in-ours, r11u201's measure; dist is r11u202's; BuildUVMPkg in the default rows.)
+# Fail-closed on $FENCED (these four rows are not fenced; the check is kept for reuse).
+[ "$(echo $FENCED | wc -w)" = 4 ] || { echo "uvmdist.sh: export FENCED" >&2; exit 2; }
+T=/tmp/r11u221_uvmdist; mkdir -p $T
+for W in "$@"; do
+  for t in ${UVMROWS:-MiniAmiq SeqDriver SimpleUVM Scoreboard BuildUVMPkg}; do
+    for f in $FENCED; do [ "$f" = "$t" ] && continue 2; done
+    for m in default testflags; do
+      d=$(ls -d $W/surelog/$m/$t-* 2>/dev/null | head -1); [ -s "$d/slang.uhdm" ] || continue
+      g=$(grep -o 'golden cache [a-z]* [^)]*' $d/cmds.txt | awk '{print $4}'); gu=$(find $g -name '*.uhdm' | head -1)
+      ${STRICT_CMP:-/tmp/r11u221_bin/uhdm-strictcmp} --max 0 --dump-a $T/a --dump-b $T/b $gu $d/slang.uhdm > /dev/null 2>&1
+      python3 - "$T/a" "$T/b" "$W" "$t" "$m" <<'PY'
+import sys, collections
+a = collections.Counter(l.split('\t', 1)[1] for l in open(sys.argv[1]) if '\t' in l)
+b = collections.Counter(l.split('\t', 1)[1] for l in open(sys.argv[2]) if '\t' in l)
+dist = sum((b - a).values())
+def mf(c):
+    r = collections.Counter()
+    for k, v in c.items():
+        f = k.split('\t')
+        if f[0] == 'method_func_call': r[(f[1], f[4])] += v
+    return r
+away = sum((mf(b) - mf(a)).values())
+def ff(c):
+    r = collections.Counter()
+    for k, v in c.items():
+        f = k.split('\t') + ['', '', '', '', '']; r[(f[0], f[1], f[4])] += v
+    return r
+faway = sum((ff(b) - ff(a)).values())
+sym = dist + sum((a - b).values())
+print('%s %s/%s dist=%d sym=%d mfc_file_away=%d all_file_away=%d golden_records=%d ours_records=%d' % (sys.argv[3], sys.argv[4], sys.argv[5], dist, sym, away, faway, sum(a.values()), sum(b.values())))
+PY
+    done
+  done
+done

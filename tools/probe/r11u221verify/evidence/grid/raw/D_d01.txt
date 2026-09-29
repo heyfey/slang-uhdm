@@ -1,0 +1,11 @@
+FIRED D/d01 incDecOperandKeepsLvalueForm215:2
+  D/d01 on cmp=0 cmplines=0 strict=STRICT_EQUAL_99_objects rc=0 md5=1f3fb6d0
+  D/d01 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_99_objects rc=0 md5=1f3fb6d0
+  D/d01 off_incDecOperandKeepsLvalueForm215 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=b114643d
+  D/d01 offL215 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=b114643d
+  D/d01 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=b114643d
+  D/d01 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=b114643d
+RESULT D/d01 incDecOperandKeepsLvalueForm215 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_99_objects
+RESULT D/d01 LANDING215 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_99_objects
+RESULT D/d01 ALLOFF TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_99_objects
+RESULT D/d01 WIDE TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_99_objects

@@ -1,0 +1,11 @@
+FIRED A/a03 diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2
+  A/a03 on cmp=255 cmplines=201 strict=NOT_EQUAL_stage1 rc=0 md5=d5266817
+  A/a03 tr cmp=255 cmplines=201 strict=NOT_EQUAL_stage1 rc=0 md5=d5266817
+  A/a03 off_pkgTdAliasLastWriter215 cmp=255 cmplines=201 strict=NOT_EQUAL_stage1 rc=0 md5=e90cfe43
+  A/a03 offL215 cmp=255 cmplines=201 strict=NOT_EQUAL_stage1 rc=0 md5=e90cfe43
+  A/a03 alloff cmp=255 cmplines=201 strict=NOT_EQUAL_stage1 rc=0 md5=e90cfe43
+  A/a03 wide cmp=255 cmplines=201 strict=NOT_EQUAL_stage1 rc=0 md5=e90cfe43
+RESULT A/a03 pkgTdAliasLastWriter215 STAGE1-CLOSER off:stage1 on:stage1 dump off=146 on=144 newbad=4
+RESULT A/a03 LANDING215 STAGE1-CLOSER off:stage1 on:stage1 dump off=146 on=144 newbad=4
+RESULT A/a03 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=146 on=144 newbad=4
+RESULT A/a03 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=146 on=144 newbad=4

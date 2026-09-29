@@ -1,0 +1,17 @@
+FIRED X/x03 genScopeRangeQueryFold216:1 opIdxRecvElemFollowsPath215:2
+  X/x03 on cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=7e68af31
+  X/x03 tr cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=7e68af31
+  X/x03 off_genScopeRangeQueryFold216 cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=4b5d7ace
+  X/x03 off_opIdxRecvElemFollowsPath215 cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=64eed703
+  X/x03 offL215 cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=64eed703
+  X/x03 offL216 cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=4b5d7ace
+  X/x03 off2_genScopeRangeQueryFold216_opIdxRecvElemFollowsPath215 cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=8075650b
+  X/x03 alloff cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=8075650b
+  X/x03 wide cmp=255 cmplines=25 strict=NOT_EQUAL_stage1 rc=0 md5=8075650b
+RESULT X/x03 genScopeRangeQueryFold216 STAGE1-CLOSER off:stage1 on:stage1 dump off=27 on=18 newbad=0
+RESULT X/x03 opIdxRecvElemFollowsPath215 STAGE1-CLOSER off:stage1 on:stage1 dump off=38 on=18 newbad=0
+RESULT X/x03 LANDING215 STAGE1-CLOSER off:stage1 on:stage1 dump off=38 on=18 newbad=0
+RESULT X/x03 LANDING216 STAGE1-CLOSER off:stage1 on:stage1 dump off=27 on=18 newbad=0
+RESULT X/x03 PAIR:genScopeRangeQueryFold216+opIdxRecvElemFollowsPath215 STAGE1-CLOSER off:stage1 on:stage1 dump off=47 on=18 newbad=0
+RESULT X/x03 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=47 on=18 newbad=0
+RESULT X/x03 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=47 on=18 newbad=0

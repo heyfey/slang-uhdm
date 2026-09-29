@@ -1,0 +1,13 @@
+FIRED R/r04_el opIdxRecvElemFollowsPath215:3 opIdxRecvPlainElab215:5
+  R/r04_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=8ec93999
+  R/r04_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=8ec93999
+  R/r04_el off_opIdxRecvPlainElab215 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=97993e40
+  R/r04_el off_opIdxRecvElemFollowsPath215 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=6c05c291
+  R/r04_el offL215 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=6c05c291
+  R/r04_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=6c05c291
+  R/r04_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=6c05c291
+RESULT R/r04_el opIdxRecvPlainElab215 TOWARD new=0 gone=5 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT R/r04_el opIdxRecvElemFollowsPath215 MIXED new=1 gone=12 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname | first new: fullname / A: 8	ref_obj	j		work@ic::h::fs[j * 2].get::fs::j	dut.sv	16	52	16	53		0 / B: 8	ref_obj	j		work@ic::h::fs[j * 2].get::j	dut.sv	16	52	16	53		0
+RESULT R/r04_el LANDING215 MIXED new=1 gone=12 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname | first new: fullname / A: 8	ref_obj	j		work@ic::h::fs[j * 2].get::fs::j	dut.sv	16	52	16	53		0 / B: 8	ref_obj	j		work@ic::h::fs[j * 2].get::j	dut.sv	16	52	16	53		0
+RESULT R/r04_el ALLOFF MIXED new=1 gone=12 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname | first new: fullname / A: 8	ref_obj	j		work@ic::h::fs[j * 2].get::fs::j	dut.sv	16	52	16	53		0 / B: 8	ref_obj	j		work@ic::h::fs[j * 2].get::j	dut.sv	16	52	16	53		0
+RESULT R/r04_el WIDE MIXED new=1 gone=12 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname | first new: fullname / A: 8	ref_obj	j		work@ic::h::fs[j * 2].get::fs::j	dut.sv	16	52	16	53		0 / B: 8	ref_obj	j		work@ic::h::fs[j * 2].get::j	dut.sv	16	52	16	53		0

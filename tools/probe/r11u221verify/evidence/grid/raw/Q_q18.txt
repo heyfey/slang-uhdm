@@ -1,0 +1,15 @@
+FIRED Q/q18 genScopeRangeQueryFold216:2 ndaRangeQueryFold216:2
+  Q/q18 on cmp=255 cmplines=22 strict=NOT_EQUAL_stage1 rc=0 md5=9917d6cd
+  Q/q18 tr cmp=255 cmplines=22 strict=NOT_EQUAL_stage1 rc=0 md5=9917d6cd
+  Q/q18 off_rqParamOpBoundAtCall216v cmp=255 cmplines=22 strict=NOT_EQUAL_stage1 rc=0 md5=c25e4906
+  Q/q18 off_genScopeRangeQueryFold216 cmp=255 cmplines=22 strict=NOT_EQUAL_stage1 rc=0 md5=50760cbc
+  Q/q18 off_ndaRangeQueryFold216 cmp=255 cmplines=22 strict=NOT_EQUAL_stage1 rc=0 md5=f5214006
+  Q/q18 offL216 cmp=255 cmplines=22 strict=NOT_EQUAL_stage1 rc=0 md5=c758f0e9
+  Q/q18 alloff cmp=255 cmplines=22 strict=NOT_EQUAL_stage1 rc=0 md5=c758f0e9
+  Q/q18 wide cmp=255 cmplines=22 strict=NOT_EQUAL_stage1 rc=0 md5=c758f0e9
+RESULT Q/q18 rqParamOpBoundAtCall216v STAGE1-CLOSER off:stage1 on:stage1 dump off=8 on=2 newbad=0
+RESULT Q/q18 genScopeRangeQueryFold216 STAGE1-CLOSER off:stage1 on:stage1 dump off=28 on=2 newbad=0
+RESULT Q/q18 ndaRangeQueryFold216 STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=2 newbad=1
+RESULT Q/q18 LANDING216 STAGE1-CLOSER off:stage1 on:stage1 dump off=52 on=2 newbad=1
+RESULT Q/q18 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=52 on=2 newbad=1
+RESULT Q/q18 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=52 on=2 newbad=1

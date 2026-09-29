@@ -1,0 +1,15 @@
+FIRED Q/q17 ndaRangeQueryFold216:5
+  Q/q17 on cmp=0 cmplines=0 strict=STRICT_EQUAL_373_objects rc=0 md5=b576dd2d
+  Q/q17 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_373_objects rc=0 md5=b576dd2d
+  Q/q17 off_rqParamOpBoundAtCall216v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=eba336d0
+  Q/q17 off_ndaRangeQueryFold216 cmp=255 cmplines=42 strict=NOT_EQUAL_stage1 rc=0 md5=b3f59d70
+  Q/q17 off_genScopeRangeQueryFold216 cmp=0 cmplines=0 strict=STRICT_EQUAL_373_objects rc=0 md5=b576dd2d
+  Q/q17 offL216 cmp=255 cmplines=42 strict=NOT_EQUAL_stage1 rc=0 md5=b3f59d70
+  Q/q17 alloff cmp=255 cmplines=42 strict=NOT_EQUAL_stage1 rc=0 md5=b3f59d70
+  Q/q17 wide cmp=255 cmplines=42 strict=NOT_EQUAL_stage1 rc=0 md5=b3f59d70
+RESULT Q/q17 rqParamOpBoundAtCall216v TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_373_objects
+RESULT Q/q17 ndaRangeQueryFold216 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 373 objects dump off=65 on=0 newbad=0
+RESULT Q/q17 genScopeRangeQueryFold216 UNFIRED 
+RESULT Q/q17 LANDING216 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 373 objects dump off=65 on=0 newbad=0
+RESULT Q/q17 ALLOFF STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 373 objects dump off=65 on=0 newbad=0
+RESULT Q/q17 WIDE STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 373 objects dump off=65 on=0 newbad=0

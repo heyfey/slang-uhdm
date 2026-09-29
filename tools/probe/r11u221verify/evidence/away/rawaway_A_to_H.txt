@@ -1,0 +1,27 @@
+# 26 databases differ between /tmp/r11u221_swA and /tmp/r11u221_swH
+probe/r10uvm202repro/g202_a_kinds lost=0 gained=2 fn_lost=0 fn_gained=1
+probe/r10uvm202repro/g202_e_head lost=0 gained=2 fn_lost=0 fn_gained=1
+probe/r10uvm206repro/g206_b_dedup lost=0 gained=2 fn_lost=0 fn_gained=1
+probe/r10uvm49repro/a3 lost=0 gained=4 fn_lost=0 fn_gained=2
+probe/r10uvm49repro/a4 lost=0 gained=2 fn_lost=0 fn_gained=1
+probe/r10uvm49repro/a5 lost=0 gained=2 fn_lost=0 fn_gained=1
+probe/r10uvm49repro/a6 lost=0 gained=2 fn_lost=0 fn_gained=1
+probe/r10uvm50repro/a1 lost=0 gained=2 fn_lost=0 fn_gained=1
+probe/r10uvm50repro/a7 lost=0 gained=2 fn_lost=0 fn_gained=1
+probe/r10v136repro/v136_g_param lost=0 gained=6 fn_lost=0 fn_gained=3
+probe/r10v202repro/v202_6_twotd lost=0 gained=2 fn_lost=0 fn_gained=1
+probe/r10v206repro/v206_d_selfname lost=0 gained=2 fn_lost=0 fn_gained=1
+probe/r11u111repro/grid/f5/e08_explicit_import lost=0 gained=2 fn_lost=0 fn_gained=1
+surelog/default/BlackBePipeInt lost=0 gained=84 fn_lost=0 fn_gained=21
+surelog/default/BuildUVMPkg lost=0 gained=94 fn_lost=0 fn_gained=36
+surelog/default/MiniAmiq lost=0 gained=334 fn_lost=0 fn_gained=101
+surelog/default/Scoreboard lost=0 gained=146 fn_lost=0 fn_gained=62
+surelog/default/SeqDriver lost=0 gained=186 fn_lost=0 fn_gained=98
+surelog/default/SimpleUVM lost=0 gained=146 fn_lost=0 fn_gained=62
+surelog/testflags/BlackBePipeInt lost=0 gained=84 fn_lost=0 fn_gained=21
+surelog/testflags/BuildUVMPkg lost=0 gained=94 fn_lost=0 fn_gained=36
+surelog/testflags/MiniAmiq lost=0 gained=334 fn_lost=0 fn_gained=101
+surelog/testflags/SeqDriver lost=0 gained=186 fn_lost=0 fn_gained=98
+surelog/testflags/SimpleUVM lost=0 gained=146 fn_lost=0 fn_gained=62
+uhdm2rtlil/default/ibex_tracer lost=3 gained=13 fn_lost=0 fn_gained=0 | LOST |vpiParent:
+uhdm2rtlil/testflags/ibex_tracer lost=3 gained=13 fn_lost=0 fn_gained=0 | LOST |vpiParent:

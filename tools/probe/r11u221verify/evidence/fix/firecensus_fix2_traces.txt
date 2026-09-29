@@ -1,0 +1,19 @@
+r11u216repro/cases/NQ/n12 (el) | ndaPortQueryKeepsStamp221v l $left i;
+r11u216repro/cases/NQ/n12 | ndaPortQueryKeepsStamp221v l $left i;
+r11u221verify/cases/NP/p01 (el) | ndaPortQueryKeepsStamp221v w1 $high a;ndaPortQueryKeepsStamp221v w2 $low a;ndaPortQueryKeepsStamp221v w3 $left a;ndaPortQueryKeepsStamp221v w4 $right a;
+r11u221verify/cases/NP/p01 | ndaPortQueryKeepsStamp221v w1 $high a;ndaPortQueryKeepsStamp221v w2 $low a;ndaPortQueryKeepsStamp221v w3 $left a;ndaPortQueryKeepsStamp221v w4 $right a;
+r11u221verify/cases/NP/p02 (el) | ndaPortQueryKeepsStamp221v w1 $left a;ndaPortQueryKeepsStamp221v w2 $high a;
+r11u221verify/cases/NP/p02 | ndaPortQueryKeepsStamp221v w1 $left a;ndaPortQueryKeepsStamp221v w2 $high a;
+r11u221verify/cases/NP/p03 (el) | ndaPortQueryKeepsStamp221v w1 $low a;ndaPortQueryKeepsStamp221v w2 $right a;
+r11u221verify/cases/NP/p03 | ndaPortQueryKeepsStamp221v w1 $low a;ndaPortQueryKeepsStamp221v w2 $right a;
+r11u221verify/cases/NP/p04 (el) | ndaPortQueryKeepsStamp221v w $high a;
+r11u221verify/cases/NP/p04 | ndaPortQueryKeepsStamp221v w $high a;
+r11u221verify/cases/NP/p05 (el) | ndaPortQueryKeepsStamp221v w $high b;
+r11u221verify/cases/NP/p05 | ndaPortQueryKeepsStamp221v w $high b;
+r11u221verify/cases/NP/p06 (el) | ndaPortQueryKeepsStamp221v w $left a;
+r11u221verify/cases/NP/p06 | ndaPortQueryKeepsStamp221v w $left a;
+r11u221verify/cases/NP/p07 (el) | ndaPortQueryKeepsStamp221v w $low a;ndaPortQueryKeepsStamp221v w2 $right a;ndaPortQueryKeepsStamp221v w $low a;ndaPortQueryKeepsStamp221v w2 $right a;
+r11u221verify/cases/NP/p07 | ndaPortQueryKeepsStamp221v w $low a;ndaPortQueryKeepsStamp221v w2 $right a;ndaPortQueryKeepsStamp221v w $low a;ndaPortQueryKeepsStamp221v w2 $right a;
+v11u212repro/cases/E/e16 (el) | ndaPortQueryKeepsStamp221v l $left i;
+v11u212repro/cases/E/e16 | ndaPortQueryKeepsStamp221v l $left i;
+FIRECENSUS cases=13752 case-views=27504 trace_files=18 nonzero_rc=512

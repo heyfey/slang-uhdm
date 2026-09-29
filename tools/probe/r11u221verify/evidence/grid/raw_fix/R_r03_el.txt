@@ -1,0 +1,11 @@
+FIRED R/r03_el opIdxRecvElemFollowsPath215:4
+  R/r03_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ac85ac76
+  R/r03_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ac85ac76
+  R/r03_el off_opIdxRecvElemFollowsPath215 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a80be7a4
+  R/r03_el offL215 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a80be7a4
+  R/r03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a80be7a4
+  R/r03_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a80be7a4
+RESULT R/r03_el opIdxRecvElemFollowsPath215 MIXED new=2 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname | first new: fullname / A: 7	ref_obj	i		work@uc::f::a[i + 1].b[j - 1].m::a::i	dut.sv	16	14	16	15		0 / B: 7	ref_obj	i		work@uc::f::a[i + 1].b[j - 1].m::i	dut.sv	16	14	16	15		0
+RESULT R/r03_el LANDING215 MIXED new=2 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname | first new: fullname / A: 7	ref_obj	i		work@uc::f::a[i + 1].b[j - 1].m::a::i	dut.sv	16	14	16	15		0 / B: 7	ref_obj	i		work@uc::f::a[i + 1].b[j - 1].m::i	dut.sv	16	14	16	15		0
+RESULT R/r03_el ALLOFF MIXED new=2 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname | first new: fullname / A: 7	ref_obj	i		work@uc::f::a[i + 1].b[j - 1].m::a::i	dut.sv	16	14	16	15		0 / B: 7	ref_obj	i		work@uc::f::a[i + 1].b[j - 1].m::i	dut.sv	16	14	16	15		0
+RESULT R/r03_el WIDE MIXED new=2 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname | first new: fullname / A: 7	ref_obj	i		work@uc::f::a[i + 1].b[j - 1].m::a::i	dut.sv	16	14	16	15		0 / B: 7	ref_obj	i		work@uc::f::a[i + 1].b[j - 1].m::i	dut.sv	16	14	16	15		0

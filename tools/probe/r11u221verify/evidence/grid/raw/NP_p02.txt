@@ -1,0 +1,19 @@
+FIRED NP/p02 ndaQueryFoldsNoStamp217v:2
+  NP/p02 on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=d8a0eccc
+  NP/p02 tr cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=d8a0eccc
+  NP/p02 off_ndaPortQueryKeepsStamp221v cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=d8a0eccc
+  NP/p02 off_ndaQueryFoldsNoStamp217v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=cdfad378
+  NP/p02 off_ndaSysCallNetTs212 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=d8a0eccc
+  NP/p02 offL212 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=d8a0eccc
+  NP/p02 offL217 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=cdfad378
+  NP/p02 offL221 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=d8a0eccc
+  NP/p02 alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=d8a0eccc
+  NP/p02 wide cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=d8a0eccc
+RESULT NP/p02 ndaPortQueryKeepsStamp221v UNFIRED 
+RESULT NP/p02 ndaQueryFoldsNoStamp217v STAGE1-CLOSER off:STRICT_NOTEQUAL depth on:stage1 dump off=70 on=68 newbad=0
+RESULT NP/p02 ndaSysCallNetTs212 UNFIRED 
+RESULT NP/p02 LANDING212 UNFIRED 
+RESULT NP/p02 LANDING217 STAGE1-CLOSER off:STRICT_NOTEQUAL depth on:stage1 dump off=70 on=68 newbad=0
+RESULT NP/p02 LANDING221 UNFIRED 
+RESULT NP/p02 ALLOFF UNFIRED 
+RESULT NP/p02 WIDE UNFIRED 

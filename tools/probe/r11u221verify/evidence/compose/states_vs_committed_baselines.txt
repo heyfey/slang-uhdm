@@ -1,0 +1,20 @@
+== sweep A vs 0a682d73 baselines
+  probe: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  surelog: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  uhdm2rtlil: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  downstream verdict diff vs baseline: 0
+== sweep 5 vs c4f26079 baselines
+  probe: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  surelog: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  uhdm2rtlil: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  downstream verdict diff vs baseline: 0
+== sweep 6 vs 57ce3ae8 baselines
+  probe: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  surelog: regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0
+  uhdm2rtlil: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  downstream verdict diff vs baseline: 0
+== sweep H vs 57ce3ae8 baselines
+  probe: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  surelog: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  uhdm2rtlil: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  downstream verdict diff vs baseline: 0

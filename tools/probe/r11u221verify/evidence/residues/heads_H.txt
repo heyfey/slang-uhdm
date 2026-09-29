@@ -1,0 +1,88 @@
+== surelog/default/MiniAmiq
+   #11306 endline
+     A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0		
+     B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0		
+   #12236 endline
+     A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0		
+     B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0		
+   objects 435559 vs 433835
+   fields: depth=1 type=1 name=1 file=5 line=47 col=47 endline=59 endcol=59 objects_differing=59 (walk diverged)
+   STRICT_NOTEQUAL endline
+== surelog/default/SeqDriver
+   #11289 endline
+     A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0		
+     B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0		
+   #12219 endline
+     A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0		
+     B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0		
+   objects 475526 vs 474740
+   fields: depth=1 type=1 name=1 file=5 line=47 col=47 endline=59 endcol=59 objects_differing=59 (walk diverged)
+   STRICT_NOTEQUAL endline
+== surelog/default/SimpleUVM
+   #458 fullname
+     A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+   #464 fullname
+     A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+   objects 334285 vs 334439
+   fields: depth=1 type=1 fullname=97 file=19 line=61 col=61 endline=80 endcol=89 decompile=1 value=1 consttype=1 objects_differing=185 (walk diverged)
+   STRICT_NOTEQUAL fullname
+== surelog/default/Scoreboard
+   #466 fullname
+     A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+   #472 fullname
+     A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+   objects 269656 vs 269733
+   fields: depth=1 type=1 fullname=51 file=18 line=59 col=59 endline=78 endcol=87 decompile=1 value=1 consttype=1 objects_differing=137 (walk diverged)
+   STRICT_NOTEQUAL fullname
+== surelog/default/BuildUVMPkg
+   #26855 line
+     A: 5	class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42				
+     B: 5	class_typespec	this_type			uvm_pkg.sv	56391	12	56391	32				
+   #42260 endcol
+     A: 4	assignment				uvm_pkg.sv	70758	4	70758	50				
+     B: 4	assignment				uvm_pkg.sv	70758	4	70758	52				
+   objects 201533 vs 201588
+   fields: type=1 name=1 fullname=13 line=5 col=5 endline=9 endcol=18 objects_differing=31 (walk diverged)
+   STRICT_NOTEQUAL line
+== surelog/default/BlackBePipeInt
+   #15272 type
+     A: 5	ref_typespec			bp_common_pkg		0	0	0	0		0		
+     B: 5	constant				dut.sv	2047	16	2047	17	1	64	UINT:1	9
+   objects 339479 vs 341734
+   fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+   STRICT_NOTEQUAL type
+== surelog/default/Earlgrey_0_1
+   #93964 endcol
+     A: 5	constant				dm_csrs.sv	91	52	91	56	8'h04	8	HEX:04	5
+     B: 5	constant				dm_csrs.sv	91	52	91	61	8'h04	8	HEX:04	5
+   #93967 endcol
+     A: 6	constant				dm_csrs.sv	91	71	91	75	4'h2	4	HEX:2	5
+     B: 6	constant				dm_csrs.sv	91	71	91	84	4'h2	4	HEX:2	5
+   objects 2173209 vs 2173853
+   fields: type=1 defname=2 fullname=25 file=1 line=1 col=4 endline=1 endcol=20 size=1 objects_differing=45 (walk diverged)
+   STRICT_NOTEQUAL endcol
+== surelog/default/Rggen
+   #23164 file
+     A: 11	logic_typespec				rggen_adapter_common.sv	43	5	43	10				
+     B: 11	logic_typespec				rggen_bus_if.sv	9	3	9	28				
+   #23165 file
+     A: 12	range				rggen_adapter_common.sv	43	11	43	30				
+     B: 12	range				rggen_bus_if.sv	9	9	9	28				
+   objects 314498 vs 312769
+   fields: type=1 file=3 line=3 col=3 endline=3 endcol=3 decompile=1 size=1 value=1 consttype=1 objects_differing=3 (walk diverged)
+   STRICT_NOTEQUAL file
+== uhdm2rtlil/default/cfg_func_width_loop
+   #464 line
+     A: 6	logic_typespec	mask_t			dut.sv	27	40	27	46				
+     B: 6	logic_typespec	mask_t			dut.sv	16	11	16	25				
+   #465 fullname
+     A: 7	ref_typespec			<in>mask_t		0	0	0	0		0		
+     B: 7	ref_typespec			<in>mask_t		0	0	0	0		0		
+     raw fullname A: mask_t | B: work@sub.M.mask_t
+   objects 525 vs 526
+   fields: type=1 fullname=1 line=1 col=1 endline=1 endcol=2 decompile=1 size=1 value=1 consttype=1 objects_differing=3 (walk diverged)
+   STRICT_NOTEQUAL line

@@ -1,0 +1,61 @@
+== probe: 13 rows differ
+r10uvm202repro/g202_a_kinds SUBSET | STRICT_NOTEQUAL differ:fullname(6) -> STRICT_NOTEQUAL differ:fullname(4) | off 6 rec on 4 rec | new=0 gone=2 first-record-same=False
+    off first: #24 fullname golden[6 ref_typespec   <in>quarry202::pkgSpecB202  0 0 0 0  0] ours[6 ref_typespec   <in>quarry202::pkgSpecB202  0 0 0 0  0]
+    on  first: #229 fullname golden[8 ref_typespec   <in>quarry202::pkgSt202.shaft202  0 0 0 0  0] ours[8 ref_typespec   <in>quarry202::pkgSt202.shaft202  0 0 0 0  0]
+r10uvm202repro/g202_e_head CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec | new=0 gone=2 first-record-same=False
+    off first: #17 fullname golden[9 ref_typespec   <in>uvmish202e::memCbIter202e  0 0 0 0  0] ours[9 ref_typespec   <in>uvmish202e::memCbIter202e  0 0 0 0  0]
+r10uvm206repro/g206_b_dedup CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec on 0 rec | new=0 gone=3 first-record-same=False
+    off first: #6 fullname golden[3 ref_typespec   <in>pb206::n206_second  0 0 0 0  0] ours[3 ref_typespec   <in>pb206::n206_second  0 0 0 0  0]
+r10uvm49repro/a3 CONVERSION | STRICT_NOTEQUAL differ:fullname(6) -> EQUAL equal | off 6 rec on 0 rec | new=0 gone=6 first-record-same=False
+    off first: #5 fullname golden[3 ref_typespec   <in>p49c::mmm_3_t  0 0 0 0  0] ours[3 ref_typespec   <in>p49c::mmm_3_t  0 0 0 0  0]
+r10uvm49repro/a4 CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec on 0 rec | new=0 gone=3 first-record-same=False
+    off first: #5 fullname golden[3 ref_typespec   <in>p49d::diff_b_t  0 0 0 0  0] ours[3 ref_typespec   <in>p49d::diff_b_t  0 0 0 0  0]
+r10uvm49repro/a5 CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec on 0 rec | new=0 gone=3 first-record-same=False
+    off first: #5 fullname golden[3 ref_typespec   <in>p49e::zzz_first_t  0 0 0 0  0] ours[3 ref_typespec   <in>p49e::zzz_first_t  0 0 0 0  0]
+r10uvm49repro/a6 CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec on 0 rec | new=0 gone=3 first-record-same=False
+    off first: #5 fullname golden[3 ref_typespec   <in>p49f::zzz_first_t  0 0 0 0  0] ours[3 ref_typespec   <in>p49f::zzz_first_t  0 0 0 0  0]
+r10uvm50repro/a1 CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec on 0 rec | new=0 gone=3 first-record-same=False
+    off first: #5 fullname golden[3 ref_typespec   <in>p49a::zzz_first_t  0 0 0 0  0] ours[3 ref_typespec   <in>p49a::zzz_first_t  0 0 0 0  0]
+r10uvm50repro/a7 CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec | new=0 gone=4 first-record-same=False
+    off first: #5 fullname golden[3 ref_typespec   <in>p50u::zzz_a_t  0 0 0 0  0] ours[3 ref_typespec   <in>p50u::zzz_a_t  0 0 0 0  0]
+r10v136repro/v136_g_param CONVERSION | STRICT_NOTEQUAL differ:fullname(9) -> EQUAL equal | off 9 rec on 0 rec | new=0 gone=9 first-record-same=False
+    off first: #71 fullname golden[3 ref_typespec   <in>Pk_Param::specStruct_t  0 0 0 0  0] ours[3 ref_typespec   <in>Pk_Param::specStruct_t  0 0 0 0  0]
+r10v202repro/v202_6_twotd CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec | new=0 gone=2 first-record-same=False
+    off first: #9 fullname golden[6 ref_typespec   <in>quarryV6202::tdBV6202  0 0 0 0  0] ours[6 ref_typespec   <in>quarryV6202::tdBV6202  0 0 0 0  0]
+r10v206repro/v206_d_selfname CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec on 0 rec | new=0 gone=3 first-record-same=False
+    off first: #5 fullname golden[3 ref_typespec   <in>pe206::ee206_t  0 0 0 0  0] ours[3 ref_typespec   <in>pe206::ee206_t  0 0 0 0  0]
+r11u111repro/grid/f5/e08_explicit_import CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec on 0 rec | new=0 gone=3 first-record-same=False
+    off first: #37 fullname golden[3 ref_typespec   <in>p0::e_t  0 0 0 0  0] ours[3 ref_typespec   <in>p0::e_t  0 0 0 0  0]
+   tally probe: CONVERSION=12 SUBSET=1
+== surelog: 9 rows differ
+surelog/default/BuildUVMPkg SUBSET | STRICT_NOTEQUAL differ:col(51) -> STRICT_NOTEQUAL differ:line(31) | off 51 rec div@74761 on 31 rec div@74761 | new=0 gone=20 first-record-same=False
+    off first: #26067 col golden[11 ref_obj sequence_ptr   uvm_pkg.sv 54011 47 54011 68  0] ours[11 ref_obj sequence_ptr   uvm_pkg.sv 54011 34 54011 46  0]
+    on  first: #26855 line golden[5 class_typespec this_type   uvm_pkg.sv 13776 11 13776 42] ours[5 class_typespec this_type   uvm_pkg.sv 56391 12 56391 32]
+surelog/testflags/BuildUVMPkg SUBSET | STRICT_NOTEQUAL differ:col(51) -> STRICT_NOTEQUAL differ:line(31) | off 51 rec div@74761 on 31 rec div@74761 | new=0 gone=20 first-record-same=False
+    off first: #26067 col golden[11 ref_obj sequence_ptr   uvm_pkg.sv 54011 47 54011 68  0] ours[11 ref_obj sequence_ptr   uvm_pkg.sv 54011 34 54011 46  0]
+    on  first: #26855 line golden[5 class_typespec this_type   uvm_pkg.sv 13776 11 13776 42] ours[5 class_typespec this_type   uvm_pkg.sv 56391 12 56391 32]
+surelog/default/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:file(75) -> STRICT_NOTEQUAL differ:endline(59) | off 75 rec div@24917 on 59 rec div@24917 | new=0 gone=16 first-record-same=False
+    off first: #899 file golden[2 enum_typespec uvm_pkg::uvm_severity   uvm_globals.svh 271 61 271 73] ours[2 enum_typespec uvm_pkg::uvm_severity   uvm_object_globals.svh 242 1 248 16]
+    on  first: #11306 endline golden[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 168 29  0] ours[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 169 9  0]
+surelog/testflags/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:file(75) -> STRICT_NOTEQUAL differ:endline(59) | off 75 rec div@24917 on 59 rec div@24917 | new=0 gone=16 first-record-same=False
+    off first: #899 file golden[2 enum_typespec uvm_pkg::uvm_severity   uvm_globals.svh 271 61 271 73] ours[2 enum_typespec uvm_pkg::uvm_severity   uvm_object_globals.svh 242 1 248 16]
+    on  first: #11306 endline golden[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 168 29  0] ours[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 169 9  0]
+surelog/default/Scoreboard SUBSET | STRICT_NOTEQUAL differ:fullname(188) -> STRICT_NOTEQUAL differ:fullname(137) | off 188 rec div@78641 on 137 rec div@78641 | new=0 gone=51 first-record-same=True
+    off first: #466 fullname golden[6 ref_typespec   UVM_MACRO_NUMFLAGS  0 0 0 0  0] ours[6 ref_typespec   uvm_pkg::UVM_MACRO_NUMFLAGS  0 0 0 0  0]
+surelog/default/SeqDriver SUBSET | STRICT_NOTEQUAL differ:fullname(61) -> STRICT_NOTEQUAL differ:endline(59) | off 61 rec div@24900 on 59 rec div@24900 | new=0 gone=2 first-record-same=False
+    off first: #10090 fullname golden[6 ref_typespec   <in>uvm_pkg::uvm_event_pool  0 0 0 0  0] ours[6 ref_typespec   <in>uvm_pkg::uvm_event_pool  0 0 0 0  0]
+    on  first: #11289 endline golden[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 168 29  0] ours[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 169 9  0]
+surelog/testflags/SeqDriver SUBSET | STRICT_NOTEQUAL differ:fullname(61) -> STRICT_NOTEQUAL differ:endline(59) | off 61 rec div@24912 on 59 rec div@24912 | new=0 gone=2 first-record-same=False
+    off first: #10102 fullname golden[6 ref_typespec   <in>uvm_pkg::uvm_event_pool  0 0 0 0  0] ours[6 ref_typespec   <in>uvm_pkg::uvm_event_pool  0 0 0 0  0]
+    on  first: #11301 endline golden[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 168 29  0] ours[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 169 9  0]
+surelog/default/SimpleUVM SUBSET | STRICT_NOTEQUAL differ:fullname(236) -> STRICT_NOTEQUAL differ:fullname(185) | off 236 rec div@78244 on 185 rec div@78244 | new=0 gone=51 first-record-same=True
+    off first: #458 fullname golden[6 ref_typespec   UVM_MACRO_NUMFLAGS  0 0 0 0  0] ours[6 ref_typespec   uvm_pkg::UVM_MACRO_NUMFLAGS  0 0 0 0  0]
+surelog/testflags/SimpleUVM SUBSET | STRICT_NOTEQUAL differ:fullname(236) -> STRICT_NOTEQUAL differ:fullname(185) | off 236 rec div@78256 on 185 rec div@78256 | new=0 gone=51 first-record-same=True
+    off first: #470 fullname golden[6 ref_typespec   UVM_MACRO_NUMFLAGS  0 0 0 0  0] ours[6 ref_typespec   uvm_pkg::UVM_MACRO_NUMFLAGS  0 0 0 0  0]
+   tally surelog: SUBSET=9
+== uhdm2rtlil: 2 rows differ
+uhdm2rtlil/default/ibex_tracer CONVERSION | STRICT_NOTEQUAL differ:fullname(13) -> CMP_EQUAL equal | off 13 rec on 0 rec | new=0 gone=13 first-record-same=False
+    off first: #27582 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   work@ibex_tracer  0 0 0 0  0]
+uhdm2rtlil/testflags/ibex_tracer CONVERSION | STRICT_NOTEQUAL differ:fullname(13) -> CMP_EQUAL equal | off 13 rec on 0 rec | new=0 gone=13 first-record-same=False
+    off first: #27492 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   work@ibex_tracer  0 0 0 0  0]
+   tally uhdm2rtlil: CONVERSION=2

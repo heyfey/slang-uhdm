@@ -1,0 +1,17 @@
+FIRED X/x01 diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2 tfArgOutsideClassOrder216:1
+  X/x01 on cmp=255 cmplines=79 strict=NOT_EQUAL_stage1 rc=0 md5=c6f99778
+  X/x01 tr cmp=255 cmplines=79 strict=NOT_EQUAL_stage1 rc=0 md5=c6f99778
+  X/x01 off_tfArgOutsideClassOrder216 cmp=255 cmplines=79 strict=NOT_EQUAL_stage1 rc=0 md5=d388f925
+  X/x01 off_pkgTdAliasLastWriter215 cmp=255 cmplines=79 strict=NOT_EQUAL_stage1 rc=0 md5=cfee302f
+  X/x01 offL215 cmp=255 cmplines=79 strict=NOT_EQUAL_stage1 rc=0 md5=cfee302f
+  X/x01 offL216 cmp=255 cmplines=79 strict=NOT_EQUAL_stage1 rc=0 md5=d388f925
+  X/x01 off2_tfArgOutsideClassOrder216_pkgTdAliasLastWriter215 cmp=255 cmplines=79 strict=NOT_EQUAL_stage1 rc=0 md5=af2b0a16
+  X/x01 alloff cmp=255 cmplines=79 strict=NOT_EQUAL_stage1 rc=0 md5=af2b0a16
+  X/x01 wide cmp=255 cmplines=79 strict=NOT_EQUAL_stage1 rc=0 md5=af2b0a16
+RESULT X/x01 tfArgOutsideClassOrder216 STAGE1-CLOSER off:stage1 on:stage1 dump off=259 on=219 newbad=7
+RESULT X/x01 pkgTdAliasLastWriter215 STAGE1-SAME off:stage1 on:stage1 dump off=219 on=219 newbad=5
+RESULT X/x01 LANDING215 STAGE1-SAME off:stage1 on:stage1 dump off=219 on=219 newbad=5
+RESULT X/x01 LANDING216 STAGE1-CLOSER off:stage1 on:stage1 dump off=259 on=219 newbad=7
+RESULT X/x01 PAIR:tfArgOutsideClassOrder216+pkgTdAliasLastWriter215 STAGE1-CLOSER off:stage1 on:stage1 dump off=259 on=219 newbad=12
+RESULT X/x01 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=259 on=219 newbad=12
+RESULT X/x01 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=259 on=219 newbad=12

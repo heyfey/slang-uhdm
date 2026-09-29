@@ -1,0 +1,12 @@
+== probe: 0 rows differ
+   tally probe: 
+== surelog: 2 rows differ
+surelog/default/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:file(73) -> STRICT_NOTEQUAL differ:endline(59) | off 73 rec div@24917 on 59 rec div@24917 | new=0 gone=14 first-record-same=False
+    off first: #899 file golden[2 enum_typespec uvm_pkg::uvm_severity   uvm_globals.svh 271 61 271 73] ours[2 enum_typespec uvm_pkg::uvm_severity   uvm_object_globals.svh 242 1 248 16]
+    on  first: #11306 endline golden[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 168 29  0] ours[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 169 9  0]
+surelog/testflags/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:file(73) -> STRICT_NOTEQUAL differ:endline(59) | off 73 rec div@24917 on 59 rec div@24917 | new=0 gone=14 first-record-same=False
+    off first: #899 file golden[2 enum_typespec uvm_pkg::uvm_severity   uvm_globals.svh 271 61 271 73] ours[2 enum_typespec uvm_pkg::uvm_severity   uvm_object_globals.svh 242 1 248 16]
+    on  first: #11306 endline golden[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 168 29  0] ours[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 169 9  0]
+   tally surelog: SUBSET=2
+== uhdm2rtlil: 0 rows differ
+   tally uhdm2rtlil: 

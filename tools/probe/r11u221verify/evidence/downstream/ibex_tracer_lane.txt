@@ -1,0 +1,9 @@
+/tmp/r11u221_swH/downstream/ibex_tracer ibex_tracer_nohier.il BYTES_IDENTICAL harness:same
+/tmp/r11u221_swH/downstream/ibex_tracer ibex_tracer.il BYTES_IDENTICAL harness:same
+/tmp/r11u221_swH/downstream/ibex_tracer ibex_tracer_synth.v BYTES_IDENTICAL harness:same
+/tmp/r11u221_swA/downstream/ibex_tracer ibex_tracer_nohier.il BYTES_IDENTICAL harness:same
+/tmp/r11u221_swA/downstream/ibex_tracer ibex_tracer.il BYTES_IDENTICAL harness:same
+/tmp/r11u221_swA/downstream/ibex_tracer ibex_tracer_synth.v BYTES_IDENTICAL harness:same
+slang lane H vs A ibex_tracer_nohier.il BYTES_IDENTICAL
+slang lane H vs A ibex_tracer.il BYTES_IDENTICAL
+slang lane H vs A ibex_tracer_synth.v BYTES_IDENTICAL

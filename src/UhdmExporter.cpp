@@ -10,6 +10,7 @@
 #include "EmitHelpers.h"
 #include "slang/syntax/SyntaxTree.h"
 #include "R217.h"
+#include "R221.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -15064,11 +15065,35 @@ UHDM::design* UhdmExporter::exportDesign() {
                     for (auto* e195 : *vv195)
                         if (e195)
                             nlist195[e195]++;
-        for (auto& ce195 : pkgCloneBodyLocals9) {
-            auto* tf195 = (UHDM::task_func*)ce195.first;
+        // § cloneTwinMintIdOrder221v (r11u221) — THE TWINS ARE MINTED IN
+        // UhdmId ORDER.  `pkgCloneBodyLocals9` is a std::map keyed by the
+        // clone subroutine's ADDRESS, so walking it mints the unbound twins
+        // (`s.MakeRef_var()`) in heap-layout order: their UhdmIds, hence the
+        // serialized storage order, drew a second database on SeqDriver
+        // (v11u215 section 5: 15 ref_vars minted last in another order, the
+        // uhdm-dump identical with object ids, a minority hash in 20-55 per
+        // cent of draws).  Walking the subroutines by UhdmId mints the same
+        // objects with the same fields in one order on every run.  Switch
+        // R11V221_TWINORDER_OFF (tools/probe/r11u221verify, determinism).
+        std::vector<UHDM::task_func*> tfs221;
+        tfs221.reserve(pkgCloneBodyLocals9.size());
+        for (auto& ce195 : pkgCloneBodyLocals9)
+            tfs221.push_back((UHDM::task_func*)ce195.first);
+        bool reord221 = false;
+        size_t twins221 = 0, twsubs221 = 0;
+        if (r11v221Law("R11V221_TWINORDER_OFF")) {
+            const std::vector<UHDM::task_func*> addr221 = tfs221;
+            std::stable_sort(tfs221.begin(), tfs221.end(),
+                             [](const UHDM::task_func* a, const UHDM::task_func* b) {
+                                 return a->UhdmId() < b->UhdmId();
+                             });
+            reord221 = tfs221 != addr221;
+        }
+        for (auto* tf195 : tfs221) {
             auto* tvs195 = tf195->Variables();
             if (!tvs195)
                 continue;
+            const size_t tw0221 = twins221;
             for (size_t i195 = 0; i195 < tvs195->size(); ++i195) {
                 auto* v195 = (*tvs195)[i195];
                 if (!v195 || v195->UhdmType() != UHDM::uhdmref_var)
@@ -15089,11 +15114,24 @@ UHDM::design* UhdmExporter::exportDesign() {
                     // this is transcription, not a compared field.
                     tw195->VpiParent(tf195);
                     (*tvs195)[i195] = tw195;
+                    ++twins221;
                 } else {
                     rv195->Actual_group(nullptr);
                 }
             }
+            if (twins221 > tw0221)
+                ++twsubs221;
         }
+        // The firing census of the refinement: only a database whose twins
+        // come from two or more subroutines (with_twins >= 2) can be minted in
+        // another order by the address walk; reordered=1 says this run's
+        // address order differed from the id order.
+        if (twins221 && r11v221Law("R11V221_TWINORDER_OFF"))
+            tr221("cloneTwinMintIdOrder221v",
+                  "subroutines=" + std::to_string(tfs221.size()) +
+                      " with_twins=" + std::to_string(twsubs221) +
+                      " twins=" + std::to_string(twins221) +
+                      " reordered=" + std::to_string(reord221 ? 1 : 0));
     }
     pkgCloneBodyLocals9.clear();
     // § hierCallArgTakesBase39 — a CLASS-METHOD call written `recv.m(args)` in

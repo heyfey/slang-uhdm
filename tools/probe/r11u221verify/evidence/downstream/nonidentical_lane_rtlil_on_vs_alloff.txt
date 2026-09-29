@@ -1,0 +1,29 @@
+tp__r11u215repro__cases__R__r07_nohier.il ON-vs-ALLOFF:SAME  tp__r11u215repro__cases__R__r07.il ON-vs-ALLOFF:SAME  tp__r11u215repro__cases__R__r07_synth.v ON-vs-ALLOFF:SAME  
+tp__r11u216repro__cases__NQ__n11_nohier.il ON-vs-ALLOFF:SAME  tp__r11u216repro__cases__NQ__n11.il ON-vs-ALLOFF:SAME  tp__r11u216repro__cases__NQ__n11_synth.v ON-vs-ALLOFF:SAME  
+tp__v11u216repro__cases__F__f14_nohier.il ON-vs-ALLOFF:SAME  tp__v11u216repro__cases__F__f14.il ON-vs-ALLOFF:SAME  tp__v11u216repro__cases__F__f14_synth.v ON-vs-ALLOFF:SAME  
+tp__v11u215repro__cases__IP__p04_default_key_nohier.il ON-vs-ALLOFF:SAME  tp__v11u215repro__cases__IP__p04_default_key.il ON-vs-ALLOFF:SAME  tp__v11u215repro__cases__IP__p04_default_key_synth.v ON-vs-ALLOFF:SAME  
+tp__v11u215repro__cases__OR__r08_iface_body_nohier.il ON-vs-ALLOFF:SAME  tp__v11u215repro__cases__OR__r08_iface_body.il ON-vs-ALLOFF:SAME  tp__v11u215repro__cases__OR__r08_iface_body_synth.v ON-vs-ALLOFF:SAME  
+tp__v11u215repro__cases__TA__t16_alias_of_alias_nohier.il ON-vs-ALLOFF:SAME  tp__v11u215repro__cases__TA__t16_alias_of_alias.il ON-vs-ALLOFF:SAME  tp__v11u215repro__cases__TA__t16_alias_of_alias_synth.v ON-vs-ALLOFF:SAME  
+I__i06_nohier.il ON=ALLOFF
+I__i06.il ON=ALLOFF
+I__i06_synth.v ON=ALLOFF
+NP__p08_nohier.il ON=ALLOFF
+NP__p08.il ON=ALLOFF
+NP__p08_synth.v ON=ALLOFF
+I__i02 ON-vs-ALLOFF/ON-vs-FIX (nohier il synth): same/fix-same same/fix-same same/fix-same
+I__i06 ON-vs-ALLOFF/ON-vs-FIX (nohier il synth): same/fix-same same/fix-same same/fix-same
+Q__q02 ON-vs-ALLOFF/ON-vs-FIX (nohier il synth): same/fix-same same/fix-same same/fix-same
+Q__q04 ON-vs-ALLOFF/ON-vs-FIX (nohier il synth): DIFF/fix-same DIFF/fix-same DIFF/fix-same
+Q__q11 ON-vs-ALLOFF/ON-vs-FIX (nohier il synth): same/fix-same same/fix-same same/fix-same
+X__x02 ON-vs-ALLOFF/ON-vs-FIX (nohier il synth): DIFF/fix-same DIFF/fix-same DIFF/fix-same
+NP__p08 ON-vs-ALLOFF/ON-vs-FIX (nohier il synth): same/fix-same same/fix-same same/fix-same
+I__i01 ON-vs-ALLOFF/ON-vs-FIX (nohier il synth): same/fix-same same/fix-same same/fix-same
+I__i05 ON-vs-ALLOFF/ON-vs-FIX (nohier il synth): same/fix-same same/fix-same same/fix-same
+Q__q05 ON-vs-ALLOFF/ON-vs-FIX (nohier il synth): DIFF/fix-same DIFF/fix-same DIFF/fix-same
+Q__q13 ON-vs-ALLOFF/ON-vs-FIX (nohier il synth): same/fix-same same/fix-same same/fix-same
+Q__q04 ALLOFF nohier-diff-lines-vs-surelog=16 synth-diff-lines=16
+Q__q04 ON nohier-diff-lines-vs-surelog=12 synth-diff-lines=12
+X__x02 ALLOFF nohier-diff-lines-vs-surelog=8 synth-diff-lines=8
+X__x02 ON nohier-diff-lines-vs-surelog=4 synth-diff-lines=4
+Q__q05 ALLOFF nohier-diff-lines-vs-surelog=31 synth-diff-lines=2
+Q__q05 ON nohier-diff-lines-vs-surelog=2 synth-diff-lines=0

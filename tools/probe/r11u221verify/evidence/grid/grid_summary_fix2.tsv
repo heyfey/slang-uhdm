@@ -1,0 +1,130 @@
+A/a01	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2
+A/a02	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2
+A/a03	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2
+A/a04	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+A/a05	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2
+A/a06	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:1
+A/a07	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2
+A/a08	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+A/a09	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+D/d01	STRICT_NOTEQUAL_col/rc0	STRICT_EQUAL_99_objects/rc0	incDecOperandKeepsLvalueForm215:2
+D/d02	STRICT_NOTEQUAL_col/rc0	STRICT_EQUAL_219_objects/rc0	incDecOperandKeepsLvalueForm215:4
+D/d03	STRICT_NOTEQUAL_col/rc0	STRICT_EQUAL_93_objects/rc0	incDecOperandKeepsLvalueForm215:4
+D/d04	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+I/i01	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	impPatCopyFirstListingUnparented215:1
+I/i02	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2
+I/i03	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:4
+I/i04	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+I/i05	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	impPatCopyFirstListingUnparented215:4
+I/i06	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:4 impPatCopyFirstListingUnparented215:1
+IR/mr1_always_ff	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2 impPatCopyFirstListingUnparented215:1
+IR/mr2_module_function	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2 impPatCopyFirstListingUnparented215:1
+IR/mr3_qualified_assign	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2 impPatCopyFirstListingUnparented215:1
+IR/mr4_assign	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2 impPatCopyFirstListingUnparented215:1
+IR/mr5_localparam	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2 impPatCopyFirstListingUnparented215:1
+IR/mr6_initial	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2 impPatCopyFirstListingUnparented215:1
+NP/p01	STRICT_NOTEQUAL_depth/rc0	STRICT_NOTEQUAL_depth/rc0	ndaPortQueryKeepsStamp221v:4 ndaSysCallNetTs212:4
+NP/p02	STRICT_NOTEQUAL_depth/rc0	STRICT_NOTEQUAL_depth/rc0	ndaPortQueryKeepsStamp221v:2 ndaSysCallNetTs212:2
+NP/p03	STRICT_NOTEQUAL_depth/rc0	STRICT_NOTEQUAL_depth/rc0	ndaPortQueryKeepsStamp221v:2 ndaSysCallNetTs212:2
+NP/p04	STRICT_NOTEQUAL_depth/rc0	STRICT_NOTEQUAL_depth/rc0	ndaPortQueryKeepsStamp221v:1 ndaSysCallNetTs212:1
+NP/p05	STRICT_NOTEQUAL_depth/rc0	STRICT_NOTEQUAL_depth/rc0	ndaPortQueryKeepsStamp221v:1 ndaSysCallNetTs212:1
+NP/p06	STRICT_NOTEQUAL_depth/rc0	STRICT_NOTEQUAL_depth/rc0	ndaPortQueryKeepsStamp221v:1 ndaSysCallNetTs212:1
+NP/p07	STRICT_NOTEQUAL_depth/rc0	STRICT_NOTEQUAL_depth/rc0	ndaPortQueryKeepsStamp221v:4 ndaSysCallNetTs212:4
+NP/p08	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	ndaQueryFoldsNoStamp217v:1 ndaRangeQueryFold216:1 ndaSizeQueryFold216:1
+Q/q01	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+Q/q02	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+Q/q03	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:2
+Q/q04	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	ndaQueryFoldsNoStamp217v:3 ndaSizeQueryFold216:1
+Q/q05	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:2 ndaRangeQueryFold216:2
+Q/q06	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:3
+Q/q07	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:2 ndaRangeQueryFold216:2
+Q/q08	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	ndaRangeQueryFold216:2
+Q/q09	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:1 ndaRangeQueryFold216:1
+Q/q10	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	ndaQueryFoldsNoStamp217v:1 ndaRangeQueryFold216:2
+Q/q11	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	ndaQueryFoldsNoStamp217v:3
+Q/q12	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:1 ndaQueryFoldsNoStamp217v:2
+Q/q13	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:1
+Q/q14	NOT_EQUAL_stage1/rc0	STRICT_EQUAL_189_objects/rc0	ndaSizeQueryFold216:3
+Q/q15	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	ndaQueryFoldsNoStamp217v:1 ndaSizeQueryFold216:1
+Q/q16	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:3
+Q/q17	NOT_EQUAL_stage1/rc0	STRICT_EQUAL_373_objects/rc0	ndaRangeQueryFold216:5
+Q/q18	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:2 ndaRangeQueryFold216:2
+R/r01	STRICT_NOTEQUAL_fullname/rc0	STRICT_NOTEQUAL_endcol/rc0	opIdxRecvElemFollowsPath215:5
+R/r02	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	opIdxRecvElemFollowsPath215:5
+R/r03	STRICT_NOTEQUAL_fullname/rc0	STRICT_NOTEQUAL_fullname/rc0	opIdxRecvElemFollowsPath215:4
+R/r04	STRICT_NOTEQUAL_fullname/rc0	STRICT_EQUAL_121_objects/rc0	opIdxRecvElemFollowsPath215:3
+W/w01	STRICT_NOTEQUAL_line/rc0	STRICT_NOTEQUAL_fullname/rc0	tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+W/w02	STRICT_NOTEQUAL_line/rc0	STRICT_NOTEQUAL_fullname/rc0	tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+W/w03	STRICT_NOTEQUAL_line/rc0	STRICT_EQUAL_253_objects/rc0	tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+W/w04	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+W/w05	STRICT_NOTEQUAL_line/rc0	STRICT_EQUAL_268_objects/rc0	tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+W/w06	STRICT_NOTEQUAL_line/rc0	STRICT_EQUAL_225_objects/rc0	tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+W/w07	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+X/x01	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2 tfArgOutsideClassOrder216:1
+X/x02	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	impPatCopyFirstListingUnparented215:1 ndaQueryFoldsNoStamp217v:2 ndaRangeQueryFold216:1
+X/x03	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:1 opIdxRecvElemFollowsPath215:2
+A/a01_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2
+A/a02_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2
+A/a03_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2
+A/a04_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+A/a05_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2
+A/a06_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:1
+A/a07_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2
+A/a08_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+A/a09_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+D/d01_el	STRICT_NOTEQUAL_col/rc0	STRICT_EQUAL_114_objects/rc0	incDecOperandKeepsLvalueForm215:2
+D/d02_el	STRICT_NOTEQUAL_col/rc0	STRICT_EQUAL_249_objects/rc0	incDecOperandKeepsLvalueForm215:4
+D/d03_el	STRICT_NOTEQUAL_col/rc0	STRICT_EQUAL_108_objects/rc0	incDecOperandKeepsLvalueForm215:4
+D/d04_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+I/i01_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	impPatCopyFirstListingUnparented215:1
+I/i02_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2
+I/i03_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:4
+I/i04_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+I/i05_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	impPatCopyFirstListingUnparented215:4
+I/i06_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:4 impPatCopyFirstListingUnparented215:1
+IR/mr1_always_ff_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2 impPatCopyFirstListingUnparented215:1
+IR/mr2_module_function_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2 impPatCopyFirstListingUnparented215:1
+IR/mr3_qualified_assign_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2 impPatCopyFirstListingUnparented215:1
+IR/mr4_assign_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2 impPatCopyFirstListingUnparented215:1
+IR/mr5_localparam_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2 impPatCopyFirstListingUnparented215:1
+IR/mr6_initial_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagImpPatMemberRead215:2 impPatCopyFirstListingUnparented215:1
+NP/p01_el	STRICT_EQUAL_156_objects/rc0	STRICT_EQUAL_156_objects/rc0	ndaPortQueryKeepsStamp221v:4 ndaSysCallNetTs212:4
+NP/p02_el	STRICT_EQUAL_104_objects/rc0	STRICT_EQUAL_104_objects/rc0	ndaPortQueryKeepsStamp221v:2 ndaSysCallNetTs212:2
+NP/p03_el	STRICT_EQUAL_118_objects/rc0	STRICT_EQUAL_118_objects/rc0	ndaPortQueryKeepsStamp221v:2 ndaSysCallNetTs212:2
+NP/p04_el	STRICT_EQUAL_75_objects/rc0	STRICT_EQUAL_75_objects/rc0	ndaPortQueryKeepsStamp221v:1 ndaSysCallNetTs212:1
+NP/p05_el	STRICT_EQUAL_84_objects/rc0	STRICT_EQUAL_84_objects/rc0	ndaPortQueryKeepsStamp221v:1 ndaSysCallNetTs212:1
+NP/p06_el	STRICT_EQUAL_80_objects/rc0	STRICT_EQUAL_80_objects/rc0	ndaPortQueryKeepsStamp221v:1 ndaSysCallNetTs212:1
+NP/p07_el	STRICT_EQUAL_266_objects/rc0	STRICT_EQUAL_266_objects/rc0	ndaPortQueryKeepsStamp221v:4 ndaSysCallNetTs212:4
+NP/p08_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	ndaQueryFoldsNoStamp217v:1 ndaRangeQueryFold216:1 ndaSizeQueryFold216:1
+Q/q01_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+Q/q02_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+Q/q03_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:2
+Q/q04_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	ndaQueryFoldsNoStamp217v:3 ndaSizeQueryFold216:1
+Q/q05_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:2 ndaRangeQueryFold216:2
+Q/q06_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:3
+Q/q07_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:2 ndaRangeQueryFold216:2
+Q/q08_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	ndaRangeQueryFold216:2
+Q/q09_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:1 ndaRangeQueryFold216:1
+Q/q10_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	ndaQueryFoldsNoStamp217v:1 ndaRangeQueryFold216:2
+Q/q11_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	ndaQueryFoldsNoStamp217v:3
+Q/q12_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:1 ndaQueryFoldsNoStamp217v:2
+Q/q13_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:1
+Q/q14_el	NOT_EQUAL_stage1/rc0	STRICT_EQUAL_150_objects/rc0	ndaSizeQueryFold216:3
+Q/q15_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	ndaQueryFoldsNoStamp217v:1 ndaSizeQueryFold216:1
+Q/q16_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:3
+Q/q17_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	ndaRangeQueryFold216:5
+Q/q18_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:2 ndaRangeQueryFold216:2
+R/r01_el	STRICT_NOTEQUAL_fullname/rc0	STRICT_NOTEQUAL_endcol/rc0	opIdxRecvElemFollowsPath215:5
+R/r02_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	opIdxRecvElemFollowsPath215:5
+R/r03_el	STRICT_NOTEQUAL_fullname/rc0	STRICT_NOTEQUAL_fullname/rc0	opIdxRecvElemFollowsPath215:4
+R/r04_el	STRICT_NOTEQUAL_fullname/rc0	STRICT_NOTEQUAL_fullname/rc0	opIdxRecvElemFollowsPath215:3 opIdxRecvPlainElab215:5
+W/w01_el	STRICT_NOTEQUAL_line/rc0	STRICT_NOTEQUAL_fullname/rc0	tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+W/w02_el	STRICT_NOTEQUAL_line/rc0	STRICT_NOTEQUAL_fullname/rc0	tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+W/w03_el	STRICT_NOTEQUAL_line/rc0	STRICT_EQUAL_313_objects/rc0	tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+W/w04_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	-
+W/w05_el	STRICT_NOTEQUAL_line/rc0	STRICT_EQUAL_292_objects/rc0	tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+W/w06_el	STRICT_NOTEQUAL_line/rc0	STRICT_EQUAL_238_objects/rc0	tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+W/w07_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	tfArgImportCloneFollows216:1 tfArgOutsideClassOrder216:1
+X/x01_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	diagTdAliasWriter215:1 pkgTdAliasLastWriter215:2 tfArgOutsideClassOrder216:1
+X/x02_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	impPatCopyFirstListingUnparented215:1 ndaQueryFoldsNoStamp217v:2 ndaRangeQueryFold216:1
+X/x03_el	NOT_EQUAL_stage1/rc0	NOT_EQUAL_stage1/rc0	genScopeRangeQueryFold216:1 opIdxRecvElemFollowsPath215:2

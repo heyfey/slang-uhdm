@@ -1,0 +1,11 @@
+FIRED Q/q13 genScopeRangeQueryFold216:1
+  Q/q13 on cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=595e0e45
+  Q/q13 tr cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=595e0e45
+  Q/q13 off_genScopeRangeQueryFold216 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=3dc3b237
+  Q/q13 offL216 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=3dc3b237
+  Q/q13 alloff cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=3dc3b237
+  Q/q13 wide cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=3dc3b237
+RESULT Q/q13 genScopeRangeQueryFold216 STAGE1-CLOSER off:stage1 on:stage1 dump off=41 on=30 newbad=1
+RESULT Q/q13 LANDING216 STAGE1-CLOSER off:stage1 on:stage1 dump off=41 on=30 newbad=1
+RESULT Q/q13 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=41 on=30 newbad=1
+RESULT Q/q13 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=41 on=30 newbad=1

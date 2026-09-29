@@ -1,0 +1,53 @@
+# ord.cpp (objects in storage order: kind, UhdmId, name, parent UhdmId) of the two SeqDriver testflags draws of law.bin: 7c54e556b8c1 (majority) vs 97dadf469be5 (minority)
+290932,290946c290932,290946
+< 2305	298130	param_t	206377
+< 2305	298131	response	206550
+< 2305	298132	t	206707
+< 2305	298133	req_item	206773
+< 2305	298134	t	206880
+< 2305	298135	req_item	207859
+< 2305	298136	cbs	212092
+< 2305	298137	cbs	212640
+< 2305	298138	cbs	216276
+< 2305	298139	cbs	217048
+< 2305	298140	m_reg_process	218992
+< 2305	298141	cbs	222876
+< 2305	298142	cbs	223376
+< 2305	298143	cbs	226014
+< 2305	298144	cbs	226381
+---
+> 2305	298130	cbs	226014
+> 2305	298131	cbs	226381
+> 2305	298132	param_t	206377
+> 2305	298133	response	206550
+> 2305	298134	t	206707
+> 2305	298135	req_item	206773
+> 2305	298136	t	206880
+> 2305	298137	req_item	207859
+> 2305	298138	cbs	212092
+> 2305	298139	cbs	212640
+> 2305	298140	cbs	216276
+> 2305	298141	cbs	217048
+> 2305	298142	m_reg_process	218992
+> 2305	298143	cbs	222876
+> 2305	298144	cbs	223376
+# law majority 7c54e556b8c1 vs fix.bin/fix2.bin 403a3f56a22f (the twins in UhdmId order of their parent subroutine)
+290961,290962c290961,290962
+< 2305	298159	cbs	279724
+< 2305	298160	cbs	279360
+---
+> 2305	298159	cbs	279360
+> 2305	298160	cbs	279724
+# MiniAmiq fix2 pair bd6497e2de0f / 14665f826073: ord.cpp identical (0 lines), symbol tables (sym.cpp) differ in 842 lines: the interning order of computed full names at symbols 41005-41394 (first lines below)
+41170,41559c41170,41559
+< 41005	uvm_pkg::uvm_report_object::uvm_report_info::verbosity::UVM_MEDIUM
+< 41006	uvm_pkg::uvm_report_object::uvm_report_error::verbosity::UVM_LOW
+< 41007	uvm_pkg::uvm_report_object::uvm_report_warning::verbosity::UVM_MEDIUM
+< 41008	uvm_pkg::uvm_report_object::uvm_report_fatal::verbosity::UVM_NONE
+< 41009	uvm_pkg::uvm_report_object::get_report_verbosity_level::m_rh.get_verbosity_level::severity
+< 41010	uvm_pkg::uvm_report_object::get_report_verbosity_level::m_rh.get_verbosity_level::id
+< 41011	uvm_pkg::uvm_report_object::get_report_action::m_rh.get_action::severity
+< 41012	uvm_pkg::uvm_report_object::get_report_action::m_rh.get_action::id
+< 41013	uvm_pkg::uvm_report_object::get_report_file_handle::m_rh.get_file_handle::severity
+< 41014	uvm_pkg::uvm_report_object::get_report_file_handle::m_rh.get_file_handle::id
+< 41015	uvm_pkg::uvm_resource::get_by_name::rp.get_by_name::scope

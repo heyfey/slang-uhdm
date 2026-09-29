@@ -1,0 +1,11 @@
+FIRED Q/q14 ndaSizeQueryFold216:3
+  Q/q14 on cmp=0 cmplines=0 strict=STRICT_EQUAL_189_objects rc=0 md5=0144b2b6
+  Q/q14 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_189_objects rc=0 md5=0144b2b6
+  Q/q14 off_ndaSizeQueryFold216 cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=8b4cd3d5
+  Q/q14 offL216 cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=8b4cd3d5
+  Q/q14 alloff cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=8b4cd3d5
+  Q/q14 wide cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=8b4cd3d5
+RESULT Q/q14 ndaSizeQueryFold216 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 189 objects dump off=45 on=0 newbad=0
+RESULT Q/q14 LANDING216 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 189 objects dump off=45 on=0 newbad=0
+RESULT Q/q14 ALLOFF STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 189 objects dump off=45 on=0 newbad=0
+RESULT Q/q14 WIDE STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 189 objects dump off=45 on=0 newbad=0

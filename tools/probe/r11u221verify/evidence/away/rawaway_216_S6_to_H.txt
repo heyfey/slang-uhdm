@@ -1,0 +1,4 @@
+# 3 databases differ between /tmp/r11u221_sw6 and /tmp/r11u221_swH
+surelog/default/MiniAmiq lost=0 gained=142 fn_lost=0 fn_gained=0
+surelog/default/Scoreboard lost=0 gained=0 fn_lost=0 fn_gained=0
+surelog/testflags/MiniAmiq lost=0 gained=142 fn_lost=0 fn_gained=0

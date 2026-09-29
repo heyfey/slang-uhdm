@@ -1,0 +1,3 @@
+623d4dae5487b8ea280d7a0dc0eaa4eb  evidence/fix/predicted_movers_fix1.txt
+2026-09-29T03:32:05Z
+fix1 (twin order only) /tmp/r11u221_bin/fix.bin 82d355011956 via G.sh; expected movers = reordered=1 rows, possible = with_twins>=2; frozen before any byte comparison of sweep G

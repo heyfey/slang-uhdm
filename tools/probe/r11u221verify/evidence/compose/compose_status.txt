@@ -1,0 +1,21 @@
+== probe: rows 4087; conversions L vs A = 12: OWN215=12
+  CONV OWN215: r10uvm202repro/g202_e_head, r10uvm206repro/g206_b_dedup, r10uvm49repro/a3, r10uvm49repro/a4, r10uvm49repro/a5, r10uvm49repro/a6, r10uvm50repro/a1, r10uvm50repro/a7, r10v136repro/v136_g_param, r10v202repro/v202_6_twotd, r10v206repro/v206_d_selfname, r11u111repro/grid/f5/e08_explicit_import
+  CHANGE (L vs A, not a conversion): OWN215=1
+    OWN215 r10uvm202repro/g202_a_kinds: A=differ:fullname(6) L=differ:fullname(4) off215=differ:fullname(6)
+  CANCEL (same in L and A, different with one landing off): 0
+== surelog: rows 1588; conversions L vs A = 0: 
+  CHANGE (L vs A, not a conversion): JOINT216+215=2 OWN215=7
+    JOINT216+215 MiniAmiq/d: A=differ:file(75) L=differ:endline(59) off216=differ:file(73) off215=differ:fullname(61)
+    JOINT216+215 MiniAmiq/t: A=differ:file(75) L=differ:endline(59) off216=differ:file(73) off215=differ:fullname(61)
+    OWN215 BuildUVMPkg/d: A=differ:col(51) L=differ:line(31) off215=differ:col(51)
+    OWN215 BuildUVMPkg/t: A=differ:col(51) L=differ:line(31) off215=differ:col(51)
+    OWN215 Scoreboard/d: A=differ:fullname(188) L=differ:fullname(137) off215=differ:fullname(188)
+    OWN215 SeqDriver/d: A=differ:fullname(61) L=differ:endline(59) off215=differ:fullname(61)
+    OWN215 SeqDriver/t: A=differ:fullname(61) L=differ:endline(59) off215=differ:fullname(61)
+    OWN215 SimpleUVM/d: A=differ:fullname(236) L=differ:fullname(185) off215=differ:fullname(236)
+    OWN215 SimpleUVM/t: A=differ:fullname(236) L=differ:fullname(185) off215=differ:fullname(236)
+  CANCEL (same in L and A, different with one landing off): 0
+== uhdm2rtlil: rows 1742; conversions L vs A = 2: OWN215=2
+  CONV OWN215: ibex_tracer/d, ibex_tracer/t
+  CHANGE (L vs A, not a conversion): 
+  CANCEL (same in L and A, different with one landing off): 0

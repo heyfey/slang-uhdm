@@ -1,0 +1,19 @@
+FIRED NP/p05 ndaPortQueryKeepsStamp221v:1 ndaSysCallNetTs212:1
+  NP/p05 on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=011af51f
+  NP/p05 tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=011af51f
+  NP/p05 off_ndaPortQueryKeepsStamp221v cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=909d412b
+  NP/p05 off_ndaQueryFoldsNoStamp217v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=011af51f
+  NP/p05 off_ndaSysCallNetTs212 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=909d412b
+  NP/p05 offL212 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=909d412b
+  NP/p05 offL217 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=011af51f
+  NP/p05 offL221 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=909d412b
+  NP/p05 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=011af51f
+  NP/p05 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=011af51f
+RESULT NP/p05 ndaPortQueryKeepsStamp221v STAGE1-AWAY off:stage1 on:STRICT_NOTEQUAL depth dump off=34 on=35 newbad=4 | +|vpiParent: | +|vpiTypespec: | +|vpiActual:
+RESULT NP/p05 ndaQueryFoldsNoStamp217v UNFIRED 
+RESULT NP/p05 ndaSysCallNetTs212 STAGE1-AWAY off:stage1 on:STRICT_NOTEQUAL depth dump off=34 on=35 newbad=4 | +|vpiParent: | +|vpiTypespec: | +|vpiActual:
+RESULT NP/p05 LANDING212 STAGE1-AWAY off:stage1 on:STRICT_NOTEQUAL depth dump off=34 on=35 newbad=4 | +|vpiParent: | +|vpiTypespec: | +|vpiActual:
+RESULT NP/p05 LANDING217 UNFIRED 
+RESULT NP/p05 LANDING221 STAGE1-AWAY off:stage1 on:STRICT_NOTEQUAL depth dump off=34 on=35 newbad=4 | +|vpiParent: | +|vpiTypespec: | +|vpiActual:
+RESULT NP/p05 ALLOFF UNFIRED 
+RESULT NP/p05 WIDE UNFIRED 

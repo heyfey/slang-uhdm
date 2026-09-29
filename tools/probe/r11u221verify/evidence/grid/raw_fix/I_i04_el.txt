@@ -1,0 +1,11 @@
+FIRED I/i04_el -
+  I/i04_el on cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=543d5286
+  I/i04_el tr cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=543d5286
+  I/i04_el off_impPatCopyFirstListingUnparented215 cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=543d5286
+  I/i04_el offL215 cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=543d5286
+  I/i04_el alloff cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=543d5286
+  I/i04_el wide cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=543d5286
+RESULT I/i04_el impPatCopyFirstListingUnparented215 UNFIRED 
+RESULT I/i04_el LANDING215 UNFIRED 
+RESULT I/i04_el ALLOFF UNFIRED 
+RESULT I/i04_el WIDE UNFIRED 

@@ -28,6 +28,7 @@
 #include "slang/syntax/SyntaxTree.h"
 #include "R204.h"
 #include "R217.h"
+#include "R221.h"
 
 namespace slang_uhdm {
 
@@ -38882,6 +38883,41 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 // tools/probe/r11u217verify/cases/NS n02 n07 n08).  Switch
                 // R11V217_NDAQUERY_OFF.
                 bool qryDecl217 = qry212 && r11v217Law("R11V217_NDAQUERY_OFF");
+                // § ndaPortQueryKeepsStamp221v (r11u221) — A BOUND QUERY OF AN
+                // UNPACKED-ARRAY PORT KEEPS ITS CALL AND ITS STAMP.  Golden
+                // does not fold `$high`, `$low`, `$left` or `$right` of a
+                // port whose type has an unpacked dimension (input, output,
+                // non-ANSI, a child's port): the net-declaration cont_assign
+                // holds the sys_func_call with `ref_typespec (work@dut)`, as
+                // § ndaSysCallNetTs212 writes it (the same query of a local
+                // variable folds, and so does every query § ndaRangeQueryFold216
+                // folds, which never reaches this branch).  § ndaQueryFoldsNoStamp217v
+                // dropped that stamp too: r11u216repro/cases/NQ/n12 went from
+                // STRICT_EQUAL (elaborated view) and judge-equal (parse view)
+                // at 745f66ab to stage 1 once both landed; grid
+                // tools/probe/r11u221verify/cases/NP (20 shapes, both views).
+                // Switch R11V221_NDAPORTQRY_OFF.
+                if (qryDecl217 && sys212 && nm212 != "$size" &&
+                    r11v221Law("R11V221_NDAPORTQRY_OFF")) {
+                    auto args221 = ic212.as<CallExpression>().arguments();
+                    if (!args221.empty() && args221[0]) {
+                        auto& a221 = stripImplicitConv(*args221[0]);
+                        if (a221.kind == ExpressionKind::NamedValue) {
+                            const Symbol* s221 = &a221.as<NamedValueExpression>().symbol;
+                            bool port221 = false;
+                            for (auto* pb221 : body.getPortList())
+                                if (pb221 && pb221->kind == SymbolKind::Port &&
+                                    pb221->as<PortSymbol>().internalSymbol == s221)
+                                    port221 = true;
+                            if (port221 && a221.type->getCanonicalType().isUnpackedArray()) {
+                                qryDecl217 = false;
+                                tr221("ndaPortQueryKeepsStamp221v",
+                                      std::string(it.sym->name) + " " + nm212 + " " +
+                                          std::string(s221->name));
+                            }
+                        }
+                    }
+                }
                 if (qryDecl217)
                     tr217("ndaQueryFoldsNoStamp217v",
                           std::string(it.sym->name) + " " + nm212);

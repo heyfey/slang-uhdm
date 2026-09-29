@@ -1,0 +1,11 @@
+FIRED Q/q11 ndaQueryFoldsNoStamp217v:3
+  Q/q11 on cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=93492483
+  Q/q11 tr cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=93492483
+  Q/q11 off_ndaRangeQueryFold216 cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=93492483
+  Q/q11 offL216 cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=93492483
+  Q/q11 alloff cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=93492483
+  Q/q11 wide cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=93492483
+RESULT Q/q11 ndaRangeQueryFold216 UNFIRED 
+RESULT Q/q11 LANDING216 UNFIRED 
+RESULT Q/q11 ALLOFF UNFIRED 
+RESULT Q/q11 WIDE UNFIRED 
