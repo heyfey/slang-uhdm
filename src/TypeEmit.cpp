@@ -16,6 +16,7 @@
 
 #include "R223.h"
 #include "R225.h"
+#include "R228.h"
 
 namespace slang_uhdm {
 
@@ -6613,6 +6614,313 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                                 ExpressionKind::ElementSelect ||
                                             bk9 == ExpressionKind::RangeSelect)
                                             return nullptr;
+                                    }
+                                    // § memberInitReducedRootFolds228 — ...and
+                                    // only when the struct parameter's root
+                                    // value is written as a CAST or a TYPED
+                                    // pattern (`info_t'(16)`, `info_t'{x:
+                                    // 16}`, `info_t'('{x: 16})`), the test
+                                    // § fillSymbolicRootOnly225v applies to
+                                    // the fill registry.  Surelog reduces a
+                                    // member of an untyped pattern (`'{x:
+                                    // 16}`, `'{16}`, `'{default: 16}`), of a
+                                    // plain integer and of a concatenation,
+                                    // and golden's range holds the folded
+                                    // bound (`INT:15` for `[N-1:0]`), not the
+                                    // `Info.x` path (cases
+                                    // v11u225repro/cases/FO g15, g17, g19,
+                                    // h01, h03, h04, h06 and
+                                    // r11u228repro/cases/MR).  The member
+                                    // parameter is not substituted there, so
+                                    // the bound folds as any other parameter
+                                    // bound does.  Switch
+                                    // R11U228_MEMROOTFOLD_OFF.
+                                    // An implicit conversion (`Info = 16`)
+                                    // carries no syntax of its own: the
+                                    // written operand's is read.
+                                    const syntax::SyntaxNode* sx228 =
+                                        bb9 ? (bb9->syntax
+                                                   ? bb9->syntax
+                                                   : stripImplicitConv(*bb9)
+                                                         .syntax)
+                                            : nullptr;
+                                    // A parenthesized value is read through
+                                    // its parentheses (`(info_t'(16))` keeps
+                                    // the path: cases/MR m07).
+                                    for (int g228 = 0;
+                                         sx228 && g228 < 8 &&
+                                         sx228->kind == syntax::SyntaxKind::
+                                                            ParenthesizedExpression;
+                                         g228++)
+                                        sx228 = sx228->as<syntax::
+                                                              ParenthesizedExpressionSyntax>()
+                                                    .expression;
+                                    // § memberRootOwnInstance228v (v11u228,
+                                    // the adversarial verification of
+                                    // r11u228: case v11u228repro/cases/FM
+                                    // f12) — the bound is bound in
+                                    // currentScope, which for every instance
+                                    // of one definition is the FIRST
+                                    // instance's body, so `Info` above is
+                                    // that instance's parameter: two
+                                    // instances, the first untyped (`'{x:
+                                    // 5}`) and the second a cast
+                                    // (`info_t'(6)`), folded both (the
+                                    // second's golden keeps `Info.x`: 7
+                                    // records away), and in the other order
+                                    // folded neither.  The root is read from
+                                    // the instance that declares the signal:
+                                    // the parameter of the same name
+                                    // declared directly in its own body; a
+                                    // root that cannot be mapped there keeps
+                                    // the base's substitution.  A root in
+                                    // another definition (an override chain
+                                    // into the parent, FO g15 g17, OS o21)
+                                    // is read as before.  Switch
+                                    // R11V228_ROOTINST_OFF.
+                                    const ParameterSymbol* root228v = &bp9;
+                                    bool rootOk228v = true;
+                                    if (r11v228Law("R11V228_ROOTINST_OFF")) {
+                                        auto ibOf = [](const Symbol& sy)
+                                            -> const InstanceBodySymbol* {
+                                            for (auto sc = sy.getParentScope(); sc;
+                                                 sc = sc->asSymbol().getParentScope())
+                                                if (sc->asSymbol().kind ==
+                                                    SymbolKind::InstanceBody)
+                                                    return &sc->asSymbol()
+                                                                .as<InstanceBodySymbol>();
+                                            return nullptr;
+                                        };
+                                        auto* ibD = ibOf(declSymbol);
+                                        auto* ibB = ibOf(bp9);
+                                        if (ibD && ibB && ibD != ibB &&
+                                            &ibD->getDefinition() ==
+                                                &ibB->getDefinition()) {
+                                            rootOk228v = false;
+                                            if (bp9.getParentScope() == ibB)
+                                                if (auto* s228 = ibD->find(bp9.name);
+                                                    s228 &&
+                                                    s228->kind == SymbolKind::Parameter) {
+                                                    root228v =
+                                                        &s228->as<ParameterSymbol>();
+                                                    rootOk228v = true;
+                                                    trv228("memberRootOwnInstance228v",
+                                                           std::string(
+                                                               declSymbol.getHierarchicalPath()));
+                                                }
+                                        }
+                                    }
+                                    // § memberRootFoldShapes228v (v11u228,
+                                    // cases v11u228repro/cases/FM f03 f06
+                                    // f08 and the decode shapes of
+                                    // evidence/decode) — golden folds the
+                                    // member only for the value shapes
+                                    // Surelog reduces: an untyped assignment
+                                    // pattern (named, positional, default)
+                                    // that is not replicated, an integer
+                                    // literal, a (single) concatenation, an
+                                    // arithmetic of literals and names
+                                    // (`16 + 0`, `W + 1`), a conditional
+                                    // whose two arms both fold, and those in
+                                    // parentheses, a signing or size cast
+                                    // (`unsigned'(16)`, `16'(5)`), reached
+                                    // through struct parameters only, a
+                                    // conditional with a constant condition
+                                    // read on its selected arm.  It keeps the path
+                                    // for a conditional of casts
+                                    // (`SEL ? info_t'(5) : info_t'(9)`, f03:
+                                    // the law took it to stage 1 from
+                                    // judge-equal), a replicated pattern
+                                    // (`'{2{7}}`, f06), a bare int
+                                    // parameter (`Info = W`, f08), a
+                                    // replicated concatenation, a unary
+                                    // operator (`+16`) and a cast; any other
+                                    // shape keeps the base's substitution.
+                                    // Switch R11V228_ROOTSHAPE_OFF.
+                                    const syntax::SyntaxNode* sxv228 = nullptr;
+                                    bool shape228v =
+                                        r11v228Law("R11V228_ROOTSHAPE_OFF");
+                                    if (shape228v && rootOk228v) {
+                                        const Expression* e228 =
+                                            root228v->getInitializer();
+                                        for (int g228 = 0; e228 && g228 < 8; g228++) {
+                                            auto& s228 = stripImplicitConv(*e228);
+                                            const Symbol* r228 = nullptr;
+                                            if (s228.kind == ExpressionKind::NamedValue)
+                                                r228 = &s228.as<NamedValueExpression>().symbol;
+                                            else if (s228.kind ==
+                                                     ExpressionKind::HierarchicalValue)
+                                                r228 = &s228.as<HierarchicalValueExpression>()
+                                                            .symbol;
+                                            if (!r228 || r228->kind != SymbolKind::Parameter)
+                                                break;
+                                            if (r228->as<ParameterSymbol>()
+                                                    .getType()
+                                                    .getCanonicalType()
+                                                    .kind != SymbolKind::PackedStructType) {
+                                                e228 = nullptr;  // a bare non-struct parameter
+                                                break;
+                                            }
+                                            e228 = r228->as<ParameterSymbol>().getInitializer();
+                                        }
+                                        // a conditional with a constant
+                                        // condition is read on the arm it
+                                        // selects (`SEL ? '{x: 5} :
+                                        // info_t'(9)` folds, FR c1; the
+                                        // reverse keeps, c2 c3)
+                                        for (int g228 = 0; e228 && g228 < 8; g228++) {
+                                            auto& c228 = stripImplicitConv(*e228);
+                                            if (c228.kind != ExpressionKind::ConditionalOp)
+                                                break;
+                                            auto* ks = c228.as<ConditionalExpression>()
+                                                           .knownSide();
+                                            if (!ks)
+                                                break;
+                                            e228 = ks;
+                                        }
+                                        if (e228)
+                                            sxv228 = e228->syntax
+                                                         ? e228->syntax
+                                                         : stripImplicitConv(*e228).syntax;
+                                    }
+                                    std::function<bool(const syntax::SyntaxNode*, int)>
+                                        scalar228v = [&](const syntax::SyntaxNode* n,
+                                                         int d) -> bool {
+                                        if (!n || d > 16)
+                                            return false;
+                                        auto k = n->kind;
+                                        if (k == syntax::SyntaxKind::IntegerLiteralExpression ||
+                                            k == syntax::SyntaxKind::IntegerVectorExpression ||
+                                            k == syntax::SyntaxKind::IdentifierName)
+                                            return true;
+                                        if (k == syntax::SyntaxKind::ParenthesizedExpression)
+                                            return scalar228v(
+                                                n->as<syntax::ParenthesizedExpressionSyntax>()
+                                                    .expression,
+                                                d + 1);
+                                        if (syntax::BinaryExpressionSyntax::isKind(k)) {
+                                            auto& bx = n->as<syntax::BinaryExpressionSyntax>();
+                                            return scalar228v(bx.left, d + 1) &&
+                                                   scalar228v(bx.right, d + 1);
+                                        }
+                                        return false;
+                                    };
+                                    std::function<bool(const syntax::SyntaxNode*, int)>
+                                        folds228v = [&](const syntax::SyntaxNode* n,
+                                                        int d) -> bool {
+                                        if (!n || d > 16)
+                                            return false;
+                                        auto k = n->kind;
+                                        switch (k) {
+                                        case syntax::SyntaxKind::ParenthesizedExpression:
+                                            return folds228v(
+                                                n->as<syntax::ParenthesizedExpressionSyntax>()
+                                                    .expression,
+                                                d + 1);
+                                        case syntax::SyntaxKind::IntegerLiteralExpression:
+                                        case syntax::SyntaxKind::IntegerVectorExpression:
+                                        case syntax::SyntaxKind::ConcatenationExpression:
+                                        case syntax::SyntaxKind::SignedCastExpression:
+                                            return true;
+                                        case syntax::SyntaxKind::CastExpression: {
+                                            // a size cast (`16'(5)`)
+                                            auto lk = n->as<syntax::CastExpressionSyntax>()
+                                                          .left->kind;
+                                            return lk == syntax::SyntaxKind::
+                                                             IntegerLiteralExpression ||
+                                                   lk == syntax::SyntaxKind::
+                                                             IntegerVectorExpression;
+                                        }
+                                        case syntax::SyntaxKind::AssignmentPatternExpression: {
+                                            auto& ap =
+                                                n->as<syntax::AssignmentPatternExpressionSyntax>();
+                                            return ap.type == nullptr &&
+                                                   ap.pattern->kind !=
+                                                       syntax::SyntaxKind::
+                                                           ReplicatedAssignmentPattern;
+                                        }
+                                        case syntax::SyntaxKind::ConditionalExpression: {
+                                            auto& ce =
+                                                n->as<syntax::ConditionalExpressionSyntax>();
+                                            return folds228v(ce.left, d + 1) &&
+                                                   folds228v(ce.right, d + 1);
+                                        }
+                                        default:
+                                            if (syntax::BinaryExpressionSyntax::isKind(k))
+                                                return scalar228v(n, d);
+                                            return false;
+                                        }
+                                    };
+                                    // The r11u228 decision as landed (the
+                                    // first instance's root, cast or typed
+                                    // pattern keeps).
+                                    bool implFold228 = false;
+                                    if (sx228) {
+                                        auto k228 = sx228->kind;
+                                        implFold228 =
+                                            !(k228 == syntax::SyntaxKind::CastExpression ||
+                                              (k228 == syntax::SyntaxKind::
+                                                           AssignmentPatternExpression &&
+                                               sx228->as<syntax::
+                                                             AssignmentPatternExpressionSyntax>()
+                                                       .type != nullptr));
+                                    }
+                                    bool fold228 = implFold228;
+                                    if (!rootOk228v)
+                                        fold228 = false;
+                                    else if (shape228v)
+                                        fold228 = sxv228 && folds228v(sxv228, 0);
+                                    else if (root228v != &bp9) {
+                                        // the landed test on the own
+                                        // instance's root (the chain through
+                                        // every parameter, the parentheses)
+                                        const Expression* e228 =
+                                            root228v->getInitializer();
+                                        for (int g228 = 0; e228 && g228 < 8; g228++) {
+                                            auto& s228 = stripImplicitConv(*e228);
+                                            const Symbol* r228 = nullptr;
+                                            if (s228.kind == ExpressionKind::NamedValue)
+                                                r228 = &s228.as<NamedValueExpression>().symbol;
+                                            else if (s228.kind ==
+                                                     ExpressionKind::HierarchicalValue)
+                                                r228 = &s228.as<HierarchicalValueExpression>()
+                                                            .symbol;
+                                            if (!r228 || r228->kind != SymbolKind::Parameter)
+                                                break;
+                                            e228 = r228->as<ParameterSymbol>().getInitializer();
+                                        }
+                                        const syntax::SyntaxNode* x228 =
+                                            e228 ? (e228->syntax
+                                                        ? e228->syntax
+                                                        : stripImplicitConv(*e228).syntax)
+                                                 : nullptr;
+                                        for (int g228 = 0;
+                                             x228 && g228 < 8 &&
+                                             x228->kind ==
+                                                 syntax::SyntaxKind::ParenthesizedExpression;
+                                             g228++)
+                                            x228 = x228->as<syntax::ParenthesizedExpressionSyntax>()
+                                                       .expression;
+                                        fold228 =
+                                            x228 &&
+                                            !(x228->kind == syntax::SyntaxKind::CastExpression ||
+                                              (x228->kind == syntax::SyntaxKind::
+                                                                 AssignmentPatternExpression &&
+                                               x228->as<syntax::
+                                                            AssignmentPatternExpressionSyntax>()
+                                                       .type != nullptr));
+                                    }
+                                    if (r11u228Law("R11U228_MEMROOTFOLD_OFF")) {
+                                        if (fold228 != implFold228)
+                                            trv228("memberRootFoldShapes228v",
+                                                   std::string(declSymbol.getHierarchicalPath()) +
+                                                       (fold228 ? " folds" : " kept"));
+                                        if (fold228) {
+                                            tr228("memberInitReducedRootFolds228",
+                                                  std::string(p->name) + " " +
+                                                      std::string(root228v->name));
+                                            return nullptr;
+                                        }
                                     }
                                     return p;
                                 }

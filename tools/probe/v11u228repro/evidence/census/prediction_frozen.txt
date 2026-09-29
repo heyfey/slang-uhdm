@@ -1,0 +1,6 @@
+frozen 2026-09-29T08:29:47-04:00 before the fix3 gate sweep
+binary /tmp/v11u228_bin/fix3 20cb9d02c69c01afc31d06ccba5ef55a
+census: trace files written = 0 (corpora with the fenced four filtered out, 3265 slang lines all naming fix3; every probe case; every downstream lane)
+positive control (same binary and variable):  2 memberInitReducedRootFolds228; 2 memberRootFoldShapes228v; 1 memberRootOwnInstance228v; 2 parseViewSizeExprEval228; 3 pvSizeNoElemDeclines228v; 1 sizeBitNetIsVar228;
+prediction: 0 byte movers against pristine and against r11u228's law binary (besides the known coins MiniAmiq d/t, SimpleUVM d, Scoreboard d)
+prediction.txt md5 d41d8cd98f00b204e9800998ecf8427e

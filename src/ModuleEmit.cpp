@@ -30,6 +30,7 @@
 #include "R217.h"
 #include "R221.h"
 #include "R225.h"
+#include "R228.h"
 #include "R229.h"
 
 namespace slang_uhdm {
@@ -1145,6 +1146,29 @@ static bool rqSizePlan216(const slang::ast::Expression& rhs, int64_t& count,
     // elsewhere it declines, leaving the base's output.  § ndaSizeQueryFold216's
     // own one-dimensional cell is unchanged.  Switch R11V219_SIZEWALK_OFF.
     const bool walk219v = r11v219Law("R11V219_SIZEWALK_OFF");
+    // § sizeBitNetIsVar228 (r11u228) — a NET whose element is the 2-state
+    // `bit` (an ANSI `input bit [3:0][1:0] pp`) is written as a `bit_var` in
+    // golden's elaborated listing, which ExprEval's walker does not read
+    // either (it reads only logic_var, logic_net, array_var, array_net), so
+    // the generic handler answers there (`$size(pp)` -> 2, where the count
+    // above wrote 4: case v11u223repro/cases/S s06 in both views).  Such a
+    // net is walked as a variable is, so the reach declines it and ExprEval
+    // folds it: the adjuster in the -elabuhdm view, § parseViewSizeExprEval228
+    // in the parse view.  Switch R11U228_SIZEBITNET_OFF.
+    auto bitNet228 = [&]() -> bool {
+        if (sym.kind != SymbolKind::Net || !r11u228Law("R11U228_SIZEBITNET_OFF"))
+            return false;
+        const Type* e = &ct;
+        while (e->getCanonicalType().kind == SymbolKind::PackedArrayType)
+            e = &e->getCanonicalType().as<PackedArrayType>().elementType;
+        auto& ec = e->getCanonicalType();
+        if (ec.kind == SymbolKind::ScalarType &&
+            ec.as<ScalarType>().scalarKind == ScalarType::Bit) {
+            slang_uhdm::tr228("sizeBitNetIsVar228", std::string(sym.name));
+            return true;
+        }
+        return false;
+    };
     auto walkerDims219v = [&](std::vector<int64_t>& wd) -> bool {
         const Type* t = &ct;
         if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
@@ -1156,7 +1180,7 @@ static bool rqSizePlan216(const slang::ast::Expression& rhs, int64_t& count,
             if (t->getCanonicalType().isUnpackedArray())
                 return false;  // a dynamic, queue or associative inner dimension
         }
-        else if (sym.kind != SymbolKind::Net) {
+        else if (sym.kind != SymbolKind::Net || bitNet228()) {
             // a variable is walked only as a logic_var: a 4-state vector
             const Type* e = &ct;
             while (e->getCanonicalType().kind == SymbolKind::PackedArrayType)

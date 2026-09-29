@@ -1,0 +1,106 @@
+EXPLAINED MR/m01 x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m01_el x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m02_el x1 int_typespec||||dut.sv|3|28|3|31|||| | removed at: ref_typespec: < typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Inf
+EXPLAINED MR/m03 x1 int_typespec||||dut.sv|4|15|4|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m03_el x1 int_typespec||||dut.sv|4|15|4|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m05 x1 int_typespec||||dut.sv|6|15|6|18|||| | removed at: ref_typespec: < hier_path:I2.x < operation: < range: < logic_typespec: < ref_typespec: < l
+EXPLAINED MR/m05_el x1 int_typespec||||dut.sv|6|15|6|18|||| | removed at: ref_typespec: < hier_path:I2.x < operation: < range: < logic_typespec: < ref_typespec: < l
+EXPLAINED MR/m09 x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m09 x1 int_typespec||||dut.sv|6|15|6|18|||| | removed at: ref_typespec: < hier_path:Info.y < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m09_el x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m09_el x1 int_typespec||||dut.sv|6|15|6|18|||| | removed at: ref_typespec: < hier_path:Info.y < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m10 x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m10_el x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m10_el x1 ref_typespec|||work@top.i||0|0|0|0||0|| | removed at: operation: < ref_obj:Info < hier_path:Info.x < operation: < range: < logic_typespec: < ref
+EXPLAINED MR/m11 x1 int_typespec||||dut.sv|6|15|6|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m11_el x1 int_typespec||||dut.sv|6|15|6|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m14 x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m14_el x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m15 x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m15_el x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m16 x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m16_el x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m17 x1 int_typespec||||w.svh|1|15|1|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED MR/m17_el x1 int_typespec||||w.svh|1|15|1|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/r11u225repro/cases/OS/o21 x1 int_typespec||||dut.sv|8|15|8|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <; ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/r11u225repro/cases/OS/o21 x1 int_typespec||||dut.sv|9|15|9|18|||| | removed at: ref_typespec: < hier_path:Info.y < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/r11u225repro/cases/OS/o21_el x1 int_typespec||||dut.sv|8|15|8|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <; ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/r11u225repro/cases/OS/o21_el x1 int_typespec||||dut.sv|9|15|9|18|||| | removed at: ref_typespec: < hier_path:Info.y < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u225repro/cases/FO/g15 x1 int_typespec||||dut.sv|8|15|8|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <; ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u225repro/cases/FO/g15 x1 int_typespec||||dut.sv|9|15|9|18|||| | removed at: ref_typespec: < hier_path:Info.y < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u225repro/cases/FO/g15_el x1 int_typespec||||dut.sv|8|15|8|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <; ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u225repro/cases/FO/g15_el x1 int_typespec||||dut.sv|9|15|9|18|||| | removed at: ref_typespec: < hier_path:Info.y < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u225repro/cases/FO/g17 x1 int_typespec||||dut.sv|8|15|8|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <; ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u225repro/cases/FO/g17_el x1 int_typespec||||dut.sv|8|15|8|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <; ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u225repro/cases/FO/g19 x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u225repro/cases/FO/g19_el x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u225repro/cases/FO/h01 x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u225repro/cases/FO/h01_el x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u225repro/cases/FO/h03 x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u225repro/cases/FO/h03_el x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u225repro/cases/FO/h04_el x1 int_typespec||||dut.sv|3|28|3|31|||| | removed at: ref_typespec: < typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Inf
+EXPLAINED tp/v11u225repro/cases/FO/h06_el x1 struct_typespec|info_t|||dut.sv|3|12|3|36|||| | removed at: ref_typespec: < parameter:Info < ref_obj:Info < hier_path:Info.x < operation: < range: < l
+EXPLAINED tp/v11u225repro/cases/FO/h06_el x1 typespec_member|x|||dut.sv|3|32|3|33|||| | removed at: struct_typespec:info_t < ref_typespec: < parameter:Info < ref_obj:Info < hier_path:Info.x 
+EXPLAINED tp/v11u225repro/cases/FO/h06_el x1 ref_typespec|||<in>info_t.x||0|0|0|0||0|| | removed at: typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Info < ref_obj:Info
+EXPLAINED tp/v11u225repro/cases/FO/h06_el x1 int_typespec||||dut.sv|3|28|3|31|||| | removed at: ref_typespec: < typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Inf
+EXPLAINED tp/v11u228repro/cases/FM/f01 x1 int_typespec||||dut.sv|4|15|4|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FM/f01_el x1 int_typespec||||dut.sv|4|15|4|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FM/f02 x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FM/f02_el x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FM/f04 x1 int_typespec||||dut.sv|7|15|7|18|||| | removed at: ref_typespec: < hier_path: < operation: < range: < logic_typespec: < ref_typespec: < logic
+EXPLAINED tp/v11u228repro/cases/FM/f04_el x1 int_typespec||||dut.sv|7|15|7|18|||| | removed at: ref_typespec: < hier_path: < operation: < range: < logic_typespec: < ref_typespec: < logic
+EXPLAINED tp/v11u228repro/cases/FM/f10 x1 int_typespec||||dut.sv|4|15|4|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FM/f10_el x1 int_typespec||||dut.sv|4|15|4|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FM/f11 x1 int_typespec||||dut.sv|6|15|6|18|||| | removed at: ref_typespec: < hier_path:LI.x < operation: < range: < logic_typespec: < ref_typespec: < l
+EXPLAINED tp/v11u228repro/cases/FM/f11_el x1 int_typespec||||dut.sv|3|28|3|31|||| | removed at: ref_typespec: < typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:LI ; ref_typespec: < typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Inf
+EXPLAINED tp/v11u228repro/cases/FM/f11_el x1 int_typespec||||dut.sv|6|15|6|18|||| | removed at: ref_typespec: < hier_path:LI.x < operation: < range: < logic_typespec: < ref_typespec: < l
+EXPLAINED tp/v11u228repro/cases/FM/f12 x1 int_typespec||||dut.sv|4|15|4|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FM/f12 x1 ref_obj|Info|||dut.sv|4|28|4|29||0|| | removed at: hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < m
+EXPLAINED tp/v11u228repro/cases/FM/f12 x1 ref_obj|x|||dut.sv|4|28|4|29||0|| | removed at: hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < m
+EXPLAINED tp/v11u228repro/cases/FM/f12_el x1 int_typespec||||dut.sv|4|15|4|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FM/f12_el x1 ref_obj|Info|||dut.sv|4|28|4|29||0|| | removed at: hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < m
+EXPLAINED tp/v11u228repro/cases/FM/f12_el x1 ref_obj|x|||dut.sv|4|28|4|29||0|| | removed at: hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < m
+EXPLAINED tp/v11u228repro/cases/FM/f13 x1 int_typespec||||dut.sv|7|15|7|18|||| | removed at: ref_typespec: < hier_path:IB.x < operation: < range: < logic_typespec: < ref_typespec: < l
+EXPLAINED tp/v11u228repro/cases/FM/f13_el x1 struct_typespec|info_t|||dut.sv|3|12|3|36|||| | removed at: ref_typespec: < parameter:IA < ref_obj:IA < hier_path:IA.x < operation: < range: < logic_t; ref_typespec: < parameter:IB < ref_obj:IB < hier_path:IB.x < operation: < range: < logic_t
+EXPLAINED tp/v11u228repro/cases/FM/f13_el x1 typespec_member|x|||dut.sv|3|32|3|33|||| | removed at: struct_typespec:info_t < ref_typespec: < parameter:IA < ref_obj:IA < hier_path:IA.x < oper; struct_typespec:info_t < ref_typespec: < parameter:IB < ref_obj:IB < hier_path:IB.x < oper
+EXPLAINED tp/v11u228repro/cases/FM/f13_el x1 ref_typespec|||<in>info_t.x||0|0|0|0||0|| | removed at: typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:IA < ref_obj:IA < h; typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:IB < ref_obj:IB < h
+EXPLAINED tp/v11u228repro/cases/FM/f13_el x2 int_typespec||||dut.sv|3|28|3|31|||| | removed at: ref_typespec: < typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:IA ; ref_typespec: < typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:IB 
+EXPLAINED tp/v11u228repro/cases/FM/f13_el x1 int_typespec||||dut.sv|7|15|7|18|||| | removed at: ref_typespec: < hier_path:IB.x < operation: < range: < logic_typespec: < ref_typespec: < l
+EXPLAINED tp/v11u228repro/cases/FM/f14 x1 int_typespec||||dut.sv|4|15|4|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FM/f14 x1 ref_obj|Info|||dut.sv|4|28|4|29||0|| | removed at: hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < m
+EXPLAINED tp/v11u228repro/cases/FM/f14 x1 ref_obj|x|||dut.sv|4|28|4|29||0|| | removed at: hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < m
+EXPLAINED tp/v11u228repro/cases/FM/f14_el x1 int_typespec||||dut.sv|4|15|4|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FM/f14_el x1 ref_obj|Info|||dut.sv|4|28|4|29||0|| | removed at: hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < m
+EXPLAINED tp/v11u228repro/cases/FM/f14_el x1 ref_obj|x|||dut.sv|4|28|4|29||0|| | removed at: hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:q < m
+EXPLAINED tp/v11u228repro/cases/FR/c1 x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FR/c1_el x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FR/c4 x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FR/c4_el x1 int_typespec||||dut.sv|5|15|5|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FR/c6_el x1 struct_typespec|info_t|||dut.sv|3|12|3|36|||| | removed at: ref_typespec: < parameter:Info < ref_obj:Info < hier_path:Info.x < operation: < range: < l
+EXPLAINED tp/v11u228repro/cases/FR/c6_el x1 typespec_member|x|||dut.sv|3|32|3|33|||| | removed at: struct_typespec:info_t < ref_typespec: < parameter:Info < ref_obj:Info < hier_path:Info.x 
+EXPLAINED tp/v11u228repro/cases/FR/c6_el x1 ref_typespec|||<in>info_t.x||0|0|0|0||0|| | removed at: typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Info < ref_obj:Info
+EXPLAINED tp/v11u228repro/cases/FR/c6_el x1 int_typespec||||dut.sv|3|28|3|31|||| | removed at: ref_typespec: < typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Inf
+EXPLAINED tp/v11u228repro/cases/FR/c9_el x1 struct_typespec|info_t|||dut.sv|3|12|3|36|||| | removed at: ref_typespec: < parameter:Info < ref_obj:Info < hier_path:Info.x < operation: < range: < l
+EXPLAINED tp/v11u228repro/cases/FR/c9_el x1 typespec_member|x|||dut.sv|3|32|3|33|||| | removed at: struct_typespec:info_t < ref_typespec: < parameter:Info < ref_obj:Info < hier_path:Info.x 
+EXPLAINED tp/v11u228repro/cases/FR/c9_el x1 ref_typespec|||<in>info_t.x||0|0|0|0||0|| | removed at: typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Info < ref_obj:Info
+EXPLAINED tp/v11u228repro/cases/FR/c9_el x1 int_typespec||||dut.sv|3|28|3|31|||| | removed at: ref_typespec: < typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Inf
+EXPLAINED tp/v11u228repro/cases/FR/d01 x1 int_typespec||||dut.sv|7|15|7|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FR/d01_el x1 int_typespec||||dut.sv|7|15|7|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FR/d02 x1 int_typespec||||dut.sv|7|15|7|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FR/d02_el x1 int_typespec||||dut.sv|7|15|7|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FR/d05_el x1 struct_typespec|info_t|||dut.sv|3|12|3|36|||| | removed at: ref_typespec: < parameter:Info < ref_obj:Info < hier_path:Info.x < operation: < range: < l
+EXPLAINED tp/v11u228repro/cases/FR/d05_el x1 typespec_member|x|||dut.sv|3|32|3|33|||| | removed at: struct_typespec:info_t < ref_typespec: < parameter:Info < ref_obj:Info < hier_path:Info.x 
+EXPLAINED tp/v11u228repro/cases/FR/d05_el x1 ref_typespec|||<in>info_t.x||0|0|0|0||0|| | removed at: typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Info < ref_obj:Info
+EXPLAINED tp/v11u228repro/cases/FR/d05_el x1 int_typespec||||dut.sv|3|28|3|31|||| | removed at: ref_typespec: < typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Inf
+EXPLAINED tp/v11u228repro/cases/FR/d10 x1 int_typespec||||dut.sv|7|15|7|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FR/d10_el x1 int_typespec||||dut.sv|7|15|7|18|||| | removed at: ref_typespec: < hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: <
+EXPLAINED tp/v11u228repro/cases/FR/d13_el x1 struct_typespec|info_t|||dut.sv|3|12|3|36|||| | removed at: ref_typespec: < parameter:Info < ref_obj:Info < hier_path:Info.x < operation: < range: < l
+EXPLAINED tp/v11u228repro/cases/FR/d13_el x1 typespec_member|x|||dut.sv|3|32|3|33|||| | removed at: struct_typespec:info_t < ref_typespec: < parameter:Info < ref_obj:Info < hier_path:Info.x 
+EXPLAINED tp/v11u228repro/cases/FR/d13_el x1 ref_typespec|||<in>info_t.x||0|0|0|0||0|| | removed at: typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Info < ref_obj:Info
+EXPLAINED tp/v11u228repro/cases/FR/d13_el x1 int_typespec||||dut.sv|3|28|3|31|||| | removed at: ref_typespec: < typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Inf
+EXPLAINED tp/v11u228repro/cases/FR/d18_el x1 struct_typespec|info_t|||dut.sv|3|12|3|36|||| | removed at: ref_typespec: < parameter:Info < ref_obj:Info < hier_path:Info.x < operation: < range: < l
+EXPLAINED tp/v11u228repro/cases/FR/d18_el x1 typespec_member|x|||dut.sv|3|32|3|33|||| | removed at: struct_typespec:info_t < ref_typespec: < parameter:Info < ref_obj:Info < hier_path:Info.x 
+EXPLAINED tp/v11u228repro/cases/FR/d18_el x1 ref_typespec|||<in>info_t.x||0|0|0|0||0|| | removed at: typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Info < ref_obj:Info
+EXPLAINED tp/v11u228repro/cases/FR/d18_el x1 int_typespec||||dut.sv|3|28|3|31|||| | removed at: ref_typespec: < typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Inf
+EXPLAINED tp/v11u228repro/cases/FR/d19_el x1 int_typespec||||dut.sv|3|28|3|31|||| | removed at: ref_typespec: < typespec_member:x < struct_typespec:info_t < ref_typespec: < parameter:Inf
+TOTAL flat_lost=106 explained=106 unexplained=0

@@ -1,0 +1,50 @@
+794 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u228_bin/uhdm-strictcmp
+  25/794
+  50/794
+  75/794
+  100/794
+  125/794
+  150/794
+  175/794
+  200/794
+  225/794
+  250/794
+  275/794
+  300/794
+  325/794
+  350/794
+  375/794
+  400/794
+  425/794
+  450/794
+  475/794
+  500/794
+  525/794
+  550/794
+  575/794
+  600/794
+  625/794
+  650/794
+  675/794
+  700/794
+  725/794
+  750/794
+  775/794
+
+[default] 794 tests
+  CMP_EQUAL: 466
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  STRICT_NOTEQUAL: 13
+  DEFERRED: 5
+
+[testflags] 794 tests
+  CMP_EQUAL: 462
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  STRICT_NOTEQUAL: 11
+  DEFERRED: 5
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1

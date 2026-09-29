@@ -7,6 +7,7 @@
 #include "BuiltinSv.h"
 #include "UhdmExporter.h"
 #include "src/R223.h"
+#include "src/R228.h"
 
 #include <cstdio>
 #include <filesystem>
@@ -1311,6 +1312,193 @@ static int realMain(int argc, char** argv) {
             synth_.listenDesigns(designs);
             synth_.filterNonSynthesizable();
         }
+    }
+
+    // § parseViewSizeExprEval228 (r11u228, pass 223's residue 5 and v11u223's
+    // residue 6: the parse view's `$size`, downstream-visible) — in the parse
+    // view (no -elabuhdm) Surelog writes a module instance's net declaration
+    // `wire [1:0] w = $size(bp);` with the call already reduced by UHDM
+    // ExprEval (its `$size` dimension walker, else the generic `$bits`-style
+    // handler: `$size(bp)` of `bit [3:0][1:0]` is 2, `$size(ea, 2)` of
+    // `e_t ea [5]` is 15), then adjustSize masks and sizes it to the net,
+    // location-less, parented at the assignment: the same constant the
+    // -elabuhdm view gets from the adjuster and § ndaAdjSizeFoldSized223
+    // (cases v11u223repro/cases/S s01-s05, v11u219repro/cases/S s04 s08,
+    // whose -elabuhdm views are EQUAL and whose parse views were not).  Ours
+    // kept the call wherever § ndaSizeQueryFold216's reach declines, and the
+    // downstream plugin evaluated the call to the language's count (4), so
+    // those designs synthesized differently (DIVERGENT).  Here ExprEval runs
+    // on exactly those calls, as the adjuster runs it (inst = the enclosing
+    // instance or generate scope, pexpr = the assignment), and its constant
+    // replaces the call, sized as § ndaAdjSizeFoldSized223 sizes it.  Only a
+    // net or variable operand (a parameter operand keeps the call in golden,
+    // § ndaSizeQueryFold216's n15), only an elaborated listing's assignment
+    // (the definition listing keeps it), never an array variable without its
+    // element (ExprEval reads that element unguarded; Surelog writes no
+    // database there).  Switch R11U228_PVSIZE_OFF.
+    if (!(elabUhdm == true) && !synthSubset &&
+        slang_uhdm::r11u228Law("R11U228_PVSIZE_OFF")) {
+        std::set<const UHDM::any*> defCas228;
+        if (auto* am = design->AllModules())
+            for (auto* m228 : *am)
+                if (m228 && m228->Cont_assigns())
+                    for (auto* c228 : *m228->Cont_assigns())
+                        defCas228.insert(c228);
+        std::vector<UHDM::cont_assign*> cas228;
+        for (auto& kv : serializer.AllObjects())
+            if (kv.first && kv.first->UhdmType() == UHDM::uhdmcont_assign)
+                cas228.push_back((UHDM::cont_assign*)kv.first);
+        std::sort(cas228.begin(), cas228.end(),
+                  [](const UHDM::cont_assign* a, const UHDM::cont_assign* b) {
+                      return a->UhdmId() < b->UhdmId();
+                  });
+        // § pvSizeNoElemDeclines228v (v11u228, the adversarial verification
+        // of r11u228: the law binary exited rc 139 in the parse view on
+        // v11u219repro/cases/S s01_dyn_inner and s01b_queue_inner and
+        // v11u223repro/cases/S s09_genfor_dyn and s10_dyn_queue_decline,
+        // `$size` of `int mq [3][$]`, `logic [1:0] md [2][]`, where pristine
+        // wrote the call and Surelog writes no database) — ExprEval::size
+        // reads `array_var->Variables()->at(0)` unguarded, and the law's own
+        // guard looked only at the operand's actual, not at the element
+        // array_var of a fixed-then-dynamic shape.  As the adjuster's run
+        // does (§ unsizedInnerSizeDeclines223 with § sizeDeclineTsInvalid223v),
+        // every array_var without an element holds, for these ExprEval runs
+        // only, a placeholder chandle_var typed by a chandle_typespec, which
+        // ExprEval::size does not size (invalidValue): the call stays, the
+        // base's bytes.  The placeholders live outside the serializer and are
+        // removed right after.  Switch R11V228_PVSIZEDYN_OFF.
+        static UHDM::chandle_var ph228v;
+        static UHDM::ref_typespec phRt228v;
+        static UHDM::chandle_typespec phTs228v;
+        static std::vector<UHDM::variables*> phVec228v{&ph228v};
+        std::vector<UHDM::array_var*> noElem228v;
+        if (slang_uhdm::r11v228Law("R11V228_PVSIZEDYN_OFF")) {
+            phRt228v.Actual_typespec(&phTs228v);
+            ph228v.Typespec(&phRt228v);
+            for (auto& kv : serializer.AllObjects())
+                if (kv.first && kv.first->UhdmType() == UHDM::uhdmarray_var) {
+                    auto* av = (UHDM::array_var*)kv.first;
+                    if (!av->Variables()) {
+                        noElem228v.push_back(av);
+                        av->Variables(&phVec228v);
+                    }
+                }
+        }
+        auto isDefModule228 = [&](const UHDM::any* o) {
+            if (auto* am = design->AllModules())
+                for (auto* m228 : *am)
+                    if (m228 == o)
+                        return true;
+            return false;
+        };
+        for (auto* ca : cas228) {
+            if (!ca->VpiNetDeclAssign() || !ca->Rhs() || !ca->Lhs() ||
+                defCas228.count(ca) ||
+                ca->Rhs()->UhdmType() != UHDM::uhdmsys_func_call ||
+                ((const UHDM::sys_func_call*)ca->Rhs())->VpiName() != "$size")
+                continue;
+            auto* call = (const UHDM::sys_func_call*)ca->Rhs();
+            // The enclosing instance or generate scope, and the listing it
+            // sits in: the top of its instance chain must be no definition.
+            const UHDM::any* inst = ca->VpiParent();
+            if (!inst ||
+                (inst->UhdmType() != UHDM::uhdmmodule_inst &&
+                 inst->UhdmType() != UHDM::uhdminterface_inst &&
+                 inst->UhdmType() != UHDM::uhdmgen_scope))
+                continue;
+            const UHDM::any* topI = inst;
+            for (const UHDM::any* q = inst; q && q->UhdmType() != UHDM::uhdmdesign;
+                 q = q->VpiParent())
+                topI = q;
+            if (isDefModule228(topI) || isDefModule228(inst))
+                continue;
+            auto* args = call->Tf_call_args();
+            if (!args || args->empty() || args->size() > 2 || !(*args)[0] ||
+                (*args)[0]->UhdmType() != UHDM::uhdmref_obj)
+                continue;
+            const UHDM::any* act = ((const UHDM::ref_obj*)(*args)[0])->Actual_group();
+            if (!act)
+                continue;
+            switch (act->UhdmType()) {
+            case UHDM::uhdmparameter:
+            case UHDM::uhdmparam_assign:
+            case UHDM::uhdmtype_parameter:
+                continue;
+            case UHDM::uhdmarray_var:
+                if (!((const UHDM::array_var*)act)->Variables() ||
+                    ((const UHDM::array_var*)act)->Variables()->empty())
+                    continue;
+                break;
+            default:
+                break;
+            }
+            if (!(dynamic_cast<const UHDM::net*>(act) || dynamic_cast<const UHDM::variables*>(act) ||
+                  act->UhdmType() == UHDM::uhdmarray_net))
+                continue;
+            const UHDM::any* lhs = ca->Lhs();
+            const UHDM::ref_typespec* lrt = nullptr;
+            if (lhs->UhdmType() == UHDM::uhdmlogic_net)
+                lrt = ((const UHDM::logic_net*)lhs)->Typespec();
+            const UHDM::logic_typespec* lts =
+                lrt ? lrt->Actual_typespec<UHDM::logic_typespec>() : nullptr;
+            if (!lts)
+                continue;
+            int64_t w = 1;
+            bool ok = true;
+            if (auto* rs = lts->Ranges())
+                for (auto* r : *rs) {
+                    auto* l = r ? r->Left_expr<UHDM::constant>() : nullptr;
+                    auto* rr = r ? r->Right_expr<UHDM::constant>() : nullptr;
+                    if (!l || !rr) {
+                        ok = false;
+                        break;
+                    }
+                    UHDM::ExprEval ev;
+                    bool inv = false;
+                    int64_t lv = ev.get_value(inv, l), rv = ev.get_value(inv, rr);
+                    if (inv) {
+                        ok = false;
+                        break;
+                    }
+                    w *= (lv > rv ? lv - rv : rv - lv) + 1;
+                }
+            if (!ok || w <= 0)
+                continue;
+            bool inv = false;
+            UHDM::ExprEval eval(true);
+            eval.reduceExceptions({vpiAssignmentPatternOp, vpiMultiAssignmentPatternOp,
+                                   vpiConcatOp, vpiMultiConcatOp, vpiBitNegOp});
+            if (!noElem228v.empty())
+                slang_uhdm::trv228("pvSizeNoElemDeclines228v",
+                                   std::string(ca->Lhs()->VpiName()) + " placeholders=" +
+                                       std::to_string(noElem228v.size()));
+            UHDM::expr* tmp = eval.reduceExpr(call, inv, inst, ca, true);
+            if (inv || !tmp || tmp == call || tmp->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* k = (UHDM::constant*)tmp;
+            std::string_view v = k->VpiValue();
+            if (v.rfind("UINT:", 0) != 0)
+                continue;
+            uint64_t uv = strtoull(std::string(v.substr(5)).c_str(), nullptr, 10);
+            if (w < 64)
+                uv &= (((uint64_t)1 << w) - 1);
+            k->VpiValue("UINT:" + std::to_string(uv));
+            k->VpiDecompile(std::to_string(uv));
+            k->VpiSize((int32_t)w);
+            k->VpiConstType(vpiUIntConst);
+            k->VpiFile("");
+            k->VpiLineNo(0);
+            k->VpiColumnNo(0);
+            k->VpiEndLineNo(0);
+            k->VpiEndColumnNo(0);
+            k->VpiParent(ca);
+            ca->Rhs(k);
+            slang_uhdm::tr228("parseViewSizeExprEval228",
+                              std::string(ca->Lhs()->VpiName()) + " " +
+                                  std::to_string(uv));
+        }
+        for (auto* av : noElem228v)
+            av->Variables(nullptr);
     }
 
     // § fpLineFiller120 — the post-pass (decode at the event walk above).

@@ -1,0 +1,154 @@
+MR/m01 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+MR/m01_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+MR/m02 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+MR/m02_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:work@top < design:work@top
+MR/m03 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|5|11|5|12|7|64|INT:7|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:u < module_inst:work@top < design:work@top
+MR/m03_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|5|11|5|12|7|64|INT:7|7 @ range: < logic_typespec: < ref_typespec: < logic_var:q < module_inst:u < module_inst:work@top < design:work@top
+MR/m05 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|7|11|7|12|11|64|INT:11|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+MR/m05_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|7|11|7|12|11|64|INT:11|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+MR/m09 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=2
+  CHAIN_LOST constant||||dut.sv|7|11|7|12|3|64|INT:3|7 @ range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|18|7|19|2|64|INT:2|7 @ range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+MR/m09_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=2
+  CHAIN_LOST constant||||dut.sv|7|11|7|12|3|64|INT:3|7 @ range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|18|7|19|2|64|INT:2|7 @ range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+MR/m10 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|5|64|INT:5|7 @ range: < logic_typespec: < ref_typespec: < logic_var:v < interface_inst:i < module_inst:work@top < design:work@top
+MR/m10_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=2
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|5|64|INT:5|7 @ range: < logic_typespec: < ref_typespec: < logic_var:v < interface_inst:i < module_inst:work@top < design:work@top
+MR/m11 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|7|11|7|12|9|64|INT:9|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+MR/m11_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|7|11|7|12|9|64|INT:9|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+MR/m14 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|7|11|7|16|7|64|INT:7|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+MR/m14_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|7|11|7|16|7|64|INT:7|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+MR/m15 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|6|64|INT:6|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+MR/m15_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|6|64|INT:6|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+MR/m16 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+MR/m16_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+MR/m17 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||w.svh|2|11|2|12|4|64|INT:4|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:u < module_inst:work@top < design:work@top
+MR/m17_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||w.svh|2|11|2|12|4|64|INT:4|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:u < module_inst:work@top < design:work@top
+PS/p01 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|3|8|UINT:3|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+PS/p02 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|4|8|UINT:4|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+PS/p03 chain_lost=2 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|4|8|UINT:4|9 @ cont_assign: < module_inst:u < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+PS/p03_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+PS/p04 chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|3|8|UINT:3|9 @ cont_assign: < gen_scope: < gen_scope_array:g[0] < module_inst:u1 < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|3|8|UINT:3|9 @ cont_assign: < gen_scope: < gen_scope_array:g[1] < module_inst:u1 < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|3|8|UINT:3|9 @ cont_assign: < gen_scope: < gen_scope_array:g[0] < module_inst:u2 < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|3|8|UINT:3|9 @ cont_assign: < gen_scope: < gen_scope_array:g[1] < module_inst:u2 < module_inst:work@dut < design:work@dut
+PS/p05 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+PS/p06 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|4|UINT:2|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+PS/p07 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:u < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+PS/p08 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|3|8|UINT:3|9 @ cont_assign: < module_inst:u < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+PS/p10 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|4|8|UINT:4|9 @ cont_assign: < interface_inst:i1 < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|4|8|UINT:4|9 @ cont_assign: < interface_inst:i2 < module_inst:work@dut < design:work@dut
+PS/p11 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|3|2|UINT:3|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|3|4|UINT:3|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|1|1|UINT:1|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+PS/p12 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|4|8|UINT:4|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+tp/r11u225repro/cases/OS/o21 chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=2
+  CHAIN_LOST constant||||dut.sv|10|11|10|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|11|11|11|12|7|64|INT:7|7 @ range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|2|56|2|61|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u1 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|2|56|2|61|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < port:a < module_inst:u1 < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o21_el chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=2
+  CHAIN_LOST constant||||dut.sv|10|11|10|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|11|11|11|12|7|64|INT:7|7 @ range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|2|56|2|61|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u1 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|2|56|2|61|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < port:a < module_inst:u1 < module_inst:work@top < design:work@top
+tp/v11u219repro/cases/S/s01c_assoc_inner chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|32|8|UINT:32|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+tp/v11u219repro/cases/S/s04_enum_packedstruct chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|9|8|UINT:9|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|6|8|UINT:6|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+tp/v11u219repro/cases/S/s08_bit_packed2d chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+tp/v11u223repro/cases/S/s01_mask_signed chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|2|UINT:2|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+tp/v11u223repro/cases/S/s02_typedef_packed2d_net chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|6|UINT:2|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+tp/v11u223repro/cases/S/s03_param_inst chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|3|UINT:2|9 @ cont_assign: < module_inst:u1 < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|2|8|UINT:2|9 @ cont_assign: < module_inst:u2 < module_inst:work@dut < design:work@dut
+tp/v11u223repro/cases/S/s04_iface_gen chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|3|UINT:2|9 @ cont_assign: < gen_scope: < gen_scope_array:g < module_inst:work@dut < design:work@dut
+tp/v11u223repro/cases/S/s05_enum_int_arrays chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|7|3|UINT:7|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|192|8|UINT:192|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|9|4|UINT:9|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+  CHAIN_LOST constant|||||0|0|0|0|0|6|UINT:0|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+tp/v11u223repro/cases/S/s06_port_unpacked chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|3|UINT:2|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+tp/v11u223repro/cases/S/s06_port_unpacked_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant|||||0|0|0|0|2|3|UINT:2|9 @ cont_assign: < module_inst:work@dut < design:work@dut
+tp/v11u225repro/cases/FO/g15 chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=2
+  CHAIN_LOST constant||||dut.sv|10|11|10|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|11|11|11|12|7|64|INT:7|7 @ range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|2|56|2|61|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u1 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|2|56|2|61|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < port:a < module_inst:u1 < module_inst:work@top < design:work@top
+tp/v11u225repro/cases/FO/g15_el chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=2
+  CHAIN_LOST constant||||dut.sv|10|11|10|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|11|11|11|12|7|64|INT:7|7 @ range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|2|56|2|61|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u1 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|2|56|2|61|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < port:a < module_inst:u1 < module_inst:work@top < design:work@top
+tp/v11u225repro/cases/FO/g17 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|9|11|9|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|2|56|2|61|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|2|56|2|61|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < port:a < module_inst:u < module_inst:work@top < design:work@top
+tp/v11u225repro/cases/FO/g17_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|9|11|9|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|2|56|2|61|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|2|56|2|61|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < port:a < module_inst:u < module_inst:work@top < design:work@top
+tp/v11u225repro/cases/FO/g19 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+tp/v11u225repro/cases/FO/g19_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+tp/v11u225repro/cases/FO/h01 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+tp/v11u225repro/cases/FO/h01_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+tp/v11u225repro/cases/FO/h03 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+tp/v11u225repro/cases/FO/h03_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+tp/v11u225repro/cases/FO/h04 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+tp/v11u225repro/cases/FO/h04_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=1
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+tp/v11u225repro/cases/FO/h06 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+tp/v11u225repro/cases/FO/h06_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=4
+  CHAIN_LOST constant||||dut.sv|6|11|6|12|15|64|INT:15|7 @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+TOTAL chain_lost=102 chain_toward=0 flat_lost=101 flat_toward=45
