@@ -2046,7 +2046,7 @@ inline int32_t mapBinaryOp(BinaryOperator op) {
 // `uninstDefNames`, when given, additionally collects the DEFINITION NAMES
 // reached only through a NON-TAKEN generate branch: Surelog compiles every
 // parsed module, so such a module still carries a def view in
-// design->AllModules (HierPathEval: work@GOOD, referenced only from
+// design->AllModules (fenced test F2: work@GOOD, referenced only from
 // gen_inner_if_true, which is false). slang marks those definitions referenced,
 // so getUnreferencedDefinitions() never reports them, and inside an
 // uninstantiated scope the instantiation is an UninstantiatedDefSymbol that

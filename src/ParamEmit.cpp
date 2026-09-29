@@ -9834,7 +9834,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         //    constant verbatim (HEX:ABCD, decompile 14'hABCD, ConstType 5,
         //    ts ref -> the struct typespec) with only vpiSize replaced by the
         //    LHS parameter's width.
-        // HierPathEval needs the first law, but it is NOT reachable from the
+        // fenced test F2 needs the first law, but it is NOT reachable from the
         // emitter: the value it changes also decides which generate branch
         // slang elaborates (`PadTypeInGeneric == 1`), and that decision is
         // made inside slang's compilation, not here. Ranked as slang-blocked.

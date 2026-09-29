@@ -40909,7 +40909,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             return psel;
         }
         case ExpressionKind::MemberAccess: {
-            // NOTE (HierPathEval, design-root-class triage): when the BASE is a
+            // NOTE (fenced test F2, design-root-class triage): when the BASE is a
             // packed-struct CONSTANT, golden's VALUE cannot be reproduced here.
             // UHDM's ExprEval::hierarchicalSelector (ExprEval.cpp, the
             // `constant` + `struct_typespec` arm) accumulates the member offset
@@ -40921,7 +40921,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // generate condition INSIDE slang's own elaboration (the true arm
             // instantiates a module we never see), so the divergence is not
             // reachable from the exporter: it would take slang adopting
-            // Surelog's layout. HierPathEval is blocked on that, not on naming.
+            // Surelog's layout. fenced test F2 is blocked on that, not on naming.
             //
             // § thisDeepStepMockupConst84 — SITE 4 of 4, the NO-CALL, NO-SELECT
             // spelling: a plain nested member read (`this.cfg.n_bytes`,

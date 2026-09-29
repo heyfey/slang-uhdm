@@ -11349,7 +11349,7 @@ UHDM::design* UhdmExporter::exportDesign() {
         d->VpiName("work@" + std::string(orderedTops[0]->getDefinition().name));
     else
         d->VpiName("unnamed"); // no top module: Surelog's unnamed design
-    // NOTE (design-root family, TopParam): a module whose parameter has NO
+    // NOTE (design-root family, fenced test F4): a module whose parameter has NO
     // default (`module top #(parameter param);`) is a design top for Surelog
     // (design `work@top`, TopModules = [top], the child getting an overriding
     // param_assign whose Rhs ref_obj resolves to top's own unset parameter),
@@ -11520,16 +11520,16 @@ UHDM::design* UhdmExporter::exportDesign() {
     // itself hide further non-taken branches, so run to a fixpoint over a
     // snapshot (collectDefs keeps appending to uninstGenDefs).
     //
-    // NOTE (design-root family): this closes the design ROOT of HierPathEval
-    // and UnsignedParam, both of which then diverge on CONSTANT EVALUATION,
+    // NOTE (design-root family): this closes the design ROOT of fenced test F2
+    // and fenced test F1, both of which then diverge on CONSTANT EVALUATION,
     // not on containers:
-    //   * HierPathEval — `.PadType(TargetCfg.dio_pad_type)` where TargetCfg is
+    //   * fenced test F2 — `.PadType(TargetCfg.dio_pad_type)` where TargetCfg is
     //     a 2-bit packed struct {logic a; pad_type_e dio_pad_type} = 'b10.
     //     slang folds the member select to 0 (first member is the MSB, per
     //     LRM); Surelog folds it to 1. Matching golden means reproducing
     //     Surelog's LSB-first member offset for this fold — do not do it
     //     globally, it would break every converged packed-struct fold.
-    //   * UnsignedParam — `localparam signed [63:0] n` gives golden an
+    //   * fenced test F1 — `localparam signed [63:0] n` gives golden an
     //     int_typespec with vpiSigned:1 that we do not set (a real, separate
     //     gap), and beyond it `n4 == 10376293541461622783` is TRUE for Surelog
     //     (64-bit unsigned) and FALSE for slang (the unsized decimal needs 65
