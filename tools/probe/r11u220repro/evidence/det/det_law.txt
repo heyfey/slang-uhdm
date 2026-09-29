@@ -1,0 +1,16 @@
+law Earlgrey_0_1/default       3 59b7563b3901 
+law MiniAmiq/default       2 63a2325a3c14       1 6f7b3b56bedd 
+law SeqDriver/default       3 0f60b8e34d33 
+law SimpleUVM/default       3 5d89fa3c7c0b 
+law Scoreboard/default       1 0b2cb5df50f5       2 9e07772758ab 
+law BuildUVMPkg/default       3 df5f67ab19c2 
+law Earlgrey_0_1/testflags       3 1613867749ab 
+law MiniAmiq/testflags       2 63a2325a3c14       1 6f7b3b56bedd 
+law SeqDriver/testflags       3 bf6b35aafe97 
+law SimpleUVM/testflags       3 348233ff4e16 
+law Scoreboard/testflags 
+law BuildUVMPkg/testflags       3 df5f67ab19c2 
+DETDONE
+# three concurrent harness runs (drivers/det.sh law.bin): one hash per row-mode except
+# MiniAmiq d/t: 2 binary hashes, uhdm-dump identical unsorted (storage order only)
+# Scoreboard d: 2 hashes, 92 unsorted / 0 sorted dump lines (the known svunit listing-order coin)

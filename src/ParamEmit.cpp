@@ -12,11 +12,14 @@
 #include "UhdmExporter.h"
 
 #include "EmitHelpers.h"
+#include "R218.h"
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
 
 namespace slang_uhdm {
+// § cloneHpIdxNamesByChain220 (r11u220) — defined in ExprEmit.cpp.
+void noteCloneHpIdx220(UHDM::any* clone);
 // The r11u200 switches of this file (ground A; the switch table is in
 // UhdmExporter.cpp).  Local so this file's laws land and build alone:
 // R11U200_OFF drops all of them; R11U200_TRACE=<dir> appends one
@@ -24974,6 +24977,10 @@ void rootPathFullNameByChain181(UHDM::Serializer& s);
 void drainLvSelChain181(UHDM::Serializer& s);
 // § lvIdxMixedPathIsRead181 (r11u181) — defined in ExprEmit.cpp.
 void drainLvIdxRead181(UHDM::Serializer& s);
+// § strLitContLineSpan220 (r11u220) — defined in ExprEmit.cpp.
+void strLitContEndDrain220(UHDM::Serializer& s);
+// § cloneHpIdxNamesByChain220 (r11u220) — defined in ExprEmit.cpp.
+void cloneHpIdxDrain220(UHDM::Serializer& s);
 
 void UhdmExporter::drainPaNameCopySrc38() {
     // § pkgTdAliasLastWriter215 and § impPatCopyFirstListingUnparented215
@@ -24984,12 +24991,16 @@ void UhdmExporter::drainPaNameCopySrc38() {
     pkgTdAliasLastWriter215(s, d, comp,
                             [this](SourceLocation l) { return rootFilePath(l); });
     impPatCopyFirstListing215(d, comp);
+    strLitContEndDrain220(s);  // § strLitContLineSpan220 (r11u220)
     drainImportCloneLocalCopies175(s);
     refFullNameThroughNamedExpr175(s);
     drainHierPathSelIdx178(s);
     rootPathFullNameByChain181(s);
     drainLvSelChain181(s);
     drainLvIdxRead181(s);
+    // § cloneHpIdxNamesByChain220 (r11u220): after the path-index drains
+    // (it renames only the clone bodies' select-index references).
+    cloneHpIdxDrain220(s);
     // § portViewNestedPatTsNamed154 — A PORT VIEW'S NESTED PATTERN TYPESPEC
     // IS NAMED BY THE VIEW.  An interface parameter whose default is a
     // NESTED assignment pattern (`parameter cfg_t CFG = '{BUS: '{DAT:
@@ -36912,6 +36923,49 @@ void UhdmExporter::emitImportedPkgClassMethodClones(const PackageSymbol& pkg,
                 target->Task_funcs()->size() <= before)
                 continue;
             auto* cp = (*target->Task_funcs())[before];
+            // § cloneHpIdxNamesByChain220 — the importer's clone bodies whose
+            // select-index references the design-final drain renames.
+            noteCloneHpIdx220(cp);
+            // § importCloneSharesHomeReturn218 (r11u218) — THE IMPORTER'S
+            // CLONE OF A CLASS METHOD SHARES THE HOME METHOD'S RETURN
+            // VARIABLE.  Surelog's importer clone is a UHDM function::DeepClone
+            // of the home class's out-of-body method, and DeepClone copies
+            // vpiReturn by pointer (UHDM templates/clone_tree.cpp,
+            // `clone->Return((variables*)obj)`, where task::DeepClone clones
+            // it), so every listing of the clone (both package views) holds
+            // the one return variable of the ELABORATED class_defn's
+            // definition entry, parented at that method: golden MiniAmiq
+            // `svaunit_pkg::uvm_object::get_name` returns `string_var
+            // uvm_pkg::uvm_object::get_name`, all 600 of svaunit_pkg's
+            // subroutine listings (the free-subroutine half already shared,
+            // § pkgCloneRetFixups9's caller above).  Ours minted a fresh
+            // variable parented at the clone (`svaunit_pkg::...`; r11u214's
+            // "544 / 597 split" counted the first variable child, which is a
+            // local for a void method).  The home method is the class_defn's
+            // task_func of the method's name at the clone's own span (the
+            // definition, not the extern prototype).  The minted variable is
+            // left unreferenced, as the free-subroutine half leaves its own.
+            // Grid tools/probe/r11u218dec/cases/CR.  Switch
+            // R11U218_CLONERET_OFF.
+            static const bool on218cr = r11u218On("R11U218_CLONERET_OFF");
+            if (on218cr && cp->UhdmType() == UHDM::uhdmfunction &&
+                cdit->second && cdit->second->Task_funcs()) {
+                UHDM::function* hf218 = nullptr;
+                for (auto* t218 : *cdit->second->Task_funcs())
+                    if (t218 && t218 != cp &&
+                        t218->UhdmType() == UHDM::uhdmfunction &&
+                        t218->VpiName() == e.sub->name &&
+                        t218->VpiLineNo() == cp->VpiLineNo() &&
+                        t218->VpiColumnNo() == cp->VpiColumnNo() &&
+                        t218->VpiEndLineNo() == cp->VpiEndLineNo())
+                        hf218 = (UHDM::function*)t218;
+                if (hf218 && hf218->Return() &&
+                    ((UHDM::function*)cp)->Return() != hf218->Return()) {
+                    ((UHDM::function*)cp)->Return(hf218->Return());
+                    tr218("importCloneSharesHomeReturn218",
+                          std::string(cp->VpiFullName()));
+                }
+            }
             pkgTfOrder9[cp] = {0, impAt};
             pkgTfSeq9[cp] = myIdx;
             any9 = true;

@@ -1,0 +1,5 @@
+# flat (unkeyed) away records: law.bin vs law.bin with R11U218_CLONERET_OFF, against the pristine sweep
+MiniAmiq default: law flat_away=154  law+R11U218_CLONERET_OFF flat_away=0  kinds=[('constant', 52), ('ref_typespec', 33), ('range', 26), ('enum_const', 18), ('class_typespec', 15), ('bit_typespec', 8)]
+SeqDriver default: law flat_away=143  law+R11U218_CLONERET_OFF flat_away=0  kinds=[('constant', 52), ('range', 26), ('ref_typespec', 22), ('enum_const', 18), ('class_typespec', 15), ('bit_typespec', 8)]
+probe g208_e_head LAWX flat_away 4
+probe g208_e_head S_R11U218_CLONERET_OFF flat_away 0

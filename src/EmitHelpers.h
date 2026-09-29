@@ -15304,9 +15304,18 @@ inline bool r11u210On(const char* one) {
 /// The r11u205 decode's ground-A law landed by r11u210
 /// (tools/probe/r11u205dec/README.md section 3.6): its own
 /// R11U205_<LAW>_OFF switch, R11U205_OFF, and R11U210_OFF.
+/// § landingSwitchReach220 (r11u220, the switch-reach repair of landing 205
+/// on this ground): R11U205_OFF drops the four r11u205 laws across BOTH
+/// grounds (§ ifacePortDeclTsAtPortDecl205 and § genConnTrailSelChain205 in
+/// ModuleEmit / UhdmExporter, § defGenTargetIpsDefName205 in TypeEmit,
+/// landed by pass 209; § elabIfArrIdxChainName205 here, landed by pass 210);
+/// R11U220_LANDING205A_OFF drops this ground's half alone (the reach table
+/// is tools/probe/r11u220repro/README.md).  The old switches keep their
+/// meaning; R11U220_OFF does not read this one (the base keeps the law).
 inline bool r11u205aOn(const char* one) {
     static const bool all = getenv("R11U205_OFF") != nullptr ||
-                            getenv("R11U210_OFF") != nullptr;
+                            getenv("R11U210_OFF") != nullptr ||
+                            getenv("R11U220_LANDING205A_OFF") != nullptr;
     return !all && getenv(one) == nullptr;
 }
 /// § pkgTopWidePatReplTsName210 — the package name while ParamEmit emits a
