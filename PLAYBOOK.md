@@ -130,25 +130,21 @@ hard constraints: goldens 23/23, no PASS→anything, no CMP_ONLY→DIFF.
 ## The gate (exact recipe)
 
 ```sh
-# build (long builds: background + wait; NEVER trust a result from a stale binary)
-timeout 280 ~/.local/bin/cmake --build build -j 4 2>&1 | grep -iE "error:|Built target slang_uhdm$" & wait
+# build (in the background; a result from a stale binary is not a result)
+cmake --build build -j 2 > /tmp/build.log 2>&1; tail -1 /tmp/build.log; md5sum build/slang-uhdm
 # quick gate (a few tests, both corpora, both modes)
 tests/sweep.sh --filter '^Assign' | tail -3      # regressions=0
 # probe cases vs their baseline (strict since 2026-09-24: EQUAL = uhdm-cmp AND
 # uhdm-strictcmp equal; STRICT_NOTEQUAL cases are the recorded residue)
 python3 scripts/check_probe.py --jobs 3 --workdir /tmp/pw --out /tmp/pw/probe.csv
 python3 scripts/compare_results.py /tmp/pw/probe.csv results/golden_probe.csv   # regressions=0
-# full corpus (background while probing the next item)
-./scripts/run_corpus.sh ~/git-repos/uhdm2rtlil/test results/<x>.csv results/baseline_auto.csv
-# class changes — THE verdict:
-join -t, -j1 <(LC_ALL=C sort results/baseline_auto.csv) <(LC_ALL=C sort results/<x>.csv) \
-  -o 1.1,1.2,2.2 | awk -F, '$2!=$3{printf "%-52s %s -> %s\n",$1,$2,$3}'
-# numeric dump changes (informational; use numeric compare, not string):
-awk -F, 'FNR==NR{...b[$1]=n+0...} {...if(n>b[$1]) "INCREASE"...}' old new
+# the full gate (all four stages, ~12 min): probe, surelog, uhdm2rtlil, downstream
+tests/sweep.sh --jobs 3 --workdir /tmp/<sweepdir>   # rc 0; regressions=0 on all three compare lines; downstream unchanged
 ```
-Demotions (PASS→x, CMP_ONLY→DIFF) = refine or revert+refine. Everything else
-is acceptable. After committing, ALWAYS `cp results/<x>.csv
-results/baseline_auto.csv` and commit it with the change.
+A regression (a row leaving CMP_EQUAL/EQUAL, or a downstream row leaving
+IDENTICAL) means refine or revert+refine. A conversion (STRICT_NOTEQUAL ->
+CMP_EQUAL) is promoted into `results/golden_*.csv` by the landing commit,
+with the law index regenerated (`python3 scripts/law_index.py`).
 
 Every landing that names a law (`§ name`), adds an case or a pass README
 regenerates the law index and commits it with the landing:

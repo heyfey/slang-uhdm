@@ -50,12 +50,12 @@ corrupted packed-array evaluation, generate-if conditions it cannot value,
 `ExprEval` quirks), we MODEL the mis-evaluation. We never "fix" Surelog and we
 never patch UHDM. Patching **slang** is out of scope too.
 
-**The judge is `~/git-repos/UHDM/build/bin/uhdm-cmp` and nothing else.** Every
-CMP_EQUAL claim, every canary, every gate uses it. Extended comparators
-(the ladder, censuses) are MEASUREMENT-ONLY (user authorization 2026-08-16:
-"you can fix cmp to provide more comparison/info, as long as we still use the
-official cmp to claim it is correct") and must never become a bottleneck
-(never in the landing gate battery; report their cost when run).
+**The gate is `uhdm-cmp` AND `tools/uhdm-strictcmp` (strict since c9e2923c,
+user decision 2026-09-24).** A row-mode is CMP_EQUAL only when both read
+equal, else STRICT_NOTEQUAL; `tests/sweep.sh` compares the surelog,
+uhdm2rtlil and probe csvs against `results/golden_*.csv` with regressions=0
+as the bar. Any other comparator (the ladder, censuses) is measurement-only
+and never in the gate; report its cost when run.
 
 **Standing user directives** (verbatim spirit):
 - "keep converging non stop" — autonomous, continuous; the session ends when
@@ -63,23 +63,43 @@ official cmp to claim it is correct") and must never become a bottleneck
   continue".
 - Answer "how far are we" with MEASUREMENTS, never guesses (§10).
 - Master = coordinator only (dispatch, integrate, gate, commit). Subagents =
-  implement + adversarial-verify pairs, four concurrent, refilled the moment a
-  slot lands. Pin the strongest available model + high effort for subagents
-  and CHECK the pin on each dispatch (with Claude: `model:'opus'`,
-  `effort:'high'` — session-model inheritance once killed 9 agents).
+  implement + adversarial-verify pairs or single measurement passes, three
+  concurrent subagents in total (user 2026-09-24), refilled the moment a slot
+  lands. Pin the strongest available model + high effort for subagents
+  and CHECK the pin on each dispatch (with Claude: `model:'claude-opus-5-5'`,
+  `effort:'high'` in EVERY agent() call, user 2026-09-22 — session-model inheritance once killed 9 agents).
 - ONE PATCH AT A TIME through the integration gate; the master promotes
   baseline CSV rows itself, with the rows quoted, only for real
   conversions/unmaskings.
 
 **Security/hygiene constraints (in force, do not relax):**
-- `results/gate_uhdm2rtlil.csv` and `results/golden_surelog.csv` are
-  committed READ-ONLY baselines; only the master edits them, only for a
+- `results/golden_surelog.csv`, `results/golden_uhdm2rtlil.csv` and
+  `results/golden_probe.csv` are committed READ-ONLY baselines; only the master edits them, only for a
   measured conversion/unmasking, quoting old→new rows in the commit.
 - The four slang-fenced tests (`UnsignedParam`, `HierPathEval`,
   `FileLocalParam`, `TopParam`) are NEVER dispatched, and probe artifacts must
   not spell those names individually (`canaudit.sh` reads that as
   FENCE-BREACH; its own fence list and superstring test names like
   `SizeOfUnsignedParameter` are the only allowed mentions).
+- The record of the fenced tests is `tests/FENCED.md`: the names with a tag
+  each (F1 to F4), the rules, and the design notes that were source comments.
+  The exporter source holds no fenced name; it refers to a test by its tag
+  (user decision 2026-09-29).
+- NO PATCH FILE OF A LAW OR A FIX IN THE REPOSITORY (user decision
+  2026-09-29). A pass delivers its work as `/tmp/<pass>.patch`; a
+  verification delivers a fix as `/tmp/<pass>_fix.patch` and a decode its laws
+  as `/tmp/<pass>_law.patch`. These files are transport only. A landing
+  deletes every `*.patch` from the pass's `tools/probe/<pass>` directory
+  before `git add`. Only tool patches that a driver applies stay tracked.
+- The golden cache is `CACHE_ROOT/<surelog commit>/<key>`
+  (`verify_golden.cache_base()`, user decision 2026-09-29): a moved Surelog
+  pin never reads an old golden.
+- Surelog's `-sverilog` reaches slang-uhdm as `--sverilog` in both the
+  default and the testflags mode (user decision 2026-09-29).
+- KNOWN FAILURES THAT STAY IN THE GATE (user decision 2026-09-29; they run in
+  seconds): LogicTypespec d/t, Scr1SvTests d/t and stamped_gen_param d/t are
+  Surelog behaviours the exporter does not copy. They stay STRICT_NOTEQUAL or
+  CMP_NOTEQUAL rows and are not work items.
 - `r10earl23` (Earlgrey pass 23, `/tmp/r10earl23.patch`) is QUARANTINED: its
   agent edited a file outside its worktree (`.handled`) — flagged by a
   security classifier as a possible fake-review marker. Do not integrate it
@@ -87,7 +107,7 @@ official cmp to claim it is correct") and must never become a bottleneck
 - Agents write ONLY inside their own worktree + their own pass-prefixed
   `/tmp/<pass>_*` scratch. Never `/tmp/claude-1000` (harness dir). Never
   `git stash`. Never truncate `git apply` output. `GOLDEN_DEFER` stays unset.
-  Sweeps `--jobs 2`. Builds `-j 2`.
+  Sweeps `--jobs 3`. Builds `-j 2`.
 - Never delete another pass's `/tmp` scratch or frozen binaries while it may
   be in flight; prune only landed passes' worktrees.
 
@@ -574,10 +594,12 @@ Standing ops rules (copy verbatim into every brief — see the `OPS` block in
 any `scratchpad/*.js` if available, else reconstruct from §1 and §9):
 repo/branch/BASE; own worktree + pass-prefixed scratch only; no writes to the
 main tree (two agents left empty stray files there — every redirect names a
-path); results/*.csv read-only; never git stash; -j 2; sweeps --jobs 2 with
+path); results/*.csv read-only; never git stash; -j 2; sweeps --jobs 3 with
 own --out/--workdir; export SLANG_UHDM and audit every `cmds.txt` by binary
 path; freeze binaries (`chmod 555` copies) BEFORE any sweep; never dispatch
-the four fenced tests; the ladder is measurement-only; LHS is always golden;
+the four fenced tests, never run any binary, gdb or script on their sources or
+a copy, every source scan excludes them by word boundary; the ladder is
+measurement-only; LHS is always golden;
 ONE head per run (`grep -c '^LHS:'`); Compare reads
 VpiType/VpiName/VpiDefName + per-kind fields, never fullname/span
 (VpiDecompile IS read); movers as ROWS; Scoreboard/default is a ~50/50 COIN
