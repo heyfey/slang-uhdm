@@ -1,0 +1,40 @@
+== probe: 6 rows differ
+r10uvm125repro/g125_b_shapes CONVERSION | STRICT_NOTEQUAL differ:line(4) -> EQUAL equal | off 4 rec on 0 rec | new=0 gone=4 first-record-same=False
+    off first: #28 line golden[5 bit_typespec wide_t   dut.sv 8 49 8 55] ours[5 bit_typespec wide_t   dut.sv 5 11 5 21]
+r10uvm125repro/g125_d_homes CONVERSION | STRICT_NOTEQUAL differ:line(4) -> EQUAL equal | off 4 rec on 0 rec | new=0 gone=4 first-record-same=False
+    off first: #15 line golden[5 bit_typespec wide_t   dut.sv 6 51 6 57] ours[5 bit_typespec wide_t   dut.sv 5 11 5 21]
+r10uvm35repro/t47a CONVERSION | STRICT_NOTEQUAL differ:line(1) -> EQUAL equal | off 1 rec on 0 rec | new=0 gone=1 first-record-same=False
+    off first: #88 line golden[6 int_typespec plain47_t   dut.sv 68 32 68 41] ours[6 int_typespec plain47_t   dut.sv 59 11 59 14]
+r10uvm35repro/t47b CONVERSION | STRICT_NOTEQUAL differ:line(1) -> EQUAL equal | off 1 rec on 0 rec | new=0 gone=1 first-record-same=False
+    off first: #57 line golden[6 int_typespec plain47_t   dut.sv 31 32 31 41] ours[6 int_typespec plain47_t   dut.sv 29 11 29 14]
+r10uvm36repro/t48a SUBSET | STRICT_NOTEQUAL differ:line(10) -> STRICT_NOTEQUAL differ:name(2) | off 10 rec on 2 rec | new=0 gone=8 first-record-same=False
+    off first: #30 line golden[5 int_typespec u48_t   dut.sv 29 34 29 39] ours[5 int_typespec u48_t   dut.sv 23 11 23 14]
+    on  first: #222 name golden[9 logic_typespec w48_t   dut.sv 22 11 22 30] ours[9 logic_typespec home48::w48_t   dut.sv 22 11 22 30]
+r10uvm36repro/t48c CONVERSION | STRICT_NOTEQUAL differ:line(8) -> EQUAL equal | off 8 rec on 0 rec | new=0 gone=8 first-record-same=False
+    off first: #9 line golden[5 int_typespec k50_t   dut.sv 30 25 30 30] ours[5 int_typespec k50_t   dut.sv 20 11 20 14]
+   tally probe: CONVERSION=5 SUBSET=1
+== surelog: 7 rows differ
+surelog/default/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:file(7) -> STRICT_NOTEQUAL differ:line(2) | off 7 rec div@24917 on 2 rec div@24917 | new=0 gone=5 first-record-same=False
+    off first: #15320 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+    on  first: #24915 line golden[5 enum_typespec uvm_pkg::UVM_SEQ_ARB_TYPE   uvm_sequencer_base.svh 332 40 332 56] ours[5 enum_typespec uvm_pkg::UVM_SEQ_ARB_TYPE   uvm_sequencer_base.svh 1381 51 1381 67]
+surelog/testflags/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:file(7) -> STRICT_NOTEQUAL differ:line(2) | off 7 rec div@24917 on 2 rec div@24917 | new=0 gone=5 first-record-same=False
+    off first: #15320 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+    on  first: #24915 line golden[5 enum_typespec uvm_pkg::UVM_SEQ_ARB_TYPE   uvm_sequencer_base.svh 332 40 332 56] ours[5 enum_typespec uvm_pkg::UVM_SEQ_ARB_TYPE   uvm_sequencer_base.svh 1381 51 1381 67]
+surelog/default/Scoreboard SUBSET | STRICT_NOTEQUAL differ:file(30) -> STRICT_NOTEQUAL differ:file(16) | off 30 rec div@79148 on 16 rec div@79148 | new=0 gone=14 first-record-same=False
+    off first: #15398 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+    on  first: #26895 file golden[5 class_typespec this_type   uvm_algorithmic_comparator.svh 74 11 74 37] ours[5 class_typespec this_type   uvm_sequence_library.svh 330 12 330 32]
+surelog/default/SeqDriver SUBSET | STRICT_NOTEQUAL differ:file(7) -> STRICT_NOTEQUAL differ:line(2) | off 7 rec div@24900 on 2 rec div@24900 | new=0 gone=5 first-record-same=False
+    off first: #15303 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+    on  first: #24898 line golden[5 enum_typespec uvm_pkg::UVM_SEQ_ARB_TYPE   uvm_sequencer_base.svh 332 40 332 56] ours[5 enum_typespec uvm_pkg::UVM_SEQ_ARB_TYPE   uvm_sequencer_base.svh 1381 51 1381 67]
+surelog/testflags/SeqDriver SUBSET | STRICT_NOTEQUAL differ:file(7) -> STRICT_NOTEQUAL differ:line(2) | off 7 rec div@24912 on 2 rec div@24912 | new=0 gone=5 first-record-same=False
+    off first: #15315 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+    on  first: #24910 line golden[5 enum_typespec uvm_pkg::UVM_SEQ_ARB_TYPE   uvm_sequencer_base.svh 332 40 332 56] ours[5 enum_typespec uvm_pkg::UVM_SEQ_ARB_TYPE   uvm_sequencer_base.svh 1381 51 1381 67]
+surelog/default/SimpleUVM SUBSET | STRICT_NOTEQUAL differ:file(54) -> STRICT_NOTEQUAL differ:file(40) | off 54 rec div@78752 on 40 rec div@78752 | new=0 gone=14 first-record-same=False
+    off first: #15390 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+    on  first: #26887 file golden[5 class_typespec this_type   uvm_algorithmic_comparator.svh 74 11 74 37] ours[5 class_typespec this_type   uvm_sequence_library.svh 330 12 330 32]
+surelog/testflags/SimpleUVM SUBSET | STRICT_NOTEQUAL differ:file(54) -> STRICT_NOTEQUAL differ:file(40) | off 54 rec div@78764 on 40 rec div@78764 | new=0 gone=14 first-record-same=False
+    off first: #15402 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+    on  first: #26899 file golden[5 class_typespec this_type   uvm_algorithmic_comparator.svh 74 11 74 37] ours[5 class_typespec this_type   uvm_sequence_library.svh 330 12 330 32]
+   tally surelog: SUBSET=7
+== uhdm2rtlil: 0 rows differ
+   tally uhdm2rtlil: 

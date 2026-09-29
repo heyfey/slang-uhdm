@@ -1,0 +1,13 @@
+FIRED P/p05_chain_digits ppDotNameAfterArgToken219:9 ppIdentEndInRebuiltText219:3
+  (rescore on)
+  (rescore tr)
+  (rescore off_ppDotNameAfterArgToken219)
+  (rescore off_ppIdentEndInRebuiltText219)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT P/p05_chain_digits ppDotNameAfterArgToken219 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_48_objects
+RESULT P/p05_chain_digits ppIdentEndInRebuiltText219 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_48_objects
+RESULT P/p05_chain_digits LANDING219 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_48_objects
+RESULT P/p05_chain_digits ALLOFF TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_48_objects
+RESULT P/p05_chain_digits WIDE TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_48_objects

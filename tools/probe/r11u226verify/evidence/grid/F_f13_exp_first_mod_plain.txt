@@ -1,0 +1,13 @@
+FIRED F/f13_exp_first_mod_plain -
+  F/f13_exp_first_mod_plain on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=54009200
+  F/f13_exp_first_mod_plain tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=54009200
+  F/f13_exp_first_mod_plain off_tfArgScalarTdExportFirst223 cmp=0 cmplines=0 strict=STRICT_EQUAL_32_objects rc=0 md5=12425cdd
+  F/f13_exp_first_mod_plain off_tfArgScalarTdWriter223 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=54009200
+  F/f13_exp_first_mod_plain offL223 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=54009200
+  F/f13_exp_first_mod_plain alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=54009200
+  F/f13_exp_first_mod_plain wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=54009200
+RESULT F/f13_exp_first_mod_plain tfArgScalarTdExportFirst223 AWAY new=2 gone=0 off:STRICT_EQUAL_32_objects on:STRICT_NOTEQUAL_line | first new: line / A: 5	int_typespec	FILE_T			dut.sv	8	19	8	25 / B: 5	int_typespec	FILE_T			dut.sv	3	11	3	14
+RESULT F/f13_exp_first_mod_plain tfArgScalarTdWriter223 UNFIRED 
+RESULT F/f13_exp_first_mod_plain LANDING223 UNFIRED 
+RESULT F/f13_exp_first_mod_plain ALLOFF UNFIRED 
+RESULT F/f13_exp_first_mod_plain WIDE UNFIRED 

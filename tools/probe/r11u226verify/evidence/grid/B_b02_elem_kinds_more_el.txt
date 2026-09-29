@@ -1,0 +1,11 @@
+FIRED B/b02_elem_kinds_more_el fixedOuterAssocInnerReg223:5
+  (rescore on)
+  (rescore tr)
+  (rescore off_fixedOuterAssocInnerReg223)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT B/b02_elem_kinds_more_el fixedOuterAssocInnerReg223 STAGE1-CLOSER off:stage1 on:stage1 dump off=151 on=107 newbad=8
+RESULT B/b02_elem_kinds_more_el LANDING223 STAGE1-CLOSER off:stage1 on:stage1 dump off=151 on=107 newbad=8
+RESULT B/b02_elem_kinds_more_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=151 on=107 newbad=8
+RESULT B/b02_elem_kinds_more_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=151 on=107 newbad=8

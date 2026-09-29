@@ -1,0 +1,17 @@
+FIRED X/x06_scalar_formal_extern_clone_el importCloneSharesHomeReturn218:4 tfArgScalarTdWriter223:21
+  X/x06_scalar_formal_extern_clone_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_275_objects rc=0 md5=507b733e
+  X/x06_scalar_formal_extern_clone_el tr cmp=0 cmplines=0 strict=STRICT_EQUAL_275_objects rc=0 md5=507b733e
+  X/x06_scalar_formal_extern_clone_el off_tfArgScalarTdWriter223 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=20247a0d
+  X/x06_scalar_formal_extern_clone_el off_importCloneSharesHomeReturn218 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=25d7b5e6
+  X/x06_scalar_formal_extern_clone_el offL220 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=25d7b5e6
+  X/x06_scalar_formal_extern_clone_el offL223 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=20247a0d
+  X/x06_scalar_formal_extern_clone_el off2_tfArgScalarTdWriter223_importCloneSharesHomeReturn218 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=02cdeb1b
+  X/x06_scalar_formal_extern_clone_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=02cdeb1b
+  X/x06_scalar_formal_extern_clone_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=02cdeb1b
+RESULT X/x06_scalar_formal_extern_clone_el tfArgScalarTdWriter223 TOWARD new=0 gone=18 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_275_objects
+RESULT X/x06_scalar_formal_extern_clone_el importCloneSharesHomeReturn218 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname(div@67) on:STRICT_EQUAL_275_objects
+RESULT X/x06_scalar_formal_extern_clone_el LANDING220 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname(div@67) on:STRICT_EQUAL_275_objects
+RESULT X/x06_scalar_formal_extern_clone_el LANDING223 TOWARD new=0 gone=18 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_275_objects
+RESULT X/x06_scalar_formal_extern_clone_el PAIR:tfArgScalarTdWriter223+importCloneSharesHomeReturn218 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname(div@67) on:STRICT_EQUAL_275_objects
+RESULT X/x06_scalar_formal_extern_clone_el ALLOFF TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname(div@67) on:STRICT_EQUAL_275_objects
+RESULT X/x06_scalar_formal_extern_clone_el WIDE TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname(div@67) on:STRICT_EQUAL_275_objects

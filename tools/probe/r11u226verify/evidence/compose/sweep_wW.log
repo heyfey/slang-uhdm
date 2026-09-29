@@ -1,0 +1,24 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== surelog: both modes, jobs=2, out=/tmp/r11u226_wW/surelog.csv
+5 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u226_bin/uhdm-strictcmp
+
+[default] 5 tests
+  STRICT_NOTEQUAL: 5
+
+[testflags] 5 tests
+  STRICT_NOTEQUAL: 4
+  SLANG_REJECT: 1
+== surelog vs golden_surelog.csv
+[default] STRICT_NOTEQUAL=5
+[testflags] SLANG_REJECT=1 STRICT_NOTEQUAL=4
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:line(19) -> differ:line(31) [line +12]
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:line(19) -> differ:line(31) [line +12]
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:line(2) -> differ:endline(59)
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:line(2) -> differ:endline(59)
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:file(16) -> differ:fullname(137)
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:line(2) -> differ:endline(59)
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:line(2) -> differ:endline(59)
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:file(40) -> differ:fullname(185)
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:file(40) -> differ:fullname(185)
+regressions=0 conversions=0 changes=9 only-fresh=0 only-committed=0
+golden cache: 10 of 10 runs served from the cache

@@ -28,6 +28,7 @@
 #include "R218.h"
 #include "R220.h"
 #include "R224.h"
+#include "R226.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -2437,14 +2438,46 @@ void cloneHpIdxDrain220(UHDM::Serializer& s) {
 void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
     if (!r11u175LawE("R11U175_FULLNAME_OFF"))
         return;
+    // § fullNameDrainIdOrder226v (r11u226, switch R11V226_IDORDER_OFF;
+    // R11V226_OFF drops it) — the loops below register fresh VpiFullName
+    // strings, and Serializer::AllObjects() is a std::map keyed by object
+    // ADDRESS, so the symbol table's tail was written in heap-address order:
+    // MiniAmiq d/t drew two database hashes with identical dumps (map 14,
+    // r11u223 section 9, v11u223 section 4).  Every name computed here reads
+    // only VpiName / VpiDefName of the chain (chainFullName175), never a
+    // full name this drain sets, so visiting the objects in UhdmId (creation)
+    // order changes the symbol table's order and no record.
+    std::vector<const UHDM::BaseClass*> objs226;
+    // the trace names the databases where the drain sets two or more names
+    // (only there can the order of the registered strings differ)
+    struct Trace226 {
+        int n = 0;
+        ~Trace226() {
+            if (n > 0)
+                tr226("fullNameDrainIdOrder226v", std::to_string(n));
+        }
+    } set226;
+    {
+        auto all226 = s.AllObjects();
+        objs226.reserve(all226.size());
+        for (auto& kv : all226)
+            objs226.push_back(kv.first);
+        if (r11v226Law("R11V226_IDORDER_OFF"))
+            std::stable_sort(objs226.begin(), objs226.end(),
+                             [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+                                 const uint32_t ia = a ? a->UhdmId() : 0;
+                                 const uint32_t ib = b ? b->UhdmId() : 0;
+                                 return ia < ib;
+                             });
+    }
     std::map<const UHDM::BaseClass*, const UHDM::BaseClass*> ioOfDefault;
-    for (auto& kv : s.AllObjects())
-        if (kv.first && kv.first->UhdmType() == UHDM::uhdmio_decl)
-            if (auto* x = ((const UHDM::io_decl*)kv.first)->Expr();
+    for (auto* kv226 : objs226)
+        if (kv226 && kv226->UhdmType() == UHDM::uhdmio_decl)
+            if (auto* x = ((const UHDM::io_decl*)kv226)->Expr();
                 x && x->UhdmType() == UHDM::uhdmref_obj)
-                ioOfDefault[x] = kv.first;
-    for (auto& kv : s.AllObjects()) {
-        auto* o = (UHDM::BaseClass*)kv.first;
+                ioOfDefault[x] = kv226;
+    for (auto* kv226 : objs226) {
+        auto* o = (UHDM::BaseClass*)kv226;
         if (!o || o->UhdmType() != UHDM::uhdmref_obj)
             continue;
         const UHDM::BaseClass* p = o->VpiParent();
@@ -2546,6 +2579,7 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
         if (margop198)
             trace198("methodArgOpRefChainName198");
         ro175->VpiFullName(want);
+        set226.n++;
     }
     // § methodArgNestedRefChain201 (r11u201, R11U201_MARGNEST_OFF; the
     // residues of § methodArgOpRefChainName198: r11u198's m13, v11u198's v01
@@ -2564,10 +2598,10 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
     // module functions and a module initial block, both listings (grid
     // tools/probe/r11u201repro/cases/M); a method TASK call statement keeps
     // its names in golden (m06, not a hier_path element).
-    for (auto& kv : s.AllObjects()) {
+    for (auto* kv226 : objs226) {
         if (!r11u201On("R11U201_MARGNEST_OFF"))
             break;
-        auto* o = (UHDM::BaseClass*)kv.first;
+        auto* o = (UHDM::BaseClass*)kv226;
         if (!o)
             continue;
         const auto ot = o->UhdmType();
@@ -2641,6 +2675,7 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
             continue;
         trace201("methodArgNestedRefChain201");
         ro201->VpiFullName(want);
+        set226.n++;
     }
     // § callArgInSelIdxChainName201 (r11u201, R11U201_SELIDXCALL_OFF; r11u194's
     // N4, r11u198's R1: l12, v11u198's u08, u10) — the index of a path's
@@ -2654,8 +2689,8 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
     // tools/probe/r11u201repro/cases/N.
     if (!r11u201On("R11U201_SELIDXCALL_OFF"))
         return;
-    for (auto& kv : s.AllObjects()) {
-        auto* o = (UHDM::BaseClass*)kv.first;
+    for (auto* kv226 : objs226) {
+        auto* o = (UHDM::BaseClass*)kv226;
         if (!o || o->UhdmType() != UHDM::uhdmref_obj)
             continue;
         const UHDM::BaseClass* bs = o->VpiParent();
@@ -2717,6 +2752,7 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
             continue;
         trace201("callArgInSelIdxChainName201");
         ro->VpiFullName(want);
+        set226.n++;
     }
 }
 

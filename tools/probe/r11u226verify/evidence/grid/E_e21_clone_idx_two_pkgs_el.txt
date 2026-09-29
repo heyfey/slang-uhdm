@@ -1,0 +1,13 @@
+FIRED E/e21_clone_idx_two_pkgs_el cloneHpIdxNamesByChain220:12 importCloneSharesHomeReturn218:4
+  (rescore on)
+  (rescore tr)
+  (rescore off_cloneHpIdxNamesByChain220)
+  (rescore off_cloneIdxOwnCopyOnly220)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e21_clone_idx_two_pkgs_el cloneHpIdxNamesByChain220 STAGE1-CLOSER off:stage1 on:stage1 dump off=12 on=0 newbad=0
+RESULT E/e21_clone_idx_two_pkgs_el cloneIdxOwnCopyOnly220 STAGE1-CLOSER off:stage1 on:stage1 dump off=12 on=0 newbad=0
+RESULT E/e21_clone_idx_two_pkgs_el LANDING220 STAGE1-CLOSER off:stage1 on:stage1 dump off=68 on=0 newbad=0
+RESULT E/e21_clone_idx_two_pkgs_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=68 on=0 newbad=0
+RESULT E/e21_clone_idx_two_pkgs_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=68 on=0 newbad=0

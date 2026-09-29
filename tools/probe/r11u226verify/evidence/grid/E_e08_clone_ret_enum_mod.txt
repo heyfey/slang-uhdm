@@ -1,0 +1,11 @@
+FIRED E/e08_clone_ret_enum_mod -
+  (rescore on)
+  (rescore tr)
+  (rescore off_importCloneSharesHomeReturn218)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e08_clone_ret_enum_mod importCloneSharesHomeReturn218 UNFIRED 
+RESULT E/e08_clone_ret_enum_mod LANDING220 UNFIRED 
+RESULT E/e08_clone_ret_enum_mod ALLOFF UNFIRED 
+RESULT E/e08_clone_ret_enum_mod WIDE UNFIRED 

@@ -1,0 +1,15 @@
+FIRED D/d05_assoc_middle_dims fixedOuterAssocInnerReg223:2 sizeReachFollowsWalker219v:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_fixedOuterAssocInnerReg223)
+  (rescore off_unsizedInnerSizeDeclines223)
+  (rescore off_ndaAdjSizeFoldSized223)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT D/d05_assoc_middle_dims fixedOuterAssocInnerReg223 STAGE1-CLOSER off:stage1 on:stage1 dump off=57 on=51 newbad=9
+RESULT D/d05_assoc_middle_dims unsizedInnerSizeDeclines223 UNFIRED 
+RESULT D/d05_assoc_middle_dims ndaAdjSizeFoldSized223 UNFIRED 
+RESULT D/d05_assoc_middle_dims LANDING223 STAGE1-CLOSER off:stage1 on:stage1 dump off=57 on=51 newbad=9
+RESULT D/d05_assoc_middle_dims ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=57 on=51 newbad=9
+RESULT D/d05_assoc_middle_dims WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=57 on=51 newbad=9

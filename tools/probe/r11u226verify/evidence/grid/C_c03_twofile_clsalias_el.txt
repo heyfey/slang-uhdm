@@ -1,0 +1,11 @@
+FIRED C/c03_twofile_clsalias_el CLASSTDW:1
+  (rescore on)
+  (rescore tr)
+  (rescore off_classTdAliasLastWriter214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT C/c03_twofile_clsalias_el classTdAliasLastWriter214 STAGE1-SAME off:stage1 on:stage1 dump off=41 on=41 newbad=0
+RESULT C/c03_twofile_clsalias_el LANDING219 STAGE1-SAME off:stage1 on:stage1 dump off=41 on=41 newbad=0
+RESULT C/c03_twofile_clsalias_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=41 on=41 newbad=0
+RESULT C/c03_twofile_clsalias_el WIDE STAGE1-SAME off:stage1 on:stage1 dump off=41 on=41 newbad=0

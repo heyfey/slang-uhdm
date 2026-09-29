@@ -1,0 +1,17 @@
+FIRED S/s02_packed3d_dims ndaSizeFoldReach219:4
+  (rescore on)
+  (rescore tr)
+  (rescore off_ndaSizeFoldReach219)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZE2D_OFF)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZEDIM_OFF)
+  (rescore off_sizeReachFollowsWalker219v)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT S/s02_packed3d_dims ndaSizeFoldReach219 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 243 objects dump off=70 on=0 newbad=0
+RESULT S/s02_packed3d_dims ndaSizeFoldReach219:R11U219_SIZE2D_OFF STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 243 objects dump off=15 on=0 newbad=0
+RESULT S/s02_packed3d_dims ndaSizeFoldReach219:R11U219_SIZEDIM_OFF STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 243 objects dump off=55 on=0 newbad=0
+RESULT S/s02_packed3d_dims sizeReachFollowsWalker219v UNFIRED 
+RESULT S/s02_packed3d_dims LANDING219 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 243 objects dump off=70 on=0 newbad=0
+RESULT S/s02_packed3d_dims ALLOFF STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 243 objects dump off=70 on=0 newbad=0
+RESULT S/s02_packed3d_dims WIDE STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 243 objects dump off=70 on=0 newbad=0

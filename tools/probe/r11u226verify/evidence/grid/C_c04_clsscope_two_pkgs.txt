@@ -1,0 +1,11 @@
+FIRED C/c04_clsscope_two_pkgs -
+  (rescore on)
+  (rescore tr)
+  (rescore off_classScopeTdPkgListingParent214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT C/c04_clsscope_two_pkgs classScopeTdPkgListingParent214 UNFIRED 
+RESULT C/c04_clsscope_two_pkgs LANDING219 UNFIRED 
+RESULT C/c04_clsscope_two_pkgs ALLOFF UNFIRED 
+RESULT C/c04_clsscope_two_pkgs WIDE UNFIRED 

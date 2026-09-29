@@ -1,0 +1,11 @@
+FIRED F/f08_extern_oob_unit_modcls tfArgScalarTdWriter223:8
+  (rescore on)
+  (rescore tr)
+  (rescore off_tfArgScalarTdWriter223)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT F/f08_extern_oob_unit_modcls tfArgScalarTdWriter223 STAGE1-CLOSER off:stage1 on:stage1 dump off=119 on=111 newbad=0
+RESULT F/f08_extern_oob_unit_modcls LANDING223 STAGE1-CLOSER off:stage1 on:stage1 dump off=119 on=111 newbad=0
+RESULT F/f08_extern_oob_unit_modcls ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=119 on=111 newbad=0
+RESULT F/f08_extern_oob_unit_modcls WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=119 on=111 newbad=0

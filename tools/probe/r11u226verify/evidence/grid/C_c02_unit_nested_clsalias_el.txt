@@ -1,0 +1,11 @@
+FIRED C/c02_unit_nested_clsalias_el CLASSTDW:1
+  (rescore on)
+  (rescore tr)
+  (rescore off_classTdAliasLastWriter214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT C/c02_unit_nested_clsalias_el classTdAliasLastWriter214 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_38_objects on:STRICT_EQUAL_38_objects
+RESULT C/c02_unit_nested_clsalias_el LANDING219 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_38_objects on:STRICT_EQUAL_38_objects
+RESULT C/c02_unit_nested_clsalias_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_38_objects on:STRICT_EQUAL_38_objects
+RESULT C/c02_unit_nested_clsalias_el WIDE BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_38_objects on:STRICT_EQUAL_38_objects

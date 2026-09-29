@@ -1,0 +1,11 @@
+FIRED E/e17_cont_var_decl_el strLitContLineSpan220:7 strLitShiftNeedsBacktick220:1
+  (rescore on)
+  (rescore tr)
+  (rescore off_strLitContLineSpan220)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e17_cont_var_decl_el strLitContLineSpan220 TOWARD new=0 gone=9 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline
+RESULT E/e17_cont_var_decl_el LANDING220 TOWARD new=0 gone=9 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline
+RESULT E/e17_cont_var_decl_el ALLOFF TOWARD new=0 gone=9 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline
+RESULT E/e17_cont_var_decl_el WIDE TOWARD new=0 gone=9 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline

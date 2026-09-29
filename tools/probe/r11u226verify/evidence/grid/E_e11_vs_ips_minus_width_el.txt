@@ -1,0 +1,13 @@
+FIRED E/e11_vs_ips_minus_width_el hpVarSelIpsDirectRefSkipsSelect220:4 hpVarSelRangeIdxNamesByPath220:3
+  (rescore on)
+  (rescore tr)
+  (rescore off_hpVarSelIpsDirectRefSkipsSelect220)
+  (rescore off_hpVarSelRangeIdxNamesByPath220)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e11_vs_ips_minus_width_el hpVarSelIpsDirectRefSkipsSelect220 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_284_objects
+RESULT E/e11_vs_ips_minus_width_el hpVarSelRangeIdxNamesByPath220 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_284_objects
+RESULT E/e11_vs_ips_minus_width_el LANDING220 TOWARD new=0 gone=14 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_284_objects
+RESULT E/e11_vs_ips_minus_width_el ALLOFF TOWARD new=0 gone=14 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_284_objects
+RESULT E/e11_vs_ips_minus_width_el WIDE TOWARD new=0 gone=14 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_284_objects

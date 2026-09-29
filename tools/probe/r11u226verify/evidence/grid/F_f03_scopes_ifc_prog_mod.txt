@@ -1,0 +1,11 @@
+FIRED F/f03_scopes_ifc_prog_mod tfArgScalarTdWriter223:7
+  (rescore on)
+  (rescore tr)
+  (rescore off_tfArgScalarTdWriter223)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT F/f03_scopes_ifc_prog_mod tfArgScalarTdWriter223 STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=12 newbad=0
+RESULT F/f03_scopes_ifc_prog_mod LANDING223 STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=12 newbad=0
+RESULT F/f03_scopes_ifc_prog_mod ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=12 newbad=0
+RESULT F/f03_scopes_ifc_prog_mod WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=12 newbad=0

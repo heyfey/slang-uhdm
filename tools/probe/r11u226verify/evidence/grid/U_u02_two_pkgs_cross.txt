@@ -1,0 +1,13 @@
+FIRED U/u02_two_pkgs_cross UNITCOPYTS:8 VALENC:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_unitImportCopyOwnTsRef214)
+  (rescore off_unitImportCopyValueFollowsPkg214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT U/u02_two_pkgs_cross unitImportCopyOwnTsRef214 STAGE1-CLOSER off:stage1 on:stage1 dump off=110 on=54 newbad=0
+RESULT U/u02_two_pkgs_cross unitImportCopyValueFollowsPkg214 STAGE1-CLOSER off:stage1 on:stage1 dump off=58 on=54 newbad=0
+RESULT U/u02_two_pkgs_cross LANDING219 STAGE1-CLOSER off:stage1 on:stage1 dump off=114 on=54 newbad=0
+RESULT U/u02_two_pkgs_cross ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=114 on=54 newbad=0
+RESULT U/u02_two_pkgs_cross WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=114 on=54 newbad=0

@@ -1,0 +1,17 @@
+FIRED S/s11_gen_for_dimarg_el ndaAdjSizeFoldSized223:3
+  (rescore on)
+  (rescore tr)
+  (rescore off_ndaSizeFoldReach219)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZE2D_OFF)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZEDIM_OFF)
+  (rescore off_sizeReachFollowsWalker219v)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT S/s11_gen_for_dimarg_el ndaSizeFoldReach219 UNFIRED 
+RESULT S/s11_gen_for_dimarg_el ndaSizeFoldReach219:R11U219_SIZE2D_OFF UNFIRED 
+RESULT S/s11_gen_for_dimarg_el ndaSizeFoldReach219:R11U219_SIZEDIM_OFF UNFIRED 
+RESULT S/s11_gen_for_dimarg_el sizeReachFollowsWalker219v UNFIRED 
+RESULT S/s11_gen_for_dimarg_el LANDING219 UNFIRED 
+RESULT S/s11_gen_for_dimarg_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=8 newbad=0
+RESULT S/s11_gen_for_dimarg_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=8 newbad=0

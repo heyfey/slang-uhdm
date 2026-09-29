@@ -1,0 +1,17 @@
+FIRED X/x03_qualspan_struct_and_param_el QUALSPAN:2 pkgQualOperandSpanInParam218:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_modStructMemberQualSpan214)
+  (rescore off_pkgQualOperandSpanInParam218)
+  (rescore offL219)
+  (rescore offL220)
+  (rescore off2_modStructMemberQualSpan214_pkgQualOperandSpanInParam218)
+  (rescore alloff)
+  (rescore wide)
+RESULT X/x03_qualspan_struct_and_param_el modStructMemberQualSpan214 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_203_objects
+RESULT X/x03_qualspan_struct_and_param_el pkgQualOperandSpanInParam218 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_203_objects
+RESULT X/x03_qualspan_struct_and_param_el LANDING219 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_203_objects
+RESULT X/x03_qualspan_struct_and_param_el LANDING220 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_203_objects
+RESULT X/x03_qualspan_struct_and_param_el PAIR:modStructMemberQualSpan214+pkgQualOperandSpanInParam218 TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_203_objects
+RESULT X/x03_qualspan_struct_and_param_el ALLOFF TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_203_objects
+RESULT X/x03_qualspan_struct_and_param_el WIDE TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_203_objects

@@ -1,0 +1,13 @@
+FIRED F/f04_dpi_import_export_after_el tfArgScalarTdWriter223:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_tfArgScalarTdWriter223)
+  (rescore off_tfArgScalarTdExportFirst223)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT F/f04_dpi_import_export_after_el tfArgScalarTdWriter223 STAGE1-CLOSER off:stage1 on:stage1 dump off=78 on=70 newbad=0
+RESULT F/f04_dpi_import_export_after_el tfArgScalarTdExportFirst223 STAGE1-SAME off:stage1 on:stage1 dump off=70 on=70 newbad=8
+RESULT F/f04_dpi_import_export_after_el LANDING223 STAGE1-CLOSER off:stage1 on:stage1 dump off=78 on=70 newbad=0
+RESULT F/f04_dpi_import_export_after_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=78 on=70 newbad=0
+RESULT F/f04_dpi_import_export_after_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=78 on=70 newbad=0

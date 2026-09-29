@@ -1,0 +1,11 @@
+FIRED Q/q03_crlf_product_tabs_el QUALSPAN:3
+  (rescore on)
+  (rescore tr)
+  (rescore off_modStructMemberQualSpan214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT Q/q03_crlf_product_tabs_el modStructMemberQualSpan214 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_171_objects
+RESULT Q/q03_crlf_product_tabs_el LANDING219 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_171_objects
+RESULT Q/q03_crlf_product_tabs_el ALLOFF TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_171_objects
+RESULT Q/q03_crlf_product_tabs_el WIDE TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_171_objects

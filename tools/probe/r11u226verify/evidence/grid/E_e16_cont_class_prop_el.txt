@@ -1,0 +1,11 @@
+FIRED E/e16_cont_class_prop_el -
+  (rescore on)
+  (rescore tr)
+  (rescore off_strLitContLineSpan220)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e16_cont_class_prop_el strLitContLineSpan220 UNFIRED 
+RESULT E/e16_cont_class_prop_el LANDING220 UNFIRED 
+RESULT E/e16_cont_class_prop_el ALLOFF UNFIRED 
+RESULT E/e16_cont_class_prop_el WIDE UNFIRED 

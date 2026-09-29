@@ -1,0 +1,11 @@
+FIRED E/e10_vs_call_param_idx hpVarSelRangeIdxNamesByPath220:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_hpVarSelRangeIdxNamesByPath220)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e10_vs_call_param_idx hpVarSelRangeIdxNamesByPath220 STAGE1-CLOSER off:stage1 on:stage1 dump off=41 on=37 newbad=7
+RESULT E/e10_vs_call_param_idx LANDING220 STAGE1-CLOSER off:stage1 on:stage1 dump off=41 on=37 newbad=7
+RESULT E/e10_vs_call_param_idx ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=41 on=37 newbad=7
+RESULT E/e10_vs_call_param_idx WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=41 on=37 newbad=7

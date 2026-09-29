@@ -1,0 +1,11 @@
+FIRED C/c01_prog_ifc_clsalias CLASSTDW:1
+  (rescore on)
+  (rescore tr)
+  (rescore off_classTdAliasLastWriter214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT C/c01_prog_ifc_clsalias classTdAliasLastWriter214 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_58_objects on:STRICT_EQUAL_58_objects
+RESULT C/c01_prog_ifc_clsalias LANDING219 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_58_objects on:STRICT_EQUAL_58_objects
+RESULT C/c01_prog_ifc_clsalias ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_58_objects on:STRICT_EQUAL_58_objects
+RESULT C/c01_prog_ifc_clsalias WIDE BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_58_objects on:STRICT_EQUAL_58_objects

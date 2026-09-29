@@ -1,0 +1,43 @@
+r11u219repro: cases=35 with_law=35 without=0 laws_not_in_src=-
+v11u219repro: cases=52 with_law=52 without=0 laws_not_in_src=-
+  NO-LAW tools/probe/r11u220repro/cases/SL/s39
+  NO-LAW tools/probe/r11u220repro/cases/SL/s36
+  NO-LAW tools/probe/r11u220repro/cases/SL/s34
+  NO-LAW tools/probe/r11u220repro/cases/SL/s35
+  NO-LAW tools/probe/r11u220repro/cases/SL/s31
+  NO-LAW tools/probe/r11u220repro/cases/SL/s32
+  NO-LAW tools/probe/r11u220repro/cases/SL/s37
+  NO-LAW tools/probe/r11u220repro/cases/SL/s33
+  NO-LAW tools/probe/r11u220repro/cases/SL/s30
+  NO-LAW tools/probe/r11u220repro/cases/SL/s38
+  NO-LAW tools/probe/r11u220repro/cases/IA/i03
+  NO-LAW tools/probe/r11u220repro/cases/IA/i05
+  NO-LAW tools/probe/r11u220repro/cases/IA/i01
+  NO-LAW tools/probe/r11u220repro/cases/IA/i02
+  NO-LAW tools/probe/r11u220repro/cases/IA/i06
+  NO-LAW tools/probe/r11u220repro/cases/IA/i04
+  NO-LAW tools/probe/r11u220repro/cases/IA/i08
+  NO-LAW tools/probe/r11u220repro/cases/IA/i07
+  NO-LAW tools/probe/r11u220repro/cases/NW/w03
+  NO-LAW tools/probe/r11u220repro/cases/NW/w04
+  NO-LAW tools/probe/r11u220repro/cases/NW/w17
+  NO-LAW tools/probe/r11u220repro/cases/NW/w06
+  NO-LAW tools/probe/r11u220repro/cases/NW/w07
+  NO-LAW tools/probe/r11u220repro/cases/NW/w02
+  NO-LAW tools/probe/r11u220repro/cases/NW/w05
+  NO-LAW tools/probe/r11u220repro/cases/TN/n07
+  NO-LAW tools/probe/r11u220repro/cases/TN/n10
+  NO-LAW tools/probe/r11u220repro/cases/TN/n01
+  NO-LAW tools/probe/r11u220repro/cases/TN/n02
+  NO-LAW tools/probe/r11u220repro/cases/TN/n08
+  NO-LAW tools/probe/r11u220repro/cases/TN/n03
+  NO-LAW tools/probe/r11u220repro/cases/TN/n09
+  NO-LAW tools/probe/r11u220repro/cases/TN/n04
+  NO-LAW tools/probe/r11u220repro/cases/TN/n05
+  NO-LAW tools/probe/r11u220repro/cases/TN/n06
+  NO-LAW tools/probe/r11u220repro/cases/TN/n11
+r11u220repro: cases=150 with_law=114 without=36 laws_not_in_src=-
+v11u220repro: cases=109 with_law=109 without=0 laws_not_in_src=-
+r11u223repro: cases=41 with_law=41 without=0 laws_not_in_src=['ndaAdjSizeFoldSized223', 'unsizedInnerSizeDeclines223']
+v11u223repro: cases=53 with_law=53 without=0 laws_not_in_src=['ndaAdjSizeFoldSized223', 'sizeDeclineTsInvalid223v', 'unsizedInnerSizeDeclines223']
+r11u226verify: cases=104 with_law=104 without=0 laws_not_in_src=['ndaAdjSizeFoldSized223', 'sizeDeclineTsInvalid223v', 'unsizedInnerSizeDeclines223']

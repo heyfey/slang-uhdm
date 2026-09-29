@@ -1,0 +1,11 @@
+FIRED Q/q04_class_struct QUALSPAN:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_modStructMemberQualSpan214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT Q/q04_class_struct modStructMemberQualSpan214 STAGE1-SAME off:stage1 on:stage1 dump off=8 on=8 newbad=0
+RESULT Q/q04_class_struct LANDING219 STAGE1-SAME off:stage1 on:stage1 dump off=8 on=8 newbad=0
+RESULT Q/q04_class_struct ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=8 on=8 newbad=0
+RESULT Q/q04_class_struct WIDE STAGE1-SAME off:stage1 on:stage1 dump off=8 on=8 newbad=0

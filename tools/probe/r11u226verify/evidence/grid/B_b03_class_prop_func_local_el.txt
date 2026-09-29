@@ -1,0 +1,11 @@
+FIRED B/b03_class_prop_func_local_el fixedOuterAssocInnerReg223:1
+  (rescore on)
+  (rescore tr)
+  (rescore off_fixedOuterAssocInnerReg223)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT B/b03_class_prop_func_local_el fixedOuterAssocInnerReg223 STAGE1-CLOSER off:stage1 on:stage1 dump off=63 on=51 newbad=0
+RESULT B/b03_class_prop_func_local_el LANDING223 STAGE1-CLOSER off:stage1 on:stage1 dump off=63 on=51 newbad=0
+RESULT B/b03_class_prop_func_local_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=63 on=51 newbad=0
+RESULT B/b03_class_prop_func_local_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=63 on=51 newbad=0

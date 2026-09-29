@@ -1,0 +1,11 @@
+FIRED B/b01_scopes_ifc_prog_gen_el fixedOuterAssocInnerReg223:1
+  (rescore on)
+  (rescore tr)
+  (rescore off_fixedOuterAssocInnerReg223)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT B/b01_scopes_ifc_prog_gen_el fixedOuterAssocInnerReg223 STAGE1-CLOSER off:stage1 on:stage1 dump off=106 on=96 newbad=1
+RESULT B/b01_scopes_ifc_prog_gen_el LANDING223 STAGE1-CLOSER off:stage1 on:stage1 dump off=106 on=96 newbad=1
+RESULT B/b01_scopes_ifc_prog_gen_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=106 on=96 newbad=1
+RESULT B/b01_scopes_ifc_prog_gen_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=106 on=96 newbad=1

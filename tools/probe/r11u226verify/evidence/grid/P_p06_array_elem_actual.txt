@@ -1,0 +1,11 @@
+FIRED P/p06_array_elem_actual ppDotNameAfterArgToken219:6 ppIdentEndInRebuiltText219:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_ppDotNameAfterArgToken219)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT P/p06_array_elem_actual ppDotNameAfterArgToken219 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_46_objects
+RESULT P/p06_array_elem_actual LANDING219 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_46_objects
+RESULT P/p06_array_elem_actual ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_46_objects
+RESULT P/p06_array_elem_actual WIDE TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_46_objects

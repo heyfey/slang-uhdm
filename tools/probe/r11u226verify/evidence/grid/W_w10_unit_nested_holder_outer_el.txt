@@ -1,0 +1,21 @@
+FIRED W/w10_unit_nested_holder_outer_el ENUMCLSW:2
+  W/w10_unit_nested_holder_outer_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=f0ffc648
+  W/w10_unit_nested_holder_outer_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=f0ffc648
+  W/w10_unit_nested_holder_outer_el off_enumTdLastWriter214 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=9d325acd
+  W/w10_unit_nested_holder_outer_el off_enumTdLastWriter214_R11U214_SEQARBNAME_OFF cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=9d325acd
+  W/w10_unit_nested_holder_outer_el off_enumTdLastWriter214_R11U214_ENUMPKGW_OFF cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=f0ffc648
+  W/w10_unit_nested_holder_outer_el off_enumTdLastWriter214_R11U214_ENUMCLSW_OFF cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=9d325acd
+  W/w10_unit_nested_holder_outer_el off_enumTdLastWriter214_R11U214_ENUMALIASGRP_OFF cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=f0ffc648
+  W/w10_unit_nested_holder_outer_el off_enumTdLastWriter214_R11U214_ENUMALIASNAME_OFF cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=f0ffc648
+  W/w10_unit_nested_holder_outer_el offL219 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=9d325acd
+  W/w10_unit_nested_holder_outer_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=9d325acd
+  W/w10_unit_nested_holder_outer_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=9d325acd
+RESULT W/w10_unit_nested_holder_outer_el enumTdLastWriter214 TOWARD new=0 gone=34 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline
+RESULT W/w10_unit_nested_holder_outer_el enumTdLastWriter214:R11U214_SEQARBNAME_OFF TOWARD new=0 gone=34 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline
+RESULT W/w10_unit_nested_holder_outer_el enumTdLastWriter214:R11U214_ENUMPKGW_OFF UNFIRED 
+RESULT W/w10_unit_nested_holder_outer_el enumTdLastWriter214:R11U214_ENUMCLSW_OFF TOWARD new=0 gone=34 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline
+RESULT W/w10_unit_nested_holder_outer_el enumTdLastWriter214:R11U214_ENUMALIASGRP_OFF UNFIRED 
+RESULT W/w10_unit_nested_holder_outer_el enumTdLastWriter214:R11U214_ENUMALIASNAME_OFF UNFIRED 
+RESULT W/w10_unit_nested_holder_outer_el LANDING219 TOWARD new=0 gone=34 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline
+RESULT W/w10_unit_nested_holder_outer_el ALLOFF TOWARD new=0 gone=34 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline
+RESULT W/w10_unit_nested_holder_outer_el WIDE TOWARD new=0 gone=34 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline

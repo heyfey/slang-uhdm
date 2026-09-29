@@ -1,0 +1,13 @@
+FIRED E/e22_clone_idx_nested_cast cloneHpIdxNamesByChain220:4
+  (rescore on)
+  (rescore tr)
+  (rescore off_cloneHpIdxNamesByChain220)
+  (rescore off_cloneIdxOwnCopyOnly220)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e22_clone_idx_nested_cast cloneHpIdxNamesByChain220 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT E/e22_clone_idx_nested_cast cloneIdxOwnCopyOnly220 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT E/e22_clone_idx_nested_cast LANDING220 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT E/e22_clone_idx_nested_cast ALLOFF TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT E/e22_clone_idx_nested_cast WIDE TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname

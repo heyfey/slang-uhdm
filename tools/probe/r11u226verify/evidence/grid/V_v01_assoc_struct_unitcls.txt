@@ -1,0 +1,11 @@
+FIRED V/v01_assoc_struct_unitcls IMPVARELEM:8
+  (rescore on)
+  (rescore tr)
+  (rescore off_importVarElemOwnName214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT V/v01_assoc_struct_unitcls importVarElemOwnName214 TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT V/v01_assoc_struct_unitcls LANDING219 TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT V/v01_assoc_struct_unitcls ALLOFF TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT V/v01_assoc_struct_unitcls WIDE TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname

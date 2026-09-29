@@ -1,0 +1,13 @@
+FIRED U/u03_second_file UNITCOPYTS:6 VALENC:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_unitImportCopyOwnTsRef214)
+  (rescore off_unitImportCopyValueFollowsPkg214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT U/u03_second_file unitImportCopyOwnTsRef214 STAGE1-CLOSER off:stage1 on:stage1 dump off=82 on=40 newbad=0
+RESULT U/u03_second_file unitImportCopyValueFollowsPkg214 STAGE1-CLOSER off:stage1 on:stage1 dump off=44 on=40 newbad=0
+RESULT U/u03_second_file LANDING219 STAGE1-CLOSER off:stage1 on:stage1 dump off=86 on=40 newbad=0
+RESULT U/u03_second_file ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=86 on=40 newbad=0
+RESULT U/u03_second_file WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=86 on=40 newbad=0

@@ -1,0 +1,11 @@
+FIRED F/f05_nonscalar_typedefs -
+  (rescore on)
+  (rescore tr)
+  (rescore off_tfArgScalarTdWriter223)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT F/f05_nonscalar_typedefs tfArgScalarTdWriter223 UNFIRED 
+RESULT F/f05_nonscalar_typedefs LANDING223 UNFIRED 
+RESULT F/f05_nonscalar_typedefs ALLOFF UNFIRED 
+RESULT F/f05_nonscalar_typedefs WIDE UNFIRED 

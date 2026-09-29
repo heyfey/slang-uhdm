@@ -1,0 +1,11 @@
+FIRED E/e23_clone_ret_kinds importCloneSharesHomeReturn218:16
+  E/e23_clone_ret_kinds on cmp=255 cmplines=1086 strict=NOT_EQUAL_stage1 rc=0 md5=7ec4f784
+  E/e23_clone_ret_kinds tr cmp=255 cmplines=1086 strict=NOT_EQUAL_stage1 rc=0 md5=7ec4f784
+  E/e23_clone_ret_kinds off_importCloneSharesHomeReturn218 cmp=255 cmplines=1086 strict=NOT_EQUAL_stage1 rc=0 md5=23bbfa48
+  E/e23_clone_ret_kinds offL220 cmp=255 cmplines=1086 strict=NOT_EQUAL_stage1 rc=0 md5=23bbfa48
+  E/e23_clone_ret_kinds alloff cmp=255 cmplines=1086 strict=NOT_EQUAL_stage1 rc=0 md5=23bbfa48
+  E/e23_clone_ret_kinds wide cmp=255 cmplines=1086 strict=NOT_EQUAL_stage1 rc=0 md5=23bbfa48
+RESULT E/e23_clone_ret_kinds importCloneSharesHomeReturn218 STAGE1-CLOSER off:stage1 on:stage1 dump off=498 on=314 newbad=4
+RESULT E/e23_clone_ret_kinds LANDING220 STAGE1-CLOSER off:stage1 on:stage1 dump off=498 on=314 newbad=4
+RESULT E/e23_clone_ret_kinds ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=498 on=314 newbad=4
+RESULT E/e23_clone_ret_kinds WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=498 on=314 newbad=4

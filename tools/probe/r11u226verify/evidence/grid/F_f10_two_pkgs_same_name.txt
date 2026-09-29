@@ -1,0 +1,11 @@
+FIRED F/f10_two_pkgs_same_name tfArgScalarTdWriter223:6
+  (rescore on)
+  (rescore tr)
+  (rescore off_tfArgScalarTdWriter223)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT F/f10_two_pkgs_same_name tfArgScalarTdWriter223 STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=14 newbad=0
+RESULT F/f10_two_pkgs_same_name LANDING223 STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=14 newbad=0
+RESULT F/f10_two_pkgs_same_name ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=14 newbad=0
+RESULT F/f10_two_pkgs_same_name WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=14 newbad=0

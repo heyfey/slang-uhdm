@@ -1,0 +1,13 @@
+FIRED D/d02_decline_twoarg_forms fixedOuterAssocInnerReg223:1 sizeReachFollowsWalker219v:1
+  (rescore on)
+  (rescore tr)
+  (rescore off_unsizedInnerSizeDeclines223)
+  (rescore off_sizeDeclineTsInvalid223v)
+  (rescore off_ndaSizeFoldReach219)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZE2D_OFF)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZEDIM_OFF)
+  (rescore offL219)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT D/d02_decline_twoarg_forms NOGOLD

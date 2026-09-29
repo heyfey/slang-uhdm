@@ -1,0 +1,21 @@
+FIRED X/x05_clone_vs_ips cloneHpIdxNamesByChain220:4 importCloneSharesHomeReturn218:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_cloneHpIdxNamesByChain220)
+  (rescore off_hpVarSelRangeIdxNamesByPath220)
+  (rescore off_hpTrailIpsNamesByPath218)
+  (rescore offL220)
+  (rescore off2_cloneHpIdxNamesByChain220_hpVarSelRangeIdxNamesByPath220)
+  (rescore off2_cloneHpIdxNamesByChain220_hpTrailIpsNamesByPath218)
+  (rescore off2_hpVarSelRangeIdxNamesByPath220_hpTrailIpsNamesByPath218)
+  (rescore alloff)
+  (rescore wide)
+RESULT X/x05_clone_vs_ips cloneHpIdxNamesByChain220 STAGE1-CLOSER off:stage1 on:stage1 dump off=228 on=204 newbad=0
+RESULT X/x05_clone_vs_ips hpVarSelRangeIdxNamesByPath220 UNFIRED 
+RESULT X/x05_clone_vs_ips hpTrailIpsNamesByPath218 UNFIRED 
+RESULT X/x05_clone_vs_ips LANDING220 STAGE1-CLOSER off:stage1 on:stage1 dump off=240 on=204 newbad=0
+RESULT X/x05_clone_vs_ips PAIR:cloneHpIdxNamesByChain220+hpVarSelRangeIdxNamesByPath220 STAGE1-CLOSER off:stage1 on:stage1 dump off=228 on=204 newbad=0
+RESULT X/x05_clone_vs_ips PAIR:cloneHpIdxNamesByChain220+hpTrailIpsNamesByPath218 STAGE1-CLOSER off:stage1 on:stage1 dump off=228 on=204 newbad=0
+RESULT X/x05_clone_vs_ips PAIR:hpVarSelRangeIdxNamesByPath220+hpTrailIpsNamesByPath218 UNFIRED 
+RESULT X/x05_clone_vs_ips ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=240 on=204 newbad=0
+RESULT X/x05_clone_vs_ips WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=240 on=204 newbad=0

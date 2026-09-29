@@ -1,0 +1,11 @@
+FIRED F/f02_signed_packed_multi tfArgScalarTdWriter223:10
+  (rescore on)
+  (rescore tr)
+  (rescore off_tfArgScalarTdWriter223)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT F/f02_signed_packed_multi tfArgScalarTdWriter223 STAGE1-CLOSER off:stage1 on:stage1 dump off=38 on=18 newbad=0
+RESULT F/f02_signed_packed_multi LANDING223 STAGE1-CLOSER off:stage1 on:stage1 dump off=38 on=18 newbad=0
+RESULT F/f02_signed_packed_multi ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=38 on=18 newbad=0
+RESULT F/f02_signed_packed_multi WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=38 on=18 newbad=0

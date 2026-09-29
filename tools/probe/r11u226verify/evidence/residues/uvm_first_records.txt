@@ -1,0 +1,15 @@
+== MiniAmiq default
+#24915 line
+  A: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	332	40	332	56				
+  B: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	1381	51	1381	67				
+objects 435559 vs 432516
+== SimpleUVM default
+#26887 file
+  A: 5	class_typespec	this_type			uvm_algorithmic_comparator.svh	74	11	74	37				
+  B: 5	class_typespec	this_type			uvm_sequence_library.svh	330	12	330	32				
+objects 334285 vs 334559
+== BuildUVMPkg default
+#26855 line
+  A: 5	class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42				
+  B: 5	class_typespec	this_type			uvm_pkg.sv	56391	12	56391	32				
+objects 201533 vs 201588

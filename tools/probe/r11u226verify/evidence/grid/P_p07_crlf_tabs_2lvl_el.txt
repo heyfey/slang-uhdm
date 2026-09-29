@@ -1,0 +1,13 @@
+FIRED P/p07_crlf_tabs_2lvl_el ppDotNameAfterArgToken219:3 ppIdentEndInRebuiltText219:1
+  (rescore on)
+  (rescore tr)
+  (rescore off_ppIdentEndInRebuiltText219)
+  (rescore off_ppDotNameAfterArgToken219)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT P/p07_crlf_tabs_2lvl_el ppIdentEndInRebuiltText219 UNFIRED 
+RESULT P/p07_crlf_tabs_2lvl_el ppDotNameAfterArgToken219 UNFIRED 
+RESULT P/p07_crlf_tabs_2lvl_el LANDING219 UNFIRED 
+RESULT P/p07_crlf_tabs_2lvl_el ALLOFF UNFIRED 
+RESULT P/p07_crlf_tabs_2lvl_el WIDE UNFIRED 

@@ -1,0 +1,17 @@
+FIRED S/s05_typedef_arr_dims ndaSizeFoldReach219:5
+  (rescore on)
+  (rescore tr)
+  (rescore off_ndaSizeFoldReach219)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZE2D_OFF)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZEDIM_OFF)
+  (rescore off_sizeReachFollowsWalker219v)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT S/s05_typedef_arr_dims ndaSizeFoldReach219 STAGE1-CLOSER off:stage1 on:stage1 dump off=103 on=12 newbad=0
+RESULT S/s05_typedef_arr_dims ndaSizeFoldReach219:R11U219_SIZE2D_OFF STAGE1-CLOSER off:stage1 on:stage1 dump off=27 on=12 newbad=0
+RESULT S/s05_typedef_arr_dims ndaSizeFoldReach219:R11U219_SIZEDIM_OFF STAGE1-CLOSER off:stage1 on:stage1 dump off=92 on=12 newbad=0
+RESULT S/s05_typedef_arr_dims sizeReachFollowsWalker219v UNFIRED 
+RESULT S/s05_typedef_arr_dims LANDING219 STAGE1-CLOSER off:stage1 on:stage1 dump off=103 on=12 newbad=0
+RESULT S/s05_typedef_arr_dims ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=103 on=12 newbad=0
+RESULT S/s05_typedef_arr_dims WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=103 on=12 newbad=0

@@ -1,0 +1,71 @@
+== probe: rows 4087; conversions L vs A = 26: JOINT220+223=1 OWN219=10 OWN220=11 OWN223=4
+  CONV JOINT220+223: r10uvm36repro/t48c
+  CONV OWN219: r10sd10repro/g1_assoc_class_elem_import, r10sd10repro/g1_assoc_index_import, r10sd10repro/g2_dynarray_elem_import, r10sd10repro/g3_dynarray_class_elem_import, r10sd10repro/v1_fixedarray_elem_import, r10sd10repro/v3_elem_class_of_importing, r10sd6repro/v8_unpacked_sel, r10uvm112repro/a8_single, r10v116repro/v116_u, r10v133repro/v133_f_macro
+  CONV OWN220: r10earl_repro/i, r10uvm111repro/g111_a, r10uvm127repro/g127_c_import, r10uvm226repro/grid226/a11_nested, r10v111repro/v111_b1, r10v111repro/v111_b2, r10v111repro/v111_b7, r10v147repro/v147_i, r10v184repro/gv184_h_retpin, r10v194repro/v194_e_explclone, r11u109repro/grid/hp/h03_gen
+  CONV OWN223: r10uvm125repro/g125_b_shapes, r10uvm125repro/g125_d_homes, r10uvm35repro/t47a, r10uvm35repro/t47b
+  CHANGE (L vs A, not a conversion): OWN219=34 OWN220=11 OWN223=1
+    OWN219 r10sd10repro/g6_typedef_elem_import: A=differ:fullname(5) L=differ:fullname(2) off219=differ:fullname(5)
+    OWN219 r10sd10repro/v2_dynarray_struct_typedef: A=differ:fullname(4) L=differ:fullname(2) off219=differ:fullname(4)
+    OWN219 r10uvm112repro/a10_sameargs: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r10uvm112repro/a6_sortbase: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r10uvm112repro/a7_twogroups: A=differ:fullname(9) L=differ:depth(1) off219=differ:fullname(9)
+    OWN219 r10uvm112repro/a9_diffnames: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r10uvm201repro/g201_a_forms: A=differ:value(8) L=differ:value(7) off219=differ:value(8)
+    OWN219 r10uvm201repro/g201_c_uvmshape: A=differ:fullname(28) L=differ:value(20) off219=differ:fullname(28)
+    OWN219 r10uvm201repro/g201_e_explicit: A=differ:value(6) L=differ:value(4) off219=differ:value(6)
+    OWN219 r10uvm201repro/g201_f_kinds: A=differ:fullname(5) L=differ:fullname(2) off219=differ:fullname(5)
+    OWN219 r10uvm210repro/g210_e_unitimp: A=differ:fullname(10) L=differ:value(6) off219=differ:fullname(10)
+    OWN219 r10uvm212repro/grid_c7_cuclass_foreignpkg_and_pkgclass_design: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r10uvm67repro/c5_clone: A=differ:value(7) L=differ:value(3) off219=differ:value(7)
+    OWN219 r10v112repro/g10_twomacros: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r10v112repro/g12_twoinclass: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r10v112repro/g15_twopkg_two: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r10v112repro/g18_arity: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r10v112repro/g19_builtin: A=differ:fullname(8) L=differ:file(6) off219=differ:fullname(8)
+    OWN219 r10v112repro/g1_asciiedge: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r10v112repro/g2_digits: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r10v112repro/g3_fiveclasses: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r10v112repro/g5_oneline: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r10v146repro/v05_second_pkg: A=differ:fullname(4) L=differ:fullname(1) off219=differ:fullname(4)
+    OWN219 r10v146repro/v11_unref: A=differ:fullname(4) L=differ:fullname(2) off219=differ:fullname(4)
+    OWN219 r10v146repro/v15_twofile_a: A=differ:fullname(4) L=differ:fullname(2) off219=differ:fullname(4)
+    OWN219 r10v199repro/v199_d_ifprog: A=differ:fullname(5) L=differ:fullname(4) off219=differ:fullname(5)
+    OWN219 r10v199repro/v199_f_multi: A=differ:fullname(5) L=differ:fullname(3) off219=differ:fullname(5)
+    OWN219 r10v199repro/v199_g_uvmshape: A=differ:fullname(11) L=differ:fullname(8) off219=differ:fullname(11)
+    OWN219 r10v201repro/v201_c_localparam: A=differ:fullname(9) L=differ:fullname(5) off219=differ:fullname(9)
+    OWN219 r10v201repro/v201_h_ifprog: A=differ:fullname(5) L=differ:fullname(2) off219=differ:fullname(5)
+    OWN219 r10v201repro/v201_j_nested: A=differ:fullname(5) L=differ:fullname(2) off219=differ:fullname(5)
+    OWN219 r10v212repro/gridv_v8_bothforeign_twopkg_design: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r10v212repro/gridv_v9_cu_base_pkg_clone_design: A=differ:fullname(5) L=differ:depth(1) off219=differ:fullname(5)
+    OWN219 r11u35repro/grid/g3_shape35: A=differ:fullname(215) L=differ:fullname(210) off219=differ:fullname(215)
+    OWN220 r10earl_repro/vo: A=differ:fullname(6) L=differ:fullname(2) off220=differ:fullname(6)
+    OWN220 r10uvm147repro/g147_a: A=differ:fullname(118) L=differ:col(14) off220=differ:fullname(118)
+    OWN220 r10uvm193repro/g193_c_argface: A=differ:fullname(94) L=differ:fullname(102) off220=differ:fullname(94)
+    OWN220 r10uvm194repro/g194_c_clone: A=differ:fullname(3) L=differ:depth(1) off220=differ:fullname(3)
+    OWN220 r10uvm207repro/g207_e_head: A=differ:fullname(13) L=differ:fullname(32) off220=differ:fullname(13)
+    OWN220 r10uvm208repro/g208_e_head: A=differ:fullname(6) L=differ:fullname(4) off220=differ:fullname(6)
+    OWN220 r10uvm94repro/g94_a0_head: A=differ:fullname(5) L=differ:fullname(2) off220=differ:fullname(5)
+    OWN220 r10v111repro/v111_b6: A=differ:fullname(3) L=differ:type(1) off220=differ:fullname(3)
+    OWN220 r10v181repro/v181_e_idxbase: A=differ:fullname(3) L=differ:type(1) off220=differ:fullname(3)
+    OWN220 r10v181repro/v181_f_mixed: A=differ:fullname(5) L=differ:type(1) off220=differ:fullname(5)
+    OWN220 r10v181repro/v181_h_nofe: A=differ:fullname(11) L=differ:name(7) off220=differ:fullname(11)
+    OWN223 r10uvm36repro/t48a: A=differ:line(10) L=differ:name(2) off223=differ:line(10)
+  CANCEL (same in L and A, different with one landing off): 0
+== surelog: rows 1588; conversions L vs A = 0: 
+  CHANGE (L vs A, not a conversion): JOINT219+220=2 JOINT219+220+223=3 JOINT219+223=4 OWN220=2
+    JOINT219+220 Earlgrey_0_1/d: A=differ:endcol(45) L=differ:fullname(19) off219=differ:fullname(25) off220=differ:endcol(39)
+    JOINT219+220 Earlgrey_0_1/t: A=differ:endcol(45) L=differ:fullname(19) off219=differ:fullname(25) off220=differ:endcol(39)
+    JOINT219+220+223 Scoreboard/d: A=differ:fullname(137) L=differ:file(16) off219=differ:fullname(121) off220=differ:file(18) off223=differ:file(30)
+    JOINT219+220+223 SimpleUVM/d: A=differ:fullname(185) L=differ:file(40) off219=differ:fullname(169) off220=differ:file(42) off223=differ:file(54)
+    JOINT219+220+223 SimpleUVM/t: A=differ:fullname(185) L=differ:file(40) off219=differ:fullname(169) off220=differ:file(42) off223=differ:file(54)
+    JOINT219+223 MiniAmiq/d: A=differ:endline(59) L=differ:line(2) off219=differ:endline(54) off223=differ:file(7)
+    JOINT219+223 MiniAmiq/t: A=differ:endline(59) L=differ:line(2) off219=differ:endline(54) off223=differ:file(7)
+    JOINT219+223 SeqDriver/d: A=differ:endline(59) L=differ:line(2) off219=differ:endline(54) off223=differ:file(7)
+    JOINT219+223 SeqDriver/t: A=differ:endline(59) L=differ:line(2) off219=differ:endline(54) off223=differ:file(7)
+    OWN220 BuildUVMPkg/d: A=differ:line(31) L=differ:line(19) off220=differ:line(31)
+    OWN220 BuildUVMPkg/t: A=differ:line(31) L=differ:line(19) off220=differ:line(31)
+  CANCEL (same in L and A, different with one landing off): 0
+== uhdm2rtlil: rows 1742; conversions L vs A = 2: OWN220=2
+  CONV OWN220: anon_struct_packed_dim/d, anon_struct_packed_dim/t
+  CHANGE (L vs A, not a conversion): 
+  CANCEL (same in L and A, different with one landing off): 0

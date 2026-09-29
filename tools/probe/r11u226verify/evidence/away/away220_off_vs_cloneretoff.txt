@@ -1,0 +1,5 @@
+# awayrows.py /tmp/r11u226_w0 (R11U220_OFF) vs the law binary under R11U218_CLONERET_OFF=1 (MiniAmiq, SeqDriver, both modes; det.sh DETN=1)
+surelog/default/MiniAmiq away=0 toward=908 flat_away=0 flat_toward=908
+surelog/default/SeqDriver away=0 toward=603 flat_away=0 flat_toward=603
+surelog/testflags/MiniAmiq away=0 toward=908 flat_away=0 flat_toward=908
+surelog/testflags/SeqDriver away=0 toward=603 flat_away=0 flat_toward=603

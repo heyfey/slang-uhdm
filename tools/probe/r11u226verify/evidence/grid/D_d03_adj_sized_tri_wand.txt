@@ -1,0 +1,11 @@
+FIRED D/d03_adj_sized_tri_wand sizeReachFollowsWalker219v:3
+  (rescore on)
+  (rescore tr)
+  (rescore off_ndaAdjSizeFoldSized223)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT D/d03_adj_sized_tri_wand ndaAdjSizeFoldSized223 UNFIRED 
+RESULT D/d03_adj_sized_tri_wand LANDING223 UNFIRED 
+RESULT D/d03_adj_sized_tri_wand ALLOFF UNFIRED 
+RESULT D/d03_adj_sized_tri_wand WIDE UNFIRED 

@@ -1,0 +1,21 @@
+FIRED S/s14_leading_dyn_queue_el ndaAdjSizeFoldSized223:2
+  S/s14_leading_dyn_queue_el on cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=a019be1d
+  S/s14_leading_dyn_queue_el tr cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=a019be1d
+  S/s14_leading_dyn_queue_el off_ndaSizeFoldReach219 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=a019be1d
+  S/s14_leading_dyn_queue_el off_ndaSizeFoldReach219_R11U219_SIZE2D_OFF cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=a019be1d
+  S/s14_leading_dyn_queue_el off_ndaSizeFoldReach219_R11U219_SIZEDIM_OFF cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=a019be1d
+  S/s14_leading_dyn_queue_el off_sizeReachFollowsWalker219v cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=a019be1d
+  S/s14_leading_dyn_queue_el off_unsizedInnerSizeDeclines223 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=a019be1d
+  S/s14_leading_dyn_queue_el offL219 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=a019be1d
+  S/s14_leading_dyn_queue_el offL223 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=31480850
+  S/s14_leading_dyn_queue_el alloff cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=31480850
+  S/s14_leading_dyn_queue_el wide cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=31480850
+RESULT S/s14_leading_dyn_queue_el ndaSizeFoldReach219 UNFIRED 
+RESULT S/s14_leading_dyn_queue_el ndaSizeFoldReach219:R11U219_SIZE2D_OFF UNFIRED 
+RESULT S/s14_leading_dyn_queue_el ndaSizeFoldReach219:R11U219_SIZEDIM_OFF UNFIRED 
+RESULT S/s14_leading_dyn_queue_el sizeReachFollowsWalker219v UNFIRED 
+RESULT S/s14_leading_dyn_queue_el unsizedInnerSizeDeclines223 UNFIRED 
+RESULT S/s14_leading_dyn_queue_el LANDING219 UNFIRED 
+RESULT S/s14_leading_dyn_queue_el LANDING223 STAGE1-CLOSER off:stage1 on:stage1 dump off=48 on=40 newbad=0
+RESULT S/s14_leading_dyn_queue_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=48 on=40 newbad=0
+RESULT S/s14_leading_dyn_queue_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=48 on=40 newbad=0

@@ -1,0 +1,13 @@
+FIRED E/e19_new_nested_el newArrayCallArgStripped220:4
+  (rescore on)
+  (rescore tr)
+  (rescore off_newArrayCallArgStripped220)
+  (rescore off_newArrayBitSelIdxStripped220)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e19_new_nested_el newArrayCallArgStripped220 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_198_objects on:STRICT_EQUAL_198_objects
+RESULT E/e19_new_nested_el newArrayBitSelIdxStripped220 UNFIRED 
+RESULT E/e19_new_nested_el LANDING220 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_198_objects on:STRICT_EQUAL_198_objects
+RESULT E/e19_new_nested_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_198_objects on:STRICT_EQUAL_198_objects
+RESULT E/e19_new_nested_el WIDE BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_198_objects on:STRICT_EQUAL_198_objects

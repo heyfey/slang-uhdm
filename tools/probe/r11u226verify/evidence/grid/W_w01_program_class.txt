@@ -1,0 +1,23 @@
+FIRED W/w01_program_class -
+  (rescore on)
+  (rescore tr)
+  (rescore off_enumTdLastWriter214)
+  (rescore off_enumTdLastWriter214_R11U214_SEQARBNAME_OFF)
+  (rescore off_enumTdLastWriter214_R11U214_ENUMPKGW_OFF)
+  (rescore off_enumTdLastWriter214_R11U214_ENUMCLSW_OFF)
+  (rescore off_enumTdLastWriter214_R11U214_ENUMALIASGRP_OFF)
+  (rescore off_enumTdLastWriter214_R11U214_ENUMALIASNAME_OFF)
+  (rescore off_enumClsWriterUnitScopeOnly219)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT W/w01_program_class enumTdLastWriter214 UNFIRED 
+RESULT W/w01_program_class enumTdLastWriter214:R11U214_SEQARBNAME_OFF UNFIRED 
+RESULT W/w01_program_class enumTdLastWriter214:R11U214_ENUMPKGW_OFF UNFIRED 
+RESULT W/w01_program_class enumTdLastWriter214:R11U214_ENUMCLSW_OFF UNFIRED 
+RESULT W/w01_program_class enumTdLastWriter214:R11U214_ENUMALIASGRP_OFF UNFIRED 
+RESULT W/w01_program_class enumTdLastWriter214:R11U214_ENUMALIASNAME_OFF UNFIRED 
+RESULT W/w01_program_class enumClsWriterUnitScopeOnly219 UNFIRED 
+RESULT W/w01_program_class LANDING219 UNFIRED 
+RESULT W/w01_program_class ALLOFF UNFIRED 
+RESULT W/w01_program_class WIDE UNFIRED 

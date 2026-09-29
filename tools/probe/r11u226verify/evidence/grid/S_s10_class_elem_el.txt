@@ -1,0 +1,17 @@
+FIRED S/s10_class_elem_el ndaSizeFoldReach219:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_ndaSizeFoldReach219)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZE2D_OFF)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZEDIM_OFF)
+  (rescore off_sizeReachFollowsWalker219v)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT S/s10_class_elem_el ndaSizeFoldReach219 STAGE1-SAME off:stage1 on:stage1 dump off=10 on=10 newbad=0
+RESULT S/s10_class_elem_el ndaSizeFoldReach219:R11U219_SIZE2D_OFF STAGE1-SAME off:stage1 on:stage1 dump off=10 on=10 newbad=0
+RESULT S/s10_class_elem_el ndaSizeFoldReach219:R11U219_SIZEDIM_OFF STAGE1-SAME off:stage1 on:stage1 dump off=10 on=10 newbad=0
+RESULT S/s10_class_elem_el sizeReachFollowsWalker219v UNFIRED 
+RESULT S/s10_class_elem_el LANDING219 STAGE1-SAME off:stage1 on:stage1 dump off=10 on=10 newbad=0
+RESULT S/s10_class_elem_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=22 on=10 newbad=0
+RESULT S/s10_class_elem_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=22 on=10 newbad=0

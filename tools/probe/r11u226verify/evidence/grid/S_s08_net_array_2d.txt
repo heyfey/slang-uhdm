@@ -1,0 +1,17 @@
+FIRED S/s08_net_array_2d ndaSizeFoldReach219:4
+  (rescore on)
+  (rescore tr)
+  (rescore off_ndaSizeFoldReach219)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZE2D_OFF)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZEDIM_OFF)
+  (rescore off_sizeReachFollowsWalker219v)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT S/s08_net_array_2d ndaSizeFoldReach219 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 260 objects dump off=70 on=0 newbad=0
+RESULT S/s08_net_array_2d ndaSizeFoldReach219:R11U219_SIZE2D_OFF STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 260 objects dump off=15 on=0 newbad=0
+RESULT S/s08_net_array_2d ndaSizeFoldReach219:R11U219_SIZEDIM_OFF STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 260 objects dump off=59 on=0 newbad=0
+RESULT S/s08_net_array_2d sizeReachFollowsWalker219v UNFIRED 
+RESULT S/s08_net_array_2d LANDING219 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 260 objects dump off=70 on=0 newbad=0
+RESULT S/s08_net_array_2d ALLOFF STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 260 objects dump off=70 on=0 newbad=0
+RESULT S/s08_net_array_2d WIDE STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 260 objects dump off=70 on=0 newbad=0

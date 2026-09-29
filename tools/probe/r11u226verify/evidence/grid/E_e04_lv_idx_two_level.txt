@@ -1,0 +1,11 @@
+FIRED E/e04_lv_idx_two_level lvIdxPathRangeTailIsRead218:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_lvIdxPathRangeTailIsRead218)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e04_lv_idx_two_level lvIdxPathRangeTailIsRead218 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_261_objects
+RESULT E/e04_lv_idx_two_level LANDING220 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_261_objects
+RESULT E/e04_lv_idx_two_level ALLOFF TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_261_objects
+RESULT E/e04_lv_idx_two_level WIDE TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_261_objects

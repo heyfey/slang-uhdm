@@ -1,0 +1,11 @@
+FIRED E/e05_ips_base_width_func_el hpTrailIpsNamesByPath218:4
+  (rescore on)
+  (rescore tr)
+  (rescore off_hpTrailIpsNamesByPath218)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e05_ips_base_width_func_el hpTrailIpsNamesByPath218 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_260_objects
+RESULT E/e05_ips_base_width_func_el LANDING220 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_260_objects
+RESULT E/e05_ips_base_width_func_el ALLOFF TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_260_objects
+RESULT E/e05_ips_base_width_func_el WIDE TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_260_objects

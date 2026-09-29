@@ -1,0 +1,224 @@
+diff --git a/src/ExprEmit.cpp b/src/ExprEmit.cpp
+index abaac8ada..ad186ad1b 100644
+--- a/src/ExprEmit.cpp
++++ b/src/ExprEmit.cpp
+@@ -27,6 +27,7 @@
+ #include "R213.h"
+ #include "R218.h"
+ #include "R220.h"
++#include "R226.h"
+ #include <array>
+ #include <uhdm/UhdmListener.h>
+ 
+@@ -2056,14 +2057,46 @@ void cloneHpIdxDrain220(UHDM::Serializer& s) {
+ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
+     if (!r11u175LawE("R11U175_FULLNAME_OFF"))
+         return;
++    // § fullNameDrainIdOrder226v (r11u226, switch R11V226_IDORDER_OFF;
++    // R11V226_OFF drops it) — the loops below register fresh VpiFullName
++    // strings, and Serializer::AllObjects() is a std::map keyed by object
++    // ADDRESS, so the symbol table's tail was written in heap-address order:
++    // MiniAmiq d/t drew two database hashes with identical dumps (map 14,
++    // r11u223 section 9, v11u223 section 4).  Every name computed here reads
++    // only VpiName / VpiDefName of the chain (chainFullName175), never a
++    // full name this drain sets, so visiting the objects in UhdmId (creation)
++    // order changes the symbol table's order and no record.
++    std::vector<const UHDM::BaseClass*> objs226;
++    // the trace names the databases where the drain sets two or more names
++    // (only there can the order of the registered strings differ)
++    struct Trace226 {
++        int n = 0;
++        ~Trace226() {
++            if (n > 0)
++                tr226("fullNameDrainIdOrder226v", std::to_string(n));
++        }
++    } set226;
++    {
++        auto all226 = s.AllObjects();
++        objs226.reserve(all226.size());
++        for (auto& kv : all226)
++            objs226.push_back(kv.first);
++        if (r11v226Law("R11V226_IDORDER_OFF"))
++            std::stable_sort(objs226.begin(), objs226.end(),
++                             [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
++                                 const uint32_t ia = a ? a->UhdmId() : 0;
++                                 const uint32_t ib = b ? b->UhdmId() : 0;
++                                 return ia < ib;
++                             });
++    }
+     std::map<const UHDM::BaseClass*, const UHDM::BaseClass*> ioOfDefault;
+-    for (auto& kv : s.AllObjects())
+-        if (kv.first && kv.first->UhdmType() == UHDM::uhdmio_decl)
+-            if (auto* x = ((const UHDM::io_decl*)kv.first)->Expr();
++    for (auto* kv226 : objs226)
++        if (kv226 && kv226->UhdmType() == UHDM::uhdmio_decl)
++            if (auto* x = ((const UHDM::io_decl*)kv226)->Expr();
+                 x && x->UhdmType() == UHDM::uhdmref_obj)
+-                ioOfDefault[x] = kv.first;
+-    for (auto& kv : s.AllObjects()) {
+-        auto* o = (UHDM::BaseClass*)kv.first;
++                ioOfDefault[x] = kv226;
++    for (auto* kv226 : objs226) {
++        auto* o = (UHDM::BaseClass*)kv226;
+         if (!o || o->UhdmType() != UHDM::uhdmref_obj)
+             continue;
+         const UHDM::BaseClass* p = o->VpiParent();
+@@ -2165,6 +2198,7 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
+         if (margop198)
+             trace198("methodArgOpRefChainName198");
+         ro175->VpiFullName(want);
++        set226.n++;
+     }
+     // § methodArgNestedRefChain201 (r11u201, R11U201_MARGNEST_OFF; the
+     // residues of § methodArgOpRefChainName198: r11u198's m13, v11u198's v01
+@@ -2183,10 +2217,10 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
+     // module functions and a module initial block, both listings (grid
+     // tools/probe/r11u201repro/cases/M); a method TASK call statement keeps
+     // its names in golden (m06, not a hier_path element).
+-    for (auto& kv : s.AllObjects()) {
++    for (auto* kv226 : objs226) {
+         if (!r11u201On("R11U201_MARGNEST_OFF"))
+             break;
+-        auto* o = (UHDM::BaseClass*)kv.first;
++        auto* o = (UHDM::BaseClass*)kv226;
+         if (!o)
+             continue;
+         const auto ot = o->UhdmType();
+@@ -2260,6 +2294,7 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
+             continue;
+         trace201("methodArgNestedRefChain201");
+         ro201->VpiFullName(want);
++        set226.n++;
+     }
+     // § callArgInSelIdxChainName201 (r11u201, R11U201_SELIDXCALL_OFF; r11u194's
+     // N4, r11u198's R1: l12, v11u198's u08, u10) — the index of a path's
+@@ -2273,8 +2308,8 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
+     // tools/probe/r11u201repro/cases/N.
+     if (!r11u201On("R11U201_SELIDXCALL_OFF"))
+         return;
+-    for (auto& kv : s.AllObjects()) {
+-        auto* o = (UHDM::BaseClass*)kv.first;
++    for (auto* kv226 : objs226) {
++        auto* o = (UHDM::BaseClass*)kv226;
+         if (!o || o->UhdmType() != UHDM::uhdmref_obj)
+             continue;
+         const UHDM::BaseClass* bs = o->VpiParent();
+@@ -2336,6 +2371,7 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
+             continue;
+         trace201("callArgInSelIdxChainName201");
+         ro->VpiFullName(want);
++        set226.n++;
+     }
+ }
+ 
+diff --git a/src/R226.h b/src/R226.h
+new file mode 100644
+index 000000000..279286ef2
+--- /dev/null
++++ b/src/R226.h
+@@ -0,0 +1,52 @@
++// r11u226 (the second adversarial verification of passes 219, 220 and 223,
++// tools/probe/r11u226verify/README.md): every refinement reads its own
++// R11V226_<LAW>_OFF switch; R11V226_OFF drops all of them (the verified base's
++// bytes).  A refinement of a landed law is also dropped by that law's landing
++// switch (R11U223_OFF for § tfArgScalarTdExportOwnTd226v).
++// R11V226_TRACE=<dir> names every firing: one file per process,
++// `<dir>/<pid>.226`, its first line `OUT <-o path>`, then `<law> <detail>`.
++#pragma once
++#include <cstdio>
++#include <cstdlib>
++#include <string>
++#include <unistd.h>
++
++namespace slang_uhdm {
++inline bool r11v226Law(const char* sw) {
++    if (getenv("R11V226_OFF") != nullptr)
++        return false;
++    return getenv(sw) == nullptr;
++}
++inline void tr226(const char* law, const std::string& detail = std::string()) {
++    static FILE* tf = []() -> FILE* {
++        const char* d = getenv("R11V226_TRACE");
++        if (!d)
++            return nullptr;
++        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".226";
++        FILE* fp = fopen(fn.c_str(), "a");
++        if (!fp)
++            return nullptr;
++        std::string cl, prev, outp;
++        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
++            int ch;
++            while ((ch = fgetc(c)) != EOF) {
++                if (ch == 0) {
++                    if (prev == "-o")
++                        outp = cl;
++                    prev = cl;
++                    cl.clear();
++                }
++                else
++                    cl += (char)ch;
++            }
++            fclose(c);
++        }
++        fprintf(fp, "OUT %s\n", outp.c_str());
++        return fp;
++    }();
++    if (tf) {
++        fprintf(tf, "%s %s\n", law, detail.c_str());
++        fflush(tf);
++    }
++}
++} // namespace slang_uhdm
+diff --git a/src/TaskFuncEmit.cpp b/src/TaskFuncEmit.cpp
+index d9cb71bfa..3f805ca34 100644
+--- a/src/TaskFuncEmit.cpp
++++ b/src/TaskFuncEmit.cpp
+@@ -18,6 +18,7 @@
+ #include <vector>
+ #include "R204.h"
+ #include "R223.h"
++#include "R226.h"
+ 
+ namespace slang_uhdm {
+ 
+@@ -5557,6 +5558,23 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+                 // § tfArgDpiExportFirstNoWrite153v's decode; grid cases/F
+                 // f21 before, f24 after, where golden writes the token).
+                 // Switch R11U223_SCALARTDEXP_OFF.
++                // § tfArgScalarTdExportOwnTd226v (r11u226, switch
++                // R11V226_EXPOWNTD_OFF; R11V226_OFF and R11U223_OFF drop it) —
++                // golden keeps the LISTING object only when the formal's
++                // typedef is declared in the SAME scope as the subroutine (a
++                // package's own typedef, pass 223's f21, r11u226 F/f14); a
++                // typedef reached through an import (a module or `$unit`
++                // import, another package's typedef imported into the
++                // subroutine's package) gets the token copy even when the
++                // export precedes the definition (r11u226 F/f11, f13, f15,
++                // f16, f17: golden 8:19-25 at the formal's type token).
++                bool ownTd226 = true;
++                if (r11v226Law("R11V226_EXPOWNTD_OFF")) {
++                    const auto& t226 = arg->getType();
++                    ownTd226 = t226.isAlias() &&
++                               t226.as<slang::ast::TypeAliasType>().getParentScope() ==
++                                   sub.getParentScope();
++                }
+                 if (ansi223 && r11u223Law("R11U223_SCALARTDEXP_OFF"))
+                     if (auto* sn223 = sub.getSyntax(); sn223 && sn223->parent) {
+                         std::string_view fn223 = sub.name;
+@@ -5567,8 +5585,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+                                     fn223 &&
+                                 c223->sourceRange().start().buffer() ==
+                                     sn223->sourceRange().start().buffer() &&
+-                                c223->sourceRange().start() < sn223->sourceRange().start())
+-                                ansi223 = false;
++                                c223->sourceRange().start() < sn223->sourceRange().start()) {
++                                if (ownTd226)
++                                    ansi223 = false;
++                                else
++                                    tr226("tfArgScalarTdExportOwnTd226v",
++                                          std::string(sub.name) + " " +
++                                              std::string(arg->name));
++                            }
+                     }
+                 if (ansi223)
+                     formalTdTok223().push_back({rt, argTsyn->sourceRange()});

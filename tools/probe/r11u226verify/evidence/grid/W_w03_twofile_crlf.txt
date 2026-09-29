@@ -1,0 +1,21 @@
+FIRED W/w03_twofile_crlf ENUMCLSW:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_enumTdLastWriter214)
+  (rescore off_enumTdLastWriter214_R11U214_SEQARBNAME_OFF)
+  (rescore off_enumTdLastWriter214_R11U214_ENUMPKGW_OFF)
+  (rescore off_enumTdLastWriter214_R11U214_ENUMCLSW_OFF)
+  (rescore off_enumTdLastWriter214_R11U214_ENUMALIASGRP_OFF)
+  (rescore off_enumTdLastWriter214_R11U214_ENUMALIASNAME_OFF)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT W/w03_twofile_crlf enumTdLastWriter214 STAGE1-CLOSER off:stage1 on:stage1 dump off=50 on=42 newbad=0
+RESULT W/w03_twofile_crlf enumTdLastWriter214:R11U214_SEQARBNAME_OFF STAGE1-CLOSER off:stage1 on:stage1 dump off=50 on=42 newbad=0
+RESULT W/w03_twofile_crlf enumTdLastWriter214:R11U214_ENUMPKGW_OFF UNFIRED 
+RESULT W/w03_twofile_crlf enumTdLastWriter214:R11U214_ENUMCLSW_OFF STAGE1-CLOSER off:stage1 on:stage1 dump off=58 on=42 newbad=0
+RESULT W/w03_twofile_crlf enumTdLastWriter214:R11U214_ENUMALIASGRP_OFF UNFIRED 
+RESULT W/w03_twofile_crlf enumTdLastWriter214:R11U214_ENUMALIASNAME_OFF UNFIRED 
+RESULT W/w03_twofile_crlf LANDING219 STAGE1-CLOSER off:stage1 on:stage1 dump off=50 on=42 newbad=0
+RESULT W/w03_twofile_crlf ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=50 on=42 newbad=0
+RESULT W/w03_twofile_crlf WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=50 on=42 newbad=0

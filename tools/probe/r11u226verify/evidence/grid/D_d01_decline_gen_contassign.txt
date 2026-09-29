@@ -1,0 +1,9 @@
+FIRED D/d01_decline_gen_contassign -
+  (rescore on)
+  (rescore tr)
+  (rescore off_unsizedInnerSizeDeclines223)
+  (rescore off_sizeDeclineTsInvalid223v)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT D/d01_decline_gen_contassign NOGOLD

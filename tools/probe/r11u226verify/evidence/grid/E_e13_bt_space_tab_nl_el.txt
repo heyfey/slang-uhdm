@@ -1,0 +1,11 @@
+FIRED E/e13_bt_space_tab_nl_el strLitShiftNeedsBacktick220:3
+  (rescore on)
+  (rescore tr)
+  (rescore off_strLitShiftNeedsBacktick220)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e13_bt_space_tab_nl_el strLitShiftNeedsBacktick220 TOWARD new=0 gone=12 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_79_objects
+RESULT E/e13_bt_space_tab_nl_el LANDING220 TOWARD new=0 gone=12 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_79_objects
+RESULT E/e13_bt_space_tab_nl_el ALLOFF TOWARD new=0 gone=12 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_79_objects
+RESULT E/e13_bt_space_tab_nl_el WIDE TOWARD new=0 gone=12 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_79_objects

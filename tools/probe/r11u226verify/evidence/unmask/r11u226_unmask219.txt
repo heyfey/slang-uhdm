@@ -1,0 +1,149 @@
+== probe: 44 rows differ
+r10sd10repro/g1_assoc_class_elem_import CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec on 0 rec | new=0 gone=3 first-record-same=False
+    off first: #49 fullname golden[6 ref_typespec     0 0 0 0  0] ours[6 ref_typespec   <in>  0 0 0 0  0]
+r10sd10repro/g1_assoc_index_import CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec on 0 rec | new=0 gone=3 first-record-same=False
+    off first: #49 fullname golden[6 ref_typespec     0 0 0 0  0] ours[6 ref_typespec   <in>  0 0 0 0  0]
+r10sd10repro/g2_dynarray_elem_import CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec | new=0 gone=2 first-record-same=False
+    off first: #41 fullname golden[4 class_var   q2::c2::m2 dut.sv 7 6 7 8  0] ours[4 class_var   p2::m2 dut.sv 7 6 7 8  0]
+r10sd10repro/g3_dynarray_class_elem_import CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec | new=0 gone=2 first-record-same=False
+    off first: #41 fullname golden[4 class_var   q3::c3::m3 dut.sv 9 6 9 8  0] ours[4 class_var   p3::m3 dut.sv 9 6 9 8  0]
+r10sd10repro/g6_typedef_elem_import SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(2) | off 5 rec on 2 rec | new=0 gone=3 first-record-same=False
+    off first: #97 fullname golden[6 ref_typespec     0 0 0 0  0] ours[6 ref_typespec   <in>  0 0 0 0  0]
+    on  first: #103 fullname golden[8 ref_typespec   <in>p6::t6.a6  0 0 0 0  0] ours[8 ref_typespec   <in>p6::t6.a6  0 0 0 0  0]
+r10sd10repro/v1_fixedarray_elem_import CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec | new=0 gone=2 first-record-same=False
+    off first: #66 fullname golden[4 class_var   q7::c7::m7 dut.sv 7 6 7 8  0] ours[4 class_var   p7::m7 dut.sv 7 6 7 8  0]
+r10sd10repro/v2_dynarray_struct_typedef SUBSET | STRICT_NOTEQUAL differ:fullname(4) -> STRICT_NOTEQUAL differ:fullname(2) | off 4 rec on 2 rec | new=0 gone=2 first-record-same=False
+    off first: #89 fullname golden[4 struct_var   qb::cb::mb dut.sv 5 6 5 8  0] ours[4 struct_var   pb::mb dut.sv 5 6 5 8  0]
+    on  first: #93 fullname golden[8 ref_typespec   <in>pb::tb.ab  0 0 0 0  0] ours[8 ref_typespec   <in>pb::tb.ab  0 0 0 0  0]
+r10sd10repro/v3_elem_class_of_importing CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec on 0 rec | new=0 gone=3 first-record-same=False
+    off first: #55 fullname golden[6 ref_typespec     0 0 0 0  0] ours[6 ref_typespec   <in>  0 0 0 0  0]
+r10sd6repro/v8_unpacked_sel CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec | new=0 gone=2 first-record-same=False
+    off first: #98 fullname golden[4 int_var   q8::c8::arr8 dut.sv 3 7 3 11  0] ours[4 int_var   p8::arr8 dut.sv 3 7 3 11  0]
+r10uvm112repro/a10_sameargs SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@48 on 1 rec div@48 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>pk10use::eid10.Q  0 0 0 0] ours[3 type_parameter Q  <in>pk10use::eid10.Q  0 0 0 0]
+    on  first: #48 depth golden[6 class_typespec shared10   dut.sv 11 20 11 42] ours[4 param_assign     0 0 0 0]
+r10uvm112repro/a6_sortbase SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@48 on 1 rec div@48 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>pk6use::tid6.Q  0 0 0 0] ours[3 type_parameter Q  <in>pk6use::tid6.Q  0 0 0 0]
+    on  first: #48 depth golden[6 class_typespec Mid6   dut.sv 21 18 21 32] ours[4 param_assign     0 0 0 0]
+r10uvm112repro/a7_twogroups SUBSET | STRICT_NOTEQUAL differ:fullname(9) -> STRICT_NOTEQUAL differ:depth(1) | off 9 rec div@83 on 1 rec div@83 | new=0 gone=8 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>pk7use::pid7.Q  0 0 0 0] ours[3 type_parameter Q  <in>pk7use::pid7.Q  0 0 0 0]
+    on  first: #83 depth golden[6 class_typespec Cq7   dut.sv 16 29 16 41] ours[4 param_assign     0 0 0 0]
+r10uvm112repro/a8_single CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>pk8use::sid8.Q  0 0 0 0] ours[3 type_parameter Q  <in>pk8use::sid8.Q  0 0 0 0]
+r10uvm112repro/a9_diffnames SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@48 on 1 rec div@48 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>pk9use::first_id9.Q  0 0 0 0] ours[3 type_parameter Q  <in>pk9use::first_id9.Q  0 0 0 0]
+    on  first: #48 depth golden[6 class_typespec Kb9   dut.sv 11 19 11 31] ours[4 param_assign     0 0 0 0]
+r10uvm201repro/g201_a_forms UNMASK | STRICT_NOTEQUAL differ:value(8) -> STRICT_NOTEQUAL differ:value(7) | off 8 rec div@207 on 7 rec | new=4 gone=5 first-record-same=True
+    off first: #81 value golden[2 parameter A_EXPR  work@m201a.A_EXPR dut.sv 9 13 9 19  0 UINT:3] ours[2 parameter A_EXPR  work@m201a.A_EXPR dut.sv 9 13 9 19  0]
+r10uvm201repro/g201_c_uvmshape UNMASK | STRICT_NOTEQUAL differ:fullname(28) -> STRICT_NOTEQUAL differ:value(20) | off 28 rec div@379 on 20 rec | new=9 gone=17 first-record-same=False
+    off first: #27 fullname golden[6 ref_typespec   C_MACRO_NUMFLAGS  0 0 0 0  0] ours[6 ref_typespec   p201c::C_MACRO_NUMFLAGS  0 0 0 0  0]
+    on  first: #144 value golden[2 parameter C_END_DATA_EXTRA  work@m201c.C_END_DATA_EXTRA dut.sv 8 13 8 29  0 UINT:131076] ours[2 parameter C_END_DATA_EXTRA  work@m201c.C_END_DATA_EXTRA dut.sv 8 13 8 29  0]
+r10uvm201repro/g201_e_explicit UNMASK | STRICT_NOTEQUAL differ:value(6) -> STRICT_NOTEQUAL differ:value(4) | off 6 rec div@91 on 4 rec | new=1 gone=3 first-record-same=True
+    off first: #46 value golden[2 parameter E_UNUSED  work@m201e.E_UNUSED dut.sv 5 13 5 21  0 UINT:15] ours[2 parameter E_UNUSED  work@m201e.E_UNUSED dut.sv 5 13 5 21  0]
+r10uvm201repro/g201_f_kinds UNMASK | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(2) | off 5 rec div@164 on 2 rec | new=1 gone=4 first-record-same=False
+    off first: #13 fullname golden[5 ref_typespec   F_BASE  0 0 0 0  0] ours[5 ref_typespec   p201f::F_BASE  0 0 0 0  0]
+    on  first: #161 fullname golden[3 ref_typespec     0 0 0 0  0] ours[3 ref_typespec   p201f  0 0 0 0  0]
+r10uvm210repro/g210_e_unitimp UNMASK | STRICT_NOTEQUAL differ:fullname(10) -> STRICT_NOTEQUAL differ:value(6) | off 10 rec div@153 on 6 rec | new=3 gone=7 first-record-same=False
+    off first: #16 fullname golden[6 ref_typespec   E_BASE  0 0 0 0  0] ours[6 ref_typespec   p210e::E_BASE  0 0 0 0  0]
+    on  first: #59 value golden[2 parameter E_EXPR  work@m210e.E_EXPR dut.sv 8 13 8 19  0 UINT:12] ours[2 parameter E_EXPR  work@m210e.E_EXPR dut.sv 8 13 8 19  0]
+r10uvm212repro/grid_c7_cuclass_foreignpkg_and_pkgclass_design SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@35 on 1 rec div@35 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter T  <in>pb::tidb.T  0 0 0 0] ours[3 type_parameter T  <in>pb::tidb.T  0 0 0 0]
+    on  first: #35 depth golden[7 class_typespec pcb   dut.sv 11 18 11 31] ours[5 param_assign     0 0 0 0]
+r10uvm67repro/c5_clone SUBSET | STRICT_NOTEQUAL differ:value(7) -> STRICT_NOTEQUAL differ:value(3) | off 7 rec div@147 on 3 rec | new=0 gone=4 first-record-same=True
+    off first: #56 value golden[2 parameter C5_W  work@c5top.C5_W dut.sv 7 13 7 17  0 INT:959] ours[2 parameter C5_W  work@c5top.C5_W dut.sv 7 13 7 17  0]
+r10v112repro/g10_twomacros SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@48 on 1 rec div@48 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>p10use::type_id.Q  0 0 0 0] ours[3 type_parameter Q  <in>p10use::type_id.Q  0 0 0 0]
+    on  first: #48 depth golden[6 class_typespec Aa10   dut.sv 13 28 13 39] ours[4 param_assign     0 0 0 0]
+r10v112repro/g12_twoinclass SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@46 on 1 rec div@46 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>p12use::t12a.Q  0 0 0 0] ours[3 type_parameter Q  <in>p12use::t12a.Q  0 0 0 0]
+    on  first: #46 depth golden[6 class_typespec Ab12   dut.sv 13 17 13 31] ours[4 param_assign     0 0 0 0]
+r10v112repro/g15_twopkg_two SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@50 on 1 rec div@50 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>pk15a::t15.Q  0 0 0 0] ours[3 type_parameter Q  <in>pk15a::t15.Q  0 0 0 0]
+    on  first: #50 depth golden[6 class_typespec mem15   dut.sv 16 17 16 33] ours[4 param_assign     0 0 0 0]
+r10v112repro/g18_arity SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@48 on 1 rec div@48 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>p18use::t18.Q  0 0 0 0] ours[3 type_parameter Q  <in>p18use::t18.Q  0 0 0 0]
+    on  first: #48 depth golden[6 class_typespec Aa18   dut.sv 9 27 9 34] ours[4 param_assign     0 0 0 0]
+r10v112repro/g19_builtin NEW | STRICT_NOTEQUAL differ:fullname(8) -> STRICT_NOTEQUAL differ:file(6) | off 8 rec div@41 on 6 rec div@41 | new=2 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>p19use::t19.Q dut.sv 5 20 5 21] ours[3 type_parameter Q  <in>p19use::t19.Q  0 0 0 0]
+    on  first: #4 file golden[3 type_parameter Q  <in>p19use::t19.Q dut.sv 5 20 5 21] ours[3 type_parameter Q  <in>p19use::t19.Q  0 0 0 0]
+r10v112repro/g1_asciiedge SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@48 on 1 rec div@48 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>p1use::t1.Q  0 0 0 0] ours[3 type_parameter Q  <in>p1use::t1.Q  0 0 0 0]
+    on  first: #48 depth golden[6 class_typespec Zed1   dut.sv 18 16 18 30] ours[4 param_assign     0 0 0 0]
+r10v112repro/g2_digits SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@48 on 1 rec div@48 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>p2use::t2.Q  0 0 0 0] ours[3 type_parameter Q  <in>p2use::t2.Q  0 0 0 0]
+    on  first: #48 depth golden[6 class_typespec c10   dut.sv 11 26 11 38] ours[4 param_assign     0 0 0 0]
+r10v112repro/g3_fiveclasses SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@48 on 1 rec div@48 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>p3use::t3.Q  0 0 0 0] ours[3 type_parameter Q  <in>p3use::t3.Q  0 0 0 0]
+    on  first: #48 depth golden[6 class_typespec Alpha3   dut.sv 12 28 12 46] ours[4 param_assign     0 0 0 0]
+r10v112repro/g5_oneline SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@48 on 1 rec div@48 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter Q  <in>p5use::t5.Q  0 0 0 0] ours[3 type_parameter Q  <in>p5use::t5.Q  0 0 0 0]
+    on  first: #48 depth golden[6 class_typespec Ab5   dut.sv 8 74 8 86] ours[4 param_assign     0 0 0 0]
+r10v116repro/v116_u CONVERSION | STRICT_NOTEQUAL differ:endline(1) -> EQUAL equal | off 1 rec on 0 rec | new=0 gone=1 first-record-same=False
+    off first: #41 endline golden[7 method_func_call randomize   dut.sv 19 13 19 22  0] ours[7 method_func_call randomize   dut.sv 19 13 20 8  0]
+r10v133repro/v133_f_macro CONVERSION | STRICT_NOTEQUAL differ:endline(8) -> EQUAL equal | off 8 rec on 0 rec | new=0 gone=8 first-record-same=False
+    off first: #40 endline golden[9 method_func_call size   dut.sv 4 16 4 20  0] ours[9 method_func_call size   dut.sv 4 16 12 2  0]
+r10v146repro/v05_second_pkg SUBSET | STRICT_NOTEQUAL differ:fullname(4) -> STRICT_NOTEQUAL differ:fullname(1) | off 4 rec div@90 on 1 rec | new=0 gone=3 first-record-same=False
+    off first: #24 fullname golden[6 ref_typespec   SHARED  0 0 0 0  0] ours[6 ref_typespec   pva::SHARED  0 0 0 0  0]
+    on  first: #87 fullname golden[3 ref_typespec     0 0 0 0  0] ours[3 ref_typespec   pva  0 0 0 0  0]
+r10v146repro/v11_unref UNMASK | STRICT_NOTEQUAL differ:fullname(4) -> STRICT_NOTEQUAL differ:fullname(2) | off 4 rec div@115 on 2 rec | new=1 gone=3 first-record-same=False
+    off first: #105 fullname golden[2 ref_typespec   ALSO  0 0 0 0  0] ours[2 ref_typespec   pv11a::ALSO  0 0 0 0  0]
+    on  first: #112 fullname golden[3 ref_typespec     0 0 0 0  0] ours[3 ref_typespec   pv11a  0 0 0 0  0]
+r10v146repro/v15_twofile_a UNMASK | STRICT_NOTEQUAL differ:fullname(4) -> STRICT_NOTEQUAL differ:fullname(2) | off 4 rec div@96 on 2 rec | new=1 gone=3 first-record-same=False
+    off first: #86 fullname golden[2 ref_typespec   AONE  0 0 0 0  0] ours[2 ref_typespec   pv15a::AONE  0 0 0 0  0]
+    on  first: #93 fullname golden[3 ref_typespec     0 0 0 0  0] ours[3 ref_typespec   pv15a  0 0 0 0  0]
+r10v199repro/v199_d_ifprog UNMASK | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(4) | off 5 rec div@333 on 4 rec | new=2 gone=3 first-record-same=False
+    off first: #317 fullname golden[2 ref_typespec   D_INT  0 0 0 0  0] ours[2 ref_typespec   vpd::D_INT  0 0 0 0  0]
+    on  first: #326 fullname golden[3 ref_typespec     0 0 0 0  0] ours[3 ref_typespec   vpd  0 0 0 0  0]
+r10v199repro/v199_f_multi UNMASK | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(3) | off 5 rec div@149 on 3 rec | new=1 gone=3 first-record-same=False
+    off first: #134 fullname golden[2 ref_typespec   F_INT  0 0 0 0  0] ours[2 ref_typespec   vpf::F_INT  0 0 0 0  0]
+    on  first: #142 fullname golden[3 ref_typespec     0 0 0 0  0] ours[3 ref_typespec   vpf  0 0 0 0  0]
+r10v199repro/v199_g_uvmshape UNMASK | STRICT_NOTEQUAL differ:fullname(11) -> STRICT_NOTEQUAL differ:fullname(8) | off 11 rec div@263 on 8 rec | new=3 gone=6 first-record-same=False
+    off first: #43 fullname golden[5 ref_typespec   G_SET  0 0 0 0  0] ours[5 ref_typespec   vpg::G_SET  0 0 0 0  0]
+    on  first: #244 fullname golden[3 ref_typespec     0 0 0 0  0] ours[3 ref_typespec   vpg  0 0 0 0  0]
+r10v201repro/v201_c_localparam UNMASK | STRICT_NOTEQUAL differ:fullname(9) -> STRICT_NOTEQUAL differ:fullname(5) | off 9 rec div@188 on 5 rec | new=4 gone=8 first-record-same=False
+    off first: #18 fullname golden[5 ref_typespec   C_LA  0 0 0 0  0] ours[5 ref_typespec   p201vc::C_LA  0 0 0 0  0]
+    on  first: #185 fullname golden[3 ref_typespec     0 0 0 0  0] ours[3 ref_typespec   p201vc  0 0 0 0  0]
+r10v201repro/v201_h_ifprog UNMASK | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(2) | off 5 rec div@186 on 2 rec | new=1 gone=4 first-record-same=False
+    off first: #13 fullname golden[5 ref_typespec   H_A  0 0 0 0  0] ours[5 ref_typespec   p201vh::H_A  0 0 0 0  0]
+    on  first: #183 fullname golden[3 ref_typespec     0 0 0 0  0] ours[3 ref_typespec   p201vh  0 0 0 0  0]
+r10v201repro/v201_j_nested UNMASK | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(2) | off 5 rec div@153 on 2 rec | new=1 gone=4 first-record-same=False
+    off first: #13 fullname golden[5 ref_typespec   J_A  0 0 0 0  0] ours[5 ref_typespec   p201vj::J_A  0 0 0 0  0]
+    on  first: #150 fullname golden[3 ref_typespec     0 0 0 0  0] ours[3 ref_typespec   p201vj  0 0 0 0  0]
+r10v212repro/gridv_v8_bothforeign_twopkg_design SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@38 on 1 rec div@38 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter T  <in>ap::tidb.T  0 0 0 0] ours[3 type_parameter T  <in>ap::tidb.T  0 0 0 0]
+    on  first: #38 depth golden[7 class_typespec acb   dut.sv 12 18 12 31] ours[5 param_assign     0 0 0 0]
+r10v212repro/gridv_v9_cu_base_pkg_clone_design SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:depth(1) | off 5 rec div@33 on 1 rec div@33 | new=0 gone=4 first-record-same=False
+    off first: #4 fullname golden[3 type_parameter T  <in>qp::tidb.T  0 0 0 0] ours[3 type_parameter T  <in>qp::tidb.T  0 0 0 0]
+    on  first: #33 depth golden[7 class_typespec qcb   dut.sv 16 18 16 31] ours[5 param_assign     0 0 0 0]
+r11u35repro/grid/g3_shape35 SUBSET | STRICT_NOTEQUAL differ:fullname(215) -> STRICT_NOTEQUAL differ:fullname(210) | off 215 rec on 210 rec | new=0 gone=5 first-record-same=True
+    off first: #100 fullname golden[8 ref_typespec   <in>a_sub  0 0 0 0  0] ours[8 ref_typespec   <in>a_sub  0 0 0 0  0]
+   tally probe: CONVERSION=10 NEW=1 SUBSET=20 UNMASK=13
+== surelog: 9 rows differ
+surelog/default/Earlgrey_0_1 SUBSET | STRICT_NOTEQUAL differ:endcol(45) -> STRICT_NOTEQUAL differ:endcol(39) | off 45 rec div@130430 on 39 rec div@130430 | new=0 gone=6 first-record-same=True
+    off first: #93964 endcol golden[5 constant    dm_csrs.sv 91 52 91 56 8'h04 8 HEX:04 5] ours[5 constant    dm_csrs.sv 91 52 91 61 8'h04 8 HEX:04 5]
+surelog/testflags/Earlgrey_0_1 SUBSET | STRICT_NOTEQUAL differ:endcol(45) -> STRICT_NOTEQUAL differ:endcol(39) | off 45 rec div@131904 on 39 rec div@131904 | new=0 gone=6 first-record-same=True
+    off first: #95240 endcol golden[5 constant    dm_csrs.sv 91 52 91 56 8'h04 8 HEX:04 5] ours[5 constant    dm_csrs.sv 91 52 91 61 8'h04 8 HEX:04 5]
+surelog/default/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:endline(59) -> STRICT_NOTEQUAL differ:file(7) | off 59 rec div@24917 on 7 rec div@24917 | new=0 gone=52 first-record-same=False
+    off first: #11306 endline golden[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 168 29  0] ours[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 169 9  0]
+    on  first: #15320 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+surelog/testflags/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:endline(59) -> STRICT_NOTEQUAL differ:file(7) | off 59 rec div@24917 on 7 rec div@24917 | new=0 gone=52 first-record-same=False
+    off first: #11306 endline golden[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 168 29  0] ours[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 169 9  0]
+    on  first: #15320 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+surelog/default/Scoreboard UNMASK | STRICT_NOTEQUAL differ:fullname(137) -> STRICT_NOTEQUAL differ:file(32) | off 137 rec div@78641 on 32 rec div@79148 | new=1 gone=106 first-record-same=False
+    off first: #466 fullname golden[6 ref_typespec   UVM_MACRO_NUMFLAGS  0 0 0 0  0] ours[6 ref_typespec   uvm_pkg::UVM_MACRO_NUMFLAGS  0 0 0 0  0]
+    on  first: #15398 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+surelog/default/SeqDriver SUBSET | STRICT_NOTEQUAL differ:endline(59) -> STRICT_NOTEQUAL differ:file(7) | off 59 rec div@24900 on 7 rec div@24900 | new=0 gone=52 first-record-same=False
+    off first: #11289 endline golden[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 168 29  0] ours[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 169 9  0]
+    on  first: #15303 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+surelog/testflags/SeqDriver SUBSET | STRICT_NOTEQUAL differ:endline(59) -> STRICT_NOTEQUAL differ:file(7) | off 59 rec div@24912 on 7 rec div@24912 | new=0 gone=52 first-record-same=False
+    off first: #11301 endline golden[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 168 29  0] ours[7 method_func_call phase_state_change   uvm_callback_defines.svh 168 11 169 9  0]
+    on  first: #15315 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+surelog/default/SimpleUVM UNMASK | STRICT_NOTEQUAL differ:fullname(185) -> STRICT_NOTEQUAL differ:file(56) | off 185 rec div@78244 on 56 rec div@78752 | new=1 gone=130 first-record-same=False
+    off first: #458 fullname golden[6 ref_typespec   UVM_MACRO_NUMFLAGS  0 0 0 0  0] ours[6 ref_typespec   uvm_pkg::UVM_MACRO_NUMFLAGS  0 0 0 0  0]
+    on  first: #15390 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+surelog/testflags/SimpleUVM UNMASK | STRICT_NOTEQUAL differ:fullname(185) -> STRICT_NOTEQUAL differ:file(56) | off 185 rec div@78256 on 56 rec div@78764 | new=1 gone=130 first-record-same=False
+    off first: #470 fullname golden[6 ref_typespec   UVM_MACRO_NUMFLAGS  0 0 0 0  0] ours[6 ref_typespec   uvm_pkg::UVM_MACRO_NUMFLAGS  0 0 0 0  0]
+    on  first: #15402 file golden[5 int_typespec UVM_FILE   uvm_root.svh 348 39 348 47] ours[5 int_typespec UVM_FILE   uvm_object_globals.svh 313 9 313 12]
+   tally surelog: SUBSET=6 UNMASK=3
+== uhdm2rtlil: 0 rows differ
+   tally uhdm2rtlil: 

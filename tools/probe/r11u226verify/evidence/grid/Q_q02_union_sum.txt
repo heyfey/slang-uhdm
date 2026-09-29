@@ -1,0 +1,11 @@
+FIRED Q/q02_union_sum QUALSPAN:4
+  (rescore on)
+  (rescore tr)
+  (rescore off_modStructMemberQualSpan214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT Q/q02_union_sum modStructMemberQualSpan214 TOWARD new=0 gone=20 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_289_objects
+RESULT Q/q02_union_sum LANDING219 TOWARD new=0 gone=20 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_289_objects
+RESULT Q/q02_union_sum ALLOFF TOWARD new=0 gone=20 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_289_objects
+RESULT Q/q02_union_sum WIDE TOWARD new=0 gone=20 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_289_objects

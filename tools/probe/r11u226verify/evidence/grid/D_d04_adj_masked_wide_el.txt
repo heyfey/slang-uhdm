@@ -1,0 +1,11 @@
+FIRED D/d04_adj_masked_wide_el ndaAdjSizeFoldSized223:4 sizeReachFollowsWalker219v:4
+  (rescore on)
+  (rescore tr)
+  (rescore off_ndaAdjSizeFoldSized223)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT D/d04_adj_masked_wide_el ndaAdjSizeFoldSized223 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 194 objects dump off=32 on=0 newbad=0
+RESULT D/d04_adj_masked_wide_el LANDING223 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 194 objects dump off=32 on=0 newbad=0
+RESULT D/d04_adj_masked_wide_el ALLOFF STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 194 objects dump off=32 on=0 newbad=0
+RESULT D/d04_adj_masked_wide_el WIDE STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 194 objects dump off=32 on=0 newbad=0

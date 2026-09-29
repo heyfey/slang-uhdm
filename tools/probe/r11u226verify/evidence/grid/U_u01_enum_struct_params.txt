@@ -1,0 +1,13 @@
+FIRED U/u01_enum_struct_params UNITCOPYTS:8 VALENC:4
+  (rescore on)
+  (rescore tr)
+  (rescore off_unitImportCopyOwnTsRef214)
+  (rescore off_unitImportCopyValueFollowsPkg214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT U/u01_enum_struct_params unitImportCopyOwnTsRef214 STAGE1-CLOSER off:stage1 on:stage1 dump off=115 on=59 newbad=0
+RESULT U/u01_enum_struct_params unitImportCopyValueFollowsPkg214 STAGE1-CLOSER off:stage1 on:stage1 dump off=65 on=59 newbad=0
+RESULT U/u01_enum_struct_params LANDING219 STAGE1-CLOSER off:stage1 on:stage1 dump off=121 on=59 newbad=0
+RESULT U/u01_enum_struct_params ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=121 on=59 newbad=0
+RESULT U/u01_enum_struct_params WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=121 on=59 newbad=0

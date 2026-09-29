@@ -1,0 +1,11 @@
+FIRED V/v03_fixed2d_enum_el ENUMPKGW:1 IMPVARELEM:4
+  (rescore on)
+  (rescore tr)
+  (rescore off_importVarElemOwnName214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT V/v03_fixed2d_enum_el importVarElemOwnName214 STAGE1-CLOSER off:stage1 on:stage1 dump off=690 on=670 newbad=0
+RESULT V/v03_fixed2d_enum_el LANDING219 STAGE1-CLOSER off:stage1 on:stage1 dump off=700 on=670 newbad=0
+RESULT V/v03_fixed2d_enum_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=700 on=670 newbad=0
+RESULT V/v03_fixed2d_enum_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=700 on=670 newbad=0

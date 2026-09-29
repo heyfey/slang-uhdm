@@ -1,0 +1,11 @@
+FIRED E/e14_bt_param_call_concat -
+  (rescore on)
+  (rescore tr)
+  (rescore off_strLitShiftNeedsBacktick220)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e14_bt_param_call_concat strLitShiftNeedsBacktick220 UNFIRED 
+RESULT E/e14_bt_param_call_concat LANDING220 UNFIRED 
+RESULT E/e14_bt_param_call_concat ALLOFF UNFIRED 
+RESULT E/e14_bt_param_call_concat WIDE UNFIRED 

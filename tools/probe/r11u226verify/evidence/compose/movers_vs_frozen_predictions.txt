@@ -1,0 +1,9 @@
+== movers wL vs w9 against r11u219repro/evidence/census/prediction.txt (3651a45b)
+moved 94 predicted 96 both 94
+  PREDICTED-UNMOVED probe/r10uvm202repro/g202_e_head
+  PREDICTED-UNMOVED probe/r10v202repro/v202_6_twotd
+== movers wL vs w0 against r11u220repro/evidence/census/predict_final.txt (3da1adc3)
+moved 39 predicted 40 both 39
+  PREDICTED-UNMOVED downstream/anon_struct_packed_dim
+== movers wL vs w3 against r11u223repro/evidence/census/prediction_frozen.txt (49ac9f3d)
+moved 25 predicted 25 both 25

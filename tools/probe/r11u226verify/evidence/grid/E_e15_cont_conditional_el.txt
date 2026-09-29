@@ -1,0 +1,11 @@
+FIRED E/e15_cont_conditional_el strLitContLineSpan220:3 strLitShiftNeedsBacktick220:1
+  (rescore on)
+  (rescore tr)
+  (rescore off_strLitContLineSpan220)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e15_cont_conditional_el strLitContLineSpan220 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline
+RESULT E/e15_cont_conditional_el LANDING220 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline
+RESULT E/e15_cont_conditional_el ALLOFF TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline
+RESULT E/e15_cont_conditional_el WIDE TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline

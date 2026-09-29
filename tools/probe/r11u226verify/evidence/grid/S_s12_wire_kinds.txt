@@ -1,0 +1,19 @@
+FIRED S/s12_wire_kinds ndaSizeFoldReach219:3
+  (rescore on)
+  (rescore tr)
+  (rescore off_ndaSizeFoldReach219)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZE2D_OFF)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZEDIM_OFF)
+  (rescore off_ndaAdjSizeFoldSized223)
+  (rescore offL219)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT S/s12_wire_kinds ndaSizeFoldReach219 STAGE1-CLOSER off:stage1 on:stage1 dump off=60 on=3 newbad=0
+RESULT S/s12_wire_kinds ndaSizeFoldReach219:R11U219_SIZE2D_OFF STAGE1-CLOSER off:stage1 on:stage1 dump off=18 on=3 newbad=0
+RESULT S/s12_wire_kinds ndaSizeFoldReach219:R11U219_SIZEDIM_OFF STAGE1-CLOSER off:stage1 on:stage1 dump off=45 on=3 newbad=0
+RESULT S/s12_wire_kinds ndaAdjSizeFoldSized223 UNFIRED 
+RESULT S/s12_wire_kinds LANDING219 STAGE1-CLOSER off:stage1 on:stage1 dump off=60 on=3 newbad=0
+RESULT S/s12_wire_kinds LANDING223 UNFIRED 
+RESULT S/s12_wire_kinds ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=60 on=3 newbad=0
+RESULT S/s12_wire_kinds WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=60 on=3 newbad=0

@@ -1,0 +1,11 @@
+FIRED E/e18_cont_call_arg_concat_el strLitContLineSpan220:3
+  (rescore on)
+  (rescore tr)
+  (rescore off_strLitContLineSpan220)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e18_cont_call_arg_concat_el strLitContLineSpan220 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_53_objects
+RESULT E/e18_cont_call_arg_concat_el LANDING220 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_53_objects
+RESULT E/e18_cont_call_arg_concat_el ALLOFF TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_53_objects
+RESULT E/e18_cont_call_arg_concat_el WIDE TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_53_objects

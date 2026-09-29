@@ -1,0 +1,13 @@
+FIRED E/e20_new_member_bitsel_el newArrayBitSelIdxStripped220:2 newArrayCallArgStripped220:1
+  (rescore on)
+  (rescore tr)
+  (rescore off_newArrayBitSelIdxStripped220)
+  (rescore off_newArrayCallArgStripped220)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e20_new_member_bitsel_el newArrayBitSelIdxStripped220 STAGE1-SAME off:stage1 on:stage1 dump off=6 on=6 newbad=0
+RESULT E/e20_new_member_bitsel_el newArrayCallArgStripped220 STAGE1-SAME off:stage1 on:stage1 dump off=6 on=6 newbad=0
+RESULT E/e20_new_member_bitsel_el LANDING220 STAGE1-SAME off:stage1 on:stage1 dump off=6 on=6 newbad=0
+RESULT E/e20_new_member_bitsel_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=6 on=6 newbad=0
+RESULT E/e20_new_member_bitsel_el WIDE STAGE1-SAME off:stage1 on:stage1 dump off=6 on=6 newbad=0

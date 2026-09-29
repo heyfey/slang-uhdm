@@ -1,0 +1,6 @@
+wL    3273 /tmp/r11u226_bin/law.bin 
+wA    3273 /tmp/r11u226_bin/law.bin 
+w9    3273 /tmp/r11u226_bin/law.bin 
+w0    3273 /tmp/r11u226_bin/law.bin 
+w3    3273 /tmp/r11u226_bin/law.bin 
+w8    3273 /tmp/r11u226_bin/law.bin 

@@ -1,0 +1,13 @@
+FIRED F/f16_exp_first_pkg_imported_td tfArgScalarTdWriter223:2
+  F/f16_exp_first_pkg_imported_td on cmp=255 cmplines=482 strict=NOT_EQUAL_stage1 rc=0 md5=26afa2bd
+  F/f16_exp_first_pkg_imported_td tr cmp=255 cmplines=482 strict=NOT_EQUAL_stage1 rc=0 md5=26afa2bd
+  F/f16_exp_first_pkg_imported_td off_tfArgScalarTdExportFirst223 cmp=255 cmplines=482 strict=NOT_EQUAL_stage1 rc=0 md5=b78b5eb9
+  F/f16_exp_first_pkg_imported_td off_tfArgScalarTdWriter223 cmp=255 cmplines=482 strict=NOT_EQUAL_stage1 rc=0 md5=76f41962
+  F/f16_exp_first_pkg_imported_td offL223 cmp=255 cmplines=482 strict=NOT_EQUAL_stage1 rc=0 md5=76f41962
+  F/f16_exp_first_pkg_imported_td alloff cmp=255 cmplines=482 strict=NOT_EQUAL_stage1 rc=0 md5=76f41962
+  F/f16_exp_first_pkg_imported_td wide cmp=255 cmplines=482 strict=NOT_EQUAL_stage1 rc=0 md5=76f41962
+RESULT F/f16_exp_first_pkg_imported_td tfArgScalarTdExportFirst223 STAGE1-AWAY off:stage1 on:stage1 dump off=34 on=38 newbad=2 | +\_int_typespec: (FILE_T), line:3:11, endln:3:14
+RESULT F/f16_exp_first_pkg_imported_td tfArgScalarTdWriter223 STAGE1-CLOSER off:stage1 on:stage1 dump off=42 on=38 newbad=0
+RESULT F/f16_exp_first_pkg_imported_td LANDING223 STAGE1-CLOSER off:stage1 on:stage1 dump off=42 on=38 newbad=0
+RESULT F/f16_exp_first_pkg_imported_td ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=42 on=38 newbad=0
+RESULT F/f16_exp_first_pkg_imported_td WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=42 on=38 newbad=0

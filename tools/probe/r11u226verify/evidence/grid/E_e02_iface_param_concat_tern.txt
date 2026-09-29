@@ -1,0 +1,11 @@
+FIRED E/e02_iface_param_concat_tern pkgQualOperandSpanInParam218:3
+  (rescore on)
+  (rescore tr)
+  (rescore off_pkgQualOperandSpanInParam218)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e02_iface_param_concat_tern pkgQualOperandSpanInParam218 STAGE1-CLOSER off:stage1 on:stage1 dump off=29 on=17 newbad=0
+RESULT E/e02_iface_param_concat_tern LANDING220 STAGE1-CLOSER off:stage1 on:stage1 dump off=29 on=17 newbad=0
+RESULT E/e02_iface_param_concat_tern ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=29 on=17 newbad=0
+RESULT E/e02_iface_param_concat_tern WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=29 on=17 newbad=0

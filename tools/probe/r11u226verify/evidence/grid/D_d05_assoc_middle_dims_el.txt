@@ -1,0 +1,15 @@
+FIRED D/d05_assoc_middle_dims_el fixedOuterAssocInnerReg223:2 ndaAdjSizeFoldSized223:3 sizeReachFollowsWalker219v:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_fixedOuterAssocInnerReg223)
+  (rescore off_unsizedInnerSizeDeclines223)
+  (rescore off_ndaAdjSizeFoldSized223)
+  (rescore offL223)
+  (rescore alloff)
+  (rescore wide)
+RESULT D/d05_assoc_middle_dims_el fixedOuterAssocInnerReg223 STAGE1-CLOSER off:stage1 on:stage1 dump off=53 on=0 newbad=0
+RESULT D/d05_assoc_middle_dims_el unsizedInnerSizeDeclines223 UNFIRED 
+RESULT D/d05_assoc_middle_dims_el ndaAdjSizeFoldSized223 STAGE1-CLOSER off:stage1 on:stage1 dump off=18 on=0 newbad=0
+RESULT D/d05_assoc_middle_dims_el LANDING223 DB-PRESENCE-DIFFERS 
+RESULT D/d05_assoc_middle_dims_el ALLOFF DB-PRESENCE-DIFFERS 
+RESULT D/d05_assoc_middle_dims_el WIDE DB-PRESENCE-DIFFERS 

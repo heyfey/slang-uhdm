@@ -1,0 +1,77 @@
+== S/s01_unpacked3d_dims tags: on off_sizeReachFollowsWalker219v off_ndaSizeFoldReach219 alloff
+  w0   G=['constant:2:UINT:2:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w1   G=['constant:2:UINT:2:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w2   G=['constant:3:UINT:3:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w3   G=['constant:4:UINT:4:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w4   G=['constant:6:UINT:6:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+== S/s02_packed3d_dims tags: on off_sizeReachFollowsWalker219v off_ndaSizeFoldReach219 alloff
+  w0   G=['constant:3:UINT:3:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w1   G=['constant:3:UINT:3:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w2   G=['constant:4:UINT:4:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w3   G=['constant:2:UINT:2:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+== S/s03_int_elem_2d tags: on off_sizeReachFollowsWalker219v off_ndaSizeFoldReach219 alloff
+  w0   G=['constant:3:UINT:3:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w1   G=['constant:3:UINT:3:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w2   G=['constant:5:UINT:5:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w3   G=['constant:160:UINT:160:8'] | on=['CALL'] | off_sizeReachFollowsWalker219v=['constant:32:UINT:32:8'] | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+== S/s04_struct_elem_2d tags: on off_sizeReachFollowsWalker219v off_ndaSizeFoldReach219 alloff
+  w0   G=['constant:2:UINT:2:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w1   G=['constant:6:UINT:6:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w2   G=['constant:4:UINT:4:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w3   G=['constant:2:UINT:2:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+== S/s05_typedef_arr_dims tags: on off_sizeReachFollowsWalker219v off_ndaSizeFoldReach219 alloff
+  w0   G=['constant:2:UINT:2:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w1   G=['constant:5:UINT:5:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w2   G=['constant:4:UINT:4:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w3   G=['constant:2:UINT:2:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w4   G=['constant:7:UINT:7:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+== S/s06_param_localparam tags: on off_ndaSizeFoldReach219 alloff
+  w0   G=[] | on=['CALL'] | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w1   G=[] | on=['CALL'] | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w2   G=['constant:6:UINT:6:8'] | on==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+== S/s07_enum_elem_dims tags: on off_sizeReachFollowsWalker219v off_ndaSizeFoldReach219 alloff
+  w1   G=['constant:2:UINT:2:4'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w2   G=['constant:3:UINT:3:4'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w3   G=['constant:15:UINT:15:4'] | on=['CALL'] | off_sizeReachFollowsWalker219v=['constant:5:UINT:5:4'] | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+== S/s08_net_array_2d tags: on off_sizeReachFollowsWalker219v off_ndaSizeFoldReach219 alloff
+  w0   G=['constant:2:UINT:2:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w1   G=['constant:3:UINT:3:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w2   G=['constant:4:UINT:4:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w3   G=['constant:6:UINT:6:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+== S/s09_mixed_packed_unpacked tags: on off_sizeReachFollowsWalker219v off_ndaSizeFoldReach219 alloff
+  w0   G=['constant:3:UINT:3:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w1   G=['constant:2:UINT:2:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w2   G=['constant:2:UINT:2:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w3   G=['constant:16:UINT:16:8'] | on=['CALL'] | off_sizeReachFollowsWalker219v=['constant:8:UINT:8:8'] | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+== S/s10_class_elem tags: on off_sizeReachFollowsWalker219v off_ndaSizeFoldReach219 alloff
+  w0   G=['constant:2:UINT:2:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w1   G=['constant:2:UINT:2:8'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+== S/s12_wire_kinds tags: on off_ndaSizeFoldReach219 alloff
+  w0   G=['constant:7:UINT:7:8'] | on==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w1   G=['constant:3:UINT:3:8'] | on==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w2   G=['constant:7:UINT:7:3'] | on==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w3   G=['operation:::0'] | on==G | off_ndaSizeFoldReach219==G | alloff==G
+== X/x02_size_reach_adj_walker tags: on off_sizeReachFollowsWalker219v off_ndaSizeFoldReach219 alloff
+  w1   G=['constant:5:UINT:5:4'] | on==G | off_sizeReachFollowsWalker219v==G | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w2   G=['constant:9:UINT:9:4'] | on=['CALL'] | off_sizeReachFollowsWalker219v=['constant:3:UINT:3:4'] | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+  w3   G=['constant:32:UINT:32:6'] | on=['CALL'] | off_sizeReachFollowsWalker219v=['constant:4:UINT:4:6'] | off_ndaSizeFoldReach219=['CALL'] | alloff=['CALL']
+== D/d03_adj_sized_tri_wand tags: on alloff
+  t1   G=['constant:2:UINT:2:8'] | on=['CALL'] | alloff=['CALL']
+  t2   G=['constant:24:UINT:24:8'] | on=['CALL'] | alloff=['CALL']
+  t3   G=['constant:2:UINT:2:6'] | on=['CALL'] | alloff=['CALL']
+== D/d04_adj_masked_wide tags: on alloff
+  iw   G=['constant:0:UINT:0:5'] | on=['CALL'] | alloff=['CALL']
+  w1   G=['constant:0:UINT:0:1'] | on=['CALL'] | alloff=['CALL']
+  w2   G=['constant:2:UINT:2:10'] | on=['CALL'] | alloff=['CALL']
+  w3   G=['constant:2:UINT:2:40'] | on=['CALL'] | alloff=['CALL']
+== D/d05_assoc_middle_dims tags: on alloff
+  w1   G=['constant:32:UINT:32:8'] | on=['CALL'] | alloff=['CALL']
+  w2   G=['constant:32:UINT:32:8'] | on=['CALL'] | alloff=['CALL']
+  w3   G=['constant:6:UINT:6:8'] | on=['CALL'] | alloff=['CALL']
+# elaborated X/x02 net initializers (constant:value:size@line:col) per state
+gold: L7=constant:UINT:5:size4@0:0 L8=constant:UINT:9:size4@0:0 L9=constant:UINT:32:size6@0:0 
+on: L7=constant:UINT:5:size4@0:0 L8=constant:UINT:9:size4@0:0 L9=constant:UINT:32:size6@0:0 
+off_ndaAdjSizeFoldSized223: L7=constant:UINT:5:size4@0:0 L8=constant:UINT:9:size64@8:19 L9=constant:UINT:32:size64@9:19 
+off_sizeReachFollowsWalker219v: L7=constant:UINT:5:size4@0:0 L8=constant:UINT:3:size4@0:0 L9=constant:UINT:4:size6@0:0 
+off_ndaSizeFoldReach219: L7=constant:UINT:5:size4@0:0 L8=constant:UINT:9:size4@0:0 L9=constant:UINT:32:size6@0:0 
+off_fixedOuterAssocInnerReg223 / offL223 / alloff: rc 139, no database

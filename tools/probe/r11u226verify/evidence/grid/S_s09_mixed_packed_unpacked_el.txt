@@ -1,0 +1,17 @@
+FIRED S/s09_mixed_packed_unpacked_el ndaAdjSizeFoldSized223:1 ndaSizeFoldReach219:3 sizeReachFollowsWalker219v:1
+  (rescore on)
+  (rescore tr)
+  (rescore off_ndaSizeFoldReach219)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZE2D_OFF)
+  (rescore off_ndaSizeFoldReach219_R11U219_SIZEDIM_OFF)
+  (rescore off_sizeReachFollowsWalker219v)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT S/s09_mixed_packed_unpacked_el ndaSizeFoldReach219 STAGE1-SAME off:stage1 on:stage1 dump off=4 on=4 newbad=0
+RESULT S/s09_mixed_packed_unpacked_el ndaSizeFoldReach219:R11U219_SIZE2D_OFF UNFIRED 
+RESULT S/s09_mixed_packed_unpacked_el ndaSizeFoldReach219:R11U219_SIZEDIM_OFF STAGE1-SAME off:stage1 on:stage1 dump off=4 on=4 newbad=0
+RESULT S/s09_mixed_packed_unpacked_el sizeReachFollowsWalker219v STAGE1-CLOSER off:stage1 on:stage1 dump off=8 on=4 newbad=0
+RESULT S/s09_mixed_packed_unpacked_el LANDING219 STAGE1-SAME off:stage1 on:stage1 dump off=4 on=4 newbad=0
+RESULT S/s09_mixed_packed_unpacked_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=28 on=4 newbad=0
+RESULT S/s09_mixed_packed_unpacked_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=28 on=4 newbad=0

@@ -18,6 +18,7 @@
 #include <vector>
 #include "R204.h"
 #include "R223.h"
+#include "R226.h"
 
 namespace slang_uhdm {
 
@@ -5557,6 +5558,23 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // § tfArgDpiExportFirstNoWrite153v's decode; grid cases/F
                 // f21 before, f24 after, where golden writes the token).
                 // Switch R11U223_SCALARTDEXP_OFF.
+                // § tfArgScalarTdExportOwnTd226v (r11u226, switch
+                // R11V226_EXPOWNTD_OFF; R11V226_OFF and R11U223_OFF drop it) —
+                // golden keeps the LISTING object only when the formal's
+                // typedef is declared in the SAME scope as the subroutine (a
+                // package's own typedef, pass 223's f21, r11u226 F/f14); a
+                // typedef reached through an import (a module or `$unit`
+                // import, another package's typedef imported into the
+                // subroutine's package) gets the token copy even when the
+                // export precedes the definition (r11u226 F/f11, f13, f15,
+                // f16, f17: golden 8:19-25 at the formal's type token).
+                bool ownTd226 = true;
+                if (r11v226Law("R11V226_EXPOWNTD_OFF")) {
+                    const auto& t226 = arg->getType();
+                    ownTd226 = t226.isAlias() &&
+                               t226.as<slang::ast::TypeAliasType>().getParentScope() ==
+                                   sub.getParentScope();
+                }
                 if (ansi223 && r11u223Law("R11U223_SCALARTDEXP_OFF"))
                     if (auto* sn223 = sub.getSyntax(); sn223 && sn223->parent) {
                         std::string_view fn223 = sub.name;
@@ -5567,8 +5585,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                     fn223 &&
                                 c223->sourceRange().start().buffer() ==
                                     sn223->sourceRange().start().buffer() &&
-                                c223->sourceRange().start() < sn223->sourceRange().start())
-                                ansi223 = false;
+                                c223->sourceRange().start() < sn223->sourceRange().start()) {
+                                if (ownTd226)
+                                    ansi223 = false;
+                                else
+                                    tr226("tfArgScalarTdExportOwnTd226v",
+                                          std::string(sub.name) + " " +
+                                              std::string(arg->name));
+                            }
                     }
                 if (ansi223)
                     formalTdTok223().push_back({rt, argTsyn->sourceRange()});

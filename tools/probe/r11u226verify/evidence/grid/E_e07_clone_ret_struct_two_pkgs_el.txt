@@ -1,0 +1,11 @@
+FIRED E/e07_clone_ret_struct_two_pkgs_el -
+  (rescore on)
+  (rescore tr)
+  (rescore off_importCloneSharesHomeReturn218)
+  (rescore offL220)
+  (rescore alloff)
+  (rescore wide)
+RESULT E/e07_clone_ret_struct_two_pkgs_el importCloneSharesHomeReturn218 UNFIRED 
+RESULT E/e07_clone_ret_struct_two_pkgs_el LANDING220 UNFIRED 
+RESULT E/e07_clone_ret_struct_two_pkgs_el ALLOFF UNFIRED 
+RESULT E/e07_clone_ret_struct_two_pkgs_el WIDE UNFIRED 

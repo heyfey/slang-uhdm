@@ -1,0 +1,11 @@
+FIRED Q/q01_iface_gen_member_el QUALSPAN:2
+  (rescore on)
+  (rescore tr)
+  (rescore off_modStructMemberQualSpan214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT Q/q01_iface_gen_member_el modStructMemberQualSpan214 STAGE1-SAME off:stage1 on:stage1 dump off=0 on=0 newbad=0
+RESULT Q/q01_iface_gen_member_el LANDING219 STAGE1-SAME off:stage1 on:stage1 dump off=0 on=0 newbad=0
+RESULT Q/q01_iface_gen_member_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=0 on=0 newbad=0
+RESULT Q/q01_iface_gen_member_el WIDE STAGE1-SAME off:stage1 on:stage1 dump off=0 on=0 newbad=0

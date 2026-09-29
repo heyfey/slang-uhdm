@@ -1,0 +1,11 @@
+FIRED C/c05_clone_alias_formal CLONENAME:2 ENUMPKGW:3
+  (rescore on)
+  (rescore tr)
+  (rescore off_cloneAliasFormalOwnChain214)
+  (rescore offL219)
+  (rescore alloff)
+  (rescore wide)
+RESULT C/c05_clone_alias_formal cloneAliasFormalOwnChain214 STAGE1-CLOSER off:stage1 on:stage1 dump off=6 on=2 newbad=0
+RESULT C/c05_clone_alias_formal LANDING219 STAGE1-CLOSER off:stage1 on:stage1 dump off=8 on=2 newbad=0
+RESULT C/c05_clone_alias_formal ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=8 on=2 newbad=0
+RESULT C/c05_clone_alias_formal WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=8 on=2 newbad=0
