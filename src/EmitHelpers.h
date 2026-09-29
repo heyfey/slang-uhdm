@@ -15186,6 +15186,29 @@ inline void trace198(const char* law) {
 /// switches keep their meaning (R11U201_OFF the six laws and the new[]
 /// refinement, R11U200_OFF every r11u200 law of both grounds); the reach
 /// table is tools/probe/r11u210repro/README.md section 2.
+/// § landingSwitchReach224 (r11u224, item (5) of its brief) — the ground-A
+/// half of a whole-pass switch whose laws sit on both grounds, each its own
+/// switch: R11U224_SPLIT112A_OFF (ExprEmit's r11u112On), R11U224_SPLIT175A_OFF
+/// (ExprEmit's r11u175LawE, StmtEmit's r11u175LawA), R11U224_SPLIT183A_OFF
+/// (ExprEmit's, ParamEmit's and StmtEmit's r11u183Law copies),
+/// R11U224_SPLIT191A_OFF (ExprEmit's and ParamEmit's r11u191 law gates).
+/// The old switches keep their meaning (R11U112_OFF, R11U175_OFF,
+/// R11U183_OFF, R11U191_OFF and their landing passes' switches still drop
+/// both grounds); R11U224_OFF does not read these (the base keeps its
+/// landings).  The reach table is tools/probe/r11u224repro/README.md.
+inline bool r11u224SplitAOff(int pass) {
+    static const bool s112 = getenv("R11U224_SPLIT112A_OFF") != nullptr;
+    static const bool s175 = getenv("R11U224_SPLIT175A_OFF") != nullptr;
+    static const bool s183 = getenv("R11U224_SPLIT183A_OFF") != nullptr;
+    static const bool s191 = getenv("R11U224_SPLIT191A_OFF") != nullptr;
+    switch (pass) {
+        case 112: return s112;
+        case 175: return s175;
+        case 183: return s183;
+        case 191: return s191;
+        default: return false;
+    }
+}
 inline bool r11u210Landing201Off() {
     static const bool off = getenv("R11U210_LANDING201_OFF") != nullptr;
     return off;

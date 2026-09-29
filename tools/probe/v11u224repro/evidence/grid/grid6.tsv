@@ -1,0 +1,6 @@
+DS/ds01_el	P:STRICT_NOTEQUAL_endcol	L:EQUAL	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+DS/ds01	P:STRICT_NOTEQUAL_endcol	L:EQUAL	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+DS/ds02_el	P:STRICT_NOTEQUAL_endcol	L:EQUAL	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+DS/ds02	P:STRICT_NOTEQUAL_endcol	L:EQUAL	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+DS/ds03_el	P:STRICT_NOTEQUAL_endline	L:EQUAL	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+DS/ds03	P:STRICT_NOTEQUAL_endline	L:EQUAL	OFF=pristine	bytes=moved	Prc=0	Lrc=0

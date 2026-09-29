@@ -1,0 +1,8 @@
+# 2567 databases differ between $S_wQ and $S_wL
+probe/r10svs2repro/s5_negctl away=0 toward=2 flat_away=0 flat_toward=2
+probe/r10svs2repro/w3_macrodeep away=0 toward=2 flat_away=0 flat_toward=2
+probe/r10uvm147repro/g147_a away=0 toward=8 flat_away=0 flat_toward=8
+probe/r10uvm56repro/v3_hierpath away=0 toward=2 flat_away=0 flat_toward=2
+probe/r10v121repro/v121_c away=0 toward=1 flat_away=0 flat_toward=1
+probe/r10v172repro/v172_3_pos away=0 toward=4 flat_away=0 flat_toward=4
+probe/r10v174repro/v174_b_sysfns away=0 toward=1 flat_away=0 flat_toward=1

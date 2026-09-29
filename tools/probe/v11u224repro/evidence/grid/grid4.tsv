@@ -1,0 +1,12 @@
+LX/ld01_el	P:STRICT_NOTEQUAL_fullname	L:EQUAL	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+LX/ld01	P:STRICT_NOTEQUAL_fullname	L:EQUAL	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+LX/ld02_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+LX/ld02	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+LX/ld03_el	P:SLANG_FAIL	L:SLANG_FAIL	OFF=DIFF	bytes=same	Prc=3	Lrc=3
+LX/ld03	P:SLANG_FAIL	L:SLANG_FAIL	OFF=DIFF	bytes=same	Prc=3	Lrc=3
+LX/ld04_el	P:SLANG_FAIL	L:SLANG_FAIL	OFF=DIFF	bytes=same	Prc=3	Lrc=3
+LX/ld04	P:SLANG_FAIL	L:SLANG_FAIL	OFF=DIFF	bytes=same	Prc=3	Lrc=3
+LX/ld05_el	P:EQUAL	L:EQUAL	OFF=pristine	bytes=same	Prc=0	Lrc=0
+LX/ld05	P:EQUAL	L:EQUAL	OFF=pristine	bytes=same	Prc=0	Lrc=0
+LX/ld06_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+LX/ld06	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	OFF=pristine	bytes=moved	Prc=0	Lrc=0

@@ -1,0 +1,26 @@
+      1 hpLvNewClassFirstElemSpan224 c172.getfn172
+      1 hpLvNewClassFirstElemSpan224 c172.plain172
+      1 hpLvNewClassFirstElemSpan224 h.o
+      9 hpLvNewClassFirstElemSpan224 m_t_inst.m_tw_cb_q
+      1 hpLvNewClassFirstElemSpan224 o.a
+      1 hpLvNewClassFirstElemSpan224 other.stud
+     44 hpLvNewClassFirstElemSpan224 rw.parent
+      1 hpLvNewClassFirstElemSpan224 z_deep.inner
+      1 hpLvSelColumnJoin224 q147a::drv147::fd::lv.value[idx][8 * i+:8]::value
+      1 hpLvSelColumnJoin224 q147a::drv147::fd::mprop.value[idx][8 * i+:8]::value
+      1 hpLvSelColumnJoin224 q147a::drv147::fd::rw.value[idx][7:0]::value
+      1 hpLvSelColumnJoin224 q147a::drv147::fd::rw.value[idx][8 * i+:8]::value
+      4 hpLvSelColumnJoin224 uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::value
+      1 hpLvSelIdxNamesByPath224 q147a::drv147::fd::lv.value[idx][8 * i+:8]
+      1 hpLvSelIdxNamesByPath224 q147a::drv147::fd::mprop.value[idx][8 * i+:8]
+      1 hpLvSelIdxNamesByPath224 q147a::drv147::fd::rw.value[idx][7:0]
+      1 hpLvSelIdxNamesByPath224 q147a::drv147::fd::rw.value[idx][8 * i+:8]
+      4 hpLvSelIdxNamesByPath224 uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]
+      4 ipsBasePfxScopeJoin224 uvm_pkg::uvm_reg_map::do_bus_access::accesses[i0].data[i1 * 8+:8]::data
+      4 ipsWidthPfxByPathInScope224 uvm_pkg::uvm_reg_map::do_bus_access::accesses[i0].data[i1 * 8+:8]::data
+      1 pcwAllPkgListingBindsOwn224 dev_addr_width_gp
+      3 strLitPpEscIdShift224 \\/ _| __| | '_ \\ / _` / 
+      6 strLitPpEscIdShift224 line
+      1 sysCallTypeArgScopeJoin224 spindleWord
+     15 sysCallTypeArgScopeJoin224 T
+      9 sysCallTypeArgScopeJoin224 uvm_reg_data_t

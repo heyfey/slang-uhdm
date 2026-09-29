@@ -1,0 +1,345 @@
+tp/r10rgg6repro/cells/one_p1_n4_no_typed_param_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10rgg6repro/cells/one_p1_n4_no_typed_param	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10rgg6repro/cells/one_p2_n4_no_typed_param_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r10rgg6repro/cells/one_p2_n4_no_typed_param	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r10rgg6repro/cells/one_p2_n4_yes_untyped_param_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10rgg6repro/cells/one_p2_n4_yes_untyped_param	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10rgg6repro/cells/rec_none_n4_yes_typed_param_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10rgg6repro/cells/rec_none_n4_yes_typed_param	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10rgg6repro/cells/top_p1_n4_no_typed_param_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10rgg6repro/cells/top_p1_n4_no_typed_param	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10rgg6repro/cells/top_p2_n4_no_typed_param_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r10rgg6repro/cells/top_p2_n4_no_typed_param	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r10rgg6repro/cells/top_p2_n4_yes_untyped_param_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10rgg6repro/cells/top_p2_n4_yes_untyped_param	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10rgg8repro/cells/b_outformal_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10rgg8repro/cells/b_outformal	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10rgg8repro/cells/e_classmethod_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10rgg8repro/cells/e_classmethod	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10uvm223repro/grid223/a7b_class_reject_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10uvm223repro/grid223/a7b_class_reject	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10uvm227repro/grid227/a11_three_hops_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10uvm227repro/grid227/a11_three_hops	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10uvm227repro/grid227/a6_only_p2_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10uvm227repro/grid227/a6_only_p2	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10uvm227repro/grid227/a8_qual_p2_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10uvm227repro/grid227/a8_qual_p2	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10uvm47repro/t65b_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10uvm47repro/t65b	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10v226repro/arms/b13_modportproc_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10v226repro/arms/b13_modportproc	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg2repro/y5_sub_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg2repro/y5_sub	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg3repro/xj_recv_param_hier_dependent_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg3repro/xj_recv_param_hier_dependent	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg3repro/y4_iface_param_in_sub_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg3repro/y4_iface_param_in_sub	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg4repro/v4c_hier_ref_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg4repro/v4c_hier_ref	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg4repro/v4d_iface_param_src_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg4repro/v4d_iface_param_src	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg4repro/v6g_ovr_replication_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg4repro/v6g_ovr_replication	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg4repro/v6h_ovr_unbased_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg4repro/v6h_ovr_unbased	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg8repro/cells/v8_recurse_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r10vrgg8repro/cells/v8_recurse_mutual_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r10vrgg8repro/cells/v8_recurse_uncond_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r10vrgg8repro/cells/v8_ref_formal_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r10vrgg8repro/cells/v8_ref_formal	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u103repro/grid/a15_filelib_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u103repro/grid/a15_filelib	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u113repro/grid/e/e09_modtd_use_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u113repro/grid/e/e09_modtd_use	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u113repro/grid/q/q10_star_inf0_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u113repro/grid/q/q10_star_inf0	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u113repro/grid/q/q11_starplain_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u113repro/grid/q/q11_starplain	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u123canon/arms/t01_class_self_member_el	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=2 flat_away=0 flat_toward=2 dump_away=0 dump_toward=6
+tp/r11u123canon/arms/t01_class_self_member	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=2 flat_away=0 flat_toward=2 dump_away=0 dump_toward=3
+tp/r11u153verify/cases/bso/h15_ps_bound_iface_arr_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u153verify/cases/bso/h15_ps_bound_iface_arr	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u153verify/cases/esc/y16_upper_W_hash_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r11u153verify/cases/esc/y16_upper_W_hash	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r11u153verify/cases/pe/r02_nested_concat_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r11u153verify/cases/pe/r02_nested_concat	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r11u159verify/cases/cv/v12_copy_new_paren_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u159verify/cases/cv/v12_copy_new_paren	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u160repro/cases/MA/m09_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r11u160repro/cases/MA/m09	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r11u160repro/cases/MA/m11_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r11u160repro/cases/MA/m11	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r11u160repro/cases/S7/s01_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r11u160repro/cases/S7/s01	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r11u170verify/cases/ux/s01_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u170verify/cases/ux/s01	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u171repro/cases/M/m06_two_root_files_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u171repro/cases/M/m06_two_root_files	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f01_pkgfn_arg_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f01_pkgfn_arg	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f02_pkg_unpacked_net_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f02_pkg_unpacked_net	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f03_pkgfn_union_arg_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f03_pkgfn_union_arg	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f05_enum_arg_crossfile_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f05_enum_arg_crossfile	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f07_two_formals_two_files_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f07_two_formals_two_files	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f09_two_mods_unpacked_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f09_two_mods_unpacked	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f10_formal_then_net_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f10_formal_then_net	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f11_enum_unpacked_net_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f11_enum_unpacked_net	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f12_unit_typedef_other_file_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u172rp/cases/F/f12_unit_typedef_other_file	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u176repro/cases/TD/td01_three_files_tie_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u176repro/cases/TD/td01_three_files_tie	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u176repro/cases/TD/td02_key_three_pkgs_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u176repro/cases/TD/td02_key_three_pkgs	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u180repro/cases/H/h23_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u180repro/cases/H/h23	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u180repro/cases/H/h24_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u180repro/cases/H/h24	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u183dec/cases/a/c10_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u183dec/cases/a/c10	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u183dec/cases/h/h09_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u183dec/cases/h/h09	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TD/d01_case_order_tie_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TD/d01_case_order_tie	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TD/d02_explicit_vs_wild_key_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TD/d02_explicit_vs_wild_key	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TD/d03_enum_task_key_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TD/d03_enum_task_key	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TD/d04_key_class_writer_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TD/d04_key_class_writer	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TW/w03_cls_and_mod_samepos_file_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TW/w03_cls_and_mod_samepos_file	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TW/w07_prog_func_samepos_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TW/w07_prog_func_samepos	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TW/w08_modtask_union_samepos_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TW/w08_modtask_union_samepos	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TW/w09_iface_cls_samepos_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/TW/w09_iface_cls_samepos	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/X/x07_macro_formal_files_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u185verify/cases/X/x07_macro_formal_files	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u190verify/cases/E/e01_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u190verify/cases/E/e01	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u190verify/cases/G/g01_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u190verify/cases/G/g01	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u191dec/cases/B/b01_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=0 flat_away=4 flat_toward=0 dump_away=0 dump_toward=0
+tp/r11u191dec/cases/G/g_g01_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u191dec/cases/G/g_g01	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u191dec/cases/N/n_e01_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u191dec/cases/N/n_e01	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u194verify/cases/LS/l01_scale_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u194verify/cases/LS/l01_scale	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u19repro/grid/p03_mod_scalar_defzero_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u19repro/grid/p03_mod_scalar_defzero	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u19repro/grid/q13_mod_packedenumarr_defzero_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u19repro/grid/q13_mod_packedenumarr_defzero	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u205dec/cases/FT/f03_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u205dec/cases/FT/f03	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u207repro/cases/P/p02_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=0 flat_away=4 flat_toward=0 dump_away=0 dump_toward=0
+tp/r11u207repro/cases/P/p03_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=0 flat_away=7 flat_toward=0 dump_away=0 dump_toward=0
+tp/r11u213verify/cases/CW/w01_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=0 flat_away=6 flat_toward=0 dump_away=0 dump_toward=0
+tp/r11u213verify/cases/CW/w02_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=2 chain_toward=0 flat_away=21 flat_toward=0 dump_away=0 dump_toward=0
+tp/r11u213verify/cases/CW/w04_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=0 flat_away=7 flat_toward=0 dump_away=0 dump_toward=0
+tp/r11u213verify/cases/X/x01_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=0 flat_away=3 flat_toward=0 dump_away=0 dump_toward=0
+tp/r11u218dec/cases/MC/k04_obj_call_arg_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u218dec/cases/MC/k04_obj_call_arg	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u220repro/cases/NW/w17_el	P:EQUAL	L:EQUAL	bytes=moved	chain_away=0 chain_toward=0 flat_away=0 flat_toward=0 dump_away=0 dump_toward=0
+tp/r11u220repro/cases/NW/w17	P:STRICT_NOTEQUAL_fullname	L:EQUAL	bytes=moved	chain_away=0 chain_toward=1 flat_away=0 flat_toward=1 dump_away=0 dump_toward=2
+tp/r11u220repro/cases/SL/s30_el	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=6
+tp/r11u220repro/cases/SL/s30	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=3
+tp/r11u220repro/cases/SL/s31_el	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=6
+tp/r11u220repro/cases/SL/s31	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=3
+tp/r11u220repro/cases/SL/s32_el	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=6
+tp/r11u220repro/cases/SL/s32	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=3
+tp/r11u220repro/cases/SL/s35_el	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=6
+tp/r11u220repro/cases/SL/s35	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=3
+tp/r11u220repro/cases/SL/s36_el	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=6
+tp/r11u220repro/cases/SL/s36	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=3
+tp/r11u220repro/cases/SL/s38_el	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=6
+tp/r11u220repro/cases/SL/s38	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=3
+tp/r11u220repro/cases/SL/s39_el	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=6
+tp/r11u220repro/cases/SL/s39	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=3
+tp/r11u220repro/cases/SL/s48_el	P:STRICT_NOTEQUAL_endline	L:EQUAL	bytes=moved	chain_away=0 chain_toward=2 flat_away=0 flat_toward=2 dump_away=0 dump_toward=1
+tp/r11u220repro/cases/SL/s48	P:STRICT_NOTEQUAL_endline	L:EQUAL	bytes=moved	chain_away=0 chain_toward=1 flat_away=0 flat_toward=1 dump_away=0 dump_toward=1
+tp/r11u220repro/cases/SL/s50_el	P:STRICT_NOTEQUAL_endline	L:EQUAL	bytes=moved	chain_away=0 chain_toward=2 flat_away=0 flat_toward=2 dump_away=0 dump_toward=5
+tp/r11u220repro/cases/SL/s50	P:STRICT_NOTEQUAL_endline	L:EQUAL	bytes=moved	chain_away=0 chain_toward=3 flat_away=0 flat_toward=3 dump_away=0 dump_toward=4
+tp/r11u22repro/grid/c11_implicitnet_lhs_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u22repro/grid/c11_implicitnet_lhs	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u65repro/grid/n6_containers_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u65repro/grid/n6_containers	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u90repro/grid/u1_strnoinit_if_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u90repro/grid/u1_strnoinit_if	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u90repro/grid/u2_strnoinit_mod_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u90repro/grid/u2_strnoinit_mod	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u90repro/grid.verifier/vy13_dlyparamup_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u90repro/grid.verifier/vy13_dlyparamup	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u90repro/grid/w8_dlytwo_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u90repro/grid/w8_dlytwo	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u93repro/grid/pa10_proggenmod_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u93repro/grid/pa10_proggenmod	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u93repro/grid/pb18_ifnodecl_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u93repro/grid/pb18_ifnodecl	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u99repro/grid/w04_ifacenestmodchild_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u99repro/grid/w04_ifacenestmodchild	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11u99repro/grid/w17_ifaceinnerdecl_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r11u99repro/grid/w17_ifaceinnerdecl	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/r11v105repro/grid/v09_A_nested_program_in_sub_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v105repro/grid/v09_A_nested_program_in_sub	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v124repro/hx/x02_forstep_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v124repro/pv/v14_string_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v124repro/pv/v14_string	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v124repro/qx/q08_string_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v124repro/qx/q08_string	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v163repro/cases/rc/f06_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v163repro/cases/rc/f06	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v169repro/cases/ml/mb10_el	P:STRICT_NOTEQUAL_fullname	L:EQUAL	bytes=moved	chain_away=0 chain_toward=1 flat_away=0 flat_toward=1 dump_away=0 dump_toward=2
+tp/r11v169repro/cases/ml/mb10	P:STRICT_NOTEQUAL_fullname	L:EQUAL	bytes=moved	chain_away=0 chain_toward=1 flat_away=0 flat_toward=1 dump_away=0 dump_toward=2
+tp/r11v174repro/cases/dp/d03_el	P:STRICT_NOTEQUAL_fullname	L:EQUAL	bytes=moved	chain_away=0 chain_toward=1 flat_away=0 flat_toward=1 dump_away=0 dump_toward=2
+tp/r11v174repro/cases/dp/d03	P:STRICT_NOTEQUAL_fullname	L:EQUAL	bytes=moved	chain_away=0 chain_toward=1 flat_away=0 flat_toward=1 dump_away=0 dump_toward=2
+tp/r11v22repro/adv/v37_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v22repro/adv/v37	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v22repro/adv/v41_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v22repro/adv/v41	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v40repro/grid/v3_xval40_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v40repro/grid/v3_xval40	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v93repro/grid/v2_ifportdeclnet_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v93repro/grid/v2_ifportdeclnet	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v93repro/grid/v9_ifinout_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v93repro/grid/v9_ifinout	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v95repro/grid/x1_proggenalways_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v95repro/grid/x1_proggenalways	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v98repro/grid/v02_ifacechild_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/r11v98repro/grid/v02_ifacechild	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u112repro/grid/brk2/k/m07_hdr_enum_default_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u112repro/grid/brk2/k/m07_hdr_enum_default	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u112repro/grid/brk3/t/b2j_dpi_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u112repro/grid/brk3/t/b2j_dpi	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u112repro/grid/brk6/f/b1q_intf_ca_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u112repro/grid/brk6/f/b1q_intf_ca	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u112repro/grid/brk6/v/b4j_lhs_rhs_both_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u112repro/grid/brk6/v/b4j_lhs_rhs_both	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u113repro/grid/brk2/e11_struct_param_value_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u113repro/grid/brk2/e11_struct_param_value	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u113repro/grid/f3/e02_unpacked_struct_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u113repro/grid/f3/e02_unpacked_struct	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u113repro/grid/f3/e03_func_arg_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u113repro/grid/f3/e03_func_arg	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u113repro/grid/f3/e05_pkg_used_in_two_mods_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u113repro/grid/f3/e05_pkg_used_in_two_mods	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u113repro/grid/f5/v01_lhs_vs_mod_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u113repro/grid/f5/v01_lhs_vs_mod	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u116repro/arms/f2p_case_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u116repro/arms/f2p_case	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u116repro/arms/f2p_pca_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u116repro/arms/f2p_pca	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u137repro/brk/cases/h07_two_insts_overrides_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u137repro/brk/cases/h07_two_insts_overrides	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u146repro/cases/hp/h2_genblk_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u146repro/cases/hp/h2_genblk	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u152repro/cases/KD/d05_real_rise_fall_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u152repro/cases/KD/d05_real_rise_fall	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u152repro/cases/KV/v04_in_pkg_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u152repro/cases/KV/v04_in_pkg	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u152repro/cases/KY/y05_iface_var_bare_leaf_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u152repro/cases/KY/y05_iface_var_bare_leaf	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u160repro/cases/MA/o01_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/v11u160repro/cases/MA/o01	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/v11u160repro/cases/MA/o07_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/v11u160repro/cases/MA/o07	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/v11u164repro/cases/BU/u05_unresolved_first_level_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u164repro/cases/BU/u05_unresolved_first_level	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h01_samename_two_pkgs_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h01_samename_two_pkgs	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h02_formal_in_include_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h02_formal_in_include	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h03_formal_via_macro_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h03_formal_via_macro	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h04_task_formal_enum_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h04_task_formal_enum	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h05_net_unpacked_two_files_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h05_net_unpacked_two_files	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h06_net_two_files_rev_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h06_net_two_files_rev	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h07_two_tops_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h07_two_tops	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h08_two_tops_rev_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h08_two_tops_rev	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h09_two_tops_alpha_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h09_two_tops_alpha	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h10_samename_imported_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/F/h10_samename_imported	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/M/e03_two_roots_hdr_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/M/e03_two_roots_hdr	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/U/k01_union_pkg_other_root_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u171repro/cases/U/k01_union_pkg_other_root	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t1_iface_vs_module_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t1_iface_vs_module	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t2_pkgvar_vs_module_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t2_pkgvar_vs_module	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t3_modfunc_vs_pkgfunc_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t3_modfunc_vs_pkgfunc	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t4_explicit_import_key_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t4_explicit_import_key	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t5_iface_after_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t5_iface_after	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t6_iface_before_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t6_iface_before	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t7_prog_after_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t7_prog_after	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t8_ifacefunc_vs_pkgfunc_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t8_ifacefunc_vs_pkgfunc	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t9_order_reversed_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u176repro/cases/TT/t9_order_reversed	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u187repro/cases/T/t35_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=0 flat_away=0 flat_toward=0 dump_away=0 dump_toward=0
+tp/v11u187repro/cases/T/t35	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=0 flat_away=0 flat_toward=0 dump_away=0 dump_toward=0
+tp/v11u188repro/cases/H/h09_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u188repro/cases/H/h09	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u188repro/cases/Q/q06_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u188repro/cases/Q/q06	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u198repro/cases/N/z03_varsel_both_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u198repro/cases/N/z03_varsel_both	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u201repro/cases/B/b09_two_roots_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/v11u201repro/cases/B/b09_two_roots	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/v11u206repro/cases/C/c12_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u206repro/cases/C/c12	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u207repro/cases/G/g03_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=0 flat_away=6 flat_toward=0 dump_away=0 dump_toward=0
+tp/v11u216repro/cases/F/f02_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u216repro/cases/F/f02	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u219repro/cases/S/s01b_queue_inner_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/v11u219repro/cases/S/s01c_assoc_inner_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u219repro/cases/S/s01_dyn_inner_el	P:SURELOG_FAIL	L:SURELOG_FAIL	bytes=same	-
+tp/v11u220repro/cases/C/c23_el	P:STRICT_NOTEQUAL_fullname	L:EQUAL	bytes=moved	chain_away=0 chain_toward=6 flat_away=0 flat_toward=6 dump_away=0 dump_toward=12
+tp/v11u220repro/cases/C/c23	P:STRICT_NOTEQUAL_fullname	L:EQUAL	bytes=moved	chain_away=0 chain_toward=6 flat_away=0 flat_toward=6 dump_away=0 dump_toward=8
+tp/v11u220repro/cases/G/g07_el	P:STRICT_NOTEQUAL_fullname	L:EQUAL	bytes=moved	chain_away=0 chain_toward=2 flat_away=0 flat_toward=2 dump_away=0 dump_toward=4
+tp/v11u220repro/cases/G/g07	P:STRICT_NOTEQUAL_fullname	L:EQUAL	bytes=moved	chain_away=0 chain_toward=2 flat_away=0 flat_toward=2 dump_away=0 dump_toward=2
+tp/v11u220repro/cases/G/g26_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=0 flat_away=0 flat_toward=0 dump_away=0 dump_toward=0
+tp/v11u220repro/cases/G/g26	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=0 flat_away=0 flat_toward=0 dump_away=0 dump_toward=0
+tp/v11u220repro/cases/K/k01_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=1 flat_away=0 flat_toward=1 dump_away=0 dump_toward=2
+tp/v11u220repro/cases/K/k01	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=1 flat_away=0 flat_toward=1 dump_away=0 dump_toward=2
+tp/v11u220repro/cases/K/k04_el	P:STRICT_NOTEQUAL_endline	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=12
+tp/v11u220repro/cases/K/k04	P:STRICT_NOTEQUAL_endline	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=7
+tp/v11u220repro/cases/K/k15_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=2 flat_away=0 flat_toward=2 dump_away=0 dump_toward=5
+tp/v11u220repro/cases/K/k15	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=3 flat_away=0 flat_toward=3 dump_away=0 dump_toward=4
+tp/v11u220repro/cases/K/k17_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=1 flat_away=0 flat_toward=1 dump_away=0 dump_toward=1
+tp/v11u220repro/cases/K/k17	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	bytes=moved	chain_away=0 chain_toward=1 flat_away=0 flat_toward=1 dump_away=0 dump_toward=1
+tp/v11u220repro/cases/T/t12_el	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=6
+tp/v11u220repro/cases/T/t12	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=4 flat_away=0 flat_toward=4 dump_away=0 dump_toward=3
+tp/v11u220repro/cases/T/t14_el	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=2 flat_away=0 flat_toward=2 dump_away=0 dump_toward=4
+tp/v11u220repro/cases/T/t14	P:STRICT_NOTEQUAL_endcol	L:EQUAL	bytes=moved	chain_away=0 chain_toward=2 flat_away=0 flat_toward=2 dump_away=0 dump_toward=3
+tp/v11u93repro/grid/b13b_libouterportless_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u93repro/grid/b13b_libouterportless	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u93repro/grid/b13c_librv2implicit_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u93repro/grid/b13c_librv2implicit	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u93repro/grid/b13d_librv2explicit_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u93repro/grid/b13d_librv2explicit	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u93repro/grid/b13e_libportedinst_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u93repro/grid/b13e_libportedinst	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u93repro/grid/b13f_libmixed_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u93repro/grid/b13f_libmixed	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u93repro/grid/b13_libouter_el	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-
+tp/v11u93repro/grid/b13_libouter	P:SLANG_FAIL	L:SLANG_FAIL	bytes=same	-

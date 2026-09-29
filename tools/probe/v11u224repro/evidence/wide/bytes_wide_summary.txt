@@ -1,0 +1,5 @@
+     54 moved 0 0
+     13 moved 139 139
+    278 moved 3 3
+  27663 same 0 0
+    226 same 4 4

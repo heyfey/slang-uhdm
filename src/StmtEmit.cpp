@@ -60,6 +60,9 @@ static bool r11u183LawSE(const char* sw) {
     // r11u187 landed these laws: R11U187_OFF drops them with its own.
     if (getenv("R11U183_OFF") != nullptr || getenv("R11U187_OFF") != nullptr)
         return false;
+    // § landingSwitchReach224: R11U224_SPLIT183A_OFF drops ground A's half.
+    if (r11u224SplitAOff(183))
+        return false;
     return getenv(sw) == nullptr;
 }
 
@@ -69,6 +72,9 @@ static bool r11u183LawSE(const char* sw) {
 static bool r11u175LawA(const char* sw) {
     // R11U178_OFF (pass r11u178, which lands these laws) drops them too.
     if (getenv("R11U175_OFF") != nullptr || getenv("R11U178_OFF") != nullptr)
+        return false;
+    // § landingSwitchReach224: R11U224_SPLIT175A_OFF drops ground A's half.
+    if (r11u224SplitAOff(175))
         return false;
     return getenv(sw) == nullptr;
 }

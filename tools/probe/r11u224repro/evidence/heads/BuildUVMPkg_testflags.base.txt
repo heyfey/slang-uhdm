@@ -1,0 +1,33 @@
+#26855 line
+  A: 5	class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42				
+  B: 5	class_typespec	this_type			uvm_pkg.sv	56391	12	56391	32				
+#57901 fullname
+  A: 13	ref_obj	i1		uvm_pkg::uvm_reg_map::do_bus_access::accesses[i0].data[i1 * 8+:8]::data::i1	uvm_pkg.sv	77043	39	77043	41		0		
+  B: 13	ref_obj	i1		uvm_pkg::uvm_reg_map::do_bus_access.accesses[i0].data[i1 * 8+:8].data::i1	uvm_pkg.sv	77043	39	77043	41		0		
+#58017 fullname
+  A: 11	bit_select	value		uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::value	uvm_pkg.sv	77065	10	77065	20		0		
+  B: 11	bit_select	value		uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8].value	uvm_pkg.sv	77065	10	77065	20		0		
+#58018 fullname
+  A: 12	ref_obj	idx		uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::idx	uvm_pkg.sv	77065	16	77065	19		0		
+  B: 12	ref_obj	idx		uvm_pkg::uvm_reg_map::do_bus_access::idx	uvm_pkg.sv	77065	16	77065	19		0		
+#58486 fullname
+  A: 7	ref_obj	uvm_reg_data_t		uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t	uvm_pkg.sv	78222	23	78222	37		0		
+  B: 7	ref_obj	uvm_reg_data_t		uvm_pkg::uvm_reg_block::check_data_width.uvm_reg_data_t	uvm_pkg.sv	78222	23	78222	37		0		
+#64384 line
+  A: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_pkg.sv	9952	52	9952	53				
+  B: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_pkg.sv	7954	1	7954	74				
+#64777 line
+  A: 2	enum_typespec	uvm_pkg::uvm_tlm_phase_e			uvm_pkg.sv	59516	52	59516	53				
+  B: 2	enum_typespec	uvm_pkg::uvm_tlm_phase_e			uvm_pkg.sv	58966	1	58973	21				
+#67672 endcol
+  A: 6	class_typespec	uvm_structure_proxy			uvm_pkg.sv	43596	55	43596	74				
+  B: 6	class_typespec	uvm_structure_proxy			uvm_pkg.sv	43596	55	43596	86				
+#68514 endcol
+  A: 6	class_typespec	uvm_structure_proxy			uvm_pkg.sv	43631	55	43631	74				
+  B: 6	class_typespec	uvm_structure_proxy			uvm_pkg.sv	43631	55	43631	86				
+#68771 endcol
+  A: 7	class_typespec	uvm_event			uvm_pkg.sv	25688	37	25688	46				
+  B: 7	class_typespec	uvm_event			uvm_pkg.sv	25688	37	25688	50				
+objects 201533 vs 201588
+fields: type=1 name=1 fullname=7 line=5 col=5 endline=5 endcol=12 objects_differing=19 (walk diverged)
+STRICT_NOTEQUAL line

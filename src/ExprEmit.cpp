@@ -27,6 +27,7 @@
 #include "R213.h"
 #include "R218.h"
 #include "R220.h"
+#include "R224.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -334,6 +335,377 @@ void strLitContEndDrain220(UHDM::Serializer& s) {
         tr220("strLitContLineSpan220", "stmt");
     }
 }
+// § hpLvSelIdxNamesByPath224 (r11u224) — AN LVALUE PATH'S ELEMENT INDICES
+// ARE NAMED THROUGH THE PATH.  `s.arr[i][1:0] = d;` (a dotted lvalue whose
+// last member takes element selects and a trailing range): Surelog's
+// hier_path branch of compileSelectExpression builds bit_select(arr, i)
+// (var_select for more than one element select) and a separate trailing
+// part select, and stores no full name on the index references, so the
+// writer's ComputeFullName walks ref -> bit_select (skipped directly above
+// a ref_obj) -> hier_path `s.arr[i][1:0]`: golden `work@top.s.arr[i][1:0].i`
+// (tools/probe/v11u220repro/cases/G/g07), ours the scope's `work@top.i`.
+// A reference under an operation, a call or a var_select keeps the select's
+// name on the chain (`...s.arr[i+1][1:0].arr.i`); the separator is the one
+// joinRef chose for the path.  The read form is § hpVarSelRangeIdxNamesByPath220's.
+// Grid tools/probe/r11u224repro/cases/LV.  Switch R11U224_LVSELIDX_OFF.
+static std::string hpLvSelIdxPrefix224(const std::string& prefix,
+                                       const std::string& selFull,
+                                       const std::string& memName,
+                                       const Expression& idx, bool varSel) {
+    static const bool on = r11u224On("R11U224_LVSELIDX_OFF");
+    if (!on || selFull.empty())
+        return prefix;
+    auto& e = stripImplicitConv(idx);
+    if (e.kind == ExpressionKind::IntegerLiteral)
+        return prefix;
+    const bool direct = !varSel && e.kind == ExpressionKind::NamedValue;
+    std::string p = direct ? selFull : joinRef(selFull, memName);
+    tr224("hpLvSelIdxNamesByPath224", p);
+    return p;
+}
+// § hpLvNewClassFirstElemSpan224 (r11u224) — A DOTTED LVALUE ASSIGNED A CLASS
+// `new` ENDS AT ITS FIRST NAME.  `rw.parent = new("default_parent_seq");`
+// (uvm_reg_map.svh:1773, the SimpleUVM / Scoreboard head #55917 / #56028):
+// golden hier_path `rw.parent` 1773:6-8, the span of `rw` alone; ours
+// 1773:6-15, the whole path.  Surelog builds the lvalue of a class-new
+// assignment from the statement's first name node (the element spans are
+// unchanged, and equal on both sides).  A dynamic-array `new[...]` keeps the
+// whole span (grid hn04, EQUAL on both); the rule is read on member chains
+// of a named root only: `rw.parent = new;` `= new();` `= new(args)`,
+// `rw.mid.leaf = new;`, a module's class handle (grid
+// tools/probe/r11u224repro/cases/HN hn01 hn02 hn05-hn07).  Switch
+// R11U224_LVNEWSPAN_OFF.
+static void hpLvNewFirstSpan224(UHDM::any* lhs, const Expression& left,
+                                const slang::SourceManager* sm) {
+    static const bool on = r11u224On("R11U224_LVNEWSPAN_OFF");
+    if (!on || !lhs || lhs->UhdmType() != UHDM::uhdmhier_path)
+        return;
+    const Expression* e = &stripImplicitConv(left);
+    if (e->kind != ExpressionKind::MemberAccess)
+        return;
+    while (e->kind == ExpressionKind::MemberAccess)
+        e = &stripImplicitConv(e->as<MemberAccessExpression>().value());
+    if (e->kind != ExpressionKind::NamedValue)
+        return;
+    auto* hp = (UHDM::hier_path*)lhs;
+    const int l0 = hp->VpiLineNo(), c0 = hp->VpiColumnNo();
+    if (!sm || l0 <= 0)
+        return;
+    auto end = e->sourceRange.end();
+    if (sm->isMacroLoc(end))
+        return;
+    const int l1 = (int)sm->getLineNumber(end), c1 = (int)sm->getColumnNumber(end);
+    if (l1 != l0 || c1 <= c0)
+        return;
+    hp->VpiEndLineNo(l1);
+    hp->VpiEndColumnNo(c1);
+    tr224("hpLvNewClassFirstElemSpan224", std::string(hp->VpiName()));
+}
+// § hpLvSelColumnJoin224 (r11u224) — THE LVALUE PATH'S ELEMENT SELECT IS
+// NAMED WITH `::` IN A PACKAGE OR CLASS SCOPE.  The lvalue arm named the
+// bit_select / var_select `<scope>.<path>.<member>`; Surelog's writer joins
+// the whole chain with one separator, `::` once a package or class is on it:
+// golden `s.arr[i][1:0] = d;` in the class method `p::k::f` names the select
+// `p::k::f::s.arr[i][1:0]::arr`, ours `p::k::f::s.arr[i][1:0].arr`
+// (tools/probe/r11u224repro/cases/LV lv14).  A module scope keeps `.`
+// (joinRef).  Switch R11U224_LVSELCOL_OFF.
+static std::string hpLvSelFull224(const std::string& selFull, const std::string& memName) {
+    static const bool on = r11u224On("R11U224_LVSELCOL_OFF");
+    std::string old = selFull + "." + memName;
+    if (!on)
+        return old;
+    std::string j = joinRef(selFull, memName);
+    if (j != old)
+        tr224("hpLvSelColumnJoin224", j);
+    return j;
+}
+// § ipsBasePfxScopeJoin224 (r11u224) — THE BASE OF A DOTTED PATH'S
+// TRAILING INDEXED PART SELECT IS NAMED THROUGH THE PATH WITH `::` IN A
+// PACKAGE OR CLASS SCOPE.  The dotted-path arm names a dynamic base
+// reference through the select (`work@top.a[0].source[base-:2].base`) by
+// joining the scope prefix and the path text with `.`; Surelog stores no
+// full name there and the writer's ComputeFullName uses ONE separator for
+// the whole chain, `::` as soon as a package or a class is on it (UHDM
+// BaseClass::ComputeFullName): golden `return arr[i].v[k+:2];` in the
+// method `p1::c::f` names `k` `p1::c::f::arr[i].v[k+:2]::k`, ours
+// `p1::c::f.arr[i].v[k+:2]::k` (tools/probe/v11u220repro/cases/C/c23, the
+// home listing and every importer clone).  The joint is the one joinRef
+// chooses for the scope prefix, so a module or generate scope keeps `.`.
+// Grid tools/probe/r11u224repro/cases/IJ.  Switch R11U224_IPSPFXJOIN_OFF.
+static void ipsBasePfxJoin224(std::string& pfx, const std::string& prefix,
+                              const std::string& selText, const std::string& lastName,
+                              bool viaOp) {
+    static const bool on = r11u224On("R11U224_IPSPFXJOIN_OFF");
+    if (!on)
+        return;
+    std::string j = joinRef(prefix, selText);
+    if (viaOp)
+        j = joinRef(j, lastName);
+    if (j != pfx) {
+        pfx = j;
+        tr224("ipsBasePfxScopeJoin224", j);
+    }
+}
+// § ipsWidthPfxByPathInScope224 (r11u224) — IN A PACKAGE OR CLASS SCOPE THE
+// WIDTH OF A DOTTED PATH'S TRAILING INDEXED PART SELECT IS NAMED THROUGH THE
+// PATH TOO.  A class parameter as the width (`arr[i].v[k+:W]` in a method of
+// `class c #(int W = 2)`) stays a reference, and golden names it like the
+// base, `p1::c::f::arr[i].v[k+:W]::W` (the writer skips the indexed part
+// select directly above it); ours kept the scope's `p1::c::f::W`
+// (tools/probe/r11u224repro/cases/IJ ij12).  Only where the scope joins with
+// `::` (a module-scope width is folded, and no module case was measured).
+// Switch R11U224_IPSWIDTH_OFF.
+static std::string ipsWidthPfx224(const std::string& prefix, const std::string& selText,
+                                  const std::string& lastName, bool viaOp) {
+    static const bool on = r11u224On("R11U224_IPSWIDTH_OFF");
+    if (!on)
+        return prefix;
+    std::string j = joinRef(prefix, selText);
+    if (j.size() < prefix.size() + 2 || j.compare(prefix.size(), 2, "::") != 0)
+        return prefix;
+    if (viaOp)
+        j = joinRef(j, lastName);
+    tr224("ipsWidthPfxByPathInScope224", j);
+    return j;
+}
+// § strLitContOwnerEnd224 (r11u224) — EVERY OBJECT THAT ENDS WHERE A
+// CONTINUED STRING LITERAL ENDS TAKES THE LITERAL'S COMPUTED END, AND SO
+// DOES A CONTINUED LITERAL EVERY EMITTER WROTE.  § strLitContLineSpan220
+// moved the literal (and an assignment, continuous assignment or parameter
+// assignment whose right side is the literal itself) to its start line at
+// the start column plus the raw text's length; Surelog spans every object
+// to its last token's end, so an operation whose last operand is the
+// literal ends there too: golden `always_comb o = c ? "x" : "ab \<nl>cd";`
+// the conditional and the assignment 3:19-3:38 / 3:15-3:38, ours kept the
+// source end 4:4 (tools/probe/v11u220repro/cases/K/k04).  A class
+// property's initializer is not built by ExprEmit's literal arm and kept its
+// two-line span (golden `string s = "abc \<nl>def";` 3:14-3:25, ours 3:14-4:5,
+// tools/probe/r11u220repro/cases/SL s48): design-final, a string constant
+// whose raw text holds a continued line and whose span is the raw text's
+// source geometry takes the computed end too, and the objects ending at its
+// source end follow (the variable declaration s50 included).  Run from
+// ParamEmit's drainPaNameCopySrc38 right after strLitContEndDrain220.
+// Switch R11U224_STRCONTOWN_OFF.
+void strLitContOwnerDrain224(UHDM::Serializer& s) {
+    static const bool on = r11u224On("R11U224_STRCONTOWN_OFF");
+    if (!on)
+        return;
+    // (file, source end line, source end col) -> computed end
+    std::map<std::tuple<std::string, int, int>, std::pair<int, int>> ends;
+    for (auto& kv : strLitContEnds220()) {
+        auto& e = kv.second;
+        ends[{std::get<0>(kv.first), e[0], e[1]}] = {e[2], e[3]};
+    }
+    std::set<const UHDM::any*> lits;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (o->UhdmType() != UHDM::uhdmconstant)
+            continue;
+        auto* c = (UHDM::constant*)o;
+        if (c->VpiConstType() != vpiStringConst || c->VpiLineNo() <= 0 ||
+            c->VpiEndLineNo() == c->VpiLineNo())
+            continue;
+        const std::string_view raw = c->VpiDecompile();
+        if (raw.size() < 2 || raw.front() != '"' || raw.back() != '"' ||
+            raw.find("\\\n") == std::string_view::npos)
+            continue;
+        const int nl = (int)std::count(raw.begin(), raw.end(), '\n');
+        const size_t lastNl = raw.rfind('\n');
+        const int srcEndCol = (int)(raw.size() - lastNl);
+        if (c->VpiEndLineNo() - c->VpiLineNo() != nl || c->VpiEndColumnNo() != srcEndCol)
+            continue;
+        ends[{std::string(c->VpiFile()), c->VpiEndLineNo(), c->VpiEndColumnNo()}] = {
+            c->VpiLineNo(), c->VpiColumnNo() + (int)raw.size()};
+    }
+    if (ends.empty())
+        return;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (o->VpiEndLineNo() <= 0)
+            continue;
+        auto it = ends.find({std::string(o->VpiFile()), o->VpiEndLineNo(), o->VpiEndColumnNo()});
+        if (it == ends.end())
+            continue;
+        if (o->VpiLineNo() > it->second.first)
+            continue;  // starts after the literal's start line: not its owner
+        o->VpiEndLineNo(it->second.first);
+        o->VpiEndColumnNo(it->second.second);
+        tr224("strLitContOwnerEnd224", UHDM::UhdmName(o->UhdmType()));
+    }
+}
+// § strLitPpEscIdShift224 (r11u224) — A STRING LITERAL HOLDING A BACKTICK
+// IS RE-LEXED BY SURELOG'S PREPROCESSOR, AND EVERY ESCAPED IDENTIFIER THAT
+// RE-LEX FINDS WIDENS THE PREPROCESSED LINE BY FOUR COLUMNS.
+// SV3_1aPpTreeShapeListener::enterString (Surelog SourceCompile) hands the
+// body of every string holding a '`' to evaluateMacroInstance; the
+// preprocessor lexer (grammar/SV3_1aPpLexer.g4) reads a backslash, then the
+// fewest characters that are not 'W', 'S', CR, TAB or LF, then one or more
+// blanks as ESCAPED_IDENTIFIER (`'\\' ~[WS\r\t\n]*? WS`, the letters W and S
+// in the set being the grammar's own spelling), or a backslash, a run of
+// [A-Za-z0-9_$+-.] and blanks (its second alternative); enterEscaped_
+// identifier writes it back as `#~@` + the text without its first and last
+// character + `#~@`: four more characters than the source, whatever the
+// blank run.  The parser's columns are the preprocessed text's, so the
+// literal ends four columns further per escaped identifier, and so does
+// every token after it on the line: golden `o = "a\nb` c";` literal and
+// assignment 4:9-22 (source 4:9-18), `initial o = "a\\b` c";` the initial
+// 3:3-29 (source -25), `$display("a\nb` c")` the call and the initial +4,
+// `"a\\Sb` c"` +0 ('S' stops the first alternative, the backtick the
+// second), `"a\\b`<TAB>c"` +0, `"\na` \nb` c"` +8, a second literal on the
+// line adding its own shift after the first's, a net, port or typespec
+// later on a module header line shifted too (grid
+// tools/probe/r11u224repro/cases/SP sp01-sp22, and the pass-220 residues
+// SL s30-s39, T/t12, T/t14).  The +2-per-backslash rule of
+// § strLitShiftNeedsBacktick220 was this law's count on the two shapes it
+// was measured on (StringWithBackslash `\\/ _| ...`, SL s08 s26: two
+// backslashes per escaped identifier) and stays for every literal this
+// law declines: a body with a macro reference (`` `NAME``: a defined macro
+// would expand), a paste (````), a quote, a comment opener, a line
+// continuation.  The literal's own shift is written at the literal; the
+// objects after it on the line (design-final, every clone copied) by
+// strLitPpLineShiftDrain224.  Switch R11U224_STRPPESC_OFF.
+static bool strLitPpEscOn224() {
+    static const bool on = r11u224On("R11U224_STRPPESC_OFF");
+    return on;
+}
+// the preprocessor lexer's ESCAPED_IDENTIFIER at `i` (inner[i] == '\\'):
+// the token's end, or npos
+static size_t ppEscIdEnd224(const std::string& in, size_t i) {
+    const size_t n = in.size();
+    // first alternative: '\\' ~[WS\r\t\n]*? [ ]+
+    size_t j = i + 1;
+    while (j < n && in[j] != ' ' && in[j] != 'W' && in[j] != 'S' && in[j] != '\r' &&
+           in[j] != '\t' && in[j] != '\n')
+        ++j;
+    if (j < n && in[j] == ' ') {
+        while (j < n && in[j] == ' ')
+            ++j;
+        return j;
+    }
+    // second alternative: '\\' ( '['? [A-Za-z0-9_$+-.]+ ']'? )* [ ]+
+    auto inSet = [](char ch) {
+        return std::isalnum((unsigned char)ch) || ch == '_' || ch == '$' ||
+               (ch >= '+' && ch <= '.');
+    };
+    j = i + 1;
+    while (j < n) {
+        size_t k = j;
+        if (in[k] == '[')
+            ++k;
+        size_t st = k;
+        while (k < n && inSet(in[k]))
+            ++k;
+        if (k == st)
+            break;
+        if (k < n && in[k] == ']')
+            ++k;
+        j = k;
+    }
+    if (j < n && in[j] == ' ') {
+        while (j < n && in[j] == ' ')
+            ++j;
+        return j;
+    }
+    return std::string::npos;
+}
+// the columns the preprocessed literal adds, or -1 when the law declines
+static int strLitPpShift224(const std::string& inner) {
+    if (!strLitPpEscOn224() || inner.find('`') == std::string::npos)
+        return -1;
+    for (size_t i = 0; i < inner.size(); ++i) {
+        const char ch = inner[i];
+        if (ch == '"' || ch == '\n' || ch == '\r')
+            return -1;
+        // a macro reference (a defined macro would expand) or a paste the
+        // listener's ``.`` / ``-`` regex or TICK_VARIABLE reads
+        if (ch == '`' && i + 1 < inner.size() &&
+            (std::isalpha((unsigned char)inner[i + 1]) || inner[i + 1] == '_'))
+            return -1;
+        if (ch == '`' && i + 2 < inner.size() && inner[i + 1] == '`' &&
+            (std::isalnum((unsigned char)inner[i + 2]) || inner[i + 2] == '_' ||
+             inner[i + 2] == '.' || inner[i + 2] == '-'))
+            return -1;
+        if (ch == '/' && i + 1 < inner.size() && (inner[i + 1] == '/' || inner[i + 1] == '*'))
+            return -1;
+    }
+    int sh = 0;
+    for (size_t i = 0; i < inner.size();) {
+        if (inner[i] == '\\') {
+            size_t e = ppEscIdEnd224(inner, i);
+            if (e != std::string::npos) {
+                sh += 4;
+                i = e;
+                continue;
+            }
+        }
+        ++i;
+    }
+    return sh;
+}
+// (file, line) -> { source column the shift starts at -> columns added }
+static std::map<std::pair<std::string, int>, std::map<int, int>>& strLitPpLines224() {
+    static std::map<std::pair<std::string, int>, std::map<int, int>> m;
+    return m;
+}
+// § strLitPpEscIdShift224 — the objects after the literal on its line.
+// Design-final (run from ParamEmit's drainPaNameCopySrc38, after
+// § strLitContLineSpan220's drain): every located object of that file whose
+// start (end) is on the line at or past a shifted literal's source end moves
+// by the sum of the shifts at or before it.
+void strLitPpLineShiftDrain224(UHDM::Serializer& s) {
+    auto& m = strLitPpLines224();
+    // a literal another emitter wrote (a class property's initializer, grid
+    // SP sp31): a one-line string constant spanning its raw text exactly
+    if (strLitPpEscOn224())
+        for (auto& kv : s.AllObjects()) {
+            auto* o = (UHDM::BaseClass*)kv.first;
+            if (o->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* c = (UHDM::constant*)o;
+            if (c->VpiConstType() != vpiStringConst || c->VpiLineNo() <= 0 ||
+                c->VpiEndLineNo() != c->VpiLineNo() || c->VpiFile().empty())
+                continue;
+            const std::string_view raw = c->VpiDecompile();
+            if (raw.size() < 2 || raw.front() != '"' || raw.back() != '"' ||
+                c->VpiEndColumnNo() - c->VpiColumnNo() != (int)raw.size())
+                continue;
+            const int sh = strLitPpShift224(std::string(raw.substr(1, raw.size() - 2)));
+            if (sh <= 0)
+                continue;
+            auto& ev = m[{std::string(c->VpiFile()), c->VpiLineNo()}];
+            if (ev.emplace(c->VpiEndColumnNo(), sh).second)
+                tr224("strLitPpEscIdShift224", "late");
+        }
+    if (m.empty())
+        return;
+    auto add = [](const std::map<int, int>& ev, int col) {
+        int d = 0;
+        for (auto& [c0, sh] : ev) {
+            if (c0 > col)
+                break;
+            d += sh;
+        }
+        return d;
+    };
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (o->VpiLineNo() <= 0 && o->VpiEndLineNo() <= 0)
+            continue;
+        const std::string f(o->VpiFile());
+        if (f.empty())
+            continue;
+        const int l0 = o->VpiLineNo(), l1 = o->VpiEndLineNo();
+        const int c0 = o->VpiColumnNo(), c1 = o->VpiEndColumnNo();
+        if (auto it = m.find({f, l0}); it != m.end())
+            if (int d = add(it->second, c0))
+                o->VpiColumnNo(c0 + d);
+        if (auto it = m.find({f, l1}); it != m.end())
+            if (int d = add(it->second, c1)) {
+                o->VpiEndColumnNo(c1 + d);
+                tr224("strLitPpEscIdShift224", "line");
+            }
+    }
+}
 // The folded reference's syntax, parentheses seen through (slang leaves a
 // parenthesized operand's ParenthesizedExpression as the inner expression's
 // syntax: grid q15 `((dm::DataAddr)) + 1`).
@@ -459,6 +831,9 @@ static bool r191EX(const char* sw) {
     // R11U195_OFF: pass 195 lands these laws, and its one switch restores
     // the pristine bytes of the whole pass
     if (getenv("R11U191_OFF") != nullptr || getenv("R11U195_OFF") != nullptr)
+        return false;
+    // § landingSwitchReach224: R11U224_SPLIT191A_OFF drops ground A's half.
+    if (r11u224SplitAOff(191))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -1125,6 +1500,9 @@ static void tr183EX(const char* law) {
 static bool r11u183LawEX(const char* sw) {
     // r11u187 landed these laws: R11U187_OFF drops them with its own.
     if (getenv("R11U183_OFF") != nullptr || getenv("R11U187_OFF") != nullptr)
+        return false;
+    // § landingSwitchReach224: R11U224_SPLIT183A_OFF drops ground A's half.
+    if (r11u224SplitAOff(183))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -1806,6 +2184,9 @@ static bool genCaUnclonedFoldOwner198(const Expression& expr,
 static bool r11u175LawE(const char* sw) {
     // R11U178_OFF (pass r11u178, which lands these laws) drops them too.
     if (getenv("R11U175_OFF") != nullptr || getenv("R11U178_OFF") != nullptr)
+        return false;
+    // § landingSwitchReach224: R11U224_SPLIT175A_OFF drops ground A's half.
+    if (r11u224SplitAOff(175))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -3231,7 +3612,8 @@ void rootPathFullNameByChain181(UHDM::Serializer& s) {
 // every r11u112 law, R11U112_<X>_OFF drops one.  The ModuleEmit.cpp twin reads
 // the same environment.
 static bool r11u112On(const char* sw) {
-    return !getenv("R11U112_OFF") && !getenv(sw);
+    // § landingSwitchReach224: R11U224_SPLIT112A_OFF drops this file's half.
+    return !getenv("R11U112_OFF") && !r11u224SplitAOff(112) && !getenv(sw);
 }
 
 /// § modFnLocalTdCastClone112 (r11u112, face 2, the CAST half) — A CAST TO A
@@ -3983,6 +4365,36 @@ static void stripRefFullNames11(UHDM::any* o, int depth = 0) {
                     ((UHDM::ref_obj*)ix)->VpiFullName(std::string());
                     tr220("newArrayBitSelIdxStripped220");
                 }
+            // § newArrayBitSelIdxOpStripped224 (r11u224) — a reference inside
+            // an OPERATION that is the bit_select's index stores no name
+            // either: the writer's chain runs ref -> operation -> bit_select
+            // (kept: its child is no ref_obj) -> ... -> the unparented `new`,
+            // golden `new[arr[k+1] + 2]` `ref_obj k` = `arr.k`, ours the
+            // scoped `p::c::f::arr::k` (tools/probe/r11u220repro/cases/NW
+            // w17).  Grid tools/probe/r11u224repro/cases/NA.  Switch
+            // R11U224_NEWARRIDXOP_OFF.
+            if (r11u224On("R11U224_NEWARRIDXOP_OFF"))
+                if (auto* ix = ((UHDM::bit_select*)o)->VpiIndex();
+                    ix && ix->UhdmType() == UHDM::uhdmoperation) {
+                    tr224("newArrayBitSelIdxOpStripped224");
+                    stripRefFullNames11(ix, depth + 1);
+                }
+            return;
+        // § newArrayVarSelStripped224 (r11u224) — a var_select under the
+        // unparented `new` stores no name, nor do the references of its
+        // indices: golden `new[arr[k+1][k-1]]` `var_select arr` unnamed and
+        // `ref_obj k` = `arr.k` (the writer's chain through the var_select),
+        // ours `p::c::f::arr` and `p::c::f::arr::k`
+        // (tools/probe/r11u224repro/cases/NA na08).  Switch
+        // R11U224_NEWARRVS_OFF.
+        case UHDM::uhdmvar_select:
+            if (r11u224On("R11U224_NEWARRVS_OFF")) {
+                tr224("newArrayVarSelStripped224");
+                ((UHDM::var_select*)o)->VpiFullName(std::string());
+                if (auto* ex = ((UHDM::var_select*)o)->Exprs())
+                    for (auto* e : *ex)
+                        stripRefFullNames11(e, depth + 1);
+            }
             return;
         case UHDM::uhdmmethod_func_call:
             if (auto* as = ((UHDM::method_func_call*)o)->Tf_call_args())
@@ -19142,6 +19554,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (auto* lhs = emitExpr(*lhsE110, asn, prefix, netMap)) {
                 if (lhsE110 != &ae.left())
                     setLoc(lhs, ae.left().sourceRange);
+                // § hpLvNewClassFirstElemSpan224 (law at hpLvNewFirstSpan224)
+                else if (sourceIsNewClassExpr55(stripImplicitConv(*rhsExpr)))
+                    hpLvNewFirstSpan224(lhs, ae.left(), sm);
                 asn->Lhs((UHDM::expr*)lhs);
                 // A class-handle assignment (bar = new()) re-parents its Lhs
                 // ref through an artifact hier_path (weakly-tail only).
@@ -27444,6 +27859,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // (+2 per source backslash) — ASSIGNMENT Rhs only
             // (StringWithBackslash); sys-call args keep the source span
             // (display_lm).
+            // § strLitPpEscIdShift224 (law at strLitPpShift224): a literal
+            // holding a backtick ends where the preprocessed text ends; the
+            // rest of its line moves design-final.
+            const int pp224 = macroQuoted9 ? -1 : strLitPpShift224(inner);
+            if (pp224 >= 0) {
+                if (pp224 > 0 && c->VpiLineNo() > 0 &&
+                    c->VpiEndLineNo() == c->VpiLineNo()) {
+                    if (sm->isMacroLoc(expr.sourceRange.start()))
+                        c->VpiEndColumnNo(c->VpiEndColumnNo() + pp224);
+                    else
+                        strLitPpLines224()[{std::string(c->VpiFile()),
+                                            c->VpiEndLineNo()}]
+                                          [c->VpiEndColumnNo()] = pp224;
+                    tr224("strLitPpEscIdShift224", inner);
+                }
+            }
+            else
             if (parent && parent->UhdmType() == UHDM::uhdmassignment &&
                 strLitBackslashShift220(inner, macroQuoted9))
                 if (auto nbs9 = std::count(inner.begin(), inner.end(), '\\'))
@@ -36409,6 +36841,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // joinPath, not a bare '.': in a PACKAGE the prefix is
                         // already '::'-terminated (`test_pkg::t_test`, not
                         // `test_pkg::.t_test` -- PackageEval's $bits argument).
+                        // § sysCallTypeArgScopeJoin224 (r11u224): inside a
+                        // package's or class's subroutine the chain joins with
+                        // `::` (UHDM ComputeFullName's one separator): golden
+                        // `$bits(uvm_reg_data_t)` in `uvm_reg_block::
+                        // check_data_width` names the reference
+                        // `uvm_pkg::uvm_reg_block::check_data_width::
+                        // uvm_reg_data_t`, ours `...check_data_width.
+                        // uvm_reg_data_t` (the UVM rows' #58286 / #58486;
+                        // grid tools/probe/r11u224repro/cases/BT).  Switch
+                        // R11U224_SYSTYPEJOIN_OFF.
+                        if (r11u224On("R11U224_SYSTYPEJOIN_OFF") &&
+                            joinRef(prefix, at.name) != joinPath(prefix, at.name)) {
+                            r0->VpiFullName(joinRef(prefix, at.name));
+                            tr224("sysCallTypeArgScopeJoin224", std::string(at.name));
+                        }
+                        else
                         r0->VpiFullName(joinPath(prefix, at.name));
                         tv = r0;
                     }
@@ -38292,27 +38740,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (esels.size() == 1) {
                                 auto* bs = s.MakeBit_select();
                                 bs->VpiName(memName);
-                                bs->VpiFullName(selFull9 + "." + memName);
+                                bs->VpiFullName(hpLvSelFull224(selFull9, memName));
                                 bs->VpiParent(hp);
                                 setLoc(bs, selSpan9);
                                 forceConstParent = isLiteralExpr(*esels[0]);
-                                if (auto* ix =
-                                        emitExpr(*esels[0], bs, prefix, netMap))
+                                // § hpLvSelIdxNamesByPath224 (law at
+                                // hpLvSelIdxPrefix224)
+                                if (auto* ix = emitExpr(
+                                        *esels[0], bs,
+                                        hpLvSelIdxPrefix224(prefix, selFull9, memName,
+                                                            *esels[0], false),
+                                        netMap))
                                     bs->VpiIndex((UHDM::expr*)ix);
                                 sel9 = bs;
                             }
                             else {
                                 auto* vs = s.MakeVar_select();
                                 vs->VpiName(memName);
-                                vs->VpiFullName(selFull9 + "." + memName);
+                                vs->VpiFullName(hpLvSelFull224(selFull9, memName));
                                 vs->VpiParent(hp);
                                 setLoc(vs, selSpan9);
                                 auto* ix9 = s.MakeExprVec();
                                 for (auto it3 = esels.rbegin();
                                      it3 != esels.rend(); ++it3) {
                                     forceConstParent = isLiteralExpr(**it3);
-                                    if (auto* ix =
-                                            emitExpr(**it3, vs, prefix, netMap))
+                                    // § hpLvSelIdxNamesByPath224
+                                    if (auto* ix = emitExpr(
+                                            **it3, vs,
+                                            hpLvSelIdxPrefix224(prefix, selFull9,
+                                                                memName, **it3, true),
+                                            netMap))
                                         ix9->push_back((UHDM::expr*)ix);
                                 }
                                 vs->Exprs(ix9);
@@ -39760,6 +40217,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (stripImplicitConv(rs.left()).kind !=
                                 ExpressionKind::NamedValue)
                                 bPfx9 += "." + lastName;
+                            // § ipsBasePfxScopeJoin224 (law at
+                            // ipsBasePfxJoin224): in a package or class scope
+                            // the chain joins with `::`.
+                            ipsBasePfxJoin224(bPfx9, prefix, selText, lastName,
+                                              stripImplicitConv(rs.left()).kind !=
+                                                  ExpressionKind::NamedValue);
                             // § hpConnElemIdxFold17 — the BASE of the trailing
                             // indexed part-select folds by the SAME law as the
                             // element index above (`0+1*l` -> INT:0 / INT:1,
@@ -39797,7 +40260,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                           /*modIntAtom111=*/true);
                                 ips2->Width_expr(wc9);
                             }
-                            else if (auto* w2 = emitExpr(rs.right(), ips2, prefix,
+                            else if (auto* w2 = emitExpr(rs.right(), ips2,
+                                                         ipsWidthPfx224(prefix, selText, lastName,
+                                                                        stripImplicitConv(rs.right()).kind !=
+                                                                            ExpressionKind::NamedValue),
                                                          netMap))
                                 ips2->Width_expr((UHDM::expr*)w2);
                             hcMpRoot65v = savedMp65v;

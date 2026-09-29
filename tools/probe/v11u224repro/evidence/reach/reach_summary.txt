@@ -1,0 +1,4 @@
+pass 112: 204 case-views; old moves 106; split moves 54; split moves where old does not 0; split==old bytes 138
+pass 175: 160 case-views; old moves 56; split moves 34; split moves where old does not 0; split==old bytes 128
+pass 183: 406 case-views; old moves 191; split moves 107; split moves where old does not 0; split==old bytes 294
+pass 191: 358 case-views; old moves 146; split moves 70; split moves where old does not 0; split==old bytes 282

@@ -1,0 +1,33 @@
+#106660 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#106674 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#106683 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#106696 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#106709 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#106722 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#119021 fullname
+  A: 7	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 7	ref_typespec			work@flash_ctrl.u_flash_prog_ctrl.op_addr_i		0	0	0	0		0		
+#119454 fullname
+  A: 7	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 7	ref_typespec			work@flash_ctrl.u_flash_rd_ctrl.op_addr_i		0	0	0	0		0		
+#120083 fullname
+  A: 7	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 7	ref_typespec			work@flash_ctrl.u_flash_erase_ctrl.op_addr_i		0	0	0	0		0		
+#121109 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			work@flash_ctrl.u_flash_mp.req_addr_i		0	0	0	0		0		
+objects 2173209 vs 2173853
+fields: type=1 fullname=17 file=1 line=1 col=2 endline=1 endcol=2 size=1 objects_differing=19 (walk diverged)
+STRICT_NOTEQUAL fullname

@@ -1,0 +1,6 @@
+HX/he01_el	P:STRICT_NOTEQUAL_endcol	L:EQUAL	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+HX/he01	P:STRICT_NOTEQUAL_endcol	L:EQUAL	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+HX/he02_el	P:STRICT_NOTEQUAL_fullname	L:EQUAL	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+HX/he02	P:STRICT_NOTEQUAL_fullname	L:EQUAL	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+LX/le01_el	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	OFF=pristine	bytes=moved	Prc=0	Lrc=0
+LX/le01	P:STAGE1(cmp=255)	L:STAGE1(cmp=255)	OFF=pristine	bytes=moved	Prc=0	Lrc=0

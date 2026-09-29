@@ -1,0 +1,67 @@
+START 2026-09-29T08:59:28Z bin=$S_bin/law.bin md5=c17d2a80d47f9ba2975511b32c70bbc1 corpora=probe surelog uhdm2rtlil
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=$S_wL/probe.csv
+probe cases: EQUAL=3448 STRICT_NOTEQUAL=639 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3448 differ:fullname=202 differ:line=105 differ:endcol=75 differ:type=74 differ:name=59 differ:depth=50 differ:file=39 differ:col=15 differ:endline=10 differ:value=9 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3448 STRICT_NOTEQUAL=639
+CONVERSION r10svs2repro/s5_negctl STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r10svs2repro/w3_macrodeep STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r10v121repro/v121_c STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10v172repro/v172_3_pos STRICT_NOTEQUAL differ:endcol(4) -> EQUAL
+CONVERSION r10v174repro/v174_b_sysfns STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CHANGE r10uvm147repro/g147_a STRICT_NOTEQUAL differ:col(14) -> differ:col(6) [col -8]
+CHANGE r10uvm56repro/v3_hierpath STRICT_NOTEQUAL differ:endcol(6) -> differ:endcol(4) [endcol -2]
+regressions=0 conversions=5 changes=2 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=$S_wL/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator <law>/build/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 466
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  STRICT_NOTEQUAL: 14
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 463
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  STRICT_NOTEQUAL: 11
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=466 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=14 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE BlackBePipeInt testflags STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:line(19) -> differ:line(14) [line -5]
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:line(19) -> differ:line(14) [line -5]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:file(30) -> differ:file(26) [file -4]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:file(54) -> differ:file(50) [file -4]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:file(54) -> differ:file(50) [file -4]
+regressions=0 conversions=0 changes=6 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=$S_wL/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator <law>/build/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 800
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 3
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 800
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 3
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=800 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=3
+[testflags] CMP_EQUAL=800 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=3
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+EXIT=1 END 2026-09-29T09:04:34Z

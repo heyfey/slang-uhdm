@@ -1,0 +1,33 @@
+#15390 file
+  A: 5	int_typespec	UVM_FILE			uvm_root.svh	348	39	348	47				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#18450 file
+  A: 5	int_typespec	UVM_FILE			uvm_component.svh	2250	61	2250	69				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#18471 file
+  A: 5	int_typespec	UVM_FILE			uvm_component.svh	2260	60	2260	68				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#18493 file
+  A: 5	int_typespec	UVM_FILE			uvm_component.svh	2270	66	2270	74				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#18529 file
+  A: 5	int_typespec	UVM_FILE			uvm_component.svh	2282	65	2282	73				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#26887 file
+  A: 5	class_typespec	this_type			uvm_algorithmic_comparator.svh	74	11	74	37				
+  B: 5	class_typespec	this_type			uvm_sequence_library.svh	330	12	330	32				
+#55917 endcol
+  A: 7	hier_path	rw.parent			uvm_reg_map.svh	1773	6	1773	8		0		
+  B: 7	hier_path	rw.parent			uvm_reg_map.svh	1773	6	1773	15		0		
+#56028 endcol
+  A: 7	hier_path	rw.parent			uvm_reg_map.svh	1813	5	1813	7		0		
+  B: 7	hier_path	rw.parent			uvm_reg_map.svh	1813	5	1813	14		0		
+#58286 fullname
+  A: 7	ref_obj	uvm_reg_data_t		uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t	uvm_reg_block.svh	944	23	944	37		0		
+  B: 7	ref_obj	uvm_reg_data_t		uvm_pkg::uvm_reg_block::check_data_width.uvm_reg_data_t	uvm_reg_block.svh	944	23	944	37		0		
+#63683 file
+  A: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_globals.svh	532	52	532	53				
+  B: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_object_globals.svh	147	1	147	74				
+objects 334285 vs 334559
+fields: type=1 fullname=26 file=19 line=21 col=21 endline=21 endcol=28 objects_differing=54 (walk diverged)
+STRICT_NOTEQUAL file

@@ -1,0 +1,10 @@
+START 2026-09-29T09:32:32Z bin=$S_bin/pristine.bin md5=2510f4fe44619abb4eae492a1a0e737f corpora=probe
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=$S_w215ENUMCLONE/probe.csv
+probe cases: EQUAL=3443 STRICT_NOTEQUAL=644 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3443 differ:fullname=203 differ:line=105 differ:endcol=79 differ:type=74 differ:name=59 differ:depth=50 differ:file=39 differ:col=15 differ:endline=10 differ:value=9 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3443 STRICT_NOTEQUAL=644
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 0 of 0 runs served from the cache
+EXIT=1 END 2026-09-29T09:33:06Z

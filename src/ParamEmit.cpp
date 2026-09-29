@@ -13,6 +13,7 @@
 
 #include "EmitHelpers.h"
 #include "R218.h"
+#include "R224.h"
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
@@ -108,6 +109,9 @@ static bool r191PE(const char* sw) {
     // R11U195_OFF: pass 195 lands these laws, and its one switch restores
     // the pristine bytes of the whole pass
     if (getenv("R11U191_OFF") != nullptr || getenv("R11U195_OFF") != nullptr)
+        return false;
+    // § landingSwitchReach224: R11U224_SPLIT191A_OFF drops ground A's half.
+    if (r11u224SplitAOff(191))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -245,6 +249,9 @@ static void tr192PE(const char* law) {
 static bool r11u183LawPE(const char* sw) {
     // r11u187 landed these laws: R11U187_OFF drops them with its own.
     if (getenv("R11U183_OFF") != nullptr || getenv("R11U187_OFF") != nullptr)
+        return false;
+    // § landingSwitchReach224: R11U224_SPLIT183A_OFF drops ground A's half.
+    if (r11u224SplitAOff(183))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -24981,6 +24988,10 @@ void drainLvIdxRead181(UHDM::Serializer& s);
 void strLitContEndDrain220(UHDM::Serializer& s);
 // § cloneHpIdxNamesByChain220 (r11u220) — defined in ExprEmit.cpp.
 void cloneHpIdxDrain220(UHDM::Serializer& s);
+// § strLitContOwnerEnd224 and § strLitPpEscIdShift224 (r11u224) — defined
+// in ExprEmit.cpp.
+void strLitContOwnerDrain224(UHDM::Serializer& s);
+void strLitPpLineShiftDrain224(UHDM::Serializer& s);
 
 void UhdmExporter::drainPaNameCopySrc38() {
     // § pkgTdAliasLastWriter215 and § impPatCopyFirstListingUnparented215
@@ -24992,6 +25003,8 @@ void UhdmExporter::drainPaNameCopySrc38() {
                             [this](SourceLocation l) { return rootFilePath(l); });
     impPatCopyFirstListing215(d, comp);
     strLitContEndDrain220(s);  // § strLitContLineSpan220 (r11u220)
+    strLitContOwnerDrain224(s);    // § strLitContOwnerEnd224 (r11u224)
+    strLitPpLineShiftDrain224(s);  // § strLitPpEscIdShift224 (r11u224)
     drainImportCloneLocalCopies175(s);
     refFullNameThroughNamedExpr175(s);
     drainHierPathSelIdx178(s);
@@ -31579,6 +31592,53 @@ void UhdmExporter::drainShareDefParamTs() {
                     break;
                 }
             }
+    // § pcwAllPkgListingBindsOwn224 (r11u224) — refines § pcwElabKeepsClaim207v:
+    // in the `--elabuhdm` view the cast-width mark of the DECLARING package's
+    // UNELABORATED listing (design AllPackages) binds that listing's own
+    // parameter.  Golden BlackBePipeInt -elabuhdm: the `ref_obj
+    // dev_addr_width_gp` under `int_typespec` 1793:1-34 of
+    // `bp_common_pkg::dev_addr_width_gp` in the AllPackages listing, and the
+    // one under every `(dev_addr_width_gp)'(...)` cast of that listing's
+    // parameter assignments, is never expanded by the walk (38 records: its
+    // actual is the listing's own parameter, already on the walk), while the
+    // elaborated package listing (TopPackages), the importing package and the
+    // module expand the module's copy `work@bp_be_pipe_int.dev_addr_width_gp`
+    // (§ pcwElabKeepsClaim207v's measurement, still holding).  Ours let the
+    // module copy's claim re-point the AllPackages listing's mark too, which
+    // the walk expands: 8 ours-only records at #66 (map 13's N0897).
+    // Design-final, the elaborated view only: the mark in an AllPackages
+    // package's own (not imported) parameter typespec binding another
+    // same-named parameter is rebound to the listing's parameter (every
+    // listing stamps its own int_typespec, so no other listing's mark moves).
+    // Switch R11U224_PCWALLPKG_OFF.
+    if (pcwElabKeepsClaim207v(elabUhdmView121) && r11u224On("R11U224_PCWALLPKG_OFF") && d &&
+        d->AllPackages()) {
+        for (auto* pk224 : *d->AllPackages()) {
+            if (!pk224 || !pk224->Parameters())
+                continue;
+            for (auto* pa224 : *pk224->Parameters()) {
+                if (!pa224 || pa224->UhdmType() != UHDM::uhdmparameter)
+                    continue;
+                auto* p224 = (UHDM::parameter*)pa224;
+                if (!p224->VpiImported().empty() || !p224->Typespec())
+                    continue;
+                auto* ts224 = p224->Typespec()->Actual_typespec();
+                if (!ts224 || ts224->UhdmType() != UHDM::uhdmint_typespec)
+                    continue;
+                auto* ex224 = ((UHDM::int_typespec*)ts224)->Cast_to_expr();
+                if (!ex224 || ex224->UhdmType() != UHDM::uhdmref_obj ||
+                    ex224->VpiName() != p224->VpiName())
+                    continue;
+                auto* r224 = (UHDM::ref_obj*)ex224;
+                auto* a224 = r224->Actual_group();
+                if (!a224 || a224 == p224 || a224->UhdmType() != UHDM::uhdmparameter ||
+                    a224->VpiName() != p224->VpiName())
+                    continue;
+                r224->Actual_group(p224);
+                tr224("pcwAllPkgListingBindsOwn224", std::string(p224->VpiName()));
+            }
+        }
+    }
     {
         static const bool offCf124 = getenv("R11U124_OFF") != nullptr ||
                                      getenv("R11U124_CASTFILE_OFF") != nullptr;

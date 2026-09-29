@@ -627,12 +627,12 @@ r10svs15repro/a2_cbmul,EQUAL,,equal
 r10svs2repro/s1_dynsize,EQUAL,,equal
 r10svs2repro/s3_arraykind,EQUAL,,equal
 r10svs2repro/s4_context,EQUAL,,equal
-r10svs2repro/s5_negctl,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
+r10svs2repro/s5_negctl,EQUAL,,equal
 r10svs2repro/s6_otherbuiltin,EQUAL,,equal
 r10svs2repro/s7_recvless,EQUAL,,equal
 r10svs2repro/w1_stmtfunc,EQUAL,,equal
 r10svs2repro/w2_spacedot,STRICT_NOTEQUAL,differ:endcol(10),differ:endcol(10)
-r10svs2repro/w3_macrodeep,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
+r10svs2repro/w3_macrodeep,EQUAL,,equal
 r10svs3repro/a1_newlhs,EQUAL,,equal
 r10svs3repro/a2_thisnew,EQUAL,,equal
 r10svs3repro/a3_position,EQUAL,,equal
@@ -744,7 +744,7 @@ r10uvm144repro/g144_g,EQUAL,,equal
 r10uvm145repro/g145_a_prod,EQUAL,,equal
 r10uvm145repro/g145_b_kind,EQUAL,,equal
 r10uvm145repro/g145_e_zero,EQUAL,,equal
-r10uvm147repro/g147_a,STRICT_NOTEQUAL,differ:col(14),differ:col(14)
+r10uvm147repro/g147_a,STRICT_NOTEQUAL,differ:col(6),differ:col(6)
 r10uvm148repro/g148_a_prod,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
 r10uvm148repro/g148_b_scope,EQUAL,,equal
 r10uvm148repro/g148_d_kind,EQUAL,,equal
@@ -941,7 +941,7 @@ r10uvm56repro/a6_type,STRICT_NOTEQUAL,differ:line(15),differ:line(15)
 r10uvm56repro/a8_newlhs,STRICT_NOTEQUAL,differ:file(2),differ:file(2)
 r10uvm56repro/v1_scopes2,EQUAL,,equal
 r10uvm56repro/v2_call,EQUAL,,equal
-r10uvm56repro/v3_hierpath,STRICT_NOTEQUAL,differ:endcol(6),differ:endcol(6)
+r10uvm56repro/v3_hierpath,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
 r10uvm57repro/a1_witness,EQUAL,,equal
 r10uvm57repro/a2_named,EQUAL,,equal
 r10uvm57repro/a3_scope,EQUAL,,equal
@@ -1137,7 +1137,7 @@ r10v119repro/v119_j,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
 r10v119repro/v119_k,EQUAL,,equal
 r10v119repro/v119_l,EQUAL,,equal
 r10v121repro/v121_a,EQUAL,,equal
-r10v121repro/v121_c,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
+r10v121repro/v121_c,EQUAL,,equal
 r10v121repro/v121_d,EQUAL,,equal
 r10v121repro/v121_e2,EQUAL,,equal
 r10v121repro/v121_f,EQUAL,,equal
@@ -1286,8 +1286,8 @@ r10v167repro/vA_meth,STRICT_NOTEQUAL,differ:endcol(9),differ:endcol(9)
 r10v167repro/vB_bare,EQUAL,,equal
 r10v167repro/vD_kinds,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
 r10v169repro/v169_g_control,STRICT_NOTEQUAL,differ:fullname(14),differ:fullname(14)
-r10v172repro/v172_3_pos,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
-r10v174repro/v174_b_sysfns,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+r10v172repro/v172_3_pos,EQUAL,,equal
+r10v174repro/v174_b_sysfns,EQUAL,,equal
 r10v175repro/v175_deep,EQUAL,,equal
 r10v175repro/v175_scope,EQUAL,,equal
 r10v179repro/v179_f_nomod,EQUAL,,equal

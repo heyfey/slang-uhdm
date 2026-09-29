@@ -1,0 +1,40 @@
+== surelog: rows differing between P (pristine.bin) and L (law.bin), all columns
+< BlackBePipeInt,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+> BlackBePipeInt,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+< BuildUVMPkg,default,STRICT_NOTEQUAL,differ:line(19),,differ:line(19)
+< BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:line(19),,differ:line(19)
+> BuildUVMPkg,default,STRICT_NOTEQUAL,differ:line(14),,differ:line(14)
+> BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:line(14),,differ:line(14)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "$S_wP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "$S_wL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "$S_wP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "$S_wL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+< Scoreboard,default,STRICT_NOTEQUAL,differ:file(30),,differ:file(30)
+> Scoreboard,default,STRICT_NOTEQUAL,differ:file(26),,differ:file(26)
+< SimpleUVM,default,STRICT_NOTEQUAL,differ:file(54),,differ:file(54)
+< SimpleUVM,testflags,STRICT_NOTEQUAL,differ:file(54),,differ:file(54)
+> SimpleUVM,default,STRICT_NOTEQUAL,differ:file(50),,differ:file(50)
+> SimpleUVM,testflags,STRICT_NOTEQUAL,differ:file(50),,differ:file(50)
+== uhdm2rtlil: rows differing between P (pristine.bin) and L (law.bin), all columns
+== probe: rows differing between P (pristine.bin) and L (law.bin), all columns
+< r10svs2repro/s5_negctl,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
+> r10svs2repro/s5_negctl,EQUAL,,equal
+< r10svs2repro/w3_macrodeep,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
+> r10svs2repro/w3_macrodeep,EQUAL,,equal
+< r10uvm147repro/g147_a,STRICT_NOTEQUAL,differ:col(14),differ:col(14)
+> r10uvm147repro/g147_a,STRICT_NOTEQUAL,differ:col(6),differ:col(6)
+< r10uvm56repro/v3_hierpath,STRICT_NOTEQUAL,differ:endcol(6),differ:endcol(6)
+> r10uvm56repro/v3_hierpath,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
+< r10v121repro/v121_c,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
+> r10v121repro/v121_c,EQUAL,,equal
+< r10v172repro/v172_3_pos,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
+< r10v174repro/v174_b_sysfns,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+> r10v172repro/v172_3_pos,EQUAL,,equal
+> r10v174repro/v174_b_sysfns,EQUAL,,equal
+== probe: Q (pristine.bin run from the law worktree) vs P, status columns
+== surelog: O (law.bin, R11U224_OFF=1) vs P
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "$S_wP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "$S_wO/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "$S_wP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "$S_wO/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+== uhdm2rtlil: O (law.bin, R11U224_OFF=1) vs P

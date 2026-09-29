@@ -1,0 +1,12 @@
+tp/r11u191dec/cases/B/b01_el records g/P/L=188/223/191 firstdiff P=#7 L=#34
+tp/r11u207repro/cases/P/p02_el records g/P/L=258/306/274 firstdiff P=#10 L=#53
+tp/r11u207repro/cases/P/p03_el records g/P/L=320/354/322 firstdiff P=#7 L=#31
+tp/r11u213verify/cases/CW/w01_el records g/P/L=193/218/194 firstdiff P=#7 L=#27
+tp/r11u213verify/cases/CW/w02_el records g/P/L=350/282/258 firstdiff P=#7 L=#24
+tp/r11u213verify/cases/CW/w04_el records g/P/L=342/365/341 firstdiff P=#7 L=#24
+tp/r11u213verify/cases/X/x01_el records g/P/L=320/351/327 firstdiff P=#7 L=#27
+tp/v11u207repro/cases/G/g03_el records g/P/L=114/138/114 firstdiff P=#7 L=#27
+tp/v11u187repro/cases/T/t35 records g/P/L=266/270/270 firstdiff P=#94 L=#94
+tp/v11u187repro/cases/T/t35_el records g/P/L=281/289/289 firstdiff P=#94 L=#94
+tp/v11u220repro/cases/G/g26 records g/P/L=188/188/188 firstdiff P=#67 L=#67
+tp/v11u220repro/cases/G/g26_el records g/P/L=179/179/179 firstdiff P=#67 L=#67
