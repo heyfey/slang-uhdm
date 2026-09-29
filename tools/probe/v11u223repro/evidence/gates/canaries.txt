@@ -1,0 +1,33 @@
+== canaries law vs pristine csv
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:file(56) -> STRICT_NOTEQUAL/differ:file(42)
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:file(56) -> STRICT_NOTEQUAL/differ:file(42)
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:file(7) -> STRICT_NOTEQUAL/differ:line(2)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:file(7) -> STRICT_NOTEQUAL/differ:line(2)
+  Scoreboard                     default   CHANGED STRICT_NOTEQUAL/differ:file(32) -> STRICT_NOTEQUAL/differ:file(18)
+---- canary rows: ok=47 changed=5 absent=0 unknown-names=7
+== canaries fix2 vs pristine csv
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:file(56) -> STRICT_NOTEQUAL/differ:file(42)
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:file(56) -> STRICT_NOTEQUAL/differ:file(42)
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:file(7) -> STRICT_NOTEQUAL/differ:line(2)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:file(7) -> STRICT_NOTEQUAL/differ:line(2)
+  Scoreboard                     default   CHANGED STRICT_NOTEQUAL/differ:file(32) -> STRICT_NOTEQUAL/differ:file(18)
+---- canary rows: ok=47 changed=5 absent=0 unknown-names=7
+== canaries fix2 u2r vs pristine csv
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== canaries fix2 vs committed baselines
+  Earlgrey_0_1                   default   CHANGED STRICT_NOTEQUAL/differ:fullname(19) -> STRICT_NOTEQUAL/differ:endcol(39)
+  Earlgrey_0_1                   testflags CHANGED STRICT_NOTEQUAL/differ:fullname(19) -> STRICT_NOTEQUAL/differ:endcol(39)
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:file(54) -> STRICT_NOTEQUAL/differ:file(42)
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:file(54) -> STRICT_NOTEQUAL/differ:file(42)
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:file(7) -> STRICT_NOTEQUAL/differ:line(2)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:file(7) -> STRICT_NOTEQUAL/differ:line(2)
+  BuildUVMPkg                    default   CHANGED STRICT_NOTEQUAL/differ:line(19) -> STRICT_NOTEQUAL/differ:line(31)
+  BuildUVMPkg                    testflags CHANGED STRICT_NOTEQUAL/differ:line(19) -> STRICT_NOTEQUAL/differ:line(31)
+  Scoreboard                     default   CHANGED STRICT_NOTEQUAL/differ:file(30) -> STRICT_NOTEQUAL/differ:file(18)
+---- canary rows: ok=43 changed=9 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== ctcan2 fix2
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.

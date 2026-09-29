@@ -14,6 +14,8 @@
 #include "EmitHelpers.h"
 #include "slang/syntax/SyntaxTree.h"
 
+#include "R223.h"
+
 namespace slang_uhdm {
 
 // The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
@@ -25824,7 +25826,21 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
     av->VpiSize(total);
 
     // The element reg — only in the leading-unsized shape.
-    if (leadingUnsized) {
+    // § fixedOuterAssocInnerReg223 (r11u223, pass 219's residue: the
+    // elaborated view's segfault on `$size` of `int ma [4][int]`) — ...and
+    // whenever the FIRST unsized dimension is ASSOCIATIVE, whatever fixed
+    // dimensions lead it: golden `int ma [4][int]`, `logic [7:0] ms [2]
+    // [string]`, `int m5 [2][int][3]`, `int m6 [2][3][int]`, `int m8 [2][int]
+    // []` all carry the vpiReg element (vpiArrayType 3), where `int md [4][]`,
+    // `int mq [4][$]` and `int m7 [2][][int]` (first unsized dynamic or queue)
+    // carry none (grid tools/probe/r11u223repro/cases/C c01-c08).  UHDM's
+    // ExprEval::size reads `array_var->Variables()->at(0)` unguarded, so the
+    // missing element was the elaborated view's crash on `$size(ma)`.  The
+    // initializer carriers below stay with the leading-unsized shape (not
+    // measured on a leading fixed dimension).  Switch R11U223_ASSOCREG_OFF.
+    const bool assocReg223 = !leadingUnsized && aKind == 3 &&
+                             r11u223Law("R11U223_ASSOCREG_OFF");
+    if (leadingUnsized || assocReg223) {
         if (auto* reg = makeReturnVar(s, *leaf)) {
             reg->VpiParent(av);
             reg->VpiFullName(fullName);
@@ -25847,6 +25863,8 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
             auto* rvars = s.MakeVariablesVec();
             rvars->push_back(reg);
             av->Variables(rvars);
+            if (assocReg223)
+                tr223("fixedOuterAssocInnerReg223", fullName);
             // A CONCATENATION initializer (`byte b[] = {1, 1, 1}`) rides BOTH
             // the array_var and its element reg as vpiExpr — the SAME
             // operation object, parented at the REG (Surelog; UnsizedArray).
@@ -25870,7 +25888,7 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
             // makes golden's `'{1,2,3}` -> three size-32 constants come out
             // right for the pattern kinds too; a TAGGED operand is not a
             // constant, so `'{default:0}` keeps its 64.
-            if (auto* dtI9 = sym.getDeclaredType())
+            if (auto* dtI9 = leadingUnsized ? sym.getDeclaredType() : nullptr)
                 if (auto* inI9 = dtI9->getInitializer()) {
                     auto& icI9 = stripImplicitConv(*inI9);
                     if (icI9.kind == ExpressionKind::Concatenation ||

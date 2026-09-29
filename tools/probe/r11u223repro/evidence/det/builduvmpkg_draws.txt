@@ -1,0 +1,7 @@
+# BuildUVMPkg default, concurrent draws: md5 tallies
+pristine (4 rounds of 4, beside the unreserved law):      16 f758dff8082a 
+law unreserved (same rounds):       4 019bfb39e217      12 9e792536fb47 
+law unreserved (4 rounds of 4, beside the reserved law):       2 019bfb39e217      14 9e792536fb47 
+law reserved (law_d5, same rounds):      16 b78f29b4a481 
+# odd vs majority unreserved law draw: dump diff 0 lines, idlist diff 0 lines
+# symbol table: reserved binary vs pristine 0 differing lines; unreserved majority vs pristine 200

@@ -1,0 +1,26 @@
+#15398 file
+  A: 5	int_typespec	UVM_FILE			uvm_root.svh	348	39	348	47				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#18458 file
+  A: 5	int_typespec	UVM_FILE			uvm_component.svh	2250	61	2250	69				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#18479 file
+  A: 5	int_typespec	UVM_FILE			uvm_component.svh	2260	60	2260	68				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#18501 file
+  A: 5	int_typespec	UVM_FILE			uvm_component.svh	2270	66	2270	74				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#18537 file
+  A: 5	int_typespec	UVM_FILE			uvm_component.svh	2282	65	2282	73				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#26895 file
+  A: 5	class_typespec	this_type			uvm_algorithmic_comparator.svh	74	11	74	37				
+  B: 5	class_typespec	this_type			uvm_sequence_library.svh	330	12	330	32				
+#42144 endcol
+  A: 4	assignment				uvm_mem_mam.svh	798	4	798	50				
+  B: 4	assignment				uvm_mem_mam.svh	798	4	798	52				
+#42145 endcol
+  A: 5	constant				uvm_mem_mam.svh	798	21	798	50	"Allocated memory regions:\n"	216	STRING:Allocated memory regions:\n	6
+  B: 5	constant				uvm_mem_mam.svh	798	21	798	52	"Allocated memory regions:\n"	216	STRING:Allocated memory regions:\n	6
+objects 269656 vs 269853
+fields: type=1 fullname=4 file=18 line=19 col=19 endline=19 endcol=28 objects_differing=32 (walk diverged)

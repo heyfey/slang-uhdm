@@ -11,6 +11,7 @@
 #include "slang/syntax/SyntaxTree.h"
 #include "R217.h"
 #include "R221.h"
+#include "R223.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -16744,6 +16745,143 @@ UHDM::design* UhdmExporter::exportDesign() {
                 }
             }
         }
+    }
+
+    // § tfArgScalarTdWriter223 (r11u223, pass 219's residue 1: `typedef int
+    // UVM_FILE`, the first record of all nine UVM row-modes) — a subroutine
+    // formal written as a bare SCALAR typedef name holds its OWN copy of the
+    // typedef, located at the formal's type identifier.  compileTfPortList
+    // (CompileStmt.cpp) compiles the formal's data type with compileTypespec
+    // and then runs populateCoreMembers(type, type, ts) on what comes back;
+    // for a typedef of a builtin type (a `SimpleType` behind the `TypeDef`,
+    // CompileType.cpp compileDatastructureTypespec) that is a fresh
+    // clone_tree of the typedef's typespec with a Typedef_alias back at it,
+    // so the span (and vpiFile) written is the clone's and the typedef keeps
+    // its own.  LAW S (TypeEmit bareScalarTypedefVarTs) binds one memoized
+    // bare copy per listing object at the typedef's declaration span; for a
+    // recorded formal (TaskFuncEmit: an ANSI formal, a pure virtual
+    // prototype's formal, not a DPI import) this pass re-points the formal
+    // at a copy of that final object carrying the identifier's span, every
+    // other field shared (identity is outside the strict contract).  Golden
+    // grid tools/probe/r11u223repro/cases/F: int, int unsigned, integer,
+    // byte, shortint, longint, bit, bit [3:0]; class methods, package
+    // functions and tasks, module, interface, module-class and `$unit`-class
+    // methods; extern prototype and out-of-body definition; unpacked and
+    // queue formals; a formal with a default; a multi-line formal.  The
+    // return type and body locals keep the declaration span in golden
+    // (f17).  Placed before § 146's early returns so it runs on every
+    // design.  Switch R11U223_SCALARTDTOK_OFF (recording side, TaskFuncEmit).
+    {
+        auto copy223 = [&](UHDM::typespec* a) -> UHDM::typespec* {
+            UHDM::typespec* c = nullptr;
+            switch (a->UhdmType()) {
+            case UHDM::uhdmint_typespec: {
+                auto* x = s.MakeInt_typespec();
+                x->VpiSigned(((UHDM::int_typespec*)a)->VpiSigned());
+                x->Ranges(((UHDM::int_typespec*)a)->Ranges());
+                c = x;
+                break;
+            }
+            case UHDM::uhdminteger_typespec: {
+                auto* x = s.MakeInteger_typespec();
+                x->VpiSigned(((UHDM::integer_typespec*)a)->VpiSigned());
+                c = x;
+                break;
+            }
+            case UHDM::uhdmbyte_typespec: {
+                auto* x = s.MakeByte_typespec();
+                x->VpiSigned(((UHDM::byte_typespec*)a)->VpiSigned());
+                c = x;
+                break;
+            }
+            case UHDM::uhdmshort_int_typespec: {
+                auto* x = s.MakeShort_int_typespec();
+                x->VpiSigned(((UHDM::short_int_typespec*)a)->VpiSigned());
+                c = x;
+                break;
+            }
+            case UHDM::uhdmlong_int_typespec: {
+                auto* x = s.MakeLong_int_typespec();
+                x->VpiSigned(((UHDM::long_int_typespec*)a)->VpiSigned());
+                c = x;
+                break;
+            }
+            case UHDM::uhdmbit_typespec: {
+                auto* x = s.MakeBit_typespec();
+                x->VpiVector(((UHDM::bit_typespec*)a)->VpiVector());
+                x->VpiSigned(((UHDM::bit_typespec*)a)->VpiSigned());
+                x->Ranges(((UHDM::bit_typespec*)a)->Ranges());
+                c = x;
+                break;
+            }
+            case UHDM::uhdmlogic_typespec: {
+                auto* x = s.MakeLogic_typespec();
+                x->VpiVector(((UHDM::logic_typespec*)a)->VpiVector());
+                x->VpiSigned(((UHDM::logic_typespec*)a)->VpiSigned());
+                x->Ranges(((UHDM::logic_typespec*)a)->Ranges());
+                x->Elem_typespec(((UHDM::logic_typespec*)a)->Elem_typespec());
+                c = x;
+                break;
+            }
+            default:
+                return nullptr;
+            }
+            c->VpiName(a->VpiName());
+            c->Instance(a->Instance());
+            if (auto* al = a->Typedef_alias()) {
+                auto* nal = s.MakeRef_typespec();
+                nal->VpiName(al->VpiName());
+                nal->VpiFullName(al->VpiFullName());
+                nal->VpiParent(c);
+                nal->Actual_typespec(al->Actual_typespec());
+                c->Typedef_alias(nal);
+            }
+            return c;
+        };
+        // The registry is read in emission order from static storage
+        // (§ formalRegNoHeap223v, src/R223.h; switch R11V223_DETREG_OFF).
+        formalTdTok223().forEach([&](auto& ent223) {
+            auto* rt223 = ent223.first;
+            auto& rng223 = ent223.second;
+            auto* io223 = rt223 ? rt223->VpiParent() : nullptr;
+            if (!io223 || io223->UhdmType() != UHDM::uhdmio_decl ||
+                ((UHDM::io_decl*)io223)->Typespec() != rt223)
+                return;
+            auto* a223 = rt223->Actual_typespec();
+            // A per-declaration copy: bare-named, aliased to its listing.
+            if (!a223 || !a223->Typedef_alias() || a223->VpiName().empty() ||
+                a223->VpiName().find("::") != std::string_view::npos)
+                return;
+            // Where the identifier sits in our location model: setLoc's own
+            // computation, without minting an object.
+            if (rng223.start() == SourceLocation::NoLocation)
+                return;
+            uint32_t l223 = 0, c0223 = 0, el223 = 0, ec223 = 0;
+            locLineCol(rng223.start(), l223, c0223);
+            std::string f223 = fullFilePath(rng223.start());
+            if (rng223.end() != SourceLocation::NoLocation) {
+                pp166::model().endQuery = true;
+                pp166::model().endOf = rng223.start();
+                locLineCol(rng223.end(), el223, ec223);
+                pp166::model().endQuery = false;
+            }
+            if (l223 == 0)
+                return;
+            if (a223->VpiLineNo() == l223 && a223->VpiColumnNo() == c0223 &&
+                a223->VpiEndLineNo() == el223 && a223->VpiEndColumnNo() == ec223 &&
+                a223->VpiFile() == f223)
+                return;
+            auto* c223 = copy223(a223);
+            if (!c223)
+                return;
+            setLoc(c223, rng223);
+            rt223->Actual_typespec(c223);
+            tr223("tfArgScalarTdWriter223",
+                  std::string(c223->VpiName()) + " " + std::to_string(a223->VpiLineNo()) +
+                      ":" + std::to_string(a223->VpiColumnNo()) + "->" +
+                      std::to_string(c223->VpiLineNo()) + ":" +
+                      std::to_string(c223->VpiColumnNo()));
+        });
     }
 
     if (!r11u146Law("R11U146_TFARGTD_OFF"))

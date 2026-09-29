@@ -1,0 +1,27 @@
+#26895 file
+  A: 5	class_typespec	this_type			uvm_algorithmic_comparator.svh	74	11	74	37				
+  B: 5	class_typespec	this_type			uvm_sequence_library.svh	330	12	330	32				
+#42144 endcol
+  A: 4	assignment				uvm_mem_mam.svh	798	4	798	50				
+  B: 4	assignment				uvm_mem_mam.svh	798	4	798	52				
+#42145 endcol
+  A: 5	constant				uvm_mem_mam.svh	798	21	798	50	"Allocated memory regions:\n"	216	STRING:Allocated memory regions:\n	6
+  B: 5	constant				uvm_mem_mam.svh	798	21	798	52	"Allocated memory regions:\n"	216	STRING:Allocated memory regions:\n	6
+#55925 endcol
+  A: 7	hier_path	rw.parent			uvm_reg_map.svh	1773	6	1773	8		0		
+  B: 7	hier_path	rw.parent			uvm_reg_map.svh	1773	6	1773	15		0		
+#56036 endcol
+  A: 7	hier_path	rw.parent			uvm_reg_map.svh	1813	5	1813	7		0		
+  B: 7	hier_path	rw.parent			uvm_reg_map.svh	1813	5	1813	14		0		
+#58294 fullname
+  A: 7	ref_obj	uvm_reg_data_t		uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t	uvm_reg_block.svh	944	23	944	37		0		
+  B: 7	ref_obj	uvm_reg_data_t		uvm_pkg::uvm_reg_block::check_data_width.uvm_reg_data_t	uvm_reg_block.svh	944	23	944	37		0		
+#64092 file
+  A: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_globals.svh	532	52	532	53				
+  B: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_object_globals.svh	147	1	147	74				
+#64488 file
+  A: 2	enum_typespec	uvm_pkg::uvm_tlm_phase_e			uvm_tlm2_imps.svh	58	52	58	53				
+  B: 2	enum_typespec	uvm_pkg::uvm_tlm_phase_e			uvm_tlm2_ifs.svh	34	1	41	21				
+objects 269656 vs 269853
+fields: type=1 fullname=4 file=4 line=5 col=5 endline=5 endcol=14 objects_differing=18 (walk diverged)
+STRICT_NOTEQUAL file

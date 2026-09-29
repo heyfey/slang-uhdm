@@ -1,0 +1,17 @@
+# MiniAmiq default, six concurrent draws of the PRISTINE binary: md5 tally
+      1 753aa0bd2dca
+      5 f815d9022d89
+# id-order object list (tool/idlist.cpp) odd vs majority draw: 0 differing lines
+# symbol table (tool/symlist.cpp): 172 differing lines, all in the tail block; first entries:
+41743,41828c41743,41828
+< 41579 svaunit_pkg::uvm_mem::get_offset::map.get_mem_map_info::this
+< 41580 svaunit_pkg::uvm_mem::get_rights::map.get_mem_map_info::this
+< 41581 svaunit_pkg::uvm_mem::get_addresses::map.get_mem_map_info::this
+< 41582 svaunit_pkg::uvm_mem::write::path::UVM_DEFAULT_PATH
+< 41583 svaunit_pkg::uvm_mem::read::path::UVM_DEFAULT_PATH
+< 41584 svaunit_pkg::uvm_mem::burst_write::path::UVM_DEFAULT_PATH
+< 41585 svaunit_pkg::uvm_mem::burst_read::path::UVM_DEFAULT_PATH
+< 41586 svaunit_pkg::uvm_sequencer_base::m_register_sequence::sequence_ptr.m_get_sqr_sequence_id::m_sequencer_id
+< 41587 svaunit_pkg::uvm_sequencer_base::wait_for_item_done::sequence_ptr.m_get_sqr_sequence_id::m_sequencer_id
+< 41588 svaunit_pkg::uvm_sequencer_base::remove_sequence_from_queues::sequence_ptr.m_get_sqr_sequence_id::m_sequencer_id
+< 41589 svaunit_pkg::uvm_sequencer_base::start_phase_sequence::sbr.read::this

@@ -1,0 +1,14 @@
+// decode only (residue, no law of this pass):
+package p;
+  typedef enum {A0, A1} m_e;
+  typedef m_e ALIAS_T;
+  class c;
+    extern function void set(ALIAS_T v);
+  endclass
+  function void c::set(ALIAS_T v);
+  endfunction
+endpackage
+module top;
+  import p::*;
+  ALIAS_T s;
+endmodule

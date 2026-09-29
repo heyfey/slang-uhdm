@@ -1,0 +1,7 @@
+// decode only (residue, no law of this pass):
+module dut (input logic [4'h7:0] i, output logic [7:0] o);
+  typedef logic [4'h7:0] t_t;
+  t_t v;
+  assign v = i;
+  assign o = v;
+endmodule

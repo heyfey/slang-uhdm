@@ -1,0 +1,113 @@
+pristine Earlgrey_0_1 default {'6a8fcde9/rc0': 3}
+pristine Earlgrey_0_1 testflags {'dc6bc454/rc0': 3}
+pristine MiniAmiq default {'3bb66bff/rc0': 3}
+pristine MiniAmiq testflags {'3bb66bff/rc0': 3}
+pristine SeqDriver default {'4a014e5a/rc0': 3}
+pristine SeqDriver testflags {'19d8ebe2/rc0': 3}
+pristine SimpleUVM default {'782fae78/rc0': 3}
+pristine SimpleUVM testflags {'788feb14/rc0': 3}
+pristine Scoreboard default {'f952ef0f/rc0': 1, '332b54c4/rc0': 1, 'b10c289b/rc0': 1}
+pristine Scoreboard testflags {'NONE/rc3': 3}
+pristine BuildUVMPkg default {'bb147c1f/rc0': 3}
+pristine BuildUVMPkg testflags {'bb147c1f/rc0': 3}
+law Earlgrey_0_1 default {'6a8fcde9/rc0': 3}
+law Earlgrey_0_1 testflags {'dc6bc454/rc0': 3}
+law MiniAmiq default {'bb1109be/rc0': 2, 'a473b5fb/rc0': 1}
+law MiniAmiq testflags {'a473b5fb/rc0': 2, 'bb1109be/rc0': 1}
+law SeqDriver default {'878226a3/rc0': 3}
+law SeqDriver testflags {'f1f60034/rc0': 3}
+law SimpleUVM default {'6a99b31a/rc0': 2, '0aa54033/rc0': 1}
+law SimpleUVM testflags {'74382048/rc0': 3}
+law Scoreboard default {'6a3d2239/rc0': 3}
+law Scoreboard testflags {'NONE/rc3': 3}
+law BuildUVMPkg default {'8863bec7/rc0': 3}
+law BuildUVMPkg testflags {'8863bec7/rc0': 3}
+fix Earlgrey_0_1 default {'6a8fcde9/rc0': 3}
+fix Earlgrey_0_1 testflags {'dc6bc454/rc0': 3}
+fix MiniAmiq default {'a473b5fb/rc0': 3}
+fix MiniAmiq testflags {'bb1109be/rc0': 2, 'a473b5fb/rc0': 1}
+fix SeqDriver default {'878226a3/rc0': 3}
+fix SeqDriver testflags {'f1f60034/rc0': 3}
+fix SimpleUVM default {'6a99b31a/rc0': 3}
+fix SimpleUVM testflags {'74382048/rc0': 3}
+fix Scoreboard default {'bd9baa6e/rc0': 2, '6a3d2239/rc0': 1}
+fix Scoreboard testflags {'NONE/rc3': 3}
+fix BuildUVMPkg default {'8863bec7/rc0': 3}
+fix BuildUVMPkg testflags {'8863bec7/rc0': 3}
+DET_DONE
+pristine_m1 MiniAmiq default {'3bb66bff/rc0': 4}
+pristine_m1 MiniAmiq testflags {'3bb66bff/rc0': 4}
+law_m1 MiniAmiq default {'a473b5fb/rc0': 2, 'bb1109be/rc0': 2}
+law_m1 MiniAmiq testflags {'bb1109be/rc0': 4}
+fix_m1 MiniAmiq default {'a473b5fb/rc0': 3, 'bb1109be/rc0': 1}
+fix_m1 MiniAmiq testflags {'bb1109be/rc0': 4}
+pristine_m2 MiniAmiq default {'3bb66bff/rc0': 4}
+pristine_m2 MiniAmiq testflags {'3bb66bff/rc0': 4}
+law_m2 MiniAmiq default {'bb1109be/rc0': 2, 'a473b5fb/rc0': 2}
+law_m2 MiniAmiq testflags {'bb1109be/rc0': 4}
+fix_m2 MiniAmiq default {'bb1109be/rc0': 2, 'a473b5fb/rc0': 2}
+fix_m2 MiniAmiq testflags {'bb1109be/rc0': 4}
+pristine_m3 MiniAmiq default {'3bb66bff/rc0': 4}
+pristine_m3 MiniAmiq testflags {'3bb66bff/rc0': 4}
+law_m3 MiniAmiq default {'a473b5fb/rc0': 4}
+law_m3 MiniAmiq testflags {'bb1109be/rc0': 4}
+fix_m3 MiniAmiq default {'bb1109be/rc0': 2, 'a473b5fb/rc0': 2}
+fix_m3 MiniAmiq testflags {'bb1109be/rc0': 4}
+pristine_m4 MiniAmiq default {'3bb66bff/rc0': 4}
+pristine_m4 MiniAmiq testflags {'3bb66bff/rc0': 4}
+law_m4 MiniAmiq default {'bb1109be/rc0': 4}
+law_m4 MiniAmiq testflags {'bb1109be/rc0': 4}
+fix_m4 MiniAmiq default {'a473b5fb/rc0': 3, 'bb1109be/rc0': 1}
+fix_m4 MiniAmiq testflags {'bb1109be/rc0': 4}
+DET_DONE
+fix2 Earlgrey_0_1 default {'6a8fcde9/rc0': 3}
+fix2 Earlgrey_0_1 testflags {'dc6bc454/rc0': 3}
+fix2 SeqDriver default {'878226a3/rc0': 3}
+fix2 SeqDriver testflags {'f1f60034/rc0': 3}
+fix2 SimpleUVM default {'0aa54033/rc0': 3}
+fix2 SimpleUVM testflags {'74382048/rc0': 3}
+fix2 Scoreboard default {'bd9baa6e/rc0': 1, '0310e1ae/rc0': 1, '6a3d2239/rc0': 1}
+fix2 Scoreboard testflags {'NONE/rc3': 3}
+fix2 BuildUVMPkg default {'8863bec7/rc0': 3}
+fix2 BuildUVMPkg testflags {'8863bec7/rc0': 3}
+pristine_s1 SimpleUVM default {'782fae78/rc0': 4}
+pristine_s1 SimpleUVM testflags {'788feb14/rc0': 4}
+law_s1 SimpleUVM default {'6a99b31a/rc0': 2, '0aa54033/rc0': 2}
+law_s1 SimpleUVM testflags {'74382048/rc0': 4}
+fix2_s1 SimpleUVM default {'0aa54033/rc0': 4}
+fix2_s1 SimpleUVM testflags {'74382048/rc0': 4}
+pristine_s2 SimpleUVM default {'782fae78/rc0': 4}
+pristine_s2 SimpleUVM testflags {'788feb14/rc0': 4}
+law_s2 SimpleUVM default {'6a99b31a/rc0': 3, '0aa54033/rc0': 1}
+law_s2 SimpleUVM testflags {'74382048/rc0': 4}
+fix2_s2 SimpleUVM default {'0aa54033/rc0': 4}
+fix2_s2 SimpleUVM testflags {'74382048/rc0': 4}
+pristine_s3 SimpleUVM default {'782fae78/rc0': 4}
+pristine_s3 SimpleUVM testflags {'788feb14/rc0': 4}
+law_s3 SimpleUVM default {'6a99b31a/rc0': 2, '0aa54033/rc0': 2}
+law_s3 SimpleUVM testflags {'74382048/rc0': 4}
+fix2_s3 SimpleUVM default {'0aa54033/rc0': 4}
+fix2_s3 SimpleUVM testflags {'74382048/rc0': 4}
+pristine_s4 SimpleUVM default {'782fae78/rc0': 4}
+pristine_s4 SimpleUVM testflags {'788feb14/rc0': 4}
+law_s4 SimpleUVM default {'0aa54033/rc0': 3, '842e0baa/rc0': 1}
+law_s4 SimpleUVM testflags {'74382048/rc0': 4}
+fix2_s4 SimpleUVM default {'0aa54033/rc0': 4}
+fix2_s4 SimpleUVM testflags {'74382048/rc0': 4}
+law_b1 BuildUVMPkg default {'8863bec7/rc0': 4}
+law_b1 BuildUVMPkg testflags {'8863bec7/rc0': 4}
+fix2_b1 BuildUVMPkg default {'8863bec7/rc0': 4}
+fix2_b1 BuildUVMPkg testflags {'8863bec7/rc0': 4}
+law_b2 BuildUVMPkg default {'8863bec7/rc0': 4}
+law_b2 BuildUVMPkg testflags {'8863bec7/rc0': 4}
+fix2_b2 BuildUVMPkg default {'8863bec7/rc0': 4}
+fix2_b2 BuildUVMPkg testflags {'8863bec7/rc0': 4}
+law_b3 BuildUVMPkg default {'8863bec7/rc0': 4}
+law_b3 BuildUVMPkg testflags {'8863bec7/rc0': 4}
+fix2_b3 BuildUVMPkg default {'8863bec7/rc0': 4}
+fix2_b3 BuildUVMPkg testflags {'8863bec7/rc0': 4}
+law_b4 BuildUVMPkg default {'8863bec7/rc0': 4}
+law_b4 BuildUVMPkg testflags {'8863bec7/rc0': 4}
+fix2_b4 BuildUVMPkg default {'8863bec7/rc0': 4}
+fix2_b4 BuildUVMPkg testflags {'8863bec7/rc0': 4}
+DET_DONE

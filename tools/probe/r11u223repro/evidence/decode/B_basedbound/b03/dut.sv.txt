@@ -1,0 +1,5 @@
+// decode only (residue, no law of this pass):
+module dut (output logic [7:0] o);
+  wire [4'h7:0] w = 8'h3;
+  assign o = w;
+endmodule

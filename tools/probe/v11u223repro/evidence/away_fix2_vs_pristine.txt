@@ -1,0 +1,90 @@
+# 25 databases differ between /tmp/v11u223_wP2 and /tmp/v11u223_wF2 (canonical records)
+probe/r10buvm8repro/vxpkg8 chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0
+probe/r10uvm125repro/g125_a_dirs chain_lost=0 chain_toward=10 flat_lost=0 flat_toward=10 flat_unpaired=0
+probe/r10uvm125repro/g125_b_shapes chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0
+probe/r10uvm125repro/g125_d_homes chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0
+probe/r10uvm180repro/g180_a_kinds chain_lost=0 chain_toward=46 flat_lost=0 flat_toward=46 flat_unpaired=0
+probe/r10uvm198repro/g198_a_homes chain_lost=0 chain_toward=5 flat_lost=0 flat_toward=5 flat_unpaired=0
+probe/r10uvm213repro/g213_h_muststay chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3 flat_unpaired=0
+probe/r10uvm32repro/t42a chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6 flat_unpaired=0
+probe/r10uvm35repro/t47a chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0
+probe/r10uvm35repro/t47b chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0
+probe/r10uvm36repro/t48a chain_lost=0 chain_toward=12 flat_lost=2 flat_toward=12 flat_unpaired=0
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 2) logic_typespec|w48_t|||dut.sv|22|11|22|30||||
+     chain off=2 on=0 golden=0 @ ref_typespec: < io_decl:value < function:w48_to_string < package:aa48 < design:work@mm48
+     chain off=2 on=0 golden=0 @ ref_typespec: < io_decl:value < function:w48_to_string < package:zz48 < design:work@mm48
+probe/r10uvm36repro/t48c chain_lost=0 chain_toward=8 flat_lost=0 flat_toward=8 flat_unpaired=0
+probe/r10v180repro/v180_a_share chain_lost=0 chain_toward=8 flat_lost=0 flat_toward=8 flat_unpaired=0
+probe/r10v180repro/v180_e_ret chain_lost=0 chain_toward=12 flat_lost=0 flat_toward=12 flat_unpaired=0
+probe/r10v180repro/v180_i_inst chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0
+probe/r10v208repro/v208_f_io chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0
+surelog/default/BuildUVMPkg chain_lost=0 chain_toward=406 flat_lost=0 flat_toward=406 flat_unpaired=0
+surelog/default/MiniAmiq chain_lost=0 chain_toward=776 flat_lost=73 flat_toward=776 flat_unpaired=0
+  FLAT_LOST 47 (paired in place with a golden record at the same chain: 47) bit_typespec|uvm_reg_addr_t|||uvm_reg_model.svh|73|10|73|31||||
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < task:burst_read < class_defn:uvm_mem < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < function:uvm_reg_map::get_mem_by_offset < interface_inst: < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < task:uvm_mem_region::write < interface_inst: < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < function:configure < class_defn:svaunit_sequencer < class_defn:uvm_sequencer < class_defn:uvm_sequencer_param_base < class_defn:uvm_sequencer_base < class_defn:uvm_component < package:uvm_pkg < design:unnamed
+  FLAT_LOST 9 (paired in place with a golden record at the same chain: 9) bit_typespec|uvm_reg_data_t|||uvm_reg_model.svh|59|10|59|31||||
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:data < task:uvm_reg_block::write_mem_by_name < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ ref_typespec: < io_decl:value < function:predict < class_defn:svaunit_sequencer < class_defn:uvm_sequencer < class_defn:uvm_sequencer_param_base < class_defn:uvm_sequencer_base < class_defn:uvm_component < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:value < task:poke < class_defn:uvm_reg < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:value < function:set < class_defn:uvm_reg < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+  FLAT_LOST 17 (paired in place with a golden record at the same chain: 17) bit_typespec|uvm_reg_byte_en_t|||uvm_reg_model.svh|87|10|87|42||||
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:be < function:uvm_reg_field::predict < package:uvm_pkg < design:unnamed
+     chain off=2 on=0 golden=0 @ ref_typespec: < io_decl:be < function:uvm_reg::predict < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:be < function:uvm_reg::do_predict < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:be < function:do_predict < class_defn:uvm_reg_field < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+surelog/default/Scoreboard chain_lost=0 chain_toward=504 flat_lost=0 flat_toward=504 flat_unpaired=0
+surelog/default/SeqDriver chain_lost=0 chain_toward=862 flat_lost=43 flat_toward=862 flat_unpaired=0
+  FLAT_LOST 25 (paired in place with a golden record at the same chain: 25) bit_typespec|uvm_reg_addr_t|||uvm_reg_model.svh|73|10|73|31||||
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < task:read_mem_by_name < class_defn:uvm_reg_block < class_defn:uvm_object < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < task:write < class_defn:uvm_mem_region < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < function:m_set_mem_offset < class_defn:adpcm_driver < class_defn:uvm_driver < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < function:configure < module_inst: < design:work@top_tb
+  FLAT_LOST 5 (paired in place with a golden record at the same chain: 5) bit_typespec|uvm_reg_data_t|||uvm_reg_model.svh|59|10|59|31||||
+     chain off=2 on=0 golden=0 @ ref_typespec: < io_decl:value < task:uvm_mem::burst_read < package:adpcm_pkg < design:work@top_tb
+     chain off=6 on=0 golden=0 @ ref_typespec: < io_decl:value < task:write < class_defn:adpcm_driver < class_defn:uvm_driver < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:value < task:uvm_reg::peek < package:uvm_pkg < design:work@top_tb
+     chain off=2 on=0 golden=0 @ ref_typespec: < io_decl:value < function:uvm_reg_field::predict < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 13 (paired in place with a golden record at the same chain: 13) bit_typespec|uvm_reg_byte_en_t|||uvm_reg_model.svh|87|10|87|42||||
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:be < function:predict < class_defn:uvm_reg < class_defn:uvm_object < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:be < function:do_predict < class_defn:uvm_reg_indirect_data < class_defn:uvm_reg < class_defn:uvm_object < package:uvm_pkg < design:work@top_tb
+     chain off=2 on=0 golden=0 @ ref_typespec: < io_decl:be < function:uvm_reg_field::predict < package:adpcm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:be < function:uvm_reg_field::do_predict < package:uvm_pkg < design:work@top_tb
+surelog/default/SimpleUVM chain_lost=0 chain_toward=610 flat_lost=0 flat_toward=610 flat_unpaired=0
+surelog/testflags/BuildUVMPkg chain_lost=0 chain_toward=406 flat_lost=0 flat_toward=406 flat_unpaired=0
+surelog/testflags/MiniAmiq chain_lost=0 chain_toward=776 flat_lost=73 flat_toward=776 flat_unpaired=0
+  FLAT_LOST 47 (paired in place with a golden record at the same chain: 47) bit_typespec|uvm_reg_addr_t|||uvm_reg_model.svh|73|10|73|31||||
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < task:burst_read < class_defn:uvm_mem < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < function:uvm_reg_map::get_mem_by_offset < interface_inst: < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < task:uvm_mem_region::write < interface_inst: < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < function:configure < class_defn:svaunit_sequencer < class_defn:uvm_sequencer < class_defn:uvm_sequencer_param_base < class_defn:uvm_sequencer_base < class_defn:uvm_component < package:uvm_pkg < design:unnamed
+  FLAT_LOST 9 (paired in place with a golden record at the same chain: 9) bit_typespec|uvm_reg_data_t|||uvm_reg_model.svh|59|10|59|31||||
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:data < task:uvm_reg_block::write_mem_by_name < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ ref_typespec: < io_decl:value < function:predict < class_defn:svaunit_sequencer < class_defn:uvm_sequencer < class_defn:uvm_sequencer_param_base < class_defn:uvm_sequencer_base < class_defn:uvm_component < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:value < task:poke < class_defn:uvm_reg < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:value < function:set < class_defn:uvm_reg < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+  FLAT_LOST 17 (paired in place with a golden record at the same chain: 17) bit_typespec|uvm_reg_byte_en_t|||uvm_reg_model.svh|87|10|87|42||||
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:be < function:uvm_reg_field::predict < package:uvm_pkg < design:unnamed
+     chain off=2 on=0 golden=0 @ ref_typespec: < io_decl:be < function:uvm_reg::predict < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:be < function:uvm_reg::do_predict < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:be < function:do_predict < class_defn:uvm_reg_field < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+surelog/testflags/SeqDriver chain_lost=0 chain_toward=862 flat_lost=43 flat_toward=862 flat_unpaired=0
+  FLAT_LOST 25 (paired in place with a golden record at the same chain: 25) bit_typespec|uvm_reg_addr_t|||uvm_reg_model.svh|73|10|73|31||||
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < task:read_mem_by_name < class_defn:uvm_reg_block < class_defn:uvm_object < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < task:write < class_defn:uvm_mem_region < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < function:m_set_mem_offset < class_defn:adpcm_driver < class_defn:uvm_driver < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:offset < function:configure < module_inst: < design:work@top_tb
+  FLAT_LOST 5 (paired in place with a golden record at the same chain: 5) bit_typespec|uvm_reg_data_t|||uvm_reg_model.svh|59|10|59|31||||
+     chain off=2 on=0 golden=0 @ ref_typespec: < io_decl:value < task:uvm_mem::burst_read < package:adpcm_pkg < design:work@top_tb
+     chain off=6 on=0 golden=0 @ ref_typespec: < io_decl:value < task:write < class_defn:adpcm_driver < class_defn:uvm_driver < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:value < task:uvm_reg::peek < package:uvm_pkg < design:work@top_tb
+     chain off=2 on=0 golden=0 @ ref_typespec: < io_decl:value < function:uvm_reg_field::predict < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 13 (paired in place with a golden record at the same chain: 13) bit_typespec|uvm_reg_byte_en_t|||uvm_reg_model.svh|87|10|87|42||||
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:be < function:predict < class_defn:uvm_reg < class_defn:uvm_object < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:be < function:do_predict < class_defn:uvm_reg_indirect_data < class_defn:uvm_reg < class_defn:uvm_object < package:uvm_pkg < design:work@top_tb
+     chain off=2 on=0 golden=0 @ ref_typespec: < io_decl:be < function:uvm_reg_field::predict < package:adpcm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=0 @ ref_typespec: < io_decl:be < function:uvm_reg_field::do_predict < package:uvm_pkg < design:work@top_tb
+surelog/testflags/SimpleUVM chain_lost=0 chain_toward=610 flat_lost=0 flat_toward=610 flat_unpaired=0
+TOTAL chain_lost=0 chain_toward=5942 flat_lost=234 flat_toward=5942 flat_unpaired=0

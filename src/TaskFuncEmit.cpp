@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <vector>
 #include "R204.h"
+#include "R223.h"
 
 namespace slang_uhdm {
 
@@ -3658,6 +3659,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     if (pts0) {
                         mkPrt34()->Actual_typespec(pts0);
                         pio->Typespec(prt0);
+                        // § tfArgScalarTdWriter223 — the pure virtual
+                        // prototype's formal (compileTfPortList over the
+                        // prototype's own list).
+                        if (ptsyn &&
+                            ptsyn->kind == syntax::SyntaxKind::NamedType &&
+                            ptsyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                                syntax::SyntaxKind::IdentifierName &&
+                            r11u223Law("R11U223_SCALARTDTOK_OFF"))
+                            formalTdTok223().push_back({prt0, ptsyn->sourceRange()});
                     }
                     // § pureVirtIoRanges34 — the prototype's formal carries
                     // the SAME io_decl ranges a defined method's does; the
@@ -5516,6 +5526,53 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName + sep + std::string(arg->name));
             rt->VpiParent(io);
+            // § tfArgScalarTdWriter223 (r11u223) — record an ANSI formal
+            // whose data type is a bare type identifier (`UVM_FILE file`,
+            // `input my_byte_t b`), with the identifier's range: the
+            // design-final pass in UhdmExporter::exportDesign places the
+            // formal's per-declaration scalar typedef copy there (law and
+            // decode at that pass).  A DPI-imported or DPI-exported
+            // subroutine is not recorded (its formal types take other
+            // objects in golden: tfArgDpiNoWrite146v, § 153's export).
+            if (argTsyn && argTsyn->kind == syntax::SyntaxKind::NamedType &&
+                argTsyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                    syntax::SyntaxKind::IdentifierName &&
+                !(sub.flags & MethodFlags::DPIImport) &&
+                r11u223Law("R11U223_SCALARTDTOK_OFF")) {
+                bool ansi223 = false;
+                for (auto q223 = arg->getSyntax(); q223; q223 = q223->parent) {
+                    if (q223->kind == syntax::SyntaxKind::FunctionPort) {
+                        ansi223 = true;
+                        break;
+                    }
+                    if (q223->kind == syntax::SyntaxKind::PortDeclaration ||
+                        q223->kind == syntax::SyntaxKind::FunctionDeclaration ||
+                        q223->kind == syntax::SyntaxKind::TaskDeclaration)
+                        break;
+                }
+                // § tfArgScalarTdExportFirst223 — a subroutine whose
+                // `export "DPI-C"` declaration PRECEDES its definition in the
+                // same scope keeps the typedef's LISTING object on its formal
+                // in golden (the export's prototype takes the ports first,
+                // § tfArgDpiExportFirstNoWrite153v's decode; grid cases/F
+                // f21 before, f24 after, where golden writes the token).
+                // Switch R11U223_SCALARTDEXP_OFF.
+                if (ansi223 && r11u223Law("R11U223_SCALARTDEXP_OFF"))
+                    if (auto* sn223 = sub.getSyntax(); sn223 && sn223->parent) {
+                        std::string_view fn223 = sub.name;
+                        for (size_t i = 0; i < sn223->parent->getChildCount(); i++)
+                            if (auto* c223 = sn223->parent->childNode(i);
+                                c223 && c223->kind == syntax::SyntaxKind::DPIExport &&
+                                c223->as<syntax::DPIExportSyntax>().name.valueText() ==
+                                    fn223 &&
+                                c223->sourceRange().start().buffer() ==
+                                    sn223->sourceRange().start().buffer() &&
+                                c223->sourceRange().start() < sn223->sourceRange().start())
+                                ansi223 = false;
+                    }
+                if (ansi223)
+                    formalTdTok223().push_back({rt, argTsyn->sourceRange()});
+            }
             // A PACKAGE subroutine's formal typespecs are resolved in the
             // package's scope, so every one of them — including the fresh
             // per-formal typedef CLONES the branches below mint — carries the

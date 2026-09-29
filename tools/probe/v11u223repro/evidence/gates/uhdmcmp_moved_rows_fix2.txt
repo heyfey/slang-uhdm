@@ -1,0 +1,10 @@
+MiniAmiq default uhdm-cmp rc=0 lines=0
+MiniAmiq testflags uhdm-cmp rc=0 lines=0
+SeqDriver default uhdm-cmp rc=0 lines=0
+SeqDriver testflags uhdm-cmp rc=0 lines=0
+SimpleUVM default uhdm-cmp rc=0 lines=0
+SimpleUVM testflags uhdm-cmp rc=0 lines=0
+Scoreboard default uhdm-cmp rc=0 lines=0
+BuildUVMPkg default uhdm-cmp rc=0 lines=0
+BuildUVMPkg testflags uhdm-cmp rc=0 lines=0
+CMP_DONE

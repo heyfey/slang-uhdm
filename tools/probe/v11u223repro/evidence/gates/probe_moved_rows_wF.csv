@@ -1,0 +1,6 @@
+r10uvm125repro/g125_b_shapes,EQUAL,,equal
+r10uvm125repro/g125_d_homes,EQUAL,,equal
+r10uvm35repro/t47a,EQUAL,,equal
+r10uvm35repro/t47b,EQUAL,,equal
+r10uvm36repro/t48a,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+r10uvm36repro/t48c,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)

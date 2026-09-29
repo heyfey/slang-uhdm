@@ -1,0 +1,9 @@
+#24915 line
+  A: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	332	40	332	56				
+  B: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	1381	51	1381	67				
+#24917 depth
+  A: 7	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode			uvm_object_globals.svh	359	1	367	26				
+  B: 6	enum_const	UVM_SEQ_ARB_FIFO			uvm_object_globals.svh	361	3	361	19				
+objects 435559 vs 433835
+fields: depth=1 type=1 name=1 line=2 col=2 endline=2 endcol=2 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL line

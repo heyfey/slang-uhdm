@@ -1,0 +1,8 @@
+// decode only (residue, no law of this pass):
+module dut (output logic [7:0] o);
+  logic [8'd7:0] a;
+  logic [3'b111:3'b000] b;
+  assign a = 8'h5;
+  assign b = a;
+  assign o = b;
+endmodule

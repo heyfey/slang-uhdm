@@ -1,0 +1,6 @@
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/MiniAmiq-055eab74/slang.uhdm  patched=7f3c00036fa5 pristine=bb1109be0d09
+MOVER ./surelog/testflags/MiniAmiq-055eab74/slang.uhdm  patched=7f3c00036fa5 pristine=bb1109be0d09
+MOVERS: 2 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged

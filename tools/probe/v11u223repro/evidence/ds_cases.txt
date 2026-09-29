@@ -1,0 +1,20 @@
+case	pristine verdict	law verdict (fix2 writes the law's parse-view bytes)
+v11u223repro/cases/A/a07_pkgfunc_calls	IDENTICAL	IDENTICAL
+v11u223repro/cases/A/a09_iface_gen	IDENTICAL	IDENTICAL
+v11u223repro/cases/A/a12_explicit_import	IDENTICAL	IDENTICAL
+v11u223repro/cases/A/a24_elab_twice	IDENTICAL	IDENTICAL
+v11u223repro/cases/B/b04_size_elab	DIVERGENT	DIVERGENT
+v11u223repro/cases/B/b05_downstream	EQUIVALENT	IDENTICAL
+v11u223repro/cases/B/b06_bitbyte	IDENTICAL	IDENTICAL
+v11u223repro/cases/B/b06_class	IDENTICAL	IDENTICAL
+v11u223repro/cases/B/b06_queueinner	IDENTICAL	IDENTICAL
+v11u223repro/cases/B/b06_string	IDENTICAL	IDENTICAL
+v11u223repro/cases/B/b06_struct	STATUS_DIFF	STATUS_DIFF
+v11u223repro/cases/B/b06_wild	IDENTICAL	IDENTICAL
+v11u223repro/cases/S/s01_mask_signed	DIVERGENT	DIVERGENT
+v11u223repro/cases/S/s02_typedef_packed2d_net	DIVERGENT	DIVERGENT
+v11u223repro/cases/S/s03_param_inst	DIVERGENT	DIVERGENT
+v11u223repro/cases/S/s04_iface_gen	DIVERGENT	DIVERGENT
+v11u223repro/cases/S/s05_enum_int_arrays	DIVERGENT	DIVERGENT
+v11u223repro/cases/S/s06_port_unpacked	DIVERGENT	DIVERGENT
+v11u223repro/cases/S/s07_expr_notwhole	DIVERGENT	DIVERGENT

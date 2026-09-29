@@ -1,0 +1,31 @@
+case-view	pristine(strict|cmplines|rc)	law	fix2	fix2 = law bytes	fix2 R11V223_OFF = law bytes	fix2 R11U223_OFF = pristine bytes
+tp/r11u219repro/cases/S/s01_2d	STRICT_EQUAL_229_objects|0|0	STRICT_EQUAL_229_objects|0|0	STRICT_EQUAL_229_objects|0|0	yes	yes	yes
+tp/r11u219repro/cases/S/s01_2d_el	STRICT_EQUAL_190_objects|0|0	STRICT_EQUAL_190_objects|0|0	STRICT_EQUAL_190_objects|0|0	yes	yes	yes
+tp/r11u219repro/cases/S/s02_gen_iface	STRICT_EQUAL_221_objects|0|0	STRICT_EQUAL_221_objects|0|0	STRICT_EQUAL_221_objects|0|0	yes	yes	yes
+tp/r11u219repro/cases/S/s02_gen_iface_el	STRICT_EQUAL_214_objects|0|0	STRICT_EQUAL_214_objects|0|0	STRICT_EQUAL_214_objects|0|0	yes	yes	yes
+tp/r11u219repro/cases/S/s03_struct_dimarg	NOT_EQUAL_stage1|1594|0	NOT_EQUAL_stage1|1594|0	NOT_EQUAL_stage1|1594|0	yes	yes	yes
+tp/r11u219repro/cases/S/s03_struct_dimarg_el	NOT_EQUAL_stage1|1514|0	NOT_EQUAL_stage1|1514|0	NOT_EQUAL_stage1|1514|0	yes	yes	yes
+tp/r11u219repro/cases/S/s04_shapes	NOT_EQUAL_stage1|3742|0	NOT_EQUAL_stage1|3742|0	NOT_EQUAL_stage1|3742|0	yes	yes	yes
+tp/r11u219repro/cases/S/s04_shapes_el	NOT_EQUAL_stage1|3462|0	NOT_EQUAL_stage1|3462|0	NOT_EQUAL_stage1|3462|0	yes	yes	yes
+tp/r11u219repro/cases/S/s05_more	NOT_EQUAL_stage1|17|0	NOT_EQUAL_stage1|17|0	NOT_EQUAL_stage1|17|0	yes	yes	yes
+tp/r11u219repro/cases/S/s05_more_el	NOT_EQUAL_stage1|17|0	NOT_EQUAL_stage1|17|0	NOT_EQUAL_stage1|17|0	yes	yes	yes
+tp/v11u219repro/cases/S/s01_dyn_inner	SURELOG_FAIL|-|0	SURELOG_FAIL|-|0	SURELOG_FAIL|-|0	n/a (no database or no golden: bytes compared by cmp, README 3)	n/a (no database or no golden: bytes compared by cmp, README 3)	n/a (no database or no golden: bytes compared by cmp, README 3)
+tp/v11u219repro/cases/S/s01_dyn_inner_el	SURELOG_FAIL|-|139	SURELOG_FAIL|-|0	SURELOG_FAIL|-|0	n/a (no database or no golden: bytes compared by cmp, README 3)	n/a (no database or no golden: bytes compared by cmp, README 3)	n/a (no database or no golden: bytes compared by cmp, README 3)
+tp/v11u219repro/cases/S/s01b_queue_inner	SURELOG_FAIL|-|0	SURELOG_FAIL|-|0	SURELOG_FAIL|-|0	n/a (no database or no golden: bytes compared by cmp, README 3)	n/a (no database or no golden: bytes compared by cmp, README 3)	n/a (no database or no golden: bytes compared by cmp, README 3)
+tp/v11u219repro/cases/S/s01b_queue_inner_el	SURELOG_FAIL|-|139	SURELOG_FAIL|-|0	SURELOG_FAIL|-|0	n/a (no database or no golden: bytes compared by cmp, README 3)	n/a (no database or no golden: bytes compared by cmp, README 3)	n/a (no database or no golden: bytes compared by cmp, README 3)
+tp/v11u219repro/cases/S/s01c_assoc_inner	NOT_EQUAL_stage1|56|0	NOT_EQUAL_stage1|56|0	NOT_EQUAL_stage1|56|0	yes	yes	yes
+tp/v11u219repro/cases/S/s01c_assoc_inner_el	SLANG_FAIL|-|139	NOT_EQUAL_stage1|56|0	NOT_EQUAL_stage1|56|0	yes	yes	n/a (no database or no golden: bytes compared by cmp, README 3)
+tp/v11u219repro/cases/S/s02_dim_forms	STRICT_EQUAL_344_objects|0|0	STRICT_EQUAL_344_objects|0|0	STRICT_EQUAL_344_objects|0|0	yes	yes	yes
+tp/v11u219repro/cases/S/s02_dim_forms_el	STRICT_EQUAL_278_objects|0|0	STRICT_EQUAL_278_objects|0|0	STRICT_EQUAL_278_objects|0|0	yes	yes	yes
+tp/v11u219repro/cases/S/s03_typedef_arr	NOT_EQUAL_stage1|17|0	NOT_EQUAL_stage1|17|0	NOT_EQUAL_stage1|17|0	yes	yes	yes
+tp/v11u219repro/cases/S/s03_typedef_arr_el	NOT_EQUAL_stage1|17|0	NOT_EQUAL_stage1|17|0	NOT_EQUAL_stage1|17|0	yes	yes	yes
+tp/v11u219repro/cases/S/s04_enum_packedstruct	NOT_EQUAL_stage1|62|0	NOT_EQUAL_stage1|62|0	NOT_EQUAL_stage1|62|0	yes	yes	yes
+tp/v11u219repro/cases/S/s04_enum_packedstruct_el	NOT_EQUAL_stage1|32|0	NOT_EQUAL_stage1|17|0	NOT_EQUAL_stage1|17|0	yes	yes	yes
+tp/v11u219repro/cases/S/s05_iface_gen	STRICT_EQUAL_313_objects|0|0	STRICT_EQUAL_313_objects|0|0	STRICT_EQUAL_313_objects|0|0	yes	yes	yes
+tp/v11u219repro/cases/S/s05_iface_gen_el	STRICT_EQUAL_305_objects|0|0	STRICT_EQUAL_305_objects|0|0	STRICT_EQUAL_305_objects|0|0	yes	yes	yes
+tp/v11u219repro/cases/S/s06_contassign_untouched	NOT_EQUAL_stage1|45|0	NOT_EQUAL_stage1|45|0	NOT_EQUAL_stage1|45|0	yes	yes	yes
+tp/v11u219repro/cases/S/s06_contassign_untouched_el	NOT_EQUAL_stage1|45|0	NOT_EQUAL_stage1|45|0	NOT_EQUAL_stage1|45|0	yes	yes	yes
+tp/v11u219repro/cases/S/s07_bit_int_kinds	STRICT_EQUAL_262_objects|0|0	STRICT_EQUAL_262_objects|0|0	STRICT_EQUAL_262_objects|0|0	yes	yes	yes
+tp/v11u219repro/cases/S/s07_bit_int_kinds_el	STRICT_EQUAL_210_objects|0|0	STRICT_EQUAL_210_objects|0|0	STRICT_EQUAL_210_objects|0|0	yes	yes	yes
+tp/v11u219repro/cases/S/s08_bit_packed2d	NOT_EQUAL_stage1|46|0	NOT_EQUAL_stage1|46|0	NOT_EQUAL_stage1|46|0	yes	yes	yes
+tp/v11u219repro/cases/S/s08_bit_packed2d_el	NOT_EQUAL_stage1|32|0	STRICT_EQUAL_180_objects|0|0	STRICT_EQUAL_180_objects|0|0	yes	yes	yes

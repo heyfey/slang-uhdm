@@ -1,0 +1,26 @@
+#26855 line
+  A: 5	class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42				
+  B: 5	class_typespec	this_type			uvm_pkg.sv	56391	12	56391	32				
+#42260 endcol
+  A: 4	assignment				uvm_pkg.sv	70758	4	70758	50				
+  B: 4	assignment				uvm_pkg.sv	70758	4	70758	52				
+#42261 endcol
+  A: 5	constant				uvm_pkg.sv	70758	21	70758	50	"Allocated memory regions:\n"	216	STRING:Allocated memory regions:\n	6
+  B: 5	constant				uvm_pkg.sv	70758	21	70758	52	"Allocated memory regions:\n"	216	STRING:Allocated memory regions:\n	6
+#54397 fullname
+  A: 9	ref_obj	n_bytes			uvm_pkg.sv	76197	25	76197	32		0		
+  B: 9	ref_obj	n_bytes		uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::n_bytes	uvm_pkg.sv	76197	25	76197	32		0		
+#54398 fullname
+  A: 9	ref_obj	bus_width			uvm_pkg.sv	76197	33	76197	42		0		
+  B: 9	ref_obj	bus_width		uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::bus_width	uvm_pkg.sv	76197	33	76197	42		0		
+#55520 endline
+  A: 13	constant				uvm_pkg.sv	76494	54	76494	331	"this version of UVM does not properly support memories with \
+a smaller word width than the enclosing map. map %s has n_bytes=%0d aub=%0d while the mem has get_n_bytes %0d. \
+multiple memory words fall into one bus address. if that happens memory addressing will be unpacked."	2200	STRING:this version of UVM does not properly support memories with \
+a smaller word width than the enclosing map. map %s has n_bytes=%0d aub=%0d while the mem has get_n_bytes %0d. \
+multiple memory words fall into one bus address. if that happens memory addressing will be unpacked.	6
+  B: 13	constant				uvm_pkg.sv	76494	54	76496	102	"this version of UVM does not properly support memories with \
+a smaller word width than the enclosing map. map %s has n_bytes=%0d aub=%0d while the mem has get_n_bytes %0d. \
+multiple memory words fall into one bus address. if that happens memory addressing will be unpacked."	2200	STRING:this version of UVM does not properly support memories with \
+a smaller word width than the enclosing map. map %s has n_bytes=%0d aub=%0d while the mem has get_n_bytes %0d. \
+multiple memory words fall into one bus address. if that happens memory addressing will be unpacked.	6

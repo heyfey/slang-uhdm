@@ -1,0 +1,13 @@
+// decode only (residue, no law of this pass):
+package p;
+  typedef enum {A0, A1} m_e;
+  class c;
+    extern function void set(m_e v);
+  endclass
+  function void c::set(m_e v);
+  endfunction
+endpackage
+module top;
+  import p::*;
+  m_e s;
+endmodule

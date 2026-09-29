@@ -1,0 +1,7 @@
+/tmp/r11u223_wF MiniAmiq/default dist=5238 mfc_file_away=12 golden_records=435569 ours_records=433845
+/tmp/r11u223_wF MiniAmiq/testflags dist=5238 mfc_file_away=12 golden_records=435569 ours_records=433845
+/tmp/r11u223_wF SeqDriver/default dist=3779 mfc_file_away=12 golden_records=475526 ours_records=474740
+/tmp/r11u223_wF SeqDriver/testflags dist=3779 mfc_file_away=12 golden_records=475538 ours_records=474752
+/tmp/r11u223_wF SimpleUVM/default dist=934 mfc_file_away=12 golden_records=334285 ours_records=334559
+/tmp/r11u223_wF SimpleUVM/testflags dist=934 mfc_file_away=12 golden_records=334297 ours_records=334571
+/tmp/r11u223_wF Scoreboard/default dist=601 mfc_file_away=12 golden_records=269656 ours_records=269853

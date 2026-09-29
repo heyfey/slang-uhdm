@@ -1,0 +1,24 @@
+#15303 file
+  A: 5	int_typespec	UVM_FILE			uvm_root.svh	348	39	348	47				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#18345 file
+  A: 5	int_typespec	UVM_FILE			uvm_component.svh	2250	61	2250	69				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#18366 file
+  A: 5	int_typespec	UVM_FILE			uvm_component.svh	2260	60	2260	68				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#18388 file
+  A: 5	int_typespec	UVM_FILE			uvm_component.svh	2270	66	2270	74				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#18424 file
+  A: 5	int_typespec	UVM_FILE			uvm_component.svh	2282	65	2282	73				
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12				
+#24898 line
+  A: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	332	40	332	56				
+  B: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	1381	51	1381	67				
+#24900 depth
+  A: 7	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode			uvm_object_globals.svh	359	1	367	26				
+  B: 6	enum_const	UVM_SEQ_ARB_FIFO			uvm_object_globals.svh	361	3	361	19				
+objects 475526 vs 474740
+fields: depth=1 type=1 name=1 file=5 line=7 col=7 endline=7 endcol=7 objects_differing=7 (walk diverged)
+STRICT_NOTEQUAL file

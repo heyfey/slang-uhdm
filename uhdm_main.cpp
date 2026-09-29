@@ -6,6 +6,7 @@
 //------------------------------------------------------------------------------
 #include "BuiltinSv.h"
 #include "UhdmExporter.h"
+#include "src/R223.h"
 
 #include <cstdio>
 #include <filesystem>
@@ -17,6 +18,9 @@
 #include <vector>
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/SynthSubset.h>
+#include <uhdm/chandle_var.h>
+#include <uhdm/ExprEval.h>
+#include <algorithm>
 #include <uhdm/UhdmAdjuster.h>
 #include <uhdm/uhdm.h>
 
@@ -1134,8 +1138,149 @@ static int realMain(int argc, char** argv) {
             elaboratorContext.m_elaborator.uniquifyTypespec(false);
             elaboratorContext.m_elaborator.listenDesigns(designs);
 
+            // § unsizedInnerSizeDeclines223 (r11u223, pass 219's residue: the
+            // elaborated view's rc 139 on `$size` of `int md [4][]` / `int
+            // mq [4][$]`) — an array_var whose first unsized dimension is
+            // dynamic or a queue behind a fixed one carries no vpiReg element
+            // in golden (tools/probe/r11u223repro/cases/C c02, c03, c07), and
+            // UHDM's ExprEval::size reads `array_var->Variables()->at(0)`
+            // unguarded, so the adjuster's `$size`/`$bits` fold segfaulted
+            // (Surelog itself fails on those cases).  For the adjuster's run
+            // only, every array_var without an element holds a placeholder
+            // element of a kind ExprEval::size does not size (a chandle_var,
+            // its default arm: invalidValue), so the fold declines and the
+            // call stays; the placeholder lives outside the serializer and is
+            // removed right after, so no written byte can come from it.
+            // Switch R11U223_SIZEDECLINE_OFF.
+            std::vector<UHDM::array_var*> noElem223;
+            static UHDM::chandle_var placeholder223;
+            static std::vector<UHDM::variables*> phVec223{&placeholder223};
+            // § sizeDeclineTsInvalid223v (v11u223, the adversarial verification
+            // of r11u223) — ExprEval::size's array_var arm does not size the
+            // element variable itself: it sizes `regv->Typespec()`'s actual,
+            // so a placeholder with no typespec adds 0 bits WITHOUT setting
+            // invalidValue; the `$size` generic handler then multiplies 0 by
+            // the array's last range and the adjuster wrote the invented
+            // constant `UINT:0` in place of the call (r11u223repro S/s02,
+            // v11u219repro S/s01 and s01b: `$size` of `int md [4][]` came
+            // out `UINT:0`, sized 8 and location-less by
+            // § ndaAdjSizeFoldSized223, where the dimension's size is 4 and
+            // Surelog writes no database).  The placeholder now carries a
+            // chandle_typespec, a kind ExprEval::size does not size (its
+            // default arm sets invalidValue), so
+            // updateParentWithReducedExpression returns and the call stays,
+            // as the law intends.  Both objects live outside the serializer
+            // like the placeholder.  Switch R11V223_SIZEINVALID_OFF
+            // (R11V223_OFF drops every v11u223 refinement).
+            static UHDM::ref_typespec phRt223v;
+            static UHDM::chandle_typespec phTs223v;
+            if (slang_uhdm::r11v223Law("R11V223_SIZEINVALID_OFF")) {
+                phRt223v.Actual_typespec(&phTs223v);
+                placeholder223.Typespec(&phRt223v);
+            } else {
+                placeholder223.Typespec(nullptr);
+            }
+            if (slang_uhdm::r11u223Law("R11U223_SIZEDECLINE_OFF")) {
+                for (auto& kv : serializer.AllObjects())
+                    if (kv.first && kv.first->UhdmType() == UHDM::uhdmarray_var) {
+                        auto* av223 = (UHDM::array_var*)kv.first;
+                        if (!av223->Variables()) {
+                            noElem223.push_back(av223);
+                            av223->Variables(&phVec223);
+                        }
+                    }
+            }
+            // § ndaAdjSizeFoldSized223 (r11u223, pass 219's residue: golden's
+            // generic-handler `$size` values, v11u219 cases S s04 s08) — a
+            // net declaration's whole-initializer `$size` call that
+            // § ndaSizeQueryFold216's reach declines is left to the adjuster,
+            // whose ExprEval reduce writes golden's VALUE (the generic handler
+            // included) but at the call's span with size 64; Surelog's
+            // writeCont_assign folds it before writing, and adjustSize masks
+            // and sizes it to the net, location-less, parented at the
+            // assignment (golden s08 `UINT:2` size 8, no span).  The same
+            // shape § ndaSizeQueryFold216 writes itself.  Recorded here after
+            // the elaborator (the objects the adjuster sees), applied after
+            // the adjuster to the constant that replaced the call.  Switch
+            // R11U223_ADJSIZE_OFF.
+            struct AdjSz223 {
+                UHDM::cont_assign* ca;
+                const UHDM::any* call;
+                int64_t width;
+            };
+            std::vector<AdjSz223> adjSz223;
+            if (slang_uhdm::r11u223Law("R11U223_ADJSIZE_OFF")) {
+                std::vector<UHDM::cont_assign*> cas223;
+                for (auto& kv : serializer.AllObjects())
+                    if (kv.first && kv.first->UhdmType() == UHDM::uhdmcont_assign)
+                        cas223.push_back((UHDM::cont_assign*)kv.first);
+                std::sort(cas223.begin(), cas223.end(),
+                          [](const UHDM::cont_assign* a, const UHDM::cont_assign* b) {
+                              return a->UhdmId() < b->UhdmId();
+                          });
+                for (auto* ca : cas223) {
+                    if (!ca->VpiNetDeclAssign() || !ca->Rhs() || !ca->Lhs() ||
+                        ca->Rhs()->UhdmType() != UHDM::uhdmsys_func_call ||
+                        ((const UHDM::sys_func_call*)ca->Rhs())->VpiName() != "$size")
+                        continue;
+                    const UHDM::any* lhs = ca->Lhs();
+                    const UHDM::ref_typespec* lrt = nullptr;
+                    if (lhs->UhdmType() == UHDM::uhdmlogic_net)
+                        lrt = ((const UHDM::logic_net*)lhs)->Typespec();
+                    const UHDM::logic_typespec* lts =
+                        lrt ? lrt->Actual_typespec<UHDM::logic_typespec>() : nullptr;
+                    if (!lts)
+                        continue;
+                    int64_t w = 1;
+                    bool ok = true;
+                    if (auto* rs = lts->Ranges())
+                        for (auto* r : *rs) {
+                            auto* l = r ? r->Left_expr<UHDM::constant>() : nullptr;
+                            auto* rr = r ? r->Right_expr<UHDM::constant>() : nullptr;
+                            if (!l || !rr) {
+                                ok = false;
+                                break;
+                            }
+                            UHDM::ExprEval ev;
+                            bool inv = false;
+                            int64_t lv = ev.get_value(inv, l), rv = ev.get_value(inv, rr);
+                            if (inv) {
+                                ok = false;
+                                break;
+                            }
+                            w *= (lv > rv ? lv - rv : rv - lv) + 1;
+                        }
+                    if (ok && w > 0)
+                        adjSz223.push_back({ca, ca->Rhs(), w});
+                }
+            }
             UHDM::UhdmAdjuster adjuster(&serializer, design);
             adjuster.listenDesigns(designs);
+            for (auto* av223 : noElem223)
+                if (av223->Variables() == &phVec223)
+                    av223->Variables(nullptr);
+            for (auto& a223 : adjSz223) {
+                auto* c = a223.ca->Rhs();
+                if (!c || c == a223.call || c->UhdmType() != UHDM::uhdmconstant)
+                    continue;
+                auto* k = (UHDM::constant*)c;
+                std::string_view v = k->VpiValue();
+                if (v.rfind("UINT:", 0) != 0)
+                    continue;
+                uint64_t uv = strtoull(std::string(v.substr(5)).c_str(), nullptr, 10);
+                if (a223.width < 64)
+                    uv &= (((uint64_t)1 << a223.width) - 1);
+                k->VpiValue("UINT:" + std::to_string(uv));
+                k->VpiDecompile(std::to_string(uv));
+                k->VpiSize((int32_t)a223.width);
+                k->VpiFile("");
+                k->VpiLineNo(0);
+                k->VpiColumnNo(0);
+                k->VpiEndLineNo(0);
+                k->VpiEndColumnNo(0);
+                k->VpiParent(a223.ca);
+                slang_uhdm::tr223("ndaAdjSizeFoldSized223", std::string(a223.ca->Lhs()->VpiName()));
+            }
 
             // § genCaCastFoldAdjustSize106 (r10earl106) — the CONSUMER half of
             // Surelog's `UhdmWriter::writeCont_assign`.  It has to run HERE,
