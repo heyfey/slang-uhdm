@@ -1,0 +1,8 @@
+MOVER surelog/default/InterfArrayBind-a617199d/
+MOVER surelog/default/Scoreboard-72aa0ba8/
+MOVER surelog/testflags/InterfArrayBind-a617199d/
+MOVER uhdm2rtlil/default/OutputSizeWithParameterOfInstanceInitializedByStructMember-ebb7cf91/
+MOVER uhdm2rtlil/testflags/OutputSizeWithParameterOfInstanceInitializedByStructMember-ebb7cf91/
+# corpus row-mode dirs compared 3316, fenced skipped unread 8, probe databases 4087
+DMOVER downstream/OutputSizeWithParameterOfInstanceInitializedByStructMember
+# downstream lanes compared 805 (both sweeps wrote a database), no database in either 66, fenced skipped unread 0

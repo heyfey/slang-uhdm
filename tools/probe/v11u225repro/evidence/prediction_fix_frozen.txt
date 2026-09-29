@@ -1,0 +1,11 @@
+# v11u225 prediction for the fix binary (/tmp/v11u225_bin/fix = law + § fillSymbolicRootOnly225v), written from the
+# firing census of the fix binary (drivers/census.sh, R11U225_TRACE, fenced rows filtered out) BEFORE its gate sweep.
+# The refinement's trigger is its own trace line `fillSymbolicRootOnly225v`: it fired on no corpus row-mode, no probe
+# case and no downstream lane, so the fix binary moves NO gate database against the law binary.
+# Against pristine the fix binary moves exactly the law's five databases:
+downstream/OutputSizeWithParameterOfInstanceInitializedByStructMember initHierAtRefToken225:6 initHierCaLhsBareName225:1 initHierFillKept225:1
+surelog/default/InterfArrayBind ifArrElemLitCaFresh225:1
+surelog/testflags/InterfArrayBind ifArrElemLitCaFresh225:1
+uhdm2rtlil/default/OutputSizeWithParameterOfInstanceInitializedByStructMember initHierAtRefToken225:6 initHierCaLhsBareName225:1 initHierFillKept225:1
+uhdm2rtlil/testflags/OutputSizeWithParameterOfInstanceInitializedByStructMember initHierAtRefToken225:6 initHierCaLhsBareName225:1 initHierFillKept225:1
+# plus the known symbol-table coins (MiniAmiq d/t, Scoreboard d), attributed order-blind if they move.

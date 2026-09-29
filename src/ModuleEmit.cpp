@@ -29,6 +29,7 @@
 #include "R204.h"
 #include "R217.h"
 #include "R221.h"
+#include "R225.h"
 
 namespace slang_uhdm {
 
@@ -40876,6 +40877,107 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                             cas164.delay && delayParamSym90(cas164.delay, &body);
                         break;
                     }
+        // § ifArrElemLitCaFresh225 (r11u225; InterfArrayBind d, map N0427,
+        // the module-scope half r11u205's § elabIfArrIdxChainName205 left:
+        // r11u220 section 6.1) — a continuous assignment of a LITERAL onto a
+        // member of an interface-ARRAY element at module scope
+        // (`assign peripheral_io_bus[IO_ONES].write_en = 32'hffffffff;`) is
+        // re-compiled by Surelog's netlist pass: golden's elaborated listing
+        // holds a FRESH cont_assign whose Lhs is a fresh hier_path (its
+        // base-select index named through the path text,
+        // `work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES`, the name
+        // § elabIfArrIdxChainName205 writes) and whose Rhs is the definition's
+        // constant OBJECT (listed once, under the definition's cont_assign);
+        // ours shared the definition cont_assign, whose index carries the
+        // definition's scoped name.  A right side that reads anything keeps
+        // the shared object (cases/IA i03, i07).  Grid
+        // tools/probe/r11u225repro/cases/IA.  Switch R11U225_IFARRELEMCA_OFF.
+        bool ifArrElemLit225 = false;
+        if (topView && literalRhs && shareWithDef && defInfo &&
+            myIdx < defInfo->contAssigns.size() &&
+            defInfo->contAssigns[myIdx] &&
+            defInfo->contAssigns[myIdx]->Rhs() &&
+            defInfo->contAssigns[myIdx]->Rhs()->UhdmType() ==
+                UHDM::uhdmconstant &&
+            !defInfo->contAssigns[myIdx]->Delay() &&
+            !plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs &&
+            !selLitLhs && !callFold && !ternFold9 && !ternArm9 &&
+            !unbasedShareRhs && !caReuseParamConst9 && !sysFold &&
+            !dlyParamFresh164 && r11u225Law("R11U225_IFARRELEMCA_OFF")) {
+            auto& l225 = stripImplicitConv(ae.left());
+            if (l225.kind == ExpressionKind::HierarchicalValue) {
+                std::string lraw225(rawText(l225.sourceRange));
+                auto lb225 = lraw225.find('[');
+                auto dot225 = lraw225.find('.');
+                if (lb225 != std::string::npos && dot225 != std::string::npos &&
+                    lb225 > 0 && lb225 < dot225)
+                    if (auto* bs225 = body.find(lraw225.substr(0, lb225));
+                        bs225 && bs225->kind == SymbolKind::InstanceArray) {
+                        auto& ia225 = bs225->as<InstanceArraySymbol>();
+                        if (!ia225.elements.empty() && ia225.elements[0] &&
+                            ia225.elements[0]->kind == SymbolKind::Instance &&
+                            ia225.elements[0]->as<InstanceSymbol>().isInterface())
+                            ifArrElemLit225 = true;
+                    }
+            }
+        }
+        if (ifArrElemLit225) {
+            auto* dca225 = defInfo->contAssigns[myIdx];
+            auto* ca225 = s.MakeCont_assign();
+            ca225->VpiParent(m);
+            ca225->VpiFile(dca225->VpiFile());
+            ca225->VpiLineNo(dca225->VpiLineNo());
+            ca225->VpiColumnNo(dca225->VpiColumnNo());
+            ca225->VpiEndLineNo(dca225->VpiEndLineNo());
+            ca225->VpiEndColumnNo(dca225->VpiEndColumnNo());
+            if (dca225->VpiStrength0())
+                ca225->VpiStrength0(dca225->VpiStrength0());
+            if (dca225->VpiStrength1())
+                ca225->VpiStrength1(dca225->VpiStrength1());
+            bool sIn225 = inLhs, sEl225 = elabContAssignLhs,
+                 sRe225 = elabLhsReelab;
+            inLhs = true;
+            elabContAssignLhs = true;
+            elabLhsReelab = true;
+            auto* l225 = emitExpr(ae.left(), ca225, prefix, defInfo->nets);
+            inLhs = sIn225;
+            elabContAssignLhs = sEl225;
+            elabLhsReelab = sRe225;
+            if (l225) {
+                // An enum-constant selector binds its enum_const as the
+                // definition's does (the drain of pendingEnumIdxRefs); the
+                // emitter's own lookup reads `currentScope`, stale during
+                // instance emission, so the instance body answers here.
+                if (l225->UhdmType() == UHDM::uhdmhier_path)
+                    if (auto* pe225 = ((UHDM::hier_path*)l225)->Path_elems())
+                        for (auto* e225 : *pe225) {
+                            if (!e225 || e225->UhdmType() != UHDM::uhdmbit_select)
+                                continue;
+                            auto* ix225 = ((UHDM::bit_select*)e225)->VpiIndex();
+                            if (!ix225 || ix225->UhdmType() != UHDM::uhdmref_obj ||
+                                ((UHDM::ref_obj*)ix225)->Actual_group())
+                                continue;
+                            auto* ir225 = (UHDM::ref_obj*)ix225;
+                            bool have225 = false;
+                            for (auto& pr225 : pendingEnumIdxRefs)
+                                if (pr225.first == ir225)
+                                    have225 = true;
+                            if (have225)
+                                continue;
+                            if (auto* es225 = body.find(ir225->VpiName());
+                                es225 && es225->kind == SymbolKind::EnumValue)
+                                pendingEnumIdxRefs.emplace_back(ir225, es225);
+                        }
+                ca225->Lhs((UHDM::expr*)l225);
+                ca225->Rhs(dca225->Rhs());
+                cas->push_back(ca225);
+                tr225("ifArrElemLitCaFresh225", prefix);
+                continue;
+            }
+            // No Lhs: fall back to the base's shared object (the unlisted
+            // cont_assign stays in the serializer: traced).
+            tr225("ifArrElemLitCaFresh225", "nolhs " + prefix);
+        }
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             !unbasedShareRhs && !caReuseParamConst9 && !sysFold &&
             !dlyParamFresh164 &&
@@ -41234,6 +41336,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         }
         // Unbased-unsized literal RHS folds to a LOCATED, parented constant
         // at the type width.
+        bool fill225 = false;  // § initHierFillKept225 fired
         if (!rhs && topView) {
             auto& rc = stripImplicitConv(ae.right());
             if (rc.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
@@ -41257,6 +41360,36 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 // at the `w27 > 64` re-encode below was built and MEASURED AS
                 // A NO-OP on all four arms, so neither decline ships.  The
                 // trace stays: it is what will name the producer next time.
+                // § initHierFillKept225 (r11u225, OutputSizeWith...StructMember
+                // #243) — a '1 onto a whole signal whose packed range carries a
+                // substituted struct-member path (§ initHierAtRefToken225's
+                // `Info.x`): Surelog's writeCont_assign reduces the Rhs and
+                // calls adjustSize, whose Bits() of that typespec comes back
+                // invalid, so the size stays the literal's own and the fill
+                // literal rides out as written (`'1`, BIN:1, size -1): golden
+                // cases/OS o01, o03, o08.  Ours folded it to the all-ones
+                // UINT at slang's width.  Switch R11U225_INITHIERFILL_OFF.
+                if (cv && !initHierOwners225().empty() &&
+                    r11u225Law("R11U225_INITHIERFILL_OFF")) {
+                    auto& lf225 = stripImplicitConv(ae.left());
+                    if (lf225.kind == ExpressionKind::NamedValue) {
+                        auto& ls225 = lf225.as<NamedValueExpression>().symbol;
+                        if (initHierOwner225(ls225.getParentScope(), ls225.name) &&
+                            defInfo && myIdx < defInfo->contAssigns.size() &&
+                            defInfo->contAssigns[myIdx] &&
+                            defInfo->contAssigns[myIdx]->Rhs() &&
+                            defInfo->contAssigns[myIdx]->Rhs()->UhdmType() ==
+                                UHDM::uhdmconstant) {
+                            // The fresh elaborated cont_assign carries the
+                            // definition's constant OBJECT (golden lists it
+                            // once, under the definition's cont_assign).
+                            tr225("initHierFillKept225", prefix);
+                            cv = nullptr;
+                            rhs = defInfo->contAssigns[myIdx]->Rhs();
+                            fill225 = true;
+                        }
+                    }
+                }
                 if (cellDbg43() && cv)
                     fprintf(stderr, "R11U43CELL site=elab1 w=%d claim=%d\n",
                             (int)ae.right().type->getBitWidth(),
@@ -43769,7 +43902,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // overflows 64 bits).  This is § caTernFillArmKeepsEncoding19's own
         // over-64 branch, already committed at the gen-scope ternary site,
         // reaching the plain module-scope mint.
-        if (topView && !off27() && rhs &&
+        if (topView && !off27() && rhs && !fill225 &&
             rhs->UhdmType() == UHDM::uhdmconstant) {
             auto& rt27 = stripImplicitConv(ae.right());
             int32_t w27 = 0;

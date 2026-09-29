@@ -1,0 +1,9 @@
+x1 NOT_EQUAL stage1
+x2 STRICT_EQUAL 37 objects
+x3 NOT_EQUAL stage1
+x4 STRICT_EQUAL 29 objects
+x5 NOT_EQUAL stage1
+x6 NOT_EQUAL stage1
+x7 NOT_EQUAL stage1
+x8 NOT_EQUAL stage1
+x9 STRICT_EQUAL 47 objects

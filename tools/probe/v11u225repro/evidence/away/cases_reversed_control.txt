@@ -1,0 +1,382 @@
+FA/f01 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.b[K].w.K|dut.sv|9|12|9|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:work@dut < design:work@dut
+  CHAIN_LOST ref_obj|K||work@dut.b[K].v.K|dut.sv|10|12|10|13||0|| @ bit_select:b < hier_path:b[K].v < cont_assign: < module_inst:work@dut < design:work@dut
+FA/f01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FA/f02 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.b[K].w.K|dut.sv|10|12|10|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:work@dut < design:work@dut
+  CHAIN_LOST ref_obj|K||work@dut.b[K].v.K|dut.sv|11|12|11|13||0|| @ bit_select:b < hier_path:b[K].v < cont_assign: < module_inst:work@dut < design:work@dut
+FA/f02_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.b[K].w.K|dut.sv|10|12|10|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:work@dut < design:work@dut
+  CHAIN_LOST ref_obj|K||work@dut.b[K].v.K|dut.sv|11|12|11|13||0|| @ bit_select:b < hier_path:b[K].v < cont_assign: < module_inst:work@dut < design:work@dut
+FA/f03 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|P||work@dut.b[P].v.P|dut.sv|7|12|7|13||0|| @ bit_select:b < hier_path:b[P].v < cont_assign: < module_inst:work@dut < design:work@dut
+FA/f03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FA/f05 chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.G[0].u.b[K].w.K|dut.sv|8|12|8|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:u < gen_scope: < gen_scope_array:G[0] < module_inst:work@dut < design:work@dut
+  CHAIN_LOST cont_assign||||dut.sv|8|10|8|23|||| @ module_inst:u < gen_scope: < gen_scope_array:G[1] < module_inst:work@dut < design:work@dut
+  CHAIN_LOST hier_path|b[K].w|||dut.sv|8|10|8|11||0|| @ cont_assign: < module_inst:u < gen_scope: < gen_scope_array:G[1] < module_inst:work@dut < design:work@dut
+  CHAIN_LOST bit_select|b||b[K]|dut.sv|8|10|8|11||0|| @ hier_path:b[K].w < cont_assign: < module_inst:u < gen_scope: < gen_scope_array:G[1] < module_inst:work@dut < design:work@dut
+FA/f05_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FA/f06 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.b[K].w.K|dut.sv|9|12|9|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:work@dut < design:work@dut
+  CHAIN_LOST ref_obj|K||work@dut.b[K].v.K|dut.sv|10|12|10|13||0|| @ bit_select:b < hier_path:b[K].v < cont_assign: < module_inst:work@dut < design:work@dut
+FA/f06_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FA/f07 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FA/f07_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FA/f08 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST ref_obj|B||work@dut.b[B].w.B|dut.sv|11|12|11|13||0|| @ bit_select:b < hier_path:b[B].w < cont_assign: < module_inst:work@dut < design:work@dut
+  CHAIN_LOST ref_obj|K||work@dut.b[K + 1].v.b.K|dut.sv|12|12|12|13||0|| @ operation: < bit_select:b < hier_path:b[K + 1].v < cont_assign: < module_inst:work@dut < design:work@dut
+FA/f08_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FA/f09 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FA/f09_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FA/f10 chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.u0.b[K].w.K|dut.sv|7|12|7|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:u0 < module_inst:work@dut < design:work@dut
+  CHAIN_LOST cont_assign||||dut.sv|7|10|7|23|||| @ module_inst:u1 < module_inst:work@dut < design:work@dut
+  CHAIN_LOST hier_path|b[K].w|||dut.sv|7|10|7|11||0|| @ cont_assign: < module_inst:u1 < module_inst:work@dut < design:work@dut
+  CHAIN_LOST bit_select|b||b[K]|dut.sv|7|10|7|11||0|| @ hier_path:b[K].w < cont_assign: < module_inst:u1 < module_inst:work@dut < design:work@dut
+FA/f10_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FA/f11 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.u1.b[K].w.K|inc.svh|1|10|1|11||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:u1 < module_inst:work@dut < design:work@dut
+  CHAIN_LOST ref_obj|K||work@dut.u2.b[K].w.K|inc.svh|1|10|1|11||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:u2 < module_inst:work@dut < design:work@dut
+FA/f11_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FA/f12 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FA/f12_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/g01 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+FO/g01_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+FO/g02 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/g02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/g03 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/g03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/g04 chain_lost=3 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|16|7|17||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:d3 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < range: < logic_typespec: < ref_typespec: < logic_var:d3 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|8|15|8|17|'1|-1|BIN:1|3 @ cont_assign: < module_inst:work@top < design:work@top
+FO/g04_el chain_lost=3 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|16|7|17||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:d3 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < range: < logic_typespec: < ref_typespec: < logic_var:d3 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|8|15|8|17|1|1|UINT:1|9 @ cont_assign: < module_inst:work@top < design:work@top
+FO/g05 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|10|7|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|6|27|6|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|8|17|8|19|'1|-1|BIN:1|3 @ cont_assign: < module_inst:work@top < design:work@top
+FO/g05_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|10|7|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|6|27|6|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|8|17|8|19|1|1|UINT:1|9 @ cont_assign: < module_inst:work@top < design:work@top
+FO/g06 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|17|7|19|'1|-1|BIN:1|3 @ cont_assign: < module_inst:work@top < design:work@top
+FO/g06_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|17|7|19|1|1|UINT:1|9 @ cont_assign: < module_inst:work@top < design:work@top
+FO/g07 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+FO/g07_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+FO/g08 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+FO/g08_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+FO/g09 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|10|7|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var: < array_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var: < array_var:q < module_inst:work@top < design:work@top
+FO/g09_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|10|7|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var: < array_var:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var: < array_var:q < module_inst:work@top < design:work@top
+FO/g10 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/g10_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/g11 chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|17|6|18||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:i < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|88|5|89||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:i < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|41|6|42||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|88|5|89||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:q < module_inst:work@top < design:work@top
+FO/g11_el chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|17|6|18||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:i < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|88|5|89||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:i < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|41|6|42||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:q < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|88|5|89||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:q < module_inst:work@top < design:work@top
+FO/g12 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < program:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < program:u < module_inst:work@top < design:work@top
+FO/g12_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < program:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < program:u < module_inst:work@top < design:work@top
+FO/g13 chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:u1 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:u1 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|17|7|19|'1|-1|BIN:1|3 @ cont_assign: < module_inst:u1 < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||b.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:u2 < module_inst:work@top < design:work@top
+FO/g13_el chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:u1 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:u1 < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|17|7|19|1|1|UINT:1|9 @ cont_assign: < module_inst:u1 < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||b.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:u2 < module_inst:work@top < design:work@top
+FO/g14 chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|10|7|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:v < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:v < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|9|6|10||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:w < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:w < module_inst:work@top < design:work@top
+FO/g14_el chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|10|7|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:v < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:v < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|9|6|10||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:w < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|27|5|28||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:w < module_inst:work@top < design:work@top
+FO/g15 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/g15_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/g16 chain_lost=9 chain_toward=0 flat_lost=9 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|10|11|10|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.y|||dut.sv|11|11|11|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|9|28|9|29||0|| @ hier_path:Info.y < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+FO/g16_el chain_lost=9 chain_toward=0 flat_lost=9 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|10|11|10|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.y|||dut.sv|11|11|11|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|9|28|9|29||0|| @ hier_path:Info.y < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+FO/g17 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/g17_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/g18 chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|9|11|9|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|9|11|9|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+FO/g18_el chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|9|11|9|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|9|11|9|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+FO/g19 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/g19_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/g20 chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:t < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:t < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:u < module_inst:work@top < design:work@top
+FO/g20_el chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:t < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:t < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:u < module_inst:work@top < design:work@top
+FO/g21 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:u < module_inst:work@top < design:work@top
+FO/g21_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:u < module_inst:work@top < design:work@top
+FO/h01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/h01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/h02 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|18|7|20|'1|-1|BIN:1|3 @ cont_assign: < module_inst:work@top < design:work@top
+FO/h02_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|18|7|20|1|1|UINT:1|9 @ cont_assign: < module_inst:work@top < design:work@top
+FO/h03 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/h03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/h04 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/h04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/h05 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|18|7|20|'1|-1|BIN:1|3 @ cont_assign: < module_inst:work@top < design:work@top
+FO/h05_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|18|7|20|1|1|UINT:1|9 @ cont_assign: < module_inst:work@top < design:work@top
+FO/h06 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/h06_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+FO/h07 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|18|7|20|'1|-1|BIN:1|3 @ cont_assign: < module_inst:work@top < design:work@top
+FO/h07_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|18|7|20|1|1|UINT:1|9 @ cont_assign: < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/IA/a01 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|E0||work@dut.b[E0].w.E0|dut.sv|9|12|9|14||0|| @ bit_select:b < hier_path:b[E0].w < cont_assign: < module_inst:work@dut < design:work@dut
+tp/r11u225repro/cases/IA/a01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/IA/a02 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.b[K].w.K|dut.sv|9|12|9|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:work@dut < design:work@dut
+tp/r11u225repro/cases/IA/a02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/IA/a04 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|E0||work@dut.b[E0].v.E0|dut.sv|9|12|9|14||0|| @ bit_select:b < hier_path:b[E0].v < cont_assign: < module_inst:work@dut < design:work@dut
+tp/r11u225repro/cases/IA/a04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/IA/a06 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.s.b[K].w.K|dut.sv|9|12|9|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:s < module_inst:work@dut < design:work@dut
+tp/r11u225repro/cases/IA/a06_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/IA/a09 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/IA/a09_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/IA/a10 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.b[K].w.K|dut.sv|9|12|9|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:work@dut < design:work@dut
+tp/r11u225repro/cases/IA/a10_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.b[K].w.K|dut.sv|9|12|9|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:work@dut < design:work@dut
+tp/r11u225repro/cases/IA/a13 chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.u1.b[K].w.K|dut.sv|9|12|9|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:u1 < module_inst:work@dut < design:work@dut
+  CHAIN_LOST cont_assign||||dut.sv|9|10|9|23|||| @ module_inst:u2 < module_inst:work@dut < design:work@dut
+  CHAIN_LOST hier_path|b[K].w|||dut.sv|9|10|9|11||0|| @ cont_assign: < module_inst:u2 < module_inst:work@dut < design:work@dut
+  CHAIN_LOST bit_select|b||b[K]|dut.sv|9|10|9|11||0|| @ hier_path:b[K].w < cont_assign: < module_inst:u2 < module_inst:work@dut < design:work@dut
+tp/r11u225repro/cases/IA/a13_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/IA/a15 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.b[K].w.K|dut.sv|9|12|9|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:work@dut < design:work@dut
+tp/r11u225repro/cases/IA/a15_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/IA/a17 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.u_chk.c[K].w.K|dut.sv|9|12|9|13||0|| @ bit_select:c < hier_path:c[K].w < cont_assign: < module_inst:u_chk < module_inst:work@dut < design:work@dut
+tp/r11u225repro/cases/IA/a17_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/IA/a18 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|P1||work@dut.b[P1].w.P1|dut.sv|12|12|12|14||0|| @ bit_select:b < hier_path:b[P1].w < cont_assign: < module_inst:work@dut < design:work@dut
+tp/r11u225repro/cases/IA/a18_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/IA/a19 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/IA/a19_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/IA/a20 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.b[K - 1].w.b.K|dut.sv|9|12|9|13||0|| @ operation: < bit_select:b < hier_path:b[K - 1].w < cont_assign: < module_inst:work@dut < design:work@dut
+tp/r11u225repro/cases/IA/a20_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/IA/a24 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST ref_obj|K||work@dut.s.b[K].w.K|f2.sv|5|12|5|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:s < module_inst:work@dut < design:work@dut
+  CHAIN_LOST ref_obj|K||work@dut.b[K].w.K|dut.sv|8|12|8|13||0|| @ bit_select:b < hier_path:b[K].w < cont_assign: < module_inst:work@dut < design:work@dut
+tp/r11u225repro/cases/IA/a24_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/OS/o01 chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|18|11|18|26||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|16|42|16|43||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|5|18|5|23||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|16|42|16|43||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o01_el chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|18|11|18|26||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|16|42|16|43||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|5|18|5|23||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|16|42|16|43||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o02 chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o02_el chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|7|11|7|12||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o03 chain_lost=9 chain_toward=0 flat_lost=9 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|11|11|11|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|10|28|10|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|3|11|3|16||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:b < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|10|28|10|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:b < module_inst:u < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o03_el chain_lost=9 chain_toward=0 flat_lost=9 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|11|11|11|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|10|28|10|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|3|11|3|16||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:b < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|10|28|10|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:b < module_inst:u < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o05 chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST hier_path|Info.y|||dut.sv|9|11|9|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.y < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.y|||dut.sv|2|56|2|61||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.y < operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o05_el chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST hier_path|Info.y|||dut.sv|9|11|9|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.y < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.y|||dut.sv|2|56|2|61||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.y < operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o06 chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|9|11|9|12||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|2|56|2|61||0|| @ range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o06_el chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|9|11|9|12||0|| @ range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|2|56|2|61||0|| @ range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o08 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|18|7|20|'1|-1|BIN:1|3 @ cont_assign: < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o08_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST constant||||dut.sv|7|18|7|20|1|1|UINT:1|9 @ cont_assign: < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o10 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d3 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d3 < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o10_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d3 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d3 < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o11 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d5 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d5 < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o11_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d5 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d5 < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o12 chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:d4 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:d4 < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:d4 < cont_assign: < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:d4 < cont_assign: < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o12_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|10|6|11||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:d4 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:d4 < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o13 chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|9|11|9|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|2|56|2|61||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o13_el chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|9|11|9|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|2|56|2|61||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|8|28|8|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o15 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant||||dut.sv|9|18|9|20|'1|-1|BIN:1|3 @ cont_assign: < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o15_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST constant||||dut.sv|9|18|9|20|1|1|UINT:1|9 @ cont_assign: < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o16 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/OS/o16_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/OS/o17 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o17_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o18 chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o18_el chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d1 < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|6|11|6|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|5|28|5|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o19 chain_lost=12 chain_toward=0 flat_lost=12 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|10|11|10|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|9|28|9|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|10|11|10|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|9|28|9|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o19_el chain_lost=12 chain_toward=0 flat_lost=12 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|10|11|10|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|9|28|9|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|10|11|10|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|9|28|9|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:d2 < module_inst:work@top < design:work@top
+tp/r11u225repro/cases/OS/o20 chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|3|11|3|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:v < ref_obj:v < cont_assign: < interface_inst: < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|9|28|9|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:v < ref_obj:v < cont_assign: < interface_inst: < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|3|11|3|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:v < ref_obj:v < cont_assign: < interface_inst: < ref_module:u < module_inst: < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|9|28|9|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:v < ref_obj:v < cont_assign: < interface_inst: < ref_module:u < module_inst: < design:work@top
+tp/r11u225repro/cases/OS/o20_el chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|3|11|3|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:v < ref_obj:v < cont_assign: < interface_inst: < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|9|28|9|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:v < ref_obj:v < cont_assign: < interface_inst: < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|3|11|3|12||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:v < ref_obj:v < cont_assign: < interface_inst: < ref_module:u < module_inst: < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|9|28|9|29||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:v < ref_obj:v < cont_assign: < interface_inst: < ref_module:u < module_inst: < design:work@top
+tp/r11u225repro/cases/OS/o21 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u225repro/cases/OS/o21_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TOTAL chain_lost=351 chain_toward=0 flat_lost=359 flat_toward=0

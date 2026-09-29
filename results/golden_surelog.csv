@@ -759,7 +759,7 @@ InterfaceUnpackedStructArrayDim,default,CMP_EQUAL,,,equal
 InterfaceUnpackedStructArrayDim,testflags,CMP_EQUAL,,,equal
 InterfAlways,default,CMP_EQUAL,,,equal
 InterfAlways,testflags,CMP_EQUAL,,,equal
-InterfArrayBind,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+InterfArrayBind,default,CMP_EQUAL,,,equal
 InterfArrayBind,testflags,CMP_EQUAL,,,equal
 InterfBinding,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfBinding/dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctr,,
 InterfBinding,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfBinding/dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctr,,

@@ -1,0 +1,12 @@
+# fresh rows of the law sweep (/tmp/r11u225_wL) for the three converted row-modes and their siblings
+InterfArrayBind,default,CMP_EQUAL,,,equal
+InterfArrayBind,testflags,CMP_EQUAL,,,equal
+OutputSizeWithParameterOfInstanceInitializedByStructMember,default,CMP_EQUAL,,,equal
+OutputSizeWithParameterOfInstanceInitializedByStructMember,testflags,CMP_EQUAL,,,equal
+OutputSizeWithParameterOfInstanceInitializedByStructMember,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+# the same rows of the pristine sweep (/tmp/r11u225_wP)
+InterfArrayBind,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+InterfArrayBind,testflags,CMP_EQUAL,,,equal
+OutputSizeWithParameterOfInstanceInitializedByStructMember,default,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
+OutputSizeWithParameterOfInstanceInitializedByStructMember,testflags,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
+OutputSizeWithParameterOfInstanceInitializedByStructMember,IDENTICAL,NO_GATES,NO_GATES,0,0,,

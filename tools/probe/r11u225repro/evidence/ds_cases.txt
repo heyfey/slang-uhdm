@@ -1,0 +1,42 @@
+IA/a01 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a02 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a03 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a04 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a05 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a06 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a07 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a08 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a09 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a10 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a11 DIVERGENT -> DIVERGENT differs(P)=nohier il synth differs(L)=nohier il synth
+IA/a12 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a13 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a14 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a15 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a16 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a17 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a18 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a19 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a20 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a21 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+IA/a22 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o01 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o02 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o03 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o04 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o05 EQUIVALENT -> EQUIVALENT differs(P)=nohier il differs(L)=nohier il
+OS/o06 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o08 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o09 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o10 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o11 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o12 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o13 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o14 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o15 DIVERGENT -> DIVERGENT differs(P)=nohier il synth differs(L)=nohier il synth
+OS/o16 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o17 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o18 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o19 EQUIVALENT -> EQUIVALENT differs(P)=nohier il differs(L)=nohier il
+OS/o20 IDENTICAL -> IDENTICAL differs(P)= differs(L)=
+OS/o21 EQUIVALENT -> EQUIVALENT differs(P)=nohier il synth differs(L)=nohier il synth

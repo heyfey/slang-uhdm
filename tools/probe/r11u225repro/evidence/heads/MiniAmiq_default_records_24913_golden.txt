@@ -1,0 +1,13 @@
+2	function	uvm_sequencer_base::set_arbitration		uvm_pkg::uvm_sequencer_base::set_arbitration	uvm_sequencer_base.svh	1381	1	1383	12				
+3	io_decl	val			uvm_sequencer_base.svh	1381	68	1381	71				
+4	ref_typespec			uvm_pkg::uvm_sequencer_base::set_arbitration::val		0	0	0	0		0		
+5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	332	40	332	56				
+6	ref_typespec			<in>uvm_pkg::UVM_SEQ_ARB_TYPE		0	0	0	0		0		
+7	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode			uvm_object_globals.svh	359	1	367	26				
+8	enum_const	UVM_SEQ_ARB_FIFO			uvm_object_globals.svh	361	3	361	19				
+8	enum_const	UVM_SEQ_ARB_WEIGHTED			uvm_object_globals.svh	362	3	362	23				
+8	enum_const	UVM_SEQ_ARB_RANDOM			uvm_object_globals.svh	363	3	363	21				
+8	enum_const	UVM_SEQ_ARB_STRICT_FIFO			uvm_object_globals.svh	364	3	364	26				
+8	enum_const	UVM_SEQ_ARB_STRICT_RANDOM			uvm_object_globals.svh	365	3	365	28				
+8	enum_const	UVM_SEQ_ARB_USER			uvm_object_globals.svh	366	3	366	19				
+6	enum_const	UVM_SEQ_ARB_FIFO			uvm_object_globals.svh	361	3	361	19				

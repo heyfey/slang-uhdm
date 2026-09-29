@@ -15,6 +15,7 @@
 #include "slang/syntax/SyntaxTree.h"
 
 #include "R223.h"
+#include "R225.h"
 
 namespace slang_uhdm {
 
@@ -6628,6 +6629,10 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             return nullptr;
                         };
                         const ParameterSymbol* memberInitParam = nullptr;
+                        // § initHierAtRefToken225: the reference the
+                        // substitution replaces (its span and its symbol).
+                        SourceRange memberInitRef225;
+                        const Symbol* memberInitRefSym225 = nullptr;
                         if (bsyn && currentScope && !tfContext && !bitsOfSignal &&
                             !bareParamInParamTs && !defModuleParamDim &&
                             !ifacePortBound && !defPortDim) {
@@ -6639,11 +6644,16 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         if (memberInitParam)
                                             return;
                                         if (nv.symbol.kind ==
-                                            SymbolKind::Parameter)
+                                            SymbolKind::Parameter) {
                                             memberInitParam = resolveMemberInit(
                                                 &nv.symbol
                                                      .as<ParameterSymbol>(),
                                                 0);
+                                            if (memberInitParam) {
+                                                memberInitRef225 = nv.sourceRange;
+                                                memberInitRefSym225 = &nv.symbol;
+                                            }
+                                        }
                                         v.visitDefault(nv);
                                     }));
                         }
@@ -6872,17 +6882,210 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             // attach a ref_typespec scoped under the declaring
                             // signal (work@top.data.Info.x) whose actual is N's
                             // own (int) typespec.
+                            // § initHierAtRefToken225 (r11u225, the
+                            // OutputSizeWithParameterOfInstanceInitializedByStructMember
+                            // head; the sister-face decode of r11u220 section
+                            // 6.2) — Surelog SUBSTITUTES the parameter's value
+                            // for the reference it reads: golden's hier_path
+                            // (`Info.x`) spans the REFERENCE it replaces
+                            // (`NumScrmblBlocks` 17:11-26, the child's `Depth`
+                            // 4:18-23), and its elements carry the value's own
+                            // spans, the parameter-initializer path shape (the
+                            // base `Info` on the member token, as the
+                            // param_assign's copy already reads: ExprEmit's
+                            // paramInitStructMember arm).  Ours emitted the
+                            // initializer's natural spans.  Grid
+                            // tools/probe/r11u225repro/cases/OS.  Switch
+                            // R11U225_INITHIERSPAN_OFF.
+                            const bool span225 =
+                                memberInitRef225.start().valid() &&
+                                r11u225Law("R11U225_INITHIERSPAN_OFF");
+                            // § initHierCaLhsBareName225 — ...and when the
+                            // declared signal is the whole left side of a
+                            // continuous assignment of its own scope, the
+                            // substituted path's ref_typespec keeps the bare
+                            // path name (golden `Info.x` on the child's `a`
+                            // and `b` and on a top-level `data` written by
+                            // `assign`, `work@top.data.Info.x` where `data`
+                            // is only read or written by a process: cases/OS
+                            // o03, o08, o10, o11, o13).  Switch
+                            // R11U225_INITHIERCANAME_OFF.
+                            bool caLhs225 = false;
+                            // § fillSymbolicRootOnly225v (v11u225, the
+                            // adversarial verification of r11u225) — the
+                            // owner registry feeds § initHierFillKept225,
+                            // whose premise is that golden keeps the bound
+                            // SYMBOLIC (`Info.x` unreduced, so adjustSize's
+                            // Bits comes back invalid and '1 stays unsized).
+                            // Surelog keeps it only when the struct
+                            // parameter's value is a CAST or a TYPED pattern
+                            // (`info_t'(16)`, `info_t'{x: 16}`,
+                            // `info_t'('{x: 16})`); an untyped pattern
+                            // (`'{x: 16}`, `'{16}`, `'{default: 16}`), a
+                            // plain integer or a concatenation is reduced:
+                            // golden's range holds the folded constant and
+                            // its '1 is the sized UINT pristine wrote (cases
+                            // v11u225repro/cases/FO h01, h03, h04, h06, g15,
+                            // g17, g19, where the law had kept '1 at size
+                            // -1).  Those signals are not recorded, so the
+                            // fill law keeps pristine's fold there.  Switch
+                            // R11V225_FILLSYM_OFF.
+                            bool symRoot225v = true;
+                            if (memberInitRefSym225 && !bpfx.empty() &&
+                                r11v225Law("R11V225_FILLSYM_OFF")) {
+                                symRoot225v = false;
+                                const Expression* rb225v = nullptr;
+                                if (auto* mi225v =
+                                        memberInitParam->getInitializer()) {
+                                    auto& ma225v = stripImplicitConv(*mi225v);
+                                    if (ma225v.kind ==
+                                        ExpressionKind::MemberAccess) {
+                                        auto& bv225v = stripImplicitConv(
+                                            ma225v.as<MemberAccessExpression>()
+                                                .value());
+                                        if (bv225v.kind ==
+                                                ExpressionKind::NamedValue &&
+                                            bv225v.as<NamedValueExpression>()
+                                                    .symbol.kind ==
+                                                SymbolKind::Parameter)
+                                            rb225v =
+                                                bv225v.as<NamedValueExpression>()
+                                                    .symbol
+                                                    .as<ParameterSymbol>()
+                                                    .getInitializer();
+                                    }
+                                }
+                                // A bare reference to another parameter is
+                                // followed, as resolveMemberInit does.
+                                for (int g225v = 0; rb225v && g225v < 8;
+                                     g225v++) {
+                                    auto& sr225v = stripImplicitConv(*rb225v);
+                                    const Symbol* rs225v = nullptr;
+                                    if (sr225v.kind == ExpressionKind::NamedValue)
+                                        rs225v = &sr225v.as<NamedValueExpression>()
+                                                      .symbol;
+                                    else if (sr225v.kind ==
+                                             ExpressionKind::HierarchicalValue)
+                                        rs225v = &sr225v.as<
+                                                         HierarchicalValueExpression>()
+                                                      .symbol;
+                                    if (!rs225v ||
+                                        rs225v->kind != SymbolKind::Parameter)
+                                        break;
+                                    rb225v = rs225v->as<ParameterSymbol>()
+                                                 .getInitializer();
+                                }
+                                if (rb225v && rb225v->syntax) {
+                                    auto k225v = rb225v->syntax->kind;
+                                    if (k225v ==
+                                        syntax::SyntaxKind::CastExpression)
+                                        symRoot225v = true;
+                                    else if (k225v == syntax::SyntaxKind::
+                                                          AssignmentPatternExpression &&
+                                             rb225v->syntax
+                                                     ->as<syntax::
+                                                              AssignmentPatternExpressionSyntax>()
+                                                     .type != nullptr)
+                                        symRoot225v = true;
+                                }
+                                if (!symRoot225v)
+                                    tr225("fillSymbolicRootOnly225v", bpfx);
+                            }
+                            if (memberInitRefSym225 && !bpfx.empty() &&
+                                symRoot225v)
+                                if (auto* osc225r =
+                                        memberInitRefSym225->getParentScope()) {
+                                    auto d225r = bpfx.rfind('.');
+                                    std::string on225r =
+                                        d225r == std::string::npos
+                                            ? bpfx
+                                            : bpfx.substr(d225r + 1);
+                                    if (!initHierOwner225(osc225r, on225r))
+                                        initHierOwners225().emplace_back(
+                                            osc225r, on225r);
+                                }
+                            // Only a MODULE's own scope: an interface's
+                            // `assign v = '1;` keeps the scoped name in
+                            // golden (cases/OS o20).
+                            auto modScope225 = [](const Scope* sc) {
+                                return sc &&
+                                       sc->asSymbol().kind ==
+                                           SymbolKind::InstanceBody &&
+                                       sc->asSymbol()
+                                               .as<InstanceBodySymbol>()
+                                               .getDefinition()
+                                               .definitionKind ==
+                                           DefinitionKind::Module;
+                            };
+                            if (memberInitRefSym225 && !bpfx.empty() &&
+                                modScope225(memberInitRefSym225->getParentScope()) &&
+                                r11u225Law("R11U225_INITHIERCANAME_OFF"))
+                                if (auto* osc225 =
+                                        memberInitRefSym225->getParentScope()) {
+                                    auto d225 = bpfx.rfind('.');
+                                    std::string_view on225 =
+                                        d225 == std::string::npos
+                                            ? std::string_view(bpfx)
+                                            : std::string_view(bpfx).substr(d225 + 1);
+                                    for (auto& mb225 : osc225->members()) {
+                                        if (mb225.kind !=
+                                            SymbolKind::ContinuousAssign)
+                                            continue;
+                                        auto& as225 =
+                                            mb225.as<ContinuousAssignSymbol>()
+                                                .getAssignment();
+                                        if (as225.kind != ExpressionKind::Assignment)
+                                            continue;
+                                        auto& l225 = stripImplicitConv(
+                                            as225.as<AssignmentExpression>().left());
+                                        if (l225.kind == ExpressionKind::NamedValue &&
+                                            l225.as<NamedValueExpression>()
+                                                    .symbol.name == on225 &&
+                                            l225.as<NamedValueExpression>()
+                                                    .symbol.getParentScope() ==
+                                                osc225) {
+                                            caLhs225 = true;
+                                            break;
+                                        }
+                                    }
+                                }
                             auto emitInitHier =
                                 [&](UHDM::BaseClass* par) -> UHDM::expr* {
                                 auto* init = memberInitParam->getInitializer();
+                                bool sIP225 = inParamInit, sPD225 = paramInitDef;
+                                bool sPP225 = paramInitPkg,
+                                     sMD225 = elabMdimParamInit;
+                                if (span225) {
+                                    // Every emission under the law's flags is
+                                    // a firing (the predictor's trigger), a
+                                    // hier_path result or not.
+                                    tr225("initHierAtRefToken225", "emit " + bpfx);
+                                    inParamInit = true;
+                                    paramInitDef = false;
+                                    paramInitPkg = false;
+                                    elabMdimParamInit = false;
+                                }
                                 auto* he = (UHDM::expr*)emitExpr(*init, par, bpfx,
                                                                  none);
+                                if (span225) {
+                                    inParamInit = sIP225;
+                                    paramInitDef = sPD225;
+                                    paramInitPkg = sPP225;
+                                    elabMdimParamInit = sMD225;
+                                }
+                                if (he && span225 &&
+                                    he->UhdmType() == UHDM::uhdmhier_path) {
+                                    setLoc(he, memberInitRef225);
+                                    tr225("initHierAtRefToken225", bpfx);
+                                }
                                 if (he &&
                                     he->UhdmType() == UHDM::uhdmhier_path) {
                                     auto* hp = (UHDM::hier_path*)he;
                                     auto* rt = s.MakeRef_typespec();
+                                    if (caLhs225)
+                                        tr225("initHierCaLhsBareName225", bpfx);
                                     rt->VpiFullName(
-                                        bpfx.empty()
+                                        (bpfx.empty() || caLhs225)
                                             ? std::string(hp->VpiName())
                                             : bpfx + "." +
                                                   std::string(hp->VpiName()));

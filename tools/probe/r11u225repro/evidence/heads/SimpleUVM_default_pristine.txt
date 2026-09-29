@@ -1,0 +1,38 @@
+#26887 file
+  A: 5	class_typespec	this_type			uvm_algorithmic_comparator.svh	74	11	74	37				
+  B: 5	class_typespec	this_type			uvm_sequence_library.svh	330	12	330	32				
+#55917 endcol
+  A: 7	hier_path	rw.parent			uvm_reg_map.svh	1773	6	1773	8		0		
+  B: 7	hier_path	rw.parent			uvm_reg_map.svh	1773	6	1773	15		0		
+#56028 endcol
+  A: 7	hier_path	rw.parent			uvm_reg_map.svh	1813	5	1813	7		0		
+  B: 7	hier_path	rw.parent			uvm_reg_map.svh	1813	5	1813	14		0		
+#58286 fullname
+  A: 7	ref_obj	uvm_reg_data_t		uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t	uvm_reg_block.svh	944	23	944	37		0		
+  B: 7	ref_obj	uvm_reg_data_t		uvm_pkg::uvm_reg_block::check_data_width.uvm_reg_data_t	uvm_reg_block.svh	944	23	944	37		0		
+#63683 file
+  A: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_globals.svh	532	52	532	53				
+  B: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_object_globals.svh	147	1	147	74				
+#63750 fullname
+  A: 4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  B: 4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  raw fullname A: work@env::uvm_pkg::uvm_hdl_path_slice::path | B: work@top.uvm_pkg::uvm_hdl_path_slice.path
+#63753 fullname
+  A: 4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  B: 4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  raw fullname A: work@env::uvm_pkg::uvm_hdl_path_slice::offset | B: work@top.uvm_pkg::uvm_hdl_path_slice.offset
+#63756 fullname
+  A: 4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		
+  B: 4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		
+  raw fullname A: work@env::uvm_pkg::uvm_hdl_path_slice::size | B: work@top.uvm_pkg::uvm_hdl_path_slice.size
+#63828 fullname
+  A: 4	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.level		0	0	0	0		0		
+  B: 4	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.level		0	0	0	0		0		
+  raw fullname A: work@env::uvm_pkg::uvm_printer_row_info::level | B: work@top.uvm_pkg::uvm_printer_row_info.level
+#63831 fullname
+  A: 4	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.name		0	0	0	0		0		
+  B: 4	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.name		0	0	0	0		0		
+  raw fullname A: work@env::uvm_pkg::uvm_printer_row_info::name | B: work@top.uvm_pkg::uvm_printer_row_info.name
+objects 334285 vs 334559
+fields: type=1 fullname=26 file=5 line=7 col=7 endline=7 endcol=14 objects_differing=40 (walk diverged)
+STRICT_NOTEQUAL file

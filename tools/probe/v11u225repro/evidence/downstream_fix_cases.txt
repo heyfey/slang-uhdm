@@ -1,0 +1,9 @@
+v11u225repro/cases/FO/g15 EQUIVALENT nohier il synth
+v11u225repro/cases/FO/g17 EQUIVALENT nohier il synth
+v11u225repro/cases/FO/g19 IDENTICAL 
+v11u225repro/cases/FO/h01 IDENTICAL 
+v11u225repro/cases/FO/h03 IDENTICAL 
+v11u225repro/cases/FO/h04 IDENTICAL 
+v11u225repro/cases/FO/h06 IDENTICAL 
+r11u225repro/cases/OS/o21 EQUIVALENT nohier il synth
+r11u225repro/cases/OS/o01 IDENTICAL 

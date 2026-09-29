@@ -538,7 +538,7 @@ OneStruct,default,CMP_EQUAL,,,equal
 OneSysFunc,default,CMP_EQUAL,,,equal
 OneThis,default,CMP_EQUAL,,,equal
 opt_share_add_sub,default,CMP_EQUAL,,,equal
-OutputSizeWithParameterOfInstanceInitializedByStructMember,default,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
+OutputSizeWithParameterOfInstanceInitializedByStructMember,default,CMP_EQUAL,,,equal
 package_task_func,default,CMP_EQUAL,,,equal
 PackageCast,default,CMP_EQUAL,,,equal
 packed_array_elem_select,default,CMP_EQUAL,,,equal
@@ -1409,7 +1409,7 @@ OneStruct,testflags,CMP_EQUAL,,,equal
 OneSysFunc,testflags,CMP_EQUAL,,,equal
 OneThis,testflags,CMP_EQUAL,,,equal
 opt_share_add_sub,testflags,CMP_EQUAL,,,equal
-OutputSizeWithParameterOfInstanceInitializedByStructMember,testflags,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
+OutputSizeWithParameterOfInstanceInitializedByStructMember,testflags,CMP_EQUAL,,,equal
 package_task_func,testflags,CMP_EQUAL,,,equal
 PackageCast,testflags,CMP_EQUAL,,,equal
 packed_array_elem_select,testflags,CMP_EQUAL,,,equal

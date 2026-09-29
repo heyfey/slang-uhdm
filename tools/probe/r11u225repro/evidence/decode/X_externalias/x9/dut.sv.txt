@@ -1,0 +1,13 @@
+// decode only (item 1, no law of this pass): extern method formal of an alias-of-enum typedef
+package p;
+  typedef enum {A0, A1} a_e;
+  typedef a_e b_t;
+  class c;
+    extern function void set(a_e v);
+  endclass
+  function void c::set(a_e v);
+  endfunction
+  a_e pv;
+endpackage
+module top;
+endmodule

@@ -1,0 +1,49 @@
+== x1 (golden | pristine): package typedef listing, typespec Instance ids
+all p id=13	all p id=2
+  typespec 15 2117 p::a_e 2:3 par=13 inst=13	  typespec 3 2117 p::a_e 2:3 par=2 inst=2
+top p id=1	top p id=10
+  typespec 4 2117 p::a_e 2:3 par=1 inst=1	  typespec 11 2117 p::a_e 2:3 par=10 inst=2
+  typespec 7 2117 p::b_t 5:30 par=1 inst=1	  typespec 6 2117 p::b_t 5:30 par=10 inst=2
+== x2 (golden | pristine): package typedef listing, typespec Instance ids
+all p id=13	all p id=2
+  typespec 15 2117 p::a_e 7:24 par=13 inst=13	  typespec 3 2117 p::a_e 7:24 par=2 inst=2
+top p id=1	top p id=10
+  typespec 4 2117 p::a_e 5:30 par=1 inst=1	  typespec 11 2117 p::a_e 5:30 par=10 inst=10
+  typespec 7 2117 p::b_t 2:3 par=1 inst=1	  typespec 6 2117 p::b_t 2:3 par=10 inst=2
+== x3 (golden | pristine): package typedef listing, typespec Instance ids
+all p id=20	all p id=2
+  typespec 22 2117 p::a_e 2:3 par=20 inst=20	  typespec 3 2117 p::a_e 2:3 par=2 inst=2
+top p id=1	top p id=14
+  typespec 4 2117 p::a_e 2:3 par=1 inst=1	  typespec 15 2117 p::a_e 2:3 par=14 inst=2
+  typespec 7 2117 p::b_t 2:3 par=1 inst=1	  typespec 6 2117 p::b_t 2:3 par=14 inst=2
+  typespec 11 2117 p::c_t 6:30 par=1 inst=1	  typespec 10 2117 p::c_t 6:30 par=14 inst=2
+== x5 (golden | pristine): package typedef listing, typespec Instance ids
+all p id=16	all p id=2
+  typespec 19 2117 p::a_e 2:3 par=16 inst=16	  typespec 3 2117 p::a_e 2:3 par=2 inst=2
+top p id=1	top p id=10
+  typespec 5 2117 p::a_e 2:3 par=39 inst=1	  typespec 11 2117 p::a_e 2:3 par=33 inst=2
+  typespec 8 2117 p::b_t 6:30 par=39 inst=1	  typespec 6 2117 p::b_t 6:30 par=33 inst=2
+== x6 (golden | pristine): package typedef listing, typespec Instance ids
+all p id=13	all p id=2
+  typespec 15 2117 p::a_e 2:3 par=13 inst=13	  typespec 3 2117 p::a_e 2:3 par=2 inst=2
+top p id=1	top p id=12
+  typespec 4 2117 p::a_e 2:3 par=1 inst=1	  typespec 13 2117 p::a_e 2:3 par=12 inst=2
+  typespec 7 2117 p::b_t 6:30 par=1 inst=1	  typespec 6 2117 p::b_t 6:30 par=12 inst=2
+== x7 (golden | pristine): package typedef listing, typespec Instance ids
+all p id=13	all p id=2
+  typespec 15 2117 p::a_e 2:3 par=13 inst=13	  typespec 3 2117 p::a_e 2:3 par=2 inst=2
+top p id=1	top p id=10
+  typespec 4 2117 p::a_e 2:3 par=1 inst=1	  typespec 11 2117 p::a_e 2:3 par=10 inst=2
+  typespec 7 2117 p::b_t 6:30 par=1 inst=1	  typespec 6 2117 p::b_t 6:30 par=10 inst=2
+== x8 (golden | pristine): package typedef listing, typespec Instance ids
+all p id=13	all p id=2
+  typespec 15 2117 p::a_e 2:3 par=13 inst=13	  typespec 3 2117 p::a_e 2:3 par=2 inst=2
+top p id=1	top p id=10
+  typespec 4 2117 p::a_e 2:3 par=1 inst=1	  typespec 11 2117 p::a_e 2:3 par=10 inst=2
+  typespec 7 2117 p::b_t 6:23 par=1 inst=1	  typespec 6 2117 p::b_t 6:23 par=10 inst=2
+== x9 (golden | pristine): package typedef listing, typespec Instance ids
+all p id=13	all p id=2
+  typespec 15 2117 p::a_e 7:24 par=13 inst=13	  typespec 3 2117 p::a_e 7:24 par=2 inst=2
+top p id=1	top p id=12
+  typespec 4 2117 p::a_e 5:30 par=1 inst=1	  typespec 13 2117 p::a_e 5:30 par=12 inst=12
+  typespec 7 2117 p::b_t 2:3 par=1 inst=1	  typespec 6 2117 p::b_t 2:3 par=12 inst=2

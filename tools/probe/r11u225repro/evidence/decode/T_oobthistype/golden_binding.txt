@@ -1,0 +1,8 @@
+t01 NOT_EQUAL stage1
+        \_class_typespec: (this_type), line:4:13, endln:4:14
+t02 NOT_EQUAL stage1
+        \_class_typespec: (this_type), line:9:13, endln:9:14
+t03 NOT_EQUAL stage1
+        \_class_typespec: (this_type), line:6:13, endln:6:14
+t04 NOT_EQUAL stage1
+        \_class_typespec: (this_type), line:3:13, endln:3:14

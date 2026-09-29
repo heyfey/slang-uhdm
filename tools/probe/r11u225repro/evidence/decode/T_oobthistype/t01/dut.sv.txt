@@ -1,0 +1,20 @@
+// decode only (item 2, no law of this pass): an out-of-body formal of type this_type
+package p;
+  class a #(type T = int);
+    typedef a #(T) this_type;
+    extern function bit chk(int x, this_type lib);
+  endclass
+  class z #(type T = int);
+    typedef z #(T) this_type;
+  endclass
+  class m #(type T = int);
+    typedef m #(T) this_type;
+  endclass
+  function bit a::chk(int x, this_type lib);
+    return 1;
+  endfunction
+endpackage
+module top;
+  import p::*;
+  a #(int) h;
+endmodule
