@@ -1,0 +1,12 @@
+== probe: 0 rows differ
+   tally probe: 
+== surelog: 1 rows differ
+surelog/default/InterfArrayBind CONVERSION | STRICT_NOTEQUAL differ:fullname(1) -> CMP_EQUAL equal | off 1 rec on 0 rec | new=0 gone=1 first-record-same=False
+    off first: #183 fullname golden[5 ref_obj IO_ONES  work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES dut.sv 16 30 16] ours[5 ref_obj IO_ONES  work@soc_tb.IO_ONES dut.sv 16 30 16 37  0]
+   tally surelog: CONVERSION=1
+== uhdm2rtlil: 2 rows differ
+uhdm2rtlil/default/OutputSizeWithParameterOfInstanceInitializedByStructMember CONVERSION | STRICT_NOTEQUAL differ:line(8) -> CMP_EQUAL equal | off 8 rec on 0 rec | new=0 gone=8 first-record-same=False
+    off first: #169 line golden[7 hier_path Info.x   dut.sv 17 11 17 26  0] ours[7 hier_path Info.x   dut.sv 15 37 15 43  0]
+uhdm2rtlil/testflags/OutputSizeWithParameterOfInstanceInitializedByStructMember CONVERSION | STRICT_NOTEQUAL differ:line(8) -> CMP_EQUAL equal | off 8 rec on 0 rec | new=0 gone=8 first-record-same=False
+    off first: #79 line golden[7 hier_path Info.x   dut.sv 17 11 17 26  0] ours[7 hier_path Info.x   dut.sv 15 37 15 43  0]
+   tally uhdm2rtlil: CONVERSION=2

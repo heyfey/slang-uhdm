@@ -1,0 +1,11 @@
+FIRED S/s10_el strLitPpEscIdShift224:6
+  S/s10_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=a7d6fb6a
+  S/s10_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=a7d6fb6a
+  S/s10_el off_strLitPpEscIdShift224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=9b17b8c5
+  S/s10_el offL224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=9b17b8c5
+  S/s10_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=9b17b8c5
+  S/s10_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=9b17b8c5
+RESULT S/s10_el strLitPpEscIdShift224 MIXED new=10 gone=10 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_endcol | first new: col / A: 4	assignment				dut.sv	4	26	4	43 / B: 4	assignment				dut.sv	4	22	4	39
+RESULT S/s10_el LANDING224 MIXED new=10 gone=10 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_endcol | first new: col / A: 4	assignment				dut.sv	4	26	4	43 / B: 4	assignment				dut.sv	4	22	4	39
+RESULT S/s10_el ALLOFF MIXED new=10 gone=10 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_endcol | first new: col / A: 4	assignment				dut.sv	4	26	4	43 / B: 4	assignment				dut.sv	4	22	4	39
+RESULT S/s10_el WIDE MIXED new=10 gone=10 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_endcol | first new: col / A: 4	assignment				dut.sv	4	26	4	43 / B: 4	assignment				dut.sv	4	22	4	39

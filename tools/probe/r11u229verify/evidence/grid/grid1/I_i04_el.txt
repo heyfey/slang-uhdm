@@ -1,0 +1,11 @@
+FIRED I/i04_el fullNameDrainIdOrder226v:1 ipsBasePfxScopeJoin224:1 ipsWidthPfxByPathInScope224:1
+  I/i04_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=dc479b85
+  I/i04_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=dc479b85
+  I/i04_el off_ipsBasePfxScopeJoin224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ee8cb31a
+  I/i04_el offL224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ee8cb31a
+  I/i04_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ee8cb31a
+  I/i04_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ee8cb31a
+RESULT I/i04_el ipsBasePfxScopeJoin224 MIXED new=1 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname | first new: fullname / A: 8	ref_obj	k		p1::c::f::arr[i].v[+:2]::v::k	dut.sv	8	25	8	26		0 / B: 8	ref_obj	k		p1::c::f::arr[i].v[s.k+:2]::v::k	dut.sv	8	25	8	26		0
+RESULT I/i04_el LANDING224 MIXED new=1 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname | first new: fullname / A: 8	ref_obj	k		p1::c::f::arr[i].v[+:2]::v::k	dut.sv	8	25	8	26		0 / B: 8	ref_obj	k		p1::c::f::arr[i].v[s.k+:2]::v::k	dut.sv	8	25	8	26		0
+RESULT I/i04_el ALLOFF MIXED new=1 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname | first new: fullname / A: 8	ref_obj	k		p1::c::f::arr[i].v[+:2]::v::k	dut.sv	8	25	8	26		0 / B: 8	ref_obj	k		p1::c::f::arr[i].v[s.k+:2]::v::k	dut.sv	8	25	8	26		0
+RESULT I/i04_el WIDE MIXED new=1 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname | first new: fullname / A: 8	ref_obj	k		p1::c::f::arr[i].v[+:2]::v::k	dut.sv	8	25	8	26		0 / B: 8	ref_obj	k		p1::c::f::arr[i].v[s.k+:2]::v::k	dut.sv	8	25	8	26		0

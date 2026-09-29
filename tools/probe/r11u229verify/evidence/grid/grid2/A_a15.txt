@@ -1,0 +1,11 @@
+FIRED A/a15 ifArrElemLitCaFresh225:1
+  A/a15 on cmp=0 cmplines=0 strict=STRICT_EQUAL_119_objects rc=0 md5=40d0fcbe
+  A/a15 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_119_objects rc=0 md5=40d0fcbe
+  A/a15 off_ifArrElemLitCaFresh225 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=7c4925ff
+  A/a15 offL225 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=7c4925ff
+  A/a15 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=7c4925ff
+  A/a15 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=7c4925ff
+RESULT A/a15 ifArrElemLitCaFresh225 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_119_objects
+RESULT A/a15 LANDING225 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_119_objects
+RESULT A/a15 ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_119_objects
+RESULT A/a15 WIDE TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_119_objects

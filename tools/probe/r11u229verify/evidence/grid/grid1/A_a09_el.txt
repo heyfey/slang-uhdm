@@ -1,0 +1,11 @@
+FIRED A/a09_el ifArrElemLitCaFresh225:1
+  A/a09_el on cmp=255 cmplines=1618 strict=NOT_EQUAL_stage1 rc=0 md5=a7b1c443
+  A/a09_el tr cmp=255 cmplines=1618 strict=NOT_EQUAL_stage1 rc=0 md5=a7b1c443
+  A/a09_el off_ifArrElemLitCaFresh225 cmp=255 cmplines=1610 strict=NOT_EQUAL_stage1 rc=0 md5=2d497fb5
+  A/a09_el offL225 cmp=255 cmplines=1610 strict=NOT_EQUAL_stage1 rc=0 md5=2d497fb5
+  A/a09_el alloff cmp=255 cmplines=1610 strict=NOT_EQUAL_stage1 rc=0 md5=2d497fb5
+  A/a09_el wide cmp=255 cmplines=1610 strict=NOT_EQUAL_stage1 rc=0 md5=2d497fb5
+RESULT A/a09_el ifArrElemLitCaFresh225 STAGE1-SAME off:stage1 on:stage1 dump off=77 on=77 newbad=2
+RESULT A/a09_el LANDING225 STAGE1-SAME off:stage1 on:stage1 dump off=77 on=77 newbad=2
+RESULT A/a09_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=77 on=77 newbad=2
+RESULT A/a09_el WIDE STAGE1-SAME off:stage1 on:stage1 dump off=77 on=77 newbad=2

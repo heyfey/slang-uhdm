@@ -1,0 +1,11 @@
+FIRED H/h02_el hpLvNewClassFirstElemSpan224:1
+  H/h02_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_34_objects rc=0 md5=8d9289d1
+  H/h02_el tr cmp=0 cmplines=0 strict=STRICT_EQUAL_34_objects rc=0 md5=8d9289d1
+  H/h02_el off_hpLvNewClassFirstElemSpan224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=a9fce744
+  H/h02_el offL224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=a9fce744
+  H/h02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=a9fce744
+  H/h02_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=a9fce744
+RESULT H/h02_el hpLvNewClassFirstElemSpan224 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_34_objects
+RESULT H/h02_el LANDING224 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_34_objects
+RESULT H/h02_el ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_34_objects
+RESULT H/h02_el WIDE TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_34_objects

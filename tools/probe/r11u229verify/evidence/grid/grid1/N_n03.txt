@@ -1,0 +1,11 @@
+FIRED N/n03 newArrayVarSelStripped224:1
+  N/n03 on cmp=0 cmplines=0 strict=STRICT_EQUAL_86_objects rc=0 md5=4d5ee0b8
+  N/n03 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_86_objects rc=0 md5=4d5ee0b8
+  N/n03 off_newArrayVarSelStripped224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=e4da7e16
+  N/n03 offL224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=e4da7e16
+  N/n03 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=e4da7e16
+  N/n03 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=e4da7e16
+RESULT N/n03 newArrayVarSelStripped224 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_86_objects
+RESULT N/n03 LANDING224 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_86_objects
+RESULT N/n03 ALLOFF TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_86_objects
+RESULT N/n03 WIDE TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_86_objects

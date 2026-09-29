@@ -1,0 +1,13 @@
+FIRED K/k05_el strLitContLineSpan220:1 strLitContOwnerEnd224:2
+  K/k05_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=31dc4da5
+  K/k05_el tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=31dc4da5
+  K/k05_el off_strLitContOwnerEnd224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=0a8172de
+  K/k05_el off_strLitPpEscIdShift224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=31dc4da5
+  K/k05_el offL224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=0a8172de
+  K/k05_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=0a8172de
+  K/k05_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=1b4fc1a3
+RESULT K/k05_el strLitContOwnerEnd224 MIXED new=4 gone=4 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endcol | first new: endcol / A: 3	assignment				dut.sv	3	15	3	45 / B: 3	assignment				dut.sv	3	15	3	41
+RESULT K/k05_el strLitPpEscIdShift224 UNFIRED 
+RESULT K/k05_el LANDING224 MIXED new=4 gone=4 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endcol | first new: endcol / A: 3	assignment				dut.sv	3	15	3	45 / B: 3	assignment				dut.sv	3	15	3	41
+RESULT K/k05_el ALLOFF MIXED new=4 gone=4 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endcol | first new: endcol / A: 3	assignment				dut.sv	3	15	3	45 / B: 3	assignment				dut.sv	3	15	3	41
+RESULT K/k05_el WIDE MIXED new=6 gone=6 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endcol | first new: endcol / A: 3	assignment				dut.sv	3	15	3	45 / B: 3	assignment				dut.sv	3	15	3	41

@@ -1,0 +1,11 @@
+FIRED K/k09_el strLitContLineSpan220:1 strLitContOwnerEnd224:3
+  K/k09_el on cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=64606dda
+  K/k09_el tr cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=64606dda
+  K/k09_el off_strLitContOwnerEnd224 cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=fdae71e7
+  K/k09_el offL224 cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=fdae71e7
+  K/k09_el alloff cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=fdae71e7
+  K/k09_el wide cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=10291060
+RESULT K/k09_el strLitContOwnerEnd224 STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=12 newbad=0
+RESULT K/k09_el LANDING224 STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=12 newbad=0
+RESULT K/k09_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=12 newbad=0
+RESULT K/k09_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=28 on=12 newbad=0

@@ -1,0 +1,104 @@
+A/a07 | golden: decompile: ref_obj: (work@m.b.N), id:9, line:8:8, endln:8:9  | ours: constant: , id:61, line:8:8, endln:8:9
+A/a07_el | golden: decompile: ref_obj: (work@m.b.N), id:9, line:8:8, endln:8:9  | ours: constant: , id:61, line:8:8, endln:8:9
+A/a08 | golden: decompile: array_typespec: , id:159, line:7:10, endln:7:17  | ours: interface_typespec: (bi), id:149, line:7:10, endln:7:12
+A/a08_el | golden: decompile: array_typespec: , id:159, line:7:10, endln:7:17  | ours: interface_typespec: (bi), id:149, line:7:10, endln:7:12
+A/a09 | golden: decompile: design: (work@top), id:55  | ours: design: (work@top), id:1
+A/a09_el | golden: decompile: design: (work@top), id:55  | ours: design: (work@top), id:1
+A/a12 | golden: decompile: hier_path: (b[1].v[1:0]), id:9, line:9:10, endln:9:11  | ours: hier_path: (b[1].v[1:0]), id:13, line:9:10, endln:9:21
+A/a12_el | golden: decompile: hier_path: (b[1].v[1:0]), id:9, line:9:10, endln:9:11  | ours: hier_path: (b[1].v[1:0]), id:13, line:9:10, endln:9:21
+B/b01 | golden: decompile: unsupported_typespec: (o::n), id:50, line:12:3, endln:12:6  | ours: class_typespec: (o::n), id:50, line:12:3, endln:12:6
+B/b01_el | golden: decompile: unsupported_typespec: (o::n), id:50, line:12:3, endln:12:6  | ours: class_typespec: (o::n), id:50, line:12:3, endln:12:6
+B/b02 | golden: decompile: sys_func_call: ($bits), id:32, line:7:30, endln:7:40  | ours: constant: , id:15, line:7:30, endln:7:40
+B/b02_el | golden: decompile: sys_func_call: ($bits), id:70, line:7:30, endln:7:40  | ours: constant: , id:15, line:7:30, endln:7:40
+B/b04 | golden: decompile: begin: (p::c::f), id:21, line:4:48, endln:4:66  | ours: return_stmt: , id:9, line:4:48, endln:4:54
+B/b04_el | golden: decompile: begin: (p::c::f), id:55, line:4:48, endln:4:66  | ours: return_stmt: , id:47, line:4:48, endln:4:54
+B/b05 | golden: decompile: ref_typespec: (p::c::W), id:27  | ours: RHS: <null>
+B/b05_el | golden: decompile: ref_typespec: (p::c::W), id:67  | ours: RHS: <null>
+E/e04 | golden: decompile: unsupported_typespec: (FILE_T), id:6, line:5:19, endln:5:25  | ours: int_typespec: (FILE_T), id:4, line:3:11, endln:3:14
+E/e04_el | golden: decompile: unsupported_typespec: (FILE_T), id:6, line:5:19, endln:5:25  | ours: int_typespec: (FILE_T), id:4, line:3:11, endln:3:14
+E/e06 | golden: decompile: int_typespec: (FILE_T), id:14, line:8:36, endln:8:42  | ours: int_typespec: (q::FILE_T), id:5, line:3:11, endln:3:14
+E/e07 | golden: decompile: package: p (p::), id:23, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/E/e07/dut.sv, line:2:1, endln:7:11  | ours: package: p (p::), id:2, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/E/e07/dut.sv, line:2:1, endln:7:1
+E/e07_el | golden: decompile: package: p (p::), id:23, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/E/e07/dut.sv, line:2:1, endln:7:11  | ours: package: p (p::), id:2, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/E/e07/dut.sv, line:2:1, endln:7:1
+E/e08 | golden: decompile: module_inst: work@top (work@top), id:19, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/E/e08/dut.sv, line:5:1, endln:9:10  | ours: module_inst: work@top (work@top), id:6, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/E/e08/dut.sv, lin
+E/e08_el | golden: decompile: module_inst: work@top (work@top), id:19, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/E/e08/dut.sv, line:5:1, endln:9:10  | ours: module_inst: work@top (work@top), id:6, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/E/e08/dut.sv, lin
+I/i02 | golden: decompile: hier_path: (arr[i].v[+:2]), id:62, line:8:14, endln:8:31  | ours: hier_path: (arr[i].v[g(k)+:2]), id:54, line:8:14, endln:8:31
+I/i02_el | golden: decompile: hier_path: (arr[i].v[+:2]), id:126, line:8:14, endln:8:31  | ours: hier_path: (arr[i].v[g(k)+:2]), id:119, line:8:14, endln:8:31
+I/i03 | golden: decompile: hier_path: (arr[i].v[+:2]), id:75, line:5:12, endln:5:32  | ours: hier_path: (arr[i].v[int'(k)+:2]), id:31, line:5:12, endln:5:32
+I/i03_el | golden: decompile: hier_path: (arr[i].v[+:2]), id:156, line:5:12, endln:5:32  | ours: hier_path: (arr[i].v[int'(k)+:2]), id:136, line:5:12, endln:5:32
+I/i05 | golden: decompile: hier_path: (arr[i].v[k+:W]), id:57, line:8:14, endln:8:28  | ours: hier_path: (arr[i].v[k+:2]), id:49, line:8:14, endln:8:28
+I/i05_el | golden: decompile: hier_path: (arr[i].v[k+:W]), id:114, line:8:14, endln:8:28  | ours: hier_path: (arr[i].v[k+:2]), id:109, line:8:14, endln:8:28
+I/i06 | golden: decompile: hier_path: (arr[i].v[k+:W]), id:101, line:6:12, endln:6:26  | ours: hier_path: (arr[i].v[k+:2]), id:37, line:6:12, endln:6:26
+I/i06_el | golden: decompile: hier_path: (arr[i].v[k+:W]), id:195, line:6:12, endln:6:26  | ours: hier_path: (arr[i].v[k+:2]), id:160, line:6:12, endln:6:26
+I/i07 | golden: decompile: unsupported_typespec: (o::n), id:99, line:15:3, endln:15:6  | ours: class_typespec: (o::n), id:95, line:15:3, endln:15:6
+I/i07_el | golden: decompile: unsupported_typespec: (o::n), id:99, line:15:3, endln:15:6  | ours: class_typespec: (o::n), id:95, line:15:3, endln:15:6
+I/i08 | golden: decompile: hier_path: (arr[i][j].v[k+:2]), id:51, line:7:11, endln:7:28  | ours: hier_path: (arr[i][j].v[k+:2]), id:52, line:7:11, endln:7:28
+I/i08_el | golden: decompile: hier_path: (arr[i][j].v[k+:2]), id:119, line:7:11, endln:7:28  | ours: hier_path: (arr[i][j].v[k+:2]), id:112, line:7:11, endln:7:28
+I/i09 | golden: RHS: decompile:  | ours: module_inst: work@top (work@top), id:63, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/I/i09/dut.sv, li
+I/i09_el | golden: RHS: decompile:  | ours: module_inst: work@top (work@top), id:63, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/I/i09/dut.sv, li
+K/k09 | golden: decompile: constant: , id:19, line:3:28, endln:3:31  | ours: constant: , id:15, line:3:28, endln:3:31
+K/k09_el | golden: decompile: constant: , id:19, line:3:28, endln:3:31  | ours: constant: , id:15, line:3:28, endln:3:31
+L/l03 | golden: decompile: hier_path: (s.arr[][1:0]), id:17, line:5:15, endln:5:34  | ours: hier_path: (s.arr[int'(k)][1:0]), id:23, line:5:15, endln:5:34
+L/l03_el | golden: decompile: hier_path: (s.arr[][1:0]), id:17, line:5:15, endln:5:34  | ours: hier_path: (s.arr[int'(k)][1:0]), id:23, line:5:15, endln:5:34
+L/l04 | golden: decompile: hier_path: (s.arr[][1:0]), id:23, line:5:15, endln:5:36  | ours: hier_path: (s.arr[$clog2(N)][1:0]), id:28, line:5:15, endln:5:36
+L/l04_el | golden: decompile: hier_path: (s.arr[][1:0]), id:23, line:5:15, endln:5:36  | ours: hier_path: (s.arr[$clog2(N)][1:0]), id:28, line:5:15, endln:5:36
+L/l07 | golden: decompile: hier_path: (b.s.arr[i][1:0]), id:17, line:7:15, endln:7:30  | ours: hier_path: (b.s.arr[i][1:0]), id:26, line:7:15, endln:7:30
+L/l07_el | golden: decompile: hier_path: (b.s.arr[i][1:0]), id:17, line:7:15, endln:7:30  | ours: hier_path: (b.s.arr[i][1:0]), id:26, line:7:15, endln:7:30
+L/l08 | golden: decompile: ref_obj: (work@top.d), id:112, line:12:19, endln:12:20  | ours: RHS: <null>
+L/l08_el | golden: decompile: ref_obj: (work@top.d), id:112, line:12:19, endln:12:20  | ours: RHS: <null>
+L/l10 | golden: decompile: int_typespec: , id:16, line:4:20, endln:4:23  | ours: logic_typespec: , id:20, line:4:20, endln:4:23
+L/l10_el | golden: decompile: int_typespec: , id:16, line:4:20, endln:4:23  | ours: logic_typespec: , id:20, line:4:20, endln:4:23
+L/l11 | golden: decompile: hier_path: (s.arr[i][1:0]), id:48, line:7:7, endln:7:20  | ours: hier_path: (s.arr[i][1:0]), id:40, line:7:7, endln:7:20
+L/l11_el | golden: decompile: hier_path: (s.arr[i][1:0]), id:71, line:7:7, endln:7:20  | ours: hier_path: (s.arr[i][1:0]), id:72, line:7:7, endln:7:20
+N/n08 | golden: decompile: logic_net: (work@top.k), id:94, line:7:18, endln:7:19  | ours: io_decl: (k), id:12, line:5:32, endln:5:33
+N/n08_el | golden: decompile: module_inst: work@top (work@top), id:82, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/N/n08/dut.sv, line:2:1, endln:12:10  | ours: module_inst: work@top (work@top), id:2, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/N/n08/dut.sv, lin
+O/o01 | golden: decompile: module_inst: work@top (work@top), id:86, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/O/o01/dut.sv, line:11:1, endln:13:10  | ours: RHS: <null>
+O/o01_el | golden: decompile: module_inst: work@top (work@top), id:86, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/O/o01/dut.sv, line:11:1, endln:13:10  | ours: RHS: <null>
+O/o02 | golden: decompile: operation: , id:51, line:6:11, endln:6:14  | ours: hier_path: (Info.x), id:58, line:6:13, endln:6:14
+O/o02_el | golden: decompile: operation: , id:51, line:6:11, endln:6:14  | ours: hier_path: (Info.x), id:58, line:6:13, endln:6:14
+O/o05 | golden: decompile: hier_path: (Info.x), id:64, line:6:23, endln:6:24  | ours: constant: , id:72, line:6:23, endln:6:24
+O/o05_el | golden: decompile: hier_path: (Info.x), id:64, line:6:23, endln:6:24  | ours: constant: , id:72, line:6:23, endln:6:24
+O/o07 | golden: decompile: ref_typespec: (work@top), id:15  | ours: RHS: <null>
+O/o07_el | golden: decompile: ref_typespec: (work@top), id:15  | ours: RHS: <null>
+O/o08 | golden: decompile: operation: , id:67, line:6:11, endln:6:14  | ours: constant: , id:75, line:6:11, endln:6:12
+O/o08_el | golden: decompile: operation: , id:67, line:6:11, endln:6:14  | ours: constant: , id:75, line:6:11, endln:6:12
+O/o09 | golden: decompile: ref_obj: (d_t.N), id:79, line:6:19, endln:6:20  | ours: hier_path: (Info.x), id:76, line:6:19, endln:6:20
+O/o09_el | golden: decompile: ref_obj: (d_t.N), id:79, line:6:19, endln:6:20  | ours: hier_path: (Info.x), id:76, line:6:19, endln:6:20
+O/o10_el | golden: decompile: constant: , id:158, line:8:15, endln:8:17  | ours: constant: , id:81, line:8:15, endln:8:17
+O/o11 | golden: decompile: hier_path: (Info.y), id:495, line:2:50, endln:2:51  | ours: hier_path: (Info.x), id:177, line:2:50, endln:2:51
+O/o11_el | golden: decompile: hier_path: (Info.y), id:495, line:2:50, endln:2:51  | ours: hier_path: (Info.x), id:177, line:2:50, endln:2:51
+O/o12 | golden: decompile: hier_path: (Info.x), id:56, line:6:23, endln:6:29  | ours: constant: , id:72, line:6:23, endln:6:29
+O/o12_el | golden: decompile: hier_path: (Info.x), id:56, line:6:23, endln:6:29  | ours: constant: , id:72, line:6:23, endln:6:29
+O/o13 | golden: decompile: operation: , id:52, line:4:32, endln:4:46  | ours: ref_obj: (work@top.I0), id:64, line:5:46, endln:5:48
+O/o13_el | golden: decompile: operation: , id:52, line:4:32, endln:4:46  | ours: ref_obj: (work@top.I0), id:64, line:5:46, endln:5:48
+O/o14 | golden: decompile: ref_typespec: (work@top), id:65  | ours: RHS: <null>
+O/o14_el | golden: decompile: ref_typespec: (work@top), id:65  | ours: RHS: <null>
+O/o15 | golden: decompile: constant: , id:76, line:6:11, endln:6:12  | ours: operation: , id:57, line:6:11, endln:6:14
+O/o15_el | golden: decompile: constant: , id:76, line:6:11, endln:6:12  | ours: operation: , id:57, line:6:11, endln:6:14
+O/o16 | golden: decompile: ref_typespec: (work@top), id:19  | ours: RHS: <null>
+O/o16_el | golden: decompile: ref_typespec: (work@top), id:19  | ours: RHS: <null>
+O/o17 | golden: decompile: ref_typespec: (work@top), id:23  | ours: RHS: <null>
+O/o17_el | golden: decompile: ref_typespec: (work@top), id:23  | ours: RHS: <null>
+O/o18 | golden: decompile: constant: , id:137, line:7:11, endln:7:12  | ours: operation: , id:87, line:7:11, endln:7:14
+O/o18_el | golden: decompile: constant: , id:137, line:7:11, endln:7:12  | ours: operation: , id:87, line:7:11, endln:7:14
+P/p01 | golden: decompile: constant: , id:88, line:4:35, endln:4:65  | ours: operation: , id:50, line:4:35, endln:4:65
+P/p01_el | golden: decompile: constant: , id:88, line:4:35, endln:4:65  | ours: operation: , id:50, line:4:35, endln:4:65
+P/p02 | golden: decompile: constant: , id:90, line:4:35, endln:4:65  | ours: operation: , id:48, line:4:35, endln:4:65
+P/p02_el | golden: decompile: constant: , id:90, line:4:35, endln:4:65  | ours: operation: , id:48, line:4:35, endln:4:65
+P/p03 | golden: RHS: decompile:  | ours: package: p (p::), id:2, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/P/p03/dut.sv, line:2:1, endln:5:1
+P/p03_el | golden: RHS: decompile:  | ours: package: p (p::), id:2, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/P/p03/dut.sv, line:2:1, endln:5:1
+P/p04 | golden: RHS: decompile:  | ours: ref_typespec: (work@top), id:51
+P/p04_el | golden: RHS: decompile:  | ours: ref_typespec: (work@top), id:51
+S/s06 | golden: decompile: string_typespec: , id:1, line:3:14, endln:3:20  | ours: bit_typespec: , id:10, line:3:14, endln:3:20
+S/s06_el | golden: decompile: string_typespec: , id:1, line:3:14, endln:3:20  | ours: bit_typespec: , id:10, line:3:14, endln:3:20
+S/s09 | golden: decompile: constant: , id:45, line:3:19, endln:3:32  | ours: constant: , id:51, line:3:19, endln:3:32
+S/s09_el | golden: decompile: constant: , id:45, line:3:19, endln:3:32  | ours: constant: , id:51, line:3:19, endln:3:32
+S/s18 | golden: decompile: constant: , id:5, line:4:9, endln:4:29  | ours: constant: , id:9, line:4:9, endln:4:36
+S/s18_el | golden: decompile: constant: , id:5, line:4:9, endln:4:29  | ours: constant: , id:9, line:4:9, endln:4:36
+X/x02 | golden: decompile: hier_path: (b[].v[1:0]), id:29, line:12:15, endln:12:16  | ours: hier_path: (b[S.k].v[1:0]), id:42, line:12:15, endln:12:28
+X/x02_el | golden: decompile: hier_path: (b[].v[1:0]), id:29, line:12:15, endln:12:16  | ours: hier_path: (b[S.k].v[1:0]), id:42, line:12:15, endln:12:28
+X/x04 | golden: decompile: constant: , id:23, line:8:15, endln:8:24  | ours: constant: , id:28, line:8:15, endln:8:24
+X/x04_el | golden: decompile: constant: , id:23, line:8:15, endln:8:24  | ours: constant: , id:28, line:8:15, endln:8:24
+X/x05 | golden: RHS: decompile:  | ours: package: p (p::), id:2, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/X/x05/dut.sv, line:2:1, endln:15:
+X/x05_el | golden: RHS: decompile:  | ours: package: p (p::), id:2, file:/tmp/wt_r11u229/tools/probe/r11u229verify/cases/X/x05/dut.sv, line:2:1, endln:15:
+X/x07 | golden: decompile: hier_path: (b[K].s.arr[i][1:0]), id:37, line:11:15, endln:11:16  | ours: hier_path: (b[K].s.arr[i][1:0]), id:45, line:11:15, endln:11:33
+X/x07_el | golden: decompile: hier_path: (b[K].s.arr[i][1:0]), id:37, line:11:15, endln:11:16  | ours: hier_path: (b[K].s.arr[i][1:0]), id:45, line:11:15, endln:11:33

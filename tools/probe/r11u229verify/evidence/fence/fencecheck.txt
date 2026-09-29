@@ -1,0 +1,19 @@
+r11u224repro [bare env] env.sh checkout: shell aborted | two-name canaudit: shell aborted
+r11u224repro [tools env] env.sh checkout: rc=0 n=4 | two-name canaudit: rc=1 n=2
+r11u224repro files naming a fenced test: 0
+v11u224repro [bare env] env.sh checkout: shell aborted | two-name canaudit: shell aborted
+v11u224repro [tools env] env.sh checkout: rc=0 n=4 | two-name canaudit: rc=1 n=2
+v11u224repro files naming a fenced test: 0
+r11u225repro [bare env] env.sh checkout: rc=1 n=4 | two-name canaudit: rc=1 n=2
+r11u225repro [tools env] env.sh checkout: rc=0 n=4 | two-name canaudit: rc=1 n=2
+r11u225repro files naming a fenced test: 0
+v11u225repro [bare env] env.sh checkout: rc=1 n=4 | two-name canaudit: rc=1 n=2
+v11u225repro [tools env] env.sh checkout: rc=0 n=4 | two-name canaudit: rc=1 n=2
+v11u225repro files naming a fenced test: 0
+r11u226verify [bare env] env.sh checkout: rc=1 n=0 | two-name canaudit: rc=1 n=0
+r11u226verify [tools env] env.sh checkout: rc=0 n=4 | two-name canaudit: rc=1 n=2
+r11u226verify files naming a fenced test: 0
+r11u229verify [bare env] env.sh checkout: rc=0 n=4 | two-name canaudit: rc=1 n=2
+r11u229verify [tools env] env.sh checkout: rc=0 n=4 | two-name canaudit: rc=1 n=2
+r11u229verify files naming a fenced test: 0
+positive control: planted files found 1 (expect 1)

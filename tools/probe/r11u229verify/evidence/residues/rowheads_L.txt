@@ -1,0 +1,106 @@
+== surelog default MiniAmiq
+#24915 line
+  A: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	332	40	332	56				
+  B: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	1381	51	1381	67				
+#24917 depth
+  A: 7	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode			uvm_object_globals.svh	359	1	367	26				
+  B: 6	enum_const	UVM_SEQ_ARB_FIFO			uvm_object_globals.svh	361	3	361	19				
+STRICT_NOTEQUAL line
+== surelog testflags MiniAmiq
+#24915 line
+  A: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	332	40	332	56				
+  B: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	1381	51	1381	67				
+#24917 depth
+  A: 7	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode			uvm_object_globals.svh	359	1	367	26				
+  B: 6	enum_const	UVM_SEQ_ARB_FIFO			uvm_object_globals.svh	361	3	361	19				
+STRICT_NOTEQUAL line
+== surelog default SeqDriver
+#24898 line
+  A: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	332	40	332	56				
+  B: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	1381	51	1381	67				
+#24900 depth
+  A: 7	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode			uvm_object_globals.svh	359	1	367	26				
+  B: 6	enum_const	UVM_SEQ_ARB_FIFO			uvm_object_globals.svh	361	3	361	19				
+STRICT_NOTEQUAL line
+== surelog testflags SeqDriver
+#24910 line
+  A: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	332	40	332	56				
+  B: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	1381	51	1381	67				
+#24912 depth
+  A: 7	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode			uvm_object_globals.svh	359	1	367	26				
+  B: 6	enum_const	UVM_SEQ_ARB_FIFO			uvm_object_globals.svh	361	3	361	19				
+STRICT_NOTEQUAL line
+== surelog default Earlgrey_0_1
+#106660 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#106674 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+STRICT_NOTEQUAL fullname
+== surelog testflags Earlgrey_0_1
+#108111 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#108125 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+STRICT_NOTEQUAL fullname
+== surelog default BlackBePipeInt
+#15272 type
+  A: 5	ref_typespec			bp_common_pkg		0	0	0	0		0		
+  B: 5	constant				dut.sv	2047	16	2047	17	1	64	UINT:1	9
+STRICT_NOTEQUAL type
+== surelog testflags BlackBePipeInt
+#15268 type
+  A: 5	ref_typespec			bp_common_pkg		0	0	0	0		0		
+  B: 5	constant				dut.sv	2047	16	2047	17	1	64	UINT:1	9
+STRICT_NOTEQUAL type
+== uhdm2rtlil default cfg_func_width_loop
+#464 line
+  A: 6	logic_typespec	mask_t			dut.sv	27	40	27	46				
+  B: 6	logic_typespec	mask_t			dut.sv	16	11	16	25				
+#465 fullname
+  A: 7	ref_typespec			<in>mask_t		0	0	0	0		0		
+  B: 7	ref_typespec			<in>mask_t		0	0	0	0		0		
+STRICT_NOTEQUAL line
+== uhdm2rtlil testflags cfg_func_width_loop
+#374 line
+  A: 6	logic_typespec	mask_t			dut.sv	27	40	27	46				
+  B: 6	logic_typespec	mask_t			dut.sv	16	11	16	25				
+#375 fullname
+  A: 7	ref_typespec			<in>mask_t		0	0	0	0		0		
+  B: 7	ref_typespec			<in>mask_t		0	0	0	0		0		
+STRICT_NOTEQUAL line
+== uhdm2rtlil default struct_param_func_config
+#759 fullname
+  A: 6	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0		
+  B: 6	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0		
+--
+#813 fullname
+  A: 6	ref_typespec			<in>p::cfg_t.d		0	0	0	0		0		
+STRICT_NOTEQUAL fullname
+== uhdm2rtlil testflags struct_param_func_config
+#669 fullname
+  A: 6	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0		
+  B: 6	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0		
+--
+#723 fullname
+  A: 6	ref_typespec			<in>p::cfg_t.d		0	0	0	0		0		
+STRICT_NOTEQUAL fullname
+== surelog default FuncStructVal
+#747 endcol
+  A: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	28		0		
+  B: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	46		0		
+#4782 file
+  A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 7	constant					0	0	0	0	2	64	INT:2	7
+STRICT_NOTEQUAL endcol
+== surelog testflags FuncStructVal
+#746 endcol
+  A: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	28		0		
+  B: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	46		0		
+#7129 file
+  A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 7	constant					0	0	0	0	2	64	INT:2	7
+STRICT_NOTEQUAL endcol

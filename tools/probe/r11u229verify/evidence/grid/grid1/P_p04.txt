@@ -1,0 +1,11 @@
+FIRED P/p04 -
+  P/p04 on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=dd52fa48
+  P/p04 tr cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=dd52fa48
+  P/p04 off_pcwAllPkgListingBindsOwn224 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=dd52fa48
+  P/p04 offL224 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=dd52fa48
+  P/p04 alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=dd52fa48
+  P/p04 wide cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=dd52fa48
+RESULT P/p04 pcwAllPkgListingBindsOwn224 UNFIRED 
+RESULT P/p04 LANDING224 UNFIRED 
+RESULT P/p04 ALLOFF UNFIRED 
+RESULT P/p04 WIDE UNFIRED 

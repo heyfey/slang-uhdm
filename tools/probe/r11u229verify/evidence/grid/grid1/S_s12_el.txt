@@ -1,0 +1,11 @@
+FIRED S/s12_el strLitPpEscIdShift224:8
+  S/s12_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_69_objects rc=0 md5=2b9bd5b1
+  S/s12_el tr cmp=0 cmplines=0 strict=STRICT_EQUAL_69_objects rc=0 md5=2b9bd5b1
+  S/s12_el off_strLitPpEscIdShift224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=884027a3
+  S/s12_el offL224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=884027a3
+  S/s12_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=884027a3
+  S/s12_el wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=884027a3
+RESULT S/s12_el strLitPpEscIdShift224 TOWARD new=0 gone=7 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_69_objects
+RESULT S/s12_el LANDING224 TOWARD new=0 gone=7 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_69_objects
+RESULT S/s12_el ALLOFF TOWARD new=0 gone=7 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_69_objects
+RESULT S/s12_el WIDE TOWARD new=0 gone=7 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_69_objects

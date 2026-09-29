@@ -1,0 +1,13 @@
+FIRED I/i06_el ipsBasePfxScopeJoin224:2
+  I/i06_el on cmp=255 cmplines=202 strict=NOT_EQUAL_stage1 rc=0 md5=e3b1db2d
+  I/i06_el tr cmp=255 cmplines=202 strict=NOT_EQUAL_stage1 rc=0 md5=e3b1db2d
+  I/i06_el off_ipsWidthPfxByPathInScope224 cmp=255 cmplines=202 strict=NOT_EQUAL_stage1 rc=0 md5=e3b1db2d
+  I/i06_el off_ipsBasePfxScopeJoin224 cmp=255 cmplines=202 strict=NOT_EQUAL_stage1 rc=0 md5=543db195
+  I/i06_el offL224 cmp=255 cmplines=202 strict=NOT_EQUAL_stage1 rc=0 md5=543db195
+  I/i06_el alloff cmp=255 cmplines=202 strict=NOT_EQUAL_stage1 rc=0 md5=543db195
+  I/i06_el wide cmp=255 cmplines=202 strict=NOT_EQUAL_stage1 rc=0 md5=543db195
+RESULT I/i06_el ipsWidthPfxByPathInScope224 UNFIRED 
+RESULT I/i06_el ipsBasePfxScopeJoin224 STAGE1-CLOSER off:stage1 on:stage1 dump off=114 on=110 newbad=6
+RESULT I/i06_el LANDING224 STAGE1-CLOSER off:stage1 on:stage1 dump off=114 on=110 newbad=6
+RESULT I/i06_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=114 on=110 newbad=6
+RESULT I/i06_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=114 on=110 newbad=6

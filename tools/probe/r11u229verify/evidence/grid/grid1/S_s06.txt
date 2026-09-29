@@ -1,0 +1,11 @@
+FIRED S/s06 strLitPpEscIdShift224:10
+  S/s06 on cmp=255 cmplines=12 strict=NOT_EQUAL_stage1 rc=0 md5=ff9fabfd
+  S/s06 tr cmp=255 cmplines=12 strict=NOT_EQUAL_stage1 rc=0 md5=ff9fabfd
+  S/s06 off_strLitPpEscIdShift224 cmp=255 cmplines=12 strict=NOT_EQUAL_stage1 rc=0 md5=4e552d03
+  S/s06 offL224 cmp=255 cmplines=12 strict=NOT_EQUAL_stage1 rc=0 md5=4e552d03
+  S/s06 alloff cmp=255 cmplines=12 strict=NOT_EQUAL_stage1 rc=0 md5=4e552d03
+  S/s06 wide cmp=255 cmplines=12 strict=NOT_EQUAL_stage1 rc=0 md5=4e552d03
+RESULT S/s06 strLitPpEscIdShift224 STAGE1-CLOSER off:stage1 on:stage1 dump off=58 on=32 newbad=0
+RESULT S/s06 LANDING224 STAGE1-CLOSER off:stage1 on:stage1 dump off=58 on=32 newbad=0
+RESULT S/s06 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=58 on=32 newbad=0
+RESULT S/s06 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=58 on=32 newbad=0

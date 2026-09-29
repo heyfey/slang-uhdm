@@ -1,0 +1,11 @@
+FIRED I/i02 ipsBasePfxScopeJoin224:1 ipsWidthPfxByPathInScope224:1
+  I/i02 on cmp=255 cmplines=180 strict=NOT_EQUAL_stage1 rc=0 md5=b602cb1d
+  I/i02 tr cmp=255 cmplines=180 strict=NOT_EQUAL_stage1 rc=0 md5=b602cb1d
+  I/i02 off_ipsBasePfxScopeJoin224 cmp=255 cmplines=180 strict=NOT_EQUAL_stage1 rc=0 md5=c91f89fd
+  I/i02 offL224 cmp=255 cmplines=180 strict=NOT_EQUAL_stage1 rc=0 md5=c91f89fd
+  I/i02 alloff cmp=255 cmplines=180 strict=NOT_EQUAL_stage1 rc=0 md5=c91f89fd
+  I/i02 wide cmp=255 cmplines=180 strict=NOT_EQUAL_stage1 rc=0 md5=c91f89fd
+RESULT I/i02 ipsBasePfxScopeJoin224 STAGE1-SAME off:stage1 on:stage1 dump off=20 on=20 newbad=2
+RESULT I/i02 LANDING224 STAGE1-SAME off:stage1 on:stage1 dump off=20 on=20 newbad=2
+RESULT I/i02 ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=20 on=20 newbad=2
+RESULT I/i02 WIDE STAGE1-SAME off:stage1 on:stage1 dump off=20 on=20 newbad=2

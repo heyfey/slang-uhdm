@@ -30,6 +30,7 @@
 #include "R217.h"
 #include "R221.h"
 #include "R225.h"
+#include "R229.h"
 
 namespace slang_uhdm {
 
@@ -10516,8 +10517,40 @@ std::vector<const PackageSymbol*> UhdmExporter::unitScopeWildcardImports() {
                 at = isyn->sourceRange().start();
             hits.push_back({at, p});
         }
-    std::stable_sort(hits.begin(), hits.end(),
-                     [](const auto& a, const auto& b) { return a.first < b.first; });
+    // § unitImportFileOrder229v (r11u229, switch R11V229_UNITIMPORTORDER_OFF)
+    // — THE COMPILATION-UNIT IMPORTS KEEP THE PARSE ORDER, NOT A BUFFER-ID
+    // ORDER.  `SourceLocation`'s `<` compares (BufferID, offset), and slang's
+    // driver reads the source files on a thread pool, so two imports in two
+    // different files (Scoreboard: `import uvm_pkg::*` in design.sv, `import
+    // svunit_pkg::*` in testbench.sv) compared by the order in which the files
+    // happened to be READ: the design's vpiTaskFunc listing came out
+    // [uvm_pkg's 894, svunit_pkg's 23] (golden's order: the command-line order
+    // Surelog processes) or [svunit_pkg's 23, uvm_pkg's 894] from draw to draw
+    // (the "svunit listing-order coin", RESUME section 9, 92 uhdm-dump lines,
+    // traced: the two root files drew buffer ids 2/3, 2/4, 3/4 in either
+    // order).  The members of a compilation unit are in parse order (the
+    // command line, an `include`d file's text at its directive), and
+    // getCompilationUnits() lists the units in syntax-tree order, so the
+    // collection loop above already yields Surelog's order: keep it.
+    if (r11v229Law("R11V229_UNITIMPORTORDER_OFF")) {
+        if (hits.size() > 1) {
+            auto sorted229 = hits;
+            std::stable_sort(sorted229.begin(), sorted229.end(),
+                             [](const auto& a, const auto& b) { return a.first < b.first; });
+            bool moved229 = false;
+            std::string d229;
+            for (size_t i229 = 0; i229 < hits.size(); i229++) {
+                if (hits[i229].second != sorted229[i229].second)
+                    moved229 = true;
+                d229 += std::string(hits[i229].second->name) + "@" +
+                        std::to_string(hits[i229].first.buffer().getId()) + " ";
+            }
+            tr229("unitImportFileOrder229v", (moved229 ? "MOVED " : "same ") + d229);
+        }
+    }
+    else
+        std::stable_sort(hits.begin(), hits.end(),
+                         [](const auto& a, const auto& b) { return a.first < b.first; });
     for (auto& [at, p] : hits) {
         (void)at;
         if (std::find(out.begin(), out.end(), p) == out.end())

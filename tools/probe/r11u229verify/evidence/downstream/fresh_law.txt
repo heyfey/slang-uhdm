@@ -1,0 +1,123 @@
+A/a01 on IDENTICAL differs=- slang=fb6150c826 surelog=fb6150c826
+A/a02 on IDENTICAL differs=- slang=d6a3e4520b surelog=d6a3e4520b
+A/a03 on IDENTICAL differs=- slang=f9fb46ef5b surelog=f9fb46ef5b
+A/a04 on IDENTICAL differs=- slang=7e2ed9cccc surelog=7e2ed9cccc
+A/a05 on IDENTICAL differs=- slang=f260888969 surelog=f260888969
+A/a06 on IDENTICAL differs=- slang=f260888969 surelog=f260888969
+A/a07 on IDENTICAL differs=- slang=5f002724f0 surelog=5f002724f0
+A/a08 on STATUS_DIFF differs=- slang=17eac452f4 surelog=f999e65201
+A/a09 on EQUIVALENT differs=nohier il slang=fe6186c91f surelog=a51caf5861
+A/a10 on IDENTICAL differs=- slang=c4c20df00e surelog=c4c20df00e
+A/a11 on IDENTICAL differs=- slang=f260888969 surelog=f260888969
+A/a12 on DIVERGENT differs=nohier il synth slang=3443a936f4 surelog=3cf06c0646
+A/a13 on IDENTICAL differs=- slang=4132a0f85d surelog=4132a0f85d
+A/a14 on IDENTICAL differs=- slang=2ed447874e surelog=2ed447874e
+A/a15 on IDENTICAL differs=- slang=b8db529268 surelog=b8db529268
+A/a16 on IDENTICAL differs=- slang=420846bc4c surelog=420846bc4c
+A/a17 on IDENTICAL differs=- slang=c4d878e35f surelog=c4d878e35f
+A/a18 on IDENTICAL differs=- slang=f0b3ce4316 surelog=f0b3ce4316
+B/b01 on DIVERGENT differs=nohier il synth slang=5ecf4da315 surelog=4e2ea54a55
+B/b02 on EQUIVALENT differs=nohier il synth slang=77bc1100df surelog=665a3ea2ce
+B/b03 on IDENTICAL differs=- slang=c5074040dc surelog=c5074040dc
+B/b04 on EQUIVALENT differs=nohier il synth slang=c7aec3acce surelog=1adbe99082
+B/b05 on DIVERGENT differs=nohier il synth slang=eb526e2e12 surelog=c652f256a0
+E/e01 on IDENTICAL differs=- slang=a042a7e013 surelog=a042a7e013
+E/e02 on IDENTICAL differs=- slang=19ae48105f surelog=19ae48105f
+E/e03 on IDENTICAL differs=- slang=2be2ab2bc5 surelog=2be2ab2bc5
+E/e04 on IDENTICAL differs=- slang=0e8733ede3 surelog=0e8733ede3
+E/e05 on IDENTICAL differs=- slang=2fdb2af441 surelog=2fdb2af441
+E/e06 on IDENTICAL differs=- slang=b25826c0ac surelog=b25826c0ac
+E/e07 on IDENTICAL differs=- slang=2fdb2af441 surelog=2fdb2af441
+E/e08 on IDENTICAL differs=- slang=0e376b32bf surelog=0e376b32bf
+H/h01 on IDENTICAL differs=- slang=c279500faa surelog=c279500faa
+H/h02 on IDENTICAL differs=- slang=4ac1beb066 surelog=4ac1beb066
+H/h03 on IDENTICAL differs=- slang=4ac1beb066 surelog=4ac1beb066
+H/h04 on IDENTICAL differs=- slang=50d9ac683c surelog=50d9ac683c
+H/h05 on IDENTICAL differs=- slang=c279500faa surelog=c279500faa
+I/i01 on IDENTICAL differs=- slang=97699f194e surelog=97699f194e
+I/i02 on IDENTICAL differs=- slang=2411a41522 surelog=2411a41522
+I/i03 on IDENTICAL differs=- slang=db432eb21f surelog=db432eb21f
+I/i04 on IDENTICAL differs=- slang=bc7967e80a surelog=bc7967e80a
+I/i05 on IDENTICAL differs=- slang=2411a41522 surelog=2411a41522
+I/i06 on IDENTICAL differs=- slang=3eeca94081 surelog=3eeca94081
+I/i07 on EQUIVALENT differs=nohier il slang=91172301a7 surelog=1670640856
+I/i08 on IDENTICAL differs=- slang=b3fcd40f65 surelog=b3fcd40f65
+I/i09 on IDENTICAL differs=- slang=c937caccb3 surelog=c937caccb3
+K/k01 on IDENTICAL differs=- slang=15589e06d3 surelog=15589e06d3
+K/k02 on IDENTICAL differs=- slang=5c3f8ddba0 surelog=5c3f8ddba0
+K/k03 on IDENTICAL differs=- slang=378fcc67a0 surelog=378fcc67a0
+K/k04 on IDENTICAL differs=- slang=4849296fbd surelog=4849296fbd
+K/k05 on IDENTICAL differs=- slang=351fd92e4e surelog=351fd92e4e
+K/k06 on IDENTICAL differs=- slang=d5c94c7bed surelog=d5c94c7bed
+K/k07 on IDENTICAL differs=- slang=b1ea70ddfb surelog=b1ea70ddfb
+K/k08 on IDENTICAL differs=- slang=0c74d3edf3 surelog=0c74d3edf3
+K/k09 on IDENTICAL differs=- slang=fc287d62ab surelog=fc287d62ab
+K/k10 on IDENTICAL differs=- slang=784e55ec91 surelog=784e55ec91
+L/l01 on IDENTICAL differs=- slang=d2150d8ac7 surelog=d2150d8ac7
+L/l02 on IDENTICAL differs=- slang=da87c6f8cb surelog=da87c6f8cb
+L/l03 on IDENTICAL differs=- slang=68be3fb653 surelog=68be3fb653
+L/l04 on IDENTICAL differs=- slang=f772b19531 surelog=f772b19531
+L/l05 on IDENTICAL differs=- slang=ec2ff6ad76 surelog=ec2ff6ad76
+L/l06 on IDENTICAL differs=- slang=7a69cdb87a surelog=7a69cdb87a
+L/l07 on IDENTICAL differs=- slang=7a8b8ab009 surelog=7a8b8ab009
+L/l08 on IDENTICAL differs=- slang=45e7925e27 surelog=45e7925e27
+L/l09 on IDENTICAL differs=- slang=96a20eee9f surelog=96a20eee9f
+L/l10 on EQUIVALENT differs=nohier il synth slang=e41f549212 surelog=258083df36
+L/l11 on IDENTICAL differs=- slang=b7e22d5fb0 surelog=b7e22d5fb0
+L/l12 on IDENTICAL differs=- slang=f817e66763 surelog=f817e66763
+N/n01 on IDENTICAL differs=- slang=5b2d47367c surelog=5b2d47367c
+N/n02 on IDENTICAL differs=- slang=5b2d47367c surelog=5b2d47367c
+N/n03 on IDENTICAL differs=- slang=5b2d47367c surelog=5b2d47367c
+N/n04 on IDENTICAL differs=- slang=5b2d47367c surelog=5b2d47367c
+N/n05 on IDENTICAL differs=- slang=5b2d47367c surelog=5b2d47367c
+N/n06 on IDENTICAL differs=- slang=5b2d47367c surelog=5b2d47367c
+N/n07 on IDENTICAL differs=- slang=5b2d47367c surelog=5b2d47367c
+N/n08 on IDENTICAL differs=- slang=f31ef55d38 surelog=f31ef55d38
+O/o01 on EQUIVALENT differs=nohier il slang=fab4237ffc surelog=35babaa45c
+O/o02 on DIVERGENT differs=nohier il synth slang=64689a5db7 surelog=b85f518953
+O/o03 on IDENTICAL differs=- slang=bf1998e95f surelog=bf1998e95f
+O/o04 on IDENTICAL differs=- slang=ed046e0a70 surelog=ed046e0a70
+O/o05 on IDENTICAL differs=- slang=95f5c77239 surelog=95f5c77239
+O/o06 on IDENTICAL differs=- slang=287f53be6e surelog=287f53be6e
+O/o07 on EQUIVALENT differs=nohier il synth slang=1be3af7ea5 surelog=6cef7805bc
+O/o08 on IDENTICAL differs=- slang=c9a9144a97 surelog=c9a9144a97
+O/o09 on IDENTICAL differs=- slang=196bb29cbd surelog=196bb29cbd
+O/o10 on IDENTICAL differs=- slang=c02fd39bc3 surelog=c02fd39bc3
+O/o11 on IDENTICAL differs=- slang=b85234f683 surelog=b85234f683
+O/o12 on IDENTICAL differs=- slang=95f5c77239 surelog=95f5c77239
+O/o13 on IDENTICAL differs=- slang=95f5c77239 surelog=95f5c77239
+O/o14 on IDENTICAL differs=- slang=85c4aefc8f surelog=85c4aefc8f
+O/o15 on IDENTICAL differs=- slang=c9a9144a97 surelog=c9a9144a97
+O/o16 on IDENTICAL differs=- slang=c9a9144a97 surelog=c9a9144a97
+O/o17 on IDENTICAL differs=- slang=633bd18caf surelog=633bd18caf
+O/o18 on IDENTICAL differs=- slang=95f5c77239 surelog=95f5c77239
+P/p01 on IDENTICAL differs=- slang=c831f2c4ed surelog=c831f2c4ed
+P/p02 on IDENTICAL differs=- slang=5afac2e2f9 surelog=5afac2e2f9
+P/p03 on IDENTICAL differs=- slang=c68422d004 surelog=c68422d004
+P/p04 on IDENTICAL differs=- slang=3bd7f5744c surelog=3bd7f5744c
+S/s01 on IDENTICAL differs=- slang=928d6ceea5 surelog=928d6ceea5
+S/s02 on IDENTICAL differs=- slang=928d6ceea5 surelog=928d6ceea5
+S/s03 on IDENTICAL differs=- slang=928d6ceea5 surelog=928d6ceea5
+S/s04 on IDENTICAL differs=- slang=e036dc722d surelog=e036dc722d
+S/s05 on IDENTICAL differs=- slang=835e98e1b4 surelog=835e98e1b4
+S/s06 on IDENTICAL differs=- slang=1b799df4cf surelog=1b799df4cf
+S/s07 on IDENTICAL differs=- slang=2d8a3dadfb surelog=2d8a3dadfb
+S/s08 on IDENTICAL differs=- slang=c2e21d40f0 surelog=c2e21d40f0
+S/s09 on EQUIVALENT differs=nohier il slang=9fdaf96c28 surelog=0fc370eea2
+S/s10 on IDENTICAL differs=- slang=8d54d44e19 surelog=8d54d44e19
+S/s11 on IDENTICAL differs=- slang=e02e3646ec surelog=e02e3646ec
+S/s12 on IDENTICAL differs=- slang=88ec426aea surelog=88ec426aea
+S/s13 on IDENTICAL differs=- slang=61e70ee212 surelog=61e70ee212
+S/s14 on IDENTICAL differs=- slang=63b40ea51a surelog=63b40ea51a
+S/s15 on IDENTICAL differs=- slang=e036dc722d surelog=e036dc722d
+S/s16 on IDENTICAL differs=- slang=e036dc722d surelog=e036dc722d
+S/s17 on IDENTICAL differs=- slang=6c41ae8125 surelog=6c41ae8125
+S/s18 on IDENTICAL differs=- slang=b80e522e17 surelog=b80e522e17
+X/x01 on IDENTICAL differs=- slang=98f7bcafbe surelog=98f7bcafbe
+X/x02 on DIVERGENT differs=nohier il synth slang=4124d26379 surelog=31e1d93edf
+X/x03 on IDENTICAL differs=- slang=7c4524d4c0 surelog=7c4524d4c0
+X/x04 on DIVERGENT differs=nohier il synth slang=1dd7e29f26 surelog=84df804c4b
+X/x05 on IDENTICAL differs=- slang=ee0693694a surelog=ee0693694a
+X/x06 on IDENTICAL differs=- slang=a9771dae32 surelog=a9771dae32
+X/x07 on IDENTICAL differs=- slang=e6647d8edd surelog=e6647d8edd
+X/x08 on IDENTICAL differs=- slang=06f959b077 surelog=06f959b077

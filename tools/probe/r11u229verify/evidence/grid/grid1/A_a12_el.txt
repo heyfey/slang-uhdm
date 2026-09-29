@@ -1,0 +1,11 @@
+FIRED A/a12_el -
+  A/a12_el on cmp=255 cmplines=160 strict=NOT_EQUAL_stage1 rc=0 md5=4376c8d5
+  A/a12_el tr cmp=255 cmplines=160 strict=NOT_EQUAL_stage1 rc=0 md5=4376c8d5
+  A/a12_el off_ifArrElemLitCaFresh225 cmp=255 cmplines=160 strict=NOT_EQUAL_stage1 rc=0 md5=4376c8d5
+  A/a12_el offL225 cmp=255 cmplines=160 strict=NOT_EQUAL_stage1 rc=0 md5=4376c8d5
+  A/a12_el alloff cmp=255 cmplines=160 strict=NOT_EQUAL_stage1 rc=0 md5=4376c8d5
+  A/a12_el wide cmp=255 cmplines=160 strict=NOT_EQUAL_stage1 rc=0 md5=4376c8d5
+RESULT A/a12_el ifArrElemLitCaFresh225 UNFIRED 
+RESULT A/a12_el LANDING225 UNFIRED 
+RESULT A/a12_el ALLOFF UNFIRED 
+RESULT A/a12_el WIDE UNFIRED 

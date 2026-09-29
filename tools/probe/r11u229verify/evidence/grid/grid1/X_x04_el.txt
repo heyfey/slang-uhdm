@@ -1,0 +1,23 @@
+FIRED X/x04_el initHierAtRefToken225:2 initHierCaLhsBareName225:1 initHierFillKept225:1 strLitContLineSpan220:2 strLitContOwnerEnd224:1
+  X/x04_el on cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=5d947ba9
+  X/x04_el tr cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=5d947ba9
+  X/x04_el off_strLitContOwnerEnd224 cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=291e8c52
+  X/x04_el off_initHierAtRefToken225 cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=6553c853
+  X/x04_el off_initHierFillKept225 cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=e374ca4a
+  X/x04_el offL224 cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=291e8c52
+  X/x04_el offL225 cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=982c7854
+  X/x04_el off2_strLitContOwnerEnd224_initHierAtRefToken225 cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=96c303ed
+  X/x04_el off2_strLitContOwnerEnd224_initHierFillKept225 cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=2ec63067
+  X/x04_el off2_initHierAtRefToken225_initHierFillKept225 cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=1401be1a
+  X/x04_el alloff cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=5c5fe36e
+  X/x04_el wide cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=ce7c5b25
+RESULT X/x04_el strLitContOwnerEnd224 STAGE1-CLOSER off:stage1 on:stage1 dump off=10 on=6 newbad=0
+RESULT X/x04_el initHierAtRefToken225 STAGE1-SAME off:stage1 on:stage1 dump off=6 on=6 newbad=0
+RESULT X/x04_el initHierFillKept225 STAGE1-CLOSER off:stage1 on:stage1 dump off=14 on=6 newbad=0
+RESULT X/x04_el LANDING224 STAGE1-CLOSER off:stage1 on:stage1 dump off=10 on=6 newbad=0
+RESULT X/x04_el LANDING225 STAGE1-CLOSER off:stage1 on:stage1 dump off=14 on=6 newbad=0
+RESULT X/x04_el PAIR:strLitContOwnerEnd224+initHierAtRefToken225 STAGE1-CLOSER off:stage1 on:stage1 dump off=10 on=6 newbad=0
+RESULT X/x04_el PAIR:strLitContOwnerEnd224+initHierFillKept225 STAGE1-CLOSER off:stage1 on:stage1 dump off=18 on=6 newbad=0
+RESULT X/x04_el PAIR:initHierAtRefToken225+initHierFillKept225 STAGE1-CLOSER off:stage1 on:stage1 dump off=14 on=6 newbad=0
+RESULT X/x04_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=18 on=6 newbad=0
+RESULT X/x04_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=26 on=6 newbad=0

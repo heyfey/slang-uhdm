@@ -1,0 +1,17 @@
+FIRED O/o15 fillSymbolicRootOnly225v:1 initHierAtRefToken225:2 initHierCaLhsBareName225:1
+  O/o15 on cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=f818a155
+  O/o15 tr cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=f818a155
+  O/o15 off_initHierAtRefToken225 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=0ffb6d57
+  O/o15 off_initHierCaLhsBareName225 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=e129d8a2
+  O/o15 off_initHierFillKept225 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=f818a155
+  O/o15 off_fillSymbolicRootOnly225v cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=b9683f08
+  O/o15 offL225 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=b23d72ac
+  O/o15 alloff cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=b23d72ac
+  O/o15 wide cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=b23d72ac
+RESULT O/o15 initHierAtRefToken225 STAGE1-SAME off:stage1 on:stage1 dump off=41 on=41 newbad=0
+RESULT O/o15 initHierCaLhsBareName225 STAGE1-SAME off:stage1 on:stage1 dump off=41 on=41 newbad=0
+RESULT O/o15 initHierFillKept225 UNFIRED 
+RESULT O/o15 fillSymbolicRootOnly225v STAGE1-CLOSER off:stage1 on:stage1 dump off=45 on=41 newbad=1
+RESULT O/o15 LANDING225 STAGE1-SAME off:stage1 on:stage1 dump off=41 on=41 newbad=0
+RESULT O/o15 ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=41 on=41 newbad=0
+RESULT O/o15 WIDE STAGE1-SAME off:stage1 on:stage1 dump off=41 on=41 newbad=0

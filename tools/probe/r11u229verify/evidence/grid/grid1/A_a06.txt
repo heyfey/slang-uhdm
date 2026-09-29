@@ -1,0 +1,11 @@
+FIRED A/a06 ifArrElemLitCaFresh225:1
+  A/a06 on cmp=0 cmplines=0 strict=STRICT_EQUAL_96_objects rc=0 md5=975580ec
+  A/a06 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_96_objects rc=0 md5=975580ec
+  A/a06 off_ifArrElemLitCaFresh225 cmp=0 cmplines=0 strict=STRICT_EQUAL_96_objects rc=0 md5=31f91938
+  A/a06 offL225 cmp=0 cmplines=0 strict=STRICT_EQUAL_96_objects rc=0 md5=31f91938
+  A/a06 alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_96_objects rc=0 md5=31f91938
+  A/a06 wide cmp=0 cmplines=0 strict=STRICT_EQUAL_96_objects rc=0 md5=31f91938
+RESULT A/a06 ifArrElemLitCaFresh225 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_96_objects on:STRICT_EQUAL_96_objects
+RESULT A/a06 LANDING225 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_96_objects on:STRICT_EQUAL_96_objects
+RESULT A/a06 ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_96_objects on:STRICT_EQUAL_96_objects
+RESULT A/a06 WIDE BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_96_objects on:STRICT_EQUAL_96_objects

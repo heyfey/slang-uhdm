@@ -1,0 +1,33 @@
+== probe: 7 rows differ
+r10svs2repro/s5_negctl CONVERSION | STRICT_NOTEQUAL differ:endcol(2) -> EQUAL equal | off 2 rec on 0 rec | new=0 gone=2 first-record-same=False
+    off first: #57 endcol golden[5 hier_path h.o   dut.sv 35 5 35 6  0] ours[5 hier_path h.o   dut.sv 35 5 35 8  0]
+r10svs2repro/w3_macrodeep CONVERSION | STRICT_NOTEQUAL differ:endcol(2) -> EQUAL equal | off 2 rec on 0 rec | new=0 gone=2 first-record-same=False
+    off first: #90 endcol golden[5 hier_path o.a   dut.sv 40 16 40 17  0] ours[5 hier_path o.a   dut.sv 40 16 40 19  0]
+r10uvm147repro/g147_a SUBSET | STRICT_NOTEQUAL differ:col(14) -> STRICT_NOTEQUAL differ:col(6) | off 14 rec on 6 rec | new=0 gone=8 first-record-same=True
+    off first: #123 col golden[7 var_select value  q147a::drv147::fa::rw.value[idx][3]::value dut.sv 28 14 28 27  0] ours[7 var_select value  q147a::drv147::fa::rw.value[idx][3]::value dut.sv 28 11 28 27  0]
+r10uvm56repro/v3_hierpath SUBSET | STRICT_NOTEQUAL differ:endcol(6) -> STRICT_NOTEQUAL differ:endcol(4) | off 6 rec on 4 rec | new=0 gone=2 first-record-same=True
+    off first: #242 endcol golden[5 class_typespec p3v::h3   dut.sv 56 13 56 18] ours[5 class_typespec p3v::h3   dut.sv 56 13 56 20]
+r10v121repro/v121_c CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec | new=0 gone=1 first-record-same=False
+    off first: #95 endcol golden[7 hier_path other.stud   dut.sv 38 10 38 15  0] ours[7 hier_path other.stud   dut.sv 38 10 38 20  0]
+r10v172repro/v172_3_pos CONVERSION | STRICT_NOTEQUAL differ:endcol(4) -> EQUAL equal | off 4 rec on 0 rec | new=0 gone=4 first-record-same=False
+    off first: #127 endcol golden[5 hier_path c172.getfn172   dut.sv 62 5 62 9  0] ours[5 hier_path c172.getfn172   dut.sv 62 5 62 18  0]
+r10v174repro/v174_b_sysfns CONVERSION | STRICT_NOTEQUAL differ:fullname(1) -> EQUAL equal | off 1 rec on 0 rec | new=0 gone=1 first-record-same=False
+    off first: #49 fullname golden[6 ref_obj spindleWord  lathePkg::Wicket::probeOut::spindleWord dut.sv 29 41 29 52  0] ours[6 ref_obj spindleWord  lathePkg::Wicket::probeOut.spindleWord dut.sv 29 41 29 52  0]
+   tally probe: CONVERSION=5 SUBSET=2
+== surelog: 6 rows differ
+surelog/testflags/BlackBePipeInt UNMASK | STRICT_NOTEQUAL differ:depth(1) -> STRICT_NOTEQUAL differ:type(1) | off 1 rec div@66 on 1 rec div@15268 | new=1 gone=1 first-record-same=False
+    off first: #66 depth golden[2 parameter host_dev_gp  bp_common_pkg::host_dev_gp dut.sv 1795 12 1795 23  0 UINT:1] ours[6 parameter dev_addr_width_gp  bp_common_pkg::dev_addr_width_gp dut.sv 1793 12 1793 29  0 ]
+    on  first: #15268 type golden[5 ref_typespec   bp_common_pkg  0 0 0 0  0] ours[5 constant    dut.sv 2047 16 2047 17 1 64 UINT:1 9]
+surelog/default/BuildUVMPkg SUBSET | STRICT_NOTEQUAL differ:line(19) -> STRICT_NOTEQUAL differ:line(14) | off 19 rec div@74761 on 14 rec div@74761 | new=0 gone=5 first-record-same=True
+    off first: #26855 line golden[5 class_typespec this_type   uvm_pkg.sv 13776 11 13776 42] ours[5 class_typespec this_type   uvm_pkg.sv 56391 12 56391 32]
+surelog/testflags/BuildUVMPkg SUBSET | STRICT_NOTEQUAL differ:line(19) -> STRICT_NOTEQUAL differ:line(14) | off 19 rec div@74761 on 14 rec div@74761 | new=0 gone=5 first-record-same=True
+    off first: #26855 line golden[5 class_typespec this_type   uvm_pkg.sv 13776 11 13776 42] ours[5 class_typespec this_type   uvm_pkg.sv 56391 12 56391 32]
+surelog/default/Scoreboard SUBSET | STRICT_NOTEQUAL differ:file(16) -> STRICT_NOTEQUAL differ:file(12) | off 16 rec div@79148 on 12 rec div@79148 | new=0 gone=4 first-record-same=True
+    off first: #26895 file golden[5 class_typespec this_type   uvm_algorithmic_comparator.svh 74 11 74 37] ours[5 class_typespec this_type   uvm_sequence_library.svh 330 12 330 32]
+surelog/default/SimpleUVM SUBSET | STRICT_NOTEQUAL differ:file(40) -> STRICT_NOTEQUAL differ:file(36) | off 40 rec div@78752 on 36 rec div@78752 | new=0 gone=4 first-record-same=True
+    off first: #26887 file golden[5 class_typespec this_type   uvm_algorithmic_comparator.svh 74 11 74 37] ours[5 class_typespec this_type   uvm_sequence_library.svh 330 12 330 32]
+surelog/testflags/SimpleUVM SUBSET | STRICT_NOTEQUAL differ:file(40) -> STRICT_NOTEQUAL differ:file(36) | off 40 rec div@78764 on 36 rec div@78764 | new=0 gone=4 first-record-same=True
+    off first: #26899 file golden[5 class_typespec this_type   uvm_algorithmic_comparator.svh 74 11 74 37] ours[5 class_typespec this_type   uvm_sequence_library.svh 330 12 330 32]
+   tally surelog: SUBSET=5 UNMASK=1
+== uhdm2rtlil: 0 rows differ
+   tally uhdm2rtlil: 

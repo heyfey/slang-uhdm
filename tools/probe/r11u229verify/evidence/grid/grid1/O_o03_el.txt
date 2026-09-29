@@ -1,0 +1,17 @@
+FIRED O/o03_el initHierAtRefToken225:2 initHierCaLhsBareName225:1 initHierFillKept225:1
+  O/o03_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_177_objects rc=0 md5=39a40fa9
+  O/o03_el tr cmp=0 cmplines=0 strict=STRICT_EQUAL_177_objects rc=0 md5=39a40fa9
+  O/o03_el off_initHierAtRefToken225 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=f12f8edb
+  O/o03_el off_initHierCaLhsBareName225 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=50836146
+  O/o03_el off_initHierFillKept225 cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=100eaf7e
+  O/o03_el off_fillSymbolicRootOnly225v cmp=0 cmplines=0 strict=STRICT_EQUAL_177_objects rc=0 md5=39a40fa9
+  O/o03_el offL225 cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=93df807b
+  O/o03_el alloff cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=93df807b
+  O/o03_el wide cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=93df807b
+RESULT O/o03_el initHierAtRefToken225 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_177_objects
+RESULT O/o03_el initHierCaLhsBareName225 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_177_objects
+RESULT O/o03_el initHierFillKept225 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 177 objects dump off=8 on=0 newbad=0
+RESULT O/o03_el fillSymbolicRootOnly225v UNFIRED 
+RESULT O/o03_el LANDING225 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 177 objects dump off=8 on=0 newbad=0
+RESULT O/o03_el ALLOFF STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 177 objects dump off=8 on=0 newbad=0
+RESULT O/o03_el WIDE STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 177 objects dump off=8 on=0 newbad=0

@@ -1,0 +1,8 @@
+MiniAmiq default golden: functions=6108 returns=2573 unreferenced_return_like_vars=0 function_parented_vars_neither_return_nor_listed=0
+MiniAmiq default base: functions=6108 returns=2573 unreferenced_return_like_vars=0 function_parented_vars_neither_return_nor_listed=788
+MiniAmiq default base+R11U218_CLONERET_OFF: functions=6108 returns=3283 unreferenced_return_like_vars=0 function_parented_vars_neither_return_nor_listed=78
+MiniAmiq testflags golden: functions=6108 returns=2573 unreferenced_return_like_vars=0 function_parented_vars_neither_return_nor_listed=0
+MiniAmiq testflags base: functions=6108 returns=2573 unreferenced_return_like_vars=0 function_parented_vars_neither_return_nor_listed=788
+MiniAmiq testflags base+R11U218_CLONERET_OFF: functions=6108 returns=3283 unreferenced_return_like_vars=0 function_parented_vars_neither_return_nor_listed=78
+SeqDriver default golden: functions=5811 returns=2430 unreferenced_return_like_vars=0 function_parented_vars_neither_return_nor_listed=0
+SeqDriver default base: functions=5811 returns=2430 unreferenced_return_like_vars=0 function_parented_vars_neither_return_nor_listed=788

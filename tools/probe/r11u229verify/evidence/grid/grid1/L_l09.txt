@@ -1,0 +1,13 @@
+FIRED L/l09 hpLvSelColumnJoin224:1 hpLvSelIdxNamesByPath224:1
+  L/l09 on cmp=0 cmplines=0 strict=STRICT_EQUAL_127_objects rc=0 md5=3ac61ce0
+  L/l09 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_127_objects rc=0 md5=3ac61ce0
+  L/l09 off_hpLvSelIdxNamesByPath224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=40df483e
+  L/l09 off_hpLvSelColumnJoin224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=96a0eea3
+  L/l09 offL224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=10e0ca29
+  L/l09 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=10e0ca29
+  L/l09 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=10e0ca29
+RESULT L/l09 hpLvSelIdxNamesByPath224 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_127_objects
+RESULT L/l09 hpLvSelColumnJoin224 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_127_objects
+RESULT L/l09 LANDING224 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_127_objects
+RESULT L/l09 ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_127_objects
+RESULT L/l09 WIDE TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_127_objects

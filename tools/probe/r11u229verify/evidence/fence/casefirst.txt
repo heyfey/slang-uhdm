@@ -1,0 +1,27 @@
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp15
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp10
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp09
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp07
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp04
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp03
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp01
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp14
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp08
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp05
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp12
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp06
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp11
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp13
+  NO-LAW tools/probe/r11u224repro/cases/TP/tp02
+  NO-LAW tools/probe/r11u224repro/cases/HN/hn08
+  NO-LAW tools/probe/r11u224repro/cases/HN/hn04
+  NO-LAW tools/probe/r11u224repro/cases/HN/hn03
+  NO-LAW tools/probe/r11u224repro/cases/PW/p01
+  NO-LAW tools/probe/r11u224repro/cases/PW/p02
+  NO-LAW tools/probe/r11u224repro/cases/PW/p03
+r11u224repro: cases=124 with_law=103 without=21 laws_not_in_src=-
+v11u224repro: cases=140 with_law=140 without=0 laws_not_in_src=-
+r11u225repro: cases=43 with_law=43 without=0 laws_not_in_src=-
+v11u225repro: cases=40 with_law=40 without=0 laws_not_in_src=-
+r11u226verify: cases=104 with_law=104 without=0 laws_not_in_src=-
+r11u229verify: cases=120 with_law=120 without=0 laws_not_in_src=-

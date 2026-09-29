@@ -1,0 +1,17 @@
+FIRED X/x02 ifArrElemLitCaFresh225:1
+  X/x02 on cmp=255 cmplines=174 strict=NOT_EQUAL_stage1 rc=0 md5=42461904
+  X/x02 tr cmp=255 cmplines=174 strict=NOT_EQUAL_stage1 rc=0 md5=42461904
+  X/x02 off_hpLvSelIdxNamesByPath224 cmp=255 cmplines=174 strict=NOT_EQUAL_stage1 rc=0 md5=42461904
+  X/x02 off_ifArrElemLitCaFresh225 cmp=255 cmplines=174 strict=NOT_EQUAL_stage1 rc=0 md5=e4790b2b
+  X/x02 offL224 cmp=255 cmplines=174 strict=NOT_EQUAL_stage1 rc=0 md5=42461904
+  X/x02 offL225 cmp=255 cmplines=174 strict=NOT_EQUAL_stage1 rc=0 md5=e4790b2b
+  X/x02 off2_hpLvSelIdxNamesByPath224_ifArrElemLitCaFresh225 cmp=255 cmplines=174 strict=NOT_EQUAL_stage1 rc=0 md5=e4790b2b
+  X/x02 alloff cmp=255 cmplines=174 strict=NOT_EQUAL_stage1 rc=0 md5=e4790b2b
+  X/x02 wide cmp=255 cmplines=174 strict=NOT_EQUAL_stage1 rc=0 md5=e4790b2b
+RESULT X/x02 hpLvSelIdxNamesByPath224 UNFIRED 
+RESULT X/x02 ifArrElemLitCaFresh225 STAGE1-CLOSER off:stage1 on:stage1 dump off=108 on=105 newbad=11
+RESULT X/x02 LANDING224 UNFIRED 
+RESULT X/x02 LANDING225 STAGE1-CLOSER off:stage1 on:stage1 dump off=108 on=105 newbad=11
+RESULT X/x02 PAIR:hpLvSelIdxNamesByPath224+ifArrElemLitCaFresh225 STAGE1-CLOSER off:stage1 on:stage1 dump off=108 on=105 newbad=11
+RESULT X/x02 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=108 on=105 newbad=11
+RESULT X/x02 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=108 on=105 newbad=11

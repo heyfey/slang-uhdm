@@ -1,0 +1,11 @@
+FIRED P/p02_el pcwAllPkgListingBindsOwn224:1
+  P/p02_el on cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=91a11874
+  P/p02_el tr cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=91a11874
+  P/p02_el off_pcwAllPkgListingBindsOwn224 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=7a6c7284
+  P/p02_el offL224 cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=7a6c7284
+  P/p02_el alloff cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=7a6c7284
+  P/p02_el wide cmp=255 cmplines=74 strict=NOT_EQUAL_stage1 rc=0 md5=7a6c7284
+RESULT P/p02_el pcwAllPkgListingBindsOwn224 STAGE1-SAME off:stage1 on:stage1 dump off=28 on=28 newbad=0
+RESULT P/p02_el LANDING224 STAGE1-SAME off:stage1 on:stage1 dump off=28 on=28 newbad=0
+RESULT P/p02_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=28 on=28 newbad=0
+RESULT P/p02_el WIDE STAGE1-SAME off:stage1 on:stage1 dump off=28 on=28 newbad=0

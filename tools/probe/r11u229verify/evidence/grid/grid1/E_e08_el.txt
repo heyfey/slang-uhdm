@@ -1,0 +1,17 @@
+FIRED E/e08_el tfArgScalarTdWriter223:1
+  E/e08_el on cmp=255 cmplines=282 strict=NOT_EQUAL_stage1 rc=0 md5=330fee53
+  E/e08_el tr cmp=255 cmplines=282 strict=NOT_EQUAL_stage1 rc=0 md5=330fee53
+  E/e08_el off_tfArgScalarTdExportOwnTd226v cmp=255 cmplines=282 strict=NOT_EQUAL_stage1 rc=0 md5=330fee53
+  E/e08_el off_tfArgScalarTdExportFirst223 cmp=255 cmplines=282 strict=NOT_EQUAL_stage1 rc=0 md5=330fee53
+  E/e08_el off_tfArgScalarTdWriter223 cmp=255 cmplines=282 strict=NOT_EQUAL_stage1 rc=0 md5=187141c7
+  E/e08_el offL223 cmp=255 cmplines=282 strict=NOT_EQUAL_stage1 rc=0 md5=187141c7
+  E/e08_el offL226 cmp=255 cmplines=282 strict=NOT_EQUAL_stage1 rc=0 md5=330fee53
+  E/e08_el alloff cmp=255 cmplines=282 strict=NOT_EQUAL_stage1 rc=0 md5=330fee53
+  E/e08_el wide cmp=255 cmplines=282 strict=NOT_EQUAL_stage1 rc=0 md5=187141c7
+RESULT E/e08_el tfArgScalarTdExportOwnTd226v UNFIRED 
+RESULT E/e08_el tfArgScalarTdExportFirst223 UNFIRED 
+RESULT E/e08_el tfArgScalarTdWriter223 STAGE1-CLOSER off:stage1 on:stage1 dump off=32 on=28 newbad=0
+RESULT E/e08_el LANDING223 STAGE1-CLOSER off:stage1 on:stage1 dump off=32 on=28 newbad=0
+RESULT E/e08_el LANDING226 UNFIRED 
+RESULT E/e08_el ALLOFF UNFIRED 
+RESULT E/e08_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=32 on=28 newbad=0

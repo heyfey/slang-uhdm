@@ -1,0 +1,55 @@
+# Scoreboard default: the two database variants of the base binary (dbb7fce68eb4 = the L sweep's, a7eaa666dd3b) as uhdm-dumps (the Restored design line dropped)
+# lines: 1107442 each; unsorted diff lines: 92; sorted diff lines: 0
+# the moved block is the DESIGN's own vpiTaskFunc listing (the fields printed between |uhdmallModules and |uhdmtopModules):
+## golden (the pinned Surelog): design vpiTaskFunc entries 1, 23, 24, 894, 895, 917
+1: \_function: (uvm_pkg::uvm_hdl_check_path), line:59:3, endln:59:71
+23: \_function: (uvm_pkg::uvm_oneway_hash), line:369:1, endln:392:12
+24: \_function: (uvm_pkg::uvm_create_random_seed), line:402:1, endln:428:12
+894: \_function: (uvm_pkg::uvm_reg_block::new), line:954:1, endln:960:17
+895: \_function: (svunit_pkg::svunit_base::get_name), line:68:1, endln:70:12
+917: \_function: (svunit_pkg::svunit_testrunner::new), line:53:1, endln:55:12
+## d1 = dbb7fce68eb4 (base majority, the L sweep, the fix on every draw): design vpiTaskFunc entries 1, 23, 24, 894, 895, 917
+1: \_function: (uvm_pkg::uvm_hdl_check_path), line:59:3, endln:59:71
+23: \_function: (uvm_pkg::uvm_oneway_hash), line:369:1, endln:392:12
+24: \_function: (uvm_pkg::uvm_create_random_seed), line:402:1, endln:428:12
+894: \_function: (uvm_pkg::uvm_reg_block::new), line:954:1, endln:960:17
+895: \_function: (svunit_pkg::svunit_base::get_name), line:68:1, endln:70:12
+917: \_function: (svunit_pkg::svunit_testrunner::new), line:53:1, endln:55:12
+## d2 = a7eaa666dd3b (base minority): design vpiTaskFunc entries 1, 23, 24, 894, 895, 917
+1: \_function: (svunit_pkg::svunit_base::get_name), line:68:1, endln:70:12
+23: \_function: (svunit_pkg::svunit_testrunner::new), line:53:1, endln:55:12
+24: \_function: (uvm_pkg::uvm_hdl_check_path), line:59:3, endln:59:71
+894: \_function: (uvm_pkg::uvm_reg_block::do_pack), line:2194:1, endln:2196:12
+895: \_function: (uvm_pkg::uvm_reg_block::do_unpack), line:2201:1, endln:2203:12
+917: \_function: (uvm_pkg::uvm_reg_block::new), line:954:1, endln:960:17
+## the unsorted diff (first 30 lines)
+1029190a1029191,1029236
+> \_function: (svunit_pkg::svunit_base::get_name), line:68:1, endln:70:12
+> |vpiTaskFunc:
+> \_function: (svunit_pkg::svunit_base::report), line:77:1, endln:80:12
+> |vpiTaskFunc:
+> \_function: (svunit_pkg::svunit_base::get_results), line:87:1, endln:89:12
+> |vpiTaskFunc:
+> \_task: (svunit_pkg::svunit_testcase::wait_for_error), line:90:1, endln:92:8
+> |vpiTaskFunc:
+> \_function: (svunit_pkg::svunit_testcase::get_error_count), line:99:1, endln:101:12
+> |vpiTaskFunc:
+> \_task: (svunit_pkg::svunit_testcase::give_up), line:108:1, endln:111:8
+> |vpiTaskFunc:
+> \_function: (svunit_pkg::svunit_testcase::fail), line:129:1, endln:142:12
+> |vpiTaskFunc:
+> \_function: (svunit_pkg::svunit_testcase::start), line:149:1, endln:152:12
+> |vpiTaskFunc:
+> \_function: (svunit_pkg::svunit_testcase::stop), line:159:1, endln:161:12
+> |vpiTaskFunc:
+> \_function: (svunit_pkg::svunit_testcase::is_running), line:168:1, endln:170:12
+> |vpiTaskFunc:
+> \_function: (svunit_pkg::svunit_testcase::update_exit_status), line:177:1, endln:182:12
+> |vpiTaskFunc:
+> \_function: (svunit_pkg::svunit_testcase::report), line:189:1, endln:196:12
+> |vpiTaskFunc:
+> \_task: (svunit_pkg::svunit_testcase::setup), line:203:1, endln:204:8
+> |vpiTaskFunc:
+> \_task: (svunit_pkg::svunit_testcase::teardown), line:211:1, endln:212:8
+> |vpiTaskFunc:
+> \_function: (svunit_pkg::svunit_testsuite::add_testcase), line:66:1, endln:69:12

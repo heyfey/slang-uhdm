@@ -1,0 +1,176 @@
+== /tmp/r11u229_wL BIN=/tmp/r11u229_bin/law.bin md5=22bb3dc75f6a ENV= start=2026-09-29 06:56:27
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u229_wL/probe.csv
+== probe vs golden_probe.csv
+[probe] EQUAL=3453 STRICT_NOTEQUAL=634
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u229_wL/surelog.csv
+[default] 798 tests
+[testflags] 798 tests
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=467 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=13 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u229_wL/uhdm2rtlil.csv
+[default] 871 tests
+[testflags] 871 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=801 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=2
+[testflags] CMP_EQUAL=801 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
+== /tmp/r11u229_wA BIN=/tmp/r11u229_bin/law.bin md5=22bb3dc75f6a ENV=R11U224_OFF=1 R11U225_OFF=1 R11V225_OFF=1 R11V226_OFF=1 start=2026-09-29 07:07:24
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u229_wA/probe.csv
+== probe vs golden_probe.csv
+[probe] EQUAL=3448 STRICT_NOTEQUAL=639
+regressions=5 conversions=0 changes=2 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u229_wA/surelog.csv
+[default] 798 tests
+[testflags] 798 tests
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=466 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=14 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=1 conversions=0 changes=6 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u229_wA/uhdm2rtlil.csv
+[default] 871 tests
+[testflags] 871 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=800 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=3
+[testflags] CMP_EQUAL=800 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=3
+regressions=2 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
+== /tmp/r11u229_w4 BIN=/tmp/r11u229_bin/law.bin md5=22bb3dc75f6a ENV=R11U224_OFF=1 start=2026-09-29 07:07:24
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u229_w4/probe.csv
+== probe vs golden_probe.csv
+[probe] EQUAL=3448 STRICT_NOTEQUAL=639
+regressions=5 conversions=0 changes=2 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u229_w4/surelog.csv
+[default] 798 tests
+[testflags] 798 tests
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=467 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=13 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=6 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u229_w4/uhdm2rtlil.csv
+[default] 871 tests
+[testflags] 871 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=801 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=2
+[testflags] CMP_EQUAL=801 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
+== /tmp/r11u229_w5 BIN=/tmp/r11u229_bin/law.bin md5=22bb3dc75f6a ENV=R11U225_OFF=1 R11V225_OFF=1 start=2026-09-29 07:16:09
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u229_w5/probe.csv
+== probe vs golden_probe.csv
+[probe] EQUAL=3453 STRICT_NOTEQUAL=634
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u229_w5/surelog.csv
+[default] 798 tests
+[testflags] 798 tests
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=466 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=14 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=1 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u229_w5/uhdm2rtlil.csv
+[default] 871 tests
+[testflags] 871 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=800 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=3
+[testflags] CMP_EQUAL=800 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=3
+regressions=2 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
+== /tmp/r11u229_w6 BIN=/tmp/r11u229_bin/law.bin md5=22bb3dc75f6a ENV=R11V226_OFF=1 start=2026-09-29 07:16:09
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u229_w6/probe.csv
+== probe vs golden_probe.csv
+[probe] EQUAL=3453 STRICT_NOTEQUAL=634
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u229_w6/surelog.csv
+[default] 798 tests
+[testflags] 798 tests
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=467 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=13 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u229_w6/uhdm2rtlil.csv
+[default] 871 tests
+[testflags] 871 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=801 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=2
+[testflags] CMP_EQUAL=801 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
+== /tmp/r11u229_wC BIN=/tmp/r11u229_bin/fix.bin md5=7e50408d1da0 ENV=R11V229_TRACE=/tmp/r11u229_trC start=2026-09-29 07:44:25
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u229_wC/probe.csv
+== probe vs golden_probe.csv
+[probe] EQUAL=3453 STRICT_NOTEQUAL=634
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u229_wC/surelog.csv
+[default] 798 tests
+[testflags] 798 tests
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=467 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=13 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u229_wC/uhdm2rtlil.csv
+[default] 871 tests
+[testflags] 871 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=801 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=2
+[testflags] CMP_EQUAL=801 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
+== /tmp/r11u229_wF BIN=/tmp/r11u229_bin/fix.bin md5=7e50408d1da0 ENV= start=2026-09-29 07:52:59
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u229_wF/probe.csv
+== probe vs golden_probe.csv
+[probe] EQUAL=3453 STRICT_NOTEQUAL=634
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u229_wF/surelog.csv
+[default] 798 tests
+[testflags] 798 tests
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=467 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=13 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u229_wF/uhdm2rtlil.csv
+[default] 871 tests
+[testflags] 871 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=801 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=2
+[testflags] CMP_EQUAL=801 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
+== /tmp/r11u229_wO BIN=/tmp/r11u229_bin/fix.bin md5=7e50408d1da0 ENV=R11V229_OFF=1 start=2026-09-29 08:00:20
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u229_wO/probe.csv
+== probe vs golden_probe.csv
+[probe] EQUAL=3453 STRICT_NOTEQUAL=634
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u229_wO/surelog.csv
+[default] 798 tests
+[testflags] 798 tests
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=467 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=13 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u229_wO/uhdm2rtlil.csv
+[default] 871 tests
+[testflags] 871 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=801 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=2
+[testflags] CMP_EQUAL=801 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1

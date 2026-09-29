@@ -1,0 +1,3 @@
+# reference files hashed: 19718; directories skipped as fenced: 5
+DUP tools/probe/r11u225repro/cases/OS/o01/dut.sv == third_party/uhdm2rtlil/test/OutputSizeWithParameterOfInstanceInitializedByStructMember/dut.sv (comment lines aside)
+# case files checked: 595; duplicates: 1

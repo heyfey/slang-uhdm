@@ -1,0 +1,15 @@
+v11u224repro/cases/DS/ds01 on IDENTICAL differs=- slang=75af69abfe surelog=75af69abfe
+v11u224repro/cases/DS/ds02 on IDENTICAL differs=- slang=673dc83857 surelog=673dc83857
+r11u225repro/cases/OS/o05 on EQUIVALENT differs=nohier il slang=981b6c8746 surelog=bfeddcb039
+r11u225repro/cases/OS/o19 on EQUIVALENT differs=nohier il slang=4bebbf0bc9 surelog=28781d33be
+r11u225repro/cases/OS/o21 on EQUIVALENT differs=nohier il synth slang=11ef7c6166 surelog=4ebc4917f2
+v11u224repro/cases/DS/ds01 R11U224_OFF EQUIVALENT differs=nohier il slang=48b31859fc surelog=75af69abfe
+v11u224repro/cases/DS/ds02 R11U224_OFF EQUIVALENT differs=nohier il synth slang=42c390bc09 surelog=673dc83857
+r11u225repro/cases/OS/o05 R11U225_OFF+R11V225_OFF EQUIVALENT differs=nohier il slang=981b6c8746 surelog=bfeddcb039
+r11u225repro/cases/OS/o19 R11U225_OFF+R11V225_OFF EQUIVALENT differs=nohier il slang=4bebbf0bc9 surelog=28781d33be
+r11u225repro/cases/OS/o21 R11U225_OFF+R11V225_OFF EQUIVALENT differs=nohier il synth slang=11ef7c6166 surelog=4ebc4917f2
+v11u224repro/cases/DS/ds01 R11U224_OFF+R11U225_OFF+R11V225_OFF+R11V226_OFF EQUIVALENT differs=nohier il slang=48b31859fc surelog=75af69abfe
+v11u224repro/cases/DS/ds02 R11U224_OFF+R11U225_OFF+R11V225_OFF+R11V226_OFF EQUIVALENT differs=nohier il synth slang=42c390bc09 surelog=673dc83857
+r11u225repro/cases/OS/o05 R11U224_OFF+R11U225_OFF+R11V225_OFF+R11V226_OFF EQUIVALENT differs=nohier il slang=981b6c8746 surelog=bfeddcb039
+r11u225repro/cases/OS/o19 R11U224_OFF+R11U225_OFF+R11V225_OFF+R11V226_OFF EQUIVALENT differs=nohier il slang=4bebbf0bc9 surelog=28781d33be
+r11u225repro/cases/OS/o21 R11U224_OFF+R11U225_OFF+R11V225_OFF+R11V226_OFF EQUIVALENT differs=nohier il synth slang=11ef7c6166 surelog=4ebc4917f2

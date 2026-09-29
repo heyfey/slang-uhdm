@@ -1,0 +1,17 @@
+FIRED O/o09 initHierAtRefToken225:2
+  O/o09 on cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=8ccf48fb
+  O/o09 tr cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=8ccf48fb
+  O/o09 off_initHierAtRefToken225 cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=89beb221
+  O/o09 off_initHierCaLhsBareName225 cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=8ccf48fb
+  O/o09 off_initHierFillKept225 cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=8ccf48fb
+  O/o09 off_fillSymbolicRootOnly225v cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=8ccf48fb
+  O/o09 offL225 cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=89beb221
+  O/o09 alloff cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=89beb221
+  O/o09 wide cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=89beb221
+RESULT O/o09 initHierAtRefToken225 STAGE1-SAME off:stage1 on:stage1 dump off=6 on=6 newbad=0
+RESULT O/o09 initHierCaLhsBareName225 UNFIRED 
+RESULT O/o09 initHierFillKept225 UNFIRED 
+RESULT O/o09 fillSymbolicRootOnly225v UNFIRED 
+RESULT O/o09 LANDING225 STAGE1-SAME off:stage1 on:stage1 dump off=6 on=6 newbad=0
+RESULT O/o09 ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=6 on=6 newbad=0
+RESULT O/o09 WIDE STAGE1-SAME off:stage1 on:stage1 dump off=6 on=6 newbad=0

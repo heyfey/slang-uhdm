@@ -1,0 +1,13 @@
+FIRED L/l11 hpVarSelColumnJoin220:1 hpVarSelRangeIdxNamesByPath220:1
+  L/l11 on cmp=255 cmplines=168 strict=NOT_EQUAL_stage1 rc=0 md5=80b798b7
+  L/l11 tr cmp=255 cmplines=168 strict=NOT_EQUAL_stage1 rc=0 md5=80b798b7
+  L/l11 off_hpLvSelIdxNamesByPath224 cmp=255 cmplines=168 strict=NOT_EQUAL_stage1 rc=0 md5=80b798b7
+  L/l11 off_hpLvSelColumnJoin224 cmp=255 cmplines=168 strict=NOT_EQUAL_stage1 rc=0 md5=80b798b7
+  L/l11 offL224 cmp=255 cmplines=168 strict=NOT_EQUAL_stage1 rc=0 md5=80b798b7
+  L/l11 alloff cmp=255 cmplines=168 strict=NOT_EQUAL_stage1 rc=0 md5=80b798b7
+  L/l11 wide cmp=255 cmplines=168 strict=NOT_EQUAL_stage1 rc=0 md5=829d64dd
+RESULT L/l11 hpLvSelIdxNamesByPath224 UNFIRED 
+RESULT L/l11 hpLvSelColumnJoin224 UNFIRED 
+RESULT L/l11 LANDING224 UNFIRED 
+RESULT L/l11 ALLOFF UNFIRED 
+RESULT L/l11 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=22 on=20 newbad=7

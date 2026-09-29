@@ -1,0 +1,20 @@
+== probe: rows 4087; conversions L vs A = 5: OWN224=5
+  CONV OWN224: r10svs2repro/s5_negctl, r10svs2repro/w3_macrodeep, r10v121repro/v121_c, r10v172repro/v172_3_pos, r10v174repro/v174_b_sysfns
+  CHANGE (L vs A, not a conversion): OWN224=2
+    OWN224 r10uvm147repro/g147_a: A=differ:col(14) L=differ:col(6) off224=differ:col(14)
+    OWN224 r10uvm56repro/v3_hierpath: A=differ:endcol(6) L=differ:endcol(4) off224=differ:endcol(6)
+  CANCEL (same in L and A, different with one landing off): 0
+== surelog: rows 1588; conversions L vs A = 1: OWN225=1
+  CONV OWN225: InterfArrayBind/d
+  CHANGE (L vs A, not a conversion): OWN224=6
+    OWN224 BlackBePipeInt/t: A=differ:depth(1) L=differ:type(1) off224=differ:depth(1)
+    OWN224 BuildUVMPkg/d: A=differ:line(19) L=differ:line(14) off224=differ:line(19)
+    OWN224 BuildUVMPkg/t: A=differ:line(19) L=differ:line(14) off224=differ:line(19)
+    OWN224 Scoreboard/d: A=differ:file(16) L=differ:file(12) off224=differ:file(16)
+    OWN224 SimpleUVM/d: A=differ:file(40) L=differ:file(36) off224=differ:file(40)
+    OWN224 SimpleUVM/t: A=differ:file(40) L=differ:file(36) off224=differ:file(40)
+  CANCEL (same in L and A, different with one landing off): 0
+== uhdm2rtlil: rows 1742; conversions L vs A = 2: OWN225=2
+  CONV OWN225: OutputSizeWithParameterOfInstanceInitializedByStructMember/d, OutputSizeWithParameterOfInstanceInitializedByStructMember/t
+  CHANGE (L vs A, not a conversion): 
+  CANCEL (same in L and A, different with one landing off): 0

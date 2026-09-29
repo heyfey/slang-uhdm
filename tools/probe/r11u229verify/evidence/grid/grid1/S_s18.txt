@@ -1,0 +1,11 @@
+FIRED S/s18 strLitPpEscIdShift224:6
+  S/s18 on cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=f5d8cd59
+  S/s18 tr cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=f5d8cd59
+  S/s18 off_strLitPpEscIdShift224 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=d2c6114e
+  S/s18 offL224 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=d2c6114e
+  S/s18 alloff cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=d2c6114e
+  S/s18 wide cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=fdf80b17
+RESULT S/s18 strLitPpEscIdShift224 STAGE1-SAME off:stage1 on:stage1 dump off=20 on=20 newbad=7
+RESULT S/s18 LANDING224 STAGE1-SAME off:stage1 on:stage1 dump off=20 on=20 newbad=7
+RESULT S/s18 ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=20 on=20 newbad=7
+RESULT S/s18 WIDE STAGE1-SAME off:stage1 on:stage1 dump off=20 on=20 newbad=7

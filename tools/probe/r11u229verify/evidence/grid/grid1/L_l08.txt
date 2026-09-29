@@ -1,0 +1,13 @@
+FIRED L/l08 hpLvSelColumnJoin224:2 hpLvSelIdxNamesByPath224:2
+  L/l08 on cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=638fde1e
+  L/l08 tr cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=638fde1e
+  L/l08 off_hpLvSelIdxNamesByPath224 cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=46edbb62
+  L/l08 off_hpLvSelColumnJoin224 cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=27cf542a
+  L/l08 offL224 cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=e04163ae
+  L/l08 alloff cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=e04163ae
+  L/l08 wide cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=e04163ae
+RESULT L/l08 hpLvSelIdxNamesByPath224 STAGE1-CLOSER off:stage1 on:stage1 dump off=12 on=4 newbad=0
+RESULT L/l08 hpLvSelColumnJoin224 STAGE1-CLOSER off:stage1 on:stage1 dump off=16 on=4 newbad=0
+RESULT L/l08 LANDING224 STAGE1-CLOSER off:stage1 on:stage1 dump off=24 on=4 newbad=0
+RESULT L/l08 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=24 on=4 newbad=0
+RESULT L/l08 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=24 on=4 newbad=0

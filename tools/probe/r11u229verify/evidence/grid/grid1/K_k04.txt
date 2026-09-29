@@ -1,0 +1,11 @@
+FIRED K/k04 strLitContLineSpan220:1 strLitContOwnerEnd224:2
+  K/k04 on cmp=0 cmplines=0 strict=STRICT_EQUAL_43_objects rc=0 md5=a265350b
+  K/k04 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_43_objects rc=0 md5=a265350b
+  K/k04 off_strLitContOwnerEnd224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=14546463
+  K/k04 offL224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=14546463
+  K/k04 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=14546463
+  K/k04 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=600a9714
+RESULT K/k04 strLitContOwnerEnd224 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_43_objects
+RESULT K/k04 LANDING224 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_43_objects
+RESULT K/k04 ALLOFF TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_43_objects
+RESULT K/k04 WIDE TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_43_objects

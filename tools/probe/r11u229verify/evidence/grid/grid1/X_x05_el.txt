@@ -1,0 +1,29 @@
+FIRED X/x05_el hpLvNewClassFirstElemSpan224:1 hpLvSelColumnJoin224:1 hpLvSelIdxNamesByPath224:1 ipsBasePfxScopeJoin224:1 ipsWidthPfxByPathInScope224:1
+  X/x05_el on cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=c8f4464f
+  X/x05_el tr cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=c8f4464f
+  X/x05_el off_hpLvSelIdxNamesByPath224 cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=6285ff29
+  X/x05_el off_ipsBasePfxScopeJoin224 cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=fba29980
+  X/x05_el off_sysCallTypeArgScopeJoin224 cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=c8f4464f
+  X/x05_el off_hpLvNewClassFirstElemSpan224 cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=7ab00c75
+  X/x05_el offL224 cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=3128b69e
+  X/x05_el off2_hpLvSelIdxNamesByPath224_ipsBasePfxScopeJoin224 cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=390bef37
+  X/x05_el off2_hpLvSelIdxNamesByPath224_sysCallTypeArgScopeJoin224 cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=6285ff29
+  X/x05_el off2_hpLvSelIdxNamesByPath224_hpLvNewClassFirstElemSpan224 cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=c361296d
+  X/x05_el off2_ipsBasePfxScopeJoin224_sysCallTypeArgScopeJoin224 cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=fba29980
+  X/x05_el off2_ipsBasePfxScopeJoin224_hpLvNewClassFirstElemSpan224 cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=8928ea7c
+  X/x05_el off2_sysCallTypeArgScopeJoin224_hpLvNewClassFirstElemSpan224 cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=7ab00c75
+  X/x05_el alloff cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=3128b69e
+  X/x05_el wide cmp=255 cmplines=99 strict=NOT_EQUAL_stage1 rc=0 md5=3128b69e
+RESULT X/x05_el hpLvSelIdxNamesByPath224 STAGE1-CLOSER off:stage1 on:stage1 dump off=4 on=0 newbad=0
+RESULT X/x05_el ipsBasePfxScopeJoin224 STAGE1-CLOSER off:stage1 on:stage1 dump off=4 on=0 newbad=0
+RESULT X/x05_el sysCallTypeArgScopeJoin224 UNFIRED 
+RESULT X/x05_el hpLvNewClassFirstElemSpan224 STAGE1-CLOSER off:stage1 on:stage1 dump off=6 on=0 newbad=0
+RESULT X/x05_el LANDING224 STAGE1-CLOSER off:stage1 on:stage1 dump off=20 on=0 newbad=0
+RESULT X/x05_el PAIR:hpLvSelIdxNamesByPath224+ipsBasePfxScopeJoin224 STAGE1-CLOSER off:stage1 on:stage1 dump off=8 on=0 newbad=0
+RESULT X/x05_el PAIR:hpLvSelIdxNamesByPath224+sysCallTypeArgScopeJoin224 STAGE1-CLOSER off:stage1 on:stage1 dump off=4 on=0 newbad=0
+RESULT X/x05_el PAIR:hpLvSelIdxNamesByPath224+hpLvNewClassFirstElemSpan224 STAGE1-CLOSER off:stage1 on:stage1 dump off=10 on=0 newbad=0
+RESULT X/x05_el PAIR:ipsBasePfxScopeJoin224+sysCallTypeArgScopeJoin224 STAGE1-CLOSER off:stage1 on:stage1 dump off=4 on=0 newbad=0
+RESULT X/x05_el PAIR:ipsBasePfxScopeJoin224+hpLvNewClassFirstElemSpan224 STAGE1-CLOSER off:stage1 on:stage1 dump off=10 on=0 newbad=0
+RESULT X/x05_el PAIR:sysCallTypeArgScopeJoin224+hpLvNewClassFirstElemSpan224 STAGE1-CLOSER off:stage1 on:stage1 dump off=6 on=0 newbad=0
+RESULT X/x05_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=20 on=0 newbad=0
+RESULT X/x05_el WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=20 on=0 newbad=0

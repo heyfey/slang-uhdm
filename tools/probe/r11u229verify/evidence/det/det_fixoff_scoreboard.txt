@@ -1,0 +1,4 @@
+fixoff_sb1 Scoreboard default dbb7fce68eb4/rc=0 a7eaa666dd3b/rc=0 dbb7fce68eb4/rc=0  ref=dbb7fce68eb4
+fixoff_sb2 Scoreboard default dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 a7eaa666dd3b/rc=0  ref=dbb7fce68eb4
+fixoff_sb3 Scoreboard default dbb7fce68eb4/rc=0 a7eaa666dd3b/rc=0 dbb7fce68eb4/rc=0  ref=dbb7fce68eb4
+fixoff_sb4 Scoreboard default dbb7fce68eb4/rc=0 a7eaa666dd3b/rc=0 dbb7fce68eb4/rc=0  ref=dbb7fce68eb4

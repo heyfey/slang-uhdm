@@ -1,0 +1,11 @@
+FIRED N/n05 newArrayBitSelIdxOpStripped224:1
+  N/n05 on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=1cd9ac61
+  N/n05 tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=1cd9ac61
+  N/n05 off_newArrayBitSelIdxOpStripped224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=91819b92
+  N/n05 offL224 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=91819b92
+  N/n05 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=91819b92
+  N/n05 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=91819b92
+RESULT N/n05 newArrayBitSelIdxOpStripped224 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT N/n05 LANDING224 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT N/n05 ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT N/n05 WIDE TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname

@@ -1,0 +1,13 @@
+FIRED N/n08 newArrayBitSelIdxOpStripped224:1 newArrayVarSelStripped224:1
+  N/n08 on cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=e7554cc1
+  N/n08 tr cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=e7554cc1
+  N/n08 off_newArrayBitSelIdxOpStripped224 cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=9c646883
+  N/n08 off_newArrayVarSelStripped224 cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=1f8ea056
+  N/n08 offL224 cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=3c8cf8bd
+  N/n08 alloff cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=3c8cf8bd
+  N/n08 wide cmp=255 cmplines=44 strict=NOT_EQUAL_stage1 rc=0 md5=3c8cf8bd
+RESULT N/n08 newArrayBitSelIdxOpStripped224 STAGE1-CLOSER off:stage1 on:stage1 dump off=24 on=20 newbad=0
+RESULT N/n08 newArrayVarSelStripped224 STAGE1-CLOSER off:stage1 on:stage1 dump off=35 on=20 newbad=0
+RESULT N/n08 LANDING224 STAGE1-CLOSER off:stage1 on:stage1 dump off=39 on=20 newbad=0
+RESULT N/n08 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=39 on=20 newbad=0
+RESULT N/n08 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=39 on=20 newbad=0

@@ -1,0 +1,17 @@
+FIRED X/x01 ifArrElemLitCaFresh225:1 strLitContLineSpan220:3
+  X/x01 on cmp=0 cmplines=0 strict=STRICT_EQUAL_105_objects rc=0 md5=3e7aaafb
+  X/x01 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_105_objects rc=0 md5=3e7aaafb
+  X/x01 off_strLitContOwnerEnd224 cmp=0 cmplines=0 strict=STRICT_EQUAL_105_objects rc=0 md5=3e7aaafb
+  X/x01 off_ifArrElemLitCaFresh225 cmp=0 cmplines=0 strict=STRICT_EQUAL_105_objects rc=0 md5=adfe2219
+  X/x01 offL224 cmp=0 cmplines=0 strict=STRICT_EQUAL_105_objects rc=0 md5=3e7aaafb
+  X/x01 offL225 cmp=0 cmplines=0 strict=STRICT_EQUAL_105_objects rc=0 md5=adfe2219
+  X/x01 off2_strLitContOwnerEnd224_ifArrElemLitCaFresh225 cmp=0 cmplines=0 strict=STRICT_EQUAL_105_objects rc=0 md5=adfe2219
+  X/x01 alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_105_objects rc=0 md5=adfe2219
+  X/x01 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=f8f7c775
+RESULT X/x01 strLitContOwnerEnd224 UNFIRED 
+RESULT X/x01 ifArrElemLitCaFresh225 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_105_objects on:STRICT_EQUAL_105_objects
+RESULT X/x01 LANDING224 UNFIRED 
+RESULT X/x01 LANDING225 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_105_objects on:STRICT_EQUAL_105_objects
+RESULT X/x01 PAIR:strLitContOwnerEnd224+ifArrElemLitCaFresh225 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_105_objects on:STRICT_EQUAL_105_objects
+RESULT X/x01 ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_105_objects on:STRICT_EQUAL_105_objects
+RESULT X/x01 WIDE TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_105_objects

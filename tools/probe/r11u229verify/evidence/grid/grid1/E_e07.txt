@@ -1,0 +1,17 @@
+FIRED E/e07 -
+  E/e07 on cmp=255 cmplines=380 strict=NOT_EQUAL_stage1 rc=0 md5=022be7e0
+  E/e07 tr cmp=255 cmplines=380 strict=NOT_EQUAL_stage1 rc=0 md5=022be7e0
+  E/e07 off_tfArgScalarTdExportOwnTd226v cmp=255 cmplines=380 strict=NOT_EQUAL_stage1 rc=0 md5=022be7e0
+  E/e07 off_tfArgScalarTdExportFirst223 cmp=255 cmplines=380 strict=NOT_EQUAL_stage1 rc=0 md5=7216a8f7
+  E/e07 off_tfArgScalarTdWriter223 cmp=255 cmplines=380 strict=NOT_EQUAL_stage1 rc=0 md5=022be7e0
+  E/e07 offL223 cmp=255 cmplines=380 strict=NOT_EQUAL_stage1 rc=0 md5=022be7e0
+  E/e07 offL226 cmp=255 cmplines=380 strict=NOT_EQUAL_stage1 rc=0 md5=022be7e0
+  E/e07 alloff cmp=255 cmplines=380 strict=NOT_EQUAL_stage1 rc=0 md5=022be7e0
+  E/e07 wide cmp=255 cmplines=380 strict=NOT_EQUAL_stage1 rc=0 md5=022be7e0
+RESULT E/e07 tfArgScalarTdExportOwnTd226v UNFIRED 
+RESULT E/e07 tfArgScalarTdExportFirst223 STAGE1-CLOSER off:stage1 on:stage1 dump off=27 on=25 newbad=1
+RESULT E/e07 tfArgScalarTdWriter223 UNFIRED 
+RESULT E/e07 LANDING223 UNFIRED 
+RESULT E/e07 LANDING226 UNFIRED 
+RESULT E/e07 ALLOFF UNFIRED 
+RESULT E/e07 WIDE UNFIRED 
