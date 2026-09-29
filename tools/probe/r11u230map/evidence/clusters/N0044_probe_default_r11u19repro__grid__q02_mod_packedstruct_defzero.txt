@@ -1,0 +1,41 @@
+cluster N0044 (id kept from an earlier map; OPEN | ground B | site buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < makeTypespec (TypeEmit.cpp, law tpCloneWholeLhsBare160) < emitTopPorts (ModuleEmit.cpp, law defNetTsScope) [DECODED (r11u130 R2): as N0009] [r11u165map pin]): span|struct_typespec|endcol|under:ref_typespec
+row: probe/default/r11u19repro__grid__q02_mod_packedstruct_defzero  strict=endcol  records golden=75 ours=75
+object: #14 (golden) / #14 (ours)  type=struct_typespec name=
+  golden: 1:41:1:47
+  ours:   1:41:1:54
+  walk parents: ref_typespec < port(we) < module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 8..20 ('>' = the object)
+  #8	5	range				dut.sv	1	24	1	30						001
+  #9	6	constant				dut.sv	1	25	1	27	31	64	UINT:31	9		001
+  #10	6	constant				dut.sv	1	28	1	29	0	64	UINT:0	9		001
+  #11	2	port	we			dut.sv	1	83	1	85						000
+  #12	3	ref_obj	we		work@top.we.we	dut.sv	1	83	1	85		0			work@top.we.we	000
+  #13	3	ref_typespec			work@top.we		0	0	0	0		0			work@top.we	000
+> #14	4	struct_typespec				dut.sv	1	41	1	47						000
+  #15	5	typespec_member	x			dut.sv	1	69	1	70						001
+  #16	6	ref_typespec			<in>x		0	0	0	0		0			x	001
+  #17	7	logic_typespec				dut.sv	1	57	1	68						001
+  #18	8	range				dut.sv	1	63	1	68						001
+  #19	9	constant				dut.sv	1	64	1	65	1	64	UINT:1	9		001
+  #20	9	constant				dut.sv	1	66	1	67	0	64	UINT:0	9		001
+
+--- OURS (B) records 8..20 ('>' = the object)
+  #8	5	range				dut.sv	1	24	1	30						001
+  #9	6	constant				dut.sv	1	25	1	27	31	64	UINT:31	9		001
+  #10	6	constant				dut.sv	1	28	1	29	0	64	UINT:0	9		001
+  #11	2	port	we			dut.sv	1	83	1	85						000
+  #12	3	ref_obj	we		work@top.we.we	dut.sv	1	83	1	85		0			work@top.we.we	000
+  #13	3	ref_typespec			work@top.we		0	0	0	0		0			work@top.we	000
+> #14	4	struct_typespec				dut.sv	1	41	1	54						000
+  #15	5	typespec_member	x			dut.sv	1	69	1	70						001
+  #16	6	ref_typespec			<in>x		0	0	0	0		0			x	001
+  #17	7	logic_typespec				dut.sv	1	57	1	68						001
+  #18	8	range				dut.sv	1	63	1	68						001
+  #19	9	constant				dut.sv	1	64	1	65	1	64	UINT:1	9		001
+  #20	9	constant				dut.sv	1	66	1	67	0	64	UINT:0	9		001
+
+facets of this row (2, first 25):
+  N0044 #14/14 struct_typespec  G[1:41:1:47] O[1:41:1:54]
+  N0044 #60/60 struct_typespec  G[1:41:1:47] O[1:41:1:54]

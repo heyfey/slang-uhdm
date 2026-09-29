@@ -1,0 +1,64 @@
+cluster N0413 (id kept from an earlier map; COVERED r11u227 (row named: r11u227 brief item 1: the BlackBePipeInt A half) | ground A | site emitParameters (ParamEmit.cpp, law elabUnpStructOperandWidth61) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind) < emitInstance (ModuleEmit.cpp, law bindDisplayTargetParent188) [r11u230 pin]): span|operation|line+col+endline+endcol|under:param_assign
+row: surelog/testflags/BlackBePipeInt  strict=differ:type(1)  records golden=338504 ours=340760
+object: #190658 (golden) / #192655 (ours)  type=operation name=
+  golden: 2565:47:2565:63
+  ours:   2047:2:2142:5
+  walk parents: param_assign < module_inst < design(work@bp_be_pipe_int)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 190652..190664 ('>' = the object)
+  #190652	4	ref_typespec			work@bp_be_pipe_int		0	0	0	0		0			work@bp_be_pipe_int	000
+  #190653	5	int_typespec				dut.sv	2558	1	2558	70						000
+  #190654	3	parameter	paramrom_match_addr_gp		work@bp_be_pipe_int.paramrom_match_addr_gp	dut.sv	2558	12	2558	34		0	UINT:2		work@bp_be_pipe_int.paramrom_match_addr_gp	000
+  #190655	4	ref_typespec			work@bp_be_pipe_int.paramrom_match_addr_gp		0	0	0	0		0			work@bp_be_pipe_int.paramrom_match_addr_gp	000
+  #190656	5	int_typespec				dut.sv	2558	1	2558	70						000
+  #190657	2	param_assign				dut.sv	2565	28	2565	63						000
+> #190658	3	operation				dut.sv	2565	47	2565	63		0				000
+  #190659	4	ref_typespec			work@bp_be_pipe_int		0	0	0	0		0			work@bp_be_pipe_int	000
+  #190660	5	struct_typespec	bp_common_pkg::bp_proc_param_s			dut.sv	1869	9	2044	2						110
+  #190661	6	typespec_member	cc_x_dim			dut.sv	1886	19	1886	27						001
+  #190662	7	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_x_dim		0	0	0	0		0			work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.cc_x_dim	001
+  #190663	8	integer_typespec				dut.sv	1886	2	1886	18						001
+  #190664	6	typespec_member	cc_y_dim			dut.sv	1887	19	1887	27						001
+
+--- OURS (B) records 192649..192661 ('>' = the object)
+  #192649	4	ref_typespec			work@bp_be_pipe_int		0	0	0	0		0			work@bp_be_pipe_int	000
+  #192650	5	int_typespec				dut.sv	2558	1	2558	70						000
+  #192651	3	parameter	paramrom_match_addr_gp		work@bp_be_pipe_int.paramrom_match_addr_gp	dut.sv	2558	12	2558	34		0	UINT:2		work@bp_be_pipe_int.paramrom_match_addr_gp	000
+  #192652	4	ref_typespec			work@bp_be_pipe_int.paramrom_match_addr_gp		0	0	0	0		0			work@bp_be_pipe_int.paramrom_match_addr_gp	000
+  #192653	5	int_typespec				dut.sv	2558	1	2558	70						000
+  #192654	2	param_assign				dut.sv	2565	28	2565	63						000
+> #192655	3	operation				dut.sv	2047	2	2142	5		0				000
+  #192656	4	ref_typespec			work@bp_be_pipe_int		0	0	0	0		0			work@bp_be_pipe_int	000
+  #192657	5	struct_typespec	bp_common_pkg::bp_proc_param_s			dut.sv	1869	9	2044	2						110
+  #192658	6	typespec_member	cc_x_dim			dut.sv	1886	19	1886	27						001
+  #192659	7	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_x_dim		0	0	0	0		0			work@bp_be_pipe_int.bp_unicore_cfg_p.bp_common_pkg::bp_proc_param_s.cc_x_dim	001
+  #192660	8	integer_typespec				dut.sv	1886	2	1886	18						001
+  #192661	6	typespec_member	cc_y_dim			dut.sv	1887	19	1887	27						001
+
+facets of this row (38809, first 25):
+  N0868 #-1/15268 constant  G[] O[1 objs]
+  N0868 #-1/15272 constant  G[] O[1 objs]
+  N0868 #-1/15276 constant  G[] O[1 objs]
+  N0868 #-1/15280 constant  G[] O[1 objs]
+  N0868 #-1/15284 constant  G[] O[1 objs]
+  N0868 #-1/15288 constant  G[] O[1 objs]
+  N0868 #-1/15292 constant  G[] O[1 objs]
+  N0868 #-1/15296 constant  G[] O[1 objs]
+  N0868 #-1/15300 constant  G[] O[1 objs]
+  N0868 #-1/15304 constant  G[] O[1 objs]
+  N0868 #-1/15308 constant  G[] O[1 objs]
+  N0868 #-1/15324 constant  G[] O[1 objs]
+  N0868 #-1/15328 constant  G[] O[1 objs]
+  N0868 #-1/15332 constant  G[] O[1 objs]
+  N0868 #-1/15336 constant  G[] O[1 objs]
+  N0868 #-1/15340 constant  G[] O[1 objs]
+  N0868 #-1/15344 constant  G[] O[1 objs]
+  N0868 #-1/15372 constant  G[] O[1 objs]
+  N0868 #-1/15376 constant  G[] O[1 objs]
+  N0868 #-1/15380 constant  G[] O[1 objs]
+  N0868 #-1/15384 constant  G[] O[1 objs]
+  N0868 #-1/15388 constant  G[] O[1 objs]
+  N0868 #-1/15408 constant  G[] O[1 objs]
+  N0868 #-1/15428 constant  G[] O[1 objs]
+  N0868 #-1/15432 constant  G[] O[1 objs]

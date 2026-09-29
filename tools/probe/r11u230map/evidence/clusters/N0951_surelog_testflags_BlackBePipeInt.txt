@@ -1,0 +1,64 @@
+cluster N0951 (id kept from an earlier map; COVERED r11u227 (row named: r11u227 brief item 1: the BlackBePipeInt A half) | ground A | site stampParenCastWidthTs (ParamEmit.cpp, law pcwElabKeepsClaim207v) < emitParameters (ParamEmit.cpp, law pkgImpParamMemberColons210) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) [r11u230 pin]): struct|golden-only:elsewhere|parameter|under:ref_obj
+row: surelog/testflags/BlackBePipeInt  strict=differ:type(1)  records golden=338504 ours=340760
+object: #123765 (golden) / #-1 (ours)  type=parameter name=dev_addr_width_gp
+  golden: 3 objs
+  ours:
+  walk parents: ref_obj(dev_addr_width_gp) < int_typespec < ref_typespec < parameter(dev_addr_width_gp)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 123759..123771 ('>' = the object)
+  #123759	3	ref_typespec			bp_be_pkg::debug_reg_match_addr_gp		0	0	0	0		0			bp_be_pkg::debug_reg_match_addr_gp	000
+  #123760	4	int_typespec				dut.sv	14656	1	14656	69						000
+  #123761	2	parameter	dev_addr_width_gp		bp_be_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20		bp_be_pkg::dev_addr_width_gp	000
+  #123762	3	ref_typespec			bp_be_pkg::dev_addr_width_gp		0	0	0	0		0			bp_be_pkg::dev_addr_width_gp	000
+  #123763	4	int_typespec				dut.sv	1793	1	1793	34						000
+  #123764	5	ref_obj	dev_addr_width_gp				0	0	0	0		0				001
+> #123765	6	parameter	dev_addr_width_gp		work@bp_be_pipe_int.dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20		work@bp_be_pipe_int.dev_addr_width_gp	001
+  #123766	7	ref_typespec			work@bp_be_pipe_int.dev_addr_width_gp		0	0	0	0		0			work@bp_be_pipe_int.dev_addr_width_gp	001
+  #123767	8	int_typespec				dut.sv	1793	1	1793	34						001
+  #123768	2	parameter	dev_id_width_gp		bp_be_pkg::dev_id_width_gp	dut.sv	1792	12	1792	27		0	UINT:4		bp_be_pkg::dev_id_width_gp	000
+  #123769	3	ref_typespec			bp_be_pkg::dev_id_width_gp		0	0	0	0		0			bp_be_pkg::dev_id_width_gp	000
+  #123770	4	int_typespec				dut.sv	1792	1	1792	33						000
+  #123771	2	parameter	dram_base_addr_gp		bp_be_pkg::dram_base_addr_gp	dut.sv	1809	12	1809	29		0	HEX:0080000000		bp_be_pkg::dram_base_addr_gp	000
+
+--- the holder #123764 on the other side: exact-record matches at [65, 40787, 76988, 125766]
+  #62	2	parameter	dev_addr_width_gp		bp_common_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20		bp_common_pkg::dev_addr_width_gp	000
+  #63	3	ref_typespec			bp_common_pkg::dev_addr_width_gp		0	0	0	0		0			bp_common_pkg::dev_addr_width_gp	000
+  #64	4	int_typespec				dut.sv	1793	1	1793	34						000
+> #65	5	ref_obj	dev_addr_width_gp				0	0	0	0		0				001
+  #66	2	parameter	host_dev_gp		bp_common_pkg::host_dev_gp	dut.sv	1795	12	1795	23		0	UINT:1		bp_common_pkg::host_dev_gp	000
+  #67	3	ref_typespec			bp_common_pkg::host_dev_gp		0	0	0	0		0			bp_common_pkg::host_dev_gp	000
+  #68	4	int_typespec				dut.sv	1795	1	1795	28						000
+  #69	2	parameter	cfg_dev_gp		bp_common_pkg::cfg_dev_gp	dut.sv	1796	12	1796	22		0	UINT:2		bp_common_pkg::cfg_dev_gp	000
+  #70	3	ref_typespec			bp_common_pkg::cfg_dev_gp		0	0	0	0		0			bp_common_pkg::cfg_dev_gp	000
+  #71	4	int_typespec				dut.sv	1796	1	1796	28						000
+  #72	2	parameter	clint_dev_gp		bp_common_pkg::clint_dev_gp	dut.sv	1797	12	1797	24		0	UINT:3		bp_common_pkg::clint_dev_gp	000
+  #73	3	ref_typespec			bp_common_pkg::clint_dev_gp		0	0	0	0		0			bp_common_pkg::clint_dev_gp	000
+  #74	4	int_typespec				dut.sv	1797	1	1797	28						000
+
+facets of this row (38809, first 25):
+  N0868 #-1/15268 constant  G[] O[1 objs]
+  N0868 #-1/15272 constant  G[] O[1 objs]
+  N0868 #-1/15276 constant  G[] O[1 objs]
+  N0868 #-1/15280 constant  G[] O[1 objs]
+  N0868 #-1/15284 constant  G[] O[1 objs]
+  N0868 #-1/15288 constant  G[] O[1 objs]
+  N0868 #-1/15292 constant  G[] O[1 objs]
+  N0868 #-1/15296 constant  G[] O[1 objs]
+  N0868 #-1/15300 constant  G[] O[1 objs]
+  N0868 #-1/15304 constant  G[] O[1 objs]
+  N0868 #-1/15308 constant  G[] O[1 objs]
+  N0868 #-1/15324 constant  G[] O[1 objs]
+  N0868 #-1/15328 constant  G[] O[1 objs]
+  N0868 #-1/15332 constant  G[] O[1 objs]
+  N0868 #-1/15336 constant  G[] O[1 objs]
+  N0868 #-1/15340 constant  G[] O[1 objs]
+  N0868 #-1/15344 constant  G[] O[1 objs]
+  N0868 #-1/15372 constant  G[] O[1 objs]
+  N0868 #-1/15376 constant  G[] O[1 objs]
+  N0868 #-1/15380 constant  G[] O[1 objs]
+  N0868 #-1/15384 constant  G[] O[1 objs]
+  N0868 #-1/15388 constant  G[] O[1 objs]
+  N0868 #-1/15408 constant  G[] O[1 objs]
+  N0868 #-1/15428 constant  G[] O[1 objs]
+  N0868 #-1/15432 constant  G[] O[1 objs]

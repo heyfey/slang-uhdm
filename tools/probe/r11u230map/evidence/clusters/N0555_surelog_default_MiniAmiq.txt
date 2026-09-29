@@ -1,0 +1,64 @@
+cluster N0555 (id kept from an earlier map; COVERED r11u227 (the UVM ground-A families, optimistic) | ground A | site emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) < emitExpr (ExprEmit.cpp, law thisPathSelectErased4) [r11u142map pin]): fullname|bit_select|tok:id::->|under:bit_select
+row: surelog/default/MiniAmiq  strict=differ:line(2)  records golden=435559 ours=432516
+object: #90429 (golden) / #90093 (ours)  type=bit_select name=avail_sequences OUT
+  golden: svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::arb_sequence_q::avail_sequences
+  ours:   svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::avail_sequences
+  walk parents: bit_select(arb_sequence_q) < hier_path(arb_sequence_q[[i]].sequence_ptr) < func_call(is_blocked) < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 90423..90435 ('>' = the object)
+  #90423	7	begin			svaunit_pkg::uvm_sequencer_base::m_choose_next_request	uvm_sequencer_base.svh	790	50	795	8					svaunit_pkg::uvm_sequencer_base::m_choose_next_request	000
+  #90424	8	if_stmt				uvm_sequencer_base.svh	791	7	794	10						000
+  #90425	9	operation				uvm_sequencer_base.svh	791	11	791	75		0				000
+  #90426	10	func_call	is_blocked			uvm_sequencer_base.svh	791	11	791	70		0				000
+  #90427	11	hier_path	arb_sequence_q[[i]].sequence_ptr			uvm_sequencer_base.svh	791	22	791	69		0				000
+  #90428	12	bit_select	arb_sequence_q		arb_sequence_q[[i]]	uvm_sequencer_base.svh	791	22	791	36		0			arb_sequence_q[[i]]	000
+> #90429	13	bit_select	avail_sequences		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::arb_sequence_q::avail_sequences	uvm_sequencer_base.svh	791	37	791	55		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::arb_sequence_q::avail_sequences	000
+  #90430	14	ref_obj	i		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::arb_sequence_q::i	uvm_sequencer_base.svh	791	53	791	54		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::arb_sequence_q::i	000
+  #90431	12	ref_obj	sequence_ptr		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::sequence_ptr	uvm_sequencer_base.svh	791	57	791	69		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::sequence_ptr	000
+  #90432	10	constant				uvm_sequencer_base.svh	791	74	791	75	0	64	UINT:0	9		000
+  #90433	9	begin			svaunit_pkg::uvm_sequencer_base::m_choose_next_request	uvm_sequencer_base.svh	791	77	794	10					svaunit_pkg::uvm_sequencer_base::m_choose_next_request	000
+  #90434	10	method_func_call	delete			uvm_sequencer_base.svh	792	25	792	31		0				000
+  #90435	11	ref_obj	i		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::i	uvm_sequencer_base.svh	792	32	792	33		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::i	000
+
+--- OURS (B) records 90087..90099 ('>' = the object)
+  #90087	7	begin			svaunit_pkg::uvm_sequencer_base::m_choose_next_request	uvm_sequencer_base.svh	790	50	795	8					svaunit_pkg::uvm_sequencer_base::m_choose_next_request	000
+  #90088	8	if_stmt				uvm_sequencer_base.svh	791	7	794	10						000
+  #90089	9	operation				uvm_sequencer_base.svh	791	11	791	75		0				000
+  #90090	10	func_call	is_blocked			uvm_sequencer_base.svh	791	11	791	70		0				000
+  #90091	11	hier_path	arb_sequence_q[[i]].sequence_ptr			uvm_sequencer_base.svh	791	22	791	69		0				000
+  #90092	12	bit_select	arb_sequence_q		arb_sequence_q[[i]]	uvm_sequencer_base.svh	791	22	791	36		0			arb_sequence_q[[i]]	000
+> #90093	13	bit_select	avail_sequences		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::avail_sequences	uvm_sequencer_base.svh	791	37	791	55		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::avail_sequences	000
+  #90094	14	ref_obj	i		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::i	uvm_sequencer_base.svh	791	53	791	54		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::i	000
+  #90095	12	ref_obj	sequence_ptr		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::sequence_ptr	uvm_sequencer_base.svh	791	57	791	69		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::sequence_ptr	000
+  #90096	10	constant				uvm_sequencer_base.svh	791	74	791	75	0	64	UINT:0	9		000
+  #90097	9	begin			svaunit_pkg::uvm_sequencer_base::m_choose_next_request	uvm_sequencer_base.svh	791	77	794	10					svaunit_pkg::uvm_sequencer_base::m_choose_next_request	000
+  #90098	10	method_func_call	delete			uvm_sequencer_base.svh	792	25	792	31		0				000
+  #90099	11	ref_obj	i		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::i	uvm_sequencer_base.svh	792	32	792	33		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::i	000
+
+facets of this row (3771, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

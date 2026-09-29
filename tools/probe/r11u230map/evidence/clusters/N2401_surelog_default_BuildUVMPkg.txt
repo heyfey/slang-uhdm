@@ -1,0 +1,64 @@
+cluster N2401 (id kept from an earlier map; COVERED r11u227 (the UVM ground-A families, optimistic) | ground A | site emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law hpTrailSelIdxNamesByPath133) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) [r11u165map pin]): fullname|ref_obj|tok:id.id.id[]::id::->|under:hier_path
+row: surelog/default/BuildUVMPkg  strict=differ:line(14)  records golden=201533 ours=201588
+object: #164660 (golden) / #164706 (ours)  type=ref_obj name=obj OUT
+  golden: uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts::obj
+  ours:   uvm_pkg::uvm_objection::m_execute_scheduled_forks::obj
+  walk parents: hier_path(c.obj) < bit_select(m_scheduled_contexts) < hier_path(c.objection.m_scheduled_contexts[]) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 164654..164666 ('>' = the object)
+  #164654	11	hier_path	c.objection.m_scheduled_contexts[]			uvm_pkg.sv	42134	11	42134	50		0				000
+  #164655	12	ref_obj	c			uvm_pkg.sv	42134	13	42134	22		0				000
+  #164656	12	ref_obj	objection			uvm_pkg.sv	42134	13	42134	22		0				000
+  #164657	12	bit_select	m_scheduled_contexts		uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts	uvm_pkg.sv	42134	23	42134	50		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts	000
+  #164658	13	hier_path	c.obj			uvm_pkg.sv	42134	44	42134	49		0				000
+  #164659	14	ref_obj	c			uvm_pkg.sv	42134	44	42134	45		0				000
+> #164660	14	ref_obj	obj		uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts::obj	uvm_pkg.sv	42134	46	42134	49		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts::obj	000
+  #164661	10	method_func_call	objection			uvm_pkg.sv	42136	13	42136	22		0				000
+  #164662	11	ref_obj	c		uvm_pkg::uvm_objection::m_execute_scheduled_forks::c	uvm_pkg.sv	42136	11	42136	12		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::c	000
+  #164663	10	named_fork	guard		uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard	uvm_pkg.sv	42140	11	42171	28					uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard	000
+  #164664	11	class_var	objection		uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection	uvm_pkg.sv	42141	39	42141	48		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection	000
+  #164665	12	ref_typespec			uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection		0	0	0	0		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection	000
+  #164666	13	class_typespec				uvm_pkg.sv	42141	25	42141	38						000
+
+--- OURS (B) records 164700..164712 ('>' = the object)
+  #164700	11	hier_path	c.objection.m_scheduled_contexts[]			uvm_pkg.sv	42134	11	42134	50		0				000
+  #164701	12	ref_obj	c			uvm_pkg.sv	42134	13	42134	22		0				000
+  #164702	12	ref_obj	objection			uvm_pkg.sv	42134	13	42134	22		0				000
+  #164703	12	bit_select	m_scheduled_contexts		uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts	uvm_pkg.sv	42134	23	42134	50		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::c.objection.m_scheduled_contexts[]::m_scheduled_contexts	000
+  #164704	13	hier_path	c.obj			uvm_pkg.sv	42134	44	42134	49		0				000
+  #164705	14	ref_obj	c			uvm_pkg.sv	42134	44	42134	45		0				000
+> #164706	14	ref_obj	obj		uvm_pkg::uvm_objection::m_execute_scheduled_forks::obj	uvm_pkg.sv	42134	46	42134	49		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::obj	000
+  #164707	10	method_func_call	objection			uvm_pkg.sv	42136	13	42136	22		0				000
+  #164708	11	ref_obj	c		uvm_pkg::uvm_objection::m_execute_scheduled_forks::c	uvm_pkg.sv	42136	11	42136	12		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::c	000
+  #164709	10	named_fork	guard		uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard	uvm_pkg.sv	42140	11	42171	28					uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard	000
+  #164710	11	class_var	objection		uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection	uvm_pkg.sv	42141	39	42141	48		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection	000
+  #164711	12	ref_typespec			uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection		0	0	0	0		0			uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection	000
+  #164712	13	class_typespec				uvm_pkg.sv	42141	25	42141	38						000
+
+facets of this row (212, first 25):
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74761 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74844 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79830 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79884 array_typespec  G[] O[1 objs]
+  N0158 #96958/96950 bit_typespec  G[8 ref_typespec < enum_typespec(uvm_pkg::uvm_active_passive_enum)] O[6 ref_typespec < enum_var]
+  N0213 #96956/-1 enum_typespec uvm_pkg::uvm_active_passive_enum G[2 objs] O[]
+  N0171 #97010/-1 bit_typespec  G[1 objs] O[]
+  N0025 #153018/153008 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/153007 operation  G[] O[1 objs]
+  N0025 #153021/153013 constant  G[18 range < bit_typespec(uvm_reg_addr_t)] O[19 operation < range]
+  N0033 #-1/153012 operation  G[] O[1 objs]
+  N0025 #155484/155478 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/155477 operation  G[] O[1 objs]
+  N0025 #155487/155483 constant  G[18 range < bit_typespec(uvm_reg_addr_t)] O[19 operation < range]
+  N0033 #-1/155482 operation  G[] O[1 objs]
+  N0025 #155532/155530 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/155529 operation  G[] O[1 objs]
+  N0025 #155535/155535 constant  G[18 range < bit_typespec(uvm_reg_addr_t)] O[19 operation < range]
+  N0033 #-1/155534 operation  G[] O[1 objs]
+  N0025 #155586/155588 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/155587 operation  G[] O[1 objs]

@@ -1,0 +1,64 @@
+cluster N0727 (id kept from an earlier map; COVERED r11u227 (the Earlgrey_0_1 ground-A scope-name family, optimistic) | ground A | site emitSyntaxExpr (TypeEmit.cpp, law fnLocalParamRangeNet) < fillSizeDimRange (ModuleEmit.cpp, law sizeDimOvrChain4) < emitInstance (ModuleEmit.cpp, law progPortIfaceArrayUnowned13) [r11u142map pin]): file|constant|other-file|under:operation
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(19)  records golden=1342584 ours=1342870
+object: #425368 (golden) / #425307 (ours)  type=constant name=
+  golden: rv_dm.sv 100:17:100:30
+  ours:   dm_pkg.sv 100:17:100:30
+  walk parents: operation < param_assign < module_inst(u_dm_top) < module_inst(work@top_earlgrey)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 425362..425374 ('>' = the object)
+  #425362	11	constant				dm_pkg.sv	132	12	132	14	11	64	UINT:11	9		001
+  #425363	11	constant				dm_pkg.sv	132	15	132	16	0	64	UINT:0	9		001
+  #425364	5	constant				rv_dm.sv	96	17	96	19	0	8	UINT:0	9		000
+  #425365	5	constant				rv_dm.sv	97	17	97	18	2	4	UINT:2	9		000
+  #425366	5	constant				rv_dm.sv	98	17	98	18	0	3	UINT:0	9		000
+  #425367	5	constant				rv_dm.sv	99	17	99	21	1'b1	1	BIN:1	3		000
+> #425368	5	constant				rv_dm.sv	100	17	100	30	4'h2	4	HEX:2	5		000
+  #425369	5	constant				rv_dm.sv	101	17	101	29	12'h380	12	HEX:380	5		000
+  #425370	3	param_assign				rv_dm.sv	220	27	220	76						000
+  #425371	4	constant				rv_dm.sv	220	47	220	76	30	32	INT:30	7		000
+  #425372	5	ref_typespec			work@top_earlgrey.u_dm_top		0	0	0	0		0			work@top_earlgrey.u_dm_top	000
+  #425373	6	int_typespec				rv_dm.sv	220	14	220	26						000
+  #425374	3	logic_net	clk_i		work@top_earlgrey.u_dm_top.clk_i	rv_dm.sv	19	33	19	38		0			work@top_earlgrey.u_dm_top.clk_i	000
+
+--- OURS (B) records 425301..425313 ('>' = the object)
+  #425301	11	constant				dm_pkg.sv	132	12	132	14	11	64	UINT:11	9		001
+  #425302	11	constant				dm_pkg.sv	132	15	132	16	0	64	UINT:0	9		001
+  #425303	5	constant				rv_dm.sv	96	17	96	19	0	8	UINT:0	9		000
+  #425304	5	constant				rv_dm.sv	97	17	97	18	2	4	UINT:2	9		000
+  #425305	5	constant				rv_dm.sv	98	17	98	18	0	3	UINT:0	9		000
+  #425306	5	constant				rv_dm.sv	99	17	99	21	1'b1	1	BIN:1	3		000
+> #425307	5	constant				dm_pkg.sv	100	17	100	30	4'h2	4	HEX:2	5		000
+  #425308	5	constant				dm_pkg.sv	101	17	101	29	12'h380	12	HEX:380	5		000
+  #425309	3	param_assign				rv_dm.sv	220	27	220	76						000
+  #425310	4	constant				rv_dm.sv	220	47	220	76	30	32	INT:30	7		000
+  #425311	5	ref_typespec			work@top_earlgrey.u_dm_top		0	0	0	0		0			work@top_earlgrey.u_dm_top	000
+  #425312	6	int_typespec				rv_dm.sv	220	14	220	26						000
+  #425313	3	logic_net	clk_i		work@top_earlgrey.u_dm_top.clk_i	rv_dm.sv	19	33	19	38		0			work@top_earlgrey.u_dm_top.clk_i	000
+
+facets of this row (530, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

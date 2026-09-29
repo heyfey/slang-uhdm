@@ -1,0 +1,43 @@
+cluster N0494 (id kept from an earlier map; OPEN | ground B | site makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < buildUnionTs (TypeEmit.cpp, law pkgTdRangeViewFold18) < exportDesign (UhdmExporter.cpp, law unitImportHoistsPkgParams146v) [r11u142map pin]): fullname|ref_typespec|golden-empty|under:packed_array_typespec
+row: probe/default/r11u31repro__g5  strict=fullname  records golden=98 ours=98
+object: #8 (golden) / #8 (ours)  type=ref_typespec name= TAIL
+  golden:
+  ours:   work@dut.T
+  walk parents: packed_array_typespec < ref_typespec < type_parameter(T) < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2..14 ('>' = the object)
+  #2	2	type_parameter	T		work@dut.T	dut.sv	1	29	1	30					work@dut.T	010
+  #3	3	ref_typespec			<in>T		0	0	0	0		0			work@dut.T	001
+  #4	4	packed_array_typespec				dut.sv	1	33	1	46						001
+  #5	5	range				dut.sv	1	75	1	80						001
+  #6	6	constant				dut.sv	1	76	1	77	3	64	UINT:3	9		001
+  #7	6	constant				dut.sv	1	78	1	79	0	64	UINT:0	9		001
+> #8	5	ref_typespec					0	0	0	0		0				001
+  #9	6	struct_typespec				dut.sv	1	33	1	39						001
+  #10	7	typespec_member	a			dut.sv	1	61	1	62						001
+  #11	8	ref_typespec			<in>a		0	0	0	0		0			a	001
+  #12	9	logic_typespec				dut.sv	1	49	1	60						001
+  #13	10	range				dut.sv	1	55	1	60						001
+  #14	11	constant				dut.sv	1	56	1	57	1	64	UINT:1	9		001
+
+--- OURS (B) records 2..14 ('>' = the object)
+  #2	2	type_parameter	T		work@dut.T	dut.sv	1	29	1	30					work@dut.T	010
+  #3	3	ref_typespec			<in>T		0	0	0	0		0			work@dut.T	001
+  #4	4	packed_array_typespec				dut.sv	1	33	1	46						001
+  #5	5	range				dut.sv	1	75	1	80						001
+  #6	6	constant				dut.sv	1	76	1	77	3	64	UINT:3	9		001
+  #7	6	constant				dut.sv	1	78	1	79	0	64	UINT:0	9		001
+> #8	5	ref_typespec			<in>T		0	0	0	0		0			work@dut.T	001
+  #9	6	struct_typespec				dut.sv	1	33	1	39						001
+  #10	7	typespec_member	a			dut.sv	1	61	1	62						001
+  #11	8	ref_typespec			a		0	0	0	0		0			a	001
+  #12	9	logic_typespec				dut.sv	1	49	1	60						001
+  #13	10	range				dut.sv	1	55	1	60						001
+  #14	11	constant				dut.sv	1	56	1	57	1	64	UINT:1	9		001
+
+facets of this row (4, first 25):
+  N0494 #8/8 ref_typespec  G[] O[work@dut.T]
+  N0494 #27/27 ref_typespec  G[] O[work@dut.T]
+  N0494 #65/65 ref_typespec  G[] O[work@dut.T]
+  N0494 #83/83 ref_typespec  G[] O[work@dut.T]

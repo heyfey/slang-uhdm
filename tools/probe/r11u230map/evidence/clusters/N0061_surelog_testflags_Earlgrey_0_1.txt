@@ -1,0 +1,64 @@
+cluster N0061 (id kept from an earlier map; OPEN (map 14 listed it: ground-A+B step 15; passes 223-225 left it) | ground B | site emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxDecompiled79) < emitExpr (ExprEmit.cpp, law thisPathSelectErased4) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) [r11u150map pin]): span|bit_select|col+endcol|under:hier_path
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(19)  records golden=1342584 ours=1342870
+object: #144433 (golden) / #144393 (ours)  type=bit_select name=key
+  golden: 133:19:133:27
+  ours:   133:23:133:26
+  walk parents: hier_path(hw2reg.key[7 - i].d) < cont_assign < named_begin(gen_key_digest) < gen_for
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 144427..144439 ('>' = the object)
+  #144427	4	ref_obj	i		work@hmac.i		0	0	0	0		0			work@hmac.i	000
+  #144428	3	named_begin	gen_key_digest		work@hmac.gen_key_digest		0	0	0	0					work@hmac.gen_key_digest	000
+  #144429	4	cont_assign				hmac.sv	133	12	133	39						000
+  #144430	5	constant				hmac.sv	133	37	133	39	'0	-1	BIN:0	3		000
+  #144431	5	hier_path	hw2reg.key[7 - i].d			hmac.sv	133	12	133	29		0				000
+  #144432	6	ref_obj	hw2reg			hmac.sv	133	19	133	22		0				000
+> #144433	6	bit_select	key		work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key	hmac.sv	133	19	133	27		0			work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key	000
+  #144434	7	operation				hmac.sv	133	23	133	26		0				000
+  #144435	8	constant				hmac.sv	133	23	133	24	7	64	UINT:7	9		000
+  #144436	8	ref_obj	i		work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key.i	hmac.sv	133	25	133	26		0			work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key.i	000
+  #144437	6	ref_obj	d			hmac.sv	133	28	133	29		0				000
+  #144438	4	cont_assign				hmac.sv	135	12	135	68						000
+  #144439	5	func_call	conv_endian			hmac.sv	135	33	135	68		0				000
+
+--- OURS (B) records 144387..144399 ('>' = the object)
+  #144387	4	ref_obj	i		work@hmac.i		0	0	0	0		0			work@hmac.i	000
+  #144388	3	named_begin	gen_key_digest		work@hmac.gen_key_digest		0	0	0	0					work@hmac.gen_key_digest	000
+  #144389	4	cont_assign				hmac.sv	133	12	133	39						000
+  #144390	5	constant				hmac.sv	133	37	133	39	'0	-1	BIN:0	3		000
+  #144391	5	hier_path	hw2reg.key[7 - i].d			hmac.sv	133	12	133	29		0				000
+  #144392	6	ref_obj	hw2reg			hmac.sv	133	19	133	22		0				000
+> #144393	6	bit_select	key		work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key	hmac.sv	133	23	133	26		0			work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key	000
+  #144394	7	operation				hmac.sv	133	23	133	26		0				000
+  #144395	8	constant				hmac.sv	133	23	133	24	7	64	UINT:7	9		000
+  #144396	8	ref_obj	i		work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key.i	hmac.sv	133	25	133	26		0			work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key.i	000
+  #144397	6	ref_obj	d			hmac.sv	133	28	133	29		0				000
+  #144398	4	cont_assign				hmac.sv	135	12	135	68						000
+  #144399	5	func_call	conv_endian			hmac.sv	135	33	135	68		0				000
+
+facets of this row (530, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

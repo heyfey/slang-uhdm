@@ -1,0 +1,64 @@
+cluster N1918 (id kept from an earlier map; OPEN | ground A | site emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u138map pin] [r11u142map pin]): struct|golden-only:elsewhere|ref_typespec|under:logic_typespec
+row: probe/default/r11u111repro__grid__f1__a27_q_row_named_dims  strict=file  records golden=247 ours=249
+object: #214 (golden) / #-1 (ours)  type=ref_typespec name=
+  golden: 2 objs
+  ours:
+  walk parents: logic_typespec < ref_typespec < logic_typespec(q2::row_t) < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 208..220 ('>' = the object)
+  #208	13	range				dut.sv	2	17	2	22						001
+  #209	14	constant				dut.sv	2	18	2	19	1	64	UINT:1	9		001
+  #210	14	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+  #211	11	range				dut.sv	3	16	3	21						001
+  #212	12	constant				dut.sv	3	17	3	18	0	64	UINT:0	9		001
+  #213	12	constant				dut.sv	3	19	3	20	2	64	UINT:2	9		001
+> #214	9	ref_typespec					0	0	0	0		0				001
+  #215	10	logic_typespec	ut_e			dut.sv	2	11	2	22						001
+  #216	11	ref_typespec			<in>ut_e		0	0	0	0		0			ut_e	001
+  #217	12	logic_typespec	ut_e			dut.sv	2	11	2	22						001
+  #218	13	range				dut.sv	2	17	2	22						001
+  #219	14	constant				dut.sv	2	18	2	19	1	64	UINT:1	9		001
+  #220	14	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+
+--- the holder #198 on the other side: exact-record matches at [60]
+  #57	5	ref_typespec			work@sub.UT		0	0	0	0		0			work@sub.UT	000
+  #58	6	logic_typespec	q2::row_t				0	0	0	0						110
+  #59	7	ref_typespec			<in>q2::row_t		0	0	0	0		0			q2::q2::row_t	001
+> #60	8	logic_typespec				dut.sv	3	11	3	21						001
+  #61	9	ref_typespec					0	0	0	0		0				001
+  #62	10	logic_typespec				dut.sv	3	11	3	21						001
+  #63	11	ref_typespec					0	0	0	0		0				001
+  #64	12	logic_typespec	ut_e			dut.sv	2	11	2	22						001
+  #65	13	ref_typespec			<in>ut_e		0	0	0	0		0			ut_e	001
+  #66	14	logic_typespec	q2::ut_e			dut.sv	2	11	2	22						001
+  #67	15	range				dut.sv	2	17	2	22						001
+  #68	16	constant				dut.sv	2	18	2	19	1	64	UINT:1	9		001
+  #69	16	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+
+facets of this row (33, first 25):
+  N0085 #-1/205 ref_typespec  G[] O[5 objs]
+  N1915 #211/-1 range  G[3 objs] O[]
+  N1918 #214/-1 ref_typespec  G[2 objs] O[]
+  N0085 #-1/218 ref_typespec  G[] O[5 objs]
+  N1915 #227/-1 range  G[3 objs] O[]
+  N1906 #159/159 logic_typespec q2::row_t G[ 0:0:0:0] O[dut.sv 3:11:3:21]
+  N1908 #159/159 logic_typespec q2::row_t G[0:0:0:0] O[3:11:3:21]
+  N1914 #162/162 ref_typespec  G[work@dut.u.UT.q2::row_t] O[]
+  N1914 #164/164 ref_typespec  G[work@dut.u.UT.q2::row_t] O[]
+  N1914 #177/177 ref_typespec  G[work@dut.u.UT.q2::row_t] O[]
+  N0738 #196/196 logic_typespec q2::row_t G[q2::row_t|] O[row_t|]
+  N1906 #196/196 logic_typespec q2::row_t G[ 0:0:0:0] O[dut.sv 3:11:3:21]
+  N1908 #196/196 logic_typespec q2::row_t G[0:0:0:0] O[3:11:3:21]
+  N1968 #197/197 ref_typespec  G[q2::q2::row_t] O[work@sub.UT.row_t]
+  N1907 #198/198 logic_typespec  G[|] O[q2::row_t|]
+  N0476 #198/198 logic_typespec  G[dut.sv 3:11:3:21] O[ 0:0:0:0]
+  N0477 #198/198 logic_typespec  G[3:11:3:21] O[0:0:0:0]
+  N1909 #199/199 ref_typespec  G[] O[q2::q2::row_t]
+  N0484 #202/202 logic_typespec ut_e G[ut_e|] O[|]
+  N1905 #202/202 logic_typespec ut_e G[2:11:2:22] O[3:11:3:21]
+  N1914 #203/203 ref_typespec  G[ut_e] O[]
+  N0738 #204/204 logic_typespec q2::ut_e G[q2::ut_e|] O[ut_e|]
+  N1899 #208/213 range  G[2:17:2:22] O[3:16:3:21]
+  N0094 #209/214 constant  G[2:18:2:19] O[3:17:3:18]
+  N0742 #209/214 constant  G[1|64|UINT:1|9] O[0|64|UINT:0|9]

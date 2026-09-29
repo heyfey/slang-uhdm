@@ -1,0 +1,41 @@
+cluster N0003 (id kept from an earlier map; OPEN | ground A | site emitParameters (ParamEmit.cpp, law elabPatQualRefQualSpan133) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v) [r11u179 pin] [DECODED: golden's ref_typespec of an assignment-pattern/cast operation carries NO VpiParent (uhdm-dump: no vpiParent line), so its synthesised full name is empty; ours is parented] [pass-133 R2 (measured here): tools/probe/r11u133repro/pkr p01 and u01 carry N0003 beside N0001/N0063 (u01 also N0688)] [r11u179map pin]): fullname|ref_typespec|golden-empty|under:operation
+row: probe/default/r11v4repro__v6  strict=fullname  records golden=122 ours=122
+object: #98 (golden) / #98 (ours)  type=ref_typespec name= OUT
+  golden:
+  ours:   work@top.a0.q
+  walk parents: operation < param_assign < interface_inst(q) < ref_obj
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 92..104 ('>' = the object)
+  #92	5	interface_inst	q	work@tif	work@top.a0.q	dut.sv	13	0	0	0					work@top.a0.q	000
+  #93	6	logic_var	d		work@top.a0.q.d	dut.sv	5	9	5	10		0			work@top.a0.q.d	000
+  #94	7	ref_typespec			work@top.a0.q.d		0	0	0	0		0			work@top.a0.q.d	000
+  #95	8	logic_typespec				dut.sv	5	3	5	8						000
+  #96	6	param_assign				dut.sv	4	33	4	49						000
+  #97	7	operation				dut.sv	4	39	4	49		0				000
+> #98	8	ref_typespec					0	0	0	0		0				000
+  #99	9	struct_typespec	bus_t			dut.sv	2	9	2	44						110
+  #100	10	typespec_member	DAT			dut.sv	2	38	2	41						001
+  #101	11	ref_typespec			<in>bus_t.DAT		0	0	0	0		0			work@top.a0.q.CFG.bus_t.DAT	001
+  #102	12	int_typespec				dut.sv	2	25	2	37						001
+  #103	8	constant				dut.sv	4	46	4	48	32	32	UINT:32	9		000
+  #104	7	parameter	CFG		work@top.a0.q.CFG	dut.sv	4	33	4	36		0			work@top.a0.q.CFG	000
+
+--- OURS (B) records 92..104 ('>' = the object)
+  #92	5	interface_inst	q	work@tif	work@top.a0.q	dut.sv	13	0	0	0					work@top.a0.q	000
+  #93	6	logic_var	d		work@top.a0.q.d	dut.sv	5	9	5	10		0			work@top.a0.q.d	000
+  #94	7	ref_typespec			work@top.a0.q.d		0	0	0	0		0			work@top.a0.q.d	000
+  #95	8	logic_typespec				dut.sv	5	3	5	8						000
+  #96	6	param_assign				dut.sv	4	33	4	49						000
+  #97	7	operation				dut.sv	4	39	4	49		0				000
+> #98	8	ref_typespec			work@top.a0.q		0	0	0	0		0			work@top.a0.q	000
+  #99	9	struct_typespec	bus_t			dut.sv	2	9	2	44						110
+  #100	10	typespec_member	DAT			dut.sv	2	38	2	41						001
+  #101	11	ref_typespec			<in>bus_t.DAT		0	0	0	0		0			work@top.a0.q.bus_t.DAT	001
+  #102	12	int_typespec				dut.sv	2	25	2	37						001
+  #103	8	constant				dut.sv	4	46	4	48	32	32	UINT:32	9		000
+  #104	7	parameter	CFG		work@top.a0.q.CFG	dut.sv	4	33	4	36		0			work@top.a0.q.CFG	000
+
+facets of this row (2, first 25):
+  N0003 #98/98 ref_typespec  G[] O[work@top.a0.q]
+  N0014 #101/101 ref_typespec  G[work@top.a0.q.CFG.bus_t.DAT] O[work@top.a0.q.bus_t.DAT]

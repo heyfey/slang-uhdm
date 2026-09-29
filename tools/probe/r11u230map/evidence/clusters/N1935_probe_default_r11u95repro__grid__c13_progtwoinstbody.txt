@@ -1,0 +1,43 @@
+cluster N1935 (id kept from an earlier map; OPEN | ground A | site emitProcess (StmtEmit.cpp, law classPropUnitImport21) < emitInstance (ModuleEmit.cpp, law caProgramGenFlattensEveryKind95) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46) [r11u138map pin] [r11u142map pin]): struct|ours-only:fewer-copies|initial|under:program
+row: probe/default/r11u95repro__grid__c13_progtwoinstbody  strict=fullname  records golden=49 ours=53
+object: #-1 (golden) / #32 (ours)  type=initial name=
+  golden:
+  ours:   4 objs
+  walk parents: program(u_p2) < module_inst(work@dut) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 26..38 ('>' = the object)
+  #26	2	program	u_p1	work@prg	work@dut.u_p1	dut.sv	10	3	10	15					work@dut.u_p1	000
+  #27	3	initial				dut.sv	5	3	7	6						000
+  #28	4	begin			work@dut.u_p1	dut.sv	5	11	7	6					work@dut.u_p1	000
+  #29	5	sys_func_call	$display			dut.sv	6	5	6	19		0				000
+  #30	6	constant				dut.sv	6	14	6	18	"hi"	16	STRING:hi	6		000
+  #31	2	program	u_p2	work@prg	work@dut.u_p2	dut.sv	11	3	11	15					work@dut.u_p2	000
+> #32	3	initial				dut.sv	5	3	7	6						000
+  #33	4	begin			work@dut.u_p2	dut.sv	5	11	7	6					work@dut.u_p2	000
+  #34	5	sys_func_call	$display			dut.sv	6	5	6	19		0				000
+  #35	6	constant				dut.sv	6	14	6	18	"hi"	16	STRING:hi	6		000
+  #36	2	logic_net	o		work@dut.o	dut.sv	9	33	9	34		0			work@dut.o	000
+  #37	3	ref_typespec			work@dut.o		0	0	0	0		0			work@dut.o	000
+  #38	4	logic_typespec				dut.sv	9	20	9	32						000
+
+--- the holder #31 on the other side: exact-record matches at [31]
+  #28	4	begin			work@dut.u_p2	dut.sv	5	11	7	6					work@dut.u_p2	000
+  #29	5	sys_func_call	$display			dut.sv	6	5	6	19		0				000
+  #30	6	constant				dut.sv	6	14	6	18	"hi"	16	STRING:hi	6		000
+> #31	2	program	u_p2	work@prg	work@dut.u_p2	dut.sv	11	3	11	15					work@dut.u_p2	000
+  #32	2	logic_net	o		work@dut.o	dut.sv	9	33	9	34		0			work@dut.o	000
+  #33	3	ref_typespec			work@dut.o		0	0	0	0		0			work@dut.o	000
+  #34	4	logic_typespec				dut.sv	9	20	9	32						000
+  #35	5	range				dut.sv	9	26	9	32						001
+  #36	6	constant				dut.sv	9	27	9	29	31	64	UINT:31	9		001
+  #37	6	constant				dut.sv	9	30	9	31	0	64	UINT:0	9		001
+  #38	2	port	o			dut.sv	9	33	9	34						000
+  #39	3	ref_obj	o		work@dut.o	dut.sv	9	33	9	34		0			work@dut.o	000
+  #40	3	ref_typespec			work@dut.o		0	0	0	0		0			work@dut.o	000
+
+facets of this row (4, first 25):
+  N1935 #-1/32 initial  G[] O[4 objs]
+  N1958 #3/3 begin  G[work@dut.u_p2] O[work@dut.u_p1]
+  N1958 #21/21 begin  G[work@dut.u_p2] O[work@dut.u_p1]
+  N1958 #28/28 begin  G[work@dut.u_p2] O[work@dut.u_p1]

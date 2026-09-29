@@ -1,0 +1,271 @@
+# 17 databases differ between /tmp/r11u230_sP and /tmp/r11u230_s4 (raw records)
+probe/r10svs2repro/s5_negctl chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0 flat_unpaired=2 flat_excess_removed=0
+  CHAIN_LOST hier_path|h.o|||dut.sv|35|5|35|6||0|| @ assignment: < begin: < initial: < module_inst: < design:work@top
+  CHAIN_LOST hier_path|h.o|||dut.sv|35|5|35|6||0|| @ assignment: < begin: < initial: < module_inst:work@top < design:work@top
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) hier_path|h.o|||dut.sv|35|5|35|6||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < initial: < module_inst: < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < initial: < module_inst:work@top < design:work@top
+probe/r10svs2repro/w3_macrodeep chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0 flat_unpaired=2 flat_excess_removed=0
+  CHAIN_LOST hier_path|o.a|||dut.sv|40|16|40|17||0|| @ assignment: < begin: < initial: < module_inst: < design:work@top
+  CHAIN_LOST hier_path|o.a|||dut.sv|40|16|40|17||0|| @ assignment: < begin: < initial: < module_inst:work@top < design:work@top
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) hier_path|o.a|||dut.sv|40|16|40|17||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < initial: < module_inst: < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < initial: < module_inst:work@top < design:work@top
+probe/r10uvm147repro/g147_a chain_lost=8 chain_toward=0 flat_lost=8 flat_toward=0 flat_unpaired=8 flat_excess_removed=0
+  CHAIN_LOST bit_select|value||q147a::drv147::fd::rw.value[idx][8 * i+:8]::value|dut.sv|64|10|64|20||0|| @ hier_path:rw.value[idx][8 * i+:8] < assignment: < begin: < function:fd < class_defn:drv147 < package:q147a < design:work@m147a
+  CHAIN_LOST ref_obj|idx||q147a::drv147::fd::rw.value[idx][8 * i+:8]::idx|dut.sv|64|16|64|19||0|| @ bit_select:value < hier_path:rw.value[idx][8 * i+:8] < assignment: < begin: < function:fd < class_defn:drv147 < package:q147a < design:work@m147a
+  CHAIN_LOST bit_select|value||q147a::drv147::fd::lv.value[idx][8 * i+:8]::value|dut.sv|65|10|65|20||0|| @ hier_path:lv.value[idx][8 * i+:8] < assignment: < begin: < function:fd < class_defn:drv147 < package:q147a < design:work@m147a
+  CHAIN_LOST ref_obj|idx||q147a::drv147::fd::lv.value[idx][8 * i+:8]::idx|dut.sv|65|16|65|19||0|| @ bit_select:value < hier_path:lv.value[idx][8 * i+:8] < assignment: < begin: < function:fd < class_defn:drv147 < package:q147a < design:work@m147a
+  CHAIN_LOST bit_select|value||q147a::drv147::fd::mprop.value[idx][8 * i+:8]::value|dut.sv|66|13|66|23||0|| @ hier_path:mprop.value[idx][8 * i+:8] < assignment: < begin: < function:fd < class_defn:drv147 < package:q147a < design:work@m147a
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) bit_select|value||q147a::drv147::fd::rw.value[idx][8 * i+:8]::value|dut.sv|64|10|64|20||0||
+     chain off=1 on=0 golden=1 @ hier_path:rw.value[idx][8 * i+:8] < assignment: < begin: < function:fd < class_defn:drv147 < package:q147a < design:work@m147a
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|idx||q147a::drv147::fd::rw.value[idx][8 * i+:8]::idx|dut.sv|64|16|64|19||0||
+     chain off=1 on=0 golden=1 @ bit_select:value < hier_path:rw.value[idx][8 * i+:8] < assignment: < begin: < function:fd < class_defn:drv147 < package:q147a < design:work@m147a
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) bit_select|value||q147a::drv147::fd::lv.value[idx][8 * i+:8]::value|dut.sv|65|10|65|20||0||
+     chain off=1 on=0 golden=1 @ hier_path:lv.value[idx][8 * i+:8] < assignment: < begin: < function:fd < class_defn:drv147 < package:q147a < design:work@m147a
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|idx||q147a::drv147::fd::lv.value[idx][8 * i+:8]::idx|dut.sv|65|16|65|19||0||
+     chain off=1 on=0 golden=1 @ bit_select:value < hier_path:lv.value[idx][8 * i+:8] < assignment: < begin: < function:fd < class_defn:drv147 < package:q147a < design:work@m147a
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) bit_select|value||q147a::drv147::fd::mprop.value[idx][8 * i+:8]::value|dut.sv|66|13|66|23||0||
+     chain off=1 on=0 golden=1 @ hier_path:mprop.value[idx][8 * i+:8] < assignment: < begin: < function:fd < class_defn:drv147 < package:q147a < design:work@m147a
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|idx||q147a::drv147::fd::mprop.value[idx][8 * i+:8]::idx|dut.sv|66|19|66|22||0||
+     chain off=1 on=0 golden=1 @ bit_select:value < hier_path:mprop.value[idx][8 * i+:8] < assignment: < begin: < function:fd < class_defn:drv147 < package:q147a < design:work@m147a
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) bit_select|value||q147a::drv147::fd::rw.value[idx][7:0]::value|dut.sv|67|10|67|20||0||
+     chain off=1 on=0 golden=1 @ hier_path:rw.value[idx][7:0] < assignment: < begin: < function:fd < class_defn:drv147 < package:q147a < design:work@m147a
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|idx||q147a::drv147::fd::rw.value[idx][7:0]::idx|dut.sv|67|16|67|19||0||
+     chain off=1 on=0 golden=1 @ bit_select:value < hier_path:rw.value[idx][7:0] < assignment: < begin: < function:fd < class_defn:drv147 < package:q147a < design:work@m147a
+probe/r10uvm56repro/v3_hierpath chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0 flat_unpaired=2 flat_excess_removed=0
+  CHAIN_LOST hier_path|z_deep.inner|||dut.sv|66|7|66|13||0|| @ assignment: < begin: < function:z_deep < module_inst: < design:work@v3_top
+  CHAIN_LOST hier_path|z_deep.inner|||dut.sv|66|7|66|13||0|| @ assignment: < begin: < function:z_deep < module_inst:work@v3_top < design:work@v3_top
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) hier_path|z_deep.inner|||dut.sv|66|7|66|13||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < function:z_deep < module_inst: < design:work@v3_top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < function:z_deep < module_inst:work@v3_top < design:work@v3_top
+probe/r10v121repro/v121_c chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST hier_path|other.stud|||dut.sv|38|10|38|15||0|| @ assignment: < if_stmt: < begin: < function:press < class_defn:Plate < package:smithy < design:work@smithy_top
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) hier_path|other.stud|||dut.sv|38|10|38|15||0||
+     chain off=1 on=0 golden=1 @ assignment: < if_stmt: < begin: < function:press < class_defn:Plate < package:smithy < design:work@smithy_top
+probe/r10v172repro/v172_3_pos chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0 flat_unpaired=4 flat_excess_removed=0
+  CHAIN_LOST hier_path|c172.getfn172|||dut.sv|62|5|62|9||0|| @ assignment: < begin: < initial: < module_inst: < design:work@topv3172
+  CHAIN_LOST hier_path|c172.plain172|||dut.sv|63|5|63|9||0|| @ assignment: < begin: < initial: < module_inst: < design:work@topv3172
+  CHAIN_LOST hier_path|c172.getfn172|||dut.sv|62|5|62|9||0|| @ assignment: < begin: < initial: < module_inst:work@topv3172 < design:work@topv3172
+  CHAIN_LOST hier_path|c172.plain172|||dut.sv|63|5|63|9||0|| @ assignment: < begin: < initial: < module_inst:work@topv3172 < design:work@topv3172
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) hier_path|c172.getfn172|||dut.sv|62|5|62|9||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < initial: < module_inst: < design:work@topv3172
+     chain off=1 on=0 golden=1 @ assignment: < begin: < initial: < module_inst:work@topv3172 < design:work@topv3172
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) hier_path|c172.plain172|||dut.sv|63|5|63|9||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < initial: < module_inst: < design:work@topv3172
+     chain off=1 on=0 golden=1 @ assignment: < begin: < initial: < module_inst:work@topv3172 < design:work@topv3172
+probe/r10v174repro/v174_b_sysfns chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_obj|spindleWord||lathePkg::Wicket::probeOut::spindleWord|dut.sv|29|41|29|52||0|| @ sys_func_call:$bits < operation: < assignment: < function:Wicket::probeOut < package:lathePkg < design:work@latheTop
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|spindleWord||lathePkg::Wicket::probeOut::spindleWord|dut.sv|29|41|29|52||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$bits < operation: < assignment: < function:Wicket::probeOut < package:lathePkg < design:work@latheTop
+surelog/default/BuildUVMPkg chain_lost=12 chain_toward=0 flat_lost=12 flat_toward=0 flat_unpaired=12 flat_excess_removed=0
+  CHAIN_LOST ref_obj|i1||uvm_pkg::uvm_reg_map::do_bus_access::accesses[i0].data[i1 * 8+:8]::data::i1|uvm_pkg.sv|77043|39|77043|41||0|| @ operation: < indexed_part_select:data < hier_path:accesses[i0].data[i1 * 8+:8] < method_func_call:push_back < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:uvm_reg_map::do_bus_access < package:uvm_pkg < design:unnamed
+  CHAIN_LOST bit_select|value||uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::value|uvm_pkg.sv|77065|10|77065|20||0|| @ hier_path:rw.value[idx][i0 * 8+:8] < assignment: < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:uvm_reg_map::do_bus_access < package:uvm_pkg < design:unnamed
+  CHAIN_LOST ref_obj|idx||uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::idx|uvm_pkg.sv|77065|16|77065|19||0|| @ bit_select:value < hier_path:rw.value[idx][i0 * 8+:8] < assignment: < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:uvm_reg_map::do_bus_access < package:uvm_pkg < design:unnamed
+  CHAIN_LOST ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_pkg.sv|78222|23|78222|37||0|| @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:unnamed
+  CHAIN_LOST hier_path|m_t_inst.m_tw_cb_q|||uvm_pkg.sv|26721|7|26721|15||0|| @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) ref_obj|i1||uvm_pkg::uvm_reg_map::do_bus_access::accesses[i0].data[i1 * 8+:8]::data::i1|uvm_pkg.sv|77043|39|77043|41||0||
+     chain off=1 on=0 golden=1 @ operation: < indexed_part_select:data < hier_path:accesses[i0].data[i1 * 8+:8] < method_func_call:push_back < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:uvm_reg_map::do_bus_access < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ operation: < indexed_part_select:data < hier_path:accesses[i0].data[i1 * 8+:8] < method_func_call:push_back < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:do_bus_access < class_defn:uvm_reg_map < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) bit_select|value||uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::value|uvm_pkg.sv|77065|10|77065|20||0||
+     chain off=1 on=0 golden=1 @ hier_path:rw.value[idx][i0 * 8+:8] < assignment: < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:do_bus_access < class_defn:uvm_reg_map < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ hier_path:rw.value[idx][i0 * 8+:8] < assignment: < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:uvm_reg_map::do_bus_access < package:uvm_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) ref_obj|idx||uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::idx|uvm_pkg.sv|77065|16|77065|19||0||
+     chain off=1 on=0 golden=1 @ bit_select:value < hier_path:rw.value[idx][i0 * 8+:8] < assignment: < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:uvm_reg_map::do_bus_access < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ bit_select:value < hier_path:rw.value[idx][i0 * 8+:8] < assignment: < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:do_bus_access < class_defn:uvm_reg_map < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_pkg.sv|78222|23|78222|37||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) hier_path|m_t_inst.m_tw_cb_q|||uvm_pkg.sv|26721|7|26721|15||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_resource::type_name::T|uvm_pkg.sv|16791|56|16791|57||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < sys_func_call:$sformatf < return_stmt: < function:type_name < class_defn:uvm_resource < class_defn:uvm_resource_base < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_resource::get_type_name::T|uvm_pkg.sv|16794|56|16794|57||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < sys_func_call:$sformatf < return_stmt: < function:get_type_name < class_defn:uvm_resource < class_defn:uvm_resource_base < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_resource::m_value_type_name::T|uvm_pkg.sv|16810|22|16810|23||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < return_stmt: < function:m_value_type_name < class_defn:uvm_resource < class_defn:uvm_resource_base < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_tlm_extension::get_type_handle_name::T|uvm_pkg.sv|58920|22|58920|23||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < return_stmt: < function:get_type_handle_name < class_defn:uvm_tlm_extension < class_defn:uvm_tlm_extension_base < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+surelog/default/MiniAmiq chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0 flat_unpaired=13 flat_excess_removed=0
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:uvm_pkg < design:unnamed
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:unnamed
+  CHAIN_LOST ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0|| @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:unnamed
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:svaunit_pkg < design:unnamed
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 5 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < class_defn:svaunit_sequencer < class_defn:uvm_sequencer < class_defn:uvm_sequencer_param_base < class_defn:uvm_sequencer_base < class_defn:uvm_component < package:uvm_pkg < design:unnamed
+     chain off=2 on=0 golden=2 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < interface_inst: < design:unnamed
+  FLAT_LOST 5 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=2 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < class_defn:svaunit_sequencer < class_defn:uvm_sequencer < class_defn:uvm_sequencer_param_base < class_defn:uvm_sequencer_base < class_defn:uvm_component < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) hier_path|m_t_inst.m_tw_cb_q|||uvm_callback.svh|194|7|194|15||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_tlm_extension::get_type_handle_name::T|uvm_tlm2_generic_payload.svh|1044|22|1044|23||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < return_stmt: < function:get_type_handle_name < class_defn:uvm_tlm_extension < class_defn:uvm_tlm_extension_base < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+surelog/default/Scoreboard chain_lost=9 chain_toward=0 flat_lost=9 flat_toward=0 flat_unpaired=9 flat_excess_removed=0
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:uvm_pkg < design:work@my_scoreboard_unit_test
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:work@my_scoreboard_unit_test
+  CHAIN_LOST ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0|| @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:work@my_scoreboard_unit_test
+  CHAIN_LOST hier_path|m_t_inst.m_tw_cb_q|||uvm_callback.svh|194|7|194|15||0|| @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:work@my_scoreboard_unit_test
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:do_write < class_defn:work@my_scoreboard < class_defn:uvm_scoreboard < class_defn:uvm_component < package:uvm_pkg < design:work@my_scoreboard_unit_test
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < class_defn:work@my_scoreboard < class_defn:uvm_scoreboard < class_defn:uvm_component < package:uvm_pkg < design:work@my_scoreboard_unit_test
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:uvm_pkg < design:work@my_scoreboard_unit_test
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < design:work@my_scoreboard_unit_test
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:work@my_scoreboard_unit_test
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < class_defn:work@my_scoreboard < class_defn:uvm_scoreboard < class_defn:uvm_component < package:uvm_pkg < design:work@my_scoreboard_unit_test
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < design:work@my_scoreboard_unit_test
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:work@my_scoreboard_unit_test
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) hier_path|m_t_inst.m_tw_cb_q|||uvm_callback.svh|194|7|194|15||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:work@my_scoreboard_unit_test
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_tlm_extension::get_type_handle_name::T|uvm_tlm2_generic_payload.svh|1044|22|1044|23||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < return_stmt: < function:get_type_handle_name < class_defn:uvm_tlm_extension < class_defn:uvm_tlm_extension_base < class_defn:uvm_object < package:uvm_pkg < design:work@my_scoreboard_unit_test
+surelog/default/SeqDriver chain_lost=15 chain_toward=0 flat_lost=15 flat_toward=0 flat_unpaired=15 flat_excess_removed=0
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:uvm_pkg < design:work@top_tb
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:work@top_tb
+  CHAIN_LOST ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0|| @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:work@top_tb
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:adpcm_pkg < design:work@top_tb
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 6 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < class_defn:adpcm_driver < class_defn:uvm_driver < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=2 on=0 golden=2 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:adpcm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < module_inst: < design:work@top_tb
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < module_inst:work@top_tb < design:work@top_tb
+  FLAT_LOST 6 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < module_inst:work@top_tb < design:work@top_tb
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < class_defn:adpcm_driver < class_defn:uvm_driver < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < module_inst: < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) hier_path|m_t_inst.m_tw_cb_q|||uvm_callback.svh|194|7|194|15||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_tlm_extension::get_type_handle_name::T|uvm_tlm2_generic_payload.svh|1044|22|1044|23||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < return_stmt: < function:get_type_handle_name < class_defn:uvm_tlm_extension < class_defn:uvm_tlm_extension_base < class_defn:uvm_object < package:uvm_pkg < design:work@top_tb
+surelog/default/SimpleUVM chain_lost=11 chain_toward=0 flat_lost=11 flat_toward=0 flat_unpaired=11 flat_excess_removed=0
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:uvm_pkg < design:work@top
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:work@top
+  CHAIN_LOST ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0|| @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:work@top
+  CHAIN_LOST hier_path|m_t_inst.m_tw_cb_q|||uvm_callback.svh|194|7|194|15||0|| @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:work@top
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:do_write < class_defn:work@env < class_defn:uvm_env < class_defn:uvm_component < package:uvm_pkg < design:work@top
+  FLAT_LOST 4 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < module_inst: < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < class_defn:work@env < class_defn:uvm_env < class_defn:uvm_component < package:uvm_pkg < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:uvm_pkg < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < design:work@top
+  FLAT_LOST 4 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < module_inst: < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < class_defn:work@env < class_defn:uvm_env < class_defn:uvm_component < package:uvm_pkg < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:work@top
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:work@top
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) hier_path|m_t_inst.m_tw_cb_q|||uvm_callback.svh|194|7|194|15||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:work@top
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_tlm_extension::get_type_handle_name::T|uvm_tlm2_generic_payload.svh|1044|22|1044|23||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < return_stmt: < function:get_type_handle_name < class_defn:uvm_tlm_extension < class_defn:uvm_tlm_extension_base < class_defn:uvm_object < package:uvm_pkg < design:work@top
+surelog/testflags/BlackBePipeInt chain_lost=3 chain_toward=0 flat_lost=0 flat_toward=13 flat_unpaired=0 flat_excess_removed=0
+  CHAIN_LOST int_typespec||||dut.sv|1793|1|1793|34|||| @ ref_typespec: < parameter:dev_addr_width_gp < ref_obj:dev_addr_width_gp < int_typespec: < ref_typespec: < parameter:dev_addr_width_gp < package:bp_be_pkg < design:work@bp_be_pipe_int
+  CHAIN_LOST int_typespec||||dut.sv|1793|1|1793|34|||| @ ref_typespec: < parameter:dev_addr_width_gp < ref_obj:dev_addr_width_gp < int_typespec: < ref_typespec: < constant: < param_assign: < package:bp_be_pkg < design:work@bp_be_pipe_int
+  CHAIN_LOST int_typespec||||dut.sv|1793|1|1793|34|||| @ ref_typespec: < parameter:dev_addr_width_gp < ref_obj:dev_addr_width_gp < int_typespec: < ref_typespec: < parameter:dev_addr_width_gp < param_assign: < package:bp_be_pkg < design:work@bp_be_pipe_int
+surelog/testflags/BuildUVMPkg chain_lost=12 chain_toward=0 flat_lost=12 flat_toward=0 flat_unpaired=12 flat_excess_removed=0
+  CHAIN_LOST ref_obj|i1||uvm_pkg::uvm_reg_map::do_bus_access::accesses[i0].data[i1 * 8+:8]::data::i1|uvm_pkg.sv|77043|39|77043|41||0|| @ operation: < indexed_part_select:data < hier_path:accesses[i0].data[i1 * 8+:8] < method_func_call:push_back < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:uvm_reg_map::do_bus_access < package:uvm_pkg < design:unnamed
+  CHAIN_LOST bit_select|value||uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::value|uvm_pkg.sv|77065|10|77065|20||0|| @ hier_path:rw.value[idx][i0 * 8+:8] < assignment: < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:uvm_reg_map::do_bus_access < package:uvm_pkg < design:unnamed
+  CHAIN_LOST ref_obj|idx||uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::idx|uvm_pkg.sv|77065|16|77065|19||0|| @ bit_select:value < hier_path:rw.value[idx][i0 * 8+:8] < assignment: < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:uvm_reg_map::do_bus_access < package:uvm_pkg < design:unnamed
+  CHAIN_LOST ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_pkg.sv|78222|23|78222|37||0|| @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:unnamed
+  CHAIN_LOST hier_path|m_t_inst.m_tw_cb_q|||uvm_pkg.sv|26721|7|26721|15||0|| @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) ref_obj|i1||uvm_pkg::uvm_reg_map::do_bus_access::accesses[i0].data[i1 * 8+:8]::data::i1|uvm_pkg.sv|77043|39|77043|41||0||
+     chain off=1 on=0 golden=1 @ operation: < indexed_part_select:data < hier_path:accesses[i0].data[i1 * 8+:8] < method_func_call:push_back < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:uvm_reg_map::do_bus_access < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ operation: < indexed_part_select:data < hier_path:accesses[i0].data[i1 * 8+:8] < method_func_call:push_back < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:do_bus_access < class_defn:uvm_reg_map < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) bit_select|value||uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::value|uvm_pkg.sv|77065|10|77065|20||0||
+     chain off=1 on=0 golden=1 @ hier_path:rw.value[idx][i0 * 8+:8] < assignment: < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:do_bus_access < class_defn:uvm_reg_map < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ hier_path:rw.value[idx][i0 * 8+:8] < assignment: < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:uvm_reg_map::do_bus_access < package:uvm_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) ref_obj|idx||uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::idx|uvm_pkg.sv|77065|16|77065|19||0||
+     chain off=1 on=0 golden=1 @ bit_select:value < hier_path:rw.value[idx][i0 * 8+:8] < assignment: < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:uvm_reg_map::do_bus_access < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ bit_select:value < hier_path:rw.value[idx][i0 * 8+:8] < assignment: < for_stmt: < foreach_stmt: < begin: < if_stmt: < begin: < begin: < task:do_bus_access < class_defn:uvm_reg_map < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_pkg.sv|78222|23|78222|37||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) hier_path|m_t_inst.m_tw_cb_q|||uvm_pkg.sv|26721|7|26721|15||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_resource::type_name::T|uvm_pkg.sv|16791|56|16791|57||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < sys_func_call:$sformatf < return_stmt: < function:type_name < class_defn:uvm_resource < class_defn:uvm_resource_base < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_resource::get_type_name::T|uvm_pkg.sv|16794|56|16794|57||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < sys_func_call:$sformatf < return_stmt: < function:get_type_name < class_defn:uvm_resource < class_defn:uvm_resource_base < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_resource::m_value_type_name::T|uvm_pkg.sv|16810|22|16810|23||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < return_stmt: < function:m_value_type_name < class_defn:uvm_resource < class_defn:uvm_resource_base < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_tlm_extension::get_type_handle_name::T|uvm_pkg.sv|58920|22|58920|23||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < return_stmt: < function:get_type_handle_name < class_defn:uvm_tlm_extension < class_defn:uvm_tlm_extension_base < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+surelog/testflags/MiniAmiq chain_lost=13 chain_toward=0 flat_lost=13 flat_toward=0 flat_unpaired=13 flat_excess_removed=0
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:uvm_pkg < design:unnamed
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:unnamed
+  CHAIN_LOST ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0|| @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:unnamed
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:svaunit_pkg < design:unnamed
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 5 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < class_defn:svaunit_sequencer < class_defn:uvm_sequencer < class_defn:uvm_sequencer_param_base < class_defn:uvm_sequencer_base < class_defn:uvm_component < package:uvm_pkg < design:unnamed
+     chain off=2 on=0 golden=2 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < interface_inst: < design:unnamed
+  FLAT_LOST 5 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=2 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < class_defn:svaunit_sequencer < class_defn:uvm_sequencer < class_defn:uvm_sequencer_param_base < class_defn:uvm_sequencer_base < class_defn:uvm_component < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) hier_path|m_t_inst.m_tw_cb_q|||uvm_callback.svh|194|7|194|15||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_tlm_extension::get_type_handle_name::T|uvm_tlm2_generic_payload.svh|1044|22|1044|23||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < return_stmt: < function:get_type_handle_name < class_defn:uvm_tlm_extension < class_defn:uvm_tlm_extension_base < class_defn:uvm_object < package:uvm_pkg < design:unnamed
+surelog/testflags/SeqDriver chain_lost=15 chain_toward=0 flat_lost=15 flat_toward=0 flat_unpaired=15 flat_excess_removed=0
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:uvm_pkg < design:work@top_tb
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:work@top_tb
+  CHAIN_LOST ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0|| @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:work@top_tb
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:adpcm_pkg < design:work@top_tb
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 6 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < class_defn:adpcm_driver < class_defn:uvm_driver < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=2 on=0 golden=2 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:adpcm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < module_inst: < design:work@top_tb
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < module_inst:work@top_tb < design:work@top_tb
+  FLAT_LOST 6 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < module_inst:work@top_tb < design:work@top_tb
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < class_defn:adpcm_driver < class_defn:uvm_driver < class_defn:uvm_component < package:uvm_pkg < design:work@top_tb
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < module_inst: < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) hier_path|m_t_inst.m_tw_cb_q|||uvm_callback.svh|194|7|194|15||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_tlm_extension::get_type_handle_name::T|uvm_tlm2_generic_payload.svh|1044|22|1044|23||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < return_stmt: < function:get_type_handle_name < class_defn:uvm_tlm_extension < class_defn:uvm_tlm_extension_base < class_defn:uvm_object < package:uvm_pkg < design:work@top_tb
+surelog/testflags/SimpleUVM chain_lost=11 chain_toward=0 flat_lost=11 flat_toward=0 flat_unpaired=11 flat_excess_removed=0
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:uvm_pkg < design:work@top
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0|| @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:work@top
+  CHAIN_LOST ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0|| @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:work@top
+  CHAIN_LOST hier_path|m_t_inst.m_tw_cb_q|||uvm_callback.svh|194|7|194|15||0|| @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:work@top
+  CHAIN_LOST hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0|| @ assignment: < begin: < if_stmt: < begin: < task:do_write < class_defn:work@env < class_defn:uvm_env < class_defn:uvm_component < package:uvm_pkg < design:work@top
+  FLAT_LOST 4 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1773|6|1773|8||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < module_inst: < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < class_defn:work@env < class_defn:uvm_env < class_defn:uvm_component < package:uvm_pkg < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_write < package:uvm_pkg < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_write < design:work@top
+  FLAT_LOST 4 (paired in place with a golden record at the same chain: 0) hier_path|rw.parent|||uvm_reg_map.svh|1813|5|1813|7||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < module_inst: < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:do_read < class_defn:work@env < class_defn:uvm_env < class_defn:uvm_component < package:uvm_pkg < design:work@top
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < task:uvm_reg_map::do_read < package:uvm_pkg < design:work@top
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|uvm_reg_data_t||uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t|uvm_reg_block.svh|944|23|944|37||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$bits < operation: < if_stmt: < begin: < function:uvm_reg_block::check_data_width < package:uvm_pkg < design:work@top
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) hier_path|m_t_inst.m_tw_cb_q|||uvm_callback.svh|194|7|194|15||0||
+     chain off=1 on=0 golden=1 @ assignment: < begin: < if_stmt: < begin: < function:m_initialize < class_defn:uvm_typed_callbacks < class_defn:uvm_callbacks_base < package:uvm_pkg < design:work@top
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|T||uvm_pkg::uvm_tlm_extension::get_type_handle_name::T|uvm_tlm2_generic_payload.svh|1044|22|1044|23||0||
+     chain off=1 on=0 golden=1 @ sys_func_call:$typename < return_stmt: < function:get_type_handle_name < class_defn:uvm_tlm_extension < class_defn:uvm_tlm_extension_base < class_defn:uvm_object < package:uvm_pkg < design:work@top
+TOTAL chain_lost=134 chain_toward=0 flat_lost=131 flat_toward=13 flat_unpaired=131 flat_excess_removed=0 flat_lost_unexplained=131

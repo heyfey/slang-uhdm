@@ -1,0 +1,64 @@
+cluster N0428 (id kept from an earlier map; OPEN (map 14 listed it: ground-A+B step 13; passes 223-225 left it) | ground B | site makeVar (TypeEmit.cpp, law tpPackedArrayTsVarInit110) < emitPackageVar (ParamEmit.cpp, law caPkgCloneReadsTheElaboratedEntry84) < operator() (ParamEmit.cpp, law caPkgListingKindTable79) [r11u142map pin]): struct|ours-only:fewer-copies|enum_var|under:ref_obj
+row: surelog/default/MiniAmiq  strict=differ:line(2)  records golden=435559 ours=432516
+object: #-1 (golden) / #87163 (ours)  type=enum_var name=sev
+  golden:
+  ours:   12 objs
+  walk parents: ref_obj(sev) < func_call(uvm_string_to_severity) < operation < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 87157..87169 ('>' = the object)
+  #87157	11	constant				uvm_component.svh	3483	21	3483	28	"_ALL_"	40	STRING:_ALL_	6		000
+  #87158	10	operation				uvm_component.svh	3483	33	3483	70		0				000
+  #87159	11	func_call	uvm_string_to_severity			uvm_component.svh	3483	34	3483	70		0				000
+  #87160	12	bit_select	args		svaunit_pkg::uvm_component::m_set_cl_action::args	uvm_component.svh	3483	62	3483	63		0			svaunit_pkg::uvm_component::m_set_cl_action::args	000
+  #87161	13	constant				uvm_component.svh	3483	62	3483	63	2	64	UINT:2	9		000
+  #87162	12	ref_obj	sev		svaunit_pkg::uvm_component::m_set_cl_action::sev	uvm_component.svh	3483	66	3483	69		0			svaunit_pkg::uvm_component::m_set_cl_action::sev	000
+> #87163	13	enum_var	sev		uvm_pkg::uvm_component::m_set_cl_action::sev	uvm_component.svh	3468	3	3468	15		0			uvm_pkg::uvm_component::m_set_cl_action::sev	000
+  #87164	14	ref_typespec			uvm_pkg::uvm_component::m_set_cl_action::sev		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_action::sev	000
+  #87165	15	enum_typespec	uvm_pkg::uvm_severity			uvm_sequence_item.svh	352	37	352	49						110
+  #87166	16	ref_typespec			<in>uvm_pkg::uvm_severity		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_severity	001
+  #87167	17	bit_typespec				uvm_object_globals.svh	242	14	242	23						001
+  #87168	18	range				uvm_object_globals.svh	242	18	242	23						001
+  #87169	19	constant				uvm_object_globals.svh	242	19	242	20	1	64	UINT:1	9		001
+
+--- the holder #87162 on the other side: exact-record matches at [87515, 318252, 386183]
+  #87512	11	func_call	uvm_string_to_severity			uvm_component.svh	3483	34	3483	70		0				000
+  #87513	12	bit_select	args		svaunit_pkg::uvm_component::m_set_cl_action::args	uvm_component.svh	3483	62	3483	63		0			svaunit_pkg::uvm_component::m_set_cl_action::args	000
+  #87514	13	constant				uvm_component.svh	3483	62	3483	63	2	64	UINT:2	9		000
+> #87515	12	ref_obj	sev		svaunit_pkg::uvm_component::m_set_cl_action::sev	uvm_component.svh	3483	66	3483	69		0			svaunit_pkg::uvm_component::m_set_cl_action::sev	000
+  #87516	9	begin			svaunit_pkg::uvm_component::m_set_cl_action	uvm_component.svh	3483	72	3486	9					svaunit_pkg::uvm_component::m_set_cl_action	000
+  #87517	10	begin			svaunit_pkg::uvm_component::m_set_cl_action	uvm_message_defines.svh	130	4	133	7					svaunit_pkg::uvm_component::m_set_cl_action	000
+  #87518	11	if_stmt				uvm_message_defines.svh	131	6	132	340						000
+  #87519	12	func_call	uvm_report_enabled			uvm_message_defines.svh	131	10	131	64		0				000
+  #87520	13	ref_obj	UVM_NONE		svaunit_pkg::uvm_component::m_set_cl_action::UVM_NONE	uvm_message_defines.svh	131	29	131	37		0			svaunit_pkg::uvm_component::m_set_cl_action::UVM_NONE	000
+  #87521	13	ref_obj	UVM_WARNING		svaunit_pkg::uvm_component::m_set_cl_action::UVM_WARNING	uvm_message_defines.svh	131	38	131	49		0			svaunit_pkg::uvm_component::m_set_cl_action::UVM_WARNING	000
+  #87522	13	constant				uvm_message_defines.svh	131	50	131	63	"INVLCMDARGS"	88	STRING:INVLCMDARGS	6		000
+  #87523	12	func_call	uvm_report_warning			uvm_message_defines.svh	132	8	132	339		0				000
+  #87524	13	constant				uvm_message_defines.svh	132	28	132	41	"INVLCMDARGS"	88	STRING:INVLCMDARGS	6		000
+
+facets of this row (3771, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

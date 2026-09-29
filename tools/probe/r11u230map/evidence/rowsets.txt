@@ -1,0 +1,91 @@
+== surelog/default/BlackBePipeInt differ:type(1): 20 clusters, ground A 20, B 0
+   #15272   N0868 A (writer chain -) constant '' struct:ours-only g= o=1 objs | -
+   #15558   N0964 A (writer chain A) constant '' span:col+endcol g=2992:26:2992:46 o=2992:27:2992:45 | [setLoc] emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage
+   #16864   N0917 A (writer chain -) constant '' struct:ours-only g= o=1 objs | -
+   #38807   N0951 A (writer chain -) parameter 'dev_addr_width_gp' struct:golden-only g=3 objs o= | -
+   #39482   N2471 A (writer chain A+B) ref_typespec '' fullname:fullname g=bp_be_pkg::bp_common_pkg::bp_proc_param_s::cc_x_di o=bp_be_pkg::bp_default_cfg_p::bp_common_pkg::bp_pro | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law pkgPara
+   #44904   N0118 A (writer chain A+B) constant '' span:line+col+endline+endcol g=2047:16:2047:17 o=3807:14:3809:54 | [setLoc] emitParameters (ParamEmit.cpp, law redBasedLeafWrittenDigits76) < emitPackage (ParamEmit.cpp, law caP
+   #47753   N0873 A (writer chain A) constant '' span:line+col+endline+endcol g=2047:16:2047:17 o=3807:14:3809:54 | emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmi
+   #125760  N2470 A (writer chain -) parameter 'dev_addr_width_gp' struct:ours-only g= o=4 objs | -
+   #174101  N0923 A (writer chain A+B) ref_obj 'dev_addr_width_gp' fullname:fullname g= o=work@bp_be_pipe_int.dev_addr_width_gp.dev_addr_wid | stampParenCastWidthTs (ParamEmit.cpp, law parenCastWidthRefPkgBare207) < emitParameters (ParamEmit.cpp, law tf
+   #176093  N0286 A (writer chain -) ref_obj 'dev_addr_width_gp' struct:ours-only g= o=1 objs | -
+   #188925  N0028 A (writer chain A+B) ref_typespec '' fullname:fullname g=work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s o=work@bp_be_pipe_int.proc_param_lp.bp_common_pkg::b | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law pkgPara
+   #190646  N0907 A (writer chain A) constant '' file:file g=dut.sv 2537:40:2537:89 o= 0:0:0:0 | tryFoldConst (ExprEmit.cpp, law srlgSizeCastUbShiftMask93) < operator() (ParamEmit.cpp, law castElabFoldTarget
+   #190646  N0908 A (writer chain A) constant '' span:line+col+endline+endcol g=2537:40:2537:89 o=0:0:0:0 | tryFoldConst (ExprEmit.cpp, law srlgSizeCastUbShiftMask93) < operator() (ParamEmit.cpp, law castElabFoldTarget
+   #190751  N0413 A (writer chain A+B) operation '' span:line+col+endline+endcol g=2565:47:2565:63 o=2047:2:2142:5 | [setLoc] emitParameters (ParamEmit.cpp, law elabUnpStructOperandWidth61) < exportDesign (UhdmExporter.cpp, law
+   #208349  N0893 A (writer chain A+B) constant '' span:line+endline+endcol g=8858:15:8858:16 o=8890:15:8892:70 | [setLoc] emitParameters (ParamEmit.cpp, law elabImportedStructOperandFold) < exportDesign (UhdmExporter.cpp, l
+   #293887  N0073 A (writer chain A+B) constant '' span:endcol g=15483:12:15483:34 o=15483:12:15483:57 | emitParameters (ParamEmit.cpp, law elabLazyTernaryArithFold) < emitInstance (ModuleEmit.cpp, law elabParamTsRe
+   #294152  N0063 A (writer chain A) ref_typespec '' fullname:fullname g=work@bp_be_pipe_int o= | operator() (ParamEmit.cpp, law pkgPatReadTsBindsTopTypedef192) < __invoke_impl (invoke.h) < __invoke_r (invoke
+   #294400  N0936 A (writer chain A+B) constant '' span:endline+endcol g=2077:28:2081:58 o=2077:28:2082:63 | [setLoc] emitParameters (ParamEmit.cpp, law elabImportedStructOperandFold) < emitInstance (ModuleEmit.cpp, law
+   #312613  N1125 A (writer chain A+B) ref_typespec '' fullname:fullname g=work@bp_be_pipe_int o=work@bp_be_pipe_int.all_cfgs_gp | makeParamTs (ParamEmit.cpp, law pkgParamOwnDefRange) < patchParamTypespecs (ParamEmit.cpp, law paramCloneImpor
+   #333793  N0800 A (writer chain -) operation '' struct:ours-only g= o=257 objs | -
+== surelog/testflags/BlackBePipeInt differ:type(1): 24 clusters, ground A 19, B 5
+   #15268   N0868 A (writer chain -) constant '' struct:ours-only g= o=1 objs | -
+   #15554   N0964 A (writer chain A) constant '' span:col+endcol g=2992:26:2992:46 o=2992:27:2992:45 | [setLoc] emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage
+   #16860   N0917 A (writer chain -) constant '' struct:ours-only g= o=1 objs | -
+   #24667   N0905 B (writer chain B) ref_typespec '' fullname:fullname g=bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_par o=work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s | elabCloneFullNameUnstored137 (uhdm_main.cpp, law elabCloneInstTreeUnstored144) < realMain (uhdm_main.cpp, law
+   #38803   N2476 B (writer chain B) parameter 'dev_addr_width_gp' fullname:fullname g=work@bp_be_pipe_int.dev_addr_width_gp o=bp_common_pkg::dev_addr_width_gp | elabCloneFullNameUnstored137 (uhdm_main.cpp, law elabCloneInstTreeUnstored144) < realMain (uhdm_main.cpp, law
+   #38804   N1446 B (writer chain B) ref_typespec '' fullname:fullname g=work@bp_be_pipe_int.dev_addr_width_gp o=bp_common_pkg::dev_addr_width_gp | elabCloneFullNameUnstored137 (uhdm_main.cpp, law elabCloneInstTreeUnstored144) < realMain (uhdm_main.cpp, law
+   #39463   N2471 A (writer chain A+B) ref_typespec '' fullname:fullname g=bp_be_pkg::bp_common_pkg::bp_proc_param_s::cc_x_di o=bp_be_pkg::bp_default_cfg_p::bp_common_pkg::bp_pro | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law pkgPara
+   #40791   N0286 A (writer chain -) ref_obj 'dev_addr_width_gp' struct:ours-only g= o=5 objs | -
+   #44885   N0118 A (writer chain A+B) constant '' span:line+col+endline+endcol g=2047:16:2047:17 o=3807:14:3809:54 | [setLoc] emitParameters (ParamEmit.cpp, law redBasedLeafWrittenDigits76) < emitPackage (ParamEmit.cpp, law caP
+   #47734   N0873 A (writer chain A) constant '' span:line+col+endline+endcol g=2047:16:2047:17 o=3807:14:3809:54 | emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmi
+   #90174   N1179 B (writer chain B) ref_typespec '' fullname:fullname g=bp_common_pkg::bp_common_pkg::bp_proc_param_s::cc_ o=work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s | elabCloneFullNameUnstored137 (uhdm_main.cpp, law elabCloneInstTreeUnstored144) < realMain (uhdm_main.cpp, law
+   #123765  N0951 A (writer chain -) parameter 'dev_addr_width_gp' struct:golden-only g=3 objs o= | -
+   #159873  N0014 B (writer chain B) ref_typespec '' fullname:fullname g=work@bp_be_pipe_int.all_cfgs_gp.bp_common_pkg::bp_ o=work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s | elabCloneFullNameUnstored137 (uhdm_main.cpp, law elabCloneInstTreeUnstored144) < realMain (uhdm_main.cpp, law
+   #174008  N0923 A (writer chain A+B) ref_obj 'dev_addr_width_gp' fullname:fullname g= o=work@bp_be_pipe_int.dev_addr_width_gp.dev_addr_wid | stampParenCastWidthTs (ParamEmit.cpp, law parenCastWidthRefPkgBare207) < emitParameters (ParamEmit.cpp, law tf
+   #188832  N0028 A (writer chain A+B) ref_typespec '' fullname:fullname g=work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s o=work@bp_be_pipe_int.proc_param_lp.bp_common_pkg::b | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law pkgPara
+   #190553  N0907 A (writer chain A) constant '' file:file g=dut.sv 2537:40:2537:89 o= 0:0:0:0 | tryFoldConst (ExprEmit.cpp, law srlgSizeCastUbShiftMask93) < operator() (ParamEmit.cpp, law castElabFoldTarget
+   #190553  N0908 A (writer chain A) constant '' span:line+col+endline+endcol g=2537:40:2537:89 o=0:0:0:0 | tryFoldConst (ExprEmit.cpp, law srlgSizeCastUbShiftMask93) < operator() (ParamEmit.cpp, law castElabFoldTarget
+   #190658  N0413 A (writer chain A+B) operation '' span:line+col+endline+endcol g=2565:47:2565:63 o=2047:2:2142:5 | [setLoc] emitParameters (ParamEmit.cpp, law elabUnpStructOperandWidth61) < exportDesign (UhdmExporter.cpp, law
+   #208256  N0893 A (writer chain A+B) constant '' span:line+endline+endcol g=8858:15:8858:16 o=8890:15:8892:70 | [setLoc] emitParameters (ParamEmit.cpp, law elabImportedStructOperandFold) < exportDesign (UhdmExporter.cpp, l
+   #293790  N0073 A (writer chain A+B) constant '' span:endcol g=15483:12:15483:34 o=15483:12:15483:57 | emitParameters (ParamEmit.cpp, law elabLazyTernaryArithFold) < emitInstance (ModuleEmit.cpp, law elabParamTsRe
+   #294052  N0063 A (writer chain A) ref_typespec '' fullname:fullname g=work@bp_be_pipe_int o= | operator() (ParamEmit.cpp, law pkgPatReadTsBindsTopTypedef192) < __invoke_impl (invoke.h) < __invoke_r (invoke
+   #294300  N0936 A (writer chain A+B) constant '' span:endline+endcol g=2077:28:2081:58 o=2077:28:2082:63 | [setLoc] emitParameters (ParamEmit.cpp, law elabImportedStructOperandFold) < emitInstance (ModuleEmit.cpp, law
+   #312513  N1125 A (writer chain A+B) ref_typespec '' fullname:fullname g=work@bp_be_pipe_int o=work@bp_be_pipe_int.all_cfgs_gp | makeParamTs (ParamEmit.cpp, law pkgParamOwnDefRange) < patchParamTypespecs (ParamEmit.cpp, law paramCloneImpor
+   #333691  N0800 A (writer chain -) operation '' struct:ours-only g= o=257 objs | -
+== surelog/default/FuncStructVal differ:endcol(7): 5 clusters, ground A 5, B 0
+   #747     N1096 A (writer chain A) ref_obj 'config_pkg::NOC_TYPE_AXI4_ATOP' span:endcol g=106:16:106:28 o=106:16:106:46 | [setLoc] emitExpr (ExprEmit.cpp, law r10fsv3) < emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEm
+   #4782    N2472 A (writer chain A+B) constant '' file:file g=dut.sv 618:22:618:45 o= 0:0:0:0 | stampEvalFuncLeftovers (ParamEmit.cpp, law memLeftReadsPatUnlocated210) < exportDesign (UhdmExporter.cpp, law
+   #4782    N2473 A (writer chain A+B) constant '' span:line+col+endline+endcol g=618:22:618:45 o=0:0:0:0 | stampEvalFuncLeftovers (ParamEmit.cpp, law memLeftReadsPatUnlocated210) < exportDesign (UhdmExporter.cpp, law
+   #7975    N0891 A (writer chain -) operation '' struct:golden-only g=4 objs o= | -
+   #17114   N0980 A (writer chain A) ref_typespec '' fullname:fullname g=work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NonIdempot o=cva6_config_pkg | emitExpr (ExprEmit.cpp, law packageVarAutomaticIsDataDeclShape26) < emitExpr (ExprEmit.cpp, law ndaCallFoldIsE
+== surelog/testflags/FuncStructVal differ:endcol(10): 6 clusters, ground A 6, B 0
+   #746     N1096 A (writer chain A) ref_obj 'config_pkg::NOC_TYPE_AXI4_ATOP' span:endcol g=106:16:106:28 o=106:16:106:46 | [setLoc] emitExpr (ExprEmit.cpp, law r10fsv3) < emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEm
+   #7129    N2472 A (writer chain A+B) constant '' file:file g=dut.sv 618:22:618:45 o= 0:0:0:0 | stampEvalFuncLeftovers (ParamEmit.cpp, law memLeftReadsPatUnlocated210) < exportDesign (UhdmExporter.cpp, law
+   #7129    N2473 A (writer chain A+B) constant '' span:line+col+endline+endcol g=618:22:618:45 o=0:0:0:0 | stampEvalFuncLeftovers (ParamEmit.cpp, law memLeftReadsPatUnlocated210) < exportDesign (UhdmExporter.cpp, law
+   #13254   N1946 A (writer chain -) constant '' struct:ours-only g= o=3 objs | -
+   #14765   N0891 A (writer chain -) operation '' struct:golden-only g=4 objs o= | -
+   #43313   N0980 A (writer chain A) ref_typespec '' fullname:fullname g=work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NonIdempot o=cva6_config_pkg | emitExpr (ExprEmit.cpp, law packageVarAutomaticIsDataDeclShape26) < emitExpr (ExprEmit.cpp, law ndaCallFoldIsE
+== uhdm2rtlil/default/cfg_func_width_loop differ:line(3): 7 clusters, ground A 5, B 2
+   #464     N0263 A (writer chain A+B) logic_typespec 'mask_t' span:line+col+endline+endcol g=27:40:27:46 o=16:11:16:25 | [setLoc] makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < makeParamTs (ParamEmit.cpp, law pkgParamOwnD
+   #465     N0794 A (writer chain A+B) ref_typespec '' fullname:fullname g=mask_t o=work@sub.M.mask_t | makeParamTs (ParamEmit.cpp, law pkgImpParamAliasColons210) < drainDefParamTs (ParamEmit.cpp, law pkgImpParamMe
+   #472     N0025 A (writer chain B) constant '' depth:depth g=8 range < logic_typespec(mask_t) o=9 operation < range | emitSyntaxExpr (TypeEmit.cpp, law bigDecUnderscoreDropped181v) < emitSyntaxExpr (TypeEmit.cpp, law rootNetPath
+   #472     N0033 A (writer chain -) operation '' struct:ours-only g= o=2 objs | -
+   #516     N0133 B (writer chain -) func_call 'q::maxw' struct:golden-only g=2 objs o= | -
+   #518     N0487 B (writer chain -) constant '' struct:ours-only g= o=1 objs | -
+   #518     N0754 A (writer chain A+B) ref_obj 'o' fullname:fullname g=work@sub.o o=work@cfg_func_width_loop.u.o | emitExpr (ExprEmit.cpp, law genProcFoldDeclTsScopeNamed167) < emitContAssigns (ModuleEmit.cpp, law caLhsDefNet
+== uhdm2rtlil/default/struct_param_func_config differ:fullname(5): 7 clusters, ground A 7, B 0
+   #759     N0817 A (writer chain A+B) ref_typespec '' fullname:fullname g=work@struct_param_func_config.p::cfg_t.u o=work@struct_param_func_config.u_c.Cfg.p::cfg_t.u | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law pkgPara
+   #1364    N0045 A (writer chain -) constant '' struct:golden-only g=1 objs o= | -
+   #1439    N0028 A (writer chain A+B) ref_typespec '' fullname:fullname g=work@struct_param_func_config.p::cfg_t.u o=work@struct_param_func_config.Cfg.p::cfg_t.u | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law pkgPara
+   #1920    N0761 A (writer chain A) ref_typespec '' fullname:fullname g=p::cfg_t.u o=work@struct_param_func_config.Cfg.p::cfg_t.u | leftRefFix174 (ParamEmit.cpp, law evalFuncBodyRhsStampClone167) < leftRefWalk174 (ParamEmit.cpp, law evalFuncB
+   #1938    N2412 A (writer chain A) ref_typespec '' fullname:fullname g=p::cfg_t.u o=work@struct_param_func_config.Cfg.p::cfg_t.u | leftRefFix174 (ParamEmit.cpp, law evalFuncBodyRhsStampClone167) < leftRefWalk174 (ParamEmit.cpp, law evalFuncB
+   #2538    N0552 A (writer chain A+B) ref_typespec '' fullname:fullname g=work@child.U.p::ucfg_t.a o=work@struct_param_func_config.u_c.U.p::ucfg_t.a | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law pkgPara
+   #2575    N0675 A (writer chain A) ref_typespec '' fullname:fullname g=work@child.C.p::cfg_t.u o=work@struct_param_func_config.u_c.C.p::cfg_t.u | leftRefFix174 (ParamEmit.cpp, law evalFuncBodyRhsStampClone167) < leftRefWalk174 (ParamEmit.cpp, law evalFuncB
+== uhdm2rtlil/testflags/cfg_func_width_loop differ:line(3): 7 clusters, ground A 5, B 2
+   #374     N0263 A (writer chain A+B) logic_typespec 'mask_t' span:line+col+endline+endcol g=27:40:27:46 o=16:11:16:25 | [setLoc] makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < makeParamTs (ParamEmit.cpp, law pkgParamOwnD
+   #375     N0794 A (writer chain A+B) ref_typespec '' fullname:fullname g=mask_t o=work@sub.M.mask_t | makeParamTs (ParamEmit.cpp, law pkgImpParamAliasColons210) < drainDefParamTs (ParamEmit.cpp, law pkgImpParamMe
+   #382     N0025 A (writer chain B) constant '' depth:depth g=8 range < logic_typespec(mask_t) o=9 operation < range | emitSyntaxExpr (TypeEmit.cpp, law bigDecUnderscoreDropped181v) < emitSyntaxExpr (TypeEmit.cpp, law rootNetPath
+   #382     N0033 A (writer chain -) operation '' struct:ours-only g= o=2 objs | -
+   #426     N0133 B (writer chain -) func_call 'q::maxw' struct:golden-only g=2 objs o= | -
+   #428     N0487 B (writer chain -) constant '' struct:ours-only g= o=1 objs | -
+   #428     N0754 A (writer chain A+B) ref_obj 'o' fullname:fullname g=work@sub.o o=work@cfg_func_width_loop.u.o | emitExpr (ExprEmit.cpp, law genProcFoldDeclTsScopeNamed167) < emitContAssigns (ModuleEmit.cpp, law caLhsDefNet
+== uhdm2rtlil/testflags/struct_param_func_config differ:fullname(5): 7 clusters, ground A 7, B 0
+   #669     N0817 A (writer chain A+B) ref_typespec '' fullname:fullname g=work@struct_param_func_config.p::cfg_t.u o=work@struct_param_func_config.u_c.Cfg.p::cfg_t.u | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law pkgPara
+   #1274    N0045 A (writer chain -) constant '' struct:golden-only g=1 objs o= | -
+   #1349    N0028 A (writer chain A+B) ref_typespec '' fullname:fullname g=work@struct_param_func_config.p::cfg_t.u o=work@struct_param_func_config.Cfg.p::cfg_t.u | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law pkgPara
+   #1830    N0761 A (writer chain A) ref_typespec '' fullname:fullname g=p::cfg_t.u o=work@struct_param_func_config.Cfg.p::cfg_t.u | leftRefFix174 (ParamEmit.cpp, law evalFuncBodyRhsStampClone167) < leftRefWalk174 (ParamEmit.cpp, law evalFuncB
+   #1848    N2412 A (writer chain A) ref_typespec '' fullname:fullname g=p::cfg_t.u o=work@struct_param_func_config.Cfg.p::cfg_t.u | leftRefFix174 (ParamEmit.cpp, law evalFuncBodyRhsStampClone167) < leftRefWalk174 (ParamEmit.cpp, law evalFuncB
+   #2448    N0552 A (writer chain A+B) ref_typespec '' fullname:fullname g=work@child.U.p::ucfg_t.a o=work@struct_param_func_config.u_c.U.p::ucfg_t.a | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law pkgPara
+   #2485    N0675 A (writer chain A) ref_typespec '' fullname:fullname g=work@child.C.p::cfg_t.u o=work@struct_param_func_config.u_c.C.p::cfg_t.u | leftRefFix174 (ParamEmit.cpp, law evalFuncBodyRhsStampClone167) < leftRefWalk174 (ParamEmit.cpp, law evalFuncB

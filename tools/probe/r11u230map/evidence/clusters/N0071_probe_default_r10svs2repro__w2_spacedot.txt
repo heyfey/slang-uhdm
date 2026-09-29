@@ -1,0 +1,49 @@
+cluster N0071 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) [r11u165map pin]): span|hier_path|endcol|under:operation
+row: probe/default/r10svs2repro__w2_spacedot  strict=endcol  records golden=92 ours=92
+object: #30 (golden) / #30 (ours)  type=hier_path name=d.size
+  golden: 15:13:15:21
+  ours:   15:13:15:19
+  walk parents: operation < assignment < begin < function(f)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 24..36 ('>' = the object)
+  #24	6	ref_obj	d			dut.sv	14	9	14	10		0				000
+  #25	6	ref_obj	size		work@sd::f::size	dut.sv	14	11	14	15		0			work@sd::f::size	000
+  #26	5	ref_obj	r		work@sd::f::r	dut.sv	14	5	14	6		0			work@sd::f::r	000
+  #27	4	assignment				dut.sv	15	5	15	21						000
+  #28	5	operation				dut.sv	15	9	15	21		0				000
+  #29	6	ref_obj	r		work@sd::f::r	dut.sv	15	9	15	10		0			work@sd::f::r	000
+> #30	6	hier_path	d.size			dut.sv	15	13	15	21		0				000
+  #31	7	ref_obj	d			dut.sv	15	13	15	14		0				000
+  #32	7	ref_obj	size		work@sd::f::size	dut.sv	15	17	15	21		0			work@sd::f::size	000
+  #33	5	ref_obj	r		work@sd::f::r	dut.sv	15	5	15	6		0			work@sd::f::r	000
+  #34	4	assignment				dut.sv	16	5	16	20						000
+  #35	5	operation				dut.sv	16	9	16	20		0				000
+  #36	6	ref_obj	r		work@sd::f::r	dut.sv	16	9	16	10		0			work@sd::f::r	000
+
+--- OURS (B) records 24..36 ('>' = the object)
+  #24	6	ref_obj	d			dut.sv	14	9	14	10		0				000
+  #25	6	ref_obj	size		work@sd::f::size	dut.sv	14	11	14	15		0			work@sd::f::size	000
+  #26	5	ref_obj	r		work@sd::f::r	dut.sv	14	5	14	6		0			work@sd::f::r	000
+  #27	4	assignment				dut.sv	15	5	15	21						000
+  #28	5	operation				dut.sv	15	9	15	21		0				000
+  #29	6	ref_obj	r		work@sd::f::r	dut.sv	15	9	15	10		0			work@sd::f::r	000
+> #30	6	hier_path	d.size			dut.sv	15	13	15	19		0				000
+  #31	7	ref_obj	d			dut.sv	15	13	15	14		0				000
+  #32	7	ref_obj	size		work@sd::f::size	dut.sv	15	15	15	19		0			work@sd::f::size	000
+  #33	5	ref_obj	r		work@sd::f::r	dut.sv	15	5	15	6		0			work@sd::f::r	000
+  #34	4	assignment				dut.sv	16	5	16	20						000
+  #35	5	operation				dut.sv	16	9	16	20		0				000
+  #36	6	ref_obj	r		work@sd::f::r	dut.sv	16	9	16	10		0			work@sd::f::r	000
+
+facets of this row (10, first 25):
+  N0071 #30/30 hier_path d.size G[15:13:15:21] O[15:13:15:19]
+  N0001 #32/32 ref_obj size G[15:17:15:21] O[15:15:15:19]
+  N0071 #37/37 hier_path q.size G[16:13:16:20] O[16:13:16:19]
+  N0001 #39/39 ref_obj size G[16:16:16:20] O[16:15:16:19]
+  N0071 #44/44 hier_path q.size G[17:13:17:20] O[17:13:17:19]
+  N0001 #46/46 ref_obj size G[17:16:17:20] O[17:15:17:19]
+  N0071 #51/51 hier_path d.size G[18:13:18:29] O[18:13:18:19]
+  N0001 #53/53 ref_obj size G[18:25:18:29] O[18:15:18:19]
+  N0071 #58/58 hier_path d.size G[19:13:20:18] O[19:13:20:5]
+  N0001 #60/60 ref_obj size G[20:14:20:18] O[20:1:20:5]

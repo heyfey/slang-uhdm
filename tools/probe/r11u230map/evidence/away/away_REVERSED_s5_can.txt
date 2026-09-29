@@ -1,0 +1,41 @@
+# 4 databases differ between /tmp/r11u230_sP and /tmp/r11u230_s5 (canonical records)
+surelog/default/InterfArrayBind chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+  CHAIN_LOST ref_obj|IO_ONES||work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES|dut.sv|16|30|16|37||0|| @ bit_select:peripheral_io_bus < hier_path:peripheral_io_bus[IO_ONES].write_en < cont_assign: < module_inst:work@soc_tb < design:work@soc_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_obj|IO_ONES||work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES|dut.sv|16|30|16|37||0||
+     chain off=1 on=0 golden=1 @ bit_select:peripheral_io_bus < hier_path:peripheral_io_bus[IO_ONES].write_en < cont_assign: < module_inst:work@soc_tb < design:work@soc_tb
+surelog/testflags/InterfArrayBind chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+uhdm2rtlil/default/OutputSizeWithParameterOfInstanceInitializedByStructMember chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0 flat_unpaired=7 flat_excess_removed=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|17|11|17|26||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|15|42|15|43||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|4|18|4|23||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|15|42|15|43||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|4|18|4|23||0|| @ operation: < range: < logic_typespec: < ref_typespec: < port:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) constant||||dut.sv|6|15|6|17|'1|-1|BIN:1|3
+     chain off=1 on=0 golden=1 @ cont_assign: < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 0) ref_obj|Info|||dut.sv|15|42|15|43||0||
+     chain off=1 on=0 golden=1 @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+     chain off=1 on=0 golden=1 @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < port:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+     chain off=1 on=0 golden=1 @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) hier_path|Info.x|||dut.sv|17|11|17|26||0||
+     chain off=1 on=0 golden=1 @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) hier_path|Info.x|||dut.sv|4|18|4|23||0||
+     chain off=1 on=0 golden=1 @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+     chain off=1 on=0 golden=1 @ operation: < range: < logic_typespec: < ref_typespec: < port:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+uhdm2rtlil/testflags/OutputSizeWithParameterOfInstanceInitializedByStructMember chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0 flat_unpaired=7 flat_excess_removed=0
+  CHAIN_LOST hier_path|Info.x|||dut.sv|17|11|17|26||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|15|42|15|43||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|4|18|4|23||0|| @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|Info|||dut.sv|15|42|15|43||0|| @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+  CHAIN_LOST hier_path|Info.x|||dut.sv|4|18|4|23||0|| @ operation: < range: < logic_typespec: < ref_typespec: < port:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) constant||||dut.sv|6|15|6|17|'1|-1|BIN:1|3
+     chain off=1 on=0 golden=1 @ cont_assign: < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 0) ref_obj|Info|||dut.sv|15|42|15|43||0||
+     chain off=1 on=0 golden=1 @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+     chain off=1 on=0 golden=1 @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < port:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+     chain off=1 on=0 golden=1 @ hier_path:Info.x < operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) hier_path|Info.x|||dut.sv|17|11|17|26||0||
+     chain off=1 on=0 golden=1 @ operation: < range: < logic_typespec: < ref_typespec: < logic_var:data < module_inst:work@top < design:work@top
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) hier_path|Info.x|||dut.sv|4|18|4|23||0||
+     chain off=1 on=0 golden=1 @ operation: < range: < logic_typespec: < ref_typespec: < logic_net:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+     chain off=1 on=0 golden=1 @ operation: < range: < logic_typespec: < ref_typespec: < port:a < module_inst:u_otp_ctrl_ecc_reg < module_inst:work@top < design:work@top
+TOTAL chain_lost=15 chain_toward=0 flat_lost=15 flat_toward=0 flat_unpaired=15 flat_excess_removed=0 flat_lost_unexplained=15

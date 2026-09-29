@@ -1,0 +1,5 @@
+sP    3273 /tmp/r11u230_bin/slang-uhdm
+s4    3273 /tmp/r11u230_bin/sts4.sh
+s5    3273 /tmp/r11u230_bin/sts5.sh
+s6    3273 /tmp/r11u230_bin/sts6.sh
+s9    3273 /tmp/r11u230_bin/sts9.sh

@@ -1,0 +1,130 @@
+# 116 downstream-visible face cases at 97343175 (drivers/dsfaces.py, the HEAD binary, a fresh golden cache): {'DIVERGENT': 38, 'EQUIVALENT': 51, 'IDENTICAL': 11, 'SLANG_REJECT': 3, 'STATUS_DIFF': 10, 'SURELOG_FAIL': 3}
+# column: verdict at 97343175 | map 14's verdict at 551c9751 (evidence/downstream/dsfaces_P.csv of tools/probe/r11u222map; '-' = not in its list) | differs
+
+IDENTICAL (11)
+  tools/probe/r11u220repro/cases/SL/s50  map14=EQUIVALENT  differs=
+  tools/probe/v11u220repro/cases/K/k15  map14=EQUIVALENT  differs=
+  tools/probe/v11u220repro/cases/T/t14  map14=EQUIVALENT  differs=
+  tools/probe/r11u229verify/cases/K/k07  map14=-  differs=
+  tools/probe/r11u229verify/cases/S/s07  map14=-  differs=
+  tools/probe/r11u229verify/cases/S/s11  map14=-  differs=
+  tools/probe/r11u229verify/cases/S/s17  map14=-  differs=
+  tools/probe/r11u225repro/cases/OS/o12  map14=-  differs=
+  tools/probe/v11u224repro/cases/DS/ds01  map14=-  differs=
+  tools/probe/v11u224repro/cases/DS/ds02  map14=-  differs=
+  tools/probe/v11u224repro/cases/DS/ds03  map14=-  differs=
+
+EQUIVALENT (51)
+  tools/probe/r11u158repro/cases/sc/c10  map14=EQUIVALENT  differs=nohier il
+  tools/probe/r11u158repro/cases/sc/c12  map14=EQUIVALENT  differs=nohier
+  tools/probe/r11u181repro/cases/us/u02  map14=EQUIVALENT  differs=nohier il
+  tools/probe/r11u181repro/cases/us/u08  map14=EQUIVALENT  differs=nohier il
+  tools/probe/r11u185verify/cases/GV/v02_named_array_elem_mp  map14=EQUIVALENT  differs=nohier il
+  tools/probe/r11u185verify/cases/GV/v11_typed_then_generic_mpconn  map14=EQUIVALENT  differs=nohier il
+  tools/probe/r11u191dec/cases/U/u08  map14=EQUIVALENT  differs=nohier
+  tools/probe/r11u191dec/cases/U/u_p02  map14=EQUIVALENT  differs=nohier il
+  tools/probe/r11u191dec/cases/U/u_p07  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/r11u194verify/cases/X/x01_tp_enum_keyword  map14=EQUIVALENT  differs=nohier
+  tools/probe/r11u199verify/cases/T/t03_gen_loop  map14=EQUIVALENT  differs=nohier il
+  tools/probe/r11u199verify/cases/X/x05_repl_fill_genloop  map14=EQUIVALENT  differs=nohier il
+  tools/probe/r11u200dec/cases/K/k02  map14=EQUIVALENT  differs=nohier
+  tools/probe/r11u204verify/cases/V191/cc6  map14=EQUIVALENT  differs=nohier il
+  tools/probe/r11u205dec/cases/TP/t04  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/r11u205dec/cases/TP/t06  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/r11u205dec/cases/TP/t08  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/r11u205dec/cases/TP/t09  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/r11u205dec/cases/TP/t17  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/r11u219repro/cases/S/s03_struct_dimarg  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/r11u219repro/cases/S/s04_shapes  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/r11u220repro/cases/CI/c07  map14=EQUIVALENT  differs=nohier
+  tools/probe/r11u220repro/cases/GX/g25  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/r11u221verify/cases/I/i01  map14=EQUIVALENT  differs=nohier il
+  tools/probe/r11u221verify/cases/I/i05  map14=EQUIVALENT  differs=nohier il
+  tools/probe/r11u221verify/cases/Q/q05  map14=EQUIVALENT  differs=nohier
+  tools/probe/r11u221verify/cases/Q/q13  map14=EQUIVALENT  differs=nohier
+  tools/probe/v11u171repro/cases/Q/c02_tail_op  map14=EQUIVALENT  differs=nohier il
+  tools/probe/v11u171repro/cases/Q/c08_inst_array  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/v11u171repro/cases/Q/c14_const_select  map14=EQUIVALENT  differs=nohier il
+  tools/probe/v11u212repro/cases/G/g12  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/v11u215repro/cases/IP/p04_default_key  map14=EQUIVALENT  differs=nohier il
+  tools/probe/v11u215repro/cases/OR/r08_iface_body  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/v11u215repro/cases/TA/t16_alias_of_alias  map14=EQUIVALENT  differs=nohier
+  tools/probe/v11u219repro/cases/E/e15_param_copy_and_unitcls  map14=EQUIVALENT  differs=nohier
+  tools/probe/v11u219repro/cases/I/i03_iface_arr_elem  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/v11u219repro/cases/M/m11_hier_actual_macro  map14=EQUIVALENT  differs=nohier il synth
+  tools/probe/v11u219repro/cases/U/u02_two_pkgs_same_name  map14=EQUIVALENT  differs=nohier il
+  tools/probe/v11u220repro/cases/K/k09  map14=EQUIVALENT  differs=nohier
+  tools/probe/v11u220repro/cases/K/k17  map14=EQUIVALENT  differs=nohier il
+  tools/probe/r11u229verify/cases/S/s09  map14=-  differs=nohier il
+  tools/probe/r11u229verify/cases/A/a09  map14=-  differs=nohier il
+  tools/probe/r11u229verify/cases/B/b02  map14=-  differs=nohier il synth
+  tools/probe/r11u229verify/cases/B/b04  map14=-  differs=nohier il synth
+  tools/probe/r11u229verify/cases/I/i07  map14=-  differs=nohier il
+  tools/probe/r11u229verify/cases/L/l10  map14=-  differs=nohier il synth
+  tools/probe/r11u229verify/cases/O/o01  map14=-  differs=nohier il
+  tools/probe/r11u229verify/cases/O/o07  map14=-  differs=nohier il synth
+  tools/probe/r11u225repro/cases/OS/o05  map14=-  differs=nohier il
+  tools/probe/r11u225repro/cases/OS/o19  map14=-  differs=nohier il
+  tools/probe/r11u225repro/cases/OS/o21  map14=-  differs=nohier il synth
+
+DIVERGENT (38)
+  tools/probe/r11u173verify/cases/hw/w12_index_member_blanks  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u173verify/cases/hw/w13_index_member_noblank_ctl  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u185verify/cases/PU/u06_whole_copy_and_bits  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u185verify/cases/UD/u04_inst_array  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u199verify/cases/C/c06_nda_array_net  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u199verify/cases/X/x06_enum_port_cast  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u204verify/cases/V191/rp2  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u204verify/cases/X/x5  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u205dec/cases/B3/b05  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u205dec/cases/B3/b07  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u205dec/cases/D5/d01  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u205dec/cases/D5/d03  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u205dec/cases/TP/t12  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u215repro/cases/R/r07  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u216repro/cases/NQ/n11  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u220repro/cases/SL/s47  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u221verify/cases/I/i02  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u221verify/cases/I/i06  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u221verify/cases/NP/p08  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u221verify/cases/Q/q02  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u221verify/cases/Q/q11  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u221verify/cases/X/x02  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/v11u202repro/cases/PP/p05  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/v11u206repro/cases/A/a12  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/v11u219repro/cases/E/e07_fnlocal_import  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/v11u219repro/cases/S/s01c_assoc_inner  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/v11u219repro/cases/S/s06_contassign_untouched  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/v11u219repro/cases/S/s08_bit_packed2d  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/v11u220repro/cases/K/k01  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/v11u220repro/cases/K/k06  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/v11u220repro/cases/K/k08  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/v11u220repro/cases/T/t19  map14=DIVERGENT  differs=nohier il synth
+  tools/probe/r11u229verify/cases/A/a12  map14=-  differs=nohier il synth
+  tools/probe/r11u229verify/cases/B/b01  map14=-  differs=nohier il synth
+  tools/probe/r11u229verify/cases/B/b05  map14=-  differs=nohier il synth
+  tools/probe/r11u229verify/cases/O/o02  map14=-  differs=nohier il synth
+  tools/probe/r11u229verify/cases/X/x02  map14=-  differs=nohier il synth
+  tools/probe/r11u229verify/cases/X/x04  map14=-  differs=nohier il synth
+
+STATUS_DIFF (10)
+  tools/probe/r11u185verify/cases/GV/v07_typed_then_generic  map14=STATUS_DIFF  differs=
+  tools/probe/r11u185verify/cases/GV/v08_modport_then_generic  map14=STATUS_DIFF  differs=
+  tools/probe/r11u185verify/cases/GV/v09_chain_through_generic  map14=STATUS_DIFF  differs=
+  tools/probe/r11u185verify/cases/GV/v15_typed_then_generic_multiline  map14=STATUS_DIFF  differs=
+  tools/probe/r11u185verify/cases/PG/p04_mod_control_same_ports  map14=STATUS_DIFF  differs=
+  tools/probe/r11u190verify/cases/US/u01  map14=STATUS_DIFF  differs=
+  tools/probe/v11u215repro/cases/TC/c02_plain_enum_explicit_item  map14=STATUS_DIFF  differs=
+  tools/probe/v11u220repro/cases/G/g27  map14=STATUS_DIFF  differs=
+  tools/probe/v11u220repro/cases/K/k13  map14=STATUS_DIFF  differs=
+  tools/probe/r11u229verify/cases/A/a08  map14=-  differs=
+
+SLANG_REJECT (3)
+  tools/probe/r11u205dec/cases/FT/f03  map14=SLANG_REJECT  differs=
+  tools/probe/v11u216repro/cases/F/f02  map14=SLANG_REJECT  differs=
+  tools/probe/v11u216repro/cases/T/t11  map14=SLANG_REJECT  differs=
+
+SURELOG_FAIL (3)
+  tools/probe/r11u220repro/cases/SL/s37  map14=SURELOG_FAIL  differs=
+  tools/probe/v11u219repro/cases/S/s01_dyn_inner  map14=SURELOG_FAIL  differs=
+  tools/probe/v11u219repro/cases/S/s01b_queue_inner  map14=SURELOG_FAIL  differs=

@@ -1,0 +1,64 @@
+cluster N0273 (id kept from an earlier map; OPEN (map 14 listed it: ground-A+B step 14; passes 223-225 left it) | ground A | site emitSyntaxExpr (TypeEmit.cpp, law selChainDecideBeforeMint41) < emitSyntaxExpr (TypeEmit.cpp, law selChainDecideBeforeMint41) < emitSyntaxExpr (TypeEmit.cpp, law selChainDecideBeforeMint41) [r11u189 pin] [r11u189map pin]): fullname|part_select|tok:id.->|under:operation
+row: surelog/default/Rggen  strict=differ:file(3)  records golden=314498 ours=312769
+object: #210517 (golden) / #209322 (ours)  type=part_select name=i_address OUT
+  golden: work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher.i_address
+  ours:   work@rggen.u_block_0.u_register.u_decoder.g_address_matcher.i_address
+  walk parents: operation < cont_assign < gen_scope < gen_scope_array(g_address_matcher)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 210511..210523 ('>' = the object)
+  #210511	8	ref_typespec			work@rggen.u_block_0.g_register_15.u_register.u_decoder.o_match		0	0	0	0		0			work@rggen.u_block_0.g_register_15.u_register.u_decoder.o_match	000
+  #210512	9	logic_typespec				rggen_address_decoder.sv	14	11	14	16						000
+  #210513	7	gen_scope_array	g_address_matcher		work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher	rggen_address_decoder.sv	45	7	45	71					work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher	000
+  #210514	8	gen_scope			work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher	rggen_address_decoder.sv	45	7	45	71					work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher	000
+  #210515	9	cont_assign				rggen_address_decoder.sv	45	15	45	70						000
+  #210516	10	operation				rggen_address_decoder.sv	45	31	45	70		0				000
+> #210517	11	part_select	i_address	i_address	work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher.i_address	rggen_address_decoder.sv	45	31	45	53		0			work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher.i_address	000
+  #210518	12	operation				rggen_address_decoder.sv	45	41	45	48		0				000
+  #210519	13	constant				rggen_address_decoder.sv	45	41	45	46	8	32	UINT:8	9		000
+  #210520	14	ref_typespec			work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher.i_address		0	0	0	0		0			work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher.i_address	000
+  #210521	15	int_typespec				rggen_address_decoder.sv	6	13	6	16						000
+  #210522	13	constant				rggen_address_decoder.sv	45	47	45	48	1	64	UINT:1	9		000
+  #210523	12	constant				rggen_address_decoder.sv	45	49	45	52	2	32	INT:2	7		000
+
+--- OURS (B) records 209316..209328 ('>' = the object)
+  #209316	8	ref_typespec			work@rggen.u_block_0.g_register_15.u_register.u_decoder.o_match		0	0	0	0		0			work@rggen.u_block_0.g_register_15.u_register.u_decoder.o_match	000
+  #209317	9	logic_typespec				rggen_address_decoder.sv	14	11	14	16						000
+  #209318	7	gen_scope_array	g_address_matcher		work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher	rggen_address_decoder.sv	45	7	45	71					work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher	000
+  #209319	8	gen_scope			work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher	rggen_address_decoder.sv	45	7	45	71					work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher	000
+  #209320	9	cont_assign				rggen_address_decoder.sv	45	15	45	70						000
+  #209321	10	operation				rggen_address_decoder.sv	45	31	45	70		0				000
+> #209322	11	part_select	i_address	i_address	work@rggen.u_block_0.u_register.u_decoder.g_address_matcher.i_address	rggen_address_decoder.sv	45	31	45	53		0			work@rggen.u_block_0.u_register.u_decoder.g_address_matcher.i_address	000
+  #209323	12	operation				rggen_address_decoder.sv	45	41	45	48		0				000
+  #209324	13	constant				rggen_address_decoder.sv	45	41	45	46	8	32	UINT:8	9		000
+  #209325	14	ref_typespec			work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher.i_address		0	0	0	0		0			work@rggen.u_block_0.g_register_15.u_register.u_decoder.g_address_matcher.i_address	000
+  #209326	15	int_typespec				rggen_address_decoder.sv	6	13	6	16						000
+  #209327	13	constant				rggen_address_decoder.sv	45	47	45	48	1	64	UINT:1	9		000
+  #209328	12	constant				rggen_address_decoder.sv	45	49	45	52	2	32	INT:2	7		000
+
+facets of this row (5277, first 25):
+  N0683 #23168/23166 constant  G[14 operation < range] O[13 range < logic_typespec]
+  N1172 #23166/-1 operation  G[2 objs] O[]
+  N0683 #26509/26505 constant  G[16 operation < range] O[15 range < logic_typespec]
+  N1172 #26507/-1 operation  G[2 objs] O[]
+  N0683 #28776/28770 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28774/-1 operation  G[2 objs] O[]
+  N0683 #28785/28777 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28783/-1 operation  G[2 objs] O[]
+  N0683 #28794/28784 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28792/-1 operation  G[2 objs] O[]
+  N0683 #29654/29642 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29652/-1 operation  G[2 objs] O[]
+  N0683 #29663/29649 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29661/-1 operation  G[2 objs] O[]
+  N0683 #29672/29656 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29670/-1 operation  G[2 objs] O[]
+  N0683 #30427/30409 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30425/-1 operation  G[2 objs] O[]
+  N0683 #30436/30416 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30434/-1 operation  G[2 objs] O[]
+  N0683 #30445/30423 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30443/-1 operation  G[2 objs] O[]
+  N0683 #31206/31182 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #31204/-1 operation  G[2 objs] O[]
+  N0683 #31215/31189 constant  G[17 operation < range] O[16 range < logic_typespec]

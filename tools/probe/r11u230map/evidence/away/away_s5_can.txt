@@ -1,0 +1,6 @@
+# 4 databases differ between /tmp/r11u230_s5 and /tmp/r11u230_sP (canonical records)
+surelog/default/InterfArrayBind chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/InterfArrayBind chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+uhdm2rtlil/default/OutputSizeWithParameterOfInstanceInitializedByStructMember chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7 flat_unpaired=0 flat_excess_removed=0
+uhdm2rtlil/testflags/OutputSizeWithParameterOfInstanceInitializedByStructMember chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7 flat_unpaired=0 flat_excess_removed=0
+TOTAL chain_lost=0 chain_toward=15 flat_lost=0 flat_toward=15 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0

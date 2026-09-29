@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+"""r11u230map (97343175): the README tables from cluster_index.csv / fail_list.csv / probe_fail_list.csv (report15.py output; map 14 tables14b.py re-based; the site column is the WRITER of the differing field where pinned, else the mint).
+Args: <map dir> <section: t1|nonfam|newc|fail|pfirst|ground> [n]"""
+import csv, sys, collections, re
+OUT, SEC = sys.argv[1:3]; N = int(sys.argv[3]) if len(sys.argv) > 3 else 40
+CI = {r['cluster_id']: r for r in csv.DictReader(open(f'{OUT}/cluster_index.csv'))}
+FL = list(csv.DictReader(open(f'{OUT}/fail_list.csv')))
+PF = list(csv.DictReader(open(f'{OUT}/probe_fail_list.csv')))
+esc = lambda s: str(s).replace('|', '\\|')
+def short_site(s, n=110):
+    s = re.sub(r' \[r11u[12]\d\d(map)? pin[^\]]*\]', '', s); s = re.sub(r' \[(NOTE|DECODED)[^\]]*\]', '', s)
+    s = re.sub(r' \[r11u165map pin \(other example\)[^\]]*\]', '', s)
+    return esc(s[:n])
+def short_cov(s, n=60):
+    s = re.sub(r' \[r11u218 reduces it: rows (\d+)->(\d+), probe (\d+)->(\d+)\]', lambda m: f' [r11u218: rows {m.group(1)}->{m.group(2)}]' if m.group(1) != m.group(2) else '', s)
+    s = s.replace('OPEN (map 14 listed it: ', 'OPEN (map 14 ').replace('; passes 223-225 left it)', ')')
+    return esc(s[:n])
+isopen = lambda r: not r['coverage'].startswith('COVERED')
+def wsite(r, n=110):
+    w = r.get('writer', '-')
+    return ('W: ' + short_site(w, n)) if w not in ('-', '') and not w.startswith('NOT PINNED') else ('M: ' + short_site(r['site'], n))
+BIG = {'MiniAmiq', 'SeqDriver', 'SimpleUVM', 'Scoreboard', 'BuildUVMPkg', 'Earlgrey_0_1', 'Rggen', 'BlackBePipeInt', 'Scr1SvTests', 'ApbSlave', 'SVSwitch'}
+if SEC == 't1':
+    rs = [r for r in CI.values() if isopen(r) and int(r['rows_after_pairs']) > 0]
+    rs.sort(key=lambda r: (-int(r['rows_after_pairs']), -int(r['alone_on_top_of_pairs']), -int(r['first_in_after_pairs']), -int(r['probe_cases']), r['cluster_id']))
+    print('| # | cluster | rows left (97343175) | sl/u2r | tests | families | first-open heads | alone | probe | ground | status | key | writer of the field (else the mint) |')
+    print('|---|---|---|---|---|---|---|---|---|---|---|---|---|')
+    for i, r in enumerate(rs[:N]):
+        print(f"| {i+1} | {r['cluster_id']} | {r['rows_after_pairs']} ({r['rows']}) | {r['rows_surelog']}/{r['rows_uhdm2rtlil']} | {r['tests']} | {r['families'] or '-'} | {r['first_in_after_pairs']} | {r['alone_on_top_of_pairs']} | {r['probe_cases']} | {r['ground']} | {short_cov(r['coverage'])} | `{esc(r['key'])}` | {wsite(r)} |")
+elif SEC in ('nonfam', 'ground'):
+    cnt = collections.Counter(); heads = collections.Counter()
+    for f in FL:
+        if f['clears'] != 'no': continue
+        if SEC == 'nonfam' and f['test'] in BIG: continue
+        for c in f['open_clusters_after_pairs'].split(): cnt[c] += 1
+        heads[f['first_open_cluster_after_pairs']] += 1
+    g = sys.argv[4] if SEC == 'ground' else None
+    rs = sorted((c for c in cnt if c in CI and (g is None or CI[c]['ground'] == g)), key=lambda c: (-cnt[c], -heads[c], -int(CI[c]['probe_cases']), c))
+    print(f"| # | cluster | rows{' outside the big families' if SEC == 'nonfam' else ''} (tests) | first-open heads | alone | probe | ground | status | key | site |")
+    print('|---|---|---|---|---|---|---|---|---|---|')
+    for i, c in enumerate(rs[:N]):
+        r = CI[c]
+        print(f"| {i+1} | {c} | {cnt[c]} ({r['tests']}) | {heads[c]} | {r['alone_on_top_of_pairs']} | {r['probe_cases']} | {r['ground']} | {short_cov(r['coverage'], 60)} | `{esc(r['key'])}` | {wsite(r, 100)} |")
+elif SEC == 'newc':
+    for c, r in sorted(CI.items()):
+        if r['map14_rows_551c9751'] == '-':
+            print(f"| {c} | {r['rows']} | {r['probe_cases']} | {r['ground']} | `{esc(r['key'])}` | {esc(r['example'][:110])} | {wsite(r, 120)} |")
+elif SEC == 'fail':
+    by = collections.OrderedDict()
+    for f in FL: by.setdefault((f['corpus'], f['test']), []).append(f)
+    print('| corpus | test | cell d / t | clusters d/t | first cluster (ground) | first site | first open after the pairs (optimistic) | open after pairs | clears | first open after the named heads | open after named | downstream |')
+    print('|---|---|---|---|---|---|---|---|---|---|---|---|')
+    for (c, t), fs in sorted(by.items(), key=lambda x: (x[0][0], min(int(f['clusters']) for f in x[1]), x[0][1])):
+        d = {f['mode']: f for f in fs}; f0 = d.get('default') or d['testflags']
+        cell = ' / '.join(d[m]['strict'] if m in d else '-' for m in ('default', 'testflags'))
+        ncl = '/'.join(d[m]['clusters'] if m in d else '-' for m in ('default', 'testflags'))
+        fo = f0['first_open_cluster_after_pairs']; oc = '/'.join(str(len(d[m]['open_clusters_after_pairs'].split())) if m in d else '-' for m in ('default', 'testflags'))
+        cl = '; '.join(sorted({d[m]['clears'] for m in d}))
+        fon = f0['first_open_cluster_after_named']; ocn = '/'.join(str(len(d[m]['open_clusters_after_named'].split())) if m in d else '-' for m in ('default', 'testflags'))
+        print(f"| {c[:3]} | {t} | {cell} | {ncl} | {f0['first_cluster']} ({f0['first_ground']}) | {wsite(CI[f0['first_cluster']], 70)} | {fo} | {oc} | {cl} | {fon} | {ocn} | {f0['downstream'] or '-'} |")
+elif SEC == 'pfirst':
+    c = collections.Counter(r['first_cluster'] for r in PF)
+    print('| first cluster | probe cases it heads | clears (pairs, optimistic) | ground | status | key | top laws |')
+    print('|---|---|---|---|---|---|---|')
+    for k, n in c.most_common(N):
+        r = CI[k]; cl = collections.Counter(p['clears'].split(' (')[0] + ('' if p['clears'] == 'no' else ' ' + p['clears'].split('(')[1].split(',')[0]) for p in PF if p['first_cluster'] == k)
+        print(f"| {k} | {n} | {', '.join(f'{a} {b}' for a, b in cl.most_common())} | {r['ground']} | {short_cov(r['coverage'], 50)} | `{esc(r['key'])}` | {esc(r['probe_laws'][:70])} |")
+elif SEC == 'greedy':
+    import json
+    G = json.load(open(sys.argv[4]))[sys.argv[5]]
+    base = int(sys.argv[6]); cum = base; tt = set()
+    print('| step | clusters added | +row-modes | cum row-modes | rows | ground(s) | site of the first |')
+    print('|---|---|---|---|---|---|---|')
+    for i, s in enumerate(G):
+        cum += s['gain']
+        rows = ' '.join(k.split('|')[2] + '/' + k.split('|')[1][0] + ('/u2r' if k.startswith('uhdm2rtlil') else '') for k in s['rows'])
+        print(f"| {i+1} | {' + '.join(s['add'])} | {s['gain']} | {cum} | {rows} | {'+'.join(sorted({CI[c]['ground'] for c in s['add']}))} | {wsite(CI[s['add'][0]], 110)} |")

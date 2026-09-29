@@ -1,0 +1,38 @@
+cluster N0097 (id kept from an earlier map; OPEN (map 14 gave it to pair A r11u224; pass 224 left it) | ground A | site emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u230 pin]): span|hier_path|endcol|under:assignment
+row: probe/default/r10svs8repro__a3_builtins  strict=endcol  records golden=52 ours=52
+object: #46 (golden) / #46 (ours)  type=hier_path name=cgc8.cpc8.get_coverage
+  golden: 60:12:60:36
+  ours:   60:12:60:34
+  walk parents: assignment < task(e7_8) < class_defn(cov3) < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 40..51 ('>' = the object)
+  #40	5	constant				dut.sv	56	16	56	24	"cov=%f"	48	STRING:cov=%f	6		000
+  #41	5	hier_path	cgc8.get_coverage			dut.sv	56	26	56	45		0				000
+  #42	6	ref_obj	cgc8			dut.sv	56	26	56	30		0				000
+  #43	6	method_func_call	get_coverage			dut.sv	56	31	56	43		0				000
+  #44	3	task	e7_8		work@a3::cov3::e7_8	dut.sv	59	5	61	12					work@a3::cov3::e7_8	000
+  #45	4	assignment				dut.sv	60	7	60	36						000
+> #46	5	hier_path	cgc8.cpc8.get_coverage			dut.sv	60	12	60	36		0				000
+  #47	6	ref_obj	cgc8			dut.sv	60	12	60	16		0				000
+  #48	6	ref_obj	cpc8			dut.sv	60	17	60	21		0				000
+  #49	6	method_func_call	get_coverage			dut.sv	60	22	60	34		0				000
+  #50	5	ref_obj	r8		work@a3::cov3::e7_8::r8	dut.sv	60	7	60	9		0			work@a3::cov3::e7_8::r8	000
+  #51	1	module_inst	work@a3	work@a3		dut.sv	21	1	64	10						000
+
+--- OURS (B) records 40..51 ('>' = the object)
+  #40	5	constant				dut.sv	56	16	56	24	"cov=%f"	48	STRING:cov=%f	6		000
+  #41	5	hier_path	cgc8.get_coverage			dut.sv	56	26	56	45		0				000
+  #42	6	ref_obj	cgc8			dut.sv	56	26	56	30		0				000
+  #43	6	method_func_call	get_coverage			dut.sv	56	31	56	43		0				000
+  #44	3	task	e7_8		work@a3::cov3::e7_8	dut.sv	59	5	61	12					work@a3::cov3::e7_8	000
+  #45	4	assignment				dut.sv	60	7	60	36						000
+> #46	5	hier_path	cgc8.cpc8.get_coverage			dut.sv	60	12	60	34		0				000
+  #47	6	ref_obj	cgc8			dut.sv	60	12	60	16		0				000
+  #48	6	ref_obj	cpc8			dut.sv	60	17	60	21		0				000
+  #49	6	method_func_call	get_coverage			dut.sv	60	22	60	34		0				000
+  #50	5	ref_obj	r8		work@a3::cov3::e7_8::r8	dut.sv	60	7	60	9		0			work@a3::cov3::e7_8::r8	000
+  #51	1	module_inst	work@a3	work@a3		dut.sv	21	1	64	10						000
+
+facets of this row (1, first 25):
+  N0097 #46/46 hier_path cgc8.cpc8.get_coverage G[60:12:60:36] O[60:12:60:34]

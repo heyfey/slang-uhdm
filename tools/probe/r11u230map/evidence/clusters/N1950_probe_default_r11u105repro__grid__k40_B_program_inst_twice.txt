@@ -1,0 +1,46 @@
+cluster N1950 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id->id|under:assignment
+row: probe/default/r11u105repro__grid__k40_B_program_inst_twice  strict=fullname  records golden=151 ours=155
+object: #8 (golden) / #8 (ours)  type=ref_obj name=a OUT
+  golden: work@dut.u_q.a
+  ours:   work@dut.u_p.a
+  walk parents: assignment < initial < program < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2..14 ('>' = the object)
+  #2	2	logic_net	a		work@innermod.a	dut.sv	2	37	2	38		0			work@innermod.a	000
+  #3	2	logic_net	f		work@innermod.f	dut.sv	2	45	2	46		0			work@innermod.f	000
+  #4	3	ref_typespec			work@innermod.f		0	0	0	0		0			work@innermod.f	000
+  #5	4	int_typespec				dut.sv	2	41	2	44						000
+  #6	2	initial				dut.sv	2	48	2	62						000
+  #7	3	assignment				dut.sv	2	56	2	61						000
+> #8	4	ref_obj	a		work@dut.u_q.a	dut.sv	2	60	2	61		0			work@dut.u_q.a	000
+  #9	5	logic_net	a		work@dut.u_p.a	dut.sv	2	37	2	38		0			work@dut.u_p.a	000
+  #10	6	ref_typespec			work@dut.u_p.a		0	0	0	0		0			work@dut.u_p.a	000
+  #11	7	logic_typespec				dut.sv	2	25	2	36						000
+  #12	8	range				dut.sv	2	31	2	36						001
+  #13	9	constant				dut.sv	2	32	2	33	3	64	UINT:3	9		001
+  #14	9	constant				dut.sv	2	34	2	35	0	64	UINT:0	9		001
+
+--- OURS (B) records 2..14 ('>' = the object)
+  #2	2	logic_net	a		work@innermod.a	dut.sv	2	37	2	38		0			work@innermod.a	000
+  #3	2	logic_net	f		work@innermod.f	dut.sv	2	45	2	46		0			work@innermod.f	000
+  #4	3	ref_typespec			work@innermod.f		0	0	0	0		0			work@innermod.f	000
+  #5	4	int_typespec				dut.sv	2	41	2	44						000
+  #6	2	initial				dut.sv	2	48	2	62						000
+  #7	3	assignment				dut.sv	2	56	2	61						000
+> #8	4	ref_obj	a		work@dut.u_p.a	dut.sv	2	60	2	61		0			work@dut.u_p.a	000
+  #9	5	logic_net	a		work@dut.u_p.a	dut.sv	2	37	2	38		0			work@dut.u_p.a	000
+  #10	6	ref_typespec			work@dut.u_p.a		0	0	0	0		0			work@dut.u_p.a	000
+  #11	7	logic_typespec				dut.sv	2	25	2	36						000
+  #12	8	range				dut.sv	2	31	2	36						001
+  #13	9	constant				dut.sv	2	32	2	33	3	64	UINT:3	9		001
+  #14	9	constant				dut.sv	2	34	2	35	0	64	UINT:0	9		001
+
+facets of this row (7, first 25):
+  N1935 #-1/125 initial  G[] O[4 objs]
+  N1950 #8/8 ref_obj a G[work@dut.u_q.a] O[work@dut.u_p.a]
+  N1950 #15/15 ref_obj f G[work@dut.u_q.f] O[work@dut.u_p.f]
+  N1950 #55/55 ref_obj a G[work@dut.u_q.a] O[work@dut.u_p.a]
+  N1950 #62/62 ref_obj f G[work@dut.u_q.f] O[work@dut.u_p.f]
+  N1950 #105/105 ref_obj a G[work@dut.u_q.a] O[work@dut.u_p.a]
+  N1950 #106/106 ref_obj f G[work@dut.u_q.f] O[work@dut.u_p.f]

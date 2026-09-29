@@ -1,0 +1,6 @@
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/FuncStructVal-9244d8c4/slang.uhdm  patched=469dc7bb60f5 pristine=075a18073081
+MOVER ./surelog/testflags/FuncStructVal-9244d8c4/slang.uhdm  patched=3a19eee303f6 pristine=bea4eecf691a
+MOVERS: 2 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged

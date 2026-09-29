@@ -1,0 +1,64 @@
+cluster N0073 (id kept from an earlier map; COVERED r11u227 (row named: r11u227 brief item 1: the BlackBePipeInt A half) | ground A | site fillSizeDimRange (ModuleEmit.cpp, law sizeDimOvrChain4) < emitInstance (ModuleEmit.cpp, law ifaceArrPortSizeDimAtExpr183) < emitInstance (ModuleEmit.cpp, law bindDisplayTargetParent188) [r11u230 pin]): span|constant|endcol|under:operation
+row: surelog/testflags/BlackBePipeInt  strict=differ:type(1)  records golden=338504 ours=340760
+object: #293790 (golden) / #295789 (ours)  type=constant name=
+  golden: 15483:12:15483:34
+  ours:   15483:12:15483:57
+  walk parents: operation < param_assign < module_inst(work@bp_be_pipe_int) < design(work@bp_be_pipe_int)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 293784..293796 ('>' = the object)
+  #293784	4	ref_typespec			work@bp_be_pipe_int		0	0	0	0		0			work@bp_be_pipe_int	000
+  #293785	5	int_typespec				dut.sv	15480	6	15480	43						000
+  #293786	2	param_assign				dut.sv	15481	21	15483	85						000
+  #293787	3	operation				dut.sv	15483	10	15483	85		0				000
+  #293788	4	constant				dut.sv	15483	83	15483	84	0	32	UINT:0	9		000
+  #293789	4	constant				dut.sv	15483	59	15483	81	1	32	UINT:1	9		000
+> #293790	4	constant				dut.sv	15483	12	15483	34	2	32	UINT:2	9		000
+  #293791	2	param_assign				dut.sv	15484	17	15484	84						000
+  #293792	3	constant				dut.sv	15484	42	15484	84	2	64	UINT:2	9		000
+  #293793	2	param_assign				dut.sv	15486	17	15486	72						000
+  #293794	3	constant				dut.sv	15486	45	15486	72	0	32	UINT:0	9		000
+  #293795	2	param_assign				dut.sv	15487	17	15487	78						000
+  #293796	3	constant				dut.sv	15487	45	15487	78	8	32	UINT:8	9		000
+
+--- OURS (B) records 295783..295795 ('>' = the object)
+  #295783	4	ref_typespec			work@bp_be_pipe_int		0	0	0	0		0			work@bp_be_pipe_int	000
+  #295784	5	int_typespec				dut.sv	15480	6	15480	43						000
+  #295785	2	param_assign				dut.sv	15481	21	15483	85						000
+  #295786	3	operation				dut.sv	15483	10	15483	85		0				000
+  #295787	4	constant				dut.sv	15483	83	15483	84	0	32	UINT:0	9		000
+  #295788	4	constant				dut.sv	15483	59	15483	81	1	32	UINT:1	9		000
+> #295789	4	constant				dut.sv	15483	12	15483	57	2	32	UINT:2	9		000
+  #295790	2	param_assign				dut.sv	15484	17	15484	84						000
+  #295791	3	constant				dut.sv	15484	42	15484	84	2	64	UINT:2	9		000
+  #295792	2	param_assign				dut.sv	15486	17	15486	72						000
+  #295793	3	constant				dut.sv	15486	45	15486	72	0	32	UINT:0	9		000
+  #295794	2	param_assign				dut.sv	15487	17	15487	78						000
+  #295795	3	constant				dut.sv	15487	45	15487	78	8	32	UINT:8	9		000
+
+facets of this row (38809, first 25):
+  N0868 #-1/15268 constant  G[] O[1 objs]
+  N0868 #-1/15272 constant  G[] O[1 objs]
+  N0868 #-1/15276 constant  G[] O[1 objs]
+  N0868 #-1/15280 constant  G[] O[1 objs]
+  N0868 #-1/15284 constant  G[] O[1 objs]
+  N0868 #-1/15288 constant  G[] O[1 objs]
+  N0868 #-1/15292 constant  G[] O[1 objs]
+  N0868 #-1/15296 constant  G[] O[1 objs]
+  N0868 #-1/15300 constant  G[] O[1 objs]
+  N0868 #-1/15304 constant  G[] O[1 objs]
+  N0868 #-1/15308 constant  G[] O[1 objs]
+  N0868 #-1/15324 constant  G[] O[1 objs]
+  N0868 #-1/15328 constant  G[] O[1 objs]
+  N0868 #-1/15332 constant  G[] O[1 objs]
+  N0868 #-1/15336 constant  G[] O[1 objs]
+  N0868 #-1/15340 constant  G[] O[1 objs]
+  N0868 #-1/15344 constant  G[] O[1 objs]
+  N0868 #-1/15372 constant  G[] O[1 objs]
+  N0868 #-1/15376 constant  G[] O[1 objs]
+  N0868 #-1/15380 constant  G[] O[1 objs]
+  N0868 #-1/15384 constant  G[] O[1 objs]
+  N0868 #-1/15388 constant  G[] O[1 objs]
+  N0868 #-1/15408 constant  G[] O[1 objs]
+  N0868 #-1/15428 constant  G[] O[1 objs]
+  N0868 #-1/15432 constant  G[] O[1 objs]

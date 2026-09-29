@@ -1,0 +1,117 @@
+case,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail,name
+tools/probe/r11u173verify/cases/hw/w12_index_member_blanks,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import,tools_probe_r11u173verify_cases_hw_w12_index_member_blanks
+tools/probe/r11u173verify/cases/hw/w13_index_member_noblank_ctl,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import,tools_probe_r11u173verify_cases_hw_w13_index_member_noblank_ctl
+tools/probe/r11u185verify/cases/PU/u06_whole_copy_and_bits,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u185verify_cases_PU_u06_whol,tools_probe_r11u185verify_cases_PU_u06_whole_copy_and_bits
+tools/probe/r11u185verify/cases/UD/u04_inst_array,DIVERGENT,OK,OK,2,2,nohier il synth,   This indicates a serious bug in /tmp/r11u230_dsP/tools_probe_r11u185verify_cases_UD_u04_inst_array/equiv/tools_probe_,tools_probe_r11u185verify_cases_UD_u04_inst_array
+tools/probe/r11u199verify/cases/C/c06_nda_array_net,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u199verify_cases_C_c06_nda_a,tools_probe_r11u199verify_cases_C_c06_nda_array_net
+tools/probe/r11u199verify/cases/X/x06_enum_port_cast,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in /tmp/r11u230_dsP/tools_probe_r11u199verify_cases_X_x06_enum_port_cast/equiv/tools_pro,tools_probe_r11u199verify_cases_X_x06_enum_port_cast
+tools/probe/r11u204verify/cases/V191/rp2,DIVERGENT,OK,OK,1,1,nohier il synth,   This indicates a serious bug in /tmp/r11u230_dsP/tools_probe_r11u204verify_cases_V191_rp2/equiv/tools_probe_r11u204ve,tools_probe_r11u204verify_cases_V191_rp2
+tools/probe/r11u204verify/cases/X/x5,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import,tools_probe_r11u204verify_cases_X_x5
+tools/probe/r11u205dec/cases/B3/b05,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u205dec_cases_B3_b05/equiv/t,tools_probe_r11u205dec_cases_B3_b05
+tools/probe/r11u205dec/cases/B3/b07,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u205dec_cases_B3_b07/equiv/t,tools_probe_r11u205dec_cases_B3_b07
+tools/probe/r11u205dec/cases/D5/d01,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u205dec_cases_D5_d01/equiv/t,tools_probe_r11u205dec_cases_D5_d01
+tools/probe/r11u205dec/cases/D5/d03,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u205dec_cases_D5_d03/equiv/t,tools_probe_r11u205dec_cases_D5_d03
+tools/probe/r11u205dec/cases/TP/t12,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in /tmp/r11u230_dsP/tools_probe_r11u205dec_cases_TP_t12/equiv/tools_probe_r11u205dec_cas,tools_probe_r11u205dec_cases_TP_t12
+tools/probe/r11u215repro/cases/R/r07,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in /tmp/r11u230_dsP/tools_probe_r11u215repro_cases_R_r07/equiv/tools_probe_r11u215repro_,tools_probe_r11u215repro_cases_R_r07
+tools/probe/r11u216repro/cases/NQ/n11,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in /tmp/r11u230_dsP/tools_probe_r11u216repro_cases_NQ_n11/equiv/tools_probe_r11u216repro,tools_probe_r11u216repro_cases_NQ_n11
+tools/probe/r11u220repro/cases/SL/s47,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in /tmp/r11u230_dsP/tools_probe_r11u220repro_cases_SL_s47/equiv/tools_probe_r11u220repro,tools_probe_r11u220repro_cases_SL_s47
+tools/probe/r11u221verify/cases/I/i02,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u221verify_cases_I_i02/equiv,tools_probe_r11u221verify_cases_I_i02
+tools/probe/r11u221verify/cases/I/i06,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u221verify_cases_I_i06/equiv,tools_probe_r11u221verify_cases_I_i06
+tools/probe/r11u221verify/cases/NP/p08,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u221verify_cases_NP_p08/equi,tools_probe_r11u221verify_cases_NP_p08
+tools/probe/r11u221verify/cases/Q/q02,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u221verify_cases_Q_q02/equiv,tools_probe_r11u221verify_cases_Q_q02
+tools/probe/r11u221verify/cases/Q/q11,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u221verify_cases_Q_q11/equiv,tools_probe_r11u221verify_cases_Q_q11
+tools/probe/r11u221verify/cases/X/x02,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u221verify_cases_X_x02/equiv,tools_probe_r11u221verify_cases_X_x02
+tools/probe/v11u202repro/cases/PP/p05,DIVERGENT,OK,OK,1,12,nohier il synth,----------------------------------------------,tools_probe_v11u202repro_cases_PP_p05
+tools/probe/v11u206repro/cases/A/a12,DIVERGENT,OK,OK,1,1,nohier il synth,----------------------------------------------,tools_probe_v11u206repro_cases_A_a12
+tools/probe/v11u219repro/cases/E/e07_fnlocal_import,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_v11u219repro_cases_E_e07_fnloca,tools_probe_v11u219repro_cases_E_e07_fnlocal_import
+tools/probe/v11u219repro/cases/S/s01c_assoc_inner,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_v11u219repro_cases_S_s01c_assoc,tools_probe_v11u219repro_cases_S_s01c_assoc_inner
+tools/probe/v11u219repro/cases/S/s06_contassign_untouched,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in /tmp/r11u230_dsP/tools_probe_v11u219repro_cases_S_s06_contassign_untouched/equiv/tool,tools_probe_v11u219repro_cases_S_s06_contassign_untouched
+tools/probe/v11u219repro/cases/S/s08_bit_packed2d,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_v11u219repro_cases_S_s08_bit_pa,tools_probe_v11u219repro_cases_S_s08_bit_packed2d
+tools/probe/v11u220repro/cases/K/k01,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_v11u220repro_cases_K_k01/equiv/,tools_probe_v11u220repro_cases_K_k01
+tools/probe/v11u220repro/cases/K/k06,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in /tmp/r11u230_dsP/tools_probe_v11u220repro_cases_K_k06/equiv/tools_probe_v11u220repro_,tools_probe_v11u220repro_cases_K_k06
+tools/probe/v11u220repro/cases/K/k08,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_v11u220repro_cases_K_k08/equiv/,tools_probe_v11u220repro_cases_K_k08
+tools/probe/v11u220repro/cases/T/t19,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_v11u220repro_cases_T_t19/equiv/,tools_probe_v11u220repro_cases_T_t19
+tools/probe/r11u158repro/cases/sc/c10,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 2 common constant assignments match,tools_probe_r11u158repro_cases_sc_c10
+tools/probe/r11u158repro/cases/sc/c12,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 2 common constant assignments match,tools_probe_r11u158repro_cases_sc_c12
+tools/probe/r11u181repro/cases/us/u02,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 5 common constant assignments match,tools_probe_r11u181repro_cases_us_u02
+tools/probe/r11u181repro/cases/us/u08,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 5 common constant assignments match,tools_probe_r11u181repro_cases_us_u08
+tools/probe/r11u185verify/cases/GV/v02_named_array_elem_mp,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,ℹ️  No common assign statements to compare — skipping,tools_probe_r11u185verify_cases_GV_v02_named_array_elem_mp
+tools/probe/r11u185verify/cases/GV/v11_typed_then_generic_mpconn,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,ℹ️  No common assign statements to compare — skipping,tools_probe_r11u185verify_cases_GV_v11_typed_then_generic_mpconn
+tools/probe/r11u191dec/cases/U/u08,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 2 common constant assignments match,tools_probe_r11u191dec_cases_U_u08
+tools/probe/r11u191dec/cases/U/u_p02,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 1 common constant assignments match,tools_probe_r11u191dec_cases_U_u_p02
+tools/probe/r11u191dec/cases/U/u_p07,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,ℹ️  No common assign statements to compare — skipping,tools_probe_r11u191dec_cases_U_u_p07
+tools/probe/r11u194verify/cases/X/x01_tp_enum_keyword,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 2 common constant assignments match,tools_probe_r11u194verify_cases_X_x01_tp_enum_keyword
+tools/probe/r11u199verify/cases/T/t03_gen_loop,EQUIVALENT,OK,OK,25,25,nohier il,✅ Formal equivalence check PASSED for /tmp/r11u230_dsP/tools_probe_r11u199verify_cases_T_t03_gen_loop/equiv/tools_probe_,tools_probe_r11u199verify_cases_T_t03_gen_loop
+tools/probe/r11u199verify/cases/X/x05_repl_fill_genloop,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 17 common constant assignments match,tools_probe_r11u199verify_cases_X_x05_repl_fill_genloop
+tools/probe/r11u200dec/cases/K/k02,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 2 common constant assignments match,tools_probe_r11u200dec_cases_K_k02
+tools/probe/r11u204verify/cases/V191/cc6,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 4 common constant assignments match,tools_probe_r11u204verify_cases_V191_cc6
+tools/probe/r11u205dec/cases/TP/t04,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 1 common constant assignments match,tools_probe_r11u205dec_cases_TP_t04
+tools/probe/r11u205dec/cases/TP/t06,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 2 common constant assignments match,tools_probe_r11u205dec_cases_TP_t06
+tools/probe/r11u205dec/cases/TP/t08,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,ℹ️  No common assign statements to compare — skipping,tools_probe_r11u205dec_cases_TP_t08
+tools/probe/r11u205dec/cases/TP/t09,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 1 common constant assignments match,tools_probe_r11u205dec_cases_TP_t09
+tools/probe/r11u205dec/cases/TP/t17,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 1 common constant assignments match,tools_probe_r11u205dec_cases_TP_t17
+tools/probe/r11u219repro/cases/S/s03_struct_dimarg,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 4 common constant assignments match,tools_probe_r11u219repro_cases_S_s03_struct_dimarg
+tools/probe/r11u219repro/cases/S/s04_shapes,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 14 common constant assignments match,tools_probe_r11u219repro_cases_S_s04_shapes
+tools/probe/r11u220repro/cases/CI/c07,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 1 common constant assignments match,tools_probe_r11u220repro_cases_CI_c07
+tools/probe/r11u220repro/cases/GX/g25,EQUIVALENT,OK,OK,6,4,nohier il synth,✅ Formal equivalence check PASSED for /tmp/r11u230_dsP/tools_probe_r11u220repro_cases_GX_g25/equiv/tools_probe_r11u220re,tools_probe_r11u220repro_cases_GX_g25
+tools/probe/r11u220repro/cases/SL/s50,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u220repro_cases_SL_s50
+tools/probe/r11u221verify/cases/I/i01,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 2 common constant assignments match,tools_probe_r11u221verify_cases_I_i01
+tools/probe/r11u221verify/cases/I/i05,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 4 common constant assignments match,tools_probe_r11u221verify_cases_I_i05
+tools/probe/r11u221verify/cases/Q/q05,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 6 common constant assignments match,tools_probe_r11u221verify_cases_Q_q05
+tools/probe/r11u221verify/cases/Q/q13,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 4 common constant assignments match,tools_probe_r11u221verify_cases_Q_q13
+tools/probe/v11u171repro/cases/Q/c02_tail_op,EQUIVALENT,OK,OK,4,4,nohier il,✅ Formal equivalence check PASSED for /tmp/r11u230_dsP/tools_probe_v11u171repro_cases_Q_c02_tail_op/equiv/tools_probe_v1,tools_probe_v11u171repro_cases_Q_c02_tail_op
+tools/probe/v11u171repro/cases/Q/c08_inst_array,EQUIVALENT,OK,OK,2,2,nohier il synth,✅ Formal equivalence check PASSED for /tmp/r11u230_dsP/tools_probe_v11u171repro_cases_Q_c08_inst_array/equiv/tools_probe,tools_probe_v11u171repro_cases_Q_c08_inst_array
+tools/probe/v11u171repro/cases/Q/c14_const_select,EQUIVALENT,OK,OK,2,2,nohier il,✅ Formal equivalence check PASSED for /tmp/r11u230_dsP/tools_probe_v11u171repro_cases_Q_c14_const_select/equiv/tools_pro,tools_probe_v11u171repro_cases_Q_c14_const_select
+tools/probe/v11u212repro/cases/G/g12,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 2 common constant assignments match,tools_probe_v11u212repro_cases_G_g12
+tools/probe/v11u215repro/cases/IP/p04_default_key,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 1 common constant assignments match,tools_probe_v11u215repro_cases_IP_p04_default_key
+tools/probe/v11u215repro/cases/OR/r08_iface_body,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 1 common constant assignments match,tools_probe_v11u215repro_cases_OR_r08_iface_body
+tools/probe/v11u215repro/cases/TA/t16_alias_of_alias,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,ℹ️  No common assign statements to compare — skipping,tools_probe_v11u215repro_cases_TA_t16_alias_of_alias
+tools/probe/v11u219repro/cases/E/e15_param_copy_and_unitcls,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 1 common constant assignments match,tools_probe_v11u219repro_cases_E_e15_param_copy_and_unitcls
+tools/probe/v11u219repro/cases/I/i03_iface_arr_elem,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,ℹ️  No common assign statements to compare — skipping,tools_probe_v11u219repro_cases_I_i03_iface_arr_elem
+tools/probe/v11u219repro/cases/M/m11_hier_actual_macro,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 2 common constant assignments match,tools_probe_v11u219repro_cases_M_m11_hier_actual_macro
+tools/probe/v11u219repro/cases/U/u02_two_pkgs_same_name,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 1 common constant assignments match,tools_probe_v11u219repro_cases_U_u02_two_pkgs_same_name
+tools/probe/v11u220repro/cases/K/k09,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 1 common constant assignments match,tools_probe_v11u220repro_cases_K_k09
+tools/probe/v11u220repro/cases/K/k15,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_v11u220repro_cases_K_k15
+tools/probe/v11u220repro/cases/K/k17,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 3 common constant assignments match,tools_probe_v11u220repro_cases_K_k17
+tools/probe/v11u220repro/cases/T/t14,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_v11u220repro_cases_T_t14
+tools/probe/r11u205dec/cases/FT/f03,SLANG_REJECT,,,,,,,tools_probe_r11u205dec_cases_FT_f03
+tools/probe/v11u216repro/cases/F/f02,SLANG_REJECT,,,,,,,tools_probe_v11u216repro_cases_F_f02
+tools/probe/v11u216repro/cases/T/t11,SLANG_REJECT,,,,,,,tools_probe_v11u216repro_cases_T_t11
+tools/probe/r11u185verify/cases/GV/v07_typed_then_generic,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u185verify_cases_GV_v07_typed_then_generic
+tools/probe/r11u185verify/cases/GV/v08_modport_then_generic,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u185verify_cases_GV_v08_modport_then_generic
+tools/probe/r11u185verify/cases/GV/v09_chain_through_generic,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u185verify_cases_GV_v09_chain_through_generic
+tools/probe/r11u185verify/cases/GV/v15_typed_then_generic_multiline,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u185verify_cases_GV_v15_typed_then_generic_multiline
+tools/probe/r11u185verify/cases/PG/p04_mod_control_same_ports,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u185verify_cases_PG_p04_mod_control_same_ports
+tools/probe/r11u190verify/cases/US/u01,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u190verify_cases_US_u01
+tools/probe/v11u215repro/cases/TC/c02_plain_enum_explicit_item,STATUS_DIFF,NO_GATES,CRASH,0,0,,,tools_probe_v11u215repro_cases_TC_c02_plain_enum_explicit_item
+tools/probe/v11u220repro/cases/G/g27,STATUS_DIFF,OK,NO_GATES,3,0,,,tools_probe_v11u220repro_cases_G_g27
+tools/probe/v11u220repro/cases/K/k13,STATUS_DIFF,READ_FAIL,NO_GATES,0,0,,,tools_probe_v11u220repro_cases_K_k13
+tools/probe/r11u220repro/cases/SL/s37,SURELOG_FAIL,,,,,,no reference database,tools_probe_r11u220repro_cases_SL_s37
+tools/probe/v11u219repro/cases/S/s01_dyn_inner,SURELOG_FAIL,,,,,,no reference database,tools_probe_v11u219repro_cases_S_s01_dyn_inner
+tools/probe/v11u219repro/cases/S/s01b_queue_inner,SURELOG_FAIL,,,,,,no reference database,tools_probe_v11u219repro_cases_S_s01b_queue_inner
+tools/probe/r11u229verify/cases/K/k07,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u229verify_cases_K_k07
+tools/probe/r11u229verify/cases/S/s07,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u229verify_cases_S_s07
+tools/probe/r11u229verify/cases/S/s11,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u229verify_cases_S_s11
+tools/probe/r11u229verify/cases/S/s17,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u229verify_cases_S_s17
+tools/probe/r11u229verify/cases/S/s09,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 4 common constant assignments match,tools_probe_r11u229verify_cases_S_s09
+tools/probe/r11u229verify/cases/A/a09,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,ℹ️  No common assign statements to compare — skipping,tools_probe_r11u229verify_cases_A_a09
+tools/probe/r11u229verify/cases/B/b02,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 1 common constant assignments match,tools_probe_r11u229verify_cases_B_b02
+tools/probe/r11u229verify/cases/B/b04,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 1 common constant assignments match,tools_probe_r11u229verify_cases_B_b04
+tools/probe/r11u229verify/cases/I/i07,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 2 common constant assignments match,tools_probe_r11u229verify_cases_I_i07
+tools/probe/r11u229verify/cases/L/l10,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,ℹ️  No common assign statements to compare — skipping,tools_probe_r11u229verify_cases_L_l10
+tools/probe/r11u229verify/cases/O/o01,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,ℹ️  No common assign statements to compare — skipping,tools_probe_r11u229verify_cases_O_o01
+tools/probe/r11u229verify/cases/O/o07,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,ℹ️  No common assign statements to compare — skipping,tools_probe_r11u229verify_cases_O_o07
+tools/probe/r11u229verify/cases/A/a12,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in /tmp/r11u230_dsP/tools_probe_r11u229verify_cases_A_a12/equiv/tools_probe_r11u229verif,tools_probe_r11u229verify_cases_A_a12
+tools/probe/r11u229verify/cases/B/b01,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u229verify_cases_B_b01/equiv,tools_probe_r11u229verify_cases_B_b01
+tools/probe/r11u229verify/cases/B/b05,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u229verify_cases_B_b05/equiv,tools_probe_r11u229verify_cases_B_b05
+tools/probe/r11u229verify/cases/O/o02,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u229verify_cases_O_o02/equiv,tools_probe_r11u229verify_cases_O_o02
+tools/probe/r11u229verify/cases/X/x02,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in /tmp/r11u230_dsP/tools_probe_r11u229verify_cases_X_x02/equiv/tools_probe_r11u229verif,tools_probe_r11u229verify_cases_X_x02
+tools/probe/r11u229verify/cases/X/x04,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u230_dsP/tools_probe_r11u229verify_cases_X_x04/equiv,tools_probe_r11u229verify_cases_X_x04
+tools/probe/r11u229verify/cases/A/a08,STATUS_DIFF,READ_FAIL,NO_GATES,0,0,,,tools_probe_r11u229verify_cases_A_a08
+tools/probe/r11u225repro/cases/OS/o05,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 4 common constant assignments match,tools_probe_r11u225repro_cases_OS_o05
+tools/probe/r11u225repro/cases/OS/o19,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 5 common constant assignments match,tools_probe_r11u225repro_cases_OS_o19
+tools/probe/r11u225repro/cases/OS/o21,EQUIVALENT,OK,OK,53,53,nohier il synth,✅ Formal equivalence check PASSED for /tmp/r11u230_dsP/tools_probe_r11u225repro_cases_OS_o21/equiv/tools_probe_r11u225re,tools_probe_r11u225repro_cases_OS_o21
+tools/probe/r11u225repro/cases/OS/o12,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u225repro_cases_OS_o12
+tools/probe/v11u224repro/cases/DS/ds01,IDENTICAL,OK,OK,1,1,,,tools_probe_v11u224repro_cases_DS_ds01
+tools/probe/v11u224repro/cases/DS/ds02,IDENTICAL,OK,OK,1,1,,,tools_probe_v11u224repro_cases_DS_ds02
+tools/probe/v11u224repro/cases/DS/ds03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_v11u224repro_cases_DS_ds03

@@ -1,0 +1,40 @@
+cluster N0132 (id kept from an earlier map; OPEN | ground A | site makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitClassParameters (UhdmExporter.cpp, law classTpTdGroupNonClsRootShared91) < emitClassDefn (UhdmExporter.cpp, law classDefnVirtualFromVirtualIfaceDecl6) [r11u142map pin]): span|int_typespec|line+endline|under:ref_typespec
+row: probe/default/r10earl85repro__g5_noshadow85  strict=line  records golden=197 ours=197
+object: #166 (golden) / #166 (ours)  type=int_typespec name=
+  golden: 2:53:2:56
+  ours:   1:53:1:56
+  walk parents: ref_typespec < constant < param_assign < module_inst(u_leaf)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 160..172 ('>' = the object)
+  #160	5	constant				dut.sv	2	39	2	41	17	32	UINT:17	9		000
+  #161	6	ref_typespec			work@top85.u_mid.u_leaf		0	0	0	0		0			work@top85.u_mid.u_leaf	000
+  #162	7	int_typespec				dut.sv	2	27	2	30						000
+  #163	4	param_assign				dut.sv	2	57	2	75						000
+  #164	5	constant				dut.sv	2	72	2	75	256	32	UINT:256	9		000
+  #165	6	ref_typespec			work@top85.u_mid.u_leaf		0	0	0	0		0			work@top85.u_mid.u_leaf	000
+> #166	7	int_typespec				dut.sv	2	53	2	56						000
+  #167	4	param_assign				dut.sv	4	18	4	54						000
+  #168	5	constant				dut.sv	4	34	4	54	8	32	UINT:8	9		000
+  #169	6	ref_typespec			work@top85.u_mid.u_leaf		0	0	0	0		0			work@top85.u_mid.u_leaf	000
+  #170	7	int_typespec				dut.sv	4	14	4	17						000
+  #171	4	param_assign				dut.sv	5	31	5	78						000
+  #172	5	operation				dut.sv	5	46	5	78		0				000
+
+--- OURS (B) records 160..172 ('>' = the object)
+  #160	5	constant				dut.sv	2	39	2	41	17	32	UINT:17	9		000
+  #161	6	ref_typespec			work@top85.u_mid.u_leaf		0	0	0	0		0			work@top85.u_mid.u_leaf	000
+  #162	7	int_typespec				dut.sv	2	27	2	30						000
+  #163	4	param_assign				dut.sv	2	57	2	75						000
+  #164	5	constant				dut.sv	2	72	2	75	256	32	UINT:256	9		000
+  #165	6	ref_typespec			work@top85.u_mid.u_leaf		0	0	0	0		0			work@top85.u_mid.u_leaf	000
+> #166	7	int_typespec				dut.sv	1	53	1	56						000
+  #167	4	param_assign				dut.sv	4	18	4	54						000
+  #168	5	constant				dut.sv	4	34	4	54	8	32	UINT:8	9		000
+  #169	6	ref_typespec			work@top85.u_mid.u_leaf		0	0	0	0		0			work@top85.u_mid.u_leaf	000
+  #170	7	int_typespec				dut.sv	4	14	4	17						000
+  #171	4	param_assign				dut.sv	5	31	5	78						000
+  #172	5	operation				dut.sv	5	46	5	78		0				000
+
+facets of this row (1, first 25):
+  N0132 #166/166 int_typespec  G[2:53:2:56] O[1:53:1:56]

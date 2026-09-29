@@ -1,0 +1,64 @@
+cluster N0123 (id kept from an earlier map; OPEN (map 14 gave it to pair B r11u223; passes 223 and 225 left it) | ground B | site makeParamTs (ParamEmit.cpp, law pkgParamTsRefColons131) < emitParameters (ParamEmit.cpp, law pkgImpParamMemberColons210) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) [r11u230 pin]): file|int_typespec|other-file+span|under:ref_typespec
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(19)  records golden=1342584 ours=1342870
+object: #604623 (golden) / #604520 (ours)  type=int_typespec name=
+  golden: flash_erase_ctrl.sv 9:13:9:16
+  ours:   flash_ctrl_pkg.sv 18:14:18:17
+  walk parents: ref_typespec < constant < param_assign < module_inst(u_flash_erase_ctrl)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 604617..604629 ('>' = the object)
+  #604617	11	int_typespec				flash_ctrl_pkg.sv	18	14	18	17						001
+  #604618	9	constant				flash_erase_ctrl.sv	42	26	42	27	1	64	UINT:1	9		001
+  #604619	8	constant				flash_erase_ctrl.sv	42	28	42	29	0	64	UINT:0	9		001
+  #604620	4	param_assign				flash_erase_ctrl.sv	9	17	9	27						000
+  #604621	5	constant				flash_erase_ctrl.sv	9	25	9	27	17	32	UINT:17	9		000
+  #604622	6	ref_typespec			work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl		0	0	0	0		0			work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl	000
+> #604623	7	int_typespec				flash_erase_ctrl.sv	9	13	9	16						000
+  #604624	4	param_assign				flash_erase_ctrl.sv	10	17	10	35						000
+  #604625	5	constant				flash_erase_ctrl.sv	10	32	10	35	256	32	UINT:256	9		000
+  #604626	6	ref_typespec			work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl		0	0	0	0		0			work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl	000
+  #604627	7	int_typespec				flash_erase_ctrl.sv	10	13	10	16						000
+  #604628	4	param_assign				flash_erase_ctrl.sv	11	17	11	35						000
+  #604629	5	constant				flash_erase_ctrl.sv	11	32	11	35	256	32	UINT:256	9		000
+
+--- OURS (B) records 604514..604526 ('>' = the object)
+  #604514	11	int_typespec				flash_ctrl_pkg.sv	18	14	18	17						001
+  #604515	9	constant				flash_erase_ctrl.sv	42	26	42	27	1	64	UINT:1	9		001
+  #604516	8	constant				flash_erase_ctrl.sv	42	28	42	29	0	64	UINT:0	9		001
+  #604517	4	param_assign				flash_erase_ctrl.sv	9	17	9	27						000
+  #604518	5	constant				flash_erase_ctrl.sv	9	25	9	27	17	32	UINT:17	9		000
+  #604519	6	ref_typespec			work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl		0	0	0	0		0			work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl	000
+> #604520	7	int_typespec				flash_ctrl_pkg.sv	18	14	18	17						000
+  #604521	4	param_assign				flash_erase_ctrl.sv	10	17	10	35						000
+  #604522	5	constant				flash_erase_ctrl.sv	10	32	10	35	256	32	UINT:256	9		000
+  #604523	6	ref_typespec			work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl		0	0	0	0		0			work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl	000
+  #604524	7	int_typespec				flash_ctrl_pkg.sv	13	14	13	17						000
+  #604525	4	param_assign				flash_erase_ctrl.sv	11	17	11	35						000
+  #604526	5	constant				flash_erase_ctrl.sv	11	32	11	35	256	32	UINT:256	9		000
+
+facets of this row (530, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

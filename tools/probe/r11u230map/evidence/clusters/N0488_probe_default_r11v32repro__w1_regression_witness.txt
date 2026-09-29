@@ -1,0 +1,41 @@
+cluster N0488 (id kept from an earlier map; OPEN | ground B | site makeTypeParamDefaultTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) [r11u179 pin] [r11u179map pin]): struct|golden-only:fewer-copies|range|under:bit_typespec
+row: probe/default/r11v32repro__w1_regression_witness  strict=line  records golden=67 ours=64
+object: #39 (golden) / #-1 (ours)  type=range name=
+  golden: 3 objs
+  ours:
+  walk parents: bit_typespec < ref_typespec < bit_var(d) < module_inst(i0)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 33..45 ('>' = the object)
+  #33	3	ref_typespec			work@w1_top.sink		0	0	0	0		0			work@w1_top.sink	000
+  #34	4	logic_typespec				dut.sv	10	3	10	8						000
+  #35	2	module_inst	i0	work@w1_child	work@w1_top.i0	dut.sv	11	3	11	29					work@w1_top.i0	000
+  #36	3	bit_var	d		work@w1_top.i0.d	dut.sv	5	11	5	12		0			work@w1_top.i0.d	000
+  #37	4	ref_typespec			work@w1_top.i0.d		0	0	0	0		0			work@w1_top.i0.d	000
+  #38	5	bit_typespec				dut.sv	2	38	5	10						000
+> #39	6	range				dut.sv	2	42	2	47						001
+  #40	7	constant				dut.sv	2	43	2	44	7	64	UINT:7	9		001
+  #41	7	constant				dut.sv	2	45	2	46	0	64	UINT:0	9		001
+  #42	3	type_parameter	T		work@w1_child.T	dut.sv	2	34	2	35					work@w1_child.T	010
+  #43	4	ref_typespec			<in>T		0	0	0	0		0			work@w1_child.T	001
+  #44	5	bit_typespec				dut.sv	2	38	5	10						001
+  #45	6	range				dut.sv	2	42	2	47						001
+
+--- the holder #38 on the other side: exact-record matches at [41]
+  #38	5	bit_typespec				dut.sv	5	3	5	10						000
+  #39	3	type_parameter	T		work@w1_child.T	dut.sv	2	34	2	35					work@w1_child.T	010
+  #40	4	ref_typespec			<in>T		0	0	0	0		0			work@w1_child.T	001
+> #41	5	bit_typespec				dut.sv	2	38	5	10						001
+  #42	6	range				dut.sv	2	42	2	47						001
+  #43	7	constant				dut.sv	2	43	2	44	7	64	UINT:7	9		001
+  #44	7	constant				dut.sv	2	45	2	46	0	64	UINT:0	9		001
+  #45	3	logic_net	sink		work@w1_top.i0.sink	dut.sv	3	18	3	22		0			work@w1_top.i0.sink	000
+  #46	4	ref_typespec			work@w1_top.i0.sink		0	0	0	0		0			work@w1_top.i0.sink	000
+  #47	5	logic_typespec				dut.sv	3	12	3	17						000
+  #48	3	port	sink			dut.sv	3	18	3	22						000
+  #49	4	ref_obj	sink		work@w1_top.sink	dut.sv	11	22	11	26		0			work@w1_top.sink	000
+  #50	4	ref_obj	sink		work@w1_top.i0.sink	dut.sv	11	17	11	21		0			work@w1_top.i0.sink	000
+
+facets of this row (2, first 25):
+  N0488 #39/-1 range  G[3 objs] O[]
+  N2261 #38/38 bit_typespec  G[2:38:5:10] O[5:3:5:10]

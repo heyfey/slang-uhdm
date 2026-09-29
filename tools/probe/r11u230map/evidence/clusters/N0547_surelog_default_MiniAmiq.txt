@@ -1,0 +1,64 @@
+cluster N0547 (id kept from an earlier map; COVERED r11u227 (the UVM ground-A families, optimistic) | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law randWithIdentListIsSuffixPaths116) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164) [r11u189 pin] [r11u189map pin]): fullname|ref_obj|ours-empty|under:method_func_call
+row: surelog/default/MiniAmiq  strict=differ:line(2)  records golden=435559 ours=432516
+object: #72428 (golden) / #72243 (ours)  type=ref_obj name=m_packed_size OUT
+  golden: svaunit_pkg::uvm_packer::get_bits::m_packed_size
+  ours:
+  walk parents: method_func_call(new) < assignment < begin < function(uvm_packer::get_bits)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 72422..72434 ('>' = the object)
+  #72422	5	constant				uvm_packer.svh	474	57	474	58	unsized	0	STRING:unsized	6		000
+  #72423	4	ref_typespec			svaunit_pkg::uvm_packer::get_bits::bits		0	0	0	0		0			svaunit_pkg::uvm_packer::get_bits::bits	000
+  #72424	5	bit_typespec				uvm_packer.svh	474	40	474	52						000
+  #72425	3	begin			svaunit_pkg::uvm_packer::get_bits	uvm_packer.svh	476	3	477	25					svaunit_pkg::uvm_packer::get_bits	000
+  #72426	4	assignment				uvm_packer.svh	475	3	475	28						000
+  #72427	5	method_func_call	new			uvm_packer.svh	475	10	475	28		0				000
+> #72428	6	ref_obj	m_packed_size		svaunit_pkg::uvm_packer::get_bits::m_packed_size	uvm_packer.svh	475	14	475	27		0			svaunit_pkg::uvm_packer::get_bits::m_packed_size	000
+  #72429	5	ref_obj	bits		svaunit_pkg::uvm_packer::get_bits::bits	uvm_packer.svh	475	3	475	7		0			svaunit_pkg::uvm_packer::get_bits::bits	000
+  #72430	4	for_stmt			svaunit_pkg::uvm_packer::get_bits	uvm_packer.svh	476	3	476	6					svaunit_pkg::uvm_packer::get_bits	000
+  #72431	5	assignment				uvm_packer.svh	476	8	476	15						000
+  #72432	6	constant				uvm_packer.svh	476	14	476	15	0	64	UINT:0	9		000
+  #72433	6	int_var	i		svaunit_pkg::uvm_packer::get_bits::i	uvm_packer.svh	476	12	476	13		0			svaunit_pkg::uvm_packer::get_bits::i	000
+  #72434	7	ref_typespec			svaunit_pkg::uvm_packer::get_bits::i		0	0	0	0		0			svaunit_pkg::uvm_packer::get_bits::i	000
+
+--- OURS (B) records 72237..72249 ('>' = the object)
+  #72237	5	constant				uvm_packer.svh	474	57	474	58	unsized	0	STRING:unsized	6		000
+  #72238	4	ref_typespec			svaunit_pkg::uvm_packer::get_bits::bits		0	0	0	0		0			svaunit_pkg::uvm_packer::get_bits::bits	000
+  #72239	5	bit_typespec				uvm_packer.svh	474	40	474	52						000
+  #72240	3	begin			svaunit_pkg::uvm_packer::get_bits	uvm_packer.svh	476	3	477	25					svaunit_pkg::uvm_packer::get_bits	000
+  #72241	4	assignment				uvm_packer.svh	475	3	475	28						000
+  #72242	5	method_func_call	new			uvm_packer.svh	475	10	475	28		0				000
+> #72243	6	ref_obj	m_packed_size			uvm_packer.svh	475	14	475	27		0				000
+  #72244	5	ref_obj	bits		svaunit_pkg::uvm_packer::get_bits::bits	uvm_packer.svh	475	3	475	7		0			svaunit_pkg::uvm_packer::get_bits::bits	000
+  #72245	4	for_stmt			svaunit_pkg::uvm_packer::get_bits	uvm_packer.svh	476	3	476	6					svaunit_pkg::uvm_packer::get_bits	000
+  #72246	5	assignment				uvm_packer.svh	476	8	476	15						000
+  #72247	6	constant				uvm_packer.svh	476	14	476	15	0	64	UINT:0	9		000
+  #72248	6	int_var	i		svaunit_pkg::uvm_packer::get_bits::i	uvm_packer.svh	476	12	476	13		0			svaunit_pkg::uvm_packer::get_bits::i	000
+  #72249	7	ref_typespec			svaunit_pkg::uvm_packer::get_bits::i		0	0	0	0		0			svaunit_pkg::uvm_packer::get_bits::i	000
+
+facets of this row (3771, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

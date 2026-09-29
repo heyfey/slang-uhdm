@@ -1,0 +1,64 @@
+cluster N1082 (id kept from an earlier map; COVERED r11u227 (the Earlgrey_0_1 ground-A scope-name family, optimistic) | ground A | site tryFoldConst (ExprEmit.cpp, law srlgSizeCastUbShiftMask93) < operator() (ParamEmit.cpp, law castElabFoldTargetKinds) < emitParameters (ParamEmit.cpp, law castElabFoldTargetKinds) [r11u138map pin] [r11u142map pin]): span|constant|col|under:param_assign
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(19)  records golden=1342584 ours=1342870
+object: #123704 (golden) / #123704 (ours)  type=constant name=
+  golden: 43:53:43:63
+  ours:   43:28:43:63
+  walk parents: param_assign < module_inst < design(work@prim_sync_reqack)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 123698..123710 ('>' = the object)
+  #123698	4	ref_typespec			work@flash_phy_core		0	0	0	0		0			work@flash_phy_core	000
+  #123699	5	int_typespec				flash_phy_pkg.sv	42	13	42	16						000
+  #123700	3	parameter	LsbAddrBit		work@flash_phy_core.LsbAddrBit	flash_phy_pkg.sv	42	17	42	27		0	UINT:1		work@flash_phy_core.LsbAddrBit	000
+  #123701	4	ref_typespec			work@flash_phy_core.LsbAddrBit		0	0	0	0		0			work@flash_phy_core.LsbAddrBit	000
+  #123702	5	int_typespec				flash_phy_pkg.sv	42	13	42	16						000
+  #123703	2	param_assign				flash_phy_pkg.sv	43	17	43	63						000
+> #123704	3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9		000
+  #123705	4	ref_typespec			work@flash_phy_core		0	0	0	0		0			work@flash_phy_core	000
+  #123706	5	int_typespec				flash_phy_pkg.sv	43	13	43	16						000
+  #123707	3	parameter	WordSelW		work@flash_phy_core.WordSelW	flash_phy_pkg.sv	43	17	43	25		0	UINT:1		work@flash_phy_core.WordSelW	000
+  #123708	4	ref_typespec			work@flash_phy_core.WordSelW		0	0	0	0		0			work@flash_phy_core.WordSelW	000
+  #123709	5	int_typespec				flash_phy_pkg.sv	43	13	43	16						000
+  #123710	2	param_assign				flash_phy_pkg.sv	46	17	46	56						000
+
+--- OURS (B) records 123698..123710 ('>' = the object)
+  #123698	4	ref_typespec			work@flash_phy_core		0	0	0	0		0			work@flash_phy_core	000
+  #123699	5	int_typespec				flash_phy_pkg.sv	42	13	42	16						000
+  #123700	3	parameter	LsbAddrBit		work@flash_phy_core.LsbAddrBit	flash_phy_pkg.sv	42	17	42	27		0	UINT:1		work@flash_phy_core.LsbAddrBit	000
+  #123701	4	ref_typespec			work@flash_phy_core.LsbAddrBit		0	0	0	0		0			work@flash_phy_core.LsbAddrBit	000
+  #123702	5	int_typespec				flash_phy_pkg.sv	42	13	42	16						000
+  #123703	2	param_assign				flash_phy_pkg.sv	43	17	43	63						000
+> #123704	3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9		000
+  #123705	4	ref_typespec			work@flash_phy_core		0	0	0	0		0			work@flash_phy_core	000
+  #123706	5	int_typespec				flash_phy_pkg.sv	43	13	43	16						000
+  #123707	3	parameter	WordSelW		work@flash_phy_core.WordSelW	flash_phy_pkg.sv	43	17	43	25		0	UINT:1		work@flash_phy_core.WordSelW	000
+  #123708	4	ref_typespec			work@flash_phy_core.WordSelW		0	0	0	0		0			work@flash_phy_core.WordSelW	000
+  #123709	5	int_typespec				flash_phy_pkg.sv	43	13	43	16						000
+  #123710	2	param_assign				flash_phy_pkg.sv	46	17	46	56						000
+
+facets of this row (530, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

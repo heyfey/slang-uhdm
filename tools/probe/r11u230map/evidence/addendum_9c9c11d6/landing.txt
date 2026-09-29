@@ -1,0 +1,16 @@
+== passes 228 + 227 (9c9c11d6) landed: corpus STRICT_NOTEQUAL row-modes 28 -> 28 (0 converted, 0 entered); probe 634 -> 634 (0 converted, 0 entered)
+   converted: -
+   entered: -
+   probe converted: -
+   probe entered: -
+   row-modes whose strict cell changed: 2: sur/d/FuncStructVal differ:endcol(7) -> differ:file(5); sur/t/FuncStructVal differ:endcol(10) -> differ:file(9)
+   clusters (keys) 695 -> 694: gone 1, new 0
+   gone (rows/probe before): N1096 2/0
+   gone with a corpus row: N1096 rows 2 [sur/d/FuncStructVal sur/t/FuncStructVal] `span|ref_obj|endcol|under:tagged_pattern`
+   new (rows/probe after):
+   fell (rows): -
+   grew (rows): -
+   probe: 1 clusters fell, 0 grew: N0003 24->4 | grew:
+   differing objects (analyzer facet rows) per row-mode, before -> after:
+     sur/d/FuncStructVal                                        138 ->    136   clusters 5 -> 4
+     sur/t/FuncStructVal                                        173 ->    171   clusters 6 -> 5

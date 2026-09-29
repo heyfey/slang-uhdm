@@ -1,0 +1,12 @@
+== tools/probe/r11u196repro/cases/V191/qr01
+  slang-uhdm md5(bin)=7e50408d1da0 runs: 59579b0443bb 59579b0443bb 59579b0443bb
+  slang-uhdm.rebuild2 md5(bin)=7e50408d1da0 runs: 59579b0443bb 59579b0443bb 59579b0443bb
+  slang-uhdm.g1 md5(bin)=4287f4e8bab7 runs: 59579b0443bb 59579b0443bb 59579b0443bb
+  slang-uhdm vs slang-uhdm.rebuild2: bytes IDENTICAL; dump lines differing 0
+  slang-uhdm vs slang-uhdm.g1: bytes IDENTICAL; dump lines differing 0
+== tools/probe/r11u209repro/cases/TW/qr01
+  slang-uhdm md5(bin)=7e50408d1da0 runs: 19fed6ff2f86 19fed6ff2f86 19fed6ff2f86
+  slang-uhdm.rebuild2 md5(bin)=7e50408d1da0 runs: 19fed6ff2f86 19fed6ff2f86 19fed6ff2f86
+  slang-uhdm.g1 md5(bin)=4287f4e8bab7 runs: 19fed6ff2f86 19fed6ff2f86 19fed6ff2f86
+  slang-uhdm vs slang-uhdm.rebuild2: bytes IDENTICAL; dump lines differing 0
+  slang-uhdm vs slang-uhdm.g1: bytes IDENTICAL; dump lines differing 0

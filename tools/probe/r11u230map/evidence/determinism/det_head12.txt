@@ -1,0 +1,4 @@
+MiniAmiq default draws=12 distinct=1 head=7d6c076f4328 | 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0
+MiniAmiq testflags draws=12 distinct=1 head=7d6c076f4328 | 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0 7d6c076f4328/rc=0
+Scoreboard default draws=12 distinct=1 head=dbb7fce68eb4 | dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0 dbb7fce68eb4/rc=0
+Scoreboard testflags skip SLANG_REJECT

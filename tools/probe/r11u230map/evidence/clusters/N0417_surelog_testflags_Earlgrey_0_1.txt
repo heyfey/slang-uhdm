@@ -1,0 +1,64 @@
+cluster N0417 (id kept from an earlier map; COVERED r11u227 (the Earlgrey_0_1 ground-A scope-name family, optimistic) | ground A | site foldUnpackedStructArrayPattern (ParamEmit.cpp, law unpackedStructArrPatOneElemFold) < emitInstance (ModuleEmit.cpp, law genConnIdxFoldConnOnly21) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46) [DECODED (r11u148 C3 leftover): the elaborated port region_attrs_i high_conn: golden relocates the substituted pattern value to the ACTUAL's span 23:23-23:33 and names it work@top.u_hw_sel.region_attrs_i; ours keeps the package parameter's pattern span 6:49-10:5 and doubles the instance (u_hw_sel.u_hw_sel): the port-connection value substitution (ModuleEmit.cpp emitInstance high-conn, r11u140 R8)] [r11u150map pin]): span|operation|line+col+endline+endcol|under:port
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(19)  records golden=1342584 ours=1342870
+object: #922862 (golden) / #922995 (ours)  type=operation name=
+  golden: 26:58:28:4
+  ours:   628:26:628:65
+  walk parents: port(lc_pinmux_strap_i) < module_inst(u_pinmux) < module_inst(work@top_earlgrey) < design(work@prim_sync_reqack)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 922856..922868 ('>' = the object)
+  #922856	3	port	sleep_en_i			pinmux.sv	19	36	19	46						000
+  #922857	4	constant				top_earlgrey.sv	630	19	630	23	1'b0	1	BIN:0	3		000
+  #922858	4	ref_obj	sleep_en_i		work@top_earlgrey.u_pinmux.sleep_en_i	top_earlgrey.sv	630	8	630	18		0			work@top_earlgrey.u_pinmux.sleep_en_i	000
+  #922859	4	ref_typespec			work@top_earlgrey.u_pinmux.sleep_en_i		0	0	0	0		0			work@top_earlgrey.u_pinmux.sleep_en_i	000
+  #922860	5	logic_typespec				pinmux.sv	19	36	19	36						000
+  #922861	3	port	lc_pinmux_strap_i			pinmux.sv	21	36	21	53						000
+> #922862	4	operation				pinmux_pkg.sv	26	58	28	4		0				000
+  #922863	5	ref_typespec			work@top_earlgrey.u_pinmux.lc_pinmux_strap_i		0	0	0	0		0			work@top_earlgrey.u_pinmux.lc_pinmux_strap_i	000
+  #922864	6	struct_typespec	pinmux_pkg::lc_strap_req_t			pinmux_pkg.sv	22	11	24	4						110
+  #922865	7	typespec_member	sample_pulse			pinmux_pkg.sv	23	11	23	23						001
+  #922866	8	ref_typespec			<in>pinmux_pkg::lc_strap_req_t.sample_pulse		0	0	0	0		0			work@top_earlgrey.u_pinmux.lc_pinmux_strap_i.pinmux_pkg::lc_strap_req_t.sample_pulse	001
+  #922867	9	logic_typespec				pinmux_pkg.sv	23	5	23	10						001
+  #922868	5	constant				pinmux_pkg.sv	27	19	27	23	1'b0	1	BIN:0	3		000
+
+--- OURS (B) records 922989..923001 ('>' = the object)
+  #922989	3	port	sleep_en_i			pinmux.sv	19	36	19	46						000
+  #922990	4	constant				top_earlgrey.sv	630	19	630	23	1'b0	1	BIN:0	3		000
+  #922991	4	ref_obj	sleep_en_i		work@top_earlgrey.u_pinmux.sleep_en_i	top_earlgrey.sv	630	8	630	18		0			work@top_earlgrey.u_pinmux.sleep_en_i	000
+  #922992	4	ref_typespec			work@top_earlgrey.u_pinmux.sleep_en_i		0	0	0	0		0			work@top_earlgrey.u_pinmux.sleep_en_i	000
+  #922993	5	logic_typespec				pinmux.sv	19	36	19	36						000
+  #922994	3	port	lc_pinmux_strap_i			pinmux.sv	21	36	21	53						000
+> #922995	4	operation				pinmux_pkg.sv	628	26	628	65		0				000
+  #922996	5	ref_typespec			work@top_earlgrey.u_pinmux.lc_pinmux_strap_i		0	0	0	0		0			work@top_earlgrey.u_pinmux.lc_pinmux_strap_i	000
+  #922997	6	struct_typespec	pinmux_pkg::lc_strap_req_t			pinmux_pkg.sv	22	11	24	4						110
+  #922998	7	typespec_member	sample_pulse			pinmux_pkg.sv	23	11	23	23						001
+  #922999	8	ref_typespec			<in>pinmux_pkg::lc_strap_req_t.sample_pulse		0	0	0	0		0			work@pinmux_wkup.pinmux_pkg::lc_strap_req_t.sample_pulse	001
+  #923000	9	logic_typespec				pinmux_pkg.sv	23	5	23	10						001
+  #923001	5	constant				pinmux_pkg.sv	27	19	27	23	1'b0	1	BIN:0	3		000
+
+facets of this row (530, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

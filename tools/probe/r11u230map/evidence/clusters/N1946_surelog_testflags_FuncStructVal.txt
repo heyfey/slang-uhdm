@@ -1,0 +1,64 @@
+cluster N1946 (id kept from an earlier map; COVERED r11u227 (item 1: FuncStructVal A half (named N1946)) | ground A | site makeMemLeftConst (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitParameters (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind) [r11u138map pin] [r11u142map pin]): struct|ours-only:fewer-copies|constant|under:typespec_member
+row: surelog/testflags/FuncStructVal  strict=differ:endcol(10)  records golden=45362 ours=45097
+object: #-1 (golden) / #13254 (ours)  type=constant name=
+  golden:
+  ours:   3 objs
+  walk parents: typespec_member(DCACHE_USER_WIDTH) < ref_obj(DCACHE_USER_WIDTH) < hier_path(cfg.DCACHE_USER_WIDTH) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 13248..13260 ('>' = the object)
+  #13248	5	hier_path	cfg.DCACHE_USER_WIDTH			dut.sv	583	5	583	26		0				000
+  #13249	6	ref_obj	cfg			dut.sv	583	9	583	26		0				000
+  #13250	6	ref_obj	DCACHE_USER_WIDTH			dut.sv	583	9	583	26		0				000
+  #13251	7	typespec_member	DCACHE_USER_WIDTH			dut.sv	387	18	387	35						000
+  #13252	8	ref_typespec			config_pkg::config_pkg::cva6_cfg_t::DCACHE_USER_WIDTH		0	0	0	0		0			config_pkg::config_pkg::cva6_cfg_t::DCACHE_USER_WIDTH	000
+  #13253	9	int_typespec				dut.sv	387	5	387	17						000
+> #13254	8	constant				dut.sv	76	31	76	54	32	32	UINT:32	9		000
+  #13255	9	ref_typespec			cva6_config_pkg		0	0	0	0		0			cva6_config_pkg	000
+  #13256	10	int_typespec				dut.sv	27	3	27	54						000
+  #13257	4	assignment				dut.sv	584	5	584	50						000
+  #13258	5	ref_obj	DCACHE_OFFSET_WIDTH		build_config_pkg::build_config::DCACHE_OFFSET_WIDTH	dut.sv	584	31	584	50		0			build_config_pkg::build_config::DCACHE_OFFSET_WIDTH	000
+  #13259	6	int_var	DCACHE_OFFSET_WIDTH		build_config_pkg::build_config::DCACHE_OFFSET_WIDTH	dut.sv	494	18	494	37		0			build_config_pkg::build_config::DCACHE_OFFSET_WIDTH	000
+  #13260	7	ref_typespec			build_config_pkg::build_config::DCACHE_OFFSET_WIDTH		0	0	0	0		0			build_config_pkg::build_config::DCACHE_OFFSET_WIDTH	000
+
+--- the holder #13251 on the other side: exact-record matches at [10658, 13251, 37492, 40657]
+  #10655	9	int_typespec				dut.sv	386	5	386	17						001
+  #10656	8	constant					0	0	0	0	128	64	INT:128	7		001
+  #10657	8	constant					0	0	0	0	128	64	INT:128	7		001
+> #10658	7	typespec_member	DCACHE_USER_WIDTH			dut.sv	387	18	387	35						001
+  #10659	8	ref_typespec			<in>config_pkg::cva6_cfg_t.DCACHE_USER_WIDTH		0	0	0	0		0			config_pkg::config_pkg::cva6_cfg_t::DCACHE_USER_WIDTH	001
+  #10660	9	int_typespec				dut.sv	387	5	387	17						001
+  #10661	8	constant				dut.sv	76	31	76	54	32	32	UINT:32	9		001
+  #10662	9	ref_typespec			cva6_config_pkg		0	0	0	0		0			cva6_config_pkg	001
+  #10663	10	int_typespec				dut.sv	27	3	27	54						001
+  #10664	8	constant				dut.sv	76	31	76	54	32	32	UINT:32	9		001
+  #10665	9	ref_typespec			cva6_config_pkg		0	0	0	0		0			cva6_config_pkg	001
+  #10666	10	int_typespec				dut.sv	27	3	27	54						001
+  #10667	7	typespec_member	DCACHE_OFFSET_WIDTH			dut.sv	388	18	388	37						001
+
+facets of this row (173, first 25):
+  N1946 #-1/13254 constant  G[] O[3 objs]
+  N0891 #14765/-1 operation  G[4 objs] O[]
+  N0891 #14769/-1 operation  G[4 objs] O[]
+  N0891 #14782/-1 operation  G[4 objs] O[]
+  N0891 #14786/-1 operation  G[4 objs] O[]
+  N0891 #14804/-1 operation  G[4 objs] O[]
+  N0891 #14808/-1 operation  G[4 objs] O[]
+  N0891 #14821/-1 operation  G[4 objs] O[]
+  N0891 #14825/-1 operation  G[4 objs] O[]
+  N0891 #16430/-1 operation  G[4 objs] O[]
+  N0891 #16434/-1 operation  G[4 objs] O[]
+  N0891 #16447/-1 operation  G[4 objs] O[]
+  N0891 #16451/-1 operation  G[4 objs] O[]
+  N0891 #16469/-1 operation  G[4 objs] O[]
+  N0891 #16473/-1 operation  G[4 objs] O[]
+  N0891 #16486/-1 operation  G[4 objs] O[]
+  N0891 #16490/-1 operation  G[4 objs] O[]
+  N0891 #18089/-1 operation  G[4 objs] O[]
+  N0891 #18093/-1 operation  G[4 objs] O[]
+  N0891 #18106/-1 operation  G[4 objs] O[]
+  N0891 #18110/-1 operation  G[4 objs] O[]
+  N0891 #18128/-1 operation  G[4 objs] O[]
+  N0891 #18132/-1 operation  G[4 objs] O[]
+  N0891 #18145/-1 operation  G[4 objs] O[]
+  N0891 #18149/-1 operation  G[4 objs] O[]

@@ -1,0 +1,41 @@
+cluster N1942 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law concatIdxDecompile29) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u138map pin] [r11u142map pin]): span|var_select|col|under:hier_path
+row: probe/default/r10svs4repro__g1_thisidx  strict=col  records golden=272 ours=272
+object: #188 (golden) / #188 (ours)  type=var_select name=m2
+  golden: 47:15:47:23
+  ours:   47:11:47:23
+  walk parents: hier_path(pkt.m2[k][1]) < assignment < begin < function(f)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 182..194 ('>' = the object)
+  #182	6	ref_obj	this			dut.sv	46	16	46	18		0				000
+  #183	6	ref_obj	m2			dut.sv	46	16	46	18		0				000
+  #184	5	ref_obj	r		work@Grid::f::r	dut.sv	46	7	46	8		0			work@Grid::f::r	000
+  #185	4	assignment				dut.sv	47	7	47	23						000
+  #186	5	hier_path	pkt.m2[k][1]			dut.sv	47	11	47	23		0				000
+  #187	6	ref_obj	pkt			dut.sv	47	11	47	14		0				000
+> #188	6	var_select	m2		work@Grid::f::pkt.m2[k][1]::m2	dut.sv	47	15	47	23		0			work@Grid::f::pkt.m2[k][1]::m2	000
+  #189	7	ref_obj	k		work@Grid::f::pkt.m2[k][1]::m2::k	dut.sv	47	18	47	19		0			work@Grid::f::pkt.m2[k][1]::m2::k	000
+  #190	7	constant				dut.sv	47	21	47	22	1	64	UINT:1	9		000
+  #191	5	ref_obj	r		work@Grid::f::r	dut.sv	47	7	47	8		0			work@Grid::f::r	000
+  #192	4	assignment				dut.sv	48	7	48	22						000
+  #193	5	hier_path	this.scalar			dut.sv	48	11	48	22		0				000
+  #194	6	ref_obj	this			dut.sv	48	16	48	22		0				000
+
+--- OURS (B) records 182..194 ('>' = the object)
+  #182	6	ref_obj	this			dut.sv	46	16	46	18		0				000
+  #183	6	ref_obj	m2			dut.sv	46	16	46	18		0				000
+  #184	5	ref_obj	r		work@Grid::f::r	dut.sv	46	7	46	8		0			work@Grid::f::r	000
+  #185	4	assignment				dut.sv	47	7	47	23						000
+  #186	5	hier_path	pkt.m2[k][1]			dut.sv	47	11	47	23		0				000
+  #187	6	ref_obj	pkt			dut.sv	47	11	47	14		0				000
+> #188	6	var_select	m2		work@Grid::f::pkt.m2[k][1]::m2	dut.sv	47	11	47	23		0			work@Grid::f::pkt.m2[k][1]::m2	000
+  #189	7	ref_obj	k		pkt.m2[k][1].k	dut.sv	47	18	47	19		0			pkt.m2[k][1].k	000
+  #190	7	constant				dut.sv	47	21	47	22	1	64	UINT:1	9		000
+  #191	5	ref_obj	r		work@Grid::f::r	dut.sv	47	7	47	8		0			work@Grid::f::r	000
+  #192	4	assignment				dut.sv	48	7	48	22						000
+  #193	5	hier_path	this.scalar			dut.sv	48	11	48	22		0				000
+  #194	6	ref_obj	this			dut.sv	48	16	48	22		0				000
+
+facets of this row (2, first 25):
+  N1942 #188/188 var_select m2 G[47:15:47:23] O[47:11:47:23]
+  N2190 #189/189 ref_obj k G[work@Grid::f::pkt.m2[k][1]::m2::k] O[pkt.m2[k][1].k]

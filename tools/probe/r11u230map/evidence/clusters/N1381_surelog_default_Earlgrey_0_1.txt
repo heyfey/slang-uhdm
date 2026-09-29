@@ -1,0 +1,64 @@
+cluster N1381 (id kept from an earlier map; COVERED r11u227 (the Earlgrey_0_1 ground-A scope-name family, optimistic) | ground A | site emitExpr (ExprEmit.cpp, law genCaLpPaCopy) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpConnElemIdxFold17) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:.id[n].id[id].id[n - n-:n].id->|under:constant
+row: surelog/default/Earlgrey_0_1  strict=differ:fullname(19)  records golden=2173209 ours=2173853
+object: #1794139 (golden) / #1794492 (ours)  type=ref_typespec name= OUT
+  golden: work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[i].a_source[8 - 1-:2].a_source
+  ours:   work@top_earlgrey.u_xbar_main.u_sm1_17
+  walk parents: constant < operation < indexed_part_select(a_source) < hier_path(tl_h_i[i].a_source[8 - 1-:2])
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1794133..1794145 ('>' = the object)
+  #1794133	7	hier_path	tl_h_i[i].a_source[8 - 1-:2]			tlul_socket_m1.sv	105	33	105	67		0				000
+  #1794134	8	bit_select	tl_h_i		tl_h_i[i]	tlul_socket_m1.sv	105	33	105	39		0			tl_h_i[i]	000
+  #1794135	9	ref_obj	i		work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].i	tlul_socket_m1.sv	105	40	105	41		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].i	000
+  #1794136	8	indexed_part_select	a_source		tl_h_i[i].a_source[8 - 1-:2]	tlul_socket_m1.sv	105	43	105	66		0			tl_h_i[i].a_source[8 - 1-:2]	000
+  #1794137	9	operation				tlul_socket_m1.sv	105	52	105	57		0				000
+  #1794138	10	constant				tlul_socket_m1.sv	105	52	105	55	8	32	UINT:8	9		000
+> #1794139	11	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[i].a_source[8 - 1-:2].a_source		0	0	0	0		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[i].a_source[8 - 1-:2].a_source	000
+  #1794140	12	int_typespec				top_pkg.sv	10	12	10	15						000
+  #1794141	10	constant				tlul_socket_m1.sv	105	56	105	57	1	64	UINT:1	9		000
+  #1794142	9	constant				tlul_socket_m1.sv	105	61	105	66	2	32	UINT:2	9		000
+  #1794143	10	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17		0	0	0	0		0			work@top_earlgrey.u_xbar_main.u_sm1_17	000
+  #1794144	11	int_typespec				tlul_socket_m1.sv	73	14	73	26						000
+  #1794145	7	ref_obj	unused_tl_h_source		work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].unused_tl_h_source	tlul_socket_m1.sv	105	12	105	30		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].unused_tl_h_source	000
+
+--- OURS (B) records 1794486..1794498 ('>' = the object)
+  #1794486	7	hier_path	tl_h_i[i].a_source[8 - 1-:2]			tlul_socket_m1.sv	105	33	105	67		0				000
+  #1794487	8	bit_select	tl_h_i		tl_h_i[i]	tlul_socket_m1.sv	105	33	105	39		0			tl_h_i[i]	000
+  #1794488	9	ref_obj	i		work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].i	tlul_socket_m1.sv	105	40	105	41		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].i	000
+  #1794489	8	indexed_part_select	a_source		tl_h_i[i].a_source[8 - 1-:2]	tlul_socket_m1.sv	105	43	105	66		0			tl_h_i[i].a_source[8 - 1-:2]	000
+  #1794490	9	operation				tlul_socket_m1.sv	105	52	105	57		0				000
+  #1794491	10	constant				tlul_socket_m1.sv	105	52	105	55	8	32	UINT:8	9		000
+> #1794492	11	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17		0	0	0	0		0			work@top_earlgrey.u_xbar_main.u_sm1_17	000
+  #1794493	12	int_typespec				top_pkg.sv	10	12	10	15						000
+  #1794494	10	constant				tlul_socket_m1.sv	105	56	105	57	1	64	UINT:1	9		000
+  #1794495	9	constant				tlul_socket_m1.sv	105	61	105	66	2	32	UINT:2	9		000
+  #1794496	10	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0]		0	0	0	0		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0]	000
+  #1794497	11	int_typespec				tlul_socket_m1.sv	73	14	73	26						000
+  #1794498	7	ref_obj	unused_tl_h_source		work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].unused_tl_h_source	tlul_socket_m1.sv	105	12	105	30		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].unused_tl_h_source	000
+
+facets of this row (678, first 25):
+  N0142 #130430/-1 range  G[5 objs] O[]
+  N0142 #130519/-1 range  G[5 objs] O[]
+  N0142 #134891/-1 range  G[5 objs] O[]
+  N0142 #134980/-1 range  G[5 objs] O[]
+  N0142 #136112/-1 range  G[5 objs] O[]
+  N0142 #136201/-1 range  G[5 objs] O[]
+  N0142 #137221/-1 range  G[5 objs] O[]
+  N0142 #137310/-1 range  G[5 objs] O[]
+  N1173 #-1/658520 hier_path tl_h_o.a_ready G[] O[3 objs]
+  N1184 #-1/658523 cont_assign  G[] O[4 objs]
+  N1181 #-1/658527 cont_assign  G[] O[1 objs]
+  N1173 #-1/658540 hier_path tl_h_o.d_opcode G[] O[3 objs]
+  N1181 #-1/658543 cont_assign  G[] O[1 objs]
+  N1184 #-1/670225 cont_assign  G[] O[4 objs]
+  N1184 #-1/670229 cont_assign  G[] O[4 objs]
+  N1184 #-1/670233 cont_assign  G[] O[4 objs]
+  N1184 #-1/670237 cont_assign  G[] O[4 objs]
+  N1184 #-1/670241 cont_assign  G[] O[4 objs]
+  N1184 #-1/670245 cont_assign  G[] O[4 objs]
+  N1184 #-1/670249 cont_assign  G[] O[4 objs]
+  N1184 #-1/670253 cont_assign  G[] O[4 objs]
+  N1184 #-1/670257 cont_assign  G[] O[4 objs]
+  N1184 #-1/670261 cont_assign  G[] O[4 objs]
+  N1184 #-1/670265 cont_assign  G[] O[5 objs]
+  N1184 #-1/670270 cont_assign  G[] O[5 objs]

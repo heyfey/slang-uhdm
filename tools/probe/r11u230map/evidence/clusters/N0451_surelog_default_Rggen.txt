@@ -1,0 +1,64 @@
+cluster N0451 (id kept from an earlier map; OPEN (map 14 listed it: ground-A+B step 14; passes 223-225 left it) | ground A | site makeUnpackedArrayParamTs (ParamEmit.cpp, law pkgParamTsRef) < operator() (ParamEmit.cpp, law importElemBareTdAlias) < emitParameters (ParamEmit.cpp, law elabImportedStructOperandFold) [r11u142map pin]): fullname|ref_typespec|tok:->.id|under:array_typespec
+row: surelog/default/Rggen  strict=differ:file(3)  records golden=314498 ours=312769
+object: #92965 (golden) / #92588 (ours)  type=ref_typespec name= STABLE
+  golden: work@rggen.u_block_0.g_register_10.g[0].g_bit_field_2.g[0]
+  ours:   work@rggen.u_block_0.g_register_10.g[0].g_bit_field_2.g[0].INITIAL_VALUE
+  walk parents: array_typespec < ref_typespec < operation < param_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 92959..92971 ('>' = the object)
+  #92959	14	array_typespec				block_0.sv	1811	22	1811	48						000
+  #92960	15	range				block_0.sv	1811	46	1811	47						001
+  #92961	16	constant					0	0	0	0	0	64	UINT:0	9		001
+  #92962	16	operation				block_0.sv	1811	46	1811	47		0				001
+  #92963	17	constant				block_0.sv	1811	46	1811	47	4	64	UINT:4	9		001
+  #92964	17	constant					0	0	0	0		64	INT:1	7		001
+> #92965	15	ref_typespec			<in>		0	0	0	0		0			work@rggen.u_block_0.g_register_10.g[0].g_bit_field_2.g[0]	001
+  #92966	16	bit_typespec				block_0.sv	1811	22	1811	31						001
+  #92967	17	range				block_0.sv	1811	26	1811	31						001
+  #92968	18	constant				block_0.sv	1811	27	1811	28	1	64	UINT:1	9		001
+  #92969	18	constant				block_0.sv	1811	29	1811	30	0	64	UINT:0	9		001
+  #92970	13	constant				block_0.sv	1811	53	1811	57	2'h0	2	HEX:0	5		000
+  #92971	13	constant				block_0.sv	1811	59	1811	63	2'h1	2	HEX:1	5		000
+
+--- OURS (B) records 92582..92594 ('>' = the object)
+  #92582	12	ref_typespec			work@rggen.u_block_0.g_register_10.g[0].g_bit_field_2.g[0].j		0	0	0	0		0			work@rggen.u_block_0.g_register_10.g[0].g_bit_field_2.g[0].j	000
+  #92583	13	int_typespec					0	0	0	0						000
+  #92584	11	param_assign				block_0.sv	1811	32	1811	76						000
+  #92585	12	operation				block_0.sv	1811	51	1811	76		0				000
+  #92586	13	ref_typespec			work@rggen.u_block_0.g_register_10.g[0].g_bit_field_2.g[0]		0	0	0	0		0			work@rggen.u_block_0.g_register_10.g[0].g_bit_field_2.g[0]	000
+  #92587	14	array_typespec				block_0.sv	1811	22	1811	48						000
+> #92588	15	ref_typespec			<in>		0	0	0	0		0			work@rggen.u_block_0.g_register_10.g[0].g_bit_field_2.g[0].INITIAL_VALUE	001
+  #92589	16	bit_typespec				block_0.sv	1811	22	1811	31						001
+  #92590	17	range				block_0.sv	1811	26	1811	31						001
+  #92591	18	constant				block_0.sv	1811	27	1811	28	1	64	UINT:1	9		001
+  #92592	18	constant				block_0.sv	1811	29	1811	30	0	64	UINT:0	9		001
+  #92593	13	constant				block_0.sv	1811	53	1811	57	2'h0	2	HEX:0	5		000
+  #92594	13	constant				block_0.sv	1811	59	1811	63	2'h1	2	HEX:1	5		000
+
+facets of this row (5277, first 25):
+  N0683 #23168/23166 constant  G[14 operation < range] O[13 range < logic_typespec]
+  N1172 #23166/-1 operation  G[2 objs] O[]
+  N0683 #26509/26505 constant  G[16 operation < range] O[15 range < logic_typespec]
+  N1172 #26507/-1 operation  G[2 objs] O[]
+  N0683 #28776/28770 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28774/-1 operation  G[2 objs] O[]
+  N0683 #28785/28777 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28783/-1 operation  G[2 objs] O[]
+  N0683 #28794/28784 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28792/-1 operation  G[2 objs] O[]
+  N0683 #29654/29642 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29652/-1 operation  G[2 objs] O[]
+  N0683 #29663/29649 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29661/-1 operation  G[2 objs] O[]
+  N0683 #29672/29656 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29670/-1 operation  G[2 objs] O[]
+  N0683 #30427/30409 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30425/-1 operation  G[2 objs] O[]
+  N0683 #30436/30416 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30434/-1 operation  G[2 objs] O[]
+  N0683 #30445/30423 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30443/-1 operation  G[2 objs] O[]
+  N0683 #31206/31182 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #31204/-1 operation  G[2 objs] O[]
+  N0683 #31215/31189 constant  G[17 operation < range] O[16 range < logic_typespec]

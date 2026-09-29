@@ -1,0 +1,142 @@
+{
+ "N0073": {
+  "site": "fillSizeDimRange (ModuleEmit.cpp, law sizeDimOvrChain4) < emitInstance (ModuleEmit.cpp, law ifaceArrPortSizeDimAtExpr183) < emitInstance (ModuleEmit.cpp, law bindDisplayTargetParent188)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r10rgg4repro__c9_litarith_noovr object #210 constant '' dut.sv 9:18:9:21 id=264 db=SAME"
+ },
+ "N0001": {
+  "site": "emitExpr (ExprEmit.cpp, law parensLessCallIsPathRefObj) < emitExpr (ExprEmit.cpp, law hpTrailSelIdxNamesByPath133) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10svs2repro__w2_spacedot object #32 ref_obj 'size' dut.sv 15:15:15:19 id=48 db=SAME"
+ },
+ "N0097": {
+  "site": "emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10svs8repro__a3_builtins object #46 hier_path 'cgc8.cpc8.get_coverage' dut.sv 60:12:60:34 id=47 db=SAME"
+ },
+ "N0118": {
+  "site": "emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < emitExpr (ExprEmit.cpp, law stringCastKeepsStringTypespec26) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10v194repro__v194_a_explicit object #417 constant '' dut.sv 20:22:20:25 id=344 db=SAME"
+ },
+ "N0014": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < operator() (TypeEmit.cpp, law anonPackedAggDimTs107) < makeTypespec (TypeEmit.cpp, law anonPackedAggDimTs107)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u107repro__grid__a18_anon_typedef object #13 ref_typespec ''  0:0:0:0 id=10 db=SAME"
+ },
+ "N0800": {
+  "site": "emitExpr (ExprEmit.cpp, law genCaSysCallArgBinds22) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r11u114repro__grid__f3__c05 object #436 operation '' dut.sv 3:35:3:49 id=276 db=SAME"
+ },
+ "N1179": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law pkgParamTsRefColons131) < mintParamOpClones (ParamEmit.cpp, law funcCfgPatOpRefBare195)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u26repro__m4 object #37 ref_typespec ''  0:0:0:0 id=147 db=SAME"
+ },
+ "N0063": {
+  "site": "operator() (ParamEmit.cpp, law pkgPatReadTsBindsTopTypedef192) < operator() (ParamEmit.cpp, law pkgPatReadTsBindsTopTypedef192) < drainShareDefParamTs (ParamEmit.cpp, law pkgPatReadTsBindsTopTypedef192)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r11u60repro__g7 object #465 ref_typespec ''  0:0:0:0 id=320 db=SAME"
+ },
+ "N0413": {
+  "site": "emitParameters (ParamEmit.cpp, law elabUnpStructOperandWidth61) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind) < emitInstance (ModuleEmit.cpp, law bindDisplayTargetParent188)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r11u69repro__grid__g9_child object #239 operation '' dut.sv 21:13:21:17 id=153 db=SAME"
+ },
+ "N0853": {
+  "site": "emitContAssigns (ModuleEmit.cpp, law initHierAtRefToken225) < emitInstance (ModuleEmit.cpp, law unnamedConcatIfaceAnchor146) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/v11u112repro__grid__brk__k__b3a_multi_decl object #266 constant '' dut.sv 5:59:5:61 id=110 db=SAME"
+ },
+ "N0868": {
+  "site": "emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #15268 constant '' dut.sv 2047:16:2047:17 id=998 db=SAME"
+ },
+ "N0917": {
+  "site": "emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #16860 constant '' dut.sv 3793:29:3793:47 id=2606 db=SAME"
+ },
+ "N0964": {
+  "site": "emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #15602 constant '' dut.sv 2992:27:2992:45 id=1334 db=SAME"
+ },
+ "N0873": {
+  "site": "emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #49734 constant '' dut.sv 3807:14:3809:54 id=14572 db=SAME"
+ },
+ "N0907": {
+  "site": "tryFoldConst (ExprEmit.cpp, law srlgSizeCastUbShiftMask93) < operator() (ParamEmit.cpp, law castElabFoldTargetKinds) < emitParameters (ParamEmit.cpp, law castElabFoldTargetKinds)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #192550 constant ''  0:0:0:0 id=45421 db=SAME"
+ },
+ "N0908": {
+  "site": "tryFoldConst (ExprEmit.cpp, law srlgSizeCastUbShiftMask93) < operator() (ParamEmit.cpp, law castElabFoldTargetKinds) < emitParameters (ParamEmit.cpp, law castElabFoldTargetKinds)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #192550 constant ''  0:0:0:0 id=45421 db=SAME"
+ },
+ "N0893": {
+  "site": "emitParameters (ParamEmit.cpp, law elabImportedStructOperandFold) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < realMain (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #210253 constant '' dut.sv 8890:15:8892:70 id=48151 db=SAME"
+ },
+ "N0936": {
+  "site": "emitParameters (ParamEmit.cpp, law elabImportedStructOperandFold) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #296299 constant '' dut.sv 2077:28:2082:63 id=118246 db=SAME"
+ },
+ "N0951": {
+  "site": "stampParenCastWidthTs (ParamEmit.cpp, law pcwElabKeepsClaim207v) < emitParameters (ParamEmit.cpp, law pkgImpParamMemberColons210) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt holder #125766 ref_obj 'dev_addr_width_gp'  0:0:0:0 id=34218 db=SAME"
+ },
+ "N0286": {
+  "site": "stampParenCastWidthTs (ParamEmit.cpp, law pcwElabKeepsClaim207v) < emitParameters (ParamEmit.cpp, law pkgImpParamMemberColons210) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #40791 ref_obj 'dev_addr_width_gp'  0:0:0:0 id=24045 db=SAME"
+ },
+ "N0923": {
+  "site": "stampParenCastWidthTs (ParamEmit.cpp, law pcwElabKeepsClaim207v) < emitParameters (ParamEmit.cpp, law tfOpFold9) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #176001 ref_obj 'dev_addr_width_gp'  0:0:0:0 id=45102 db=SAME"
+ },
+ "N2471": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law pkgParamTsRefColons131) < drainDefParamTs (ParamEmit.cpp, law pkgImpParamMemberColons210)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #41463 ref_typespec ''  0:0:0:0 id=63137 db=SAME"
+ },
+ "N1125": {
+  "site": "makeParamTs (ParamEmit.cpp, law pkgParamOwnDefRange) < patchParamTypespecs (ParamEmit.cpp, law paramCloneImportedCopy) < emitTopPorts (ModuleEmit.cpp, law tpDimVecPortTsIsDefault120)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #314512 ref_typespec ''  0:0:0:0 id=144498 db=SAME"
+ },
+ "N0905": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < emitPackage (ParamEmit.cpp, law a7) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #26652 ref_typespec ''  0:0:0:0 id=22500 db=SAME"
+ },
+ "N1446": {
+  "site": "emitParameters (ParamEmit.cpp, law modDefImportShape) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #40789 ref_typespec ''  0:0:0:0 id=24040 db=SAME"
+ },
+ "N2476": {
+  "site": "emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/testflags/BlackBePipeInt object #40788 parameter 'dev_addr_width_gp' dut.sv 1793:12:1793:29 id=24039 db=SAME"
+ },
+ "N0123": {
+  "site": "makeParamTs (ParamEmit.cpp, law pkgParamTsRefColons131) < emitParameters (ParamEmit.cpp, law pkgImpParamMemberColons210) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/testflags/Earlgrey_0_1 object #604520 int_typespec '' flash_ctrl_pkg.sv 18:14:18:17 id=41549 db=SAME"
+ },
+ "N0427": {
+  "site": "emitExpr (ExprEmit.cpp, law clsScopedBoundWholeSpan201) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) < emitExpr (ExprEmit.cpp, law thisPathSelectErased4)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/testflags/Scr1SvTests object #80578 ref_obj 'req_aval_ptr' scr1_mem_axi.sv 127:37:127:49 id=46196 db=SAME"
+ }
+}

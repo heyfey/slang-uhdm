@@ -1,0 +1,43 @@
+cluster N1174 (id kept from an earlier map; OPEN | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < buildClassTypedefTs (UhdmExporter.cpp, law typedefAliasSharesTypespec25) < emitClassTypedefs (UhdmExporter.cpp, law typedefAliasSharesTypespec25) [r11u142map pin]): fullname|ref_typespec|tok:id::id::->|under:typespec_member
+row: probe/default/r10sd10repro__v13_root_lookup  strict=fullname  records golden=70 ours=70
+object: #12 (golden) / #12 (ours)  type=ref_typespec name= STABLE
+  golden: px13::o13::n13::n_t::n
+  ours:   n13::n_t::n
+  walk parents: typespec_member(n) < struct_typespec(n_t) < class_defn(n13) < class_defn(o13)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 6..18 ('>' = the object)
+  #6	5	ref_typespec			<in>a_t.a		0	0	0	0		0			px13::a13::a_t::a	001
+  #7	6	int_typespec				dut.sv	10	22	10	25						001
+  #8	2	class_defn	o13		px13::o13	dut.sv	13	3	28	11					px13::o13	000
+  #9	3	class_defn	n13		px13::o13::n13	dut.sv	14	5	16	13					px13::o13::n13	000
+  #10	4	struct_typespec	n_t			dut.sv	15	15	15	32						010
+  #11	5	typespec_member	n			dut.sv	15	28	15	29						001
+> #12	6	ref_typespec			<in>n_t.n		0	0	0	0		0			px13::o13::n13::n_t::n	001
+  #13	7	int_typespec				dut.sv	15	24	15	27						001
+  #14	3	class_defn	m13		px13::o13::m13	dut.sv	17	5	27	13					px13::o13::m13	000
+  #15	4	struct_typespec	m_t			dut.sv	18	15	18	32						010
+  #16	5	typespec_member	m			dut.sv	18	28	18	29						001
+  #17	6	ref_typespec			<in>m_t.m		0	0	0	0		0			px13::o13::m13::m_t::m	001
+  #18	7	int_typespec				dut.sv	18	24	18	27						001
+
+--- OURS (B) records 6..18 ('>' = the object)
+  #6	5	ref_typespec			<in>a_t.a		0	0	0	0		0			px13::a13::a_t::a	001
+  #7	6	int_typespec				dut.sv	10	22	10	25						001
+  #8	2	class_defn	o13		px13::o13	dut.sv	13	3	28	11					px13::o13	000
+  #9	3	class_defn	n13		px13::o13::n13	dut.sv	14	5	16	13					px13::o13::n13	000
+  #10	4	struct_typespec	n_t			dut.sv	15	15	15	32						010
+  #11	5	typespec_member	n			dut.sv	15	28	15	29						001
+> #12	6	ref_typespec			<in>n_t.n		0	0	0	0		0			n13::n_t::n	001
+  #13	7	int_typespec				dut.sv	15	24	15	27						001
+  #14	3	class_defn	m13		px13::o13::m13	dut.sv	17	5	27	13					px13::o13::m13	000
+  #15	4	struct_typespec	m_t			dut.sv	18	15	18	32						010
+  #16	5	typespec_member	m			dut.sv	18	28	18	29						001
+  #17	6	ref_typespec			<in>m_t.m		0	0	0	0		0			m13::m_t::m	001
+  #18	7	int_typespec				dut.sv	18	24	18	27						001
+
+facets of this row (4, first 25):
+  N1174 #12/12 ref_typespec  G[px13::o13::n13::n_t::n] O[n13::n_t::n]
+  N1174 #17/17 ref_typespec  G[px13::o13::m13::m_t::m] O[m13::m_t::m]
+  N1174 #24/24 ref_typespec  G[px13::o13::m13::m_t::m] O[m13::m_t::m]
+  N1174 #30/30 ref_typespec  G[px13::o13::n13::n_t::n] O[n13::n_t::n]

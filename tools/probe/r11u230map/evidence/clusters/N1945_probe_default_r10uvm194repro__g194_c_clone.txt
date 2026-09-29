@@ -1,0 +1,47 @@
+cluster N1945 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u138map pin] [r11u142map pin]): struct|ours-only:elsewhere|bit_select|under:ref_obj
+row: probe/default/r10uvm194repro__g194_c_clone  strict=depth  records golden=425 ours=425
+object: #-1 (golden) / #91 (ours)  type=bit_select name=c_free
+  golden:
+  ours:   2 objs
+  walk parents: ref_obj(c_free) < operation < assignment < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 85..97 ('>' = the object)
+  #85	6	int_var	i		c194_src::c_free::i	dut.sv	16	9	16	10		0			c194_src::c_free::i	000
+  #86	7	ref_typespec			c194_src::c_free::i		0	0	0	0		0			c194_src::c_free::i	000
+  #87	8	int_typespec				dut.sv	16	5	16	8						000
+  #88	4	assignment				dut.sv	17	5	17	26						000
+  #89	5	operation				dut.sv	17	14	17	26		0				000
+  #90	6	ref_obj	c_free		c194_clone::c_free::c_free	dut.sv	17	15	17	21		0			c194_clone::c_free::c_free	000
+> #91	7	bit_select	c_free		c194_clone::c_free::c_free	dut.sv	18	5	18	14		0			c194_clone::c_free::c_free	000
+  #92	8	ref_obj	i		c194_clone::c_free::i	dut.sv	18	12	18	13		0			c194_clone::c_free::i	000
+  #93	6	constant				dut.sv	17	22	17	25	" "	8	STRING: 	6		000
+  #94	5	ref_obj	c_free		c194_clone::c_free::c_free	dut.sv	17	5	17	11		0			c194_clone::c_free::c_free	000
+  #95	4	assignment				dut.sv	18	5	18	22						000
+  #96	5	constant				dut.sv	18	17	18	22	8'h42	8	HEX:42	5		000
+  #97	2	function	c_drive		c194_clone::c_drive	dut.sv	24	3	29	14					c194_clone::c_drive	000
+
+--- the holder #90 on the other side: exact-record matches at [90, 207, 290, 383]
+  #87	8	int_typespec				dut.sv	16	5	16	8						000
+  #88	4	assignment				dut.sv	17	5	17	26						000
+  #89	5	operation				dut.sv	17	14	17	26		0				000
+> #90	6	ref_obj	c_free		c194_clone::c_free::c_free	dut.sv	17	15	17	21		0			c194_clone::c_free::c_free	000
+  #91	6	constant				dut.sv	17	22	17	25	" "	8	STRING: 	6		000
+  #92	5	ref_obj	c_free		c194_clone::c_free::c_free	dut.sv	17	5	17	11		0			c194_clone::c_free::c_free	000
+  #93	4	assignment				dut.sv	18	5	18	22						000
+  #94	5	constant				dut.sv	18	17	18	22	8'h42	8	HEX:42	5		000
+  #95	5	bit_select	c_free		c194_clone::c_free::c_free	dut.sv	18	5	18	14		0			c194_clone::c_free::c_free	000
+  #96	6	ref_obj	i		c194_clone::c_free::i	dut.sv	18	12	18	13		0			c194_clone::c_free::i	000
+  #97	2	function	c_drive		c194_clone::c_drive	dut.sv	24	3	29	14					c194_clone::c_drive	000
+  #98	3	class_var	h		c194_clone::c_drive::h	dut.sv	25	10	25	11		0			c194_clone::c_drive::h	000
+  #99	4	ref_typespec			c194_clone::c_drive::h		0	0	0	0		0			c194_clone::c_drive::h	000
+
+facets of this row (8, first 25):
+  N1945 #-1/91 bit_select c_free G[] O[2 objs]
+  N1943 #95/-1 bit_select c_free G[2 objs] O[]
+  N1945 #-1/208 bit_select c_free G[] O[2 objs]
+  N1943 #212/-1 bit_select c_free G[2 objs] O[]
+  N1945 #-1/291 bit_select c_free G[] O[2 objs]
+  N1943 #295/-1 bit_select c_free G[2 objs] O[]
+  N1945 #-1/384 bit_select c_free G[] O[2 objs]
+  N1943 #388/-1 bit_select c_free G[2 objs] O[]

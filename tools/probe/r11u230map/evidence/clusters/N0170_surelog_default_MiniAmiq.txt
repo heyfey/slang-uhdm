@@ -1,0 +1,64 @@
+cluster N0170 (id kept from an earlier map; OPEN (map 14 listed it: ground-A+B step 13; passes 223-225 left it) | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitPackageClassMethodClones (ParamEmit.cpp, law pkgFreeSubRefVarHoistNet117) < emitPackage (ParamEmit.cpp, law LAW) [r11u142map pin]): span|class_var|col+endcol|under:function
+row: surelog/default/MiniAmiq  strict=differ:line(2)  records golden=435559 ours=432516
+object: #241741 (golden) / #240603 (ours)  type=class_var name=
+  golden: 43:23:43:29
+  ours:   43:30:43:34
+  walk parents: function(new) < class_defn(svaunit_immediate_assertion_details) < class_defn(uvm_object) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 241735..241747 ('>' = the object)
+  #241735	8	operation				uvm_object_defines.svh	173	11	173	43		0				000
+  #241736	9	sys_func_call	$cast			uvm_object_defines.svh	173	12	173	43		0				000
+  #241737	10	ref_obj	local_data__		svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation::local_data__	uvm_object_defines.svh	173	18	173	30		0			svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation::local_data__	000
+  #241738	10	ref_obj	tmp_data__		svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation::tmp_data__	uvm_object_defines.svh	173	32	173	42		0			svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation::tmp_data__	000
+  #241739	8	return_stmt				uvm_object_defines.svh	173	45	173	51						000
+  #241740	4	function	new		svaunit_pkg::svaunit_immediate_assertion_details::new	svaunit_immediate_assertion_details.svh	43	4	45	15					svaunit_pkg::svaunit_immediate_assertion_details::new	000
+> #241741	5	class_var			svaunit_pkg::svaunit_immediate_assertion_details::new	svaunit_immediate_assertion_details.svh	43	23	43	29		0			svaunit_pkg::svaunit_immediate_assertion_details::new	000
+  #241742	6	ref_typespec			svaunit_pkg::svaunit_immediate_assertion_details::new		0	0	0	0		0			svaunit_pkg::svaunit_immediate_assertion_details::new	000
+  #241743	7	class_typespec					0	0	0	0						000
+  #241744	5	io_decl	name			svaunit_immediate_assertion_details.svh	43	30	43	34						000
+  #241745	6	constant				svaunit_immediate_assertion_details.svh	43	37	43	74	"svaunit_immediate_assertion_details"	280	STRING:svaunit_immediate_assertion_details	6		000
+  #241746	6	ref_typespec			svaunit_pkg::svaunit_immediate_assertion_details::new::name		0	0	0	0		0			svaunit_pkg::svaunit_immediate_assertion_details::new::name	000
+  #241747	7	string_typespec				svaunit_immediate_assertion_details.svh	43	23	43	29						000
+
+--- OURS (B) records 240597..240609 ('>' = the object)
+  #240597	8	operation				uvm_object_defines.svh	173	11	173	43		0				000
+  #240598	9	sys_func_call	$cast			uvm_object_defines.svh	173	12	173	43		0				000
+  #240599	10	ref_obj	local_data__		svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation::local_data__	uvm_object_defines.svh	173	18	173	30		0			svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation::local_data__	000
+  #240600	10	ref_obj	tmp_data__		svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation::tmp_data__	uvm_object_defines.svh	173	32	173	42		0			svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation::tmp_data__	000
+  #240601	8	return_stmt				uvm_object_defines.svh	173	45	173	51						000
+  #240602	4	function	new		svaunit_pkg::svaunit_immediate_assertion_details::new	svaunit_immediate_assertion_details.svh	43	4	45	15					svaunit_pkg::svaunit_immediate_assertion_details::new	000
+> #240603	5	class_var			svaunit_pkg::svaunit_immediate_assertion_details::new	svaunit_immediate_assertion_details.svh	43	30	43	34		0			svaunit_pkg::svaunit_immediate_assertion_details::new	000
+  #240604	6	ref_typespec			svaunit_pkg::svaunit_immediate_assertion_details::new		0	0	0	0		0			svaunit_pkg::svaunit_immediate_assertion_details::new	000
+  #240605	7	class_typespec					0	0	0	0						000
+  #240606	5	io_decl	name			svaunit_immediate_assertion_details.svh	43	30	43	34						000
+  #240607	6	constant				svaunit_immediate_assertion_details.svh	43	37	43	74	"svaunit_immediate_assertion_details"	280	STRING:svaunit_immediate_assertion_details	6		000
+  #240608	6	ref_typespec			svaunit_pkg::svaunit_immediate_assertion_details::new::name		0	0	0	0		0			svaunit_pkg::svaunit_immediate_assertion_details::new::name	000
+  #240609	7	string_typespec				svaunit_immediate_assertion_details.svh	43	23	43	29						000
+
+facets of this row (3771, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

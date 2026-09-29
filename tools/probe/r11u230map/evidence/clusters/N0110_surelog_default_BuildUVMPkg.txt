@@ -1,0 +1,64 @@
+cluster N0110 (id kept from an earlier map; COVERED r11u227 (the UVM ground-A families, optimistic) | ground A | site operator() (StmtEmit.cpp, law foreachClassPropStringVar22) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt (StmtEmit.cpp, law invalidChild14) [r11u197 pin] [r11u197map pin]): span|string_typespec|ours-zero|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:line(14)  records golden=201533 ours=201588
+object: #77588 (golden) / #77582 (ours)  type=string_typespec name=
+  golden: 38343:3:38343:9
+  ours:   0:0:0:0
+  walk parents: ref_typespec < string_var(i) < foreach_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 77582..77594 ('>' = the object)
+  #77582	5	foreach_stmt			uvm_pkg::uvm_component::get_depth	uvm_pkg.sv	39918	3	39918	10					uvm_pkg::uvm_component::get_depth	000
+  #77583	6	ref_var	m_name		uvm_pkg::uvm_component::get_depth::m_name	uvm_pkg.sv	39918	11	39918	17		0			uvm_pkg::uvm_component::get_depth::m_name	000
+  #77584	7	ref_typespec			uvm_pkg::uvm_component::get_depth::m_name		0	0	0	0		0			uvm_pkg::uvm_component::get_depth::m_name	000
+  #77585	8	unsupported_typespec	m_name			uvm_pkg.sv	39918	11	39918	17						110
+  #77586	6	string_var	i		uvm_pkg::uvm_component::get_depth::i	uvm_pkg.sv	39918	18	39918	19		0			uvm_pkg::uvm_component::get_depth::i	000
+  #77587	7	ref_typespec			uvm_pkg::uvm_component::get_depth::i		0	0	0	0		0			uvm_pkg::uvm_component::get_depth::i	000
+> #77588	8	string_typespec				uvm_pkg.sv	38343	3	38343	9						000
+  #77589	6	if_stmt				uvm_pkg.sv	39919	5	39919	38						000
+  #77590	7	operation				uvm_pkg.sv	39919	8	39919	24		0				000
+  #77591	8	bit_select	m_name		uvm_pkg::uvm_component::get_depth::m_name	uvm_pkg.sv	39919	15	39919	16		0			uvm_pkg::uvm_component::get_depth::m_name	000
+  #77592	9	ref_obj	i		uvm_pkg::uvm_component::get_depth::i	uvm_pkg.sv	39919	15	39919	16		0			uvm_pkg::uvm_component::get_depth::i	000
+  #77593	8	constant				uvm_pkg.sv	39919	21	39919	24	"."	8	STRING:.	6		000
+  #77594	7	operation				uvm_pkg.sv	39919	26	39919	37		0				000
+
+--- OURS (B) records 77576..77588 ('>' = the object)
+  #77576	5	foreach_stmt			uvm_pkg::uvm_component::get_depth	uvm_pkg.sv	39918	3	39918	10					uvm_pkg::uvm_component::get_depth	000
+  #77577	6	ref_var	m_name		uvm_pkg::uvm_component::get_depth::m_name	uvm_pkg.sv	39918	11	39918	17		0			uvm_pkg::uvm_component::get_depth::m_name	000
+  #77578	7	ref_typespec			uvm_pkg::uvm_component::get_depth::m_name		0	0	0	0		0			uvm_pkg::uvm_component::get_depth::m_name	000
+  #77579	8	unsupported_typespec	m_name			uvm_pkg.sv	39918	11	39918	17						110
+  #77580	6	string_var	i		uvm_pkg::uvm_component::get_depth::i	uvm_pkg.sv	39918	18	39918	19		0			uvm_pkg::uvm_component::get_depth::i	000
+  #77581	7	ref_typespec			uvm_pkg::uvm_component::get_depth::i		0	0	0	0		0			uvm_pkg::uvm_component::get_depth::i	000
+> #77582	8	string_typespec					0	0	0	0						000
+  #77583	6	if_stmt				uvm_pkg.sv	39919	5	39919	38						000
+  #77584	7	operation				uvm_pkg.sv	39919	8	39919	24		0				000
+  #77585	8	bit_select	m_name		uvm_pkg::uvm_component::get_depth::m_name	uvm_pkg.sv	39919	15	39919	16		0			uvm_pkg::uvm_component::get_depth::m_name	000
+  #77586	9	ref_obj	i		uvm_pkg::uvm_component::get_depth::i	uvm_pkg.sv	39919	15	39919	16		0			uvm_pkg::uvm_component::get_depth::i	000
+  #77587	8	constant				uvm_pkg.sv	39919	21	39919	24	"."	8	STRING:.	6		000
+  #77588	7	operation				uvm_pkg.sv	39919	26	39919	37		0				000
+
+facets of this row (212, first 25):
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74761 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74844 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79830 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79884 array_typespec  G[] O[1 objs]
+  N0158 #96958/96950 bit_typespec  G[8 ref_typespec < enum_typespec(uvm_pkg::uvm_active_passive_enum)] O[6 ref_typespec < enum_var]
+  N0213 #96956/-1 enum_typespec uvm_pkg::uvm_active_passive_enum G[2 objs] O[]
+  N0171 #97010/-1 bit_typespec  G[1 objs] O[]
+  N0025 #153018/153008 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/153007 operation  G[] O[1 objs]
+  N0025 #153021/153013 constant  G[18 range < bit_typespec(uvm_reg_addr_t)] O[19 operation < range]
+  N0033 #-1/153012 operation  G[] O[1 objs]
+  N0025 #155484/155478 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/155477 operation  G[] O[1 objs]
+  N0025 #155487/155483 constant  G[18 range < bit_typespec(uvm_reg_addr_t)] O[19 operation < range]
+  N0033 #-1/155482 operation  G[] O[1 objs]
+  N0025 #155532/155530 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/155529 operation  G[] O[1 objs]
+  N0025 #155535/155535 constant  G[18 range < bit_typespec(uvm_reg_addr_t)] O[19 operation < range]
+  N0033 #-1/155534 operation  G[] O[1 objs]
+  N0025 #155586/155588 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/155587 operation  G[] O[1 objs]

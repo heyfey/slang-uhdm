@@ -1,0 +1,64 @@
+cluster N0964 (id kept from an earlier map; COVERED r11u227 (row named: r11u227 brief item 1: the BlackBePipeInt A half) | ground A | site emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) [r11u230 pin]): span|constant|col+endcol|under:tagged_pattern
+row: surelog/testflags/BlackBePipeInt  strict=differ:type(1)  records golden=338504 ours=340760
+object: #15554 (golden) / #15602 (ours)  type=constant name=
+  golden: 2992:26:2992:46
+  ours:   2992:27:2992:45
+  walk parents: tagged_pattern < operation < param_assign < package(bp_common_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 15548..15560 ('>' = the object)
+  #15548	6	string_typespec	icache_block_width			dut.sv	2989	5	2989	23						110
+  #15549	4	tagged_pattern				dut.sv	2990	26	2990	28						000
+  #15550	5	constant				dut.sv	2990	26	2990	28	64	64	UINT:64	9		000
+  #15551	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #15552	6	string_typespec	icache_fill_width			dut.sv	2990	5	2990	22						110
+  #15553	4	tagged_pattern				dut.sv	2992	26	2992	67						000
+> #15554	5	constant				dut.sv	2992	26	2992	46	17	64	UINT:17	9		000
+  #15555	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #15556	6	string_typespec	dcache_features			dut.sv	2992	5	2992	20						110
+  #15557	4	tagged_pattern				dut.sv	2993	26	2993	29						000
+  #15558	5	constant				dut.sv	2993	26	2993	29	128	64	UINT:128	9		000
+  #15559	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #15560	6	string_typespec	dcache_sets			dut.sv	2993	5	2993	16						110
+
+--- OURS (B) records 15596..15608 ('>' = the object)
+  #15596	6	string_typespec	icache_block_width			dut.sv	2989	5	2989	23						110
+  #15597	4	tagged_pattern				dut.sv	2990	26	2990	28						000
+  #15598	5	constant				dut.sv	2990	26	2990	28	64	64	UINT:64	9		000
+  #15599	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #15600	6	string_typespec	icache_fill_width			dut.sv	2990	5	2990	22						110
+  #15601	4	tagged_pattern				dut.sv	2992	26	2992	67						000
+> #15602	5	constant				dut.sv	2992	27	2992	45	17	64	UINT:17	9		000
+  #15603	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #15604	6	string_typespec	dcache_features			dut.sv	2992	5	2992	20						110
+  #15605	4	tagged_pattern				dut.sv	2993	26	2993	29						000
+  #15606	5	constant				dut.sv	2993	26	2993	29	128	64	UINT:128	9		000
+  #15607	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #15608	6	string_typespec	dcache_sets			dut.sv	2993	5	2993	16						110
+
+facets of this row (38809, first 25):
+  N0868 #-1/15268 constant  G[] O[1 objs]
+  N0868 #-1/15272 constant  G[] O[1 objs]
+  N0868 #-1/15276 constant  G[] O[1 objs]
+  N0868 #-1/15280 constant  G[] O[1 objs]
+  N0868 #-1/15284 constant  G[] O[1 objs]
+  N0868 #-1/15288 constant  G[] O[1 objs]
+  N0868 #-1/15292 constant  G[] O[1 objs]
+  N0868 #-1/15296 constant  G[] O[1 objs]
+  N0868 #-1/15300 constant  G[] O[1 objs]
+  N0868 #-1/15304 constant  G[] O[1 objs]
+  N0868 #-1/15308 constant  G[] O[1 objs]
+  N0868 #-1/15324 constant  G[] O[1 objs]
+  N0868 #-1/15328 constant  G[] O[1 objs]
+  N0868 #-1/15332 constant  G[] O[1 objs]
+  N0868 #-1/15336 constant  G[] O[1 objs]
+  N0868 #-1/15340 constant  G[] O[1 objs]
+  N0868 #-1/15344 constant  G[] O[1 objs]
+  N0868 #-1/15372 constant  G[] O[1 objs]
+  N0868 #-1/15376 constant  G[] O[1 objs]
+  N0868 #-1/15380 constant  G[] O[1 objs]
+  N0868 #-1/15384 constant  G[] O[1 objs]
+  N0868 #-1/15388 constant  G[] O[1 objs]
+  N0868 #-1/15408 constant  G[] O[1 objs]
+  N0868 #-1/15428 constant  G[] O[1 objs]
+  N0868 #-1/15432 constant  G[] O[1 objs]

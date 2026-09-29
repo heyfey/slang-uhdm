@@ -1,0 +1,64 @@
+cluster N0742 (id kept from an earlier map; OPEN (map 14 listed it: ground-A+B step 15; passes 223-225 left it) | ground B | site makeBoundConst (TypeEmit.cpp, law crossPkgRangeBoundFold) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) [r11u138map pin] [r11u142map pin]): value|constant|value:UINT->UINT+decompile|under:range
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(19)  records golden=1342584 ours=1342870
+object: #689130 (golden) / #689254 (ours)  type=constant name=
+  golden: 31|64|UINT:31|9
+  ours:   7|64|UINT:7|9
+  walk parents: range < logic_typespec(hmac_pkg::sha_word_t) < ref_typespec < logic_net(digest)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 689124..689136 ('>' = the object)
+  #689124	8	constant				sha2.sv	26	17	26	19	63	64	UINT:63	9		001
+  #689125	8	constant				sha2.sv	26	20	26	21	0	64	UINT:0	9		001
+  #689126	4	logic_net	digest		work@top_earlgrey.u_hmac.u_sha2.digest	sha2.sv	27	27	27	33		0			work@top_earlgrey.u_hmac.u_sha2.digest	000
+  #689127	5	ref_typespec			work@top_earlgrey.u_hmac.u_sha2.digest		0	0	0	0		0			work@top_earlgrey.u_hmac.u_sha2.digest	000
+  #689128	6	logic_typespec	hmac_pkg::sha_word_t			hmac_pkg.sv	17	11	17	23						110
+  #689129	7	range				hmac_pkg.sv	17	17	17	23						001
+> #689130	8	constant				hmac_pkg.sv	17	18	17	20	31	64	UINT:31	9		001
+  #689131	8	constant				hmac_pkg.sv	17	21	17	22	0	64	UINT:0	9		001
+  #689132	4	port	clk_i			sha2.sv	9	9	9	14						000
+  #689133	5	ref_obj	clk_i		work@top_earlgrey.u_hmac.clk_i	hmac.sv	401	6	401	11		0			work@top_earlgrey.u_hmac.clk_i	000
+  #689134	5	ref_obj	clk_i		work@top_earlgrey.u_hmac.u_sha2.clk_i	hmac.sv	401	6	401	11		0			work@top_earlgrey.u_hmac.u_sha2.clk_i	000
+  #689135	5	ref_typespec			work@top_earlgrey.u_hmac.u_sha2.clk_i		0	0	0	0		0			work@top_earlgrey.u_hmac.u_sha2.clk_i	000
+  #689136	6	logic_typespec				sha2.sv	9	9	9	9						000
+
+--- OURS (B) records 689248..689260 ('>' = the object)
+  #689248	7	ref_typespec			<in>		0	0	0	0		0			work@top_earlgrey.u_hmac.u_sha2.digest	001
+  #689249	8	logic_typespec	hmac_pkg::sha_word_t			hmac_pkg.sv	17	11	17	23						001
+  #689250	9	range				hmac_pkg.sv	17	17	17	23						001
+  #689251	10	constant				hmac_pkg.sv	17	18	17	20	31	64	UINT:31	9		001
+  #689252	10	constant				hmac_pkg.sv	17	21	17	22	0	64	UINT:0	9		001
+  #689253	7	range				sha2.sv	27	21	27	26						001
+> #689254	8	constant				sha2.sv	27	22	27	23	7	64	UINT:7	9		001
+  #689255	8	constant				sha2.sv	27	24	27	25	0	64	UINT:0	9		001
+  #689256	4	port	clk_i			sha2.sv	9	9	9	14						000
+  #689257	5	ref_obj	clk_i		work@top_earlgrey.u_hmac.clk_i	hmac.sv	401	6	401	11		0			work@top_earlgrey.u_hmac.clk_i	000
+  #689258	5	ref_obj	clk_i		work@top_earlgrey.u_hmac.u_sha2.clk_i	hmac.sv	401	6	401	11		0			work@top_earlgrey.u_hmac.u_sha2.clk_i	000
+  #689259	5	ref_typespec			work@top_earlgrey.u_hmac.u_sha2.clk_i		0	0	0	0		0			work@top_earlgrey.u_hmac.u_sha2.clk_i	000
+  #689260	6	logic_typespec				sha2.sv	9	9	9	9						000
+
+facets of this row (530, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

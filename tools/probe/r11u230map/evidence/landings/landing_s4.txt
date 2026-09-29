@@ -1,0 +1,24 @@
+== pass 224 landed: corpus STRICT_NOTEQUAL row-modes 28 -> 28 (0 converted, 0 entered); probe 639 -> 634 (5 converted, 0 entered)
+   converted: -
+   entered: -
+   probe converted: r10svs2repro/s5_negctl r10svs2repro/w3_macrodeep r10v121repro/v121_c r10v172repro/v172_3_pos r10v174repro/v174_b_sysfns
+   probe entered: -
+   row-modes whose strict cell changed: 6: sur/d/BuildUVMPkg differ:line(19) -> differ:line(14); sur/d/Scoreboard differ:file(16) -> differ:file(12); sur/d/SimpleUVM differ:file(40) -> differ:file(36); sur/t/BlackBePipeInt differ:depth(1) -> differ:type(1); sur/t/BuildUVMPkg differ:line(19) -> differ:line(14); sur/t/SimpleUVM differ:file(40) -> differ:file(36)
+   clusters (keys) 700 -> 695: gone 7, new 2
+   gone (rows/probe before): N0207 9/1; N0832 2/1; N1060 2/0; N1066 2/0; N0897 1/0; N2159 0/1; N2163 0/1
+   gone with a corpus row: N0207 rows 9 [sur/d/BuildUVMPkg sur/d/MiniAmiq sur/d/Scoreboard sur/d/SeqDriver sur/d/SimpleUVM sur/t/BuildUVMPkg sur/t/MiniAmiq sur/t/SeqDriver sur/t/SimpleUVM] `fullname|ref_obj|tok:::->.|under:sys_func_call`; N0832 rows 2 [sur/d/BuildUVMPkg sur/t/BuildUVMPkg] `fullname|bit_select|tok:::->.|under:hier_path`; N1060 rows 2 [sur/d/BuildUVMPkg sur/t/BuildUVMPkg] `fullname|ref_obj|tok:::id[id].id[id * n+:n]::->.id[id].id[id * n+:n].|under:operation`; N1066 rows 2 [sur/d/BuildUVMPkg sur/t/BuildUVMPkg] `fullname|ref_obj|tok:id.id[id][id * n+:n]::->|under:bit_select`; N0897 rows 1 [sur/t/BlackBePipeInt] `struct|ours-only:fewer-copies|parameter|under:ref_obj`
+   new (rows/probe after): N2476 1/0 `fullname|parameter|tok:id@id.->id::@in-typespec|under:ref_obj`; N1446 1/0 `fullname|ref_typespec|tok:id@id.->id::|under:parameter`
+   fell (rows): N0097 9->0
+   grew (rows): -
+   probe: 1 clusters fell, 0 grew: N0097 9->4 | grew:
+   differing objects (analyzer facet rows) per row-mode, before -> after:
+     sur/d/BuildUVMPkg                                          224 ->    212   clusters 51 -> 46
+     sur/d/MiniAmiq                                            3784 ->   3771   clusters 132 -> 130
+     sur/d/Scoreboard                                           484 ->    475   clusters 56 -> 54
+     sur/d/SeqDriver                                           2721 ->   2706   clusters 126 -> 124
+     sur/d/SimpleUVM                                           1521 ->   1510   clusters 66 -> 64
+     sur/t/BlackBePipeInt                                     38834 ->  38809   clusters 23 -> 24
+     sur/t/BuildUVMPkg                                          224 ->    212   clusters 51 -> 46
+     sur/t/MiniAmiq                                            3784 ->   3771   clusters 132 -> 130
+     sur/t/SeqDriver                                           2721 ->   2706   clusters 126 -> 124
+     sur/t/SimpleUVM                                           1521 ->   1510   clusters 66 -> 64

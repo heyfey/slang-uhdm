@@ -1,0 +1,64 @@
+cluster N0495 (id kept from an earlier map; COVERED r11u227 (the UVM ground-A families, optimistic) | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u142map pin]): struct|golden-only:fewer-copies|int_var|under:ref_obj
+row: surelog/default/MiniAmiq  strict=differ:line(2)  records golden=435559 ours=432516
+object: #64612 (golden) / #-1 (ours)  type=int_var name=_byte
+  golden: 3 objs
+  ours:
+  walk parents: ref_obj(_byte) < operation < for_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 64606..64618 ('>' = the object)
+  #64606	6	constant				uvm_misc.svh	378	18	378	19	0	64	UINT:0	9		000
+  #64607	6	int_var	_byte		svaunit_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	12	378	17		0			svaunit_pkg::uvm_oneway_hash::_byte	000
+  #64608	7	ref_typespec			svaunit_pkg::uvm_oneway_hash::_byte		0	0	0	0		0			svaunit_pkg::uvm_oneway_hash::_byte	000
+  #64609	8	int_typespec				uvm_misc.svh	378	8	378	11						000
+  #64610	5	operation				uvm_misc.svh	378	46	378	53		0				000
+  #64611	6	ref_obj	_byte		svaunit_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	46	378	51		0			svaunit_pkg::uvm_oneway_hash::_byte	000
+> #64612	7	int_var	_byte		uvm_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	12	378	17		0			uvm_pkg::uvm_oneway_hash::_byte	000
+  #64613	8	ref_typespec			uvm_pkg::uvm_oneway_hash::_byte		0	0	0	0		0			uvm_pkg::uvm_oneway_hash::_byte	000
+  #64614	9	int_typespec				uvm_misc.svh	378	8	378	11						000
+  #64615	5	operation				uvm_misc.svh	378	21	378	44		0				000
+  #64616	6	ref_obj	_byte		svaunit_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	21	378	26		0			svaunit_pkg::uvm_oneway_hash::_byte	000
+  #64617	6	hier_path	string_in.len			uvm_misc.svh	378	29	378	44		0				000
+  #64618	7	ref_obj	string_in			uvm_misc.svh	378	29	378	38		0				000
+
+--- the holder #64611 on the other side: exact-record matches at [64597, 296017, 361086]
+  #64594	7	ref_typespec			svaunit_pkg::uvm_oneway_hash::_byte		0	0	0	0		0			svaunit_pkg::uvm_oneway_hash::_byte	000
+  #64595	8	int_typespec				uvm_misc.svh	378	8	378	11						000
+  #64596	5	operation				uvm_misc.svh	378	46	378	53		0				000
+> #64597	6	ref_obj	_byte		svaunit_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	46	378	51		0			svaunit_pkg::uvm_oneway_hash::_byte	000
+  #64598	5	operation				uvm_misc.svh	378	21	378	44		0				000
+  #64599	6	ref_obj	_byte		svaunit_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	21	378	26		0			svaunit_pkg::uvm_oneway_hash::_byte	000
+  #64600	6	hier_path	string_in.len			uvm_misc.svh	378	29	378	44		0				000
+  #64601	7	ref_obj	string_in			uvm_misc.svh	378	29	378	38		0				000
+  #64602	7	method_func_call	len			uvm_misc.svh	378	39	378	42		0				000
+  #64603	5	begin			svaunit_pkg::uvm_oneway_hash	uvm_misc.svh	378	55	389	6					svaunit_pkg::uvm_oneway_hash	000
+  #64604	6	assignment				uvm_misc.svh	379	6	379	37						000
+  #64605	7	bit_select	string_in		svaunit_pkg::uvm_oneway_hash::string_in	uvm_misc.svh	379	31	379	36		0			svaunit_pkg::uvm_oneway_hash::string_in	000
+  #64606	8	ref_obj	_byte		svaunit_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	379	31	379	36		0			svaunit_pkg::uvm_oneway_hash::_byte	000
+
+facets of this row (3771, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

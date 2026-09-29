@@ -1,0 +1,64 @@
+cluster N0247 (id kept from an earlier map; COVERED r11u227 (the UVM ground-A families, optimistic) | ground A | site emitExpr (ExprEmit.cpp, law clsScopedBoundWholeSpan201) < emitExpr (ExprEmit.cpp, law hpTrailSelIdxNamesByPath133) < emitExpr (ExprEmit.cpp, law everyPartSelIsConstSel78) [r11u222 pin]): fullname|ref_obj|tok:id.id[id * n+:n]::id::->|under:operation
+row: surelog/default/BuildUVMPkg  strict=differ:line(14)  records golden=201533 ours=201588
+object: #139619 (golden) / #139608 (ours)  type=ref_obj name=i OUT
+  golden: uvm_pkg::uvm_reg_tlm_adapter::bus2reg::rw.data[i * 8+:8]::data::i
+  ours:   uvm_pkg::uvm_reg_tlm_adapter::bus2reg::i
+  walk parents: operation < indexed_part_select(data) < hier_path(rw.data[i * 8+:8]) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 139613..139625 ('>' = the object)
+  #139613	10	bit_select	m_data		uvm_pkg::uvm_reg_tlm_adapter::bus2reg::gp.m_data[i]::m_data	uvm_pkg.sv	61686	35	61686	36		0			uvm_pkg::uvm_reg_tlm_adapter::bus2reg::gp.m_data[i]::m_data	000
+  #139614	11	ref_obj	i		uvm_pkg::uvm_reg_tlm_adapter::bus2reg::gp.m_data[i]::i	uvm_pkg.sv	61686	35	61686	36		0			uvm_pkg::uvm_reg_tlm_adapter::bus2reg::gp.m_data[i]::i	000
+  #139615	9	hier_path	rw.data[i * 8+:8]			uvm_pkg.sv	61686	7	61686	22		0				000
+  #139616	10	ref_obj	rw			uvm_pkg.sv	61686	10	61686	14		0				000
+  #139617	10	indexed_part_select	data	data	uvm_pkg::uvm_reg_tlm_adapter::bus2reg::rw.data[i * 8+:8]::data	uvm_pkg.sv	61686	10	61686	21		0			uvm_pkg::uvm_reg_tlm_adapter::bus2reg::rw.data[i * 8+:8]::data	000
+  #139618	11	operation				uvm_pkg.sv	61686	15	61686	18		0				000
+> #139619	12	ref_obj	i		uvm_pkg::uvm_reg_tlm_adapter::bus2reg::rw.data[i * 8+:8]::data::i	uvm_pkg.sv	61686	15	61686	16		0			uvm_pkg::uvm_reg_tlm_adapter::bus2reg::rw.data[i * 8+:8]::data::i	000
+  #139620	12	constant				uvm_pkg.sv	61686	17	61686	18	8	64	UINT:8	9		000
+  #139621	11	constant				uvm_pkg.sv	61686	20	61686	21	8	64	UINT:8	9		000
+  #139622	7	assignment				uvm_pkg.sv	61688	5	61688	63						000
+  #139623	8	operation				uvm_pkg.sv	61688	17	61688	63		0				000
+  #139624	9	hier_path	gp.is_response_ok			uvm_pkg.sv	61688	18	61688	37		0				000
+  #139625	10	ref_obj	gp			uvm_pkg.sv	61688	18	61688	20		0				000
+
+--- OURS (B) records 139602..139614 ('>' = the object)
+  #139602	10	bit_select	m_data		uvm_pkg::uvm_reg_tlm_adapter::bus2reg::gp.m_data[i]::m_data	uvm_pkg.sv	61686	35	61686	36		0			uvm_pkg::uvm_reg_tlm_adapter::bus2reg::gp.m_data[i]::m_data	000
+  #139603	11	ref_obj	i		uvm_pkg::uvm_reg_tlm_adapter::bus2reg::gp.m_data[i]::i	uvm_pkg.sv	61686	35	61686	36		0			uvm_pkg::uvm_reg_tlm_adapter::bus2reg::gp.m_data[i]::i	000
+  #139604	9	hier_path	rw.data[i * 8+:8]			uvm_pkg.sv	61686	7	61686	22		0				000
+  #139605	10	ref_obj	rw			uvm_pkg.sv	61686	10	61686	14		0				000
+  #139606	10	indexed_part_select	data	data	uvm_pkg::uvm_reg_tlm_adapter::bus2reg::rw.data[i * 8+:8]::data	uvm_pkg.sv	61686	10	61686	21		0			uvm_pkg::uvm_reg_tlm_adapter::bus2reg::rw.data[i * 8+:8]::data	000
+  #139607	11	operation				uvm_pkg.sv	61686	15	61686	18		0				000
+> #139608	12	ref_obj	i		uvm_pkg::uvm_reg_tlm_adapter::bus2reg::i	uvm_pkg.sv	61686	15	61686	16		0			uvm_pkg::uvm_reg_tlm_adapter::bus2reg::i	000
+  #139609	12	constant				uvm_pkg.sv	61686	17	61686	18	8	64	UINT:8	9		000
+  #139610	11	constant				uvm_pkg.sv	61686	20	61686	21	8	64	UINT:8	9		000
+  #139611	7	assignment				uvm_pkg.sv	61688	5	61688	63						000
+  #139612	8	operation				uvm_pkg.sv	61688	17	61688	63		0				000
+  #139613	9	hier_path	gp.is_response_ok			uvm_pkg.sv	61688	18	61688	37		0				000
+  #139614	10	ref_obj	gp			uvm_pkg.sv	61688	18	61688	20		0				000
+
+facets of this row (212, first 25):
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74761 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74844 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79830 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79884 array_typespec  G[] O[1 objs]
+  N0158 #96958/96950 bit_typespec  G[8 ref_typespec < enum_typespec(uvm_pkg::uvm_active_passive_enum)] O[6 ref_typespec < enum_var]
+  N0213 #96956/-1 enum_typespec uvm_pkg::uvm_active_passive_enum G[2 objs] O[]
+  N0171 #97010/-1 bit_typespec  G[1 objs] O[]
+  N0025 #153018/153008 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/153007 operation  G[] O[1 objs]
+  N0025 #153021/153013 constant  G[18 range < bit_typespec(uvm_reg_addr_t)] O[19 operation < range]
+  N0033 #-1/153012 operation  G[] O[1 objs]
+  N0025 #155484/155478 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/155477 operation  G[] O[1 objs]
+  N0025 #155487/155483 constant  G[18 range < bit_typespec(uvm_reg_addr_t)] O[19 operation < range]
+  N0033 #-1/155482 operation  G[] O[1 objs]
+  N0025 #155532/155530 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/155529 operation  G[] O[1 objs]
+  N0025 #155535/155535 constant  G[18 range < bit_typespec(uvm_reg_addr_t)] O[19 operation < range]
+  N0033 #-1/155534 operation  G[] O[1 objs]
+  N0025 #155586/155588 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/155587 operation  G[] O[1 objs]

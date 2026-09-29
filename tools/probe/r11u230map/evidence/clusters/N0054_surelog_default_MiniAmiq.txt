@@ -1,0 +1,64 @@
+cluster N0054 (id kept from an earlier map; COVERED r11u227 (the UVM ground-A families, optimistic) | ground A | site emitExpr (ExprEmit.cpp, law outArgConvLvalue125) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) [r11u179 pin] [r11u165map pin (other example): emitStmt (StmtEmit.cpp, law declInitWrittenNewNoStmt66) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClassDefn (Uhd]): span|assignment|endcol|under:begin
+row: surelog/default/MiniAmiq  strict=differ:line(2)  records golden=435559 ours=432516
+object: #435522 (golden) / #432479 (ours)  type=assignment name=
+  golden: 97:7:97:80
+  ours:   97:7:97:90
+  walk parents: begin < initial < interface_inst < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 435516..435528 ('>' = the object)
+  #435516	3	begin			work@svaunit_vpi_interface	svaunit_vpi_interface.sv	95	12	108	7					work@svaunit_vpi_interface	000
+  #435517	4	string_var	svaunit_header		work@svaunit_vpi_interface.svaunit_header	svaunit_vpi_interface.sv	96	24	96	38		0			work@svaunit_vpi_interface.svaunit_header	000
+  #435518	5	ref_typespec			work@svaunit_vpi_interface.svaunit_header		0	0	0	0		0			work@svaunit_vpi_interface.svaunit_header	000
+  #435519	6	string_typespec				svaunit_vpi_interface.sv	96	17	96	23						000
+  #435520	4	assignment				svaunit_vpi_interface.sv	96	24	96	109						000
+  #435521	5	constant				svaunit_vpi_interface.sv	96	41	96	109	"\\n----------------------------------------------------------------"	528	STRING:\\n----------------------------------------------------------------	6		000
+> #435522	4	assignment				svaunit_vpi_interface.sv	97	7	97	80						000
+  #435523	5	sys_func_call	$sformatf			svaunit_vpi_interface.sv	97	24	97	80		0				000
+  #435524	6	constant				svaunit_vpi_interface.sv	97	34	97	48	"%s\\n\\t\\t%s\\n"	96	STRING:%s\\n\\t\\t%s\\n	6		000
+  #435525	6	ref_obj	svaunit_header		work@svaunit_vpi_interface.svaunit_header	svaunit_vpi_interface.sv	97	50	97	64		0			work@svaunit_vpi_interface.svaunit_header	000
+  #435526	6	constant				svaunit_vpi_interface.sv	97	66	97	79	"SVAUNIT.3.2"	88	STRING:SVAUNIT.3.2	6		000
+  #435527	5	ref_obj	svaunit_header		work@svaunit_vpi_interface.svaunit_header	svaunit_vpi_interface.sv	97	7	97	21		0			work@svaunit_vpi_interface.svaunit_header	000
+  #435528	4	assignment				svaunit_vpi_interface.sv	98	7	99	25						000
+
+--- OURS (B) records 432473..432485 ('>' = the object)
+  #432473	3	begin			work@svaunit_vpi_interface	svaunit_vpi_interface.sv	95	12	108	7					work@svaunit_vpi_interface	000
+  #432474	4	string_var	svaunit_header		work@svaunit_vpi_interface.svaunit_header	svaunit_vpi_interface.sv	96	24	96	38		0			work@svaunit_vpi_interface.svaunit_header	000
+  #432475	5	ref_typespec			work@svaunit_vpi_interface.svaunit_header		0	0	0	0		0			work@svaunit_vpi_interface.svaunit_header	000
+  #432476	6	string_typespec				svaunit_vpi_interface.sv	96	17	96	23						000
+  #432477	4	assignment				svaunit_vpi_interface.sv	96	24	96	109						000
+  #432478	5	constant				svaunit_vpi_interface.sv	96	41	96	109	"\\n----------------------------------------------------------------"	528	STRING:\\n----------------------------------------------------------------	6		000
+> #432479	4	assignment				svaunit_vpi_interface.sv	97	7	97	90						000
+  #432480	5	sys_func_call	$sformatf			svaunit_vpi_interface.sv	97	24	97	90		0				000
+  #432481	6	constant				svaunit_vpi_interface.sv	97	34	97	48	"%s\\n\\t\\t%s\\n"	96	STRING:%s\\n\\t\\t%s\\n	6		000
+  #432482	6	ref_obj	svaunit_header		work@svaunit_vpi_interface.svaunit_header	svaunit_vpi_interface.sv	97	50	97	64		0			work@svaunit_vpi_interface.svaunit_header	000
+  #432483	6	constant				svaunit_vpi_interface.sv	97	66	97	79	"SVAUNIT.3.2"	88	STRING:SVAUNIT.3.2	6		000
+  #432484	5	ref_obj	svaunit_header		work@svaunit_vpi_interface.svaunit_header	svaunit_vpi_interface.sv	97	7	97	21		0			work@svaunit_vpi_interface.svaunit_header	000
+  #432485	4	assignment				svaunit_vpi_interface.sv	98	7	99	25						000
+
+facets of this row (3771, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

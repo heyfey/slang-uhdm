@@ -1,0 +1,124 @@
+{
+ "pairA": {
+  "N0980": "item 1: FuncStructVal A half (named N0980)",
+  "N1946": "item 1: FuncStructVal A half (named N1946)",
+  "N1096": "item 1: FuncStructVal #747 (a forward reference to a later package spanning pkg::)",
+  "N0675": "item 1: struct_param_func_config A half (N0675)",
+  "N2412": "item 1: struct_param_func_config A half (N2412)",
+  "N0025": "item 1: cfg_func_width_loop A half (N0025)",
+  "N0033": "item 1: cfg_func_width_loop A half (N0033)",
+  "N0754": "item 1: cfg_func_width_loop A half (N0754)",
+  "N0794": "item 1: cfg_func_width_loop A half (N0794)",
+  "N0868": "item 1: BlackBePipeInt head #15268 / #15272 (the defaulted pattern member left empty)",
+  "N0131": "item 1: N0131 (a constant's empty ref_typespec full name)",
+  "N0812": "item 1: the Earlgrey_0_1 scope-name clusters (N0812)",
+  "N0008": "item 5: N0008 (a design param_assign constant's ref_typespec named uvm_pkg)",
+  "N0739": "item 5: map 13's N0739",
+  "N1903": "item 5: map 13's N1903",
+  "N1904": "item 5: map 13's N1904",
+  "N0476": "item 5: map 13's N0476",
+  "N0477": "item 5: map 13's N0477",
+  "N0039": "item 1: N0039 (its field writer is on ground A: section 5)"
+ },
+ "pairB": {
+  "N0891": "item 1: FuncStructVal (N0891, TypeEmit buildStructTs)",
+  "N0817": "item 1: struct_param_func_config (N0817)",
+  "N0028": "item 1: struct_param_func_config (N0028)",
+  "N0761": "item 1: struct_param_func_config (N0761)",
+  "N0552": "item 1: struct_param_func_config (N0552)",
+  "N0045": "item 1: struct_param_func_config (N0045)",
+  "N0133": "item 1: cfg_func_width_loop kept call (N0133)",
+  "N0487": "item 1: cfg_func_width_loop kept call (N0487)",
+  "N0263": "item 1: cfg_func_width_loop #464 (the elaborated formal clone of the typedef, range folded)",
+  "N0073": "item 1: BlackBePipeInt (N0073)",
+  "N2471": "item 1: BlackBePipeInt (N2471)",
+  "N0014": "item 1: BlackBePipeInt (N0014)",
+  "N0905": "item 1: BlackBePipeInt (N0905)",
+  "N1179": "item 1: BlackBePipeInt (N1179)",
+  "N0120": "item 1: N0120 (the catch enum_var span, TaskFuncEmit emitTaskFuncs)",
+  "N0266": "item 4: UVM_SEQ_ARB_TYPE (MiniAmiq / SeqDriver first record)",
+  "N0337": "item 4: this_type (SimpleUVM / Scoreboard first record)",
+  "N0072": "item 4: this_type (BuildUVMPkg first record)"
+ },
+ "pairA_named": {
+  "N0980": "item 1: FuncStructVal A half (named N0980)",
+  "N1946": "item 1: FuncStructVal A half (named N1946)",
+  "N1096": "item 1: FuncStructVal #747 (a forward reference to a later package spanning pkg::)",
+  "N0675": "item 1: struct_param_func_config A half (N0675)",
+  "N2412": "item 1: struct_param_func_config A half (N2412)",
+  "N0025": "item 1: cfg_func_width_loop A half (N0025)",
+  "N0033": "item 1: cfg_func_width_loop A half (N0033)",
+  "N0754": "item 1: cfg_func_width_loop A half (N0754)",
+  "N0794": "item 1: cfg_func_width_loop A half (N0794)",
+  "N0868": "item 1: BlackBePipeInt head #15268 / #15272 (the defaulted pattern member left empty)",
+  "N0131": "item 1: N0131 (a constant's empty ref_typespec full name)",
+  "N0812": "item 1: the Earlgrey_0_1 scope-name clusters (N0812)",
+  "N0008": "item 5: N0008 (a design param_assign constant's ref_typespec named uvm_pkg)",
+  "N0739": "item 5: map 13's N0739",
+  "N1903": "item 5: map 13's N1903",
+  "N1904": "item 5: map 13's N1904",
+  "N0476": "item 5: map 13's N0476",
+  "N0477": "item 5: map 13's N0477",
+  "N0039": "item 1: N0039 (its field writer is on ground A: section 5)"
+ },
+ "pairB_named": {
+  "N0891": "item 1: FuncStructVal (N0891, TypeEmit buildStructTs)",
+  "N0817": "item 1: struct_param_func_config (N0817)",
+  "N0028": "item 1: struct_param_func_config (N0028)",
+  "N0761": "item 1: struct_param_func_config (N0761)",
+  "N0552": "item 1: struct_param_func_config (N0552)",
+  "N0045": "item 1: struct_param_func_config (N0045)",
+  "N0133": "item 1: cfg_func_width_loop kept call (N0133)",
+  "N0487": "item 1: cfg_func_width_loop kept call (N0487)",
+  "N0263": "item 1: cfg_func_width_loop #464 (the elaborated formal clone of the typedef, range folded)",
+  "N0073": "item 1: BlackBePipeInt (N0073)",
+  "N2471": "item 1: BlackBePipeInt (N2471)",
+  "N0014": "item 1: BlackBePipeInt (N0014)",
+  "N0905": "item 1: BlackBePipeInt (N0905)",
+  "N1179": "item 1: BlackBePipeInt (N1179)",
+  "N0120": "item 1: N0120 (the catch enum_var span, TaskFuncEmit emitTaskFuncs)",
+  "N0266": "item 4: UVM_SEQ_ARB_TYPE (MiniAmiq / SeqDriver first record)",
+  "N0337": "item 4: this_type (SimpleUVM / Scoreboard first record)",
+  "N0072": "item 4: this_type (BuildUVMPkg first record)"
+ },
+ "pairA_rows": {
+  "FuncStructVal": {
+   "modes": null,
+   "why": "r11u227 brief item 1: the FuncStructVal A half"
+  },
+  "struct_param_func_config": {
+   "modes": null,
+   "why": "r11u227 brief item 1: the struct_param_func_config A half"
+  },
+  "cfg_func_width_loop": {
+   "modes": null,
+   "why": "r11u227 brief item 1: the cfg_func_width_loop A half"
+  },
+  "BlackBePipeInt": {
+   "modes": null,
+   "why": "r11u227 brief item 1: the BlackBePipeInt A half"
+  }
+ },
+ "pairB_rows": {
+  "FuncStructVal": {
+   "modes": null,
+   "why": "r11u228 brief item 1: the FuncStructVal B half"
+  },
+  "struct_param_func_config": {
+   "modes": null,
+   "why": "r11u228 brief item 1: the struct_param_func_config B half"
+  },
+  "cfg_func_width_loop": {
+   "modes": null,
+   "why": "r11u228 brief item 1: the cfg_func_width_loop B half"
+  },
+  "BlackBePipeInt": {
+   "modes": null,
+   "why": "r11u228 brief item 1: the BlackBePipeInt B half"
+  }
+ },
+ "uvm_A_families": "pair A item 5: the UVM A families after pass 224 (every ground-A cluster whose rows are all UVM rows, optimistic)",
+ "earl_A_family": "pair A item 1: the Earlgrey_0_1 scope-name clusters (every ground-A cluster whose rows are all Earlgrey rows, optimistic)",
+ "first10B": "pair B items 4 and 5: the UVM heads and Earlgrey's records (map 11's first-ten rule, ground-B clusters of the first ten records, optimistic)",
+ "n0039": "both briefs: N0039 goes to the pair whose ground WRITES the differing field (section 5 of this map pins it)"
+}

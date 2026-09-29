@@ -1,0 +1,32 @@
+clusters map14 709 now 695
+== GONE 16
+  N0100 rows 0->0 cases 2->0 | -rows  +rows  | -cases 2 +cases 0 | span|bit_typespec|line+col+endline+endcol|under:ref_typespec
+  N0191 rows 2->0 cases 0->0 | -rows OutputSizeWithParameterOfInstanceInitializedByStructMember/d OutputSizeWithParameterOfInstanceInitializedByStructMember/t +rows  | -cases 0 +cases 0 | span|hier_path|line+col+endline+endcol|under:operation
+  N0207 rows 9->0 cases 1->0 | -rows BuildUVMPkg/d BuildUVMPkg/t MiniAmiq/d MiniAmiq/t Scoreboard/d SeqDriver/d SeqDriver/t SimpleUVM/d SimpleUVM/t +rows  | -cases 1 +cases 0 | fullname|ref_obj|tok:::->.|under:sys_func_call
+  N0318 rows 4->0 cases 0->0 | -rows MiniAmiq/d MiniAmiq/t SeqDriver/d SeqDriver/t +rows  | -cases 0 +cases 0 | file|bit_typespec|other-file+span|under:ref_typespec
+  N0706 rows 4->0 cases 0->0 | -rows MiniAmiq/d MiniAmiq/t SeqDriver/d SeqDriver/t +rows  | -cases 0 +cases 0 | struct|golden-only:elsewhere|bit_typespec|under:ref_typespec
+  N0832 rows 2->0 cases 1->0 | -rows BuildUVMPkg/d BuildUVMPkg/t +rows  | -cases 1 +cases 0 | fullname|bit_select|tok:::->.|under:hier_path
+  N0897 rows 1->0 cases 0->0 | -rows BlackBePipeInt/t +rows  | -cases 0 +cases 0 | struct|ours-only:fewer-copies|parameter|under:ref_obj
+  N1060 rows 2->0 cases 0->0 | -rows BuildUVMPkg/d BuildUVMPkg/t +rows  | -cases 0 +cases 0 | fullname|ref_obj|tok:::id[id].id[id * n+:n]::->.id[id].id[id * n+:n].|under:operation
+  N1066 rows 2->0 cases 0->0 | -rows BuildUVMPkg/d BuildUVMPkg/t +rows  | -cases 0 +cases 0 | fullname|ref_obj|tok:id.id[id][id * n+:n]::->|under:bit_select
+  N1127 rows 2->0 cases 0->0 | -rows OutputSizeWithParameterOfInstanceInitializedByStructMember/d OutputSizeWithParameterOfInstanceInitializedByStructMember/t +rows  | -cases 0 +cases 0 | fullname|ref_typespec|tok:->id@id.id.id.|under:hier_path
+  N1211 rows 1->0 cases 0->0 | -rows Scoreboard/d +rows  | -cases 0 +cases 0 | struct|golden-only:elsewhere|function|under:design
+  N1212 rows 1->0 cases 0->0 | -rows Scoreboard/d +rows  | -cases 0 +cases 0 | struct|ours-only:elsewhere|function|under:design
+  N1438 rows 1->0 cases 0->0 | -rows Scoreboard/d +rows  | -cases 0 +cases 0 | struct|golden-only:elsewhere|task|under:design
+  N1439 rows 1->0 cases 0->0 | -rows Scoreboard/d +rows  | -cases 0 +cases 0 | struct|ours-only:elsewhere|task|under:design
+  N2159 rows 0->0 cases 1->0 | -rows  +rows  | -cases 1 +cases 0 | fullname|ref_obj|tok:id.id[id][n * id+:n]::->|under:bit_select
+  N2163 rows 0->0 cases 1->0 | -rows  +rows  | -cases 1 +cases 0 | fullname|ref_obj|tok:id.id[id][n:n]::->|under:bit_select
+== NEW 2
+  N1446 rows 0->1 cases 0->0 | -rows  +rows BlackBePipeInt/t | -cases 0 +cases 0 | fullname|ref_typespec|tok:id@id.->id::|under:parameter
+  N2476 rows 0->1 cases 0->0 | -rows  +rows BlackBePipeInt/t | -cases 0 +cases 0 | fullname|parameter|tok:id@id.->id::@in-typespec|under:ref_obj
+== FELL 7
+  N0001 rows 3->1 cases 7->7 | -rows OutputSizeWithParameterOfInstanceInitializedByStructMember/d OutputSizeWithParameterOfInstanceInitializedByStructMember/t +rows  | -cases 0 +cases 0 | span|ref_obj|col+endcol|under:hier_path
+  N0039 rows 10->10 cases 44->40 | -rows  +rows  | -cases 4 +cases 0 | span|int_typespec|line+col+endline+endcol|under:ref_typespec
+  N0097 rows 9->0 cases 9->4 | -rows BuildUVMPkg/d BuildUVMPkg/t MiniAmiq/d MiniAmiq/t Scoreboard/d SeqDriver/d SeqDriver/t SimpleUVM/d SimpleUVM/t +rows  | -cases 5 +cases 0 | span|hier_path|endcol|under:assignment
+  N0123 rows 9->2 cases 0->0 | -rows MiniAmiq/d MiniAmiq/t Scoreboard/d SeqDriver/d SeqDriver/t SimpleUVM/d SimpleUVM/t +rows  | -cases 0 +cases 0 | file|int_typespec|other-file+span|under:ref_typespec
+  N0263 rows 6->2 cases 39->39 | -rows MiniAmiq/d MiniAmiq/t SeqDriver/d SeqDriver/t +rows  | -cases 0 +cases 0 | span|logic_typespec|line+col+endline+endcol|under:ref_typespec
+  N0427 rows 3->2 cases 0->0 | -rows InterfArrayBind/d +rows  | -cases 0 +cases 0 | fullname|ref_obj|tok:id[id].id.->|under:bit_select
+  N0853 rows 2->0 cases 1->1 | -rows OutputSizeWithParameterOfInstanceInitializedByStructMember/d OutputSizeWithParameterOfInstanceInitializedByStructMember/t +rows  | -cases 0 +cases 0 | value|constant|value:BIN->UINT+decompile+size+consttype:3->9|under:cont_assign
+== GREW 0
+row-modes map14 31 now 28 left: InterfArrayBind/d OutputSizeWithParameterOfInstanceInitializedByStructMember/d OutputSizeWithParameterOfInstanceInitializedByStructMember/t entered:
+cases map14 644 now 634 left: r10svs2repro/s5_negctl r10svs2repro/w3_macrodeep r10uvm125repro/g125_b_shapes r10uvm125repro/g125_d_homes r10uvm35repro/t47a r10uvm35repro/t47b r10uvm36repro/t48c r10v121repro/v121_c r10v172repro/v172_3_pos r10v174repro/v174_b_sysfns entered:

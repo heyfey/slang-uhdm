@@ -1,0 +1,64 @@
+cluster N2412 (id kept from an earlier map; COVERED r11u227 (item 1: struct_param_func_config A half (N2412)) | ground A | site leftRefFix174 (ParamEmit.cpp, law evalFuncBodyRhsStampClone167) < leftRefWalk174 (ParamEmit.cpp, law evalFuncBodyRhsStampClone167) < stampEvalFuncLeftovers (ParamEmit.cpp, law evalFuncBodyRhsStampClone167) [r11u179 pin] [r11u179map pin]): fullname|ref_typespec|tok:->id@id.id.|under:constant
+row: uhdm2rtlil/testflags/struct_param_func_config  strict=differ:fullname(5)  records golden=2652 ours=2514
+object: #1848 (golden) / #1776 (ours)  type=ref_typespec name= STABLE
+  golden: p::cfg_t.u
+  ours:   work@struct_param_func_config.Cfg.p::cfg_t.u
+  walk parents: constant < typespec_member(u) < struct_typespec(p::cfg_t) < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1842..1854 ('>' = the object)
+  #1842	9	typespec_member	flag2			dut.sv	19	9	19	14						001
+  #1843	10	ref_typespec			<in>p::ucfg_t.flag2		0	0	0	0		0			p::cfg_t.u.p::ucfg_t.flag2	001
+  #1844	11	bit_typespec				dut.sv	19	5	19	8						001
+  #1845	10	constant				dut.sv	29	15	29	19	1'b0	1	BIN:0	3		001
+  #1846	10	constant				dut.sv	29	15	29	19	1'b0	1	BIN:0	3		001
+  #1847	7	constant				dut.sv	39	30	39	31	0000000000000000000000000000011110	34	BIN:0000000000000000000000000000011110	3		001
+> #1848	8	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0			p::cfg_t.u	001
+  #1849	9	struct_typespec	p::ucfg_t			dut.sv	32	40	32	46						001
+  #1850	10	typespec_member	a			dut.sv	17	18	17	19						001
+  #1851	11	ref_typespec			<in>p::ucfg_t.a		0	0	0	0		0			p::cfg_t.u.p::ucfg_t.a	001
+  #1852	12	int_typespec				dut.sv	17	5	17	17						001
+  #1853	11	constant				dut.sv	27	11	27	12	7	64	UINT:7	9		001
+  #1854	11	constant				dut.sv	27	11	27	12	7	64	UINT:7	9		001
+
+--- OURS (B) records 1770..1782 ('>' = the object)
+  #1770	9	typespec_member	flag2			dut.sv	19	9	19	14						001
+  #1771	10	ref_typespec			<in>p::ucfg_t.flag2		0	0	0	0		0			work@struct_param_func_config.p::ucfg_t.flag2	001
+  #1772	11	bit_typespec				dut.sv	19	5	19	8						001
+  #1773	10	constant				dut.sv	29	15	29	19	1'b0	1	BIN:0	3		001
+  #1774	10	constant				dut.sv	29	15	29	19	1'b0	1	BIN:0	3		001
+  #1775	7	constant				dut.sv	39	30	39	31	0000000000000000000000000000011110	34	BIN:0000000000000000000000000000011110	3		001
+> #1776	8	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0			work@struct_param_func_config.Cfg.p::cfg_t.u	001
+  #1777	9	struct_typespec	p::ucfg_t			dut.sv	32	40	32	46						001
+  #1778	10	typespec_member	a			dut.sv	17	18	17	19						001
+  #1779	11	ref_typespec			<in>p::ucfg_t.a		0	0	0	0		0			work@struct_param_func_config.p::ucfg_t.a	001
+  #1780	12	int_typespec				dut.sv	17	5	17	17						001
+  #1781	11	constant				dut.sv	27	11	27	12	7	64	UINT:7	9		001
+  #1782	11	constant				dut.sv	27	11	27	12	7	64	UINT:7	9		001
+
+facets of this row (163, first 25):
+  N0045 #1274/-1 constant  G[1 objs] O[]
+  N0045 #1275/-1 constant  G[1 objs] O[]
+  N0045 #1279/-1 constant  G[1 objs] O[]
+  N0045 #1280/-1 constant  G[1 objs] O[]
+  N0045 #1284/-1 constant  G[1 objs] O[]
+  N0045 #1285/-1 constant  G[1 objs] O[]
+  N0045 #1292/-1 constant  G[1 objs] O[]
+  N0045 #1293/-1 constant  G[1 objs] O[]
+  N0045 #1297/-1 constant  G[1 objs] O[]
+  N0045 #1298/-1 constant  G[1 objs] O[]
+  N0045 #1302/-1 constant  G[1 objs] O[]
+  N0045 #1303/-1 constant  G[1 objs] O[]
+  N0045 #1310/-1 constant  G[1 objs] O[]
+  N0045 #1311/-1 constant  G[1 objs] O[]
+  N0045 #1315/-1 constant  G[1 objs] O[]
+  N0045 #1316/-1 constant  G[1 objs] O[]
+  N0045 #1320/-1 constant  G[1 objs] O[]
+  N0045 #1321/-1 constant  G[1 objs] O[]
+  N0045 #1333/-1 constant  G[1 objs] O[]
+  N0045 #1334/-1 constant  G[1 objs] O[]
+  N0045 #1338/-1 constant  G[1 objs] O[]
+  N0045 #1339/-1 constant  G[1 objs] O[]
+  N0045 #1343/-1 constant  G[1 objs] O[]
+  N0045 #1344/-1 constant  G[1 objs] O[]
+  N0045 #1396/-1 constant  G[1 objs] O[]

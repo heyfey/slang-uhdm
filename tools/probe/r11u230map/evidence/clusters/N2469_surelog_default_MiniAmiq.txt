@@ -1,0 +1,64 @@
+cluster N2469 (id kept from an earlier map; COVERED r11u227 (the UVM ground-A families, optimistic) | ground A | site emitExpr (ExprEmit.cpp, law clsScopedBoundWholeSpan201) < emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) [r11u211 pin]): fullname|ref_obj|tok:->id.id[id].id::|under:bit_select
+row: surelog/default/MiniAmiq  strict=differ:line(2)  records golden=435559 ours=432516
+object: #245813 (golden) / #244645 (ours)  type=ref_obj name=index OUT
+  golden: svaunit_pkg::svaunit_vpi_wrapper::get_sva_tested::vpi_vif.sva_exists::index
+  ours:   svaunit_pkg::svaunit_vpi_wrapper::get_sva_tested::vpi_vif.sva_exists::vpi_vif.sva_info[index].get_sva_name::index
+  walk parents: bit_select(sva_info) < hier_path(vpi_vif.sva_info[index].get_sva_name) < method_func_call(sva_exists) < hier_path(vpi_vif.sva_exists)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 245807..245819 ('>' = the object)
+  #245807	11	hier_path	vpi_vif.sva_exists			svaunit_vpi_wrapper.svh	443	17	444	75		0				000
+  #245808	12	ref_obj	vpi_vif			svaunit_vpi_wrapper.svh	443	17	443	24		0				000
+  #245809	12	method_func_call	sva_exists			svaunit_vpi_wrapper.svh	443	25	443	35		0				000
+  #245810	13	hier_path	vpi_vif.sva_info[index].get_sva_name			svaunit_vpi_wrapper.svh	443	36	443	74		0				000
+  #245811	14	ref_obj	vpi_vif			svaunit_vpi_wrapper.svh	443	36	443	43		0				000
+  #245812	14	bit_select	sva_info		vpi_vif.sva_info[index]	svaunit_vpi_wrapper.svh	443	44	443	52		0			vpi_vif.sva_info[index]	000
+> #245813	15	ref_obj	index		svaunit_pkg::svaunit_vpi_wrapper::get_sva_tested::vpi_vif.sva_exists::index	svaunit_vpi_wrapper.svh	443	53	443	58		0			svaunit_pkg::svaunit_vpi_wrapper::get_sva_tested::vpi_vif.sva_exists::index	000
+  #245814	14	method_func_call	get_sva_name			svaunit_vpi_wrapper.svh	443	60	443	72		0				000
+  #245815	13	hier_path	vpi_vif.sva_info[index].get_sva_path			svaunit_vpi_wrapper.svh	444	22	444	60		0				000
+  #245816	14	ref_obj	vpi_vif			svaunit_vpi_wrapper.svh	444	22	444	29		0				000
+  #245817	14	bit_select	sva_info		vpi_vif.sva_info[index]	svaunit_vpi_wrapper.svh	444	30	444	38		0			vpi_vif.sva_info[index]	000
+  #245818	15	ref_obj	index		svaunit_pkg::svaunit_vpi_wrapper::get_sva_tested::vpi_vif.sva_exists::index	svaunit_vpi_wrapper.svh	444	39	444	44		0			svaunit_pkg::svaunit_vpi_wrapper::get_sva_tested::vpi_vif.sva_exists::index	000
+  #245819	14	method_func_call	get_sva_path			svaunit_vpi_wrapper.svh	444	46	444	58		0				000
+
+--- OURS (B) records 244639..244651 ('>' = the object)
+  #244639	11	hier_path	vpi_vif.sva_exists			svaunit_vpi_wrapper.svh	443	17	444	75		0				000
+  #244640	12	ref_obj	vpi_vif			svaunit_vpi_wrapper.svh	443	17	443	24		0				000
+  #244641	12	method_func_call	sva_exists			svaunit_vpi_wrapper.svh	443	25	443	35		0				000
+  #244642	13	hier_path	vpi_vif.sva_info[index].get_sva_name			svaunit_vpi_wrapper.svh	443	36	443	74		0				000
+  #244643	14	ref_obj	vpi_vif			svaunit_vpi_wrapper.svh	443	36	443	43		0				000
+  #244644	14	bit_select	sva_info		vpi_vif.sva_info[index]	svaunit_vpi_wrapper.svh	443	44	443	52		0			vpi_vif.sva_info[index]	000
+> #244645	15	ref_obj	index		svaunit_pkg::svaunit_vpi_wrapper::get_sva_tested::vpi_vif.sva_exists::vpi_vif.sva_info[index].get_sva_name::index	svaunit_vpi_wrapper.svh	443	53	443	58		0			svaunit_pkg::svaunit_vpi_wrapper::get_sva_tested::vpi_vif.sva_exists::vpi_vif.sva_info[index].get_sva_name::index	000
+  #244646	14	method_func_call	get_sva_name			svaunit_vpi_wrapper.svh	443	60	443	72		0				000
+  #244647	13	hier_path	vpi_vif.sva_info[index].get_sva_path			svaunit_vpi_wrapper.svh	444	22	444	60		0				000
+  #244648	14	ref_obj	vpi_vif			svaunit_vpi_wrapper.svh	444	22	444	29		0				000
+  #244649	14	bit_select	sva_info		vpi_vif.sva_info[index]	svaunit_vpi_wrapper.svh	444	30	444	38		0			vpi_vif.sva_info[index]	000
+  #244650	15	ref_obj	index		svaunit_pkg::svaunit_vpi_wrapper::get_sva_tested::vpi_vif.sva_exists::vpi_vif.sva_info[index].get_sva_path::index	svaunit_vpi_wrapper.svh	444	39	444	44		0			svaunit_pkg::svaunit_vpi_wrapper::get_sva_tested::vpi_vif.sva_exists::vpi_vif.sva_info[index].get_sva_path::index	000
+  #244651	14	method_func_call	get_sva_path			svaunit_vpi_wrapper.svh	444	46	444	58		0				000
+
+facets of this row (3771, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

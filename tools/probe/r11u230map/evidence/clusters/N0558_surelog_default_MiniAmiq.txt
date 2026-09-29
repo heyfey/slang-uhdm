@@ -1,0 +1,64 @@
+cluster N0558 (id kept from an earlier map; COVERED r11u227 (the UVM ground-A families, optimistic) | ground A | site emitStmt (StmtEmit.cpp, law negLitPkgRetFoldNested30) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) [r11u142map pin]): fullname|ref_typespec|tok:id::id->id|under:constant
+row: surelog/default/MiniAmiq  strict=differ:line(2)  records golden=435559 ours=432516
+object: #64390 (golden) / #64376 (ours)  type=ref_typespec name= OUT
+  golden: svaunit_pkg::uvm_revision_string
+  ours:   uvm_pkg
+  walk parents: constant < return_stmt < function(uvm_revision_string) < package(svaunit_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 64384..64396 ('>' = the object)
+  #64384	2	function	uvm_revision_string		svaunit_pkg::uvm_revision_string	uvm_version.svh	33	1	35	12					svaunit_pkg::uvm_revision_string	000
+  #64385	3	string_var			uvm_pkg::uvm_revision_string	uvm_version.svh	33	10	33	16		0			uvm_pkg::uvm_revision_string	000
+  #64386	4	ref_typespec			uvm_pkg::uvm_revision_string		0	0	0	0		0			uvm_pkg::uvm_revision_string	000
+  #64387	5	string_typespec				uvm_version.svh	33	10	33	16						000
+  #64388	3	return_stmt				uvm_version.svh	34	3	34	9						000
+  #64389	4	constant				uvm_version.svh	34	10	34	22	"UVM.1.2"	56	STRING:UVM.1.2	6		000
+> #64390	5	ref_typespec			svaunit_pkg::uvm_revision_string		0	0	0	0		0			svaunit_pkg::uvm_revision_string	000
+  #64391	6	string_typespec				uvm_version.svh	31	11	31	17						000
+  #64392	2	function	uvm_radix_to_string		svaunit_pkg::uvm_radix_to_string	uvm_object_globals.svh	104	1	121	12					svaunit_pkg::uvm_radix_to_string	000
+  #64393	3	string_var			uvm_pkg::uvm_radix_to_string	uvm_object_globals.svh	104	10	104	16		0			uvm_pkg::uvm_radix_to_string	000
+  #64394	4	ref_typespec			uvm_pkg::uvm_radix_to_string		0	0	0	0		0			uvm_pkg::uvm_radix_to_string	000
+  #64395	5	string_typespec				uvm_object_globals.svh	104	10	104	16						000
+  #64396	3	io_decl	radix			uvm_object_globals.svh	104	52	104	57						000
+
+--- OURS (B) records 64370..64382 ('>' = the object)
+  #64370	2	function	uvm_revision_string		svaunit_pkg::uvm_revision_string	uvm_version.svh	33	1	35	12					svaunit_pkg::uvm_revision_string	000
+  #64371	3	string_var			uvm_pkg::uvm_revision_string	uvm_version.svh	33	10	33	16		0			uvm_pkg::uvm_revision_string	000
+  #64372	4	ref_typespec			uvm_pkg::uvm_revision_string		0	0	0	0		0			uvm_pkg::uvm_revision_string	000
+  #64373	5	string_typespec				uvm_version.svh	33	10	33	16						000
+  #64374	3	return_stmt				uvm_version.svh	34	3	34	9						000
+  #64375	4	constant				uvm_version.svh	34	10	34	22	"UVM.1.2"	56	STRING:UVM.1.2	6		000
+> #64376	5	ref_typespec			uvm_pkg		0	0	0	0		0			uvm_pkg	000
+  #64377	6	string_typespec				uvm_version.svh	31	11	31	17						000
+  #64378	2	function	uvm_radix_to_string		svaunit_pkg::uvm_radix_to_string	uvm_object_globals.svh	104	1	121	12					svaunit_pkg::uvm_radix_to_string	000
+  #64379	3	string_var			uvm_pkg::uvm_radix_to_string	uvm_object_globals.svh	104	10	104	16		0			uvm_pkg::uvm_radix_to_string	000
+  #64380	4	ref_typespec			uvm_pkg::uvm_radix_to_string		0	0	0	0		0			uvm_pkg::uvm_radix_to_string	000
+  #64381	5	string_typespec				uvm_object_globals.svh	104	10	104	16						000
+  #64382	3	io_decl	radix			uvm_object_globals.svh	104	52	104	57						000
+
+facets of this row (3771, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

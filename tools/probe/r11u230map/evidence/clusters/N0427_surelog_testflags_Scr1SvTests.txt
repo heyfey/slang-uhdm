@@ -1,0 +1,64 @@
+cluster N0427 (id kept from an earlier map; OPEN (map 14 gave it to pair B r11u223; passes 223 and 225 left it) | ground B | site emitExpr (ExprEmit.cpp, law clsScopedBoundWholeSpan201) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) < emitExpr (ExprEmit.cpp, law thisPathSelectErased4) [r11u230 pin]): fullname|ref_obj|tok:id[id].id.->|under:bit_select
+row: surelog/testflags/Scr1SvTests  strict=differ:type(1)  records golden=83997 ours=84036
+object: #80539 (golden) / #80578 (ours)  type=ref_obj name=req_aval_ptr OUT
+  golden: work@scr1_top_tb_axi.i_top.i_imem_axi.req_status[req_aval_ptr].req_resp.req_aval_ptr
+  ours:   work@scr1_top_tb_axi.i_top.i_imem_axi.req_aval_ptr
+  walk parents: bit_select(req_status) < hier_path(req_status[req_aval_ptr].req_resp) < operation < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 80533..80545 ('>' = the object)
+  #80533	7	operation				scr1_mem_axi.sv	126	25	126	36		0				000
+  #80534	8	ref_obj	axi_reinit		work@scr1_top_tb_axi.i_top.i_imem_axi.axi_reinit	scr1_mem_axi.sv	126	26	126	36		0			work@scr1_top_tb_axi.i_top.i_imem_axi.axi_reinit	000
+  #80535	9	logic_net	axi_reinit		work@scr1_mem_axi.axi_reinit	scr1_mem_axi.sv	21	45	21	55		0			work@scr1_mem_axi.axi_reinit	000
+  #80536	7	operation				scr1_mem_axi.sv	127	25	127	59		0				000
+  #80537	8	hier_path	req_status[req_aval_ptr].req_resp			scr1_mem_axi.sv	127	26	127	59		0				000
+  #80538	9	bit_select	req_status		req_status[req_aval_ptr]	scr1_mem_axi.sv	127	26	127	36		0			req_status[req_aval_ptr]	000
+> #80539	10	ref_obj	req_aval_ptr		work@scr1_top_tb_axi.i_top.i_imem_axi.req_status[req_aval_ptr].req_resp.req_aval_ptr	scr1_mem_axi.sv	127	37	127	49		0			work@scr1_top_tb_axi.i_top.i_imem_axi.req_status[req_aval_ptr].req_resp.req_aval_ptr	000
+  #80540	9	ref_obj	req_resp		work@scr1_top_tb_axi.i_top.i_imem_axi.req_resp	scr1_mem_axi.sv	127	51	127	59		0			work@scr1_top_tb_axi.i_top.i_imem_axi.req_resp	000
+  #80541	6	operation				scr1_mem_axi.sv	128	26	128	57		0				000
+  #80542	7	ref_obj	core_resp		work@scr1_top_tb_axi.i_top.i_imem_axi.core_resp	scr1_mem_axi.sv	128	26	128	35		0			work@scr1_top_tb_axi.i_top.i_imem_axi.core_resp	000
+  #80543	8	logic_net	core_resp		work@scr1_mem_axi.core_resp	scr1_mem_axi.sv	31	45	31	54		0			work@scr1_mem_axi.core_resp	000
+  #80544	7	ref_obj	SCR1_MEM_RESP_RDY_ER		work@scr1_top_tb_axi.i_top.i_imem_axi.SCR1_MEM_RESP_RDY_ER	scr1_mem_axi.sv	128	37	128	57		0			work@scr1_top_tb_axi.i_top.i_imem_axi.SCR1_MEM_RESP_RDY_ER	000
+  #80545	8	enum_const	SCR1_MEM_RESP_RDY_ER			scr1_memif.svh	42	5	42	36						010
+
+--- OURS (B) records 80572..80584 ('>' = the object)
+  #80572	7	operation				scr1_mem_axi.sv	126	25	126	36		0				000
+  #80573	8	ref_obj	axi_reinit		work@scr1_top_tb_axi.i_top.i_imem_axi.axi_reinit	scr1_mem_axi.sv	126	26	126	36		0			work@scr1_top_tb_axi.i_top.i_imem_axi.axi_reinit	000
+  #80574	9	logic_net	axi_reinit		work@scr1_mem_axi.axi_reinit	scr1_mem_axi.sv	21	45	21	55		0			work@scr1_mem_axi.axi_reinit	000
+  #80575	7	operation				scr1_mem_axi.sv	127	25	127	59		0				000
+  #80576	8	hier_path	req_status[req_aval_ptr].req_resp			scr1_mem_axi.sv	127	26	127	59		0				000
+  #80577	9	bit_select	req_status		req_status[req_aval_ptr]	scr1_mem_axi.sv	127	26	127	36		0			req_status[req_aval_ptr]	000
+> #80578	10	ref_obj	req_aval_ptr		work@scr1_top_tb_axi.i_top.i_imem_axi.req_aval_ptr	scr1_mem_axi.sv	127	37	127	49		0			work@scr1_top_tb_axi.i_top.i_imem_axi.req_aval_ptr	000
+  #80579	9	ref_obj	req_resp		work@scr1_top_tb_axi.i_top.i_imem_axi.req_resp	scr1_mem_axi.sv	127	51	127	59		0			work@scr1_top_tb_axi.i_top.i_imem_axi.req_resp	000
+  #80580	6	operation				scr1_mem_axi.sv	128	26	128	57		0				000
+  #80581	7	ref_obj	core_resp		work@scr1_top_tb_axi.i_top.i_imem_axi.core_resp	scr1_mem_axi.sv	128	26	128	35		0			work@scr1_top_tb_axi.i_top.i_imem_axi.core_resp	000
+  #80582	8	logic_net	core_resp		work@scr1_mem_axi.core_resp	scr1_mem_axi.sv	31	45	31	54		0			work@scr1_mem_axi.core_resp	000
+  #80583	7	ref_obj	SCR1_MEM_RESP_RDY_ER		work@scr1_top_tb_axi.i_top.i_imem_axi.SCR1_MEM_RESP_RDY_ER	scr1_mem_axi.sv	128	37	128	57		0			work@scr1_top_tb_axi.i_top.i_imem_axi.SCR1_MEM_RESP_RDY_ER	000
+  #80584	8	enum_const	SCR1_MEM_RESP_RDY_ER			scr1_memif.svh	42	5	42	36						010
+
+facets of this row (81, first 25):
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48791 constant  G[] O[1 objs]
+  N2405 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N0921 #-1/70149 operation  G[] O[5 objs]
+  N0921 #-1/70158 operation  G[] O[7 objs]
+  N0921 #-1/70169 operation  G[] O[11 objs]
+  N0921 #-1/70184 operation  G[] O[13 objs]
+  N0921 #-1/76049 operation  G[] O[7 objs]
+  N1119 #48793/48792 ref_obj ifu2imem_cmd_o G[work@scr1_pipe_ifu.ifu2imem_cmd_o] O[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_ifu.ifu2imem_cmd_o]
+  N0078 #63257/63256 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol.SC] O[]
+  N0078 #63267/63266 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_tdata2.SCR1] O[]
+  N0426 #63290/63286 ref_obj SCR1_TDU_ALLTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_tselect_ff.SCR1_] O[]
+  N0078 #63301/63297 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_wr_req.] O[]
+  N0078 #63311/63307 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_clk_en.] O[]
+  N0078 #63321/63317 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_upd.SCR] O[]
+  N0078 #63331/63327 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_dmode_f] O[]
+  N0078 #63341/63337 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_dmode_n] O[]
+  N0078 #63351/63347 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_m_ff.SC] O[]
+  N0078 #63361/63357 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_m_next.] O[]
+  N0078 #63371/63367 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_exec_ff] O[]
+  N0078 #63381/63377 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_exec_ne] O[]
+  N0078 #63391/63387 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_load_ff] O[]
+  N0078 #63401/63397 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_load_ne] O[]
+  N0078 #63411/63407 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_store_f] O[]
+  N0078 #63421/63417 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_store_n] O[]

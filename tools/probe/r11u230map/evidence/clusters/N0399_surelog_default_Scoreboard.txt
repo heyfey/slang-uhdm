@@ -1,0 +1,64 @@
+cluster N0399 (id kept from an earlier map; COVERED r11u227 (the UVM ground-A families, optimistic) | ground A | site emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpTrailSelIdxNamesByPath133) [r11u142map pin]): fullname|ref_obj|tok:id.id[id % ]::id::->|under:hier_path
+row: surelog/default/Scoreboard  strict=differ:file(12)  records golden=269656 ours=269853
+object: #183407 (golden) / #183495 (ours)  type=ref_obj name=m_byte_enable_length OUT
+  golden: uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::m_byte_enable_length
+  ours:   uvm_pkg::uvm_tlm_generic_payload::do_compare::m_byte_enable_length
+  walk parents: hier_path(gp.m_byte_enable_length) < operation < bit_select(m_byte_enable) < hier_path(gp.m_byte_enable[i % ])
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 183401..183413 ('>' = the object)
+  #183401	16	ref_obj	gp			uvm_tlm2_generic_payload.svh	464	22	464	24		0				000
+  #183402	16	bit_select	m_byte_enable		uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable	uvm_tlm2_generic_payload.svh	464	39	464	66		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable	000
+  #183403	17	operation				uvm_tlm2_generic_payload.svh	464	39	464	66		0				000
+  #183404	18	ref_obj	i		uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::i	uvm_tlm2_generic_payload.svh	464	39	464	40		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::i	000
+  #183405	18	hier_path	gp.m_byte_enable_length			uvm_tlm2_generic_payload.svh	464	43	464	66		0				000
+  #183406	19	ref_obj	gp			uvm_tlm2_generic_payload.svh	464	43	464	45		0				000
+> #183407	19	ref_obj	m_byte_enable_length		uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::m_byte_enable_length	uvm_tlm2_generic_payload.svh	464	46	464	66		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::m_byte_enable_length	000
+  #183408	15	ref_obj	rhs_be		uvm_pkg::uvm_tlm_generic_payload::do_compare::rhs_be	uvm_tlm2_generic_payload.svh	464	13	464	19		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::rhs_be	000
+  #183409	14	assignment				uvm_tlm2_generic_payload.svh	465	13	465	75						000
+  #183410	15	operation				uvm_tlm2_generic_payload.svh	465	27	465	74		0				000
+  #183411	16	operation				uvm_tlm2_generic_payload.svh	465	28	465	46		0				000
+  #183412	17	bit_select	m_data		uvm_pkg::uvm_tlm_generic_payload::do_compare::m_data	uvm_tlm2_generic_payload.svh	465	35	465	36		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::m_data	000
+  #183413	18	ref_obj	i		uvm_pkg::uvm_tlm_generic_payload::do_compare::i	uvm_tlm2_generic_payload.svh	465	35	465	36		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::i	000
+
+--- OURS (B) records 183489..183501 ('>' = the object)
+  #183489	16	ref_obj	gp			uvm_tlm2_generic_payload.svh	464	22	464	24		0				000
+  #183490	16	bit_select	m_byte_enable		uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable	uvm_tlm2_generic_payload.svh	464	39	464	66		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable	000
+  #183491	17	operation				uvm_tlm2_generic_payload.svh	464	39	464	66		0				000
+  #183492	18	ref_obj	i		uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::i	uvm_tlm2_generic_payload.svh	464	39	464	40		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::i	000
+  #183493	18	hier_path	gp.m_byte_enable_length			uvm_tlm2_generic_payload.svh	464	43	464	66		0				000
+  #183494	19	ref_obj	gp			uvm_tlm2_generic_payload.svh	464	43	464	45		0				000
+> #183495	19	ref_obj	m_byte_enable_length		uvm_pkg::uvm_tlm_generic_payload::do_compare::m_byte_enable_length	uvm_tlm2_generic_payload.svh	464	46	464	66		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::m_byte_enable_length	000
+  #183496	15	ref_obj	rhs_be		uvm_pkg::uvm_tlm_generic_payload::do_compare::rhs_be	uvm_tlm2_generic_payload.svh	464	13	464	19		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::rhs_be	000
+  #183497	14	assignment				uvm_tlm2_generic_payload.svh	465	13	465	75						000
+  #183498	15	operation				uvm_tlm2_generic_payload.svh	465	27	465	74		0				000
+  #183499	16	operation				uvm_tlm2_generic_payload.svh	465	28	465	46		0				000
+  #183500	17	bit_select	m_data		uvm_pkg::uvm_tlm_generic_payload::do_compare::m_data	uvm_tlm2_generic_payload.svh	465	35	465	36		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::m_data	000
+  #183501	18	ref_obj	i		uvm_pkg::uvm_tlm_generic_payload::do_compare::i	uvm_tlm2_generic_payload.svh	465	35	465	36		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::i	000
+
+facets of this row (475, first 25):
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79148 array_typespec  G[] O[1 objs]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]
+  N0262 #84980/-1 constant  G[2 objs] O[]
+  N0262 #84984/-1 constant  G[2 objs] O[]
+  N0262 #85274/-1 constant  G[2 objs] O[]
+  N0262 #85285/-1 constant  G[2 objs] O[]
+  N0262 #85289/-1 constant  G[2 objs] O[]
+  N0262 #85293/-1 constant  G[2 objs] O[]
+  N0025 #130737/130722 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/130721 operation  G[] O[1 objs]
+  N0025 #130740/130727 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/130726 operation  G[] O[1 objs]
+  N0025 #133223/133212 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133211 operation  G[] O[1 objs]
+  N0025 #133226/133217 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133216 operation  G[] O[1 objs]
+  N0025 #133269/133262 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133261 operation  G[] O[1 objs]
+  N0025 #133272/133267 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133266 operation  G[] O[1 objs]
+  N0025 #133317/133314 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133313 operation  G[] O[1 objs]
+  N0025 #133320/133319 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]

@@ -1,0 +1,64 @@
+cluster N0645 (id kept from an earlier map; COVERED r11u227 (the UVM ground-A families, optimistic) | ground A | site emitExpr (ExprEmit.cpp, law memberRandNullDropsArgsAndWith119) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): fullname|constraint|tok:::id->|under:method_func_call
+row: surelog/default/MiniAmiq  strict=differ:line(2)  records golden=435559 ours=432516
+object: #94831 (golden) / #94468 (ours)  type=constraint name= OUT
+  golden: svaunit_pkg::uvm_sequence_library::execute::seq_or_item
+  ours:   svaunit_pkg::uvm_sequence_library::execute
+  walk parents: method_func_call(randomize) < hier_path(seq_or_item) < operation < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 94825..94837 ('>' = the object)
+  #94825	10	ref_obj	__seq			uvm_sequence_defines.svh	299	26	299	31		0				000
+  #94826	10	ref_obj	do_not_randomize		svaunit_pkg::uvm_sequence_library::execute::do_not_randomize	uvm_sequence_defines.svh	299	32	299	48		0			svaunit_pkg::uvm_sequence_library::execute::do_not_randomize	000
+  #94827	7	operation				uvm_sequence_defines.svh	299	53	299	85		0				000
+  #94828	8	hier_path	seq_or_item			uvm_sequence_defines.svh	299	54	299	85		0				000
+  #94829	9	ref_obj	seq_or_item		svaunit_pkg::uvm_sequence_library::execute::seq_or_item	uvm_sequence_defines.svh	299	54	299	65		0			svaunit_pkg::uvm_sequence_library::execute::seq_or_item	000
+  #94830	9	method_func_call	randomize				0	0	0	0		0				000
+> #94831	10	constraint			svaunit_pkg::uvm_sequence_library::execute::seq_or_item		0	0	0	0					svaunit_pkg::uvm_sequence_library::execute::seq_or_item	000
+  #94832	6	begin			svaunit_pkg::uvm_sequence_library::execute	uvm_sequence_defines.svh	299	88	301	6					svaunit_pkg::uvm_sequence_library::execute	000
+  #94833	7	begin			svaunit_pkg::uvm_sequence_library::execute	uvm_message_defines.svh	130	4	133	7					svaunit_pkg::uvm_sequence_library::execute	000
+  #94834	8	if_stmt				uvm_message_defines.svh	131	6	132	227						000
+  #94835	9	func_call	uvm_report_enabled			uvm_message_defines.svh	131	10	131	59		0				000
+  #94836	10	ref_obj	UVM_NONE		svaunit_pkg::uvm_sequence_library::execute::UVM_NONE	uvm_message_defines.svh	131	29	131	37		0			svaunit_pkg::uvm_sequence_library::execute::UVM_NONE	000
+  #94837	10	ref_obj	UVM_WARNING		svaunit_pkg::uvm_sequence_library::execute::UVM_WARNING	uvm_message_defines.svh	131	38	131	49		0			svaunit_pkg::uvm_sequence_library::execute::UVM_WARNING	000
+
+--- OURS (B) records 94462..94474 ('>' = the object)
+  #94462	10	ref_obj	__seq			uvm_sequence_defines.svh	299	26	299	31		0				000
+  #94463	10	ref_obj	do_not_randomize		svaunit_pkg::uvm_sequence_library::execute::do_not_randomize	uvm_sequence_defines.svh	299	32	299	48		0			svaunit_pkg::uvm_sequence_library::execute::do_not_randomize	000
+  #94464	7	operation				uvm_sequence_defines.svh	299	53	299	85		0				000
+  #94465	8	hier_path	seq_or_item			uvm_sequence_defines.svh	299	54	299	85		0				000
+  #94466	9	ref_obj	seq_or_item		svaunit_pkg::uvm_sequence_library::execute::seq_or_item	uvm_sequence_defines.svh	299	54	299	65		0			svaunit_pkg::uvm_sequence_library::execute::seq_or_item	000
+  #94467	9	method_func_call	randomize				0	0	0	0		0				000
+> #94468	10	constraint			svaunit_pkg::uvm_sequence_library::execute		0	0	0	0					svaunit_pkg::uvm_sequence_library::execute	000
+  #94469	6	begin			svaunit_pkg::uvm_sequence_library::execute	uvm_sequence_defines.svh	299	88	301	6					svaunit_pkg::uvm_sequence_library::execute	000
+  #94470	7	begin			svaunit_pkg::uvm_sequence_library::execute	uvm_message_defines.svh	130	4	133	7					svaunit_pkg::uvm_sequence_library::execute	000
+  #94471	8	if_stmt				uvm_message_defines.svh	131	6	132	227						000
+  #94472	9	func_call	uvm_report_enabled			uvm_message_defines.svh	131	10	131	59		0				000
+  #94473	10	ref_obj	UVM_NONE		svaunit_pkg::uvm_sequence_library::execute::UVM_NONE	uvm_message_defines.svh	131	29	131	37		0			svaunit_pkg::uvm_sequence_library::execute::UVM_NONE	000
+  #94474	10	ref_obj	UVM_WARNING		svaunit_pkg::uvm_sequence_library::execute::UVM_WARNING	uvm_message_defines.svh	131	38	131	49		0			svaunit_pkg::uvm_sequence_library::execute::UVM_WARNING	000
+
+facets of this row (3771, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

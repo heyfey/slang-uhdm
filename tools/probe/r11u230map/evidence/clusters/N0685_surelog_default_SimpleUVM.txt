@@ -1,0 +1,64 @@
+cluster N0685 (id kept from an earlier map; COVERED r11u227 (the UVM ground-A families, optimistic) | ground A | site emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u138map pin] [r11u142map pin]): value|parameter|value:UINT->empty|under:module_inst
+row: surelog/default/SimpleUVM  strict=differ:file(36)  records golden=334285 ours=334559
+object: #203342 (golden) / #203426 (ours)  type=parameter name=UVM_ABSTRACT
+  golden: |0|UINT:16384|
+  ours:   |0||
+  walk parents: module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 203336..203348 ('>' = the object)
+  #203336	6	assignment				design.sv	16	9	16	27						000
+  #203337	7	operation				design.sv	16	20	16	27		0				000
+  #203338	8	ref_obj	a0		work@ADD_SUB.a0	design.sv	16	20	16	22		0			work@ADD_SUB.a0	000
+  #203339	8	ref_obj	b0		work@ADD_SUB.b0	design.sv	16	25	16	27		0			work@ADD_SUB.b0	000
+  #203340	7	ref_obj	result0		work@ADD_SUB.result0	design.sv	16	9	16	16		0			work@ADD_SUB.result0	000
+  #203341	1	module_inst		work@top	work@top	testbench.sv	44	1	71	10					work@top	000
+> #203342	2	parameter	UVM_ABSTRACT		work@top.UVM_ABSTRACT	uvm_object_globals.svh	201	11	201	23		0	UINT:16384		work@top.UVM_ABSTRACT	000
+  #203343	3	ref_typespec			work@top.UVM_ABSTRACT		0	0	0	0		0			work@top.UVM_ABSTRACT	000
+  #203344	4	int_typespec				uvm_object_globals.svh	201	1	201	37						000
+  #203345	2	parameter	UVM_ALL_ON		work@top.UVM_ALL_ON	uvm_object_globals.svh	181	11	181	21		0	BIN:000000101010101		work@top.UVM_ALL_ON	000
+  #203346	2	parameter	UVM_CHECK_FIELDS		work@top.UVM_CHECK_FIELDS	uvm_object_globals.svh	209	11	209	27		0	UINT:131075		work@top.UVM_CHECK_FIELDS	000
+  #203347	3	ref_typespec			work@top.UVM_CHECK_FIELDS		0	0	0	0		0			work@top.UVM_CHECK_FIELDS	000
+  #203348	4	int_typespec				uvm_object_globals.svh	209	1	209	48						000
+
+--- OURS (B) records 203420..203432 ('>' = the object)
+  #203420	6	assignment				design.sv	16	9	16	27						000
+  #203421	7	operation				design.sv	16	20	16	27		0				000
+  #203422	8	ref_obj	a0		work@ADD_SUB.a0	design.sv	16	20	16	22		0			work@ADD_SUB.a0	000
+  #203423	8	ref_obj	b0		work@ADD_SUB.b0	design.sv	16	25	16	27		0			work@ADD_SUB.b0	000
+  #203424	7	ref_obj	result0		work@ADD_SUB.result0	design.sv	16	9	16	16		0			work@ADD_SUB.result0	000
+  #203425	1	module_inst		work@top	work@top	testbench.sv	44	1	71	10					work@top	000
+> #203426	2	parameter	UVM_ABSTRACT		work@top.UVM_ABSTRACT	uvm_object_globals.svh	201	11	201	23		0			work@top.UVM_ABSTRACT	000
+  #203427	3	ref_typespec			work@top.UVM_ABSTRACT		0	0	0	0		0			work@top.UVM_ABSTRACT	000
+  #203428	4	int_typespec				uvm_object_globals.svh	201	1	201	37						000
+  #203429	2	parameter	UVM_ALL_ON		work@top.UVM_ALL_ON	uvm_object_globals.svh	181	11	181	21		0	BIN:000000101010101		work@top.UVM_ALL_ON	000
+  #203430	2	parameter	UVM_CHECK_FIELDS		work@top.UVM_CHECK_FIELDS	uvm_object_globals.svh	209	11	209	27		0			work@top.UVM_CHECK_FIELDS	000
+  #203431	3	ref_typespec			work@top.UVM_CHECK_FIELDS		0	0	0	0		0			work@top.UVM_CHECK_FIELDS	000
+  #203432	4	int_typespec				uvm_object_globals.svh	209	1	209	48						000
+
+facets of this row (1510, first 25):
+  N0197 #78752/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/78752 array_typespec  G[] O[1 objs]
+  N0262 #80745/-1 constant  G[2 objs] O[]
+  N0262 #80756/-1 constant  G[2 objs] O[]
+  N0262 #80760/-1 constant  G[2 objs] O[]
+  N0262 #80764/-1 constant  G[2 objs] O[]
+  N0262 #81054/-1 constant  G[2 objs] O[]
+  N0262 #81065/-1 constant  G[2 objs] O[]
+  N0262 #81069/-1 constant  G[2 objs] O[]
+  N0262 #81073/-1 constant  G[2 objs] O[]
+  N0423 #98800/-1 enum_typespec uvm_pkg::uvm_severity G[10 objs] O[]
+  N0408 #-1/98784 unsupported_typespec uvm_severity G[] O[1 objs]
+  N0025 #128833/128809 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/128808 operation  G[] O[1 objs]
+  N0025 #128836/128814 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/128813 operation  G[] O[1 objs]
+  N0025 #131323/131303 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/131302 operation  G[] O[1 objs]
+  N0025 #131326/131308 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/131307 operation  G[] O[1 objs]
+  N0025 #131369/131353 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/131352 operation  G[] O[1 objs]
+  N0025 #131372/131358 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/131357 operation  G[] O[1 objs]
+  N0025 #131417/131405 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]

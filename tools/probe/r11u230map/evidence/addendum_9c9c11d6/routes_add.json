@@ -1,0 +1,88 @@
+{
+ "pairA": {
+  "N0817": "item 1: struct_param_func_config #759 (ParamEmit makeParamTs memberScope)",
+  "N0028": "item 1: the same names",
+  "N0761": "item 1: the same names",
+  "N0552": "item 1: the same names",
+  "N0045": "item 1: annotations of ParamEmit stampEvalFuncLeftovers",
+  "N0891": "item 1: annotations of ParamEmit stampEvalFuncLeftovers",
+  "N0675": "item 1: struct_param_func_config",
+  "N2412": "item 1: struct_param_func_config",
+  "N0263": "item 1: cfg_func_width_loop #464 (the elaborated param_assign Rhs re-pointing, ParamEmit)",
+  "N0025": "item 1: cfg_func_width_loop",
+  "N0033": "item 1: cfg_func_width_loop",
+  "N0754": "item 1: cfg_func_width_loop",
+  "N0794": "item 1: cfg_func_width_loop",
+  "N2472": "item 1: FuncStructVal #4782 (the INSTR_PER_FETCH leftover)",
+  "N2473": "item 1: FuncStructVal #4782",
+  "N0980": "item 1: FuncStructVal",
+  "N1946": "item 1: FuncStructVal",
+  "N0868": "item 1: BlackBePipeInt #15268 / #15272",
+  "N0131": "item 5: N0131",
+  "N0812": "item 5: the Earlgrey_0_1 scope names (N0812)",
+  "N0008": "item 6: N0008",
+  "N0039": "item 5: N0039 (its field writer is ExprEmit)"
+ },
+ "pairB": {
+  "N0266": "item 1b: UVM_SEQ_ARB_TYPE",
+  "N0337": "item 1c: this_type (SimpleUVM / Scoreboard)",
+  "N0072": "item 1c: this_type (BuildUVMPkg)",
+  "N0120": "item 2: N0120"
+ },
+ "pairA_named": {
+  "N0817": "item 1: struct_param_func_config #759 (ParamEmit makeParamTs memberScope)",
+  "N0028": "item 1: the same names",
+  "N0761": "item 1: the same names",
+  "N0552": "item 1: the same names",
+  "N0045": "item 1: annotations of ParamEmit stampEvalFuncLeftovers",
+  "N0891": "item 1: annotations of ParamEmit stampEvalFuncLeftovers",
+  "N0675": "item 1: struct_param_func_config",
+  "N2412": "item 1: struct_param_func_config",
+  "N0263": "item 1: cfg_func_width_loop #464 (the elaborated param_assign Rhs re-pointing, ParamEmit)",
+  "N0025": "item 1: cfg_func_width_loop",
+  "N0033": "item 1: cfg_func_width_loop",
+  "N0754": "item 1: cfg_func_width_loop",
+  "N0794": "item 1: cfg_func_width_loop",
+  "N2472": "item 1: FuncStructVal #4782 (the INSTR_PER_FETCH leftover)",
+  "N2473": "item 1: FuncStructVal #4782",
+  "N0980": "item 1: FuncStructVal",
+  "N1946": "item 1: FuncStructVal",
+  "N0868": "item 1: BlackBePipeInt #15268 / #15272",
+  "N0131": "item 5: N0131",
+  "N0812": "item 5: the Earlgrey_0_1 scope names (N0812)",
+  "N0008": "item 6: N0008",
+  "N0039": "item 5: N0039 (its field writer is ExprEmit)"
+ },
+ "pairB_named": {
+  "N0266": "item 1b: UVM_SEQ_ARB_TYPE",
+  "N0337": "item 1c: this_type (SimpleUVM / Scoreboard)",
+  "N0072": "item 1c: this_type (BuildUVMPkg)",
+  "N0120": "item 2: N0120"
+ },
+ "pairA_rows": {
+  "FuncStructVal": {
+   "modes": null,
+   "why": "r11u232 item 1: the FuncStructVal A half"
+  },
+  "struct_param_func_config": {
+   "modes": null,
+   "why": "r11u232 item 1: the struct_param_func_config A half"
+  },
+  "cfg_func_width_loop": {
+   "modes": null,
+   "why": "r11u232 item 1: the cfg_func_width_loop A half"
+  },
+  "BlackBePipeInt": {
+   "modes": null,
+   "why": "r11u232 item 1: the BlackBePipeInt A half"
+  }
+ },
+ "pairB_rows": {},
+ "tags": {
+  "pairA": "r11u232",
+  "pairB": "r11u231"
+ },
+ "uvm_A_families": "r11u232 item 6: the UVM A families",
+ "earl_A_family": "r11u232 item 5: the Earlgrey scope names",
+ "first10B": "r11u231 items 1 and 4: the UVM heads and Earlgrey ground-B families (first-ten rule, optimistic)"
+}

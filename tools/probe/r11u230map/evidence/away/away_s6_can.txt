@@ -1,0 +1,14 @@
+# 12 databases differ between /tmp/r11u230_s6 and /tmp/r11u230_sP (canonical records)
+probe/r10buvm13repro/v3_clone13 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+probe/r10uvm17repro/t29_t chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+probe/r10v179repro/v179_f_nomod chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+surelog/default/BuildUVMPkg chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+surelog/default/MiniAmiq chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+surelog/default/Scoreboard chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+surelog/default/SeqDriver chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+surelog/default/SimpleUVM chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/BuildUVMPkg chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/MiniAmiq chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/SeqDriver chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/SimpleUVM chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+TOTAL chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0

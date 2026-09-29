@@ -1,0 +1,5 @@
+surelog/default/1364_2005 csv=CMP_EQUAL strictcmp_x rc=0 [STRICT_EQUAL 159 objects] records=159 dump-lines-differing=0 uhdm-cmp rc=0 lines=0
+surelog/default/HierPathInterfBlock csv=CMP_EQUAL strictcmp_x rc=0 [STRICT_EQUAL 226 objects] records=226 dump-lines-differing=0 uhdm-cmp rc=0 lines=0
+uhdm2rtlil/default/1DUnpackedArray csv=CMP_EQUAL strictcmp_x rc=0 [STRICT_EQUAL 194 objects] records=194 dump-lines-differing=0 uhdm-cmp rc=0 lines=0
+uhdm2rtlil/default/stamped_gen_param csv=CMP_NOTEQUAL strictcmp_x rc=1 [stage 1: rhsPath: design(work@stamped_gen_param) > module_inst(work@stamped_gen_param) > gen_scope_array(gen_grps[0]) > gen_scope > param_assign > constant] records=- dump-lines-differing=- (stage 1: no record walk) uhdm-cmp rc=255 lines=62
+uhdm2rtlil/testflags/stamped_gen_param csv=CMP_NOTEQUAL strictcmp_x rc=1 [stage 1: rhsPath: design(work@stamped_gen_param) > module_inst(work@stamped_gen_param) > gen_scope_array(gen_grps[0]) > gen_scope > param_assign > constant] records=- dump-lines-differing=- (stage 1: no record walk) uhdm-cmp rc=255 lines=62

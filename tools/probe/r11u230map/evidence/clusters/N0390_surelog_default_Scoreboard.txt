@@ -1,0 +1,64 @@
+cluster N0390 (id kept from an earlier map; COVERED r11u227 (the UVM ground-A families, optimistic) | ground A | site emitStmt (StmtEmit.cpp, law parBlockJoinTailAfterFirstItem131) < emitStmt (StmtEmit.cpp, law invalidChild14) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) [r11u142map pin]): span|begin|ours-zero|under:begin
+row: surelog/default/Scoreboard  strict=differ:file(12)  records golden=269656 ours=269853
+object: #203140 (golden) / #203233 (ours)  type=begin name=
+  golden: 130:4:134:7
+  ours:   0:0:0:0
+  walk parents: begin < if_stmt < begin < function(find_all)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 203134..203146 ('>' = the object)
+  #203134	6	operation				uvm_misc.svh	662	9	662	26		0				000
+  #203135	7	hier_path	types.size			uvm_misc.svh	662	9	662	21		0				000
+  #203136	8	ref_obj	types			uvm_misc.svh	662	9	662	14		0				000
+  #203137	8	method_func_call	size			uvm_misc.svh	662	15	662	19		0				000
+  #203138	7	constant				uvm_misc.svh	662	25	662	26	0	64	UINT:0	9		000
+  #203139	6	begin			uvm_pkg::uvm_utils::find_all	uvm_misc.svh	662	28	665	8					uvm_pkg::uvm_utils::find_all	000
+> #203140	7	begin			uvm_pkg::uvm_utils::find_all	uvm_message_defines.svh	130	4	134	7					uvm_pkg::uvm_utils::find_all	000
+  #203141	8	if_stmt				uvm_message_defines.svh	131	6	133	209						000
+  #203142	9	func_call	uvm_report_enabled			uvm_message_defines.svh	131	10	131	71		0				000
+  #203143	10	ref_obj	UVM_NONE		uvm_pkg::uvm_utils::find_all::UVM_NONE	uvm_message_defines.svh	131	29	131	37		0			uvm_pkg::uvm_utils::find_all::UVM_NONE	000
+  #203144	10	ref_obj	UVM_WARNING		uvm_pkg::uvm_utils::find_all::UVM_WARNING	uvm_message_defines.svh	131	38	131	49		0			uvm_pkg::uvm_utils::find_all::UVM_WARNING	000
+  #203145	10	constant				uvm_message_defines.svh	131	50	131	70	"find_type-no match"	144	STRING:find_type-no match	6		000
+  #203146	9	func_call	uvm_report_warning			uvm_message_defines.svh	132	8	133	208		0				000
+
+--- OURS (B) records 203227..203239 ('>' = the object)
+  #203227	6	operation				uvm_misc.svh	662	9	662	26		0				000
+  #203228	7	hier_path	types.size			uvm_misc.svh	662	9	662	21		0				000
+  #203229	8	ref_obj	types			uvm_misc.svh	662	9	662	14		0				000
+  #203230	8	method_func_call	size			uvm_misc.svh	662	15	662	19		0				000
+  #203231	7	constant				uvm_misc.svh	662	25	662	26	0	64	UINT:0	9		000
+  #203232	6	begin			uvm_pkg::uvm_utils::find_all		0	0	0	0					uvm_pkg::uvm_utils::find_all	000
+> #203233	7	begin			uvm_pkg::uvm_utils::find_all		0	0	0	0					uvm_pkg::uvm_utils::find_all	000
+  #203234	8	if_stmt				uvm_message_defines.svh	131	6	133	209						000
+  #203235	9	func_call	uvm_report_enabled			uvm_message_defines.svh	131	10	131	71		0				000
+  #203236	10	ref_obj	UVM_NONE		uvm_pkg::uvm_utils::find_all::UVM_NONE	uvm_message_defines.svh	131	29	131	37		0			uvm_pkg::uvm_utils::find_all::UVM_NONE	000
+  #203237	10	ref_obj	UVM_WARNING		uvm_pkg::uvm_utils::find_all::UVM_WARNING	uvm_message_defines.svh	131	38	131	49		0			uvm_pkg::uvm_utils::find_all::UVM_WARNING	000
+  #203238	10	constant				uvm_message_defines.svh	131	50	131	70	"find_type-no match"	144	STRING:find_type-no match	6		000
+  #203239	9	func_call	uvm_report_warning			uvm_message_defines.svh	132	8	133	208		0				000
+
+facets of this row (475, first 25):
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79148 array_typespec  G[] O[1 objs]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]
+  N0262 #84980/-1 constant  G[2 objs] O[]
+  N0262 #84984/-1 constant  G[2 objs] O[]
+  N0262 #85274/-1 constant  G[2 objs] O[]
+  N0262 #85285/-1 constant  G[2 objs] O[]
+  N0262 #85289/-1 constant  G[2 objs] O[]
+  N0262 #85293/-1 constant  G[2 objs] O[]
+  N0025 #130737/130722 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/130721 operation  G[] O[1 objs]
+  N0025 #130740/130727 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/130726 operation  G[] O[1 objs]
+  N0025 #133223/133212 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133211 operation  G[] O[1 objs]
+  N0025 #133226/133217 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133216 operation  G[] O[1 objs]
+  N0025 #133269/133262 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133261 operation  G[] O[1 objs]
+  N0025 #133272/133267 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133266 operation  G[] O[1 objs]
+  N0025 #133317/133314 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133313 operation  G[] O[1 objs]
+  N0025 #133320/133319 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]

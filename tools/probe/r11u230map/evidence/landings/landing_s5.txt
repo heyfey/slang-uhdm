@@ -1,0 +1,17 @@
+== pass 225 landed: corpus STRICT_NOTEQUAL row-modes 31 -> 28 (3 converted, 0 entered); probe 634 -> 634 (0 converted, 0 entered)
+   converted: sur/d/InterfArrayBind uhd/d/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/t/OutputSizeWithParameterOfInstanceInitializedByStructMember
+   entered: -
+   probe converted: -
+   probe entered: -
+   row-modes whose strict cell changed: 0:
+   clusters (keys) 697 -> 695: gone 2, new 0
+   gone (rows/probe before): N1127 2/0; N0191 2/0
+   gone with a corpus row: N1127 rows 2 [uhd/d/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/t/OutputSizeWithParameterOfInstanceInitializedByStructMember] `fullname|ref_typespec|tok:->id@id.id.id.|under:hier_path`; N0191 rows 2 [uhd/d/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/t/OutputSizeWithParameterOfInstanceInitializedByStructMember] `span|hier_path|line+col+endline+endcol|under:operation`
+   new (rows/probe after):
+   fell (rows): N0427 3->2; N0001 3->1; N0853 2->0
+   grew (rows): -
+   probe: 0 clusters fell, 0 grew:  | grew:
+   differing objects (analyzer facet rows) per row-mode, before -> after:
+     sur/d/InterfArrayBind                                        1 ->      0   clusters 1 -> 0
+     uhd/d/OutputSizeWithParameterOfInstanceInitializedByStructMember      8 ->      0   clusters 4 -> 0
+     uhd/t/OutputSizeWithParameterOfInstanceInitializedByStructMember      8 ->      0   clusters 4 -> 0

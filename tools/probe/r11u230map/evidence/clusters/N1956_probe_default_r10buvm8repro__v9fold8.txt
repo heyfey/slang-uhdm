@@ -1,0 +1,40 @@
+cluster N1956 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law defGenQualPkgCallBinds18) < emitStmt (StmtEmit.cpp, law negLitPkgRetFoldNested30) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) [r11u138map pin] [r11u142map pin]): struct|ours-only:fewer-copies|func_call|under:return_stmt
+row: probe/default/r10buvm8repro__v9fold8  strict=depth  records golden=64 ours=68
+object: #-1 (golden) / #43 (ours)  type=func_call name=foldable
+  golden:
+  ours:   4 objs
+  walk parents: return_stmt < function(f_call) < package(fp9) < design(work@m9)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 37..49 ('>' = the object)
+  #37	4	ref_typespec			fp9::f_call		0	0	0	0		0			fp9::f_call	000
+  #38	5	int_typespec				dut.sv	5	12	5	15						000
+  #39	3	io_decl	a			dut.sv	5	28	5	29						000
+  #40	4	ref_typespec			fp9::f_call::a		0	0	0	0		0			fp9::f_call::a	000
+  #41	5	int_typespec				dut.sv	5	24	5	27						000
+  #42	3	return_stmt				dut.sv	5	34	5	40						000
+> #43	4	func_call	foldable			dut.sv	5	41	5	52		0				000
+  #44	5	ref_obj	a		fp9::f_call::a	dut.sv	5	50	5	51		0			fp9::f_call::a	000
+  #45	6	ref_typespec			fp9::f_call::a		0	0	0	0		0			fp9::f_call::a	000
+  #46	7	int_typespec				dut.sv	4	26	4	29						000
+  #47	1	module_inst		work@m9	work@m9	dut.sv	7	1	10	10					work@m9	000
+  #48	2	logic_net	r		work@m9.r	dut.sv	8	7	8	8		0			work@m9.r	000
+  #49	3	ref_typespec			work@m9.r		0	0	0	0		0			work@m9.r	000
+
+--- the holder #42 on the other side: exact-record matches at [20, 42]
+  #17	3	io_decl	a			dut.sv	5	28	5	29						000
+  #18	4	ref_typespec			fp9::f_call::a		0	0	0	0		0			fp9::f_call::a	000
+  #19	5	int_typespec				dut.sv	5	24	5	27						000
+> #20	3	return_stmt				dut.sv	5	34	5	40						000
+  #21	4	func_call	foldable			dut.sv	5	41	5	52		0				000
+  #22	5	ref_obj	a		fp9::f_call::a	dut.sv	5	50	5	51		0			fp9::f_call::a	000
+  #23	1	package	fp9	fp9	fp9::	dut.sv	3	1	6	11					fp9::	000
+  #24	2	function	foldable		fp9::foldable	dut.sv	4	3	4	59					fp9::foldable	000
+  #25	3	int_var			fp9::foldable	dut.sv	4	12	4	15		0			fp9::foldable	000
+  #26	4	ref_typespec			fp9::foldable		0	0	0	0		0			fp9::foldable	000
+  #27	5	int_typespec				dut.sv	4	12	4	15						000
+  #28	3	io_decl	a			dut.sv	4	30	4	31						000
+  #29	4	ref_typespec			fp9::foldable::a		0	0	0	0		0			fp9::foldable::a	000
+
+facets of this row (1, first 25):
+  N1956 #-1/43 func_call foldable G[] O[4 objs]
