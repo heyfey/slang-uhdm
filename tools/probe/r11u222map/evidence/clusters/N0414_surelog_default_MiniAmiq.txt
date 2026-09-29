@@ -1,0 +1,64 @@
+cluster N0414 (id kept from an earlier map; OPEN (map 13 listed it: ground-A+B step 12; passes 207-220 left it) | ground B | site namedElemPackedDimTs31 (TypeEmit.cpp, law boundLitWrittenDigits172) < makeTypeParamDefaultTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) [r11u189 pin] [r11u179map pin (other example): emitModuleDef (ModuleEmit.cpp, law ifaceDefNetTypespecIsTheModuleRule224) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_]): struct|golden-only:fewer-copies|int_typespec|under:ref_typespec
+row: surelog/default/MiniAmiq  strict=differ:file(7)  records golden=435559 ours=432516
+object: #78478 (golden) / #-1 (ours)  type=int_typespec name= 
+  golden: 1 objs
+  ours:   
+  walk parents: ref_typespec < ref_var(next_pred) < ref_var(next_pred) < foreach_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 78472..78484 ('>' = the object)
+  #78472	12	ref_obj	m_predecessors		svaunit_pkg::uvm_phase::get_predecessors_for_successors::m_predecessors		0	0	0	0		0			svaunit_pkg::uvm_phase::get_predecessors_for_successors::m_predecessors	000
+  #78473	11	ref_var	next_pred		svaunit_pkg::uvm_phase::get_predecessors_for_successors::next_pred	uvm_phase.svh	1740	40	1740	49		0			svaunit_pkg::uvm_phase::get_predecessors_for_successors::next_pred	000
+  #78474	12	ref_typespec			svaunit_pkg::uvm_phase::get_predecessors_for_successors::next_pred		0	0	0	0		0			svaunit_pkg::uvm_phase::get_predecessors_for_successors::next_pred	000
+  #78475	13	unsupported_typespec	next_pred			uvm_phase.svh	1740	40	1740	49						110
+  #78476	12	ref_var	next_pred		uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred	uvm_phase.svh	1740	40	1740	49		0			uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred	000
+  #78477	13	ref_typespec			uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred		0	0	0	0		0			uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred	000
+> #78478	14	int_typespec					0	0	0	0						000
+  #78479	11	assignment				uvm_phase.svh	1741	13	1741	40						000
+  #78480	12	constant				uvm_phase.svh	1741	39	1741	40	1	64	UINT:1	9		000
+  #78481	12	bit_select	pred_of_succ		svaunit_pkg::uvm_phase::get_predecessors_for_successors::pred_of_succ	uvm_phase.svh	1741	13	1741	36		0			svaunit_pkg::uvm_phase::get_predecessors_for_successors::pred_of_succ	000
+  #78482	13	ref_obj	next_pred		svaunit_pkg::uvm_phase::get_predecessors_for_successors::next_pred	uvm_phase.svh	1741	26	1741	35		0			svaunit_pkg::uvm_phase::get_predecessors_for_successors::next_pred	000
+  #78483	10	assignment				uvm_phase.svh	1742	11	1742	18						000
+  #78484	11	constant				uvm_phase.svh	1742	17	1742	18	0	64	UINT:0	9		000
+
+--- the holder #78477 on the other side: exact-record matches at [78157, 308619, 374646]
+  #78154	12	ref_typespec			svaunit_pkg::uvm_phase::get_predecessors_for_successors::next_pred		0	0	0	0		0			svaunit_pkg::uvm_phase::get_predecessors_for_successors::next_pred	000
+  #78155	13	unsupported_typespec	next_pred			uvm_phase.svh	1740	40	1740	49						110
+  #78156	12	ref_var	next_pred		uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred	uvm_phase.svh	1740	40	1740	49		0			uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred	000
+> #78157	13	ref_typespec			uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred		0	0	0	0		0			uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred	000
+  #78158	14	class_typespec	uvm_phase			uvm_phase.svh	575	33	575	42						110
+  #78159	11	assignment				uvm_phase.svh	1741	13	1741	40						000
+  #78160	12	constant				uvm_phase.svh	1741	39	1741	40	1	64	UINT:1	9		000
+  #78161	12	bit_select	pred_of_succ		svaunit_pkg::uvm_phase::get_predecessors_for_successors::pred_of_succ	uvm_phase.svh	1741	13	1741	36		0			svaunit_pkg::uvm_phase::get_predecessors_for_successors::pred_of_succ	000
+  #78162	13	ref_obj	next_pred		svaunit_pkg::uvm_phase::get_predecessors_for_successors::next_pred	uvm_phase.svh	1741	26	1741	35		0			svaunit_pkg::uvm_phase::get_predecessors_for_successors::next_pred	000
+  #78163	10	assignment				uvm_phase.svh	1742	11	1742	18						000
+  #78164	11	constant				uvm_phase.svh	1742	17	1742	18	0	64	UINT:0	9		000
+  #78165	11	ref_obj	done		svaunit_pkg::uvm_phase::get_predecessors_for_successors::done	uvm_phase.svh	1742	11	1742	15		0			svaunit_pkg::uvm_phase::get_predecessors_for_successors::done	000
+  #78166	4	method_func_call	delete			uvm_phase.svh	1749	18	1749	24		0				000
+
+facets of this row (3930, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

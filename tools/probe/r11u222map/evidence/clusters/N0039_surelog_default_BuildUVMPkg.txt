@@ -1,0 +1,64 @@
+cluster N0039 (id kept from an earlier map; OPEN (map 13 gave it to pair B r11u209; passes 209, 212, 216 and 219 left it) | ground B | site emitExpr (ExprEmit.cpp, law castTargetKeywordTypespecKind96) < emitStmt (StmtEmit.cpp, law importCloneBodyLocalCopies175) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) [r11u222 pin at 896ec643]): span|int_typespec|line+col+endline+endcol|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:line(19)  records golden=201533 ours=201588
+object: #129711 (golden) / #129700 (ours)  type=int_typespec name= 
+  golden: 14837:35:14837:36
+  ours:   14699:13:14699:14
+  walk parents: ref_typespec < int_var < array_var(queue) < class_defn(uvm_queue)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 129705..129717 ('>' = the object)
+  #129705	6	class_typespec	this_type			uvm_pkg.sv	14668	11	14668	20						110
+  #129706	4	array_var	queue		uvm_pkg::uvm_queue::queue	uvm_pkg.sv	14699	15	14699	20		1			uvm_pkg::uvm_queue::queue	000
+  #129707	5	ref_typespec			uvm_pkg::uvm_queue::queue		0	0	0	0		0			uvm_pkg::uvm_queue::queue	000
+  #129708	6	array_typespec					0	0	0	0						000
+  #129709	5	int_var			uvm_pkg::uvm_queue::queue	uvm_pkg.sv	14699	15	14699	20		0			uvm_pkg::uvm_queue::queue	000
+  #129710	6	ref_typespec			uvm_pkg::uvm_queue::queue		0	0	0	0		0			uvm_pkg::uvm_queue::queue	000
+> #129711	7	int_typespec				uvm_pkg.sv	14837	35	14837	36						000
+  #129712	4	type_parameter	T		uvm_pkg::uvm_queue::T	uvm_pkg.sv	14666	24	14666	25					uvm_pkg::uvm_queue::T	010
+  #129713	5	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_queue::T	001
+  #129714	6	int_typespec				uvm_pkg.sv	14837	35	14837	36						001
+  #129715	4	class_typespec	this_type			uvm_pkg.sv	14668	11	14668	20						010
+  #129716	4	class_typespec	type_id			uvm_pkg.sv	26247	12	26247	31						010
+  #129717	5	ref_typespec			<in>type_id		0	0	0	0		0			uvm_pkg::uvm_queue::type_id	001
+
+--- OURS (B) records 129694..129706 ('>' = the object)
+  #129694	6	class_typespec	this_type			uvm_pkg.sv	14668	11	14668	20						110
+  #129695	4	array_var	queue		uvm_pkg::uvm_queue::queue	uvm_pkg.sv	14699	15	14699	20		1			uvm_pkg::uvm_queue::queue	000
+  #129696	5	ref_typespec			uvm_pkg::uvm_queue::queue		0	0	0	0		0			uvm_pkg::uvm_queue::queue	000
+  #129697	6	array_typespec					0	0	0	0						000
+  #129698	5	int_var			uvm_pkg::uvm_queue::queue	uvm_pkg.sv	14699	15	14699	20		0			uvm_pkg::uvm_queue::queue	000
+  #129699	6	ref_typespec			uvm_pkg::uvm_queue::queue		0	0	0	0		0			uvm_pkg::uvm_queue::queue	000
+> #129700	7	int_typespec				uvm_pkg.sv	14699	13	14699	14						000
+  #129701	4	type_parameter	T		uvm_pkg::uvm_queue::T	uvm_pkg.sv	14666	24	14666	25					uvm_pkg::uvm_queue::T	010
+  #129702	5	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_queue::T	001
+  #129703	6	int_typespec				uvm_pkg.sv	14837	35	14837	36						001
+  #129704	4	class_typespec	this_type			uvm_pkg.sv	14668	11	14668	20						010
+  #129705	4	class_typespec	type_id			uvm_pkg.sv	26247	12	26247	31						010
+  #129706	5	ref_typespec			<in>type_id		0	0	0	0		0			uvm_pkg::uvm_queue::type_id	001
+
+facets of this row (224, first 25):
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74761 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74844 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79830 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79884 array_typespec  G[] O[1 objs]
+  N0158 #96958/96950 bit_typespec  G[8 ref_typespec < enum_typespec(uvm_pkg::uvm_active_passive_enum)] O[6 ref_typespec < enum_var]
+  N0213 #96956/-1 enum_typespec uvm_pkg::uvm_active_passive_enum G[2 objs] O[]
+  N0171 #97010/-1 bit_typespec  G[1 objs] O[]
+  N0025 #153018/153008 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/153007 operation  G[] O[1 objs]
+  N0025 #153021/153013 constant  G[18 range < bit_typespec(uvm_reg_addr_t)] O[19 operation < range]
+  N0033 #-1/153012 operation  G[] O[1 objs]
+  N0025 #155484/155478 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/155477 operation  G[] O[1 objs]
+  N0025 #155487/155483 constant  G[18 range < bit_typespec(uvm_reg_addr_t)] O[19 operation < range]
+  N0033 #-1/155482 operation  G[] O[1 objs]
+  N0025 #155532/155530 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/155529 operation  G[] O[1 objs]
+  N0025 #155535/155535 constant  G[18 range < bit_typespec(uvm_reg_addr_t)] O[19 operation < range]
+  N0033 #-1/155534 operation  G[] O[1 objs]
+  N0025 #155586/155588 constant  G[20 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[21 operation < range]
+  N0033 #-1/155587 operation  G[] O[1 objs]

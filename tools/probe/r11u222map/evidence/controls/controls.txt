@@ -1,0 +1,6 @@
+positive controls on the 551c9751 HEAD sweep's databases (read-only), strictcmp_x --max 50 with record dumps
+surelog/default/1364_2005          csv CMP_EQUAL,equal   tool STRICT_EQUAL 159 objects   records 159/159   record dump diff 0 lines   uhdm-cmp rc 0, 0 lines
+surelog/default/HierPathInterfBlock csv CMP_EQUAL,equal  tool STRICT_EQUAL 226 objects   records 226/226   record dump diff 0 lines   uhdm-cmp rc 0, 0 lines
+uhdm2rtlil/default/1DUnpackedArray csv CMP_EQUAL,equal   tool STRICT_EQUAL 194 objects   records 194/194   record dump diff 0 lines   uhdm-cmp rc 0, 0 lines
+uhdm2rtlil/default/stamped_gen_param   csv CMP_NOTEQUAL  tool NOT_EQUAL stage1 (rc 1)          uhdm-cmp rc 255, 32 lines (the user-decided Surelog-defect row)
+uhdm2rtlil/testflags/stamped_gen_param csv CMP_NOTEQUAL  tool NOT_EQUAL stage1 (rc 1)          uhdm-cmp rc 255, 32 lines

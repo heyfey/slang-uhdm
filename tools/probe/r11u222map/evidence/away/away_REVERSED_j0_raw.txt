@@ -1,0 +1,42 @@
+# (trimmed: the per-record CHAIN_LOST / FLAT_LOST detail lines of this reversed control are left out; the per-database lines and the TOTAL are complete)
+# 39 databases differ between <P>nsP and <P>nj0 (raw records)
+probe/r10earl_repro/i chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+probe/r10earl_repro/vo chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0 flat_unpaired=4 flat_excess_removed=0
+probe/r10uvm111repro/g111_a chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0 flat_unpaired=4 flat_excess_removed=0
+probe/r10uvm127repro/g127_c_import chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0 flat_unpaired=6 flat_excess_removed=0
+probe/r10uvm147repro/g147_a chain_lost=104 chain_toward=0 flat_lost=104 flat_toward=0 flat_unpaired=104 flat_excess_removed=0
+probe/r10uvm171repro/g171_b_homes chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0 flat_unpaired=6 flat_excess_removed=0
+probe/r10uvm193repro/g193_c_argface chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0 flat_unpaired=2 flat_excess_removed=0
+probe/r10uvm193repro/g193_d_propfence chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0 flat_unpaired=4 flat_excess_removed=0
+probe/r10uvm194repro/g194_c_clone chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0 flat_unpaired=6 flat_excess_removed=0
+probe/r10uvm207repro/g207_e_head chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0 flat_unpaired=6 flat_excess_removed=0
+probe/r10uvm208repro/g208_e_head chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=4 flat_unpaired=6 flat_excess_removed=0
+probe/r10uvm226repro/grid226/a11_nested chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0 flat_unpaired=1 flat_excess_removed=0
+probe/r10uvm36repro/t48c chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0 flat_unpaired=2 flat_excess_removed=0
+probe/r10uvm94repro/g94_a0_head chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0 flat_unpaired=3 flat_excess_removed=0
+probe/r10v111repro/v111_b1 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0 flat_unpaired=10 flat_excess_removed=0
+probe/r10v111repro/v111_b2 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0 flat_unpaired=2 flat_excess_removed=0
+probe/r10v111repro/v111_b6 chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0 flat_unpaired=6 flat_excess_removed=0
+probe/r10v111repro/v111_b7 chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0 flat_unpaired=6 flat_excess_removed=0
+probe/r10v147repro/v147_i chain_lost=12 chain_toward=0 flat_lost=12 flat_toward=0 flat_unpaired=12 flat_excess_removed=0
+probe/r10v181repro/v181_e_idxbase chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0 flat_unpaired=4 flat_excess_removed=0
+probe/r10v181repro/v181_f_mixed chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0 flat_unpaired=6 flat_excess_removed=0
+probe/r10v181repro/v181_h_nofe chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0 flat_unpaired=4 flat_excess_removed=0
+probe/r10v184repro/gv184_h_retpin chain_lost=12 chain_toward=0 flat_lost=12 flat_toward=0 flat_unpaired=12 flat_excess_removed=0
+probe/r10v194repro/v194_a_explicit chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0 flat_unpaired=6 flat_excess_removed=0
+probe/r10v194repro/v194_e_explclone chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0 flat_unpaired=6 flat_excess_removed=0
+probe/r11u109repro/grid/hp/h03_gen chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0 flat_unpaired=4 flat_excess_removed=0
+surelog/default/BuildUVMPkg chain_lost=25 chain_toward=0 flat_lost=25 flat_toward=0 flat_unpaired=25 flat_excess_removed=0
+surelog/default/Earlgrey_0_1 chain_lost=62 chain_toward=0 flat_lost=62 flat_toward=0 flat_unpaired=62 flat_excess_removed=0
+surelog/default/MiniAmiq chain_lost=2328 chain_toward=0 flat_lost=2328 flat_toward=154 flat_unpaired=2328 flat_excess_removed=0
+surelog/default/Scoreboard chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0 flat_unpaired=7 flat_excess_removed=0
+surelog/default/SeqDriver chain_lost=1313 chain_toward=0 flat_lost=1313 flat_toward=143 flat_unpaired=1313 flat_excess_removed=0
+surelog/default/SimpleUVM chain_lost=9 chain_toward=0 flat_lost=9 flat_toward=0 flat_unpaired=9 flat_excess_removed=0
+surelog/testflags/BuildUVMPkg chain_lost=25 chain_toward=0 flat_lost=25 flat_toward=0 flat_unpaired=25 flat_excess_removed=0
+surelog/testflags/Earlgrey_0_1 chain_lost=70 chain_toward=0 flat_lost=70 flat_toward=0 flat_unpaired=70 flat_excess_removed=0
+surelog/testflags/MiniAmiq chain_lost=2328 chain_toward=0 flat_lost=2328 flat_toward=154 flat_unpaired=2328 flat_excess_removed=0
+surelog/testflags/SeqDriver chain_lost=1313 chain_toward=0 flat_lost=1313 flat_toward=143 flat_unpaired=1313 flat_excess_removed=0
+surelog/testflags/SimpleUVM chain_lost=9 chain_toward=0 flat_lost=9 flat_toward=0 flat_unpaired=9 flat_excess_removed=0
+uhdm2rtlil/default/anon_struct_packed_dim chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0 flat_unpaired=4 flat_excess_removed=0
+uhdm2rtlil/testflags/anon_struct_packed_dim chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0 flat_unpaired=4 flat_excess_removed=0
+TOTAL chain_lost=7730 chain_toward=0 flat_lost=7730 flat_toward=598 flat_unpaired=7730 flat_excess_removed=0 flat_lost_unexplained=7730

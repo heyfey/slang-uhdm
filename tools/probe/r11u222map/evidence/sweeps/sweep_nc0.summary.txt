@@ -1,0 +1,22 @@
+# sweep nc0 (workdir <P>nc0)
+== probe cases (tests/probe, cached goldens), jobs=3, out=<P>nc0/probe.csv
+probe cases: EQUAL=3440 STRICT_NOTEQUAL=647 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+REGRESSION r11u114repro/grid/f2/b02 EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION v11u111repro/brk/f5/x57_case_item EQUAL -> STRICT_NOTEQUAL differ:fullname(4)
+REGRESSION v11u114repro/grid/set1/e04 EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+regressions=3 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=<P>nc0/surelog.csv
+== surelog vs golden_surelog.csv
+REGRESSION FuncStructValSimple default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(39)
+REGRESSION FuncStructValSimple testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(59)
+CHANGE FuncStructVal default STRICT_NOTEQUAL differ:endcol(7) -> differ:endcol(95) [endcol +88]
+CHANGE FuncStructVal testflags STRICT_NOTEQUAL differ:endcol(10) -> differ:endcol(165) [endcol +155]
+CHANGE InterfArrayBind default STRICT_NOTEQUAL differ:fullname(1) -> differ:fullname(3) [fullname +2]
+regressions=2 conversions=0 changes=3 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=<P>nc0/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+REGRESSION ibex_tracer default CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(566)
+REGRESSION ibex_tracer testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(566)
+regressions=2 conversions=0 changes=0 only-fresh=0 only-committed=0
+SWEEP_RC=1

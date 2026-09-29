@@ -1,0 +1,13 @@
+Earlgrey_0_1 default ede36385c330/rc=0 ede36385c330/rc=0 ede36385c330/rc=0  head=ede36385c330
+Earlgrey_0_1 testflags 260e88febe42/rc=0 260e88febe42/rc=0 260e88febe42/rc=0  head=260e88febe42
+MiniAmiq default 21ff47e0d1b2/rc=0 99fed9d58626/rc=0 99fed9d58626/rc=0  head=21ff47e0d1b2
+MiniAmiq testflags 99fed9d58626/rc=0 99fed9d58626/rc=0 21ff47e0d1b2/rc=0  head=21ff47e0d1b2
+SeqDriver default c1fdf45dffa1/rc=0 c1fdf45dffa1/rc=0 c1fdf45dffa1/rc=0  head=c1fdf45dffa1
+SeqDriver testflags 2327ced765e4/rc=0 2327ced765e4/rc=0 2327ced765e4/rc=0  head=2327ced765e4
+SimpleUVM default 2c6392ec7f1b/rc=0 2c6392ec7f1b/rc=0 2c6392ec7f1b/rc=0  head=2c6392ec7f1b
+SimpleUVM testflags c382468dddce/rc=0 c382468dddce/rc=0 c382468dddce/rc=0  head=c382468dddce
+Scoreboard default 3a12bb353fb4/rc=0 10e7e362f40f/rc=0 10e7e362f40f/rc=0  head=1c15e0b87589
+Scoreboard testflags skip SLANG_REJECT
+BuildUVMPkg default 4588a4c8087b/rc=0 4588a4c8087b/rc=0 4588a4c8087b/rc=0  head=4588a4c8087b
+BuildUVMPkg testflags 4588a4c8087b/rc=0 4588a4c8087b/rc=0 4588a4c8087b/rc=0  head=4588a4c8087b
+DET_DONE

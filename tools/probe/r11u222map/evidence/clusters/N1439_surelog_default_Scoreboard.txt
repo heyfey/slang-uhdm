@@ -1,0 +1,61 @@
+cluster N1439 (id kept from an earlier map; OPEN (new since r11u211map) | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law dpiExportListedAtExportItem216) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classValueParamIntSigned202) [r11u222 pin]): struct|ours-only:elsewhere|task|under:design
+row: surelog/default/Scoreboard  strict=differ:file(30)  records golden=269656 ours=269853
+object: #-1 (golden) / #205359 (ours)  type=task name=wait_for_error 
+  golden: 
+  ours:   4 objs
+  walk parents: design(work@my_scoreboard_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 205353..205365 ('>' = the object)
+  #205353	3	ref_typespec			svunit_pkg::svunit_base::get_results		0	0	0	0		0			svunit_pkg::svunit_base::get_results	000
+  #205354	4	enum_typespec	svunit_pkg::results_t			svunit_types.svh	29	3	29	44						110
+  #205355	5	enum_const	PASS			svunit_types.svh	29	17	29	23						001
+  #205356	5	enum_const	FAIL			svunit_types.svh	29	25	29	31						001
+  #205357	2	return_stmt				svunit_base.sv	88	3	88	9						000
+  #205358	3	ref_obj	success		svunit_pkg::svunit_base::get_results::success	svunit_base.sv	88	10	88	17		0			svunit_pkg::svunit_base::get_results::success	000
+> #205359	1	task	wait_for_error		svunit_pkg::svunit_testcase::wait_for_error	svunit_testcase.sv	90	1	92	8					svunit_pkg::svunit_testcase::wait_for_error	000
+  #205360	2	event_control				svunit_testcase.sv	91	3	91	17						000
+  #205361	3	ref_obj	error_count		svunit_pkg::svunit_testcase::wait_for_error::error_count	svunit_testcase.sv	91	5	91	16		0			svunit_pkg::svunit_testcase::wait_for_error::error_count	000
+  #205362	4	logic_net	error_count		work@my_scoreboard_unit_test.error_count		91	5	91	16		0			work@my_scoreboard_unit_test.error_count	000
+  #205363	1	function	get_error_count		svunit_pkg::svunit_testcase::get_error_count	svunit_testcase.sv	99	1	101	12					svunit_pkg::svunit_testcase::get_error_count	000
+  #205364	2	integer_var			svunit_pkg::svunit_testcase::get_error_count	svunit_testcase.sv	99	10	99	17		0			svunit_pkg::svunit_testcase::get_error_count	000
+  #205365	3	ref_typespec			svunit_pkg::svunit_testcase::get_error_count		0	0	0	0		0			svunit_pkg::svunit_testcase::get_error_count	000
+
+--- the holder #0 on the other side: exact-record matches at [0]
+> #0	0	design	work@my_scoreboard_unit_test				0	0	0	0						000
+  #1	1	include_file_info				uvm_pkg.sv	26	10	26	26						000
+  #2	1	include_file_info				uvm_pkg.sv	94	10	94	42						000
+  #3	1	include_file_info				uvm_pkg.sv	244	10	244	41						000
+  #4	1	include_file_info				uvm_pkg.sv	304	10	304	42						000
+  #5	1	include_file_info				uvm_pkg.sv	842	10	842	40						000
+  #6	1	include_file_info				uvm_pkg.sv	972	10	972	41						000
+  #7	1	include_file_info				uvm_pkg.sv	4787	10	4787	42						000
+  #8	1	include_file_info				uvm_pkg.sv	5210	10	5210	38						000
+  #9	1	include_file_info				uvm_pkg.sv	5825	10	5825	33						000
+
+facets of this row (567, first 25):
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79148 array_typespec  G[] O[1 objs]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]
+  N0262 #84980/-1 constant  G[2 objs] O[]
+  N0262 #84984/-1 constant  G[2 objs] O[]
+  N0262 #85274/-1 constant  G[2 objs] O[]
+  N0262 #85285/-1 constant  G[2 objs] O[]
+  N0262 #85289/-1 constant  G[2 objs] O[]
+  N0262 #85293/-1 constant  G[2 objs] O[]
+  N0025 #130737/130722 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/130721 operation  G[] O[1 objs]
+  N0025 #130740/130727 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/130726 operation  G[] O[1 objs]
+  N0025 #133223/133212 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133211 operation  G[] O[1 objs]
+  N0025 #133226/133217 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133216 operation  G[] O[1 objs]
+  N0025 #133269/133262 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133261 operation  G[] O[1 objs]
+  N0025 #133272/133267 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133266 operation  G[] O[1 objs]
+  N0025 #133317/133314 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133313 operation  G[] O[1 objs]
+  N0025 #133320/133319 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]

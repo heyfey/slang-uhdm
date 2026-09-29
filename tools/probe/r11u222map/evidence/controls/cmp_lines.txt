@@ -1,0 +1,5 @@
+surelog/default/1364_2005 uhdm-cmp stderr lines=0 rc=0
+surelog/default/HierPathInterfBlock uhdm-cmp stderr lines=0 rc=0
+uhdm2rtlil/default/1DUnpackedArray uhdm-cmp stderr lines=0 rc=0
+uhdm2rtlil/default/stamped_gen_param uhdm-cmp stderr lines=32 rc=255
+uhdm2rtlil/testflags/stamped_gen_param uhdm-cmp stderr lines=32 rc=255

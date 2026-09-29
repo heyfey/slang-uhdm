@@ -1,0 +1,16 @@
+# 14 databases differ between <P>ng5 and <P>nsP (raw records)
+probe/r10uvm49repro/a3 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+surelog/default/BlackBePipeInt chain_lost=0 chain_toward=21 flat_lost=0 flat_toward=21 flat_unpaired=0 flat_excess_removed=0
+surelog/default/BuildUVMPkg chain_lost=0 chain_toward=40 flat_lost=0 flat_toward=40 flat_unpaired=0 flat_excess_removed=0
+surelog/default/MiniAmiq chain_lost=0 chain_toward=73 flat_lost=0 flat_toward=73 flat_unpaired=0 flat_excess_removed=0
+surelog/default/Scoreboard chain_lost=0 chain_toward=60 flat_lost=0 flat_toward=60 flat_unpaired=0 flat_excess_removed=0
+surelog/default/SeqDriver chain_lost=0 chain_toward=102 flat_lost=0 flat_toward=102 flat_unpaired=0 flat_excess_removed=0
+surelog/default/SimpleUVM chain_lost=0 chain_toward=80 flat_lost=0 flat_toward=80 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/BlackBePipeInt chain_lost=0 chain_toward=21 flat_lost=0 flat_toward=21 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/BuildUVMPkg chain_lost=0 chain_toward=40 flat_lost=0 flat_toward=41 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/MiniAmiq chain_lost=0 chain_toward=73 flat_lost=0 flat_toward=73 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/SeqDriver chain_lost=0 chain_toward=102 flat_lost=0 flat_toward=102 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/SimpleUVM chain_lost=0 chain_toward=80 flat_lost=0 flat_toward=80 flat_unpaired=0 flat_excess_removed=0
+uhdm2rtlil/default/ibex_tracer chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13 flat_unpaired=0 flat_excess_removed=0
+uhdm2rtlil/testflags/ibex_tracer chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13 flat_unpaired=0 flat_excess_removed=0
+TOTAL chain_lost=0 chain_toward=718 flat_lost=0 flat_toward=719 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0

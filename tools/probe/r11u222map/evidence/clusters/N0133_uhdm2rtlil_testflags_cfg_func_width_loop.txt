@@ -1,0 +1,45 @@
+cluster N0133 (id kept from an earlier map; COVERED r11u223 (row named: pass 216 residue 2 (#464 decoded) with the kept call N0133 / N0487 (map 13 section 10)) | ground B | site emitContAssigns (ModuleEmit.cpp, law caAsmMemberSliceFold) < emitInstance (ModuleEmit.cpp, law unnamedConcatIfaceAnchor146) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) [DECODED: SHARING: ours's elaborated cont_assign Rhs func_call is the definition's object (listed once); golden holds a copy (r11u128map's 'fold' reading was wrong: stage 1 compares a func_call on both sides). HOLDER pinned] [DECODED (r11u148 E): golden KEEPS the func_call (writeCont_assign: evalFunc returns a non-constant for a select of a module parameter (P) or a select-of-select on a local (V)); ours folds: law evalFuncSelectKeepsCall148 (r11u148share law.patch, ModuleEmit.cpp emitContAssigns + gen-scope emitter), pair B lands it] [r11u156map pin]): struct|golden-only:fewer-copies|func_call|under:cont_assign
+row: uhdm2rtlil/testflags/cfg_func_width_loop  strict=differ:line(3)  records golden=435 ours=436
+object: #426 (golden) / #-1 (ours)  type=func_call name=q::maxw 
+  golden: 2 objs
+  ours:   
+  walk parents: cont_assign < module_inst(u) < module_inst(work@cfg_func_width_loop) < design(work@cfg_func_width_loop)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 420..432 ('>' = the object)
+  #420	4	ref_typespec			work@cfg_func_width_loop.u.b		0	0	0	0		0			work@cfg_func_width_loop.u.b	000
+  #421	5	logic_typespec				dut.sv	41	12	41	34						000
+  #422	6	range				dut.sv	41	18	41	34						001
+  #423	7	constant				dut.sv	41	19	41	29	9	64	INT:9	7		001
+  #424	7	constant				dut.sv	41	32	41	33	0	64	UINT:0	9		001
+  #425	3	cont_assign				dut.sv	43	10	43	24						000
+> #426	4	func_call	q::maxw			dut.sv	43	14	43	15		0				000
+  #427	5	ref_obj	M		work@sub.M	dut.sv	43	22	43	23		0			work@sub.M	000
+  #428	4	ref_obj	o		work@sub.o	dut.sv	43	10	43	11		0			work@sub.o	000
+  #429	5	logic_net	o		work@sub.o	dut.sv	40	35	40	36		0			work@sub.o	000
+  #430	3	cont_assign				dut.sv	44	10	44	16						000
+  #431	4	operation				dut.sv	44	14	44	16		0				000
+  #432	5	ref_obj	a		work@cfg_func_width_loop.u.a	dut.sv	44	15	44	16		0			work@cfg_func_width_loop.u.a	000
+
+--- the holder #425 on the other side: exact-record matches at [427]
+  #424	6	range				dut.sv	41	18	41	34						001
+  #425	7	constant				dut.sv	41	19	41	29	9	64	INT:9	7		001
+  #426	7	constant				dut.sv	41	32	41	33	0	64	UINT:0	9		001
+> #427	3	cont_assign				dut.sv	43	10	43	24						000
+  #428	4	constant					0	0	0	0	10	32	UINT:10	9		000
+  #429	4	ref_obj	o		work@cfg_func_width_loop.u.o	dut.sv	43	10	43	11		0			work@cfg_func_width_loop.u.o	000
+  #430	5	logic_net	o		work@sub.o	dut.sv	40	35	40	36		0			work@sub.o	000
+  #431	3	cont_assign				dut.sv	44	10	44	16						000
+  #432	4	operation				dut.sv	44	14	44	16		0				000
+  #433	5	ref_obj	a		work@cfg_func_width_loop.u.a	dut.sv	44	15	44	16		0			work@cfg_func_width_loop.u.a	000
+  #434	6	logic_net	a		work@sub.a	dut.sv	39	35	39	36		0			work@sub.a	000
+  #435	4	ref_obj	b		work@cfg_func_width_loop.u.b	dut.sv	44	10	44	11		0			work@cfg_func_width_loop.u.b	000
+
+facets of this row (7, first 25):
+  N0025 #382/384 constant  G[8 range < logic_typespec(mask_t)] O[9 operation < range]
+  N0033 #-1/382 operation  G[] O[2 objs]
+  N0133 #426/-1 func_call q::maxw G[2 objs] O[]
+  N0487 #-1/428 constant  G[] O[1 objs]
+  N0263 #374/374 logic_typespec mask_t G[27:40:27:46] O[16:11:16:25]
+  N0794 #375/375 ref_typespec  G[mask_t] O[work@sub.M.mask_t]
+  N0754 #428/429 ref_obj o G[work@sub.o] O[work@cfg_func_width_loop.u.o]

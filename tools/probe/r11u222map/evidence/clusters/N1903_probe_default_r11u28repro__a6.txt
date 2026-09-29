@@ -1,0 +1,44 @@
+cluster N1903 (id kept from an earlier map; COVERED r11u224 (brief item: pass 220 residue 6 (map 13's case clusters)) | ground A | site memLeftPatParamClone26 (ParamEmit.cpp, law patParamLeftoverShare26) < stampEvalFuncLeftovers (ParamEmit.cpp, law patParamLeftoverShare26) < exportDesign (UhdmExporter.cpp, law r10fsv2) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:id@id.id.id.id::id.id->id|under:operation
+row: probe/default/r11u28repro__a6  strict=fullname  records golden=520 ours=520
+object: #432 (golden) / #432 (ours)  type=ref_typespec name= TAIL
+  golden: work@dut.k0.P.pk::c_t.u
+  ours:   pk
+  walk parents: operation < typespec_member(u) < struct_typespec(pk::c_t) < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 426..438 ('>' = the object)
+  #426	7	ref_typespec			<in>pk::c_t.u		0	0	0	0		0			work@dut.k0.P.pk::c_t.u	001
+  #427	8	logic_typespec				dut.sv	8	27	8	39						001
+  #428	9	range				dut.sv	8	33	8	39						001
+  #429	10	constant				dut.sv	8	34	8	36	31	64	UINT:31	9		001
+  #430	10	constant				dut.sv	8	37	8	38	0	64	UINT:0	9		001
+  #431	7	operation				dut.sv	9	24	9	39		0				001
+> #432	8	ref_typespec			<in>pk::c_t.u		0	0	0	0		0			work@dut.k0.P.pk::c_t.u	001
+  #433	9	struct_typespec	pk::in_t			dut.sv	7	11	7	60						001
+  #434	10	typespec_member	a			dut.sv	7	40	7	41						001
+  #435	11	ref_typespec			<in>pk::in_t.a		0	0	0	0		0			work@dut.k0.P.pk::c_t.u.pk::in_t.a	001
+  #436	12	int_typespec				dut.sv	7	27	7	39						001
+  #437	10	typespec_member	b			dut.sv	7	56	7	57						001
+  #438	11	ref_typespec			<in>pk::in_t.b		0	0	0	0		0			work@dut.k0.P.pk::c_t.u.pk::in_t.b	001
+
+--- OURS (B) records 426..438 ('>' = the object)
+  #426	7	ref_typespec			<in>pk::c_t.u		0	0	0	0		0			pk::pk::c_t::u	001
+  #427	8	logic_typespec				dut.sv	8	27	8	39						001
+  #428	9	range				dut.sv	8	33	8	39						001
+  #429	10	constant				dut.sv	8	34	8	36	31	64	UINT:31	9		001
+  #430	10	constant				dut.sv	8	37	8	38	0	64	UINT:0	9		001
+  #431	7	operation				dut.sv	9	24	9	39		0				001
+> #432	8	ref_typespec			pk		0	0	0	0		0			pk	001
+  #433	9	struct_typespec	pk::in_t			dut.sv	7	11	7	60						001
+  #434	10	typespec_member	a			dut.sv	7	40	7	41						001
+  #435	11	ref_typespec			<in>pk::in_t.a		0	0	0	0		0			pk::pk::in_t::a	001
+  #436	12	int_typespec				dut.sv	7	27	7	39						001
+  #437	10	typespec_member	b			dut.sv	7	56	7	57						001
+  #438	11	ref_typespec			<in>pk::in_t.b		0	0	0	0		0			pk::pk::in_t::b	001
+
+facets of this row (5, first 25):
+  N0003 #138/138 ref_typespec  G[] O[pk]
+  N1903 #432/432 ref_typespec  G[work@dut.k0.P.pk::c_t.u] O[pk]
+  N1903 #443/443 ref_typespec  G[work@dut.k0.P.pk::c_t.u] O[pk]
+  N1904 #475/475 ref_typespec  G[pk::c_t.u] O[pk]
+  N1904 #486/486 ref_typespec  G[pk::c_t.u] O[pk]

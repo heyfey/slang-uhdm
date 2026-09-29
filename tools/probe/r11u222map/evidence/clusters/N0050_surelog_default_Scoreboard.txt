@@ -1,0 +1,64 @@
+cluster N0050 (id kept from an earlier map; COVERED r11u224 (the UVM ground-A families, optimistic) | ground A | site emitExpr (ExprEmit.cpp, law insideOpenRangeMemberIsOneListOp30) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u179 pin, db=DIFF (UVM order coin), rank verified] [r11u179map pin]): span|operation|col+endcol|under:assignment
+row: surelog/default/Scoreboard  strict=differ:file(30)  records golden=269656 ours=269853
+object: #183684 (golden) / #183772 (ours)  type=operation name= 
+  golden: 3494:15:3494:26
+  ours:   3494:16:3494:25
+  walk parents: assignment < begin < begin < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 183678..183690 ('>' = the object)
+  #183678	14	operation				uvm_object_defines.svh	3494	47	3494	62		0				000
+  #183679	15	constant				uvm_object_defines.svh	3494	47	3494	49	64	64	UINT:64	9		000
+  #183680	15	constant				uvm_object_defines.svh	3494	52	3494	57	32	64	UINT:32	9		000
+  #183681	13	operation				uvm_object_defines.svh	3494	65	3494	71		0				000
+  #183682	14	constant				uvm_object_defines.svh	3494	66	3494	70	1'b0	1	BIN:0	3		000
+  #183683	12	ref_obj	__vector		uvm_pkg::uvm_tlm_generic_payload::do_pack::__vector	uvm_object_defines.svh	3494	74	3494	82		0			uvm_pkg::uvm_tlm_generic_payload::do_pack::__vector	000
+> #183684	11	operation				uvm_object_defines.svh	3494	15	3494	26		0				000
+  #183685	12	constant					0	0	0	0	32	64	UINT:32	9		000
+  #183686	12	operation				uvm_object_defines.svh	3494	6	3494	27		0				000
+  #183687	13	ref_obj	__array		uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	uvm_object_defines.svh	3494	17	3494	24		0			uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	000
+  #183688	9	method_func_call	pack_ints			uvm_object_defines.svh	3496	11	3496	20		0				000
+  #183689	10	ref_obj	__array		uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	uvm_object_defines.svh	3496	21	3496	28		0			uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	000
+  #183690	10	constant				uvm_object_defines.svh	3496	30	3496	32	64	64	UINT:64	9		000
+
+--- OURS (B) records 183766..183778 ('>' = the object)
+  #183766	14	operation				uvm_object_defines.svh	3494	47	3494	62		0				000
+  #183767	15	constant				uvm_object_defines.svh	3494	47	3494	49	64	64	UINT:64	9		000
+  #183768	15	constant				uvm_object_defines.svh	3494	52	3494	57	32	64	UINT:32	9		000
+  #183769	13	operation				uvm_object_defines.svh	3494	65	3494	71		0				000
+  #183770	14	constant				uvm_object_defines.svh	3494	66	3494	70	1'b0	1	BIN:0	3		000
+  #183771	12	ref_obj	__vector		uvm_pkg::uvm_tlm_generic_payload::do_pack::__vector	uvm_object_defines.svh	3494	74	3494	82		0			uvm_pkg::uvm_tlm_generic_payload::do_pack::__vector	000
+> #183772	11	operation				uvm_object_defines.svh	3494	16	3494	25		0				000
+  #183773	12	constant					0	0	0	0	32	64	UINT:32	9		000
+  #183774	12	operation				uvm_object_defines.svh	3494	6	3494	27		0				000
+  #183775	13	ref_obj	__array		uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	uvm_object_defines.svh	3494	17	3494	24		0			uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	000
+  #183776	9	method_func_call	pack_ints			uvm_object_defines.svh	3496	11	3496	20		0				000
+  #183777	10	ref_obj	__array		uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	uvm_object_defines.svh	3496	21	3496	28		0			uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	000
+  #183778	10	constant				uvm_object_defines.svh	3496	30	3496	32	64	64	UINT:64	9		000
+
+facets of this row (567, first 25):
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79148 array_typespec  G[] O[1 objs]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]
+  N0262 #84980/-1 constant  G[2 objs] O[]
+  N0262 #84984/-1 constant  G[2 objs] O[]
+  N0262 #85274/-1 constant  G[2 objs] O[]
+  N0262 #85285/-1 constant  G[2 objs] O[]
+  N0262 #85289/-1 constant  G[2 objs] O[]
+  N0262 #85293/-1 constant  G[2 objs] O[]
+  N0025 #130737/130722 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/130721 operation  G[] O[1 objs]
+  N0025 #130740/130727 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/130726 operation  G[] O[1 objs]
+  N0025 #133223/133212 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133211 operation  G[] O[1 objs]
+  N0025 #133226/133217 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133216 operation  G[] O[1 objs]
+  N0025 #133269/133262 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133261 operation  G[] O[1 objs]
+  N0025 #133272/133267 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133266 operation  G[] O[1 objs]
+  N0025 #133317/133314 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133313 operation  G[] O[1 objs]
+  N0025 #133320/133319 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]

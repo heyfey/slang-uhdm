@@ -1,0 +1,21 @@
+/tmp/intr11u220 MiniAmiq/default dist=2461 rev=5504 total=7965 mfc_file_away=12 golden_records=435569 ours_records=432526
+/tmp/intr11u220 MiniAmiq/testflags dist=2461 rev=5504 total=7965 mfc_file_away=12 golden_records=435569 ours_records=432526
+/tmp/intr11u220 SeqDriver/default dist=2122 rev=4227 total=6349 mfc_file_away=12 golden_records=475526 ours_records=473421
+/tmp/intr11u220 SeqDriver/testflags dist=2122 rev=4227 total=6349 mfc_file_away=12 golden_records=475538 ours_records=473433
+/tmp/intr11u220 SimpleUVM/default dist=1535 rev=1261 total=2796 mfc_file_away=12 golden_records=334285 ours_records=334559
+/tmp/intr11u220 SimpleUVM/testflags dist=1535 rev=1261 total=2796 mfc_file_away=12 golden_records=334297 ours_records=334571
+/tmp/intr11u220 Scoreboard/default dist=1098 rev=901 total=1999 mfc_file_away=12 golden_records=269656 ours_records=269853
+/tmp/intr11u220 BuildUVMPkg/default dist=648 rev=593 total=1241 mfc_file_away=0 golden_records=201549 ours_records=201604
+/tmp/intr11u220 BuildUVMPkg/testflags dist=648 rev=593 total=1241 mfc_file_away=0 golden_records=201549 ours_records=201604
+/tmp/intr11u220 Earlgrey_0_1/default dist=1066 rev=422 total=1488 mfc_file_away=0 golden_records=2173209 ours_records=2173853
+/tmp/intr11u220 Earlgrey_0_1/testflags dist=798 rev=512 total=1310 mfc_file_away=0 golden_records=1342584 ours_records=1342870
+/tmp/intr11u220 Rggen/default dist=4321 rev=6050 total=10371 mfc_file_away=0 golden_records=314498 ours_records=312769
+/tmp/intr11u220 Scr1SvTests/default dist=117 rev=78 total=195 mfc_file_away=0 golden_records=84098 ours_records=84137
+/tmp/intr11u220 Scr1SvTests/testflags dist=117 rev=78 total=195 mfc_file_away=0 golden_records=83997 ours_records=84036
+/tmp/intr11u220 BlackBePipeInt/default dist=16886 rev=14631 total=31517 mfc_file_away=0 golden_records=339479 ours_records=341734
+/tmp/intr11u220 BlackBePipeInt/testflags dist=17111 rev=14631 total=31742 mfc_file_away=0 golden_records=338504 ours_records=340984
+/tmp/intr11u220 InterfArrayBind/default dist=1 rev=1 total=2 mfc_file_away=0 golden_records=186 ours_records=186
+/tmp/intr11u220 InterfArrayBind/testflags dist=0 rev=0 total=0 mfc_file_away=0 golden_records=96 ours_records=96
+/tmp/intr11u220 FuncStructVal/default dist=30 rev=318 total=348 mfc_file_away=0 golden_records=18222 ours_records=17934
+/tmp/intr11u220 FuncStructVal/testflags dist=53 rev=318 total=371 mfc_file_away=0 golden_records=45362 ours_records=45097
+UVMDIST_DONE

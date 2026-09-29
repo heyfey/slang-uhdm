@@ -1,0 +1,41 @@
+cluster N0738 (id kept from an earlier map; OPEN (map 13 gave it to pair B r11u209; passes 209, 212, 216 and 219 left it) | ground B | site makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < makeParamTs (ParamEmit.cpp, law pkgParamOwnDefRange) < drainDefParamTs (ParamEmit.cpp, law paramCloneImportedCopy) [r11u142map pin]): name|logic_typespec|tok:id::->|under:ref_typespec
+row: probe/default/r11u108repro__grid__pk__k22_param_v_literal  strict=name  records golden=93 ours=98
+object: #72 (golden) / #72 (ours)  type=logic_typespec name=q::mask_t 
+  golden: q::mask_t|
+  ours:   mask_t|
+  walk parents: ref_typespec < constant < param_assign < module_inst(u)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 66..78 ('>' = the object)
+  #66	6	range				dut.sv	2	17	2	22						001
+  #67	7	constant				dut.sv	2	18	2	19	0	64	UINT:0	9		001
+  #68	7	constant				dut.sv	2	20	2	21	2	64	UINT:2	9		001
+  #69	3	param_assign				dut.sv	4	34	4	40						000
+  #70	4	constant				dut.sv	4	38	4	40	3'b101	3	BIN:101	3		000
+  #71	5	ref_typespec			work@dut.u		0	0	0	0		0			work@dut.u	000
+> #72	6	logic_typespec	q::mask_t			dut.sv	2	11	2	22						110
+  #73	7	range				dut.sv	2	17	2	22						001
+  #74	8	constant				dut.sv	2	18	2	19	0	64	UINT:0	9		001
+  #75	8	constant				dut.sv	2	20	2	21	2	64	UINT:2	9		001
+  #76	3	logic_net	o		work@dut.u.o	dut.sv	4	62	4	63		0			work@dut.u.o	000
+  #77	4	ref_typespec			work@dut.u.o		0	0	0	0		0			work@dut.u.o	000
+  #78	5	logic_typespec				dut.sv	4	50	4	61						000
+
+--- OURS (B) records 66..78 ('>' = the object)
+  #66	6	range				dut.sv	2	17	2	22						001
+  #67	7	constant				dut.sv	2	18	2	19	0	64	UINT:0	9		001
+  #68	7	constant				dut.sv	2	20	2	21	2	64	UINT:2	9		001
+  #69	3	param_assign				dut.sv	4	34	4	40						000
+  #70	4	constant				dut.sv	4	38	4	40	3'b101	3	BIN:101	3		000
+  #71	5	ref_typespec			work@dut.u		0	0	0	0		0			work@dut.u	000
+> #72	6	logic_typespec	mask_t			dut.sv	2	11	2	22						110
+  #73	7	ref_typespec			<in>mask_t		0	0	0	0		0			work@sub.M.mask_t	001
+  #74	8	logic_typespec	q::mask_t			dut.sv	2	11	2	22						001
+  #75	9	range				dut.sv	2	17	2	22						001
+  #76	10	constant				dut.sv	2	18	2	19	0	64	UINT:0	9		001
+  #77	10	constant				dut.sv	2	20	2	21	2	64	UINT:2	9		001
+  #78	7	range				dut.sv	2	17	2	22						001
+
+facets of this row (2, first 25):
+  N0085 #-1/73 ref_typespec  G[] O[5 objs]
+  N0738 #72/72 logic_typespec q::mask_t G[q::mask_t|] O[mask_t|]

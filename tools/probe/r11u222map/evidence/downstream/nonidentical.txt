@@ -1,0 +1,101 @@
+# 716 downstream-visible face cases at 551c9751 (drivers/dsfaces.py, the HEAD binary): {'IDENTICAL': 626, 'EQUIVALENT': 43, 'DIVERGENT': 32, 'STATUS_DIFF': 9, 'SLANG_REJECT': 3, 'SURELOG_FAIL': 3}
+
+DIVERGENT (32)
+  tools/probe/r11u173verify/cases/hw/w12_index_member_blanks  differs=nohier il synth
+  tools/probe/r11u173verify/cases/hw/w13_index_member_noblank_ctl  differs=nohier il synth
+  tools/probe/r11u185verify/cases/PU/u06_whole_copy_and_bits  differs=nohier il synth
+  tools/probe/r11u185verify/cases/UD/u04_inst_array  differs=nohier il synth
+  tools/probe/r11u199verify/cases/C/c06_nda_array_net  differs=nohier il synth
+  tools/probe/r11u199verify/cases/X/x06_enum_port_cast  differs=nohier il synth
+  tools/probe/r11u204verify/cases/V191/rp2  differs=nohier il synth
+  tools/probe/r11u204verify/cases/X/x5  differs=nohier il synth
+  tools/probe/r11u205dec/cases/B3/b05  differs=nohier il synth
+  tools/probe/r11u205dec/cases/B3/b07  differs=nohier il synth
+  tools/probe/r11u205dec/cases/D5/d01  differs=nohier il synth
+  tools/probe/r11u205dec/cases/D5/d03  differs=nohier il synth
+  tools/probe/r11u205dec/cases/TP/t12  differs=nohier il synth
+  tools/probe/r11u215repro/cases/R/r07  differs=nohier il synth
+  tools/probe/r11u216repro/cases/NQ/n11  differs=nohier il synth
+  tools/probe/r11u220repro/cases/SL/s47  differs=nohier il synth
+  tools/probe/r11u221verify/cases/I/i02  differs=nohier il synth
+  tools/probe/r11u221verify/cases/I/i06  differs=nohier il synth
+  tools/probe/r11u221verify/cases/NP/p08  differs=nohier il synth
+  tools/probe/r11u221verify/cases/Q/q02  differs=nohier il synth
+  tools/probe/r11u221verify/cases/Q/q11  differs=nohier il synth
+  tools/probe/r11u221verify/cases/X/x02  differs=nohier il synth
+  tools/probe/v11u202repro/cases/PP/p05  differs=nohier il synth
+  tools/probe/v11u206repro/cases/A/a12  differs=nohier il synth
+  tools/probe/v11u219repro/cases/E/e07_fnlocal_import  differs=nohier il synth
+  tools/probe/v11u219repro/cases/S/s01c_assoc_inner  differs=nohier il synth
+  tools/probe/v11u219repro/cases/S/s06_contassign_untouched  differs=nohier il synth
+  tools/probe/v11u219repro/cases/S/s08_bit_packed2d  differs=nohier il synth
+  tools/probe/v11u220repro/cases/K/k01  differs=nohier il synth
+  tools/probe/v11u220repro/cases/K/k06  differs=nohier il synth
+  tools/probe/v11u220repro/cases/K/k08  differs=nohier il synth
+  tools/probe/v11u220repro/cases/T/t19  differs=nohier il synth
+
+EQUIVALENT (43)
+  tools/probe/r11u158repro/cases/sc/c10  differs=nohier il
+  tools/probe/r11u158repro/cases/sc/c12  differs=nohier
+  tools/probe/r11u181repro/cases/us/u02  differs=nohier il
+  tools/probe/r11u181repro/cases/us/u08  differs=nohier il
+  tools/probe/r11u185verify/cases/GV/v02_named_array_elem_mp  differs=nohier il
+  tools/probe/r11u185verify/cases/GV/v11_typed_then_generic_mpconn  differs=nohier il
+  tools/probe/r11u191dec/cases/U/u08  differs=nohier
+  tools/probe/r11u191dec/cases/U/u_p02  differs=nohier il
+  tools/probe/r11u191dec/cases/U/u_p07  differs=nohier il synth
+  tools/probe/r11u194verify/cases/X/x01_tp_enum_keyword  differs=nohier
+  tools/probe/r11u199verify/cases/T/t03_gen_loop  differs=nohier il
+  tools/probe/r11u199verify/cases/X/x05_repl_fill_genloop  differs=nohier il
+  tools/probe/r11u200dec/cases/K/k02  differs=nohier
+  tools/probe/r11u204verify/cases/V191/cc6  differs=nohier il
+  tools/probe/r11u205dec/cases/TP/t04  differs=nohier il synth
+  tools/probe/r11u205dec/cases/TP/t06  differs=nohier il synth
+  tools/probe/r11u205dec/cases/TP/t08  differs=nohier il synth
+  tools/probe/r11u205dec/cases/TP/t09  differs=nohier il synth
+  tools/probe/r11u205dec/cases/TP/t17  differs=nohier il synth
+  tools/probe/r11u219repro/cases/S/s03_struct_dimarg  differs=nohier il synth
+  tools/probe/r11u219repro/cases/S/s04_shapes  differs=nohier il synth
+  tools/probe/r11u220repro/cases/CI/c07  differs=nohier
+  tools/probe/r11u220repro/cases/GX/g25  differs=nohier il synth
+  tools/probe/r11u220repro/cases/SL/s50  differs=nohier il synth
+  tools/probe/r11u221verify/cases/I/i01  differs=nohier il
+  tools/probe/r11u221verify/cases/I/i05  differs=nohier il
+  tools/probe/r11u221verify/cases/Q/q05  differs=nohier
+  tools/probe/r11u221verify/cases/Q/q13  differs=nohier
+  tools/probe/v11u171repro/cases/Q/c02_tail_op  differs=nohier il
+  tools/probe/v11u171repro/cases/Q/c08_inst_array  differs=nohier il synth
+  tools/probe/v11u171repro/cases/Q/c14_const_select  differs=nohier il
+  tools/probe/v11u212repro/cases/G/g12  differs=nohier il synth
+  tools/probe/v11u215repro/cases/IP/p04_default_key  differs=nohier il
+  tools/probe/v11u215repro/cases/OR/r08_iface_body  differs=nohier il synth
+  tools/probe/v11u215repro/cases/TA/t16_alias_of_alias  differs=nohier
+  tools/probe/v11u219repro/cases/E/e15_param_copy_and_unitcls  differs=nohier
+  tools/probe/v11u219repro/cases/I/i03_iface_arr_elem  differs=nohier il synth
+  tools/probe/v11u219repro/cases/M/m11_hier_actual_macro  differs=nohier il synth
+  tools/probe/v11u219repro/cases/U/u02_two_pkgs_same_name  differs=nohier il
+  tools/probe/v11u220repro/cases/K/k09  differs=nohier
+  tools/probe/v11u220repro/cases/K/k15  differs=nohier il synth
+  tools/probe/v11u220repro/cases/K/k17  differs=nohier il
+  tools/probe/v11u220repro/cases/T/t14  differs=nohier
+
+SLANG_REJECT (3)
+  tools/probe/r11u205dec/cases/FT/f03  differs=
+  tools/probe/v11u216repro/cases/F/f02  differs=
+  tools/probe/v11u216repro/cases/T/t11  differs=
+
+STATUS_DIFF (9)
+  tools/probe/r11u185verify/cases/GV/v07_typed_then_generic  differs=
+  tools/probe/r11u185verify/cases/GV/v08_modport_then_generic  differs=
+  tools/probe/r11u185verify/cases/GV/v09_chain_through_generic  differs=
+  tools/probe/r11u185verify/cases/GV/v15_typed_then_generic_multiline  differs=
+  tools/probe/r11u185verify/cases/PG/p04_mod_control_same_ports  differs=
+  tools/probe/r11u190verify/cases/US/u01  differs=
+  tools/probe/v11u215repro/cases/TC/c02_plain_enum_explicit_item  differs=
+  tools/probe/v11u220repro/cases/G/g27  differs=
+  tools/probe/v11u220repro/cases/K/k13  differs=
+
+SURELOG_FAIL (3)
+  tools/probe/r11u220repro/cases/SL/s37  differs=
+  tools/probe/v11u219repro/cases/S/s01_dyn_inner  differs=
+  tools/probe/v11u219repro/cases/S/s01b_queue_inner  differs=

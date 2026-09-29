@@ -1,0 +1,16 @@
+# 14 databases differ between <P>nc0 and <P>nsP (raw records)
+probe/r11u114repro/grid/f2/b02 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0 flat_excess_removed=0
+probe/v11u111repro/brk/f5/x57_case_item chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0 flat_excess_removed=0
+probe/v11u114repro/grid/set1/e04 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0 flat_excess_removed=0
+surelog/default/BlackBePipeInt chain_lost=0 chain_toward=18144 flat_lost=0 flat_toward=18144 flat_unpaired=0 flat_excess_removed=0
+surelog/default/FuncStructVal chain_lost=0 chain_toward=502 flat_lost=0 flat_toward=502 flat_unpaired=0 flat_excess_removed=0
+surelog/default/FuncStructValSimple chain_lost=0 chain_toward=39 flat_lost=0 flat_toward=39 flat_unpaired=0 flat_excess_removed=0
+surelog/default/InterfArrayBind chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0 flat_excess_removed=0
+surelog/default/Scoreboard chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/BlackBePipeInt chain_lost=0 chain_toward=18144 flat_lost=0 flat_toward=18144 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/FuncStructVal chain_lost=0 chain_toward=826 flat_lost=0 flat_toward=826 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/FuncStructValSimple chain_lost=0 chain_toward=59 flat_lost=0 flat_toward=59 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/MiniAmiq chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+uhdm2rtlil/default/ibex_tracer chain_lost=0 chain_toward=560 flat_lost=0 flat_toward=560 flat_unpaired=0 flat_excess_removed=0
+uhdm2rtlil/testflags/ibex_tracer chain_lost=0 chain_toward=560 flat_lost=0 flat_toward=560 flat_unpaired=0 flat_excess_removed=0
+TOTAL chain_lost=0 chain_toward=38844 flat_lost=0 flat_toward=38844 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0

@@ -1,0 +1,64 @@
+cluster N0989 (id kept from an earlier map; OPEN (new since r11u211map) | ground B | site buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp, law enumAliasEndAtDimOrInitDecl158) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u222 pin at 896ec643, db=DIFF: MiniAmiq symbol-table coin]): struct|golden-only:elsewhere|enum_typespec|under:ref_typespec
+row: surelog/default/MiniAmiq  strict=differ:file(7)  records golden=435559 ours=432516
+object: #227149 (golden) / #-1 (ours)  type=enum_typespec name=uvm_pkg::uvm_severity 
+  golden: 10 objs
+  ours:   
+  walk parents: ref_typespec < enum_typespec(uvm_pkg::uvm_severity_type) < ref_typespec < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 227143..227155 ('>' = the object)
+  #227143	5	begin			svaunit_pkg::svaunit_reporter::compose_message	svaunit_reporter.svh	87	7	91	10					svaunit_pkg::svaunit_reporter::compose_message	000
+  #227144	6	assignment				svaunit_reporter.svh	85	25	85	69						000
+  #227145	7	operation				svaunit_reporter.svh	85	41	85	69		0				000
+  #227146	8	ref_typespec			svaunit_pkg::svaunit_reporter::compose_message		0	0	0	0		0			svaunit_pkg::svaunit_reporter::compose_message	000
+  #227147	9	enum_typespec	uvm_pkg::uvm_severity_type			uvm_object_globals.svh	242	1	248	16						110
+  #227148	10	ref_typespec			<in>uvm_pkg::uvm_severity_type		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_severity_type	001
+> #227149	11	enum_typespec	uvm_pkg::uvm_severity			uvm_sequence_item.svh	352	37	352	49						001
+  #227150	12	ref_typespec			<in>uvm_pkg::uvm_severity		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_severity	001
+  #227151	13	bit_typespec				uvm_object_globals.svh	242	14	242	23						001
+  #227152	14	range				uvm_object_globals.svh	242	18	242	23						001
+  #227153	15	constant				uvm_object_globals.svh	242	19	242	20	1	64	UINT:1	9		001
+  #227154	15	constant				uvm_object_globals.svh	242	21	242	22	0	64	UINT:0	9		001
+  #227155	12	enum_const	UVM_INFO			uvm_object_globals.svh	244	3	244	11						001
+
+--- the holder #227148 on the other side: exact-record matches at [226133, 226134]
+  #226130	7	operation				svaunit_reporter.svh	85	41	85	69		0				000
+  #226131	8	ref_typespec			svaunit_pkg::svaunit_reporter::compose_message		0	0	0	0		0			svaunit_pkg::svaunit_reporter::compose_message	000
+  #226132	9	enum_typespec	uvm_pkg::uvm_severity_type			uvm_object_globals.svh	242	1	248	16						110
+> #226133	10	ref_typespec			<in>uvm_pkg::uvm_severity_type		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_severity_type	001
+  #226134	10	ref_typespec			<in>uvm_pkg::uvm_severity_type		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_severity_type	001
+  #226135	11	bit_typespec				uvm_object_globals.svh	242	14	242	23						001
+  #226136	12	range				uvm_object_globals.svh	242	18	242	23						001
+  #226137	13	constant				uvm_object_globals.svh	242	19	242	20	1	64	UINT:1	9		001
+  #226138	13	constant				uvm_object_globals.svh	242	21	242	22	0	64	UINT:0	9		001
+  #226139	10	enum_const	UVM_INFO			uvm_object_globals.svh	244	3	244	11						001
+  #226140	10	enum_const	UVM_WARNING			uvm_object_globals.svh	245	3	245	14						001
+  #226141	10	enum_const	UVM_ERROR			uvm_object_globals.svh	246	3	246	12						001
+  #226142	10	enum_const	UVM_FATAL			uvm_object_globals.svh	247	3	247	12						001
+
+facets of this row (3930, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

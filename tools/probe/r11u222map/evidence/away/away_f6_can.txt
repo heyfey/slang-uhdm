@@ -1,0 +1,5 @@
+# 3 databases differ between <P>nf6 and <P>nsP (canonical records)
+surelog/default/MiniAmiq chain_lost=0 chain_toward=165 flat_lost=0 flat_toward=189 flat_unpaired=0 flat_excess_removed=0
+surelog/default/Scoreboard chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/MiniAmiq chain_lost=0 chain_toward=165 flat_lost=0 flat_toward=189 flat_unpaired=0 flat_excess_removed=0
+TOTAL chain_lost=0 chain_toward=330 flat_lost=0 flat_toward=378 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0

@@ -1,0 +1,64 @@
+cluster N0415 (id kept from an earlier map; OPEN (map 13 listed it: ground-A+B step 10; passes 207-220 left it) | ground A | site emitExpr (ExprEmit.cpp, law caPartSelBoundFoldTs) < emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47) < emitModuleDefPorts (ModuleEmit.cpp, law structParamBareImportRef) [r11u156map pin]): fullname|ref_typespec|tok:->.id.id|under:constant
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(19)  records golden=1342584 ours=1342870
+object: #120495 (golden) / #120495 (ours)  type=ref_typespec name= OUT
+  golden: work@flash_ctrl
+  ours:   work@flash_ctrl.u_flash_prog_ctrl.op_addr_i
+  walk parents: constant < indexed_part_select(q) < hier_path(reg2hw.addr.q[DataBitWidth+:17]) < port(op_addr_i)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 120489..120501 ('>' = the object)
+  #120489	4	hier_path	reg2hw.addr.q[DataBitWidth+:17]			flash_ctrl.sv	171	22	171	58		0				000
+  #120490	5	ref_obj	reg2hw			flash_ctrl.sv	171	22	171	28		0				000
+  #120491	5	ref_obj	addr			flash_ctrl.sv	171	29	171	33		0				000
+  #120492	5	indexed_part_select	q		reg2hw.addr.q[DataBitWidth+:17]	flash_ctrl.sv	171	34	171	57		0			reg2hw.addr.q[DataBitWidth+:17]	000
+  #120493	6	ref_obj	DataBitWidth		work@flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17].DataBitWidth	flash_ctrl.sv	171	36	171	48		0			work@flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17].DataBitWidth	000
+  #120494	6	constant				flash_ctrl.sv	171	52	171	57	17	32	UINT:17	9		000
+> #120495	7	ref_typespec			work@flash_ctrl		0	0	0	0		0			work@flash_ctrl	000
+  #120496	8	int_typespec				flash_ctrl_pkg.sv	18	14	18	17						000
+  #120497	3	port	data_i			flash_ctrl.sv	174	5	174	38						000
+  #120498	4	ref_obj	prog_fifo_rdata		work@flash_ctrl.u_flash_prog_ctrl.data_i.prog_fifo_rdata	flash_ctrl.sv	174	22	174	37		0			work@flash_ctrl.u_flash_prog_ctrl.data_i.prog_fifo_rdata	000
+  #120499	3	port	data_rdy_i			flash_ctrl.sv	175	5	175	39						000
+  #120500	4	ref_obj	prog_fifo_rvalid		work@flash_ctrl.u_flash_prog_ctrl.data_rdy_i.prog_fifo_rvalid	flash_ctrl.sv	175	22	175	38		0			work@flash_ctrl.u_flash_prog_ctrl.data_rdy_i.prog_fifo_rvalid	000
+  #120501	3	port	data_rd_o			flash_ctrl.sv	176	5	176	36						000
+
+--- OURS (B) records 120489..120501 ('>' = the object)
+  #120489	4	hier_path	reg2hw.addr.q[DataBitWidth+:17]			flash_ctrl.sv	171	22	171	58		0				000
+  #120490	5	ref_obj	reg2hw			flash_ctrl.sv	171	22	171	28		0				000
+  #120491	5	ref_obj	addr			flash_ctrl.sv	171	29	171	33		0				000
+  #120492	5	indexed_part_select	q		reg2hw.addr.q[DataBitWidth+:17]	flash_ctrl.sv	171	34	171	57		0			reg2hw.addr.q[DataBitWidth+:17]	000
+  #120493	6	ref_obj	DataBitWidth		work@flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17].DataBitWidth	flash_ctrl.sv	171	36	171	48		0			work@flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17].DataBitWidth	000
+  #120494	6	constant				flash_ctrl.sv	171	52	171	57	17	32	UINT:17	9		000
+> #120495	7	ref_typespec			work@flash_ctrl.u_flash_prog_ctrl.op_addr_i		0	0	0	0		0			work@flash_ctrl.u_flash_prog_ctrl.op_addr_i	000
+  #120496	8	int_typespec				flash_ctrl_pkg.sv	18	14	18	17						000
+  #120497	3	port	data_i			flash_ctrl.sv	174	5	174	38						000
+  #120498	4	ref_obj	prog_fifo_rdata		work@flash_ctrl.u_flash_prog_ctrl.data_i.prog_fifo_rdata	flash_ctrl.sv	174	22	174	37		0			work@flash_ctrl.u_flash_prog_ctrl.data_i.prog_fifo_rdata	000
+  #120499	3	port	data_rdy_i			flash_ctrl.sv	175	5	175	39						000
+  #120500	4	ref_obj	prog_fifo_rvalid		work@flash_ctrl.u_flash_prog_ctrl.data_rdy_i.prog_fifo_rvalid	flash_ctrl.sv	175	22	175	38		0			work@flash_ctrl.u_flash_prog_ctrl.data_rdy_i.prog_fifo_rvalid	000
+  #120501	3	port	data_rd_o			flash_ctrl.sv	176	5	176	36						000
+
+facets of this row (530, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

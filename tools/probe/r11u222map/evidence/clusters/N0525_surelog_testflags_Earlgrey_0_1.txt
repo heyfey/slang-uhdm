@@ -1,0 +1,64 @@
+cluster N0525 (id kept from an earlier map; OPEN (map 13 listed it: ground-A+B step 10; passes 207-220 left it) | ground B | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law genLpIdxOpOperandFold112) < emitModuleDefPorts (ModuleEmit.cpp, law structParamBareImportRef) [r11u142map pin]): fullname|ref_obj|tok:->id.|under:bit_select
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(19)  records golden=1342584 ours=1342870
+object: #123468 (golden) / #123468 (ours)  type=ref_obj name=bank OUT
+  golden: work@flash_phy.gen_flash_banks.i_core.host_req_i.bank
+  ours:   work@flash_phy.gen_flash_banks.i_core.host_req_i.host_rsp_avail.bank
+  walk parents: bit_select(host_rsp_avail) < operation < port(host_req_i) < ref_module(i_core)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 123462..123474 ('>' = the object)
+  #123462	7	operation				flash_phy.sv	127	19	127	55		0				000
+  #123463	8	ref_obj	host_req_i		work@flash_phy.gen_flash_banks.i_core.host_req_i.host_req_i	flash_phy.sv	127	19	127	29		0			work@flash_phy.gen_flash_banks.i_core.host_req_i.host_req_i	000
+  #123464	8	operation				flash_phy.sv	127	33	127	54		0				000
+  #123465	9	ref_obj	host_bank_sel		work@flash_phy.gen_flash_banks.i_core.host_req_i.host_bank_sel	flash_phy.sv	127	33	127	46		0			work@flash_phy.gen_flash_banks.i_core.host_req_i.host_bank_sel	000
+  #123466	9	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.bank	flash_phy.sv	127	50	127	54		0			work@flash_phy.gen_flash_banks.i_core.host_req_i.bank	000
+  #123467	7	bit_select	host_rsp_avail		work@flash_phy.gen_flash_banks.i_core.host_req_i.host_rsp_avail	flash_phy.sv	127	73	127	77		0			work@flash_phy.gen_flash_banks.i_core.host_req_i.host_rsp_avail	000
+> #123468	8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.bank	flash_phy.sv	127	73	127	77		0			work@flash_phy.gen_flash_banks.i_core.host_req_i.bank	000
+  #123469	5	port	host_addr_i			flash_phy.sv	128	7	128	48						000
+  #123470	6	indexed_part_select	host_addr_i	host_addr_i	work@flash_phy.gen_flash_banks.i_core.host_addr_i.host_addr_i	flash_phy.sv	128	32	128	46		0			work@flash_phy.gen_flash_banks.i_core.host_addr_i.host_addr_i	000
+  #123471	7	constant				flash_phy.sv	128	32	128	33	0	64	UINT:0	9		000
+  #123472	7	ref_obj	BankAddrW		work@flash_phy.gen_flash_banks.i_core.host_addr_i.BankAddrW	flash_phy.sv	128	37	128	46		0			work@flash_phy.gen_flash_banks.i_core.host_addr_i.BankAddrW	000
+  #123473	5	port	rd_i			flash_phy.sv	129	7	129	29						000
+  #123474	6	hier_path	flash_ctrl_i.rd			flash_phy.sv	129	13	129	28		0				000
+
+--- OURS (B) records 123462..123474 ('>' = the object)
+  #123462	7	operation				flash_phy.sv	127	19	127	55		0				000
+  #123463	8	ref_obj	host_req_i		work@flash_phy.gen_flash_banks.i_core.host_req_i.host_req_i	flash_phy.sv	127	19	127	29		0			work@flash_phy.gen_flash_banks.i_core.host_req_i.host_req_i	000
+  #123464	8	operation				flash_phy.sv	127	33	127	54		0				000
+  #123465	9	ref_obj	host_bank_sel		work@flash_phy.gen_flash_banks.i_core.host_req_i.host_bank_sel	flash_phy.sv	127	33	127	46		0			work@flash_phy.gen_flash_banks.i_core.host_req_i.host_bank_sel	000
+  #123466	9	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.bank	flash_phy.sv	127	50	127	54		0			work@flash_phy.gen_flash_banks.i_core.host_req_i.bank	000
+  #123467	7	bit_select	host_rsp_avail		work@flash_phy.gen_flash_banks.i_core.host_req_i.host_rsp_avail	flash_phy.sv	127	73	127	77		0			work@flash_phy.gen_flash_banks.i_core.host_req_i.host_rsp_avail	000
+> #123468	8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.host_rsp_avail.bank	flash_phy.sv	127	73	127	77		0			work@flash_phy.gen_flash_banks.i_core.host_req_i.host_rsp_avail.bank	000
+  #123469	5	port	host_addr_i			flash_phy.sv	128	7	128	48						000
+  #123470	6	indexed_part_select	host_addr_i	host_addr_i	work@flash_phy.gen_flash_banks.i_core.host_addr_i.host_addr_i	flash_phy.sv	128	32	128	46		0			work@flash_phy.gen_flash_banks.i_core.host_addr_i.host_addr_i	000
+  #123471	7	constant				flash_phy.sv	128	32	128	33	0	64	UINT:0	9		000
+  #123472	7	ref_obj	BankAddrW		work@flash_phy.gen_flash_banks.i_core.host_addr_i.BankAddrW	flash_phy.sv	128	37	128	46		0			work@flash_phy.gen_flash_banks.i_core.host_addr_i.BankAddrW	000
+  #123473	5	port	rd_i			flash_phy.sv	129	7	129	29						000
+  #123474	6	hier_path	flash_ctrl_i.rd			flash_phy.sv	129	13	129	28		0				000
+
+facets of this row (530, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

@@ -1,0 +1,64 @@
+cluster N1862 (id kept from an earlier map; OPEN (map 13 listed it: ground-A+B step 9; passes 207-220 left it) | ground B | site emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id->id.id.id.id.id@in-typespec|under:operation
+row: surelog/default/Rggen  strict=differ:file(3)  records golden=314498 ours=312769
+object: #203768 (golden) / #202648 (ours)  type=ref_obj name=WIDTH STABLE
+  golden: work@rggen_bit_field.INITIAL_VALUE.WIDTH
+  ours:   work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field.INITIAL_VALUE.WIDTH
+  walk parents: operation < range < bit_typespec < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 203762..203774 ('>' = the object)
+  #203762	8	param_assign				rggen_bit_field.sv	5	33	5	63						000
+  #203763	9	constant				rggen_bit_field.sv	5	61	5	63	'b0	2	BIN:0	3		000
+  #203764	10	ref_typespec			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field		0	0	0	0		0			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field	000
+  #203765	11	bit_typespec				rggen_bit_field.sv	5	13	5	28						000
+  #203766	12	range				rggen_bit_field.sv	5	17	5	28						001
+  #203767	13	operation				rggen_bit_field.sv	5	18	5	25		0				001
+> #203768	14	ref_obj	WIDTH		<in>WIDTH	rggen_bit_field.sv	5	18	5	23		0			work@rggen_bit_field.INITIAL_VALUE.WIDTH	001
+  #203769	14	constant				rggen_bit_field.sv	5	24	5	25	1	64	UINT:1	9		001
+  #203770	13	constant				rggen_bit_field.sv	5	26	5	27	0	64	UINT:0	9		001
+  #203771	8	param_assign				rggen_bit_field.sv	6	33	6	76						000
+  #203772	9	constant				rggen_bit_field.sv	6	61	6	76	1	1	INT:1	7		000
+  #203773	10	ref_typespec			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field		0	0	0	0		0			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field	000
+  #203774	11	enum_typespec	rggen_rtl_pkg::rggen_sw_hw_access			rggen_rtl_pkg.sv	18	3	21	24						110
+
+--- OURS (B) records 202642..202654 ('>' = the object)
+  #202642	8	param_assign				rggen_bit_field.sv	5	33	5	63						000
+  #202643	9	constant				rggen_bit_field.sv	5	61	5	63	'b0	2	BIN:0	3		000
+  #202644	10	ref_typespec			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field		0	0	0	0		0			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field	000
+  #202645	11	bit_typespec				rggen_bit_field.sv	5	13	5	28						000
+  #202646	12	range				rggen_bit_field.sv	5	17	5	28						001
+  #202647	13	operation				rggen_bit_field.sv	5	18	5	25		0				001
+> #202648	14	ref_obj	WIDTH		<in>WIDTH	rggen_bit_field.sv	5	18	5	23		0			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field.INITIAL_VALUE.WIDTH	001
+  #202649	14	constant				rggen_bit_field.sv	5	24	5	25	1	64	UINT:1	9		001
+  #202650	13	constant				rggen_bit_field.sv	5	26	5	27	0	64	UINT:0	9		001
+  #202651	8	param_assign				rggen_bit_field.sv	6	33	6	76						000
+  #202652	9	constant				rggen_bit_field.sv	6	61	6	76	1	1	INT:1	7		000
+  #202653	10	ref_typespec			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field		0	0	0	0		0			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field	000
+  #202654	11	enum_typespec	rggen_rtl_pkg::rggen_sw_hw_access			rggen_rtl_pkg.sv	18	3	21	24						110
+
+facets of this row (5277, first 25):
+  N0683 #23168/23166 constant  G[14 operation < range] O[13 range < logic_typespec]
+  N1172 #23166/-1 operation  G[2 objs] O[]
+  N0683 #26509/26505 constant  G[16 operation < range] O[15 range < logic_typespec]
+  N1172 #26507/-1 operation  G[2 objs] O[]
+  N0683 #28776/28770 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28774/-1 operation  G[2 objs] O[]
+  N0683 #28785/28777 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28783/-1 operation  G[2 objs] O[]
+  N0683 #28794/28784 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28792/-1 operation  G[2 objs] O[]
+  N0683 #29654/29642 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29652/-1 operation  G[2 objs] O[]
+  N0683 #29663/29649 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29661/-1 operation  G[2 objs] O[]
+  N0683 #29672/29656 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29670/-1 operation  G[2 objs] O[]
+  N0683 #30427/30409 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30425/-1 operation  G[2 objs] O[]
+  N0683 #30436/30416 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30434/-1 operation  G[2 objs] O[]
+  N0683 #30445/30423 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30443/-1 operation  G[2 objs] O[]
+  N0683 #31206/31182 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #31204/-1 operation  G[2 objs] O[]
+  N0683 #31215/31189 constant  G[17 operation < range] O[16 range < logic_typespec]

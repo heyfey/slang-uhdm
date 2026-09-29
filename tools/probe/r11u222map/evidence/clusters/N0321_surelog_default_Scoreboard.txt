@@ -1,0 +1,64 @@
+cluster N0321 (id kept from an earlier map; COVERED r11u223 (brief item: the writer rule's remaining faces (pass 216 residue 3, under class_defn)) | ground B | site buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u142map pin]): file|enum_typespec|other-file+span|under:class_defn
+row: surelog/default/Scoreboard  strict=differ:file(30)  records golden=269656 ours=269853
+object: #85559 (golden) / #85543 (ours)  type=enum_typespec name=uvm_pkg::uvm_active_passive_enum 
+  golden: uvm_globals.svh 532:52:532:53
+  ours:   uvm_object_globals.svh 147:1:147:74
+  walk parents: class_defn(work@my_scoreboard) < class_defn(uvm_scoreboard) < class_defn(uvm_component) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 85553..85565 ('>' = the object)
+  #85553	6	enum_const	UVM_LOG			uvm_object_globals.svh	278	3	278	28						001
+  #85554	6	enum_const	UVM_COUNT			uvm_object_globals.svh	279	3	279	28						001
+  #85555	6	enum_const	UVM_EXIT			uvm_object_globals.svh	280	3	280	28						001
+  #85556	6	enum_const	UVM_CALL_HOOK			uvm_object_globals.svh	281	3	281	28						001
+  #85557	6	enum_const	UVM_STOP			uvm_object_globals.svh	282	3	282	28						001
+  #85558	6	enum_const	UVM_RM_RECORD			uvm_object_globals.svh	283	3	283	28						001
+> #85559	5	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_globals.svh	532	52	532	53						010
+  #85560	6	ref_typespec			<in>uvm_pkg::uvm_active_passive_enum		0	0	0	0		0			work@my_scoreboard::uvm_pkg::uvm_active_passive_enum	001
+  #85561	7	bit_typespec				uvm_object_globals.svh	147	14	147	17						001
+  #85562	6	enum_const	UVM_PASSIVE			uvm_object_globals.svh	147	20	147	33						001
+  #85563	6	enum_const	UVM_ACTIVE			uvm_object_globals.svh	147	35	147	47						001
+  #85564	5	class_typespec	this_type			uvm_algorithmic_comparator.svh	74	11	74	37						010
+  #85565	5	enum_typespec	uvm_pkg::uvm_apprepend			uvm_callback.svh	246	55	246	68						010
+
+--- OURS (B) records 85537..85549 ('>' = the object)
+  #85537	6	enum_const	UVM_LOG			uvm_object_globals.svh	278	3	278	28						001
+  #85538	6	enum_const	UVM_COUNT			uvm_object_globals.svh	279	3	279	28						001
+  #85539	6	enum_const	UVM_EXIT			uvm_object_globals.svh	280	3	280	28						001
+  #85540	6	enum_const	UVM_CALL_HOOK			uvm_object_globals.svh	281	3	281	28						001
+  #85541	6	enum_const	UVM_STOP			uvm_object_globals.svh	282	3	282	28						001
+  #85542	6	enum_const	UVM_RM_RECORD			uvm_object_globals.svh	283	3	283	28						001
+> #85543	5	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_object_globals.svh	147	1	147	74						010
+  #85544	6	ref_typespec			<in>uvm_pkg::uvm_active_passive_enum		0	0	0	0		0			work@my_scoreboard::uvm_pkg::uvm_active_passive_enum	001
+  #85545	7	bit_typespec				uvm_object_globals.svh	147	14	147	17						001
+  #85546	6	enum_const	UVM_PASSIVE			uvm_object_globals.svh	147	20	147	33						001
+  #85547	6	enum_const	UVM_ACTIVE			uvm_object_globals.svh	147	35	147	47						001
+  #85548	5	class_typespec	this_type			uvm_algorithmic_comparator.svh	74	11	74	37						010
+  #85549	5	enum_typespec	uvm_pkg::uvm_apprepend			uvm_callback.svh	246	55	246	68						010
+
+facets of this row (567, first 25):
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79148 array_typespec  G[] O[1 objs]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]
+  N0262 #84980/-1 constant  G[2 objs] O[]
+  N0262 #84984/-1 constant  G[2 objs] O[]
+  N0262 #85274/-1 constant  G[2 objs] O[]
+  N0262 #85285/-1 constant  G[2 objs] O[]
+  N0262 #85289/-1 constant  G[2 objs] O[]
+  N0262 #85293/-1 constant  G[2 objs] O[]
+  N0025 #130737/130722 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/130721 operation  G[] O[1 objs]
+  N0025 #130740/130727 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/130726 operation  G[] O[1 objs]
+  N0025 #133223/133212 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133211 operation  G[] O[1 objs]
+  N0025 #133226/133217 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133216 operation  G[] O[1 objs]
+  N0025 #133269/133262 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133261 operation  G[] O[1 objs]
+  N0025 #133272/133267 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133266 operation  G[] O[1 objs]
+  N0025 #133317/133314 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133313 operation  G[] O[1 objs]
+  N0025 #133320/133319 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]

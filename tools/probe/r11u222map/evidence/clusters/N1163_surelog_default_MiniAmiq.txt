@@ -1,0 +1,64 @@
+cluster N1163 (id kept from an earlier map; OPEN (map 13 listed it: ground-A+B step 12; passes 207-220 left it) | ground B | site makeTypespec (TypeEmit.cpp, law arrayElemTdClone42) < makeQueueDynArrayVar (TaskFuncEmit.cpp, law classHomedTypeTsNoPkgInstance4) < emitTaskFuncs (TaskFuncEmit.cpp, law nameBasedArrayTdDeclIsRefVar166) [r11u138map pin] [r11u142map pin]): struct|ours-only:elsewhere|class_typespec|under:ref_typespec
+row: surelog/default/MiniAmiq  strict=differ:file(7)  records golden=435559 ours=432516
+object: #-1 (golden) / #222176 (ours)  type=class_typespec name=uvm_component 
+  golden: 
+  ours:   1 objs
+  walk parents: ref_typespec < class_var(obj) < function(create_component) < class_defn(uvm_component_registry)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 222170..222182 ('>' = the object)
+  #222170	3	extends				uvm_registry.svh	52	52	52	70						000
+  #222171	4	ref_typespec			uvm_pkg::uvm_component_registry		0	0	0	0		0			uvm_pkg::uvm_component_registry	000
+  #222172	5	class_typespec	uvm_object_wrapper			uvm_registry.svh	52	52	52	70						110
+  #222173	3	function	create_component		uvm_pkg::uvm_component_registry::create_component	uvm_registry.svh	63	3	63	10					uvm_pkg::uvm_component_registry::create_component	000
+  #222174	4	class_var	obj		uvm_pkg::uvm_component_registry::create_component::obj	uvm_registry.svh	65	7	65	10		0			uvm_pkg::uvm_component_registry::create_component::obj	000
+  #222175	5	ref_typespec			uvm_pkg::uvm_component_registry::create_component::obj		0	0	0	0		0			uvm_pkg::uvm_component_registry::create_component::obj	000
+> #222176	6	class_typespec	uvm_component			uvm_registry.svh	51	39	51	52						110
+  #222177	4	class_var			uvm_pkg::uvm_component_registry::create_component	uvm_registry.svh	63	20	63	33		0			uvm_pkg::uvm_component_registry::create_component	000
+  #222178	5	ref_typespec			uvm_pkg::uvm_component_registry::create_component		0	0	0	0		0			uvm_pkg::uvm_component_registry::create_component	000
+  #222179	6	class_typespec				uvm_registry.svh	63	20	63	33						000
+  #222180	4	io_decl	name			uvm_registry.svh	63	59	63	63						000
+  #222181	5	ref_typespec			uvm_pkg::uvm_component_registry::create_component::name		0	0	0	0		0			uvm_pkg::uvm_component_registry::create_component::name	000
+  #222182	6	string_typespec				uvm_registry.svh	63	52	63	58						000
+
+--- the holder #222175 on the other side: exact-record matches at [223177]
+  #223174	5	class_typespec	uvm_object_wrapper			uvm_registry.svh	52	52	52	70						110
+  #223175	3	function	create_component		uvm_pkg::uvm_component_registry::create_component	uvm_registry.svh	63	3	63	10					uvm_pkg::uvm_component_registry::create_component	000
+  #223176	4	class_var	obj		uvm_pkg::uvm_component_registry::create_component::obj	uvm_registry.svh	65	7	65	10		0			uvm_pkg::uvm_component_registry::create_component::obj	000
+> #223177	5	ref_typespec			uvm_pkg::uvm_component_registry::create_component::obj		0	0	0	0		0			uvm_pkg::uvm_component_registry::create_component::obj	000
+  #223178	4	class_var			uvm_pkg::uvm_component_registry::create_component	uvm_registry.svh	63	20	63	33		0			uvm_pkg::uvm_component_registry::create_component	000
+  #223179	5	ref_typespec			uvm_pkg::uvm_component_registry::create_component		0	0	0	0		0			uvm_pkg::uvm_component_registry::create_component	000
+  #223180	6	class_typespec				uvm_registry.svh	63	20	63	33						000
+  #223181	4	io_decl	name			uvm_registry.svh	63	59	63	63						000
+  #223182	5	ref_typespec			uvm_pkg::uvm_component_registry::create_component::name		0	0	0	0		0			uvm_pkg::uvm_component_registry::create_component::name	000
+  #223183	6	string_typespec				uvm_registry.svh	63	52	63	58						000
+  #223184	4	io_decl	parent			uvm_registry.svh	64	66	64	72						000
+  #223185	5	ref_typespec			uvm_pkg::uvm_component_registry::create_component::parent		0	0	0	0		0			uvm_pkg::uvm_component_registry::create_component::parent	000
+  #223186	6	class_typespec	uvm_component			uvm_registry.svh	64	52	64	65						110
+
+facets of this row (3930, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

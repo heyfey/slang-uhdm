@@ -1,0 +1,64 @@
+cluster N1993 (id kept from an earlier map; OPEN | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law dpiExportListedAtExportItem216) < emitPackage (ParamEmit.cpp, law pkgImportAggCloneLastWriter32) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u138map pin] [r11u142map pin]): fullname|function|tok:id->id|under:module_inst
+row: probe/default/r10uvm122repro__g122_f_clone  strict=endcol  records golden=597 ours=588
+object: #445 (golden) / #436 (ours)  type=function name=f122f OUT
+  golden: p122f_home::f122f
+  ours:   p122f_expl::f122f
+  walk parents: module_inst < design(work@m122f)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 439..451 ('>' = the object)
+  #439	5	ref_obj	s		p122f_expl::use2::s	dut.sv	33	52	33	53		0			p122f_expl::use2::s	000
+  #440	6	ref_typespec			p122f_expl::use2::s		0	0	0	0		0			p122f_expl::use2::s	000
+  #441	7	int_typespec				dut.sv	5	23	5	26						000
+  #442	1	module_inst		work@m122f	work@m122f	dut.sv	37	1	41	10					work@m122f	000
+  #443	2	import_typespec	p122f_home			dut.sv	38	10	38	23						010
+  #444	3	constant					0	0	0	0	*	8	STRING:*	8		001
+> #445	2	function	f122f		p122f_home::f122f	dut.sv	5	3	13	14					p122f_home::f122f	000
+  #446	3	bit_var	hv		p122f_home::f122f::hv	dut.sv	6	16	6	18		0			p122f_home::f122f::hv	000
+  #447	4	ref_typespec			p122f_home::f122f::hv		0	0	0	0		0			p122f_home::f122f::hv	000
+  #448	5	bit_typespec				dut.sv	6	5	6	15						000
+  #449	6	range				dut.sv	6	9	6	15						001
+  #450	7	constant				dut.sv	6	10	6	12	31	64	UINT:31	9		001
+  #451	7	constant				dut.sv	6	13	6	14	0	64	UINT:0	9		001
+
+--- OURS (B) records 430..442 ('>' = the object)
+  #430	5	ref_obj	s		p122f_expl::use2::s	dut.sv	33	52	33	53		0			p122f_expl::use2::s	000
+  #431	6	ref_typespec			p122f_expl::use2::s		0	0	0	0		0			p122f_expl::use2::s	000
+  #432	7	int_typespec				dut.sv	5	23	5	26						000
+  #433	1	module_inst		work@m122f	work@m122f	dut.sv	37	1	41	10					work@m122f	000
+  #434	2	import_typespec	p122f_home			dut.sv	38	10	38	23						010
+  #435	3	constant					0	0	0	0	*	8	STRING:*	8		001
+> #436	2	function	f122f		p122f_expl::f122f	dut.sv	5	3	13	14					p122f_expl::f122f	000
+  #437	3	bit_var	hv		p122f_expl::f122f::hv	dut.sv	6	16	6	18		0			p122f_expl::f122f::hv	000
+  #438	4	ref_typespec			p122f_expl::f122f::hv		0	0	0	0		0			p122f_expl::f122f::hv	000
+  #439	5	bit_typespec				dut.sv	6	5	6	15						000
+  #440	6	range				dut.sv	6	9	6	15						001
+  #441	7	constant				dut.sv	6	10	6	12	31	64	UINT:31	9		001
+  #442	7	constant				dut.sv	6	13	6	14	0	64	UINT:0	9		001
+
+facets of this row (45, first 25):
+  N0501 #199/-1 bit_var hv G[6 objs] O[]
+  N2038 #-1/313 bit_var hv G[] O[6 objs]
+  N2036 #399/-1 bit_var hv G[1 objs] O[]
+  N0480 #-1/399 int_var  G[] O[1 objs]
+  N0171 #401/-1 bit_typespec  G[4 objs] O[]
+  N0776 #-1/401 int_typespec  G[] O[1 objs]
+  N0501 #409/-1 bit_var hv G[6 objs] O[]
+  N2035 #468/-1 bit_select hv G[2 objs] O[]
+  N2037 #-1/461 bit_select hv G[] O[2 objs]
+  N2035 #547/-1 bit_select hv G[2 objs] O[]
+  N2037 #-1/540 bit_select hv G[] O[2 objs]
+  N0127 #34/34 array_typespec  G[15:9:15:17] O[15:9:15:16]
+  N1992 #93/93 bit_var hv G[p122f_home::f122f::hv] O[p122f_expl::f122f::hv]
+  N0511 #94/94 ref_typespec  G[p122f_home::f122f::hv] O[p122f_expl::f122f::hv]
+  N0127 #114/114 array_typespec  G[15:9:15:17] O[15:9:15:16]
+  N0492 #118/118 ref_typespec  G[p122f_wild::g122f::gv] O[]
+  N0127 #135/135 array_typespec  G[15:9:15:17] O[15:9:15:16]
+  N0127 #156/156 array_typespec  G[15:9:15:17] O[15:9:15:16]
+  N0127 #263/257 array_typespec  G[15:9:15:17] O[15:9:15:16]
+  N0127 #334/334 array_typespec  G[15:9:15:17] O[15:9:15:16]
+  N0492 #338/338 ref_typespec  G[p122f_wild::g122f::gv] O[]
+  N0127 #352/352 array_typespec  G[15:9:15:17] O[15:9:15:16]
+  N2010 #400/400 ref_typespec  G[p122f_expl::f122f::hv] O[p122f_home::f122f]
+  N1993 #445/436 function f122f G[p122f_home::f122f] O[p122f_expl::f122f]
+  N0512 #446/437 bit_var hv G[p122f_home::f122f::hv] O[p122f_expl::f122f::hv]

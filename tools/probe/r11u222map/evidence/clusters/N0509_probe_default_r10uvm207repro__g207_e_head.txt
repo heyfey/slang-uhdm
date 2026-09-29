@@ -1,0 +1,64 @@
+cluster N0509 (id kept from an earlier map; OPEN | ground B | site bareScalarTdCopyOf (TypeEmit.cpp, law bodyTypedefElemBoundSymbolic52) < operator() (TypeEmit.cpp, law modScalarTdTopInstance) < bareScalarTypedefVarTs (TypeEmit.cpp, law defPkgMemberTdOfNamedShares108) [r11u142map pin]): fullname|ref_typespec|tok:id@id.id::id.id.->|under:bit_typespec
+row: probe/default/r10uvm207repro__g207_e_head  strict=fullname  records golden=840 ours=840
+object: #212 (golden) / #212 (ours)  type=ref_typespec name= STABLE
+  golden: work@g207_e_head.p207a_e::se207.e_min207.bt207e
+  ours:   bt207e
+  walk parents: bit_typespec(bt207e) < ref_typespec < typespec_member(e_min207) < ref_obj(e_min207)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 206..218 ('>' = the object)
+  #206	13	ref_typespec			<in>p207a_e::se207.e_stride207		0	0	0	0		0			work@g207_e_head.p207a_e::se207.e_stride207	001
+  #207	14	int_typespec				dut.sv	9	54	9	57						001
+  #208	8	ref_obj	e_min207		p207b_e::C207e::m_set207::e_min207	dut.sv	17	26	17	34		0			p207b_e::C207e::m_set207::e_min207	000
+  #209	9	typespec_member	e_min207			dut.sv	9	27	9	35						000
+  #210	10	ref_typespec			work@g207_e_head.p207a_e::se207.e_min207		0	0	0	0		0			work@g207_e_head.p207a_e::se207.e_min207	000
+  #211	11	bit_typespec	bt207e			dut.sv	8	11	8	21						110
+> #212	12	ref_typespec			<in>bt207e		0	0	0	0		0			work@g207_e_head.p207a_e::se207.e_min207.bt207e	001
+  #213	13	bit_typespec	p207a_e::bt207e			dut.sv	8	11	8	21						001
+  #214	14	range				dut.sv	8	15	8	21						001
+  #215	15	constant				dut.sv	8	16	8	18	63	64	UINT:63	9		001
+  #216	15	constant				dut.sv	8	19	8	20	0	64	UINT:0	9		001
+  #217	12	range				dut.sv	8	15	8	21						001
+  #218	13	constant				dut.sv	8	16	8	18	63	64	UINT:63	9		001
+
+--- OURS (B) records 206..218 ('>' = the object)
+  #206	13	ref_typespec			<in>p207a_e::se207.e_stride207		0	0	0	0		0			work@g207_e_head.p207a_e::se207.e_stride207	001
+  #207	14	int_typespec				dut.sv	9	54	9	57						001
+  #208	8	ref_obj	e_min207		p207b_e::C207e::m_set207::e_min207	dut.sv	17	26	17	34		0			p207b_e::C207e::m_set207::e_min207	000
+  #209	9	typespec_member	e_min207			dut.sv	9	27	9	35						000
+  #210	10	ref_typespec			work@g207_e_head.p207a_e::se207.e_min207		0	0	0	0		0			work@g207_e_head.p207a_e::se207.e_min207	000
+  #211	11	bit_typespec	bt207e			dut.sv	8	11	8	21						110
+> #212	12	ref_typespec			<in>bt207e		0	0	0	0		0			bt207e	001
+  #213	13	bit_typespec	bt207e			dut.sv	8	11	8	21						001
+  #214	14	range				dut.sv	8	15	8	21						001
+  #215	15	constant				dut.sv	8	16	8	18	63	64	UINT:63	9		001
+  #216	15	constant				dut.sv	8	19	8	20	0	64	UINT:0	9		001
+  #217	12	range				dut.sv	8	15	8	21						001
+  #218	13	constant				dut.sv	8	16	8	18	63	64	UINT:63	9		001
+
+facets of this row (32, first 25):
+  N0543 #119/119 ref_typespec  G[p207b_e::C207e::m_set207::range207::p207a_e::se207::e_min207::bt207e] O[bt207e]
+  N0543 #130/130 ref_typespec  G[p207b_e::C207e::m_set207::range207::p207a_e::se207::e_max207::bt207e] O[bt207e]
+  N0543 #151/151 ref_typespec  G[p207b_e::C207e::m_set207::range207::p207a_e::se207::e_min207::bt207e] O[bt207e]
+  N0543 #162/162 ref_typespec  G[p207b_e::C207e::m_set207::range207::p207a_e::se207::e_max207::bt207e] O[bt207e]
+  N0509 #212/212 ref_typespec  G[work@g207_e_head.p207a_e::se207.e_min207.bt207e] O[bt207e]
+  N0507 #213/213 bit_typespec p207a_e::bt207e G[p207a_e::bt207e|] O[bt207e|]
+  N0509 #229/229 ref_typespec  G[work@g207_e_head.p207a_e::se207.e_max207.bt207e] O[bt207e]
+  N0507 #230/230 bit_typespec p207a_e::bt207e G[p207a_e::bt207e|] O[bt207e|]
+  N0543 #375/375 ref_typespec  G[p207b_e::C207e::m_set207::range207::p207a_e::se207::e_min207::bt207e] O[bt207e]
+  N0543 #386/386 ref_typespec  G[p207b_e::C207e::m_set207::range207::p207a_e::se207::e_max207::bt207e] O[bt207e]
+  N0543 #404/404 ref_typespec  G[p207b_e::C207e::m_set207::range207::p207a_e::se207::e_min207::bt207e] O[bt207e]
+  N0543 #415/415 ref_typespec  G[p207b_e::C207e::m_set207::range207::p207a_e::se207::e_max207::bt207e] O[bt207e]
+  N0509 #437/437 ref_typespec  G[work@g207_e_head.p207a_e::se207.e_min207.bt207e] O[bt207e]
+  N0507 #438/438 bit_typespec p207a_e::bt207e G[p207a_e::bt207e|] O[bt207e|]
+  N0509 #454/454 ref_typespec  G[work@g207_e_head.p207a_e::se207.e_max207.bt207e] O[bt207e]
+  N0507 #455/455 bit_typespec p207a_e::bt207e G[p207a_e::bt207e|] O[bt207e|]
+  N0543 #517/517 ref_typespec  G[p207b_e::C207e::m_set207::range207::p207a_e::se207::e_min207::bt207e] O[bt207e]
+  N0543 #528/528 ref_typespec  G[p207b_e::C207e::m_set207::range207::p207a_e::se207::e_max207::bt207e] O[bt207e]
+  N0543 #549/549 ref_typespec  G[p207b_e::C207e::m_set207::range207::p207a_e::se207::e_min207::bt207e] O[bt207e]
+  N0543 #560/560 ref_typespec  G[p207b_e::C207e::m_set207::range207::p207a_e::se207::e_max207::bt207e] O[bt207e]
+  N0509 #610/610 ref_typespec  G[work@g207_e_head.p207a_e::se207.e_min207.bt207e] O[bt207e]
+  N0507 #611/611 bit_typespec p207a_e::bt207e G[p207a_e::bt207e|] O[bt207e|]
+  N0509 #627/627 ref_typespec  G[work@g207_e_head.p207a_e::se207.e_max207.bt207e] O[bt207e]
+  N0507 #628/628 bit_typespec p207a_e::bt207e G[p207a_e::bt207e|] O[bt207e|]
+  N0543 #700/700 ref_typespec  G[p207b_e::C207e::m_set207::range207::p207a_e::se207::e_min207::bt207e] O[bt207e]

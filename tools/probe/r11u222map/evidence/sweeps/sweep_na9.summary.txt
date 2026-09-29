@@ -1,0 +1,64 @@
+# sweep na9 (workdir <P>na9)
+== probe cases (tests/probe, cached goldens), jobs=3, out=<P>na9/probe.csv
+probe cases: EQUAL=3410 STRICT_NOTEQUAL=677 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+REGRESSION r10earl53repro/v5_v53 EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION r10uvm139repro/g139_b_kinds EQUAL -> STRICT_NOTEQUAL differ:col(10)
+REGRESSION r10uvm139repro/g139_d_mult EQUAL -> STRICT_NOTEQUAL differ:col(10)
+REGRESSION r10uvm145repro/g145_a_prod EQUAL -> STRICT_NOTEQUAL differ:col(20)
+REGRESSION r10uvm145repro/g145_b_kind EQUAL -> STRICT_NOTEQUAL differ:col(34)
+REGRESSION r10uvm145repro/g145_e_zero EQUAL -> STRICT_NOTEQUAL differ:col(14)
+REGRESSION r10uvm148repro/g148_d_kind EQUAL -> STRICT_NOTEQUAL differ:col(16)
+REGRESSION r10v139repro/v139_d_shapes EQUAL -> STRICT_NOTEQUAL differ:col(4)
+REGRESSION r10v139repro/v139_e_inst EQUAL -> STRICT_NOTEQUAL differ:col(5)
+REGRESSION r10v145repro/v145_a_faces EQUAL -> STRICT_NOTEQUAL differ:col(32)
+REGRESSION r10v145repro/v145_e_oob EQUAL -> STRICT_NOTEQUAL differ:col(32)
+REGRESSION r10v145repro/v145_g_zero EQUAL -> STRICT_NOTEQUAL differ:col(30)
+REGRESSION r10v148repro/v148_d_kind EQUAL -> STRICT_NOTEQUAL differ:col(2)
+REGRESSION r11u90repro/grid.verifier/vx9_strifnonansi EQUAL -> STRICT_NOTEQUAL differ:line(8)
+REGRESSION r11u93repro/grid/n3_strnonansi_if EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11u93repro/grid/n4_nonansi_plain_if EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11u93repro/grid/pb11_ifvarredecl EQUAL -> STRICT_NOTEQUAL differ:col(16)
+REGRESSION r11u93repro/grid/pb12_ifstrnonport EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11u93repro/grid/pb14_ifbothstr EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11u93repro/grid/pb16_ifdeclorder EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11u93repro/grid/pb17_ifonedecl EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11u93repro/grid/pb3_ifnoredecl EQUAL -> STRICT_NOTEQUAL differ:line(8)
+REGRESSION r11u93repro/grid/pb4_ifrevorder EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11u93repro/grid/pb5_ifinput EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11u93repro/grid/pb7_iftwoports EQUAL -> STRICT_NOTEQUAL differ:line(24)
+REGRESSION r11u93repro/grid/pb8_ifmodport EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11u93repro/grid/pb9_ifgen EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11v93repro/grid/v10_ifportmid EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11v93repro/grid/v12_ifmultiinst EQUAL -> STRICT_NOTEQUAL differ:line(32)
+REGRESSION r11v93repro/grid/v17_ifinout EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11v93repro/grid/v18_ifnetbeforeport_str EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11v93repro/grid/v1_ifnetbeforeport EQUAL -> STRICT_NOTEQUAL differ:line(16)
+REGRESSION r11v93repro/grid/v3_ifportreg EQUAL -> STRICT_NOTEQUAL differ:line(8)
+CHANGE r10earl53repro/v2_v53 STRICT_NOTEQUAL differ:endline(1) -> differ:endline(5) [endline +4]
+CHANGE r11u93repro/grid/pb10_ifnetuse STRICT_NOTEQUAL differ:line(20) -> differ:line(36) [line +16]
+CHANGE r11u93repro/grid/pb19_modportview STRICT_NOTEQUAL differ:line(14) -> differ:line(38) [line +24]
+CHANGE r11v93repro/grid/v15_ifdeclafterbody STRICT_NOTEQUAL differ:line(4) -> differ:line(20) [line +16]
+regressions=33 conversions=0 changes=4 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=<P>na9/surelog.csv
+== surelog vs golden_surelog.csv
+REGRESSION HierPathTypespec testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(1)
+REGRESSION InterfaceStructMemberPort default CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(6)
+REGRESSION InterfaceStructMemberPort testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(6)
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:line(19) -> differ:line(7) [line -12]
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:line(19) -> differ:line(7) [line -12]
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:fullname(19) -> differ:fullname(50) [fullname +31]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(19) -> differ:fullname(50) [fullname +31]
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(7) -> differ:file(11) [file +4]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(7) -> differ:file(11) [file +4]
+CHANGE Rggen default STRICT_NOTEQUAL differ:file(3) -> differ:defname(141)
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:file(30) -> differ:file(11) [file -19]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:file(7) -> differ:file(11) [file +4]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:file(7) -> differ:file(11) [file +4]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:file(54) -> differ:file(11) [file -43]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:file(54) -> differ:file(11) [file -43]
+regressions=3 conversions=0 changes=12 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=<P>na9/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+SWEEP_RC=1

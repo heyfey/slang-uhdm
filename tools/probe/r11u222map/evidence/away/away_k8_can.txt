@@ -1,0 +1,574 @@
+# 34 databases differ between <P>nk8 and <P>nsP (canonical records)
+probe/r10earl_repro/i chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+probe/r10earl_repro/vo chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0 flat_excess_removed=0
+probe/r10uvm111repro/g111_a chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0 flat_excess_removed=0
+probe/r10uvm127repro/g127_c_import chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6 flat_unpaired=0 flat_excess_removed=0
+probe/r10uvm147repro/g147_a chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0 flat_excess_removed=0
+probe/r10uvm171repro/g171_b_homes chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6 flat_unpaired=0 flat_excess_removed=0
+probe/r10uvm193repro/g193_c_argface chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0 flat_excess_removed=0
+probe/r10uvm193repro/g193_d_propfence chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0 flat_excess_removed=0
+probe/r10uvm194repro/g194_c_clone chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6 flat_unpaired=0 flat_excess_removed=0
+probe/r10uvm207repro/g207_e_head chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6 flat_unpaired=0 flat_excess_removed=0
+probe/r10uvm208repro/g208_e_head chain_lost=0 chain_toward=6 flat_lost=4 flat_toward=6 flat_unpaired=1 flat_excess_removed=4
+  FLAT_LOST 4 (paired in place with a golden record at the same chain: 3) ref_typespec|||p208b_e::M208::m_set_reg_offset208||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ int_var: < function:M208::m_set_reg_offset208 < package:p208b_e < design:work@g208_e_head
+     chain off=1 on=0 golden=0 @ int_var: < function:M208::m_set_reg_offset208 < module_inst: < design:work@g208_e_head
+     chain off=1 on=0 golden=0 @ int_var: < function:M208::m_set_reg_offset208 < module_inst:work@g208_e_head < design:work@g208_e_head
+probe/r10uvm36repro/t48c chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0 flat_excess_removed=0
+probe/r10uvm94repro/g94_a0_head chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3 flat_unpaired=0 flat_excess_removed=0
+probe/r10v111repro/v111_b1 chain_lost=0 chain_toward=10 flat_lost=0 flat_toward=10 flat_unpaired=0 flat_excess_removed=0
+probe/r10v111repro/v111_b2 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0 flat_excess_removed=0
+probe/r10v111repro/v111_b6 chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6 flat_unpaired=0 flat_excess_removed=0
+probe/r10v111repro/v111_b7 chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6 flat_unpaired=0 flat_excess_removed=0
+probe/r10v181repro/v181_e_idxbase chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0 flat_excess_removed=0
+probe/r10v181repro/v181_f_mixed chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0 flat_excess_removed=0
+probe/r10v181repro/v181_h_nofe chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0 flat_excess_removed=0
+probe/r10v184repro/gv184_h_retpin chain_lost=0 chain_toward=12 flat_lost=0 flat_toward=12 flat_unpaired=0 flat_excess_removed=0
+probe/r10v194repro/v194_a_explicit chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6 flat_unpaired=0 flat_excess_removed=0
+probe/r10v194repro/v194_e_explclone chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6 flat_unpaired=0 flat_excess_removed=0
+surelog/default/BuildUVMPkg chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+surelog/default/Earlgrey_0_1 chain_lost=0 chain_toward=62 flat_lost=0 flat_toward=62 flat_unpaired=0 flat_excess_removed=0
+surelog/default/MiniAmiq chain_lost=0 chain_toward=1421 flat_lost=167 flat_toward=1421 flat_unpaired=145 flat_excess_removed=167
+  FLAT_LOST 8 (paired in place with a golden record at the same chain: 0) bit_typespec|uvm_pkg::uvm_reg_addr_t|||uvm_reg_model.svh|73|10|73|31||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_submap_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_vreg::get_address < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 16 (paired in place with a golden record at the same chain: 0) range||||uvm_reg_model.svh|73|23|73|31||||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_submap_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_base_addr < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 16 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|73|29|73|30|0|64|UINT:0|9
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_address < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 8 (paired in place with a golden record at the same chain: 0) ref_typespec|||<in>uvm_reg_addr_t||0|0|0|0||0||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_submap_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_vreg::get_address < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_vreg::get_offset_in_memory < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 5 (paired in place with a golden record at the same chain: 0) ref_typespec|||<in>uvm_reg_data_t||0|0|0|0||0||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_mirrored_value < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_reset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 10 (paired in place with a golden record at the same chain: 0) range||||uvm_reg_model.svh|59|23|59|31||||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_reset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_reset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_reset < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 10 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|59|29|59|30|0|64|UINT:0|9
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XpredictX < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_mirrored_value < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_reset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_mirrored_value < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_IS_OK|||uvm_reg_model.svh|149|7|149|16||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_reg::backdoor_read_func < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_mem::backdoor_read_func < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_NOT_OK|||uvm_reg_model.svh|150|7|150|17||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_mem::backdoor_read_func < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_reg::backdoor_read_func < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_HAS_X|||uvm_reg_model.svh|151|7|151|16||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_mem::backdoor_read_func < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_reg::backdoor_read_func < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) enum_typespec|uvm_pkg::uvm_sequencer_arb_mode|||uvm_object_globals.svh|359|1|367|26||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_FIFO|||uvm_object_globals.svh|361|3|361|19||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_WEIGHTED|||uvm_object_globals.svh|362|3|362|23||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_RANDOM|||uvm_object_globals.svh|363|3|363|21||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_STRICT_FIFO|||uvm_object_globals.svh|364|3|364|26||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_STRICT_RANDOM|||uvm_object_globals.svh|365|3|365|28||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_USER|||uvm_object_globals.svh|366|3|366|19||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_phase.svh|1034|10|1034|20||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_phase::get_domain < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_phase.svh|1241|10|1241|19||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_phase::find < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_phase.svh|1255|10|1255|19||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_phase::find_by_name < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg_field.svh|520|10|520|18||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg_field::get_register < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg_field.svh|525|10|525|18||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg_field::get_parent < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_reg.svh|1705|10|1705|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_reg::get_block < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_reg_file.svh|250|10|250|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_reg_file::get_block < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_mem_mam.svh|662|10|662|25||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_mem_mam::reconfigure < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_mem_mam.svh|697|10|697|24||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_mem_mam::reserve_region < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|885|10|885|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::get_parent < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|889|10|889|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::get_block < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|968|10|968|24||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::allocate < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|1191|10|1191|24||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::get_field_by_name < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_mem.svh|1108|10|1108|21||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_mem::get_default_map < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_reg_block.svh|1309|10|1309|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_reg_block::get_parent < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) enum_typespec|uvm_pkg::UVM_SEQ_ARB_TYPE|||uvm_sequencer_base.svh|332|40|332|56||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 16 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|73|24|73|26|63|64|INT:63|7
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_vreg::get_offset_in_memory < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 10 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|59|24|59|26|63|64|INT:63|7
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XupdateX < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XpredictX < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_table_printer::emit||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ string_var: < function:uvm_table_printer::emit < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ string_var: < function:uvm_table_printer::emit < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_field::is_indv_accessible||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ bit_var: < function:uvm_reg_field::is_indv_accessible < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ bit_var: < function:uvm_reg_field::is_indv_accessible < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_vreg::convert2string||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ string_var: < function:uvm_vreg::convert2string < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ string_var: < function:uvm_vreg::convert2string < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_map::get_physical_addresses||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ int_var: < function:uvm_reg_map::get_physical_addresses < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ int_var: < function:uvm_reg_map::get_physical_addresses < interface_inst: < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_block_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_block_by_name < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_block_by_name < interface_inst: < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_reg_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_reg_by_name < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_reg_by_name < interface_inst: < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_vreg_by_name||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_vreg_by_name < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_vreg_by_name < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_mem_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_mem_by_name < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_mem_by_name < interface_inst: < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_field_by_name||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_field_by_name < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_field_by_name < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_vfield_by_name||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_vfield_by_name < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_vfield_by_name < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_map_by_name||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_map_by_name < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_map_by_name < package:svaunit_pkg < design:unnamed
+surelog/default/Scoreboard chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+surelog/default/SeqDriver chain_lost=0 chain_toward=711 flat_lost=156 flat_toward=711 flat_unpaired=145 flat_excess_removed=156
+  FLAT_LOST 8 (paired in place with a golden record at the same chain: 0) bit_typespec|uvm_pkg::uvm_reg_addr_t|||uvm_reg_model.svh|73|10|73|31||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_base_addr < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_address < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_vreg::get_offset_in_memory < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 16 (paired in place with a golden record at the same chain: 0) range||||uvm_reg_model.svh|73|23|73|31||||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_submap_offset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_offset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_base_addr < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 16 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|73|29|73|30|0|64|UINT:0|9
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_base_addr < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 8 (paired in place with a golden record at the same chain: 0) ref_typespec|||<in>uvm_reg_addr_t||0|0|0|0||0||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_submap_offset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_offset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_base_addr < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 5 (paired in place with a golden record at the same chain: 0) ref_typespec|||<in>uvm_reg_data_t||0|0|0|0||0||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XupdateX < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_mirrored_value < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XpredictX < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 10 (paired in place with a golden record at the same chain: 0) range||||uvm_reg_model.svh|59|23|59|31||||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XupdateX < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_mirrored_value < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_reset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_reset < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 10 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|59|29|59|30|0|64|UINT:0|9
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XpredictX < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_reset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XupdateX < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_mirrored_value < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_IS_OK|||uvm_reg_model.svh|149|7|149|16||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_mem::backdoor_read_func < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_reg::backdoor_read_func < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_NOT_OK|||uvm_reg_model.svh|150|7|150|17||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_mem::backdoor_read_func < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_reg::backdoor_read_func < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_HAS_X|||uvm_reg_model.svh|151|7|151|16||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_reg::backdoor_read_func < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_mem::backdoor_read_func < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) enum_typespec|uvm_pkg::uvm_sequencer_arb_mode|||uvm_object_globals.svh|359|1|367|26||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_FIFO|||uvm_object_globals.svh|361|3|361|19||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_WEIGHTED|||uvm_object_globals.svh|362|3|362|23||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_RANDOM|||uvm_object_globals.svh|363|3|363|21||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_STRICT_FIFO|||uvm_object_globals.svh|364|3|364|26||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_STRICT_RANDOM|||uvm_object_globals.svh|365|3|365|28||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_USER|||uvm_object_globals.svh|366|3|366|19||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_phase.svh|1034|10|1034|20||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_phase::get_domain < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_phase.svh|1241|10|1241|19||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_phase::find < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_phase.svh|1255|10|1255|19||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_phase::find_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg_field.svh|520|10|520|18||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg_field::get_register < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg_field.svh|525|10|525|18||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg_field::get_parent < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_reg.svh|1705|10|1705|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_reg::get_block < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_reg_file.svh|250|10|250|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_reg_file::get_block < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_mem_mam.svh|662|10|662|25||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_mem_mam::reconfigure < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_mem_mam.svh|697|10|697|24||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_mem_mam::reserve_region < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|885|10|885|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::get_parent < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|889|10|889|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::get_block < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|968|10|968|24||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::allocate < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|1191|10|1191|24||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::get_field_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_mem.svh|1108|10|1108|21||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_mem::get_default_map < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_reg_block.svh|1309|10|1309|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_reg_block::get_parent < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) enum_typespec|uvm_pkg::UVM_SEQ_ARB_TYPE|||uvm_sequencer_base.svh|332|40|332|56||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 16 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|73|24|73|26|63|64|INT:63|7
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_offset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_vreg::get_offset_in_memory < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_address < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 10 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|59|24|59|26|63|64|INT:63|7
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XpredictX < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_mirrored_value < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_reset < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_table_printer::emit||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ string_var: < function:uvm_table_printer::emit < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_field::is_indv_accessible||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ bit_var: < function:uvm_reg_field::is_indv_accessible < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_vreg::convert2string||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ string_var: < function:uvm_vreg::convert2string < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_map::get_physical_addresses||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ int_var: < function:uvm_reg_map::get_physical_addresses < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_block_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_block_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_reg_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_reg_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_vreg_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_vreg_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_mem_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_mem_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_field_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_field_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_vfield_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_vfield_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_map_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_map_by_name < package:adpcm_pkg < design:work@top_tb
+surelog/default/SimpleUVM chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/BuildUVMPkg chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/Earlgrey_0_1 chain_lost=0 chain_toward=70 flat_lost=0 flat_toward=70 flat_unpaired=0 flat_excess_removed=0
+surelog/testflags/MiniAmiq chain_lost=0 chain_toward=1421 flat_lost=167 flat_toward=1421 flat_unpaired=145 flat_excess_removed=167
+  FLAT_LOST 8 (paired in place with a golden record at the same chain: 0) bit_typespec|uvm_pkg::uvm_reg_addr_t|||uvm_reg_model.svh|73|10|73|31||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_submap_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_vreg::get_address < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 16 (paired in place with a golden record at the same chain: 0) range||||uvm_reg_model.svh|73|23|73|31||||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_submap_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_base_addr < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 16 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|73|29|73|30|0|64|UINT:0|9
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_address < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 8 (paired in place with a golden record at the same chain: 0) ref_typespec|||<in>uvm_reg_addr_t||0|0|0|0||0||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_submap_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_vreg::get_address < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_vreg::get_offset_in_memory < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 5 (paired in place with a golden record at the same chain: 0) ref_typespec|||<in>uvm_reg_data_t||0|0|0|0||0||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_mirrored_value < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_reset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 10 (paired in place with a golden record at the same chain: 0) range||||uvm_reg_model.svh|59|23|59|31||||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_reset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_reset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_reset < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 10 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|59|29|59|30|0|64|UINT:0|9
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XpredictX < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_mirrored_value < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_reset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_mirrored_value < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_IS_OK|||uvm_reg_model.svh|149|7|149|16||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_reg::backdoor_read_func < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_mem::backdoor_read_func < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_NOT_OK|||uvm_reg_model.svh|150|7|150|17||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_mem::backdoor_read_func < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_reg::backdoor_read_func < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_HAS_X|||uvm_reg_model.svh|151|7|151|16||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_mem::backdoor_read_func < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_reg::backdoor_read_func < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) enum_typespec|uvm_pkg::uvm_sequencer_arb_mode|||uvm_object_globals.svh|359|1|367|26||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_FIFO|||uvm_object_globals.svh|361|3|361|19||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_WEIGHTED|||uvm_object_globals.svh|362|3|362|23||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_RANDOM|||uvm_object_globals.svh|363|3|363|21||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_STRICT_FIFO|||uvm_object_globals.svh|364|3|364|26||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_STRICT_RANDOM|||uvm_object_globals.svh|365|3|365|28||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_USER|||uvm_object_globals.svh|366|3|366|19||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_phase.svh|1034|10|1034|20||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_phase::get_domain < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_phase.svh|1241|10|1241|19||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_phase::find < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_phase.svh|1255|10|1255|19||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_phase::find_by_name < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg_field.svh|520|10|520|18||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg_field::get_register < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg_field.svh|525|10|525|18||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg_field::get_parent < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_reg.svh|1705|10|1705|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_reg::get_block < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_reg_file.svh|250|10|250|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_reg_file::get_block < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_mem_mam.svh|662|10|662|25||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_mem_mam::reconfigure < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_mem_mam.svh|697|10|697|24||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_mem_mam::reserve_region < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|885|10|885|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::get_parent < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|889|10|889|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::get_block < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|968|10|968|24||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::allocate < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|1191|10|1191|24||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::get_field_by_name < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_mem.svh|1108|10|1108|21||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_mem::get_default_map < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_reg_block.svh|1309|10|1309|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_reg_block::get_parent < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) enum_typespec|uvm_pkg::UVM_SEQ_ARB_TYPE|||uvm_sequencer_base.svh|332|40|332|56||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 16 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|73|24|73|26|63|64|INT:63|7
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_vreg::get_offset_in_memory < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 10 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|59|24|59|26|63|64|INT:63|7
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XupdateX < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get < package:svaunit_pkg < design:unnamed
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XpredictX < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_table_printer::emit||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ string_var: < function:uvm_table_printer::emit < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ string_var: < function:uvm_table_printer::emit < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_field::is_indv_accessible||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ bit_var: < function:uvm_reg_field::is_indv_accessible < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ bit_var: < function:uvm_reg_field::is_indv_accessible < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_vreg::convert2string||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ string_var: < function:uvm_vreg::convert2string < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ string_var: < function:uvm_vreg::convert2string < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_map::get_physical_addresses||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ int_var: < function:uvm_reg_map::get_physical_addresses < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ int_var: < function:uvm_reg_map::get_physical_addresses < interface_inst: < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_block_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_block_by_name < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_block_by_name < interface_inst: < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_reg_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_reg_by_name < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_reg_by_name < interface_inst: < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_vreg_by_name||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_vreg_by_name < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_vreg_by_name < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_mem_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_mem_by_name < package:svaunit_pkg < design:unnamed
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_mem_by_name < interface_inst: < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_field_by_name||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_field_by_name < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_field_by_name < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_vfield_by_name||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_vfield_by_name < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_vfield_by_name < package:svaunit_pkg < design:unnamed
+  FLAT_LOST 3 (paired in place with a golden record at the same chain: 2) ref_typespec|||svaunit_pkg::uvm_reg_block::get_map_by_name||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_map_by_name < interface_inst: < design:unnamed
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_map_by_name < package:svaunit_pkg < design:unnamed
+surelog/testflags/SeqDriver chain_lost=0 chain_toward=711 flat_lost=156 flat_toward=711 flat_unpaired=145 flat_excess_removed=156
+  FLAT_LOST 8 (paired in place with a golden record at the same chain: 0) bit_typespec|uvm_pkg::uvm_reg_addr_t|||uvm_reg_model.svh|73|10|73|31||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_base_addr < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_address < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_vreg::get_offset_in_memory < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 16 (paired in place with a golden record at the same chain: 0) range||||uvm_reg_model.svh|73|23|73|31||||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_submap_offset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_offset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_base_addr < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 16 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|73|29|73|30|0|64|UINT:0|9
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_base_addr < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_offset < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 8 (paired in place with a golden record at the same chain: 0) ref_typespec|||<in>uvm_reg_addr_t||0|0|0|0||0||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_submap_offset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_offset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg_map::get_base_addr < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 5 (paired in place with a golden record at the same chain: 0) ref_typespec|||<in>uvm_reg_data_t||0|0|0|0||0||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XupdateX < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_mirrored_value < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XpredictX < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 10 (paired in place with a golden record at the same chain: 0) range||||uvm_reg_model.svh|59|23|59|31||||
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XupdateX < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_mirrored_value < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_reset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_reset < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 10 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|59|29|59|30|0|64|UINT:0|9
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XpredictX < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_reset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XupdateX < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_mirrored_value < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_IS_OK|||uvm_reg_model.svh|149|7|149|16||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_mem::backdoor_read_func < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_reg::backdoor_read_func < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_NOT_OK|||uvm_reg_model.svh|150|7|150|17||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_mem::backdoor_read_func < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_reg::backdoor_read_func < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_HAS_X|||uvm_reg_model.svh|151|7|151|16||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_reg::backdoor_read_func < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_status_e < ref_typespec: < enum_var: < function:uvm_mem::backdoor_read_func < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) enum_typespec|uvm_pkg::uvm_sequencer_arb_mode|||uvm_object_globals.svh|359|1|367|26||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_FIFO|||uvm_object_globals.svh|361|3|361|19||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_WEIGHTED|||uvm_object_globals.svh|362|3|362|23||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_RANDOM|||uvm_object_globals.svh|363|3|363|21||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_STRICT_FIFO|||uvm_object_globals.svh|364|3|364|26||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_STRICT_RANDOM|||uvm_object_globals.svh|365|3|365|28||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 0) enum_const|UVM_SEQ_ARB_USER|||uvm_object_globals.svh|366|3|366|19||||
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::uvm_sequencer_arb_mode < ref_typespec: < enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE < ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_phase.svh|1034|10|1034|20||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_phase::get_domain < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_phase.svh|1241|10|1241|19||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_phase::find < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_phase.svh|1255|10|1255|19||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_phase::find_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg_field.svh|520|10|520|18||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg_field::get_register < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg_field.svh|525|10|525|18||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg_field::get_parent < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_reg.svh|1705|10|1705|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_reg::get_block < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_reg_file.svh|250|10|250|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_reg_file::get_block < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_mem_mam.svh|662|10|662|25||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_mem_mam::reconfigure < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_mem_mam.svh|697|10|697|24||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_mem_mam::reserve_region < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|885|10|885|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::get_parent < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|889|10|889|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::get_block < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|968|10|968|24||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::allocate < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_vreg.svh|1191|10|1191|24||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_vreg::get_field_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_mem.svh|1108|10|1108|21||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_mem::get_default_map < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) class_typespec||||uvm_reg_block.svh|1309|10|1309|23||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < class_var: < function:uvm_reg_block::get_parent < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) enum_typespec|uvm_pkg::UVM_SEQ_ARB_TYPE|||uvm_sequencer_base.svh|332|40|332|56||||
+     chain off=2 on=1 golden=1 @ ref_typespec: < enum_var: < function:uvm_sequencer_base::get_arbitration < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 16 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|73|24|73|26|63|64|INT:63|7
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_offset < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_addr_t < ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_vreg::get_offset_in_memory < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_mem::get_address < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_addr_t < ref_typespec: < bit_var: < function:uvm_reg::get_address < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 10 (paired in place with a golden record at the same chain: 0) constant||||uvm_reg_model.svh|59|24|59|26|63|64|INT:63|7
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::XpredictX < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_pkg::uvm_reg_data_t < ref_typespec: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg_field::get_mirrored_value < package:adpcm_pkg < design:work@top_tb
+     chain off=2 on=1 golden=1 @ range: < bit_typespec:uvm_reg_data_t < ref_typespec: < bit_var: < function:uvm_reg::get_reset < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_table_printer::emit||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ string_var: < function:uvm_table_printer::emit < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_field::is_indv_accessible||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ bit_var: < function:uvm_reg_field::is_indv_accessible < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_vreg::convert2string||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ string_var: < function:uvm_vreg::convert2string < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_map::get_physical_addresses||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ int_var: < function:uvm_reg_map::get_physical_addresses < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_block_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_block_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_reg_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_reg_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_vreg_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_vreg_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_mem_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_mem_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_field_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_field_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_vfield_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_vfield_by_name < package:adpcm_pkg < design:work@top_tb
+  FLAT_LOST 2 (paired in place with a golden record at the same chain: 1) ref_typespec|||adpcm_pkg::uvm_reg_block::get_map_by_name||0|0|0|0||0||
+     chain off=2 on=0 golden=0 @ class_var: < function:uvm_reg_block::get_map_by_name < package:adpcm_pkg < design:work@top_tb
+surelog/testflags/SimpleUVM chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1 flat_unpaired=0 flat_excess_removed=0
+TOTAL chain_lost=0 chain_toward=4511 flat_lost=650 flat_toward=4511 flat_unpaired=581 flat_excess_removed=650 flat_lost_unexplained=0

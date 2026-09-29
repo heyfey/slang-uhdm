@@ -1,0 +1,5 @@
+j0 TOTAL chain_lost=0 chain_toward=7730 flat_lost=650 flat_toward=7730 flat_unpaired=581 flat_excess_removed=650 flat_lost_unexplained=0 | RAW TOTAL chain_lost=0 chain_toward=7730 flat_lost=598 flat_toward=7730 flat_unpaired=529 flat_excess_removed=598 flat_lost_unexplained=0
+k8 TOTAL chain_lost=0 chain_toward=4511 flat_lost=650 flat_toward=4511 flat_unpaired=581 flat_excess_removed=650 flat_lost_unexplained=0 | RAW TOTAL chain_lost=0 chain_toward=4511 flat_lost=598 flat_toward=4511 flat_unpaired=529 flat_excess_removed=598 flat_lost_unexplained=0
+a9 TOTAL chain_lost=0 chain_toward=8362 flat_lost=0 flat_toward=8362 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0 | RAW TOTAL chain_lost=0 chain_toward=8376 flat_lost=0 flat_toward=8376 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0
+b3 TOTAL chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0 | RAW TOTAL chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0
+AWAY1_DONE

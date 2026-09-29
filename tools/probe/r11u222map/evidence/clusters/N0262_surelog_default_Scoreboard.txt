@@ -1,0 +1,64 @@
+cluster N0262 (id kept from an earlier map; COVERED r11u223 (brief item: pass 219 residue 7 (the sister's hand-off: importPaCopy82's UVM_MACRO_NUMFLAGS copies)) | ground B | site importPaCopy82 (ModuleEmit.cpp, law classImportParamStamped82) < classInheritsContainerImports23 (ModuleEmit.cpp, law classImportParamStamped82) < exportDesign (UhdmExporter.cpp, law classInheritsContainerImports23) [r11u142map pin]): struct|golden-only:fewer-copies|constant|under:param_assign
+row: surelog/default/Scoreboard  strict=differ:file(30)  records golden=269656 ours=269853
+object: #84965 (golden) / #-1 (ours)  type=constant name= 
+  golden: 2 objs
+  ours:   
+  walk parents: param_assign < class_defn(work@my_scoreboard) < class_defn(uvm_scoreboard) < class_defn(uvm_component)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 84959..84971 ('>' = the object)
+  #84959	7	ref_typespec			work@my_scoreboard		0	0	0	0		0			work@my_scoreboard	000
+  #84960	8	int_typespec				uvm_object_globals.svh	39	1	39	32						000
+  #84961	6	parameter	UVM_STREAMBITS		work@my_scoreboard::UVM_STREAMBITS	uvm_object_globals.svh	39	11	39	25		0	UINT:4096		work@my_scoreboard::UVM_STREAMBITS	000
+  #84962	7	ref_typespec			work@my_scoreboard::UVM_STREAMBITS		0	0	0	0		0			work@my_scoreboard::UVM_STREAMBITS	000
+  #84963	8	int_typespec				uvm_object_globals.svh	39	1	39	32						000
+  #84964	5	param_assign				uvm_object_globals.svh	99	11	99	32						000
+> #84965	6	constant				uvm_object_globals.svh	99	23	99	32	'hf000000	-1	HEX:f000000	5		000
+  #84966	7	ref_typespec			work@my_scoreboard		0	0	0	0		0			work@my_scoreboard	000
+  #84967	6	parameter	UVM_RADIX		work@my_scoreboard::UVM_RADIX	uvm_object_globals.svh	99	11	99	20		0	HEX:f000000		work@my_scoreboard::UVM_RADIX	000
+  #84968	5	param_assign				uvm_object_globals.svh	175	11	175	37						000
+  #84969	6	constant				uvm_object_globals.svh	175	35	175	37	17	32	UINT:17	9		000
+  #84970	7	ref_typespec			work@my_scoreboard		0	0	0	0		0			work@my_scoreboard	000
+  #84971	8	int_typespec				uvm_object_globals.svh	175	1	175	37						000
+
+--- the holder #84964 on the other side: exact-record matches at [84964, 85265]
+  #84961	6	parameter	UVM_STREAMBITS		work@my_scoreboard::UVM_STREAMBITS	uvm_object_globals.svh	39	11	39	25		0	UINT:4096		work@my_scoreboard::UVM_STREAMBITS	000
+  #84962	7	ref_typespec			work@my_scoreboard::UVM_STREAMBITS		0	0	0	0		0			work@my_scoreboard::UVM_STREAMBITS	000
+  #84963	8	int_typespec				uvm_object_globals.svh	39	1	39	32						000
+> #84964	5	param_assign				uvm_object_globals.svh	99	11	99	32						000
+  #84965	6	parameter	UVM_RADIX		work@my_scoreboard::UVM_RADIX	uvm_object_globals.svh	99	11	99	20		0	HEX:f000000		work@my_scoreboard::UVM_RADIX	000
+  #84966	5	param_assign				uvm_object_globals.svh	175	11	175	37						000
+  #84967	6	constant				uvm_object_globals.svh	175	35	175	37	17	32	UINT:17	9		000
+  #84968	7	ref_typespec			work@my_scoreboard		0	0	0	0		0			work@my_scoreboard	000
+  #84969	8	int_typespec				uvm_object_globals.svh	175	1	175	37						000
+  #84970	6	parameter	UVM_MACRO_NUMFLAGS		work@my_scoreboard::UVM_MACRO_NUMFLAGS	uvm_object_globals.svh	175	11	175	29		0	UINT:17		work@my_scoreboard::UVM_MACRO_NUMFLAGS	000
+  #84971	7	ref_typespec			work@my_scoreboard::UVM_MACRO_NUMFLAGS		0	0	0	0		0			work@my_scoreboard::UVM_MACRO_NUMFLAGS	000
+  #84972	8	int_typespec				uvm_object_globals.svh	175	1	175	37						000
+  #84973	5	param_assign				uvm_object_globals.svh	180	11	180	46						000
+
+facets of this row (567, first 25):
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79148 array_typespec  G[] O[1 objs]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]
+  N0262 #84980/-1 constant  G[2 objs] O[]
+  N0262 #84984/-1 constant  G[2 objs] O[]
+  N0262 #85274/-1 constant  G[2 objs] O[]
+  N0262 #85285/-1 constant  G[2 objs] O[]
+  N0262 #85289/-1 constant  G[2 objs] O[]
+  N0262 #85293/-1 constant  G[2 objs] O[]
+  N0025 #130737/130722 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/130721 operation  G[] O[1 objs]
+  N0025 #130740/130727 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/130726 operation  G[] O[1 objs]
+  N0025 #133223/133212 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133211 operation  G[] O[1 objs]
+  N0025 #133226/133217 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133216 operation  G[] O[1 objs]
+  N0025 #133269/133262 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133261 operation  G[] O[1 objs]
+  N0025 #133272/133267 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133266 operation  G[] O[1 objs]
+  N0025 #133317/133314 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133313 operation  G[] O[1 objs]
+  N0025 #133320/133319 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]

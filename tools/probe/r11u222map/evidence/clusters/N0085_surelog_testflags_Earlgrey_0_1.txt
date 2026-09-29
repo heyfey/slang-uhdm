@@ -1,0 +1,64 @@
+cluster N0085 (id kept from an earlier map; OPEN (map 13 listed it: ground-A+B step 10; passes 207-220 left it) | ground A | site makeParamTs (ParamEmit.cpp, law pkgParamOwnDefRange) < drainDefParamTs (ParamEmit.cpp, law paramCloneImportedCopy) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) [r11u138map pin (other example): bareScalarTdCopyOf (TypeEmit.cpp, law bodyTypedefElemBoundSymbolic52) < bareScalarTypedefVarTs (TypeEmit.cpp, law unpackedElemVecTypedef) < exportDesign (UhdmEx] [r11u142map pin]): struct|ours-only:fewer-copies|ref_typespec|under:logic_typespec
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(19)  records golden=1342584 ours=1342870
+object: #-1 (golden) / #689248 (ours)  type=ref_typespec name= 
+  golden: 
+  ours:   5 objs
+  walk parents: logic_typespec < ref_typespec < logic_net(digest) < module_inst(u_sha2)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 689242..689254 ('>' = the object)
+  #689242	7	range				sha2.sv	26	16	26	22						001
+  #689243	8	constant				sha2.sv	26	17	26	19	63	64	UINT:63	9		001
+  #689244	8	constant				sha2.sv	26	20	26	21	0	64	UINT:0	9		001
+  #689245	4	logic_net	digest		work@top_earlgrey.u_hmac.u_sha2.digest	sha2.sv	27	27	27	33		0			work@top_earlgrey.u_hmac.u_sha2.digest	000
+  #689246	5	ref_typespec			work@top_earlgrey.u_hmac.u_sha2.digest		0	0	0	0		0			work@top_earlgrey.u_hmac.u_sha2.digest	000
+  #689247	6	logic_typespec				sha2.sv	27	10	27	26						000
+> #689248	7	ref_typespec			<in>		0	0	0	0		0			work@top_earlgrey.u_hmac.u_sha2.digest	001
+  #689249	8	logic_typespec	hmac_pkg::sha_word_t			hmac_pkg.sv	17	11	17	23						001
+  #689250	9	range				hmac_pkg.sv	17	17	17	23						001
+  #689251	10	constant				hmac_pkg.sv	17	18	17	20	31	64	UINT:31	9		001
+  #689252	10	constant				hmac_pkg.sv	17	21	17	22	0	64	UINT:0	9		001
+  #689253	7	range				sha2.sv	27	21	27	26						001
+  #689254	8	constant				sha2.sv	27	22	27	23	7	64	UINT:7	9		001
+
+--- the holder #689247 on the other side: exact-record matches at [137949, 689224]
+  #137946	4	port	digest			sha2.sv	27	27	27	33						000
+  #137947	5	ref_obj	digest		work@sha2.digest.digest	sha2.sv	27	27	27	33		0			work@sha2.digest.digest	000
+  #137948	5	ref_typespec			work@sha2.digest		0	0	0	0		0			work@sha2.digest	000
+> #137949	6	logic_typespec				sha2.sv	27	10	27	26						000
+  #137950	7	ref_typespec					0	0	0	0		0				001
+  #137951	8	logic_typespec	hmac_pkg::sha_word_t			hmac_pkg.sv	17	11	17	23						001
+  #137952	9	ref_typespec			<in>hmac_pkg::sha_word_t		0	0	0	0		0			hmac_pkg::sha_word_t	001
+  #137953	10	logic_typespec	hmac_pkg::sha_word_t			hmac_pkg.sv	17	11	17	23						001
+  #137954	11	range				hmac_pkg.sv	17	17	17	23						001
+  #137955	12	constant				hmac_pkg.sv	17	18	17	20	31	64	UINT:31	9		001
+  #137956	12	constant				hmac_pkg.sv	17	21	17	22	0	64	UINT:0	9		001
+  #137957	9	range				hmac_pkg.sv	17	17	17	23						001
+  #137958	10	constant				hmac_pkg.sv	17	18	17	20	31	64	UINT:31	9		001
+
+facets of this row (530, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

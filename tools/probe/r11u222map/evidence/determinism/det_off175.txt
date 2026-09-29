@@ -1,0 +1,3 @@
+MiniAmiq default a54a5d610986/rc=0 a54a5d610986/rc=0 a54a5d610986/rc=0 a54a5d610986/rc=0  head=21ff47e0d1b2
+MiniAmiq testflags a54a5d610986/rc=0 a54a5d610986/rc=0 a54a5d610986/rc=0 a54a5d610986/rc=0  head=21ff47e0d1b2
+DONE

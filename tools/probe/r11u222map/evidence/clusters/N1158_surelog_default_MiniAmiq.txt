@@ -1,0 +1,64 @@
+cluster N1158 (id kept from an earlier map; COVERED r11u224 (the UVM ground-A families, optimistic) | ground A | site emitExpr (ExprEmit.cpp, law sysCallKwTypeArgNameSpan131) < emitStmt (StmtEmit.cpp, law negLitPkgRetFoldNested30) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) [r11u138map pin] [r11u142map pin]): span|sys_func_call|endcol|under:return_stmt
+row: surelog/default/MiniAmiq  strict=differ:file(7)  records golden=435559 ours=432516
+object: #217949 (golden) / #216984 (ours)  type=sys_func_call name=$sformatf 
+  golden: 433:14:434:75
+  ours:   433:14:434:85
+  walk parents: return_stmt < function(create_html_header) < class_defn(svaunit_test) < class_defn(svaunit_base)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 217943..217955 ('>' = the object)
+  #217943	12	constant				svaunit_test.svh	426	42	426	43	2	64	UINT:2	9		000
+  #217944	6	function	create_html_header		svaunit_pkg::svaunit_test::create_html_header	svaunit_test.svh	432	4	432	11					svaunit_pkg::svaunit_test::create_html_header	000
+  #217945	7	string_var			svaunit_pkg::svaunit_test::create_html_header	svaunit_test.svh	432	21	432	27		0			svaunit_pkg::svaunit_test::create_html_header	000
+  #217946	8	ref_typespec			svaunit_pkg::svaunit_test::create_html_header		0	0	0	0		0			svaunit_pkg::svaunit_test::create_html_header	000
+  #217947	9	string_typespec				svaunit_test.svh	432	21	432	27						000
+  #217948	7	return_stmt				svaunit_test.svh	433	7	433	13						000
+> #217949	8	sys_func_call	$sformatf			svaunit_test.svh	433	14	434	75		0				000
+  #217950	9	constant				svaunit_test.svh	433	24	433	69	"Automatically generated on %s by %s with %s"	344	STRING:Automatically generated on %s by %s with %s	6		000
+  #217951	9	func_call	get_date_with_format			svaunit_test.svh	434	10	434	42		0				000
+  #217952	10	constant				svaunit_test.svh	434	31	434	41	"%Y-%m-%d"	64	STRING:%Y-%m-%d	6		000
+  #217953	9	func_call	get_user_name			svaunit_test.svh	434	44	434	59		0				000
+  #217954	9	constant				svaunit_test.svh	434	61	434	74	"SVAUNIT.3.2"	88	STRING:SVAUNIT.3.2	6		000
+  #217955	6	function	create_html_style		svaunit_pkg::svaunit_test::create_html_style	svaunit_test.svh	440	4	440	11					svaunit_pkg::svaunit_test::create_html_style	000
+
+--- OURS (B) records 216978..216990 ('>' = the object)
+  #216978	12	constant				svaunit_test.svh	426	42	426	43	2	64	UINT:2	9		000
+  #216979	6	function	create_html_header		svaunit_pkg::svaunit_test::create_html_header	svaunit_test.svh	432	4	432	11					svaunit_pkg::svaunit_test::create_html_header	000
+  #216980	7	string_var			svaunit_pkg::svaunit_test::create_html_header	svaunit_test.svh	432	21	432	27		0			svaunit_pkg::svaunit_test::create_html_header	000
+  #216981	8	ref_typespec			svaunit_pkg::svaunit_test::create_html_header		0	0	0	0		0			svaunit_pkg::svaunit_test::create_html_header	000
+  #216982	9	string_typespec				svaunit_test.svh	432	21	432	27						000
+  #216983	7	return_stmt				svaunit_test.svh	433	7	433	13						000
+> #216984	8	sys_func_call	$sformatf			svaunit_test.svh	433	14	434	85		0				000
+  #216985	9	constant				svaunit_test.svh	433	24	433	69	"Automatically generated on %s by %s with %s"	344	STRING:Automatically generated on %s by %s with %s	6		000
+  #216986	9	func_call	get_date_with_format			svaunit_test.svh	434	10	434	42		0				000
+  #216987	10	constant				svaunit_test.svh	434	31	434	41	"%Y-%m-%d"	64	STRING:%Y-%m-%d	6		000
+  #216988	9	func_call	get_user_name			svaunit_test.svh	434	44	434	59		0				000
+  #216989	9	constant				svaunit_test.svh	434	61	434	74	"SVAUNIT.3.2"	88	STRING:SVAUNIT.3.2	6		000
+  #216990	6	function	create_html_style		svaunit_pkg::svaunit_test::create_html_style	svaunit_test.svh	440	4	440	11					svaunit_pkg::svaunit_test::create_html_style	000
+
+facets of this row (3930, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

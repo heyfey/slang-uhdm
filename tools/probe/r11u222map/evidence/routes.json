@@ -1,0 +1,115 @@
+{
+ "pairA": {
+  "N0207": "brief item: pass 220 residue (the path-select naming joining a dot after a :: scope; golden check_data_width::uvm_reg_data_t, ours check_data_width.uvm_reg_data_t)",
+  "N0397": "brief item: pass 220 residue (the dot after a :: scope: end_v::compiled_regex)",
+  "N0832": "brief item: pass 220 residue (the dot after a :: scope: do_bus_access::rw.value[idx][i0 * 8+:8]::value)",
+  "N1060": "brief item: pass 220 residue (the dot after a :: scope, inside a part-select index path)",
+  "N2117": "brief item: pass 220 residue (the dot after a :: scope, probe case r10uvm48repro/t67d)",
+  "N2469": "brief item: pass 220 residue (clone indices the chain law misses: a call as the index, svaunit_vpi_wrapper vpi_vif.sva_exists)",
+  "N0555": "brief item: pass 220 residue (clone indices the chain law misses: a nested select index, arb_sequence_q[[i]])",
+  "N0557": "brief item: pass 220 residue (clone indices the chain law misses: a nested select index)",
+  "N0461": "brief item: pass 220 residue (clone indices the chain law misses: arb_sequence_q::request)",
+  "N0215": "brief item: pass 220 residue (clone indices the chain law misses: arb_sequence_q::SEQ_TYPE_LOCK)",
+  "N0192": "brief item: pass 220 residue (clone path-select names: from_node.m_sync::node)",
+  "N0868": "brief item: carried BlackBePipeInt #15272 (pass 215 residue 9 / r11u218 section 5: golden writes no value for a pattern member whose conditional compares an int member with a string; ParamEmit)",
+  "N0897": "brief item: carried BlackBePipeInt t #66 (the --elabuhdm claim of law pcwElabKeepsClaim207v too broad for the AllPackages listing; ParamEmit)",
+  "N1096": "brief item: carried FuncStructVal #747 (a forward reference spanning the qualifier; r11u218 section 5)",
+  "N2472": "brief item: carried FuncStructVal R2 (the INSTR_PER_FETCH read-site leftovers 618:22)",
+  "N2473": "brief item: carried FuncStructVal R2 (the same objects' span)",
+  "N0739": "brief item: pass 220 residue 6 (map 13's case clusters)",
+  "N1903": "brief item: pass 220 residue 6 (map 13's case clusters)",
+  "N1904": "brief item: pass 220 residue 6 (map 13's case clusters)",
+  "N0476": "brief item: pass 220 residue 6 (map 13's case clusters)",
+  "N0477": "brief item: pass 220 residue 6 (map 13's case clusters)",
+  "N0025": "optimistic: the r11u224 brief names the carried cfg_func_width_loop faces; r11u200 decoded its A half (the elaborated formal clone, the folded range), no law; the cluster also carries UVM rows",
+  "N0033": "optimistic: the r11u224 brief names the carried cfg_func_width_loop faces; r11u200 decoded its A half (the elaborated formal clone, the folded range), no law; the cluster also carries UVM rows",
+  "N0794": "optimistic: the r11u224 brief names the carried cfg_func_width_loop faces; r11u200 decoded its A half (the elaborated formal clone, the folded range), no law; the cluster also carries UVM rows",
+  "N0754": "optimistic: the r11u224 brief names the carried cfg_func_width_loop faces; r11u200 decoded its A half (the elaborated formal clone, the folded range), no law; the cluster also carries UVM rows"
+ },
+ "pairB": {
+  "N0123": "brief item 1: typedef int UVM_FILE, the scalar-typedef formal writer (pass 219 residue 1, v11u219 residue 1: UhdmExporter law tfArgClassMethodOrder176 admits only enum and aggregate typedefs)",
+  "N0318": "brief item 1 (the same scalar-typedef formal-writer model): MiniAmiq/SeqDriver uvm_reg_cvr_t, a bit typedef golden relocates to the class method formal uvm_reg.svh 1861:41 (ours at its declaration uvm_reg_model.svh 105:10); the first open record of MiniAmiq/SeqDriver after r11u218",
+  "N0516": "brief item: the svaunit clone names (golden uvm_pkg::uvm_object::..., ours svaunit_pkg::...)",
+  "N0521": "brief item: the svaunit clone names",
+  "N0481": "brief item: the svaunit clone names",
+  "N0550": "brief item: the svaunit clone names",
+  "N0565": "brief item: the writer rule's remaining faces (SimpleUVM work@env:: vs work@top.: a $unit class writing last, pass 215 residue 1)",
+  "N2464": "brief item: the writer rule's remaining faces (the same prefix on the bit typedef member alias)",
+  "N0121": "brief item: the writer rule's remaining faces (pass 216 residue 3: the partially modelled enum listings, uvm_radix_enum ...)",
+  "N0144": "brief item: the writer rule's remaining faces (pass 216 residue 3: uvm_active_passive_enum at the declaration)",
+  "N0321": "brief item: the writer rule's remaining faces (pass 216 residue 3, under class_defn)",
+  "N0263": "brief item: pass 216 residue 2 / pass 219 residue 6: cfg_func_width_loop #464 decoded (the elaborated function formal's clone of the typedef), also MiniAmiq/SeqDriver uvm_hdl_data_t",
+  "N0262": "brief item: pass 219 residue 7 (the sister's hand-off: importPaCopy82's UVM_MACRO_NUMFLAGS copies)",
+  "N0008": "brief item: pass 219 residue 5 (N0008, the design param_assign's right side as compiled)",
+  "N0427": "brief item: pass 219 residue 7 (the sister's hand-off: InterfArrayBind #183; pass 210 called it this ground's, pass 216 the sister's)"
+ },
+ "pairA_named": {
+  "N0207": "brief item: pass 220 residue (the path-select naming joining a dot after a :: scope; golden check_data_width::uvm_reg_data_t, ours check_data_width.uvm_reg_data_t)",
+  "N0397": "brief item: pass 220 residue (the dot after a :: scope: end_v::compiled_regex)",
+  "N0832": "brief item: pass 220 residue (the dot after a :: scope: do_bus_access::rw.value[idx][i0 * 8+:8]::value)",
+  "N1060": "brief item: pass 220 residue (the dot after a :: scope, inside a part-select index path)",
+  "N2117": "brief item: pass 220 residue (the dot after a :: scope, probe case r10uvm48repro/t67d)",
+  "N2469": "brief item: pass 220 residue (clone indices the chain law misses: a call as the index, svaunit_vpi_wrapper vpi_vif.sva_exists)",
+  "N0555": "brief item: pass 220 residue (clone indices the chain law misses: a nested select index, arb_sequence_q[[i]])",
+  "N0557": "brief item: pass 220 residue (clone indices the chain law misses: a nested select index)",
+  "N0461": "brief item: pass 220 residue (clone indices the chain law misses: arb_sequence_q::request)",
+  "N0215": "brief item: pass 220 residue (clone indices the chain law misses: arb_sequence_q::SEQ_TYPE_LOCK)",
+  "N0192": "brief item: pass 220 residue (clone path-select names: from_node.m_sync::node)",
+  "N0868": "brief item: carried BlackBePipeInt #15272 (pass 215 residue 9 / r11u218 section 5: golden writes no value for a pattern member whose conditional compares an int member with a string; ParamEmit)",
+  "N0897": "brief item: carried BlackBePipeInt t #66 (the --elabuhdm claim of law pcwElabKeepsClaim207v too broad for the AllPackages listing; ParamEmit)",
+  "N1096": "brief item: carried FuncStructVal #747 (a forward reference spanning the qualifier; r11u218 section 5)",
+  "N2472": "brief item: carried FuncStructVal R2 (the INSTR_PER_FETCH read-site leftovers 618:22)",
+  "N2473": "brief item: carried FuncStructVal R2 (the same objects' span)",
+  "N0739": "brief item: pass 220 residue 6 (map 13's case clusters)",
+  "N1903": "brief item: pass 220 residue 6 (map 13's case clusters)",
+  "N1904": "brief item: pass 220 residue 6 (map 13's case clusters)",
+  "N0476": "brief item: pass 220 residue 6 (map 13's case clusters)",
+  "N0477": "brief item: pass 220 residue 6 (map 13's case clusters)"
+ },
+ "pairB_named": {
+  "N0123": "brief item 1: typedef int UVM_FILE, the scalar-typedef formal writer (pass 219 residue 1, v11u219 residue 1: UhdmExporter law tfArgClassMethodOrder176 admits only enum and aggregate typedefs)",
+  "N0318": "brief item 1 (the same scalar-typedef formal-writer model): MiniAmiq/SeqDriver uvm_reg_cvr_t, a bit typedef golden relocates to the class method formal uvm_reg.svh 1861:41 (ours at its declaration uvm_reg_model.svh 105:10); the first open record of MiniAmiq/SeqDriver after r11u218",
+  "N0516": "brief item: the svaunit clone names (golden uvm_pkg::uvm_object::..., ours svaunit_pkg::...)",
+  "N0521": "brief item: the svaunit clone names",
+  "N0481": "brief item: the svaunit clone names",
+  "N0550": "brief item: the svaunit clone names",
+  "N0565": "brief item: the writer rule's remaining faces (SimpleUVM work@env:: vs work@top.: a $unit class writing last, pass 215 residue 1)",
+  "N2464": "brief item: the writer rule's remaining faces (the same prefix on the bit typedef member alias)",
+  "N0121": "brief item: the writer rule's remaining faces (pass 216 residue 3: the partially modelled enum listings, uvm_radix_enum ...)",
+  "N0144": "brief item: the writer rule's remaining faces (pass 216 residue 3: uvm_active_passive_enum at the declaration)",
+  "N0321": "brief item: the writer rule's remaining faces (pass 216 residue 3, under class_defn)",
+  "N0263": "brief item: pass 216 residue 2 / pass 219 residue 6: cfg_func_width_loop #464 decoded (the elaborated function formal's clone of the typedef), also MiniAmiq/SeqDriver uvm_hdl_data_t",
+  "N0262": "brief item: pass 219 residue 7 (the sister's hand-off: importPaCopy82's UVM_MACRO_NUMFLAGS copies)",
+  "N0008": "brief item: pass 219 residue 5 (N0008, the design param_assign's right side as compiled)",
+  "N0427": "brief item: pass 219 residue 7 (the sister's hand-off: InterfArrayBind #183; pass 210 called it this ground's, pass 216 the sister's)"
+ },
+ "pairA_rows": {
+  "cfg_func_width_loop": {
+   "modes": null,
+   "why": "r11u224 brief: the carried cfg_func_width_loop faces (its A half)"
+  },
+  "struct_param_func_config": {
+   "modes": null,
+   "why": "r11u224 brief: the carried struct_param_func_config faces (its A half)"
+  },
+  "FuncStructVal": {
+   "modes": null,
+   "why": "r11u224 brief: the carried FuncStructVal faces"
+  },
+  "BlackBePipeInt": {
+   "modes": null,
+   "why": "r11u224 brief: the carried BlackBePipeInt faces"
+  }
+ },
+ "pairB_rows": {
+  "cfg_func_width_loop": {
+   "modes": null,
+   "why": "pass 216 residue 2 (#464 decoded) with the kept call N0133 / N0487 (map 13 section 10)"
+  },
+  "InterfArrayBind": {
+   "modes": null,
+   "why": "pass 219 residue 7 (the hand-off InterfArrayBind #183)"
+  }
+ },
+ "uvm_A_families": "pair A brief: the UVM A families (every ground-A cluster whose rows are all UVM rows, optimistic)"
+}

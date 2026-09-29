@@ -1,0 +1,64 @@
+cluster N0219 (id kept from an earlier map; OPEN (map 13 gave it to pair B r11u209; passes 209, 212, 216 and 219 left it) | ground B | site buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u142map pin]): file|struct_typespec|other-file+span|under:ref_typespec
+row: surelog/default/Scoreboard  strict=differ:file(30)  records golden=269656 ours=269853
+object: #135764 (golden) / #135788 (ours)  type=struct_typespec name=uvm_pkg::uvm_reg_bus_op 
+  golden: uvm_reg_map.svh 50:42:50:56
+  ours:   uvm_reg_item.svh 257:9:313:2
+  walk parents: ref_typespec < array_typespec < ref_typespec < ref_var(accesses)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 135758..135770 ('>' = the object)
+  #135758	11	ref_typespec			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::accesses		0	0	0	0		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::accesses	000
+  #135759	12	array_typespec				uvm_reg_map.svh	1850	21	1850	31						000
+  #135760	13	range				uvm_reg_map.svh	1850	30	1850	31						001
+  #135761	14	constant					0	0	0	0	0	64	UINT:0	9		001
+  #135762	14	constant				uvm_reg_map.svh	1850	30	1850	31	$	1	STRING:$	10		001
+  #135763	13	ref_typespec					0	0	0	0		0				001
+> #135764	14	struct_typespec	uvm_pkg::uvm_reg_bus_op			uvm_reg_map.svh	50	42	50	56						001
+  #135765	15	typespec_member	kind			uvm_pkg.sv	263	16	263	20						001
+  #135766	16	ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.kind		0	0	0	0		0			work@my_scoreboard::uvm_pkg::uvm_reg_bus_op::kind	001
+  #135767	17	enum_typespec	uvm_pkg::uvm_access_e			uvm_reg_model.svh	227	4	232	19						001
+  #135768	18	enum_const	UVM_READ			uvm_reg_model.svh	228	7	228	15						001
+  #135769	18	enum_const	UVM_WRITE			uvm_reg_model.svh	229	7	229	16						001
+  #135770	18	enum_const	UVM_BURST_READ			uvm_reg_model.svh	230	7	230	21						001
+
+--- OURS (B) records 135782..135794 ('>' = the object)
+  #135782	11	ref_typespec			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::accesses		0	0	0	0		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::accesses	000
+  #135783	12	array_typespec				uvm_reg_map.svh	1850	21	1850	31						000
+  #135784	13	range				uvm_reg_map.svh	1850	30	1850	31						001
+  #135785	14	constant					0	0	0	0	0	64	UINT:0	9		001
+  #135786	14	constant				uvm_reg_map.svh	1850	30	1850	31	$	1	STRING:$	10		001
+  #135787	13	ref_typespec					0	0	0	0		0				001
+> #135788	14	struct_typespec	uvm_pkg::uvm_reg_bus_op			uvm_reg_item.svh	257	9	313	2						001
+  #135789	15	typespec_member	kind			uvm_pkg.sv	263	16	263	20						001
+  #135790	16	ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.kind		0	0	0	0		0			uvm_pkg::uvm_pkg::uvm_reg_bus_op::kind	001
+  #135791	17	enum_typespec	uvm_pkg::uvm_access_e			uvm_reg_model.svh	227	4	232	19						001
+  #135792	18	enum_const	UVM_READ			uvm_reg_model.svh	228	7	228	15						001
+  #135793	18	enum_const	UVM_WRITE			uvm_reg_model.svh	229	7	229	16						001
+  #135794	18	enum_const	UVM_BURST_READ			uvm_reg_model.svh	230	7	230	21						001
+
+facets of this row (567, first 25):
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79148 array_typespec  G[] O[1 objs]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]
+  N0262 #84980/-1 constant  G[2 objs] O[]
+  N0262 #84984/-1 constant  G[2 objs] O[]
+  N0262 #85274/-1 constant  G[2 objs] O[]
+  N0262 #85285/-1 constant  G[2 objs] O[]
+  N0262 #85289/-1 constant  G[2 objs] O[]
+  N0262 #85293/-1 constant  G[2 objs] O[]
+  N0025 #130737/130722 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/130721 operation  G[] O[1 objs]
+  N0025 #130740/130727 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/130726 operation  G[] O[1 objs]
+  N0025 #133223/133212 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133211 operation  G[] O[1 objs]
+  N0025 #133226/133217 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133216 operation  G[] O[1 objs]
+  N0025 #133269/133262 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133261 operation  G[] O[1 objs]
+  N0025 #133272/133267 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133266 operation  G[] O[1 objs]
+  N0025 #133317/133314 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133313 operation  G[] O[1 objs]
+  N0025 #133320/133319 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]

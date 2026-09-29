@@ -1,0 +1,11 @@
+<P>sL MiniAmiq/default dist=3368 rev=6411 total=9779 mfc_file_away=12 golden_records=435569 ours_records=432526
+<P>sL MiniAmiq/testflags dist=3368 rev=6411 total=9779 mfc_file_away=12 golden_records=435569 ours_records=432526
+<P>sL SeqDriver/default dist=2724 rev=4829 total=7553 mfc_file_away=12 golden_records=475526 ours_records=473421
+<P>sL SeqDriver/testflags dist=2724 rev=4829 total=7553 mfc_file_away=12 golden_records=475538 ours_records=473433
+<P>sL SimpleUVM/default dist=1543 rev=1269 total=2812 mfc_file_away=12 golden_records=334285 ours_records=334559
+<P>sL SimpleUVM/testflags dist=1543 rev=1269 total=2812 mfc_file_away=12 golden_records=334297 ours_records=334571
+<P>sL Scoreboard/default dist=1104 rev=907 total=2011 mfc_file_away=12 golden_records=269656 ours_records=269853
+<P>sL BuildUVMPkg/default dist=672 rev=617 total=1289 mfc_file_away=0 golden_records=201549 ours_records=201604
+<P>sL BuildUVMPkg/testflags dist=672 rev=617 total=1289 mfc_file_away=0 golden_records=201549 ours_records=201604
+<P>sL Earlgrey_0_1/default dist=1066 rev=422 total=1488 mfc_file_away=0 golden_records=2173209 ours_records=2173853
+<P>sL Earlgrey_0_1/testflags dist=798 rev=512 total=1310 mfc_file_away=0 golden_records=1342584 ours_records=1342870

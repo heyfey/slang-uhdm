@@ -1,0 +1,64 @@
+cluster N2405 (id kept from an earlier map; OPEN (map 13 listed it: ground-A+B step 4; passes 207-220 left it) | ground B | site emitSyntaxExpr (TypeEmit.cpp, law elabMisevalRefSubst) < emitSyntaxExpr (TypeEmit.cpp, law structParamPathBaseAtMember137) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12) [r11u165map pin]): struct|golden-only:fewer-copies|ref_obj|under:int_typespec
+row: surelog/testflags/Scr1SvTests  strict=differ:type(1)  records golden=83997 ours=84036
+object: #63286 (golden) / #-1 (ours)  type=ref_obj name=ALLTRIG_W 
+  golden: 3 objs
+  ours:   
+  walk parents: int_typespec < ref_typespec < sys_func_call($clog2) < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 63280..63292 ('>' = the object)
+  #63280	8	logic_typespec				scr1_pipe_tdu.sv	103	1	103	22						000
+  #63281	9	range				scr1_pipe_tdu.sv	103	7	103	22						001
+  #63282	10	operation				scr1_pipe_tdu.sv	103	8	103	19		0				001
+  #63283	11	sys_func_call	$clog2			scr1_pipe_tdu.sv	103	8	103	17		0				001
+  #63284	12	ref_typespec			<in>		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_tselect_ff	001
+  #63285	13	int_typespec				scr1_pipe_tdu.sv	77	12	77	24						001
+> #63286	14	ref_obj	ALLTRIG_W		<in>ALLTRIG_W		0	0	0	0		0			work@scr1_pipe_tdu.ALLTRIG_W.ALLTRIG_W	001
+  #63287	15	parameter	ALLTRIG_W		work@scr1_pipe_tdu.ALLTRIG_W	scr1_pipe_tdu.sv	77	25	77	34		0			work@scr1_pipe_tdu.ALLTRIG_W	001
+  #63288	16	ref_typespec			work@scr1_pipe_tdu.ALLTRIG_W		0	0	0	0		0			work@scr1_pipe_tdu.ALLTRIG_W	001
+  #63289	12	operation				scr1_pipe_tdu.sv	77	46	77	59		0				001
+  #63290	13	ref_obj	SCR1_TDU_ALLTRIG_NUM		<in>SCR1_TDU_ALLTRIG_NUM	scr1_pipe_tdu.sv	77	46	77	57		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_tselect_ff.SCR1_TDU_ALLTRIG_NUM	001
+  #63291	14	ref_typespec			<in>SCR1_TDU_ALLTRIG_NUM		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_tselect_ff.SCR1_TDU_ALLTRIG_NUM	001
+  #63292	15	int_typespec				scr1_pipe_tdu.sv	76	12	76	24						001
+
+--- the holder #63285 on the other side: exact-record matches at [63284]
+  #63281	10	operation				scr1_pipe_tdu.sv	103	8	103	19		0				001
+  #63282	11	sys_func_call	$clog2			scr1_pipe_tdu.sv	103	8	103	17		0				001
+  #63283	12	ref_typespec			<in>		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_tselect_ff	001
+> #63284	13	int_typespec				scr1_pipe_tdu.sv	77	12	77	24						001
+  #63285	12	operation				scr1_pipe_tdu.sv	77	46	77	59		0				001
+  #63286	13	ref_obj	SCR1_TDU_ALLTRIG_NUM			scr1_pipe_tdu.sv	77	46	77	57		0				001
+  #63287	14	ref_typespec			<in>SCR1_TDU_ALLTRIG_NUM		0	0	0	0		0			SCR1_TDU_ALLTRIG_NUM	001
+  #63288	15	int_typespec				scr1_pipe_tdu.sv	76	12	76	24						001
+  #63289	13	constant				scr1_pipe_tdu.sv	77	58	77	59	1	64	UINT:1	9		001
+  #63290	11	constant				scr1_pipe_tdu.sv	103	18	103	19	1	64	UINT:1	9		001
+  #63291	10	constant				scr1_pipe_tdu.sv	103	20	103	21	0	64	UINT:0	9		001
+  #63292	6	logic_var	csr_mcontrol_wr_req		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_wr_req	scr1_pipe_tdu.sv	106	49	106	68		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_wr_req	000
+  #63293	7	ref_typespec			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_wr_req		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_wr_req	000
+
+facets of this row (81, first 25):
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48791 constant  G[] O[1 objs]
+  N2405 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N0921 #-1/70149 operation  G[] O[5 objs]
+  N0921 #-1/70158 operation  G[] O[7 objs]
+  N0921 #-1/70169 operation  G[] O[11 objs]
+  N0921 #-1/70184 operation  G[] O[13 objs]
+  N0921 #-1/76049 operation  G[] O[7 objs]
+  N1119 #48793/48792 ref_obj ifu2imem_cmd_o G[work@scr1_pipe_ifu.ifu2imem_cmd_o] O[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_ifu.ifu2imem_cmd_o]
+  N0078 #63257/63256 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol.SC] O[]
+  N0078 #63267/63266 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_tdata2.SCR1] O[]
+  N0426 #63290/63286 ref_obj SCR1_TDU_ALLTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_tselect_ff.SCR1_] O[]
+  N0078 #63301/63297 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_wr_req.] O[]
+  N0078 #63311/63307 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_clk_en.] O[]
+  N0078 #63321/63317 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_upd.SCR] O[]
+  N0078 #63331/63327 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_dmode_f] O[]
+  N0078 #63341/63337 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_dmode_n] O[]
+  N0078 #63351/63347 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_m_ff.SC] O[]
+  N0078 #63361/63357 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_m_next.] O[]
+  N0078 #63371/63367 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_exec_ff] O[]
+  N0078 #63381/63377 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_exec_ne] O[]
+  N0078 #63391/63387 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_load_ff] O[]
+  N0078 #63401/63397 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_load_ne] O[]
+  N0078 #63411/63407 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_store_f] O[]
+  N0078 #63421/63417 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_store_n] O[]

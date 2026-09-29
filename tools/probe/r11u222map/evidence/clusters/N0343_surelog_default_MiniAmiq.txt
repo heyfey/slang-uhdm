@@ -1,0 +1,64 @@
+cluster N0343 (id kept from an earlier map; OPEN (map 13 listed it: ground-A+B step 12; passes 207-220 left it) | ground B | site makeVar (TypeEmit.cpp, law tpPackedArrayTsVarInit110) < emitPackageVar (ParamEmit.cpp, law caPkgCloneReadsTheElaboratedEntry84) < operator() (ParamEmit.cpp, law caPkgListingKindTable79) [r11u142map pin]): struct|ours-only:fewer-copies|class_var|under:ref_obj
+row: surelog/default/MiniAmiq  strict=differ:file(7)  records golden=435559 ours=432516
+object: #-1 (golden) / #86648 (ours)  type=class_var name=cs 
+  golden: 
+  ours:   3 objs
+  walk parents: ref_obj(cs) < assignment < begin < function(uvm_component::m_set_cl_verb)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 86642..86654 ('>' = the object)
+  #86642	4	ref_typespec			svaunit_pkg::uvm_component::m_set_cl_verb::cs		0	0	0	0		0			svaunit_pkg::uvm_component::m_set_cl_verb::cs	000
+  #86643	5	class_typespec	uvm_coreservice_t			uvm_component.svh	3385	3	3385	20						110
+  #86644	3	begin			svaunit_pkg::uvm_component::m_set_cl_verb	uvm_component.svh	3387	3	3387	23					svaunit_pkg::uvm_component::m_set_cl_verb	000
+  #86645	4	assignment				uvm_component.svh	3386	3	3386	32						000
+  #86646	5	ref_obj	uvm_coreservice_t::get		svaunit_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get	uvm_component.svh	3386	8	3386	27		0			svaunit_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get	000
+  #86647	5	ref_obj	cs		svaunit_pkg::uvm_component::m_set_cl_verb::cs	uvm_component.svh	3386	3	3386	5		0			svaunit_pkg::uvm_component::m_set_cl_verb::cs	000
+> #86648	6	class_var	cs		uvm_pkg::uvm_component::m_set_cl_verb::cs	uvm_component.svh	3385	3	3385	20		0			uvm_pkg::uvm_component::m_set_cl_verb::cs	000
+  #86649	7	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::cs		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::cs	000
+  #86650	8	class_typespec	uvm_coreservice_t			uvm_component.svh	3385	3	3385	20						110
+  #86651	4	assignment				uvm_component.svh	3387	3	3387	22						000
+  #86652	5	hier_path	cs.get_root			uvm_component.svh	3387	9	3387	22		0				000
+  #86653	6	ref_obj	cs			uvm_component.svh	3387	9	3387	11		0				000
+  #86654	6	method_func_call	get_root			uvm_component.svh	3387	12	3387	20		0				000
+
+--- the holder #86647 on the other side: exact-record matches at [87012, 317826, 385680]
+  #87009	3	begin			svaunit_pkg::uvm_component::m_set_cl_verb	uvm_component.svh	3387	3	3387	23					svaunit_pkg::uvm_component::m_set_cl_verb	000
+  #87010	4	assignment				uvm_component.svh	3386	3	3386	32						000
+  #87011	5	ref_obj	uvm_coreservice_t::get		svaunit_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get	uvm_component.svh	3386	8	3386	27		0			svaunit_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get	000
+> #87012	5	ref_obj	cs		svaunit_pkg::uvm_component::m_set_cl_verb::cs	uvm_component.svh	3386	3	3386	5		0			svaunit_pkg::uvm_component::m_set_cl_verb::cs	000
+  #87013	4	assignment				uvm_component.svh	3387	3	3387	22						000
+  #87014	5	hier_path	cs.get_root			uvm_component.svh	3387	9	3387	22		0				000
+  #87015	6	ref_obj	cs			uvm_component.svh	3387	9	3387	11		0				000
+  #87016	6	method_func_call	get_root			uvm_component.svh	3387	12	3387	20		0				000
+  #87017	5	ref_obj	top		svaunit_pkg::uvm_component::m_set_cl_verb::top	uvm_component.svh	3387	3	3387	6		0			svaunit_pkg::uvm_component::m_set_cl_verb::top	000
+  #87018	4	if_stmt				uvm_component.svh	3389	3	3390	74						000
+  #87019	5	operation				uvm_component.svh	3389	6	3389	20		0				000
+  #87020	6	hier_path	values.size			uvm_component.svh	3389	7	3389	20		0				000
+  #87021	7	ref_obj	values			uvm_component.svh	3389	7	3389	13		0				000
+
+facets of this row (3930, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

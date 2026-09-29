@@ -1,0 +1,64 @@
+cluster N0650 (id kept from an earlier map; COVERED r11u224 (the UVM ground-A families, optimistic) | ground A | site emitParameters (ParamEmit.cpp, law unpElemSelKeeps64) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u142map pin]): fullname|ref_typespec|tok:id->id|under:constant
+row: surelog/default/SeqDriver  strict=differ:file(7)  records golden=475526 ours=473421
+object: #369022 (golden) / #366926 (ours)  type=ref_typespec name= TAIL
+  golden: uvm_pkg
+  ours:   adpcm_pkg
+  walk parents: constant < ref_obj(UVM_LARGE_STRING) < range < logic_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 369016..369028 ('>' = the object)
+  #369016	5	logic_var	uvm_string_to_bits		uvm_pkg::uvm_string_to_bits::uvm_string_to_bits	uvm_globals.svh	421	10	421	35		0			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits	000
+  #369017	6	ref_typespec			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits		0	0	0	0		0			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits	000
+  #369018	7	logic_typespec				uvm_globals.svh	421	10	421	35						000
+  #369019	8	range				uvm_globals.svh	421	15	421	35						001
+  #369020	9	ref_obj	UVM_LARGE_STRING		<in>UVM_LARGE_STRING	uvm_globals.svh	421	16	421	32		0			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits::UVM_LARGE_STRING	001
+  #369021	10	constant				uvm_globals.svh	410	30	410	60	115199	32	INT:115199	7		001
+> #369022	11	ref_typespec			uvm_pkg		0	0	0	0		0			uvm_pkg	001
+  #369023	12	int_typespec				uvm_globals.svh	410	1	410	62						001
+  #369024	9	constant				uvm_globals.svh	421	33	421	34	0	64	UINT:0	9		001
+  #369025	4	constant				uvm_globals.svh	422	31	422	36	"%0s"	24	STRING:%0s	6		000
+  #369026	4	ref_obj	str		uvm_pkg::uvm_string_to_bits::str	uvm_globals.svh	422	38	422	41		0			uvm_pkg::uvm_string_to_bits::str	000
+  #369027	2	function	uvm_bits_to_string		uvm_pkg::uvm_bits_to_string	uvm_globals.svh	434	1	436	12					uvm_pkg::uvm_bits_to_string	000
+  #369028	3	string_var			uvm_pkg::uvm_bits_to_string	uvm_globals.svh	434	10	434	16		0			uvm_pkg::uvm_bits_to_string	000
+
+--- OURS (B) records 366920..366932 ('>' = the object)
+  #366920	5	logic_var	uvm_string_to_bits		uvm_pkg::uvm_string_to_bits::uvm_string_to_bits	uvm_globals.svh	421	10	421	35		0			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits	000
+  #366921	6	ref_typespec			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits		0	0	0	0		0			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits	000
+  #366922	7	logic_typespec				uvm_globals.svh	421	10	421	35						000
+  #366923	8	range				uvm_globals.svh	421	15	421	35						001
+  #366924	9	ref_obj	UVM_LARGE_STRING		<in>UVM_LARGE_STRING	uvm_globals.svh	421	16	421	32		0			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits::UVM_LARGE_STRING	001
+  #366925	10	constant				uvm_globals.svh	410	30	410	60	115199	32	INT:115199	7		001
+> #366926	11	ref_typespec			adpcm_pkg		0	0	0	0		0			adpcm_pkg	001
+  #366927	12	int_typespec				uvm_globals.svh	410	1	410	62						001
+  #366928	9	constant				uvm_globals.svh	421	33	421	34	0	64	UINT:0	9		001
+  #366929	4	constant				uvm_globals.svh	422	31	422	36	"%0s"	24	STRING:%0s	6		000
+  #366930	4	ref_obj	str		uvm_pkg::uvm_string_to_bits::str	uvm_globals.svh	422	38	422	41		0			uvm_pkg::uvm_string_to_bits::str	000
+  #366931	2	function	uvm_bits_to_string		uvm_pkg::uvm_bits_to_string	uvm_globals.svh	434	1	436	12					uvm_pkg::uvm_bits_to_string	000
+  #366932	3	string_var			uvm_pkg::uvm_bits_to_string	uvm_globals.svh	434	10	434	16		0			uvm_pkg::uvm_bits_to_string	000
+
+facets of this row (2887, first 25):
+  N0423 #24900/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24921/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64568/-1 int_var _byte G[3 objs] O[]
+  N0495 #64600/-1 int_var _bit G[3 objs] O[]
+  N0495 #65012/-1 int_var idx G[3 objs] O[]
+  N0495 #65175/-1 int_var idx G[3 objs] O[]
+  N0134 #66828/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66802 unsupported_typespec i G[] O[1 objs]
+  N0134 #66916/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66890 unsupported_typespec index G[] O[1 objs]
+  N0134 #67143/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67117 unsupported_typespec index G[] O[1 objs]
+  N0495 #67278/-1 int_var index G[3 objs] O[]
+  N0495 #68008/-1 int_var index G[3 objs] O[]
+  N0134 #68133/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68101 unsupported_typespec i G[] O[1 objs]
+  N0134 #68153/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68121 unsupported_typespec index G[] O[1 objs]
+  N0134 #68268/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68236 unsupported_typespec index G[] O[1 objs]
+  N0495 #68308/-1 int_var index G[3 objs] O[]
+  N0134 #68435/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68400 unsupported_typespec index G[] O[1 objs]
+  N0495 #68795/-1 int_var i G[3 objs] O[]
+  N0495 #68971/-1 int_var i G[3 objs] O[]

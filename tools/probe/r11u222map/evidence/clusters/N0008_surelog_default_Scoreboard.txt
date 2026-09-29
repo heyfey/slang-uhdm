@@ -1,0 +1,64 @@
+cluster N0008 (id kept from an earlier map; COVERED r11u223 (brief item: pass 219 residue 5 (N0008, the design param_assign's right side as compiled)) | ground B | site emitParameters (ParamEmit.cpp, law timeLitParamIntTs) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u156map pin (other example): operator() (ModuleEmit.cpp, law genLpFoldDigitsMathValue18) < operator() (ModuleEmit.cpp, law elseArmFirstItemReplaces48) < operator() (ModuleEmit.cpp, law genN] [DECODED: the same as N0003 on a constant's typespec ref: golden unparented]): fullname|ref_typespec|golden-empty|under:constant
+row: surelog/default/Scoreboard  strict=differ:file(30)  records golden=269656 ours=269853
+object: #269004 (golden) / #269201 (ours)  type=ref_typespec name= OUT
+  golden: 
+  ours:   uvm_pkg
+  walk parents: constant < param_assign < design(work@my_scoreboard_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 268998..269010 ('>' = the object)
+  #268998	3	int_typespec				uvm_object_globals.svh	39	1	39	32						000
+  #268999	1	parameter	uvm_revision			uvm_version.svh	31	18	31	30		0	STRING:UVM.1.2			000
+  #269000	2	ref_typespec			uvm_revision		0	0	0	0		0			uvm_revision	000
+  #269001	3	string_typespec				uvm_version.svh	31	11	31	17						000
+  #269002	1	param_assign				uvm_hdl.svh	47	15	47	39						000
+  #269003	2	constant				uvm_hdl.svh	47	35	47	39	1024	32	UINT:1024	9		000
+> #269004	3	ref_typespec					0	0	0	0		0				000
+  #269005	4	int_typespec				uvm_hdl.svh	47	11	47	14						000
+  #269006	2	parameter	UVM_HDL_MAX_WIDTH			uvm_hdl.svh	47	15	47	32		0	UINT:1024			000
+  #269007	3	ref_typespec			UVM_HDL_MAX_WIDTH		0	0	0	0		0			UVM_HDL_MAX_WIDTH	000
+  #269008	4	int_typespec				uvm_hdl.svh	47	11	47	14						000
+  #269009	1	param_assign				uvm_version.svh	26	18	26	82						000
+  #269010	2	constant				uvm_version.svh	26	39	26	82	"(C) 2007-2014 Mentor Graphics Corporation"	328	STRING:(C) 2007-2014 Mentor Graphics Corporation	6		000
+
+--- OURS (B) records 269195..269207 ('>' = the object)
+  #269195	3	int_typespec				uvm_object_globals.svh	39	1	39	32						000
+  #269196	1	parameter	uvm_revision			uvm_version.svh	31	18	31	30		0	STRING:UVM.1.2			000
+  #269197	2	ref_typespec			uvm_revision		0	0	0	0		0			uvm_revision	000
+  #269198	3	string_typespec				uvm_version.svh	31	11	31	17						000
+  #269199	1	param_assign				uvm_hdl.svh	47	15	47	39						000
+  #269200	2	constant				uvm_hdl.svh	47	35	47	39	1024	32	UINT:1024	9		000
+> #269201	3	ref_typespec			uvm_pkg		0	0	0	0		0			uvm_pkg	000
+  #269202	4	int_typespec				uvm_hdl.svh	47	11	47	14						000
+  #269203	2	parameter	UVM_HDL_MAX_WIDTH			uvm_hdl.svh	47	15	47	32		0	UINT:1024			000
+  #269204	3	ref_typespec			UVM_HDL_MAX_WIDTH		0	0	0	0		0			UVM_HDL_MAX_WIDTH	000
+  #269205	4	int_typespec				uvm_hdl.svh	47	11	47	14						000
+  #269206	1	param_assign				uvm_version.svh	26	18	26	82						000
+  #269207	2	constant				uvm_version.svh	26	39	26	82	"(C) 2007-2014 Mentor Graphics Corporation"	328	STRING:(C) 2007-2014 Mentor Graphics Corporation	6		000
+
+facets of this row (567, first 25):
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79148 array_typespec  G[] O[1 objs]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]
+  N0262 #84980/-1 constant  G[2 objs] O[]
+  N0262 #84984/-1 constant  G[2 objs] O[]
+  N0262 #85274/-1 constant  G[2 objs] O[]
+  N0262 #85285/-1 constant  G[2 objs] O[]
+  N0262 #85289/-1 constant  G[2 objs] O[]
+  N0262 #85293/-1 constant  G[2 objs] O[]
+  N0025 #130737/130722 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/130721 operation  G[] O[1 objs]
+  N0025 #130740/130727 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/130726 operation  G[] O[1 objs]
+  N0025 #133223/133212 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133211 operation  G[] O[1 objs]
+  N0025 #133226/133217 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133216 operation  G[] O[1 objs]
+  N0025 #133269/133262 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133261 operation  G[] O[1 objs]
+  N0025 #133272/133267 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133266 operation  G[] O[1 objs]
+  N0025 #133317/133314 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133313 operation  G[] O[1 objs]
+  N0025 #133320/133319 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]

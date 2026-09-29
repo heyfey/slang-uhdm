@@ -1,0 +1,25 @@
+# sweep nhP (workdir <P>nhP)
+== probe cases (tests/probe, cached goldens), jobs=3, out=<P>nhP/probe.csv
+probe cases: EQUAL=3448 STRICT_NOTEQUAL=639 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+CONVERSION r10uvm125repro/g125_b_shapes STRICT_NOTEQUAL differ:line(4) -> EQUAL
+CONVERSION r10uvm125repro/g125_d_homes STRICT_NOTEQUAL differ:line(4) -> EQUAL
+CONVERSION r10uvm35repro/t47a STRICT_NOTEQUAL differ:line(1) -> EQUAL
+CONVERSION r10uvm35repro/t47b STRICT_NOTEQUAL differ:line(1) -> EQUAL
+CONVERSION r10uvm36repro/t48c STRICT_NOTEQUAL differ:line(8) -> EQUAL
+CHANGE r10uvm36repro/t48a STRICT_NOTEQUAL differ:line(10) -> differ:name(2)
+regressions=0 conversions=5 changes=1 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=<P>nhP/surelog.csv
+== surelog vs golden_surelog.csv
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(7) -> differ:line(2)
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(7) -> differ:line(2)
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:file(30) -> differ:file(16) [file -14]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:file(7) -> differ:line(2)
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:file(7) -> differ:line(2)
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:file(54) -> differ:file(40) [file -14]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:file(54) -> differ:file(40) [file -14]
+regressions=0 conversions=0 changes=7 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=<P>nhP/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+SWEEP_RC=1

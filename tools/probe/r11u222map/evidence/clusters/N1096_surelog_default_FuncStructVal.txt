@@ -1,0 +1,64 @@
+cluster N1096 (id kept from an earlier map; COVERED r11u224 (brief item: carried FuncStructVal #747 (a forward reference spanning the qualifier; r11u218 section 5)) | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9) [r11u142map pin]): span|ref_obj|endcol|under:tagged_pattern
+row: surelog/default/FuncStructVal  strict=differ:endcol(7)  records golden=18222 ours=17934
+object: #747 (golden) / #747 (ours)  type=ref_obj name=config_pkg::NOC_TYPE_AXI4_ATOP 
+  golden: 106:16:106:28
+  ours:   106:16:106:46
+  walk parents: tagged_pattern < operation < param_assign < package(cva6_config_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 741..753 ('>' = the object)
+  #741	6	string_typespec	PMPAddrRstVal			dut.sv	104	7	104	20						110
+  #742	4	tagged_pattern				dut.sv	105	25	105	30						000
+  #743	5	constant				dut.sv	105	25	105	30	16'd0	16	DEC:0	1		000
+  #744	5	ref_typespec			cva6_config_pkg		0	0	0	0		0			cva6_config_pkg	000
+  #745	6	string_typespec	PMPEntryReadOnly			dut.sv	105	7	105	23						110
+  #746	4	tagged_pattern				dut.sv	106	16	106	46						000
+> #747	5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	28		0			cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	000
+  #748	5	ref_typespec			cva6_config_pkg		0	0	0	0		0			cva6_config_pkg	000
+  #749	6	string_typespec	NOCType			dut.sv	106	7	106	14						110
+  #750	4	tagged_pattern				dut.sv	107	29	107	41						000
+  #751	5	constant				dut.sv	107	39	107	40	2	64	UINT:2	9		000
+  #752	5	ref_typespec			cva6_config_pkg		0	0	0	0		0			cva6_config_pkg	000
+  #753	6	string_typespec	NrNonIdempotentRules			dut.sv	107	7	107	27						110
+
+--- OURS (B) records 741..753 ('>' = the object)
+  #741	6	string_typespec	PMPAddrRstVal			dut.sv	104	7	104	20						110
+  #742	4	tagged_pattern				dut.sv	105	25	105	30						000
+  #743	5	constant				dut.sv	105	25	105	30	16'd0	16	DEC:0	1		000
+  #744	5	ref_typespec			cva6_config_pkg		0	0	0	0		0			cva6_config_pkg	000
+  #745	6	string_typespec	PMPEntryReadOnly			dut.sv	105	7	105	23						110
+  #746	4	tagged_pattern				dut.sv	106	16	106	46						000
+> #747	5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	46		0			cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	000
+  #748	5	ref_typespec			cva6_config_pkg		0	0	0	0		0			cva6_config_pkg	000
+  #749	6	string_typespec	NOCType			dut.sv	106	7	106	14						110
+  #750	4	tagged_pattern				dut.sv	107	29	107	41						000
+  #751	5	constant				dut.sv	107	39	107	40	2	64	UINT:2	9		000
+  #752	5	ref_typespec			cva6_config_pkg		0	0	0	0		0			cva6_config_pkg	000
+  #753	6	string_typespec	NrNonIdempotentRules			dut.sv	107	7	107	27						110
+
+facets of this row (138, first 25):
+  N0891 #7975/-1 operation  G[4 objs] O[]
+  N0891 #7979/-1 operation  G[4 objs] O[]
+  N0891 #7992/-1 operation  G[4 objs] O[]
+  N0891 #7996/-1 operation  G[4 objs] O[]
+  N0891 #8014/-1 operation  G[4 objs] O[]
+  N0891 #8018/-1 operation  G[4 objs] O[]
+  N0891 #8031/-1 operation  G[4 objs] O[]
+  N0891 #8035/-1 operation  G[4 objs] O[]
+  N0891 #8680/-1 operation  G[4 objs] O[]
+  N0891 #8684/-1 operation  G[4 objs] O[]
+  N0891 #8697/-1 operation  G[4 objs] O[]
+  N0891 #8701/-1 operation  G[4 objs] O[]
+  N0891 #8719/-1 operation  G[4 objs] O[]
+  N0891 #8723/-1 operation  G[4 objs] O[]
+  N0891 #8736/-1 operation  G[4 objs] O[]
+  N0891 #8740/-1 operation  G[4 objs] O[]
+  N0891 #9379/-1 operation  G[4 objs] O[]
+  N0891 #9383/-1 operation  G[4 objs] O[]
+  N0891 #9396/-1 operation  G[4 objs] O[]
+  N0891 #9400/-1 operation  G[4 objs] O[]
+  N0891 #9418/-1 operation  G[4 objs] O[]
+  N0891 #9422/-1 operation  G[4 objs] O[]
+  N0891 #9435/-1 operation  G[4 objs] O[]
+  N0891 #9439/-1 operation  G[4 objs] O[]
+  N0891 #10326/-1 operation  G[4 objs] O[]

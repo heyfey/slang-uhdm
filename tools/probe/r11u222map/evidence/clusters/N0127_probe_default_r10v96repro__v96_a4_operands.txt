@@ -1,0 +1,41 @@
+cluster N0127 (id kept from an earlier map; OPEN | ground B | site makeIfaceArrayPortTs (ModuleEmit.cpp, law sizeDimOvrChain4) < emitPorts (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitModuleDefPorts (ModuleEmit.cpp, law caNestedModDefNameScoped99) [r11u142map pin]): span|array_typespec|endcol|under:ref_typespec
+row: probe/default/r10v96repro__v96_a4_operands  strict=endcol  records golden=467 ours=467
+object: #40 (golden) / #40 (ours)  type=array_typespec name= 
+  golden: 8:18:8:25
+  ours:   8:18:8:24
+  walk parents: ref_typespec < array_var(u) < function(f4) < package(v96p4)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 34..46 ('>' = the object)
+  #34	5	logic_typespec				dut.sv	7	5	7	17						000
+  #35	6	range				dut.sv	7	11	7	17						001
+  #36	7	constant				dut.sv	7	12	7	14	31	64	UINT:31	9		001
+  #37	7	constant				dut.sv	7	15	7	16	0	64	UINT:0	9		001
+  #38	3	array_var	u		v96p4::f4::u	dut.sv	8	18	8	19		0			v96p4::f4::u	000
+  #39	4	ref_typespec			v96p4::f4::u		0	0	0	0		0			v96p4::f4::u	000
+> #40	5	array_typespec				dut.sv	8	18	8	25						000
+  #41	6	range				dut.sv	8	20	8	25						001
+  #42	7	constant				dut.sv	8	21	8	22	0	64	UINT:0	9		001
+  #43	7	constant				dut.sv	8	23	8	24	3	64	UINT:3	9		001
+  #44	6	ref_typespec					0	0	0	0		0				001
+  #45	7	logic_typespec				dut.sv	8	5	8	16						001
+  #46	8	range				dut.sv	8	11	8	16						001
+
+--- OURS (B) records 34..46 ('>' = the object)
+  #34	5	logic_typespec				dut.sv	7	5	7	17						000
+  #35	6	range				dut.sv	7	11	7	17						001
+  #36	7	constant				dut.sv	7	12	7	14	31	64	UINT:31	9		001
+  #37	7	constant				dut.sv	7	15	7	16	0	64	UINT:0	9		001
+  #38	3	array_var	u		v96p4::f4::u	dut.sv	8	18	8	19		0			v96p4::f4::u	000
+  #39	4	ref_typespec			v96p4::f4::u		0	0	0	0		0			v96p4::f4::u	000
+> #40	5	array_typespec				dut.sv	8	18	8	24						000
+  #41	6	range				dut.sv	8	20	8	25						001
+  #42	7	constant				dut.sv	8	21	8	22	0	64	UINT:0	9		001
+  #43	7	constant				dut.sv	8	23	8	24	3	64	UINT:3	9		001
+  #44	6	ref_typespec					0	0	0	0		0				001
+  #45	7	logic_typespec				dut.sv	8	5	8	16						001
+  #46	8	range				dut.sv	8	11	8	16						001
+
+facets of this row (2, first 25):
+  N0127 #40/40 array_typespec  G[8:18:8:25] O[8:18:8:24]
+  N0127 #273/273 array_typespec  G[8:18:8:25] O[8:18:8:24]

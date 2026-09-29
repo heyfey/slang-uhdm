@@ -1,0 +1,4 @@
+c0 TOTAL chain_lost=0 chain_toward=2212 flat_lost=0 flat_toward=2212 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0 | RAW TOTAL chain_lost=0 chain_toward=38844 flat_lost=0 flat_toward=38844 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0
+d2 TOTAL chain_lost=0 chain_toward=161 flat_lost=0 flat_toward=161 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0 | RAW TOTAL chain_lost=0 chain_toward=266 flat_lost=0 flat_toward=266 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0
+e7 TOTAL chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0 | RAW TOTAL chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0 flat_excess_removed=0 flat_lost_unexplained=0
+AWAY2_DONE

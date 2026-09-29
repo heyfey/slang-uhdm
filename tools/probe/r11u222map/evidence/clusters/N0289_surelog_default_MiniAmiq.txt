@@ -1,0 +1,64 @@
+cluster N0289 (id kept from an earlier map; OPEN (map 13 listed it: ground-A+B step 12; passes 207-220 left it) | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law assocLocalArrayVar40) < emitPackage (ParamEmit.cpp, law LAW) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u197 pin] [r11u189map pin (other example): makeVar (TypeEmit.cpp, law tpPackedArrayTsVarInit110) < emitPackageVar (ParamEmit.cpp, law caPkgCloneReadsTheElaboratedEntry84) < operator() (ParamEmit.cpp, law]): struct|ours-only:fewer-copies|string_var|under:ref_obj
+row: surelog/default/MiniAmiq  strict=differ:file(7)  records golden=435559 ours=432516
+object: #-1 (golden) / #86663 (ours)  type=string_var name=values 
+  golden: 
+  ours:   3 objs
+  walk parents: ref_obj(values) < hier_path(values.size) < operation < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 86657..86669 ('>' = the object)
+  #86657	7	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::top		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::top	000
+  #86658	8	class_typespec	uvm_root			uvm_component.svh	3384	3	3384	11						110
+  #86659	4	if_stmt				uvm_component.svh	3389	3	3390	74						000
+  #86660	5	operation				uvm_component.svh	3389	6	3389	20		0				000
+  #86661	6	hier_path	values.size			uvm_component.svh	3389	7	3389	20		0				000
+  #86662	7	ref_obj	values			uvm_component.svh	3389	7	3389	13		0				000
+> #86663	8	string_var	values		uvm_pkg::uvm_component::m_set_cl_verb::values	uvm_component.svh	3380	10	3380	16		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+  #86664	9	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::values		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+  #86665	10	string_typespec				uvm_component.svh	3380	10	3380	16						000
+  #86666	7	method_func_call	size			uvm_component.svh	3389	14	3389	18		0				000
+  #86667	5	method_func_call	get_arg_values			uvm_component.svh	3390	28	3390	42		0				000
+  #86668	6	constant				uvm_component.svh	3390	43	3390	64	"+uvm_set_verbosity="	152	STRING:+uvm_set_verbosity=	6		000
+  #86669	6	ref_obj	values		svaunit_pkg::uvm_component::m_set_cl_verb::values	uvm_component.svh	3390	65	3390	71		0			svaunit_pkg::uvm_component::m_set_cl_verb::values	000
+
+--- the holder #86662 on the other side: exact-record matches at [20777, 87021, 317835, 385689]
+  #20774	4	if_stmt				uvm_component.svh	3389	3	3390	74						000
+  #20775	5	operation				uvm_component.svh	3389	6	3389	20		0				000
+  #20776	6	hier_path	values.size			uvm_component.svh	3389	7	3389	20		0				000
+> #20777	7	ref_obj	values			uvm_component.svh	3389	7	3389	13		0				000
+  #20778	7	method_func_call	size			uvm_component.svh	3389	14	3389	18		0				000
+  #20779	5	method_func_call	get_arg_values			uvm_component.svh	3390	28	3390	42		0				000
+  #20780	6	constant				uvm_component.svh	3390	43	3390	64	"+uvm_set_verbosity="	152	STRING:+uvm_set_verbosity=	6		000
+  #20781	6	ref_obj	values		uvm_pkg::uvm_component::m_set_cl_verb::values	uvm_component.svh	3390	65	3390	71		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+  #20782	6	ref_obj	uvm_cmdline_proc		uvm_pkg::uvm_component::m_set_cl_verb::uvm_cmdline_proc	uvm_component.svh	3390	11	3390	27		0			uvm_pkg::uvm_component::m_set_cl_verb::uvm_cmdline_proc	000
+  #20783	4	foreach_stmt			uvm_pkg::uvm_component::m_set_cl_verb	uvm_component.svh	3392	3	3392	10					uvm_pkg::uvm_component::m_set_cl_verb	000
+  #20784	5	ref_var	values		uvm_pkg::uvm_component::m_set_cl_verb::values	uvm_component.svh	3392	11	3392	17		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+  #20785	6	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::values		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+  #20786	7	unsupported_typespec	values			uvm_component.svh	3392	11	3392	17						110
+
+facets of this row (3930, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

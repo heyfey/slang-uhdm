@@ -1,0 +1,12 @@
+# sweep nh3 (workdir <P>nh3)
+== probe cases (tests/probe, cached goldens), jobs=3, out=<P>nh3/probe.csv
+probe cases: EQUAL=3443 STRICT_NOTEQUAL=644 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=<P>nh3/surelog.csv
+== surelog vs golden_surelog.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=<P>nh3/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+SWEEP_RC=1

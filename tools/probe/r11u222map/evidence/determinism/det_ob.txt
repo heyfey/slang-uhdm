@@ -1,0 +1,9 @@
+MiniAmiq default hashes=2 | 21ff47e0d1b2 strict=[STRICT_NOTEQUAL file] cmp_lines=0 | 99fed9d58626 strict=[STRICT_NOTEQUAL file] cmp_lines=0
+   21ff47e0d1b2 vs 99fed9d58626: order-blind lines 0, raw dump lines 0
+MiniAmiq testflags hashes=2 | 99fed9d58626 strict=[STRICT_NOTEQUAL file] cmp_lines=0 | 21ff47e0d1b2 strict=[STRICT_NOTEQUAL file] cmp_lines=0
+   99fed9d58626 vs 21ff47e0d1b2: order-blind lines 0, raw dump lines 0
+Scoreboard default hashes=3 | 3a12bb353fb4 strict=[STRICT_NOTEQUAL file] cmp_lines=0 | 10e7e362f40f strict=[STRICT_NOTEQUAL file] cmp_lines=0 | 1c15e0b87589 strict=[STRICT_NOTEQUAL file] cmp_lines=0
+   3a12bb353fb4 vs 10e7e362f40f: order-blind lines 0, raw dump lines 0
+   3a12bb353fb4 vs 1c15e0b87589: order-blind lines 0, raw dump lines 92
+   10e7e362f40f vs 1c15e0b87589: order-blind lines 0, raw dump lines 92
+OB_DONE

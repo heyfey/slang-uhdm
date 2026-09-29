@@ -1,0 +1,64 @@
+cluster N0341 (id kept from an earlier map; OPEN (map 13 listed it: ground-A+B step 12; passes 207-220 left it) | ground B | site UHDM library DeepClone < DeepCopy < DeepCopy (--elabuhdm, testflags) run from main (uhdm_main.cpp) [r11u142map pin; the 98aa49db gdb run wrote a different database (UVM order coin)] [r11u150map pin]): fullname|ref_typespec|tok:->::id|under:class_var
+row: surelog/default/MiniAmiq  strict=differ:file(7)  records golden=435559 ours=432516
+object: #79032 (golden) / #78709 (ours)  type=ref_typespec name= OUT
+  golden: svaunit_pkg::uvm_phase::sync
+  ours:   svaunit_pkg::uvm_phase::sync::queue
+  walk parents: class_var < begin < if_else < if_else
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 79026..79038 ('>' = the object)
+  #79026	12	ref_typespec			<in>		0	0	0	0		0			svaunit_pkg::uvm_phase::sync::visited	001
+  #79027	13	int_typespec				uvm_phase.svh	1896	5	1896	8						001
+  #79028	10	int_var			svaunit_pkg::uvm_phase::sync::visited	uvm_phase.svh	1896	9	1896	16		0			svaunit_pkg::uvm_phase::sync::visited	000
+  #79029	11	ref_typespec			svaunit_pkg::uvm_phase::sync::visited		0	0	0	0		0			svaunit_pkg::uvm_phase::sync::visited	000
+  #79030	12	int_typespec				uvm_phase.svh	1896	5	1896	8						000
+  #79031	9	class_var			svaunit_pkg::uvm_phase::sync	uvm_phase.svh	1897	15	1897	20		0			svaunit_pkg::uvm_phase::sync	000
+> #79032	10	ref_typespec			svaunit_pkg::uvm_phase::sync		0	0	0	0		0			svaunit_pkg::uvm_phase::sync	000
+  #79033	11	class_typespec				uvm_phase.svh	1897	5	1897	14						000
+  #79034	9	array_var	queue		svaunit_pkg::uvm_phase::sync::queue	uvm_phase.svh	1897	15	1897	20		0			svaunit_pkg::uvm_phase::sync::queue	000
+  #79035	10	ref_typespec			svaunit_pkg::uvm_phase::sync::queue		0	0	0	0		0			svaunit_pkg::uvm_phase::sync::queue	000
+  #79036	11	array_typespec				uvm_phase.svh	1897	15	1897	22						000
+  #79037	12	range				uvm_phase.svh	1897	21	1897	22						001
+  #79038	13	constant					0	0	0	0	0	64	UINT:0	9		001
+
+--- OURS (B) records 78703..78715 ('>' = the object)
+  #78703	13	operation				uvm_phase.svh	1896	17	1896	26		0				001
+  #78704	14	ref_obj	uvm_phase			uvm_phase.svh	1896	17	1896	26		0				001
+  #78705	14	constant					0	0	0	0		64	INT:1	7		001
+  #78706	12	ref_typespec					0	0	0	0		0				001
+  #78707	13	int_typespec				uvm_phase.svh	1896	5	1896	8						001
+  #78708	9	class_var			svaunit_pkg::uvm_phase::sync::queue	uvm_phase.svh	1897	15	1897	20		0			svaunit_pkg::uvm_phase::sync::queue	000
+> #78709	10	ref_typespec			svaunit_pkg::uvm_phase::sync::queue		0	0	0	0		0			svaunit_pkg::uvm_phase::sync::queue	000
+  #78710	11	class_typespec				uvm_phase.svh	1897	5	1897	14						000
+  #78711	9	array_var	queue		svaunit_pkg::uvm_phase::sync::queue	uvm_phase.svh	1897	15	1897	20		0			svaunit_pkg::uvm_phase::sync::queue	000
+  #78712	10	ref_typespec			svaunit_pkg::uvm_phase::sync::queue		0	0	0	0		0			svaunit_pkg::uvm_phase::sync::queue	000
+  #78713	11	array_typespec				uvm_phase.svh	1897	15	1897	22						000
+  #78714	12	range				uvm_phase.svh	1897	21	1897	22						001
+  #78715	13	constant					0	0	0	0	0	64	UINT:0	9		001
+
+facets of this row (3930, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

@@ -1,0 +1,146 @@
+== N0521 probe/default/r10uvm193repro__g193_c_argface object #1162 ref_typespec ''  0:0:0:0 id=2203 db=SAME
+  rank 387:
+    #0 MakeRef_typespec at ?:0
+    #1 mintArrayElemVar193 at src/UhdmExporter.cpp:17769
+    #2 drainCloneArrayRecvArgMint193 at src/UhdmExporter.cpp:17922
+    #3 exportDesign at src/UhdmExporter.cpp:16196
+    #4 realMain at uhdm_main.cpp:1101
+    #5 main at uhdm_main.cpp:1268
+== N2475 probe/default/r10v194repro__v194_a_explicit object #401 string_var '' dut.sv 18:12:18:18 id=160 db=SAME
+  rank 10:
+    #0 MakeString_var at ?:0
+    #1 emitTaskFuncs at src/TaskFuncEmit.cpp:4333
+    #2 emitClassDefn at src/UhdmExporter.cpp:8269
+    #3 emitPackageClasses at src/UhdmExporter.cpp:9414
+    #4 emitPackage at src/ParamEmit.cpp:36353
+    #5 exportDesign at src/UhdmExporter.cpp:12242
+    #6 realMain at uhdm_main.cpp:1101
+    #7 main at uhdm_main.cpp:1268
+== N2474 probe/default/r10v194repro__v194_a_explicit object #402 ref_typespec ''  0:0:0:0 id=162 db=SAME
+  rank 19:
+    #0 MakeRef_typespec at ?:0
+    #1 emitTaskFuncs at src/TaskFuncEmit.cpp:4867
+    #2 emitClassDefn at src/UhdmExporter.cpp:8269
+    #3 emitPackageClasses at src/UhdmExporter.cpp:9414
+    #4 emitPackage at src/ParamEmit.cpp:36353
+    #5 exportDesign at src/UhdmExporter.cpp:12242
+    #6 realMain at uhdm_main.cpp:1101
+    #7 main at uhdm_main.cpp:1268
+== N0481 probe/default/r10v226repro__arms__b12_multiproc object #24 ref_typespec ''  0:0:0:0 id=54 db=SAME
+  rank 5:
+    #0 MakeRef_typespec at ?:0
+    #1 emitInterfaceInstance at src/ModuleEmit.cpp:49640
+    #2 emitInstance at src/ModuleEmit.cpp:18964
+    #3 exportDesign at src/UhdmExporter.cpp:14336
+    #4 realMain at uhdm_main.cpp:1101
+    #5 main at uhdm_main.cpp:1268
+== N0247 surelog/default/BuildUVMPkg object #139608 ref_obj 'i' uvm_pkg.sv 61686:15:61686:16 id=86109 db=SAME
+  rank 18430:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at src/ExprEmit.cpp:19647
+    #2 emitExpr at src/ExprEmit.cpp:27097
+    #3 emitExpr at src/ExprEmit.cpp:38733
+    #4 emitExpr at src/ExprEmit.cpp:19142
+    #5 emitStmt at src/StmtEmit.cpp:2150
+    #6 emitStmt at src/StmtEmit.cpp:4921
+    #7 emitStmt at src/StmtEmit.cpp:6997
+    #8 emitStmt at src/StmtEmit.cpp:6841
+    #9 emitTaskFuncs at src/TaskFuncEmit.cpp:7746
+    #10 emitClassDefn at src/UhdmExporter.cpp:8269
+    #11 emitPackageClasses at src/UhdmExporter.cpp:9414
+== N0634 surelog/default/MiniAmiq object #86722 bit_var 'first' uvm_component.svh 3381:10:3381:13 id=18816 db=DIFF
+  rank 74:
+    #0 MakeBit_var at ?:0
+    #1 emitTaskFuncs at src/TaskFuncEmit.cpp:7100
+    #2 emitClassDefn at src/UhdmExporter.cpp:8269
+    #3 emitPackageClasses at src/UhdmExporter.cpp:9414
+    #4 emitPackage at src/ParamEmit.cpp:36353
+    #5 exportDesign at src/UhdmExporter.cpp:12242
+    #6 realMain at uhdm_main.cpp:1101
+    #7 main at uhdm_main.cpp:1268
+== N0318 surelog/default/MiniAmiq object #36194 bit_typespec 'uvm_reg_cvr_t' uvm_reg_model.svh 105:10:105:22 id=306831 db=DIFF
+  rank 1859:
+    #0 MakeBit_typespec at ?:0
+    #1 bareScalarTdCopyOfFresh16 at src/TypeEmit.cpp:11630
+    #2 bareScalarTdCopyOf at src/TypeEmit.cpp:11500
+    #3 operator() at src/TypeEmit.cpp:14790
+    #4 bareScalarTypedefVarTs at src/TypeEmit.cpp:15017
+    #5 exportDesign at src/UhdmExporter.cpp:15161
+    #6 realMain at uhdm_main.cpp:1101
+    #7 main at uhdm_main.cpp:1268
+== N0594 surelog/default/MiniAmiq object #83817 ref_typespec ''  0:0:0:0 id=3390 db=DIFF
+  rank 419:
+    #0 MakeRef_typespec at ?:0
+    #1 buildEnumTs at src/TypeEmit.cpp:10196
+    #2 emitPackage at src/ParamEmit.cpp:33489
+    #3 exportDesign at src/UhdmExporter.cpp:12237
+    #4 realMain at uhdm_main.cpp:1101
+    #5 main at uhdm_main.cpp:1268
+== N0616 surelog/default/MiniAmiq object #88054 ref_typespec ''  0:0:0:0 id=3390 db=DIFF
+  rank 419:
+    #0 MakeRef_typespec at ?:0
+    #1 buildEnumTs at src/TypeEmit.cpp:10196
+    #2 emitPackage at src/ParamEmit.cpp:33489
+    #3 exportDesign at src/UhdmExporter.cpp:12237
+    #4 realMain at uhdm_main.cpp:1101
+    #5 main at uhdm_main.cpp:1268
+== N0215 surelog/default/MiniAmiq object #89499 ref_obj 'SEQ_TYPE_LOCK' uvm_sequencer_base.svh 664:54:664:67 id=212276 db=DIFF
+  rank 49149:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at src/ExprEmit.cpp:19647
+    #2 emitExpr at src/ExprEmit.cpp:27099
+    #3 emitExpr at src/ExprEmit.cpp:27097
+    #4 emitExpr at src/ExprEmit.cpp:35651
+    #5 emitExpr at src/ExprEmit.cpp:19197
+    #6 emitStmt at src/StmtEmit.cpp:2150
+    #7 emitStmt at src/StmtEmit.cpp:3008
+    #8 emitStmt at src/StmtEmit.cpp:6841
+    #9 emitTaskFuncs at src/TaskFuncEmit.cpp:7746
+    #10 emitImportedPkgClassMethodClones at src/ParamEmit.cpp:36905
+    #11 emitPackage at src/ParamEmit.cpp:36364
+== N0374 surelog/default/Scoreboard object #174109 method_func_call 'raised' uvm_callback_defines.svh 168:11:168:56 id=41060 db=DIFF
+  rank 1702:
+    #0 MakeMethod_func_call at ?:0
+    #1 emitExpr at src/ExprEmit.cpp:31083
+    #2 emitStmt at src/StmtEmit.cpp:2150
+    #3 emitStmt at src/StmtEmit.cpp:3008
+    #4 emitStmt at src/StmtEmit.cpp:3200
+    #5 emitStmt at src/StmtEmit.cpp:3008
+    #6 emitStmt at src/StmtEmit.cpp:6841
+    #7 emitTaskFuncs at src/TaskFuncEmit.cpp:7746
+    #8 emitClassDefn at src/UhdmExporter.cpp:8269
+    #9 emitPackageClasses at src/UhdmExporter.cpp:9414
+    #10 emitPackage at src/ParamEmit.cpp:36353
+    #11 exportDesign at src/UhdmExporter.cpp:12242
+== N1212 surelog/default/Scoreboard object #205323 function 'get_name' svunit_base.sv 68:1:70:12 id=178799 db=DIFF
+  rank 4202:
+    #0 MakeFunction at ?:0
+    #1 emitTaskFuncs at src/TaskFuncEmit.cpp:3914
+    #2 emitClassDefn at src/UhdmExporter.cpp:8269
+    #3 emitPackageClasses at src/UhdmExporter.cpp:9414
+    #4 emitPackage at src/ParamEmit.cpp:36353
+    #5 exportDesign at src/UhdmExporter.cpp:12242
+    #6 realMain at uhdm_main.cpp:1101
+    #7 main at uhdm_main.cpp:1268
+== N1439 surelog/default/Scoreboard object #205359 task 'wait_for_error' svunit_testcase.sv 90:1:92:8 id=178896 db=DIFF
+  rank 596:
+    #0 MakeTask at ?:0
+    #1 emitTaskFuncs at src/TaskFuncEmit.cpp:3915
+    #2 emitClassDefn at src/UhdmExporter.cpp:8269
+    #3 emitPackageClasses at src/UhdmExporter.cpp:9414
+    #4 emitPackage at src/ParamEmit.cpp:36353
+    #5 exportDesign at src/UhdmExporter.cpp:12242
+    #6 realMain at uhdm_main.cpp:1101
+    #7 main at uhdm_main.cpp:1268
+== N1211 surelog/default/Scoreboard holder #0 design 'work@my_scoreboard_unit_test'  0:0:0:0 id=1 db=DIFF
+  rank 1:
+    #0 MakeDesign at ?:0
+    #1 exportDesign at src/UhdmExporter.cpp:11305
+    #2 realMain at uhdm_main.cpp:1101
+    #3 main at uhdm_main.cpp:1268
+== N1438 surelog/default/Scoreboard holder #0 design 'work@my_scoreboard_unit_test'  0:0:0:0 id=1 db=DIFF
+  rank 1:
+    #0 MakeDesign at ?:0
+    #1 exportDesign at src/UhdmExporter.cpp:11305
+    #2 realMain at uhdm_main.cpp:1101
+    #3 main at uhdm_main.cpp:1268

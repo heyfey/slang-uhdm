@@ -1,0 +1,9 @@
+#0  0x000000000138e480 in UHDM::SymbolFactory::Make(std::basic_string_view<char, std::char_traits<char> >) ()
+#1  0x00000000011450bd in UHDM::Serializer::MakeSymbol(std::basic_string_view<char, std::char_traits<char> >) ()
+#2  0x000000000141146c in UHDM::ref_obj::VpiFullName(std::basic_string_view<char, std::char_traits<char> >) ()
+#3  0x00000000009c39e4 in slang_uhdm::refFullNameThroughNamedExpr175 () at src/ExprEmit.cpp:2167
+#4  0x0000000000890892 in slang_uhdm::UhdmExporter::drainPaNameCopySrc38 () at src/ParamEmit.cpp:24996
+#5  0x00000000005c4e31 in slang_uhdm::UhdmExporter::exportDesign () at src/UhdmExporter.cpp:16210
+#6  0x00000000004a0cca in realMain () at uhdm_main.cpp:1101
+#7  0x0000000000470a3b in main () at uhdm_main.cpp:1268
+PIN_DONE

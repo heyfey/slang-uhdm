@@ -1,0 +1,64 @@
+cluster N0374 (id kept from an earlier map; COVERED r11u224 (the UVM ground-A families, optimistic) | ground A | site emitExpr (ExprEmit.cpp, law hierCallArgTakesBase39) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) [r11u222 pin]): span|method_func_call|endcol|under:begin
+row: surelog/default/Scoreboard  strict=differ:file(30)  records golden=269656 ours=269853
+object: #174021 (golden) / #174109 (ours)  type=method_func_call name=raised 
+  golden: 168:11:168:17
+  ours:   168:11:168:56
+  walk parents: begin < while_stmt < begin < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 174015..174027 ('>' = the object)
+  #174015	10	method_func_call	first			uvm_callback_defines.svh	165	39	165	44		0				000
+  #174016	8	while_stmt				uvm_callback_defines.svh	166	6	166	11						000
+  #174017	9	operation				uvm_callback_defines.svh	166	12	166	22		0				000
+  #174018	10	ref_obj	cb		uvm_pkg::uvm_objection::raised::cb	uvm_callback_defines.svh	166	12	166	14		0			uvm_pkg::uvm_objection::raised::cb	000
+  #174019	10	constant				uvm_callback_defines.svh	166	18	166	22	0	64	UINT:0	11		000
+  #174020	9	begin			uvm_pkg::uvm_objection::raised	uvm_callback_defines.svh	166	24	170	9					uvm_pkg::uvm_objection::raised	000
+> #174021	10	method_func_call	raised			uvm_callback_defines.svh	168	11	168	17		0				000
+  #174022	11	ref_obj	this		uvm_pkg::uvm_objection::raised::this	uvm_callback_defines.svh	168	18	168	22		0			uvm_pkg::uvm_objection::raised::this	000
+  #174023	11	ref_obj	obj		uvm_pkg::uvm_objection::raised::obj	uvm_callback_defines.svh	168	23	168	26		0			uvm_pkg::uvm_objection::raised::obj	000
+  #174024	11	ref_obj	source_obj		uvm_pkg::uvm_objection::raised::source_obj	uvm_callback_defines.svh	168	27	168	37		0			uvm_pkg::uvm_objection::raised::source_obj	000
+  #174025	11	ref_obj	description		uvm_pkg::uvm_objection::raised::description	uvm_callback_defines.svh	168	38	168	49		0			uvm_pkg::uvm_objection::raised::description	000
+  #174026	11	ref_obj	count		uvm_pkg::uvm_objection::raised::count	uvm_callback_defines.svh	168	50	168	55		0			uvm_pkg::uvm_objection::raised::count	000
+  #174027	11	ref_obj	cb		uvm_pkg::uvm_objection::raised::cb	uvm_callback_defines.svh	168	8	168	10		0			uvm_pkg::uvm_objection::raised::cb	000
+
+--- OURS (B) records 174103..174115 ('>' = the object)
+  #174103	10	method_func_call	first			uvm_callback_defines.svh	165	39	165	44		0				000
+  #174104	8	while_stmt				uvm_callback_defines.svh	166	6	166	11						000
+  #174105	9	operation				uvm_callback_defines.svh	166	12	166	22		0				000
+  #174106	10	ref_obj	cb		uvm_pkg::uvm_objection::raised::cb	uvm_callback_defines.svh	166	12	166	14		0			uvm_pkg::uvm_objection::raised::cb	000
+  #174107	10	constant				uvm_callback_defines.svh	166	18	166	22	0	64	UINT:0	11		000
+  #174108	9	begin			uvm_pkg::uvm_objection::raised	uvm_callback_defines.svh	166	24	170	9					uvm_pkg::uvm_objection::raised	000
+> #174109	10	method_func_call	raised			uvm_callback_defines.svh	168	11	168	56		0				000
+  #174110	11	ref_obj	this		uvm_pkg::uvm_objection::raised::this	uvm_callback_defines.svh	168	18	168	22		0			uvm_pkg::uvm_objection::raised::this	000
+  #174111	11	ref_obj	obj		uvm_pkg::uvm_objection::raised::obj	uvm_callback_defines.svh	168	23	168	26		0			uvm_pkg::uvm_objection::raised::obj	000
+  #174112	11	ref_obj	source_obj		uvm_pkg::uvm_objection::raised::source_obj	uvm_callback_defines.svh	168	27	168	37		0			uvm_pkg::uvm_objection::raised::source_obj	000
+  #174113	11	ref_obj	description		uvm_pkg::uvm_objection::raised::description	uvm_callback_defines.svh	168	38	168	49		0			uvm_pkg::uvm_objection::raised::description	000
+  #174114	11	ref_obj	count		uvm_pkg::uvm_objection::raised::count	uvm_callback_defines.svh	168	50	168	55		0			uvm_pkg::uvm_objection::raised::count	000
+  #174115	11	ref_obj	cb		uvm_pkg::uvm_objection::raised::cb	uvm_callback_defines.svh	168	8	168	10		0			uvm_pkg::uvm_objection::raised::cb	000
+
+facets of this row (567, first 25):
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79148 array_typespec  G[] O[1 objs]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]
+  N0262 #84980/-1 constant  G[2 objs] O[]
+  N0262 #84984/-1 constant  G[2 objs] O[]
+  N0262 #85274/-1 constant  G[2 objs] O[]
+  N0262 #85285/-1 constant  G[2 objs] O[]
+  N0262 #85289/-1 constant  G[2 objs] O[]
+  N0262 #85293/-1 constant  G[2 objs] O[]
+  N0025 #130737/130722 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/130721 operation  G[] O[1 objs]
+  N0025 #130740/130727 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/130726 operation  G[] O[1 objs]
+  N0025 #133223/133212 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133211 operation  G[] O[1 objs]
+  N0025 #133226/133217 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133216 operation  G[] O[1 objs]
+  N0025 #133269/133262 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133261 operation  G[] O[1 objs]
+  N0025 #133272/133267 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]
+  N0033 #-1/133266 operation  G[] O[1 objs]
+  N0025 #133317/133314 constant  G[21 range < bit_typespec(uvm_pkg::uvm_reg_addr_t)] O[22 operation < range]
+  N0033 #-1/133313 operation  G[] O[1 objs]
+  N0025 #133320/133319 constant  G[19 range < bit_typespec(uvm_reg_addr_t)] O[20 operation < range]

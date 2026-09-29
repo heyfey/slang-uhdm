@@ -1,0 +1,64 @@
+cluster N0318 (id kept from an earlier map; COVERED r11u223 (brief item 1 (the same scalar-typedef formal-writer model): MiniAmiq/SeqDriver uvm_reg_cvr_t, a bit typedef golden relocates to the class method formal uvm_reg.svh 1861:41 (ours at its declaration uvm_reg_model.svh 105:10); the first open record of MiniAmiq/SeqDriver after r11u218) | ground B | site bareScalarTdCopyOfFresh16 (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < bareScalarTdCopyOf (TypeEmit.cpp, law bodyTypedefElemBoundSymbolic52) < operator() (TypeEmit.cpp, law modScalarTdTopInstance) [r11u222 pin]): file|bit_typespec|other-file+span|under:ref_typespec
+row: surelog/default/MiniAmiq  strict=differ:file(7)  records golden=435559 ours=432516
+object: #36208 (golden) / #36194 (ours)  type=bit_typespec name=uvm_reg_cvr_t 
+  golden: uvm_reg.svh 1861:41:1861:54
+  ours:   uvm_reg_model.svh 105:10:105:22
+  walk parents: ref_typespec < io_decl(models) < function(uvm_reg::include_coverage) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 36202..36214 ('>' = the object)
+  #36202	2	function	uvm_reg::include_coverage		uvm_pkg::uvm_reg::include_coverage	uvm_reg.svh	1860	1	1866	12					uvm_pkg::uvm_reg::include_coverage	000
+  #36203	3	io_decl	scope			uvm_reg.svh	1860	48	1860	53						000
+  #36204	4	ref_typespec			uvm_pkg::uvm_reg::include_coverage::scope		0	0	0	0		0			uvm_pkg::uvm_reg::include_coverage::scope	000
+  #36205	5	string_typespec				uvm_reg.svh	1860	41	1860	47						000
+  #36206	3	io_decl	models			uvm_reg.svh	1861	55	1861	61						000
+  #36207	4	ref_typespec			uvm_pkg::uvm_reg::include_coverage::models		0	0	0	0		0			uvm_pkg::uvm_reg::include_coverage::models	000
+> #36208	5	bit_typespec	uvm_reg_cvr_t			uvm_reg.svh	1861	41	1861	54						110
+  #36209	6	ref_typespec			<in>uvm_reg_cvr_t		0	0	0	0		0			uvm_reg_cvr_t	001
+  #36210	7	bit_typespec	uvm_pkg::uvm_reg_cvr_t			uvm_reg_model.svh	105	10	105	22						001
+  #36211	8	range				uvm_reg_model.svh	105	14	105	22						001
+  #36212	9	operation				uvm_reg_model.svh	105	15	105	19		0				001
+  #36213	10	constant				uvm_reg_model.svh	105	15	105	17	32	64	UINT:32	9		001
+  #36214	10	constant				uvm_reg_model.svh	105	18	105	19	1	64	UINT:1	9		001
+
+--- OURS (B) records 36188..36200 ('>' = the object)
+  #36188	2	function	uvm_reg::include_coverage		uvm_pkg::uvm_reg::include_coverage	uvm_reg.svh	1860	1	1866	12					uvm_pkg::uvm_reg::include_coverage	000
+  #36189	3	io_decl	scope			uvm_reg.svh	1860	48	1860	53						000
+  #36190	4	ref_typespec			uvm_pkg::uvm_reg::include_coverage::scope		0	0	0	0		0			uvm_pkg::uvm_reg::include_coverage::scope	000
+  #36191	5	string_typespec				uvm_reg.svh	1860	41	1860	47						000
+  #36192	3	io_decl	models			uvm_reg.svh	1861	55	1861	61						000
+  #36193	4	ref_typespec			uvm_pkg::uvm_reg::include_coverage::models		0	0	0	0		0			uvm_pkg::uvm_reg::include_coverage::models	000
+> #36194	5	bit_typespec	uvm_reg_cvr_t			uvm_reg_model.svh	105	10	105	22						110
+  #36195	6	ref_typespec			<in>uvm_reg_cvr_t		0	0	0	0		0			uvm_reg_cvr_t	001
+  #36196	7	bit_typespec	uvm_pkg::uvm_reg_cvr_t			uvm_reg_model.svh	105	10	105	22						001
+  #36197	8	range				uvm_reg_model.svh	105	14	105	22						001
+  #36198	9	operation				uvm_reg_model.svh	105	15	105	19		0				001
+  #36199	10	constant				uvm_reg_model.svh	105	15	105	17	32	64	UINT:32	9		001
+  #36200	10	constant				uvm_reg_model.svh	105	18	105	19	1	64	UINT:1	9		001
+
+facets of this row (3930, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

@@ -1,0 +1,49 @@
+cluster N0009 (id kept from an earlier map; OPEN | ground A | site buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < makeTypespec (TypeEmit.cpp, law tpCloneWholeLhsBare160) < emitParameters (ParamEmit.cpp, law elabTpDefaultDefNamed163) [DECODED (r11u130 R2): struct typespec spans taken at the use (one shared object where golden holds a copy per use)] [r11u165map pin]): span|struct_typespec|endline+endcol|under:ref_typespec
+row: probe/default/r11u112repro__grid__k__k14_unpacked  strict=fullname  records golden=155 ours=155
+object: #110 (golden) / #110 (ours)  type=struct_typespec name= 
+  golden: 2:26:3:13
+  ours:   2:26:2:32
+  walk parents: ref_typespec < struct_net(u) < array_net(u) < module_inst(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 104..116 ('>' = the object)
+  #104	4	constant					0	0	0	0	0	64	UINT:0	9		000
+  #105	4	operation				dut.sv	3	11	3	12		0				000
+  #106	5	constant				dut.sv	3	11	3	12	2	64	UINT:2	9		000
+  #107	5	constant					0	0	0	0		64	INT:1	7		000
+  #108	3	struct_net	u		work@top.u.u	dut.sv	3	8	3	13		0			work@top.u.u	000
+  #109	4	ref_typespec			work@top.u.u		0	0	0	0		0			work@top.u.u	000
+> #110	5	struct_typespec				dut.sv	2	26	3	13						000
+  #111	6	typespec_member	a			dut.sv	2	55	2	56						001
+  #112	7	ref_typespec			<in>a		0	0	0	0		0			work@top.u.u.a	001
+  #113	8	logic_typespec				dut.sv	2	42	2	54						001
+  #114	9	range				dut.sv	2	48	2	54						001
+  #115	10	constant				dut.sv	2	49	2	51	31	64	UINT:31	9		001
+  #116	10	constant				dut.sv	2	52	2	53	0	64	UINT:0	9		001
+
+--- OURS (B) records 104..116 ('>' = the object)
+  #104	4	constant					0	0	0	0	0	64	UINT:0	9		000
+  #105	4	operation				dut.sv	3	11	3	12		0				000
+  #106	5	constant				dut.sv	3	11	3	12	2	64	UINT:2	9		000
+  #107	5	constant					0	0	0	0		64	INT:1	7		000
+  #108	3	struct_net	u		work@top.u.u	dut.sv	3	8	3	13		0			work@top.u.u	000
+  #109	4	ref_typespec			work@top.u.u		0	0	0	0		0			work@top.u.u	000
+> #110	5	struct_typespec				dut.sv	2	26	2	32						000
+  #111	6	typespec_member	a			dut.sv	2	55	2	56						001
+  #112	7	ref_typespec			<in>a		0	0	0	0		0			work@top.u.u.a	001
+  #113	8	logic_typespec				dut.sv	2	42	2	54						001
+  #114	9	range				dut.sv	2	48	2	54						001
+  #115	10	constant				dut.sv	2	49	2	51	31	64	UINT:31	9		001
+  #116	10	constant				dut.sv	2	52	2	53	0	64	UINT:0	9		001
+
+facets of this row (10, first 25):
+  N0108 #6/6 ref_typespec  G[work@top.u.u.a] O[a]
+  N0108 #12/12 ref_typespec  G[work@top.u.u.b] O[b]
+  N0108 #18/18 ref_typespec  G[work@top.u.u.c] O[c]
+  N0108 #29/29 ref_typespec  G[work@top.u.u.a] O[a]
+  N0108 #35/35 ref_typespec  G[work@top.u.u.b] O[b]
+  N0108 #41/41 ref_typespec  G[work@top.u.u.c] O[c]
+  N0108 #76/76 ref_typespec  G[work@top.u.u.a] O[a]
+  N0108 #82/82 ref_typespec  G[work@top.u.u.b] O[b]
+  N0108 #88/88 ref_typespec  G[work@top.u.u.c] O[c]
+  N0009 #110/110 struct_typespec  G[2:26:3:13] O[2:26:2:32]

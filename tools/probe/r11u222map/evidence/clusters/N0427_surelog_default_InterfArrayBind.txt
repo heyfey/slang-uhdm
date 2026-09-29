@@ -1,0 +1,32 @@
+cluster N0427 (id kept from an earlier map; COVERED r11u223 (brief item: pass 219 residue 7 (the sister's hand-off: InterfArrayBind #183; pass 210 called it this ground's, pass 216 the sister's)) | ground B | site emitExpr (ExprEmit.cpp, law elabIfArrIdxChainName205) < emitContAssigns (ModuleEmit.cpp, law caLhsDefNetUnlessOpRhs139) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold) [r11u222 pin at 896ec643]): fullname|ref_obj|tok:id[id].id.->|under:bit_select
+row: surelog/default/InterfArrayBind  strict=differ:fullname(1)  records golden=186 ours=186
+object: #183 (golden) / #183 (ours)  type=ref_obj name=IO_ONES OUT
+  golden: work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES
+  ours:   work@soc_tb.IO_ONES
+  walk parents: bit_select(peripheral_io_bus) < hier_path(peripheral_io_bus[IO_ONES].write_en) < cont_assign < module_inst(work@soc_tb)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 177..185 ('>' = the object)
+  #177	7	ref_obj	io_idx		work@soc_tb.io_gen[1].peripheral_io_bus[io_idx].write_en.io_idx	dut.sv	22	38	22	44		0			work@soc_tb.io_gen[1].peripheral_io_bus[io_idx].write_en.io_idx	000
+  #178	6	ref_obj	write_en		peripheral_io_bus[io_idx].write_en	dut.sv	22	46	22	54		0			peripheral_io_bus[io_idx].write_en	000
+  #179	2	cont_assign				dut.sv	16	12	16	62						000
+  #180	3	constant				dut.sv	16	50	16	62	32'hffffffff	32	HEX:ffffffff	5		000
+  #181	3	hier_path	peripheral_io_bus[IO_ONES].write_en			dut.sv	16	12	16	29		0				000
+  #182	4	bit_select	peripheral_io_bus		peripheral_io_bus[IO_ONES]	dut.sv	16	12	16	29		0			peripheral_io_bus[IO_ONES]	000
+> #183	5	ref_obj	IO_ONES		work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES	dut.sv	16	30	16	37		0			work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES	000
+  #184	6	enum_const	IO_ONES			dut.sv	11	7	11	14						010
+  #185	4	ref_obj	write_en		peripheral_io_bus[IO_ONES].write_en	dut.sv	16	39	16	47		0			peripheral_io_bus[IO_ONES].write_en	000
+
+--- OURS (B) records 177..185 ('>' = the object)
+  #177	7	ref_obj	io_idx		work@soc_tb.io_gen[1].peripheral_io_bus[io_idx].write_en.io_idx	dut.sv	22	38	22	44		0			work@soc_tb.io_gen[1].peripheral_io_bus[io_idx].write_en.io_idx	000
+  #178	6	ref_obj	write_en		peripheral_io_bus[io_idx].write_en	dut.sv	22	46	22	54		0			peripheral_io_bus[io_idx].write_en	000
+  #179	2	cont_assign				dut.sv	16	12	16	62						000
+  #180	3	constant				dut.sv	16	50	16	62	32'hffffffff	32	HEX:ffffffff	5		000
+  #181	3	hier_path	peripheral_io_bus[IO_ONES].write_en			dut.sv	16	12	16	29		0				000
+  #182	4	bit_select	peripheral_io_bus		peripheral_io_bus[IO_ONES]	dut.sv	16	12	16	29		0			peripheral_io_bus[IO_ONES]	000
+> #183	5	ref_obj	IO_ONES		work@soc_tb.IO_ONES	dut.sv	16	30	16	37		0			work@soc_tb.IO_ONES	000
+  #184	6	enum_const	IO_ONES			dut.sv	11	7	11	14						010
+  #185	4	ref_obj	write_en		peripheral_io_bus[IO_ONES].write_en	dut.sv	16	39	16	47		0			peripheral_io_bus[IO_ONES].write_en	000
+
+facets of this row (1, first 25):
+  N0427 #183/183 ref_obj IO_ONES G[work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES] O[work@soc_tb.IO_ONES]

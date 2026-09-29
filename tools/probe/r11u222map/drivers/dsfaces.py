@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+"""r11u222map: parallel (DSJOBS) and @file case lists. r11u165 (r11u179: the fence from common.fenced()): the downstream-visible faces, measured with the gate's own machinery (scripts/downstream_uhdm2rtlil.py
+one(): the Surelog lane is uhdm2rtlil's own Surelog with the downstream flags, the slang lane the translated command
+line) on the evidence cases the passes left, with the binary in $SLANG_UHDM. Every case is a fresh repro under
+tools/probe (none is a corpus test, none a slang-fenced one: the fence list is checked, fail closed). Use a fresh
+GOLDEN_CACHE (the cache keys on directory + arguments, not content).
+Args: <repo> <workroot> <out.csv> <case dir>..."""
+import sys, os, re, csv
+REPO, WORK, OUT = sys.argv[1:4]
+sys.path.insert(0, os.path.join(REPO, 'scripts'))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from common import fenced
+fen = sorted(fenced())
+import downstream_uhdm2rtlil as ds
+rows = []
+# r11u222map: case dirs from argv or, with '@<file>', one per line (relative to REPO); DSJOBS parallel runs of the
+# gate's own one() (each case works under its own name in WORK)
+args = sys.argv[4:]
+if len(args) == 1 and args[0].startswith('@'):
+    args = [os.path.join(REPO, l.strip()) for l in open(args[0][1:]) if l.strip()]
+for d in args:
+    assert not any(re.search(r'\b' + f + r'\b', d) for f in fen), d
+def run(d):
+    name = re.sub(r'[^A-Za-z0-9_]', '_', os.path.relpath(d, REPO))[-90:]
+    r = ds.one(name, os.path.abspath(d), ['-parse', '-nobuiltin', '-nocache', '-sv', 'dut.sv'], WORK, 300)
+    r['case'] = os.path.relpath(d, REPO)
+    print(r['case'], r['verdict'], r['surelog_status'], r['slang_status'], r['differs'], r['detail'][:80], flush=True)
+    return r
+from concurrent.futures import ThreadPoolExecutor
+with ThreadPoolExecutor(int(os.environ.get('DSJOBS', '1'))) as ex:
+    rows = list(ex.map(run, args))
+with open(OUT, 'w', newline='') as f:
+    w = csv.DictWriter(f, ['case', 'verdict', 'surelog_status', 'slang_status', 'surelog_gates', 'slang_gates', 'differs', 'detail', 'name'])
+    w.writeheader(); [w.writerow(r) for r in rows]

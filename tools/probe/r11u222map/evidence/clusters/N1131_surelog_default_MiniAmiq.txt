@@ -1,0 +1,64 @@
+cluster N1131 (id kept from an earlier map; OPEN (map 13 listed it: ground-A+B step 13; passes 207-220 left it) | ground B | site buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:id@id.->id::|under:enum_typespec
+row: surelog/default/MiniAmiq  strict=differ:file(7)  records golden=435559 ours=432516
+object: #245631 (golden) / #244463 (ours)  type=ref_typespec name= STABLE
+  golden: work@svaunit_vpi_interface.svaunit_pkg::svaunit_concurrent_assertion_state_type
+  ours:   svaunit_pkg::svaunit_pkg::svaunit_concurrent_assertion_state_type
+  walk parents: enum_typespec(svaunit_pkg::svaunit_concurrent_assertion_state_type) < ref_typespec < operation < return_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 245625..245637 ('>' = the object)
+  #245625	10	method_func_call	get_sva_state			svaunit_vpi_wrapper.svh	355	27	355	40		0				000
+  #245626	7	begin			svaunit_pkg::svaunit_vpi_wrapper::get_state	svaunit_vpi_wrapper.svh	356	16	358	10					svaunit_pkg::svaunit_vpi_wrapper::get_state	000
+  #245627	8	return_stmt				svaunit_vpi_wrapper.svh	357	10	357	16						000
+  #245628	9	operation				svaunit_vpi_wrapper.svh	357	17	357	60		0				000
+  #245629	10	ref_typespec			svaunit_pkg::svaunit_vpi_wrapper::get_state		0	0	0	0		0			svaunit_pkg::svaunit_vpi_wrapper::get_state	000
+  #245630	11	enum_typespec	svaunit_pkg::svaunit_concurrent_assertion_state_type			svaunit_concurrent_assertion_info.svh	98	10	98	49						110
+> #245631	12	ref_typespec			<in>svaunit_pkg::svaunit_concurrent_assertion_state_type		0	0	0	0		0			work@svaunit_vpi_interface.svaunit_pkg::svaunit_concurrent_assertion_state_type	001
+  #245632	13	int_typespec				svaunit_types.svh	31	14	31	17						001
+  #245633	12	enum_const	SVAUNIT_IDLE			svaunit_types.svh	32	4	32	20						001
+  #245634	12	enum_const	SVAUNIT_START			svaunit_types.svh	33	4	33	23						001
+  #245635	12	enum_const	SVAUNIT_SUCCESS			svaunit_types.svh	34	4	34	25						001
+  #245636	12	enum_const	SVAUNIT_FAILURE			svaunit_types.svh	35	4	35	25						001
+  #245637	12	enum_const	SVAUNIT_STEP_SUCCESS			svaunit_types.svh	36	4	36	30						001
+
+--- OURS (B) records 244457..244469 ('>' = the object)
+  #244457	10	method_func_call	get_sva_state			svaunit_vpi_wrapper.svh	355	27	355	40		0				000
+  #244458	7	begin			svaunit_pkg::svaunit_vpi_wrapper::get_state	svaunit_vpi_wrapper.svh	356	16	358	10					svaunit_pkg::svaunit_vpi_wrapper::get_state	000
+  #244459	8	return_stmt				svaunit_vpi_wrapper.svh	357	10	357	16						000
+  #244460	9	operation				svaunit_vpi_wrapper.svh	357	17	357	60		0				000
+  #244461	10	ref_typespec			svaunit_pkg::svaunit_vpi_wrapper::get_state		0	0	0	0		0			svaunit_pkg::svaunit_vpi_wrapper::get_state	000
+  #244462	11	enum_typespec	svaunit_pkg::svaunit_concurrent_assertion_state_type			svaunit_types.svh	31	1	42	43						110
+> #244463	12	ref_typespec			<in>svaunit_pkg::svaunit_concurrent_assertion_state_type		0	0	0	0		0			svaunit_pkg::svaunit_pkg::svaunit_concurrent_assertion_state_type	001
+  #244464	13	int_typespec				svaunit_types.svh	31	14	31	17						001
+  #244465	12	enum_const	SVAUNIT_IDLE			svaunit_types.svh	32	4	32	20						001
+  #244466	12	enum_const	SVAUNIT_START			svaunit_types.svh	33	4	33	23						001
+  #244467	12	enum_const	SVAUNIT_SUCCESS			svaunit_types.svh	34	4	34	25						001
+  #244468	12	enum_const	SVAUNIT_FAILURE			svaunit_types.svh	35	4	35	25						001
+  #244469	12	enum_const	SVAUNIT_STEP_SUCCESS			svaunit_types.svh	36	4	36	30						001
+
+facets of this row (3930, first 25):
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66846 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66934 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67161 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68145 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68165 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68280 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]
+  N0134 #68479/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68444 unsupported_typespec index G[] O[1 objs]
+  N0495 #68839/-1 int_var i G[3 objs] O[]
+  N0495 #69015/-1 int_var i G[3 objs] O[]

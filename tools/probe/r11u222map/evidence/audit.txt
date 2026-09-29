@@ -1,0 +1,130 @@
+== A. conversions per landing since map 13 (committed baselines)
+   pass 207 (62ac216e3): 2 row-modes / 1 tests, 7 probe cases, 11 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+       sur/d/UnitElabBlock sur/t/UnitElabBlock
+       changes: sur/d/BlackBePipeInt differ:fullname(2)->differ:type(1); sur/d/BuildUVMPkg differ:line(11)->differ:line(7); sur/d/MiniAmiq differ:file(71)->differ:file(70); sur/d/Scoreboard differ:fullname(103)->differ:fullname(102); sur/d/SeqDriver differ:fullname(65)->differ:fullname(64); sur/d/SimpleUVM differ:fullname(95)->differ:fullname(94); sur/t/BlackBePipeInt differ:fullname(2)->differ:depth(1); sur/t/BuildUVMPkg differ:line(11)->differ:line(7); sur/t/MiniAmiq differ:file(71)->differ:file(70); sur/t/SeqDriver differ:fullname(65)->differ:fullname(64); sur/t/SimpleUVM differ:fullname(95)->differ:fullname(94)
+   map 13 (baf918960): 0 row-modes / 0 tests, 0 probe cases, 0 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+   pass 209 (b69dc2da0): 3 row-modes / 2 tests, 33 probe cases, 12 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+       sur/d/InterfaceStructMemberPort sur/t/HierPathTypespec sur/t/InterfaceStructMemberPort
+       changes: sur/d/BuildUVMPkg differ:line(7)->differ:endcol(57); sur/d/Earlgrey_0_1 differ:fullname(76)->differ:endcol(45); sur/d/MiniAmiq differ:file(70)->differ:file(77); sur/d/Rggen differ:defname(142)->differ:file(4); sur/d/Scoreboard differ:fullname(102)->differ:fullname(193); sur/d/SeqDriver differ:fullname(64)->differ:fullname(63); sur/d/SimpleUVM differ:fullname(94)->differ:fullname(241); sur/t/BuildUVMPkg differ:line(7)->differ:endcol(57); sur/t/Earlgrey_0_1 differ:fullname(76)->differ:endcol(45); sur/t/MiniAmiq differ:file(70)->differ:file(77); sur/t/SeqDriver differ:fullname(64)->differ:fullname(63); sur/t/SimpleUVM differ:fullname(94)->differ:fullname(241)
+   r11u213 (6dcc0818c): 0 row-modes / 0 tests, 0 probe cases, 0 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+   pass 210 (a727b8c7d): 2 row-modes / 1 tests, 3 probe cases, 5 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+       sur/d/FuncStructValSimple sur/t/FuncStructValSimple
+       changes: sur/d/FuncStructVal differ:endcol(95)->differ:endcol(7); sur/d/InterfArrayBind differ:fullname(3)->differ:fullname(1); sur/t/FuncStructVal differ:endcol(165)->differ:endcol(10); uhd/d/ibex_tracer differ:fullname(579)->differ:fullname(13); uhd/t/ibex_tracer differ:fullname(579)->differ:fullname(13)
+   pass 212 (745f66abf): 0 row-modes / 0 tests, 4 probe cases, 12 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+       changes: sur/d/BuildUVMPkg differ:endcol(57)->differ:col(51); sur/d/MiniAmiq differ:file(77)->differ:file(75); sur/d/Rggen differ:file(4)->differ:file(3); sur/d/Scoreboard differ:fullname(193)->differ:fullname(188); sur/d/SeqDriver differ:fullname(63)->differ:fullname(61); sur/d/SimpleUVM differ:fullname(241)->differ:fullname(236); sur/t/BuildUVMPkg differ:endcol(57)->differ:col(51); sur/t/MiniAmiq differ:file(77)->differ:file(75); sur/t/SeqDriver differ:fullname(63)->differ:fullname(61); sur/t/SimpleUVM differ:fullname(241)->differ:fullname(236); uhd/d/anon_struct_packed_dim differ:fullname(43)->differ:fullname(4); uhd/t/anon_struct_packed_dim differ:fullname(43)->differ:fullname(4)
+   r11u214 (83ee16d6a): 0 row-modes / 0 tests, 0 probe cases, 0 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+   r11u217 (0a682d736): 0 row-modes / 0 tests, 0 probe cases, 0 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+   pass 216 (c4f260792): 0 row-modes / 0 tests, 0 probe cases, 2 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+       changes: sur/d/MiniAmiq differ:file(75)->differ:fullname(61); sur/t/MiniAmiq differ:file(75)->differ:fullname(61)
+   r11u218 (c624cafb1): 0 row-modes / 0 tests, 0 probe cases, 0 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+   pass 215 (57ce3ae8b): 2 row-modes / 1 tests, 12 probe cases, 9 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+       uhd/d/ibex_tracer uhd/t/ibex_tracer
+       changes: sur/d/BuildUVMPkg differ:col(51)->differ:line(31); sur/d/MiniAmiq differ:fullname(61)->differ:endline(59); sur/d/Scoreboard differ:fullname(188)->differ:fullname(137); sur/d/SeqDriver differ:fullname(61)->differ:endline(59); sur/d/SimpleUVM differ:fullname(236)->differ:fullname(185); sur/t/BuildUVMPkg differ:col(51)->differ:line(31); sur/t/MiniAmiq differ:fullname(61)->differ:endline(59); sur/t/SeqDriver differ:fullname(61)->differ:endline(59); sur/t/SimpleUVM differ:fullname(236)->differ:fullname(185)
+   r11u221 (162790c3b): 0 row-modes / 0 tests, 0 probe cases, 0 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+   pass 219 (896ec6439): 0 row-modes / 0 tests, 10 probe cases, 9 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+       changes: sur/d/Earlgrey_0_1 differ:endcol(45)->differ:endcol(39); sur/d/MiniAmiq differ:endline(59)->differ:file(7); sur/d/Scoreboard differ:fullname(137)->differ:file(32); sur/d/SeqDriver differ:endline(59)->differ:file(7); sur/d/SimpleUVM differ:fullname(185)->differ:file(56); sur/t/Earlgrey_0_1 differ:endcol(45)->differ:endcol(39); sur/t/MiniAmiq differ:endline(59)->differ:file(7); sur/t/SeqDriver differ:endline(59)->differ:file(7); sur/t/SimpleUVM differ:fullname(185)->differ:file(56)
+   pass 220 (551c97519): 2 row-modes / 1 tests, 11 probe cases, 7 strict-cell changes; left CMP_EQUAL 0; entered STRICT_NOTEQUAL 0
+       uhd/d/anon_struct_packed_dim uhd/t/anon_struct_packed_dim
+       changes: sur/d/BuildUVMPkg differ:line(31)->differ:line(19); sur/d/Earlgrey_0_1 differ:endcol(39)->differ:fullname(19); sur/d/Scoreboard differ:file(32)->differ:file(30); sur/d/SimpleUVM differ:file(56)->differ:file(54); sur/t/BuildUVMPkg differ:line(31)->differ:line(19); sur/t/Earlgrey_0_1 differ:endcol(39)->differ:fullname(19); sur/t/SimpleUVM differ:file(56)->differ:file(54)
+   total: 11 row-modes, 80 probe cases
+== B. map 13 predicted, on its 4acbe8a5 fail list (42 row-modes)
+   r11u205 (measured) + pairs r11u207 / r11u209 optimistic: 20 row-modes (of which 8 named-optimism credits)
+   section-9 list A: 0 row-modes
+   section-9 list B: 6 row-modes
+   section-9 list A+B: 6 row-modes
+   section-9 list deep A: 0 row-modes
+   section-9 list deep B: 8 row-modes
+   section-9 list deep A+B: 22 row-modes
+   predicted by any of them: 42
+   predicted-by x landed-by (row-modes):
+     B1 A+B1 deepB1 deepA+B1                          open         2  sur/d/InterfaceModPort sur/t/InterfaceModPort
+     B2 A+B2 deepB2 deepA+B2                          open         2  sur/d/PreprocTest sur/t/PreprocTest
+     B3 A+B3 deepB3 deepA+B3                          open         2  sur/d/LogicTypespec sur/t/LogicTypespec
+     deepA+B10                                        open         1  sur/t/Earlgrey_0_1
+     deepA+B11                                        open         1  sur/d/Earlgrey_0_1
+     deepA+B12                                        open         2  sur/d/SeqDriver sur/t/SeqDriver
+     deepA+B13                                        open         2  sur/d/MiniAmiq sur/t/MiniAmiq
+     deepA+B5                                         open         2  sur/d/SimpleUVM sur/t/SimpleUVM
+     deepA+B6                                         open         1  sur/d/Scoreboard
+     deepA+B7                                         open         2  sur/d/BuildUVMPkg sur/t/BuildUVMPkg
+     deepA+B8                                         open         2  sur/d/BlackBePipeInt sur/t/BlackBePipeInt
+     deepA+B9                                         open         1  sur/d/Rggen
+     deepB4 deepA+B4                                  open         2  sur/d/Scr1SvTests sur/t/Scr1SvTests
+     r11u205+pairs                                    open         2  uhd/d/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/t/OutputSizeWithParameterOfInstanceInitializedByStructMember
+     r11u205+pairs                                    pass 207     2  sur/d/UnitElabBlock sur/t/UnitElabBlock
+     r11u205+pairs                                    pass 209     2  sur/d/InterfaceStructMemberPort sur/t/InterfaceStructMemberPort
+     r11u205+pairs                                    pass 210     2  sur/d/FuncStructValSimple sur/t/FuncStructValSimple
+     r11u205+pairs                                    pass 215     2  uhd/d/ibex_tracer uhd/t/ibex_tracer
+     r11u205+pairs                                    pass 220     2  uhd/d/anon_struct_packed_dim uhd/t/anon_struct_packed_dim
+     r11u205+pairs(optimism)                          open         7  sur/d/FuncStructVal sur/d/InterfArrayBind sur/t/FuncStructVal uhd/d/cfg_func_width_loop uhd/d/struct_param_func_config uhd/t/cfg_func_width_loop uhd/t/struct_param_func_config
+     r11u205+pairs(optimism)                          pass 209     1  sur/t/HierPathTypespec
+   tally: {('predicted', 'open'): 31, ('predicted', 'converted'): 11}
+   list A: 0 predicted, 0 converted; still open: 
+   list B: 6 predicted, 0 converted; still open: sur/d/InterfaceModPort sur/d/LogicTypespec sur/d/PreprocTest sur/t/InterfaceModPort sur/t/LogicTypespec sur/t/PreprocTest
+   list A+B: 6 predicted, 0 converted; still open: sur/d/InterfaceModPort sur/d/LogicTypespec sur/d/PreprocTest sur/t/InterfaceModPort sur/t/LogicTypespec sur/t/PreprocTest
+   list deep A: 0 predicted, 0 converted; still open: 
+   list deep B: 8 predicted, 0 converted; still open: sur/d/InterfaceModPort sur/d/LogicTypespec sur/d/PreprocTest sur/d/Scr1SvTests sur/t/InterfaceModPort sur/t/LogicTypespec sur/t/PreprocTest sur/t/Scr1SvTests
+   list deep A+B: 22 predicted, 0 converted; still open: sur/d/BlackBePipeInt sur/d/BuildUVMPkg sur/d/Earlgrey_0_1 sur/d/InterfaceModPort sur/d/LogicTypespec sur/d/MiniAmiq sur/d/PreprocTest sur/d/Rggen sur/d/Scoreboard sur/d/Scr1SvTests sur/d/SeqDriver sur/d/SimpleUVM sur/t/BlackBePipeInt sur/t/BuildUVMPkg sur/t/Earlgrey_0_1 sur/t/InterfaceModPort sur/t/LogicTypespec sur/t/MiniAmiq sur/t/PreprocTest sur/t/Scr1SvTests sur/t/SeqDriver sur/t/SimpleUVM
+   r11u205+pairs: 20 predicted, 11 converted; open: sur/d/FuncStructVal sur/d/InterfArrayBind sur/t/FuncStructVal uhd/d/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/d/cfg_func_width_loop uhd/d/struct_param_func_config uhd/t/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/t/cfg_func_width_loop uhd/t/struct_param_func_config
+   without the eight named optimisms: 12 predicted, 10 converted
+== C. per converted row: predicted by, map 13 first open cluster after its pairs and its pin, the landing law files
+   pass 207  sur/d/UnitElabBlock                      r11u205+pairs                    first=N0016 pin=ExprEmit       (pin right (mint)) laws=hiddenBlockVarMintNoFile207 (ExprEmit); map-13 clears=yes (r11u205, measured)
+   pass 207  sur/t/UnitElabBlock                      r11u205+pairs                    first=N0016 pin=ExprEmit       (pin right (mint)) laws=hiddenBlockVarMintNoFile207 (ExprEmit); map-13 clears=yes (r11u205, measured)
+   pass 209  sur/d/InterfaceStructMemberPort          r11u205+pairs                    first=N1134 pin=ModuleEmit     (pin right (mint)) laws=portConnOpLeafChain209 modportOpOrphanReparent209 (ModuleEmit+UhdmExporter); map-13 clears=yes (pair B, optimistic)
+   pass 209  sur/t/HierPathTypespec                   r11u205+pairs (named optimism)   first=N1174 pin=TypeEmit       (pin right (a caller)) laws=pkgArrTdElemClone209 (UhdmExporter); map-13 clears=yes (pair B, optimistic)
+   pass 209  sur/t/InterfaceStructMemberPort          r11u205+pairs                    first=N1134 pin=ModuleEmit     (pin right (mint)) laws=portConnOpLeafChain209 modportOpOrphanReparent209 (ModuleEmit+UhdmExporter); map-13 clears=yes (pair B, optimistic)
+   pass 210  sur/d/FuncStructValSimple                r11u205+pairs                    first=N0086 pin=ParamEmit      (pin right (mint)) laws=memLeftReadsPatUnlocated210 pkgTopWidePatReplTsName210 (ExprEmit+ParamEmit); map-13 clears=yes (pair A, optimistic)
+   pass 210  sur/t/FuncStructValSimple                r11u205+pairs                    first=N0086 pin=ParamEmit      (pin right (mint)) laws=memLeftReadsPatUnlocated210 pkgTopWidePatReplTsName210 (ExprEmit+ParamEmit); map-13 clears=yes (pair A, optimistic)
+   pass 215  uhd/d/ibex_tracer                        r11u205+pairs                    first=N0563 pin=TypeEmit       (pin right (a caller)) laws=impPatCopyFirstListingUnparented215 (ParamEmit); map-13 clears=yes (pairs A+B, optimistic)
+   pass 215  uhd/t/ibex_tracer                        r11u205+pairs                    first=N0563 pin=TypeEmit       (pin right (a caller)) laws=impPatCopyFirstListingUnparented215 (ParamEmit); map-13 clears=yes (pairs A+B, optimistic)
+   pass 220  uhd/d/anon_struct_packed_dim             r11u205+pairs                    first=N0014 pin=TypeEmit       (pin misses) laws=hpVarSelRangeIdxNamesByPath220 (ExprEmit); map-13 clears=yes (pairs A+B, optimistic)
+   pass 220  uhd/t/anon_struct_packed_dim             r11u205+pairs                    first=N0014 pin=TypeEmit       (pin misses) laws=hpVarSelRangeIdxNamesByPath220 (ExprEmit); map-13 clears=yes (pairs A+B, optimistic)
+   tally (landing, predicted): {('pass 207', 'predicted'): 2, ('pass 209', 'predicted'): 3, ('pass 210', 'predicted'): 2, ('pass 215', 'predicted'): 2, ('pass 220', 'predicted'): 2}
+   site verdicts (first cluster): {'pin right (mint)': 6, 'pin right (a caller)': 3, 'pin misses': 2}
+== D. map 13 covered (r11u205 measured + pairs r11u207 / r11u209 optimistic): 149 clusters (rows at 4acbe8a5 -> 551c9751): {'fell': 8, 'rows cleared': 7, 'unchanged': 93, 'gone': 40, 'grew': 1}
+     fell: N0001 14->3 N0014 4->1 N0054 9->2 N0131 10->6 N0170 9->2 N0177 9->2 N0318 7->4 N0423 9->8
+     rows cleared: N0003 2->0 N0071 9->0 N0175 4->0 N0193 9->0 N0407 2->0 N0757 9->0 N1174 1->0
+     unchanged: N0012 9->9 N0023 0->0 N0025 7->7 N0028 4->4 N0031 0->0 N0033 7->7 N0034 9->9 N0039 10->10 N0042 0->0 N0043 6->6 N0045 2->2 N0050 7->7 N0051 9->9 N0061 2->2 N0067 9->9 N0068 9->9 N0072 9->9 N0078 6->6 N0097 9->9 N0098 7->7 N0109 9->9 N0110 9->9 N0117 9->9 N0119 0->0 N0120 9->9 N0121 7->7 N0132 0->0 N0133 2->2 N0144 7->7 N0152 0->0 N0153 0->0 N0158 9->9 N0161 9->9 N0171 9->9 N0178 9->9 N0179 9->9 N0180 9->9 N0188 9->9 N0191 2->2 N0192 4->4 N0197 9->9 N0207 9->9 N0213 9->9 N0219 7->7 N0230 9->9 N0232 9->9 N0247 9->9 N0253 9->9 N0254 9->9 N0255 9->9 N0256 9->9 N0262 7->7 N0263 6->6 N0266 6->6 N0303 7->7 N0304 7->7 N0305 7->7 N0306 7->7 N0321 7->7 N0337 7->7 N0374 7->7 N0387 7->7 N0390 7->7 N0392 7->7 N0397 7->7 N0399 7->7 N0416 2->2 N0426 6->6 N0427 3->3 N0487 2->2 N0552 2->2 N0675 2->2 N0738 0->0 N0754 2->2 N0761 2->2 N0779 2->2 N0794 2->2 N0817 2->2 N0836 2->2 N0853 2->2 N0891 2->2 N0923 2->2 N0974 6->6 N0980 2->2 N1069 2->2 N1096 2->2 N1119 2->2 N1127 2->2 N1946 1->1 N2400 9->9 ...
+     gone: N0016 2->0 N0086 4->0 N0087 4->0 N0145 1->0 N0160 9->0 N0183 9->0 N0184 9->0 N0185 9->0 N0189 2->0 N0222 9->0 N0225 9->0 N0227 9->0 N0237 9->0 N0288 7->0 N0290 7->0 N0297 7->0 N0314 7->0 N0326 7->0 N0352 7->0 N0519 4->0 N0540 4->0 N0563 4->0 N0682 3->0 N0689 3->0 N0763 2->0 N0820 2->0 N0915 2->0 N0924 2->0 N0945 2->0 N0957 2->0 N0971 2->0 N0979 2->0 N1116 2->0 N1117 2->0 N1121 2->0 N1126 2->0 N1128 2->0 N1134 2->0 N1249 1->0 N1677 1->0
+     grew: N0123 7->9
+== D. map 13 section-9 lists: 274 clusters (rows at 4acbe8a5 -> 551c9751): {'rows cleared': 9, 'unchanged': 186, 'fell': 6, 'gone': 71, 'grew': 2}
+     rows cleared: N0005(deepA+B10) 2->0 N0007(deepA+B5) 9->0 N0018(deepA+B10) 2->0 N0100(deepA+B7) 2->0 N0480(deepA+B12) 4->0 N0510(deepA+B12) 4->0 N0511(deepA+B12) 4->0 N0512(deepA+B12) 4->0 N0553(deepA+B12) 4->0
+     unchanged: N0008(deepA+B5) 5->5 N0021(deepB4) 2->2 N0024(deepA+B12) 4->4 N0030(deepB4) 4->4 N0040(B1) 4->4 N0056(B2) 2->2 N0063(deepA+B8) 2->2 N0075(deepA+B7) 2->2 N0077(deepA+B10) 2->2 N0083(B3) 2->2 N0085(deepA+B10) 2->2 N0090(deepA+B10) 2->2 N0118(deepA+B8) 2->2 N0129(deepA+B10) 2->2 N0134(deepA+B12) 4->4 N0141(deepA+B9) 3->3 N0142(deepA+B9) 3->3 N0164(deepA+B12) 4->4 N0182(deepA+B10) 5->5 N0198(deepA+B7) 2->2 N0203(deepA+B7) 2->2 N0215(deepA+B12) 4->4 N0264(deepA+B7) 2->2 N0273(deepA+B9) 3->3 N0284(deepB4) 2->2 N0286(deepA+B8) 2->2 N0289(deepA+B12) 4->4 N0325(deepA+B5) 4->4 N0340(deepA+B12) 4->4 N0341(deepA+B12) 4->4 N0343(deepA+B12) 4->4 N0370(deepA+B13) 2->2 N0384(deepA+B13) 2->2 N0408(deepA+B5) 6->6 N0413(deepA+B8) 2->2 N0414(deepA+B12) 4->4 N0415(deepA+B10) 2->2 N0417(deepA+B10) 2->2 N0420(deepA+B12) 4->4 N0422(B3) 2->2 N0424(deepA+B13) 2->2 N0428(deepA+B12) 4->4 N0446(deepA+B10) 2->2 N0447(deepA+B6) 1->1 N0448(deepA+B9) 1->1 N0449(deepA+B10) 5->5 N0451(deepA+B9) 1->1 N0452(deepA+B12) 4->4 N0454(deepA+B11) 1->1 N0458(deepA+B5) 3->3 N0461(deepA+B12) 4->4 N0467(deepA+B5) 5->5 N0474(deepA+B10) 2->2 N0478(deepA+B12) 4->4 N0479(deepA+B12) 4->4 N0481(deepA+B12) 4->4 N0484(B3) 4->4 N0492(deepA+B12) 4->4 N0495(deepA+B12) 4->4 N0496(deepA+B12) 4->4 N0505(deepA+B12) 4->4 N0507(deepA+B12) 4->4 N0516(deepA+B12) 4->4 N0521(deepA+B12) 4->4 N0525(deepA+B10) 2->2 N0538(deepA+B12) 4->4 N0541(deepA+B5) 4->4 N0543(deepA+B12) 4->4 N0544(deepA+B12) 4->4 N0545(deepA+B11) 1->1 N0546(deepA+B11) 1->1 N0547(deepA+B12) 4->4 N0550(deepA+B12) 4->4 N0555(deepA+B12) 4->4 N0556(deepA+B12) 4->4 N0557(deepA+B12) 4->4 N0558(deepA+B12) 4->4 N0564(deepA+B12) 4->4 N0565(deepA+B5) 2->2 N0569(deepA+B12) 4->4 N0570(deepA+B12) 4->4 N0571(deepA+B12) 4->4 N0573(deepA+B12) 4->4 N0574(deepA+B12) 4->4 N0579(deepA+B12) 4->4 N0584(deepA+B12) 4->4 N0585(deepA+B12) 4->4 N0586(deepA+B12) 4->4 N0587(deepA+B12) 4->4 N0588(deepA+B12) 4->4 ...
+     fell: N0011(deepA+B5) 5->4 N0073(deepA+B8) 4->2 N0727(deepA+B9) 3->2 N0897(deepA+B8) 2->1 N0905(deepA+B8) 2->1 N1179(deepA+B8) 2->1
+     gone: N0017(deepA+B7) 4->0 N0151(deepA+B5) 3->0 N0278(deepA+B12) 4->0 N0485(deepA+B12) 4->0 N0490(deepA+B12) 4->0 N0503(deepA+B12) 4->0 N0504(deepA+B12) 4->0 N0513(deepA+B12) 4->0 N0514(deepA+B12) 4->0 N0520(deepA+B12) 4->0 N0529(deepA+B12) 4->0 N0530(deepA+B12) 4->0 N0537(deepA+B12) 4->0 N0539(deepA+B12) 4->0 N0575(deepA+B12) 4->0 N0578(deepA+B12) 4->0 N0580(deepA+B12) 4->0 N0582(deepA+B12) 4->0 N0593(deepA+B12) 4->0 N0597(deepA+B12) 4->0 N0598(deepA+B12) 4->0 N0599(deepA+B12) 4->0 N0600(deepA+B12) 4->0 N0604(deepA+B12) 4->0 N0606(deepA+B12) 4->0 N0607(deepA+B12) 4->0 N0608(deepA+B12) 4->0 N0612(deepA+B12) 4->0 N0621(deepA+B12) 4->0 N0622(deepA+B12) 4->0 N0632(deepA+B12) 4->0 N0637(deepA+B12) 4->0 N0641(deepA+B12) 4->0 N0642(deepA+B12) 4->0 N0643(deepA+B12) 4->0 N0644(deepA+B12) 4->0 N0664(deepA+B12) 4->0 N0665(deepA+B12) 4->0 N0666(deepA+B12) 4->0 N0667(deepA+B12) 4->0 N0668(deepA+B12) 4->0 N0669(deepA+B12) 4->0 N0671(deepA+B12) 4->0 N0691(deepA+B5) 3->0 N0692(deepA+B5) 3->0 N0732(deepA+B5) 3->0 N0734(deepA+B5) 3->0 N0778(deepA+B7) 2->0 N0785(deepA+B7) 2->0 N0786(deepA+B7) 2->0 N0787(deepA+B7) 2->0 N0788(deepA+B7) 2->0 N0807(deepA+B10) 2->0 N0864(deepA+B8) 2->0 N0900(deepA+B5) 2->0 N0956(deepA+B10) 2->0 N1012(deepA+B10) 2->0 N1013(deepA+B7) 2->0 N1023(deepA+B10) 2->0 N1033(deepA+B10) 2->0 N1035(deepA+B13) 2->0 N1073(deepA+B12) 2->0 N1104(deepA+B10) 2->0 N1136(deepA+B7) 2->0 N1424(deepA+B6) 1->0 N1565(deepA+B10) 1->0 N1619(deepA+B10) 1->0 N1719(deepA+B10) 1->0 N1780(deepA+B8) 1->0 N1815(deepA+B8) 1->0 N2388(deepA+B10) 1->0
+     grew: N0594(deepA+B12) 2->4 N0616(deepA+B12) 2->4
+== E. clusters map 13 did not route (covered / section 9) whose rows or probe cases cleared or fell: 38: N2461 rows 0->0 probe 1->0 N2440 rows 0->0 probe 1->0 N2437 rows 0->0 probe 1->0 N2434 rows 0->0 probe 1->0 N2228 rows 0->0 probe 1->0 N2222 rows 0->0 probe 1->0 N2208 rows 0->0 probe 1->0 N2165 rows 0->0 probe 1->0 N2164 rows 0->0 probe 1->0 N2162 rows 0->0 probe 1->0 N2161 rows 0->0 probe 1->0 N2160 rows 0->0 probe 1->0 N2158 rows 0->0 probe 1->0 N2157 rows 0->0 probe 1->0 N2156 rows 0->0 probe 1->0 N2155 rows 0->0 probe 1->0 N2154 rows 0->0 probe 1->0 N2153 rows 0->0 probe 1->0 N2145 rows 0->0 probe 1->0 N2116 rows 0->0 probe 1->0 N2097 rows 0->0 probe 1->0 N2085 rows 0->0 probe 1->0 N2045 rows 0->0 probe 1->0 N2033 rows 0->0 probe 2->0 N2032 rows 0->0 probe 2->0 N2030 rows 0->0 probe 2->0 N2027 rows 0->0 probe 2->0 N2023 rows 0->0 probe 2->0 N2019 rows 0->0 probe 2->0 N2014 rows 0->0 probe 2->0 N2009 rows 0->0 probe 2->0 N1947 rows 0->0 probe 4->0 N1941 rows 0->0 probe 5->0 N1939 rows 0->0 probe 6->0 N1934 rows 0->0 probe 7->0 N1921 rows 0->0 probe 10->0 N1911 rows 0->0 probe 14->0 N1910 rows 0->0 probe 14->0
+== F. map 13 section-9 items and pair routes recounted at 551c9751 (rows = row-modes carrying the cluster; the row = the item's target)
+| item | clusters | rows 4acbe8a5 -> 551c9751 (per cluster) | probe 4acbe8a5 -> 551c9751 | target row status 551c9751 | converted by |
+|---|---|---|---|---|---|
+| A-r207 | N0540 N0689 N0923 N0016 | N0540 4->0 N0689 3->0 N0923 2->2 N0016 2->0 | 1->0 1->0 0->0 0->0 | MiniAmiq d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A-r207b | N0416 N0779 N0836 N1069 N1119 | N0416 2->2 N0779 2->2 N0836 2->2 N1069 2->2 N1119 2->2 | 0->0 1->1 0->0 0->0 0->0 | Scr1SvTests d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A-cfg | N0263 N0025 N0033 N0754 N0794 | N0263 6->6 N0025 7->7 N0033 7->7 N0754 2->2 N0794 2->2 | 59->39 10->10 10->10 5->5 2->2 | cfg_func_width_loop d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A-spfc | N0028 N0045 N0552 N0675 N0761 N0817 N2412 | N0028 4->4 N0045 2->2 N0552 2->2 N0675 2->2 N0761 2->2 N0817 2->2 N2412 2->2 | 0->0 2->2 0->0 0->0 3->3 0->0 0->0 | struct_param_func_config d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A-iab | N0427 | N0427 3->3 | 0->0 | InterfArrayBind d:STRICT_NOTEQUAL / t:CMP_EQUAL | - |
+| A-fsv | N0086 N0087 N0131 N0407 N0891 N0980 N1096 N1946 | N0086 4->0 N0087 4->0 N0131 10->6 N0407 2->0 N0891 2->2 N0980 2->2 N1096 2->2 N1946 1->1 | 0->0 0->0 5->5 7->7 0->0 0->0 0->0 5->5 | FuncStructVal d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A-fsvs | N0086 N0087 N0131 | N0086 4->0 N0087 4->0 N0131 10->6 | 0->0 0->0 5->5 | FuncStructValSimple d:CMP_EQUAL / t:CMP_EQUAL | pass 210 |
+| A-anon | N0820 | N0820 2->0 | 1->0 | anon_struct_packed_dim d:CMP_EQUAL / t:CMP_EQUAL | pass 220 |
+| A-ibex | N0003 N0763 N0957 N0971 N0979 | N0003 2->0 N0763 2->0 N0957 2->0 N0971 2->0 N0979 2->0 | 24->24 3->0 0->0 0->0 0->0 | ibex_tracer d:CMP_EQUAL / t:CMP_EQUAL | pass 215 |
+| A-os | N0001 N0191 | N0001 14->3 N0191 2->2 | 7->7 0->0 | OutputSizeWithParameterOfInstanceInitializedByStructMember d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A-uvmhead | N0582 N0900 N1424 | N0582 4->0 N0900 2->0 N1424 1->0 | 0->0 0->0 0->0 | SimpleUVM d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A-bb | N0897 | N0897 2->1 | 0->0 | BlackBePipeInt d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A-case | N0739 N1903 N1904 N0476 N0477 | N0739 0->0 N1903 0->0 N1904 0->0 N0476 0->0 N0477 0->0 | 27->27 21->21 20->20 20->20 20->20 | - d:- / t:- | - |
+| B-r205 | N0945 N0915 N0924 N1116 N1121 N0145 N1249 N1677 | N0945 2->0 N0915 2->0 N0924 2->0 N1116 2->0 N1121 2->0 N0145 1->0 N1249 1->0 N1677 1->0 | 0->0 0->0 0->0 0->0 0->0 0->0 0->0 0->0 | Earlgrey_0_1 d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B-206 | N0014 | N0014 4->1 | 6->4 | anon_struct_packed_dim d:CMP_EQUAL / t:CMP_EQUAL | pass 220 |
+| B-ismp | N0519 N1117 N1126 N1128 N1134 | N0519 4->0 N1117 2->0 N1126 2->0 N1128 2->0 N1134 2->0 | 2->0 0->0 0->0 0->0 0->0 | InterfaceStructMemberPort d:CMP_EQUAL / t:CMP_EQUAL | pass 209 |
+| B-hpt | N1174 | N1174 1->0 | 4->4 | HierPathTypespec d:CMP_EQUAL / t:CMP_EQUAL | pass 209 |
+| B-cfg | N0133 N0487 | N0133 2->2 N0487 2->2 | 6->6 8->8 | cfg_func_width_loop d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B-os | N0853 N1127 | N0853 2->2 N1127 2->2 | 1->1 0->0 | OutputSizeWithParameterOfInstanceInitializedByStructMember d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B-ibex | N0563 | N0563 4->0 | 0->0 | ibex_tracer d:CMP_EQUAL / t:CMP_EQUAL | pass 215 |
+| B-rg | N0145 N1249 N0727 | N0145 1->0 N1249 1->0 N0727 3->2 | 0->0 0->0 0->0 | Rggen d:STRICT_NOTEQUAL / t:SURELOG_FAIL | - |
+| B-899 | N0144 | N0144 7->7 | 0->0 | MiniAmiq d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B-3245 | N0039 | N0039 10->10 | 45->44 | BuildUVMPkg d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B-778 | N0778 | N0778 2->0 | 1->0 | BuildUVMPkg d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B-eg | N0073 | N0073 4->2 | 4->2 | Earlgrey_0_1 d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B-imp | N0040 | N0040 4->4 | 14->14 | InterfaceModPort d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B-pp | N0056 | N0056 2->2 | 0->0 | PreprocTest d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B-lt | N0083 N0422 N0484 N1149 | N0083 2->2 N0422 2->2 N0484 4->4 N1149 2->2 | 22->22 0->0 13->13 0->0 | LogicTypespec d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B-scr | N0791 N0284 | N0791 2->2 N0284 2->2 | 2->2 47->47 | Scr1SvTests d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B-clone | N0480 N0485 N0510 N0511 N0512 N0513 N0514 N0516 | N0480 4->0 N0485 4->0 N0510 4->0 N0511 4->0 N0512 4->0 N0513 4->0 N0514 4->0 N0516 4->4 | 16->2 14->0 4->1 4->2 4->2 4->0 4->0 4->4 | MiniAmiq d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B-sb | N0008 N0151 N0447 N0458 N0467 N0691 N0692 N0732 N0734 | N0008 5->5 N0151 3->0 N0447 1->1 N0458 3->3 N0467 5->5 N0691 3->0 N0692 3->0 N0732 3->0 N0734 3->0 | 23->23 15->0 1->1 0->0 0->0 1->0 1->0 0->0 0->0 | Scoreboard d:STRICT_NOTEQUAL / t:SLANG_REJECT | - |
