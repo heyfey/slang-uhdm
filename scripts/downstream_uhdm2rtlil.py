@@ -73,7 +73,7 @@ def surelog_db(dirpath, sl_args, work, timeout):
     parts = [_ID, vg._portable(dirpath)] + [vg._portable(a) for a in sl_args]
     if vg._reaches_outside(sl_args):
         parts.append(os.path.abspath(dirpath))
-    cdir = os.path.join(vg.CACHE_ROOT, hashlib.sha1('\0'.join(parts).encode()).hexdigest()[:20])
+    cdir = os.path.join(vg.cache_base(), hashlib.sha1('\0'.join(parts).encode()).hexdigest()[:20])
     hit = vg.cache_load(cdir)
     if hit and hit[1]:
         return hit[1]

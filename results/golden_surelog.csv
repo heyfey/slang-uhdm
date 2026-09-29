@@ -747,8 +747,8 @@ InterfaceFuncCall,default,CMP_EQUAL,,,equal
 InterfaceFuncCall,testflags,CMP_EQUAL,,,equal
 InterfaceModExp,default,CMP_EQUAL,,,equal
 InterfaceModExp,testflags,CMP_EQUAL,,,equal
-InterfaceModPort,default,STRICT_NOTEQUAL,differ:endcol(12),,differ:endcol(12)
-InterfaceModPort,testflags,STRICT_NOTEQUAL,differ:endcol(12),,differ:endcol(12)
+InterfaceModPort,default,CMP_EQUAL,,,equal
+InterfaceModPort,testflags,CMP_EQUAL,,,equal
 InterfaceParamOverrideProp,default,CMP_EQUAL,,,equal
 InterfaceParamOverrideProp,testflags,CMP_EQUAL,,,equal
 InterfaceProcess,default,CMP_EQUAL,,,equal

@@ -134,6 +134,42 @@ def _surelog_identity():
     return '%s|%d|%d' % (SURELOG, st.st_mtime_ns, st.st_size)
 
 
+def _surelog_revision():
+    """The git commit the producer was built from, 12 hex digits, or 'norev'.
+
+    Two Surelog builds of different commits can print the same version line,
+    so the version line alone cannot name the goldens. The commit is read from
+    the checkout that holds the binary (the pinned submodule by default)."""
+    d = os.path.dirname(os.path.realpath(SURELOG))
+    for _ in range(8):
+        if os.path.exists(os.path.join(d, '.git')):
+            try:
+                out = subprocess.run(['git', '-C', d, 'rev-parse', 'HEAD'],
+                                     capture_output=True, text=True, timeout=60).stdout.strip()
+            except (OSError, subprocess.SubprocessError):
+                out = ''
+            if re.fullmatch(r'[0-9a-f]{40}', out):
+                return out[:12]
+            break
+        up = os.path.dirname(d)
+        if up == d:
+            break
+        d = up
+    return 'norev'
+
+
+_CACHE_BASE = None
+
+
+def cache_base():
+    """CACHE_ROOT/<surelog commit>: every golden lives under the commit of the
+    producer that built it, so a moved Surelog pin never reads an old golden."""
+    global _CACHE_BASE
+    if _CACHE_BASE is None:
+        _CACHE_BASE = os.path.join(CACHE_ROOT, _surelog_revision())
+    return _CACHE_BASE
+
+
 _IDENTITY = None
 
 
@@ -164,7 +200,7 @@ def golden_cache_dir(dirpath, sl_args):
     if _reaches_outside(sl_args):
         parts.append(os.path.abspath(dirpath))   # per-location golden
     key = hashlib.sha1('\0'.join(parts).encode()).hexdigest()[:20]
-    return os.path.join(CACHE_ROOT, key)
+    return os.path.join(cache_base(), key)
 
 
 # Failures are cached only when GOLDEN_CACHE_FAILURES=1 (a deliberate
@@ -186,7 +222,7 @@ def cache_store(cdir, uhdm_path, status_line):
         return
     tmp = None
     try:
-        os.makedirs(CACHE_ROOT, exist_ok=True)
+        os.makedirs(cache_base(), exist_ok=True)
         tmp = cdir + '.tmp%d' % os.getpid()
         os.makedirs(tmp, exist_ok=True)
         if uhdm_path:
@@ -307,7 +343,7 @@ IRRELEVANT_NOARG = {
     '-verbose', '-nostdout', '-profile', '-replay',
     '-noinfo', '-nonote', '-nowarning', '-lowmem', '-batch', '-split',
     '-nopython', '-gc', '-nogc', '-init', '-pythonlistener',
-    '-sv', '-sverilog',  # slang parses SystemVerilog unconditionally
+    '-sv',  # `-sv <file>`: slang parses SystemVerilog unconditionally
     # Foreign simulator flags (VCS, Verilator) that appear in .sl files.  Surelog
     # accepts and ignores them: each was measured at 0 dump-line change.
     '-ast', '-PP', '-full64', '-notice', '-line', '-Os', '-quiet', '+v2k',
@@ -446,6 +482,12 @@ def translate(parts):
             args.append('--elabuhdm')
         elif p == '-fileunit':
             fileunit = True
+        elif p == '-sverilog':
+            # Not a no-op on the database: without it Surelog lexes a root
+            # file that is not `.sv` in Verilog mode, and slang-uhdm models
+            # that lexer (§ svModeAllFiles188 in uhdm_main.cpp). The flag
+            # tells slang-uhdm that Surelog read every file as SystemVerilog.
+            args.append('--sverilog')
         elif p == '-synth':
             args.append('--synth')
         elif p == '-formal':
@@ -737,7 +779,12 @@ def run_one(name, dirpath, parts, modes, workroot, timeout):
         # default is one compilation unit, so slang needs --single-unit to match
         # that default, and Surelog's default also parses its builtin classes.
         loc, sl_only = location_args(parts)
-        su = [LOCATION_RENAME.get(a, a) for a in loc] + list(sources) + ['--single-unit']
+        # Surelog's parse-mode switch `-sverilog` reaches slang-uhdm as
+        # `--sverilog`: the golden is built with it, so slang-uhdm must not
+        # model the Verilog-mode lexer for that test.
+        su_mode = ['--sverilog'] if '-sverilog' in sl_only else []
+        su = (su_mode + [LOCATION_RENAME.get(a, a) for a in loc] + list(sources) +
+              ['--single-unit'])
         results.append(compare(name, 'default', dirpath,
                                ['-parse'] + precompiled_guard(sources) +
                                loc + sl_only + sources, su,

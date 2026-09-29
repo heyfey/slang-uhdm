@@ -67,7 +67,7 @@ def cache_dir(rel):
                     src.update(os.path.relpath(os.path.join(dp, fn), d).encode() + b'\0' + f.read() + b'\0')
     key = hashlib.sha1('\0'.join([_IDENTITY, 'tests/probe/' + rel] + SL_ARGS[:5] + [src.hexdigest()])
                        .encode()).hexdigest()[:20]
-    return os.path.join(vg.CACHE_ROOT, key)
+    return os.path.join(vg.cache_base(), key)
 
 
 def golden(rel, workdir, timeout):
