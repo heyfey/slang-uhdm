@@ -1,0 +1,18 @@
+// § tfArgAliasDefListFollowsElab231 — a package function writer before the class
+package p;
+  typedef enum {ARB_FIFO, ARB_WEIGHTED, ARB_RANDOM} arb_mode;
+  typedef arb_mode ARB_TYPE;
+  function automatic int pf(ARB_TYPE v);
+    return int'(v);
+  endfunction
+  virtual class seqb;
+    extern function void set_arbitration(ARB_TYPE val);
+  endclass
+  function void seqb::set_arbitration(ARB_TYPE val);
+  endfunction
+endpackage
+package q;
+  import p::*;
+endpackage
+module top;
+endmodule

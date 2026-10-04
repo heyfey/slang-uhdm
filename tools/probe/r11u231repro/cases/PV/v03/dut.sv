@@ -1,0 +1,7 @@
+// § pureVirtRetAtTypeToken231 — the $unit shape
+typedef enum { UNKNOWN_ACTION, THROW, CAUGHT} action_e;
+virtual class rc;
+  pure virtual function action_e catch();
+endclass
+module top;
+endmodule

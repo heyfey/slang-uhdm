@@ -1,0 +1,9 @@
+module flash_ctrl(output logic [3:0] o);
+  localparam int MpRegions = 8;
+  typedef struct packed { struct packed { logic [3:0] q; } base; struct packed { logic [3:0] q; } size; } cfg_t;
+  cfg_t [MpRegions:0] region_cfgs;
+  assign region_cfgs[MpRegions-1:0] = '0;
+  assign region_cfgs[MpRegions].base.q = '0;
+  assign region_cfgs[MpRegions].size.q = {4{1'b1}};
+  assign o = region_cfgs[MpRegions].base.q;
+endmodule

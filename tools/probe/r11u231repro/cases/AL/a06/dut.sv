@@ -1,0 +1,16 @@
+// § tfArgAliasDefListFollowsElab231 — alias depth 2 (a residue: stage 1 on another record)
+package p;
+  typedef enum {ARB_FIFO, ARB_WEIGHTED, ARB_RANDOM} arb_mode;
+  typedef arb_mode ARB_TYPE;
+  typedef ARB_TYPE ARB_T2;
+  virtual class seqb;
+    extern function void set_arbitration(ARB_T2 val);
+  endclass
+  function void seqb::set_arbitration(ARB_T2 val);
+  endfunction
+endpackage
+package q;
+  import p::*;
+endpackage
+module top;
+endmodule

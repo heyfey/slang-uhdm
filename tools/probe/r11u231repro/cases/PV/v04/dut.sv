@@ -1,0 +1,14 @@
+// § pureVirtRetAtTypeToken231 — struct, vector and int returns, a pure virtual task
+package p;
+  typedef enum { UNKNOWN_ACTION, THROW, CAUGHT} action_e;
+  typedef struct packed {logic a;} s_t;
+  typedef logic [3:0] v_t;
+  virtual class rc;
+    pure virtual function s_t cs();
+    pure virtual function v_t cv();
+    pure virtual function int ci();
+    pure virtual task t(action_e a);
+  endclass
+endpackage
+module top;
+endmodule

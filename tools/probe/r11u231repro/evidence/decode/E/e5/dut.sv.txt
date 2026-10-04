@@ -1,0 +1,11 @@
+module arb #(parameter int N = 4, parameter int DW = 8) (
+  input clk_i,
+  input        [ N-1:0]        req_i,
+  input        [DW-1:0]        data_i [N],
+  output logic [ N-1:0]        gnt_o
+);
+  assign gnt_o = req_i;
+endmodule
+module top(input clk, input [3:0] r, input [7:0] d [4], output [3:0] g);
+  arb #(.N(4), .DW(8)) u (.clk_i(clk), .req_i(r), .data_i(d), .gnt_o(g));
+endmodule

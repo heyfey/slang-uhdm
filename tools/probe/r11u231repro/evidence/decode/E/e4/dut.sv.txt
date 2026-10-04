@@ -1,0 +1,9 @@
+package fp;
+  parameter int MpRegions = 8;
+endpackage
+module flash_ctrl import fp::*; (output logic [3:0] o);
+  typedef struct packed { logic [3:0] q; } cfg_t;
+  cfg_t [MpRegions:0] region_cfgs;
+  assign region_cfgs[MpRegions].q = '0;
+  assign o = region_cfgs[MpRegions].q;
+endmodule

@@ -1,0 +1,12 @@
+package p;
+  typedef real r_t;
+  typedef string s_t;
+  typedef time t_t;
+endpackage
+module top(output int o);
+  import p::*;
+  function automatic int g(r_t a, s_t b, t_t c);
+    return 0;
+  endfunction
+  assign o = g(1.0, "x", 5);
+endmodule

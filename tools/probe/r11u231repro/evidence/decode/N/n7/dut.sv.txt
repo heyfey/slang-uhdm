@@ -1,0 +1,8 @@
+package p;
+  typedef enum { UNKNOWN_ACTION, THROW, CAUGHT} action_e;
+  function automatic action_e f();
+    return THROW;
+  endfunction
+endpackage
+module top;
+endmodule

@@ -1,0 +1,10 @@
+virtual class rc;
+  typedef enum { UNKNOWN_ACTION, THROW, CAUGHT} action_e;
+  pure virtual function action_e catch();
+  extern function action_e other();
+endclass
+function rc::action_e rc::other();
+  return THROW;
+endfunction
+module top;
+endmodule

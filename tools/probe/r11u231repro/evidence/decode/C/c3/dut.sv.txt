@@ -1,0 +1,16 @@
+package p;
+  virtual class proxy #(type S=int);
+    pure virtual function void get(S s);
+  endclass
+  class adapter #(type S=int);
+    proxy#(S) m;
+    virtual function void accept(proxy#(S) px);
+      proxy#(S) loc;
+    endfunction
+    extern function void acc2(proxy #( S ) px);
+  endclass
+  function void adapter::acc2(proxy #( S ) px);
+  endfunction
+endpackage
+module top;
+endmodule

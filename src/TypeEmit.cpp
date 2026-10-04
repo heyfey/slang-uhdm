@@ -17,6 +17,7 @@
 #include "R223.h"
 #include "R225.h"
 #include "R228.h"
+#include "R231.h"
 #include "R233.h"
 #include "slang/ast/ASTVisitor.h"
 
@@ -3908,6 +3909,39 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             trace202("modSpecValueArgSpanAtName202",
                                      std::string(declSymbol.name));
                         }
+                // § tfArgClassSpecNameSpan231 (r11u231, Scoreboard d's and
+                // BuildUVMPkg d/t's next record after this_type:
+                // `accept(STRUCTURE s, VISITOR v,uvm_structure_proxy#(STRUCTURE)
+                // p, ...)`, golden uvm_traversal.svh 152:54-152:73 where ours
+                // spanned the whole `uvm_structure_proxy#(STRUCTURE)` to 85) —
+                // a subroutine formal written WITHOUT a direction keyword as
+                // an unscoped class specialization `C#(...)` locates its
+                // class_typespec at the class NAME token: compileTfPortList
+                // populates the formal's typespec at its data type node, and
+                // with no direction that node is the class name (with a
+                // direction, the whole `C#(...)`, as ours already reads:
+                // golden `task t(input proxy#(byte) tx)` 11:18-11:30).  The
+                // same split as § tfArgQualOutsideWriter176's qualified
+                // writer.  Grid tools/probe/r11u231repro/cases/CS.  Switch
+                // R11U231_CLSSPECNAME_OFF.
+                if (declSymbol.kind == SymbolKind::FormalArgument &&
+                    r11u231Law("R11U231_CLSSPECNAME_OFF"))
+                    if (auto* ntF231 = tsyn0->as_if<syntax::NamedTypeSyntax>();
+                        ntF231 && ntF231->name &&
+                        ntF231->name->kind == syntax::SyntaxKind::ClassName &&
+                        ntF231->name->as<syntax::ClassNameSyntax>().parameters)
+                        for (auto* q231 = declSymbol.getSyntax(); q231; q231 = q231->parent)
+                            if (q231->kind == syntax::SyntaxKind::FunctionPort) {
+                                auto& fp231 = q231->as<syntax::FunctionPortSyntax>();
+                                if (!fp231.direction && !fp231.constKeyword &&
+                                    !fp231.varKeyword && !fp231.staticKeyword) {
+                                    setLoc(cts, ntF231->name->as<syntax::ClassNameSyntax>()
+                                                    .identifier.range());
+                                    tr231("tfArgClassSpecNameSpan231",
+                                          std::string(declSymbol.name));
+                                }
+                                break;
+                            }
                 // A SCOPED class reference (pack::doorOpen) is named by the
                 // WRITTEN text and located at the class_scope prefix Surelog
                 // collects the node from (`pack::`).

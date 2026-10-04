@@ -1,0 +1,12 @@
+// § tfArgClassSpecNameSpan231 — uvm_visitor_adapter::accept's `uvm_structure_proxy#(STRUCTURE) p` formal
+package p;
+  virtual class proxy #(type S=int);
+    pure virtual function void get(S s);
+  endclass
+  class adapter #(type S=int, V=int);
+    virtual function void accept(S s, V v, proxy#(S) px, bit b=1);
+    endfunction
+  endclass
+endpackage
+module top;
+endmodule

@@ -1,0 +1,42 @@
+169,170c169,170
+< BuildUVMPkg,default,STRICT_NOTEQUAL,differ:line(14),,differ:line(14)
+< BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:line(14),,differ:line(14)
+---
+> BuildUVMPkg,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+> BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+379,380c379,380
+< Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(19),,differ:fullname(19)
+< Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(19),,differ:fullname(19)
+---
+> Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(18),,differ:fullname(18)
+> Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(18),,differ:fullname(18)
+844c844
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u231_wP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u231_wL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+846c846
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u231_wP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u231_wL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+857,858c857,858
+< MiniAmiq,default,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+< MiniAmiq,testflags,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+---
+> MiniAmiq,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+> MiniAmiq,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+1202c1202
+< Scoreboard,default,STRICT_NOTEQUAL,differ:file(12),,differ:file(12)
+---
+> Scoreboard,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+1214,1215c1214,1215
+< SeqDriver,default,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+< SeqDriver,testflags,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+---
+> SeqDriver,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+> SeqDriver,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+1258,1259c1258,1259
+< SimpleUVM,default,STRICT_NOTEQUAL,differ:file(36),,differ:file(36)
+< SimpleUVM,testflags,STRICT_NOTEQUAL,differ:file(36),,differ:file(36)
+---
+> SimpleUVM,default,STRICT_NOTEQUAL,differ:fullname(28),,differ:fullname(28)
+> SimpleUVM,testflags,STRICT_NOTEQUAL,differ:fullname(28),,differ:fullname(28)

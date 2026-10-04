@@ -188,7 +188,7 @@ r10earl_repro/jj,EQUAL,,equal
 r10earl_repro/l,EQUAL,,equal
 r10earl_repro/ll,EQUAL,,equal
 r10earl_repro/mm,EQUAL,,equal
-r10earl_repro/nn,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
+r10earl_repro/nn,EQUAL,,equal
 r10earl_repro/o,EQUAL,,equal
 r10earl_repro/oo,EQUAL,,equal
 r10earl_repro/p,EQUAL,,equal
@@ -807,7 +807,7 @@ r10uvm203repro/g203_c_mult,EQUAL,,equal
 r10uvm203repro/g203_e_ctl,EQUAL,,equal
 r10uvm204repro/g204_b_ctx,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
 r10uvm204repro/g204_c_shadow,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
-r10uvm204repro/g204_e_head,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
+r10uvm204repro/g204_e_head,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
 r10uvm206repro/g206_a_selftd,EQUAL,,equal
 r10uvm206repro/g206_b_dedup,EQUAL,,equal
 r10uvm206repro/g206_e_two,EQUAL,,equal

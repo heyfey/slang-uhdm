@@ -1,0 +1,35 @@
+== default/MiniAmiq: STRICT_NOTEQUAL fullname
+#64390 fullname
+  A: 5	ref_typespec			svaunit_pkg::uvm_revision_string		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg		0	0	0	0		0		
+#64612 depth
+  A: 7	int_var	_byte		uvm_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	12	378	17		0		
+  B: 5	operation				uvm_misc.svh	378	21	378	44		0		
+== default/SeqDriver: STRICT_NOTEQUAL fullname
+#64346 fullname
+  A: 5	ref_typespec			adpcm_pkg::uvm_revision_string		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg		0	0	0	0		0		
+#64568 depth
+  A: 7	int_var	_byte		uvm_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	12	378	17		0		
+  B: 5	operation				uvm_misc.svh	378	21	378	44		0		
+== default/SimpleUVM: STRICT_NOTEQUAL fullname
+#63750 fullname
+  A: 4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  B: 4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+--
+#63753 fullname
+  A: 4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+== default/Scoreboard: STRICT_NOTEQUAL fullname
+#70486 fullname
+  A: 6	ref_typespec			<in>this_type		0	0	0	0		0		
+  B: 6	ref_typespec			<in>this_type		0	0	0	0		0		
+--
+#71485 fullname
+  A: 7	ref_typespec			<in>this_user_type		0	0	0	0		0		
+== default/BuildUVMPkg: STRICT_NOTEQUAL fullname
+#71346 fullname
+  A: 6	ref_typespec			<in>this_type		0	0	0	0		0		
+  B: 6	ref_typespec			<in>this_type		0	0	0	0		0		
+--
+#72461 fullname
+  A: 7	ref_typespec			<in>this_user_type		0	0	0	0		0		

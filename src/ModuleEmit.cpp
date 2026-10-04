@@ -31,6 +31,7 @@
 #include "R221.h"
 #include "R225.h"
 #include "R228.h"
+#include "R231.h"
 #include "R233.h"
 #include "R229.h"
 
@@ -34478,7 +34479,35 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         // going to hold that.
         if (auto tsn9 = pn.sym->getDeclaredType()->getTypeSyntax()) {
             auto er9 = tsn9->sourceRange();
-            if (er9.end() != SourceLocation::NoLocation) {
+            // § deferredPortElemImplicitEnd231 (r11u231, Earlgrey_0_1's
+            // #123519: prim_arbiter_tree.sv `input [DW-1:0] data_i [N],`,
+            // golden 38:16-38:24 where ours read 38:16-38:32) — an IMPLICIT
+            // data type (`input [DW-1:0] x [N]`, no keyword) ends at its last
+            // packed dimension: slang's ImplicitTypeSyntax range runs to its
+            // placeholder token, which sits at the declarator's name, so the
+            // element's end read the name's column.  Grid
+            // tools/probe/r11u231repro/cases/PE.  Switch
+            // R11U231_PORTELEMIMPL_OFF.
+            // The end goes through setLoc's end query (the preprocessor
+            // output model: a macro-written dimension ends at its expansion,
+            // grid PE p05), the start kept as written.
+            bool done231 = false;
+            if (tsn9->kind == syntax::SyntaxKind::ImplicitType &&
+                !tsn9->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                r11u231Law("R11U231_PORTELEMIMPL_OFF")) {
+                auto& dims231 = tsn9->as<syntax::ImplicitTypeSyntax>().dimensions;
+                auto e231 = dims231[dims231.size() - 1]->sourceRange().end();
+                if (e231 != SourceLocation::NoLocation && e231 != er9.end() &&
+                    er9.start() != SourceLocation::NoLocation) {
+                    const uint32_t l231 = ts->VpiLineNo(), c231 = ts->VpiColumnNo();
+                    setLoc(ts, SourceRange(er9.start(), e231));
+                    ts->VpiLineNo(l231);
+                    ts->VpiColumnNo(c231);
+                    done231 = true;
+                    tr231("deferredPortElemImplicitEnd231", std::string(pn.sym->name));
+                }
+            }
+            if (!done231 && er9.end() != SourceLocation::NoLocation) {
                 ts->VpiEndLineNo(sm->getLineNumber(er9.end()));
                 ts->VpiEndColumnNo(sm->getColumnNumber(er9.end()));
             }

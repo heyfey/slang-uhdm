@@ -1,0 +1,13 @@
+package p;
+  typedef enum {ARB_FIFO, ARB_WEIGHTED, ARB_RANDOM} arb_mode;
+  typedef arb_mode ARB_TYPE;
+  virtual class seqb;
+    protected arb_mode m_arbitration = ARB_FIFO;
+    extern function void set_arbitration(ARB_TYPE val);
+  endclass
+  function void seqb::set_arbitration(ARB_TYPE val);
+    m_arbitration = val;
+  endfunction
+endpackage
+module top;
+endmodule

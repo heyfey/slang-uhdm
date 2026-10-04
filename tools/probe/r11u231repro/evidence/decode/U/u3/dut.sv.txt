@@ -1,0 +1,12 @@
+package p;
+`include "glob.svh"
+`include "seqb.svh"
+endpackage
+package q;
+  import p::*;
+  class qc;
+    int x;
+  endclass
+endpackage
+module top;
+endmodule

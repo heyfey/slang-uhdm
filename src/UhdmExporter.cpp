@@ -12,12 +12,14 @@
 #include "R217.h"
 #include "R221.h"
 #include "R223.h"
+#include "R231.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
 // § pkgArrTdElemClone209 deep-clones a struct typespec as Surelog does.
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/clone_tree.h>
+#include <uhdm/VpiListener.h>
 
 namespace slang_uhdm {
 
@@ -11287,6 +11289,23 @@ static UHDM::param_assign* designImportPaCopy146(UHDM::Serializer& s,
     return cp;
 }
 
+namespace {
+// § topPkgTdDefWalkKeepsDef231's walk: Surelog's ReInstanceTypespec listener
+// (UhdmWriter.cpp) visits every object under a root and re-instances each
+// typespec but the event, import and type-parameter kinds.
+class DefWalk231 : public UHDM::VpiListener {
+public:
+    std::vector<const UHDM::any*> reached;
+    void leaveAny(const UHDM::any* o, vpiHandle) final {
+        if (dynamic_cast<const UHDM::typespec*>(o) &&
+            o->UhdmType() != UHDM::uhdmevent_typespec &&
+            o->UhdmType() != UHDM::uhdmimport_typespec &&
+            o->UhdmType() != UHDM::uhdmtype_parameter)
+            reached.push_back(o);
+    }
+};
+} // namespace
+
 UHDM::design* UhdmExporter::exportDesign() {
     // § compoundLitWriteBackSat2 — decide the constant-evaluated function
     // bodies' literal values BEFORE anything is emitted, so the def view and
@@ -16838,6 +16857,9 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
             return c;
         };
+        // § tfArgScalarTdCallArgFollows231's record: io_decl -> (the object
+        // the formal held, the formal's own copy).
+        std::map<const UHDM::any*, std::pair<UHDM::typespec*, UHDM::typespec*>> moved231;
         // The registry is read in emission order from static storage
         // (§ formalRegNoHeap223v, src/R223.h; switch R11V223_DETREG_OFF).
         formalTdTok223().forEach([&](auto& ent223) {
@@ -16876,16 +16898,356 @@ UHDM::design* UhdmExporter::exportDesign() {
                 return;
             setLoc(c223, rng223);
             rt223->Actual_typespec(c223);
+            moved231[(const UHDM::any*)io223] = {a223, c223};
             tr223("tfArgScalarTdWriter223",
                   std::string(c223->VpiName()) + " " + std::to_string(a223->VpiLineNo()) +
                       ":" + std::to_string(a223->VpiColumnNo()) + "->" +
                       std::to_string(c223->VpiLineNo()) + ":" +
                       std::to_string(c223->VpiColumnNo()));
         });
+        // § tfArgScalarTdCallArgFollows231 (r11u231, brief item (1d): v11u223
+        // a07, a12, a31) — a call's argument typed by the formal it binds
+        // holds the formal's OWN copy in golden: Surelog stamps an actual
+        // argument with the typespec compileTfPortList built for the formal
+        // (golden a12 `h(a)`: the argument's ref_typespec -> `UVM_FILE`
+        // 7:28-7:36, the per-formal copy under `h`'s io_decl, with its alias
+        // to `p::UVM_FILE`), where ours kept the object the formal held before
+        // § tfArgScalarTdWriter223 gave it its copy (the listing object
+        // `p::UVM_FILE` 3:11, or the bare per-declaration copy).  Every call
+        // (func_call, task_call, method calls) whose callee's formal got a
+        // copy above re-points its argument's typespec from that object (or
+        // its alias target) to the formal's copy.  Grid
+        // tools/probe/r11u231repro/cases/CA.  Switch R11U231_CALLARGTD_OFF.
+        if (!moved231.empty() && r11u231Law("R11U231_CALLARGTD_OFF")) {
+            std::vector<UHDM::any*> calls231;
+            for (auto& kv : s.AllObjects()) {
+                auto* o = (UHDM::any*)kv.first;
+                if (!o)
+                    continue;
+                auto k = o->UhdmType();
+                if (k == UHDM::uhdmfunc_call || k == UHDM::uhdmtask_call ||
+                    k == UHDM::uhdmmethod_func_call || k == UHDM::uhdmmethod_task_call)
+                    calls231.push_back(o);
+            }
+            std::sort(calls231.begin(), calls231.end(),
+                      [](const UHDM::any* a, const UHDM::any* b) {
+                          return a->UhdmId() < b->UhdmId();
+                      });
+            for (auto* o : calls231) {
+                auto* tc = (UHDM::tf_call*)o;
+                const UHDM::task_func* callee = nullptr;
+                switch (o->UhdmType()) {
+                case UHDM::uhdmfunc_call: callee = ((UHDM::func_call*)o)->Function(); break;
+                case UHDM::uhdmtask_call: callee = ((UHDM::task_call*)o)->Task(); break;
+                case UHDM::uhdmmethod_func_call:
+                    callee = ((UHDM::method_func_call*)o)->Function();
+                    break;
+                case UHDM::uhdmmethod_task_call: callee = ((UHDM::method_task_call*)o)->Task(); break;
+                default: break;
+                }
+                if (!callee || !callee->Io_decls() || !tc->Tf_call_args())
+                    continue;
+                auto* ios = callee->Io_decls();
+                auto* args = tc->Tf_call_args();
+                for (size_t i = 0; i < args->size() && i < ios->size(); i++) {
+                    auto mi = moved231.find((const UHDM::any*)(*ios)[i]);
+                    if (mi == moved231.end())
+                        continue;
+                    auto* e = any_cast<UHDM::expr*>((*args)[i]);
+                    auto* rt = e ? (UHDM::ref_typespec*)e->Typespec() : nullptr;
+                    auto* at = rt ? rt->Actual_typespec() : nullptr;
+                    if (!at)
+                        continue;
+                    auto* old = mi->second.first;
+                    auto* tgt = old->Typedef_alias() ? old->Typedef_alias()->Actual_typespec()
+                                                     : nullptr;
+                    if (at != old && at != tgt)
+                        continue;
+                    rt->Actual_typespec(mi->second.second);
+                    tr231("tfArgScalarTdCallArgFollows231",
+                          std::string(callee->VpiName()) + " arg" + std::to_string(i));
+                }
+            }
+        }
     }
 
-    if (!r11u146Law("R11U146_TFARGTD_OFF"))
+    // r11u231's design-final laws, run at every return of the rest of
+    // exportDesign (§ 146's two early returns below included, which the
+    // passes placed before them avoid the same way).
+    auto finish231 = [&]() -> UHDM::design* {
+        // § topPkgTdInstanceTop231 (r11u231, pass 225's residue 1) — a typedef
+        // listed by an ELABORATED package (TopPackages) links its Instance to
+        // that elaborated package in golden: UhdmWriter::writePackage ends its
+        // typespec listing with `for (auto tp : *typespecs) tp->Instance(p);`
+        // (UhdmWriter.cpp), and UhdmWriter::write writes the TopPackages views
+        // before the AllPackages ones, so a typespec both listings hold keeps
+        // the definition package (the later write).  Ours linked the top
+        // listing's objects to the DEFINITION package (the object is minted by
+        // the definition pass and re-listed, or copied with its link):
+        // uhdm-cmp's typespec::Compare follows Instance, so a top-listing
+        // typedef reached before golden's elaborated package is visited
+        // compares that package with our definition package (a class method
+        // formal of an alias-of-enum typedef: tools/probe/r11u225repro
+        // evidence/decode/X_externalias x1).
+        // Design-final: every typespec a TopPackages entry lists whose Instance
+        // is the definition package of the same name, and that the definition
+        // listing does not hold too (a shared object keeps its definition link),
+        // links the elaborated package.  Grid tools/probe/r11u231repro/cases/TI.
+        // Switch R11U231_TOPTDINST_OFF.
+        if (r11u231Law("R11U231_TOPTDINST_OFF") && d->AllPackages() && d->TopPackages()) {
+            std::map<std::string, UHDM::package*> def231;
+            std::set<const UHDM::any*> defListed231;
+            std::map<const UHDM::any*, UHDM::package*> moved231;
+            for (auto* p : *d->AllPackages()) {
+                if (!p)
+                    continue;
+                def231.emplace(std::string(p->VpiName()), p);
+                if (p->Typespecs())
+                    for (auto* t : *p->Typespecs())
+                        defListed231.insert(t);
+            }
+            for (auto* tp : *d->TopPackages()) {
+                if (!tp || !tp->Typespecs())
+                    continue;
+                auto di = def231.find(std::string(tp->VpiName()));
+                if (di == def231.end() || di->second == tp)
+                    continue;
+                for (auto* t : *tp->Typespecs()) {
+                    if (!t || t->Instance() != di->second || defListed231.count(t))
+                        continue;
+                    t->Instance(tp);
+                    moved231.emplace(t, di->second);
+                    tr231("topPkgTdInstanceTop231", std::string(t->VpiName()));
+                }
+            }
+            // § topPkgTdDefWalkKeepsDef231 — Surelog writes the definition
+            // packages AFTER the elaborated ones (UhdmWriter::write: TopPackages,
+            // then AllPackages), and writePackage(elaborated=false) runs
+            // reInstanceTypespec (a VpiListener, UhdmWriter.cpp ReInstanceTypespec)
+            // from the definition package's param_assigns and typespec listing:
+            // every typespec it reaches whose Instance names a package already in
+            // AllPackages (written earlier, or this one) is re-pointed to that
+            // definition package.  So a top-listed typedef that the definition
+            // side SHARES (a struct member's `row_t`, reached from the definition
+            // listing's `impl_t`; tests/probe r11u111repro grid/f3
+            // t12_pat_row_dims_member) keeps the definition link in golden.  The
+            // same walk over our definition packages undoes the move above for
+            // every object it reaches under that order test.  Switch
+            // R11U231_DEFWALK_OFF.
+            if (!moved231.empty() && r11u231Law("R11U231_DEFWALK_OFF")) {
+                std::set<std::string> seen231;
+                for (auto* p : *d->AllPackages()) {
+                    if (!p)
+                        continue;
+                    seen231.insert(std::string(p->VpiName()));
+                    std::vector<const UHDM::any*> roots231;
+                    if (p->Param_assigns())
+                        for (auto* x : *p->Param_assigns())
+                            roots231.push_back(x);
+                    if (p->Typespecs())
+                        for (auto* x : *p->Typespecs())
+                            roots231.push_back(x);
+                    for (auto* r : roots231) {
+                        if (!r)
+                            continue;
+                        DefWalk231 w231;
+                        vpiHandle h231 = s.MakeUhdmHandle(r->UhdmType(), r);
+                        w231.listenAny(h231);
+                        vpi_release_handle(h231);
+                        for (auto* o : w231.reached) {
+                            auto mi = moved231.find(o);
+                            if (mi == moved231.end())
+                                continue;
+                            auto* t = (UHDM::typespec*)o;
+                            if (!t->Instance() ||
+                                !seen231.count(std::string(t->Instance()->VpiName())))
+                                continue;
+                            t->Instance((UHDM::instance*)mi->second);
+                            moved231.erase(mi);
+                            tr231("topPkgTdDefWalkKeepsDef231", std::string(t->VpiName()));
+                        }
+                    }
+                }
+            }
+        }
+        // § cloneAliasTargetOwnCopy231 (r11u231, the next record of the
+        // UVM_SEQ_ARB_TYPE face once § tfArgAliasDefListFollowsElab231 lands) —
+        // the importer clone's bare copy of an alias-of-alias formal
+        // (§ cloneAliasFormalOwnChain214) aliases a COPY of the aliased enum in
+        // golden, parented at the alias ref and linked to the home ELABORATED
+        // package, measured (golden `ARB_TYPE` 9:39 -> `p::arb_mode` 2:3-2:62
+        // with Instance the elaborated `p`; the clone's chain is minted while
+        // the home package's elaborated compile owns the enum — the minting
+        // call is not traced in Surelog's source), where ours shared the
+        // listing object, whose Instance golden and
+        // ours both read as the importer's definition package (grid
+        // tools/probe/r11u231repro/cases/AL: uhdm-cmp's typespec::Compare
+        // reaches that Instance and compared golden's `p` with our `q`).
+        // Design-final: each recorded alias ref whose actual is a named enum
+        // typespec of a package takes a clone_tree copy (the adjuster's
+        // ElaboratorContext, errors muted) parented at the ref, with Instance the
+        // TopPackages entry of that package.  Switch R11U231_CLONEALIASCOPY_OFF.
+        if (r11u231Law("R11U231_CLONEALIASCOPY_OFF") && d->TopPackages()) {
+            std::map<std::string, UHDM::package*> top231;
+            for (auto* p : *d->TopPackages())
+                if (p)
+                    top231.emplace(std::string(p->VpiName()), p);
+            for (void* v : r231CloneAliasRefs()) {
+                auto* rt = (UHDM::ref_typespec*)v;
+                auto* tg = rt ? rt->Actual_typespec() : nullptr;
+                if (!tg || tg->UhdmType() != UHDM::uhdmenum_typespec || tg->VpiParent() == rt)
+                    continue;
+                std::string tn(tg->VpiName());
+                auto c = tn.find("::");
+                if (c == std::string::npos)
+                    continue;
+                auto ti = top231.find(tn.substr(0, c));
+                if (ti == top231.end())
+                    continue;
+                UHDM::ElaboratorContext ctx231(&s, false, /*muteErrors=*/true);
+                auto* cl = (UHDM::typespec*)UHDM::clone_tree((UHDM::any*)tg, &ctx231);
+                if (!cl || cl->UhdmType() != tg->UhdmType())
+                    continue;
+                cl->VpiParent(rt);
+                cl->Instance(ti->second);
+                rt->Actual_typespec(cl);
+                tr231("cloneAliasTargetOwnCopy231", tn);
+            }
+        }
+        r231CloneAliasRefs().clear();
+        // § oobClassTdFirstClassKey231 (r11u231, the first record of SimpleUVM
+        // d/t, Scoreboard d and BuildUVMPkg d/t: `this_type` in
+        // `function bit uvm_sequence_library::m_check(uvm_object_wrapper
+        // seq_type, this_type lib);`, golden the class_typespec of
+        // uvm_algorithmic_comparator.svh 74:11, ours uvm_sequence_library's own
+        // 330:12) — an OUT-OF-BODY definition's formal written as the bare name
+        // of a CLASS-scoped typedef binds, in golden, the typedef of that name of
+        // the class whose class-definition key sorts first, not the method's own
+        // class: the definition is compiled with its package as the component
+        // (CompileHelper::compileDatastructureTypespec, CompileType.cpp), where a
+        // class-scoped name is found only by the design-wide lookups, and the
+        // class typedefs are registered in the order of Design's class-definition
+        // multimap (key `<package>::<class>`, `work@<class>` for a compilation-unit
+        // class; the order § tfArgOutsideClassKeyOrder216v and
+        // § classNestedClassTdGroupNoAnchor54 transcribe).  Golden grid
+        // tools/probe/r11u231repro/cases/OT: the method's class first or last in
+        // the file, parameterized or not, the typedef in two and three classes;
+        // pass 225's decode cases (evidence/decode/T_oobthistype) all named the
+        // method's class `a`, the first key, which read as "the own class".
+        // Design-final: each recorded formal whose typespec is still its own
+        // class's typedef object binds the first-key class's typedef object of
+        // the same name.  Switch R11U231_OOBCLSTD_OFF.
+        if (r11u231Law("R11U231_OOBCLSTD_OFF") && !r231OobClassTdRefs().empty()) {
+            auto key231 = [](const TypeAliasType& ta) -> std::string {
+                const Scope* sc = ta.getParentScope();
+                const Symbol* outer = nullptr;
+                for (; sc; sc = sc->asSymbol().getParentScope()) {
+                    auto& sy = sc->asSymbol();
+                    if (sy.kind == SymbolKind::ClassType)
+                        outer = &sy;
+                    else
+                        break;
+                }
+                if (!outer || !sc)
+                    return {};
+                auto& up = sc->asSymbol();
+                std::string k;
+                if (up.kind == SymbolKind::Package)
+                    k = std::string(up.name) + "::";
+                else if (up.kind == SymbolKind::CompilationUnit)
+                    k = "work@";
+                else
+                    return {};
+                return k + std::string(outer->name);
+            };
+            std::map<std::string, std::vector<std::pair<std::string, const TypeAliasType*>>> byName231;
+            for (auto& [sym, ts] : typedefTs) {
+                if (!sym || !ts || sym->kind != SymbolKind::TypeAlias)
+                    continue;
+                auto& ta = sym->as<TypeAliasType>();
+                auto* ps = ta.getParentScope();
+                if (!ps || ps->asSymbol().kind != SymbolKind::ClassType)
+                    continue;
+                std::string k = key231(ta);
+                if (!k.empty())
+                    byName231[std::string(ta.name)].emplace_back(k, &ta);
+            }
+            for (auto& [rtv, tname] : r231OobClassTdRefs()) {
+                auto* rt = (UHDM::ref_typespec*)rtv;
+                auto bi = byName231.find(tname);
+                if (!rt || bi == byName231.end() || bi->second.size() < 2)
+                    continue;
+                // The class typedef the formal holds now (its own class's).
+                // The formal may hold a copy of that object (same kind, name
+                // and span) rather than the object itself.
+                const TypeAliasType* own = nullptr;
+                auto* act231 = rt->Actual_typespec();
+                for (auto& [k, ta] : bi->second)
+                    if (auto oi = typedefTs.find((const Symbol*)ta);
+                        oi != typedefTs.end() && oi->second && act231 &&
+                        (oi->second == act231 ||
+                         (oi->second->UhdmType() == act231->UhdmType() &&
+                          oi->second->VpiName() == act231->VpiName() &&
+                          oi->second->VpiFile() == act231->VpiFile() &&
+                          oi->second->VpiLineNo() == act231->VpiLineNo() &&
+                          oi->second->VpiColumnNo() == act231->VpiColumnNo())))
+                        own = ta;
+                // A compilation-unit class's definition is not modelled:
+                // golden writes an unsupported_typespec at the formal there
+                // (grid OT t07).
+                if (!own || key231(*own).rfind("work@", 0) == 0)
+                    continue;
+                const TypeAliasType* win = nullptr;
+                std::string wk;
+                bool tie = false;
+                // Two symbols of one class key (the generic class and a
+                // specialization) are one typedef when their objects share a
+                // span; a real tie (two spans) is left alone.
+                auto sameTs231 = [&](const TypeAliasType* x, const TypeAliasType* y) {
+                    auto xi = typedefTs.find((const Symbol*)x);
+                    auto yi = typedefTs.find((const Symbol*)y);
+                    if (xi == typedefTs.end() || yi == typedefTs.end() || !xi->second ||
+                        !yi->second)
+                        return false;
+                    auto* a = xi->second;
+                    auto* b = yi->second;
+                    return a == b || (a->VpiFile() == b->VpiFile() &&
+                                      a->VpiLineNo() == b->VpiLineNo() &&
+                                      a->VpiColumnNo() == b->VpiColumnNo());
+                };
+                // Deterministic among one key's symbols: the typespec object
+                // with the smallest id (typedefTs iterates in address order).
+                auto tsId231 = [&](const TypeAliasType* x) -> uint32_t {
+                    auto xi = typedefTs.find((const Symbol*)x);
+                    return xi != typedefTs.end() && xi->second ? xi->second->UhdmId() : 0;
+                };
+                for (auto& [k, ta] : bi->second) {
+                    if (!win || k < wk) {
+                        win = ta;
+                        wk = k;
+                        tie = false;
+                    }
+                    else if (k == wk && ta != win) {
+                        if (!sameTs231(ta, win))
+                            tie = true;
+                        else if (tsId231(ta) < tsId231(win))
+                            win = ta;
+                    }
+                }
+                if (!win || tie || win == own || sameTs231(win, own))
+                    continue;
+                auto wi = typedefTs.find((const Symbol*)win);
+                if (wi == typedefTs.end() || !wi->second)
+                    continue;
+                rt->Actual_typespec(wi->second);
+                tr231("oobClassTdFirstClassKey231", tname + " -> " + wk);
+            }
+        }
+        r231OobClassTdRefs().clear();
         return d;
+    };
+    if (!r11u146Law("R11U146_TFARGTD_OFF"))
+        return finish231();
     // § tfArgQualOutsideWriter176 (r11u176) — a PACKAGE-QUALIFIED argument
     // type (`ibex_pkg::pmp_cfg_t region_csr_pmp_cfg`) is a writer like a bare
     // name: compileTfPortList runs the same populateCoreMembers(type, type,
@@ -16951,7 +17313,7 @@ UHDM::design* UhdmExporter::exportDesign() {
             v.push_back(sym);
     }
     if (byName.empty())
-        return d;
+        return finish231();
     struct Writer {
         const Symbol* td;
         SourceRange tok;
@@ -17095,6 +17457,73 @@ UHDM::design* UhdmExporter::exportDesign() {
                                 bi != byName.end())
                                 for (auto* t : bi->second)
                                     poisoned.insert(t);
+                    }
+                    // § tfArgTypeParamDefaultWriter231 (r11u231, MiniAmiq's
+                    // next record after the UVM_SEQ_ARB_TYPE laws:
+                    // `uvm_active_passive_enum` in the elaborated uvm_pkg
+                    // reads uvm_globals.svh 532:52-53, the `T` of
+                    // `from_name(string name, ref T value)` in
+                    // `class uvm_enum_wrapper#(type T=uvm_active_passive_enum)`)
+                    // — a class method formal written as a bare TYPE
+                    // PARAMETER name of its class writes the typedef that
+                    // parameter DEFAULTS to: Surelog compiles the class
+                    // definition with every type parameter bound to its
+                    // default, so compileTfPortList's typespec for `T` is the
+                    // enum typedef's own object and populateCoreMembers(type,
+                    // type, ts) places it at the `T` token.  The writer joins
+                    // § tfArgClassMethodOrder176's class writers (the
+                    // elaborated package's object; the definition listing
+                    // keeps its span): golden grid
+                    // tools/probe/r11u231repro/cases/TP.  A default that is
+                    // not a bare typedef name is not modelled.  Switch
+                    // R11U231_TPDEFWRITER_OFF.
+                    if (!tname.empty() && cls && byName.find(tname) == byName.end() &&
+                        r11u231Law("R11U231_TPDEFWRITER_OFF")) {
+                        // Only the formal's own class: a nested class's
+                        // method reading an OUTER class's type parameter
+                        // does not write the typedef in golden (grid TP p10).
+                        std::string def231;
+                        for (const syntax::SyntaxNode* c231 = cls; c231 && def231.empty();
+                             c231 = nullptr) {
+                            if (c231->kind != syntax::SyntaxKind::ClassDeclaration)
+                                continue;
+                            auto* pl231 = c231->as<syntax::ClassDeclarationSyntax>().parameters;
+                            if (!pl231)
+                                continue;
+                            bool found231 = false;
+                            for (auto* pd : pl231->declarations) {
+                                if (pd->kind != syntax::SyntaxKind::TypeParameterDeclaration)
+                                    continue;
+                                for (auto* ta : pd->as<syntax::TypeParameterDeclarationSyntax>()
+                                                    .declarators) {
+                                    if (ta->name.valueText() != tname)
+                                        continue;
+                                    found231 = true;
+                                    if (ta->assignment && ta->assignment->type &&
+                                        ta->assignment->type->kind ==
+                                            syntax::SyntaxKind::NamedType) {
+                                        auto& dn = *ta->assignment->type
+                                                        ->as<syntax::NamedTypeSyntax>()
+                                                        .name;
+                                        if (dn.kind == syntax::SyntaxKind::IdentifierName)
+                                            def231 = std::string(
+                                                dn.as<syntax::IdentifierNameSyntax>()
+                                                    .identifier.valueText());
+                                    }
+                                }
+                            }
+                            if (found231)
+                                break;  // the innermost class declaring it
+                        }
+                        if (!def231.empty())
+                            if (auto bi = byName.find(def231);
+                                bi != byName.end() && bi->second.size() == 1) {
+                                auto* td = bi->second.front();
+                                writers[td].push_back(
+                                    {td, tok, cls, unit, cls, ++seq176});
+                                tr231("tfArgTypeParamDefaultWriter231",
+                                      std::string(td->name) + " via " + tname);
+                            }
                     }
                     if (!tname.empty())
                         if (auto bi = byName.find(tname); bi != byName.end()) {
@@ -17642,7 +18071,17 @@ UHDM::design* UhdmExporter::exportDesign() {
             // R11U216_TFIMPCLONE_OFF.
             std::string dn216, df216;
             uint32_t d0l = 0, d0c = 0, d1l = 0, d1c = 0;
-            if (outCls216 && defTs && lastPkg176) {
+            // § tfArgImportCloneFollowsIn231 (r11u231) — the importer's
+            // clone follows the definition listing's moved span for writers
+            // INSIDE the typedef's package too (the class method order of
+            // § tfArgClassMethodOrder176 without an outside class): golden
+            // `q::seqb::set_arbitration`'s formal, the clone `q` holds of
+            // `p`'s out-of-body definition, reads the definition's type token
+            // 7:39 where ours kept the declaration 2:3 (grid
+            // tools/probe/r11u231repro/cases/AO).  Switch
+            // R11U231_CLONEIN_OFF.
+            const bool in231 = !outCls216 && r11u231Law("R11U231_CLONEIN_OFF");
+            if ((outCls216 || in231) && defTs && lastPkg176) {
                 dn216 = std::string(defTs->VpiName());
                 df216 = std::string(defTs->VpiFile());
                 d0l = defTs->VpiLineNo();
@@ -17702,9 +18141,68 @@ UHDM::design* UhdmExporter::exportDesign() {
                     if (cnt.first == 0 || cnt.second != 0)
                         continue;
                     applyW(et, lastPkg176);
+                    if (in231)
+                        tr231("tfArgImportCloneFollowsIn231", dn216);
                     trace216("tfArgImportCloneFollows216",
                              dn216 + " refs=" + std::to_string(cnt.first));
                 }
+            }
+            // § tfArgAliasDefListFollowsElab231 (r11u231, the first record of
+            // MiniAmiq d/t and SeqDriver d/t: `uvm_sequencer_base::
+            // set_arbitration(UVM_SEQ_ARB_TYPE val)`) — an enum typedef ALIAS
+            // (`typedef uvm_sequencer_arb_mode UVM_SEQ_ARB_TYPE;`) has no
+            // object of its own in the definition listing (the alias clone is
+            // listed by the elaborated package only, ParamEmit's alias
+            // branch), so the definition package's own subroutines, the
+            // out-of-body `C::m` definitions among them, bind the ONE object
+            // the class writers move: golden's formal and return type read
+            // the prototype's token (uvm_sequencer_base.svh 332:40, not the
+            // definition's 1381:51) with the alias expanding to the enum.
+            // Ours held a second object for the definition side when the
+            // package is imported by another package, moved by the last
+            // package writer and aliased to nothing.  The definition
+            // package's subroutines' formals and return variables that bind
+            // that object bind the elaborated one.  Grid
+            // tools/probe/r11u231repro/cases/AL.  Switch
+            // R11U231_ALIASDEFLIST_OFF.
+            // (an alias of an enum typedef of the SAME scope: an alias of
+            // another package's enum, `typedef p0::arb_mode ARB_TYPE;`, is
+            // not this shape, grid AL a11)
+            if (defTs && topTs && defTs != topTs && lastCls176 &&
+                td->kind == SymbolKind::TypeAlias &&
+                td->as<TypeAliasType>().targetType.getType().kind == SymbolKind::TypeAlias &&
+                td->as<TypeAliasType>().targetType.getType().as<TypeAliasType>().getParentScope() ==
+                    td->getParentScope() &&
+                r11u231Law("R11U231_ALIASDEFLIST_OFF")) {
+                std::string_view own231;
+                if (auto* ps = td->getParentScope())
+                    own231 = ps->asSymbol().name;
+                UHDM::package* defP231 = nullptr;
+                if (d->AllPackages())
+                    for (auto* p : *d->AllPackages())
+                        if (p && p->VpiName() == own231)
+                            defP231 = p;
+                int n231 = 0;
+                auto rep231 = [&](UHDM::ref_typespec* rt) {
+                    if (rt && rt->Actual_typespec() == defTs) {
+                        rt->Actual_typespec(topTs);
+                        ++n231;
+                    }
+                };
+                if (defP231 && defP231->Task_funcs())
+                    for (auto* tf : *defP231->Task_funcs()) {
+                        if (!tf)
+                            continue;
+                        if (tf->Io_decls())
+                            for (auto* io : *tf->Io_decls())
+                                if (io)
+                                    rep231(io->Typespec());
+                        if (auto* rv = tf->Return())
+                            rep231(rv->Typespec());
+                    }
+                if (n231)
+                    tr231("tfArgAliasDefListFollowsElab231",
+                          std::string(td->name) + " refs=" + std::to_string(n231));
             }
             trace176("CLSMETHODAPPLY", std::string(td->name));
             continue;
@@ -17744,7 +18242,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // every name stamp (laws and decodes at the functions).
     portConnOpLeafChain209(s);
     modportOpOrphanReparent209(s, d);
-    return d;
+    return finish231();
 }
 
 

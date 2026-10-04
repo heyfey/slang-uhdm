@@ -1,0 +1,10 @@
+package p;
+  typedef enum { UNKNOWN_ACTION, THROW, CAUGHT} action_e;
+  virtual class rc;
+    virtual function action_e catch();
+      return THROW;
+    endfunction
+  endclass
+endpackage
+module top;
+endmodule

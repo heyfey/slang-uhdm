@@ -1,0 +1,23 @@
+// § tfArgClassSpecNameSpan231 — package function, class method, task with a direction, prototype and out-of-body definition, module function
+package p;
+  class proxy #(type S=int);
+    S v;
+  endclass
+  function automatic void pf(proxy#(int) a, proxy #( logic ) b);
+  endfunction
+  class adapter;
+    proxy#(int) m;
+    function void f(proxy#(int) px);
+    endfunction
+    task t(input proxy#(byte) tx);
+    endtask
+    extern function void g(proxy#(int) gx);
+  endclass
+  function void adapter::g(proxy#(int) gx);
+  endfunction
+endpackage
+module top;
+  import p::*;
+  function automatic void mf(proxy#(int) ma);
+  endfunction
+endmodule

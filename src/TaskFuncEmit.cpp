@@ -19,6 +19,7 @@
 #include "R204.h"
 #include "R223.h"
 #include "R226.h"
+#include "R231.h"
 
 namespace slang_uhdm {
 
@@ -3512,6 +3513,30 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         prt->Actual_typespec(pts);
                         prv->Typespec(prt);
                         copyLoc(prv, pts);
+                        // § pureVirtRetAtTypeToken231 (r11u231, map 14's
+                        // N0120: the `catch` enum_var of
+                        // `pure virtual function action_e catch();`, nine UVM
+                        // row-modes, golden 29246:25-29246:33 where ours read
+                        // the typedef's declaration 28907:3-28907:58) — the
+                        // prototype's return variable is located at the
+                        // WRITTEN return type (compileVariable's
+                        // populateCoreMembers on the data type node), not at
+                        // the typespec it binds: copyLoc above gave it the
+                        // typedef's own span when the return type names a
+                        // typedef (an alias of a class too: `item_t get2()`
+                        // reads the ref_var at the token, grid PV v06).  Only
+                        // a named return type that is a typedef; a class named
+                        // directly keeps the rule it has.  Grid
+                        // tools/probe/r11u231repro/cases/PV.
+                        // Switch R11U231_PVRETTOK_OFF.
+                        if (prsyn && prsyn->kind == syntax::SyntaxKind::NamedType &&
+                            mp.getReturnType().kind != SymbolKind::ClassType &&
+                            prsyn->sourceRange().start() != SourceLocation::NoLocation &&
+                            r11u231Law("R11U231_PVRETTOK_OFF")) {
+                            setLoc(prv, prsyn->sourceRange());
+                            prv->VpiFile(fullFilePath(prsyn->sourceRange().start()));
+                            tr231("pureVirtRetAtTypeToken231", std::string(mp.name));
+                        }
                     }
                 }
                 ((UHDM::function*)pt)->Return(prv);
@@ -6309,6 +6334,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                     setLoc(acp32, argTsyn->sourceRange());
                                 }
                                 trace214("CLONENAME", std::string(arg->name));
+                                // § cloneAliasTargetOwnCopy231 — recorded for
+                                // the design-final copy (UhdmExporter).
+                                if (ce214->Typedef_alias() &&
+                                    ce214->Typedef_alias()->VpiParent() == acp32)
+                                    r231CloneAliasRefs().push_back(
+                                        (void*)ce214->Typedef_alias());
                             }
                         }
                     }
@@ -6342,6 +6373,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     slot33c = (UHDM::typespec*)ts;
                 }
             io->Typespec(rt);
+            // § oobClassTdFirstClassKey231 — recorded for the design-final
+            // re-point (UhdmExporter; law and decode there): the written
+            // bare name of an out-of-body definition's formal type.
+            if (oob && argTsyn && argTsyn->kind == syntax::SyntaxKind::NamedType &&
+                argTsyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                    syntax::SyntaxKind::IdentifierName)
+                r231OobClassTdRefs().push_back(
+                    {(void*)rt, std::string(argTsyn->as<syntax::NamedTypeSyntax>()
+                                                .name->as<syntax::IdentifierNameSyntax>()
+                                                .identifier.valueText())});
             deferForeignTopTs(*arg, rt, (const UHDM::typespec*)ts);
             emitIoRanges34(*arg, io, fullName + sep + std::string(arg->name),
                            tsInst, !protoOf);

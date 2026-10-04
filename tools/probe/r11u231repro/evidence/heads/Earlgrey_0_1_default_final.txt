@@ -1,0 +1,57 @@
+#106660 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#106674 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#106683 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#106696 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#106709 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#106722 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#119021 fullname
+  A: 7	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 7	ref_typespec			work@flash_ctrl.u_flash_prog_ctrl.op_addr_i		0	0	0	0		0		
+#119454 fullname
+  A: 7	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 7	ref_typespec			work@flash_ctrl.u_flash_rd_ctrl.op_addr_i		0	0	0	0		0		
+#120083 fullname
+  A: 7	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 7	ref_typespec			work@flash_ctrl.u_flash_erase_ctrl.op_addr_i		0	0	0	0		0		
+#121109 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			work@flash_ctrl.u_flash_mp.req_addr_i		0	0	0	0		0		
+#121112 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			work@flash_ctrl.u_flash_mp.req_addr_i		0	0	0	0		0		
+#121121 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			work@flash_ctrl.u_flash_mp.req_bk_i		0	0	0	0		0		
+#121124 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			work@flash_ctrl.u_flash_mp.req_bk_i		0	0	0	0		0		
+#121994 fullname
+  A: 8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.bank	flash_phy.sv	127	73	127	77		0		
+  B: 8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.host_rsp_avail.bank	flash_phy.sv	127	73	127	77		0		
+#122230 col
+  A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9
+  B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+#123586 fullname
+  A: 10	ref_obj	N		work@prim_arbiter_tree.gen_normal_case.N	prim_arbiter_tree.sv	61	48	61	49		0		
+  B: 10	ref_obj	N			prim_arbiter_tree.sv	61	48	61	49		0		
+#123996 fullname
+  A: 10	ref_obj	i		work@flash_phy_rd.gen_bufs.i_rd_buf.alloc_i.i	flash_phy_rd.sv	140	30	140	31		0		
+  B: 10	ref_obj	i		work@flash_phy_rd.gen_bufs.i_rd_buf.alloc_i.alloc.i	flash_phy_rd.sv	140	30	140	31		0		
+#130430 type
+  A: 6	range				hmac_pkg.sv	26	35	26	36				
+  B: 6	ref_typespec			<in>		0	0	0	0		0		
+objects 2173209 vs 2173853
+fields: type=1 fullname=17 file=1 line=1 col=2 endline=1 endcol=1 size=1 objects_differing=18 (walk diverged)
+STRICT_NOTEQUAL fullname

@@ -1,0 +1,20 @@
+package p;
+  typedef enum bit {PASSIVE=0, ACTIVE=1} ap_e;
+  class wrap #(type T=ap_e);
+    protected static T map[string];
+    static function bit from_name(string name, ref T value);
+      return 0;
+    endfunction
+    protected static function void m_init_map();
+      T e = e.first();
+    endfunction
+  endclass
+  class agent;
+    ap_e is_active;
+    function void build();
+      void'(wrap#(ap_e)::from_name("x", is_active));
+    endfunction
+  endclass
+endpackage
+module top;
+endmodule

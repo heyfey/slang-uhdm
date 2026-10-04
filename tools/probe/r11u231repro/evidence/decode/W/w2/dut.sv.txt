@@ -1,0 +1,14 @@
+package p;
+  typedef enum bit {PASSIVE=0, ACTIVE=1} ap_e;
+  class wrap #(type T=int);
+    static function bit from_name(string name, ref T value);
+      return 0;
+    endfunction
+  endclass
+  class agent;
+    ap_e is_active;
+    wrap#(ap_e) w;
+  endclass
+endpackage
+module top;
+endmodule

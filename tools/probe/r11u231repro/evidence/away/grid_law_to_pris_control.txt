@@ -1,0 +1,1280 @@
+AL/a01 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|7|42|7|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a01_el chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|7|42|7|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a02 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||seqb.svh|3|40|3|48|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||glob.svh|1|1|6|12|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||glob.svh|3|3|3|11|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||glob.svh|4|3|4|15|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a02_el chain_lost=12 chain_toward=0 flat_lost=12 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||seqb.svh|3|40|3|48|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||glob.svh|1|1|6|12|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||glob.svh|3|3|3|11|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||glob.svh|4|3|4|15|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a03 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|6|42|6|50|||| @ ref_typespec: < io_decl:a < task:aseq::run < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:a < task:aseq::run < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:a < task:aseq::run < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:a < task:aseq::run < package:p < design:work@top
+AL/a03_el chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|6|42|6|50|||| @ ref_typespec: < io_decl:a < task:aseq::run < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:a < task:aseq::run < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:a < task:aseq::run < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:a < task:aseq::run < package:p < design:work@top
+AL/a04 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|9|42|9|50|||| @ ref_typespec: < io_decl:v < function:pf < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:v < function:pf < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:v < function:pf < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:v < function:pf < package:p < design:work@top
+AL/a04_el chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|9|42|9|50|||| @ ref_typespec: < io_decl:v < function:pf < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:v < function:pf < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:v < function:pf < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:v < function:pf < package:p < design:work@top
+AL/a05 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|7|42|7|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a05_el chain_lost=14 chain_toward=0 flat_lost=14 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|7|42|7|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a06 chain_lost=10 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_T2|||dut.sv|7|42|7|48|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_T2 < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST ref_typespec|||<in>p::ARB_TYPE||0|0|0|0||0|| @ enum_typespec:p::ARB_TYPE < ref_typespec: < enum_typespec:p::ARB_T2 < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < enum_typespec:p::ARB_T2 < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a06_el chain_lost=10 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_T2|||dut.sv|7|42|7|48|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_T2 < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST ref_typespec|||<in>p::ARB_TYPE||0|0|0|0||0|| @ enum_typespec:p::ARB_TYPE < ref_typespec: < enum_typespec:p::ARB_T2 < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < enum_typespec:p::ARB_T2 < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a07 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+AL/a07_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|set_arbitration||p::seqb::set_arbitration|dut.sv|10|3|12|14|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST function|get_arbitration||p::seqb::get_arbitration|dut.sv|13|3|15|14|||| @ module_inst:work@top < design:work@top
+AL/a08 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|7|42|7|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a08_el chain_lost=12 chain_toward=0 flat_lost=12 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|7|42|7|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a09 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|7|42|7|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a09_el chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|7|42|7|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a12 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|7|42|7|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a12_el chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|7|42|7|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a13 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|7|42|7|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a13_el chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|7|42|7|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|3|3|3|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|3|17|3|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|3|27|3|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a14 chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|8|42|8|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|5|3|5|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|5|17|5|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|5|27|5|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AL/a14_el chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_TYPE|||dut.sv|8|42|8|50|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|5|3|5|62|||| @ ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_FIFO|||dut.sv|5|17|5|25|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+  CHAIN_LOST enum_const|ARB_WEIGHTED|||dut.sv|5|27|5|39|||| @ enum_typespec:p::arb_mode < ref_typespec: < enum_typespec:p::ARB_TYPE < ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:p < design:work@top
+AO/o01 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|8|39|8|47|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:q < design:work@top
+AO/o01_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST enum_typespec|p::arb_mode|||dut.sv|8|39|8|47|||| @ ref_typespec: < io_decl:val < function:seqb::set_arbitration < package:q < design:work@top
+AO/o02 chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|12|21|12|24|||| @ ref_typespec: < io_decl:x < function:c1::f < package:q < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|12|21|12|24|||| @ ref_typespec: < io_decl:y < task:c2::t < package:q < design:work@top
+AO/o02_el chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|12|21|12|24|||| @ ref_typespec: < io_decl:x < function:c1::f < package:q < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|12|21|12|24|||| @ ref_typespec: < io_decl:y < task:c2::t < package:q < design:work@top
+AO/o03 chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|9|28|9|31|||| @ ref_typespec: < io_decl:x < function:c1::f < package:q < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|9|28|9|31|||| @ ref_typespec: < io_decl:z < function:g < package:q < design:work@top
+AO/o03_el chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|9|28|9|31|||| @ ref_typespec: < io_decl:x < function:c1::f < package:q < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|9|28|9|31|||| @ ref_typespec: < io_decl:z < function:g < package:q < design:work@top
+AO/o05 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|23|7|26|||| @ ref_typespec: < io_decl:x < function:c1::f < package:q < design:work@top
+AO/o05_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|23|7|26|||| @ ref_typespec: < io_decl:x < function:c1::f < package:q < design:work@top
+  CHAIN_LOST function|f||p::c1::f|dut.sv|7|3|8|14|||| @ module_inst:work@top < design:work@top
+AO/o06 chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|14|7|17|||| @ ref_typespec: < io_decl:x < task:c1::t < package:q1 < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|14|7|17|||| @ ref_typespec: < io_decl:x < task:c1::t < package:q2 < design:work@top
+AO/o06_el chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|14|7|17|||| @ ref_typespec: < io_decl:x < task:c1::t < package:q1 < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|14|7|17|||| @ ref_typespec: < io_decl:x < task:c1::t < package:q2 < design:work@top
+CA/c01 chain_lost=6 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst:work@top < design:work@top
+CA/c01_el chain_lost=6 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst:work@top < design:work@top
+CA/c02 chain_lost=12 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|4|30|4|38|||| @ ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|4|30|4|38|||| @ ref_typespec: < ref_obj:a < func_call:p::inc < cont_assign: < module_inst: < design:work@top
+CA/c02_el chain_lost=12 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|4|30|4|38|||| @ ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|4|30|4|38|||| @ ref_typespec: < ref_obj:a < func_call:p::inc < cont_assign: < module_inst: < design:work@top
+CA/c05 chain_lost=12 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst:work@top < design:work@top
+CA/c05_el chain_lost=12 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst:work@top < design:work@top
+CA/c06 chain_lost=3 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|4|32|4|40|||| @ ref_typespec: < ref_obj:g < func_call:inner < return_stmt: < begin: < function:outer < package:p < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:g < func_call:inner < return_stmt: < begin: < function:outer < package:p < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:g < func_call:inner < return_stmt: < begin: < function:outer < package:p < design:work@top
+CA/c06_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+CA/c07 chain_lost=6 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst:work@top < design:work@top
+CA/c07_el chain_lost=6 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst:work@top < design:work@top
+CA/c08 chain_lost=12 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|4|30|4|38|||| @ ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|4|30|4|38|||| @ ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+CA/c08_el chain_lost=12 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|4|30|4|38|||| @ ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|4|30|4|38|||| @ ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+CS/s01 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST class_typespec|proxy|||dut.sv|7|44|7|49|||| @ ref_typespec: < io_decl:px < function:accept < class_defn:adapter < package:p < design:work@top
+CS/s01_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST class_typespec|proxy|||dut.sv|7|44|7|49|||| @ ref_typespec: < io_decl:px < function:accept < class_defn:adapter < package:p < design:work@top
+CS/s02 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|proxy|||dut.sv|7|34|7|39|||| @ ref_typespec: < io_decl:px < function:accept < class_defn:adapter < package:p < design:work@top
+  CHAIN_LOST class_typespec|proxy|||dut.sv|7|50|7|55|||| @ ref_typespec: < io_decl:py < function:accept < class_defn:adapter < package:p < design:work@top
+CS/s02_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|proxy|||dut.sv|7|34|7|39|||| @ ref_typespec: < io_decl:px < function:accept < class_defn:adapter < package:p < design:work@top
+  CHAIN_LOST class_typespec|proxy|||dut.sv|7|50|7|55|||| @ ref_typespec: < io_decl:py < function:accept < class_defn:adapter < package:p < design:work@top
+CS/s03 chain_lost=16 chain_toward=0 flat_lost=16 flat_toward=0
+  CHAIN_LOST class_typespec|proxy|||dut.sv|6|30|6|35|||| @ ref_typespec: < io_decl:a < function:pf < package:p < design:work@top
+  CHAIN_LOST class_typespec|proxy|||dut.sv|6|45|6|50|||| @ ref_typespec: < io_decl:b < function:pf < package:p < design:work@top
+  CHAIN_LOST class_typespec|proxy|||dut.sv|16|28|16|33|||| @ ref_typespec: < io_decl:gx < function:adapter::g < package:p < design:work@top
+  CHAIN_LOST class_typespec|proxy|||dut.sv|10|21|10|26|||| @ ref_typespec: < io_decl:px < function:f < class_defn:adapter < package:p < design:work@top
+CS/s03_el chain_lost=17 chain_toward=0 flat_lost=17 flat_toward=0
+  CHAIN_LOST class_typespec|proxy|||dut.sv|6|30|6|35|||| @ ref_typespec: < io_decl:a < function:pf < package:p < design:work@top
+  CHAIN_LOST class_typespec|proxy|||dut.sv|6|45|6|50|||| @ ref_typespec: < io_decl:b < function:pf < package:p < design:work@top
+  CHAIN_LOST class_typespec|proxy|||dut.sv|16|28|16|33|||| @ ref_typespec: < io_decl:gx < function:adapter::g < package:p < design:work@top
+  CHAIN_LOST class_typespec|proxy|||dut.sv|10|21|10|26|||| @ ref_typespec: < io_decl:px < function:f < class_defn:adapter < package:p < design:work@top
+CS/s04 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|box|||dut.sv|7|21|7|24|||| @ ref_typespec: < io_decl:b1 < function:f < class_defn:user < package:p < design:work@top
+  CHAIN_LOST class_typespec|box|||dut.sv|7|34|7|37|||| @ ref_typespec: < io_decl:b2 < function:f < class_defn:user < package:p < design:work@top
+CS/s04_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|box|||dut.sv|7|21|7|24|||| @ ref_typespec: < io_decl:b1 < function:f < class_defn:user < package:p < design:work@top
+  CHAIN_LOST class_typespec|box|||dut.sv|7|34|7|37|||| @ ref_typespec: < io_decl:b2 < function:f < class_defn:user < package:p < design:work@top
+CS/s05 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST class_typespec|proxy|||dut.sv|8|23|8|28|||| @ ref_typespec: < io_decl:px < function:acc < class_defn:adapter < package:p < design:work@top
+CS/s05_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST class_typespec|proxy|||dut.sv|8|23|8|28|||| @ ref_typespec: < io_decl:px < function:acc < class_defn:adapter < package:p < design:work@top
+CS/s06 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|proxy|||dut.sv|7|34|7|39|||| @ ref_typespec: < io_decl:px < function:accept < class_defn:adapter < package:p < design:work@top
+  CHAIN_LOST class_typespec|proxy|||dut.sv|7|50|7|55|||| @ ref_typespec: < io_decl:py < function:accept < class_defn:adapter < package:p < design:work@top
+CS/s06_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|proxy|||dut.sv|7|34|7|39|||| @ ref_typespec: < io_decl:px < function:accept < class_defn:adapter < package:p < design:work@top
+  CHAIN_LOST class_typespec|proxy|||dut.sv|7|50|7|55|||| @ ref_typespec: < io_decl:py < function:accept < class_defn:adapter < package:p < design:work@top
+CS/s08 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|proxy|||dut.sv|6|19|6|24|||| @ ref_typespec: < io_decl:px < function:f < class_defn:work@adapter < design:work@top
+  CHAIN_LOST class_typespec|proxy|||dut.sv|10|30|10|35|||| @ ref_typespec: < io_decl:a < function:pf < program: < design:work@top
+CS/s08_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|proxy|||dut.sv|6|19|6|24|||| @ ref_typespec: < io_decl:px < function:f < class_defn:work@adapter < design:work@top
+  CHAIN_LOST class_typespec|proxy|||dut.sv|10|30|10|35|||| @ ref_typespec: < io_decl:a < function:pf < program: < design:work@top
+OT/t01 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:l < function:lib::m_check < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:l < function:m_check < class_defn:lib < package:p < design:work@top
+OT/t01_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:l < function:lib::m_check < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:l < function:m_check < class_defn:lib < package:p < design:work@top
+OT/t02 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:l < function:lib::m_check < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:l < function:m_check < class_defn:lib < package:p < design:work@top
+OT/t02_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:l < function:lib::m_check < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:l < function:m_check < class_defn:lib < package:p < design:work@top
+OT/t03 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|11|13|11|17|||| @ ref_typespec: < io_decl:l < function:lib::m_check < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|11|13|11|17|||| @ ref_typespec: < io_decl:l < function:m_check < class_defn:lib < package:p < design:work@top
+OT/t03_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|11|13|11|17|||| @ ref_typespec: < io_decl:l < function:lib::m_check < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|11|13|11|17|||| @ ref_typespec: < io_decl:l < function:m_check < class_defn:lib < package:p < design:work@top
+OT/t04 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|11|13|11|16|||| @ ref_typespec: < io_decl:v < function:mid::put < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|11|13|11|16|||| @ ref_typespec: < io_decl:v < function:put < class_defn:mid < package:p < design:work@top
+OT/t04_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|11|13|11|16|||| @ ref_typespec: < io_decl:v < function:mid::put < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|11|13|11|16|||| @ ref_typespec: < io_decl:v < function:put < class_defn:mid < package:p < design:work@top
+OT/t06 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|15|||| @ ref_typespec: < io_decl:v < function:lib::put < package:q < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|15|||| @ ref_typespec: < io_decl:v < function:put < class_defn:lib < package:q < design:work@top
+OT/t06_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|15|||| @ ref_typespec: < io_decl:v < function:lib::put < package:q < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|15|||| @ ref_typespec: < io_decl:v < function:put < class_defn:lib < package:q < design:work@top
+OT/t09 chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:a < task:lib::t < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:b < task:lib::t < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:a < task:t < class_defn:lib < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:b < task:t < class_defn:lib < package:p < design:work@top
+OT/t09_el chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:a < task:lib::t < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:b < task:lib::t < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:a < task:t < class_defn:lib < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:b < task:t < class_defn:lib < package:p < design:work@top
+OT/t10 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|5|13|5|17|||| @ ref_typespec: < io_decl:v < function:lib::put < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|5|13|5|17|||| @ ref_typespec: < io_decl:v < function:put < class_defn:lib < package:p < design:work@top
+OT/t10_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|5|13|5|17|||| @ ref_typespec: < io_decl:v < function:lib::put < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|5|13|5|17|||| @ ref_typespec: < io_decl:v < function:put < class_defn:lib < package:p < design:work@top
+OT/t11 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:v < function:lib::put < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:v < function:put < class_defn:lib < package:p < design:work@top
+OT/t11_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:v < function:lib::put < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:v < function:put < class_defn:lib < package:p < design:work@top
+OT/t12 chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:v < function:lib::put < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:v < function:put < class_defn:lib < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:v < function:put < module_inst: < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:v < function:put < module_inst:work@top < design:work@top
+OT/t12_el chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:v < function:lib::put < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:v < function:put < class_defn:lib < package:p < design:work@top
+  CHAIN_LOST class_typespec|this_type|||dut.sv|4|13|4|17|||| @ ref_typespec: < io_decl:v < function:put < module_inst: < design:work@top
+  CHAIN_LOST function|put||p::lib::put|dut.sv|10|3|11|14|||| @ module_inst:work@top < design:work@top
+PE/p01 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.sv|5|16|5|24|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_i < module_inst: < design:work@top
+PE/p01_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.sv|5|16|5|24|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_i < module_inst: < design:work@top
+PE/p02 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.sv|3|9|3|17|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_i < module_inst: < design:work@top
+PE/p02_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.sv|3|9|3|17|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_i < module_inst: < design:work@top
+PE/p03 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.sv|5|11|5|19|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_i < module_inst: < design:work@top
+PE/p03_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.sv|5|11|5|19|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_i < module_inst: < design:work@top
+PE/p04 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+PE/p04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+PE/p05 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.sv|4|10|4|18|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_i < module_inst: < design:work@top
+  CHAIN_LOST logic_typespec||||dut.sv|5|10|5|18|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_o < module_inst: < design:work@top
+PE/p05_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.sv|4|10|4|18|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_i < module_inst: < design:work@top
+  CHAIN_LOST logic_typespec||||dut.sv|5|10|5|18|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_o < module_inst: < design:work@top
+PE/p06 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.sv|3|9|3|17|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_i < module_inst: < design:work@top
+PE/p06_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.sv|3|9|3|17|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_i < module_inst: < design:work@top
+PE/p08 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.sv|3|9|4|12|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_i < module_inst: < design:work@top
+PE/p08_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.sv|3|9|4|12|||| @ ref_typespec: < array_typespec: < ref_typespec: < port:data_i < module_inst: < design:work@top
+PV/v01 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST enum_var|||p::rc::catch|dut.sv|5|27|5|35||0|| @ function:catch < class_defn:rc < package:p < design:work@top
+PV/v01_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST enum_var|||p::rc::catch|dut.sv|5|27|5|35||0|| @ function:catch < class_defn:rc < package:p < design:work@top
+PV/v02 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST enum_var|||p::rc::catch|dut.sv|5|27|5|35||0|| @ function:catch < class_defn:rc < package:p < design:work@top
+  CHAIN_LOST enum_var|||p::rc::catch2|dut.sv|6|27|6|35||0|| @ function:catch2 < class_defn:rc < package:p < design:work@top
+PV/v02_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST enum_var|||p::rc::catch|dut.sv|5|27|5|35||0|| @ function:catch < class_defn:rc < package:p < design:work@top
+  CHAIN_LOST enum_var|||p::rc::catch2|dut.sv|6|27|6|35||0|| @ function:catch2 < class_defn:rc < package:p < design:work@top
+PV/v03 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST enum_var|||work@rc::catch|dut.sv|4|25|4|33||0|| @ function:catch < class_defn:work@rc < design:work@top
+PV/v03_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST enum_var|||work@rc::catch|dut.sv|4|25|4|33||0|| @ function:catch < class_defn:work@rc < design:work@top
+PV/v04 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST struct_var|||p::rc::cs|dut.sv|7|27|7|30||0|| @ function:cs < class_defn:rc < package:p < design:work@top
+  CHAIN_LOST logic_var|||p::rc::cv|dut.sv|8|27|8|30||0|| @ function:cv < class_defn:rc < package:p < design:work@top
+PV/v04_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST struct_var|||p::rc::cs|dut.sv|7|27|7|30||0|| @ function:cs < class_defn:rc < package:p < design:work@top
+  CHAIN_LOST logic_var|||p::rc::cv|dut.sv|8|27|8|30||0|| @ function:cv < class_defn:rc < package:p < design:work@top
+PV/v05 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST enum_var|||q::rc::catch|dut.sv|7|27|7|38||0|| @ function:catch < class_defn:rc < package:q < design:work@top
+PV/v05_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST enum_var|||q::rc::catch|dut.sv|7|27|7|38||0|| @ function:catch < class_defn:rc < package:q < design:work@top
+PV/v06 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_var|||p::rc::get2|dut.sv|9|27|9|33||0|| @ function:get2 < class_defn:rc < package:p < design:work@top
+PV/v06_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_var|||p::rc::get2|dut.sv|9|27|9|33||0|| @ function:get2 < class_defn:rc < package:p < design:work@top
+PV/v07 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST enum_var|||p::rc::catch|dut.sv|6|27|6|35||0|| @ function:catch < class_defn:rc < package:p < design:work@top
+  CHAIN_LOST enum_var|||p::rc::catch3|dut.sv|7|37|7|45||0|| @ function:catch3 < class_defn:rc < package:p < design:work@top
+PV/v07_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST enum_var|||p::rc::catch|dut.sv|6|27|6|35||0|| @ function:catch < class_defn:rc < package:p < design:work@top
+  CHAIN_LOST enum_var|||p::rc::catch3|dut.sv|7|37|7|45||0|| @ function:catch3 < class_defn:rc < package:p < design:work@top
+PV/v08 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST enum_var|||p::rc::catch|dut.sv|5|27|5|35||0|| @ function:catch < class_defn:rc < package:p < design:work@top
+PV/v08_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST enum_var|||p::rc::catch|dut.sv|5|27|5|35||0|| @ function:catch < class_defn:rc < package:p < design:work@top
+PV/v09 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST enum_var|||p::rc::catch|dut.sv|5|27|5|35||0|| @ function:catch < class_defn:rc < package:p < design:work@top
+PV/v09_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST enum_var|||p::rc::catch|dut.sv|5|27|5|35||0|| @ function:catch < class_defn:rc < package:p < design:work@top
+PV/v10 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+PV/v10_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+PV/v11 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST logic_var|||p::rc::f1|dut.sv|6|27|6|31||0|| @ function:f1 < class_defn:rc < package:p < design:work@top
+  CHAIN_LOST bit_var|||p::rc::f2|dut.sv|7|27|7|31||0|| @ function:f2 < class_defn:rc < package:p < design:work@top
+PV/v11_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST logic_var|||p::rc::f1|dut.sv|6|27|6|31||0|| @ function:f1 < class_defn:rc < package:p < design:work@top
+  CHAIN_LOST bit_var|||p::rc::f2|dut.sv|7|27|7|31||0|| @ function:f2 < class_defn:rc < package:p < design:work@top
+TI/t01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t02 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t03 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t04_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|set||q::c::set|dut.sv|11|3|12|14|||| @ module_inst:work@top < design:work@top
+TI/t06 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t06_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|set||p::c::set|dut.sv|8|3|9|14|||| @ module_inst:work@top < design:work@top
+TI/t07 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t07_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t08 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t08_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t09_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|set||p::c::set|dut.sv|9|3|10|14|||| @ module_inst:work@top < design:work@top
+TI/t10 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t10_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t11 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t11_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t13 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t13_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t14 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t14_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t15 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t15_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t16 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t16_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|set||pb::base::set|dut.sv|8|3|9|14|||| @ class_defn:der < class_defn:base < package:pb < design:work@top
+TI/t17 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t17_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t18 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TI/t18_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|set||p::c::set|pk.sv|7|3|8|14|||| @ module_inst:work@top < design:work@top
+TP/p01 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ ref_typespec: < io_decl:value < function:from_name < class_defn:wrap < package:p < design:work@top
+TP/p01_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ ref_typespec: < io_decl:value < function:from_name < class_defn:wrap < package:p < design:work@top
+TP/p02 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ph_e|||dut.sv|5|38|5|39|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ph_e|||dut.sv|5|38|5|39|||| @ ref_typespec: < type_parameter:P < class_defn:ifc < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ph_e|||dut.sv|5|38|5|39|||| @ ref_typespec: < io_decl:p < function:nb < class_defn:ifc < package:p < design:work@top
+TP/p02_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ph_e|||dut.sv|5|38|5|39|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ph_e|||dut.sv|5|38|5|39|||| @ ref_typespec: < type_parameter:P < class_defn:ifc < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ph_e|||dut.sv|5|38|5|39|||| @ ref_typespec: < io_decl:p < function:nb < class_defn:ifc < package:p < design:work@top
+TP/p04 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|5|23|5|24|||| @ package:p < design:work@top
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|5|23|5|24|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|5|23|5|24|||| @ ref_typespec: < io_decl:v < function:put < class_defn:wrap < package:p < design:work@top
+TP/p04_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|5|23|5|24|||| @ package:p < design:work@top
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|5|23|5|24|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|5|23|5|24|||| @ ref_typespec: < io_decl:v < function:put < class_defn:wrap < package:p < design:work@top
+TP/p05 chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|23|5|24|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|23|5|24|||| @ ref_typespec: < type_parameter:U < class_defn:aa < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|23|5|24|||| @ ref_typespec: < io_decl:u < function:get < class_defn:aa < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|23|5|24|||| @ ref_typespec: < type_parameter:T < class_defn:zz < package:p < design:work@top
+TP/p05_el chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|23|5|24|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|23|5|24|||| @ ref_typespec: < type_parameter:U < class_defn:aa < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|23|5|24|||| @ ref_typespec: < io_decl:u < function:get < class_defn:aa < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|23|5|24|||| @ ref_typespec: < type_parameter:T < class_defn:zz < package:p < design:work@top
+TP/p06 chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|23|8|24|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|23|8|24|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|23|8|24|||| @ ref_typespec: < io_decl:v < function:put < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|23|8|24|||| @ ref_typespec: < io_decl:x < function:f < package:p < design:work@top
+TP/p06_el chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|23|8|24|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|23|8|24|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|23|8|24|||| @ ref_typespec: < io_decl:v < function:put < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|23|8|24|||| @ ref_typespec: < io_decl:x < function:f < package:p < design:work@top
+TP/p07 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ph_e|||dut.sv|3|36|3|37|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ph_e|||dut.sv|3|36|3|37|||| @ ref_typespec: < type_parameter:P < class_defn:sock < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ph_e|||dut.sv|3|36|3|37|||| @ ref_typespec: < io_decl:p < function:nb < class_defn:sock < package:p < design:work@top
+TP/p07_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ph_e|||dut.sv|3|36|3|37|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ph_e|||dut.sv|3|36|3|37|||| @ ref_typespec: < type_parameter:P < class_defn:sock < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ph_e|||dut.sv|3|36|3|37|||| @ ref_typespec: < io_decl:p < function:nb < class_defn:sock < package:p < design:work@top
+TP/p08 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|30|6|31|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|30|6|31|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|30|6|31|||| @ ref_typespec: < io_decl:v < function:put < class_defn:wrap < package:p < design:work@top
+TP/p08_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|30|6|31|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|30|6|31|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|30|6|31|||| @ ref_typespec: < io_decl:v < function:put < class_defn:wrap < package:p < design:work@top
+TP/p09 chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST enum_typespec|e_t|||dut.sv|4|21|4|22|||| @ ref_typespec: < type_parameter:T < class_defn:work@wrap < design:work@top
+  CHAIN_LOST enum_typespec|e_t|||dut.sv|4|21|4|22|||| @ design:work@top
+TP/p09_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST enum_typespec|e_t|||dut.sv|4|21|4|22|||| @ ref_typespec: < type_parameter:T < class_defn:work@wrap < design:work@top
+  CHAIN_LOST enum_typespec|e_t|||dut.sv|4|21|4|22|||| @ design:work@top
+TP/p11 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ ref_typespec: < io_decl:value < function:from_name < class_defn:wrap < package:p < design:work@top
+TP/p11_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ ref_typespec: < io_decl:value < function:from_name < class_defn:wrap < package:p < design:work@top
+TP/p12 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e2_t|||dut.sv|6|23|6|24|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e2_t|||dut.sv|6|23|6|24|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e2_t|||dut.sv|6|23|6|24|||| @ ref_typespec: < io_decl:v < function:put < class_defn:wrap < package:p < design:work@top
+TP/p12_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e2_t|||dut.sv|6|23|6|24|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e2_t|||dut.sv|6|23|6|24|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e2_t|||dut.sv|6|23|6|24|||| @ ref_typespec: < io_decl:v < function:put < class_defn:wrap < package:p < design:work@top
+TP/p13 chain_lost=9 chain_toward=0 flat_lost=9 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ package:q < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ ref_typespec: < io_decl:value < function:from_name < class_defn:wrap < package:p < design:work@top
+TP/p13_el chain_lost=9 chain_toward=0 flat_lost=9 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ package:q < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::ap_e|||dut.sv|5|52|5|53|||| @ ref_typespec: < io_decl:value < function:from_name < class_defn:wrap < package:p < design:work@top
+TP/p14 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|30|5|31|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|30|5|31|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|30|5|31|||| @ ref_typespec: < io_decl:v < function:put < class_defn:wrap < package:p < design:work@top
+TP/p14_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|30|5|31|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|30|5|31|||| @ ref_typespec: < type_parameter:T < class_defn:wrap < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|30|5|31|||| @ ref_typespec: < io_decl:v < function:put < class_defn:wrap < package:p < design:work@top
+tp/r10uvm221repro/grid221/a3_muststay_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|oob221||s221::k221::oob221|dut.sv|32|4|37|15|||| @ module_inst:work@m221un < design:work@m221un
+  CHAIN_LOST function|oob221||s221::k221::oob221|dut.sv|32|4|37|15|||| @ module_inst:work@tops221 < design:work@m221un
+tp/r10uvm30repro/t40a_el chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST function|g_nodir_enum||p40a::c40::g_nodir_enum|dut.sv|67|3|67|67|||| @ module_inst:work@top40a < design:work@top40a
+  CHAIN_LOST function|g_input_enum||p40a::c40::g_input_enum|dut.sv|68|3|68|67|||| @ module_inst:work@top40a < design:work@top40a
+  CHAIN_LOST function|g_nodir_int||p40a::c40::g_nodir_int|dut.sv|69|3|69|67|||| @ module_inst:work@top40a < design:work@top40a
+  CHAIN_LOST function|g_late_nodir||p40a::c40::g_late_nodir|dut.sv|70|3|70|77|||| @ module_inst:work@top40a < design:work@top40a
+tp/r10uvm30repro/t40c chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST class_typespec|pc40|||dut.sv|19|38|19|42|||| @ ref_typespec: < io_decl:h < function:b_param_cls < class_defn:c40c < package:p40c < design:work@top40c
+tp/r10uvm30repro/t40c_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST class_typespec|pc40|||dut.sv|19|38|19|42|||| @ ref_typespec: < io_decl:h < function:b_param_cls < class_defn:c40c < package:p40c < design:work@top40c
+tp/r10uvm31repro/t41a_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|oob_enum||p31u::base31::oob_enum|dut.sv|43|3|43|62|||| @ class_defn:drv31 < class_defn:base31 < package:p31u < design:work@top31
+  CHAIN_LOST function|oob_data||p31u::base31::oob_data|dut.sv|44|3|44|62|||| @ class_defn:drv31 < class_defn:base31 < package:p31u < design:work@top31
+tp/r10uvm36repro/t48b chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r10uvm36repro/t48b_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r10uvm37repro/t51b_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|count||home52::c52::count|dut.sv|29|3|45|14|||| @ class_defn:d52 < class_defn:c52 < package:home52 < design:work@mm52
+tp/r10uvm39repro/t55b_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|viaFormal56||home56::holder56::viaFormal56|dut.sv|109|4|111|15|||| @ module_inst:work@mm56 < design:work@mm56
+  CHAIN_LOST function|viaProp56||home56::holder56::viaProp56|dut.sv|115|4|117|15|||| @ module_inst:work@mm56 < design:work@mm56
+tp/r10uvm40repro/t57a_el chain_lost=9 chain_toward=0 flat_lost=9 flat_toward=0
+  CHAIN_LOST function|mAssocCls57||pk57::oob57::mAssocCls57|dut.sv|30|3|33|14|||| @ module_inst:work@top57 < design:work@top57
+  CHAIN_LOST function|mAssocStr57||pk57::oob57::mAssocStr57|dut.sv|35|3|38|14|||| @ module_inst:work@top57 < design:work@top57
+  CHAIN_LOST function|mAssocInt57||pk57::oob57::mAssocInt57|dut.sv|40|3|43|14|||| @ module_inst:work@top57 < design:work@top57
+  CHAIN_LOST function|mAssoc2d57||pk57::oob57::mAssoc2d57|dut.sv|45|3|48|14|||| @ module_inst:work@top57 < design:work@top57
+tp/r10uvm41repro/t58a_el chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST function|mIdxB||pkb::oobb::mIdxB|dut.sv|50|3|55|14|||| @ module_inst:work@top58 < design:work@top58
+  CHAIN_LOST function|mIdxI||pkb::oobb::mIdxI|dut.sv|59|3|64|14|||| @ module_inst:work@top58 < design:work@top58
+  CHAIN_LOST function|mUse||pkb::oobb::mUse|dut.sv|66|3|71|14|||| @ module_inst:work@top58 < design:work@top58
+  CHAIN_LOST function|mFormal||pkb::oobb::mFormal|dut.sv|73|3|76|14|||| @ module_inst:work@top58 < design:work@top58
+tp/r10uvm42repro/t59a_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|body||pkc::holder::body|dut.sv|39|3|50|14|||| @ module_inst:work@dut59 < design:work@dut59
+  CHAIN_LOST function|formals||pkc::holder::formals|dut.sv|52|3|54|14|||| @ module_inst:work@dut59 < design:work@dut59
+tp/r10uvm43repro/t60a chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r10uvm43repro/t60a_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|body||pk60::holder60::body|dut.sv|108|3|117|14|||| @ module_inst:work@dut60 < design:work@dut60
+tp/r10uvm43repro/t60b chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r10uvm43repro/t60b_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r10uvm44repro/t61a chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r10uvm44repro/t61a_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r10uvm47repro/t65c_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|new||r1::ooc::new|dut.sv|36|3|39|14|||| @ module_inst:work@t65c < design:work@t65c
+tp/r10uvm52repro/a2_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST function|ob_stmt_bare||p52b::ob52::ob_stmt_bare|dut.sv|89|3|96|14|||| @ module_inst:work@a2_top < design:work@a2_top
+  CHAIN_LOST function|ob_cond||p52b::ob52::ob_cond|dut.sv|98|3|106|14|||| @ module_inst:work@a2_top < design:work@a2_top
+  CHAIN_LOST function|ob_rval||p52b::ob52::ob_rval|dut.sv|108|3|113|14|||| @ module_inst:work@a2_top < design:work@a2_top
+tp/r10uvm53repro/a4_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|self53||p53c::ob53::self53|dut.sv|73|3|75|14|||| @ module_inst:work@a4_top < design:work@a4_top
+  CHAIN_LOST function|ob_all||p53c::ob53::ob_all|dut.sv|77|3|93|14|||| @ module_inst:work@a4_top < design:work@a4_top
+tp/r11u108repro/grid/f2/m06_module_struct_ctl chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u108repro/grid/f2/m06_module_struct_ctl_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u108repro/grid/pk/k19_cross_pkg chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u108repro/grid/pk/k19_cross_pkg_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u110repro/grid/m2/n05_multi_module_struct_ctl chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u110repro/grid/m2/n05_multi_module_struct_ctl_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u110repro/grid/m2/u04_union_multi chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u110repro/grid/m2/u04_union_multi_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u111repro/grid/f3/k05_param_a chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u111repro/grid/f3/k05_param_a_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u111repro/grid/f3/t02_var_use chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u111repro/grid/f3/t02_var_use_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u111repro/grid/f3/t08_param_only chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u111repro/grid/f3/t08_param_only_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u117repro/grid/g1/s12 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u117repro/grid/g1/s12_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u119repro/grid/g1/a23_alias_alias_init chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u119repro/grid/g1/a23_alias_alias_init_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u119repro/grid/g1/b01_import_aliasalias chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u119repro/grid/g1/b01_import_aliasalias_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u124repro/rng/g06_vec_ctl chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u124repro/rng/g06_vec_ctl_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u143verify/cases/p137_purevirt/pv03_local_task chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST logic_var|||work@K::pf|dut.sv|6|35|6|42||0|| @ function:pf < class_defn:work@K < design:work@top
+tp/r11u143verify/cases/p137_purevirt/pv03_local_task_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST logic_var|||work@K::pf|dut.sv|6|35|6|42||0|| @ function:pf < class_defn:work@K < design:work@top
+tp/r11u152repro/cases/EA/e01_pkg_alias_net chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u152repro/cases/EA/e01_pkg_alias_net_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u152repro/cases/EA/e02_pkg_base_ctl chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u152repro/cases/EA/e02_pkg_base_ctl_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u152repro/cases/EA/e04_struct_alias chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u152repro/cases/EA/e04_struct_alias_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u152repro/cases/EA/e05_port chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u152repro/cases/EA/e05_port_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u153verify/cases/fa/g10_alias_chain chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u153verify/cases/fa/g10_alias_chain_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e02 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e03 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e04 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e06 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e06_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e07 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e07_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e08 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e08_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e10 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e10_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e11 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e11_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e12 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e12_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e13 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e13_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e14 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e14_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e15 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e15_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e16 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e16_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e17 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e17_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e18 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e18_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e19 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u158repro/cases/ev/e19_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u159verify/cases/cf/f03_func_arg chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|resource|||dut.sv|6|28|6|36|||| @ ref_typespec: < io_decl:r < function:f < module_inst: < design:work@top
+  CHAIN_LOST class_typespec|resource|||dut.sv|6|28|6|36|||| @ ref_typespec: < io_decl:r < function:f < module_inst:work@top < design:work@top
+tp/r11u159verify/cases/cf/f03_func_arg_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|resource|||dut.sv|6|28|6|36|||| @ ref_typespec: < io_decl:r < function:f < module_inst: < design:work@top
+  CHAIN_LOST class_typespec|resource|||dut.sv|6|28|6|36|||| @ ref_typespec: < io_decl:r < function:f < module_inst:work@top < design:work@top
+tp/r11u159verify/cases/ea/e01_bare_import chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u159verify/cases/ea/e01_bare_import_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u159verify/cases/ea/e03_member chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u159verify/cases/ea/e03_member_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u159verify/cases/ea/e06_pkg_alias_other_pkg_bare chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u159verify/cases/ea/e06_pkg_alias_other_pkg_bare_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u161gen/cases/al/e01_bare_import chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u161gen/cases/al/e01_bare_import_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u161gen/cases/al/e03_member chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u161gen/cases/al/e03_member_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u161gen/cases/al/e06_pkg_alias_other_pkg_bare chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u161gen/cases/al/e06_pkg_alias_other_pkg_bare_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u161gen/cases/al/e11_mod_alias_of_pkg_alias chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u161gen/cases/al/e11_mod_alias_of_pkg_alias_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a02 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a03 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a04 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a05 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a05_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a06 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a06_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a07 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u170verify/cases/ev/a07_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u175uvm/cases/f2/g02_extern_pkg_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|print||p1::base::print|dut.sv|5|3|11|14|||| @ module_inst:work@top < design:work@top
+tp/r11u175uvm/cases/f3/t4_extern_views_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|report||p1::rep::report|dut.sv|6|3|7|14|||| @ module_inst:work@top < design:work@top
+tp/r11u175uvm/cases/f4/a01_func_default_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|print||p1::base::print|dut.sv|5|3|8|14|||| @ module_inst:work@top < design:work@top
+tp/r11u175uvm/cases/f4/a02_task_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST task|run||p1::base::run|dut.sv|5|3|7|10|||| @ module_inst:work@top < design:work@top
+tp/r11u175uvm/cases/f4/a03_ctor_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|new||p1::base::new|dut.sv|6|3|8|14|||| @ module_inst:work@top < design:work@top
+tp/r11u175uvm/cases/f4/a04_class_formal_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|get||p1::base::get|dut.sv|6|3|8|14|||| @ module_inst:work@top < design:work@top
+tp/r11u175uvm/cases/f4/a05_ranges_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|f||p1::base::f|dut.sv|5|3|7|14|||| @ module_inst:work@top < design:work@top
+tp/r11u175uvm/cases/f4/a06_default_proto_only_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|f||p1::base::f|dut.sv|5|3|7|14|||| @ module_inst:work@top < design:work@top
+tp/r11u175uvm/cases/f4/a08_static_typedef_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|f||p1::base::f|dut.sv|7|3|9|14|||| @ module_inst:work@top < design:work@top
+tp/r11u175uvm/cases/f4/a09_multiline_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|g||p1::base::g|dut.sv|9|3|11|14|||| @ module_inst:work@top < design:work@top
+tp/r11u175uvm/cases/f4/a10_param_class_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|put||p1::base::put|dut.sv|5|3|6|14|||| @ module_inst:work@top < design:work@top
+tp/r11u176repro/cases/F3/s01_extern_def_struct_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|put||p1::rep::put|dut.sv|7|3|8|14|||| @ module_inst:work@top < design:work@top
+tp/r11u176repro/cases/F3/s03_extern_def_struct_unpacked_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|put||p1::rep::put|dut.sv|7|3|8|14|||| @ module_inst:work@top < design:work@top
+tp/r11u176repro/cases/F3/s05_extern_def_enum_two_classes_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|put||p1::aa::put|dut.sv|10|3|11|14|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST function|put||p1::zz::put|dut.sv|12|3|13|14|||| @ module_inst:work@top < design:work@top
+tp/r11u176repro/cases/PQ/q12_alias chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u176repro/cases/PQ/q12_alias_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u180repro/cases/H/h18 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u180repro/cases/H/h18_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u182verify/cases/D/d02_union_typedef_chain chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u182verify/cases/D/d02_union_typedef_chain_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u182verify/cases/K/k04_typedef_chain_cast chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u182verify/cases/K/k04_typedef_chain_cast_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u183dec/cases/a/e01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u183dec/cases/a/e01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u183dec/cases/a/e03 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u183dec/cases/a/e03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u183dec/cases/h/h10_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|report||p::c::report|dut.sv|6|1|8|12|||| @ module_inst:work@top < design:work@top
+tp/r11u185verify/cases/FN/n05_extern_default_same_pkg_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|f||p::k::f|dut.sv|9|3|9|70|||| @ module_inst:work@top < design:work@top
+tp/r11u185verify/cases/TW/w01_nested_static_extern_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|set||p1::outer::set|dut.sv|11|3|12|14|||| @ module_inst:work@top < design:work@top
+tp/r11u185verify/cases/XP/x01_default_both_pkgparam_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|f||p::c::f|dut.sv|10|3|12|14|||| @ module_inst:work@top < design:work@top
+tp/r11u185verify/cases/XP/x02_otherpkg_typedef_formals_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|put||pb::k::put|dut.sv|11|3|13|14|||| @ module_inst:work@top < design:work@top
+tp/r11u185verify/cases/XP/x03_static_virtual_extern_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|g||p::b::g|dut.sv|7|3|9|14|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST task|s||p::b::s|dut.sv|10|3|12|10|||| @ module_inst:work@top < design:work@top
+tp/r11u185verify/cases/XP/x04_def_in_include_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|f||p::c::f|c_impl.svh|2|3|4|14|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST task|t||p::c::t|c_impl.svh|5|3|7|10|||| @ module_inst:work@top < design:work@top
+tp/r11u185verify/cases/XP/x05_param_class_default_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|get||p::c::get|dut.sv|6|3|8|14|||| @ module_inst:work@top < design:work@top
+tp/r11u185verify/cases/XP/x06_def_adds_default_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|f||p::c::f|dut.sv|7|3|11|14|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST function|g||p::c::g|dut.sv|12|3|14|14|||| @ module_inst:work@top < design:work@top
+tp/r11u185verify/cases/XP/x07_ref_multi_decl_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|f||p::c::f|dut.sv|8|3|10|14|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST function|new||p::c::new|dut.sv|11|3|13|14|||| @ module_inst:work@top < design:work@top
+tp/r11u185verify/cases/XP/x08_enum_ret_otherpkg_default_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|next||pb::k::next|dut.sv|10|3|12|14|||| @ module_inst:work@top < design:work@top
+tp/r11u187repro/cases/A/a01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u187repro/cases/A/a01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u187repro/cases/A/a04 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u187repro/cases/A/a04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u187repro/cases/H/h04_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|rep||p::c::rep|dut.sv|7|1|10|12|||| @ module_inst:work@top < design:work@top
+tp/r11u204verify/cases/FR/r02 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u204verify/cases/FR/r02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u204verify/cases/SF/f01 chain_lost=18 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST bit_typespec|tri_t|||dut.sv|4|55|4|60|||| @ ref_typespec: < constant: < func_call:inv < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>tri_t||0|0|0|0||0|| @ bit_typespec:tri_t < ref_typespec: < constant: < func_call:inv < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec|p::tri_t|||defs.sv|3|11|3|20|||| @ ref_typespec: < bit_typespec:tri_t < ref_typespec: < constant: < func_call:inv < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST range||||defs.sv|3|15|3|20|||| @ bit_typespec:p::tri_t < ref_typespec: < bit_typespec:tri_t < ref_typespec: < constant: < func_call:inv < cont_assign: < module_inst: < design:work@top
+tp/r11u204verify/cases/SF/f01_el chain_lost=18 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST bit_typespec|tri_t|||dut.sv|4|55|4|60|||| @ ref_typespec: < constant: < func_call:inv < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>tri_t||0|0|0|0||0|| @ bit_typespec:tri_t < ref_typespec: < constant: < func_call:inv < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec|p::tri_t|||defs.sv|3|11|3|20|||| @ ref_typespec: < bit_typespec:tri_t < ref_typespec: < constant: < func_call:inv < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST range||||defs.sv|3|15|3|20|||| @ bit_typespec:p::tri_t < ref_typespec: < bit_typespec:tri_t < ref_typespec: < constant: < func_call:inv < cont_assign: < module_inst: < design:work@top
+tp/r11u204verify/cases/SF/f04 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u204verify/cases/SF/f04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u205dec/cases/FT/f02 chain_lost=3 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST int_typespec|act_t|||dut.sv|4|34|4|39|||| @ ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@dut
+  CHAIN_LOST ref_typespec|||<in>act_t||0|0|0|0||0|| @ int_typespec:act_t < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@dut
+  CHAIN_LOST int_typespec|p::act_t|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:act_t < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@dut
+tp/r11u205dec/cases/FT/f02_el chain_lost=3 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST int_typespec|act_t|||dut.sv|4|34|4|39|||| @ ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@dut
+  CHAIN_LOST ref_typespec|||<in>act_t||0|0|0|0||0|| @ int_typespec:act_t < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@dut
+  CHAIN_LOST int_typespec|p::act_t|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:act_t < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@dut
+tp/r11u205dec/cases/FT/f04 chain_lost=3 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST bit_typespec|flag_t|||dut.sv|4|37|4|43|||| @ ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@dut
+  CHAIN_LOST ref_typespec|||<in>flag_t||0|0|0|0||0|| @ bit_typespec:flag_t < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@dut
+  CHAIN_LOST bit_typespec|p::flag_t|||dut.sv|3|11|3|14|||| @ ref_typespec: < bit_typespec:flag_t < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@dut
+tp/r11u205dec/cases/FT/f04_el chain_lost=3 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST bit_typespec|flag_t|||dut.sv|4|37|4|43|||| @ ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@dut
+  CHAIN_LOST ref_typespec|||<in>flag_t||0|0|0|0||0|| @ bit_typespec:flag_t < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@dut
+  CHAIN_LOST bit_typespec|p::flag_t|||dut.sv|3|11|3|14|||| @ ref_typespec: < bit_typespec:flag_t < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@dut
+tp/r11u205dec/cases/FT/f05 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u205dec/cases/FT/f05_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u212repro/cases/EA/e01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u212repro/cases/EA/e01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u212repro/cases/EA/e02 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u212repro/cases/EA/e02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u212repro/cases/EA/e03 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u212repro/cases/EA/e03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u212repro/cases/EA/e06 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u212repro/cases/EA/e06_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u212repro/cases/EA/e07 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u212repro/cases/EA/e07_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a01_alias_all chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a01_alias_all_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a02_extern chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a02_extern_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|set||p::c::set|dut.sv|10|3|10|58|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST function|get||p::c::get|dut.sv|11|3|11|51|||| @ module_inst:work@top < design:work@top
+tp/r11u214dec/cases/A/a03_nomod chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a03_nomod_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a04_classimp chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a04_classimp_el chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST function|set||p::c::set|dut.sv|10|3|10|58|||| @ class_defn:work@env < class_defn:c < package:p < design:work@top
+  CHAIN_LOST function|get||p::c::get|dut.sv|11|3|11|51|||| @ class_defn:work@env < class_defn:c < package:p < design:work@top
+  CHAIN_LOST function|set||p::c::set|dut.sv|10|3|10|58|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST function|get||p::c::get|dut.sv|11|3|11|51|||| @ module_inst:work@top < design:work@top
+tp/r11u214dec/cases/A/a05_inclass chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a05_inclass_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a06_inclass_mod chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a06_inclass_mod_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a07_pkgfunc chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a07_pkgfunc_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a08_classvar chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a08_classvar_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a09_iface chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a09_iface_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a12_unitclass chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a12_unitclass_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a13_twomods chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a13_twomods_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a14_program chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a14_program_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a15_mod_iface chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a15_mod_iface_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a16_unitmod chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/a16_unitmod_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/b01_base_none chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/b01_base_none_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/b03_base_iface chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/b03_base_iface_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/b04_base_unitclass chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/b04_base_unitclass_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/b05_base_mod chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/b05_base_mod_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/c03_twoclasses chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/c03_twoclasses_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/c05_unitclass_only chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/c05_unitclass_only_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/c06_unitlitimp chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/c06_unitlitimp_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/c09_pkgusesonly chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/c09_pkgusesonly_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/d01_clonefn chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u214dec/cases/A/d01_clonefn_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a02 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a03 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a04 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a05 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a05_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a06 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a06_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a10 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a10_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a11 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a11_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a12 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a12_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a13 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a13_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a14 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a14_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a15 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a15_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a16 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a16_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a17 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u215repro/cases/A/a17_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u217verify/cases/EA/e01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u217verify/cases/EA/e01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u217verify/cases/EA/e02 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u217verify/cases/EA/e02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u217verify/cases/EA/e03 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u217verify/cases/EA/e03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u217verify/cases/HP/h04 chain_lost=0 chain_toward=0 flat_lost=1 flat_toward=0
+tp/r11u217verify/cases/HP/h04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u218dec/cases/CR/c08_importer_class_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|f||p1::c::f|dut.sv|6|3|8|14|||| @ class_defn:d < class_defn:c < package:p1 < design:work@top
+tp/r11u219repro/cases/Z/x01_iface_then_mod chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u219repro/cases/Z/x01_iface_then_mod_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u219repro/cases/Z/x03_unitclass_and_mod chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u219repro/cases/Z/x03_unitclass_and_mod_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u219repro/cases/Z/x04_hdr_two_mods chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u219repro/cases/Z/x04_hdr_two_mods_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u219repro/cases/Z/x07_modclass_unit chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u219repro/cases/Z/x07_modclass_unit_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n02 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n03 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n04 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n05 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n05_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n06 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n06_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n07 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n07_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n08 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n08_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n09 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n09_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n10 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n10_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n11 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u220repro/cases/TN/n11_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u221verify/cases/A/a02 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u221verify/cases/A/a02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u221verify/cases/A/a05 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u221verify/cases/A/a05_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u221verify/cases/A/a07 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u221verify/cases/A/a07_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u221verify/cases/X/x01 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|13|21|13|24|||| @ ref_typespec: < io_decl:y < function:g < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::base_e|||dut.sv|3|3|3|48|||| @ ref_typespec: < enum_typespec:p::e_t < ref_typespec: < io_decl:y < function:g < package:p < design:work@top
+  CHAIN_LOST ref_typespec|||<in>p::base_e||0|0|0|0||0|| @ enum_typespec:p::base_e < ref_typespec: < enum_typespec:p::e_t < ref_typespec: < io_decl:y < function:g < package:p < design:work@top
+  CHAIN_LOST logic_typespec||||dut.sv|3|16|3|27|||| @ ref_typespec: < enum_typespec:p::base_e < ref_typespec: < enum_typespec:p::e_t < ref_typespec: < io_decl:y < function:g < package:p < design:work@top
+tp/r11u221verify/cases/X/x01_el chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|13|21|13|24|||| @ ref_typespec: < io_decl:y < function:g < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::base_e|||dut.sv|3|3|3|48|||| @ ref_typespec: < enum_typespec:p::e_t < ref_typespec: < io_decl:y < function:g < package:p < design:work@top
+  CHAIN_LOST ref_typespec|||<in>p::base_e||0|0|0|0||0|| @ enum_typespec:p::base_e < ref_typespec: < enum_typespec:p::e_t < ref_typespec: < io_decl:y < function:g < package:p < design:work@top
+  CHAIN_LOST logic_typespec||||dut.sv|3|16|3|27|||| @ ref_typespec: < enum_typespec:p::base_e < ref_typespec: < enum_typespec:p::e_t < ref_typespec: < io_decl:y < function:g < package:p < design:work@top
+tp/r11u223repro/cases/F/f04 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u223repro/cases/F/f04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u223repro/cases/F/f07 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u223repro/cases/F/f07_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u223repro/cases/F/f12_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|set||p::c::set|dut.sv|7|3|8|14|||| @ module_inst:work@top < design:work@top
+tp/r11u223repro/cases/F/f26 chain_lost=6 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||hdr.svh|1|31|1|39|||| @ ref_typespec: < constant: < func_call:hset < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < constant: < func_call:hset < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < constant: < func_call:hset < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec|my_bit_t|||hdr.svh|1|46|1|54|||| @ ref_typespec: < constant: < func_call:hset < cont_assign: < module_inst: < design:work@top
+tp/r11u223repro/cases/F/f26_el chain_lost=6 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||hdr.svh|1|31|1|39|||| @ ref_typespec: < constant: < func_call:hset < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < constant: < func_call:hset < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < constant: < func_call:hset < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec|my_bit_t|||hdr.svh|1|46|1|54|||| @ ref_typespec: < constant: < func_call:hset < cont_assign: < module_inst: < design:work@top
+/tmp/r11u231_s/g/tp/r11u224repro/cases/HN/hn08 MISSING
+/tmp/r11u231_s/g/tp/r11u224repro/cases/HN/hn08_el MISSING
+/tmp/r11u231_s/g/tp/r11u224repro/cases/HN/hn12 MISSING
+/tmp/r11u231_s/g/tp/r11u224repro/cases/HN/hn12_el MISSING
+tp/r11u226verify/cases/C/c05_clone_alias_formal chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_T|||dut.sv|7|34|7|39|||| @ ref_typespec: < io_decl:val < function:seq_c::set_arb < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_e|||dut.sv|3|3|3|35|||| @ ref_typespec: < enum_typespec:p::ARB_T < ref_typespec: < io_decl:val < function:seq_c::set_arb < package:p < design:work@top
+  CHAIN_LOST enum_const|A0|||dut.sv|3|17|3|19|||| @ enum_typespec:p::arb_e < ref_typespec: < enum_typespec:p::ARB_T < ref_typespec: < io_decl:val < function:seq_c::set_arb < package:p < design:work@top
+  CHAIN_LOST enum_const|A1|||dut.sv|3|21|3|23|||| @ enum_typespec:p::arb_e < ref_typespec: < enum_typespec:p::ARB_T < ref_typespec: < io_decl:val < function:seq_c::set_arb < package:p < design:work@top
+tp/r11u226verify/cases/C/c05_clone_alias_formal_el chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::ARB_T|||dut.sv|7|34|7|39|||| @ ref_typespec: < io_decl:val < function:seq_c::set_arb < package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::arb_e|||dut.sv|3|3|3|35|||| @ ref_typespec: < enum_typespec:p::ARB_T < ref_typespec: < io_decl:val < function:seq_c::set_arb < package:p < design:work@top
+  CHAIN_LOST enum_const|A0|||dut.sv|3|17|3|19|||| @ enum_typespec:p::arb_e < ref_typespec: < enum_typespec:p::ARB_T < ref_typespec: < io_decl:val < function:seq_c::set_arb < package:p < design:work@top
+  CHAIN_LOST enum_const|A1|||dut.sv|3|21|3|23|||| @ enum_typespec:p::arb_e < ref_typespec: < enum_typespec:p::ARB_T < ref_typespec: < io_decl:val < function:seq_c::set_arb < package:p < design:work@top
+tp/r11u226verify/cases/E/e23_clone_ret_kinds_el chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST function|pick||p1::c::pick|dut.sv|11|3|11|59|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST function|wide||p1::c::wide|dut.sv|12|3|12|65|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST function|que||p1::c::que|dut.sv|13|3|13|56|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST function|cnt||p1::c::cnt|dut.sv|14|3|14|47|||| @ module_inst:work@top < design:work@top
+tp/r11u226verify/cases/F/f02_signed_packed_multi chain_lost=33 chain_toward=0 flat_lost=19 flat_toward=0
+  CHAIN_LOST int_typespec|t_iu|||dut.sv|10|28|10|32|||| @ ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>t_iu||0|0|0|0||0|| @ int_typespec:t_iu < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::t_iu|||dut.sv|3|11|3|23|||| @ ref_typespec: < int_typespec:t_iu < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST byte_typespec|t_bu|||dut.sv|10|36|10|40|||| @ ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+tp/r11u226verify/cases/F/f02_signed_packed_multi_el chain_lost=33 chain_toward=0 flat_lost=19 flat_toward=0
+  CHAIN_LOST int_typespec|t_iu|||dut.sv|10|28|10|32|||| @ ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>t_iu||0|0|0|0||0|| @ int_typespec:t_iu < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::t_iu|||dut.sv|3|11|3|23|||| @ ref_typespec: < int_typespec:t_iu < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST byte_typespec|t_bu|||dut.sv|10|36|10|40|||| @ ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+tp/r11u226verify/cases/F/f03_scopes_ifc_prog_mod chain_lost=12 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST int_typespec|FILE_T|||dut.sv|14|29|14|35|||| @ ref_typespec: < constant: < func_call:mf < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>FILE_T||0|0|0|0||0|| @ int_typespec:FILE_T < ref_typespec: < constant: < func_call:mf < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::FILE_T|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:FILE_T < ref_typespec: < constant: < func_call:mf < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec|NIB_T|||dut.sv|14|39|14|44|||| @ ref_typespec: < constant: < func_call:mf < cont_assign: < module_inst: < design:work@top
+tp/r11u226verify/cases/F/f03_scopes_ifc_prog_mod_el chain_lost=12 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST int_typespec|FILE_T|||dut.sv|14|29|14|35|||| @ ref_typespec: < constant: < func_call:mf < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>FILE_T||0|0|0|0||0|| @ int_typespec:FILE_T < ref_typespec: < constant: < func_call:mf < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::FILE_T|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:FILE_T < ref_typespec: < constant: < func_call:mf < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec|NIB_T|||dut.sv|14|39|14|44|||| @ ref_typespec: < constant: < func_call:mf < cont_assign: < module_inst: < design:work@top
+tp/r11u226verify/cases/F/f06_unpacked_typedef_formal chain_lost=12 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST bit_typespec|B_T|||dut.sv|6|36|6|39|||| @ ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>B_T||0|0|0|0||0|| @ bit_typespec:B_T < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec|p::B_T|||dut.sv|4|11|4|20|||| @ ref_typespec: < bit_typespec:B_T < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST range||||dut.sv|4|15|4|20|||| @ bit_typespec:p::B_T < ref_typespec: < bit_typespec:B_T < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+tp/r11u226verify/cases/F/f06_unpacked_typedef_formal_el chain_lost=12 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST bit_typespec|B_T|||dut.sv|6|36|6|39|||| @ ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>B_T||0|0|0|0||0|| @ bit_typespec:B_T < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec|p::B_T|||dut.sv|4|11|4|20|||| @ ref_typespec: < bit_typespec:B_T < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST range||||dut.sv|4|15|4|20|||| @ bit_typespec:p::B_T < ref_typespec: < bit_typespec:B_T < ref_typespec: < constant: < func_call:p::f < cont_assign: < module_inst: < design:work@top
+tp/r11u226verify/cases/F/f10_two_pkgs_same_name chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/F/f10_two_pkgs_same_name_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w01_program_class chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w01_program_class_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w02_unit_nested2 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w02_unit_nested2_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w05_prog_ifc_mod_order chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w05_prog_ifc_mod_order_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w07_alias_of_alias_two_mods chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w07_alias_of_alias_two_mods_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w08_modclass_and_unitclass chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w08_modclass_and_unitclass_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w09_unit_nested1 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w09_unit_nested1_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w10_unit_nested_holder_outer chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u226verify/cases/W/w10_unit_nested_holder_outer_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u67repro/grid/g1_lawA chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u67repro/grid/g1_lawA_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u67repro/grid/g2_lawB chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u67repro/grid/g2_lawB_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u77repro/grid/y5_defnettype chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u77repro/grid/y5_defnettype_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u79repro/grid/vi_defnt chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u79repro/grid/vi_defnt_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u79repro/grid/y5_defnettype chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u79repro/grid/y5_defnettype_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u79repro/grid/z3_pkgtdnet chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u79repro/grid/z3_pkgtdnet_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u79repro/grid/z4_pkgdefnt chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u79repro/grid/z4_pkgdefnt_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u80repro/grid/vi_defnt chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u80repro/grid/vi_defnt_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u80repro/grid/y5_defnettype chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u80repro/grid/y5_defnettype_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u80repro/grid/z1_arrgrid chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11u80repro/grid/z1_arrgrid_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v140repro/tdc/t02_td_of_td chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v140repro/tdc/t02_td_of_td_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v154repro/dp/l5 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v154repro/dp/l5_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v02 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v05 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v05_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v07 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v07_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v08 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v08_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v09 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v09_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v10 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v10_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v11 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v11_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v12 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v12_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v13 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v13_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v14 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v14_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v15 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v158repro/cases/ev/v15_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v174repro/cases/dp/d01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v174repro/cases/dp/d01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v65repro/grid/v2_aliaschain chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v65repro/grid/v2_aliaschain_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v65repro/grid/v8_alias2 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v65repro/grid/v8_alias2_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v67repro/grid/w2_ifacekw chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v67repro/grid/w2_ifacekw_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v67repro/grid/w3_home chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v67repro/grid/w3_home_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v67repro/grid/w4_depth chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v67repro/grid/w4_depth_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v67repro/grid/w7_guard chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v67repro/grid/w7_guard_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v67repro/grid/wb_scoped chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v67repro/grid/wb_scoped_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v77repro/grid/vi_defnt chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v77repro/grid/vi_defnt_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v79repro/grid/q3_tdchain chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v79repro/grid/q3_tdchain_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v79repro/grid/q8_hopviews chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v79repro/grid/q8_hopviews_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+/tmp/r11u231_s/g/tp/r11v80repro/grid/q1a_netchain MISSING
+/tmp/r11u231_s/g/tp/r11v80repro/grid/q1a_netchain_el MISSING
+tp/r11v80repro/grid/q1b_varchain chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v80repro/grid/q1b_varchain_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v80repro/grid/q3_varnt2 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v80repro/grid/q3_varnt2_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v80repro/grid/q5_tdarr chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v80repro/grid/q5_tdarr_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/r11v84repro/grid/v1_hoistimp_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|new||hp1::c1::new|dut.sv|19|3|23|14|||| @ module_inst:work@dut < design:work@dut
+  CHAIN_LOST function|new||hp2::c2::new|dut.sv|35|3|38|14|||| @ module_inst:work@dut < design:work@dut
+tp/v11u108repro/brk/f2/c07_chain3 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u108repro/brk/f2/c07_chain3_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u108repro/brk/f2/c27_module_struct_pkg_td chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u108repro/brk/f2/c27_module_struct_pkg_td_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u110repro/brk/v5/k08_pkg_td_of_td chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u110repro/brk/v5/k08_pkg_td_of_td_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/x31_port_net chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/x31_port_net_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/x32_func_cast chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/x32_func_cast_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/x33_chain_mat chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/x33_chain_mat_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/x35_unpacked_var_bits chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/x35_unpacked_var_bits_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/y32_func_local_var chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/y32_func_local_var_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/z31_local_shadow_ut chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/z31_local_shadow_ut_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/z32_three_inst_param chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u111repro/brk/f3/z32_three_inst_param_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u134repro/grid/bc05 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u134repro/grid/bc05_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u137repro/brk/cases/f06_ret_class_type chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST int_var|||work@C::f|dut.sv|4|25|4|28||0|| @ function:f < class_defn:work@C < design:work@top
+tp/v11u137repro/brk/cases/f06_ret_class_type_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST int_var|||work@C::f|dut.sv|4|25|4|28||0|| @ function:f < class_defn:work@C < design:work@top
+tp/v11u146repro/cases/fa/a3_alias chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u146repro/cases/fa/a3_alias_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u152repro/cases/KE/e01_alias_of_alias chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u152repro/cases/KE/e01_alias_of_alias_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u152repro/cases/KE/e02_alias_port chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u152repro/cases/KE/e02_alias_port_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u152repro/cases/KE/e03_alias_imported_bare chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u152repro/cases/KE/e03_alias_imported_bare_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u152repro/cases/KE/e04_both_used chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u152repro/cases/KE/e04_both_used_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u152repro/cases/KE/e05_alias_other_pkg chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u152repro/cases/KE/e05_alias_other_pkg_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u176repro/cases/CM/c12_extern_task_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST task|t||p::k::t|dut.sv|7|3|9|10|||| @ module_inst:work@top < design:work@top
+tp/v11u176repro/cases/CM/c16_extern_order_two_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST function|g||p::ka::g|dut.sv|10|3|11|14|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST function|f||p::kz::f|dut.sv|12|3|13|14|||| @ module_inst:work@top < design:work@top
+tp/v11u176repro/cases/XP/x01_default_proto_only_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|f||p::k::f|dut.sv|6|3|8|14|||| @ module_inst:work@top < design:work@top
+tp/v11u176repro/cases/XP/x02_extern_task_ranges_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST task|t||p::k::t|dut.sv|7|3|9|10|||| @ module_inst:work@top < design:work@top
+tp/v11u176repro/cases/XP/x03_param_class_extern_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|f||p::k::f|dut.sv|6|3|8|14|||| @ module_inst:work@top < design:work@top
+tp/v11u176repro/cases/XP/x04_extern_ctor_default_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|new||p::k::new|dut.sv|7|3|9|14|||| @ module_inst:work@top < design:work@top
+tp/v11u176repro/cases/XP/x05_extern_virtual_derived_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|f||p::d::f|dut.sv|9|3|11|14|||| @ module_inst:work@top < design:work@top
+tp/v11u176repro/cases/XP/x06_extern_static_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|f||p::k::f|dut.sv|7|3|9|14|||| @ module_inst:work@top < design:work@top
+tp/v11u176repro/cases/XP/x08_extern_macro_proto_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|f||p::k::f|dut.sv|7|3|9|14|||| @ module_inst:work@top < design:work@top
+tp/v11u176repro/cases/XP/x09_extern_enum_ret_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|f||p::k::f|dut.sv|7|3|9|14|||| @ module_inst:work@top < design:work@top
+tp/v11u186repro/cases/W/x03 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u186repro/cases/W/x03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u187repro/cases/A/a13 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u187repro/cases/A/a13_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u187repro/cases/H/h14_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|get||p::c::get|dut.sv|7|1|7|61|||| @ module_inst:work@top < design:work@top
+tp/v11u187repro/cases/H/h16_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|get||p::c::get|dut.sv|7|1|7|61|||| @ module_inst:work@top < design:work@top
+tp/v11u187repro/cases/H/h17_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|get||p::c::get|dut.sv|7|1|7|61|||| @ module_inst:work@top < design:work@top
+tp/v11u196repro/cases/FR/r01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u196repro/cases/FR/r01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u196repro/cases/FR/r03 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u196repro/cases/FR/r03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u196repro/cases/SF/f01 chain_lost=3 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST bit_typespec|bt_t|||dut.sv|7|42|7|46|||| @ ref_typespec: < constant: < func_call:f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>bt_t||0|0|0|0||0|| @ bit_typespec:bt_t < ref_typespec: < constant: < func_call:f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec|p::bt_t|||types.svh|2|9|2|12|||| @ ref_typespec: < bit_typespec:bt_t < ref_typespec: < constant: < func_call:f < cont_assign: < module_inst: < design:work@top
+tp/v11u196repro/cases/SF/f01_el chain_lost=3 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST bit_typespec|bt_t|||dut.sv|7|42|7|46|||| @ ref_typespec: < constant: < func_call:f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>bt_t||0|0|0|0||0|| @ bit_typespec:bt_t < ref_typespec: < constant: < func_call:f < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec|p::bt_t|||types.svh|2|9|2|12|||| @ ref_typespec: < bit_typespec:bt_t < ref_typespec: < constant: < func_call:f < cont_assign: < module_inst: < design:work@top
+tp/v11u196repro/cases/SF/f03_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|g||p::C::g|dut.sv|6|3|8|14|||| @ module_inst:work@top < design:work@top
+tp/v11u207repro/cases/H/h03 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST class_typespec|K|||dut.sv|10|18|10|19|||| @ ref_typespec: < io_decl:k < function:h < class_defn:D < package:p < design:work@top
+tp/v11u207repro/cases/H/h03_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|K|||dut.sv|10|18|10|19|||| @ ref_typespec: < io_decl:k < function:h < class_defn:D < package:p < design:work@top
+  CHAIN_LOST class_typespec|K|||dut.sv|10|18|10|19|||| @ ref_typespec: < io_decl:k < ref_obj:k < hier_path:k.gi < bit_select:q < operation: < return_stmt: < function:h < class_defn:D < package:p < design:work@top
+tp/v11u209repro/cases/CS/v09 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u209repro/cases/CS/v09_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u209repro/cases/CS/v10 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u209repro/cases/CS/v10_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u209repro/cases/CS/v11 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u209repro/cases/CS/v11_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u209repro/cases/CS/v12 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u209repro/cases/CS/v12_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/B/b01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/B/b01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/B/b02 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/B/b02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/B/b04 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/B/b04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/B/b05 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/B/b05_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/B/b06 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/B/b06_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/B/b07 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/B/b07_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/G/g01 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/G/g01_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/G/g02 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/G/g02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/G/g03 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/G/g03_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/G/g04 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u212repro/cases/G/g04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t01_unit_import_after_module chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t01_unit_import_after_module_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t03_nested_class_in_modclass chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t03_nested_class_in_modclass_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t04_iface_local_class chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t04_iface_local_class_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t05_two_unit_classes chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t05_two_unit_classes_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t07_explicit_base_only chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t07_explicit_base_only_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t08_alias_of_foreign_enum chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t08_alias_of_foreign_enum_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t09_program_and_module chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t09_program_and_module_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t10_function_scope_import chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t10_function_scope_import_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t11_ca_lhs_enum chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t11_ca_lhs_enum_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t12_class_alias_used_in_module chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t12_class_alias_used_in_module_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t13_two_files chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t13_two_files_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t14_unit_class_before_import chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t14_unit_class_before_import_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t16_alias_of_alias chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t16_alias_of_alias_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t18_two_module_classes chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t18_two_module_classes_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t19_unit_nested_class chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u215repro/cases/TA/t19_unit_nested_class_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u219repro/cases/E/e15_param_copy_and_unitcls chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u219repro/cases/E/e15_param_copy_and_unitcls_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u220repro/cases/C/c08_el chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST function|f||p1::c::f|dut.sv|8|3|10|14|||| @ module_inst:work@top < design:work@top
+tp/v11u223repro/cases/A/a03_tdoftd chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u223repro/cases/A/a03_tdoftd_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+tp/v11u223repro/cases/A/a07_pkgfunc_calls chain_lost=12 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|4|30|4|38|||| @ ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|4|30|4|38|||| @ ref_typespec: < ref_obj:a < func_call:p::inc < cont_assign: < module_inst: < design:work@top
+tp/v11u223repro/cases/A/a07_pkgfunc_calls_el chain_lost=12 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|4|30|4|38|||| @ ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:inc < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|4|30|4|38|||| @ ref_typespec: < ref_obj:a < func_call:p::inc < cont_assign: < module_inst: < design:work@top
+tp/v11u223repro/cases/A/a09_iface_gen chain_lost=3 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|20|30|20|38|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < gen_scope: < gen_scope_array:gb < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < gen_scope: < gen_scope_array:gb < module_inst:work@top < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < gen_scope: < gen_scope_array:gb < module_inst:work@top < design:work@top
+tp/v11u223repro/cases/A/a09_iface_gen_el chain_lost=3 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|20|30|20|38|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < gen_scope: < gen_scope_array:gb < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < gen_scope: < gen_scope_array:gb < module_inst:work@top < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < gen_scope: < gen_scope_array:gb < module_inst:work@top < design:work@top
+tp/v11u223repro/cases/A/a12_explicit_import chain_lost=6 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst:work@top < design:work@top
+tp/v11u223repro/cases/A/a12_explicit_import_el chain_lost=6 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>UVM_FILE||0|0|0|0||0|| @ int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|p::UVM_FILE|||dut.sv|3|11|3|14|||| @ ref_typespec: < int_typespec:UVM_FILE < ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST int_typespec|UVM_FILE|||dut.sv|7|28|7|36|||| @ ref_typespec: < ref_obj:a < func_call:h < cont_assign: < module_inst:work@top < design:work@top
+tp/v11u223repro/cases/A/a22_extern_oob_el chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST function|f||p::c::f|dut.sv|9|3|10|14|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST task|t||p::c::t|dut.sv|11|3|12|10|||| @ module_inst:work@top < design:work@top
+  CHAIN_LOST function|s||p::c::s|dut.sv|13|3|15|14|||| @ module_inst:work@top < design:work@top
+tp/v11u223repro/cases/A/a24_elab_twice chain_lost=18 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST bit_typespec|B8|||dut.sv|7|29|7|31|||| @ ref_typespec: < ref_obj:a < func_call:add < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>B8||0|0|0|0||0|| @ bit_typespec:B8 < ref_typespec: < ref_obj:a < func_call:add < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec|p::B8|||dut.sv|3|11|3|20|||| @ ref_typespec: < bit_typespec:B8 < ref_typespec: < ref_obj:a < func_call:add < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST range||||dut.sv|3|15|3|20|||| @ bit_typespec:p::B8 < ref_typespec: < bit_typespec:B8 < ref_typespec: < ref_obj:a < func_call:add < cont_assign: < module_inst: < design:work@top
+tp/v11u223repro/cases/A/a24_elab_twice_el chain_lost=27 chain_toward=0 flat_lost=15 flat_toward=0
+  CHAIN_LOST bit_typespec|B8|||dut.sv|7|29|7|31|||| @ ref_typespec: < ref_obj:a < func_call:add < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST ref_typespec|||<in>B8||0|0|0|0||0|| @ bit_typespec:B8 < ref_typespec: < ref_obj:a < func_call:add < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec|p::B8|||dut.sv|3|11|3|20|||| @ ref_typespec: < bit_typespec:B8 < ref_typespec: < ref_obj:a < func_call:add < cont_assign: < module_inst: < design:work@top
+  CHAIN_LOST range||||dut.sv|3|15|3|20|||| @ bit_typespec:p::B8 < ref_typespec: < bit_typespec:B8 < ref_typespec: < ref_obj:a < func_call:add < cont_assign: < module_inst: < design:work@top
+tp/v11u223repro/cases/A/a31_registry_order chain_lost=15 chain_toward=0 flat_lost=9 flat_toward=0
+  CHAIN_LOST byte_typespec|T2|||dut.sv|33|28|33|30|||| @ ref_typespec: < ref_obj:a0 < func_call:m < operation: < cont_assign: < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_typespec|||<in>T2||0|0|0|0||0|| @ byte_typespec:T2 < ref_typespec: < ref_obj:a0 < func_call:m < operation: < cont_assign: < module_inst:work@top < design:work@top
+  CHAIN_LOST byte_typespec|p::T2|||dut.sv|4|11|4|15|||| @ ref_typespec: < byte_typespec:T2 < ref_typespec: < ref_obj:a0 < func_call:m < operation: < cont_assign: < module_inst:work@top < design:work@top
+  CHAIN_LOST bit_typespec|T3|||dut.sv|33|35|33|37|||| @ ref_typespec: < ref_obj:a0 < func_call:m < operation: < cont_assign: < module_inst:work@top < design:work@top
+tp/v11u223repro/cases/A/a31_registry_order_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+TOTAL chain_lost=1011 chain_toward=0 flat_lost=861 flat_toward=0

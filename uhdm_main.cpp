@@ -8,6 +8,7 @@
 #include "UhdmExporter.h"
 #include "src/R223.h"
 #include "src/R228.h"
+#include "src/R231.h"
 #include "src/R233.h"
 
 #include <cstdio>
@@ -229,12 +230,33 @@ void elabCloneFullNameUnstored137(UHDM::design* d, UHDM::Serializer& s) {
         if ((o->UhdmType() == UHDM::uhdmfunction || o->UhdmType() == UHDM::uhdmtask) &&
             o->VpiParent() && o->VpiParent()->UhdmType() == UHDM::uhdmpackage)
             continue;
+        // § elabClassMethodKeepsName231 (r11u231) — a CLASS method of a
+        // package is kept the same way: an importing module lists the class's
+        // out-of-body method definitions (§ materializedPkgTfGroup, the
+        // class_defn-parented objects), and golden's elaborated clone under
+        // the instance keeps the stored `p::seqb::set_arbitration` where the
+        // unstored name read the instance path `work@top.set_arbitration`
+        // (grid tools/probe/r11u231repro/cases AL a02/a05/a07/a08, AO o05,
+        // the -elabuhdm view).  Only a class a PACKAGE declares: a class
+        // declared in a module is cloned with its instance and golden reads
+        // the instance path there (`work@top::u::C::f`, grids r11u181repro
+        // rt/g17, v11u223repro A/a30).  Switch R11U231_ELABCLSMETHOD_OFF.
+        const bool clsMethod231 =
+            (o->UhdmType() == UHDM::uhdmfunction || o->UhdmType() == UHDM::uhdmtask) &&
+            o->VpiParent() && o->VpiParent()->UhdmType() == UHDM::uhdmclass_defn &&
+            o->VpiParent()->VpiParent() &&
+            o->VpiParent()->VpiParent()->UhdmType() == UHDM::uhdmpackage &&
+            slang_uhdm::r11u231Law("R11U231_ELABCLSMETHOD_OFF");
         FullNameAcc137 acc;
         if (!fullNameAccess137(o, acc))
             continue;
         std::string cur(acc.get(o));
         if (cur.empty() || cur != chainFullName137(o))
             continue;
+        if (clsMethod231) {
+            slang_uhdm::tr231("elabClassMethodKeepsName231", cur);
+            continue;
+        }
         clear.push_back({o, acc});
     }
     for (auto& [o, acc] : clear)

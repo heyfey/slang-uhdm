@@ -1,0 +1,14 @@
+package p;
+  typedef real r_t;
+  typedef string s_t;
+  typedef time t_t;
+  typedef chandle c_t;
+  typedef shortreal sr_t;
+  typedef realtime rt_t;
+  function automatic int f(r_t a, s_t b, t_t c, c_t d, sr_t e, rt_t g);
+    return 0;
+  endfunction
+endpackage
+module top(output int o);
+  assign o = p::f(1.0, "x", 5, null, 2.0, 3.0);
+endmodule

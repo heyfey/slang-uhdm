@@ -1,0 +1,35 @@
+== default/MiniAmiq: STRICT_NOTEQUAL line
+#24915 line
+  A: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	332	40	332	56				
+  B: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	1381	51	1381	67				
+#24917 depth
+  A: 7	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode			uvm_object_globals.svh	359	1	367	26				
+  B: 6	enum_const	UVM_SEQ_ARB_FIFO			uvm_object_globals.svh	361	3	361	19				
+== default/SeqDriver: STRICT_NOTEQUAL line
+#24898 line
+  A: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	332	40	332	56				
+  B: 5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	1381	51	1381	67				
+#24900 depth
+  A: 7	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode			uvm_object_globals.svh	359	1	367	26				
+  B: 6	enum_const	UVM_SEQ_ARB_FIFO			uvm_object_globals.svh	361	3	361	19				
+== default/SimpleUVM: STRICT_NOTEQUAL file
+#26887 file
+  A: 5	class_typespec	this_type			uvm_algorithmic_comparator.svh	74	11	74	37				
+  B: 5	class_typespec	this_type			uvm_sequence_library.svh	330	12	330	32				
+#63683 file
+  A: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_globals.svh	532	52	532	53				
+  B: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_object_globals.svh	147	1	147	74				
+== default/Scoreboard: STRICT_NOTEQUAL file
+#26895 file
+  A: 5	class_typespec	this_type			uvm_algorithmic_comparator.svh	74	11	74	37				
+  B: 5	class_typespec	this_type			uvm_sequence_library.svh	330	12	330	32				
+#64092 file
+  A: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_globals.svh	532	52	532	53				
+  B: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_object_globals.svh	147	1	147	74				
+== default/BuildUVMPkg: STRICT_NOTEQUAL line
+#26855 line
+  A: 5	class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42				
+  B: 5	class_typespec	this_type			uvm_pkg.sv	56391	12	56391	32				
+#64384 line
+  A: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_pkg.sv	9952	52	9952	53				
+  B: 2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_pkg.sv	7954	1	7954	74				

@@ -1,0 +1,12 @@
+package p;
+  typedef enum bit {PASSIVE=0, ACTIVE=1} ap_e;
+  class wrap #(type T=int);
+    T val;
+    static function bit from_name(string name, ref T value);
+      return 0;
+    endfunction
+  endclass
+endpackage
+module top;
+  p::wrap#(p::ap_e) w;
+endmodule
