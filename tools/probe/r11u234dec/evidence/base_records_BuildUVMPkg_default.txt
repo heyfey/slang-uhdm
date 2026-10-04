@@ -1,0 +1,68 @@
+# map 15 analyzer rows of the thirteen clusters on BuildUVMPkg default at the base (sweep the e4650c14 sweep, binary md5 1ed1fbc4...): cluster, golden#/ours#, kind, name, golden, ours, chain
+N0158 #96958/96950 bit_typespec '' g= 8 ref_typespec < enum_typespec(uvm_pkg::uvm_active_passive_enum) o= 6 ref_typespec < enum_var < ref_typespec < enum_typespec(uvm_pkg::uvm_active_passive_enum) < ref_typespec < enum_var
+N0213 #96956/-1 enum_typespec 'uvm_pkg::uvm_active_passive_enum' g= 2 objs o=  < ref_typespec < enum_var < array_var(map) < class_defn(uvm_enum_wrapper)
+N0171 #97010/-1 bit_typespec '' g= 1 objs o=  < ref_typespec < enum_typespec(uvm_pkg::uvm_active_passive_enum) < ref_typespec < ref_var(e)
+N0232 #-1/162499 ref_typespec '' g=  o= 5 objs < array_typespec(queue_of_element) < ref_typespec < ref_var < function(get_elements)
+N0067 #87882/87876 class_typespec 'rsp_type' g= uvm_pkg.sv 53934:58:53934:61 o=  0:0:0:0 < ref_typespec < class_var < array_var(m_last_req_buffer) < class_defn(uvm_sequencer_param_base)
+N0068 #87882/87876 class_typespec 'rsp_type' g= 53934:58:53934:61 o= 0:0:0:0 < ref_typespec < class_var < array_var(m_last_req_buffer) < class_defn(uvm_sequencer_param_base)
+N0067 #87888/87882 class_typespec 'rsp_type' g= uvm_pkg.sv 53934:58:53934:61 o=  0:0:0:0 < ref_typespec < class_var < array_var(m_last_rsp_buffer) < class_defn(uvm_sequencer_param_base)
+N0068 #87888/87882 class_typespec 'rsp_type' g= 53934:58:53934:61 o= 0:0:0:0 < ref_typespec < class_var < array_var(m_last_rsp_buffer) < class_defn(uvm_sequencer_param_base)
+N0230 #87918/87912 class_typespec 'rsp_type' g= 53934:58:53934:61 o= 53928:58:53928:61 < ref_typespec < type_parameter(REQ) < class_defn(uvm_sequencer_param_base) < class_defn(uvm_sequencer_base)
+N0255 #87922/87916 class_typespec 'rsp_type' g= 53934:58:53934:61 o= 53759:11:53759:14 < class_defn(uvm_sequencer_param_base) < class_defn(uvm_sequencer_base) < class_defn(uvm_component) < package(uvm_pkg)
+N0230 #88062/88056 class_typespec 'rsp_type' g= 53934:58:53934:61 o= 53928:58:53928:61 < ref_typespec < io_decl(item) < function(m_last_rsp_push_front) < class_defn(uvm_sequencer_param_base)
+N0230 #88066/88060 class_typespec 'rsp_type' g= 53934:58:53934:61 o= 53928:58:53928:61 < ref_typespec < io_decl(t) < function(put_response) < class_defn(uvm_sequencer_param_base)
+N0230 #88086/88080 class_typespec 'rsp_type' g= 53934:58:53934:61 o= 53928:58:53928:61 < ref_typespec < io_decl(item) < function(m_last_req_push_front) < class_defn(uvm_sequencer_param_base)
+N0256 #91523/91517 class_var '' g= 9111:24:9111:51 o= 9111:24:9111:35 < function(get_component_visitor) < class_defn(uvm_coreservice_t) < package(uvm_pkg) < design(unnamed)
+N0188 #97008/96998 enum_typespec 'uvm_pkg::uvm_active_passive_enum' g= uvm_pkg::uvm_active_passive_enum| o= | < ref_typespec < ref_var(e) < function(m_init_map) < class_defn(uvm_enum_wrapper)
+N0180 #97009/96999 ref_typespec '' g= uvm_pkg::uvm_pkg::uvm_active_passive_enum o=  < enum_typespec(uvm_pkg::uvm_active_passive_enum) < ref_typespec < ref_var(e) < function(m_init_map)
+N0067 #102434/102423 class_typespec '' g= uvm_pkg.sv 73223:10:73223:21 o=  0:0:0:0 < ref_typespec < class_var(get_default_map) < ref_obj(get_default_map) < method_func_call(first)
+N0068 #102434/102423 class_typespec '' g= 73223:10:73223:21 o= 0:0:0:0 < ref_typespec < class_var(get_default_map) < ref_obj(get_default_map) < method_func_call(first)
+N0067 #102484/102473 class_typespec '' g= uvm_pkg.sv 73223:10:73223:21 o=  0:0:0:0 < ref_typespec < class_var(get_default_map) < ref_obj(get_default_map) < method_func_call(first)
+N0068 #102484/102473 class_typespec '' g= 73223:10:73223:21 o= 0:0:0:0 < ref_typespec < class_var(get_default_map) < ref_obj(get_default_map) < method_func_call(first)
+N0067 #107540/107529 class_typespec '' g= uvm_pkg.sv 70587:10:70587:25 o=  0:0:0:0 < ref_typespec < class_var(reconfigure) < ref_obj(reconfigure) < assignment
+N0068 #107540/107529 class_typespec '' g= 70587:10:70587:25 o= 0:0:0:0 < ref_typespec < class_var(reconfigure) < ref_obj(reconfigure) < assignment
+N0067 #107772/107761 class_typespec '' g= uvm_pkg.sv 70622:10:70622:24 o=  0:0:0:0 < ref_typespec < class_var(reserve_region) < ref_obj(reserve_region) < method_func_call(this)
+N0068 #107772/107761 class_typespec '' g= 70622:10:70622:24 o= 0:0:0:0 < ref_typespec < class_var(reserve_region) < ref_obj(reserve_region) < method_func_call(this)
+N0067 #107778/107767 class_typespec '' g= uvm_pkg.sv 70622:10:70622:24 o=  0:0:0:0 < ref_typespec < class_var(reserve_region) < ref_obj(reserve_region) < return_stmt
+N0068 #107778/107767 class_typespec '' g= 70622:10:70622:24 o= 0:0:0:0 < ref_typespec < class_var(reserve_region) < ref_obj(reserve_region) < return_stmt
+N0067 #107795/107784 class_typespec '' g= uvm_pkg.sv 70622:10:70622:24 o=  0:0:0:0 < ref_typespec < class_var(reserve_region) < ref_obj(reserve_region) < method_func_call(this)
+N0068 #107795/107784 class_typespec '' g= 70622:10:70622:24 o= 0:0:0:0 < ref_typespec < class_var(reserve_region) < ref_obj(reserve_region) < method_func_call(this)
+N0067 #116009/115998 class_typespec '' g= uvm_pkg.sv 33577:10:33577:20 o=  0:0:0:0 < ref_typespec < class_var(get_domain) < ref_obj(get_domain) < sys_func_call($cast)
+N0068 #116009/115998 class_typespec '' g= 33577:10:33577:20 o= 0:0:0:0 < ref_typespec < class_var(get_domain) < ref_obj(get_domain) < sys_func_call($cast)
+N0067 #116683/116672 class_typespec '' g= uvm_pkg.sv 33822:10:33822:19 o=  0:0:0:0 < ref_typespec < class_var(find) < ref_obj(find) < assignment
+N0068 #116683/116672 class_typespec '' g= 33822:10:33822:19 o= 0:0:0:0 < ref_typespec < class_var(find) < ref_obj(find) < assignment
+N0067 #116689/116678 class_typespec '' g= uvm_pkg.sv 33822:10:33822:19 o=  0:0:0:0 < ref_typespec < class_var(find) < ref_obj(find) < operation
+N0068 #116689/116678 class_typespec '' g= 33822:10:33822:19 o= 0:0:0:0 < ref_typespec < class_var(find) < ref_obj(find) < operation
+N0067 #116699/116688 class_typespec '' g= uvm_pkg.sv 33822:10:33822:19 o=  0:0:0:0 < ref_typespec < class_var(find) < ref_obj(find) < assignment
+N0068 #116699/116688 class_typespec '' g= 33822:10:33822:19 o= 0:0:0:0 < ref_typespec < class_var(find) < ref_obj(find) < assignment
+N0067 #116726/116715 class_typespec '' g= uvm_pkg.sv 33836:10:33836:19 o=  0:0:0:0 < ref_typespec < class_var(find_by_name) < ref_obj(find_by_name) < assignment
+N0068 #116726/116715 class_typespec '' g= 33836:10:33836:19 o= 0:0:0:0 < ref_typespec < class_var(find_by_name) < ref_obj(find_by_name) < assignment
+N0067 #116732/116721 class_typespec '' g= uvm_pkg.sv 33836:10:33836:19 o=  0:0:0:0 < ref_typespec < class_var(find_by_name) < ref_obj(find_by_name) < operation
+N0068 #116732/116721 class_typespec '' g= 33836:10:33836:19 o= 0:0:0:0 < ref_typespec < class_var(find_by_name) < ref_obj(find_by_name) < operation
+N0067 #116742/116731 class_typespec '' g= uvm_pkg.sv 33836:10:33836:19 o=  0:0:0:0 < ref_typespec < class_var(find_by_name) < ref_obj(find_by_name) < assignment
+N0068 #116742/116731 class_typespec '' g= 33836:10:33836:19 o= 0:0:0:0 < ref_typespec < class_var(find_by_name) < ref_obj(find_by_name) < assignment
+N0067 #132627/132616 class_typespec '' g= uvm_pkg.sv 67285:10:67285:23 o=  0:0:0:0 < ref_typespec < class_var(get_block) < ref_obj(get_block) < assignment
+N0068 #132627/132616 class_typespec '' g= 67285:10:67285:23 o= 0:0:0:0 < ref_typespec < class_var(get_block) < ref_obj(get_block) < assignment
+N0067 #142359/142348 class_typespec '' g= uvm_pkg.sv 78646:10:78646:23 o=  0:0:0:0 < ref_typespec < class_var(get_parent) < ref_obj(get_parent) < assignment
+N0068 #142359/142348 class_typespec '' g= 78646:10:78646:23 o= 0:0:0:0 < ref_typespec < class_var(get_parent) < ref_obj(get_parent) < assignment
+N0067 #150816/150805 class_typespec '' g= uvm_pkg.sv 69693:10:69693:23 o=  0:0:0:0 < ref_typespec < class_var(get_block) < ref_obj(get_block) < assignment
+N0068 #150816/150805 class_typespec '' g= 69693:10:69693:23 o= 0:0:0:0 < ref_typespec < class_var(get_block) < ref_obj(get_block) < assignment
+N0067 #177360/177407 class_typespec '' g= uvm_pkg.sv 71653:10:71653:23 o=  0:0:0:0 < ref_typespec < class_var(get_parent) < ref_obj(get_parent) < assignment
+N0068 #177360/177407 class_typespec '' g= 71653:10:71653:23 o= 0:0:0:0 < ref_typespec < class_var(get_parent) < ref_obj(get_parent) < assignment
+N0067 #177372/177419 class_typespec '' g= uvm_pkg.sv 71657:10:71657:23 o=  0:0:0:0 < ref_typespec < class_var(get_block) < ref_obj(get_block) < assignment
+N0068 #177372/177419 class_typespec '' g= 71657:10:71657:23 o= 0:0:0:0 < ref_typespec < class_var(get_block) < ref_obj(get_block) < assignment
+N0067 #177923/177970 class_typespec '' g= uvm_pkg.sv 71776:10:71776:24 o=  0:0:0:0 < ref_typespec < class_var(allocate) < ref_obj(allocate) < assignment
+N0068 #177923/177970 class_typespec '' g= 71776:10:71776:24 o= 0:0:0:0 < ref_typespec < class_var(allocate) < ref_obj(allocate) < assignment
+N0067 #177929/177976 class_typespec '' g= uvm_pkg.sv 71776:10:71776:24 o=  0:0:0:0 < ref_typespec < class_var(allocate) < ref_obj(allocate) < operation
+N0068 #177929/177976 class_typespec '' g= 71776:10:71776:24 o= 0:0:0:0 < ref_typespec < class_var(allocate) < ref_obj(allocate) < operation
+N0067 #177997/178044 class_typespec '' g= uvm_pkg.sv 71776:10:71776:24 o=  0:0:0:0 < ref_typespec < class_var(allocate) < ref_obj(allocate) < assignment
+N0068 #177997/178044 class_typespec '' g= 71776:10:71776:24 o= 0:0:0:0 < ref_typespec < class_var(allocate) < ref_obj(allocate) < assignment
+N0067 #178611/178658 class_typespec '' g= uvm_pkg.sv 72089:10:72089:24 o=  0:0:0:0 < ref_typespec < class_var(get_field_by_name) < ref_obj(get_field_by_name) < assignment
+N0068 #178611/178658 class_typespec '' g= 72089:10:72089:24 o= 0:0:0:0 < ref_typespec < class_var(get_field_by_name) < ref_obj(get_field_by_name) < assignment
+N0067 #180954/181001 class_typespec '' g= uvm_pkg.sv 65526:10:65526:18 o=  0:0:0:0 < ref_typespec < class_var(get_register) < ref_obj(get_register) < assignment
+N0068 #180954/181001 class_typespec '' g= 65526:10:65526:18 o= 0:0:0:0 < ref_typespec < class_var(get_register) < ref_obj(get_register) < assignment
+N0067 #180966/181013 class_typespec '' g= uvm_pkg.sv 65531:10:65531:18 o=  0:0:0:0 < ref_typespec < class_var(get_parent) < ref_obj(get_parent) < assignment
+N0068 #180966/181013 class_typespec '' g= 65531:10:65531:18 o= 0:0:0:0 < ref_typespec < class_var(get_parent) < ref_obj(get_parent) < assignment
+N0117 #197644/197699 unsupported_typespec 'uvm_resource_types::rsrc_q_t' g= 16625:35:16625:55 o= 16625:35:16625:63 < ref_typespec < io_decl(rq) < function(m_print_resources) < class_defn(uvm_resource_pool)
+N0117 #197800/197855 unsupported_typespec 'uvm_resource_types::rsrc_q_t' g= 16687:33:16687:53 o= 16687:33:16687:61 < ref_typespec < io_decl(rq) < function(print_resources) < class_defn(uvm_resource_pool)
+N0254 #197929/197984 ref_typespec '' g= uvm_pkg::uvm_resource_types::override_e o= override_e < enum_typespec(override_e) < class_defn(uvm_resource_types) < package(uvm_pkg) < design(unnamed)

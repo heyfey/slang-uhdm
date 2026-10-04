@@ -1,0 +1,23 @@
+BuildUVMPkg_default pris->law chain_lost=0 chain_toward=87 flat_lost=0 flat_toward=85
+BuildUVMPkg_testflags pris->law chain_lost=0 chain_toward=87 flat_lost=0 flat_toward=85
+MiniAmiq_default pris->law chain_lost=0 chain_toward=115 flat_lost=0 flat_toward=113
+MiniAmiq_testflags pris->law chain_lost=0 chain_toward=115 flat_lost=0 flat_toward=113
+probe_r10buvm15repro__a1_collargs15 pris->law chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10buvm15repro__v5_named15 pris->law chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10uvm56repro__a1_witness pris->law chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10uvm56repro__a5_argpos pris->law chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+probe_r10uvm56repro__a6_type pris->law chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6
+probe_r10uvm56repro__a8_newlhs pris->law chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+probe_r10uvm56repro__v3_hierpath pris->law chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10uvm69repro__a2_scope pris->law chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10uvm69repro__a3_recv pris->law chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10uvm69repro__v1_gaps pris->law chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10v158repro__v158_i pris->law chain_lost=0 chain_toward=44 flat_lost=0 flat_toward=38
+probe_r10v160repro__x09_struct pris->law chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7
+probe_r10v160repro__x10_enum pris->law chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=1
+Scoreboard_default pris->law chain_lost=0 chain_toward=113 flat_lost=1 flat_toward=111
+SeqDriver_default pris->law chain_lost=0 chain_toward=151 flat_lost=0 flat_toward=149
+SeqDriver_testflags pris->law chain_lost=0 chain_toward=151 flat_lost=0 flat_toward=149
+SimpleUVM_default pris->law chain_lost=0 chain_toward=141 flat_lost=1 flat_toward=139
+SimpleUVM_testflags pris->law chain_lost=0 chain_toward=141 flat_lost=1 flat_toward=139
+TOTAL pris->law moved=22 same=0 chain_lost=0 chain_toward=1167 flat_lost=3 flat_toward=1141

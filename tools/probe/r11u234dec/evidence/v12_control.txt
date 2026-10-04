@@ -1,0 +1,24 @@
+# law.v12 (md5 8ec72875b30b8728a4c8ea63cd7bf3ff) vs the law sweep (law md5 2b465909...), one draw per row-mode:
+Earlgrey_0_1 default draws=1 distinct=1 sweep=ede36385c330 | ede36385c330/rc=0
+Earlgrey_0_1 testflags draws=1 distinct=1 sweep=260e88febe42 | 260e88febe42/rc=0
+MiniAmiq default draws=1 distinct=1 sweep=fec826eba828 | fec826eba828/rc=0
+MiniAmiq testflags draws=1 distinct=1 sweep=fec826eba828 | fec826eba828/rc=0
+SeqDriver default draws=1 distinct=1 sweep=faeacd39dc3a | faeacd39dc3a/rc=0
+SeqDriver testflags draws=1 distinct=1 sweep=b81ebe4bcee2 | b81ebe4bcee2/rc=0
+SimpleUVM default draws=1 distinct=1 sweep=ba7f8f1e7f61 | ba7f8f1e7f61/rc=0
+SimpleUVM testflags draws=1 distinct=1 sweep=913481c14891 | 913481c14891/rc=0
+Scoreboard default draws=1 distinct=1 sweep=fc8c8f30c294 | fc8c8f30c294/rc=0
+BuildUVMPkg default draws=1 distinct=1 sweep=30628959d708 | 30628959d708/rc=0
+BuildUVMPkg testflags draws=1 distinct=1 sweep=30628959d708 | 30628959d708/rc=0
+# pristine.v12 (md5 2b10a6aba650891fbebb106059a59b0b) vs the pristine sweep (pristine md5 1ed1fbc4...), one draw per row-mode:
+Earlgrey_0_1 default draws=1 distinct=1 sweep=ede36385c330 | ede36385c330/rc=0
+Earlgrey_0_1 testflags draws=1 distinct=1 sweep=260e88febe42 | 260e88febe42/rc=0
+MiniAmiq default draws=1 distinct=1 sweep=7d6c076f4328 | 7d6c076f4328/rc=0
+MiniAmiq testflags draws=1 distinct=1 sweep=7d6c076f4328 | 7d6c076f4328/rc=0
+SeqDriver default draws=1 distinct=1 sweep=a3349e9731b2 | a3349e9731b2/rc=0
+SeqDriver testflags draws=1 distinct=1 sweep=248ae493bf34 | 248ae493bf34/rc=0
+SimpleUVM default draws=1 distinct=1 sweep=83c1a233ad99 | 83c1a233ad99/rc=0
+SimpleUVM testflags draws=1 distinct=1 sweep=61cbfaab4940 | 61cbfaab4940/rc=0
+Scoreboard default draws=1 distinct=1 sweep=dbb7fce68eb4 | dbb7fce68eb4/rc=0
+BuildUVMPkg default draws=1 distinct=1 sweep=6a6d62e38946 | 6a6d62e38946/rc=0
+BuildUVMPkg testflags draws=1 distinct=1 sweep=6a6d62e38946 | 6a6d62e38946/rc=0

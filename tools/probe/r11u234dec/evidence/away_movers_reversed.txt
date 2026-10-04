@@ -1,0 +1,67 @@
+BuildUVMPkg_default law->pris chain_lost=87 chain_toward=0 flat_lost=85 flat_toward=0
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_pkg.sv|9952|52|9952|53|||| @ package:uvm_pkg < design:unnamed
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_tlm_phase_e|||uvm_pkg.sv|59516|52|59516|53|||| @ package:uvm_pkg < design:unnamed
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_pkg.sv|9952|52|9952|53|||| @ ref_typespec: < enum_var:is_active < class_defn:uvm_agent < package:uvm_pkg < design:unnamed
+BuildUVMPkg_testflags law->pris chain_lost=87 chain_toward=0 flat_lost=85 flat_toward=0
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_pkg.sv|9952|52|9952|53|||| @ package:uvm_pkg < design:unnamed
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_tlm_phase_e|||uvm_pkg.sv|59516|52|59516|53|||| @ package:uvm_pkg < design:unnamed
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_pkg.sv|9952|52|9952|53|||| @ ref_typespec: < enum_var:is_active < class_defn:uvm_agent < package:uvm_pkg < design:unnamed
+MiniAmiq_default law->pris chain_lost=115 chain_toward=0 flat_lost=113 flat_toward=0
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ package:svaunit_pkg < design:unnamed
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_tlm_phase_e|||uvm_tlm2_imps.svh|58|52|58|53|||| @ package:svaunit_pkg < design:unnamed
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ package:uvm_pkg < design:unnamed
+MiniAmiq_testflags law->pris chain_lost=115 chain_toward=0 flat_lost=113 flat_toward=0
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ package:svaunit_pkg < design:unnamed
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_tlm_phase_e|||uvm_tlm2_imps.svh|58|52|58|53|||| @ package:svaunit_pkg < design:unnamed
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ package:uvm_pkg < design:unnamed
+probe_r10buvm15repro__a1_collargs15 law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10buvm15repro__v5_named15 law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10uvm56repro__a1_witness law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10uvm56repro__a5_argpos law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST class_typespec|der_c|||dut.sv|64|13|64|18|||| @ ref_typespec: < class_var:b_sys < ref_obj:b_sys < sys_func_call:$cast < operation: < if_stmt: < function:b_sys < module_inst: < design:work@a5_top
+  CHAIN_LOST class_typespec|der_c|||dut.sv|64|13|64|18|||| @ ref_typespec: < class_var:b_sys < ref_obj:b_sys < assignment: < if_stmt: < function:b_sys < module_inst: < design:work@a5_top
+  CHAIN_LOST class_typespec|der_c|||dut.sv|64|13|64|18|||| @ ref_typespec: < class_var:b_sys < ref_obj:b_sys < sys_func_call:$cast < operation: < if_stmt: < function:b_sys < module_inst:work@a5_top < design:work@a5_top
+probe_r10uvm56repro__a6_type law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|h6|||dut.sv|37|13|37|15|||| @ ref_typespec: < class_var:z_class < ref_obj:z_class < assignment: < begin: < function:z_class < module_inst: < design:work@a6_top
+  CHAIN_LOST class_typespec|h6|||dut.sv|37|13|37|15|||| @ ref_typespec: < class_var:z_class < ref_obj:z_class < operation: < if_stmt: < begin: < function:z_class < module_inst: < design:work@a6_top
+  CHAIN_LOST class_typespec|h6|||dut.sv|37|13|37|15|||| @ ref_typespec: < class_var:z_class < ref_obj:z_class < assignment: < if_stmt: < begin: < function:z_class < module_inst: < design:work@a6_top
+probe_r10uvm56repro__a8_newlhs law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|item_c|||dut.sv|29|13|29|19|||| @ ref_typespec: < class_var:p_loc < ref_obj:p_loc < assignment: < begin: < function:p_loc < module_inst: < design:work@a8_top
+  CHAIN_LOST class_typespec|item_c|||dut.sv|29|13|29|19|||| @ ref_typespec: < class_var:p_loc < ref_obj:p_loc < assignment: < begin: < function:p_loc < module_inst:work@a8_top < design:work@a8_top
+probe_r10uvm56repro__v3_hierpath law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10uvm69repro__a2_scope law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10uvm69repro__a3_recv law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10uvm69repro__v1_gaps law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe_r10v158repro__v158_i law->pris chain_lost=44 chain_toward=0 flat_lost=38 flat_toward=0
+  CHAIN_LOST enum_typespec|Wpk2::tint9_e|||dut.sv|6|3|6|64|||| @ ref_typespec: < ref_var:shade < begin: < if_stmt: < function:go < class_defn:Tbad_enum < package:Wpk2 < design:work@wtop_i
+  CHAIN_LOST ref_typespec|||<in>Wpk2::tint9_e||0|0|0|0||0|| @ enum_typespec:Wpk2::tint9_e < ref_typespec: < ref_var:shade < begin: < if_stmt: < function:go < class_defn:Tbad_enum < package:Wpk2 < design:work@wtop_i
+  CHAIN_LOST bit_typespec||||dut.sv|6|16|6|25|||| @ ref_typespec: < enum_typespec:Wpk2::tint9_e < ref_typespec: < ref_var:shade < begin: < if_stmt: < function:go < class_defn:Tbad_enum < package:Wpk2 < design:work@wtop_i
+probe_r10v160repro__x09_struct law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST struct_typespec|pv160::stv160|||dut.sv|7|11|7|42|||| @ ref_typespec: < ref_var:t < function:m < class_defn:hold160 < class_defn:midv160 < class_defn:basev160 < package:pv160 < design:work@topv160
+  CHAIN_LOST typespec_member|a|||dut.sv|7|31|7|32|||| @ struct_typespec:pv160::stv160 < ref_typespec: < ref_var:t < function:m < class_defn:hold160 < class_defn:midv160 < class_defn:basev160 < package:pv160 < design:work@topv160
+  CHAIN_LOST ref_typespec|||<in>pv160::stv160.a||0|0|0|0||0|| @ typespec_member:a < struct_typespec:pv160::stv160 < ref_typespec: < ref_var:t < function:m < class_defn:hold160 < class_defn:midv160 < class_defn:basev160 < package:pv160 < design:work@topv160
+probe_r10v160repro__x10_enum law->pris chain_lost=3 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST enum_typespec|pv160::env160|||dut.sv|7|3|7|36|||| @ ref_typespec: < ref_var:t < function:m < class_defn:hold160 < class_defn:midv160 < class_defn:basev160 < package:pv160 < design:work@topv160
+  CHAIN_LOST enum_const|EV0|||dut.sv|7|18|7|21|||| @ enum_typespec:pv160::env160 < ref_typespec: < ref_var:t < function:m < class_defn:hold160 < class_defn:midv160 < class_defn:basev160 < package:pv160 < design:work@topv160
+  CHAIN_LOST enum_const|EV1|||dut.sv|7|23|7|26|||| @ enum_typespec:pv160::env160 < ref_typespec: < ref_var:t < function:m < class_defn:hold160 < class_defn:midv160 < class_defn:basev160 < package:pv160 < design:work@topv160
+Scoreboard_default law->pris chain_lost=113 chain_toward=0 flat_lost=111 flat_toward=1
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ package:uvm_pkg < design:work@my_scoreboard_unit_test
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_tlm_phase_e|||uvm_tlm2_imps.svh|58|52|58|53|||| @ package:uvm_pkg < design:work@my_scoreboard_unit_test
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ ref_typespec: < enum_var:is_active < class_defn:uvm_agent < package:uvm_pkg < design:work@my_scoreboard_unit_test
+SeqDriver_default law->pris chain_lost=151 chain_toward=0 flat_lost=149 flat_toward=0
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ package:adpcm_pkg < design:work@top_tb
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_tlm_phase_e|||uvm_tlm2_imps.svh|58|52|58|53|||| @ package:adpcm_pkg < design:work@top_tb
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ package:uvm_pkg < design:work@top_tb
+SeqDriver_testflags law->pris chain_lost=151 chain_toward=0 flat_lost=149 flat_toward=0
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ package:adpcm_pkg < design:work@top_tb
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_tlm_phase_e|||uvm_tlm2_imps.svh|58|52|58|53|||| @ package:adpcm_pkg < design:work@top_tb
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ package:uvm_pkg < design:work@top_tb
+SimpleUVM_default law->pris chain_lost=141 chain_toward=0 flat_lost=139 flat_toward=1
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ package:uvm_pkg < design:work@top
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_tlm_phase_e|||uvm_tlm2_imps.svh|58|52|58|53|||| @ package:uvm_pkg < design:work@top
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ ref_typespec: < enum_var:is_active < class_defn:uvm_agent < package:uvm_pkg < design:work@top
+SimpleUVM_testflags law->pris chain_lost=141 chain_toward=0 flat_lost=139 flat_toward=1
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ package:uvm_pkg < design:work@top
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_tlm_phase_e|||uvm_tlm2_imps.svh|58|52|58|53|||| @ package:uvm_pkg < design:work@top
+  CHAIN_LOST enum_typespec|uvm_pkg::uvm_active_passive_enum|||uvm_globals.svh|532|52|532|53|||| @ ref_typespec: < enum_var:is_active < class_defn:uvm_agent < package:uvm_pkg < design:work@top
+TOTAL law->pris moved=22 same=0 chain_lost=1167 chain_toward=0 flat_lost=1141 flat_toward=3

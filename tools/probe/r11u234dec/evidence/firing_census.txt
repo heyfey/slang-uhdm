@@ -1,0 +1,43 @@
+# firing census (drivers/firecensus.py, law binary md5 2b4659097cf4...), census.tsv md5 ee8fb8bbdf7aa40ec5f188b4e38d38d9 written 2026-09-29 12:35:57 -0400 (the law gate sweep started after 12:42 and its log closed 12:50:25)
+jobs=8273 fenced_skipped=4
+clsScopeFormalQualSpan234: firings=11 jobs=9
+clsTdClassElemRetSharesListing234: firings=9 jobs=9
+pureVirtRetSpecWholeSpan234: firings=9 jobs=9
+retNameLocalClassTsAtType234: firings=724 jobs=19
+tpGroupOneSpan234: firings=99 jobs=9
+tpTdDefaultUseSharesListing234: firings=24 jobs=12
+tpTdFormalWritesTypedef234: firings=144 jobs=9
+jobs_firing= 22 unmapped= 0
+# the jobs firing (the frozen prediction of the byte movers):
+surelog/default/BuildUVMPkg	rc=0	clsScopeFormalQualSpan234=2 clsTdClassElemRetSharesListing234=1 pureVirtRetSpecWholeSpan234=1 retNameLocalClassTsAtType234=52 tpGroupOneSpan234=11 tpTdDefaultUseSharesListing234=2 tpTdFormalWritesTypedef234=16
+surelog/testflags/BuildUVMPkg	rc=0	clsScopeFormalQualSpan234=2 clsTdClassElemRetSharesListing234=1 pureVirtRetSpecWholeSpan234=1 retNameLocalClassTsAtType234=52 tpGroupOneSpan234=11 tpTdDefaultUseSharesListing234=2 tpTdFormalWritesTypedef234=16
+surelog/default/MiniAmiq	rc=0	clsScopeFormalQualSpan234=1 clsTdClassElemRetSharesListing234=1 pureVirtRetSpecWholeSpan234=1 retNameLocalClassTsAtType234=106 tpGroupOneSpan234=11 tpTdDefaultUseSharesListing234=2 tpTdFormalWritesTypedef234=16
+surelog/testflags/MiniAmiq	rc=0	clsScopeFormalQualSpan234=1 clsTdClassElemRetSharesListing234=1 pureVirtRetSpecWholeSpan234=1 retNameLocalClassTsAtType234=106 tpGroupOneSpan234=11 tpTdDefaultUseSharesListing234=2 tpTdFormalWritesTypedef234=16
+surelog/default/Scoreboard	rc=0	clsScopeFormalQualSpan234=1 clsTdClassElemRetSharesListing234=1 pureVirtRetSpecWholeSpan234=1 retNameLocalClassTsAtType234=54 tpGroupOneSpan234=11 tpTdDefaultUseSharesListing234=2 tpTdFormalWritesTypedef234=16
+surelog/default/SeqDriver	rc=0	clsScopeFormalQualSpan234=1 clsTdClassElemRetSharesListing234=1 pureVirtRetSpecWholeSpan234=1 retNameLocalClassTsAtType234=106 tpGroupOneSpan234=11 tpTdDefaultUseSharesListing234=2 tpTdFormalWritesTypedef234=16
+surelog/testflags/SeqDriver	rc=0	clsScopeFormalQualSpan234=1 clsTdClassElemRetSharesListing234=1 pureVirtRetSpecWholeSpan234=1 retNameLocalClassTsAtType234=106 tpGroupOneSpan234=11 tpTdDefaultUseSharesListing234=2 tpTdFormalWritesTypedef234=16
+surelog/default/SimpleUVM	rc=0	clsScopeFormalQualSpan234=1 clsTdClassElemRetSharesListing234=1 pureVirtRetSpecWholeSpan234=1 retNameLocalClassTsAtType234=54 tpGroupOneSpan234=11 tpTdDefaultUseSharesListing234=2 tpTdFormalWritesTypedef234=16
+surelog/testflags/SimpleUVM	rc=0	clsScopeFormalQualSpan234=1 clsTdClassElemRetSharesListing234=1 pureVirtRetSpecWholeSpan234=1 retNameLocalClassTsAtType234=54 tpGroupOneSpan234=11 tpTdDefaultUseSharesListing234=2 tpTdFormalWritesTypedef234=16
+probe/case/r10buvm15repro/a1_collargs15	rc=0	retNameLocalClassTsAtType234=4
+probe/case/r10buvm15repro/v5_named15	rc=0	retNameLocalClassTsAtType234=4
+probe/case/r10uvm56repro/a1_witness	rc=0	retNameLocalClassTsAtType234=1
+probe/case/r10uvm56repro/a5_argpos	rc=0	retNameLocalClassTsAtType234=3
+probe/case/r10uvm56repro/a6_type	rc=0	retNameLocalClassTsAtType234=4
+probe/case/r10uvm56repro/a8_newlhs	rc=0	retNameLocalClassTsAtType234=2
+probe/case/r10uvm56repro/v3_hierpath	rc=0	retNameLocalClassTsAtType234=4
+probe/case/r10uvm69repro/a2_scope	rc=0	retNameLocalClassTsAtType234=7
+probe/case/r10uvm69repro/a3_recv	rc=0	retNameLocalClassTsAtType234=2
+probe/case/r10uvm69repro/v1_gaps	rc=0	retNameLocalClassTsAtType234=3
+probe/case/r10v158repro/v158_i	rc=0	tpTdDefaultUseSharesListing234=4
+probe/case/r10v160repro/x09_struct	rc=0	tpTdDefaultUseSharesListing234=1
+probe/case/r10v160repro/x10_enum	rc=0	tpTdDefaultUseSharesListing234=1
+# positive/negative control: the pristine binary through the same census:
+jobs=8273 fenced_skipped=4
+jobs_firing= 0 unmapped= 0
+# exit codes over the 8273 census jobs, law binary (identical job by job to the pristine binary's census: diff of (job, rc) = 0 lines):
+   7427 rc=0
+      4 rc=1
+      9 rc=-11
+     32 rc=2
+    772 rc=3
+     29 rc=4

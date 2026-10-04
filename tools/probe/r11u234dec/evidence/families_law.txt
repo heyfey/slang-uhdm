@@ -1,0 +1,69 @@
+all objects 13566 in 138 clusters
+| rank | family | objects | BuildUVMPkg | MiniAmiq | Scoreboard | SeqDriver | SimpleUVM | clusters |
+| 1 | F2 object multiplicity (golden-only / ours-only copies: clone bodies, typespec copies) | 8498 | 49 | 4927 | 129 | 3177 | 216 | 37 |
+| 2 | F5 reference full names (hier_path components, method calls, io_decl refs) | 3233 | 17 | 1383 | 66 | 922 | 845 | 56 |
+| 3 | F6 file facets (other-file, ours-empty) | 983 | 8 | 519 | 47 | 355 | 54 | 14 |
+| 4 | F9 value / order / depth | 270 | 20 | 0 | 80 | 0 | 170 | 3 |
+| 5 | F7 expression / statement spans outside the pp model | 250 | 8 | 50 | 24 | 84 | 84 | 20 |
+| 6 | F4 subroutine formal / typespec / bound spans (class methods, formals) | 126 | 28 | 26 | 22 | 29 | 21 | 5 |
+| 7 | F3 typedef relocation spans (last-writer moves of package aggregates) | 116 | 2 | 68 | 0 | 46 | 0 | 2 |
+| 8 | F8 names / definition names | 90 | 0 | 54 | 0 | 36 | 0 | 1 |
+
+== F2 object multiplicity (golden-only / ours-only copies: clone bodies, typespec copies): top clusters
+    1924 N0182 [B] struct|golden-only:fewer-copies|typespec_member|under:struct_typespec | OPEN (map 14 listed it: ground-A+B step 13; passes 223-225 left it) | operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStruct
+     780 N0024 [A] struct|golden-only:fewer-copies|struct_typespec|under:ref_typespec | COVERED r11u227 (the UVM ground-A families, optimistic) | emitInterfaceInstance (ModuleEmit.cpp, law defNetEndOnlyLoc130) < emitInstance (ModuleEmit.cpp, law caNestedModDeclNoRef
+     762 N0478 [B] struct|golden-only:fewer-copies|type_parameter|under:param_assign | OPEN (map 14 listed it: ground-A+B step 13; passes 223-225 left it) | -
+     717 N0420 [B] struct|ours-only:elsewhere|typespec_member|under:struct_typespec | OPEN (map 14 listed it: ground-A+B step 13; passes 223-225 left it) | buildStructTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitPackage (ParamEmit.cpp, law a7) < exportDesign (
+     576 N0495 [A] struct|golden-only:fewer-copies|int_var|under:ref_obj | COVERED r11u227 (the UVM ground-A families, optimistic) | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) < emitS
+     481 N0408 [A] struct|ours-only:fewer-copies|unsupported_typespec|under:ref_typespec | COVERED r11u227 (the UVM ground-A families, optimistic) | operator() (StmtEmit.cpp, law cloneLoopVarShared37) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt (StmtE
+     468 N0496 [A] struct|golden-only:fewer-copies|class_var|under:ref_obj | COVERED r11u227 (the UVM ground-A families, optimistic) | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) < emitS
+     440 N0538 [B] struct|golden-only:fewer-copies|bit_var|under:array_var | OPEN (map 14 listed it: ground-A+B step 13; passes 223-225 left it) | makeQueueDynArrayVar (TaskFuncEmit.cpp, law blockLocalTdDeclIsRefVarUnsupported155) < emitStmt (StmtEmit.cpp, law blockD
+
+== F5 reference full names (hier_path components, method calls, io_decl refs): top clusters
+     590 N0565 [B] fullname|ref_typespec|tok:id::id::id::->id.id::id.|under:typespec_member | COVERED r11u228 (a UVM/Earlgrey first record, ground B) | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsN
+     585 N0492 [B] fullname|ref_typespec|ours-empty|under:array_typespec | OPEN (map 14 listed it: ground-A+B step 13; passes 223-225 left it) | memberWrittenQueueTs149 (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < buildStructTs (TypeEmit.cpp, law struct
+     552 N0571 [B] fullname|ref_typespec|tok:id::id::id::id::id::id::->id@id.id::id.|under:typespec_member | OPEN (map 14 listed it: ground-A+B step 13; passes 223-225 left it) | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < emitPackage (ParamEmit.cpp, law a7) < exportDesig
+     179 N2464 [B] fullname|ref_typespec|tok:id::id::id::id::->id.id::id.id.|under:bit_typespec | OPEN (map 14 gave it to pair B r11u223; passes 223 and 225 left it) | bareScalarTypedefVarTs (TypeEmit.cpp, law memberBareTdAliasNamedByUse183) < exportDesign (UhdmExporter.cpp, law pkgParam
+     115 N0341 [B] fullname|ref_typespec|tok:->::id|under:class_var | OPEN (map 14 listed it: ground-A+B step 13; passes 223-225 left it) | UHDM library DeepClone < DeepCopy < DeepCopy (--elabuhdm, testflags) run from main (uhdm_main.cpp) [r11u142map pin; the 
+     115 N0340 [B] fullname|class_var|tok:->::id|under:begin | OPEN (map 14 listed it: ground-A+B step 13; passes 223-225 left it) | makeQueueDynArrayVar (TaskFuncEmit.cpp, law declArrayElemKindIsDeclKind12) < emitStmt (StmtEmit.cpp, law blockDeclAutoma
+      90 N0008 [B] fullname|ref_typespec|golden-empty|under:constant | COVERED r11u227 (item 5: N0008 (a design param_assign constant's ref_t | emitParameters (ParamEmit.cpp, law timeLitParamIntTs) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) 
+      78 N0630 [B] fullname|ref_typespec|tok:id::id::id::id::id::->id@id.id::id.|under:typespec_member | OPEN (map 14 listed it: ground-A+B step 13; passes 223-225 left it) | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < emitPackage (ParamEmit.cpp, law a7) < exportDesig
+
+== F6 file facets (other-file, ours-empty): top clusters
+     771 N0121 [B] file|enum_typespec|other-file+span|under:ref_typespec | COVERED r11u228 (a UVM/Earlgrey first record, ground B) | buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, la
+      38 N0219 [A] file|struct_typespec|other-file+span|under:ref_typespec | COVERED r11u227 (the UVM ground-A families, optimistic) | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) 
+      35 N0337 [B] file|class_typespec|other-file+span|under:ref_typespec | COVERED r11u228 (item 4: this_type (SimpleUVM / Scoreboard first recor | emitTaskFuncs (TaskFuncEmit.cpp, law classHandleRetTsNameUnlessSameHomeComponent156) < emitPackageClassMethodClones (Par
+      24 N0305 [A] file|ref_obj|ours-empty|under:method_func_call | COVERED r11u227 (the UVM ground-A families, optimistic) | emitExpr (ExprEmit.cpp, law macroPasteRecvMisreadIsAstChain132) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollaps
+      24 N0304 [A] file|method_func_call|ours-empty|under:while_stmt | COVERED r11u227 (the UVM ground-A families, optimistic) | emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCal
+      24 N0303 [A] file|method_func_call|ours-empty|under:hier_path | COVERED r11u227 (the UVM ground-A families, optimistic) | emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitStmt (
+      24 N0098 [A] file|ref_obj|ours-empty|under:hier_path | COVERED r11u227 (the UVM ground-A families, optimistic) | emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emit
+      15 N0109 [A] file|string_typespec|ours-empty|under:ref_typespec | COVERED r11u227 (the UVM ground-A families, optimistic) | operator() (StmtEmit.cpp, law foreachClassPropStringVar22) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt
+
+== F9 value / order / depth: top clusters
+     220 N0025 [A] depth|constant|range->operation | COVERED r11u227 (item 1: cfg_func_width_loop A half (N0025)) | emitSyntaxExpr (TypeEmit.cpp, law fnLocalParamRangeNet) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator
+      46 N0685 [A] value|parameter|value:UINT->empty|under:module_inst | COVERED r11u227 (the UVM ground-A families, optimistic) | emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < exportDesign (UhdmExporter.cpp, law importedClassTsRid
+       4 N0827 [A] value|parameter|value:INT->empty|under:module_inst | COVERED r11u227 (the UVM ground-A families, optimistic) | emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < exportDesign (UhdmExporter.cpp, law importedClassTsRid
+
+== F7 expression / statement spans outside the pp model: top clusters
+      84 N0541 [B] span|logic_net|line+col+endline+endcol|under:ref_obj | OPEN (map 14 listed it: ground-A+B step 10; passes 223-225 left it) | emitInterfaceInstance (ModuleEmit.cpp, law defNetEndOnlyLoc130) < emitInstance (ModuleEmit.cpp, law caNestedModDeclNoRef
+      56 N0050 [A] span|operation|col+endcol|under:assignment | COVERED r11u227 (the UVM ground-A families, optimistic) | emitExpr (ExprEmit.cpp, law insideOpenRangeMemberIsOneListOp30) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly1
+      36 N0596 [B] span|logic_net|line+endline|under:ref_obj | OPEN (map 14 listed it: ground-A+B step 10; passes 223-225 left it) | bindHoistedClassPropRefs (ModuleEmit.cpp, law hoistedNetNeverOverAModuleParam117) < emitModuleDef (ModuleEmit.cpp, law i
+      18 N0370 [A] span|sys_func_call|endcol|under:func_call | COVERED r11u227 (the UVM ground-A families, optimistic) | emitExpr (ExprEmit.cpp, law sysCallKwTypeArgNameSpan131) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitStmt
+       9 N0179 [A] span|begin|ours-zero|under:if_stmt | COVERED r11u227 (the UVM ground-A families, optimistic) | emitStmt (StmtEmit.cpp, law parBlockJoinTailAfterFirstItem131) < emitStmt (StmtEmit.cpp, law invalidChild14) < emitStmt 
+       8 N0392 [A] span|operation|line+col+endcol|under:assignment | COVERED r11u227 (the UVM ground-A families, optimistic) | emitExpr (ExprEmit.cpp, law insideOpenRangeMemberIsOneListOp30) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly1
+       8 N0390 [A] span|begin|ours-zero|under:begin | COVERED r11u227 (the UVM ground-A families, optimistic) | emitStmt (StmtEmit.cpp, law parBlockJoinTailAfterFirstItem131) < emitStmt (StmtEmit.cpp, law invalidChild14) < emitStmt 
+       8 N0374 [A] span|method_func_call|endcol|under:begin | COVERED r11u227 (the UVM ground-A families, optimistic) | emitExpr (ExprEmit.cpp, law hierCallArgTakesBase39) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall17
+
+== F4 subroutine formal / typespec / bound spans (class methods, formals): top clusters
+      89 N0051 [B] span|class_typespec|endcol|under:ref_typespec | COVERED r11u228 (a UVM/Earlgrey first record, ground B) | buildClassTypedefTs (UhdmExporter.cpp, law classTpTdGroupNonClsRootShared91) < emitClassTypedefs (UhdmExporter.cpp, law 
+      16 N0072 [B] span|class_typespec|line+col+endline+endcol|under:ref_typespec | COVERED r11u228 (item 4: this_type (BuildUVMPkg first record)) | emitTaskFuncs (TaskFuncEmit.cpp, law classHandleRetTsNameUnlessSameHomeComponent156) < emitClassDefn (UhdmExporter.cpp, 
+      15 N0110 [A] span|string_typespec|ours-zero|under:ref_typespec | COVERED r11u227 (the UVM ground-A families, optimistic) | operator() (StmtEmit.cpp, law foreachClassPropStringVar22) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt
+       5 N0039 [A] span|int_typespec|line+col+endline+endcol|under:ref_typespec | COVERED r11u227 (item 1: N0039 (its field writer is on ground A: secti | emitExpr (ExprEmit.cpp, law castTargetKeywordTypespecKind96) < emitStmt (StmtEmit.cpp, law importCloneBodyLocalCopies175
+       1 N0264 [B] span|int_typespec|endcol|under:ref_typespec | OPEN (map 14 listed it: ground-A+B step 9; passes 223-225 left it) | makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitImportedPkgVarNets (ModuleEmit.cpp, law oobCtorLocalsRide
+
+== F3 typedef relocation spans (last-writer moves of package aggregates): top clusters
+     106 N0043 [B] span|struct_typespec|line+col+endline+endcol|under:ref_typespec | OPEN (map 14 listed it: ground-A+B step 9; passes 223-225 left it) | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < makeTypespec (TypeEmit.cpp, law tpCloneWholeLhsBare160) < 
+      10 N0266 [B] span|enum_typespec|line+col+endline+endcol|under:ref_typespec | COVERED r11u228 (item 4: UVM_SEQ_ARB_TYPE (MiniAmiq / SeqDriver first  | aggImportCloneCopy32 (TypeEmit.cpp, law pkgImportAggCloneLastWriter32) < emitTaskFuncs (TaskFuncEmit.cpp, law pkgImportA
+
+== F8 names / definition names: top clusters
+      90 N0507 [B] name|bit_typespec|tok:id::->|under:ref_typespec | OPEN (map 14 listed it: ground-A+B step 13; passes 223-225 left it) | bareScalarTdCopyOfFresh16 (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < bareScalarTdCopyOf (TypeEmit.cpp, law bodyTypedefE

@@ -1,0 +1,28 @@
+databases: patched=3373 pristine=3373
+PATH_SETS_IDENTICAL (3373 paths)
+MOVER ./surelog/default/BuildUVMPkg-fc55bd0c/slang.uhdm  patched=30628959d708 pristine=6a6d62e38946
+MOVER ./surelog/default/MiniAmiq-055eab74/slang.uhdm  patched=fec826eba828 pristine=7d6c076f4328
+MOVER ./surelog/default/Scoreboard-72aa0ba8/slang.uhdm  patched=fc8c8f30c294 pristine=dbb7fce68eb4
+MOVER ./surelog/default/SeqDriver-65178d3a/slang.uhdm  patched=faeacd39dc3a pristine=a3349e9731b2
+MOVER ./surelog/default/SimpleUVM-267de3ff/slang.uhdm  patched=ba7f8f1e7f61 pristine=83c1a233ad99
+MOVER ./surelog/testflags/BuildUVMPkg-fc55bd0c/slang.uhdm  patched=30628959d708 pristine=6a6d62e38946
+MOVER ./surelog/testflags/MiniAmiq-055eab74/slang.uhdm  patched=fec826eba828 pristine=7d6c076f4328
+MOVER ./surelog/testflags/SeqDriver-65178d3a/slang.uhdm  patched=b81ebe4bcee2 pristine=248ae493bf34
+MOVER ./surelog/testflags/SimpleUVM-267de3ff/slang.uhdm  patched=913481c14891 pristine=61cbfaab4940
+MOVERS: 9 / 3373
+SELFCHECK (every file vs one fixed file): 3371 / 3373 flagged
+SELFCHECK_FAILED
+# probe databases (4087 each), md5 differing between the law and pristine sweeps:
+r10buvm15repro__a1_collargs15.uhdm
+r10buvm15repro__v5_named15.uhdm
+r10uvm56repro__a1_witness.uhdm
+r10uvm56repro__a5_argpos.uhdm
+r10uvm56repro__a6_type.uhdm
+r10uvm56repro__a8_newlhs.uhdm
+r10uvm56repro__v3_hierpath.uhdm
+r10uvm69repro__a2_scope.uhdm
+r10uvm69repro__a3_recv.uhdm
+r10uvm69repro__v1_gaps.uhdm
+r10v158repro__v158_i.uhdm
+r10v160repro__x09_struct.uhdm
+r10v160repro__x10_enum.uhdm

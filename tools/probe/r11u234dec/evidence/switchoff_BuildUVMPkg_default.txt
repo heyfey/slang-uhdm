@@ -1,0 +1,16 @@
+== R11U234_OFF rc=0 md5=6a6d62e38946
+BuildUVMPkg/default/R11U234_OFF nA=201533 nB=201588 verify=True first=line ndiff=14 clusters=46
+== R11U234_TPTDUSE_OFF rc=0 md5=f0fbc51de17a
+BuildUVMPkg/default/R11U234_TPTDUSE_OFF nA=201533 nB=201583 verify=True first=line ndiff=12 clusters=37
+== R11U234_TPTDFORMAL_OFF rc=0 md5=154427fc1226
+BuildUVMPkg/default/R11U234_TPTDFORMAL_OFF nA=201533 nB=201588 verify=True first=line ndiff=14 clusters=32
+== R11U234_TPGROUP_OFF rc=0 md5=66b021285260
+BuildUVMPkg/default/R11U234_TPGROUP_OFF nA=201533 nB=201588 verify=True first=line ndiff=12 clusters=35
+== R11U234_RETLOCALTS_OFF rc=0 md5=5fe75fee1227
+BuildUVMPkg/default/R11U234_RETLOCALTS_OFF nA=201533 nB=201588 verify=True first=line ndiff=12 clusters=33
+== R11U234_CLSTDRET_OFF rc=0 md5=49f045b60072
+BuildUVMPkg/default/R11U234_CLSTDRET_OFF nA=201533 nB=201593 verify=True first=line ndiff=12 clusters=32
+== R11U234_CLSQUALSPAN_OFF rc=0 md5=7af1a1004a85
+BuildUVMPkg/default/R11U234_CLSQUALSPAN_OFF nA=201533 nB=201588 verify=True first=line ndiff=12 clusters=32
+== R11U234_PUREVIRTSPAN_OFF rc=0 md5=d051f233ed44
+BuildUVMPkg/default/R11U234_PUREVIRTSPAN_OFF nA=201533 nB=201588 verify=True first=line ndiff=12 clusters=32

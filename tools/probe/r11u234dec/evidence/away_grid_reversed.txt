@@ -1,0 +1,569 @@
+E/e01 law->pris chain_lost=13 chain_toward=0 flat_lost=11 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|52|6|53|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|52|6|53|||| @ ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+E/e01_el law->pris chain_lost=38 chain_toward=0 flat_lost=30 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|52|6|53|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|52|6|53|||| @ ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+E/e02 law->pris chain_lost=10 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|3|3|3|37|||| @ ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST bit_typespec||||dut.sv|3|16|3|19|||| @ ref_typespec: < enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+E/e02_el law->pris chain_lost=35 chain_toward=0 flat_lost=27 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|3|3|3|37|||| @ ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST bit_typespec||||dut.sv|3|16|3|19|||| @ ref_typespec: < enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+E/e03 law->pris chain_lost=5 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|3|3|3|37|||| @ ref_typespec: < ref_var:e < function:m_init_map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < ref_var:e < function:m_init_map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST bit_typespec||||dut.sv|3|16|3|19|||| @ ref_typespec: < enum_typespec:p::e_t < ref_typespec: < ref_var:e < function:m_init_map < class_defn:W < package:p < design:unnamed
+E/e03_el law->pris chain_lost=20 chain_toward=0 flat_lost=12 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|3|3|3|37|||| @ ref_typespec: < ref_var:e < function:m_init_map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < ref_var:e < function:m_init_map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST bit_typespec||||dut.sv|3|16|3|19|||| @ ref_typespec: < enum_typespec:p::e_t < ref_typespec: < ref_var:e < function:m_init_map < class_defn:W < package:p < design:unnamed
+E/e04 law->pris chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|3|3|3|37|||| @ ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST bit_typespec||||dut.sv|3|16|3|19|||| @ ref_typespec: < enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+E/e04_el law->pris chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|3|3|3|37|||| @ ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST bit_typespec||||dut.sv|3|16|3|19|||| @ ref_typespec: < enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+E/e05 law->pris chain_lost=9 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|34|7|35|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|34|7|35|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+E/e05_el law->pris chain_lost=9 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|34|7|35|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|34|7|35|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+E/e06 law->pris chain_lost=8 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|28|6|29|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|28|6|29|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+E/e06_el law->pris chain_lost=8 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|28|6|29|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|28|6|29|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+E/e07 law->pris chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < struct_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST typespec_member|a|||dut.sv|3|31|3|32|||| @ struct_typespec:p::s_t < ref_typespec: < struct_var:m < class_defn:W < package:p < design:unnamed
+E/e07_el law->pris chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < struct_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST typespec_member|a|||dut.sv|3|31|3|32|||| @ struct_typespec:p::s_t < ref_typespec: < struct_var:m < class_defn:W < package:p < design:unnamed
+E/e09 law->pris chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < type_parameter:T < class_defn:Ac < package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < io_decl:a < function:f < class_defn:Ac < package:p < design:unnamed
+E/e09_el law->pris chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < type_parameter:T < class_defn:Ac < package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < io_decl:a < function:f < class_defn:Ac < package:p < design:unnamed
+E/e10 law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < type_parameter:T < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < io_decl:a < function:f < class_defn:W < package:p < design:unnamed
+E/e10_el law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < type_parameter:T < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < io_decl:a < function:f < class_defn:W < package:p < design:unnamed
+E/e11 law->pris chain_lost=8 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+E/e11_el law->pris chain_lost=8 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+E/e13 law->pris chain_lost=17 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+E/e13_el law->pris chain_lost=17 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+E/e14 law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < type_parameter:T < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < io_decl:a < function:f < class_defn:W < package:p < design:unnamed
+E/e14_el law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < type_parameter:T < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < io_decl:a < function:f < class_defn:W < package:p < design:unnamed
+E/e16 law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < io_decl:x < function:g < class_defn:Ac < package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < type_parameter:T < class_defn:W < package:p < design:unnamed
+E/e16_el law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < io_decl:x < function:g < class_defn:Ac < package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < type_parameter:T < class_defn:W < package:p < design:unnamed
+E/e17 law->pris chain_lost=8 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+E/e17_el law->pris chain_lost=8 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+E/e20 law->pris chain_lost=15 chain_toward=0 flat_lost=13 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|52|6|53|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|52|6|53|||| @ ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+E/e20_el law->pris chain_lost=41 chain_toward=0 flat_lost=33 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|52|6|53|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|52|6|53|||| @ ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+E/e21 law->pris chain_lost=13 chain_toward=0 flat_lost=11 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|52|7|53|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|52|7|53|||| @ ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+E/e21_el law->pris chain_lost=38 chain_toward=0 flat_lost=30 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|52|7|53|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|52|7|53|||| @ ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+F/f01 law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec||||dut.sv|7|12|7|18|||| @ ref_typespec: < class_var:reserve_region < ref_obj:reserve_region < assignment: < begin: < function:reserve_region < class_defn:mam < package:p < design:unnamed
+  CHAIN_LOST class_typespec||||dut.sv|7|12|7|18|||| @ ref_typespec: < class_var:reserve_region < ref_obj:reserve_region < return_stmt: < if_stmt: < begin: < function:reserve_region < class_defn:mam < package:p < design:unnamed
+F/f01_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+F/f03 law->pris chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST class_typespec||||dut.sv|8|12|8|16|||| @ ref_typespec: < class_var:get_default_map < ref_obj:get_default_map < method_func_call:first < begin: < if_stmt: < function:get_default_map < class_defn:mem < package:p < design:unnamed
+F/f03_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+F/f04 law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST class_typespec||||dut.sv|4|12|4|18|||| @ ref_typespec: < class_var:reserve_region < ref_obj:reserve_region < assignment: < begin: < function:reserve_region < package:p < design:unnamed
+  CHAIN_LOST class_typespec||||dut.sv|4|12|4|18|||| @ ref_typespec: < class_var:reserve_region < ref_obj:reserve_region < return_stmt: < if_stmt: < begin: < function:reserve_region < package:p < design:unnamed
+F/f04_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GE/ge01_import law->pris chain_lost=16 chain_toward=0 flat_lost=12 flat_toward=0
+  CHAIN_LOST enum_typespec|q::e_t|||dut.sv|9|21|9|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|q::e_t|||dut.sv|9|21|9|22|||| @ package:q < design:unnamed
+  CHAIN_LOST enum_typespec|q::e_t|||dut.sv|9|21|9|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge01_import_el law->pris chain_lost=31 chain_toward=0 flat_lost=21 flat_toward=0
+  CHAIN_LOST enum_typespec|q::e_t|||dut.sv|9|21|9|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|q::e_t|||dut.sv|9|21|9|22|||| @ package:q < design:unnamed
+  CHAIN_LOST enum_typespec|q::e_t|||dut.sv|9|21|9|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge03_nested law->pris chain_lost=8 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|23|7|24|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|23|7|24|||| @ ref_typespec: < enum_var:m < class_defn:W < class_defn:O < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < class_defn:O < package:p < design:unnamed
+GE/ge03_nested_el law->pris chain_lost=8 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|23|7|24|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|23|7|24|||| @ ref_typespec: < enum_var:m < class_defn:W < class_defn:O < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < class_defn:O < package:p < design:unnamed
+GE/ge04_virt_static law->pris chain_lost=14 chain_toward=0 flat_lost=11 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|19|8|20|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|19|8|20|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge04_virt_static_el law->pris chain_lost=14 chain_toward=0 flat_lost=11 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|19|8|20|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|19|8|20|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge05_tdtd law->pris chain_lost=14 chain_toward=0 flat_lost=12 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e2_t|||dut.sv|7|21|7|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e2_t|||dut.sv|7|21|7|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e2_t||0|0|0|0||0|| @ enum_typespec:p::e2_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge05_tdtd_el law->pris chain_lost=14 chain_toward=0 flat_lost=12 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e2_t|||dut.sv|7|21|7|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e2_t|||dut.sv|7|21|7|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e2_t||0|0|0|0||0|| @ enum_typespec:p::e2_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge06_fwd law->pris chain_lost=8 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge06_fwd_el law->pris chain_lost=8 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge07_dims law->pris chain_lost=23 chain_toward=0 flat_lost=23 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|10|21|10|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|10|21|10|22|||| @ ref_typespec: < enum_var: < array_var:fx < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:fx < class_defn:W < package:p < design:unnamed
+GE/ge07_dims_el law->pris chain_lost=23 chain_toward=0 flat_lost=23 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|10|21|10|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|10|21|10|22|||| @ ref_typespec: < enum_var: < array_var:fx < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:fx < class_defn:W < package:p < design:unnamed
+GE/ge08_twofiles law->pris chain_lost=18 chain_toward=0 flat_lost=14 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||b.sv|6|21|6|22|||| @ package:r < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||b.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||b.sv|6|21|6|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge08_twofiles_el law->pris chain_lost=18 chain_toward=0 flat_lost=14 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||b.sv|6|21|6|22|||| @ package:r < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||b.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||b.sv|6|21|6|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge09_include law->pris chain_lost=14 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|21|7|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|21|7|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge09_include_el law->pris chain_lost=29 chain_toward=0 flat_lost=19 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|21|7|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|21|7|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge10_macro law->pris chain_lost=9 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|26|8|27|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|26|8|27|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge10_macro_el law->pris chain_lost=9 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|26|8|27|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|26|8|27|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge11_crlf law->pris chain_lost=13 chain_toward=0 flat_lost=11 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|52|6|53|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|52|6|53|||| @ ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+GE/ge11_crlf_el law->pris chain_lost=38 chain_toward=0 flat_lost=30 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|52|6|53|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|52|6|53|||| @ ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var: < array_var:map < class_defn:W < package:p < design:unnamed
+GE/ge12_union law->pris chain_lost=16 chain_toward=0 flat_lost=16 flat_toward=0
+  CHAIN_LOST union_typespec|p::u_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST union_typespec|p::u_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < union_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST typespec_member|a|||dut.sv|3|36|3|37|||| @ union_typespec:p::u_t < ref_typespec: < union_var:m < class_defn:W < package:p < design:unnamed
+GE/ge12_union_el law->pris chain_lost=16 chain_toward=0 flat_lost=16 flat_toward=0
+  CHAIN_LOST union_typespec|p::u_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST union_typespec|p::u_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < union_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST typespec_member|a|||dut.sv|3|36|3|37|||| @ union_typespec:p::u_t < ref_typespec: < union_var:m < class_defn:W < package:p < design:unnamed
+GE/ge13_spec_module law->pris chain_lost=9 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|21|7|22|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|21|7|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:work@top
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:work@top
+GE/ge13_spec_module_el law->pris chain_lost=9 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|21|7|22|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|7|21|7|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:work@top
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:work@top
+GE/ge14_modclass law->pris chain_lost=11 chain_toward=0 flat_lost=9 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|9|21|9|22|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|9|21|9|22|||| @ module_inst: < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|9|21|9|22|||| @ ref_typespec: < enum_var:m < class_defn:W < module_inst: < design:work@top
+GE/ge14_modclass_el law->pris chain_lost=19 chain_toward=0 flat_lost=15 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|9|21|9|22|||| @ package:p < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|9|21|9|22|||| @ module_inst: < design:work@top
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|9|21|9|22|||| @ ref_typespec: < enum_var:m < class_defn:W < module_inst: < design:work@top
+GE/ge15_blocklocal law->pris chain_lost=13 chain_toward=0 flat_lost=9 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < type_parameter:T < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < io_decl:a < function:f < class_defn:W < package:p < design:unnamed
+GE/ge15_blocklocal_el law->pris chain_lost=38 chain_toward=0 flat_lost=24 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < type_parameter:T < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|5|21|5|22|||| @ ref_typespec: < io_decl:a < function:f < class_defn:W < package:p < design:unnamed
+GE/ge16_struct_unpacked law->pris chain_lost=17 chain_toward=0 flat_lost=17 flat_toward=0
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < struct_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST typespec_member|a|||dut.sv|3|24|3|25|||| @ struct_typespec:p::s_t < ref_typespec: < struct_var:m < class_defn:W < package:p < design:unnamed
+GE/ge16_struct_unpacked_el law->pris chain_lost=31 chain_toward=0 flat_lost=31 flat_toward=0
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|6|21|6|22|||| @ package:p < design:unnamed
+  CHAIN_LOST struct_typespec|p::s_t|||dut.sv|6|21|6|22|||| @ ref_typespec: < struct_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST typespec_member|a|||dut.sv|3|24|3|25|||| @ struct_typespec:p::s_t < ref_typespec: < struct_var:m < class_defn:W < package:p < design:unnamed
+GE/ge17_twoparams law->pris chain_lost=19 chain_toward=0 flat_lost=15 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|21|8|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::f_t|||dut.sv|8|26|8|27|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|21|8|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge17_twoparams_el law->pris chain_lost=19 chain_toward=0 flat_lost=15 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|21|8|22|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::f_t|||dut.sv|8|26|8|27|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|8|21|8|22|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge18_oob_local law->pris chain_lost=8 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|28|6|29|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|28|6|29|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GE/ge18_oob_local_el law->pris chain_lost=8 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|28|6|29|||| @ package:p < design:unnamed
+  CHAIN_LOST enum_typespec|p::e_t|||dut.sv|6|28|6|29|||| @ ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+  CHAIN_LOST ref_typespec|||<in>p::e_t||0|0|0|0||0|| @ enum_typespec:p::e_t < ref_typespec: < enum_var:m < class_defn:W < package:p < design:unnamed
+GF/gf01_spec law->pris chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST class_typespec||||dut.sv|7|12|7|21|||| @ ref_typespec: < class_var:get_v < ref_obj:get_v < assignment: < function:get_v < class_defn:cs < package:p < design:unnamed
+GF/gf01_spec_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GF/gf02_qual law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GF/gf02_qual_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GF/gf03_static law->pris chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST class_typespec||||dut.sv|7|12|7|15|||| @ ref_typespec: < class_var:get_one < ref_obj:get_one < assignment: < function:get_one < class_defn:mam < package:p < design:unnamed
+GF/gf03_static_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GF/gf06_crlf_incl law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec||||mam_body.svh|1|12|1|18|||| @ ref_typespec: < class_var:reserve_region < ref_obj:reserve_region < assignment: < begin: < function:reserve_region < class_defn:mam < package:p < design:unnamed
+  CHAIN_LOST class_typespec||||mam_body.svh|1|12|1|18|||| @ ref_typespec: < class_var:reserve_region < ref_obj:reserve_region < return_stmt: < if_stmt: < begin: < function:reserve_region < class_defn:mam < package:p < design:unnamed
+GF/gf06_crlf_incl_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GF/gf07_module law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec||||dut.sv|4|12|4|15|||| @ ref_typespec: < class_var:mk < ref_obj:mk < assignment: < function:mk < module_inst: < design:work@top
+  CHAIN_LOST class_typespec||||dut.sv|4|12|4|15|||| @ ref_typespec: < class_var:mk < ref_obj:mk < assignment: < function:mk < module_inst:work@top < design:work@top
+GF/gf07_module_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GQ/gq02_spec law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GQ/gq02_spec_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GQ/gq03_oob law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GQ/gq03_oob_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GQ/gq04_static law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GQ/gq04_static_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GQ/gq05_qualelem law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GQ/gq05_qualelem_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GQ/gq06_tpelem law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GQ/gq06_tpelem_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+GR/gr01_include law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|35|9|38|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|35|9|38|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|35|9|38|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr01_include_el law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|35|9|38|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|35|9|38|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|35|9|38|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr02_macro law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|27|10|30|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|27|10|30|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|27|10|30|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr02_macro_el law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|27|10|30|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|27|10|30|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|27|10|30|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr03_nested law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|8|28|8|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|8|28|8|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|8|28|8|31|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr03_nested_el law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|8|28|8|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|8|28|8|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|8|28|8|31|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr04_chain3 law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST class_typespec|c_type|||dut.sv|9|22|9|23|||| @ ref_typespec: < class_var: < array_var:a_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|c_type|||dut.sv|9|22|9|23|||| @ ref_typespec: < class_var:c_one < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|c_type|||dut.sv|9|22|9|23|||| @ ref_typespec: < type_parameter:A < class_defn:base < package:p < design:unnamed
+GR/gr04_chain3_el law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST class_typespec|c_type|||dut.sv|9|22|9|23|||| @ ref_typespec: < class_var: < array_var:a_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|c_type|||dut.sv|9|22|9|23|||| @ ref_typespec: < class_var:c_one < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|c_type|||dut.sv|9|22|9|23|||| @ ref_typespec: < type_parameter:A < class_defn:base < package:p < design:unnamed
+GR/gr05_qualdefault law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|11|28|11|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|11|28|11|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|11|28|11|31|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr05_qualdefault_el law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|11|28|11|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|11|28|11|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|11|28|11|31|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr06_virt law->pris chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var:m_one < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ class_defn:base < package:p < design:unnamed
+GR/gr06_virt_el law->pris chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var:m_one < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ class_defn:base < package:p < design:unnamed
+GR/gr07_sites law->pris chain_lost=9 chain_toward=0 flat_lost=9 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|11|28|11|31|||| @ ref_typespec: < class_var: < array_var:fx < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|11|28|11|31|||| @ ref_typespec: < class_var: < array_var:dy < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|11|28|11|31|||| @ ref_typespec: < class_var: < array_var:as < class_defn:base < package:p < design:unnamed
+GR/gr07_sites_el law->pris chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|11|28|11|31|||| @ ref_typespec: < class_var: < array_var:fx < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|11|28|11|31|||| @ ref_typespec: < class_var: < array_var:dy < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|11|28|11|31|||| @ ref_typespec: < class_var: < array_var:as < class_defn:base < package:p < design:unnamed
+GR/gr08_spec law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|28|10|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|28|10|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|28|10|31|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr08_spec_el law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|28|10|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|28|10|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|28|10|31|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr09_unit law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|8|26|8|29|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:work@base < design:work@top
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|8|26|8|29|||| @ ref_typespec: < type_parameter:REQ < class_defn:work@base < design:work@top
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|8|26|8|29|||| @ ref_typespec: < type_parameter:RSP < class_defn:work@base < design:work@top
+GR/gr09_unit_el law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|8|26|8|29|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:work@base < design:work@top
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|8|26|8|29|||| @ ref_typespec: < type_parameter:REQ < class_defn:work@base < design:work@top
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|8|26|8|29|||| @ ref_typespec: < type_parameter:RSP < class_defn:work@base < design:work@top
+GR/gr10_crlf law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var: < array_var:m_rsp_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+GR/gr10_crlf_el law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var: < array_var:m_rsp_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+GR/gr11_twofiles law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||b.sv|9|28|9|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||b.sv|9|28|9|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||b.sv|9|28|9|31|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr11_twofiles_el law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||b.sv|9|28|9|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||b.sv|9|28|9|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||b.sv|9|28|9|31|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr12_tdformal law->pris chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|4|27|4|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|4|27|4|31|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|4|27|4|31|||| @ class_defn:base < package:p < design:unnamed
+GR/gr12_tdformal_el law->pris chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|4|27|4|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|4|27|4|31|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|4|27|4|31|||| @ class_defn:base < package:p < design:unnamed
+GR/gr13_dimformal law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|29|9|32|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|29|9|32|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|29|9|32|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr13_dimformal_el law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|29|9|32|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|29|9|32|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|29|9|32|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+GR/gr14_modclass law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|28|9|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < module_inst: < design:work@top
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|28|9|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < module_inst: < design:work@top
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|28|9|31|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < module_inst: < design:work@top
+GR/gr14_modclass_el law->pris chain_lost=12 chain_toward=0 flat_lost=12 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|28|9|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < module_inst: < design:work@top
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|28|9|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < module_inst: < design:work@top
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|28|9|31|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < module_inst: < design:work@top
+GU/gu03_default law->pris chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|8|12|8|19|||| @ ref_typespec: < io_decl:rq < task:t < class_defn:pool < package:p < design:unnamed
+GU/gu03_default_el law->pris chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|8|12|8|19|||| @ ref_typespec: < io_decl:rq < task:t < class_defn:pool < package:p < design:unnamed
+GU/gu04_spacing law->pris chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|8|21|8|29|||| @ ref_typespec: < io_decl:rq < function:f < class_defn:pool < package:p < design:unnamed
+GU/gu04_spacing_el law->pris chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|8|21|8|29|||| @ ref_typespec: < io_decl:rq < function:f < class_defn:pool < package:p < design:unnamed
+GU/gu05_extern law->pris chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|10|25|10|32|||| @ ref_typespec: < io_decl:rq < function:pool::f < package:p < design:unnamed
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|8|28|8|35|||| @ ref_typespec: < io_decl:rq < function:f < class_defn:pool < package:p < design:unnamed
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|10|25|10|32|||| @ ref_typespec: < io_decl:rq < function:f < class_defn:pool < package:p < design:unnamed
+GU/gu05_extern_el law->pris chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|10|25|10|32|||| @ ref_typespec: < io_decl:rq < function:pool::f < package:p < design:unnamed
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|8|28|8|35|||| @ ref_typespec: < io_decl:rq < function:f < class_defn:pool < package:p < design:unnamed
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|10|25|10|32|||| @ ref_typespec: < io_decl:rq < function:f < class_defn:pool < package:p < design:unnamed
+GV/gv02_valparam law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_var|||p::cs::get_v|dut.sv|5|27|5|34||0|| @ function:get_v < class_defn:cs < package:p < design:unnamed
+  CHAIN_LOST class_typespec||||dut.sv|5|27|5|34|||| @ ref_typespec: < class_var: < function:get_v < class_defn:cs < package:p < design:unnamed
+GV/gv02_valparam_el law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_var|||p::cs::get_v|dut.sv|5|27|5|34||0|| @ function:get_v < class_defn:cs < package:p < design:unnamed
+  CHAIN_LOST class_typespec||||dut.sv|5|27|5|34|||| @ ref_typespec: < class_var: < function:get_v < class_defn:cs < package:p < design:unnamed
+GV/gv04_module law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_var|||work@top::cs::get_v|dut.sv|6|27|6|37||0|| @ function:get_v < class_defn:cs < module_inst: < design:work@top
+  CHAIN_LOST class_typespec||||dut.sv|6|27|6|37|||| @ ref_typespec: < class_var: < function:get_v < class_defn:cs < module_inst: < design:work@top
+GV/gv04_module_el law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST class_var|||work@top::cs::get_v|dut.sv|6|27|6|37||0|| @ function:get_v < class_defn:cs < module_inst: < design:work@top
+  CHAIN_LOST class_typespec||||dut.sv|6|27|6|37|||| @ ref_typespec: < class_var: < function:get_v < class_defn:cs < module_inst: < design:work@top
+  CHAIN_LOST class_var|||work@top::cs::get_v|dut.sv|6|27|6|37||0|| @ function:get_v < class_defn:cs < module_inst:work@top < design:work@top
+GV/gv06_plain law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_var|||p::cs::get_v2|dut.sv|7|27|7|42||0|| @ function:get_v2 < class_defn:cs < package:p < design:unnamed
+  CHAIN_LOST class_typespec||||dut.sv|7|27|7|42|||| @ ref_typespec: < class_var: < function:get_v2 < class_defn:cs < package:p < design:unnamed
+GV/gv06_plain_el law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_var|||p::cs::get_v2|dut.sv|7|27|7|42||0|| @ function:get_v2 < class_defn:cs < package:p < design:unnamed
+  CHAIN_LOST class_typespec||||dut.sv|7|27|7|42|||| @ ref_typespec: < class_var: < function:get_v2 < class_defn:cs < package:p < design:unnamed
+N/n05 law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+N/n05_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe/r10buvm15repro/a1_collargs15 law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe/r10buvm15repro/v5_named15 law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe/r10uvm56repro/a1_witness law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe/r10uvm56repro/a5_argpos law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST class_typespec|der_c|||dut.sv|64|13|64|18|||| @ ref_typespec: < class_var:b_sys < ref_obj:b_sys < sys_func_call:$cast < operation: < if_stmt: < function:b_sys < module_inst: < design:work@a5_top
+  CHAIN_LOST class_typespec|der_c|||dut.sv|64|13|64|18|||| @ ref_typespec: < class_var:b_sys < ref_obj:b_sys < assignment: < if_stmt: < function:b_sys < module_inst: < design:work@a5_top
+  CHAIN_LOST class_typespec|der_c|||dut.sv|64|13|64|18|||| @ ref_typespec: < class_var:b_sys < ref_obj:b_sys < sys_func_call:$cast < operation: < if_stmt: < function:b_sys < module_inst:work@a5_top < design:work@a5_top
+probe/r10uvm56repro/a6_type law->pris chain_lost=6 chain_toward=0 flat_lost=6 flat_toward=0
+  CHAIN_LOST class_typespec|h6|||dut.sv|37|13|37|15|||| @ ref_typespec: < class_var:z_class < ref_obj:z_class < assignment: < begin: < function:z_class < module_inst: < design:work@a6_top
+  CHAIN_LOST class_typespec|h6|||dut.sv|37|13|37|15|||| @ ref_typespec: < class_var:z_class < ref_obj:z_class < operation: < if_stmt: < begin: < function:z_class < module_inst: < design:work@a6_top
+  CHAIN_LOST class_typespec|h6|||dut.sv|37|13|37|15|||| @ ref_typespec: < class_var:z_class < ref_obj:z_class < assignment: < if_stmt: < begin: < function:z_class < module_inst: < design:work@a6_top
+probe/r10uvm56repro/a8_newlhs law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_typespec|item_c|||dut.sv|29|13|29|19|||| @ ref_typespec: < class_var:p_loc < ref_obj:p_loc < assignment: < begin: < function:p_loc < module_inst: < design:work@a8_top
+  CHAIN_LOST class_typespec|item_c|||dut.sv|29|13|29|19|||| @ ref_typespec: < class_var:p_loc < ref_obj:p_loc < assignment: < begin: < function:p_loc < module_inst:work@a8_top < design:work@a8_top
+probe/r10uvm56repro/v3_hierpath law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe/r10uvm69repro/a2_scope law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe/r10uvm69repro/a3_recv law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe/r10uvm69repro/v1_gaps law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+probe/r10v158repro/v158_i law->pris chain_lost=44 chain_toward=0 flat_lost=38 flat_toward=0
+  CHAIN_LOST enum_typespec|Wpk2::tint9_e|||dut.sv|6|3|6|64|||| @ ref_typespec: < ref_var:shade < begin: < if_stmt: < function:go < class_defn:Tbad_enum < package:Wpk2 < design:work@wtop_i
+  CHAIN_LOST ref_typespec|||<in>Wpk2::tint9_e||0|0|0|0||0|| @ enum_typespec:Wpk2::tint9_e < ref_typespec: < ref_var:shade < begin: < if_stmt: < function:go < class_defn:Tbad_enum < package:Wpk2 < design:work@wtop_i
+  CHAIN_LOST bit_typespec||||dut.sv|6|16|6|25|||| @ ref_typespec: < enum_typespec:Wpk2::tint9_e < ref_typespec: < ref_var:shade < begin: < if_stmt: < function:go < class_defn:Tbad_enum < package:Wpk2 < design:work@wtop_i
+probe/r10v160repro/x09_struct law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST struct_typespec|pv160::stv160|||dut.sv|7|11|7|42|||| @ ref_typespec: < ref_var:t < function:m < class_defn:hold160 < class_defn:midv160 < class_defn:basev160 < package:pv160 < design:work@topv160
+  CHAIN_LOST typespec_member|a|||dut.sv|7|31|7|32|||| @ struct_typespec:pv160::stv160 < ref_typespec: < ref_var:t < function:m < class_defn:hold160 < class_defn:midv160 < class_defn:basev160 < package:pv160 < design:work@topv160
+  CHAIN_LOST ref_typespec|||<in>pv160::stv160.a||0|0|0|0||0|| @ typespec_member:a < struct_typespec:pv160::stv160 < ref_typespec: < ref_var:t < function:m < class_defn:hold160 < class_defn:midv160 < class_defn:basev160 < package:pv160 < design:work@topv160
+probe/r10v160repro/x10_enum law->pris chain_lost=3 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST enum_typespec|pv160::env160|||dut.sv|7|3|7|36|||| @ ref_typespec: < ref_var:t < function:m < class_defn:hold160 < class_defn:midv160 < class_defn:basev160 < package:pv160 < design:work@topv160
+  CHAIN_LOST enum_const|EV0|||dut.sv|7|18|7|21|||| @ enum_typespec:pv160::env160 < ref_typespec: < ref_var:t < function:m < class_defn:hold160 < class_defn:midv160 < class_defn:basev160 < package:pv160 < design:work@topv160
+  CHAIN_LOST enum_const|EV1|||dut.sv|7|23|7|26|||| @ enum_typespec:pv160::env160 < ref_typespec: < ref_var:t < function:m < class_defn:hold160 < class_defn:midv160 < class_defn:basev160 < package:pv160 < design:work@topv160
+Q/q01 law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+Q/q01_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+Q/q03 law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+Q/q03_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+Q/q04 law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+Q/q04_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+Q/q08 law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+Q/q08_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+Q/q09 law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+Q/q09_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+R/r01 law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var: < array_var:m_rsp_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+R/r01_el law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var: < array_var:m_rsp_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+R/r03 law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var:m_req < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var:m_rsp < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+R/r03_el law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var:m_req < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < class_var:m_rsp < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|35|10|38|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+R/r04 law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|34|10|37|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|34|10|37|||| @ ref_typespec: < class_var: < array_var:m_rsp_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|34|10|37|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+R/r04_el law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|34|10|37|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|34|10|37|||| @ ref_typespec: < class_var: < array_var:m_rsp_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|34|10|37|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+R/r05 law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|35|9|38|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|35|9|38|||| @ ref_typespec: < class_var: < array_var:m_rsp_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|35|9|38|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+R/r05_el law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|35|9|38|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|35|9|38|||| @ ref_typespec: < class_var: < array_var:m_rsp_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|9|35|9|38|||| @ ref_typespec: < type_parameter:RSP < class_defn:base < package:p < design:unnamed
+R/r06 law->pris chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|4|27|4|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|4|27|4|31|||| @ ref_typespec: < class_var: < array_var:m_rsp_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|4|27|4|31|||| @ ref_typespec: < class_var:m_one < class_defn:base < package:p < design:unnamed
+R/r06_el law->pris chain_lost=5 chain_toward=0 flat_lost=5 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|4|27|4|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|4|27|4|31|||| @ ref_typespec: < class_var: < array_var:m_rsp_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|4|27|4|31|||| @ ref_typespec: < class_var:m_one < class_defn:base < package:p < design:unnamed
+R/r07 law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|28|10|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|28|10|31|||| @ ref_typespec: < class_var: < array_var:m_rsp_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|28|10|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+R/r07_el law->pris chain_lost=7 chain_toward=0 flat_lost=7 flat_toward=0
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|28|10|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|28|10|31|||| @ ref_typespec: < class_var: < array_var:m_rsp_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|rsp_type|||dut.sv|10|28|10|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+R/r08 law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST class_typespec|req_type|||dut.sv|8|28|8|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|req_type|||dut.sv|8|28|8|31|||| @ ref_typespec: < class_var:m_one < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|req_type|||dut.sv|8|28|8|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+R/r08_el law->pris chain_lost=4 chain_toward=0 flat_lost=4 flat_toward=0
+  CHAIN_LOST class_typespec|req_type|||dut.sv|8|28|8|31|||| @ ref_typespec: < class_var: < array_var:m_req_buf < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|req_type|||dut.sv|8|28|8|31|||| @ ref_typespec: < class_var:m_one < class_defn:base < package:p < design:unnamed
+  CHAIN_LOST class_typespec|req_type|||dut.sv|8|28|8|31|||| @ ref_typespec: < type_parameter:REQ < class_defn:base < package:p < design:unnamed
+U/u01 law->pris chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|8|35|8|42|||| @ ref_typespec: < io_decl:rq < function:print_resources < class_defn:pool < package:p < design:unnamed
+U/u01_el law->pris chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|8|35|8|42|||| @ ref_typespec: < io_decl:rq < function:print_resources < class_defn:pool < package:p < design:unnamed
+U/u03 law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+U/u03_el law->pris chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+U/u04 law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|7|33|7|40|||| @ ref_typespec: < io_decl:rq < function:print_resources < package:p < design:unnamed
+U/u04_el law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|7|33|7|40|||| @ ref_typespec: < io_decl:rq < function:print_resources < package:p < design:unnamed
+U/u05 law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|8|12|8|19|||| @ ref_typespec: < io_decl:a < task:t < class_defn:pool < package:p < design:unnamed
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|8|31|8|38|||| @ ref_typespec: < io_decl:b < task:t < class_defn:pool < package:p < design:unnamed
+U/u05_el law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|8|12|8|19|||| @ ref_typespec: < io_decl:a < task:t < class_defn:pool < package:p < design:unnamed
+  CHAIN_LOST unsupported_typespec|types::rsrc_q_t|||dut.sv|8|31|8|38|||| @ ref_typespec: < io_decl:b < task:t < class_defn:pool < package:p < design:unnamed
+V/v01 law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_var|||p::coreservice::get_component_visitor|dut.sv|7|27|7|41||0|| @ function:get_component_visitor < class_defn:coreservice < package:p < design:unnamed
+  CHAIN_LOST class_typespec||||dut.sv|7|27|7|41|||| @ ref_typespec: < class_var: < function:get_component_visitor < class_defn:coreservice < package:p < design:unnamed
+V/v01_el law->pris chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST class_var|||p::coreservice::get_component_visitor|dut.sv|7|27|7|41||0|| @ function:get_component_visitor < class_defn:coreservice < package:p < design:unnamed
+  CHAIN_LOST class_typespec||||dut.sv|7|27|7|41|||| @ ref_typespec: < class_var: < function:get_component_visitor < class_defn:coreservice < package:p < design:unnamed
+TOTAL law->pris moved=181 same=64 chain_lost=1330 chain_toward=0 flat_lost=1138 flat_toward=0
