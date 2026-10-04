@@ -1,0 +1,13 @@
+#464 line
+  A: 6	logic_typespec	mask_t			dut.sv	27	40	27	46				
+  B: 6	logic_typespec	mask_t			dut.sv	16	11	16	25				
+#465 fullname
+  A: 7	ref_typespec			<in>mask_t		0	0	0	0		0		
+  B: 7	ref_typespec			<in>mask_t		0	0	0	0		0		
+  raw fullname A: mask_t | B: work@sub.M.mask_t
+#472 type
+  A: 8	constant				dut.sv	16	20	16	22	2	64	INT:2	7
+  B: 8	operation				dut.sv	16	20	16	24		0		
+objects 525 vs 526
+fields: type=1 fullname=1 line=1 col=1 endline=1 endcol=2 decompile=1 size=1 value=1 consttype=1 objects_differing=3 (walk diverged)
+STRICT_NOTEQUAL line

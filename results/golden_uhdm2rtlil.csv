@@ -116,7 +116,7 @@ CastToSumWithParameterInSubmodule,default,CMP_EQUAL,,,equal
 CastWidthFromPackage,default,CMP_EQUAL,,,equal
 cdc_static_basic,default,CMP_EQUAL,,,equal
 CellNamedLikeModule,default,CMP_EQUAL,,,equal
-cfg_func_width_loop,default,STRICT_NOTEQUAL,differ:line(3),,differ:line(3)
+cfg_func_width_loop,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 clk2fflogic_effects,default,CMP_EQUAL,,,equal
 Clog2OfSumWithParameterIn2InstancesOfSubmodule,default,CMP_EQUAL,,,equal
 ClogOfParamOfInstanceInitializedByStructMember,default,CMP_EQUAL,,,equal
@@ -738,7 +738,7 @@ struct_negative_index,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/tes
 struct_param_dim,default,CMP_EQUAL,,,equal
 struct_param_field_shift,default,CMP_EQUAL,,,equal
 struct_param_func_arg,default,CMP_EQUAL,,,equal
-struct_param_func_config,default,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+struct_param_func_config,default,CMP_EQUAL,,,equal
 struct_param_func_loop,default,CMP_EQUAL,,,equal
 struct_param_pattern_packing,default,CMP_EQUAL,,,equal
 struct_param_repl_count,default,CMP_EQUAL,,,equal
@@ -987,7 +987,7 @@ CastToSumWithParameterInSubmodule,testflags,CMP_EQUAL,,,equal
 CastWidthFromPackage,testflags,CMP_EQUAL,,,equal
 cdc_static_basic,testflags,CMP_EQUAL,,,equal
 CellNamedLikeModule,testflags,CMP_EQUAL,,,equal
-cfg_func_width_loop,testflags,STRICT_NOTEQUAL,differ:line(3),,differ:line(3)
+cfg_func_width_loop,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 clk2fflogic_effects,testflags,CMP_EQUAL,,,equal
 Clog2OfSumWithParameterIn2InstancesOfSubmodule,testflags,CMP_EQUAL,,,equal
 ClogOfParamOfInstanceInitializedByStructMember,testflags,CMP_EQUAL,,,equal
@@ -1609,7 +1609,7 @@ struct_negative_index,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/t
 struct_param_dim,testflags,CMP_EQUAL,,,equal
 struct_param_field_shift,testflags,CMP_EQUAL,,,equal
 struct_param_func_arg,testflags,CMP_EQUAL,,,equal
-struct_param_func_config,testflags,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+struct_param_func_config,testflags,CMP_EQUAL,,,equal
 struct_param_func_loop,testflags,CMP_EQUAL,,,equal
 struct_param_pattern_packing,testflags,CMP_EQUAL,,,equal
 struct_param_repl_count,testflags,CMP_EQUAL,,,equal

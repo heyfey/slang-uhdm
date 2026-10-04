@@ -1,0 +1,6 @@
+#15272 type
+  A: 5	ref_typespec			bp_common_pkg		0	0	0	0		0		
+  B: 5	constant				dut.sv	2047	16	2047	17	1	64	UINT:1	9
+objects 339479 vs 341734
+fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type

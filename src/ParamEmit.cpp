@@ -15,6 +15,7 @@
 #include "R218.h"
 #include "R224.h"
 #include "R227.h"
+#include "R232.h"
 #include "R233.h"
 
 #include "slang/ast/EvalContext.h"
@@ -270,6 +271,18 @@ static UHDM::operation* copyPatOp163(UHDM::Serializer& s, const UHDM::operation*
 static bool defListingParamTs154 = false;
 
 static bool condArmUnreducible151(const UHDM::any* o);  // § condTakenParamRhsShared151
+
+// § defAggParamBindsImportClone232 — the deferred definition-listing refs of
+// a parameter typed by a BARE package aggregate typedef, keyed by the ref,
+// with the typedef they name (filled in drainDefParamTs, read in
+// shareDefAggParamTs).
+static std::map<const UHDM::ref_typespec*, const void*> defAggImportTd232;
+// § caCallArgParamFormalTs232 — the law, armed by stampEvalFuncLeftovers and
+// run at the end of drainPaNameCopySrc38.
+static std::function<void()>& caCallArgFormalTs232Run() {
+    static std::function<void()> f;
+    return f;
+}
 
 // § paramFoldParenSpan131 — the registry (the law and its post-pass are at
 // paramFoldParenSpan131, near drainShareDefParamTs).
@@ -5053,6 +5066,717 @@ static void impPatCopyFirstListing215(UHDM::design* d, Compilation& comp) {
 }
 
 void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
+    // § caCallArgParamFormalTs232 (r11u232; cfg_func_width_loop #464) — A
+    // PARAMETER PASSED BY BARE NAME TO A PACKAGE FUNCTION IN A MODULE'S
+    // CONTINUOUS ASSIGNMENT TAKES THE FORMAL'S TYPESPEC ON ITS ELABORATED
+    // VALUE.  UhdmWriter::writeCont_assign reduces the right side
+    // (§ evalFuncExecCallArgTs191's header), and ExprEval::evalFunc (UHDM
+    // templates/ExprEval.cpp) binds each actual to its formal:
+    // `exparg->Typespec()->Actual_typespec(tps)`, tps the formal io_decl's
+    // typespec of the function the TOP package lists.  A parameter actual
+    // reduces (ExprEval::getValue) to the elaborated param_assign's Rhs
+    // OBJECT, so that shared constant is re-typed in place: golden
+    // cfg_func_width_loop `u`'s `M = 3'b101` Rhs types with `maxw`'s formal
+    // `mask_t cfg` (27:40, the range folded), ours with a copy of the typedef
+    // at 16:11.  A logic formal narrower than an unbased value truncates it
+    // (the same evalFunc block: UINT, decimal, the formal's width).  Decoded on
+    // tools/probe/r11u232repro/cases/FA: stamped for `assign o = f(P)`, under
+    // + - * / % & | comparisons && || shifts ** ?: concatenation replication
+    // and a bit-select index, nested calls, named arguments, a wildcard-
+    // imported call, a defaulted or top-level parameter, a localparam, one
+    // level down and in every instance; the LAST call met wins (fa35); NOT
+    // stamped (the pristine answer kept): a port or variable range (fa01),
+    // a localparam initializer (fa02), always_comb (fa13), a net declaration
+    // assignment (fa14), an argument expression (fa18), an indexed part
+    // select (fa26), a generate block (fa20), XOR (fa29), an operand beside a
+    // net (fa28), a module-local function (fa23).  Abstains: a bare-implicit
+    // formal (§ elabCallFormal's), a signed logic formal (fa37: golden's size
+    // is not the formal's), an interface body, an Rhs that is not a typed
+    // constant.  Switch R11U232_CAFORMALTS_OFF.
+    auto law232 = [this, d232 = d]() {
+        using namespace slang::ast;
+        static const bool on232 = r11u232On("R11U232_CAFORMALTS_OFF");
+        if (!on232)
+            return;
+        struct Hit232 {
+            const ParameterSymbol* p;
+            const SubroutineSymbol* sub;
+            size_t idx;
+            const InstanceBodySymbol* body;
+        };
+        std::vector<Hit232> hits;
+        // A tree with no net, variable or port read (a reduce that meets one
+        // has no constant operands and evaluates nothing: fa28).
+        std::function<bool(const Expression&)> constLike =
+            [&](const Expression& e) -> bool {
+            bool ok = true;
+            struct V : public ASTVisitor<V, VisitFlags::Expressions> {
+                bool* ok;
+                void handle(const NamedValueExpression& nv) {
+                    auto k = nv.symbol.kind;
+                    if (k != SymbolKind::Parameter &&
+                        k != SymbolKind::EnumValue)
+                        *ok = false;
+                }
+                void handle(const HierarchicalValueExpression&) { *ok = false; }
+            } v;
+            v.ok = &ok;
+            e.visit(v);
+            return ok;
+        };
+        std::function<void(const Expression&, const Scope&)> walk =
+            [&](const Expression& e, const Scope& body) {
+            switch (e.kind) {
+            case ExpressionKind::Conversion:
+                walk(e.as<ConversionExpression>().operand(), body);
+                return;
+            case ExpressionKind::Call: {
+                auto& ce = e.as<CallExpression>();
+                if (ce.isSystemCall())
+                    return;
+                auto sp = std::get_if<const SubroutineSymbol*>(&ce.subroutine);
+                if (!sp || !*sp)
+                    return;
+                auto* sub = *sp;
+                auto* home = sub->getParentScope();
+                bool pkgFn = sub->subroutineKind == SubroutineKind::Function &&
+                             home &&
+                             home->asSymbol().kind == SymbolKind::Package;
+                auto as = ce.arguments();
+                for (size_t i = 0; i < as.size(); i++) {
+                    if (!as[i])
+                        continue;
+                    // A nested call is evaluated for its own actuals (fa33).
+                    walk(*as[i], body);
+                    if (!pkgFn)
+                        continue;
+                    const Expression* a0 = as[i];
+                    // § caCallArgCastAbstains232v (v11u232) — AN EXPLICIT
+                    // CAST AROUND THE PARAMETER ARGUMENT STAMPS NOTHING ON
+                    // THE PARAMETER.  Surelog's reduceExpr answers a cast
+                    // operation with a FRESH constant (vpiCastOp: int, bit,
+                    // enum, size casts) or leaves the operation in place (a
+                    // cast to a typedef of a vector), so evalFunc's
+                    // `exparg->Typespec()->Actual_typespec(tps)` lands on
+                    // that constant or on the cast, never on the elaborated
+                    // param_assign's Rhs: golden v11u232repro FX fx20
+                    // (`q::cnt(q::mask_t'(M))`, M `logic [0:2]`) keeps M's
+                    // own typespec (17:24) where the law wrote the formal's
+                    // (4:39, 4 golden records lost, the strict head moving
+                    // from #219 to #209); fx01, fx24 the same on a typedef-
+                    // typed M; fx02 (`32'(N)`), fx03 (`int'(N)`), fx21
+                    // (`3'(M)`) keep the parameter's own typespec too.  A
+                    // SIGNING cast is transparent (golden fx23
+                    // `unsigned'(M)` and fx18 `signed'(N)` stamp the formal,
+                    // as for a bare argument), and so are slang's implicit
+                    // conversions.  Switch R11V232_CASTARG_OFF (R11V232_OFF).
+                    static const bool on232vc =
+                        r11v232On("R11V232_CASTARG_OFF");
+                    bool cast232v = false;
+                    while (a0->kind == ExpressionKind::Conversion) {
+                        auto& cv232 = a0->as<ConversionExpression>();
+                        if (on232vc && !cv232.isImplicit() &&
+                            !(cv232.syntax &&
+                              cv232.syntax->kind ==
+                                  syntax::SyntaxKind::SignedCastExpression)) {
+                            cast232v = true;
+                            break;
+                        }
+                        a0 = &cv232.operand();
+                    }
+                    if (cast232v) {
+                        tr232("caCallArgCastAbstains232v",
+                              std::string(sub->name) + "#" + std::to_string(i));
+                        continue;
+                    }
+                    if (a0->kind != ExpressionKind::NamedValue)
+                        continue;
+                    auto& sy = a0->as<NamedValueExpression>().symbol;
+                    if (sy.kind != SymbolKind::Parameter ||
+                        sy.getParentScope() != &body)
+                        continue;
+                    hits.push_back({&sy.as<ParameterSymbol>(), sub, i,
+                                    &body.asSymbol().as<InstanceBodySymbol>()});
+                }
+                return;
+            }
+            case ExpressionKind::BinaryOp: {
+                auto& b = e.as<BinaryExpression>();
+                switch (b.op) {
+                case BinaryOperator::Add:
+                case BinaryOperator::Subtract:
+                case BinaryOperator::Multiply:
+                case BinaryOperator::Divide:
+                case BinaryOperator::Mod:
+                case BinaryOperator::BinaryAnd:
+                case BinaryOperator::BinaryOr:
+                case BinaryOperator::Equality:
+                case BinaryOperator::Inequality:
+                case BinaryOperator::LessThan:
+                case BinaryOperator::LessThanEqual:
+                case BinaryOperator::GreaterThan:
+                case BinaryOperator::GreaterThanEqual:
+                case BinaryOperator::LogicalAnd:
+                case BinaryOperator::LogicalOr:
+                case BinaryOperator::LogicalShiftLeft:
+                case BinaryOperator::LogicalShiftRight:
+                case BinaryOperator::ArithmeticShiftLeft:
+                case BinaryOperator::ArithmeticShiftRight:
+                case BinaryOperator::Power:
+                    break;
+                default:
+                    return;
+                }
+                if (!constLike(b.left()) || !constLike(b.right()))
+                    return;
+                walk(b.left(), body);
+                walk(b.right(), body);
+                return;
+            }
+            case ExpressionKind::UnaryOp:
+                if (!constLike(e))
+                    return;
+                walk(e.as<UnaryExpression>().operand(), body);
+                return;
+            case ExpressionKind::ConditionalOp: {
+                if (!constLike(e))
+                    return;
+                auto& c = e.as<ConditionalExpression>();
+                for (auto& cd : c.conditions)
+                    walk(*cd.expr, body);
+                walk(c.left(), body);
+                walk(c.right(), body);
+                return;
+            }
+            case ExpressionKind::Concatenation:
+                if (!constLike(e))
+                    return;
+                for (auto* o : e.as<ConcatenationExpression>().operands())
+                    walk(*o, body);
+                return;
+            case ExpressionKind::Replication:
+                if (!constLike(e))
+                    return;
+                walk(e.as<ReplicationExpression>().count(), body);
+                walk(e.as<ReplicationExpression>().concat(), body);
+                return;
+            case ExpressionKind::ElementSelect:
+                // The index reduces on its own (fa25 `a[w(N)]`).
+                walk(e.as<ElementSelectExpression>().selector(), body);
+                return;
+            default:
+                return;
+            }
+        };
+        struct Scan232 : public ASTVisitor<Scan232, VisitFlags::Symbols> {
+            std::function<void(const InstanceBodySymbol&)> fn;
+            void handle(const InstanceBodySymbol& b) {
+                fn(b);
+                visitDefault(b);
+            }
+        } scan;
+        scan.fn = [&](const InstanceBodySymbol& b) {
+            if (b.flags.has(InstanceFlags::Uninstantiated) ||
+                b.getDefinition().definitionKind != DefinitionKind::Module)
+                return;
+            for (auto& m : b.members())
+                if (m.kind == SymbolKind::ContinuousAssign) {
+                    auto& ae = m.as<ContinuousAssignSymbol>().getAssignment();
+                    if (ae.kind != ExpressionKind::Assignment)
+                        continue;
+                    walk(ae.as<AssignmentExpression>().right(), b);
+                }
+        };
+        comp.getRoot().visit(scan);
+        // The elaborated module instances by full name (generate scopes
+        // walked through; the law reads a module body's own assignments).
+        // Keyed by the path of stored names (no full-name getter is read:
+        // it would cache a computed name).
+        std::map<std::string, UHDM::module_inst*> byName;
+        std::function<void(UHDM::module_inst*, const std::string&)> addInst;
+        std::function<void(UHDM::gen_scope*, const std::string&)> addGen =
+            [&](UHDM::gen_scope* g, const std::string& pth) {
+            if (!g)
+                return;
+            if (auto* v = g->Modules())
+                for (auto* c0 : *v)
+                    addInst((UHDM::module_inst*)c0, pth);
+            if (auto* v = g->Gen_scope_arrays())
+                for (auto* ga : *v)
+                    if (ga && ga->Gen_scopes())
+                        for (auto* g2 : *ga->Gen_scopes())
+                            addGen(g2, pth + "." + std::string(g2->VpiName()));
+        };
+        addInst = [&](UHDM::module_inst* m, const std::string& up) {
+            if (!m)
+                return;
+            std::string pth = up.empty() ? std::string(m->VpiName())
+                                         : up + "." + std::string(m->VpiName());
+            byName.emplace(pth, m);
+            if (auto* v = m->Modules())
+                for (auto* c0 : *v)
+                    addInst((UHDM::module_inst*)c0, pth);
+            if (auto* v = m->Gen_scope_arrays())
+                for (auto* ga : *v)
+                    if (ga && ga->Gen_scopes())
+                        for (auto* g : *ga->Gen_scopes())
+                            addGen(g, pth + "." + std::string(g->VpiName()));
+        };
+        if (!hits.empty())
+            if (auto* tm = d232->TopModules())
+                for (auto* m : *tm)
+                    addInst((UHDM::module_inst*)m, "");
+        for (auto& h : hits) {
+            if (!h.body->parentInstance)
+                continue;
+            auto mit = byName.find("work@" +
+                                   h.body->parentInstance->getHierarchicalPath());
+            if (mit == byName.end() || !mit->second->Param_assigns())
+                continue;
+            UHDM::param_assign* pa = nullptr;
+            for (auto* pa0 : *mit->second->Param_assigns())
+                if (pa0 && pa0->Lhs() && pa0->Lhs()->VpiName() == h.p->name)
+                    pa = pa0;
+            if (!pa || !pa->Rhs() ||
+                pa->Rhs()->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* c = (UHDM::constant*)pa->Rhs();
+            auto* rt = c->Typespec();
+            if (!rt)
+                continue;
+            auto fa = h.sub->getArguments();
+            if (h.idx >= fa.size() || !fa[h.idx])
+                continue;
+            // § elabCallFormal models the bare-implicit formal.
+            {
+                const DeclaredType* fd = fa[h.idx]->getDeclaredType().get();
+                const syntax::SyntaxNode* fsy =
+                    fd ? (const syntax::SyntaxNode*)fd->getTypeSyntax() : nullptr;
+                if (fsy && fsy->kind == syntax::SyntaxKind::ImplicitType &&
+                    fsy->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                    !fsy->as<syntax::ImplicitTypeSyntax>().signing.valid())
+                    continue;
+            }
+            auto tit = pkgTopMap.find(&h.sub->getParentScope()->asSymbol());
+            if (tit == pkgTopMap.end() || !tit->second ||
+                !tit->second->Task_funcs())
+                continue;
+            UHDM::function* fn = nullptr;
+            for (auto* tf : *tit->second->Task_funcs())
+                if (tf && tf->UhdmType() == UHDM::uhdmfunction &&
+                    tf->VpiName() == h.sub->name)
+                    fn = (UHDM::function*)tf;
+            if (!fn || !fn->Io_decls() || h.idx >= fn->Io_decls()->size())
+                continue;
+            auto* io = (*fn->Io_decls())[h.idx];
+            if (!io || !io->Typespec() || !io->Typespec()->Actual_typespec())
+                continue;
+            auto* fts = io->Typespec()->Actual_typespec();
+            if (fts->UhdmType() == UHDM::uhdmlogic_typespec &&
+                ((UHDM::logic_typespec*)fts)->VpiSigned())
+                continue;
+            bool moved232 = rt->Actual_typespec() != fts;
+            rt->Actual_typespec(fts);
+            std::string det = std::string(h.p->name) + " " +
+                              std::string(h.sub->name) + "#" +
+                              std::to_string(h.idx);
+            // The truncation to a narrower logic formal (UINT, decimal).
+            uint64_t fw = fa[h.idx]->getType().getBitWidth();
+            if (fts->UhdmType() == UHDM::uhdmlogic_typespec && fw > 0 &&
+                fw < 64 && c->VpiConstType() != vpiBinaryConst &&
+                c->VpiSize() > 0 && (uint64_t)c->VpiSize() > fw) {
+                std::string v(c->VpiValue());
+                auto col = v.find(':');
+                int64_t iv = 0;
+                bool okv = false;
+                // § caCallArgTruncByBase232v (v11u232) — THE TRUNCATED
+                // VALUE IS READ IN ITS OWN BASE.  evalFunc reads the actual
+                // with ExprEval::get_value, which parses HEX:, OCT: and BIN:
+                // in their bases; std::stoll read `HEX:1F3` as 1 (it stops at
+                // the first non-decimal digit): golden v11u232repro FX fx05
+                // (`.N(12'h1F3)` into a `logic [7:0]` formal) writes UINT:243,
+                // the law wrote UINT:1.  A value that does not parse whole in
+                // its base (x/z digits, wider than 64 bits) is not truncated.
+                // Switch R11V232_TRUNCBASE_OFF (R11V232_OFF).
+                static const bool on232vb =
+                    r11v232On("R11V232_TRUNCBASE_OFF");
+                if (on232vb && col != std::string::npos) {
+                    std::string pre = v.substr(0, col), dig = v.substr(col + 1);
+                    int base = pre == "HEX"   ? 16
+                               : pre == "OCT" ? 8
+                               : pre == "BIN" ? 2
+                               : (pre == "UINT" || pre == "INT" ||
+                                  pre == "DEC")
+                                   ? 10
+                                   : 0;
+                    if (base && !dig.empty()) {
+                        try {
+                            size_t used = 0;
+                            if (base == 10 && dig[0] == '-')
+                                iv = std::stoll(dig, &used, 10);
+                            else
+                                iv = (int64_t)std::stoull(dig, &used, base);
+                            okv = used == dig.size();
+                        }
+                        catch (...) {
+                        }
+                    }
+                    if (okv && base != 10)
+                        tr232("caCallArgTruncByBase232v", v);
+                }
+                else if (col != std::string::npos) {
+                    try {
+                        iv = std::stoll(v.substr(col + 1));
+                        okv = true;
+                    }
+                    catch (...) {
+                    }
+                }
+                if (okv) {
+                    uint64_t tv = (uint64_t)iv & ((1ULL << fw) - 1);
+                    c->VpiValue("UINT:" + std::to_string(tv));
+                    c->VpiConstType(vpiUIntConst);
+                    c->VpiDecompile(std::to_string(tv));
+                    c->VpiSize((int32_t)fw);
+                    det += " trunc";
+                    moved232 = true;
+                }
+            }
+            if (moved232)
+                tr232("caCallArgParamFormalTs232", det);
+        }
+    };
+    // § structCopyNestedAnnotDeep232 (r11u232; struct_param_func_config
+    // #1364, map 14's N0045) — A PARAMETER'S STRUCT TYPESPEC COPY HOLDS
+    // PRIVATE COPIES OF THE ANNOTATED STRUCTS NESTED IN IT.  Surelog's copy of
+    // a parameter's typespec is a clone_tree with uniquifyTypespec set, so
+    // every typespec under it is cloned, and so is every member value
+    // constant (typespec_member Actual_value) the evaluator stamped: golden
+    // struct_param_func_config's eleven `p::cfg_t` copies (both listings of
+    // `child` and the top, the elaborated `u_c`, the parameter, its
+    // param_assign and its value) each hold their own `p::ucfg_t` under
+    // member `u`, parented at the member's reference, whose members carry
+    // their own `7`, `1'b1`, `1'b0` parented at the member; only the typedef
+    // listings share one.  Ours pointed every copy at the import clone's
+    // `p::ucfg_t`, whose member values are the function body's own constants
+    // (`c.a = 7` in `setcfg`): a walk that has already met the body lists
+    // them no more, and 138 golden records went missing.  The copy is made
+    // only for a nested struct that carries a member value somewhere (an
+    // unannotated nested struct is invisible to identity), for the copies
+    // that hang under a parameter or a reference (never a typedef listing),
+    // under the members' references and the members' value constants alike.
+    // Grid tools/probe/r11u232repro/cases/NA.  Switch R11U232_NESTANNOT_OFF.
+    auto law232n = [this]() {
+        static const bool on232n = r11u232On("R11U232_NESTANNOT_OFF");
+        if (!on232n)
+            return;
+        std::function<bool(const UHDM::typespec*, int)> annotated =
+            [&](const UHDM::typespec* t, int dep) -> bool {
+            if (!t || dep > 16 || t->UhdmType() != UHDM::uhdmstruct_typespec)
+                return false;
+            auto* st = (const UHDM::struct_typespec*)t;
+            if (!st->Members())
+                return false;
+            for (auto* m : *st->Members()) {
+                if (!m)
+                    continue;
+                if (m->Actual_value() || m->Default_value())
+                    return true;
+                if (m->Typespec() &&
+                    annotated(m->Typespec()->Actual_typespec(), dep + 1))
+                    return true;
+            }
+            return false;
+        };
+        std::function<UHDM::typespec*(const UHDM::struct_typespec*,
+                                      UHDM::any*, int)>
+            deep;
+        std::function<UHDM::expr*(const UHDM::expr*, UHDM::any*, int)> cloneVal =
+            [&](const UHDM::expr* v, UHDM::any* par, int dep) -> UHDM::expr* {
+            if (!v || v->UhdmType() != UHDM::uhdmconstant)
+                return (UHDM::expr*)v;
+            auto* c = (const UHDM::constant*)v;
+            auto* c2 = s.MakeConstant();
+            c2->VpiValue(c->VpiValue());
+            c2->VpiDecompile(c->VpiDecompile());
+            c2->VpiSize(c->VpiSize());
+            c2->VpiConstType(c->VpiConstType());
+            c2->VpiFile(c->VpiFile());
+            c2->VpiLineNo(c->VpiLineNo());
+            c2->VpiColumnNo(c->VpiColumnNo());
+            c2->VpiEndLineNo(c->VpiEndLineNo());
+            c2->VpiEndColumnNo(c->VpiEndColumnNo());
+            c2->VpiParent(par);
+            if (auto* rt = c->Typespec()) {
+                auto* r2 = s.MakeRef_typespec();
+                std::string fn;
+                if (r215StoredFullName(rt, fn) && !fn.empty())
+                    r2->VpiFullName(fn);
+                r2->VpiParent(c2);
+                auto* at = rt->Actual_typespec();
+                if (at && at->UhdmType() == UHDM::uhdmstruct_typespec &&
+                    annotated(at, 0))
+                    r2->Actual_typespec(
+                        deep((const UHDM::struct_typespec*)at, r2, dep + 1));
+                else
+                    r2->Actual_typespec((UHDM::typespec*)at);
+                c2->Typespec(r2);
+            }
+            return c2;
+        };
+        deep = [&](const UHDM::struct_typespec* st, UHDM::any* par,
+                   int dep) -> UHDM::typespec* {
+            if (dep > 16)
+                return (UHDM::typespec*)st;
+            auto* cp = s.MakeStruct_typespec();
+            cp->VpiName(st->VpiName());
+            cp->VpiPacked(st->VpiPacked());
+            cp->VpiParent(par);
+            cp->VpiFile(st->VpiFile());
+            cp->VpiLineNo(st->VpiLineNo());
+            cp->VpiColumnNo(st->VpiColumnNo());
+            cp->VpiEndLineNo(st->VpiEndLineNo());
+            cp->VpiEndColumnNo(st->VpiEndColumnNo());
+            cp->Instance(((UHDM::struct_typespec*)st)->Instance());
+            cp->Typedef_alias(((UHDM::struct_typespec*)st)->Typedef_alias());
+            auto* mv = s.MakeTypespec_memberVec();
+            if (st->Members())
+                for (auto* m : *st->Members()) {
+                    auto* m2 = s.MakeTypespec_member();
+                    m2->VpiName(m->VpiName());
+                    m2->VpiRandType(m->VpiRandType());
+                    m2->VpiParent(cp);
+                    m2->VpiFile(m->VpiFile());
+                    m2->VpiLineNo(m->VpiLineNo());
+                    m2->VpiColumnNo(m->VpiColumnNo());
+                    m2->VpiEndLineNo(m->VpiEndLineNo());
+                    m2->VpiEndColumnNo(m->VpiEndColumnNo());
+                    if (auto* mr = m->Typespec()) {
+                        auto* r2 = s.MakeRef_typespec();
+                        r2->VpiParent(m2);
+                        auto* mt = mr->Actual_typespec();
+                        if (mt && mt->UhdmType() == UHDM::uhdmstruct_typespec &&
+                            annotated(mt, 0))
+                            r2->Actual_typespec(deep(
+                                (const UHDM::struct_typespec*)mt, r2, dep + 1));
+                        else
+                            r2->Actual_typespec((UHDM::typespec*)mt);
+                        m2->Typespec(r2);
+                    }
+                    if (m->Default_value())
+                        m2->Default_value(
+                            cloneVal(m->Default_value(), m2, dep));
+                    if (m->Actual_value())
+                        m2->Actual_value(
+                            m->Actual_value() == m->Default_value()
+                                ? m2->Default_value()
+                                : cloneVal(m->Actual_value(), m2, dep));
+                    mv->push_back(m2);
+                }
+            cp->Members(mv);
+            return cp;
+        };
+        // The copies: struct typespecs hanging under a reference or a
+        // parameter (typedef listings hang under an instance or a package).
+        std::vector<UHDM::struct_typespec*> copies;
+        for (auto& kv : s.AllObjects()) {
+            auto* o = (UHDM::BaseClass*)kv.first;
+            if (!o || o->UhdmType() != UHDM::uhdmstruct_typespec)
+                continue;
+            auto* par = o->VpiParent();
+            if (!par || (par->UhdmType() != UHDM::uhdmref_typespec &&
+                         par->UhdmType() != UHDM::uhdmparameter))
+                continue;
+            copies.push_back((UHDM::struct_typespec*)o);
+        }
+        size_t made = 0;
+        for (auto* sc : copies) {
+            if (!sc->Members())
+                continue;
+            for (auto* m : *sc->Members()) {
+                if (!m)
+                    continue;
+                // The copy's own member values: a value the copy shares with
+                // the listing it was made from is unparented (the body's
+                // constant, or the listing member's); the clone is the
+                // member's own (golden `U`'s copies: `7` parented at `a`).
+                if (annotated(sc, 0)) {
+                    auto* av = m->Actual_value();
+                    auto* dv = m->Default_value();
+                    if (dv && dv->UhdmType() == UHDM::uhdmconstant &&
+                        !dv->VpiParent()) {
+                        auto* c2 = cloneVal(dv, m, 1);
+                        m->Default_value(c2);
+                        if (av == dv)
+                            m->Actual_value(c2);
+                        made++;
+                    }
+                    if (av && av != dv &&
+                        av->UhdmType() == UHDM::uhdmconstant &&
+                        !av->VpiParent()) {
+                        m->Actual_value(cloneVal(av, m, 1));
+                        made++;
+                    }
+                }
+                if (auto* mr = m->Typespec())
+                    if (auto* mt = mr->Actual_typespec();
+                        mt && mt->UhdmType() == UHDM::uhdmstruct_typespec &&
+                        mt->VpiParent() != mr && annotated(mt, 0)) {
+                        mr->Actual_typespec(
+                            deep((const UHDM::struct_typespec*)mt, mr, 1));
+                        made++;
+                    }
+                for (auto* v : {m->Actual_value(), m->Default_value()}) {
+                    if (!v || v->UhdmType() != UHDM::uhdmconstant ||
+                        v->VpiParent() != m)
+                        continue;
+                    auto* vr = ((UHDM::constant*)v)->Typespec();
+                    if (!vr)
+                        continue;
+                    auto* vt = vr->Actual_typespec();
+                    if (vt && vt->UhdmType() == UHDM::uhdmstruct_typespec &&
+                        vt->VpiParent() != vr && annotated(vt, 0)) {
+                        vr->Actual_typespec(
+                            deep((const UHDM::struct_typespec*)vt, vr, 1));
+                        made++;
+                    }
+                }
+            }
+        }
+        if (made)
+            tr232("structCopyNestedAnnotDeep232", std::to_string(made));
+    };
+    // § ovrMemberReadLocatesLeftover232 (r11u232; FuncStructVal #4782, map
+    // 14's N2472 / N2473) — AN INSTANCE OVERRIDE THAT READS A MEMBER OF A
+    // STRUCT PARAMETER LEFT UNASSEMBLED LOCATES THE MEMBER'S LEFTOVER AT THE
+    // READ.  DesignElaboration compiles a named override's expression with
+    // Reduce::Yes in the parent instance; CompileExpression's hierarchical
+    // identifier arm hands `P.m` to compileSelectExpression, which returns
+    // the member's value OBJECT when P's value is the struct_var an evaluated
+    // function left unassembled (a member without a value bails
+    // ExprEval::reduceExpr's assemble, § pkgStructFuncAssembleBinBail), and
+    // then `fC->populateCoreMembers(rhsbackup, rhs, result)` writes the file
+    // and the span from P to the end of m onto that shared object: golden
+    // FuncStructVal `.INPUT_WIDTH(CVA6Cfg.INSTR_PER_FETCH)` puts 618:22-45
+    // on the INSTR_PER_FETCH leftover of `cva6_cfg_t` (the object the
+    // struct_var's typespec member holds, and the clone the elaborated
+    // parameter's copy takes after it).  An assembled value is a fresh slice
+    // and stays unlocated (tools/probe/r11u218dec/cases/RS: every member
+    // written); a struct with one member the function leaves unwritten
+    // locates it (grid tools/probe/r11u232repro/cases/OL, decoded on reduced
+    // copies of FuncStructVal: four written members unlocated, a fifth
+    // unwritten member located).  Runs before § structCopyNestedAnnotDeep232
+    // so the copies clone the located object.  A leftover already located is
+    // left alone; a deeper path or a select abstains.  Switch
+    // R11U232_OVRLEFTLOC_OFF.
+    auto law232l = [this, d232 = d]() {
+        using namespace slang::ast;
+        static const bool on232l = r11u232On("R11U232_OVRLEFTLOC_OFF");
+        if (!on232l || !d232 || !d232->TopModules())
+            return;
+        struct Ovr {
+            const InstanceBodySymbol* body;  // the body that holds P
+            std::string p, m;
+            SourceRange range;
+        };
+        std::vector<Ovr> ovrs;
+        struct Scan : public ASTVisitor<Scan, VisitFlags::Symbols> {
+            std::vector<Ovr>* out;
+            void handle(const InstanceSymbol& inst) {
+                const syntax::SyntaxNode* sy = inst.getSyntax();
+                const syntax::HierarchyInstantiationSyntax* hi = nullptr;
+                for (auto* p0 = sy; p0; p0 = p0->parent)
+                    if (p0->kind == syntax::SyntaxKind::HierarchyInstantiation) {
+                        hi = &p0->as<syntax::HierarchyInstantiationSyntax>();
+                        break;
+                    }
+                const InstanceBodySymbol* body = nullptr;
+                for (auto* sc = inst.getParentScope(); sc;
+                     sc = sc->asSymbol().getParentScope())
+                    if (sc->asSymbol().kind == SymbolKind::InstanceBody) {
+                        body = &sc->asSymbol().as<InstanceBodySymbol>();
+                        break;
+                    }
+                if (hi && hi->parameters && body)
+                    for (auto* pa : hi->parameters->parameters) {
+                        if (pa->kind != syntax::SyntaxKind::NamedParamAssignment)
+                            continue;
+                        auto* ex = pa->as<syntax::NamedParamAssignmentSyntax>().expr;
+                        if (!ex || ex->kind != syntax::SyntaxKind::ScopedName)
+                            continue;
+                        auto& sn = ex->as<syntax::ScopedNameSyntax>();
+                        if (sn.separator.kind != parsing::TokenKind::Dot ||
+                            sn.left->kind != syntax::SyntaxKind::IdentifierName ||
+                            sn.right->kind != syntax::SyntaxKind::IdentifierName)
+                            continue;
+                        out->push_back(
+                            {body,
+                             std::string(sn.left->as<syntax::IdentifierNameSyntax>()
+                                             .identifier.valueText()),
+                             std::string(sn.right->as<syntax::IdentifierNameSyntax>()
+                                             .identifier.valueText()),
+                             ex->sourceRange()});
+                    }
+                visitDefault(inst);
+            }
+        } scan;
+        scan.out = &ovrs;
+        comp.getRoot().visit(scan);
+        if (ovrs.empty())
+            return;
+        std::map<std::string, UHDM::module_inst*> byName;
+        std::function<void(UHDM::module_inst*, const std::string&)> addInst =
+            [&](UHDM::module_inst* m, const std::string& up) {
+            if (!m)
+                return;
+            std::string pth = up.empty() ? std::string(m->VpiName())
+                                         : up + "." + std::string(m->VpiName());
+            byName.emplace(pth, m);
+            if (auto* v = m->Modules())
+                for (auto* c0 : *v)
+                    addInst((UHDM::module_inst*)c0, pth);
+        };
+        for (auto* m : *d232->TopModules())
+            addInst((UHDM::module_inst*)m, "");
+        std::set<const UHDM::constant*> done;
+        for (auto& o : ovrs) {
+            if (!o.body->parentInstance)
+                continue;
+            auto mit =
+                byName.find("work@" + o.body->parentInstance->getHierarchicalPath());
+            if (mit == byName.end() || !mit->second->Param_assigns())
+                continue;
+            const UHDM::any* rhs = nullptr;
+            for (auto* pa : *mit->second->Param_assigns())
+                if (pa && pa->Lhs() && pa->Lhs()->VpiName() == o.p)
+                    rhs = pa->Rhs();
+            if (!rhs || rhs->UhdmType() != UHDM::uhdmstruct_var)
+                continue;
+            auto* rt = ((const UHDM::struct_var*)rhs)->Typespec();
+            auto* st = rt ? rt->Actual_typespec() : nullptr;
+            if (!st || st->UhdmType() != UHDM::uhdmstruct_typespec ||
+                !((UHDM::struct_typespec*)st)->Members())
+                continue;
+            for (auto* mem : *((UHDM::struct_typespec*)st)->Members()) {
+                if (!mem || mem->VpiName() != o.m)
+                    continue;
+                auto* av = mem->Actual_value();
+                if (!av || av->UhdmType() != UHDM::uhdmconstant ||
+                    av->VpiLineNo() != 0 || !done.insert((UHDM::constant*)av).second)
+                    continue;
+                setLoc((UHDM::constant*)av, o.range);
+                tr232("ovrMemberReadLocatesLeftover232", o.p + "." + o.m);
+            }
+        }
+    };
+    // Run DEAD LAST, at the end of drainPaNameCopySrc38: every later pass
+    // that re-points an elaborated param_assign Rhs typespec has run by then
+    // (the written stamp is UhdmWriter's, after elaboration).
+    caCallArgFormalTs232Run() = [law232, law232n, law232l]() {
+        law232l();
+        law232n();
+        law232();
+    };
     // § evalFuncBodyRhsStampClone167 — the S2 leftovers (function-body Rhs).
     std::set<const UHDM::any*> bodyRhsStamps167;
     for (auto& [sv, up] : memLeftStructVars) {
@@ -25019,6 +25743,15 @@ void strLitPpLineShiftDrain224(UHDM::Serializer& s);
 void fwdPkgRefClassScopeSpanDrain227(UHDM::Serializer& s);
 
 void UhdmExporter::drainPaNameCopySrc38() {
+    // § caCallArgParamFormalTs232 — at this drain's end.
+    struct Fin232 {
+        ~Fin232() {
+            if (auto& f = caCallArgFormalTs232Run()) {
+                f();
+                f = nullptr;
+            }
+        }
+    } fin232;
     // § pkgTdAliasLastWriter215 and § impPatCopyFirstListingUnparented215
     // (r11u215) — design-final: every emitter and every typedef clone pass
     // (pkgImportCloneLastWriter32 included) has run; § enumImportParentLastWriter180's
@@ -32256,10 +32989,16 @@ void UhdmExporter::drainDefParamTs() {
         // def; shareDefAggParamTs re-points these refs once the elab clone
         // exists (5-level-hierarchy / parameter-passed-down families).
         if (bareAggPkgTd)
-            if (auto* ob = paramOwnerBody(*pd.ps))
+            if (auto* ob = paramOwnerBody(*pd.ps)) {
                 pendingDefAggShare.push_back({pd.prt, pd.rhsRt, pd.di,
                                               pd.member, &ob->getDefinition(),
                                               std::string(pd.ps->name)});
+                // § defAggParamBindsImportClone232 — the typedef the
+                // definition listing names bare.
+                if (pd.prt)
+                    defAggImportTd232[pd.prt] =
+                        (const void*)&pd.ps->getDeclaredType()->getType();
+            }
     }
     pendingDefParamTs.clear();
 }
@@ -32269,7 +33008,45 @@ void UhdmExporter::drainDefParamTs() {
 // clone (now unreferenced) out of the dump; keeps it only when the def was
 // never elaborated (no matching elab clone).
 void UhdmExporter::shareDefAggParamTs() {
+    // § defAggParamBindsImportClone232 (r11u232; struct_param_func_config
+    // #759) — A DEFINITION LISTING'S PARAMETER TYPED BY A BARE PACKAGE
+    // AGGREGATE TYPEDEF BINDS THE TYPEDEF'S IMPORT CLONE, NOT THE ELABORATED
+    // PARAMETER'S CLONE.  Surelog compiles the definition's
+    // `parameter cfg_t Cfg = ...` (compileParameterDeclaration ->
+    // compileTypespec) against the module's DataTypeMap, which importPackage
+    // filled with the package typedef's ONE shared second-generation object
+    // (§ pkgImportAggCloneLastWriter32), and the default's constant takes the
+    // same object; writeDataTypes then re-parents that object at the last
+    // module writer.  Golden struct_param_func_config: `work@child.Cfg`,
+    // `work@struct_param_func_config.Cfg`, both defaults' constants and the
+    // elaborated u_c's default-span Rhs all reach one struct_typespec
+    // parented at the top definition, the elaborated package p's listing
+    // object (members `work@struct_param_func_config.p::cfg_t.u`); ours
+    // pointed them at the elaborated parameters' clones (`...u_c.Cfg.p::
+    // cfg_t.u`).  The elaborated parameters keep their own clones.  Grid
+    // tools/probe/r11u232repro/cases/DA.  Switch R11U232_DEFAGGIMP_OFF.
+    static const bool on232da = r11u232On("R11U232_DEFAGGIMP_OFF");
     for (auto& e : pendingDefAggShare) {
+        if (on232da && e.prt)
+            if (auto dit = defAggImportTd232.find(e.prt);
+                dit != defAggImportTd232.end())
+                if (auto tit = pkgTopTypedefTs.find(dit->second);
+                    tit != pkgTopTypedefTs.end() && tit->second &&
+                    (tit->second->UhdmType() == UHDM::uhdmstruct_typespec ||
+                     tit->second->UhdmType() == UHDM::uhdmunion_typespec)) {
+                    auto* ic = tit->second;
+                    bool moved232 = e.prt->Actual_typespec() != ic ||
+                                    (e.rhsRt && e.rhsRt->Actual_typespec() != ic);
+                    e.prt->Actual_typespec(ic);
+                    if (e.rhsRt)
+                        e.rhsRt->Actual_typespec(ic);
+                    if (e.di && e.member)
+                        e.di->paramTs[e.member] = ic;
+                    if (moved232)
+                        tr232("defAggParamBindsImportClone232",
+                              e.name);
+                    continue;
+                }
         auto it = elabAggParamClone.find({e.def, e.name});
         if (it == elabAggParamClone.end())
             continue;
@@ -32282,6 +33059,7 @@ void UhdmExporter::shareDefAggParamTs() {
             e.di->paramTs[e.member] = elab;
     }
     pendingDefAggShare.clear();
+    defAggImportTd232.clear();
 }
 
 // The integer value of a UHDM constant bound, or false when it is not a plain
@@ -37117,6 +37895,41 @@ void UhdmExporter::emitImportedPkgClassMethodClones(const PackageSymbol& pkg,
                     ((UHDM::function*)cp)->Return(hf218->Return());
                     tr218("importCloneSharesHomeReturn218",
                           std::string(cp->VpiFullName()));
+                }
+                // § cloneRetNoMintBindsHome232 (r11u232; map 12's minted
+                // clone return variables, 710 per MiniAmiq mode) — THE
+                // CLONE'S BODY MINTS NO RETURN VARIABLE OF ITS OWN.  Golden's
+                // clone is a DeepClone of the home method whose vpiReturn is
+                // the home's object (§ importCloneSharesHomeReturn218 above),
+                // so a return-name reference in its body has nothing to bind
+                // but that object; ours queued the body's references with no
+                // variable to bind (the loop above passes none), and
+                // ModuleEmit's drainFuncRet minted a local per reference that
+                // the design-final unbinds (§ classRetNameDefViewNoBind37,
+                // § classMethodRetNameNoBind56) then left unreferenced.  The
+                // queued entry now carries the home return variable, so the
+                // drain binds instead of minting, and the select references
+                // stay as the mint path left them (unbound: the drain's
+                // bind branch would bind them).  Grid
+                // tools/probe/r11u232repro/cases/CR.  Switch
+                // R11U232_CLONERETMINT_OFF.
+                static const bool on232cr =
+                    r11u232On("R11U232_CLONERETMINT_OFF");
+                if (on232cr && hf218 && hf218->Return()) {
+                    int n232 = 0;
+                    for (auto& pf : pendingFuncRet)
+                        if (pf.tf37 == cp && pf.clone37 && !pf.bindVar) {
+                            pf.bindVar = hf218->Return();
+                            pf.bindHomePkg = nullptr;
+                            pf.selRefs171.clear();
+                            // Only a body that names the return variable
+                            // reached the mint (bytes move there alone).
+                            if (!pf.refs.empty())
+                                n232++;
+                        }
+                    if (n232)
+                        tr232("cloneRetNoMintBindsHome232",
+                              std::string(cp->VpiName()));
                 }
             }
             pkgTfOrder9[cp] = {0, impAt};

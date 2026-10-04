@@ -1,0 +1,7 @@
+# ds.one(<case>, <case dir>, ['-parse','-nobuiltin','-nocache','-sv','dut.sv'], <workroot>, 300), SLANG_UHDM = each frozen binary
+case  pristine    law         fix
+fx05  EQUIVALENT  EQUIVALENT  IDENTICAL   (§ caCallArgTruncByBase232v: law UINT:1, golden and fix UINT:243)
+m11   EQUIVALENT  EQUIVALENT  IDENTICAL   (§ caCallArgTruncByBase232v: golden and fix UINT:11 from HEX:AB)
+m13   EQUIVALENT  EQUIVALENT  IDENTICAL   (§ caCallArgTruncByBase232v: golden and fix UINT:205 from HEX:ABCD; law left HEX:ABCD)
+fx20  IDENTICAL   IDENTICAL   IDENTICAL   (§ caCallArgCastAbstains232v: record-level, the stamp is not read downstream)
+m12   EQUIVALENT  EQUIVALENT  EQUIVALENT  (§ caCallArgCastAbstains232v: record-level)

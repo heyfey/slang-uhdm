@@ -1,0 +1,8 @@
+MiniAmiq/default mP variables parented at a ref_obj: 764
+MiniAmiq/default mL variables parented at a ref_obj: 408
+MiniAmiq/testflags mP variables parented at a ref_obj: 764
+MiniAmiq/testflags mL variables parented at a ref_obj: 408
+SeqDriver/default mP variables parented at a ref_obj: 764
+SeqDriver/default mL variables parented at a ref_obj: 408
+SeqDriver/testflags mP variables parented at a ref_obj: 764
+SeqDriver/testflags mL variables parented at a ref_obj: 408

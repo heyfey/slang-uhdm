@@ -1,0 +1,15 @@
+#7129 file
+  A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 7	constant					0	0	0	0	2	64	INT:2	7
+#7130 file
+  A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 7	constant					0	0	0	0	2	64	INT:2	7
+#8781 file
+  A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 7	constant					0	0	0	0	2	64	INT:2	7
+#8782 file
+  A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 7	constant					0	0	0	0	2	64	INT:2	7
+objects 45362 vs 45097
+fields: depth=1 type=1 file=8 line=9 col=9 endline=9 endcol=9 decompile=1 size=1 value=1 consttype=1 objects_differing=9 (walk diverged)
+STRICT_NOTEQUAL file

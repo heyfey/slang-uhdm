@@ -1,0 +1,6 @@
+#426 type
+  A: 4	func_call	q::maxw			dut.sv	43	14	43	15		0		
+  B: 4	constant					0	0	0	0	10	32	UINT:10	9
+objects 435 vs 434
+fields: type=1 name=1 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type

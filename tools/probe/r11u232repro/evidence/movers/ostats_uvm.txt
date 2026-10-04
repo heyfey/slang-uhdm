@@ -1,0 +1,8 @@
+bit_typespec:16 bit_var:104 class_typespec:52 class_var:52 constant:8 integer_typespec:6 integer_var:6 int_typespec:10 int_var:10 logic_typespec:4 logic_var:4 range:4 ref_typespec:360 string_typespec:180 string_var:180 
+MiniAmiq/default variables removed: 356
+bit_typespec:16 bit_var:104 class_typespec:52 class_var:52 constant:8 integer_typespec:6 integer_var:6 int_typespec:10 int_var:10 logic_typespec:4 logic_var:4 range:4 ref_typespec:360 string_typespec:180 string_var:180 
+MiniAmiq/testflags variables removed: 356
+bit_typespec:16 bit_var:104 class_typespec:52 class_var:52 constant:8 integer_typespec:6 integer_var:6 int_typespec:10 int_var:10 logic_typespec:4 logic_var:4 range:4 ref_typespec:360 string_typespec:180 string_var:180 
+SeqDriver/default variables removed: 356
+bit_typespec:16 bit_var:104 class_typespec:52 class_var:52 constant:8 integer_typespec:6 integer_var:6 int_typespec:10 int_var:10 logic_typespec:4 logic_var:4 range:4 ref_typespec:360 string_typespec:180 string_var:180 
+SeqDriver/testflags variables removed: 356

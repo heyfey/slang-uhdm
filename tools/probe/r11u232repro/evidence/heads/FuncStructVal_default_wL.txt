@@ -1,0 +1,6 @@
+#7975 depth
+  A: 6	operation				dut.sv	108	30	108	51		0		
+  B: 5	typespec_member	NonIdempotentLength			dut.sv	363	34	363	53				
+objects 18222 vs 17934
+fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
