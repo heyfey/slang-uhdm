@@ -13,6 +13,8 @@
 #include "R221.h"
 #include "R223.h"
 #include "R231.h"
+#include "R234.h"
+#include "R235.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -893,6 +895,10 @@ void noteModClassDefn196(const void* def, std::string_view name, UHDM::class_def
 void enumImportParentDrain180(UHDM::design* d); // § enumImportParentLastWriter180 (ModuleEmit.cpp)
 // § classTpDefaultTsAtUse180 (TypeEmit.cpp)
 void noteTpOwnTs180(const slang::ast::Symbol* tp, UHDM::typespec* ts, bool winner87);
+const slang::ast::Type* tpTdTarget234(const slang::ast::Type& t, int* chainDepth = nullptr); // § tpTdDefaultUseSharesListing234 (TypeEmit.cpp)
+void noteTpGroupMember234(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
+                          const slang::syntax::SyntaxNode* typeSyn); // § tpGroupOneSpan234 (TypeEmit.cpp)
+extern std::function<void(UHDM::BaseClass*, slang::SourceRange)> g_setLoc234; // § tpGroupOneSpan234 (TypeEmit.cpp)
 void noteTpUse180(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
                   const slang::syntax::SyntaxNode* typeSyn);
 void classTpDefaultTsDrain180();
@@ -1698,7 +1704,8 @@ static void enumTdLastWriter214(
 }
 
 static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
-                                  const std::set<const UHDM::BaseClass*>& keep182) {
+                                  const std::set<const UHDM::BaseClass*>& keep182,
+                                  const std::set<const UHDM::BaseClass*>& unitCls235) {
     const bool lastWriter = r11u134Law("R11U134_TDPARENT_OFF");
     const bool caUnparent = r11u134Law("R11U134_CAUNPARENT_OFF");
     // § anonMemberTdLastWriter212 (the law's statement is at its block below).
@@ -1729,6 +1736,8 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
     };
     // The new parent per typedef object (nullptr = unparented).
     std::map<UHDM::BaseClass*, UHDM::BaseClass*> newParent;
+    // § unitClsAggTdLastWriter235: the objects a $unit class writer took.
+    std::set<const UHDM::BaseClass*> unitClsMoved235;
     std::vector<UHDM::BaseClass*> order;  // deterministic application order
     auto setNP = [&](UHDM::BaseClass* t, UHDM::BaseClass* p) {
         if (!newParent.count(t))
@@ -1760,6 +1769,40 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
         if (auto* v = d->AllModules())
             for (auto* p : *v)
                 listOf(p, p->Typespecs());
+        // § unitClsAggTdLastWriter235 (r11u235, SimpleUVM d/t's first record
+        // #63750, `work@env::uvm_pkg::uvm_hdl_path_slice::path` where ours
+        // read `work@top.uvm_pkg::uvm_hdl_path_slice.path`) — the
+        // COMPILATION-UNIT classes write last: UhdmWriter::write ends its
+        // definition writers with the `classes` loop over
+        // getClassDefinitions (a multimap by name; a class whose class_defn
+        // has no parent yet, writeClass(classDef, v4, s, d)), and writeClass
+        // runs writeDataTypes(.., setParent=true) over the class's
+        // DataTypeMap, which a file-scope `import p::*` filled
+        // (§ enumTdLastWriter214 models the same writer for enums and class
+        // typedefs).  So a package struct or union typedef that a $unit
+        // class lists is parented at the last such class, and its member
+        // refs read `work@<cls>::<pkg>::<td>::<m>`.  Only a class declared
+        // at compilation-unit scope (§ enumClsWriterUnitScopeOnly219's set).
+        // Grid tools/probe/r11u235repro/cases/ui.  Switch
+        // R11U235_UNITCLSAGGW_OFF.
+        if (r11u235Law("R11U235_UNITCLSAGGW_OFF"))
+            if (auto* v = d->AllClasses())
+                for (auto* c : *v) {
+                    auto* cp = c->VpiParent();
+                    if ((cp && cp->UhdmType() != UHDM::uhdmdesign) ||
+                        !unitCls235.count(c))
+                        continue;
+                    if (auto* ts = c->Typespecs())
+                        for (auto* t : *ts)
+                            if (named(t) && t->UhdmType() != UHDM::uhdmenum_typespec &&
+                                t->VpiName().find("::") != std::string_view::npos) {
+                                setNP(t, c);
+                                unitClsMoved235.insert(t);
+                                tr235("unitClsAggTdLastWriter235",
+                                      std::string(c->VpiName()) + " " +
+                                          std::string(t->VpiName()));
+                            }
+                }
     }
     // § pkgEnumAliasListingParent212 (r11u212) — A PACKAGE TYPEDEF THAT
     // ALIASES AN ENUM TYPEDEF IS PARENTED AT ITS PACKAGE WHEN NOTHING ELSE
@@ -2338,6 +2381,51 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
         std::string nf = newFull(o, own);
         if (!nf.empty() && nf != cur)
             renames.push_back({o, nf});
+    }
+    // § unitClsAggTdLastWriter235, the member CLONE half: a member written
+    // with a package vector typedef binds a bare per-member copy (LAW S /
+    // § bareScalarTdCopyOf) that ours leaves without a parent, so the walk
+    // above never reaches its Typedef_alias ref, whose stored name the
+    // emitter wrote from the importing module (`work@top.p::bus_op.addr.
+    // addr_t`); golden's ComputeFullName runs member -> typedef -> the class
+    // writer (`work@env::p::bus_op::addr::addr_t`, SimpleUVM #63886).  Only
+    // for the objects a $unit class writer took (the module writers' names
+    // are the emitter's own, already right).  Switch
+    // R11U235_UNITCLSAGGW_OFF (with the law).
+    for (auto* t : unitClsMoved235) {
+        if (!moving.count(t))
+            continue;
+        const UHDM::VectorOftypespec_member* ms =
+            t->UhdmType() == UHDM::uhdmstruct_typespec
+                ? ((const UHDM::struct_typespec*)t)->Members()
+                : t->UhdmType() == UHDM::uhdmunion_typespec
+                      ? ((const UHDM::union_typespec*)t)->Members()
+                      : nullptr;
+        if (!ms)
+            continue;
+        for (auto* tm : *ms) {
+            auto* mr = tm ? tm->Typespec() : nullptr;
+            const UHDM::typespec* ac = mr ? mr->Actual_typespec() : nullptr;
+            if (!ac || ac->VpiParent() || ac->VpiName().empty())
+                continue;
+            const UHDM::ref_typespec* al = nullptr;
+            if (ac->UhdmType() == UHDM::uhdmbit_typespec)
+                al = ((const UHDM::bit_typespec*)ac)->Typedef_alias();
+            else if (ac->UhdmType() == UHDM::uhdmlogic_typespec)
+                al = ((const UHDM::logic_typespec*)ac)->Typedef_alias();
+            if (!al || al->VpiParent() != ac)
+                continue;
+            std::string cur(al->VpiFullName());
+            std::string nm(ac->VpiName());
+            if (!endsAt(cur, tailOf(tm, t, ".") + "." + nm) &&
+                !endsAt(cur, tailOf(tm, t, "::") + "::" + nm))
+                continue;
+            std::string nf = newFull(tm, t) + "::" + nm;
+            if (nf != cur) {
+                renames.push_back({(UHDM::BaseClass*)al, nf});
+                tr235("unitClsAggTdLastWriter235", "clone " + cur + " -> " + nf);
+            }
+        }
     }
     for (auto& [o, nm] : renames) {
         if (o->UhdmType() == UHDM::uhdmref_typespec)
@@ -8479,6 +8567,8 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType,
                         !gn87.empty()) {
                         cts->VpiName(gn87);
                         tpGroupTs87.insert(cts);
+                        // § tpGroupOneSpan234 — the ARRAY-ELEMENT holder.
+                        noteTpGroupMember234(cts, *declKey9, dt87->getTypeSyntax());
                     }
                     // § classTpDefaultTsAtUse180 — the ARRAY-ELEMENT site
                     // (law at TypeEmit.cpp).
@@ -8624,6 +8714,25 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType,
              ec.kind == SymbolKind::PackedArrayType)
         v = ec.isFourState() ? (UHDM::variables*)s.MakeLogic_var()
                              : (UHDM::variables*)s.MakeBit_var();
+    // § tpTdDefaultUseSharesListing234 (TypeEmit.cpp), the ARRAY-ELEMENT
+    // site: the element of a class property written as a type parameter whose
+    // default names a package enum / struct / union typedef binds that
+    // typedef's shared listing object (golden uvm_enum_wrapper's `protected
+    // static T map[string];`: enum_var -> enum_typespec
+    // `uvm_active_passive_enum`, where ours bound a bit_typespec minted at the
+    // `T` token; grid cases/E e01 e02 e04).  Switch R11U234_TPTDUSE_OFF.
+    if (v && !ts && declKey9 &&
+        (ec.kind == SymbolKind::EnumType || ec.isStruct() || ec.isUnpackedUnion() ||
+         ec.isPackedUnion()) &&
+        declKey9->getParentScope() &&
+        declKey9->getParentScope()->asSymbol().kind == SymbolKind::ClassType &&
+        r11u234Law("R11U234_TPTDUSE_OFF"))
+        if (auto* tg234 = tpTdTarget234(elemType))
+            if (auto* sh234 = sharedAliasTs(*tg234)) {
+                ts = sh234;
+                tr234("tpTdDefaultUseSharesListing234",
+                      std::string(tg234->name) + " elem " + std::string(declKey9->name));
+            }
     if (!v)
         return nullptr;
     auto* rt = s.MakeRef_typespec();
@@ -10775,7 +10884,26 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                     // (§ sharedAliasNoStamp41): read only, never stamped.
                     auto* ar50 = s.MakeRef_typespec();
                     ar50->VpiParent(cts);
-                    ar50->VpiFullName(clsName + "::" + std::string(ta.name));
+                    // § clsTdAnchorAliasQualName235 (r11u235, N0161) — the
+                    // alias ref's full name is the DECLARING class's Surelog
+                    // key, `<pkg>::<cls>::<typedef>`, exactly as
+                    // § classNestedClassTdGroupNoAnchor54's drain writes it
+                    // (golden BuildUVMPkg `uvm_pkg::uvm_callbacks::this_type`,
+                    // `uvm_pkg::uvm_derived_callbacks::this_user_type`; ours
+                    // wrote the bare class name).  Only a class declared in a
+                    // package: a $unit class's anchored group is stage 1 at
+                    // the base (grid tools/probe/r11u235repro/cases/ca a02).
+                    // Switch: R11U235_ANCHORQUAL_OFF.
+                    std::string arOwner235 = clsName;
+                    if (const Scope* ps235 = cls.getParentScope();
+                        ps235 && ps235->asSymbol().kind == SymbolKind::Package &&
+                        r11u235Law("R11U235_ANCHORQUAL_OFF")) {
+                        arOwner235 = surelogClassKey54(cls);
+                        if (arOwner235 != clsName)
+                            tr235("clsTdAnchorAliasQualName235",
+                                  arOwner235 + "::" + std::string(ta.name));
+                    }
+                    ar50->VpiFullName(arOwner235 + "::" + std::string(ta.name));
                     ar50->Actual_typespec(bts50);
                     cts->Typedef_alias(ar50);
                     // § classTdSpecParamsForeignHome1, clone half: a
@@ -10908,6 +11036,11 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
         ts->VpiName(ta.name);
         // Registering it lets a method's return type / a property share it.
         typedefTs[&ta] = ts;
+        // § tpGroupOneSpan234 — the class's TYPEDEF LISTING holder of a
+        // type-parameter group (`typedef RSP rsp_type;`, golden at the group's
+        // one span where ours kept the `RSP` token).
+        if (ts->UhdmType() == UHDM::uhdmclass_typespec)
+            noteTpGroupMember234(ts, ta, typeSyn);
     }
 }
 
@@ -16448,7 +16581,11 @@ UHDM::design* UhdmExporter::exportDesign() {
     }
     // § classTpDefaultTsAtUse180 (r11u180) — design-final (law and decode at
     // TypeEmit.cpp).
+    // § tpGroupOneSpan234 — the drain locates a group's one object at its last
+    // formal writer's type token with the exporter's own setLoc.
+    g_setLoc234 = [this](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); };
     classTpDefaultTsDrain180();
+    g_setLoc234 = nullptr;
     // § modAggTfArgCloneFollows180 (r11u180) — design-final (law and decode
     // at TypeEmit.cpp).
     modAggCloneDrain180(s);
@@ -16549,7 +16686,16 @@ UHDM::design* UhdmExporter::exportDesign() {
                 }
         }
     }
-    typedefParentModel134(d, s, keep182);
+    {
+        // § unitClsAggTdLastWriter235: the compilation-unit classes, as
+        // § enumClsWriterUnitScopeOnly219 collects them.
+        std::set<const UHDM::BaseClass*> unitCls235;
+        for (auto& [csym, cdef] : classDefnMap)
+            if (auto* ps = csym->getParentScope();
+                cdef && ps && ps->asSymbol().kind == SymbolKind::CompilationUnit)
+                unitCls235.insert(cdef);
+        typedefParentModel134(d, s, keep182, unitCls235);
+    }
     // § packedArrTdElemRefName137 — after the parent model (law and decode
     // at the function).
     packedArrTdElemRefName137(d, s);
@@ -17556,6 +17702,99 @@ UHDM::design* UhdmExporter::exportDesign() {
                                          ++seq176});
                             }
                         }
+                    // § tpTdFormalWritesTypedef234 (r11u234, map 15 N0266 /
+                    // N0075 on the uvm_enum_wrapper shape) — a formal written
+                    // as a TYPE PARAMETER of its class whose header default
+                    // names a package typedef (`class uvm_enum_wrapper #(type
+                    // T=uvm_active_passive_enum)`, `static function bit
+                    // from_name(string name, ref T value)`) is a writer of that
+                    // typedef's shared object: compileTypespec answers the
+                    // parameter's name with the type parameter's typespec
+                    // (CompileType.cpp, the uhdmtype_parameter arm after
+                    // compileDatastructureTypespec declines the Parameter),
+                    // which for a typedef default IS the typedef's own object
+                    // (the TypeDef arm of compileDatastructureTypespec), and
+                    // compileTfPortList's populateCoreMembers(type, type, ts)
+                    // moves it to the formal's type token (CompileStmt.cpp).
+                    // Golden: every holder of the object -- the elaborated
+                    // package listing, the type_parameter, the formals, the
+                    // properties and locals written T -- reads the last
+                    // writer's span (grid cases/E e01 6:52, e05 the extern
+                    // prototype after an in-body method, e06 an extern
+                    // prototype alone, e09/e16 class name order, e10/e14
+                    // after the package's own subroutine in the elaborated
+                    // listing, e11 a qualified default, e13 a chain U = T).
+                    // The writer joins the typedef's class-method writers, so
+                    // the landed order laws (§ tfArgClassMethodOrder176 and
+                    // the rest, § tfArgOutsideClassOrder216 for a class of
+                    // another package or of a module: grid GE ge01 ge08 ge14)
+                    // pick the last one.  A class outside any package or
+                    // module is not claimed.  Switch R11U234_TPTDFORMAL_OFF.
+                    if (!tname.empty() && !byName.count(tname) && cls && unit &&
+                        (unit->kind == syntax::SyntaxKind::PackageDeclaration ||
+                         unit->kind == syntax::SyntaxKind::ModuleDeclaration) &&
+                        cls->kind == syntax::SyntaxKind::ClassDeclaration &&
+                        r11u234Law("R11U234_TPTDFORMAL_OFF")) {
+                        auto* pl234 = cls->as<syntax::ClassDeclarationSyntax>().parameters;
+                        std::string_view id234 = tname, qual234;
+                        bool ok234 = pl234 != nullptr, isTp234 = false;
+                        for (int g234 = 0; ok234 && g234 < 16; g234++) {
+                            const syntax::DataTypeSyntax* d234 = nullptr;
+                            bool found234 = false;
+                            for (auto* pd : pl234->declarations)
+                                if (pd->kind == syntax::SyntaxKind::TypeParameterDeclaration)
+                                    for (auto* ta : pd->as<syntax::TypeParameterDeclarationSyntax>()
+                                                        .declarators)
+                                        if (ta->name.valueText() == id234) {
+                                            found234 = true;
+                                            if (ta->assignment)
+                                                d234 = ta->assignment->type;
+                                        }
+                            if (!found234)
+                                break;  // id234 names no parameter: the chain's end
+                            isTp234 = true;
+                            if (!qual234.empty() || !d234 ||
+                                d234->kind != syntax::SyntaxKind::NamedType) {
+                                ok234 = false;
+                                break;
+                            }
+                            auto& nm234 = *d234->as<syntax::NamedTypeSyntax>().name;
+                            if (nm234.kind == syntax::SyntaxKind::IdentifierName)
+                                id234 = nm234.as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText();
+                            else if (nm234.kind == syntax::SyntaxKind::ScopedName &&
+                                     nm234.as<syntax::ScopedNameSyntax>().left->kind ==
+                                         syntax::SyntaxKind::IdentifierName &&
+                                     nm234.as<syntax::ScopedNameSyntax>().right->kind ==
+                                         syntax::SyntaxKind::IdentifierName &&
+                                     nm234.as<syntax::ScopedNameSyntax>().separator.kind ==
+                                         parsing::TokenKind::DoubleColon) {
+                                auto& sn234 = nm234.as<syntax::ScopedNameSyntax>();
+                                qual234 = sn234.left->as<syntax::IdentifierNameSyntax>()
+                                              .identifier.valueText();
+                                id234 = sn234.right->as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText();
+                            }
+                            else
+                                ok234 = false;
+                        }
+                        if (ok234 && isTp234 && id234 != tname)
+                            if (auto bi = byName.find(std::string(id234));
+                                bi != byName.end() && bi->second.size() == 1) {
+                                auto* td = bi->second.front();
+                                auto* ps = td->getParentScope();
+                                const syntax::SyntaxNode* psyn =
+                                    ps ? ps->asSymbol().getSyntax() : nullptr;
+                                (void)psyn;
+                                if (ps && ps->asSymbol().kind == SymbolKind::Package &&
+                                    (qual234.empty() || ps->asSymbol().name == qual234)) {
+                                    writers[td].push_back(
+                                        {td, tok, cls, unit, cls, ++seq176});
+                                    tr234("tpTdFormalWritesTypedef234",
+                                          std::string(td->name) + " " + std::string(tname));
+                                }
+                            }
+                    }
                 }
                 return;
             }

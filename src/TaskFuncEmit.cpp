@@ -16,6 +16,7 @@
 
 #include <algorithm>
 #include <vector>
+#include "R234.h"
 #include "R204.h"
 #include "R223.h"
 #include "R226.h"
@@ -84,6 +85,8 @@ void trace209(const char* law, const std::string& detail); // R11U209_TRACE
 void trace206(const char* law, const std::string& detail); // R11U206_TRACE
 void noteTpUse180(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
                   const slang::syntax::SyntaxNode* typeSyn); // § classTpDefaultTsAtUse180 (TypeEmit.cpp)
+void noteTpGroupMember234(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
+                          const slang::syntax::SyntaxNode* typeSyn); // § tpGroupOneSpan234 (TypeEmit.cpp)
 
 // The r11u175 switches (tools/probe/r11u175uvm/README.md): every r11u175 law
 // reads its own R11U175_<LAW>_OFF switch; R11U175_OFF drops all of them.
@@ -4638,6 +4641,69 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // at compileTypespec).  The twin is in the weakly
                     // referenced tail, so only the bytes move (grid
                     // tools/probe/r11u191dec/cases/Q).
+                    // § clsTdClassElemRetSharesListing234 (r11u234, map 15
+                    // N0232 on uvm_report_message_element_container's
+                    // `typedef uvm_report_message_element_base
+                    // queue_of_element[$]; virtual function queue_of_element
+                    // get_elements();`) — a CLASS-scope container typedef whose
+                    // element is written as a class handle is returned as the
+                    // typedef's own listing object: compileTypespec resolves the
+                    // name through the class's TypeDef and breaks with its
+                    // typespec (CompileType.cpp compileDatastructureTypespec),
+                    // no twin and no alias (golden: the ref_var's ref_typespec
+                    // -> array_typespec queue_of_element 28180:11-28180:62 with
+                    // its range, where ours hung a twin with a Typedef_alias,
+                    // five records golden lacks; grid cases/Q q01 q03 q04 q08
+                    // q09, GQ gq02 gq04 gq05, q05 the package-scope typedef
+                    // keeping its twin).  An element written as a TYPE
+                    // PARAMETER of the class keeps the twin (§ queueTwinKeeps
+                    // Elem204v's cells), and one written as a typedef name is
+                    // declined (gq01).  Decided before any twin is built.
+                    // Switch R11U234_CLSTDRET_OFF.
+                    bool shared234 = false;
+                    if (retAlias->getParentScope() &&
+                        retAlias->getParentScope()->asSymbol().kind == SymbolKind::ClassType &&
+                        r11u234Law("R11U234_CLSTDRET_OFF")) {
+                        const Type* el234 = &retAlias->targetType.getType();
+                        for (int g234 = 0; g234 < 8; g234++) {
+                            auto& c234 = el234->getCanonicalType();
+                            if (c234.kind == SymbolKind::QueueType)
+                                el234 = &c234.as<QueueType>().elementType;
+                            else if (c234.kind == SymbolKind::DynamicArrayType)
+                                el234 = &c234.as<DynamicArrayType>().elementType;
+                            else if (c234.kind == SymbolKind::AssociativeArrayType)
+                                el234 = &c234.as<AssociativeArrayType>().elementType;
+                            else if (c234.kind == SymbolKind::FixedSizeUnpackedArrayType)
+                                el234 = &c234.as<FixedSizeUnpackedArrayType>().elementType;
+                            else
+                                break;
+                        }
+                        const syntax::SyntaxNode* ws234 = nullptr;
+                        if (auto asyn = retAlias->getSyntax();
+                            asyn && asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                            ws234 = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                        bool tpEl234 = false;
+                        if (ws234 && ws234->kind == syntax::SyntaxKind::NamedType)
+                            if (auto& wn234 = *ws234->as<syntax::NamedTypeSyntax>().name;
+                                wn234.kind == syntax::SyntaxKind::IdentifierName)
+                                if (auto* ls234 = retAlias->getParentScope()->lookupName(
+                                        wn234.as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText());
+                                    ls234 && (ls234->kind == SymbolKind::TypeParameter ||
+                                              ls234->kind == SymbolKind::TypeAlias))
+                                    tpEl234 = true;  // a type parameter, or a typedef
+                                                     // (grid GQ gq01: our listing
+                                                     // lacks that element; declined)
+                        if (el234->getCanonicalType().kind == SymbolKind::ClassType &&
+                            ws234 && ws234->kind == syntax::SyntaxKind::NamedType && !tpEl234)
+                            shared234 = true;
+                    }
+                    if (shared234) {
+                        ts = retBase;
+                        typedefRetClone = true;
+                        tr234("clsTdClassElemRetSharesListing234", std::string(rdt.name));
+                    }
+                    else {
                     UHDM::array_typespec* cl9 = nullptr;
                     if (retAlias->targetType.getType().getCanonicalType().kind !=
                             SymbolKind::FixedSizeUnpackedArrayType &&
@@ -4721,6 +4787,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     cl9->Typedef_alias(art);
                     ts = cl9;
                     typedefRetClone = true;
+                    }
                 }
             }
             // A CLASS-HANDLE return: a class_typespec at the return-type
@@ -4846,6 +4913,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             !gnR87.empty()) {
                             cts9->VpiName(gnR87);
                             tpGroupTs87.insert(cts9);
+                            // § tpGroupOneSpan234 — the RETURN holder.
+                            noteTpGroupMember234(cts9, *sub.returnValVar,
+                                                 retTypeSyn175(sub));
                         }
                         // § classTpDefaultTsAtUse180 — the RETURN site (law at
                         // TypeEmit.cpp).
@@ -5887,6 +5957,31 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 uts34->VpiName(csn34);
                 if (argTsyn)
                     setLoc(uts34, argTsyn->sourceRange());
+                // § clsScopeFormalQualSpan234 (r11u234, map 15 N0117 on
+                // uvm_resource_pool's `uvm_resource_types::rsrc_q_t rq`) —
+                // without a direction keyword compileTfPortList locates the
+                // formal's typespec at the data type node's FIRST child, the
+                // class-scope qualifier `cls::` (CompileStmt.cpp, `type =
+                // fC->Child(tf_data_type)`; the rule § tfArgQualOutsideWriter176
+                // reads for a package qualifier): golden 16625:35-16625:55
+                // where ours spanned the whole name to 16625:63; with a
+                // direction the data type is the whole name (grid cases/U u01
+                // u05, u02 `input` already whole).  Switch
+                // R11U234_CLSQUALSPAN_OFF.
+                if (argTsyn && argTsyn->kind == syntax::SyntaxKind::NamedType &&
+                    argTsyn->parent &&
+                    argTsyn->parent->kind == syntax::SyntaxKind::FunctionPort &&
+                    !argTsyn->parent->as<syntax::FunctionPortSyntax>().direction.valid() &&
+                    r11u234Law("R11U234_CLSQUALSPAN_OFF"))
+                    if (auto& qn234 = *argTsyn->as<syntax::NamedTypeSyntax>().name;
+                        qn234.kind == syntax::SyntaxKind::ScopedName &&
+                        qn234.as<syntax::ScopedNameSyntax>().separator.kind ==
+                            parsing::TokenKind::DoubleColon) {
+                        auto& sn234 = qn234.as<syntax::ScopedNameSyntax>();
+                        setLoc(uts34, SourceRange(sn234.left->sourceRange().start(),
+                                                  sn234.separator.range().end()));
+                        tr234("clsScopeFormalQualSpan234", csn34);
+                    }
                 ts = uts34;
                 rt->Actual_typespec(ts);
             }

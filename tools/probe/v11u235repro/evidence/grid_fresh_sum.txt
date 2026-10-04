@@ -1,0 +1,64 @@
+ca/c01                 P=S1(36)                                   L=S1(36)                                   rc=0 
+ca/c01_el              P=S1(36)                                   L=S1(36)                                   rc=0 
+ca/c02                 P=S1(28)                                   L=S1(28)                                   rc=0 MOVED
+ca/c02_el              P=S1(28)                                   L=S1(28)                                   rc=0 MOVED
+ca/c03                 P=S1(17)                                   L=S1(17)                                   rc=4 
+ca/c03_el              P=S1(17)                                   L=S1(17)                                   rc=4 
+ca/c04                 P=STRICT_NOTEQUAL_fullname                 L=STRICT_EQUAL_29_objects                  rc=0 MOVED
+ca/c04_el              P=STRICT_NOTEQUAL_fullname                 L=STRICT_EQUAL_31_objects                  rc=0 MOVED
+ca/c05                 P=S1(28)                                   L=S1(28)                                   rc=0 MOVED
+ca/c05_el              P=S1(28)                                   L=S1(28)                                   rc=0 MOVED
+ca/c06                 P=STRICT_NOTEQUAL_fullname                 L=STRICT_EQUAL_58_objects                  rc=0 MOVED
+ca/c06_el              P=STRICT_NOTEQUAL_fullname                 L=STRICT_EQUAL_60_objects                  rc=0 MOVED
+rs/s01                 P=S1(72)                                   L=S1(72)                                   rc=0 
+rs/s01_el              P=S1(72)                                   L=S1(72)                                   rc=0 
+rs/s02                 P=S1(17)                                   L=S1(17)                                   rc=0 MOVED
+rs/s02_el              P=S1(17)                                   L=S1(17)                                   rc=0 MOVED
+rs/s03                 P=S1(56)                                   L=STRICT_EQUAL_137_objects                 rc=0 MOVED
+rs/s03_el              P=S1(56)                                   L=STRICT_EQUAL_137_objects                 rc=0 MOVED
+rs/s04                 P=S1(56)                                   L=STRICT_NOTEQUAL_type                     rc=0 MOVED
+rs/s04_el              P=S1(56)                                   L=STRICT_NOTEQUAL_type                     rc=0 MOVED
+rs/s05                 P=STRICT_NOTEQUAL_fullname                 L=STRICT_NOTEQUAL_fullname                 rc=0 MOVED
+rs/s05_el              P=S1(56)                                   L=STRICT_NOTEQUAL_fullname                 rc=0 MOVED
+ui/w01                 P=STRICT_NOTEQUAL_fullname                 L=STRICT_NOTEQUAL_fullname                 rc=0 MOVED
+ui/w01_el              P=STRICT_NOTEQUAL_fullname                 L=STRICT_NOTEQUAL_fullname                 rc=0 MOVED
+ui/w02                 P=STRICT_NOTEQUAL_fullname                 L=STRICT_EQUAL_299_objects                 rc=0 MOVED
+ui/w02_el              P=STRICT_NOTEQUAL_fullname                 L=STRICT_EQUAL_304_objects                 rc=0 MOVED
+ui/w03                 P=STRICT_EQUAL_126_objects                 L=STRICT_EQUAL_126_objects                 rc=0 
+ui/w03_el              P=STRICT_EQUAL_113_objects                 L=STRICT_EQUAL_113_objects                 rc=0 
+ui/w04                 P=S1(175)                                  L=S1(175)                                  rc=0 MOVED
+ui/w04_el              P=S1(175)                                  L=S1(175)                                  rc=0 MOVED
+ui/w05                 P=STRICT_NOTEQUAL_fullname                 L=STRICT_NOTEQUAL_file                     rc=0 MOVED
+ui/w05_el              P=STRICT_NOTEQUAL_fullname                 L=STRICT_NOTEQUAL_file                     rc=0 MOVED
+ui/w06                 P=STRICT_EQUAL_132_objects                 L=STRICT_EQUAL_132_objects                 rc=0 
+ui/w06_el              P=STRICT_EQUAL_119_objects                 L=STRICT_EQUAL_119_objects                 rc=0 
+ui/w07                 P=S1(78)                                   L=S1(78)                                   rc=0 
+ui/w07_el              P=S1(78)                                   L=S1(78)                                   rc=0 
+ui/w08                 P=STRICT_NOTEQUAL_fullname                 L=STRICT_EQUAL_561_objects                 rc=0 MOVED
+ui/w08_el              P=STRICT_NOTEQUAL_fullname                 L=STRICT_EQUAL_529_objects                 rc=0 MOVED
+vk/k01                 P=S1(36)                                   L=S1(36)                                   rc=0 MOVED
+vk/k01_el              P=S1(36)                                   L=S1(36)                                   rc=0 MOVED
+vk/k02                 P=SURELOG_FAIL                             L=SURELOG_FAIL                             rc=3 
+vk/k02_el              P=SURELOG_FAIL                             L=SURELOG_FAIL                             rc=3 
+vk/k03                 P=SURELOG_FAIL                             L=SURELOG_FAIL                             rc=0 
+vk/k03_el              P=SURELOG_FAIL                             L=SURELOG_FAIL                             rc=0 
+vk/k04                 P=SURELOG_FAIL                             L=SURELOG_FAIL                             rc=0 
+vk/k04_el              P=SURELOG_FAIL                             L=SURELOG_FAIL                             rc=0 
+vk/k05                 P=SURELOG_FAIL                             L=SURELOG_FAIL                             rc=0 
+vk/k05_el              P=SURELOG_FAIL                             L=SURELOG_FAIL                             rc=0 
+vk/k06                 P=S1(56)                                   L=S1(56)                                   rc=0 MOVED
+vk/k06_el              P=S1(56)                                   L=S1(56)                                   rc=0 MOVED
+vk/k07                 P=STRICT_NOTEQUAL_endcol                   L=STRICT_EQUAL_154_objects                 rc=0 MOVED
+vk/k07_el              P=STRICT_NOTEQUAL_endcol                   L=STRICT_EQUAL_140_objects                 rc=0 MOVED
+vk/k08                 P=STRICT_NOTEQUAL_endcol                   L=STRICT_NOTEQUAL_endcol                   rc=0 MOVED
+vk/k08_el              P=STRICT_NOTEQUAL_endcol                   L=STRICT_NOTEQUAL_endcol                   rc=0 MOVED
+vk/k09                 P=STRICT_NOTEQUAL_endcol                   L=STRICT_EQUAL_125_objects                 rc=0 MOVED
+vk/k09_el              P=STRICT_NOTEQUAL_endcol                   L=STRICT_EQUAL_114_objects                 rc=0 MOVED
+vk/k10                 P=STRICT_NOTEQUAL_endline                  L=STRICT_EQUAL_77_objects                  rc=0 MOVED
+vk/k10_el              P=STRICT_NOTEQUAL_endline                  L=STRICT_EQUAL_66_objects                  rc=0 MOVED
+vk/k11                 P=STRICT_NOTEQUAL_endcol                   L=STRICT_NOTEQUAL_endcol                   rc=0 MOVED
+vk/k11_el              P=STRICT_NOTEQUAL_endcol                   L=STRICT_NOTEQUAL_endcol                   rc=0 MOVED
+vk/k12                 P=STRICT_NOTEQUAL_endcol                   L=STRICT_EQUAL_198_objects                 rc=0 MOVED
+vk/k12_el              P=STRICT_NOTEQUAL_endcol                   L=STRICT_EQUAL_197_objects                 rc=0 MOVED
+vk/k13                 P=S1(58)                                   L=S1(58)                                   rc=0 
+vk/k13_el              P=S1(58)                                   L=S1(58)                                   rc=0 

@@ -1,0 +1,30 @@
+== MiniAmiq (d1 = pristine + r11u234 + N0056)
+#64390 fullname
+  A: 5	ref_typespec			svaunit_pkg::uvm_revision_string		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg		0	0	0	0		0		
+#64612 depth
+  A: 7	int_var	_byte		uvm_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	12	378	17		0		
+== SeqDriver (d1 = pristine + r11u234 + N0056)
+#64346 fullname
+  A: 5	ref_typespec			adpcm_pkg::uvm_revision_string		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg		0	0	0	0		0		
+#64568 depth
+  A: 7	int_var	_byte		uvm_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	12	378	17		0		
+== SimpleUVM (d1 = pristine + r11u234 + N0056)
+#63750 fullname
+  A: 4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  B: 4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  raw fullname A: work@env::uvm_pkg::uvm_hdl_path_slice::path | B: work@top.uvm_pkg::uvm_hdl_path_slice.path
+#63753 fullname
+== Scoreboard (d1 = pristine + r11u234 + N0056)
+#70486 fullname
+  A: 6	ref_typespec			<in>this_type		0	0	0	0		0		
+  B: 6	ref_typespec			<in>this_type		0	0	0	0		0		
+  raw fullname A: uvm_pkg::uvm_callbacks::this_type | B: uvm_callbacks::this_type
+#71485 fullname
+== Earlgrey_0_1 (d1 = pristine + r11u234 + N0056)
+#106660 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#106674 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		

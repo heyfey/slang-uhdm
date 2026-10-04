@@ -1,0 +1,10 @@
+ui/u02 L cmp=0 cmplines=0 strict=STRICT_EQUAL_40_objects rc=0 md5=b838cb74
+ui/u03 L cmp=0 cmplines=0 strict=STRICT_EQUAL_78_objects rc=0 md5=0327aae3
+ui/u01 L cmp=0 cmplines=0 strict=STRICT_EQUAL_51_objects rc=0 md5=eb025e27
+ui/u02_el L cmp=0 cmplines=0 strict=STRICT_EQUAL_40_objects rc=0 md5=6ef33694
+ui/u03_el L cmp=0 cmplines=0 strict=STRICT_EQUAL_78_objects rc=0 md5=27210ac0
+ui/u01_el L cmp=0 cmplines=0 strict=STRICT_EQUAL_51_objects rc=0 md5=8d4a236e
+ui/u04 L cmp=0 cmplines=0 strict=STRICT_EQUAL_141_objects rc=0 md5=888cce82
+vm/v08 L cmp=0 cmplines=0 strict=STRICT_EQUAL_62_objects rc=0 md5=64356684
+ui/u04_el L cmp=0 cmplines=0 strict=STRICT_EQUAL_141_objects rc=0 md5=1fd92ebb
+vm/v08_el L cmp=0 cmplines=0 strict=STRICT_EQUAL_54_objects rc=0 md5=ff198c1d

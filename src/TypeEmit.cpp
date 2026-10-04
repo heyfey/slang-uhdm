@@ -19,6 +19,8 @@
 #include "R228.h"
 #include "R231.h"
 #include "R233.h"
+#include "R234.h"
+#include "R235.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -1978,9 +1980,133 @@ static const Symbol* tpChainRoot180(const Symbol* f) {
 // Non-root chain members' own objects (no winning typedef): they take the
 // root's object's name and span in the drain.
 std::vector<std::pair<const Symbol*, UHDM::typespec*>> tpChainMembers180;
+// § tpGroupOneSpan234 (r11u234, map 15 N0067 N0068 N0230 N0255 on the
+// uvm_sequencer_param_base shape) — a class type-parameter GROUP with a
+// winning typedef (§ classTpTsResolvedNameEverySite87: `type REQ =
+// uvm_sequence_item, type RSP = REQ` with `typedef REQ req_type; typedef RSP
+// rsp_type;`) is ONE object in golden: the chain root's own typespec, which
+// compileTypespec answers for every name of the chain (CompileType.cpp, the
+// uhdmtype_parameter arm), named for the winning typedef and moved by
+// compileTfPortList's populateCoreMembers(type, type, ts) to the type token of
+// the LAST formal of the class body written with a parameter of the chain (an
+// in-body method or an `extern` prototype, source order; an out-of-body
+// definition is compiled where the parameters are no types, and a formal
+// written with the class TYPEDEF is not a writer: grid cases/R r05).  With no
+// such formal it keeps the root's header default token (r06).  Every holder
+// reads that one span: the type_parameter listings of the root and of the
+// chain members, the class's typedef listing entry, the properties and array
+// elements, the locals, the return values and every formal (golden r01
+// 10:35-10:38 on all of them, where ours left the queue elements unlocated,
+// RSP's type_parameter at the `REQ` of its default, the typedef listing at
+// the `RSP` of the typedef and REQ's own object at the first prototype
+// formal; r04 r07 r08).  The groups without a winning typedef keep
+// § classTpDefaultTsAtUse180's drain.  Switch R11U234_TPGROUP_OFF.
+namespace {
+struct Grp234 {
+    UHDM::typespec* ts;
+    const Symbol* root;
+    bool formal;
+    SourceLocation loc;  // the formal's type token (stream order at the drain)
+};
+std::vector<Grp234> grp234;
+std::map<const Symbol*, bool> grpRootWinner234;
+std::vector<std::pair<const Symbol*, UHDM::typespec*>> grpChainOwn234;
+} // namespace
+std::function<void(UHDM::BaseClass*, SourceRange)> g_setLoc234;
+// the last formal writer of a group root, read off its class declaration
+static const syntax::SyntaxNode* tpGroupLastWriterSyn234(const Symbol& root);
+static void noteTpGroup234(UHDM::typespec* ts, const Symbol* root, bool formal,
+                           const syntax::SyntaxNode* typeSyn) {
+    if (!ts || !root || !r11u234Law("R11U234_TPGROUP_OFF"))
+        return;
+    Grp234 g{ts, root, formal, SourceLocation::NoLocation};
+    if (formal) {
+        if (!typeSyn)
+            return;
+        g.loc = typeSyn->sourceRange().start();
+        if (g.loc == SourceLocation::NoLocation)
+            return;
+    }
+    grp234.push_back(g);
+}
+// The group root a declaration written as one of its class's own type
+// parameters (or a class typedef of one) reads, and whether it is a formal
+// WRITER (written with the parameter's own name).
+static const Symbol* tpGroupRootOf234(const Symbol& declSymbol,
+                                      const syntax::SyntaxNode* typeSyn, bool* writer) {
+    *writer = false;
+    if (!typeSyn || typeSyn->kind != syntax::SyntaxKind::NamedType)
+        return nullptr;
+    auto& nt = typeSyn->as<syntax::NamedTypeSyntax>();
+    if (nt.name->kind != syntax::SyntaxKind::IdentifierName)
+        return nullptr;
+    auto id = nt.name->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    if (id.empty())
+        return nullptr;
+    const Scope* body = nullptr;
+    for (auto sc = declSymbol.getParentScope(); sc; sc = sc->asSymbol().getParentScope()) {
+        auto k = sc->asSymbol().kind;
+        if (k == SymbolKind::ClassType) {
+            body = sc;
+            break;
+        }
+        if (k == SymbolKind::Subroutine) {
+            if (auto* ssyn = sc->asSymbol().getSyntax())
+                if (auto* fds = ssyn->as_if<syntax::FunctionDeclarationSyntax>())
+                    if (fds->prototype && fds->prototype->name &&
+                        fds->prototype->name->kind == syntax::SyntaxKind::ScopedName)
+                        return nullptr;
+            continue;
+        }
+        if (k == SymbolKind::MethodPrototype || k == SymbolKind::StatementBlock)
+            continue;
+        return nullptr;
+    }
+    if (!body)
+        return nullptr;
+    const Symbol* f = body->find(id);
+    if (!f || f->getParentScope() != body)
+        return nullptr;
+    if (f->kind == SymbolKind::TypeParameter) {
+        *writer = declSymbol.kind == SymbolKind::FormalArgument;
+        return tpChainRoot180(f);
+    }
+    if (f->kind != SymbolKind::TypeAlias)
+        return nullptr;
+    auto* asyn = f->getSyntax();
+    if (!asyn || asyn->kind != syntax::SyntaxKind::TypedefDeclaration)
+        return nullptr;
+    auto& tds = asyn->as<syntax::TypedefDeclarationSyntax>();
+    if (!tds.dimensions.empty() || !tds.type ||
+        tds.type->kind != syntax::SyntaxKind::NamedType)
+        return nullptr;
+    auto& nt2 = tds.type->as<syntax::NamedTypeSyntax>();
+    if (nt2.name->kind != syntax::SyntaxKind::IdentifierName)
+        return nullptr;
+    const Symbol* g = body->find(nt2.name->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+    if (!g || g->kind != SymbolKind::TypeParameter || g->getParentScope() != body)
+        return nullptr;
+    return tpChainRoot180(g);
+}
+void noteTpGroupMember234(UHDM::typespec* ts, const Symbol& declSymbol,
+                          const syntax::SyntaxNode* typeSyn) {
+    if (!ts || !r11u234Law("R11U234_TPGROUP_OFF"))
+        return;
+    bool writer = false;
+    if (auto* root = tpGroupRootOf234(declSymbol, typeSyn, &writer))
+        noteTpGroup234(ts, root, writer, typeSyn);
+}
 void noteTpOwnTs180(const Symbol* tp, UHDM::typespec* ts, bool winner87) {
     if (!tp || !ts)
         return;
+    // § tpGroupOneSpan234 — the group roots and the chain members' own objects.
+    if (winner87 && r11u234Law("R11U234_TPGROUP_OFF")) {
+        auto* root234 = tpChainRoot180(tp);
+        if (root234 == tp)
+            grpRootWinner234[tp] = true;
+        else if (root234)
+            grpChainOwn234.push_back({root234, ts});
+    }
     tpOwnTs180[tp] = ts;
     if (!winner87 && tpChainRoot180(tp) != tp)
         tpChainMembers180.push_back({tp, ts});
@@ -2218,6 +2344,7 @@ static void noteTpUseImpl(UHDM::typespec* ts, const Symbol& declSymbol,
         if (st == SourceLocation::NoLocation)
             return;
         tpFormalAll180.push_back({tp, ts});
+        noteTpGroup234(ts, tp, true, typeSyn);  // § tpGroupOneSpan234
         TpFormal180 f{ts, st.buffer().getId(), st.offset(), {}};
         const bool incOrder188 = r11u188Law("R11U188_TPINCORDER_OFF");
         if (incOrder188) {
@@ -2262,7 +2389,115 @@ static void noteTpUseKeyword188(UHDM::typespec* ts, const Symbol& declSymbol,
         return;
     noteTpUseImpl(ts, declSymbol, typeSyn, true);
 }
+// § tpGroupOneSpan234 — the last formal of the root's class body written
+// with a parameter of the root's chain: in-body methods and `extern`
+// prototypes (the class-body listing compiles them), nested classes and
+// out-of-body definitions excluded; the type token of the latest in stream
+// order (§ tpFormalIncludeOrder188).
+static const syntax::SyntaxNode* tpGroupLastWriterSyn234(const Symbol& root) {
+    auto* body = root.getParentScope();
+    if (!body || body->asSymbol().kind != SymbolKind::ClassType)
+        return nullptr;
+    auto& ct = body->asSymbol().as<ClassType>();
+    const syntax::SyntaxNode* cs = ct.genericClass ? ct.genericClass->getSyntax() : ct.getSyntax();
+    if (!cs || cs->kind != syntax::SyntaxKind::ClassDeclaration)
+        return nullptr;
+    auto& cd = cs->as<syntax::ClassDeclarationSyntax>();
+    auto* pl = cd.parameters;
+    if (!pl)
+        return nullptr;
+    // the header's type parameter defaults: name -> default identifier
+    std::map<std::string_view, std::string_view> dflt;
+    for (auto* pd : pl->declarations)
+        if (pd->kind == syntax::SyntaxKind::TypeParameterDeclaration)
+            for (auto* ta : pd->as<syntax::TypeParameterDeclarationSyntax>().declarators) {
+                std::string_view d;
+                if (ta->assignment && ta->assignment->type &&
+                    ta->assignment->type->kind == syntax::SyntaxKind::NamedType) {
+                    auto& nm = *ta->assignment->type->as<syntax::NamedTypeSyntax>().name;
+                    if (nm.kind == syntax::SyntaxKind::IdentifierName)
+                        d = nm.as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                }
+                dflt[ta->name.valueText()] = d;
+            }
+    auto rootOf = [&](std::string_view id) -> std::string_view {
+        if (!dflt.count(id))
+            return {};
+        for (int g = 0; g < 16; g++) {
+            auto it = dflt.find(id);
+            if (it == dflt.end() || it->second.empty() || !dflt.count(it->second))
+                return id;
+            id = it->second;
+        }
+        return {};
+    };
+    const syntax::SyntaxNode* best = nullptr;
+    std::vector<std::pair<uint32_t, size_t>> bestCh;
+    std::function<void(const syntax::SyntaxNode&, bool)> w =
+        [&](const syntax::SyntaxNode& n, bool top) {
+            if (!top && n.kind == syntax::SyntaxKind::ClassDeclaration)
+                return;
+            if (n.kind == syntax::SyntaxKind::FunctionDeclaration ||
+                n.kind == syntax::SyntaxKind::TaskDeclaration) {
+                auto& fd = n.as<syntax::FunctionDeclarationSyntax>();
+                if (fd.prototype && fd.prototype->name &&
+                    fd.prototype->name->kind == syntax::SyntaxKind::ScopedName)
+                    return;
+            }
+            if (n.kind == syntax::SyntaxKind::FunctionPort) {
+                auto& fp = n.as<syntax::FunctionPortSyntax>();
+                if (fp.dataType && fp.dataType->kind == syntax::SyntaxKind::NamedType) {
+                    auto& nm = *fp.dataType->as<syntax::NamedTypeSyntax>().name;
+                    if (nm.kind == syntax::SyntaxKind::IdentifierName) {
+                        auto id = nm.as<syntax::IdentifierNameSyntax>().identifier;
+                        if (rootOf(id.valueText()) == root.name) {
+                            auto ch = inclChain188(id.location());
+                            if (!best ||
+                                (id.location().buffer() == best->getFirstToken().location().buffer()
+                                     ? id.location().offset() >=
+                                           best->getFirstToken().location().offset()
+                                     : laterOrSame188(bestCh, ch))) {
+                                best = &nm;
+                                bestCh = ch;
+                            }
+                        }
+                    }
+                }
+                return;
+            }
+            for (size_t i = 0; i < n.getChildCount(); i++)
+                if (auto* c = n.childNode(i))
+                    w(*c, false);
+        };
+    for (auto* item : cd.items)
+        if (item)
+            w(*item, false);
+    return best;
+}
 void classTpDefaultTsDrain180() {
+    // § tpGroupOneSpan234 — the plan, read before § 180's own moves: per group
+    // root with a winning typedef, the last formal writer's span (source
+    // order, § tpFormalIncludeOrder188's stream order across files), else the
+    // root's own object's header span.
+    struct Plan234 {
+        std::string file;
+        int l = 0, c = 0, el = 0, ec = 0;
+        const syntax::SyntaxNode* writer = nullptr;
+    };
+    std::map<const Symbol*, Plan234> plan234;
+    if (r11u234Law("R11U234_TPGROUP_OFF") && g_setLoc234)
+        for (auto& [root, win] : grpRootWinner234) {
+            if (!win)
+                continue;
+            auto oit = tpOwnTs180.find(root);
+            if (oit == tpOwnTs180.end() || !oit->second ||
+                oit->second->UhdmType() != UHDM::uhdmclass_typespec)
+                continue;
+            auto* src = oit->second;
+            plan234[root] = {std::string(src->VpiFile()), (int)src->VpiLineNo(),
+                             (int)src->VpiColumnNo(), (int)src->VpiEndLineNo(),
+                             (int)src->VpiEndColumnNo(), tpGroupLastWriterSyn234(*root)};
+        }
     // § classTpFormalMovesTs180 — the last formal moves the parameter's own
     // object first; the uses then copy it.
     for (auto& [tp, f] : tpFormal180) {
@@ -2344,6 +2579,57 @@ void classTpDefaultTsDrain180() {
         trace180("TPUSE", std::string(tp->name) + " -> " +
                               std::string(own->VpiName()));
     }
+    // § tpGroupOneSpan234 — apply: the root's own object, the chain members'
+    // own objects and every registered holder of the group.
+    if (!plan234.empty()) {
+        auto put = [&](UHDM::typespec* t, const Plan234& p) {
+            if (!t || t->UhdmType() != UHDM::uhdmclass_typespec)
+                return;
+            if (t->VpiFile() == p.file && (int)t->VpiLineNo() == p.l &&
+                (int)t->VpiColumnNo() == p.c && (int)t->VpiEndLineNo() == p.el &&
+                (int)t->VpiEndColumnNo() == p.ec)
+                return;
+            t->VpiFile(p.file);
+            t->VpiLineNo(p.l);
+            t->VpiColumnNo(p.c);
+            t->VpiEndLineNo(p.el);
+            t->VpiEndColumnNo(p.ec);
+            tr234("tpGroupOneSpan234", std::string(t->VpiName()) + " " +
+                                           std::to_string(p.l) + ":" + std::to_string(p.c));
+        };
+        for (auto& [root, p] : plan234)
+            if (auto oit = tpOwnTs180.find(root); oit != tpOwnTs180.end() && oit->second) {
+                if (p.writer) {
+                    // the root's own object at the writer's token, read back
+                    auto* o = oit->second;
+                    const std::string f0(o->VpiFile());
+                    const int l0 = (int)o->VpiLineNo(), c0 = (int)o->VpiColumnNo(),
+                              el0 = (int)o->VpiEndLineNo(), ec0 = (int)o->VpiEndColumnNo();
+                    o->VpiFile("");
+                    g_setLoc234(o, p.writer->sourceRange());
+                    p.file = std::string(o->VpiFile());
+                    p.l = (int)o->VpiLineNo();
+                    p.c = (int)o->VpiColumnNo();
+                    p.el = (int)o->VpiEndLineNo();
+                    p.ec = (int)o->VpiEndColumnNo();
+                    if (f0 != p.file || l0 != p.l || c0 != p.c || el0 != p.el || ec0 != p.ec)
+                        tr234("tpGroupOneSpan234", "writer " + std::string(root->name) + " " +
+                                                       std::to_string(p.l) + ":" +
+                                                       std::to_string(p.c));
+                }
+                else
+                    put(oit->second, p);
+            }
+        for (auto& [root, t] : grpChainOwn234)
+            if (auto pit = plan234.find(root); pit != plan234.end())
+                put(t, pit->second);
+        for (auto& g : grp234)
+            if (auto pit = plan234.find(g.root); pit != plan234.end())
+                put(g.ts, pit->second);
+    }
+    grp234.clear();
+    grpRootWinner234.clear();
+    grpChainOwn234.clear();
     tpUse180.clear();
     tpOwnTs180.clear();
 }
@@ -2659,6 +2945,104 @@ UhdmExporter::SharedTd9 UhdmExporter::sharedTypedefTsRef9(
     return clsTs9 ? SharedTd9::ClassKeyTs : SharedTd9::ClassOther;
 }
 
+// § tpTdDefaultUseSharesListing234 (r11u234, map 15 N0171 N0180 N0188 N0158
+// N0213 on the uvm_enum_wrapper shape) — the TYPEDEF a class type parameter's
+// alias stands for, when the parameter (or the chain root it defaults to,
+// `type U = T`) keeps its class-header default and that default names a
+// package typedef of an enum, struct or union: compileTypespec answers such a
+// parameter's name with the parameter's own typespec, which is the typedef's
+// shared object (CompileType.cpp compileDatastructureTypespec, the TypeDef arm
+// breaks with parent_tpd->getTypespec()).  nullptr for anything else (a class
+// or keyword default, an overridden parameter, a scalar typedef: Surelog's
+// SimpleType arm clones those).
+const Type* tpTdTarget234(const Type& t, int* chainDepth) {
+    const Type* cur = &t;
+    if (chainDepth)
+        *chainDepth = 0;
+    for (int guard = 0; guard < 16; guard++) {
+        if (cur->kind != SymbolKind::TypeAlias)
+            return nullptr;
+        auto* sc = cur->getParentScope();
+        if (!sc || sc->asSymbol().kind != SymbolKind::ClassType)
+            return nullptr;
+        const TypeParameterSymbol* tps = nullptr;
+        for (auto& m : sc->members())
+            if (m.kind == SymbolKind::TypeParameter &&
+                &m.as<TypeParameterSymbol>().getTypeAlias() == cur) {
+                tps = &m.as<TypeParameterSymbol>();
+                break;
+            }
+        if (!tps)
+            return nullptr;
+        auto& tgt = tps->targetType.getType();
+        if (tgt.kind != SymbolKind::TypeAlias)
+            return nullptr;
+        // An overridden parameter counts only when the override names the
+        // header default's own type (`uvm_enum_wrapper#(uvm_active_passive_enum)`
+        // in uvm_component: slang shares that specialization with the default
+        // one and marks the parameter overridden; grid e20, and e21 an override
+        // with another enum, where the generic body keeps its default).
+        if (tps->isOverridden()) {
+            auto* hd = tpHeaderDefaultSyn188(*tps);
+            if (!hd || hd->kind != syntax::SyntaxKind::NamedType)
+                return nullptr;
+            auto& hn = *hd->as<syntax::NamedTypeSyntax>().name;
+            std::string_view dn;
+            if (hn.kind == syntax::SyntaxKind::IdentifierName)
+                dn = hn.as<syntax::IdentifierNameSyntax>().identifier.valueText();
+            else if (hn.kind == syntax::SyntaxKind::ScopedName &&
+                     hn.as<syntax::ScopedNameSyntax>().right->kind ==
+                         syntax::SyntaxKind::IdentifierName)
+                dn = hn.as<syntax::ScopedNameSyntax>()
+                         .right->as<syntax::IdentifierNameSyntax>()
+                         .identifier.valueText();
+            if (dn.empty() || dn != tgt.name)
+                return nullptr;
+        }
+        // another type parameter's alias of the same class: follow the chain
+        bool chain = false;
+        for (auto& m : sc->members())
+            if (m.kind == SymbolKind::TypeParameter &&
+                &m.as<TypeParameterSymbol>().getTypeAlias() == &tgt)
+                chain = true;
+        if (chain) {
+            cur = &tgt;
+            if (chainDepth)
+                ++*chainDepth;
+            continue;
+        }
+        auto* tsc = tgt.getParentScope();
+        if (!tsc || tsc->asSymbol().kind != SymbolKind::Package)
+            return nullptr;
+        auto& ct = tgt.getCanonicalType();
+        if (ct.kind != SymbolKind::EnumType && !ct.isStruct() && !ct.isUnpackedUnion() &&
+            !ct.isPackedUnion())
+            return nullptr;
+        return &tgt;
+    }
+    return nullptr;
+}
+// true when a declaration sits in its class's own body: a property, or a local
+// of an in-body method (an out-of-body definition compiles in the package
+// scope, where the class's type parameters are no types: § 87's fence).
+static bool inClassBody234(const Symbol& declSymbol) {
+    for (auto sc = declSymbol.getParentScope(); sc; sc = sc->asSymbol().getParentScope()) {
+        auto k = sc->asSymbol().kind;
+        if (k == SymbolKind::ClassType)
+            return true;
+        if (k == SymbolKind::Subroutine) {
+            if (auto* ssyn = sc->asSymbol().getSyntax())
+                if (auto* fds = ssyn->as_if<syntax::FunctionDeclarationSyntax>())
+                    if (fds->prototype && fds->prototype->name &&
+                        fds->prototype->name->kind == syntax::SyntaxKind::ScopedName)
+                        return false;
+            continue;
+        }
+        if (k != SymbolKind::StatementBlock)
+            return false;
+    }
+    return false;
+}
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {
@@ -2704,6 +3088,43 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     // six concurrent runs; one with this law off).  It therefore defers:
     // it fires only when § classTpDefaultTsAtUse180 is switched off.
     // Switch R11U186_TPDEFER_OFF (restores the r11u183 behaviour).
+    // § tpTdDefaultUseSharesListing234 — a property or an in-body method
+    // local written as such a type parameter binds the typedef's shared
+    // listing object, the one its type_parameter and its formals already bind
+    // (golden uvm_enum_wrapper's `T e = e.first();` and `static T m;`: the
+    // enum_typespec `uvm_active_passive_enum` with its base and constants,
+    // where ours minted an unnamed, unlocated enum_typespec with no base type;
+    // grid cases/E e01 e03 e05 e07 e11 e13).  Switch R11U234_TPTDUSE_OFF.
+    // A CHAIN member (`type U = T`) reads the root's object too: its own
+    // type_parameter listing and a formal written with it (grid e13; a formal
+    // written with the root itself already binds the listing object).
+    if (!portCtx && r11u234Law("R11U234_TPTDUSE_OFF")) {
+        const Type* t234 = nullptr;
+        bool chainOnly234 = false;
+        if (!typeSynOverride && (declSymbol.kind == SymbolKind::Variable ||
+                                 declSymbol.kind == SymbolKind::ClassProperty)) {
+            if (auto* dt234 = declSymbol.getDeclaredType())
+                t234 = &dt234->getType();
+        }
+        else if (!typeSynOverride && declSymbol.kind == SymbolKind::FormalArgument) {
+            if (auto* dt234 = declSymbol.getDeclaredType())
+                t234 = &dt234->getType();
+            chainOnly234 = true;
+        }
+        else if (declSymbol.kind == SymbolKind::TypeParameter &&
+                 !declSymbol.as<TypeParameterSymbol>().isOverridden())
+            t234 = &declSymbol.as<TypeParameterSymbol>().targetType.getType();
+        int depth234 = 0;
+        if (t234)
+            if (auto* tg234 = tpTdTarget234(*t234, &depth234);
+                tg234 && (!chainOnly234 || depth234 > 0) &&
+                inClassBody234(declSymbol))
+                if (auto* sh234 = sharedAliasTs(*tg234)) {
+                    tr234("tpTdDefaultUseSharesListing234",
+                          std::string(tg234->name) + " " + std::string(declSymbol.name));
+                    return sh234;
+                }
+    }
     const bool defer186 = r11u186Law("R11U186_TPDEFER_OFF") &&
                           r11u180Law("R11U180_TPUSE_OFF");
     if (!typeSynOverride && !defer186 && r11u183LawTE("R11U183_TSSPAN_OFF") &&
@@ -3435,6 +3856,10 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 !gn87.empty()) {
                 cts->VpiName(gn87);
                 tpGroupTs87.insert(cts);
+                noteTpGroupMember234(  // § tpGroupOneSpan234
+                    cts, declSymbol,
+                    typeSynOverride ? typeSynOverride
+                                    : (declared ? declared->getTypeSyntax() : nullptr));
             }
             // § classTpDefaultTsAtUse180 — no winning typedef: the parameter's
             // own object (recorded; the drain copies it design-final).
@@ -3802,7 +4227,27 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // NAME TOKEN.  A SCOPED spelling is overridden again just below
                 // (Surelog locates those at the `pkg::` prefix), which is why
                 // this runs FIRST and unconditionally of the scoped test.
-                if (listingSite196)
+                // § pureVirtRetSpecWholeSpan234 (r11u234, map 15 N0256 / N0051
+                // on uvm_coreservice_t::get_component_visitor) — a PURE VIRTUAL
+                // prototype's return is not a listing site: Surelog compiles
+                // its return variable with compileVariable over the whole
+                // return data type, `#(...)` included (golden
+                // `uvm_visitor#(uvm_component)` 9111:24-9111:51 on the
+                // class_var and its class_typespec, where ours narrowed both to
+                // the name 9111:24-9111:35; grid cases/V v01, and v02 v04 v05
+                // the defined, extern and package functions already whole).
+                // Switch R11U234_PUREVIRTSPAN_OFF.
+                const bool pureRet234 =
+                    declSymbol.kind == SymbolKind::MethodPrototype &&
+                    (declSymbol.as<MethodPrototypeSymbol>().flags & MethodFlags::Pure) !=
+                        MethodFlags::None &&
+                    r11u234Law("R11U234_PUREVIRTSPAN_OFF");
+                if (pureRet234 && listingSite196)
+                    if (auto* ntT234 = tsyn0->as_if<syntax::NamedTypeSyntax>();
+                        ntT234 && ntT234->name &&
+                        ntT234->name->kind == syntax::SyntaxKind::ClassName)
+                        tr234("pureVirtRetSpecWholeSpan234", std::string(declSymbol.name));
+                if (listingSite196 && !pureRet234)
                     if (auto* ntN53 = tsyn0->as_if<syntax::NamedTypeSyntax>()) {
                         const syntax::NameSyntax* nmN53 = &*ntN53->name;
                         while (nmN53 &&
@@ -10697,7 +11142,23 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                 }
                 case PredefinedIntegerType::Byte: {
                     auto* t = s.MakeByte_typespec();
-                    if (sgn) t->VpiSigned(true);
+                    // § vlogEnumByteBaseUnsigned235 (r11u235) — in Surelog's
+                    // Verilog-mode lexer `byte` is no keyword (SV3_1aLexer.g4
+                    // `BYTE: 'byte' { sverilog }?`), so an enum base written
+                    // `byte` is a type identifier, and CompileType.cpp's
+                    // slStringConst arm mints a byte_typespec with no
+                    // vpiSigned (the keyword path's signedness is never
+                    // read).  Grid tools/probe/r11u235repro/cases/vm v08
+                    // (stage 1 -> equal; under -sverilog unchanged).  Switch:
+                    // R11U235_VLOGBYTE_OFF.
+                    bool vlogByte235 =
+                        sgn && baseSyn->kind == syntax::SyntaxKind::ByteType &&
+                        !baseSyn->as<syntax::IntegerTypeSyntax>().signing.valid() &&
+                        r11u235Law("R11U235_VLOGBYTE_OFF") &&
+                        verilogLexMode(baseSyn->sourceRange().start());
+                    if (vlogByte235)
+                        tr235("vlogEnumByteBaseUnsigned235", refFullName);
+                    if (sgn && !vlogByte235) t->VpiSigned(true);
                     bts = t;
                     break;
                 }
@@ -10728,6 +11189,31 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                 ((UHDM::logic_typespec*)bts)->VpiSigned(true);
         }
         setLoc(bts, baseSyn->sourceRange());
+        // § vlogEnumBaseKwSpan235 (r11u235, PreprocTest's N0056) — in
+        // Surelog's Verilog-mode lexer (a root file that is not .sv and no
+        // -sverilog: verilogLexMode, § svModeAllFiles188) `bit` and `logic`
+        // are no keywords (SV3_1aLexer.g4 `BIT: 'bit' { sverilog }?`,
+        // `LOGIC: 'logic' { sverilog }?`), so `enum bit [2:0]` parses its
+        // base as a type identifier plus a packed dimension, and
+        // CompileType.cpp's slStringConst arm builds the bit_typespec /
+        // logic_typespec with `populateCoreMembers(type, type, var)`: the
+        // span is the identifier token alone, the range still attached.
+        // `reg` (a Verilog keyword) and every .sv root keep the whole base.
+        // Grid tools/probe/r11u235repro/cases/vm (v01 v02 v05 v07 v09 v10
+        // v12 convert; v03 v04 v06 v11 and every -sverilog view unchanged).
+        // Switch: R11U235_VLOGKWSPAN_OFF.
+        if ((baseSyn->kind == syntax::SyntaxKind::BitType ||
+             baseSyn->kind == syntax::SyntaxKind::LogicType) &&
+            !baseSyn->as<syntax::IntegerTypeSyntax>().signing.valid() &&
+            !baseSyn->as<syntax::IntegerTypeSyntax>().dimensions.empty() &&
+            r11u235Law("R11U235_VLOGKWSPAN_OFF") &&
+            verilogLexMode(baseSyn->sourceRange().start())) {
+            auto kw235 = baseSyn->as<syntax::IntegerTypeSyntax>().keyword.range();
+            if (kw235.end() != SourceLocation::NoLocation) {
+                setLoc(bts, kw235);
+                tr235("vlogEnumBaseKwSpan235", refFullName);
+            }
+        }
         if (et.baseType.isPackedArray()) {
             auto range = et.baseType.getFixedRange();
             const syntax::ExpressionSyntax* lsyn = nullptr;
@@ -17504,6 +17990,31 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                                 trace209("classTdPkgEnumMemberShares209",
                                          std::string(fm.name));
                             }
+                }
+                // § clsTdClsEnumMemberShares235 (r11u235, BuildUVMPkg's
+                // N0423 `recursion_state_e state;` in uvm_comparer's
+                // `typedef struct {...} state_info_t;`, the enum declared in
+                // the base class uvm_policy) — § classTdPkgEnumMemberShares209's
+                // lift for a member written with an enum typedef declared in a
+                // CLASS: golden's member reads the class typedef's own listing
+                // object (enum_typespec `rs_e` parented at the declaring
+                // class_defn), where the ban left ours on a signed
+                // bit_typespec at the member's type token (stage 1 in a
+                // single class, grid tools/probe/r11u235repro/cases/rs; the
+                // union builder is not reached: a class-scope union typedef is
+                // not built at all, case rs/r05, a separate stage-1 face).
+                // Switch R11U235_CLSENUMMEM_OFF.
+                if (!unban3 && bypassTypedefShare && fm.getDeclaredType() &&
+                    r11u235Law("R11U235_CLSENUMMEM_OFF")) {
+                    auto& mt235 = fm.getDeclaredType()->getType();
+                    if (mt235.kind == SymbolKind::TypeAlias &&
+                        mt235.getCanonicalType().kind == SymbolKind::EnumType)
+                        if (auto* ps235 = mt235.as<TypeAliasType>().getParentScope();
+                            ps235 && ps235->asSymbol().kind == SymbolKind::ClassType) {
+                            unban3 = true;
+                            tr235("clsTdClsEnumMemberShares235",
+                                  std::string(fm.name));
+                        }
                 }
                 if (unban3)
                     bypassTypedefShare = false;

@@ -1,0 +1,7 @@
+# r11u235: direct runs of the frozen binaries on BuildUVMPkg's source (uvm_pkg.sv --single-unit), md5 of the database (count hash)
+batch 1 (6 concurrent):   final 6 c7e52624c58c | final R11U235_OFF 6 c34642cd4057 | l234 6 c34642cd4057
+batch 2 (6 concurrent):   final 18 c7e52624c58c
+batch 3 (8 concurrent):   final 24 c7e52624c58c | pristine 24 67a34d292dbb
+batch 4 (10 concurrent):  final 60 c7e52624c58c | final R11U235_OFF=1 R11U234_OFF=1 60 67a34d292dbb
+batch 5 (12 concurrent):  final 60 c7e52624c58c | pristine 60 67a34d292dbb
+total: final 168 runs one hash; pristine 84 runs one hash (= the switch-off's 60)

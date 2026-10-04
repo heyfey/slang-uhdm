@@ -1,0 +1,24 @@
+== surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/BuildUVMPkg-fc55bd0c/slang.uhdm  patched=4e747bb4e5e2 pristine=2fcd49f9f2b8
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=c3b872bbe6ba pristine=c88baea1d119
+MOVER ./default/PreprocTest-392f6800/slang.uhdm  patched=d5dfc97e0da7 pristine=1a96002016a3
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=80d768d658ab pristine=96bd6ddc6dca
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=ed1e4098713c pristine=94c9539cd71f
+MOVER ./default/SimpleUVM-267de3ff/slang.uhdm  patched=93669fd10b3a pristine=b191450dd732
+MOVER ./testflags/BuildUVMPkg-fc55bd0c/slang.uhdm  patched=4e747bb4e5e2 pristine=2fcd49f9f2b8
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=c3b872bbe6ba pristine=c88baea1d119
+MOVER ./testflags/PreprocTest-392f6800/slang.uhdm  patched=d5dfc97e0da7 pristine=1a96002016a3
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=80b9976c32fd pristine=57acd5521be3
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=05304184c551 pristine=bb98565588e0
+MOVERS: 11 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== probe
+databases: patched=0 pristine=0
+NO_DATABASES

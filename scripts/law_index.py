@@ -166,7 +166,7 @@ def build():
             commit_tests[law] |= {w for w in words if w in corpus}
 
     # 4. Probe cases: every dir under tests/probe/<pass>/ holding a dut.sv (the
-    # gate) and every .sv under tools/probe/<pass>/ (the evidence), attributed
+    # gate) and every .sv, .v or .vh under tools/probe/<pass>/ (the evidence), attributed
     # to laws at a level.
     cases = []   # (path, pass, tree, laws, how)
     def attribute(pdir, name, text):
@@ -203,11 +203,15 @@ def build():
         else:
             laws, how = attribute(parts[2], parts[-2], read(a))
         cases.append((d, parts[2], 'tests', laws, how))
-    for a in sorted(glob.glob('tools/probe/*/**/*.sv', recursive=True)):
+    # Verilog-mode cases are dut.v / dut.vh (pass 235's vm grid); the index
+    # reads them beside the .sv cases.
+    for a in sorted(set(glob.glob('tools/probe/*/**/*.sv', recursive=True)
+                        + glob.glob('tools/probe/*/**/*.v', recursive=True)
+                        + glob.glob('tools/probe/*/**/*.vh', recursive=True))):
         parts = a.split('/')
         if len(parts) < 4:
             continue
-        name = parts[-2] if parts[-1] == 'dut.sv' else os.path.splitext(parts[-1])[0]
+        name = parts[-2] if parts[-1].startswith('dut.') else os.path.splitext(parts[-1])[0]
         laws, how = attribute(parts[2], name, read(a))
         cases.append((a, parts[2], 'tools', laws, how))
     return dict(files=files, switches=switches, primary=primary, mentioned=mentioned,

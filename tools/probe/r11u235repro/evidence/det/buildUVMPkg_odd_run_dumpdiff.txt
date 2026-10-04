@@ -1,0 +1,9 @@
+1c1
+< det_final_2/default/BuildUVMPkg-fc55bd0c/slang.uhdm: Restored design Pre-Elab: 
+---
+> det_final_1/default/BuildUVMPkg-fc55bd0c/slang.uhdm: Restored design Pre-Elab: 
+1044384,1044387d1044383
+< \_class_typespec: (this_type), line:13776:11, endln:13776:42
+<   |vpiName:this_type
+<   |vpiClassDefn:
+<   \_class_defn: (uvm_pkg::uvm_abstract_component_registry), file:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:13774:1, endln:13893:9

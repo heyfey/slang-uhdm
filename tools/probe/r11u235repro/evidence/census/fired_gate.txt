@@ -1,0 +1,15 @@
+tests/probe/r10buvm15repro/a1_collargs15 rc=0 fired=retNameLocalClassTsAtType234
+tests/probe/r10buvm15repro/v5_named15 rc=0 fired=retNameLocalClassTsAtType234
+tests/probe/r10sd1repro/b10_bothtd rc=0 fired=clsTdAnchorAliasQualName235
+tests/probe/r10uvm56repro/a1_witness rc=0 fired=retNameLocalClassTsAtType234
+tests/probe/r10uvm56repro/a5_argpos rc=0 fired=retNameLocalClassTsAtType234
+tests/probe/r10uvm56repro/a6_type rc=0 fired=retNameLocalClassTsAtType234
+tests/probe/r10uvm56repro/a8_newlhs rc=0 fired=retNameLocalClassTsAtType234
+tests/probe/r10uvm56repro/v3_hierpath rc=0 fired=retNameLocalClassTsAtType234
+tests/probe/r10uvm69repro/a2_scope rc=0 fired=retNameLocalClassTsAtType234
+tests/probe/r10uvm69repro/a3_recv rc=0 fired=retNameLocalClassTsAtType234
+tests/probe/r10uvm69repro/v1_gaps rc=0 fired=retNameLocalClassTsAtType234
+tests/probe/r10v158repro/v158_i rc=0 fired=tpTdDefaultUseSharesListing234
+tests/probe/r10v160repro/x09_struct rc=0 fired=tpTdDefaultUseSharesListing234
+tests/probe/r10v160repro/x10_enum rc=0 fired=tpTdDefaultUseSharesListing234
+tests/probe/r10v97repro/v97_c9_pkganchor rc=0 fired=clsTdAnchorAliasQualName235

@@ -1,0 +1,34 @@
+# 26 databases differ between /tmp/r11u235_wP and /tmp/r11u235_wL (canonical records)
+probe/r10buvm15repro/a1_collargs15 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+probe/r10buvm15repro/v5_named15 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+probe/r10sd1repro/b10_bothtd chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+probe/r10uvm56repro/a1_witness chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+probe/r10uvm56repro/a5_argpos chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0
+probe/r10uvm56repro/a6_type chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6 flat_unpaired=0
+probe/r10uvm56repro/a8_newlhs chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0
+probe/r10uvm56repro/v3_hierpath chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+probe/r10uvm69repro/a2_scope chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+probe/r10uvm69repro/a3_recv chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+probe/r10uvm69repro/v1_gaps chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+probe/r10v158repro/v158_i chain_lost=0 chain_toward=44 flat_lost=0 flat_toward=38 flat_unpaired=0
+probe/r10v160repro/x09_struct chain_lost=0 chain_toward=7 flat_lost=0 flat_toward=7 flat_unpaired=0
+probe/r10v160repro/x10_enum chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=1 flat_unpaired=0
+probe/r10v97repro/v97_c9_pkganchor chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0 flat_unpaired=0
+surelog/default/BuildUVMPkg chain_lost=0 chain_toward=58 flat_lost=0 flat_toward=56 flat_unpaired=0
+surelog/default/MiniAmiq chain_lost=0 chain_toward=49 flat_lost=0 flat_toward=47 flat_unpaired=0
+surelog/default/PreprocTest chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0
+surelog/default/Scoreboard chain_lost=0 chain_toward=73 flat_lost=1 flat_toward=71 flat_unpaired=1
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ enum_typespec: < ref_typespec: < ref_var:e < function:m_init_map < class_defn:uvm_enum_wrapper < package:uvm_pkg < design:work@my_scoreboard_unit_test
+surelog/default/SeqDriver chain_lost=0 chain_toward=97 flat_lost=0 flat_toward=95 flat_unpaired=0
+surelog/default/SimpleUVM chain_lost=0 chain_toward=97 flat_lost=1 flat_toward=95 flat_unpaired=1
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ enum_typespec: < ref_typespec: < ref_var:e < function:m_init_map < class_defn:uvm_enum_wrapper < package:uvm_pkg < design:work@top
+surelog/testflags/BuildUVMPkg chain_lost=0 chain_toward=58 flat_lost=0 flat_toward=56 flat_unpaired=0
+surelog/testflags/MiniAmiq chain_lost=0 chain_toward=49 flat_lost=0 flat_toward=47 flat_unpaired=0
+surelog/testflags/PreprocTest chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2 flat_unpaired=0
+surelog/testflags/SeqDriver chain_lost=0 chain_toward=97 flat_lost=0 flat_toward=95 flat_unpaired=0
+surelog/testflags/SimpleUVM chain_lost=0 chain_toward=97 flat_lost=1 flat_toward=95 flat_unpaired=1
+  FLAT_LOST 1 (paired in place with a golden record at the same chain: 0) ref_typespec|||||0|0|0|0||0||
+     chain off=1 on=0 golden=0 @ enum_typespec: < ref_typespec: < ref_var:e < function:m_init_map < class_defn:uvm_enum_wrapper < package:uvm_pkg < design:work@top
+TOTAL chain_lost=0 chain_toward=745 flat_lost=3 flat_toward=719 flat_unpaired=3

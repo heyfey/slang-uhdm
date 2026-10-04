@@ -1,0 +1,9 @@
+// pre-existing crash (r11u235 evidence): a $unit class specialization typedef used by a module variable, -elabuhdm view
+class cb #(type T=int, type CB=int);
+  typedef cb#(T,CB) this_type;
+  static this_type m_inst;
+endclass
+typedef cb#(int,byte) cbs_t;
+module top;
+  cbs_t h;
+endmodule

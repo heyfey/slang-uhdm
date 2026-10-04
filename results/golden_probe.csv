@@ -592,7 +592,7 @@ r10sd10repro/v2_dynarray_struct_typedef,STRICT_NOTEQUAL,differ:fullname(2),diffe
 r10sd10repro/v3_elem_class_of_importing,EQUAL,,equal
 r10sd10repro/v5_oob_extern,EQUAL,,equal
 r10sd10repro/v9_nested_classes,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)
-r10sd1repro/b10_bothtd,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+r10sd1repro/b10_bothtd,EQUAL,,equal
 r10sd1repro/b13_cuclass,EQUAL,,equal
 r10sd1repro/b18_qualified,STRICT_NOTEQUAL,differ:endcol(3),differ:endcol(3)
 r10sd1repro/b24_inline_class_own,EQUAL,,equal
@@ -936,9 +936,9 @@ r10uvm56repro/a1_witness,EQUAL,,equal
 r10uvm56repro/a2_local,EQUAL,,equal
 r10uvm56repro/a3_scope,EQUAL,,equal
 r10uvm56repro/a4_kinds,EQUAL,,equal
-r10uvm56repro/a5_argpos,STRICT_NOTEQUAL,differ:file(4),differ:file(4)
-r10uvm56repro/a6_type,STRICT_NOTEQUAL,differ:line(15),differ:line(15)
-r10uvm56repro/a8_newlhs,STRICT_NOTEQUAL,differ:file(2),differ:file(2)
+r10uvm56repro/a5_argpos,EQUAL,,equal
+r10uvm56repro/a6_type,STRICT_NOTEQUAL,differ:line(9),differ:line(9)
+r10uvm56repro/a8_newlhs,EQUAL,,equal
 r10uvm56repro/v1_scopes2,EQUAL,,equal
 r10uvm56repro/v2_call,EQUAL,,equal
 r10uvm56repro/v3_hierpath,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
@@ -1207,7 +1207,7 @@ r10v156repro/v156_shadow,EQUAL,,equal
 r10v157repro/v157_p3_fn,EQUAL,,equal
 r10v158repro/probe0,EQUAL,,equal
 r10v158repro/v158_d,STRICT_NOTEQUAL,differ:file(2),differ:file(2)
-r10v158repro/v158_i,STRICT_NOTEQUAL,differ:name(3),differ:name(3)
+r10v158repro/v158_i,EQUAL,,equal
 r10v160repro/c01_scopedname,EQUAL,,equal
 r10v160repro/c02_scopedcall,EQUAL,,equal
 r10v160repro/c03_scoped3,EQUAL,,equal
@@ -1256,8 +1256,8 @@ r10v160repro/x05_onlybad,EQUAL,,equal
 r10v160repro/x06_firstbad,EQUAL,,equal
 r10v160repro/x07_twobad,EQUAL,,equal
 r10v160repro/x08_str,EQUAL,,equal
-r10v160repro/x09_struct,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
-r10v160repro/x10_enum,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+r10v160repro/x09_struct,EQUAL,,equal
+r10v160repro/x10_enum,EQUAL,,equal
 r10v160repro/x11_class,EQUAL,,equal
 r10v160repro/x12_bit,EQUAL,,equal
 r10v160repro/x13_real,EQUAL,,equal
@@ -1401,7 +1401,7 @@ r10v97repro/v97_c2_dupbase,EQUAL,,equal
 r10v97repro/v97_c3_twotd,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
 r10v97repro/v97_c4_specparams,EQUAL,,equal
 r10v97repro/v97_c8_counts,EQUAL,,equal
-r10v97repro/v97_c9_pkganchor,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10v97repro/v97_c9_pkganchor,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
 r10v99repro/v99_b1_shapes,EQUAL,,equal
 r10v99repro/v99_b4_deep,EQUAL,,equal
 r10v99repro/v99_b6_paren,EQUAL,,equal

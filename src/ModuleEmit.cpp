@@ -34,6 +34,7 @@
 #include "R231.h"
 #include "R233.h"
 #include "R229.h"
+#include "R234.h"
 
 namespace slang_uhdm {
 
@@ -44832,6 +44833,26 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                     syntaxRefSep = "::";
                 }
                 ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
+                // § retNameLocalClassTsAtType234 (r11u234, map 15 N0067 / N0068
+                // on uvm_mem::get_default_map, uvm_mem_mam::reserve_region and
+                // 22 more UVM functions) — the per-reference return-name local
+                // of an OUT-OF-BODY method or a package function returning a
+                // class handle (`function uvm_reg_map uvm_mem::get_default_map();
+                // ... m_maps.first(get_default_map)`) keeps its class_typespec
+                // at the written return type: Surelog compiles the name's
+                // variable with compileVariable over the function's return
+                // data type node, and populateCoreMembers locates the
+                // class_typespec there (golden uvm_pkg.sv 73223:10-73223:21 and
+                // an empty name; ours was unlocated with no file; grid cases/F
+                // f01 f03 f04, f02 the in-body method already located).
+                // Switch R11U234_RETLOCALTS_OFF.
+                if (ts && ts->UhdmType() == UHDM::uhdmclass_typespec &&
+                    ts->VpiLineNo() == 0 && ts->VpiFile().empty() &&
+                    r11u234Law("R11U234_RETLOCALTS_OFF"))
+                    if (auto* rsyn234 = returnTypeSyntax(sub)) {
+                        setLoc(ts, rsyn234->sourceRange());
+                        tr234("retNameLocalClassTsAtType234", std::string(sub.name));
+                    }
                 syntaxRefSep = savedSep67;
                 retLocalDefView67 = savedDV67;
                 tfTypeScope = savedTfS67;
