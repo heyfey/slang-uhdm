@@ -30,6 +30,7 @@
 #include "R224.h"
 #include "R226.h"
 #include "R227.h"
+#include "R236.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -1717,6 +1718,199 @@ static std::string ownerInstName192(const UHDM::any* p, int* gens = nullptr,
         }
     }
     return std::string();
+}
+// § hpSelIdxPkgFoldTsOwner236 (r11u236) — the hier_path a component select's
+// index is being emitted under (emitMixedHierPath), whether that component is
+// followed by further path members (MID, not trailing), and whether the path
+// is an lvalue.
+struct HpIdxCtx236 {
+    const UHDM::any* hp = nullptr;
+    bool mid = false;
+    bool lhs = false;
+};
+static HpIdxCtx236 hpIdxCtx236;
+// The DEFINITION name of the module the chain reaches (`work@sub` in either
+// listing): golden's fold is the getValue clone parented at the definition's
+// param_assign, so its reference reads that module's name.  Empty (the law
+// abstains) through a generate scope, a port, a package or a class.
+static std::string ownerDefName236(const UHDM::any* p) {
+    for (int g = 0; p && g < 256; ++g, p = p->VpiParent()) {
+        switch (p->UhdmType()) {
+            case UHDM::uhdmport:
+            case UHDM::uhdmgen_scope:
+            case UHDM::uhdmgen_scope_array:
+            case UHDM::uhdmpackage:
+            case UHDM::uhdmclass_defn:
+            case UHDM::uhdmdesign:
+            case UHDM::uhdminterface_inst:
+            case UHDM::uhdmprogram:
+                return std::string();
+            case UHDM::uhdmmodule_inst:
+                return std::string(((const UHDM::module_inst*)p)->VpiDefName());
+            default:
+                break;
+        }
+    }
+    return std::string();
+}
+// § defConnIpsFoldTsOwner236 (r11u236) — the reference name of a folded
+// package parameter that is the BASE or WIDTH of an indexed part select `ips`
+// written in a DEFINITION listing's port connection (`def` = defRefModConn):
+// the instantiating definition's name (golden's getValue clone hangs at its
+// param_assign), else `name` unchanged.  Through a generate scope the law
+// abstains.  Switch R11U236_CONNIPSOWNER_OFF.
+static std::string defConnIpsOwner236(bool def, const UHDM::any* ips,
+                                      const std::string& name) {
+    if (!def || !ips || !r11u236On("R11U236_CONNIPSOWNER_OFF"))
+        return name;
+    int g236 = 0;
+    bool vp236 = false;
+    std::string o236 = ownerInstName192(ips, &g236, &vp236);
+    if (!vp236 || g236 != 0 || o236.empty() || o236 == name)
+        return name;
+    tr236("defConnIpsFoldTsOwner236", name);
+    return o236;
+}
+// § caOpArgIntFormalTs236 (r11u236) — an OPERATION actual of an `int`-family
+// formal, in a module context, that reads a net or a variable: golden stamps
+// the formal's typespec on the operation (pass 231's CA c05 `h(a, a + 1)`:
+// `k`'s int_typespec), where the exclusion it lifts was measured on operations
+// of parameters and constants, which Surelog reduces before the stamp.
+// Switch R11U236_OPARGTS_OFF.
+static bool opArgReadsNetVar236(const Expression& arg) {
+    if (!r11u236On("R11U236_OPARGTS_OFF"))
+        return false;
+    bool rd = false;
+    arg.visit(makeVisitor([&](auto&, const NamedValueExpression& nv) {
+        auto k = nv.symbol.kind;
+        if (k == SymbolKind::Net || k == SymbolKind::Variable)
+            rd = true;
+    }));
+    if (rd)
+        tr236("caOpArgIntFormalTs236");
+    return rd;
+}
+// (v11u236) The context both call-argument laws
+// of this pass were measured in: the call, or the chain of calls it is an
+// actual of, is the right side of a continuous assignment (`assign o = h(.y(b),
+// .x(a))`, `assign o2 = h(a, a + 1)`, a net declaration assignment, an
+// implicit net, a generate block's or an interface body's assignment).
+// Everywhere else golden keeps the actual bare where the laws stamped it
+// (v11u236repro cases): an operand of an operation (A/a06, A/k5_named,
+// A/k6_named, A/k8_named, B/b05, B/b08), an indexed part-select base or width,
+// a part-select bound, a bit-select index (A/a15, A/a17, B/b15), a port
+// connection (B/b11, B/b13).
+static bool callCtxContAssign236v(const UHDM::BaseClass* p) {
+    for (int g = 0; p && g < 64; ++g, p = p->VpiParent()) {
+        if (p->UhdmType() == UHDM::uhdmcont_assign)
+            return true;
+        if (p->UhdmType() != UHDM::uhdmfunc_call)
+            return false;
+    }
+    return false;
+}
+// § namedCallArgCtx236v — § namedCallArgFormalTs236 abstains outside that
+// context, with one measured widening: a named call nested only in binary
+// operations whose other operands are LITERALS (`f(.q(b), .p(a)) > 0`,
+// `h(.x(a), .y(b)) + 0`: golden stamps, cases r11u236 N/n15 and v11u236
+// A/m1, m3, m4, m6) keeps the stamp, while a net, a variable or a call beside
+// it (`h(.x(a), .y(b)) + a`, `a + f(...)`, `g(...) + g(...)`: cases A/k5,
+// k6, k8, m2, m7, a06) keeps every actual bare.  Switch R11V236_NAMEDCTX_OFF.
+static bool litOnlyOperand236v(const syntax::SyntaxNode* n) {
+    while (n && n->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        n = n->as<syntax::ParenthesizedExpressionSyntax>().expression;
+    if (!n)
+        return false;
+    switch (n->kind) {
+        case syntax::SyntaxKind::IntegerLiteralExpression:
+        case syntax::SyntaxKind::IntegerVectorExpression:
+        case syntax::SyntaxKind::UnbasedUnsizedLiteralExpression:
+        case syntax::SyntaxKind::RealLiteralExpression:
+            return true;
+        default:
+            return false;
+    }
+}
+static bool namedCallOpLitOnly236v(const UHDM::BaseClass* p,
+                                   const Expression& call) {
+    // UHDM side: operations only, up to the continuous assignment.
+    bool sawOp = false;
+    for (int g = 0;; ++g, p = p->VpiParent()) {
+        if (!p || g >= 64)
+            return false;
+        if (p->UhdmType() == UHDM::uhdmcont_assign)
+            break;
+        if (p->UhdmType() != UHDM::uhdmoperation)
+            return false;
+        sawOp = true;
+    }
+    if (!sawOp || !call.syntax)
+        return false;
+    // Syntax side: every enclosing node up to the assignment is a binary
+    // operation (or parentheses) whose other operand is a literal.
+    const syntax::SyntaxNode* n = call.syntax;
+    for (int g = 0; n && n->parent && g < 64; ++g) {
+        const syntax::SyntaxNode* q = n->parent;
+        if (q->kind == syntax::SyntaxKind::ParenthesizedExpression) {
+            n = q;
+            continue;
+        }
+        if (q->kind == syntax::SyntaxKind::AssignmentExpression)
+            return q->as<syntax::BinaryExpressionSyntax>().right == n;
+        if (q->kind == syntax::SyntaxKind::EqualsValueClause)
+            return true;
+        if (!syntax::BinaryExpressionSyntax::isKind(q->kind))
+            return false;
+        auto& be = q->as<syntax::BinaryExpressionSyntax>();
+        const syntax::SyntaxNode* other =
+            be.left == n ? (const syntax::SyntaxNode*)be.right
+                         : (const syntax::SyntaxNode*)be.left;
+        if (!litOnlyOperand236v(other))
+            return false;
+        n = q;
+    }
+    return false;
+}
+static bool namedCallCtxAbstain236v(const UHDM::BaseClass* parent,
+                                    const Expression& call) {
+    if (callCtxContAssign236v(parent) || !r11v236On("R11V236_NAMEDCTX_OFF") ||
+        namedCallOpLitOnly236v(parent, call))
+        return false;
+    tr236("namedCallArgCtx236v");
+    return true;
+}
+// § opArgCallCtx236v — § caOpArgIntFormalTs236 abstains outside that
+// context.  Switch R11V236_OPCTX_OFF.
+static bool opArgCallInOp236v(const UHDM::BaseClass* parent) {
+    if (callCtxContAssign236v(parent) || !r11v236On("R11V236_OPCTX_OFF"))
+        return false;
+    tr236("opArgCallCtx236v");
+    return true;
+}
+// § pkgDefPatHomeOnly236v (v11u236) — § pkgDefPatSubstShared236 shares a
+// member read only when every parameter the read names is declared in the
+// package whose definition listing is being written: golden gives another
+// package's reads of `pk::dflt_p.a` one object per use, in two packages
+// (v11u236repro E/e05: pb_p.a and pc_p.a) and in two parameters of one
+// package (E/e09: pb_p.a and pb_q.a), where the law handed all of them the
+// declaring package's own copy.  Switch R11V236_PKGHOME_OFF.
+static bool pkgDefPatSameHome236v(const Expression& e) {
+    if (!r11v236On("R11V236_PKGHOME_OFF"))
+        return true;
+    const void* home = pkgDefPatShareScope236();
+    bool any = false, other = false;
+    e.visit(makeVisitor([&](auto&, const NamedValueExpression& nv) {
+        if (nv.symbol.kind != SymbolKind::Parameter)
+            return;
+        any = true;
+        if (!home || (const void*)nv.symbol.getParentScope() != home)
+            other = true;
+    }));
+    if (!any || other) {
+        tr236("pkgDefPatHomeOnly236v");
+        return false;
+    }
+    return true;
 }
 // § psBoundPaOwnerName192 — the right-hand side of the continuous assignment
 // whose syntax holds `e` holds an unbased unsized literal (`'0`, `'1`, `'x`,
@@ -14397,8 +14591,16 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         comps.size() > 1 ? comps[1].nameSpan : comps[0].nameSpan;
     std::string dottedAt;
     UHDM::bit_select* trailIdx133 = nullptr;  // § hpTrailSelIdxNamesByPath133
+    // § hpSelIdxPkgFoldTsOwner236 — the path being built, for the fold's
+    // reference name (read at the selFold9 naming site of emitExpr).
+    HpIdxCtx236 savedHp236 = hpIdxCtx236;
+    struct HpIdxRestore236 {
+        HpIdxCtx236 v;
+        ~HpIdxRestore236() { hpIdxCtx236 = v; }
+    } hpIdxRestore236{savedHp236};
     for (size_t i = 0; i < comps.size(); ++i) {
         auto& comp = comps[i];
+        hpIdxCtx236 = HpIdxCtx236{hp, i + 1 < comps.size(), inLhs};
         bool lastMember = i + 1 == comps.size();
         // § hpMidSelIdxDecompiled79 / § hpMidSelIdxAtPath79 — both laws are
         // gated on the SAME predicate: this component's select is followed by
@@ -14776,6 +14978,21 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 // index scope is prefix + the whole dotted path.
                 if (auto* ix =
                         emitExpr(*sel.sel, bs, prefix + "." + dotted, netMap))
+                    bs->VpiIndex((UHDM::expr*)ix);
+            }
+            else if (inLhs && baseNv->symbol.kind == SymbolKind::Variable &&
+                     !lastMember && i > 0 && !comps[0].sels.empty() &&
+                     r11u236On("R11U236_MIDSELBASESEL_OFF")) {
+                // § hpMidSelBaseSelDotted236 — the same lvalue select when the
+                // path's BASE is itself selected (`rc[1].fs[0].q = ...`, a
+                // packed array of structs): golden keeps the simple dotted
+                // name `rc[1].fs[0]` at the MEMBER-name span, as a read does
+                // (grid cases/E e19: `t.fs[1].q` keeps the doubled form below,
+                // `rc[1].fs[0].q` takes this one).
+                tr236("hpMidSelBaseSelDotted236");
+                setLoc(bs, comp.nameSpan);
+                bs->VpiFullName(dottedAt);
+                if (auto* ix = emitExpr(*sel.sel, bs, idxPfx79b, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
             else if (inLhs && baseNv->symbol.kind == SymbolKind::Variable &&
@@ -23426,9 +23643,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                              rawText(expr.sourceRange).find("::") ==
                                  std::string::npos)) {
                             auto* rt = s.MakeRef_typespec();
-                            if (procSelFold9 || selFold9)
-                                rt->VpiFullName(
-                                    ((UHDM::bit_select*)parent)->VpiFullName());
+                            if (procSelFold9 || selFold9) {
+                                // § hpSelIdxPkgFoldTsOwner236 — the select is a
+                                // COMPONENT of a member path (`rc[N].base.q`,
+                                // Earlgrey flash_ctrl `region_cfgs[MpRegions]
+                                // .base.q`): golden's clone sits at the
+                                // definition's param_assign, its reference
+                                // reading `work@<module>`, for every MID-path
+                                // component (one followed by further members)
+                                // in every view and position except an
+                                // elaborated continuous-assignment lvalue, where
+                                // it hangs at the select and the name is the
+                                // chain's (`work@top.u_s.rc[2].base.q.rc`), as
+                                // for the TRAILING component of any lvalue; a
+                                // trailing component read keeps the select's
+                                // name.
+                                bool own236 = false;
+                                if (hpIdxCtx236.hp &&
+                                    parent->VpiParent() == hpIdxCtx236.hp &&
+                                    r11u236On("R11U236_HPIDXOWNER_OFF")) {
+                                    std::string d236 = ownerDefName236(parent);
+                                    if (!d236.empty()) {
+                                        if (hpIdxCtx236.mid &&
+                                            !(hpIdxCtx236.lhs && !inProcessEmit &&
+                                              elabContAssignLhs)) {
+                                            rt->VpiFullName(d236);
+                                            own236 = true;
+                                            tr236("hpSelIdxPkgFoldTsOwner236", "def");
+                                        }
+                                        else if (hpIdxCtx236.lhs) {
+                                            own236 = true;
+                                            tr236("hpSelIdxPkgFoldTsOwner236", "chain");
+                                        }
+                                    }
+                                }
+                                if (!own236)
+                                    rt->VpiFullName(
+                                        ((UHDM::bit_select*)parent)->VpiFullName());
+                            }
                             else if (vsBare115)
                                 rt->VpiFullName(
                                     ((const UHDM::var_select*)parent)
@@ -23653,6 +23905,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         trace198("genCaUnclonedFoldOwner198");
                                     }
                                 }
+                                // § defConnIpsFoldTsOwner236 — the BASE or
+                                // WIDTH of an indexed part select written in
+                                // a DEFINITION listing's port connection
+                                // (Earlgrey flash_ctrl `.req_addr_i(flash_addr
+                                // [WordW +: AllPagesW])`, `.op_addr_i(reg2hw
+                                // .addr.q[DataBitWidth +: AddrW])`): golden's
+                                // getValue clone hangs at the instantiating
+                                // definition's param_assign, so the reference
+                                // reads `work@<module>`, not the port path the
+                                // prefix holds (the continuous-assignment
+                                // spelling already reads the module).
+                                if (ipsWidFold9)
+                                    nm192 = defConnIpsOwner236(defRefModConn,
+                                                               parent, nm192);
                                 rt->VpiFullName(nm192);
                             }
                             rt->VpiParent(c);
@@ -34105,7 +34371,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          !paramRootSel &&
                                          !(intFormal &&
                                            a->UhdmType() ==
-                                               UHDM::uhdmoperation) &&
+                                               UHDM::uhdmoperation &&
+                                           !(opArgReadsNetVar236(*arg) &&
+                                             !opArgCallInOp236v(parent))) &&
                                          (refArg || callArgDepth == 1)));
                         // Pkg-scoped param refs (pkg::P) carry no formal ts.
                         bool pkgScopedRef =
@@ -34484,7 +34752,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                               evalFuncStampsCall191(comp, *currentSubSym, expr) &&
                               (tr191EX("evalFuncExecCallArgTs191"), true))) &&
                             !shadowSkip8v && !pkgScopedRef &&
-                            !strFormalConst && !paramInitLit9 && !namedArgs9 &&
+                            !strFormalConst && !paramInitLit9 &&
+                            // § namedCallArgFormalTs236 — a NAMED-argument call
+                            // OUTSIDE a subroutine body (a module's continuous
+                            // assignment) stamps each actual with ITS OWN
+                            // formal's typespec exactly as the positional form
+                            // does (golden h(.y(b), .x(a)): `a` -> x's, `b` ->
+                            // y's); EvalFuncNamed's bare actuals are a named
+                            // call inside a package FUNCTION body, which keeps
+                            // the exclusion.  Switch R11U236_NAMEDARGTS_OFF.
+                            (!namedArgs9 ||
+                             (!currentTf && !currentSubSym &&
+                              r11u236On("R11U236_NAMEDARGTS_OFF") &&
+                              // the call's context: a continuous
+                              // assignment's right side only.
+                              // § namedCallArgCtx236v (v11u236)
+                              !namedCallCtxAbstain236v(parent, expr) &&
+                              (tr236("namedCallArgFormalTs236"), true))) &&
                             // A PROPERTY-DECL body's call args carry no
                             // formal-ts stamp (mriscv s2qed reg_map(inp1)).
                             !propDeclScope &&
@@ -39525,7 +39809,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // in an elaborated port connection stays bare
                                 // whatever the parameter's home scope is.
                                 if (!elabConnEmit21)
-                                    stampFoldedPkgParamTs(wc9, *wf9.sym, prefix,
+                                    stampFoldedPkgParamTs(wc9, *wf9.sym,
+                                                          defConnIpsOwner236(defRefModConn, ips, prefix),
                                                           /*declTsOnly=*/false,
                                                           /*modIntAtom111=*/true);
                                 ips->Width_expr(wc9);
@@ -40529,7 +40814,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // § modLocalIntTsFold111 — SITE 2 of 2, riding
                                 // inside the same two carve-outs.
                                 if (!elabConnEmit21 || mpRoot65v)
-                                    stampFoldedPkgParamTs(wc9, *wf9.sym, prefix,
+                                    stampFoldedPkgParamTs(wc9, *wf9.sym,
+                                                          defConnIpsOwner236(defRefModConn, ips2, prefix),
                                                           /*declTsOnly=*/false,
                                                           /*modIntAtom111=*/true);
                                 ips2->Width_expr(wc9);
@@ -43308,6 +43594,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (auto* sv4 = pkgPatSubstValue(*setter.expr, 0))
                         if (sv4->UhdmType() == UHDM::uhdmconstant) {
                             auto* sc4 = (UHDM::constant*)sv4;
+                            // § pkgDefPatSubstShared236 — in the DECLARING
+                            // package's definition listing (AllPackages) Surelog
+                            // hands every such member read the ONE object its
+                            // reduce produced for that source member: golden
+                            // BlackBePipeInt bp_common_pkg (TOP=0) shares 159
+                            // member objects among 2144 tagged patterns
+                            // (`bp_custom_cfg_p.cc_x_dim: bp_default_cfg_p.cc_x_dim`
+                            // and megaparrot's `(ovr.cc_x_dim == "inv") ?
+                            // bp_unicore_cfg_p.cc_x_dim : ...` both hold the same
+                            // unparented constant, not the source pattern's own);
+                            // the elaborated listing and every import listing
+                            // keep one object per use.  The memo also maps the
+                            // copy to itself, so a read chained through an
+                            // already-substituted parameter lands on it too.
+                            if (pkgDefPatShare236() && !importedParamClone &&
+                                pkgDefPatSameHome236v(*setter.expr)) {
+                                auto& m236 = pkgDefPatShareMemo236();
+                                if (auto it236 = m236.find(sc4); it236 != m236.end()) {
+                                    tr236("pkgDefPatSubstShared236", "reuse");
+                                    preE = (UHDM::any*)it236->second;
+                                }
+                            }
+                        }
+                    if (!preE)
+                    if (auto* sv4 = pkgPatSubstValue(*setter.expr, 0))
+                        if (sv4->UhdmType() == UHDM::uhdmconstant) {
+                            auto* sc4 = (UHDM::constant*)sv4;
                             auto* cc4 = s.MakeConstant();
                             cc4->VpiValue(std::string(sc4->VpiValue()));
                             cc4->VpiDecompile(std::string(sc4->VpiDecompile()));
@@ -43329,6 +43642,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 cc4->Typespec(nrt4);
                             }
                             preE = cc4;
+                            if (pkgDefPatShare236() && !importedParamClone &&
+                                pkgDefPatSameHome236v(*setter.expr)) {
+                                tr236("pkgDefPatSubstShared236", "first");
+                                pkgDefPatShareMemo236()[sc4] = cc4;
+                                pkgDefPatShareMemo236()[cc4] = cc4;
+                            }
                         }
                 }
                 // A PACKAGE struct-pattern member VALUE written as an
@@ -43360,12 +43679,43 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 LiteralBase::Decimal, false);
                             bool int5 = srlgRedIntSyn(pv5.syntax);
                             auto* pc5c = s.MakeConstant();
-                            setLoc(pc5c,
-                                   pv5.kind == ExpressionKind::BinaryOp
-                                       ? pv5.as<BinaryExpression>()
-                                             .left()
-                                             .sourceRange
-                                       : pv5.sourceRange);
+                            // § pkgPatArithLeftParenSpan236 — a PARENTHESIZED
+                            // left operand keeps its parentheses in the span:
+                            // golden BlackBePipeInt `dcache_features : (1 <<
+                            // e_cfg_enabled) | (1 << e_cfg_lr_sc)` folds to
+                            // UINT:17 at 2992:26-46, the `( ... )` token pair
+                            // included (slang's operand range stops inside it;
+                            // its syntax is the ParenthesizedExpression).
+                            SourceRange lr236 =
+                                pv5.kind == ExpressionKind::BinaryOp
+                                    ? pv5.as<BinaryExpression>()
+                                          .left()
+                                          .sourceRange
+                                    : pv5.sourceRange;
+                            if (pv5.kind == ExpressionKind::BinaryOp &&
+                                r11u236On("R11U236_ARITHPAREN_OFF")) {
+                                // The operand's syntax is the parenthesized
+                                // node itself for an operation and the inner
+                                // name for a bare reference `(N) + 1`: climb
+                                // the parentheses that enclose it either way.
+                                const syntax::SyntaxNode* ls236 =
+                                    pv5.as<BinaryExpression>().left().syntax;
+                                if (!ls236)
+                                    ls236 = stripImplicitConv(
+                                                pv5.as<BinaryExpression>().left())
+                                                .syntax;
+                                while (ls236 && ls236->parent &&
+                                       ls236->parent->kind ==
+                                           syntax::SyntaxKind::ParenthesizedExpression)
+                                    ls236 = ls236->parent;
+                                if (ls236 &&
+                                    ls236->kind == syntax::SyntaxKind::
+                                                       ParenthesizedExpression) {
+                                    tr236("pkgPatArithLeftParenSpan236");
+                                    lr236 = ls236->sourceRange();
+                                }
+                            }
+                            setLoc(pc5c, lr236);
                             pc5c->VpiDecompile(dg5);
                             pc5c->VpiSize(64);
                             pc5c->VpiValue((int5 ? "INT:" : "UINT:") + dg5);

@@ -1,0 +1,9 @@
+// § (decode) Earlgrey #122230: a package parameter whose default is a ternary on another parameter
+package pk;
+  parameter int WidthMultiple = 2;
+  parameter int LsbAddrBit = $clog2(WidthMultiple);
+  parameter int WordSelW = WidthMultiple == 1 ? 1 : LsbAddrBit;
+endpackage
+module top import pk::*; (input logic [WordSelW-1:0] r, output logic o);
+  assign o = ^r;
+endmodule

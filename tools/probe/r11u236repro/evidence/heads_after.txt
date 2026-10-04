@@ -1,0 +1,35 @@
+== default/BlackBePipeInt
+#24671 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_x_dim		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_x_dim		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::cc_x_dim | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.cc_x_dim
+== testflags/BlackBePipeInt
+#24667 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_x_dim		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_x_dim		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::cc_x_dim | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.cc_x_dim
+== default/SeqDriver
+#64568 depth
+  A: 7	int_var	_byte		uvm_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	12	378	17		0		
+  B: 5	operation				uvm_misc.svh	378	21	378	44		0		
+objects 475526 vs 473435
+== testflags/SeqDriver
+#64580 depth
+  A: 7	int_var	_byte		uvm_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	12	378	17		0		
+  B: 5	operation				uvm_misc.svh	378	21	378	44		0		
+objects 475538 vs 473447
+== testflags/MiniAmiq
+#64612 depth
+  A: 7	int_var	_byte		uvm_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	12	378	17		0		
+  B: 5	operation				uvm_misc.svh	378	21	378	44		0		
+objects 435559 vs 432530
+== testflags/Earlgrey_0_1
+#123468 fullname
+  A: 8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.bank	flash_phy.sv	127	73	127	77		0		
+  B: 8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.host_rsp_avail.bank	flash_phy.sv	127	73	127	77		0		
+objects 1342584 vs 1342870
+== default/BuildUVMPkg
+#71346 fullname
+  A: 6	ref_typespec			<in>this_type		0	0	0	0		0		
+  B: 6	ref_typespec			<in>this_type		0	0	0	0		0		
+  raw fullname A: uvm_pkg::uvm_callbacks::this_type | B: uvm_callbacks::this_type

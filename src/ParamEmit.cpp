@@ -17,6 +17,7 @@
 #include "R227.h"
 #include "R232.h"
 #include "R233.h"
+#include "R236.h"
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
@@ -5796,6 +5797,8 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     // caller's pattern was not recorded (its elab view folded the whole
     // pattern away), the slice fallback built at the param site stands.
     for (auto& st : memLeftStamps) {
+        // § patLeftoverCopyShared236 — one copy per caller element per stamp.
+        std::map<const UHDM::any*, UHDM::constant*> cp236;
         for (size_t i = 0; i < st.srcParam.size() && i < st.values.size(); i++) {
             if (!st.srcParam[i])
                 continue;
@@ -5826,7 +5829,21 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
             if (patLeftoverOrphanCopy151On() && st.values[i] &&
                 st.values[i]->UhdmType() == UHDM::uhdmconstant) {
                 auto* o151 = (UHDM::constant*)st.values[i];
+                // § patLeftoverCopyShared236 — two members of one stamped
+                // struct whose leftovers are the SAME caller element
+                // (FuncStructVal `cfg.DCACHE_USER_WIDTH =
+                // CVA6Cfg.AxiUserWidth` beside `cfg.AxiUserWidth =
+                // CVA6Cfg.AxiUserWidth`) hold ONE object in golden (#13254:
+                // both members' Actual_value is constant 76:31-54), not a
+                // copy each.  Switch R11U236_LEFTCOPYSHARE_OFF.
+                if (r11u236On("R11U236_LEFTCOPYSHARE_OFF"))
+                    if (auto it236 = cp236.find(o151); it236 != cp236.end()) {
+                        tr236("patLeftoverCopyShared236");
+                        st.values[i] = it236->second;
+                        continue;
+                    }
                 auto* c151 = s.MakeConstant();
+                cp236[o151] = c151;
                 c151->VpiValue(o151->VpiValue());
                 c151->VpiSize(o151->VpiSize());
                 c151->VpiConstType(o151->VpiConstType());
@@ -21051,6 +21068,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 paramInitDef = !topView || structWidePkg || structModDefTagged9;
                 paramInitElabFold = topView && structNoScopedRefPkg;
                 paramInitPkg = inPackage;
+                // § pkgDefPatSubstShared236 — the declaring package's
+                // definition listing (ExprEmit's pkgPatSubstValue arm).
+                pkgDefPatShare236() =
+                    inPackage && !topView && !isImported &&
+                    r11u236On("R11U236_PKGDEFSHARE_OFF");
+                pkgDefPatShareScope236() = &body;
                 // § pkgTopWidePatReplTsName210: the elaborated package
                 // listing of a wide struct-pattern parameter.
                 // Only a parameter some other scope reads by its qualified
@@ -22078,6 +22101,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 elabMdimParamInit = false;
                 misevalParamRhsScope = nullptr;
                 paramInitPkg = false;
+                pkgDefPatShare236() = false;
+                pkgDefPatShareScope236() = nullptr;
                 pkgTopWidePat210().clear();
                 pkgPatNoExpand34 = false;
                 paramInitDef = false;

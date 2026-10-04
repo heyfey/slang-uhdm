@@ -1,0 +1,3 @@
+2026-10-04T18:48:41-04:00
+05759538a7ab2e8dacae5cdcb85daf67  /tmp/wt_v11u236/tools/probe/v11u236repro/evidence/census/predicted_fix.txt
+prediction vs law sweep: 0 corpus/probe databases (refinement traces fire only on Scr1SvTests d/t, r10v122repro/q4inst, q6clone, r10vbuvm29repro/gv29_b_positions, which the law does not move); vs pristine: the 19 rows above, Scr1SvTests d/t and the three probe opArg rows predicted as non-movers (law trace sits in the predicate)

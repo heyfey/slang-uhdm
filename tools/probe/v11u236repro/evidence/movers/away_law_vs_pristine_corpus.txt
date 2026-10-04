@@ -1,0 +1,11 @@
+# 4097 databases differ between /tmp/v11u236_wpri and /tmp/v11u236_wlaw
+surelog/default/BlackBePipeInt away=0 toward=10 flat_away=0 flat_toward=10
+surelog/default/Earlgrey_0_1 away=0 toward=16 flat_away=0 flat_toward=16
+surelog/default/FuncStructVal away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/MiniAmiq away=0 toward=3 flat_away=0 flat_toward=3
+surelog/default/SeqDriver away=0 toward=2 flat_away=2 flat_toward=2
+surelog/testflags/BlackBePipeInt away=0 toward=10 flat_away=0 flat_toward=10
+surelog/testflags/Earlgrey_0_1 away=0 toward=16 flat_away=0 flat_toward=16
+surelog/testflags/FuncStructVal away=0 toward=0 flat_away=2 flat_toward=0
+surelog/testflags/MiniAmiq away=0 toward=3 flat_away=0 flat_toward=3
+surelog/testflags/SeqDriver away=0 toward=2 flat_away=2 flat_toward=2

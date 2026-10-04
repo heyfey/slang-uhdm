@@ -1,0 +1,15 @@
+# 14 databases differ between /tmp/r11u236_wpri and /tmp/r11u236_wlaw
+probe/r10earl34repro/v1_view away=0 toward=8 flat_away=0 flat_toward=8
+probe/r10v169repro/v169_g_control away=0 toward=4 flat_away=0 flat_toward=4
+probe/r10v65repro/a6_def away=0 toward=2 flat_away=0 flat_toward=2
+probe/r10v65repro/a8_orphan away=0 toward=2 flat_away=0 flat_toward=2
+surelog/default/BlackBePipeInt away=0 toward=10 flat_away=0 flat_toward=10
+surelog/default/Earlgrey_0_1 away=0 toward=16 flat_away=0 flat_toward=16
+surelog/default/FuncStructVal away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/MiniAmiq away=0 toward=3 flat_away=0 flat_toward=3
+surelog/default/SeqDriver away=0 toward=2 flat_away=2 flat_toward=2
+surelog/testflags/BlackBePipeInt away=0 toward=10 flat_away=0 flat_toward=10
+surelog/testflags/Earlgrey_0_1 away=0 toward=16 flat_away=0 flat_toward=16
+surelog/testflags/FuncStructVal away=0 toward=0 flat_away=2 flat_toward=0
+surelog/testflags/MiniAmiq away=0 toward=3 flat_away=0 flat_toward=3
+surelog/testflags/SeqDriver away=0 toward=2 flat_away=2 flat_toward=2

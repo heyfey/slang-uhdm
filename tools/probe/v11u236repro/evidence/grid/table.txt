@@ -1,0 +1,288 @@
+A/a01          pri=SEQUAL_168             law=SEQUAL_168             fix=SEQUAL_168            
+A/a01_el       pri=SEQUAL_161             law=SEQUAL_161             fix=SEQUAL_161            
+A/a02          pri=stage1                 law=SEQUAL_226             fix=SEQUAL_226            
+A/a02_el       pri=stage1                 law=SEQUAL_216             fix=SEQUAL_216            
+A/a03          pri=stage1                 law=SNOTEQUAL_line         fix=SNOTEQUAL_line        
+A/a03_el       pri=stage1                 law=SNOTEQUAL_line         fix=SNOTEQUAL_line        
+A/a04          pri=stage1                 law=stage1                 fix=stage1                
+A/a04_el       pri=stage1                 law=stage1                 fix=stage1                
+A/a05          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+A/a05_el       pri=SEQUAL_326             law=stage1                 fix=SEQUAL_326             fix!=law
+A/a06          pri=SEQUAL_168             law=stage1                 fix=SEQUAL_168             fix!=law
+A/a06_el       pri=SEQUAL_163             law=stage1                 fix=SEQUAL_163             fix!=law
+A/a07          pri=SNOTEQUAL_line         law=SNOTEQUAL_line         fix=SNOTEQUAL_line        
+A/a07_el       pri=SNOTEQUAL_line         law=SNOTEQUAL_line         fix=SNOTEQUAL_line        
+A/a09          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+A/a09_el       pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+A/a12          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+A/a12_el       pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+A/a13          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+A/a13_el       pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+A/a14          pri=stage1                 law=SEQUAL_162             fix=SEQUAL_162            
+A/a14_el       pri=stage1                 law=SEQUAL_159             fix=SEQUAL_159            
+A/a15          pri=SEQUAL_134             law=stage1                 fix=SEQUAL_134             fix!=law
+A/a15_el       pri=SEQUAL_133             law=stage1                 fix=SEQUAL_133             fix!=law
+A/a16          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+A/a16_el       pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+A/a17          pri=SNOTEQUAL_endcol       law=stage1                 fix=SNOTEQUAL_endcol       fix!=law
+A/a17_el       pri=SNOTEQUAL_endcol       law=stage1                 fix=SNOTEQUAL_endcol       fix!=law
+A/k1_named     pri=stage1                 law=SEQUAL_187             fix=SEQUAL_187            
+A/k1_named_el  pri=stage1                 law=SEQUAL_185             fix=SEQUAL_185            
+A/k1_pos       pri=SEQUAL_187             law=SEQUAL_187             fix=SEQUAL_187            
+A/k1_pos_el    pri=SEQUAL_185             law=SEQUAL_185             fix=SEQUAL_185            
+A/k2_named     pri=stage1                 law=stage1                 fix=stage1                
+A/k2_named_el  pri=stage1                 law=stage1                 fix=stage1                
+A/k2_pos       pri=stage1                 law=stage1                 fix=stage1                
+A/k2_pos_el    pri=stage1                 law=stage1                 fix=stage1                
+A/k3_named     pri=stage1                 law=SEQUAL_181             fix=SEQUAL_181            
+A/k3_named_el  pri=stage1                 law=SEQUAL_179             fix=SEQUAL_179            
+A/k3_pos       pri=SEQUAL_181             law=SEQUAL_181             fix=SEQUAL_181            
+A/k3_pos_el    pri=SEQUAL_179             law=SEQUAL_179             fix=SEQUAL_179            
+A/k4_named     pri=stage1                 law=SEQUAL_175             fix=SEQUAL_175            
+A/k4_named_el  pri=stage1                 law=SEQUAL_173             fix=SEQUAL_173            
+A/k4_pos       pri=SEQUAL_175             law=SEQUAL_175             fix=SEQUAL_175            
+A/k4_pos_el    pri=SEQUAL_173             law=SEQUAL_173             fix=SEQUAL_173            
+A/k5_named     pri=SEQUAL_285             law=stage1                 fix=SEQUAL_285             fix!=law
+A/k5_named_el  pri=SEQUAL_283             law=stage1                 fix=SEQUAL_283             fix!=law
+A/k5_pos       pri=stage1                 law=stage1                 fix=stage1                
+A/k5_pos_el    pri=stage1                 law=stage1                 fix=stage1                
+A/k6_named     pri=SEQUAL_281             law=stage1                 fix=SEQUAL_281             fix!=law
+A/k6_named_el  pri=SEQUAL_279             law=stage1                 fix=SEQUAL_279             fix!=law
+A/k6_pos       pri=stage1                 law=stage1                 fix=stage1                
+A/k6_pos_el    pri=stage1                 law=stage1                 fix=stage1                
+A/k7_named     pri=stage1                 law=SEQUAL_285             fix=SEQUAL_285            
+A/k7_named_el  pri=stage1                 law=SEQUAL_284             fix=SEQUAL_284            
+A/k7_pos       pri=SEQUAL_285             law=SEQUAL_285             fix=SEQUAL_285            
+A/k7_pos_el    pri=SEQUAL_284             law=SEQUAL_284             fix=SEQUAL_284            
+A/k8_named     pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+A/k8_named_el  pri=SEQUAL_313             law=stage1                 fix=SEQUAL_313             fix!=law
+A/k8_pos       pri=stage1                 law=stage1                 fix=stage1                
+A/k8_pos_el    pri=stage1                 law=stage1                 fix=stage1                
+A/k9_named     pri=stage1                 law=stage1                 fix=stage1                
+A/k9_named_el  pri=stage1                 law=stage1                 fix=stage1                
+A/m1           pri=stage1                 law=SEQUAL_171             fix=SEQUAL_171            
+A/m1_el        pri=SEQUAL_169             law=SEQUAL_169             fix=SEQUAL_169            
+A/m2           pri=SEQUAL_157             law=stage1                 fix=SEQUAL_157             fix!=law
+A/m2_el        pri=SEQUAL_155             law=stage1                 fix=SEQUAL_155             fix!=law
+A/m3           pri=stage1                 law=SEQUAL_161             fix=SEQUAL_161            
+A/m3_el        pri=SEQUAL_159             law=SEQUAL_159             fix=SEQUAL_159            
+A/m4           pri=stage1                 law=SEQUAL_161             fix=SEQUAL_161            
+A/m4_el        pri=SEQUAL_159             law=SEQUAL_159             fix=SEQUAL_159            
+A/m5           pri=stage1                 law=stage1                 fix=stage1                
+A/m5_el        pri=stage1                 law=stage1                 fix=stage1                
+A/m6           pri=stage1                 law=SEQUAL_171             fix=SEQUAL_171            
+A/m6_el        pri=SEQUAL_169             law=SEQUAL_169             fix=SEQUAL_169            
+A/m7           pri=SEQUAL_157             law=stage1                 fix=SEQUAL_157             fix!=law
+A/m7_el        pri=SEQUAL_155             law=stage1                 fix=SEQUAL_155             fix!=law
+A/m8           pri=SEQUAL_163             law=SEQUAL_163             fix=SEQUAL_163            
+A/m8_el        pri=SEQUAL_161             law=SEQUAL_161             fix=SEQUAL_161            
+B/b01          pri=SEQUAL_210             law=SEQUAL_210             fix=SEQUAL_210            
+B/b01_el       pri=SEQUAL_202             law=SEQUAL_202             fix=SEQUAL_202            
+B/b02          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+B/b02_el       pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+B/b03          pri=stage1                 law=stage1                 fix=stage1                
+B/b03_el       pri=stage1                 law=stage1                 fix=stage1                
+B/b04          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+B/b04_el       pri=stage1                 law=stage1                 fix=SEQUAL_188             fix!=law
+B/b05          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+B/b05_el       pri=SEQUAL_98              law=stage1                 fix=SEQUAL_98              fix!=law
+B/b06          pri=stage1                 law=SEQUAL_98              fix=SEQUAL_98             
+B/b06_el       pri=stage1                 law=SEQUAL_96              fix=SEQUAL_96             
+B/b07          pri=stage1                 law=SEQUAL_104             fix=SEQUAL_104            
+B/b07_el       pri=stage1                 law=SEQUAL_102             fix=SEQUAL_102            
+B/b08          pri=SEQUAL_105             law=stage1                 fix=SEQUAL_105             fix!=law
+B/b08_el       pri=SEQUAL_104             law=stage1                 fix=SEQUAL_104             fix!=law
+B/b09          pri=SEQUAL_107             law=SEQUAL_107             fix=SEQUAL_107            
+B/b09_el       pri=SEQUAL_106             law=SEQUAL_106             fix=SEQUAL_106            
+B/b10          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+B/b10_el       pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+B/b11          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+B/b11_el       pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+B/b12          pri=stage1                 law=SEQUAL_119             fix=SEQUAL_119            
+B/b12_el       pri=stage1                 law=SEQUAL_113             fix=SEQUAL_113            
+B/b13          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+B/b13_el       pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+B/b14          pri=stage1                 law=SEQUAL_107             fix=SEQUAL_107            
+B/b14_el       pri=stage1                 law=SEQUAL_107             fix=SEQUAL_107            
+B/b15          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+B/b15_el       pri=SEQUAL_121             law=stage1                 fix=SEQUAL_121             fix!=law
+C/c01          pri=SNOTEQUAL_fullname     law=SNOTEQUAL_fullname     fix=SNOTEQUAL_fullname    
+C/c01_el       pri=SNOTEQUAL_fullname     law=SNOTEQUAL_fullname     fix=SNOTEQUAL_fullname    
+C/c02          pri=stage1                 law=stage1                 fix=stage1                
+C/c02_el       pri=stage1                 law=stage1                 fix=stage1                
+C/c03          pri=SNOTEQUAL_fullname     law=SNOTEQUAL_endcol       fix=SNOTEQUAL_endcol      
+C/c03_el       pri=SNOTEQUAL_fullname     law=SNOTEQUAL_endcol       fix=SNOTEQUAL_endcol      
+C/c04          pri=SNOTEQUAL_fullname     law=SNOTEQUAL_fullname     fix=SNOTEQUAL_fullname    
+C/c04_el       pri=SNOTEQUAL_fullname     law=SNOTEQUAL_fullname     fix=SNOTEQUAL_fullname    
+C/c05          pri=SNOTEQUAL_fullname     law=SNOTEQUAL_fullname     fix=SNOTEQUAL_fullname    
+C/c05_el       pri=SNOTEQUAL_fullname     law=SNOTEQUAL_fullname     fix=SNOTEQUAL_fullname    
+C/c06          pri=stage1                 law=stage1                 fix=stage1                
+C/c06_el       pri=stage1                 law=stage1                 fix=stage1                
+C/c07          pri=SNOTEQUAL_fullname     law=SEQUAL_521             fix=SEQUAL_521            
+C/c07_el       pri=SNOTEQUAL_fullname     law=SEQUAL_490             fix=SEQUAL_490            
+D/d01          pri=stage1                 law=stage1                 fix=stage1                
+D/d01_el       pri=stage1                 law=stage1                 fix=stage1                
+D/d02          pri=stage1                 law=stage1                 fix=stage1                
+D/d02_el       pri=stage1                 law=stage1                 fix=stage1                
+D/d03          pri=stage1                 law=stage1                 fix=stage1                
+D/d03_el       pri=stage1                 law=stage1                 fix=stage1                
+D/d04          pri=SNOTEQUAL_fullname     law=SEQUAL_505             fix=SEQUAL_505            
+D/d04_el       pri=SNOTEQUAL_fullname     law=SEQUAL_519             fix=SEQUAL_519            
+D/d05          pri=stage1                 law=stage1                 fix=stage1                
+D/d05_el       pri=stage1                 law=stage1                 fix=stage1                
+D/d06          pri=SNOTEQUAL_fullname     law=SEQUAL_488             fix=SEQUAL_488            
+D/d06_el       pri=SNOTEQUAL_fullname     law=SEQUAL_487             fix=SEQUAL_487            
+D/d07          pri=stage1                 law=stage1                 fix=stage1                
+D/d07_el       pri=SNOTEQUAL_fullname     law=SNOTEQUAL_endcol       fix=SNOTEQUAL_endcol      
+D/d08          pri=SNOTEQUAL_fullname     law=SEQUAL_486             fix=SEQUAL_486            
+D/d08_el       pri=SNOTEQUAL_fullname     law=SEQUAL_485             fix=SEQUAL_485            
+D/d09          pri=SNOTEQUAL_fullname     law=SEQUAL_486             fix=SEQUAL_486            
+D/d09_el       pri=SNOTEQUAL_fullname     law=SEQUAL_485             fix=SEQUAL_485            
+D/d10          pri=stage1                 law=stage1                 fix=stage1                
+D/d10_el       pri=stage1                 law=stage1                 fix=stage1                
+D/d11          pri=SNOTEQUAL_fullname     law=SEQUAL_500             fix=SEQUAL_500            
+D/d11_el       pri=SNOTEQUAL_fullname     law=SEQUAL_499             fix=SEQUAL_499            
+D/d12          pri=stage1                 law=stage1                 fix=stage1                
+D/d12_el       pri=SNOTEQUAL_fullname     law=SNOTEQUAL_endcol       fix=SNOTEQUAL_endcol      
+E/e01          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+E/e01_el       pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+E/e02          pri=stage1                 law=stage1                 fix=stage1                
+E/e02_el       pri=stage1                 law=stage1                 fix=stage1                
+E/e03          pri=stage1                 law=stage1                 fix=stage1                
+E/e03_el       pri=stage1                 law=stage1                 fix=stage1                
+E/e04          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+E/e04_el       pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+E/e05          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+E/e05_el       pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+E/e06          pri=SNOTEQUAL_type         law=SNOTEQUAL_line         fix=SNOTEQUAL_line        
+E/e06_el       pri=SNOTEQUAL_type         law=SNOTEQUAL_line         fix=SNOTEQUAL_line        
+E/e07          pri=stage1                 law=stage1                 fix=stage1                
+E/e07_el       pri=stage1                 law=stage1                 fix=stage1                
+E/e08          pri=SNOTEQUAL_type         law=SEQUAL_265             fix=SEQUAL_265            
+E/e08_el       pri=SNOTEQUAL_type         law=SEQUAL_264             fix=SEQUAL_264            
+E/e09          pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+E/e09_el       pri=stage1                 law=stage1                 fix=stage1                 fix!=law
+F/f01          pri=stage1                 law=stage1                 fix=stage1                
+F/f01_el       pri=stage1                 law=stage1                 fix=stage1                
+F/f02          pri=SNOTEQUAL_fullname     law=SNOTEQUAL_depth        fix=SNOTEQUAL_depth       
+F/f02_el       pri=SNOTEQUAL_fullname     law=SNOTEQUAL_line         fix=SNOTEQUAL_line        
+F/f03          pri=stage1                 law=stage1                 fix=stage1                
+F/f03_el       pri=stage1                 law=stage1                 fix=stage1                
+F/f04          pri=stage1                 law=stage1                 fix=stage1                
+F/f04_el       pri=stage1                 law=stage1                 fix=stage1                
+F/f05          pri=stage1                 law=stage1                 fix=stage1                
+F/f05_el       pri=stage1                 law=stage1                 fix=stage1                
+F/f06          pri=stage1                 law=stage1                 fix=stage1                
+F/f06_el       pri=stage1                 law=stage1                 fix=stage1                
+G/g02          pri=SNOTEQUAL_fullname     law=SEQUAL_484             fix=SEQUAL_484            
+G/g02_el       pri=SNOTEQUAL_fullname     law=SEQUAL_519             fix=SEQUAL_519            
+G/g03          pri=SNOTEQUAL_fullname     law=SEQUAL_510             fix=SEQUAL_510            
+G/g03_el       pri=SNOTEQUAL_fullname     law=SEQUAL_559             fix=SEQUAL_559            
+G/g04          pri=SNOTEQUAL_fullname     law=SEQUAL_509             fix=SEQUAL_509            
+G/g04_el       pri=SNOTEQUAL_fullname     law=SEQUAL_543             fix=SEQUAL_543            
+G/g05          pri=SNOTEQUAL_fullname     law=SNOTEQUAL_fullname     fix=SNOTEQUAL_fullname    
+G/g05_el       pri=SNOTEQUAL_fullname     law=SNOTEQUAL_fullname     fix=SNOTEQUAL_fullname    
+G/g06          pri=SNOTEQUAL_fullname     law=SNOTEQUAL_fullname     fix=SNOTEQUAL_fullname    
+G/g06_el       pri=SNOTEQUAL_fullname     law=SNOTEQUAL_fullname     fix=SNOTEQUAL_fullname    
+G/g07          pri=stage1                 law=stage1                 fix=stage1                
+G/g07_el       pri=stage1                 law=stage1                 fix=stage1                
+G/g08          pri=SNOTEQUAL_fullname     law=SNOTEQUAL_fullname     fix=SNOTEQUAL_fullname    
+G/g08_el       pri=SNOTEQUAL_fullname     law=SNOTEQUAL_fullname     fix=SNOTEQUAL_fullname    
+H/h01          pri=stage1                 law=stage1                 fix=stage1                
+H/h01_el       pri=stage1                 law=stage1                 fix=stage1                
+r/BP/bp01      pri=stage1                 law=stage1                 fix=stage1                
+r/BP/bp01_el   pri=stage1                 law=stage1                 fix=stage1                
+r/BP/bp02      pri=SNOTEQUAL_type         law=SNOTEQUAL_line         fix=SNOTEQUAL_line        
+r/BP/bp02_el   pri=SNOTEQUAL_type         law=SNOTEQUAL_line         fix=SNOTEQUAL_line        
+r/BP/bp03      pri=SNOTEQUAL_type         law=SNOTEQUAL_line         fix=SNOTEQUAL_line        
+r/BP/bp03_el   pri=SNOTEQUAL_type         law=SNOTEQUAL_line         fix=SNOTEQUAL_line        
+r/BP/bp04      pri=stage1                 law=stage1                 fix=stage1                
+r/BP/bp04_el   pri=stage1                 law=stage1                 fix=stage1                
+r/BP/bp05      pri=SNOTEQUAL_col          law=SEQUAL_230             fix=SEQUAL_230            
+r/BP/bp05_el   pri=SNOTEQUAL_col          law=SEQUAL_229             fix=SEQUAL_229            
+r/E/e01        pri=SNOTEQUAL_fullname     law=SEQUAL_234             fix=SEQUAL_234            
+r/E/e01_el     pri=SNOTEQUAL_fullname     law=SEQUAL_241             fix=SEQUAL_241            
+r/E/e02        pri=SNOTEQUAL_fullname     law=SNOTEQUAL_fullname     fix=SNOTEQUAL_fullname    
+r/E/e02_el     pri=SEQUAL_297             law=SEQUAL_297             fix=SEQUAL_297            
+r/E/e03        pri=SEQUAL_268             law=SEQUAL_268             fix=SEQUAL_268            
+r/E/e03_el     pri=SEQUAL_254             law=SEQUAL_254             fix=SEQUAL_254            
+r/E/e04        pri=SNOTEQUAL_fullname     law=SEQUAL_334             fix=SEQUAL_334            
+r/E/e04_el     pri=SNOTEQUAL_fullname     law=SEQUAL_322             fix=SEQUAL_322            
+r/E/e05        pri=SNOTEQUAL_fullname     law=SEQUAL_275             fix=SEQUAL_275            
+r/E/e05_el     pri=SNOTEQUAL_fullname     law=SEQUAL_280             fix=SEQUAL_280            
+r/E/e06        pri=SNOTEQUAL_fullname     law=SEQUAL_325             fix=SEQUAL_325            
+r/E/e06_el     pri=SNOTEQUAL_fullname     law=SEQUAL_339             fix=SEQUAL_339            
+r/E/e07        pri=stage1                 law=stage1                 fix=stage1                
+r/E/e07_el     pri=stage1                 law=stage1                 fix=stage1                
+r/E/e08        pri=SEQUAL_280             law=SEQUAL_280             fix=SEQUAL_280            
+r/E/e08_el     pri=SEQUAL_275             law=SEQUAL_275             fix=SEQUAL_275            
+r/E/e09        pri=SNOTEQUAL_fullname     law=SEQUAL_328             fix=SEQUAL_328            
+r/E/e09_el     pri=SNOTEQUAL_fullname     law=SEQUAL_316             fix=SEQUAL_316            
+r/E/e10        pri=stage1                 law=stage1                 fix=stage1                
+r/E/e10_el     pri=stage1                 law=stage1                 fix=stage1                
+r/E/e11        pri=SNOTEQUAL_fullname     law=SEQUAL_495             fix=SEQUAL_495            
+r/E/e11_el     pri=SNOTEQUAL_fullname     law=SNOTEQUAL_name         fix=SNOTEQUAL_name        
+r/E/e12        pri=stage1                 law=stage1                 fix=stage1                
+r/E/e12_el     pri=stage1                 law=stage1                 fix=stage1                
+r/E/e13        pri=stage1                 law=stage1                 fix=stage1                
+r/E/e13_el     pri=stage1                 law=stage1                 fix=stage1                
+r/E/e14        pri=SNOTEQUAL_endcol       law=SNOTEQUAL_endcol       fix=SNOTEQUAL_endcol      
+r/E/e14_el     pri=SNOTEQUAL_endcol       law=SNOTEQUAL_endcol       fix=SNOTEQUAL_endcol      
+r/E/e15        pri=SNOTEQUAL_fullname     law=SEQUAL_435             fix=SEQUAL_435            
+r/E/e15_el     pri=SNOTEQUAL_fullname     law=SEQUAL_420             fix=SEQUAL_420            
+r/E/e16        pri=stage1                 law=stage1                 fix=stage1                
+r/E/e16_el     pri=stage1                 law=stage1                 fix=stage1                
+r/E/e17        pri=SNOTEQUAL_fullname     law=SEQUAL_272             fix=SEQUAL_272            
+r/E/e17_el     pri=SNOTEQUAL_fullname     law=SEQUAL_289             fix=SEQUAL_289            
+r/E/e18        pri=stage1                 law=stage1                 fix=stage1                
+r/E/e18_el     pri=stage1                 law=stage1                 fix=stage1                
+r/E/e19        pri=SNOTEQUAL_fullname     law=SEQUAL_353             fix=SEQUAL_353            
+r/E/e19_el     pri=SNOTEQUAL_fullname     law=SEQUAL_375             fix=SEQUAL_375            
+r/L/l01        pri=stage1                 law=stage1                 fix=stage1                
+r/L/l01_el     pri=stage1                 law=stage1                 fix=stage1                
+r/L/l02        pri=stage1                 law=stage1                 fix=stage1                
+r/L/l02_el     pri=stage1                 law=stage1                 fix=stage1                
+r/N/n01        pri=stage1                 law=SEQUAL_205             fix=SEQUAL_205            
+r/N/n01_el     pri=stage1                 law=SEQUAL_201             fix=SEQUAL_201            
+r/N/n02        pri=stage1                 law=SEQUAL_132             fix=SEQUAL_132            
+r/N/n02_el     pri=stage1                 law=SEQUAL_129             fix=SEQUAL_129            
+r/N/n03        pri=stage1                 law=SEQUAL_88              fix=SEQUAL_88             
+r/N/n03_el     pri=stage1                 law=SEQUAL_85              fix=SEQUAL_85             
+r/N/n04        pri=stage1                 law=SEQUAL_114             fix=SEQUAL_114            
+r/N/n04_el     pri=stage1                 law=SEQUAL_111             fix=SEQUAL_111            
+r/N/n05        pri=stage1                 law=SEQUAL_88              fix=SEQUAL_88             
+r/N/n05_el     pri=stage1                 law=SEQUAL_85              fix=SEQUAL_85             
+r/N/n06        pri=stage1                 law=SEQUAL_92              fix=SEQUAL_92             
+r/N/n06_el     pri=stage1                 law=SEQUAL_89              fix=SEQUAL_89             
+r/N/n07        pri=stage1                 law=stage1                 fix=stage1                
+r/N/n07_el     pri=stage1                 law=stage1                 fix=stage1                
+r/N/n08        pri=stage1                 law=SEQUAL_249             fix=SEQUAL_249            
+r/N/n08_el     pri=stage1                 law=SEQUAL_245             fix=SEQUAL_245            
+r/N/n09        pri=stage1                 law=stage1                 fix=stage1                
+r/N/n09_el     pri=stage1                 law=stage1                 fix=stage1                
+r/N/n10        pri=SEQUAL_106             law=SEQUAL_106             fix=SEQUAL_106            
+r/N/n10_el     pri=SEQUAL_109             law=SEQUAL_109             fix=SEQUAL_109            
+r/N/n11        pri=SEQUAL_60              law=SEQUAL_60              fix=SEQUAL_60             
+r/N/n11_el     pri=SEQUAL_85              law=SEQUAL_85              fix=SEQUAL_85             
+r/N/n12        pri=stage1                 law=stage1                 fix=stage1                
+r/N/n12_el     pri=stage1                 law=stage1                 fix=stage1                
+r/N/n13        pri=stage1                 law=stage1                 fix=stage1                
+r/N/n13_el     pri=stage1                 law=stage1                 fix=stage1                
+r/N/n14        pri=stage1                 law=stage1                 fix=stage1                
+r/N/n14_el     pri=stage1                 law=stage1                 fix=stage1                
+r/N/n15        pri=stage1                 law=SEQUAL_127             fix=SEQUAL_127            
+r/N/n15_el     pri=stage1                 law=SEQUAL_125             fix=SEQUAL_125            
+r/P/p01        pri=SNOTEQUAL_fullname     law=SEQUAL_349             fix=SEQUAL_349            
+r/P/p01_el     pri=SNOTEQUAL_fullname     law=SEQUAL_348             fix=SEQUAL_348            
+r/P/p02        pri=SNOTEQUAL_fullname     law=SEQUAL_416             fix=SEQUAL_416            
+r/P/p02_el     pri=SNOTEQUAL_fullname     law=SEQUAL_430             fix=SEQUAL_430            
+r/P/p03        pri=SNOTEQUAL_fullname     law=SEQUAL_376             fix=SEQUAL_376            
+r/P/p03_el     pri=SNOTEQUAL_fullname     law=SEQUAL_373             fix=SEQUAL_373            
+r/P/p04        pri=stage1                 law=stage1                 fix=stage1                
+r/P/p04_el     pri=stage1                 law=stage1                 fix=stage1                
+r/P/p05        pri=stage1                 law=stage1                 fix=stage1                
+r/P/p05_el     pri=stage1                 law=stage1                 fix=stage1                
+r/P/p06        pri=stage1                 law=stage1                 fix=stage1                
+r/P/p06_el     pri=stage1                 law=stage1                 fix=stage1                
+r/U/u01        pri=SNOTEQUAL_fullname     law=SNOTEQUAL_depth        fix=SNOTEQUAL_depth       
+r/U/u01_el     pri=SNOTEQUAL_fullname     law=SNOTEQUAL_line         fix=SNOTEQUAL_line        

@@ -1,0 +1,18 @@
+// § (decode) Earlgrey #122230: the ternary default through another package's parameters
+package pa;
+  localparam int DataWidth = 64;
+  localparam int BusWidth = 32;
+endpackage
+package pk;
+  parameter int DataWidth = pa::DataWidth;
+  parameter int BusWidth = pa::BusWidth;
+  parameter int WidthMultiple = DataWidth / BusWidth;
+  parameter int LsbAddrBit = $clog2(WidthMultiple);
+  parameter int WordSelW = WidthMultiple == 1 ? 1 : LsbAddrBit;
+endpackage
+module sub import pk::*; (input logic [WordSelW-1:0] r, output logic o);
+  assign o = ^r;
+endmodule
+module top (input logic [0:0] r, output logic o);
+  sub u_s (.r(r), .o(o));
+endmodule

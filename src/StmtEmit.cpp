@@ -9,6 +9,7 @@
 
 #include "EmitHelpers.h"
 #include "R217.h"
+#include "R236.h"
 
 #include <functional>
 #include <optional>
@@ -5949,6 +5950,20 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             std::string pkgName;
                             if (auto sc2 = ps2.getParentScope())
                                 pkgName = std::string(sc2->asSymbol().name);
+                            // § cloneRetParamFoldTsName236 — in an IMPORTER's
+                            // clone of the subroutine the folded constant
+                            // belongs to the clone (golden MiniAmiq / SeqDriver
+                            // #64390: `return uvm_revision;` in
+                            // `svaunit_pkg::uvm_revision_string` reads
+                            // `svaunit_pkg::uvm_revision_string`, the chain
+                            // through the clone's return statement), not to
+                            // the home package; the home's elaborated listing
+                            // keeps the package name.
+                            if (pkgImportCloneEmit &&
+                                r11u236On("R11U236_CLONERETTS_OFF")) {
+                                tr236("cloneRetParamFoldTsName236", prefix);
+                                pkgName = prefix;
+                            }
                             rt2->VpiFullName(pkgName);
                             rt2->VpiParent(c);
                             c->Typespec(rt2);

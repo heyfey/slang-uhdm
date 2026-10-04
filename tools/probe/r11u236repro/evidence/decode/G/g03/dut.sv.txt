@@ -1,0 +1,11 @@
+// § (decode) Earlgrey #123586: a module parameter inside a system call in an if-generate localparam
+module top #(parameter int N = 4) (input logic [N-1:0] r, output logic o);
+  if (N == 1) begin : gen_deg
+    assign o = r[0];
+  end else begin : gen_normal_case
+    localparam int unsigned NumLevels = $clog2(N);
+    logic [NumLevels:0] t;
+    assign t = '0;
+    assign o = ^r ^ t[0];
+  end
+endmodule

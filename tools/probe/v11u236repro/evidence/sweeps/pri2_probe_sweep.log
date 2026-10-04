@@ -1,0 +1,9 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u236_wpr2/probe.csv
+probe cases: EQUAL=3454 STRICT_NOTEQUAL=633 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3454 differ:fullname=202 differ:line=96 differ:type=76 differ:endcol=74 differ:name=60 differ:depth=51 differ:file=39 differ:col=15 differ:endline=10 differ:value=9 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3454 STRICT_NOTEQUAL=633
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 0 of 0 runs served from the cache
+rc=1

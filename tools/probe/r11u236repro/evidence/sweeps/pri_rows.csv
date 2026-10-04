@@ -1,0 +1,14 @@
+BlackBePipeInt,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+BlackBePipeInt,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(18),,differ:fullname(18)
+Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(18),,differ:fullname(18)
+FuncStructVal,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+FuncStructVal,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+FuncStructValSimple,default,CMP_EQUAL,,,equal
+FuncStructValSimple,testflags,CMP_EQUAL,,,equal
+MiniAmiq,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+MiniAmiq,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+Scr1SvTests,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+Scr1SvTests,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+SeqDriver,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+SeqDriver,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
