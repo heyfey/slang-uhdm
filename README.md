@@ -16,7 +16,7 @@ The pins are the submodules under `third_party/`:
 |---|---|---|---|
 | Surelog | `third_party/Surelog` | v1.87 (`0445655e`) | reference producer and test suites |
 | UHDM | `third_party/Surelog/third_party/UHDM` | as Surelog pins it (`c7562484`, 1.87) | linked library, schema, `uhdm-cmp` / `uhdm-dump` |
-| slang | `third_party/slang` | `7d61e0ad1` (11.0.473) | frontend library |
+| slang | `third_party/slang` | `545f88b2e` (v12.0) | frontend library |
 
 `slang-uhdm --version` prints the slang and UHDM versions a binary was
 built with, including the UHDM commit.

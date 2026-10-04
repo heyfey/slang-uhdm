@@ -503,7 +503,7 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 > the v1.86 table under it are HISTORY.
 
 > **v1.87 campaign refresh (2026-09-14, HEAD = the pass-29 landing).** The
-> matrix-1.87 branch (Surelog v1.87 + UHDM v1.87 + slang 7d61e0ad1 +
+> matrix-1.87 branch (Surelog v1.87 + UHDM v1.87 + slang 7d61e0ad1, since 2026-10-04 v12.0 545f88b2e with no database changed +
 > uhdm2rtlil v0.68) has landed 29 passes since the df23d880 rebaseline:
 > surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes
 > are the three slang-fenced tests), uhdm2rtlil 768 equal / 36 not-equal /
