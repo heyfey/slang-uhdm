@@ -26,6 +26,7 @@
 #include "R247.h"
 #include "R249.h"
 #include "R253.h"
+#include "R255.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -306,31 +307,71 @@ static bool underDefGen161(const UHDM::BaseClass* p) {
 static int defGenRoute161(const UHDM::BaseClass* parent) {
     if (!r11u161Law("R11U161_ROUTE_OFF"))
         return 0;
+    // § defGenCfcThroughCondSel255 (r11u255, Earlgrey_0_1 #206088 / #206089 /
+    // #206093 / #206094, pinmux.sv 228-230: `assign pin_value = (c) ?
+    // dio_data_mux[reg2hw.wkup_detector_padsel[k]] : ...;` in a gen-for
+    // block) — the right side of a definition-view generate continuous
+    // assignment is an `expression` whatever sits between the path and the
+    // assignment: a `?:` condition or arm, and the INDEX of a select, are
+    // compiled by the same compileComplexFuncCall (CFC) writer the bare right
+    // side takes, so golden locates the path's selected field at the index
+    // and stores no full name on it or its index (BaseClass::ComputeFullName
+    // reads them through the parent chain, the enclosing select's name
+    // included: `work@pinmux.gen_wkup_detect.dio_data_mux.reg2hw.
+    // wkup_detector_padsel[k].wkup_detector_padsel`).  Ours abstained (the
+    // legacy form, the dotted text stored) at the `?:` and at the select.
+    // The walk now goes on through a `?:` and through a bit or variable
+    // select and answers CFC (2) when it reaches a continuous assignment's
+    // RIGHT side; anywhere else (the assignment target, a generate
+    // condition, a case item, the gen-for header) it still abstains.  Grid
+    // tools/probe/r11u255repro/cases/C.  Switch R11U255_CFCTHRU_OFF.
+    static const bool cfc255 = r11u255On("R11U255_CFCTHRU_OFF");
+    bool thru255 = false;
     for (const UHDM::BaseClass* p = parent; p; p = p->VpiParent()) {
         switch (p->UhdmType()) {
             case UHDM::uhdmoperation: {
                 int ot = ((const UHDM::operation*)p)->VpiOpType();
+                if (ot == vpiConditionOp && cfc255) {
+                    thru255 = true;
+                    continue;
+                }
                 if (ot == vpiConditionOp || ot == vpiAssignmentPatternOp ||
                     ot == vpiMultiAssignmentPatternOp || ot == vpiConcatOp ||
                     ot == vpiMultiConcatOp)
                     return 0;
                 continue;
             }
+            case UHDM::uhdmbit_select:
+            case UHDM::uhdmvar_select:
+                if (!cfc255)
+                    return 0;
+                thru255 = true;
+                continue;
             case UHDM::uhdmcont_assign:
                 if (!underDefGen161(p))
                     return 0;
+                if (thru255) {
+                    if (p == defGenCaLhs161)
+                        return 0;
+                    tr255("defGenCfcThroughCondSel255");
+                    return 2;
+                }
                 return p == defGenCaLhs161 ? 1 : 2;
             case UHDM::uhdmgen_if:
             case UHDM::uhdmgen_if_else:
             case UHDM::uhdmgen_case:
             case UHDM::uhdmgen_for:
-                return 1;
+                return thru255 ? 0 : 1;
             case UHDM::uhdmcase_item:
+                if (thru255)
+                    return 0;
                 return (!p->VpiParent() ||
                         p->VpiParent()->UhdmType() == UHDM::uhdmgen_case)
                            ? 1
                            : 0;
             case UHDM::uhdmassignment:
+                if (thru255)
+                    return 0;
                 return (p->VpiParent() &&
                         p->VpiParent()->UhdmType() == UHDM::uhdmgen_for)
                            ? 1
@@ -23996,6 +24037,26 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             bs->VpiFullName(syntaxRefPrefix + "." + dispRaw +
                                             "." + base);
                     }
+                    // § defGenCfcLitLeafSel255 (r11u255; grid
+                    // tools/probe/r11u255repro/cases/C c08, c10, c15-c17:
+                    // `assign o[k] = reg2hw.en[0];` in a gen-for block, golden
+                    // `work@pinmux.g.reg2hw.en[0].en` at the digit 8:29-8:30,
+                    // ours the dotted text over the member 8:26-8:28) — the
+                    // literal-index twin of § defGenPathSel161's CFC rule in
+                    // the identifier arm below: compileComplexFuncCall's
+                    // trailing select (the leaf) sits at its index and stores
+                    // no full name (read through the path); a middle one keeps
+                    // the dotted form.  Switch R11U255_CFCLIT_OFF.
+                    if (route161 == 2 && i > 0 && i + 1 == parts.size() &&
+                        r11u255On("R11U255_CFCLIT_OFF")) {
+                        if (span161)
+                            setLoc(bs, SourceRange(at183(digitOff),
+                                                   at183(digitOff + idx.size())));
+                        if (name161 && !syntaxRefPrefix.empty())
+                            bs->VpiFullName(syntaxRefPrefix + "." + dispRaw +
+                                            "." + base);
+                        tr255("defGenCfcLitLeafSel255", dispRaw);
+                    }
                     if (sel161 && i == 0)
                         selIdxBase161 = true;
                     elems->push_back(bs);
@@ -24365,6 +24426,28 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         // bit_select arms do — vc.sv row 5, measured.
                         setLoc(bs9, SourceRange(at183(off + lb + 1),
                                                 at183(off + rb)));
+                        // § genPathExprSelSpan255 (r11u255, Earlgrey_0_1
+                        // #142988, decode tools/probe/r11u248repro/decode/
+                        // e01_genkey: `assign hw2reg.key[7-i].d = '0;` in a
+                        // gen-for block, golden's bit_select `key` 9:19-9:27,
+                        // ours the bracket contents 9:23-9:26) — on Surelog's
+                        // SEL writer (§ defGenPathSel161: a definition-view
+                        // generate continuous-assignment target, a generate
+                        // condition or case item, the gen-for header)
+                        // compileSelectExpression spans a selected FIELD from
+                        // its name through the closing bracket whatever the
+                        // index is, as the literal-index arm above already
+                        // writes; the bracket-contents span stays for the
+                        // CFC writer and the first component.  Grid
+                        // tools/probe/r11u255repro/cases/E.  Switch
+                        // R11U255_GENEXPRSEL_OFF.
+                        if (sel161 && i > 0 && span161 &&
+                            r11u255On("R11U255_GENEXPRSEL_OFF")) {
+                            auto rb255 = pname.rfind(']');
+                            setLoc(bs9, SourceRange(at183(off),
+                                                    at183(off + rb255 + 1)));
+                            tr255("genPathExprSelSpan255", dispRaw);
+                        }
                         if (!boundScope9.empty())
                             syntaxRefPrefix = boundScope9 + "." + base9;
                         if (auto* ix9 = emitSyntaxExpr(*bsx9.expr, bs9))
@@ -29827,11 +29910,16 @@ UHDM::typespec* UhdmExporter::fwWinnerTs98(const TypeAliasType& w) {
         return nullptr;
     // The def/elab choice the ordinary share makes one screen below: the
     // ELABORATED object when the two agree in kind, the def one otherwise.
+    UHDM::typespec* r98 = it->second;
     if (auto t9 = pkgTopTypedefTs.find((const void*)&w);
         t9 != pkgTopTypedefTs.end() && t9->second &&
         t9->second->UhdmType() == it->second->UhdmType())
-        return t9->second;
-    return it->second;
+        r98 = t9->second;
+    // § fwWinnerListedObject255 — recorded for the design-final re-point
+    // (UhdmExporter; law and decode there).
+    if (r11u255On("R11U255_FWLISTED_OFF"))
+        r255Fw98().emplace_back((void*)r98, (const void*)&w);
+    return r98;
 }
 
 void UhdmExporter::buildTdClaims11() {

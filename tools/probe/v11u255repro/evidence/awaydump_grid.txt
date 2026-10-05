@@ -1,0 +1,22 @@
+C/vc10_lit_2d_leaf dist 9 -> 8 lost=0 gained=1|  GAIN 1             |vpiFullName:work@dut.g.reg2hw.m[1][0].m|
+C/vc10_lit_2d_leaf_el dist 13 -> 12 lost=0 gained=1|  GAIN 1             |vpiFullName:work@dut.g.reg2hw.m[1][0].m|
+E/ve01_nested_idx dist 30 -> 30 lost=0 gained=0|
+E/ve01_nested_idx_el dist 30 -> 30 lost=0 gained=0|
+E/ve02_space_before_bracket dist 13 -> 13 lost=0 gained=0|
+E/ve02_space_before_bracket_el dist 13 -> 13 lost=0 gained=0|
+E/ve04_multiline_idx dist 21 -> 21 lost=0 gained=0|
+E/ve04_multiline_idx_el dist 21 -> 21 lost=0 gained=0|
+E/ve05_two_expr dist 56 -> 56 lost=0 gained=0|
+E/ve05_two_expr_el dist 32 -> 32 lost=0 gained=0|
+E/ve07_paramidx dist 107 -> 105 lost=0 gained=2|  GAIN 1           \_bit_select: (work@hmac.gen_key_digest.hw2reg.key[N - 1 - i].d.key), line:9:19, endln:9:29|  GAIN 1               \_bit_select: (work@hmac.gen_key_digest.hw2reg.key[N - 1 - i].d.key), line:9:19, endln:9:29|
+E/ve07_paramidx_el dist 59 -> 57 lost=0 gained=2|  GAIN 1           \_bit_select: (work@hmac.gen_key_digest.hw2reg.key[N - 1 - i].d.key), line:9:19, endln:9:29|  GAIN 1               \_bit_select: (work@hmac.gen_key_digest.hw2reg.key[N - 1 - i].d.key), line:9:19, endln:9:29|
+E/ve08_partsel_tail dist 75 -> 73 lost=0 gained=2|  GAIN 1           \_bit_select: (work@hmac.gen_key_digest.hw2reg.key[7 - i].d[3:0].key), line:9:19, endln:9:27|  GAIN 1               \_bit_select: (work@hmac.gen_key_digest.hw2reg.key[7 - i].d[3:0].key), line:9:19, endln:9:27|
+E/ve08_partsel_tail_el dist 75 -> 73 lost=0 gained=2|  GAIN 1           \_bit_select: (work@hmac.gen_key_digest.hw2reg.key[7 - i].d[3:0].key), line:9:19, endln:9:27|  GAIN 1               \_bit_select: (work@hmac.gen_key_digest.hw2reg.key[7 - i].d[3:0].key), line:9:19, endln:9:27|
+E/ve09_inner_space dist 11 -> 11 lost=0 gained=0|
+E/ve09_inner_space_el dist 11 -> 11 lost=0 gained=0|
+E/ve11_iface_lhs dist 107 -> 105 lost=0 gained=2|  GAIN 1           \_bit_select: (work@hmac.g.b.key[7 - i].d.key), line:5:14, endln:5:22|  GAIN 1               \_bit_select: (work@hmac.g.b.key[7 - i].d.key), line:5:14, endln:5:22|
+E/ve11_iface_lhs_el dist 105 -> 103 lost=0 gained=2|  GAIN 1           \_bit_select: (work@hmac.g.b.key[7 - i].d.key), line:5:14, endln:5:22|  GAIN 1               \_bit_select: (work@hmac.g.b.key[7 - i].d.key), line:5:14, endln:5:22|
+E/ve14_macro_idx dist 11 -> 11 lost=0 gained=0|
+E/ve14_macro_idx_el dist 11 -> 11 lost=0 gained=0|
+F/vf05_module_user dist 7 -> 7 lost=0 gained=0|
+F/vf05_module_user_el dist 7 -> 7 lost=0 gained=0|

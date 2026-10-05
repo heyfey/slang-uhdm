@@ -1,0 +1,4 @@
+BuildUVMPkg/default OFF=12c73cb9b60c pristine=12c73cb9b60c
+BuildUVMPkg/testflags OFF=12c73cb9b60c pristine=12c73cb9b60c
+Earlgrey_0_1/default OFF=99040b3db63c pristine=99040b3db63c
+Earlgrey_0_1/testflags OFF=233bf5448585 pristine=233bf5448585

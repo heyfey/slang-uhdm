@@ -1,0 +1,51 @@
+== BuildUVMPkg/default
+#194627 endcol
+  A: 8	hier_path	factory.is_type_registered			uvm_pkg.sv	14097	13	14097	46		0		
+  B: 8	hier_path	factory.is_type_registered			uvm_pkg.sv	14097	13	14097	39		0		
+fields: endcol=1 objects_differing=1
+STRICT_NOTEQUAL endcol
+== BuildUVMPkg/testflags
+#194627 endcol
+  A: 8	hier_path	factory.is_type_registered			uvm_pkg.sv	14097	13	14097	46		0		
+  B: 8	hier_path	factory.is_type_registered			uvm_pkg.sv	14097	13	14097	39		0		
+fields: endcol=1 objects_differing=1
+STRICT_NOTEQUAL endcol
+== Earlgrey_0_1/default
+#136315 fullname
+  A: 11	ref_typespec			work@sha2		0	0	0	0		0		
+  B: 11	ref_typespec					0	0	0	0		0		
+#154375 fullname
+  A: 6	ref_typespec			work@ibex_core.if_stage_i.pmp_req_err		0	0	0	0		0		
+  B: 6	ref_typespec			work@ibex_core.if_stage_i.instr_pmp_err_i.pmp_req_err		0	0	0	0		0		
+#165002 fullname
+  A: 6	ref_typespec			work@ibex_core.load_store_unit_i.pmp_req_err		0	0	0	0		0		
+  B: 6	ref_typespec			work@ibex_core.load_store_unit_i.data_pmp_err_i.pmp_req_err		0	0	0	0		0		
+objects 2173209 vs 2173893
+fields: depth=1 type=1 name=11 fullname=126 file=4 line=22 col=2 endline=22 endcol=20 objects_differing=155 (walk diverged)
+STRICT_NOTEQUAL fullname
+== Earlgrey_0_1/testflags
+#137760 fullname
+  A: 11	ref_typespec			work@sha2		0	0	0	0		0		
+  B: 11	ref_typespec					0	0	0	0		0		
+#155820 fullname
+  A: 6	ref_typespec			work@ibex_core.if_stage_i.pmp_req_err		0	0	0	0		0		
+  B: 6	ref_typespec			work@ibex_core.if_stage_i.instr_pmp_err_i.pmp_req_err		0	0	0	0		0		
+#166447 fullname
+  A: 6	ref_typespec			work@ibex_core.load_store_unit_i.pmp_req_err		0	0	0	0		0		
+  B: 6	ref_typespec			work@ibex_core.load_store_unit_i.data_pmp_err_i.pmp_req_err		0	0	0	0		0		
+objects 1342584 vs 1342910
+fields: depth=1 type=1 name=1 fullname=44 line=1 col=1 endline=1 endcol=7 size=1 objects_differing=50 (walk diverged)
+STRICT_NOTEQUAL fullname
+== Rggen/default
+#26477 fullname
+  A: 11	enum_var	access		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_access.access	rggen_register_if.sv	9	29	9	35		0		
+  B: 11	enum_var	access		work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.access	rggen_register_if.sv	9	29	9	35		0		
+#26478 fullname
+  A: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_access.access		0	0	0	0		0		
+  B: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.access		0	0	0	0		0		
+#26489 fullname
+  A: 11	logic_var	address		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_address.address	rggen_register_if.sv	10	29	10	36		0		
+  B: 11	logic_var	address		work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.address	rggen_register_if.sv	10	29	10	36		0		
+objects 314498 vs 314389
+fields: type=1 fullname=45 file=1 line=1 col=129 endline=1 endcol=155 size=1 objects_differing=199 (walk diverged)
+STRICT_NOTEQUAL fullname

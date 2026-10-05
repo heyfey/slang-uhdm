@@ -24,6 +24,7 @@
 #include "R249.h"
 #include "R251.h"
 #include "R253.h"
+#include "R255.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -18790,6 +18791,72 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
         }
         r231OobClassTdRefs().clear();
+        // § fwWinnerListedObject255 (r11u255, BuildUVMPkg d/t #185844: the
+        // eight TLM socket classes' `connect(this_type provider)`, golden's
+        // formal pointing at uvm_abstract_component_registry's LISTED
+        // `this_type` object (the class_defn's own vpiTypedef entry, already
+        // visited under a class typespec, so the strict walk lists no subtree
+        // there) and ours at an unparented twin of it at the same span) — the
+        // winner § bareTdNameFirstWriterWins98 hands an unresolved bare class
+        // typedef name is Surelog's ONE TypeDef per declaration:
+        // `ElaborationStep::bindTypedefs_` fills `specs[name]` with the
+        // typedef's own compiled typespec, the object the generic class's
+        // class_defn lists.  slang mints a TypeAliasType per specialization and
+        // collectFwWinners98 walks the specializations the design made, so the
+        // winner can be a NON-default specialization's symbol, whose typespec
+        // fwWinnerTs98 builds on demand as a separate, unlisted object (the
+        // listing is built from the default specialization).  Design-final:
+        // each object handed out whose winner's class_defn lists a typespec of
+        // the same name and kind, other than that object, while the object
+        // itself is parented nowhere, is replaced by the listed object at
+        // every reference.  Grid tools/probe/r11u255repro/cases/F.  Switch
+        // R11U255_FWLISTED_OFF.
+        if (r11u255On("R11U255_FWLISTED_OFF") && !r255Fw98().empty()) {
+            std::map<const UHDM::typespec*, UHDM::typespec*> rep255;
+            std::vector<std::pair<const UHDM::typespec*, std::string>> ord255;
+            for (auto& [xv, wv] : r255Fw98()) {
+                auto* x = (UHDM::typespec*)xv;
+                auto& w = *(const TypeAliasType*)wv;
+                if (!x || x->VpiParent() || rep255.count(x))
+                    continue;
+                auto* sc = w.getParentScope();
+                if (!sc || sc->asSymbol().kind != SymbolKind::ClassType)
+                    continue;
+                auto* cd = classDefnFor(sc->asSymbol().as<ClassType>());
+                if (!cd || !cd->Typespecs())
+                    continue;
+                UHDM::typespec* l = nullptr;
+                for (auto* t : *cd->Typespecs())
+                    if (t && t != x && t->VpiParent() == cd &&
+                        t->UhdmType() == x->UhdmType() && t->VpiName() == w.name &&
+                        t->VpiLineNo() == x->VpiLineNo() &&
+                        t->VpiColumnNo() == x->VpiColumnNo())
+                        l = t;
+                if (!l)
+                    continue;
+                rep255[x] = l;
+                ord255.emplace_back(x, std::string(cd->VpiName()) + "::" +
+                                           std::string(w.name));
+            }
+            if (!rep255.empty()) {
+                std::map<const UHDM::typespec*, int> n255;
+                for (auto& kv : s.AllObjects()) {
+                    auto* o = (UHDM::BaseClass*)kv.first;
+                    if (o->UhdmType() != UHDM::uhdmref_typespec)
+                        continue;
+                    auto* r = (UHDM::ref_typespec*)o;
+                    auto ri = rep255.find(r->Actual_typespec());
+                    if (ri == rep255.end())
+                        continue;
+                    ++n255[ri->first];
+                    r->Actual_typespec(ri->second);
+                }
+                for (auto& [x, nm] : ord255)
+                    tr255("fwWinnerListedObject255",
+                          nm + " refs=" + std::to_string(n255[x]));
+            }
+        }
+        r255Fw98().clear();
         // § modportArgVarFormalTs239 (r11u239; Rggen default #23164) — A
         // MODPORT PORT MEMBER PASSED TO A FUNCTION IN A CONTINUOUS ASSIGNMENT
         // TAKES THE FORMAL'S TYPESPEC ON ITS PORT-VIEW VARIABLE.

@@ -1,0 +1,5 @@
+MOVE tp/r11u236repro/cases/E/e14 STRICT_NOTEQUAL_endcol -> STRICT_NOTEQUAL_endcol cmp 0 -> 0
+MOVE tp/r11u236repro/cases/E/e14_el STRICT_NOTEQUAL_endcol -> STRICT_NOTEQUAL_endcol cmp 0 -> 0
+MOVE tp/r11u248repro/decode/e01_genkey STRICT_NOTEQUAL_col -> STRICT_EQUAL_276_objects cmp 0 -> 0
+MOVE tp/r11u248repro/decode/e01_genkey_el STRICT_NOTEQUAL_col -> STRICT_EQUAL_280_objects cmp 0 -> 0
+{'case-views': 1926, 'nonzero rc (pristine)': 10, 'moving': 4, 'entering': 2}
