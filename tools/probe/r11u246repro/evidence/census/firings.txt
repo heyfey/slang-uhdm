@@ -1,0 +1,9 @@
+    713 foreachLocalArrTsOwnListing246
+    192 colSpanWalkStampsFile246
+    112 streamBraceInMacroBody246
+     68 callArgParamCopyOwnTs246
+     24 callArgParamCopyOwnTs246_nested
+     14 macroParamMethNameEnd246
+      9 methArgCastTsChainName246
+      7 hpFnStaticTrailScopeJoin246
+      4 dpiTopCastResolvesByModImport246

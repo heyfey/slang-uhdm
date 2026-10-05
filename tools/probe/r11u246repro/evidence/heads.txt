@@ -1,0 +1,242 @@
+== wP default/SimpleUVM
+#98800 type
+  A: 9	enum_typespec	uvm_pkg::uvm_severity			uvm_sequence_item.svh	352	37	352	49				
+  B: 9	unsupported_typespec	uvm_severity			uvm_globals.svh	168	15	168	27				
+objects 334285 vs 334575
+fields: type=1 name=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== wP testflags/SimpleUVM
+#98812 type
+  A: 9	enum_typespec	uvm_pkg::uvm_severity			uvm_sequence_item.svh	352	37	352	49				
+  B: 9	unsupported_typespec	uvm_severity			uvm_globals.svh	168	15	168	27				
+objects 334297 vs 334587
+fields: type=1 name=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== wP default/Scoreboard
+#130737 type
+  A: 21	constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7
+  B: 21	operation				uvm_reg_model.svh	73	24	73	28		0		
+objects 269656 vs 269869
+fields: type=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== wP default/BuildUVMPkg
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+#129711 line
+  A: 7	int_typespec				uvm_pkg.sv	14837	35	14837	36				
+  B: 7	int_typespec				uvm_pkg.sv	14699	13	14699	14				
+#153018 type
+  A: 20	constant				uvm_pkg.sv	60725	24	60725	26	63	64	INT:63	7
+  B: 20	operation				uvm_pkg.sv	60725	24	60725	28		0		
+objects 201533 vs 201593
+fields: type=1 line=1 col=1 endline=1 endcol=3 decompile=1 size=1 value=1 consttype=1 objects_differing=3 (walk diverged)
+STRICT_NOTEQUAL endcol
+== wP testflags/BuildUVMPkg
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+#129711 line
+  A: 7	int_typespec				uvm_pkg.sv	14837	35	14837	36				
+  B: 7	int_typespec				uvm_pkg.sv	14699	13	14699	14				
+#153018 type
+  A: 20	constant				uvm_pkg.sv	60725	24	60725	26	63	64	INT:63	7
+  B: 20	operation				uvm_pkg.sv	60725	24	60725	28		0		
+objects 201533 vs 201593
+fields: type=1 line=1 col=1 endline=1 endcol=3 decompile=1 size=1 value=1 consttype=1 objects_differing=3 (walk diverged)
+STRICT_NOTEQUAL endcol
+== wP default/Rggen
+#23546 line
+  A: 13	int_typespec				rggen_or_reducer.sv	3	13	3	16				
+  B: 13	int_typespec				rggen_or_reducer.sv	8	55	8	58				
+#26477 fullname
+  A: 11	enum_var	access		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_access.access	rggen_register_if.sv	9	29	9	35		0		
+  B: 11	enum_var	access		work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.access	rggen_register_if.sv	9	29	9	35		0		
+#26478 fullname
+  A: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_access.access		0	0	0	0		0		
+  B: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.access		0	0	0	0		0		
+#26489 fullname
+  A: 11	logic_var	address		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_address.address	rggen_register_if.sv	10	29	10	36		0		
+  B: 11	logic_var	address		work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.address	rggen_register_if.sv	10	29	10	36		0		
+#26490 fullname
+  A: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_address.address		0	0	0	0		0		
+  B: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.address		0	0	0	0		0		
+#26718 endcol
+  A: 13	constant				rggen_register_common.sv	33	24	33	37	7	64	INT:7	7
+  B: 13	constant				rggen_register_common.sv	33	24	33	39	7	64	INT:7	7
+objects 314498 vs 314389
+fields: type=1 fullname=45 file=1 line=4 col=132 endline=4 endcol=158 size=1 objects_differing=202 (walk diverged)
+STRICT_NOTEQUAL line
+== wP default/MiniAmiq
+#76762 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+objects 435559 vs 434326
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== wP testflags/MiniAmiq
+#76762 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+objects 435559 vs 434326
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== wP default/SeqDriver
+#76718 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+objects 475526 vs 474501
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== wP testflags/SeqDriver
+#76730 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+objects 475538 vs 474513
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== wL default/SimpleUVM
+#159457 line
+  A: 7	int_typespec				uvm_queue.svh	171	35	171	36				
+  B: 7	int_typespec				uvm_queue.svh	43	13	43	14				
+#194836 col
+  A: 14	constant				uvm_printer_defines.svh	270	51	270	63	"da(string)"	80	STRING:da(string)	6
+  B: 14	constant				uvm_printer_defines.svh	270	42	270	63	"da(string)"	80	STRING:da(string)	6
+#201235 fullname
+  A: 4	ref_typespec			<in>override_e		0	0	0	0		0		
+  B: 4	ref_typespec			<in>override_e		0	0	0	0		0		
+  raw fullname A: uvm_pkg::uvm_resource_types::override_e | B: override_e
+#201602 file
+  A: 7	string_typespec				uvm_spell_chkr.svh	30	19	30	25				
+  B: 7	string_typespec					0	0	0	0				
+#201634 file
+  A: 10	string_typespec				uvm_spell_chkr.svh	30	19	30	25				
+  B: 10	string_typespec					0	0	0	0				
+#202914 type
+  A: 7	range				uvm_misc.svh	642	24	642	25				
+  B: 7	ref_typespec			<in>types_t		0	0	0	0		0		
+objects 334285 vs 334290
+fields: type=1 fullname=2 file=3 line=4 col=5 endline=4 endcol=4 size=1 objects_differing=6 (walk diverged)
+STRICT_NOTEQUAL line
+== wL testflags/SimpleUVM
+#159469 line
+  A: 7	int_typespec				uvm_queue.svh	171	35	171	36				
+  B: 7	int_typespec				uvm_queue.svh	43	13	43	14				
+#194848 col
+  A: 14	constant				uvm_printer_defines.svh	270	51	270	63	"da(string)"	80	STRING:da(string)	6
+  B: 14	constant				uvm_printer_defines.svh	270	42	270	63	"da(string)"	80	STRING:da(string)	6
+#201247 fullname
+  A: 4	ref_typespec			<in>override_e		0	0	0	0		0		
+  B: 4	ref_typespec			<in>override_e		0	0	0	0		0		
+  raw fullname A: uvm_pkg::uvm_resource_types::override_e | B: override_e
+#201614 file
+  A: 7	string_typespec				uvm_spell_chkr.svh	30	19	30	25				
+  B: 7	string_typespec					0	0	0	0				
+#201646 file
+  A: 10	string_typespec				uvm_spell_chkr.svh	30	19	30	25				
+  B: 10	string_typespec					0	0	0	0				
+#202926 type
+  A: 7	range				uvm_misc.svh	642	24	642	25				
+  B: 7	ref_typespec			<in>types_t		0	0	0	0		0		
+objects 334297 vs 334302
+fields: type=1 fullname=2 file=3 line=4 col=5 endline=4 endcol=4 size=1 objects_differing=6 (walk diverged)
+STRICT_NOTEQUAL line
+== wL default/Scoreboard
+#159637 line
+  A: 7	int_typespec				uvm_queue.svh	171	35	171	36				
+  B: 7	int_typespec				uvm_queue.svh	43	13	43	14				
+#195016 col
+  A: 14	constant				uvm_printer_defines.svh	270	51	270	63	"da(string)"	80	STRING:da(string)	6
+  B: 14	constant				uvm_printer_defines.svh	270	42	270	63	"da(string)"	80	STRING:da(string)	6
+#201415 fullname
+  A: 4	ref_typespec			<in>override_e		0	0	0	0		0		
+  B: 4	ref_typespec			<in>override_e		0	0	0	0		0		
+  raw fullname A: uvm_pkg::uvm_resource_types::override_e | B: override_e
+#201782 file
+  A: 7	string_typespec				uvm_spell_chkr.svh	30	19	30	25				
+  B: 7	string_typespec					0	0	0	0				
+#201814 file
+  A: 10	string_typespec				uvm_spell_chkr.svh	30	19	30	25				
+  B: 10	string_typespec					0	0	0	0				
+#203094 type
+  A: 7	range				uvm_misc.svh	642	24	642	25				
+  B: 7	ref_typespec			<in>types_t		0	0	0	0		0		
+objects 269656 vs 269661
+fields: type=1 fullname=2 file=3 line=4 col=5 endline=4 endcol=4 size=1 objects_differing=6 (walk diverged)
+STRICT_NOTEQUAL line
+== wL default/BuildUVMPkg
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+#129711 line
+  A: 7	int_typespec				uvm_pkg.sv	14837	35	14837	36				
+  B: 7	int_typespec				uvm_pkg.sv	14699	13	14699	14				
+#185844 depth
+  A: 6	begin			uvm_pkg::uvm_tlm_b_initiator_socket::connect	uvm_pkg.sv	60210	5	60210	68				
+  B: 8	class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42				
+objects 201533 vs 201541
+fields: depth=1 type=1 name=1 fullname=1 line=2 col=2 endline=2 endcol=3 objects_differing=3 (walk diverged)
+STRICT_NOTEQUAL endcol
+== wL testflags/BuildUVMPkg
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+#129711 line
+  A: 7	int_typespec				uvm_pkg.sv	14837	35	14837	36				
+  B: 7	int_typespec				uvm_pkg.sv	14699	13	14699	14				
+#185844 depth
+  A: 6	begin			uvm_pkg::uvm_tlm_b_initiator_socket::connect	uvm_pkg.sv	60210	5	60210	68				
+  B: 8	class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42				
+objects 201533 vs 201541
+fields: depth=1 type=1 name=1 fullname=1 line=2 col=2 endline=2 endcol=3 objects_differing=3 (walk diverged)
+STRICT_NOTEQUAL endcol
+== wL default/Rggen
+#26477 fullname
+  A: 11	enum_var	access		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_access.access	rggen_register_if.sv	9	29	9	35		0		
+  B: 11	enum_var	access		work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.access	rggen_register_if.sv	9	29	9	35		0		
+#26478 fullname
+  A: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_access.access		0	0	0	0		0		
+  B: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.access		0	0	0	0		0		
+#26489 fullname
+  A: 11	logic_var	address		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_address.address	rggen_register_if.sv	10	29	10	36		0		
+  B: 11	logic_var	address		work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.address	rggen_register_if.sv	10	29	10	36		0		
+#26490 fullname
+  A: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_address.address		0	0	0	0		0		
+  B: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.address		0	0	0	0		0		
+#26718 endcol
+  A: 13	constant				rggen_register_common.sv	33	24	33	37	7	64	INT:7	7
+  B: 13	constant				rggen_register_common.sv	33	24	33	39	7	64	INT:7	7
+#26728 endcol
+  A: 14	constant				rggen_register_common.sv	33	24	33	37	7	64	INT:7	7
+  B: 14	constant				rggen_register_common.sv	33	24	33	39	7	64	INT:7	7
+objects 314498 vs 314389
+fields: type=1 fullname=45 file=1 line=1 col=129 endline=1 endcol=155 size=1 objects_differing=199 (walk diverged)
+STRICT_NOTEQUAL fullname
+== wL default/MiniAmiq
+#76762 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+objects 435559 vs 434326
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== wL testflags/MiniAmiq
+#76762 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+objects 435559 vs 434326
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== wL default/SeqDriver
+#76718 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+objects 475526 vs 474528
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== wL testflags/SeqDriver
+#76730 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+objects 475538 vs 474540
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth

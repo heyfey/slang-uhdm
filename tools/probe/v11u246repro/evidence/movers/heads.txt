@@ -1,0 +1,104 @@
+== wL_surelog_default_BuildUVMPkg
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+STRICT_NOTEQUAL endcol
+== wL_surelog_default_MiniAmiq
+#76762 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+STRICT_NOTEQUAL depth
+== wL_surelog_default_Rggen
+#26477 fullname
+  A: 11	enum_var	access		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_access.access	rggen_register_if.sv	9	29	9	35		0		
+  B: 11	enum_var	access		work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.access	rggen_register_if.sv	9	29	9	35		0		
+STRICT_NOTEQUAL fullname
+== wL_surelog_default_Scoreboard
+#159637 line
+  A: 7	int_typespec				uvm_queue.svh	171	35	171	36				
+  B: 7	int_typespec				uvm_queue.svh	43	13	43	14				
+STRICT_NOTEQUAL line
+== wL_surelog_default_SeqDriver
+#76718 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+STRICT_NOTEQUAL depth
+== wL_surelog_default_SimpleUVM
+#159457 line
+  A: 7	int_typespec				uvm_queue.svh	171	35	171	36				
+  B: 7	int_typespec				uvm_queue.svh	43	13	43	14				
+STRICT_NOTEQUAL line
+== wL_surelog_testflags_BuildUVMPkg
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+STRICT_NOTEQUAL endcol
+== wL_surelog_testflags_SimpleUVM
+#159469 line
+  A: 7	int_typespec				uvm_queue.svh	171	35	171	36				
+  B: 7	int_typespec				uvm_queue.svh	43	13	43	14				
+STRICT_NOTEQUAL line
+== wP_surelog_default_BuildUVMPkg
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+STRICT_NOTEQUAL endcol
+== wP_surelog_default_MiniAmiq
+#76762 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+STRICT_NOTEQUAL depth
+== wP_surelog_default_Rggen
+#23546 line
+  A: 13	int_typespec				rggen_or_reducer.sv	3	13	3	16				
+  B: 13	int_typespec				rggen_or_reducer.sv	8	55	8	58				
+STRICT_NOTEQUAL line
+== wP_surelog_default_Scoreboard
+#130737 type
+  A: 21	constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7
+  B: 21	operation				uvm_reg_model.svh	73	24	73	28		0		
+STRICT_NOTEQUAL type
+== wP_surelog_default_SeqDriver
+#76718 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+STRICT_NOTEQUAL depth
+== wP_surelog_default_SimpleUVM
+#98800 type
+  A: 9	enum_typespec	uvm_pkg::uvm_severity			uvm_sequence_item.svh	352	37	352	49				
+  B: 9	unsupported_typespec	uvm_severity			uvm_globals.svh	168	15	168	27				
+STRICT_NOTEQUAL type
+== wP_surelog_testflags_BuildUVMPkg
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+STRICT_NOTEQUAL endcol
+== wP_surelog_testflags_SimpleUVM
+#98812 type
+  A: 9	enum_typespec	uvm_pkg::uvm_severity			uvm_sequence_item.svh	352	37	352	49				
+  B: 9	unsupported_typespec	uvm_severity			uvm_globals.svh	168	15	168	27				
+STRICT_NOTEQUAL type
+== BuildUVMPkg default wP
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+#129711 line
+  A: 7	int_typespec				uvm_pkg.sv	14837	35	14837	36				
+  B: 7	int_typespec				uvm_pkg.sv	14699	13	14699	14				
+#153018 type
+  A: 20	constant				uvm_pkg.sv	60725	24	60725	26	63	64	INT:63	7
+  B: 20	operation				uvm_pkg.sv	60725	24	60725	28		0		
+fields: type=1 line=1 col=1 endline=1 endcol=3 decompile=1 size=1 value=1 consttype=1 objects_differing=3 (walk diverged)
+STRICT_NOTEQUAL endcol
+== BuildUVMPkg default wL
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+#129711 line
+  A: 7	int_typespec				uvm_pkg.sv	14837	35	14837	36				
+  B: 7	int_typespec				uvm_pkg.sv	14699	13	14699	14				
+#185844 depth
+  A: 6	begin			uvm_pkg::uvm_tlm_b_initiator_socket::connect	uvm_pkg.sv	60210	5	60210	68				
+  B: 8	class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42				
+fields: depth=1 type=1 name=1 fullname=1 line=2 col=2 endline=2 endcol=3 objects_differing=3 (walk diverged)
+STRICT_NOTEQUAL endcol

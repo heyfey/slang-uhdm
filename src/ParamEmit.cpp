@@ -26,6 +26,8 @@
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
 
 namespace slang_uhdm {
+// § callArgCopyEvalCtxAbstain246v (v11u246, ExprEmit)
+const slang::ast::ParameterSymbol*& curMdimParam246v();
 // § cloneHpIdxNamesByChain220 (r11u220) — defined in ExprEmit.cpp.
 void noteCloneHpIdx220(UHDM::any* clone);
 // The r11u200 switches of this file (ground A; the switch table is in
@@ -21441,6 +21443,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // instance parameter binding, not expression reduction).
                 elabMdimParamInit = !inPackage && topView &&
                                     packedDimCount(ps.getType()) > 1;
+                // § callArgCopyEvalCtxAbstain246v (v11u246, ExprEmit)
+                curMdimParam246v() = elabMdimParamInit ? &ps : nullptr;
                 importedParamClone = isImported && !inPackage;
                 // § pkgImportParamBareRef — the same materialized copy, one
                 // scope up: a PACKAGE listing a parameter IMPORTED from
@@ -22384,6 +22388,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 pkgElabSymOperands = false;
                 elabMdimParamInit = false;
+                curMdimParam246v() = nullptr;  // § callArgCopyEvalCtxAbstain246v
                 misevalParamRhsScope = nullptr;
                 paramInitPkg = false;
                 pkgDefPatShare236() = false;
@@ -26035,6 +26040,8 @@ void drainHpSelIdxTrail244(UHDM::Serializer& s);  // § hpSelIdxPathTrailByChain
 void drainLvIpsChain244(UHDM::Serializer& s);  // § lvHpIpsOperandChain244 (ExprEmit.cpp)
 // § refFullNameThroughNamedExpr175 (r11u175) — defined in ExprEmit.cpp.
 void refFullNameThroughNamedExpr175(UHDM::Serializer& s);
+// § callArgParamCopyOwnTs246 (r11u246, ExprEmit)
+void drainCallArgCopyTs246(const std::set<UHDM::ref_typespec*>& stamped);
 
 // § hierPathSelIdxAtPath178 (r11u178) — defined in ExprEmit.cpp.
 void drainHierPathSelIdx178(UHDM::Serializer& s);
@@ -26100,6 +26107,7 @@ void UhdmExporter::drainPaNameCopySrc38() {
     strLitContOwnerDrain224(s);    // § strLitContOwnerEnd224 (r11u224)
     strLitPpLineShiftDrain224(s);  // § strLitPpEscIdShift224 (r11u224)
     drainNewArrParent244();  // § cloneNewArrayCallParented244 (r11u244)
+    drainCallArgCopyTs246(nestedParamTsRef6);  // § callArgParamCopyOwnTs246 (r11u246)
     drainImportCloneLocalCopies175(s);
     refFullNameThroughNamedExpr175(s);
     drainHierPathSelIdx178(s);

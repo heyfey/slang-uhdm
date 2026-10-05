@@ -1,0 +1,16 @@
+BlackBePipeInt,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+BlackBePipeInt,testflags,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+BuildUVMPkg,default,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
+BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
+Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(160),,differ:fullname(160)
+Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(55),,differ:fullname(55)
+MiniAmiq,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+MiniAmiq,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+Rggen,default,STRICT_NOTEQUAL,differ:fullname(199),,differ:fullname(199)
+Rggen,testflags,SURELOG_FAIL,[INF:UH0707] Elaborating UHDM...,,
+Scoreboard,default,STRICT_NOTEQUAL,differ:line(6),,differ:line(6)
+Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'm,,
+SeqDriver,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+SeqDriver,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+SimpleUVM,default,STRICT_NOTEQUAL,differ:line(6),,differ:line(6)
+SimpleUVM,testflags,STRICT_NOTEQUAL,differ:line(6),,differ:line(6)

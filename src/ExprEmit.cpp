@@ -20,6 +20,7 @@
 #include "slang/ast/Constraints.h"
 #include "slang/syntax/AllSyntax.h"
 #include "slang/syntax/SyntaxNode.h"
+#include "slang/syntax/SyntaxTree.h"
 #include "slang/ast/expressions/Operator.h"
 #include "slang/ast/symbols/CoverSymbols.h"
 #include "R204.h"
@@ -32,10 +33,115 @@
 #include "R227.h"
 #include "R236.h"
 #include "R244.h"
+#include "R246.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
 namespace slang_uhdm {
+// § dpiTopCastResolvesByModImport246 (r11u246) — THE ELABORATED HOME COPY OF
+// AN `export "DPI-C"` CAST RESOLVES WHEN A MODULE IMPORTS THE TYPE.  § 170's
+// unsupported placeholder (a bare own enum/struct/union typedef name cast in
+// a package subroutine whose DPI export is written above it) is late-bound by
+// Surelog's bindTypedefs_ (ElaborationStep.cpp): the swap looks the written
+// name up in a map filled from every typedef a DESIGN COMPONENT carries, and
+// only a MODULE's typedef map holds the package's typedef under its bare name
+// (the import copies it; a package's own and an importing package's do not).
+// A module receives the name from an import in its own body or header, or
+// from a file-scope import anywhere in the module's root file (Surelog keeps
+// $unit imports per file content); an interface, a program, a package or a
+// file-scope import in another file give nothing.  Only the home package's
+// elaborated (TopPackages) copy is on the swapped list; its definition copy
+// and every importer clone keep the placeholder.  Measured on real v1.87
+// goldens (tools/probe/r11u246repro/cases/DT): SimpleUVM and SeqDriver (the
+// testbench file imports uvm_pkg::* beside its top module) resolve; MiniAmiq
+// (svaunit_pkg imports, no module), BuildUVMPkg (no module) and Scoreboard
+// (the import sits in design.sv, which holds a class but no module) do not.
+// The resolved object is the elaborated listing's own typespec of the alias,
+// the target the cast takes when no law degrades it.  Switch
+// R11U246_DPITOPRES_OFF.
+static bool modImportSeesTd246(const slang::ast::Compilation& comp,
+                               const slang::SourceManager* sm,
+                               std::string_view pkg, std::string_view td) {
+    using namespace slang::syntax;
+    if (!sm)
+        return false;
+    struct Imp246 {
+        slang::BufferID root;
+        std::string pkg, item;
+    };
+    struct Mod246 {
+        slang::BufferID root;
+        std::vector<std::pair<std::string, std::string>> imps;
+    };
+    static const slang::ast::Compilation* key246 = nullptr;
+    static std::vector<Imp246> fileImps;
+    static std::vector<Mod246> mods;
+    auto rootOf = [&](slang::SourceLocation loc) {
+        loc = sm->getFullyOriginalLoc(loc);
+        slang::BufferID b = loc.buffer();
+        for (int g = 0; g < 64; ++g) {
+            auto inc = sm->getIncludedFrom(b);
+            if (!inc.valid())
+                break;
+            b = sm->getFullyOriginalLoc(inc).buffer();
+        }
+        return b;
+    };
+    auto addItems = [](const PackageImportDeclarationSyntax& d, auto&& sink) {
+        for (auto* it : d.items)
+            if (it)
+                sink(std::string(it->package.valueText()),
+                     std::string(it->item.rawText()));
+    };
+    if (key246 != &comp) {
+        key246 = &comp;
+        fileImps.clear();
+        mods.clear();
+        for (auto& tree : comp.getSyntaxTrees()) {
+            if (!tree || tree->root().kind != SyntaxKind::CompilationUnit)
+                continue;
+            for (auto* mem : tree->root().as<CompilationUnitSyntax>().members) {
+                if (!mem)
+                    continue;
+                if (mem->kind == SyntaxKind::PackageImportDeclaration) {
+                    auto r = rootOf(mem->sourceRange().start());
+                    addItems(mem->as<PackageImportDeclarationSyntax>(),
+                             [&](std::string p, std::string i) {
+                                 fileImps.push_back({r, std::move(p), std::move(i)});
+                             });
+                }
+                else if (mem->kind == SyntaxKind::ModuleDeclaration) {
+                    auto& md = mem->as<ModuleDeclarationSyntax>();
+                    Mod246 m;
+                    m.root = rootOf(md.header->moduleKeyword.location());
+                    auto sink = [&](std::string p, std::string i) {
+                        m.imps.emplace_back(std::move(p), std::move(i));
+                    };
+                    for (auto* d : md.header->imports)
+                        if (d)
+                            addItems(*d, sink);
+                    for (auto* bm : md.members)
+                        if (bm && bm->kind == SyntaxKind::PackageImportDeclaration)
+                            addItems(bm->as<PackageImportDeclarationSyntax>(), sink);
+                    mods.push_back(std::move(m));
+                }
+            }
+        }
+    }
+    auto hit = [&](const std::string& p, const std::string& i) {
+        return p == pkg && (i == "*" || i == td);
+    };
+    for (auto& m : mods) {
+        for (auto& [p, i] : m.imps)
+            if (hit(p, i))
+                return true;
+        for (auto& fi : fileImps)
+            if (fi.root == m.root && hit(fi.pkg, fi.item))
+                return true;
+    }
+    return false;
+}
+
 // § pkgQualOperandSpanInParam218 (r11u218) — A PACKAGE-QUALIFIED OPERAND
 // FOLDED INSIDE A MODULE OR INTERFACE PARAMETER'S INITIALIZER, IN THE
 // DEFINITION LISTING, SPANS THE QUALIFIER WITH ITS COLONS.  Surelog compiles
@@ -3046,6 +3152,56 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
             continue;
         trace201("methodArgNestedRefChain201");
         ro201->VpiFullName(want);
+        set226.n++;
+    }
+    // § methArgCastTsChainName246 (r11u246, R11U246_MARGCASTTS_OFF) — the
+    // ref_typespec of an OPERATION (a cast `uvm_severity'(severity)`) inside
+    // the argument of a method call that is a hier_path's last element stores
+    // no full name in golden either (compileTfCallArguments compiles the
+    // actual under the call), so the reader's chain names it like the
+    // references beside it (§ methodArgOpRefChainName198): golden
+    // `uvm_pkg::uvm_report_handler::process_report_message::
+    // sev_id_overrides[id].exists`, ours the scope's
+    // `...::process_report_message` (SimpleUVM, Scoreboard and BuildUVMPkg,
+    // uvm_report_handler.svh 319 `sev_id_overrides[id].exists(
+    // uvm_severity'(severity))`).  Only a name that is the chain name with
+    // those ancestors dropped is replaced (the chain must extend ours).
+    // Grid tools/probe/r11u246repro/cases/MC.
+    for (auto* kv226 : objs226) {
+        if (!r11u246On("R11U246_MARGCASTTS_OFF"))
+            break;
+        auto* o = (UHDM::BaseClass*)kv226;
+        if (!o || o->UhdmType() != UHDM::uhdmref_typespec)
+            continue;
+        const UHDM::BaseClass* p = o->VpiParent();
+        if (!p || p->UhdmType() != UHDM::uhdmoperation)
+            continue;
+        const UHDM::BaseClass* q = p;
+        int st246 = 0;
+        while (q && st246 < 32 &&
+               (q->UhdmType() == UHDM::uhdmoperation ||
+                q->UhdmType() == UHDM::uhdmsys_func_call)) {
+            q = q->VpiParent();
+            st246++;
+        }
+        if (!q || q->UhdmType() != UHDM::uhdmmethod_func_call)
+            continue;
+        const UHDM::BaseClass* qp = q->VpiParent();
+        if (!qp || qp->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        auto* pe246 = ((const UHDM::hier_path*)qp)->Path_elems();
+        if (!pe246 || pe246->empty() || pe246->back() != q)
+            continue;
+        auto* rt246 = (UHDM::ref_typespec*)o;
+        std::string have(rt246->VpiFullName());
+        std::string want = chainFullName175(o);
+        if (have.empty() || want.empty() || have == want ||
+            want.size() <= have.size() + 1 ||
+            want.compare(0, have.size(), have) != 0 ||
+            (want[have.size()] != ':' && want[have.size()] != '.'))
+            continue;
+        tr246("methArgCastTsChainName246", want);
+        rt246->VpiFullName(want);
         set226.n++;
     }
     // § callArgInSelIdxChainName201 (r11u201, R11U201_SELIDXCALL_OFF; r11u194's
@@ -6125,6 +6281,229 @@ bool UhdmExporter::oobRefVarLocalHoistNet107(const slang::ast::Symbol& sym,
 // LOCALS, `sym.kind == SymbolKind::Variable`).
 // § classMethodParensLessStepIsRefObj77 — the WRITTEN-PARENS probe.  The
 // header carries the law and the two refuted alternatives; this is the walk.
+// § callArgParamCopyOwnTs246 (r11u246, R11U246_PACOPYTS_OFF; Rggen d #23546,
+// map 15's N0001 family, pass 242's and 244's decode G g01) — THE COPY OF A
+// PARAMETER ACTUAL KEEPS THE PARAMETER'S OWN TYPESPEC UNLESS THE CALL RUNS
+// NESTED.  § genLpPaCallArgCopy13 carries an elaborated parameter's
+// param_assign Rhs constant into a multidimensional initializer's call
+// (`localparam bit [N-1:0][15:0] SUB_N_LIST = get_sub_n_list(N)`), Surelog's
+// clone arm (`clone_tree(param_ass->Rhs())`, CompileExpression.cpp), and the
+// clone keeps the Rhs's ref_typespec: golden Rggen's actual reads N's own
+// `int_typespec` (rggen_or_reducer.sv 3:13) where ours read the formal's
+// (8:55).  Only an evalFunc that runs the call IN THE TREE binds the actual to
+// the formal and overwrites it — the nested write-through
+// § nestedParamActualTs6 already models for the call node itself: FuncInModule
+// (`NEXT_N = get_next_n(OFFSET_LIST)`, `OFFSET_LIST =
+// get_offset_list(SUB_N_LIST_P)`) stamps the node `get_sub_n_list(N)` with
+// get_offset_list's formal AND its actual with get_sub_n_list's (10:55), while
+// Rggen's node stays bare and its actual keeps N's.  So the copy takes the
+// parameter's typespec, and design-final the formal's comes back on every
+// call whose node § nestedParamActualTs6 stamped.  Measured on real v1.87
+// goldens over the call's depth below a folded or kept outer call, an
+// overridden, a defaulted and a top-level parameter (grid
+// tools/probe/r11u246repro/cases/PA, both views).
+namespace {
+struct CallArgCopy246 {
+    UHDM::ref_typespec* rt;
+    UHDM::typespec* formal;
+    UHDM::func_call* call;
+    const UHDM::constant* src;
+    const slang::ast::ParameterSymbol* lp;  // § callArgCopyEvalCtxAbstain246v
+};
+std::vector<CallArgCopy246>& callArgCopies246() {
+    static std::vector<CallArgCopy246> v;
+    return v;
+}
+}  // namespace
+// § callArgCopyEvalCtxAbstain246v (v11u246, R11V246_PAEVALCTX_OFF;
+// tools/probe/v11u246repro/README.md) — THE COPY KEEPS THE FORMAL'S TYPESPEC
+// WHEN SURELOG REDUCES A SELECT OF THE INITIALIZED PARAMETER.  The law's own
+// decode names the overwrite: ExprEval::evalFunc binds each in-tree actual to
+// the formal (`exparg->Typespec()->Actual_typespec(tps)`), and that runs
+// whenever a reference to the multidimensional localparam L is REDUCED
+// against L's param_assign Rhs, the func_call itself.  Rggen's SUB_N_LIST is
+// read only in an always_comb and in other localparams' initializers, so its
+// copy keeps N's typespec; but `if (L[1] == ..)`, `for (genvar i = 0; i <
+// L[0]; ..)`, `case (L[1])`, `logic [L[1]-1:0] w;` and `{L[1]{1'b1}}` reduce
+// it, and golden's copy there wears the formal's `int_typespec` (pristine's
+// bytes, STRICT_EQUAL on pristine; the law moved that record away), as do a
+// port connection `.d(L[1])`, `assign q = L[0] + 1` and `wire [7:0] wq =
+// L[2]` (stage 1 on both binaries, the record lost all the same).  A whole
+// `assign o = L;`, `8'(L)`, `$bits(L)` and a localparam initializer `X =
+// L[1]` leave the call unevaluated.  The structural contexts are not uniform
+// (`L[1] ^ L[2]` and `L[1][3:0]` in a continuous assignment stay
+// unreduced), so the abstention there is conservative: L's copy keeps the
+// formal's typespec (pristine's bytes) when its module's syntax names L
+// under a declaration dimension, a replication count, an instance parameter
+// assignment, a generate if / case condition, a case-generate item label, a
+// generate loop header or a task or function body (a function reading L
+// that a generate condition calls reduces it: `if (g() == 2)` with `return
+// L[1];`), or names L WITH ONE SELECT outside an always / initial / final
+// block and a parameter initializer (a select of a select, `L[1][3:0]` or
+// r10rgg13's `assign o = LP[0][0];`, stays unreduced; `L[1] ^ L[2]`, which
+// golden leaves unreduced too, is abstained on).  Grid
+// tools/probe/v11u246repro/cases/PE.
+namespace {
+bool callArgCopyLpReduced246v(const slang::ast::ParameterSymbol& lp) {
+    using namespace slang::syntax;
+    const slang::ast::Scope* sc = lp.getParentScope();
+    int guard = 0;
+    while (sc && guard++ < 64 &&
+           sc->asSymbol().kind != slang::ast::SymbolKind::InstanceBody)
+        sc = sc->asSymbol().getParentScope();
+    if (!sc)
+        return true;
+    const SyntaxNode* root = sc->asSymbol().getSyntax();
+    if (!root || root->kind != SyntaxKind::ModuleDeclaration)
+        return true;
+    // One reference: true when Surelog reduces it (or may: conservative).
+    auto refReduced = [&](const SyntaxNode* n) {
+        // ONE select (`L[0]`, `L[0] + 1`, `.d(L[1])`): Surelog reduces it in
+        // a structural context; a select of a select (`L[1][3:0]`, r10rgg13's
+        // `LP[0][0]`) stays unreduced (grid PE e08, probe r10rgg13repro/top).
+        const bool sel = n->kind == SyntaxKind::IdentifierSelectName &&
+                         n->as<IdentifierSelectNameSyntax>().selectors.size() == 1;
+        const SyntaxNode* c = n;
+        for (const SyntaxNode* a = n->parent; a && a != root; c = a, a = a->parent) {
+            switch (a->kind) {
+                case SyntaxKind::VariableDimension:
+                case SyntaxKind::ParameterValueAssignment:
+                    return true;
+                case SyntaxKind::MultipleConcatenationExpression:
+                    if (c == a->as<MultipleConcatenationExpressionSyntax>().expression)
+                        return true;
+                    break;
+                case SyntaxKind::IfGenerate:
+                    if (c == a->as<IfGenerateSyntax>().condition)
+                        return true;
+                    break;
+                case SyntaxKind::LoopGenerate:
+                    if (c != a->as<LoopGenerateSyntax>().block)
+                        return true;
+                    break;
+                case SyntaxKind::CaseGenerate:
+                    if (c == a->as<CaseGenerateSyntax>().condition)
+                        return true;
+                    break;
+                case SyntaxKind::StandardCaseItem:
+                    if (a->parent && a->parent->kind == SyntaxKind::CaseGenerate &&
+                        c != a->as<StandardCaseItemSyntax>().clause)
+                        return true;
+                    break;
+                case SyntaxKind::FunctionDeclaration:
+                case SyntaxKind::TaskDeclaration:
+                    // a subroutine Surelog evaluates (a generate condition
+                    // calling it) reduces L inside its body: grid PE e25.
+                    return true;
+                case SyntaxKind::AlwaysBlock:
+                case SyntaxKind::AlwaysCombBlock:
+                case SyntaxKind::AlwaysFFBlock:
+                case SyntaxKind::AlwaysLatchBlock:
+                case SyntaxKind::InitialBlock:
+                case SyntaxKind::FinalBlock:
+                case SyntaxKind::ParameterDeclaration:
+                case SyntaxKind::ParameterDeclarationStatement:
+                    return false;
+                default:
+                    break;
+            }
+        }
+        return sel;
+    };
+    std::vector<const SyntaxNode*> st{root};
+    while (!st.empty()) {
+        const SyntaxNode* n = st.back();
+        st.pop_back();
+        if (!n)
+            continue;
+        if (n->kind == SyntaxKind::IdentifierName ||
+            n->kind == SyntaxKind::IdentifierSelectName) {
+            auto tok = n->kind == SyntaxKind::IdentifierName
+                           ? n->as<IdentifierNameSyntax>().identifier
+                           : n->as<IdentifierSelectNameSyntax>().identifier;
+            if (tok.valueText() == lp.name && refReduced(n))
+                return true;
+        }
+        for (size_t i = 0; i < n->getChildCount(); i++)
+            if (auto* ch = n->childNode(i))
+                st.push_back(ch);
+    }
+    return false;
+}
+}  // namespace
+const slang::ast::ParameterSymbol*& curMdimParam246v() {
+    static const slang::ast::ParameterSymbol* p = nullptr;
+    return p;
+}
+void noteCallArgCopyTs246(UHDM::ref_typespec* rt, UHDM::typespec* formal,
+                          UHDM::func_call* call, const UHDM::constant* src) {
+    callArgCopies246().push_back({rt, formal, call, src, curMdimParam246v()});
+}
+// Design-final: the source constant's typespec exists by now (its param_assign
+// typespec is patched late), and § nestedParamActualTs6 has stamped every call
+// node it reaches.  A copy whose call was stamped keeps the formal's (the
+// trace tag `_nested`, no byte change); one whose source has no typespec keeps
+// it too (`_nosrc`).
+void drainCallArgCopyTs246(const std::set<UHDM::ref_typespec*>& stamped) {
+    for (auto& e : callArgCopies246()) {
+        if (!e.rt || e.rt->Actual_typespec() != e.formal)
+            continue;
+        if (e.call && e.call->Typespec() && stamped.count(e.call->Typespec())) {
+            tr246("callArgParamCopyOwnTs246_nested");
+            continue;
+        }
+        if (r11v246On("R11V246_PAEVALCTX_OFF") &&
+            (!e.lp || callArgCopyLpReduced246v(*e.lp))) {
+            tr246("callArgCopyEvalCtxAbstain246v",
+                  e.lp ? std::string(e.lp->name) : std::string("?"));
+            continue;
+        }
+        UHDM::typespec* own = nullptr;
+        if (e.src && e.src->Typespec())
+            own = const_cast<UHDM::typespec*>(e.src->Typespec()->Actual_typespec());
+        if (!own) {
+            tr246("callArgParamCopyOwnTs246_nosrc");
+            continue;
+        }
+        if (own == e.formal)
+            continue;
+        e.rt->Actual_typespec(own);
+        tr246("callArgParamCopyOwnTs246", e.call ? std::string(e.call->VpiName()) : "");
+    }
+    callArgCopies246().clear();
+}
+// § macroParamMethNameEnd246 (r11u246, R11U246_MACNAMEEND_OFF) — A METHOD CALL
+// WHOSE NAME IS A MACRO ARGUMENT ENDS AT ITS NAME.  `cb.METHOD;` in
+// uvm_do_obj_callbacks with METHOD = `raised(this,obj,source_obj,
+// description,count)` (uvm_callback_defines.svh 168): golden locates the
+// method_func_call at 168:11-17, the name `raised` laid out at the macro
+// parameter's column with the name's own length (`dropped` 168:11-18).  Our
+// span is the receiver-relative guess `[METHOD, METHOD + len)` in the body
+// buffer, and its end, read past the substituted argument, shifts by the
+// argument's extra length (168:11-56; SimpleUVM #173841 / #173902, Scoreboard
+// #174021).  Applied where the start's text does not spell the name (a
+// parameter token, not the name itself): the end is the start's line and the
+// start column plus the name's length (an argument long enough to carry our
+// end onto the next line, grid MN n02 `a_long_method_name(x + 1)`, included).  Grid
+// tools/probe/r11u246repro/cases/MN.
+static void macroParamMethNameEnd246(const slang::SourceManager* sm,
+                                     UHDM::BaseClass* o, SourceLocation st,
+                                     std::string_view nm) {
+    if (!sm || !o || !st.valid() || nm.empty() || !sm->isMacroLoc(st) ||
+        !r11u246On("R11U246_MACNAMEEND_OFF"))
+        return;
+    auto text = sm->getSourceText(st.buffer());
+    if (st.offset() < text.size() && text.substr(st.offset(), nm.size()) == nm)
+        return;
+    if (o->VpiLineNo() == 0)
+        return;
+    const int want = o->VpiColumnNo() + (int)nm.size();
+    if (o->VpiEndColumnNo() == want && o->VpiEndLineNo() == o->VpiLineNo())
+        return;
+    tr246("macroParamMethNameEnd246", std::string(nm));
+    o->VpiEndLineNo(o->VpiLineNo());
+    o->VpiEndColumnNo(want);
+}
 // § methCallNameSpanAcrossLines244 (r11u244, R11U244_METHNAMELOC_OFF;
 // BuildUVMPkg d/t #139713: `cb.\n pre_read(rw);`, the uvm_do_obj_callbacks
 // macro body `cb.METHOD;` as the preprocessed uvm_pkg.sv writes it, with the
@@ -15237,8 +15616,22 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 if (auto* ix = emitExpr(*sel.sel, bs, idxPfx79b, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
-            else if (inLhs && baseNv->symbol.kind == SymbolKind::Variable &&
-                     !lastMember) {
+            else if (inLhs && !lastMember &&
+                     (baseNv->symbol.kind == SymbolKind::Variable ||
+                      // § contLvMidSelNetBase246 (r11u246,
+                      // R11U246_LVNETMIDSEL_OFF) — the same continuous-
+                      // assignment lvalue select when the path's base is a
+                      // NET (`wire s_t w; assign w.key[1].d = '0;`, a
+                      // packed struct net): golden spans the member through
+                      // its index and freezes the doubled name
+                      // (`work@hmac.w.key[1].d.key` 10:12-18), as for a
+                      // variable; ours fell to the index-only arm below
+                      // (`w.key[1]` 10:16-17), in the definition listing and
+                      // in every elaborated instance (generate scopes too).
+                      // Grid tools/probe/r11u246repro/cases/LN.
+                      (baseNv->symbol.kind == SymbolKind::Net &&
+                       r11u246On("R11U246_LVNETMIDSEL_OFF") &&
+                       (tr246("contLvMidSelNetBase246", dottedAt), true)))) {
                 // A CONT-ASSIGN lvalue select on a struct VARIABLE member
                 // array that is FOLLOWED by a further member
                 // (assign t.my_array[0].a = ...) behaves like the process
@@ -29216,7 +29609,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             tdTgt170 = tdSyn170->as<
                                                syntax::TypedefDeclarationSyntax>()
                                            .type;
-                const bool dpiOwnTdCast170 =
+                const bool dpiOwnTdCast170raw =
                     dpiExportPkgHome170 &&
                     cesyn.left->kind == syntax::SyntaxKind::IdentifierName &&
                     expr.type && expr.type->kind == SymbolKind::TypeAlias &&
@@ -29235,6 +29628,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // without them this law moved 4 cells AWAY from golden on
                     // legal SV that pristine already got right.
                     !dpiHomeStillResolves170(*expr.type);
+                // § dpiTopCastResolvesByModImport246 — the home package's
+                // elaborated copy keeps the resolved target when a module
+                // imports the type (see modImportSeesTd246).
+                bool dpiTopRes246 = false;
+                if (dpiOwnTdCast170raw && curPkgEmitSym && pkgEmitTopView &&
+                    !pkgImportCloneEmit &&
+                    curPkgEmitSym == &dpiExportPkgHome170->asSymbol() &&
+                    r11u246On("R11U246_DPITOPRES_OFF")) {
+                    std::string_view pn246 = dpiExportPkgHome170->asSymbol().name;
+                    if (modImportSeesTd246(comp, sm, pn246, expr.type->name)) {
+                        dpiTopRes246 = true;
+                        tr246("dpiTopCastResolvesByModImport246",
+                              std::string(pn246) + "::" + std::string(expr.type->name));
+                    }
+                }
+                const bool dpiOwnTdCast170 = dpiOwnTdCast170raw && !dpiTopRes246;
                 // § genCaTypeParamCastUnsupported113 (r11u113) — THE
                 // ELABORATED GEN-SCOPE CONT_ASSIGN KEEPS THE DEF VIEW'S
                 // UNRESOLVED CAST TARGET WHEN THAT TARGET IS A TYPE PARAMETER.
@@ -31722,6 +32131,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         else {
                             mfc11->VpiName(sub.name);
                             setLoc(mfc11, mSpan11);
+                            macroParamMethNameEnd246(sm, mfc11, mSpan11.start(), sub.name);
                         }
                         mfc11->VpiParent(parent);
                         mfc11->Prefix(thisConst11());
@@ -32087,6 +32497,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         mfc11->VpiName(sub.name);
                         mfc11->VpiParent(hp11);
                         setLoc(mfc11, mNm11);
+                        macroParamMethNameEnd246(sm, mfc11, mNm11.start(), sub.name);
                         auto* margs11 = s.MakeAnyVec();
                         {
                             // NOTE § classInBodyRecvCallArgNoBind52 — SITE 4,
@@ -32223,6 +32634,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         mfc0->VpiName(sub.name);
                         mfc0->VpiParent(hp0);
                         setLoc(mfc0, mNm0);
+                        macroParamMethNameEnd246(sm, mfc0, mNm0.start(), sub.name);
                         auto* margs0 = s.MakeAnyVec();
                         // NOTE § classInBodyRecvCallArgNoBind52 — SITE 1 of 3,
                         // the one-name-receiver CLASS-METHOD call in
@@ -32302,6 +32714,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto& recv = *call.thisClass();
                     setLoc(mfc, nameSpan(methNameLoc244(sm, recv.sourceRange.end() + 1, sub.name),
                                          sub.name));
+                    macroParamMethNameEnd246(
+                        sm, mfc, methNameLoc244(sm, recv.sourceRange.end() + 1, sub.name),
+                        sub.name);
                     auto* rb = &stripImplicitConv(recv);
                     // A call through an ELEMENT SELECT (`q[i].report();`)
                     // still carries a prefix — Surelog drops the index and
@@ -33988,6 +34403,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // in-tree constant): func_upto's kept F(A_CONST, B_CONST)
                     // carries two UINT constants, not A_CONST/B_CONST refs.
                     bool elabParamArgFold = false;
+                    // § callArgParamCopyOwnTs246 — the source constant the
+                    // copy below was taken from (null off that arm).
+                    UHDM::constant* copySrc246 = nullptr;
                     // § satArrArgFirstElem5 — set when the SATURATED corrupted
                     // array value (and its SHARED width) replaced slang's fold.
                     // The formal-width re-stamp further down must then NOT run:
@@ -34100,6 +34518,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     c9->VpiConstType(sc13->VpiConstType());
                                     c9->VpiDecompile(
                                         std::string(sc13->VpiDecompile()));
+                                    copySrc246 = sc13;
                                     // THE TYPESPEC IS DELIBERATELY LEFT TO THE
                                     // FORMAL-TS LAW BELOW — see the definition
                                     // of paCallArgCopySrc13() for the two
@@ -35152,6 +35571,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     {rt, ((UHDM::func_call*)fc)->Function(),
                                      argIdx});
                             r->Typespec(rt);
+                            // § callArgParamCopyOwnTs246 (R11U246_PACOPYTS_OFF)
+                            // — see noteCallArgCopyTs246.
+                            if (copySrc246 && rt->Actual_typespec() &&
+                                r11u246On("R11U246_PACOPYTS_OFF"))
+                                noteCallArgCopyTs246(rt, rt->Actual_typespec(),
+                                                     (UHDM::func_call*)fc,
+                                                     copySrc246);
                             // A constant arg carrying a formal-ts ref sizes at
                             // the formal's width (loop(2) -> UINT:2 size 4) —
                             // VECTOR formals only (int formals keep 64).
@@ -35621,12 +36047,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     uint32_t rl132 = 0, rc132 = 0;
                     if (recvMisread132)
                         locLineCol(recv->sourceRange.start(), rl132, rc132);
+                    // § colSpanWalkStampsFile246 (r11u246,
+                    // R11U246_COLSPANFILE_OFF) — the column walk locates its
+                    // objects without the file § vpiFileOnEveryLocated117
+                    // stamps through setLoc: golden's `ref_obj abstractions`,
+                    // `method_func_call size` / `push_back` / `pop_front` of
+                    // M_UVM_QUEUE_RESIZE (uvm_object_defines.svh 1566-1567,
+                    // SimpleUVM #194674 and its 23 siblings) carry
+                    // uvm_object_defines.svh, ours none.  The file is the
+                    // receiver start's, as setLoc reads it.  Grid
+                    // tools/probe/r11u246repro/cases/CF.
                     auto setColSpan132 = [&](UHDM::BaseClass* o132,
                                              size_t off132, size_t n132) {
                         o132->VpiLineNo(rl132);
                         o132->VpiColumnNo((uint32_t)(rc132 + off132));
                         o132->VpiEndLineNo(rl132);
                         o132->VpiEndColumnNo((uint32_t)(rc132 + off132 + n132));
+                        if (o132->VpiFile().empty() &&
+                            r11u246On("R11U246_COLSPANFILE_OFF")) {
+                            o132->VpiFile(fullFilePath(recv->sourceRange.start()));
+                            tr246("colSpanWalkStampsFile246");
+                        }
                     };
                     // The receiver text may itself be DOTTED
                     // (`frame.multicast.constraint_mode(0)` -> receiver
@@ -36041,8 +36482,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                  : recvText.size()) + 1,
                                           callNm124.size());
                         else
+                        {
                             setLoc(mfc, SourceRange(mStart,
                                                     mStart + callNm124.size()));
+                            macroParamMethNameEnd246(sm, mfc, mStart, callNm124);
+                        }
                         auto* pr = s.MakeRef_obj();
                         pr->VpiName(recvNm23);
                         pr->VpiFullName(joinRef(prefix, recvNm23));
@@ -45026,8 +45470,43 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // Only the last element of an rvalue path gets a fullname
                 // (§ lvIdxPathIsRead154 / § psBoundPathFirstMember154 /
                 // § hpSelRoute157: selName157 above).
-                if (!selName157 && i + 1 == parts.size())
-                    r->VpiFullName(prefix + "." + pname);
+                if (!selName157 && i + 1 == parts.size()) {
+                    // § hpFnStaticTrailScopeJoin246 (R11U246_HPFNSTATIC_OFF)
+                    // — a hierarchical read of a SUBROUTINE's static local
+                    // (`uvm_dpi_regfree(visit.compiled_regex)`, uvm_traversal
+                    // .svh 284) from a method or function of a package or
+                    // class names its trailing reference in the reader's
+                    // scope with the scope separator: golden
+                    // `uvm_pkg::uvm_component_name_check_visitor::end_v::
+                    // compiled_regex`, ours `...::end_v.compiled_regex`
+                    // (SimpleUVM #144214, Scoreboard #144394).  Surelog
+                    // names the ref through the subroutine scope as every
+                    // other ref there (`p::c::end_v::x` for `l.x` beside it);
+                    // a module's reader keeps the `.` (`work@top.sv` for
+                    // `mf.sv`, golden and ours alike).  Grid
+                    // tools/probe/r11u246repro/cases/HS.
+                    bool scope246 = false;
+                    if (r11u246On("R11U246_HPFNSTATIC_OFF")) {
+                        const size_t c246 = prefix.find("::");
+                        const size_t d246 = prefix.find('.');
+                        const Scope* ts246 =
+                            expr.as<HierarchicalValueExpression>()
+                                .symbol.getParentScope();
+                        while (ts246 && ts246->asSymbol().kind ==
+                                            SymbolKind::StatementBlock)
+                            ts246 = ts246->asSymbol().getParentScope();
+                        if (c246 != std::string::npos &&
+                            (d246 == std::string::npos || c246 < d246) &&
+                            ts246 &&
+                            ts246->asSymbol().kind == SymbolKind::Subroutine) {
+                            scope246 = true;
+                            tr246("hpFnStaticTrailScopeJoin246",
+                                  prefix + "::" + std::string(pname));
+                        }
+                    }
+                    r->VpiFullName(scope246 ? joinRef(prefix, pname)
+                                            : prefix + "." + pname);
+                }
                 r->VpiParent(hp);
                 // A DOTTED hier_path leaf in a gen-scope process stays
                 // UNBOUND — Surelog never attaches the target var to the
@@ -45298,7 +45777,96 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // v93_crash_min 10:15-20 for `{ << real { q }}`); the
                 // operands' own range +-1 is right only for `{q}`.
                 auto br140 = streamOperandBraces140(sm, expr.sourceRange, fr, lr);
-                if (br140)
+                // § streamBraceInMacroBody246 (r11u246,
+                // R11U246_STREAMBRACEMAC_OFF) — the same brace span for a
+                // stream written in a MACRO BODY (uvm_pack_intN /
+                // uvm_unpack_intN `{ << int { __array }}`,
+                // uvm_object_defines.svh 3494: golden 3494:15-26, ours the
+                // operands' range +-1, 16-25; uvm_unpack_enumN `{ << { VAR
+                // }}` 3674 with a macro-argument operand: golden 3674:11-24,
+                // ours from the argument's invocation line; SimpleUVM
+                // #183504, #183890 and siblings, Scoreboard #183684).  The
+                // braces are the syntax's own tokens, laid out by setLoc like
+                // every macro token (the closing brace after an argument
+                // shifted by its substituted length).  A stream outside a
+                // macro keeps § streamOperandBraceSpan140.  Grid
+                // tools/probe/r11u246repro/cases/SB.
+                std::optional<SourceRange> tok246;
+                if (expr.syntax &&
+                    expr.syntax->kind ==
+                        syntax::SyntaxKind::StreamingConcatenationExpression &&
+                    r11u246On("R11U246_STREAMBRACEMAC_OFF")) {
+                    auto& ss246 = expr.syntax->as<
+                        syntax::StreamingConcatenationExpressionSyntax>();
+                    auto ob246 = ss246.innerOpenBrace.location();
+                    auto cb246 = ss246.innerCloseBrace.location();
+                    if (!ss246.innerOpenBrace.isMissing() &&
+                        !ss246.innerCloseBrace.isMissing() &&
+                        ob246 != SourceLocation::NoLocation &&
+                        cb246 != SourceLocation::NoLocation &&
+                        (sm->isMacroLoc(ob246) || sm->isMacroLoc(cb246))) {
+                        tok246 = SourceRange(ob246, cb246 + 1);
+                        tr246("streamBraceInMacroBody246");
+                    }
+                }
+                // ...and with no syntax (an rvalue stream, `__var = { << int
+                // { __array }};`), the braces are read off the definition's
+                // text when every location lies in one body expansion whose
+                // offsets map one to one onto it.
+                if (!tok246 && !br140 && !expr.syntax &&
+                    sm->isMacroLoc(expr.sourceRange.start()) &&
+                    r11u246On("R11U246_STREAMBRACEMAC_OFF")) {
+                    auto b246 = expr.sourceRange.start().buffer();
+                    long d246 = 0;
+                    bool ok246 = true, f246 = true;
+                    SourceLocation o0 =
+                        sm->getFullyOriginalLoc(expr.sourceRange.start());
+                    for (auto l : {expr.sourceRange.start(), expr.sourceRange.end(),
+                                   fr.start(), lr.end()}) {
+                        SourceLocation o = l == SourceLocation::NoLocation
+                                               ? SourceLocation::NoLocation
+                                               : sm->getFullyOriginalLoc(l);
+                        if (l == SourceLocation::NoLocation || !sm->isMacroLoc(l) ||
+                            l.buffer() != b246 || o == SourceLocation::NoLocation ||
+                            sm->isMacroLoc(o) || o.buffer() != o0.buffer()) {
+                            ok246 = false;
+                            break;
+                        }
+                        long d = (long)o.offset() - (long)l.offset();
+                        if (f246)
+                            d246 = d, f246 = false;
+                        else if (d != d246) {
+                            ok246 = false;
+                            break;
+                        }
+                    }
+                    if (ok246) {
+                        auto ot246 = sm->getSourceText(o0.buffer());
+                        size_t ws = (size_t)((long)expr.sourceRange.start().offset() + d246),
+                               we = (size_t)((long)expr.sourceRange.end().offset() + d246),
+                               fs = (size_t)((long)fr.start().offset() + d246),
+                               le = (size_t)((long)lr.end().offset() + d246);
+                        auto isWs246 = [](char c) {
+                            return c == ' ' || c == '\t' || c == '\n' || c == '\r';
+                        };
+                        if (ws < fs && fs <= le && le < we && we <= ot246.size()) {
+                            size_t b = fs, e = le;
+                            while (b > ws && isWs246(ot246[b - 1]))
+                                --b;
+                            while (e < we && isWs246(ot246[e]))
+                                ++e;
+                            if (b > ws && ot246[b - 1] == '{' && e < we &&
+                                ot246[e] == '}') {
+                                tok246 = SourceRange(fr.start() - (fs - (b - 1)),
+                                                     lr.end() + (e + 1 - le));
+                                tr246("streamBraceInMacroBody246", "text");
+                            }
+                        }
+                    }
+                }
+                if (tok246)
+                    setLoc(op, *tok246);
+                else if (br140)
                     setLoc(op, *br140);
                 else
                     setLoc(op, SourceRange(fr.start() - 1, lr.end() + 1));

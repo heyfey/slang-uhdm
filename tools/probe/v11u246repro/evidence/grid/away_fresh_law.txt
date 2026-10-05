@@ -1,0 +1,160 @@
+CF/v01_tworoot away=0 toward=36
+CF/v01_tworoot_el away=0 toward=36
+CF/v02_dotted away=0 toward=10
+CF/v02_dotted_el away=0 toward=10
+DT/v01_hdrimpitem away=0 toward=9
+DT/v01_hdrimpitem_el away=0 toward=9
+DT/v02_childonly away=0 toward=30
+DT/v02_childonly_el away=0 toward=30
+DT/v03_ifconly away=0 toward=0
+DT/v03_ifconly_el away=0 toward=0
+DT/v04_incroot away=0 toward=8
+DT/v04_incroot_el away=0 toward=8
+DT/v05_macroimp away=0 toward=12
+DT/v05_macroimp_el away=0 toward=12
+DT/v06_twofile_after away=0 toward=12
+DT/v06_twofile_after_el away=0 toward=16
+DT/v07_twopkg away=0 toward=6
+DT/v07_twopkg_el away=0 toward=6
+DT/v08_impwrongitem away=0 toward=0
+DT/v08_impwrongitem_el away=0 toward=0
+DT/v09_classmeth away=0 toward=24
+DT/v09_classmeth_el away=0 toward=24
+FE/v01_tdarr away=0 toward=0
+FE/v01_tdarr_el away=0 toward=0
+FE/v02_twodim away=0 toward=2
+FE/v02_twodim_el away=0 toward=2
+FE/v03_paramclass away=0 toward=2
+FE/v03_paramclass_el away=0 toward=2
+FE/v04_static away=0 toward=0
+FE/v04_static_el away=0 toward=0
+FE/v05_sameName away=0 toward=4
+FE/v05_sameName_el away=0 toward=4
+FE/v06_pkgfn_importer away=0 toward=0
+FE/v06_pkgfn_importer_el away=0 toward=0
+FE/v07_enumelem away=0 toward=1
+FE/v07_enumelem_el away=0 toward=1
+HS/v01_pkgfn away=0 toward=4
+HS/v01_pkgfn_el away=0 toward=4
+HS/v02_namedblk away=0 toward=1
+HS/v02_namedblk_el away=0 toward=1
+HS/v03_modfn away=0 toward=0
+HS/v03_modfn_el away=0 toward=0
+HS/v04_lvidx away=0 toward=6
+HS/v04_lvidx_el away=0 toward=6
+HS/v05_clsinmod away=0 toward=1
+HS/v05_clsinmod_el away=0 toward=2
+HS/v06_ifcfn away=0 toward=0
+HS/v06_ifcfn_el away=0 toward=0
+LN/v01_forgen away=0 toward=8
+LN/v01_forgen_el away=0 toward=4
+LN/v02_twolevel away=0 toward=8
+LN/v02_twolevel_el away=0 toward=8
+LN/v03_outport_fnidx away=0 toward=0
+LN/v03_outport_fnidx_el away=0 toward=0
+LN/v04_ifcbody away=0 toward=4
+LN/v04_ifcbody_el away=0 toward=4
+LN/v05_deep away=0 toward=14
+LN/v05_deep_el away=0 toward=14
+MC/v01_sysarg away=0 toward=3
+MC/v01_sysarg_el away=0 toward=3
+MC/v02_this away=0 toward=0
+MC/v02_this_el away=0 toward=0
+MC/v03_modscope away=0 toward=1
+MC/v03_modscope_el away=0 toward=2
+MC/v04_paramcls away=0 toward=2
+MC/v04_paramcls_el away=0 toward=2
+MN/v01_paste away=0 toward=0
+MN/v01_paste_el away=0 toward=0
+MN/v02_nestedarg away=0 toward=2
+MN/v02_nestedarg_el away=0 toward=2
+MN/v03_bodylit away=0 toward=0
+MN/v03_bodylit_el away=0 toward=0
+MN/v04_queuemeth away=0 toward=0
+MN/v04_queuemeth_el away=0 toward=0
+PA/v01_ifgen away=0 toward=0
+PA/v01_ifgen_el away=0 toward=0
+PA/v02_passdown away=0 toward=1
+PA/v02_passdown_el away=0 toward=1
+PA/v03_types away=0 toward=5
+PA/v03_types_el away=0 toward=5
+PA/v04_named away=0 toward=1
+PA/v04_named_el away=0 toward=1
+PA/v05_pkgparam away=0 toward=0
+PA/v05_pkgparam_el away=0 toward=0
+PA/v06_casegen_depth away=0 toward=0
+PA/v06_casegen_depth_el away=0 toward=0
+PE/e01_ca_bitsel away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e01_ca_bitsel_el away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e02_ca_whole away=0 toward=1
+PE/e02_ca_whole_el away=0 toward=1
+PE/e03_ca_whole_port away=0 toward=1
+PE/e03_ca_whole_port_el away=0 toward=1
+PE/e04_ca_repl_implicit away=0 toward=1
+PE/e04_ca_repl_implicit_el away=0 toward=1
+PE/e05_lp_bitsel away=0 toward=1
+PE/e05_lp_bitsel_el away=0 toward=1
+PE/e06_genif_cond away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e06_genif_cond_el away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e07_lp_bits away=0 toward=1
+PE/e07_lp_bits_el away=0 toward=1
+PE/e08_ca_partsel away=0 toward=1
+PE/e08_ca_partsel_el away=0 toward=1
+PE/e09_alwayscomb away=0 toward=1
+PE/e09_alwayscomb_el away=0 toward=1
+PE/e10_genfor_bound away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e10_genfor_bound_el away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e11_casegen away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e11_casegen_el away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e12_inst_param away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e12_inst_param_el away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e13_dim_bound away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e13_dim_bound_el away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e14_repl_count away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e14_repl_count_el away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e15_ips_width away=0 toward=1
+PE/e15_ips_width_el away=0 toward=1
+PE/e16_ps_bound away=0 toward=1
+PE/e16_ps_bound_el away=0 toward=1
+PE/e17_genif_nested away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e17_genif_nested_el away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e18_port_conn away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e18_port_conn_el away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e19_ca_bitsel_op away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e19_ca_bitsel_op_el away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e20_ca_xor away=0 toward=1
+PE/e20_ca_xor_el away=0 toward=1
+PE/e21_ca_cast away=0 toward=1
+PE/e21_ca_cast_el away=0 toward=1
+PE/e22_netdecl away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e22_netdecl_el away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e23_lp_chain_dim away=0 toward=1
+PE/e23_lp_chain_dim_el away=0 toward=1
+PE/e24_lp_then_genif away=0 toward=1
+PE/e24_lp_then_genif_el away=0 toward=1
+PE/e25_fn_in_genif away=1 toward=0 | int_typespec||||dut.sv|3|41|3|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+PE/e25_fn_in_genif_el away=0 toward=0
+PE/e26_fn_in_lp away=0 toward=1
+PE/e26_fn_in_lp_el away=0 toward=0
+SB/v01_asarg away=0 toward=0
+SB/v01_asarg_el away=0 toward=0
+SB/v02_inclother away=0 toward=2
+SB/v02_inclother_el away=0 toward=2
+SB/v03_withslice away=0 toward=2
+SB/v03_withslice_el away=0 toward=2
+SB/v04_nested_modca away=0 toward=2
+SB/v04_nested_modca_el away=0 toward=2
+SB/v05_oneline_lv away=0 toward=2
+SB/v05_oneline_lv_el away=0 toward=2
+X/v01_ctx_pkg away=0 toward=37
+X/v01_ctx_pkg_el away=0 toward=37
+X/v02_ctx_mod away=1 toward=8 | int_typespec||||dut.sv|16|41|16|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+X/v02_ctx_mod_el away=1 toward=7 | int_typespec||||dut.sv|16|41|16|44|||| @ ref_typespec: < constant: < func_call:f < param_assign: < module_inst:u < module_inst:work@top < design:work@top
+X/v03_dt_implicit_ifc away=0 toward=27
+X/v03_dt_implicit_ifc_el away=0 toward=27
+X/v04_hs_this_named away=0 toward=6
+X/v04_hs_this_named_el away=0 toward=6
+X/v05_mc_spec_bound away=0 toward=2
+X/v05_mc_spec_bound_el away=0 toward=2
+X/v06_fe_slots away=0 toward=2
+X/v06_fe_slots_el away=0 toward=2

@@ -19,6 +19,7 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/clone_tree.h>
 #include "R244.h"
+#include "R246.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -4377,12 +4378,47 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 tr238("foreachFlatLocalRefTs238",
                                       std::string(arrSym->name));
                             }
+                    // § foreachLocalArrTsOwnListing246 (R11U246_FEOWNTS_OFF)
+                    // — in a package's ELABORATED listing (TopPackages, the
+                    // home package's own subroutine, never an importer
+                    // clone) the iterated reference of a foreach over a
+                    // subroutine-LOCAL array binds the array_typespec of the
+                    // local declared in THIS listing: Surelog compiles the
+                    // elaborated package's bodies in elaboration mode
+                    // (Reduce::Yes), the local's declaration folds its
+                    // element alias's range there, and paFOREACH reads the
+                    // declaration it just compiled.  The deferred drain
+                    // below (pendingForeachArrayTs, UhdmExporter) binds the
+                    // LAST emission of the symbol, a later unreduced copy:
+                    // uvm_reg_map::m_set_reg_offset's `foreach (addrs[i])`
+                    // over `uvm_reg_addr_t addrs[]` read golden INT:63 at
+                    // uvm_reg_model.svh 73:24-26 and ours the operation
+                    // `64-1` (SimpleUVM, Scoreboard d #130737, BuildUVMPkg
+                    // #153018).  Grid tools/probe/r11u246repro/cases/FE.
+                    UHDM::typespec* own246 = nullptr;
+                    if (!flat238 && !ioRt9 && tfLocalArr20 && arrSym &&
+                        curPkgEmitSym && pkgEmitTopView && !pkgImportCloneEmit &&
+                        !importCloneEmit && r11u246On("R11U246_FEOWNTS_OFF"))
+                        if (auto nm246 = netMap.find(arrSym);
+                            nm246 != netMap.end() && nm246->second &&
+                            nm246->second->UhdmType() == UHDM::uhdmarray_var)
+                            if (auto* rt246 =
+                                    ((UHDM::array_var*)nm246->second)->Typespec();
+                                rt246 && rt246->Actual_typespec() &&
+                                rt246->Actual_typespec()->UhdmType() ==
+                                    UHDM::uhdmarray_typespec) {
+                                own246 = rt246->Actual_typespec();
+                                tr246("foreachLocalArrTsOwnListing246",
+                                      std::string(arrSym->name));
+                            }
                     if (flat238)
                         art->Actual_typespec(flat238);
                     else if (ioRt9 && ioRt9->Actual_typespec())
                         art->Actual_typespec(ioRt9->Actual_typespec());
                     else if (ioRt9)
                         pendingLoopVarTs9.push_back({art, ioRt9});
+                    else if (own246)
+                        art->Actual_typespec(own246);
                     else
                         pendingForeachArrayTs.push_back(
                             {art, arrSym, implicitNetModule});
