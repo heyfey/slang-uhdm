@@ -1,0 +1,5 @@
+A/a15_childimport_x away=0 toward=2 flat_away=0 flat_toward=3
+A/a15_childimport_x_el away=0 toward=2 flat_away=0 flat_toward=3
+B/b03_typed away=0 toward=4 flat_away=0 flat_toward=7
+B/b03_typed_el away=0 toward=4 flat_away=0 flat_toward=7
+TOTAL {'n': 4, 'away': 0, 'toward': 12, 'flat_away': 0, 'flat_toward': 20}

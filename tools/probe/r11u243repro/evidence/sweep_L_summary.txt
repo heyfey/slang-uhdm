@@ -1,0 +1,81 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u243_wL/probe.csv
+probe cases: EQUAL=3498 STRICT_NOTEQUAL=589 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3498 differ:fullname=185 differ:line=93 differ:endcol=74 differ:type=71 differ:name=57 differ:depth=43 differ:file=31 differ:col=15 differ:endline=10 differ:value=9 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3498 STRICT_NOTEQUAL=589
+CONVERSION r10uvm201repro/g201_f_kinds STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10uvm207repro/g207_g_class STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r10uvm219repro/g219_a_order STRICT_NOTEQUAL differ:file(3) -> EQUAL
+CONVERSION r10uvm219repro/g219_b_interleave STRICT_NOTEQUAL differ:file(3) -> EQUAL
+CONVERSION r10uvm219repro/g219_c_thisfirst STRICT_NOTEQUAL differ:file(3) -> EQUAL
+CONVERSION r10uvm219repro/g219_d_ownmulti STRICT_NOTEQUAL differ:file(3) -> EQUAL
+CONVERSION r10uvm23repro/t34g_t STRICT_NOTEQUAL differ:file(1) -> EQUAL
+CONVERSION r10uvm61repro/v1_pkgparam STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10v146repro/v05_second_pkg STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r10v146repro/v11_unref STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10v146repro/v15_twofile_a STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10v199repro/v199_d_ifprog STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r10v199repro/v199_f_multi STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r10v199repro/v199_g_uvmshape STRICT_NOTEQUAL differ:fullname(8) -> EQUAL
+CONVERSION r10v201repro/v201_c_localparam STRICT_NOTEQUAL differ:fullname(5) -> EQUAL
+CONVERSION r10v201repro/v201_h_ifprog STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10v201repro/v201_j_nested STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CHANGE r10uvm201repro/g201_a_forms STRICT_NOTEQUAL differ:value(7) -> differ:value(2) [value -5]
+CHANGE r10uvm201repro/g201_c_uvmshape STRICT_NOTEQUAL differ:value(20) -> differ:value(10) [value -10]
+CHANGE r10uvm201repro/g201_e_explicit STRICT_NOTEQUAL differ:value(4) -> differ:value(2) [value -2]
+CHANGE r10uvm210repro/g210_e_unitimp STRICT_NOTEQUAL differ:value(6) -> differ:value(2) [value -4]
+CHANGE r10uvm67repro/c5_clone STRICT_NOTEQUAL differ:value(3) -> differ:value(2) [value -1]
+regressions=0 conversions=17 changes=5 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u243_wL/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u243_bin/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 469
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  STRICT_NOTEQUAL: 11
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 465
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  STRICT_NOTEQUAL: 9
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=469 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=11 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=465 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=9 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:file(8) -> differ:file(7) [file -1]
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:file(8) -> differ:file(7) [file -1]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(2) [fullname -1]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:file(2) -> differ:type(1)
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:file(2) -> differ:type(1)
+regressions=0 conversions=0 changes=5 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u243_wL/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u243_bin/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+SWEEP_DONE rc=1

@@ -1,0 +1,12 @@
+A/a15_childimport_x pristine cmp=255 cmplines=222 strict=NOT_EQUAL_stage1 rc=0 md5=846ab59c
+A/a15_childimport_x law cmp=255 cmplines=222 strict=NOT_EQUAL_stage1 rc=0 md5=728fa781
+A/a15_childimport_x fix cmp=255 cmplines=222 strict=NOT_EQUAL_stage1 rc=0 md5=e2e3a867
+A/a15_childimport_x_el pristine cmp=255 cmplines=222 strict=NOT_EQUAL_stage1 rc=0 md5=08d2d788
+A/a15_childimport_x_el law cmp=255 cmplines=222 strict=NOT_EQUAL_stage1 rc=0 md5=cf6e7a09
+A/a15_childimport_x_el fix cmp=255 cmplines=222 strict=NOT_EQUAL_stage1 rc=0 md5=aaffd5c1
+B/b03_typed pristine cmp=255 cmplines=491 strict=NOT_EQUAL_stage1 rc=0 md5=002adb6d
+B/b03_typed law cmp=255 cmplines=491 strict=NOT_EQUAL_stage1 rc=0 md5=ef31d1c0
+B/b03_typed fix cmp=255 cmplines=491 strict=NOT_EQUAL_stage1 rc=0 md5=bb9b0f79
+B/b03_typed_el pristine cmp=255 cmplines=491 strict=NOT_EQUAL_stage1 rc=0 md5=f116a7f8
+B/b03_typed_el law cmp=255 cmplines=491 strict=NOT_EQUAL_stage1 rc=0 md5=d2d57c67
+B/b03_typed_el fix cmp=255 cmplines=491 strict=NOT_EQUAL_stage1 rc=0 md5=e87a7885

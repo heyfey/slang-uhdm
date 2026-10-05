@@ -1,0 +1,7 @@
+# v11u243 mover prediction for § unitImpPaRhsActualFinal243v (fix vs fix1), frozen before the fix sweep.
+# Trigger: it can move a database only where § unitImpPaRhsOwnCopy243 fires (the law census,
+# r11u243repro/evidence/predict.txt: 15 probe cases, SimpleUVM d/t, Scoreboard d) and the copy's reference
+# actual differs from the source reference's final actual.  The fix binary run on exactly that set with
+# R11U243_TRACE (/tmp/v11u243_pred2.sh) logged 0 unitImpPaRhsActualFinal243v lines; its databases are
+# byte-identical to the law sweep's.
+PREDICTED_MOVERS fix vs law: 0 (probe 0, surelog 0, uhdm2rtlil 0, downstream 0)

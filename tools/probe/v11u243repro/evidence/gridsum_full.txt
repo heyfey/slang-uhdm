@@ -1,0 +1,15 @@
+case-views 142 lines 1988
+rc!=0: ['C/c04_alias fix rc=4', 'C/c04_alias fix-R11V243_THISHOME_OFF rc=4', 'C/c04_alias fix-R11V243_UNITRHSACT_OFF rc=4', 'C/c04_alias fixOFF rc=4', 'C/c04_alias law rc=4', 'C/c04_alias law-R11U243_CLSIMPUNSIZED_OFF rc=4', 'C/c04_alias law-R11U243_CLSPROPALIAS_OFF rc=4', 'C/c04_alias law-R11U243_LAWSSTRING_OFF rc=4', 'C/c04_alias law-R11U243_PROPSPECPANOFILE_OFF rc=4', 'C/c04_alias law-R11U243_THISANCHOR_OFF rc=4', 'C/c04_alias law-R11U243_THISNOFILE_OFF rc=4', 'C/c04_alias law-R11U243_UNITIMPRHS_OFF rc=4', 'C/c04_alias lawOFF rc=4', 'C/c04_alias pristine rc=4', 'C/c04_alias_el fix rc=4', 'C/c04_alias_el fix-R11V243_THISHOME_OFF rc=4', 'C/c04_alias_el fix-R11V243_UNITRHSACT_OFF rc=4', 'C/c04_alias_el fixOFF rc=4', 'C/c04_alias_el law rc=4', 'C/c04_alias_el law-R11U243_CLSIMPUNSIZED_OFF rc=4', 'C/c04_alias_el law-R11U243_CLSPROPALIAS_OFF rc=4', 'C/c04_alias_el law-R11U243_LAWSSTRING_OFF rc=4', 'C/c04_alias_el law-R11U243_PROPSPECPANOFILE_OFF rc=4', 'C/c04_alias_el law-R11U243_THISANCHOR_OFF rc=4', 'C/c04_alias_el law-R11U243_THISNOFILE_OFF rc=4', 'C/c04_alias_el law-R11U243_UNITIMPRHS_OFF rc=4', 'C/c04_alias_el lawOFF rc=4', 'C/c04_alias_el pristine rc=4']
+lawOFF==pristine 142
+fixOFF==law 142
+law-R11U243_CLSIMPUNSIZED_OFF reverts 30 of which ==pristine 2
+law-R11U243_CLSPROPALIAS_OFF reverts 22 of which ==pristine 16
+law-R11U243_LAWSSTRING_OFF reverts 12 of which ==pristine 12
+law-R11U243_PROPSPECPANOFILE_OFF reverts 4 of which ==pristine 4
+law-R11U243_THISANCHOR_OFF reverts 8 of which ==pristine 0
+law-R11U243_THISNOFILE_OFF reverts 26 of which ==pristine 18
+law-R11U243_UNITIMPRHS_OFF reverts 50 of which ==pristine 22
+fix-R11V243_THISHOME_OFF differs from fix on ['A/a15_childimport_x', 'A/a15_childimport_x_el'] ; ==law there True
+fix-R11V243_UNITRHSACT_OFF differs from fix on ['B/b03_typed', 'B/b03_typed_el'] ; ==law there True
+law entering STRICT_EQUAL 43 leaving [] leaving judge-equal []
+fix entering STRICT_EQUAL 43 leaving [] leaving judge-equal []

@@ -22,6 +22,7 @@
 #include "R234.h"
 #include "R235.h"
 #include "R237.h"
+#include "R243.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -12971,6 +12972,12 @@ UHDM::typespec* UhdmExporter::bareScalarTdCopyOfFresh16(
             cp = cl;
             break;
         }
+        // § lawSStringTd243 — only reached when the switch let a string
+        // listing object into LAW S's set.
+        case UHDM::uhdmstring_typespec:
+            cp = s.MakeString_typespec();
+            tr243("lawSStringTd243", std::string(src->VpiName()));
+            break;
         default:
             break;
     }
@@ -14753,16 +14760,164 @@ void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
         if (key(r) < key(anchor38))
             anchor38 = r;
     }
+    // § thisNetSurelogAnchor243 (r11u243; SimpleUVM d/t #75684) — WHICH
+    // `this` the wire is located at.  The (file NAME, line, column) minimum
+    // above is a total order, but not Surelog's: Surelog mints the wire at
+    // the FIRST unresolved `this` of the module's late-binding list
+    // (`UhdmWriter::lateBinding`), and that list is the imported packages'
+    // lists spliced in IMPORT order (`CompileHelper::importPackage`), each
+    // package's own list filled by `CompilePackage`'s collect passes:
+    // functions and tasks in the flattened text's order, CONSTRUCTORS
+    // (`compileClassConstructorDeclaration`, the OTHER pass) after all of
+    // them — the rule § hoistPoolSourceOrder240 reads for the property pool.
+    // Measured (tools/probe/r11u243repro cases TH): t01 a constructor written
+    // first loses to the first function, t02 constructors alone keep the
+    // first constructor, t03 two headers included against their names' order
+    // follow the include order, t07 / t10 the first IMPORTED package wins
+    // even when its only `this` sits in a constructor and another package's
+    // function is written earlier, t09 CRLF.  LAW: the anchor is the hit
+    // with the least (import rank of its home package in the module's
+    // listing, constructor body, include-expanded position of the body's
+    // declaration, line, column); a hit whose routine has no symbol or whose
+    // package is not in the listing abstains for the whole wire (the old
+    // anchor stays).  The wire's PLACE in the listing keeps the old anchor's
+    // key (§ hoistedThisRidesTheForwardedBlock219 is not re-derived here).
+    // Switch R11U243_THISANCHOR_OFF.
+    UHDM::ref_obj* loc38 = anchor38;
+    if (r11u243On("R11U243_THISANCHOR_OFF")) {
+        std::map<std::string, size_t> rank243;
+        if (auto* tds = home38->Typespecs())
+            for (auto* t : *tds)
+                if (t && t->UhdmType() == UHDM::uhdmimport_typespec) {
+                    std::string pn(t->VpiName());
+                    if (!rank243.count(pn))
+                        rank243.emplace(pn, rank243.size() + 1);
+                }
+        auto& sm243 = *comp.getSourceManager();
+        using K243 = std::tuple<size_t, int, std::vector<std::pair<uint32_t, uint64_t>>,
+                                uint32_t, uint32_t>;
+        bool ok243 = true;
+        std::optional<K243> best243;
+        UHDM::ref_obj* pick243 = nullptr;
+        // § thisNetHomeListedOnly243v (v11u243, R11V243_THISHOME_OFF; case
+        // tools/probe/v11u243repro A/a15_childimport_x) — the wire is the
+        // HOME module's late-binding mint, and a module's late-binding list
+        // holds only what that module itself imports (`importPackage` splices
+        // the imported package's list into the importing scope).  A `this`
+        // whose routine only ANOTHER module lists (a child importing a package
+        // the top does not) is not in the top's list: golden writes
+        // work@top.this at the top's own package and a separate
+        // work@child.this; ranking the child's package 0 as a file-scope
+        // import moved the top's wire onto the child's `this` (pristine was
+        // right).  Such hits are not candidates; with none left the law
+        // abstains.
+        std::set<const UHDM::task_func*> homeTfs243v;
+        const bool homeOnly243v = getenv("R11V243_OFF") == nullptr &&
+                                  getenv("R11V243_THISHOME_OFF") == nullptr;
+        if (homeOnly243v) {
+            auto addTfs = [&](const UHDM::module_inst* m) {
+                if (!m)
+                    return;
+                if (m->Task_funcs())
+                    for (auto* f : *m->Task_funcs())
+                        if (f)
+                            homeTfs243v.insert(f);
+                if (m->Class_defns())
+                    for (auto* c : *m->Class_defns())
+                        if (c && c->Task_funcs())
+                            for (auto* f : *c->Task_funcs())
+                                if (f)
+                                    homeTfs243v.insert(f);
+            };
+            addTfs(home38);
+            if (d->TopModules())
+                for (auto* t : *d->TopModules())
+                    if (t && t->VpiDefName() == home38->VpiDefName())
+                        addTfs(t);
+        }
+        for (auto* r : hits38) {
+            const UHDM::task_func* tf = nullptr;
+            for (const UHDM::BaseClass* q = r->VpiParent(); q && !tf; q = q->VpiParent())
+                if (q->UhdmType() == UHDM::uhdmfunction || q->UhdmType() == UHDM::uhdmtask)
+                    tf = (const UHDM::task_func*)q;
+            if (homeOnly243v && tf && !homeTfs243v.count(tf)) {
+                tr243("thisNetHomeListedOnly243v",
+                      std::string(tf->VpiFullName()) + " " + std::to_string(r->VpiLineNo()));
+                continue;
+            }
+            const UHDM::BaseClass* pk = tf;
+            while (pk && pk->UhdmType() != UHDM::uhdmpackage)
+                pk = pk->VpiParent();
+            auto sit = tf ? tfHomeSub9.find(tf) : tfHomeSub9.end();
+            const slang::syntax::SyntaxNode* syn =
+                sit != tfHomeSub9.end() && sit->second ? sit->second->getSyntax() : nullptr;
+            // A package the module's listing does not import is a FILE-SCOPE
+            // import (`import uvm_pkg::*;` ahead of `module top`, SimpleUVM):
+            // golden puts its list first (decode th_unitimp: the file-scope
+            // package's function holds the wire over the module import's),
+            // rank 0; several such packages tie and fall to the next keys.
+            size_t rk243 = 0;
+            if (pk)
+                if (auto rit = rank243.find(std::string(pk->VpiName())); rit != rank243.end())
+                    rk243 = rit->second;
+            if (!syn || !pk) {
+                tr243("thisNetSurelogAnchor243_why",
+                      std::string(!tf ? "notf" : !pk ? "nopkg" : "nosym") + " " +
+                          (tf ? std::string(tf->VpiFullName()) : std::string()) + " " +
+                          (pk ? std::string(pk->VpiName()) : std::string()));
+                ok243 = false;
+                break;
+            }
+            bool ctor = tf->UhdmType() == UHDM::uhdmfunction && tf->VpiName() == "new";
+            K243 k{rk243, ctor ? 1 : 0,
+                   includeExpandedKey(sm243, sm243.getFullyExpandedLoc(syn->sourceRange().start())),
+                   (uint32_t)r->VpiLineNo(), (uint32_t)r->VpiColumnNo()};
+            auto lessK = [](const K243& a, const K243& b) {
+                if (std::get<0>(a) != std::get<0>(b))
+                    return std::get<0>(a) < std::get<0>(b);
+                if (std::get<1>(a) != std::get<1>(b))
+                    return std::get<1>(a) < std::get<1>(b);
+                if (std::get<2>(a) != std::get<2>(b))
+                    return includeExpandedLess(std::get<2>(a), std::get<2>(b));
+                return std::make_pair(std::get<3>(a), std::get<4>(a)) <
+                       std::make_pair(std::get<3>(b), std::get<4>(b));
+            };
+            if (!best243 || lessK(k, *best243)) {
+                best243 = k;
+                pick243 = r;
+            }
+        }
+        if (!ok243 || !pick243)
+            tr243("thisNetSurelogAnchor243_abstain");
+        else {
+            if (pick243 != anchor38)
+                tr243("thisNetSurelogAnchor243",
+                      std::string(anchor38->VpiFile()) + ":" +
+                          std::to_string(anchor38->VpiLineNo()) + " -> " +
+                          std::string(pick243->VpiFile()) + ":" +
+                          std::to_string(pick243->VpiLineNo()));
+            loc38 = pick243;
+        }
+    }
     auto* inet38 = s.MakeLogic_net();
     inet38->VpiName("this");
     inet38->VpiFullName(std::string(home38->VpiDefName()) + ".this");
     inet38->VpiParent(home38);
     inet38->VpiNetType(1);
-    inet38->VpiFile(anchor38->VpiFile());
-    inet38->VpiLineNo(anchor38->VpiLineNo());
-    inet38->VpiColumnNo(anchor38->VpiColumnNo());
-    inet38->VpiEndLineNo(anchor38->VpiEndLineNo());
-    inet38->VpiEndColumnNo(anchor38->VpiEndColumnNo());
+    // § thisNetNoFile243 (r11u243; probe r10uvm219repro g219_a..d, SimpleUVM
+    // d/t #75684) — the wire is a late-binding mint like every other
+    // (`UhdmWriter::lateBinding` copies the four span fields of the
+    // unresolved reference and never sets vpiFile: § implicitNetMintNoFile131's
+    // rule); golden writes no file on it in every case of the grid.
+    // Switch R11U243_THISNOFILE_OFF.
+    if (r11u243On("R11U243_THISNOFILE_OFF"))
+        tr243("thisNetNoFile243", std::string(loc38->VpiFile()));
+    else
+        inet38->VpiFile(loc38->VpiFile());
+    inet38->VpiLineNo(loc38->VpiLineNo());
+    inet38->VpiColumnNo(loc38->VpiColumnNo());
+    inet38->VpiEndLineNo(loc38->VpiEndLineNo());
+    inet38->VpiEndColumnNo(loc38->VpiEndColumnNo());
     auto* nets38 = home38->Nets();
     if (!nets38) {
         nets38 = s.MakeNetVec();
@@ -15953,6 +16108,16 @@ void UhdmExporter::bareScalarTypedefVarTs() {
     // class-nested typedef also prints a `C::t` name, and no golden says it
     // takes this form.
     std::set<const UHDM::typespec*> pkgScalarTd;
+    // § lawSStringTd243 (r11u243, R11U243_LAWSSTRING_OFF; cases TS) — a
+    // package typedef of `string` is a LAW-S kind too: golden writes a bare
+    // `string_typespec (str_t)` with a Typedef_alias back at the listing
+    // object for a class property (s01, s05: static, protected, local), a
+    // function formal, local and return in the home package (s02), a module
+    // variable and a module-function local (s03) and an importing package's
+    // property and function (s04), exactly the positions LAW S measured for
+    // the integral kinds; ours bound the qualified listing object `p::str_t`
+    // (pass 240's sister face 4, pass 238's residue (3)(b)).
+    const bool lawSStr243 = r11u243On("R11U243_LAWSSTRING_OFF");
     // An ALIAS OF AN ALIAS (`typedef bit [7:0] bt; typedef bt at;`) is the
     // exception to LAW S and takes NO copy of any kind: golden binds ONE
     // shared `p::at` object at every position — io_decl, function local,
@@ -15991,6 +16156,10 @@ void UhdmExporter::bareScalarTypedefVarTs() {
             case UHDM::uhdminteger_typespec:
             case UHDM::uhdmbyte_typespec:
             case UHDM::uhdmshort_int_typespec:
+            case UHDM::uhdmstring_typespec:
+                if (ts->UhdmType() == UHDM::uhdmstring_typespec && !lawSStr243)
+                    break;
+                [[fallthrough]];
             case UHDM::uhdmlong_int_typespec:
                 pkgScalarTd.insert(ts);
                 // § lawSCopyHomeInstance36 — record the HOME package beside
@@ -16028,6 +16197,10 @@ void UhdmExporter::bareScalarTypedefVarTs() {
             case UHDM::uhdminteger_typespec:
             case UHDM::uhdmbyte_typespec:
             case UHDM::uhdmshort_int_typespec:
+            case UHDM::uhdmstring_typespec:
+                if (cl36->UhdmType() == UHDM::uhdmstring_typespec && !lawSStr243)
+                    break;
+                [[fallthrough]];
             case UHDM::uhdmlong_int_typespec:
                 pkgScalarTdHome36[cl36] = (const void*)&sc36->asSymbol();
                 break;

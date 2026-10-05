@@ -1,0 +1,13 @@
+// § unitImpPaRhsOwnCopy243
+// a $unit import of a package parameter (parameter string R = "ab") inherited by a $unit class (the u01 shape)
+package p;
+  parameter SB = 4096;
+  parameter string R = "ab";
+endpackage
+import p::*;
+class env;
+  int v;
+endclass
+module top;
+  env e;
+endmodule

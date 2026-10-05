@@ -1,0 +1,7 @@
+# v11u243 mover prediction for § thisNetHomeListedOnly243v (fix vs law), frozen before the fix sweep.
+# Trigger: the refinement can move a database only where the module `this` wire exists (thisNetNoFile243 fires) and
+# a hit whose routine only a non-home module lists is excluded.  The wire-bearing set per the law census
+# (r11u243repro/evidence/predict.txt, thisNetNoFile243 lines): probe r10uvm219repro g219_a..d, SimpleUVM d/t,
+# SeqDriver d/t.  The fix binary run on exactly that set with R11U243_TRACE (/tmp/v11u243_pred.sh) logged 0
+# thisNetHomeListedOnly243v exclusions, and its 10 databases are byte-identical to the law sweep's.
+PREDICTED_MOVERS law->fix: 0 (probe 0, surelog 0, uhdm2rtlil 0, downstream 0)

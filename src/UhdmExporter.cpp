@@ -18,6 +18,7 @@
 #include "R237.h"
 #include "R239.h"
 #include "R241.h"
+#include "R243.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -10145,8 +10146,20 @@ void UhdmExporter::emitClassPropSpecParams163(
         auto* pa163 = s.MakeParam_assign();
         pa163->VpiParent(cts);
         pa163->Rhs(tp163);
-        if (!exprArm163)
+        if (!exprArm163) {
             setLoc(pa163, nameSpan(tps163.location, tps163.name));
+            // § clsPropSpecPaNoFile243 (r11u243, R11U243_PROPSPECPANOFILE_OFF;
+            // Scoreboard d #84633, cases CP) — the same `pass->VpiLineNo(
+            // fparam->VpiLineNo())` copy § classSpecPaNoFile152 transcribes
+            // for the typedef'd specialization: line and columns of the
+            // formal, NO file (golden `110:31-110:32` with an empty vpiFile
+            // on `uvm_analysis_imp#(int, my_scoreboard)`'s T; c01-c03,
+            // a header-declared generic included).
+            if (r11u243On("R11U243_PROPSPECPANOFILE_OFF")) {
+                pa163->VpiFile("");
+                tr243("clsPropSpecPaNoFile243", std::string(tps163.name));
+            }
+        }
         bool bound163 = false;
         if (auto* bcd163 = classDefnFor(target); bcd163 && bcd163->Parameters())
             for (auto* p163 : *bcd163->Parameters())
@@ -11477,6 +11490,10 @@ static UHDM::type_parameter* designImportTypeParamCopy146(
     return cp;
 }
 
+// § unitImpPaRhsActualFinal243v (v11u243, R11V243_UNITRHSACT_OFF): the design
+// copies § unitImpPaRhsOwnCopy243 makes, with the source constant they copy;
+// their typespec reference is re-read from the source at the end of export.
+static std::vector<std::pair<UHDM::ref_typespec*, const UHDM::constant*>> g_unitRhsAct243v;
 static UHDM::param_assign* designImportPaCopy146(UHDM::Serializer& s,
                                                  UHDM::param_assign* src,
                                                  UHDM::design* dsn,
@@ -11499,6 +11516,46 @@ static UHDM::param_assign* designImportPaCopy146(UHDM::Serializer& s,
     cp->VpiEndColumnNo(src->VpiEndColumnNo());
     cp->VpiParent(dsn);
     cp->Lhs(designImportParamCopy146(s, (UHDM::any*)src->Lhs(), cp, pkgName));
+    // § unitImpPaRhsOwnCopy243 (r11u243, R11U243_UNITIMPRHS_OFF; case UR
+    // u01) — Surelog's `clone_tree` gives the design's copy its OWN right-hand
+    // constant, whose typespec reference has an EMPTY full name (the design
+    // has no scope name; golden u01 `ref_typespec` "" under both design
+    // param_assigns, the package's own reading `p`).  Sharing the package's
+    // constant listed it once, under the package, so the design's
+    // param_assign listed no constant at all once the class copies stopped
+    // sharing it (§ clsImpUnsizedBasedRhsCopy243).  An unsized based
+    // literal keeps golden's un-adjusted -1 and no actual, as the class arm.
+    if (auto* rc = src->Rhs(); rc && rc->UhdmType() == UHDM::uhdmconstant &&
+                               r11u243On("R11U243_UNITIMPRHS_OFF")) {
+        auto* sc = (UHDM::constant*)rc;
+        auto* c = s.MakeConstant();
+        c->VpiValue(std::string(sc->VpiValue()));
+        c->VpiDecompile(std::string(sc->VpiDecompile()));
+        c->VpiSize(sc->VpiSize());
+        c->VpiConstType(sc->VpiConstType());
+        c->VpiFile(std::string(sc->VpiFile()));
+        c->VpiLineNo(sc->VpiLineNo());
+        c->VpiColumnNo(sc->VpiColumnNo());
+        c->VpiEndLineNo(sc->VpiEndLineNo());
+        c->VpiEndColumnNo(sc->VpiEndColumnNo());
+        c->VpiParent(cp);
+        // The class arm's rule for an unsized based literal on an UNTYPED
+        // parameter: vpiSize -1 and a reference with no actual.
+        const bool unsz = sc->VpiDecompile().rfind("'", 0) == 0 && src->Lhs() &&
+                          !((UHDM::parameter*)src->Lhs())->Typespec();
+        if (unsz)
+            c->VpiSize(-1);
+        if (auto* srt = sc->Typespec(); srt || unsz) {
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiParent(c);
+            rt->Actual_typespec(unsz || !srt ? nullptr : srt->Actual_typespec());
+            c->Typespec(rt);
+            if (!unsz && srt)
+                g_unitRhsAct243v.emplace_back(rt, sc);
+        }
+        cp->Rhs(c);
+        tr243("unitImpPaRhsOwnCopy243", std::string(src->Lhs()->VpiName()));
+    }
     return cp;
 }
 
@@ -15429,6 +15486,72 @@ UHDM::design* UhdmExporter::exportDesign() {
     // def->top stamps above: it is the last writer of a COPY's vpiInstance,
     // and it never touches a listing object (pass 32's own objects included).
     lawSCopyHomeInstance36(d);
+    // § clsPropLawSAliasName243 (r11u243, R11U243_CLSPROPALIAS_OFF; cases
+    // TS s01 and LS) — a CLASS PROPERTY's LAW-S copy is its own object, and
+    // its Typedef_alias reference is named by the property: golden
+    // `p::b::m_al::str_t` / `p::b::m_i::i_t` (the property's full name, then
+    // the bare typedef name), where the memoized copy LAW S shares with every
+    // other binder names it `str_t`.  The strict comparator reads that as a
+    // content difference whenever the property is the only binder golden
+    // names this way.  Design-final, after the last writer of a copy's
+    // vpiInstance (§ lawSCopyHomeInstance36), walking the classes in listing
+    // order so the minted objects are deterministic.
+    if (r11u243On("R11U243_CLSPROPALIAS_OFF") && !bareScalarTdCopy.empty()) {
+        std::set<const UHDM::typespec*> memo243;
+        for (auto& kv : bareScalarTdCopy)
+            if (kv.second)
+                memo243.insert(kv.second);
+        std::vector<UHDM::class_defn*> cls243;
+        std::set<UHDM::class_defn*> seen243;
+        auto addCls = [&](UHDM::VectorOfclass_defn* v) {
+            if (v)
+                for (auto* c : *v)
+                    if (c && seen243.insert(c).second)
+                        cls243.push_back(c);
+        };
+        auto addPk = [&](auto* v) {
+            if (v)
+                for (auto* p : *v)
+                    if (p)
+                        addCls(p->Class_defns());
+        };
+        addCls(d->AllClasses());
+        addPk(d->AllPackages());
+        addPk(d->TopPackages());
+        addPk(d->AllModules());
+        addPk(d->TopModules());
+        for (size_t i = 0; i < cls243.size(); i++) {
+            auto* cd = cls243[i];
+            if (!cd->Variables())
+                continue;
+            for (auto* v : *cd->Variables()) {
+                auto* var = dynamic_cast<UHDM::variables*>(v);
+                if (!var || !var->Typespec())
+                    continue;
+                auto* rt = var->Typespec();
+                auto* x = rt->Actual_typespec();
+                if (!x || !memo243.count(x) || !x->Typedef_alias() ||
+                    !x->Typedef_alias()->Actual_typespec())
+                    continue;
+                auto* src = x->Typedef_alias()->Actual_typespec();
+                auto* cp = bareScalarTdCopyOfFresh16(src);
+                if (!cp)
+                    continue;
+                cp->Instance(x->Instance());
+                // Golden parents the copy at the property (s01:
+                // `string_typespec (str_t)` under `string_var p::b::m_al`).
+                cp->VpiParent(var);
+                auto* al = s.MakeRef_typespec();
+                al->VpiFullName(std::string(var->VpiFullName()) + "::" +
+                                std::string(cp->VpiName()));
+                al->VpiParent(cp);
+                al->Actual_typespec(src);
+                cp->Typedef_alias(al);
+                rt->Actual_typespec(cp);
+                tr243("clsPropLawSAliasName243", std::string(var->VpiFullName()));
+            }
+        }
+    }
     // ...and an anonymous class_typespec never carries vpiInstance.
     clearAnonClassTsInstance();
     // § structInlineEnumMemberTs113 (r11u113) — the inline enum member's base
@@ -17812,6 +17935,27 @@ UHDM::design* UhdmExporter::exportDesign() {
     // The r11u241 drains run on EVERY exit of this function (the writer
     // pass below returns early when no typedef has a writer).
     auto finish241 = [&]() -> UHDM::design* {
+        // § unitImpPaRhsActualFinal243v (v11u243, R11V243_UNITRHSACT_OFF;
+        // case tools/probe/v11u243repro B/b03_typed) — the design copy of a
+        // $unit-imported parameter's constant (§ unitImpPaRhsOwnCopy243) read
+        // its reference's actual at copy time, before the package constant's
+        // own reference was bound: `parameter n_t C = 'h3` with n_t a package
+        // typedef left the copy's ref_typespec with NO actual where golden
+        // (and pristine, which shared the package constant) binds n_t.  The
+        // copy takes the source reference's actual as it stands at the end of
+        // export, which is what the shared constant showed.
+        if (getenv("R11V243_OFF") == nullptr && getenv("R11V243_UNITRHSACT_OFF") == nullptr)
+            for (auto& [rt, sc] : g_unitRhsAct243v) {
+                auto* srt = sc->Typespec();
+                auto* fa = srt ? srt->Actual_typespec() : nullptr;
+                if (fa && rt->Actual_typespec() != fa) {
+                    tr243("unitImpPaRhsActualFinal243v",
+                          std::string(rt->Actual_typespec() ? "repoint " : "fill ") +
+                              std::to_string(sc->VpiLineNo()));
+                    rt->Actual_typespec(const_cast<UHDM::typespec*>(fa));
+                }
+            }
+        g_unitRhsAct243v.clear();
         // The guard both r11u241 clone drains share: an object an importer
         // copy holds is changed only when every ref_typespec binding it sits
         // inside an importer copy (§ cloneAggTsAtHomeListing241) or inside

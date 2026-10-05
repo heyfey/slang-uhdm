@@ -37,6 +37,7 @@
 #include "R234.h"
 #include "R237.h"
 #include "R239.h"
+#include "R243.h"
 
 namespace slang_uhdm {
 
@@ -12391,7 +12392,21 @@ static UHDM::param_assign* importPaCopy82(UHDM::Serializer& s,
         // parameter's UN-adjusted compile (golden: vpiSize -1, a typespec
         // reference with no actual — MiniAmiq svaunit_concurrent_assertion_
         // details); that copy is not modelled, so it stays shared (residue).
-        ((UHDM::constant*)rc183)->VpiDecompile().rfind("'", 0) != 0 &&
+        // § clsImpUnsizedBasedRhsCopy243 (r11u243; SimpleUVM d/t #80745,
+        // R11U243_CLSIMPUNSIZED_OFF) — that residue is decoded: the copy
+        // golden writes carries exactly the package constant's fields
+        // (vpiSize -1, HEX:f000000, vpiConstType 5, the literal's span) and a
+        // typespec reference named by the class with NO actual, which is
+        // what the package's own constant holds too (case UR u01: golden
+        // `p` listing `ref_typespec p` with no actual, `work@env` the same).
+        // Sharing it made the walk meet the constant once and list nothing
+        // under the class's param_assign.  So the unsized based literal is
+        // copied like any other constant, its reference keeping the source's
+        // (null) actual.
+        (((UHDM::constant*)rc183)->VpiDecompile().rfind("'", 0) != 0 ||
+         (r11u243On("R11U243_CLSIMPUNSIZED_OFF") &&
+          (tr243("clsImpUnsizedBasedRhsCopy243", ownerFull + "::" +
+                     std::string(src->Lhs()->VpiName())), true))) &&
         r11u183LawME("R11U183_UVMCOPY_OFF") &&
         r11u183LawME("R11U183_IMPCOPY_OFF")) {
         tr183ME("classImportParamOwnRefs183");
@@ -12413,6 +12428,24 @@ static UHDM::param_assign* importPaCopy82(UHDM::Serializer& s,
             rt183->VpiParent(c183);
             rt183->Actual_typespec(crt183->Actual_typespec());
             c183->Typespec(rt183);
+        }
+        // § clsImpUnsizedBasedRhsCopy243 — an unsized based literal on an
+        // UNTYPED parameter (the Lhs carries no typespec) is the un-adjusted
+        // compile: vpiSize -1 and a typespec reference with NO actual, made
+        // even where the source constant has none (golden u01 'hf000000,
+        // u04 'd3, SimpleUVM #80745); a TYPED parameter's literal keeps the
+        // adjusted size and the type (u02 `parameter int unsigned C = 'h7`:
+        // 32 and the int_typespec).
+        if (sc183->VpiDecompile().rfind("'", 0) == 0 && src->Lhs() &&
+            !((UHDM::parameter*)src->Lhs())->Typespec() &&
+            r11u243On("R11U243_CLSIMPUNSIZED_OFF")) {
+            c183->VpiSize(-1);
+            auto* rt243 = c183->Typespec() ? (UHDM::ref_typespec*)c183->Typespec()
+                                           : s.MakeRef_typespec();
+            rt243->VpiFullName(ownerFull);
+            rt243->VpiParent(c183);
+            rt243->Actual_typespec(nullptr);
+            c183->Typespec(rt243);
         }
         cp->Rhs(c183);
     }
