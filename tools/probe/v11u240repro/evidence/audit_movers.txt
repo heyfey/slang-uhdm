@@ -1,0 +1,13 @@
+# cmds.txt audit (path list filtered by $FENCED before any read): slang lines per binary
+wP:  3265 /tmp/v11u240_bin/pristine
+wL:  3265 /tmp/v11u240_bin/law
+# probe database movers (pristine probe sweep rerun from the law worktree /tmp/v11u240_wQ vs /tmp/v11u240_wL)
+r10uvm81repro__c5_bindpos81.uhdm (1 of 4087)
+# downstream lane databases: 0 of 805 differ (fence-filtered list; positive control: two different lanes differ)
+# uhdm-cmp on the corpus movers (law sweep)
+default/BlackBePipeInt rc=0 lines=0
+testflags/BlackBePipeInt rc=0 lines=0
+default/SimpleUVM rc=0 lines=0
+testflags/SimpleUVM rc=0 lines=0
+default/SeqDriver rc=0 lines=0
+testflags/SeqDriver rc=0 lines=0

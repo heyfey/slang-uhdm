@@ -1,0 +1,3 @@
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u240_wQ/probe.csv
+probe cases: EQUAL=3476 STRICT_NOTEQUAL=611 (of 4087); goldens built now=0, from cache=4087
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

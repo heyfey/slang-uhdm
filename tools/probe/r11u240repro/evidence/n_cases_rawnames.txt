@@ -1,0 +1,6 @@
+N/n02 golden bp:: ref names 22 agreeing: pristine 12 law 16 | not in golden: pristine 0 law 0
+N/n03 golden bp:: ref names 90 agreeing: pristine 8 law 14 | not in golden: pristine 0 law 0
+N/n05 golden bp:: ref names 22 agreeing: pristine 12 law 16 | not in golden: pristine 0 law 0
+N/n02_el golden bp:: ref names 22 agreeing: pristine 12 law 16 | not in golden: pristine 0 law 0
+N/n03_el golden bp:: ref names 90 agreeing: pristine 8 law 14 | not in golden: pristine 0 law 0
+N/n05_el golden bp:: ref names 22 agreeing: pristine 12 law 16 | not in golden: pristine 0 law 0

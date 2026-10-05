@@ -1,0 +1,6 @@
+surelog/default/BlackBePipeInt rc=0 lines=0
+surelog/testflags/BlackBePipeInt rc=0 lines=0
+surelog/default/SimpleUVM rc=0 lines=0
+surelog/testflags/SimpleUVM rc=0 lines=0
+surelog/default/SeqDriver rc=0 lines=0
+surelog/testflags/SeqDriver rc=0 lines=0

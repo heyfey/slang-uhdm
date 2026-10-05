@@ -1,0 +1,20 @@
+# BlackBePipeInt default, law binary: first records
+#38807 depth
+  A: 6	parameter	dev_addr_width_gp		bp_common_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20	
+  B: 2	parameter	dev_id_width_gp		bp_be_pkg::dev_id_width_gp	dut.sv	1792	12	1792	27		0	UINT:4	
+objects 339479 vs 339749
+fields: depth=1 name=1 fullname=1 line=1 endline=1 endcol=1 value=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+# BlackBePipeInt testflags, law binary
+#38803 fullname
+  A: 6	parameter	dev_addr_width_gp		work@bp_be_pipe_int.dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20	
+  B: 6	parameter	dev_addr_width_gp		bp_common_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20	
+#38804 fullname
+  A: 7	ref_typespec			work@bp_be_pipe_int.dev_addr_width_gp		0	0	0	0		0		
+  B: 7	ref_typespec			bp_common_pkg::dev_addr_width_gp		0	0	0	0		0		
+#38806 depth
+  A: 2	parameter	dev_id_width_gp		bp_be_pkg::dev_id_width_gp	dut.sv	1792	12	1792	27		0	UINT:4	
+  B: 9	ref_obj	dev_addr_width_gp				0	0	0	0		0		
+objects 338504 vs 338775
+fields: depth=1 type=1 name=1 fullname=3 file=1 line=1 col=1 endline=1 endcol=1 value=1 objects_differing=3 (walk diverged)
+STRICT_NOTEQUAL fullname

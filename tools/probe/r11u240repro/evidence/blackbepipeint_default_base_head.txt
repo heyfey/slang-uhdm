@@ -1,0 +1,294 @@
+#24671 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_x_dim		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_x_dim		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::cc_x_dim | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.cc_x_dim
+#24674 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_y_dim		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_y_dim		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::cc_y_dim | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.cc_y_dim
+#24677 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.ic_y_dim		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.ic_y_dim		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::ic_y_dim | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.ic_y_dim
+#24680 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.mc_y_dim		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.mc_y_dim		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::mc_y_dim | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.mc_y_dim
+#24683 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cac_x_dim		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cac_x_dim		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::cac_x_dim | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.cac_x_dim
+#24686 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.sac_x_dim		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.sac_x_dim		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::sac_x_dim | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.sac_x_dim
+#24689 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cacc_type		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cacc_type		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::cacc_type | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.cacc_type
+#24692 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.sacc_type		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.sacc_type		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::sacc_type | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.sacc_type
+#24695 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.num_cce		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.num_cce		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::num_cce | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.num_cce
+#24698 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.num_lce		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.num_lce		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::num_lce | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.num_lce
+#24701 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.vaddr_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.vaddr_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::vaddr_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.vaddr_width
+#24704 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.paddr_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.paddr_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::paddr_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.paddr_width
+#24707 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.daddr_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.daddr_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::daddr_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.daddr_width
+#24710 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.caddr_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.caddr_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::caddr_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.caddr_width
+#24713 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.asid_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.asid_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::asid_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.asid_width
+#24716 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.branch_metadata_fwd_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.branch_metadata_fwd_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::branch_metadata_fwd_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.branch_metadata_fwd_width
+#24719 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.btb_tag_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.btb_tag_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::btb_tag_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.btb_tag_width
+#24722 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.btb_idx_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.btb_idx_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::btb_idx_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.btb_idx_width
+#24725 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.bht_idx_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.bht_idx_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::bht_idx_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.bht_idx_width
+#24728 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.bht_row_els		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.bht_row_els		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::bht_row_els | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.bht_row_els
+#24731 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.ghist_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.ghist_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::ghist_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.ghist_width
+#24734 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.itlb_els_4k		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.itlb_els_4k		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::itlb_els_4k | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.itlb_els_4k
+#24737 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.itlb_els_1g		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.itlb_els_1g		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::itlb_els_1g | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.itlb_els_1g
+#24740 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dtlb_els_4k		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dtlb_els_4k		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::dtlb_els_4k | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.dtlb_els_4k
+#24743 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dtlb_els_1g		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dtlb_els_1g		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::dtlb_els_1g | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.dtlb_els_1g
+#24746 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.icache_features		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.icache_features		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::icache_features | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.icache_features
+#24749 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.icache_sets		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.icache_sets		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::icache_sets | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.icache_sets
+#24752 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.icache_assoc		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.icache_assoc		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::icache_assoc | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.icache_assoc
+#24755 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.icache_block_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.icache_block_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::icache_block_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.icache_block_width
+#24758 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.icache_fill_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.icache_fill_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::icache_fill_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.icache_fill_width
+#24761 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dcache_features		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dcache_features		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::dcache_features | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.dcache_features
+#24764 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dcache_sets		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dcache_sets		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::dcache_sets | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.dcache_sets
+#24767 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dcache_assoc		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dcache_assoc		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::dcache_assoc | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.dcache_assoc
+#24770 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dcache_block_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dcache_block_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::dcache_block_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.dcache_block_width
+#24773 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dcache_fill_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.dcache_fill_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::dcache_fill_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.dcache_fill_width
+#24776 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.acache_features		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.acache_features		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::acache_features | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.acache_features
+#24779 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.acache_sets		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.acache_sets		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::acache_sets | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.acache_sets
+#24782 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.acache_assoc		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.acache_assoc		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::acache_assoc | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.acache_assoc
+#24785 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.acache_block_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.acache_block_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::acache_block_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.acache_block_width
+#24788 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.acache_fill_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.acache_fill_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::acache_fill_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.acache_fill_width
+#24791 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cce_type		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cce_type		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::cce_type | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.cce_type
+#24794 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cce_pc_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cce_pc_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::cce_pc_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.cce_pc_width
+#24797 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.bedrock_data_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.bedrock_data_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::bedrock_data_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.bedrock_data_width
+#24800 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_features		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_features		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::l2_features | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.l2_features
+#24803 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_banks		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_banks		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::l2_banks | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.l2_banks
+#24806 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_data_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_data_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::l2_data_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.l2_data_width
+#24809 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_sets		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_sets		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::l2_sets | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.l2_sets
+#24812 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_assoc		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_assoc		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::l2_assoc | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.l2_assoc
+#24815 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_block_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_block_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::l2_block_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.l2_block_width
+#24818 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_fill_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_fill_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::l2_fill_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.l2_fill_width
+#24821 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_outstanding_reqs		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.l2_outstanding_reqs		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::l2_outstanding_reqs | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.l2_outstanding_reqs
+#24824 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.fe_queue_fifo_els		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.fe_queue_fifo_els		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::fe_queue_fifo_els | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.fe_queue_fifo_els
+#24827 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.fe_cmd_fifo_els		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.fe_cmd_fifo_els		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::fe_cmd_fifo_els | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.fe_cmd_fifo_els
+#24830 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.muldiv_support		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.muldiv_support		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::muldiv_support | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.muldiv_support
+#24833 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.fpu_support		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.fpu_support		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::fpu_support | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.fpu_support
+#24836 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.compressed_support		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.compressed_support		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::compressed_support | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.compressed_support
+#24839 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.async_coh_clk		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.async_coh_clk		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::async_coh_clk | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.async_coh_clk
+#24842 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.coh_noc_flit_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.coh_noc_flit_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::coh_noc_flit_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.coh_noc_flit_width
+#24845 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.coh_noc_cid_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.coh_noc_cid_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::coh_noc_cid_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.coh_noc_cid_width
+#24848 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.coh_noc_len_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.coh_noc_len_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::coh_noc_len_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.coh_noc_len_width
+#24851 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.coh_noc_max_credits		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.coh_noc_max_credits		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::coh_noc_max_credits | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.coh_noc_max_credits
+#24854 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.async_mem_clk		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.async_mem_clk		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::async_mem_clk | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.async_mem_clk
+#24857 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.mem_noc_flit_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.mem_noc_flit_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::mem_noc_flit_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.mem_noc_flit_width
+#24860 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.mem_noc_cid_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.mem_noc_cid_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::mem_noc_cid_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.mem_noc_cid_width
+#24863 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.mem_noc_len_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.mem_noc_len_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::mem_noc_len_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.mem_noc_len_width
+#24866 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.mem_noc_max_credits		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.mem_noc_max_credits		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::mem_noc_max_credits | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.mem_noc_max_credits
+#24869 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.async_io_clk		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.async_io_clk		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::async_io_clk | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.async_io_clk
+#24872 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_flit_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_flit_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::io_noc_flit_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.io_noc_flit_width
+#24875 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_cid_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_cid_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::io_noc_cid_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.io_noc_cid_width
+#24878 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_did_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_did_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::io_noc_did_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.io_noc_did_width
+#24881 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_len_width		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_len_width		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::io_noc_len_width | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.io_noc_len_width
+#24884 fullname
+  A: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_max_credits		0	0	0	0		0		
+  B: 8	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.io_noc_max_credits		0	0	0	0		0		
+  raw fullname A: bp_be_pkg::all_cfgs_gp::bp_common_pkg::bp_proc_param_s::io_noc_max_credits | B: work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.io_noc_max_credits
+#38807 depth
+  A: 6	parameter	dev_addr_width_gp		bp_common_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20	
+  B: 2	parameter	dev_id_width_gp		bp_be_pkg::dev_id_width_gp	dut.sv	1792	12	1792	27		0	UINT:4	
+objects 339479 vs 339749
+fields: depth=1 name=1 fullname=73 line=1 endline=1 endcol=1 value=1 objects_differing=73 (walk diverged)
+STRICT_NOTEQUAL fullname

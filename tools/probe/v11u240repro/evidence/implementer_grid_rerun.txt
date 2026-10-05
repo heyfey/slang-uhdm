@@ -1,0 +1,2 @@
+# implementer grid (evidence/grid.txt of r11u240repro) vs this verifier's rerun with its own binaries: verdict, cmp and rc columns per line (md5 differs by source path)
+IDENTICAL 190 of 190 lines

@@ -1,0 +1,12 @@
+mirrored=2560 fenced_skipped=8
+mirrored=2560 fenced_skipped=8
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=9e0d4aefed5a pristine=933d6f28bf08
+MOVER ./surelog/default/SeqDriver-65178d3a/slang.uhdm  patched=0cbd048e5248 pristine=8350e50ef7d9
+MOVER ./surelog/default/SimpleUVM-267de3ff/slang.uhdm  patched=fb410e81b3e3 pristine=db77b55fbf7f
+MOVER ./surelog/testflags/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=7b37e6d62b01 pristine=5b17385c3c21
+MOVER ./surelog/testflags/SeqDriver-65178d3a/slang.uhdm  patched=3f7fb10c5aa9 pristine=aea1e5295934
+MOVER ./surelog/testflags/SimpleUVM-267de3ff/slang.uhdm  patched=a06694e894a9 pristine=a31daf53a659
+MOVERS: 6 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged

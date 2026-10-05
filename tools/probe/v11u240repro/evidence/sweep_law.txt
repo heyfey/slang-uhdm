@@ -1,0 +1,17 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u240_wL/probe.csv
+probe cases: EQUAL=3476 STRICT_NOTEQUAL=611 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=3476 STRICT_NOTEQUAL=611
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=469 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=11 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=465 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=9 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE BlackBePipeInt default STRICT_NOTEQUAL differ:fullname(73) -> differ:depth(1)
+CHANGE BlackBePipeInt testflags STRICT_NOTEQUAL differ:fullname(75) -> differ:fullname(3) [fullname -72]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:line(8) -> differ:file(6)
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:line(8) -> differ:file(6)
+regressions=0 conversions=0 changes=4 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0

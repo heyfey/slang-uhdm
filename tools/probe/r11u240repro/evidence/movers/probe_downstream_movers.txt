@@ -1,0 +1,5 @@
+# probe databases differing between the pristine and the law sweeps (cmp over all 4087)
+r10uvm81repro/c5_bindpos81 (predicted; the module's two hoisted nets swap order: m_b (task d85::tv85, 74:19) now ahead of m_s (constructor c85::new, 25:7), as golden lists them; EQUAL in both sweeps)
+probe movers: 1 of 4087
+
+# downstream lane databases differing (all 805 lanes with a database): 0; positive control: two different lanes compared read as differing

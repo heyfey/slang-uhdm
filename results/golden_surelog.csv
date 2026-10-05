@@ -129,8 +129,8 @@ BitsOp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitsOp/dut.sv:1
 BitsOp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitsOp/dut.sv:119:9: error: use of undeclared identifier 'shift_dr',,
 BitsStructMember,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitsStructMember/dut.sv:17:16: error: use of undeclared identifier 'MsgWidth',,
 BitsStructMember,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitsStructMember/dut.sv:17:16: error: use of undeclared identifier 'MsgWidth',,
-BlackBePipeInt,default,STRICT_NOTEQUAL,differ:fullname(73),,differ:fullname(73)
-BlackBePipeInt,testflags,STRICT_NOTEQUAL,differ:fullname(75),,differ:fullname(75)
+BlackBePipeInt,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+BlackBePipeInt,testflags,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
 BlackBox,default,CMP_EQUAL,,,equal
 BlackBox,testflags,CMP_EQUAL,,,equal
 BlackBoxInst,default,CMP_EQUAL,,,equal
@@ -1255,8 +1255,8 @@ SimpleParserTestCache,default,SURELOG_FAIL,[   NOTE] : 0,,
 SimpleParserTestCache,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 SimpleTask,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
 SimpleTask,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
-SimpleUVM,default,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
-SimpleUVM,testflags,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
+SimpleUVM,default,STRICT_NOTEQUAL,differ:file(6),,differ:file(6)
+SimpleUVM,testflags,STRICT_NOTEQUAL,differ:file(6),,differ:file(6)
 SimpleVMM,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
 SimpleVMM,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
 SimplifyHierPath,default,CMP_EQUAL,,,equal

@@ -1,0 +1,8 @@
+# 7 databases differ between /tmp/v11u240_wO and /tmp/v11u240_wL
+probe/r10uvm81repro/c5_bindpos81 away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/BlackBePipeInt away=0 toward=288 flat_away=288 flat_toward=288
+surelog/default/SeqDriver away=0 toward=57 flat_away=0 flat_toward=57
+surelog/default/SimpleUVM away=0 toward=57 flat_away=0 flat_toward=57
+surelog/testflags/BlackBePipeInt away=0 toward=288 flat_away=288 flat_toward=288
+surelog/testflags/SeqDriver away=0 toward=57 flat_away=0 flat_toward=57
+surelog/testflags/SimpleUVM away=0 toward=57 flat_away=0 flat_toward=57

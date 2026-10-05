@@ -19,6 +19,7 @@
 #include "R233.h"
 #include "R236.h"
 #include "R238.h"
+#include "R240.h"
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
@@ -28797,6 +28798,90 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                     auto* ert9 = s.MakeRef_typespec();
                     ert9->VpiParent(pts9);
                     ert9->VpiFullName(syntaxRefPrefix);
+                    // § pkgImpPackedArrElemCopy240 (r11u240; BlackBePipeInt
+                    // d/t #24671, map 15's N2471) — AN IMPORTED PACKED ARRAY
+                    // OF A PACKAGE STRUCT, RE-LISTED IN AN IMPORTING PACKAGE,
+                    // CARRIES ITS OWN COPY OF THE ELEMENT STRUCT.  Surelog
+                    // re-lists every parameter `import bp_common_pkg::*`
+                    // brings into `bp_be_pkg`, and the copy's element
+                    // aggregate is copied with it, so UHDM's ComputeFullName
+                    // names its members through the importing listing:
+                    // golden `bp_be_pkg::all_cfgs_gp::bp_common_pkg::
+                    // bp_proc_param_s::cc_x_dim`, where ours pointed at a
+                    // shared listing object whose members read
+                    // `work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.
+                    // cc_x_dim` (a name golden gives no object at this
+                    // position).  § pkgImpParamMemberColons210 builds that
+                    // copy for a struct parameter; this is its packed-array
+                    // element.  LAW: under the 210 state (an imported
+                    // parameter's copy in an importing PACKAGE) a struct or
+                    // union element is rebuilt by buildStructTs /
+                    // buildUnionTs with the member scope
+                    // `<listing path>::<pkg>::<typedef>` joined by `::`, and
+                    // keeps the shared object's name, span and instance.
+                    // Switch R11U240_IMPARRELEM_OFF.
+                    if (pkgImpParamTs210() && !syntaxRefPrefix.empty() &&
+                        r11u240On("R11U240_IMPARRELEM_OFF")) {
+                        auto& ect240 = elAlias9->getCanonicalType();
+                        const Scope* esc240 = nullptr;
+                        bool uni240 = false;
+                        if (ect240.kind == SymbolKind::PackedStructType)
+                            esc240 = &ect240.as<PackedStructType>();
+                        else if (ect240.kind == SymbolKind::PackedUnionType) {
+                            esc240 = &ect240.as<PackedUnionType>();
+                            uni240 = true;
+                        }
+                        auto et240 = elemTs9->UhdmType();
+                        if (esc240 && !elemTs9->VpiName().empty() &&
+                            (et240 == UHDM::uhdmstruct_typespec ||
+                             et240 == UHDM::uhdmunion_typespec)) {
+                            std::string ms240 = syntaxRefPrefix + "::" +
+                                                std::string(elemTs9->VpiName());
+                            UHDM::typespec* cp240 =
+                                uni240 ? (UHDM::typespec*)buildUnionTs(*esc240, true, ms240, "::")
+                                       : (UHDM::typespec*)buildStructTs(*esc240, true, ms240, "::");
+                            if (cp240) {
+                                cp240->VpiName(elemTs9->VpiName());
+                                cp240->VpiFile(elemTs9->VpiFile());
+                                cp240->VpiLineNo(elemTs9->VpiLineNo());
+                                cp240->VpiColumnNo(elemTs9->VpiColumnNo());
+                                cp240->VpiEndLineNo(elemTs9->VpiEndLineNo());
+                                cp240->VpiEndColumnNo(elemTs9->VpiEndColumnNo());
+                                cp240->Instance(elemTs9->Instance());
+                                cp240->VpiParent(ert9);
+                                // The fresh member actuals take the shared
+                                // object's member actuals' instance (the
+                                // typedef's home package), as the 210
+                                // branch stamps its own copy's.
+                                auto memV240 = [](UHDM::typespec* t)
+                                    -> UHDM::VectorOftypespec_member* {
+                                    if (t->UhdmType() == UHDM::uhdmstruct_typespec)
+                                        return ((UHDM::struct_typespec*)t)->Members();
+                                    return ((UHDM::union_typespec*)t)->Members();
+                                };
+                                auto* nm240 = memV240(cp240);
+                                auto* om240 = memV240(elemTs9);
+                                if (nm240 && om240)
+                                    for (size_t k = 0; k < nm240->size() && k < om240->size(); k++) {
+                                        auto* nt = (*nm240)[k]->Typespec();
+                                        auto* ot = (*om240)[k]->Typespec();
+                                        if (nt && ot && nt->Actual_typespec() &&
+                                            ot->Actual_typespec() &&
+                                            !nt->Actual_typespec()->Instance())
+                                            nt->Actual_typespec()->Instance(
+                                                ot->Actual_typespec()->Instance());
+                                    }
+                                tr240("pkgImpPackedArrElemCopy240", ms240);
+                                elemTs9 = cp240;
+                            }
+                            else
+                                tr240("pkgImpPackedArrElemCopy240_nobuild", ms240);
+                        }
+                        else
+                            tr240("pkgImpPackedArrElemCopy240_kind",
+                                  syntaxRefPrefix + " " +
+                                      std::string(elemTs9->VpiName()));
+                    }
                     ert9->Actual_typespec(elemTs9);
                     pts9->Elem_typespec(ert9);
                     its = pts9;
@@ -34191,6 +34276,8 @@ static int32_t pkgNetTypeForView79(const slang::ast::Symbol& sym79,
 
 UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView) {
     std::string prefix = std::string(pkg.name) + "::";
+    // § hoistPoolSourceOrder240 — where this package's pool entries start.
+    const size_t cprStart240 = classPropRefs.size();
     auto* up = s.MakePackage();
     if (!topView)
         pkgDefMap[&pkg] = up;
@@ -37363,6 +37450,127 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                              pkgFreeSubPropRefs117.begin(),
                              pkgFreeSubPropRefs117.end());
         pkgFreeSubPropRefs117.clear();
+    }
+    // § hoistPoolSourceOrder240 (r11u240; SimpleUVM d/t #75572) — THE
+    // HOISTED-NET POOL IS SURELOG'S LATE-BINDING LIST, IN THE PACKAGE'S
+    // FLATTENED SOURCE ORDER.  `bindHoistedClassPropRefs` mints one wire per
+    // name at the FIRST pool entry of that name.  Surelog's list is
+    // `mod->getLateBinding()`, which `CompileHelper::importPackage`
+    // (CompileHelper.cpp, "Incomplete bindings") copies from the package, and
+    // the package's own list is filled by `CompilePackage`'s single walk of
+    // the package's items (`compileFunction` / `compileTask` /
+    // `compileClassConstructorDeclaration` on the out-of-body definitions and
+    // the free subroutines, in the flattened text's order).  Our pool fills
+    // in EMISSION order (classes as `emitPackageClasses` visits them, free
+    // subroutines appended by § pkgFreeSubRefVarHoistNet117), so a name
+    // written in several out-of-body bodies took the wire at the wrong one:
+    // golden SimpleUVM `work@top.m_parent` at uvm_phase.svh 1001:10-18
+    // (`uvm_phase::get_parent`), `this` at uvm_object.svh 902:36-40,
+    // `m_inst_count` at uvm_object.svh 845:10-22; ours at uvm_component.svh
+    // 1925 / 1767 / 1763, and the module's net vector in another order.
+    // `CompilePackage::compile` walks the items three times
+    // (collectObjects_ FUNCTION, DEFINITION, OTHER): functions and tasks
+    // compile in the first two passes, class CONSTRUCTORS
+    // (`compileClassConstructorDeclaration`) only in the OTHER pass, so every
+    // constructor body's entries follow every function's and task's (golden
+    // SimpleUVM skips `m_parent = parent;` in uvm_phase::new, 798, for 1001).
+    // LAW: this package's entries are stably sorted by (constructor body
+    // last, the flattened source position (§ includeExpandedKey of the
+    // macro expansion site) of the BODY
+    // that holds them, the body keyed by its earliest entry); entries of one
+    // body keep the emission order (Surelog's statement walk, which the pool
+    // already followed).  An entry without a valid location abstains for the
+    // whole package.
+    // Switch R11U240_POOLORDER_OFF.
+    if (topView && classPropRefs.size() > cprStart240 + 1 &&
+        r11u240On("R11U240_POOLORDER_OFF")) {
+        auto& sm240 = *comp.getSourceManager();
+        std::vector<size_t> at240;
+        for (size_t i = cprStart240; i < classPropRefs.size(); i++)
+            if (classPropRefs[i].homePkg == &pkg)
+                at240.push_back(i);
+        bool ok240 = at240.size() > 1;
+        using Key240 = std::vector<std::pair<uint32_t, uint64_t>>;
+        std::vector<Key240> key240;
+        std::vector<const UHDM::BaseClass*> body240;
+        std::vector<bool> ctor240;
+        for (size_t i : at240) {
+            auto loc = classPropRefs[i].range.start();
+            if (!loc.valid()) {
+                ok240 = false;
+                break;
+            }
+            // The EXPANSION site: Surelog compiles the preprocessed text, so a
+            // macro-born reference sits where its outermost macro was
+            // expanded (svunit_testcase::report's `$sformatf` arguments sort
+            // after wait_for_error and run_test; the original location of a
+            // macro-body token is the defining header, ahead of the package).
+            key240.push_back(includeExpandedKey(sm240, sm240.getFullyExpandedLoc(loc)));
+            const UHDM::BaseClass* b = classPropRefs[i].ref;
+            while (b && b->UhdmType() != UHDM::uhdmfunction &&
+                   b->UhdmType() != UHDM::uhdmtask)
+                b = b->VpiParent();
+            // No enclosing subroutine: the entry is its own body (a ref-less
+            // entry, § assocIdxNameHoistNet135, keys on its own location).
+            ctor240.push_back(b && b->UhdmType() == UHDM::uhdmfunction &&
+                              b->VpiName() == "new");
+            body240.push_back(b ? b : (const UHDM::BaseClass*)classPropRefs[i].ref);
+            if (!body240.back())
+                body240.back() = reinterpret_cast<const UHDM::BaseClass*>(&classPropRefs[i]);
+        }
+        if (!ok240)
+            tr240("hoistPoolSourceOrder240_abstain", std::string(pkg.name));
+        else {
+            std::map<const UHDM::BaseClass*, Key240> bodyKey240;
+            for (size_t j = 0; j < at240.size(); j++) {
+                auto it = bodyKey240.find(body240[j]);
+                if (it == bodyKey240.end() || includeExpandedLess(key240[j], it->second))
+                    bodyKey240[body240[j]] = key240[j];
+            }
+            std::vector<size_t> ord(at240.size());
+            for (size_t j = 0; j < ord.size(); j++)
+                ord[j] = j;
+            auto isCtor240 = [&](size_t x) { return ctor240[x]; };
+            std::stable_sort(ord.begin(), ord.end(), [&](size_t x, size_t y) {
+                bool cx = isCtor240(x), cy = isCtor240(y);
+                if (cx != cy)
+                    return !cx;
+                return includeExpandedLess(bodyKey240[body240[x]], bodyKey240[body240[y]]);
+            });
+            size_t moved = 0;
+            std::vector<ClassPropRef> tmp240;
+            for (size_t j = 0; j < ord.size(); j++) {
+                tmp240.push_back(classPropRefs[at240[ord[j]]]);
+                if (ord[j] != j)
+                    moved++;
+            }
+            // What the mint reads: the names in order of first entry, each
+            // with its first entry's location.  The trace names a firing
+            // only when that sequence changes (the predictor's key).
+            auto firstSeq240 = [&](auto get) {
+                std::vector<std::pair<std::string, uint64_t>> seq;
+                std::set<std::string> seen;
+                for (size_t j = 0; j < at240.size(); j++) {
+                    const ClassPropRef& c = get(j);
+                    if (seen.insert(c.name).second)
+                        seq.push_back({c.name, (uint64_t)c.range.start().offset() ^
+                                                   ((uint64_t)c.range.start().buffer().getId() << 40)});
+                }
+                return seq;
+            };
+            auto before240 = firstSeq240([&](size_t j) -> const ClassPropRef& {
+                return classPropRefs[at240[j]];
+            });
+            auto after240 = firstSeq240([&](size_t j) -> const ClassPropRef& {
+                return tmp240[j];
+            });
+            for (size_t j = 0; j < at240.size(); j++)
+                classPropRefs[at240[j]] = tmp240[j];
+            tr240(before240 != after240 ? "hoistPoolSourceOrder240"
+                                        : "hoistPoolSourceOrder240_same",
+                  std::string(pkg.name) + " entries=" + std::to_string(at240.size()) +
+                      " moved=" + std::to_string(moved));
+        }
     }
     // ------------------------------------------------- wildcard-import clones
     if (!pkgWildcardHomeSi9.empty()) {
