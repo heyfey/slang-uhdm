@@ -23,6 +23,7 @@
 #include "R235.h"
 #include "R237.h"
 #include "R243.h"
+#include "R247.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -2393,6 +2394,29 @@ static void noteTpUseKeyword188(UHDM::typespec* ts, const Symbol& declSymbol,
         declSymbol.kind != SymbolKind::MethodPrototype)
         return;
     noteTpUseImpl(ts, declSymbol, typeSyn, true);
+}
+// § clsTpKwDefaultArrElemAtUse247 (r11u247, R11U247_TPKWELEM_OFF; BuildUVMPkg
+// d/t #129711, `protected T queue[$];` in `class uvm_queue #(type T=int)`:
+// golden's element int_var reads the type parameter's own object, located at
+// its last formal writer `push_back(T item)` 14837:35-14837:36, where ours
+// minted the element typespec at the property's `T` 14699:13) — the
+// CLASS-PROPERTY ARRAY-ELEMENT holder of § classTpKeywordTsAtDefault188: a
+// dynamic, queue, associative or fixed-size unpacked class property written
+// with a keyword-default type parameter of its own class (`T q[$]`, `T d[]`,
+// `T a[string]`, `T f[2]`) has its element typespec recorded for the same
+// design-final drain as a scalar property written `T`.  The element minted by
+// UhdmExporter's class property switch never passed makeTypespec's hook.
+// Grid tools/probe/r11u247repro/cases/T.
+void noteTpUseKeyword247(UHDM::typespec* ts, const Symbol& declSymbol,
+                         const syntax::SyntaxNode* typeSyn) {
+    if (!ts || !r11u247On("R11U247_TPKWELEM_OFF"))
+        return;
+    if (!typeSyn || typeSyn->kind != syntax::SyntaxKind::NamedType)
+        return;
+    if (!classTpOfDecl180(declSymbol, typeSyn, true))
+        return;
+    tr247("clsTpKwDefaultArrElemAtUse247", std::string(declSymbol.name));
+    noteTpUseKeyword188(ts, declSymbol, typeSyn);
 }
 // § tpGroupOneSpan234 — the last formal of the root's class body written
 // with a parameter of the root's chain: in-body methods and `extern`
@@ -12680,10 +12704,77 @@ UHDM::typespec* UhdmExporter::anonAggregateElemTs(
     auto& elc = elemType.getCanonicalType();
     if (!elc.isIntegral() || elc.isEnum() || elc.isStruct())
         return nullptr;
-    auto* lts = s.MakeLogic_typespec();
+    // § anonAggElemKeywordTs247 (r11u247, R11U247_KWELEM_OFF; v11u245 A/a06
+    // `typedef bit [1:0] pr_t [4];`, downstream STATUS_DIFF: uhdm2rtlil read
+    // the logic element and failed `Could not find wire 't' for bit select`) —
+    // the element typespec is the kind of its WRITTEN keyword: Surelog compiles
+    // the member's own type syntax (CompileType's builtin arms), so `bit` is a
+    // bit_typespec and `int` / `byte` / `shortint` / `longint` / `integer` /
+    // `time` their own atom typespecs, for a $unit or package array typedef
+    // and for a struct member alike (grid tools/probe/r11u247repro/cases/B).
+    // `logic` / `reg` keep the logic_typespec.
+    UHDM::typespec* lts = nullptr;
+    if (r11u247On("R11U247_KWELEM_OFF")) {
+        switch (memberTypeSyn->kind) {
+            case syntax::SyntaxKind::BitType: {
+                auto* t = s.MakeBit_typespec();
+                if (elemType.isSigned())
+                    t->VpiSigned(true);
+                lts = t;
+                break;
+            }
+            case syntax::SyntaxKind::IntType: {
+                auto* t = s.MakeInt_typespec();
+                if (elemType.isSigned())
+                    t->VpiSigned(true);
+                lts = t;
+                break;
+            }
+            case syntax::SyntaxKind::ByteType: {
+                auto* t = s.MakeByte_typespec();
+                if (elemType.isSigned())
+                    t->VpiSigned(true);
+                lts = t;
+                break;
+            }
+            case syntax::SyntaxKind::ShortIntType: {
+                auto* t = s.MakeShort_int_typespec();
+                if (elemType.isSigned())
+                    t->VpiSigned(true);
+                lts = t;
+                break;
+            }
+            case syntax::SyntaxKind::LongIntType: {
+                auto* t = s.MakeLong_int_typespec();
+                if (elemType.isSigned())
+                    t->VpiSigned(true);
+                lts = t;
+                break;
+            }
+            case syntax::SyntaxKind::IntegerType: {
+                auto* t = s.MakeInteger_typespec();
+                if (elemType.isSigned())
+                    t->VpiSigned(true);
+                lts = t;
+                break;
+            }
+            case syntax::SyntaxKind::TimeType:
+                lts = s.MakeTime_typespec();
+                break;
+            default:
+                break;
+        }
+        if (lts)
+            tr247("anonAggElemKeywordTs247",
+                  std::string(UHDM::UhdmName(lts->UhdmType())));
+    }
+    if (!lts) {
+        auto* lgs = s.MakeLogic_typespec();
+        if (elemType.isSigned())
+            lgs->VpiSigned(true);
+        lts = lgs;
+    }
     setLoc(lts, memberTypeSyn->sourceRange());
-    if (elemType.isSigned())
-        lts->VpiSigned(true);
     const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dims = nullptr;
     if (syntax::IntegerTypeSyntax::isKind(memberTypeSyn->kind))
         dims = &memberTypeSyn->as<syntax::IntegerTypeSyntax>().dimensions;
@@ -12741,7 +12832,10 @@ UHDM::typespec* UhdmExporter::anonAggregateElemTs(
             r->Right_expr(rb52);
             rv->push_back(r);
         }
-        lts->Ranges(rv);
+        if (lts->UhdmType() == UHDM::uhdmbit_typespec)
+            ((UHDM::bit_typespec*)lts)->Ranges(rv);
+        else if (lts->UhdmType() == UHDM::uhdmlogic_typespec)
+            ((UHDM::logic_typespec*)lts)->Ranges(rv);
     }
     return lts;
 }
@@ -14215,6 +14309,8 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
     struct Owned17 {
         std::map<std::string, UHDM::variables*> byKey;
         std::set<std::string> dup;
+        // § cloneStmtHomeVarDupKeyByOrder247 — every variable per key.
+        std::map<std::string, std::vector<UHDM::variables*>> all247;
     };
     std::map<const UHDM::task_func*, Owned17> owned;
     auto ownerTf = [](const UHDM::any* o) -> const UHDM::task_func* {
@@ -14238,6 +14334,10 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
             auto ins = ow.byKey.emplace(k, (UHDM::variables*)v);
             if (!ins.second && ins.first->second != v)
                 ow.dup.insert(k);
+            auto& l247 = ow.all247[k];
+            if (std::find(l247.begin(), l247.end(), (UHDM::variables*)v) ==
+                l247.end())
+                l247.push_back((UHDM::variables*)v);
         }
     };
     for (auto& kv : s.AllObjects()) {
@@ -14293,6 +14393,51 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
         const auto& hd = hoit->second.dup;
         const auto& cv = coit->second.byKey;
         const auto& cd = coit->second.dup;
+        // § cloneStmtHomeVarDupKeyByOrder247 (R11U247_HOMEVARDUP_OFF) — an
+        // AMBIGUOUS key is a declaration written inside a MULTI-LINE macro
+        // body: every expansion of `uvm_do_callbacks` in uvm_phase::
+        // execute_phase declares `iter` and `cb` at the same
+        // uvm_callback_defines.svh 164:49 / 165:19, so the key cannot tell
+        // the expansions apart and the remap above skipped all of them,
+        // leaving each clone reference on the clone's own declaration.
+        // Golden binds each expansion's reference to THAT expansion's home
+        // variable (the clone's statement tree is the home's compiled one),
+        // a distinct object per expansion (MiniAmiq / SeqDriver #76762).
+        // Expansions are emitted in source order on both sides, so the n-th
+        // clone variable of a key pairs with the n-th home variable of the
+        // same key, in UhdmId (creation) order.  Abstains unless both sides
+        // hold the same number of distinct variables under the key and the
+        // pairs are like-for-like kinds.
+        if (r11u247On("R11U247_HOMEVARDUP_OFF")) {
+            auto byId247 = [](const UHDM::variables* a,
+                              const UHDM::variables* b) {
+                return a->UhdmId() < b->UhdmId();
+            };
+            for (auto& [k, cl] : coit->second.all247) {
+                if (!cd.count(k) && !hd.count(k))
+                    continue;
+                auto hl = hoit->second.all247.find(k);
+                if (hl == hoit->second.all247.end())
+                    continue;
+                std::vector<UHDM::variables*> c247 = cl, h247 = hl->second;
+                if (c247.size() < 2 || c247.size() != h247.size())
+                    continue;
+                std::sort(c247.begin(), c247.end(), byId247);
+                std::sort(h247.begin(), h247.end(), byId247);
+                bool ok247 = true;
+                for (size_t i = 0; i < c247.size() && ok247; i++)
+                    ok247 = c247[i]->UhdmType() == h247[i]->UhdmType() &&
+                            c247[i] != h247[i];
+                if (!ok247)
+                    continue;
+                for (size_t i = 0; i < c247.size(); i++) {
+                    remap[(const UHDM::any*)c247[i]] = h247[i];
+                    tr247("cloneStmtHomeVarDupKeyByOrder247",
+                          k + " clone#" + std::to_string(c247[i]->UhdmId()) +
+                              " home#" + std::to_string(h247[i]->UhdmId()));
+                }
+            }
+        }
         for (auto& [k, v] : cv) {
             if (cd.count(k) || hd.count(k))
                 continue;
@@ -19416,9 +19561,54 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
         // ts to share: mint the element int_typespec at the target-type span.
         if (!ets0 && el0->getCanonicalType().kind ==
                          SymbolKind::PredefinedIntegerType && typeSyn) {
-            auto* its0 = s.MakeInt_typespec();
-            if (el0->isSigned())
-                its0->VpiSigned(true);
+            // § anonAggElemKeywordTs247 — the array-typedef twin: the
+            // element is the atom's own kind (`typedef byte unsigned ba_t
+            // [3];` a byte_typespec, grid B b06), not always int.
+            UHDM::typespec* its0 = nullptr;
+            if (r11u247On("R11U247_KWELEM_OFF")) {
+                auto& pit247 = el0->getCanonicalType().as<PredefinedIntegerType>();
+                bool sg247 = el0->isSigned();
+                switch (pit247.integerKind) {
+                    case PredefinedIntegerType::Byte: {
+                        auto* t = s.MakeByte_typespec();
+                        t->VpiSigned(sg247);
+                        its0 = t;
+                        break;
+                    }
+                    case PredefinedIntegerType::ShortInt: {
+                        auto* t = s.MakeShort_int_typespec();
+                        t->VpiSigned(sg247);
+                        its0 = t;
+                        break;
+                    }
+                    case PredefinedIntegerType::LongInt: {
+                        auto* t = s.MakeLong_int_typespec();
+                        t->VpiSigned(sg247);
+                        its0 = t;
+                        break;
+                    }
+                    case PredefinedIntegerType::Integer: {
+                        auto* t = s.MakeInteger_typespec();
+                        t->VpiSigned(sg247);
+                        its0 = t;
+                        break;
+                    }
+                    case PredefinedIntegerType::Time:
+                        its0 = s.MakeTime_typespec();
+                        break;
+                    default:
+                        break;
+                }
+                if (its0)
+                    tr247("anonAggElemKeywordTs247",
+                          std::string(UHDM::UhdmName(its0->UhdmType())) + " typedef");
+            }
+            if (!its0) {
+                auto* i0 = s.MakeInt_typespec();
+                if (el0->isSigned())
+                    i0->VpiSigned(true);
+                its0 = i0;
+            }
             setLoc(its0, typeSyn->sourceRange());
             ets0 = its0;
         }
@@ -19716,6 +19906,54 @@ static UHDM::typespec* freshLeafTsCopy(UHDM::Serializer& s,
     if (src->UhdmType() == UHDM::uhdmint_typespec)
         ((UHDM::int_typespec*)out)
             ->VpiSigned(((const UHDM::int_typespec*)src)->VpiSigned());
+    // § anonAggElemKeywordTs247 — the copy of an atom element keeps its
+    // signedness for every atom kind the law now writes (the int arm above
+    // was the only one an element could reach before).
+    if (r11u247On("R11U247_KWELEM_OFF") &&
+        (src->UhdmType() == UHDM::uhdmshort_int_typespec ||
+         src->UhdmType() == UHDM::uhdmlong_int_typespec ||
+         src->UhdmType() == UHDM::uhdmbyte_typespec ||
+         src->UhdmType() == UHDM::uhdminteger_typespec)) {
+        bool sg247 = false;
+        switch (src->UhdmType()) {
+            case UHDM::uhdmshort_int_typespec:
+                sg247 = ((const UHDM::short_int_typespec*)src)->VpiSigned();
+                break;
+            case UHDM::uhdmlong_int_typespec:
+                sg247 = ((const UHDM::long_int_typespec*)src)->VpiSigned();
+                break;
+            case UHDM::uhdmbyte_typespec:
+                sg247 = ((const UHDM::byte_typespec*)src)->VpiSigned();
+                break;
+            default:
+                sg247 = ((const UHDM::integer_typespec*)src)->VpiSigned();
+                break;
+        }
+        if (sg247)
+            tr247("anonAggElemKeywordTs247_copysigned",
+                  std::string(UHDM::UhdmName(src->UhdmType())));
+    }
+    if (r11u247On("R11U247_KWELEM_OFF"))
+        switch (src->UhdmType()) {
+            case UHDM::uhdmshort_int_typespec:
+                ((UHDM::short_int_typespec*)out)
+                    ->VpiSigned(((const UHDM::short_int_typespec*)src)->VpiSigned());
+                break;
+            case UHDM::uhdmlong_int_typespec:
+                ((UHDM::long_int_typespec*)out)
+                    ->VpiSigned(((const UHDM::long_int_typespec*)src)->VpiSigned());
+                break;
+            case UHDM::uhdmbyte_typespec:
+                ((UHDM::byte_typespec*)out)
+                    ->VpiSigned(((const UHDM::byte_typespec*)src)->VpiSigned());
+                break;
+            case UHDM::uhdminteger_typespec:
+                ((UHDM::integer_typespec*)out)
+                    ->VpiSigned(((const UHDM::integer_typespec*)src)->VpiSigned());
+                break;
+            default:
+                break;
+        }
     if (auto* lt = out->Cast<UHDM::logic_typespec*>()) {
         auto* l0 = (const UHDM::logic_typespec*)src;
         lt->VpiSigned(l0->VpiSigned());

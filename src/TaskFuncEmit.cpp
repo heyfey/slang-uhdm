@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <vector>
 #include "R245.h"
+#include "R247.h"
 #include "R234.h"
 #include "R237.h"
 #include "R204.h"
@@ -1746,6 +1747,50 @@ UHDM::ref_var* UhdmExporter::makeNameBasedArrayTdRefVar166(
 // drain): emission-time and drain-time walks read typespec parent chains, and
 // setting it at the site moved an unrelated MiniAmiq typespec (a judge-visible
 // name, measured on the law's first build).
+// § pureVirtFormalSignKwTrim247 (r11u247, R11U247_PUREFORMAL_OFF; BuildUVMPkg
+// d/t #91593, `pure virtual function void
+// set_resource_pool_default_precedence(int unsigned precedence);` golden
+// int_typespec 9187:66-9187:69, ours 9187:66-9187:78) — a formal of a PURE
+// VIRTUAL prototype written WITHOUT its own direction keyword (and without
+// const / var / static) has a builtin-keyword typespec located at the type
+// KEYWORD alone: `int` of `int unsigned`, `bit` of `bit signed [3:0]`, the
+// signing and the packed dimensions outside the span.  A formal written with
+// a direction (`input int unsigned a`) spans the whole data type like every
+// other ANSI formal (§ tfSigningSpanFollowsCompilePath200); an inherited
+// direction does not count (`f3(input int unsigned a, int unsigned b)`: `b`
+// takes the keyword).  Measured on functions and tasks, bare and
+// macro-written, in packages and $unit (tools/probe/r11u247repro/cases/P).
+// A non-pure method's formals and an extern prototype's are untouched.
+static const slang::syntax::IntegerTypeSyntax*
+pureProtoNoDirKw247(const slang::ast::FormalArgumentSymbol& arg) {
+    const slang::syntax::SyntaxNode* fp = nullptr;
+    for (auto* q = arg.getSyntax(); q; q = q->parent)
+        if (q->kind == slang::syntax::SyntaxKind::FunctionPort) {
+            fp = q;
+            break;
+        }
+    if (!fp)
+        return nullptr;
+    auto& fps = fp->as<slang::syntax::FunctionPortSyntax>();
+    if (fps.direction.valid() || fps.constKeyword.valid() ||
+        fps.varKeyword.valid() || fps.staticKeyword.valid() || !fps.dataType)
+        return nullptr;
+    bool pure = false;
+    for (const slang::syntax::SyntaxNode* p = fp->parent; p; p = p->parent) {
+        if (p->kind == slang::syntax::SyntaxKind::ClassMethodPrototype) {
+            for (auto q : p->as<slang::syntax::ClassMethodPrototypeSyntax>().qualifiers)
+                if (q.kind == slang::parsing::TokenKind::PureKeyword)
+                    pure = true;
+            break;
+        }
+        if (p->kind == slang::syntax::SyntaxKind::ClassDeclaration)
+            break;
+    }
+    if (!pure || !slang::syntax::IntegerTypeSyntax::isKind(fps.dataType->kind))
+        return nullptr;
+    return &fps.dataType->as<slang::syntax::IntegerTypeSyntax>();
+}
+
 std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>> g_cloneArrTs241;
 std::vector<UHDM::task_func*> g_cloneTf241; // § cloneAggTsAtHomeListing241
 static void cloneLocalArrayTsParent241(bool importClone, UHDM::typespec* ats,
@@ -3721,6 +3766,20 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         tfContext = true;
                         pts0 = makeTypespec(*parg, ptsyn);
                         tfContext = false;
+                        // § pureVirtFormalSignKwTrim247 (law at
+                        // pureProtoNoDirKw247).
+                        if (pts0 && pts0->VpiName().empty() &&
+                            r11u247On("R11U247_PUREFORMAL_OFF"))
+                            if (auto* ity247 = pureProtoNoDirKw247(*parg)) {
+                                auto kr247 = ity247->keyword.range();
+                                if (kr247.start() != SourceLocation::NoLocation &&
+                                    (ity247->signing.valid() ||
+                                     !ity247->dimensions.empty())) {
+                                    setLoc(pts0, kr247);
+                                    tr247("pureVirtFormalSignKwTrim247",
+                                          std::string(parg->name));
+                                }
+                            }
                     }
                     if (pts0) {
                         mkPrt34()->Actual_typespec(pts0);

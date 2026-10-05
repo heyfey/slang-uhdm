@@ -1,0 +1,2 @@
+2af88ce8c0c70f3e728d6e8fdfaf0d9a  pristine.bin
+da60f833fd263102ef74d71140183800  law.bin

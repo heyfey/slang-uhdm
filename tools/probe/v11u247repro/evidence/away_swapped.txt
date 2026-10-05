@@ -1,0 +1,14 @@
+# 13 databases differ between /tmp/v11u247_wdL and /tmp/v11u247_wdP
+probe/r10svs6repro/b4_qual away=2 toward=0 flat_away=2 flat_toward=0 | int_typespec||||dut.sv|33|25|33|28|||| 
+probe/r10uvm208repro/g208_e_head away=0 toward=0 flat_away=0 flat_toward=0
+probe/r10uvm52repro/a1 away=1 toward=0 flat_away=1 flat_toward=0 | int_typespec||||dut.sv|41|42|41|45|||| @ re
+probe/r10v208repro/v208_f_io away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/BuildUVMPkg away=9 toward=0 flat_away=9 flat_toward=0 | int_typespec||||uvm_pkg.sv|9187|66|918
+surelog/default/MiniAmiq away=431 toward=0 flat_away=513 flat_toward=27 | ref_typespec|||svaunit_pkg::uvm_defa
+surelog/default/Scoreboard away=9 toward=0 flat_away=9 flat_toward=0 | int_typespec||||uvm_queue.svh|171|35|17
+surelog/default/SeqDriver away=256 toward=0 flat_away=326 flat_toward=17 | ref_typespec|||adpcm_pkg::uvm_defau
+surelog/default/SimpleUVM away=9 toward=0 flat_away=9 flat_toward=0 | int_typespec||||uvm_queue.svh|171|35|171
+surelog/testflags/BuildUVMPkg away=9 toward=0 flat_away=9 flat_toward=0 | int_typespec||||uvm_pkg.sv|9187|66|9
+surelog/testflags/MiniAmiq away=431 toward=0 flat_away=513 flat_toward=27 | ref_typespec|||svaunit_pkg::uvm_de
+surelog/testflags/SeqDriver away=256 toward=0 flat_away=326 flat_toward=17 | ref_typespec|||adpcm_pkg::uvm_def
+surelog/testflags/SimpleUVM away=9 toward=0 flat_away=9 flat_toward=0 | int_typespec||||uvm_queue.svh|171|35|1

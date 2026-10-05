@@ -639,7 +639,7 @@ r10svs3repro/a3_position,EQUAL,,equal
 r10svs3repro/a5_ctornest,EQUAL,,equal
 r10svs4repro/g1_thisidx,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
 r10svs4repro/g3_assoc,EQUAL,,equal
-r10svs6repro/b4_qual,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
+r10svs6repro/b4_qual,EQUAL,,equal
 r10svs7repro/a1_witness,EQUAL,,equal
 r10svs7repro/a2_args,EQUAL,,equal
 r10svs7repro/a4_escaped,EQUAL,,equal
@@ -930,7 +930,7 @@ r10uvm49repro/a6,EQUAL,,equal
 r10uvm50repro/a1,EQUAL,,equal
 r10uvm50repro/a7,EQUAL,,equal
 r10uvm51repro/a4,EQUAL,,equal
-r10uvm52repro/a1,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
+r10uvm52repro/a1,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
 r10uvm55repro/a1,EQUAL,,equal
 r10uvm56repro/a1_witness,EQUAL,,equal
 r10uvm56repro/a2_local,EQUAL,,equal

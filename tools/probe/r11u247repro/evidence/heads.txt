@@ -1,0 +1,27 @@
+BuildUVMPkg/default cmplines=0
+   before: #91593 endcol A: 6 int_typespec uvm_pkg.sv 9187 66 9187 69 B: 6 int_typespec uvm_pkg.sv 9187 66 9187 78 
+   after:  #153018 type A: 20 constant uvm_pkg.sv 60725 24 60725 26 63 64 INT:63 7 B: 20 operation uvm_pkg.sv 60725 24 60725 28 0 
+MiniAmiq/default cmplines=0
+   before: #76762 depth A: 8 class_var iter uvm_pkg::uvm_phase::execute_phase::iter uvm_callback_defines.svh 164 49 164 53 0 B: 7 method_func_call first uvm_callback_defines.svh 165 29 165 34 0 
+   after:  #78478 type A: 14 int_typespec 0 0 0 0 B: 14 class_typespec uvm_phase uvm_phase.svh 575 33 575 42 
+SeqDriver/default cmplines=0
+   before: #76718 depth A: 8 class_var iter uvm_pkg::uvm_phase::execute_phase::iter uvm_callback_defines.svh 164 49 164 53 0 B: 7 method_func_call first uvm_callback_defines.svh 165 29 165 34 0 
+   after:  #78434 type A: 14 int_typespec 0 0 0 0 B: 14 class_typespec uvm_phase uvm_phase.svh 575 33 575 42 
+SimpleUVM/default cmplines=0
+   before: #98800 type A: 9 enum_typespec uvm_pkg::uvm_severity uvm_sequence_item.svh 352 37 352 49 B: 9 unsupported_typespec uvm_severity uvm_globals.svh 168 15 168 27 
+   after:  #98800 type A: 9 enum_typespec uvm_pkg::uvm_severity uvm_sequence_item.svh 352 37 352 49 B: 9 unsupported_typespec uvm_severity uvm_globals.svh 168 15 168 27 
+Scoreboard/default cmplines=0
+   before: #130737 type A: 21 constant uvm_reg_model.svh 73 24 73 26 63 64 INT:63 7 B: 21 operation uvm_reg_model.svh 73 24 73 28 0 
+   after:  #130737 type A: 21 constant uvm_reg_model.svh 73 24 73 26 63 64 INT:63 7 B: 21 operation uvm_reg_model.svh 73 24 73 28 0 
+BuildUVMPkg/testflags cmplines=0
+   before: #91593 endcol A: 6 int_typespec uvm_pkg.sv 9187 66 9187 69 B: 6 int_typespec uvm_pkg.sv 9187 66 9187 78 
+   after:  #153018 type A: 20 constant uvm_pkg.sv 60725 24 60725 26 63 64 INT:63 7 B: 20 operation uvm_pkg.sv 60725 24 60725 28 0 
+MiniAmiq/testflags cmplines=0
+   before: #76762 depth A: 8 class_var iter uvm_pkg::uvm_phase::execute_phase::iter uvm_callback_defines.svh 164 49 164 53 0 B: 7 method_func_call first uvm_callback_defines.svh 165 29 165 34 0 
+   after:  #78478 type A: 14 int_typespec 0 0 0 0 B: 14 class_typespec uvm_phase uvm_phase.svh 575 33 575 42 
+SeqDriver/testflags cmplines=0
+   before: #76730 depth A: 8 class_var iter uvm_pkg::uvm_phase::execute_phase::iter uvm_callback_defines.svh 164 49 164 53 0 B: 7 method_func_call first uvm_callback_defines.svh 165 29 165 34 0 
+   after:  #78446 type A: 14 int_typespec 0 0 0 0 B: 14 class_typespec uvm_phase uvm_phase.svh 575 33 575 42 
+SimpleUVM/testflags cmplines=0
+   before: #98812 type A: 9 enum_typespec uvm_pkg::uvm_severity uvm_sequence_item.svh 352 37 352 49 B: 9 unsupported_typespec uvm_severity uvm_globals.svh 168 15 168 27 
+   after:  #98812 type A: 9 enum_typespec uvm_pkg::uvm_severity uvm_sequence_item.svh 352 37 352 49 B: 9 unsupported_typespec uvm_severity uvm_globals.svh 168 15 168 27 

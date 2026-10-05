@@ -1,0 +1,9 @@
+BuildUVMPkg/default PRISTINE_BYTES
+MiniAmiq/default PRISTINE_BYTES
+SeqDriver/default PRISTINE_BYTES
+SimpleUVM/default PRISTINE_BYTES
+Scoreboard/default PRISTINE_BYTES
+BuildUVMPkg/testflags PRISTINE_BYTES
+MiniAmiq/testflags PRISTINE_BYTES
+SeqDriver/testflags PRISTINE_BYTES
+SimpleUVM/testflags PRISTINE_BYTES

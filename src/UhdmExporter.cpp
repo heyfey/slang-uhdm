@@ -20,6 +20,7 @@
 #include "R241.h"
 #include "R243.h"
 #include "R245.h"
+#include "R247.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -899,6 +900,9 @@ void noteModClassDefn196(const void* def, std::string_view name, UHDM::class_def
         modClassListing196().emplace(std::make_pair(def, std::string(name)), cd);
 }
 void enumImportParentDrain180(UHDM::design* d); // § enumImportParentLastWriter180 (ModuleEmit.cpp)
+// § clsTpKwDefaultArrElemAtUse247 (TypeEmit.cpp)
+void noteTpUseKeyword247(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
+                         const slang::syntax::SyntaxNode* typeSyn);
 // § classTpDefaultTsAtUse180 (TypeEmit.cpp)
 void noteTpOwnTs180(const slang::ast::Symbol* tp, UHDM::typespec* ts, bool winner87);
 const slang::ast::Type* tpTdTarget234(const slang::ast::Type& t, int* chainDepth = nullptr); // § tpTdDefaultUseSharesListing234 (TypeEmit.cpp)
@@ -7789,6 +7793,8 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                         }
                     if (cp.getType().kind != SymbolKind::TypeAlias)
                         pts->VpiParent(reg);
+                    // § clsTpKwDefaultArrElemAtUse247 (law at TypeEmit.cpp).
+                    noteTpUseKeyword247(pts, cp, cp.getDeclaredType()->getTypeSyntax());
                 }
             }
             // An ELEMENT type with no shared alias (a bare `bit [7:0]`) still
@@ -16017,6 +16023,75 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
         }
     }
+    // § clsPropElemAliasName247 (r11u247, R11U247_ELEMALIAS_OFF; grid
+    // tools/probe/r11u247repro/cases/N, T t11) — the ELEMENT of a class
+    // property array (`my_t tq[$]`, `v_t vd[]`, `b_t bf[2]`, `my_t aa[string]`)
+    // typed by a scalar or vector typedef binds a per-declaration copy whose
+    // Typedef_alias reference golden names by the property: `p::q::tq::my_t`
+    // (the property's full name, then the bare typedef name), the twin of
+    // § clsPropLawSAliasName243 for the scalar property.  The INDEX of an
+    // associative property keeps the bare name (`int ia[my_t]`: golden
+    // `my_t`).  Ours wrote the bare name everywhere.  Renamed only when the
+    // copy is bound by that one element reference and its alias reference
+    // holds the bare name; classes walked in listing order.
+    if (r11u247On("R11U247_ELEMALIAS_OFF")) {
+        std::vector<UHDM::class_defn*> cls247;
+        std::set<UHDM::class_defn*> seen247;
+        auto addCls = [&](UHDM::VectorOfclass_defn* v) {
+            if (v)
+                for (auto* c : *v)
+                    if (c && seen247.insert(c).second)
+                        cls247.push_back(c);
+        };
+        auto addPk = [&](auto* v) {
+            if (v)
+                for (auto* p : *v)
+                    if (p)
+                        addCls(p->Class_defns());
+        };
+        addCls(d->AllClasses());
+        addPk(d->AllPackages());
+        addPk(d->TopPackages());
+        addPk(d->AllModules());
+        addPk(d->TopModules());
+        std::map<const UHDM::typespec*, int> nref247;
+        bool counted247 = false;
+        for (size_t i = 0; i < cls247.size(); i++) {
+            auto* cd = cls247[i];
+            if (!cd->Variables())
+                continue;
+            for (auto* v : *cd->Variables()) {
+                if (!v || v->UhdmType() != UHDM::uhdmarray_var)
+                    continue;
+                auto* av = (UHDM::array_var*)v;
+                if (!av->Variables() || av->Variables()->size() != 1)
+                    continue;
+                auto* ev = dynamic_cast<UHDM::variables*>((*av->Variables())[0]);
+                if (!ev || !ev->Typespec())
+                    continue;
+                auto* x = ev->Typespec()->Actual_typespec();
+                if (!x || x->VpiName().empty() || !x->Typedef_alias())
+                    continue;
+                auto* al = (UHDM::ref_typespec*)x->Typedef_alias();
+                if (al->VpiFullName() != x->VpiName())
+                    continue;
+                if (!counted247) {
+                    counted247 = true;
+                    for (auto& kv : s.AllObjects()) {
+                        auto* o = (const UHDM::BaseClass*)kv.first;
+                        if (o && o->UhdmType() == UHDM::uhdmref_typespec)
+                            if (auto* a = ((const UHDM::ref_typespec*)o)->Actual_typespec())
+                                nref247[a]++;
+                    }
+                }
+                if (nref247[x] != 1)
+                    continue;
+                al->VpiFullName(std::string(av->VpiFullName()) + "::" +
+                                std::string(x->VpiName()));
+                tr247("clsPropElemAliasName247", std::string(al->VpiFullName()));
+            }
+        }
+    }
     // ...and an anonymous class_typespec never carries vpiInstance.
     clearAnonClassTsInstance();
     // § structInlineEnumMemberTs113 (r11u113) — the inline enum member's base
@@ -18744,6 +18819,138 @@ UHDM::design* UhdmExporter::exportDesign() {
         // array_typespec takes the local's ref_typespec as its parent.
         for (auto& [ats241, art241] : g_cloneArrTs241)
             if (!ats241->VpiParent()) {
+                // § cloneArrTsHomeRefOwn247 (R11U247_HOMEARRTS_OFF; MiniAmiq
+                // d/t and SeqDriver d/t, the copy of uvm_phase::
+                // get_predecessors_for_successors: `uvm_phase successors[];
+                // foreach (successors[s]) ...`) — the HOME body's foreach
+                // operand `successors` (a ref_var outside every importer copy)
+                // binds the COPY's array_typespec (StmtEmit arrayVarArrayTs
+                // keeps the last emission's object per declaration, and the
+                // copy is emitted after the home), so the abstention above
+                // read the copy's object as shared and left it unparented,
+                // the copy's element ref_typespec reading no full name where
+                // golden reads the local's.  Golden's home reference binds the
+                // home's own declaration's array_typespec.  The law re-points
+                // such a home reference at the array_typespec of the variable
+                // of the same name its own subroutine (or an enclosing block
+                // of it) declares, when that is a different object of the same
+                // kind; then the abstention is re-read.
+                if (r11u247On("R11U247_HOMEARRTS_OFF"))
+                    if (auto rit = refsOf241.find(ats241); rit != refsOf241.end()) {
+                        std::vector<const UHDM::ref_typespec*> keep247;
+                        const UHDM::typespec* homeAts247 = nullptr;
+                        bool homeAmbig247 = false;
+                        for (auto* r : rit->second) {
+                            const UHDM::typespec* own247 = nullptr;
+                            auto* pv = r->VpiParent();
+                            if (!ownerTf241(r) && pv && pv->UhdmType() == UHDM::uhdmref_var &&
+                                !pv->VpiName().empty()) {
+                                std::string_view nm = pv->VpiName();
+                                auto look = [&](const UHDM::VectorOfvariables* vs) {
+                                    if (!vs || own247)
+                                        return;
+                                    for (auto* v : *vs)
+                                        if (v && v->UhdmType() == UHDM::uhdmarray_var &&
+                                            v->VpiName() == nm && v->Typespec())
+                                            if (auto* at = v->Typespec()->Actual_typespec();
+                                                at && at != ats241 &&
+                                                at->UhdmType() == ats241->UhdmType())
+                                                own247 = at;
+                                };
+                                for (const UHDM::BaseClass* u = pv->VpiParent(); u && !own247;
+                                     u = u->VpiParent()) {
+                                    auto k = u->UhdmType();
+                                    if (k == UHDM::uhdmbegin)
+                                        look(((const UHDM::begin*)u)->Variables());
+                                    else if (k == UHDM::uhdmnamed_begin)
+                                        look(((const UHDM::named_begin*)u)->Variables());
+                                    else if (k == UHDM::uhdmfork_stmt)
+                                        look(((const UHDM::fork_stmt*)u)->Variables());
+                                    else if (k == UHDM::uhdmnamed_fork)
+                                        look(((const UHDM::named_fork*)u)->Variables());
+                                    else if (k == UHDM::uhdmfunction || k == UHDM::uhdmtask) {
+                                        look(((const UHDM::task_func*)u)->Variables());
+                                        break;
+                                    }
+                                }
+                            }
+                            if (own247) {
+                                ((UHDM::ref_typespec*)r)->Actual_typespec((UHDM::typespec*)own247);
+                                refsOf241[own247].push_back(r);
+                                if (!homeAts247)
+                                    homeAts247 = own247;
+                                else if (homeAts247 != own247)
+                                    homeAmbig247 = true;
+                                tr247("cloneArrTsHomeRefOwn247",
+                                      std::string(art241->VpiFullName()) + " ref#" +
+                                          std::to_string(r->UhdmId()));
+                            }
+                            else
+                                keep247.push_back(r);
+                        }
+                        // The second half: a HOME loop variable the copy's
+                        // foreach keeps (§ cloneLoopVarShared37: `s` and `pred`
+                        // of `foreach (successors[s])` read `p::c::f::s` inside
+                        // the copy) took the copy's array_typespec when the
+                        // copy was emitted; it is the home's object, so it
+                        // binds the home's array_typespec found above.
+                        // The home's array_typespec for the loop-variable
+                        // half: the home subroutine the copy was re-emitted
+                        // from (§ cloneStmtHomeVarRef17's map; both home views),
+                        // its own local of the copy local's name and site.
+                        if (!homeAts247 && !homeAmbig247) {
+                            auto* cav = dynamic_cast<const UHDM::variables*>(art241->VpiParent());
+                            const UHDM::any* ctf = ownerTf241(art241);
+                            auto hs = ctf ? pkgCloneHomeSub17.find((const UHDM::task_func*)ctf)
+                                          : pkgCloneHomeSub17.end();
+                            if (cav && hs != pkgCloneHomeSub17.end() && hs->second) {
+                                std::vector<const UHDM::task_func*> homes;
+                                if (auto e = pkgElabSubTf.find(hs->second); e != pkgElabSubTf.end() && e->second)
+                                    homes.push_back(e->second);
+                                if (auto e = subMap.find(hs->second); e != subMap.end() && e->second.tf)
+                                    homes.push_back(e->second.tf);
+                                for (auto* h : homes) {
+                                    if (h == ctf || !h->Variables())
+                                        continue;
+                                    for (auto* v : *h->Variables())
+                                        if (v && v->UhdmType() == cav->UhdmType() &&
+                                            v->VpiName() == cav->VpiName() &&
+                                            v->VpiLineNo() == cav->VpiLineNo() &&
+                                            v->VpiColumnNo() == cav->VpiColumnNo() && v->Typespec())
+                                            if (auto* at = v->Typespec()->Actual_typespec();
+                                                at && at != ats241 && at->UhdmType() == ats241->UhdmType()) {
+                                                if (homeAts247 && homeAts247 != at)
+                                                    homeAmbig247 = true;
+                                                homeAts247 = at;
+                                            }
+                                }
+                            }
+                        }
+                        if (homeAts247 && !homeAmbig247) {
+                            std::vector<const UHDM::ref_typespec*> keep2;
+                            const UHDM::any* ctf247 = ownerTf241(art241);
+                            std::string ctff247 =
+                                ctf247 ? std::string(((const UHDM::task_func*)ctf247)->VpiFullName())
+                                       : std::string();
+                            for (auto* r : keep247) {
+                                auto* pv = dynamic_cast<const UHDM::variables*>(r->VpiParent());
+                                std::string pf = pv ? std::string(pv->VpiFullName()) : std::string();
+                                if (pv && pv->UhdmType() == UHDM::uhdmref_var && ctf247 &&
+                                    ownerTf241(r) == ctf247 && !ctff247.empty() && !pf.empty() &&
+                                    pf.compare(0, ctff247.size(), ctff247) != 0) {
+                                    ((UHDM::ref_typespec*)r)->Actual_typespec((UHDM::typespec*)homeAts247);
+                                    refsOf241[homeAts247].push_back(r);
+                                    tr247("cloneArrTsHomeRefOwn247_loopvar",
+                                          std::string(art241->VpiFullName()) + " ref#" +
+                                              std::to_string(r->UhdmId()));
+                                }
+                                else
+                                    keep2.push_back(r);
+                            }
+                            keep247.swap(keep2);
+                        }
+                        refsOf241[ats241] = keep247;
+                    }
                 if (!onlyIn241(ats241, ownerTf241(art241))) {
                     tr241("cloneLocalArrayTsParented241_shared",
                           std::string(art241->VpiFullName()));

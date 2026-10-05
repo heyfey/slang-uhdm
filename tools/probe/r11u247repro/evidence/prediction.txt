@@ -1,0 +1,37 @@
+# r11u247 mover prediction, frozen 2026-10-05T11:31:43Z before the law sweep: drivers/tracesweep.sh on the law binary da60f833fd263102ef74d71140183800 (every law branch traced, fenced tests excluded by the harness filter). Each line: database law-that-fired.
+probe/r10svs6repro__b4_qual.uhdm clsTpKwDefaultArrElemAtUse247
+probe/r10uvm208repro__g208_e_head.uhdm cloneArrTsHomeRefOwn247
+probe/r10uvm52repro__a1.uhdm clsTpKwDefaultArrElemAtUse247
+probe/r10v208repro__v208_f_io.uhdm cloneArrTsHomeRefOwn247
+surelog BuildUVMPkg/default clsPropElemAliasName247
+surelog BuildUVMPkg/default clsTpKwDefaultArrElemAtUse247
+surelog BuildUVMPkg/default pureVirtFormalSignKwTrim247
+surelog MiniAmiq/default cloneArrTsHomeRefOwn247
+surelog MiniAmiq/default cloneArrTsHomeRefOwn247_loopvar
+surelog MiniAmiq/default cloneStmtHomeVarDupKeyByOrder247
+surelog MiniAmiq/default clsPropElemAliasName247
+surelog MiniAmiq/default clsTpKwDefaultArrElemAtUse247
+surelog Scoreboard/default clsPropElemAliasName247
+surelog Scoreboard/default clsTpKwDefaultArrElemAtUse247
+surelog SeqDriver/default cloneArrTsHomeRefOwn247
+surelog SeqDriver/default cloneArrTsHomeRefOwn247_loopvar
+surelog SeqDriver/default cloneStmtHomeVarDupKeyByOrder247
+surelog SeqDriver/default clsPropElemAliasName247
+surelog SeqDriver/default clsTpKwDefaultArrElemAtUse247
+surelog SimpleUVM/default clsPropElemAliasName247
+surelog SimpleUVM/default clsTpKwDefaultArrElemAtUse247
+surelog BuildUVMPkg/testflags clsPropElemAliasName247
+surelog BuildUVMPkg/testflags clsTpKwDefaultArrElemAtUse247
+surelog BuildUVMPkg/testflags pureVirtFormalSignKwTrim247
+surelog MiniAmiq/testflags cloneArrTsHomeRefOwn247
+surelog MiniAmiq/testflags cloneArrTsHomeRefOwn247_loopvar
+surelog MiniAmiq/testflags cloneStmtHomeVarDupKeyByOrder247
+surelog MiniAmiq/testflags clsPropElemAliasName247
+surelog MiniAmiq/testflags clsTpKwDefaultArrElemAtUse247
+surelog SeqDriver/testflags cloneArrTsHomeRefOwn247
+surelog SeqDriver/testflags cloneArrTsHomeRefOwn247_loopvar
+surelog SeqDriver/testflags cloneStmtHomeVarDupKeyByOrder247
+surelog SeqDriver/testflags clsPropElemAliasName247
+surelog SeqDriver/testflags clsTpKwDefaultArrElemAtUse247
+surelog SimpleUVM/testflags clsPropElemAliasName247
+surelog SimpleUVM/testflags clsTpKwDefaultArrElemAtUse247
