@@ -1,0 +1,6 @@
+# r11u249 mover prediction, frozen 2026-10-05T13:40:25Z before the law sweep
+# firing census: drivers/tracesweep.sh with the law binary (md5 9ef1b5bbcb757d8df1d568cb1d22bbd3), R11U249_TRACE on every branch of the seven laws, surelog + uhdm2rtlil both modes and the 4087 probe cases, the four fenced tests excluded by the harness filter
+# firings: 0 (trace files: 0); positive control: a scratch probe copy of cases/B/b01_int run through check_probe.py fired modTdElabFoldSize249 (copy removed after)
+PREDICTED corpus movers: none (0 of 2560)
+PREDICTED probe movers: none (0 of 4087)
+PREDICTED downstream lane movers: none (0 of 805)

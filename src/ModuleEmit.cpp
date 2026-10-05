@@ -39,6 +39,7 @@
 #include "R239.h"
 #include "R243.h"
 #include "R245.h"
+#include "R249.h"
 
 namespace slang_uhdm {
 
@@ -8017,12 +8018,68 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         // resolved the alias, so none of the alias-driven tags apply.
         // § caStrPortNetRevertsToPort92 face C — a reverted net has no
         // declaration left to read a net keyword from (src/EmitHelpers.h).
+        // § dynAliasNetType249 (r11u249, R11U249_DYNNETTYPE_OFF; cases
+        // tools/probe/r11u249repro/cases/U u05, N) — § unpackedAliasNetType65
+        // read for a DYNAMIC, QUEUE or ASSOCIATIVE typedef: Surelog's
+        // SIMPLE_TYPEDEF rewrite reads no dimension, so a definition net
+        // written as a bare typedef name whose (one-level) dynamic container
+        // holds an alias-free FOUR-STATE packed vector or scalar prints
+        // vpiLogicNet 36 (`reg` 48; golden U/u05 `typedef logic [7:0] d_t[];
+        // d_t d;`, N/n01), and a two-state element prints none (N/n02).  The
+        // shared helper descends fixed-size levels only.  Read only where
+        // the arms above stamp nothing.
+        auto dynNt249 = [&]() -> int32_t {
+            if (aliasOfAlias0 || classScopeTypeRef(*it.sym) || it.port ||
+                !r11u249On("R11U249_DYNNETTYPE_OFF"))
+                return 0;
+            auto* dt249 = it.sym->getDeclaredType();
+            if (!dt249)
+                return 0;
+            auto* ts249 = dt249->getTypeSyntax();
+            if (!ts249 || ts249->kind != syntax::SyntaxKind::NamedType ||
+                ts249->as<syntax::NamedTypeSyntax>().name->kind !=
+                    syntax::SyntaxKind::IdentifierName ||
+                dt249->getType().kind != SymbolKind::TypeAlias)
+                return 0;
+            auto& tt249 = dt249->getType().as<TypeAliasType>().targetType.getType();
+            const Type* e249 = nullptr;
+            if (tt249.kind == SymbolKind::DynamicArrayType)
+                e249 = &tt249.as<DynamicArrayType>().elementType;
+            else if (tt249.kind == SymbolKind::QueueType)
+                e249 = &tt249.as<QueueType>().elementType;
+            else if (tt249.kind == SymbolKind::AssociativeArrayType)
+                e249 = &tt249.as<AssociativeArrayType>().elementType;
+            // An element holding an alias anywhere on its packed chain is
+            // left alone (§ unpackedAliasNetType65's element-reach fence,
+            // not measured here).
+            for (const Type* p249 = e249; p249;) {
+                if (p249->kind == SymbolKind::TypeAlias)
+                    return 0;
+                p249 = p249->kind == SymbolKind::PackedArrayType
+                           ? &p249->as<PackedArrayType>().elementType
+                           : nullptr;
+            }
+            if (!e249)
+                return 0;
+            auto& ec249 = e249->getCanonicalType();
+            if ((ec249.kind != SymbolKind::PackedArrayType &&
+                 ec249.kind != SymbolKind::ScalarType) ||
+                !ec249.isFourState())
+                return 0;
+            return aliasVectorKeyword(dt249->getType()) == syntax::SyntaxKind::RegType
+                       ? vpiReg
+                       : 36;
+        };
         if (int32_t nt = (aliasOfAlias0 || classScopeTypeRef(*it.sym) ||
                           vlogUnresolvedLogicNet(*it.sym) ||
                           strPortRevertedNet92(it))
                              ? 0
                              : netTypeFor(*it.sym, true))
             n->VpiNetType(nt);
+        else if (int32_t nt249 = dynNt249()) {
+            n->VpiNetType(nt249);
+            tr249("dynAliasNetType249", std::string(n->VpiFullName()));
+        }
         // A PACKAGE-typedef struct net (port, or a flat-member local) is a
         // wire; nested-struct-member locals stay untyped, and a struct with
         // an ATOM member (integer r;) carries no net type.

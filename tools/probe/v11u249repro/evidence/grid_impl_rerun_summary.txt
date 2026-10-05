@@ -1,0 +1,111 @@
+A/a01_unit_fixed                              MOVE P=cmp43/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_37_objects/rc0 off==P:True sw:WHOLEARRTD
+A/a01_unit_fixed_el                           MOVE P=cmp43/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_37_objects/rc0 off==P:True sw:WHOLEARRTD
+A/a02_pkg_fixed                               MOVE P=cmp105/NOT_EQUAL_stage1/rc4 L=cmp105/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a02_pkg_fixed_el                            MOVE P=cmp105/NOT_EQUAL_stage1/rc4 L=cmp105/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a03_pkg_qual                                MOVE P=cmp85/NOT_EQUAL_stage1/rc4 L=cmp85/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a03_pkg_qual_el                             MOVE P=cmp85/NOT_EQUAL_stage1/rc4 L=cmp85/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a04_unit_dyn                                MOVE P=cmp94/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_52_objects/rc0 off==P:True sw:UNITDYNTD,WHOLEARRTD
+A/a04_unit_dyn_el                             MOVE P=cmp94/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_52_objects/rc0 off==P:True sw:UNITDYNTD,WHOLEARRTD
+A/a05_pkg_queue                               MOVE P=cmp151/NOT_EQUAL_stage1/rc0 L=cmp151/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a05_pkg_queue_el                            MOVE P=cmp151/NOT_EQUAL_stage1/rc0 L=cmp151/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a06_pkg_assoc                               MOVE P=cmp177/NOT_EQUAL_stage1/rc0 L=cmp177/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a06_pkg_assoc_el                            MOVE P=cmp177/NOT_EQUAL_stage1/rc0 L=cmp177/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a07_clsscope                                MOVE P=cmp129/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_43_objects/rc0 off==P:True sw:CLSTDARRPATH,WHOLEARRTD
+A/a07_clsscope_el                             MOVE P=cmp129/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_43_objects/rc0 off==P:True sw:CLSTDARRPATH,WHOLEARRTD
+A/a08_mod_class                               MOVE P=cmp45/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_45_objects/rc0 off==P:True sw:WHOLEARRTD
+A/a08_mod_class_el                            MOVE P=cmp45/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_65_objects/rc0 off==P:True sw:WHOLEARRTD
+A/a09_2d                                      MOVE P=cmp165/NOT_EQUAL_stage1/rc4 L=cmp165/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a09_2d_el                                   MOVE P=cmp165/NOT_EQUAL_stage1/rc4 L=cmp165/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a10_elem_td                                 MOVE P=cmp56/NOT_EQUAL_stage1/rc4 L=cmp56/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a10_elem_td_el                              MOVE P=cmp56/NOT_EQUAL_stage1/rc4 L=cmp56/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a11_samepkg_vec                             MOVE P=cmp85/NOT_EQUAL_stage1/rc4 L=cmp85/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a11_samepkg_vec_el                          MOVE P=cmp85/NOT_EQUAL_stage1/rc4 L=cmp85/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a12_import_foreign                          MOVE P=cmp105/NOT_EQUAL_stage1/rc4 L=cmp105/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a12_import_foreign_el                       MOVE P=cmp105/NOT_EQUAL_stage1/rc4 L=cmp105/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a13_qual_byte                               MOVE P=cmp105/NOT_EQUAL_stage1/rc4 L=cmp105/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a13_qual_byte_el                            MOVE P=cmp105/NOT_EQUAL_stage1/rc4 L=cmp105/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a14_unit_elemtd                             MOVE P=cmp43/NOT_EQUAL_stage1/rc4 L=cmp17/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a14_unit_elemtd_el                          MOVE P=cmp43/NOT_EQUAL_stage1/rc4 L=cmp17/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a15_elem_enum                               MOVE P=cmp590/NOT_EQUAL_stage1/rc4 L=cmp590/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a15_elem_enum_el                            MOVE P=cmp590/NOT_EQUAL_stage1/rc4 L=cmp590/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a16_unit_qual_samepkg                       MOVE P=cmp105/NOT_EQUAL_stage1/rc4 L=cmp105/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a16_unit_qual_samepkg_el                    MOVE P=cmp105/NOT_EQUAL_stage1/rc4 L=cmp105/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+A/a17_init                                    MOVE P=cmp250/NOT_EQUAL_stage1/rc4 L=cmp28/NOT_EQUAL_stage1/rc0 off==P:True sw:UNITDYNTD,WHOLEARRTD
+A/a17_init_el                                 MOVE P=cmp264/NOT_EQUAL_stage1/rc4 L=cmp28/NOT_EQUAL_stage1/rc0 off==P:True sw:UNITDYNTD,WHOLEARRTD
+A/a18_alias2                                  MOVE P=cmp43/NOT_EQUAL_stage1/rc4 L=cmp116/NOT_EQUAL_stage1/rc4 off==P:True sw:WHOLEARRTD
+A/a18_alias2_el                               MOVE P=cmp43/NOT_EQUAL_stage1/rc4 L=cmp116/NOT_EQUAL_stage1/rc4 off==P:True sw:WHOLEARRTD
+A/a19_unit_static_const                       MOVE P=cmp105/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_75_objects/rc0 off==P:True sw:WHOLEARRTD
+A/a19_unit_static_const_el                    MOVE P=cmp105/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_75_objects/rc0 off==P:True sw:WHOLEARRTD
+B/b01_int                                     MOVE P=cmp56/NOT_EQUAL_stage1/rc0 L=cmp0/STRICT_EQUAL_46_objects/rc0 off==P:True sw:MODFOLD
+B/b01_int_el                                  MOVE P=cmp56/NOT_EQUAL_stage1/rc0 L=cmp0/STRICT_EQUAL_46_objects/rc0 off==P:True sw:MODFOLD
+B/b02_vec_logic                                    P=cmp0/STRICT_EQUAL_136_objects/rc0 L=cmp0/STRICT_EQUAL_136_objects/rc0 off==P:True sw:
+B/b02_vec_logic_el                                 P=cmp0/STRICT_EQUAL_135_objects/rc0 L=cmp0/STRICT_EQUAL_135_objects/rc0 off==P:True sw:
+B/b03_range_form                                   P=cmp0/STRICT_EQUAL_38_objects/rc0 L=cmp0/STRICT_EQUAL_38_objects/rc0 off==P:True sw:
+B/b03_range_form_el                                P=cmp0/STRICT_EQUAL_38_objects/rc0 L=cmp0/STRICT_EQUAL_38_objects/rc0 off==P:True sw:
+B/b04_two_inst                                     P=cmp90/NOT_EQUAL_stage1/rc0 L=cmp90/NOT_EQUAL_stage1/rc0 off==P:True sw:
+B/b04_two_inst_el                                  P=cmp90/NOT_EQUAL_stage1/rc0 L=cmp90/NOT_EQUAL_stage1/rc0 off==P:True sw:
+B/b05_gen_var                                      P=cmp79/NOT_EQUAL_stage1/rc0 L=cmp79/NOT_EQUAL_stage1/rc0 off==P:True sw:
+B/b05_gen_var_el                                   P=cmp79/NOT_EQUAL_stage1/rc0 L=cmp79/NOT_EQUAL_stage1/rc0 off==P:True sw:
+B/b06_iface                                        P=cmp90/NOT_EQUAL_stage1/rc0 L=cmp90/NOT_EQUAL_stage1/rc0 off==P:True sw:
+B/b06_iface_el                                     P=cmp90/NOT_EQUAL_stage1/rc0 L=cmp90/NOT_EQUAL_stage1/rc0 off==P:True sw:
+B/b07_param_size                                   P=cmp48/NOT_EQUAL_stage1/rc0 L=cmp48/NOT_EQUAL_stage1/rc0 off==P:True sw:
+B/b07_param_size_el                                P=cmp33/NOT_EQUAL_stage1/rc0 L=cmp33/NOT_EQUAL_stage1/rc0 off==P:True sw:
+B/b08_struct_elem                             MOVE P=cmp56/NOT_EQUAL_stage1/rc0 L=cmp0/STRICT_NOTEQUAL_type/rc0 off==P:True sw:MODFOLD
+B/b08_struct_elem_el                          MOVE P=cmp56/NOT_EQUAL_stage1/rc0 L=cmp0/STRICT_NOTEQUAL_type/rc0 off==P:True sw:MODFOLD
+C/c01_pkgcls                                  MOVE P=cmp294/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_46_objects/rc0 off==P:True sw:CLSTDARRPATH,WHOLEARRTD
+C/c01_pkgcls_el                               MOVE P=cmp294/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_46_objects/rc0 off==P:True sw:CLSTDARRPATH,WHOLEARRTD
+C/c02_unitcls                                 MOVE P=cmp127/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_37_objects/rc0 off==P:True sw:WHOLEARRTD
+C/c02_unitcls_el                              MOVE P=cmp127/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_37_objects/rc0 off==P:True sw:WHOLEARRTD
+C/c03_modcls                                  MOVE P=cmp129/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_37_objects/rc0 off==P:True sw:CLSTDARRPATH,WHOLEARRTD
+C/c03_modcls_el                               MOVE P=cmp129/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_65_objects/rc0 off==P:True sw:CLSTDARRPATH,WHOLEARRTD
+C/c04_pkgcls_2d_vec                           MOVE P=cmp197/NOT_EQUAL_stage1/rc4 L=cmp202/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+C/c04_pkgcls_2d_vec_el                        MOVE P=cmp197/NOT_EQUAL_stage1/rc4 L=cmp202/NOT_EQUAL_stage1/rc0 off==P:True sw:WHOLEARRTD
+C/c05_pkgcls_param                            MOVE P=cmp125/NOT_EQUAL_stage1/rc4 L=cmp46/NOT_EQUAL_stage1/rc0 off==P:True sw:CLSTDARRPATH,WHOLEARRTD
+C/c05_pkgcls_param_el                         MOVE P=cmp129/NOT_EQUAL_stage1/rc4 L=cmp50/NOT_EQUAL_stage1/rc0 off==P:True sw:CLSTDARRPATH,WHOLEARRTD
+K/k01_union_int                               MOVE P=cmp90/NOT_EQUAL_stage1/rc4 L=cmp297/NOT_EQUAL_stage1/rc0 off==P:True sw:UNITUNION
+K/k01_union_int_el                            MOVE P=cmp90/NOT_EQUAL_stage1/rc4 L=cmp321/NOT_EQUAL_stage1/rc0 off==P:True sw:UNITUNION
+K/k02_union_arr                               MOVE P=cmp90/NOT_EQUAL_stage1/rc4 L=cmp331/NOT_EQUAL_stage1/rc0 off==P:True sw:UNITUNION
+K/k02_union_arr_el                            MOVE P=cmp90/NOT_EQUAL_stage1/rc4 L=cmp355/NOT_EQUAL_stage1/rc0 off==P:True sw:UNITUNION
+K/k03_union_used_in_class                     MOVE P=cmp94/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_26_objects/rc0 off==P:True sw:UNITUNION
+K/k03_union_used_in_class_el                  MOVE P=cmp94/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_26_objects/rc0 off==P:True sw:UNITUNION
+M/m01_q                                       MOVE P=cmp109/NOT_EQUAL_stage1/rc4 L=cmp17/NOT_EQUAL_stage1/rc0 off==P:True sw:MODDYNTD
+M/m01_q_el                                    MOVE P=cmp109/NOT_EQUAL_stage1/rc4 L=cmp17/NOT_EQUAL_stage1/rc0 off==P:True sw:MODDYNTD
+M/m02_dyn                                     MOVE P=cmp109/NOT_EQUAL_stage1/rc4 L=cmp17/NOT_EQUAL_stage1/rc0 off==P:True sw:DYNNETTYPE,MODDYNTD
+M/m02_dyn_el                                  MOVE P=cmp109/NOT_EQUAL_stage1/rc4 L=cmp17/NOT_EQUAL_stage1/rc0 off==P:True sw:DYNNETTYPE,MODDYNTD
+M/m03_assoc                                   MOVE P=cmp227/NOT_EQUAL_stage1/rc4 L=cmp17/NOT_EQUAL_stage1/rc0 off==P:True sw:MODDYNTD
+M/m03_assoc_el                                MOVE P=cmp227/NOT_EQUAL_stage1/rc4 L=cmp17/NOT_EQUAL_stage1/rc0 off==P:True sw:MODDYNTD
+M/m04_unused                                  MOVE P=cmp83/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_15_objects/rc0 off==P:True sw:MODDYNTD
+M/m04_unused_el                               MOVE P=cmp83/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_15_objects/rc0 off==P:True sw:MODDYNTD
+M/m05_two_mods                                MOVE P=cmp109/NOT_EQUAL_stage1/rc4 L=cmp17/NOT_EQUAL_stage1/rc0 off==P:True sw:MODDYNTD
+M/m05_two_mods_el                             MOVE P=cmp109/NOT_EQUAL_stage1/rc4 L=cmp17/NOT_EQUAL_stage1/rc0 off==P:True sw:MODDYNTD
+N/n01_reg_q                                   MOVE P=cmp86/NOT_EQUAL_stage1/rc4 L=cmp47/NOT_EQUAL_stage1/rc0 off==P:True sw:DYNNETTYPE,UNITDYNTD
+N/n01_reg_q_el                                MOVE P=cmp86/NOT_EQUAL_stage1/rc4 L=cmp47/NOT_EQUAL_stage1/rc0 off==P:True sw:DYNNETTYPE,UNITDYNTD
+N/n02_bit_dyn                                 MOVE P=cmp84/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_44_objects/rc0 off==P:True sw:UNITDYNTD
+N/n02_bit_dyn_el                              MOVE P=cmp84/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_44_objects/rc0 off==P:True sw:UNITDYNTD
+N/n03_logic_scalar_assoc                      MOVE P=cmp98/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_69_objects/rc0 off==P:True sw:DYNNETTYPE,UNITDYNTD
+N/n03_logic_scalar_assoc_el                   MOVE P=cmp98/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_69_objects/rc0 off==P:True sw:DYNNETTYPE,UNITDYNTD
+N/n04_modlocal                                MOVE P=cmp203/NOT_EQUAL_stage1/rc4 L=cmp17/NOT_EQUAL_stage1/rc0 off==P:True sw:DYNNETTYPE,MODDYNTD
+N/n04_modlocal_el                             MOVE P=cmp203/NOT_EQUAL_stage1/rc4 L=cmp17/NOT_EQUAL_stage1/rc0 off==P:True sw:DYNNETTYPE,MODDYNTD
+N/n05_pkg_import                              MOVE P=cmp85/NOT_EQUAL_stage1/rc0 L=cmp85/NOT_EQUAL_stage1/rc0 off==P:True sw:DYNNETTYPE
+N/n05_pkg_import_el                           MOVE P=cmp85/NOT_EQUAL_stage1/rc0 L=cmp85/NOT_EQUAL_stage1/rc0 off==P:True sw:DYNNETTYPE
+N/n06_pkg_qual                                     P=cmp85/NOT_EQUAL_stage1/rc0 L=cmp85/NOT_EQUAL_stage1/rc0 off==P:True sw:
+N/n06_pkg_qual_el                                  P=cmp85/NOT_EQUAL_stage1/rc0 L=cmp85/NOT_EQUAL_stage1/rc0 off==P:True sw:
+N/n07_elem_alias                                   P=cmp76/NOT_EQUAL_stage1/rc4 L=cmp76/NOT_EQUAL_stage1/rc4 off==P:True sw:
+N/n07_elem_alias_el                                P=cmp76/NOT_EQUAL_stage1/rc4 L=cmp76/NOT_EQUAL_stage1/rc4 off==P:True sw:
+U/u01_dyn_var                                 MOVE P=cmp86/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_32_objects/rc0 off==P:True sw:UNITDYNTD
+U/u01_dyn_var_el                              MOVE P=cmp86/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_32_objects/rc0 off==P:True sw:UNITDYNTD
+U/u02_queue_var                               MOVE P=cmp88/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_40_objects/rc0 off==P:True sw:UNITDYNTD
+U/u02_queue_var_el                            MOVE P=cmp88/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_40_objects/rc0 off==P:True sw:UNITDYNTD
+U/u03_assoc_str                               MOVE P=cmp100/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_40_objects/rc0 off==P:True sw:UNITDYNTD
+U/u03_assoc_str_el                            MOVE P=cmp100/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_40_objects/rc0 off==P:True sw:UNITDYNTD
+U/u04_assoc_int                               MOVE P=cmp100/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_77_objects/rc0 off==P:True sw:UNITDYNTD
+U/u04_assoc_int_el                            MOVE P=cmp100/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_77_objects/rc0 off==P:True sw:UNITDYNTD
+U/u05_vec_elem                                MOVE P=cmp84/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_85_objects/rc0 off==P:True sw:DYNNETTYPE,UNITDYNTD
+U/u05_vec_elem_el                             MOVE P=cmp84/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_85_objects/rc0 off==P:True sw:DYNNETTYPE,UNITDYNTD
+U/u06_classprop                               MOVE P=cmp94/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_52_objects/rc0 off==P:True sw:UNITDYNTD,WHOLEARRTD
+U/u06_classprop_el                            MOVE P=cmp94/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_52_objects/rc0 off==P:True sw:UNITDYNTD,WHOLEARRTD
+U/u07_func_local                              MOVE P=cmp134/NOT_EQUAL_stage1/rc4 L=cmp134/NOT_EQUAL_stage1/rc0 off==P:True sw:UNITDYNTD
+U/u07_func_local_el                           MOVE P=cmp134/NOT_EQUAL_stage1/rc4 L=cmp134/NOT_EQUAL_stage1/rc0 off==P:True sw:UNITDYNTD
+U/u08_byte_q_unused                           MOVE P=cmp171/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_15_objects/rc0 off==P:True sw:UNITDYNTD
+U/u08_byte_q_unused_el                        MOVE P=cmp173/NOT_EQUAL_stage1/rc4 L=cmp0/STRICT_EQUAL_15_objects/rc0 off==P:True sw:UNITDYNTD
+{'views': 110, 'off_pristine': 110, 'moved': 94, 'enter_SE': 40}

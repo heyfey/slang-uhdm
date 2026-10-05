@@ -24,6 +24,7 @@
 #include "R237.h"
 #include "R243.h"
 #include "R247.h"
+#include "R249.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -19366,6 +19367,59 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
     return uts;
 }
 
+bool g249DynRangeReq = false;
+
+// § unitDynArrTd249 / § modDynArrTd249 — the one-dimension shapes the $unit
+// and module-body dynamic-array typedef arms write: `[]`, `[$]` (unbounded) and an associative index
+// written as `string` or an integer keyword, over a keyword element.
+bool unitDynTdShape249(const slang::ast::TypeAliasType& ta) {
+    using namespace slang;
+    auto* syn = ta.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::TypedefDeclaration)
+        return false;
+    auto& td = syn->as<syntax::TypedefDeclarationSyntax>();
+    if (td.dimensions.size() != 1)
+        return false;
+    auto& ct = ta.targetType.getType().getCanonicalType();
+    const ast::Type* el = nullptr;
+    auto* sp = td.dimensions[0]->specifier;
+    switch (ct.kind) {
+        case ast::SymbolKind::DynamicArrayType:
+            if (sp)
+                return false;
+            el = &ct.as<ast::DynamicArrayType>().elementType;
+            break;
+        case ast::SymbolKind::QueueType:
+            if (!sp || sp->kind != syntax::SyntaxKind::QueueDimensionSpecifier ||
+                sp->as<syntax::QueueDimensionSpecifierSyntax>().maxSizeClause)
+                return false;
+            el = &ct.as<ast::QueueType>().elementType;
+            break;
+        case ast::SymbolKind::AssociativeArrayType: {
+            auto* ix = ct.as<ast::AssociativeArrayType>().indexType;
+            if (!ix || !sp || sp->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
+                return false;
+            auto& sel = *sp->as<syntax::RangeDimensionSpecifierSyntax>().selector;
+            if (sel.kind != syntax::SyntaxKind::BitSelect)
+                return false;
+            const syntax::ExpressionSyntax* ex = sel.as<syntax::BitSelectSyntax>().expr;
+            if (!ex || !syntax::DataTypeSyntax::isKind(ex->kind) ||
+                ex->kind == syntax::SyntaxKind::NamedType)
+                return false;
+            if (!ix->isString() &&
+                ix->getCanonicalType().kind != ast::SymbolKind::PredefinedIntegerType)
+                return false;
+            el = &ct.as<ast::AssociativeArrayType>().elementType;
+            break;
+        }
+        default:
+            return false;
+    }
+    if (!el || el->kind == ast::SymbolKind::TypeAlias || el->isUnpackedArray())
+        return false;
+    return true;
+}
+
 // typedef of an unpacked array (typedef bar_t foobar_t [2]): a NAMED
 // array_typespec spanning target-type..last-dim; a SIZE-form dim ([2]) folds
 // to [0 : N-1 op] at the size token, a ranged dim keeps its bounds at their
@@ -19542,6 +19596,80 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
     rv->push_back(r);
     ats->Ranges(rv);
     }  // § twinElemOnlyNoRange209: no range for a dynamic container
+    // § unitDynArrTd249 / § modDynArrTd249 (r11u249, R11U249_UNITDYNTD_OFF /
+    // R11U249_MODDYNTD_OFF; cases tools/probe/r11u249repro/cases/U, M) — a
+    // typedef LISTING of a dynamic container carries ONE range whose bounds
+    // mark the kind (Surelog's unpacked-dimension markers, golden A/a04,
+    // U/u01-u05):
+    //   `[]`       range at the brackets, `0` and `unsized` (string, no
+    //              size) both at the `[`;
+    //   `[$]`      range at the `$`, `0` unlocated, `$` (size 1,
+    //              vpiUnboundedConst) at the `$`;
+    //   `[<kw>]`   range at the brackets, `0` and `associative` unlocated,
+    //              the marker carrying a reference named like the typedef to
+    //              the index keyword's typespec at the index token, signed
+    //              as the index type is.
+    // Only when the writer asks (g249DynRangeReq), so TaskFuncEmit's
+    // § queueTwinKeepsElem204v clone keeps its rangeless form.
+    if (dynElem209 && g249DynRangeReq && dimSyn) {
+        auto* r = s.MakeRange();
+        r->VpiParent(ats);
+        auto* l = s.MakeConstant();
+        l->VpiParent(r);
+        l->VpiDecompile("0");
+        l->VpiSize(64);
+        l->VpiValue("UINT:0");
+        l->VpiConstType(vpiUIntConst);
+        auto* m = s.MakeConstant();
+        m->VpiParent(r);
+        if (ct.kind == SymbolKind::DynamicArrayType) {
+            setLoc(r, dimSyn->sourceRange());
+            setLoc(l, dimSyn->openBracket.range());
+            setLoc(m, dimSyn->openBracket.range());
+            m->VpiDecompile("unsized");
+            m->VpiValue("STRING:unsized");
+            m->VpiConstType(vpiStringConst);
+        }
+        else if (ct.kind == SymbolKind::QueueType) {
+            auto& qs = dimSyn->specifier->as<syntax::QueueDimensionSpecifierSyntax>();
+            setLoc(r, qs.dollar.range());
+            setLoc(m, qs.dollar.range());
+            m->VpiDecompile("$");
+            m->VpiSize(1);
+            m->VpiValue("STRING:$");
+            m->VpiConstType(vpiUnboundedConst);
+        }
+        else {
+            setLoc(r, dimSyn->sourceRange());
+            m->VpiDecompile("associative");
+            m->VpiValue("STRING:associative");
+            m->VpiConstType(vpiStringConst);
+            auto& is = *dimSyn->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                            .selector->as<syntax::BitSelectSyntax>()
+                            .expr;
+            auto& ix = *ct.as<AssociativeArrayType>().indexType;
+            auto* irt = s.MakeRef_typespec();
+            irt->VpiFullName(std::string(ta.name));
+            irt->VpiParent(m);
+            UHDM::typespec* its = nullptr;
+            if (ix.isString())
+                its = s.MakeString_typespec();
+            else if (ix.getCanonicalType().kind == SymbolKind::PredefinedIntegerType)
+                its = predefIntTypespec(ix.getCanonicalType(), ta);
+            if (its) {
+                its = assocIndexSignedAtom63(ix.getCanonicalType(), its);
+                its->VpiParent(irt);
+                setLoc(its, is.sourceRange());
+                irt->Actual_typespec(its);
+            }
+            m->Typespec(irt);
+        }
+        r->Left_expr(l);
+        r->Right_expr(m);
+        auto* rv = s.MakeRangeVec();
+        rv->push_back(r);
+        ats->Ranges(rv);
+    }
     // Elem ref -> the ELEMENT typedef's shared ts (typedef bar_t foobar_t [2]
     // points at bar_t's struct ts) — Surelog.
     {
@@ -20468,6 +20596,31 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             unfoldedTypedefElemDims = savedUfE;
             ats->VpiParent(m);
             ts = ats;
+        }
+        // § modDynArrTd249 (r11u249, R11U249_MODDYNTD_OFF; cases
+        // tools/probe/r11u249repro/cases/M) — a MODULE-BODY typedef of a
+        // dynamic array, a queue or an associative array (one dimension, a
+        // keyword element) had no arm (`typedef target: QueueType`, exit 4).
+        // Listed as the fixed-size arm above lists, with the kind-marker
+        // range of § unitDynArrTd249.
+        else if ((ct.kind == SymbolKind::DynamicArrayType ||
+                  ct.kind == SymbolKind::QueueType ||
+                  ct.kind == SymbolKind::AssociativeArrayType) &&
+                 ta.targetType.getType().kind != SymbolKind::TypeAlias &&
+                 unitDynTdShape249(ta) && r11u249On("R11U249_MODDYNTD_OFF")) {
+            bool savedUfE = unfoldedTypedefElemDims;
+            std::string savedPfxE = syntaxRefPrefix;
+            unfoldedTypedefElemDims = true;
+            syntaxRefPrefix.clear();
+            g249DynRangeReq = true;
+            auto* ats = buildUnpackedArrayTypedefTs(
+                ta, prefix + "." + std::string(ta.name));
+            g249DynRangeReq = false;
+            syntaxRefPrefix = savedPfxE;
+            unfoldedTypedefElemDims = savedUfE;
+            ats->VpiParent(m);
+            ts = ats;
+            tr249("modDynArrTd249", prefix + "." + std::string(ta.name));
         }
         else if (ct.kind == SymbolKind::PackedUnionType) {
             // Packed unions mirror packed structs: WHOLE-assigned unions keep

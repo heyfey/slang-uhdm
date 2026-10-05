@@ -21,6 +21,7 @@
 #include "R243.h"
 #include "R245.h"
 #include "R247.h"
+#include "R249.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -7250,6 +7251,15 @@ void UhdmExporter::emitClassPropInit29(const PendingPropInit29& pi) {
 // not abstract), so it is not a regression of this pass — it is filed as
 // residue R8 and deliberately NOT widened here, because widening it needs the
 // `virtual class` half measured on its own and this pass did not do that.
+// § clsPropWholeArrTd249 (r11u249, R11U249_WHOLEARRTD_OFF) — the class
+// properties the class-property switch below writes as a WHOLE-ARRAY typedef
+// (`typedef int f1_t[4]; class c; f1_t m_f; endclass`), with the property
+// symbol, for the design-final per-property copy (r11u249repro/cases/A).
+static std::vector<std::pair<UHDM::array_var*, const slang::ast::ClassPropertySymbol*>>
+    g249WholeArrProps;
+// § unitDynArrTd249 — the $unit dynamic / queue / associative listings.
+static std::set<const UHDM::typespec*> g249UnitDynTs;
+
 static bool hasVirtualIfaceSyntax6(const slang::syntax::SyntaxNode* n) {
     if (!n)
         return false;
@@ -7345,6 +7355,60 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         // because the degradation outranks the ARRAY arm too (a5 c_qual_qtd: a
         // class-scope QUEUE typedef is a logic_var, not an array_var).
         const bool foreignTd73 = classScopedTypedefProp73(cp, cls);
+        // § clsPropWholeArrTd249 (r11u249, R11U249_WHOLEARRTD_OFF; grid
+        // tools/probe/r11u249repro/cases/A) — a property whose declared type
+        // is a typedef NAME of a WHOLE unpacked array (fixed, dynamic, queue
+        // or associative: `typedef int f1_t[4]; f1_t m_f;`,
+        // `typedef int q_t[$]; q_t m_q;`) is, in golden, the SMALL array_var
+        // § fixedClassPropIsArrayVar6's clause (2) names: name, full name,
+        // the name token's span, vpiAutomatic unless static, the rand and
+        // visibility qualifiers, and a vpiTypespec reference named by the
+        // property — NO vpiSize, vpiArrayType, vpiRange or vpiReg element
+        // (Surelog's makeVar_ never reaches its array_var pass for a typedef
+        // name: the Signal carries no unpacked dimension of its own).  The
+        // fixed form was refused ("class property type:
+        // FixedSizeUnpackedArrayType", exit 4, pass 245's UA/a06 and d01's
+        // class-property half), and the dynamic forms took the DECLARATOR
+        // arm below, writing vpiSize 1, vpiArrayType and a vpiReg element
+        // golden does not have (A/a04, a05, a06).  The reference binds the
+        // typedef's listing in the write phase (pendingClassPropTs), and the
+        // design-final half below gives it golden's per-property copy.
+        // § classScopedTypedefPropIsBareLogicVar73's degraded property keeps
+        // its logic_var (it outranks every array arm).
+        if (!foreignTd73 && cp.getType().kind == SymbolKind::TypeAlias &&
+            (ct.kind == SymbolKind::FixedSizeUnpackedArrayType ||
+             ct.kind == SymbolKind::DynamicArrayType ||
+             ct.kind == SymbolKind::QueueType ||
+             ct.kind == SymbolKind::AssociativeArrayType) &&
+            r11u249On("R11U249_WHOLEARRTD_OFF")) {
+            auto* av249 = s.MakeArray_var();
+            av249->VpiName(cp.name);
+            av249->VpiFullName(pfn);
+            av249->VpiParent(cd);
+            setLoc(av249, nameSpan(cp.location, cp.name));
+            if (cp.lifetime != VariableLifetime::Static)
+                av249->VpiAutomatic(true);
+            if (cp.flags.has(VariableFlags::Const))
+                av249->VpiConstantVariable(true);
+            if (randTy) {
+                av249->VpiIsRandomized(true);
+                av249->VpiRandType(randTy);
+            }
+            av249->VpiVisibility(vis);
+            auto* rt249 = s.MakeRef_typespec();
+            rt249->VpiFullName(pfn);
+            rt249->VpiParent(av249);
+            pendingClassPropTs.push_back({rt249, &cp, av249});
+            av249->Typespec(rt249);
+            vars->push_back(av249);
+            g249WholeArrProps.push_back({av249, &cp});
+            // A declaration initializer takes the § classPropInit29 route
+            // (A/a17: golden's assignment-pattern operation under the var).
+            if (cp.getInitializer())
+                lateInit29.push_back({av249, &cp, pfn});
+            tr249("clsPropWholeArrTd249", pfn);
+            continue;
+        }
         // § fixedClassPropIsArrayVar6 — a FIXED-SIZE unpacked-array CLASS
         // PROPERTY (`Receiver rcvr[4];`) is an `array_var` in golden, built from
         // exactly the same parts as the dynamic/queue/assoc property one line
@@ -11056,7 +11120,36 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
             syntaxRefPrefix = aliasFull;
             syntaxRefSep = "::";
             if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
-                ts = buildUnpackedArrayTypedefTs(ta, aliasFull);
+                // § clsTdArrElemPkgPath249 (r11u249, R11U249_CLSTDARRPATH_OFF;
+                // cases tools/probe/r11u249repro/cases/C) — the element
+                // reference of an unpacked-array typedef declared in a class
+                // that a PACKAGE holds is named from the class's FULL name
+                // (`p::c::f_t`, golden A/a07), the array twin of
+                // § classTdStructMemberPkgPath146; ours wrote `c::f_t`.
+                std::string arrAlias249 = aliasFull;
+                if (clsName.find("::") == std::string::npos &&
+                    clsName.rfind("work@", 0) != 0 &&
+                    r11u249On("R11U249_CLSTDARRPATH_OFF"))
+                    if (auto* pk249 = cls.getParentScope();
+                        pk249 && pk249->asSymbol().kind == SymbolKind::Package) {
+                        arrAlias249 = std::string(pk249->asSymbol().name) +
+                                      "::" + aliasFull;
+                        tr249("clsTdArrElemPkgPath249", arrAlias249);
+                    }
+                    // ...and from `work@<module>::` for a class a MODULE
+                    // body declares (golden C/c03 `work@top::c::f_t`).
+                    else if (pk249 && pk249->asSymbol().kind ==
+                                          SymbolKind::InstanceBody) {
+                        arrAlias249 =
+                            "work@" +
+                            std::string(pk249->asSymbol()
+                                            .as<InstanceBodySymbol>()
+                                            .getDefinition()
+                                            .name) +
+                            "::" + aliasFull;
+                        tr249("clsTdArrElemPkgPath249_mod", arrAlias249);
+                    }
+                ts = buildUnpackedArrayTypedefTs(ta, arrAlias249);
             }
             else if (ct.kind == SymbolKind::UnpackedStructType ||
                      ct.kind == SymbolKind::PackedStructType) {
@@ -13726,6 +13819,21 @@ UHDM::design* UhdmExporter::exportDesign() {
                     if (typeSyn)
                         setLoc(ts, typeSyn->sourceRange());
                 }
+                // § unitUnpackedUnionTd249 (r11u249, R11U249_UNITUNION_OFF;
+                // cases tools/probe/r11u249repro/cases/K, v11u247 K/k10) — a
+                // $unit typedef of an UNPACKED union had no branch (`typedef
+                // target: UnpackedUnionType`, exit 4); it is listed as the
+                // unpacked struct above is, by the same union builder the
+                // packed arm below uses.
+                else if (ct.kind == SymbolKind::UnpackedUnionType &&
+                         r11u249On("R11U249_UNITUNION_OFF")) {
+                    ts = buildUnionTs(ct.as<UnpackedUnionType>(), false,
+                                      std::string(ta.name));
+                    ts->VpiParent(d);
+                    if (typeSyn)
+                        setLoc(ts, typeSyn->sourceRange());
+                    tr249("unitUnpackedUnionTd249", std::string(ta.name));
+                }
                 else if (ct.kind == SymbolKind::PackedUnionType) {
                     ts = buildUnionTs(ct.as<PackedUnionType>(), true,
                                       std::string(ta.name));
@@ -14084,6 +14192,61 @@ UHDM::design* UhdmExporter::exportDesign() {
                     }
                     ts->VpiParent(d);
                     tr245("unitArrTd245", std::string(ta.name));
+                }
+                // § unitDynArrTd249 (r11u249, R11U249_UNITDYNTD_OFF; cases
+                // tools/probe/r11u249repro/cases/U, pass 245's UA/a02) — a
+                // $unit typedef of a DYNAMIC array, a QUEUE or an ASSOCIATIVE
+                // array (one written dimension, a keyword element) had no
+                // branch (`typedef target: DynamicArrayType`, exit 4).
+                // Golden lists a named array_typespec spanning the element
+                // type to the dimension's `]`, its element an unnamed
+                // typespec under a reference named like the typedef, and ONE
+                // range whose bounds mark the kind (Surelog's
+                // CompileHelper unpacked-dimension markers):
+                //   `[]`       range at the brackets, `0` and `unsized`
+                //              (string, no size) both at the `[`;
+                //   `[$]`      range at the `$`, `0` unlocated, `$` (size 1,
+                //              vpiUnboundedConst) at the `$`;
+                //   `[<kw>]`   range at the brackets, `0` and `associative`
+                //              unlocated, the marker carrying a reference
+                //              named like the typedef to the index keyword's
+                //              typespec at the index token.
+                // The element comes from the class builder's dynamic-container
+                // branch (§ twinElemOnlyNoRange209).  A bounded queue, a
+                // non-keyword index, a typedef'd element and more than one
+                // dimension stay unsupported.
+                else if ((ct.kind == SymbolKind::DynamicArrayType ||
+                          ct.kind == SymbolKind::QueueType ||
+                          ct.kind == SymbolKind::AssociativeArrayType) &&
+                         ta.targetType.getType().kind != SymbolKind::TypeAlias &&
+                         unitDynTdShape249(ta) &&
+                         r11u249On("R11U249_UNITDYNTD_OFF")) {
+                    bool savedTf = tfContext, savedTd = typedefTsContext;
+                    bool savedBy = bypassTypedefShare, savedUf = unfoldedTypedefDims;
+                    std::string savedPfx = syntaxRefPrefix, savedSep = syntaxRefSep;
+                    const std::string q249(ta.name);
+                    tfContext = true;
+                    typedefTsContext = true;
+                    bypassTypedefShare = true;
+                    unfoldedTypedefDims = true;
+                    syntaxRefPrefix = q249;
+                    syntaxRefSep = "::";
+                    g249DynRangeReq = true;
+                    ts = buildUnpackedArrayTypedefTs(ta, q249);
+                    g249DynRangeReq = false;
+                    syntaxRefSep = savedSep;
+                    syntaxRefPrefix = savedPfx;
+                    unfoldedTypedefDims = savedUf;
+                    bypassTypedefShare = savedBy;
+                    typedefTsContext = savedTd;
+                    tfContext = savedTf;
+                    if (!ts || ts->UhdmType() != UHDM::uhdmarray_typespec) {
+                        noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
+                        continue;
+                    }
+                    ts->VpiParent(d);
+                    g249UnitDynTs.insert(ts);
+                    tr249("unitDynArrTd249", std::string(ta.name));
                 }
                 // `typedef uvm_config_db#(uvm_object, string) alias;` — the
                 // same rule as a class-SCOPE class alias: one class_typespec
@@ -14814,7 +14977,15 @@ UHDM::design* UhdmExporter::exportDesign() {
         // property re-parenting the whole design's listing object.
         // GATE: pointer identity through isSharedAliasTs, never a canonical
         // kind (a `typedef int myint` walks any kind guard).
-        if (ts) {
+        // § clsPropWholeArrTd249 — a whole-array typedef property binds the
+        // typedef's LISTING object here; the listing keeps its own parent
+        // (the design-final half gives the property its copy).
+        bool wholeArr249 = false;
+        if (ts && r11u249On("R11U249_WHOLEARRTD_OFF"))
+            for (auto& w : g249WholeArrProps)
+                if (w.first == pc.var)
+                    wholeArr249 = true;
+        if (ts && !wholeArr249) {
             auto* dt50 = pc.sym->getDeclaredType();
             if (!dt50 || !isSharedAliasTs(dt50->getType(), ts))
                 ts->VpiParent(pc.var);
@@ -15845,6 +16016,14 @@ UHDM::design* UhdmExporter::exportDesign() {
             for (auto* o : objs245) {
                 if (portSig245.count(o))
                     continue;
+                // § clsPropWholeArrTd249 — a whole-array typedef class
+                // property takes its own deep copy below; an aliased copy
+                // here would be left unreferenced once that copy binds.
+                if (r11u249On("R11U249_WHOLEARRTD_OFF") &&
+                    o->UhdmType() == UHDM::uhdmarray_var &&
+                    std::any_of(g249WholeArrProps.begin(), g249WholeArrProps.end(),
+                                [&](const auto& w) { return (UHDM::any*)w.first == o; }))
+                    continue;
                 if (auto* v = dynamic_cast<UHDM::variables*>(o)) {
                     // § unitLawSGenVarIsInstVar245v (v11u245, R11V245_GENVAR_OFF;
                     // cases tools/probe/v11u245repro G, V/v02_genvar) — an
@@ -15879,6 +16058,17 @@ UHDM::design* UhdmExporter::exportDesign() {
                         }
                         if (at && unitTd245.count(at) && ranged(at))
                             mk(rt, 2);
+                        // § unitDynArrTd249 — an elaborated variable of a
+                        // $unit dynamic, queue or associative typedef binds
+                        // a bare, unaliased copy (golden U/u01: the
+                        // weakly-referenced `array_typespec (d_t)` with no
+                        // alias and no vpiInstance beside the definition
+                        // net's aliased one); ours kept the listing.
+                        else if (at && g249UnitDynTs.count(at) &&
+                                 r11u249On("R11U249_UNITDYNTD_OFF")) {
+                            mk(rt, 2);
+                            tr249("unitDynArrTd249_elabvar", std::string(v->VpiFullName()));
+                        }
                         // A SIZE-form fixed array (`typedef int ia_t[4];`):
                         // the elaborated variable binds a bare copy whose
                         // range's right bound is FOLDED (golden UA/a01: an
@@ -16090,6 +16280,363 @@ UHDM::design* UhdmExporter::exportDesign() {
                                 std::string(x->VpiName()));
                 tr247("clsPropElemAliasName247", std::string(al->VpiFullName()));
             }
+        }
+    }
+    // § modTdElabFoldSize249 (r11u249, R11U249_MODFOLD_OFF; cases
+    // tools/probe/r11u249repro/cases/B, pass 247's B/b04) — the module-body
+    // twin of § unitArrTd245's elaborated fold: a variable of an ELABORATED
+    // module (or interface / program) typed by a MODULE-BODY typedef of a
+    // SIZE-form fixed array (`typedef int f_t[4]; f_t x;`) binds a bare,
+    // unaliased copy whose single range's right bound is FOLDED: golden's
+    // weakly-referenced copy holds an unlocated, unparented `INT:3` (size
+    // 64, vpiIntConst) where the listing keeps the `4 - 1` operation at the
+    // size token.  Ours shared the listing's range, operation included.  The
+    // left bound stays shared; only a copy whose range IS the listing's (the
+    // same range object or the same operation) is re-made.
+    if (r11u249On("R11U249_MODFOLD_OFF")) {
+        std::map<const UHDM::operation*, const UHDM::range*> lstOp249;
+        std::vector<UHDM::any*> objs249;
+        for (auto& kv : s.AllObjects())
+            if (kv.first)
+                objs249.push_back((UHDM::any*)kv.first);
+        std::stable_sort(objs249.begin(), objs249.end(),
+                         [](const UHDM::any* a, const UHDM::any* b) {
+                             return a->UhdmId() < b->UhdmId();
+                         });
+        std::set<const UHDM::typespec*> listing249;
+        for (auto* o : objs249) {
+            const UHDM::VectorOftypespec* tss = nullptr;
+            if (o->UhdmType() == UHDM::uhdmmodule_inst)
+                tss = ((UHDM::module_inst*)o)->Typespecs();
+            else if (o->UhdmType() == UHDM::uhdminterface_inst)
+                tss = ((UHDM::interface_inst*)o)->Typespecs();
+            else if (o->UhdmType() == UHDM::uhdmprogram)
+                tss = ((UHDM::program*)o)->Typespecs();
+            if (!tss)
+                continue;
+            for (auto* ts : *tss) {
+                if (!ts || ts->UhdmType() != UHDM::uhdmarray_typespec)
+                    continue;
+                listing249.insert(ts);
+                auto* rs = ((UHDM::array_typespec*)ts)->Ranges();
+                if (!rs || rs->size() != 1 || !(*rs)[0]->Right_expr() ||
+                    (*rs)[0]->Right_expr()->UhdmType() != UHDM::uhdmoperation)
+                    continue;
+                auto* op = (const UHDM::operation*)(*rs)[0]->Right_expr();
+                if (op->VpiOpType() != vpiSubOp || !op->Operands() ||
+                    op->Operands()->size() != 2 ||
+                    (*op->Operands())[0]->UhdmType() != UHDM::uhdmconstant ||
+                    std::string((((const UHDM::constant*)(*op->Operands())[0])->VpiValue()))
+                            .rfind("UINT:", 0) != 0)
+                    continue;
+                lstOp249[op] = (*rs)[0];
+            }
+        }
+        std::set<UHDM::array_typespec*> done249;
+        for (auto* o : objs249) {
+            auto* v = dynamic_cast<UHDM::variables*>(o);
+            if (!v || !v->VpiParent())
+                continue;
+            auto pk = v->VpiParent()->UhdmType();
+            if (pk != UHDM::uhdmmodule_inst && pk != UHDM::uhdminterface_inst &&
+                pk != UHDM::uhdmprogram && pk != UHDM::uhdmgen_scope)
+                continue;
+            auto* rt = v->Typespec();
+            auto* at = rt ? rt->Actual_typespec() : nullptr;
+            if (!at || at->UhdmType() != UHDM::uhdmarray_typespec ||
+                listing249.count(at) || at->Typedef_alias())
+                continue;
+            auto* cp = (UHDM::array_typespec*)at;
+            if (done249.count(cp))
+                continue;
+            auto* rs = cp->Ranges();
+            if (!rs || rs->size() != 1 || !(*rs)[0]->Right_expr() ||
+                (*rs)[0]->Right_expr()->UhdmType() != UHDM::uhdmoperation)
+                continue;
+            auto it = lstOp249.find((const UHDM::operation*)(*rs)[0]->Right_expr());
+            if (it == lstOp249.end())
+                continue;
+            auto* op = it->first;
+            auto* r0 = it->second;
+            long long n = std::stoll(std::string(
+                ((const UHDM::constant*)(*op->Operands())[0])->VpiValue()).substr(5));
+            auto* r = s.MakeRange();
+            r->VpiParent(cp);
+            r->VpiFile(r0->VpiFile());
+            r->VpiLineNo(r0->VpiLineNo());
+            r->VpiColumnNo(r0->VpiColumnNo());
+            r->VpiEndLineNo(r0->VpiEndLineNo());
+            r->VpiEndColumnNo(r0->VpiEndColumnNo());
+            r->Left_expr(const_cast<UHDM::expr*>(r0->Left_expr()));
+            auto* c = s.MakeConstant();
+            c->VpiDecompile(std::to_string(n - 1));
+            c->VpiSize(64);
+            c->VpiValue("INT:" + std::to_string(n - 1));
+            c->VpiConstType(vpiIntConst);
+            r->Right_expr(c);
+            auto* rv = s.MakeRangeVec();
+            rv->push_back(r);
+            cp->Ranges(rv);
+            done249.insert(cp);
+            tr249("modTdElabFoldSize249", std::string(v->VpiFullName()));
+        }
+    }
+    // § clsPropWholeArrTd249, the design-final half — the property's
+    // reference golden binds is the typedef's own per-declaration COPY when
+    // the type is written UNQUALIFIED and the array's element is written as a
+    // KEYWORD (`typedef byte b4_t[4]; b4_t m_b;`): Surelog's
+    // compileDatastructureTypespec reaches the typedef's SimpleType and
+    // clone_tree's its typespec, so the copy is DEEP (own ranges, bound
+    // constants and operations, element typespec) and every reference
+    // inside it is named by the property (`p::c::m_b::b4_t`); the copy is
+    // named bare, parented at the property, keeps the listing's vpiInstance,
+    // and its Typedef_alias reference (same name) binds the listing (cases
+    // A/a01, a02, a04-a09, a11).  A package-QUALIFIED name (`a::v_t`,
+    // `p::i_t`: A/a03, a13, a16) and an array whose ELEMENT is itself a
+    // typedef name (`typedef n_t na_t[2]`: A/a10, a14, a15) bind the
+    // listing object itself, as written in the write phase.
+    if (r11u249On("R11U249_WHOLEARRTD_OFF") && !g249WholeArrProps.empty()) {
+        auto bare249 = [](std::string_view n) {
+            std::string q(n);
+            auto k = q.rfind("::");
+            return k == std::string::npos ? q : q.substr(k + 2);
+        };
+        auto locOf = [](UHDM::BaseClass* to, const UHDM::BaseClass* from) {
+            to->VpiFile(from->VpiFile());
+            to->VpiLineNo(from->VpiLineNo());
+            to->VpiColumnNo(from->VpiColumnNo());
+            to->VpiEndLineNo(from->VpiEndLineNo());
+            to->VpiEndColumnNo(from->VpiEndColumnNo());
+        };
+        std::function<UHDM::typespec*(const UHDM::typespec*, const std::string&,
+                                      UHDM::BaseClass*)>
+            cpTs;
+        std::function<UHDM::ref_typespec*(const UHDM::ref_typespec*,
+                                          const std::string&, UHDM::BaseClass*)>
+            cpRef = [&](const UHDM::ref_typespec* r0, const std::string& rn,
+                        UHDM::BaseClass* par) -> UHDM::ref_typespec* {
+            if (!r0)
+                return nullptr;
+            auto* r = s.MakeRef_typespec();
+            r->VpiFullName(rn);
+            r->VpiParent(par);
+            locOf(r, r0);
+            if (auto* a = r0->Actual_typespec()) {
+                auto* ca = cpTs(a, rn, r);
+                r->Actual_typespec(ca ? ca : (UHDM::typespec*)a);
+            }
+            return r;
+        };
+        std::function<UHDM::expr*(const UHDM::expr*, const std::string&,
+                                  UHDM::BaseClass*)>
+            cpExpr = [&](const UHDM::expr* e, const std::string& rn,
+                         UHDM::BaseClass* par) -> UHDM::expr* {
+            if (!e)
+                return nullptr;
+            if (e->UhdmType() == UHDM::uhdmconstant) {
+                auto* c0 = (const UHDM::constant*)e;
+                auto* c = s.MakeConstant();
+                c->VpiParent(par);
+                locOf(c, c0);
+                c->VpiDecompile(c0->VpiDecompile());
+                c->VpiSize(c0->VpiSize());
+                c->VpiValue(c0->VpiValue());
+                c->VpiConstType(c0->VpiConstType());
+                if (auto* tr = c0->Typespec())
+                    c->Typespec(cpRef(tr, rn, c));
+                return c;
+            }
+            if (e->UhdmType() == UHDM::uhdmoperation) {
+                auto* o0 = (const UHDM::operation*)e;
+                if (o0->Attributes() || o0->Typespec())
+                    return (UHDM::expr*)e;
+                auto* o = s.MakeOperation();
+                o->VpiParent(par);
+                locOf(o, o0);
+                o->VpiOpType(o0->VpiOpType());
+                o->VpiDecompile(o0->VpiDecompile());
+                o->VpiSize(o0->VpiSize());
+                if (auto* os = o0->Operands()) {
+                    auto* v = s.MakeAnyVec();
+                    for (auto* x : *os) {
+                        auto* cx = dynamic_cast<const UHDM::expr*>(x);
+                        v->push_back(cx ? (UHDM::any*)cpExpr(cx, rn, o) : x);
+                    }
+                    o->Operands(v);
+                }
+                return o;
+            }
+            return (UHDM::expr*)e;
+        };
+        auto cpRanges = [&](UHDM::VectorOfrange* rs, const std::string& rn,
+                            UHDM::BaseClass* owner) -> UHDM::VectorOfrange* {
+            if (!rs)
+                return nullptr;
+            auto* out = s.MakeRangeVec();
+            for (auto* r0 : *rs) {
+                auto* r = s.MakeRange();
+                r->VpiParent(owner);
+                locOf(r, r0);
+                r->VpiSize(r0->VpiSize());
+                r->Left_expr(cpExpr(r0->Left_expr(), rn, r));
+                r->Right_expr(cpExpr(r0->Right_expr(), rn, r));
+                out->push_back(r);
+            }
+            return out;
+        };
+        cpTs = [&](const UHDM::typespec* src, const std::string& rn,
+                   UHDM::BaseClass* par) -> UHDM::typespec* {
+            UHDM::typespec* c = nullptr;
+            switch (src->UhdmType()) {
+                case UHDM::uhdmarray_typespec: {
+                    auto* a0 = (const UHDM::array_typespec*)src;
+                    auto* a = s.MakeArray_typespec();
+                    a->VpiArrayType(a0->VpiArrayType());
+                    a->Ranges(cpRanges(a0->Ranges(), rn, a));
+                    a->Index_typespec(cpRef(a0->Index_typespec(), rn, a));
+                    a->Elem_typespec(cpRef(a0->Elem_typespec(), rn, a));
+                    c = a;
+                    break;
+                }
+                case UHDM::uhdmlogic_typespec: {
+                    auto* l0 = (const UHDM::logic_typespec*)src;
+                    if (l0->Elem_typespec())
+                        return nullptr;
+                    auto* l = s.MakeLogic_typespec();
+                    l->VpiVector(l0->VpiVector());
+                    l->VpiSigned(l0->VpiSigned());
+                    l->Ranges(cpRanges(l0->Ranges(), rn, l));
+                    c = l;
+                    break;
+                }
+                case UHDM::uhdmbit_typespec: {
+                    auto* b0 = (const UHDM::bit_typespec*)src;
+                    auto* b = s.MakeBit_typespec();
+                    b->VpiVector(b0->VpiVector());
+                    b->VpiSigned(b0->VpiSigned());
+                    b->Ranges(cpRanges(b0->Ranges(), rn, b));
+                    c = b;
+                    break;
+                }
+                case UHDM::uhdmint_typespec: {
+                    auto* i0 = (const UHDM::int_typespec*)src;
+                    auto* i = s.MakeInt_typespec();
+                    i->VpiSigned(i0->VpiSigned());
+                    i->Ranges(cpRanges(i0->Ranges(), rn, i));
+                    c = i;
+                    break;
+                }
+                case UHDM::uhdminteger_typespec: {
+                    auto* i = s.MakeInteger_typespec();
+                    i->VpiSigned(((const UHDM::integer_typespec*)src)->VpiSigned());
+                    c = i;
+                    break;
+                }
+                case UHDM::uhdmbyte_typespec: {
+                    auto* b = s.MakeByte_typespec();
+                    b->VpiSigned(((const UHDM::byte_typespec*)src)->VpiSigned());
+                    c = b;
+                    break;
+                }
+                case UHDM::uhdmshort_int_typespec: {
+                    auto* b = s.MakeShort_int_typespec();
+                    b->VpiSigned(((const UHDM::short_int_typespec*)src)->VpiSigned());
+                    c = b;
+                    break;
+                }
+                case UHDM::uhdmlong_int_typespec: {
+                    auto* b = s.MakeLong_int_typespec();
+                    b->VpiSigned(((const UHDM::long_int_typespec*)src)->VpiSigned());
+                    c = b;
+                    break;
+                }
+                case UHDM::uhdmstring_typespec:
+                    c = s.MakeString_typespec();
+                    break;
+                case UHDM::uhdmreal_typespec:
+                    c = s.MakeReal_typespec();
+                    break;
+                case UHDM::uhdmshort_real_typespec:
+                    c = s.MakeShort_real_typespec();
+                    break;
+                case UHDM::uhdmtime_typespec:
+                    c = s.MakeTime_typespec();
+                    break;
+                default:
+                    return nullptr;
+            }
+            c->VpiName(src->VpiName());
+            c->VpiParent(par);
+            locOf(c, src);
+            // A package typedef's copy keeps the package as vpiInstance
+            // (A/a02 `byte_typespec` under `p::c::m_b::b4_t`); a $unit
+            // typedef's copy carries none where its listing names the
+            // design (A/a01).
+            if (auto* in = ((UHDM::typespec*)src)->Instance();
+                in && in->UhdmType() == UHDM::uhdmpackage)
+                c->Instance(in);
+            return c;
+        };
+        for (auto& [av, cp] : g249WholeArrProps) {
+            auto* rt = av->Typespec();
+            auto* L = rt ? rt->Actual_typespec() : nullptr;
+            if (!L || L->UhdmType() != UHDM::uhdmarray_typespec)
+                continue;
+            // Written qualified: the listing stays.
+            bool qual = false;
+            const slang::ast::DeclaredType* dt249 = cp->getDeclaredType();
+            if (const syntax::DataTypeSyntax* ts249 = dt249->getTypeSyntax())
+                if (ts249->kind == syntax::SyntaxKind::NamedType &&
+                    ts249->as<syntax::NamedTypeSyntax>().name->kind ==
+                        syntax::SyntaxKind::ScopedName)
+                    qual = true;
+            // The element as written in the typedef: a typedef name keeps the
+            // listing; so does an alias of an alias (not measured).
+            bool elemTd = false;
+            auto& at = cp->getType().as<TypeAliasType>();
+            const Type* w = &at.targetType.getType();
+            if (w->kind == SymbolKind::TypeAlias)
+                elemTd = true;
+            while (!elemTd && w->isUnpackedArray()) {
+                switch (w->kind) {
+                    case SymbolKind::FixedSizeUnpackedArrayType:
+                        w = &w->as<FixedSizeUnpackedArrayType>().elementType;
+                        break;
+                    case SymbolKind::DynamicArrayType:
+                        w = &w->as<DynamicArrayType>().elementType;
+                        break;
+                    case SymbolKind::QueueType:
+                        w = &w->as<QueueType>().elementType;
+                        break;
+                    case SymbolKind::AssociativeArrayType:
+                        w = &w->as<AssociativeArrayType>().elementType;
+                        break;
+                    default:
+                        w = nullptr;
+                        break;
+                }
+                if (!w)
+                    break;
+                if (w->kind == SymbolKind::TypeAlias)
+                    elemTd = true;
+            }
+            if (qual || elemTd || !w) {
+                tr249("clsPropWholeArrTd249_listing", std::string(av->VpiFullName()));
+                continue;
+            }
+            std::string bn = bare249(L->VpiName());
+            std::string rn = std::string(av->VpiFullName()) + "::" + bn;
+            auto* c = (UHDM::array_typespec*)cpTs(L, rn, av);
+            if (!c)
+                continue;
+            c->VpiName(bn);
+            auto* al = s.MakeRef_typespec();
+            al->VpiFullName(rn);
+            al->VpiParent(c);
+            al->Actual_typespec(L);
+            c->Typedef_alias(al);
+            rt->Actual_typespec(c);
+            tr249("clsPropWholeArrTd249_copy", std::string(av->VpiFullName()));
         }
     }
     // ...and an anonymous class_typespec never carries vpiInstance.
