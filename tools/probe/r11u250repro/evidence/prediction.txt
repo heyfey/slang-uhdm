@@ -1,0 +1,11 @@
+# r11u250 prediction, frozen 2026-10-05T17:43:44Z before the law sweep
+# firing census of the law binary (md5 44ecd8c1b6711bb63e084f0ffe05f599) with R11U250_TRACE over surelog + uhdm2rtlil (both modes) + probe, fenced tests excluded by --filter
+# firings (database law):
+surelog/default/BlackBePipeInt-1fcd9dad/slang.uhdm patFlatTernPickedLeafSpan250
+surelog/default/BlackBePipeInt-1fcd9dad/slang.uhdm patFlatTernPickedLeafSpan250_flat
+surelog/default/BlackBePipeInt-1fcd9dad/slang.uhdm pcwRefLastWriter250
+surelog/testflags/BlackBePipeInt-1fcd9dad/slang.uhdm patFlatTernPickedLeafSpan250
+surelog/testflags/BlackBePipeInt-1fcd9dad/slang.uhdm patFlatTernPickedLeafSpan250_flat
+surelog/testflags/BlackBePipeInt-1fcd9dad/slang.uhdm pcwRefLastWriter250
+# predicted byte movers: surelog BlackBePipeInt default + testflags (2 of the corpus databases); uhdm2rtlil 0; probe 0; downstream slang lanes 0
+# positive control (law binary): a scratch tests/probe copy of cases/W/w01_two_pkgs run through check_probe.py fired pcwRefLastWriter250 (the copy was removed); with the first census binary cases/P/p01 fired pkgArrTdListing250 and pkgArrTdBindCopies250

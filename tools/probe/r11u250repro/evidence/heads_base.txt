@@ -1,0 +1,231 @@
+=== default/SeqDriver-*
+#79078 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+  B: 18	int_var	succ		adpcm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+#79079 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			adpcm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+#79416 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+  B: 18	int_var	succ		adpcm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+#79417 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			adpcm_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+#86971 depth
+  A: 4	assignment				uvm_component.svh	3387	3	3387	22				
+  B: 6	class_var	cs		uvm_pkg::uvm_component::m_set_cl_verb::cs	uvm_component.svh	3385	3	3385	20		0		
+objects 475526 vs 474778
+fields: depth=1 type=1 name=1 fullname=5 line=1 endline=1 endcol=1 size=1 objects_differing=5 (walk diverged)
+=== testflags/SeqDriver-*
+#79090 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+  B: 18	int_var	succ		adpcm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+#79091 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			adpcm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+#79428 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+  B: 18	int_var	succ		adpcm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+#79429 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			adpcm_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+#86983 depth
+  A: 4	assignment				uvm_component.svh	3387	3	3387	22				
+  B: 6	class_var	cs		uvm_pkg::uvm_component::m_set_cl_verb::cs	uvm_component.svh	3385	3	3385	20		0		
+objects 475538 vs 474790
+fields: depth=1 type=1 name=1 fullname=5 line=1 endline=1 endcol=1 size=1 objects_differing=5 (walk diverged)
+=== default/SimpleUVM-*
+#194836 col
+  A: 14	constant				uvm_printer_defines.svh	270	51	270	63	"da(string)"	80	STRING:da(string)	6
+  B: 14	constant				uvm_printer_defines.svh	270	42	270	63	"da(string)"	80	STRING:da(string)	6
+#201235 fullname
+  A: 4	ref_typespec			<in>override_e		0	0	0	0		0		
+  B: 4	ref_typespec			<in>override_e		0	0	0	0		0		
+#201602 file
+  A: 7	string_typespec				uvm_spell_chkr.svh	30	19	30	25				
+  B: 7	string_typespec					0	0	0	0				
+#201634 file
+  A: 10	string_typespec				uvm_spell_chkr.svh	30	19	30	25				
+  B: 10	string_typespec					0	0	0	0				
+#202914 type
+  A: 7	range				uvm_misc.svh	642	24	642	25				
+  B: 7	ref_typespec			<in>types_t		0	0	0	0		0		
+objects 334285 vs 334290
+fields: type=1 fullname=2 file=3 line=3 col=4 endline=3 endcol=3 size=1 objects_differing=5 (walk diverged)
+=== default/Scoreboard-*
+#195016 col
+  A: 14	constant				uvm_printer_defines.svh	270	51	270	63	"da(string)"	80	STRING:da(string)	6
+  B: 14	constant				uvm_printer_defines.svh	270	42	270	63	"da(string)"	80	STRING:da(string)	6
+#201415 fullname
+  A: 4	ref_typespec			<in>override_e		0	0	0	0		0		
+  B: 4	ref_typespec			<in>override_e		0	0	0	0		0		
+#201782 file
+  A: 7	string_typespec				uvm_spell_chkr.svh	30	19	30	25				
+  B: 7	string_typespec					0	0	0	0				
+#201814 file
+  A: 10	string_typespec				uvm_spell_chkr.svh	30	19	30	25				
+  B: 10	string_typespec					0	0	0	0				
+#203094 type
+  A: 7	range				uvm_misc.svh	642	24	642	25				
+  B: 7	ref_typespec			<in>types_t		0	0	0	0		0		
+objects 269656 vs 269661
+fields: type=1 fullname=2 file=3 line=3 col=4 endline=3 endcol=3 size=1 objects_differing=5 (walk diverged)
+=== default/BuildUVMPkg-*
+#185844 depth
+  A: 6	begin			uvm_pkg::uvm_tlm_b_initiator_socket::connect	uvm_pkg.sv	60210	5	60210	68				
+  B: 8	class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42				
+objects 201533 vs 201541
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+=== default/Rggen-*
+#26477 fullname
+  A: 11	enum_var	access		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_access.access	rggen_register_if.sv	9	29	9	35		0		
+  B: 11	enum_var	access		work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.access	rggen_register_if.sv	9	29	9	35		0		
+#26478 fullname
+  A: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_access.access		0	0	0	0		0		
+  B: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.access		0	0	0	0		0		
+#26489 fullname
+  A: 11	logic_var	address		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_address.address	rggen_register_if.sv	10	29	10	36		0		
+  B: 11	logic_var	address		work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.address	rggen_register_if.sv	10	29	10	36		0		
+#26490 fullname
+  A: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_address.address		0	0	0	0		0		
+  B: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.address		0	0	0	0		0		
+#26718 endcol
+  A: 13	constant				rggen_register_common.sv	33	24	33	37	7	64	INT:7	7
+  B: 13	constant				rggen_register_common.sv	33	24	33	39	7	64	INT:7	7
+#26728 endcol
+  A: 14	constant				rggen_register_common.sv	33	24	33	37	7	64	INT:7	7
+  B: 14	constant				rggen_register_common.sv	33	24	33	39	7	64	INT:7	7
+#27671 col
+  A: 9	ref_obj	bit_field_if			block_0.sv	7	24	7	33		0		
+  B: 9	ref_obj	bit_field_if			block_0.sv	7	11	7	23		0		
+#27680 col
+  A: 9	ref_obj	bit_field_if			block_0.sv	8	24	8	29		0		
+  B: 9	ref_obj	bit_field_if			block_0.sv	8	11	8	23		0		
+=== default/Earlgrey_0_1-*
+#136315 fullname
+  A: 11	ref_typespec			work@sha2		0	0	0	0		0		
+  B: 11	ref_typespec					0	0	0	0		0		
+#142988 col
+  A: 6	bit_select	key		work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key	hmac.sv	133	19	133	27		0		
+  B: 6	bit_select	key		work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key	hmac.sv	133	23	133	26		0		
+#154375 fullname
+  A: 6	ref_typespec			work@ibex_core.if_stage_i.pmp_req_err		0	0	0	0		0		
+  B: 6	ref_typespec			work@ibex_core.if_stage_i.instr_pmp_err_i.pmp_req_err		0	0	0	0		0		
+#165002 fullname
+  A: 6	ref_typespec			work@ibex_core.load_store_unit_i.pmp_req_err		0	0	0	0		0		
+  B: 6	ref_typespec			work@ibex_core.load_store_unit_i.data_pmp_err_i.pmp_req_err		0	0	0	0		0		
+#190726 endcol
+  A: 4	logic_typespec				padring.sv	40	16	40	30				
+  B: 4	logic_typespec				padring.sv	40	16	40	42				
+#190744 endcol
+  A: 4	logic_typespec				padring.sv	41	16	41	30				
+  B: 4	logic_typespec				padring.sv	41	16	41	42				
+#193018 fullname
+  A: 10	ref_typespec			work@pinmux		0	0	0	0		0		
+  B: 10	ref_typespec			work@pinmux.p_sleep		0	0	0	0		0		
+#206088 fullname
+  A: 8	bit_select	wkup_detector_padsel		work@pinmux.gen_wkup_detect.dio_data_mux.reg2hw.wkup_detector_padsel[k].wkup_detector_padsel	pinmux.sv	229	65	229	66		0		
+  B: 8	bit_select	wkup_detector_padsel		reg2hw.wkup_detector_padsel[k]	pinmux.sv	229	44	229	64		0		
+=== testflags/Earlgrey_0_1-*
+#137760 fullname
+  A: 11	ref_typespec			work@sha2		0	0	0	0		0		
+  B: 11	ref_typespec					0	0	0	0		0		
+#144433 col
+  A: 6	bit_select	key		work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key	hmac.sv	133	19	133	27		0		
+  B: 6	bit_select	key		work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key	hmac.sv	133	23	133	26		0		
+#155820 fullname
+  A: 6	ref_typespec			work@ibex_core.if_stage_i.pmp_req_err		0	0	0	0		0		
+  B: 6	ref_typespec			work@ibex_core.if_stage_i.instr_pmp_err_i.pmp_req_err		0	0	0	0		0		
+#166447 fullname
+  A: 6	ref_typespec			work@ibex_core.load_store_unit_i.pmp_req_err		0	0	0	0		0		
+  B: 6	ref_typespec			work@ibex_core.load_store_unit_i.data_pmp_err_i.pmp_req_err		0	0	0	0		0		
+#192183 endcol
+  A: 4	logic_typespec				padring.sv	40	16	40	30				
+  B: 4	logic_typespec				padring.sv	40	16	40	42				
+#192201 endcol
+  A: 4	logic_typespec				padring.sv	41	16	41	30				
+  B: 4	logic_typespec				padring.sv	41	16	41	42				
+#194478 fullname
+  A: 10	ref_typespec			work@pinmux		0	0	0	0		0		
+  B: 10	ref_typespec			work@pinmux.p_sleep		0	0	0	0		0		
+#207551 fullname
+  A: 8	bit_select	wkup_detector_padsel		work@pinmux.gen_wkup_detect.dio_data_mux.reg2hw.wkup_detector_padsel[k].wkup_detector_padsel	pinmux.sv	229	65	229	66		0		
+  B: 8	bit_select	wkup_detector_padsel		reg2hw.wkup_detector_padsel[k]	pinmux.sv	229	44	229	64		0		
+=== default/BlackBePipeInt-*
+#38807 depth
+  A: 6	parameter	dev_addr_width_gp		bp_common_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20	
+  B: 2	parameter	dev_id_width_gp		bp_be_pkg::dev_id_width_gp	dut.sv	1792	12	1792	27		0	UINT:4	
+objects 339479 vs 339749
+fields: depth=1 name=1 fullname=1 line=1 endline=1 endcol=1 value=1 objects_differing=1 (walk diverged)
+=== testflags/BlackBePipeInt-*
+#38803 fullname
+  A: 6	parameter	dev_addr_width_gp		work@bp_be_pipe_int.dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20	
+  B: 6	parameter	dev_addr_width_gp		bp_common_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20	
+#38804 fullname
+  A: 7	ref_typespec			work@bp_be_pipe_int.dev_addr_width_gp		0	0	0	0		0		
+  B: 7	ref_typespec			bp_common_pkg::dev_addr_width_gp		0	0	0	0		0		
+#38806 depth
+  A: 2	parameter	dev_id_width_gp		bp_be_pkg::dev_id_width_gp	dut.sv	1792	12	1792	27		0	UINT:4	
+  B: 9	ref_obj	dev_addr_width_gp				0	0	0	0		0		
+objects 338504 vs 338775
+fields: depth=1 type=1 name=1 fullname=3 file=1 line=1 col=1 endline=1 endcol=1 value=1 objects_differing=3 (walk diverged)
+=== default/MiniAmiq-*
+#79121 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+  B: 18	int_var	succ		svaunit_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+#79122 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			svaunit_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+#79458 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+  B: 18	int_var	succ		svaunit_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+#79459 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			svaunit_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+#87013 depth
+  A: 4	assignment				uvm_component.svh	3387	3	3387	22				
+  B: 6	class_var	cs		uvm_pkg::uvm_component::m_set_cl_verb::cs	uvm_component.svh	3385	3	3385	20		0		
+objects 435559 vs 434734
+fields: depth=1 type=1 name=1 fullname=5 line=1 endline=1 endcol=1 size=1 objects_differing=5 (walk diverged)
+=== testflags/MiniAmiq-*
+#79121 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+  B: 18	int_var	succ		svaunit_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+#79122 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			svaunit_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+#79458 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+  B: 18	int_var	succ		svaunit_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+#79459 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			svaunit_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+#87013 depth
+  A: 4	assignment				uvm_component.svh	3387	3	3387	22				
+  B: 6	class_var	cs		uvm_pkg::uvm_component::m_set_cl_verb::cs	uvm_component.svh	3385	3	3385	20		0		
+objects 435559 vs 434734
+fields: depth=1 type=1 name=1 fullname=5 line=1 endline=1 endcol=1 size=1 objects_differing=5 (walk diverged)
+=== testflags/SimpleUVM-*
+#194848 col
+  A: 14	constant				uvm_printer_defines.svh	270	51	270	63	"da(string)"	80	STRING:da(string)	6
+  B: 14	constant				uvm_printer_defines.svh	270	42	270	63	"da(string)"	80	STRING:da(string)	6
+#201247 fullname
+  A: 4	ref_typespec			<in>override_e		0	0	0	0		0		
+  B: 4	ref_typespec			<in>override_e		0	0	0	0		0		
+#201614 file
+  A: 7	string_typespec				uvm_spell_chkr.svh	30	19	30	25				
+  B: 7	string_typespec					0	0	0	0				
+#201646 file
+  A: 10	string_typespec				uvm_spell_chkr.svh	30	19	30	25				
+  B: 10	string_typespec					0	0	0	0				
+#202926 type
+  A: 7	range				uvm_misc.svh	642	24	642	25				
+  B: 7	ref_typespec			<in>types_t		0	0	0	0		0		
+objects 334297 vs 334302
+fields: type=1 fullname=2 file=3 line=3 col=4 endline=3 endcol=3 size=1 objects_differing=5 (walk diverged)
+=== testflags/BuildUVMPkg-*
+#185844 depth
+  A: 6	begin			uvm_pkg::uvm_tlm_b_initiator_socket::connect	uvm_pkg.sv	60210	5	60210	68				
+  B: 8	class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42				
+objects 201533 vs 201541
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)

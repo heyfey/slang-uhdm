@@ -1,0 +1,9 @@
+# byteverify (tools/probe/r11v75repro/byteverify.sh) on fence-filtered hard-link mirrors (drivers/bvmirror.sh)
+mirrored=2560 fenced_skipped=8 (each sweep)
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=4241039881d8 pristine=9e0d4aefed5a
+MOVER ./surelog/testflags/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=22944fa1b8cf pristine=7b37e6d62b01
+MOVERS: 2 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+# drivers/dbmovers.sh: probe: 0 movers of 4087 databases; downstream: 0 movers of 805 slang-lane databases

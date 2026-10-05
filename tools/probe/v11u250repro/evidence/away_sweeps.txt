@@ -1,0 +1,11 @@
+# drivers/awayrows.py (chain-keyed, variant comparator strictcmp_x md5 886f030233ecdbcce7d0e29ac0c4df2c); OFF = pristine sweep (probe rerun from the law worktree), ON = law, then fix vs law, then the swapped positive control
+## pristine -> law
+# 2 databases differ between /tmp/v11u250_wdR and /tmp/v11u250_wdL
+surelog/default/BlackBePipeInt away=0 toward=13888 flat_away=0 flat_toward=13878
+surelog/testflags/BlackBePipeInt away=0 toward=13903 flat_away=0 flat_toward=13891
+## law -> fix
+# 0 databases differ between /tmp/v11u250_wdL and /tmp/v11u250_wdF
+## swapped (law -> pristine), the positive control
+# 2 databases differ between /tmp/v11u250_wdL and /tmp/v11u250_wdR
+surelog/default/BlackBePipeInt away=13888 toward=0 flat_away=13878 flat_toward=0 | constant||||dut.sv|2047|16|2047|17|1|32|UINT:1|9 @ operation: < param_assign:
+surelog/testflags/BlackBePipeInt away=13903 toward=0 flat_away=13891 flat_toward=0 | parameter|dev_addr_width_gp||work@bp_be_pipe_int.dev_addr_width_gp|dut.sv|1

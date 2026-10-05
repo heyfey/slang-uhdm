@@ -1,0 +1,11 @@
+# v11u250 prediction, frozen 2026-10-05T18:59:07Z before the fix sweep
+# firing census of the fix binary (md5 f2ccca7572c14135b90ab8673f97a4ca) with R11U250_TRACE (its R11V250 fixes trace through it) over surelog + uhdm2rtlil (both modes) + probe, fenced tests excluded by --filter (794 surelog tests per mode)
+surelog/default/BlackBePipeInt-1fcd9dad/slang.uhdm patFlatTernPickedLeafSpan250
+surelog/default/BlackBePipeInt-1fcd9dad/slang.uhdm patFlatTernPickedLeafSpan250_flat
+surelog/default/BlackBePipeInt-1fcd9dad/slang.uhdm pcwRefLastWriter250
+surelog/testflags/BlackBePipeInt-1fcd9dad/slang.uhdm patFlatTernPickedLeafSpan250
+surelog/testflags/BlackBePipeInt-1fcd9dad/slang.uhdm patFlatTernPickedLeafSpan250_flat
+surelog/testflags/BlackBePipeInt-1fcd9dad/slang.uhdm pcwRefLastWriter250
+# no R11V250 fix fires on any gate database (pcwOtherSymKeeps250v, kwAliasDeclResolves250v, arrQualDeclFullPath250v absent)
+# predicted byte movers fix vs law: 0 of every corpus, probe and downstream database; fix vs pristine: surelog BlackBePipeInt default + testflags only
+# positive control (fix binary): cases A/a01 fired pcwOtherSymKeeps250v x2, D/d01 kwAliasDeclResolves250v x4, C/c08 pkgArrTdBindCopies250_qual arrQualDeclFullPath250v x1

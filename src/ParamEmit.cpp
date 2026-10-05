@@ -22,6 +22,8 @@
 #include "R240.h"
 #include "R242.h"
 #include "R248.h"
+#include "R249.h"
+#include "R250.h"
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
@@ -8784,6 +8786,84 @@ bool UhdmExporter::adjustCopiedParamConst64(const ParameterSymbol& p,
     size = e64.size;
     dec = e64.dec;
     return true;
+}
+
+// § patFlatTernPickedLeafSpan250 — the source range of the LITERAL a
+// constant-condition `?:` chain reduces to: a picked branch that is a literal,
+// or a member read `P.m` of a struct parameter whose initializer is a
+// structured pattern setting `m` (or its `default:`) to such a chain.
+// nullopt (abstain) for anything else.
+static std::optional<SourceRange> ternPickedLeaf250(const Expression& e0,
+                                                    Compilation& comp, int d = 0,
+                                                    bool topMember = false) {
+    if (d > 12)
+        return std::nullopt;
+    auto& e = stripImplicitConv(e0);
+    switch (e.kind) {
+        case ExpressionKind::IntegerLiteral:
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+        case ExpressionKind::StringLiteral:
+            return d > 0 ? std::optional<SourceRange>(e.sourceRange) : std::nullopt;
+        case ExpressionKind::ConditionalOp: {
+            auto& co = e.as<ConditionalExpression>();
+            if (co.conditions.size() != 1 || co.conditions[0].pattern)
+                return std::nullopt;
+            ASTContext pc(comp.getRoot(), LookupLocation::max);
+            ConstantValue cv = pc.tryEval(*co.conditions[0].expr);
+            if (!cv || !cv.isInteger() || cv.integer().hasUnknown())
+                return std::nullopt;
+            return ternPickedLeaf250(cv.isTrue() ? co.left() : co.right(), comp, d + 1);
+        }
+        case ExpressionKind::MemberAccess: {
+            if (d == 0 && !topMember)
+                return std::nullopt;
+            auto& ma = e.as<MemberAccessExpression>();
+            auto& v = stripImplicitConv(ma.value());
+            if (v.kind != ExpressionKind::NamedValue)
+                return std::nullopt;
+            auto& sym = v.as<NamedValueExpression>().symbol;
+            if (sym.kind != SymbolKind::Parameter)
+                return std::nullopt;
+            auto* init = sym.as<ParameterSymbol>().getInitializer();
+            if (!init)
+                return std::nullopt;
+            auto& pi = stripImplicitConv(*init);
+            if (pi.kind != ExpressionKind::StructuredAssignmentPattern)
+                return std::nullopt;
+            auto& ap = pi.as<StructuredAssignmentPatternExpression>();
+            if (!ap.typeSetters.empty() || !ap.indexSetters.empty())
+                return std::nullopt;
+            for (auto& ms : ap.memberSetters)
+                if (ms.member.get() == &ma.member)
+                    return ternPickedLeaf250(*ms.expr, comp, d + 1);
+            if (ap.defaultSetter)
+                return ternPickedLeaf250(*ap.defaultSetter, comp, d + 1);
+            return std::nullopt;
+        }
+        case ExpressionKind::NamedValue:
+            // an enum value is its own origin; a parameter's is unmodelled
+            if (d > 0 && e.as<NamedValueExpression>().symbol.kind ==
+                             SymbolKind::EnumValue)
+                return e.sourceRange;
+            return std::nullopt;
+        case ExpressionKind::BinaryOp:
+            // an operation the origin pattern wrote: reduced at its FIRST
+            // CHILD, the left operand's node (§ patFlatMemberLeftSpan169)
+            return d > 0 ? std::optional<SourceRange>(binaryLeftChildRange169(e))
+                         : std::nullopt;
+        case ExpressionKind::UnaryOp: {
+            if (d == 0)
+                return std::nullopt;
+            const syntax::SyntaxNode* sy = e.syntax;
+            while (sy && sy->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                sy = sy->as<syntax::ParenthesizedExpressionSyntax>().expression;
+            if (sy && syntax::PrefixUnaryExpressionSyntax::isKind(sy->kind))
+                return sy->as<syntax::PrefixUnaryExpressionSyntax>().operatorToken.range();
+            return std::nullopt;
+        }
+        default:
+            return std::nullopt;
+    }
 }
 
 void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::string& prefix,
@@ -19351,6 +19431,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     trace169("PATFLATSPAN un");
                                 }
                             }
+                            // § patFlatTernPickedLeafSpan250 (r11u250,
+                            // R11U250_TERNLEAF_OFF; cases T t02, t07) — the
+                            // flattened member written as a constant-condition
+                            // `?:` or as a member read of a struct parameter
+                            // is the ORIGIN's stored constant here too (the
+                            // import fold's twin, see that site).
+                            if (r11u250On("R11U250_TERNLEAF_OFF") &&
+                                (stripImplicitConv(*se).kind ==
+                                     ExpressionKind::ConditionalOp ||
+                                 stripImplicitConv(*se).kind ==
+                                     ExpressionKind::MemberAccess))
+                                if (auto lr250 = ternPickedLeaf250(*se, comp, 0, true)) {
+                                    setLoc(c2, *lr250);
+                                    tr250("patFlatTernPickedLeafSpan250_flat",
+                                          std::string(ps.name));
+                                }
                             opnds->push_back(c2);
                         }
                     }
@@ -20588,6 +20684,31 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                         fc9->VpiConstType(vpiUIntConst);
                                         fc9->VpiParent(opW);
                                         setLoc(fc9, se->sourceRange);
+                                        // § patFlatTernPickedLeafSpan250
+                                        // (r11u250, R11U250_TERNLEAF_OFF;
+                                        // BlackBePipeInt d #44904 / t #44885,
+                                        // decode B/b01, cases T) — the ORIGIN
+                                        // this comment names, now written: a
+                                        // constant-condition `?:` is the
+                                        // branch reduceExpr selects, and a
+                                        // member read of a struct parameter
+                                        // is that parameter's stored member,
+                                        // located where its pattern wrote it
+                                        // (a literal or an enum name at its
+                                        // own span, an operation at its left
+                                        // child, a unary one at its operator:
+                                        // § patFlatMemberLeftSpan169).
+                                        // ternPickedLeaf250 abstains on any
+                                        // other end of the chain.
+                                        if (r11u250On("R11U250_TERNLEAF_OFF") &&
+                                            (fv9.kind == ExpressionKind::ConditionalOp ||
+                                             fv9.kind == ExpressionKind::MemberAccess))
+                                            if (auto lr250 = ternPickedLeaf250(
+                                                    *se, comp, 0, true)) {
+                                                setLoc(fc9, *lr250);
+                                                tr250("patFlatTernPickedLeafSpan250",
+                                                      std::string(ps.name));
+                                            }
                                         opndW->push_back(fc9);
                                         continue;
                                     }
@@ -26064,7 +26185,637 @@ void strLitPpLineShiftDrain224(UHDM::Serializer& s);
 // § fwdPkgRefClassScopeSpan227 (r11u227) — defined in ExprEmit.cpp.
 void fwdPkgRefClassScopeSpanDrain227(UHDM::Serializer& s);
 
+// § pkgArrTdListing250 — the listing objects this law built (both package
+// views), with the bare typedef name and, for a SIZE-form fixed dimension
+// `[N]`, N (else -1).  Read by § pkgArrTdBindCopies250 at the end of the run.
+struct PkgArrTd250 {
+    std::string bare;
+    long long sizeN = -1;
+};
+static std::map<const UHDM::typespec*, PkgArrTd250>& pkgArrTd250() {
+    static std::map<const UHDM::typespec*, PkgArrTd250> m;
+    return m;
+}
+
+// § pkgAliasOfKwTd250 — the shared alias objects that law built, with the
+// alias's bare name.
+static std::map<const UHDM::typespec*, std::string>& pkgKwAlias250() {
+    static std::map<const UHDM::typespec*, std::string> m;
+    return m;
+}
+// § pkgAliasOfKwBind250 (r11u250, R11U250_KWALIASBIND_OFF; cases
+// tools/probe/r11u250repro/cases/Q) — a module NET or instance-scope VARIABLE
+// of an alias-of-keyword-typedef (`al_t a;`) binds the alias's shared object
+// itself in both views (golden Q q01, q02: `string_typespec (p::al_t)` at the
+// target's span); ours bound a per-declaration copy named `al_t` at the
+// alias's own type span, aliased to that object.  Design-final.
+static void pkgAliasOfKwBind250(UHDM::Serializer& s, Compilation& comp) {
+    auto& K = pkgKwAlias250();
+    if (K.empty() || !r11u250On("R11U250_KWALIAS_OFF") ||
+        !r11u250On("R11U250_KWALIASBIND_OFF"))
+        return;
+    // The declarators written with an alias's name (bare or `p::al_t`), keyed
+    // by file basename, line and column, mapped to the one alias object of
+    // that name (an ambiguous name maps to none): an elaborated variable whose
+    // writer minted its own unnamed keyword typespec (`real_var`) is found by
+    // its declaration, not by an alias chain.
+    std::map<std::string, const UHDM::typespec*> byName;
+    std::set<std::string> amb;
+    for (auto& [t, bare] : K) {
+        for (auto nm : {bare, std::string(t->VpiName())}) {
+            auto [it, ins] = byName.emplace(nm, t);
+            if (!ins && it->second != t)
+                amb.insert(nm);
+        }
+    }
+    for (auto& a : amb)
+        byName.erase(a);
+    std::map<std::string, const UHDM::typespec*> declKey;
+    // § kwAliasDeclResolves250v (v11u250, R11V250_KWDECL_OFF; cases
+    // tools/probe/v11u250repro/cases/D d01, d04) — the declarator scan keyed
+    // a declaration by file BASENAME, line and column and read a bare name as
+    // the package alias wherever it was written: a module's own `typedef real
+    // al_t; al_t x;` (golden: x binds the module's al_t) and a `q::al_t v;`
+    // in b/x.sv at the position of a `p::al_t v;` in a/x.sv (golden: p's and
+    // q's alias each) were bound to the wrong alias.  The fix keys by the full
+    // path, drops a key two declarations share, and reads a bare name only
+    // when exactly one typedef, type parameter or class of that name is
+    // declared in the design.
+    const bool kwDecl250v = r11v250On("R11V250_KWDECL_OFF");
+    std::set<std::string> ambKey250v;
+    std::map<std::string, int> typeNameCount250v;
+    if (auto* smp = comp.getSourceManager()) {
+        auto& sm = *smp;
+        auto baseOf = [&](std::string_view f) {
+            if (kwDecl250v)
+                return std::string(f);
+            auto k = f.find_last_of('/');
+            return std::string(k == std::string_view::npos ? f : f.substr(k + 1));
+        };
+        if (kwDecl250v) {
+            auto cnt = [&](auto& self, const syntax::SyntaxNode& node) -> void {
+                if (node.kind == syntax::SyntaxKind::TypedefDeclaration)
+                    typeNameCount250v[std::string(
+                        node.as<syntax::TypedefDeclarationSyntax>().name.valueText())]++;
+                else if (node.kind == syntax::SyntaxKind::TypeAssignment)
+                    typeNameCount250v[std::string(
+                        node.as<syntax::TypeAssignmentSyntax>().name.valueText())]++;
+                else if (node.kind == syntax::SyntaxKind::ClassDeclaration)
+                    typeNameCount250v[std::string(
+                        node.as<syntax::ClassDeclarationSyntax>().name.valueText())]++;
+                for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+                    if (auto* ch = node.childNode(i))
+                        self(self, *ch);
+            };
+            for (auto& tree : comp.getSyntaxTrees())
+                cnt(cnt, tree->root());
+        }
+        auto fileOf250v = [&](SourceLocation l) {
+            if (!kwDecl250v)
+                return std::string(sm.getFileName(l));
+            auto ol = sm.getFullyOriginalLoc(l);
+            return sm.getFullPath(ol.buffer()).string();
+        };
+        auto tsOf = [&](const syntax::DataTypeSyntax* t) -> const UHDM::typespec* {
+            if (!t || t->kind != syntax::SyntaxKind::NamedType)
+                return nullptr;
+            const syntax::NameSyntax* nm = t->as<syntax::NamedTypeSyntax>().name;
+            std::string txt;
+            if (nm->kind == syntax::SyntaxKind::IdentifierName) {
+                txt = std::string(nm->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                if (kwDecl250v) {
+                    auto tc = typeNameCount250v.find(txt);
+                    if (tc == typeNameCount250v.end() || tc->second != 1) {
+                        if (byName.count(txt))
+                            tr250("kwAliasDeclResolves250v", "bare name not unique " + txt);
+                        return nullptr;
+                    }
+                }
+            }
+            else if (nm->kind == syntax::SyntaxKind::ScopedName) {
+                auto& sn = nm->as<syntax::ScopedNameSyntax>();
+                if (sn.separator.kind != parsing::TokenKind::DoubleColon ||
+                    sn.left->kind != syntax::SyntaxKind::IdentifierName ||
+                    sn.right->kind != syntax::SyntaxKind::IdentifierName)
+                    return nullptr;
+                txt = std::string(sn.left->as<syntax::IdentifierNameSyntax>().identifier.valueText()) +
+                      "::" +
+                      std::string(sn.right->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+            }
+            auto it = byName.find(txt);
+            return it == byName.end() ? nullptr : it->second;
+        };
+        std::set<std::string> seenKey250v;
+        auto scan = [&](auto& self, const syntax::SyntaxNode& node) -> void {
+            if (node.kind == syntax::SyntaxKind::DataDeclaration) {
+                auto& dd = node.as<syntax::DataDeclarationSyntax>();
+                auto* t = tsOf(dd.type);
+                for (auto* d0 : dd.declarators) {
+                    auto l = d0->name.location();
+                    std::string k = baseOf(fileOf250v(l)) + ":" +
+                                    std::to_string(sm.getLineNumber(l)) + ":" +
+                                    std::to_string(sm.getColumnNumber(l));
+                    if (kwDecl250v && !seenKey250v.insert(k).second)
+                        ambKey250v.insert(k);
+                    if (t)
+                        declKey[k] = t;
+                }
+            }
+            for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+                if (auto* ch = node.childNode(i))
+                    self(self, *ch);
+        };
+        for (auto& tree : comp.getSyntaxTrees())
+            scan(scan, tree->root());
+        for (auto& k : ambKey250v)
+            if (declKey.erase(k))
+                tr250("kwAliasDeclResolves250v", "ambiguous " + k);
+    }
+    // The alias reference's full name follows the shared object's last
+    // listing owner (golden Q q02 `work@top.p::j_t` when a module lists it,
+    // q07 `p::p::t_t` when only its package does).
+    for (auto& [t, bare] : K) {
+        auto* al = t->Typedef_alias();
+        auto* par = t->VpiParent();
+        if (!al || (par && par->UhdmType() != UHDM::uhdmpackage))
+            continue;
+        std::string nm(t->VpiName());
+        auto c = nm.find("::");
+        if (c == std::string::npos)
+            continue;
+        ((UHDM::ref_typespec*)al)->VpiFullName(nm.substr(0, c + 2) + nm);
+        tr250("pkgAliasOfKwBind250_pkgowner", nm);
+    }
+    auto objKey = [&](const UHDM::BaseClass* o) {
+        std::string f(o->VpiFile());
+        auto k = f.find_last_of('/');
+        return (kwDecl250v || k == std::string::npos ? f : f.substr(k + 1)) + ":" +
+               std::to_string(o->VpiLineNo()) + ":" + std::to_string(o->VpiColumnNo());
+    };
+    std::vector<UHDM::any*> objs;
+    for (auto& kv : s.AllObjects())
+        if (kv.first)
+            objs.push_back((UHDM::any*)kv.first);
+    std::stable_sort(objs.begin(), objs.end(), [](const UHDM::any* a, const UHDM::any* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    auto instScope = [](const UHDM::BaseClass* p) {
+        if (!p)
+            return false;
+        auto k = p->UhdmType();
+        return k == UHDM::uhdmmodule_inst || k == UHDM::uhdminterface_inst ||
+               k == UHDM::uhdmprogram || k == UHDM::uhdmgen_scope;
+    };
+    for (auto* o : objs) {
+        UHDM::ref_typespec* rt = nullptr;
+        if (auto* n = dynamic_cast<UHDM::nets*>(o)) {
+            if (instScope(n->VpiParent()))
+                rt = n->Typespec();
+        }
+        else if (auto* v = dynamic_cast<UHDM::variables*>(o)) {
+            if (instScope(v->VpiParent()))
+                rt = v->Typespec();
+        }
+        if (!rt || !rt->Actual_typespec())
+            continue;
+        auto* at = rt->Actual_typespec();
+        if (K.count(at))
+            continue;
+        if (at->Typedef_alias()) {
+            auto* tgt = at->Typedef_alias()->Actual_typespec();
+            auto it = tgt ? K.find(tgt) : K.end();
+            if (it == K.end() || at->VpiName() != it->second)
+                continue;
+            rt->Actual_typespec((UHDM::typespec*)tgt);
+            tr250("pkgAliasOfKwBind250", std::string(((const UHDM::BaseClass*)o)->VpiName()));
+        }
+        else if (at->VpiName().empty())
+            if (auto dk = declKey.find(objKey((const UHDM::BaseClass*)o));
+                dk != declKey.end() && dk->second->UhdmType() == at->UhdmType()) {
+                rt->Actual_typespec((UHDM::typespec*)dk->second);
+                tr250("pkgAliasOfKwBind250_decl",
+                      std::string(((const UHDM::BaseClass*)o)->VpiName()));
+            }
+    }
+}
+
+// § pkgArrTdBindCopies250 (r11u250, R11U250_PKGARRBIND_OFF; cases
+// tools/probe/r11u250repro/cases/P) — the per-use copies golden binds for a
+// package array typedef § pkgArrTdListing250 lists (Surelog's typespec clone
+// at each use; the weakly-referenced objects of every golden dump of grid P):
+//   * a DEFINITION-view module / interface / program NET (`q_t q;` read in
+//     the definition) binds a copy named like the listing (`p::q_t`), with a
+//     Typedef_alias reference bound to the listing object and the listing's
+//     vpiInstance (P p01-p06, p08, p10, p11);
+//   * an ELABORATED instance-scope (or generate-scope) VARIABLE binds a BARE
+//     copy named by the typedef alone (`q_t`), the listing's vpiInstance, no
+//     alias; a SIZE-form fixed dimension `[N]` has its right bound FOLDED to
+//     an unlocated INT constant N-1 where the listing keeps the `N - 1`
+//     operation (the package twin of § unitArrTd245's elaborated fold and
+//     § modTdElabFoldSize249).  A variable already bound to such a bare copy
+//     by the elaborated writer keeps its object and has its range refolded.
+// Port signals, class properties, subroutine formals and struct members are
+// left as they are (their faces are module/type-ground writers).  Design-
+// final, objects walked in creation (UhdmId) order.
+static void pkgArrTdBindCopies250(UHDM::Serializer& s, Compilation& comp) {
+    auto& L = pkgArrTd250();
+    if (L.empty() || !r11u250On("R11U250_PKGARRTD_OFF") ||
+        !r11u250On("R11U250_PKGARRBIND_OFF"))
+        return;
+    // A declaration written with the PACKAGE-QUALIFIED name (`p::q_t q;`)
+    // binds the listing itself in golden's definition view (P p08); only an
+    // imported name takes the aliased copy.  The qualified declarators, keyed
+    // by file basename, line and column of the name token (syntax only).
+    std::set<std::string> listNames, qualDecl;
+    for (auto& [lt, rec] : L)
+        listNames.insert(std::string(lt->VpiName()));
+    auto* smp = comp.getSourceManager();
+    if (!smp)
+        return;
+    auto& sm = *smp;
+    // § arrQualDeclFullPath250v (v11u250, R11V250_QUALKEY_OFF; case
+    // tools/probe/v11u250repro/cases/C c08) — the qualified declarators were
+    // keyed by file BASENAME, line and column, so an imported `a_t v;` in
+    // b/x.sv at the position of a `p::a_t v;` in a/x.sv kept the listing
+    // where golden binds the aliased copy.  Keyed by the full path.
+    const bool qualKey250v = r11v250On("R11V250_QUALKEY_OFF");
+    auto baseOf = [&](std::string_view f) {
+        if (qualKey250v)
+            return std::string(f);
+        auto k = f.find_last_of('/');
+        return std::string(k == std::string_view::npos ? f : f.substr(k + 1));
+    };
+    auto key = [&](SourceLocation loc) {
+        std::string f = qualKey250v
+                            ? sm.getFullPath(sm.getFullyOriginalLoc(loc).buffer()).string()
+                            : std::string(sm.getFileName(loc));
+        return baseOf(f) + ":" + std::to_string(sm.getLineNumber(loc)) +
+               ":" + std::to_string(sm.getColumnNumber(loc));
+    };
+    auto qualName = [&](const syntax::DataTypeSyntax* t) {
+        if (!t || t->kind != syntax::SyntaxKind::NamedType)
+            return false;
+        const syntax::NameSyntax* nm = t->as<syntax::NamedTypeSyntax>().name;
+        if (!nm || nm->kind != syntax::SyntaxKind::ScopedName)
+            return false;
+        auto& sn = nm->as<syntax::ScopedNameSyntax>();
+        if (sn.separator.kind != parsing::TokenKind::DoubleColon)
+            return false;
+        if (sn.left->kind != syntax::SyntaxKind::IdentifierName ||
+            sn.right->kind != syntax::SyntaxKind::IdentifierName)
+            return false;
+        return listNames.count(
+                   std::string(sn.left->as<syntax::IdentifierNameSyntax>()
+                                   .identifier.valueText()) +
+                   "::" +
+                   std::string(sn.right->as<syntax::IdentifierNameSyntax>()
+                                   .identifier.valueText())) > 0;
+    };
+    auto scan = [&](auto& self, const syntax::SyntaxNode& node) -> void {
+        const syntax::SeparatedSyntaxList<syntax::DeclaratorSyntax>* ds = nullptr;
+        if (node.kind == syntax::SyntaxKind::DataDeclaration) {
+            auto& dd = node.as<syntax::DataDeclarationSyntax>();
+            if (qualName(dd.type))
+                ds = &dd.declarators;
+        }
+        else if (node.kind == syntax::SyntaxKind::NetDeclaration) {
+            auto& nd = node.as<syntax::NetDeclarationSyntax>();
+            if (qualName(nd.type))
+                ds = &nd.declarators;
+        }
+        if (ds)
+            for (auto* d0 : *ds)
+                qualDecl.insert(key(d0->name.location()));
+        for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+            if (auto* ch = node.childNode(i))
+                self(self, *ch);
+    };
+    for (auto& tree : comp.getSyntaxTrees())
+        scan(scan, tree->root());
+    auto objKey = [&](const UHDM::BaseClass* o) {
+        return baseOf(o->VpiFile()) + ":" + std::to_string(o->VpiLineNo()) + ":" +
+               std::to_string(o->VpiColumnNo());
+    };
+    std::vector<UHDM::any*> objs;
+    for (auto& kv : s.AllObjects())
+        if (kv.first)
+            objs.push_back((UHDM::any*)kv.first);
+    std::stable_sort(objs.begin(), objs.end(), [](const UHDM::any* a, const UHDM::any* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    auto instScope = [](const UHDM::BaseClass* p) {
+        if (!p)
+            return false;
+        auto k = p->UhdmType();
+        return k == UHDM::uhdmmodule_inst || k == UHDM::uhdminterface_inst ||
+               k == UHDM::uhdmprogram;
+    };
+    std::set<const UHDM::any*> portSig;
+    for (auto* o : objs) {
+        const UHDM::VectorOfport* ps = nullptr;
+        if (o->UhdmType() == UHDM::uhdmmodule_inst)
+            ps = ((UHDM::module_inst*)o)->Ports();
+        else if (o->UhdmType() == UHDM::uhdminterface_inst)
+            ps = ((UHDM::interface_inst*)o)->Ports();
+        else if (o->UhdmType() == UHDM::uhdmprogram)
+            ps = ((UHDM::program*)o)->Ports();
+        if (!ps)
+            continue;
+        for (auto* p : *ps)
+            if (p && p->Low_conn() && p->Low_conn()->UhdmType() == UHDM::uhdmref_obj)
+                if (auto* a = ((UHDM::ref_obj*)p->Low_conn())->Actual_group())
+                    portSig.insert(a);
+    }
+    // The copy shares the listing's ranges, except an associative marker,
+    // whose index reference is named like the copy's element reference, and
+    // carries its own element reference named `refName` (golden: the listing
+    // name on an aliased copy, the bare typedef name on a bare one).
+    auto copyOf = [&](const UHDM::array_typespec* at, const std::string& refName) {
+        auto* ca = s.MakeArray_typespec();
+        ca->VpiArrayType(at->VpiArrayType());
+        ca->Ranges(at->Ranges());
+        if (auto* rs = at->Ranges(); rs && rs->size() == 1)
+            if (auto* m = (*rs)[0]->Right_expr();
+                m && m->UhdmType() == UHDM::uhdmconstant &&
+                ((const UHDM::constant*)m)->Typespec()) {
+                auto* r0 = (*rs)[0];
+                auto* mc = (const UHDM::constant*)m;
+                auto* r = s.MakeRange();
+                r->VpiParent(ca);
+                r->VpiFile(r0->VpiFile());
+                r->VpiLineNo(r0->VpiLineNo());
+                r->VpiColumnNo(r0->VpiColumnNo());
+                r->VpiEndLineNo(r0->VpiEndLineNo());
+                r->VpiEndColumnNo(r0->VpiEndColumnNo());
+                r->Left_expr((UHDM::expr*)r0->Left_expr());
+                auto* c = s.MakeConstant();
+                c->VpiParent(r);
+                c->VpiDecompile(mc->VpiDecompile());
+                c->VpiSize(mc->VpiSize());
+                c->VpiValue(mc->VpiValue());
+                c->VpiConstType(mc->VpiConstType());
+                c->VpiFile(mc->VpiFile());
+                c->VpiLineNo(mc->VpiLineNo());
+                c->VpiColumnNo(mc->VpiColumnNo());
+                c->VpiEndLineNo(mc->VpiEndLineNo());
+                c->VpiEndColumnNo(mc->VpiEndColumnNo());
+                auto* irt = s.MakeRef_typespec();
+                irt->VpiParent(c);
+                irt->VpiFullName(refName);
+                irt->Actual_typespec((UHDM::typespec*)mc->Typespec()->Actual_typespec());
+                c->Typespec(irt);
+                r->Right_expr(c);
+                auto* rv = s.MakeRangeVec();
+                rv->push_back(r);
+                ca->Ranges(rv);
+            }
+        if (auto* er = at->Elem_typespec()) {
+            auto* ner = s.MakeRef_typespec();
+            ner->VpiParent(ca);
+            ner->VpiFullName(refName);
+            ner->Actual_typespec((UHDM::typespec*)er->Actual_typespec());
+            ca->Elem_typespec(ner);
+        }
+        ca->Index_typespec((UHDM::ref_typespec*)at->Index_typespec());
+        ca->VpiFile(at->VpiFile());
+        ca->VpiLineNo(at->VpiLineNo());
+        ca->VpiColumnNo(at->VpiColumnNo());
+        ca->VpiEndLineNo(at->VpiEndLineNo());
+        ca->VpiEndColumnNo(at->VpiEndColumnNo());
+        ca->Instance((UHDM::instance*)at->Instance());
+        return ca;
+    };
+    // The folded range of a size-form copy: `0 : INT:N-1` (the left bound and
+    // the range's span shared with the listing's).
+    auto fold = [&](UHDM::array_typespec* cp, const UHDM::array_typespec* lst,
+                    long long n) {
+        auto* rs = lst->Ranges();
+        if (!rs || rs->size() != 1 || n < 1)
+            return false;
+        auto* r0 = (*rs)[0];
+        auto* r = s.MakeRange();
+        r->VpiParent(cp);
+        r->VpiFile(r0->VpiFile());
+        r->VpiLineNo(r0->VpiLineNo());
+        r->VpiColumnNo(r0->VpiColumnNo());
+        r->VpiEndLineNo(r0->VpiEndLineNo());
+        r->VpiEndColumnNo(r0->VpiEndColumnNo());
+        r->Left_expr(r0->Left_expr());
+        auto* c = s.MakeConstant();
+        c->VpiDecompile(std::to_string(n - 1));
+        c->VpiSize(64);
+        c->VpiValue("INT:" + std::to_string(n - 1));
+        c->VpiConstType(vpiIntConst);
+        r->Right_expr(c);
+        auto* rv = s.MakeRangeVec();
+        rv->push_back(r);
+        cp->Ranges(rv);
+        return true;
+    };
+    // An elaborated writer's own bare copy of a listing: named by the typedef
+    // alone, no alias, at the listing's span.
+    auto bareOf = [&](const UHDM::typespec* at) -> const UHDM::array_typespec* {
+        if (!at || at->UhdmType() != UHDM::uhdmarray_typespec || at->Typedef_alias())
+            return nullptr;
+        for (auto& [lt, rec] : L)
+            if (at->VpiName() == rec.bare && at->VpiFile() == lt->VpiFile() &&
+                at->VpiLineNo() == lt->VpiLineNo() &&
+                at->VpiColumnNo() == lt->VpiColumnNo() &&
+                at->VpiEndColumnNo() == lt->VpiEndColumnNo())
+                return (const UHDM::array_typespec*)lt;
+        return nullptr;
+    };
+    for (auto* o : objs) {
+        if (portSig.count(o))
+            continue;
+        if (auto* n = dynamic_cast<UHDM::nets*>(o)) {
+            if (!instScope(n->VpiParent()))
+                continue;
+            auto* rt = n->Typespec();
+            auto* at = rt ? rt->Actual_typespec() : nullptr;
+            auto it = at ? L.find(at) : L.end();
+            if (it == L.end())
+                continue;
+            if (qualDecl.count(objKey(n))) {
+                tr250(qualKey250v ? "pkgArrTdBindCopies250_qual arrQualDeclFullPath250v"
+                                  : "pkgArrTdBindCopies250_qual",
+                      std::string(n->VpiFullName()));
+                continue;
+            }
+            auto* cp = copyOf((const UHDM::array_typespec*)at, std::string(at->VpiName()));
+            cp->VpiName(at->VpiName());
+            auto* al = s.MakeRef_typespec();
+            al->VpiFullName(std::string(at->VpiName()));
+            al->VpiParent(cp);
+            al->Actual_typespec((UHDM::typespec*)at);
+            cp->Typedef_alias(al);
+            rt->Actual_typespec(cp);
+            tr250("pkgArrTdBindCopies250", "net " + std::string(n->VpiFullName()));
+        }
+        else if (auto* v = dynamic_cast<UHDM::variables*>(o)) {
+            if (!instScope(v->VpiParent()) &&
+                !(v->VpiParent() && v->VpiParent()->UhdmType() == UHDM::uhdmgen_scope))
+                continue;
+            auto* rt = v->Typespec();
+            auto* at = rt ? rt->Actual_typespec() : nullptr;
+            if (!at)
+                continue;
+            if (auto it = L.find(at); it != L.end()) {
+                auto* la = (const UHDM::array_typespec*)at;
+                auto* cp = copyOf(la, it->second.bare);
+                cp->VpiName(it->second.bare);
+                if (it->second.sizeN > 0)
+                    fold(cp, la, it->second.sizeN);
+                rt->Actual_typespec(cp);
+                tr250("pkgArrTdBindCopies250", "var " + std::string(v->VpiFullName()));
+            }
+            else if (auto* la = bareOf(at)) {
+                auto* ca = (UHDM::array_typespec*)at;
+                bool folded = false;
+                if (L[la].sizeN > 0 && ca->Ranges() && ca->Ranges()->size() == 1 &&
+                    (*ca->Ranges())[0]->Right_expr() &&
+                    (*ca->Ranges())[0]->Right_expr()->UhdmType() == UHDM::uhdmoperation)
+                    folded = fold(ca, la, L[la].sizeN);
+                {
+                    if (!at->Instance())
+                        ((UHDM::typespec*)at)->Instance((UHDM::instance*)la->Instance());
+                    // Its own element copy is Instanced at the package too.
+                    if (auto* er = ((const UHDM::array_typespec*)at)->Elem_typespec())
+                        if (auto* ea = (UHDM::typespec*)er->Actual_typespec();
+                            ea && !ea->Instance() && ea->VpiName().empty())
+                            ea->Instance((UHDM::instance*)la->Instance());
+                    tr250("pkgArrTdBindCopies250", std::string(folded ? "varfold " : "varinst ") +
+                                                       std::string(v->VpiFullName()));
+                }
+            }
+        }
+    }
+}
+
+// § pcwRefLastWriter250 (r11u250, R11U250_PCWLAST_OFF; BlackBePipeInt d
+// #38807 and t #38803 / #38804, cases tools/probe/r11u250repro/cases/W) —
+// THE PAREN-CAST WIDTH MARK IS ONE REFERENCE WITH ONE LAST WRITER.  Golden
+// (both BlackBePipeInt views, every copy of `dev_addr_width_gp`'s declaration
+// int_typespec) holds a single shared vpiExpr ref_obj, bound to whichever
+// parameter claimed it last: the declaring package's TOP-listing parameter
+// in the default view, the first importing module's elaborated copy in the
+// --elabuhdm view; only the declaring package's DEFINITION listing keeps a
+// reference of its own, bound to its own parameter.  § parenCastWidthRefPkgBare207
+// bound an importer's copy to the declaring package's first (definition)
+// listing and a package's top copy to itself, so the strict walk, which
+// expands an actual it has not met yet, met golden's top-listing parameter
+// under bp_be_pkg's re-listed copy and nothing under ours.  Design-final.
+static std::map<const Symbol*, UHDM::parameter*>& pcwDeclTop250() {
+    static std::map<const Symbol*, UHDM::parameter*> m;
+    return m;
+}
+static std::set<const UHDM::ref_obj*>& pcwDefOwnRef250() {
+    static std::set<const UHDM::ref_obj*> m;
+    return m;
+}
+// the declaring package's TOP-listing copy's own reference: its final
+// binding is the last writer's (the top parameter itself in the default view,
+// the claiming module copy in the elaborated one)
+static std::map<const Symbol*, const UHDM::ref_obj*>& pcwTopOwnRef250() {
+    static std::map<const Symbol*, const UHDM::ref_obj*> m;
+    return m;
+}
+static std::set<const UHDM::typespec*>& pcwDefOwnTs250() {
+    static std::set<const UHDM::typespec*> m;
+    return m;
+}
+// § pcwOtherSymKeeps250v — every listing parameter (`up`) a paren-cast width
+// stamp met for the symbol, and the module copy that claimed it.
+static std::map<const Symbol*, std::set<const UHDM::any*>>& pcwUps250v() {
+    static std::map<const Symbol*, std::set<const UHDM::any*>> m;
+    return m;
+}
+static void pcwRefLastWriter250(
+    UHDM::Serializer& s,
+    const std::map<const Symbol*, std::vector<UHDM::ref_obj*>>& refs) {
+    if (!r11u250On("R11U250_PCWLAST_OFF") || refs.empty())
+        return;
+    // the parameter name -> its last writer (names shared by two marked
+    // parameters are skipped)
+    std::map<std::string, const UHDM::ref_obj*> tgt;
+    std::set<std::string> amb;
+    for (auto& [sym, rv] : refs) {
+        const UHDM::ref_obj* t = nullptr;
+        if (auto it = pcwTopOwnRef250().find(sym); it != pcwTopOwnRef250().end() && it->second)
+            t = it->second;
+        std::string nm(sym->name);
+        if (!t || !t->Actual_group() ||
+            t->Actual_group()->UhdmType() != UHDM::uhdmparameter || amb.count(nm))
+            continue;
+        if (auto [it, ins] = tgt.emplace(nm, t); !ins && it->second != t)
+            amb.insert(nm);
+    }
+    for (auto& a : amb)
+        tgt.erase(a);
+    if (tgt.empty())
+        return;
+    // § pcwOtherSymKeeps250v (v11u250, R11V250_PCWOTHER_OFF; cases
+    // tools/probe/v11u250repro/cases/A) — the name alone does not say whose
+    // mark a typespec carries: a module's (or an interface's) OWN parameter
+    // of the same name, used as a paren-cast width too, has its own
+    // declaration int_typespec and its own reference (stampCastSizeParamTs),
+    // bound in golden to that parameter (`work@sub.W.W` -> `work@top.u.W`
+    // beside a package `W`).  A reference already bound to a parameter that
+    // is none of the declaring symbol's listings, copies or claimed owner
+    // (every `up` stampParenCastWidthTs met for it) keeps its binding.
+    std::map<std::string, std::set<const UHDM::any*>> allowed250v;
+    const bool other250v = r11v250On("R11V250_PCWOTHER_OFF");
+    if (other250v)
+        for (auto& [sym, rv] : refs) {
+            std::string nm(sym->name);
+            auto it = tgt.find(nm);
+            auto ot = pcwTopOwnRef250().find(sym);
+            if (it == tgt.end() || ot == pcwTopOwnRef250().end() || ot->second != it->second)
+                continue;
+            auto& A = allowed250v[nm];
+            for (auto* r : rv)
+                if (r && r->Actual_group())
+                    A.insert(r->Actual_group());
+            if (auto u = pcwUps250v().find(sym); u != pcwUps250v().end())
+                A.insert(u->second.begin(), u->second.end());
+            if (it->second->Actual_group())
+                A.insert(it->second->Actual_group());
+        }
+    // every copy of the declaration typespec carries the mark, including the
+    // copies a clone made of an already-stamped typespec (not on the list)
+    std::vector<UHDM::int_typespec*> tss;
+    for (auto& kv : s.AllObjects())
+        if (kv.first && ((const UHDM::any*)kv.first)->UhdmType() == UHDM::uhdmint_typespec)
+            tss.push_back((UHDM::int_typespec*)kv.first);
+    std::stable_sort(tss.begin(), tss.end(), [](const UHDM::any* a, const UHDM::any* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    for (auto* ts : tss) {
+        auto* ce = ts->Cast_to_expr();
+        if (!ce || ce->UhdmType() != UHDM::uhdmref_obj || pcwDefOwnTs250().count(ts))
+            continue;
+        auto* r = (UHDM::ref_obj*)ce;
+        auto it = tgt.find(std::string(r->VpiName()));
+        if (it == tgt.end() || r == it->second)
+            continue;
+        auto* a = r->Actual_group();
+        if (a && (a->UhdmType() != UHDM::uhdmparameter || a->VpiName() != r->VpiName()))
+            continue;
+        if (other250v && a && !allowed250v[it->first].count(a)) {
+            tr250("pcwOtherSymKeeps250v", it->first + " ts#" + std::to_string(ts->UhdmId()));
+            continue;
+        }
+        // golden's copies share the one reference object (its parent stays
+        // the top listing's copy)
+        ts->Cast_to_expr((UHDM::ref_obj*)it->second);
+        tr250("pcwRefLastWriter250", it->first + " ts#" + std::to_string(ts->UhdmId()));
+    }
+}
+
 void UhdmExporter::drainPaNameCopySrc38() {
+    pcwRefLastWriter250(s, parenCastWidthRefs);  // § pcwRefLastWriter250 (r11u250)
+    pkgArrTdBindCopies250(s, comp);  // § pkgArrTdBindCopies250 (r11u250)
+    pkgAliasOfKwBind250(s, comp);  // § pkgAliasOfKwBind250 (r11u250)
     // § cloneForIncBindsHomeVar238 — design-final: an import clone's loop-
     // variable references read the home object (law and the first/last rule
     // at StmtEmit's ForLoop arm).  No home object -> the clone's own stands. Run
@@ -28591,6 +29342,25 @@ void UhdmExporter::stampParenCastWidthTs(const ParameterSymbol& ps,
     if (!isParenCastWidthParam(ps.name)) return;
     auto* ic9 = (UHDM::int_typespec*)its;
     if (inst) ic9->Instance(inst);
+    if (up)  // § pcwOtherSymKeeps250v (v11u250): the symbol's listings
+        pcwUps250v()[&ps].insert(up);
+    // § pcwRefLastWriter250 — which listing `up` is: the declaring package's
+    // DEFINITION listing (its copy keeps its own binding) or its TOP listing
+    // (the default view's last writer).
+    bool defOwn250 = false;
+    if (up && r11u250On("R11U250_PCWLAST_OFF"))
+        if (const Scope* sc250 = ps.getParentScope();
+            sc250 && sc250->asSymbol().kind == SymbolKind::Package) {
+            const UHDM::any* pp250 = up->VpiParent();
+            auto dm = pkgDefMap.find((const void*)&sc250->asSymbol());
+            auto tm = pkgTopMap.find((const void*)&sc250->asSymbol());
+            if (dm != pkgDefMap.end() && pp250 == (const UHDM::any*)dm->second)
+                defOwn250 = true;
+            else if (tm != pkgTopMap.end() && pp250 == (const UHDM::any*)tm->second &&
+                     !pcwDeclTop250().count(&ps))
+                pcwDeclTop250()[&ps] = up;
+        }
+    const bool topOwn250 = up && pcwDeclTop250().count(&ps) && pcwDeclTop250()[&ps] == up;
     // is `up` a listing of the declaring package's own parameter?
     bool declPkg207 = false;
     if (pcwPkgBare207On() && !pcwElabKeepsClaim207v(elabUhdmView121) && up) {
@@ -28616,6 +29386,12 @@ void UhdmExporter::stampParenCastWidthTs(const ParameterSymbol& ps,
             auto* er9 = (UHDM::ref_obj*)ex9;
             if (std::find(refs9.begin(), refs9.end(), er9) == refs9.end())
                 refs9.push_back(er9);
+            if (defOwn250) {
+                pcwDefOwnRef250().insert(er9);
+                pcwDefOwnTs250().insert(ic9);
+            }
+            if (topOwn250 && !pcwTopOwnRef250().count(&ps))
+                pcwTopOwnRef250()[&ps] = er9;
             if (pcwPkgBare207On()) {  // § parenCastWidthRefPkgBare207
                 er9->VpiFullName(std::string());
                 if (pcwElabKeepsClaim207v(elabUhdmView121))
@@ -28658,6 +29434,12 @@ void UhdmExporter::stampParenCastWidthTs(const ParameterSymbol& ps,
     r9->VpiParent(ic9);
     ic9->Cast_to_expr(r9);
     refs9.push_back(r9);
+    if (defOwn250) {
+        pcwDefOwnRef250().insert(r9);
+        pcwDefOwnTs250().insert(ic9);
+    }
+    if (topOwn250 && !pcwTopOwnRef250().count(&ps))
+        pcwTopOwnRef250()[&ps] = r9;
 }
 
 // § parenCastWidthRefModuleCopy — the importing module's elaborated copy takes
@@ -28672,6 +29454,7 @@ void UhdmExporter::claimParenCastWidthOwner(const Symbol& sym,
         return;  // § parenCastWidthRefPkgBare207
     if (!up || !parenCastWidthOwner.emplace(&sym, up).second)
         return;
+    pcwUps250v()[&sym].insert(up);  // § pcwOtherSymKeeps250v (v11u250)
     for (auto* r9 : parenCastWidthRefs[&sym]) {
         if (!pcwPkgBare207On())  // § parenCastWidthRefPkgBare207: no name
         r9->VpiFullName(std::string(up->VpiFullName()) + "." +
@@ -29635,6 +30418,72 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             intTs->VpiSigned(sgn);
         its = intTs;
     }
+    // § modParamKwTdCopy250 (r11u250, R11U250_PARAMKWTD_OFF; cases
+    // tools/probe/r11u250repro/cases/U, decode r11u245repro DP/d01) — a
+    // MODULE / interface / program parameter declared with the name of a
+    // KEYWORD-INTEGER typedef homed in a package or in $unit (`parameter
+    // ui_t P = 3;`, `localparam pb_t R = 5;`) took the anonymous keyword
+    // typespec at the use.  Golden's is a copy of the typedef's typespec:
+    // spanning the TYPEDEF's type, named like the typedef as written (bare
+    // `pi_t` / `ui_t`, or `p::pi_t` when written package-qualified), Instanced
+    // at the home package for a package typedef; a bare name carries a
+    // Typedef_alias reference (`work@top.P.pi_t`) to the typedef's listing
+    // object, a qualified one none.
+    if (typedParam && its && its->VpiName().empty() && !its->Typedef_alias() &&
+        r11u250On("R11U250_PARAMKWTD_OFF"))
+        if (auto d250 = ps.getDeclaredType();
+            d250 && d250->getType().kind == SymbolKind::TypeAlias)
+            if (auto tsyn250 = d250->getTypeSyntax();
+                tsyn250 && tsyn250->kind == syntax::SyntaxKind::NamedType) {
+                auto& ta250 = d250->getType().as<TypeAliasType>();
+                auto* home250 = ta250.getParentScope();
+                auto* psc250 = ps.getParentScope();
+                const syntax::NameSyntax* nm250 =
+                    tsyn250->as<syntax::NamedTypeSyntax>().name;
+                bool qual250 = nm250->kind == syntax::SyntaxKind::ScopedName;
+                bool bare250 = nm250->kind == syntax::SyntaxKind::IdentifierName;
+                const syntax::SyntaxNode* tt250 = nullptr;
+                if (auto asyn = ta250.getSyntax();
+                    asyn && asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                    tt250 = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                bool homeKind250 =
+                    home250 && (home250->asSymbol().kind == SymbolKind::Package ||
+                                home250->asSymbol().kind == SymbolKind::CompilationUnit);
+                bool unit250 = homeKind250 &&
+                               home250->asSymbol().kind == SymbolKind::CompilationUnit;
+                if (homeKind250 && psc250 &&
+                    psc250->asSymbol().kind == SymbolKind::InstanceBody &&
+                    ta250.targetType.getType().kind != SymbolKind::TypeAlias &&
+                    (ta250.getCanonicalType().kind == SymbolKind::PredefinedIntegerType ||
+                     ta250.getCanonicalType().kind == SymbolKind::ScalarType) &&
+                    tt250 && (bare250 || (qual250 && !unit250))) {
+                    UHDM::typespec* L250 = nullptr;
+                    if (auto t = typedefTs.find((const Symbol*)&ta250); t != typedefTs.end())
+                        L250 = t->second;
+                    if (L250 && L250->UhdmType() == its->UhdmType()) {
+                        std::string hn250 = unit250 ? std::string()
+                                                    : std::string(home250->asSymbol().name);
+                        its->VpiName(qual250 ? hn250 + "::" + std::string(ta250.name)
+                                             : std::string(ta250.name));
+                        if (!unit250)
+                            if (auto hp = pkgDefMap.find(&home250->asSymbol());
+                                hp != pkgDefMap.end())
+                                its->Instance((UHDM::instance*)hp->second);
+                        if (bare250) {
+                            auto* al250 = s.MakeRef_typespec();
+                            al250->VpiFullName("work@" + ps.getHierarchicalPath() + "." +
+                                               std::string(ta250.name));
+                            al250->VpiParent(its);
+                            al250->Actual_typespec(L250);
+                            its->Typedef_alias(al250);
+                        }
+                        tr = tt250->sourceRange();
+                        tr250("modParamKwTdCopy250",
+                              std::string(qual250 ? "qual " : "bare ") +
+                                  std::string(ps.name) + " " + std::string(ta250.name));
+                    }
+                }
+            }
     // An UNTYPED param inferred REAL keeps its real_typespec LOC-LESS
     // (realexpr p4); typed real params locate at the type token.
     // (§ timeLitParamIntTs: a TIME-literal untyped param is NOT one of these —
@@ -34592,6 +35441,97 @@ static int32_t pkgNetTypeForView79(const slang::ast::Symbol& sym79,
     return def79;
 }
 
+// § pkgAliasOfKwTd250 — `typedef <T> al_t;` in a package, T a typedef of the
+// SAME package whose own target is written as a keyword (an integer atom,
+// `string`, `real`/`shortreal`/`realtime`), one alias level.
+static bool pkgAliasOfKwShape250(const TypeAliasType& ta, const PackageSymbol& pkg) {
+    if (!r11u250On("R11U250_KWALIAS_OFF"))
+        return false;
+    auto& t = ta.targetType.getType();
+    if (t.kind != SymbolKind::TypeAlias)
+        return false;
+    auto& tt = t.as<TypeAliasType>();
+    if (tt.getParentScope() != &(const Scope&)pkg)
+        return false;
+    if (tt.targetType.getType().kind == SymbolKind::TypeAlias)
+        return false;
+    auto k = ta.getCanonicalType().kind;
+    return k == SymbolKind::PredefinedIntegerType || k == SymbolKind::StringType ||
+           k == SymbolKind::FloatingType;
+}
+
+// § pkgArrTdListing250 — the shapes the package typedef listing writes with
+// the array typedef builder: one written unpacked dimension (a size `[N]` or a
+// range `[l:r]`, `[]`, an unbounded `[$]`, an associative index written as
+// `string` or an integer keyword) over a written packed-integral element (a
+// keyword, `bit`/`logic` with or without packed dims; never a typedef name).
+static bool pkgArrTdShape250(const TypeAliasType& ta) {
+    if (ta.targetType.getType().kind == SymbolKind::TypeAlias)
+        return false;
+    auto* syn = ta.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::TypedefDeclaration)
+        return false;
+    auto& td = syn->as<syntax::TypedefDeclarationSyntax>();
+    if (td.dimensions.size() != 1)
+        return false;
+    auto& ct = ta.targetType.getType().getCanonicalType();
+    const Type* el = nullptr;
+    if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+        auto* sp = td.dimensions[0]->specifier;
+        if (!sp || sp->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
+            return false;
+        // Literal bounds only: a parameter-sized dimension keeps a symbolic
+        // reference in golden's definition listing and folds in the top one
+        // (P p10, a residue).
+        auto lit = [](const syntax::ExpressionSyntax* e) {
+            return e && e->kind == syntax::SyntaxKind::IntegerLiteralExpression;
+        };
+        auto& sel = *sp->as<syntax::RangeDimensionSpecifierSyntax>().selector;
+        if (auto* bs = sel.as_if<syntax::BitSelectSyntax>()) {
+            if (!lit(bs->expr))
+                return false;
+        }
+        else if (auto* rs = sel.as_if<syntax::RangeSelectSyntax>()) {
+            if (sel.kind != syntax::SyntaxKind::SimpleRangeSelect || !lit(rs->left) ||
+                !lit(rs->right))
+                return false;
+        }
+        else
+            return false;
+        el = &ct.as<FixedSizeUnpackedArrayType>().elementType;
+    }
+    else if (ct.kind == SymbolKind::DynamicArrayType ||
+             ct.kind == SymbolKind::QueueType ||
+             ct.kind == SymbolKind::AssociativeArrayType) {
+        if (!unitDynTdShape249(ta))
+            return false;
+        el = ct.kind == SymbolKind::DynamicArrayType
+                 ? &ct.as<DynamicArrayType>().elementType
+                 : ct.kind == SymbolKind::QueueType
+                       ? &ct.as<QueueType>().elementType
+                       : &ct.as<AssociativeArrayType>().elementType;
+    }
+    if (!el || el->kind == SymbolKind::TypeAlias)
+        return false;
+    auto& ec = el->getCanonicalType();
+    if (ec.isUnpackedArray() || !ec.isIntegral())
+        return false;
+    if (ec.kind == SymbolKind::PackedArrayType) {
+        const Type* in = &ec;
+        while (in->getCanonicalType().kind == SymbolKind::PackedArrayType) {
+            in = &in->getCanonicalType().as<PackedArrayType>().elementType;
+            if (in->kind == SymbolKind::TypeAlias)
+                return false;
+        }
+        if (in->getCanonicalType().kind != SymbolKind::ScalarType)
+            return false;
+    }
+    else if (ec.kind != SymbolKind::ScalarType &&
+             ec.kind != SymbolKind::PredefinedIntegerType)
+        return false;
+    return true;
+}
+
 UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView) {
     std::string prefix = std::string(pkg.name) + "::";
     // § hoistPoolSourceOrder240 — where this package's pool entries start.
@@ -35026,14 +35966,97 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                 syntax::SyntaxKind::TypedefDeclaration)
                             tSyn8 = dSyn8->as<syntax::TypedefDeclarationSyntax>()
                                         .type;
+                        // § pkgArrTdImportClone250 (r11u250,
+                        // R11U250_PKGARRIMP_OFF; case r11u249repro A/a12,
+                        // cases/P p17) — an ARRAY typedef of the shape
+                        // § pkgArrTdListing250 lists is re-listed by an
+                        // importing package as that same array_typespec (the
+                        // builder's), not as makeTypespec's element typespec
+                        // named like the typedef (golden: `array_typespec
+                        // (a::b_t)` with the importer's vpiInstance).
+                        bool arr250 = false;
+                        if (pkgArrTdShape250(ta8) &&
+                            r11u250On("R11U250_PKGARRTD_OFF") &&
+                            r11u250On("R11U250_PKGARRIMP_OFF")) {
+                            bool sTd = typedefTsContext, sBy = bypassTypedefShare,
+                                 sUf = unfoldedTypedefDims;
+                            typedefTsContext = true;
+                            bypassTypedefShare = true;
+                            unfoldedTypedefDims = false;
+                            auto& ct8a = ta8.getCanonicalType();
+                            g249DynRangeReq =
+                                ct8a.kind != SymbolKind::FixedSizeUnpackedArrayType;
+                            std::string hq8 = std::string(home8->asSymbol().name) + "::";
+                            cl8 = buildUnpackedArrayTypedefTs(ta8, hq8 + hq8 +
+                                                                       std::string(ta8.name));
+                            g249DynRangeReq = false;
+                            unfoldedTypedefDims = sUf;
+                            bypassTypedefShare = sBy;
+                            typedefTsContext = sTd;
+                            if (cl8) {
+                                arr250 = true;
+                                {
+                                    PkgArrTd250 rec8;
+                                    rec8.bare = std::string(ta8.name);
+                                    auto& sp8 = *ta8.getSyntax()
+                                                     ->as<syntax::TypedefDeclarationSyntax>()
+                                                     .dimensions[0];
+                                    if (ct8a.kind == SymbolKind::FixedSizeUnpackedArrayType &&
+                                        sp8.specifier &&
+                                        sp8.specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                                                .selector->kind == syntax::SyntaxKind::BitSelect)
+                                        rec8.sizeN = (long long)ct8a.as<FixedSizeUnpackedArrayType>()
+                                                         .range.width();
+                                    pkgArrTd250()[cl8] = rec8;
+                                }
+                                // As the home listing: the synthetic `1`
+                                // unparented, the element Instanced.
+                                if (auto* rv8 = ((UHDM::array_typespec*)cl8)->Ranges();
+                                    rv8 && rv8->size() == 1)
+                                    if (auto* re8 = (*rv8)[0]->Right_expr();
+                                        re8 && re8->UhdmType() == UHDM::uhdmoperation)
+                                        if (auto* os8 = ((UHDM::operation*)re8)->Operands();
+                                            os8 && os8->size() == 2 &&
+                                            (*os8)[1]->UhdmType() == UHDM::uhdmconstant &&
+                                            ((UHDM::constant*)(*os8)[1])->VpiValue() == "INT:1")
+                                            (*os8)[1]->VpiParent(nullptr);
+                                // ...at the HOME package (golden P p17: the
+                                // clone takes the importer, its element and
+                                // index typespecs keep the home package).
+                                UHDM::instance* hi8 = nullptr;
+                                if (auto hp8 = pkgDefMap.find(&home8->asSymbol());
+                                    hp8 != pkgDefMap.end())
+                                    hi8 = (UHDM::instance*)hp8->second;
+                                if (!hi8)
+                                    hi8 = (UHDM::instance*)up;
+                                if (auto* er8 = ((UHDM::array_typespec*)cl8)->Elem_typespec())
+                                    if (auto* ea8 = er8->Actual_typespec();
+                                        ea8 && ea8->VpiName().empty())
+                                        ea8->Instance(hi8);
+                                if (auto* rv9 = ((UHDM::array_typespec*)cl8)->Ranges();
+                                    rv9 && rv9->size() == 1)
+                                    if (auto* m9 = (*rv9)[0]->Right_expr();
+                                        m9 && m9->UhdmType() == UHDM::uhdmconstant)
+                                        if (auto* it9 = ((UHDM::constant*)m9)->Typespec()) {
+                                            it9->VpiFullName(hq8 + hq8 + std::string(ta8.name));
+                                            if (auto* ia9 = it9->Actual_typespec())
+                                                ia9->Instance(hi8);
+                                        }
+                                tr250("pkgArrTdImportClone250",
+                                      std::string(pkg.name) + " " + hq8 +
+                                          std::string(ta8.name));
+                            }
+                        }
+                        else {
                         bypassTypedefShare = true;
                         cl8 = makeTypespec(ta8, tSyn8);
                         bypassTypedefShare = false;
+                        }
                         if (!cl8)
                             continue;
                         cl8->VpiName(std::string(home8->asSymbol().name) +
                                      "::" + std::string(ta8.name));
-                        if (tSyn8)
+                        if (tSyn8 && !arr250)
                             setLoc(cl8, tSyn8->sourceRange());
                         // An AGGREGATE clone (packed union) built here comes
                         // out with FRESH scalar member typespecs; a member
@@ -35383,6 +36406,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             if (syn->kind == syntax::SyntaxKind::TypedefDeclaration)
                 typeSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
         UHDM::typespec* ts = nullptr;
+        bool kwAlias250 = false;  // § pkgAliasOfKwTd250
         // A packed-array-of-AGGREGATE typedef (typedef a[1:0] b, a = struct):
         // a packed_array_typespec with a Typedef_alias (bare clone), the [1:0]
         // Range (UINT bounds), and an Elem ref -> the SHARED element typedef
@@ -35679,9 +36703,24 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             }
             ts = ats;
         }
-        else if ((ct.kind == SymbolKind::PackedArrayType ||
-                  ct.kind == SymbolKind::ScalarType) &&
-                 (ta.targetType.getType().kind == SymbolKind::TypeAlias || tdOfNamedDims111(ta))) {
+        // § pkgAliasOfKwTd250 (r11u250, R11U250_KWALIAS_OFF; cases
+        // tools/probe/r11u250repro/cases/Q, v11u243repro C/c04's package half)
+        // — the packed alias-of-typedef rule below holds for an alias of a
+        // same-package KEYWORD typedef too (`typedef string str_t; typedef
+        // str_t al_t;`, `typedef int i_t; typedef i_t j_t;`, real): golden
+        // omits it from the definition listing and lists ONE object in the
+        // top listing spanning the TARGET's type, named p::al_t, whose
+        // Typedef_alias binds a bare copy named like the target (`str_t`),
+        // Instanced at the package and itself aliased to the target's top
+        // listing object.  Ours listed it in both views at its own type span,
+        // with no alias.
+        else if (((ct.kind == SymbolKind::PackedArrayType ||
+                   ct.kind == SymbolKind::ScalarType) &&
+                  (ta.targetType.getType().kind == SymbolKind::TypeAlias || tdOfNamedDims111(ta))) ||
+                 (kwAlias250 = pkgAliasOfKwShape250(ta, pkg))) {
+            if (kwAlias250)
+                tr250("pkgAliasOfKwTd250", std::string(topView ? "top " : "def ") +
+                                               std::string(ta.name));
             // A packed ALIAS-of-typedef (typedef imm_i_t imm_l_t): ONE shared
             // object cloned from the TARGET's declaration form — target type
             // span, signed, range FOLDED to constants — carrying a
@@ -35795,7 +36834,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 setLoc(bare9, tgtTypeSyn9->sourceRange());
             bare9->VpiName(tgt9.name);
             bare9->Instance((UHDM::instance*)up);
-            if (bare9->UhdmType() == UHDM::uhdmlogic_typespec) {
+            if (bare9->UhdmType() == UHDM::uhdmlogic_typespec || kwAlias250) {
                 // ...whose Actual is the TARGET's TOP/module LISTING object
                 // (folded pkg-named twin, module-parented last-writer) —
                 // Surelog binds the alias chain into the elab family, not a
@@ -35806,7 +36845,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 tart9->VpiParent(bare9);
                 pendingAliasChainTgt.emplace_back(tart9,
                                                   (const Symbol*)&tgt9);
-                ((UHDM::logic_typespec*)bare9)->Typedef_alias(tart9);
+                bare9->Typedef_alias(tart9);
             }
             auto* art9 = s.MakeRef_typespec();
             art9->VpiFullName(std::string(d->VpiName()) + "." + prefix +
@@ -35816,6 +36855,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             lts9->Typedef_alias(art9);
             typedefTs[&ta] = lts9;
             typedefClone[&ta] = nullptr;
+            if (kwAlias250)
+                pkgKwAlias250()[lts9] = std::string(ta.name);
             continue; // no def-listing entry
         }
         else if (ct.kind == SymbolKind::PackedArrayType || ct.kind == SymbolKind::ScalarType) {
@@ -36670,6 +37711,79 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             if (typeSyn)
                 setLoc(uts, typeSyn->sourceRange());
             ts = uts;
+        }
+        // § pkgArrTdListing250 (r11u250, R11U250_PKGARRTD_OFF; cases
+        // tools/probe/r11u250repro/cases/P, pass 249's A/a02, a05, a06, N/n05,
+        // n06) — a PACKAGE typedef of an unpacked array with a written
+        // (non-typedef) packed-integral element and ONE dimension is listed in
+        // BOTH package views (the def view listed none, the top view only the
+        // fixed-size form with its size folded to `[0:N-1]` at the brackets and
+        // no element).  Golden lists the same named array_typespec the $unit
+        // and module-body writers now build (§ unitArrTd245, § unitDynArrTd249,
+        // § modDynArrTd249): a size dim `[N]` is `[0 : N-1 op]` at the size
+        // token, a ranged dim keeps UINT bounds at their tokens, the queue,
+        // dynamic and associative forms carry ONE kind-marker range, and the
+        // element is an unnamed typespec under a reference.  The typedef
+        // builder is the module/type ground's `buildUnpackedArrayTypedefTs`
+        // (TypeEmit), called unchanged.
+        else if (pkgArrTdShape250(ta) && r11u250On("R11U250_PKGARRTD_OFF")) {
+            bool savedTd250 = typedefTsContext, savedBy250 = bypassTypedefShare;
+            bool savedUf250 = unfoldedTypedefDims;
+            typedefTsContext = true;
+            bypassTypedefShare = true;
+            unfoldedTypedefDims = false;
+            g249DynRangeReq = ct.kind != SymbolKind::FixedSizeUnpackedArrayType;
+            auto* ats250 = buildUnpackedArrayTypedefTs(
+                ta, prefix + prefix + std::string(ta.name));
+            g249DynRangeReq = false;
+            unfoldedTypedefDims = savedUf250;
+            bypassTypedefShare = savedBy250;
+            typedefTsContext = savedTd250;
+            if (ats250) {
+                ats250->VpiParent(up);
+                // Golden's package listing leaves the synthetic `1` of a size
+                // form `[0 : N-1]` unparented (a literal size included), and
+                // names the associative marker's index reference like the
+                // element reference (`p::p::T`).
+                if (auto* rv250 = ats250->Ranges(); rv250 && rv250->size() == 1) {
+                    auto* r250 = (*rv250)[0];
+                    if (auto* re250 = r250->Right_expr()) {
+                        if (re250->UhdmType() == UHDM::uhdmoperation)
+                            if (auto* os250 = ((UHDM::operation*)re250)->Operands();
+                                os250 && os250->size() == 2 &&
+                                (*os250)[1]->UhdmType() == UHDM::uhdmconstant &&
+                                ((UHDM::constant*)(*os250)[1])->VpiValue() == "INT:1")
+                                (*os250)[1]->VpiParent(nullptr);
+                        if (re250->UhdmType() == UHDM::uhdmconstant)
+                            if (auto* rt250 = ((UHDM::constant*)re250)->Typespec()) {
+                                rt250->VpiFullName(prefix + prefix + std::string(ta.name));
+                                if (auto* ia250 = rt250->Actual_typespec())
+                                    ia250->Instance((UHDM::instance*)up);
+                            }
+                    }
+                }
+                // The element typespec (and an associative index typespec) is
+                // Instanced at the package, as every package-built typespec.
+                if (auto* er250 = ats250->Elem_typespec())
+                    if (auto* ea250 = er250->Actual_typespec();
+                        ea250 && ea250->VpiName().empty())
+                        ea250->Instance((UHDM::instance*)up);
+                tr250("pkgArrTdListing250",
+                      std::string(topView ? "top " : "def ") + std::string(ta.name));
+                PkgArrTd250 rec250;
+                rec250.bare = std::string(ta.name);
+                if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType)
+                    if (auto* sp250 = ta.getSyntax()
+                                          ->as<syntax::TypedefDeclarationSyntax>()
+                                          .dimensions[0]
+                                          ->specifier;
+                        sp250 && sp250->as<syntax::RangeDimensionSpecifierSyntax>()
+                                         .selector->kind == syntax::SyntaxKind::BitSelect)
+                        rec250.sizeN = (long long)ct.as<FixedSizeUnpackedArrayType>()
+                                           .range.width();
+                pkgArrTd250()[ats250] = rec250;
+                ts = ats250;
+            }
         }
         else if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType && topView) {
             // typedef a b[1:0] (TOP view only): an array_typespec spanning

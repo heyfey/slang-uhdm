@@ -1,0 +1,8 @@
+# awayrows.py pristine -> law (chain-keyed variant comparator)
+# 2 databases differ between the pristine and law sweeps
+surelog/default/BlackBePipeInt away=0 toward=13888 flat_away=0 flat_toward=13878
+surelog/testflags/BlackBePipeInt away=0 toward=13903 flat_away=0 flat_toward=13891
+# swapped run (law -> pristine), the positive control:
+# 2 databases differ between /tmp/r11u250_wdL and /tmp/r11u250_wdP
+surelog/default/BlackBePipeInt away=13888 toward=0 flat_away=13878 flat_toward=0 | constant||||dut.sv|2047|16|2047|17|1|
+surelog/testflags/BlackBePipeInt away=13903 toward=0 flat_away=13891 flat_toward=0 | parameter|dev_addr_width_gp||work@b

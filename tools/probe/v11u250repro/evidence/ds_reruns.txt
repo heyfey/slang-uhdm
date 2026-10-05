@@ -1,0 +1,21 @@
+# three draws of P/p11 and P/p18 through drivers/dscases.py per binary (pristine, law, fix)
+pristine r1 r11u250repro/cases/P/p11_scalar_logic	'verdict': 'EQUIVALENT'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+pristine r1 r11u250repro/cases/P/p18_import_clone_used	'verdict': 'EQUIVALENT'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+law r1 r11u250repro/cases/P/p11_scalar_logic	'verdict': 'IDENTICAL'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+law r1 r11u250repro/cases/P/p18_import_clone_used	'verdict': 'IDENTICAL'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+fix r1 r11u250repro/cases/P/p11_scalar_logic	'verdict': 'IDENTICAL'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+fix r1 r11u250repro/cases/P/p18_import_clone_used	'verdict': 'IDENTICAL'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+pristine r2 r11u250repro/cases/P/p11_scalar_logic	'verdict': 'EQUIVALENT'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+pristine r2 r11u250repro/cases/P/p18_import_clone_used	'verdict': 'EQUIVALENT'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+law r2 r11u250repro/cases/P/p11_scalar_logic	'verdict': 'IDENTICAL'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+law r2 r11u250repro/cases/P/p18_import_clone_used	'verdict': 'IDENTICAL'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+fix r2 r11u250repro/cases/P/p11_scalar_logic	'verdict': 'IDENTICAL'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+fix r2 r11u250repro/cases/P/p18_import_clone_used	'verdict': 'IDENTICAL'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+pristine r3 r11u250repro/cases/P/p11_scalar_logic	'verdict': 'EQUIVALENT'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+pristine r3 r11u250repro/cases/P/p18_import_clone_used	'verdict': 'EQUIVALENT'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+law r3 r11u250repro/cases/P/p11_scalar_logic	'verdict': 'IDENTICAL'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+law r3 r11u250repro/cases/P/p18_import_clone_used	'verdict': 'IDENTICAL'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+fix r3 r11u250repro/cases/P/p11_scalar_logic	'verdict': 'IDENTICAL'	'surelog_status': 'NO_GATES'	'slang_status': 'NO_GATES'
+fix r3 r11u250repro/cases/P/p18_import_clone_used	'verdict': 'IDENTICAL'	'surelog_status': 'CRASH'	'slang_status': 'CRASH'
+
+[exited with code 0]

@@ -1,0 +1,19 @@
+# byteverify (tools/probe/r11v75repro/byteverify.sh, SELFCHECK=1) on fence-filtered hard-link mirrors (drivers/bvmirror.sh)
+## law (/tmp/v11u250_mL) vs pristine (/tmp/v11u250_mP)
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=4241039881d8 pristine=9e0d4aefed5a
+MOVER ./surelog/testflags/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=22944fa1b8cf pristine=7b37e6d62b01
+MOVERS: 2 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+## fix (/tmp/v11u250_mF) vs law (/tmp/v11u250_mL)
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVERS: 0 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+## drivers/dbmovers.sh law vs pristine (probe rerun from the law worktree, /tmp/v11u250_wdQ; downstream from the pristine sweep)
+probe: 0 movers of 4087 databases (0 without a pristine twin)
+downstream: 0 movers of 805 databases (0 without a pristine twin)
+## drivers/dbmovers.sh fix vs law
+probe: 0 movers of 4087 databases (0 without a pristine twin)
+downstream: 0 movers of 805 databases (0 without a pristine twin)

@@ -129,8 +129,8 @@ BitsOp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitsOp/dut.sv:1
 BitsOp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitsOp/dut.sv:119:9: error: use of undeclared identifier 'shift_dr',,
 BitsStructMember,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitsStructMember/dut.sv:17:16: error: use of undeclared identifier 'MsgWidth',,
 BitsStructMember,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitsStructMember/dut.sv:17:16: error: use of undeclared identifier 'MsgWidth',,
-BlackBePipeInt,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
-BlackBePipeInt,testflags,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+BlackBePipeInt,default,STRICT_NOTEQUAL,differ:file(721),,differ:file(721)
+BlackBePipeInt,testflags,STRICT_NOTEQUAL,differ:file(721),,differ:file(721)
 BlackBox,default,CMP_EQUAL,,,equal
 BlackBox,testflags,CMP_EQUAL,,,equal
 BlackBoxInst,default,CMP_EQUAL,,,equal
