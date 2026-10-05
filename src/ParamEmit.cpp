@@ -26030,6 +26030,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
 // importer clones' local copies are made here, design-final (every deferred
 // link and fold before this point has reached the home objects they copy).
 void drainImportCloneLocalCopies175(UHDM::Serializer& s);
+void drainNewArrParent244();  // § cloneNewArrayCallParented244 (ExprEmit.cpp)
+void drainHpSelIdxTrail244(UHDM::Serializer& s);  // § hpSelIdxPathTrailByChain244 (ExprEmit.cpp)
+void drainLvIpsChain244(UHDM::Serializer& s);  // § lvHpIpsOperandChain244 (ExprEmit.cpp)
 // § refFullNameThroughNamedExpr175 (r11u175) — defined in ExprEmit.cpp.
 void refFullNameThroughNamedExpr175(UHDM::Serializer& s);
 
@@ -26096,12 +26099,15 @@ void UhdmExporter::drainPaNameCopySrc38() {
     strLitContEndDrain220(s);  // § strLitContLineSpan220 (r11u220)
     strLitContOwnerDrain224(s);    // § strLitContOwnerEnd224 (r11u224)
     strLitPpLineShiftDrain224(s);  // § strLitPpEscIdShift224 (r11u224)
+    drainNewArrParent244();  // § cloneNewArrayCallParented244 (r11u244)
     drainImportCloneLocalCopies175(s);
     refFullNameThroughNamedExpr175(s);
     drainHierPathSelIdx178(s);
     rootPathFullNameByChain181(s);
     drainLvSelChain181(s);
     drainLvIdxRead181(s);
+    drainHpSelIdxTrail244(s);  // § hpSelIdxPathTrailByChain244 (r11u244)
+    drainLvIpsChain244(s);  // § lvHpIpsOperandChain244 (r11u244)
     // § cloneHpIdxNamesByChain220 (r11u220): after the path-index drains
     // (it renames only the clone bodies' select-index references).
     cloneHpIdxDrain220(s);

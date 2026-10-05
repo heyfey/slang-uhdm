@@ -31,6 +31,7 @@
 #include "R226.h"
 #include "R227.h"
 #include "R236.h"
+#include "R244.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -3326,6 +3327,91 @@ void drainHierPathSelIdx178(UHDM::Serializer& s) {
     v.clear();
 }
 
+// § hpSelIdxPathTrailByChain244 (r11u244, R11U244_HPIDXTRAIL_OFF;
+// Scoreboard d #81633 and BuildUVMPkg d/t #82349:
+// `predict_info.addr[rw.addr] = 1;` in uvm_reg_predictor::write) — a
+// hier_path written inside the select index of a hier_path's member select
+// or indexed part select (`pi.addr[rw.addr]`, `s.v[t.k]`, `s.d[t.k +: 2]`, through an operation `[rw.addr + 1]`, a
+// concatenation `[{t.j}]` or a call argument `[g(rw.k)]`) stores no full name
+// on its TRAILING reference: Surelog's compileExpression builds the inner
+// path's last element with no name of its own, so UHDM's ComputeFullName
+// reads it through the chain, the inner path skipped (a ref_obj under a
+// hier_path), the member select and the outer path named
+// (`uvm_pkg::uvm_reg_predictor::write::predict_info.addr[]::addr::addr`,
+// module `work@top.s.v[].v.k`, rvalue `work@top.s.v.v.j`, both views); ours
+// scoped it like a plain reference (`...::write::addr`).  The leading element
+// keeps its stored bare name on both sides, and a path in a PLAIN select's
+// index (`a[rw.k]`) is already right.  Set design-final from the chain
+// (chainFullName175), after the path-index drains.  Grid
+// tools/probe/r11u244repro/cases/L.
+void drainHpSelIdxTrail244(UHDM::Serializer& s) {
+    if (!r11u244On("R11U244_HPIDXTRAIL_OFF"))
+        return;
+    std::vector<UHDM::ref_obj*> hits;
+    std::function<void(UHDM::any*, int)> walk = [&](UHDM::any* e, int d) {
+        if (!e || d > 8)
+            return;
+        switch (e->UhdmType()) {
+        case UHDM::uhdmhier_path:
+            if (auto* pe = ((UHDM::hier_path*)e)->Path_elems();
+                pe && pe->size() > 1 && pe->back() &&
+                pe->back()->UhdmType() == UHDM::uhdmref_obj) {
+                // a `this.` / `super.` path keeps its bare trailing name
+                // (probe r10svs4repro/g1_thisidx `pkt.data[this.data[k]]`:
+                // golden `data` stores no chain name there)
+                if (auto* f0 = pe->front();
+                    f0 && (f0->VpiName() == "this" || f0->VpiName() == "super")) {
+                    tr244("hpSelIdxPathTrailByChain244_this");
+                    return;
+                }
+                hits.push_back((UHDM::ref_obj*)pe->back());
+            }
+            return;
+        case UHDM::uhdmoperation:
+            if (auto* os = ((UHDM::operation*)e)->Operands())
+                for (auto* o : *os)
+                    walk(o, d + 1);
+            return;
+        case UHDM::uhdmfunc_call:
+        case UHDM::uhdmsys_func_call:
+            if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
+                for (auto* a : *as)
+                    walk(a, d + 1);
+            return;
+        default:
+            return;
+        }
+    };
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        auto* pe = ((UHDM::hier_path*)o)->Path_elems();
+        if (!pe)
+            continue;
+        for (auto* el : *pe) {
+            if (el && el->UhdmType() == UHDM::uhdmbit_select)
+                walk((UHDM::any*)((UHDM::bit_select*)el)->VpiIndex(), 0);
+            // ...and an indexed part select's base and width (grid X x04:
+            // `s.d[t.k +: 2]`, golden `work@top.s.d[+:2].d.k`)
+            else if (el && el->UhdmType() == UHDM::uhdmindexed_part_select) {
+                walk((UHDM::any*)((UHDM::indexed_part_select*)el)->Base_expr(), 0);
+                walk((UHDM::any*)((UHDM::indexed_part_select*)el)->Width_expr(), 0);
+            }
+        }
+    }
+    for (auto* r : hits) {
+        std::string want = chainFullName175(r);
+        std::string have(r->VpiFullName());
+        if (want.empty() || have == want) {
+            tr244("hpSelIdxPathTrailByChain244_same");
+            continue;
+        }
+        r->VpiFullName(want);
+        tr244("hpSelIdxPathTrailByChain244", want);
+    }
+}
+
 // The r11u181 switches (tools/probe/r11u181repro/README.md): every r11u181
 // law reads its own R11U181_<LAW>_OFF switch; R11U181_OFF drops all of them.
 // R11U181_TRACE=1 prints one stderr line per firing (the census / predictor).
@@ -3835,6 +3921,67 @@ void drainLvSelChain181(UHDM::Serializer& s) {
             walk(ix, bs);
     }
     v.clear();
+}
+// § lvHpIpsOperandChain244 (r11u244, R11U244_LVIPSCHAIN_OFF; BuildUVMPkg
+// d/t #139619: `rw.data[i*8+:8] = gp.m_data[i];` in
+// uvm_reg_tlm_adapter::bus2reg) — the indexed-part-select twin of
+// § lvSelIdxChainName181: in a procedural LVALUE path the references inside
+// an indexed part select's base or width OPERATION (or call) store no full
+// name either, so the reader computes it through the operation and the
+// select (`...::bus2reg::rw.data[i * 8+:8]::data::i`); ours scoped it
+// (`...::bus2reg::i`).  A plain reference base (`rw.data[i+:8]`) and the
+// rvalue (`z = pi.data[i*8+:8]`) are already right (grid L i02, i03).
+// Applied design-final with § 181's guard (chainFix181: the stored name is
+// the chain with ancestors dropped, same root, same leaf).  Grid
+// tools/probe/r11u244repro/cases/L i01-i10.
+void drainLvIpsChain244(UHDM::Serializer& s) {
+    if (!r11u244On("R11U244_LVIPSCHAIN_OFF"))
+        return;
+    std::function<void(UHDM::any*, const UHDM::any*, int)> walk =
+        [&](UHDM::any* e, const UHDM::any* par, int d) {
+            if (!e || e->VpiParent() != par || d > 8)
+                return;
+            switch (e->UhdmType()) {
+            case UHDM::uhdmref_obj: {
+                auto* r = (UHDM::ref_obj*)e;
+                if (d > 0 && chainFix181(r, r->VpiFullName())) {
+                    r->VpiFullName(chainFullName175(r));
+                    tr244("lvHpIpsOperandChain244");
+                }
+                return;
+            }
+            case UHDM::uhdmoperation:
+                if (auto* os = ((UHDM::operation*)e)->Operands())
+                    for (auto* o : *os)
+                        walk(o, e, d + 1);
+                return;
+            case UHDM::uhdmfunc_call:
+            case UHDM::uhdmsys_func_call:
+                if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
+                    for (auto* a : *as)
+                        walk(a, e, d + 1);
+                return;
+            default:
+                return;
+            }
+        };
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        auto* hp = (UHDM::hier_path*)o;
+        auto* as = hp->VpiParent();
+        if (!as || as->UhdmType() != UHDM::uhdmassignment ||
+            ((UHDM::assignment*)as)->Lhs() != hp)
+            continue;
+        if (auto* pe = hp->Path_elems())
+            for (auto* el : *pe)
+                if (el && el->UhdmType() == UHDM::uhdmindexed_part_select) {
+                    auto* ips = (UHDM::indexed_part_select*)el;
+                    walk((UHDM::any*)ips->Base_expr(), ips, 0);
+                    walk((UHDM::any*)ips->Width_expr(), ips, 0);
+                }
+    }
 }
 // § lvIdxMixedPathIsRead181 — the design-final half: the reference elements
 // of a path read inside an lvalue's select index read their chain names
@@ -4760,6 +4907,38 @@ UHDM::constant* UhdmExporter::emptySlotArg24(
 // the parse view's alone (set by the caller).  Grid
 // tools/probe/r11u227repro/cases/NP.
 static bool newArrPsParseView227 = false;
+// § cloneNewArrayCallParented244 (r11u244, R11U244_NEWARRPARENT_OFF;
+// MiniAmiq d/t #72428 `bits = new[m_packed_size];` in the importer's copy
+// `svaunit_pkg::uvm_packer::get_bits`, SeqDriver d/t #72384 / #72396 the
+// `adpcm_pkg` copy) — § newArray11's model keeps the `new[...]` call
+// unparented, which is Surelog's HOME listing (paDynamic_array_new compiles
+// the call with no parent), so the references under it store no name and
+// UHDM's ComputeFullName stops at the call (`m_packed_size`, which vpi_get_str
+// reports as no full name since it equals the name).  The importer's listing
+// is UHDM's clone_tree of the home subroutine (CompileHelper importPackage),
+// and DeepCopy parents every clone at the clone that holds it: the cloned
+// call is parented at the cloned assignment, so the chain runs through the
+// copy and every unnamed reference under the call reads
+// `<copy subroutine>::<name>` (golden
+// `svaunit_pkg::uvm_packer::get_bits::m_packed_size`, the home's empty).
+// § cloneNewArrayArgBindsOwnDecl186 measured the full name and did not take
+// it because the -elabuhdm view's module-hoisted copy is named through the
+// instance; that view keeps the base (gated on !elabUhdmView121).  The law
+// parents the call at the assignment in the default view's importer copies,
+// design-final (drainNewArrParent244, ParamEmit), before any later drain
+// reads a name.  Grid tools/probe/r11u244repro/cases/W.
+static std::vector<std::pair<UHDM::any*, UHDM::any*>> newArrParent244;
+void drainNewArrParent244() {
+    for (auto& [c, p] : newArrParent244) {
+        if (c->VpiParent()) {
+            tr244("cloneNewArrayCallParented244_parented");
+            continue;
+        }
+        c->VpiParent(p);
+        tr244("cloneNewArrayCallParented244");
+    }
+    newArrParent244.clear();
+}
 static void stripRefFullNames11(UHDM::any* o, int depth = 0) {
     if (!o || depth > 8)
         return;
@@ -5946,6 +6125,69 @@ bool UhdmExporter::oobRefVarLocalHoistNet107(const slang::ast::Symbol& sym,
 // LOCALS, `sym.kind == SymbolKind::Variable`).
 // § classMethodParensLessStepIsRefObj77 — the WRITTEN-PARENS probe.  The
 // header carries the law and the two refuted alternatives; this is the walk.
+// § methCallNameSpanAcrossLines244 (r11u244, R11U244_METHNAMELOC_OFF;
+// BuildUVMPkg d/t #139713: `cb.\n pre_read(rw);`, the uvm_do_obj_callbacks
+// macro body `cb.METHOD;` as the preprocessed uvm_pkg.sv writes it, with the
+// macro argument on the next line) — a method_func_call is located at its
+// NAME token (Surelog populateCoreMembers on the method name: golden
+// 63085:29-37), wherever the token sits.  Our receiver-relative raw offset
+// (`receiver start + receiver text + 1`, or `receiver end + 1`) is the name
+// only for the tight spelling; with whitespace or a newline between the
+// receiver, the dot and the name it landed on the dot's neighbour and ran the
+// end across the line (ours 63084:11-63085:8).  The helper steps from that
+// guess over whitespace, comments and at most one dot to the name, and keeps the guess
+// when the text there does not spell the name.  Grid
+// tools/probe/r11u244repro/cases/D.
+static SourceLocation methNameLoc244(const slang::SourceManager* sm,
+                                     SourceLocation g, std::string_view nm) {
+    if (!sm || !g.valid() || nm.empty() ||
+        !r11u244On("R11U244_METHNAMELOC_OFF"))
+        return g;
+    auto text = sm->getSourceText(g.buffer());
+    size_t off = g.offset();
+    if (off >= text.size())
+        return g;
+    if (text.substr(off, nm.size()) == nm)
+        return g;
+    size_t i = off;
+    int dots = 0;
+    while (i < text.size() && i - off < 256) {
+        char c = text[i];
+        if (c == ' ' || c == '\t' || c == '\r' || c == '\n') {
+            i++;
+            continue;
+        }
+        if (c == '.' && dots == 0) {
+            dots++;
+            i++;
+            continue;
+        }
+        // a comment between the dot and the name (grid D d13)
+        if (c == '/' && i + 1 < text.size() && text[i + 1] == '*') {
+            auto ce = text.find("*/", i + 2);
+            if (ce == std::string_view::npos)
+                return g;
+            i = ce + 2;
+            continue;
+        }
+        if (c == '/' && i + 1 < text.size() && text[i + 1] == '/') {
+            auto ce = text.find('\n', i + 2);
+            if (ce == std::string_view::npos)
+                return g;
+            i = ce + 1;
+            continue;
+        }
+        break;
+    }
+    if (i == off || text.substr(i, nm.size()) != nm)
+        return g;
+    size_t e = i + nm.size();
+    if (e < text.size() && (std::isalnum((unsigned char)text[e]) || text[e] == '_' ||
+                            text[e] == '$'))
+        return g;
+    tr244("methCallNameSpanAcrossLines244");
+    return SourceLocation(g.buffer(), i);
+}
 bool UhdmExporter::methodParensWritten77(SourceRange nameRng,
                                          std::string_view nm) {
     if (nm.empty() || nameRng.start() == SourceLocation::NoLocation)
@@ -31433,7 +31675,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         for (size_t i11 = 1; i11 < segs11.size(); i11++)
                             idxed11 |= segs11[i11].idx != nullptr;
                         auto mSpan11 =
-                            nameSpan(call.thisClass()->sourceRange.end() + 1,
+                            nameSpan(methNameLoc244(sm, call.thisClass()->sourceRange.end() + 1,
+                                                    sub.name),
                                      sub.name);
                         if (!callStmtCtx0 && segs11.size() > 1 && !idxed11) {
                             auto* c11 = s.MakeConstant();
@@ -31811,7 +32054,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             hpIdxClassNoBind143((UHDM::any*)bs11->VpiIndex());
                             elems11->push_back(bs11);
                         }
-                        auto mNm11 = nameSpan(recvE11.sourceRange.end() + 1,
+                        auto mNm11 = nameSpan(methNameLoc244(sm, recvE11.sourceRange.end() + 1, sub.name),
                                               sub.name);
                         // § classMethodParensLessStepIsRefObj77 — SITE 2 of 3,
                         // the DEEP-RECEIVER class-method call.  THIS IS THE
@@ -31952,7 +32195,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(r0, call.thisClass()->sourceRange);
                         elems0->push_back(r0);
                         auto mNm0 = nameSpan(
-                            call.thisClass()->sourceRange.end() + 1, sub.name);
+                            methNameLoc244(sm, call.thisClass()->sourceRange.end() + 1,
+                                           sub.name),
+                            sub.name);
                         // § classMethodParensLessStepIsRefObj77 — SITE 3 of 3,
                         // the ONE-NAME-receiver class-method call in
                         // EXPRESSION position (`p.status`, `o.meth`).  Same
@@ -32055,7 +32300,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     mfc->VpiName(sub.name);
                     mfc->VpiParent(parent);
                     auto& recv = *call.thisClass();
-                    setLoc(mfc, nameSpan(recv.sourceRange.end() + 1, sub.name));
+                    setLoc(mfc, nameSpan(methNameLoc244(sm, recv.sourceRange.end() + 1, sub.name),
+                                         sub.name));
                     auto* rb = &stripImplicitConv(recv);
                     // A call through an ELEMENT SELECT (`q[i].report();`)
                     // still carries a prefix — Surelog drops the index and
@@ -35777,9 +36023,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* mfc = s.MakeMethod_func_call();
                         mfc->VpiName(callNm124);
                         mfc->VpiParent(parent);
-                        auto mStart = recv->sourceRange.start() +
-                                      (deep0 ? recvNm0.size() + 1
-                                             : recvText.size() + 1);
+                        auto mStart = methNameLoc244(
+                            sm, recv->sourceRange.start() +
+                                    (deep0 ? recvNm0.size() + 1
+                                           : recvText.size() + 1),
+                            callNm124);
                         // § macroPasteRecvMisreadIsAstChain132 — SITE 1 of 2
                         // (STATEMENT position).  `mStart` is a RAW OFFSET walk
                         // that runs off the end of a one-token macro-argument
@@ -36104,7 +36352,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         //     depend on any text at all.
                         // Everything ambiguous reads PARENS-FUL: an empty read,
                         // a buffer end, an unanchored token.
-                        auto mStart9 = recv->sourceRange.end() + 1;
+                        auto mStart9 =
+                            methNameLoc244(sm, recv->sourceRange.end() + 1, name);
                         // § memberRandomizeWithIsRecvPath119 — the
                         // parens-LESS test is OFF for the member with-form.
                         // IEEE 1800 A.2.10 makes the argument list OPTIONAL in
@@ -36554,7 +36803,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* mfc = s.MakeMethod_func_call();
                         mfc->VpiName(name);
                         mfc->VpiParent(hp);
-                        auto mStart = recv->sourceRange.end() + 1;
+                        auto mStart =
+                            methNameLoc244(sm, recv->sourceRange.end() + 1, name);
                         // § memberRandomizeWithIsRecvPath119 — THE CALL IS
                         // SPAN-LESS.  `compileRandomizeCall` sets VpiName, the
                         // arguments and the With and calls
@@ -45225,6 +45475,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // already reaches.  See include/UhdmExporter.h for the decode.
             if (pkgImportCloneEmit && parent)
                 newArrayCloneOwner191[mfc] = (UHDM::any*)parent;
+            // § cloneNewArrayCallParented244 (r11u244,
+            // R11U244_NEWARRPARENT_OFF) — the default-view half of
+            // § cloneNewArrayArgBindsOwnDecl186's R-FULLNAME residue.
+            if (pkgImportCloneEmit && parent && !elabUhdmView121 &&
+                r11u244On("R11U244_NEWARRPARENT_OFF"))
+                newArrParent244.emplace_back(mfc, (UHDM::any*)parent);
             auto* nargs = s.MakeAnyVec();
             // § newArrayArgNoBind16 — the window covers BOTH arguments and
             // everything nested in them (operations, nested calls, selects):

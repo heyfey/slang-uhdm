@@ -167,8 +167,8 @@ BlockingAssignRewrite,default,CMP_EQUAL,,,equal
 BlockingAssignRewrite,testflags,CMP_EQUAL,,,equal
 BuildOVMPkg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
 BuildOVMPkg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
-BuildUVMPkg,default,STRICT_NOTEQUAL,differ:file(7),,differ:file(7)
-BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:file(7),,differ:file(7)
+BuildUVMPkg,default,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
+BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
 BuiltInMethod,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 BuiltInMethod,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 CarryAdd,default,CMP_EQUAL,,,equal
@@ -855,8 +855,8 @@ MaskNeg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv
 MaskNeg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 MBadder,default,CMP_EQUAL,,,equal
 MBadder,testflags,CMP_EQUAL,,,equal
-MiniAmiq,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
-MiniAmiq,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+MiniAmiq,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+MiniAmiq,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
 MinTypMax,default,CMP_EQUAL,,,equal
 MinTypMax,testflags,CMP_EQUAL,,,equal
 ModPortArrayBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortArrayBind/dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,
@@ -1199,7 +1199,7 @@ Rsd,default,DEFERRED,late-phase: golden uncacheable on this machine,,
 Rsd,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
 ScalarParam,default,CMP_EQUAL,,,equal
 ScalarParam,testflags,CMP_EQUAL,,,equal
-Scoreboard,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+Scoreboard,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'my_scoreboard',,
 Scr1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
 Scr1,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
@@ -1211,8 +1211,8 @@ Selects,default,CMP_EQUAL,,,equal
 Selects,testflags,CMP_EQUAL,,,equal
 SelectSelect,default,CMP_EQUAL,,,equal
 SelectSelect,testflags,CMP_EQUAL,,,equal
-SeqDriver,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
-SeqDriver,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+SeqDriver,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+SeqDriver,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
 SequenceInst,default,CMP_EQUAL,,,equal
 SequenceInst,testflags,CMP_EQUAL,,,equal
 SeqUseNonTemp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SeqUseNonTemp/dut.sv:15:10: error: redefinition of 'p1_count_increment' [-Wredefinition],,

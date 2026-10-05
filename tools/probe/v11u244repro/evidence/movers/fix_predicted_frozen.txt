@@ -1,0 +1,2 @@
+fix vs law predicted movers: 0 corpus (blkElemCopyDeclDimsOnly244v fired 0 times on the five UVM rows in both modes, the only corpus rows where cloneBlockArrElemOwnCopy244 fires; byte-identical there), 0 probe (fires 0 on g208_e_head, the only probe firing of the law), 0 downstream (no lane fires any 244 law)
+2026-10-05T05:43:38-04:00

@@ -1,0 +1,235 @@
+== wP default MiniAmiq
+#71388 fullname
+  A: 5	int_var			svaunit_pkg::uvm_table_printer::emit	uvm_printer.svh	1049	11	1049	12		0		
+  B: 5	int_var			svaunit_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0		
+#71389 fullname
+  A: 6	ref_typespec			svaunit_pkg::uvm_table_printer::emit		0	0	0	0		0		
+  B: 6	ref_typespec			svaunit_pkg::uvm_table_printer::emit::q		0	0	0	0		0		
+#71399 fullname
+  A: 8	ref_typespec			<in>		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#71401 depth
+  A: 6	int_var			svaunit_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0		
+  B: 5	int_var	m		svaunit_pkg::uvm_table_printer::emit::m	uvm_printer.svh	1050	11	1050	12		0		
+objects 435559 vs 433579
+fields: depth=1 name=1 fullname=4 line=1 endline=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL fullname
+== wL default MiniAmiq
+#76762 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+objects 435559 vs 434230
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== wP testflags MiniAmiq
+#71388 fullname
+  A: 5	int_var			svaunit_pkg::uvm_table_printer::emit	uvm_printer.svh	1049	11	1049	12		0		
+  B: 5	int_var			svaunit_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0		
+#71389 fullname
+  A: 6	ref_typespec			svaunit_pkg::uvm_table_printer::emit		0	0	0	0		0		
+  B: 6	ref_typespec			svaunit_pkg::uvm_table_printer::emit::q		0	0	0	0		0		
+#71399 fullname
+  A: 8	ref_typespec			<in>		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#71401 depth
+  A: 6	int_var			svaunit_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0		
+  B: 5	int_var	m		svaunit_pkg::uvm_table_printer::emit::m	uvm_printer.svh	1050	11	1050	12		0		
+objects 435559 vs 433579
+fields: depth=1 name=1 fullname=4 line=1 endline=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL fullname
+== wL testflags MiniAmiq
+#76762 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+objects 435559 vs 434230
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== wP default SeqDriver
+#71344 fullname
+  A: 5	int_var			adpcm_pkg::uvm_table_printer::emit	uvm_printer.svh	1049	11	1049	12		0		
+  B: 5	int_var			adpcm_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0		
+#71345 fullname
+  A: 6	ref_typespec			adpcm_pkg::uvm_table_printer::emit		0	0	0	0		0		
+  B: 6	ref_typespec			adpcm_pkg::uvm_table_printer::emit::q		0	0	0	0		0		
+#71355 fullname
+  A: 8	ref_typespec			<in>		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#71357 depth
+  A: 6	int_var			adpcm_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0		
+  B: 5	int_var	m		adpcm_pkg::uvm_table_printer::emit::m	uvm_printer.svh	1050	11	1050	12		0		
+objects 475526 vs 474027
+fields: depth=1 name=1 fullname=4 line=1 endline=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL fullname
+== wL default SeqDriver
+#76718 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+objects 475526 vs 474461
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== wP testflags SeqDriver
+#71356 fullname
+  A: 5	int_var			adpcm_pkg::uvm_table_printer::emit	uvm_printer.svh	1049	11	1049	12		0		
+  B: 5	int_var			adpcm_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0		
+#71357 fullname
+  A: 6	ref_typespec			adpcm_pkg::uvm_table_printer::emit		0	0	0	0		0		
+  B: 6	ref_typespec			adpcm_pkg::uvm_table_printer::emit::q		0	0	0	0		0		
+#71367 fullname
+  A: 8	ref_typespec			<in>		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#71369 depth
+  A: 6	int_var			adpcm_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0		
+  B: 5	int_var	m		adpcm_pkg::uvm_table_printer::emit::m	uvm_printer.svh	1050	11	1050	12		0		
+objects 475538 vs 474039
+fields: depth=1 name=1 fullname=4 line=1 endline=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL fullname
+== wL testflags SeqDriver
+#76730 depth
+  A: 8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  B: 7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+objects 475538 vs 474473
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== wP default Scoreboard
+#81633 fullname
+  A: 16	ref_obj	addr		uvm_pkg::uvm_reg_predictor::write::predict_info.addr[]::addr::addr	uvm_reg_predictor.svh	193	33	193	37		0		
+  B: 16	ref_obj	addr		uvm_pkg::uvm_reg_predictor::write::addr	uvm_reg_predictor.svh	193	33	193	37		0		
+#84633 file
+  A: 8	param_assign					110	31	110	32				
+  B: 8	param_assign				uvm_analysis_port.svh	110	31	110	32				
+#84965 type
+  A: 6	constant				uvm_object_globals.svh	99	23	99	32	'hf000000	-1	HEX:f000000	5
+  B: 6	parameter	UVM_RADIX		work@my_scoreboard::UVM_RADIX	uvm_object_globals.svh	99	11	99	20		0	HEX:f000000	
+objects 269656 vs 269853
+fields: type=1 name=1 fullname=2 file=1 col=1 endcol=1 decompile=1 size=1 consttype=1 objects_differing=3 (walk diverged)
+STRICT_NOTEQUAL fullname
+== wL default Scoreboard
+#84633 file
+  A: 8	param_assign					110	31	110	32				
+  B: 8	param_assign				uvm_analysis_port.svh	110	31	110	32				
+#84965 type
+  A: 6	constant				uvm_object_globals.svh	99	23	99	32	'hf000000	-1	HEX:f000000	5
+  B: 6	parameter	UVM_RADIX		work@my_scoreboard::UVM_RADIX	uvm_object_globals.svh	99	11	99	20		0	HEX:f000000	
+objects 269656 vs 269853
+fields: type=1 name=1 fullname=1 file=1 col=1 endcol=1 decompile=1 size=1 consttype=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL file
+== wP default BuildUVMPkg
+#81827 file
+  A: 8	begin			uvm_pkg::uvm_port_component::get_connected_to	uvm_pkg.sv	45157	26	45159	8				
+  B: 8	begin			uvm_pkg::uvm_port_component::get_connected_to		0	0	0	0				
+#82349 fullname
+  A: 16	ref_obj	addr		uvm_pkg::uvm_reg_predictor::write::predict_info.addr[]::addr::addr	uvm_pkg.sv	61920	33	61920	37		0		
+  B: 16	ref_obj	addr		uvm_pkg::uvm_reg_predictor::write::addr	uvm_pkg.sv	61920	33	61920	37		0		
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+#121601 fullname
+  A: 8	ref_typespec			<in>uvm_pack_bitstream_t		0	0	0	0		0		
+  B: 8	ref_typespec			<in>uvm_pack_bitstream_t		0	0	0	0		0		
+  raw fullname A: uvm_pkg::uvm_packer::m_bits::uvm_pack_bitstream_t | B: uvm_pack_bitstream_t
+#129711 line
+  A: 7	int_typespec				uvm_pkg.sv	14837	35	14837	36				
+  B: 7	int_typespec				uvm_pkg.sv	14699	13	14699	14				
+#139619 fullname
+  A: 12	ref_obj	i		uvm_pkg::uvm_reg_tlm_adapter::bus2reg::rw.data[i * 8+:8]::data::i	uvm_pkg.sv	61686	15	61686	16		0		
+  B: 12	ref_obj	i		uvm_pkg::uvm_reg_tlm_adapter::bus2reg::i	uvm_pkg.sv	61686	15	61686	16		0		
+objects 201533 vs 201593
+fields: type=1 fullname=3 file=1 line=3 col=3 endline=2 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=8 (walk diverged)
+STRICT_NOTEQUAL file
+== wL default BuildUVMPkg
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+#121601 fullname
+  A: 8	ref_typespec			<in>uvm_pack_bitstream_t		0	0	0	0		0		
+  B: 8	ref_typespec			<in>uvm_pack_bitstream_t		0	0	0	0		0		
+  raw fullname A: uvm_pkg::uvm_packer::m_bits::uvm_pack_bitstream_t | B: uvm_pack_bitstream_t
+#129711 line
+  A: 7	int_typespec				uvm_pkg.sv	14837	35	14837	36				
+  B: 7	int_typespec				uvm_pkg.sv	14699	13	14699	14				
+#153018 type
+  A: 20	constant				uvm_pkg.sv	60725	24	60725	26	63	64	INT:63	7
+  B: 20	operation				uvm_pkg.sv	60725	24	60725	28		0		
+objects 201533 vs 201593
+fields: type=1 fullname=1 line=1 col=1 endline=1 endcol=3 decompile=1 size=1 value=1 consttype=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL endcol
+== wP testflags BuildUVMPkg
+#81827 file
+  A: 8	begin			uvm_pkg::uvm_port_component::get_connected_to	uvm_pkg.sv	45157	26	45159	8				
+  B: 8	begin			uvm_pkg::uvm_port_component::get_connected_to		0	0	0	0				
+#82349 fullname
+  A: 16	ref_obj	addr		uvm_pkg::uvm_reg_predictor::write::predict_info.addr[]::addr::addr	uvm_pkg.sv	61920	33	61920	37		0		
+  B: 16	ref_obj	addr		uvm_pkg::uvm_reg_predictor::write::addr	uvm_pkg.sv	61920	33	61920	37		0		
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+#121601 fullname
+  A: 8	ref_typespec			<in>uvm_pack_bitstream_t		0	0	0	0		0		
+  B: 8	ref_typespec			<in>uvm_pack_bitstream_t		0	0	0	0		0		
+  raw fullname A: uvm_pkg::uvm_packer::m_bits::uvm_pack_bitstream_t | B: uvm_pack_bitstream_t
+#129711 line
+  A: 7	int_typespec				uvm_pkg.sv	14837	35	14837	36				
+  B: 7	int_typespec				uvm_pkg.sv	14699	13	14699	14				
+#139619 fullname
+  A: 12	ref_obj	i		uvm_pkg::uvm_reg_tlm_adapter::bus2reg::rw.data[i * 8+:8]::data::i	uvm_pkg.sv	61686	15	61686	16		0		
+  B: 12	ref_obj	i		uvm_pkg::uvm_reg_tlm_adapter::bus2reg::i	uvm_pkg.sv	61686	15	61686	16		0		
+objects 201533 vs 201593
+fields: type=1 fullname=3 file=1 line=3 col=3 endline=2 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=8 (walk diverged)
+STRICT_NOTEQUAL file
+== wL testflags BuildUVMPkg
+#91593 endcol
+  A: 6	int_typespec				uvm_pkg.sv	9187	66	9187	69				
+  B: 6	int_typespec				uvm_pkg.sv	9187	66	9187	78				
+#121601 fullname
+  A: 8	ref_typespec			<in>uvm_pack_bitstream_t		0	0	0	0		0		
+  B: 8	ref_typespec			<in>uvm_pack_bitstream_t		0	0	0	0		0		
+  raw fullname A: uvm_pkg::uvm_packer::m_bits::uvm_pack_bitstream_t | B: uvm_pack_bitstream_t
+#129711 line
+  A: 7	int_typespec				uvm_pkg.sv	14837	35	14837	36				
+  B: 7	int_typespec				uvm_pkg.sv	14699	13	14699	14				
+#153018 type
+  A: 20	constant				uvm_pkg.sv	60725	24	60725	26	63	64	INT:63	7
+  B: 20	operation				uvm_pkg.sv	60725	24	60725	28		0		
+objects 201533 vs 201593
+fields: type=1 fullname=1 line=1 col=1 endline=1 endcol=3 decompile=1 size=1 value=1 consttype=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL endcol
+== wP default SimpleUVM
+#75684 file
+  A: 7	logic_net	this		work@top.this		902	36	902	40		0		
+  B: 7	logic_net	this		work@top.this	uvm_component.svh	1767	16	1767	20		0		
+#80745 type
+  A: 6	constant				uvm_object_globals.svh	99	23	99	32	'hf000000	-1	HEX:f000000	5
+  B: 6	parameter	UVM_RADIX		work@env::UVM_RADIX	uvm_object_globals.svh	99	11	99	20		0	HEX:f000000	
+objects 334285 vs 334559
+fields: type=1 name=1 fullname=1 file=1 line=1 col=2 endline=1 endcol=2 decompile=1 size=1 consttype=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL file
+== wL default SimpleUVM
+#75684 file
+  A: 7	logic_net	this		work@top.this		902	36	902	40		0		
+  B: 7	logic_net	this		work@top.this	uvm_component.svh	1767	16	1767	20		0		
+#80745 type
+  A: 6	constant				uvm_object_globals.svh	99	23	99	32	'hf000000	-1	HEX:f000000	5
+  B: 6	parameter	UVM_RADIX		work@env::UVM_RADIX	uvm_object_globals.svh	99	11	99	20		0	HEX:f000000	
+objects 334285 vs 334559
+fields: type=1 name=1 fullname=1 file=1 line=1 col=2 endline=1 endcol=2 decompile=1 size=1 consttype=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL file
+== wP testflags SimpleUVM
+#75696 file
+  A: 7	logic_net	this		work@top.this		902	36	902	40		0		
+  B: 7	logic_net	this		work@top.this	uvm_component.svh	1767	16	1767	20		0		
+#80757 type
+  A: 6	constant				uvm_object_globals.svh	99	23	99	32	'hf000000	-1	HEX:f000000	5
+  B: 6	parameter	UVM_RADIX		work@env::UVM_RADIX	uvm_object_globals.svh	99	11	99	20		0	HEX:f000000	
+objects 334297 vs 334571
+fields: type=1 name=1 fullname=1 file=1 line=1 col=2 endline=1 endcol=2 decompile=1 size=1 consttype=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL file
+== wL testflags SimpleUVM
+#75696 file
+  A: 7	logic_net	this		work@top.this		902	36	902	40		0		
+  B: 7	logic_net	this		work@top.this	uvm_component.svh	1767	16	1767	20		0		
+#80757 type
+  A: 6	constant				uvm_object_globals.svh	99	23	99	32	'hf000000	-1	HEX:f000000	5
+  B: 6	parameter	UVM_RADIX		work@env::UVM_RADIX	uvm_object_globals.svh	99	11	99	20		0	HEX:f000000	
+objects 334297 vs 334571
+fields: type=1 name=1 fullname=1 file=1 line=1 col=2 endline=1 endcol=2 decompile=1 size=1 consttype=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL file

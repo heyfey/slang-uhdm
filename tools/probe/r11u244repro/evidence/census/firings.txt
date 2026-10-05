@@ -1,0 +1,8 @@
+    410 cloneBlockArrElemOwnCopy244
+      8 cloneBlockFixedArrTsParented244
+     80 cloneNewArrayCallParented244
+     83 hpSelIdxPathTrailByChain244
+      1 hpSelIdxPathTrailByChain244_this
+     55 invalidBlockLocFromSyntax244
+      9 lvHpIpsOperandChain244
+     13 methCallNameSpanAcrossLines244

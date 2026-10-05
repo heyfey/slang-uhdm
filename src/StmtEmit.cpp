@@ -18,8 +18,11 @@
 
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/clone_tree.h>
+#include "R244.h"
 
 namespace slang_uhdm {
+extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
+    g_cloneArrTs241; // § cloneLocalArrayTsParented241 (TaskFuncEmit.cpp)
 
 // The r11u183 switches (tools/probe/r11u183dec/README.md, landed by r11u187:
 // tools/probe/r11u187repro/README.md): every r11u183 law
@@ -152,6 +155,104 @@ static slang::SourceRange invalidStmtAnchor181(const slang::ast::Statement& st) 
     return st.syntax->sourceRange();
 }
 static std::vector<std::pair<UHDM::assignment*, UHDM::variables*>> cloneLocalLhs175;
+// § invalidBlockLocFromSyntax244 (r11u244, R11U244_INVBLKLOC_OFF;
+// BuildUVMPkg d/t #81827: the `foreach(list1[name]) begin ... end` body of
+// uvm_port_component::get_connected_to, whose `list1[name].get_comp()` does
+// not bind against the default `PORT = uvm_object`) — slang hands a block
+// holding a bad statement back as an InvalidStatement over the partly built
+// BlockStatement: the child has no syntax and, its body being the one
+// invalid statement, an EMPTY source range (createBlockStatement takes the
+// body's range; InvalidStatement's own is SourceRange()).  The syntax sits on
+// the InvalidStatement (Statement::bind sets it after
+// BlockStatement::fromSyntax), or, for a block slang made from a hierarchy
+// node (tryGetBlock: the implicit block of a foreach or for with
+// declarations), on the CHILD (bindBlock sets result->syntax before
+// badStmt).  Surelog parsed the text and locates both from it: golden's
+// begin spans its `begin..end` (45157:26-45159:8), and a subroutine wrapper
+// anchored at such an item spans the item's statement (the foreach,
+// 10:7-12:10 in grid F/f11).  Ours wrote both with no location.  The law
+// reads the syntax from whichever of the two holds it.  Grid
+// tools/probe/r11u244repro/cases/F.
+static const slang::ast::Statement* invChild244 = nullptr;
+static const slang::syntax::SyntaxNode* invSyn244 = nullptr;
+static slang::SourceRange invalidAnchor244(const slang::ast::Statement& st) {
+    auto r = invalidStmtAnchor181(st);
+    if (r.start().valid() || st.kind != slang::ast::StatementKind::Invalid ||
+        !r11u244On("R11U244_INVBLKLOC_OFF"))
+        return r;
+    if (auto* ch = st.as<slang::ast::InvalidStatement>().child;
+        ch && ch->syntax) {
+        tr244("invalidBlockLocFromSyntax244", "anchor");
+        return ch->syntax->sourceRange();
+    }
+    return r;
+}
+// § cloneBlockArrElemOwnCopy244 (r11u244, R11U244_BLKELEMCOPY_OFF; MiniAmiq
+// d/t #71388, SeqDriver d/t #71344 / #71356: `int q[5];` in a nested `begin`
+// of the importer's copy `svaunit_pkg::uvm_table_printer::emit`) — a
+// NESTED-BLOCK array local lists its element variable FIRST on the block's
+// Variables and again under the array_var; in the home listing both lists hold
+// one object (a walk meets it once), but the importer's listing is Surelog's
+// clone_tree of the home subroutine (CompileHelper.cpp importPackage) and
+// DeepClone copies each LIST, so the block's entry is its own copy parented at
+// the block, its full name (stored empty) the block's
+// (`svaunit_pkg::uvm_table_printer::emit`), the array_var's entry another copy
+// (`...::emit::q`).  The subroutine-body wrapper's list is
+// § importCloneBodyLocalCopies175's; this law takes the user-written block's
+// element entries for every array shape (fixed, queue, dynamic,
+// associative), copied design-final with § 175's context.  Grid
+// tools/probe/r11u244repro/cases/N.
+static std::vector<std::tuple<UHDM::VectorOfvariables*, size_t, UHDM::any*>>
+    blkElemCopies244;
+// § blkElemCopyDeclDimsOnly244v (v11u244, R11V244_TDARR_OFF; grid
+// tools/probe/v11u244repro/cases/E e08_x_nested_loop, e11_x_tdarr_kinds) — a
+// local whose array type comes from a TYPEDEF (`ia_t t;`, `iq_t q;`,
+// `id_t d;`: no declarator dimension) has NO element entry on the block in
+// golden, home or copy (Surelog compiles the typedef's typespec and mints no
+// element variable); ours already lists one there (a pre-existing face, the
+// home's too), and the law's private copy made the walk meet two where golden
+// meets none (e11 default: 239 -> 265 records off golden, 0 lost).  The law
+// abstains when the declarator carries no unpacked dimension.
+static bool declHasDims244v(const slang::syntax::SyntaxNode* dsyn) {
+    return dsyn && dsyn->kind == slang::syntax::SyntaxKind::Declarator &&
+           !dsyn->as<slang::syntax::DeclaratorSyntax>().dimensions.empty();
+}
+static void recordBlkElemCopy244(bool importClone, UHDM::VectorOfvariables* vars,
+                                 UHDM::any* blk,
+                                 const slang::syntax::SyntaxNode* dsyn,
+                                 const std::string& bfull) {
+    if (!importClone || !vars || vars->empty() || !blk ||
+        !r11u244On("R11U244_BLKELEMCOPY_OFF"))
+        return;
+    if (!declHasDims244v(dsyn) && r11v244On("R11V244_TDARR_OFF")) {
+        tr244("blkElemCopyDeclDimsOnly244v", bfull);
+        return;
+    }
+    blkElemCopies244.emplace_back(vars, vars->size() - 1, blk);
+}
+static void drainBlkElemCopies244(UHDM::Serializer& s) {
+    for (auto& [vars, i, blk] : blkElemCopies244) {
+        if (i >= vars->size())
+            continue;
+        auto* e = (*vars)[i];
+        if (!e || !e->VpiParent() ||
+            e->VpiParent()->UhdmType() != UHDM::uhdmarray_var) {
+            tr244("cloneBlockArrElemOwnCopy244_shape");
+            continue;
+        }
+        auto* c = (UHDM::variables*)cloneLocal175(s, e, blk);
+        if (!c) {
+            tr244("cloneBlockArrElemOwnCopy244_failed");
+            continue;
+        }
+        c->VpiFullName("");
+        if (auto* rt = c->Typespec())
+            rt->VpiFullName("");
+        (*vars)[i] = c;
+        tr244("cloneBlockArrElemOwnCopy244");
+    }
+    blkElemCopies244.clear();
+}
 void drainImportCloneLocalCopies175(UHDM::Serializer& s) {
     for (auto& w : cloneLocalWraps175) {
         auto* bv = s.MakeVariablesVec();
@@ -174,6 +275,7 @@ void drainImportCloneLocalCopies175(UHDM::Serializer& s) {
         as->Lhs((UHDM::expr*)cloneLocal175(s, v, as));
     cloneLocalWraps175.clear();
     cloneLocalLhs175.clear();
+    drainBlkElemCopies244(s);  // § cloneBlockArrElemOwnCopy244
 }
 
 // § controlBodyNoBind28 — the BODY of a conditional or loop statement.  See
@@ -2366,6 +2468,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // covers the full begin..end region that Surelog reports.
                 if (stmt.syntax)
                     setLoc(ub, stmt.syntax->sourceRange());
+                // § invalidBlockLocFromSyntax244 — the child of a bad block
+                else if (!stmt.sourceRange.start().valid() &&
+                         invChild244 == &stmt && invSyn244 &&
+                         r11u244On("R11U244_INVBLKLOC_OFF")) {
+                    tr244("invalidBlockLocFromSyntax244", "block");
+                    setLoc(ub, invSyn244->sourceRange());
+                }
                 else
                     setLoc(ub, stmt.sourceRange);
                 b = ub;
@@ -2439,6 +2548,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 if (auto80)
                                     qr->VpiAutomatic(true);
                                 vars->push_back(qr);
+                                // § cloneBlockArrElemOwnCopy244 (queue / dynamic)
+                                recordBlkElemCopy244(pkgImportCloneEmit, vars, b,
+                                                     bm.getSyntax(), bfull);
                             }
                         vars->push_back(qav);
                         blockMap[&bm] = qav;
@@ -2458,6 +2570,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 if (auto80)
                                     ar->VpiAutomatic(true);
                                 vars->push_back(ar);
+                                // § cloneBlockArrElemOwnCopy244 (associative)
+                                recordBlkElemCopy244(pkgImportCloneEmit, vars, b,
+                                                     bm.getSyntax(), bfull);
                             }
                         vars->push_back(aav);
                         blockMap[&bm] = aav;
@@ -2600,6 +2715,20 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         art0->VpiParent(av0);
                         art0->Actual_typespec(ats0);
                         av0->Typespec(art0);
+                        // § cloneBlockFixedArrTsParented244 (r11u244,
+                        // R11U244_BLKFIXARRTS_OFF; MiniAmiq #71399) — the
+                        // fixed-size twin of § cloneLocalArrayTsParented241
+                        // (TaskFuncEmit): in an importer's copy the clone's
+                        // array_typespec is parented at the local's
+                        // ref_typespec, so the element reference under it
+                        // reads the local's full name.  Set by § 241's
+                        // design-final drain (UhdmExporter exportDesign), with
+                        // its guard.
+                        if (pkgImportCloneEmit &&
+                            r11u244On("R11U244_BLKFIXARRTS_OFF")) {
+                            g_cloneArrTs241.push_back({ats0, art0});
+                            tr244("cloneBlockFixedArrTsParented244", bfull);
+                        }
                         // § declArrayElemKindIsDeclKind12, SITE 4 of 4 — the
                         // FIXED-SIZE declarator array, BLOCK-item form.
                         // grid12 `h1` `a_fx` / `k_fx` in a `begin` body.
@@ -2632,6 +2761,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         rv0->push_back(reg0);
                         av0->Variables(rv0);
                         vars->push_back(reg0);
+                        // § cloneBlockArrElemOwnCopy244 (fixed size)
+                        recordBlkElemCopy244(pkgImportCloneEmit, vars, b,
+                                             bm.getSyntax(), bfull);
                         vars->push_back(av0);
                         blockMap[&bm] = av0;
                         continue;
@@ -7009,9 +7141,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             else if (anch9)
                 setLoc(ub, anch9->sourceRange());
             else if (second140 < sl.list.size())
-                setLoc(ub, invalidStmtAnchor181(*sl.list[second140]));
+                setLoc(ub, invalidAnchor244(*sl.list[second140]));
             else if (sl.list.size() >= 2)
-                setLoc(ub, invalidStmtAnchor181(*sl.list[1]));
+                setLoc(ub, invalidAnchor244(*sl.list[1]));
             else
                 setLoc(ub, stmt.sourceRange);
             auto* bvars = s.MakeVariablesVec();
@@ -7328,8 +7460,18 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // uvm_registry, uvm_tlm2_sockets); repro
             // `tools/probe/r10uvm14repro/t18`.
             if (auto* ch14 = stmt.as<InvalidStatement>().child;
-                ch14 && ch14->kind != StatementKind::Invalid)
-                return emitStmt(*ch14, parent, prefix, netMap);
+                ch14 && ch14->kind != StatementKind::Invalid) {
+                // § invalidBlockLocFromSyntax244 — the block arm reads the
+                // InvalidStatement's syntax for its child
+                auto* sc244 = invChild244;
+                auto* ss244 = invSyn244;
+                invChild244 = ch14;
+                invSyn244 = stmt.syntax;
+                auto* r244 = emitStmt(*ch14, parent, prefix, netMap);
+                invChild244 = sc244;
+                invSyn244 = ss244;
+                return r244;
+            }
             noteUnsupportedAt(
                 "statement kind: Invalid/" +
                     std::string(stmt.syntax ? toString(stmt.syntax->kind)
