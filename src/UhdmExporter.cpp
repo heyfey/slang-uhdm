@@ -17,6 +17,7 @@
 #include "R235.h"
 #include "R237.h"
 #include "R239.h"
+#include "R241.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -24,6 +25,7 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/VpiListener.h>
+#include <uhdm/UhdmListener.h>
 
 namespace slang_uhdm {
 
@@ -9226,6 +9228,30 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
             rt->VpiParent(tp);
             auto& dt = tps.targetType.getType();
             auto* dsyn = tps.targetType.getTypeSyntax();
+            // § tpPropDefaultLoc241 (r11u241, R11U241_TPDEFLOC_OFF; BuildUVMPkg
+            // #81218, Scoreboard #80496: uvm_driver's `REQ req; RSP rsp;`) —
+            // the class_defn listing is Surelog's compile of the class HEADER:
+            // its type parameter's typespec is compileTypespec's mint for the
+            // header's written default (`type REQ = uvm_sequence_item`).  slang
+            // keys a specialization on its resolved arguments, so when a
+            // specialization written with the default's own types
+            // (`typedef uvm_driver #(uvm_sequence_item, uvm_sequence_item)
+            // uvm_default_driver_type;`) is created before the default one,
+            // the "default" specialization this listing walks IS that one and
+            // its parameter's type syntax is the typedef's ARGUMENT (ours
+            // 57038:25-42 where golden reads the default 50947:29-46).  The
+            // listing reads the header's default syntax instead; every holder
+            // the § classTpDefaultTsAtUse180 / § tpGroupOneSpan234 drains
+            // locate from this object follows.  Grid
+            // tools/probe/r11u241repro/cases/TD.
+            if (dsyn && cls.genericClass &&
+                dt.getCanonicalType().kind == SymbolKind::ClassType &&
+                r11u241Law("R11U241_TPDEFLOC_OFF"))
+                if (auto* hdr241 = tpHeaderDefaultSyn188(mem); hdr241 && hdr241 != dsyn) {
+                    tr241("tpPropDefaultLoc241", std::string(cls.name) + "::" +
+                                                     std::string(tps.name));
+                    dsyn = &hdr241->as<syntax::DataTypeSyntax>();
+                }
             UHDM::typespec* its = nullptr;
             if (auto& dct = dt.getCanonicalType(); dct.kind == SymbolKind::ClassType) {
                 auto* cts = s.MakeClass_typespec();
@@ -9242,6 +9268,25 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
                 cts->VpiParent(tp);
                 if (dsyn)
                     setLoc(cts, dsyn->sourceRange());
+                // § tpClsDefaultAtClassName241 (r11u241, R11U241_TPDEFCLSNAME_OFF)
+                // — a PARAMETERIZED class default (`type REQ = base #(2)`) ends
+                // at the class NAME: compileTypespec populates the
+                // class_typespec from the class-name node, the parameter value
+                // assignment being its sibling (golden 4:26-4:30 where ours
+                // spanned 4:26-4:35), the rule § classPropElemClassTsAtName196
+                // reads for a property's element.  Grid
+                // tools/probe/r11u241repro/cases/TD d09, d13.
+                if (dsyn && dsyn->kind == syntax::SyntaxKind::NamedType &&
+                    r11u241Law("R11U241_TPDEFCLSNAME_OFF"))
+                    if (const syntax::NameSyntax* nm241 =
+                            dsyn->as<syntax::NamedTypeSyntax>().name;
+                        nm241 && nm241->kind == syntax::SyntaxKind::ClassName) {
+                        auto& cn241 = nm241->as<syntax::ClassNameSyntax>();
+                        setLoc(cts, SourceRange(dsyn->sourceRange().start(),
+                                                cn241.identifier.range().end()));
+                        tr241("tpClsDefaultAtClassName241",
+                              std::string(cn241.identifier.valueText()));
+                    }
                 // § classTpQualDefaultSpan180 (r11u180) — a default written
                 // PACKAGE-QUALIFIED (`type CB = other::base_c`, `other ::
                 // par_c#(int)`) is the paPackage_scope form: Surelog's
@@ -11474,6 +11519,9 @@ public:
 };
 } // namespace
 
+extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
+    g_cloneArrTs241; // § cloneLocalArrayTsParented241 (TaskFuncEmit.cpp)
+extern std::vector<UHDM::task_func*> g_cloneTf241; // § cloneAggTsAtHomeListing241
 UHDM::design* UhdmExporter::exportDesign() {
     // § compoundLitWriteBackSat2 — decide the constant-evaluated function
     // bodies' literal values BEFORE anything is emitted, so the def view and
@@ -17761,8 +17809,345 @@ UHDM::design* UhdmExporter::exportDesign() {
         }
         return d;
     };
+    // The r11u241 drains run on EVERY exit of this function (the writer
+    // pass below returns early when no typedef has a writer).
+    auto finish241 = [&]() -> UHDM::design* {
+        // The guard both r11u241 clone drains share: an object an importer
+        // copy holds is changed only when every ref_typespec binding it sits
+        // inside an importer copy (§ cloneAggTsAtHomeListing241) or inside
+        // that one copy (§ cloneLocalArrayTsParented241).  A home body can
+        // bind the copy's object (the foreach over a queue binds the LAST
+        // emission's array_typespec, StmtEmit arrayVarArrayTs:
+        // tools/probe/r10v208repro/v208_f_io, whose home foreach variable
+        // reads the copy's array_typespec), and golden's home object keeps
+        // no parent and no full names there.
+        std::map<const UHDM::any*, std::vector<const UHDM::ref_typespec*>> refsOf241;
+        std::set<const UHDM::any*> cloneTfs241(g_cloneTf241.begin(), g_cloneTf241.end());
+        if (!g_cloneTf241.empty() || !g_cloneArrTs241.empty())
+            for (auto& kv : s.AllObjects()) {
+                auto* o = (const UHDM::BaseClass*)kv.first;
+                if (o && o->UhdmType() == UHDM::uhdmref_typespec)
+                    if (auto* a = ((const UHDM::ref_typespec*)o)->Actual_typespec())
+                        refsOf241[a].push_back((const UHDM::ref_typespec*)o);
+            }
+        // the nearest enclosing subroutine, when it is an importer copy
+        auto ownerTf241 = [&](const UHDM::any* o) -> const UHDM::any* {
+            for (int k = 0; o && k < 512; ++k, o = o->VpiParent())
+                if (o->UhdmType() == UHDM::uhdmfunction || o->UhdmType() == UHDM::uhdmtask)
+                    return cloneTfs241.count(o) ? o : nullptr;
+            return nullptr;
+        };
+        // every binding of `x` inside a copy (`tf` null) or inside `tf`
+        auto onlyIn241 = [&](const UHDM::any* x, const UHDM::any* tf) -> bool {
+            auto it = refsOf241.find(x);
+            if (it == refsOf241.end())
+                return true;
+            for (auto* r : it->second) {
+                auto* t = ownerTf241(r);
+                if (!t || (tf && t != tf))
+                    return false;
+                // a HOME object re-parented into the copy (the copy's foreach
+                // keeps the home loop variable `p208a_vf::fh208vf::i208`
+                // under its own foreach_stmt): golden's binds the home's
+                // object, so the copy's must not be edited for it
+                if (auto* pv = dynamic_cast<const UHDM::variables*>(r->VpiParent())) {
+                    std::string pf(pv->VpiFullName()),
+                        tff(((const UHDM::task_func*)t)->VpiFullName());
+                    if (!pf.empty() && pf.compare(0, tff.size(), tff) != 0)
+                        return false;
+                }
+            }
+            return true;
+        };
+        // § cloneAggTsAtHomeListing241 (r11u241, R11U241_CLONEAGGLOC_OFF;
+        // MiniAmiq d/t #69885 `uvm_printer_row_info row` in the importer's copy
+        // `svaunit_pkg::uvm_printer::format_row`, g180_a_kinds #1067) — an
+        // IMPORTER's copy of a subroutine is Surelog's deep clone of the HOME
+        // package's compiled subroutine (UHDM DeepClone), so every enum, struct
+        // or union typespec the copy holds for a home-package typedef (a formal's,
+        // a local's, a nested block's) carries the location of the home's own
+        // object as the home's compile left it: the HOME package's definition
+        // listing object, which compileTfPortList's populateCoreMembers has moved
+        // to the type token of the typedef's LAST formal writer (golden
+        // tools/probe/r11u241repro/cases/CF e03: the copy of `f1(k_t a)` reads
+        // f2's `k_t` 9:29, not its own 4:29; e01: an out-of-body definition's
+        // formal 10:27).  Ours minted the copies at the typedef (the listing
+        // object is moved design-final by the writer laws above, after the
+        // copies were made).  The drain copies the def listing object's file and
+        // span onto every such typespec a ref_typespec inside an importer copy
+        // binds; a listing object itself is left alone.
+        if (r11u241Law("R11U241_CLONEAGGLOC_OFF") && !g_cloneTf241.empty()) {
+            std::map<std::string, UHDM::typespec*> home241;
+            std::map<const UHDM::typespec*, const Symbol*> homePkg241;
+            std::set<const UHDM::typespec*> listing241;
+            for (auto& [sym241, ts241] : typedefTs) {
+                if (!sym241 || !ts241)
+                    continue;
+                listing241.insert(ts241);
+                auto k241 = ts241->UhdmType();
+                if (k241 != UHDM::uhdmenum_typespec && k241 != UHDM::uhdmstruct_typespec &&
+                    k241 != UHDM::uhdmunion_typespec)
+                    continue;
+                auto* ps241 = sym241->getParentScope();
+                if (!ps241 || ps241->asSymbol().kind != SymbolKind::Package)
+                    continue;
+                std::string nm241(ts241->VpiName());
+                if (nm241.find("::") == std::string::npos)
+                    continue;
+                if (home241.count(nm241) && home241[nm241] != ts241)
+                    home241[nm241] = nullptr;  // ambiguous: abstain
+                else
+                    home241[nm241] = ts241;
+                homePkg241[ts241] = &ps241->asSymbol();
+            }
+            for (auto& [k241, ts241] : pkgTopTypedefTs)
+                if (ts241)
+                    listing241.insert(ts241);
+            struct CloneAgg241 final : public UHDM::UhdmListener {
+                const UHDM::any* root = nullptr;
+                std::vector<const UHDM::ref_typespec*> refs;
+                bool inside(const UHDM::any* o) const {
+                    for (int k = 0; o && k < 256; ++k, o = o->VpiParent())
+                        if (o == root)
+                            return true;
+                    return false;
+                }
+                void enterAny(const UHDM::any* const o) override {
+                    if (o != root && !inside(o))
+                        visited.insert(o);
+                }
+                void enterRef_typespec(const UHDM::ref_typespec* const r) override {
+                    if (inside(r))
+                        refs.push_back(r);
+                }
+                void enterHier_path(const UHDM::hier_path* const h) override {
+                    if (inside(h))
+                        paths.push_back(h);
+                }
+                std::vector<const UHDM::hier_path*> paths;
+            };
+            // per copied reference: the source's member -> the copy's member
+            std::map<const UHDM::ref_typespec*,
+                     std::map<const UHDM::typespec_member*, UHDM::typespec_member*>>
+                memb241;
+            std::set<const UHDM::task_func*> seen241;
+            std::set<const UHDM::typespec*> moved241;
+            for (auto* tf241 : g_cloneTf241) {
+                if (!tf241 || !seen241.insert(tf241).second)
+                    continue;
+                // the copy's HOME package: a typedef of another package (a
+                // third package the home imports) is not measured (every such
+                // grid case is stage 1 at the base: cases/CF e09, e13) and is
+                // left alone.
+                const Symbol* hp241 = nullptr;
+                if (auto hs241 = tfHomeSub9.find(tf241); hs241 != tfHomeSub9.end() && hs241->second)
+                    for (auto* sc241 = hs241->second->getParentScope(); sc241;
+                         sc241 = sc241->asSymbol().getParentScope())
+                        if (sc241->asSymbol().kind == SymbolKind::Package) {
+                            hp241 = &sc241->asSymbol();
+                            break;
+                        }
+                if (!hp241)
+                    continue;
+                CloneAgg241 w241;
+                w241.root = tf241;
+                w241.listenAny(tf241);
+                for (auto* r241 : w241.refs) {
+                    auto* a241 = (UHDM::typespec*)r241->Actual_typespec();
+                    if (!a241 || moved241.count(a241))
+                        continue;
+                    auto it241 = home241.find(std::string(a241->VpiName()));
+                    if (it241 == home241.end() || !it241->second ||
+                        it241->second->UhdmType() != a241->UhdmType())
+                        continue;
+                    auto* h241 = it241->second;
+                    if (a241 == h241 || homePkg241[h241] != hp241)
+                        continue;
+                    // a copy's own object only (a listing object is
+                    // re-bound below, never edited)
+                    if (!listing241.count(a241) && !onlyIn241(a241, nullptr)) {
+                        tr241("cloneAggTsAtHomeListing241_shared",
+                              std::string(tf241->VpiFullName()) + " " +
+                                  std::string(a241->VpiName()));
+                        continue;
+                    }
+                    // § cloneAggLocalOwnCopy241 (R11U241_CLONEAGGCOPY_OFF) — a
+                    // copy's local bound to a LISTING object (the importer's or
+                    // the elaborated package's re-listing, MiniAmiq
+                    // `uvm_printer_row_info row_info;` in print_object_header at
+                    // the importer listing's 212:46), and every struct or union
+                    // the copy holds through an object it does not own (the
+                    // memoized per-source formal copy of
+                    // § importCopyAggFormalOwnCopy32), is in golden the deep
+                    // clone's own object, hanging off its ref_typespec: one
+                    // private copy per reference (alias, instance, base and
+                    // constants shared, so every judge-read field stays the
+                    // source's) at the home location.  A struct or union copy
+                    // also takes its own members (§ cloneAggMemberOwn241 below).
+                    bool agg241 = a241->UhdmType() != UHDM::uhdmenum_typespec;
+                    if (listing241.count(a241) || (agg241 && a241->VpiParent() != r241)) {
+                        if (!r11u241Law("R11U241_CLONEAGGCOPY_OFF"))
+                            continue;
+                        UHDM::typespec* cp241 = nullptr;
+                        const UHDM::VectorOftypespec_member* om241 = nullptr;
+                        switch (a241->UhdmType()) {
+                            case UHDM::uhdmenum_typespec: {
+                                auto* se = (UHDM::enum_typespec*)a241;
+                                auto* ce = s.MakeEnum_typespec();
+                                ce->Base_typespec(se->Base_typespec());
+                                ce->Enum_consts(se->Enum_consts());
+                                cp241 = ce;
+                                break;
+                            }
+                            case UHDM::uhdmstruct_typespec: {
+                                auto* ss = (UHDM::struct_typespec*)a241;
+                                auto* cs = s.MakeStruct_typespec();
+                                cs->VpiPacked(ss->VpiPacked());
+                                cs->Members(ss->Members());
+                                om241 = ss->Members();
+                                cp241 = cs;
+                                break;
+                            }
+                            case UHDM::uhdmunion_typespec: {
+                                auto* su = (UHDM::union_typespec*)a241;
+                                auto* cu = s.MakeUnion_typespec();
+                                cu->VpiPacked(su->VpiPacked());
+                                cu->Members(su->Members());
+                                om241 = su->Members();
+                                cp241 = cu;
+                                break;
+                            }
+                            default:
+                                break;
+                        }
+                        if (!cp241)
+                            continue;
+                        cp241->VpiName(a241->VpiName());
+                        cp241->VpiParent((UHDM::ref_typespec*)r241);
+                        cp241->Typedef_alias(a241->Typedef_alias());
+                        cp241->Instance(a241->Instance());
+                        // § cloneAggMemberOwn241 (R11U241_CLONEAGGMEMB_OFF) — the
+                        // deep clone's members are its own: each typespec_member
+                        // (and its ref_typespec, the member type shared) is
+                        // copied under the copy, so a member's full name reads
+                        // through the copy's parent chain (golden
+                        // `q::pr::fmt::row::p::row_t::name`, ours the shared
+                        // member's `work@top.p::row_t.name`: cases/CF e01) and a
+                        // member path in the copy binds the copy's member
+                        // (below).  Without it the walk lists a shared member set
+                        // once (MiniAmiq #70107 depth).
+                        if (om241 && r11u241Law("R11U241_CLONEAGGMEMB_OFF")) {
+                            auto* nm241 = s.MakeTypespec_memberVec();
+                            auto& mm241 = memb241[r241];
+                            for (auto* m0 : *om241) {
+                                auto* m1 = s.MakeTypespec_member();
+                                m1->VpiName(m0->VpiName());
+                                m1->VpiParent(cp241);
+                                m1->VpiFile(m0->VpiFile());
+                                m1->VpiLineNo(m0->VpiLineNo());
+                                m1->VpiColumnNo(m0->VpiColumnNo());
+                                m1->VpiEndLineNo(m0->VpiEndLineNo());
+                                m1->VpiEndColumnNo(m0->VpiEndColumnNo());
+                                m1->VpiRandType(m0->VpiRandType());
+                                m1->VpiRefFile(m0->VpiRefFile());
+                                m1->VpiRefLineNo(m0->VpiRefLineNo());
+                                m1->VpiRefColumnNo(m0->VpiRefColumnNo());
+                                m1->VpiRefEndLineNo(m0->VpiRefEndLineNo());
+                                m1->VpiRefEndColumnNo(m0->VpiRefEndColumnNo());
+                                m1->Default_value(m0->Default_value());
+                                m1->Actual_value(m0->Actual_value());
+                                if (auto* t0 = m0->Typespec()) {
+                                    auto* t1 = s.MakeRef_typespec();
+                                    t1->VpiParent(m1);
+                                    t1->Actual_typespec(
+                                        (UHDM::typespec*)t0->Actual_typespec());
+                                    m1->Typespec(t1);
+                                }
+                                nm241->push_back(m1);
+                                mm241[m0] = m1;
+                            }
+                            if (cp241->UhdmType() == UHDM::uhdmstruct_typespec)
+                                ((UHDM::struct_typespec*)cp241)->Members(nm241);
+                            else
+                                ((UHDM::union_typespec*)cp241)->Members(nm241);
+                        }
+                        ((UHDM::ref_typespec*)r241)->Actual_typespec(cp241);
+                        tr241("cloneAggLocalOwnCopy241",
+                              std::string(tf241->VpiFullName()) + " " +
+                                  std::string(a241->VpiName()));
+                        a241 = cp241;
+                    }
+                    moved241.insert(a241);
+                    if (a241->VpiLineNo() == h241->VpiLineNo() &&
+                        a241->VpiColumnNo() == h241->VpiColumnNo() &&
+                        a241->VpiEndLineNo() == h241->VpiEndLineNo() &&
+                        a241->VpiEndColumnNo() == h241->VpiEndColumnNo() &&
+                        a241->VpiFile() == h241->VpiFile())
+                        continue;
+                    a241->VpiFile(h241->VpiFile());
+                    a241->VpiLineNo(h241->VpiLineNo());
+                    a241->VpiColumnNo(h241->VpiColumnNo());
+                    a241->VpiEndLineNo(h241->VpiEndLineNo());
+                    a241->VpiEndColumnNo(h241->VpiEndColumnNo());
+                    tr241("cloneAggTsAtHomeListing241",
+                          std::string(tf241->VpiFullName()) + " " +
+                              std::string(a241->VpiName()));
+                }
+                // § cloneAggMemberOwn241 — a member path `v.m` in the copy whose
+                // root variable or formal holds a copied struct or union binds
+                // the copy's member (one level: the member's own type is the
+                // shared source's).
+                for (auto* h241 : w241.paths) {
+                    auto* pe241 = h241->Path_elems();
+                    if (!pe241 || pe241->size() < 2)
+                        continue;
+                    auto* e0 = (*pe241)[0];
+                    auto* e1 = (*pe241)[1];
+                    if (!e0 || !e1 || e0->UhdmType() != UHDM::uhdmref_obj ||
+                        e1->UhdmType() != UHDM::uhdmref_obj)
+                        continue;
+                    const UHDM::any* v241 = ((UHDM::ref_obj*)e0)->Actual_group();
+                    const UHDM::ref_typespec* vr241 = nullptr;
+                    if (!v241)
+                        continue;
+                    if (v241->UhdmType() == UHDM::uhdmio_decl)
+                        vr241 = ((const UHDM::io_decl*)v241)->Typespec();
+                    else if (auto* vv241 = dynamic_cast<const UHDM::variables*>(v241))
+                        vr241 = vv241->Typespec();
+                    auto mt241 = vr241 ? memb241.find(vr241) : memb241.end();
+                    if (mt241 == memb241.end())
+                        continue;
+                    auto* g241 = ((UHDM::ref_obj*)e1)->Actual_group();
+                    if (!g241 || g241->UhdmType() != UHDM::uhdmtypespec_member)
+                        continue;
+                    if (auto mm = mt241->second.find((const UHDM::typespec_member*)g241);
+                        mm != mt241->second.end()) {
+                        ((UHDM::ref_obj*)e1)->Actual_group(mm->second);
+                        tr241("cloneAggMemberOwn241", std::string(h241->VpiName()));
+                    }
+                }
+            }
+        }
+        g_cloneTf241.clear();
+        auto* d241 = finish231();
+        // § cloneLocalArrayTsParented241 (r11u241, law at TaskFuncEmit.cpp
+        // makeQueueDynArrayVar) — DEAD LAST: an importer copy's local
+        // array_typespec takes the local's ref_typespec as its parent.
+        for (auto& [ats241, art241] : g_cloneArrTs241)
+            if (!ats241->VpiParent()) {
+                if (!onlyIn241(ats241, ownerTf241(art241))) {
+                    tr241("cloneLocalArrayTsParented241_shared",
+                          std::string(art241->VpiFullName()));
+                    continue;
+                }
+                ats241->VpiParent(art241);
+                tr241("cloneLocalArrayTsParented241", std::string(art241->VpiFullName()));
+            }
+        g_cloneArrTs241.clear();
+        return d241;
+    };
     if (!r11u146Law("R11U146_TFARGTD_OFF"))
-        return finish231();
+        return finish241();
     // § tfArgQualOutsideWriter176 (r11u176) — a PACKAGE-QUALIFIED argument
     // type (`ibex_pkg::pmp_cfg_t region_csr_pmp_cfg`) is a writer like a bare
     // name: compileTfPortList runs the same populateCoreMembers(type, type,
@@ -17828,7 +18213,7 @@ UHDM::design* UhdmExporter::exportDesign() {
             v.push_back(sym);
     }
     if (byName.empty())
-        return finish231();
+        return finish241();
     struct Writer {
         const Symbol* td;
         SourceRange tok;
@@ -18850,7 +19235,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // every name stamp (laws and decodes at the functions).
     portConnOpLeafChain209(s);
     modportOpOrphanReparent209(s, d);
-    return finish231();
+    return finish241();
 }
 
 

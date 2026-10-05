@@ -22,6 +22,7 @@
 #include "R223.h"
 #include "R226.h"
 #include "R231.h"
+#include "R241.h"
 
 namespace slang_uhdm {
 
@@ -1725,6 +1726,35 @@ UHDM::ref_var* UhdmExporter::makeNameBasedArrayTdRefVar166(
     return rv166;
 }
 
+// § cloneLocalArrayTsParented241 (r11u241, R11U241_CLONEARRTS_OFF; MiniAmiq
+// d/t #68597, SeqDriver d/t #68553: `uvm_factory_queue_class
+// sorted_override_queues[string];` in the importer's copy
+// `svaunit_pkg::uvm_default_factory::print`) — an IMPORTER's copy of a
+// subroutine is Surelog's deep clone of the home object (UHDM DeepClone): the
+// clone of the local's ref_typespec clones its array_typespec and PARENTS it
+// at that clone, where the home's array_typespec keeps no parent.  UHDM's
+// VpiFullName() getter computes an empty full name from the parent chain, so
+// the ref_typespecs under the clone's array_typespec (the element, the index
+// and the associative marker constant's) read the local's full name
+// (`svaunit_pkg::uvm_default_factory::print::sorted_override_queues`) in
+// golden and nothing in ours, the home's reading nothing in both.  The law
+// parents the clone's array_typespec at the local's ref_typespec, inside an
+// importer copy only (`pkgImportCloneEmit`).  Grid
+// tools/probe/r11u241repro/cases/AA.
+// The parent is set DESIGN-FINAL (UhdmExporter exportDesign, after every
+// drain): emission-time and drain-time walks read typespec parent chains, and
+// setting it at the site moved an unrelated MiniAmiq typespec (a judge-visible
+// name, measured on the law's first build).
+std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>> g_cloneArrTs241;
+std::vector<UHDM::task_func*> g_cloneTf241; // § cloneAggTsAtHomeListing241
+static void cloneLocalArrayTsParent241(bool importClone, UHDM::typespec* ats,
+                                       UHDM::ref_typespec* art) {
+    if (!importClone || !ats || !art || ats->VpiParent() ||
+        !r11u241Law("R11U241_CLONEARRTS_OFF"))
+        return;
+    g_cloneArrTs241.push_back({ats, art});
+}
+
 UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
                                                     const std::string& afull,
                                                     UHDM::any* parent,
@@ -1837,6 +1867,9 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     art0->VpiParent(av);
     art0->Actual_typespec(ats);
     av->Typespec(art0);
+    // § cloneLocalArrayTsParented241 — the queue / dynamic site (law at the
+    // associative site below).
+    cloneLocalArrayTsParent241(pkgImportCloneEmit, ats, art0);
     // § declArrayElemKindIsDeclKind12, SITE 1 of 4 (queue / dynamic) — the
     // element variable is the SCALAR variable Surelog's compileStmt builds from
     // the DATA-TYPE node and then re-parents under the array_var, so it takes
@@ -2286,6 +2319,8 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
     art0->VpiParent(av);
     art0->Actual_typespec(ats);
     av->Typespec(art0);
+    // § cloneLocalArrayTsParented241 — the associative site.
+    cloneLocalArrayTsParent241(pkgImportCloneEmit, ats, art0);
     // § declArrayElemKindIsDeclKind12, SITE 2 of 4 (associative).  grid12 `h1`.
     auto* reg0 = makeDeclArrayElemVar12(s, vs, *elem0,
                                         stmtScopeTdDegrades155(vs));
@@ -3964,6 +3999,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         }
         tf->VpiParent(m);
         tfHomeSub9[tf] = &sub;
+        // § cloneAggTsAtHomeListing241 — the importer copies (law and drain
+        // at UhdmExporter exportDesign).
+        if (pkgImportCloneEmit)
+            g_cloneTf241.push_back(tf);
         // The def-view package listing names its clone "class::method" and
         // parents it at the package; the fullname is unchanged.
         if (cloneMode) {

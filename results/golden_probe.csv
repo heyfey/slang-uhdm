@@ -784,12 +784,12 @@ r10uvm175repro/g175_c_tail,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
 r10uvm175repro/g175_f_fence,EQUAL,,equal
 r10uvm17repro/t,EQUAL,,equal
 r10uvm17repro/t29_t,EQUAL,,equal
-r10uvm180repro/g180_a_kinds,STRICT_NOTEQUAL,differ:line(5),differ:line(5)
+r10uvm180repro/g180_a_kinds,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
 r10uvm187repro/g187_a_order,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
 r10uvm187repro/probe0,EQUAL,,equal
 r10uvm190repro/probe0,EQUAL,,equal
-r10uvm193repro/g193_c_argface,STRICT_NOTEQUAL,differ:fullname(102),differ:fullname(102)
-r10uvm193repro/g193_d_propfence,STRICT_NOTEQUAL,differ:fullname(10),differ:fullname(10)
+r10uvm193repro/g193_c_argface,STRICT_NOTEQUAL,differ:fullname(44),differ:fullname(44)
+r10uvm193repro/g193_d_propfence,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
 r10uvm194repro/g194_a_homes,EQUAL,,equal
 r10uvm194repro/g194_c_clone,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
 r10uvm195repro/g195_d_control,EQUAL,,equal
@@ -811,7 +811,7 @@ r10uvm204repro/g204_e_head,EQUAL,,equal
 r10uvm206repro/g206_a_selftd,EQUAL,,equal
 r10uvm206repro/g206_b_dedup,EQUAL,,equal
 r10uvm206repro/g206_e_two,EQUAL,,equal
-r10uvm207repro/g207_c_share,STRICT_NOTEQUAL,differ:fullname(13),differ:fullname(13)
+r10uvm207repro/g207_c_share,STRICT_NOTEQUAL,differ:fullname(16),differ:fullname(16)
 r10uvm207repro/g207_e_head,STRICT_NOTEQUAL,differ:fullname(32),differ:fullname(32)
 r10uvm207repro/g207_f_home,EQUAL,,equal
 r10uvm207repro/g207_g_class,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
@@ -904,7 +904,7 @@ r10uvm28repro/t38c,EQUAL,,equal
 r10uvm28repro/t38d,EQUAL,,equal
 r10uvm28repro/t38e,EQUAL,,equal
 r10uvm30repro/t40d,EQUAL,,equal
-r10uvm32repro/t42a,STRICT_NOTEQUAL,differ:line(35),differ:line(35)
+r10uvm32repro/t42a,STRICT_NOTEQUAL,differ:line(29),differ:line(29)
 r10uvm35repro/t47a,EQUAL,,equal
 r10uvm35repro/t47b,EQUAL,,equal
 r10uvm36repro/t48a,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
@@ -1296,8 +1296,8 @@ r10v180repro/v180_e_ret,EQUAL,,equal
 r10v180repro/v180_i_inst,EQUAL,,equal
 r10v181repro/v181_e_idxbase,EQUAL,,equal
 r10v181repro/v181_f_mixed,EQUAL,,equal
-r10v181repro/v181_h_nofe,STRICT_NOTEQUAL,differ:name(7),differ:name(7)
-r10v182repro/v182_g_names,STRICT_NOTEQUAL,differ:fullname(36),differ:fullname(36)
+r10v181repro/v181_h_nofe,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10v182repro/v182_g_names,EQUAL,,equal
 r10v184repro/gv184_h_retpin,EQUAL,,equal
 r10v184repro/gv184_i_minimal,EQUAL,,equal
 r10v188repro/v188_a_render,EQUAL,,equal

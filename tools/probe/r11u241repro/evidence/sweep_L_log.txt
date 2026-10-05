@@ -1,0 +1,12 @@
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u241_wL/probe.csv
+probe cases: EQUAL=3481 STRICT_NOTEQUAL=606 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+regressions=0 conversions=1 changes=6 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u241_wL/surelog.csv
+== surelog vs golden_surelog.csv
+regressions=0 conversions=0 changes=9 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u241_wL/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
