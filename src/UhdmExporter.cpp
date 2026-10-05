@@ -22,6 +22,7 @@
 #include "R245.h"
 #include "R247.h"
 #include "R249.h"
+#include "R251.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -4466,6 +4467,9 @@ struct Pos {
     uint32_t off = 0;  // offset in region.out
     uint32_t len = 0;    // a token START: its length in the rebuilt text
     uint32_t rawLen = 0; // ... and in slang's buffer (rawText)
+    // § ppStrEndNotTokStart251: a token END keyed by a string literal's
+    // (stringified) text length, not by its source span.
+    bool strEnd = false;
 };
 
 struct Model {
@@ -4518,6 +4522,24 @@ struct Model {
             // different place of the text (a paste shifted the offsets:
             // ibex `fcov_``NAME_`) is ambiguous: a span END reads the end,
             // anything else falls back to the pristine arithmetic.
+            // § ppStrEndNotTokStart251 (r11u251, R11U251_PPSTREND_OFF; cases
+            // tools/probe/r11u251repro/cases/SC) — a STRINGIFIED literal's
+            // end is keyed at its start plus the produced text's length
+            // (`"F`" with F = abstractions: 14), a source offset where no
+            // token of it ends; when that lands exactly on the next token's
+            // start (`p__.print_array_header(`"F`", max__, `"T``(string)`")`
+            // in UVM's uvm_print_string_qda3, the second literal at body
+            // offset start + 14) the start was read as ambiguous and fell
+            // back to the unshifted body column (SimpleUVM and Scoreboard
+            // #194836, golden 270:51, ours 270:42).  A start query there
+            // reads the token start.
+            if (ie != tokEndPos.end() && !endQuery && ie->second.strEnd &&
+                it->second.region >= 0 &&
+                (ie->second.region != it->second.region || ie->second.off != it->second.off) &&
+                r11u251On("R11U251_PPSTREND_OFF")) {
+                tr251("ppStrEndNotTokStart251", std::to_string(b) + ":" + std::to_string(o));
+                return &it->second;
+            }
             if (ie != tokEndPos.end() &&
                 (ie->second.region != it->second.region || ie->second.off != it->second.off))
                 return endQuery && ie->second.region >= 0 ? &ie->second : nullptr;
@@ -5694,6 +5716,20 @@ inline void build(const SourceManager* sm, const slang::ast::Compilation& comp) 
                 sp->second.rawLen = (uint32_t)tk.text.size();
             }
             put(M.tokEndPos, tk.off + (uint32_t)tk.text.size(), (uint32_t)(at + want.size()));
+            // § ppStrEndNotTokStart251: mark a string literal's end entry
+            // whose key is not its source end (a stringification).
+            if (want.size() >= 2 && want.front() == '"')
+                if (auto ep = M.tokEndPos.find({tk.buf.getId(), tk.off + (uint32_t)tk.text.size()});
+                    ep != M.tokEndPos.end() && ep->second.region == (int)ri) {
+                    SourceLocation so251 =
+                        sm->getFullyOriginalLoc(SourceLocation(tk.buf, tk.off));
+                    if (so251 != SourceLocation::NoLocation && !sm->isMacroLoc(so251)) {
+                        auto st251 = sm->getSourceText(so251.buffer());
+                        if (so251.offset() + 2 <= st251.size() &&
+                            st251.substr(so251.offset(), 2) == "`\"")
+                            ep->second.strEnd = true;
+                    }
+                }
             if (want.size() != tk.text.size())
                 put(M.tokEndPos, tk.off + (uint32_t)want.size(), (uint32_t)(at + want.size()));
             if (tk.vlen && tk.vlen != want.size() && tk.vlen != tk.text.size())
@@ -10952,7 +10988,42 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
             continue;
         UHDM::typespec* ts = nullptr;
         if (ct.kind == SymbolKind::EnumType && builtins) {
+            // § clsEnumBaseRefFullName251 (r11u251, R11U251_CLSENUMBASE_OFF;
+            // decode tools/probe/r11u251repro/decode/EB, SimpleUVM #201235; the
+            // arm runs without --nobuiltin only, so no probe case reaches it) —
+            // the base reference of a CLASS-scoped enum typedef is named by
+            // the typedef's full name under its class
+            // (`uvm_pkg::uvm_resource_types::override_e`, golden e01/e05/e06
+            // `p::c::e_t`, e07 `work@top::c::e_t`, e02 `work@c::e_t`): the
+            // class_defn's full name, `::`, the typedef; ours wrote the bare
+            // typedef name.
+            // Only the stored name moves: the builder's own `::` test (the
+            // package fold of the base bounds) keeps reading the bare name.
             auto* ets = buildEnumTs(ct.as<EnumType>(), typeSyn, std::string(ta.name));
+            // The class's full name is spelled from its scope: the
+            // class_defn may not exist yet (a method's formal builds the
+            // listing on demand, SimpleUVM).
+            if (ets->Base_typespec() && r11u251On("R11U251_CLSENUMBASE_OFF")) {
+                std::string cf251;
+                if (auto* ps251 = cls.getParentScope()) {
+                    auto& pa251 = ps251->asSymbol();
+                    if (pa251.kind == SymbolKind::Package)
+                        cf251 = std::string(pa251.name) + "::" + std::string(cls.name);
+                    else if (pa251.kind == SymbolKind::CompilationUnit)
+                        cf251 = "work@" + std::string(cls.name);
+                    else if (pa251.kind == SymbolKind::InstanceBody)
+                        cf251 = "work@" +
+                                std::string(pa251.as<InstanceBodySymbol>()
+                                                .getDefinition()
+                                                .name) +
+                                "::" + std::string(cls.name);
+                }
+                if (!cf251.empty()) {
+                    std::string nm251 = cf251 + "::" + std::string(ta.name);
+                    ets->Base_typespec()->VpiFullName(nm251);
+                    tr251("clsEnumBaseRefFullName251", nm251);
+                }
+            }
             if (auto syn = ta.getSyntax())
                 setLoc(ets, syn->sourceRange());
             ts = ets;
@@ -11314,6 +11385,34 @@ UHDM::typespec* UhdmExporter::buildDynContainerTypedefTs(
                     irt->VpiParent(rc);
                     irt->Actual_typespec(its);
                     rc->Typespec(irt);
+                    // § clsTdAssocIdxKwLoc251 (r11u251, R11U251_CLSTDIDXLOC_OFF;
+                    // cases tools/probe/r11u251repro/cases/AI, SimpleUVM
+                    // #201602 / #201634) — an index written as a KEYWORD
+                    // type (`typedef T tab_t[string];`, `[int]`) gets its
+                    // fresh typespec located at that keyword (golden
+                    // uvm_spell_chkr.svh 30:19-30:25; a04 `int` 4:19-4:22):
+                    // ours left the string one unlocated and put the integer
+                    // one at the element token.  A named (typedef) index
+                    // keeps its shared or cloned object.
+                    if (i < dims.size() && r11u251On("R11U251_CLSTDIDXLOC_OFF"))
+                        if (auto* sp = dims[i]->specifier;
+                            sp && sp->kind == syntax::SyntaxKind::RangeDimensionSpecifier) {
+                            auto& sel = *sp->as<syntax::RangeDimensionSpecifierSyntax>().selector;
+                            if (sel.kind == syntax::SyntaxKind::BitSelect) {
+                                const syntax::ExpressionSyntax* ex = sel.as<syntax::BitSelectSyntax>().expr;
+                                if (ex && syntax::DataTypeSyntax::isKind(ex->kind) &&
+                                    ex->kind != syntax::SyntaxKind::NamedType &&
+                                    (its->UhdmType() == UHDM::uhdmstring_typespec ||
+                                     its->UhdmType() == UHDM::uhdmint_typespec ||
+                                     its->UhdmType() == UHDM::uhdminteger_typespec ||
+                                     its->UhdmType() == UHDM::uhdmbyte_typespec ||
+                                     its->UhdmType() == UHDM::uhdmshort_int_typespec ||
+                                     its->UhdmType() == UHDM::uhdmlong_int_typespec)) {
+                                    setLoc(its, ex->sourceRange());
+                                    tr251("clsTdAssocIdxKwLoc251", std::string(ta.name));
+                                }
+                            }
+                        }
                 }
         }
         r->Right_expr(rc);
@@ -16076,7 +16175,10 @@ UHDM::design* UhdmExporter::exportDesign() {
                         // `4 - 1` operation).  The elaborated array variable
                         // already binds its own bare copy (named like the
                         // listing, no alias); only its range is re-made.
+                        // § regTdArrElabIsNet251: a net-placed array_var
+                        // keeps the typedef's unfolded range (grid RN g02).
                         else if (at && at->UhdmType() == UHDM::uhdmarray_typespec &&
+                                 !g251RegNetVars.count((const UHDM::any*)v) &&
                                  !at->Typedef_alias() && unitArrByName245.count(
                                                              std::string(at->VpiName()))) {
                             auto* L = unitArrByName245[std::string(at->VpiName())];
@@ -16336,6 +16438,10 @@ UHDM::design* UhdmExporter::exportDesign() {
         for (auto* o : objs249) {
             auto* v = dynamic_cast<UHDM::variables*>(o);
             if (!v || !v->VpiParent())
+                continue;
+            // § regTdArrElabIsNet251: a net-placed array_var keeps the
+            // typedef's unfolded range (grid RN g07).
+            if (g251RegNetVars.count((const UHDM::any*)v))
                 continue;
             auto pk = v->VpiParent()->UhdmType();
             if (pk != UHDM::uhdmmodule_inst && pk != UHDM::uhdminterface_inst &&

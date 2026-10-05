@@ -1,0 +1,9 @@
+surelog/default/BuildUVMPkg-fc55bd0c dist 29 -> 27 lost=0 gained=2
+surelog/default/MiniAmiq-055eab74 dist 473 -> 465 lost=0 gained=3
+surelog/default/Scoreboard-72aa0ba8 dist 45 -> 37 lost=0 gained=3
+surelog/default/SeqDriver-65178d3a dist 293 -> 285 lost=0 gained=3
+surelog/default/SimpleUVM-267de3ff dist 134 -> 116 lost=0 gained=13
+surelog/testflags/BuildUVMPkg-fc55bd0c dist 29 -> 27 lost=0 gained=2
+surelog/testflags/MiniAmiq-055eab74 dist 473 -> 465 lost=0 gained=3
+surelog/testflags/SeqDriver-65178d3a dist 293 -> 285 lost=0 gained=3
+surelog/testflags/SimpleUVM-267de3ff dist 134 -> 116 lost=0 gained=13

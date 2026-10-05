@@ -1,0 +1,159 @@
+RN/v01_regpacked                         MOVE NE_stage1/211/rc0            -> EQ81_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+RN/v01_regpacked_el                      MOVE NE_stage1/219/rc0            -> EQ80_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+RN/v02_regsigned                         MOVE NE_stage1/47/rc0             -> EQ44_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+RN/v02_regsigned_el                      MOVE NE_stage1/47/rc0             -> EQ44_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+RN/v03_pkgimport_unit                    MOVE NE_stage1/105/rc0            -> NE_stage1/105/rc0            off=ok sw={'REGNET_OFF': 'pris'}
+RN/v03_pkgimport_unit_el                 MOVE NE_stage1/105/rc0            -> NE_stage1/105/rc0            off=ok sw={'REGNET_OFF': 'pris'}
+RN/v04_nested_inst                       MOVE NE_stage1/53/rc0             -> EQ58_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+RN/v04_nested_inst_el                    MOVE NE_stage1/53/rc0             -> EQ58_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+RN/v05_assoc_string                      MOVE NE_stage1/47/rc0             -> EQ40_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+RN/v05_assoc_string_el                   MOVE NE_stage1/47/rc0             -> EQ40_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+RN/v06_input_port                        MOVE NE_stage1/130/rc0            -> NE_stage1/130/rc0            off=ok sw={'REGNET_OFF': 'pris'}
+RN/v06_input_port_el                     MOVE NE_stage1/130/rc0            -> NE_stage1/130/rc0            off=ok sw={'REGNET_OFF': 'pris'}
+RN/v07_func_local                             NE_stage1/118/rc0            -> NE_stage1/118/rc0            off=ok sw={'REGNET_OFF': 'pris'}
+RN/v07_func_local_el                          NE_stage1/118/rc0            -> NE_stage1/118/rc0            off=ok sw={'REGNET_OFF': 'pris'}
+RN/v08_static_mod                        MOVE NE_stage1/47/rc0             -> EQ40_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+RN/v08_static_mod_el                     MOVE NE_stage1/47/rc0             -> EQ40_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+RN/v09_class_prop                        MOVE NE_stage1/146/rc0            -> EQ66_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+RN/v09_class_prop_el                     MOVE NE_stage1/146/rc0            -> EQ66_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+RN/v10_modtd_twoinst                     MOVE NE_stage1/145/rc0            -> NE_stage1/86/rc0             off=ok sw={'REGNET_OFF': 'pris'}
+RN/v10_modtd_twoinst_el                  MOVE NE_stage1/145/rc0            -> NE_stage1/86/rc0             off=ok sw={'REGNET_OFF': 'pris'}
+RN/v11_queue_reg_iface_modport           MOVE NE_stage1/58/rc0             -> EQ91_objects/0/rc0           off=ok sw={'REGNET_OFF': 'other'}
+RN/v11_queue_reg_iface_modport_el        MOVE NE_stage1/58/rc0             -> EQ88_objects/0/rc0           off=ok sw={'REGNET_OFF': 'other'}
+RN/v12_regtd_of_regtd                         NE_stage1/17/rc0             -> NE_stage1/17/rc0             off=ok sw={'REGNET_OFF': 'pris'}
+RN/v12_regtd_of_regtd_el                      NE_stage1/17/rc0             -> NE_stage1/17/rc0             off=ok sw={'REGNET_OFF': 'pris'}
+RN/v13_nonansi_out                       MOVE NE_stage1/130/rc0            -> NE_stage1/130/rc0            off=ok sw={'REGNET_OFF': 'pris'}
+RN/v13_nonansi_out_el                    MOVE NE_stage1/130/rc0            -> NE_stage1/130/rc0            off=ok sw={'REGNET_OFF': 'pris'}
+RN/v14_twodecl_init                      MOVE NE_stage1/109/rc0            -> NE_stage1/209/rc0            off=ok sw={'REGNET_OFF': 'pris'}
+RN/v14_twodecl_init_el                   MOVE NE_stage1/109/rc0            -> NE_stage1/209/rc0            off=ok sw={'REGNET_OFF': 'pris'}
+RN/v15_nonansi_decl                      MOVE NE_stage1/34/rc0             -> NE_stage1/34/rc0             off=ok sw={'REGNET_OFF': 'pris'}
+RN/v15_nonansi_decl_el                   MOVE NE_stage1/34/rc0             -> NE_stage1/34/rc0             off=ok sw={'REGNET_OFF': 'pris'}
+RN/v16_block_local                            NE_stage1/214/rc0            -> NE_stage1/214/rc0            off=ok sw={'REGNET_OFF': 'pris'}
+RN/v16_block_local_el                         NE_stage1/222/rc0            -> NE_stage1/222/rc0            off=ok sw={'REGNET_OFF': 'pris'}
+RN/v17_wire_beside                       MOVE NE_stage1/362/rc0            -> EQ69_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+RN/v17_wire_beside_el                    MOVE NE_stage1/370/rc0            -> EQ66_objects/0/rc0           off=ok sw={'REGNET_OFF': 'pris'}
+IN/v01_string_q                          MOVE NE_stage1/17/rc0             -> NE_stage1/17/rc0             off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'law'}
+IN/v01_string_q_el                       MOVE NE_stage1/17/rc0             -> NE_stage1/17/rc0             off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'law'}
+IN/v02_int_assoc                         MOVE NE_stage1/53/rc0             -> EQ63_objects/0/rc0           off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'law'}
+IN/v02_int_assoc_el                      MOVE NE_stage1/53/rc0             -> EQ63_objects/0/rc0           off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'law'}
+IN/v03_bit_dyn_twoinst                   MOVE NE_stage1/53/rc0             -> EQ82_objects/0/rc0           off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'law'}
+IN/v03_bit_dyn_twoinst_el                MOVE NE_stage1/53/rc0             -> EQ82_objects/0/rc0           off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'law'}
+IN/v04_iface_array                       MOVE NE_stage1/58/rc0             -> EQ66_objects/0/rc0           off=ok sw={'IFDYNVAR_OFF': 'other', 'IFDYNNT_OFF': 'other'}
+IN/v04_iface_array_el                    MOVE NE_stage1/58/rc0             -> EQ66_objects/0/rc0           off=ok sw={'IFDYNVAR_OFF': 'other', 'IFDYNNT_OFF': 'other'}
+IN/v05_enum_elem                              NE_stage1/76/rc4             -> NE_stage1/76/rc4             off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'pris'}
+IN/v05_enum_elem_el                           NE_stage1/76/rc4             -> NE_stage1/76/rc4             off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'pris'}
+IN/v06_twodim_dyn                             NE_stage1/122/rc4            -> NE_stage1/122/rc4            off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'pris'}
+IN/v06_twodim_dyn_el                          NE_stage1/122/rc4            -> NE_stage1/122/rc4            off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'pris'}
+IN/v07_modport_port                      MOVE NE_stage1/58/rc0             -> NE_stage1/176/rc0            off=ok sw={'IFDYNVAR_OFF': 'other', 'IFDYNNT_OFF': 'other'}
+IN/v07_modport_port_el                   MOVE NE_stage1/58/rc0             -> NE_stage1/176/rc0            off=ok sw={'IFDYNVAR_OFF': 'other', 'IFDYNNT_OFF': 'other'}
+IN/v08_generic_port                      MOVE NE_stage1/58/rc0             -> EQ101_objects/0/rc0          off=ok sw={'IFDYNVAR_OFF': 'other', 'IFDYNNT_OFF': 'other'}
+IN/v08_generic_port_el                   MOVE NE_stage1/58/rc0             -> EQ100_objects/0/rc0          off=ok sw={'IFDYNVAR_OFF': 'other', 'IFDYNNT_OFF': 'other'}
+IN/v09_pkg_import                        MOVE NE_stage1/83/rc0             -> NE_stage1/83/rc0             off=ok sw={'IFDYNVAR_OFF': 'law', 'IFDYNNT_OFF': 'pris'}
+IN/v09_pkg_import_el                     MOVE NE_stage1/83/rc0             -> NE_stage1/83/rc0             off=ok sw={'IFDYNVAR_OFF': 'law', 'IFDYNNT_OFF': 'pris'}
+IN/v10_class_elem                        MOVE NE_stage1/86/rc0             -> NE_stage1/86/rc0             off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'law'}
+IN/v10_class_elem_el                     MOVE NE_stage1/86/rc0             -> NE_stage1/86/rc0             off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'law'}
+IN/v11_netype_assoc_reg                  MOVE NE_stage1/58/rc0             -> EQ125_objects/0/rc0          off=ok sw={'IFDYNVAR_OFF': 'other', 'IFDYNNT_OFF': 'other'}
+IN/v11_netype_assoc_reg_el               MOVE NE_stage1/58/rc0             -> EQ125_objects/0/rc0          off=ok sw={'IFDYNVAR_OFF': 'other', 'IFDYNNT_OFF': 'other'}
+IN/v12_iface_genblock                         NE_stage1/41/rc0             -> NE_stage1/41/rc0             off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'pris'}
+IN/v12_iface_genblock_el                      NE_stage1/41/rc0             -> NE_stage1/41/rc0             off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'pris'}
+IN/v13_iface_struct_elem                      NE_stage1/74/rc4             -> NE_stage1/74/rc4             off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'pris'}
+IN/v13_iface_struct_elem_el                   NE_stage1/74/rc4             -> NE_stage1/74/rc4             off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'pris'}
+IN/v14_unused_iface                           EQ34_objects/0/rc0           -> EQ34_objects/0/rc0           off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'pris'}
+IN/v14_unused_iface_el                        EQ34_objects/0/rc0           -> EQ34_objects/0/rc0           off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'pris'}
+IN/v15_class_elem_module                      NE_stage1/86/rc0             -> NE_stage1/86/rc0             off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'pris'}
+IN/v15_class_elem_module_el                   NE_stage1/86/rc0             -> NE_stage1/86/rc0             off=ok sw={'IFDYNVAR_OFF': 'pris', 'IFDYNNT_OFF': 'pris'}
+SC/v01_ref_after                         MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ20_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v01_ref_after_el                      MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ17_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v02_ref_after_short                        EQ20_objects/0/rc0           -> EQ20_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v02_ref_after_short_el                     EQ17_objects/0/rc0           -> EQ17_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v03_multiline                              EQ43_objects/0/rc0           -> EQ43_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v03_multiline_el                           EQ37_objects/0/rc0           -> EQ37_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v04_two_lits_paste                         STRICT_NOTEQUAL_endcol/0/rc0 -> STRICT_NOTEQUAL_endcol/0/rc0 off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v04_two_lits_paste_el                      STRICT_NOTEQUAL_endcol/0/rc0 -> STRICT_NOTEQUAL_endcol/0/rc0 off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v05_nested_arg                             EQ20_objects/0/rc0           -> EQ20_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v05_nested_arg_el                          EQ17_objects/0/rc0           -> EQ17_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v06_include                           MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ21_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v06_include_el                        MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ18_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v07_crlf                              MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ20_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v07_crlf_el                           MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ17_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v08_inactive                          MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ20_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v08_inactive_el                       MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ17_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v09_assign_lhs                        MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ37_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v09_assign_lhs_el                     MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ31_objects/0/rc0           off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v10_escaped_quote                          SURELOG_FAIL rc=0            -> SURELOG_FAIL rc=0            off=ok sw={'PPSTREND_OFF': 'pris'}
+SC/v10_escaped_quote_el                       SURELOG_FAIL rc=0            -> SURELOG_FAIL rc=0            off=ok sw={'PPSTREND_OFF': 'pris'}
+AI/v_bitvec                                   NE_stage1/56/rc0             -> NE_stage1/56/rc0             off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_bitvec_el                                NE_stage1/56/rc0             -> NE_stage1/56/rc0             off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_byte                                MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ29_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_byte_el                             MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ29_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_integer                             MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ29_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_integer_el                          MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ29_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_intunsigned                         MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ29_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_intunsigned_el                      MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ29_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_longint                             MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ29_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_longint_el                          MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ29_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_modtd_int                                NE_stage1/17/rc0             -> NE_stage1/17/rc0             off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_modtd_int_el                             NE_stage1/17/rc0             -> NE_stage1/17/rc0             off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_pkgtd_string                             NE_stage1/79/rc0             -> NE_stage1/79/rc0             off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_pkgtd_string_el                          NE_stage1/79/rc0             -> NE_stage1/79/rc0             off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_shortint                            MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ29_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_shortint_el                         MOVE STRICT_NOTEQUAL_col/0/rc0    -> EQ29_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_spaced                              MOVE STRICT_NOTEQUAL_file/0/rc0   -> EQ29_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_spaced_el                           MOVE STRICT_NOTEQUAL_file/0/rc0   -> EQ29_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_unitcls_nonparam                    MOVE NE_stage1/17/rc0             -> NE_stage1/17/rc0             off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_unitcls_nonparam_el                 MOVE NE_stage1/17/rc0             -> NE_stage1/17/rc0             off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_unittd_string                            EQ40_objects/0/rc0           -> EQ40_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+AI/v_unittd_string_el                         EQ40_objects/0/rc0           -> EQ40_objects/0/rc0           off=ok sw={'CLSTDIDXLOC_OFF': 'pris'}
+RT/v01_tp_assoc_int                      MOVE STRICT_NOTEQUAL_col/0/rc0    -> STRICT_NOTEQUAL_fullname/0/rc0 off=ok sw={'RETTWINALIAS_OFF': 'other'}
+RT/v01_tp_assoc_int_el                   MOVE STRICT_NOTEQUAL_col/0/rc0    -> STRICT_NOTEQUAL_fullname/0/rc0 off=ok sw={'RETTWINALIAS_OFF': 'other'}
+RT/v02_extern                            MOVE NE_stage1/78/rc0             -> NE_stage1/64/rc0             off=ok sw={'RETTWINALIAS_OFF': 'pris'}
+RT/v02_extern_el                         MOVE NE_stage1/78/rc0             -> NE_stage1/64/rc0             off=ok sw={'RETTWINALIAS_OFF': 'pris'}
+RT/v03_specialized                       MOVE NE_stage1/186/rc0            -> NE_stage1/186/rc0            off=ok sw={'RETTWINALIAS_OFF': 'pris'}
+RT/v03_specialized_el                    MOVE NE_stage1/186/rc0            -> NE_stage1/186/rc0            off=ok sw={'RETTWINALIAS_OFF': 'pris'}
+RT/v04_derived                           MOVE STRICT_NOTEQUAL_type/0/rc0   -> EQ36_objects/0/rc0           off=ok sw={'RETTWINALIAS_OFF': 'pris'}
+RT/v04_derived_el                        MOVE STRICT_NOTEQUAL_type/0/rc0   -> EQ54_objects/0/rc0           off=ok sw={'RETTWINALIAS_OFF': 'pris'}
+RT/v05_two_tp                            MOVE NE_stage1/68/rc0             -> NE_stage1/68/rc0             off=ok sw={'RETTWINALIAS_OFF': 'pris'}
+RT/v05_two_tp_el                         MOVE NE_stage1/72/rc0             -> NE_stage1/72/rc0             off=ok sw={'RETTWINALIAS_OFF': 'pris'}
+RT/v06_tp_vec_default                    MOVE NE_stage1/626/rc0            -> NE_stage1/626/rc0            off=ok sw={'RETTWINALIAS_OFF': 'pris'}
+RT/v06_tp_vec_default_el                 MOVE NE_stage1/746/rc0            -> NE_stage1/746/rc0            off=ok sw={'RETTWINALIAS_OFF': 'pris'}
+RT/v07_value_param_ctl                        NE_stage1/17/rc0             -> NE_stage1/17/rc0             off=ok sw={'RETTWINALIAS_OFF': 'pris'}
+RT/v07_value_param_ctl_el                     NE_stage1/17/rc0             -> NE_stage1/17/rc0             off=ok sw={'RETTWINALIAS_OFF': 'pris'}
+BP/v01_gen_target                        MOVE NE_stage1/517/rc0            -> NE_stage1/517/rc0            off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v01_gen_target_el                     MOVE NE_stage1/685/rc0            -> NE_stage1/685/rc0            off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v02_implicit_named                    MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ132_objects/0/rc0          off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v02_implicit_named_el                 MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ132_objects/0/rc0          off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v03_two_ifaces                        MOVE NE_stage1/1382/rc0           -> NE_stage1/1382/rc0           off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v03_two_ifaces_el                     MOVE NE_stage1/1398/rc0           -> NE_stage1/1398/rc0           off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v04_internal_sig                      MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ132_objects/0/rc0          off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v04_internal_sig_el                   MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ132_objects/0/rc0          off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v05_param_actual                      MOVE NE_stage1/597/rc0            -> NE_stage1/597/rc0            off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v05_param_actual_el                   MOVE NE_stage1/605/rc0            -> NE_stage1/605/rc0            off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v06_inst_array                        MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ209_objects/0/rc0          off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v06_inst_array_el                     MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ209_objects/0/rc0          off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v07_param_iface                       MOVE NE_stage1/235/rc0            -> NE_stage1/235/rc0            off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v07_param_iface_el                    MOVE NE_stage1/235/rc0            -> NE_stage1/235/rc0            off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v08_deep                              MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ216_objects/0/rc0          off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v08_deep_el                           MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ216_objects/0/rc0          off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v09_samename_parent                   MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ132_objects/0/rc0          off=ok sw={'BINDPORTREF_OFF': 'pris'}
+BP/v09_samename_parent_el                MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ132_objects/0/rc0          off=ok sw={'BINDPORTREF_OFF': 'pris'}
+EB/v01_pkg_kw_nb                         MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ114_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v01_pkg_kw_el_nb                      MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ114_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v02_pkg_tdbase_nb                     MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ128_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v02_pkg_tdbase_el_nb                  MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ128_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v03_unit_cls_nb                       MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ106_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v03_unit_cls_el_nb                    MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ106_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v04_mod_cls_nb                        MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ118_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v04_mod_cls_el_nb                     MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ137_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v05_param_cls_nb                      MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ133_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v05_param_cls_el_nb                   MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ133_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v06_nested_cls_nb                          STRICT_NOTEQUAL_fullname/0/rc0 -> STRICT_NOTEQUAL_fullname/0/rc0 off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v06_nested_cls_el_nb                       STRICT_NOTEQUAL_fullname/0/rc0 -> STRICT_NOTEQUAL_fullname/0/rc0 off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v07_iface_cls_nb                      MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> STRICT_NOTEQUAL_fullname/0/rc0 off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v07_iface_cls_el_nb                   MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> STRICT_NOTEQUAL_fullname/0/rc0 off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v08_formal_nb                         MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ115_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v08_formal_el_nb                      MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ115_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v09_program_cls_nb                    MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ113_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v09_program_cls_el_nb                 MOVE STRICT_NOTEQUAL_fullname/0/rc0 -> EQ113_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v10_noexplicit_base_nb                     EQ104_objects/0/rc0          -> EQ104_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+EB/v10_noexplicit_base_el_nb                  EQ104_objects/0/rc0          -> EQ104_objects/0/rc0          off=ok sw={'CLSENUMBASE_OFF': 'pris'}
+case-views 158 moved 116 enter 74 leave 0 offbad 0 swbad(single-switch) 4

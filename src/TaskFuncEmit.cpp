@@ -25,6 +25,7 @@
 #include "R226.h"
 #include "R231.h"
 #include "R241.h"
+#include "R251.h"
 
 namespace slang_uhdm {
 
@@ -4884,11 +4885,29 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         cl9 = buildUnpackedArrayTypedefTs(
                             *retAlias, std::string(rdt.name), /*cloneForm=*/true);
                     cl9->VpiName(rdt.name);
+                    // § dynTdRetTwinNoAlias251 (r11u251, R11U251_RETTWINALIAS_OFF;
+                    // cases tools/probe/r11u251repro/cases/RT, SimpleUVM
+                    // #202914 uvm_misc.svh 642 `typedef TYPE types_t[$]`
+                    // returned by uvm_utils::find_all) — the return twin of a
+                    // dynamic-container class typedef whose element is a
+                    // class TYPE PARAMETER carries no typedef alias in golden
+                    // (RT r01, r02, r07, r08: the twin's first child is its
+                    // range); ours aliased it to the listing.  Other elements
+                    // are not measured (their cases are stage 1) and keep it.
+                    bool noAlias251 = tpElem204 && cl9 &&
+                                      retAlias->targetType.getType()
+                                              .getCanonicalType()
+                                              .kind != SymbolKind::FixedSizeUnpackedArrayType &&
+                                      r11u251On("R11U251_RETTWINALIAS_OFF");
+                    if (noAlias251)
+                        tr251("dynTdRetTwinNoAlias251", std::string(rdt.name));
+                    else {
                     auto* art = s.MakeRef_typespec();
                     art->VpiFullName(std::string(rdt.name));
                     art->VpiParent(cl9);
                     art->Actual_typespec(retBase);
                     cl9->Typedef_alias(art);
+                    }
                     ts = cl9;
                     typedefRetClone = true;
                     }

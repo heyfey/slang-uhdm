@@ -1,0 +1,8 @@
+law sweep probe.csv:r10uvm46repro/t63a,EQUAL,,equal
+law sweep probe.csv:r10uvm46repro/t63b,EQUAL,,equal
+law sweep probe.csv:r10uvm46repro/t63c,EQUAL,,equal
+law sweep probe.csv:r10uvm46repro/t63d,EQUAL,,equal
+law sweep probe.csv:r10uvm46repro/t63e,EQUAL,,equal
+law sweep surelog.csv:Scoreboard,default,CMP_EQUAL,,,equal
+law sweep surelog.csv:SimpleUVM,default,STRICT_NOTEQUAL,differ:value(50),,differ:value(50)
+law sweep surelog.csv:SimpleUVM,testflags,STRICT_NOTEQUAL,differ:value(50),,differ:value(50)

@@ -1,0 +1,34 @@
+== probe
+914c914
+< r10uvm46repro/t63a,STRICT_NOTEQUAL,differ:fullname(10),differ:fullname(10)
+---
+> r10uvm46repro/t63a,EQUAL,,equal
+916,918c916,918
+< r10uvm46repro/t63c,STRICT_NOTEQUAL,differ:fullname(20),differ:fullname(20)
+< r10uvm46repro/t63d,STRICT_NOTEQUAL,differ:fullname(10),differ:fullname(10)
+< r10uvm46repro/t63e,STRICT_NOTEQUAL,differ:fullname(10),differ:fullname(10)
+---
+> r10uvm46repro/t63c,EQUAL,,equal
+> r10uvm46repro/t63d,EQUAL,,equal
+> r10uvm46repro/t63e,EQUAL,,equal
+== surelog
+844c844
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u251_wdP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u251_wdL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+846c846
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u251_wdP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u251_wdL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+1202c1202
+< Scoreboard,default,STRICT_NOTEQUAL,differ:col(5),,differ:col(5)
+---
+> Scoreboard,default,CMP_EQUAL,,,equal
+1258,1259c1258,1259
+< SimpleUVM,default,STRICT_NOTEQUAL,differ:col(5),,differ:col(5)
+< SimpleUVM,testflags,STRICT_NOTEQUAL,differ:col(5),,differ:col(5)
+---
+> SimpleUVM,default,STRICT_NOTEQUAL,differ:value(50),,differ:value(50)
+> SimpleUVM,testflags,STRICT_NOTEQUAL,differ:value(50),,differ:value(50)
+== uhdm2rtlil
+== downstream

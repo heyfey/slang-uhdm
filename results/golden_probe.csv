@@ -911,11 +911,11 @@ r10uvm36repro/t48a,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
 r10uvm36repro/t48c,EQUAL,,equal
 r10uvm37repro/t51a,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
 r10uvm38repro/t54a,EQUAL,,equal
-r10uvm46repro/t63a,STRICT_NOTEQUAL,differ:fullname(10),differ:fullname(10)
+r10uvm46repro/t63a,EQUAL,,equal
 r10uvm46repro/t63b,EQUAL,,equal
-r10uvm46repro/t63c,STRICT_NOTEQUAL,differ:fullname(20),differ:fullname(20)
-r10uvm46repro/t63d,STRICT_NOTEQUAL,differ:fullname(10),differ:fullname(10)
-r10uvm46repro/t63e,STRICT_NOTEQUAL,differ:fullname(10),differ:fullname(10)
+r10uvm46repro/t63c,EQUAL,,equal
+r10uvm46repro/t63d,EQUAL,,equal
+r10uvm46repro/t63e,EQUAL,,equal
 r10uvm47repro/t65d,EQUAL,,equal
 r10uvm47repro/t66a,EQUAL,,equal
 r10uvm48repro/t67a,EQUAL,,equal

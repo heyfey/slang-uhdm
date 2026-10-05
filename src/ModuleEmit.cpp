@@ -40,6 +40,7 @@
 #include "R243.h"
 #include "R245.h"
 #include "R249.h"
+#include "R251.h"
 
 namespace slang_uhdm {
 
@@ -91,6 +92,83 @@ static bool r11v196Law(const char* sw) {
         return false;
     return getenv(sw) == nullptr;
 }
+// § regTdArrElabIsNet251 (r11u251, R11U251_REGNET_OFF; grid
+// tools/probe/r11u251repro/cases/RN) — AN ELABORATED SIGNAL WRITTEN AS A BARE
+// NAME OF A `reg`-KEYWORD UNPACKED-ARRAY TYPEDEF IS LISTED AMONG THE NETS.
+// Surelog NetlistElaboration::elabSignal decides net-vs-var from the
+// Signal's type, which for a typedef written over a built-in is the
+// typedef's own keyword (CompileHelper's SimpleType): `logic`, `bit` and the
+// atoms make a variable, `reg` keeps isNet; the net branch's SIMPLE_TYPEDEF
+// arm then hands every typespec that is not logic, struct, enum, bit or byte
+// (here the array_typespec) to getSimpleVarFromTypespec, which makes the
+// array_var (no vpiVisibility), and with no unpacked dimension of the
+// declarator's own it lands in `nets->push_back((net*)obj)`.  Golden grid RN:
+// $unit, module-body and imported (`import p::*`) typedefs, fixed, dynamic,
+// queue, associative and 2-D shapes, ports (ANSI and non-ANSI), two
+// instances, an initializer: vpiNet.  A package-qualified name (`p::f_t`,
+// paClass_scope), `var`, a typedef over a named type (`typedef r_t a_t[4]`,
+// `typedef f_t g_t`), a packed-struct element and `logic`/`integer`/`bit`
+// elements stay vpiVariables (g05, g06, g08, g09, g17, g18, g24).  A
+// declarator with its own unpacked dimension (g14) makes an array_net in
+// golden and is left alone.
+std::unordered_set<const void*> g251RegNetVars;
+static bool regTdArrElabIsNet251(const Symbol& sym) {
+    if (!r11u251On("R11U251_REGNET_OFF"))
+        return false;
+    auto* dt = sym.getDeclaredType();
+    if (!dt)
+        return false;
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType ||
+        tsyn->as<syntax::NamedTypeSyntax>().name->kind !=
+            syntax::SyntaxKind::IdentifierName)
+        return false;
+    auto& t = dt->getType();
+    if (t.kind != SymbolKind::TypeAlias)
+        return false;
+    auto& ta = t.as<TypeAliasType>();
+    auto* tgt = ta.targetType.getTypeSyntax();
+    if (!tgt || tgt->kind != syntax::SyntaxKind::RegType ||
+        !ta.getCanonicalType().isUnpackedArray())
+        return false;
+    auto* syn = sym.getSyntax();
+    if (!syn)
+        return false;
+    if (syn->kind == syntax::SyntaxKind::Declarator &&
+        !syn->as<syntax::DeclaratorSyntax>().dimensions.empty())
+        return false;
+    for (const syntax::SyntaxNode* p = syn->parent; p; p = p->parent) {
+        if (p->kind == syntax::SyntaxKind::DataDeclaration) {
+            for (auto tok : p->as<syntax::DataDeclarationSyntax>().modifiers)
+                if (tok.kind == parsing::TokenKind::VarKeyword)
+                    return false;
+            break;
+        }
+        const syntax::PortHeaderSyntax* hdr = nullptr;
+        if (p->kind == syntax::SyntaxKind::ImplicitAnsiPort)
+            hdr = p->as<syntax::ImplicitAnsiPortSyntax>().header;
+        else if (p->kind == syntax::SyntaxKind::PortDeclaration)
+            hdr = p->as<syntax::PortDeclarationSyntax>().header;
+        if (p->kind == syntax::SyntaxKind::ImplicitAnsiPort ||
+            p->kind == syntax::SyntaxKind::PortDeclaration) {
+            if (hdr && hdr->kind == syntax::SyntaxKind::VariablePortHeader &&
+                hdr->as<syntax::VariablePortHeaderSyntax>().varKeyword.valid())
+                return false;
+            break;
+        }
+    }
+    return true;
+}
+// The placement itself: the array_var joins the net list and drops the
+// vpiVisibility only the variable branch stamps.
+static void regTdArrElabNetPush251(UHDM::VectorOfnet* nets,
+                                   UHDM::array_var* av) {
+    av->VpiVisibility(0);
+    g251RegNetVars.insert((const UHDM::any*)av);
+    nets->push_back(reinterpret_cast<UHDM::net*>(av));
+    tr251("regTdArrElabIsNet251", std::string(av->VpiFullName()));
+}
+
 static bool r191ME(const char* sw) {
     if (getenv("R11U191_OFF") != nullptr || getenv("R11U196_OFF") != nullptr)
         return false;
@@ -16552,6 +16630,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         rt9->VpiFullName(fullName);
                         rt9->VpiParent(av9);
                         UHDM::array_typespec* cp106 = nullptr;
+                        // § regTdArrElabIsNet251 — the net branch hands
+                        // getSimpleVarFromTypespec the typedef's own
+                        // typespec: no elaboration fold (grid RN g02, g16).
+                        bool regNet251 = regTdArrElabIsNet251(*it.sym);
                         if (unpackedArrayTypedefCopies(tu9.as<TypeAliasType>())) {
                             cp106 = copyArrayTypedefTs(
                                 (UHDM::array_typespec*)aliasTs9,
@@ -16560,7 +16642,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             // a body VARIABLE only (a net or a port never
                             // reaches makeVar_); § utdVarKwDecline106v: a
                             // `var` declaration keeps the operation.
-                            if (!pkgHome9 && !it.port &&
+                            if (!pkgHome9 && !it.port && !regNet251 &&
                                 it.sym->kind == SymbolKind::Variable &&
                                 !(utdVarKwDecline106v &&
                                   hasVarKeywordDecl(*it.sym)))
@@ -16572,7 +16654,12 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         av9->Typespec(rt9);
                         topNets[it.sym] = av9;
                         sigOrder.emplace_back(it.sym, av9);
-                        vars->push_back(av9);
+                        // § regTdArrElabIsNet251 (predicate at the top of
+                        // this file).
+                        if (regNet251)
+                            regTdArrElabNetPush251(nets, av9);
+                        else
+                            vars->push_back(av9);
                         continue;
                     }
                 }
@@ -16848,7 +16935,11 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             if (auto* av = emitDynArrayVar(*it.sym, name, fullName, m, ts)) {
                 topNets[it.sym] = av;
                 sigOrder.emplace_back(it.sym, av);
-                vars->push_back(av);
+                // § regTdArrElabIsNet251 (predicate above).
+                if (regTdArrElabIsNet251(*it.sym))
+                    regTdArrElabNetPush251(nets, av);
+                else
+                    vars->push_back(av);
                 continue;
             }
         }
@@ -16944,7 +17035,11 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                            : emitArrayVar(*it.sym, name, fullName, m, ts)) {
             topNets[it.sym] = av;
             sigOrder.emplace_back(it.sym, av);
-            vars->push_back(av);
+            // § regTdArrElabIsNet251 (predicate above).
+            if (regTdArrElabIsNet251(*it.sym))
+                regTdArrElabNetPush251(nets, av);
+            else
+                vars->push_back(av);
             continue;
         }
         // § namedTypePackedDimElabVar32 — a packed-dim TYPE-PARAMETER
@@ -19644,6 +19739,39 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         ii->VpiFullName(std::string(parentM->VpiFullName()) +
                                         "." + std::string(child.name));
                         bindIfaceTwinSrc[parentM].push_back(ii);
+                        // § bindIfacePortRefDefName251 (r11u251,
+                        // R11U251_BINDPORTREF_OFF; cases
+                        // tools/probe/r11u251repro/cases/BP, SimpleUVM's ten
+                        // `add_sub_if0` port references) — the port
+                        // connections of such a bound interface are named
+                        // under the SAME parent-based path: a high-conn
+                        // reference as `<target's parent>.<name>`
+                        // (`work@top.clk`, the actual `work@top.dut.clk`), a
+                        // low-conn one as `<interface path>.<port>`
+                        // (`work@top.add_sub_if0.clk`); Surelog's port
+                        // elaboration names them from the bind instance's
+                        // parent chain.  Only plain references move.
+                        if (r11u251On("R11U251_BINDPORTREF_OFF") && ii->Ports())
+                            for (auto* pt251 : *ii->Ports()) {
+                                if (auto* hc = pt251->High_conn();
+                                    hc && hc->UhdmType() == UHDM::uhdmref_obj &&
+                                    !hc->VpiName().empty()) {
+                                    ((UHDM::ref_obj*)hc)->VpiFullName(
+                                        std::string(parentM->VpiFullName()) + "." +
+                                        std::string(hc->VpiName()));
+                                    tr251("bindIfacePortRefDefName251",
+                                          std::string(((UHDM::ref_obj*)hc)->VpiFullName()));
+                                }
+                                if (auto* lc = pt251->Low_conn();
+                                    lc && lc->UhdmType() == UHDM::uhdmref_obj &&
+                                    !lc->VpiName().empty()) {
+                                    ((UHDM::ref_obj*)lc)->VpiFullName(
+                                        std::string(ii->VpiFullName()) + "." +
+                                        std::string(lc->VpiName()));
+                                    tr251("bindIfacePortRefDefName251",
+                                          std::string(((UHDM::ref_obj*)lc)->VpiFullName()));
+                                }
+                            }
                     }
                 }
                 continue;
@@ -47777,6 +47905,55 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
                 ifnt65 = b67;
             else if (int32_t u65 = unpackedAliasNetType65(*it.sym))
                 ifnt65 = u65;  // the dimensioned half: `wire v_t n5 [2]` = 36
+            // § ifaceDynAliasNetType251 (r11u251, R11U251_IFDYNNT_OFF; cases
+            // tools/probe/r11u251repro/cases/IN, v11u249 D/d02, N/n04) — the
+            // interface definition road's twin of § dynAliasNetType249: a
+            // net written as a bare typedef name whose one-level DYNAMIC,
+            // QUEUE or ASSOCIATIVE container holds an alias-free four-state
+            // packed vector or scalar prints 36 (`reg` 48) on an
+            // INSTANTIATED interface, as the fixed-size half above does.
+            else if (!it.port && !classScopeTypeRef(*it.sym) &&
+                     r11u251On("R11U251_IFDYNNT_OFF"))
+                if (auto* dt251 = it.sym->getDeclaredType()) {
+                    auto* ts251 = dt251->getTypeSyntax();
+                    const Type* e251 = nullptr;
+                    if (ts251 && ts251->kind == syntax::SyntaxKind::NamedType &&
+                        ts251->as<syntax::NamedTypeSyntax>().name->kind ==
+                            syntax::SyntaxKind::IdentifierName &&
+                        dt251->getType().kind == SymbolKind::TypeAlias) {
+                        auto& tt251 = dt251->getType()
+                                          .as<TypeAliasType>()
+                                          .targetType.getType();
+                        if (tt251.kind == SymbolKind::DynamicArrayType)
+                            e251 = &tt251.as<DynamicArrayType>().elementType;
+                        else if (tt251.kind == SymbolKind::QueueType)
+                            e251 = &tt251.as<QueueType>().elementType;
+                        else if (tt251.kind == SymbolKind::AssociativeArrayType)
+                            e251 = &tt251.as<AssociativeArrayType>().elementType;
+                    }
+                    for (const Type* p251 = e251; p251;) {
+                        if (p251->kind == SymbolKind::TypeAlias) {
+                            e251 = nullptr;
+                            break;
+                        }
+                        p251 = p251->kind == SymbolKind::PackedArrayType
+                                   ? &p251->as<PackedArrayType>().elementType
+                                   : nullptr;
+                    }
+                    if (e251) {
+                        auto& ec251 = e251->getCanonicalType();
+                        if ((ec251.kind == SymbolKind::PackedArrayType ||
+                             ec251.kind == SymbolKind::ScalarType) &&
+                            ec251.isFourState()) {
+                            ifnt65 = aliasVectorKeyword(dt251->getType()) ==
+                                             syntax::SyntaxKind::RegType
+                                         ? vpiReg
+                                         : 36;
+                            tr251("ifaceDynAliasNetType251",
+                                  std::string(it.sym->name));
+                        }
+                    }
+                }
         }
         if (ifnt65)
             n->VpiNetType(ifnt65);
@@ -50212,6 +50389,80 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 netMap[it.sym] = mn93;
             elabNets->push_back(mn93);
             continue;
+        }
+        // § regTdArrElabIsNet251 on the INTERFACE elaborated road (grid RN
+        // g11): the home view lists the bare array_var of a `reg`
+        // unpacked-array typedef among its nets, bound to the typedef's
+        // listing (a per-reference copy for a built-in element), exactly as
+        // the module road's typedef arm writes it; ours wrote the general
+        // array_var with its vpiReg element under vpiVariables, and dropped
+        // a dynamic one.  A port view is not measured and is left alone.
+        // § ifaceDynTdElabVar251 (R11U251_IFDYNVAR_OFF; cases IN): the same
+        // arm writes the VARIABLE twin — a bare-named typedef of a one-level
+        // dynamic, queue or associative container whose keyword is not
+        // `reg` is golden's bare array_var under vpiVariables (vpiVisibility
+        // 1), where the interface road wrote nothing at all.
+        bool regNet251 = !portView && regTdArrElabIsNet251(*it.sym);
+        bool dynVar251 = false;
+        if (!portView && !regNet251 && !it.port &&
+            r11u251On("R11U251_IFDYNVAR_OFF"))
+            if (auto* dtv251 = it.sym->getDeclaredType()) {
+                auto* tsv251 = dtv251->getTypeSyntax();
+                auto* dsv251 = it.sym->getSyntax();
+                if (tsv251 && tsv251->kind == syntax::SyntaxKind::NamedType &&
+                    tsv251->as<syntax::NamedTypeSyntax>().name->kind ==
+                        syntax::SyntaxKind::IdentifierName &&
+                    dtv251->getType().kind == SymbolKind::TypeAlias &&
+                    dsv251 && dsv251->kind == syntax::SyntaxKind::Declarator &&
+                    dsv251->as<syntax::DeclaratorSyntax>().dimensions.empty()) {
+                    auto k251 = dtv251->getType()
+                                    .as<TypeAliasType>()
+                                    .targetType.getType()
+                                    .kind;
+                    dynVar251 = k251 == SymbolKind::DynamicArrayType ||
+                                k251 == SymbolKind::QueueType ||
+                                k251 == SymbolKind::AssociativeArrayType;
+                }
+            }
+        if (regNet251 || dynVar251) {
+            auto& tu251 = it.sym->getDeclaredType()->getType();
+            UHDM::typespec* aliasTs251 = nullptr;
+            if (auto ti = typedefTs.find(&tu251); ti != typedefTs.end())
+                aliasTs251 = ti->second;
+            else if (auto tp = pkgTopTypedefTs.find(&tu251);
+                     tp != pkgTopTypedefTs.end())
+                aliasTs251 = tp->second;
+            if (aliasTs251 &&
+                aliasTs251->UhdmType() == UHDM::uhdmarray_typespec) {
+                auto* av251 = s.MakeArray_var();
+                av251->VpiName(name);
+                av251->VpiFullName(fullName);
+                av251->VpiParent(iface);
+                setLoc(av251, nameSpan(it.sym->location, it.sym->name));
+                bool pkgHome251 = false;
+                if (auto sh = tu251.as<TypeAliasType>().getParentScope())
+                    pkgHome251 = sh->asSymbol().kind == SymbolKind::Package;
+                auto* rt251 = s.MakeRef_typespec();
+                rt251->VpiFullName(fullName);
+                rt251->VpiParent(av251);
+                UHDM::array_typespec* cp251 = nullptr;
+                if (unpackedArrayTypedefCopies(tu251.as<TypeAliasType>()))
+                    cp251 = copyArrayTypedefTs(
+                        (UHDM::array_typespec*)aliasTs251,
+                        std::string(tu251.name), pkgHome251, false);
+                rt251->Actual_typespec(cp251 ? (UHDM::typespec*)cp251
+                                             : aliasTs251);
+                av251->Typespec(rt251);
+                netMap[it.sym] = av251;
+                if (regNet251)
+                    regTdArrElabNetPush251(elabNets, av251);
+                else {
+                    av251->VpiVisibility(1);
+                    vars->push_back(av251);
+                    tr251("ifaceDynTdElabVar251", fullName);
+                }
+                continue;
+            }
         }
         // A struct-typed interface member is a struct_net (Nets, wire) in the
         // elab HOME view, its typespec ref sharing the typedef's

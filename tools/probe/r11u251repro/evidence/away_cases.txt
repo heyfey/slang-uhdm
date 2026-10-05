@@ -1,0 +1,17 @@
+probe/r10uvm46repro/t63a dist 10 -> 0 lost=0 gained=10
+probe/r10uvm46repro/t63a_el dist 10 -> 0 lost=0 gained=10
+probe/r10uvm46repro/t63c dist 20 -> 0 lost=0 gained=20
+probe/r10uvm46repro/t63c_el dist 20 -> 0 lost=0 gained=20
+probe/r10uvm46repro/t63d dist 10 -> 0 lost=0 gained=10
+probe/r10uvm46repro/t63d_el dist 10 -> 0 lost=0 gained=10
+probe/r10uvm46repro/t63e dist 10 -> 0 lost=0 gained=10
+probe/r10uvm46repro/t63e_el dist 10 -> 0 lost=0 gained=10
+BP/b08_wildcard dist 4 -> 2 lost=0 gained=2
+BP/b08_wildcard_el dist 4 -> 2 lost=0 gained=2
+BP/b09_bitsel dist 4 -> 1 lost=0 gained=3
+BP/b09_bitsel_el dist 4 -> 1 lost=0 gained=3
+RT/r01_tp_assoc_str dist 10 -> 0 lost=0 gained=3
+RT/r01_tp_assoc_str_el dist 12 -> 0 lost=0 gained=5
+RT/r06_tp_dyn dist 11 -> 6 lost=0 gained=0
+RT/r06_tp_dyn_el dist 15 -> 10 lost=0 gained=0
+swapped t63a: dist 0 -> 10 lost=10 gained=0

@@ -1,0 +1,3 @@
+probe (pristine rerun from the law worktree, /tmp/v11u251_wdQ, vs law): listed=4087 movers=4: r10uvm46repro__t63a t63c t63d t63e
+downstream slang lanes: listed=805 movers=0
+cmds.txt audit: wdP cmds=3315 pristine=3265 law=0 maintree=0; wdL cmds=3315 pristine=0 law=3265 maintree=0
