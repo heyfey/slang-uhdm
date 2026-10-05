@@ -1,0 +1,5 @@
+# frozen 2026-10-05T10:20:34-04:00 before the law sweep; binary md5 51a675644dac5543ff49eee50200bf38
+surelog MiniAmiq/default cloneDotLoopVarBaseNoDrill248:1 cloneLoopVarClassPropStringTs248:1 cloneWithOperandChainName248:36
+surelog MiniAmiq/testflags cloneDotLoopVarBaseNoDrill248:1 cloneLoopVarClassPropStringTs248:1 cloneWithOperandChainName248:36
+surelog SeqDriver/default cloneDotLoopVarBaseNoDrill248:1 cloneLoopVarClassPropStringTs248:1 cloneWithOperandChainName248:36
+surelog SeqDriver/testflags cloneDotLoopVarBaseNoDrill248:1 cloneLoopVarClassPropStringTs248:1 cloneWithOperandChainName248:36

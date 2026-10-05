@@ -21,6 +21,7 @@
 #include "R238.h"
 #include "R240.h"
 #include "R242.h"
+#include "R248.h"
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
@@ -26036,6 +26037,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
 // link and fold before this point has reached the home objects they copy).
 void drainImportCloneLocalCopies175(UHDM::Serializer& s);
 void drainNewArrParent244();  // § cloneNewArrayCallParented244 (ExprEmit.cpp)
+void drainWithChain248();  // § cloneWithOperandChainName248 (ExprEmit.cpp)
 void drainHpSelIdxTrail244(UHDM::Serializer& s);  // § hpSelIdxPathTrailByChain244 (ExprEmit.cpp)
 void drainLvIpsChain244(UHDM::Serializer& s);  // § lvHpIpsOperandChain244 (ExprEmit.cpp)
 // § refFullNameThroughNamedExpr175 (r11u175) — defined in ExprEmit.cpp.
@@ -26107,6 +26109,8 @@ void UhdmExporter::drainPaNameCopySrc38() {
     strLitContOwnerDrain224(s);    // § strLitContOwnerEnd224 (r11u224)
     strLitPpLineShiftDrain224(s);  // § strLitPpEscIdShift224 (r11u224)
     drainNewArrParent244();  // § cloneNewArrayCallParented244 (r11u244)
+    // § callArgCopyElabNearestOp248v (v11u248): the view the drain judges.
+    callArgCopyElabView248v() = elabUhdmView121;
     drainCallArgCopyTs246(nestedParamTsRef6);  // § callArgParamCopyOwnTs246 (r11u246)
     drainImportCloneLocalCopies175(s);
     refFullNameThroughNamedExpr175(s);
@@ -26122,6 +26126,7 @@ void UhdmExporter::drainPaNameCopySrc38() {
     // § fwdPkgRefClassScopeSpan227 (r11u227): a forward package reference
     // in expression grammar spans its `Q::` (every listing is built here).
     fwdPkgRefClassScopeSpanDrain227(s);
+    drainWithChain248();  // § cloneWithOperandChainName248 (r11u248)
     // § portViewNestedPatTsNamed154 — A PORT VIEW'S NESTED PATTERN TYPESPEC
     // IS NAMED BY THE VIEW.  An interface parameter whose default is a
     // NESTED assignment pattern (`parameter cfg_t CFG = '{BUS: '{DAT:
@@ -32829,6 +32834,22 @@ void UhdmExporter::drainShareDefParamTs() {
             tr238("foreachClassPropStringTsShared238_miss");
         }
     deferredStrTs238().clear();
+    // § cloneLoopVarClassPropStringTs248 — the clone's shared loop variable
+    // whose property typespec was never bound keeps the base's placeholder.
+    for (auto& [rt248, sh248] : deferredCloneStrTs248())
+        if (rt248 && !rt248->Actual_typespec()) {
+            auto* u248 = s.MakeUnsupported_typespec();
+            u248->VpiName(sh248->VpiName());
+            u248->VpiParent(sh248);
+            u248->VpiFile(sh248->VpiFile());
+            u248->VpiLineNo(sh248->VpiLineNo());
+            u248->VpiColumnNo(sh248->VpiColumnNo());
+            u248->VpiEndLineNo(sh248->VpiEndLineNo());
+            u248->VpiEndColumnNo(sh248->VpiEndColumnNo());
+            rt248->Actual_typespec(u248);
+            tr248("cloneLoopVarClassPropStringTs248_miss");
+        }
+    deferredCloneStrTs248().clear();
     // § parenCastWidthRefPkgBare207 — design-final: a cast-width ref left on
     // an IMPORTED copy (vpiImported, a re-exporting package's listing that
     // the package-scope cast site met last) binds the parameter the

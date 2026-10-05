@@ -1,0 +1,38 @@
+// § cloneWithOperandChainName248
+package p;
+  function automatic int g(int v);
+    return v + 1;
+  endfunction
+  class c;
+    c m_sync[$];
+    int m_v[$];
+    bit [7:0] m_b[$];
+    int m_k;
+    function int get();
+      return m_k;
+    endfunction
+    extern function void f(c a);
+  endclass
+  function void c::f(c a);
+    int fi[$];
+    int lim;
+    fi = m_v.find(u) with (u > lim);
+    lim = 0;
+  endfunction
+endpackage
+package q;
+  import p::*;
+  class u;
+    function void g2();
+      c x;
+      x = null;
+    endfunction
+  endclass
+endpackage
+module top;
+  import p::*;
+  import q::*;
+  u w;
+  assign imp_n = 1'b1;
+  initial w = new();
+endmodule

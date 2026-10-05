@@ -1,0 +1,28 @@
+== MiniAmiq/default
+#78478 type
+  A: 14	int_typespec					0	0	0	0				
+  B: 14	class_typespec	uvm_phase			uvm_phase.svh	575	33	575	42				
+objects 435559 vs 434734
+fields: type=1 name=1 file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== MiniAmiq/testflags
+#78478 type
+  A: 14	int_typespec					0	0	0	0				
+  B: 14	class_typespec	uvm_phase			uvm_phase.svh	575	33	575	42				
+objects 435559 vs 434734
+fields: type=1 name=1 file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== SeqDriver/default
+#78434 type
+  A: 14	int_typespec					0	0	0	0				
+  B: 14	class_typespec	uvm_phase			uvm_phase.svh	575	33	575	42				
+objects 475526 vs 474778
+fields: type=1 name=1 file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== SeqDriver/testflags
+#78446 type
+  A: 14	int_typespec					0	0	0	0				
+  B: 14	class_typespec	uvm_phase			uvm_phase.svh	575	33	575	42				
+objects 475538 vs 474790
+fields: type=1 name=1 file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type

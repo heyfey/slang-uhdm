@@ -20,6 +20,7 @@
 #include <uhdm/clone_tree.h>
 #include "R244.h"
 #include "R246.h"
+#include "R248.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -4582,6 +4583,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             // the placeholder.  Grid cases/g k02, k04-k06.
                             std::string fn183 = joinRef(prefix, lvn);
                             UHDM::typespec* res183 = nullptr;
+                            // § cloneLoopVarClassPropStringTs248: the
+                            // property's ref_typespec, when its actual is
+                            // bound only by the class listing's drain.
+                            UHDM::ref_typespec* deferStr248 = nullptr;
                             if (r11u183LawSE("R11U183_UVMCOPY_OFF") &&
                                 r11u183LawSE("R11U183_CLONELV_OFF")) {
                                 std::string home183;
@@ -4672,6 +4677,87 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                           std::string(arrSym->name));
                                                 }
                                             }
+                                    // § cloneLoopVarClassPropStringTs248
+                                    // (R11U248_CLONEPROPSTR_OFF) — the
+                                    // STRING half of the same home object:
+                                    // a foreach over a class property that is
+                                    // a plain `string` iterates its
+                                    // characters, and the home listing's
+                                    // lateTypedefBinding resolves the loop
+                                    // variable as § foreachClassPropStringVar22
+                                    // / § foreachClassPropStringTsShared238
+                                    // decode (getSimpleVarFromTypespec of the
+                                    // PROPERTY's own string_typespec, located
+                                    // at the written `string` keyword); the
+                                    // shared clone object carries that same
+                                    // object: golden `ref_var
+                                    // uvm_pkg::uvm_component::get_depth::i`
+                                    // over `foreach (m_name[i])` binds
+                                    // string_typespec 1664:3 (MiniAmiq #83613,
+                                    // SeqDriver #83571), ours kept the
+                                    // unsupported placeholder.  The gate is
+                                    // § cloneLoopVarClassPropArrayTs238's; a
+                                    // typedef'd string property keeps the
+                                    // placeholder.  Grid cases/S.
+                                    if (!res183 &&
+                                        r11u248On("R11U248_CLONEPROPSTR_OFF"))
+                                        if (auto* pcs248 = arrSym->getParentScope();
+                                            pcs248 &&
+                                            pcs248->asSymbol().kind ==
+                                                SymbolKind::ClassType)
+                                            if (auto* pdt248 =
+                                                    arrSym->getDeclaredType();
+                                                pdt248 &&
+                                                pdt248->getType()
+                                                        .getCanonicalType()
+                                                        .kind ==
+                                                    SymbolKind::StringType) {
+                                                const Scope* hp248 = pcs248;
+                                                while (hp248 &&
+                                                       hp248->asSymbol().kind !=
+                                                           SymbolKind::Package)
+                                                    hp248 = hp248->asSymbol()
+                                                                .getParentScope();
+                                                if ((arrMember9 ||
+                                                     (hp248 &&
+                                                      !pkgImportedByUnit21(
+                                                          hp248->asSymbol()))))
+                                                    if (auto* cd248 = classDefnFor(
+                                                            pcs248->asSymbol()
+                                                                .as<slang::ast::ClassType>());
+                                                        cd248 && cd248->Variables())
+                                                        for (auto* v248 : *cd248->Variables())
+                                                            if (v248 &&
+                                                                v248->UhdmType() ==
+                                                                    UHDM::uhdmstring_var &&
+                                                                v248->VpiName() ==
+                                                                    arrSym->name &&
+                                                                v248->Typespec()) {
+                                                                auto* pa248 =
+                                                                    v248->Typespec()
+                                                                        ->Actual_typespec();
+                                                                if (pa248 &&
+                                                                    pa248->UhdmType() ==
+                                                                        UHDM::uhdmstring_typespec &&
+                                                                    pa248->VpiName().empty()) {
+                                                                    res183 = pa248;
+                                                                    tr248("cloneLoopVarClassPropStringTs248",
+                                                                          std::string("now ") +
+                                                                              std::string(arrSym->name));
+                                                                }
+                                                                else if (!pa248 &&
+                                                                         pdt248->getTypeSyntax() &&
+                                                                         pdt248->getTypeSyntax()->kind ==
+                                                                             syntax::SyntaxKind::StringType) {
+                                                                    deferStr248 =
+                                                                        v248->Typespec();
+                                                                    tr248("cloneLoopVarClassPropStringTs248",
+                                                                          std::string("defer ") +
+                                                                              std::string(arrSym->name));
+                                                                }
+                                                                break;
+                                                            }
+                                            }
                                     // An ASSOCIATIVE array's loop variable is
                                     // the declaration's INDEX typespec object
                                     // (getSimpleVarFromTypespec of its
@@ -4710,6 +4796,59 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                     if (res183)
                                         tr183SE("cloneLoopVarHomeObject183");
                                 }
+                                // § cloneDotLoopVarBaseNoDrill248
+                                // (R11U248_CLONEDOTBASE_OFF) — the shared
+                                // home object of a DOTTED loop list's loop
+                                // variable inherits the home listing's
+                                // § dottedForeachLoopVarBaseMustDrill137
+                                // answer: when the path's BASE is an
+                                // enclosing foreach's loop variable whose
+                                // home object is not a class_var or a
+                                // struct_var (its shared object binds
+                                // neither a class_typespec nor a
+                                // struct_typespec), decodeHierPath answers
+                                // nothing, swapForSpecifiedVar
+                                // (UhdmWriter.cpp:2550) mints the bare
+                                // int_var + int_typespec, and the home
+                                // object every clone view binds carries
+                                // that unlocated int_typespec, never the
+                                // member's own index typespec.  UVM
+                                // uvm_phase::get_predecessors_for_successors
+                                // `foreach (pred_of_succ[pred]) ...
+                                // foreach (pred.m_predecessors[next_pred])`
+                                // with `output bit pred_of_succ[uvm_phase]`
+                                // (MiniAmiq #78478, SeqDriver #78434 /
+                                // #78446; cases/D d01).  A base whose home
+                                // object is still the unsupported
+                                // placeholder is not judged.
+                                if (arrMember9 && !dotBase137.empty() &&
+                                    r11u248On("R11U248_CLONEDOTBASE_OFF"))
+                                    if (auto ob248 = openForeachVars.find(dotBase137);
+                                        ob248 != openForeachVars.end() &&
+                                        ob248->second &&
+                                        ob248->second->UhdmType() ==
+                                            UHDM::uhdmref_var)
+                                        if (auto* ag248 = ((UHDM::ref_var*)ob248->second)
+                                                              ->Actual_group();
+                                            ag248 &&
+                                            ag248->UhdmType() == UHDM::uhdmref_var)
+                                            if (auto* brt248 =
+                                                    ((UHDM::ref_var*)ag248)->Typespec())
+                                                if (auto* bts248 =
+                                                        brt248->Actual_typespec()) {
+                                                    auto bk248 = bts248->UhdmType();
+                                                    if (bk248 != UHDM::uhdmclass_typespec &&
+                                                        bk248 != UHDM::uhdmstruct_typespec &&
+                                                        bk248 !=
+                                                            UHDM::uhdmunsupported_typespec) {
+                                                        tr248("cloneDotLoopVarBaseNoDrill248",
+                                                              std::string(res183 ? "res "
+                                                                                 : "unres ") +
+                                                                  dotBase137 + " " +
+                                                                  std::string(name));
+                                                        res183 = s.MakeInt_typespec();
+                                                    }
+                                                }
                             }
                             sh37 = s.MakeRef_var();
                             sh37->VpiName(name);
@@ -4717,7 +4856,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             sh37->VpiParent(fs);
                             setLoc(sh37, span);
                             UHDM::typespec* uts37 = res183;
-                            if (!uts37) {
+                            if (!uts37 && !deferStr248) {
                                 auto* u37 = s.MakeUnsupported_typespec();
                                 u37->VpiName(name);
                                 u37->VpiParent(sh37);
@@ -4728,6 +4867,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             lrt37->VpiFullName(fn183);
                             lrt37->VpiParent(sh37);
                             lrt37->Actual_typespec(uts37);
+                            if (!uts37 && deferStr248) {
+                                pendingLoopVarTs9.push_back({lrt37, deferStr248});
+                                deferredCloneStrTs248().push_back({lrt37, sh37});
+                            }
                             sh37->Typespec(lrt37);
                         }
                         lv0->Actual_group(sh37);

@@ -1,0 +1,6 @@
+# v11u248 prediction for the fix binary (5b42566f) against the law binary (51a67564), frozen before the fix sweep.
+# The fix (§ callArgCopyElabNearestOp248v) acts only inside § callArgCopyReduceOpModel248's branch (sel && opaque248)
+# and only in the --elabuhdm view; the law's own trace census (r11u248 evidence/census) and this verifier's law sweep
+# show that branch firing in no corpus, probe or downstream database (law vs pristine movers: the 4 MiniAmiq/SeqDriver
+# databases only, all from the three other laws). Predicted movers fix vs law: 0 corpus, 0 probe, 0 downstream.
+2026-10-05T11:06:24-04:00

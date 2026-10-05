@@ -34,6 +34,7 @@
 #include "R236.h"
 #include "R244.h"
 #include "R246.h"
+#include "R248.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -5063,6 +5064,120 @@ UHDM::constant* UhdmExporter::emptySlotArg24(
 // the parse view's alone (set by the caller).  Grid
 // tools/probe/r11u227repro/cases/NP.
 static bool newArrPsParseView227 = false;
+// § cloneWithOperandChainName248 (r11u248, R11U248_WITHCHAIN_OFF; MiniAmiq
+// d/t and SeqDriver d/t `found_to = from_node.m_sync.find_index(node) with
+// (node == to_node);` in the importer's copy of uvm_phase::sync / unsync,
+// #79206 / #79207 / #79227 / #79228 and the unsync twins) — in the DEFAULT
+// view's importer copy (UHDM clone_tree of the home subroutine, which parents
+// every clone at the clone that holds it and stores no full name on the
+// cloned references of a `with` clause), UHDM's ComputeFullName reads every
+// named reference under an array method's `with` expression through the
+// call's receiver path: `<copy subroutine>::<receiver text>::<name>` (golden
+// `svaunit_pkg::uvm_phase::sync::from_node.m_sync::to_node`, ours the
+// subroutine-scoped `svaunit_pkg::uvm_phase::sync::to_node`), the same chain
+// the written iterator argument already reads (§ arrayMethodIterArg).  The
+// --elabuhdm view's copy keeps the subroutine-scoped name (grid W, both
+// views: the elaborated view is STRICT_EQUAL on pristine), and so does the
+// home listing.  Every ref_obj, bit_select, part_select and
+// indexed_part_select under the `with` expression whose stored full name is
+// the subroutine join `<prefix>::<name>` takes the receiver chain; a path
+// element written with no full name (`s` of `s.m_k`, `this.m_k`'s `m_k`)
+// stays without one.  Applied design-final, after every clone-body name
+// drain.  Grid tools/probe/r11u248repro/cases/W.
+struct WithChain248 {
+    UHDM::any* w;
+    const UHDM::any* iter;  // the written iterator argument, if any
+    std::string pre;   // `<prefix>::`
+    std::string recv;  // `<prefix>::<receiver text>`
+};
+static std::vector<WithChain248>& withChain248() {
+    static std::vector<WithChain248> v;
+    return v;
+}
+// The objects a NESTED `with` already renamed (its iterator argument and its
+// operands), so the outer receiver joins in front of their chain.
+static std::set<const UHDM::any*>& withChainDone248() {
+    static std::set<const UHDM::any*> s;
+    return s;
+}
+static bool nestedWith248(const UHDM::any* o) { return withChainDone248().count(o) != 0; }
+static void withChainWalk248(UHDM::any* o, const WithChain248& r, int d) {
+    if (!o || d > 32)
+        return;
+    switch (o->UhdmType()) {
+        case UHDM::uhdmref_obj:
+        case UHDM::uhdmbit_select:
+        case UHDM::uhdmpart_select:
+        case UHDM::uhdmindexed_part_select: {
+            auto* e = (UHDM::ref_obj*)o;
+            std::string nm(e->VpiName());
+            std::string fn(e->VpiFullName());
+            // A reference under a NESTED `with` already reads the inner
+            // receiver's chain (`<prefix>::<inner recv>::<name>`, drained
+            // first); the outer receiver joins in front of it (golden
+            // `q::c::f::m_v::m_v::t`, grid W w07).
+            if (!nm.empty() && fn.size() > r.pre.size() &&
+                fn.compare(0, r.pre.size(), r.pre) == 0 &&
+                (fn == r.pre + nm ||
+                 (fn.size() > nm.size() + 2 &&
+                  fn.compare(fn.size() - nm.size() - 2, nm.size() + 2,
+                             "::" + nm) == 0 &&
+                  nestedWith248(e)))) {
+                e->VpiFullName(r.recv + "::" + fn.substr(r.pre.size()));
+                withChainDone248().insert(o);
+                tr248("cloneWithOperandChainName248", std::string(e->VpiFullName()));
+            }
+            if (o->UhdmType() == UHDM::uhdmbit_select)
+                withChainWalk248((UHDM::any*)((UHDM::bit_select*)o)->VpiIndex(), r, d + 1);
+            else if (o->UhdmType() == UHDM::uhdmpart_select) {
+                withChainWalk248((UHDM::any*)((UHDM::part_select*)o)->Left_range(), r, d + 1);
+                withChainWalk248((UHDM::any*)((UHDM::part_select*)o)->Right_range(), r, d + 1);
+            } else if (o->UhdmType() == UHDM::uhdmindexed_part_select) {
+                withChainWalk248((UHDM::any*)((UHDM::indexed_part_select*)o)->Base_expr(), r, d + 1);
+                withChainWalk248((UHDM::any*)((UHDM::indexed_part_select*)o)->Width_expr(), r, d + 1);
+            }
+            break;
+        }
+        case UHDM::uhdmoperation:
+            if (auto* ops = ((UHDM::operation*)o)->Operands())
+                for (auto* x : *ops)
+                    withChainWalk248(x, r, d + 1);
+            break;
+        case UHDM::uhdmhier_path:
+            if (auto* pe = ((UHDM::hier_path*)o)->Path_elems())
+                for (auto* x : *pe)
+                    withChainWalk248(x, r, d + 1);
+            break;
+        case UHDM::uhdmfunc_call:
+        case UHDM::uhdmsys_func_call:
+            if (auto* as = ((UHDM::tf_call*)o)->Tf_call_args())
+                for (auto* x : *as)
+                    withChainWalk248(x, r, d + 1);
+            break;
+        case UHDM::uhdmmethod_func_call: {
+            auto* mc = (UHDM::method_func_call*)o;
+            if (auto* as = mc->Tf_call_args())
+                for (auto* x : *as)
+                    withChainWalk248(x, r, d + 1);
+            if (auto* w = mc->With())
+                withChainWalk248((UHDM::any*)w, r, d + 1);
+            break;
+        }
+        default:
+            break;
+    }
+}
+void drainWithChain248() {
+    for (auto& r : withChain248()) {
+        // the inner call's written iterator argument reads the inner chain
+        // already (§ arrayMethodIterArg); it joins the outer chain too.
+        if (r.iter)
+            withChainDone248().insert(r.iter);
+        withChainWalk248(r.w, r, 0);
+    }
+    withChain248().clear();
+    withChainDone248().clear();
+}
 // § cloneNewArrayCallParented244 (r11u244, R11U244_NEWARRPARENT_OFF;
 // MiniAmiq d/t #72428 `bits = new[m_packed_size];` in the importer's copy
 // `svaunit_pkg::uvm_packer::get_bits`, SeqDriver d/t #72384 / #72396 the
@@ -6344,6 +6459,40 @@ std::vector<CallArgCopy246>& callArgCopies246() {
 // golden leaves unreduced too, is abstained on).  Grid
 // tools/probe/v11u246repro/cases/PE.
 namespace {
+// § callArgCopyReduceOpModel248 (r11u248, R11U248_PAREDUCE_OFF;
+// tools/probe/v11u246repro README residue 1) — one step of the walk from a
+// reference to L up its syntax: true when the parent `a` (reached from child
+// `c`) is a place UHDM ExprEval::reduceExpr does not reduce through.  The
+// operators reduceExpr has a case for (ExprEval.cpp reduceExpr: the shifts,
+// the comparisons, inc/dec, + and unary +, |, &, ||, &&, unary and binary -,
+// *, ~, !, inside, the unary reductions, %, **, /, ?:, replication,
+// concatenation, cast, assignment patterns) pass; a binary ^, ~^, ===, !==,
+// ==?, !=?, ->, <-> does not (`L[1] ^ L[2]`, PE e20), and a reference written
+// inside another name's RANGE selector (`o[0][0 +: L[1]]`'s width, PE e15,
+// `o[0][L[1]:0]`'s bound, PE e16, `o[0][L[0] +: 2]`'s base, grid R r12) is
+// not reduced with the name; a single bit index (`o[1][L[0]]`, grid R r04)
+// is.
+bool callArgCopyOpaqueStep248(const slang::syntax::SyntaxNode* a,
+                              const slang::syntax::SyntaxNode* c) {
+    using namespace slang::syntax;
+    (void)c;
+    switch (a->kind) {
+        case SyntaxKind::BinaryXorExpression:
+        case SyntaxKind::BinaryXnorExpression:
+        case SyntaxKind::CaseEqualityExpression:
+        case SyntaxKind::CaseInequalityExpression:
+        case SyntaxKind::WildcardEqualityExpression:
+        case SyntaxKind::WildcardInequalityExpression:
+        case SyntaxKind::LogicalImplicationExpression:
+        case SyntaxKind::LogicalEquivalenceExpression:
+        case SyntaxKind::SimpleRangeSelect:
+        case SyntaxKind::AscendingRangeSelect:
+        case SyntaxKind::DescendingRangeSelect:
+            return true;
+        default:
+            return false;
+    }
+}
 bool callArgCopyLpReduced246v(const slang::ast::ParameterSymbol& lp) {
     using namespace slang::syntax;
     const slang::ast::Scope* sc = lp.getParentScope();
@@ -6363,8 +6512,49 @@ bool callArgCopyLpReduced246v(const slang::ast::ParameterSymbol& lp) {
         // `LP[0][0]`) stays unreduced (grid PE e08, probe r10rgg13repro/top).
         const bool sel = n->kind == SyntaxKind::IdentifierSelectName &&
                          n->as<IdentifierSelectNameSyntax>().selectors.size() == 1;
+        // § callArgCopyReduceOpModel248 (R11U248_PAREDUCE_OFF): the
+        // structural one-select default below is Surelog's UHDM
+        // ExprEval::reduceExpr, which reduces an operand only inside an
+        // operator it has a case for; an operand of any other operator, or a
+        // reference written inside another name's selector (a part-select
+        // bound or an indexed width), is never reduced, so evalFunc never
+        // runs and the copy keeps the parameter's own typespec.
+        bool opaque248 = false;
+        const bool model248 = r11u248On("R11U248_PAREDUCE_OFF");
+        // § callArgCopyElabNearestOp248v (v11u248, R11V248_ELABNEAREST_OFF)
+        // — in the --elabuhdm view golden reduces a reference whose NEAREST
+        // enclosing operator (parentheses skipped) is one reduceExpr has a
+        // case for, even when an outer operator is one it has none for:
+        // `(L[1] + 8'd1) ^ 8'd3`, `(L[1] << 1) ~^ 8'd3`, `(-L[1]) ^ 8'd1`,
+        // `g(L[1] + 8'd1) ^ 8'd1` keep the formal's int_typespec on the
+        // instance's copied call actual (golden 3:41), where the law's
+        // whole-path scan set the parameter's own (grid
+        // tools/probe/v11u248repro/cases/R r01, r18, r22, r23, the elaborated
+        // view: one golden record lost each).  The default view keeps the
+        // law's whole-path rule (the same cases move toward golden there).
+        // The nearest OPERATOR decides: an opaque one (or a range selector)
+        // keeps the law, any other binary or prefix-unary operator (`+`,
+        // `<<`, `!=`, unary `-`) ends the scan; parentheses, a call's
+        // argument list and a concatenation are transparent (`g(L[1]) ^ 8'd1`
+        // and `{L[1]} ^ 8'd1` stay unreduced in golden's elaborated view,
+        // grid R r25, r26).
+        const bool near248v = model248 && callArgCopyElabView248v() &&
+                              r11v248On("R11V248_ELABNEAREST_OFF");
+        bool opaqueNear248v = false, decided248v = false;
         const SyntaxNode* c = n;
         for (const SyntaxNode* a = n->parent; a && a != root; c = a, a = a->parent) {
+            if (model248) {
+                const bool st248 = callArgCopyOpaqueStep248(a, c);
+                if (!opaque248)
+                    opaque248 = st248;
+                if (!decided248v) {
+                    if (st248)
+                        opaqueNear248v = decided248v = true;
+                    else if (BinaryExpressionSyntax::isKind(a->kind) ||
+                             PrefixUnaryExpressionSyntax::isKind(a->kind))
+                        decided248v = true;
+                }
+            }
             switch (a->kind) {
                 case SyntaxKind::VariableDimension:
                 case SyntaxKind::ParameterValueAssignment:
@@ -6407,6 +6597,14 @@ bool callArgCopyLpReduced246v(const slang::ast::ParameterSymbol& lp) {
                 default:
                     break;
             }
+        }
+        if (sel && opaque248 && near248v && !opaqueNear248v) {
+            tr248("callArgCopyElabNearestOp248v", std::string(lp.name));
+            return true;
+        }
+        if (sel && opaque248) {
+            tr248("callArgCopyReduceOpModel248", std::string(lp.name));
+            return false;
         }
         return sel;
     };
@@ -6481,10 +6679,12 @@ void drainCallArgCopyTs246(const std::set<UHDM::ref_typespec*>& stamped) {
 // span is the receiver-relative guess `[METHOD, METHOD + len)` in the body
 // buffer, and its end, read past the substituted argument, shifts by the
 // argument's extra length (168:11-56; SimpleUVM #173841 / #173902, Scoreboard
-// #174021).  Applied where the start's text does not spell the name (a
-// parameter token, not the name itself): the end is the start's line and the
-// start column plus the name's length (an argument long enough to carry our
-// end onto the next line, grid MN n02 `a_long_method_name(x + 1)`, included).  Grid
+// #174021).  Applied to EVERY method call whose start is a macro location and
+// whose end is not already the start's line and the start column plus the
+// name's length: the end becomes exactly that (an argument long enough to
+// carry our end onto the next line, grid MN n02 `a_long_method_name(x + 1)`,
+// included).  A name written literally in the macro body already ends there,
+// so the law changes no bytes for it (v11u246 MN v01, v03, v04).  Grid
 // tools/probe/r11u246repro/cases/MN.
 static void macroParamMethNameEnd246(const slang::SourceManager* sm,
                                      UHDM::BaseClass* o, SourceLocation st,
@@ -6492,9 +6692,9 @@ static void macroParamMethNameEnd246(const slang::SourceManager* sm,
     if (!sm || !o || !st.valid() || nm.empty() || !sm->isMacroLoc(st) ||
         !r11u246On("R11U246_MACNAMEEND_OFF"))
         return;
-    auto text = sm->getSourceText(st.buffer());
-    if (st.offset() < text.size() && text.substr(st.offset(), nm.size()) == nm)
-        return;
+    // (r11u248: the early return that read the start's text was dead code,
+    // SourceManager::getSourceText returns an empty view for a
+    // macro-expansion buffer, v11u246; removed, no byte changes.)
     if (o->VpiLineNo() == 0)
         return;
     const int want = o->VpiColumnNo() + (int)nm.size();
@@ -37332,8 +37532,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (withIterSym75)
                                 withIterSyms75.insert(withIterSym75);
                             if (auto* w9 =
-                                    emitExpr(*withExpr9, parent, prefix, netMap))
+                                    emitExpr(*withExpr9, parent, prefix, netMap)) {
                                 mfc->With(w9);
+                                // § cloneWithOperandChainName248 — recorded
+                                // here, renamed design-final (see the drain).
+                                if (pkgImportCloneEmit && !elabUhdmView121 &&
+                                    r11u248On("R11U248_WITHCHAIN_OFF"))
+                                    withChain248().push_back(
+                                        {w9, iterArg9, joinRef(prefix, std::string()),
+                                         joinRef(prefix, recvText)});
+                            }
                         }
                         // § memberRandomizeWithIsRecvPath119 — THE `vpiWith`
                         // AND THE ARGUMENTS, both of them straight out of

@@ -1,0 +1,5 @@
+# 4091 databases differ between /tmp/v11u248_wP and /tmp/v11u248_wL
+surelog/default/MiniAmiq away=0 toward=60 flat_away=0 flat_toward=60
+surelog/default/SeqDriver away=0 toward=40 flat_away=0 flat_toward=40
+surelog/testflags/MiniAmiq away=0 toward=60 flat_away=0 flat_toward=60
+surelog/testflags/SeqDriver away=0 toward=40 flat_away=0 flat_toward=40
