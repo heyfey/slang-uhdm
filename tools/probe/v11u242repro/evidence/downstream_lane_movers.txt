@@ -1,0 +1,15 @@
+DS_MOVER ibex_alu
+DS_MOVER ibex_branch_predict
+DS_MOVER ibex_compressed_decoder
+DS_MOVER ibex_controller
+DS_MOVER ibex_decoder
+DS_MOVER ibex_icache
+DS_MOVER ibex_multdiv_fast
+DS_MOVER ibex_multdiv_slow
+DS_MOVER ibex_pmp
+DS_MOVER ibex_tracer
+DS_MOVER ibex_wb_stage
+DS_MOVER NestedStructArrayParameterInitializedByPatternPassedAsPort
+DS_MOVER param_struct_field_bitsel
+DS_MOVER param_unpacked_struct_array
+DS_MOVER StructArrayParameterInitializedByPatternPassedAsPort

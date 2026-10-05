@@ -1,0 +1,8 @@
+SAME_AS_PRISTINE ./default/DefaultPatternInt-f18dcc46/slang.uhdm
+SAME_AS_PRISTINE ./default/Earlgrey_0_1-a898def8/slang.uhdm
+SAME_AS_PRISTINE ./default/FuncStructVal-9244d8c4/slang.uhdm
+SAME_AS_PRISTINE ./default/Kmac-a415505d/slang.uhdm
+SAME_AS_PRISTINE ./testflags/DefaultPatternInt-f18dcc46/slang.uhdm
+SAME_AS_PRISTINE ./testflags/Earlgrey_0_1-a898def8/slang.uhdm
+SAME_AS_PRISTINE ./testflags/FuncStructVal-9244d8c4/slang.uhdm
+SAME_AS_PRISTINE ./testflags/Kmac-a415505d/slang.uhdm

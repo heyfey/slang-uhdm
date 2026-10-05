@@ -20,6 +20,7 @@
 #include "R236.h"
 #include "R238.h"
 #include "R240.h"
+#include "R242.h"
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
@@ -4225,6 +4226,28 @@ static bool leftRefNeeds174(const UHDM::any* v) {
     return !rt->VpiFullName().empty() || !v->VpiParent() ||
            v->VpiParent()->UhdmType() != UHDM::uhdmtypespec_member;
 }
+// § patLeftoverOpCopy242 — the operation copies that law stamped.
+static std::set<const UHDM::any*>& leftOpCopies242() {
+    static std::set<const UHDM::any*> m;
+    return m;
+}
+// § elabParamLeftoverOpRefUnnamed242 (r11u242; FuncStructVal d #17114) — the
+// § elabParamLeftoverRefUnnamed174 rule on an OPERATION leftover: a module-
+// side parameter's struct copy holds its own copy of a § patLeftoverOpCopy242
+// operation whose reference stores no name (golden FuncStructVal
+// `work@top.CVA6Cfg`'s `NonIdempotentAddrBase` cast: `<in>config_pkg::
+// cva6_cfg_t.NonIdempotentAddrBase` computed through the member, where the
+// package listings' copy stores `cva6_config_pkg`).  Switch
+// R11U242_LEFTOPREF_OFF.
+static bool leftOpRefNeeds242(const UHDM::any* v) {
+    if (!v || v->UhdmType() != UHDM::uhdmoperation ||
+        !leftOpCopies242().count(v) ||
+        !r11u242On("R11U242_LEFTOPREF_OFF"))
+        return false;
+    auto* rt = ((const UHDM::operation*)v)->Typespec();
+    return rt && (!rt->VpiFullName().empty() || !v->VpiParent() ||
+                  v->VpiParent()->UhdmType() != UHDM::uhdmtypespec_member);
+}
 // The parameter's own struct copy (a struct already parented at the
 // parameter is that copy — § evalFuncBodyRhsStampClone167's — and is edited
 // in place), each such leftover cloned at its member with its reference
@@ -4238,7 +4261,8 @@ static void leftRefFix174(UHDM::Serializer& s, UHDM::parameter* pa) {
     auto* st = (UHDM::struct_typespec*)t;
     bool need = false;
     for (auto* tm : *st->Members())
-        if (tm && leftRefNeeds174(tm->Actual_value()))
+        if (tm && (leftRefNeeds174(tm->Actual_value()) ||
+                   leftOpRefNeeds242(tm->Actual_value())))
             need = true;
     if (!need)
         return;
@@ -4276,6 +4300,21 @@ static void leftRefFix174(UHDM::Serializer& s, UHDM::parameter* pa) {
     }
     for (auto* tm : *nst->Members()) {
         auto* v = tm ? tm->Actual_value() : nullptr;
+        if (leftOpRefNeeds242(v)) {
+            bool ok242 = true;
+            auto* c242 = cloneStampTree167(s, v, tm, ok242);
+            if (!ok242 || !c242 ||
+                !((UHDM::operation*)c242)->Typespec()) {
+                tr242("elabParamLeftoverOpRefUnnamed242_failed",
+                      std::string(tm->VpiName()));
+                continue;
+            }
+            ((UHDM::operation*)c242)->Typespec()->VpiFullName("");
+            tm->Actual_value((UHDM::expr*)c242);
+            tr242("elabParamLeftoverOpRefUnnamed242",
+                  std::string(tm->VpiName()));
+            continue;
+        }
         if (!leftRefNeeds174(v))
             continue;
         auto* c0 = (const UHDM::constant*)v;
@@ -5801,6 +5840,8 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     for (auto& st : memLeftStamps) {
         // § patLeftoverCopyShared236 — one copy per caller element per stamp.
         std::map<const UHDM::any*, UHDM::constant*> cp236;
+        // § patLeftoverOpCopy242 — one copy per caller element per stamp.
+        std::map<const UHDM::any*, UHDM::expr*> op242;
         for (size_t i = 0; i < st.srcParam.size() && i < st.values.size(); i++) {
             if (!st.srcParam[i])
                 continue;
@@ -5866,6 +5907,50 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                 st.values[i] = c151;
                 trace151("D");
             }
+            // § patLeftoverOpCopy242 (r11u242; FuncStructVal d/t #7975 /
+            // #14765, map 15's N0891) — AN UNREDUCED PATTERN ELEMENT LEFT AS
+            // A MEMBER LEFTOVER IS STAMPED AS A COPY TOO.  § r10fsv2 L4 keeps
+            // a size cast over a concatenation wider than 64 bits
+            // (`1024'({64'b0, 64'b0})`) as the cast OPERATION, and
+            // ExprEval::setValueInInstance stamps that element on the member
+            // exactly as it stamps a folded constant: the object it reads
+            // belongs to the operation CompileHelper::getValue expanded or
+            // clone_tree'd at the reference (the § patLeftoverOrphanCopy151
+            // reading), which no listing walks, so golden lists the
+            // operation under every stamped struct copy (FuncStructVal:
+            // `NonIdempotentAddrBase`, `NonIdempotentLength`,
+            // `ExecuteRegionAddrBase`, `ExecuteRegionLength` under
+            // config_pkg::cva6_cfg_t, object #9956 apart from the caller's
+            // listed element).  Ours stamped the caller's listed element
+            // itself, which the walk had already met in the elaborated
+            // pattern, so the stamped struct listed no value there.  The law
+            // stamps a field-for-field copy (cloneStampTree167, after its
+            // allocation-free precheck); a tree the precheck rejects keeps
+            // the share (`_noclone`).  Switch R11U242_LEFTOPCOPY_OFF.
+            else if (st.values[i] &&
+                     st.values[i]->UhdmType() == UHDM::uhdmoperation &&
+                     r11u242On("R11U242_LEFTOPCOPY_OFF")) {
+                auto* o242 = st.values[i];
+                if (auto it242 = op242.find(o242); it242 != op242.end()) {
+                    st.values[i] = it242->second;
+                    tr242("patLeftoverOpCopy242_shared", st.names[i]);
+                    continue;
+                }
+                if (!stampTreeClonable167v(o242)) {
+                    tr242("patLeftoverOpCopy242_noclone", st.names[i]);
+                    continue;
+                }
+                bool ok242 = true;
+                auto* c242 = cloneStampTree167(s, o242, o242->VpiParent(), ok242);
+                if (!ok242 || !c242) {
+                    tr242("patLeftoverOpCopy242_failed", st.names[i]);
+                    continue;
+                }
+                op242[o242] = (UHDM::expr*)c242;
+                leftOpCopies242().insert(c242);
+                st.values[i] = (UHDM::expr*)c242;
+                tr242("patLeftoverOpCopy242", st.names[i]);
+            }
         }
         // § r10fsv3 S2 UNREDUCIBLE COMPUTED MEMBER.  A computed member's
         // leftover is a re-encoded slice of the folded value ONLY while
@@ -5928,6 +6013,69 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
         // (struct_param_func_arg's head).
 
         for (size_t i = 0; i < st.values.size(); i++) {
+            // § signCastLitLeftoverIsBodyOperand242 (r11u242; FuncStructVal
+            // t #40014) — AN UNSIGNED CAST OF A LITERAL LEAVES THE LITERAL'S
+            // OWN BODY OBJECT.  `cfg.NrRgprPorts = unsigned'(2)`: Surelog
+            // compiles the cast as the system call `$unsigned(2)`, and
+            // ExprEval's reduce of a vpiSysFuncCall `$unsigned` over a
+            // constant hands that argument constant back unchanged
+            // (§ r10fsv2 L3's `unsigned'(x) -> x's own constant`), so
+            // setValueInInstance stamps the body's own `2` (golden
+            // FuncStructVal: constant #7093 at 539:33, parented at the
+            // sys_func_call #7094, in both views; a walk that met the
+            // function body first lists it there only).  Ours stamped a
+            // minted constant with the same fields.  The law reads the
+            // emitted body RHS (the elaborated view's, bodyAsgRhsObj) and
+            // takes its first argument when it is a constant; any other
+            // shape keeps the minted value (`_shape`).  Switch
+            // R11U242_SIGNCASTLIT_OFF.
+            if (i < st.rhsExpr.size() && st.rhsExpr[i] &&
+                (i >= st.srcParam.size() || !st.srcParam[i]) &&
+                r11u242On("R11U242_SIGNCASTLIT_OFF")) {
+                auto& e242 = stripImplicitConv(*st.rhsExpr[i]);
+                // `signed'(<literal>)` abstains (`_signed`): golden's
+                // leftover there is a fresh constant typed by an unlocated
+                // logic_typespec (grid F/f07, stage 1 on both binaries).
+                bool uns242 =
+                    e242.kind == ExpressionKind::Conversion && e242.syntax &&
+                    e242.syntax->kind ==
+                        slang::syntax::SyntaxKind::SignedCastExpression &&
+                    e242.syntax->as<slang::syntax::SignedCastExpressionSyntax>()
+                            .signing.valueText() == "unsigned";
+                if (!uns242 && e242.kind == ExpressionKind::Conversion &&
+                    e242.syntax &&
+                    e242.syntax->kind ==
+                        slang::syntax::SyntaxKind::SignedCastExpression)
+                    tr242("signCastLitLeftoverIsBodyOperand242_signed",
+                          st.names[i]);
+                if (uns242) {
+                    auto& op242 = stripImplicitConv(
+                        e242.as<ConversionExpression>().operand());
+                    if (op242.kind == ExpressionKind::IntegerLiteral ||
+                        op242.kind ==
+                            ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                        auto bit242 = bodyAsgRhsObj.find(st.rhsExpr[i]);
+                        const UHDM::any* a242 = nullptr;
+                        if (bit242 != bodyAsgRhsObj.end() && bit242->second &&
+                            bit242->second->UhdmType() ==
+                                UHDM::uhdmsys_func_call) {
+                            auto* sf242 =
+                                (const UHDM::sys_func_call*)bit242->second;
+                            if (sf242->Tf_call_args() &&
+                                sf242->Tf_call_args()->size() == 1)
+                                a242 = (*sf242->Tf_call_args())[0];
+                        }
+                        if (a242 && a242->UhdmType() == UHDM::uhdmconstant) {
+                            st.values[i] = (UHDM::expr*)a242;
+                            tr242("signCastLitLeftoverIsBodyOperand242",
+                                  st.names[i]);
+                            continue;
+                        }
+                        tr242("signCastLitLeftoverIsBodyOperand242_shape",
+                              st.names[i]);
+                    }
+                }
+            }
             if (i < st.litRhs.size() && st.litRhs[i]) {
                 auto lit = bodyAsgRhsObj.find(st.litRhs[i]);
                 if (lit != bodyAsgRhsObj.end() && lit->second) {
@@ -6194,6 +6342,7 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     // member holds the clone.  Grid tools/probe/r11u167repro/cases/fs.
     // Switch R11U167_S2CLONE_OFF.
     if (!bodyRhsStamps167.empty() && r11u167On("R11U167_S2CLONE_OFF")) {
+        int gsDepth242 = 0;  // § s2CloneGenScopeInst242
         std::function<void(UHDM::module_inst*)> walk167 = [&](UHDM::module_inst* m) {
             if (m->Parameters())
                 for (auto* pa : *m->Parameters()) {
@@ -6261,11 +6410,44 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                         continue;
                     nst->Members(nmv);
                     trace167("evalFuncBodyRhsStampClone167");
+                    if (gsDepth242 > 0)
+                        tr242("s2CloneGenScopeInst242",
+                              std::string(pa->VpiName()));
                     prt->Actual_typespec(nst);
                 }
             if (m->Modules())
                 for (auto* sub : *m->Modules())
                     walk167(sub);
+            // § s2CloneGenScopeInst242 (r11u242; grid F/f04) — and an
+            // instance inside a generate scope holds its own copy too: golden
+            // names the clone's path elements through the member
+            // (`<in>cp::cfg_t.z.n`) at `work@top.m.g.u.C` as at a plain
+            // child, where the walk above never entered generate scopes and
+            // left the body's own operation (`cp::build::n`) there.  The
+            // recursion § elabParamLeftoverRefUnnamed174's walk already
+            // makes.  Switch R11U242_S2CLONEGEN_OFF.
+            if (m->Gen_scope_arrays() && r11u242On("R11U242_S2CLONEGEN_OFF")) {
+                std::function<void(UHDM::gen_scope*)> gs242 =
+                    [&](UHDM::gen_scope* g) {
+                    if (!g)
+                        return;
+                    if (g->Modules())
+                        for (auto* sub : *g->Modules()) {
+                            ++gsDepth242;
+                            walk167(sub);
+                            --gsDepth242;
+                        }
+                    if (g->Gen_scope_arrays())
+                        for (auto* ga : *g->Gen_scope_arrays())
+                            if (ga && ga->Gen_scopes())
+                                for (auto* g2 : *ga->Gen_scopes())
+                                    gs242(g2);
+                };
+                for (auto* ga : *m->Gen_scope_arrays())
+                    if (ga && ga->Gen_scopes())
+                        for (auto* g : *ga->Gen_scopes())
+                            gs242(g);
+            }
         };
         if (auto* tm = d->TopModules())
             for (auto* m : *tm)
@@ -10240,6 +10422,38 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // § importElemBareTdAlias — see makeUnpackedArrayParamTs.
                 bool savedIpc9 = importedParamElemClone16;
                 importedParamElemClone16 = isImported && !inPackage;
+                // § impArrParamTsOwnRanges242 (r11u242; Earlgrey_0_1 d/t
+                // #130430) — A MODULE'S MATERIALIZED IMPORT COPY OF AN
+                // UNPACKED-ARRAY PACKAGE PARAMETER GIVES ITS ARRAY TYPESPEC
+                // ITS OWN RANGE OBJECTS.  The copy is a clone_tree of the
+                // package's listing entry (§ importElemBareTdAlias's reading),
+                // and clone_tree copies the parameter's vpiRange and the
+                // array_typespec's vpiRange apart: golden Earlgrey
+                // `work@hmac.InitHash` holds range #95235 on the parameter and
+                // #95220 (parented at the array_typespec #95219) on its
+                // typespec, where the package's own listing shares one range
+                // (#32686 on both).  Ours shared the parameter's ranges into
+                // the copy's typespec, so a walk that had met the parameter's
+                // range listed no range under the typespec at its next
+                // reference (the param_assign's Lhs, #130430).  The law builds
+                // the typespec's ranges fresh, with the parameter's own dim
+                // naming (dimPrefix9) and the materialized-import dim shape
+                // (elabParamDim, as for the parameter's ranges above).
+                // Switch R11U242_IMPARRRANGE_OFF.
+                bool own242 = isImported && !inPackage && prng &&
+                              r11u242On("R11U242_IMPARRRANGE_OFF");
+                if (own242) {
+                    std::string savedDfo242 = dimFoldOwner;
+                    dimFoldOwner = afull;
+                    bool savedEpd242 = elabParamDim;
+                    elabParamDim = true;
+                    paramArrayTs = makeUnpackedArrayParamTs(
+                        ps, afull, up, nullptr, false, dimPrefix9);
+                    elabParamDim = savedEpd242;
+                    dimFoldOwner = savedDfo242;
+                    tr242("impArrParamTsOwnRanges242", afull);
+                }
+                else
                 paramArrayTs = makeUnpackedArrayParamTs(ps, afull, up, prng);
                 importedParamElemClone16 = savedIpc9;
                 art->Actual_typespec(paramArrayTs);
@@ -16179,6 +16393,75 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                     if (!importedFold)
                         setLoc((UHDM::constant*)rhs, rhsLoc);
+                    // § impCondFlipTakenLeaf242 (r11u242; Earlgrey_0_1 d/t
+                    // #122230) — THE DEFINITION LISTING OF AN IMPORTER WITH A
+                    // PARAMETER PORT LIST LOCATES A FOLDED TERNARY AT ITS
+                    // TAKEN BRANCH, as every other definition listing does.
+                    // § modDefImportShape flips topView for such an importer
+                    // (the elaborated shape in the definition listing), so the
+                    // ternary import copy reached this generic fold and kept
+                    // the whole init's span, where § impCondBranchFold anchors
+                    // the unflipped definition listing at the selected
+                    // branch's leaf (the arithmetic leaf at its left operand)
+                    // and golden does the same under the flip: Earlgrey
+                    // flash_phy_pkg.sv:43 `WordSelW = WidthMultiple == 1 ? 1 :
+                    // LsbAddrBit` in flash_phy_core's (#(SkipInit)) definition
+                    // listing at 43:53-63, its elaborated copy at 43:28-63
+                    // (kept).  Physical definition view only (defViewOrig9).
+                    // Switch R11U242_IMPCONDFLIP_OFF.
+                    if (isImported && !inPackage && defViewOrig9 && topView &&
+                        stripImplicitConv(*init).kind ==
+                            ExpressionKind::ConditionalOp &&
+                        r11u242On("R11U242_IMPCONDFLIP_OFF")) {
+                        const Expression* red242 = &stripImplicitConv(*init);
+                        bool fold242 = false;
+                        for (int g242 = 0;
+                             g242 < 32 &&
+                             red242->kind == ExpressionKind::ConditionalOp;
+                             ++g242) {
+                            auto& co242 = red242->as<ConditionalExpression>();
+                            if (co242.conditions.size() != 1 ||
+                                co242.conditions[0].pattern)
+                                break;
+                            ASTContext cx242(comp.getRoot(),
+                                             LookupLocation::max);
+                            ConstantValue pv242 =
+                                cx242.tryEval(*co242.conditions[0].expr);
+                            if (!pv242 || !pv242.isInteger() ||
+                                pv242.integer().hasUnknown())
+                                break;
+                            red242 = &stripImplicitConv(
+                                pv242.isTrue() ? co242.left() : co242.right());
+                            fold242 = true;
+                        }
+                        if (fold242 && rhs->VpiLineNo() != 0 &&
+                            red242->kind != ExpressionKind::ConditionalOp) {
+                            SourceRange an242 = red242->sourceRange;
+                            if (red242->kind == ExpressionKind::BinaryOp) {
+                                auto* bs242 = red242->syntax;
+                                if (bs242 &&
+                                    syntax::BinaryExpressionSyntax::isKind(
+                                        bs242->kind))
+                                    an242 = bs242
+                                                ->as<syntax::
+                                                         BinaryExpressionSyntax>()
+                                                .left->sourceRange();
+                                else
+                                    an242 = red242->as<BinaryExpression>()
+                                                .left()
+                                                .sourceRange;
+                            }
+                            auto* c242 = (UHDM::constant*)rhs;
+                            c242->VpiLineNo(0);
+                            c242->VpiFile("");
+                            setLoc(c242, an242);
+                            tr242("impCondFlipTakenLeaf242",
+                                  std::string(ps.name));
+                        }
+                        else
+                            tr242("impCondFlipTakenLeaf242_unresolved",
+                                  std::string(ps.name));
+                    }
                     // ELAB-pkg computed BinaryOp init folds at the LEFT
                     // operand's span, sized 32 (Surelog).
                     {

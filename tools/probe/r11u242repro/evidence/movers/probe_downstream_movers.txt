@@ -1,0 +1,23 @@
+# probe movers (law sweep vs pristine sweep, cmp of every probe database)
+probe/r10uvm48repro/t67b
+probe/r11u10repro/grid/h9_1e1m_port
+probe/r11u10repro/grid/hD_1e1mvec
+probe/r11u114repro/grid/f3/c05
+# downstream lane movers (slang lane databases, 805 lanes, fenced names filtered first)
+downstream/ibex_alu
+downstream/ibex_branch_predict
+downstream/ibex_compressed_decoder
+downstream/ibex_controller
+downstream/ibex_decoder
+downstream/ibex_icache
+downstream/ibex_multdiv_fast
+downstream/ibex_multdiv_slow
+downstream/ibex_pmp
+downstream/ibex_tracer
+downstream/ibex_wb_stage
+downstream/NestedStructArrayParameterInitializedByPatternPassedAsPort
+downstream/param_struct_field_bitsel
+downstream/param_unpacked_struct_array
+downstream/StructArrayParameterInitializedByPatternPassedAsPort
+# positive control: ibex_alu vs ibex_pmp law-lane databases compared: DIFFER
+# downstream.csv law vs pristine, sorted and diffed: 0 lines

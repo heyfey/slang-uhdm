@@ -1,0 +1,64 @@
+== FuncStructVal default pristine
+#7975 depth
+  A: 6	operation				dut.sv	108	30	108	51		0
+  B: 5	typespec_member	NonIdempotentLength			dut.sv	363	34	363	53
+objects 18222 vs 17934
+fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== FuncStructVal default law
+STRICT_EQUAL 18222 objects
+== FuncStructVal testflags pristine
+#14765 depth
+  A: 6	operation				dut.sv	108	30	108	51		0
+  B: 5	typespec_member	NonIdempotentLength			dut.sv	363	34	363	53
+objects 45362 vs 45091
+fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== FuncStructVal testflags law
+STRICT_EQUAL 45362 objects
+== Earlgrey_0_1 default pristine
+#122230 col
+  A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9
+  B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+#130430 type
+  A: 6	range				hmac_pkg.sv	26	35	26	36
+  B: 6	ref_typespec			<in>		0	0	0	0		0
+objects 2173209 vs 2173853
+fields: type=1 fullname=1 file=1 line=1 col=2 endline=1 endcol=1 size=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL col
+== Earlgrey_0_1 default law
+#136315 fullname
+  A: 11	ref_typespec			work@sha2		0	0	0	0		0
+  B: 11	ref_typespec					0	0	0	0		0
+#142988 col
+  A: 6	bit_select	key		work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key	hmac.sv	133	19	133	27		0
+  B: 6	bit_select	key		work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key	hmac.sv	133	23	133	26		0
+#154375 fullname
+  A: 6	ref_typespec			work@ibex_core.if_stage_i.pmp_req_err		0	0	0	0		0
+  B: 6	ref_typespec			work@ibex_core.if_stage_i.instr_pmp_err_i.pmp_req_err		0	0	0	0		0
+objects 2173209 vs 2173893
+fields: depth=1 type=1 name=11 fullname=130 file=4 line=22 col=5 endline=22 endcol=23 objects_differing=160 (walk diverged)
+STRICT_NOTEQUAL fullname
+== Earlgrey_0_1 testflags pristine
+#123704 col
+  A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9
+  B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+#131904 type
+  A: 6	range				hmac_pkg.sv	26	35	26	36
+  B: 6	ref_typespec			<in>		0	0	0	0		0
+objects 1342584 vs 1342870
+fields: type=1 fullname=1 file=1 line=1 col=2 endline=1 endcol=1 size=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL col
+== Earlgrey_0_1 testflags law
+#137760 fullname
+  A: 11	ref_typespec			work@sha2		0	0	0	0		0
+  B: 11	ref_typespec					0	0	0	0		0
+#144433 col
+  A: 6	bit_select	key		work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key	hmac.sv	133	19	133	27		0
+  B: 6	bit_select	key		work@hmac.gen_key_digest.hw2reg.key[7 - i].d.key	hmac.sv	133	23	133	26		0
+#155820 fullname
+  A: 6	ref_typespec			work@ibex_core.if_stage_i.pmp_req_err		0	0	0	0		0
+  B: 6	ref_typespec			work@ibex_core.if_stage_i.instr_pmp_err_i.pmp_req_err		0	0	0	0		0
+objects 1342584 vs 1342910
+fields: depth=1 type=1 name=1 fullname=48 line=1 col=4 endline=1 endcol=10 size=1 objects_differing=55 (walk diverged)
+STRICT_NOTEQUAL fullname

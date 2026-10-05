@@ -1,0 +1,4 @@
+surelog/default/Earlgrey_0_1 away=41 toward=0 flat_away=41 flat_toward=0 | constant||||flash_phy_pkg.sv|43|53|43|63|1|32|UINT:1|9 @ param_assign: < module_inst: < design:work@prim_sync_reqack || range
+surelog/default/FuncStructVal away=296 toward=0 flat_away=288 flat_toward=0 | operation||||dut.sv|108|30|108|51||0|| @ typespec_member:NonIdempotentAddrBase < struct_typespec:config_pkg::cva6_cfg_t <
+surelog/testflags/Earlgrey_0_1 away=41 toward=0 flat_away=41 flat_toward=0 | constant||||flash_phy_pkg.sv|43|53|43|63|1|32|UINT:1|9 @ param_assign: < module_inst: < design:work@prim_sync_reqack || ran
+surelog/testflags/FuncStructVal away=280 toward=0 flat_away=272 flat_toward=0 | operation||||dut.sv|108|30|108|51||0|| @ typespec_member:NonIdempotentAddrBase < struct_typespec:config_pkg::cva6_cfg_t

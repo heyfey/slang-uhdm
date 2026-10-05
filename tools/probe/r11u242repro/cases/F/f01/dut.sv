@@ -1,0 +1,38 @@
+// § patLeftoverOpCopy242
+// A struct built member by member from a formal pattern whose wide members are size casts of
+// concatenations wider than 64 bits (kept as cast operations), stamped on the package typedef
+// and on the module parameter's copy (§ elabParamLeftoverOpRefUnnamed242).
+package cp;
+  localparam int NR = 16;
+  typedef struct packed {
+    int unsigned n;
+    logic [NR-1:0][63:0] base;
+    logic [NR-1:0][63:0] len;
+  } ucfg_t;
+  typedef struct packed {
+    int unsigned n;
+    logic [NR-1:0][63:0] base;
+    logic [NR-1:0][63:0] len;
+    bit en;
+  } cfg_t;
+endpackage
+package up;
+  localparam cp::ucfg_t U = '{
+    n: unsigned'(2),
+    base: 1024'({64'h10, 64'h20}),
+    len: 1024'({64'h1000, 64'h2000, 64'h3000})
+  };
+endpackage
+package bp;
+  function automatic cp::cfg_t build(cp::ucfg_t c);
+    cp::cfg_t r;
+    r.n = c.n;
+    r.base = c.base;
+    r.len = c.len;
+    r.en = c.n && c.base;
+    return r;
+  endfunction
+endpackage
+module top #(parameter cp::cfg_t C = bp::build(up::U)) (output logic o);
+  assign o = 1'b0;
+endmodule
