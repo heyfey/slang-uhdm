@@ -26,6 +26,7 @@
 #include "R231.h"
 #include "R241.h"
 #include "R251.h"
+#include "R253.h"
 
 namespace slang_uhdm {
 
@@ -7114,6 +7115,22 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     rv->push_back(reg);
                     av->Variables(rv);
                     funcMap[&fmv] = av;
+                    // § cloneTfFixedArrTsParented253 (R11U253_TFFIXARRTS_OFF):
+                    // the subroutine-level FIXED-SIZE twin of
+                    // § cloneLocalArrayTsParented241 (the queue / dynamic /
+                    // associative locals, makeQueueDynArrayVar) and
+                    // § cloneBlockFixedArrTsParented244 (the block-item fixed
+                    // arrays, StmtEmit): in an importer's copy the clone's
+                    // array_typespec is parented at the local's ref_typespec
+                    // (UHDM DeepClone), so its element ref_typespec reads the
+                    // local's full name (g193_c_argface: `int shelf193[4];` in
+                    // Jetty193's copies of c6_select193 and c8_block193).
+                    // Parented by § 241's design-final drain, with its guard.
+                    if (pkgImportCloneEmit &&
+                        r11u253On("R11U253_TFFIXARRTS_OFF")) {
+                        g_cloneArrTs241.push_back({ats, art});
+                        tr253("cloneTfFixedArrTsParented253", afull);
+                    }
                     // A foreach over this array binds THIS array_typespec —
                     // both for the iterated-array ref (which used to mint a
                     // fresh unlocated one) and for the loop variables.

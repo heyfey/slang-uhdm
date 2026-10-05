@@ -1,0 +1,56 @@
+== MiniAmiq default P
+#79121 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+  B: 18	int_var	succ		svaunit_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+#79122 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			svaunit_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+#79458 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+  B: 18	int_var	succ		svaunit_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+== MiniAmiq default L
+#87036 type
+  A: 8	string_typespec				uvm_component.svh	3380	10	3380	16				
+  B: 8	unsupported_typespec	i			uvm_component.svh	3392	18	3392	19				
+== SeqDriver default P
+#79078 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+  B: 18	int_var	succ		adpcm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+#79079 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			adpcm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+#79416 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+  B: 18	int_var	succ		adpcm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+== SeqDriver default L
+#86994 type
+  A: 8	string_typespec				uvm_component.svh	3380	10	3380	16				
+  B: 8	unsupported_typespec	i			uvm_component.svh	3392	18	3392	19				
+== MiniAmiq testflags P
+#79121 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+  B: 18	int_var	succ		svaunit_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+#79122 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			svaunit_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+#79458 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+  B: 18	int_var	succ		svaunit_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+== MiniAmiq testflags L
+#87036 type
+  A: 8	string_typespec				uvm_component.svh	3380	10	3380	16				
+  B: 8	unsupported_typespec	i			uvm_component.svh	3392	18	3392	19				
+== SeqDriver testflags P
+#79090 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+  B: 18	int_var	succ		adpcm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+#79091 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			adpcm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+#79428 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+  B: 18	int_var	succ		adpcm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+== SeqDriver testflags L
+#87006 type
+  A: 8	string_typespec				uvm_component.svh	3380	10	3380	16				
+  B: 8	unsupported_typespec	i			uvm_component.svh	3392	18	3392	19				

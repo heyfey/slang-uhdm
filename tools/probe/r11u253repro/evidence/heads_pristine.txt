@@ -1,0 +1,76 @@
+== MiniAmiq/default
+#79121 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+  B: 18	int_var	succ		svaunit_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+#79122 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			svaunit_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+#79458 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+  B: 18	int_var	succ		svaunit_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+#79459 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			svaunit_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+#87013 depth
+  A: 4	assignment				uvm_component.svh	3387	3	3387	22				
+  B: 6	class_var	cs		uvm_pkg::uvm_component::m_set_cl_verb::cs	uvm_component.svh	3385	3	3385	20		0		
+objects 435559 vs 434729
+fields: depth=1 type=1 name=1 fullname=5 line=1 endline=1 endcol=1 size=1 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL fullname
+== MiniAmiq/testflags
+#79121 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+  B: 18	int_var	succ		svaunit_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+#79122 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			svaunit_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+#79458 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+  B: 18	int_var	succ		svaunit_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+#79459 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			svaunit_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+#87013 depth
+  A: 4	assignment				uvm_component.svh	3387	3	3387	22				
+  B: 6	class_var	cs		uvm_pkg::uvm_component::m_set_cl_verb::cs	uvm_component.svh	3385	3	3385	20		0		
+objects 435559 vs 434729
+fields: depth=1 type=1 name=1 fullname=5 line=1 endline=1 endcol=1 size=1 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL fullname
+== SeqDriver/default
+#79078 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+  B: 18	int_var	succ		adpcm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+#79079 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			adpcm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+#79416 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+  B: 18	int_var	succ		adpcm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+#79417 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			adpcm_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+#86971 depth
+  A: 4	assignment				uvm_component.svh	3387	3	3387	22				
+  B: 6	class_var	cs		uvm_pkg::uvm_component::m_set_cl_verb::cs	uvm_component.svh	3385	3	3385	20		0		
+objects 475526 vs 474773
+fields: depth=1 type=1 name=1 fullname=5 line=1 endline=1 endcol=1 size=1 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL fullname
+== SeqDriver/testflags
+#79090 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+  B: 18	int_var	succ		adpcm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+#79091 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			adpcm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+#79428 fullname
+  A: 18	int_var	succ		uvm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+  B: 18	int_var	succ		adpcm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+#79429 fullname
+  A: 19	ref_typespec			uvm_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+  B: 19	ref_typespec			adpcm_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+#86983 depth
+  A: 4	assignment				uvm_component.svh	3387	3	3387	22				
+  B: 6	class_var	cs		uvm_pkg::uvm_component::m_set_cl_verb::cs	uvm_component.svh	3385	3	3385	20		0		
+objects 475538 vs 474785
+fields: depth=1 type=1 name=1 fullname=5 line=1 endline=1 endcol=1 size=1 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL fullname

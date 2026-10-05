@@ -25,6 +25,7 @@
 #include "R243.h"
 #include "R247.h"
 #include "R249.h"
+#include "R253.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -14390,6 +14391,49 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
                     std::string(ctf->VpiName()).c_str(), ctf->UhdmId(),
                     home->UhdmId(), coit->second.byKey.size(),
                     hoit->second.byKey.size());
+        // § cloneTfItemLocalOwnVar253 (R11U253_TFITEMOWN_OFF): in the
+        // TF-ITEM production (a paren-less function, or a subroutine whose
+        // body declares its io: § 139's predicate, TaskFuncEmit's
+        // `blockItems9` false) Surelog compiles the subroutine-level
+        // declarations as tf items listed on the subroutine itself
+        // (CompileStmt.cpp compileFunction), so the home body `begin` lists
+        // none of them.  `clone_tree` clones the subroutine's Variables first
+        // and then pushes the CLONE's frame (`enterTask_func(clone)`), and
+        // the SOURCE begin's frame (`enterBegin`) holds nothing under those
+        // names: every body reference to a subroutine-level declaration binds
+        // the CLONE's OWN variable, not the home's (MiniAmiq #87013, SeqDriver
+        // #86971: `cs = uvm_coreservice_t::get();` in the copy of the
+        // paren-less uvm_component::m_set_cl_verb).  Only variables the
+        // clone lists directly on the subroutine are kept; a nested block's
+        // declaration still binds the home's.
+        bool tfItems253 = false;
+        if (r11u253On("R11U253_TFITEMOWN_OFF"))
+            if (sym->kind == slang::ast::SymbolKind::Subroutine)
+                if (auto* syn253 = sym->getSyntax())
+                    if (auto* fd253 = syn253->as_if<
+                            slang::syntax::FunctionDeclarationSyntax>()) {
+                        bool io253 = false;
+                        for (auto* it253 : fd253->items)
+                            if (it253->kind ==
+                                slang::syntax::SyntaxKind::PortDeclaration)
+                                io253 = true;
+                        const bool parens253 =
+                            fd253->prototype->portList != nullptr;
+                        const bool task253 =
+                            sym->as<slang::ast::SubroutineSymbol>()
+                                .subroutineKind ==
+                            slang::ast::SubroutineKind::Task;
+                        tfItems253 = io253 || (!parens253 && !task253);
+                    }
+        auto tfOwn253 = [&](const UHDM::variables* v) {
+            if (!tfItems253 || !v || v->VpiParent() != (const UHDM::any*)ctf)
+                return false;
+            tr253("cloneTfItemLocalOwnVar253",
+                  std::string(ctf->VpiName()) + " " +
+                      std::string(v->VpiName()) + "@" +
+                      std::to_string(v->VpiLineNo()));
+            return true;
+        };
         const auto& hv = hoit->second.byKey;
         const auto& hd = hoit->second.dup;
         const auto& cv = coit->second.byKey;
@@ -14432,6 +14476,8 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
                 if (!ok247)
                     continue;
                 for (size_t i = 0; i < c247.size(); i++) {
+                    if (tfOwn253(c247[i]))
+                        continue;
                     remap[(const UHDM::any*)c247[i]] = h247[i];
                     tr247("cloneStmtHomeVarDupKeyByOrder247",
                           k + " clone#" + std::to_string(c247[i]->UhdmId()) +
@@ -14449,6 +14495,8 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
             // or the reference would change VpiType instead of just its
             // typespec.
             if (hit->second->UhdmType() != v->UhdmType())
+                continue;
+            if (tfOwn253(v))
                 continue;
             remap[(const UHDM::any*)v] = hit->second;
         }

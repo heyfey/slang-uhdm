@@ -1,0 +1,28 @@
+== MiniAmiq/default
+#87036 type
+  A: 8	string_typespec				uvm_component.svh	3380	10	3380	16				
+  B: 8	unsupported_typespec	i			uvm_component.svh	3392	18	3392	19				
+objects 435559 vs 434599
+fields: type=1 name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== MiniAmiq/testflags
+#87036 type
+  A: 8	string_typespec				uvm_component.svh	3380	10	3380	16				
+  B: 8	unsupported_typespec	i			uvm_component.svh	3392	18	3392	19				
+objects 435559 vs 434599
+fields: type=1 name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== SeqDriver/default
+#86994 type
+  A: 8	string_typespec				uvm_component.svh	3380	10	3380	16				
+  B: 8	unsupported_typespec	i			uvm_component.svh	3392	18	3392	19				
+objects 475526 vs 474708
+fields: type=1 name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== SeqDriver/testflags
+#87006 type
+  A: 8	string_typespec				uvm_component.svh	3380	10	3380	16				
+  B: 8	unsupported_typespec	i			uvm_component.svh	3392	18	3392	19				
+objects 475538 vs 474720
+fields: type=1 name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type

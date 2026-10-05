@@ -1,0 +1,6 @@
+EvalFuncNamed default flat: dist 0 -> 0 lost=0 gained=0 | chain contexts losing a golden-held record: 0 of 0
+MiniAmiq default flat: dist 405 -> 229 lost=26 gained=72 | chain contexts losing a golden-held record: 0 of 62
+SeqDriver default flat: dist 245 -> 132 lost=10 gained=58 | chain contexts losing a golden-held record: 0 of 7
+EvalFuncNamed testflags flat: dist 0 -> 0 lost=0 gained=0 | chain contexts losing a golden-held record: 0 of 0
+MiniAmiq testflags flat: dist 405 -> 229 lost=26 gained=72 | chain contexts losing a golden-held record: 0 of 62
+SeqDriver testflags flat: dist 245 -> 132 lost=10 gained=58 | chain contexts losing a golden-held record: 0 of 7

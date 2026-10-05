@@ -1,0 +1,10 @@
+pristine vd01_v2001_fn_synth {'name': 'vd01_v2001_fn_synth', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 21, 'slang_gates': 21, 'differs': '', 'detail': ''}
+pristine vd02_formal_range_synth {'name': 'vd02_formal_range_synth', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 14, 'slang_gates': 14, 'differs': '', 'detail': ''}
+pristine vd03_fixed_local_synth {'name': 'vd03_fixed_local_synth', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+pristine vt05_v2001_fn_io {'name': 'vt05_v2001_fn_io', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine vp02_output_ref_formals {'name': 'vp02_output_ref_formals', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law vd01_v2001_fn_synth {'name': 'vd01_v2001_fn_synth', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 21, 'slang_gates': 21, 'differs': '', 'detail': ''}
+law vd02_formal_range_synth {'name': 'vd02_formal_range_synth', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 14, 'slang_gates': 14, 'differs': '', 'detail': ''}
+law vd03_fixed_local_synth {'name': 'vd03_fixed_local_synth', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+law vt05_v2001_fn_io {'name': 'vt05_v2001_fn_io', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law vp02_output_ref_formals {'name': 'vp02_output_ref_formals', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}

@@ -23,6 +23,7 @@
 #include "R247.h"
 #include "R249.h"
 #include "R251.h"
+#include "R253.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -19159,6 +19160,9 @@ UHDM::design* UhdmExporter::exportDesign() {
         // reads the copy's array_typespec), and golden's home object keeps
         // no parent and no full names there.
         std::map<const UHDM::any*, std::vector<const UHDM::ref_typespec*>> refsOf241;
+        // § cloneArrTsHomeElabFirst253: every block-level variable by its
+        // enclosing subroutine, built on first use.
+        std::map<const UHDM::task_func*, std::vector<const UHDM::variables*>> homeBlockVars253;
         std::set<const UHDM::any*> cloneTfs241(g_cloneTf241.begin(), g_cloneTf241.end());
         if (!g_cloneTf241.empty() || !g_cloneArrTs241.empty())
             for (auto& kv : s.AllObjects()) {
@@ -19465,6 +19469,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                 }
             }
         }
+        // § cloneFormalTsParented253 reads the copies after § 241's drain.
+        const std::vector<UHDM::task_func*> cloneTfs253 = g_cloneTf241;
         g_cloneTf241.clear();
         auto* d241 = finish231();
         // § cloneLocalArrayTsParented241 (r11u241, law at TaskFuncEmit.cpp
@@ -19558,14 +19564,90 @@ UHDM::design* UhdmExporter::exportDesign() {
                                           : pkgCloneHomeSub17.end();
                             if (cav && hs != pkgCloneHomeSub17.end() && hs->second) {
                                 std::vector<const UHDM::task_func*> homes;
-                                if (auto e = pkgElabSubTf.find(hs->second); e != pkgElabSubTf.end() && e->second)
+                                bool elabHome253 = false;
+                                if (auto e = pkgElabSubTf.find(hs->second); e != pkgElabSubTf.end() && e->second) {
                                     homes.push_back(e->second);
+                                    elabHome253 = true;
+                                }
                                 if (auto e = subMap.find(hs->second); e != subMap.end() && e->second.tf)
                                     homes.push_back(e->second.tf);
+                                // § cloneArrTsHomeElabFirst253 (R11U253_HOMEARRELAB_OFF):
+                                // the per-home answers, so that two DIFFERENT
+                                // objects coming from the two home VIEWS (the
+                                // elaborated home and the definition listing,
+                                // each with its own array_typespec for the
+                                // local) no longer read as an ambiguity.
+                                std::vector<const UHDM::typespec*> perHome253(homes.size(), nullptr);
+                                std::vector<bool> ambHome253(homes.size(), false);
+                                size_t hi253 = 0;
+                                // ... and a BLOCK-level local (a `begin` inside
+                                // the home body: m_set_cl_verb's `comps`,
+                                // m_set_cl_action's `values`) is looked up in the
+                                // home's nested blocks as well, the home view
+                                // pairs being read the same way.
+                                const bool blk253 = r11u253On("R11U253_HOMEARRELAB_OFF");
+                                auto blockVars253 = [&](const UHDM::task_func* h)
+                                    -> std::vector<const UHDM::variables*> {
+                                    std::vector<const UHDM::variables*> out;
+                                    if (!blk253)
+                                        return out;
+                                    if (homeBlockVars253.empty())
+                                        for (auto& kv : s.AllObjects()) {
+                                            auto* o = (const UHDM::BaseClass*)kv.first;
+                                            if (!o)
+                                                continue;
+                                            const UHDM::VectorOfvariables* vs = nullptr;
+                                            switch (o->UhdmType()) {
+                                                case UHDM::uhdmbegin: vs = ((const UHDM::begin*)o)->Variables(); break;
+                                                case UHDM::uhdmnamed_begin: vs = ((const UHDM::named_begin*)o)->Variables(); break;
+                                                case UHDM::uhdmfork_stmt: vs = ((const UHDM::fork_stmt*)o)->Variables(); break;
+                                                case UHDM::uhdmnamed_fork: vs = ((const UHDM::named_fork*)o)->Variables(); break;
+                                                default: break;
+                                            }
+                                            if (!vs)
+                                                continue;
+                                            const UHDM::BaseClass* u = o->VpiParent();
+                                            for (int k = 0; u && k < 512; ++k, u = u->VpiParent())
+                                                if (u->UhdmType() == UHDM::uhdmfunction ||
+                                                    u->UhdmType() == UHDM::uhdmtask)
+                                                    break;
+                                            if (!u)
+                                                continue;
+                                            auto& l = homeBlockVars253[(const UHDM::task_func*)u];
+                                            for (auto* v : *vs)
+                                                if (v)
+                                                    l.push_back(v);
+                                        }
+                                    if (auto it = homeBlockVars253.find(h); it != homeBlockVars253.end())
+                                        out = it->second;
+                                    return out;
+                                };
                                 for (auto* h : homes) {
-                                    if (h == ctf || !h->Variables())
+                                    const size_t idx253 = hi253++;
+                                    if (h == ctf)
                                         continue;
-                                    for (auto* v : *h->Variables())
+                                    std::vector<const UHDM::variables*> hv253;
+                                    if (h->Variables())
+                                        hv253.assign(h->Variables()->begin(), h->Variables()->end());
+                                    bool topHit253 = false;
+                                    for (auto* v : hv253)
+                                        if (v && v->VpiName() == cav->VpiName() &&
+                                            v->VpiLineNo() == cav->VpiLineNo() &&
+                                            v->VpiColumnNo() == cav->VpiColumnNo())
+                                            topHit253 = true;
+                                    if (!topHit253 && !homeAmbig247)
+                                        for (auto* v : blockVars253(h))
+                                            if (v && v->VpiName() == cav->VpiName() &&
+                                                v->VpiLineNo() == cav->VpiLineNo() &&
+                                                v->VpiColumnNo() == cav->VpiColumnNo() &&
+                                                std::find(hv253.begin(), hv253.end(), v) == hv253.end()) {
+                                                hv253.push_back(v);
+                                                tr253("cloneArrTsHomeElabFirst253_block",
+                                                      std::string(art241->VpiFullName()));
+                                            }
+                                    if (hv253.empty())
+                                        continue;
+                                    for (auto* v : hv253)
                                         if (v && v->UhdmType() == cav->UhdmType() &&
                                             v->VpiName() == cav->VpiName() &&
                                             v->VpiLineNo() == cav->VpiLineNo() &&
@@ -19575,7 +19657,31 @@ UHDM::design* UhdmExporter::exportDesign() {
                                                 if (homeAts247 && homeAts247 != at)
                                                     homeAmbig247 = true;
                                                 homeAts247 = at;
+                                                if (perHome253[idx253] && perHome253[idx253] != at)
+                                                    ambHome253[idx253] = true;
+                                                perHome253[idx253] = at;
                                             }
+                                }
+                                // The shared home loop variable is the
+                                // ELABORATED home body's object (§ cloneLoopVarShared37),
+                                // so when both home views answer with their own
+                                // array_typespec the elaborated home's is the one
+                                // it binds, as § cloneStmtHomeVarRef17 pairs a
+                                // copy's locals with the elaborated home first.
+                                // Typespec identity is invisible to the judge; the
+                                // copy's own array_typespec is then no longer
+                                // shared and § 241 parents it (golden's element
+                                // ref_typespec under it reads the local's full
+                                // name: MiniAmiq / SeqDriver, the copies of
+                                // uvm_string_to_action::actions, m_set_cl_verb's
+                                // comps, m_set_cl_action's values).
+                                if (homeAmbig247 && elabHome253 && homes.size() == 2 &&
+                                    perHome253[0] && !ambHome253[0] && perHome253[1] &&
+                                    !ambHome253[1] && r11u253On("R11U253_HOMEARRELAB_OFF")) {
+                                    homeAts247 = perHome253[0];
+                                    homeAmbig247 = false;
+                                    tr253("cloneArrTsHomeElabFirst253",
+                                          std::string(art241->VpiFullName()));
                                 }
                             }
                         }
@@ -19613,6 +19719,43 @@ UHDM::design* UhdmExporter::exportDesign() {
                 tr241("cloneLocalArrayTsParented241", std::string(art241->VpiFullName()));
             }
         g_cloneArrTs241.clear();
+        // § cloneFormalTsParented253 (R11U253_FORMALTS_OFF): the FORMAL
+        // twin of § cloneLocalArrayTsParented241.  An importer's copy is
+        // UHDM's deep clone of the home subroutine, and the clone of a
+        // formal's ref_typespec clones its typespec and parents it at that
+        // clone (the home's keeps no parent), so the names under the copy's
+        // formal typespec read the copy's chain: golden `ref_obj
+        // UVM_LARGE_STRING` in the range of `logic [UVM_LARGE_STRING:0] str`
+        // of the copy svaunit_pkg::uvm_bits_to_string reads
+        // `svaunit_pkg::uvm_bits_to_string::str::UVM_LARGE_STRING`, ours
+        // nothing (MiniAmiq / SeqDriver).  The copy's return variable is
+        // the home's object in golden and is not touched.  Same guard as
+        // § 241: the typespec is changed only when every ref_typespec
+        // binding it sits inside that one copy.
+        if (r11u253On("R11U253_FORMALTS_OFF"))
+            for (auto* ctf253 : cloneTfs253) {
+                auto* tf253 = (const UHDM::task_func*)ctf253;
+                if (!tf253 || !tf253->Io_decls())
+                    continue;
+                for (auto* io253 : *tf253->Io_decls()) {
+                    if (!io253 || io253->VpiParent() != (const UHDM::any*)tf253)
+                        continue;
+                    auto* rt253 = io253->Typespec();
+                    auto* ts253 = rt253 ? rt253->Actual_typespec() : nullptr;
+                    if (!ts253 || ts253->VpiParent() || !ts253->VpiName().empty())
+                        continue;
+                    if (!onlyIn241(ts253, tf253)) {
+                        tr253("cloneFormalTsParented253_shared",
+                              std::string(tf253->VpiFullName()) + "::" +
+                                  std::string(io253->VpiName()));
+                        continue;
+                    }
+                    ts253->VpiParent((UHDM::any*)rt253);
+                    tr253("cloneFormalTsParented253",
+                          std::string(tf253->VpiFullName()) + "::" +
+                              std::string(io253->VpiName()));
+                }
+            }
         return d241;
     };
     if (!r11u146Law("R11U146_TFARGTD_OFF"))
@@ -20904,6 +21047,75 @@ void UhdmExporter::drainCloneArrayRecvArgMint193() {
               [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
                   return a->UhdmId() < b->UhdmId();
               });
+    // § cloneMintParentHomeCall253 (R11U253_MINTHOME_OFF): the producer
+    // parents the mint at `obj->VpiParent()`, where `obj` is the argument of
+    // the call BEING CLONED, not the clone's own argument (UHDM
+    // clone_tree.cpp, method_func_call::DeepClone:
+    // `varclone->VpiParent(const_cast<any*>(obj->VpiParent()))`).  A
+    // wildcard-import copy is cloned from the home body, so golden's mint in
+    // the copy hangs under the HOME call and its synthesized full name reads
+    // the home package (`uvm_pkg::uvm_phase::sync::visited.exists::succ`,
+    // MiniAmiq #79121, SeqDriver #79078).  The home call is found in the
+    // home subroutine (§ cloneStmtHomeVarRef17's pairing: the elaborated
+    // home first, else the definition listing) as the hier_path with the
+    // same span and element count and the element at the same index; an
+    // ambiguous or missing match keeps the copy's own call.
+    std::map<const UHDM::task_func*, std::vector<UHDM::hier_path*>> tfHp253;
+    const bool on253 = r11u253On("R11U253_MINTHOME_OFF");
+    if (on253)
+        for (auto* o253 : hp193x) {
+            for (const UHDM::BaseClass* u253 = o253->VpiParent(); u253;
+                 u253 = u253->VpiParent()) {
+                const auto t253 = u253->UhdmType();
+                if (t253 == UHDM::uhdmfunction || t253 == UHDM::uhdmtask) {
+                    tfHp253[(const UHDM::task_func*)u253].push_back(
+                        (UHDM::hier_path*)o253);
+                    break;
+                }
+                if (t253 == UHDM::uhdmpackage ||
+                    t253 == UHDM::uhdmclass_defn ||
+                    t253 == UHDM::uhdmmodule_inst ||
+                    t253 == UHDM::uhdmdesign)
+                    break;
+            }
+        }
+    auto homeCall253 = [&](const UHDM::task_func* ctf,
+                           const UHDM::hier_path* chp, size_t idx,
+                           const UHDM::any* ccall) -> UHDM::any* {
+        auto hs = pkgCloneHomeSub17.find(ctf);
+        if (hs == pkgCloneHomeSub17.end() || !hs->second)
+            return nullptr;
+        const UHDM::task_func* home = nullptr;
+        if (auto eit = pkgElabSubTf.find(hs->second);
+            eit != pkgElabSubTf.end() && eit->second)
+            home = eit->second;
+        else if (auto sit = subMap.find(hs->second); sit != subMap.end())
+            home = sit->second.tf;
+        if (!home || home == ctf)
+            return nullptr;
+        auto hit = tfHp253.find(home);
+        if (hit == tfHp253.end())
+            return nullptr;
+        UHDM::any* found = nullptr;
+        int n = 0;
+        for (auto* h : hit->second) {
+            auto* he = h->Path_elems();
+            if (!he || he->size() != chp->Path_elems()->size() ||
+                h->VpiLineNo() != chp->VpiLineNo() ||
+                h->VpiColumnNo() != chp->VpiColumnNo() ||
+                h->VpiEndLineNo() != chp->VpiEndLineNo() ||
+                h->VpiEndColumnNo() != chp->VpiEndColumnNo() ||
+                h->VpiFile() != chp->VpiFile())
+                continue;
+            auto* hc = he->at(idx);
+            if (!hc || hc->UhdmType() != ccall->UhdmType() ||
+                hc->VpiName() != ccall->VpiName())
+                continue;
+            found = hc;
+            n++;
+        }
+        return n == 1 ? found : nullptr;
+    };
     for (auto* o193 : hp193x) {
         auto* el193 = ((UHDM::hier_path*)o193)->Path_elems();
         if (!el193 || el193->size() < 2)
@@ -21027,8 +21239,18 @@ void UhdmExporter::drainCloneArrayRecvArgMint193() {
                 if (const UHDM::any* had193 = ar193->Actual_group())
                     if (had193->VpiName() != a193->VpiName())
                         continue;
+                UHDM::any* par253 = m193;
+                if (on253)
+                    if (UHDM::any* h253 = homeCall253(
+                            tf193, (const UHDM::hier_path*)o193, i193, m193)) {
+                        par253 = h253;
+                        tr253("cloneMintParentHomeCall253",
+                              std::string(a193->VpiName()) + " " +
+                                  std::to_string(a193->VpiLineNo()) + ":" +
+                                  std::to_string(a193->VpiColumnNo()));
+                    }
                 UHDM::variables* mint193 = mintArrayElemVar193(
-                    vars193->front(), a193->VpiName(), m193);
+                    vars193->front(), a193->VpiName(), par253);
                 if (!mint193)
                     continue;
                 ar193->Actual_group(mint193);

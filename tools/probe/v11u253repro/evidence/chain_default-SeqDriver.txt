@@ -1,0 +1,10 @@
+LOST 6  g=1117 off=1100 on=1094  bit_typespec|uvm_reg_addr_t|||uvm_reg_model.svh|73|10|73|31||||
+LOST 3  g=150 off=135 on=132  enum_typespec|uvm_pkg::uvm_severity|||uvm_sequence_item.svh|352|37|352|49||||
+LOST 1  g=14 off=13 on=12  string_typespec||||uvm_component.svh|3380|10|3380|16||||
+  CTX g=0 off=2 on=0  ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < array_typespec: < ref_typespec: < ref_var:i < ref_var:i < foreach_stmt: < begin: < if_stmt: < begin: < foreach_stmt: < begin: < function:uvm_reg_map::Xinit_address_mapX < package:adpcm_pkg < design:
+  CTX g=0 off=2 on=0  ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < array_typespec: < ref_typespec: < ref_var:i < ref_var:i < foreach_stmt: < begin: < if_stmt: < begin: < if_stmt: < begin: < begin: < function:uvm_reg_map::m_set_reg_offset < package:adpcm_pkg < desig
+  CTX g=0 off=2 on=0  ref_typespec: < bit_typespec:uvm_reg_addr_t < ref_typespec: < array_typespec: < ref_typespec: < ref_var:j < ref_var:j < foreach_stmt: < begin: < foreach_stmt: < begin: < if_else: < begin: < function:uvm_reg_map::get_physical_addresses < package:adpcm_pkg < des
+  CTX g=0 off=1 on=0  ref_typespec: < string_var:values < ref_obj:values < hier_path:values.size < operation: < if_stmt: < begin: < function:uvm_component::m_set_cl_verb < package:adpcm_pkg < design:work@top_tb
+  CTX g=0 off=1 on=0  ref_typespec: < enum_var:orig_sev < ref_obj:orig_sev < func_call:uvm_string_to_severity < operation: < operation: < if_stmt: < begin: < foreach_stmt: < begin: < if_stmt: < begin: < function:uvm_component::m_set_cl_sev < package:adpcm_pkg < design:work@top_tb
+  CTX g=0 off=1 on=0  ref_typespec: < enum_var:sev < ref_obj:sev < func_call:uvm_string_to_severity < operation: < if_stmt: < begin: < foreach_stmt: < begin: < if_stmt: < begin: < function:uvm_component::m_set_cl_sev < package:adpcm_pkg < design:work@top_tb
+  CTX g=0 off=1 on=0  ref_typespec: < enum_var:sev < ref_obj:sev < func_call:uvm_string_to_severity < operation: < operation: < if_stmt: < begin: < foreach_stmt: < begin: < if_stmt: < begin: < function:uvm_component::m_set_cl_action < package:adpcm_pkg < design:work@top_tb

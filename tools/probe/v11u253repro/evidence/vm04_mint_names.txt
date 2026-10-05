@@ -1,0 +1,8 @@
+== golden.uhdm
+      6 int_var: (p::f::seen.exists::k)
+      6 int_var: (q::f::seen.exists::k)
+== pristine.uhdm
+      6 int_var: (q::f::seen.exists::k)
+      6 int_var: (r::f::seen.exists::k)
+== law.uhdm
+     12 int_var: (p::f::seen.exists::k)

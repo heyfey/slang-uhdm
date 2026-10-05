@@ -1,0 +1,8 @@
+== va06_tfitem_queue_parenless
+LOST 3  g=12 off=11 on=8  int_typespec||||dut.sv|4|5|4|8||||
+  CTX g=0 off=1 on=0  ref_typespec: < int_var:qq < ref_obj:qq < method_func_call:push_back < begin: < function:f < module_inst: < design:work@top
+  CTX g=0 off=1 on=0  ref_typespec: < int_var:qq < ref_obj:qq < method_func_call:push_back < begin: < function:f < module_inst:work@top < design:work@top
+  CTX g=0 off=1 on=0  ref_typespec: < int_var:qq < ref_obj:qq < method_func_call:push_back < begin: < function:f < package:q < design:work@top
+== va06_tfitem_queue_parenless_el
+LOST 1  g=16 off=13 on=12  int_typespec||||dut.sv|4|5|4|8||||
+  CTX g=0 off=1 on=0  ref_typespec: < int_var:qq < ref_var:qq < foreach_stmt: < begin: < function:f < module_inst: < design:work@top

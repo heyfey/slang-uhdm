@@ -1,0 +1,17 @@
+dist 245 -> 132 lost=10 gained=58
+  LOST 6 bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  LOST 1 string_typespec				uvm_component.svh	3380	10	3380	16				
+  LOST 3 enum_typespec	uvm_pkg::uvm_severity			uvm_sequence_item.svh	352	37	352	49				
+  GAIN 6 bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  GAIN 30 ref_typespec			<in>		0	0	0	0		0		
+  GAIN 2 int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0		
+  GAIN 2 ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0		
+  GAIN 2 int_var	succ		uvm_pkg::uvm_phase::unsync::visited.exists::succ	uvm_phase.svh	1946	9	1946	16		0		
+  GAIN 2 ref_typespec			uvm_pkg::uvm_phase::unsync::visited.exists::succ		0	0	0	0		0		
+  GAIN 2 ref_obj	UVM_LARGE_STRING		<in>UVM_LARGE_STRING	uvm_globals.svh	434	43	434	59		0		
+  GAIN 2 class_var	this		uvm_pkg::uvm_reg_map::do_print::regs[j].get_address::this	uvm_reg_map.svh	2134	13	2134	17		0		
+  GAIN 2 ref_typespec			uvm_pkg::uvm_reg_map::do_print::regs[j].get_address::this		0	0	0	0		0		
+  GAIN 2 class_var	this		uvm_pkg::uvm_reg_map::do_print::mems[j].get_address::this	uvm_reg_map.svh	2136	13	2136	17		0		
+  GAIN 2 ref_typespec			uvm_pkg::uvm_reg_map::do_print::mems[j].get_address::this		0	0	0	0		0		
+  GAIN 2 class_var	this		uvm_pkg::uvm_reg_map::do_print::vregs[j].get_address::this	uvm_reg_map.svh	2135	13	2135	18		0		
+  GAIN 2 ref_typespec			uvm_pkg::uvm_reg_map::do_print::vregs[j].get_address::this		0	0	0	0		0		
