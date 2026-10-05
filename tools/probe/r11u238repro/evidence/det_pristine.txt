@@ -1,0 +1,12 @@
+pristine Earlgrey_0_1/default       3 a6ed4efdb200
+pristine MiniAmiq/default       3 3b5f3c432dc0
+pristine SeqDriver/default       3 06b2a3f1dbf1
+pristine SimpleUVM/default       3 93669fd10b3a
+pristine Scoreboard/default       3 80d768d658ab
+pristine BuildUVMPkg/default       3 4e747bb4e5e2
+pristine Earlgrey_0_1/testflags       3 8517467bd0ef
+pristine MiniAmiq/testflags       3 3b5f3c432dc0
+pristine SeqDriver/testflags       3 2e6ebea9b02f
+pristine SimpleUVM/testflags       3 05304184c551
+pristine Scoreboard/testflags
+pristine BuildUVMPkg/testflags       3 4e747bb4e5e2

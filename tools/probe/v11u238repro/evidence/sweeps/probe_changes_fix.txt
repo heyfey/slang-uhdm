@@ -1,0 +1,14 @@
+base: r10uvm180repro/g180_a_kinds,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)  | fix: r10uvm180repro/g180_a_kinds,STRICT_NOTEQUAL,differ:line(5),differ:line(5)
+base: r10uvm204repro/g204_b_ctx,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)  | fix: r10uvm204repro/g204_b_ctx,EQUAL,,equal
+base: r10uvm204repro/g204_c_shadow,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)  | fix: r10uvm204repro/g204_c_shadow,EQUAL,,equal
+base: r10uvm204repro/g204_e_head,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)  | fix: r10uvm204repro/g204_e_head,EQUAL,,equal
+base: r10uvm20repro/t31_t,STRICT_NOTEQUAL,differ:type(1),differ:type(1)  | fix: r10uvm20repro/t31_t,EQUAL,,equal
+base: r10uvm21repro/t32d_t,STRICT_NOTEQUAL,differ:type(1),differ:type(1)  | fix: r10uvm21repro/t32d_t,EQUAL,,equal
+base: r10uvm22repro/t33e_t,STRICT_NOTEQUAL,differ:file(2),differ:file(2)  | fix: r10uvm22repro/t33e_t,EQUAL,,equal
+base: r10v180repro/v180_a_share,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)  | fix: r10v180repro/v180_a_share,EQUAL,,equal
+base: r10v181repro/v181_e_idxbase,STRICT_NOTEQUAL,differ:type(1),differ:type(1)  | fix: r10v181repro/v181_e_idxbase,EQUAL,,equal
+base: r10v181repro/v181_f_mixed,STRICT_NOTEQUAL,differ:type(1),differ:type(1)  | fix: r10v181repro/v181_f_mixed,EQUAL,,equal
+base: r10v204repro/v204_c_clones,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)  | fix: r10v204repro/v204_c_clones,EQUAL,,equal
+base: r10v204repro/v204_m_module,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)  | fix: r10v204repro/v204_m_module,EQUAL,,equal
+base: r10v204repro/v204_s_shadow,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)  | fix: r10v204repro/v204_s_shadow,EQUAL,,equal
+base: r10v204repro/v204_v_extra,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)  | fix: r10v204repro/v204_v_extra,EQUAL,,equal

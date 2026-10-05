@@ -18702,10 +18702,20 @@ void UhdmExporter::drainCloneArrayRecvArgMint193() {
     std::set<const UHDM::any*> claimed184;
     for (auto& [a184, r184] : cloneMfcArgRecv184)
         claimed184.insert((const UHDM::any*)a184);
-    for (auto& kv193 : s.AllObjects()) {
-        auto* o193 = (UHDM::BaseClass*)kv193.first;
-        if (!o193 || o193->UhdmType() != UHDM::uhdmhier_path)
-            continue;
+    // § recvArgMintIdOrder238v (v11u238, an order fix with no switch):
+    // Walk the hier_paths in UhdmId order: s.AllObjects() is a std::map keyed
+    // by OBJECT ADDRESS, so its order is heap placement, and the mints below
+    // inherit it (v11u238: SeqDriver default wrote two databases, order-blind
+    // identical, under r11u238's laws).
+    std::vector<UHDM::BaseClass*> hp193x;
+    for (auto& kv193 : s.AllObjects())
+        if (kv193.first && kv193.first->UhdmType() == UHDM::uhdmhier_path)
+            hp193x.push_back((UHDM::BaseClass*)kv193.first);
+    std::sort(hp193x.begin(), hp193x.end(),
+              [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+                  return a->UhdmId() < b->UhdmId();
+              });
+    for (auto* o193 : hp193x) {
         auto* el193 = ((UHDM::hier_path*)o193)->Path_elems();
         if (!el193 || el193->size() < 2)
             continue;

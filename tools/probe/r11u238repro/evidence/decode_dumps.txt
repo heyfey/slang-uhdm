@@ -1,0 +1,74 @@
+# uhdm-dump vpiActual of every clone-side ref_obj to an int_var (grid k01, k12, default view): golden, law3, pristine
+== k01 golden.uhdm
+      2 \_int_var: (p::h)
+      6 \_int_var: (p::h::b)
+      6 \_int_var: (p::h::k)
+== k01 law.uhdm
+      2 \_int_var: (p::h)
+      6 \_int_var: (p::h::b)
+      6 \_int_var: (p::h::k)
+== k01 pristine.uhdm
+      2 \_int_var: (p::h)
+      6 \_int_var: (q::h::b)
+      6 \_int_var: (q::h::k)
+== k12 golden.uhdm
+      6 \_int_var: (p::fac::run::i)
+      6 \_int_var: (p::fac::run::m)
+== k12 law.uhdm
+      6 \_int_var: (p::fac::run::i)
+      6 \_int_var: (p::fac::run::m)
+== k12 pristine.uhdm
+      6 \_int_var: (q::fac::run::i)
+      6 \_int_var: (q::fac::run::m)
+
+# foreach ref_var typespecs (f17 paren-less body, f20 $unit import, f21 package-variable shadow): golden vs law3
+== f17 golden.uhdm
+      1 \_ref_var: (p::c::m_run::q), line:25:16, endln:25:17 -> \_array_typespec: , line:23:12, endln:23:15
+      1 \_ref_var: (p::c::m_run::q), line:25:16, endln:25:17 -> \_unsupported_typespec: (q), line:25:16, endln:25:17
+      1 \_ref_var: (p::c::m_set::asc), line:18:14, endln:18:17 -> \_int_typespec: , line:11:5, endln:11:8
+      1 \_ref_var: (p::c::m_set::asc), line:18:14, endln:18:17 -> \_unsupported_typespec: (asc), line:18:14, endln:18:17
+      1 \_ref_var: (p::c::m_set::dyn), line:16:14, endln:16:17 -> \_int_typespec: , line:9:15, endln:9:18
+      1 \_ref_var: (p::c::m_set::dyn), line:16:14, endln:16:17 -> \_unsupported_typespec: (dyn), line:16:14, endln:16:17
+      1 \_ref_var: (p::c::m_set::fix), line:17:14, endln:17:17 -> \_int_typespec: , line:10:5, endln:10:8
+      1 \_ref_var: (p::c::m_set::fix), line:17:14, endln:17:17 -> \_unsupported_typespec: (fix), line:17:14, endln:17:17
+      1 \_ref_var: (p::c::m_set::m2), line:20:14, endln:20:16 -> \_int_typespec: , line:13:5, endln:13:8
+      1 \_ref_var: (p::c::m_set::m2), line:20:14, endln:20:16 -> \_unsupported_typespec: (m2), line:20:14, endln:20:16
+      1 \_ref_var: (p::c::m_set::objs), line:19:14, endln:19:18 -> \_class_typespec: (c), line:12:5, endln:12:6
+      1 \_ref_var: (p::c::m_set::objs), line:19:14, endln:19:18 -> \_unsupported_typespec: (objs), line:19:14, endln:19:18
+      1 \_ref_var: (p::c::m_set::values), line:15:14, endln:15:20 -> \_string_typespec: , line:8:12, endln:8:18
+      1 \_ref_var: (p::c::m_set::values), line:15:14, endln:15:20 -> \_unsupported_typespec: (values), line:15:14, endln:15:20
+== f17 law.uhdm
+      1 \_ref_var: (p::c::m_run::q), line:25:16, endln:25:17 -> \_array_typespec: , line:23:12, endln:23:15
+      1 \_ref_var: (p::c::m_run::q), line:25:16, endln:25:17 -> \_unsupported_typespec: (q), line:25:16, endln:25:17
+      1 \_ref_var: (p::c::m_set::asc), line:18:14, endln:18:17 -> \_int_typespec: , line:11:5, endln:11:8
+      1 \_ref_var: (p::c::m_set::asc), line:18:14, endln:18:17 -> \_unsupported_typespec: (asc), line:18:14, endln:18:17
+      1 \_ref_var: (p::c::m_set::dyn), line:16:14, endln:16:17 -> \_int_typespec: , line:9:15, endln:9:18
+      1 \_ref_var: (p::c::m_set::dyn), line:16:14, endln:16:17 -> \_unsupported_typespec: (dyn), line:16:14, endln:16:17
+      1 \_ref_var: (p::c::m_set::fix), line:17:14, endln:17:17 -> \_int_typespec: , line:10:5, endln:10:8
+      1 \_ref_var: (p::c::m_set::fix), line:17:14, endln:17:17 -> \_unsupported_typespec: (fix), line:17:14, endln:17:17
+      1 \_ref_var: (p::c::m_set::m2), line:20:14, endln:20:16 -> \_int_typespec: , line:13:5, endln:13:8
+      1 \_ref_var: (p::c::m_set::m2), line:20:14, endln:20:16 -> \_unsupported_typespec: (m2), line:20:14, endln:20:16
+      1 \_ref_var: (p::c::m_set::objs), line:19:14, endln:19:18 -> \_class_typespec: (c), line:12:5, endln:12:6
+      1 \_ref_var: (p::c::m_set::objs), line:19:14, endln:19:18 -> \_unsupported_typespec: (objs), line:19:14, endln:19:18
+      1 \_ref_var: (p::c::m_set::values), line:15:14, endln:15:20 -> \_string_typespec: , line:8:12, endln:8:18
+      1 \_ref_var: (p::c::m_set::values), line:15:14, endln:15:20 -> \_unsupported_typespec: (values), line:15:14, endln:15:20
+== f20 golden.uhdm
+      1 \_ref_var: (p::c::m_set::values), line:8:14, endln:8:20 -> \_string_typespec: , line:7:12, endln:7:18
+      1 \_ref_var: (p::c::m_set::values), line:8:14, endln:8:20 -> \_unsupported_typespec: (values), line:8:14, endln:8:20
+== f20 law.uhdm
+      1 \_ref_var: (p::c::m_set::values), line:8:14, endln:8:20 -> \_string_typespec: , line:7:12, endln:7:18
+      1 \_ref_var: (p::c::m_set::values), line:8:14, endln:8:20 -> \_unsupported_typespec: (values), line:8:14, endln:8:20
+== f21 golden.uhdm
+      1 \_ref_var: (p::c::m_set::names), line:13:14, endln:13:19 -> \_array_typespec:
+      1 \_ref_var: (p::c::m_set::names), line:13:14, endln:13:19 -> \_unsupported_typespec: (names), line:13:14, endln:13:19
+      1 \_ref_var: (p::c::m_set::other), line:15:14, endln:15:19 -> \_int_typespec: , line:11:5, endln:11:8
+      1 \_ref_var: (p::c::m_set::other), line:15:14, endln:15:19 -> \_unsupported_typespec: (other), line:15:14, endln:15:19
+      1 \_ref_var: (p::c::m_set::vals), line:14:14, endln:14:18 -> \_array_typespec:
+      1 \_ref_var: (p::c::m_set::vals), line:14:14, endln:14:18 -> \_unsupported_typespec: (vals), line:14:14, endln:14:18
+== f21 law.uhdm
+      1 \_ref_var: (p::c::m_set::names), line:13:14, endln:13:19 -> \_array_typespec:
+      1 \_ref_var: (p::c::m_set::names), line:13:14, endln:13:19 -> \_unsupported_typespec: (names), line:13:14, endln:13:19
+      1 \_ref_var: (p::c::m_set::other), line:15:14, endln:15:19 -> \_int_typespec: , line:11:5, endln:11:8
+      1 \_ref_var: (p::c::m_set::other), line:15:14, endln:15:19 -> \_unsupported_typespec: (other), line:15:14, endln:15:19
+      1 \_ref_var: (p::c::m_set::vals), line:14:14, endln:14:18 -> \_array_typespec:
+      1 \_ref_var: (p::c::m_set::vals), line:14:14, endln:14:18 -> \_unsupported_typespec: (vals), line:14:14, endln:14:18

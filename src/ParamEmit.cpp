@@ -18,6 +18,7 @@
 #include "R232.h"
 #include "R233.h"
 #include "R236.h"
+#include "R238.h"
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
@@ -25768,6 +25769,29 @@ void strLitPpLineShiftDrain224(UHDM::Serializer& s);
 void fwdPkgRefClassScopeSpanDrain227(UHDM::Serializer& s);
 
 void UhdmExporter::drainPaNameCopySrc38() {
+    // § cloneForIncBindsHomeVar238 — design-final: an import clone's loop-
+    // variable references read the home object (law and the first/last rule
+    // at StmtEmit's ForLoop arm).  No home object -> the clone's own stands. Run
+    // AFTER TypeEmit importCloneBareTdAlias16's design walk (§
+    // cloneBodyBareTdAlias180): that listener rebinds every ref_typespec it
+    // meets under an import clone, and a clone reference already bound to the
+    // HOME variable led it into the home body (probe r10v180repro/
+    // v180_a_share: seven `quarry_pk::ledge_ty` aliases lost their
+    // qualification).
+    for (auto& c238 : cloneForIncRefs238()) {
+        auto& hm238 = c238.classClone ? homeForVarFirst238() : homeForVar238();
+        if (auto h238 = hm238.find(c238.sym);
+            h238 != hm238.end() && h238->second) {
+            c238.ref->Actual_group(h238->second);
+            tr238(c238.classClone ? "cloneForIncBindsHomeVar238_cls"
+                                  : "cloneForIncBindsHomeVar238",
+                  std::string(c238.sym->name));
+        }
+        else
+            tr238("cloneForIncBindsHomeVar238_nohome",
+                  std::string(c238.sym->name));
+    }
+    cloneForIncRefs238().clear();
     // § caCallArgParamFormalTs232 — at this drain's end.
     struct Fin232 {
         ~Fin232() {
@@ -32415,6 +32439,14 @@ void UhdmExporter::drainShareDefParamTs() {
             o->VpiFile("");
     }
     implicitNetMints131().clear();
+    // § foreachClassPropStringTsShared238 — a loop variable whose property
+    // typespec was never bound keeps the base's fresh string_typespec.
+    for (auto* rt238 : deferredStrTs238())
+        if (rt238 && !rt238->Actual_typespec()) {
+            rt238->Actual_typespec(s.MakeString_typespec());
+            tr238("foreachClassPropStringTsShared238_miss");
+        }
+    deferredStrTs238().clear();
     // § parenCastWidthRefPkgBare207 — design-final: a cast-width ref left on
     // an IMPORTED copy (vpiImported, a re-exporting package's listing that
     // the package-scope cast site met last) binds the parameter the

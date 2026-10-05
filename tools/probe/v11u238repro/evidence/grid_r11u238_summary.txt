@@ -1,0 +1,87 @@
+F/f01                          P STRICT_EQUAL_42_objects      L STRICT_EQUAL_42_objects      F STRICT_EQUAL_42_objects      rc 0/0/0
+F/f01_el                       P STRICT_EQUAL_51_objects      L STRICT_EQUAL_51_objects      F STRICT_EQUAL_51_objects      rc 0/0/0
+F/f02                          P STRICT_EQUAL_41_objects      L STRICT_EQUAL_41_objects      F STRICT_EQUAL_41_objects      rc 0/0/0
+F/f02_el                       P STRICT_EQUAL_69_objects      L STRICT_EQUAL_69_objects      F STRICT_EQUAL_69_objects      rc 0/0/0
+F/f03                          P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f03_el                       P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f04                          P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f04_el                       P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f05                          P STRICT_NOTEQUAL_file         L STRICT_EQUAL_75_objects      F STRICT_EQUAL_75_objects      rc 0/0/0
+F/f05_el                       P STRICT_NOTEQUAL_file         L STRICT_EQUAL_75_objects      F STRICT_EQUAL_75_objects      rc 0/0/0
+F/f06                          P STRICT_EQUAL_108_objects     L STRICT_EQUAL_108_objects     F STRICT_EQUAL_108_objects     rc 0/0/0
+F/f06_el                       P STRICT_EQUAL_200_objects     L STRICT_EQUAL_200_objects     F STRICT_EQUAL_200_objects     rc 0/0/0
+F/f07                          P STRICT_EQUAL_60_objects      L STRICT_EQUAL_60_objects      F STRICT_EQUAL_60_objects      rc 0/0/0
+F/f07_el                       P STRICT_EQUAL_120_objects     L STRICT_EQUAL_120_objects     F STRICT_EQUAL_120_objects     rc 0/0/0
+F/f08                          P STRICT_NOTEQUAL_file         L STRICT_EQUAL_91_objects      F STRICT_EQUAL_91_objects      rc 0/0/0
+F/f08_el                       P STRICT_NOTEQUAL_file         L STRICT_EQUAL_103_objects     F STRICT_EQUAL_103_objects     rc 0/0/0
+F/f09                          P STRICT_EQUAL_146_objects     L STRICT_EQUAL_146_objects     F STRICT_EQUAL_146_objects     rc 0/0/0
+F/f09_el                       P STRICT_EQUAL_270_objects     L STRICT_EQUAL_270_objects     F STRICT_EQUAL_270_objects     rc 0/0/0
+F/f10                          P STRICT_EQUAL_50_objects      L STRICT_EQUAL_50_objects      F STRICT_EQUAL_50_objects      rc 0/0/0
+F/f10_el                       P STRICT_EQUAL_81_objects      L STRICT_EQUAL_81_objects      F STRICT_EQUAL_81_objects      rc 0/0/0
+F/f11                          P STRICT_NOTEQUAL_type         L STRICT_EQUAL_83_objects      F STRICT_EQUAL_83_objects      rc 0/0/0
+F/f11_el                       P STRICT_NOTEQUAL_type         L STRICT_EQUAL_103_objects     F STRICT_EQUAL_103_objects     rc 0/0/0
+F/f12                          P STRICT_NOTEQUAL_type         L STRICT_EQUAL_137_objects     F STRICT_EQUAL_137_objects     rc 0/0/0
+F/f12_el                       P STRICT_NOTEQUAL_type         L STRICT_EQUAL_173_objects     F STRICT_EQUAL_173_objects     rc 0/0/0
+F/f13                          P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f13_el                       P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f14                          P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f14_el                       P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f15                          P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f15_el                       P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f16                          P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f16_el                       P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f17                          P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f17_el                       P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f18                          P STRICT_NOTEQUAL_type         L STRICT_EQUAL_166_objects     F STRICT_EQUAL_166_objects     rc 0/0/0
+F/f18_el                       P STRICT_NOTEQUAL_type         L STRICT_EQUAL_174_objects     F STRICT_EQUAL_174_objects     rc 0/0/0
+F/f19                          P STRICT_NOTEQUAL_depth        L STRICT_NOTEQUAL_depth        F STRICT_NOTEQUAL_depth        rc 0/0/0
+F/f19_el                       P STRICT_NOTEQUAL_fullname     L STRICT_NOTEQUAL_fullname     F STRICT_NOTEQUAL_fullname     rc 0/0/0
+F/f20                          P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f20_el                       P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f21                          P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+F/f21_el                       P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+K/k01                          P STRICT_NOTEQUAL_depth        L STRICT_EQUAL_647_objects     F STRICT_EQUAL_647_objects     rc 0/0/0
+K/k01_el                       P STRICT_EQUAL_695_objects     L STRICT_EQUAL_695_objects     F STRICT_EQUAL_695_objects     rc 0/0/0
+K/k02                          P STRICT_NOTEQUAL_depth        L STRICT_EQUAL_542_objects     F STRICT_EQUAL_542_objects     rc 0/0/0
+K/k02_el                       P STRICT_EQUAL_566_objects     L STRICT_EQUAL_566_objects     F STRICT_EQUAL_566_objects     rc 0/0/0
+K/k03                          P STRICT_NOTEQUAL_depth        L STRICT_EQUAL_239_objects     F STRICT_EQUAL_239_objects     rc 0/0/0
+K/k03_el                       P STRICT_EQUAL_269_objects     L STRICT_EQUAL_269_objects     F STRICT_EQUAL_269_objects     rc 0/0/0
+K/k04                          P STRICT_NOTEQUAL_type         L STRICT_EQUAL_381_objects     F STRICT_EQUAL_381_objects     rc 0/0/0
+K/k04_el                       P STRICT_NOTEQUAL_type         L STRICT_EQUAL_469_objects     F STRICT_EQUAL_469_objects     rc 0/0/0
+K/k05                          P STRICT_EQUAL_114_objects     L STRICT_EQUAL_114_objects     F STRICT_EQUAL_114_objects     rc 0/0/0
+K/k05_el                       P STRICT_EQUAL_141_objects     L STRICT_EQUAL_141_objects     F STRICT_EQUAL_141_objects     rc 0/0/0
+K/k06                          P STRICT_NOTEQUAL_depth        L STRICT_EQUAL_328_objects     F STRICT_EQUAL_328_objects     rc 0/0/0
+K/k06_el                       P STRICT_EQUAL_361_objects     L STRICT_EQUAL_361_objects     F STRICT_EQUAL_361_objects     rc 0/0/0
+K/k07                          P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+K/k07_el                       P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+K/k08                          P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+K/k08_el                       P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+K/k09                          P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+K/k09_el                       P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+K/k10                          P STRICT_NOTEQUAL_type         L STRICT_EQUAL_280_objects     F STRICT_EQUAL_280_objects     rc 0/0/0
+K/k10_el                       P STRICT_NOTEQUAL_type         L STRICT_EQUAL_350_objects     F STRICT_EQUAL_350_objects     rc 0/0/0
+K/k11                          P STRICT_NOTEQUAL_depth        L STRICT_EQUAL_891_objects     F STRICT_EQUAL_891_objects     rc 0/0/0
+K/k11_el                       P STRICT_EQUAL_1022_objects    L STRICT_EQUAL_1022_objects    F STRICT_EQUAL_1022_objects    rc 0/0/0
+K/k12                          P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+K/k12_el                       P NOT_EQUAL_stage1             L NOT_EQUAL_stage1             F NOT_EQUAL_stage1             rc 0/0/0
+
+caseviews: 66
+nonzero_rc_any: 0
+lawOFF_pristine: 66
+fixOFF_pristine: 66
+fixVOFF_law: 66
+law_moved: 36
+law_enter_STRICT_EQUAL: 19
+law_leave_STRICT_EQUAL: 0
+law_leave_judge_equal: 0
+law_cmplines_changed: 0
+fix_moved: 36
+fix_enter_STRICT_EQUAL: 19
+fix_leave_STRICT_EQUAL: 0
+fix_leave_judge_equal: 0
+fix_cmplines_changed: 0
+switch law-R11U238_CLONEFORINCCLS_OFF: 2 case-views move
+switch law-R11U238_CLONEFORINC_OFF: 7 case-views move
+switch law-R11U238_CLONEPROPARR_OFF: 6 case-views move
+switch law-R11U238_FLATLOCALREFTS_OFF: 14 case-views move
+switch law-R11U238_PROPSTRTS_OFF: 10 case-views move

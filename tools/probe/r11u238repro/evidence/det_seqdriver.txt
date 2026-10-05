@@ -1,0 +1,16 @@
+# SeqDriver default, direct runs of the harness's own command line (3 concurrent), md5 of the database (first 12)
+# pristine: det.sh 3/3 06b2a3f1dbf1, then 6/6 and 12/12 more direct runs 06b2a3f1dbf1 (21 of 21 one hash)
+# law3 (all laws): det.sh 2 x 8350e50ef7d9 + 1 x c946207f4fd3; 6 direct runs: 4 x 8350e50ef7d9 + 2 x c946207f4fd3
+# law3 with R11U238_OFF: 6/6 06b2a3f1dbf1 (pristine bytes)
+# law3 with one law off (6 runs each): CLONEFORINC_OFF 5+1, CLONEPROPARR_OFF 5+1, CLONEFORINCCLS_OFF 4+2,
+#   PROPSTRTS_OFF 3+3, FLATLOCALREFTS_OFF 5+1
+# law3 with ONE law on (6 runs each): only CLONEFORINC 5+1, only CLONEPROPARR 4+2, only FLATLOCALREFTS 4+2,
+#   only PROPSTRTS 4+2
+# The two hashes are order-blind identical (sorted uhdm-dump: only the header line differs): two pairs of
+# unreferenced minted variables, `adpcm_pkg::uvm_phase::sync::visited.exists::succ` / `...unsync...` (int_var) and
+# `adpcm_pkg::uvm_reg_map::do_print::{regs,mems,vregs}[j].get_address::this` (class_var), swap creation order.
+# Their minting pass, UhdmExporter drainCloneArrayRecvArgMint193, iterates `s.AllObjects()`, a
+# std::map<const BaseClass*, uint32_t> (Serializer::IdMap) keyed by OBJECT ADDRESS, so the order follows heap
+# placement of two hier_path objects; any change in the allocation sequence ahead of them (each of the four laws
+# alone moves it) exposes the address order, which is not stable run to run.  The strict walk and uhdm-cmp never
+# reach the two unreferenced pairs: the gate verdict is the same on both hashes.

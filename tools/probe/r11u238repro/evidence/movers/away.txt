@@ -1,0 +1,24 @@
+# 23 databases differ between /tmp/r11u238_wP and /tmp/r11u238_wL
+probe/r10uvm180repro/g180_a_kinds away=0 toward=3 flat_away=0 flat_toward=3
+probe/r10uvm204repro/g204_b_ctx away=0 toward=27 flat_away=0 flat_toward=27
+probe/r10uvm204repro/g204_c_shadow away=0 toward=36 flat_away=0 flat_toward=36
+probe/r10uvm204repro/g204_e_head away=0 toward=18 flat_away=0 flat_toward=18
+probe/r10uvm20repro/t31_t away=0 toward=2 flat_away=0 flat_toward=2
+probe/r10uvm21repro/t32d_t away=0 toward=6 flat_away=0 flat_toward=6
+probe/r10uvm22repro/t33e_t away=0 toward=2 flat_away=0 flat_toward=2
+probe/r10v180repro/v180_a_share away=0 toward=3 flat_away=0 flat_toward=3
+probe/r10v181repro/v181_e_idxbase away=0 toward=2 flat_away=0 flat_toward=2
+probe/r10v181repro/v181_f_mixed away=0 toward=2 flat_away=0 flat_toward=2
+probe/r10v204repro/v204_c_clones away=0 toward=18 flat_away=0 flat_toward=18
+probe/r10v204repro/v204_m_module away=0 toward=9 flat_away=0 flat_toward=9
+probe/r10v204repro/v204_s_shadow away=0 toward=62 flat_away=0 flat_toward=62
+probe/r10v204repro/v204_v_extra away=0 toward=36 flat_away=0 flat_toward=36
+surelog/default/BuildUVMPkg away=0 toward=3 flat_away=0 flat_toward=3
+surelog/default/MiniAmiq away=0 toward=862 flat_away=0 flat_toward=857
+surelog/default/Scoreboard away=0 toward=2 flat_away=0 flat_toward=2
+surelog/default/SeqDriver away=0 toward=478 flat_away=0 flat_toward=473
+surelog/default/SimpleUVM away=0 toward=3 flat_away=0 flat_toward=3
+surelog/testflags/BuildUVMPkg away=0 toward=3 flat_away=0 flat_toward=3
+surelog/testflags/MiniAmiq away=0 toward=862 flat_away=0 flat_toward=857
+surelog/testflags/SeqDriver away=0 toward=478 flat_away=0 flat_toward=473
+surelog/testflags/SimpleUVM away=0 toward=3 flat_away=0 flat_toward=3

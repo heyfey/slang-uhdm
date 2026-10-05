@@ -1,0 +1,23 @@
+== canaries surelog
+NOTE: 7 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+== canaries u2r
+NOTE: 25 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+== ctcan2 surelog
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+== ctcan2 u2r
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:line(3) -> STRICT_NOTEQUAL/differ:line(8)
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:line(3) -> STRICT_NOTEQUAL/differ:line(8)
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:depth(1) -> STRICT_NOTEQUAL/differ:fullname(8)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:depth(1) -> STRICT_NOTEQUAL/differ:fullname(8)
+  BuildUVMPkg                    default   CHANGED STRICT_NOTEQUAL/differ:file(2) -> STRICT_NOTEQUAL/differ:line(16)
+  BuildUVMPkg                    testflags CHANGED STRICT_NOTEQUAL/differ:file(2) -> STRICT_NOTEQUAL/differ:line(16)
+  Scoreboard                     default   CHANGED STRICT_NOTEQUAL/differ:type(1) -> STRICT_NOTEQUAL/differ:file(11)
+---- canary rows: ok=45 changed=7 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25

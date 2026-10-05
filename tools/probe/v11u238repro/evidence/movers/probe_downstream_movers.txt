@@ -1,0 +1,23 @@
+== law vs fix (same worktree)
+probe: 4087 databases, 0 differ, 0 only in A
+downstream: 805 databases, 0 differ, 0 only in A
+  positive control downstream/1DUnpackedArray/slang.uhdm vs downstream/2DFunctionArg/slang.uhdm differ: True
+== pristine (run from the law worktree, /tmp/v11u238_wQ) vs fix: probe
+probe: 4087 databases, 14 differ, 0 only in A
+  MOVER probe/r10uvm180repro__g180_a_kinds.uhdm
+  MOVER probe/r10uvm204repro__g204_b_ctx.uhdm
+  MOVER probe/r10uvm204repro__g204_c_shadow.uhdm
+  MOVER probe/r10uvm204repro__g204_e_head.uhdm
+  MOVER probe/r10uvm20repro__t31_t.uhdm
+  MOVER probe/r10uvm21repro__t32d_t.uhdm
+  MOVER probe/r10uvm22repro__t33e_t.uhdm
+  MOVER probe/r10v180repro__v180_a_share.uhdm
+  MOVER probe/r10v181repro__v181_e_idxbase.uhdm
+  MOVER probe/r10v181repro__v181_f_mixed.uhdm
+  MOVER probe/r10v204repro__v204_c_clones.uhdm
+  MOVER probe/r10v204repro__v204_m_module.uhdm
+  MOVER probe/r10v204repro__v204_s_shadow.uhdm
+  MOVER probe/r10v204repro__v204_v_extra.uhdm
+== pristine sweep vs fix: downstream
+downstream: 805 databases, 0 differ, 0 only in A
+  positive control downstream/1DUnpackedArray/slang.uhdm vs downstream/2DFunctionArg/slang.uhdm differ: True

@@ -1,0 +1,180 @@
+== BuildUVMPkg/default law
+#81218 line
+  A: 6	class_typespec	uvm_sequence_item			uvm_pkg.sv	50947	29	50947	46
+  B: 6	class_typespec	uvm_sequence_item			uvm_pkg.sv	57038	25	57038	42
+#81221 line
+  A: 6	class_typespec	uvm_sequence_item			uvm_pkg.sv	50947	29	50947	46
+  B: 6	class_typespec	uvm_sequence_item			uvm_pkg.sv	57038	25	57038	42
+#81224 line
+  A: 6	class_typespec	uvm_sequence_item			uvm_pkg.sv	50947	29	50947	46
+  B: 6	class_typespec	uvm_sequence_item			uvm_pkg.sv	57038	25	57038	42
+objects 201533 vs 201593
+fields: type=1 fullname=3 file=1 line=7 col=7 endline=6 endcol=13 decompile=1 size=1 value=1 consttype=1 objects_differing=16 (walk diverged)
+STRICT_NOTEQUAL line
+== BuildUVMPkg/default pristine
+#77588 file
+  A: 8	string_typespec				uvm_pkg.sv	38343	3	38343	9
+  B: 8	string_typespec					0	0	0	0
+objects 201533 vs 201593
+fields: type=1 file=2 line=2 col=2 endline=2 endcol=2 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL file
+== BuildUVMPkg/testflags law
+#81218 line
+  A: 6	class_typespec	uvm_sequence_item			uvm_pkg.sv	50947	29	50947	46
+  B: 6	class_typespec	uvm_sequence_item			uvm_pkg.sv	57038	25	57038	42
+#81221 line
+  A: 6	class_typespec	uvm_sequence_item			uvm_pkg.sv	50947	29	50947	46
+  B: 6	class_typespec	uvm_sequence_item			uvm_pkg.sv	57038	25	57038	42
+#81224 line
+  A: 6	class_typespec	uvm_sequence_item			uvm_pkg.sv	50947	29	50947	46
+  B: 6	class_typespec	uvm_sequence_item			uvm_pkg.sv	57038	25	57038	42
+objects 201533 vs 201593
+fields: type=1 fullname=3 file=1 line=7 col=7 endline=6 endcol=13 decompile=1 size=1 value=1 consttype=1 objects_differing=16 (walk diverged)
+STRICT_NOTEQUAL line
+== BuildUVMPkg/testflags pristine
+#77588 file
+  A: 8	string_typespec				uvm_pkg.sv	38343	3	38343	9
+  B: 8	string_typespec					0	0	0	0
+objects 201533 vs 201593
+fields: type=1 file=2 line=2 col=2 endline=2 endcol=2 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL file
+== MiniAmiq/default law
+#68597 fullname
+  A: 8	ref_typespec			<in>		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#68599 fullname
+  A: 6	ref_typespec			<in>		0	0	0	0		0
+  B: 6	ref_typespec					0	0	0	0		0
+#68601 fullname
+  A: 6	ref_typespec			<in>		0	0	0	0		0
+  B: 6	ref_typespec					0	0	0	0		0
+objects 435559 vs 433138
+fields: depth=1 type=1 name=1 fullname=6 file=1 line=3 col=3 endline=3 endcol=3 size=1 objects_differing=8 (walk diverged)
+STRICT_NOTEQUAL fullname
+== MiniAmiq/default pristine
+#64612 depth
+  A: 7	int_var	_byte		uvm_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	12	378	17		0
+  B: 5	operation				uvm_misc.svh	378	21	378	44		0
+objects 435559 vs 432530
+fields: depth=1 type=1 name=1 fullname=1 col=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== MiniAmiq/testflags law
+#68597 fullname
+  A: 8	ref_typespec			<in>		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#68599 fullname
+  A: 6	ref_typespec			<in>		0	0	0	0		0
+  B: 6	ref_typespec					0	0	0	0		0
+#68601 fullname
+  A: 6	ref_typespec			<in>		0	0	0	0		0
+  B: 6	ref_typespec					0	0	0	0		0
+objects 435559 vs 433138
+fields: depth=1 type=1 name=1 fullname=6 file=1 line=3 col=3 endline=3 endcol=3 size=1 objects_differing=8 (walk diverged)
+STRICT_NOTEQUAL fullname
+== MiniAmiq/testflags pristine
+#64612 depth
+  A: 7	int_var	_byte		uvm_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	12	378	17		0
+  B: 5	operation				uvm_misc.svh	378	21	378	44		0
+objects 435559 vs 432530
+fields: depth=1 type=1 name=1 fullname=1 col=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== SeqDriver/default law
+#68553 fullname
+  A: 8	ref_typespec			<in>		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#68555 fullname
+  A: 6	ref_typespec			<in>		0	0	0	0		0
+  B: 6	ref_typespec					0	0	0	0		0
+#68557 fullname
+  A: 6	ref_typespec			<in>		0	0	0	0		0
+  B: 6	ref_typespec					0	0	0	0		0
+objects 475526 vs 473739
+fields: depth=1 type=1 name=1 fullname=6 file=1 line=3 col=3 endline=3 endcol=3 size=1 objects_differing=8 (walk diverged)
+STRICT_NOTEQUAL fullname
+== SeqDriver/default pristine
+#64568 depth
+  A: 7	int_var	_byte		uvm_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	12	378	17		0
+  B: 5	operation				uvm_misc.svh	378	21	378	44		0
+objects 475526 vs 473435
+fields: depth=1 type=1 name=1 fullname=1 col=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== SeqDriver/testflags law
+#68565 fullname
+  A: 8	ref_typespec			<in>		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#68567 fullname
+  A: 6	ref_typespec			<in>		0	0	0	0		0
+  B: 6	ref_typespec					0	0	0	0		0
+#68569 fullname
+  A: 6	ref_typespec			<in>		0	0	0	0		0
+  B: 6	ref_typespec					0	0	0	0		0
+objects 475538 vs 473751
+fields: depth=1 type=1 name=1 fullname=6 file=1 line=3 col=3 endline=3 endcol=3 size=1 objects_differing=8 (walk diverged)
+STRICT_NOTEQUAL fullname
+== SeqDriver/testflags pristine
+#64580 depth
+  A: 7	int_var	_byte		uvm_pkg::uvm_oneway_hash::_byte	uvm_misc.svh	378	12	378	17		0
+  B: 5	operation				uvm_misc.svh	378	21	378	44		0
+objects 475538 vs 473447
+fields: depth=1 type=1 name=1 fullname=1 col=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== SimpleUVM/default law
+#75572 line
+  A: 6	logic_net	m_parent		work@top.m_parent		1001	10	1001	18		0
+  B: 6	logic_net	m_parent		work@top.m_parent		1925	11	1925	19		0
+#75684 file
+  A: 7	logic_net	this		work@top.this		902	36	902	40		0
+  B: 7	logic_net	this		work@top.this	uvm_component.svh	1767	16	1767	20		0
+#79910 line
+  A: 9	logic_net	m_inst_count		work@top.m_inst_count		845	10	845	22		0
+  B: 9	logic_net	m_inst_count		work@top.m_inst_count		1763	15	1763	27		0
+objects 334285 vs 334559
+fields: type=1 name=1 fullname=1 file=5 line=7 col=8 endline=7 endcol=8 decompile=1 size=1 consttype=1 objects_differing=8 (walk diverged)
+STRICT_NOTEQUAL line
+== SimpleUVM/default pristine
+#75572 line
+  A: 6	logic_net	m_parent		work@top.m_parent		1001	10	1001	18		0
+  B: 6	logic_net	m_parent		work@top.m_parent		1925	11	1925	19		0
+objects 334285 vs 334559
+fields: type=1 file=2 line=3 col=3 endline=3 endcol=3 objects_differing=3 (walk diverged)
+STRICT_NOTEQUAL line
+== SimpleUVM/testflags law
+#75584 line
+  A: 6	logic_net	m_parent		work@top.m_parent		1001	10	1001	18		0
+  B: 6	logic_net	m_parent		work@top.m_parent		1925	11	1925	19		0
+#75696 file
+  A: 7	logic_net	this		work@top.this		902	36	902	40		0
+  B: 7	logic_net	this		work@top.this	uvm_component.svh	1767	16	1767	20		0
+#79922 line
+  A: 9	logic_net	m_inst_count		work@top.m_inst_count		845	10	845	22		0
+  B: 9	logic_net	m_inst_count		work@top.m_inst_count		1763	15	1763	27		0
+objects 334297 vs 334571
+fields: type=1 name=1 fullname=1 file=5 line=7 col=8 endline=7 endcol=8 decompile=1 size=1 consttype=1 objects_differing=8 (walk diverged)
+STRICT_NOTEQUAL line
+== SimpleUVM/testflags pristine
+#75584 line
+  A: 6	logic_net	m_parent		work@top.m_parent		1001	10	1001	18		0
+  B: 6	logic_net	m_parent		work@top.m_parent		1925	11	1925	19		0
+objects 334297 vs 334571
+fields: type=1 file=2 line=3 col=3 endline=3 endcol=3 objects_differing=3 (walk diverged)
+STRICT_NOTEQUAL line
+== Scoreboard/default law
+#80496 file
+  A: 6	class_typespec	uvm_sequence_item			uvm_driver.svh	44	29	44	46
+  B: 6	class_typespec	uvm_sequence_item			uvm_seq.svh	38	25	38	42
+#80499 file
+  A: 6	class_typespec	uvm_sequence_item			uvm_driver.svh	44	29	44	46
+  B: 6	class_typespec	uvm_sequence_item			uvm_seq.svh	38	25	38	42
+#80506 file
+  A: 6	class_typespec	uvm_sequence_item			uvm_driver.svh	44	29	44	46
+  B: 6	class_typespec	uvm_sequence_item			uvm_seq.svh	38	25	38	42
+objects 269656 vs 269853
+fields: type=1 name=1 fullname=2 file=5 line=4 col=5 endline=4 endcol=9 decompile=1 size=1 consttype=1 objects_differing=11 (walk diverged)
+STRICT_NOTEQUAL file
+== Scoreboard/default pristine
+#79148 type
+  A: 8	string_typespec				uvm_component.svh	3380	10	3380	16
+  B: 8	array_typespec					0	0	0	0
+objects 269656 vs 269853
+fields: type=1 file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type

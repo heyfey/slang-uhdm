@@ -10,6 +10,8 @@
 #include "EmitHelpers.h"
 #include "R217.h"
 #include "R236.h"
+#include "R238.h"
+#include <uhdm/UhdmListener.h>
 
 #include <functional>
 #include <optional>
@@ -4126,7 +4128,126 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         if (fit9->second &&
                             fit9->second->UhdmType() == UHDM::uhdmio_decl)
                             ioRt9 = ((UHDM::io_decl*)fit9->second)->Typespec();
-                    if (ioRt9 && ioRt9->Actual_typespec())
+                    // § foreachFlatLocalRefTs238 — a subroutine local
+                    // whose declaration Surelog FLATTENED to its element
+                    // variable (the paren-less TF-ITEM body of
+                    // § blockItems9: `function void c::m_set_cl_verb;
+                    // static string values[$];` is a string_var over the
+                    // string_typespec) has no array_typespec at all: the
+                    // iterated reference binds the declaration's own
+                    // typespec, exactly as its loop variable already does.
+                    // Scoreboard d #79148 / BuildUVMPkg #79836.  An array_var
+                    // declaration keeps the deferred array bind below.
+                    // ...except where § tfItemLocalLosesToPkgVar148 hands
+                    // the name to a same-named PACKAGE variable (probe
+                    // r10v148repro/v148_g_corpus: `int names_v7 [3]` both
+                    // in the package and in the paren-less body): the
+                    // late binder reads the package listing there, and the
+                    // base's deferred array bind stands.
+                    bool pkgWins238 = false;
+                    if (arrSym && tfItemBodyLocal148(*arrSym)) {
+                        const Scope* pk238 = arrSym->getParentScope();
+                        while (pk238 &&
+                               pk238->asSymbol().kind != SymbolKind::Package)
+                            pk238 = pk238->asSymbol().getParentScope();
+                        if (pk238)
+                            if (auto* pv238 = pk238->find(arrSym->name);
+                                pv238 && pv238->kind == SymbolKind::Variable)
+                                pkgWins238 = true;
+                    }
+                    // § pkgListingWinsFlatLocal238v (R11V238_PKGLISTING_OFF;
+                    // v11u238, the adversarial verification of r11u238) —
+                    // the package that wins is the home package's UHDM
+                    // LISTING, which is what § tfItemLocalLosesToPkgVar148's
+                    // late binder reads (pkgVarOverFormal81), not slang's
+                    // package scope: an OUT-OF-BODY CONSTRUCTOR's block-item
+                    // local is hoisted into that listing (CompilePackage::
+                    // collectObjects_ does not stop at
+                    // paClass_constructor_declaration) and is no package
+                    // member in slang.  Fresh case v11u238repro/cases/B/
+                    // b01_ctorhoist: `function c::new(); string vals[$];`
+                    // beside a paren-less `c::m_set`'s `static string
+                    // vals[$]`: golden's `foreach (vals[i])` binds the
+                    // array_typespec (the base's deferred bind) and the
+                    // unrefined law the local's string_typespec (STRICT_EQUAL
+                    // -> STRICT_NOTEQUAL type, both views).
+                    // The home-package gate is § 81's subHomeIsPkg81: the
+                    // listing overwrites only in the package's OWN
+                    // subroutine, never in a wildcard-import copy.
+                    auto pk238Home = [](const Symbol* sy) -> std::string_view {
+                        for (const Scope* sc = sy ? sy->getParentScope() : nullptr;
+                             sc; sc = sc->asSymbol().getParentScope())
+                            if (sc->asSymbol().kind == SymbolKind::Package)
+                                return sc->asSymbol().name;
+                        return {};
+                    };
+                    if (!pkgWins238 && arrSym && tfItemBodyLocal148(*arrSym) &&
+                        r11u238vOn("R11V238_PKGLISTING_OFF") && pkgScopeInst &&
+                        pkgScopeInst->UhdmType() == UHDM::uhdmpackage &&
+                        pk238Home(arrSym) == pkgScopeInst->VpiName())
+                        if (auto* pvs238 =
+                                ((const UHDM::package*)pkgScopeInst)->Variables())
+                            for (auto* pv238 : *pvs238)
+                                if (pv238 && pv238->VpiName() == arrSym->name) {
+                                    pkgWins238 = true;
+                                    tr238("pkgListingWinsFlatLocal238v",
+                                          std::string(arrSym->name));
+                                    break;
+                                }
+                    // § instBodyMemberWinsFlatLocal238v
+                    // (R11V238_INSTSHADOW_OFF; v11u238) — in a MODULE,
+                    // INTERFACE or PROGRAM subroutine Surelog compiles the
+                    // foreach's array name with compileVariable against the
+                    // enclosing DesignComponent (CompileStmt.cpp, the paFOREACH
+                    // arm), whose own signal of the same name is what the
+                    // reference's typespec then reads: golden binds that
+                    // member's array_typespec, never the flattened local's
+                    // element typespec.  Fresh cases v11u238repro/cases/B/
+                    // b07_module_shadow (a module `int vals[4]`: pristine
+                    // STRICT_EQUAL -> the unrefined law uhdm-cmp NOT EQUAL),
+                    // b09_net (a module net), b10_iface (an interface
+                    // variable: STRICT_NOTEQUAL -> stage 1 in the -elabuhdm
+                    // view), b13_modparam (a module parameter), b14_task_module;
+                    // b06_module_noshadow is the control the law still
+                    // converts.  A CLASS property of the same name does not
+                    // win (b08_clsprop, b11_inherited: the law's binding is
+                    // golden's), so the gate is an instance body's own member.
+                    if (!pkgWins238 && arrSym && tfLocalArr20 &&
+                        r11u238vOn("R11V238_INSTSHADOW_OFF"))
+                        for (const Scope* ib238 = arrSym->getParentScope(); ib238;
+                             ib238 = ib238->asSymbol().getParentScope())
+                            if (ib238->asSymbol().kind == SymbolKind::InstanceBody) {
+                                if (ib238->find(arrSym->name)) {
+                                    pkgWins238 = true;
+                                    tr238("instBodyMemberWinsFlatLocal238v",
+                                          std::string(arrSym->name));
+                                }
+                                break;
+                            }
+                    UHDM::typespec* flat238 = nullptr;
+                    if (!ioRt9 && tfLocalArr20 && !pkgWins238 &&
+                        r11u238On("R11U238_FLATLOCALREFTS_OFF"))
+                        if (auto fl238 = netMap.find(arrSym);
+                            fl238 != netMap.end() && fl238->second)
+                            if (auto* fv238 =
+                                    any_cast<UHDM::variables*>(fl238->second);
+                                fv238 &&
+                                fv238->UhdmType() != UHDM::uhdmarray_var &&
+                                fv238->UhdmType() !=
+                                    UHDM::uhdmpacked_array_var &&
+                                fv238->Typespec() &&
+                                fv238->Typespec()->Actual_typespec() &&
+                                fv238->Typespec()
+                                        ->Actual_typespec()
+                                        ->UhdmType() !=
+                                    UHDM::uhdmarray_typespec) {
+                                flat238 = fv238->Typespec()->Actual_typespec();
+                                tr238("foreachFlatLocalRefTs238",
+                                      std::string(arrSym->name));
+                            }
+                    if (flat238)
+                        art->Actual_typespec(flat238);
+                    else if (ioRt9 && ioRt9->Actual_typespec())
                         art->Actual_typespec(ioRt9->Actual_typespec());
                     else if (ioRt9)
                         pendingLoopVarTs9.push_back({art, ioRt9});
@@ -4322,6 +4443,67 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                     else if (auto a183 = arrayVarArrayTs.find(arrSym);
                                              a183 != arrayVarArrayTs.end())
                                         res183 = a183->second;
+                                    // § cloneLoopVarClassPropArrayTs238
+                                    // (R11U238_CLONEPROPARR_OFF) — a bare
+                                    // foreach over a CLASS PROPERTY that is a
+                                    // queue, dynamic or fixed array: the home
+                                    // package's lateTypedefBinding resolves
+                                    // it exactly as § foreachClassPropArrayVar21
+                                    // decodes (getSimpleVarFromTypespec mints
+                                    // a FRESH, EMPTY array_typespec), and the
+                                    // shared clone object carries that
+                                    // typespec: golden `ref_var
+                                    // uvm_pkg::uvm_default_factory::register::i`
+                                    // over `m_wildcard_inst_overrides[$]`
+                                    // binds `array_typespec` with no span
+                                    // (MiniAmiq #66872, SeqDriver #66828),
+                                    // ours kept the placeholder.  Gated as
+                                    // the home listing's own arm: the
+                                    // property's package not imported at
+                                    // $unit (§ classPropUnitImport21), a bare
+                                    // written name.
+                                    // A DOTTED loop list (`foreach
+                                    // (m_one.v[k])`, § foreachHierPathAlwaysRes21)
+                                    // resolves whatever the $unit imports:
+                                    // its member array takes the same
+                                    // fresh array_typespec (grid k10).
+                                    // An explicit `this.` spelling takes
+                                    // the bare name's gate (probe
+                                    // r10v204repro/v204_s_shadow `foreach
+                                    // (this.arrsv204[jUv204])`: golden's
+                                    // shared object carries the fresh
+                                    // array_typespec as well).
+                                    if (!res183 &&
+                                        r11u238On("R11U238_CLONEPROPARR_OFF"))
+                                        if (auto* pcs238 = arrSym->getParentScope();
+                                            pcs238 &&
+                                            pcs238->asSymbol().kind ==
+                                                SymbolKind::ClassType)
+                                            if (auto* pdt238 =
+                                                    arrSym->getDeclaredType()) {
+                                                auto k238 = pdt238->getType()
+                                                                .getCanonicalType()
+                                                                .kind;
+                                                const Scope* hp238 = pcs238;
+                                                while (hp238 &&
+                                                       hp238->asSymbol().kind !=
+                                                           SymbolKind::Package)
+                                                    hp238 = hp238->asSymbol()
+                                                                .getParentScope();
+                                                if ((k238 == SymbolKind::QueueType ||
+                                                     k238 == SymbolKind::
+                                                                 DynamicArrayType ||
+                                                     k238 == SymbolKind::
+                                                                 FixedSizeUnpackedArrayType) &&
+                                                    (arrMember9 ||
+                                                     (hp238 &&
+                                                      !pkgImportedByUnit21(
+                                                          hp238->asSymbol())))) {
+                                                    res183 = s.MakeArray_typespec();
+                                                    tr238("cloneLoopVarClassPropArrayTs238",
+                                                          std::string(arrSym->name));
+                                                }
+                                            }
                                     // An ASSOCIATIVE array's loop variable is
                                     // the declaration's INDEX typespec object
                                     // (getSimpleVarFromTypespec of its
@@ -4566,6 +4748,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // subroutine-local arm above does, which is why golden prints
                 // `array_var array_typespec''` for a property whose own
                 // reference is still an unsupported_typespec.
+                UHDM::ref_typespec* deferTs238 = nullptr;
                 if (!lv && classPropRes21)
                     if (auto* pdt21 = arrSym->getDeclaredType()) {
                         auto k21 = pdt21->getType().getCanonicalType().kind;
@@ -4584,7 +4767,70 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         // is the corpus site (4, all in views we emit); t33e
                         // pins it directly, bare and `this.`-prefixed alike.
                         else if (k21 == SymbolKind::StringType) {
-                            lts = s.MakeString_typespec();
+                            lts = nullptr;
+                            // § foreachClassPropStringTsShared238 — the
+                            // loop variable is Surelog's
+                            // getSimpleVarFromTypespec of the PROPERTY's own
+                            // string_typespec (CompileType.cpp, the
+                            // uhdmstring_typespec arm, then
+                            // `var->Typespec()->Actual_typespec(spec)`): it
+                            // binds the declaration's object, located at the
+                            // written `string` keyword, not a fresh unlocated
+                            // one.  BuildUVMPkg d/t #77588
+                            // (uvm_component::get_depth's `foreach
+                            // (m_name[i])`).  Read off the class_defn the
+                            // property was listed in; nothing found -> the
+                            // old fresh object.
+                            if (r11u238On("R11U238_PROPSTRTS_OFF"))
+                                if (auto* pcs238 = arrSym->getParentScope();
+                                    pcs238 &&
+                                    pcs238->asSymbol().kind ==
+                                        SymbolKind::ClassType)
+                                    if (auto* cd238 = classDefnFor(
+                                            pcs238->asSymbol()
+                                                .as<slang::ast::ClassType>());
+                                        cd238 && cd238->Variables())
+                                        for (auto* v238 : *cd238->Variables())
+                                            if (v238 &&
+                                                v238->UhdmType() ==
+                                                    UHDM::uhdmstring_var &&
+                                                v238->VpiName() ==
+                                                    arrSym->name &&
+                                                v238->Typespec()) {
+                                                // The property's ref_typespec
+                                                // is bound late (the class
+                                                // listing's drain), so the
+                                                // loop variable mirrors it in
+                                                // pendingLoopVarTs9's drain.
+                                                auto* pa238 =
+                                                    v238->Typespec()
+                                                        ->Actual_typespec();
+                                                // A typedef'd property
+                                                // (`str_t m_al`) is golden's
+                                                // typedef object, named
+                                                // `str_t` where ours names
+                                                // it `p::str_t` (grid f16):
+                                                // the plain keyword only.
+                                                if (pa238 &&
+                                                    pa238->UhdmType() ==
+                                                        UHDM::uhdmstring_typespec &&
+                                                    pa238->VpiName().empty())
+                                                    lts = pa238;
+                                                else if (!pa238 &&
+                                                         pdt21->getTypeSyntax() &&
+                                                         pdt21->getTypeSyntax()->kind ==
+                                                             syntax::SyntaxKind::StringType)
+                                                    deferTs238 =
+                                                        v238->Typespec();
+                                                if (lts || deferTs238)
+                                                    tr238("foreachClassPropStringTsShared238",
+                                                          std::string(arrSym->name) +
+                                                              (lts ? " now"
+                                                                   : " defer"));
+                                                break;
+                                            }
+                            if (!lts && !deferTs238)
+                                lts = s.MakeString_typespec();
                             lv = s.MakeString_var();
                             res22 = true;
                         }
@@ -4789,6 +5035,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 lrt->VpiFullName(joinRef(prefix, lvn));
                 lrt->VpiParent(lv);
                 lrt->Actual_typespec(lts);
+                if (deferTs238 && !lts) {
+                    pendingLoopVarTs9.push_back({lrt, deferTs238});
+                    deferredStrTs238().push_back(lrt);
+                }
                 lv->Typespec(lrt);
                 lvars->push_back(lv);
                 openForeachVars[lvn] = lv;
@@ -5104,6 +5354,16 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     rt->Actual_typespec(ts);
                     v->Typespec(rt);
                     netMap[lv] = v;
+                    // § cloneForIncBindsHomeVar238: remember the HOME
+                    // subroutine's loop variable: the LAST emission outside
+                    // any import clone, i.e. the home package's elaborated
+                    // listing (the definition listing is emitted first;
+                    // binding that one leaves golden's record unlisted,
+                    // grid k01/k02).
+                    if (!pkgImportCloneEmit && !importCloneEmit) {
+                        homeForVar238()[lv] = v;
+                        homeForVarFirst238().emplace(lv, v);
+                    }
 
                     auto* init = s.MakeAssignment();
                     init->VpiParent(fs);
@@ -5218,6 +5478,60 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             procForDepth--;
             for (auto* cs2 : ctrlSyms)
                 activeForVars.erase(cs2);
+            // § cloneForIncBindsHomeVar238 — in a wildcard-import CLONE of a
+            // package subroutine (pkgImportCloneEmit, both views) every
+            // reference to a for-header loop variable — the increment, the
+            // condition and the body — reads the HOME subroutine's object:
+            // golden's `svaunit_pkg::uvm_oneway_hash` binds `_byte < ...`,
+            // `_byte++` and `string_in[_byte]` to
+            // `uvm_pkg::uvm_oneway_hash::_byte` (uvm_misc.svh 378:12-17;
+            // MiniAmiq #64612, SeqDriver #64568; uhdm-dump of grid k01 and
+            // k12), while the clone's own init declaration stays the clone's.
+            // The strict walk lists the home object once, at the increment
+            // (the first of the three it reaches).  The home object may be
+            // emitted after a clone, so the references are recorded here and
+            // re-bound design-final (ParamEmit drainPaNameCopySrc38).  The
+            // walk is the for statement's own subtree: an object outside it
+            // is marked visited on entry, so UhdmListener's parent and
+            // binding edges never leave the statement.
+            if (pkgImportCloneEmit && !fl.loopVars.empty() &&
+                r11u238On("R11U238_CLONEFORINC_OFF") &&
+                (pkgImportCloneHomePkg ||
+                 r11u238On("R11U238_CLONEFORINCCLS_OFF"))) {
+                struct ForRefs238 final : public UHDM::UhdmListener {
+                    const UHDM::any* root = nullptr;
+                    std::map<const UHDM::any*, const Symbol*> vars;
+                    std::vector<std::pair<UHDM::ref_obj*, const Symbol*>> hits;
+                    bool inside(const UHDM::any* o) const {
+                        for (int k = 0; o && k < 256; ++k, o = o->VpiParent())
+                            if (o == root)
+                                return true;
+                        return false;
+                    }
+                    void enterAny(const UHDM::any* const o) override {
+                        if (o != root && !inside(o))
+                            visited.insert(o);
+                    }
+                    void enterRef_obj(const UHDM::ref_obj* const r) override {
+                        if (!inside(r))
+                            return;
+                        if (auto it = vars.find(r->Actual_group());
+                            it != vars.end())
+                            hits.push_back({(UHDM::ref_obj*)r, it->second});
+                    }
+                } fr238;
+                fr238.root = fs;
+                for (auto* lv238 : fl.loopVars)
+                    if (auto nm238 = netMap.find(lv238);
+                        nm238 != netMap.end() && nm238->second)
+                        fr238.vars[nm238->second] = lv238;
+                if (!fr238.vars.empty()) {
+                    fr238.listenAny(fs);
+                    for (auto& [r238, s238] : fr238.hits)
+                        cloneForIncRefs238().push_back(
+                            {r238, s238, !pkgImportCloneHomePkg});
+                }
+            }
             return fs;
         }
         case StatementKind::Case: {

@@ -1,0 +1,17 @@
+# 16 case-views differ between law and fix
+B/b01_ctorhoist away=0 toward=1 flat_away=0 flat_toward=1
+B/b01_ctorhoist_el away=0 toward=1 flat_away=0 flat_toward=1
+B/b02_impvar away=0 toward=0 flat_away=0 flat_toward=0
+B/b02_impvar_el away=0 toward=0 flat_away=0 flat_toward=0
+B/b05_module away=0 toward=2 flat_away=0 flat_toward=2
+B/b05_module_el away=0 toward=2 flat_away=0 flat_toward=2
+B/b07_module_shadow away=0 toward=2 flat_away=0 flat_toward=2
+B/b07_module_shadow_el away=0 toward=2 flat_away=0 flat_toward=2
+B/b09_net away=0 toward=0 flat_away=0 flat_toward=0
+B/b09_net_el away=0 toward=0 flat_away=0 flat_toward=0
+B/b10_iface away=0 toward=3 flat_away=0 flat_toward=3
+B/b10_iface_el away=0 toward=3 flat_away=0 flat_toward=3
+B/b13_modparam away=0 toward=0 flat_away=0 flat_toward=0
+B/b13_modparam_el away=0 toward=0 flat_away=0 flat_toward=0
+B/b14_task_module away=0 toward=2 flat_away=0 flat_toward=2
+B/b14_task_module_el away=0 toward=2 flat_away=0 flat_toward=2

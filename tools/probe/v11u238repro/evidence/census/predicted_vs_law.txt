@@ -1,0 +1,2 @@
+refinement firings (pkgListingWinsFlatLocal238v, instBodyMemberWinsFlatLocal238v) over every corpus row-mode but the fenced, every probe case and every downstream lane: 0
+=> predicted movers fix vs law: NONE (0 of 2560 corpus, 0 of 4087 probe, 0 of 871 lanes)
