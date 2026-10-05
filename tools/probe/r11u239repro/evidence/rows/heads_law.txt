@@ -1,0 +1,27 @@
+== default/Earlgrey_0_1: STRICT_NOTEQUAL col
+#122230 col
+  A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9
+  B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+#130430 type
+  A: 6	range				hmac_pkg.sv	26	35	26	36				
+  B: 6	ref_typespec			<in>		0	0	0	0		0		
+== testflags/Earlgrey_0_1: STRICT_NOTEQUAL col
+#123704 col
+  A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9
+  B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+#131904 type
+  A: 6	range				hmac_pkg.sv	26	35	26	36				
+  B: 6	ref_typespec			<in>		0	0	0	0		0		
+== default/Rggen: STRICT_NOTEQUAL line
+#23546 line
+  A: 13	int_typespec				rggen_or_reducer.sv	3	13	3	16				
+  B: 13	int_typespec				rggen_or_reducer.sv	8	55	8	58				
+#26477 fullname
+  A: 11	enum_var	access		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_access.access	rggen_register_if.sv	9	29	9	35		0		
+  B: 11	enum_var	access		work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.access	rggen_register_if.sv	9	29	9	35		0		
+#26478 fullname
+  A: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_access.access		0	0	0	0		0		
+  B: 12	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.access		0	0	0	0		0		
+#26489 fullname
+  A: 11	logic_var	address		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.i_address.address	rggen_register_if.sv	10	29	10	36		0		
+  B: 11	logic_var	address		work@rggen.u_block_0.g_register_0.u_register.u_register_common.register_if.address	rggen_register_if.sv	10	29	10	36		0		

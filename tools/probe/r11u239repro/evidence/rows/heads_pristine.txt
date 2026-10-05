@@ -1,0 +1,36 @@
+== default/Earlgrey_0_1: STRICT_NOTEQUAL fullname
+#121994 fullname
+  A: 8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.bank	flash_phy.sv	127	73	127	77		0		
+  B: 8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.host_rsp_avail.bank	flash_phy.sv	127	73	127	77		0		
+#122230 col
+  A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9
+  B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+#123586 fullname
+  A: 10	ref_obj	N		work@prim_arbiter_tree.gen_normal_case.N	prim_arbiter_tree.sv	61	48	61	49		0		
+  B: 10	ref_obj	N			prim_arbiter_tree.sv	61	48	61	49		0		
+#123996 fullname
+  A: 10	ref_obj	i		work@flash_phy_rd.gen_bufs.i_rd_buf.alloc_i.i	flash_phy_rd.sv	140	30	140	31		0		
+  B: 10	ref_obj	i		work@flash_phy_rd.gen_bufs.i_rd_buf.alloc_i.alloc.i	flash_phy_rd.sv	140	30	140	31		0		
+== testflags/Earlgrey_0_1: STRICT_NOTEQUAL fullname
+#123468 fullname
+  A: 8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.bank	flash_phy.sv	127	73	127	77		0		
+  B: 8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.host_rsp_avail.bank	flash_phy.sv	127	73	127	77		0		
+#123704 col
+  A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9
+  B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+#125060 fullname
+  A: 10	ref_obj	N		work@prim_arbiter_tree.gen_normal_case.N	prim_arbiter_tree.sv	61	48	61	49		0		
+  B: 10	ref_obj	N			prim_arbiter_tree.sv	61	48	61	49		0		
+#125470 fullname
+  A: 10	ref_obj	i		work@flash_phy_rd.gen_bufs.i_rd_buf.alloc_i.i	flash_phy_rd.sv	140	30	140	31		0		
+  B: 10	ref_obj	i		work@flash_phy_rd.gen_bufs.i_rd_buf.alloc_i.alloc.i	flash_phy_rd.sv	140	30	140	31		0		
+== default/Rggen: STRICT_NOTEQUAL file
+#23164 file
+  A: 11	logic_typespec				rggen_adapter_common.sv	43	5	43	10				
+  B: 11	logic_typespec				rggen_bus_if.sv	9	3	9	28				
+#23165 file
+  A: 12	range				rggen_adapter_common.sv	43	11	43	30				
+  B: 12	range				rggen_bus_if.sv	9	9	9	28				
+#23166 type
+  A: 13	operation				rggen_adapter_common.sv	43	12	43	27		0		
+  B: 13	constant				rggen_bus_if.sv	9	10	9	23	15	64	INT:15	7

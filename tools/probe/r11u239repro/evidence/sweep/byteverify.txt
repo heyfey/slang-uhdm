@@ -1,0 +1,27 @@
+== surelog
+databases: patched=952 pristine=952
+PATH_SETS_IDENTICAL (952 paths)
+MOVER ./default/Earlgrey_0_1-a898def8/slang.uhdm  patched=535cffbc1d16 pristine=a6ed4efdb200
+MOVER ./default/Rggen-ee9ac8af/slang.uhdm  patched=aa90e136172e pristine=bcb7d8499356
+MOVER ./testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=8ff4d1cc41ba pristine=8517467bd0ef
+MOVERS: 3 / 952
+SELFCHECK (every file vs one fixed file): 951 / 952 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== downstream
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+== probe
+databases: patched=4087 pristine=4087
+PATH_SETS_IDENTICAL (4087 paths)
+MOVER ./r10rgg8repro__cells__h_full/slang.uhdm  patched=ce62365e17b4 pristine=9948ebbd2859
+MOVER ./r10rgg8repro__cells__h_modport/slang.uhdm  patched=f934dcaf6211 pristine=1348f28186ff
+MOVER ./r10rgg8repro__cells__h_mp_noports/slang.uhdm  patched=52aa58b49547 pristine=b95d5fed592b
+MOVER ./r10vrgg8repro__cells__v8_ctx_iface/slang.uhdm  patched=39e3edbc51f7 pristine=ce67a9fb57e9
+MOVERS: 4 / 4087
+SELFCHECK (every file vs one fixed file): 4086 / 4087 flagged

@@ -36,6 +36,7 @@
 #include "R229.h"
 #include "R234.h"
 #include "R237.h"
+#include "R239.h"
 
 namespace slang_uhdm {
 
@@ -52468,6 +52469,45 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 ((UHDM::expr*)rc2)->VpiParent(pa2);
                             else if (rc2->UhdmType() != UHDM::uhdmoperation)
                                 ((UHDM::expr*)rc2)->VpiParent(nullptr);
+                            // § genLpSysCallArgName239
+                            // (R11U239_GENLPSYSARG_OFF): a system call's
+                            // NAME-shaped argument in a generate-scope
+                            // localparam is named through the branch scope
+                            // (golden `work@top.gen_normal_case.N`, Earlgrey
+                            // #123586), as the same name under an operation
+                            // already is; emitSyntaxExpr's raw-text fallback
+                            // writes no full name (right for a generate-scope
+                            // variable range, c02).
+                            if (rc2->UhdmType() == UHDM::uhdmsys_func_call &&
+                                !branchPrefix.empty() &&
+                                r11u239Law("R11U239_GENLPSYSARG_OFF"))
+                                if (auto* ta9 = ((UHDM::sys_func_call*)rc2)
+                                                    ->Tf_call_args())
+                                    for (auto* a9 : *ta9)
+                                        if (a9->UhdmType() ==
+                                                UHDM::uhdmref_obj &&
+                                            (((UHDM::ref_obj*)a9)
+                                                 ->VpiFullName()
+                                                 .empty() ||
+                                             ((UHDM::ref_obj*)a9)
+                                                     ->VpiFullName() ==
+                                                 a9->VpiName())) {
+                                            std::string an9(
+                                                ((UHDM::ref_obj*)a9)
+                                                    ->VpiName());
+                                            bool id9 = !an9.empty();
+                                            for (char ch9 : an9)
+                                                if (!std::isalnum(
+                                                        (unsigned char)ch9) &&
+                                                    ch9 != '_' && ch9 != '$')
+                                                    id9 = false;
+                                            if (!id9)
+                                                continue;
+                                            ((UHDM::ref_obj*)a9)->VpiFullName(
+                                                branchPrefix + "." + an9);
+                                            tr239("genLpSysCallArgName239",
+                                                  branchPrefix + "." + an9);
+                                        }
                             pa2->Rhs((UHDM::expr*)rc2);
                         }
                         syntaxRefPrefix.clear();
@@ -53283,8 +53323,33 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             bs9->VpiFullName(bsFull9);
                             setLoc(bs9, SourceRange(idxSt9,
                                                     idxSt9 + idx9.size()));
+                            // § genConnOpSelIdxScope239
+                            // (R11U239_OPSELIDX_OFF): a select index that
+                            // is a bare identifier is named through the
+                            // connection's scope (golden
+                            // `<inst>.<formal>.<idx>`, Earlgrey #121994);
+                            // only refs inside an operation index keep the
+                            // doubled `<formal>.<base>` scope.
+                            std::string idxScope9 = bsFull9;
+                            if (r11u239Law("R11U239_OPSELIDX_OFF")) {
+                                std::string t9 = idx9;
+                                while (!t9.empty() && t9.front() == ' ')
+                                    t9.erase(t9.begin());
+                                while (!t9.empty() && t9.back() == ' ')
+                                    t9.pop_back();
+                                bool id9 = !t9.empty() &&
+                                           !std::isdigit((unsigned char)t9[0]);
+                                for (char ch9 : t9)
+                                    if (!std::isalnum((unsigned char)ch9) &&
+                                        ch9 != '_' && ch9 != '$')
+                                        id9 = false;
+                                if (id9 && t9 == idx9) {
+                                    idxScope9 = scope9;
+                                    tr239("genConnOpSelIdxScope239", bsFull9 + "." + t9);
+                                }
+                            }
                             bs9->VpiIndex(
-                                mkIdxTx9(idx9, idxSt9, bs9, bsFull9));
+                                mkIdxTx9(idx9, idxSt9, bs9, idxScope9));
                             return bs9;
                         };
                         // § genConnOperatorActual (r10earl6), made RECURSIVE

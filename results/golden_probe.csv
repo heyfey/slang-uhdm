@@ -479,9 +479,9 @@ r10rgg8repro/cells/d_ifcond,EQUAL,,equal
 r10rgg8repro/cells/f_override1,EQUAL,,equal
 r10rgg8repro/cells/f_pd0,EQUAL,,equal
 r10rgg8repro/cells/f_split,EQUAL,,equal
-r10rgg8repro/cells/h_full,STRICT_NOTEQUAL,differ:line(3),differ:line(3)
-r10rgg8repro/cells/h_modport,STRICT_NOTEQUAL,differ:line(4),differ:line(4)
-r10rgg8repro/cells/h_mp_noports,STRICT_NOTEQUAL,differ:line(4),differ:line(4)
+r10rgg8repro/cells/h_full,EQUAL,,equal
+r10rgg8repro/cells/h_modport,EQUAL,,equal
+r10rgg8repro/cells/h_mp_noports,EQUAL,,equal
 r10rgg9repro/cells/a_bin,EQUAL,,equal
 r10rgg9repro/cells/a_bothc0,EQUAL,,equal
 r10rgg9repro/cells/a_bothc1,EQUAL,,equal
@@ -1544,7 +1544,7 @@ r10vrgg8repro/cells/v8_cond_bit_bare,EQUAL,,equal
 r10vrgg8repro/cells/v8_cond_byte_bare,EQUAL,,equal
 r10vrgg8repro/cells/v8_cond_longint_bare,EQUAL,,equal
 r10vrgg8repro/cells/v8_ctx_3inst,EQUAL,,equal
-r10vrgg8repro/cells/v8_ctx_iface,STRICT_NOTEQUAL,differ:line(4),differ:line(4)
+r10vrgg8repro/cells/v8_ctx_iface,EQUAL,,equal
 r10vrgg8repro/cells/v8_ctx_nested_inst,EQUAL,,equal
 r10vrgg8repro/cells/v8_ctx_reg_read,EQUAL,,equal
 r10vrgg8repro/cells/v8_earlyret_noelse,EQUAL,,equal

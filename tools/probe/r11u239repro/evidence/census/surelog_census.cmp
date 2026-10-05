@@ -1,0 +1,6 @@
+[default] CMP_EQUAL=468 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=11 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=464 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=9 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:fullname(5) -> differ:col(2)
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(5) -> differ:col(2)
+CHANGE Rggen default STRICT_NOTEQUAL differ:file(3) -> differ:line(202)
+regressions=0 conversions=0 changes=3 only-fresh=0 only-committed=0

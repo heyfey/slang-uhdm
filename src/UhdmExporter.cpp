@@ -16,6 +16,7 @@
 #include "R234.h"
 #include "R235.h"
 #include "R237.h"
+#include "R239.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -17424,6 +17425,340 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
         }
         r231OobClassTdRefs().clear();
+        // § modportArgVarFormalTs239 (r11u239; Rggen default #23164) — A
+        // MODPORT PORT MEMBER PASSED TO A FUNCTION IN A CONTINUOUS ASSIGNMENT
+        // TAKES THE FORMAL'S TYPESPEC ON ITS PORT-VIEW VARIABLE.
+        // UhdmWriter::writeCont_assign reduces the right side and
+        // ExprEval::evalFunc (third_party/Surelog/third_party/UHDM/templates/
+        // ExprEval.cpp) binds each actual to its formal in place:
+        // `exparg->Typespec()->Actual_typespec(tps)`.  A hier_path actual
+        // `bif.address` through a modport-qualified interface port reduces to
+        // the port view's io_decl variable, so that variable's ref_typespec
+        // is re-pointed at the function's formal typespec, whether or not the
+        // call then folds: golden Rggen `u_block_0...u_adapter_common.bus_if.
+        // address` types with pre_decode's formal `logic [ADDRESS_WIDTH-1:0]`
+        // (rggen_adapter_common.sv 43:5; the call folds to '1), ours with the
+        // interface's own declaration.  writeInstance writes a module's own
+        // assignments and then its generate scopes in order, so the LAST call
+        // met wins.  Measured (tools/probe/r11u239repro/cases/MA): module-local
+        // and package functions, a select of the member, generate blocks, net
+        // declaration assignments, under & | ! ?: {} and beside another modport
+        // member; NOT stamped: XOR, an argument expression, an operation with a
+        // plain net or variable operand anywhere, always_comb, a generic
+        // interface port, an interface instance of the same module.  A formal
+        // with no typespec is left alone (evalFunc would mint one).  Switch
+        // R11U239_MPARGTS_OFF.
+        if (r11u239Law("R11U239_MPARGTS_OFF") && d->TopModules()) {
+            using namespace slang::ast;
+            struct Hit239 {
+                std::string inst, port, member, fn, pkg;
+                size_t idx;
+            };
+            std::vector<Hit239> hits239;
+            auto plainRead239 = [&](const Expression& e) -> bool {
+                bool bad = false;
+                struct V : public ASTVisitor<V, VisitFlags::Expressions> {
+                    bool* bad;
+                    void handle(const NamedValueExpression& nv) {
+                        auto k = nv.symbol.kind;
+                        if (k == SymbolKind::Parameter || k == SymbolKind::EnumValue)
+                            return;
+                        if (nv.syntax && nv.syntax->kind == syntax::SyntaxKind::IdentifierName)
+                            *bad = true;
+                    }
+                } v;
+                v.bad = &bad;
+                e.visit(v);
+                return bad;
+            };
+            std::string curInst239;
+            const Scope* curBody239 = nullptr;
+            // § modportArgOwnBodyFn239v (v11u239, R11V239_HOMEBODY_OFF): a
+            // function whose home is an instance body binds only when that
+            // body is the caller's own; an interface function reached through
+            // the modport port (`bif.chk(bif.address)`, modport `import chk`)
+            // has the interface body as home, and the module's own task_func
+            // of the same name must not lend its formal (golden v11u239 m26
+            // leaves the member's typespec alone; the unrefined law stamped
+            // the module's `chk` formal and uhdm-cmp failed).
+            const bool ownBody239 = r11v239Law("R11V239_HOMEBODY_OFF");
+            std::function<void(const Expression&)> walk239 = [&](const Expression& e) {
+                switch (e.kind) {
+                case ExpressionKind::Conversion:
+                    walk239(e.as<ConversionExpression>().operand());
+                    return;
+                case ExpressionKind::Call: {
+                    auto& ce = e.as<CallExpression>();
+                    if (ce.isSystemCall())
+                        return;
+                    auto sp = std::get_if<const SubroutineSymbol*>(&ce.subroutine);
+                    if (!sp || !*sp || (*sp)->subroutineKind != SubroutineKind::Function)
+                        return;
+                    auto* sub = *sp;
+                    auto* home = sub->getParentScope();
+                    std::string pkg;
+                    if (home && home->asSymbol().kind == SymbolKind::Package)
+                        pkg = std::string(home->asSymbol().name);
+                    else if (!home || home->asSymbol().kind != SymbolKind::InstanceBody)
+                        return;
+                    else if (ownBody239 && home != curBody239) {
+                        tr239("modportArgOwnBodyFn239v", curInst239 + " " + std::string(sub->name));
+                        return;
+                    }
+                    auto as = ce.arguments();
+                    for (size_t i = 0; i < as.size(); i++) {
+                        if (!as[i])
+                            continue;
+                        walk239(*as[i]);
+                        const Expression* a0 = as[i];
+                        while (a0->kind == ExpressionKind::Conversion &&
+                               a0->as<ConversionExpression>().isImplicit())
+                            a0 = &a0->as<ConversionExpression>().operand();
+                        const Expression* sel0 = a0;
+                        while (a0->kind == ExpressionKind::ElementSelect ||
+                               a0->kind == ExpressionKind::RangeSelect)
+                            a0 = a0->kind == ExpressionKind::ElementSelect
+                                     ? &a0->as<ElementSelectExpression>().value()
+                                     : &a0->as<RangeSelectExpression>().value();
+                        if (a0->kind != ExpressionKind::NamedValue &&
+                            a0->kind != ExpressionKind::HierarchicalValue)
+                            continue;
+                        // A selected member's name carries no syntax of its
+                        // own: read the select's.
+                        const syntax::SyntaxNode* asy = a0->syntax ? a0->syntax : sel0->syntax;
+                        if (!asy)
+                            continue;
+                        std::string tx = rawText(asy->sourceRange());
+                        // slang folds a select into the name's syntax
+                        // (`bif.address[7:0]`): the member is the part
+                        // before the first bracket.
+                        if (a0 != as[i] || tx.find('[') != std::string::npos) {
+                            auto lb = tx.find('[');
+                            if (lb != std::string::npos && !tx.empty() && tx.back() == ']')
+                                tx = tx.substr(0, lb);
+                        }
+                        auto dot = tx.find('.');
+                        if (dot == std::string::npos || tx.find('.', dot + 1) != std::string::npos ||
+                            tx.find_first_of("[ :\t\r\n") != std::string::npos)
+                            continue;
+                        hits239.push_back({curInst239, tx.substr(0, dot), tx.substr(dot + 1),
+                                           std::string(sub->name), pkg, i});
+                    }
+                    return;
+                }
+                case ExpressionKind::BinaryOp: {
+                    auto& b = e.as<BinaryExpression>();
+                    switch (b.op) {
+                    case BinaryOperator::Add: case BinaryOperator::Subtract:
+                    case BinaryOperator::Multiply: case BinaryOperator::Divide:
+                    case BinaryOperator::Mod: case BinaryOperator::BinaryAnd:
+                    case BinaryOperator::BinaryOr: case BinaryOperator::Equality:
+                    case BinaryOperator::Inequality: case BinaryOperator::LessThan:
+                    case BinaryOperator::LessThanEqual: case BinaryOperator::GreaterThan:
+                    case BinaryOperator::GreaterThanEqual: case BinaryOperator::LogicalAnd:
+                    case BinaryOperator::LogicalOr: case BinaryOperator::LogicalShiftLeft:
+                    case BinaryOperator::LogicalShiftRight:
+                    case BinaryOperator::ArithmeticShiftLeft:
+                    case BinaryOperator::ArithmeticShiftRight: case BinaryOperator::Power:
+                        break;
+                    default:
+                        return;
+                    }
+                    if (plainRead239(e))
+                        return;
+                    walk239(b.left());
+                    walk239(b.right());
+                    return;
+                }
+                case ExpressionKind::UnaryOp:
+                    if (plainRead239(e))
+                        return;
+                    walk239(e.as<UnaryExpression>().operand());
+                    return;
+                case ExpressionKind::ConditionalOp: {
+                    if (plainRead239(e))
+                        return;
+                    auto& c = e.as<ConditionalExpression>();
+                    for (auto& cd : c.conditions)
+                        walk239(*cd.expr);
+                    walk239(c.left());
+                    walk239(c.right());
+                    return;
+                }
+                case ExpressionKind::Concatenation:
+                    if (plainRead239(e))
+                        return;
+                    for (auto* o : e.as<ConcatenationExpression>().operands())
+                        walk239(*o);
+                    return;
+                case ExpressionKind::Replication:
+                    if (plainRead239(e))
+                        return;
+                    walk239(e.as<ReplicationExpression>().count());
+                    walk239(e.as<ReplicationExpression>().concat());
+                    return;
+                default:
+                    return;
+                }
+            };
+            // A scope's own assignments (source order), then its generate
+            // blocks in order (UhdmWriter::writeInstance's recursion).
+            // § ndaBeforeAssign239v (v11u239, R11V239_NDAFIRST_OFF): in
+            // Surelog's netlist a scope's net-declaration assignments
+            // precede its assign statements whatever the source order
+            // (golden v11u239 m06, m21, m22, m25: an assign statement's call
+            // wins over a later `wire w = f(...)`), so they are walked
+            // first; without the refinement both kinds go in source order.
+            const bool ndaFirst239 = r11v239Law("R11V239_NDAFIRST_OFF");
+            std::function<void(const Scope&)> scope239 = [&](const Scope& sc) {
+                for (int pass239 = ndaFirst239 ? 0 : 2; pass239 < (ndaFirst239 ? 2 : 3); pass239++)
+                for (auto& m : sc.members()) {
+                    if (m.kind == SymbolKind::ContinuousAssign && pass239 != 0) {
+                        auto& ae = m.as<ContinuousAssignSymbol>().getAssignment();
+                        if (ae.kind == ExpressionKind::Assignment)
+                            walk239(ae.as<AssignmentExpression>().right());
+                    }
+                    else if (m.kind == SymbolKind::Net && pass239 != 1) {
+                        if (auto* ini = m.as<NetSymbol>().getInitializer())
+                            walk239(*ini);
+                    }
+                }
+                for (auto& m : sc.members()) {
+                    if (m.kind == SymbolKind::GenerateBlock) {
+                        auto& gb = m.as<GenerateBlockSymbol>();
+                        if (!gb.isUninstantiated)
+                            scope239(gb);
+                    }
+                    else if (m.kind == SymbolKind::GenerateBlockArray) {
+                        for (auto* en : m.as<GenerateBlockArraySymbol>().entries)
+                            if (en && !en->isUninstantiated)
+                                scope239(*en);
+                    }
+                }
+            };
+            struct Scan239 : public ASTVisitor<Scan239, VisitFlags::Symbols> {
+                std::function<void(const InstanceBodySymbol&)> fn;
+                void handle(const InstanceBodySymbol& b) {
+                    fn(b);
+                    visitDefault(b);
+                }
+            } scan239;
+            scan239.fn = [&](const InstanceBodySymbol& b) {
+                if (b.flags.has(InstanceFlags::Uninstantiated) || !b.parentInstance ||
+                    b.getDefinition().definitionKind != DefinitionKind::Module)
+                    return;
+                curInst239 = "work@" + b.parentInstance->getHierarchicalPath();
+                curBody239 = &b;
+                scope239(b);
+            };
+            comp.getRoot().visit(scan239);
+            std::map<std::string, UHDM::module_inst*> byName239;
+            // slang's hierarchical path names a generate block once
+            // (`g_register_0`, `g[0]`); the UHDM gen_scope_array carries that
+            // name and its gen_scope may carry it again or nothing.
+            auto genPath239 = [](const std::string& pth, UHDM::gen_scope_array* ga,
+                                 UHDM::gen_scope* g) {
+                std::string an(ga->VpiName()), gn(g->VpiName());
+                std::string nm = !an.empty() ? an : gn;
+                return nm.empty() ? pth : pth + "." + nm;
+            };
+            std::function<void(UHDM::module_inst*, const std::string&)> addInst239;
+            std::function<void(UHDM::gen_scope*, const std::string&)> addGen239 =
+                [&](UHDM::gen_scope* g, const std::string& pth) {
+                if (!g)
+                    return;
+                if (auto* v = g->Modules())
+                    for (auto* c0 : *v)
+                        addInst239((UHDM::module_inst*)c0, pth);
+                if (auto* v = g->Gen_scope_arrays())
+                    for (auto* ga : *v)
+                        if (ga && ga->Gen_scopes())
+                            for (auto* g2 : *ga->Gen_scopes())
+                                addGen239(g2, genPath239(pth, ga, g2));
+            };
+            addInst239 = [&](UHDM::module_inst* m, const std::string& up) {
+                if (!m)
+                    return;
+                std::string pth = up.empty() ? std::string(m->VpiName())
+                                             : up + "." + std::string(m->VpiName());
+                byName239.emplace(pth, m);
+                if (auto* v = m->Modules())
+                    for (auto* c0 : *v)
+                        addInst239((UHDM::module_inst*)c0, pth);
+                if (auto* v = m->Gen_scope_arrays())
+                    for (auto* ga : *v)
+                        if (ga && ga->Gen_scopes())
+                            for (auto* g : *ga->Gen_scopes())
+                                addGen239(g, genPath239(pth, ga, g));
+            };
+            if (!hits239.empty())
+                for (auto* t : *d->TopModules())
+                    addInst239((UHDM::module_inst*)t, "");
+            auto findFn239 = [&](UHDM::module_inst* mi, const Hit239& h) -> UHDM::function* {
+                auto pick = [&](const UHDM::VectorOftask_func* v) -> UHDM::function* {
+                    if (v)
+                        for (auto* tf : *v)
+                            if (tf && tf->UhdmType() == UHDM::uhdmfunction &&
+                                tf->VpiName() == h.fn)
+                                return (UHDM::function*)tf;
+                    return nullptr;
+                };
+                if (h.pkg.empty())
+                    return pick(mi->Task_funcs());
+                for (auto* pv : {d->TopPackages(), d->AllPackages()})
+                    if (pv)
+                        for (auto* pk : *pv)
+                            if (pk && pk->VpiName() == h.pkg)
+                                if (auto* f = pick(pk->Task_funcs()))
+                                    return f;
+                return nullptr;
+            };
+            for (auto& h : hits239) {
+                auto mit = byName239.find(h.inst);
+                if (mit == byName239.end() || !mit->second->Ports())
+                    continue;
+                auto* mi = mit->second;
+                auto* fn = findFn239(mi, h);
+                if (!fn || !fn->Io_decls() || h.idx >= fn->Io_decls()->size())
+                    continue;
+                auto* fio = (*fn->Io_decls())[h.idx];
+                if (!fio || !fio->Typespec() || !fio->Typespec()->Actual_typespec())
+                    continue;
+                for (auto* pt : *mi->Ports()) {
+                    if (!pt || pt->VpiName() != h.port || !pt->Low_conn() ||
+                        pt->Low_conn()->UhdmType() != UHDM::uhdmref_obj)
+                        continue;
+                    auto* mp = ((UHDM::ref_obj*)pt->Low_conn())->Actual_group();
+                    if (!mp || mp->UhdmType() != UHDM::uhdmmodport ||
+                        !((UHDM::modport*)mp)->Io_decls())
+                        break;
+                    for (auto* io : *((UHDM::modport*)mp)->Io_decls()) {
+                        if (!io || io->VpiName() != h.member || !io->Expr())
+                            continue;
+                        auto* ex = io->Expr();
+                        auto k = ex->UhdmType();
+                        if (k != UHDM::uhdmlogic_var && k != UHDM::uhdmlogic_net &&
+                            k != UHDM::uhdmbit_var && k != UHDM::uhdmint_var &&
+                            k != UHDM::uhdminteger_var && k != UHDM::uhdmenum_var &&
+                            k != UHDM::uhdmstruct_var && k != UHDM::uhdmstruct_net &&
+                            k != UHDM::uhdmbyte_var)
+                            break;
+                        auto* rt = ((UHDM::expr*)ex)->Typespec();
+                        if (!rt)
+                            break;
+                        auto* fts = fio->Typespec()->Actual_typespec();
+                        if (rt->Actual_typespec() != fts) {
+                            rt->Actual_typespec(fts);
+                            tr239("modportArgVarFormalTs239",
+                                  h.inst + " " + h.port + "." + h.member + " " + h.fn +
+                                      "#" + std::to_string(h.idx));
+                        }
+                        break;
+                    }
+                    break;
+                }
+            }
+        }
         return d;
     };
     if (!r11u146Law("R11U146_TFARGTD_OFF"))

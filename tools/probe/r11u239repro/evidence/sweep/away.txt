@@ -1,0 +1,9 @@
+# 7 databases differ between /tmp/r11u239_sP2 and /tmp/r11u239_sL2 (canonical records)
+probe/r10rgg8repro/cells/h_full chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6 flat_unpaired=0
+probe/r10rgg8repro/cells/h_modport chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0
+probe/r10rgg8repro/cells/h_mp_noports chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0
+probe/r10vrgg8repro/cells/v8_ctx_iface chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4 flat_unpaired=0
+surelog/default/Earlgrey_0_1 chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6 flat_unpaired=0
+surelog/default/Rggen chain_lost=0 chain_toward=5117 flat_lost=0 flat_toward=5117 flat_unpaired=0
+surelog/testflags/Earlgrey_0_1 chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6 flat_unpaired=0
+TOTAL chain_lost=0 chain_toward=5147 flat_lost=0 flat_toward=5147 flat_unpaired=0

@@ -1,0 +1,24 @@
+F Earlgrey_0_1/default       3 535cffbc1d16 
+F MiniAmiq/default       3 3b5f3c432dc0 
+F SeqDriver/default       3 06b2a3f1dbf1 
+F SimpleUVM/default       3 93669fd10b3a 
+F Scoreboard/default       3 80d768d658ab 
+F BuildUVMPkg/default       3 4e747bb4e5e2 
+F Earlgrey_0_1/testflags       3 8ff4d1cc41ba 
+F MiniAmiq/testflags       3 3b5f3c432dc0 
+F SeqDriver/testflags       3 2e6ebea9b02f 
+F SimpleUVM/testflags       3 05304184c551 
+F Scoreboard/testflags 
+F BuildUVMPkg/testflags       3 4e747bb4e5e2 
+pristine-sweep Earlgrey_0_1/default a6ed4efdb200 law-sweep 535cffbc1d16
+pristine-sweep MiniAmiq/default 3b5f3c432dc0 law-sweep 3b5f3c432dc0
+pristine-sweep SeqDriver/default 06b2a3f1dbf1 law-sweep 06b2a3f1dbf1
+pristine-sweep SimpleUVM/default 93669fd10b3a law-sweep 93669fd10b3a
+pristine-sweep Scoreboard/default 80d768d658ab law-sweep 80d768d658ab
+pristine-sweep BuildUVMPkg/default 4e747bb4e5e2 law-sweep 4e747bb4e5e2
+pristine-sweep Earlgrey_0_1/testflags 8517467bd0ef law-sweep 8ff4d1cc41ba
+pristine-sweep MiniAmiq/testflags 3b5f3c432dc0 law-sweep 3b5f3c432dc0
+pristine-sweep SeqDriver/testflags 2e6ebea9b02f law-sweep 2e6ebea9b02f
+pristine-sweep SimpleUVM/testflags 05304184c551 law-sweep 05304184c551
+pristine-sweep Scoreboard/testflags  law-sweep 
+pristine-sweep BuildUVMPkg/testflags 4e747bb4e5e2 law-sweep 4e747bb4e5e2

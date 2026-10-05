@@ -1,0 +1,27 @@
+caseviews 152 identical 50 alloff==pristine 152
+('SNE:file', 'SNE:file') 2
+('SNE:fullname', 'EQ') 26
+('SNE:fullname', 'SNE:file') 2
+('SNE:line', 'EQ') 60
+('SNE:type', 'EQ') 2
+('identical', 'EQ') 41
+('identical', 'SNE:line') 2
+('identical', 'stage1') 7
+('stage1', 'stage1') 10
+noopsel EQ lost when off 10 reverting 14 {'OS': 14} reverted==pristine True
+nogenlp EQ lost when off 16 reverting 22 {'GL': 22} reverted==pristine True
+nompargs EQ lost when off 62 reverting 66 {'MA': 66} reverted==pristine True
+nonEQ mover GL/b08 stage1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17 17
+nonEQ mover GL/b08_el stage1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17 17
+nonEQ mover GL/c07 SNE:fullname STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_file cmplines 0 0
+nonEQ mover GL/c07_el SNE:fullname STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_file cmplines 0 0
+nonEQ mover GL/x02 stage1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17 17
+nonEQ mover GL/x02_el stage1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17 17
+nonEQ mover MA/x01 stage1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 264 264
+nonEQ mover MA/x01_el stage1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 264 264
+nonEQ mover MA/x08 SNE:file STRICT_NOTEQUAL_file -> STRICT_NOTEQUAL_file cmplines 0 0
+nonEQ mover MA/x08_el SNE:file STRICT_NOTEQUAL_file -> STRICT_NOTEQUAL_file cmplines 0 0
+nonEQ mover OS/a02 stage1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46 46
+nonEQ mover OS/a02_el stage1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50 50
+nonEQ mover OS/x01 stage1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46 46
+nonEQ mover OS/x01_el stage1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50 50

@@ -1,0 +1,12 @@
+v11u239 mover prediction, frozen before the fix sweep (written 2026-10-04, after the last refinement).
+Fix binary (/tmp/v11u239_binf1/fix) against the law binary (/tmp/v11u239_bin/law, md5 8978a39f...):
+both refinements act only inside § modportArgVarFormalTs239's hit list (R11V239_NDAFIRST_OFF reorders the hits of
+one scope; R11V239_HOMEBODY_OFF drops hits), so a database can move only where that law fires. Its firing set on the
+gate (the implementer's census, reproduced by the law sweep's byteverify): Rggen default and the four probe cases
+r10rgg8repro/cells/h_full, h_modport, h_mp_noports, r10vrgg8repro/cells/v8_ctx_iface.
+  * Rggen default: measured directly (verify_golden.py --filter '^Rggen$', traced): fix and law write the same
+    database (md5 aa90e136172edd37185bc6731b57243d) and the same 1318 firings; modportArgOwnBodyFn239v fires 0 times.
+  * the four probe cases: one assign statement each, a module-local function, no net-declaration assignment.
+PREDICTION: 0 databases differ between the fix sweep and the law sweep in every stage (probe, surelog, uhdm2rtlil,
+downstream); against pristine the fix sweep moves exactly the law's 7 (Earlgrey_0_1 default/testflags, Rggen default,
+the four probe cases).

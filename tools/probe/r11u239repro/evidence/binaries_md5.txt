@@ -1,0 +1,4 @@
+273961bd0118143bb6c037c332f9ff30  pristine
+8978a39fd0ca596fc89560824720d8a4  law
+fa6e4f42f252ae0ab69d9845003e71c5  uhdm-strictcmp
+slang-uhdm using slang version 12.0.0+545f88b2e

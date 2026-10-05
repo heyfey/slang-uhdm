@@ -1,0 +1,21 @@
+// § modportArgVarFormalTs239
+interface bus_if #(parameter int AW = 16);
+  logic [AW-1:0] address;
+  logic [AW-1:0] data;
+  logic valid;
+  modport slave (input address, input data, input valid);
+endinterface
+module adapter #(parameter int AW = 8) (bus_if.slave bif, output logic o, output logic o2);
+  assign o = pre_two(bif.address);
+  assign o2 = pre_decode(bif.address);
+  function automatic logic pre_decode(logic [AW-1:0] address);
+    return address == '0;
+  endfunction
+  function automatic logic pre_two(logic [AW-2:0] a2);
+    return a2 == '0;
+  endfunction
+endmodule
+module top (output logic o, output logic o2);
+  bus_if #(.AW(8)) b ();
+  adapter #(.AW(8)) u (.bif(b), .o(o), .o2(o2));
+endmodule
