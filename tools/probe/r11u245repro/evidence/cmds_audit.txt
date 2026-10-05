@@ -1,0 +1,6 @@
+listed=3323 kept=3315
+   3265 /tmp/r11u245_bin/pristine
+expected=/tmp/r11u245_bin/pristine
+listed=3323 kept=3315
+   3265 /tmp/r11u245_bin/law
+expected=/tmp/r11u245_bin/law

@@ -1,0 +1,6 @@
+pristine 0c5bd3be423a452b5cac3b1c1c45aaec (equal to the main tree's build/slang-uhdm at 9666f384)
+law      9f15dba2596966f23c4610d81e740f10 (r11u245.patch applied clean on fresh 9666f384; equal to the implementer's)
+fix      47788291f72d7ef494a6e1bab4d85c83 (law + the two R11V245 refinements; r11u245.verified.patch)
+uhdm-strictcmp fa6e4f42f252ae0ab69d9845003e71c5 (main tree's; pinned as STRICT_CMP for the fix sweep)
+strictcmp_s1 (drivers/cc_s1.sh): strictcmp_x with V245_SKIP_STAGE1 (records dumped past a stage-1 failure)
+all three link slang 12.0.0+545f88b2e; frozen chmod 555 under /tmp/v11u245_bin before any measurement

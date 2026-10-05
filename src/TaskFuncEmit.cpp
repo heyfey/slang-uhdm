@@ -16,6 +16,7 @@
 
 #include <algorithm>
 #include <vector>
+#include "R245.h"
 #include "R234.h"
 #include "R237.h"
 #include "R204.h"
@@ -4483,6 +4484,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // at the return-type token.
             bool typedefRetClone = false;
             bool pkgUnitRet9 = false;
+            // § unitTdRetVarAtTypeToken245 (below, where the span is set).
+            bool unitRet245 = false;
             // A bare typedef return CLONE is instanced at the typedef's home
             // package even inside a CLASS listing, where a method's own
             // typespecs are otherwise uninstanced: the clone belongs to the
@@ -4528,6 +4531,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     if (auto scr9 = retAlias->getParentScope()) {
                         pkgUnitRet9 =
                             scr9->asSymbol().kind == SymbolKind::Package;
+                        unitRet245 =
+                            scr9->asSymbol().kind == SymbolKind::CompilationUnit;
                         scrPkgOf9 = scr9;
                         const Scope* fsc9 = sub.getParentScope();
                         while (fsc9 && fsc9 != scr9 &&
@@ -5104,10 +5109,35 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 r11u237Law("R11U237_UNIONRET_OFF");
             if (unionRet237)
                 tr237("unionRetVarAtTypeToken237", std::string(sub.name));
+            // § unitTdRetVarAtTypeToken245 (r11u245, R11U245_UNITRETLOC_OFF;
+            // case tools/probe/r11u245repro US/u07) — a function returning a
+            // $UNIT scalar or predefined-kind typedef: golden locates the
+            // return variable at the written return type (`function automatic
+            // ustr_t f` string_var 5:22-5:28) exactly as for a package
+            // typedef's return (pkgUnitRet9); ours copied the shared
+            // typedef's span (3:9-3:15).  Only the kinds § unitTdLawS245
+            // reads (the aggregates already take the type token above).
+            bool unitRetLoc245 = false;
+            if (unitRet245 && !crossImplicitRet &&
+                (ts->UhdmType() == UHDM::uhdmlogic_typespec ||
+                 ts->UhdmType() == UHDM::uhdmbit_typespec ||
+                 ts->UhdmType() == UHDM::uhdmint_typespec ||
+                 ts->UhdmType() == UHDM::uhdminteger_typespec ||
+                 ts->UhdmType() == UHDM::uhdmbyte_typespec ||
+                 ts->UhdmType() == UHDM::uhdmshort_int_typespec ||
+                 ts->UhdmType() == UHDM::uhdmlong_int_typespec ||
+                 ts->UhdmType() == UHDM::uhdmstring_typespec ||
+                 ts->UhdmType() == UHDM::uhdmreal_typespec ||
+                 ts->UhdmType() == UHDM::uhdmshort_real_typespec ||
+                 ts->UhdmType() == UHDM::uhdmtime_typespec) &&
+                r11u245On("R11U245_UNITRETLOC_OFF")) {
+                unitRetLoc245 = true;
+                tr245("unitTdRetVarAtTypeToken245", std::string(sub.name));
+            }
             if (ts->UhdmType() == UHDM::uhdmstruct_typespec ||
                 ts->UhdmType() == UHDM::uhdmenum_typespec ||
                 ts->UhdmType() == UHDM::uhdmarray_typespec || unionRet237 ||
-                typedefRetClone || pkgUnitRet9) {
+                typedefRetClone || pkgUnitRet9 || unitRetLoc245) {
                 if (auto* rsyn = retTypeSyn175(sub)) {
                     auto rr9 = rsyn->sourceRange();
                     std::string rw9 = rawText(rr9);

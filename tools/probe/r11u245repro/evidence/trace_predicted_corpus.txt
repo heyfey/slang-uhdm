@@ -1,0 +1,5 @@
+default/nested_cast_repro-74aa0ce1/slang.uhdm :       1 unitTdRetVarAtTypeToken245 
+default/func_typename_ret-ec83b25f/slang.uhdm :       1 unitTdRetVarAtTypeToken245 
+testflags/nested_cast_repro-74aa0ce1/slang.uhdm :       1 unitTdRetVarAtTypeToken245 
+testflags/func_typename_ret-ec83b25f/slang.uhdm :       1 unitTdRetVarAtTypeToken245 
+(law binary with R11U245_TRACE on the 5 predicted corpus tests in both modes, verify_golden.py --filter; rows with no firing write no line: arrays03, resolve_types, FileResolutionFunction; byteverify reads 0 corpus movers)

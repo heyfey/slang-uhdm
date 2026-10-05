@@ -1,0 +1,13 @@
+| G/g01_genvar_nostmt | NOT_EQUAL_stage1 cmp 17 | STRICT_NOTEQUAL_line cmp 0 rc 0 |
+| G/g01_genvar_nostmt_el | NOT_EQUAL_stage1 cmp 17 | STRICT_NOTEQUAL_line cmp 0 rc 0 |
+| G/g03_genfor | NOT_EQUAL_stage1 cmp 17 | STRICT_NOTEQUAL_line cmp 0 rc 0 |
+| G/g03_genfor_el | NOT_EQUAL_stage1 cmp 17 | STRICT_NOTEQUAL_line cmp 0 rc 0 |
+| G/g05_gencase | NOT_EQUAL_stage1 cmp 17 | STRICT_NOTEQUAL_line cmp 0 rc 0 |
+| G/g05_gencase_el | NOT_EQUAL_stage1 cmp 17 | STRICT_NOTEQUAL_line cmp 0 rc 0 |
+| K/k01_typeparam | STRICT_NOTEQUAL_file cmp 0 | STRICT_NOTEQUAL_file cmp 0 rc 0 |
+| K/k01_typeparam_el | STRICT_NOTEQUAL_file cmp 0 | STRICT_NOTEQUAL_file cmp 0 rc 0 |
+| K/k02_plainvar | NOT_EQUAL_stage1 cmp 17 | NOT_EQUAL_stage1 cmp 58 rc 0 |
+| K/k02_plainvar_el | NOT_EQUAL_stage1 cmp 17 | NOT_EQUAL_stage1 cmp 58 rc 0 |
+| V/v02_genvar | NOT_EQUAL_stage1 cmp 17 | STRICT_NOTEQUAL_line cmp 0 rc 0 |
+| V/v02_genvar_el | NOT_EQUAL_stage1 cmp 17 | STRICT_NOTEQUAL_line cmp 0 rc 0 |
+case-views 96; fix+R11V245_OFF == law 96; fix+R11U245_OFF == pristine 96; moved vs law 12; entering STRICT_EQUAL 0; leaving 0; per-switch reverts {'R11V245_GENVAR_OFF': 8, 'R11V245_ALIASEDLIST_OFF': 4}

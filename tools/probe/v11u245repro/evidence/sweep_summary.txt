@@ -1,0 +1,39 @@
+== sweep P (pristine)
+probe cases: EQUAL=3498 STRICT_NOTEQUAL=589 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=3498 STRICT_NOTEQUAL=589
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=470 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=10 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=466 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=8 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+== sweep L (law)
+probe cases: EQUAL=3498 STRICT_NOTEQUAL=589 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=3498 STRICT_NOTEQUAL=589
+CHANGE v11u108repro/brk/f5/b07_param_typedef_arr STRICT_NOTEQUAL differ:file(9) -> differ:file(7) [file -2]
+regressions=0 conversions=0 changes=1 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=470 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=10 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=466 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=8 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+== sweep F (fix)
+probe cases: EQUAL=3498 STRICT_NOTEQUAL=589 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=3498 STRICT_NOTEQUAL=589
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=470 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=10 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=466 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=8 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+fix vs pristine csv rows differing (workdir paths stripped): surelog 0, uhdm2rtlil 0, probe 0, downstream 0
+law vs pristine csv rows differing: surelog 0, uhdm2rtlil 0, probe 1 (b07_param_typedef_arr differ:file(9) -> differ:file(7)), downstream 0

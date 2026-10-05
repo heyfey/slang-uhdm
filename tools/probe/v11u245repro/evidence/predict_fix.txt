@@ -1,0 +1,6 @@
+downstream/arrays03	aliasedlist logic_typespec: (reg2dim1_t)
+probe/v11u108repro/brk/f5/b07_param_typedef_arr	aliasedlist logic_typespec: (arr_t)
+surelog/default/Scr1SvTests	genvar
+surelog/testflags/Scr1SvTests	genvar
+uhdm2rtlil/default/arrays03	aliasedlist logic_typespec: (reg2dim1_t)
+uhdm2rtlil/testflags/arrays03	aliasedlist logic_typespec: (reg2dim1_t)

@@ -1,0 +1,48 @@
+A_a01_mem {'name': 'A_a01_mem', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 104, 'slang_gates': 104, 'differs': '', 'detail': ''}
+A_a02_revrange {'name': 'A_a02_revrange', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+A_a03_paramsize {'name': 'A_a03_paramsize', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+A_a04_2d {'name': 'A_a04_2d', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 1 common constant assignments match'}
+A_a05_port {'name': 'A_a05_port', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+A_a06_twoinst {'name': 'A_a06_twoinst', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+G_g01_genvar_nostmt {'name': 'G_g01_genvar_nostmt', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+G_g02_genint {'name': 'G_g02_genint', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '✅ All 2 common constant assignments match'}
+G_g03_genfor {'name': 'G_g03_genfor', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 4, 'slang_gates': 4, 'differs': '', 'detail': ''}
+G_g04_genstr {'name': 'G_g04_genstr', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+G_g05_gencase {'name': 'G_g05_gencase', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+H_h01_include {'name': 'H_h01_include', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+H_h02_crlf {'name': 'H_h02_crlf', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+H_h03_twodecl {'name': 'H_h03_twodecl', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+K_k01_typeparam {'name': 'K_k01_typeparam', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'CRASH', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+K_k02_plainvar {'name': 'K_k02_plainvar', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '   This indicates a serious bug in /tmp/v11u245_s/dscase_fix/K_k02_plainvar/equiv/K_k02_plainvar - the design is non-fun'}
+K_k03_taskformal {'name': 'K_k03_taskformal', 'verdict': 'DIVERGENT', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 4, 'slang_gates': 2, 'differs': 'nohier il synth', 'detail': '----------------------------------------------'}
+K_k04_struct {'name': 'K_k04_struct', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 5, 'slang_gates': 5, 'differs': '', 'detail': ''}
+P_p01_intgen {'name': 'P_p01_intgen', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '✅ All 2 common constant assignments match'}
+P_p03_ifcport {'name': 'P_p03_ifcport', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 62, 'slang_gates': 62, 'differs': '', 'detail': ''}
+P_p04_intunsigned {'name': 'P_p04_intunsigned', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+P_p05_bytearr {'name': 'P_p05_bytearr', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 8, 'slang_gates': 8, 'differs': '', 'detail': ''}
+P_p07_longintmem {'name': 'P_p07_longintmem', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+P_p08_integerport {'name': 'P_p08_integerport', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+P_p09_strtask {'name': 'P_p09_strtask', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+P_p10_shortrealvar {'name': 'P_p10_shortrealvar', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+P_p11_signedint {'name': 'P_p11_signedint', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+P_p12_macro {'name': 'P_p12_macro', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+P_p13_aoavar {'name': 'P_p13_aoavar', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 62, 'slang_gates': 62, 'differs': '', 'detail': ''}
+P_p14_timevar {'name': 'P_p14_timevar', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+V_v01_wire {'name': 'V_v01_wire', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+V_v02_genvar {'name': 'V_v02_genvar', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+V_v03_namedblk {'name': 'V_v03_namedblk', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+V_v04_iface {'name': 'V_v04_iface', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+V_v06_structmem {'name': 'V_v06_structmem', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+V_v07_twoinst {'name': 'V_v07_twoinst', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 4, 'slang_gates': 4, 'differs': '', 'detail': ''}
+V_v08_program {'name': 'V_v08_program', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+V_v09_bitscalar {'name': 'V_v09_bitscalar', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+V_v10_twofile {'name': 'V_v10_twofile', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+V_v12_unitclass {'name': 'V_v12_unitclass', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+V_v13_unpackvar {'name': 'V_v13_unpackvar', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 48, 'slang_gates': 48, 'differs': '', 'detail': ''}
+V_v14_task {'name': 'V_v14_task', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 2, 'slang_gates': 2, 'differs': '', 'detail': ''}
+V_v16_typeparam {'name': 'V_v16_typeparam', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+V_v17_localparam {'name': 'V_v17_localparam', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 6, 'slang_gates': 6, 'differs': '', 'detail': ''}
+V_v18_aliasalias {'name': 'V_v18_aliasalias', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u245_s/dscase_fix/V_v18_aliasalias/equiv/V_v18_alias'}
+V_v19_fnret {'name': 'V_v19_fnret', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 6, 'slang_gates': 6, 'differs': '', 'detail': ''}
+V_v20_init {'name': 'V_v20_init', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 4, 'slang_gates': 4, 'differs': '', 'detail': ''}
+V_v21_ifport {'name': 'V_v21_ifport', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}

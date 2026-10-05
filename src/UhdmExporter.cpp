@@ -19,6 +19,7 @@
 #include "R239.h"
 #include "R241.h"
 #include "R243.h"
+#include "R245.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -13733,8 +13734,25 @@ UHDM::design* UhdmExporter::exportDesign() {
                             setLoc(ts, lw155);
                     }
                 }
+                // § unitPredefTd245 (r11u245, R11U245_UNITPREDEF_OFF; cases
+                // tools/probe/r11u245repro US) — a $unit typedef of a
+                // PREDEFINED kind (`typedef string t;`, `typedef int t;`, byte,
+                // shortint, longint, integer, time, real, shortreal, realtime)
+                // had no branch here: the loop noted `typedef target:
+                // StringType` / `PredefinedIntegerType` / `FloatingType` and
+                // the run exited 4 with no design typedef (v11u243 C/c04).
+                // Golden lists it like the scalar kind below: ONE named
+                // typespec of the kind (`string_typespec (ustr_t)`,
+                // `int_typespec (uint_t)`), vpiInstance the design, located at
+                // the target type's tokens (`string` 3:9-3:15, `int unsigned`
+                // with its signing).  The same writer builds it.
                 else if (ct.kind == SymbolKind::PackedArrayType ||
-                         ct.kind == SymbolKind::ScalarType) {
+                         ct.kind == SymbolKind::ScalarType ||
+                         ((ct.kind == SymbolKind::StringType ||
+                           ct.kind == SymbolKind::PredefinedIntegerType ||
+                           ct.kind == SymbolKind::FloatingType) &&
+                          r11u245On("R11U245_UNITPREDEF_OFF") &&
+                          (tr245("unitPredefTd245", std::string(ta.name)), true))) {
                     // Vector/scalar typedef: a NAMED logic_typespec with its
                     // ranges at the target type syntax (like module-scope
                     // vector typedefs).  Unlike a module-scope one its bounds
@@ -13753,6 +13771,98 @@ UHDM::design* UhdmExporter::exportDesign() {
                     ts->VpiParent(d);
                     if (typeSyn)
                         setLoc(ts, typeSyn->sourceRange());
+                    // An integer atom under `signed` (`typedef int signed
+                    // t;`) ends at the type keyword (compileBuiltinTypespec;
+                    // case US/u14), under `unsigned` it spans both (u16).
+                    if (ct.kind == SymbolKind::PredefinedIntegerType && typeSyn &&
+                        syntax::IntegerTypeSyntax::isKind(typeSyn->kind) &&
+                        typeSyn->as<syntax::IntegerTypeSyntax>().signing.kind ==
+                            parsing::TokenKind::SignedKeyword &&
+                        r11u245On("R11U245_UNITPREDEF_OFF"))
+                        setLoc(ts, typeSyn->as<syntax::IntegerTypeSyntax>().keyword.range());
+                    // `realtime` is a time_typespec in Surelog
+                    // (paNonIntType_RealTime), never a real one (case US/u14).
+                    if (ct.kind == SymbolKind::FloatingType &&
+                        ct.as<FloatingType>().floatKind == FloatingType::RealTime &&
+                        ts->UhdmType() == UHDM::uhdmreal_typespec &&
+                        r11u245On("R11U245_UNITPREDEF_OFF")) {
+                        auto* tt245 = s.MakeTime_typespec();
+                        tt245->VpiParent(d);
+                        tt245->VpiFile(ts->VpiFile());
+                        tt245->VpiLineNo(ts->VpiLineNo());
+                        tt245->VpiColumnNo(ts->VpiColumnNo());
+                        tt245->VpiEndLineNo(ts->VpiEndLineNo());
+                        tt245->VpiEndColumnNo(ts->VpiEndColumnNo());
+                        ts = tt245;
+                    }
+                    // § unitPredefAliasOfAlias245 (r11u245,
+                    // R11U245_UNITPREDEFAOA_OFF; case US/u02) — `typedef ustr_t
+                    // ual_t;` over a $unit PREDEFINED-kind typedef: golden's
+                    // listing object is the target's typespec under the new
+                    // name — located at the target's own type tokens (3:9-3:15,
+                    // not the `ustr_t` name at 4:9) — with a Typedef_alias
+                    // reference named `ual_t` bound to the target's listing
+                    // object (Surelog's typedef-of-a-typedef clone).
+                    if ((ct.kind == SymbolKind::StringType ||
+                         ct.kind == SymbolKind::PredefinedIntegerType ||
+                         ct.kind == SymbolKind::FloatingType) &&
+                        ta.targetType.getType().kind == SymbolKind::TypeAlias &&
+                        r11u245On("R11U245_UNITPREDEF_OFF") &&
+                        r11u245On("R11U245_UNITPREDEFAOA_OFF"))
+                        if (auto tg245 = typedefTs.find(&ta.targetType.getType());
+                            tg245 != typedefTs.end() && tg245->second &&
+                            tg245->second->UhdmType() == ts->UhdmType()) {
+                            ts->VpiFile(tg245->second->VpiFile());
+                            ts->VpiLineNo(tg245->second->VpiLineNo());
+                            ts->VpiColumnNo(tg245->second->VpiColumnNo());
+                            ts->VpiEndLineNo(tg245->second->VpiEndLineNo());
+                            ts->VpiEndColumnNo(tg245->second->VpiEndColumnNo());
+                            // The reference binds a per-use COPY of the
+                            // target (named like it, its own Typedef_alias
+                            // reference bound to the target's listing object,
+                            // no vpiInstance): Surelog compiles the written
+                            // `ustr_t` like any other use of it (golden u02:
+                            // the `ual_t` alias's actual carries an alias
+                            // back to `ustr_t`'s listing).
+                            UHDM::typespec* tcp245 = nullptr;
+                            switch (tg245->second->UhdmType()) {
+                                case UHDM::uhdmreal_typespec:
+                                    tcp245 = s.MakeReal_typespec();
+                                    break;
+                                case UHDM::uhdmshort_real_typespec:
+                                    tcp245 = s.MakeShort_real_typespec();
+                                    break;
+                                case UHDM::uhdmtime_typespec:
+                                    tcp245 = s.MakeTime_typespec();
+                                    break;
+                                default:
+                                    tcp245 = bareScalarTdCopyOfFresh16(tg245->second);
+                                    break;
+                            }
+                            auto* al245 = s.MakeRef_typespec();
+                            al245->VpiFullName(std::string(ta.name));
+                            al245->VpiParent(ts);
+                            if (tcp245) {
+                                const UHDM::typespec* tg = tg245->second;
+                                tcp245->VpiName(tg->VpiName());
+                                tcp245->VpiFile(tg->VpiFile());
+                                tcp245->VpiLineNo(tg->VpiLineNo());
+                                tcp245->VpiColumnNo(tg->VpiColumnNo());
+                                tcp245->VpiEndLineNo(tg->VpiEndLineNo());
+                                tcp245->VpiEndColumnNo(tg->VpiEndColumnNo());
+                                tcp245->Instance(nullptr);
+                                auto* tal245 = s.MakeRef_typespec();
+                                tal245->VpiFullName(std::string(tg->VpiName()));
+                                tal245->VpiParent(tcp245);
+                                tal245->Actual_typespec(tg245->second);
+                                tcp245->Typedef_alias(tal245);
+                                al245->Actual_typespec(tcp245);
+                            }
+                            else
+                                al245->Actual_typespec(tg245->second);
+                            ts->Typedef_alias(al245);
+                            tr245("unitPredefAliasOfAlias245", std::string(ta.name));
+                        }
                     // A typedef aliasing a NAMED vector typedef with ADDED
                     // packed dims (typedef reg8_t [0:3] t2): Surelog's
                     // multi-clone graph — the design ts spans the first USE,
@@ -13928,6 +14038,46 @@ UHDM::design* UhdmExporter::exportDesign() {
                                 break;
                         }
                     }
+                }
+                // § unitArrTd245 (r11u245, R11U245_UNITARR_OFF; cases
+                // tools/probe/r11u245repro UA) — a $unit typedef of an
+                // FIXED-SIZE unpacked array had no branch here either
+                // (`typedef target: FixedSizeUnpackedArrayType`, exit 4;
+                // r11u243 decode tf_f03).  Golden lists a named
+                // `array_typespec` exactly as a class-scope typedef of the
+                // same type (the class typedef writer's builder): a size dim
+                // is `[0 : N-1 op]` at the size token, a ranged dim keeps its
+                // bounds, the element an unnamed typespec at the element type
+                // under a reference named like the typedef.  The queue,
+                // dynamic and associative kinds stay unsupported (their
+                // listing's element reference and marker spans differ from
+                // the class builder's: case UA/a02, a residue).
+                else if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType &&
+                         ta.targetType.getType().kind != SymbolKind::TypeAlias &&
+                         r11u245On("R11U245_UNITARR_OFF")) {
+                    bool savedTf = tfContext, savedTd = typedefTsContext;
+                    bool savedBy = bypassTypedefShare, savedUf = unfoldedTypedefDims;
+                    std::string savedPfx = syntaxRefPrefix, savedSep = syntaxRefSep;
+                    const std::string q245(ta.name);
+                    tfContext = true;
+                    typedefTsContext = true;
+                    bypassTypedefShare = true;
+                    unfoldedTypedefDims = true;
+                    syntaxRefPrefix = q245;
+                    syntaxRefSep = "::";
+                    ts = buildUnpackedArrayTypedefTs(ta, q245);
+                    syntaxRefSep = savedSep;
+                    syntaxRefPrefix = savedPfx;
+                    unfoldedTypedefDims = savedUf;
+                    bypassTypedefShare = savedBy;
+                    typedefTsContext = savedTd;
+                    tfContext = savedTf;
+                    if (!ts) {
+                        noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
+                        continue;
+                    }
+                    ts->VpiParent(d);
+                    tr245("unitArrTd245", std::string(ta.name));
                 }
                 // `typedef uvm_config_db#(uvm_object, string) alias;` — the
                 // same rule as a class-SCOPE class alias: one class_typespec
@@ -15486,6 +15636,321 @@ UHDM::design* UhdmExporter::exportDesign() {
     // def->top stamps above: it is the last writer of a COPY's vpiInstance,
     // and it never touches a listing object (pass 32's own objects included).
     lawSCopyHomeInstance36(d);
+    // § unitTdLawS245 (r11u245, R11U245_UNITLAWS_OFF; cases
+    // tools/probe/r11u245repro US) — LAW S for a $UNIT typedef.  LAW S
+    // (bareScalarTypedefVarTs) reads only package typedefs; a $unit scalar,
+    // vector or predefined-kind typedef was bound straight to its design
+    // listing object at every position, where golden binds per-use copies
+    // (the `weaklyReferenced` objects of every golden dump of the grid):
+    //   * a DEF-view module / interface / program NET (Surelog's def view of
+    //     a module variable) binds a copy named like the typedef, with a
+    //     Typedef_alias reference (full name = the typedef name) bound to the
+    //     listing object, vpiInstance the design (US u01, u04, u08);
+    //   * a subroutine formal (io_decl), local or return, and a class
+    //     property, bind the same aliased copy WITHOUT vpiInstance (u03, u07);
+    //   * an ELABORATED instance-scope variable keeps the listing object for
+    //     an unranged typedef (u01 string, u04 int) and binds an UNALIASED,
+    //     uninstanced copy for a ranged vector (u08 `logic [3:0]`) — LAW S's
+    //     own instance-variable rule (rangedTd);
+    //   * an alias of a typedef (`typedef ustr_t ual_t;`) is excluded, as in
+    //     LAW S (its listing object carries the alias itself,
+    //     § unitPredefAliasOfAlias245).
+    // One copy per binding (identity is canonicalised by the strict
+    // comparator; golden's per-use copies may carry the use's span, which the
+    // comparator excuses because golden also gives the listing's).  Design-
+    // final, objects walked in creation (UhdmId) order so the minted copies
+    // are deterministic (§ lawSCopyIdOrder186's lesson).
+    if (r11u245On("R11U245_UNITLAWS_OFF")) {
+        std::set<const UHDM::typespec*> unitTd245;
+        for (auto& [sym, ts] : typedefTs) {
+            if (!sym || !ts || sym->kind != SymbolKind::TypeAlias)
+                continue;
+            auto& ta = sym->as<TypeAliasType>();
+            if (ta.targetType.getType().kind == SymbolKind::TypeAlias)
+                continue;
+            auto* sc = ta.getParentScope();
+            if (!sc || sc->asSymbol().kind != SymbolKind::CompilationUnit)
+                continue;
+            // § unitLawSSkipAliasedListing245v (v11u245,
+            // R11V245_ALIASEDLIST_OFF; probe case
+            // v11u108repro/brk/f5/b07_param_typedef_arr, case
+            // tools/probe/v11u245repro K) — a listing that already carries
+            // its own element reference (`typedef e_t [3:0] arr_t;`, a
+            // packed array of a typedef: the listing's vpiElemTypespec
+            // `arr_t` binds the multi-clone chain over e_t) or its own
+            // Typedef_alias is left out of the set: golden's definition net
+            // binds ONE level (arr_t -> its element chain), and the law's
+            // aliased copy stacked a second (arr_t -> arr_t -> the chain),
+            // moving b07's first walk divergence from #170 to #44.
+            if ((ts->Typedef_alias() ||
+                 (ts->UhdmType() == UHDM::uhdmlogic_typespec &&
+                  ((UHDM::logic_typespec*)ts)->Elem_typespec())) &&
+                r11v245On("R11V245_ALIASEDLIST_OFF")) {
+                tr245("unitLawSSkipAliasedListing245v", std::string(ta.name));
+                continue;
+            }
+            switch (ts->UhdmType()) {
+                case UHDM::uhdmlogic_typespec:
+                case UHDM::uhdmbit_typespec:
+                case UHDM::uhdmint_typespec:
+                case UHDM::uhdminteger_typespec:
+                case UHDM::uhdmbyte_typespec:
+                case UHDM::uhdmshort_int_typespec:
+                case UHDM::uhdmlong_int_typespec:
+                case UHDM::uhdmstring_typespec:
+                case UHDM::uhdmreal_typespec:
+                case UHDM::uhdmshort_real_typespec:
+                case UHDM::uhdmtime_typespec:
+                    unitTd245.insert(ts);
+                    break;
+                // § unitArrTd245's listing objects take the same copies
+                // (case UA: the def net's aliased copy with vpiInstance).
+                case UHDM::uhdmarray_typespec: {
+                    // ...except an array whose ELEMENT is itself a typedef
+                    // (`typedef nib_t na_t[2];`): golden's def net binds a
+                    // copy with no alias there (case UA/a05, a residue).
+                    const Type* el = &ta.targetType.getType();
+                    while (el->kind == SymbolKind::FixedSizeUnpackedArrayType)
+                        el = &el->as<FixedSizeUnpackedArrayType>().elementType;
+                    if (r11u245On("R11U245_UNITARR_OFF") &&
+                        el->kind != SymbolKind::TypeAlias)
+                        unitTd245.insert(ts);
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+        if (!unitTd245.empty()) {
+            std::vector<UHDM::any*> objs245;
+            for (auto& kv : s.AllObjects())
+                if (kv.first)
+                    objs245.push_back((UHDM::any*)kv.first);
+            std::stable_sort(objs245.begin(), objs245.end(),
+                             [](const UHDM::any* a, const UHDM::any* b) {
+                                 return a->UhdmId() < b->UhdmId();
+                             });
+            std::map<std::string, UHDM::array_typespec*> unitArrByName245;
+            for (auto* u : unitTd245)
+                if (u->UhdmType() == UHDM::uhdmarray_typespec)
+                    unitArrByName245[std::string(u->VpiName())] =
+                        (UHDM::array_typespec*)u;
+            auto instScope = [](const UHDM::BaseClass* p) {
+                if (!p)
+                    return false;
+                auto k = p->UhdmType();
+                return k == UHDM::uhdmmodule_inst || k == UHDM::uhdminterface_inst ||
+                       k == UHDM::uhdmprogram;
+            };
+            auto ranged = [](const UHDM::typespec* at) {
+                if (at->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    auto* r = ((const UHDM::logic_typespec*)at)->Ranges();
+                    return r && !r->empty();
+                }
+                if (at->UhdmType() == UHDM::uhdmbit_typespec) {
+                    auto* r = ((const UHDM::bit_typespec*)at)->Ranges();
+                    return r && !r->empty();
+                }
+                return false;
+            };
+            // The copy: LAW S's factory for its kinds, and the three
+            // predefined kinds it has no arm for (real, shortreal, time).
+            auto fresh = [&](const UHDM::typespec* at) -> UHDM::typespec* {
+                UHDM::typespec* cp = nullptr;
+                switch (at->UhdmType()) {
+                    case UHDM::uhdmreal_typespec:
+                        cp = s.MakeReal_typespec();
+                        break;
+                    case UHDM::uhdmshort_real_typespec:
+                        cp = s.MakeShort_real_typespec();
+                        break;
+                    case UHDM::uhdmtime_typespec:
+                        cp = s.MakeTime_typespec();
+                        break;
+                    case UHDM::uhdmarray_typespec: {
+                        // Shares the listing's ranges and element reference
+                        // (identity is canonicalised; no Compare reads a
+                        // range's parent).
+                        auto* sa = (UHDM::array_typespec*)at;
+                        auto* ca = s.MakeArray_typespec();
+                        ca->VpiArrayType(sa->VpiArrayType());
+                        ca->Ranges(sa->Ranges());
+                        ca->Elem_typespec(sa->Elem_typespec());
+                        ca->Index_typespec(sa->Index_typespec());
+                        cp = ca;
+                        break;
+                    }
+                    default:
+                        return bareScalarTdCopyOfFresh16(at);
+                }
+                cp->VpiFile(at->VpiFile());
+                cp->VpiLineNo(at->VpiLineNo());
+                cp->VpiColumnNo(at->VpiColumnNo());
+                cp->VpiEndLineNo(at->VpiEndLineNo());
+                cp->VpiEndColumnNo(at->VpiEndColumnNo());
+                return cp;
+            };
+            // bareScalarTdCopyOfFresh16 strips a `p::` qualifier; a $unit
+            // listing name has none, so the name is set from the listing.
+            auto mk = [&](UHDM::ref_typespec* rt, int shape /*0 alias+inst,
+                          1 alias, 2 bare*/) {
+                if (!rt)
+                    return;
+                auto* at = rt->Actual_typespec();
+                if (!at || !unitTd245.count(at))
+                    return;
+                UHDM::typespec* cp = fresh(at);
+                if (!cp)
+                    return;
+                cp->VpiName(at->VpiName());
+                cp->Instance(shape == 0 ? at->Instance() : nullptr);
+                if (shape != 2) {
+                    auto* al = s.MakeRef_typespec();
+                    al->VpiFullName(std::string(cp->VpiName()));
+                    al->VpiParent(cp);
+                    al->Actual_typespec(at);
+                    cp->Typedef_alias(al);
+                }
+                rt->Actual_typespec(cp);
+                tr245("unitTdLawS245", std::to_string(shape) + " " +
+                                           std::string(at->VpiName()) + " " +
+                                           std::string(rt->VpiFullName()));
+            };
+            // A PORT's net or variable keeps the listing object (golden
+            // r11u19repro q09 / t11 `output nib_t we`: the port net binds
+            // the shared $unit listing in both views).
+            std::set<const UHDM::any*> portSig245;
+            for (auto* o : objs245) {
+                const UHDM::VectorOfport* ps = nullptr;
+                if (o->UhdmType() == UHDM::uhdmmodule_inst)
+                    ps = ((UHDM::module_inst*)o)->Ports();
+                else if (o->UhdmType() == UHDM::uhdminterface_inst)
+                    ps = ((UHDM::interface_inst*)o)->Ports();
+                else if (o->UhdmType() == UHDM::uhdmprogram)
+                    ps = ((UHDM::program*)o)->Ports();
+                if (!ps)
+                    continue;
+                for (auto* p : *ps)
+                    if (p && p->Low_conn() &&
+                        p->Low_conn()->UhdmType() == UHDM::uhdmref_obj)
+                        if (auto* a = ((UHDM::ref_obj*)p->Low_conn())->Actual_group())
+                            portSig245.insert(a);
+            }
+            for (auto* o : objs245) {
+                if (portSig245.count(o))
+                    continue;
+                if (auto* v = dynamic_cast<UHDM::variables*>(o)) {
+                    // § unitLawSGenVarIsInstVar245v (v11u245, R11V245_GENVAR_OFF;
+                    // cases tools/probe/v11u245repro G, V/v02_genvar) — an
+                    // elaborated variable inside a generate scope (`if (1)
+                    // begin : g nib_t v; end`, work@top.g.v under gen_scope
+                    // work@top.g) follows the INSTANCE-scope variable rule
+                    // below: golden binds a bare, unaliased copy of a ranged
+                    // typedef (its own object, no Typedef_alias) and keeps
+                    // the listing for an unranged one; the law's catch-all
+                    // arm gave it the subroutine-local aliased copy.
+                    bool genVar245v = v->VpiParent() &&
+                                      v->VpiParent()->UhdmType() == UHDM::uhdmgen_scope &&
+                                      r11v245On("R11V245_GENVAR_OFF");
+                    if (genVar245v && v->Typespec() && v->Typespec()->Actual_typespec() &&
+                        unitTd245.count(v->Typespec()->Actual_typespec()))
+                        tr245("unitLawSGenVarIsInstVar245v", std::string(v->VpiFullName()));
+                    if (instScope(v->VpiParent()) || genVar245v) {
+                        auto* rt = v->Typespec();
+                        auto* at = rt ? rt->Actual_typespec() : nullptr;
+                        // The elaborated module's own per-instance clone of
+                        // the typedef (named like it, aliased to the listing)
+                        // is the same binding: the listing is read through it.
+                        if (at && !unitTd245.count(at) && at->Typedef_alias() &&
+                            at->Typedef_alias()->Actual_typespec() &&
+                            unitTd245.count(at->Typedef_alias()->Actual_typespec()) &&
+                            at->VpiName() ==
+                                at->Typedef_alias()->Actual_typespec()->VpiName() &&
+                            ranged(at->Typedef_alias()->Actual_typespec())) {
+                            rt->Actual_typespec(
+                                (UHDM::typespec*)at->Typedef_alias()->Actual_typespec());
+                            at = rt->Actual_typespec();
+                        }
+                        if (at && unitTd245.count(at) && ranged(at))
+                            mk(rt, 2);
+                        // A SIZE-form fixed array (`typedef int ia_t[4];`):
+                        // the elaborated variable binds a bare copy whose
+                        // range's right bound is FOLDED (golden UA/a01: an
+                        // unlocated INT constant 3 where the listing keeps the
+                        // `4 - 1` operation).  The elaborated array variable
+                        // already binds its own bare copy (named like the
+                        // listing, no alias); only its range is re-made.
+                        else if (at && at->UhdmType() == UHDM::uhdmarray_typespec &&
+                                 !at->Typedef_alias() && unitArrByName245.count(
+                                                             std::string(at->VpiName()))) {
+                            auto* L = unitArrByName245[std::string(at->VpiName())];
+                            auto* rs = L->Ranges();
+                            auto* cp = (UHDM::array_typespec*)at;
+                            UHDM::operation* op = nullptr;
+                            if (cp != L && rs && rs->size() == 1 && cp->Ranges() &&
+                                cp->Ranges()->size() == 1 && (*rs)[0]->Right_expr() &&
+                                (*rs)[0]->Right_expr()->UhdmType() == UHDM::uhdmoperation)
+                                op = (UHDM::operation*)(*rs)[0]->Right_expr();
+                            const UHDM::constant* n0 = nullptr;
+                            if (op && op->VpiOpType() == vpiSubOp && op->Operands() &&
+                                op->Operands()->size() == 2 &&
+                                (*op->Operands())[0]->UhdmType() == UHDM::uhdmconstant)
+                                n0 = (const UHDM::constant*)(*op->Operands())[0];
+                            std::string v0 = n0 ? std::string(n0->VpiValue()) : "";
+                            if (n0 && v0.rfind("UINT:", 0) == 0 &&
+                                (*cp->Ranges())[0]->Right_expr() == op) {
+                                long long n = std::stoll(v0.substr(5));
+                                auto* r0 = (*rs)[0];
+                                auto* r = s.MakeRange();
+                                r->VpiParent(cp);
+                                r->VpiFile(r0->VpiFile());
+                                r->VpiLineNo(r0->VpiLineNo());
+                                r->VpiColumnNo(r0->VpiColumnNo());
+                                r->VpiEndLineNo(r0->VpiEndLineNo());
+                                r->VpiEndColumnNo(r0->VpiEndColumnNo());
+                                r->Left_expr(r0->Left_expr());
+                                auto* c = s.MakeConstant();
+                                c->VpiDecompile(std::to_string(n - 1));
+                                c->VpiSize(64);
+                                c->VpiValue("INT:" + std::to_string(n - 1));
+                                c->VpiConstType(vpiIntConst);
+                                r->Right_expr(c);
+                                auto* rv = s.MakeRangeVec();
+                                rv->push_back(r);
+                                cp->Ranges(rv);
+                                tr245("unitArrTd245_elabfold", std::string(v->VpiFullName()));
+                            }
+                        }
+                    }
+                    else
+                        mk(v->Typespec(), 1);
+                }
+                else if (auto* io = dynamic_cast<UHDM::io_decl*>(o))
+                    mk(io->Typespec(), 1);
+                // A STRUCT / UNION MEMBER takes its own aliased copy, the alias
+                // reference named through the member's reference
+                // (`s_t.b.ui_t`, case US/u09): the dotted $unit twin of
+                // § memberBareTdAliasNamedByUse183.
+                else if (o->UhdmType() == UHDM::uhdmtypespec_member) {
+                    auto* tm = (UHDM::typespec_member*)o;
+                    auto* rt = tm->Typespec();
+                    auto* at = rt ? rt->Actual_typespec() : nullptr;
+                    if (at && unitTd245.count(at)) {
+                        mk(rt, 1);
+                        if (auto* cp = rt->Actual_typespec(); cp && cp != at &&
+                                                             !rt->VpiFullName().empty())
+                            if (auto* al = cp->Typedef_alias())
+                                al->VpiFullName(std::string(rt->VpiFullName()) + "." +
+                                                std::string(at->VpiName()));
+                    }
+                }
+                else if (auto* n = dynamic_cast<UHDM::nets*>(o)) {
+                    if (instScope(n->VpiParent()))
+                        mk(n->Typespec(), 0);
+                }
+            }
+        }
+    }
     // § clsPropLawSAliasName243 (r11u243, R11U243_CLSPROPALIAS_OFF; cases
     // TS s01 and LS) — a CLASS PROPERTY's LAW-S copy is its own object, and
     // its Typedef_alias reference is named by the property: golden

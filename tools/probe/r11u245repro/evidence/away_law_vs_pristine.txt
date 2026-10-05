@@ -1,0 +1,6 @@
+# law vs pristine (OFF=pristine sweep, ON=law sweep)
+# 1 databases differ between /tmp/r11u245_wP and /tmp/r11u245_wL
+probe/v11u108repro/brk/f5/b07_param_typedef_arr away=0 toward=0 flat_away=0 flat_toward=40
+# positive control: the two sweeps swapped
+# 1 databases differ between /tmp/r11u245_wL and /tmp/r11u245_wP
+probe/v11u108repro/brk/f5/b07_param_typedef_arr away=0 toward=0 flat_away=40 flat_toward=0

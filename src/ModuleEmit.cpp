@@ -38,6 +38,7 @@
 #include "R237.h"
 #include "R239.h"
 #include "R243.h"
+#include "R245.h"
 
 namespace slang_uhdm {
 
@@ -17219,14 +17220,53 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         if (rt == nullptr && realVar && !implicitNet && !bareImplicit) {
             auto* dtR = it.sym->getDeclaredType();
             auto& ctR = dtR->getType().getCanonicalType();
+            // § unitRealTdElabShares245 (below) — a `shortreal` signal typed
+            // by a $unit typedef carries the typedef's reference too (golden
+            // US/u14 `short_real_var work@top.s` -> `short_real_typespec
+            // (usr_t)`), where an untyped shortreal carries none.
+            if (ctR.kind == SymbolKind::FloatingType &&
+                ctR.as<FloatingType>().floatKind == FloatingType::ShortReal &&
+                dtR->getType().kind == SymbolKind::TypeAlias &&
+                r11u245On("R11U245_UNITREALTD_OFF"))
+                if (auto* scS = dtR->getType().as<TypeAliasType>().getParentScope();
+                    scS && scS->asSymbol().kind == SymbolKind::CompilationUnit)
+                    if (auto itS = typedefTs.find(&dtR->getType());
+                        itS != typedefTs.end() && itS->second &&
+                        itS->second->UhdmType() == UHDM::uhdmshort_real_typespec) {
+                        rt = s.MakeRef_typespec();
+                        rt->VpiFullName(fullName);
+                        rt->Actual_typespec(itS->second);
+                        tr245("unitRealTdElabShares245", fullName);
+                    }
             if (ctR.kind == SymbolKind::FloatingType &&
                 ctR.as<FloatingType>().floatKind == FloatingType::Real) {
-                realElabTs = s.MakeReal_typespec();
-                if (auto* tsynR = dtR->getTypeSyntax())
-                    setLoc(realElabTs, tsynR->sourceRange());
+                // § unitRealTdElabShares245 (r11u245, R11U245_UNITREALTD_OFF;
+                // case tools/probe/r11u245repro US/u05) — a `real` signal
+                // typed by a $UNIT typedef (`typedef real ur_t; ur_t r;`)
+                // binds the typedef's design listing object in golden
+                // (`real_typespec (ur_t)` 7:9), as every other unranged $unit
+                // kind's elaborated variable does (§ unitTdLawS245); the fresh
+                // anonymous real_typespec at the use is the untyped-real rule.
+                UHDM::typespec* unitTdR245 = nullptr;
+                if (dtR->getType().kind == SymbolKind::TypeAlias &&
+                    r11u245On("R11U245_UNITREALTD_OFF"))
+                    if (auto* scR = dtR->getType().as<TypeAliasType>().getParentScope();
+                        scR && scR->asSymbol().kind == SymbolKind::CompilationUnit)
+                        if (auto itR = typedefTs.find(&dtR->getType());
+                            itR != typedefTs.end() && itR->second &&
+                            itR->second->UhdmType() == UHDM::uhdmreal_typespec) {
+                            unitTdR245 = itR->second;
+                            tr245("unitRealTdElabShares245", fullName);
+                        }
+                if (!unitTdR245) {
+                    realElabTs = s.MakeReal_typespec();
+                    if (auto* tsynR = dtR->getTypeSyntax())
+                        setLoc(realElabTs, tsynR->sourceRange());
+                }
                 rt = s.MakeRef_typespec();
                 rt->VpiFullName(fullName);
-                rt->Actual_typespec(realElabTs);
+                rt->Actual_typespec(unitTdR245 ? unitTdR245
+                                               : (UHDM::typespec*)realElabTs);
             }
         }
         // § anonPackedAggDimNet109 — a body declaration of an ANONYMOUS

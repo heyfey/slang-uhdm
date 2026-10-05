@@ -1,0 +1,5 @@
+pristine 0c5bd3be423a452b5cac3b1c1c45aaec (main tree build/slang-uhdm 0c5bd3be423a452b5cac3b1c1c45aaec)
+law 9f15dba2596966f23c4610d81e740f10
+uhdm-strictcmp fa6e4f42f252ae0ab69d9845003e71c5 (the main tree's)
+strictcmp_x 886f030233ecdbcce7d0e29ac0c4df2c (drivers/cc_x.sh)
+slang-uhdm using slang version 12.0.0+545f88b2e

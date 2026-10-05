@@ -1,0 +1,5 @@
+== fix vs law (prediction predict_fix.txt)
+PREDICTED probe/v11u108repro/brk/f5/b07_param_typedef_arr
+read=4892 movers=1 predicted=1 unpredicted=0
+== fix vs pristine (prediction predict_law.txt)
+read=4892 movers=0 predicted=0 unpredicted=0
