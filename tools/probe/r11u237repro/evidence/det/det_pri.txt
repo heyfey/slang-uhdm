@@ -1,0 +1,12 @@
+pri Earlgrey_0_1/default       3 851d04ca34b4 
+pri MiniAmiq/default       3 7f7811b62894 
+pri SeqDriver/default       3 56e147abb48b 
+pri SimpleUVM/default       3 93669fd10b3a 
+pri Scoreboard/default       3 80d768d658ab 
+pri BuildUVMPkg/default       3 4e747bb4e5e2 
+pri Earlgrey_0_1/testflags       3 0005f72a85ed 
+pri MiniAmiq/testflags       3 7f7811b62894 
+pri SeqDriver/testflags       3 8458683b1571 
+pri SimpleUVM/testflags       3 05304184c551 
+pri Scoreboard/testflags 
+pri BuildUVMPkg/testflags       3 4e747bb4e5e2 

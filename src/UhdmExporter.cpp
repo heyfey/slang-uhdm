@@ -15,6 +15,7 @@
 #include "R231.h"
 #include "R234.h"
 #include "R235.h"
+#include "R237.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -10973,7 +10974,11 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                  // § typedefAliasSharesTypespec25's `type IMP = int` arm needs:
                  // UVM's six `uvm_*_imp` classes list exactly one
                  // int_typespec 'this_rsp_type'.
-                 ct.kind == SymbolKind::PredefinedIntegerType) {
+                 ct.kind == SymbolKind::PredefinedIntegerType ||
+                 // § clsTdUnionBuilt237 — see the union arm below.
+                 ((ct.kind == SymbolKind::PackedUnionType ||
+                   ct.kind == SymbolKind::UnpackedUnionType) &&
+                  r11u237Law("R11U237_CLSUNION_OFF"))) {
             const std::string aliasFull = clsName + "::" + std::string(ta.name);
             bool savedTf = tfContext, savedTd = typedefTsContext;
             bool savedBy = bypassTypedefShare, savedUf = unfoldedTypedefDims;
@@ -11016,6 +11021,35 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                 if (typeSyn)
                     setLoc(sts, typeSyn->sourceRange());
                 ts = sts;
+            }
+            else if (ct.kind == SymbolKind::PackedUnionType ||
+                     ct.kind == SymbolKind::UnpackedUnionType) {
+                // § clsTdUnionBuilt237 (r11u237, R11U237_CLSUNION_OFF) — a
+                // union typedef declared in a class is a typedef like the
+                // struct one above (Surelog's class DataTypeMap compiles
+                // every `typedef` of the class body through compileTypespec,
+                // union included); ours had no union arm, so the class listed
+                // no typedef and a member declared with it bound nothing
+                // (tools/probe/r11u235repro/cases/rs/r05, stage 1).  Built as
+                // the struct arm builds, with the same member path.
+                std::string memAlias237 = aliasFull;
+                if (clsName.find("::") == std::string::npos &&
+                    clsName.rfind("work@", 0) != 0 &&
+                    r11u146Law("R11U146_CLSTDPKG_OFF"))
+                    if (auto* pk237 = cls.getParentScope();
+                        pk237 && pk237->asSymbol().kind == SymbolKind::Package)
+                        memAlias237 = std::string(pk237->asSymbol().name) +
+                                      "::" + aliasFull;
+                auto* uts =
+                    ct.kind == SymbolKind::PackedUnionType
+                        ? buildUnionTs(ct.as<PackedUnionType>(), true,
+                                       memAlias237, "::")
+                        : buildUnionTs(ct.as<UnpackedUnionType>(), false,
+                                       memAlias237, "::");
+                if (typeSyn)
+                    setLoc(uts, typeSyn->sourceRange());
+                tr237("clsTdUnionBuilt237", aliasFull);
+                ts = uts;
             }
             else {
                 ts = makeTypespec(ta, typeSyn);

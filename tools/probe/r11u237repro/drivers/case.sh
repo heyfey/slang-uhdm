@@ -1,0 +1,38 @@
+#!/bin/bash
+# (r11u237: copied from r11u231repro/drivers/case.sh (r11u214dec before it); paths from env.sh, golden store $S/g;
+#  SVM=1 adds Surelog -sverilog and our --sverilog, the harness translation of a .sl carrying -sverilog;
+#  a case dir holding a file BUILTINS runs both sides WITHOUT -nobuiltin, as the corpus rows do.)
+# case.sh <casedir> <tag> <binary> [ENV=VAL ...]
+# One case: golden with check_probe's Surelog arguments (EL=1: + -elabuhdm, ours + --elabuhdm), cached by the md5 of
+# every file of the case under $S/g; ours with --single-unit --nobuiltin under the given environment; uhdm-cmp;
+# uhdm-strictcmp --max 100000 (records kept). Prints: rel tag cmp=<rc> cmplines=<n> strict=<last line> rc=<rc> md5=<8>.
+# Fail-closed on $FENCED; a path holding a fenced name is refused.
+export S=${S:-/tmp/r11u237_s}; [ -n "$FENCED" ] || . "$(dirname "$0")/env.sh" || exit 2
+[ -n "$FENCED" ] && [ -n "$S" ] || { echo "case.sh: FENCED/S unset" >&2; exit 2; }
+for v in SURELOG UHDM_CMP STRICT_CMP; do [ -x "${!v}" ] || { echo "case.sh: $v not executable" >&2; exit 2; }; done
+c=$(realpath $1); t=$2; b=$3; shift 3
+[ -x "$b" ] || { echo "case.sh: binary $b not executable" >&2; exit 2; }
+for n in $FENCED; do echo "$c" | grep -qw "$n" && { echo "case.sh: fenced path refused" >&2; exit 2; }; done
+GW=$S/g
+rel=$(echo $c | sed "s#.*/r11u237repro/cases/##; s#.*/tests/probe/#probe/#; s#.*/tools/probe/#tp/#; s#^/tmp/r11u237_#scr_#")
+ek=""; sx=""; ox=""; [ "${EL:-0}" = 1 ] && { ek="_el"; sx="-elabuhdm"; ox="--elabuhdm"; }
+NB=-nobuiltin; ONB=--nobuiltin; [ -f $c/BUILTINS ] && { NB=; ONB=; }
+[ "${SVM:-0}" = 1 ] && { ek="${ek}_svm"; sx="$sx -sverilog"; ox="$ox --sverilog"; }
+SRC=dut.sv; SV=-sv; [ -f $c/dut.sv ] || { SRC=dut.v; SV=; }; [ -f $c/args ] && SRC=$(cat $c/args)
+w=$GW/$rel$ek; mkdir -p $w
+h=$(cd $c && find . -type f ! -name LAW | sort | xargs md5sum | md5sum | cut -c1-12)
+g=$w/gold_$h/golden.uhdm
+( flock 9
+if [ ! -s $g ] && [ ! -e $w/gold_$h/failed ]; then
+  rm -rf $w/gold_*; mkdir -p $w/gold_$h/w
+  (cd $c && timeout 300 $SURELOG -parse $NB -nocache $SV $SRC -mt 0 -mp 0 $sx -o $w/gold_$h/w > $w/gold_$h/sl.log 2>&1)
+  f=$(find $w/gold_$h/w -name '*.uhdm' | head -1); [ -n "$f" ] && cp $f $g || touch $w/gold_$h/failed
+  rm -rf $w/gold_$h/w
+fi ) 9>$w/.lock
+o=$w/$t.uhdm; rm -f $o
+(cd $c && env "$@" timeout 300 $b $SRC --single-unit $ONB $ox -o $o > $w/$t.log 2>&1); rc=$?
+[ -s $g ] || { echo "$rel$ek $t SURELOG_FAIL rc=$rc"; exit 0; }
+[ -s $o ] || { echo "$rel$ek $t SLANG_FAIL rc=$rc"; exit 0; }
+$UHDM_CMP $g $o > $w/$t.cmp 2>&1; cr=$?
+$STRICT_CMP --max 100000 --dump-a $w/$t.a.rec --dump-b $w/$t.b.rec $g $o > $w/$t.strict 2>&1
+echo "$rel$ek $t cmp=$cr cmplines=$(wc -l < $w/$t.cmp) strict=$(tail -1 $w/$t.strict | tr ' ' _) rc=$rc md5=$(md5sum < $o | cut -c1-8)"

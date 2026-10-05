@@ -1,0 +1,10 @@
+cfg_func_width_loop,default,CMP_EQUAL,,,equal
+cfg_func_width_loop,testflags,CMP_EQUAL,,,equal
+rp32_r5p_alu,default,CMP_EQUAL,,,equal
+rp32_r5p_alu,testflags,CMP_EQUAL,,,equal
+rp32_r5p_bru,default,CMP_EQUAL,,,equal
+rp32_r5p_bru,testflags,CMP_EQUAL,,,equal
+rp32_r5p_mdu,default,CMP_EQUAL,,,equal
+rp32_r5p_mdu,testflags,CMP_EQUAL,,,equal
+rp32_r5p_wbu,default,CMP_EQUAL,,,equal
+rp32_r5p_wbu,testflags,CMP_EQUAL,,,equal

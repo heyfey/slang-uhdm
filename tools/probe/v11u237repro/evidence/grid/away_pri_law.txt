@@ -1,0 +1,222 @@
+impl/CU/u01 chain_lost=0 chain_toward=20 flat_lost=0 flat_toward=20
+impl/CU/u01_el chain_lost=0 chain_toward=20 flat_lost=0 flat_toward=20
+impl/CU/u02 chain_lost=0 chain_toward=32 flat_lost=0 flat_toward=32
+impl/CU/u02_el chain_lost=0 chain_toward=32 flat_lost=0 flat_toward=32
+impl/CU/u03 chain_lost=0 chain_toward=32 flat_lost=0 flat_toward=32
+impl/CU/u03_el chain_lost=0 chain_toward=32 flat_lost=0 flat_toward=32
+impl/CU/u04 chain_lost=0 chain_toward=27 flat_lost=0 flat_toward=27
+impl/CU/u04_el chain_lost=0 chain_toward=27 flat_lost=0 flat_toward=27
+impl/CU/u05 chain_lost=0 chain_toward=34 flat_lost=0 flat_toward=34
+impl/CU/u05_el chain_lost=0 chain_toward=40 flat_lost=0 flat_toward=40
+impl/CU/u06 chain_lost=0 chain_toward=10 flat_lost=0 flat_toward=10
+impl/CU/u06_el chain_lost=0 chain_toward=10 flat_lost=0 flat_toward=10
+impl/CU/u07 chain_lost=0 chain_toward=26 flat_lost=0 flat_toward=26
+impl/CU/u07_el chain_lost=0 chain_toward=26 flat_lost=0 flat_toward=26
+impl/CU/u09 chain_lost=0 chain_toward=20 flat_lost=0 flat_toward=20
+impl/CU/u09_el chain_lost=0 chain_toward=49 flat_lost=0 flat_toward=49
+impl/CU/u10 chain_lost=0 chain_toward=20 flat_lost=0 flat_toward=20
+impl/CU/u10_el chain_lost=0 chain_toward=20 flat_lost=0 flat_toward=20
+impl/CU/u11 chain_lost=0 chain_toward=52 flat_lost=0 flat_toward=52
+impl/CU/u11_el chain_lost=0 chain_toward=52 flat_lost=0 flat_toward=52
+impl/CU/u13 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/CU/u13_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FM/m01 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FM/m01_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+impl/FM/m02 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+impl/FM/m02_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+impl/FM/m04 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FM/m04_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+impl/FM/m07 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+impl/FM/m07_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+impl/FM/m08 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+impl/FM/m08_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+impl/FM/m11 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FM/m11_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+impl/FM/m12 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FM/m12_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+impl/FM/m15 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+impl/FM/m15_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+impl/FM/m18 chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+impl/FM/m18_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+impl/FW/f01 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+impl/FW/f01_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FW/f04 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+impl/FW/f04_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FW/g01 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+impl/FW/g01_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FW/g02 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FW/g02_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+impl/FW/g04 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+impl/FW/g04_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FW/g05 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+impl/FW/g05_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FW/g06 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+impl/FW/g06_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FW/g07 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+impl/FW/g07_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FW/g09 chain_lost=0 chain_toward=5 flat_lost=0 flat_toward=5
+impl/FW/g09_el chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+impl/FW/g11 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+impl/FW/g11_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FW/g14 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+impl/FW/g14_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FW/g18 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+impl/FW/g18_el chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+impl/FW/g19 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+impl/FW/g19_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+impl/FW/g20 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+impl/FW/g20_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/FW/g21 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+impl/FW/g21_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+impl/VM/k01 chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+impl/VM/k01_el chain_lost=0 chain_toward=5 flat_lost=0 flat_toward=5
+impl/VM/k02 chain_lost=0 chain_toward=10 flat_lost=0 flat_toward=10
+impl/VM/k02_el chain_lost=0 chain_toward=8 flat_lost=0 flat_toward=8
+impl/VM/k03 chain_lost=0 chain_toward=8 flat_lost=0 flat_toward=8
+impl/VM/k03_el chain_lost=0 chain_toward=9 flat_lost=0 flat_toward=9
+impl/VM/k07 chain_lost=0 chain_toward=10 flat_lost=0 flat_toward=10
+impl/VM/k07_el chain_lost=0 chain_toward=8 flat_lost=0 flat_toward=8
+impl/VM/k08 chain_lost=0 chain_toward=10 flat_lost=0 flat_toward=10
+impl/VM/k08_el chain_lost=0 chain_toward=8 flat_lost=0 flat_toward=8
+impl/VM/k09 chain_lost=0 chain_toward=10 flat_lost=0 flat_toward=10
+impl/VM/k09_el chain_lost=0 chain_toward=8 flat_lost=0 flat_toward=8
+impl/VM/k10 chain_lost=0 chain_toward=15 flat_lost=0 flat_toward=15
+impl/VM/k10_el chain_lost=0 chain_toward=12 flat_lost=0 flat_toward=12
+impl/VM/k11 chain_lost=0 chain_toward=8 flat_lost=0 flat_toward=8
+impl/VM/k11_el chain_lost=0 chain_toward=6 flat_lost=0 flat_toward=6
+impl/VM/k12 chain_lost=0 chain_toward=12 flat_lost=0 flat_toward=12
+impl/VM/k12_el chain_lost=0 chain_toward=12 flat_lost=0 flat_toward=12
+impl/VM/k13 chain_lost=0 chain_toward=18 flat_lost=0 flat_toward=18
+impl/VM/k13_el chain_lost=0 chain_toward=16 flat_lost=0 flat_toward=16
+tp/r11u155repro/cases/UF/f08 chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+tp/r11u155repro/cases/UF/f08_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+tp/r11u217verify/cases/CS/c02 chain_lost=0 chain_toward=42 flat_lost=0 flat_toward=42
+tp/r11u217verify/cases/CS/c02_el chain_lost=0 chain_toward=42 flat_lost=0 flat_toward=42
+tp/r11u235repro/cases/rs/r05 chain_lost=0 chain_toward=20 flat_lost=0 flat_toward=20
+tp/r11u235repro/cases/rs/r05_el chain_lost=0 chain_toward=20 flat_lost=0 flat_toward=20
+tp/v11u146repro/cases/ct/c2_union chain_lost=0 chain_toward=44 flat_lost=0 flat_toward=44
+tp/v11u146repro/cases/ct/c2_union_el chain_lost=0 chain_toward=44 flat_lost=0 flat_toward=44
+tp/v11u209repro/cases/CS/v04 chain_lost=0 chain_toward=36 flat_lost=0 flat_toward=36
+tp/v11u209repro/cases/CS/v04_el chain_lost=0 chain_toward=36 flat_lost=0 flat_toward=36
+tp/v11u235repro/cases/vk/k06 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+tp/v11u235repro/cases/vk/k06_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+tp/v11u235repro/cases/vk/k11 chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+tp/v11u235repro/cases/vk/k11_el chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+ver/CU/c01 chain_lost=0 chain_toward=26 flat_lost=0 flat_toward=26
+ver/CU/c01_el chain_lost=0 chain_toward=26 flat_lost=0 flat_toward=26
+ver/CU/c02 chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+ver/CU/c02_el chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+ver/CU/c03 chain_lost=0 chain_toward=24 flat_lost=0 flat_toward=24
+ver/CU/c03_el chain_lost=0 chain_toward=36 flat_lost=0 flat_toward=36
+ver/CU/c04 chain_lost=0 chain_toward=57 flat_lost=0 flat_toward=57
+ver/CU/c04_el chain_lost=0 chain_toward=57 flat_lost=0 flat_toward=57
+ver/CU/c05 chain_lost=0 chain_toward=26 flat_lost=0 flat_toward=26
+ver/CU/c05_el chain_lost=0 chain_toward=52 flat_lost=0 flat_toward=52
+ver/CU/c06 chain_lost=0 chain_toward=18 flat_lost=0 flat_toward=18
+ver/CU/c06_el chain_lost=0 chain_toward=18 flat_lost=0 flat_toward=18
+ver/CU/c08 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+ver/CU/c08_el chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+ver/CU/c09 chain_lost=0 chain_toward=52 flat_lost=0 flat_toward=52
+ver/CU/c09_el chain_lost=0 chain_toward=52 flat_lost=0 flat_toward=52
+ver/CU/c11 chain_lost=0 chain_toward=10 flat_lost=0 flat_toward=10
+ver/CU/c11_el chain_lost=0 chain_toward=10 flat_lost=0 flat_toward=10
+ver/PM/p02 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PM/p02_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+ver/PM/p03 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PM/p03_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+ver/PM/p04 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PM/p04_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+ver/PM/p09 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PM/p09_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+ver/PM/p10 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST func_call|q::fw|||dut.sv|11|14|11|15||0|| @ cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|M||work@sub.M|dut.sv|11|20|11|21||0|| @ func_call:q::fw < cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|o||work@sub.o|dut.sv|11|10|11|11||0|| @ cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+ver/PM/p10_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST func_call|q::fw|||dut.sv|11|14|11|15||0|| @ cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|M||work@top.u.M|dut.sv|11|20|11|21||0|| @ func_call:q::fw < cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+ver/PM/p11 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PM/p11_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+ver/PM/p12 chain_lost=3 chain_toward=0 flat_lost=3 flat_toward=0
+  CHAIN_LOST func_call|q::fw|||dut.sv|11|14|11|15||0|| @ cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|M||work@sub.M|dut.sv|11|20|11|21||0|| @ func_call:q::fw < cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|o||work@sub.o|dut.sv|11|10|11|11||0|| @ cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+ver/PM/p12_el chain_lost=2 chain_toward=0 flat_lost=2 flat_toward=0
+  CHAIN_LOST func_call|q::fw|||dut.sv|11|14|11|15||0|| @ cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+  CHAIN_LOST ref_obj|M||work@top.u.M|dut.sv|11|20|11|21||0|| @ func_call:q::fw < cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+ver/PM/p13 chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PM/p13_el chain_lost=0 chain_toward=1 flat_lost=0 flat_toward=1
+ver/PS/s01 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+ver/PS/s01_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PS/s02 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+ver/PS/s02_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PS/s03 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+ver/PS/s03_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PS/s04 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|o||work@top.u.o|dut.sv|11|10|11|11||0|| @ cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+ver/PS/s04_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+ver/PS/s05 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+ver/PS/s05_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PS/s07 chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+ver/PS/s07_el chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+ver/PS/s08 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+ver/PS/s08_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PS/s09 chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+ver/PS/s09_el chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+ver/PS/s11 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+ver/PS/s11_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PS/s13 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+ver/PS/s13_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PS/s14 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|o||work@top.u.o|dut.sv|10|10|10|11||0|| @ cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+ver/PS/s14_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+ver/PS/s15 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+ver/PS/s15_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PS/s16 chain_lost=0 chain_toward=3 flat_lost=0 flat_toward=3
+ver/PS/s16_el chain_lost=0 chain_toward=2 flat_lost=0 flat_toward=2
+ver/PS/s17 chain_lost=1 chain_toward=0 flat_lost=1 flat_toward=0
+  CHAIN_LOST ref_obj|o||work@top.u.o|dut.sv|10|10|10|11||0|| @ cont_assign: < module_inst:u < module_inst:work@top < design:work@top
+ver/PS/s17_el chain_lost=0 chain_toward=0 flat_lost=0 flat_toward=0
+ver/VM/v01 chain_lost=0 chain_toward=5 flat_lost=0 flat_toward=5
+ver/VM/v01_el chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+ver/VM/v02 chain_lost=0 chain_toward=5 flat_lost=0 flat_toward=5
+ver/VM/v02_el chain_lost=0 chain_toward=4 flat_lost=0 flat_toward=4
+ver/VM/v03 chain_lost=0 chain_toward=15 flat_lost=0 flat_toward=15
+ver/VM/v03_el chain_lost=0 chain_toward=12 flat_lost=0 flat_toward=12
+ver/VM/v04 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.v|5|27|5|38|||| @ ref_typespec: < typespec_member:g < struct_typespec:s_t < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec||||dut.v|5|42|5|51|||| @ ref_typespec: < typespec_member:h < struct_typespec:s_t < module_inst: < design:work@top
+  CHAIN_LOST logic_typespec||||dut.v|5|27|5|38|||| @ ref_typespec: < typespec_member:g < struct_typespec:s_t < ref_typespec: < logic_net:x < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec||||dut.v|5|42|5|51|||| @ ref_typespec: < typespec_member:h < struct_typespec:s_t < ref_typespec: < logic_net:x < module_inst: < design:work@top
+ver/VM/v04_el chain_lost=8 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.v|5|27|5|38|||| @ ref_typespec: < typespec_member:g < struct_typespec:s_t < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec||||dut.v|5|42|5|51|||| @ ref_typespec: < typespec_member:h < struct_typespec:s_t < module_inst: < design:work@top
+  CHAIN_LOST logic_typespec||||dut.v|5|27|5|38|||| @ ref_typespec: < typespec_member:g < struct_typespec:s_t < ref_typespec: < logic_net:x < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec||||dut.v|5|42|5|51|||| @ ref_typespec: < typespec_member:h < struct_typespec:s_t < ref_typespec: < logic_net:x < module_inst: < design:work@top
+ver/VM/v06 chain_lost=0 chain_toward=10 flat_lost=0 flat_toward=10
+ver/VM/v06_el chain_lost=0 chain_toward=8 flat_lost=0 flat_toward=8
+ver/VM/v07 chain_lost=0 chain_toward=10 flat_lost=0 flat_toward=10
+ver/VM/v07_el chain_lost=0 chain_toward=13 flat_lost=0 flat_toward=13
+ver/VM/v09 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.v|6|27|6|38|||| @ ref_typespec: < typespec_member:g < struct_typespec:s_t < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec||||dut.v|6|42|6|51|||| @ ref_typespec: < typespec_member:h < struct_typespec:s_t < module_inst: < design:work@top
+  CHAIN_LOST logic_typespec||||dut.v|6|27|6|38|||| @ ref_typespec: < typespec_member:g < struct_typespec:s_t < ref_typespec: < logic_net:x < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec||||dut.v|6|42|6|51|||| @ ref_typespec: < typespec_member:h < struct_typespec:s_t < ref_typespec: < logic_net:x < module_inst: < design:work@top
+ver/VM/v09_el chain_lost=8 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.v|6|27|6|38|||| @ ref_typespec: < typespec_member:g < struct_typespec:s_t < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec||||dut.v|6|42|6|51|||| @ ref_typespec: < typespec_member:h < struct_typespec:s_t < module_inst: < design:work@top
+  CHAIN_LOST logic_typespec||||dut.v|6|27|6|38|||| @ ref_typespec: < typespec_member:g < struct_typespec:s_t < ref_typespec: < logic_net:x < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec||||dut.v|6|42|6|51|||| @ ref_typespec: < typespec_member:h < struct_typespec:s_t < ref_typespec: < logic_net:x < module_inst: < design:work@top
+ver/VM/v10 chain_lost=0 chain_toward=10 flat_lost=0 flat_toward=10
+ver/VM/v10_el chain_lost=0 chain_toward=8 flat_lost=0 flat_toward=8
+ver/VM/v12 chain_lost=10 chain_toward=0 flat_lost=10 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.v|4|27|4|38|||| @ ref_typespec: < typespec_member:g < struct_typespec:s_t < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec||||dut.v|4|42|4|51|||| @ ref_typespec: < typespec_member:h < struct_typespec:s_t < module_inst: < design:work@top
+  CHAIN_LOST logic_typespec||||dut.v|4|27|4|38|||| @ ref_typespec: < typespec_member:g < struct_typespec:s_t < ref_typespec: < logic_net:x < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec||||dut.v|4|42|4|51|||| @ ref_typespec: < typespec_member:h < struct_typespec:s_t < ref_typespec: < logic_net:x < module_inst: < design:work@top
+ver/VM/v12_el chain_lost=8 chain_toward=0 flat_lost=8 flat_toward=0
+  CHAIN_LOST logic_typespec||||dut.v|4|27|4|38|||| @ ref_typespec: < typespec_member:g < struct_typespec:s_t < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec||||dut.v|4|42|4|51|||| @ ref_typespec: < typespec_member:h < struct_typespec:s_t < module_inst: < design:work@top
+  CHAIN_LOST logic_typespec||||dut.v|4|27|4|38|||| @ ref_typespec: < typespec_member:g < struct_typespec:s_t < ref_typespec: < logic_net:x < module_inst: < design:work@top
+  CHAIN_LOST bit_typespec||||dut.v|4|42|4|51|||| @ ref_typespec: < typespec_member:h < struct_typespec:s_t < ref_typespec: < logic_net:x < module_inst: < design:work@top
+TOTAL chain_lost=67 chain_toward=1850 flat_lost=67 flat_toward=1850

@@ -35,6 +35,7 @@
 #include "R233.h"
 #include "R229.h"
 #include "R234.h"
+#include "R237.h"
 
 namespace slang_uhdm {
 
@@ -2498,6 +2499,27 @@ static bool r191ConstCallPoison(const slang::ast::Expression& rhs0) {
         return false;
     };
     bool hit = false;
+    std::set<const slang::ast::MemberAccessExpression*> fold237;
+    // § bareStructParamReadKeeps237v (v11u237, R11V237_BAREREAD_OFF): the
+    // package struct parameters the body reads WHOLE (a name not the base of
+    // a member access).  Golden keeps the call when the function reads the
+    // parameter whole beside the member (tools/probe/v11u237repro/cases/PM
+    // p10 `{S, 16'(S.e)}`, p12 `S + S.e`), so
+    // § evalFuncPkgStructMemberFolds237 abstains on such a parameter.
+    std::set<const slang::ast::Symbol*> bare237;
+    if (r11v237Law("R11V237_BAREREAD_OFF")) {
+        std::set<const slang::ast::Expression*> base237;
+        sub.getBody().visit(makeVisitor(
+            [&](auto& v, const MemberAccessExpression& ma) {
+                base237.insert(&stripImplicitConv(ma.value()));
+                v.visitDefault(ma);
+            },
+            [&](auto& v, const NamedValueExpression& nv) {
+                if (nv.symbol.kind == SymbolKind::Parameter && !base237.count(&nv))
+                    bare237.insert(&nv.symbol);
+                v.visitDefault(nv);
+            }));
+    }
     sub.getBody().visit(makeVisitor(
         [&](auto& v, const ConversionExpression& cx) {
             if (!hit && cx.syntax && cx.syntax->kind == slang::syntax::SyntaxKind::CastExpression) {
@@ -2524,6 +2546,63 @@ static bool r191ConstCallPoison(const slang::ast::Expression& rhs0) {
             v.visitDefault(cx);
         },
         [&](auto& v, const MemberAccessExpression& ma) {
+            // § evalFuncPkgStructMemberFolds237: the value a member read of a
+            // same-package struct parameter lands on, resolved through the
+            // pattern (nested reads `S.in.e` included); the ROOT access
+            // (whose base is the parameter) is marked when that value is an
+            // unsized decimal literal.
+            if (!hit && r11u237Law("R11U237_PKGMEMBER_OFF")) {
+                std::function<const Expression*(const Expression&)> val237 =
+                    [&](const Expression& x0) -> const Expression* {
+                    auto& x = stripImplicitConv(x0);
+                    if (x.kind == ExpressionKind::NamedValue) {
+                        auto& ps = x.as<NamedValueExpression>().symbol;
+                        if (ps.kind != SymbolKind::Parameter)
+                            return nullptr;
+                        auto* sc = ps.getParentScope();
+                        auto* fsc = sub.getParentScope();
+                        if (!sc || !fsc || sc->asSymbol().kind != SymbolKind::Package ||
+                            &sc->asSymbol() != &fsc->asSymbol())
+                            return nullptr;
+                        return ps.as<ParameterSymbol>().getDeclaredType()->getInitializer();
+                    }
+                    if (x.kind == ExpressionKind::MemberAccess) {
+                        auto& mx = x.as<MemberAccessExpression>();
+                        if (mx.member.kind != SymbolKind::Field)
+                            return nullptr;
+                        auto* pv = val237(mx.value());
+                        if (!pv)
+                            return nullptr;
+                        auto& pe = stripImplicitConv(*pv);
+                        if (pe.kind != ExpressionKind::SimpleAssignmentPattern &&
+                            pe.kind != ExpressionKind::StructuredAssignmentPattern)
+                            return nullptr;
+                        auto els =
+                            pe.kind == ExpressionKind::SimpleAssignmentPattern
+                                ? pe.as<SimpleAssignmentPatternExpression>().elements()
+                                : pe.as<StructuredAssignmentPatternExpression>().elements();
+                        auto idx = mx.member.as<FieldSymbol>().fieldIndex;
+                        if (idx >= els.size() || !els[idx])
+                            return nullptr;
+                        return els[idx];
+                    }
+                    return nullptr;
+                };
+                if (auto* lv0 = val237(ma)) {
+                    auto& lv = stripImplicitConv(*lv0);
+                    if (lv.kind == ExpressionKind::IntegerLiteral && lv.syntax &&
+                        lv.syntax->kind == slang::syntax::SyntaxKind::IntegerLiteralExpression) {
+                        const MemberAccessExpression* r = &ma;
+                        while (true) {
+                            auto& b = stripImplicitConv(r->value());
+                            if (b.kind != ExpressionKind::MemberAccess)
+                                break;
+                            r = &b.as<MemberAccessExpression>();
+                        }
+                        fold237.insert(r);
+                    }
+                }
+            }
             if (!hit) {
                 auto& vt = ma.value().type->getCanonicalType();
                 auto& b = stripImplicitConv(ma.value());
@@ -2563,8 +2642,48 @@ static bool r191ConstCallPoison(const slang::ast::Expression& rhs0) {
                         }
                     }
                     else if (bs.kind == SymbolKind::Variable ||
-                             bs.kind == SymbolKind::Parameter)
+                             bs.kind == SymbolKind::Parameter) {
                         hit = true;
+                        // § evalFuncPkgStructMemberFolds237 (r11u237,
+                        // R11U237_PKGMEMBER_OFF; refines the M arm) — a
+                        // member read of a PACKAGE parameter of a packed
+                        // struct, read by a function of that same package,
+                        // FOLDS in golden when the member's value in the
+                        // parameter's assignment pattern is an UNSIZED
+                        // DECIMAL literal (measured, grid
+                        // tools/probe/r11u237repro/cases/FM: m01 `S.e + i`,
+                        // m02 `S.m`, m04 `S.in.e` through a nested pattern,
+                        // m07 through a wildcard import, m08 the gen-scope
+                        // flavour, m11 a named pattern, m12 a default
+                        // pattern, m15 and m18 fold).  It KEEPS, as the M arm
+                        // says, when that value is sized (`4'h1`: r11v131's
+                        // pat/k03_read_in_func, m13 m14 m16 m17 m19-m21,
+                        // whatever the member type), when the parameter's
+                        // value is a concatenation (m09, m10), for a
+                        // module-local function reading `q::S.e` (m03) and
+                        // for a packed union (m05).
+                        if (bs.kind == SymbolKind::Parameter &&
+                            vt.kind == SymbolKind::PackedStructType &&
+                            r11u237Law("R11U237_PKGMEMBER_OFF")) {
+                            const Scope* ps237 = bs.getParentScope();
+                            const Scope* fs237 = sub.getParentScope();
+                            // the member's value in the parameter's
+                            // assignment pattern an unsized decimal literal
+                            // (fold237, computed at the outermost access of
+                            // the chain below)
+                            const bool bareKeeps237 = bare237.count(&bs) != 0;
+                            if (bareKeeps237 && fold237.count(&ma))
+                                tr237("bareStructParamReadKeeps237v",
+                                      std::string(sub.name) + " " + std::string(bs.name));
+                            if (fold237.count(&ma) && !bareKeeps237 && ps237 && fs237 &&
+                                ps237->asSymbol().kind == SymbolKind::Package &&
+                                &ps237->asSymbol() == &fs237->asSymbol()) {
+                                hit = false;
+                                tr237("evalFuncPkgStructMemberFolds237",
+                                      std::string(sub.name) + " " + std::string(bs.name));
+                            }
+                        }
+                    }
                 }
             }
             v.visitDefault(ma);
@@ -2870,6 +2989,322 @@ static int r204TaintExec(const slang::ast::SubroutineSymbol& sub,
         default:
             return -1;
     }
+}
+// ===== § evalFuncPkgParamVarSelKeepsCall237 (r11u237, R11U237_PKGSEL_OFF) ====
+// A third body shape ExprEval::evalFunc cannot reduce (the producer is the
+// one § evalFuncSelectKeepsCall148 decodes: UhdmWriter::writeCont_assign's
+// trailing reduceExpr -> ExprEval::evalFunc; only a constant result replaces
+// the Rhs, anything else leaves the definition's own cont_assign and its
+// func_call): a select (bit, part or indexed part) whose base is a PACKAGE
+// parameter and whose index reads a formal or a variable.  The bit_select arm
+// of ExprEval::reduceExpr hands the base to getObject, which resolves a
+// package parameter to its `parameter` object, and no select arm reads a
+// `parameter` (the P arm's mechanism, there for a module parameter); an index
+// made of literals and parameters only is folded when Surelog compiles the
+// package function (grid tools/probe/r11u237repro/cases/FW: g03 `ENC[1].e`,
+// g13 `ENC[K]` fold).  Unlike the P arm the select may sit in a NESTED
+// callee or behind loops and branches: evalFunc EXECUTES the body, and the
+// nested call reduces through evalFunc again, so the select poisons the whole
+// value only when the execution reaches it.  The law therefore runs the call
+// (the executor of § dfltArgTaintExec204v, slang's evaluator valuing every
+// condition, loop bound and argument): a branch, loop or ?: arm not taken does
+// not keep (g08, g15, g16, g17 fold in golden); a reached select keeps (f01 =
+// cfg_func_width_loop's `maxw` -> `fwidth` -> `ENC[i].e`, f04, g01, g04-g07,
+// g09, g11, g14, g18, g20, g21; the gen-scope flavour g19).  A statement or
+// expression the executor does not model abstains (the pristine answer).
+static int r237PkgSelExec(slang::ast::EvalContext& ctx,
+                          const slang::ast::SubroutineSymbol& sub,
+                          const std::vector<slang::ConstantValue>& args,
+                          slang::SourceLocation at, int depth, long& steps) {
+    using namespace slang::ast;
+    if (depth > 16)
+        return -1;
+    auto fs = sub.getArguments();
+    if (fs.size() != args.size())
+        return -1;
+    if (!ctx.pushFrame(sub, at, LookupLocation::max))
+        return -1;
+    for (size_t i = 0; i < fs.size(); i++)
+        ctx.createLocal(fs[i], args[i]);
+    if (sub.returnValVar)
+        ctx.createLocal(sub.returnValVar);
+    enum Flow { Normal, Brk, Cont, Ret, Keep, Undec };
+    // a parameter of the package that declares the executing function (a
+    // module-local function reading `q::ENC[i]` folds in golden: g23)
+    auto pkgParam = [&sub](const Symbol& sym) {
+        if (sym.kind != SymbolKind::Parameter)
+            return false;
+        auto* ps = sym.getParentScope();
+        auto* fs = sub.getParentScope();
+        return ps && fs && ps->asSymbol().kind == SymbolKind::Package &&
+               &ps->asSymbol() == &fs->asSymbol();
+    };
+    // an index made of literals, parameters and enum values only
+    auto constIdx = [](const Expression& e) {
+        bool ok = true;
+        e.visit(makeVisitor(
+            [&](auto& v, const NamedValueExpression& nv) {
+                if (nv.symbol.kind != SymbolKind::Parameter &&
+                    nv.symbol.kind != SymbolKind::EnumValue)
+                    ok = false;
+                v.visitDefault(nv);
+            },
+            [&](auto& v, const CallExpression& ce) {
+                ok = false;
+                v.visitDefault(ce);
+            }));
+        return ok;
+    };
+    auto truth = [](const ConstantValue& v, bool& ok) {
+        ok = v.isInteger() && !v.integer().hasUnknown();
+        if (!ok)
+            return false;
+        return (bool)(v.integer() != 0);
+    };
+    // Scan one expression as evalFunc's reduction meets it: Keep at a
+    // reached poisoned select or a nested call whose execution keeps; a ?:
+    // reduces its condition and the arm taken only.
+    std::function<Flow(const Expression&)> scan;
+    auto selFlow = [&](const Expression& e) -> Flow {
+        const bool es = e.kind == ExpressionKind::ElementSelect;
+        auto& b = stripImplicitConv(es ? e.as<ElementSelectExpression>().value()
+                                       : e.as<RangeSelectExpression>().value());
+        bool idxConst = es ? constIdx(e.as<ElementSelectExpression>().selector())
+                           : (constIdx(e.as<RangeSelectExpression>().left()) &&
+                              constIdx(e.as<RangeSelectExpression>().right()));
+        if (b.kind == ExpressionKind::NamedValue && !idxConst &&
+            pkgParam(b.as<NamedValueExpression>().symbol))
+            return Keep;
+        Flow f = scan(b);
+        if (f != Normal)
+            return f;
+        if (es)
+            return scan(e.as<ElementSelectExpression>().selector());
+        f = scan(e.as<RangeSelectExpression>().left());
+        return f != Normal ? f : scan(e.as<RangeSelectExpression>().right());
+    };
+    auto condFlow = [&](const ConditionalExpression& c) -> Flow {
+        if (c.conditions.size() != 1 || c.conditions[0].pattern)
+            return Undec;
+        Flow f = scan(*c.conditions[0].expr);
+        if (f != Normal)
+            return f;
+        bool ok = false;
+        bool t = truth(c.conditions[0].expr->eval(ctx), ok);
+        if (!ok)
+            return Undec;
+        return scan(t ? c.left() : c.right());
+    };
+    auto callFlow = [&](const CallExpression& ce) -> Flow {
+        // § bitsArgNotReduced237v (v11u237, R11V237_BITSARG_OFF): $bits
+        // takes the operand's TYPE, so evalFunc never reduces the select
+        // written inside it and the call folds in golden
+        // (tools/probe/v11u237repro/cases/PS s04, s14, s17: `$bits(ENC[i])`
+        // folds; `$size`, `$clog2` and `$signed` of the same select keep:
+        // s15, s13, s16).
+        if (ce.isSystemCall() && ce.getSubroutineName() == "$bits" &&
+            r11v237Law("R11V237_BITSARG_OFF")) {
+            tr237("bitsArgNotReduced237v", std::string(sub.name));
+            return Normal;
+        }
+        for (auto* a : ce.arguments()) {
+            if (!a)
+                return Undec;
+            Flow f = scan(*a);
+            if (f != Normal)
+                return f;
+        }
+        if (ce.isSystemCall())
+            return Normal;
+        auto sp = std::get_if<const SubroutineSymbol*>(&ce.subroutine);
+        if (!sp || !*sp)
+            return Undec;
+        std::vector<ConstantValue> av;
+        for (auto* a : ce.arguments()) {
+            ConstantValue v = a->eval(ctx);
+            if (!v)
+                return Undec;
+            av.emplace_back(std::move(v));
+        }
+        int r = r237PkgSelExec(ctx, **sp, av, ce.sourceRange.start(), depth + 1, steps);
+        return r == 1 ? Keep : r == 0 ? Normal : Undec;
+    };
+    // Scan one expression as evalFunc's reduction meets it: Keep at a
+    // reached poisoned select or a nested call whose execution keeps; a ?:
+    // reduces its condition and the arm taken only.
+    scan = [&](const Expression& e) -> Flow {
+        if (++steps > 200000)
+            return Undec;
+        Flow out = Normal;
+        e.visit(makeVisitor(
+            [&](auto&, const ElementSelectExpression& x) {
+                if (out == Normal)
+                    out = selFlow(x);
+            },
+            [&](auto&, const RangeSelectExpression& x) {
+                if (out == Normal)
+                    out = selFlow(x);
+            },
+            [&](auto&, const ConditionalExpression& x) {
+                if (out == Normal)
+                    out = condFlow(x);
+            },
+            [&](auto&, const CallExpression& x) {
+                if (out == Normal)
+                    out = callFlow(x);
+            }));
+        return out;
+    };
+    auto evalStmtExpr = [&](const Expression& ex) -> Flow {
+        Flow f = scan(ex);
+        if (f != Normal)
+            return f;
+        (void)ex.eval(ctx);
+        return Normal;
+    };
+    std::function<Flow(const Statement&)> run = [&](const Statement& st) -> Flow {
+        if (++steps > 200000)
+            return Undec;
+        switch (st.kind) {
+            case StatementKind::Empty:
+                return Normal;
+            case StatementKind::Block:
+                return run(st.as<BlockStatement>().body);
+            case StatementKind::List:
+                for (auto* it : st.as<StatementList>().list) {
+                    Flow f = run(*it);
+                    if (f != Normal)
+                        return f;
+                }
+                return Normal;
+            case StatementKind::VariableDeclaration: {
+                auto& vs = st.as<VariableDeclStatement>().symbol;
+                if (auto* ie = vs.getInitializer()) {
+                    Flow f = scan(*ie);
+                    if (f != Normal)
+                        return f;
+                    ConstantValue v = ie->eval(ctx);
+                    ctx.createLocal(&vs, v ? std::move(v) : vs.getType().getDefaultValue());
+                }
+                else
+                    ctx.createLocal(&vs);
+                return Normal;
+            }
+            case StatementKind::ExpressionStatement:
+                return evalStmtExpr(st.as<ExpressionStatement>().expr);
+            case StatementKind::Conditional: {
+                auto& cs = st.as<ConditionalStatement>();
+                if (cs.conditions.size() != 1 || cs.conditions[0].pattern)
+                    return Undec;
+                auto& ce = *cs.conditions[0].expr;
+                Flow f = scan(ce);
+                if (f != Normal)
+                    return f;
+                bool ok = false;
+                bool t = truth(ce.eval(ctx), ok);
+                if (!ok)
+                    return Undec;
+                if (t)
+                    return run(cs.ifTrue);
+                return cs.ifFalse ? run(*cs.ifFalse) : Normal;
+            }
+            case StatementKind::ForLoop: {
+                auto& fl = st.as<ForLoopStatement>();
+                for (auto* lv : fl.loopVars) {
+                    auto* ie = lv->getInitializer();
+                    if (ie) {
+                        Flow f = scan(*ie);
+                        if (f != Normal)
+                            return f;
+                    }
+                    ConstantValue v = ie ? ie->eval(ctx) : ConstantValue();
+                    ctx.createLocal(lv, v ? std::move(v) : lv->getType().getDefaultValue());
+                }
+                for (auto* ie : fl.initializers)
+                    if (Flow f = evalStmtExpr(*ie); f != Normal)
+                        return f;
+                for (;;) {
+                    if (++steps > 200000)
+                        return Undec;
+                    if (fl.stopExpr) {
+                        Flow f = scan(*fl.stopExpr);
+                        if (f != Normal)
+                            return f;
+                        bool ok = false;
+                        bool t = truth(fl.stopExpr->eval(ctx), ok);
+                        if (!ok)
+                            return Undec;
+                        if (!t)
+                            break;
+                    }
+                    Flow f = run(fl.body);
+                    if (f == Brk)
+                        break;
+                    if (f != Normal && f != Cont)
+                        return f;
+                    for (auto* se : fl.steps)
+                        if (Flow g = evalStmtExpr(*se); g != Normal)
+                            return g;
+                }
+                return Normal;
+            }
+            case StatementKind::Break:
+                return Brk;
+            case StatementKind::Continue:
+                return Cont;
+            case StatementKind::Return: {
+                auto* re = st.as<ReturnStatement>().expr;
+                if (re) {
+                    Flow f = scan(*re);
+                    if (f != Normal)
+                        return f;
+                }
+                return Ret;
+            }
+            default:
+                return Undec;
+        }
+    };
+    Flow f = run(sub.getBody());
+    ctx.popFrame();
+    if (f == Keep)
+        return 1;
+    if (f == Ret || f == Normal)
+        return 0;
+    return -1;
+}
+static bool r237PkgSelKeeps(const slang::ast::Expression& rhs0, const char* site,
+                            const std::string& scope) {
+    using namespace slang::ast;
+    if (!r11u237Law("R11U237_PKGSEL_OFF"))
+        return false;
+    auto& rhs = stripImplicitConv(rhs0);
+    if (rhs.kind != ExpressionKind::Call)
+        return false;
+    auto& call = rhs.as<CallExpression>();
+    if (call.isSystemCall())
+        return false;
+    auto sp = std::get_if<const SubroutineSymbol*>(&call.subroutine);
+    if (!sp || !*sp)
+        return false;
+    const SubroutineSymbol& sub = **sp;
+    EvalContext ctx(sub);
+    std::vector<slang::ConstantValue> av;
+    long steps = 0;
+    for (auto* a : call.arguments()) {
+        if (!a)
+            return false;
+        slang::ConstantValue v = a->eval(ctx);
+        if (!v)
+            return false;
+        av.emplace_back(std::move(v));
+    }
+    int r = r237PkgSelExec(ctx, sub, av, call.sourceRange.start(), 0, steps);
+    if (r != 1)
+        return false;
+    tr237("evalFuncPkgParamVarSelKeepsCall237",
+          std::string(site) + " " + scope + " " + std::string(sub.name));
+    return true;
 }
 static bool r196OmittedDefaultKeeps(const slang::ast::Expression& rhs0) {
     using namespace slang::ast;
@@ -29434,7 +29869,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             const bool evalKeepGen148 =
                 !rhs && (evalFuncSelectKeepsCall148(ae.right(), "genscope", fullName) ||
                          r191ConstCallKeeps(ae.right()) ||
-                         r196OmittedDefaultKeeps(ae.right()));
+                         r196OmittedDefaultKeeps(ae.right()) ||
+                         r237PkgSelKeeps(ae.right(), "genscope", fullName));
             // Constant gen-scope calls fold to the source literal, sized at
             // the LHS width.
             if (!rhs && !evalKeepGen148)
@@ -40069,7 +40505,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         const bool evalKeep148 =
             topView && (evalFuncSelectKeepsCall148(ae.right(), "module", prefix) ||
                         r191ConstCallKeeps(ae.right()) ||
-                        r196OmittedDefaultKeeps(ae.right()));
+                        r196OmittedDefaultKeeps(ae.right()) ||
+                        r237PkgSelKeeps(ae.right(), "module", prefix));
         CallFold cfr = (topView && !typedefRet && !sgnFormal9 && !evalKeep148)
                            ? constCallFold(stripImplicitConv(ae.right()))
                            : CallFold{};

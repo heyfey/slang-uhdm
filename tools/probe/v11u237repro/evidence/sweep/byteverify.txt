@@ -1,0 +1,19 @@
+=== wF vs wP
+databases: patched=2568 pristine=2568
+PATH_SETS_IDENTICAL (2568 paths)
+MOVER ./uhdm2rtlil/default/cfg_func_width_loop-47633533/slang.uhdm  patched=64b6dcea5559 pristine=80c13cb123b8
+MOVER ./uhdm2rtlil/testflags/cfg_func_width_loop-47633533/slang.uhdm  patched=0ce68610700e pristine=7a022430decd
+MOVERS: 2 / 2568
+SELFCHECK (every file vs one fixed file): 2567 / 2568 flagged
+=== wF vs wL
+databases: patched=2568 pristine=2568
+PATH_SETS_IDENTICAL (2568 paths)
+MOVERS: 0 / 2568
+SELFCHECK (every file vs one fixed file): 2567 / 2568 flagged
+=== wL vs wP
+databases: patched=2568 pristine=2568
+PATH_SETS_IDENTICAL (2568 paths)
+MOVER ./uhdm2rtlil/default/cfg_func_width_loop-47633533/slang.uhdm  patched=64b6dcea5559 pristine=80c13cb123b8
+MOVER ./uhdm2rtlil/testflags/cfg_func_width_loop-47633533/slang.uhdm  patched=0ce68610700e pristine=7a022430decd
+MOVERS: 2 / 2568
+SELFCHECK (every file vs one fixed file): 2567 / 2568 flagged

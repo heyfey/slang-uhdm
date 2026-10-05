@@ -1,0 +1,9 @@
+# v11u237 byte-mover prediction, frozen 2026-10-04T23:42:31Z before the fix sweep.
+# Derived from the refinements' conditions: each one only makes an r11u237 law abstain, so a database can move
+# (fix against law) only where that law fires.  The implementer's firing census (r11u237repro/evidence/census)
+# names the corpus firings: § evalFuncPkgParamVarSelKeepsCall237 on cfg_func_width_loop d/t (its body
+# maxw -> fwidth -> ENC[i].e holds no $bits), § unionRetVarAtTypeToken237 on rp32_r5p_{alu,bru,mdu,wbu} d/t
+# (no refinement touches it); § evalFuncPkgStructMemberFolds237 and § vlogAggMemberKwSpan237 fire on no corpus
+# database and no tests/probe case.
+# fix against law: 0 databases in surelog, uhdm2rtlil, probe and downstream.
+# fix against pristine: uhdm2rtlil cfg_func_width_loop default, testflags; downstream cfg_func_width_loop (3).

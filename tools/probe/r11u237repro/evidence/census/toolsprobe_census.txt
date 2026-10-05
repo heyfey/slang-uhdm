@@ -1,0 +1,26 @@
+# tools/probe, parse view
+tools/probe/r11u155repro/cases/UF/f08 rc=0 fired=unionRetVarAtTypeToken237
+tools/probe/r11u217verify/cases/CS/c02 rc=0 fired=clsTdUnionBuilt237
+tools/probe/r11u235repro/cases/rs/r05 rc=0 fired=clsTdUnionBuilt237,clsTdUnionClsEnumMemberShares237
+tools/probe/v11u146repro/cases/ct/c2_union rc=0 fired=clsTdUnionBuilt237
+tools/probe/v11u209repro/cases/CS/v04 rc=0 fired=clsTdUnionBuilt237
+tools/probe/v11u209repro/cases/CS/v12 rc=0 fired=unionRetVarAtTypeToken237
+tools/probe/v11u235repro/cases/vk/k06 rc=0 fired=vlogAggMemberKwSpan237
+tools/probe/v11u235repro/cases/vk/k11 rc=0 fired=vlogAggMemberKwSpan237
+  15327 rc=0
+      3 rc=-11
+    142 rc=3
+    119 rc=4
+# tools/probe, elab view
+tools/probe/r11u155repro/cases/UF/f08 rc=0 fired=unionRetVarAtTypeToken237
+tools/probe/r11u217verify/cases/CS/c02 rc=0 fired=clsTdUnionBuilt237
+tools/probe/r11u235repro/cases/rs/r05 rc=0 fired=clsTdUnionBuilt237,clsTdUnionClsEnumMemberShares237
+tools/probe/v11u146repro/cases/ct/c2_union rc=0 fired=clsTdUnionBuilt237
+tools/probe/v11u209repro/cases/CS/v04 rc=0 fired=clsTdUnionBuilt237
+tools/probe/v11u209repro/cases/CS/v12 rc=0 fired=unionRetVarAtTypeToken237
+tools/probe/v11u235repro/cases/vk/k06 rc=0 fired=vlogAggMemberKwSpan237
+tools/probe/v11u235repro/cases/vk/k11 rc=0 fired=vlogAggMemberKwSpan237
+  15323 rc=0
+      7 rc=-11
+    142 rc=3
+    119 rc=4

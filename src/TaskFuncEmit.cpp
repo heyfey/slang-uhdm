@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <vector>
 #include "R234.h"
+#include "R237.h"
 #include "R204.h"
 #include "R223.h"
 #include "R226.h"
@@ -5054,9 +5055,19 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // A struct/enum/unpacked-array return's shared typespec sits at
             // the typedef, so the return var takes the return-TYPE syntax
             // span instead (a typedef'd-vector clone likewise).
+            // § unionRetVarAtTypeToken237 (r11u237, R11U237_UNIONRET_OFF) —
+            // a union typedef's return variable likewise: golden locates the
+            // union_var at the written return type exactly as the struct_var
+            // (grid tools/probe/r11u237repro/cases/CU u04 against its struct
+            // twin u08, u12 package, u13 module).
+            const bool unionRet237 =
+                ts->UhdmType() == UHDM::uhdmunion_typespec &&
+                r11u237Law("R11U237_UNIONRET_OFF");
+            if (unionRet237)
+                tr237("unionRetVarAtTypeToken237", std::string(sub.name));
             if (ts->UhdmType() == UHDM::uhdmstruct_typespec ||
                 ts->UhdmType() == UHDM::uhdmenum_typespec ||
-                ts->UhdmType() == UHDM::uhdmarray_typespec ||
+                ts->UhdmType() == UHDM::uhdmarray_typespec || unionRet237 ||
                 typedefRetClone || pkgUnitRet9) {
                 if (auto* rsyn = retTypeSyn175(sub)) {
                     auto rr9 = rsyn->sourceRange();

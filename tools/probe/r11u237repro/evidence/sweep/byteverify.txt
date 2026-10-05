@@ -1,0 +1,20 @@
+== surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+0
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+./default/cfg_func_width_loop-47633533/slang.uhdm
+./testflags/cfg_func_width_loop-47633533/slang.uhdm
+2
+== probe
+databases: patched=0 pristine=0
+NO_DATABASES
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVER ./cfg_func_width_loop/slang.uhdm  patched=0ce68610700e pristine=7a022430decd
+MOVERS: 1 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged

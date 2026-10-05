@@ -1,0 +1,3 @@
+downstream.csv:cfg_func_width_loop,IDENTICAL,OK,OK,10,10,,
+uhdm2rtlil.csv:cfg_func_width_loop,default,CMP_EQUAL,,,equal
+uhdm2rtlil.csv:cfg_func_width_loop,testflags,CMP_EQUAL,,,equal

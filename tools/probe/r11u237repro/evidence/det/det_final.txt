@@ -1,0 +1,12 @@
+final Earlgrey_0_1/default       3 851d04ca34b4 
+final MiniAmiq/default       3 7f7811b62894 
+final SeqDriver/default       3 56e147abb48b 
+final SimpleUVM/default       3 93669fd10b3a 
+final Scoreboard/default       3 80d768d658ab 
+final BuildUVMPkg/default       3 4e747bb4e5e2 
+final Earlgrey_0_1/testflags       3 0005f72a85ed 
+final MiniAmiq/testflags       3 7f7811b62894 
+final SeqDriver/testflags       3 8458683b1571 
+final SimpleUVM/testflags       3 05304184c551 
+final Scoreboard/testflags 
+final BuildUVMPkg/testflags       3 4e747bb4e5e2 

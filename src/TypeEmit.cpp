@@ -21,9 +21,13 @@
 #include "R233.h"
 #include "R234.h"
 #include "R235.h"
+#include "R237.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
+
+// § kwDirectiveSvMode237v (defined beside buildStructTs).
+static bool r237vRootKwSv(const slang::SourceManager* sm, slang::SourceLocation loc);
 
 // The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
 // reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them, and
@@ -11155,7 +11159,14 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                         sgn && baseSyn->kind == syntax::SyntaxKind::ByteType &&
                         !baseSyn->as<syntax::IntegerTypeSyntax>().signing.valid() &&
                         r11u235Law("R11U235_VLOGBYTE_OFF") &&
-                        verilogLexMode(baseSyn->sourceRange().start());
+                        verilogLexMode(baseSyn->sourceRange().start()) &&
+                        // § kwDirectiveSvModeEnum237v (v11u237,
+                        // R11V237_KWDIRENUM_OFF): a `begin_keywords "1800-..."
+                        // in the root file makes Surelog lex SystemVerilog
+                        // (see § kwDirectiveSvMode237v), `byte` is a keyword.
+                        !(r11v237Law("R11V237_KWDIRENUM_OFF") &&
+                          r237vRootKwSv(sm, baseSyn->sourceRange().start()) &&
+                          (tr237("kwDirectiveSvModeEnum237v", refFullName), true));
                     if (vlogByte235)
                         tr235("vlogEnumByteBaseUnsigned235", refFullName);
                     if (sgn && !vlogByte235) t->VpiSigned(true);
@@ -11207,7 +11218,14 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             !baseSyn->as<syntax::IntegerTypeSyntax>().signing.valid() &&
             !baseSyn->as<syntax::IntegerTypeSyntax>().dimensions.empty() &&
             r11u235Law("R11U235_VLOGKWSPAN_OFF") &&
-            verilogLexMode(baseSyn->sourceRange().start())) {
+            verilogLexMode(baseSyn->sourceRange().start()) &&
+            // § kwDirectiveSvModeEnum237v (v11u237, R11V237_KWDIRENUM_OFF):
+            // Surelog's root-file `begin_keywords "1800-..." lexes
+            // SystemVerilog, the base keeps its whole span
+            // (tools/probe/v11u237repro/cases/VM v11).
+            !(r11v237Law("R11V237_KWDIRENUM_OFF") &&
+              r237vRootKwSv(sm, baseSyn->sourceRange().start()) &&
+              (tr237("kwDirectiveSvModeEnum237v", refFullName), true))) {
             auto kw235 = baseSyn->as<syntax::IntegerTypeSyntax>().keyword.range();
             if (kw235.end() != SourceLocation::NoLocation) {
                 setLoc(bts, kw235);
@@ -16997,6 +17015,60 @@ static void anonMemberRefPrefix134(UHDM::typespec* fts, UHDM::typespec_member* t
     pre(ms);
 }
 
+// § kwDirectiveSvMode237v (v11u237, R11V237_KWDIR_OFF) — Surelog's
+// ParseFile picks the lexer mode from the root file's PreprocessFile
+// VerilogVersion when a `begin_keywords directive set one (the LAST directive
+// the preprocessor met; `end_keywords does not reset it), and only otherwise
+// from the file extension: "1800-2005/2009/2012/2017" lex SystemVerilog, so
+// a .v root holding `begin_keywords "1800-2017"` spans `logic [1:0]` whole
+// (tools/probe/v11u237repro/cases/VM v04).  Returns true when the root file
+// of loc's include chain carries such a directive with a 1800 version
+// (comments skipped).  § vlogAggMemberKwSpan237 abstains there.
+static bool r237vRootKwSv(const slang::SourceManager* sm, slang::SourceLocation loc) {
+    if (!sm || loc == slang::SourceLocation::NoLocation)
+        return false;
+    if (sm->isMacroLoc(loc))
+        loc = sm->getFullyOriginalLoc(loc);
+    auto buf = loc.buffer();
+    for (int guard = 0; guard < 64; guard++) {
+        auto up = sm->getIncludedFrom(buf);
+        if (up == slang::SourceLocation::NoLocation || !up.buffer().valid())
+            break;
+        buf = up.buffer();
+    }
+    std::string_view tx = sm->getSourceText(buf);
+    int last = -1; // -1 none, 0 a 1364 version, 1 a 1800 version
+    const std::string_view kw = "`begin_keywords";
+    for (size_t i = 0; i < tx.size(); i++) {
+        if (tx[i] == '/' && i + 1 < tx.size() && tx[i + 1] == '/') {
+            while (i < tx.size() && tx[i] != '\n')
+                i++;
+            continue;
+        }
+        if (tx[i] == '/' && i + 1 < tx.size() && tx[i + 1] == '*') {
+            auto e = tx.find("*/", i + 2);
+            if (e == std::string_view::npos)
+                break;
+            i = e + 1;
+            continue;
+        }
+        if (tx[i] == '`' && tx.substr(i, kw.size()) == kw) {
+            size_t j = i + kw.size();
+            while (j < tx.size() && (tx[j] == ' ' || tx[j] == '\t'))
+                j++;
+            if (j < tx.size() && tx[j] == '"') {
+                auto v = tx.substr(j + 1, 4);
+                if (v == "1800")
+                    last = 1;
+                else if (v == "1364")
+                    last = 0;
+            }
+            i = j;
+        }
+    }
+    return last == 1;
+}
+
 UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, bool packed,
                                                    const std::string& aliasName,
                                                    const std::string& memberSep) {
@@ -18021,6 +18093,35 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 fts = makeTypespec(fm, memberTypeSyn);
                 if (unban3)
                     bypassTypedefShare = true;
+                // § vlogAggMemberKwSpan237 (r11u237, R11U237_VLOGMEMKW_OFF) —
+                // § vlogEnumBaseKwSpan235's lexer rule on a struct or union
+                // MEMBER: in Verilog lexer mode `bit` and `logic` are type
+                // identifiers, so a member written `logic [1:0] g;` compiles
+                // through compileTypespec's slStringConst arm and its
+                // logic_typespec / bit_typespec spans the identifier token
+                // alone (tools/probe/v11u235repro/cases/vk/k11; grid
+                // tools/probe/r11u237repro/cases/VM).  A member without a
+                // packed dimension already spans the keyword; a signed one,
+                // `reg` and every SystemVerilog-mode file keep the whole type.
+                if (fts && memberTypeSyn &&
+                    (memberTypeSyn->kind == syntax::SyntaxKind::BitType ||
+                     memberTypeSyn->kind == syntax::SyntaxKind::LogicType) &&
+                    (fts->UhdmType() == UHDM::uhdmlogic_typespec ||
+                     fts->UhdmType() == UHDM::uhdmbit_typespec) &&
+                    !memberTypeSyn->as<syntax::IntegerTypeSyntax>().signing.valid() &&
+                    !memberTypeSyn->as<syntax::IntegerTypeSyntax>().dimensions.empty() &&
+                    r11u237Law("R11U237_VLOGMEMKW_OFF") &&
+                    verilogLexMode(memberTypeSyn->sourceRange().start()) &&
+                    !(r11v237Law("R11V237_KWDIR_OFF") &&
+                      r237vRootKwSv(sm, memberTypeSyn->sourceRange().start()) &&
+                      (tr237("kwDirectiveSvMode237v", std::string(fm.name)), true))) {
+                    auto kw237 =
+                        memberTypeSyn->as<syntax::IntegerTypeSyntax>().keyword.range();
+                    if (kw237.end() != SourceLocation::NoLocation) {
+                        setLoc(fts, kw237);
+                        tr237("vlogAggMemberKwSpan237", std::string(fm.name));
+                    }
+                }
             }
             // A nested ANONYMOUS struct member's struct_typespec is located at
             // the `struct` keyword span (Surelog); makeTypespec leaves it
@@ -18816,11 +18917,59 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                                          std::string(fm.name));
                             }
                 }
+                // § clsTdUnionClsEnumMemberShares237 (r11u237) — the union
+                // builder's twin of § clsTdClsEnumMemberShares235: a member of
+                // a union typedef written with an enum typedef declared in a
+                // CLASS reads that typedef's own listing object (reached once
+                // § clsTdUnionBuilt237 builds class-scope unions: grid
+                // tools/probe/r11u237repro/cases/CU u01, pass 235's rs/r05).
+                // Switch R11U237_CLSUNIONENUM_OFF.
+                if (!unban3 && bypassTypedefShare && fm.getDeclaredType() &&
+                    r11u237Law("R11U237_CLSUNIONENUM_OFF")) {
+                    auto& mt237 = fm.getDeclaredType()->getType();
+                    if (mt237.kind == SymbolKind::TypeAlias &&
+                        mt237.getCanonicalType().kind == SymbolKind::EnumType)
+                        if (auto* ps237 = mt237.as<TypeAliasType>().getParentScope();
+                            ps237 && ps237->asSymbol().kind == SymbolKind::ClassType) {
+                            unban3 = true;
+                            tr237("clsTdUnionClsEnumMemberShares237",
+                                  std::string(fm.name));
+                        }
+                }
                 if (unban3)
                     bypassTypedefShare = false;
                 fts = makeTypespec(fm, memberTypeSyn);
                 if (unban3)
                     bypassTypedefShare = true;
+                // § vlogAggMemberKwSpan237 (r11u237, R11U237_VLOGMEMKW_OFF) —
+                // § vlogEnumBaseKwSpan235's lexer rule on a struct or union
+                // MEMBER: in Verilog lexer mode `bit` and `logic` are type
+                // identifiers, so a member written `logic [1:0] g;` compiles
+                // through compileTypespec's slStringConst arm and its
+                // logic_typespec / bit_typespec spans the identifier token
+                // alone (tools/probe/v11u235repro/cases/vk/k11; grid
+                // tools/probe/r11u237repro/cases/VM).  A member without a
+                // packed dimension already spans the keyword; a signed one,
+                // `reg` and every SystemVerilog-mode file keep the whole type.
+                if (fts && memberTypeSyn &&
+                    (memberTypeSyn->kind == syntax::SyntaxKind::BitType ||
+                     memberTypeSyn->kind == syntax::SyntaxKind::LogicType) &&
+                    (fts->UhdmType() == UHDM::uhdmlogic_typespec ||
+                     fts->UhdmType() == UHDM::uhdmbit_typespec) &&
+                    !memberTypeSyn->as<syntax::IntegerTypeSyntax>().signing.valid() &&
+                    !memberTypeSyn->as<syntax::IntegerTypeSyntax>().dimensions.empty() &&
+                    r11u237Law("R11U237_VLOGMEMKW_OFF") &&
+                    verilogLexMode(memberTypeSyn->sourceRange().start()) &&
+                    !(r11v237Law("R11V237_KWDIR_OFF") &&
+                      r237vRootKwSv(sm, memberTypeSyn->sourceRange().start()) &&
+                      (tr237("kwDirectiveSvMode237v", std::string(fm.name)), true))) {
+                    auto kw237 =
+                        memberTypeSyn->as<syntax::IntegerTypeSyntax>().keyword.range();
+                    if (kw237.end() != SourceLocation::NoLocation) {
+                        setLoc(fts, kw237);
+                        tr237("vlogAggMemberKwSpan237", std::string(fm.name));
+                    }
+                }
             }
             // A nested ANONYMOUS struct member's struct_typespec is located at
             // the `struct` keyword span (Surelog); makeTypespec leaves it

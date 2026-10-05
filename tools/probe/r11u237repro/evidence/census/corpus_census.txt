@@ -1,0 +1,21 @@
+== surelog.cmp
+[default] CMP_EQUAL=468 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=11 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=464 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=9 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil.cmp
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+CONVERSION cfg_func_width_loop default STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION cfg_func_width_loop testflags STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+regressions=0 conversions=2 changes=0 only-fresh=0 only-committed=0
+== firings per database (R11U237_TRACE)
+OUT uhdm2rtlil/default/cfg_func_width_loop-47633533/slang.uhdm ::       1 evalFuncPkgParamVarSelKeepsCall237 module work@cfg_func_width_loop.u maxw 
+OUT uhdm2rtlil/testflags/cfg_func_width_loop-47633533/slang.uhdm ::       1 evalFuncPkgParamVarSelKeepsCall237 module work@cfg_func_width_loop.u maxw 
+OUT uhdm2rtlil/default/rp32_r5p_alu-5dbac76d/slang.uhdm ::       2 unionRetVarAtTypeToken237 enc32 
+OUT uhdm2rtlil/default/rp32_r5p_bru-8a818f2f/slang.uhdm ::       2 unionRetVarAtTypeToken237 enc32 
+OUT uhdm2rtlil/testflags/rp32_r5p_bru-8a818f2f/slang.uhdm ::       2 unionRetVarAtTypeToken237 enc32 
+OUT uhdm2rtlil/testflags/rp32_r5p_alu-5dbac76d/slang.uhdm ::       2 unionRetVarAtTypeToken237 enc32 
+OUT uhdm2rtlil/default/rp32_r5p_mdu-8aad7cbd/slang.uhdm ::       2 unionRetVarAtTypeToken237 enc32 
+OUT uhdm2rtlil/testflags/rp32_r5p_mdu-8aad7cbd/slang.uhdm ::       2 unionRetVarAtTypeToken237 enc32 
+OUT uhdm2rtlil/default/rp32_r5p_wbu-e7eb0208/slang.uhdm ::       2 unionRetVarAtTypeToken237 enc32 
+OUT uhdm2rtlil/testflags/rp32_r5p_wbu-e7eb0208/slang.uhdm ::       2 unionRetVarAtTypeToken237 enc32 

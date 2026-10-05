@@ -1,0 +1,81 @@
+impl/FM/m01 | gold=constant: UINT:7 | pri=- | law=constant: UINT:7 | fix=constant: UINT:7
+impl/FM/m02 | gold=constant:  UINT:6 | pri=- | law=constant: UINT:6 | fix=constant: UINT:6
+impl/FM/m03 | gold=- | pri=- | law=- | fix=-
+impl/FM/m04 | gold=constant: UINT:7 | pri=- | law=constant: UINT:7 | fix=constant: UINT:7
+impl/FM/m05 | gold=- | pri=- | law=- | fix=-
+impl/FM/m06 | gold=operation:  | pri=operation:  | law=operation:  | fix=operation: 
+impl/FM/m07 | gold=operation: ; constant:  UINT:5 | pri=operation:  | law=operation: ; constant: UINT:5 | fix=operation: ; constant: UINT:5
+impl/FM/m08 | gold=- | pri=- | law=- | fix=-
+impl/FM/m09 | gold=- | pri=- | law=- | fix=-
+impl/FM/m10 | gold=- | pri=- | law=- | fix=-
+impl/FM/m11 | gold=constant: UINT:7 | pri=- | law=constant: UINT:7 | fix=constant: UINT:7
+impl/FM/m12 | gold=constant: UINT:9 | pri=- | law=constant: UINT:9 | fix=constant: UINT:9
+impl/FM/m13 | gold=- | pri=- | law=- | fix=-
+impl/FM/m14 | gold=- | pri=- | law=- | fix=-
+impl/FM/m15 | gold=- | pri=- | law=- | fix=-
+impl/FM/m16 | gold=- | pri=- | law=- | fix=-
+impl/FM/m17 | gold=- | pri=- | law=- | fix=-
+impl/FM/m18 | gold=- | pri=- | law=- | fix=-
+impl/FM/m19 | gold=- | pri=- | law=- | fix=-
+impl/FM/m20 | gold=- | pri=- | law=- | fix=-
+impl/FM/m21 | gold=- | pri=- | law=- | fix=-
+impl/FW/f01 | gold=- | pri=constant: UINT:10 | law=- | fix=-
+impl/FW/f02 | gold=constant: INT:2 | pri=constant: UINT:2 | law=constant: UINT:2 | fix=constant: UINT:2
+impl/FW/f03 | gold=constant: INT:6 | pri=constant: UINT:6 | law=constant: UINT:6 | fix=constant: UINT:6
+impl/FW/f04 | gold=- | pri=constant: UINT:3 | law=- | fix=-
+impl/FW/f05 | gold=constant: INT:7 | pri=constant: UINT:7 | law=constant: UINT:7 | fix=constant: UINT:7
+impl/FW/f06 | gold=constant: INT:3 | pri=constant: UINT:3 | law=constant: UINT:3 | fix=constant: UINT:3
+impl/FW/g01 | gold=- | pri=constant: UINT:4 | law=- | fix=-
+impl/FW/g02 | gold=constant: UINT:7 | pri=- | law=constant: UINT:7 | fix=constant: UINT:7
+impl/FW/g03 | gold=constant: UINT:5 | pri=constant: UINT:5 | law=constant: UINT:5 | fix=constant: UINT:5
+impl/FW/g04 | gold=- | pri=constant: UINT:2 | law=- | fix=-
+impl/FW/g05 | gold=- | pri=constant: UINT:3 | law=- | fix=-
+impl/FW/g06 | gold=- | pri=constant: UINT:7 | law=- | fix=-
+impl/FW/g07 | gold=- | pri=constant: UINT:2 | law=- | fix=-
+impl/FW/g08 | gold=constant:  UINT:5 | pri=constant: UINT:5 | law=constant: UINT:5 | fix=constant: UINT:5
+impl/FW/g09 | gold=- | pri=constant: UINT:2 | law=- | fix=-
+impl/FW/g10 | gold=operation:  | pri=operation:  | law=operation:  | fix=operation: 
+impl/FW/g11 | gold=- | pri=constant: UINT:2 | law=- | fix=-
+impl/FW/g12 | gold=- | pri=- | law=- | fix=-
+impl/FW/g13 | gold=constant: UINT:3 | pri=constant: UINT:5 | law=constant: UINT:5 | fix=constant: UINT:5
+impl/FW/g14 | gold=- | pri=constant: UINT:4 | law=- | fix=-
+impl/FW/g15 | gold=constant:  UINT:1 | pri=constant: UINT:1 | law=constant: UINT:1 | fix=constant: UINT:1
+impl/FW/g16 | gold=constant: INT:5 | pri=constant: UINT:5 | law=constant: UINT:5 | fix=constant: UINT:5
+impl/FW/g17 | gold=constant:  UINT:3 | pri=constant: UINT:3 | law=constant: UINT:3 | fix=constant: UINT:3
+impl/FW/g18 | gold=- | pri=constant: UINT:4; constant: UINT:3 | law=- | fix=-
+impl/FW/g19 | gold=- | pri=- | law=- | fix=-
+impl/FW/g20 | gold=operation:  | pri=operation: ; constant: UINT:3 | law=operation:  | fix=operation: 
+impl/FW/g21 | gold=- | pri=constant: UINT:6 | law=- | fix=-
+impl/FW/g22 | gold=constant: UINT:1 | pri=constant: UINT:5 | law=constant: UINT:5 | fix=constant: UINT:5
+impl/FW/g23 | gold=constant: BIN:0 | pri=constant: UINT:4 | law=constant: UINT:4 | fix=constant: UINT:4
+ver/PM/p01 | gold=constant: UINT:7 | pri=- | law=- | fix=-
+ver/PM/p02 | gold=constant: UINT:7 | pri=- | law=constant: UINT:7 | fix=constant: UINT:7
+ver/PM/p03 | gold=constant: UINT:7 | pri=- | law=constant: UINT:7 | fix=constant: UINT:7
+ver/PM/p04 | gold=constant: UINT:7 | pri=- | law=constant: UINT:7 | fix=constant: UINT:7
+ver/PM/p05 | gold=constant: UINT:7 | pri=- | law=- | fix=-
+ver/PM/p06 | gold=constant: UINT:13 | pri=- | law=- | fix=-
+ver/PM/p07 | gold=- | pri=constant: UINT:6 | law=constant: UINT:6 | fix=constant: UINT:6
+ver/PM/p08 | gold=constant: UINT:4294967293 | pri=- | law=- | fix=-
+ver/PM/p09 | gold=constant: UINT:10 | pri=- | law=constant: UINT:10 | fix=constant: UINT:10
+ver/PM/p10 | gold=- | pri=- | law=constant: UINT:84279303 | fix=-
+ver/PM/p11 | gold=constant: UINT:7 | pri=- | law=constant: UINT:7 | fix=constant: UINT:7
+ver/PM/p12 | gold=- | pri=- | law=constant: UINT:1293 | fix=-
+ver/PM/p13 | gold=constant: UINT:1543 | pri=- | law=constant: UINT:1543 | fix=constant: UINT:1543
+ver/PM/p14 | gold=- | pri=constant: UINT:84279298 | law=constant: UINT:84279298 | fix=constant: UINT:84279298
+ver/PS/s01 | gold=- | pri=constant: BIN:1 | law=- | fix=-
+ver/PS/s02 | gold=- | pri=constant: UINT:3 | law=- | fix=-
+ver/PS/s03 | gold=- | pri=constant: UINT:86 | law=- | fix=-
+ver/PS/s04 | gold=constant: UINT:2 | pri=constant: UINT:9 | law=- | fix=constant: UINT:9
+ver/PS/s05 | gold=- | pri=constant: UINT:0 | law=- | fix=-
+ver/PS/s06 | gold=constant: BIN:1 | pri=constant: UINT:3 | law=constant: UINT:3 | fix=constant: UINT:3
+ver/PS/s07 | gold=- | pri=- | law=- | fix=-
+ver/PS/s08 | gold=- | pri=constant: UINT:4 | law=- | fix=-
+ver/PS/s09 | gold=- | pri=constant: UINT:1 | law=- | fix=-
+ver/PS/s10 | gold=- | pri=- | law=- | fix=-
+ver/PS/s11 | gold=- | pri=constant: UINT:1 | law=- | fix=-
+ver/PS/s12 | gold=- | pri=constant: UINT:4 | law=constant: UINT:4 | fix=constant: UINT:4
+ver/PS/s13 | gold=- | pri=constant: UINT:3 | law=- | fix=-
+ver/PS/s14 | gold=constant: UINT:2 | pri=constant: UINT:9 | law=- | fix=constant: UINT:9
+ver/PS/s15 | gold=- | pri=constant: UINT:9 | law=- | fix=-
+ver/PS/s16 | gold=- | pri=constant: UINT:4 | law=- | fix=-
+ver/PS/s17 | gold=constant:  UINT:1 | pri=constant: UINT:8 | law=- | fix=constant: UINT:8

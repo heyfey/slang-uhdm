@@ -116,7 +116,7 @@ CastToSumWithParameterInSubmodule,default,CMP_EQUAL,,,equal
 CastWidthFromPackage,default,CMP_EQUAL,,,equal
 cdc_static_basic,default,CMP_EQUAL,,,equal
 CellNamedLikeModule,default,CMP_EQUAL,,,equal
-cfg_func_width_loop,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+cfg_func_width_loop,default,CMP_EQUAL,,,equal
 clk2fflogic_effects,default,CMP_EQUAL,,,equal
 Clog2OfSumWithParameterIn2InstancesOfSubmodule,default,CMP_EQUAL,,,equal
 ClogOfParamOfInstanceInitializedByStructMember,default,CMP_EQUAL,,,equal
@@ -987,7 +987,7 @@ CastToSumWithParameterInSubmodule,testflags,CMP_EQUAL,,,equal
 CastWidthFromPackage,testflags,CMP_EQUAL,,,equal
 cdc_static_basic,testflags,CMP_EQUAL,,,equal
 CellNamedLikeModule,testflags,CMP_EQUAL,,,equal
-cfg_func_width_loop,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+cfg_func_width_loop,testflags,CMP_EQUAL,,,equal
 clk2fflogic_effects,testflags,CMP_EQUAL,,,equal
 Clog2OfSumWithParameterIn2InstancesOfSubmodule,testflags,CMP_EQUAL,,,equal
 ClogOfParamOfInstanceInitializedByStructMember,testflags,CMP_EQUAL,,,equal

@@ -1,0 +1,340 @@
+=== pri law
+impl/CU/u01: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 92->0
+impl/CU/u01_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 92->0
+impl/CU/u02: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_158_objects) cmplines 92->0
+impl/CU/u02_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_158_objects) cmplines 92->0
+impl/CU/u03: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_128_objects) cmplines 92->0
+impl/CU/u03_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_128_objects) cmplines 92->0
+impl/CU/u04: CMPNE -> SNE  (NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_line) cmplines 181->0
+impl/CU/u04_el: CMPNE -> SNE  (NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_line) cmplines 185->0
+impl/CU/u05: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_143_objects) cmplines 92->0
+impl/CU/u05_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_149_objects) cmplines 92->0
+impl/CU/u06: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_109_objects) cmplines 127->0
+impl/CU/u06_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_109_objects) cmplines 127->0
+impl/CU/u07: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_34_objects) cmplines 92->0
+impl/CU/u07_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_34_objects) cmplines 92->0
+impl/CU/u09: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_132_objects) cmplines 271->0
+impl/CU/u09_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_165_objects) cmplines 309->0
+impl/CU/u10: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_126_objects) cmplines 92->0
+impl/CU/u10_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_126_objects) cmplines 92->0
+impl/CU/u11: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_153_objects) cmplines 92->0
+impl/CU/u11_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_153_objects) cmplines 92->0
+impl/CU/u13: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_289_objects) cmplines 0->0
+impl/CU/u13_el: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_329_objects) cmplines 0->0
+impl/FW/f01: SNE -> EQ  (STRICT_NOTEQUAL_type -> STRICT_EQUAL_330_objects) cmplines 0->0
+impl/FW/f01_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_362_objects) cmplines 50->0
+impl/FW/g09: SNE -> EQ  (STRICT_NOTEQUAL_type -> STRICT_EQUAL_154_objects) cmplines 0->0
+impl/FW/g09_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_159_objects) cmplines 64->0
+impl/FW/g19: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 60->46
+impl/FW/g19_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 60->50
+impl/VM/k01: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_114_objects) cmplines 0->0
+impl/VM/k01_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_130_objects) cmplines 0->0
+impl/VM/k02: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_104_objects) cmplines 0->0
+impl/VM/k02_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_88_objects) cmplines 0->0
+impl/VM/k03: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_91_objects) cmplines 0->0
+impl/VM/k03_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_96_objects) cmplines 0->0
+impl/VM/k07: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+impl/VM/k07_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+impl/VM/k08: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+impl/VM/k08_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+impl/VM/k09: SNE -> EQ  (STRICT_NOTEQUAL_endline -> STRICT_EQUAL_102_objects) cmplines 0->0
+impl/VM/k09_el: SNE -> EQ  (STRICT_NOTEQUAL_endline -> STRICT_EQUAL_86_objects) cmplines 0->0
+impl/VM/k10: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_162_objects) cmplines 0->0
+impl/VM/k10_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_134_objects) cmplines 0->0
+impl/VM/k11: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_90_objects) cmplines 0->0
+impl/VM/k11_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_74_objects) cmplines 0->0
+impl/VM/k13: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_185_objects) cmplines 0->0
+impl/VM/k13_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_169_objects) cmplines 0->0
+tp/r11u155repro/cases/UF/f08: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_102_objects) cmplines 0->0
+tp/r11u155repro/cases/UF/f08_el: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_100_objects) cmplines 0->0
+tp/r11u217verify/cases/CS/c02: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->68
+tp/r11u217verify/cases/CS/c02_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->68
+tp/r11u235repro/cases/rs/r05: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 92->0
+tp/r11u235repro/cases/rs/r05_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 92->0
+tp/v11u146repro/cases/ct/c2_union: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_65_objects) cmplines 92->0
+tp/v11u146repro/cases/ct/c2_union_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_65_objects) cmplines 92->0
+tp/v11u209repro/cases/CS/v04: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_111_objects) cmplines 92->0
+tp/v11u209repro/cases/CS/v04_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_139_objects) cmplines 92->0
+tp/v11u235repro/cases/vk/k11: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_160_objects) cmplines 0->0
+tp/v11u235repro/cases/vk/k11_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_160_objects) cmplines 0->0
+ver/CU/c01: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_48_objects) cmplines 90->0
+ver/CU/c01_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_48_objects) cmplines 90->0
+ver/CU/c02: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 95->90
+ver/CU/c02_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 95->90
+ver/CU/c03: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->51
+ver/CU/c03_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->51
+ver/CU/c04: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_73_objects) cmplines 95->0
+ver/CU/c04_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_73_objects) cmplines 95->0
+ver/CU/c05: CMPNE -> SNE  (NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_fullname) cmplines 92->0
+ver/CU/c05_el: CMPNE -> SNE  (NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_fullname) cmplines 92->0
+ver/CU/c06: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->84
+ver/CU/c06_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->84
+ver/CU/c08: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_207_objects) cmplines 0->0
+ver/CU/c08_el: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_199_objects) cmplines 0->0
+ver/CU/c09: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_102_objects) cmplines 92->0
+ver/CU/c09_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_102_objects) cmplines 92->0
+ver/CU/c11: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_23_objects) cmplines 93->0
+ver/CU/c11_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_23_objects) cmplines 93->0
+ver/PS/s07: SNE -> EQ  (STRICT_NOTEQUAL_type -> STRICT_EQUAL_87_objects) cmplines 0->0
+ver/PS/s07_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_86_objects) cmplines 64->0
+ver/VM/v01: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_87_objects) cmplines 0->0
+ver/VM/v01_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_74_objects) cmplines 0->0
+ver/VM/v02: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_111_objects) cmplines 0->0
+ver/VM/v02_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_105_objects) cmplines 0->0
+ver/VM/v03: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_147_objects) cmplines 0->0
+ver/VM/v03_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_122_objects) cmplines 0->0
+ver/VM/v04: EQ -> SNE  (STRICT_EQUAL_102_objects -> STRICT_NOTEQUAL_endcol) cmplines 0->0
+ver/VM/v04_el: EQ -> SNE  (STRICT_EQUAL_86_objects -> STRICT_NOTEQUAL_endcol) cmplines 0->0
+ver/VM/v06: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_112_objects) cmplines 0->0
+ver/VM/v06_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_94_objects) cmplines 0->0
+ver/VM/v07: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_153_objects) cmplines 0->0
+ver/VM/v07_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_172_objects) cmplines 0->0
+ver/VM/v09: EQ -> SNE  (STRICT_EQUAL_102_objects -> STRICT_NOTEQUAL_endcol) cmplines 0->0
+ver/VM/v09_el: EQ -> SNE  (STRICT_EQUAL_86_objects -> STRICT_NOTEQUAL_endcol) cmplines 0->0
+ver/VM/v10: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+ver/VM/v10_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+ver/VM/v12: EQ -> SNE  (STRICT_EQUAL_102_objects -> STRICT_NOTEQUAL_endcol) cmplines 0->0
+ver/VM/v12_el: EQ -> SNE  (STRICT_EQUAL_86_objects -> STRICT_NOTEQUAL_endcol) cmplines 0->0
+SUMMARY {'CMPNE->EQ': 35, 'CMPNE->SNE': 4, 'identical': 96, 'SNE->EQ': 41, 'bytes-moved-same-status': 98, 'EQ->SNE': 6} rc pairs {('0', '0'): 280} unparsed 0
+=== pri fix2
+impl/CU/u01: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 92->0
+impl/CU/u01_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 92->0
+impl/CU/u02: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_158_objects) cmplines 92->0
+impl/CU/u02_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_158_objects) cmplines 92->0
+impl/CU/u03: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_128_objects) cmplines 92->0
+impl/CU/u03_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_128_objects) cmplines 92->0
+impl/CU/u04: CMPNE -> SNE  (NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_line) cmplines 181->0
+impl/CU/u04_el: CMPNE -> SNE  (NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_line) cmplines 185->0
+impl/CU/u05: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_143_objects) cmplines 92->0
+impl/CU/u05_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_149_objects) cmplines 92->0
+impl/CU/u06: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_109_objects) cmplines 127->0
+impl/CU/u06_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_109_objects) cmplines 127->0
+impl/CU/u07: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_34_objects) cmplines 92->0
+impl/CU/u07_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_34_objects) cmplines 92->0
+impl/CU/u09: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_132_objects) cmplines 271->0
+impl/CU/u09_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_165_objects) cmplines 309->0
+impl/CU/u10: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_126_objects) cmplines 92->0
+impl/CU/u10_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_126_objects) cmplines 92->0
+impl/CU/u11: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_153_objects) cmplines 92->0
+impl/CU/u11_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_153_objects) cmplines 92->0
+impl/CU/u13: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_289_objects) cmplines 0->0
+impl/CU/u13_el: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_329_objects) cmplines 0->0
+impl/FW/f01: SNE -> EQ  (STRICT_NOTEQUAL_type -> STRICT_EQUAL_330_objects) cmplines 0->0
+impl/FW/f01_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_362_objects) cmplines 50->0
+impl/FW/g09: SNE -> EQ  (STRICT_NOTEQUAL_type -> STRICT_EQUAL_154_objects) cmplines 0->0
+impl/FW/g09_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_159_objects) cmplines 64->0
+impl/FW/g19: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 60->46
+impl/FW/g19_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 60->50
+impl/VM/k01: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_114_objects) cmplines 0->0
+impl/VM/k01_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_130_objects) cmplines 0->0
+impl/VM/k02: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_104_objects) cmplines 0->0
+impl/VM/k02_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_88_objects) cmplines 0->0
+impl/VM/k03: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_91_objects) cmplines 0->0
+impl/VM/k03_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_96_objects) cmplines 0->0
+impl/VM/k07: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+impl/VM/k07_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+impl/VM/k08: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+impl/VM/k08_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+impl/VM/k09: SNE -> EQ  (STRICT_NOTEQUAL_endline -> STRICT_EQUAL_102_objects) cmplines 0->0
+impl/VM/k09_el: SNE -> EQ  (STRICT_NOTEQUAL_endline -> STRICT_EQUAL_86_objects) cmplines 0->0
+impl/VM/k10: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_162_objects) cmplines 0->0
+impl/VM/k10_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_134_objects) cmplines 0->0
+impl/VM/k11: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_90_objects) cmplines 0->0
+impl/VM/k11_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_74_objects) cmplines 0->0
+impl/VM/k13: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_185_objects) cmplines 0->0
+impl/VM/k13_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_169_objects) cmplines 0->0
+tp/r11u155repro/cases/UF/f08: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_102_objects) cmplines 0->0
+tp/r11u155repro/cases/UF/f08_el: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_100_objects) cmplines 0->0
+tp/r11u217verify/cases/CS/c02: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->68
+tp/r11u217verify/cases/CS/c02_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->68
+tp/r11u235repro/cases/rs/r05: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 92->0
+tp/r11u235repro/cases/rs/r05_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 92->0
+tp/v11u146repro/cases/ct/c2_union: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_65_objects) cmplines 92->0
+tp/v11u146repro/cases/ct/c2_union_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_65_objects) cmplines 92->0
+tp/v11u209repro/cases/CS/v04: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_111_objects) cmplines 92->0
+tp/v11u209repro/cases/CS/v04_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_139_objects) cmplines 92->0
+tp/v11u235repro/cases/vk/k11: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_160_objects) cmplines 0->0
+tp/v11u235repro/cases/vk/k11_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_160_objects) cmplines 0->0
+ver/CU/c01: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_48_objects) cmplines 90->0
+ver/CU/c01_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_48_objects) cmplines 90->0
+ver/CU/c02: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 95->90
+ver/CU/c02_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 95->90
+ver/CU/c03: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->51
+ver/CU/c03_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->51
+ver/CU/c04: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_73_objects) cmplines 95->0
+ver/CU/c04_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_73_objects) cmplines 95->0
+ver/CU/c05: CMPNE -> SNE  (NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_fullname) cmplines 92->0
+ver/CU/c05_el: CMPNE -> SNE  (NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_fullname) cmplines 92->0
+ver/CU/c06: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->84
+ver/CU/c06_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->84
+ver/CU/c08: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_207_objects) cmplines 0->0
+ver/CU/c08_el: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_199_objects) cmplines 0->0
+ver/CU/c09: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_102_objects) cmplines 92->0
+ver/CU/c09_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_102_objects) cmplines 92->0
+ver/CU/c11: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_23_objects) cmplines 93->0
+ver/CU/c11_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_23_objects) cmplines 93->0
+ver/PS/s07: SNE -> EQ  (STRICT_NOTEQUAL_type -> STRICT_EQUAL_87_objects) cmplines 0->0
+ver/PS/s07_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_86_objects) cmplines 64->0
+ver/VM/v01: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_87_objects) cmplines 0->0
+ver/VM/v01_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_74_objects) cmplines 0->0
+ver/VM/v02: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_111_objects) cmplines 0->0
+ver/VM/v02_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_105_objects) cmplines 0->0
+ver/VM/v03: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_147_objects) cmplines 0->0
+ver/VM/v03_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_122_objects) cmplines 0->0
+ver/VM/v06: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_112_objects) cmplines 0->0
+ver/VM/v06_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_94_objects) cmplines 0->0
+ver/VM/v07: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_153_objects) cmplines 0->0
+ver/VM/v07_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_172_objects) cmplines 0->0
+ver/VM/v10: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+ver/VM/v10_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+ver/VM/v11: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_77_objects) cmplines 0->0
+ver/VM/v11_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_66_objects) cmplines 0->0
+ver/VM/v13: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_62_objects) cmplines 14->0
+ver/VM/v13_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_54_objects) cmplines 14->0
+SUMMARY {'CMPNE->EQ': 37, 'CMPNE->SNE': 4, 'identical': 108, 'SNE->EQ': 43, 'bytes-moved-same-status': 88} rc pairs {('0', '0'): 280} unparsed 0
+=== law fix2
+ver/VM/v04: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+ver/VM/v04_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+ver/VM/v09: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+ver/VM/v09_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+ver/VM/v11: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_77_objects) cmplines 0->0
+ver/VM/v11_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_66_objects) cmplines 0->0
+ver/VM/v12: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+ver/VM/v12_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+ver/VM/v13: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_62_objects) cmplines 14->0
+ver/VM/v13_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_54_objects) cmplines 14->0
+SUMMARY {'identical': 260, 'bytes-moved-same-status': 10, 'SNE->EQ': 8, 'CMPNE->EQ': 2} rc pairs {('0', '0'): 280} unparsed 0
+=== pri fuoff
+SUMMARY {'identical': 280} rc pairs {('0', '0'): 280} unparsed 0
+=== law fvoff
+SUMMARY {'identical': 280} rc pairs {('0', '0'): 280} unparsed 0
+=== fix2 fix
+SUMMARY {'identical': 280} rc pairs {('0', '0'): 280} unparsed 0
+=== xpkgsel fix2
+impl/FW/f01: SNE -> EQ  (STRICT_NOTEQUAL_type -> STRICT_EQUAL_330_objects) cmplines 0->0
+impl/FW/f01_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_362_objects) cmplines 50->0
+impl/FW/g09: SNE -> EQ  (STRICT_NOTEQUAL_type -> STRICT_EQUAL_154_objects) cmplines 0->0
+impl/FW/g09_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_159_objects) cmplines 64->0
+impl/FW/g19: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 60->46
+impl/FW/g19_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 60->50
+ver/PS/s07: SNE -> EQ  (STRICT_NOTEQUAL_type -> STRICT_EQUAL_87_objects) cmplines 0->0
+ver/PS/s07_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_86_objects) cmplines 64->0
+SUMMARY {'identical': 230, 'SNE->EQ': 3, 'CMPNE->EQ': 3, 'bytes-moved-same-status': 44} rc pairs {('0', '0'): 280} unparsed 0
+=== xpkgmem fix2
+SUMMARY {'identical': 248, 'bytes-moved-same-status': 32} rc pairs {('0', '0'): 280} unparsed 0
+=== xunion fix2
+impl/CU/u01: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 92->0
+impl/CU/u01_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 92->0
+impl/CU/u02: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_158_objects) cmplines 92->0
+impl/CU/u02_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_158_objects) cmplines 92->0
+impl/CU/u03: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_128_objects) cmplines 92->0
+impl/CU/u03_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_128_objects) cmplines 92->0
+impl/CU/u04: CMPNE -> SNE  (NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_line) cmplines 181->0
+impl/CU/u04_el: CMPNE -> SNE  (NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_line) cmplines 185->0
+impl/CU/u05: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_143_objects) cmplines 92->0
+impl/CU/u05_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_149_objects) cmplines 92->0
+impl/CU/u06: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_109_objects) cmplines 127->0
+impl/CU/u06_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_109_objects) cmplines 127->0
+impl/CU/u07: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_34_objects) cmplines 92->0
+impl/CU/u07_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_34_objects) cmplines 92->0
+impl/CU/u09: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_132_objects) cmplines 271->0
+impl/CU/u09_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_165_objects) cmplines 309->0
+impl/CU/u10: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_126_objects) cmplines 92->0
+impl/CU/u10_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_126_objects) cmplines 92->0
+impl/CU/u11: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_153_objects) cmplines 92->0
+impl/CU/u11_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_153_objects) cmplines 92->0
+tp/r11u217verify/cases/CS/c02: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->68
+tp/r11u217verify/cases/CS/c02_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->68
+tp/r11u235repro/cases/rs/r05: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 92->0
+tp/r11u235repro/cases/rs/r05_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 92->0
+tp/v11u146repro/cases/ct/c2_union: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_65_objects) cmplines 92->0
+tp/v11u146repro/cases/ct/c2_union_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_65_objects) cmplines 92->0
+tp/v11u209repro/cases/CS/v04: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_111_objects) cmplines 92->0
+tp/v11u209repro/cases/CS/v04_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_139_objects) cmplines 92->0
+ver/CU/c01: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_48_objects) cmplines 90->0
+ver/CU/c01_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_48_objects) cmplines 90->0
+ver/CU/c02: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 95->90
+ver/CU/c02_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 95->90
+ver/CU/c03: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->51
+ver/CU/c03_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->51
+ver/CU/c04: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_73_objects) cmplines 95->0
+ver/CU/c04_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_73_objects) cmplines 95->0
+ver/CU/c05: CMPNE -> SNE  (NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_fullname) cmplines 92->0
+ver/CU/c05_el: CMPNE -> SNE  (NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_fullname) cmplines 92->0
+ver/CU/c06: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->84
+ver/CU/c06_el: CMPNE moved (NOT_EQUAL_stage1 -> NOT_EQUAL_stage1) cmplines 92->84
+ver/CU/c09: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_102_objects) cmplines 92->0
+ver/CU/c09_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_102_objects) cmplines 92->0
+ver/CU/c11: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_23_objects) cmplines 93->0
+ver/CU/c11_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_23_objects) cmplines 93->0
+SUMMARY {'CMPNE->EQ': 32, 'CMPNE->SNE': 4, 'identical': 236, 'bytes-moved-same-status': 8} rc pairs {('0', '0'): 280} unparsed 0
+=== xuenum fix2
+impl/CU/u01: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 72->0
+impl/CU/u01_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 72->0
+impl/CU/u10: SNE -> EQ  (STRICT_NOTEQUAL_type -> STRICT_EQUAL_126_objects) cmplines 0->0
+impl/CU/u10_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_126_objects) cmplines 72->0
+tp/r11u235repro/cases/rs/r05: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 72->0
+tp/r11u235repro/cases/rs/r05_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_122_objects) cmplines 72->0
+SUMMARY {'CMPNE->EQ': 5, 'identical': 274, 'SNE->EQ': 1} rc pairs {('0', '0'): 280} unparsed 0
+=== xuret fix2
+impl/CU/u13: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_289_objects) cmplines 0->0
+impl/CU/u13_el: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_329_objects) cmplines 0->0
+tp/r11u155repro/cases/UF/f08: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_102_objects) cmplines 0->0
+tp/r11u155repro/cases/UF/f08_el: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_100_objects) cmplines 0->0
+ver/CU/c08: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_207_objects) cmplines 0->0
+ver/CU/c08_el: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_199_objects) cmplines 0->0
+ver/CU/c09: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_102_objects) cmplines 0->0
+ver/CU/c09_el: SNE -> EQ  (STRICT_NOTEQUAL_line -> STRICT_EQUAL_102_objects) cmplines 0->0
+SUMMARY {'identical': 270, 'bytes-moved-same-status': 2, 'SNE->EQ': 8} rc pairs {('0', '0'): 280} unparsed 0
+=== xvlog fix2
+impl/VM/k01: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_114_objects) cmplines 0->0
+impl/VM/k01_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_130_objects) cmplines 0->0
+impl/VM/k02: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_104_objects) cmplines 0->0
+impl/VM/k02_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_88_objects) cmplines 0->0
+impl/VM/k03: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_91_objects) cmplines 0->0
+impl/VM/k03_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_96_objects) cmplines 0->0
+impl/VM/k07: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+impl/VM/k07_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+impl/VM/k08: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+impl/VM/k08_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+impl/VM/k09: SNE -> EQ  (STRICT_NOTEQUAL_endline -> STRICT_EQUAL_102_objects) cmplines 0->0
+impl/VM/k09_el: SNE -> EQ  (STRICT_NOTEQUAL_endline -> STRICT_EQUAL_86_objects) cmplines 0->0
+impl/VM/k10: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_162_objects) cmplines 0->0
+impl/VM/k10_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_134_objects) cmplines 0->0
+impl/VM/k11: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_90_objects) cmplines 0->0
+impl/VM/k11_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_74_objects) cmplines 0->0
+impl/VM/k13: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_185_objects) cmplines 0->0
+impl/VM/k13_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_169_objects) cmplines 0->0
+tp/v11u235repro/cases/vk/k11: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_160_objects) cmplines 0->0
+tp/v11u235repro/cases/vk/k11_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_160_objects) cmplines 0->0
+ver/VM/v01: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_87_objects) cmplines 0->0
+ver/VM/v01_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_74_objects) cmplines 0->0
+ver/VM/v02: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_111_objects) cmplines 0->0
+ver/VM/v02_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_105_objects) cmplines 0->0
+ver/VM/v03: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_147_objects) cmplines 0->0
+ver/VM/v03_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_122_objects) cmplines 0->0
+ver/VM/v06: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_112_objects) cmplines 0->0
+ver/VM/v06_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_94_objects) cmplines 0->0
+ver/VM/v07: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_153_objects) cmplines 0->0
+ver/VM/v07_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_172_objects) cmplines 0->0
+ver/VM/v10: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+ver/VM/v10_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+SUMMARY {'identical': 244, 'SNE->EQ': 32, 'bytes-moved-same-status': 4} rc pairs {('0', '0'): 280} unparsed 0
+=== fbits fix2
+SUMMARY {'identical': 274, 'bytes-moved-same-status': 6} rc pairs {('0', '0'): 280} unparsed 0
+=== fbare fix2
+SUMMARY {'identical': 276, 'bytes-moved-same-status': 4} rc pairs {('0', '0'): 280} unparsed 0
+=== fkw fix2
+ver/VM/v04: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+ver/VM/v04_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+ver/VM/v09: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+ver/VM/v09_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+ver/VM/v12: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_102_objects) cmplines 0->0
+ver/VM/v12_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_86_objects) cmplines 0->0
+SUMMARY {'identical': 274, 'SNE->EQ': 6} rc pairs {('0', '0'): 280} unparsed 0
+=== fkwe fix2
+ver/VM/v11: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_77_objects) cmplines 0->0
+ver/VM/v11_el: SNE -> EQ  (STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_66_objects) cmplines 0->0
+ver/VM/v13: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_62_objects) cmplines 14->0
+ver/VM/v13_el: CMPNE -> EQ  (NOT_EQUAL_stage1 -> STRICT_EQUAL_54_objects) cmplines 14->0
+SUMMARY {'identical': 276, 'SNE->EQ': 2, 'CMPNE->EQ': 2} rc pairs {('0', '0'): 280} unparsed 0

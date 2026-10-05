@@ -1,0 +1,1 @@
+probe census: 4087 cases, 0 fired
