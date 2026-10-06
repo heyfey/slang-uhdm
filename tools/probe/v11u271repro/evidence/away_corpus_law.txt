@@ -1,0 +1,21 @@
+surelog/default/ArrayMethodIterator-4d30a494 chain away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/BuildUVMPkg-fc55bd0c chain away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/MiniAmiq-055eab74 chain away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/Scoreboard-72aa0ba8 chain away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/SeqDriver-65178d3a chain away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/SimpleUVM-267de3ff chain away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/ArrayMethodIterator-4d30a494 chain away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/BuildUVMPkg-fc55bd0c chain away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/MiniAmiq-055eab74 chain away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/SeqDriver-65178d3a chain away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/SimpleUVM-267de3ff chain away=0 toward=0 flat_away=0 flat_toward=0
+ugrep: warning: /tmp/v11u271_wdP/11/cmds.txt: No such file or directory
+Traceback (most recent call last):
+  File "/tmp/wt_v11u271/tools/probe/r11u271repro/drivers/awaychain.py", line 22, in <module>
+    (G, Gf), (O, Of), (N, Nf) = ns['keyed'](g), ns['keyed'](o), ns['keyed'](n)
+                                ^^^^^^^^^^^^^^
+  File "/tmp/wt_v11u271/tools/probe/r11u271repro/drivers/awayrows.py", line 42, in keyed
+    for l in open(t, errors='replace'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/v11u271_S/awaycache/None.1598946.133252207626048.rec'
+11 

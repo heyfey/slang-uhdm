@@ -1,0 +1,34 @@
+== default/SeqDriver-65178d3a
+#218195 depth
+  A: 4	class_var			uvm_pkg::uvm_component_registry::create_component	uvm_registry.svh	63	20	63	33		0
+  B: 6	class_typespec	uvm_component			uvm_registry.svh	51	39	51	52
+objects 475526 vs 475530
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== testflags/SeqDriver-65178d3a
+#218207 depth
+  A: 4	class_var			uvm_pkg::uvm_component_registry::create_component	uvm_registry.svh	63	20	63	33		0
+  B: 6	class_typespec	uvm_component			uvm_registry.svh	51	39	51	52
+objects 475538 vs 475542
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== default/MiniAmiq-055eab74
+#217949 endcol
+  A: 8	sys_func_call	$sformatf			svaunit_test.svh	433	14	434	75		0
+  B: 8	sys_func_call	$sformatf			svaunit_test.svh	433	14	434	85		0
+#223178 depth
+  A: 4	class_var			uvm_pkg::uvm_component_registry::create_component	uvm_registry.svh	63	20	63	33		0
+  B: 6	class_typespec	uvm_component			uvm_registry.svh	51	39	51	52
+objects 435559 vs 435553
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=2 size=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL endcol
+== testflags/MiniAmiq-055eab74
+#217949 endcol
+  A: 8	sys_func_call	$sformatf			svaunit_test.svh	433	14	434	75		0
+  B: 8	sys_func_call	$sformatf			svaunit_test.svh	433	14	434	85		0
+#223178 depth
+  A: 4	class_var			uvm_pkg::uvm_component_registry::create_component	uvm_registry.svh	63	20	63	33		0
+  B: 6	class_typespec	uvm_component			uvm_registry.svh	51	39	51	52
+objects 435559 vs 435553
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=2 size=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL endcol

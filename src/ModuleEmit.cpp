@@ -46,6 +46,7 @@
 #include "R263.h"
 #include "R267.h"
 #include "R269.h"
+#include "R271.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -40734,6 +40735,26 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             substNdaParamRefs(s, rhs, elabPmap9, prefix, ca, netTsAlias,
                               /*selFull=*/std::string(), /*paAnchor=*/false,
                               &elabPTs9);
+        // § ndaImpEnumConstUnlocated271 — the MODULE home: a whole Rhs that
+        // is an enum member read as a BARE name (`wire w = ED;`) is reduced
+        // by Surelog's writeCont_assign to the member's constant, unlocated
+        // and parented at the cloned cell (N/n02, n17: golden `constant
+        // UINT:4` where ours kept `ref_obj ED`, uhdm-cmp stage 1).
+        if (rhs && rhs->UhdmType() == UHDM::uhdmref_obj &&
+            r11u271On("R11U271_NDAIMPENUM_OFF")) {
+            auto& ne271 = stripImplicitConv(*dt->getInitializer());
+            if (ne271.kind == ExpressionKind::NamedValue && ne271.syntax &&
+                ne271.syntax->kind == syntax::SyntaxKind::IdentifierName) {
+                auto& es271 = ne271.as<NamedValueExpression>().symbol;
+                if (es271.kind == SymbolKind::EnumValue)
+                    if (auto* c271 = enumMemberSubstConst(es271)) {
+                        c271->VpiParent(ca);
+                        rhs = c271;
+                        tr271("ndaImpEnumConstUnlocated271",
+                              "module " + prefix + "." + std::string(it.sym->name));
+                    }
+            }
+        }
         if (rhs) {
             // Surelog sizes a bare-decimal RHS (default 64) to the net width.
             if (rhs->UhdmType() == UHDM::uhdmconstant &&
@@ -40873,8 +40894,50 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // A RHS that SUBSTITUTED to a bare constant counts as a literal for the
         // netlist re-elaboration decision (Surelog: `wire w = PARAM;` in an
         // instance gets the fresh Lhs net a literal RHS gets).
+        // § ndaConstRhsFreshLhs271 (r11u271, the probe residue's largest
+        // module/type bucket: r11u88repro q1 / q2 / q7 / a3, r11v88repro v1 /
+        // v2 / v20 / v25 / v26 / v28, r11v96repro v6) — Surelog's
+        // UhdmWriter::writeCont_assign clones the cell, its Lhs net included,
+        // whenever reduceExpr turns the Rhs into a constant (the `simplified
+        // == false` branch: `if (res->UhdmType() == uhdmconstant) { if
+        // (cloned == false) clone_tree(assign) ... }`), whatever produced the
+        // constant: a literal, a parameter, a package parameter (`pk::PK`) or
+        // a package enum member (`pk::EB`).  We cloned on a literal or an
+        // operation and on a parameter this pass substituted, and shared the
+        // listed net when the constant came from a package parameter or an
+        // enum member folded earlier; golden's walk then lists the cell's Lhs
+        // net in full where ours had listed it already (`differ:depth`).  A
+        // Rhs that stays a reference (a net, a variable) keeps the shared
+        // net, as Surelog's reduceExpr leaves it unreduced.  Grid
+        // tools/probe/r11u271repro/cases/N.  Switch R11U271_NDACONSTLHS_OFF.
+        // An `inside` Rhs is an operation Surelog's flattenPatternAssignments
+        // hands back against the net's typespec, so it clones the cell too
+        // (r10uvm99repro g99_a2_proc; containsOperation does not list it).
+        const bool constRhs271 = ((rhs && rhs->UhdmType() == UHDM::uhdmconstant) ||
+                                  stripImplicitConv(ncInit).kind == ExpressionKind::Inside) &&
+                                 r11u271On("R11U271_NDACONSTLHS_OFF");
+        if (constRhs271 && !isLiteralExpr(stripImplicitConv(ncInit)) &&
+            !containsOperation(ncInit) && !ndaSubst9)
+            tr271("ndaConstRhsFreshLhs271", "module " + prefix + "." + std::string(it.sym->name));
+        // § ndaLawLhsTsDeferred271v (v11u271) — the cell the law alone clones
+        // (not the literal / operation / substituted-parameter rule) may meet
+        // a listed net whose ref_typespec is still unbound: a BOUND instance
+        // (`bind dut chk u_chk (...)`) in the default view gets its net
+        // typespecs after its continuous assignments.  The fresh Lhs then
+        // carried no typespec at all where golden's clone_tree keeps the
+        // declared one (v11u271repro VN/vn28: judge-equal on pristine,
+        // uhdm-cmp stage 1 under the law).  The fresh Lhs queues its own
+        // typespec on pendingNetDeclTs, as for a bound listing.  Switch
+        // R11V271_LAWLHSTS_OFF.
+        const bool lawOnly271 =
+            constRhs271 && !isLiteralExpr(stripImplicitConv(ncInit)) &&
+            !containsOperation(ncInit) &&
+            !(ndaSubst9 && rhs && rhs->UhdmType() == UHDM::uhdmconstant);
+        const bool lawLhsTsLate271 =
+            lawOnly271 && mnet->Typespec() && !mnet->Typespec()->Actual_typespec() &&
+            r11v271On("R11V271_LAWLHSTS_OFF");
         if (isLiteralExpr(stripImplicitConv(ncInit)) || containsOperation(ncInit) ||
-            (ndaSubst9 && rhs && rhs->UhdmType() == UHDM::uhdmconstant)) {
+            (ndaSubst9 && rhs && rhs->UhdmType() == UHDM::uhdmconstant) || constRhs271) {
             bool isStructNet =
                 nit->second->UhdmType() == UHDM::uhdmstruct_net || arrOfStruct;
             UHDM::net* lnet = isStructNet ? (UHDM::net*)s.MakeStruct_net()
@@ -40912,7 +40975,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 setLoc(lnet, regNetSpan(*it.sym));
             }
             if ((mnet->Typespec() && mnet->Typespec()->Actual_typespec()) ||
-                arrOfStruct) {
+                arrOfStruct || lawLhsTsLate271) {
+                if (lawLhsTsLate271 && !arrOfStruct)
+                    tr271("ndaLawLhsTsDeferred271v",
+                          prefix + "." + std::string(it.sym->name));
                 auto* rt = s.MakeRef_typespec();
                 rt->VpiFullName(prefix + "." + std::string(it.sym->name));
                 rt->VpiParent(lnet);
@@ -52655,9 +52721,25 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 }
                 else if (nsym88.kind == SymbolKind::EnumValue)
                     nc88 = enumMemberSubstConst(nsym88);
+                // § ndaImpEnumConstUnlocated271 (r11u271, r11v88repro v28) — an
+                // enum member read as a BARE name (`wire w = ED;`, through a
+                // wildcard import or declared in the interface itself) folds
+                // to a constant golden leaves unlocated (no file, 0:0), where
+                // the qualified `pk::ED` keeps the name's span.  Switch
+                // R11U271_NDAIMPENUM_OFF.
+                bool impEnumBare271 = false;
+                if (nc88 && nsym88.kind == SymbolKind::EnumValue &&
+                    r11u271On("R11U271_NDAIMPENUM_OFF"))
+                    if (auto* nsx = nameInit88->syntax;
+                        nsx && nsx->kind == syntax::SyntaxKind::IdentifierName)
+                        impEnumBare271 = true;
                 if (nc88) {
                     nc88->VpiParent(ca88);
-                    setLoc(nc88, nameInit88->sourceRange);
+                    if (impEnumBare271)
+                        tr271("ndaImpEnumConstUnlocated271",
+                              prefix + "." + std::string(it88.sym->name));
+                    else
+                        setLoc(nc88, nameInit88->sourceRange);
                     rhs88 = nc88;
                 }
             }
@@ -52698,8 +52780,22 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // netlist re-elaboration): a LITERAL or an OPERATION RHS gets a
             // FRESH net object with its own deferred typespec, a bare
             // reference RHS shares the listing net.
+            // § ndaConstRhsFreshLhs271 — a RHS that REDUCES to a constant (an
+            // interface or package parameter, a package enum member) clones
+            // the cell too (the interface home's twin of the module home's
+            // rule, law at emitContAssigns).  Switch R11U271_NDACONSTLHS_OFF.
+            const bool constRhs271 =
+                ((rhs88 && rhs88->UhdmType() == UHDM::uhdmconstant) ||
+                 stripImplicitConv(*dt88->getInitializer()).kind ==
+                     ExpressionKind::Inside) &&
+                r11u271On("R11U271_NDACONSTLHS_OFF");
             if (isLiteralExpr(stripImplicitConv(*dt88->getInitializer())) ||
-                containsOperation(*dt88->getInitializer())) {
+                containsOperation(*dt88->getInitializer()) || constRhs271) {
+                if (constRhs271 &&
+                    !isLiteralExpr(stripImplicitConv(*dt88->getInitializer())) &&
+                    !containsOperation(*dt88->getInitializer()))
+                    tr271("ndaConstRhsFreshLhs271",
+                          "iface " + prefix + "." + std::string(it88.sym->name));
                 auto* ln88 = s.MakeLogic_net();
                 ln88->VpiName(it88.sym->name);
                 ln88->VpiFullName(prefix + "." + std::string(it88.sym->name));

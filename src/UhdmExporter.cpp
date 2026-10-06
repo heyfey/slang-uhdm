@@ -30,6 +30,7 @@
 #include "R265.h"
 #include "R261.h"
 #include "R269.h"
+#include "R271.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -913,6 +914,8 @@ void enumImportParentDrain180(UHDM::design* d); // § enumImportParentLastWriter
 // § clsTpKwDefaultArrElemAtUse247 (TypeEmit.cpp)
 void noteTpUseKeyword247(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
                          const slang::syntax::SyntaxNode* typeSyn);
+// § tpUseSharesOwnTs271 (TypeEmit.cpp fills it in the 180 drain)
+extern std::vector<std::pair<UHDM::typespec*, UHDM::typespec*>> g_tpUseShare271;
 // § classTpDefaultTsAtUse180 (TypeEmit.cpp)
 void noteTpOwnTs180(const slang::ast::Symbol* tp, UHDM::typespec* ts, bool winner87);
 const slang::ast::Type* tpTdTarget234(const slang::ast::Type& t, int* chainDepth = nullptr); // § tpTdDefaultUseSharesListing234 (TypeEmit.cpp)
@@ -18136,6 +18139,53 @@ UHDM::design* UhdmExporter::exportDesign() {
     g_setLoc234 = [this](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); };
     classTpDefaultTsDrain180();
     g_setLoc234 = nullptr;
+    // § tpUseSharesOwnTs271 (r11u271, the UVM rows' type-parameter use face:
+    // SeqDriver #218195 / #218260, MiniAmiq #223178) — a declaration written
+    // with one of its class's own type parameters (a property, a method or
+    // nested-block local, a return value, an array element) is typed by the
+    // type parameter's OWN typespec object in golden, not a copy:
+    // CompileType's ParamType arm (Surelog src/DesignCompile/CompileType.cpp,
+    // the uhdmtype_parameter case of compileTypespec) hands back the
+    // parameter's typespec itself.  § classTpDefaultTsAtUse180 gave each use a
+    // per-use object carrying the own object's name and span, which the
+    // strict walk canonicalises only while that object has not been listed
+    // inside a class_typespec: once a specialization's listing (the UVM
+    // registry's `this_type` / `type_id`) has listed the parameter's object,
+    // golden's later references list nothing and ours list the copy
+    // (`differ:depth`).  The use's ref_typespec now points at the own object
+    // (the chain root's for `type U = T`, § classTpChainRootShares180); the
+    // drain's per-use object is left unreferenced.  Grid
+    // tools/probe/r11u271repro/cases/T.  Switch R11U271_TPUSESHARE_OFF.
+    if (!g_tpUseShare271.empty()) {
+        std::map<const UHDM::typespec*, UHDM::typespec*> to271;
+        for (auto& [u, o] : g_tpUseShare271)
+            to271[u] = o;
+        // a chain: the target of a target
+        for (auto& [u, o] : to271)
+            for (int g = 0; g < 8; g++) {
+                auto n = to271.find(o);
+                if (n == to271.end() || n->second == o)
+                    break;
+                o = n->second;
+            }
+        std::vector<UHDM::ref_typespec*> rts271;
+        for (auto& kv : s.AllObjects()) {
+            auto* o = (UHDM::BaseClass*)kv.first;
+            if (o->UhdmType() == UHDM::uhdmref_typespec)
+                rts271.push_back((UHDM::ref_typespec*)o);
+        }
+        std::sort(rts271.begin(), rts271.end(),
+                  [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+                      return a->UhdmId() < b->UhdmId();
+                  });
+        for (auto* rt : rts271)
+            if (auto it = to271.find(rt->Actual_typespec()); it != to271.end()) {
+                rt->Actual_typespec(it->second);
+                tr271("tpUseSharesOwnTs271", std::string(it->second->VpiName()) + " " +
+                                                 std::string(rt->VpiFullName()));
+            }
+        g_tpUseShare271.clear();
+    }
     // § modAggTfArgCloneFollows180 (r11u180) — design-final (law and decode
     // at TypeEmit.cpp).
     modAggCloneDrain180(s);

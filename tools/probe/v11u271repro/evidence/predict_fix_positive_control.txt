@@ -1,0 +1,4 @@
+positive control: the fix binary under R11U271_TRACE on VN/vn28 and VT/vt08
+      1 ndaConstRhsFreshLhs271 module work@dut.u_chk.w_p
+      1 ndaLawLhsTsDeferred271v work@dut.u_chk.w_p
+      3 tpUseShareModClassAbstains271v use T

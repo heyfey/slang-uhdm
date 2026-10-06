@@ -1,0 +1,13 @@
+== canaries.sh law surelog.csv vs results/golden_surelog.csv
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:depth(1) -> STRICT_NOTEQUAL/differ:fullname(6)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:depth(1) -> STRICT_NOTEQUAL/differ:fullname(6)
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+== canaries.sh law uhdm2rtlil.csv vs results/golden_uhdm2rtlil.csv
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== ctcan2 surelog (EXPECT_UNKNOWN=1)
+PASS: every supplementary canary row is byte-identical to the baseline.
+== ctcan2 uhdm2rtlil (EXPECT_UNKNOWN=6)
+PASS: every supplementary canary row is byte-identical to the baseline.
+== binary-path audit (fence-filtered cmds.txt)
+pristine sweep: 3315 cmds.txt, 3265 naming the pristine binary, 50 with no slang line, 0 naming another binary
+law sweep: 3315 cmds.txt, 3265 naming the law binary, 50 with no slang line, 0 naming another binary

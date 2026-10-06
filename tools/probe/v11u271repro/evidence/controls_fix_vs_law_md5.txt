@@ -1,0 +1,12 @@
+835,836c835,836
+< tp/r11u180repro/cases/A/a16_el md5=00acfd5a
+< tp/r11u180repro/cases/A/a16 md5=6d3a1e2f
+---
+> tp/r11u180repro/cases/A/a16_el md5=ab468b71
+> tp/r11u180repro/cases/A/a16 md5=feb8d77d
+1625,1626c1625,1626
+< tp/r11u241repro/cases/TD/d08_el md5=be574ea4
+< tp/r11u241repro/cases/TD/d08 md5=44b2ee9f
+---
+> tp/r11u241repro/cases/TD/d08_el md5=4c48861a
+> tp/r11u241repro/cases/TD/d08 md5=d2cf4d01

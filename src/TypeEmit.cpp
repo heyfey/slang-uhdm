@@ -31,6 +31,7 @@
 #include "R259.h"
 #include "R261.h"
 #include "R269.h"
+#include "R271.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -1980,6 +1981,32 @@ namespace {
 std::map<const Symbol*, UHDM::typespec*> tpOwnTs180;
 std::vector<std::pair<UHDM::typespec*, const Symbol*>> tpUse180;
 } // namespace
+// § tpUseSharesOwnTs271 (r11u271) — the redirect list the 180 drain hands to
+// the exporter: (use object, the type parameter's own object).
+std::vector<std::pair<UHDM::typespec*, UHDM::typespec*>> g_tpUseShare271;
+// § tpUseShareModClassAbstains271v (v11u271) — for a class declared in a
+// module, interface or program body, golden lists a specialization typedef
+// (`typedef reg_c #(sbase) type_id;`) as a bare class_typespec, and ours lists
+// its param_assigns (pass 269's residue VU/vu04, wrong on pristine too), which
+// lists the type parameter's own object there first; sharing that object
+// then leaves golden's later references (the property, the local, the
+// return) without their class_typespec records (v11u271repro VT/vt08: 3 / 8
+// chain-keyed records away from golden in the two views).  The redirect
+// stands aside for a type parameter whose class sits in an instance body.
+// Switch R11V271_MODCLASS_OFF.
+static bool tpInInstanceBody271(const Symbol* tp) {
+    if (!r11v271On("R11V271_MODCLASS_OFF"))
+        return false;
+    for (auto* sc = tp ? tp->getParentScope() : nullptr; sc;) {
+        auto& sy = sc->asSymbol();
+        if (sy.kind == SymbolKind::InstanceBody)
+            return true;
+        if (sy.kind == SymbolKind::Package || sy.kind == SymbolKind::CompilationUnit)
+            return false;
+        sc = sy.getParentScope();
+    }
+    return false;
+}
 // § classTpChainRootShares180 (r11u180) — a type parameter whose default is
 // ANOTHER type parameter of the same class (`type RSP = REQ`) resolves, in
 // compileTypespec, to that parameter's own object: the chain's ROOT holds the
@@ -2595,6 +2622,22 @@ void classTpDefaultTsDrain180() {
         own->VpiEndColumnNo(f.ts->VpiEndColumnNo());
         trace180("TPFORMAL", std::string(tp->name));
     }
+    // § tpUseSharesOwnTs271 — a formal written with the parameter reads the
+    // parameter's own object too (moved to the last formal's token above).
+    // Switch R11U271_TPFORMALSHARE_OFF.
+    if (r11u271On("R11U271_TPUSESHARE_OFF") && r11u271On("R11U271_TPFORMALSHARE_OFF"))
+        for (auto& [tp, fts] : tpFormalAll180) {
+            auto it = tpOwnTs180.find(tp);
+            if (it == tpOwnTs180.end() || !it->second || !fts || it->second == fts ||
+                it->second->UhdmType() != fts->UhdmType() ||
+                !tpFormal180.count(tp))
+                continue;
+            if (tpInInstanceBody271(tp)) {
+                tr271("tpUseShareModClassAbstains271v", "formal " + std::string(tp->name));
+                continue;
+            }
+            g_tpUseShare271.push_back({fts, it->second});
+        }
     for (auto& [tp, fts] : tpFormalAll180) {
         auto it = tpFormal180.find(tp);
         if (it == tpFormal180.end() || !fts || fts == it->second.ts ||
@@ -2630,6 +2673,20 @@ void classTpDefaultTsDrain180() {
         mts->VpiEndColumnNo(r->VpiEndColumnNo());
         trace180("TPCHAIN", std::string(tp->name));
     }
+    // § tpUseSharesOwnTs271 — the chain members' own objects read the
+    // root's object (the redirect below).
+    if (r11u271On("R11U271_TPUSESHARE_OFF"))
+        for (auto& [tp, mts] : tpChainMembers180) {
+            auto it = tpOwnTs180.find(tpChainRoot180(tp));
+            if (it != tpOwnTs180.end() && it->second && mts && it->second != mts &&
+                it->second->UhdmType() == mts->UhdmType()) {
+                if (tpInInstanceBody271(tp)) {
+                    tr271("tpUseShareModClassAbstains271v", "chain " + std::string(tp->name));
+                    continue;
+                }
+                g_tpUseShare271.push_back({mts, it->second});
+            }
+        }
     tpChainMembers180.clear();
     for (auto& [ts, tp] : tpUse180) {
         auto it = tpOwnTs180.find(tp);
@@ -2638,6 +2695,19 @@ void classTpDefaultTsDrain180() {
         auto* own = it->second;
         if (own->UhdmType() != ts->UhdmType())
             continue;
+        // § tpUseSharesOwnTs271 — the use reads the parameter's own object
+        // itself (the chain root's for a chain member).
+        if (r11u271On("R11U271_TPUSESHARE_OFF")) {
+            UHDM::typespec* tgt = own;
+            if (auto rit = tpOwnTs180.find(tpChainRoot180(tp));
+                rit != tpOwnTs180.end() && rit->second &&
+                rit->second->UhdmType() == ts->UhdmType())
+                tgt = rit->second;
+            if (tgt != ts && tpInInstanceBody271(tp))
+                tr271("tpUseShareModClassAbstains271v", "use " + std::string(tp->name));
+            else if (tgt != ts)
+                g_tpUseShare271.push_back({ts, tgt});
+        }
         bool moved = ts->VpiName() != own->VpiName() ||
                      ts->VpiFile() != own->VpiFile() ||
                      ts->VpiLineNo() != own->VpiLineNo() ||

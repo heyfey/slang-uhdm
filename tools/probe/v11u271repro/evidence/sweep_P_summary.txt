@@ -1,0 +1,12 @@
+/tmp/v11u271_sweepP2.log:law index STALE: tests/LAWS.md (run scripts/law_index.py)
+/tmp/v11u271_sweepP2.log:== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+/tmp/v11u271_sweepP2.log:downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+/tmp/v11u271_sweepP2.log:SWEEP_RC=1
+/tmp/v11u271_sweepP1.log:law index STALE: tests/LAWS.md (run scripts/law_index.py)
+/tmp/v11u271_sweepP1.log:== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u271_wdP/probe.csv
+/tmp/v11u271_sweepP1.log:probe cases: EQUAL=3593 STRICT_NOTEQUAL=494 (of 4087); goldens built now=0, from cache=4087
+/tmp/v11u271_sweepP1.log:probe strict: equal=3593 differ:fullname=160 differ:type=74 differ:endcol=67 differ:line=57 differ:name=57 differ:depth=27 differ:file=24 differ:col=13 differ:endline=10 differ:value=4 differ:decompile=1
+/tmp/v11u271_sweepP1.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/v11u271_sweepP1.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/v11u271_sweepP1.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/v11u271_sweepP1.log:SWEEP_RC=1

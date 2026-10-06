@@ -1,0 +1,36 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u271_wdF/probe.csv
+probe cases: EQUAL=3604 STRICT_NOTEQUAL=483 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3604 differ:fullname=160 differ:type=74 differ:endcol=67 differ:line=57 differ:name=57 differ:file=24 differ:depth=15 differ:col=13 differ:endline=10 differ:value=4 differ:count=1 differ:decompile=1
+[probe] EQUAL=3604 STRICT_NOTEQUAL=483
+CONVERSION r11u88repro/grid/a3_ndassign STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u88repro/grid/q1_ifnda STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u88repro/grid/q2_ndakinds STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u88repro/grid/q7_ndamod STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11v88repro/grid/v1_pkgshadow STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11v88repro/grid/v20_ndahier STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11v88repro/grid/v25_enumshadowmod STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11v88repro/grid/v26_pkgvecshadow STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11v88repro/grid/v28_ndaimport STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11v88repro/grid/v2_enumshadow STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11v96repro/v6_modhome96v STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CHANGE r10uvm99repro/g99_a2_proc STRICT_NOTEQUAL differ:depth(1) -> differ:count(0)
+CHANGE r11u88repro/grid/q12_ndaparamenc STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(1) [endcol -1]
+regressions=0 conversions=11 changes=2 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=476 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=4 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=470 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=4 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(5) [endcol +3]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(5) [endcol +3]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(6)
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(6)
+regressions=0 conversions=0 changes=4 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+SWEEP_RC=1

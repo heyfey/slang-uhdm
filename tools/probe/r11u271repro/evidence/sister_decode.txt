@@ -1,0 +1,22 @@
+== MiniAmiq default #227149: the cast uvm_severity_type'(severity) in svaunit_reporter compose_message (drivers/idobj.cpp; uid = UhdmId)
+-- golden
+RT ['21106', 'uid=256571', 'ref_typespec', '', '0:0', 'par=256570', 'operation', 'tgt=2249', 'enum_typespec', 'alias=-1', '']
+ENUM ['5', 'uid=2249', 'enum_typespec', 'uvm_pkg::uvm_severity_type', '242:1', 'par=341786', 'interface_inst', 'tgt=-1', '-', 'alias=2259', 'uvm_object_globals.svh']
+ALIASREF ['129', 'uid=2259', 'ref_typespec', '', '0:0', 'par=2249', 'enum_typespec', 'tgt=2243', 'enum_typespec', 'alias=-1', '']
+ALIASTGT ['4', 'uid=2243', 'enum_typespec', 'uvm_pkg::uvm_severity', '352:37', 'par=341786', 'interface_inst', 'tgt=-1', '-', 'alias=-1', 'uvm_sequence_item.svh']
+-- law (the same on pristine)
+RT ['18341', 'uid=187659', 'ref_typespec', '', '0:0', 'par=187658', 'operation', 'tgt=475', 'enum_typespec', 'alias=-1', '']
+ENUM ['5', 'uid=475', 'enum_typespec', 'uvm_pkg::uvm_severity_type', '242:1', 'par=300151', 'interface_inst', 'tgt=-1', '-', 'alias=485', 'uvm_object_globals.svh']
+ALIASREF ['40', 'uid=485', 'ref_typespec', '', '0:0', 'par=475', 'enum_typespec', 'tgt=-1', '-', 'alias=-1', '']
+-- every uvm_severity / uvm_severity_type enum_typespec, law
+5	uid=475	enum_typespec	uvm_pkg::uvm_severity_type	242:1	par=300151	interface_inst	tgt=-1	-	alias=485	uvm_object_globals.svh
+38	uid=3395	enum_typespec	uvm_pkg::uvm_severity_type	242:1	par=300151	interface_inst	tgt=-1	-	alias=3405	uvm_object_globals.svh
+-- golden
+5	uid=2249	enum_typespec	uvm_pkg::uvm_severity_type	242:1	par=341786	interface_inst	tgt=-1	-	alias=2259	uvm_object_globals.svh
+
+== R/r04 (module function, inside set of package parameters): ref_typespec mint sites, gdb on the law binary (bt frames 1-3, counts)
+      8 #1 slang_uhdm::UhdmExporter::emitParameters	#2 slang_uhdm::UhdmExporter::emitPackage	#3 slang_uhdm::UhdmExporter::exportDesign
+      6 #1 slang_uhdm::UhdmExporter::emitParameters	#2 slang_uhdm::UhdmExporter::exportDesign	#3 realMain
+      4 #1 slang_uhdm::UhdmExporter::emitParameters	#2 slang_uhdm::UhdmExporter::emitInstance	#3 slang_uhdm::UhdmExporter::exportDesign
+      2 #1 slang_uhdm::UhdmExporter::emitExpr	#2 slang_uhdm::UhdmExporter::emitExpr	#3 slang_uhdm::UhdmExporter::emitStmt
+      1 #1 slang_uhdm::UhdmExporter::emitTaskFuncs	#2 slang_uhdm::UhdmExporter::emitModuleDef	#3 slang_uhdm::UhdmExporter::exportDesign
