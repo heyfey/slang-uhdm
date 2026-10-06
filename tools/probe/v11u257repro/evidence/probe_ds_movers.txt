@@ -1,0 +1,14 @@
+# probe databases, path list filtered by FENCED first; pristine rerun from the law worktree (/tmp/v11u257_wQ) because a database embeds the case path
+law-vs-pristine r10rggen6repro__t4.uhdm
+law-vs-pristine r10rggen6repro__t5.uhdm
+law-vs-pristine r10rggen9repro__t8.uhdm
+law-vs-pristine r10rggen9repro__t9.uhdm
+law-vs-pristine r11u112repro__grid__f__g09_for_lp_sub.uhdm
+law-vs-pristine r11u112repro__grid__f__g18_hop_lhs.uhdm
+law-vs-pristine r11u46repro__grid2.uhdm
+of 4087
+# downstream slang lane (805 databases, fence-filtered): fix vs pristine: OneNetModport; fix vs law: none
+# final fix vs law, probe (path list filtered by FENCED first)
+final-vs-law r10uvm180repro__g180_a_kinds.uhdm
+final-vs-law r10v180repro__v180_a_share.uhdm
+# final fix vs law, downstream slang lane: none of 805

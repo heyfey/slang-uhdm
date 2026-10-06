@@ -1,0 +1,12 @@
+v11u257 prediction for the FINAL fix binary (cba73b5bd1e959727c8d1a28173f8fb0), frozen before its gate sweep, from
+its census (/tmp/v11u257_cen6/predict.txt: R11U257_TRACE over probe + both corpora, fence-filtered):
+FIX vs LAW movers:
+ (a) § cloneTfIdOrder257v: a mover only where it fires (two or more clone bodies mint):
+     corpus candidates MiniAmiq d/t, SeqDriver d/t (SeqDriver t KNOWN to move: 90 draws read 499fc01a9c89 against
+     the law's 2a2f2c0bc6a8, order-only); probe candidates r10buvm8repro/vxpkg8, r10uvm123repro/g123_c_otherpkg,
+     r10uvm180repro/g180_a_kinds, r10uvm32repro/t42a, r10uvm36repro/t48a, r10v180repro/v180_a_share, v180_e_ret,
+     v180_i_inst, r10v208repro/v208_f_io. Every such mover is ORDER-ONLY (the unparented tail) and keeps its csv row.
+ (b) § ifacePortHcConnOrder257v: candidates Rggen d, probe t8, t9 (did not move with the earlier fix build);
+     § genLpFoldAddOperandKinds257v fires nowhere.
+ Every other database: byte-identical to the law sweep. Downstream: no verdict moves; slang-lane movers only among
+ the candidates above (none of which is in the downstream lane).

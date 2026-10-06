@@ -1,0 +1,20 @@
+== probe.csv: pristine (<) vs law (>), fence-filtered, LowMem detail-path rows omitted
+< r10rggen6repro/t4,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
+< r10rggen6repro/t5,STRICT_NOTEQUAL,differ:endcol(16),differ:endcol(16)
+> r10rggen6repro/t4,EQUAL,,equal
+> r10rggen6repro/t5,EQUAL,,equal
+< r11u112repro/grid/f/g09_for_lp_sub,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+> r11u112repro/grid/f/g09_for_lp_sub,EQUAL,,equal
+< r11u112repro/grid/f/g18_hop_lhs,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+> r11u112repro/grid/f/g18_hop_lhs,EQUAL,,equal
+< r11u46repro/grid2,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+> r11u46repro/grid2,EQUAL,,equal
+== surelog.csv: pristine (<) vs law (>), fence-filtered, LowMem detail-path rows omitted
+< Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(155),,differ:fullname(155)
+< Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(50),,differ:fullname(50)
+> Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(139),,differ:fullname(139)
+> Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(34),,differ:fullname(34)
+< Rggen,default,STRICT_NOTEQUAL,differ:fullname(199),,differ:fullname(199)
+> Rggen,default,STRICT_NOTEQUAL,differ:col(129),,differ:col(129)
+== uhdm2rtlil.csv: pristine (<) vs law (>), fence-filtered, LowMem detail-path rows omitted
+== downstream.csv: pristine (<) vs law (>), fence-filtered, LowMem detail-path rows omitted

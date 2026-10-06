@@ -25,6 +25,7 @@
 #include "R251.h"
 #include "R253.h"
 #include "R255.h"
+#include "R257.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -257,6 +258,7 @@ bool v11u171Law(const char* sw) {
 void castRhsCloneDrain176(UHDM::Serializer& s); // § castRhsClonePerInst176 (ModuleEmit.cpp)
 void unsizedRhsCloneDrain193(UHDM::Serializer& s); // § caUnsizedRhsClonePerInst193 (ModuleEmit.cpp)
 void progViewDrain176(); // § progPlainPortViewUnparented176 (ModuleEmit.cpp)
+std::map<const UHDM::any*, std::array<size_t, 4>>& r257vHcPos(); // § ifacePortHcConnOrder257v (ModuleEmit.cpp)
 void genPlainViewDrain176(UHDM::Serializer& s); // § genericPlainNamedView176 (ModuleEmit.cpp)
 // The r11u176 switches (tools/probe/r11u176repro/README.md): every r11u176
 // law reads its own R11U176_<LAW>_OFF switch; R11U176_OFF drops all of them.
@@ -18857,6 +18859,181 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
         }
         r255Fw98().clear();
+        // § ifacePortMemberHighConnParent257 (r11u257; Rggen default #26477,
+        // the first record: `rggen_address_decoder u_decoder
+        // (.i_access(register_if.access))` inside rggen_register_common, whose
+        // `register_if` is a modport-qualified interface port; golden's port
+        // view variable `access` of u_register_common.register_if, the object
+        // its modport io_decl lists, is named
+        // `...u_register_common.g_decoder[0].u_decoder.i_access.access`, ours
+        // `...u_register_common.register_if.access`) — A MEMBER OF AN
+        // INTERFACE PORT WRITTEN AS A CHILD INSTANCE'S PORT ACTUAL IS
+        // PARENTED AT THAT CHILD'S PORT.  NetlistElaboration::high_conn_
+        // (third_party/Surelog/src/DesignCompile/NetlistElaboration.cpp)
+        // compiles the actual with Reduce::Yes; `<ifport>.<member>` reduces
+        // to the member variable of the parent instance's port-view
+        // interface_inst itself, and the branch `p->High_conn(hexpr);
+        // hexpr->VpiParent(p);` re-parents that shared object at the child's
+        // port, so the dump's synthesized full name runs through the port.
+        // Instances are elaborated in source order, so the LAST child port
+        // written wins (cases R r06, r11).  An interface INSTANCE member
+        // (`r.access`) does not reduce (R r03, equal on pristine) and a select
+        // or concatenation keeps its own expression (R r05).  Design-final:
+        // every elaborated child port whose high-conn is a variable of an
+        // interface_inst I, where the enclosing instance has exactly one port
+        // bound to I whose port-view interface_inst lists a variable of that
+        // name and kind, re-parents that variable at the child port.  Switch
+        // R11U257_IFPORTHC_OFF.
+        if (r11u257On("R11U257_IFPORTHC_OFF") && d->TopModules()) {
+            auto srcOrd257 = [](const UHDM::VectorOfmodule_inst* ms,
+                                const UHDM::VectorOfgen_scope_array* gs) {
+                std::vector<const UHDM::any*> v;
+                if (ms)
+                    for (auto* c : *ms)
+                        v.push_back(c);
+                if (gs)
+                    for (auto* c : *gs)
+                        v.push_back(c);
+                std::stable_sort(v.begin(), v.end(),
+                                 [](const UHDM::any* a, const UHDM::any* b) {
+                                     if (a->VpiLineNo() != b->VpiLineNo())
+                                         return a->VpiLineNo() < b->VpiLineNo();
+                                     return a->VpiColumnNo() < b->VpiColumnNo();
+                                 });
+                return v;
+            };
+            // A name path read from VpiName alone (the VpiFullName getter
+            // caches a computed name into the object, which moves bytes).
+            auto chain257 = [](const UHDM::any* o) {
+                std::string r;
+                for (; o && o->UhdmType() != UHDM::uhdmdesign; o = o->VpiParent())
+                    r = std::string(o->VpiName()) + "/" + r;
+                return r;
+            };
+            // The port-view variable of the enclosing instance `e` for the
+            // interface instance `ii` and the member `hc`: the views of `e`'s
+            // ports (its interface_inst named like the port, of `ii`'s
+            // definition) that list a variable of `hc`'s name and kind.  One
+            // candidate fires; several are told apart by the port's bound
+            // instance when it names `ii` (r11u257 R r12: a port bound to a
+            // port-view of the level above names that view, not `ii`).  A
+            // member of `e`'s OWN interface instance never fires (R r03).
+            auto viewVar257 = [&](const UHDM::module_inst* e, const UHDM::any* ii,
+                                  const UHDM::any* hc) -> UHDM::variables* {
+                if (!e || !e->Ports() || !e->Interfaces())
+                    return nullptr;
+                if (ii->VpiParent() == e ||
+                    (ii->VpiParent() && chain257(ii->VpiParent()) == chain257(e)))
+                    return nullptr;
+                std::vector<std::pair<const UHDM::port*, UHDM::variables*>> cand;
+                for (auto* ep : *e->Ports()) {
+                    for (auto* vi : *e->Interfaces()) {
+                        if (vi->VpiName() != ep->VpiName() || !vi->Variables() ||
+                            vi->VpiDefName() != ii->VpiDefName())
+                            continue;
+                        for (auto* v : *vi->Variables())
+                            if (v->VpiName() == hc->VpiName() &&
+                                v->UhdmType() == hc->UhdmType())
+                                cand.emplace_back(ep, v);
+                    }
+                }
+                if (cand.size() == 1)
+                    return cand[0].second;
+                UHDM::variables* found = nullptr;
+                int n = 0;
+                for (auto& [ep, v] : cand) {
+                    auto* h = ep->High_conn();
+                    if (!h || h->UhdmType() != UHDM::uhdmref_obj)
+                        continue;
+                    auto* a = ((UHDM::ref_obj*)h)->Actual_group();
+                    if (a && a->UhdmType() == UHDM::uhdminterface_inst &&
+                        (a == ii || chain257(a) == chain257(ii))) {
+                        found = v;
+                        ++n;
+                    }
+                }
+                return n == 1 ? found : nullptr;
+            };
+            std::function<void(const UHDM::any*, const UHDM::module_inst*)> walk257 =
+                [&](const UHDM::any* o, const UHDM::module_inst* encl) {
+                    if (!o)
+                        return;
+                    if (o->UhdmType() == UHDM::uhdmmodule_inst) {
+                        auto* mi = (const UHDM::module_inst*)o;
+                        // § ifacePortHcConnOrder257v (v11u257, the adversarial
+                        // verifier of r11u257; fresh case tools/probe/
+                        // v11u257repro/cases/R/vr03: `dec d(.y(register_if.
+                        // address), .x(register_if.address))` with dec's ports
+                        // declared x then y: golden parents the shared
+                        // variable at x, the LAST CONNECTION WRITTEN, the law
+                        // at y, the last port DECLARED, where pristine's
+                        // stored full name already read x) —
+                        // NetlistElaboration::high_conn_ walks an instance's
+                        // connection list in source order (named connections
+                        // find their port by name), so within one instance the
+                        // ports are visited in the order their actuals are
+                        // written; ports whose actual was not resolved to an
+                        // interface variable keep their declared order ahead
+                        // of them.  Switch R11V257_HCORDER_OFF.
+                        std::vector<UHDM::port*> ports257;
+                        if (mi->Ports()) {
+                            ports257.assign(mi->Ports()->begin(), mi->Ports()->end());
+                            if (r11v257On("R11V257_HCORDER_OFF")) {
+                                auto& pos = r257vHcPos();
+                                std::stable_partition(ports257.begin(), ports257.end(),
+                                                      [&](UHDM::port* q) { return !pos.count(q); });
+                                auto mid = std::find_if(ports257.begin(), ports257.end(),
+                                                        [&](UHDM::port* q) { return pos.count(q) > 0; });
+                                std::stable_sort(mid, ports257.end(),
+                                                 [&](UHDM::port* a, UHDM::port* b) {
+                                                     return pos.at(a) < pos.at(b);
+                                                 });
+                                if (!std::equal(ports257.begin(), ports257.end(),
+                                                mi->Ports()->begin()))
+                                    tr257("ifacePortHcConnOrder257v", chain257(mi));
+                            }
+                        }
+                        if (encl && mi->Ports())
+                            for (auto* p : ports257) {
+                                auto* hc = p->High_conn();
+                                if (!hc || !hc->VpiParent() ||
+                                    hc->VpiParent()->UhdmType() != UHDM::uhdminterface_inst)
+                                    continue;
+                                if (!dynamic_cast<const UHDM::variables*>(hc))
+                                    continue;
+                                if (auto* v = viewVar257(encl, hc->VpiParent(), hc)) {
+                                    // The full name is the parent chain's
+                                    // (UHDM computes an unset one): drop the
+                                    // stored one on the variable and on its
+                                    // typespec reference.
+                                    v->VpiParent(p);
+                                    v->VpiFullName("");
+                                    if (auto* rt = v->Typespec())
+                                        rt->VpiFullName("");
+                                    tr257("ifacePortMemberHighConnParent257",
+                                          chain257(mi) + "." +
+                                              std::string(p->VpiName()) + " <- " +
+                                              std::string(v->VpiName()));
+                                }
+                            }
+                        for (auto* c : srcOrd257(mi->Modules(), mi->Gen_scope_arrays()))
+                            walk257(c, mi);
+                    }
+                    else if (o->UhdmType() == UHDM::uhdmgen_scope_array) {
+                        auto* ga = (const UHDM::gen_scope_array*)o;
+                        if (ga->Gen_scopes())
+                            for (auto* g : *ga->Gen_scopes())
+                                walk257(g, encl);
+                    }
+                    else if (o->UhdmType() == UHDM::uhdmgen_scope) {
+                        auto* g = (const UHDM::gen_scope*)o;
+                        for (auto* c : srcOrd257(g->Modules(), g->Gen_scope_arrays()))
+                            walk257(c, encl);
+                    }
+                };
+            for (auto* t : *d->TopModules())
+                walk257(t, nullptr);
+        }
         // § modportArgVarFormalTs239 (r11u239; Rggen default #23164) — A
         // MODPORT PORT MEMBER PASSED TO A FUNCTION IN A CONTINUOUS ASSIGNMENT
         // TAKES THE FORMAL'S TYPESPEC ON ITS PORT-VIEW VARIABLE.

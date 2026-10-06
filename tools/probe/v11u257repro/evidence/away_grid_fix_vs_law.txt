@@ -1,0 +1,16 @@
+tp/v11u257repro/cases/C/vc06_unsigned_add dump dist 22 -> 20 lost=0 gained=2
+tp/v11u257repro/cases/C/vc06_unsigned_add_el dump dist 22 -> 20 lost=0 gained=2
+tp/v11u257repro/cases/C/vc18_override_dec dump dist 22 -> 20 lost=0 gained=2
+tp/v11u257repro/cases/C/vc18_override_dec_el dump dist 22 -> 20 lost=0 gained=2
+tp/v11u257repro/cases/C/vc19_mod_add dump dist 22 -> 20 lost=0 gained=2
+tp/v11u257repro/cases/C/vc19_mod_add_el dump dist 22 -> 20 lost=0 gained=2
+tp/v11u257repro/cases/C/vc21_hex_literal dump dist 43 -> 41 lost=0 gained=2
+tp/v11u257repro/cases/C/vc21_hex_literal_el dump dist 49 -> 47 lost=0 gained=2
+tp/v11u257repro/cases/R/vr03_two_ports_same_child rec dist 2 -> 0 lost=0 gained=2
+tp/v11u257repro/cases/R/vr03_two_ports_same_child_el rec dist 2 -> 0 lost=0 gained=2
+tp/v11u257repro/cases/R/vr17_multiline_macro rec dist 2 -> 0 lost=0 gained=2
+tp/v11u257repro/cases/R/vr17_multiline_macro_el rec dist 2 -> 0 lost=0 gained=2
+tp/v11u257repro/cases/R/vr18_macro_after rec dist 2 -> 0 lost=0 gained=2
+tp/v11u257repro/cases/R/vr18_macro_after_el rec dist 2 -> 0 lost=0 gained=2
+tp/v11u257repro/cases/K/vk02_two_importers dump dist 230 -> 230 lost=0 gained=0
+tp/v11u257repro/cases/K/vk02_two_importers_el rec dist 2 -> 2 lost=0 gained=0

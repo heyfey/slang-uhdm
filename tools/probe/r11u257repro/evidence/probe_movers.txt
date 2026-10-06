@@ -1,0 +1,9 @@
+probe movers (fence-filtered path list, cmp):
+./r10rggen6repro__t4.uhdm
+./r10rggen6repro__t5.uhdm
+./r10rggen9repro__t8.uhdm
+./r10rggen9repro__t9.uhdm
+./r11u112repro__grid__f__g09_for_lp_sub.uhdm
+./r11u112repro__grid__f__g18_hop_lhs.uhdm
+./r11u46repro__grid2.uhdm
+downstream slang-lane movers: OneNetModport (verdict IDENTICAL on both)

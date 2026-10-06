@@ -1,0 +1,9 @@
+v11u257 prediction, frozen before the fix sweep (fix binary c38167e0263886472c851e09d987b338), from the census
+/tmp/v11u257_cen/predict.txt (the fix binary under R11U257_TRACE over probe + both corpora, fence-filtered):
+FIX vs LAW movers: only databases where ifacePortHcConnOrder257v fires TOGETHER with ifacePortMemberHighConnParent257
+(the reorder can change the last writer only where the law re-parents) => candidates: surelog Rggen/default,
+probe r10rggen9repro/t8, probe r10rggen9repro/t9. genLpFoldAddOperandKinds257v fires nowhere => no mover from it.
+uhdm2rtlil iface_sig_in_child_port d/t fire the reorder WITHOUT the law => NOT movers.
+Every other database: byte-identical to the law sweep.
+FIX vs PRISTINE: the law's 7 corpus movers (Earlgrey_0_1 d/t, Rggen d, OneNetModPort d/t, OneNetModport d/t) and
+nothing else in the corpora; the law's 7 probe movers; downstream slang lane: OneNetModport only.

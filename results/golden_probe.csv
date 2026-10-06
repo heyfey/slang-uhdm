@@ -534,8 +534,8 @@ r10rgg9repro/cells/p_pkgimport,EQUAL,,equal
 r10rgg9repro/cells/p_pkgparam,EQUAL,,equal
 r10rgg9repro/cells/p_split,EQUAL,,equal
 r10rgg9repro/cells/p_three,EQUAL,,equal
-r10rggen6repro/t4,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
-r10rggen6repro/t5,STRICT_NOTEQUAL,differ:endcol(16),differ:endcol(16)
+r10rggen6repro/t4,EQUAL,,equal
+r10rggen6repro/t5,EQUAL,,equal
 r10rggen6repro/t7,EQUAL,,equal
 r10rggen7repro/t1,EQUAL,,equal
 r10rggen7repro/t2,EQUAL,,equal
@@ -1994,7 +1994,7 @@ r11u112repro/grid/f/g05_for_lp_untyped,EQUAL,,equal
 r11u112repro/grid/f/g06_genif_lp,EQUAL,,equal
 r11u112repro/grid/f/g07_mod_lp,EQUAL,,equal
 r11u112repro/grid/f/g08_nested_for,EQUAL,,equal
-r11u112repro/grid/f/g09_for_lp_sub,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+r11u112repro/grid/f/g09_for_lp_sub,EQUAL,,equal
 r11u112repro/grid/f/g10_for_lp_or,EQUAL,,equal
 r11u112repro/grid/f/g11_hop_if_add,EQUAL,,equal
 r11u112repro/grid/f/g12_hop_if_bare_ctl,EQUAL,,equal
@@ -2003,7 +2003,7 @@ r11u112repro/grid/f/g14_hop_if_sub_or,EQUAL,,equal
 r11u112repro/grid/f/g15_hop_two,EQUAL,,equal
 r11u112repro/grid/f/g16_hop_else,EQUAL,,equal
 r11u112repro/grid/f/g17_hop_untyped,EQUAL,,equal
-r11u112repro/grid/f/g18_hop_lhs,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+r11u112repro/grid/f/g18_hop_lhs,EQUAL,,equal
 r11u112repro/grid/f/g19_hop_vs_op,EQUAL,,equal
 r11u112repro/grid/f/g20_hop_vs_bare,EQUAL,,equal
 r11u112repro/grid/f/g21_hop_vs_concat,EQUAL,,equal
@@ -3035,7 +3035,7 @@ r11u45repro/g15,EQUAL,,equal
 r11u45repro/g2,EQUAL,,equal
 r11u45repro/g4,STRICT_NOTEQUAL,differ:fullname(14),differ:fullname(14)
 r11u45repro/g9,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
-r11u46repro/grid2,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+r11u46repro/grid2,EQUAL,,equal
 r11u47repro/arms/g1,EQUAL,,equal
 r11u47repro/arms/g10,STRICT_NOTEQUAL,differ:fullname(7),differ:fullname(7)
 r11u47repro/arms/g12,STRICT_NOTEQUAL,differ:fullname(11),differ:fullname(11)

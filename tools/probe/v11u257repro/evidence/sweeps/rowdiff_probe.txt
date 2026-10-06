@@ -1,0 +1,13 @@
+# probe: pristine (<) vs law (>)
+< r10rggen6repro/t4,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
+< r10rggen6repro/t5,STRICT_NOTEQUAL,differ:endcol(16),differ:endcol(16)
+> r10rggen6repro/t4,EQUAL,,equal
+> r10rggen6repro/t5,EQUAL,,equal
+< r11u112repro/grid/f/g09_for_lp_sub,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+> r11u112repro/grid/f/g09_for_lp_sub,EQUAL,,equal
+< r11u112repro/grid/f/g18_hop_lhs,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+> r11u112repro/grid/f/g18_hop_lhs,EQUAL,,equal
+< r11u46repro/grid2,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+> r11u46repro/grid2,EQUAL,,equal
+# probe: law (<) vs fix (>)
+# probe: law (<) vs final fix (>)

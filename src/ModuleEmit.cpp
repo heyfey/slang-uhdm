@@ -41,6 +41,7 @@
 #include "R245.h"
 #include "R249.h"
 #include "R251.h"
+#include "R257.h"
 
 namespace slang_uhdm {
 
@@ -1726,6 +1727,14 @@ void genPlainViewDrain176(UHDM::Serializer& s) {
                 hc->Variables(nv);
     }
     genPlainViews176.clear();
+}
+// § ifacePortHcConnOrder257v (v11u257) — the source position of every port
+// connection whose actual § ifacePortVarHighConn resolved to an interface
+// variable, read by § ifacePortMemberHighConnParent257's design-final walk
+// (UhdmExporter.cpp) to visit one instance's ports in connection order.
+std::map<const UHDM::any*, std::array<size_t, 4>>& r257vHcPos() {
+    static std::map<const UHDM::any*, std::array<size_t, 4>> m;
+    return m;
 }
 // § progPlainPortViewUnparented176 — the drain (law and decode at the site in
 // emitInstance): design-final, so no later lookup reads the cleared names.
@@ -21249,8 +21258,25 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                             vo9 = n9;
                                             break;
                                         }
-                            if (vo9)
+                            if (vo9) {
                                 h = vo9;
+                                // § ifacePortHcConnOrder257v: the connection's
+                                // source position (fully original), the order
+                                // Surelog's high_conn_ visits connections in.
+                                if (r11v257On("R11V257_HCORDER_OFF")) {
+                                    // The expansion site first (a macro
+                                    // body's tokens read their definition's
+                                    // place as original), then the original
+                                    // place (the order inside one expansion).
+                                    auto st257 = expr->sourceRange.start();
+                                    auto sx257 = sm->getFullyExpandedLoc(st257);
+                                    auto so257 = sm->getFullyOriginalLoc(st257);
+                                    r257vHcPos()[p] = {{sm->getLineNumber(sx257),
+                                                        sm->getColumnNumber(sx257),
+                                                        sm->getLineNumber(so257),
+                                                        sm->getColumnNumber(so257)}};
+                                }
+                            }
                         }
                     }
                     // A part-select HighConn's bounds reduce like the
@@ -36353,6 +36379,33 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                     t9 = &pa9.elementType.getCanonicalType();
                 }
                 if (dims9.size() == rg9->size()) {
+                    // The written bound an operation came from: the packed
+                    // dimensions of the declared type, outermost first, the
+                    // same order as the ranges (§ genLpFoldLeftOperandSpan257).
+                    std::map<const UHDM::any*, const syntax::ExpressionSyntax*> bsyn257;
+                    if (auto dt257 = gl.ps->getDeclaredType())
+                        if (auto* ts257 = dt257->getTypeSyntax();
+                            ts257 && ts257->kind != syntax::SyntaxKind::ImplicitType &&
+                            syntax::IntegerTypeSyntax::isKind(ts257->kind)) {
+                            auto& it257 = ts257->as<syntax::IntegerTypeSyntax>();
+                            if (it257.dimensions.size() == rg9->size())
+                                for (size_t k = 0; k < rg9->size(); k++) {
+                                    auto* dsp = it257.dimensions[k]->specifier;
+                                    if (!dsp || dsp->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
+                                        continue;
+                                    const syntax::SelectorSyntax* sel =
+                                        dsp->as<syntax::RangeDimensionSpecifierSyntax>().selector;
+                                    if (!sel || sel->kind != syntax::SyntaxKind::SimpleRangeSelect)
+                                        continue;
+                                    auto& rs = sel->as<syntax::RangeSelectSyntax>();
+                                    bsyn257[(*rg9)[k]->Left_expr()] = rs.left;
+                                    bsyn257[(*rg9)[k]->Right_expr()] = rs.right;
+                                }
+                        }
+                    auto boundSyn257 = [&](const UHDM::any* o) -> const syntax::ExpressionSyntax* {
+                        auto it = bsyn257.find(o);
+                        return it == bsyn257.end() ? nullptr : it->second;
+                    };
                     auto fold9 = [&](UHDM::any* old9, int32_t v9) -> UHDM::expr* {
                         if (!old9 || old9->UhdmType() != UHDM::uhdmoperation)
                             return nullptr;
@@ -36368,6 +36421,209 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                         c9->VpiColumnNo(old9->VpiColumnNo());
                         c9->VpiEndLineNo(old9->VpiEndLineNo());
                         c9->VpiEndColumnNo(old9->VpiEndColumnNo());
+                        // § genLpFoldLeftOperandSpan257 (r11u257; Rggen
+                        // default #26718 / #26728, the 55 g_decoder copies of
+                        // `localparam bit [ADDRESS_WIDTH-1:0] START_ADDRESS`:
+                        // golden's INT:7 spans rggen_register_common.sv
+                        // 33:24-37, `ADDRESS_WIDTH`, ours 33:24-39, the whole
+                        // `ADDRESS_WIDTH-1`) — the fold of a BINARY bound
+                        // sits at its LEFT operand as written (parentheses
+                        // included: `[(AW*2)-1:0]` golden 4:21-27, RC c04),
+                        // the anchor ExprEval's reduceExpr leaves on every
+                        // folded binary bound (TypeEmit's range builder: "only
+                        // an OPERATION bound (N-1) folds to an INT anchored at
+                        // the operator's LEFT operand span"); § genLpTsFoldBounds
+                        // kept the operation's own span.  Switch
+                        // R11U257_GENLPLEFT_OFF.
+                        //
+                        // § genLpFoldAddUint257 (RC c05 `[AW+1:0]`: golden
+                        // UINT:9 const type 9, ours INT:9 const type 7) — the
+                        // value type is reduceExpr's per-operator table, the
+                        // one TypeEmit's range builder already reads: sub,
+                        // mult and div yield INT, an add yields UINT unless an
+                        // operand already reduced to INT.  Switch
+                        // R11U257_GENLPADD_OFF.
+                        if (const auto* bx9 = boundSyn257(old9)) {
+                            const syntax::ExpressionSyntax* b9 = bx9;
+                            while (b9->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                                b9 = b9->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                            if (syntax::BinaryExpressionSyntax::isKind(b9->kind)) {
+                                if (r11u257On("R11U257_GENLPLEFT_OFF")) {
+                                    setLoc(c9, b9->as<syntax::BinaryExpressionSyntax>()
+                                                   .left->sourceRange());
+                                    tr257("genLpFoldLeftOperandSpan257",
+                                          std::string(gl.ps->name));
+                                }
+                                std::function<bool(const syntax::SyntaxNode*)> redInt9 =
+                                    [&](const syntax::SyntaxNode* n) -> bool {
+                                    if (!n)
+                                        return false;
+                                    switch (n->kind) {
+                                    case syntax::SyntaxKind::SubtractExpression:
+                                    case syntax::SyntaxKind::MultiplyExpression:
+                                    case syntax::SyntaxKind::DivideExpression:
+                                        return true;
+                                    case syntax::SyntaxKind::AddExpression: {
+                                        auto& be9 = n->as<syntax::BinaryExpressionSyntax>();
+                                        return redInt9(be9.left) || redInt9(be9.right);
+                                    }
+                                    case syntax::SyntaxKind::ParenthesizedExpression:
+                                        return redInt9(
+                                            n->as<syntax::ParenthesizedExpressionSyntax>()
+                                                .expression);
+                                    default:
+                                        return false;
+                                    }
+                                };
+                                // § genLpFoldAddOperandKinds257v (v11u257, the
+                                // adversarial verifier of r11u257; fresh case
+                                // tools/probe/v11u257repro/cases/C/vc06: `[UW+1:0]`
+                                // with `parameter bit [7:0] UW = 8'd5`: golden
+                                // INT:6 const type 7, the law UINT:6 const type
+                                // 9, a uhdm-cmp failure where pristine was
+                                // judge-equal) — UHDM ExprEval reduceExpr's
+                                // vpiAddOp takes the SIGNED path when either
+                                // REDUCED operand is a constant of const type
+                                // INT, DEC, STRING or REAL, so the operand's
+                                // value kind decides, not the operator alone: a
+                                // parameter reduces to its elaborated value
+                                // (`DEC:5` for a based-decimal literal, `UINT:8`
+                                // for an unsized one, HEX/BIN/OCT for the other
+                                // bases), a based-decimal literal is DEC, an
+                                // unsized decimal or a hex/binary/octal literal
+                                // is unsigned, a sub, mult, div or mod operand is
+                                // INT.  UINT only when every leaf is known
+                                // unsigned; an operand of unknown kind leaves
+                                // the base's INT.  Switch R11V257_ADDKIND_OFF
+                                // (R11V257_OFF drops every v11u257 refinement).
+                                std::function<int(const syntax::SyntaxNode*)> addKind257v =
+                                    [&](const syntax::SyntaxNode* n) -> int {
+                                    if (!n)
+                                        return -1;
+                                    switch (n->kind) {
+                                    case syntax::SyntaxKind::ParenthesizedExpression:
+                                        return addKind257v(
+                                            n->as<syntax::ParenthesizedExpressionSyntax>()
+                                                .expression);
+                                    case syntax::SyntaxKind::SubtractExpression:
+                                    case syntax::SyntaxKind::MultiplyExpression:
+                                    case syntax::SyntaxKind::DivideExpression:
+                                    case syntax::SyntaxKind::ModExpression:
+                                        return 0;
+                                    case syntax::SyntaxKind::AddExpression: {
+                                        auto& be = n->as<syntax::BinaryExpressionSyntax>();
+                                        int a = addKind257v(be.left), b = addKind257v(be.right);
+                                        if (a == 0 || b == 0)
+                                            return 0;
+                                        return (a == 1 && b == 1) ? 1 : -1;
+                                    }
+                                    case syntax::SyntaxKind::IntegerLiteralExpression:
+                                        return 1;
+                                    case syntax::SyntaxKind::IntegerVectorExpression: {
+                                        auto& iv = n->as<syntax::IntegerVectorExpressionSyntax>();
+                                        std::string bt(iv.base.rawText());
+                                        if (bt.find_first_of("dD") != std::string::npos)
+                                            return 0;
+                                        if (bt.find_first_of("hHbBoO") != std::string::npos)
+                                            return 1;
+                                        return -1;
+                                    }
+                                    case syntax::SyntaxKind::IdentifierName: {
+                                        std::string nm(n->as<syntax::IdentifierNameSyntax>()
+                                                           .identifier.valueText());
+                                        const UHDM::any* sc = gl.rt ? gl.rt->VpiParent() : nullptr;
+                                        if (sc)
+                                            sc = sc->VpiParent();
+                                        // The scope's param_assign carries the
+                                        // value reduceExpr substitutes (an
+                                        // instance override: `#(.UW(8'hA))` is
+                                        // HEX, the parameter object keeping its
+                                        // default's DEC:5 in golden too); the
+                                        // parameter's own value otherwise.
+                                        auto kindOf = [](const UHDM::any* c) -> int {
+                                            if (!c || c->UhdmType() != UHDM::uhdmconstant)
+                                                return -1;
+                                            switch (((const UHDM::constant*)c)->VpiConstType()) {
+                                            case vpiIntConst:
+                                            case vpiDecConst:
+                                            case vpiStringConst:
+                                            case vpiRealConst:
+                                                return 0;
+                                            case vpiUIntConst:
+                                            case vpiHexConst:
+                                            case vpiBinaryConst:
+                                            case vpiOctConst:
+                                                return 1;
+                                            default:
+                                                return -1;
+                                            }
+                                        };
+                                        for (; sc; sc = sc->VpiParent()) {
+                                            const UHDM::VectorOfany* pv = nullptr;
+                                            const UHDM::VectorOfparam_assign* pav = nullptr;
+                                            if (sc->UhdmType() == UHDM::uhdmgen_scope) {
+                                                pv = ((const UHDM::gen_scope*)sc)->Parameters();
+                                                pav = ((const UHDM::gen_scope*)sc)->Param_assigns();
+                                            }
+                                            else if (sc->UhdmType() == UHDM::uhdmmodule_inst) {
+                                                pv = ((const UHDM::module_inst*)sc)->Parameters();
+                                                pav = ((const UHDM::module_inst*)sc)->Param_assigns();
+                                            }
+                                            else if (sc->UhdmType() == UHDM::uhdminterface_inst) {
+                                                pv = ((const UHDM::interface_inst*)sc)->Parameters();
+                                                pav = ((const UHDM::interface_inst*)sc)->Param_assigns();
+                                            }
+                                            else if (sc->UhdmType() != UHDM::uhdmgen_scope_array)
+                                                return -1;
+                                            if (pav)
+                                                for (auto* pa : *pav)
+                                                    if (pa && pa->Lhs() && pa->Lhs()->VpiName() == nm)
+                                                        return kindOf(pa->Rhs());
+                                            if (pv)
+                                                for (auto* pa : *pv)
+                                                    if (pa && pa->UhdmType() == UHDM::uhdmparameter &&
+                                                        pa->VpiName() == nm) {
+                                                        std::string_view v =
+                                                            ((const UHDM::parameter*)pa)->VpiValue();
+                                                        for (const char* sp :
+                                                             {"INT:", "DEC:", "STRING:", "REAL:"})
+                                                            if (v.rfind(sp, 0) == 0)
+                                                                return 0;
+                                                        for (const char* up :
+                                                             {"UINT:", "HEX:", "BIN:", "OCT:"})
+                                                            if (v.rfind(up, 0) == 0)
+                                                                return 1;
+                                                        return -1;
+                                                    }
+                                            if (sc->UhdmType() == UHDM::uhdmmodule_inst ||
+                                                sc->UhdmType() == UHDM::uhdminterface_inst)
+                                                return -1;
+                                        }
+                                        return -1;
+                                    }
+                                    default:
+                                        return -1;
+                                    }
+                                };
+                                bool add257 = b9->kind == syntax::SyntaxKind::AddExpression &&
+                                              r11u257On("R11U257_GENLPADD_OFF");
+                                if (add257) {
+                                    if (r11v257On("R11V257_ADDKIND_OFF")) {
+                                        add257 = addKind257v(b9) == 1;
+                                        if (add257 == redInt9(b9))
+                                            tr257("genLpFoldAddOperandKinds257v",
+                                                  std::string(gl.ps->name));
+                                    }
+                                    else
+                                        add257 = !redInt9(b9);
+                                }
+                                if (add257) {
+                                    c9->VpiValue("UINT:" + d9);
+                                    c9->VpiConstType(vpiUIntConst);
+                                    tr257("genLpFoldAddUint257", std::string(gl.ps->name));
+                                }
+                            }
+                        }
                         return c9;
                     };
                     for (size_t k9 = 0; k9 < rg9->size(); k9++) {

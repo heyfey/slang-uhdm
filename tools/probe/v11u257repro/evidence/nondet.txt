@@ -1,0 +1,96 @@
+vf03_twospecs def pristine:       7 83e5ab42/rc0       3 f23fef6b/rc0 
+vf03_twospecs --elabuhdm pristine:       7 7ab95b88/rc0       3 bb552fe3/rc0 
+vf05_module_user def pristine:       7 35a718af/rc0       3 8b61f18b/rc0 
+vf05_module_user --elabuhdm pristine:       4 6cb4ef5e/rc0       6 db474e57/rc0 
+vf08_winner_own_uses def pristine:       5 2a1bc073/rc0       5 fe985310/rc0 
+vf08_winner_own_uses --elabuhdm pristine:       8 36ec4731/rc0       2 76e79f99/rc0 
+f10_header def pristine:      10 ce701403/rc0 
+f10_header --elabuhdm pristine:       2 ae314eab/rc0       8 cd601d16/rc0 
+f11_crlf def pristine:       9 613344bb/rc0       1 a32cacd5/rc0 
+f11_crlf --elabuhdm pristine:       8 8bab0631/rc0       2 b17edbe5/rc0 
+f12_unit_scope def pristine:       2 143c28fc/rc0       8 b9abc496/rc0 
+f12_unit_scope --elabuhdm pristine:       8 153eff68/rc0       2 ecc00b8e/rc0 
+vf20_same_name_two_pkgs def pristine:       8 d663a106/rc0       2 f20398e2/rc0 
+vf20_same_name_two_pkgs --elabuhdm pristine:       4 29607f01/rc0       6 93272ddb/rc0 
+vf21_same_name_typedefs def pristine:      10 1df05dbb/rc0 
+vf21_same_name_typedefs --elabuhdm pristine:      10 adb6a07d/rc0 
+vf03_twospecs def law:      10 f23fef6b/rc0 
+vf03_twospecs --elabuhdm law:      10 bb552fe3/rc0 
+vf05_module_user def law:      10 35a718af/rc0 
+vf05_module_user --elabuhdm law:      10 db474e57/rc0 
+vf08_winner_own_uses def law:      10 fe985310/rc0 
+vf08_winner_own_uses --elabuhdm law:      10 36ec4731/rc0 
+f10_header def law:      10 b3898560/rc0 
+f10_header --elabuhdm law:      10 ae314eab/rc0 
+f11_crlf def law:      10 a32cacd5/rc0 
+f11_crlf --elabuhdm law:      10 b17edbe5/rc0 
+f12_unit_scope def law:      10 143c28fc/rc0 
+f12_unit_scope --elabuhdm law:      10 ecc00b8e/rc0 
+vf20_same_name_two_pkgs def law:      10 f20398e2/rc0 
+vf20_same_name_two_pkgs --elabuhdm law:      10 29607f01/rc0 
+vf21_same_name_typedefs def law:      10 d314b1fe/rc0 
+vf21_same_name_typedefs --elabuhdm law:      10 cbb04fa6/rc0 
+vf03_twospecs def fix R11U257_OFF=1:       8 83e5ab42/rc0       2 f23fef6b/rc0 
+vf03_twospecs --elabuhdm fix R11U257_OFF=1:       8 7ab95b88/rc0       2 bb552fe3/rc0 
+vf05_module_user def fix R11U257_OFF=1:       3 35a718af/rc0       7 8b61f18b/rc0 
+vf05_module_user --elabuhdm fix R11U257_OFF=1:       2 6cb4ef5e/rc0       8 db474e57/rc0 
+vf08_winner_own_uses def fix R11U257_OFF=1:       5 2a1bc073/rc0       5 fe985310/rc0 
+vf08_winner_own_uses --elabuhdm fix R11U257_OFF=1:       6 36ec4731/rc0       4 76e79f99/rc0 
+f10_header def fix R11U257_OFF=1:       4 b3898560/rc0       6 ce701403/rc0 
+f10_header --elabuhdm fix R11U257_OFF=1:       3 ae314eab/rc0       7 cd601d16/rc0 
+f11_crlf def fix R11U257_OFF=1:       8 613344bb/rc0       2 a32cacd5/rc0 
+f11_crlf --elabuhdm fix R11U257_OFF=1:       9 8bab0631/rc0       1 b17edbe5/rc0 
+f12_unit_scope def fix R11U257_OFF=1:       1 143c28fc/rc0       9 b9abc496/rc0 
+f12_unit_scope --elabuhdm fix R11U257_OFF=1:       9 153eff68/rc0       1 ecc00b8e/rc0 
+vf20_same_name_two_pkgs def fix R11U257_OFF=1:       9 d663a106/rc0       1 f20398e2/rc0 
+vf20_same_name_two_pkgs --elabuhdm fix R11U257_OFF=1:      10 93272ddb/rc0 
+vf21_same_name_typedefs def fix R11U257_OFF=1:      10 1df05dbb/rc0 
+vf21_same_name_typedefs --elabuhdm fix R11U257_OFF=1:      10 adb6a07d/rc0 
+vf03_twospecs def fix R11U257_FWSPEC_OFF=1:       8 83e5ab42/rc0       2 f23fef6b/rc0 
+vf03_twospecs --elabuhdm fix R11U257_FWSPEC_OFF=1:       8 7ab95b88/rc0       2 bb552fe3/rc0 
+vf05_module_user def fix R11U257_FWSPEC_OFF=1:       9 35a718af/rc0       1 8b61f18b/rc0 
+vf05_module_user --elabuhdm fix R11U257_FWSPEC_OFF=1:       7 6cb4ef5e/rc0       3 db474e57/rc0 
+vf08_winner_own_uses def fix R11U257_FWSPEC_OFF=1:       6 2a1bc073/rc0       4 fe985310/rc0 
+vf08_winner_own_uses --elabuhdm fix R11U257_FWSPEC_OFF=1:       4 36ec4731/rc0       6 76e79f99/rc0 
+f10_header def fix R11U257_FWSPEC_OFF=1:       2 b3898560/rc0       8 ce701403/rc0 
+f10_header --elabuhdm fix R11U257_FWSPEC_OFF=1:       2 ae314eab/rc0       8 cd601d16/rc0 
+f11_crlf def fix R11U257_FWSPEC_OFF=1:       7 613344bb/rc0       3 a32cacd5/rc0 
+f11_crlf --elabuhdm fix R11U257_FWSPEC_OFF=1:       8 8bab0631/rc0       2 b17edbe5/rc0 
+f12_unit_scope def fix R11U257_FWSPEC_OFF=1:       2 143c28fc/rc0       8 b9abc496/rc0 
+f12_unit_scope --elabuhdm fix R11U257_FWSPEC_OFF=1:       7 153eff68/rc0       3 ecc00b8e/rc0 
+vf20_same_name_two_pkgs def fix R11U257_FWSPEC_OFF=1:       8 d663a106/rc0       2 f20398e2/rc0 
+vf20_same_name_two_pkgs --elabuhdm fix R11U257_FWSPEC_OFF=1:       1 29607f01/rc0       9 93272ddb/rc0 
+vf21_same_name_typedefs def fix R11U257_FWSPEC_OFF=1:      10 1df05dbb/rc0 
+vf21_same_name_typedefs --elabuhdm fix R11U257_FWSPEC_OFF=1:      10 adb6a07d/rc0 
+vf03_twospecs def c38167e0-fix:      10 f23fef6b/rc0 
+vf03_twospecs --elabuhdm c38167e0-fix:      10 bb552fe3/rc0 
+vf05_module_user def c38167e0-fix:      10 35a718af/rc0 
+vf05_module_user --elabuhdm c38167e0-fix:      10 db474e57/rc0 
+vf08_winner_own_uses def c38167e0-fix:      10 fe985310/rc0 
+vf08_winner_own_uses --elabuhdm c38167e0-fix:      10 36ec4731/rc0 
+f10_header def c38167e0-fix:      10 b3898560/rc0 
+f10_header --elabuhdm c38167e0-fix:      10 ae314eab/rc0 
+f11_crlf def c38167e0-fix:      10 a32cacd5/rc0 
+f11_crlf --elabuhdm c38167e0-fix:      10 b17edbe5/rc0 
+f12_unit_scope def c38167e0-fix:      10 143c28fc/rc0 
+f12_unit_scope --elabuhdm c38167e0-fix:      10 ecc00b8e/rc0 
+vf20_same_name_two_pkgs def c38167e0-fix:      10 f20398e2/rc0 
+vf20_same_name_two_pkgs --elabuhdm c38167e0-fix:      10 29607f01/rc0 
+vf21_same_name_typedefs def c38167e0-fix:      10 d314b1fe/rc0 
+vf21_same_name_typedefs --elabuhdm c38167e0-fix:      10 cbb04fa6/rc0 
+vf03_twospecs def final-fix:      10 f23fef6b/rc0 
+vf03_twospecs --elabuhdm final-fix:      10 bb552fe3/rc0 
+vf05_module_user def final-fix:      10 35a718af/rc0 
+vf05_module_user --elabuhdm final-fix:      10 db474e57/rc0 
+vf08_winner_own_uses def final-fix:      10 fe985310/rc0 
+vf08_winner_own_uses --elabuhdm final-fix:      10 36ec4731/rc0 
+f10_header def final-fix:      10 b3898560/rc0 
+f10_header --elabuhdm final-fix:      10 ae314eab/rc0 
+f11_crlf def final-fix:      10 a32cacd5/rc0 
+f11_crlf --elabuhdm final-fix:      10 b17edbe5/rc0 
+f12_unit_scope def final-fix:      10 143c28fc/rc0 
+f12_unit_scope --elabuhdm final-fix:      10 ecc00b8e/rc0 
+vf20_same_name_two_pkgs def final-fix:      10 f20398e2/rc0 
+vf20_same_name_two_pkgs --elabuhdm final-fix:      10 29607f01/rc0 
+vf21_same_name_typedefs def final-fix:      10 d314b1fe/rc0 
+vf21_same_name_typedefs --elabuhdm final-fix:      10 cbb04fa6/rc0 

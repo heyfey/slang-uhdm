@@ -1,0 +1,38 @@
+FU!=P F/f05_same_kind_three_el
+FU!=P F/f10_header
+FU!=P F/f10_header_el
+FU!=P F/f11_crlf
+FU!=P F/f11_crlf_el
+FU!=P F/f12_unit_scope_el
+FU!=P tp/v11u255repro/cases/F/vf03_twospecs_el
+FU!=P tp/v11u255repro/cases/F/vf05_module_user
+FU!=P tp/v11u255repro/cases/F/vf08_winner_own_uses
+FU!=P tp/v11u255repro/cases/F/vf08_winner_own_uses_el
+FIXvsLAW tp/v11u257repro/cases/C/vc06_unsigned_add L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 36 -> 52
+FIXvsLAW tp/v11u257repro/cases/C/vc06_unsigned_add_el L=NOT_EQUAL_stage1 F=STRICT_EQUAL_145_objects cmplines 36 -> 0
+LAW-JUDGE-LOSS tp/v11u257repro/cases/C/vc06_unsigned_add_el STRICT_NOTEQUAL_endcol -> NOT_EQUAL_stage1
+FIXvsLAW tp/v11u257repro/cases/C/vc18_override_dec L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 36 -> 52
+FIXvsLAW tp/v11u257repro/cases/C/vc18_override_dec_el L=NOT_EQUAL_stage1 F=STRICT_EQUAL_105_objects cmplines 36 -> 0
+LAW-JUDGE-LOSS tp/v11u257repro/cases/C/vc18_override_dec_el STRICT_NOTEQUAL_endcol -> NOT_EQUAL_stage1
+FIXvsLAW tp/v11u257repro/cases/C/vc19_mod_add L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 36 -> 52
+FIXvsLAW tp/v11u257repro/cases/C/vc19_mod_add_el L=NOT_EQUAL_stage1 F=STRICT_EQUAL_107_objects cmplines 36 -> 0
+LAW-JUDGE-LOSS tp/v11u257repro/cases/C/vc19_mod_add_el STRICT_NOTEQUAL_endcol -> NOT_EQUAL_stage1
+FIXvsLAW tp/v11u257repro/cases/C/vc21_hex_literal L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 36 -> 36
+FIXvsLAW tp/v11u257repro/cases/C/vc21_hex_literal_el L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 36 -> 36
+FU!=P tp/v11u257repro/cases/F/vf20_same_name_two_pkgs_el
+FIXvsLAW tp/v11u257repro/cases/K/vk02_two_importers L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 148 -> 148
+FIXvsLAW tp/v11u257repro/cases/K/vk02_two_importers_el L=STRICT_NOTEQUAL_endcol F=STRICT_NOTEQUAL_endcol cmplines 0 -> 0
+FIXvsLAW tp/v11u257repro/cases/R/vr03_two_ports_same_child L=STRICT_NOTEQUAL_fullname F=STRICT_EQUAL_162_objects cmplines 0 -> 0
+LAW-LEAVE tp/v11u257repro/cases/R/vr03_two_ports_same_child STRICT_EQUAL_162_objects -> STRICT_NOTEQUAL_fullname
+FIXvsLAW tp/v11u257repro/cases/R/vr03_two_ports_same_child_el L=STRICT_NOTEQUAL_fullname F=STRICT_EQUAL_171_objects cmplines 0 -> 0
+LAW-LEAVE tp/v11u257repro/cases/R/vr03_two_ports_same_child_el STRICT_EQUAL_171_objects -> STRICT_NOTEQUAL_fullname
+FIXvsLAW tp/v11u257repro/cases/R/vr17_multiline_macro L=STRICT_NOTEQUAL_fullname F=STRICT_EQUAL_162_objects cmplines 0 -> 0
+LAW-LEAVE tp/v11u257repro/cases/R/vr17_multiline_macro STRICT_EQUAL_162_objects -> STRICT_NOTEQUAL_fullname
+FIXvsLAW tp/v11u257repro/cases/R/vr17_multiline_macro_el L=STRICT_NOTEQUAL_fullname F=STRICT_EQUAL_171_objects cmplines 0 -> 0
+LAW-LEAVE tp/v11u257repro/cases/R/vr17_multiline_macro_el STRICT_EQUAL_171_objects -> STRICT_NOTEQUAL_fullname
+FIXvsLAW tp/v11u257repro/cases/R/vr18_macro_after L=STRICT_NOTEQUAL_fullname F=STRICT_EQUAL_162_objects cmplines 0 -> 0
+FIXvsLAW tp/v11u257repro/cases/R/vr18_macro_after_el L=STRICT_NOTEQUAL_fullname F=STRICT_EQUAL_171_objects cmplines 0 -> 0
+case-views=320 {'rc!=0': 0, 'fix moves vs pristine': 223, 'R11V257_OFF = law bytes': 320, 'R11U257_OFF = pristine bytes': 309, 'R11U257_OFF != pristine (single draw)': 11, 'fix enters STRICT_EQUAL vs pristine': 111, 'fix moves vs law': 16, 'fix enters vs law': 9, 'law LEAVES vs pristine': 4} []
+vFA moves 8 law-bytes 8 C/vc06_unsigned_add C/vc06_unsigned_add_el C/vc18_override_dec C/vc18_override_dec_el C/vc19_mod_add C/vc19_mod_add_el C/vc21_hex_literal C/vc21_hex_literal_el
+vFH moves 6 law-bytes 6 R/vr03_two_ports_same_child R/vr03_two_ports_same_child_el R/vr17_multiline_macro R/vr17_multiline_macro_el R/vr18_macro_after R/vr18_macro_after_el
+vFC moves 2 law-bytes 2 K/vk02_two_importers K/vk02_two_importers_el

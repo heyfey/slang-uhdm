@@ -27,6 +27,7 @@
 #include "R249.h"
 #include "R253.h"
 #include "R255.h"
+#include "R257.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -6407,6 +6408,24 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 break;
                             }
                         }
+                    }
+                    // § implicitPortTsFirstDim257 (r11u257; Earlgrey_0_1
+                    // #190726 / #190744, padring.sv `input [NMioPads-1:0]
+                    // [AttrDw-1:0] mio_attr_i`: golden's logic_typespec spans
+                    // 40:16-30, the FIRST packed dimension, ours 40:16-42,
+                    // both) — a data type written as packed dimensions alone,
+                    // with no net keyword before them, is located at its
+                    // first Packed_dimension: Surelog's implicit data type
+                    // takes the location of the first dimension node, the
+                    // later dimensions only adding ranges.  A net keyword
+                    // anchor (`input wire [3:0][1:0]`) keeps the whole span
+                    // (P2 p03, equal on pristine).  Cases tools/probe/
+                    // r11u257repro/cases/P2.  Switch R11U257_IMPLDIM1_OFF.
+                    if (its.dimensions.size() > 1 &&
+                        dr.start() == its.dimensions[0]->sourceRange().start() &&
+                        r11u257On("R11U257_IMPLDIM1_OFF")) {
+                        dr = its.dimensions[0]->sourceRange();
+                        tr257("implicitPortTsFirstDim257", std::string(declSymbol.name));
                     }
                     setLoc(ts, dr);
                     // § implicitArgDimsInner155 (r11u155, map N0767) — a
@@ -13349,7 +13368,30 @@ void UhdmExporter::importCloneBareTdAlias16(UHDM::design* d) {
             }
         }
     };
-    for (auto* tf : pkgImportCloneTfs16) {
+    // § cloneTfIdOrder257v (v11u257, the adversarial verifier of r11u257) —
+    // DETERMINISM.  pkgImportCloneTfs16 is a std::set of task_func POINTERS,
+    // so this loop visited the clone bodies in heap-ADDRESS order, and
+    // cloneCopyOf / bareScalarTdCopyOf mint their copies on first use: the
+    // copies' creation order (their UhdmIds, the serialized order of the
+    // unparented tail) followed the allocator.  Found as SeqDriver testflags
+    // reading a second database hash in 5 of 90 concurrent draws of r11u257's
+    // law binary (two unparented `uvm_reg_byte_en_t` bit_typespecs swapping
+    // places; the sorted dumps identical) and 0 of 132 pristine draws; a
+    // build differing only by a stderr print flipped 32 of 45, the minting
+    // call traced to this loop.  The bodies are visited in CREATION order
+    // (UhdmId), the order § lawSCopyIdOrder186 and § recvArgMintIdOrder238v
+    // already use.  Switch R11V257_CLONETFORDER_OFF.
+    std::vector<const UHDM::task_func*> cloneTfs257v(pkgImportCloneTfs16.begin(),
+                                                     pkgImportCloneTfs16.end());
+    if (r11v257On("R11V257_CLONETFORDER_OFF")) {
+        std::stable_sort(cloneTfs257v.begin(), cloneTfs257v.end(),
+                         [](const UHDM::task_func* a, const UHDM::task_func* b) {
+                             return a->UhdmId() < b->UhdmId();
+                         });
+    }
+    size_t mintTfs257v = 0;
+    for (auto* tf : cloneTfs257v) {
+        size_t z257v = cloneBareScalarTdCopy16.size();
         auto* m = (UHDM::task_func*)tf;
         if (m->Io_decls())
             for (auto* io : *m->Io_decls())
@@ -13357,7 +13399,13 @@ void UhdmExporter::importCloneBareTdAlias16(UHDM::design* d) {
         if (m->Variables())
             for (auto* v : *m->Variables())
                 rebind(v->Typespec());
+        if (cloneBareScalarTdCopy16.size() != z257v)
+            ++mintTfs257v;
     }
+    // The mover predictor's trigger: two or more clone bodies mint here, so
+    // their visiting order decides the copies' order.
+    if (mintTfs257v >= 2)
+        tr257("cloneTfIdOrder257v", "minting " + std::to_string(mintTfs257v));
     if (d && !pkgImportCloneTfs16.empty()) {
         std::function<void(UHDM::ref_typespec*)> rb180 =
             [&](UHDM::ref_typespec* rt) { rebind(rt); };
@@ -22304,10 +22352,29 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     if (e && e->UhdmType() == UHDM::uhdmconstant)
                         ((UHDM::expr*)e)->VpiParent(nullptr);
                 };
+                // § defGenLhsSelIdxThroughBase257 — the indexed part select
+                // arm (law at the bit_select arm below): on a definition-view
+                // generate continuous assignment's target the select spans
+                // its name through the closing bracket and its base
+                // expression scopes through the select's name.
+                const bool lhs257 = defGenCaLhs161 && parent == defGenCaLhs161 &&
+                                    !syntaxRefPrefix.empty() &&
+                                    r11u257On("R11U257_DGLHSIDX_OFF");
+                std::string savedPfx257 = syntaxRefPrefix;
+                if (lhs257) {
+                    setLoc(ips, syn.sourceRange());
+                    const syntax::ExpressionSyntax* b257 = rsI.left;
+                    while (b257->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                        b257 = b257->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                    if (b257->kind != syntax::SyntaxKind::IdentifierName)
+                        syntaxRefPrefix += syntaxRefSep + std::string(bname);
+                    tr257("defGenLhsSelIdxThroughBase257", std::string(bname) + " ips");
+                }
                 if (auto* be = emitSyntaxExpr(*rsI.left, ips)) {
                     unparentConstI(be);
                     ips->Base_expr((UHDM::expr*)be);
                 }
+                syntaxRefPrefix = savedPfx257;
                 if (auto* we = emitSyntaxExpr(*rsI.right, ips)) {
                     unparentConstI(we);
                     ips->Width_expr((UHDM::expr*)we);
@@ -22344,9 +22411,39 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 // and UHDM's ComputeFullName skips a bit_select parent for a
                 // ref_obj child, so it stays scope-level (prefix.<name>).
                 std::string savedPfx3 = syntaxRefPrefix;
-                if (selBaseScopeIdx && !syntaxRefPrefix.empty() &&
-                    sel->as<syntax::BitSelectSyntax>().expr->kind !=
-                        syntax::SyntaxKind::IdentifierName)
+                // § defGenLhsSelIdxThroughBase257 (r11u257; Earlgrey_0_1
+                // #214166 to #214360, prim_present.sv 63 `assign
+                // data_state[k+1] = ...` in gen_round.gen_dec.gen_d64: golden
+                // names the index's `k` work@prim_present.gen_round.gen_dec.
+                // gen_d64.data_state.k, ours ...gen_d64.k) — the TARGET of a
+                // definition-view generate continuous assignment is a
+                // net_lvalue compiled by compileSelectExpression, which stores
+                // no full name on an index's references either, so
+                // BaseClass::ComputeFullName reads them through the select
+                // (a bit_select parent is skipped only for a ref_obj child,
+                // so a bare identifier index stays scope-level, the right
+                // side's own rule).  Only the target's own select (its parent
+                // the assignment); a two-select target is equal on pristine.
+                // Cases tools/probe/r11u257repro/cases/G.  Switch
+                // R11U257_DGLHSIDX_OFF.
+                // Parentheses are not kept (Surelog drops them), so a
+                // parenthesized bare identifier is still a direct child.
+                const syntax::ExpressionSyntax* ix257 =
+                    sel->as<syntax::BitSelectSyntax>().expr;
+                while (ix257->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                    ix257 = ix257->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                const bool lhsBs257 = !selBaseScopeIdx && defGenCaLhs161 &&
+                                      parent == defGenCaLhs161 &&
+                                      !syntaxRefPrefix.empty() &&
+                                      ix257->kind != syntax::SyntaxKind::IdentifierName &&
+                                      r11u257On("R11U257_DGLHSIDX_OFF");
+                if (lhsBs257) {
+                    tr257("defGenLhsSelIdxThroughBase257", std::string(bname));
+                    syntaxRefPrefix += syntaxRefSep + std::string(bname);
+                }
+                else if (selBaseScopeIdx && !syntaxRefPrefix.empty() &&
+                         sel->as<syntax::BitSelectSyntax>().expr->kind !=
+                             syntax::SyntaxKind::IdentifierName)
                     syntaxRefPrefix += syntaxRefSep + std::string(bname);
                 if (auto* ix = emitSyntaxExpr(
                         *sel->as<syntax::BitSelectSyntax>().expr, bs))
@@ -29726,6 +29823,44 @@ void UhdmExporter::collectFwWinners98(const Scope& sc, int group,
                 fwWinners98.emplace(std::string(al.name), FwWin98{k, &al});
             else if (k < it->second.key)
                 it->second = FwWin98{k, &al};
+            // § fwWinnerSpecTieBreak257 (r11u257; v11u255's determinism
+            // defect: F/vf03, vf05, vf08 two hashes in 10 draws on every
+            // binary since pass 98) — every specialization of one generic
+            // class claims under the generic's key, so the strict `<` above
+            // kept whichever specialization slang's specializations() map
+            // (an unordered map) yielded first, an order that varies run to
+            // run; a non-default winner then has its typedef built on demand
+            // by fwWinnerTs98 as an unparented twin whose bytes differ between
+            // draws (§ fwWinnerListedObject255 re-points the references, so
+            // the dumps agree, but the twin stays in the serializer).  Surelog
+            // has ONE TypeDef per declaration, so any specialization of the
+            // same declaration is the same answer; among them the one with the
+            // smallest parameter rendering wins, an order that does not
+            // depend on the run.  Switch R11U257_FWSPEC_OFF.
+            else if (!(it->second.key < k) && it->second.al && it->second.al != &al &&
+                     it->second.al->getSyntax() && it->second.al->getSyntax() == al.getSyntax() &&
+                     r11u257On("R11U257_FWSPEC_OFF")) {
+                auto specKey257 = [](const TypeAliasType& a) {
+                    std::string r;
+                    if (auto* sc = a.getParentScope())
+                        for (auto& m : sc->members()) {
+                            if (m.kind == SymbolKind::Parameter) {
+                                auto& ps = m.as<ParameterSymbol>();
+                                r += std::string(ps.name) + "=" + ps.getValue().toString() + ";";
+                            }
+                            else if (m.kind == SymbolKind::TypeParameter) {
+                                auto& tp = m.as<TypeParameterSymbol>();
+                                r += std::string(tp.name) + ":" +
+                                     tp.targetType.getType().toString() + ";";
+                            }
+                        }
+                    return r;
+                };
+                // Traced at every tie (the decision), whichever way it goes.
+                tr257("fwWinnerSpecTieBreak257", std::string(al.name));
+                if (specKey257(al) < specKey257(*it->second.al))
+                    it->second = FwWin98{k, &al};
+            }
             continue;
         }
         if (isIfaceClass11(mem))
@@ -29895,7 +30030,83 @@ const TypeAliasType* UhdmExporter::fwWinner98(
     return w;
 }
 
-UHDM::typespec* UhdmExporter::fwWinnerTs98(const TypeAliasType& w) {
+UHDM::typespec* UhdmExporter::fwWinnerTs98(const TypeAliasType& w0) {
+    // § fwWinnerSpecKind257 (r11u257; v11u255 F/vf02: `typedef T this_type`
+    // in `aa_reg #(type T=int)` with only `aa_reg #(byte)` made; golden binds
+    // the declaration's listed int_typespec 4:23, ours the byte_typespec 12:12
+    // built for the winning specialization, and § fwWinnerListedObject255's
+    // re-point skips it because the kind differs) — Surelog's
+    // `ElaborationStep::bindTypedefs_` registers ONE TypeDef per source
+    // declaration, compiled once in the generic class's own class_defn, and
+    // hands every unresolved bare reference that object whatever the
+    // specialization's parameters make of it.  When the winner's own typedef
+    // object is not the one its generic class's class_defn lists and the
+    // object a specialization of the same declaration has there is of
+    // another KIND, that listed object is handed out instead (the same-kind
+    // case stays with § fwWinnerListedObject255's design-final re-point,
+    // which keeps the package vpiInstance a package-level out-of-body
+    // definition stamps on the twin: r11u255repro F/f05).  Abstains when no
+    // specialization's listed object is built yet.  Switch R11U257_FWKIND_OFF.
+    const TypeAliasType* wp257 = &w0;
+    if (r11u257On("R11U257_FWKIND_OFF")) {
+        auto listed257 = [&](const TypeAliasType* a) -> UHDM::typespec* {
+            auto it = typedefTs.find((const Symbol*)a);
+            if (it != typedefTs.end() && it->second && it->second->VpiParent() &&
+                it->second->VpiParent()->UhdmType() == UHDM::uhdmclass_defn)
+                return it->second;
+            return nullptr;
+        };
+        auto ownListed257 = [&](const TypeAliasType& a) -> UHDM::typespec* {
+            auto* lt = listed257(&a);
+            auto* sc = a.getParentScope();
+            if (!lt || !sc || sc->asSymbol().kind != SymbolKind::ClassType)
+                return nullptr;
+            auto* cd = classDefnFor(sc->asSymbol().as<ClassType>());
+            return cd && lt->VpiParent() == cd && cd->Typespecs() &&
+                           std::find(cd->Typespecs()->begin(), cd->Typespecs()->end(), lt) !=
+                               cd->Typespecs()->end()
+                       ? lt
+                       : nullptr;
+        };
+        auto sameKind257 = [](const TypeAliasType& a, const TypeAliasType& b) {
+            auto& ta = a.targetType.getType().getCanonicalType();
+            auto& tb = b.targetType.getType().getCanonicalType();
+            if (ta.kind != tb.kind)
+                return false;
+            if (ta.kind == SymbolKind::PredefinedIntegerType)
+                return ta.as<PredefinedIntegerType>().integerKind ==
+                       tb.as<PredefinedIntegerType>().integerKind;
+            if (ta.kind == SymbolKind::ScalarType)
+                return ta.as<ScalarType>().scalarKind == tb.as<ScalarType>().scalarKind;
+            if (ta.kind == SymbolKind::FloatingType)
+                return ta.as<FloatingType>().floatKind == tb.as<FloatingType>().floatKind;
+            return true;
+        };
+        auto* osc = w0.getParentScope();
+        const ClassType* oct = osc && osc->asSymbol().kind == SymbolKind::ClassType
+                                   ? &osc->asSymbol().as<ClassType>()
+                                   : nullptr;
+        if (oct && oct->genericClass && w0.getSyntax() && !ownListed257(w0)) {
+            const TypeAliasType* best = nullptr;
+            for (auto& spec : oct->genericClass->specializations()) {
+                if (spec.kind != SymbolKind::ClassType || best)
+                    continue;
+                for (auto& mem : spec.as<ClassType>().members())
+                    if (mem.kind == SymbolKind::TypeAlias &&
+                        mem.getSyntax() == w0.getSyntax() &&
+                        ownListed257(mem.as<TypeAliasType>())) {
+                        best = &mem.as<TypeAliasType>();
+                        break;
+                    }
+            }
+            if (best && best != &w0 && !sameKind257(*best, w0)) {
+                wp257 = best;
+                tr257("fwWinnerSpecKind257",
+                      std::string(oct->genericClass->name) + "::" + std::string(w0.name));
+            }
+        }
+    }
+    const TypeAliasType& w = *wp257;
     if (!typedefTs.count((const Symbol*)&w))
         if (auto* osc = w.getParentScope();
             osc && osc->asSymbol().kind == SymbolKind::ClassType) {

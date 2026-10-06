@@ -1,0 +1,6 @@
+surelog/default/MiniAmiq-055eab74 sorted-diff-lines=0 lines=1968435
+surelog/testflags/MiniAmiq-055eab74 sorted-diff-lines=0 lines=1968435
+surelog/default/SeqDriver-65178d3a sorted-diff-lines=0 lines=1887246
+surelog/testflags/SeqDriver-65178d3a sorted-diff-lines=0 lines=1887306
+r10uvm180repro__g180_a_kinds.uhdm sorted-equal=yes (only the dump header line naming the file differs)
+r10v180repro__v180_a_share.uhdm sorted-equal=yes (only the dump header line naming the file differs)
