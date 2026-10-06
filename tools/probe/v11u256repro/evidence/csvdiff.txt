@@ -1,0 +1,24 @@
+== surelog P vs L (fence-filtered rows; workdir paths normalised)
+382c382
+< Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(117),,differ:fullname(117)
+---
+> Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(79),,differ:fullname(79)
+1186c1186
+< Rggen,default,STRICT_NOTEQUAL,differ:col(129),,differ:col(129)
+---
+> Rggen,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+== surelog L vs F (fence-filtered rows; workdir paths normalised)
+== uhdm2rtlil P vs L (fence-filtered rows; workdir paths normalised)
+== uhdm2rtlil L vs F (fence-filtered rows; workdir paths normalised)
+== probe P vs L (fence-filtered rows; workdir paths normalised)
+249c249
+< r10earl_repro/vo,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+---
+> r10earl_repro/vo,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+3901c3901
+< v11u115repro/grid/f1/v06_gf_vs_psel,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)
+---
+> v11u115repro/grid/f1/v06_gf_vs_psel,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+== probe L vs F (fence-filtered rows; workdir paths normalised)
+== downstream P vs L (fence-filtered rows; workdir paths normalised)
+== downstream L vs F (fence-filtered rows; workdir paths normalised)

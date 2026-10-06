@@ -1,0 +1,163 @@
+v/B/vb01_call_arg_op               P=STRICT_NOTEQUAL_fullname     L=STRICT_NOTEQUAL_fullname     FIX=STRICT_NOTEQUAL_fullname     rc=0/0/0 
+v/B/vb01_call_arg_op_el            P=STRICT_NOTEQUAL_fullname     L=STRICT_NOTEQUAL_fullname     FIX=STRICT_NOTEQUAL_fullname     rc=0/0/0 
+v/B/vb02_concat_in_tern            P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_394_objects     FIX=STRICT_EQUAL_394_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb02_concat_in_tern_el         P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_393_objects     FIX=STRICT_EQUAL_393_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb03_replication               P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_393_objects     FIX=STRICT_EQUAL_393_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb03_replication_el            P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_391_objects     FIX=STRICT_EQUAL_391_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb04_cast                      P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_391_objects     FIX=STRICT_EQUAL_391_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb04_cast_el                   P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_391_objects     FIX=STRICT_EQUAL_391_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb05_cond                      P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_378_objects     FIX=STRICT_EQUAL_378_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb05_cond_el                   P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_377_objects     FIX=STRICT_EQUAL_377_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb06_struct_member             P=STRICT_NOTEQUAL_fullname     L=STRICT_NOTEQUAL_fullname     FIX=STRICT_NOTEQUAL_fullname     rc=0/0/0 
+v/B/vb06_struct_member_el          P=STRICT_NOTEQUAL_fullname     L=STRICT_NOTEQUAL_fullname     FIX=STRICT_NOTEQUAL_fullname     rc=0/0/0 
+v/B/vb07_array_elem                P=STRICT_NOTEQUAL_fullname     L=STRICT_NOTEQUAL_fullname     FIX=STRICT_NOTEQUAL_fullname     rc=0/0/0 
+v/B/vb07_array_elem_el             P=STRICT_NOTEQUAL_fullname     L=STRICT_NOTEQUAL_fullname     FIX=STRICT_NOTEQUAL_fullname     rc=0/0/0 
+v/B/vb08_implicit_target           P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_408_objects     FIX=STRICT_EQUAL_408_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb08_implicit_target_el        P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_407_objects     FIX=STRICT_EQUAL_407_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb09_inside                    P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_374_objects     FIX=STRICT_EQUAL_374_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb09_inside_el                 P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_373_objects     FIX=STRICT_EQUAL_373_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb10_depth3_two                P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_655_objects     FIX=STRICT_EQUAL_655_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb10_depth3_two_el             P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_656_objects     FIX=STRICT_EQUAL_656_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb11_macro_sel                 P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_383_objects     FIX=STRICT_EQUAL_383_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb11_macro_sel_el              P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_381_objects     FIX=STRICT_EQUAL_381_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb12_class_param_bound         P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/B/vb12_class_param_bound_el      P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/B/vb13_qualified_nested          P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/B/vb13_qualified_nested_el       P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/B/vb14_unary                     P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_375_objects     FIX=STRICT_EQUAL_375_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb14_unary_el                  P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_373_objects     FIX=STRICT_EQUAL_373_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb15_lhs_concat_tern           P=STRICT_EQUAL_424_objects     L=STRICT_EQUAL_424_objects     FIX=STRICT_EQUAL_424_objects     rc=0/0/0 
+v/B/vb15_lhs_concat_tern_el        P=STRICT_EQUAL_413_objects     L=STRICT_EQUAL_413_objects     FIX=STRICT_EQUAL_413_objects     rc=0/0/0 
+v/B/vb16_always_ctrl               P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_415_objects     FIX=STRICT_EQUAL_415_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb16_always_ctrl_el            P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_407_objects     FIX=STRICT_EQUAL_407_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb17_program                   P=STRICT_EQUAL_261_objects     L=STRICT_EQUAL_261_objects     FIX=STRICT_EQUAL_261_objects     rc=0/0/0 
+v/B/vb17_program_el                P=STRICT_EQUAL_261_objects     L=STRICT_EQUAL_261_objects     FIX=STRICT_EQUAL_261_objects     rc=0/0/0 
+v/B/vb18_nda                       P=STRICT_EQUAL_394_objects     L=STRICT_EQUAL_394_objects     FIX=STRICT_EQUAL_394_objects     rc=0/0/0 
+v/B/vb18_nda_el                    P=STRICT_EQUAL_380_objects     L=STRICT_EQUAL_380_objects     FIX=STRICT_EQUAL_380_objects     rc=0/0/0 
+v/B/vb19_inst_in_genfor            P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_561_objects     FIX=STRICT_EQUAL_561_objects     rc=0/0/0 fix-moves-vs-P
+v/B/vb19_inst_in_genfor_el         P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_560_objects     FIX=STRICT_EQUAL_560_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf01_positional                P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_315_objects     FIX=STRICT_EQUAL_315_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf01_positional_el             P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_314_objects     FIX=STRICT_EQUAL_314_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf02_default                   P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_297_objects     FIX=STRICT_EQUAL_297_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf02_default_el                P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_296_objects     FIX=STRICT_EQUAL_296_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf03_nested                    P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_352_objects     FIX=STRICT_EQUAL_352_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf03_nested_el                 P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_351_objects     FIX=STRICT_EQUAL_351_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf04_enum_member               P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_313_objects     FIX=STRICT_EQUAL_313_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf04_enum_member_el            P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_312_objects     FIX=STRICT_EQUAL_312_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf05_inst_override             P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/F/vf05_inst_override_el          P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/F/vf06_header_inc                P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_325_objects     FIX=STRICT_EQUAL_325_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf06_header_inc_el             P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_324_objects     FIX=STRICT_EQUAL_324_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf07_macro_hdr                 P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_325_objects     FIX=STRICT_EQUAL_325_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf07_macro_hdr_el              P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_324_objects     FIX=STRICT_EQUAL_324_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf08_third_file                P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_329_objects     FIX=STRICT_EQUAL_329_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf08_third_file_el             P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_328_objects     FIX=STRICT_EQUAL_328_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf09_pkg_in_pkg                P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/F/vf09_pkg_in_pkg_el             P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/F/vf10_gen_scope                 P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/F/vf10_gen_scope_el              P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/F/vf11_import_star_child         P=STRICT_NOTEQUAL_file         L=STRICT_NOTEQUAL_file         FIX=STRICT_NOTEQUAL_file         rc=0/0/0 fix-moves-vs-P
+v/F/vf11_import_star_child_el      P=STRICT_NOTEQUAL_file         L=STRICT_NOTEQUAL_file         FIX=STRICT_NOTEQUAL_file         rc=0/0/0 fix-moves-vs-P
+v/F/vf12_expr_member               P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_326_objects     FIX=STRICT_EQUAL_326_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf12_expr_member_el            P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_325_objects     FIX=STRICT_EQUAL_325_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf13_class_param               P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/F/vf13_class_param_el            P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/F/vf14_macro_in_pkg_file         P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_204_objects     FIX=STRICT_EQUAL_204_objects     rc=0/0/0 fix-moves-vs-P
+v/F/vf14_macro_in_pkg_file_el      P=STRICT_NOTEQUAL_file         L=STRICT_EQUAL_203_objects     FIX=STRICT_EQUAL_203_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg01_for_in_if                 P=STRICT_EQUAL_411_objects     L=STRICT_EQUAL_411_objects     FIX=STRICT_EQUAL_411_objects     rc=0/0/0 
+v/G/vg01_for_in_if_el              P=STRICT_EQUAL_406_objects     L=STRICT_EQUAL_406_objects     FIX=STRICT_EQUAL_406_objects     rc=0/0/0 
+v/G/vg02_if_in_for                 P=STRICT_EQUAL_445_objects     L=STRICT_EQUAL_445_objects     FIX=STRICT_EQUAL_445_objects     rc=0/0/0 
+v/G/vg02_if_in_for_el              P=STRICT_EQUAL_439_objects     L=STRICT_EQUAL_439_objects     FIX=STRICT_EQUAL_439_objects     rc=0/0/0 
+v/G/vg03_case_op                   P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/G/vg03_case_op_el                P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/G/vg04_depth3                    P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_546_objects     FIX=STRICT_EQUAL_546_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg04_depth3_el                 P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_545_objects     FIX=STRICT_EQUAL_545_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg05_call_arg                  P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/G/vg05_call_arg_el               P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/G/vg06_sel_in_index              P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_404_objects     FIX=STRICT_EQUAL_404_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg06_sel_in_index_el           P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_402_objects     FIX=STRICT_EQUAL_402_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg07_op_base                   P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/G/vg07_op_base_el                P=STRICT_NOTEQUAL_fullname     L=STRICT_NOTEQUAL_fullname     FIX=STRICT_NOTEQUAL_fullname     rc=0/0/0 fix-moves-vs-P
+v/G/vg08_genvar_base               P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_420_objects     FIX=STRICT_EQUAL_420_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg08_genvar_base_el            P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_419_objects     FIX=STRICT_EQUAL_419_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg09_gen_localparam            P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_439_objects     FIX=STRICT_EQUAL_439_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg09_gen_localparam_el         P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_438_objects     FIX=STRICT_EQUAL_438_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg10_replication               P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_442_objects     FIX=STRICT_EQUAL_442_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg10_replication_el            P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_440_objects     FIX=STRICT_EQUAL_440_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg11_else_whole                P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_373_objects     FIX=STRICT_EQUAL_373_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg11_else_whole_el             P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_372_objects     FIX=STRICT_EQUAL_372_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg12_unnamed_genblk            P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_424_objects     FIX=STRICT_EQUAL_424_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg12_unnamed_genblk_el         P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_423_objects     FIX=STRICT_EQUAL_423_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg13_top_for                   P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_298_objects     FIX=STRICT_EQUAL_298_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg13_top_for_el                P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_296_objects     FIX=STRICT_EQUAL_296_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg14_cond_select               P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_387_objects     FIX=STRICT_EQUAL_387_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg14_cond_select_el            P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_386_objects     FIX=STRICT_EQUAL_386_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg15_down_op                   P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/G/vg15_down_op_el                P=STRICT_NOTEQUAL_fullname     L=STRICT_NOTEQUAL_fullname     FIX=STRICT_NOTEQUAL_fullname     rc=0/0/0 fix-moves-vs-P
+v/G/vg16_two_inst                  P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_680_objects     FIX=STRICT_EQUAL_680_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg16_two_inst_el               P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_682_objects     FIX=STRICT_EQUAL_682_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg17_part_ps                   P=STRICT_EQUAL_462_objects     L=STRICT_EQUAL_462_objects     FIX=STRICT_EQUAL_462_objects     rc=0/0/0 
+v/G/vg17_part_ps_el                P=STRICT_EQUAL_437_objects     L=STRICT_EQUAL_437_objects     FIX=STRICT_EQUAL_437_objects     rc=0/0/0 
+v/G/vg18_nested_for2               P=STRICT_EQUAL_487_objects     L=STRICT_EQUAL_487_objects     FIX=STRICT_EQUAL_487_objects     rc=0/0/0 
+v/G/vg18_nested_for2_el            P=STRICT_EQUAL_470_objects     L=STRICT_EQUAL_470_objects     FIX=STRICT_EQUAL_470_objects     rc=0/0/0 
+v/G/vg19_if_lhs_whole              P=STRICT_NOTEQUAL_fullname     L=STRICT_NOTEQUAL_fullname     FIX=STRICT_NOTEQUAL_fullname     rc=0/0/0 
+v/G/vg19_if_lhs_whole_el           P=STRICT_NOTEQUAL_fullname     L=STRICT_NOTEQUAL_fullname     FIX=STRICT_NOTEQUAL_fullname     rc=0/0/0 
+v/G/vg20_case_lhs_whole            P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/G/vg20_case_lhs_whole_el         P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/G/vg21_if_lhs_concat             P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/G/vg21_if_lhs_concat_el          P=STRICT_NOTEQUAL_col          L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_col          rc=0/0/0 
+v/G/vg22_for_lhs_concat            P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/G/vg22_for_lhs_concat_el         P=STRICT_NOTEQUAL_fullname     L=STRICT_NOTEQUAL_fullname     FIX=STRICT_NOTEQUAL_fullname     rc=0/0/0 
+v/G/vg23_if_two_ops                P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_392_objects     FIX=STRICT_EQUAL_392_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg23_if_two_ops_el             P=STRICT_NOTEQUAL_fullname     L=STRICT_EQUAL_390_objects     FIX=STRICT_EQUAL_390_objects     rc=0/0/0 fix-moves-vs-P
+v/G/vg24_if_call_arg               P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/G/vg24_if_call_arg_el            P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/G/vg25_iface_in_gen              P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/G/vg25_iface_in_gen_el           P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/M/vm01_paste                     P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=4/4/4 
+v/M/vm01_paste_el                  P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=4/4/4 
+v/M/vm02_member_arg                P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/M/vm02_member_arg_el             P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/M/vm03_iface_array               P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/M/vm03_iface_array_el            P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/M/vm04_downsel_comb              P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/M/vm04_downsel_comb_el           P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/M/vm05_for_nb                    P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/M/vm05_for_nb_el                 P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/M/vm06_spaces_lines              P=STRICT_NOTEQUAL_col          L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_col          rc=0/0/0 fix-moves-vs-P
+v/M/vm06_spaces_lines_el           P=STRICT_NOTEQUAL_col          L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_col          rc=0/0/0 fix-moves-vs-P
+v/M/vm07_class_vif                 P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/M/vm07_class_vif_el              P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 
+v/M/vm08_hier_inst                 P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_53_objects      FIX=STRICT_EQUAL_53_objects      rc=0/0/0 fix-moves-vs-P
+v/M/vm08_hier_inst_el              P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_47_objects      FIX=STRICT_EQUAL_47_objects      rc=0/0/0 fix-moves-vs-P
+v/M/vm09_streaming                 P=STRICT_NOTEQUAL_defname      L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_defname      rc=0/0/0 fix-moves-vs-law
+v/M/vm09_streaming_el              P=STRICT_NOTEQUAL_defname      L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_defname      rc=0/0/0 fix-moves-vs-law
+v/M/vm10_incdec                    P=STRICT_NOTEQUAL_col          L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_col          rc=0/0/0 
+v/M/vm10_incdec_el                 P=STRICT_NOTEQUAL_col          L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_col          rc=0/0/0 
+v/M/vm11_macro_in_macro_arg        P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_105_objects     FIX=STRICT_EQUAL_105_objects     rc=0/0/0 fix-moves-vs-P
+v/M/vm11_macro_in_macro_arg_el     P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_98_objects      FIX=STRICT_EQUAL_98_objects      rc=0/0/0 fix-moves-vs-P
+v/M/vm12_target_arg                P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_105_objects     FIX=STRICT_EQUAL_105_objects     rc=0/0/0 fix-moves-vs-P
+v/M/vm12_target_arg_el             P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_98_objects      FIX=STRICT_EQUAL_98_objects      rc=0/0/0 fix-moves-vs-P
+v/M/vm13_call_bound                P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/M/vm13_call_bound_el             P=NOT_EQUAL_stage1             L=NOT_EQUAL_stage1             FIX=NOT_EQUAL_stage1             rc=0/0/0 fix-moves-vs-P
+v/M/vm14_modport_gen               P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_197_objects     FIX=STRICT_EQUAL_197_objects     rc=0/0/0 fix-moves-vs-P
+v/M/vm14_modport_gen_el            P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_146_objects     FIX=STRICT_EQUAL_146_objects     rc=0/0/0 fix-moves-vs-P
+v/M/vm15_inc_two_roots             P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_183_objects     FIX=STRICT_EQUAL_183_objects     rc=0/0/0 fix-moves-vs-P
+v/M/vm15_inc_two_roots_el          P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_169_objects     FIX=STRICT_EQUAL_169_objects     rc=0/0/0 fix-moves-vs-P
+v/M/vm16_crlf_ps                   P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_105_objects     FIX=STRICT_EQUAL_105_objects     rc=0/0/0 fix-moves-vs-P
+v/M/vm16_crlf_ps_el                P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_98_objects      FIX=STRICT_EQUAL_98_objects      rc=0/0/0 fix-moves-vs-P
+v/M/vm17_stream_plain              P=STRICT_NOTEQUAL_col          L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_col          rc=0/0/0 
+v/M/vm17_stream_plain_el           P=STRICT_NOTEQUAL_col          L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_col          rc=0/0/0 
+v/M/vm18_stream_concat_macro       P=STRICT_NOTEQUAL_defname      L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_defname      rc=0/0/0 fix-moves-vs-law
+v/M/vm18_stream_concat_macro_el    P=STRICT_NOTEQUAL_defname      L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_defname      rc=0/0/0 fix-moves-vs-law
+v/M/vm19_concat_lhs_macro          P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_120_objects     FIX=STRICT_EQUAL_120_objects     rc=0/0/0 fix-moves-vs-P
+v/M/vm19_concat_lhs_macro_el       P=STRICT_NOTEQUAL_col          L=STRICT_EQUAL_110_objects     FIX=STRICT_EQUAL_110_objects     rc=0/0/0 fix-moves-vs-P
+v/M/vm20_stream_bitsel_macro       P=STRICT_NOTEQUAL_col          L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_col          rc=0/0/0 
+v/M/vm20_stream_bitsel_macro_el    P=STRICT_NOTEQUAL_col          L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_col          rc=0/0/0 
+v/M/vm21_stream_sliced_macro       P=STRICT_NOTEQUAL_defname      L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_defname      rc=0/0/0 fix-moves-vs-law
+v/M/vm21_stream_sliced_macro_el    P=STRICT_NOTEQUAL_defname      L=STRICT_NOTEQUAL_col          FIX=STRICT_NOTEQUAL_defname      rc=0/0/0 fix-moves-vs-law
+v/M/vm22_iface_struct_member       P=STRICT_NOTEQUAL_endline      L=STRICT_EQUAL_105_objects     FIX=STRICT_EQUAL_105_objects     rc=0/0/0 fix-moves-vs-P
+v/M/vm22_iface_struct_member_el    P=STRICT_NOTEQUAL_endline      L=STRICT_EQUAL_98_objects      FIX=STRICT_EQUAL_98_objects      rc=0/0/0 fix-moves-vs-P
+v/M/vm23_iface_struct_member_plain P=STRICT_EQUAL_105_objects     L=STRICT_EQUAL_105_objects     FIX=STRICT_EQUAL_105_objects     rc=0/0/0 
+v/M/vm23_iface_struct_member_plain_el P=STRICT_EQUAL_98_objects      L=STRICT_EQUAL_98_objects      FIX=STRICT_EQUAL_98_objects      rc=0/0/0 
+P->FIX entering=78 P->L entering=78 case-views=162 fix-moves-vs-P=102 fix-moves-vs-law=6

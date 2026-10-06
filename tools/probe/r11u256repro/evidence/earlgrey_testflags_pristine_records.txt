@@ -1,0 +1,75 @@
+#137760 fullname
+  A: 11	ref_typespec			work@sha2		0	0	0	0		0		
+  B: 11	ref_typespec					0	0	0	0		0		
+#216212 fullname
+  A: 8	ref_obj	DataWidth		prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::DataWidth	prim_prince.sv	81	61	81	70		0		
+  B: 8	ref_obj	DataWidth		work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST.DataWidth	prim_prince.sv	81	61	81	70		0		
+#216343 fullname
+  A: 6	var_select	prim_cipher_pkg::PRINCE_ROUND_CONST			prim_prince.sv	106	29	106	82		0		
+  B: 6	var_select	prim_cipher_pkg::PRINCE_ROUND_CONST		work@prim_prince.gen_fwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST	prim_prince.sv	106	29	106	82		0		
+#216345 fullname
+  A: 7	part_select	prim_cipher_pkg::PRINCE_ROUND_CONST	prim_cipher_pkg::PRINCE_ROUND_CONST		prim_prince.sv	106	68	106	81		0		
+  B: 7	part_select	prim_cipher_pkg::PRINCE_ROUND_CONST	prim_cipher_pkg::PRINCE_ROUND_CONST	work@prim_prince.gen_fwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST	prim_prince.sv	106	68	106	81		0		
+#216477 fullname
+  A: 6	var_select	prim_cipher_pkg::PRINCE_ROUND_CONST			prim_prince.sv	142	30	142	100		0		
+  B: 6	var_select	prim_cipher_pkg::PRINCE_ROUND_CONST		work@prim_prince.gen_bwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST	prim_prince.sv	142	30	142	100		0		
+#216483 fullname
+  A: 7	part_select	prim_cipher_pkg::PRINCE_ROUND_CONST	prim_cipher_pkg::PRINCE_ROUND_CONST		prim_prince.sv	142	86	142	99		0		
+  B: 7	part_select	prim_cipher_pkg::PRINCE_ROUND_CONST	prim_cipher_pkg::PRINCE_ROUND_CONST	work@prim_prince.gen_bwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST	prim_prince.sv	142	86	142	99		0		
+#235310 fullname
+  A: 14	ref_typespec			work@rstmgr_ctrl		0	0	0	0		0		
+  B: 14	ref_typespec			work@rstmgr_ctrl.rst_req_i		0	0	0	0		0		
+#235315 fullname
+  A: 13	ref_typespec			work@rstmgr_ctrl		0	0	0	0		0		
+  B: 13	ref_typespec			work@rstmgr_ctrl.rst_parent_synced		0	0	0	0		0		
+#373386 fullname
+  A: 12	part_select	rdata	rdata	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fifo_i.rdata	ibex_fetch_fifo.sv	82	60	82	72		0		
+  B: 12	part_select	rdata	rdata	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fifo_i.rdata	ibex_fetch_fifo.sv	82	60	82	72		0		
+#373393 fullname
+  A: 12	part_select	rdata	rdata	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fifo_i.rdata	ibex_fetch_fifo.sv	83	60	83	72		0		
+  B: 12	part_select	rdata	rdata	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fifo_i.rdata	ibex_fetch_fifo.sv	83	60	83	72		0		
+#373456 fullname
+  A: 12	part_select	rdata	rdata	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fifo_i.rdata	ibex_fetch_fifo.sv	104	37	104	49		0		
+  B: 12	part_select	rdata	rdata	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fifo_i.rdata	ibex_fetch_fifo.sv	104	37	104	49		0		
+#373465 fullname
+  A: 12	part_select	rdata	rdata	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fifo_i.rdata	ibex_fetch_fifo.sv	105	37	105	49		0		
+  B: 12	part_select	rdata	rdata	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fifo_i.rdata	ibex_fetch_fifo.sv	105	37	105	49		0		
+#373493 fullname
+  A: 12	part_select	instr_addr_q	instr_addr_q	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fifo_i.instr_addr_q	ibex_fetch_fifo.sv	144	36	144	54		0		
+  B: 12	part_select	instr_addr_q	instr_addr_q	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fifo_i.instr_addr_q	ibex_fetch_fifo.sv	144	36	144	54		0		
+#373835 fullname
+  A: 12	part_select	fetch_addr_q	fetch_addr_q	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fetch_addr_q	ibex_prefetch_buffer.sv	181	38	181	56		0		
+  B: 12	part_select	fetch_addr_q	fetch_addr_q	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fetch_addr_q	ibex_prefetch_buffer.sv	181	38	181	56		0		
+#373861 fullname
+  A: 10	part_select	instr_addr	instr_addr	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.instr_addr	ibex_prefetch_buffer.sv	196	34	196	50		0		
+  B: 10	part_select	instr_addr	instr_addr	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.instr_addr	ibex_prefetch_buffer.sv	196	34	196	50		0		
+#373871 fullname
+  A: 11	part_select	rdata_outstanding_n	rdata_outstanding_n	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.rdata_outstanding_n	ibex_prefetch_buffer.sv	234	58	234	91		0		
+  B: 11	part_select	rdata_outstanding_n	rdata_outstanding_n	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.rdata_outstanding_n	ibex_prefetch_buffer.sv	234	58	234	91		0		
+#373883 fullname
+  A: 11	part_select	branch_discard_n	branch_discard_n	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.branch_discard_n	ibex_prefetch_buffer.sv	236	58	236	88		0		
+  B: 11	part_select	branch_discard_n	branch_discard_n	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.branch_discard_n	ibex_prefetch_buffer.sv	236	58	236	88		0		
+#373895 fullname
+  A: 11	part_select	rdata_pmp_err_n	rdata_pmp_err_n	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.rdata_pmp_err_n	ibex_prefetch_buffer.sv	238	58	238	87		0		
+  B: 11	part_select	rdata_pmp_err_n	rdata_pmp_err_n	work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.rdata_pmp_err_n	ibex_prefetch_buffer.sv	238	58	238	87		0		
+#389789 fullname
+  A: 11	part_select	mac_res_ext	mac_res_ext	work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.mac_res_ext	ibex_multdiv_fast.sv	154	29	154	46		0		
+  B: 11	part_select	mac_res_ext	mac_res_ext	work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.gen_multiv_single_cycle.mac_res_ext	ibex_multdiv_fast.sv	154	29	154	46		0		
+#389843 fullname
+  A: 11	part_select	accum	accum	work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.accum	ibex_multdiv_fast.sv	173	12	173	23		0		
+  B: 11	part_select	accum	accum	work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.gen_multiv_single_cycle.accum	ibex_multdiv_fast.sv	173	12	173	23		0		
+#389854 fullname
+  A: 11	part_select	accum	accum	work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.accum	ibex_multdiv_fast.sv	174	12	174	24		0		
+  B: 11	part_select	accum	accum	work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.gen_multiv_single_cycle.accum	ibex_multdiv_fast.sv	174	12	174	24		0		
+#389897 fullname
+  A: 10	part_select	mac_res_d	mac_res_d	work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.mac_res_d	ibex_multdiv_fast.sv	127	61	127	76		0		
+  B: 10	part_select	mac_res_d	mac_res_d	work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.mac_res_d	ibex_multdiv_fast.sv	127	61	127	76		0		
+#389909 fullname
+  A: 10	part_select	res_adder_h	res_adder_h	work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.res_adder_h	ibex_multdiv_fast.sv	369	46	369	63		0		
+  B: 10	part_select	res_adder_h	res_adder_h	work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.res_adder_h	ibex_multdiv_fast.sv	369	46	369	63		0		
+#403326 depth
+  A: 9	typespec_member	unused_ctrl			ibex_cs_registers.sv	167	18	167	29				
+  B: 7	ref_obj	csr_wdata_int		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.csr_wdata_int	ibex_cs_registers.sv	1057	37	1057	50		0		
+objects 1342584 vs 1342910
+fields: depth=1 type=1 name=1 fullname=24 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=24 (walk diverged)
+STRICT_NOTEQUAL fullname

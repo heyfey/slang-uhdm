@@ -1,0 +1,9 @@
+# v11u256 frozen prediction for the FIX binary, written before the fix sweep (2026-10-06):
+# fix vs law: 0 corpus / probe / downstream movers (the refinement fires only under a streaming operand; the law's
+#   only macro-law firings are Rggen default's 522, and the fix binary traced on Rggen default fires the refinement 0 times: rg trace)
+# fix vs pristine: exactly the law's five (predict_law.txt):
+probe r10earl_repro__vo.uhdm elabBodyIpsBoundSelName256:1
+probe v11u115repro__grid__f1__v06_gf_vs_psel.uhdm genIpsBoundOwner256:2
+surelog Earlgrey_0_1/default elabBodyIpsBoundSelName256:2 genIpsBoundOwner256:63 patLitFormFileAtRef256:2
+surelog Earlgrey_0_1/testflags elabBodyIpsBoundSelName256:2 genIpsBoundOwner256:63 patLitFormFileAtRef256:2
+surelog Rggen/default macroIfaceRangeSelBaseTok256:522

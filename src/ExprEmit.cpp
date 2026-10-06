@@ -37,6 +37,7 @@
 #include "R248.h"
 #include "R252.h"
 #include "R254.h"
+#include "R256.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -1828,6 +1829,65 @@ static std::string ownerInstName192(const UHDM::any* p, int* gens = nullptr,
         }
     }
     return std::string();
+}
+// § genIpsBoundOwner256 (r11u256, R11U256_GENIPSOWNER_OFF) — the BASE or
+// WIDTH of an indexed part select, folded from a parameter, in an elaborated
+// TOP-LEVEL generate scope's continuous assignment is Surelog's getValue
+// clone parented at the owning instance's param_assign: inside a
+// FOR-generate body at any depth of the right side (whole, operand,
+// concatenation, member path, ternary branch, system-call argument; grid
+// tools/probe/r11u256repro/cases/G g01-g05, g15-g17, g21, g22), and in an
+// if / case scope when the select is the whole right side (g06); its
+// reference reads the instance (`work@top.u`), ours the scope
+// (`work@top.u.gb[0]`) or the member path.  An if / case scope's NESTED
+// select under an operation is the elaborator's clone re-parented at the
+// select (g07: golden `work@top.u.gw.a`, the select's own full name).
+// Earlgrey flash_phy_rd gen_buf_match / gen_word_sel (#472295 ...).
+// `ips` is the select the fold is emitted under; `name` the name the caller
+// wrote; `topGenCa` the top-level generate-scope continuous-assignment
+// right side (the elaborated emission); `loop` a for-generate body.
+static std::string genIpsBoundOwner256(const UHDM::any* ips, const std::string& name,
+                                       bool topGenCa, bool loop, bool elabBody = false) {
+    if (!ips || ips->UhdmType() != UHDM::uhdmindexed_part_select)
+        return name;
+    const UHDM::any* ipp = ips->VpiParent();
+    // § elabBodyIpsBoundSelName256 (r11u256, R11U256_BODYIPSSEL_OFF) — the
+    // same fold in an ELABORATED instance's module-body continuous assignment,
+    // the select NESTED under an operation (a ternary branch, an operand, a
+    // concatenation member): the elaborator's clone re-parents the bound at
+    // the select, so golden's reference reads the select's own full name
+    // (Earlgrey flash_phy `host_req_i ? host_addr_i[BankAddrW +: BankW] :
+    // '0`, #482965 / #482968: golden `work@top_earlgrey.u_flash_eflash.
+    // host_addr_i`, ours the instance; grid cases/G g13).  A whole right side
+    // is the shared definition object and is not reached here.
+    if (elabBody && !topGenCa) {
+        if (!r11u256On("R11U256_BODYIPSSEL_OFF") || !ipp ||
+            ipp->UhdmType() != UHDM::uhdmoperation)
+            return name;
+        std::string fn(((const UHDM::indexed_part_select*)ips)->VpiFullName());
+        if (fn.compare(0, 5, "work@") != 0 || fn == name)
+            return name;
+        tr256("elabBodyIpsBoundSelName256", name + " -> " + fn);
+        return fn;
+    }
+    if (!topGenCa || !r11u256On("R11U256_GENIPSOWNER_OFF"))
+        return name;
+    const bool whole = ipp && ipp->UhdmType() == UHDM::uhdmcont_assign;
+    std::string own = ownerInstName192(ips);
+    std::string ipsFn(((const UHDM::indexed_part_select*)ips)->VpiFullName());
+    if ((loop || whole) && !own.empty()) {
+        if (own != name)
+            tr256("genIpsBoundOwner256", name + " -> " + own);
+        return own;
+    }
+    if (!loop && ipp && ipp->UhdmType() == UHDM::uhdmoperation &&
+        ipsFn.compare(0, 5, "work@") == 0) {
+        if (ipsFn != name)
+            tr256("genIpsBoundOwner256", "sel " + name + " -> " + ipsFn);
+        return ipsFn;
+    }
+    tr256("genIpsBoundOwner256", "abstain " + name);
+    return name;
 }
 // § pkgSelIdxRefColons254 (r11u254) — A REFERENCE READ INSIDE A SELECT OF A
 // PACKAGE-QUALIFIED BASE IS NAMED ON THE BASE WITH `::`.  Earlgrey prim_prince
@@ -25086,6 +25146,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 if (ipsWidFold9)
                                     nm192 = defConnIpsOwner236(defRefModConn,
                                                                parent, nm192);
+                                // § genIpsBoundOwner256 — SITE 1 of 2 (law at
+                                // genIpsBoundOwner256).
+                                if (ipsWidFold9 && !elabConnEmit21)
+                                    nm192 = genIpsBoundOwner256(
+                                        parent, nm192,
+                                        contAssignView == 0 && inGenScopeCaRhs &&
+                                            !genNestedScopeEmit24,
+                                        genCaLoopParamFold || genCaChildLoopFold21,
+                                        contAssignView == 2 && !inGenScopeCaRhs &&
+                                            !inProcessEmit && !currentTf);
                                 rt->VpiFullName(nm192);
                             }
                             // § hcSelIdxTsSkipsPort254 — A HIGH-CONN SELECT'S
@@ -42022,6 +42092,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         exprStart + comps[1].second,
                                         exprStart + comps[1].second + ml154);
                                 }
+                                // § macroIfaceRangeSelBaseTok256 (r11u256,
+                                // R11U256_MACROIPSBASE_OFF) — the range-select
+                                // twin of § macroIfacePathTokSpans183: inside
+                                // a macro expansion the text offsets are
+                                // refused above, so an LVALUE base kept the
+                                // ACTUAL's span (Rggen d #27671 `RIF.read_data
+                                // [LSB+:WIDTH]`, ours 7:11-23); golden anchors
+                                // it at the first member's own TOKEN in the
+                                // expanded text (7:24-33), exactly as the bit
+                                // select arm does.  The tokens are read from
+                                // the path's syntax (one token per buffer).
+                                // § macroIpsBaseStreamAbstain256v (v11u256,
+                                // R11V256_STREAMABSTAIN_OFF) — the law abstains
+                                // on a path inside a STREAMING concatenation's
+                                // operand (`{>>{FIF.read_data[3:0]}} = x` in a
+                                // macro body): golden compiles that operand as
+                                // an rvalue and keeps the base at the ACTUAL's
+                                // span (3:19-31), where pristine already was;
+                                // the law moved it to the member token
+                                // (3:32-41, v11u256 M/vm09: 2 records lost).
+                                if (!fm154 &&
+                                    r11u256On("R11U256_MACROIPSBASE_OFF") &&
+                                    !(r11v256On("R11V256_STREAMABSTAIN_OFF") &&
+                                      lvStreamOperand181(parent) &&
+                                      (tr256("macroIpsBaseStreamAbstain256v"), true)))
+                                    if (auto tk256 = pathNameToks183(
+                                            esLeftSyn183(expr));
+                                        tk256.size() == comps.size() &&
+                                        tk256.size() >= 2) {
+                                        if (lvBaseAtFirstMember154(inLhs, parent))
+                                            tr256("macroIfaceRangeSelBaseTok256");
+                                        fm154 = tk256[1];
+                                    }
                             }
                             if (fm154 && lvBaseAtFirstMember154(inLhs, parent))
                                 setLoc(r2, *fm154);
@@ -42157,7 +42260,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // inside the same two carve-outs.
                                 if (!elabConnEmit21 || mpRoot65v)
                                     stampFoldedPkgParamTs(wc9, *wf9.sym,
-                                                          defConnIpsOwner236(defRefModConn, ips2, prefix),
+                                                          // § genIpsBoundOwner256 — SITE 2 of 2:
+                                                          // the member-path select's folded width.
+                                                          genIpsBoundOwner256(
+                                                              ips2,
+                                                              defConnIpsOwner236(defRefModConn, ips2, prefix),
+                                                              !elabConnEmit21 && contAssignView == 0 &&
+                                                                  inGenScopeCaRhs && !genNestedScopeEmit24,
+                                                              genCaLoopParamFold || genCaChildLoopFold21),
                                                           /*declTsOnly=*/false,
                                                           /*modIntAtom111=*/true);
                                 ips2->Width_expr(wc9);

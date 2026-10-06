@@ -25,6 +25,7 @@
 #include "R249.h"
 #include "R250.h"
 #include "R252.h"
+#include "R256.h"
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
@@ -19441,6 +19442,28 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     }
                                     pc2->VpiSize(w2);
                                     pc2->VpiParent(op2);
+                                    // § patLitFormFileAtRef256 (r11u256,
+                                    // R11U256_PATLITFILE_OFF) — the literal-form
+                                    // constant is minted by emitExpr at the
+                                    // SOURCE literal (the parameter's own
+                                    // initializer, often in a package file) and
+                                    // re-located here at the member setter;
+                                    // setLoc keeps a file already written, so
+                                    // the line and columns were the setter's
+                                    // and the FILE the package's (Earlgrey
+                                    // rv_dm.sv 100:17-30 `datasize:
+                                    // dm::DataCount` written in dm_pkg.sv).
+                                    // Golden's constant is the setter's in all
+                                    // four fields: the file follows the span.
+                                    if (r11u256On("R11U256_PATLITFILE_OFF") &&
+                                        !pc2->VpiFile().empty() &&
+                                        se->sourceRange.start().valid() &&
+                                        pc2->VpiFile() !=
+                                            fullFilePath(se->sourceRange.start())) {
+                                        tr256("patLitFormFileAtRef256",
+                                              std::string(ps.name));
+                                        pc2->VpiFile("");
+                                    }
                                     setLoc(pc2, se->sourceRange);
                                     opnds->push_back(pc2);
                                     continue;

@@ -1,0 +1,3 @@
+wP: 3315 cmds.txt; naming /tmp/v11u256_bin/pristine: 3265; naming another slang binary: 0; no slang line: 50
+wL: 3315 cmds.txt; naming /tmp/v11u256_bin/law: 3265; naming another slang binary: 0; no slang line: 50
+wF: 3315 cmds.txt; naming /tmp/v11u256_bin/fix: 3265; naming another: 0

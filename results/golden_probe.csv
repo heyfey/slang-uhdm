@@ -246,7 +246,7 @@ r10earl_repro/vf,EQUAL,,equal
 r10earl_repro/vj,EQUAL,,equal
 r10earl_repro/vk,EQUAL,,equal
 r10earl_repro/vl,EQUAL,,equal
-r10earl_repro/vo,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10earl_repro/vo,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
 r10earl_repro/vp,EQUAL,,equal
 r10earl_repro/wa,EQUAL,,equal
 r10earl_repro/wb24,EQUAL,,equal
@@ -3898,7 +3898,7 @@ v11u115repro/grid/f1/a26_gf_twoinst,EQUAL,,equal
 v11u115repro/grid/f1/v03_gf_vs_cat,EQUAL,,equal
 v11u115repro/grid/f1/v04_gf_vs_bits,EQUAL,,equal
 v11u115repro/grid/f1/v05_gf_vs_idxof,EQUAL,,equal
-v11u115repro/grid/f1/v06_gf_vs_psel,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)
+v11u115repro/grid/f1/v06_gf_vs_psel,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
 v11u115repro/grid/f1/v07_ms_vs_qual,EQUAL,,equal
 v11u115repro/grid/f1/v08_gf_vs_neg,EQUAL,,equal
 v11u115repro/grid/f2/p04_lp_bare_recvA,EQUAL,,equal

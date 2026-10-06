@@ -1,0 +1,2 @@
+name,mode,status,detail,blocked_by,strict
+Rggen,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)

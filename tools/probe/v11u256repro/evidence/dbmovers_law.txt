@@ -1,0 +1,3 @@
+probe: 4087 movers of 4087 databases (0 without a pristine twin)
+downstream: 0 movers of 805 databases (0 without a pristine twin)
+(the 4087 probe 'movers' above are the path-embedding artefact: the pristine sweep ran from /tmp/wt_v11u256pris and the law sweep from /tmp/wt_v11u256, so every probe database embeds a different source path; the same-worktree comparison is probe_dbmovers.txt)

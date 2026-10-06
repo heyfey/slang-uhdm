@@ -1,0 +1,12 @@
+#27671 col
+  A: 9	ref_obj	bit_field_if			block_0.sv	7	24	7	33		0		
+  B: 9	ref_obj	bit_field_if			block_0.sv	7	11	7	23		0		
+#27680 col
+  A: 9	ref_obj	bit_field_if			block_0.sv	8	24	8	29		0		
+  B: 9	ref_obj	bit_field_if			block_0.sv	8	11	8	23		0		
+#29190 col
+  A: 9	ref_obj	bit_field_if			block_0.sv	7	24	7	33		0		
+  B: 9	ref_obj	bit_field_if			block_0.sv	7	11	7	23		0		
+objects 314498 vs 314389
+fields: type=1 fullname=1 file=1 line=1 col=129 endline=1 endcol=129 size=1 objects_differing=129 (walk diverged)
+STRICT_NOTEQUAL col

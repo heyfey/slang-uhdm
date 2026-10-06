@@ -1,0 +1,7 @@
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/Earlgrey_0_1-a898def8/slang.uhdm  patched=9090c6a0bad8 pristine=5b8250bee36e
+MOVER ./surelog/default/Rggen-ee9ac8af/slang.uhdm  patched=526d684388db pristine=aec01463e869
+MOVER ./surelog/testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=b15a828ca58e pristine=5b2fce6b0304
+MOVERS: 3 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged

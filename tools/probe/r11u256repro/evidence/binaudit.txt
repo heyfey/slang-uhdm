@@ -1,0 +1,2 @@
+/tmp/r11u256_wP cmds=3315 right=3265 other=0 noslang=50
+/tmp/r11u256_wL cmds=3315 right=3265 other=0 noslang=50
