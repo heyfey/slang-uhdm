@@ -1,0 +1,2 @@
+pristine sweep: cmds.txt=3315 expected-binary=3265 other-binary=0 no-slang-line=50 fenced-skipped-unread=8
+law sweep: cmds.txt=3315 expected-binary=3265 other-binary=0 no-slang-line=50 fenced-skipped-unread=8

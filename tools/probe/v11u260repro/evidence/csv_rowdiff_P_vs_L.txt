@@ -1,0 +1,18 @@
+== probe
+== surelog
+379,380c379,380
+< Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(36),,differ:fullname(36)
+< Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+---
+> Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:file(34),,differ:file(34)
+> Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(20),,differ:fullname(20)
+844c844
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u260_swP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u260_swL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+846c846
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u260_swP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u260_swL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+== uhdm2rtlil
+== downstream

@@ -1,0 +1,24 @@
+case-views=3132 moving=15 entering=8 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/r11u254repro/cases/Q/q01_proc_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u254repro/cases/Q/q02_ca_levels_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 88->88
+MOVER tp/r11u254repro/cases/Q/q05_gen_scopes_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u254repro/decode/P/p01_proc_pkgsel_ps_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_117_objects cmplines 0->0
+MOVER tp/r11u254repro/decode/P/p02_plain_assign_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_141_objects cmplines 0->0
+MOVER tp/r11u254repro/decode/P/p03_unnamed_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_147_objects cmplines 0->0
+MOVER tp/r11u254repro/decode/P/p06_ca_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_137_objects cmplines 0->0
+MOVER tp/r11u254repro/decode/P/p07_threelvl_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_108_objects cmplines 0->0
+MOVER tp/r11u261repro/decode/B/b01_shadow_ipsel STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_241_objects cmplines 0->0
+MOVER tp/r11u261repro/decode/B/b01_shadow_ipsel_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_239_objects cmplines 0->0
+MOVER tp/r11u261repro/decode/E/e01_mod_struct_cast STRICT_EQUAL_222_objects -> STRICT_EQUAL_222_objects cmplines 0->0
+MOVER tp/r11u261repro/decode/E/e01_mod_struct_cast_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_232_objects cmplines 0->0
+MOVER tp/r11u261repro/decode/E/e02_cast_only STRICT_EQUAL_182_objects -> STRICT_EQUAL_182_objects cmplines 0->0
+MOVER tp/r11u261repro/decode/E/e02_cast_only_el STRICT_EQUAL_186_objects -> STRICT_EQUAL_186_objects cmplines 0->0
+MOVER tp/v11u254repro/cases/P/vp03_nba_compound_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+ENTER tp/r11u254repro/decode/P/p01_proc_pkgsel_ps_el
+ENTER tp/r11u254repro/decode/P/p02_plain_assign_el
+ENTER tp/r11u254repro/decode/P/p03_unnamed_el
+ENTER tp/r11u254repro/decode/P/p06_ca_el
+ENTER tp/r11u254repro/decode/P/p07_threelvl_el
+ENTER tp/r11u261repro/decode/B/b01_shadow_ipsel
+ENTER tp/r11u261repro/decode/B/b01_shadow_ipsel_el
+ENTER tp/r11u261repro/decode/E/e01_mod_struct_cast_el

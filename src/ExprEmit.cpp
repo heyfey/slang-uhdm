@@ -39,6 +39,7 @@
 #include "R254.h"
 #include "R256.h"
 #include "R258.h"
+#include "R260.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -2000,6 +2001,254 @@ static void pkgSelIdxRefColons254(UHDM::ref_obj* ref, const UHDM::any* parent,
     nf += "::" + name;
     tr254("pkgSelIdxRefColons254", prefix + "." + name + " -> " + nf);
     ref->VpiFullName(nf);
+}
+// § castStructInstCopy260 (r11u260, Earlgrey_0_1 testflags #403326,
+// ibex_cs_registers `cpuctrl_wdata = cpu_ctrl_t'(csr_wdata_int)`) — a cast
+// to a packed STRUCT typedef written in an elaborated instance listing (a
+// re-emitted continuous assignment or process, not a subroutine) targets a
+// per-use COPY of the struct in golden, in both views: Surelog compiles the
+// cast's type in the instance, so the copy is parented at the cast's
+// ref_typespec, keeps the listing's name, span, vpiInstance and packing, and
+// its members' ref_typespecs read `<scope>.<typedef>.<member>`
+// (`work@top.u.t_t.x`, a generate scope `work@top.u.g.t_t.x`, a package
+// typedef `work@top.u.p::t_t.x`), a struct-typed member holding a copy of
+// its own struct named on the member's reference (`work@top.u.t_t.n.in_t.k`),
+// a union member likewise (`work@top.u.t_t.x.u_t.p`, E e16), a packed-array
+// member a copy of the array whose element reference reads the member's
+// name and whose element struct is copied (`work@top.u.t_t.x.in_t.k`, e17);
+// one copy per instance and per cast (cases/E: e01 to e08, e11; a cast in a
+// module function e09 and enum / vector typedefs e10 / e12 get none).  Ours
+// bound the shared listing struct, so a member path that had already
+// reached one of its members (`rd.unused_ctrl`, bound by the elaborator)
+// made the canonical walk skip that member under the cast.  The member's
+// other typespecs stay shared (typespec identity is canonicalised).  A member
+// with a default value abstains for the whole cast (nullptr).
+// Switch: R11U260_CASTSTRUCTCOPY_OFF.
+static UHDM::typespec* castAggInstCopy260(UHDM::Serializer& s,
+                                           const UHDM::typespec* src,
+                                           UHDM::any* parent,
+                                           const std::string& refName,
+                                           int depth);
+// one member list (struct or union) copied under `ns`, the member references
+// named `<base>.<member>`
+static bool castMembersCopy260(UHDM::Serializer& s,
+                               const UHDM::VectorOftypespec_member* ms,
+                               UHDM::typespec* ns, const std::string& base,
+                               UHDM::VectorOftypespec_member*& out, int depth) {
+    out = nullptr;
+    if (!ms)
+        return true;
+    for (auto* m : *ms)
+        if (!m || !m->Typespec() || m->Default_value())
+            return false;
+    auto* nv = s.MakeTypespec_memberVec();
+    for (auto* m : *ms) {
+        auto* nm = s.MakeTypespec_member();
+        uint32_t mid = nm->UhdmId();
+        *nm = *m;
+        nm->UhdmId(mid);
+        nm->VpiParent(ns);
+        auto* ort = m->Typespec();
+        auto* nrt = s.MakeRef_typespec();
+        uint32_t rid = nrt->UhdmId();
+        *nrt = *ort;
+        nrt->UhdmId(rid);
+        nrt->VpiParent(nm);
+        std::string mfn = base + "." + std::string(m->VpiName());
+        nrt->VpiFullName(mfn);
+        if (auto* at = ort->Actual_typespec()) {
+            auto* ic = castAggInstCopy260(s, at, nrt, mfn, depth + 1);
+            if (!ic)
+                return false;
+            nrt->Actual_typespec(ic);
+        }
+        nm->Typespec(nrt);
+        nv->push_back(nm);
+    }
+    out = nv;
+    return true;
+}
+// the copy of one typespec reached from the cast (or from a copied member's
+// or element's reference named `refName`): a struct or union is copied with
+// its members (named `<refName>.<its name>.<member>`), a packed array with
+// its element reference (named `refName`) and element; any other kind is
+// shared.  nullptr = abstain (a member with a default value, too deep).
+static UHDM::typespec* castAggInstCopy260(UHDM::Serializer& s,
+                                           const UHDM::typespec* src,
+                                           UHDM::any* parent,
+                                           const std::string& refName,
+                                           int depth) {
+    if (!src || depth > 16)
+        return nullptr;
+    switch (src->UhdmType()) {
+        case UHDM::uhdmstruct_typespec: {
+            auto* o = (const UHDM::struct_typespec*)src;
+            auto* ns = s.MakeStruct_typespec();
+            uint32_t id = ns->UhdmId();
+            *ns = *o;
+            ns->UhdmId(id);
+            ns->VpiParent(parent);
+            UHDM::VectorOftypespec_member* nv = nullptr;
+            if (!castMembersCopy260(s, o->Members(), ns,
+                                    refName + "." + std::string(o->VpiName()),
+                                    nv, depth))
+                return nullptr;
+            if (nv)
+                ns->Members(nv);
+            return ns;
+        }
+        case UHDM::uhdmunion_typespec: {
+            auto* o = (const UHDM::union_typespec*)src;
+            auto* ns = s.MakeUnion_typespec();
+            uint32_t id = ns->UhdmId();
+            *ns = *o;
+            ns->UhdmId(id);
+            ns->VpiParent(parent);
+            UHDM::VectorOftypespec_member* nv = nullptr;
+            if (!castMembersCopy260(s, o->Members(), ns,
+                                    refName + "." + std::string(o->VpiName()),
+                                    nv, depth))
+                return nullptr;
+            if (nv)
+                ns->Members(nv);
+            return ns;
+        }
+        case UHDM::uhdmpacked_array_typespec: {
+            auto* o = (const UHDM::packed_array_typespec*)src;
+            auto* na = s.MakePacked_array_typespec();
+            uint32_t id = na->UhdmId();
+            *na = *o;
+            na->UhdmId(id);
+            na->VpiParent(parent);
+            if (auto* ert = o->Elem_typespec()) {
+                auto* nrt = s.MakeRef_typespec();
+                uint32_t rid = nrt->UhdmId();
+                *nrt = *ert;
+                nrt->UhdmId(rid);
+                nrt->VpiParent(na);
+                nrt->VpiFullName(refName);
+                if (auto* at = ert->Actual_typespec()) {
+                    auto* ic = castAggInstCopy260(s, at, nrt, refName, depth + 1);
+                    if (!ic)
+                        return nullptr;
+                    nrt->Actual_typespec(ic);
+                }
+                na->Elem_typespec(nrt);
+            }
+            return na;
+        }
+        default:
+            return (UHDM::typespec*)src;
+    }
+}
+// § shadowedImportTsRefOwner260 — the slots in which golden's shadowed
+// import fold names its ref_typespec by the design unit (law at the call in
+// emitExpr's NamedValue branch): the fold's syntax, parentheses aside, IS a
+// part-select bound, an indexed part-select base or width, a replication
+// count, or an argument of a system call.
+static bool shadowFoldOwnerCtx260(const slang::syntax::SyntaxNode* syn) {
+    namespace sx = slang::syntax;
+    const sx::SyntaxNode* n = syn;
+    const sx::SyntaxNode* p = n ? n->parent : nullptr;
+    while (p && p->kind == sx::SyntaxKind::ParenthesizedExpression) {
+        n = p;
+        p = p->parent;
+    }
+    // a system call's argument is parsed as a property expression holding a
+    // sequence expression
+    if (p && p->kind == sx::SyntaxKind::SimpleSequenceExpr) {
+        n = p;
+        p = p->parent;
+        if (p && p->kind == sx::SyntaxKind::SimplePropertyExpr) {
+            n = p;
+            p = p->parent;
+        }
+    }
+    if (!p)
+        return false;
+    switch (p->kind) {
+        case sx::SyntaxKind::SimpleRangeSelect:
+        case sx::SyntaxKind::AscendingRangeSelect:
+        case sx::SyntaxKind::DescendingRangeSelect:
+            return true;
+        case sx::SyntaxKind::MultipleConcatenationExpression:
+            return p->as<sx::MultipleConcatenationExpressionSyntax>().expression == n;
+        case sx::SyntaxKind::OrderedArgument: {
+            const sx::SyntaxNode* al = p->parent;
+            const sx::SyntaxNode* inv = al ? al->parent : nullptr;
+            if (!al || al->kind != sx::SyntaxKind::ArgumentList || !inv ||
+                inv->kind != sx::SyntaxKind::InvocationExpression)
+                return false;
+            const sx::SyntaxNode* l = inv->as<sx::InvocationExpressionSyntax>().left.get();
+            return l && l->kind == sx::SyntaxKind::SystemName;
+        }
+        default:
+            return false;
+    }
+}
+// § pkgSelPsBoundColonsElab260 (r11u260, Earlgrey_0_1 testflags #216212,
+// prim_prince p_pre_round_xor `data_state[0] ^=
+// prim_cipher_pkg::PRINCE_ROUND_CONST[0][DataWidth-1:0];`) — § pkgSelIdx
+// RefColons254 stays off in the --elabuhdm view because the elaborated
+// listing is UHDM's DeepClone of the definition's object, which copies a
+// stored name (`*clone = *this`), and golden's clone reads the dotted chain.
+// But a reference in a PART-SELECT BOUND (`[W-1:0]`, a constant expression by
+// the language) never reaches the clone: the elaborator reduces the clone's
+// bounds to constants (golden and ours alike), so only the definition
+// listing holds the reference, and there golden writes the `::` form in
+// both views (cases/X: x01 a compound assignment in an instantiated module,
+// x04 the top module; an element index `R3[0][W-1]` keeps its reference in
+// the clone, cases X x10 and r11u254 Q/q01, and stays out).  The reference
+// must sit in a simple range select's bound and that range select must be a
+// selector of the qualified name's select list (not inside a nested index,
+// call or concatenation).  Switch: R11U260_PSELELAB_OFF.
+static bool psBoundRefElab260(const slang::syntax::SyntaxNode* syn,
+                              const slang::ast::Symbol& sym) {
+    namespace sx = slang::syntax;
+    if (!syn || !r11u260On("R11U260_PSELELAB_OFF"))
+        return false;
+    // only an overridable parameter folds in the clone: a localparam (header
+    // or body, even with a literal value) keeps its reference there (X x06,
+    // x21, x22)
+    if (sym.kind != slang::ast::SymbolKind::Parameter ||
+        sym.as<slang::ast::ParameterSymbol>().isLocalParam()) {
+        tr260("pkgSelPsBoundColonsElab260", "abstain notparam");
+        return false;
+    }
+    const sx::SyntaxNode* n = syn;
+    const sx::SyntaxNode* prev = nullptr;
+    int g = 0;
+    while (n && g++ < 64 && n->kind != sx::SyntaxKind::ElementSelect) {
+        switch (n->kind) {
+            case sx::SyntaxKind::IdentifierName:
+            case sx::SyntaxKind::ParenthesizedExpression:
+            case sx::SyntaxKind::SimpleRangeSelect:
+            case sx::SyntaxKind::UnaryMinusExpression:
+            case sx::SyntaxKind::UnaryPlusExpression:
+            case sx::SyntaxKind::AddExpression:
+            case sx::SyntaxKind::SubtractExpression:
+            case sx::SyntaxKind::MultiplyExpression:
+            case sx::SyntaxKind::DivideExpression:
+            case sx::SyntaxKind::ModExpression:
+            case sx::SyntaxKind::PowerExpression:
+            case sx::SyntaxKind::LogicalShiftLeftExpression:
+            case sx::SyntaxKind::LogicalShiftRightExpression:
+            case sx::SyntaxKind::ArithmeticShiftLeftExpression:
+            case sx::SyntaxKind::ArithmeticShiftRightExpression:
+                break;
+            default:
+                tr260("pkgSelPsBoundColonsElab260", "abstain node");
+                return false;
+        }
+        prev = n;
+        n = n->parent;
+    }
+    if (!n || !prev || prev->kind != sx::SyntaxKind::SimpleRangeSelect) {
+        tr260("pkgSelPsBoundColonsElab260", "abstain notbound");
+        return false;
+    }
+    tr260("pkgSelPsBoundColonsElab260", "candidate");
+    return true;
 }
 // § procReplCountOwner254 (r11u254) — the multi-concatenation whose repeat
 // COUNT is being emitted, and the name golden gives the reference of an
@@ -21616,6 +21865,54 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         defStmtImportScope9, nv.symbol.name))
                     if (auto* c8 = pkgBoundValueConst9(*wq8, parent)) {
                         setLoc(c8, expr.sourceRange);
+                        // § shadowedImportTsRefOwner260 (r11u260, Earlgrey
+                        // #233633 / #233638, testflags #235310 / #235315,
+                        // rstmgr_ctrl.sv:64 `rst_req_i[OffDomainSelStart +:
+                        // OffDomains]`) — the fold's ref_typespec stores the
+                        // declaring design unit's name `work@<definition>`
+                        // in both views; pkgBoundValueConst9 stores none, so
+                        // the getter read the parent chain (`work@rstmgr_ctrl
+                        // .rst_req_i`, `work@ctrl.nb`).  Measured in every
+                        // context (cases/S: an indexed part-select width and
+                        // base, a part-select bound, a continuous assignment,
+                        // a named block's call argument and replication
+                        // count, the top module) WHEN THE FOLD IS THE WHOLE
+                        // slot: a part-select bound, an indexed part-select
+                        // base or width, a replication count or a system-call
+                        // argument (parentheses aside).  Inside an operation
+                        // (`OffD-1`, a ternary), as a bit-select index or as
+                        // a plain operand golden keeps the parent chain
+                        // (`work@ctrl.a`, `work@ctrl.nb`: S s02, s04, s15 to
+                        // s18, s21, s28).  The ts ref is fresh (the
+                        // getter is not read: it caches the chain).  Switch:
+                        // R11U260_SHADOWTSOWNER_OFF.
+                        if (r11u260On("R11U260_SHADOWTSOWNER_OFF")) {
+                            auto* rt260 = c8->Typespec();
+                            const auto& sy260 = defStmtImportScope9->asSymbol();
+                            if (!rt260)
+                                tr260("shadowedImportTsRefOwner260", "abstain nots");
+                            else if (!shadowFoldOwnerCtx260(expr.syntax))
+                                tr260("shadowedImportTsRefOwner260",
+                                      std::string("abstain ctx ") +
+                                          [&] {
+                                              std::string k;
+                                              int g = 0;
+                                              for (const slang::syntax::SyntaxNode* q = expr.syntax ? (const slang::syntax::SyntaxNode*)expr.syntax->parent : nullptr;
+                                                   q && g < 4; q = q->parent, ++g)
+                                                  k += std::string(toString(q->kind)) + "/";
+                                              return k;
+                                          }());
+                            else if (sy260.kind != SymbolKind::InstanceBody)
+                                tr260("shadowedImportTsRefOwner260", "abstain scope");
+                            else {
+                                std::string own260 =
+                                    "work@" + std::string(sy260.as<InstanceBodySymbol>()
+                                                              .getDefinition()
+                                                              .name);
+                                tr260("shadowedImportTsRefOwner260", own260);
+                                rt260->VpiFullName(own260);
+                            }
+                        }
                         // Golden names the ts ref after the DECLARING module
                         // (`work@vra`); not a cmp-compared field, recorded
                         // here so a later span/name pass has the datum.
@@ -27404,10 +27701,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (!defGenProcessEmit)
                     ref->VpiFullName(joinRef(prefix, nv.symbol.name));
                 // § pkgSelIdxRefColons254 — see the definition.
-                if (!defGenProcessEmit && !elabUhdmView121 &&
-                    r11u254On("R11U254_PKGSELREF_OFF"))
+                // § pkgSelPsBoundColonsElab260 — the --elabuhdm view's
+                // definition listing too, for a reference in a part-select
+                // bound (law at psBoundRefElab260).
+                if (!defGenProcessEmit &&
+                    (!elabUhdmView121 ||
+                     (prefix.find("::") != std::string::npos &&
+                      psBoundRefElab260(expr.syntax, nv.symbol))) &&
+                    r11u254On("R11U254_PKGSELREF_OFF")) {
+                    // the stored name was just written by joinRef above, so
+                    // the getter reads it back (it computes nothing here)
+                    std::string before260 =
+                        elabUhdmView121 ? std::string(ref->VpiFullName())
+                                        : std::string();
                     pkgSelIdxRefColons254(ref, parent, expr.syntax, prefix,
                                           std::string(nv.symbol.name));
+                    if (elabUhdmView121 && before260 != ref->VpiFullName())
+                        tr260("pkgSelPsBoundColonsElab260",
+                              before260 + " -> " + std::string(ref->VpiFullName()));
+                }
                 // § superNewFormalBinds28 — inside a `super.new` argument list
                 // a reference to one of the CONSTRUCTOR'S OWN FORMALS binds;
                 // everything else there (body locals, class properties) keeps
@@ -31946,6 +32258,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 rt->VpiFullName(tsp);
             }
             rt->VpiParent(op);
+            // § castStructInstCopy260 — law at castAggInstCopy260().
+            if (cts && cts->UhdmType() == UHDM::uhdmstruct_typespec &&
+                reemitting && !defGenProcessEmit && !currentSubSym &&
+                expr.type && expr.type->kind == SymbolKind::TypeAlias &&
+                expr.type->getCanonicalType().kind ==
+                    SymbolKind::PackedStructType &&
+                r11u260On("R11U260_CASTSTRUCTCOPY_OFF")) {
+                std::string tsp260(rt->VpiFullName());
+                auto* cp260 = castAggInstCopy260(s, cts, rt, tsp260, 0);
+                if (cp260) {
+                    tr260("castStructInstCopy260", tsp260 + " " +
+                                                       std::string(cts->VpiName()));
+                    cts = cp260;
+                }
+                else
+                    tr260("castStructInstCopy260", "abstain shape " + tsp260);
+            }
             rt->Actual_typespec(cts);
             // § castPkgVecTdBareViewClone123 — RECORD, re-point design-final.
             // The target of a cast to a package RANGED bit/logic typedef is a

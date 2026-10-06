@@ -1,0 +1,105 @@
+#395727 file
+  A: 11	enum_const	WB_INSTR_OTHER			ibex_pkg.sv	179	3	179	17				
+  B: 11	enum_const	WB_INSTR_OTHER				0	0	0	0				
+#464077 fullname
+  A: 8	ref_typespec			work@top_earlgrey.u_ram1p_ram_main		0	0	0	0		0		
+  B: 8	ref_typespec			work@top_earlgrey		0	0	0	0		0		
+#600811 fullname
+  A: 9	ref_typespec					0	0	0	0		0		
+  B: 9	ref_typespec			work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded		0	0	0	0		0		
+#600816 fullname
+  A: 9	ref_typespec					0	0	0	0		0		
+  B: 9	ref_typespec			work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded		0	0	0	0		0		
+#620047 fullname
+  A: 8	ref_obj	N		work@tlul_socket_1n.N	tlul_socket_1n.sv	201	17	201	18		0		
+  B: 8	ref_obj	N		work@top_earlgrey.u_spi_device.u_reg.u_socket.N	tlul_socket_1n.sv	201	17	201	18		0		
+#620055 fullname
+  A: 8	ref_obj	N		work@tlul_socket_1n.N	tlul_socket_1n.sv	204	17	204	18		0		
+  B: 8	ref_obj	N		work@top_earlgrey.u_spi_device.u_reg.u_socket.N	tlul_socket_1n.sv	204	17	204	18		0		
+#620063 fullname
+  A: 8	ref_obj	N		work@tlul_socket_1n.N	tlul_socket_1n.sv	205	17	205	18		0		
+  B: 8	ref_obj	N		work@top_earlgrey.u_spi_device.u_reg.u_socket.N	tlul_socket_1n.sv	205	17	205	18		0		
+#620071 fullname
+  A: 8	ref_obj	N		work@tlul_socket_1n.N	tlul_socket_1n.sv	206	17	206	18		0		
+  B: 8	ref_obj	N		work@top_earlgrey.u_spi_device.u_reg.u_socket.N	tlul_socket_1n.sv	206	17	206	18		0		
+#620079 fullname
+  A: 8	ref_obj	N		work@tlul_socket_1n.N	tlul_socket_1n.sv	207	17	207	18		0		
+  B: 8	ref_obj	N		work@top_earlgrey.u_spi_device.u_reg.u_socket.N	tlul_socket_1n.sv	207	17	207	18		0		
+#620087 fullname
+  A: 8	ref_obj	N		work@tlul_socket_1n.N	tlul_socket_1n.sv	208	17	208	18		0		
+  B: 8	ref_obj	N		work@top_earlgrey.u_spi_device.u_reg.u_socket.N	tlul_socket_1n.sv	208	17	208	18		0		
+#620095 fullname
+  A: 8	ref_obj	N		work@tlul_socket_1n.N	tlul_socket_1n.sv	209	17	209	18		0		
+  B: 8	ref_obj	N		work@top_earlgrey.u_spi_device.u_reg.u_socket.N	tlul_socket_1n.sv	209	17	209	18		0		
+#620103 fullname
+  A: 8	ref_obj	N		work@tlul_socket_1n.N	tlul_socket_1n.sv	210	17	210	18		0		
+  B: 8	ref_obj	N		work@top_earlgrey.u_spi_device.u_reg.u_socket.N	tlul_socket_1n.sv	210	17	210	18		0		
+#620111 fullname
+  A: 8	ref_obj	N		work@tlul_socket_1n.N	tlul_socket_1n.sv	211	17	211	18		0		
+  B: 8	ref_obj	N		work@top_earlgrey.u_spi_device.u_reg.u_socket.N	tlul_socket_1n.sv	211	17	211	18		0		
+#658559 line
+  A: 6	cont_assign				tlul_err_resp.sv	40	10	40	30				
+  B: 6	cont_assign				tlul_err_resp.sv	38	10	38	83				
+#658560 name
+  A: 7	hier_path	tl_h_o.d_data			tlul_err_resp.sv	40	10	40	23		0		
+  B: 7	hier_path	tl_h_o.a_ready			tlul_err_resp.sv	38	10	38	24		0		
+#658561 line
+  A: 8	ref_obj	tl_h_o			tlul_err_resp.sv	40	17	40	23		0		
+  B: 8	ref_obj	tl_h_o			tlul_err_resp.sv	38	17	38	24		0		
+#658562 name
+  A: 8	ref_obj	d_data			tlul_err_resp.sv	40	17	40	23		0		
+  B: 8	ref_obj	a_ready			tlul_err_resp.sv	38	17	38	24		0		
+#658563 line
+  A: 6	cont_assign				tlul_err_resp.sv	42	10	42	30				
+  B: 6	cont_assign				tlul_err_resp.sv	39	10	39	61				
+#658564 name
+  A: 7	hier_path	tl_h_o.d_sink			tlul_err_resp.sv	42	10	42	23		0		
+  B: 7	hier_path	tl_h_o.d_valid			tlul_err_resp.sv	39	10	39	24		0		
+#658565 line
+  A: 8	ref_obj	tl_h_o			tlul_err_resp.sv	42	17	42	23		0		
+  B: 8	ref_obj	tl_h_o			tlul_err_resp.sv	39	17	39	24		0		
+#658566 name
+  A: 8	ref_obj	d_sink			tlul_err_resp.sv	42	17	42	23		0		
+  B: 8	ref_obj	d_valid			tlul_err_resp.sv	39	17	39	24		0		
+#658567 line
+  A: 6	cont_assign				tlul_err_resp.sv	43	10	43	30				
+  B: 6	cont_assign				tlul_err_resp.sv	40	10	40	30				
+#658568 name
+  A: 7	hier_path	tl_h_o.d_param			tlul_err_resp.sv	43	10	43	24		0		
+  B: 7	hier_path	tl_h_o.d_data			tlul_err_resp.sv	40	10	40	23		0		
+#658569 line
+  A: 8	ref_obj	tl_h_o			tlul_err_resp.sv	43	17	43	24		0		
+  B: 8	ref_obj	tl_h_o			tlul_err_resp.sv	40	17	40	23		0		
+#658570 name
+  A: 8	ref_obj	d_param			tlul_err_resp.sv	43	17	43	24		0		
+  B: 8	ref_obj	d_data			tlul_err_resp.sv	40	17	40	23		0		
+#658571 line
+  A: 6	cont_assign				tlul_err_resp.sv	46	10	46	30				
+  B: 6	cont_assign				tlul_err_resp.sv	42	10	42	30				
+#658572 name
+  A: 7	hier_path	tl_h_o.d_user			tlul_err_resp.sv	46	10	46	23		0		
+  B: 7	hier_path	tl_h_o.d_sink			tlul_err_resp.sv	42	10	42	23		0		
+#658573 line
+  A: 8	ref_obj	tl_h_o			tlul_err_resp.sv	46	17	46	23		0		
+  B: 8	ref_obj	tl_h_o			tlul_err_resp.sv	42	17	42	23		0		
+#658574 name
+  A: 8	ref_obj	d_user			tlul_err_resp.sv	46	17	46	23		0		
+  B: 8	ref_obj	d_sink			tlul_err_resp.sv	42	17	42	23		0		
+#658575 line
+  A: 6	cont_assign				tlul_err_resp.sv	47	10	47	32				
+  B: 6	cont_assign				tlul_err_resp.sv	43	10	43	30				
+#658576 name
+  A: 7	hier_path	tl_h_o.d_error			tlul_err_resp.sv	47	10	47	24		0		
+  B: 7	hier_path	tl_h_o.d_param			tlul_err_resp.sv	43	10	43	24		0		
+#658577 line
+  A: 8	ref_obj	tl_h_o			tlul_err_resp.sv	47	17	47	24		0		
+  B: 8	ref_obj	tl_h_o			tlul_err_resp.sv	43	17	43	24		0		
+#658578 name
+  A: 8	ref_obj	d_error			tlul_err_resp.sv	47	17	47	24		0		
+  B: 8	ref_obj	d_param			tlul_err_resp.sv	43	17	43	24		0		
+#658579 depth
+  A: 5	gen_scope_array	gen_u_o[0]		work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_u_o[0]	tlul_socket_1n.sv	129	36	141	6				
+  B: 6	cont_assign				tlul_err_resp.sv	45	10	45	75				
+objects 2173209 vs 2173893
+fields: depth=1 type=1 name=11 fullname=13 file=2 line=22 col=2 endline=22 endcol=14 objects_differing=34 (walk diverged)
+STRICT_NOTEQUAL file

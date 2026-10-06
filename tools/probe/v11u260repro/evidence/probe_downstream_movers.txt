@@ -1,0 +1,3 @@
+probe: 4087 databases (pristine re-swept from the law worktree, /tmp/v11u260_swQ, so the case paths match), 0 movers; probe csv identical
+downstream slang lane: 805 databases, 1 mover: CastStruct (IDENTICAL on both)
+positive control: check_probe passes R11U260_TRACE to the binary (wrapper log): TRACE set on the dispatched command

@@ -1,0 +1,6 @@
+surelog/default/ConstantBits-ae8b9a5c chain away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/ConstantBits-ae8b9a5c chain away=0 toward=0 flat_away=0 flat_toward=0
+uhdm2rtlil/default/CastStruct-2e66e01b chain away=0 toward=0 flat_away=0 flat_toward=0
+uhdm2rtlil/testflags/CastStruct-2e66e01b chain away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/Earlgrey_0_1-a898def8 chain away=0 toward=11 flat_away=0 flat_toward=11
+surelog/testflags/Earlgrey_0_1-a898def8 chain away=0 toward=61 flat_away=0 flat_toward=61

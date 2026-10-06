@@ -1,0 +1,15 @@
+tp/r11u254repro/cases/Q/q01_proc_el rec dist 2 -> 1 lost=0 gained=1
+tp/r11u254repro/cases/Q/q02_ca_levels_el dump dist 49 -> 43 lost=0 gained=6
+tp/r11u254repro/cases/Q/q05_gen_scopes_el rec dist 4 -> 4 lost=0 gained=0
+tp/r11u254repro/decode/P/p01_proc_pkgsel_ps_el rec dist 1 -> 0 lost=0 gained=1
+tp/r11u254repro/decode/P/p02_plain_assign_el rec dist 1 -> 0 lost=0 gained=1
+tp/r11u254repro/decode/P/p03_unnamed_el rec dist 1 -> 0 lost=0 gained=1
+tp/r11u254repro/decode/P/p06_ca_el rec dist 1 -> 0 lost=0 gained=1
+tp/r11u254repro/decode/P/p07_threelvl_el rec dist 1 -> 0 lost=0 gained=1
+tp/r11u261repro/decode/B/b01_shadow_ipsel rec dist 2 -> 0 lost=0 gained=2
+tp/r11u261repro/decode/B/b01_shadow_ipsel_el rec dist 2 -> 0 lost=0 gained=2
+tp/r11u261repro/decode/E/e01_mod_struct_cast rec dist 0 -> 0 lost=0 gained=0
+tp/r11u261repro/decode/E/e01_mod_struct_cast_el rec dist 0 -> 0 lost=0 gained=6
+tp/r11u261repro/decode/E/e02_cast_only rec dist 0 -> 0 lost=0 gained=0
+tp/r11u261repro/decode/E/e02_cast_only_el rec dist 0 -> 0 lost=0 gained=0
+tp/v11u254repro/cases/P/vp03_nba_compound_el rec dist 5 -> 3 lost=0 gained=2

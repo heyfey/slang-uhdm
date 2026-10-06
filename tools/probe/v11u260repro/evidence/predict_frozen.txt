@@ -1,0 +1,27 @@
+MOVER downstream CastStruct castStructInstCopy260:FIRE:1
+abstain-only surelog AllPackageSignal/testflags pkgSelPsBoundColonsElab260:abstain:6
+abstain-only surelog ArrayMethodIterator/testflags pkgSelPsBoundColonsElab260:abstain:1
+abstain-only surelog BlackBePipeInt/testflags pkgSelPsBoundColonsElab260:abstain:12
+abstain-only surelog ClassFsm/testflags pkgSelPsBoundColonsElab260:abstain:22
+abstain-only surelog ClassMini/testflags pkgSelPsBoundColonsElab260:abstain:3
+abstain-only surelog ClassVar/testflags pkgSelPsBoundColonsElab260:abstain:1
+MOVER surelog ConstantBits/default castStructInstCopy260:FIRE:1
+MOVER surelog ConstantBits/testflags castStructInstCopy260:FIRE:1
+MOVER surelog Earlgrey_0_1/default castStructInstCopy260:FIRE:3 shadowedImportTsRefOwner260:FIRE:4 shadowedImportTsRefOwner260:abstain:12
+MOVER surelog Earlgrey_0_1/testflags castStructInstCopy260:FIRE:3 pkgSelPsBoundColonsElab260:FIRE:1 pkgSelPsBoundColonsElab260:abstain:467 shadowedImportTsRefOwner260:FIRE:4 shadowedImportTsRefOwner260:abstain:12
+abstain-only surelog EvalFunc/testflags pkgSelPsBoundColonsElab260:abstain:20
+abstain-only surelog EvalFuncNamed/testflags pkgSelPsBoundColonsElab260:abstain:24
+abstain-only surelog FileList/testflags pkgSelPsBoundColonsElab260:abstain:4
+abstain-only surelog FuncStruct/testflags pkgSelPsBoundColonsElab260:abstain:4
+abstain-only surelog FuncStructVal/testflags pkgSelPsBoundColonsElab260:abstain:126
+abstain-only surelog FuncStructValSimple/testflags pkgSelPsBoundColonsElab260:abstain:2
+abstain-only surelog ImportBinding/testflags pkgSelPsBoundColonsElab260:abstain:1
+abstain-only surelog LocalScopeHierPath/testflags pkgSelPsBoundColonsElab260:abstain:2
+abstain-only surelog PackFunc/testflags pkgSelPsBoundColonsElab260:abstain:4
+abstain-only surelog PackFuncParent/testflags pkgSelPsBoundColonsElab260:abstain:4
+abstain-only surelog PackageBind/testflags pkgSelPsBoundColonsElab260:abstain:10
+abstain-only surelog ParamCast/testflags pkgSelPsBoundColonsElab260:abstain:1
+abstain-only surelog TaskDecls/testflags pkgSelPsBoundColonsElab260:abstain:8
+abstain-only surelog UnionCast/testflags pkgSelPsBoundColonsElab260:abstain:6
+MOVER uhdm2rtlil CastStruct/default castStructInstCopy260:FIRE:1
+MOVER uhdm2rtlil CastStruct/testflags castStructInstCopy260:FIRE:1

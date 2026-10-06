@@ -1,0 +1,59 @@
+== V/VC/vc04_param_struct law lines golden lacks, new against pristine:
+   1     \_ref_typespec: (t_t.x)
+   1       |vpiFullName:t_t.x
+   1     \_ref_typespec: (t_t.y)
+   1       |vpiFullName:t_t.y
+== V/VC/vc06_class_td law lines golden lacks, new against pristine:
+   2     |vpiParent:
+   2     \_struct_typespec: (t_t), line:4:13, endln:4:60
+   1       \_typespec_member: (a), line:4:41, endln:4:42
+   1       \_typespec_member: (b), line:4:56, endln:4:57
+   2     |vpiTypespec:
+   1       |vpiParent:
+   2       |vpiActual:
+   1   \_typespec_member: (a), line:4:41, endln:4:42
+   1   \_typespec_member: (b), line:4:56, endln:4:57
+   1 \_struct_typespec: (t_t), line:4:13, endln:4:60
+   1   |vpiName:t_t
+   1   |vpiPacked:1
+   2   |vpiTypespecMember:
+   1     |vpiName:a
+   1     \_ref_typespec: (t_t.a)
+   1       |vpiFullName:t_t.a
+   1       \_logic_typespec: , line:4:29, endln:4:40
+   2     |vpiRefFile:/tmp/wt_v11u260/tools/probe/v11u260repro/cases/VC/vc06_class_td/dut.sv
+   2     |vpiRefLineNo:4
+   1     |vpiRefColumnNo:29
+   2     |vpiRefEndLineNo:4
+   1     |vpiRefEndColumnNo:40
+   1     |vpiName:b
+   1     \_ref_typespec: (t_t.b)
+   1       |vpiFullName:t_t.b
+   1       \_logic_typespec: , line:4:44, endln:4:55
+   1     |vpiRefColumnNo:44
+   1     |vpiRefEndColumnNo:55
+== V/VC/vc07_alias_chain law lines golden lacks, new against pristine:
+   2     \_struct_typespec: (u_t), line:4:11, endln:4:14
+   1 \_struct_typespec: (u_t), line:4:11, endln:4:14
+   1     \_ref_typespec: (u_t.a)
+   1       |vpiFullName:u_t.a
+   1     \_ref_typespec: (u_t.b)
+   1       |vpiFullName:u_t.b
+== V/VC/vc22_local_class_td law lines golden lacks, new against pristine:
+   1     \_ref_typespec: (t_t.a)
+   1       |vpiFullName:t_t.a
+   1     \_ref_typespec: (t_t.b)
+   1       |vpiFullName:t_t.b
+== V/VC/vc24_class_extern_this law lines golden lacks, new against pristine:
+   1     \_ref_typespec: (t_t.a)
+   1       |vpiFullName:t_t.a
+   1     \_ref_typespec: (t_t.b)
+   1       |vpiFullName:t_t.b
+== E/e04_two_inst law lines golden lacks, new against pristine:
+   1     \_ref_typespec: (t_t.a)
+   1       |vpiFullName:t_t.a
+   1     \_ref_typespec: (t_t.x)
+   1       |vpiFullName:t_t.x
+== tp/r11u254repro/cases/Q/q05_gen_scopes_el law lines golden lacks, new against pristine:
+   4             \_ref_obj: (cp::RC::cp::RC::cp::RC::W), line:11:33, endln:11:34
+   4               |vpiFullName:cp::RC::cp::RC::cp::RC::W

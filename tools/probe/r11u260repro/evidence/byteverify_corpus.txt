@@ -1,0 +1,10 @@
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/ConstantBits-ae8b9a5c/slang.uhdm  patched=51b3d49b2612 pristine=dab1bf4be630
+MOVER ./surelog/default/Earlgrey_0_1-a898def8/slang.uhdm  patched=0d28327c9ef4 pristine=3febd9bc8188
+MOVER ./surelog/testflags/ConstantBits-ae8b9a5c/slang.uhdm  patched=3e770f3c71cb pristine=3cc55cb8bf8c
+MOVER ./surelog/testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=a603c2abcb02 pristine=7fb003ddcf59
+MOVER ./uhdm2rtlil/default/CastStruct-2e66e01b/slang.uhdm  patched=d05206980758 pristine=93e3d8df5158
+MOVER ./uhdm2rtlil/testflags/CastStruct-2e66e01b/slang.uhdm  patched=e0ad987f653d pristine=0747351edd49
+MOVERS: 6 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
