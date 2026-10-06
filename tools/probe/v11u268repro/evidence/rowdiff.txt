@@ -1,0 +1,44 @@
+== probe law vs pristine
+< r10uvm104repro/g104_a1_sep,STRICT_NOTEQUAL,differ:endcol(44),differ:endcol(44)
+< r10uvm104repro/g104_a2_shapes,STRICT_NOTEQUAL,differ:endcol(24),differ:endcol(24)
+> r10uvm104repro/g104_a1_sep,EQUAL,,equal
+> r10uvm104repro/g104_a2_shapes,EQUAL,,equal
+< r10v104repro/v11_uvmreal,STRICT_NOTEQUAL,differ:endcol(8),differ:endcol(8)
+< r10v104repro/v12_seps,STRICT_NOTEQUAL,differ:endcol(44),differ:endcol(44)
+< r10v104repro/v1_pastecount,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
+> r10v104repro/v11_uvmreal,EQUAL,,equal
+> r10v104repro/v12_seps,EQUAL,,equal
+> r10v104repro/v1_pastecount,EQUAL,,equal
+< r10v104repro/v3_ifdef,STRICT_NOTEQUAL,differ:endcol(8),differ:endcol(8)
+< r10v104repro/v4_nested,STRICT_NOTEQUAL,differ:endcol(24),differ:endcol(24)
+< r10v104repro/v7_esc,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
+> r10v104repro/v3_ifdef,EQUAL,,equal
+> r10v104repro/v4_nested,EQUAL,,equal
+> r10v104repro/v7_esc,EQUAL,,equal
+< r10vearl108repro/m_gen108,STRICT_NOTEQUAL,differ:line(3),differ:line(3)
+> r10vearl108repro/m_gen108,EQUAL,,equal
+< r11u69repro/grid/g9_child,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
+> r11u69repro/grid/g9_child,EQUAL,,equal
+< r11v69repro/grid/v4_nestinst,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
+> r11v69repro/grid/v4_nestinst,EQUAL,,equal
+< r11v69repro/grid/w5_ovr,STRICT_NOTEQUAL,differ:line(3),differ:line(3)
+> r11v69repro/grid/w5_ovr,EQUAL,,equal
+== probe fix vs law
+== surelog law vs pristine
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u268_swP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u268_swL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u268_swP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u268_swL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+< MiniAmiq,default,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
+< MiniAmiq,testflags,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
+> MiniAmiq,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+> MiniAmiq,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+== surelog fix vs law
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u268_swL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u268_swF/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u268_swL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u268_swF/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+== uhdm2rtlil law vs pristine
+== uhdm2rtlil fix vs law
+== downstream law vs pristine
+== downstream fix vs law

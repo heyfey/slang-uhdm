@@ -1,0 +1,2 @@
+surelog/default/MiniAmiq-055eab74 dist 111 -> 108 lost=0 gained=3
+surelog/testflags/MiniAmiq-055eab74 dist 111 -> 108 lost=0 gained=3

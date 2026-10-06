@@ -1,0 +1,14 @@
+CONVERSION r10uvm104repro/g104_a1_sep STRICT_NOTEQUAL differ:endcol(44) -> EQUAL
+CONVERSION r10uvm104repro/g104_a2_shapes STRICT_NOTEQUAL differ:endcol(24) -> EQUAL
+CONVERSION r10v104repro/v11_uvmreal STRICT_NOTEQUAL differ:endcol(8) -> EQUAL
+CONVERSION r10v104repro/v12_seps STRICT_NOTEQUAL differ:endcol(44) -> EQUAL
+CONVERSION r10v104repro/v1_pastecount STRICT_NOTEQUAL differ:endcol(4) -> EQUAL
+CONVERSION r10v104repro/v3_ifdef STRICT_NOTEQUAL differ:endcol(8) -> EQUAL
+CONVERSION r10v104repro/v4_nested STRICT_NOTEQUAL differ:endcol(24) -> EQUAL
+CONVERSION r10v104repro/v7_esc STRICT_NOTEQUAL differ:endcol(4) -> EQUAL
+CONVERSION r10vearl108repro/m_gen108 STRICT_NOTEQUAL differ:line(3) -> EQUAL
+CONVERSION r11u69repro/grid/g9_child STRICT_NOTEQUAL differ:line(2) -> EQUAL
+CONVERSION r11v69repro/grid/v4_nestinst STRICT_NOTEQUAL differ:line(2) -> EQUAL
+CONVERSION r11v69repro/grid/w5_ovr STRICT_NOTEQUAL differ:line(3) -> EQUAL
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:endcol(2) -> differ:depth(1)
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:endcol(2) -> differ:depth(1)

@@ -30,7 +30,37 @@
 #include "R262.h"
 #include "R264.h"
 #include "R266.h"
+#include "R268.h"
 namespace slang_uhdm {
+// § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
+// inside a generate block (any depth)?
+static bool instInGenBlock268(const slang::ast::Scope& sc0) {
+    if (sc0.asSymbol().kind != slang::ast::SymbolKind::InstanceBody)
+        return false;
+    auto& b = sc0.asSymbol().as<slang::ast::InstanceBodySymbol>();
+    if (!b.parentInstance)
+        return false;
+    auto* sc = b.parentInstance->getParentScope();
+    return sc && sc->asSymbol().kind == slang::ast::SymbolKind::GenerateBlock;
+}
+// § pkgQualOvrPatGenLocalKeepsRef268v (v11u268) — the generate rule of
+// § pkgQualOvrPatInitSpan268 stands aside when the referenced parameter is
+// declared in the SAME generate block as the instance: golden keeps the
+// reference's span there (cases/VQ vq01 / vq16 / vq18 / vq19 / vq20: golden
+// 13:15-16 at `.C(G)`, the law 12:26-33 at G's initializer), while a
+// parameter of an ENCLOSING generate block (vq17), of the module or of a
+// package takes the initializer's span as the law says.  Switch
+// R11V268_GENLOCAL_OFF.
+static bool genRefSameBlock268v(const slang::ast::Scope& sc0, const slang::ast::Symbol* rs) {
+    if (!rs || sc0.asSymbol().kind != slang::ast::SymbolKind::InstanceBody)
+        return false;
+    auto& b = sc0.asSymbol().as<slang::ast::InstanceBodySymbol>();
+    if (!b.parentInstance)
+        return false;
+    auto* sc = b.parentInstance->getParentScope();
+    return sc && sc == rs->getParentScope() &&
+           r11v268On("R11V268_GENLOCAL_OFF");
+}
 // § shareDefParamTsOwnNotImport262 — the elaborated Rhs references whose
 // parameter golden binds to its OWN declaration (a body parameter, or a port
 // parameter this instance overrides); marked where the share is parked.
@@ -11998,6 +12028,32 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 ExpressionKind::SimpleAssignmentPattern) {
                             structOvPat = &si108;
                             structOvLoc = bi108.sourceRange;
+                            // § pkgQualOvrPatInitSpan268 (law at the struct
+                            // branch below).
+                            {
+                                const bool q268 =
+                                    rawText(bi108.sourceRange).find("::") !=
+                                    std::string::npos;
+                                bool g268 = !q268 && instInGenBlock268(body);
+                                if (g268 && genRefSameBlock268v(body, rs108)) {
+                                    g268 = false;
+                                    if (tr268On())
+                                        tr268("pkgQualOvrPatGenLocalKeepsRef268v",
+                                              "abstain bit-gen-local " + std::string(ps.name));
+                                }
+                                if ((q268 && r11u268On("R11U268_QUALOVRSPAN_OFF")) ||
+                                    (g268 && r11u268On("R11U268_GENOVRSPAN_OFF"))) {
+                                    structOvLoc = si108.sourceRange;
+                                    if (tr268On())
+                                        tr268("pkgQualOvrPatInitSpan268",
+                                          std::string(q268 ? "bit-qual " : "bit-gen ") +
+                                              std::string(ps.name));
+                                }
+                                else
+                                    if (tr268On())
+                                        tr268("pkgQualOvrPatInitSpan268",
+                                          "abstain bit-bare-body " + std::string(ps.name));
+                            }
                             // The member walk and the op75's struct typespec
                             // BOTH follow the ACTUAL's type — the formal has no
                             // fields to match the substituted pattern's
@@ -12025,6 +12081,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 rs8 = &bi8.as<HierarchicalValueExpression>().symbol;
             bool qualified9 =
                 rawText(bi8.sourceRange).find("::") != std::string::npos;
+            if (rs8 && rs8->kind == SymbolKind::Parameter && unpacked9 && qualified9)
+                if (tr268On())
+                    tr268("pkgQualOvrPatInitSpan268",
+                      "abstain unpacked-qualified " + std::string(ps.name));
             if (rs8 && rs8->kind == SymbolKind::Parameter &&
                 !(unpacked9 && qualified9))
                 if (auto* rin8 = rs8->as<ParameterSymbol>().getInitializer()) {
@@ -12034,6 +12094,49 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         si8.kind == ExpressionKind::SimpleAssignmentPattern) {
                         structOvPat = &si8;
                         structOvLoc = bi8.sourceRange;
+                        // § pkgQualOvrPatInitSpan268 (r11u268) — an OVERRIDE
+                        // written as a PACKAGE-QUALIFIED reference to a pattern
+                        // parameter (`leaf #(.C(p::B))`, positional too)
+                        // substitutes the package parameter's pattern AT ITS
+                        // OWN INITIALIZER'S SPAN (`'{n: 8}` at the package
+                        // line): Surelog's qualified arm of getValue
+                        // (CompileExpression.cpp, the paPackage_scope branch)
+                        // returns the package parameter's own Rhs, whose
+                        // location the elaborated copy keeps, where a bare
+                        // (imported) name is compiled at the reference and
+                        // keeps the override span.  The constants inside
+                        // already carry the package spans; only the op75's
+                        // own span moved (r11u69 g9_child / w5_ovr /
+                        // v4_nestinst: golden 7:24-31, ours 21:13-17).  The
+                        // same holds for a range-less integral formal (the
+                        // § 108 branch above).  Grid tools/probe/r11u268repro/
+                        // cases/Q.  Switch R11U268_QUALOVRSPAN_OFF.
+                        // An instance declared in a GENERATE block takes the
+                        // initializer's span for a bare name too (a package
+                        // parameter through an import, or the module's own
+                        // localparam: grid cases/Q q03), Surelog resolving
+                        // the name from the generate scope by value
+                        // (r10vearl108 m_gen108).  Switch
+                        // R11U268_GENOVRSPAN_OFF.
+                        bool gen268 = !qualified9 && instInGenBlock268(body);
+                        if (gen268 && genRefSameBlock268v(body, rs8)) {
+                            gen268 = false;
+                            if (tr268On())
+                                tr268("pkgQualOvrPatGenLocalKeepsRef268v",
+                                      "abstain struct-gen-local " + std::string(ps.name));
+                        }
+                        if ((qualified9 && r11u268On("R11U268_QUALOVRSPAN_OFF")) ||
+                            (gen268 && r11u268On("R11U268_GENOVRSPAN_OFF"))) {
+                            structOvLoc = si8.sourceRange;
+                            if (tr268On())
+                                tr268("pkgQualOvrPatInitSpan268",
+                                  std::string(qualified9 ? "struct-qual " : "struct-gen ") +
+                                      std::string(ps.name));
+                        }
+                        else
+                            if (tr268On())
+                                tr268("pkgQualOvrPatInitSpan268",
+                                  "abstain struct-bare-body " + std::string(ps.name));
                         unpStructOvRef9 = unpacked9;
                         if (&rs8->as<ParameterSymbol>()
                                  .getType()
@@ -27031,6 +27134,10 @@ bool& cloneIdxSelElabView252();  // § cloneHpIdxSelectByChain252 (ExprEmit)
 // in ExprEmit.cpp.
 void strLitContOwnerDrain224(UHDM::Serializer& s);
 void strLitPpLineShiftDrain224(UHDM::Serializer& s);
+// § macroStrBodyLen268 (r11u268) — defined in ExprEmit.cpp.
+void macroStrBodyLenDrain268(
+    UHDM::Serializer& s,
+    const std::function<void(slang::SourceLocation, uint32_t&, uint32_t&)>& flc);
 // § fwdPkgRefClassScopeSpan227 (r11u227) — defined in ExprEmit.cpp.
 void fwdPkgRefClassScopeSpanDrain227(UHDM::Serializer& s);
 
@@ -27708,6 +27815,9 @@ void UhdmExporter::drainPaNameCopySrc38() {
     strLitContEndDrain220(s);  // § strLitContLineSpan220 (r11u220)
     strLitContOwnerDrain224(s);    // § strLitContOwnerEnd224 (r11u224)
     strLitPpLineShiftDrain224(s);  // § strLitPpEscIdShift224 (r11u224)
+    macroStrBodyLenDrain268(s, [this](SourceLocation l, uint32_t& line, uint32_t& col) {
+        fileLineCol(l, line, col);
+    });  // § macroStrBodyLen268 (r11u268)
     drainNewArrParent244();  // § cloneNewArrayCallParented244 (r11u244)
     // § callArgCopyElabNearestOp248v (v11u248): the view the drain judges.
     callArgCopyElabView248v() = elabUhdmView121;

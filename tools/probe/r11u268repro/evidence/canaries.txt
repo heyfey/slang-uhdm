@@ -1,0 +1,2 @@
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25

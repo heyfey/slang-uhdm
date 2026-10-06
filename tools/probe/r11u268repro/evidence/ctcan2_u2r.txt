@@ -1,0 +1,2 @@
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.

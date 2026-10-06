@@ -1,0 +1,99 @@
+VM/vm01_hdr_twice_pkg STRICT_NOTEQUAL_endcol | STRICT_NOTEQUAL_endcol | STRICT_EQUAL_115_objects move F!=L
+VM/vm01_hdr_twice_pkg_el STRICT_NOTEQUAL_endcol | STRICT_NOTEQUAL_endcol | STRICT_EQUAL_113_objects move F!=L
+VM/vm02_hdr_twice_mod STRICT_NOTEQUAL_endcol | STRICT_NOTEQUAL_endcol | STRICT_EQUAL_75_objects move F!=L
+VM/vm02_hdr_twice_mod_el STRICT_NOTEQUAL_endcol | STRICT_NOTEQUAL_endcol | STRICT_EQUAL_63_objects move F!=L
+VM/vm03_vs_and_plain_macro STRICT_NOTEQUAL_endcol | STRICT_EQUAL_28_objects | STRICT_EQUAL_28_objects move 
+VM/vm03_vs_and_plain_macro_el STRICT_NOTEQUAL_endcol | STRICT_EQUAL_25_objects | STRICT_EQUAL_25_objects move 
+VM/vm04_func_macro_in_str STRICT_NOTEQUAL_endcol | STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects move 
+VM/vm04_func_macro_in_str_el STRICT_NOTEQUAL_endcol | STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects move 
+VM/vm05_empty_str STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects - 
+VM/vm05_empty_str_el STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects - 
+VM/vm06_two_diff_lits STRICT_NOTEQUAL_endcol | STRICT_EQUAL_28_objects | STRICT_EQUAL_28_objects move 
+VM/vm06_two_diff_lits_el STRICT_NOTEQUAL_endcol | STRICT_EQUAL_25_objects | STRICT_EQUAL_25_objects move 
+VM/vm07_param_default_line STRICT_NOTEQUAL_col | STRICT_EQUAL_70_objects | STRICT_EQUAL_70_objects move 
+VM/vm07_param_default_line_el STRICT_NOTEQUAL_col | STRICT_EQUAL_69_objects | STRICT_EQUAL_69_objects move 
+VM/vm08_ternary_cmp STRICT_NOTEQUAL_endcol | STRICT_EQUAL_39_objects | STRICT_EQUAL_39_objects move 
+VM/vm08_ternary_cmp_el STRICT_NOTEQUAL_endcol | STRICT_EQUAL_33_objects | STRICT_EQUAL_33_objects move 
+VM/vm09_tabs STRICT_NOTEQUAL_endcol | STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects move 
+VM/vm09_tabs_el STRICT_NOTEQUAL_endcol | STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects move 
+VM/vm10_hdr_pkg_and_mod STRICT_NOTEQUAL_endcol | STRICT_NOTEQUAL_endcol | STRICT_EQUAL_113_objects move F!=L
+VM/vm10_hdr_pkg_and_mod_el STRICT_NOTEQUAL_endcol | STRICT_NOTEQUAL_endcol | STRICT_EQUAL_111_objects move F!=L
+VM/vm11_param_class_two_spec STRICT_NOTEQUAL_endcol | STRICT_EQUAL_86_objects | STRICT_EQUAL_86_objects move 
+VM/vm11_param_class_two_spec_el STRICT_NOTEQUAL_endcol | STRICT_EQUAL_83_objects | STRICT_EQUAL_83_objects move 
+VM/vm12_two_instances_elab NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move 
+VM/vm12_two_instances_elab_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move 
+VM/vm13_short_body STRICT_NOTEQUAL_endcol | STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects move 
+VM/vm13_short_body_el STRICT_NOTEQUAL_endcol | STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects move 
+VM/vm14_long_name_short_body STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects - 
+VM/vm14_long_name_short_body_el STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects - 
+VM/vm15_line_macro_before STRICT_NOTEQUAL_endcol | STRICT_EQUAL_28_objects | STRICT_EQUAL_28_objects move 
+VM/vm15_line_macro_before_el STRICT_NOTEQUAL_endcol | STRICT_EQUAL_25_objects | STRICT_EQUAL_25_objects move 
+VM/vm16_lhs_concat_line STRICT_NOTEQUAL_endcol | STRICT_EQUAL_50_objects | STRICT_EQUAL_50_objects move 
+VM/vm16_lhs_concat_line_el STRICT_NOTEQUAL_endcol | STRICT_EQUAL_41_objects | STRICT_EQUAL_41_objects move 
+VM/vm17_hdr_twice_redefined STRICT_NOTEQUAL_endcol | STRICT_EQUAL_75_objects | STRICT_EQUAL_75_objects move 
+VM/vm17_hdr_twice_redefined_el STRICT_NOTEQUAL_endcol | STRICT_EQUAL_63_objects | STRICT_EQUAL_63_objects move 
+VM/vm18_hdr_twice_guarded STRICT_NOTEQUAL_endcol | STRICT_EQUAL_62_objects | STRICT_EQUAL_62_objects move 
+VM/vm18_hdr_twice_guarded_el STRICT_NOTEQUAL_endcol | STRICT_EQUAL_61_objects | STRICT_EQUAL_61_objects move 
+VM/vm19_hdr_twice_same_module STRICT_NOTEQUAL_endcol | STRICT_NOTEQUAL_endcol | STRICT_EQUAL_51_objects move F!=L
+VM/vm19_hdr_twice_same_module_el STRICT_NOTEQUAL_endcol | STRICT_NOTEQUAL_endcol | STRICT_EQUAL_45_objects move F!=L
+VM/vm20_class_hdr_two_pkgs STRICT_NOTEQUAL_endcol | STRICT_NOTEQUAL_endcol | STRICT_EQUAL_98_objects move F!=L
+VM/vm20_class_hdr_two_pkgs_el STRICT_NOTEQUAL_endcol | STRICT_NOTEQUAL_endcol | STRICT_EQUAL_95_objects move F!=L
+VM/vm21_obj_blockcmt_in_str NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VM/vm21_obj_blockcmt_in_str_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VM/vm22_obj_spaces_in_str STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects - 
+VM/vm22_obj_spaces_in_str_el STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects - 
+VM/vm23_obj_tab_in_str STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects - 
+VM/vm23_obj_tab_in_str_el STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects - 
+VM/vm24_formal_cmt_in_str NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VM/vm24_formal_cmt_in_str_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VM/vm25_formal_arg_spaces STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects - 
+VM/vm25_formal_arg_spaces_el STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects - 
+VM/vm26_obj_cmt_mid_word NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VM/vm26_obj_cmt_mid_word_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VM/vm27_formal_spaces_body STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects | STRICT_EQUAL_26_objects - 
+VM/vm27_formal_spaces_body_el STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects | STRICT_EQUAL_23_objects - 
+VM/vm28_obj_esc_in_str SURELOG_FAIL | SURELOG_FAIL | SURELOG_FAIL - 
+VM/vm28_obj_esc_in_str_el SURELOG_FAIL | SURELOG_FAIL | SURELOG_FAIL - 
+VQ/vq01_gen_local_lp NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VQ/vq01_gen_local_lp_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VQ/vq02_gen_port_param_default STRICT_NOTEQUAL_line | STRICT_EQUAL_263_objects | STRICT_EQUAL_263_objects move 
+VQ/vq02_gen_port_param_default_el STRICT_NOTEQUAL_line | STRICT_EQUAL_262_objects | STRICT_EQUAL_262_objects move 
+VQ/vq03_gen_port_param_overridden NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move 
+VQ/vq03_gen_port_param_overridden_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move 
+VQ/vq04_gen_inst_array NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - 
+VQ/vq04_gen_inst_array_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - 
+VQ/vq05_unit_qualified NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move 
+VQ/vq05_unit_qualified_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move 
+VQ/vq06_unit_bare_gen NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move 
+VQ/vq06_unit_bare_gen_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move 
+VQ/vq07_qual_two_line_pattern STRICT_NOTEQUAL_line | STRICT_EQUAL_172_objects | STRICT_EQUAL_172_objects move 
+VQ/vq07_qual_two_line_pattern_el STRICT_NOTEQUAL_line | STRICT_EQUAL_171_objects | STRICT_EQUAL_171_objects move 
+VQ/vq08_qual_default_pattern STRICT_NOTEQUAL_line | STRICT_EQUAL_172_objects | STRICT_EQUAL_172_objects move 
+VQ/vq08_qual_default_pattern_el STRICT_NOTEQUAL_line | STRICT_EQUAL_171_objects | STRICT_EQUAL_171_objects move 
+VQ/vq09_qual_positional_two STRICT_NOTEQUAL_line | STRICT_EQUAL_235_objects | STRICT_EQUAL_235_objects move 
+VQ/vq09_qual_positional_two_el STRICT_NOTEQUAL_line | STRICT_EQUAL_234_objects | STRICT_EQUAL_234_objects move 
+VQ/vq10_qual_in_gen_for_two_level STRICT_NOTEQUAL_line | STRICT_EQUAL_223_objects | STRICT_EQUAL_223_objects move 
+VQ/vq10_qual_in_gen_for_two_level_el STRICT_NOTEQUAL_line | STRICT_EQUAL_222_objects | STRICT_EQUAL_222_objects move 
+VQ/vq11_gen_bare_hdr_param_of_mod STRICT_NOTEQUAL_line | STRICT_EQUAL_175_objects | STRICT_EQUAL_175_objects move 
+VQ/vq11_gen_bare_hdr_param_of_mod_el STRICT_NOTEQUAL_line | STRICT_EQUAL_174_objects | STRICT_EQUAL_174_objects move 
+VQ/vq12_qual_member_expr_pattern STRICT_NOTEQUAL_fullname | STRICT_NOTEQUAL_fullname | STRICT_NOTEQUAL_fullname move 
+VQ/vq12_qual_member_expr_pattern_el STRICT_NOTEQUAL_fullname | STRICT_NOTEQUAL_fullname | STRICT_NOTEQUAL_fullname move 
+VQ/vq13_bit_qual_gen STRICT_NOTEQUAL_line | STRICT_EQUAL_181_objects | STRICT_EQUAL_181_objects move 
+VQ/vq13_bit_qual_gen_el STRICT_NOTEQUAL_line | STRICT_EQUAL_179_objects | STRICT_EQUAL_179_objects move 
+VQ/vq14_gen_bare_interface STRICT_NOTEQUAL_line | STRICT_NOTEQUAL_type | STRICT_NOTEQUAL_type move 
+VQ/vq14_gen_bare_interface_el STRICT_NOTEQUAL_line | STRICT_NOTEQUAL_type | STRICT_NOTEQUAL_type move 
+VQ/vq15_qual_then_used_slot STRICT_NOTEQUAL_line | STRICT_EQUAL_212_objects | STRICT_EQUAL_212_objects move 
+VQ/vq15_qual_then_used_slot_el STRICT_NOTEQUAL_line | STRICT_EQUAL_211_objects | STRICT_EQUAL_211_objects move 
+VQ/vq16_gen_loop_genvar_used NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VQ/vq16_gen_loop_genvar_used_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VQ/vq17_gen_outer_lp_inner_inst NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move 
+VQ/vq17_gen_outer_lp_inner_inst_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move 
+VQ/vq18_case_gen_local_lp NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VQ/vq18_case_gen_local_lp_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VQ/vq19_bit_gen_local_lp NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VQ/vq19_bit_gen_local_lp_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 - F!=L
+VQ/vq20_gen_local_and_module_lp NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move F!=L
+VQ/vq20_gen_local_and_module_lp_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move F!=L
+VQ/vq21_gen_local_qualified_ctl NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move 
+VQ/vq21_gen_local_qualified_ctl_el NOT_EQUAL_stage1 | NOT_EQUAL_stage1 | NOT_EQUAL_stage1 move 
+case-views 98 moving 68 entering 50 leaving 0 fix-vs-law 26 bad []

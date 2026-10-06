@@ -43,6 +43,7 @@
 #include "R262.h"
 #include "R264.h"
 #include "R266.h"
+#include "R268.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -823,6 +824,167 @@ void strLitPpLineShiftDrain224(UHDM::Serializer& s) {
                 o->VpiEndColumnNo(c1 + d);
                 tr224("strLitPpEscIdShift224", "line");
             }
+    }
+}
+// § macroStrBodyLen268 (r11u268) — SURELOG SPLICES A ONE-LINE MACRO BODY
+// THAT IS ONE STRINGIFICATION AS THE STRINGIFIED LITERAL ITSELF.  Surelog's
+// preprocessor (PreprocessFile::evaluateMacro + enterString) turns the body
+// `"...`" into a plain quoted string, collapsing each `` X `` paste window
+// (§ macroPasteDotText104) and expanding the macros inside it, and splices
+// that text in place of the call: the literal spans [call column, call
+// column + its length), and every later position of the call's line moves by
+// (literal length + the body's kept trailing blanks - call length).  Our
+// column model (UhdmExporter buildMacroExpansions, the sister ground) sizes
+// such a body from its WRITTEN text plus its nested replacements (`"`NM``-
+// ```MJ``.```MN`" reads 23 where Surelog splices "SVAUNIT.3.2", 13), so the
+// literal's own end and every later object on the line were off: MiniAmiq
+// svaunit_test.svh 434 `$sformatf(..., `SVAUNIT_VERSION_STRING)` golden
+// 433:14-434:75, ours 434:85 (#217949), the literal 434:61-434:74.  Each
+// literal the StringLiteral case qualifies records one event; design-final
+// (run from ParamEmit's drainPaNameCopySrc38 after
+// strLitPpLineShiftDrain224) every located object of the call's file and
+// line is re-laid: an object starting at or before the literal and ending
+// where our literal or our call ended ends at golden's literal end; any other
+// start or end at or past our call end moves by the event's correction.
+// Grid tools/probe/r11u268repro/cases/M.  Switch R11U268_STRMACLEN_OFF.
+struct MacStrEv268 {
+    // oursCallEnd: our column after the call; thresh: our column where the
+    // spliced text after the literal begins (oursCallEnd when that text is
+    // blanks only, and the call's end then counts as the literal's)
+    int line, litStart, oursLitEnd, oursCallEnd, goldLitEnd, corr, thresh;
+    std::string_view file;  // the serializer's symbol (stable)
+    slang::SourceLocation callEndLoc;  // the call's end (read at drain time)
+    int trail;      // the kept text after the literal (blanks, or tail text)
+    bool tailText;  // that text holds more than blanks
+    bool dup;       // § macroStrBodyLenDupEvent268v: a repeat of an earlier event
+};
+// A fixed store, no heap allocation while the design is emitted: an
+// allocation here shifted a later address-ordered writer in pristine's
+// export and reordered Scoreboard's serialized symbols (bytes only, every
+// printed field equal; measured, README section 5).
+static constexpr size_t kMacStrEvCap268 = 4096;
+static MacStrEv268 gMacStrEv268[kMacStrEvCap268];
+static size_t gMacStrEvN268 = 0;
+void macroStrBodyLenDrain268(
+    UHDM::Serializer& s,
+    const std::function<void(slang::SourceLocation, uint32_t&, uint32_t&)>& flc) {
+    const size_t n = gMacStrEvN268;
+    if (n == 0)
+        return;
+    for (size_t i = 0; i < n; i++) {
+        auto& e = gMacStrEv268[i];
+        uint32_t ul = 0, uc = 0;
+        flc(e.callEndLoc, ul, uc);
+        e.oursCallEnd = (int)uc;
+        e.corr = e.goldLitEnd + e.trail - (int)uc;
+        e.thresh = e.tailText ? (int)uc - e.trail : (int)uc;
+        // a call end on another output line, or a threshold not past the
+        // literal: nothing this law can place
+        if ((int)ul != e.line || e.thresh <= e.litStart) {
+            e.corr = 0;
+            e.goldLitEnd = e.oursLitEnd;
+            e.thresh = e.oursCallEnd = 1 << 30;
+            if (tr268On())
+                tr268("macroStrBodyLen268", "abstain layout " + std::to_string(e.line));
+        }
+        else if (tr268On())
+            tr268("macroStrBodyLen268", "event " + std::to_string(e.line) + ":" +
+                                            std::to_string(e.litStart) + " end " +
+                                            std::to_string(e.oursLitEnd) + "->" +
+                                            std::to_string(e.goldLitEnd) + " call " +
+                                            std::to_string(e.oursCallEnd) + " corr " +
+                                            std::to_string(e.corr));
+    }
+    // § macroStrBodyLenDupEvent268v (v11u268) — ONE EVENT PER FILE LINE AND
+    // LAYOUT.  A header without an include guard included twice (two
+    // packages, two modules, twice in one block) gives each inclusion its
+    // own macro expansion buffer, so the record step's callEndLoc test keeps
+    // both events although they describe the same file line with the same
+    // layout; the drain then SUMMED their corrections on every object of
+    // that line (cases/VM vm01 / vm02 / vm10 / vm19 / vm20: golden 1:45,
+    // pristine 1:55, the law 1:35).  An event equal to an earlier one in
+    // file, line, literal start and end, call end, golden end, threshold and
+    // correction is the same splice and is dropped; events that differ
+    // (the header included under two definitions of the macro, vm17) stay.
+    // Switch R11V268_DUPEV_OFF.
+    for (size_t i = 0; i < n; i++)
+        gMacStrEv268[i].dup = false;
+    if (r11v268On("R11V268_DUPEV_OFF"))
+        for (size_t i = 0; i < n; i++) {
+            auto& e = gMacStrEv268[i];
+            for (size_t j = 0; j < i && !e.dup; j++) {
+                auto& x = gMacStrEv268[j];
+                if (!x.dup && x.file == e.file && x.line == e.line &&
+                    x.litStart == e.litStart && x.oursLitEnd == e.oursLitEnd &&
+                    x.oursCallEnd == e.oursCallEnd && x.goldLitEnd == e.goldLitEnd &&
+                    x.thresh == e.thresh && x.corr == e.corr)
+                    e.dup = true;
+            }
+            if (e.dup && tr268On())
+                tr268("macroStrBodyLenDupEvent268v", "dup " + std::to_string(e.line) + ":" +
+                                                           std::to_string(e.litStart));
+        }
+    // only an event that moves something walks the design
+    bool any = false;
+    for (size_t i = 0; i < n; i++)
+        any |= gMacStrEv268[i].corr != 0 ||
+               gMacStrEv268[i].goldLitEnd != gMacStrEv268[i].oursLitEnd;
+    gMacStrEvN268 = 0;
+    if (!any)
+        return;
+    const MacStrEv268* ev = gMacStrEv268;
+    auto add = [&](std::string_view f, int line, int col) {
+        int d = 0;
+        for (size_t i = 0; i < n; i++)
+            if (!ev[i].dup && ev[i].line == line && ev[i].thresh <= col && ev[i].file == f)
+                d += ev[i].corr;
+        return d;
+    };
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (o->VpiLineNo() <= 0 && o->VpiEndLineNo() <= 0)
+            continue;
+        const std::string_view f = o->VpiFile();
+        if (f.empty())
+            continue;
+        const int l0 = o->VpiLineNo(), l1 = o->VpiEndLineNo();
+        const int c0 = o->VpiColumnNo(), c1 = o->VpiEndColumnNo();
+        bool on0 = false, on1 = false;
+        for (size_t i = 0; i < n; i++) {
+            if (ev[i].dup)
+                continue;
+            on0 |= ev[i].line == l0 && ev[i].file == f;
+            on1 |= ev[i].line == l1 && ev[i].file == f;
+        }
+        if (!on0 && !on1)
+            continue;
+        int n0 = c0, n1 = c1;
+        if (on0)
+            n0 = c0 + add(f, l0, c0);
+        if (on1) {
+            const MacStrEv268* hit = nullptr;
+            for (size_t i = 0; i < n && !hit; i++) {
+                auto& e = ev[i];
+                if (!e.dup && e.line == l1 && e.file == f &&
+                    (c1 == e.oursLitEnd ||
+                     (c1 == e.oursCallEnd && e.thresh == e.oursCallEnd)) &&
+                    (l0 < l1 || c0 <= e.litStart))
+                    hit = &e;
+            }
+            if (hit)
+                n1 = hit->goldLitEnd + add(f, l1, hit->litStart);
+            else
+                n1 = c1 + add(f, l1, c1);
+        }
+        if (n0 != c0 || n1 != c1) {
+            o->VpiColumnNo(n0);
+            o->VpiEndColumnNo(n1);
+            if (tr268On())
+                tr268("macroStrBodyLen268",
+                      "move " + std::string(f.substr(f.rfind('/') + 1)) + ":" +
+                          std::to_string(l1) + " " + std::to_string(c1) + "->" +
+                          std::to_string(n1));
+        }
     }
 }
 // The folded reference's syntax, parentheses seen through (slang leaves a
@@ -30387,6 +30549,250 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                       (int32_t)nbs9 * 2);
             // § strLitContLineSpan220 (law at strLitContLineEnd220).
             strLitContLineEnd220(c, raw, macroQuoted9);
+            // § macroStrBodyLen268 (law at macroStrBodyLenDrain268).
+            // A literal the preprocessor stringified as the WHOLE one-line
+            // body of an object-like macro called in a file: record where
+            // Surelog's spliced text ends.
+            if (macroQuoted9 && r11u268On("R11U268_STRMACLEN_OFF")) {
+                const char* why268 = nullptr;
+                // the kept tail of a `define line after offset q of its body
+                // (§ macroBodyTrailingComment125: everything before a //
+                // comment, else the rest minus \r); false when other text
+                // follows
+                // (§ macroStrBodyLen268's tail rule, R11U268_STRMACTAIL_OFF:
+                // other text after the stringification, with no backtick and
+                // no continuation, is spliced as written)
+                static const bool tailOn268 = r11u268On("R11U268_STRMACTAIL_OFF");
+                bool tailText268 = false;
+                auto tail268 = [&tailText268](std::string_view bt, size_t q, int& trail) {
+                    size_t eol = q;
+                    while (eol < bt.size() && bt[eol] != '\n')
+                        eol++;
+                    size_t cut = eol;
+                    bool inStr = false, inBlk = false, text = false;
+                    for (size_t i = q; i < eol; i++) {
+                        char ch = bt[i];
+                        if (inBlk) {
+                            if (ch == '*' && i + 1 < eol && bt[i + 1] == '/') {
+                                inBlk = false;
+                                i++;
+                            }
+                            continue;
+                        }
+                        if (inStr) {
+                            if (ch == '\\')
+                                i++;
+                            else if (ch == '"')
+                                inStr = false;
+                            continue;
+                        }
+                        if (ch == '"') {
+                            inStr = text = true;
+                            continue;
+                        }
+                        if (ch == '/' && i + 1 < eol && bt[i + 1] == '*') {
+                            inBlk = text = true;
+                            i++;
+                            continue;
+                        }
+                        if (ch == '/' && i + 1 < eol && bt[i + 1] == '/') {
+                            cut = i;
+                            break;
+                        }
+                        if (ch == '`' || ch == '\\')
+                            return 2;  // a macro, a paste or a continuation
+                        if (ch != ' ' && ch != '\t' && ch != '\r')
+                            text = true;
+                    }
+                    if (inStr || inBlk)
+                        return 2;
+                    size_t e = cut;
+                    if (cut == eol)
+                        while (e > q && bt[e - 1] == '\r')
+                            e--;
+                    if (text && !tailOn268)
+                        return 1;
+                    tailText268 |= text;
+                    trail += (int)(e - q);
+                    return 0;
+                };
+                // the body at `bs` belongs to an object-like `define
+                auto objLike268 = [](std::string_view bt, size_t bs) {
+                    size_t ls = bs;
+                    while (ls > 0 && bt[ls - 1] != '\n')
+                        ls--;
+                    std::string_view dl = bt.substr(ls, bs - ls);
+                    size_t dp = dl.find("`define");
+                    if (dp == std::string_view::npos)
+                        return false;
+                    size_t q = dp + 7;
+                    while (q < dl.size() && (dl[q] == ' ' || dl[q] == '\t'))
+                        q++;
+                    while (q < dl.size() && (isalnum((unsigned char)dl[q]) ||
+                                             dl[q] == '_' || dl[q] == '$'))
+                        q++;
+                    return !(q < dl.size() && dl[q] == '(');
+                };
+                SourceLocation l268 = expr.sourceRange.start();
+                SourceRange u268;
+                int trail268 = 0;
+                if (!sm->isMacroLoc(l268) || sm->isMacroArgLoc(l268))
+                    why268 = "not-body";
+                if (!why268) {
+                    SourceLocation bs = sm->getFullyOriginalLoc(SourceLocation(l268.buffer(), 0));
+                    if (bs == SourceLocation::NoLocation || sm->isMacroLoc(bs) ||
+                        sm->getFullyOriginalLoc(l268) != bs)
+                        why268 = "not-whole-body";
+                    else {
+                        std::string_view bt = sm->getSourceText(bs.buffer());
+                        size_t p = bs.offset(), close = std::string::npos;
+                        if (p + 2 <= bt.size() && bt.substr(p, 2) == "`\"") {
+                            // the closing `" (an escaped `\`" stays inside)
+                            size_t q = p + 2;
+                            while (q + 1 < bt.size() && bt[q] != '\n') {
+                                if (bt.substr(q, 4) == "`\\`\"") {
+                                    q += 4;
+                                    continue;
+                                }
+                                if (bt.substr(q, 2) == "`\"") {
+                                    close = q;
+                                    break;
+                                }
+                                q++;
+                            }
+                        }
+                        // § macroStrBodyLenCommentAbstains268v (v11u268) —
+                        // a COMMENT written inside the stringification
+                        // (`"/*c*/__x`", `"a/*x*/b`") stays in Surelog's
+                        // spliced literal (golden 11:21-34 for "/*c*/plainc",
+                        // its value holding the comment) where slang's
+                        // literal drops it, so the literal length is not
+                        // golden's; pristine's columns were golden's there
+                        // (tools/probe r11v11u8repro/v3 and cases/VM vm21 /
+                        // vm24 / vm26: the law lost 13 to 21 golden dump
+                        // lines).  The law stands aside.  Switch
+                        // R11V268_STRCMT_OFF.
+                        bool cmt268v = false;
+                        if (close != std::string::npos)
+                            for (size_t i = p + 2; i + 1 < close && !cmt268v; i++)
+                                cmt268v = bt[i] == '/' && (bt[i + 1] == '*' || bt[i + 1] == '/');
+                        if (close == std::string::npos)
+                            why268 = "not-stringification";
+                        else if (cmt268v && r11v268On("R11V268_STRCMT_OFF")) {
+                            why268 = "comment-in-string";
+                            if (tr268On())
+                                tr268("macroStrBodyLenCommentAbstains268v", "abstain comment-in-string");
+                        }
+                        else if (int tr = tail268(bt, close + 2, trail268))
+                            why268 = tr == 1 ? "body-text-after" : "body-tail-macro";
+                        else if (!objLike268(bt, p)) {
+                            // (§ macroStrBodyLen268's formals rule,
+                            // R11U268_STRMACFORMALS_OFF: a function-like
+                            // macro whose body is the stringification and
+                            // blanks; the call spans through its `)`)
+                            size_t eol = close + 2;
+                            while (eol < bt.size() && bt[eol] != '\n')
+                                eol++;
+                            bool blank = true;
+                            for (size_t i = close + 2; i < eol; i++)
+                                blank &= bt[i] == ' ' || bt[i] == '\t' || bt[i] == '\r';
+                            if (!r11u268On("R11U268_STRMACFORMALS_OFF"))
+                                why268 = "formals";
+                            else if (!blank)
+                                why268 = "formals-tail";
+                        }
+                    }
+                }
+                // up the call chain: a body that is exactly one object-like
+                // call (`define OUT1 `D1) splices that call's text
+                SourceLocation cur268 = SourceLocation(l268.buffer(), 0);
+                for (int hop = 0; !why268; ++hop) {
+                    u268 = sm->getExpansionRange(cur268);
+                    if (u268.start() == SourceLocation::NoLocation ||
+                        u268.end() == SourceLocation::NoLocation ||
+                        u268.start().buffer() != u268.end().buffer() || hop > 16) {
+                        why268 = "usage";
+                        break;
+                    }
+                    if (!sm->isMacroLoc(u268.start()))
+                        break;
+                    if (sm->isMacroArgLoc(u268.start())) {
+                        why268 = "call-in-argument";
+                        break;
+                    }
+                    SourceLocation pb(u268.start().buffer(), 0);
+                    SourceLocation bs = sm->getFullyOriginalLoc(pb);
+                    SourceLocation us = sm->getFullyOriginalLoc(u268.start());
+                    if (bs == SourceLocation::NoLocation || sm->isMacroLoc(bs) || us != bs) {
+                        why268 = "nested-not-whole-body";
+                        break;
+                    }
+                    std::string_view bt = sm->getSourceText(bs.buffer());
+                    size_t q = bs.offset();
+                    if (q >= bt.size() || bt[q] != '`') {
+                        why268 = "nested-not-call";
+                        break;
+                    }
+                    q++;
+                    while (q < bt.size() && (isalnum((unsigned char)bt[q]) || bt[q] == '_' ||
+                                             bt[q] == '$'))
+                        q++;
+                    if (int tr = tail268(bt, q, trail268)) {
+                        why268 = tr == 1 ? "nested-body-text-after" : "nested-body-tail-macro";
+                        break;
+                    }
+                    if (!objLike268(bt, bs.offset())) {
+                        why268 = "nested-formals";
+                        break;
+                    }
+                    cur268 = pb;
+                }
+                // our column after the call is read at drain time
+                // (fileLineCol of the call's end, after the whole design is
+                // emitted): no lookup or allocation here (see the store).
+                if (!why268 && (c->VpiLineNo() <= 0 || c->VpiEndLineNo() != c->VpiLineNo() ||
+                                c->VpiFile().empty()))
+                    why268 = "lines";
+                if (why268) {
+                    if (tr268On())
+                        tr268("macroStrBodyLen268", std::string("abstain ") + why268);
+                }
+                else {
+                    MacStrEv268 e;
+                    e.line = c->VpiLineNo();
+                    e.file = c->VpiFile();
+                    e.litStart = c->VpiColumnNo();
+                    e.oursLitEnd = c->VpiEndColumnNo();
+                    e.callEndLoc = u268.end();
+                    e.trail = trail268;
+                    e.tailText = tailText268;
+                    e.goldLitEnd = e.litStart + (int)raw.size();
+                    bool skip = false;
+                    for (size_t i = 0; i < gMacStrEvN268; i++) {
+                        auto& x = gMacStrEv268[i];
+                        skip |= x.line == e.line && x.litStart == e.litStart &&
+                                x.callEndLoc == e.callEndLoc && x.file == e.file;
+                    }
+                    const char* ab = nullptr;
+                    if (!skip && gMacStrEvN268 >= kMacStrEvCap268)
+                        ab = "cap";
+                    if (ab) {
+                        if (tr268On())
+                            tr268("macroStrBodyLen268", std::string("abstain ") + ab);
+                    }
+                    else {
+                        if (!skip)
+                            gMacStrEv268[gMacStrEvN268++] = e;
+                        if (tr268On())
+                            tr268("macroStrBodyLen268",
+                                  "record " + std::to_string(e.line) + ":" +
+                                      std::to_string(e.litStart) + " end " +
+                                      std::to_string(e.oursLitEnd) + "->" +
+                                      std::to_string(e.goldLitEnd) + " trail " +
+                                      std::to_string(e.trail));
+                    }
+                }
+            }
             if (forceConstParent ||
                 (!suppressConstParent && parent &&
                  (parent->UhdmType() == UHDM::uhdmoperation ||

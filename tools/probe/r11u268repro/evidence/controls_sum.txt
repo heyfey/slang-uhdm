@@ -1,0 +1,13 @@
+case-views=8382 moving=6 entering=6 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/r11u124repro/c13/q01_override STRICT_NOTEQUAL_line -> STRICT_EQUAL_165_objects cmplines 0->0
+MOVER tp/r11u124repro/c13/q01_override_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_164_objects cmplines 0->0
+MOVER tp/r11u131repro/pat/t07_override STRICT_NOTEQUAL_line -> STRICT_EQUAL_165_objects cmplines 0->0
+MOVER tp/r11u131repro/pat/t07_override_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_164_objects cmplines 0->0
+MOVER tp/r11u133repro/pqs/q06_override STRICT_NOTEQUAL_line -> STRICT_EQUAL_257_objects cmplines 0->0
+MOVER tp/r11u133repro/pqs/q06_override_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_256_objects cmplines 0->0
+ENTER tp/r11u124repro/c13/q01_override
+ENTER tp/r11u124repro/c13/q01_override_el
+ENTER tp/r11u131repro/pat/t07_override
+ENTER tp/r11u131repro/pat/t07_override_el
+ENTER tp/r11u133repro/pqs/q06_override
+ENTER tp/r11u133repro/pqs/q06_override_el

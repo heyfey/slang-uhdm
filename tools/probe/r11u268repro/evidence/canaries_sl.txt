@@ -1,0 +1,3 @@
+NOTE: 7 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.

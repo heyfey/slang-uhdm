@@ -1,0 +1,1 @@
+cmds.txt (fence-filtered) 3315; naming /tmp/r11u268_bin/law: 3265; no slang line: 50; binaries:    3265 /tmp/r11u268_bin/law

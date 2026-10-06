@@ -1,0 +1,12 @@
+r10uvm104repro/g104_a1_sep dist 44 -> 0 lost=0 gained=44 cmplines=0
+r10uvm104repro/g104_a2_shapes dist 24 -> 0 lost=0 gained=24 cmplines=0
+r10v104repro/v11_uvmreal dist 8 -> 0 lost=0 gained=8 cmplines=0
+r10v104repro/v12_seps dist 44 -> 0 lost=0 gained=44 cmplines=0
+r10v104repro/v1_pastecount dist 4 -> 0 lost=0 gained=4 cmplines=0
+r10v104repro/v3_ifdef dist 8 -> 0 lost=0 gained=8 cmplines=0
+r10v104repro/v4_nested dist 24 -> 0 lost=0 gained=24 cmplines=0
+r10v104repro/v7_esc dist 4 -> 0 lost=0 gained=4 cmplines=0
+r10vearl108repro/m_gen108 dist 3 -> 0 lost=0 gained=3 cmplines=0
+r11u69repro/grid/g9_child dist 2 -> 0 lost=0 gained=2 cmplines=0
+r11v69repro/grid/v4_nestinst dist 2 -> 0 lost=0 gained=2 cmplines=0
+r11v69repro/grid/w5_ovr dist 3 -> 0 lost=0 gained=3 cmplines=0

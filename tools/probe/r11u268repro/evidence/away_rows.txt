@@ -1,0 +1,15 @@
+# 14 databases differ between /tmp/r11u268_swP and /tmp/r11u268_swL
+probe/r10uvm104repro/g104_a1_sep away=0 toward=44 flat_away=0 flat_toward=44
+probe/r10uvm104repro/g104_a2_shapes away=0 toward=24 flat_away=0 flat_toward=24
+probe/r10v104repro/v11_uvmreal away=0 toward=8 flat_away=0 flat_toward=8
+probe/r10v104repro/v12_seps away=0 toward=44 flat_away=0 flat_toward=44
+probe/r10v104repro/v1_pastecount away=0 toward=4 flat_away=0 flat_toward=4
+probe/r10v104repro/v3_ifdef away=0 toward=8 flat_away=0 flat_toward=8
+probe/r10v104repro/v4_nested away=0 toward=24 flat_away=0 flat_toward=24
+probe/r10v104repro/v7_esc away=0 toward=4 flat_away=0 flat_toward=4
+probe/r10vearl108repro/m_gen108 away=0 toward=3 flat_away=0 flat_toward=3
+probe/r11u69repro/grid/g9_child away=0 toward=2 flat_away=0 flat_toward=2
+probe/r11v69repro/grid/v4_nestinst away=0 toward=2 flat_away=0 flat_toward=2
+probe/r11v69repro/grid/w5_ovr away=0 toward=3 flat_away=0 flat_toward=3
+surelog/default/MiniAmiq away=0 toward=3 flat_away=0 flat_toward=3
+surelog/testflags/MiniAmiq away=0 toward=3 flat_away=0 flat_toward=3
