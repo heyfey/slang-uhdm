@@ -1,0 +1,6 @@
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVER ./stamped_gen_param/slang.uhdm  patched=add12e922be3 pristine=705a49f68c31
+MOVERS: 1 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+rc=0

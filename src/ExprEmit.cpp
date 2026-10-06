@@ -42,6 +42,7 @@
 #include "R260.h"
 #include "R262.h"
 #include "R264.h"
+#include "R266.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -27535,11 +27536,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // the whole parameter declaration and carries none
                         // (same rule as the param's own typespec).
                         bool typed9 = false;
+                        // § sgnLitElabFreshIntTs266 (r11u266,
+                        // R11U266_SGNLITTS_OFF), the read site: the copy of a
+                        // signed-literal parameter's elaborated constant
+                        // (§ loopCaParamReadKeepsLiteral116's clone) carries
+                        // that constant's FRESH BARE int_typespec, no
+                        // location (grid cases/S).
+                        bool bare266 = f1Hit116 && sgnLit266().count(&psL9) &&
+                                       r11u266On("R11U266_SGNLITTS_OFF");
+                        if (bare266)
+                            tr266("sgnLitElabFreshIntTs266", "read " + std::string(psL9.name));
                         if (auto dtL9 = psL9.getDeclaredType())
                             if (auto tsnL9 = dtL9->getTypeSyntax();
                                 tsnL9 && tsnL9->kind !=
                                              syntax::SyntaxKind::ImplicitType) {
                                 typed9 = true;
+                                if (!bare266)
                                 setLoc(itsL9, tsnL9->sourceRange());
                                 itsL9->VpiSigned(
                                     psL9.getType().getCanonicalType().isSigned());
@@ -27783,6 +27795,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // this point, so build it from the declaration.
                         }
                         UHDM::typespec* declTs9 = nullptr;
+                        // § sgnLitElabFreshIntTs266 (r11u266,
+                        // R11U266_SGNLITTS_OFF), the generate-process read:
+                        // the copy of a marked parameter's elaborated constant
+                        // carries a FRESH BARE signed int_typespec, no
+                        // location (grid cases/S s27).
+                        bool bareP266 = paSrc9 && sgnLit266().count(&psym) &&
+                                        r11u266On("R11U266_SGNLITTS_OFF");
+                        if (bareP266) {
+                            tr266("sgnLitElabFreshIntTs266", "procread " + std::string(psym.name));
+                            auto* bi266 = s.MakeInt_typespec();
+                            bi266->VpiSigned(true);
+                            declTs9 = bi266;
+                        }
+                        else
                         if (paSrc9 && psym.getDeclaredType() &&
                             psym.getDeclaredType()->getTypeSyntax() &&
                             psym.getDeclaredType()
@@ -27792,7 +27818,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // SL carries the folded param's type as a ref_typespec
                         // whose fullname is the enclosing (function) scope.
                         UHDM::typespec* its = declTs9;
-                        bool locSet9 = declTs9 != nullptr;
+                        bool locSet9 = declTs9 != nullptr || bareP266;
                         if (!its)
                             its = s.MakeInt_typespec();
                         if (genPsBound9 && !locSet9) {

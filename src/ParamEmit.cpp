@@ -29,6 +29,7 @@
 #include "R258.h"
 #include "R262.h"
 #include "R264.h"
+#include "R266.h"
 namespace slang_uhdm {
 // § shareDefParamTsOwnNotImport262 — the elaborated Rhs references whose
 // parameter golden binds to its OWN declaration (a body parameter, or a port
@@ -2660,6 +2661,37 @@ static bool cmpCtxHasFuncScopeSelect12(const Expression& root,
             v.visitDefault(rs2);
         }));
     return found;
+}
+
+// § pkgTdParamValListingTs266 (abstention): the subtree's tokens, punctuation
+// parentheses dropped, read as ONE identifier `name`.
+static void argTokens266(const syntax::SyntaxNode& n, std::vector<slang::parsing::Token>& out) {
+    for (size_t i = 0, c = n.getChildCount(); i < c; ++i) {
+        if (auto* ch = n.childNode(i))
+            argTokens266(*ch, out);
+        else if (auto t = n.childToken(i); t && t.kind != slang::parsing::TokenKind::OpenParenthesis &&
+                                          t.kind != slang::parsing::TokenKind::CloseParenthesis)
+            out.push_back(t);
+    }
+}
+// True when `name` is passed ALONE as an argument of a call (ordered or named)
+// anywhere under `n`: Surelog's constant evaluation of that call binds the
+// parameter's value constant to the formal's own typespec (pristine's answer).
+static bool nameIsDirectCallArg266(const syntax::SyntaxNode& n, std::string_view name) {
+    if (n.kind == syntax::SyntaxKind::OrderedArgument || n.kind == syntax::SyntaxKind::NamedArgument) {
+        std::vector<slang::parsing::Token> toks;
+        if (n.kind == syntax::SyntaxKind::OrderedArgument)
+            argTokens266(n, toks);
+        else if (auto* e = n.as<syntax::NamedArgumentSyntax>().expr)
+            argTokens266(*e, toks);
+        if (toks.size() == 1 && toks[0].kind == slang::parsing::TokenKind::Identifier &&
+            toks[0].valueText() == name)
+            return true;
+    }
+    for (size_t i = 0, c = n.getChildCount(); i < c; ++i)
+        if (auto* ch = n.childNode(i); ch && nameIsDirectCallArg266(*ch, name))
+            return true;
+    return false;
 }
 
 static bool elabParamCallCmpPoison12(const SubroutineSymbol& sub) {
@@ -15904,6 +15936,39 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 c6->VpiDecompile(dc6);
                             }
                             signedBinFoldParams.insert(&ps);
+                        }
+                        // § sgnLitElabFreshIntTs266 (r11u266,
+                        // R11U266_SGNLITTS_OFF) — a SIGNED SIZED literal in
+                        // another base (`12'shFFF`, `8'sh7F`, `12'sd5`,
+                        // `6'so17`) keeps its value and decompile, but its ELAB
+                        // param_assign Rhs constant binds the same FRESH BARE
+                        // int_typespec the signed-binary arms above give
+                        // (Surelog's signed literal goes through the same
+                        // signed evaluation and is rebuilt with its own
+                        // int_typespec): grid cases/S.
+                        else if (!sgnBin6 && tk6 != std::string::npos && tk6 > 0 &&
+                                 tk6 + 2 < raw6.size() &&
+                                 (raw6[tk6 + 1] == 's' || raw6[tk6 + 1] == 'S') &&
+                                 strchr("hHdDoO", raw6[tk6 + 2]) && lw6 > 0 &&
+                                 lw6 <= 64 && !lv6.hasUnknown() &&
+                                 r11u266On("R11U266_SGNLITTS_OFF") &&
+                                 [&] {
+                                     // Only a module-home parameter written
+                                     // with the signed `int` keyword: an
+                                     // untyped, vector, byte / shortint /
+                                     // longint / integer, `int unsigned` or
+                                     // package home keeps its typespec
+                                     // (cases/S t1-t9, t20).
+                                     if (!loopCaLit116Typed(ps) ||
+                                         !ps.getType().isSigned())
+                                         return false;
+                                     auto* h6 = ps.getParentScope();
+                                     return h6 && h6->asSymbol().kind !=
+                                                      SymbolKind::Package;
+                                 }()) {
+                            tr266("sgnLitElabFreshIntTs266", std::string(ps.name) + " " + raw6);
+                            signedBinFoldParams.insert(&ps);
+                            sgnLit266().insert(&ps);
                         }
                     }
                     // A RANGED-UNTYPED param's elab literal ROUND-TRIPS
@@ -32917,6 +32982,53 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                                ps->getParentScope()->asSymbol().kind !=
                                    SymbolKind::Package &&
                                paramCaFoldRead(*ps);
+            // § pkgTdParamValListingTs266 (r11u266, R11U266_PKGTDLISTTS_OFF) — the
+            // ELABORATED param_assign Rhs constant of a parameter declared
+            // `pkg::T` (T a package 4-state vector typedef, the shape
+            // § pkgTdQualParamCopiesListing111 reads) binds the PACKAGE'S LISTING
+            // OBJECT `pkg::T` itself, not the definition's bare clone nor a fresh
+            // int_typespec, wherever the elaborator keeps the value's declared
+            // typespec (the two arms below: the shared default and the
+            // module-local-parameter initializer): Surelog binds the value to the
+            // last typespec its package registered under that name, the listing
+            // object (pass 111's note; grid cases/A).  The read folds above (a
+            // read parameter's loc-less bare typespec) are untouched.  Abstains
+            // when the parameter is passed alone as a call argument in its
+            // definition (the constant evaluation of that call rebinds the value
+            // to the formal's bare clone, pristine's answer: cases/A a07), in an
+            // interface home, and when the listing object is missing or not a
+            // logic_typespec.
+            auto pkgTdListTs266 = [&]() -> UHDM::typespec* {
+                if (!r11u266On("R11U266_PKGTDLISTTS_OFF") || !rc0 ||
+                    rc0->UhdmType() != UHDM::uhdmconstant || ifaceHome111(*ps))
+                    return nullptr;
+                auto* qa266 = qualPkgVecTd111(*ps);
+                if (!qa266)
+                    return nullptr;
+                auto t266 = pkgTopTypedefTs.find((const void*)qa266);
+                UHDM::typespec* lt266 =
+                    t266 != pkgTopTypedefTs.end() && t266->second &&
+                            t266->second->UhdmType() == UHDM::uhdmlogic_typespec
+                        ? t266->second
+                        : nullptr;
+                const syntax::SyntaxNode* decl266 = nullptr;
+                if (auto* syn266 = ps->getSyntax())
+                    for (const syntax::SyntaxNode* q = syn266->parent; q; q = q->parent)
+                        if (q->kind == syntax::SyntaxKind::ModuleDeclaration ||
+                            q->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+                            q->kind == syntax::SyntaxKind::ProgramDeclaration)
+                            decl266 = q;
+                if (!lt266) {
+                    tr266("pkgTdParamValListingTs266", "abstain nolisting " + std::string(ps->name));
+                    return nullptr;
+                }
+                if (!decl266 || nameIsDirectCallArg266(*decl266, ps->name)) {
+                    tr266("pkgTdParamValListingTs266", "abstain callarg " + std::string(ps->name));
+                    return nullptr;
+                }
+                tr266("pkgTdParamValListingTs266", std::string(ps->name) + " -> " + std::string(lt266->VpiName()));
+                return lt266;
+            };
             if (signedBinFoldParams.count(ps) && rc0 &&
                 rc0->UhdmType() == UHDM::uhdmconstant) {
                 auto* sb9 = s.MakeInt_typespec();
@@ -33087,14 +33199,20 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                                 sym9.getParentScope()->asSymbol().kind !=
                                     SymbolKind::Package;
                      }()) {
+                if (auto* l266 = pkgTdListTs266())
+                    rhsRt->Actual_typespec(l266);
+                else {
                 auto* bi9 = s.MakeInt_typespec();
                 if (ps->getType().getCanonicalType().isSigned())
                     bi9->VpiSigned(true);
                 rhsRt->Actual_typespec(bi9);
+                }
             }
             // Default: SHARE the module def's parameter typespec object (see
             // the defParamTs note above). `its` is bound as the fallback the
             // final drain keeps if the def view has no matching object.
+            else if (auto* l266 = pkgTdListTs266())
+                rhsRt->Actual_typespec(l266);
             else {
                 rhsRt->Actual_typespec(its);
                 shareDefParamTs(rhsRt);

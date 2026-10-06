@@ -1,0 +1,8 @@
+uhdm2rtlil stamped_gen_param/default dist 148 -> 144 lost=0 gained=2
+  GAIN 2               \_logic_typespec: (q2::row_t)
+  uhdm-cmp swP: 64 lines
+  uhdm-cmp swL: 64 lines
+uhdm2rtlil stamped_gen_param/testflags dist 148 -> 144 lost=0 gained=2
+  GAIN 2               \_logic_typespec: (q2::row_t)
+  uhdm-cmp swP: 64 lines
+  uhdm-cmp swL: 64 lines

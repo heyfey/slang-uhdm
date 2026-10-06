@@ -1,0 +1,2 @@
+swL cmds=3315 naming-own-binary=3265 slang-lines-naming-another-binary=0 no-slang-line=50
+swP cmds=3315 naming-own-binary=3265 slang-lines-naming-another-binary=0 no-slang-line=50

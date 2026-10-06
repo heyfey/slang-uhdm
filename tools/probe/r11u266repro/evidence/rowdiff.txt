@@ -1,0 +1,50 @@
+== surelog
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u266_swP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u266_swL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u266_swP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u266_swL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+== uhdm2rtlil
+== probe
+< r10v80repro/v4_shape80,STRICT_NOTEQUAL,differ:file(1),differ:file(1)
+> r10v80repro/v4_shape80,EQUAL,,equal
+< r11u108repro/grid/pk/k01_param_v,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+< r11u108repro/grid/pk/k02_param_vn,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+> r11u108repro/grid/pk/k01_param_v,EQUAL,,equal
+> r11u108repro/grid/pk/k02_param_vn,EQUAL,,equal
+< r11u108repro/grid/pk/k05_param_a,STRICT_NOTEQUAL,differ:file(12),differ:file(12)
+> r11u108repro/grid/pk/k05_param_a,STRICT_NOTEQUAL,differ:file(4),differ:file(4)
+< r11u108repro/grid/pk/k21_param_vn_nofunc,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+< r11u108repro/grid/pk/k22_param_v_literal,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+> r11u108repro/grid/pk/k21_param_vn_nofunc,EQUAL,,equal
+> r11u108repro/grid/pk/k22_param_v_literal,EQUAL,,equal
+< r11u111repro/grid/f1/a06_q_signed,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+> r11u111repro/grid/f1/a06_q_signed,EQUAL,,equal
+< r11u111repro/grid/f1/a12_q_multidim,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+< r11u111repro/grid/f1/a14_q_two_inst,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+< r11u111repro/grid/f1/a15_q_genblk,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+< r11u111repro/grid/f1/a17_q_and_import,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+< r11u111repro/grid/f1/a19_q_ascending_sym,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+> r11u111repro/grid/f1/a12_q_multidim,EQUAL,,equal
+> r11u111repro/grid/f1/a14_q_two_inst,EQUAL,,equal
+> r11u111repro/grid/f1/a15_q_genblk,EQUAL,,equal
+> r11u111repro/grid/f1/a17_q_and_import,EQUAL,,equal
+> r11u111repro/grid/f1/a19_q_ascending_sym,EQUAL,,equal
+< r11u111repro/grid/f1/a27_q_row_named_dims,STRICT_NOTEQUAL,differ:file(12),differ:file(12)
+> r11u111repro/grid/f1/a27_q_row_named_dims,STRICT_NOTEQUAL,differ:file(4),differ:file(4)
+< v11u111repro/brk/f1/x04_twodim,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+< v11u111repro/brk/f1/x05_passthru,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+< v11u111repro/brk/f1/y11_reg_typedef,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+< v11u111repro/brk/f1/z11_three_inst_gen,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+> v11u111repro/brk/f1/x04_twodim,EQUAL,,equal
+> v11u111repro/brk/f1/x05_passthru,EQUAL,,equal
+> v11u111repro/brk/f1/y11_reg_typedef,EQUAL,,equal
+> v11u111repro/brk/f1/z11_three_inst_gen,EQUAL,,equal
+< v11u111repro/brk/f3/x38_param_in_module_typed,STRICT_NOTEQUAL,differ:file(12),differ:file(12)
+> v11u111repro/brk/f3/x38_param_in_module_typed,STRICT_NOTEQUAL,differ:file(4),differ:file(4)
+< v11u116repro/arms/f1_shex_body,STRICT_NOTEQUAL,differ:file(7),differ:file(7)
+< v11u116repro/arms/f1_shex_hdr,STRICT_NOTEQUAL,differ:file(7),differ:file(7)
+< v11u116repro/arms/f1_shex_lp,STRICT_NOTEQUAL,differ:file(7),differ:file(7)
+> v11u116repro/arms/f1_shex_body,EQUAL,,equal
+> v11u116repro/arms/f1_shex_hdr,EQUAL,,equal
+> v11u116repro/arms/f1_shex_lp,EQUAL,,equal
+== downstream

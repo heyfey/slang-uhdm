@@ -1,0 +1,39 @@
+case-views=6602 moving=28 entering=10 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/r11u111repro/grid/f1/a01_q_lit_ovr STRICT_NOTEQUAL_name -> STRICT_EQUAL_93_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f1/a01_q_lit_ovr_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_92_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f1/a02_q_sym_ovr STRICT_NOTEQUAL_name -> STRICT_EQUAL_109_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f1/a02_q_sym_ovr_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_108_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f3/k05_param_a STRICT_NOTEQUAL_file -> STRICT_NOTEQUAL_file cmplines 0->0
+MOVER tp/r11u111repro/grid/f3/k05_param_a_el STRICT_NOTEQUAL_file -> STRICT_NOTEQUAL_file cmplines 0->0
+MOVER tp/r11u111repro/grid/f3/s00_stamped_corpus NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u111repro/grid/f3/s00_stamped_corpus_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u111repro/grid/f3/t08_param_only STRICT_NOTEQUAL_file -> STRICT_NOTEQUAL_file cmplines 0->0
+MOVER tp/r11u111repro/grid/f3/t08_param_only_el STRICT_NOTEQUAL_file -> STRICT_NOTEQUAL_file cmplines 0->0
+MOVER tp/r11u131repro/ovr/o03_typedef STRICT_NOTEQUAL_name -> STRICT_EQUAL_42_objects cmplines 0->0
+MOVER tp/r11u131repro/ovr/o03_typedef_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_42_objects cmplines 0->0
+MOVER tp/r11u131repro/ovr/o10_pkg2d_qual STRICT_NOTEQUAL_name -> STRICT_EQUAL_60_objects cmplines 0->0
+MOVER tp/r11u131repro/ovr/o10_pkg2d_qual_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_60_objects cmplines 0->0
+MOVER tp/v11u111repro/brk/f1/x09_top_unused_params NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/v11u111repro/brk/f1/x09_top_unused_params_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/v11u111repro/brk/f1/x11_iface_port_param NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 126->126
+MOVER tp/v11u111repro/brk/f1/x11_iface_port_param_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 33->33
+MOVER tp/v11u111repro/brk/f1/x13_gen_loop NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/v11u111repro/brk/f1/x13_gen_loop_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/v11u111repro/brk/f1/y14_param_q_logic_signed_multi NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u111repro/brk/f1/y14_param_q_logic_signed_multi_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u111repro/brk/f3/z32_three_inst_param NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/v11u111repro/brk/f3/z32_three_inst_param_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/v11u264repro/cases/VR/vr01_sized_lit_src NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/v11u264repro/cases/VR/vr01_sized_lit_src_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/v11u264repro/cases/VR/vr17_src_signed_sized STRICT_NOTEQUAL_file -> STRICT_EQUAL_84_objects cmplines 0->0
+MOVER tp/v11u264repro/cases/VR/vr17_src_signed_sized_el STRICT_NOTEQUAL_file -> STRICT_EQUAL_83_objects cmplines 0->0
+ENTER tp/r11u111repro/grid/f1/a01_q_lit_ovr
+ENTER tp/r11u111repro/grid/f1/a01_q_lit_ovr_el
+ENTER tp/r11u111repro/grid/f1/a02_q_sym_ovr
+ENTER tp/r11u111repro/grid/f1/a02_q_sym_ovr_el
+ENTER tp/r11u131repro/ovr/o03_typedef
+ENTER tp/r11u131repro/ovr/o03_typedef_el
+ENTER tp/r11u131repro/ovr/o10_pkg2d_qual
+ENTER tp/r11u131repro/ovr/o10_pkg2d_qual_el
+ENTER tp/v11u264repro/cases/VR/vr17_src_signed_sized
+ENTER tp/v11u264repro/cases/VR/vr17_src_signed_sized_el

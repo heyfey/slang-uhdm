@@ -1,0 +1,1 @@
+cmds.txt fence-filtered=3315 naming-law=3265 naming-other=0

@@ -1,0 +1,6 @@
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/stamped_gen_param-63c47340/slang.uhdm  patched=2d482edcf55e pristine=e244d747acf8
+MOVER ./testflags/stamped_gen_param-63c47340/slang.uhdm  patched=add12e922be3 pristine=705a49f68c31
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
