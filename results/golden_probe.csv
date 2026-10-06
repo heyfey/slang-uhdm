@@ -63,7 +63,7 @@ r10earl105repro/h1_head105,EQUAL,,equal
 r10earl105repro/h2_child105,EQUAL,,equal
 r10earl106repro/g1_home106,EQUAL,,equal
 r10earl106repro/h1_head106,EQUAL,,equal
-r10earl107repro/g1_home107,STRICT_NOTEQUAL,differ:line(4),differ:line(4)
+r10earl107repro/g1_home107,EQUAL,,equal
 r10earl108repro/g1_home108,EQUAL,,equal
 r10earl109repro/g1_home109,EQUAL,,equal
 r10earl109repro/g2_stale109,EQUAL,,equal
@@ -141,7 +141,7 @@ r10earl62repro/g2_earl62,EQUAL,,equal
 r10earl63repro/abl_c,EQUAL,,equal
 r10earl63repro/c2_head63,EQUAL,,equal
 r10earl76repro/g2_orig76,STRICT_NOTEQUAL,differ:fullname(13),differ:fullname(13)
-r10earl78repro/a3_wide78,STRICT_NOTEQUAL,differ:fullname(8),differ:fullname(8)
+r10earl78repro/a3_wide78,EQUAL,,equal
 r10earl79repro/g1_first79,EQUAL,,equal
 r10earl81repro/g3_norm81,EQUAL,,equal
 r10earl82repro/g0_min82,EQUAL,,equal
@@ -1378,8 +1378,8 @@ r10v68repro/v9b_imp68,EQUAL,,equal
 r10v75repro/a4_nest75,EQUAL,,equal
 r10v77repro/v10_drive77,EQUAL,,equal
 r10v77repro/v8_multiname77,EQUAL,,equal
-r10v78repro/v6_ndecl78,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
-r10v78repro/v7_pre78,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10v78repro/v6_ndecl78,EQUAL,,equal
+r10v78repro/v7_pre78,EQUAL,,equal
 r10v79repro/va5_v79,EQUAL,,equal
 r10v79repro/va6_v79,EQUAL,,equal
 r10v79repro/va7_v79,EQUAL,,equal

@@ -1,0 +1,54 @@
+== sweep P
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u267_swP/probe.csv
+probe cases: EQUAL=3566 STRICT_NOTEQUAL=521 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u267_swP/surelog.csv
+== surelog vs golden_surelog.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u267_swP/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+rc=1
+== sweep L
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u267_swL/probe.csv
+probe cases: EQUAL=3570 STRICT_NOTEQUAL=517 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+CONVERSION r10earl107repro/g1_home107 STRICT_NOTEQUAL differ:line(4) -> EQUAL
+CONVERSION r10earl78repro/a3_wide78 STRICT_NOTEQUAL differ:fullname(8) -> EQUAL
+CONVERSION r10v78repro/v6_ndecl78 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10v78repro/v7_pre78 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+regressions=0 conversions=4 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u267_swL/surelog.csv
+== surelog vs golden_surelog.csv
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:file(19) -> differ:file(210) [file +191]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(20) -> differ:fullname(18) [fullname -2]
+regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u267_swL/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+rc=1
+== sweep F
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u267_swF/probe.csv
+probe cases: EQUAL=3570 STRICT_NOTEQUAL=517 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+CONVERSION r10earl107repro/g1_home107 STRICT_NOTEQUAL differ:line(4) -> EQUAL
+CONVERSION r10earl78repro/a3_wide78 STRICT_NOTEQUAL differ:fullname(8) -> EQUAL
+CONVERSION r10v78repro/v6_ndecl78 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10v78repro/v7_pre78 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+regressions=0 conversions=4 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u267_swF/surelog.csv
+== surelog vs golden_surelog.csv
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:file(19) -> differ:file(210) [file +191]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(20) -> differ:fullname(18) [fullname -2]
+regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u267_swF/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+rc=1

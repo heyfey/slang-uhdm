@@ -1,0 +1,18 @@
+// § pkgQualPatConnSpan267
+package pp;
+  typedef struct packed {
+    logic sample_pulse;
+  } req_t;
+
+  parameter req_t REQ_DEFAULT = '{
+    sample_pulse: 1'b0
+  };
+endpackage
+module pm (input pp::req_t strap_i, output logic o);
+  assign o = strap_i.sample_pulse;
+endmodule
+module top import pp::*; (output logic o);
+  pm u_pm(
+    .strap_i(REQ_DEFAULT),
+    .o(o));
+endmodule

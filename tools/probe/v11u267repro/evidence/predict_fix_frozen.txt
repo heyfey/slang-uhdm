@@ -1,0 +1,6 @@
+probe r10earl107repro__g1_home107.uhdm pkgQualPatConnSpan267:4
+probe r10earl78repro__a3_wide78.uhdm genCaReplParentBoundLhs267:8
+probe r10v78repro__v6_ndecl78.uhdm genCaReplParentBoundLhs267:2
+probe r10v78repro__v7_pre78.uhdm genCaReplParentBoundLhs267:2
+surelog Earlgrey_0_1/default caFoldParentUnboundLhs267:1 genCaReplParentBoundLhs267:2 pkgQualPatConnSpan267:10 typedefDimNetDropsDims267:1
+surelog Earlgrey_0_1/testflags caFoldParentUnboundLhs267:1 genCaReplParentBoundLhs267:2 pkgQualPatConnSpan267:10 typedefDimNetDropsDims267:1

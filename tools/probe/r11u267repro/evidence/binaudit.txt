@@ -1,0 +1,2 @@
+/tmp/r11u267_wdP cmds=3315 own-binary=3265 no-slang-line=50 OTHER=0
+/tmp/r11u267_wdL cmds=3315 own-binary=3265 no-slang-line=50 OTHER=0

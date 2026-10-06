@@ -44,6 +44,7 @@
 #include "R257.h"
 #include "R261.h"
 #include "R263.h"
+#include "R267.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -60,6 +61,34 @@ struct FullNamePeek261 : UHDM::BaseClass {
 }  // namespace
 static std::string chainFullName261(const UHDM::BaseClass* o) {
     return static_cast<const FullNamePeek261*>(o)->ComputeFullName();
+}
+
+// § typedefDimNetDropsDims267 (r11u267; the law's statement is at its module
+// home in emitInstance): the typedef's own typespec when `sym` is a net written
+// `<logic typedef> [packed dims] name` and `ts` is the packed logic_typespec
+// this exporter built for it (its element reference holds the typedef's
+// object); null otherwise or with R11U267_TDDIMNET_OFF.
+static UHDM::typespec* typedefDimNetTs267(const Symbol& sym,
+                                          const UHDM::typespec* ts) {
+    if (!ts || ts->UhdmType() != UHDM::uhdmlogic_typespec ||
+        !sym.getDeclaredType() || !r11u267On("R11U267_TDDIMNET_OFF"))
+        return nullptr;
+    const Type* et = &sym.getDeclaredType()->getType();
+    bool dims = false;
+    while (et->kind == SymbolKind::PackedArrayType) {
+        dims = true;
+        et = &et->as<PackedArrayType>().elementType;
+    }
+    if (!dims || et->kind != SymbolKind::TypeAlias ||
+        !et->getCanonicalType().isIntegral() ||
+        !et->getCanonicalType().isFourState())
+        return nullptr;
+    auto* ers = ((const UHDM::logic_typespec*)ts)->Elem_typespec();
+    auto* ets = ers ? (UHDM::typespec*)ers->Actual_typespec() : nullptr;
+    if (!ets || ets == ts || ets->UhdmType() != UHDM::uhdmlogic_typespec ||
+        ets->VpiName().empty())
+        return nullptr;
+    return ets;
 }
 
 // The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
@@ -18675,6 +18704,26 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                      isExplicitPkgQualified(*it.sym) &&
                      !hasStructFieldMember(*it.sym))
                 ((UHDM::struct_net*)n)->VpiNetType(vpiWire);
+            // § typedefDimNetDropsDims267 — A NET WRITTEN `<logic typedef>
+            // [packed dims] name` ELABORATES WITH THE TYPEDEF'S OWN TYPESPEC:
+            // the dimensions are dropped.  Surelog's
+            // NetlistElaboration::elabSignal (NetlistElaboration.cpp:2216-2237),
+            // net arm, DummyType (a typedef compiled to a simple typespec)
+            // whose typespec is a logic_typespec: the logic_net's reference
+            // binds `en->getTypespec()` -- the typedef's -- and the packed
+            // dimensions compiled two screens above are never attached
+            // (`// logicn->Ranges(packedDimensions);` is commented out).  The
+            // port and the definition view keep the full packed typespec.
+            // Golden Earlgrey sha2 `output sha_word_t [7:0] digest`
+            // (`logic_typespec hmac_pkg::sha_word_t`, range [31:0]); cases
+            // r11u267repro P/p01 to p05, p12, p14.  Our packed typespec's
+            // element reference already holds the typedef's object.  Switch
+            // R11U267_TDDIMNET_OFF.
+            if (rt && !isStruct && n->UhdmType() == UHDM::uhdmlogic_net)
+                if (auto* tdt267 = typedefDimNetTs267(*it.sym, ts)) {
+                    rt->Actual_typespec(tdt267);
+                    tr267("typedefDimNetDropsDims267", fullName);
+                }
             if (rt) {
                 rt->VpiParent(n);
                 n->Typespec(rt);
@@ -20666,6 +20715,54 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                         // Re-anchored at the REFERENCE span
                                         // (the operands keep the pattern's).
                                         setLoc(op8, expr->sourceRange);
+                                        // § pkgQualPatConnSpan267 — a
+                                        // PACKAGE-QUALIFIED reference
+                                        // (`pp::REQ_DEFAULT`) is not
+                                        // re-anchored: Surelog resolves the
+                                        // scoped name to the package
+                                        // parameter's own reduced pattern,
+                                        // which keeps the initializer's span
+                                        // (golden Earlgrey top_earlgrey
+                                        // `.lc_pinmux_strap_i(pinmux_pkg::
+                                        // LC_PINMUX_STRAP_REQ_DEFAULT)` at
+                                        // pinmux_pkg.sv 26:58-28:4; cases
+                                        // r11u267repro Q/q01, q03, q05).  A
+                                        // POSITIONAL connection reads the
+                                        // qualifier alone (`pp::`, q03 u_pm2),
+                                        // the span § pkgQualCallQualSpan131
+                                        // and the qualified port-actual
+                                        // reference above already use.  A
+                                        // bare imported name keeps the
+                                        // reference span (q02).  Switch
+                                        // R11U267_QUALPATCONN_OFF.
+                                        if (expr->syntax &&
+                                            expr->syntax->kind ==
+                                                syntax::SyntaxKind::ScopedName &&
+                                            expr->syntax->parent &&
+                                            r11u267On("R11U267_QUALPATCONN_OFF")) {
+                                            // The connection's expression is
+                                            // a property expression: climb
+                                            // its simple sequence / property
+                                            // wrappers to the connection.
+                                            const syntax::SyntaxNode* up267 =
+                                                expr->syntax->parent;
+                                            while (up267 &&
+                                                   (up267->kind == syntax::SyntaxKind::SimpleSequenceExpr ||
+                                                    up267->kind == syntax::SyntaxKind::SimplePropertyExpr))
+                                                up267 = up267->parent;
+                                            auto pk267 = up267 ? up267->kind
+                                                               : syntax::SyntaxKind::Unknown;
+                                            if (pk267 == syntax::SyntaxKind::NamedPortConnection) {
+                                                setLoc(op8, stripImplicitConv(*pin8).sourceRange);
+                                                tr267("pkgQualPatConnSpan267", "named " + std::string(inst.name));
+                                            }
+                                            else if (pk267 == syntax::SyntaxKind::OrderedPortConnection) {
+                                                auto& sn267 = expr->syntax->as<syntax::ScopedNameSyntax>();
+                                                setLoc(op8, SourceRange(expr->sourceRange.start(),
+                                                                        sn267.right->sourceRange().start()));
+                                                tr267("pkgQualPatConnSpan267", "ordered " + std::string(inst.name));
+                                            }
+                                        }
                                         std::string cfn8 =
                                             hcPrefix + "." +
                                             std::string(inst.name) + "." +
@@ -24500,6 +24597,40 @@ static bool caLhsAdjustBind106(const Expression& lhsExpr, int32_t& w,
         return false;
     w = bw;
     return true;
+}
+
+// ---------------------------------------------------------------------------
+// § caFoldParentUnboundLhs267 / § genCaReplParentBoundLhs267 (r11u267) — WHO
+// PARENTS A FOLDED CONT_ASSIGN RIGHT SIDE.  `UhdmWriter::writeCont_assign`
+// (Surelog v1.87 UhdmWriter.cpp:2090) folds an elaborated cont_assign's
+// operation Rhs in one of two arms, and `CompileHelper::bindVariable`
+// (CompileStmt.cpp:3089) is the fence between them:
+//   * a `ref_obj` Lhs that binds BY NAME (the scope walk switches on
+//     function / task / begin / module_inst only, so from a gen_scope it lands
+//     on the enclosing module's nets and variables): `reduceExpr`, then
+//     `adjustSize`, then `assign->Rhs(rhstmp)` with NO `VpiParent` -- the
+//     folded constant is UNPARENTED;
+//   * anything else (a member path `hier_path`, a select, a concat, a ref_obj
+//     that binds nothing -- gen-local, interface body): the `simplified ==
+//     false` arm clones the assign and ends in `res->VpiParent(assign)` -- the
+//     constant is PARENTED at the cont_assign.
+// The parent is visible wherever the fold carries a typespec reference: the
+// replication fold's `word size` int_typespec reference computes its full
+// name from the chain (work@top.u_fc in golden r11u267repro R/r01, empty in
+// ours; the gen-scope twin the other way round, Earlgrey's gen_secded
+// `assign a_wmask_d = {TotalWidth{1'b1}}`).  This answers "binds by name".
+static bool caLhsBindsByName267(const Expression& lhsExpr) {
+    auto& l = stripImplicitConv(lhsExpr);
+    if (l.kind != ExpressionKind::NamedValue)
+        return false;
+    auto& sym = l.as<NamedValueExpression>().symbol;
+    if (sym.kind != SymbolKind::Net && sym.kind != SymbolKind::Variable)
+        return false;
+    auto* ps = sym.getParentScope();
+    if (!ps || ps->asSymbol().kind != SymbolKind::InstanceBody)
+        return false;
+    return ps->asSymbol().as<InstanceBodySymbol>().getDefinition().definitionKind ==
+           DefinitionKind::Module;
 }
 
 // ---------------------------------------------------------------------------
@@ -29915,7 +30046,16 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             int32_t adj78 = caLhsAdjustSize68(ae.left());
                             if (nat78 > 0 && nat78 <= 64 && adj78 < nat78)
                                 c78->VpiSize(adj78);
-                            c78->VpiParent(ca);
+                            // § genCaReplParentBoundLhs267 — a Lhs that binds
+                            // by name takes writeCont_assign's first arm, whose
+                            // fold is never parented (golden Earlgrey
+                            // gen_secded a_wmask_d; R/r08, r21).  Switch
+                            // R11U267_GENREPLPARENT_OFF.
+                            if (r11u267On("R11U267_GENREPLPARENT_OFF") &&
+                                caLhsBindsByName267(ae.left()))
+                                tr267("genCaReplParentBoundLhs267", fullName);
+                            else
+                                c78->VpiParent(ca);
                         }
                         rhs = fc78;
                     }
@@ -44603,6 +44743,35 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     rc9->VpiParent(ca);
                 }
             }
+            // § caFoldParentUnboundLhs267 — the module home's general fold
+            // of an operation Rhs onto a Lhs that does not bind by name (a
+            // member path) is writeCont_assign's second arm: parented at the
+            // cont_assign (golden R/r01, Earlgrey flash_ctrl
+            // `assign region_cfgs[MpRegions].size.q = {AllPagesW{1'b1}}`).
+            // Switch R11U267_CAFOLDPARENT_OFF.
+            if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                !rhs->VpiParent() &&
+                stripImplicitConv(ae.right()).kind != ExpressionKind::NamedValue &&
+                stripImplicitConv(ae.left()).kind != ExpressionKind::NamedValue &&
+                !caLhsBindsByName267(ae.left()) &&
+                r11u267On("R11U267_CAFOLDPARENT_OFF")) {
+              // § caFoldDelayRefKeepsUnparented267v (v11u267) — a delay
+              // written as a parameter reference (`assign #D s.q = ...`)
+              // makes writeCont_assign clone the assign first (its
+              // `delay->UhdmType() == uhdmref_obj` leg sets `cloned`), and
+              // the second arm parents the folded constant only while
+              // `cloned == false`: golden leaves it unparented (case
+              // v11u267repro VA/va01, STRICT_EQUAL on pristine).  The law
+              // steps aside.  Switch R11V267_DLYREF_OFF.
+              if (ca->Delay() &&
+                  ca->Delay()->UhdmType() == UHDM::uhdmref_obj &&
+                  r11v267On("R11V267_DLYREF_OFF"))
+                tr267("caFoldDelayRefKeepsUnparented267v", prefix);
+              else {
+                rhs->VpiParent(ca);
+                tr267("caFoldParentUnboundLhs267", prefix);
+              }
+            }
         }
         // A NESTED cast RHS, or a cast whose operand is a PARAMETER ref
         // (int'(X)), that evals fully folds loc-less: UINT by magnitude at
@@ -51194,6 +51363,12 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                     rt->VpiFullName(fullName);
                     rt->VpiParent(ln);
                     rt->Actual_typespec(ts);
+                    // § typedefDimNetDropsDims267 — the interface home of the
+                    // same NetlistElaboration::elabSignal arm (case P/p14).
+                    if (auto* tdt267 = typedefDimNetTs267(*it.sym, ts)) {
+                        rt->Actual_typespec(tdt267);
+                        tr267("typedefDimNetDropsDims267", fullName);
+                    }
                     // § caIfaceElabNetDeclAssignListing88 — A NET-DECL-ASSIGN
                     // NET's LISTING TYPESPEC LOSES ITS NET PARENT.  The
                     // producer re-elaborates the declaration into a cell whose
@@ -51737,6 +51912,13 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                             mrt->VpiFullName(dfull);
                             mrt->VpiParent(ln);
                             mrt->Actual_typespec(mts);
+                            // § typedefDimNetDropsDims267 — the modport clone
+                            // of an interface header port is the same
+                            // elabSignal net (case T/t03).
+                            if (auto* tdt267 = typedefDimNetTs267(msym, mts)) {
+                                mrt->Actual_typespec(tdt267);
+                                tr267("typedefDimNetDropsDims267", dfull);
+                            }
                             ln->Typespec(mrt);
                         }
                         io->Expr(ln);

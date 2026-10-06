@@ -1,0 +1,2 @@
+Earlgrey_0_1 default uhdm-cmp rc=0 lines=0
+Earlgrey_0_1 testflags uhdm-cmp rc=0 lines=0

@@ -1,0 +1,2 @@
+surelog/default/Earlgrey_0_1-a898def8 dist 171 -> 154 lost=0 gained=12
+surelog/testflags/Earlgrey_0_1-a898def8 dist 586 -> 569 lost=0 gained=12
