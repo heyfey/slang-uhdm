@@ -1,0 +1,1 @@
+vd04_iface_port_child (both views): moved by R11U263_GENIFPORT_OFF alone (the law with that switch off gives pristine's md5 801fcc0f); STRICT_EQUAL on both binaries; record away census dist 0 -> 0 lost 0

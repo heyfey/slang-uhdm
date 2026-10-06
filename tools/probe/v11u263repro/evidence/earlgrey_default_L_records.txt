@@ -1,0 +1,66 @@
+#233633 fullname
+  A: 14	ref_typespec			work@rstmgr_ctrl		0	0	0	0		0		
+  B: 14	ref_typespec			work@rstmgr_ctrl.rst_req_i		0	0	0	0		0		
+#233638 fullname
+  A: 13	ref_typespec			work@rstmgr_ctrl		0	0	0	0		0		
+  B: 13	ref_typespec			work@rstmgr_ctrl.rst_parent_synced		0	0	0	0		0		
+#395727 file
+  A: 11	enum_const	WB_INSTR_OTHER			ibex_pkg.sv	179	3	179	17				
+  B: 11	enum_const	WB_INSTR_OTHER				0	0	0	0				
+#464077 fullname
+  A: 8	ref_typespec			work@top_earlgrey.u_ram1p_ram_main		0	0	0	0		0		
+  B: 8	ref_typespec			work@top_earlgrey		0	0	0	0		0		
+#600811 fullname
+  A: 9	ref_typespec					0	0	0	0		0		
+  B: 9	ref_typespec			work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded		0	0	0	0		0		
+#600816 fullname
+  A: 9	ref_typespec					0	0	0	0		0		
+  B: 9	ref_typespec			work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded		0	0	0	0		0		
+#726217 file
+  A: 7	int_typespec				flash_erase_ctrl.sv	9	13	9	16				
+  B: 7	int_typespec				flash_ctrl_pkg.sv	18	14	18	17				
+#726221 file
+  A: 7	int_typespec				flash_erase_ctrl.sv	10	13	10	16				
+  B: 7	int_typespec				flash_ctrl_pkg.sv	13	14	13	17				
+#726225 file
+  A: 7	int_typespec				flash_erase_ctrl.sv	11	13	11	16				
+  B: 7	int_typespec				flash_ctrl_pkg.sv	12	14	12	17				
+#727777 file
+  A: 7	int_typespec				flash_mp.sv	11	13	11	16				
+  B: 7	int_typespec				flash_ctrl_pkg.sv	28	14	28	17				
+#727781 file
+  A: 7	int_typespec				flash_mp.sv	12	13	12	16				
+  B: 7	int_typespec				flash_ctrl_pkg.sv	11	14	11	17				
+#727785 file
+  A: 7	int_typespec				flash_mp.sv	13	13	13	16				
+  B: 7	int_typespec				flash_ctrl_pkg.sv	22	14	22	17				
+#729363 fullname
+  A: 5	ref_typespec			work@top_earlgrey.u_flash_ctrl		0	0	0	0		0		
+  B: 5	ref_typespec					0	0	0	0		0		
+#730573 file
+  A: 6	int_typespec				rv_timer.sv	19	14	19	17				
+  B: 6	int_typespec				rv_timer_reg_pkg.sv	10	13	10	16				
+#730577 file
+  A: 6	int_typespec				rv_timer.sv	20	14	20	17				
+  B: 6	int_typespec				rv_timer_reg_pkg.sv	11	13	11	16				
+#814099 fullname
+  A: 9	ref_typespec			work@top_earlgrey.u_hmac.u_packer		0	0	0	0		0		
+  B: 9	ref_typespec			work@top_earlgrey.u_hmac		0	0	0	0		0		
+#814102 fullname
+  A: 9	ref_typespec			work@top_earlgrey.u_hmac.u_packer		0	0	0	0		0		
+  B: 9	ref_typespec			work@top_earlgrey.u_hmac		0	0	0	0		0		
+#814108 fullname
+  A: 9	ref_typespec			work@top_earlgrey.u_hmac.u_packer		0	0	0	0		0		
+  B: 9	ref_typespec			work@top_earlgrey.u_hmac		0	0	0	0		0		
+#814111 fullname
+  A: 9	ref_typespec			work@top_earlgrey.u_hmac.u_packer		0	0	0	0		0		
+  B: 9	ref_typespec			work@top_earlgrey.u_hmac		0	0	0	0		0		
+#816151 name
+  A: 6	logic_typespec	hmac_pkg::sha_word_t			hmac_pkg.sv	17	11	17	23				
+  B: 6	logic_typespec				sha2.sv	27	10	27	26				
+#816152 type
+  A: 7	range				hmac_pkg.sv	17	17	17	23				
+  B: 7	ref_typespec			<in>		0	0	0	0		0		
+objects 2173209 vs 2173214
+fields: type=1 name=1 fullname=11 file=11 line=11 col=11 endline=11 endcol=11 size=1 objects_differing=21 (walk diverged)
+STRICT_NOTEQUAL fullname

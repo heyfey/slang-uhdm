@@ -1,0 +1,12 @@
+== surelog
+382c382
+< Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(36),,differ:fullname(36)
+---
+> Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(21),,differ:fullname(21)
+1190c1190
+< Rggen,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+---
+> Rggen,default,CMP_EQUAL,,,equal
+== uhdm2rtlil
+== probe
+== downstream

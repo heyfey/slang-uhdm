@@ -1,0 +1,15 @@
+#216212 fullname
+  A: 8	ref_obj	DataWidth		prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::DataWidth	prim_prince.sv	81	61	81	70		0		
+  B: 8	ref_obj	DataWidth		work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST.DataWidth	prim_prince.sv	81	61	81	70		0		
+#235310 fullname
+  A: 14	ref_typespec			work@rstmgr_ctrl		0	0	0	0		0		
+  B: 14	ref_typespec			work@rstmgr_ctrl.rst_req_i		0	0	0	0		0		
+#235315 fullname
+  A: 13	ref_typespec			work@rstmgr_ctrl		0	0	0	0		0		
+  B: 13	ref_typespec			work@rstmgr_ctrl.rst_parent_synced		0	0	0	0		0		
+#403326 depth
+  A: 9	typespec_member	unused_ctrl			ibex_cs_registers.sv	167	18	167	29				
+  B: 7	ref_obj	csr_wdata_int		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.csr_wdata_int	ibex_cs_registers.sv	1057	37	1057	50		0		
+objects 1342584 vs 1342910
+fields: depth=1 type=1 name=1 fullname=4 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL fullname

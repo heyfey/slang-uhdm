@@ -1,0 +1,8 @@
+OUT /tmp/v11u263_ptr/w/fixtr/_tmp_v11u263_cases_VU_vu02_sel_unsized_or/slang.uhdm
+dottedLhsElemSelShares263 arr[N].a_valid
+selRootCloneLegKeepsCopy263v arr[N].a_valid
+selRootCloneLegKeepsCopy263v arr[N].a_valid
+OUT /tmp/v11u263_ptr/w/fixtr/_tmp_v11u263_cases_VU_vu34_sel_sizecast/slang.uhdm
+dottedLhsElemSelShares263 arr[N].d
+selRootCloneLegKeepsCopy263v arr[N].d
+selRootCloneLegKeepsCopy263v arr[N].d

@@ -1,0 +1,4 @@
+R11U263_DOTSELBASE_OFF Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(16),,differ:fullname(16)
+R11U263_DOTSELBASE_OFF Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+R11U263_DOTOPRHS_OFF Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(27),,differ:fullname(27)
+R11U263_DOTOPRHS_OFF Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)

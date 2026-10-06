@@ -1,0 +1,8 @@
+name,mode,status,detail,blocked_by,strict
+Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(36),,differ:fullname(36)
+Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+Rggen,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+Rggen,testflags,SURELOG_FAIL,[INF:UH0707] Elaborating UHDM...,,
+./default/Earlgrey_0_1-a898def8/slang.uhdm off=3febd9bc8188 pristine=3febd9bc8188
+./default/Rggen-ee9ac8af/slang.uhdm off=0de430d25b52 pristine=0de430d25b52
+./testflags/Earlgrey_0_1-a898def8/slang.uhdm off=7fb003ddcf59 pristine=7fb003ddcf59

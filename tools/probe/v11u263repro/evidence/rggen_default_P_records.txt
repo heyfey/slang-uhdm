@@ -1,0 +1,6 @@
+#92960 type
+  A: 15	range				block_0.sv	1811	46	1811	47				
+  B: 15	ref_typespec			<in>		0	0	0	0		0		
+objects 314498 vs 314389
+fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type

@@ -1,0 +1,5 @@
+case-views=2574 fix_moving=2 law_moving=2 rc_nonzero_lines=24
+LAW-MOVER tp/v11u261repro/cases/VD/vd04_iface_port_child STRICT_EQUAL_154_objects -> STRICT_EQUAL_154_objects cmplines 0->0
+FIX-MOVER tp/v11u261repro/cases/VD/vd04_iface_port_child STRICT_EQUAL_154_objects -> STRICT_EQUAL_154_objects cmplines 0->0
+LAW-MOVER tp/v11u261repro/cases/VD/vd04_iface_port_child_el STRICT_EQUAL_178_objects -> STRICT_EQUAL_178_objects cmplines 0->0
+FIX-MOVER tp/v11u261repro/cases/VD/vd04_iface_port_child_el STRICT_EQUAL_178_objects -> STRICT_EQUAL_178_objects cmplines 0->0

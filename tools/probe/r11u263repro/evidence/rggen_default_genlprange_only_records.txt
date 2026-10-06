@@ -1,0 +1,6 @@
+#210025 depth
+  A: 8	interface_inst	register_15_bus_if	work@rggen_bus_if	work@rggen.u_block_0.register_15_bus_if	rggen.sv	149	0	0	0				
+  B: 7	ref_obj			work@rggen.u_block_0.g_register_15.u_register.bus_if	block_0.sv	2299	8	2299	14		0		
+objects 314498 vs 314469
+fields: depth=1 type=1 name=1 defname=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth

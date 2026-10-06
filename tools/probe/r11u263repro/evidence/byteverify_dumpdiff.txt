@@ -1,0 +1,16 @@
+surelog/default/Scr1SvTests-fa4609ad lines P=332305 L=332248 diff=57 sorted_diff=57
+surelog/testflags/Scr1SvTests-fa4609ad lines P=331741 L=331684 diff=57 sorted_diff=57
+uhdm2rtlil/default/PackedArray-56e23cb3 lines P=1307 L=1241 diff=66 sorted_diff=66
+uhdm2rtlil/default/TypedefPackedDimensions-5f58a006 lines P=1252 L=1194 diff=58 sorted_diff=58
+uhdm2rtlil/default/TypedefVariableDimensions-a24472af lines P=1217 L=1159 diff=58 sorted_diff=58
+uhdm2rtlil/testflags/PackedArray-56e23cb3 lines P=797 L=731 diff=66 sorted_diff=66
+uhdm2rtlil/testflags/TypedefPackedDimensions-5f58a006 lines P=742 L=684 diff=58 sorted_diff=58
+uhdm2rtlil/testflags/TypedefVariableDimensions-a24472af lines P=707 L=649 diff=58 sorted_diff=58
+surelog/default/Scr1SvTests-fa4609ad dist 874 -> 817 lost=0 gained=0
+surelog/testflags/Scr1SvTests-fa4609ad dist 874 -> 817 lost=0 gained=0
+uhdm2rtlil/default/PackedArray-56e23cb3 dist 71 -> 5 lost=0 gained=0
+uhdm2rtlil/default/TypedefPackedDimensions-5f58a006 dist 62 -> 4 lost=0 gained=0
+uhdm2rtlil/default/TypedefVariableDimensions-a24472af dist 63 -> 5 lost=0 gained=0
+uhdm2rtlil/testflags/PackedArray-56e23cb3 dist 71 -> 5 lost=0 gained=0
+uhdm2rtlil/testflags/TypedefPackedDimensions-5f58a006 dist 62 -> 4 lost=0 gained=0
+uhdm2rtlil/testflags/TypedefVariableDimensions-a24472af dist 63 -> 5 lost=0 gained=0

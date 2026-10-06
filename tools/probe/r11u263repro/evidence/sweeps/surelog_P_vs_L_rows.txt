@@ -1,0 +1,16 @@
+382c382
+< Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(36),,differ:fullname(36)
+---
+> Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(21),,differ:fullname(21)
+845c845
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u263_wdP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u263_wdL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+847c847
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u263_wdP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u263_wdL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+1190c1190
+< Rggen,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+---
+> Rggen,default,CMP_EQUAL,,,equal

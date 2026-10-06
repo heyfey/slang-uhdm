@@ -43,6 +43,7 @@
 #include "R251.h"
 #include "R257.h"
 #include "R261.h"
+#include "R263.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -19141,6 +19142,48 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             if (auto ps9 = inst.getParentScope())
                                 connSite = ps9->find(
                                     rawText(connectionExpr(*iconn)->sourceRange));
+                        // § genIfacePortActualInst263 (r11u263) — a child
+                        // instantiated inside a GENERATE block that passes
+                        // the enclosing module's interface port down
+                        // (Rggen block_0 2299, `.bus_if
+                        // (register_15_bus_if)` in g_register_15) is a
+                        // passthrough too: golden's high-conn ref_obj names
+                        // the port and binds the enclosing instance's port
+                        // view (work@rggen.u_block_0.register_15_bus_if,
+                        // rggen.sv 149:0), exactly as the module-body
+                        // passthrough above.  The lookup read only the
+                        // generate block itself, so the port was never
+                        // found and the ref_obj bound the outer interface
+                        // instance (the Rggen default head #210025 once
+                        // #92960 clears; with differently named actuals it
+                        // is a uhdm-cmp difference, the ref_obj named by
+                        // the outer instance).  The lookup now climbs the
+                        // generate blocks up to the instance body.  Switch
+                        // R11U263_GENIFPORT_OFF.
+                        if (!connSite && iconn && connectionExpr(*iconn) &&
+                            r11u263On("R11U263_GENIFPORT_OFF")) {
+                            const Scope* gs263 = inst.getParentScope();
+                            std::string nm263 =
+                                rawText(connectionExpr(*iconn)->sourceRange);
+                            while (gs263 &&
+                                   (gs263->asSymbol().kind ==
+                                        SymbolKind::GenerateBlock ||
+                                    gs263->asSymbol().kind ==
+                                        SymbolKind::GenerateBlockArray)) {
+                                gs263 = gs263->asSymbol().getParentScope();
+                                if (!gs263)
+                                    break;
+                                if (auto* f263 = gs263->find(nm263)) {
+                                    if (f263->kind == SymbolKind::InterfacePort &&
+                                        ifacePortViewMap.count(f263)) {
+                                        connSite = f263;
+                                        tr263("genIfacePortActualInst263",
+                                              parentPrefix + "." + nm263);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
                         auto pvIt = connSite && connSite->kind == SymbolKind::InterfacePort
                                         ? ifacePortViewMap.find(connSite)
                                         : ifacePortViewMap.end();
@@ -27927,8 +27970,30 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             uat9.as<FixedSizeUnpackedArrayType>().range.width();
                         w9 > 0)
                         up->VpiSize((int32_t)w9);
-                    auto* ats9 =
-                        makeUnpackedArrayParamTs(ps, afull9, up, prng9);
+                    // § genLpArrRangeFirst263 (r11u263) — the gen-scope
+                    // array_typespec gets its OWN range objects, built as
+                    // the parameter's are, instead of sharing the
+                    // parameter's vpiRange vector.  Golden (Rggen block_0
+                    // 1811, the generate localparam INITIAL_VALUE[4]) holds
+                    // a range under the array_typespec at every reference;
+                    // ours shared the parameter's range, so once the walk
+                    // had listed it under the parameter it listed no range
+                    // under the param_assign Rhs's typespec reference (the
+                    // Rggen default head #92960: golden `range`, ours the
+                    // element `ref_typespec`).  The module-scope twin of
+                    // § impArrParamTsOwnRanges242.  Switch
+                    // R11U263_GENLPRANGE_OFF.
+                    UHDM::array_typespec* ats9 = nullptr;
+                    if (prng9 && r11u263On("R11U263_GENLPRANGE_OFF")) {
+                        std::string savedDfo263 = dimFoldOwner;
+                        dimFoldOwner = afull9;
+                        ats9 = makeUnpackedArrayParamTs(ps, afull9, up,
+                                                        nullptr);
+                        dimFoldOwner = savedDfo263;
+                        tr263("genLpArrRangeFirst263", afull9);
+                    }
+                    else
+                        ats9 = makeUnpackedArrayParamTs(ps, afull9, up, prng9);
                     rt->Actual_typespec(ats9);
                     if (auto init9 = ps.getInitializer()) {
                         auto* pa9 = s.MakeParam_assign();
@@ -41584,15 +41649,107 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // A LITERAL RHS always re-compiles, even over a net base.
         if (dottedLhs && !literalRhs) {
             const Expression* baseE = &stripImplicitConv(ae.left());
-            while (baseE->kind == ExpressionKind::MemberAccess)
-                baseE = &stripImplicitConv(baseE->as<MemberAccessExpression>().value());
+            // § dottedLhsElemSelShares263 (r11u263) — the base walk also
+            // steps through element and range selects: a member path rooted
+            // at a select, `tl_u_o[N].a_valid = ...` over an unpacked array
+            // of structs (Earlgrey tlul_socket_1n 201 to 209), keeps the
+            // SHARED def cont_assign, as golden does, whether a net or a
+            // variable backs the array: its index ref_obj reads
+            // work@tlul_socket_1n.N, where the fresh per-instance copy named
+            // it by the instance (Earlgrey default #620047 to #620111).
+            // Switch R11U263_DOTSELBASE_OFF.
+            bool selWalk263 = r11u263On("R11U263_DOTSELBASE_OFF");
+            bool stepped263 = false;
+            while (baseE->kind == ExpressionKind::MemberAccess ||
+                   (selWalk263 &&
+                    (baseE->kind == ExpressionKind::ElementSelect ||
+                     baseE->kind == ExpressionKind::RangeSelect))) {
+                if (baseE->kind == ExpressionKind::MemberAccess)
+                    baseE = &stripImplicitConv(
+                        baseE->as<MemberAccessExpression>().value());
+                else if (baseE->kind == ExpressionKind::ElementSelect) {
+                    stepped263 = true;
+                    baseE = &stripImplicitConv(
+                        baseE->as<ElementSelectExpression>().value());
+                }
+                else {
+                    stepped263 = true;
+                    baseE = &stripImplicitConv(
+                        baseE->as<RangeSelectExpression>().value());
+                }
+            }
             if (baseE->kind == ExpressionKind::NamedValue) {
                 auto nit0 = netMap.find(&baseE->as<NamedValueExpression>().symbol);
-                if (nit0 != netMap.end()) {
+                // (a select-rooted path skips the net-base test: the law
+                // below decides it, so the law's firing is its only change)
+                if (nit0 != netMap.end() && !stepped263) {
                     auto ut0 = nit0->second->UhdmType();
                     if (ut0 == UHDM::uhdmlogic_net || ut0 == UHDM::uhdmstruct_net ||
                         ut0 == UHDM::uhdminteger_net || ut0 == UHDM::uhdmarray_net)
                         dottedLhs = false;
+                }
+                // ...and a member path whose root is a SELECT (the
+                // hier_path's first element a bit_select or part_select,
+                // not a ref_obj) keeps the shared def cont_assign whatever
+                // backs the base: Earlgrey's tl_u_o is an array_var.
+                // Golden re-compiles (a fresh copy) when the Rhs reduces to
+                // a constant (UhdmWriter::writeCont_assign's reduceExpr arm:
+                // an enum constant or a parameter, measured on T/t10), so the
+                // law abstains on a constant Rhs.
+                bool constRhs263 = false;
+                bool opWant263 = dottedLhs && !stepped263 &&
+                                 r11u263On("R11U263_DOTOPRHS_OFF");
+                if (stepped263 || opWant263) {
+                    ASTContext ctx263(comp.getRoot(), LookupLocation::max);
+                    constRhs263 = (bool)ctx263.tryEval(ae.right());
+                }
+                // § selRootCloneLegKeepsCopy263v (v11u263) — a select-rooted
+                // path whose Rhs Surelog's UhdmWriter::writeCont_assign
+                // re-compiles even though it does not reduce to a constant
+                // keeps the base's FRESH copy: golden clones a Rhs holding
+                // an UNSIZED constant (DetectUnsizedConstant: `'0 '1 'x 'z`,
+                // an unsized based `'h1`, a constant of vpiSize -1; the
+                // § caUnsizedRhsClonePerInst193 predicate) and a CAST Rhs
+                // (an operation carrying a typespec; the
+                // § castRhsClonePerInst176 predicate), and its copy names
+                // the index `work@top.u_a.arr[N].a_valid.N`.  The law shared
+                // the def object and moved the elaborated view of
+                // `assign arr[N].a_valid = a | '0` and of
+                // `assign arr[N].d = 4'(c ^ {4{b}})` from STRICT_EQUAL to
+                // fullname (VU/vu02, vu10, vu18, vu19, vu34, vu35).  Both
+                // predicates read the definition's own cont_assign.  Switch
+                // R11V263_SELCLONE_OFF.
+                bool unsz263v = false;
+                if (stepped263 && !constRhs263 && defInfo &&
+                    myIdx < defInfo->contAssigns.size() &&
+                    defInfo->contAssigns[myIdx] &&
+                    defInfo->contAssigns[myIdx]->Rhs() &&
+                    (rhsHasUnsized193(defInfo->contAssigns[myIdx]->Rhs()) ||
+                     castRhsClones176(defInfo->contAssigns[myIdx])) &&
+                    r11v263On("R11V263_SELCLONE_OFF")) {
+                    unsz263v = true;
+                    tr263("selRootCloneLegKeepsCopy263v",
+                          rawText(ae.left().sourceRange));
+                }
+                if (stepped263 && !constRhs263 && !unsz263v) {
+                    dottedLhs = false;
+                    tr263("dottedLhsElemSelShares263",
+                          rawText(ae.left().sourceRange));
+                }
+                // § dottedLhsVarOpRhsShares263 (r11u263) — the same holds
+                // for a member path rooted at a VARIABLE (`tl_h_o.a_ready =
+                // ~err_rsp_pending & ...` on Earlgrey tlul_err_resp's output
+                // struct port, T/t13's `s.a_valid = a & b`): Surelog
+                // re-compiles a cont_assign whose Lhs is not a ref_obj only
+                // when its Rhs reduces to a constant, so a non-constant Rhs
+                // keeps the SHARED def object (Earlgrey default #658559
+                // onward: golden walks only the literal-Rhs copies of a
+                // second tlul_err_resp instance, ours re-listed the
+                // operation-Rhs copies too).  Switch R11U263_DOTOPRHS_OFF.
+                if (opWant263 && !constRhs263) {
+                    dottedLhs = false;
+                    tr263("dottedLhsVarOpRhsShares263",
+                          rawText(ae.left().sourceRange));
                 }
             }
         }

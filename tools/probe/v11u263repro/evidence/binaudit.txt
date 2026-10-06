@@ -1,0 +1,3 @@
+/tmp/v11u263_swP: cmds.txt=3315 own=3265 other=0 no_slang_line=50
+/tmp/v11u263_swL: cmds.txt=3315 own=3265 other=0 no_slang_line=50
+/tmp/v11u263_swF: cmds.txt=3315 own=3265 other=0 no_slang_line=50

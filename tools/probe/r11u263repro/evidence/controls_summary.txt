@@ -1,0 +1,3 @@
+case-views=2574 moving=2 entering=0 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/v11u261repro/cases/VD/vd04_iface_port_child STRICT_EQUAL_154_objects -> STRICT_EQUAL_154_objects cmplines 0->0
+MOVER tp/v11u261repro/cases/VD/vd04_iface_port_child_el STRICT_EQUAL_178_objects -> STRICT_EQUAL_178_objects cmplines 0->0

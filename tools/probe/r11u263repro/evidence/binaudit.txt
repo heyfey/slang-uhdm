@@ -1,0 +1,2 @@
+wdP total=3315 naming_own=3265 slang_line_other=0
+wdL total=3315 naming_own=3265 slang_line_other=0
