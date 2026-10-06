@@ -28,6 +28,7 @@
 #include "R256.h"
 #include "R258.h"
 #include "R262.h"
+#include "R264.h"
 namespace slang_uhdm {
 // § shareDefParamTsOwnNotImport262 — the elaborated Rhs references whose
 // parameter golden binds to its OWN declaration (a body parameter, or a port
@@ -1029,6 +1030,169 @@ static const ParameterSymbol* bareParamRef(const Expression& e) {
     return &sym->as<ParameterSymbol>();
 }
 
+// § elabParamRefSignedTsUnlocated264 (r11u264, R11U264_REFSIGNTS_OFF) — the
+// SIGNED parameter a fold's value is read from, through a bare reference or
+// a ternary's taken branch, or null.  See the law in emitParameters.
+static const ParameterSymbol* signedRefSrc264(Compilation& comp,
+                                              const Expression& e,
+                                              int depth = 0) {
+    if (depth > 8)
+        return nullptr;
+    const Expression& se = stripImplicitConv(e);
+    if (se.kind == ExpressionKind::NamedValue) {
+        auto& sym = se.as<NamedValueExpression>().symbol;
+        if (sym.kind != SymbolKind::Parameter)
+            return nullptr;
+        auto& ps = sym.as<ParameterSymbol>();
+        auto& ct = ps.getType().getCanonicalType();
+        if (!ct.isIntegral() || !ct.isSigned())
+            return nullptr;
+        // An `integer` source keeps the declared typespec (cases/P p07 T5).
+        if (ct.kind == SymbolKind::PredefinedIntegerType &&
+            ct.as<PredefinedIntegerType>().integerKind ==
+                PredefinedIntegerType::Integer)
+            return nullptr;
+        // An OVERRIDDEN source's value is the override's constant, which keeps
+        // the declared typespec (cases/P p09 `K = M`, `B = D`).
+        if (isOverriddenParam(ps))
+            return nullptr;
+        // A package parameter (imported, unqualified) is read through the
+        // package's own value object: golden keeps the declared typespec
+        // (cases/P p11).
+        if (auto* sc = ps.getParentScope();
+            !sc || sc->asSymbol().kind == SymbolKind::Package)
+            return nullptr;
+        // § refSignSrcSurelogSigned264v (v11u264, R11V264_SRCKIND_OFF) —
+        // the source's value is signed in Surelog only when the typespec its
+        // constant carries is an int_typespec, a logic_typespec or a
+        // bit_typespec with VpiSigned (CompileHelper::valueRange, called from
+        // DesignElaboration with the constant's own typespec, else the
+        // declared one).  An UNTYPED source has no typespec, so valueRange
+        // never runs and the value stays unsigned (v11u264 VR/vr28, vr50,
+        // vr51: golden keeps the target's declared, located typespec; the
+        // law moved them away, STRICT_EQUAL -> file); a shortint, longint or
+        // byte source's short_int / long_int / byte typespec is none of the
+        // three (vr18, vr19, vr20, vr45), unless its own constant is the
+        // minted signed int of a read of an int source (vr46, vr54: golden
+        // unlocated), the recursion below.
+        if (r11v264On("R11V264_SRCKIND_OFF")) {
+            auto* dts = ps.getDeclaredType() ? ps.getDeclaredType()->getTypeSyntax()
+                                             : nullptr;
+            if (dts && dts->kind == syntax::SyntaxKind::ImplicitType &&
+                dts->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                !dts->as<syntax::ImplicitTypeSyntax>().signing.valid()) {
+                tr264("SRCKIND", "abstain untyped " + std::string(ps.name));
+                return nullptr;
+            }
+            if (ct.kind == SymbolKind::PredefinedIntegerType &&
+                ct.as<PredefinedIntegerType>().integerKind !=
+                    PredefinedIntegerType::Int) {
+                auto* pi = ps.getInitializer();
+                if (!pi || !signedRefSrc264(comp, *pi, depth + 1)) {
+                    tr264("SRCKIND", "abstain atom " + std::string(ps.name));
+                    return nullptr;
+                }
+            }
+        }
+        return &ps;
+    }
+    // A unary plus compiles to its operand (cases/P p07 T11).
+    if (se.kind == ExpressionKind::UnaryOp &&
+        se.as<UnaryExpression>().op == UnaryOperator::Plus)
+        return signedRefSrc264(comp, se.as<UnaryExpression>().operand(),
+                               depth + 1);
+    if (se.kind == ExpressionKind::ConditionalOp) {
+        auto& co = se.as<ConditionalExpression>();
+        if (co.conditions.size() != 1 || co.conditions[0].pattern)
+            return nullptr;
+        ASTContext cx(comp.getRoot(), LookupLocation::max);
+        ConstantValue pv = cx.tryEval(*co.conditions[0].expr);
+        if (!pv || !pv.isInteger() || pv.integer().hasUnknown())
+            return nullptr;
+        return signedRefSrc264(comp,
+                               pv.integer().as<uint64_t>().value_or(0) != 0
+                                   ? co.left()
+                                   : co.right(),
+                               depth + 1);
+    }
+    return nullptr;
+}
+
+// § qualShadowPkgTdKeepsClone264v (v11u264, R11V264_QSPKGTD_OFF) and
+// § qualShadowGenReadKeepsClone264v (v11u264, R11V264_QSGENREAD_OFF) —
+// where § pkgQualRefShadowOwnTs264 stands aside, the reason, or null.
+//  - The parameter's declared type is a PACKAGE typedef of a non-integer-atom
+//    type (`localparam pk::byte_t NE = pk::NE;`, byte_t = logic [7:0]): any
+//    read of the parameter (a whole cont_assign right side, an operand, a
+//    process read) folds from the unshared Rhs, whose reference is then our
+//    declared typespec, an unnamed unlocated logic_typespec where golden's
+//    fold and param_assign both keep the package's byte_t (v11u264 VQ/vq06,
+//    vq18, vq19: chain away 5, vq18 STRICT_NOTEQUAL -> uhdm-cmp stage 1).
+//    An int typedef (vq10, vq17, vq23) and a module-local typedef (vq08,
+//    vq16) are unaffected.
+//  - A generate block of the module reads the parameter (`if (1) begin : g
+//    assign o = NE; end`, a select index `i[NE]`): golden's fold there keeps
+//    the PACKAGE's int_typespec (3:13 in vq22), the value Surelog
+//    substituted, while the param_assign holds the module's; with the law
+//    our fold took the module's and uhdm-cmp reads the typespec's instance
+//    package (v11u264 VQ/vq20, vq21, vq22, vq26: STRICT_NOTEQUAL -> stage 1).
+//    A for-generate bound (vq24, not a member of the block) and the module
+//    body's own reads (vq14, vq27) keep the law; any read inside a block
+//    abstains, an operand read (vq25) included.
+static bool genRead264v(const Scope& sc, const ParameterSymbol& ps,
+                             int depth) {
+    if (depth > 16)
+        return false;
+    bool found = false;
+    auto vis = makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+        if (&nv.symbol == &ps)
+            found = true;
+        v.visitDefault(nv);
+    });
+    for (auto& m : sc.members()) {
+        if (found)
+            break;
+        if (m.kind == SymbolKind::GenerateBlock) {
+            auto& gb = m.as<GenerateBlockSymbol>();
+            if (!gb.isUninstantiated)
+                gb.visit(vis);
+        }
+        else if (m.kind == SymbolKind::GenerateBlockArray) {
+            for (auto* e : m.as<GenerateBlockArraySymbol>().entries)
+                if (e && !e->isUninstantiated)
+                    e->visit(vis);
+        }
+    }
+    return found;
+}
+static const char* qualShadowAbstain264v(const ParameterSymbol& ps) {
+    if (r11v264On("R11V264_QSPKGTD_OFF")) {
+        auto& t = ps.getType();
+        if (t.kind == SymbolKind::TypeAlias &&
+            t.getCanonicalType().kind != SymbolKind::PredefinedIntegerType) {
+            auto* tsc = t.getParentScope();
+            if (tsc && tsc->asSymbol().kind == SymbolKind::Package)
+                return "pkgtd";
+        }
+    }
+    if (r11v264On("R11V264_QSGENREAD_OFF")) {
+        if (auto* sc = ps.getParentScope(); sc && genRead264v(*sc, ps, 0))
+            return "genread";
+    }
+    return nullptr;
+}
+
+// § elabParamRefSignedTsUnlocated264 — the firings, applied design-final.
+struct RefSignTs264 {
+    UHDM::param_assign* pa;
+    UHDM::constant* rc;
+    UHDM::ref_typespec* rt;  // null: mint the reference (untyped parameter)
+    std::string prefix, name, simple;
+};
+static std::vector<RefSignTs264>& refSignTs264() {
+    static std::vector<RefSignTs264> v;
+    return v;
+}
 // NOTE (r9psc, ParamSubstituteComplex): Surelog's substitute-then-reduce hands
 // back the referenced parameter's own value CONSTANT OBJECT, so any fold that
 // reads a parameter inherits that constant's LITERAL FORM (VpiConstType +
@@ -24840,7 +25004,55 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                             .elementType.getCanonicalType()
                                             .kind == SymbolKind::PackedArrayType;
                             }
-                            if (ypa && yc && rhsRt && md140) {
+                            // § pkgQualRefShadowOwnTs264 (r11u264,
+                            // R11U264_QUALSHADOW_OFF; Earlgrey default
+                            // #1465389, usbdev `localparam int NEndpoints =
+                            // usbdev_reg_pkg::NEndpoints;` beside `import
+                            // usbdev_reg_pkg::*;`) — a module body parameter
+                            // that SHADOWS the wildcard-imported package
+                            // parameter it reads by `pkg::` name is not a
+                            // clone of it in golden when the module has no
+                            // parameter port list: the param_assign keeps its
+                            // own Rhs constant, parented at its own
+                            // assignment, over the module's own declared
+                            // typespec (golden usbdev.sv 91:14, ours the
+                            // package's usbdev_reg_pkg.sv 10:13).  With a
+                            // header list golden clones as before, the
+                            // § bodyParamNoHdrList262v distinction (cases/P
+                            // p16); a different name (p13) or no import (p03)
+                            // is not this law's.  Grid cases/P p06, p14 to p17.
+                            bool qualShadow264 = false;
+                            if (ypa && yc && rhsRt && md140 && !unq140 &&
+                                !isImported && ysym.name == ps.name &&
+                                !ps.isPortParam() &&
+                                r11u264On("R11U264_QUALSHADOW_OFF")) {
+                                auto* bsc264 = ps.getParentScope();
+                                auto* msyn264 = bsc264 ? bsc264->asSymbol().getSyntax()
+                                                       : nullptr;
+                                auto* mds264 =
+                                    msyn264 ? msyn264->as_if<syntax::ModuleDeclarationSyntax>()
+                                            : nullptr;
+                                if (bsc264 &&
+                                    bsc264->asSymbol().kind == SymbolKind::InstanceBody &&
+                                    mds264 && mds264->header &&
+                                    !mds264->header->parameters) {
+                                    qualShadow264 = true;
+                                    // § qualShadowPkgTdKeepsClone264v and
+                                    // § qualShadowGenReadKeepsClone264v
+                                    // (v11u264): the two shapes where the
+                                    // unshared Rhs leaks into a read fold.
+                                    if (const char* why = qualShadowAbstain264v(ps)) {
+                                        qualShadow264 = false;
+                                        tr264("QUALSHADOW", std::string("abstain ") + why + " " +
+                                                                joinPath(prefix, ps.name));
+                                    }
+                                    else
+                                        tr264("QUALSHADOW", joinPath(prefix, ps.name));
+                                }
+                                else
+                                    tr264("QUALSHADOW", "abstain hdr " + joinPath(prefix, ps.name));
+                            }
+                            if (ypa && yc && rhsRt && md140 && !qualShadow264) {
                                 auto* rc = (UHDM::constant*)rhs;
                                 rc->VpiValue(std::string(yc->VpiValue()));
                                 rc->VpiConstType(yc->VpiConstType());
@@ -25557,6 +25769,84 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         trace174("MOPUNLOC abstain");
                     }
                 }
+            }
+        }
+        // § elabParamRefSignedTsUnlocated264 (r11u264, R11U264_REFSIGNTS_OFF;
+        // Earlgrey default #1465373 `localparam int AVFifoWidth = NBufWidth;`
+        // in usbdev and #1488054 `LocalDataBitsPerMask = (EnableParity) ? 1 :
+        // DataBitsPerMask` in prim_ram_2p_async_adv) — AN ELABORATED
+        // PARAMETER WHOSE VALUE IS READ FROM A SIGNED PARAMETER BY NAME HOLDS
+        // A FRESH UNLOCATED SIGNED int_typespec.  Surelog compiles the bare
+        // name of a parameter with a value by minting a constant from that
+        // value (CompileExpression.cpp compileExpression, the reduced-name arm:
+        // `if (sval->isSigned())` it gives the constant its own
+        // `s.MakeInt_typespec()` with VpiSigned and nothing else), and a
+        // ternary hands back its taken branch's object, so the elaborated
+        // param_assign's Rhs keeps that typespec instead of the parameter's
+        // declared one.  An operation, a call, a literal or an unsigned
+        // source mints none and keeps the declared typespec (grid
+        // tools/probe/r11u264repro/cases/P).  The elaborated view of a
+        // module's own default only.  Recorded here and applied design-final
+        // (drainRefSignTs264), because an interface PORT VIEW's listing is
+        // Surelog's copy of the definition and keeps the declared typespec
+        // (tests/probe r11u115repro grid/i s12, r10rgg3repro f1: golden
+        // located there, unlocated in the interface instance itself), and the
+        // port views are known only once emitInterfaceInstance returns.
+        if (topView && !defViewOrig9 && !inPackage && !isImported &&
+            !overridden && !pkgRefFold && pa->Rhs() &&
+            pa->Rhs()->UhdmType() == UHDM::uhdmconstant &&
+            r11u264On("R11U264_REFSIGNTS_OFF")) {
+            auto* rc264 = (UHDM::constant*)pa->Rhs();
+            // An UNTYPED parameter's constant carries no reference on our
+            // side; golden's carries the minted one (cases/P p05 `B = AW`,
+            // p07 `T6 = A`), named like the typed form's.
+            const bool untyped264 = [&] {
+                auto* ts = ps.getDeclaredType()
+                               ? ps.getDeclaredType()->getTypeSyntax()
+                               : nullptr;
+                return ts && ts->kind == syntax::SyntaxKind::ImplicitType &&
+                       ts->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                       !ts->as<syntax::ImplicitTypeSyntax>().signing.valid();
+            }();
+            UHDM::ref_typespec* rt264 =
+                rhsRt && rhsRt->VpiParent() == rc264 ? rhsRt : nullptr;
+            const bool mint264 =
+                !rt264 && untyped264 && !rc264->Typespec();
+            // The target is an integer atom (int, integer, byte, shortint,
+            // longint) or untyped: a vector target's constant is retyped by
+            // the conversion (golden an unlocated logic_typespec [7:0], p07
+            // T1: not modelled, abstains).
+            auto& tct264 = ps.getType().getCanonicalType();
+            auto* pi264 = ps.getInitializer();
+            if (!rt264 && !mint264)
+                tr264("REFSIGNTS", "abstain noref " + joinPath(prefix, ps.name));
+            else if (pi264 &&
+                     tct264.kind == SymbolKind::PredefinedIntegerType &&
+                     signedRefSrc264(comp, *pi264)) {
+                // An element of an INTERFACE ARRAY abstains: our element
+                // listing is the one its port views reach too (one object for
+                // `arr[k]` and the receiving port's `p[k]`), where golden
+                // keeps the view located and only the element unlocated
+                // (tests/probe r10rgg3repro f1: 3 records each way); a
+                // ModuleEmit residue, not this law's.
+                const bool ifArr264 = [&] {
+                    if (body.asSymbol().kind != SymbolKind::InstanceBody)
+                        return false;
+                    auto& ib = body.asSymbol().as<InstanceBodySymbol>();
+                    if (ib.getDefinition().definitionKind !=
+                        DefinitionKind::Interface)
+                        return false;
+                    auto* pi = ib.parentInstance;
+                    auto* psc = pi ? pi->getParentScope() : nullptr;
+                    return psc &&
+                           psc->asSymbol().kind == SymbolKind::InstanceArray;
+                }();
+                if (ifArr264)
+                    tr264("REFSIGNTS", "abstain ifacearray " + joinPath(prefix, ps.name));
+                else
+                    refSignTs264().push_back({pa, rc264, rt264, prefix,
+                                              joinPath(prefix, ps.name),
+                                              std::string(ps.name)});
             }
         }
         if (prt) {
@@ -27373,6 +27663,76 @@ void UhdmExporter::drainPaNameCopySrc38() {
     // in expression grammar spans its `Q::` (every listing is built here).
     fwdPkgRefClassScopeSpanDrain227(s);
     drainWithChain248();  // § cloneWithOperandChainName248 (r11u248)
+    // § elabParamRefSignedTsUnlocated264 — applied here, after every
+    // deferred parameter typespec binding and once the interface port views
+    // are registered (ifacePortViewMap); a port view's listing abstains.
+    if (!refSignTs264().empty()) {
+        std::set<const UHDM::any*> views264;
+        for (auto& kv : ifacePortViewMap)
+            if (kv.second)
+                views264.insert(kv.second);
+        // A view hangs under the port's reference: the registered views and
+        // any listing reached through a ref_obj or a port (an interface
+        // ARRAY port's element views, r10rgg3repro f1).
+        auto underPort264 = [&](const UHDM::any* o) {
+            for (int h = 0; o && h < 8; h++, o = o->VpiParent()) {
+                if (views264.count(o))
+                    return true;
+                auto t = o->UhdmType();
+                if (t == UHDM::uhdmref_obj || t == UHDM::uhdmport)
+                    return true;
+                if (t == UHDM::uhdmmodule_inst)
+                    return false;
+            }
+            return false;
+        };
+        // A parameter that SHADOWS a wildcard-imported package parameter of
+        // the same name keeps its declared typespec (tools/probe/r11u262repro
+        // D/d16 `localparam int K = M;` beside `import fp::*` declaring K:
+        // golden 7:14): the instance lists the imported copy too.
+        auto shadowsImport264 = [&](const RefSignTs264& e) {
+            auto* sc = e.pa->VpiParent();
+            const UHDM::VectorOfany* ps = nullptr;
+            if (sc && sc->UhdmType() == UHDM::uhdmmodule_inst)
+                ps = ((UHDM::module_inst*)sc)->Parameters();
+            else if (sc && sc->UhdmType() == UHDM::uhdminterface_inst)
+                ps = ((UHDM::interface_inst*)sc)->Parameters();
+            if (!ps)
+                return false;
+            for (auto* p : *ps)
+                if (p && p->VpiName() == e.simple &&
+                    ((p->UhdmType() == UHDM::uhdmparameter &&
+                      !((UHDM::parameter*)p)->VpiImported().empty()) ||
+                     (p->UhdmType() == UHDM::uhdmtype_parameter &&
+                      !((UHDM::type_parameter*)p)->VpiImported().empty())))
+                    return true;
+            return false;
+        };
+        for (auto& e : refSignTs264()) {
+            if (underPort264(e.pa->VpiParent())) {
+                tr264("REFSIGNTS", "abstain portview " + e.name);
+                continue;
+            }
+            if (shadowsImport264(e)) {
+                tr264("REFSIGNTS", "abstain shadow " + e.name);
+                continue;
+            }
+            auto* rt = e.rt;
+            if (!rt) {
+                if (e.rc->Typespec())
+                    continue;
+                rt = s.MakeRef_typespec();
+                rt->VpiFullName(e.prefix);
+                rt->VpiParent(e.rc);
+                e.rc->Typespec(rt);
+            }
+            auto* its = s.MakeInt_typespec();
+            its->VpiSigned(true);
+            rt->Actual_typespec(its);
+            tr264("REFSIGNTS", e.name);
+        }
+        refSignTs264().clear();
+    }
     // § portViewNestedPatTsNamed154 — A PORT VIEW'S NESTED PATTERN TYPESPEC
     // IS NAMED BY THE VIEW.  An interface parameter whose default is a
     // NESTED assignment pattern (`parameter cfg_t CFG = '{BUS: '{DAT:

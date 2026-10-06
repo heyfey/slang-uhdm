@@ -1,0 +1,9 @@
+surelog.csv rows 1597 1597 changed 3
+   ('Earlgrey_0_1', 'default') | STRICT_NOTEQUAL,differ:fullname(192),,differ:fullname(192) -> CMP_EQUAL,,,equal
+   ('LowMemLib', 'testflags') | SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u264_wP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,, -> SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u264_wZ/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+   ('LowMemPkg', 'testflags') | SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u264_wP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,, -> SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u264_wZ/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+uhdm2rtlil.csv rows 1743 1743 changed 0
+probe.csv rows 4088 4088 changed 2
+   r10earl111repro/g6_view111 | STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2) -> EQUAL,,equal
+   r11u115repro/grid/i/s12_one_pl_pos_recvA_noov | STRICT_NOTEQUAL,differ:file(1),differ:file(1) -> EQUAL,,equal
+downstream verdict diff 0 []

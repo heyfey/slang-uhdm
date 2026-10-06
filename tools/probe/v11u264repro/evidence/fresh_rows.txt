@@ -1,0 +1,12 @@
+BlackBePipeInt,default,CMP_EQUAL,,,equal
+BlackBePipeInt,testflags,CMP_EQUAL,,,equal
+Earlgrey_0_1,default,CMP_EQUAL,,,equal
+Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(14),,differ:fullname(14)
+MiniAmiq,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+MiniAmiq,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+Rggen,default,CMP_EQUAL,,,equal
+Rggen,testflags,SURELOG_FAIL,[INF:UH0707] Elaborating UHDM...,,
+SeqDriver,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+SeqDriver,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+r10earl111repro/g6_view111,EQUAL,,equal
+r11u115repro/grid/i/s12_one_pl_pos_recvA_noov,EQUAL,,equal

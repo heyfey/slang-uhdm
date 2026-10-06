@@ -24,6 +24,7 @@
 #include "R252.h"
 #include "R254.h"
 #include "R258.h"
+#include "R264.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -1768,6 +1769,11 @@ UHDM::any* UhdmExporter::emitCtorBody27(const Statement& slStmt,
     UHDM::BaseClass* sparent = ub ? (UHDM::BaseClass*)ub : parent;
     auto* stmts = s.MakeAnyVec();
     auto* bvars = s.MakeVariablesVec();
+    // § ctorBidLhsCloneCopy264 — only under the wrapper (the lists exist)
+    // and only in an importer clone.
+    const bool ctorCopy264 = ub && pkgImportCloneEmit &&
+                             r11u175LawA("R11U175_MULT_OFF") &&
+                             r11u264On("R11U264_CTORCOPY_OFF");
     size_t from = nb > 1 ? walkFrom : firstCounted;
     size_t to = nb > 1 ? el.size() : firstCounted + 1;
     // § ctorFirstBodyItemIsUnlistedNoBind144 — RECORD, before the walk and
@@ -1832,6 +1838,11 @@ UHDM::any* UhdmExporter::emitCtorBody27(const Statement& slStmt,
                     setLoc(as, syn->sourceRange());
                 v->VpiParent(as);
                 as->Lhs((UHDM::expr*)v);
+                // § ctorBidLhsCloneCopy264 — the constructor's declaration
+                // assignment in an importer clone: its Lhs is its own copy
+                // (see the law at the wrapper below).
+                if (ctorCopy264)
+                    cloneLocalLhs175.emplace_back(as, v);
                 if (auto* init = vs.getDeclaredType()->getInitializer())
                     if (auto* r = emitExpr(*init, as, prefix, netMap))
                         as->Rhs((UHDM::expr*)r);
@@ -1855,6 +1866,30 @@ UHDM::any* UhdmExporter::emitCtorBody27(const Statement& slStmt,
     }
     if (!ub)
         return stmts->empty() ? nullptr : (*stmts)[0];
+    // § ctorBidLhsCloneCopy264 (r11u264, R11U264_CTORCOPY_OFF; MiniAmiq d/t
+    // #134648, SeqDriver d/t #134606 / #134618: `string error_str;` of the
+    // svaunit_pkg copy of uvm_component::new) — an OUT-OF-BODY constructor is
+    // listed on its package's task_funcs, so a wildcard importer's listing
+    // holds Surelog's clone_tree of it (CompileHelper.cpp importPackage,
+    // `inPackage`), and DeepClone copies each LIST: the wrapper begin's
+    // Variables (parented at the begin) and every declaration assignment's
+    // Lhs (parented at the assignment, § ctorDeclIsRhslessAssignment27 keeping
+    // the Rhs-less ones) are distinct objects.  We shared one variable
+    // between the two lists, parented at the assignment.  This is
+    // § importCloneBodyLocalCopies175's model, which the subroutine-body
+    // wrapper already follows; the constructor body never reached it.  Grid
+    // tools/probe/r11u264repro/cases/C.
+    if (ctorCopy264 && !bvars->empty()) {
+        tr264("CTORCOPY", prefix);
+        CloneLocalWrap175 w264{ub, {}, {}, prefix};
+        for (auto* bv : *bvars) {
+            w264.vars.push_back(bv);
+            w264.elem.push_back(bv->VpiParent() &&
+                                bv->VpiParent()->UhdmType() ==
+                                    UHDM::uhdmarray_var);
+        }
+        cloneLocalWraps175.push_back(std::move(w264));
+    }
     if (!bvars->empty())
         ub->Variables(bvars);
     ub->Stmts(stmts);

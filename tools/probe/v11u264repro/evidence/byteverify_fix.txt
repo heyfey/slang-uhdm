@@ -1,0 +1,20 @@
+== surelog F vs L
+databases: patched=952 pristine=952
+MOVERS: 0 / 952
+SELFCHECK (every file vs one fixed file): 951 / 952 flagged
+== surelog F vs P
+MOVER ./default/Earlgrey_0_1-a898def8/slang.uhdm  patched=4d98b51f6f39 pristine=eb3a0493dc3e
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=394522f956cf pristine=17429b8451e8
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=ba56402e6606 pristine=c0e331161814
+MOVER ./testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=21c97dfb4c42 pristine=54d7cbfa9c68
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=394522f956cf pristine=17429b8451e8
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=4e5fdda52ad3 pristine=406416eae151
+MOVERS: 6 / 952
+SELFCHECK (every file vs one fixed file): 951 / 952 flagged
+== uhdm2rtlil F vs L
+databases: patched=1608 pristine=1608
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== uhdm2rtlil F vs P
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged

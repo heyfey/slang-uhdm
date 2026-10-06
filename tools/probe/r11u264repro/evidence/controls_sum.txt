@@ -1,0 +1,11 @@
+case-views=5074 moving=8 entering=2 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/r11u120repro/grid/gA/a09_genfor STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_129_objects cmplines 0->0
+MOVER tp/r11u120repro/grid/gA/a09_genfor_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_134_objects cmplines 0->0
+MOVER tp/r11u254repro/cases/G/g07_hp_ips NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 240->240
+MOVER tp/r11u254repro/cases/G/g07_hp_ips_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 176->176
+MOVER tp/v11u244repro/cases/B/b04_cls_forms NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 208->208
+MOVER tp/v11u244repro/cases/B/b04_cls_forms_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 232->232
+MOVER tp/v11u262repro/cases/VB/vb11 STRICT_NOTEQUAL_file -> STRICT_NOTEQUAL_file cmplines 0->0
+MOVER tp/v11u262repro/cases/VB/vb11_el STRICT_NOTEQUAL_file -> STRICT_NOTEQUAL_file cmplines 0->0
+ENTER tp/r11u120repro/grid/gA/a09_genfor
+ENTER tp/r11u120repro/grid/gA/a09_genfor_el

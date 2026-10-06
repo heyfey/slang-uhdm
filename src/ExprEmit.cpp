@@ -41,6 +41,7 @@
 #include "R258.h"
 #include "R260.h"
 #include "R262.h"
+#include "R264.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -15201,6 +15202,107 @@ static void trailIdxNestedNames187(UHDM::bit_select* bs, const std::string& base
     walk((UHDM::any*)bs->VpiIndex(), bs, joinRef(base, bs->VpiName()), nullptr);
 }
 
+// § memberIpsParenEnd264 (r11u264, R11U264_IPSPARENEND_OFF; Earlgrey default
+// #1794121 and 28 more, tlul_socket_m1 `tl_h_i[i].a_source[0+:(IDW-STIDW)]`)
+// — a MEMBER path's indexed part select ends where its right bound ends, and
+// Surelog's right bound is the WRITTEN expression, parentheses included
+// (golden 97:17-40, the column after `)`; ours 97:17-39, the end of slang's
+// bound inner expression).  Grid tools/probe/r11u264repro/cases/G.
+static slang::SourceLocation ipsRightEnd264(const Expression& right) {
+    if (!r11u264On("R11U264_IPSPARENEND_OFF"))
+        return right.sourceRange.end();
+    const syntax::SyntaxNode* n = right.syntax;
+    if (!n)
+        n = stripImplicitConv(right).syntax;
+    const syntax::SyntaxNode* top = nullptr;
+    for (const syntax::SyntaxNode* p = n;
+         p && p->kind == syntax::SyntaxKind::ParenthesizedExpression; p = p->parent)
+        top = p;
+    if (!top)
+        return right.sourceRange.end();
+    tr264("IPSPARENEND");
+    return top->sourceRange().end();
+}
+// § selRootIpsOpFoldChainName264 (r11u264, R11U264_IPSOPCHAIN_OFF; Earlgrey
+// default #1794125 / #1794128 / #1794139 and the other tlul_socket_m1
+// `a_source` records) — in a generate scope's continuous assignment, a member
+// path ROOTED AT A SELECT (`tl_h_i[i].a_source[...]`) whose indexed
+// part-select BASE or WIDTH is an operation over parameters keeps that
+// operation (`8 - 2`) with each folded operand in place: Surelog stores no
+// full name on the operands' typespec references, so ComputeFullName reads
+// them through the select (golden `work@top.u.g[0].tl_h_i[i].a_source[0+:8 -
+// 2].a_source`); ours named them after the owning instance.  A bound that is a
+// bare parameter (folded whole) keeps the instance (cases/G g04, g07); the
+// elaborated `--elabuhdm` view folds the whole operation and has no
+// reference.  Grid tools/probe/r11u264repro/cases/G.
+static void selRootIpsOpChain264(UHDM::indexed_part_select* ips,
+                                 const std::string& prefix,
+                                 const std::string& lastName) {
+    if (!ips || !r11u264On("R11U264_IPSOPCHAIN_OFF"))
+        return;
+    const std::string nm =
+        prefix + "." + std::string(ips->VpiFullName()) + "." + lastName;
+    std::function<void(UHDM::any*)> walk = [&](UHDM::any* e) {
+        if (!e || e->UhdmType() != UHDM::uhdmoperation)
+            return;
+        auto* os = ((UHDM::operation*)e)->Operands();
+        if (!os)
+            return;
+        for (auto* o : *os) {
+            if (!o)
+                continue;
+            if (o->UhdmType() == UHDM::uhdmoperation) {
+                if (o->VpiParent() == e)
+                    walk(o);
+                continue;
+            }
+            if (o->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            // The operand is § genIpsBoundOwner256's clone, parented at the
+            // owning instance's param_assign; golden's sits in the operation.
+            auto* op = o->VpiParent();
+            if (op != e && (!op || op->UhdmType() != UHDM::uhdmparam_assign))
+                continue;
+            auto* rt = ((UHDM::constant*)o)->Typespec();
+            if (!rt || rt->VpiParent() != o)
+                continue;
+            o->VpiParent(e);
+            rt->VpiFullName(nm);
+            tr264("IPSOPCHAIN", nm);
+        }
+    };
+    for (auto* b : {(UHDM::any*)ips->Base_expr(), (UHDM::any*)ips->Width_expr()}) {
+        if (b && b->VpiParent() == ips)
+            walk(b);
+    }
+}
+// § caLvTrailIdxNamesByPath264 (r11u264, R11U264_CALVTRAILIDX_OFF; Earlgrey
+// default #1402682 / #1402692 / #1402707 and twelve more, `assign
+// reg2hw_wrap.alert_en[k] = ...` in a for-generate of alert_handler_reg_wrap)
+// — § hpTrailSelIdxNamesByPath133's rule holds for the WHOLE LEFT SIDE of a
+// continuous assignment too.  Surelog's cont_assign lvalue is the same
+// hier_path compileSelectExpression builds for a read, and it stores no full
+// name on the trailing select's index references, so ComputeFullName derives
+// it through the path: golden `work@top.g[0].w.en[k].k` (a direct index) and
+// `work@top.g[0].w.en[k + 2].en.k` (under an operation), in a generate scope
+// or the module body (`assign w.en[P] = ..`: `work@top.w.en[P].P`), both
+// views; ours the scope's `work@top.g[0].k`.  Process lvalues have their own
+// laws (§ procLvTrailIdxNamesByPath140, § genScopeTrailSelNameLate184).  Only
+// a path whose emission parent is the cont_assign itself (a concatenation or
+// select target abstains).  Grid tools/probe/r11u264repro/cases/N.
+static bool caLvTrailIdx264(bool inLhs, const UHDM::BaseClass* parent,
+                            const UHDM::any* idx) {
+    if (!inLhs || !parent || parent->UhdmType() != UHDM::uhdmcont_assign ||
+        !r11u264On("R11U264_CALVTRAILIDX_OFF"))
+        return false;
+    // A literal index holds no reference: the rename is a no-op (traced as
+    // an abstention so the firing census names only byte movers).
+    if (!idx || idx->UhdmType() == UHDM::uhdmconstant)
+        tr264("CALVTRAILIDX", "abstain literal");
+    else
+        tr264("CALVTRAILIDX");
+    return true;
+}
 // § hpTrailSelIdxNamesByPath133 — THE INDEX OF A PATH'S TRAILING SELECT IS
 // NAMED BY ITS PARENT CHAIN.  An rvalue `tbl[r].sat[i]` / `s.sat[i]` (a
 // continuous assignment or a process) keeps its index objects parented at the
@@ -16582,7 +16684,9 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             // § procLvTrailIdxNamesByPath140 — SITE 1 of 2: and in a PROCESS lvalue
             // (`s.sat[i] = ...`: golden `work@dut.s.sat[i].i`; grid
             // r11u140repro/plv).
-            if ((!inLhs || (ipe181 && procLvTrailIdxNamesByPath140On())) &&
+            if ((!inLhs || (ipe181 && procLvTrailIdxNamesByPath140On()) ||
+                 (lastMember && !selIdx79b && bs->VpiIndex() &&
+                  caLvTrailIdx264(inLhs, parent, bs->VpiIndex()))) &&
                 lastMember && !selIdx79b && bs->VpiIndex())
                 trailIdx133 = bs;
             // § hpMidSelIdxAtPath79 — SITE 2 of 2, the post-pass half: the
@@ -40091,6 +40195,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (!inLhs ||
                             (inProcessEmit && procLvTrailIdxNamesByPath140On()) ||
                             incDecSelTop184() == &expr ||
+                            // § caLvTrailIdxNamesByPath264 — and the whole
+                            // left side of a continuous assignment
+                            caLvTrailIdx264(inLhs, parent, bs2->VpiIndex()) ||
                             // § genScopeTrailSelNameLate184 — and in an
                             // elaborated generate scope's process lvalue
                             // (`t.f[i] <= z`: golden `work@top.ga.t.f[i].i`,
@@ -41732,7 +41839,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     ma.member.name));
                             }
                             setLoc(ips, SourceRange(elemLoc.start(),
-                                                    rs.right().sourceRange.end()));
+                                                    ipsRightEnd264(rs.right())));  // § memberIpsParenEnd264
                             ips->VpiIndexedPartSelectType(
                                 rs.getSelectionKind() == RangeSelectionKind::IndexedUp ? 1
                                                                                        : 2);
@@ -41802,12 +41909,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // High_conn carve-out above, so a folded width
                                 // in an elaborated port connection stays bare
                                 // whatever the parameter's home scope is.
+                                // § plainMemberIpsOwner264 (r11u264,
+                                // R11U264_PLAINIPSOWN_OFF; Earlgrey default
+                                // tlul_socket_m1 gen_idrouting
+                                // `drsp_fifo_o.d_source[0+:STIDW] == i`,
+                                // #1806377 and the other gen_idrouting
+                                // records) — § genIpsBoundOwner256 at this
+                                // (dotted, variable-rooted) site too: in a
+                                // for-generate's continuous assignment the
+                                // folded width is Surelog's getValue clone at
+                                // the owning instance's param_assign, its
+                                // reference reading the instance
+                                // (`work@top.u`), ours the generate scope.
+                                // Grid cases/G g02, g03, g09.
+                                std::string own264 =
+                                    defConnIpsOwner236(defRefModConn, ips, prefix);
+                                if (r11u264On("R11U264_PLAINIPSOWN_OFF")) {
+                                    std::string o2 = genIpsBoundOwner256(
+                                        ips, own264,
+                                        !elabConnEmit21 && contAssignView == 0 &&
+                                            inGenScopeCaRhs && !genNestedScopeEmit24,
+                                        genCaLoopParamFold || genCaChildLoopFold21);
+                                    if (o2 != own264) {
+                                        tr264("PLAINIPSOWN", own264 + " -> " + o2);
+                                        own264 = o2;
+                                    }
+                                }
                                 if (!elabConnEmit21)
                                     stampFoldedPkgParamTs(wc9, *wf9.sym,
-                                                          defConnIpsOwner236(defRefModConn, ips, prefix),
+                                                          own264,
                                                           /*declTsOnly=*/false,
                                                           /*modIntAtom111=*/true);
                                 ips->Width_expr(wc9);
+
                             }
                             else if (auto* w = emitExpr(rs.right(), ips, prefix,
                                                         netMap))
@@ -42718,11 +42852,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         std::string lastName =
                             comps.empty() ? std::string{} : comps.back().first;
                         size_t lastOff = comps.empty() ? 0 : comps.back().second;
+                        UHDM::indexed_part_select* ipsOpChain264 = nullptr;
                         // The part_select span stops at the LAST bound's end
                         // (before the ']'), matching Surelog — not the whole
                         // expr end.
+                        // § memberIpsParenEnd264 — an indexed select's
+                        // right bound keeps its parentheses.
                         SourceRange selLoc(exprStart + lastOff,
-                                           rs.right().sourceRange.end());
+                                           rs.getSelectionKind() ==
+                                                   RangeSelectionKind::Simple
+                                               ? rs.right().sourceRange.end()
+                                               : ipsRightEnd264(rs.right()));
                         bool sup = suppressConstParent;
                         if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
                             auto* ps2 = s.MakePart_select();
@@ -42862,6 +43002,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 ips2->Width_expr((UHDM::expr*)w2);
                             hcMpRoot65v = savedMp65v;
                             elems->push_back(ips2);
+                            if (!elabConnEmit21 && contAssignView == 0 &&
+                                inGenScopeCaRhs && !genNestedScopeEmit24)
+                                ipsOpChain264 = ips2;
                         }
                         suppressConstParent = sup;
                         hp->Path_elems(elems);
@@ -42870,6 +43013,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // § hpNameBareIdxFold69 — decompileHelper renders a select bound
                         // the compiler REDUCED by its VALUE, not by its spelling.
                         hpNameBareIdxFold69(hp);
+                        // § selRootIpsOpFoldChainName264 — after the name
+                        // carries the folded values.
+                        selRootIpsOpChain264(ipsOpChain264, prefix, lastName);
                         return hp;
                     }
                 }

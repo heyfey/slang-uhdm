@@ -1,0 +1,8 @@
+tp/r11u120repro/grid/gA/a09_genfor chain away=0 toward=4 flat_away=0 flat_toward=4
+tp/r11u120repro/grid/gA/a09_genfor_el chain away=0 toward=4 flat_away=0 flat_toward=4
+tp/r11u254repro/cases/G/g07_hp_ips chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/r11u254repro/cases/G/g07_hp_ips_el chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/v11u244repro/cases/B/b04_cls_forms chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/v11u244repro/cases/B/b04_cls_forms_el chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/v11u262repro/cases/VB/vb11 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/v11u262repro/cases/VB/vb11_el chain away=0 toward=1 flat_away=0 flat_toward=1
