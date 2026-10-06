@@ -796,10 +796,10 @@ r10uvm195repro/g195_d_control,EQUAL,,equal
 r10uvm195repro/g195_e_head,EQUAL,,equal
 r10uvm196repro/g196_d_other,EQUAL,,equal
 r10uvm198repro/g198_a_homes,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
-r10uvm201repro/g201_a_forms,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
-r10uvm201repro/g201_c_uvmshape,STRICT_NOTEQUAL,differ:value(10),differ:value(10)
+r10uvm201repro/g201_a_forms,EQUAL,,equal
+r10uvm201repro/g201_c_uvmshape,EQUAL,,equal
 r10uvm201repro/g201_d_bodyimp,EQUAL,,equal
-r10uvm201repro/g201_e_explicit,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
+r10uvm201repro/g201_e_explicit,EQUAL,,equal
 r10uvm201repro/g201_f_kinds,EQUAL,,equal
 r10uvm202repro/g202_a_kinds,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
 r10uvm202repro/g202_e_head,EQUAL,,equal
@@ -822,7 +822,7 @@ r10uvm20repro/t31_t,EQUAL,,equal
 r10uvm210repro/g210_b_chain,EQUAL,,equal
 r10uvm210repro/g210_c_pkgimp,EQUAL,,equal
 r10uvm210repro/g210_d_modimp,EQUAL,,equal
-r10uvm210repro/g210_e_unitimp,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
+r10uvm210repro/g210_e_unitimp,EQUAL,,equal
 r10uvm210repro/g210_g_clsty,EQUAL,,equal
 r10uvm211repro/g211_d_noimport,EQUAL,,equal
 r10uvm212repro/grid_c4_cuclass_cutarget_design,EQUAL,,equal
@@ -997,7 +997,7 @@ r10uvm62repro/c2_neighbours,EQUAL,,equal
 r10uvm66repro/a4_memberexpr,EQUAL,,equal
 r10uvm66repro/v3_unbound,EQUAL,,equal
 r10uvm67repro/c3_iface,EQUAL,,equal
-r10uvm67repro/c5_clone,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
+r10uvm67repro/c5_clone,EQUAL,,equal
 r10uvm68repro/a4_typaram,EQUAL,,equal
 r10uvm69repro/a2_scope,EQUAL,,equal
 r10uvm69repro/a3_recv,EQUAL,,equal

@@ -35,6 +35,7 @@
 #include "R244.h"
 #include "R246.h"
 #include "R248.h"
+#include "R252.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -2782,6 +2783,12 @@ void noteCloneHpIdx220(UHDM::any* clone) {
     l.root = clone;
     l.listenAny(clone);
 }
+// § cloneHpIdxSelectByChain252: the view the drain runs for (set by
+// ParamEmit before the drain); the law is the default view's.
+bool& cloneIdxSelElabView252() {
+    static bool v = false;
+    return v;
+}
 void cloneHpIdxDrain220(UHDM::Serializer& s) {
     auto& roots = cloneHpIdxRoots220();
     if (roots.empty())
@@ -2871,10 +2878,89 @@ void cloneHpIdxDrain220(UHDM::Serializer& s) {
                         any = true;
                     }
                 }
-                else if (e->UhdmType() == UHDM::uhdmoperation)
+                else if (e->UhdmType() == UHDM::uhdmoperation) {
                     if (auto* os = ((UHDM::operation*)e)->Operands())
                         for (auto* x : *os)
                             any = drop(x, e, d + 1) || any;
+                }
+                // § cloneHpIdxSelectByChain252 (R11U252_CLONEIDXSEL_OFF) —
+                // the index is itself a SELECT of a reference
+                // (`arb_sequence_q[avail_sequences[i]].sequence_ptr`, UVM
+                // uvm_sequencer_base::m_choose_next_request): UHDM's
+                // DeepClone of the outer select parents the cloned inner
+                // select at the OUTER SELECT and stores no name on it, so
+                // the writer's chain keeps the outer select's name (a
+                // bit_select above a bit_select is not skipped): golden
+                // `svaunit_pkg::...::arb_sequence_q[[i]].sequence_ptr::
+                // arb_sequence_q::avail_sequences` and its index
+                // `...::arb_sequence_q::i` (MiniAmiq #90429 / #90430,
+                // SeqDriver the same face), ours the home's shape (parent
+                // the hier_path, `...sequence_ptr::avail_sequences`).  The
+                // same test as the reference arm: a name this drain may
+                // drop, bound outside another subroutine.  Grid cases/X.
+                else if (e->UhdmType() == UHDM::uhdmbit_select &&
+                         !cloneIdxSelElabView252() &&
+                         r11u252On("R11U252_CLONEIDXSEL_OFF")) {
+                    auto* ib = (UHDM::bit_select*)e;
+                    const std::string rn(ib->VpiName());
+                    const std::string cur(ib->VpiFullName());
+                    bool own = true;
+                    if (auto* a = ib->Actual_group())
+                        if (auto* ap = a->VpiParent())
+                            if ((ap->UhdmType() == UHDM::uhdmfunction ||
+                                 ap->UhdmType() == UHDM::uhdmtask) &&
+                                ap != hpFn220[hp])
+                                own = false;
+                    if (!rn.empty() && own &&
+                        (cur == scope + sep + rn || cur == hpFull + sep + rn)) {
+                        ib->VpiFullName(std::string());
+                        e->VpiParent(up);
+                        tr252("cloneHpIdxSelectByChain252", rn);
+                        any = true;
+                        if (auto* ii = (UHDM::any*)ib->VpiIndex()) {
+                            // the inner index: a reference directly under
+                            // the inner select is the reference arm's
+                            // (parent the inner select); one under an
+                            // operation or a call keeps its parent and
+                            // drops a name the chain gives it
+                            // (`...::arb_sequence_q::avail::i`; grid X
+                            // x03 `avail[i+1]`, x07 `avail[pick(i)]`).
+                            if (ii->UhdmType() == UHDM::uhdmref_obj)
+                                drop(ii, e, d + 1);
+                            else {
+                                std::function<void(UHDM::any*, int)> inner =
+                                    [&](UHDM::any* x, int dd) {
+                                        if (!x || dd > 16)
+                                            return;
+                                        if (x->UhdmType() == UHDM::uhdmref_obj) {
+                                            auto* xr = (UHDM::ref_obj*)x;
+                                            const std::string xn(xr->VpiName());
+                                            const std::string xc(xr->VpiFullName());
+                                            if (!xn.empty() &&
+                                                (xc == scope + sep + xn ||
+                                                 xc == hpFull + sep + xn ||
+                                                 xc == hpFull + sep + rn + sep + xn)) {
+                                                xr->VpiFullName(std::string());
+                                                tr252("cloneHpIdxSelectByChain252", "inner " + xn);
+                                            }
+                                        }
+                                        else if (x->UhdmType() == UHDM::uhdmoperation) {
+                                            if (auto* os = ((UHDM::operation*)x)->Operands())
+                                                for (auto* o : *os)
+                                                    inner(o, dd + 1);
+                                        }
+                                        else if (x->UhdmType() == UHDM::uhdmfunc_call ||
+                                                 x->UhdmType() == UHDM::uhdmmethod_func_call) {
+                                            if (auto* as = ((UHDM::tf_call*)x)->Tf_call_args())
+                                                for (auto* o : *as)
+                                                    inner(o, dd + 1);
+                                        }
+                                    };
+                                inner(ii, 0);
+                            }
+                        }
+                    }
+                }
                 return any;
             };
         for (auto* el : *pe) {
@@ -2885,7 +2971,9 @@ void cloneHpIdxDrain220(UHDM::Serializer& s) {
             if (!ix)
                 continue;
             if (ix->UhdmType() == UHDM::uhdmref_obj ||
-                (ix->UhdmType() == UHDM::uhdmoperation && !bs->VpiName().empty()))
+                (ix->UhdmType() == UHDM::uhdmoperation && !bs->VpiName().empty()) ||
+                (ix->UhdmType() == UHDM::uhdmbit_select && !bs->VpiName().empty() &&
+                 !cloneIdxSelElabView252() && r11u252On("R11U252_CLONEIDXSEL_OFF")))
                 if (drop(ix, bs, 0))
                     ix->VpiParent(bs);
         }
@@ -37593,6 +37681,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // arm F (operation / begin / return_stmt).
                                 auto* cons119 = s.MakeConstraint();
                                 cons119->VpiParent(parent);
+                                // § cloneRandWithParentCall252
+                                // (R11U252_CLONERANDWITH_OFF) — in the
+                                // default view's IMPORTER COPY the bare
+                                // constraint is parented at the call: the
+                                // copy is UHDM's clone_tree of the home
+                                // subroutine, and method_func_call::
+                                // DeepClone parents the cloned With at the
+                                // cloned call, so the writer's chain runs
+                                // call (skipped) -> hier_path: golden
+                                // `svaunit_pkg::uvm_sequence_library::
+                                // execute::seq_or_item` (the
+                                // `uvm_rand_send` macro, MiniAmiq #94831,
+                                // SeqDriver the same face), the home's
+                                // `uvm_pkg::...::execute` (parent the
+                                // hier_path's own parent) unchanged.  The
+                                // -elabuhdm view's copies are clones already
+                                // (gated on !elabUhdmView121).  The scope
+                                // form `randomize() with {...}` keeps its
+                                // parent (golden's copy reads the home's
+                                // shape: grid R r03, the first draft moved
+                                // it away).  Grid cases/R.
+                                if (pkgImportCloneEmit && !elabUhdmView121 &&
+                                    r11u252On("R11U252_CLONERANDWITH_OFF")) {
+                                    cons119->VpiParent(mfc);
+                                    tr252("cloneRandWithParentCall252", "member");
+                                }
                                 mfc->With(cons119);
                             }
                             auto* ra119 = s.MakeAnyVec();

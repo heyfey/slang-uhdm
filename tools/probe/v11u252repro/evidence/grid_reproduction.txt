@@ -1,0 +1,2 @@
+# implementer's grid rerun: verdict fields (case-view, configuration, cmplines, strict, rc) of every law/pristine/switch line compared with r11u252repro/evidence/grid.txt; md5 columns differ by the worktree path embedded in the databases
+lines compared: 3450; differing: 0

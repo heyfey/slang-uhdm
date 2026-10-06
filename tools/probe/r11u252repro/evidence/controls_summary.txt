@@ -1,0 +1,113 @@
+# byte controls: 4374 case-views over 31 repro dirs; moving 86; entering STRICT_EQUAL 26; leaving 0; rc differing 0
+MOVER tp/r11u124repro/cast/k14_pkgparam                               0 STRICT_EQUAL_134_objects       ->    0 STRICT_EQUAL_134_objects      
+MOVER tp/r11u124repro/cast/k14_pkgparam_el                            0 STRICT_EQUAL_133_objects       ->    0 STRICT_EQUAL_133_objects      
+MOVER tp/r11u214dec/cases/D/g01_unitimp_val                           0 STRICT_NOTEQUAL_value          ->    0 STRICT_EQUAL_431_objects      
+MOVER tp/r11u214dec/cases/D/g01_unitimp_val_el                        0 STRICT_NOTEQUAL_value          ->    0 STRICT_EQUAL_424_objects      
+MOVER tp/r11u214dec/cases/D/g02_unitimp_class                         0 STRICT_NOTEQUAL_value          ->    0 STRICT_EQUAL_344_objects      
+MOVER tp/r11u214dec/cases/D/g02_unitimp_class_el                      0 STRICT_NOTEQUAL_value          ->    0 STRICT_EQUAL_301_objects      
+MOVER tp/r11u214dec/cases/D/g03_unitimp_explicit                      0 STRICT_NOTEQUAL_value          ->    0 STRICT_EQUAL_96_objects       
+MOVER tp/r11u214dec/cases/D/g03_unitimp_explicit_el                   0 STRICT_NOTEQUAL_value          ->    0 STRICT_EQUAL_95_objects       
+MOVER tp/r11u215repro/cases/I/i17                                   127 NOT_EQUAL_stage1               ->  127 NOT_EQUAL_stage1              
+MOVER tp/r11u215repro/cases/I/i17_el                                158 NOT_EQUAL_stage1               ->  158 NOT_EQUAL_stage1              
+MOVER tp/r11u236repro/cases/BP/bp01                                  11 NOT_EQUAL_stage1               ->   11 NOT_EQUAL_stage1              
+MOVER tp/r11u236repro/cases/BP/bp01_el                               11 NOT_EQUAL_stage1               ->   11 NOT_EQUAL_stage1              
+MOVER tp/r11u236repro/cases/BP/bp02                                   0 STRICT_NOTEQUAL_line           ->    0 STRICT_EQUAL_346_objects      
+MOVER tp/r11u236repro/cases/BP/bp02_el                                0 STRICT_NOTEQUAL_line           ->    0 STRICT_EQUAL_345_objects      
+MOVER tp/r11u236repro/cases/BP/bp03                                   0 STRICT_NOTEQUAL_line           ->    0 STRICT_NOTEQUAL_line          
+MOVER tp/r11u236repro/cases/BP/bp03_el                                0 STRICT_NOTEQUAL_line           ->    0 STRICT_NOTEQUAL_line          
+MOVER tp/r11u236repro/cases/BP/bp04                                  88 NOT_EQUAL_stage1               ->   88 NOT_EQUAL_stage1              
+MOVER tp/r11u236repro/cases/BP/bp04_el                               88 NOT_EQUAL_stage1               ->   88 NOT_EQUAL_stage1              
+MOVER tp/r11u238repro/cases/F/f19                                     0 STRICT_NOTEQUAL_type           ->    0 STRICT_EQUAL_190_objects      
+MOVER tp/r11u238repro/cases/F/f19_el                                  0 STRICT_NOTEQUAL_type           ->    0 STRICT_EQUAL_190_objects      
+MOVER tp/r11u244repro/cases/P/p01                                    50 NOT_EQUAL_stage1               ->   50 NOT_EQUAL_stage1              
+MOVER tp/r11u244repro/cases/P/p01_el                                 50 NOT_EQUAL_stage1               ->   50 NOT_EQUAL_stage1              
+MOVER tp/r11u244repro/cases/P/p03                                    50 NOT_EQUAL_stage1               ->   50 NOT_EQUAL_stage1              
+MOVER tp/r11u244repro/cases/P/p03_el                                 50 NOT_EQUAL_stage1               ->   50 NOT_EQUAL_stage1              
+MOVER tp/r11u244repro/cases/P/p04                                    50 NOT_EQUAL_stage1               ->   50 NOT_EQUAL_stage1              
+MOVER tp/r11u244repro/cases/P/p04_el                                 50 NOT_EQUAL_stage1               ->   50 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/T/t01_tern_pick                           0 STRICT_NOTEQUAL_fullname       ->    0 STRICT_EQUAL_431_objects      
+MOVER tp/r11u250repro/cases/T/t01_tern_pick_el                        0 STRICT_NOTEQUAL_fullname       ->    0 STRICT_EQUAL_431_objects      
+MOVER tp/r11u250repro/cases/T/t02_member_read                         0 STRICT_NOTEQUAL_fullname       ->    0 STRICT_EQUAL_239_objects      
+MOVER tp/r11u250repro/cases/T/t02_member_read_el                      0 STRICT_NOTEQUAL_fullname       ->    0 STRICT_EQUAL_239_objects      
+MOVER tp/r11u250repro/cases/T/t03_nested_tern                       130 NOT_EQUAL_stage1               ->  130 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/T/t03_nested_tern_el                    134 NOT_EQUAL_stage1               ->  134 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/T/t04_origin_ops                         38 NOT_EQUAL_stage1               ->   38 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/T/t04_origin_ops_el                      38 NOT_EQUAL_stage1               ->   38 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/T/t05_enum_origin                        36 NOT_EQUAL_stage1               ->   36 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/T/t05_enum_origin_el                     36 NOT_EQUAL_stage1               ->   36 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/T/t06_param_origin_ctl                   17 NOT_EQUAL_stage1               ->   17 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/T/t06_param_origin_ctl_el                17 NOT_EQUAL_stage1               ->   17 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/T/t07_two_importers                       0 STRICT_NOTEQUAL_fullname       ->    0 STRICT_NOTEQUAL_line          
+MOVER tp/r11u250repro/cases/T/t07_two_importers_el                    0 STRICT_NOTEQUAL_fullname       ->    0 STRICT_NOTEQUAL_line          
+MOVER tp/r11u250repro/cases/T/t08_gen_scope_reader                    0 STRICT_NOTEQUAL_fullname       ->    0 STRICT_NOTEQUAL_fullname      
+MOVER tp/r11u250repro/cases/T/t08_gen_scope_reader_el                 0 STRICT_NOTEQUAL_fullname       ->    0 STRICT_NOTEQUAL_fullname      
+MOVER tp/r11u250repro/cases/W/w01_two_pkgs                           74 NOT_EQUAL_stage1               ->   74 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/W/w01_two_pkgs_el                        74 NOT_EQUAL_stage1               ->   74 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/W/w02_reverse_order                      74 NOT_EQUAL_stage1               ->   74 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/W/w02_reverse_order_el                   74 NOT_EQUAL_stage1               ->   74 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/W/w03_two_modules                        74 NOT_EQUAL_stage1               ->   74 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/W/w03_two_modules_el                     74 NOT_EQUAL_stage1               ->   74 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/W/w04_no_reexport_ctl                    74 NOT_EQUAL_stage1               ->   74 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/W/w04_no_reexport_ctl_el                 74 NOT_EQUAL_stage1               ->   74 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/W/w05_iface_gen                          74 NOT_EQUAL_stage1               ->   74 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/cases/W/w05_iface_gen_el                       74 NOT_EQUAL_stage1               ->   74 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/decode/B/b01_tern_member_fold                   0 STRICT_NOTEQUAL_fullname       ->    0 STRICT_EQUAL_431_objects      
+MOVER tp/r11u250repro/decode/B/b01_tern_member_fold_el                0 STRICT_NOTEQUAL_fullname       ->    0 STRICT_EQUAL_431_objects      
+MOVER tp/r11u250repro/decode/B/b02_paren_cast_import                 74 NOT_EQUAL_stage1               ->   74 NOT_EQUAL_stage1              
+MOVER tp/r11u250repro/decode/B/b02_paren_cast_import_el              74 NOT_EQUAL_stage1               ->   74 NOT_EQUAL_stage1              
+MOVER tp/r11u251repro/decode/HP/h01_unit_import                       0 STRICT_NOTEQUAL_value          ->    0 STRICT_EQUAL_149_objects      
+MOVER tp/r11u251repro/decode/HP/h01_unit_import_el                    0 STRICT_NOTEQUAL_value          ->    0 STRICT_EQUAL_146_objects      
+MOVER tp/r11u251repro/decode/HP/h02_unit_import_used                  0 STRICT_NOTEQUAL_value          ->    0 STRICT_EQUAL_158_objects      
+MOVER tp/r11u251repro/decode/HP/h02_unit_import_used_el               0 STRICT_NOTEQUAL_value          ->    0 STRICT_EQUAL_155_objects      
+MOVER tp/r11u253repro/decode/LV/lv01_parenless_static_queue           0 STRICT_NOTEQUAL_type           ->    0 STRICT_EQUAL_152_objects      
+MOVER tp/r11u253repro/decode/LV/lv01_parenless_static_queue_el        0 STRICT_NOTEQUAL_type           ->    0 STRICT_EQUAL_170_objects      
+MOVER tp/r11u253repro/decode/LV/lv02_parenless_queue                  0 STRICT_NOTEQUAL_type           ->    0 STRICT_EQUAL_152_objects      
+MOVER tp/r11u253repro/decode/LV/lv02_parenless_queue_el               0 STRICT_NOTEQUAL_type           ->    0 STRICT_EQUAL_170_objects      
+MOVER tp/v11u238repro/cases/D/d01_tdqueue                          1632 NOT_EQUAL_stage1               -> 1632 NOT_EQUAL_stage1              
+MOVER tp/v11u238repro/cases/D/d01_tdqueue_el                       1760 NOT_EQUAL_stage1               -> 1760 NOT_EQUAL_stage1              
+MOVER tp/v11u238repro/cases/D/d05_static_scope                        0 STRICT_NOTEQUAL_type           ->    0 STRICT_EQUAL_248_objects      
+MOVER tp/v11u238repro/cases/D/d05_static_scope_el                     0 STRICT_NOTEQUAL_type           ->    0 STRICT_EQUAL_308_objects      
+MOVER tp/v11u250repro/cases/A/a01_modlocal_same_name                 28 NOT_EQUAL_stage1               ->   28 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/A/a01_modlocal_same_name_el              28 NOT_EQUAL_stage1               ->   28 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/A/a02_modlocal_shadow                    19 NOT_EQUAL_stage1               ->   19 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/A/a02_modlocal_shadow_el                 19 NOT_EQUAL_stage1               ->   19 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/A/a03_two_importers_override             64 NOT_EQUAL_stage1               ->   64 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/A/a03_two_importers_override_el          64 NOT_EQUAL_stage1               ->   64 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/A/a04_iface_gen                          26 NOT_EQUAL_stage1               ->   26 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/A/a04_iface_gen_el                       26 NOT_EQUAL_stage1               ->   26 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/B/b03_pkg_chain                          36 NOT_EQUAL_stage1               ->   36 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/B/b03_pkg_chain_el                       36 NOT_EQUAL_stage1               ->   36 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/B/b04_slots                              11 NOT_EQUAL_stage1               ->   11 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/B/b04_slots_el                           11 NOT_EQUAL_stage1               ->   11 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/B/b05_gen_child                          36 NOT_EQUAL_stage1               ->   36 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/B/b05_gen_child_el                       36 NOT_EQUAL_stage1               ->   36 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/B/b06_unary_enum_origin                  38 NOT_EQUAL_stage1               ->   38 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/B/b06_unary_enum_origin_el               38 NOT_EQUAL_stage1               ->   38 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/B/b07_cond_kinds                         90 NOT_EQUAL_stage1               ->   90 NOT_EQUAL_stage1              
+MOVER tp/v11u250repro/cases/B/b07_cond_kinds_el                      94 NOT_EQUAL_stage1               ->   94 NOT_EQUAL_stage1              
+ENTER tp/r11u214dec/cases/D/g01_unitimp_val
+ENTER tp/r11u214dec/cases/D/g01_unitimp_val_el
+ENTER tp/r11u214dec/cases/D/g02_unitimp_class
+ENTER tp/r11u214dec/cases/D/g02_unitimp_class_el
+ENTER tp/r11u214dec/cases/D/g03_unitimp_explicit
+ENTER tp/r11u214dec/cases/D/g03_unitimp_explicit_el
+ENTER tp/r11u236repro/cases/BP/bp02
+ENTER tp/r11u236repro/cases/BP/bp02_el
+ENTER tp/r11u238repro/cases/F/f19
+ENTER tp/r11u238repro/cases/F/f19_el
+ENTER tp/r11u250repro/cases/T/t01_tern_pick
+ENTER tp/r11u250repro/cases/T/t01_tern_pick_el
+ENTER tp/r11u250repro/cases/T/t02_member_read
+ENTER tp/r11u250repro/cases/T/t02_member_read_el
+ENTER tp/r11u250repro/decode/B/b01_tern_member_fold
+ENTER tp/r11u250repro/decode/B/b01_tern_member_fold_el
+ENTER tp/r11u251repro/decode/HP/h01_unit_import
+ENTER tp/r11u251repro/decode/HP/h01_unit_import_el
+ENTER tp/r11u251repro/decode/HP/h02_unit_import_used
+ENTER tp/r11u251repro/decode/HP/h02_unit_import_used_el
+ENTER tp/r11u253repro/decode/LV/lv01_parenless_static_queue
+ENTER tp/r11u253repro/decode/LV/lv01_parenless_static_queue_el
+ENTER tp/r11u253repro/decode/LV/lv02_parenless_queue
+ENTER tp/r11u253repro/decode/LV/lv02_parenless_queue_el
+ENTER tp/v11u238repro/cases/D/d05_static_scope
+ENTER tp/v11u238repro/cases/D/d05_static_scope_el

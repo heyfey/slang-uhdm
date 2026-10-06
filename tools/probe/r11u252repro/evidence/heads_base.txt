@@ -1,0 +1,78 @@
+== SimpleUVM/default (pristine at 99ea3716)
+#203342 value
+  A: 2	parameter	UVM_ABSTRACT		work@top.UVM_ABSTRACT	uvm_object_globals.svh	201	11	201	23		0	UINT:16384	
+  B: 2	parameter	UVM_ABSTRACT		work@top.UVM_ABSTRACT	uvm_object_globals.svh	201	11	201	23		0		
+#203346 value
+  A: 2	parameter	UVM_CHECK_FIELDS		work@top.UVM_CHECK_FIELDS	uvm_object_globals.svh	209	11	209	27		0	UINT:131075	
+  B: 2	parameter	UVM_CHECK_FIELDS		work@top.UVM_CHECK_FIELDS	uvm_object_globals.svh	209	11	209	27		0		
+#203349 value
+  A: 2	parameter	UVM_COMPARE		work@top.UVM_COMPARE	uvm_object_globals.svh	189	11	189	22		0	UINT:4	
+  B: 2	parameter	UVM_COMPARE		work@top.UVM_COMPARE	uvm_object_globals.svh	189	11	189	22		0		
+fields: value=50 objects_differing=50
+STRICT_NOTEQUAL value
+== MiniAmiq/default (pristine at 99ea3716)
+#87036 type
+  A: 8	string_typespec				uvm_component.svh	3380	10	3380	16				
+  B: 8	unsupported_typespec	i			uvm_component.svh	3392	18	3392	19				
+objects 435559 vs 434599
+fields: type=1 name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== SeqDriver/default (pristine at 99ea3716)
+#86994 type
+  A: 8	string_typespec				uvm_component.svh	3380	10	3380	16				
+  B: 8	unsupported_typespec	i			uvm_component.svh	3392	18	3392	19				
+objects 475526 vs 474708
+fields: type=1 name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== BlackBePipeInt/default (pristine at 99ea3716)
+#190646 file
+  A: 3	constant				dut.sv	2537	40	2537	89	1048576	32	UINT:1048576	9
+  B: 3	constant					0	0	0	0	1048576	32	UINT:1048576	9
+#190660 file
+  A: 3	constant				dut.sv	2540	40	2540	70	0	32	UINT:0	9
+  B: 3	constant					0	0	0	0	0	32	UINT:0	9
+#190674 file
+  A: 3	constant				dut.sv	2543	40	2543	70	4096	32	UINT:4096	9
+  B: 3	constant					0	0	0	0	4096	32	UINT:4096	9
+objects 339479 vs 339736
+fields: depth=1 type=1 fullname=103 file=104 line=581 col=581 endline=593 endcol=618 size=1 objects_differing=721 (walk diverged)
+STRICT_NOTEQUAL file
+== SimpleUVM/testflags (pristine at 99ea3716)
+#203354 value
+  A: 2	parameter	UVM_ABSTRACT		work@top.UVM_ABSTRACT	uvm_object_globals.svh	201	11	201	23		0	UINT:16384	
+  B: 2	parameter	UVM_ABSTRACT		work@top.UVM_ABSTRACT	uvm_object_globals.svh	201	11	201	23		0		
+#203358 value
+  A: 2	parameter	UVM_CHECK_FIELDS		work@top.UVM_CHECK_FIELDS	uvm_object_globals.svh	209	11	209	27		0	UINT:131075	
+  B: 2	parameter	UVM_CHECK_FIELDS		work@top.UVM_CHECK_FIELDS	uvm_object_globals.svh	209	11	209	27		0		
+#203361 value
+  A: 2	parameter	UVM_COMPARE		work@top.UVM_COMPARE	uvm_object_globals.svh	189	11	189	22		0	UINT:4	
+  B: 2	parameter	UVM_COMPARE		work@top.UVM_COMPARE	uvm_object_globals.svh	189	11	189	22		0		
+fields: value=50 objects_differing=50
+STRICT_NOTEQUAL value
+== MiniAmiq/testflags (pristine at 99ea3716)
+#87036 type
+  A: 8	string_typespec				uvm_component.svh	3380	10	3380	16				
+  B: 8	unsupported_typespec	i			uvm_component.svh	3392	18	3392	19				
+objects 435559 vs 434599
+fields: type=1 name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== SeqDriver/testflags (pristine at 99ea3716)
+#87006 type
+  A: 8	string_typespec				uvm_component.svh	3380	10	3380	16				
+  B: 8	unsupported_typespec	i			uvm_component.svh	3392	18	3392	19				
+objects 475538 vs 474720
+fields: type=1 name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== BlackBePipeInt/testflags (pristine at 99ea3716)
+#190553 file
+  A: 3	constant				dut.sv	2537	40	2537	89	1048576	32	UINT:1048576	9
+  B: 3	constant					0	0	0	0	1048576	32	UINT:1048576	9
+#190567 file
+  A: 3	constant				dut.sv	2540	40	2540	70	0	32	UINT:0	9
+  B: 3	constant					0	0	0	0	0	32	UINT:0	9
+#190581 file
+  A: 3	constant				dut.sv	2543	40	2543	70	4096	32	UINT:4096	9
+  B: 3	constant					0	0	0	0	4096	32	UINT:4096	9
+objects 338504 vs 338761
+fields: depth=1 type=1 fullname=103 file=104 line=581 col=581 endline=593 endcol=618 size=1 objects_differing=721 (walk diverged)
+STRICT_NOTEQUAL file

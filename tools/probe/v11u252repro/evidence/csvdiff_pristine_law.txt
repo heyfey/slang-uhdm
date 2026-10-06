@@ -1,0 +1,35 @@
+# csv rows that differ, pristine sweep -> law sweep (sorted diff; the two LowMem rows differ only by the workdir path in their detail text)
+== surelog
+< BlackBePipeInt,default,STRICT_NOTEQUAL,differ:file(721),,differ:file(721)
+< BlackBePipeInt,testflags,STRICT_NOTEQUAL,differ:file(721),,differ:file(721)
+> BlackBePipeInt,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+> BlackBePipeInt,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u252_wdP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u252_wdL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u252_wdP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u252_wdL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+< MiniAmiq,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+< MiniAmiq,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+> MiniAmiq,default,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+> MiniAmiq,testflags,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+< SeqDriver,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+< SeqDriver,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+> SeqDriver,default,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+> SeqDriver,testflags,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+< SimpleUVM,default,STRICT_NOTEQUAL,differ:value(50),,differ:value(50)
+< SimpleUVM,testflags,STRICT_NOTEQUAL,differ:value(50),,differ:value(50)
+> SimpleUVM,default,CMP_EQUAL,,,equal
+> SimpleUVM,testflags,CMP_EQUAL,,,equal
+== uhdm2rtlil
+== probe
+< r10uvm201repro/g201_a_forms,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
+< r10uvm201repro/g201_c_uvmshape,STRICT_NOTEQUAL,differ:value(10),differ:value(10)
+> r10uvm201repro/g201_a_forms,EQUAL,,equal
+> r10uvm201repro/g201_c_uvmshape,EQUAL,,equal
+< r10uvm201repro/g201_e_explicit,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
+> r10uvm201repro/g201_e_explicit,EQUAL,,equal
+< r10uvm210repro/g210_e_unitimp,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
+> r10uvm210repro/g210_e_unitimp,EQUAL,,equal
+< r10uvm67repro/c5_clone,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
+> r10uvm67repro/c5_clone,EQUAL,,equal
+== downstream

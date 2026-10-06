@@ -21,6 +21,7 @@
 #include "R244.h"
 #include "R246.h"
 #include "R248.h"
+#include "R252.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -4758,6 +4759,68 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                                 break;
                                                             }
                                             }
+                                    // § cloneLoopVarLocalElemTs252
+                                    // (R11U252_CLONELVLOCAL_OFF) — a foreach
+                                    // over a SUBROUTINE-LOCAL queue or
+                                    // dynamic array: Surelog compiles the tf
+                                    // local `static string values[$];` as a
+                                    // plain string_var (the unpacked
+                                    // dimension dropped; both sides list it
+                                    // so), so arrayVarArrayTs has no entry,
+                                    // and the home listing's
+                                    // lateTypedefBinding resolves the loop
+                                    // variable through
+                                    // getSimpleVarFromTypespec of that
+                                    // variable's own typespec: golden's
+                                    // shared home object binds the local's
+                                    // element typespec at its keyword
+                                    // (uvm_component.svh 3380:10 string,
+                                    // MiniAmiq #87036, SeqDriver #86994 /
+                                    // #87006; r11u253repro decode/LV lv01,
+                                    // lv02; grid cases/L), where ours kept
+                                    // the unsupported placeholder.  The
+                                    // object is the variable's own
+                                    // ref_typespec actual; a variable without
+                                    // a bound actual keeps the placeholder.
+                                    if (!res183 &&
+                                        r11u252On("R11U252_CLONELVLOCAL_OFF"))
+                                        if (auto* dq252 = arrSym->getDeclaredType();
+                                            dq252 &&
+                                            (dq252->getType().getCanonicalType().kind ==
+                                                 SymbolKind::QueueType ||
+                                             dq252->getType().getCanonicalType().kind ==
+                                                 SymbolKind::DynamicArrayType))
+                                            if (auto* ps252 = arrSym->getParentScope();
+                                                ps252 && [&] {
+                                                    // the declaring scope: a
+                                                    // subroutine, or a block
+                                                    // nested in one
+                                                    for (const Scope* q252 = ps252; q252;
+                                                         q252 = q252->asSymbol().getParentScope()) {
+                                                        auto qk252 = q252->asSymbol().kind;
+                                                        if (qk252 == SymbolKind::Subroutine)
+                                                            return true;
+                                                        if (qk252 != SymbolKind::StatementBlock)
+                                                            return false;
+                                                    }
+                                                    return false;
+                                                }())
+                                                if (auto fl252 = netMap.find(arrSym);
+                                                    fl252 != netMap.end() &&
+                                                    fl252->second &&
+                                                    fl252->second->UhdmType() !=
+                                                        UHDM::uhdmarray_var &&
+                                                    fl252->second->UhdmType() !=
+                                                        UHDM::uhdmio_decl)
+                                                    if (auto* vv252 = any_cast<UHDM::variables*>(
+                                                            fl252->second))
+                                                        if (auto* vr252 = vv252->Typespec();
+                                                            vr252 && vr252->Actual_typespec()) {
+                                                            res183 = vr252->Actual_typespec();
+                                                            tr252("cloneLoopVarLocalElemTs252",
+                                                                  std::string(arrSym->name) + " " +
+                                                                      std::to_string(res183->UhdmType()));
+                                                        }
                                     // An ASSOCIATIVE array's loop variable is
                                     // the declaration's INDEX typespec object
                                     // (getSimpleVarFromTypespec of its
@@ -4849,6 +4912,35 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                         res183 = s.MakeInt_typespec();
                                                     }
                                                 }
+                                // § cloneLoopVarClassScopedInt252
+                                // (R11U252_CLONELVSCOPED_OFF) — a loop list
+                                // written CLASS-SCOPED (`foreach
+                                // (this_type::m_typewide_sequences[i])`,
+                                // UVM uvm_sequence_library::
+                                // init_sequence_library): Surelog compiles
+                                // the scoped name through paClass_scope
+                                // (§ foreachScopedArrayName33), the home
+                                // listing's decodeHierPath answers nothing
+                                // for it, swapForSpecifiedVar mints the bare
+                                // int_var, and the shared home object every
+                                // clone view binds carries that unlocated
+                                // int_typespec (MiniAmiq #93788, SeqDriver
+                                // the same face), never the property's
+                                // array_typespec § cloneLoopVarClassPropArrayTs238
+                                // gives the bare spelling.  A class property
+                                // only; grid cases/K.
+                                if (r11u252On("R11U252_CLONELVSCOPED_OFF") && arrSym &&
+                                    arrSym->getParentScope() &&
+                                    arrSym->getParentScope()->asSymbol().kind ==
+                                        SymbolKind::ClassType) {
+                                    std::string n252;
+                                    slang::SourceRange r252;
+                                    if (foreachScopedArrayName33(arrBase, n252, r252)) {
+                                        tr252("cloneLoopVarClassScopedInt252", n252);
+                                        res183 = s.MakeInt_typespec();
+                                        deferStr248 = nullptr;
+                                    }
+                                }
                             }
                             sh37 = s.MakeRef_var();
                             sh37->VpiName(name);

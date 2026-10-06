@@ -1,0 +1,110 @@
+tp/r11u215repro/cases/I/i17 NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u215repro/cases/I/i17 dumplines dist 41 -> 37 lost=0 gained=4
+tp/r11u215repro/cases/I/i17_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u215repro/cases/I/i17_el dumplines dist 42 -> 38 lost=0 gained=4
+tp/r11u236repro/cases/BP/bp01 NOT_EQUAL_stage1 chain away=0 toward=7 flat_away=2 flat_toward=3
+tp/r11u236repro/cases/BP/bp01 dumplines dist 126 -> 119 lost=3 gained=22
+tp/r11u236repro/cases/BP/bp01_el NOT_EQUAL_stage1 chain away=0 toward=7 flat_away=2 flat_toward=3
+tp/r11u236repro/cases/BP/bp01_el dumplines dist 137 -> 132 lost=3 gained=20
+tp/r11u236repro/cases/BP/bp03 STRICT_NOTEQUAL_line chain away=0 toward=3 flat_away=0 flat_toward=3
+tp/r11u236repro/cases/BP/bp03_el STRICT_NOTEQUAL_line chain away=0 toward=3 flat_away=0 flat_toward=3
+tp/r11u236repro/cases/BP/bp04 NOT_EQUAL_stage1 chain away=0 toward=20 flat_away=0 flat_toward=20
+tp/r11u236repro/cases/BP/bp04 dumplines dist 123 -> 103 lost=0 gained=32
+tp/r11u236repro/cases/BP/bp04_el NOT_EQUAL_stage1 chain away=0 toward=20 flat_away=0 flat_toward=20
+tp/r11u236repro/cases/BP/bp04_el dumplines dist 123 -> 103 lost=0 gained=32
+tp/r11u244repro/cases/P/p01 NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u244repro/cases/P/p01 dumplines dist 24 -> 22 lost=0 gained=2
+tp/r11u244repro/cases/P/p01_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u244repro/cases/P/p01_el dumplines dist 24 -> 22 lost=0 gained=2
+tp/r11u244repro/cases/P/p03 NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/r11u244repro/cases/P/p03 dumplines dist 40 -> 36 lost=0 gained=4
+tp/r11u244repro/cases/P/p03_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/r11u244repro/cases/P/p03_el dumplines dist 40 -> 36 lost=0 gained=4
+tp/r11u244repro/cases/P/p04 NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u244repro/cases/P/p04 dumplines dist 49 -> 47 lost=0 gained=2
+tp/r11u244repro/cases/P/p04_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u244repro/cases/P/p04_el dumplines dist 48 -> 46 lost=0 gained=2
+tp/r11u250repro/cases/T/t03_nested_tern NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u250repro/cases/T/t03_nested_tern dumplines dist 168 -> 170 lost=0 gained=1
+tp/r11u250repro/cases/T/t03_nested_tern_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u250repro/cases/T/t03_nested_tern_el dumplines dist 170 -> 172 lost=0 gained=1
+tp/r11u250repro/cases/T/t04_origin_ops NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=3
+tp/r11u250repro/cases/T/t04_origin_ops dumplines dist 134 -> 139 lost=0 gained=1
+tp/r11u250repro/cases/T/t04_origin_ops_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=3
+tp/r11u250repro/cases/T/t04_origin_ops_el dumplines dist 140 -> 145 lost=0 gained=1
+tp/r11u250repro/cases/T/t05_enum_origin NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/r11u250repro/cases/T/t05_enum_origin dumplines dist 47 -> 45 lost=0 gained=8
+tp/r11u250repro/cases/T/t05_enum_origin_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/r11u250repro/cases/T/t05_enum_origin_el dumplines dist 47 -> 45 lost=0 gained=8
+tp/r11u250repro/cases/T/t06_param_origin_ctl NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u250repro/cases/T/t06_param_origin_ctl dumplines dist 24 -> 23 lost=0 gained=4
+tp/r11u250repro/cases/T/t06_param_origin_ctl_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u250repro/cases/T/t06_param_origin_ctl_el dumplines dist 24 -> 23 lost=0 gained=4
+tp/r11u250repro/cases/T/t07_two_importers STRICT_NOTEQUAL_line chain away=0 toward=4 flat_away=0 flat_toward=4
+tp/r11u250repro/cases/T/t07_two_importers_el STRICT_NOTEQUAL_line chain away=0 toward=4 flat_away=0 flat_toward=4
+tp/r11u250repro/cases/T/t08_gen_scope_reader STRICT_NOTEQUAL_fullname chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/r11u250repro/cases/T/t08_gen_scope_reader_el STRICT_NOTEQUAL_fullname chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/r11u250repro/cases/W/w01_two_pkgs NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+tp/r11u250repro/cases/W/w01_two_pkgs dumplines dist 125 -> 117 lost=0 gained=8
+tp/r11u250repro/cases/W/w01_two_pkgs_el NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+tp/r11u250repro/cases/W/w01_two_pkgs_el dumplines dist 125 -> 117 lost=0 gained=8
+tp/r11u250repro/cases/W/w02_reverse_order NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/r11u250repro/cases/W/w02_reverse_order dumplines dist 35 -> 31 lost=0 gained=4
+tp/r11u250repro/cases/W/w02_reverse_order_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/r11u250repro/cases/W/w02_reverse_order_el dumplines dist 35 -> 31 lost=0 gained=4
+tp/r11u250repro/cases/W/w03_two_modules NOT_EQUAL_stage1 chain away=0 toward=3 flat_away=0 flat_toward=3
+tp/r11u250repro/cases/W/w03_two_modules dumplines dist 52 -> 46 lost=0 gained=6
+tp/r11u250repro/cases/W/w03_two_modules_el NOT_EQUAL_stage1 chain away=0 toward=3 flat_away=0 flat_toward=3
+tp/r11u250repro/cases/W/w03_two_modules_el dumplines dist 52 -> 46 lost=0 gained=6
+tp/r11u250repro/cases/W/w04_no_reexport_ctl NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u250repro/cases/W/w04_no_reexport_ctl dumplines dist 22 -> 20 lost=0 gained=2
+tp/r11u250repro/cases/W/w04_no_reexport_ctl_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u250repro/cases/W/w04_no_reexport_ctl_el dumplines dist 22 -> 20 lost=0 gained=2
+tp/r11u250repro/cases/W/w05_iface_gen NOT_EQUAL_stage1 chain away=0 toward=3 flat_away=0 flat_toward=3
+tp/r11u250repro/cases/W/w05_iface_gen dumplines dist 68 -> 63 lost=1 gained=6
+tp/r11u250repro/cases/W/w05_iface_gen_el NOT_EQUAL_stage1 chain away=0 toward=3 flat_away=0 flat_toward=3
+tp/r11u250repro/cases/W/w05_iface_gen_el dumplines dist 49 -> 44 lost=1 gained=6
+tp/r11u250repro/decode/B/b02_paren_cast_import NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/r11u250repro/decode/B/b02_paren_cast_import dumplines dist 71 -> 67 lost=0 gained=4
+tp/r11u250repro/decode/B/b02_paren_cast_import_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/r11u250repro/decode/B/b02_paren_cast_import_el dumplines dist 71 -> 67 lost=0 gained=4
+tp/v11u238repro/cases/D/d01_tdqueue NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/v11u238repro/cases/D/d01_tdqueue dumplines dist 48 -> 47 lost=0 gained=1
+tp/v11u238repro/cases/D/d01_tdqueue_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/v11u238repro/cases/D/d01_tdqueue_el dumplines dist 492 -> 491 lost=0 gained=1
+tp/v11u250repro/cases/A/a01_modlocal_same_name NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/v11u250repro/cases/A/a01_modlocal_same_name dumplines dist 3 -> 3 lost=0 gained=0
+tp/v11u250repro/cases/A/a01_modlocal_same_name_el NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/v11u250repro/cases/A/a01_modlocal_same_name_el dumplines dist 3 -> 3 lost=0 gained=0
+tp/v11u250repro/cases/A/a02_modlocal_shadow NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/v11u250repro/cases/A/a02_modlocal_shadow dumplines dist 9 -> 9 lost=0 gained=0
+tp/v11u250repro/cases/A/a02_modlocal_shadow_el NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/v11u250repro/cases/A/a02_modlocal_shadow_el dumplines dist 9 -> 9 lost=0 gained=0
+tp/v11u250repro/cases/A/a03_two_importers_override NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/v11u250repro/cases/A/a03_two_importers_override dumplines dist 9 -> 9 lost=0 gained=0
+tp/v11u250repro/cases/A/a03_two_importers_override_el NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/v11u250repro/cases/A/a03_two_importers_override_el dumplines dist 9 -> 9 lost=0 gained=0
+tp/v11u250repro/cases/A/a04_iface_gen NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/v11u250repro/cases/A/a04_iface_gen dumplines dist 10 -> 10 lost=0 gained=0
+tp/v11u250repro/cases/A/a04_iface_gen_el NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/v11u250repro/cases/A/a04_iface_gen_el dumplines dist 15 -> 15 lost=0 gained=0
+tp/v11u250repro/cases/B/b03_pkg_chain NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/v11u250repro/cases/B/b03_pkg_chain dumplines dist 101 -> 100 lost=0 gained=7
+tp/v11u250repro/cases/B/b03_pkg_chain_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/v11u250repro/cases/B/b03_pkg_chain_el dumplines dist 104 -> 103 lost=0 gained=7
+tp/v11u250repro/cases/B/b04_slots NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=0
+tp/v11u250repro/cases/B/b04_slots dumplines dist 64 -> 63 lost=0 gained=4
+tp/v11u250repro/cases/B/b04_slots_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=0
+tp/v11u250repro/cases/B/b04_slots_el dumplines dist 64 -> 63 lost=0 gained=4
+tp/v11u250repro/cases/B/b05_gen_child NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/v11u250repro/cases/B/b05_gen_child dumplines dist 57 -> 56 lost=0 gained=1
+tp/v11u250repro/cases/B/b05_gen_child_el NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+tp/v11u250repro/cases/B/b05_gen_child_el dumplines dist 64 -> 63 lost=0 gained=1
+tp/v11u250repro/cases/B/b06_unary_enum_origin NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/v11u250repro/cases/B/b06_unary_enum_origin dumplines dist 103 -> 102 lost=0 gained=4
+tp/v11u250repro/cases/B/b06_unary_enum_origin_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/v11u250repro/cases/B/b06_unary_enum_origin_el dumplines dist 109 -> 108 lost=0 gained=4
+tp/v11u250repro/cases/B/b07_cond_kinds NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/v11u250repro/cases/B/b07_cond_kinds dumplines dist 137 -> 136 lost=0 gained=4
+tp/v11u250repro/cases/B/b07_cond_kinds_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/v11u250repro/cases/B/b07_cond_kinds_el dumplines dist 141 -> 140 lost=0 gained=4

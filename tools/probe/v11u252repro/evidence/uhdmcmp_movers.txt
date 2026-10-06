@@ -1,0 +1,21 @@
+# uhdm-cmp golden vs ours on every corpus byte mover (fix binary sweep /tmp/v11u252_wdG and law sweep /tmp/v11u252_wdL)
+BlackBePipeInt default law uhdm-cmp rc=0 lines=0
+BlackBePipeInt default fix uhdm-cmp rc=0 lines=0
+BlackBePipeInt testflags law uhdm-cmp rc=0 lines=0
+BlackBePipeInt testflags fix uhdm-cmp rc=0 lines=0
+Earlgrey_0_1 default law uhdm-cmp rc=0 lines=0
+Earlgrey_0_1 default fix uhdm-cmp rc=0 lines=0
+Earlgrey_0_1 testflags law uhdm-cmp rc=0 lines=0
+Earlgrey_0_1 testflags fix uhdm-cmp rc=0 lines=0
+MiniAmiq default law uhdm-cmp rc=0 lines=0
+MiniAmiq default fix uhdm-cmp rc=0 lines=0
+MiniAmiq testflags law uhdm-cmp rc=0 lines=0
+MiniAmiq testflags fix uhdm-cmp rc=0 lines=0
+SeqDriver default law uhdm-cmp rc=0 lines=0
+SeqDriver default fix uhdm-cmp rc=0 lines=0
+SeqDriver testflags law uhdm-cmp rc=0 lines=0
+SeqDriver testflags fix uhdm-cmp rc=0 lines=0
+SimpleUVM default law uhdm-cmp rc=0 lines=0
+SimpleUVM default fix uhdm-cmp rc=0 lines=0
+SimpleUVM testflags law uhdm-cmp rc=0 lines=0
+SimpleUVM testflags fix uhdm-cmp rc=0 lines=0

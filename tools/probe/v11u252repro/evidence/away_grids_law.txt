@@ -1,0 +1,308 @@
+v/VF/vf01_expr_operand NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VF/vf01_expr_operand dumplines dist 11 -> 9 lost=0 gained=2
+v/VF/vf01_expr_operand_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VF/vf01_expr_operand_el dumplines dist 11 -> 9 lost=0 gained=2
+v/VF/vf02_nested_cast NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VF/vf02_nested_cast dumplines dist 9 -> 5 lost=0 gained=4
+v/VF/vf02_nested_cast_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VF/vf02_nested_cast_el dumplines dist 9 -> 5 lost=0 gained=4
+v/VF/vf03_ternary_operand NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VF/vf03_ternary_operand dumplines dist 9 -> 5 lost=0 gained=4
+v/VF/vf03_ternary_operand_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VF/vf03_ternary_operand_el dumplines dist 9 -> 5 lost=0 gained=4
+v/VF/vf04_concat_in_binary NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+v/VF/vf04_concat_in_binary dumplines dist 76 -> 77 lost=1 gained=0
+v/VF/vf04_concat_in_binary_el NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+v/VF/vf04_concat_in_binary_el dumplines dist 77 -> 78 lost=1 gained=0
+v/VF/vf06_bits_width NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VF/vf06_bits_width dumplines dist 13 -> 5 lost=0 gained=8
+v/VF/vf06_bits_width_el NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VF/vf06_bits_width_el dumplines dist 13 -> 5 lost=0 gained=8
+v/VF/vf07_const_slots NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VF/vf07_const_slots dumplines dist 19 -> 17 lost=0 gained=2
+v/VF/vf07_const_slots_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VF/vf07_const_slots_el dumplines dist 19 -> 17 lost=0 gained=2
+v/VF/vf08_header_body_local NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VF/vf08_header_body_local dumplines dist 13 -> 11 lost=0 gained=2
+v/VF/vf08_header_body_local_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VF/vf08_header_body_local_el dumplines dist 13 -> 11 lost=0 gained=2
+v/VF/vf09_macro_include NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VF/vf09_macro_include dumplines dist 11 -> 9 lost=0 gained=2
+v/VF/vf09_macro_include_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VF/vf09_macro_include_el dumplines dist 11 -> 9 lost=0 gained=2
+v/VF/vf10_string_op NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VF/vf10_string_op dumplines dist 25 -> 17 lost=0 gained=8
+v/VF/vf10_string_op_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VF/vf10_string_op_el dumplines dist 25 -> 17 lost=0 gained=8
+v/VF/vf11_unit_import NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VF/vf11_unit_import dumplines dist 17 -> 13 lost=0 gained=4
+v/VF/vf11_unit_import_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VF/vf11_unit_import_el dumplines dist 17 -> 13 lost=0 gained=4
+v/VF/vf12_body_import_hier NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VF/vf12_body_import_hier dumplines dist 11 -> 7 lost=0 gained=4
+v/VF/vf12_body_import_hier_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VF/vf12_body_import_hier_el dumplines dist 11 -> 7 lost=0 gained=4
+v/VF/vf15_repl_in_call NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VF/vf15_repl_in_call dumplines dist 66 -> 64 lost=0 gained=2
+v/VF/vf15_repl_in_call_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VF/vf15_repl_in_call_el dumplines dist 66 -> 64 lost=0 gained=2
+v/VK/vk03_two_dim NOT_EQUAL_stage1 chain away=0 toward=8 flat_away=0 flat_toward=8
+v/VK/vk03_two_dim dumplines dist 12 -> 10 lost=0 gained=2
+v/VK/vk03_two_dim_el NOT_EQUAL_stage1 chain away=0 toward=8 flat_away=0 flat_toward=8
+v/VK/vk03_two_dim_el dumplines dist 35 -> 33 lost=0 gained=2
+v/VK/vk04_assoc NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VK/vk04_assoc dumplines dist 6 -> 6 lost=0 gained=1
+v/VK/vk04_assoc_el NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VK/vk04_assoc_el dumplines dist 26 -> 27 lost=0 gained=0
+v/VK/vk06_const_slot NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VK/vk06_const_slot dumplines dist 19 -> 18 lost=0 gained=1
+v/VK/vk06_const_slot_el NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VK/vk06_const_slot_el dumplines dist 41 -> 40 lost=0 gained=1
+v/VL/vl01_class_handle_q STRICT_NOTEQUAL_name chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VL/vl01_class_handle_q_el STRICT_NOTEQUAL_name chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VL/vl02_enum_q NOT_EQUAL_stage1 chain away=0 toward=12 flat_away=0 flat_toward=12
+v/VL/vl02_enum_q dumplines dist 12 -> 17 lost=0 gained=1
+v/VL/vl02_enum_q_el NOT_EQUAL_stage1 chain away=0 toward=12 flat_away=0 flat_toward=12
+v/VL/vl02_enum_q_el dumplines dist 12 -> 16 lost=0 gained=2
+v/VL/vl04_dyn_struct NOT_EQUAL_stage1 chain away=0 toward=44 flat_away=0 flat_toward=44
+v/VL/vl04_dyn_struct dumplines dist 12 -> 43 lost=0 gained=6
+v/VL/vl04_dyn_struct_el NOT_EQUAL_stage1 chain away=0 toward=39 flat_away=0 flat_toward=44
+v/VL/vl04_dyn_struct_el dumplines dist 12 -> 39 lost=0 gained=10
+v/VR/vr02_arg_list NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VR/vr02_arg_list dumplines dist 13 -> 7 lost=0 gained=6
+v/VS/vs01_concat_name_collision STRICT_NOTEQUAL_fullname chain away=2 toward=0 flat_away=2 flat_toward=1
+v/VS/vs01_concat_name_collision_el STRICT_NOTEQUAL_fullname chain away=2 toward=0 flat_away=2 flat_toward=1
+v/VS/vs02_memread_cross_pkg_name NOT_EQUAL_stage1 chain away=1 toward=0 flat_away=1 flat_toward=0
+v/VS/vs02_memread_cross_pkg_name dumplines dist 21 -> 25 lost=1 gained=0
+v/VS/vs02_memread_cross_pkg_name_el NOT_EQUAL_stage1 chain away=1 toward=0 flat_away=1 flat_toward=0
+v/VS/vs02_memread_cross_pkg_name_el dumplines dist 21 -> 25 lost=1 gained=0
+v/VS/vs03_ref_chain NOT_EQUAL_stage1 chain away=0 toward=3 flat_away=1 flat_toward=2
+v/VS/vs03_ref_chain dumplines dist 336 -> 334 lost=1 gained=6
+v/VS/vs03_ref_chain_el NOT_EQUAL_stage1 chain away=0 toward=3 flat_away=1 flat_toward=2
+v/VS/vs03_ref_chain_el dumplines dist 298 -> 296 lost=1 gained=6
+v/VS/vs04_member_ops NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VS/vs04_member_ops dumplines dist 74 -> 65 lost=0 gained=18
+v/VS/vs04_member_ops_el NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VS/vs04_member_ops_el dumplines dist 75 -> 66 lost=0 gained=18
+v/VS/vs05_qual_read_own_pkg NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=1 flat_toward=1
+v/VS/vs05_qual_read_own_pkg dumplines dist 17 -> 19 lost=1 gained=2
+v/VS/vs05_qual_read_own_pkg_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=1 flat_toward=1
+v/VS/vs05_qual_read_own_pkg_el dumplines dist 17 -> 19 lost=1 gained=2
+v/VS/vs07_concat_part_select STRICT_NOTEQUAL_fullname chain away=2 toward=0 flat_away=2 flat_toward=1
+v/VS/vs07_concat_part_select_el NOT_EQUAL_stage1 chain away=2 toward=0 flat_away=2 flat_toward=1
+v/VS/vs07_concat_part_select_el dumplines dist 22 -> 30 lost=2 gained=0
+v/VS/vs08_concat_in_module NOT_EQUAL_stage1 chain away=2 toward=1 flat_away=2 flat_toward=0
+v/VS/vs08_concat_in_module dumplines dist 24 -> 30 lost=2 gained=2
+v/VS/vs08_concat_in_module_el NOT_EQUAL_stage1 chain away=2 toward=1 flat_away=2 flat_toward=0
+v/VS/vs08_concat_in_module_el dumplines dist 24 -> 30 lost=2 gained=2
+v/VS/vs09_memread_in_fn NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VS/vs09_memread_in_fn dumplines dist 55 -> 57 lost=0 gained=1
+v/VS/vs09_memread_in_fn_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VS/vs09_memread_in_fn_el dumplines dist 60 -> 62 lost=0 gained=1
+v/VS/vs11_gen_inst_depth NOT_EQUAL_stage1 chain away=0 toward=5 flat_away=0 flat_toward=5
+v/VS/vs11_gen_inst_depth dumplines dist 66 -> 58 lost=0 gained=8
+v/VS/vs11_gen_inst_depth_el NOT_EQUAL_stage1 chain away=0 toward=5 flat_away=0 flat_toward=5
+v/VS/vs11_gen_inst_depth_el dumplines dist 108 -> 101 lost=0 gained=7
+v/VS/vs12_concat_sel_body_lp NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=2 flat_toward=0
+v/VS/vs12_concat_sel_body_lp dumplines dist 117 -> 117 lost=2 gained=8
+v/VS/vs12_concat_sel_body_lp_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=2 flat_toward=0
+v/VS/vs12_concat_sel_body_lp_el dumplines dist 117 -> 117 lost=2 gained=8
+v/VS/vs13_mod_concat_sel_lp NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=2 flat_toward=0
+v/VS/vs13_mod_concat_sel_lp dumplines dist 134 -> 134 lost=2 gained=8
+v/VS/vs13_mod_concat_sel_lp_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=2 flat_toward=0
+v/VS/vs13_mod_concat_sel_lp_el dumplines dist 134 -> 134 lost=2 gained=8
+v/VS/vs14_concat_sel_both NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=2 flat_toward=0
+v/VS/vs14_concat_sel_both dumplines dist 117 -> 117 lost=2 gained=8
+v/VS/vs14_concat_sel_both_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=2 flat_toward=0
+v/VS/vs14_concat_sel_both_el dumplines dist 117 -> 117 lost=2 gained=8
+v/VS/vs15_param_sel_collision NOT_EQUAL_stage1 chain away=2 toward=0 flat_away=0 flat_toward=2
+v/VS/vs15_param_sel_collision dumplines dist 71 -> 77 lost=0 gained=0
+v/VS/vs15_param_sel_collision_el NOT_EQUAL_stage1 chain away=2 toward=0 flat_away=0 flat_toward=2
+v/VS/vs15_param_sel_collision_el dumplines dist 75 -> 81 lost=0 gained=0
+v/VS/vs16_reexport_memread NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VS/vs16_reexport_memread dumplines dist 67 -> 66 lost=0 gained=4
+v/VS/vs16_reexport_memread_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VS/vs16_reexport_memread_el dumplines dist 67 -> 66 lost=0 gained=4
+v/VS/vs18_import_chain_noexport NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VS/vs18_import_chain_noexport dumplines dist 20 -> 19 lost=0 gained=4
+v/VS/vs18_import_chain_noexport_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VS/vs18_import_chain_noexport_el dumplines dist 20 -> 19 lost=0 gained=4
+v/VT/vt01_relational NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+v/VT/vt01_relational dumplines dist 9 -> 7 lost=0 gained=2
+v/VT/vt01_relational_el NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+v/VT/vt01_relational_el dumplines dist 9 -> 7 lost=0 gained=2
+v/VT/vt02_paren_left NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VT/vt02_paren_left dumplines dist 12 -> 9 lost=0 gained=3
+v/VT/vt02_paren_left_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VT/vt02_paren_left_el dumplines dist 12 -> 9 lost=0 gained=3
+v/VT/vt03_body_slots NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VT/vt03_body_slots dumplines dist 5 -> 3 lost=0 gained=2
+v/VT/vt03_body_slots_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+v/VT/vt03_body_slots_el dumplines dist 5 -> 3 lost=0 gained=2
+v/VT/vt04_pkg_imported NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+v/VT/vt04_pkg_imported dumplines dist 161 -> 159 lost=0 gained=2
+v/VT/vt04_pkg_imported_el NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+v/VT/vt04_pkg_imported_el dumplines dist 123 -> 121 lost=0 gained=2
+v/VU/vu01_real_string NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu01_real_string dumplines dist 88 -> 88 lost=0 gained=0
+v/VU/vu01_real_string_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu01_real_string_el dumplines dist 97 -> 97 lost=0 gained=0
+v/VU/vu02_enum_struct NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu02_enum_struct dumplines dist 22 -> 22 lost=0 gained=2
+v/VU/vu02_enum_struct_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu02_enum_struct_el dumplines dist 22 -> 22 lost=0 gained=2
+v/VU/vu03_shadow_child NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu03_shadow_child dumplines dist 18 -> 18 lost=0 gained=2
+v/VU/vu03_shadow_child_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu03_shadow_child_el dumplines dist 18 -> 18 lost=0 gained=2
+v/VU/vu03_shadow_child_typed NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu03_shadow_child_typed dumplines dist 17 -> 17 lost=0 gained=2
+v/VU/vu03_shadow_child_typed_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu03_shadow_child_typed_el dumplines dist 17 -> 17 lost=0 gained=2
+v/VU/vu04_wild_and_explicit NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu04_wild_and_explicit dumplines dist 2 -> 2 lost=0 gained=2
+v/VU/vu04_wild_and_explicit_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu04_wild_and_explicit_el dumplines dist 2 -> 2 lost=0 gained=2
+v/VU/vu05_two_pkgs_chain NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu05_two_pkgs_chain dumplines dist 10 -> 10 lost=0 gained=2
+v/VU/vu05_two_pkgs_chain_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu05_two_pkgs_chain_el dumplines dist 10 -> 10 lost=0 gained=2
+v/VU/vu07_interface NOT_EQUAL_stage1 chain away=0 toward=8 flat_away=0 flat_toward=8
+v/VU/vu07_interface dumplines dist 60 -> 60 lost=0 gained=6
+v/VU/vu07_interface_el NOT_EQUAL_stage1 chain away=0 toward=8 flat_away=0 flat_toward=8
+v/VU/vu07_interface_el dumplines dist 62 -> 62 lost=0 gained=6
+v/VU/vu07_interface_typed STRICT_NOTEQUAL_fullname chain away=0 toward=8 flat_away=0 flat_toward=8
+v/VU/vu07_interface_typed_el STRICT_NOTEQUAL_fullname chain away=0 toward=8 flat_away=0 flat_toward=8
+v/VU/vu08_clog2_func NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu08_clog2_func dumplines dist 6 -> 6 lost=0 gained=2
+v/VU/vu08_clog2_func_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu08_clog2_func_el dumplines dist 6 -> 6 lost=0 gained=2
+v/VU/vu08_clog2_func_typed NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VU/vu08_clog2_func_typed dumplines dist 4 -> 4 lost=0 gained=4
+v/VU/vu08_clog2_func_typed_el NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VU/vu08_clog2_func_typed_el dumplines dist 4 -> 4 lost=0 gained=4
+v/VU/vu09_bits_types NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VU/vu09_bits_types dumplines dist 29 -> 31 lost=0 gained=4
+v/VU/vu09_bits_types_el NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VU/vu09_bits_types_el dumplines dist 28 -> 30 lost=0 gained=4
+v/VU/vu13_typeparam_dup NOT_EQUAL_stage1 chain away=4 toward=0 flat_away=4 flat_toward=0
+v/VU/vu13_typeparam_dup dumplines dist 231 -> 235 lost=0 gained=0
+v/VU/vu13_typeparam_dup_el NOT_EQUAL_stage1 chain away=4 toward=0 flat_away=4 flat_toward=0
+v/VU/vu13_typeparam_dup_el dumplines dist 233 -> 237 lost=0 gained=0
+v/VU/vu18_bits_logic_unit NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu18_bits_logic_unit dumplines dist 29 -> 31 lost=0 gained=2
+v/VU/vu18_bits_logic_unit_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu18_bits_logic_unit_el dumplines dist 29 -> 31 lost=0 gained=2
+v/VU/vu20_typedef_of_typeparam NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu20_typedef_of_typeparam dumplines dist 15 -> 15 lost=0 gained=2
+v/VU/vu20_typedef_of_typeparam_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+v/VU/vu20_typedef_of_typeparam_el dumplines dist 15 -> 15 lost=0 gained=2
+v/VX/vx01_three_level STRICT_NOTEQUAL_col chain away=0 toward=4 flat_away=0 flat_toward=4
+v/VX/vx04_incdec_lhs NOT_EQUAL_stage1 chain away=0 toward=16 flat_away=0 flat_toward=16
+v/VX/vx04_incdec_lhs dumplines dist 35 -> 11 lost=0 gained=24
+v/VX/vx08_two_dim_idx STRICT_NOTEQUAL_fullname chain away=0 toward=16 flat_away=0 flat_toward=16
+r/F/f09_no_port_list NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+r/F/f09_no_port_list dumplines dist 51 -> 49 lost=0 gained=2
+r/F/f09_no_port_list_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+r/F/f09_no_port_list_el dumplines dist 51 -> 49 lost=0 gained=2
+r/F/f12_const_slots NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+r/F/f12_const_slots dumplines dist 10 -> 6 lost=0 gained=4
+r/F/f12_const_slots_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+r/F/f12_const_slots_el dumplines dist 10 -> 6 lost=0 gained=4
+r/F/f13_used_in_assign NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+r/F/f13_used_in_assign dumplines dist 8 -> 4 lost=0 gained=4
+r/F/f13_used_in_assign_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+r/F/f13_used_in_assign_el dumplines dist 8 -> 4 lost=0 gained=4
+r/L/l06_typedef_elem NOT_EQUAL_stage1 chain away=0 toward=8 flat_away=0 flat_toward=4
+r/L/l06_typedef_elem dumplines dist 17 -> 13 lost=1 gained=1
+r/L/l06_typedef_elem_el NOT_EQUAL_stage1 chain away=0 toward=8 flat_away=0 flat_toward=4
+r/L/l06_typedef_elem_el dumplines dist 20 -> 16 lost=1 gained=1
+r/L/l12_const_slots STRICT_NOTEQUAL_fullname chain away=0 toward=16 flat_away=0 flat_toward=16
+r/L/l12_const_slots_el STRICT_NOTEQUAL_fullname chain away=0 toward=16 flat_away=0 flat_toward=16
+r/L/l13_class_elem STRICT_NOTEQUAL_name chain away=0 toward=4 flat_away=0 flat_toward=4
+r/L/l13_class_elem_el STRICT_NOTEQUAL_name chain away=0 toward=4 flat_away=0 flat_toward=4
+r/S/s01_ref_loc STRICT_NOTEQUAL_fullname chain away=0 toward=4 flat_away=1 flat_toward=4
+r/S/s01_ref_loc_el STRICT_NOTEQUAL_fullname chain away=0 toward=4 flat_away=1 flat_toward=4
+r/S/s02_ref_loc_wide STRICT_NOTEQUAL_fullname chain away=0 toward=4 flat_away=1 flat_toward=4
+r/S/s02_ref_loc_wide_el STRICT_NOTEQUAL_fullname chain away=0 toward=4 flat_away=1 flat_toward=4
+r/S/s03_ref_loc_string_ovr STRICT_NOTEQUAL_fullname chain away=0 toward=4 flat_away=1 flat_toward=4
+r/S/s03_ref_loc_string_ovr_el STRICT_NOTEQUAL_fullname chain away=0 toward=4 flat_away=1 flat_toward=4
+r/S/s04_chain_two NOT_EQUAL_stage1 chain away=0 toward=3 flat_away=1 flat_toward=2
+r/S/s04_chain_two dumplines dist 336 -> 334 lost=1 gained=6
+r/S/s04_chain_two_el NOT_EQUAL_stage1 chain away=0 toward=3 flat_away=1 flat_toward=2
+r/S/s04_chain_two_el dumplines dist 298 -> 296 lost=1 gained=6
+r/S/s05_importer_pkg STRICT_NOTEQUAL_fullname chain away=0 toward=4 flat_away=1 flat_toward=4
+r/S/s05_importer_pkg_el STRICT_NOTEQUAL_fullname chain away=0 toward=4 flat_away=1 flat_toward=4
+r/S/s06_no_port_list NOT_EQUAL_stage1 chain away=0 toward=3 flat_away=1 flat_toward=3
+r/S/s06_no_port_list dumplines dist 45 -> 40 lost=1 gained=9
+r/S/s06_no_port_list_el NOT_EQUAL_stage1 chain away=0 toward=3 flat_away=1 flat_toward=3
+r/S/s06_no_port_list_el dumplines dist 45 -> 40 lost=1 gained=9
+r/S/s07_member_read_parent NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+r/S/s07_member_read_parent dumplines dist 9 -> 8 lost=0 gained=4
+r/S/s07_member_read_parent_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+r/S/s07_member_read_parent_el dumplines dist 9 -> 8 lost=0 gained=4
+r/S/s10_whole_read_ctl NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+r/S/s10_whole_read_ctl dumplines dist 16 -> 13 lost=0 gained=3
+r/S/s10_whole_read_ctl_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+r/S/s10_whole_read_ctl_el dumplines dist 16 -> 13 lost=0 gained=3
+r/S/s12_bin_member_wide NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+r/S/s12_bin_member_wide dumplines dist 13 -> 9 lost=0 gained=7
+r/S/s12_bin_member_wide_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+r/S/s12_bin_member_wide_el dumplines dist 13 -> 9 lost=0 gained=7
+r/S/s15_concat_select_body NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=2 flat_toward=0
+r/S/s15_concat_select_body dumplines dist 117 -> 117 lost=2 gained=8
+r/S/s15_concat_select_body_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=2 flat_toward=0
+r/S/s15_concat_select_body_el dumplines dist 117 -> 117 lost=2 gained=8
+r/S/s21_untaken_branch_read NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+r/S/s21_untaken_branch_read dumplines dist 168 -> 170 lost=0 gained=1
+r/S/s21_untaken_branch_read_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+r/S/s21_untaken_branch_read_el dumplines dist 170 -> 172 lost=0 gained=1
+r/T/t04_true_branch NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+r/T/t04_true_branch dumplines dist 4 -> 3 lost=0 gained=1
+r/T/t04_true_branch_el NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+r/T/t04_true_branch_el dumplines dist 4 -> 3 lost=0 gained=1
+r/T/t05_const_slot NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+r/T/t05_const_slot dumplines dist 4 -> 3 lost=0 gained=1
+r/T/t05_const_slot_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+r/T/t05_const_slot_el dumplines dist 4 -> 3 lost=0 gained=1
+r/T/t06_pkg_import NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+r/T/t06_pkg_import dumplines dist 4 -> 3 lost=0 gained=1
+r/T/t06_pkg_import_el NOT_EQUAL_stage1 chain away=0 toward=0 flat_away=0 flat_toward=0
+r/T/t06_pkg_import_el dumplines dist 4 -> 3 lost=0 gained=1
+r/U/u05_pkg_chain NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+r/U/u05_pkg_chain dumplines dist 6 -> 6 lost=0 gained=4
+r/U/u05_pkg_chain_el NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+r/U/u05_pkg_chain_el dumplines dist 6 -> 6 lost=0 gained=4
+r/U/u06_expr_inits NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+r/U/u06_expr_inits dumplines dist 69 -> 65 lost=0 gained=8
+r/U/u06_expr_inits_el NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+r/U/u06_expr_inits_el dumplines dist 69 -> 65 lost=0 gained=8
+r/U/u07_type_param NOT_EQUAL_stage1 chain away=2 toward=0 flat_away=2 flat_toward=0
+r/U/u07_type_param dumplines dist 108 -> 110 lost=0 gained=0
+r/U/u07_type_param_el NOT_EQUAL_stage1 chain away=2 toward=0 flat_away=2 flat_toward=0
+r/U/u07_type_param_el dumplines dist 109 -> 111 lost=0 gained=0
+r/U/u08_localparam NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+r/U/u08_localparam dumplines dist 9 -> 11 lost=0 gained=2
+r/U/u08_localparam_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+r/U/u08_localparam_el dumplines dist 9 -> 11 lost=0 gained=2
+r/U/u09_const_slots NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+r/U/u09_const_slots dumplines dist 5 -> 5 lost=0 gained=4
+r/U/u09_const_slots_el NOT_EQUAL_stage1 chain away=0 toward=4 flat_away=0 flat_toward=4
+r/U/u09_const_slots_el dumplines dist 5 -> 5 lost=0 gained=4
+r/U/u12_real_string NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+r/U/u12_real_string dumplines dist 86 -> 86 lost=0 gained=2
+r/U/u12_real_string_el NOT_EQUAL_stage1 chain away=0 toward=2 flat_away=0 flat_toward=2
+r/U/u12_real_string_el dumplines dist 86 -> 86 lost=0 gained=2
+r/X/x04_two_levels STRICT_NOTEQUAL_col chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/r11u252repro/decode/H/h01_paren_extern NOT_EQUAL_stage1 chain away=0 toward=8 flat_away=0 flat_toward=8
+tp/r11u252repro/decode/H/h01_paren_extern dumplines dist 19 -> 7 lost=0 gained=12
+tp/r11u252repro/decode/S/d01_pkg_def_subst NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u252repro/decode/S/d01_pkg_def_subst dumplines dist 16 -> 13 lost=0 gained=3
+tp/r11u252repro/decode/S/d01_pkg_def_subst_el NOT_EQUAL_stage1 chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u252repro/decode/S/d01_pkg_def_subst_el dumplines dist 16 -> 13 lost=0 gained=3
+tp/r11u252repro/decode/S/d02_pkg_elab_ref_bare STRICT_NOTEQUAL_fullname chain away=0 toward=8 flat_away=1 flat_toward=8
+tp/r11u252repro/decode/S/d02_pkg_elab_ref_bare_el STRICT_NOTEQUAL_fullname chain away=0 toward=8 flat_away=1 flat_toward=8
+tp/r11u252repro/decode/S/d03_select_ref_elem NOT_EQUAL_stage1 chain away=0 toward=8 flat_away=1 flat_toward=8
+tp/r11u252repro/decode/S/d03_select_ref_elem dumplines dist 25 -> 15 lost=1 gained=20
+tp/r11u252repro/decode/S/d03_select_ref_elem_el NOT_EQUAL_stage1 chain away=0 toward=8 flat_away=1 flat_toward=8
+tp/r11u252repro/decode/S/d03_select_ref_elem_el dumplines dist 27 -> 17 lost=1 gained=20

@@ -1,0 +1,98 @@
+# final fix binary 00c7bed5eefdca49d682e33b2f55cc93 sweep /tmp/v11u252_wdG vs law sweep /tmp/v11u252_wdL and pristine sweep /tmp/v11u252_wdP
+surelog csv law->fix diff lines (workdir prefix normalised): 0
+uhdm2rtlil csv law->fix diff lines (workdir prefix normalised): 0
+probe csv law->fix diff lines (workdir prefix normalised): 0
+downstream csv law->fix diff lines (workdir prefix normalised): 0
+mirrored=2560 fenced_skipped=8
+## byteverify fix vs law
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVERS: 0 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+## byteverify fix vs pristine
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=fe428dfd404c pristine=4241039881d8
+MOVER ./surelog/default/Earlgrey_0_1-a898def8/slang.uhdm  patched=8295d623121f pristine=99040b3db63c
+MOVER ./surelog/default/MiniAmiq-055eab74/slang.uhdm  patched=6e1bf270f074 pristine=6e8955646bf6
+MOVER ./surelog/default/SeqDriver-65178d3a/slang.uhdm  patched=ea6a233c632f pristine=535d0bc85f53
+MOVER ./surelog/default/SimpleUVM-267de3ff/slang.uhdm  patched=f87dd1ed9147 pristine=69b26be136be
+MOVER ./surelog/testflags/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=0fd83359ad6b pristine=22944fa1b8cf
+MOVER ./surelog/testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=08d8d10c1b73 pristine=233bf5448585
+MOVER ./surelog/testflags/MiniAmiq-055eab74/slang.uhdm  patched=6e1bf270f074 pristine=6e8955646bf6
+MOVER ./surelog/testflags/SeqDriver-65178d3a/slang.uhdm  patched=20a106d619ca pristine=2a2f2c0bc6a8
+MOVER ./surelog/testflags/SimpleUVM-267de3ff/slang.uhdm  patched=8bbc8aa7d027 pristine=9b63845ee589
+MOVERS: 10 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+## probe/downstream fix vs law
+probe: 0 movers of 4087 databases (0 without a pristine twin)
+downstream: 0 movers of 805 databases (0 without a pristine twin)
+## probe/downstream fix vs pristine
+MOVER probe/r10earl_repro__tf.uhdm
+MOVER probe/r10uvm201repro__g201_a_forms.uhdm
+MOVER probe/r10uvm201repro__g201_c_uvmshape.uhdm
+MOVER probe/r10uvm201repro__g201_e_explicit.uhdm
+MOVER probe/r10uvm210repro__g210_e_unitimp.uhdm
+MOVER probe/r10uvm67repro__c5_clone.uhdm
+probe: 6 movers of 4087 databases (0 without a pristine twin)
+downstream: 0 movers of 805 databases (0 without a pristine twin)
+## audit P: cmds.txt (fence-filtered) 3315; slang lines 3265; naming /tmp/v11u252_bin/pristine.bin 3265
+## audit L: cmds.txt (fence-filtered) 3315; slang lines 3265; naming /tmp/v11u252_bin/law.bin 3265
+## audit G: cmds.txt (fence-filtered) 3315; slang lines 3265; naming /tmp/v11u252_bin/fix.bin 3265
+## canaries P
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+  ParamFileMacro                     default   OK       SURELOG_FAIL/
+  ParamFileMacro                     testflags OK       SURELOG_FAIL/
+  BlackParrot                        default   OK       SURELOG_FAIL/
+  BlackParrot                        testflags OK       SURELOG_FAIL/
+  BlackUcode                         default   OK       SURELOG_FAIL/
+  BlackUcode                         testflags OK       SURELOG_FAIL/
+  BlackUnicore                       default   OK       SURELOG_FAIL/
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+## canaries L
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:value(50) -> CMP_EQUAL/equal
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:value(50) -> CMP_EQUAL/equal
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:type(1) -> STRICT_NOTEQUAL/differ:fullname(5)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:type(1) -> STRICT_NOTEQUAL/differ:fullname(5)
+---- canary rows: ok=48 changed=4 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+  ParamFileMacro                     default   OK       SURELOG_FAIL/
+  ParamFileMacro                     testflags OK       SURELOG_FAIL/
+  BlackBePipeInt                     default   CHANGED  STRICT_NOTEQUAL/differ:file(721) -> STRICT_NOTEQUAL/differ:depth(1)
+  BlackBePipeInt                     testflags CHANGED  STRICT_NOTEQUAL/differ:file(721) -> STRICT_NOTEQUAL/differ:depth(1)
+  BlackParrot                        default   OK       SURELOG_FAIL/
+  BlackParrot                        testflags OK       SURELOG_FAIL/
+  BlackUcode                         default   OK       SURELOG_FAIL/
+  BlackUcode                         testflags OK       SURELOG_FAIL/
+  BlackUnicore                       default   OK       SURELOG_FAIL/
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=56 changed=2 absent=0 unknown-patterns=1
+FAIL: a supplementary canary moved.
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+## canaries G
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:value(50) -> CMP_EQUAL/equal
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:value(50) -> CMP_EQUAL/equal
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:type(1) -> STRICT_NOTEQUAL/differ:fullname(5)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:type(1) -> STRICT_NOTEQUAL/differ:fullname(5)
+---- canary rows: ok=48 changed=4 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+  ParamFileMacro                     default   OK       SURELOG_FAIL/
+  ParamFileMacro                     testflags OK       SURELOG_FAIL/
+  BlackBePipeInt                     default   CHANGED  STRICT_NOTEQUAL/differ:file(721) -> STRICT_NOTEQUAL/differ:depth(1)
+  BlackBePipeInt                     testflags CHANGED  STRICT_NOTEQUAL/differ:file(721) -> STRICT_NOTEQUAL/differ:depth(1)
+  BlackParrot                        default   OK       SURELOG_FAIL/
+  BlackParrot                        testflags OK       SURELOG_FAIL/
+  BlackUcode                         default   OK       SURELOG_FAIL/
+  BlackUcode                         testflags OK       SURELOG_FAIL/
+  BlackUnicore                       default   OK       SURELOG_FAIL/
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=56 changed=2 absent=0 unknown-patterns=1
+FAIL: a supplementary canary moved.
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.

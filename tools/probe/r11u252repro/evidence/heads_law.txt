@@ -1,0 +1,94 @@
+== SimpleUVM/default (law ec509aa1)
+STRICT_EQUAL 334285 objects
+== MiniAmiq/default (law ec509aa1)
+#95125 fullname
+  A: 11	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::path		0	0	0	0		0		
+#95134 fullname
+  A: 11	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::offset		0	0	0	0		0		
+#95150 fullname
+  A: 13	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		
+  B: 13	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::size		0	0	0	0		0		
+#116544 name
+  A: 10	bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  B: 10	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+#121302 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+objects 435559 vs 434599
+fields: type=1 name=2 fullname=3 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL fullname
+== SeqDriver/default (law ec509aa1)
+#95083 fullname
+  A: 11	ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::path		0	0	0	0		0		
+#95092 fullname
+  A: 11	ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::offset		0	0	0	0		0		
+#95108 fullname
+  A: 13	ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		
+  B: 13	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::size		0	0	0	0		0		
+#116502 name
+  A: 10	bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  B: 10	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+#121260 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+objects 475526 vs 474708
+fields: type=1 name=2 fullname=3 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL fullname
+== BlackBePipeInt/default (law ec509aa1)
+#331795 depth
+  A: 2	param_assign				dut.sv	14508	12	14508	118				
+  B: 3	operation				dut.sv	14219	1	14265	2		0		
+objects 339479 vs 339736
+fields: depth=1 type=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== SimpleUVM/testflags (law ec509aa1)
+STRICT_EQUAL 334297 objects
+== MiniAmiq/testflags (law ec509aa1)
+#95125 fullname
+  A: 11	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::path		0	0	0	0		0		
+#95134 fullname
+  A: 11	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::offset		0	0	0	0		0		
+#95150 fullname
+  A: 13	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		
+  B: 13	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::size		0	0	0	0		0		
+#116544 name
+  A: 10	bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  B: 10	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+#121302 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+objects 435559 vs 434599
+fields: type=1 name=2 fullname=3 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL fullname
+== SeqDriver/testflags (law ec509aa1)
+#95095 fullname
+  A: 11	ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::path		0	0	0	0		0		
+#95104 fullname
+  A: 11	ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::offset		0	0	0	0		0		
+#95120 fullname
+  A: 13	ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		
+  B: 13	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::size		0	0	0	0		0		
+#116514 name
+  A: 10	bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  B: 10	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+#121272 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+objects 475538 vs 474720
+fields: type=1 name=2 fullname=3 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL fullname
+== BlackBePipeInt/testflags (law ec509aa1)
+#331692 depth
+  A: 2	param_assign				dut.sv	14508	12	14508	118				
+  B: 3	operation				dut.sv	14219	1	14265	2		0		
+objects 338504 vs 338761
+fields: depth=1 type=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth

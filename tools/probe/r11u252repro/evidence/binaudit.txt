@@ -1,0 +1,2 @@
+/tmp/r11u252_wdP cmds=3315    3265 /tmp/r11u252_bin/pristine.bin
+/tmp/r11u252_wdL cmds=3315    3265 /tmp/r11u252_bin/law.bin

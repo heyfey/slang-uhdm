@@ -1,0 +1,17 @@
+# 16 databases differ between /tmp/r11u252_wdP and /tmp/r11u252_wdL
+probe/r10earl_repro/tf away=0 toward=0 flat_away=0 flat_toward=0
+probe/r10uvm201repro/g201_a_forms away=0 toward=2 flat_away=0 flat_toward=2
+probe/r10uvm201repro/g201_c_uvmshape away=0 toward=10 flat_away=0 flat_toward=10
+probe/r10uvm201repro/g201_e_explicit away=0 toward=2 flat_away=0 flat_toward=2
+probe/r10uvm210repro/g210_e_unitimp away=0 toward=2 flat_away=0 flat_toward=2
+probe/r10uvm67repro/c5_clone away=0 toward=2 flat_away=0 flat_toward=2
+surelog/default/BlackBePipeInt away=0 toward=743 flat_away=0 flat_toward=744
+surelog/default/Earlgrey_0_1 away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/MiniAmiq away=0 toward=15 flat_away=0 flat_toward=15
+surelog/default/SeqDriver away=0 toward=10 flat_away=0 flat_toward=10
+surelog/default/SimpleUVM away=0 toward=50 flat_away=0 flat_toward=50
+surelog/testflags/BlackBePipeInt away=0 toward=743 flat_away=0 flat_toward=744
+surelog/testflags/Earlgrey_0_1 away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/MiniAmiq away=0 toward=15 flat_away=0 flat_toward=15
+surelog/testflags/SeqDriver away=0 toward=10 flat_away=0 flat_toward=10
+surelog/testflags/SimpleUVM away=0 toward=50 flat_away=0 flat_toward=50

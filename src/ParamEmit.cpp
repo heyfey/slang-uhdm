@@ -24,6 +24,7 @@
 #include "R248.h"
 #include "R249.h"
 #include "R250.h"
+#include "R252.h"
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
@@ -4998,6 +4999,218 @@ static void memberReadNames215(slang::ast::Compilation& comp, std::set<std::stri
     for (auto& tree : comp.getSyntaxTrees())
         scan(scan, tree->root());
 }
+// § impPatMemberReadParentsAll252's reach: the struct parameters a package's
+// OWN parameter initializers member-select, as the producer's reduce reaches
+// them: a constant `?:` condition is evaluated and only the TAKEN branch is
+// read (the lazy substitution of § lazyTernary9), every other operand is
+// read.  BlackBePipeInt bp_common_pkg: `bp_default_cfg_p.cc_x_dim` in
+// bp_custom_cfg_p, `(ovr.cc_x_dim == "inv") ? bp_unicore_cfg_p.cc_x_dim :
+// ovr.cc_x_dim` in the derived configs.  Not reached (the base's listing
+// kept): a read only in a module (probe v11u114repro/grid/set1/g11,
+// set3/k12, golden's elaborated copy bare), a read by another package
+// (r11u215repro/cases/I/i18, the importer's read keeps the first-listing
+// shape), a read in an untaken branch (r11u250repro/cases/T/t03,
+// `(SEL == 1) ? d1.a : ...`); the first draft moved all of them away.
+static void pkgMemberReadNames252(slang::ast::Compilation& comp, std::set<std::string>& out) {
+    for (auto* pk : comp.getPackages()) {
+        if (!pk)
+            continue;
+        struct V : public ASTVisitor<V, VisitFlags::Expressions> {
+            const PackageSymbol* home = nullptr;
+            Compilation* comp = nullptr;
+            std::set<std::string>* out = nullptr;
+            void handle(const MemberAccessExpression& ma) {
+                auto& v = stripImplicitConv(ma.value());
+                if (v.kind == ExpressionKind::NamedValue) {
+                    auto& sy = v.as<NamedValueExpression>().symbol;
+                    if (sy.kind == SymbolKind::Parameter && sy.getParentScope() &&
+                        &sy.getParentScope()->asSymbol() == home) {
+                        out->insert(std::string(sy.name));
+                        // § memReadHomePkgKey252v: the home package too
+                        out->insert(std::string(home->name) + "::" + std::string(sy.name));
+                    }
+                }
+                visitDefault(ma);
+            }
+            void handle(const ConditionalExpression& co) {
+                if (co.conditions.size() != 1 || co.conditions[0].pattern) {
+                    visitDefault(co);
+                    return;
+                }
+                co.conditions[0].expr->visit(*this);
+                ASTContext cx(comp->getRoot(), LookupLocation::max);
+                ConstantValue cv = cx.tryEval(*co.conditions[0].expr);
+                if (cv && cv.isInteger() && !cv.integer().hasUnknown()) {
+                    (cv.isTrue() ? co.left() : co.right()).visit(*this);
+                    return;
+                }
+                co.left().visit(*this);
+                co.right().visit(*this);
+            }
+        } v;
+        v.home = pk;
+        v.comp = &comp;
+        v.out = &out;
+        for (auto& m : pk->members())
+            if (m.kind == SymbolKind::Parameter)
+                if (auto* init = m.as<ParameterSymbol>().getInitializer())
+                    init->visit(v);
+    }
+    // § memReadHomePkgKey252v (v11u252): a package that imports the home
+    // package hands its importers copies whose vpiImported names IT, which
+    // golden parents like the home's own (v11u252 VS vs16: q imports and
+    // exports p, top imports q; r11u236repro BP/bp04: no export), so the
+    // home key is extended to every importing package, transitively.  A
+    // package that never imports the home (v11u252 VS vs02: q's own
+    // unrelated `D`) is not reached.
+    std::map<std::string, std::set<std::string>> reexp;  // home -> exporters
+    for (auto& tree : comp.getSyntaxTrees()) {
+        auto scan = [&](auto& self, const syntax::SyntaxNode& n) -> void {
+            if (n.kind == syntax::SyntaxKind::PackageDeclaration) {
+                auto& md = n.as<syntax::ModuleDeclarationSyntax>();
+                std::string q(md.header->name.valueText());
+                std::set<std::string> imps;
+                std::vector<std::string> exps;
+                bool all = false;
+                for (auto* m : md.members) {
+                    if (m->kind == syntax::SyntaxKind::PackageImportDeclaration)
+                        for (auto* it : m->as<syntax::PackageImportDeclarationSyntax>().items)
+                            imps.insert(std::string(it->package.valueText()));
+                    else if (m->kind == syntax::SyntaxKind::PackageExportDeclaration)
+                        for (auto* it : m->as<syntax::PackageExportDeclarationSyntax>().items) {
+                            if (it->package.kind == parsing::TokenKind::Star)
+                                all = true;
+                            else
+                                exps.push_back(std::string(it->package.valueText()));
+                        }
+                    else if (m->kind == syntax::SyntaxKind::PackageExportAllDeclaration)
+                        all = true;
+                }
+                (void)all;
+                (void)exps;
+                // every importer, exporting or not: Surelog lists an
+                // importer's imported parameters in ITS importers with
+                // vpiImported naming it (r11u236repro BP/bp04: top imports
+                // pk2, pk2 imports pk without an export; golden parents
+                // top's copies of pk's member-read parameters, vpiImported
+                // pk2; the export-only key moved 4 records away there)
+                for (auto& i : imps)
+                    reexp[i].insert(q);
+                return;
+            }
+            for (size_t i = 0, k = n.getChildCount(); i < k; i++)
+                if (auto* ch = n.childNode(i))
+                    self(self, *ch);
+        };
+        scan(scan, tree->root());
+    }
+    for (int round = 0; round < 4 && !reexp.empty(); ++round) {
+        std::set<std::string> add;
+        for (auto& k : out) {
+            auto c = k.find("::");
+            if (c == std::string::npos)
+                continue;
+            if (auto it = reexp.find(k.substr(0, c)); it != reexp.end())
+                for (auto& q : it->second)
+                    add.insert(q + k.substr(c));
+        }
+        size_t before = out.size();
+        out.insert(add.begin(), add.end());
+        if (out.size() == before)
+            break;
+    }
+}
+// § impPatConcatSelReadParents252 — the parameters an ELEMENT SELECT of a
+// concatenation parameter reaches (`all_cfgs_gp[bp_params_p]` over
+// `all_cfgs_gp = {bp_multicore_4_l2e_cfg_p, ..., bp_custom_cfg_p, ...}`):
+// Surelog's substituteAssignedValue expands every element of the concat to
+// answer the select, so each named element is expanded where it is read, as
+// a member read expands it.  A syntax scan: the bases of element selects,
+// then the identifier elements of those parameters' concatenation
+// initializers.
+static void concatSelReadNames252(slang::ast::Compilation& comp, std::set<std::string>& out) {
+    std::set<std::string> selBases;
+    std::map<std::string, std::vector<std::string>> concatElems;
+    // § concatSelInParamInit252v (R11V252_CONCATSELPARAM_OFF; v11u252) —
+    // the element select reaches the concatenation through
+    // substituteAssignedValue only when it is itself a PARAMETER INITIALIZER
+    // (r11u252's S s13 header `localparam s_t P = ALL[Q]`, v11u252 VS vs12,
+    // vs13, vs14 move toward golden) whose base names the concatenation, not
+    // a same-named parameter its own module or package declares; a select in
+    // a continuous assignment or any other runtime expression is not reduced
+    // so, and golden keeps the base's listing (v11u252 VS vs01 a module
+    // signal named like the package concatenation, vs07 `assign o =
+    // ALL[0]`, vs08, vs15 a module header parameter `ALL` selected in
+    // another header parameter: the law moved two records away on each,
+    // vs01 STRICT_EQUAL -> fullname).
+    const bool selInParam252v = r11v252On("R11V252_CONCATSELPARAM_OFF");
+    std::set<std::string> selBasesAll;  // the law's set, for the trace
+    // per enclosing module/interface/program/package declaration: the
+    // parameter names it declares (non-concatenation) and its select bases
+    std::map<const syntax::SyntaxNode*, std::set<std::string>> ownPlain;
+    std::vector<std::pair<const syntax::SyntaxNode*, std::string>> selIn;
+    auto scan = [&](auto& self, const syntax::SyntaxNode& node, bool inParam,
+                    const syntax::SyntaxNode* encl) -> void {
+        if (node.kind == syntax::SyntaxKind::ParameterDeclaration)
+            inParam = true;
+        if (node.kind == syntax::SyntaxKind::ModuleDeclaration ||
+            node.kind == syntax::SyntaxKind::InterfaceDeclaration ||
+            node.kind == syntax::SyntaxKind::ProgramDeclaration ||
+            node.kind == syntax::SyntaxKind::PackageDeclaration)
+            encl = &node;
+        std::string base;
+        if (node.kind == syntax::SyntaxKind::ElementSelectExpression) {
+            auto* l = node.as<syntax::ElementSelectExpressionSyntax>().left.get();
+            while (l && l->kind == syntax::SyntaxKind::ScopedName &&
+                   l->as<syntax::ScopedNameSyntax>().separator.kind == parsing::TokenKind::DoubleColon)
+                l = l->as<syntax::ScopedNameSyntax>().right;
+            if (l && l->kind == syntax::SyntaxKind::IdentifierName)
+                base = std::string(l->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+        }
+        else if (node.kind == syntax::SyntaxKind::IdentifierSelectName) {
+            auto& isn = node.as<syntax::IdentifierSelectNameSyntax>();
+            if (!isn.selectors.empty())
+                base = std::string(isn.identifier.valueText());
+        }
+        if (!base.empty()) {
+            selBasesAll.insert(base);
+            if (!selInParam252v)
+                selBases.insert(base);
+            else if (inParam)
+                selIn.emplace_back(encl, base);
+        }
+        if (node.kind == syntax::SyntaxKind::Declarator && node.parent &&
+            node.parent->kind == syntax::SyntaxKind::ParameterDeclaration) {
+            auto& dc = node.as<syntax::DeclaratorSyntax>();
+            if (dc.initializer && dc.initializer->expr &&
+                dc.initializer->expr->kind == syntax::SyntaxKind::ConcatenationExpression) {
+                auto& v = concatElems[std::string(dc.name.valueText())];
+                for (auto* e : dc.initializer->expr->as<syntax::ConcatenationExpressionSyntax>()
+                                   .expressions)
+                    if (e && e->kind == syntax::SyntaxKind::IdentifierName)
+                        v.push_back(std::string(
+                            e->as<syntax::IdentifierNameSyntax>().identifier.valueText()));
+            }
+            else
+                ownPlain[encl].insert(std::string(dc.name.valueText()));
+        }
+        for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+            if (auto* ch = node.childNode(i))
+                self(self, *ch, inParam, encl);
+    };
+    for (auto& tree : comp.getSyntaxTrees())
+        scan(scan, tree->root(), false, nullptr);
+    for (auto& [e, b] : selIn)
+        if (!ownPlain[e].count(b))
+            selBases.insert(b);
+    for (auto& [nm, els] : concatElems) {
+        if (selBases.count(nm))
+            for (auto& e : els)
+                out.insert(e);
+        else if (selBasesAll.count(nm))
+            tr252("concatSelInParamInit252v", nm);
+    }
+}
 static void impPatCopyFirstListing215(UHDM::design* d, Compilation& comp) {
     if (!r11u215On("R11U215_IMPPATFIRST_OFF") || !d)
         return;
@@ -5016,6 +5229,31 @@ static void impPatCopyFirstListing215(UHDM::design* d, Compilation& comp) {
     std::set<std::string> memberRead;
     if (getenv("R11V215_MEMBERREAD_OFF") == nullptr)
         memberReadNames215(comp, memberRead);
+    // § impPatConcatSelReadParents252 (R11U252_CONCATSELREAD_OFF): such a
+    // parameter joins the member-read set, so § impPatMemberReadParentsAll252
+    // parents every listing of it (golden BlackBePipeInt bp_be_pipe_int
+    // `bp_custom_cfg_p`, `bp_unicore_megaparrot_cfg_p` ... `ref_typespec
+    // work@bp_be_pipe_int`, #294444 and 20 more per mode; grid cases/S s13,
+    // s14 the unselected control).  Rides on R11U252_MEMREADPARENT_OFF too.
+    // the names § impPatMemberReadParentsAll252 parents: member-read in a
+    // package, and (§ impPatConcatSelReadParents252) the elements of a
+    // selected concatenation parameter
+    std::set<std::string> parentAll252;
+    std::set<std::string> concat252;  // § memReadHomePkgKey252v
+    if (r11u252On("R11U252_MEMREADPARENT_OFF") &&
+        getenv("R11V215_MEMBERREAD_OFF") == nullptr) {
+        pkgMemberReadNames252(comp, parentAll252);
+        if (r11u252On("R11U252_CONCATSELREAD_OFF")) {
+            std::set<std::string> cs252;
+            concatSelReadNames252(comp, cs252);
+            for (auto& n : cs252) {
+                if (memberRead.insert(n).second)
+                    tr252("impPatConcatSelReadParents252", n);
+                parentAll252.insert(n);
+                concat252.insert(n);
+            }
+        }
+    }
     std::function<void(UHDM::module_inst*)> inst;
     std::function<void(UHDM::gen_scope*)> gscope;
     auto fix = [&](const UHDM::VectorOfparam_assign* v, const std::string& where) {
@@ -5043,6 +5281,56 @@ static void impPatCopyFirstListing215(UHDM::design* d, Compilation& comp) {
                 continue;
             if (memberRead.count(std::string(p->VpiName()))) {
                 trace215("diagImpPatMemberRead215", std::string(p->VpiName()));
+                // § impPatMemberReadParentsAll252 (R11U252_MEMREADPARENT_OFF)
+                // — the other half of § impPatMemberReadKeepsParent215v's
+                // decode: golden parents the op ref of EVERY listing of a
+                // member-read pattern parameter, and the elaborated module's
+                // flat op75 (the wide walk's and the RULE 5 substitution's
+                // fresh ref) was left bare: golden BlackBePipeInt
+                // bp_be_pipe_int `bp_default_cfg_p` / `bp_unicore_*_cfg_p` /
+                // `bp_multicore_*_cfg_p` ... `ref_typespec
+                // work@bp_be_pipe_int` (#294152 and 102 more per mode), the
+                // struct `O` read by `O.a` (grid cases/S s02).  Parented at
+                // the op and named by the instance, as the later listings
+                // of an unread parameter already are.  A packed struct
+                // pattern only.
+                // § memReadHomePkgKey252v (R11V252_MEMREADPKG_OFF; v11u252)
+                // — the reach is a package's OWN parameter, so an import copy
+                // is parented only when it comes from that package
+                // (vpiImported): a same-named struct parameter of another
+                // package (v11u252 VS vs02: p reads its own `D.a`, the module
+                // imports q's unread `D`) keeps the base's listing, where the
+                // law, keyed by name alone, moved its ref one record away.
+                // The elements of a selected concatenation
+                // (§ impPatConcatSelReadParents252) keep the name key.
+                if (r11v252On("R11V252_MEMREADPKG_OFF")
+                        ? (concat252.count(std::string(p->VpiName())) ||
+                           parentAll252.count(std::string(p->VpiImported()) + "::" +
+                                              std::string(p->VpiName())))
+                        : parentAll252.count(std::string(p->VpiName())))
+                    ;
+                else if (parentAll252.count(std::string(p->VpiName())))
+                    tr252("memReadHomePkgKey252v", where + " " + std::string(p->VpiImported()) +
+                                                       "::" + std::string(p->VpiName()));
+                if (r11v252On("R11V252_MEMREADPKG_OFF")
+                        ? (concat252.count(std::string(p->VpiName())) ||
+                           parentAll252.count(std::string(p->VpiImported()) + "::" +
+                                              std::string(p->VpiName())))
+                        : parentAll252.count(std::string(p->VpiName())))
+                    if (auto* r252 = pa->Rhs();
+                        r252 && r252->UhdmType() == UHDM::uhdmoperation &&
+                        ((UHDM::operation*)r252)->VpiOpType() == vpiAssignmentPatternOp)
+                        if (auto* rt252 = ((UHDM::operation*)r252)->Typespec();
+                            rt252 && !rt252->VpiParent() &&
+                            rt252->VpiFullName().empty())
+                            if (auto* at252 = rt252->Actual_typespec();
+                                at252 && at252->UhdmType() == UHDM::uhdmstruct_typespec &&
+                                ((UHDM::struct_typespec*)at252)->VpiPacked()) {
+                                rt252->VpiParent(r252);
+                                rt252->VpiFullName(where);
+                                tr252("impPatMemberReadParentsAll252",
+                                      where + " " + std::string(p->VpiName()));
+                            }
                 continue;
             }
             bool first = seen.insert(std::string(p->VpiName())).second;
@@ -8827,7 +9115,30 @@ static std::optional<SourceRange> ternPickedLeaf250(const Expression& e0,
             auto* init = sym.as<ParameterSymbol>().getInitializer();
             if (!init)
                 return std::nullopt;
-            auto& pi = stripImplicitConv(*init);
+            const Expression* pip = &stripImplicitConv(*init);
+            // § ternLeafThroughParamRef252 (R11U252_TERNREFCHAIN_OFF) — a
+            // struct parameter written as a bare reference to another of the
+            // same type (`localparam bp_proc_param_s bp_unicore_cfg_p =
+            // bp_default_cfg_p`) holds the referenced parameter's own
+            // pattern (Surelog's substituteAssignedValue), so a member read
+            // off it reaches that pattern's literal: golden BlackBePipeInt
+            // `bp_unicore_megaparrot_cfg_p`'s `cc_x_dim` at
+            // bp_default_cfg_p's `1` (dut.sv 2047:16-17, #191992 and the
+            // members after it; grid cases/S), ours the ternary's span.
+            if (r11u252On("R11U252_TERNREFCHAIN_OFF"))
+                for (int g252 = 0; g252 < 8 && pip->kind == ExpressionKind::NamedValue; ++g252) {
+                    auto& rs252 = pip->as<NamedValueExpression>().symbol;
+                    if (rs252.kind != SymbolKind::Parameter ||
+                        &rs252.as<ParameterSymbol>().getType().getCanonicalType() !=
+                            &sym.as<ParameterSymbol>().getType().getCanonicalType())
+                        break;
+                    auto* ri252 = rs252.as<ParameterSymbol>().getInitializer();
+                    if (!ri252)
+                        break;
+                    tr252("ternLeafThroughParamRef252", std::string(rs252.name));
+                    pip = &stripImplicitConv(*ri252);
+                }
+            auto& pi = *pip;
             if (pi.kind != ExpressionKind::StructuredAssignmentPattern)
                 return std::nullopt;
             auto& ap = pi.as<StructuredAssignmentPatternExpression>();
@@ -16474,7 +16785,58 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 rhsLoc = *bl158;
                             }
                     }
-                    if (!importedFold)
+                    // § impSizeCastFoldLocated252 (R11U252_IMPCASTLOC_OFF)
+                    // — a SIZE cast (`(W+V)'(x)`, `24'(x)`, `V'(x)`) is not
+                    // the bare family: the importer's folded copy is located
+                    // at the whole init, in both module views (golden
+                    // BlackBePipeInt bp_be_pipe_int `host_base_addr_gp =
+                    // (dev_id_width_gp+dev_addr_width_gp)'('h0010_0000)`
+                    // dut.sv 2537:40-89, #190646 / #190553; grid cases/F
+                    // f01-f03, f08, f10 with a parameter port list, the
+                    // r11u250 decode/B/b02 shape).  Every other importedFold
+                    // form keeps its bare constant.
+                    // A CONCATENATION or replication operand (`3'({3'h1})`,
+                    // `8'({2{4'h3}})`) keeps the bare constant: golden
+                    // ParamTypespec / uhdm2rtlil DivisionOfSize `PartInvDefault`
+                    // and probe v11u114repro/grid/set2/m02 (the first draft
+                    // moved all three away; grid cases/F f15, f16).
+                    const bool castLoc252 =
+                        importedFold && sizeCastVal &&
+                        [&] {
+                            auto ok252 = stripImplicitConv(
+                                             scv.as<ConversionExpression>().operand())
+                                             .kind;
+                            if (ok252 == ExpressionKind::Concatenation ||
+                                ok252 == ExpressionKind::Replication)
+                                return false;
+                            // § impCastNestedConcatBare252v
+                            // (R11V252_CASTNESTCAT_OFF; v11u252) — a
+                            // concatenation or replication ANYWHERE in the
+                            // cast operand (`8'({4'h1} + 1)`) gives golden
+                            // the same bare constant (no location, size 8)
+                            // as a concatenation operand does: the law
+                            // located it (v11u252 VF vf04, pristine right).
+                            // Operators are walked, call arguments are not.
+                            if (!r11v252On("R11V252_CASTNESTCAT_OFF"))
+                                return true;
+                            struct CatV252 : public ASTVisitor<CatV252, VisitFlags::Expressions> {
+                                bool cat = false;
+                                void handle(const ConcatenationExpression&) { cat = true; }
+                                void handle(const ReplicationExpression&) { cat = true; }
+                                // a call's arguments are not the cast's
+                                // operand tree (`8'($countones({2{..}}))`
+                                // keeps the law's location: v11u252 VF vf15)
+                                void handle(const CallExpression&) {}
+                            } cv252;
+                            scv.as<ConversionExpression>().operand().visit(cv252);
+                            if (cv252.cat)
+                                tr252("impCastNestedConcatBare252v", std::string(ps.name));
+                            return !cv252.cat;
+                        }() &&
+                        r11u252On("R11U252_IMPCASTLOC_OFF");
+                    if (castLoc252)
+                        tr252("impSizeCastFoldLocated252", std::string(ps.name));
+                    if (!importedFold || castLoc252)
                         setLoc((UHDM::constant*)rhs, rhsLoc);
                     // § impCondFlipTakenLeaf242 (r11u242; Earlgrey_0_1 d/t
                     // #122230) — THE DEFINITION LISTING OF AN IMPORTER WITH A
@@ -18322,8 +18684,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     auto* op2 = s.MakeOperation();
                     op2->VpiOpType(75);
                     op2->VpiParent(pa);
+                    // § impStructRefOpAtRef252 (R11U252_IMPREFLOC_OFF) — a
+                    // MATERIALIZED IMPORT copy of a package struct parameter
+                    // written as a bare reference to another (`localparam
+                    // bp_proc_param_s bp_unicore_cfg_p = bp_default_cfg_p`)
+                    // is the elaborated package listing's object, whose
+                    // substituted op75 spans the REFERENCE (BlackBePipeInt
+                    // dut.sv 2565:47-63 in both bp_be_pipe_int views,
+                    // #190751; grid cases/S), not the borrowed pattern a
+                    // module's own reference keeps.
+                    const bool impRefLoc252 =
+                        structRefPat9 && !inPackage && !structOvPat && isImported &&
+                        r11u252On("R11U252_IMPREFLOC_OFF");
+                    if (impRefLoc252)
+                        tr252("impStructRefOpAtRef252", std::string(ps.name));
                     setLoc(op2, structOvPat ? structOvLoc
-                                : (structRefPat9 && !inPackage)
+                                : (structRefPat9 && !inPackage && !impRefLoc252)
                                     ? structRefPat9->sourceRange
                                     : init->sourceRange);
                     // § elabPatQualRefQualSpan133 — an ELABORATED module's
@@ -20709,6 +21085,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                                 tr250("patFlatTernPickedLeafSpan250",
                                                       std::string(ps.name));
                                             }
+                                        // § patFlatBinLeftSpan252
+                                        // (R11U252_PATBINLEFT_OFF) — a member
+                                        // written as ARITHMETIC directly in the
+                                        // walked pattern is reduced at its
+                                        // LEFT operand's own node, the
+                                        // § patFlatMemberLeftSpan169 rule
+                                        // ternPickedLeaf250 applies one level
+                                        // down: golden BlackBePipeInt
+                                        // bp_default_cfg_p `icache_features :
+                                        // (1 << e_cfg_enabled)` 2088:29-30 and
+                                        // the `|` chain 2077:28-2081:58
+                                        // (#294395, #294400 and 33 more per
+                                        // mode; grid cases/S), ours the whole
+                                        // operation.
+                                        if (fv9.kind == ExpressionKind::BinaryOp &&
+                                            r11u252On("R11U252_PATBINLEFT_OFF")) {
+                                            setLoc(fc9, binaryLeftChildRange169(fv9));
+                                            tr252("patFlatBinLeftSpan252", std::string(ps.name));
+                                        }
                                         opndW->push_back(fc9);
                                         continue;
                                     }
@@ -22620,6 +23015,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             ca9->VpiColumnNo(o9->VpiColumnNo());
                             ca9->VpiEndLineNo(o9->VpiEndLineNo());
                             ca9->VpiEndColumnNo(o9->VpiEndColumnNo());
+                            // § lazyTernArithLeftSpan252
+                            // (R11U252_LAZYARITHLOC_OFF) — the reduced
+                            // element is located as every reduced binary
+                            // operation is, at its LEFT operand's own node
+                            // (CompileExpression's tail, § patFlatMemberLeftSpan169):
+                            // golden BlackBePipeInt bp_be_pipe_int
+                            // `coh_noc_cord_markers_pos_p` dut.sv
+                            // 15483:12-34 (`coh_noc_y_cord_width_p`), ours
+                            // the whole sum 15483:12-57 (#293887 and its
+                            // mem/io twins; grid cases/T).
+                            if (stripImplicitConv(*match9).kind ==
+                                    ExpressionKind::BinaryOp &&
+                                r11u252On("R11U252_LAZYARITHLOC_OFF")) {
+                                setLoc(ca9, binaryLeftChildRange169(
+                                                stripImplicitConv(*match9)));
+                                tr252("lazyTernArithLeftSpan252", std::string(ps.name));
+                            }
                             o9 = ca9;
                         }
                     }
@@ -26178,6 +26590,7 @@ void drainLvIdxRead181(UHDM::Serializer& s);
 void strLitContEndDrain220(UHDM::Serializer& s);
 // § cloneHpIdxNamesByChain220 (r11u220) — defined in ExprEmit.cpp.
 void cloneHpIdxDrain220(UHDM::Serializer& s);
+bool& cloneIdxSelElabView252();  // § cloneHpIdxSelectByChain252 (ExprEmit)
 // § strLitContOwnerEnd224 and § strLitPpEscIdShift224 (r11u224) — defined
 // in ExprEmit.cpp.
 void strLitContOwnerDrain224(UHDM::Serializer& s);
@@ -26873,6 +27286,7 @@ void UhdmExporter::drainPaNameCopySrc38() {
     drainLvIpsChain244(s);  // § lvHpIpsOperandChain244 (r11u244)
     // § cloneHpIdxNamesByChain220 (r11u220): after the path-index drains
     // (it renames only the clone bodies' select-index references).
+    cloneIdxSelElabView252() = elabUhdmView121;
     cloneHpIdxDrain220(s);
     // § fwdPkgRefClassScopeSpan227 (r11u227): a forward package reference
     // in expression grammar spans its `Q::` (every listing is built here).
@@ -32334,6 +32748,58 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
 // the definition's (a generate-scope localparam is not on this road).
 // `R11U124_OFF=1` / `R11U124_PVAL_OFF=1` drop it; `R11U124_PVALNEG_OFF=1`
 // drops the clearing half alone.
+// § dupImpTypeParamDepAbstains252v (R11V252_DUPTYPEPARAM_OFF; v11u252) — the
+// package parameters whose initializer names one of its package's TYPE
+// parameters, keyed as paramValueIsDefRhs124's key (name, \x01, package).
+// Golden's definition view keeps such an initializer an operation
+// (`parameter A = $bits(T) * 2` with `parameter type T`: no value on any
+// listing entry), where our definition Rhs folds it; § dupImportSameValueKeeps252
+// copied that fold onto both `$unit`-import Parameters() entries (r11u252
+// U/u07, v11u252 VU vu13: 2 and 4 records away), so a duplicated key of
+// such a parameter is left alone as the base left it.
+static std::set<std::string>& typeParamDep252v() {
+    static std::set<std::string> s;
+    return s;
+}
+static void collectTypeParamDep252v(slang::ast::Compilation& comp) {
+    typeParamDep252v().clear();
+    if (!r11v252On("R11V252_DUPTYPEPARAM_OFF"))
+        return;
+    for (auto* pk : comp.getPackages()) {
+        if (!pk)
+            continue;
+        std::set<std::string> tps;
+        for (auto& m : pk->members())
+            if (m.kind == SymbolKind::TypeParameter)
+                tps.insert(std::string(m.name));
+        if (tps.empty())
+            continue;
+        for (auto& m : pk->members()) {
+            if (m.kind != SymbolKind::Parameter)
+                continue;
+            auto* init = m.as<ParameterSymbol>().getInitializer();
+            if (!init || !init->syntax)
+                continue;
+            bool dep = false;
+            auto scan = [&](auto& self, const syntax::SyntaxNode& n) -> void {
+                if (dep)
+                    return;
+                if (n.kind == syntax::SyntaxKind::IdentifierName &&
+                    tps.count(std::string(
+                        n.as<syntax::IdentifierNameSyntax>().identifier.valueText()))) {
+                    dep = true;
+                    return;
+                }
+                for (size_t i = 0, k = n.getChildCount(); i < k; i++)
+                    if (auto* ch = n.childNode(i))
+                        self(self, *ch);
+            };
+            scan(scan, *init->syntax);
+            if (dep)
+                typeParamDep252v().insert(std::string(m.name) + '\x01' + std::string(pk->name));
+        }
+    }
+}
 static void paramValueIsDefRhs124(UHDM::design* d) {
     static const bool off124 = getenv("R11U124_OFF") != nullptr ||
                                getenv("R11U124_PVAL_OFF") != nullptr;
@@ -32387,6 +32853,29 @@ static void paramValueIsDefRhs124(UHDM::design* d) {
                 p->VpiValue(*v);
             if (seen[key(p)]++ == 0)
                 vals.emplace(key(p), *v);
+            // § dupImportSameValueKeeps252 — a key listed twice is
+            // ambiguous only when its two values DISAGREE.  A `$unit`-scope
+            // `import p::*;` lists every package parameter twice in the
+            // module's DEFINITION listing (measured on golden and on ours:
+            // Parameters() and Param_assigns() each hold A, B, C, A, B, C,
+            // all vpiImported p), both copies made from one package
+            // declaration, so a same-key pair carries one value, and golden
+            // writes it on BOTH Parameters() entries (SimpleUVM d/t work@top.UVM_ABSTRACT
+            // UINT:16384; tools/probe/r11u251repro/decode/HP h01, h02).
+            // Two disagreeing values still leave the listing alone, and so
+            // does an agreed EMPTY value (the clearing half): our definition
+            // Rhs of `parameter real R = 1.5 * 2` stays an operation where
+            // golden's folds, so clearing the listing would move golden's
+            // REAL:3.000000 away (grid cases/U u12, the first draft did).
+            // Switch R11U252_DUPIMPVAL_OFF.
+            else if (r11u252On("R11U252_DUPIMPVAL_OFF") && vals.count(key(p)) &&
+                     vals[key(p)] == *v && !v->empty() &&
+                     !(typeParamDep252v().count(key(p)) &&
+                       (tr252("dupImpTypeParamDepAbstains252v",
+                              key(p).substr(0, key(p).find('\x01'))),
+                        true))) {
+                tr252("dupImportSameValueKeeps252", key(p).substr(0, key(p).find('\x01')) + " " + *v);
+            }
             else
                 vals.erase(key(p));  // ambiguous: leave the listing alone
             if (rec)
@@ -33272,6 +33761,7 @@ void UhdmExporter::drainShareDefParamTs() {
     }
     pkgTdCast140Pending().clear();
     pkgTdCast151DefView().clear();
+    collectTypeParamDep252v(comp);  // § dupImpTypeParamDepAbstains252v
     paramValueIsDefRhs124(d);
     paramFoldParenSpan131(d);  // § paramFoldParenSpan131
     ovrMultiDimConstUnparented131(d);  // § ovrMultiDimConstUnparented131
