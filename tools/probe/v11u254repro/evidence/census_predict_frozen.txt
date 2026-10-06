@@ -1,0 +1,28 @@
+# v11u254 mover prediction, frozen 2026-10-05T23:32:14-04:00 BEFORE the law sweep, from the R11U254_TRACE firing census (law binary md5 29b5f8dd) over fence-filtered probe + both corpora both modes
+# predicted corpus movers: BuildUVMPkg d/t (SHELLSPAN), Earlgrey_0_1 d/t (GCAPSOP, HCSELPORT, REPLCOUNT, PKGSELREF d only)
+# fire-only candidates (statement-position shell calls; predicted NOT to move bytes): MiniAmiq d/t, SeqDriver d/t, SimpleUVM d/t, Scoreboard d
+# uhdm2rtlil corpus: 0 firings in both modes -> 0 movers; downstream lane predicted 0 movers
+probe r10earl41repro__v41v_comment.uhdm genCaPsBoundOpChain254:4 pkgSelIdxRefColons254:4
+probe r10earl82repro__g6_earl82.uhdm procReplCountOwner254:1
+probe r10earl_repro__qa20.uhdm hcSelIdxTsSkipsPort254:1
+probe r10earl_repro__wd.uhdm procReplCountOwner254:1
+probe r10uvm103repro__g103_a2.uhdm shellCallInvocationSpan254:1
+probe r10uvm160repro__g160_c_context.uhdm shellCallInvocationSpan254:1
+probe r10uvm167repro__g167_b_spell.uhdm shellCallInvocationSpan254:3
+probe r10uvm59repro__a2_position.uhdm shellCallInvocationSpan254:1
+probe r10uvm59repro__d10_argstmt.uhdm shellCallInvocationSpan254:1
+probe r10v103repro__v103_c5_slots.uhdm shellCallInvocationSpan254:3
+probe r10v162repro__v162_3_ctx.uhdm shellCallInvocationSpan254:1
+probe r10v167repro__vA_meth.uhdm shellCallInvocationSpan254:10
+probe r10v167repro__vD_kinds.uhdm shellCallInvocationSpan254:2
+surelog BuildUVMPkg/default shellCallInvocationSpan254:5
+surelog BuildUVMPkg/testflags shellCallInvocationSpan254:5
+surelog Earlgrey_0_1/default genCaPsBoundOpChain254:10 hcSelIdxTsSkipsPort254:7 pkgSelIdxRefColons254:1 procReplCountOwner254:3
+surelog Earlgrey_0_1/testflags genCaPsBoundOpChain254:10 hcSelIdxTsSkipsPort254:7 procReplCountOwner254:3
+surelog MiniAmiq/default shellCallInvocationSpan254:3
+surelog MiniAmiq/testflags shellCallInvocationSpan254:3
+surelog Scoreboard/default shellCallInvocationSpan254:3
+surelog SeqDriver/default shellCallInvocationSpan254:3
+surelog SeqDriver/testflags shellCallInvocationSpan254:3
+surelog SimpleUVM/default shellCallInvocationSpan254:3
+surelog SimpleUVM/testflags shellCallInvocationSpan254:3

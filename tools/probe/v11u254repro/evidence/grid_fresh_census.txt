@@ -1,0 +1,91 @@
+case-views 94; R11U254_OFF = pristine bytes on 94 of 94
+R11U254_FORINITSEL_OFF: moves 13 case-views
+R11U254_GCAPSOP_OFF: moves 2 case-views
+R11U254_HCSELPORT_OFF: moves 10 case-views
+R11U254_PKGSELREF_OFF: moves 12 case-views
+R11U254_REPLCOUNT_OFF: moves 14 case-views
+R11U254_SHELLSPAN_OFF: moves 12 case-views
+CHANGE F/vf01_class_prop NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_fullname
+CMPLINES F/vf01_class_prop 15 -> 0
+MOVER F/vf01_class_prop NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_fullname owners=FORINITSEL
+EXIT F/vf01_class_prop_el 139 0
+CHANGE F/vf01_class_prop_el SLANG_FAIL -> STRICT_NOTEQUAL_fullname
+CMPLINES F/vf01_class_prop_el  -> 0
+MOVER F/vf01_class_prop_el SLANG_FAIL -> STRICT_NOTEQUAL_fullname owners=FORINITSEL
+CMPLINES F/vf03_selects 15 -> 94
+MOVER F/vf03_selects NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=FORINITSEL
+EXIT F/vf03_selects_el 139 0
+CHANGE F/vf03_selects_el SLANG_FAIL -> NOT_EQUAL_stage1
+CMPLINES F/vf03_selects_el  -> 94
+MOVER F/vf03_selects_el SLANG_FAIL -> NOT_EQUAL_stage1 owners=FORINITSEL
+MOVER F/vf04_hier NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=FORINITSEL
+CMPLINES F/vf05_pkg_prog 15 -> 29
+MOVER F/vf05_pkg_prog NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=FORINITSEL
+EXIT F/vf05_pkg_prog_el 139 0
+CHANGE F/vf05_pkg_prog_el SLANG_FAIL -> NOT_EQUAL_stage1
+CMPLINES F/vf05_pkg_prog_el  -> 58
+MOVER F/vf05_pkg_prog_el SLANG_FAIL -> NOT_EQUAL_stage1 owners=FORINITSEL
+CMPLINES F/vf06_comb 15 -> 0
+MOVER F/vf06_comb NOT_EQUAL_stage1 -> STRICT_EQUAL_184_objects owners=FORINITSEL
+EXIT F/vf06_comb_el 139 0
+CMPLINES F/vf06_comb_el  -> 0
+MOVER F/vf06_comb_el SLANG_FAIL -> STRICT_EQUAL_188_objects owners=FORINITSEL
+CMPLINES F/vf07_formal_port 15 -> 0
+MOVER F/vf07_formal_port NOT_EQUAL_stage1 -> STRICT_EQUAL_211_objects owners=FORINITSEL
+EXIT F/vf07_formal_port_el 139 0
+CMPLINES F/vf07_formal_port_el  -> 0
+MOVER F/vf07_formal_port_el SLANG_FAIL -> STRICT_EQUAL_210_objects owners=FORINITSEL
+CMPLINES F/vf08_containers 15 -> 0
+MOVER F/vf08_containers NOT_EQUAL_stage1 -> STRICT_EQUAL_209_objects owners=FORINITSEL
+EXIT F/vf08_containers_el 139 0
+CMPLINES F/vf08_containers_el  -> 0
+MOVER F/vf08_containers_el SLANG_FAIL -> STRICT_EQUAL_211_objects owners=FORINITSEL
+MOVER G/vg01_ips_varsel STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_255_objects owners=GCAPSOP
+MOVER G/vg01_ips_varsel_el STRICT_EQUAL_235_objects -> STRICT_EQUAL_235_objects owners=GCAPSOP
+MOVER H/vh01_opidx_2d NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=HCSELPORT
+MOVER H/vh01_opidx_2d_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=HCSELPORT
+MOVER H/vh02_genscope_depth STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_216_objects owners=HCSELPORT
+MOVER H/vh02_genscope_depth_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_216_objects owners=HCSELPORT
+MOVER H/vh03_concat_out STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_184_objects owners=HCSELPORT
+MOVER H/vh03_concat_out_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_184_objects owners=HCSELPORT
+MOVER H/vh05_portname_tricks STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_155_objects owners=HCSELPORT
+MOVER H/vh05_portname_tricks_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_155_objects owners=HCSELPORT
+MOVER P/vp01_locidx STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname owners=PKGSELREF
+MOVER P/vp03_nba_compound STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_286_objects owners=PKGSELREF
+MOVER P/vp04_idx_shapes NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=PKGSELREF
+MOVER P/vp05_member_func NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=PKGSELREF
+MOVER P/vp06_elab_depth STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname owners=PKGSELREF
+CHANGE P/vp07_otherpkg_idx STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_type
+MOVER P/vp07_otherpkg_idx STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_type owners=PKGSELREF
+MOVER P/vp08_call_idx NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=PKGSELREF
+MOVER P/vp09_array_idx NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=PKGSELREF
+CHANGE P/vp10_macro_idx STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_type
+MOVER P/vp10_macro_idx STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_type owners=PKGSELREF
+MOVER R/vr01_decl_param NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=REPLCOUNT
+MOVER R/vr01_decl_param_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=REPLCOUNT
+MOVER R/vr02_nested_paren STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_260_objects owners=REPLCOUNT
+MOVER R/vr02_nested_paren_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_255_objects owners=REPLCOUNT
+MOVER R/vr03_func_task_fork STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_251_objects owners=REPLCOUNT
+MOVER R/vr03_func_task_fork_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_243_objects owners=REPLCOUNT
+MOVER R/vr04_depth3 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_290_objects owners=REPLCOUNT
+MOVER R/vr04_depth3_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_287_objects owners=REPLCOUNT
+MOVER R/vr06_case_item STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_199_objects owners=REPLCOUNT
+MOVER R/vr06_case_item_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_197_objects owners=REPLCOUNT
+MOVER S/vs01_conds STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_109_objects owners=SHELLSPAN
+MOVER S/vs01_conds_el STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_130_objects owners=SHELLSPAN
+MOVER S/vs02_args STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_109_objects owners=SHELLSPAN
+MOVER S/vs02_args_el STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_130_objects owners=SHELLSPAN
+MOVER S/vs03_multiarg STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_99_objects owners=SHELLSPAN
+MOVER S/vs03_multiarg_el STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_120_objects owners=SHELLSPAN
+MOVER S/vs04_macro STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_55_objects owners=SHELLSPAN
+MOVER S/vs04_macro_el STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_76_objects owners=SHELLSPAN
+MOVER S/vs05_extern STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_211_objects owners=SHELLSPAN
+MOVER S/vs05_extern_el STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_281_objects owners=SHELLSPAN
+MOVER S/vs06_this STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_83_objects owners=SHELLSPAN
+MOVER S/vs06_this_el STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_98_objects owners=SHELLSPAN
+MOVER X/vx01_iface_body NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=HCSELPORT,PKGSELREF,REPLCOUNT
+MOVER X/vx01_iface_body_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=HCSELPORT,REPLCOUNT
+MOVER X/vx02_implicit NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=PKGSELREF,REPLCOUNT
+MOVER X/vx02_implicit_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=REPLCOUNT
+MOVER X/vx03_class_spec NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 owners=PKGSELREF
+moving 59, entering STRICT_EQUAL 34, leaving 0

@@ -22,6 +22,7 @@
 #include "R246.h"
 #include "R248.h"
 #include "R252.h"
+#include "R254.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -5813,7 +5814,59 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     auto* asn = s.MakeAssignment();
                     asn->VpiParent(fs);
                     setLoc(asn, fl.initializers[0]->sourceRange);
-                    auto& lhs = stripImplicitConv(iae.left());
+                    auto& lhs0 = stripImplicitConv(iae.left());
+                    // § forInitSelectLhsBase254 (r11u254) — AN OUTSIDE LOOP
+                    // VARIABLE WRITTEN THROUGH A SELECT IS NAMED BY ITS BASE.
+                    // `for (s.a = 0; ...)`, `for (arr[0] = 0; ...)`,
+                    // `for (v[3:0] = 0; ...)`: golden's init assignment
+                    // carries a ref_var named for the base variable (`s`,
+                    // full name `work@top.s`) located at the base identifier
+                    // alone; ours wrote no Lhs at all, and UHDM's
+                    // ElaboratorListener::enterFor_stmt reads `Lhs()` without
+                    // a null check — the --elabuhdm crash (rc 139) of
+                    // tools/probe/r11v124repro/hx/x02_forstep.  The select
+                    // chain (member access, element and range selects) is
+                    // descended to a NamedValue base; a `this` / `super` base,
+                    // a package-qualified base (golden writes a variable object
+                    // for those, cases/F f04, V v05) and any other base
+                    // abstain.
+                    // Grid tools/probe/r11u254repro/cases/F.  Switch:
+                    // R11U254_FORINITSEL_OFF.
+                    const Expression* lb254 = &lhs0;
+                    if (r11u254On("R11U254_FORINITSEL_OFF")) {
+                        for (int g254 = 0; g254 < 32 && lb254; ++g254) {
+                            if (lb254->kind == ExpressionKind::MemberAccess)
+                                lb254 = &stripImplicitConv(
+                                    lb254->as<MemberAccessExpression>().value());
+                            else if (lb254->kind == ExpressionKind::ElementSelect)
+                                lb254 = &stripImplicitConv(
+                                    lb254->as<ElementSelectExpression>().value());
+                            else if (lb254->kind == ExpressionKind::RangeSelect)
+                                lb254 = &stripImplicitConv(
+                                    lb254->as<RangeSelectExpression>().value());
+                            else
+                                break;
+                        }
+                        if (lb254 != &lhs0) {
+                            // `this.k` / `super.k`: golden writes a variable
+                            // object there, not a base reference — abstain.
+                            // A package-qualified base (`pv::gs.a`): golden
+                            // writes a variable object there too — abstain.
+                            if (lb254->kind == ExpressionKind::NamedValue &&
+                                lb254->as<NamedValueExpression>().symbol.name != "this" &&
+                                lb254->as<NamedValueExpression>().symbol.name != "super" &&
+                                !(lb254->syntax &&
+                                  lb254->syntax->kind == syntax::SyntaxKind::ScopedName))
+                                tr254("forInitSelectLhsBase254",
+                                      std::string(lb254->as<NamedValueExpression>()
+                                                      .symbol.name));
+                            else {
+                                tr254("forInitSelectLhsBase254", "abstain");
+                                lb254 = &lhs0;
+                            }
+                        }
+                    }
+                    auto& lhs = *lb254;
                     if (lhs.kind == ExpressionKind::NamedValue) {
                         auto& lnv = lhs.as<NamedValueExpression>();
                         auto* rv = s.MakeRef_var();

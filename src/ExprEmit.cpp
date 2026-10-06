@@ -36,6 +36,7 @@
 #include "R246.h"
 #include "R248.h"
 #include "R252.h"
+#include "R254.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -1827,6 +1828,210 @@ static std::string ownerInstName192(const UHDM::any* p, int* gens = nullptr,
         }
     }
     return std::string();
+}
+// § pkgSelIdxRefColons254 (r11u254) — A REFERENCE READ INSIDE A SELECT OF A
+// PACKAGE-QUALIFIED BASE IS NAMED ON THE BASE WITH `::`.  Earlgrey prim_prince
+// `prim_cipher_pkg::PRINCE_ROUND_CONST[0][DataWidth-1:0]` (#214553, #346618):
+// golden's ref_obj `DataWidth` reads `prim_cipher_pkg::PRINCE_ROUND_CONST::
+// prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::
+// DataWidth`, ours `work@prim_prince.p_pre_round_xor.<C>.<C>.DataWidth`.
+// Measured (tools/probe/r11u254repro/decode/P, cases/Q): the scope prefix is
+// dropped, every select level the reference sits under is joined with `::`
+// and the base is written once more in front (`cp::R3[W-1][0]`: two copies,
+// `cp::RC[0][W-1:0]`: three) — when the select chain has two or more levels
+// and is the whole right side of an assignment or continuous assignment; a
+// single level, a select that is an operand, and a select of an unqualified
+// (imported) or local base keep the dotted name.  Not under --elabuhdm: there the elaborated
+// listing is UHDM's DeepClone of the definition's object, which copies the
+// name, where golden's elaborated listing (Surelog's own netlist) keeps the
+// dotted name (cases/Q q01, q05 in the elaborated view: the law moved those
+// clones away from golden).  The prefix must end in one or more segments
+// that all spell the same qualified base; any other shape abstains.  Switch:
+// R11U254_PKGSELREF_OFF.
+static void pkgSelIdxRefColons254(UHDM::ref_obj* ref, const UHDM::any* parent,
+                                  const slang::syntax::SyntaxNode* syn,
+                                  const std::string& prefix,
+                                  const std::string& name) {
+    if (!parent || !syn || prefix.find("::") == std::string::npos ||
+        name.empty())
+        return;
+    // the reference must sit inside an index or bound of a select chain of at
+    // least two levels (`C[0][W-1:0]`, `C[W-1][0]`) whose outermost select is
+    // itself the whole right side of an assignment or continuous assignment:
+    // an operand (`x ^ C[11][W-1:0]`, prim_prince p_post_round_xor) and a
+    // single level (`k1 ^= C[W-1:0]`, p_key_expansion; dm_mem
+    // `dm::HaltAddress[...]`) keep the dotted name in golden.  Read on the
+    // written syntax (the UHDM select's index list is attached after its
+    // indices are emitted).
+    namespace sx = slang::syntax;
+    const sx::SyntaxNode* n = syn;
+    int g = 0;
+    // climb out of the index / bound expression to the select syntax
+    while (n && g++ < 64 && n->kind != sx::SyntaxKind::ElementSelect)
+        n = n->parent;
+    // slang writes `pkg::C[0][W-1:0]` as a ScopedName whose right side is an
+    // IdentifierSelectName carrying every selector
+    if (!n || !n->parent ||
+        n->parent->kind != sx::SyntaxKind::IdentifierSelectName)
+        return;
+    const sx::SyntaxNode* isn = n->parent;
+    int levels =
+        (int)isn->as<sx::IdentifierSelectNameSyntax>().selectors.size();
+    const sx::SyntaxNode* outer = isn->parent;
+    if (!outer || outer->kind != sx::SyntaxKind::ScopedName ||
+        outer->as<sx::ScopedNameSyntax>().right != isn)
+        return;
+    const sx::SyntaxNode* asg = outer ? outer->parent : nullptr;
+    bool rhs = false;
+    if (asg && sx::BinaryExpressionSyntax::isKind(asg->kind)) {
+        switch (asg->kind) {
+            case sx::SyntaxKind::AssignmentExpression:
+            case sx::SyntaxKind::AddAssignmentExpression:
+            case sx::SyntaxKind::SubtractAssignmentExpression:
+            case sx::SyntaxKind::MultiplyAssignmentExpression:
+            case sx::SyntaxKind::DivideAssignmentExpression:
+            case sx::SyntaxKind::ModAssignmentExpression:
+            case sx::SyntaxKind::AndAssignmentExpression:
+            case sx::SyntaxKind::OrAssignmentExpression:
+            case sx::SyntaxKind::XorAssignmentExpression:
+            case sx::SyntaxKind::LogicalLeftShiftAssignmentExpression:
+            case sx::SyntaxKind::LogicalRightShiftAssignmentExpression:
+            case sx::SyntaxKind::ArithmeticLeftShiftAssignmentExpression:
+            case sx::SyntaxKind::ArithmeticRightShiftAssignmentExpression:
+            case sx::SyntaxKind::NonblockingAssignmentExpression:
+                rhs = asg->as<sx::BinaryExpressionSyntax>().right == outer;
+                break;
+            default:
+                break;
+        }
+    }
+    if (levels < 2 || !rhs) {
+        tr254("pkgSelIdxRefColons254", "abstain shape " + prefix);
+        return;
+    }
+    (void)parent;
+    // split the prefix on the dots that are not inside a `::` name
+    std::vector<std::string> segs;
+    std::string cur;
+    for (char ch : prefix) {
+        if (ch == '.') {
+            segs.push_back(cur);
+            cur.clear();
+        }
+        else
+            cur += ch;
+    }
+    segs.push_back(cur);
+    size_t i = 0;
+    while (i < segs.size() && segs[i].find("::") == std::string::npos)
+        ++i;
+    if (i == 0 || i >= segs.size())
+        return;
+    const std::string& base = segs[i];
+    for (size_t j = i; j < segs.size(); ++j)
+        if (segs[j] != base) {
+            tr254("pkgSelIdxRefColons254", "abstain " + prefix);
+            return;
+        }
+    std::string nf = base;
+    for (size_t j = i; j < segs.size(); ++j)
+        nf += "::" + segs[j];
+    nf += "::" + name;
+    tr254("pkgSelIdxRefColons254", prefix + "." + name + " -> " + nf);
+    ref->VpiFullName(nf);
+}
+// § procReplCountOwner254 (r11u254) — the multi-concatenation whose repeat
+// COUNT is being emitted, and the name golden gives the reference of an
+// imported parameter folded as that count: Surelog evaluates a replication
+// count through getValue and parents the clone at the owning definition's
+// param_assign, so UHDM ComputeFullName reads the owning module (`work@top`
+// in a definition listing, the instance path `work@wdtop.u0` in an
+// elaborated one) —
+// through a named block, a function or task, or a port connection (whose
+// port and instance are climbed to the instantiating module).  Empty (the law
+// abstains) through a generate scope, a package, a class, an interface or a
+// program.
+static const UHDM::any* replCountOp254 = nullptr;
+static std::string replCountOwner254(const UHDM::any* p) {
+    for (int g = 0; p && g < 256; ++g, p = p->VpiParent()) {
+        switch (p->UhdmType()) {
+            case UHDM::uhdmport: {
+                // the port's own instance (ref_module or module_inst) is not
+                // the owner: the instantiating module is.
+                const UHDM::any* inst = p->VpiParent();
+                if (!inst)
+                    return std::string();
+                p = inst;
+                continue;
+            }
+            case UHDM::uhdmgen_scope:
+            case UHDM::uhdmgen_scope_array:
+            case UHDM::uhdmpackage:
+            case UHDM::uhdmclass_defn:
+            case UHDM::uhdmdesign:
+            case UHDM::uhdminterface_inst:
+            case UHDM::uhdmprogram:
+                return std::string();
+            case UHDM::uhdmmodule_inst: {
+                // the owning module's full name: the definition's name in a
+                // definition listing (`work@pinmux`), the instance path in an
+                // elaborated one (`work@wdtop.u0`, probe r10earl_repro/wd)
+                std::string fn(((const UHDM::module_inst*)p)->VpiFullName());
+                return fn.empty()
+                           ? std::string(((const UHDM::module_inst*)p)->VpiDefName())
+                           : fn;
+            }
+            default:
+                break;
+        }
+    }
+    return std::string();
+}
+// § hcSelIdxTsSkipsPort254 (r11u254) — see the call site in emitExpr's
+// package-parameter fold stamp.
+static void hcSelIdxTsSkipsPort254(UHDM::ref_typespec* rt,
+                                   const UHDM::any* parent) {
+    const UHDM::any* child = nullptr;
+    const UHDM::any* p = parent;
+    size_t nSel = 0;
+    for (int g = 0; p && g < 64; ++g) {
+        auto t = p->UhdmType();
+        if (t == UHDM::uhdmport)
+            break;
+        if (t != UHDM::uhdmbit_select && t != UHDM::uhdmoperation)
+            return;
+        if (t == UHDM::uhdmbit_select)
+            ++nSel;
+        child = p;
+        p = p->VpiParent();
+    }
+    if (!p || p->UhdmType() != UHDM::uhdmport || !child ||
+        child->UhdmType() != UHDM::uhdmbit_select)
+        return;
+    std::string pn(p->VpiName());
+    std::string fn(rt->VpiFullName());
+    if (pn.empty() || fn.empty())
+        return;
+    // The written name ends in one segment per select climbed (each select's
+    // own name); the segment just before them must be the port's.
+    std::vector<size_t> dots;
+    for (size_t i = 0; i < fn.size(); ++i)
+        if (fn[i] == '.')
+            dots.push_back(i);
+    if (dots.size() < nSel + 1) {
+        tr254("hcSelIdxTsSkipsPort254", "abstain " + fn);
+        return;
+    }
+    size_t segEnd = dots[dots.size() - nSel];      // the dot after the port
+    size_t segBeg = dots[dots.size() - nSel - 1];  // the dot before it
+    if (fn.compare(segBeg + 1, segEnd - segBeg - 1, pn) != 0 ||
+        segEnd - segBeg - 1 != pn.size()) {
+        tr254("hcSelIdxTsSkipsPort254", "abstain " + fn);
+        return;
+    }
+    std::string nf = fn.substr(0, segBeg) + fn.substr(segEnd);
+    rt->VpiFullName(nf);
+    tr254("hcSelIdxTsSkipsPort254", fn + " -> " + nf);
 }
 // § hpSelIdxPkgFoldTsOwner236 (r11u236) — the hier_path a component select's
 // index is being emitted under (emitMixedHierPath), whether that component is
@@ -20443,6 +20648,45 @@ static bool genCaUseSiteChainName169(const UHDM::BaseClass* parent,
             }
             continue;
         }
+        case UHDM::uhdmpart_select:
+        case UHDM::uhdmindexed_part_select: {
+            // § genCaPsBoundOpChain254 (r11u254) — a part-select BOUND (or
+            // an indexed part-select's base or width) that is an OPERATION
+            // over the folded parameter (`cp::RC[k][W-1:0]`, Earlgrey
+            // prim_prince `PRINCE_ROUND_CONST[...][DataWidth-1:0]`) is named
+            // through the select like an operation index: golden's
+            // ComputeFullName walk reads the select's own name
+            // (`work@top.gen_fwd[0].cp::RC.cp::RC`), ours stopped and kept
+            // the instance's (`work@top`).  The bound is emitted under the
+            // select's prefix already; a bare scope gets the select's name
+            // appended.  A DIRECT bound keeps the instance's name (the
+            // landed rule above).  Switch: R11U254_GCAPSOP_OFF.
+            if (direct || !r11u254On("R11U254_GCAPSOP_OFF"))
+                return false;
+            // A select that is a component of a member path
+            // (`tl_h_i[i].a_source[0 +: W-2]`, Earlgrey xbar
+            // gen_host_fifo) is named by golden through the path's own text
+            // (`...tl_h_i[i].a_source[0+:8 - 2].a_source`, the folded
+            // spelling), which this walk does not have: abstain (grid
+            // cases/G g07).
+            if (a->VpiParent() &&
+                a->VpiParent()->UhdmType() == UHDM::uhdmhier_path) {
+                tr254("genCaPsBoundOpChain254", "abstain hier_path");
+                return false;
+            }
+            std::string nm(a->VpiName());
+            if (nm.empty()) {
+                tr254("genCaPsBoundOpChain254", "abstain unnamed");
+                return false;
+            }
+            std::string tail = "." + nm;
+            out = scopeFull;
+            if (out.size() < tail.size() ||
+                out.compare(out.size() - tail.size(), tail.size(), tail) != 0)
+                out += tail;
+            tr254("genCaPsBoundOpChain254", out);
+            return true;
+        }
         case UHDM::uhdmbit_select:
         case UHDM::uhdmvar_select: {
             // An index is named through the select: an operation index is
@@ -24844,6 +25088,52 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                                parent, nm192);
                                 rt->VpiFullName(nm192);
                             }
+                            // § hcSelIdxTsSkipsPort254 — A HIGH-CONN SELECT'S
+                            // STAMP SKIPS THE PORT.  Golden's reference name is
+                            // UHDM BaseClass::ComputeFullName over the
+                            // constant's parents, which drops a port directly
+                            // above a bit_select (its `child_type ==
+                            // uhdmbit_select && parent_type == uhdmport` skip);
+                            // the names written above are built from the
+                            // select's stored name or the prefix, which keep
+                            // the port segment.  Earlgrey ibex_core
+                            // `.instr_pmp_err_i(pmp_req_err[PMP_I])`: golden
+                            // `work@ibex_core.if_stage_i.pmp_req_err`, ours
+                            // `...if_stage_i.instr_pmp_err_i.pmp_req_err`.
+                            // The walk from the constant's parent climbs only
+                            // bit_selects and operations; the first port it
+                            // meets must sit directly above a bit_select, and
+                            // the written name's segment just before the
+                            // climbed selects' own names (one per select) must
+                            // read the port's name — that one segment is
+                            // dropped; any other spelling abstains.  Switch: R11U254_HCSELPORT_OFF.
+                            if (r11u254On("R11U254_HCSELPORT_OFF"))
+                                hcSelIdxTsSkipsPort254(rt, parent);
+                            // § procReplCountOwner254 — A REPLICATION COUNT'S
+                            // STAMP NAMES THE DEFINITION.  The folded imported
+                            // parameter written directly as the repeat count
+                            // (`{NMioPads{1'b0}}` in pinmux's `p_sleep` block,
+                            // Earlgrey #193018) is Surelog's getValue clone
+                            // parented at the definition's param_assign: golden
+                            // `work@pinmux`, ours the block `work@pinmux.p_sleep`
+                            // (also a function or task, a port connection).
+                            // An operation as the count (`{N+1{e}}`) keeps the
+                            // enclosing name in golden and is not reached (its
+                            // fold's parent is the operation).  Switch:
+                            // R11U254_REPLCOUNT_OFF.
+                            if (replCountOp254 && parent == replCountOp254 &&
+                                r11u254On("R11U254_REPLCOUNT_OFF")) {
+                                std::string o254 = replCountOwner254(parent);
+                                if (!o254.empty() &&
+                                    o254 != std::string(rt->VpiFullName())) {
+                                    tr254("procReplCountOwner254",
+                                          std::string(rt->VpiFullName()) + " -> " + o254);
+                                    rt->VpiFullName(o254);
+                                }
+                                else
+                                    tr254("procReplCountOwner254",
+                                          "keep " + std::string(rt->VpiFullName()));
+                            }
                             rt->VpiParent(c);
                             // A CONT-ASSIGN fold binds its OWN clone of the
                             // imported param's typespec (Surelog mints one per
@@ -26985,6 +27275,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // outside defGenProcessEmit, keep their scoped fullname.)
                 if (!defGenProcessEmit)
                     ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                // § pkgSelIdxRefColons254 — see the definition.
+                if (!defGenProcessEmit && !elabUhdmView121 &&
+                    r11u254On("R11U254_PKGSELREF_OFF"))
+                    pkgSelIdxRefColons254(ref, parent, expr.syntax, prefix,
+                                          std::string(nv.symbol.name));
                 // § superNewFormalBinds28 — inside a `super.new` argument list
                 // a reference to one of the CONSTRUCTOR'S OWN FORMALS binds;
                 // everything else there (body locals, class properties) keeps
@@ -32165,6 +32460,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (sr11.start() == callRng11.start() &&
                             sr11.end() > callRng11.end())
                             callRng11 = sr11;
+                    }
+                    // § shellCallInvocationSpan254 — THE SHELLED CALL'S
+                    // INVOCATION IS ITS SPAN.  A method call whose argument
+                    // does not convert (`factory.is_type_registered(rgtry)`
+                    // with `rgtry` a type parameter defaulting to int,
+                    // BuildUVMPkg uvm_pkg.sv 14097:13) reaches this arm as the
+                    // child of slang's InvalidExpression shell: its own
+                    // `syntax` is unset (§ shellCallKeepsItsSyntax167) and
+                    // its range is the member access, the callee
+                    // (`factory.is_type_registered`, 13-39), so the rule
+                    // above never ran and the hier_path stopped at the
+                    // callee.  Surelog never binds the argument and spans the
+                    // whole invocation (13-46).  The shell's invocation
+                    // syntax, handed back by `callInvocation167` for this
+                    // exact call only, is read by the same rule.  Switch:
+                    // R11U254_SHELLSPAN_OFF.
+                    else if (auto* inv254 = callInvocation167(call);
+                             inv254 &&
+                             r11u254On("R11U254_SHELLSPAN_OFF")) {
+                        auto sr254 = inv254->sourceRange();
+                        if (sr254.start() == callRng11.start() &&
+                            sr254.end() > callRng11.end()) {
+                            callRng11 = sr254;
+                            tr254("shellCallInvocationSpan254",
+                                  std::string(sub.name));
+                        }
                     }
                     // § retNameRecvCollapse69 — THE HEAD.  A USER class-method
                     // call on the enclosing function's own return variable
@@ -38574,7 +38895,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             bool saved = suppressConstParent;
             if (!reemitting && isLiteralExpr(re.count()))
                 suppressConstParent = true;
+            // § procReplCountOwner254 — the operation whose COUNT is being
+            // emitted (read by the package-parameter fold stamp).
+            const UHDM::any* savedRc254 = replCountOp254;
+            replCountOp254 = op;
             auto* cnt = emitExpr(re.count(), op, prefix, netMap);
+            replCountOp254 = savedRc254;
             suppressConstParent = saved;
             if (cnt)
                 operands->push_back(cnt);

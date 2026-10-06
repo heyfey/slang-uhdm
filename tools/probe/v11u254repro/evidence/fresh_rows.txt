@@ -1,0 +1,4 @@
+BuildUVMPkg,default,CMP_EQUAL,,,equal
+BuildUVMPkg,testflags,CMP_EQUAL,,,equal
+Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(133),,differ:fullname(133)
+Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(40),,differ:fullname(40)

@@ -1,0 +1,21 @@
+== controls14
+MOVER tp/r11u169repro/cases/gc/c04 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_113_objects cmplines 0 -> 0 ENTER 
+MOVER tp/r11u169repro/cases/gc/c04_el STRICT_EQUAL_105_objects -> STRICT_EQUAL_105_objects cmplines 0 -> 0  
+MOVER tp/r11u250repro/decode/E/e01_pkgparam_sel_gen STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0 -> 0  
+MOVER tp/r11u250repro/decode/E/e01_pkgparam_sel_gen_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0 -> 0  
+MOVER tp/r11u255repro/decode/A/a01_shell_call_span STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_51_objects cmplines 0 -> 0 ENTER 
+MOVER tp/r11u255repro/decode/A/a01_shell_call_span_el STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_63_objects cmplines 0 -> 0 ENTER 
+MOVER tp/r11u255repro/decode/A/a02_hc_selidx_tsname STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_74_objects cmplines 0 -> 0 ENTER 
+MOVER tp/r11u255repro/decode/A/a02_hc_selidx_tsname_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_74_objects cmplines 0 -> 0 ENTER 
+MOVER tp/r11v11u118repro/grid/v1/v09_vsvar STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_237_objects cmplines 0 -> 0 ENTER 
+MOVER tp/r11v11u118repro/grid/v1/v30_vs_genfor STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0 -> 0  
+MOVER tp/r11v124repro/hx/x02_forstep NOT_EQUAL_stage1 -> STRICT_EQUAL_87_objects cmplines 15 -> 0 ENTER 
+EXIT tp/r11v124repro/hx/x02_forstep_el 139 0
+MOVER tp/r11v124repro/hx/x02_forstep_el SLANG_FAIL -> STRICT_EQUAL_89_objects cmplines None -> 0 ENTER 
+MOVER tp/v11u255repro/cases/F/vf03_twospecs STRICT_EQUAL_79_objects -> STRICT_EQUAL_79_objects cmplines 0 -> 0  
+MOVER tp/v11u255repro/cases/F/vf03_twospecs_el STRICT_EQUAL_79_objects -> STRICT_EQUAL_79_objects cmplines 0 -> 0  
+case-views 1936; moving 14; entering STRICT_EQUAL 8; leaving 0; exit-code differences 1
+== controls_wide
+MOVER tp/r11u236repro/cases/P/p04 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64 -> 64  
+MOVER tp/r11u236repro/cases/P/p04_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64 -> 64  
+case-views 1578; moving 2; entering STRICT_EQUAL 0; leaving 0; exit-code differences 0

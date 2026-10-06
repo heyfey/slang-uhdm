@@ -1,0 +1,12 @@
+BuildUVMPkg,default,CMP_EQUAL,,,equal
+BuildUVMPkg,testflags,CMP_EQUAL,,,equal
+Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(133),,differ:fullname(133)
+Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(40),,differ:fullname(40)
+r10earl41repro/v41v_comment,STRICT_NOTEQUAL,differ:fullname(20),differ:fullname(20)
+r10earl82repro/g6_earl82,EQUAL,,equal
+r10earl_repro/qa20,EQUAL,,equal
+r10earl_repro/wd,EQUAL,,equal
+r10uvm160repro/g160_c_context,EQUAL,,equal
+r10uvm167repro/g167_b_spell,EQUAL,,equal
+r10v167repro/vA_meth,EQUAL,,equal
+r10v167repro/vD_kinds,EQUAL,,equal

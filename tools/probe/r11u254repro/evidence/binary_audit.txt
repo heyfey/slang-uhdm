@@ -1,0 +1,2 @@
+audit swL: 3265 of 3315 fence-filtered cmds.txt name /tmp/r11u254_bin/law; slang lines naming another binary: 0
+audit swP: 3265 of 3315 fence-filtered cmds.txt name /tmp/r11u254_bin/pristine; slang lines naming another binary: 0

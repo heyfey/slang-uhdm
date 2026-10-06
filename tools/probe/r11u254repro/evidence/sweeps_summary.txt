@@ -1,0 +1,40 @@
+law_surelog_uhdm2rtlil.log:[default] 798 tests
+law_surelog_uhdm2rtlil.log:[testflags] 798 tests
+law_surelog_uhdm2rtlil.log:[default] CMP_EQUAL=473 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=7 SURELOG_FAIL=25
+law_surelog_uhdm2rtlil.log:[testflags] CMP_EQUAL=468 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=6 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+law_surelog_uhdm2rtlil.log:CONVERSION BuildUVMPkg default STRICT_NOTEQUAL differ:endcol(1) -> CMP_EQUAL
+law_surelog_uhdm2rtlil.log:CONVERSION BuildUVMPkg testflags STRICT_NOTEQUAL differ:endcol(1) -> CMP_EQUAL
+law_surelog_uhdm2rtlil.log:CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:fullname(155) -> differ:fullname(133) [fullname -22]
+law_surelog_uhdm2rtlil.log:CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(50) -> differ:fullname(40) [fullname -10]
+law_surelog_uhdm2rtlil.log:regressions=0 conversions=2 changes=2 only-fresh=0 only-committed=0
+law_surelog_uhdm2rtlil.log:[default] 871 tests
+law_surelog_uhdm2rtlil.log:[testflags] 871 tests
+law_surelog_uhdm2rtlil.log:[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+law_surelog_uhdm2rtlil.log:[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+law_surelog_uhdm2rtlil.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+law_probe.log:probe cases: EQUAL=3559 STRICT_NOTEQUAL=528 (of 4087); goldens built now=0, from cache=4087
+law_probe.log:[probe] EQUAL=3559 STRICT_NOTEQUAL=528
+law_probe.log:CONVERSION r10earl82repro/g6_earl82 STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+law_probe.log:CONVERSION r10earl_repro/qa20 STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+law_probe.log:CONVERSION r10earl_repro/wd STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+law_probe.log:CONVERSION r10uvm160repro/g160_c_context STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+law_probe.log:CONVERSION r10uvm167repro/g167_b_spell STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+law_probe.log:CONVERSION r10v167repro/vA_meth STRICT_NOTEQUAL differ:endcol(9) -> EQUAL
+law_probe.log:CONVERSION r10v167repro/vD_kinds STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+law_probe.log:CHANGE r10earl41repro/v41v_comment STRICT_NOTEQUAL differ:fullname(24) -> differ:fullname(20) [fullname -4]
+law_probe.log:regressions=0 conversions=7 changes=1 only-fresh=0 only-committed=0
+pristine_surelog_uhdm2rtlil.log:[default] 798 tests
+pristine_surelog_uhdm2rtlil.log:[testflags] 798 tests
+pristine_surelog_uhdm2rtlil.log:[default] CMP_EQUAL=472 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=8 SURELOG_FAIL=25
+pristine_surelog_uhdm2rtlil.log:[testflags] CMP_EQUAL=467 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=7 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+pristine_surelog_uhdm2rtlil.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+pristine_surelog_uhdm2rtlil.log:[default] 871 tests
+pristine_surelog_uhdm2rtlil.log:[testflags] 871 tests
+pristine_surelog_uhdm2rtlil.log:[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+pristine_surelog_uhdm2rtlil.log:[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+pristine_surelog_uhdm2rtlil.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+pristine_probe.log:probe cases: EQUAL=3552 STRICT_NOTEQUAL=535 (of 4087); goldens built now=0, from cache=4087
+pristine_probe.log:[probe] EQUAL=3552 STRICT_NOTEQUAL=535
+pristine_probe.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache

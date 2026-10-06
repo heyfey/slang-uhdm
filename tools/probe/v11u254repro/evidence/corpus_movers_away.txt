@@ -1,0 +1,8 @@
+surelog/default/BuildUVMPkg-fc55bd0c chain away=0 toward=1 flat_away=0 flat_toward=1 
+surelog/default/Earlgrey_0_1-a898def8 chain away=0 toward=23 flat_away=0 flat_toward=23 
+surelog/testflags/BuildUVMPkg-fc55bd0c chain away=0 toward=1 flat_away=0 flat_toward=1 
+surelog/testflags/Earlgrey_0_1-a898def8 chain away=0 toward=11 flat_away=0 flat_toward=11 
+surelog_default_BuildUVMPkg-fc55bd0c dist 19 -> 18 lost=0 gained=1
+surelog_default_Earlgrey_0_1-a898def8 dist 1032 -> 1009 lost=0 gained=23
+surelog_testflags_BuildUVMPkg-fc55bd0c dist 19 -> 18 lost=0 gained=1
+surelog_testflags_Earlgrey_0_1-a898def8 dist 764 -> 753 lost=0 gained=11

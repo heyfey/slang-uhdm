@@ -1,0 +1,44 @@
+== P probe
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u254_wdP/probe.csv
+probe cases: EQUAL=3552 STRICT_NOTEQUAL=535 (of 4087); goldens built now=0, from cache=4087
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== P surelog
+[default] CMP_EQUAL=472 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=8 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=467 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=7 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== P uhdm2rtlil
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== P downstream
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+== L probe
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u254_wdL/probe.csv
+probe cases: EQUAL=3559 STRICT_NOTEQUAL=528 (of 4087); goldens built now=0, from cache=4087
+CONVERSION r10earl82repro/g6_earl82 STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r10earl_repro/qa20 STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r10earl_repro/wd STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r10uvm160repro/g160_c_context STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10uvm167repro/g167_b_spell STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r10v167repro/vA_meth STRICT_NOTEQUAL differ:endcol(9) -> EQUAL
+CONVERSION r10v167repro/vD_kinds STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CHANGE r10earl41repro/v41v_comment STRICT_NOTEQUAL differ:fullname(24) -> differ:fullname(20) [fullname -4]
+regressions=0 conversions=7 changes=1 only-fresh=0 only-committed=0
+== L surelog
+[default] CMP_EQUAL=473 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=7 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=468 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=6 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CONVERSION BuildUVMPkg default STRICT_NOTEQUAL differ:endcol(1) -> CMP_EQUAL
+CONVERSION BuildUVMPkg testflags STRICT_NOTEQUAL differ:endcol(1) -> CMP_EQUAL
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:fullname(155) -> differ:fullname(133) [fullname -22]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(50) -> differ:fullname(40) [fullname -10]
+regressions=0 conversions=2 changes=2 only-fresh=0 only-committed=0
+== L uhdm2rtlil
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== L downstream
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+== pristine probe rerun from the law worktree (for the probe byte check)
+probe cases: EQUAL=3552 STRICT_NOTEQUAL=535 (of 4087); csv identical to the pristine sweep's
