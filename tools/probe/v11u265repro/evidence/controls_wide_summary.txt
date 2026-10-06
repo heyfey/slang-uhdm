@@ -1,0 +1,5 @@
+case-views=3774 moving=2 entering=2 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/v11u241repro/cases/AG/g15 STRICT_NOTEQUAL_line -> STRICT_EQUAL_687_objects cmplines 0->0
+MOVER tp/v11u241repro/cases/AG/g15_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_910_objects cmplines 0->0
+ENTER tp/v11u241repro/cases/AG/g15
+ENTER tp/v11u241repro/cases/AG/g15_el

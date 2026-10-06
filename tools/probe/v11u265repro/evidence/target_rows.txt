@@ -1,0 +1,8 @@
+P MiniAmiq,default,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+P MiniAmiq,testflags,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+P SeqDriver,default,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+P SeqDriver,testflags,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+L MiniAmiq,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+L MiniAmiq,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+L SeqDriver,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+L SeqDriver,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)

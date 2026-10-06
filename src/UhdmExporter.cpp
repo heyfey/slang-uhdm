@@ -27,6 +27,7 @@
 #include "R255.h"
 #include "R257.h"
 #include "R259.h"
+#include "R265.h"
 #include "R261.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
@@ -19586,6 +19587,150 @@ UHDM::design* UhdmExporter::exportDesign() {
                 memb241;
             std::set<const UHDM::task_func*> seen241;
             std::set<const UHDM::typespec*> moved241;
+            // § cloneMembEnumAtHomeListing265 (r11u265,
+            // R11U265_MEMBENUMLOC_OFF; MiniAmiq d/t #126482 / #126534 /
+            // #127274, SeqDriver d/t the same three records: the struct
+            // uvm_reg_bus_op held by the svaunit_pkg / adpcm_pkg copy of
+            // uvm_reg_map::do_bus_write, member `uvm_status_e status`) — a
+            // member of the deep clone's own struct whose type is an enum
+            // typedef of the copy's HOME package is in golden the clone's own
+            // enum at the home LISTING object's location (the type token of
+            // the typedef's last formal writer, uvm_reg_block.svh 1774:45, as
+            // for the copy's own enum references below), not the home struct
+            // member's enum (uvm_vreg_field.svh 462:31), which the home keeps.
+            // The copied member's reference takes its own enum (consts, base,
+            // alias and instance shared) at the listing's span; abstains when
+            // the member's enum already reads it or the typedef is not the
+            // home package's.
+            auto memberEnum265 = [&](const UHDM::ref_typespec* t0, UHDM::ref_typespec* t1,
+                                     const Symbol* hp, const UHDM::task_func* tf,
+                                     const UHDM::typespec_member* m0) -> bool {
+                auto* e265 = t0->Actual_typespec();
+                if (!r11u265On("R11U265_MEMBENUMLOC_OFF") || !e265 ||
+                    e265->UhdmType() != UHDM::uhdmenum_typespec)
+                    return false;
+                auto ih265 = home241.find(std::string(e265->VpiName()));
+                auto* h265 = ih265 != home241.end() ? ih265->second : nullptr;
+                if (!h265 || h265 == e265 || h265->UhdmType() != UHDM::uhdmenum_typespec ||
+                    homePkg241[h265] != hp)
+                    return false;
+                if (e265->VpiFile() == h265->VpiFile() && e265->VpiLineNo() == h265->VpiLineNo() &&
+                    e265->VpiColumnNo() == h265->VpiColumnNo() &&
+                    e265->VpiEndLineNo() == h265->VpiEndLineNo() &&
+                    e265->VpiEndColumnNo() == h265->VpiEndColumnNo())
+                    return false;
+                if (!t1)
+                    return true;  // the dry run of § cloneSharedAggOwnCopy265
+                auto* se265 = (const UHDM::enum_typespec*)e265;
+                auto* ce265 = s.MakeEnum_typespec();
+                ce265->VpiName(se265->VpiName());
+                ce265->Base_typespec((UHDM::ref_typespec*)se265->Base_typespec());
+                ce265->Enum_consts((UHDM::VectorOfenum_const*)se265->Enum_consts());
+                ce265->Typedef_alias((UHDM::ref_typespec*)se265->Typedef_alias());
+                ce265->Instance((UHDM::instance*)se265->Instance());
+                ce265->VpiParent(t1);
+                ce265->VpiFile(h265->VpiFile());
+                ce265->VpiLineNo(h265->VpiLineNo());
+                ce265->VpiColumnNo(h265->VpiColumnNo());
+                ce265->VpiEndLineNo(h265->VpiEndLineNo());
+                ce265->VpiEndColumnNo(h265->VpiEndColumnNo());
+                t1->Actual_typespec(ce265);
+                tr265("cloneMembEnumAtHomeListing265",
+                      std::string(tf->VpiFullName()) + " " + std::string(m0->VpiName()));
+                return true;
+            };
+            // § cloneSharedAggOwnCopy265 (r11u265, R11U265_SHAREDAGGCOPY_OFF;
+            // its statement at the abstention below): the private copy.
+            auto ownCopy265 = [&](const UHDM::ref_typespec* r, const UHDM::typespec* a,
+                                  const UHDM::VectorOftypespec_member* om, const Symbol* hp,
+                                  const UHDM::task_func* tf, const std::string& pf) {
+                UHDM::typespec* cp265 = nullptr;
+                auto* nm265 = s.MakeTypespec_memberVec();
+                if (a->UhdmType() == UHDM::uhdmstruct_typespec) {
+                    auto* cs = s.MakeStruct_typespec();
+                    cs->VpiPacked(((const UHDM::struct_typespec*)a)->VpiPacked());
+                    cs->Members(nm265);
+                    cp265 = cs;
+                }
+                else {
+                    auto* cu = s.MakeUnion_typespec();
+                    cu->VpiPacked(((const UHDM::union_typespec*)a)->VpiPacked());
+                    cu->Members(nm265);
+                    cp265 = cu;
+                }
+                cp265->VpiName(a->VpiName());
+                cp265->VpiParent((UHDM::ref_typespec*)r);
+                cp265->Typedef_alias((UHDM::ref_typespec*)a->Typedef_alias());
+                cp265->Instance((UHDM::instance*)a->Instance());
+                cp265->VpiFile(a->VpiFile());
+                cp265->VpiLineNo(a->VpiLineNo());
+                cp265->VpiColumnNo(a->VpiColumnNo());
+                cp265->VpiEndLineNo(a->VpiEndLineNo());
+                cp265->VpiEndColumnNo(a->VpiEndColumnNo());
+                auto& mm265 = memb241[r];
+                for (auto* m0 : *om) {
+                    auto* m1 = s.MakeTypespec_member();
+                    m1->VpiName(m0->VpiName());
+                    m1->VpiParent(cp265);
+                    m1->VpiFile(m0->VpiFile());
+                    m1->VpiLineNo(m0->VpiLineNo());
+                    m1->VpiColumnNo(m0->VpiColumnNo());
+                    m1->VpiEndLineNo(m0->VpiEndLineNo());
+                    m1->VpiEndColumnNo(m0->VpiEndColumnNo());
+                    m1->VpiRandType(m0->VpiRandType());
+                    m1->VpiRefFile(m0->VpiRefFile());
+                    m1->VpiRefLineNo(m0->VpiRefLineNo());
+                    m1->VpiRefColumnNo(m0->VpiRefColumnNo());
+                    m1->VpiRefEndLineNo(m0->VpiRefEndLineNo());
+                    m1->VpiRefEndColumnNo(m0->VpiRefEndColumnNo());
+                    m1->Default_value(m0->Default_value());
+                    m1->Actual_value(m0->Actual_value());
+                    if (auto* t0 = m0->Typespec()) {
+                        auto* t1 = s.MakeRef_typespec();
+                        t1->VpiParent(m1);
+                        t1->Actual_typespec((UHDM::typespec*)t0->Actual_typespec());
+                        m1->Typespec(t1);
+                        memberEnum265(t0, t1, hp, tf, m0);
+                    }
+                    nm265->push_back(m1);
+                    mm265[m0] = m1;
+                }
+                ((UHDM::ref_typespec*)r)->Actual_typespec(cp265);
+                moved241.insert(cp265);
+                tr265("cloneSharedAggOwnCopy265",
+                      std::string(tf->VpiFullName()) + " " + std::string(a->VpiName()) + " " + pf);
+            };
+            auto tryOwnCopy265 = [&](const UHDM::ref_typespec* r, const UHDM::typespec* a,
+                                     const Symbol* hp, const UHDM::task_func* tf,
+                                     const UHDM::any* from) {
+                const UHDM::any* pv265 = from;
+                for (int k = 0; pv265 && k < 8 && !dynamic_cast<const UHDM::variables*>(pv265);
+                     ++k)
+                    pv265 = (pv265->UhdmType() == UHDM::uhdmref_typespec ||
+                             pv265->UhdmType() == UHDM::uhdmarray_typespec)
+                                ? pv265->VpiParent()
+                                : nullptr;
+                std::string pf265 = pv265 ? std::string(((const UHDM::variables*)pv265)->VpiFullName())
+                                          : std::string();
+                std::string tff265(tf->VpiFullName());
+                const UHDM::VectorOftypespec_member* om265 = nullptr;
+                if (a->UhdmType() == UHDM::uhdmstruct_typespec)
+                    om265 = ((const UHDM::struct_typespec*)a)->Members();
+                else if (a->UhdmType() == UHDM::uhdmunion_typespec)
+                    om265 = ((const UHDM::union_typespec*)a)->Members();
+                bool enumMemb265 = false;
+                if (om265)
+                    for (auto* m0 : *om265)
+                        if (m0 && m0->Typespec() &&
+                            memberEnum265(m0->Typespec(), nullptr, hp, tf, m0))
+                            enumMemb265 = true;
+                if (r11u265On("R11U265_SHAREDAGGCOPY_OFF") && om265 && enumMemb265 &&
+                    r11u241Law("R11U241_CLONEAGGMEMB_OFF") && !pf265.empty() &&
+                    pf265.size() > tff265.size() &&
+                    pf265.compare(0, tff265.size(), tff265) == 0) {
+                    ownCopy265(r, a, om265, hp, tf, pf265);
+                }
+            };
             for (auto* tf241 : g_cloneTf241) {
                 if (!tf241 || !seen241.insert(tf241).second)
                     continue;
@@ -19623,6 +19768,24 @@ UHDM::design* UhdmExporter::exportDesign() {
                         tr241("cloneAggTsAtHomeListing241_shared",
                               std::string(tf241->VpiFullName()) + " " +
                                   std::string(a241->VpiName()));
+                        // § cloneSharedAggOwnCopy265 (r11u265,
+                        // R11U265_SHAREDAGGCOPY_OFF; MiniAmiq d/t and SeqDriver
+                        // d/t: `uvm_reg_bus_op accesses[$]` and the
+                        // `uvm_reg_bus_op rw_access` locals of the svaunit_pkg /
+                        // adpcm_pkg copy of uvm_reg_map::do_bus_write bind ONE
+                        // struct object with the home's declarations) — the
+                        // abstention above keeps such a shared struct or union
+                        // unedited, but golden's copy-own declaration holds the
+                        // deep clone's own object, whose enum members read the
+                        // home listing's span (§ cloneMembEnumAtHomeListing265)
+                        // while the home's read the home member's.  A reference
+                        // under a variable the copy declares (its full name
+                        // under the copy's) takes a private copy of the struct
+                        // or union at the shared object's own span (alias,
+                        // instance and every member's type shared, members its
+                        // own as § cloneAggMemberOwn241 makes them); the shared
+                        // object is left as it stands.
+                        tryOwnCopy265(r241, a241, hp241, tf241, r241->VpiParent());
                         continue;
                     }
                     // § cloneAggLocalOwnCopy241 (R11U241_CLONEAGGCOPY_OFF) — a
@@ -19716,6 +19879,9 @@ UHDM::design* UhdmExporter::exportDesign() {
                                     t1->Actual_typespec(
                                         (UHDM::typespec*)t0->Actual_typespec());
                                     m1->Typespec(t1);
+                                    // § cloneMembEnumAtHomeListing265 (the lambda
+                                    // memberEnum265 above)
+                                    memberEnum265(t0, t1, hp241, tf241, m0);
                                 }
                                 nm241->push_back(m1);
                                 mm241[m0] = m1;
@@ -19747,6 +19913,29 @@ UHDM::design* UhdmExporter::exportDesign() {
                           std::string(tf241->VpiFullName()) + " " +
                               std::string(a241->VpiName()));
                 }
+                // § cloneSharedAggOwnCopy265, the array leg: a copy's local
+                // `uvm_reg_bus_op accesses[$]` holds its own array_typespec
+                // (§ cloneLocalArrayTsParented241, parented DEAD LAST, so the
+                // walk above does not reach its element reference), whose
+                // element reference binds a struct it does not own (the one
+                // the home shares, or one only the copy binds: grid E/e02).
+                if (r11u265On("R11U265_SHAREDAGGCOPY_OFF"))
+                    for (auto& [ats265, art265] : g_cloneArrTs241) {
+                        if (!ats265 || !art265 || ats265->VpiParent() ||
+                            ats265->UhdmType() != UHDM::uhdmarray_typespec ||
+                            art265->Actual_typespec() != ats265 || !w241.inside(art265))
+                            continue;
+                        auto* er265 = ((UHDM::array_typespec*)ats265)->Elem_typespec();
+                        auto* ea265 = er265 ? er265->Actual_typespec() : nullptr;
+                        if (!ea265 || moved241.count(ea265) || ea265->VpiParent() == er265)
+                            continue;
+                        auto ih = home241.find(std::string(ea265->VpiName()));
+                        if (ih == home241.end() || !ih->second ||
+                            ih->second->UhdmType() != ea265->UhdmType() ||
+                            homePkg241[ih->second] != hp241)
+                            continue;
+                        tryOwnCopy265(er265, ea265, hp241, tf241, art265->VpiParent());
+                    }
                 // § cloneAggMemberOwn241 — a member path `v.m` in the copy whose
                 // root variable or formal holds a copied struct or union binds
                 // the copy's member (one level: the member's own type is the
@@ -19757,6 +19946,90 @@ UHDM::design* UhdmExporter::exportDesign() {
                         continue;
                     auto* e0 = (*pe241)[0];
                     auto* e1 = (*pe241)[1];
+                    // § cloneBitSelMemberBind265 (r11u265,
+                    // R11U265_COPYBITSELMEMB_OFF; MiniAmiq d/t #127418 and
+                    // SeqDriver d/t #127376 / #127388, the svaunit_pkg /
+                    // adpcm_pkg copy of uvm_reg_map::do_bus_write writing
+                    // `rw_access.byte_en[z] = 1'b1;`; decode
+                    // tools/probe/v11u258repro/cases/VD/vd01) — a member path
+                    // `v.m[i]` in an importer copy whose member element is a
+                    // bit_select binds in golden the struct MEMBER, as the
+                    // ref_obj member above does (the home body's bit_select
+                    // stays unbound in golden and in ours); ours left the copy's
+                    // bit_select unbound or bound by name to an unrelated
+                    // variable `m` of the home subroutine (do_bus_write's own
+                    // `bit byte_en`).  The member is the copy's own member
+                    // when the root holds the copy's struct (§ cloneAggMemberOwn241),
+                    // else the member of the importing package's own re-listing
+                    // of the typedef (§ cloneMemberImporterListing259's rule);
+                    // abstains without a unique member.
+                    if (r11u265On("R11U265_COPYBITSELMEMB_OFF") && e0 && e1 &&
+                        e0->UhdmType() == UHDM::uhdmref_obj &&
+                        e1->UhdmType() == UHDM::uhdmbit_select) {
+                        auto* bs265 = (UHDM::bit_select*)e1;
+                        const UHDM::any* v265 = ((const UHDM::ref_obj*)e0)->Actual_group();
+                        const UHDM::ref_typespec* vr265 = nullptr;
+                        if (v265 && v265->UhdmType() == UHDM::uhdmio_decl)
+                            vr265 = ((const UHDM::io_decl*)v265)->Typespec();
+                        else if (auto* vv265 = dynamic_cast<const UHDM::variables*>(v265))
+                            vr265 = vv265->Typespec();
+                        const UHDM::typespec* st265 = vr265 ? vr265->Actual_typespec() : nullptr;
+                        auto membersOf265 = [](const UHDM::typespec* t)
+                            -> const UHDM::VectorOftypespec_member* {
+                            if (!t)
+                                return nullptr;
+                            if (t->UhdmType() == UHDM::uhdmstruct_typespec)
+                                return ((const UHDM::struct_typespec*)t)->Members();
+                            if (t->UhdmType() == UHDM::uhdmunion_typespec)
+                                return ((const UHDM::union_typespec*)t)->Members();
+                            return nullptr;
+                        };
+                        auto uniqueMember265 = [&](const UHDM::typespec* t)
+                            -> UHDM::typespec_member* {
+                            UHDM::typespec_member* r = nullptr;
+                            int k = 0;
+                            if (auto* ms = membersOf265(t))
+                                for (auto* m : *ms)
+                                    if (m && m->VpiName() == bs265->VpiName()) {
+                                        r = m;
+                                        ++k;
+                                    }
+                            return k == 1 ? r : nullptr;
+                        };
+                        UHDM::typespec_member* m265 = nullptr;
+                        const char* how265 = "";
+                        if (membersOf265(st265)) {
+                            if (ownerTf241(st265) == tf241) {
+                                // the copy's own struct (its members its own)
+                                m265 = uniqueMember265(st265);
+                                how265 = "own";
+                            }
+                            else if (!ownerTf241(st265) && ownerTf241(v265) != tf241 &&
+                                     tf241->VpiParent() &&
+                                     tf241->VpiParent()->UhdmType() == UHDM::uhdmpackage) {
+                                auto* pk265 = (const UHDM::package*)tf241->VpiParent();
+                                const UHDM::typespec* t265 = nullptr;
+                                int n265 = 0;
+                                if (pk265->Typespecs())
+                                    for (auto* t : *pk265->Typespecs())
+                                        if (t && t->UhdmType() == st265->UhdmType() &&
+                                            t->VpiName() == st265->VpiName()) {
+                                            t265 = t;
+                                            ++n265;
+                                        }
+                                if (n265 == 1) {
+                                    m265 = uniqueMember265(t265);
+                                    how265 = "listing";
+                                }
+                            }
+                        }
+                        if (m265 && bs265->Actual_group() != m265) {
+                            bs265->Actual_group(m265);
+                            tr265("cloneBitSelMemberBind265",
+                                  std::string(how265) + " " + std::string(tf241->VpiFullName()) +
+                                      " " + std::string(h241->VpiName()));
+                        }
+                    }
                     if (!e0 || !e1 || e0->UhdmType() != UHDM::uhdmref_obj ||
                         e1->UhdmType() != UHDM::uhdmref_obj)
                         continue;

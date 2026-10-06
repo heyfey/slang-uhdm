@@ -1,0 +1,8 @@
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:file(4) -> STRICT_NOTEQUAL/differ:depth(1)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:file(4) -> STRICT_NOTEQUAL/differ:depth(1)
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+audit P: 3265 of 3315 cmds.txt name /tmp/v11u265_bin/pristine; naming another: 0; without a slang line: 50
+audit L: 3265 of 3315 cmds.txt name /tmp/v11u265_bin/law; naming another: 0; without a slang line: 50

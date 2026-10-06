@@ -1,0 +1,3 @@
+case-views=2202 moving=2 entering=0 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/v11u258repro/cases/VD/vd01_copy_struct_bitsel_member STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/v11u258repro/cases/VD/vd01_copy_struct_bitsel_member_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0

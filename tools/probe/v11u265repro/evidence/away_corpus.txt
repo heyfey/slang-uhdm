@@ -1,0 +1,8 @@
+surelog/default/MiniAmiq-055eab74 dist 134 -> 110 lost=0 gained=24
+surelog/testflags/MiniAmiq-055eab74 dist 134 -> 110 lost=0 gained=24
+surelog/default/SeqDriver-65178d3a dist 97 -> 81 lost=0 gained=16
+surelog/testflags/SeqDriver-65178d3a dist 97 -> 81 lost=0 gained=16
+surelog/default/MiniAmiq-055eab74 chain: chain away=0 toward=201 flat_away=0 flat_toward=168
+surelog/testflags/MiniAmiq-055eab74 chain: chain away=0 toward=201 flat_away=0 flat_toward=168
+surelog/default/SeqDriver-65178d3a chain: chain away=0 toward=134 flat_away=0 flat_toward=112
+surelog/testflags/SeqDriver-65178d3a chain: chain away=0 toward=134 flat_away=0 flat_toward=112

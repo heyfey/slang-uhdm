@@ -855,8 +855,8 @@ MaskNeg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv
 MaskNeg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 MBadder,default,CMP_EQUAL,,,equal
 MBadder,testflags,CMP_EQUAL,,,equal
-MiniAmiq,default,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
-MiniAmiq,testflags,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+MiniAmiq,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+MiniAmiq,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
 MinTypMax,default,CMP_EQUAL,,,equal
 MinTypMax,testflags,CMP_EQUAL,,,equal
 ModPortArrayBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortArrayBind/dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,
@@ -1211,8 +1211,8 @@ Selects,default,CMP_EQUAL,,,equal
 Selects,testflags,CMP_EQUAL,,,equal
 SelectSelect,default,CMP_EQUAL,,,equal
 SelectSelect,testflags,CMP_EQUAL,,,equal
-SeqDriver,default,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
-SeqDriver,testflags,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+SeqDriver,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+SeqDriver,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
 SequenceInst,default,CMP_EQUAL,,,equal
 SequenceInst,testflags,CMP_EQUAL,,,equal
 SeqUseNonTemp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SeqUseNonTemp/dut.sv:15:10: error: redefinition of 'p1_count_increment' [-Wredefinition],,

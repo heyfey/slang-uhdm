@@ -1,0 +1,2 @@
+probe (pristine run from the law worktree, /tmp/v11u265_swQ, vs the law sweep /tmp/v11u265_swL): 4087 databases, movers 0
+downstream slang lane (/tmp/v11u265_swP vs /tmp/v11u265_swL): 805 databases, movers 0

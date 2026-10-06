@@ -1,0 +1,8 @@
+tp/v11u241repro/cases/AG/g15 rec dist 12 -> 0 lost=0 gained=12
+tp/v11u241repro/cases/AG/g15_el rec dist 21 -> 0 lost=0 gained=21
+tp/v11u241repro/cases/AG/g15 R11U265_MEMBENUMLOC_OFF cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=db3941da
+tp/v11u241repro/cases/AG/g15_el R11U265_MEMBENUMLOC_OFF cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=c5a03f05
+tp/v11u241repro/cases/AG/g15 R11U265_SHAREDAGGCOPY_OFF cmp=0 cmplines=0 strict=STRICT_EQUAL_687_objects rc=0 md5=37e08cda
+tp/v11u241repro/cases/AG/g15_el R11U265_SHAREDAGGCOPY_OFF cmp=0 cmplines=0 strict=STRICT_EQUAL_910_objects rc=0 md5=340e2e53
+tp/v11u241repro/cases/AG/g15 R11U265_COPYBITSELMEMB_OFF cmp=0 cmplines=0 strict=STRICT_EQUAL_687_objects rc=0 md5=37e08cda
+tp/v11u241repro/cases/AG/g15_el R11U265_COPYBITSELMEMB_OFF cmp=0 cmplines=0 strict=STRICT_EQUAL_910_objects rc=0 md5=340e2e53

@@ -1,0 +1,4 @@
+ALL: MiniAmiq,default,STRICT_NOTEQUAL,differ:file(4),,differ:file(4) md5=0fd41b95c7a3 bin=/tmp/v11u265_bin/law
+MEMBENUMLOC: MiniAmiq,default,STRICT_NOTEQUAL,differ:file(9),,differ:file(9) md5=1a3898b7ea26 bin=/tmp/v11u265_bin/law
+SHAREDAGGCOPY: MiniAmiq,default,STRICT_NOTEQUAL,differ:file(9),,differ:file(9) md5=1a3898b7ea26 bin=/tmp/v11u265_bin/law
+COPYBITSELMEMB: MiniAmiq,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1) md5=14d36f28aea1 bin=/tmp/v11u265_bin/law
