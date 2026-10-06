@@ -23,6 +23,7 @@
 #include "R248.h"
 #include "R252.h"
 #include "R254.h"
+#include "R258.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -3463,6 +3464,17 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             fs->VpiFullName(prefix);
             // Surelog anchors the foreach_stmt at the "foreach" keyword alone.
             setLoc(fs, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 7));
+            // § cloneLoopVarAssocIdxTs258: the home foreach of every
+            // non-copy foreach, by its keyword's location (R258.h).
+            std::string key258 = std::string(fs->VpiFile()) + ":" +
+                                 std::to_string(fs->VpiLineNo()) + ":" +
+                                 std::to_string(fs->VpiColumnNo());
+            if (!pkgImportCloneEmit && r11u258On("R11U258_CLONELVIDX_OFF")) {
+                auto& hf258 = homeForeach258()[key258];
+                auto*& slot258 = pkgDefViewBody9 ? hf258.first : hf258.second;
+                if (!slot258)
+                    slot258 = fs;
+            }
 
             const syntax::ForeachLoopListSyntax* ll = nullptr;
             if (stmt.syntax &&
@@ -4589,6 +4601,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             // property's ref_typespec, when its actual is
                             // bound only by the class listing's drain.
                             UHDM::ref_typespec* deferStr248 = nullptr;
+                            // § cloneLoopVarAssocIdxTs258: the index
+                            // typespec, bound late (R258.h).
+                            UHDM::typespec* deferIdx258 = nullptr;
                             if (r11u183LawSE("R11U183_UVMCOPY_OFF") &&
                                 r11u183LawSE("R11U183_CLONELV_OFF")) {
                                 std::string home183;
@@ -4856,6 +4871,62 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                              UHDM::uhdmint_typespec)
                                                     ? ia183
                                                     : nullptr;
+                                            // § cloneLoopVarAssocIdxTs258
+                                            // (r11u258, R11U258_CLONELVIDX_OFF)
+                                            // — EVERY OTHER index kind binds
+                                            // its index typespec too: golden's
+                                            // shared home object of
+                                            // `foreach (top_map.m_mems_by_offset
+                                            // [range])` over `m_mems_by_offset
+                                            // [uvm_reg_map_addr_range]` binds the
+                                            // struct_typespec at its typedef
+                                            // (uvm_reg_model.svh 408:9-412:4;
+                                            // MiniAmiq #121302, SeqDriver
+                                            // #121260 / #121272), and
+                                            // `m_regs_by_offset[reg_addr]` the
+                                            // bit_typespec uvm_reg_addr_t at
+                                            // 73:10-31 (MiniAmiq #122023);
+                                            // a logic, enum or byte index the
+                                            // same (cases/B).  The object is the
+                                            // LAST importer's re-listing the
+                                            // array's index binds, as golden's
+                                            // member full names read
+                                            // (`work@top.p::rng_t.min`).  Two
+                                            // things Surelog's order gives that
+                                            // ours must reproduce, so the binding
+                                            // is DEFERRED to ParamEmit's
+                                            // drainUnsizedBasedRhs106 (R258.h):
+                                            // (1) golden's DeepClone resolved the
+                                            // copy body's `range.min` while the
+                                            // home object was still unresolved,
+                                            // so UhdmExporter's clone-body member
+                                            // binder (§ pkgCloneMember10) must
+                                            // not see the struct (a bound member
+                                            // ref fails uhdm-cmp, cases/A); (2)
+                                            // the object is the HOME's, parented
+                                            // at the home foreach_stmt (golden
+                                            // `vpiParent: foreach_stmt
+                                            // (p::c::f)`), not inside the copy,
+                                            // so § cloneAggLocalOwnCopy241 does
+                                            // not take a private struct copy for
+                                            // it (whose members' full names read
+                                            // through the copy).  Abstains when
+                                            // no home foreach was emitted before
+                                            // the copy (the placeholder stays).
+                                            if (!res183 && ia183 &&
+                                                r11u258On("R11U258_CLONELVIDX_OFF")) {
+                                                if (homeForeach258().count(key258)) {
+                                                    deferIdx258 = ia183;
+                                                    tr258("cloneLoopVarAssocIdxTs258",
+                                                          std::string("defer ") +
+                                                              std::string(arrSym->name) + " " +
+                                                              std::to_string(ia183->UhdmType()));
+                                                }
+                                                else
+                                                    tr258("cloneLoopVarAssocIdxTs258",
+                                                          std::string("nohome ") +
+                                                              std::string(arrSym->name));
+                                            }
                                         }
                                     if (res183)
                                         tr183SE("cloneLoopVarHomeObject183");
@@ -4949,7 +5020,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             sh37->VpiParent(fs);
                             setLoc(sh37, span);
                             UHDM::typespec* uts37 = res183;
-                            if (!uts37 && !deferStr248) {
+                            if (deferIdx258 && (uts37 || deferStr248)) {
+                                tr258("cloneLoopVarAssocIdxTs258", "superseded");
+                                deferIdx258 = nullptr;
+                            }
+                            if (!uts37 && !deferStr248 && !deferIdx258) {
                                 auto* u37 = s.MakeUnsupported_typespec();
                                 u37->VpiName(name);
                                 u37->VpiParent(sh37);
@@ -4964,6 +5039,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 pendingLoopVarTs9.push_back({lrt37, deferStr248});
                                 deferredCloneStrTs248().push_back({lrt37, sh37});
                             }
+                            if (!uts37 && deferIdx258)
+                                deferredAssocIdxTs258().push_back(
+                                    {lrt37, deferIdx258, sh37, key258});
                             sh37->Typespec(lrt37);
                         }
                         lv0->Actual_group(sh37);
@@ -5808,12 +5886,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // Externally-declared loop vars use the SINGULAR init/inc
                 // fields; the init assignment drops opType/blocking and its
                 // Lhs is an unbound ref_var.
-                if (fl.initializers.size() == 1 &&
-                    fl.initializers[0]->kind == ExpressionKind::Assignment) {
-                    auto& iae = fl.initializers[0]->as<AssignmentExpression>();
+                // One initializer assignment in Surelog's for-init form: no
+                // vpiOpType / vpiBlocking, the Lhs an unbound ref_var.
+                auto mkInit258 = [&](const Expression* ie0) -> UHDM::assignment* {
+                    auto& iae = ie0->as<AssignmentExpression>();
                     auto* asn = s.MakeAssignment();
                     asn->VpiParent(fs);
-                    setLoc(asn, fl.initializers[0]->sourceRange);
+                    setLoc(asn, ie0->sourceRange);
                     auto& lhs0 = stripImplicitConv(iae.left());
                     // § forInitSelectLhsBase254 (r11u254) — AN OUTSIDE LOOP
                     // VARIABLE WRITTEN THROUGH A SELECT IS NAMED BY ITS BASE.
@@ -5881,8 +5960,77 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     if (auto* r = emitExpr(iae.right(), asn, prefix, netMap))
                         asn->Rhs(r);
                     forceConstParent = forceSaved;
+                    return asn;
+                };
+                // § forMultiInitAssign258 (r11u258, R11U258_FORMULTIINIT_OFF)
+                // — EVERY initializer of a multi-initializer loop takes that
+                // same form: `for (i = 0, j = 0; ...)`, `for (s.a = 0, i = 0;
+                // ...)`: golden lists one vpiForInitStmt assignment per
+                // initializer with no vpiOpType and no vpiBlocking and a bare
+                // ref_var Lhs (named by the base, § forInitSelectLhsBase254),
+                // exactly the single initializer's; ours emitted each as an
+                // ordinary blocking assignment expression (op type 82,
+                // blocking, a bound ref_obj or hier_path Lhs), which uhdm-cmp
+                // reads unequal (grid tools/probe/r11u258repro/cases/F).
+                // Applies when every initializer is an assignment.
+                bool multi258 = fl.initializers.size() > 1 &&
+                                r11u258On("R11U258_FORMULTIINIT_OFF");
+                // ...and when every initializer gets its Lhs: a base the
+                // single form leaves without one (`this.i`, an interface
+                // member `bi.v`) would hand UHDM's elaborator an assignment
+                // with no Lhs (the --elabuhdm crash § forInitSelectLhsBase254
+                // names), and a package-qualified variable is a variable
+                // object in golden (`int_var pv`), so the law abstains for the
+                // whole loop there (cases/F f10, f13, f15).
+                auto lhsOk258 = [&](const Expression* ie0) {
+                    if (ie0->kind != ExpressionKind::Assignment)
+                        return false;
+                    const Expression* l0 =
+                        &stripImplicitConv(ie0->as<AssignmentExpression>().left());
+                    if (l0->kind == ExpressionKind::NamedValue)
+                        return !(l0->syntax &&
+                                 l0->syntax->kind == syntax::SyntaxKind::ScopedName);
+                    if (!r11u254On("R11U254_FORINITSEL_OFF"))
+                        return false;
+                    for (int g258 = 0; g258 < 32 && l0; ++g258) {
+                        if (l0->kind == ExpressionKind::MemberAccess)
+                            l0 = &stripImplicitConv(
+                                l0->as<MemberAccessExpression>().value());
+                        else if (l0->kind == ExpressionKind::ElementSelect)
+                            l0 = &stripImplicitConv(
+                                l0->as<ElementSelectExpression>().value());
+                        else if (l0->kind == ExpressionKind::RangeSelect)
+                            l0 = &stripImplicitConv(
+                                l0->as<RangeSelectExpression>().value());
+                        else
+                            break;
+                    }
+                    return l0->kind == ExpressionKind::NamedValue &&
+                           l0->as<NamedValueExpression>().symbol.name != "this" &&
+                           l0->as<NamedValueExpression>().symbol.name != "super" &&
+                           !(l0->syntax &&
+                             l0->syntax->kind == syntax::SyntaxKind::ScopedName);
+                };
+                if (multi258)
+                    for (auto ie : fl.initializers)
+                        if (!lhsOk258(ie)) {
+                            tr258("forMultiInitAssign258", "abstain");
+                            multi258 = false;
+                            break;
+                        }
+                if (fl.initializers.size() == 1 &&
+                    fl.initializers[0]->kind == ExpressionKind::Assignment) {
+                    auto* asn = mkInit258(fl.initializers[0]);
                     auto* inits = s.MakeAnyVec();
                     inits->push_back(asn);
+                    fs->VpiForInitStmts(inits);
+                }
+                else if (multi258) {
+                    tr258("forMultiInitAssign258",
+                          std::to_string(fl.initializers.size()));
+                    auto* inits = s.MakeAnyVec();
+                    for (auto ie : fl.initializers)
+                        inits->push_back(mkInit258(ie));
                     fs->VpiForInitStmts(inits);
                 }
                 else {

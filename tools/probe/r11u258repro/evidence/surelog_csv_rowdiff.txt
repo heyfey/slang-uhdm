@@ -1,0 +1,20 @@
+845c845
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u258_wdP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u258_wdL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+847c847
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u258_wdP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u258_wdL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+858,859c858,859
+< MiniAmiq,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+< MiniAmiq,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+---
+> MiniAmiq,default,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+> MiniAmiq,testflags,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+1214,1215c1214,1215
+< SeqDriver,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+< SeqDriver,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+---
+> SeqDriver,default,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+> SeqDriver,testflags,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)

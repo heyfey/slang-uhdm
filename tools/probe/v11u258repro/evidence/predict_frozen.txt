@@ -1,0 +1,9 @@
+# v11u258 frozen prediction: trace census of the law binary (fence-filtered) + the implementer's three untraced order-only movers
+surelog MiniAmiq/default cloneLoopVarAssocIdxTs258:bind:8 cloneLoopVarAssocIdxTs258:defer:8
+surelog MiniAmiq/testflags cloneLoopVarAssocIdxTs258:bind:8 cloneLoopVarAssocIdxTs258:defer:8
+surelog SeqDriver/default cloneLoopVarAssocIdxTs258:bind:8 cloneLoopVarAssocIdxTs258:defer:8
+surelog SeqDriver/testflags cloneLoopVarAssocIdxTs258:bind:8 cloneLoopVarAssocIdxTs258:defer:8
+surelog SimpleUVM/default untraced(homeForeach258 registration, order-only claimed)
+surelog SimpleUVM/testflags untraced
+surelog Scoreboard/default untraced
+probe: none; downstream: none; uhdm2rtlil: none

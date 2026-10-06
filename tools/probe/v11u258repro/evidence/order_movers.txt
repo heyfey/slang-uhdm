@@ -1,0 +1,21 @@
+SimpleUVM default database md5 (12 hex) per binary and environment, same command line as the gate sweep's cmds.txt:
+pristine plain f87dd1ed9147   law plain 045c25fc8bd4
+pristine GLIBC_TUNABLES=glibc.malloc.mmap_threshold=4096 f87dd1ed9147   law 045c25fc8bd4
+pristine GLIBC_TUNABLES=glibc.malloc.top_pad=1048576:glibc.malloc.arena_max=1 f87dd1ed9147   law 045c25fc8bd4
+pristine GLIBC_TUNABLES=glibc.malloc.tcache_count=0 f87dd1ed9147   law 045c25fc8bd4
+pristine GLIBC_TUNABLES=glibc.malloc.tcache_count=0:glibc.malloc.mxfast=0 f87dd1ed9147   law 045c25fc8bd4
+law R11U258_TRACE set: no trace file written (no law fires)
+law R11U258_CLONELVIDX_OFF f87dd1ed9147   R11U258_STREAMRD_OFF 045c25fc8bd4   R11U258_FORMULTIINIT_OFF 045c25fc8bd4
+fix (all on) f87dd1ed9147   fix R11U258_CLONELVIDX_OFF f87dd1ed9147   fix R11U258_OFF f87dd1ed9147   fix R11V258_OFF 045c25fc8bd4
+
+strings(1) sequence diff pristine vs law (71579 strings each, the only change, at the symbol table's tail):
+71514,71515c71514
+< :uvm_objection::m_execute_scheduled_forks::guard::objection.m_forked_contexts[]::m_forked_contexts::obj
+< uvm_pkg::uvm_objection::m_execute_scheduled_forks::guard::objection.m_drain_proc[]::m_drain_proc
+---
+> :uvm_objection::m_execute_scheduled_forks::guard::objection.m_drain_proc[]::m_drain_proc
+71518c71517,71518
+< :uvm_reg_predictor::write::predict_info.addr[]::addr::ad
+---
+> :uvm_objection::m_execute_scheduled_forks::guard::objection.m_forked_contexts[]::m_forked_contexts::obj
+> uvm_pkg::uvm_reg_predictor::write::predict_info.addr[]::addr::ad

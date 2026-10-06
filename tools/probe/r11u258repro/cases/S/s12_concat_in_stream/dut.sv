@@ -1,0 +1,6 @@
+// § lvStreamBaseKeepsActual258 (a concatenation inside the streaming target)
+interface bif; logic [7:0] read_data; logic [7:0] wr_data; endinterface
+module m(bif bit_field_if); logic [7:0] x;
+  always_comb {>>{{bit_field_if.read_data[3:0], bit_field_if.wr_data[3:0]}}} = x;
+endmodule
+module top; bif b(); m u(.bit_field_if(b)); endmodule

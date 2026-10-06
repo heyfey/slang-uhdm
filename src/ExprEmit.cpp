@@ -38,6 +38,7 @@
 #include "R252.h"
 #include "R254.h"
 #include "R256.h"
+#include "R258.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -3910,6 +3911,26 @@ void drainHpSelIdxTrail244(UHDM::Serializer& s) {
             }
         }
     }
+    // § hpSelIdxTrailIdOrder258v (v11u258, R11V258_HPIDXORDER_OFF;
+    // R11V258_OFF or R11U258_OFF drops it) — the loop below registers fresh
+    // VpiFullName strings and `hits` was collected in AllObjects() order, a
+    // std::map keyed by object ADDRESS (`new T` per object), so the symbol
+    // table's tail followed the heap layout: under r11u258's law binary,
+    // whose § cloneLoopVarAssocIdxTs258 bookkeeping (homeForeach258) only
+    // allocates map nodes, SimpleUVM d/t and Scoreboard d changed three
+    // strings' order (`...::objection.m_forked_contexts[]::m_forked_contexts
+    // ::obj`, `...m_drain_proc[]::m_drain_proc`, `...::predict_info.addr[]::
+    // addr::addr`) with identical dumps.  chainFullName175 reads only
+    // VpiName / VpiDefName of the chain, never a name this loop sets, so
+    // visiting in UhdmId (creation) order changes the symbol table's order
+    // and no record, as § fullNameDrainIdOrder226v did for
+    // refFullNameThroughNamedExpr175.
+    if (r11v258On("R11V258_HPIDXORDER_OFF"))
+        std::stable_sort(hits.begin(), hits.end(),
+                         [](const UHDM::ref_obj* a, const UHDM::ref_obj* b) {
+                             return a->UhdmId() < b->UhdmId();
+                         });
+    int set258 = 0;
     for (auto* r : hits) {
         std::string want = chainFullName175(r);
         std::string have(r->VpiFullName());
@@ -3918,8 +3939,13 @@ void drainHpSelIdxTrail244(UHDM::Serializer& s) {
             continue;
         }
         r->VpiFullName(want);
+        ++set258;
         tr244("hpSelIdxPathTrailByChain244", want);
     }
+    // the trace names the databases where two or more names are set (only
+    // there can the order of the registered strings differ)
+    if (set258 > 1 && r11v258On("R11V258_HPIDXORDER_OFF"))
+        tr258("hpSelIdxTrailIdOrder258v", std::to_string(set258));
 }
 
 // The r11u181 switches (tools/probe/r11u181repro/README.md): every r11u181
@@ -4330,6 +4356,38 @@ static bool lvStreamOperand181(const UHDM::BaseClass* parent) {
     }
     return false;
 }
+
+// § lvStreamBaseKeepsActual258 (r11u258, R11U258_STREAMRD_OFF) — A SELECTED
+// PATH THAT IS A STREAMING CONCATENATION'S LVALUE OPERAND IS BUILT AS A READ.
+// Surelog compiles the operand of `{>>{...}} = x` as an rvalue (pass 178's V1,
+// § streamLvMemberPathRead184 in emitMixedHierPath), and golden gives a dotted
+// interface or struct path with a trailing bit, part or indexed part select
+// exactly the read path's shape: the base ref_obj at its own token
+// (`bit_field_if` 4:19-31, not the first member's 4:32-41 of
+// § lvPathBaseAtFirstMember154), the part_select without the defname and
+// chain name of § lvPathSelNamedByChain154, the bit_select at its index
+// (§ lvIfaceBitSelWhole154 abstains) and named through the chain
+// (`work@m.bit_field_if.read_data[3].read_data`), inside a macro body
+// (§ macroIfacePathTokSpans183's token arm) or outside it (v11u256 M/vm17,
+// M/vm20; grid tools/probe/r11u258repro/cases/S).  The ElementSelect and
+// RangeSelect arms of emitExpr run with `inLhs` cleared for such a path,
+// restored on exit.
+struct StreamRead258 {
+    bool& lhs;
+    bool cleared = false;
+    StreamRead258(bool& inLhs, const UHDM::BaseClass* parent) : lhs(inLhs) {
+        if (lhs && lvStreamOperand181(parent) &&
+            r11u258On("R11U258_STREAMRD_OFF")) {
+            tr258("lvStreamBaseKeepsActual258");
+            lhs = false;
+            cleared = true;
+        }
+    }
+    ~StreamRead258() {
+        if (cleared)
+            lhs = true;
+    }
+};
 
 // § lvSelIdxChainName181 (r11u181) — A PROCEDURAL LVALUE PATH'S MEMBER
 // SELECT AND THE REFERENCES IN ITS INDEX READ THEIR CHAIN NAMES.  Surelog
@@ -39066,6 +39124,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::ElementSelect: {
             auto& es = expr.as<ElementSelectExpression>();
+            // § lvStreamBaseKeepsActual258 (StreamRead258, above).
+            StreamRead258 sr258(inLhs, parent);
             // § thisDeepStepMockupConst84 — SITE 2 of 4.  An INDEX on a step
             // that is NOT the first one (`this.h.arr[i]`) is inside the
             // discarded tail, so the whole thing is the mockup constant; an
@@ -39503,6 +39563,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if ((inGenScopeProc || defGenProcessEmit) &&
                             r11u184Law("R11U184_GSTRAIL_OFF"))
                             trace184("GSTRAIL");
+                        // § lvStreamBaseKeepsActual258: a streaming
+                        // target's stream operation is parented after its
+                        // operands, so the frozen name would lose the scope
+                        // (golden `work@m.s.f[3].f`, ours `s.f[3].f`);
+                        // left to the reader's parent chain, as above.
+                        else if (sr258.cleared)
+                            tr258("lvStreamBaseKeepsActual258", "late");
                         else
                             (void)bs2->VpiFullName();
                         if (auto* ix = emitExpr(es.selector(), bs2, prefix, netMap))
@@ -39851,6 +39918,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (inGenScopeProc)
                             bs2->VpiFullName(prefix + "." + selText + "." +
                                              lastName);
+                        // § lvStreamBaseKeepsActual258: named late (above).
+                        else if (sr258.cleared)
+                            tr258("lvStreamBaseKeepsActual258", "late");
                         else
                             (void)bs2->VpiFullName();
                         // § lvIfacePathBitSelWhole154 (EmitHelpers.h).
@@ -40294,6 +40364,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::RangeSelect: {
             auto& rs = expr.as<RangeSelectExpression>();
+            // § lvStreamBaseKeepsActual258 (StreamRead258, above).
+            StreamRead258 sr258(inLhs, parent);
             // § thisDeepStepMockupConst84 — SITE 3 of 4, the RANGE-select
             // spelling of SITE 2 (`this.h.arr[3:0]`).
             if (auto* mk84 = thisDeepMemberMockup84(expr, parent))

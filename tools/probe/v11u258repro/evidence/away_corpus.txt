@@ -1,0 +1,11 @@
+record census (awaycorp.sh):
+surelog_default_MiniAmiq-055eab74 dist 156 -> 134 lost=0 gained=520
+surelog_default_SeqDriver-65178d3a dist 107 -> 97 lost=0 gained=342
+surelog_testflags_MiniAmiq-055eab74 dist 156 -> 134 lost=0 gained=520
+surelog_testflags_SeqDriver-65178d3a dist 107 -> 97 lost=0 gained=342
+chain-keyed census (r11u258repro/drivers/awaychain.py with SCX = r11u258repro/drivers/cc_x.sh's strictcmp_x), pristine sweep vs law sweep:
+surelog/default/MiniAmiq-055eab74 chain away=0 toward=522 flat_away=0 flat_toward=496
+surelog/testflags/MiniAmiq-055eab74 chain away=0 toward=522 flat_away=0 flat_toward=496
+surelog/default/SeqDriver-65178d3a chain away=0 toward=348 flat_away=0 flat_toward=326
+surelog/testflags/SeqDriver-65178d3a chain away=0 toward=348 flat_away=0 flat_toward=326
+(the fix sweep's four databases dump identically to the law sweep's, ids included: the same census holds)

@@ -1,0 +1,4 @@
+surelog MiniAmiq/default cloneLoopVarAssocIdxTs258:bind:8 cloneLoopVarAssocIdxTs258:defer:8
+surelog MiniAmiq/testflags cloneLoopVarAssocIdxTs258:bind:8 cloneLoopVarAssocIdxTs258:defer:8
+surelog SeqDriver/default cloneLoopVarAssocIdxTs258:bind:8 cloneLoopVarAssocIdxTs258:defer:8
+surelog SeqDriver/testflags cloneLoopVarAssocIdxTs258:bind:8 cloneLoopVarAssocIdxTs258:defer:8

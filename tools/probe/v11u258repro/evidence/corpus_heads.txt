@@ -1,0 +1,104 @@
+== default_MiniAmiq-055eab74_L.strict
+#126482 file
+  A: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#126534 file
+  A: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127274 file
+  A: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127418 type
+  A: 14	typespec_member	byte_en			uvm_pkg.sv	303	21	303	28				
+  B: 14	ref_obj	z		svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access.byte_en[z]::z	uvm_reg_map.svh	1903	29	1903	30		0		
+objects 435559 vs 435060
+fields: type=1 name=1 fullname=1 file=4 line=4 col=4 endline=4 endcol=4 size=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL file
+== default_Scoreboard-72aa0ba8_L.strict
+STRICT_EQUAL 269656 objects
+== default_SeqDriver-65178d3a_L.strict
+#126440 file
+  A: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#126492 file
+  A: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127232 file
+  A: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127376 type
+  A: 14	typespec_member	byte_en			uvm_pkg.sv	303	21	303	28				
+  B: 14	ref_obj	z		adpcm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access.byte_en[z]::z	uvm_reg_map.svh	1903	29	1903	30		0		
+objects 475526 vs 475095
+fields: type=1 name=1 fullname=1 file=4 line=4 col=4 endline=4 endcol=4 size=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL file
+== default_SimpleUVM-267de3ff_L.strict
+STRICT_EQUAL 334285 objects
+== testflags_MiniAmiq-055eab74_L.strict
+#126482 file
+  A: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#126534 file
+  A: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127274 file
+  A: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127418 type
+  A: 14	typespec_member	byte_en			uvm_pkg.sv	303	21	303	28				
+  B: 14	ref_obj	z		svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access.byte_en[z]::z	uvm_reg_map.svh	1903	29	1903	30		0		
+objects 435559 vs 435060
+fields: type=1 name=1 fullname=1 file=4 line=4 col=4 endline=4 endcol=4 size=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL file
+== testflags_SeqDriver-65178d3a_L.strict
+#126452 file
+  A: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#126504 file
+  A: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127244 file
+  A: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127388 type
+  A: 14	typespec_member	byte_en			uvm_pkg.sv	303	21	303	28				
+  B: 14	ref_obj	z		adpcm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access.byte_en[z]::z	uvm_reg_map.svh	1903	29	1903	30		0		
+objects 475538 vs 475107
+fields: type=1 name=1 fullname=1 file=4 line=4 col=4 endline=4 endcol=4 size=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL file
+== testflags_SimpleUVM-267de3ff_L.strict
+STRICT_EQUAL 334297 objects
+== default_MiniAmiq-055eab74_P.strict
+#121302 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+objects 435559 vs 434562
+fields: type=1 name=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== default_Scoreboard-72aa0ba8_P.strict
+STRICT_EQUAL 269656 objects
+== default_SeqDriver-65178d3a_P.strict
+#121260 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+objects 475526 vs 474763
+fields: type=1 name=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== default_SimpleUVM-267de3ff_P.strict
+STRICT_EQUAL 334285 objects
+== testflags_MiniAmiq-055eab74_P.strict
+#121302 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+objects 435559 vs 434562
+fields: type=1 name=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== testflags_SeqDriver-65178d3a_P.strict
+#121272 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+objects 475538 vs 474775
+fields: type=1 name=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== testflags_SimpleUVM-267de3ff_P.strict
+STRICT_EQUAL 334297 objects

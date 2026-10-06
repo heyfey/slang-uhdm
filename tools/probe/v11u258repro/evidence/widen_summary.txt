@@ -1,0 +1,7 @@
+MOVER tp/r11u187repro/cases/T/t14 P=NOT_EQUAL_stage1 L=STRICT_NOTEQUAL_fullname F=STRICT_NOTEQUAL_fullname rc=0/0/0 cmplines=128->0
+MOVER tp/r11u187repro/cases/T/t14_el P=NOT_EQUAL_stage1 L=STRICT_NOTEQUAL_fullname F=STRICT_NOTEQUAL_fullname rc=0/0/0 cmplines=156->0
+FIXMOVER tp/r11u244repro/cases/X/x04 P=STRICT_EQUAL_326_objects L=STRICT_EQUAL_326_objects F=STRICT_EQUAL_326_objects rc=0/0/0 cmplines=0->0
+FIXMOVER tp/r11u244repro/cases/X/x04_el P=STRICT_EQUAL_341_objects L=STRICT_EQUAL_341_objects F=STRICT_EQUAL_341_objects rc=0/0/0 cmplines=0->0
+MOVER tp/v11u244repro/cases/A/a14_cls_forms2 P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 rc=0/0/0 cmplines=152->152
+MOVER tp/v11u244repro/cases/A/a14_cls_forms2_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 rc=0/0/0 cmplines=184->184
+case-views=1464 nonzero rc (all binaries)=16 law moving=4 cmplines changed=2 fix vs law moving=2

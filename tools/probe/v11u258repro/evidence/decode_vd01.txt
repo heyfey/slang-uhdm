@@ -1,0 +1,15 @@
+VD/vd01 (default view) law binary strict records (pristine identical bytes):
+#103 fullname
+  A: 9	ref_typespec			<in>addr_t		0	0	0	0		0		
+  B: 9	ref_typespec			<in>addr_t		0	0	0	0		0		
+  raw fullname A: q::c::f::rw_access::p::op_t::data::addr_t | B: addr_t
+#130 fullname
+  A: 10	ref_typespec			<in>addr_t		0	0	0	0		0		
+  B: 10	ref_typespec			<in>addr_t		0	0	0	0		0		
+  raw fullname A: q::c::f::rw_access::p::op_t::data::addr_t | B: addr_t
+#163 type
+  A: 7	typespec_member	byte_en			dut.sv	5	15	5	22				
+  B: 7	ref_obj	z		q::c::f::rw_access.byte_en[z]::z	dut.sv	13	23	13	24		0		
+objects 492 vs 480
+fields: type=1 name=1 fullname=3 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=3 (walk diverged)
+STRICT_NOTEQUAL fullname

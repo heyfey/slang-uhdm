@@ -1,0 +1,36 @@
+== probe pristine vs law
+== probe law vs fix
+== surelog pristine vs law
+844c844
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u258_swP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u258_swL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+846c846
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u258_swP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u258_swL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+857,858c857,858
+< MiniAmiq,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+< MiniAmiq,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+---
+> MiniAmiq,default,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+> MiniAmiq,testflags,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+1214,1215c1214,1215
+< SeqDriver,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+< SeqDriver,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+---
+> SeqDriver,default,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+> SeqDriver,testflags,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+== surelog law vs fix
+844c844
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u258_swL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u258_swF/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+846c846
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u258_swL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u258_swF/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+== uhdm2rtlil pristine vs law
+== uhdm2rtlil law vs fix
+== downstream pristine vs law
+== downstream law vs fix

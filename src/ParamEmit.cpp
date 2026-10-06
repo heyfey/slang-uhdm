@@ -26,6 +26,7 @@
 #include "R250.h"
 #include "R252.h"
 #include "R256.h"
+#include "R258.h"
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
@@ -34504,6 +34505,26 @@ void UhdmExporter::drainShareDefParamTs() {
 // (`expr.cpp:90-100`), and `ref_typespec::Compare` recurses into
 // `Actual_typespec` — so both halves are judge-visible and must move together.
 void UhdmExporter::drainUnsizedBasedRhs106() {
+    // § cloneLoopVarAssocIdxTs258 (R258.h, R11U258_CLONELVIDX_OFF): bind the
+    // deferred index typespecs of the clone loop variables' shared home
+    // objects, after UhdmExporter's clone-body member binder, and parent each
+    // at its home foreach_stmt (the elaborated body's, else the definition
+    // listing's) before § cloneAggLocalOwnCopy241 walks the copies.
+    for (auto& d258 : deferredAssocIdxTs258()) {
+        if (!d258.rt || !d258.ts || d258.rt->Actual_typespec())
+            continue;
+        auto h258 = homeForeach258().find(d258.key);
+        UHDM::foreach_stmt* hf258 = nullptr;
+        if (h258 != homeForeach258().end())
+            hf258 = h258->second.second ? h258->second.second : h258->second.first;
+        d258.rt->Actual_typespec(d258.ts);
+        if (hf258 && d258.sh)
+            d258.sh->VpiParent(hf258);
+        tr258("cloneLoopVarAssocIdxTs258",
+              std::string(hf258 ? "bind " : "bind-noparent ") +
+                  (d258.sh ? std::string(d258.sh->VpiFullName()) : std::string()));
+    }
+    deferredAssocIdxTs258().clear();
     for (auto& r : unsizedRhs106) {
         auto* c = r.c;
         if (!c)

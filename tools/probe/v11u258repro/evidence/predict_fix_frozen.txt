@@ -1,0 +1,14 @@
+# v11u258 fix prediction (frozen before the fix sweep): trace census of the fix binary (fence-filtered)
+probe r10earl29repro__a4_ctx.uhdm hpSelIdxTrailIdOrder258v:5:1
+probe r10uvm94repro__g94_a0_head.uhdm hpSelIdxTrailIdOrder258v:2:1
+surelog BuildUVMPkg/default hpSelIdxTrailIdOrder258v:4:1
+surelog BuildUVMPkg/testflags hpSelIdxTrailIdOrder258v:4:1
+surelog MiniAmiq/default cloneLoopVarAssocIdxTs258:bind:8 cloneLoopVarAssocIdxTs258:defer:8 hpSelIdxTrailIdOrder258v:9:1
+surelog MiniAmiq/testflags cloneLoopVarAssocIdxTs258:bind:8 cloneLoopVarAssocIdxTs258:defer:8 hpSelIdxTrailIdOrder258v:9:1
+surelog Scoreboard/default hpSelIdxTrailIdOrder258v:9:1
+surelog SeqDriver/default cloneLoopVarAssocIdxTs258:bind:8 cloneLoopVarAssocIdxTs258:defer:8 hpSelIdxTrailIdOrder258v:9:1
+surelog SeqDriver/testflags cloneLoopVarAssocIdxTs258:bind:8 cloneLoopVarAssocIdxTs258:defer:8 hpSelIdxTrailIdOrder258v:9:1
+surelog SimpleUVM/default hpSelIdxTrailIdOrder258v:9:1
+surelog SimpleUVM/testflags hpSelIdxTrailIdOrder258v:9:1
+# fix vs pristine: MUST move MiniAmiq d/t, SeqDriver d/t (the law); MAY move (order-only, string table) BuildUVMPkg d/t, Scoreboard d, SimpleUVM t, probe r10earl29repro__a4_ctx, r10uvm94repro__g94_a0_head; SimpleUVM d measured equal to pristine; nothing else
+# fix vs law: only databases in the list above may move

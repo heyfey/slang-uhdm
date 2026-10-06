@@ -1,0 +1,25 @@
+case-views=2670 moving=12 entering=10 leaving=0 rc-changed=0 cmplines-changed=2
+MOVER tp/v11u254repro/cases/F/vf03_selects NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_col cmplines 94->0
+MOVER tp/v11u254repro/cases/F/vf03_selects_el NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_col cmplines 94->0
+MOVER tp/v11u256repro/cases/M/vm09_streaming STRICT_NOTEQUAL_defname -> STRICT_EQUAL_111_objects cmplines 0->0
+MOVER tp/v11u256repro/cases/M/vm09_streaming_el STRICT_NOTEQUAL_defname -> STRICT_EQUAL_104_objects cmplines 0->0
+MOVER tp/v11u256repro/cases/M/vm17_stream_plain STRICT_NOTEQUAL_col -> STRICT_EQUAL_111_objects cmplines 0->0
+MOVER tp/v11u256repro/cases/M/vm17_stream_plain_el STRICT_NOTEQUAL_col -> STRICT_EQUAL_104_objects cmplines 0->0
+MOVER tp/v11u256repro/cases/M/vm18_stream_concat_macro STRICT_NOTEQUAL_defname -> STRICT_EQUAL_122_objects cmplines 0->0
+MOVER tp/v11u256repro/cases/M/vm18_stream_concat_macro_el STRICT_NOTEQUAL_defname -> STRICT_EQUAL_112_objects cmplines 0->0
+MOVER tp/v11u256repro/cases/M/vm20_stream_bitsel_macro STRICT_NOTEQUAL_col -> STRICT_EQUAL_100_objects cmplines 0->0
+MOVER tp/v11u256repro/cases/M/vm20_stream_bitsel_macro_el STRICT_NOTEQUAL_col -> STRICT_EQUAL_96_objects cmplines 0->0
+MOVER tp/v11u256repro/cases/M/vm21_stream_sliced_macro STRICT_NOTEQUAL_defname -> STRICT_EQUAL_113_objects cmplines 0->0
+MOVER tp/v11u256repro/cases/M/vm21_stream_sliced_macro_el STRICT_NOTEQUAL_defname -> STRICT_EQUAL_106_objects cmplines 0->0
+ENTER tp/v11u256repro/cases/M/vm09_streaming
+ENTER tp/v11u256repro/cases/M/vm09_streaming_el
+ENTER tp/v11u256repro/cases/M/vm17_stream_plain
+ENTER tp/v11u256repro/cases/M/vm17_stream_plain_el
+ENTER tp/v11u256repro/cases/M/vm18_stream_concat_macro
+ENTER tp/v11u256repro/cases/M/vm18_stream_concat_macro_el
+ENTER tp/v11u256repro/cases/M/vm20_stream_bitsel_macro
+ENTER tp/v11u256repro/cases/M/vm20_stream_bitsel_macro_el
+ENTER tp/v11u256repro/cases/M/vm21_stream_sliced_macro
+ENTER tp/v11u256repro/cases/M/vm21_stream_sliced_macro_el
+CHANGED tp/v11u254repro/cases/F/vf03_selects
+CHANGED tp/v11u254repro/cases/F/vf03_selects_el

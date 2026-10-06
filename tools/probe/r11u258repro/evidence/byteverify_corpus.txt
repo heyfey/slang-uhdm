@@ -1,0 +1,17 @@
+byteverify (tools/probe/r11v75repro/byteverify.sh, SELFCHECK=1) over fence-filtered hard-link mirrors of the two gate sweeps:
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/MiniAmiq-055eab74/slang.uhdm  patched=c868aaff7646 pristine=802f35fbde4b
+MOVER ./surelog/default/Scoreboard-72aa0ba8/slang.uhdm  patched=f902b650970c pristine=dbed01280a79
+MOVER ./surelog/default/SeqDriver-65178d3a/slang.uhdm  patched=14e0773aabeb pristine=50c077e5d2c3
+MOVER ./surelog/default/SimpleUVM-267de3ff/slang.uhdm  patched=045c25fc8bd4 pristine=f87dd1ed9147
+MOVER ./surelog/testflags/MiniAmiq-055eab74/slang.uhdm  patched=c868aaff7646 pristine=802f35fbde4b
+MOVER ./surelog/testflags/SeqDriver-65178d3a/slang.uhdm  patched=15b5106e7f66 pristine=1ec8e0c7d7d6
+MOVER ./surelog/testflags/SimpleUVM-267de3ff/slang.uhdm  patched=e9875e112c4d pristine=8bbc8aa7d027
+MOVERS: 7 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+
+switch attribution of the three order-only movers (law binary with one switch off, SimpleUVM d/t + Scoreboard d):
+R11U258_OFF dbed01280a79 default/Scoreboard-72aa0ba8/slang.uhdm f87dd1ed9147 default/SimpleUVM-267de3ff/slang.uhdm 8bbc8aa7d027 testflags/SimpleUVM-267de3ff/slang.uhdm 
+R11U258_CLONELVIDX_OFF dbed01280a79 default/Scoreboard-72aa0ba8/slang.uhdm f87dd1ed9147 default/SimpleUVM-267de3ff/slang.uhdm 8bbc8aa7d027 testflags/SimpleUVM-267de3ff/slang.uhdm 
+R11U258_STREAMRD_OFF f902b650970c default/Scoreboard-72aa0ba8/slang.uhdm 045c25fc8bd4 default/SimpleUVM-267de3ff/slang.uhdm e9875e112c4d testflags/SimpleUVM-267de3ff/slang.uhdm 

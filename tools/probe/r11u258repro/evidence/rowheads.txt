@@ -1,0 +1,68 @@
+== P MiniAmiq/default
+#121302 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+== L MiniAmiq/default
+#126482 file
+  A: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#126534 file
+  A: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127274 file
+  A: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127418 type
+  A: 14	typespec_member	byte_en			uvm_pkg.sv	303	21	303	28				
+  B: 14	ref_obj	z		svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access.byte_en[z]::z	uvm_reg_map.svh	1903	29	1903	30		0		
+== P SeqDriver/default
+#121260 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+== L SeqDriver/default
+#126440 file
+  A: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#126492 file
+  A: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127232 file
+  A: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127376 type
+  A: 14	typespec_member	byte_en			uvm_pkg.sv	303	21	303	28				
+  B: 14	ref_obj	z		adpcm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access.byte_en[z]::z	uvm_reg_map.svh	1903	29	1903	30		0		
+== P MiniAmiq/testflags
+#121302 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+== L MiniAmiq/testflags
+#126482 file
+  A: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#126534 file
+  A: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127274 file
+  A: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127418 type
+  A: 14	typespec_member	byte_en			uvm_pkg.sv	303	21	303	28				
+  B: 14	ref_obj	z		svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access.byte_en[z]::z	uvm_reg_map.svh	1903	29	1903	30		0		
+== P SeqDriver/testflags
+#121272 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+== L SeqDriver/testflags
+#126452 file
+  A: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 10	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#126504 file
+  A: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 9	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127244 file
+  A: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57				
+  B: 13	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43				
+#127388 type
+  A: 14	typespec_member	byte_en			uvm_pkg.sv	303	21	303	28				
+  B: 14	ref_obj	z		adpcm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access.byte_en[z]::z	uvm_reg_map.svh	1903	29	1903	30		0		

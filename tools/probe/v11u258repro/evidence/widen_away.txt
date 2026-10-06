@@ -1,0 +1,4 @@
+tp/r11u187repro/cases/T/t14 dump dist 14 -> 4 lost=0 gained=10
+tp/r11u187repro/cases/T/t14_el dump dist 33 -> 7 lost=0 gained=26
+tp/v11u244repro/cases/A/a14_cls_forms2 dump dist 33 -> 23 lost=0 gained=10
+tp/v11u244repro/cases/A/a14_cls_forms2_el dump dist 94 -> 74 lost=0 gained=20

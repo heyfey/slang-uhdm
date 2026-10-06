@@ -1,0 +1,1 @@
+probe byte movers pristine vs law: 0 of 4087 (path sets identical); self-check (pairs misaligned by one) flags 4086 of 4086
