@@ -1,0 +1,16 @@
+case-views=2304 moving=12 entering=3 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/r11u241repro/cases/CF/e04 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_520_objects cmplines 0->0
+MOVER tp/r11u241repro/cases/CF/e04_el STRICT_NOTEQUAL_depth -> STRICT_NOTEQUAL_depth cmplines 0->0
+MOVER tp/r11u241repro/cases/CF/e07 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_565_objects cmplines 0->0
+MOVER tp/r11u241repro/cases/CF/e07_el STRICT_NOTEQUAL_name -> STRICT_NOTEQUAL_name cmplines 0->0
+MOVER tp/r11u241repro/cases/CF/e10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 643->643
+MOVER tp/r11u241repro/cases/CF/e10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 699->699
+MOVER tp/r11u241repro/cases/CF/e11 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 321->321
+MOVER tp/r11u241repro/cases/CF/e11_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 351->351
+MOVER tp/r11u252repro/cases/L/l06_typedef_elem NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 62->62
+MOVER tp/r11u252repro/cases/L/l06_typedef_elem_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 62->62
+MOVER tp/r11u252repro/decode/M/m01_member_actual_iface STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_226_objects cmplines 0->0
+MOVER tp/r11u252repro/decode/M/m01_member_actual_iface_el STRICT_NOTEQUAL_name -> STRICT_NOTEQUAL_name cmplines 0->0
+ENTER tp/r11u241repro/cases/CF/e04
+ENTER tp/r11u241repro/cases/CF/e07
+ENTER tp/r11u252repro/decode/M/m01_member_actual_iface

@@ -1,0 +1,11 @@
+case-views=1288 moving=8 entering=2 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/v11u241repro/cases/AG/g02 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 715->715
+MOVER tp/v11u241repro/cases/AG/g02_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 775->775
+MOVER tp/v11u241repro/cases/AG/g05 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_501_objects cmplines 0->0
+MOVER tp/v11u241repro/cases/AG/g05_el STRICT_NOTEQUAL_depth -> STRICT_NOTEQUAL_depth cmplines 0->0
+MOVER tp/v11u241repro/cases/AG/g09 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_379_objects cmplines 0->0
+MOVER tp/v11u241repro/cases/AG/g09_el STRICT_NOTEQUAL_depth -> STRICT_NOTEQUAL_depth cmplines 0->0
+MOVER tp/v11u241repro/cases/AG/g13 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 94->94
+MOVER tp/v11u241repro/cases/AG/g13_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 37->37
+ENTER tp/v11u241repro/cases/AG/g05
+ENTER tp/v11u241repro/cases/AG/g09

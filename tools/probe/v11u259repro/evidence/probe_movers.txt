@@ -1,0 +1,18 @@
+probe/r10uvm180repro/g180_a_kinds p cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=8c15db53
+probe/r10uvm180repro/g180_a_kinds l cmp=0 cmplines=0 strict=STRICT_EQUAL_3496_objects rc=0 md5=f40d05c1
+probe/r10uvm207repro/g207_c_share p cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=b3c523cf
+probe/r10uvm207repro/g207_c_share l cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=693de33f
+probe/r10uvm207repro/g207_e_head p cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a6f03aee
+probe/r10uvm207repro/g207_e_head l cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=160d11ee
+probe/r10uvm207repro/g207_h_foreign p cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=5efa9d43
+probe/r10uvm207repro/g207_h_foreign l cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d39a4f9b
+probe/r10v181repro/v181_h_nofe p cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d86a6bbb
+probe/r10v181repro/v181_h_nofe l cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=9e0f067a
+probe/r10v208repro/v208_f_io p cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_name rc=0 md5=00e62445
+probe/r10v208repro/v208_f_io l cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_name rc=0 md5=de4005d0
+probe/r10uvm180repro/g180_a_kinds rec dist 3 -> 2 lost=0 gained=1
+probe/r10uvm207repro/g207_c_share rec dist 40 -> 0 lost=0 gained=7
+probe/r10uvm207repro/g207_e_head rec dist 8 -> 0 lost=0 gained=8
+probe/r10uvm207repro/g207_h_foreign rec dist 9 -> 4 lost=0 gained=5
+probe/r10v181repro/v181_h_nofe rec dist 7 -> 12 lost=0 gained=1
+probe/r10v208repro/v208_f_io rec dist 6 -> 3 lost=2 gained=5

@@ -1,0 +1,22 @@
+787c787
+< r10uvm180repro/g180_a_kinds,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+---
+> r10uvm180repro/g180_a_kinds,EQUAL,,equal
+814,815c814,815
+< r10uvm207repro/g207_c_share,STRICT_NOTEQUAL,differ:fullname(16),differ:fullname(16)
+< r10uvm207repro/g207_e_head,STRICT_NOTEQUAL,differ:fullname(32),differ:fullname(32)
+---
+> r10uvm207repro/g207_c_share,STRICT_NOTEQUAL,differ:fullname(32),differ:fullname(32)
+> r10uvm207repro/g207_e_head,STRICT_NOTEQUAL,differ:fullname(16),differ:fullname(16)
+818c818
+< r10uvm207repro/g207_h_foreign,STRICT_NOTEQUAL,differ:fullname(41),differ:fullname(41)
+---
+> r10uvm207repro/g207_h_foreign,STRICT_NOTEQUAL,differ:fullname(32),differ:fullname(32)
+1299c1299
+< r10v181repro/v181_h_nofe,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+---
+> r10v181repro/v181_h_nofe,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
+1331c1331
+< r10v208repro/v208_f_io,STRICT_NOTEQUAL,differ:name(7),differ:name(7)
+---
+> r10v208repro/v208_f_io,STRICT_NOTEQUAL,differ:name(3),differ:name(3)

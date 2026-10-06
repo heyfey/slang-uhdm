@@ -26,6 +26,7 @@
 #include "R253.h"
 #include "R255.h"
 #include "R257.h"
+#include "R259.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -2740,7 +2741,23 @@ static void rebindTypeParamElem107(UHDM::design* d, UHDM::Serializer& s) {
     };
     for (auto* t : *d->TopModules())
         walk107(t);
-    for (auto& [dtp, bound] : last107) {
+    // § tpRebindIdOrder259 (r11u259, R11U259_TP107ORDER_OFF) — DETERMINISM.
+    // last107 is keyed by type_parameter POINTERS and the loop below MINTS a
+    // packed_array_typespec and its ref_typespec per rebound parameter, so the
+    // copies' creation order (their UhdmIds, the serialized order) followed
+    // the heap addresses of the parameters (pass 257's verifier residue 1:
+    // loops over pointer-keyed containers that mint).  The parameters are
+    // visited in creation (UhdmId) order, § cloneTfIdOrder257v's rule.
+    std::vector<std::pair<UHDM::type_parameter*, const UHDM::typespec*>> ord107(
+        last107.begin(), last107.end());
+    if (r11u259On("R11U259_TP107ORDER_OFF")) {
+        std::stable_sort(ord107.begin(), ord107.end(), [](const auto& a, const auto& b) {
+            return a.first->UhdmId() < b.first->UhdmId();
+        });
+        if (ord107.size() >= 2)
+            tr259("tpRebindIdOrder259", std::to_string(ord107.size()));
+    }
+    for (auto& [dtp, bound] : ord107) {
         auto* dpa = pa107(dtp);
         if (!dpa)
             continue;
@@ -11782,6 +11799,8 @@ public:
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
     g_cloneArrTs241; // § cloneLocalArrayTsParented241 (TaskFuncEmit.cpp)
 extern std::vector<UHDM::task_func*> g_cloneTf241; // § cloneAggTsAtHomeListing241
+extern std::vector<std::pair<UHDM::ref_typespec*, std::vector<UHDM::ref_typespec*>>>
+    g_lvHomeDeclTs259;  // § cloneLoopVarHomeDeclTs259
 UHDM::design* UhdmExporter::exportDesign() {
     // § compoundLitWriteBackSat2 — decide the constant-evaluated function
     // bodies' literal values BEFORE anything is emitted, so the def view and
@@ -19373,6 +19392,25 @@ UHDM::design* UhdmExporter::exportDesign() {
     // The r11u241 drains run on EVERY exit of this function (the writer
     // pass below returns early when no typedef has a writer).
     auto finish241 = [&]() -> UHDM::design* {
+        // § cloneLoopVarHomeDeclTs259 (law at TypeEmit importCloneBareTdAlias16)
+        // — first of the drains (finish241 runs on every exit): the shared home loop variable takes the
+        // typespec its home declaration now binds, when every home view of that
+        // declaration binds the same object.
+        for (auto& [rt259, hr259] : g_lvHomeDeclTs259) {
+            const UHDM::typespec* t259 = nullptr;
+            bool one259 = true;
+            for (auto* r : hr259) {
+                auto* a = r->Actual_typespec();
+                if (!a || (t259 && a != t259))
+                    one259 = false;
+                t259 = a;
+            }
+            if (!one259 || !t259 || rt259->Actual_typespec() == t259)
+                continue;
+            rt259->Actual_typespec((UHDM::typespec*)t259);
+            tr259("cloneLoopVarHomeDeclTs259", std::string(rt259->VpiFullName()));
+        }
+        g_lvHomeDeclTs259.clear();
         // § unitImpPaRhsActualFinal243v (v11u243, R11V243_UNITRHSACT_OFF;
         // case tools/probe/v11u243repro B/b03_typed) — the design copy of a
         // $unit-imported parameter's constant (§ unitImpPaRhsOwnCopy243) read
@@ -19700,8 +19738,69 @@ UHDM::design* UhdmExporter::exportDesign() {
                     else if (auto* vv241 = dynamic_cast<const UHDM::variables*>(v241))
                         vr241 = vv241->Typespec();
                     auto mt241 = vr241 ? memb241.find(vr241) : memb241.end();
-                    if (mt241 == memb241.end())
+                    if (mt241 == memb241.end()) {
+                        // § cloneMemberImporterListing259 (r11u259,
+                        // R11U259_IMPLISTMEMB_OFF; MiniAmiq d/t #95125 and
+                        // SeqDriver d/t #95083 / #95095, the svaunit_pkg and
+                        // adpcm_pkg copies of uvm_hdl_concat2string reading
+                        // `slice.path`) — a member path `v.m` in an importer
+                        // copy whose root is NOT the copy's own variable (the
+                        // HOME body's `slice`, which the copy's reference keeps
+                        // binding: golden's `p::f::slice`) binds in golden the
+                        // member of the IMPORTING package's own re-listing of
+                        // the typedef (the listing object compiled for the
+                        // importer, Surelog's shared import parented at the
+                        // last importing scope: `work@ifc.p::slice_t.path` with
+                        // an interface importing after the package,
+                        // `q::p::slice_t::path` with the package alone), not
+                        // the home package's member.  Ours bound the home
+                        // listing's member.  The law re-binds the member to the
+                        // same-named member of the one same-named, same-kind
+                        // typedef the copy's package lists; abstains on none or
+                        // more than one (cases/M).
+                        auto* g259 = ((UHDM::ref_obj*)e1)->Actual_group();
+                        if (r11u259On("R11U259_IMPLISTMEMB_OFF") && g259 &&
+                            g259->UhdmType() == UHDM::uhdmtypespec_member) {
+                            const UHDM::any* st259 = g259->VpiParent();
+                            const UHDM::any* ip259 = tf241->VpiParent();
+                            if (st259 &&
+                                (st259->UhdmType() == UHDM::uhdmstruct_typespec ||
+                                 st259->UhdmType() == UHDM::uhdmunion_typespec) &&
+                                !ownerTf241(st259) && ownerTf241(v241) != tf241 && ip259 &&
+                                ip259->UhdmType() == UHDM::uhdmpackage) {
+                                auto* pk259 = (const UHDM::package*)ip259;
+                                const UHDM::typespec* t259 = nullptr;
+                                int n259 = 0;
+                                if (pk259->Typespecs())
+                                    for (auto* t : *pk259->Typespecs())
+                                        if (t && t != st259 && t->UhdmType() == st259->UhdmType() &&
+                                            t->VpiName() == st259->VpiName()) {
+                                            t259 = t;
+                                            ++n259;
+                                        }
+                                const UHDM::VectorOftypespec_member* tm259 = nullptr;
+                                if (n259 == 1)
+                                    tm259 = t259->UhdmType() == UHDM::uhdmstruct_typespec
+                                                ? ((const UHDM::struct_typespec*)t259)->Members()
+                                                : ((const UHDM::union_typespec*)t259)->Members();
+                                UHDM::typespec_member* m259 = nullptr;
+                                int k259 = 0;
+                                if (tm259)
+                                    for (auto* m : *tm259)
+                                        if (m && m->VpiName() == g259->VpiName()) {
+                                            m259 = m;
+                                            ++k259;
+                                        }
+                                if (k259 == 1 && m259 != g259) {
+                                    ((UHDM::ref_obj*)e1)->Actual_group(m259);
+                                    tr259("cloneMemberImporterListing259",
+                                          std::string(tf241->VpiFullName()) + " " +
+                                              std::string(h241->VpiName()));
+                                }
+                            }
+                        }
                         continue;
+                    }
                     auto* g241 = ((UHDM::ref_obj*)e1)->Actual_group();
                     if (!g241 || g241->UhdmType() != UHDM::uhdmtypespec_member)
                         continue;

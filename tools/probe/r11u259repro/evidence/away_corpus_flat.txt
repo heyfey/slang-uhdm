@@ -1,0 +1,128 @@
+== surelog_default_MiniAmiq-055eab74
+dist 214 -> 156 lost=15 gained=36
+  LOST 7 bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  LOST 2 range				uvm_reg_model.svh	73	23	73	31				
+  LOST 2 constant				uvm_reg_model.svh	73	29	73	30	0	64	UINT:0	9
+  LOST 1 bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  LOST 1 ref_typespec			<in>uvm_reg_addr_t		0	0	0	0		0		
+  LOST 2 constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7
+  GAIN 11 bit_typespec	uvm_reg_data_t			uvm_reg_model.svh	59	10	59	31				
+  GAIN 11 bit_typespec	uvm_reg_byte_en_t			uvm_reg_model.svh	87	10	87	42				
+  GAIN 1 typespec_member	status			uvm_pkg.sv	311	16	311	22				
+  GAIN 1 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.status		0	0	0	0		0		
+  GAIN 1 enum_const	UVM_IS_OK			uvm_reg_model.svh	149	7	149	16				
+  GAIN 1 enum_const	UVM_NOT_OK			uvm_reg_model.svh	150	7	150	17				
+  GAIN 1 enum_const	UVM_HAS_X			uvm_reg_model.svh	151	7	151	16				
+  GAIN 3 bit_typespec	uvm_reg_addr_t			uvm_mem.svh	1305	41	1305	55				
+  GAIN 3 bit_typespec	uvm_reg_addr_t			uvm_reg_map.svh	1405	54	1405	68				
+  GAIN 1 ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  GAIN 1 ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  GAIN 1 ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		
+== surelog_default_SeqDriver-65178d3a
+dist 122 -> 107 lost=3 gained=73
+  LOST 3 bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  GAIN 1 enum_typespec	uvm_pkg::uvm_access_e			uvm_reg_model.svh	227	4	232	19				
+  GAIN 1 enum_const	UVM_READ			uvm_reg_model.svh	228	7	228	15				
+  GAIN 1 enum_const	UVM_WRITE			uvm_reg_model.svh	229	7	229	16				
+  GAIN 1 enum_const	UVM_BURST_READ			uvm_reg_model.svh	230	7	230	21				
+  GAIN 1 enum_const	UVM_BURST_WRITE			uvm_reg_model.svh	231	7	231	22				
+  GAIN 2 range				uvm_reg_model.svh	73	23	73	31				
+  GAIN 2 constant				uvm_reg_model.svh	73	29	73	30	0	64	UINT:0	9
+  GAIN 1 typespec_member	kind			uvm_pkg.sv	263	16	263	20				
+  GAIN 1 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.kind		0	0	0	0		0		
+  GAIN 1 typespec_member	addr			uvm_pkg.sv	270	18	270	22				
+  GAIN 1 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.addr		0	0	0	0		0		
+  GAIN 1 bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  GAIN 1 ref_typespec			<in>uvm_reg_addr_t		0	0	0	0		0		
+  GAIN 1 typespec_member	data			uvm_pkg.sv	279	18	279	22				
+  GAIN 1 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.data		0	0	0	0		0		
+  GAIN 9 bit_typespec	uvm_reg_data_t			uvm_reg_model.svh	59	10	59	31				
+  GAIN 1 ref_typespec			<in>uvm_reg_data_t		0	0	0	0		0		
+  GAIN 2 range				uvm_reg_model.svh	59	23	59	31				
+  GAIN 2 constant				uvm_reg_model.svh	59	29	59	30	0	64	UINT:0	9
+  GAIN 1 typespec_member	n_bits			uvm_pkg.sv	287	7	287	13				
+  GAIN 1 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.n_bits		0	0	0	0		0		
+  GAIN 1 int_typespec				uvm_reg_item.svh	287	3	287	6				
+  GAIN 1 typespec_member	byte_en			uvm_pkg.sv	303	21	303	28				
+  GAIN 1 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.byte_en		0	0	0	0		0		
+  GAIN 9 bit_typespec	uvm_reg_byte_en_t			uvm_reg_model.svh	87	10	87	42				
+  GAIN 1 ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  GAIN 2 range				uvm_reg_model.svh	87	23	87	42				
+  GAIN 2 constant				uvm_reg_model.svh	87	40	87	41	0	64	UINT:0	9
+  GAIN 2 typespec_member	status			uvm_pkg.sv	311	16	311	22				
+  GAIN 2 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.status		0	0	0	0		0		
+  GAIN 2 enum_const	UVM_IS_OK			uvm_reg_model.svh	149	7	149	16				
+  GAIN 2 enum_const	UVM_NOT_OK			uvm_reg_model.svh	150	7	150	17				
+  GAIN 2 enum_const	UVM_HAS_X			uvm_reg_model.svh	151	7	151	16				
+  GAIN 2 bit_typespec	uvm_reg_addr_t			uvm_mem.svh	1305	41	1305	55				
+  GAIN 2 bit_typespec	uvm_reg_addr_t			uvm_reg_map.svh	1405	54	1405	68				
+  GAIN 2 constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7
+  GAIN 2 constant				uvm_reg_model.svh	59	24	59	26	63	64	INT:63	7
+  GAIN 2 constant				uvm_reg_model.svh	87	24	87	36	7	64	INT:7	7
+  GAIN 1 ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  GAIN 1 ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  GAIN 1 ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		
+== surelog_testflags_MiniAmiq-055eab74
+dist 214 -> 156 lost=15 gained=36
+  LOST 7 bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  LOST 2 range				uvm_reg_model.svh	73	23	73	31				
+  LOST 2 constant				uvm_reg_model.svh	73	29	73	30	0	64	UINT:0	9
+  LOST 1 bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  LOST 1 ref_typespec			<in>uvm_reg_addr_t		0	0	0	0		0		
+  LOST 2 constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7
+  GAIN 11 bit_typespec	uvm_reg_data_t			uvm_reg_model.svh	59	10	59	31				
+  GAIN 11 bit_typespec	uvm_reg_byte_en_t			uvm_reg_model.svh	87	10	87	42				
+  GAIN 1 typespec_member	status			uvm_pkg.sv	311	16	311	22				
+  GAIN 1 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.status		0	0	0	0		0		
+  GAIN 1 enum_const	UVM_IS_OK			uvm_reg_model.svh	149	7	149	16				
+  GAIN 1 enum_const	UVM_NOT_OK			uvm_reg_model.svh	150	7	150	17				
+  GAIN 1 enum_const	UVM_HAS_X			uvm_reg_model.svh	151	7	151	16				
+  GAIN 3 bit_typespec	uvm_reg_addr_t			uvm_mem.svh	1305	41	1305	55				
+  GAIN 3 bit_typespec	uvm_reg_addr_t			uvm_reg_map.svh	1405	54	1405	68				
+  GAIN 1 ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  GAIN 1 ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  GAIN 1 ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		
+== surelog_testflags_SeqDriver-65178d3a
+dist 122 -> 107 lost=3 gained=73
+  LOST 3 bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  GAIN 1 enum_typespec	uvm_pkg::uvm_access_e			uvm_reg_model.svh	227	4	232	19				
+  GAIN 1 enum_const	UVM_READ			uvm_reg_model.svh	228	7	228	15				
+  GAIN 1 enum_const	UVM_WRITE			uvm_reg_model.svh	229	7	229	16				
+  GAIN 1 enum_const	UVM_BURST_READ			uvm_reg_model.svh	230	7	230	21				
+  GAIN 1 enum_const	UVM_BURST_WRITE			uvm_reg_model.svh	231	7	231	22				
+  GAIN 2 range				uvm_reg_model.svh	73	23	73	31				
+  GAIN 2 constant				uvm_reg_model.svh	73	29	73	30	0	64	UINT:0	9
+  GAIN 1 typespec_member	kind			uvm_pkg.sv	263	16	263	20				
+  GAIN 1 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.kind		0	0	0	0		0		
+  GAIN 1 typespec_member	addr			uvm_pkg.sv	270	18	270	22				
+  GAIN 1 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.addr		0	0	0	0		0		
+  GAIN 1 bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31				
+  GAIN 1 ref_typespec			<in>uvm_reg_addr_t		0	0	0	0		0		
+  GAIN 1 typespec_member	data			uvm_pkg.sv	279	18	279	22				
+  GAIN 1 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.data		0	0	0	0		0		
+  GAIN 9 bit_typespec	uvm_reg_data_t			uvm_reg_model.svh	59	10	59	31				
+  GAIN 1 ref_typespec			<in>uvm_reg_data_t		0	0	0	0		0		
+  GAIN 2 range				uvm_reg_model.svh	59	23	59	31				
+  GAIN 2 constant				uvm_reg_model.svh	59	29	59	30	0	64	UINT:0	9
+  GAIN 1 typespec_member	n_bits			uvm_pkg.sv	287	7	287	13				
+  GAIN 1 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.n_bits		0	0	0	0		0		
+  GAIN 1 int_typespec				uvm_reg_item.svh	287	3	287	6				
+  GAIN 1 typespec_member	byte_en			uvm_pkg.sv	303	21	303	28				
+  GAIN 1 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.byte_en		0	0	0	0		0		
+  GAIN 9 bit_typespec	uvm_reg_byte_en_t			uvm_reg_model.svh	87	10	87	42				
+  GAIN 1 ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  GAIN 2 range				uvm_reg_model.svh	87	23	87	42				
+  GAIN 2 constant				uvm_reg_model.svh	87	40	87	41	0	64	UINT:0	9
+  GAIN 2 typespec_member	status			uvm_pkg.sv	311	16	311	22				
+  GAIN 2 ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.status		0	0	0	0		0		
+  GAIN 2 enum_const	UVM_IS_OK			uvm_reg_model.svh	149	7	149	16				
+  GAIN 2 enum_const	UVM_NOT_OK			uvm_reg_model.svh	150	7	150	17				
+  GAIN 2 enum_const	UVM_HAS_X			uvm_reg_model.svh	151	7	151	16				
+  GAIN 2 bit_typespec	uvm_reg_addr_t			uvm_mem.svh	1305	41	1305	55				
+  GAIN 2 bit_typespec	uvm_reg_addr_t			uvm_reg_map.svh	1405	54	1405	68				
+  GAIN 2 constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7
+  GAIN 2 constant				uvm_reg_model.svh	59	24	59	26	63	64	INT:63	7
+  GAIN 2 constant				uvm_reg_model.svh	87	24	87	36	7	64	INT:7	7
+  GAIN 1 ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  GAIN 1 ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  GAIN 1 ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		

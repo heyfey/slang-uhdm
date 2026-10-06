@@ -1,0 +1,8 @@
+< MiniAmiq,default,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+< MiniAmiq,testflags,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+> MiniAmiq,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+> MiniAmiq,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+< SeqDriver,default,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+< SeqDriver,testflags,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+> SeqDriver,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+> SeqDriver,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)

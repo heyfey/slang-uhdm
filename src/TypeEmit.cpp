@@ -28,6 +28,7 @@
 #include "R253.h"
 #include "R255.h"
 #include "R257.h"
+#include "R259.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -13188,6 +13189,10 @@ UHDM::typespec* UhdmExporter::bareScalarTdCopyOfFresh16(
 // per-listing-object memo hands the SAME bare copy to the home body and the
 // clone.  uhdm-cmp does not compare identity, but it does compare VpiName one
 // level down through Typedef_alias, so the clone needs its own copy.
+// § cloneLoopVarHomeDeclTs259: (a shared home loop variable's ref, the home
+// declarations' refs it may take), applied at the end of exportDesign.
+std::vector<std::pair<UHDM::ref_typespec*, std::vector<UHDM::ref_typespec*>>>
+    g_lvHomeDeclTs259;
 void UhdmExporter::importCloneBareTdAlias16(UHDM::design* d) {
     if ((pkgImportCloneTfs16.empty() && importElemTdRefs16.empty()) ||
         pkgScalarTd16.empty())
@@ -13333,6 +13338,9 @@ void UhdmExporter::importCloneBareTdAlias16(UHDM::design* d) {
       public:
         const std::set<const UHDM::task_func*>* clones = nullptr;
         std::function<void(UHDM::ref_typespec*)>* rebind = nullptr;
+        // § cloneLoopVarHomeDeclTs259: answers true when it bound the ref.
+        std::function<bool(UHDM::ref_typespec*, const UHDM::task_func*)>* homeLv259 =
+            nullptr;
         void enterRef_typespec(
             const UHDM::ref_typespec* const o) override {
             const auto& cs = getCallstack();
@@ -13357,6 +13365,9 @@ void UhdmExporter::importCloneBareTdAlias16(UHDM::design* d) {
                     // Without this line those two arms score AWAY=1 each.
                     if (i + 1 < (int)cs.size() &&
                         cs[i + 1] == (const UHDM::any*)tf->Return())
+                        return;
+                    if (clones->count(tf) && homeLv259 &&
+                        (*homeLv259)((UHDM::ref_typespec*)o, tf))
                         return;
                     if (clones->count(tf))
                         (*rebind)((UHDM::ref_typespec*)o);
@@ -13412,6 +13423,110 @@ void UhdmExporter::importCloneBareTdAlias16(UHDM::design* d) {
         CloneBodyTdRebind180 l180;
         l180.clones = &pkgImportCloneTfs16;
         l180.rebind = &rb180;
+        // § cloneLoopVarHomeDeclTs259 (r11u259, R11U259_LVHOMETS_OFF;
+        // MiniAmiq d/t #116544 and SeqDriver d/t #116502, the svaunit_pkg /
+        // adpcm_pkg copy of uvm_mem::get_addresses: `foreach (addr[i])` over
+        // `ref uvm_reg_addr_t addr[]`) — the loop variable a clone's foreach
+        // binds is the HOME package's own object (§ cloneLoopVarHomeObject183,
+        // golden `uvm_pkg::uvm_mem::get_addresses::i`), and it carries the
+        // typespec the HOME compile resolved: the home declaration's own
+        // per-declaration copy of the iterated array's element typedef (golden
+        // bit_typespec `uvm_reg_addr_t` at the formal's type token 1305:41,
+        // aliased to the qualified listing `uvm_pkg::uvm_reg_addr_t`).  It is
+        // not inside the clone body, so Surelog's clone_tree never re-minted it
+        // (the reason § cloneBodyBareTdAlias180 gives for bare aliases holds
+        // only for objects the clone owns).  Ours reached it through the
+        // clone's foreach and re-pointed it at the clone's bare-aliased copy.
+        // The law binds the home declaration's typespec instead: the home
+        // subroutine (by the variable's full name, its last segment dropped),
+        // its formal or top-level variable named as the clone foreach's array,
+        // when that declaration's typespec stands for the same typedef listing;
+        // otherwise the old re-point (cases/L).
+        std::map<std::string, std::vector<const UHDM::task_func*>> homeTf259;
+        if (r11u259On("R11U259_LVHOMETS_OFF")) {
+            auto addTfs = [&](const UHDM::VectorOftask_func* v) {
+                if (v)
+                    for (auto* t : *v)
+                        if (t && !pkgImportCloneTfs16.count(t))
+                            homeTf259[std::string(t->VpiFullName())].push_back(t);
+            };
+            // the ELABORATED view's home only (uhdmtopPackages): golden's
+            // shared object carries the folded range of the elaborated
+            // listing (MiniAmiq `UVM_REG_ADDR_WIDTH-1` read as INT:63)
+            if (auto* pv = d->TopPackages())
+                for (auto* pk : *pv) {
+                    addTfs(pk->Task_funcs());
+                    if (pk->Class_defns())
+                        for (auto* cd : *pk->Class_defns())
+                            addTfs(cd->Task_funcs());
+                }
+        }
+        std::function<bool(UHDM::ref_typespec*, const UHDM::task_func*)> hl259 =
+            [&](UHDM::ref_typespec* rt, const UHDM::task_func* tf) -> bool {
+            if (homeTf259.empty() || !rt)
+                return false;
+            auto* v = rt->VpiParent();
+            if (!v || !any_cast<const UHDM::variables*>(v) || v->VpiName().empty())
+                return false;
+            auto* fe = v->VpiParent();
+            if (!fe || fe->UhdmType() != UHDM::uhdmforeach_stmt)
+                return false;
+            std::string vf(((const UHDM::variables*)v)->VpiFullName()), tff(tf->VpiFullName());
+            if (vf.compare(0, tff.size() + 2, tff + "::") == 0)
+                return false;  // the clone's own variable
+            std::string sfx = "::" + std::string(v->VpiName());
+            if (vf.size() <= sfx.size() || vf.compare(vf.size() - sfx.size(), sfx.size(), sfx) != 0)
+                return false;
+            auto hit = homeTf259.find(vf.substr(0, vf.size() - sfx.size()));
+            if (hit == homeTf259.end())
+                return false;
+            auto* arr = ((const UHDM::foreach_stmt*)fe)->Variable();
+            if (!arr || arr->VpiName().empty())
+                return false;
+            const UHDM::typespec* src = listingOf(rt->Actual_typespec());
+            if (!src)
+                return false;
+            // The home declaration's ref_typespec: its actual is read at the
+            // END of the export (UhdmExporter exportDesign, after every LAW S
+            // writer has given the declaration its own copy), so the ref is
+            // recorded here and the clone re-point below still runs (the
+            // copies keep their minting order).
+            std::set<UHDM::ref_typespec*> all259;
+            for (auto* ht : hit->second) {
+                // the body's declaration, not an extern prototype's (the home
+                // holds the foreach, so its definition has a statement)
+                if (!ht->Stmt())
+                    continue;
+                UHDM::ref_typespec* r = nullptr;
+                if (ht->Io_decls())
+                    for (auto* io : *ht->Io_decls())
+                        if (io && io->VpiName() == arr->VpiName() && io->Typespec())
+                            r = (UHDM::ref_typespec*)io->Typespec();
+                if (!r && ht->Variables())
+                    for (auto* hv : *ht->Variables())
+                        if (hv && hv->VpiName() == arr->VpiName() && hv->Typespec())
+                            r = (UHDM::ref_typespec*)hv->Typespec();
+                // the same typedef: its listing, or (a class method's
+                // declaration, bound through the class world's own copy) the
+                // same kind and name as the listing
+                auto* ra = r ? r->Actual_typespec() : nullptr;
+                if (!ra || (listingOf(ra) != src &&
+                            (ra->UhdmType() != src->UhdmType() ||
+                             ra->VpiName() != rt->Actual_typespec()->VpiName())))
+                    continue;
+                all259.insert(r);
+            }
+            if (all259.empty())
+                return false;
+            std::vector<UHDM::ref_typespec*> hr259(all259.begin(), all259.end());
+            std::stable_sort(hr259.begin(), hr259.end(),
+                             [](const UHDM::ref_typespec* a, const UHDM::ref_typespec* b) {
+                                 return a->UhdmId() < b->UhdmId();
+                             });
+            g_lvHomeDeclTs259.push_back({rt, hr259});
+            return false;
+        };
+        l180.homeLv259 = &hl259;
         l180.listenDesign(d);
     }
     // § cloneArrayElemBareTdAlias205 — THE SAME CLONE, THROUGH THE ARRAY.

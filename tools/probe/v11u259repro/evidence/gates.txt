@@ -1,0 +1,52 @@
+# builds
+8e370bc04400b7a764570b16132e2edd  pristine
+ec23b976885a6c2ae45e4188c8c45cd8  law
+fa6e4f42f252ae0ab69d9845003e71c5  uhdm-strictcmp
+# binary-path audit (fence-filtered cmds.txt path lists): sweep P = pristine, L = law
+P filtered_cmds=3315 naming_own_binary=3265 naming_other_binary=0
+L filtered_cmds=3315 naming_own_binary=3265 naming_other_binary=0
+# sweep summaries (pristine from the pristine worktree, law from the law worktree)
+P == probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u259_swP/probe.csv
+P probe cases: EQUAL=3557 STRICT_NOTEQUAL=530 (of 4087); goldens built now=0, from cache=4087
+P regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+P [default] 798 tests
+P [testflags] 798 tests
+P [default] CMP_EQUAL=472 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=8 SURELOG_FAIL=25
+P [testflags] CMP_EQUAL=467 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=7 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+P regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+P [default] 871 tests
+P [testflags] 871 tests
+P [default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+P [testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+P regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+L law index STALE: tests/LAWS.md (run scripts/law_index.py)
+L == probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u259_swL/probe.csv
+L probe cases: EQUAL=3558 STRICT_NOTEQUAL=529 (of 4087); goldens built now=0, from cache=4087
+L regressions=0 conversions=1 changes=5 only-fresh=0 only-committed=0
+L [default] 798 tests
+L [testflags] 798 tests
+L [default] CMP_EQUAL=472 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=8 SURELOG_FAIL=25
+L [testflags] CMP_EQUAL=467 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=7 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+L regressions=0 conversions=0 changes=4 only-fresh=0 only-committed=0
+L [default] 871 tests
+L [testflags] 871 tests
+L [default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+L [testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+L regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+L == downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+L downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+# pristine probe stage rerun from the law worktree (byte comparison of probe databases needs one source path)
+probe cases: EQUAL=3557 STRICT_NOTEQUAL=530 (of 4087); goldens built now=0, from cache=4087
+# probe byte movers, law vs that pristine run, 4087 fence-filtered paths
+MOVER ./r10uvm180repro__g180_a_kinds.uhdm
+MOVER ./r10uvm207repro__g207_c_share.uhdm
+MOVER ./r10uvm207repro__g207_e_head.uhdm
+MOVER ./r10uvm207repro__g207_h_foreign.uhdm
+MOVER ./r10v181repro__v181_h_nofe.uhdm
+MOVER ./r10v208repro__v208_f_io.uhdm
+# uhdm-cmp on the four corpus movers (law sweep databases vs their cached goldens)
+surelog/default/MiniAmiq-055eab74 rc=0 lines=0
+surelog/default/SeqDriver-65178d3a rc=0 lines=0
+surelog/testflags/MiniAmiq-055eab74 rc=0 lines=0
+surelog/testflags/SeqDriver-65178d3a rc=0 lines=0
+# downstream verdict diff vs results/downstream_uhdm2rtlil.csv: 0 rows

@@ -1,0 +1,21 @@
+# per-switch harness runs on the four corpus movers (md5, status, detail); pristine md5s last
+R11U259_OFF MiniAmiq/default 3bc433f3895d STRICT_NOTEQUAL,differ:fullname(5)
+R11U259_OFF SeqDriver/default a5fa763f26ed STRICT_NOTEQUAL,differ:fullname(5)
+R11U259_OFF MiniAmiq/testflags 3bc433f3895d STRICT_NOTEQUAL,differ:fullname(5)
+R11U259_OFF SeqDriver/testflags a330476c7db3 STRICT_NOTEQUAL,differ:fullname(5)
+R11U259_IMPLISTMEMB_OFF MiniAmiq/default c9a3500527ba STRICT_NOTEQUAL,differ:fullname(4)
+R11U259_IMPLISTMEMB_OFF SeqDriver/default 85fbcd308f13 STRICT_NOTEQUAL,differ:fullname(4)
+R11U259_IMPLISTMEMB_OFF MiniAmiq/testflags c9a3500527ba STRICT_NOTEQUAL,differ:fullname(4)
+R11U259_IMPLISTMEMB_OFF SeqDriver/testflags 9e036d08e085 STRICT_NOTEQUAL,differ:fullname(4)
+R11U259_LVHOMETS_OFF MiniAmiq/default 54895cbee6df STRICT_NOTEQUAL,differ:name(2)
+R11U259_LVHOMETS_OFF SeqDriver/default 9bd1f638df5c STRICT_NOTEQUAL,differ:name(2)
+R11U259_LVHOMETS_OFF MiniAmiq/testflags 54895cbee6df STRICT_NOTEQUAL,differ:name(2)
+R11U259_LVHOMETS_OFF SeqDriver/testflags 68f9372bbdea STRICT_NOTEQUAL,differ:name(2)
+pristine MiniAmiq/default 3bc433f3895d
+law MiniAmiq/default 802f35fbde4b
+pristine SeqDriver/default a5fa763f26ed
+law SeqDriver/default 50c077e5d2c3
+pristine MiniAmiq/testflags 3bc433f3895d
+law MiniAmiq/testflags 802f35fbde4b
+pristine SeqDriver/testflags a330476c7db3
+law SeqDriver/testflags 1ec8e0c7d7d6

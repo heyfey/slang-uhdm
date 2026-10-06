@@ -1,0 +1,26 @@
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u259_wL/probe.csv
+probe cases: EQUAL=3558 STRICT_NOTEQUAL=529 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=3558 STRICT_NOTEQUAL=529
+CONVERSION r10uvm180repro/g180_a_kinds STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CHANGE r10uvm207repro/g207_c_share STRICT_NOTEQUAL differ:fullname(16) -> differ:fullname(32) [fullname +16]
+CHANGE r10uvm207repro/g207_e_head STRICT_NOTEQUAL differ:fullname(32) -> differ:fullname(16) [fullname -16]
+CHANGE r10uvm207repro/g207_h_foreign STRICT_NOTEQUAL differ:fullname(41) -> differ:fullname(32) [fullname -9]
+CHANGE r10v181repro/v181_h_nofe STRICT_NOTEQUAL differ:fullname(2) -> differ:depth(1)
+CHANGE r10v208repro/v208_f_io STRICT_NOTEQUAL differ:name(7) -> differ:name(3) [name -4]
+regressions=0 conversions=1 changes=5 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=472 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=8 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=467 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=7 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:fullname(5) -> differ:type(1)
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:fullname(5) -> differ:type(1)
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:fullname(5) -> differ:type(1)
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:fullname(5) -> differ:type(1)
+regressions=0 conversions=0 changes=4 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0

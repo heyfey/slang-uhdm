@@ -1,0 +1,5 @@
+# downstream verdicts on the 35 fresh cases (scripts/downstream_uhdm2rtlil.py one(): the Surelog lane with the
+# downstream flags vs the slang lane), pristine and law binaries; verdict changes: 0
+vl01..vl17 (17 cases)          pristine=IDENTICAL law=IDENTICAL
+vm01_pkgvar_root               pristine=EQUIVALENT law=EQUIVALENT
+vm02..vm18 (17 cases)          pristine=IDENTICAL law=IDENTICAL

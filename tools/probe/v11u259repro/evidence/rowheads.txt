@@ -1,0 +1,80 @@
+== P MiniAmiq/default
+#95125 fullname
+  A: 11	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::path		0	0	0	0		0		
+#95134 fullname
+  A: 11	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::offset		0	0	0	0		0		
+#95150 fullname
+  A: 13	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		
+  B: 13	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::size		0	0	0	0		0		
+objects 435559 vs 434599
+fields: type=1 name=2 fullname=3 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL fullname
+== L MiniAmiq/default
+#121302 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+objects 435559 vs 434562
+fields: type=1 name=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== P MiniAmiq/testflags
+#95125 fullname
+  A: 11	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::path		0	0	0	0		0		
+#95134 fullname
+  A: 11	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::offset		0	0	0	0		0		
+#95150 fullname
+  A: 13	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		
+  B: 13	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::size		0	0	0	0		0		
+objects 435559 vs 434599
+fields: type=1 name=2 fullname=3 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL fullname
+== L MiniAmiq/testflags
+#121302 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+objects 435559 vs 434562
+fields: type=1 name=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== P SeqDriver/default
+#95083 fullname
+  A: 11	ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::path		0	0	0	0		0		
+#95092 fullname
+  A: 11	ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::offset		0	0	0	0		0		
+#95108 fullname
+  A: 13	ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		
+  B: 13	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::size		0	0	0	0		0		
+objects 475526 vs 474708
+fields: type=1 name=2 fullname=3 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL fullname
+== L SeqDriver/default
+#121260 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+objects 475526 vs 474763
+fields: type=1 name=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== P SeqDriver/testflags
+#95095 fullname
+  A: 11	ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::path		0	0	0	0		0		
+#95104 fullname
+  A: 11	ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0		
+  B: 11	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::offset		0	0	0	0		0		
+#95120 fullname
+  A: 13	ref_typespec			work@top_tb.uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0		
+  B: 13	ref_typespec			uvm_pkg::uvm_pkg::uvm_hdl_path_slice::size		0	0	0	0		0		
+objects 475538 vs 474720
+fields: type=1 name=2 fullname=3 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL fullname
+== L SeqDriver/testflags
+#121272 type
+  A: 15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4				
+  B: 15	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55				
+objects 475538 vs 474775
+fields: type=1 name=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
