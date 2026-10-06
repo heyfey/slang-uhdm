@@ -1,0 +1,7 @@
+FvsL VC/vc12_class_scoped                               P:255/17 NOT_EQUAL_stage1 L:255/17 NOT_EQUAL_stage1 F:255/17 NOT_EQUAL_stage1 swoff=L
+FvsL VC/vc12_class_scoped_el                            P:255/17 NOT_EQUAL_stage1 L:255/17 NOT_EQUAL_stage1 F:255/17 NOT_EQUAL_stage1 swoff=L
+FvsL VC/vc13_unit_scoped                                P:255/110 NOT_EQUAL_stage1 L:255/106 NOT_EQUAL_stage1 F:255/110 NOT_EQUAL_stage1 swoff=L
+FvsL VC/vc13_unit_scoped_el                             P:255/110 NOT_EQUAL_stage1 L:255/106 NOT_EQUAL_stage1 F:255/110 NOT_EQUAL_stage1 swoff=L
+FvsL VC/vc17_pkg_var                                    P:255/88 NOT_EQUAL_stage1 L:255/84 NOT_EQUAL_stage1 F:255/88 NOT_EQUAL_stage1 swoff=L
+FvsL VC/vc17_pkg_var_el                                 P:255/88 NOT_EQUAL_stage1 L:255/84 NOT_EQUAL_stage1 F:255/88 NOT_EQUAL_stage1 swoff=L
+{'cv': 236, 'L_move': 138, 'L_enter': 94, 'F_move_vsP': 134, 'F_enter': 94, 'F_move_vsL': 6}

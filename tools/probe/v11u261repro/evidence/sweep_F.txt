@@ -1,0 +1,21 @@
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u261_wdF/probe.csv
+probe cases: EQUAL=3566 STRICT_NOTEQUAL=521 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=3566 STRICT_NOTEQUAL=521
+CONVERSION r10vrgg16repro/cells/v8 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CHANGE r10earl41repro/v41v_comment STRICT_NOTEQUAL differ:fullname(20) -> differ:fullname(18) [fullname -2]
+CHANGE r10earl_repro/ue STRICT_NOTEQUAL differ:fullname(5) -> differ:file(3)
+CHANGE r10vearl108repro/m_gen108 STRICT_NOTEQUAL differ:line(6) -> differ:line(3) [line -3]
+CHANGE r11v69repro/grid/v4_nestinst STRICT_NOTEQUAL differ:line(4) -> differ:line(2) [line -2]
+regressions=0 conversions=1 changes=4 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=473 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=7 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=468 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=6 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:fullname(117) -> differ:fullname(74) [fullname -43]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(24) -> differ:fullname(4) [fullname -20]
+regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

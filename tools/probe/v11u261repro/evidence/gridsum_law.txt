@@ -1,0 +1,115 @@
+VA/va01_class_in_mod                          MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_169_objects                 off=ok sw=SYSARGTS
+VA/va01_class_in_mod_el                       MOVE        P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_NOTEQUAL_fullname                 off=ok sw=SYSARGTS
+VA/va02_body_import                           MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_150_objects                 off=ok sw=SYSARGTS
+VA/va02_body_import_el                        MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_139_objects                 off=ok sw=SYSARGTS
+VA/va03_explicit_import                       MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_101_objects                 off=ok sw=SYSARGTS
+VA/va03_explicit_import_el                    MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_101_objects                 off=ok sw=SYSARGTS
+VA/va04_localparam_type                       MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_205_objects                 off=ok sw=SYSARGTS
+VA/va04_localparam_type_el                    MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_204_objects                 off=ok sw=SYSARGTS
+VA/va05_bits_call                             MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_156_objects                 off=ok sw=SYSARGTS
+VA/va05_bits_call_el                          MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_156_objects                 off=ok sw=SYSARGTS
+VA/va06_two_insts                             MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_214_objects                 off=ok sw=SYSARGTS
+VA/va06_two_insts_el                          MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_214_objects                 off=ok sw=SYSARGTS
+VA/va07_two_pkgs_two_mods                     MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_205_objects                 off=ok sw=SYSARGTS
+VA/va07_two_pkgs_two_mods_el                  MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_205_objects                 off=ok sw=SYSARGTS
+VA/va08_for_gen                               MOVE        P:cmp=255/42 NOT_EQUAL_stage1                         L:cmp=255/44 NOT_EQUAL_stage1                         off=ok sw=SYSARGTS
+VA/va08_for_gen_el                            MOVE        P:cmp=255/42 NOT_EQUAL_stage1                         L:cmp=255/44 NOT_EQUAL_stage1                         off=ok sw=SYSARGTS
+VA/va09_mod_typedef                           MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_240_objects                 off=ok sw=SYSARGTS
+VA/va09_mod_typedef_el                        MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_222_objects                 off=ok sw=SYSARGTS
+VA/va10_task_arg                              MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_176_objects                 off=ok sw=SYSARGTS
+VA/va10_task_arg_el                           MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_187_objects                 off=ok sw=SYSARGTS
+VA/va11_iface_modport_port                    MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_215_objects                 off=ok sw=SYSARGTS
+VA/va11_iface_modport_port_el                 MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_212_objects                 off=ok sw=SYSARGTS
+VA/va12_shadow_local                          MOVE        P:cmp=255/44 NOT_EQUAL_stage1                         L:cmp=255/44 NOT_EQUAL_stage1                         off=ok sw=SYSARGTS
+VA/va12_shadow_local_el                       MOVE        P:cmp=255/44 NOT_EQUAL_stage1                         L:cmp=255/44 NOT_EQUAL_stage1                         off=ok sw=SYSARGTS
+VA/va13_top_only                              MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_132_objects                 off=ok sw=SYSARGTS
+VA/va13_top_only_el                           MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_121_objects                 off=ok sw=SYSARGTS
+VA/va14_crlf_two_files                        MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_221_objects                 off=ok sw=SYSARGTS
+VA/va14_crlf_two_files_el                     MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_221_objects                 off=ok sw=SYSARGTS
+VA/va15_param_ovr_child                       MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_162_objects                 off=ok sw=SYSARGTS
+VA/va15_param_ovr_child_el                    MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_162_objects                 off=ok sw=SYSARGTS
+VA/va16_nested_module_decl                    MOVE        P:cmp=255/42 NOT_EQUAL_stage1                         L:cmp=255/44 NOT_EQUAL_stage1                         off=ok sw=SYSARGTS
+VA/va16_nested_module_decl_el                 MOVE        P:cmp=255/42 NOT_EQUAL_stage1                         L:cmp=255/44 NOT_EQUAL_stage1                         off=ok sw=SYSARGTS
+VA/va17_gen_child_inst                        MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_210_objects                 off=ok sw=SYSARGTS
+VA/va17_gen_child_inst_el                     MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_210_objects                 off=ok sw=SYSARGTS
+VA/va18_macro_two_uses                        MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_150_objects                 off=ok sw=SYSARGTS
+VA/va18_macro_two_uses_el                     MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_150_objects                 off=ok sw=SYSARGTS
+VC/vc01_ips_chain                             ----        P:cmp=255/130 NOT_EQUAL_stage1                         L:cmp=255/130 NOT_EQUAL_stage1                         off=ok sw=
+VC/vc01_ips_chain_el                          ----        P:cmp=255/130 NOT_EQUAL_stage1                         L:cmp=255/130 NOT_EQUAL_stage1                         off=ok sw=
+VC/vc02_always_comb                           ----        P:cmp=0/0 STRICT_EQUAL_169_objects                 L:cmp=0/0 STRICT_EQUAL_169_objects                 off=ok sw=
+VC/vc02_always_comb_el                        ----        P:cmp=0/0 STRICT_EQUAL_165_objects                 L:cmp=0/0 STRICT_EQUAL_165_objects                 off=ok sw=
+VC/vc03_function                              ----        P:cmp=0/0 STRICT_EQUAL_207_objects                 L:cmp=0/0 STRICT_EQUAL_207_objects                 off=ok sw=
+VC/vc03_function_el                           ----        P:cmp=0/0 STRICT_EQUAL_203_objects                 L:cmp=0/0 STRICT_EQUAL_203_objects                 off=ok sw=
+VC/vc04_port_actual                           ----        P:cmp=255/46 NOT_EQUAL_stage1                         L:cmp=255/46 NOT_EQUAL_stage1                         off=ok sw=
+VC/vc04_port_actual_el                        ----        P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_NOTEQUAL_fullname                 off=ok sw=
+VC/vc05_mod_assign                            ----        P:cmp=0/0 STRICT_EQUAL_164_objects                 L:cmp=0/0 STRICT_EQUAL_164_objects                 off=ok sw=
+VC/vc05_mod_assign_el                         ----        P:cmp=0/0 STRICT_EQUAL_161_objects                 L:cmp=0/0 STRICT_EQUAL_161_objects                 off=ok sw=
+VC/vc06_bit_last                              MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_171_objects                 off=ok sw=QSELNAME
+VC/vc06_bit_last_el                           MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_171_objects                 off=ok sw=QSELNAME
+VC/vc07_param_init                            ----        P:cmp=255/164 NOT_EQUAL_stage1                         L:cmp=255/164 NOT_EQUAL_stage1                         off=ok sw=
+VC/vc07_param_init_el                         ----        P:cmp=255/138 NOT_EQUAL_stage1                         L:cmp=255/138 NOT_EQUAL_stage1                         off=ok sw=
+VC/vc08_gen_if_cond                           MOVE        P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_NOTEQUAL_endcol                   off=ok sw=QSELNAME
+VC/vc08_gen_if_cond_el                        MOVE        P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_NOTEQUAL_endcol                   off=ok sw=QSELNAME
+VC/vc09_three_ps                              MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_219_objects                 off=ok sw=QSELNAME
+VC/vc09_three_ps_el                           MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_211_objects                 off=ok sw=QSELNAME
+VC/vc10_in_child_gen                          MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_280_objects                 off=ok sw=QSELNAME
+VC/vc10_in_child_gen_el                       MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_272_objects                 off=ok sw=QSELNAME
+VC/vc11_ternary                               MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_231_objects                 off=ok sw=QSELNAME
+VC/vc11_ternary_el                            MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_223_objects                 off=ok sw=QSELNAME
+VC/vc12_class_scoped                          MOVE        P:cmp=255/17 NOT_EQUAL_stage1                         L:cmp=255/17 NOT_EQUAL_stage1                         off=ok sw=QSELNAME
+VC/vc12_class_scoped_el                       MOVE        P:cmp=255/17 NOT_EQUAL_stage1                         L:cmp=255/17 NOT_EQUAL_stage1                         off=ok sw=QSELNAME
+VC/vc13_unit_scoped                           MOVE        P:cmp=255/110 NOT_EQUAL_stage1                         L:cmp=255/106 NOT_EQUAL_stage1                         off=ok sw=QSELNAME
+VC/vc13_unit_scoped_el                        MOVE        P:cmp=255/110 NOT_EQUAL_stage1                         L:cmp=255/106 NOT_EQUAL_stage1                         off=ok sw=QSELNAME
+VC/vc14_as_index                              MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_202_objects                 off=ok sw=QSELNAME
+VC/vc14_as_index_el                           MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_202_objects                 off=ok sw=QSELNAME
+VC/vc15_two_in_concat                         MOVE        P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_NOTEQUAL_fullname                 off=ok sw=QSELNAME
+VC/vc15_two_in_concat_el                      MOVE        P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_NOTEQUAL_fullname                 off=ok sw=QSELNAME
+VC/vc16_reexported                            MOVE        P:cmp=255/876 NOT_EQUAL_stage1                         L:cmp=255/876 NOT_EQUAL_stage1                         off=ok sw=QSELNAME
+VC/vc16_reexported_el                         MOVE        P:cmp=255/876 NOT_EQUAL_stage1                         L:cmp=255/876 NOT_EQUAL_stage1                         off=ok sw=QSELNAME
+VD/vd01_inst_array_in_gen                     ----        P:cmp=255/361 NOT_EQUAL_stage1                         L:cmp=255/361 NOT_EQUAL_stage1                         off=ok sw=
+VD/vd01_inst_array_in_gen_el                  ----        P:cmp=255/361 NOT_EQUAL_stage1                         L:cmp=255/361 NOT_EQUAL_stage1                         off=ok sw=
+VD/vd02_unnamed_gen                           MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_237_objects                 off=ok sw=GENBIRTH
+VD/vd02_unnamed_gen_el                        MOVE        P:cmp=0/0 STRICT_EQUAL_236_objects                 L:cmp=0/0 STRICT_EQUAL_236_objects                 off=ok sw=GENBIRTH
+VD/vd03_for_gen_two                           ----        P:cmp=0/0 STRICT_EQUAL_340_objects                 L:cmp=0/0 STRICT_EQUAL_340_objects                 off=ok sw=
+VD/vd03_for_gen_two_el                        ----        P:cmp=0/0 STRICT_EQUAL_342_objects                 L:cmp=0/0 STRICT_EQUAL_342_objects                 off=ok sw=
+VD/vd04_iface_port_child                      ----        P:cmp=0/0 STRICT_EQUAL_154_objects                 L:cmp=0/0 STRICT_EQUAL_154_objects                 off=ok sw=
+VD/vd04_iface_port_child_el                   ----        P:cmp=0/0 STRICT_EQUAL_178_objects                 L:cmp=0/0 STRICT_EQUAL_178_objects                 off=ok sw=
+VD/vd05_child_always_ff                       ----        P:cmp=0/0 STRICT_EQUAL_206_objects                 L:cmp=0/0 STRICT_EQUAL_206_objects                 off=ok sw=
+VD/vd05_child_always_ff_el                    ----        P:cmp=0/0 STRICT_EQUAL_204_objects                 L:cmp=0/0 STRICT_EQUAL_204_objects                 off=ok sw=
+VD/vd06_hier_ref                              ----        P:cmp=0/0 STRICT_EQUAL_223_objects                 L:cmp=0/0 STRICT_EQUAL_223_objects                 off=ok sw=
+VD/vd06_hier_ref_el                           ----        P:cmp=0/0 STRICT_EQUAL_262_objects                 L:cmp=0/0 STRICT_EQUAL_262_objects                 off=ok sw=
+VD/vd07_bind_into_gen_child                   MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_275_objects                 off=ok sw=GENBIRTH
+VD/vd07_bind_into_gen_child_el                MOVE        P:cmp=0/0 STRICT_EQUAL_268_objects                 L:cmp=0/0 STRICT_EQUAL_268_objects                 off=ok sw=GENBIRTH
+VD/vd08_func_in_child                         ----        P:cmp=0/0 STRICT_EQUAL_197_objects                 L:cmp=0/0 STRICT_EQUAL_197_objects                 off=ok sw=
+VD/vd08_func_in_child_el                      ----        P:cmp=255/17 NOT_EQUAL_stage1                         L:cmp=255/17 NOT_EQUAL_stage1                         off=ok sw=
+VD/vd09_param_child_gen_inside                ----        P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_NOTEQUAL_fullname                 off=ok sw=
+VD/vd09_param_child_gen_inside_el             ----        P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_NOTEQUAL_fullname                 off=ok sw=
+VD/vd10_two_level_gen_children                ----        P:cmp=0/0 STRICT_EQUAL_315_objects                 L:cmp=0/0 STRICT_EQUAL_315_objects                 off=ok sw=
+VD/vd10_two_level_gen_children_el             ----        P:cmp=0/0 STRICT_EQUAL_314_objects                 L:cmp=0/0 STRICT_EQUAL_314_objects                 off=ok sw=
+VD/vd11_program_child_ps                      ----        P:cmp=0/0 STRICT_EQUAL_136_objects                 L:cmp=0/0 STRICT_EQUAL_136_objects                 off=ok sw=
+VD/vd11_program_child_ps_el                   ----        P:cmp=0/0 STRICT_EQUAL_124_objects                 L:cmp=0/0 STRICT_EQUAL_124_objects                 off=ok sw=
+VD/vd12_child_struct_member_ps                ----        P:cmp=0/0 STRICT_EQUAL_207_objects                 L:cmp=0/0 STRICT_EQUAL_207_objects                 off=ok sw=
+VD/vd12_child_struct_member_ps_el             ----        P:cmp=0/0 STRICT_EQUAL_212_objects                 L:cmp=0/0 STRICT_EQUAL_212_objects                 off=ok sw=
+VG/vg01_inst_array_parent                     MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_289_objects                 off=ok sw=PSCONNARR
+VG/vg01_inst_array_parent_el                  MOVE        P:cmp=0/0 STRICT_EQUAL_280_objects                 L:cmp=0/0 STRICT_EQUAL_280_objects                 off=ok sw=PSCONNARR
+VG/vg02_two_level_gen                         MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_518_objects                 off=ok sw=PSCONNARR
+VG/vg02_two_level_gen_el                      MOVE        P:cmp=0/0 STRICT_EQUAL_501_objects                 L:cmp=0/0 STRICT_EQUAL_501_objects                 off=ok sw=PSCONNARR
+VG/vg03_ips_actual                            ----        P:cmp=255/46 NOT_EQUAL_stage1                         L:cmp=255/46 NOT_EQUAL_stage1                         off=ok sw=
+VG/vg03_ips_actual_el                         ----        P:cmp=255/46 NOT_EQUAL_stage1                         L:cmp=255/46 NOT_EQUAL_stage1                         off=ok sw=
+VG/vg04_mixed_bounds                          MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_395_objects                 off=ok sw=PSCONNARR
+VG/vg04_mixed_bounds_el                       MOVE        P:cmp=0/0 STRICT_EQUAL_366_objects                 L:cmp=0/0 STRICT_EQUAL_366_objects                 off=ok sw=PSCONNARR
+VG/vg05_local_param_bounds                    MOVE        P:cmp=255/50 NOT_EQUAL_stage1                         L:cmp=255/50 NOT_EQUAL_stage1                         off=ok sw=PSCONNARR
+VG/vg05_local_param_bounds_el                 MOVE        P:cmp=255/50 NOT_EQUAL_stage1                         L:cmp=255/50 NOT_EQUAL_stage1                         off=ok sw=PSCONNARR
+VG/vg06_struct_member_base                    ----        P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_NOTEQUAL_fullname                 off=ok sw=
+VG/vg06_struct_member_base_el                 ----        P:cmp=0/0 STRICT_EQUAL_431_objects                 L:cmp=0/0 STRICT_EQUAL_431_objects                 off=ok sw=
+VG/vg07_genvar_bound_in_child_gen             ----        P:cmp=255/54 NOT_EQUAL_stage1                         L:cmp=255/54 NOT_EQUAL_stage1                         off=ok sw=
+VG/vg07_genvar_bound_in_child_gen_el          ----        P:cmp=255/54 NOT_EQUAL_stage1                         L:cmp=255/54 NOT_EQUAL_stage1                         off=ok sw=
+VG/vg08_concat_actual                         ----        P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_NOTEQUAL_fullname                 off=ok sw=
+VG/vg08_concat_actual_el                      ----        P:cmp=0/0 STRICT_EQUAL_351_objects                 L:cmp=0/0 STRICT_EQUAL_351_objects                 off=ok sw=
+VG/vg09_qualified_bounds                      MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_300_objects                 off=ok sw=PSCONNARR
+VG/vg09_qualified_bounds_el                   MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_291_objects                 off=ok sw=PSCONNARR
+VG/vg10_program_child                         MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_385_objects                 off=ok sw=PSCONNARR
+VG/vg10_program_child_el                      MOVE ENTERS P:cmp=0/0 STRICT_NOTEQUAL_fullname                 L:cmp=0/0 STRICT_EQUAL_382_objects                 off=ok sw=PSCONNARR
+VG/vg11_child_in_core_gen                     ----        P:cmp=0/0 STRICT_EQUAL_353_objects                 L:cmp=0/0 STRICT_EQUAL_353_objects                 off=ok sw=
+VG/vg11_child_in_core_gen_el                  ----        P:cmp=0/0 STRICT_EQUAL_344_objects                 L:cmp=0/0 STRICT_EQUAL_344_objects                 off=ok sw=
+case-views=114 moving=72 entering=48 leaving=0

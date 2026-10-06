@@ -42,8 +42,24 @@
 #include "R249.h"
 #include "R251.h"
 #include "R257.h"
+#include "R261.h"
 
 namespace slang_uhdm {
+// § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
+// about to be emitted under (see the gen-scope instance loop); consumed by
+// emitInstance on entry.
+static UHDM::BaseClass* genChildParent261 = nullptr;
+// § pselConnArrPathName261's no-cache probe: UHDM BaseClass::ComputeFullName
+// (the getter's own walk, protected there), reached without the getter so
+// that nothing is stored.
+namespace {
+struct FullNamePeek261 : UHDM::BaseClass {
+    using UHDM::BaseClass::ComputeFullName;
+};
+}  // namespace
+static std::string chainFullName261(const UHDM::BaseClass* o) {
+    return static_cast<const FullNamePeek261*>(o)->ComputeFullName();
+}
 
 // The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
 // reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them, and
@@ -12665,7 +12681,28 @@ void UhdmExporter::classInheritsContainerImports23() {
         return std::string(pos == std::string_view::npos ? n : n.substr(pos + 2));
     };
     std::set<const UHDM::class_defn*> done23;
-    for (auto& [sym, cd] : classDefnMap) {
+    // § classImportsIdOrder261 (r11u261, the determinism audit pass 259
+    // left: a loop over a map keyed by slang Symbol pointers that MINTS) —
+    // the per-class import copies (importVarCopy5 and the listing vectors)
+    // were minted in classDefnMap's pointer order, i.e. slang's allocation
+    // addresses.  The classes are visited in the UhdmId order of their
+    // class_defn (emission order); a class_defn reached by two symbols keeps
+    // the pointer order between them.  Switch R11U261_CLSIMPORDER_OFF.
+    std::vector<std::pair<const Symbol*, UHDM::class_defn*>> ord261;
+    for (auto& [sym, cd] : classDefnMap)
+        ord261.push_back({sym, (UHDM::class_defn*)cd});
+    if (r11u261On("R11U261_CLSIMPORDER_OFF")) {
+        auto before261 = ord261;
+        std::stable_sort(ord261.begin(), ord261.end(),
+                         [](const auto& a, const auto& b) {
+                             uint32_t ia = a.second ? a.second->UhdmId() : UINT32_MAX;
+                             uint32_t ib = b.second ? b.second->UhdmId() : UINT32_MAX;
+                             return ia < ib;
+                         });
+        if (ord261 != before261)
+            tr261("CLSIMPORDER", std::to_string(ord261.size()));
+    }
+    for (auto& [sym, cd] : ord261) {
         if (!cd || !sym || sym->kind != SymbolKind::ClassType)
             continue;
         if (!done23.insert(cd).second)
@@ -15603,6 +15640,10 @@ void UhdmExporter::emitHoistedPkgListing83(
 UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
                                            UHDM::instance* parentM, NetMap* parentNets,
                                            std::set<const Symbol*>* parentRefs, bool isTop) {
+    // § genChildParentAtBirth261: taken on entry, so no nested child
+    // (a grandchild, a bind) can inherit it.
+    UHDM::BaseClass* gp261 = genChildParent261;
+    genChildParent261 = nullptr;
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     // A non-top elaborated instance body folds iface-port-hop range bounds to
@@ -15745,7 +15786,26 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     }
     else if (!isTop) {
         m->VpiName(instNm);
-        m->VpiParent(parentM);
+        // § genChildParentAtBirth261 (r11u261, Earlgrey #375033 to #393091,
+        // #474036 / #481420, #596152 / #596173 and testflags #373386 to
+        // #389909: ibex_fetch_fifo.sv:82 `rdata[31:16]` in
+        // if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fifo_i) — a child
+        // instantiated in a generate block is parented at the block's
+        // gen_scope FROM BIRTH, not re-parented after its body is emitted.
+        // An object of the body that stores no full name (the operand
+        // part_select of a per-instance cont_assign copy) has its name
+        // computed by the database getter the first time anything reads it,
+        // and the emitter reads it while the body is being built: through
+        // the module parent the cached chain skipped the generate scope
+        // (`...if_stage_i.prefetch_buffer_i.fifo_i.rdata`).  vpiInstance and
+        // vpiModuleInst still name the module until the loop clears them.
+        // Switch R11U261_GENBIRTH_OFF.
+        if (gp261 && r11u261On("R11U261_GENBIRTH_OFF")) {
+            m->VpiParent(gp261);
+            tr261("GENBIRTH", prefix);
+        }
+        else
+            m->VpiParent(parentM);
         m->Instance(parentM);
         // Surelog's program writer sets vpiInstance but NOT vpiModule
         // (OneNetModPort work@TOP.tb).
@@ -21300,6 +21360,78 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             return !lazyA155 ||
                                    (b155 && b155->UhdmType() == UHDM::uhdmoperation);
                         };
+                        // § pselConnArrPathName261 (r11u261, Earlgrey #474416 /
+                        // #474419 and #481719 / #481722: flash_phy_core.sv:226
+                        // `.addr_i(muxed_addr[BankAddrW-1:LsbAddrBit])` in
+                        // u_flash_eflash.gen_flash_banks[i].i_core) — when the
+                        // parent's path holds a generate-ARRAY index, ExprEmit's
+                        // part-select arm (its `prefix.find('[')` branch) NAMED
+                        // the actual `<parent path>.<base>` instead of leaving it
+                        // to the chain; golden reads the chain through the child
+                        // instance and the formal (`<child>.<formal>.<base>`), as
+                        // § pselConnNameNotFrozen155 re-derives for a frozen
+                        // name.  Re-derived HERE, before the bound folds, so the
+                        // folded bound constants' ts refs (§ selFold9: named
+                        // after the select) take the corrected name too, and the
+                        // bound references named through the select follow.
+                        // Switch R11U261_PSCONNARR_OFF.
+                        if (lazyA155 && m && !m->VpiFullName().empty() &&
+                            !pselA9->VpiName().empty() &&
+                            parentPrefix.find('[') != std::string::npos &&
+                            r11u261On("R11U261_PSCONNARR_OFF")) {
+                            std::string nm261(pselA9->VpiName());
+                            std::string cur261(pselA9->VpiFullName());
+                            if (cur261 == parentPrefix + "." + nm261) {
+                                std::string want261 =
+                                    std::string(m->VpiFullName()) + "." +
+                                    std::string(ps.name) + "." + nm261;
+                                pselA9->VpiFullName(want261);
+                                tr261("PSCONNARR", want261);
+                                std::function<void(UHDM::any*)> rb261 =
+                                    [&](UHDM::any* e261) {
+                                        if (!e261)
+                                            return;
+                                        if (e261->UhdmType() == UHDM::uhdmref_obj) {
+                                            auto* r261 = (UHDM::ref_obj*)e261;
+                                            std::string f261(r261->VpiFullName());
+                                            if (f261.rfind(cur261 + ".", 0) == 0)
+                                                r261->VpiFullName(
+                                                    want261 +
+                                                    f261.substr(cur261.size()));
+                                        }
+                                        // ...and a folded bound constant's ts
+                                        // ref stamped with the select's name
+                                        // (ExprEmit's stampFoldedPkgParamTs).
+                                        // Reading the name of a ref that
+                                        // stores none caches its chain, so
+                                        // that read is undone.
+                                        else if (e261->UhdmType() ==
+                                                 UHDM::uhdmconstant) {
+                                            if (auto* t261 =
+                                                    ((UHDM::constant*)e261)
+                                                        ->Typespec()) {
+                                                std::string c261 =
+                                                    chainFullName261(t261);
+                                                std::string v261(
+                                                    t261->VpiFullName());
+                                                if (v261 == cur261)
+                                                    t261->VpiFullName(want261);
+                                                else if (v261 == c261)
+                                                    t261->VpiFullName("");
+                                            }
+                                        }
+                                        else if (e261->UhdmType() ==
+                                                 UHDM::uhdmoperation)
+                                            if (auto* o261 =
+                                                    ((UHDM::operation*)e261)
+                                                        ->Operands())
+                                                for (auto* x261 : *o261)
+                                                    rb261(x261);
+                                    };
+                                rb261(pselA9->Left_range());
+                                rb261(pselA9->Right_range());
+                            }
+                        }
                         if (auto* lcA9 =
                                 foldBareParamBound(s, encA9, pselA9->Left_range())) {
                             lcA9->VpiParent(pselA9);
@@ -28970,8 +29102,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
             genvarConnFold = true;
             genConnPrefix = fullName;
+            genChildParent261 = gs;   // § genChildParentAtBirth261
             auto* mi = emitInstance(ci, fullName + "." + std::string(ci.name), m,
                                     &netMap, nullptr, /*isTop=*/false);
+            genChildParent261 = nullptr;
             genConnPrefix.clear();
             genvarConnFold = false;
             // A gen-scope child carries ONLY the gen_scope parent — Surelog

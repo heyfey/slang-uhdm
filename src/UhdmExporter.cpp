@@ -27,6 +27,7 @@
 #include "R255.h"
 #include "R257.h"
 #include "R259.h"
+#include "R261.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -10846,8 +10847,38 @@ void UhdmExporter::drainClassNestedTdGroups54() {
             continue;
         grp54[e.key].push_back(i);
     }
-    for (auto& [k54, idx54] : grp54) {
-        (void)k54;
+    // § grp54IdOrder261 (r11u261, pass 259's determinism residue) — grp54 is
+    // keyed by a symbol POINTER, and the loop below MINTS a ref_typespec per
+    // aliased member, so iterating the map minted in heap-address order.  The
+    // groups are visited in the UhdmId order of their smallest member
+    // typespec (ids are handed out in emission order, which is the run's
+    // deterministic order).  Switch R11U261_GRP54ORDER_OFF.
+    std::vector<std::pair<const void*, std::vector<size_t>>*> ord261;
+    std::vector<std::pair<const void*, std::vector<size_t>>> grpv261;
+    grpv261.reserve(grp54.size());
+    for (auto& [k54, idx54] : grp54)
+        grpv261.push_back({k54, idx54});
+    for (auto& g261 : grpv261)
+        ord261.push_back(&g261);
+    if (r11u261On("R11U261_GRP54ORDER_OFF")) {
+        auto minId261 = [&](const std::vector<size_t>& ix) {
+            uint32_t m = UINT32_MAX;
+            for (size_t i : ix)
+                if (classNestedTd54[i].ts)
+                    m = std::min<uint32_t>(m, classNestedTd54[i].ts->UhdmId());
+            return m;
+        };
+        auto before261 = ord261;
+        std::stable_sort(ord261.begin(), ord261.end(),
+                         [&](auto* a, auto* b) {
+                             return minId261(a->second) < minId261(b->second);
+                         });
+        // traced only where the visit order moves (a byte can move there)
+        if (ord261 != before261)
+            tr261("GRP54ORDER", std::to_string(ord261.size()));
+    }
+    for (auto* g261 : ord261) {
+        auto& idx54 = g261->second;
         if (idx54.size() < 2)
             continue;
         std::stable_sort(idx54.begin(), idx54.end(),

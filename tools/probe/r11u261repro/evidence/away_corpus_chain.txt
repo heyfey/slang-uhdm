@@ -1,0 +1,7 @@
+# drivers/awaychain.py (chain-keyed, SCX = drivers/strictcmp_x built by drivers/cc_x.sh) on the two Earlgrey row-modes,
+# pristine sweep vs law sweep database against the cached golden
+surelog/default/Earlgrey_0_1   chain away=0 toward=70 flat_away=1 flat_toward=70
+surelog/testflags/Earlgrey_0_1 chain away=0 toward=58 flat_away=1 flat_toward=58
+# the flat loss: empty-named ref_typespec records (all-zero, identical keys) golden 496 / pristine 497 / law 495 in
+# default; § sysArgFoldTsUnitName261 names #136315 (golden `work@sha2`), so the flat multiset can no longer pair the
+# surplus pristine empty with an unrelated golden empty; no chain context loses a golden record.

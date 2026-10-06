@@ -1,0 +1,4 @@
+SYSARGTS default,differ:fullname(75) testflags,differ:fullname(5) 
+QSELNAME default,differ:fullname(78) testflags,differ:fullname(8) 
+GENBIRTH default,differ:fullname(108) testflags,differ:fullname(19) 
+PSCONNARR default,differ:fullname(78) testflags,differ:fullname(4) 

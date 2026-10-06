@@ -1,0 +1,4 @@
+#216212 fullname | ref_obj DataWidth | A:prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::DataWidth | B:work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST.DataWidth | prim_prince.sv:81:61-81:70
+#235310 fullname | ref_typespec  | A:work@rstmgr_ctrl | B:work@rstmgr_ctrl.rst_req_i | :0:0-0:0
+#235315 fullname | ref_typespec  | A:work@rstmgr_ctrl | B:work@rstmgr_ctrl.rst_parent_synced | :0:0-0:0
+#403326 depth | ref_obj csr_wdata_int | A: | B:work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.csr_wdata_int | ibex_cs_registers.sv:1057:37-1057:50

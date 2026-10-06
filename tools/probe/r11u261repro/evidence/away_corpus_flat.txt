@@ -1,0 +1,14 @@
+surelog/default/BuildUVMPkg-fc55bd0c dist 18 -> 18 lost=0 gained=0
+surelog/default/Earlgrey_0_1-a898def8 dist 973 -> 906 lost=1 gained=68
+surelog/default/MiniAmiq-055eab74 dist 156 -> 156 lost=0 gained=0
+surelog/default/Rggen-ee9ac8af dist 523 -> 522 lost=0 gained=1
+surelog/default/Scoreboard-72aa0ba8 dist 37 -> 37 lost=0 gained=0
+surelog/default/SeqDriver-65178d3a dist 107 -> 107 lost=0 gained=0
+surelog/default/SimpleUVM-267de3ff dist 66 -> 66 lost=0 gained=0
+surelog/testflags/BuildUVMPkg-fc55bd0c dist 18 -> 18 lost=0 gained=0
+surelog/testflags/Earlgrey_0_1-a898def8 dist 717 -> 661 lost=1 gained=57
+surelog/testflags/MiniAmiq-055eab74 dist 156 -> 156 lost=0 gained=0
+surelog/testflags/SeqDriver-65178d3a dist 107 -> 107 lost=0 gained=0
+surelog/testflags/SimpleUVM-267de3ff dist 66 -> 66 lost=0 gained=0
+uhdm2rtlil/default/genscope_module_ctx_reset-6f3b19af dist 0 -> 0 lost=0 gained=0
+uhdm2rtlil/testflags/genscope_module_ctx_reset-6f3b19af dist 0 -> 0 lost=0 gained=0

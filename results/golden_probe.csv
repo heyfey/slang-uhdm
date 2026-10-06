@@ -94,7 +94,7 @@ r10earl31repro/v4_ops,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
 r10earl31repro/v5_hier,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
 r10earl34repro/v1_view,EQUAL,,equal
 r10earl38repro/a1_chain,EQUAL,,equal
-r10earl41repro/v41v_comment,STRICT_NOTEQUAL,differ:fullname(20),differ:fullname(20)
+r10earl41repro/v41v_comment,STRICT_NOTEQUAL,differ:fullname(18),differ:fullname(18)
 r10earl42repro/v42_overfire,EQUAL,,equal
 r10earl43repro/v43_h1_order,EQUAL,,equal
 r10earl46repro/v46v_digits,EQUAL,,equal
@@ -236,7 +236,7 @@ r10earl_repro/tl,STRICT_NOTEQUAL,differ:file(3),differ:file(3)
 r10earl_repro/u,EQUAL,,equal
 r10earl_repro/ua,EQUAL,,equal
 r10earl_repro/ud,STRICT_NOTEQUAL,differ:file(3),differ:file(3)
-r10earl_repro/ue,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+r10earl_repro/ue,STRICT_NOTEQUAL,differ:file(3),differ:file(3)
 r10earl_repro/uf,STRICT_NOTEQUAL,differ:line(1),differ:line(1)
 r10earl_repro/ug,EQUAL,,equal
 r10earl_repro/vb,EQUAL,,equal
@@ -1433,7 +1433,7 @@ r10vearl106repro/va3_span106,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
 r10vearl106repro/va5_scope106,EQUAL,,equal
 r10vearl106repro/va7_mix106,STRICT_NOTEQUAL,differ:endcol(6),differ:endcol(6)
 r10vearl108repro/m_arr108,EQUAL,,equal
-r10vearl108repro/m_gen108,STRICT_NOTEQUAL,differ:line(6),differ:line(6)
+r10vearl108repro/m_gen108,STRICT_NOTEQUAL,differ:line(3),differ:line(3)
 r10vearl108repro/m_ifs108,EQUAL,,equal
 r10vearl108repro/m_multi108,EQUAL,,equal
 r10vearl108repro/m_nest108,EQUAL,,equal
@@ -1485,7 +1485,7 @@ r10vrgg15repro/v5,EQUAL,,equal
 r10vrgg16repro/cells/v14,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
 r10vrgg16repro/cells/v5,EQUAL,,equal
 r10vrgg16repro/cells/v7,EQUAL,,equal
-r10vrgg16repro/cells/v8,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+r10vrgg16repro/cells/v8,EQUAL,,equal
 r10vrgg17repro/v8,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
 r10vrgg3repro/v13_recv_clog2,EQUAL,,equal
 r10vrgg3repro/v1_recv_aw_zero,EQUAL,,equal
@@ -3534,7 +3534,7 @@ r11v66repro/a3_inst66,STRICT_NOTEQUAL,differ:endcol(6),differ:endcol(6)
 r11v69repro/grid/v10_arraysel,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 r11v69repro/grid/v1_namesake,EQUAL,,equal
 r11v69repro/grid/v2_ancnamesake,EQUAL,,equal
-r11v69repro/grid/v4_nestinst,STRICT_NOTEQUAL,differ:line(4),differ:line(4)
+r11v69repro/grid/v4_nestinst,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
 r11v69repro/grid/v5_deadarm,EQUAL,,equal
 r11v69repro/grid/v7_ifacemix,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 r11v69repro/grid/w10_sharesize,STRICT_NOTEQUAL,differ:type(1),differ:type(1)

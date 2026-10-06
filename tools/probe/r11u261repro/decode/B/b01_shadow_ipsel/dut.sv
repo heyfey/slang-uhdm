@@ -1,0 +1,14 @@
+// § shadowedImportParamFold (decode only, ground A: Earlgrey #233633 / #233638, ExprEmit names the folded ts ref after the select where golden names the module)
+package rp;
+  localparam int PD = 2;
+  localparam int OffD = PD-1;
+endpackage
+module ctrl import rp::*; #(parameter int PowerDomains = 2, localparam int OffD = PowerDomains - 1) (
+  input clk_i, input [PowerDomains-1:0] rst_req_i, output logic [OffD-1:0] q);
+  localparam int Start = 1;
+  always_ff @(posedge clk_i) q <= ~rst_req_i[Start +: OffD];
+endmodule
+module top;
+  logic c; logic [1:0] r; logic [0:0] q;
+  ctrl u (.clk_i(c), .rst_req_i(r), .q(q));
+endmodule

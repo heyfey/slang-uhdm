@@ -1,0 +1,8 @@
+v11u261 fix-vs-law mover prediction, frozen before the fix sweeps (from the law firing census /tmp/v11u261_tc/predict.txt,
+identical line for line to r11u261's evidence/predict_frozen.txt, 545 lines):
+§ qselPkgParamOnly261v can change a database only where § pkgQualSelChainOwnName261 fired (QSELNAME) on a base that is
+not a package parameter (or re-exported package parameter). QSELNAME fired on exactly 3 gate databases:
+  probe r10earl41repro/v41v_comment   bases q41::A (4 spellings, comments inside)  -> q41::A is `parameter` (dut.sv:5)
+  surelog Earlgrey_0_1/default         base prim_cipher_pkg::PRINCE_ROUND_CONST     -> `parameter` (prim_cipher_pkg.sv:44)
+  surelog Earlgrey_0_1/testflags       same
+PREDICTION: 0 of 4087 probe, 0 of 2560 corpus and 0 of 805 downstream databases move fix vs law; QSELPARAM-ABSTAIN fires 0 times.

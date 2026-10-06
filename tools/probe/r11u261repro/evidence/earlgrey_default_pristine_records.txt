@@ -1,0 +1,117 @@
+#136315 fullname | ref_typespec  | A:work@sha2 | B: | :0:0-0:0
+#214684 fullname | var_select prim_cipher_pkg::PRINCE_ROUND_CONST | A: | B:work@prim_prince.gen_fwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST | prim_prince.sv:106:29-106:82
+#214686 fullname | part_select prim_cipher_pkg::PRINCE_ROUND_CONST | A: | B:work@prim_prince.gen_fwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST | prim_prince.sv:106:68-106:81
+#214818 fullname | var_select prim_cipher_pkg::PRINCE_ROUND_CONST | A: | B:work@prim_prince.gen_bwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST | prim_prince.sv:142:30-142:100
+#214824 fullname | part_select prim_cipher_pkg::PRINCE_ROUND_CONST | A: | B:work@prim_prince.gen_bwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST | prim_prince.sv:142:86-142:99
+#233633 fullname | ref_typespec  | A:work@rstmgr_ctrl | B:work@rstmgr_ctrl.rst_req_i | :0:0-0:0
+#233638 fullname | ref_typespec  | A:work@rstmgr_ctrl | B:work@rstmgr_ctrl.rst_parent_synced | :0:0-0:0
+#375033 fullname | part_select rdata | A:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fifo_i.rdata | B:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fifo_i.rdata | ibex_fetch_fifo.sv:82:60-82:72
+#375037 fullname | part_select in_rdata_i | A:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fifo_i.in_rdata_i | B:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fifo_i.in_rdata_i | ibex_fetch_fifo.sv:83:42-83:58
+#375040 fullname | part_select rdata | A:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fifo_i.rdata | B:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fifo_i.rdata | ibex_fetch_fifo.sv:83:60-83:72
+#375103 fullname | part_select rdata | A:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fifo_i.rdata | B:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fifo_i.rdata | ibex_fetch_fifo.sv:104:37-104:49
+#375112 fullname | part_select rdata | A:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fifo_i.rdata | B:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fifo_i.rdata | ibex_fetch_fifo.sv:105:37-105:49
+#375141 fullname | part_select in_addr_i | A:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fifo_i.in_addr_i | B:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fifo_i.in_addr_i | ibex_fetch_fifo.sv:143:35-143:50
+#375145 fullname | part_select instr_addr_q | A:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fifo_i.instr_addr_q | B:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fifo_i.instr_addr_q | ibex_fetch_fifo.sv:144:36-144:54
+#375564 fullname | part_select fetch_addr_q | A:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.fetch_addr_q | B:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.fetch_addr_q | ibex_prefetch_buffer.sv:181:38-181:56
+#375590 fullname | part_select instr_addr | A:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.instr_addr | B:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.instr_addr | ibex_prefetch_buffer.sv:196:34-196:50
+#375603 fullname | part_select rdata_outstanding_n | A:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.rdata_outstanding_n | B:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.rdata_outstanding_n | ibex_prefetch_buffer.sv:234:58-234:91
+#375623 fullname | part_select branch_discard_n | A:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.branch_discard_n | B:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.branch_discard_n | ibex_prefetch_buffer.sv:236:58-236:88
+#375643 fullname | part_select rdata_pmp_err_n | A:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.rdata_pmp_err_n | B:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.prefetch_buffer_i.rdata_pmp_err_n | ibex_prefetch_buffer.sv:238:58-238:87
+#392938 fullname | part_select mac_res_ext | A:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.mac_res_ext | B:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.gen_multiv_single_cycle.mac_res_ext | ibex_multdiv_fast.sv:154:29-154:46
+#392963 fullname | part_select op_a_i | A:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.op_a_i | B:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.gen_multiv_single_cycle.op_a_i | ibex_multdiv_fast.sv:163:25-163:37
+#392968 fullname | part_select op_b_i | A:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.op_b_i | B:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.gen_multiv_single_cycle.op_b_i | ibex_multdiv_fast.sv:164:25-164:37
+#392979 fullname | part_select op_a_i | A:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.op_a_i | B:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.gen_multiv_single_cycle.op_a_i | ibex_multdiv_fast.sv:169:25-169:37
+#392984 fullname | part_select op_b_i | A:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.op_b_i | B:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.gen_multiv_single_cycle.op_b_i | ibex_multdiv_fast.sv:170:25-170:38
+#392989 fullname | part_select imd_val_q_i | A:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.imd_val_q_i | B:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.gen_multiv_single_cycle.imd_val_q_i | ibex_multdiv_fast.sv:173:26-173:44
+#392992 fullname | part_select accum | A:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.accum | B:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.gen_multiv_single_cycle.accum | ibex_multdiv_fast.sv:173:12-173:23
+#393003 fullname | part_select accum | A:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.accum | B:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.gen_multiv_single_cycle.accum | ibex_multdiv_fast.sv:174:12-174:24
+#393067 fullname | part_select imd_val_q_i | A:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.imd_val_q_i | B:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.imd_val_q_i | ibex_multdiv_fast.sv:127:41-127:58
+#393070 fullname | part_select mac_res_d | A:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.mac_res_d | B:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.mac_res_d | ibex_multdiv_fast.sv:127:61-127:76
+#393088 fullname | part_select res_adder_h | A:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.res_adder_h | B:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.res_adder_h | ibex_multdiv_fast.sv:369:46-369:63
+#393091 fullname | part_select imd_val_q_i | A:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.imd_val_q_i | B:work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.imd_val_q_i | ibex_multdiv_fast.sv:369:66-369:83
+#395727 file | enum_const WB_INSTR_OTHER | A: | B: | :0:0-0:0
+#439105 file | constant  | A: | B: | dm_pkg.sv:100:17-100:30
+#439106 file | constant  | A: | B: | dm_pkg.sv:101:17-101:29
+#464077 fullname | ref_typespec  | A:work@top_earlgrey.u_ram1p_ram_main | B:work@top_earlgrey | :0:0-0:0
+#472295 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].read_buf[i].addr[FlashWordsW+:PageW] | :0:0-0:0
+#472298 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0] | :0:0-0:0
+#472302 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0] | :0:0-0:0
+#472305 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0] | :0:0-0:0
+#472370 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[1].read_buf[i].addr[FlashWordsW+:PageW] | :0:0-0:0
+#472373 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[1] | :0:0-0:0
+#472377 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[1] | :0:0-0:0
+#472380 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[1] | :0:0-0:0
+#472445 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[2].read_buf[i].addr[FlashWordsW+:PageW] | :0:0-0:0
+#472448 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[2] | :0:0-0:0
+#472452 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[2] | :0:0-0:0
+#472455 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[2] | :0:0-0:0
+#472520 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[3].read_buf[i].addr[FlashWordsW+:PageW] | :0:0-0:0
+#472523 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[3] | :0:0-0:0
+#472527 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[3] | :0:0-0:0
+#472530 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[3] | :0:0-0:0
+#474020 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_word_sel | :0:0-0:0
+#474036 fullname | bit_select buf_sel | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_rdata.buf_sel[i].buf_sel | B:work@top_earlgrey.u_flash_eflash.i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_rdata.buf_sel[i].buf_sel | flash_phy_rd.sv:252:70-252:71
+#474053 fullname | bit_select buf_sel | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_rsp_match[1].rsp_fifo_rdata.buf_sel[i].buf_sel | B:work@top_earlgrey.u_flash_eflash.i_core.i_rd.gen_buf_rsp_match[1].rsp_fifo_rdata.buf_sel[i].buf_sel | flash_phy_rd.sv:252:70-252:71
+#474070 fullname | bit_select buf_sel | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_rsp_match[2].rsp_fifo_rdata.buf_sel[i].buf_sel | B:work@top_earlgrey.u_flash_eflash.i_core.i_rd.gen_buf_rsp_match[2].rsp_fifo_rdata.buf_sel[i].buf_sel | flash_phy_rd.sv:252:70-252:71
+#474087 fullname | bit_select buf_sel | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_rsp_match[3].rsp_fifo_rdata.buf_sel[i].buf_sel | B:work@top_earlgrey.u_flash_eflash.i_core.i_rd.gen_buf_rsp_match[3].rsp_fifo_rdata.buf_sel[i].buf_sel | flash_phy_rd.sv:252:70-252:71
+#474416 fullname | part_select muxed_addr | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.addr_i.muxed_addr | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.muxed_addr | flash_phy_core.sv:226:13-226:47
+#474419 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.addr_i.muxed_addr | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.muxed_addr | :0:0-0:0
+#479751 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[0].read_buf[i].addr[FlashWordsW+:PageW] | :0:0-0:0
+#479754 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[0] | :0:0-0:0
+#479758 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[0] | :0:0-0:0
+#479761 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[0] | :0:0-0:0
+#479826 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[1].read_buf[i].addr[FlashWordsW+:PageW] | :0:0-0:0
+#479829 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[1] | :0:0-0:0
+#479833 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[1] | :0:0-0:0
+#479836 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[1] | :0:0-0:0
+#479901 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[2].read_buf[i].addr[FlashWordsW+:PageW] | :0:0-0:0
+#479904 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[2] | :0:0-0:0
+#479908 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[2] | :0:0-0:0
+#479911 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[2] | :0:0-0:0
+#479976 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[3].read_buf[i].addr[FlashWordsW+:PageW] | :0:0-0:0
+#479979 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[3] | :0:0-0:0
+#479983 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[3] | :0:0-0:0
+#479986 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[3] | :0:0-0:0
+#481404 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_word_sel | :0:0-0:0
+#481420 fullname | bit_select buf_sel | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_rdata.buf_sel[i].buf_sel | B:work@top_earlgrey.u_flash_eflash.i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_rdata.buf_sel[i].buf_sel | flash_phy_rd.sv:252:70-252:71
+#481437 fullname | bit_select buf_sel | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_rsp_match[1].rsp_fifo_rdata.buf_sel[i].buf_sel | B:work@top_earlgrey.u_flash_eflash.i_core.i_rd.gen_buf_rsp_match[1].rsp_fifo_rdata.buf_sel[i].buf_sel | flash_phy_rd.sv:252:70-252:71
+#481454 fullname | bit_select buf_sel | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_rsp_match[2].rsp_fifo_rdata.buf_sel[i].buf_sel | B:work@top_earlgrey.u_flash_eflash.i_core.i_rd.gen_buf_rsp_match[2].rsp_fifo_rdata.buf_sel[i].buf_sel | flash_phy_rd.sv:252:70-252:71
+#481471 fullname | bit_select buf_sel | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_rsp_match[3].rsp_fifo_rdata.buf_sel[i].buf_sel | B:work@top_earlgrey.u_flash_eflash.i_core.i_rd.gen_buf_rsp_match[3].rsp_fifo_rdata.buf_sel[i].buf_sel | flash_phy_rd.sv:252:70-252:71
+#481719 fullname | part_select muxed_addr | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_flash.addr_i.muxed_addr | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.muxed_addr | flash_phy_core.sv:226:13-226:47
+#481722 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_flash.addr_i.muxed_addr | B:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.muxed_addr | :0:0-0:0
+#482965 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.host_addr_i | B:work@top_earlgrey.u_flash_eflash | :0:0-0:0
+#482968 fullname | ref_typespec  | A:work@top_earlgrey.u_flash_eflash.host_addr_i | B:work@top_earlgrey.u_flash_eflash | :0:0-0:0
+#596152 fullname | part_select ppc_out | A:work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.ppc_out | B:work@top_earlgrey.u_spi_device.u_fwmode_arb.u_reqarb.gen_normal_case.ppc_out | prim_arbiter_ppc.sv:81:32-81:46
+#596173 fullname | part_select ppc_out | A:work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.ppc_out | B:work@top_earlgrey.u_spi_device.u_fwmode_arb.u_reqarb.gen_normal_case.ppc_out | prim_arbiter_ppc.sv:86:25-86:39
+#600811 fullname | ref_typespec  | A: | B:work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded | :0:0-0:0
+#600816 fullname | ref_typespec  | A: | B:work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded | :0:0-0:0
+#620047 fullname | ref_obj N | A:work@tlul_socket_1n.N | B:work@top_earlgrey.u_spi_device.u_reg.u_socket.N | tlul_socket_1n.sv:201:17-201:18
+#620055 fullname | ref_obj N | A:work@tlul_socket_1n.N | B:work@top_earlgrey.u_spi_device.u_reg.u_socket.N | tlul_socket_1n.sv:204:17-204:18
+#620063 fullname | ref_obj N | A:work@tlul_socket_1n.N | B:work@top_earlgrey.u_spi_device.u_reg.u_socket.N | tlul_socket_1n.sv:205:17-205:18
+#620071 fullname | ref_obj N | A:work@tlul_socket_1n.N | B:work@top_earlgrey.u_spi_device.u_reg.u_socket.N | tlul_socket_1n.sv:206:17-206:18
+#620079 fullname | ref_obj N | A:work@tlul_socket_1n.N | B:work@top_earlgrey.u_spi_device.u_reg.u_socket.N | tlul_socket_1n.sv:207:17-207:18
+#620087 fullname | ref_obj N | A:work@tlul_socket_1n.N | B:work@top_earlgrey.u_spi_device.u_reg.u_socket.N | tlul_socket_1n.sv:208:17-208:18
+#620095 fullname | ref_obj N | A:work@tlul_socket_1n.N | B:work@top_earlgrey.u_spi_device.u_reg.u_socket.N | tlul_socket_1n.sv:209:17-209:18
+#620103 fullname | ref_obj N | A:work@tlul_socket_1n.N | B:work@top_earlgrey.u_spi_device.u_reg.u_socket.N | tlul_socket_1n.sv:210:17-210:18
+#620111 fullname | ref_obj N | A:work@tlul_socket_1n.N | B:work@top_earlgrey.u_spi_device.u_reg.u_socket.N | tlul_socket_1n.sv:211:17-211:18
+#658559 line | cont_assign  | A: | B: | tlul_err_resp.sv:38:10-38:83
+#658560 name | hier_path tl_h_o.a_ready | A: | B: | tlul_err_resp.sv:38:10-38:24
+#658561 line | ref_obj tl_h_o | A: | B: | tlul_err_resp.sv:38:17-38:24
+#658562 name | ref_obj a_ready | A: | B: | tlul_err_resp.sv:38:17-38:24
+#658563 line | cont_assign  | A: | B: | tlul_err_resp.sv:39:10-39:61
+#658564 name | hier_path tl_h_o.d_valid | A: | B: | tlul_err_resp.sv:39:10-39:24
+#658565 line | ref_obj tl_h_o | A: | B: | tlul_err_resp.sv:39:17-39:24
+#658566 name | ref_obj d_valid | A: | B: | tlul_err_resp.sv:39:17-39:24
+#658567 line | cont_assign  | A: | B: | tlul_err_resp.sv:40:10-40:30
+#658568 name | hier_path tl_h_o.d_data | A: | B: | tlul_err_resp.sv:40:10-40:23
+#658569 line | ref_obj tl_h_o | A: | B: | tlul_err_resp.sv:40:17-40:23
+#658570 name | ref_obj d_data | A: | B: | tlul_err_resp.sv:40:17-40:23
+#658571 line | cont_assign  | A: | B: | tlul_err_resp.sv:42:10-42:30
+#658572 name | hier_path tl_h_o.d_sink | A: | B: | tlul_err_resp.sv:42:10-42:23
+#658573 line | ref_obj tl_h_o | A: | B: | tlul_err_resp.sv:42:17-42:23
+#658574 name | ref_obj d_sink | A: | B: | tlul_err_resp.sv:42:17-42:23
+#658575 line | cont_assign  | A: | B: | tlul_err_resp.sv:43:10-43:30
+#658576 name | hier_path tl_h_o.d_param | A: | B: | tlul_err_resp.sv:43:10-43:24
+#658577 line | ref_obj tl_h_o | A: | B: | tlul_err_resp.sv:43:17-43:24
+#658578 name | ref_obj d_param | A: | B: | tlul_err_resp.sv:43:17-43:24
+#658579 depth | cont_assign  | A:work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_u_o[0] | B: | tlul_err_resp.sv:45:10-45:75

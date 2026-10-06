@@ -1,0 +1,5 @@
+[default] CMP_EQUAL=473 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=7 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=468 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=6 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:fullname(117) -> differ:fullname(74) [fullname -43]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(24) -> differ:fullname(4) [fullname -20]
+regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0

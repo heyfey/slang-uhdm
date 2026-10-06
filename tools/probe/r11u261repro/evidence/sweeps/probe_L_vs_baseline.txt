@@ -1,0 +1,7 @@
+[probe] EQUAL=3566 STRICT_NOTEQUAL=521
+CONVERSION r10vrgg16repro/cells/v8 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CHANGE r10earl41repro/v41v_comment STRICT_NOTEQUAL differ:fullname(20) -> differ:fullname(18) [fullname -2]
+CHANGE r10earl_repro/ue STRICT_NOTEQUAL differ:fullname(5) -> differ:file(3)
+CHANGE r10vearl108repro/m_gen108 STRICT_NOTEQUAL differ:line(6) -> differ:line(3) [line -3]
+CHANGE r11v69repro/grid/v4_nestinst STRICT_NOTEQUAL differ:line(4) -> differ:line(2) [line -2]
+regressions=0 conversions=1 changes=4 only-fresh=0 only-committed=0

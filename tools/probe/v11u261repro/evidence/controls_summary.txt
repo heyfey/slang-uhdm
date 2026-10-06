@@ -1,0 +1,23 @@
+MOVER tp/r11u155repro/cases/PS3/n01 STRICT_EQUAL_130_objects -> STRICT_EQUAL_130_objects 0 -> 0 
+MOVER tp/r11u155repro/cases/PS3/n01_el STRICT_EQUAL_129_objects -> STRICT_EQUAL_129_objects 0 -> 0 
+MOVER tp/r11u155repro/cases/PS3/n04 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 46 -> 46 
+MOVER tp/r11u155repro/cases/PS3/n04_el STRICT_EQUAL_131_objects -> STRICT_EQUAL_131_objects 0 -> 0 
+MOVER tp/r11u155repro/cases/PS3/n06 STRICT_EQUAL_137_objects -> STRICT_EQUAL_137_objects 0 -> 0 
+MOVER tp/r11u155repro/cases/PS3/n06_el STRICT_EQUAL_136_objects -> STRICT_EQUAL_136_objects 0 -> 0 
+MOVER tp/r11u254repro/cases/G/g01_pkgsel_ps STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_204_objects 0 -> 0 ENTER
+MOVER tp/r11u254repro/cases/G/g01_pkgsel_ps_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_188_objects 0 -> 0 ENTER
+MOVER tp/r11u254repro/cases/Q/q05_gen_scopes STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname 0 -> 0 
+MOVER tp/r11u254repro/cases/Q/q05_gen_scopes_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname 0 -> 0 
+MOVER tp/r11u254repro/cases/Q/q08_gen_operand STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname 0 -> 0 
+MOVER tp/r11u254repro/cases/Q/q08_gen_operand_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname 0 -> 0 
+MOVER tp/r11u255repro/decode/A/a03_sysarg_fold_parent STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_75_objects 0 -> 0 ENTER
+MOVER tp/r11u255repro/decode/A/a03_sysarg_fold_parent_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_75_objects 0 -> 0 ENTER
+MOVER tp/r11v11u118repro/grid/v1/v30_vs_genfor STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname 0 -> 0 
+MOVER tp/r11v11u118repro/grid/v1/v30_vs_genfor_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname 0 -> 0 
+MOVER tp/r11v120repro/grid/T/t06_genif_named STRICT_EQUAL_147_objects -> STRICT_EQUAL_147_objects 0 -> 0 
+MOVER tp/r11v120repro/grid/T/t06_genif_named_el STRICT_EQUAL_146_objects -> STRICT_EQUAL_146_objects 0 -> 0 
+MOVER tp/v11u254repro/cases/P/vp01_locidx STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname 0 -> 0 
+MOVER tp/v11u254repro/cases/P/vp01_locidx_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 62 -> 62 
+MOVER tp/v11u254repro/cases/P/vp06_elab_depth STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname 0 -> 0 
+MOVER tp/v11u254repro/cases/P/vp06_elab_depth_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 88 -> 88 
+{'cv': 5532, 'Lmove': 22, 'nomd5_same': 15, 'Lenter': 4}

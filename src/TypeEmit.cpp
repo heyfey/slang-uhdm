@@ -29,6 +29,7 @@
 #include "R255.h"
 #include "R257.h"
 #include "R259.h"
+#include "R261.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -23141,6 +23142,48 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                         if (an9->kind ==
                                             syntax::SyntaxKind::ScopedName)
                                             c9->Typespec(nullptr);
+                                        // § sysArgFoldTsUnitName261 (r11u261,
+                                        // Earlgrey #136315 / #137760, sha2.sv
+                                        // `logic [$clog2(NumRound)-1:0]`) —
+                                        // the UNQUALIFIED read's ts ref stores
+                                        // the full name of the DESIGN UNIT the
+                                        // call is compiled in: Surelog compiles
+                                        // the identifier with the module as
+                                        // its parent, so the reference caches
+                                        // `work@<module>` (an interface's
+                                        // `work@<ifc>`), whatever declares the
+                                        // range — a net, a port, a struct
+                                        // member, a function local, a
+                                        // parameter's own type.  Ours stored
+                                        // the parameter owner's name, or none.
+                                        // Abstains outside a module/interface
+                                        // /program body.  Switch
+                                        // R11U261_SYSARGTS_OFF.
+                                        else if (auto* rt261 = c9->Typespec();
+                                                 rt261 &&
+                                                 r11u261On(
+                                                     "R11U261_SYSARGTS_OFF")) {
+                                            const Scope* u261 = msc9;
+                                            while (u261 &&
+                                                   u261->asSymbol().kind !=
+                                                       SymbolKind::InstanceBody)
+                                                u261 = u261->asSymbol()
+                                                           .getParentScope();
+                                            if (u261) {
+                                                std::string n261 =
+                                                    "work@" +
+                                                    std::string(
+                                                        u261->asSymbol()
+                                                            .as<InstanceBodySymbol>()
+                                                            .getDefinition()
+                                                            .name);
+                                                // (never READ the old name:
+                                                // the getter caches the chain
+                                                // name into the object)
+                                                tr261("SYSARGTS", n261);
+                                                rt261->VpiFullName(n261);
+                                            }
+                                        }
                                         args->push_back(c9);
                                         continue;
                                     }
@@ -23977,6 +24020,83 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         qualSelBase40.clear();
                         if (sel40) {
                             setLoc(sel40, syn.sourceRange());   // policy (2)
+                            // § pkgQualSelChainOwnName261 (r11u261, Earlgrey
+                            // #214684 / #214686 / #214818 / #214824, testflags
+                            // #216343 to #216483: prim_prince.sv:106 and :142
+                            // `prim_cipher_pkg::PRINCE_ROUND_CONST[k][
+                            // DataWidth-1:0]` in a for-generate continuous
+                            // assignment) — policy (1) holds for the INDEX
+                            // references only.  The var_select itself and
+                            // every part_select of the chain carry their OWN
+                            // written name as full name in golden (`cp::RC`,
+                            // which the VPI reports as no full name since it
+                            // equals vpiName); storing nothing let our getter
+                            // compute `<scope>.cp::RC` and `<scope>.cp::RC.
+                            // cp::RC` from the parent chain at write time.
+                            // Storing the name moves no child: the chain walk
+                            // reads vpiName, never a parent's full name.
+                            // Switch R11U261_QSELNAME_OFF.
+                            // § qselPkgParamOnly261v (v11u261) — golden
+                            // builds this var_select (and so stores its own
+                            // name) only when the base is a PACKAGE
+                            // PARAMETER; for a class-scoped (`C::RC[k][..]`),
+                            // `$unit::`-scoped or package-VARIABLE base
+                            // Surelog writes one ref_obj with the chain name
+                            // `work@top.g.C::RC`, which our var_select's
+                            // computed name matched and the law's own name
+                            // lost (v11u261 VC/vc12, vc13, vc17).  Switch
+                            // R11V261_QSELPARAM_OFF.
+                            // The base is read from the syntax tokens (no
+                            // trivia: a comment inside the qualified name,
+                            // r10earl41repro v41v_comment, still resolves).
+                            bool qselOk261v =
+                                !r11v261On("R11V261_QSELPARAM_OFF");
+                            if (!qselOk261v) {
+                                const auto& sn261v =
+                                    syn.as<syntax::ScopedNameSyntax>();
+                                if (sn261v.left &&
+                                    sn261v.left->kind ==
+                                        syntax::SyntaxKind::IdentifierName) {
+                                    // a package parameter, also one the
+                                    // package re-exports (v11u261 vc18)
+                                    if (auto* pk261v = comp.getPackage(
+                                            sn261v.left
+                                                ->as<syntax::
+                                                         IdentifierNameSyntax>()
+                                                .identifier.valueText()))
+                                        if (auto* ps261v =
+                                                pk261v->findForImport(
+                                                    isn40->identifier
+                                                        .valueText()))
+                                            qselOk261v =
+                                                ps261v->kind ==
+                                                SymbolKind::Parameter;
+                                }
+                            }
+                            if (!qselOk261v &&
+                                sel40->UhdmType() == UHDM::uhdmvar_select &&
+                                r11u261On("R11U261_QSELNAME_OFF"))
+                                tr261("QSELPARAM-ABSTAIN",
+                                      std::string(sel40->VpiName()));
+                            if (qselOk261v &&
+                                sel40->UhdmType() == UHDM::uhdmvar_select &&
+                                r11u261On("R11U261_QSELNAME_OFF")) {
+                                auto* vs261 = (UHDM::var_select*)sel40;
+                                vs261->VpiFullName(
+                                    std::string(vs261->VpiName()));
+                                tr261("QSELNAME",
+                                      std::string(vs261->VpiName()));
+                                if (auto* xs261 = vs261->Exprs())
+                                    for (auto* x261 : *xs261)
+                                        if (x261 &&
+                                            x261->UhdmType() ==
+                                                UHDM::uhdmpart_select) {
+                                            auto* ps261 =
+                                                (UHDM::part_select*)x261;
+                                            ps261->VpiFullName(std::string(
+                                                ps261->VpiName()));
+                                        }
+                            }
                             return sel40;
                         }
                         // The delegate ABSTAINED (an unsupported selector
