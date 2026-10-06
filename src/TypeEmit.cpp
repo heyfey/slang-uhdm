@@ -30,6 +30,7 @@
 #include "R257.h"
 #include "R259.h"
 #include "R261.h"
+#include "R269.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -15441,6 +15442,65 @@ static bool modOwnedTs15(const UHDM::any* o) {
     return false;
 }
 
+// § topNestedArrElemTopTwin269 (r11u269, Earlgrey_0_1 testflags #580520 to
+// #594077, grid tools/probe/r11u269repro/cases/A) — the ELABORATED package
+// listing of a struct that holds a struct-typed member (emitPackage's
+// `topNested` form: no parent while the design is built, a module parent from
+// typedefParentModel134 at the end) is the importer's copy golden lists under
+// the module (`work@flash_ctrl_reg_top.<pkg>::flash_ctrl_reg2hw_t`), and
+// Surelog copies every typedef that copy reaches with it, so a packed array
+// member's ELEMENT names the copy of the element typedef: the hier_path
+// `reg2hw.mp_region_cfg[0].en.q` binds `en` in it (golden
+// `work@flash_ctrl_reg_top.<pkg>::flash_ctrl_reg2hw_mp_region_cfg_mreg_t.en`).
+// Ours kept the DEF listing's element: emitPackage's def/top cross-wire hands
+// the top struct the packed array the DEF pass built, and the module-owned
+// re-point above never reaches it (its parent walk stops at the unparented
+// top struct), so `en` bound the package's member
+// (`<pkg>::<pkg>::<mreg_t>::en`).  A top struct that has a parent is the
+// module-owned re-point's (unchanged).  The element moves to the twin only
+// when it is a DEF listing object with an elaborated twin (d2t).
+// Switch R11U269_TOPARRELEM_OFF.
+static void topNestedArrElemTopTwin269(
+    const std::map<const void*, UHDM::typespec*>& pkgTopTypedefTs,
+    const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t) {
+    if (!r11u269On("R11U269_TOPARRELEM_OFF"))
+        return;
+    std::vector<UHDM::typespec*> tops;
+    for (auto& [key, ts] : pkgTopTypedefTs)
+        if (ts && !ts->VpiParent() &&
+            (ts->UhdmType() == UHDM::uhdmstruct_typespec ||
+             ts->UhdmType() == UHDM::uhdmunion_typespec))
+            tops.push_back(ts);
+    std::sort(tops.begin(), tops.end(),
+              [](const UHDM::typespec* a, const UHDM::typespec* b) {
+                  return a->UhdmId() < b->UhdmId();
+              });
+    tops.erase(std::unique(tops.begin(), tops.end()), tops.end());
+    for (auto* ts : tops) {
+        auto* ms = ts->UhdmType() == UHDM::uhdmstruct_typespec
+                       ? ((UHDM::struct_typespec*)ts)->Members()
+                       : ((UHDM::union_typespec*)ts)->Members();
+        if (!ms)
+            continue;
+        for (auto* m : *ms) {
+            if (!m || !m->Typespec())
+                continue;
+            auto* a = m->Typespec()->Actual_typespec();
+            if (!a || a->UhdmType() != UHDM::uhdmpacked_array_typespec)
+                continue;
+            auto* er = ((UHDM::packed_array_typespec*)a)->Elem_typespec();
+            if (!er || !er->Actual_typespec())
+                continue;
+            auto it = d2t.find(er->Actual_typespec());
+            if (it == d2t.end())
+                continue;
+            er->Actual_typespec(it->second);
+            tr269("topNestedArrElemTopTwin269",
+                  std::string(ts->VpiName()) + "." + std::string(m->VpiName()));
+        }
+    }
+}
+
 void UhdmExporter::modPkgTypedefTopTs15() {
     if (pkgTopTypedefTs.empty() || typedefTs.empty())
         return;
@@ -15460,6 +15520,7 @@ void UhdmExporter::modPkgTypedefTopTs15() {
     // to the twin every module listing is about to reference.
     tpEndTopTwin149(d2t15);
     repointModOwnedTs16(d2t15);
+    topNestedArrElemTopTwin269(pkgTopTypedefTs, d2t15);
 }
 
 // The re-point half the two def->top laws share: every ref_typespec in the
@@ -21957,7 +22018,39 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         // folded `constant` in the elaborated one), and the
                         // frozen maps alone cannot tell them apart.
                         auto dv67 = pkgParamDefRhsDefView17.find(&psy);
-                        if (retLocalDefView67 &&
+                        // § retTopRangeOwnPkg269 (r11u269, MiniAmiq default
+                        // past #136655: uvm_globals.svh 421
+                        // `function logic[UVM_LARGE_STRING:0]
+                        // uvm_string_to_bits`, grid tools/probe/r11u269repro/
+                        // cases/R) — the ELABORATED package's per-reference
+                        // return-name local (drainFuncRet, design-final) binds
+                        // a range parameter of the subroutine's own package to
+                        // THAT package object's own param_assign value, as the
+                        // listing's own return variable already does
+                        // (§ pkgTfSigRangeTopViewConst148).  The drain runs
+                        // after every package view, so the symbol-keyed maps
+                        // below hold the LAST package to list the parameter:
+                        // an importer (`svaunit_pkg` wildcard-imports uvm_pkg),
+                        // whose copy's value constant is typed `svaunit_pkg`
+                        // and is not listed before the reference; golden's
+                        // reference reads the home package's own object.
+                        // Switch R11U269_RETRANGEOWNPKG_OFF.
+                        const UHDM::any* own269 = nullptr;
+                        if (retTopPkg269) {
+                            auto* pk269 = (const UHDM::package*)retTopPkg269;
+                            if (pk269->Param_assigns())
+                                for (auto* pa269 : *pk269->Param_assigns())
+                                    if (pa269 && pa269->Lhs() && pa269->Rhs() &&
+                                        pa269->Lhs()->VpiName() == psy.name) {
+                                        own269 = pa269->Rhs();
+                                        break;
+                                    }
+                        }
+                        if (own269) {
+                            ref->Actual_group((UHDM::any*)own269);
+                            tr269("retTopRangeOwnPkg269", std::string(psy.name));
+                        }
+                        else if (retLocalDefView67 &&
                             dv67 != pkgParamDefRhsDefView17.end() && dv67->second)
                             ref->Actual_group(dv67->second);
                         else if (tfTypeScopeViewLocal && pkgTopEmit &&

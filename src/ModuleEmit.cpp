@@ -45,6 +45,7 @@
 #include "R261.h"
 #include "R263.h"
 #include "R267.h"
+#include "R269.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -24633,6 +24634,172 @@ static bool caLhsBindsByName267(const Expression& lhsExpr) {
            DefinitionKind::Module;
 }
 
+// § caLhsBindsUpScopes269 (r11u269, pass 267's residue: v11u267repro VB/vb01,
+// vb02, vb03, vb09; grid tools/probe/r11u269repro/cases/B) — bindVariable's
+// scope walk does not stop at the Lhs's own declaring scope: it switches on
+// function / task / begin / module_inst and tail-recurses on VpiParent, so
+// from a gen_scope it tries the enclosing module_inst's Nets and Variables BY
+// NAME and, when none matches, the module_inst's own parent instance, up the
+// elaborated tree.  A gen-local net that shares a name with a net of the
+// enclosing module (vb01's `x`, the module port), or with a net of an
+// instantiating module (vb02 `w`, vb09 `zz`), and an interface gen-scope
+// signal whose name the instantiating module declares (vb03 `s`: an
+// interface is no module_inst, so the walk passes it by), all BIND, and
+// golden leaves the fold unparented; `caLhsBindsByName267` read only the
+// declaring scope and kept the parent.  The walk here: the Lhs symbol's
+// scopes up to its instance body, a MODULE body tried by name (net or
+// variable), then the body's parent instance's scopes, and so on to the root.
+static bool caLhsBindsUpScopes269(const Expression& lhsExpr) {
+    auto& l = stripImplicitConv(lhsExpr);
+    if (l.kind != ExpressionKind::NamedValue)
+        return false;
+    auto& sym = l.as<NamedValueExpression>().symbol;
+    if (sym.kind != SymbolKind::Net && sym.kind != SymbolKind::Variable)
+        return false;
+    const Scope* sc = sym.getParentScope();
+    for (int g = 0; sc && g < 256; ++g) {
+        auto& ss = sc->asSymbol();
+        if (ss.kind == SymbolKind::InstanceBody) {
+            auto& body = ss.as<InstanceBodySymbol>();
+            if (body.getDefinition().definitionKind == DefinitionKind::Module)
+                if (auto* f = sc->find(sym.name);
+                    f && (f->kind == SymbolKind::Net ||
+                          f->kind == SymbolKind::Variable))
+                    return true;
+            auto* pi = body.parentInstance;
+            sc = pi ? pi->getParentScope() : nullptr;
+            continue;
+        }
+        if (ss.kind == SymbolKind::CompilationUnit || ss.kind == SymbolKind::Root)
+            return false;
+        sc = ss.getParentScope();
+    }
+    return false;
+}
+
+// § selOpFoldReducibleKinds269v (v11u269, the adversarial verification of
+// r11u269; cases tools/probe/v11u269repro/cases/VO and VS) — § selLhsOpFoldFresh269
+// re-emits a select-Lhs cont_assign whose Rhs is an operation over literals and
+// parameters so that the general fold writes the reduced constant, but the
+// general fold writes the constant at the Lhs width (the plain-Lhs model, where
+// UhdmWriter::writeCont_assign's adjustSize resizes to the bound variable),
+// while a select Lhs carries no typespec and golden keeps ExprEval::reduceExpr's
+// RAW result, whose kind, size and value depend on the operator: `-`, `*`,
+// `/`, `%`, `**` give INT size 64, `&`, `|`, `<<`, `>>`, `>>>`, `&&`, `||`,
+// `!` and the unary reductions give UINT size 64, `+` over a decimal literal
+// or a parameter gives INT, `+` keeps the unwrapped 64-bit sum (4'hF + 4'h1
+// reads UINT:16 size 4), a nested unary minus is not reduced, and `^`, `~^`,
+// unary `+`, `===`, `!==` and `==?` are not reduced at all (golden keeps the
+// operation, pristine already right).  Under the law every such shape left
+// uhdm-cmp equality (VO/o02 ... o08, o11 ... o13, o18 ... o20, o24 ... o26,
+// o30, o31, o33, o35, o36, o48, o53, o66, o74 elaborated views STRICT_NOTEQUAL
+// -> stage 1) or STRICT_EQUAL (o09, o10, o23, o29, o32, o41, o51, o59, o61,
+// o65 in both views), and downstream IDENTICAL -> EQUIVALENT on ten case dirs
+// and IDENTICAL -> DIVERGENT on o13 (`4'sh8 >>> 1` folded to our value).
+// The law fires only on the kinds whose reduced constant the general fold
+// writes exactly, measured one by one: a replication of literal or parameter
+// items (any constant count, v11u267repro VA/va04 `{2*W{1'b1}}`), unary `-`
+// and `~` over a literal or a parameter, the six comparisons `==` `!=` `<`
+// `<=` `>` `>=` over such operands (nested comparisons and sums included),
+// and `+` over unsigned based non-decimal literals whose sum fits the
+// operation's width (nested such `+` included); a literal holding x or z bits
+// stands aside everywhere.  Switch R11V269_OPKIND_OFF.
+static bool selOpFoldLeafOk269v(const Expression& e0) {
+    auto& e = stripImplicitConv(e0);
+    if (e.kind == ExpressionKind::IntegerLiteral)
+        return !e.as<IntegerLiteral>().getValue().hasUnknown();
+    if (e.kind == ExpressionKind::NamedValue)
+        return e.as<NamedValueExpression>().symbol.kind == SymbolKind::Parameter;
+    return false;
+}
+// The unwrapped sum of an all-literal `+` tree, or false when a node is not
+// such a `+` / literal or any node's sum does not fit its own width.
+static bool selOpFoldAddOk269v(const Expression& e0, int d, uint64_t& sum) {
+    auto& e = stripImplicitConv(e0);
+    if (d > 16)
+        return false;
+    if (e.kind == ExpressionKind::IntegerLiteral) {
+        auto* ivs = red76VecSyntax(e);
+        SVInt v = e.as<IntegerLiteral>().getValue();
+        if (!ivs || v.hasUnknown() || v.isSigned() || v.getBitWidth() > 63)
+            return false;
+        auto raw = ivs->base.rawText();
+        if (raw.find('s') != std::string_view::npos ||
+            raw.find('S') != std::string_view::npos)
+            return false;
+        char b = red72LitBase(raw);
+        if (b != 'h' && b != 'b' && b != 'o')
+            return false;
+        auto u = v.as<uint64_t>();
+        if (!u)
+            return false;
+        sum = *u;
+        return true;
+    }
+    if (e.kind == ExpressionKind::BinaryOp &&
+        e.as<BinaryExpression>().op == BinaryOperator::Add && e.type) {
+        uint64_t l = 0, r = 0;
+        if (!selOpFoldAddOk269v(e.as<BinaryExpression>().left(), d + 1, l) ||
+            !selOpFoldAddOk269v(e.as<BinaryExpression>().right(), d + 1, r))
+            return false;
+        auto w = e.type->getBitWidth();
+        if (w == 0 || w > 62)
+            return false;
+        sum = l + r;
+        return sum < (uint64_t(1) << w);
+    }
+    return false;
+}
+static bool selOpFoldKindOk269v(const Expression& e0, int d = 0) {
+    auto& e = stripImplicitConv(e0);
+    if (d > 16)
+        return false;
+    switch (e.kind) {
+        case ExpressionKind::IntegerLiteral:
+        case ExpressionKind::NamedValue:
+            return selOpFoldLeafOk269v(e);
+        case ExpressionKind::Replication: {
+            // The count is evaluated, not reduced into the result: any constant
+            // count keeps the law; the law's own operand walk already refused
+            // signals and calls.
+            auto& c = stripImplicitConv(e.as<ReplicationExpression>().concat());
+            if (c.kind != ExpressionKind::Concatenation)
+                return selOpFoldLeafOk269v(c);
+            for (auto* o : c.as<ConcatenationExpression>().operands())
+                if (!o || !selOpFoldLeafOk269v(*o))
+                    return false;
+            return true;
+        }
+        case ExpressionKind::UnaryOp: {
+            auto& u = e.as<UnaryExpression>();
+            if (u.op != UnaryOperator::Minus && u.op != UnaryOperator::BitwiseNot)
+                return false;
+            return selOpFoldLeafOk269v(u.operand());
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& b = e.as<BinaryExpression>();
+            switch (b.op) {
+                case BinaryOperator::Equality:
+                case BinaryOperator::Inequality:
+                case BinaryOperator::LessThan:
+                case BinaryOperator::LessThanEqual:
+                case BinaryOperator::GreaterThan:
+                case BinaryOperator::GreaterThanEqual:
+                    return selOpFoldKindOk269v(b.left(), d + 1) &&
+                           selOpFoldKindOk269v(b.right(), d + 1);
+                case BinaryOperator::Add: {
+                    uint64_t s0 = 0;
+                    return selOpFoldAddOk269v(e, d, s0);
+                }
+                default:
+                    return false;
+            }
+        }
+        default:
+            return false;
+    }
+}
+
 // ---------------------------------------------------------------------------
 // § genCaUnboundTernFold23 (r11u23) — THE UNBOUND HALF of the cont-assign
 // ternary fold, and the LHS-BINDING face that travels with it.  r11u22's R0.
@@ -30054,6 +30221,12 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             if (r11u267On("R11U267_GENREPLPARENT_OFF") &&
                                 caLhsBindsByName267(ae.left()))
                                 tr267("genCaReplParentBoundLhs267", fullName);
+                            // § caLhsBindsUpScopes269 — see the helper.
+                            // Switch R11U269_BINDUP_OFF.
+                            else if (r11u267On("R11U267_GENREPLPARENT_OFF") &&
+                                     r11u269On("R11U269_BINDUP_OFF") &&
+                                     caLhsBindsUpScopes269(ae.left()))
+                                tr269("caLhsBindsUpScopes269", fullName);
                             else
                                 c78->VpiParent(ca);
                         }
@@ -41901,6 +42074,83 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             selLitLhs = l9.kind == ExpressionKind::ElementSelect ||
                         l9.kind == ExpressionKind::RangeSelect;
         }
+        // § selLhsOpFoldFresh269 (r11u269, pass 267's residue R/r11 to r14,
+        // grid tools/probe/r11u269repro/cases/S) — a bit, part, indexed-part
+        // select or concatenation Lhs whose Rhs is an OPERATION over literals
+        // and parameters re-compiles too: UhdmWriter::writeCont_assign's
+        // trailing `simplified == false` arm reduces the Rhs, and a constant
+        // result clones the cont_assign per instance and installs the
+        // reduced constant parented at the clone (golden r11
+        // `assign w[8:0] = {AllPagesW{1'b1}}` under work@top.u_fc: BIN
+        // 111111111 size 9; the select carries no typespec, so adjustSize is
+        // a no-op, and the law fires only where the operation's own width is
+        // the Lhs width, the width our fold writes).  Ours kept the
+        // definition's cont_assign and its unreduced operation (uhdm-cmp
+        // stage 1).  A cast Rhs carries a typespec and
+        // takes the `simplified` arm (no fold); a signal or call operand
+        // does not reduce: both keep the share.  The fold itself is the
+        // general one below (tryFoldConst) and § caFoldParentUnboundLhs267
+        // parents it.  Switch R11U269_SELOPFOLD_OFF.
+        bool selOpFold269 = false;
+        if (topView && !plainLhs && !dottedLhs && !literalRhs &&
+            r11u269On("R11U269_SELOPFOLD_OFF")) {
+            auto& l269 = stripImplicitConv(ae.left());
+            bool selL = l269.kind == ExpressionKind::ElementSelect ||
+                        l269.kind == ExpressionKind::RangeSelect ||
+                        l269.kind == ExpressionKind::Concatenation;
+            if (selL && l269.kind != ExpressionKind::Concatenation) {
+                const Expression* b269 = &l269;
+                while (b269->kind == ExpressionKind::ElementSelect ||
+                       b269->kind == ExpressionKind::RangeSelect)
+                    b269 = &stripImplicitConv(
+                        b269->kind == ExpressionKind::ElementSelect
+                            ? b269->as<ElementSelectExpression>().value()
+                            : b269->as<RangeSelectExpression>().value());
+                if (b269->kind != ExpressionKind::NamedValue)
+                    selL = false;
+            }
+            auto& r269 = stripImplicitConv(ae.right());
+            bool opR = r269.kind == ExpressionKind::Replication ||
+                       r269.kind == ExpressionKind::BinaryOp ||
+                       r269.kind == ExpressionKind::UnaryOp;
+            if (selL && opR) {
+                bool ok269 = true;
+                r269.visit(makeVisitor(
+                    [&](auto& v, const NamedValueExpression& nv) {
+                        if (nv.symbol.kind != SymbolKind::Parameter)
+                            ok269 = false;
+                    },
+                    [&](auto& v, const CallExpression&) { ok269 = false; },
+                    [&](auto& v, const ConversionExpression& cv) {
+                        if (!cv.isImplicit())
+                            ok269 = false;
+                        v.visitDefault(cv);
+                    }));
+                // § selOpFoldReducibleKinds269v — see the helper.
+                // Switch R11V269_OPKIND_OFF.
+                if (ok269 && r11v269On("R11V269_OPKIND_OFF") &&
+                    !selOpFoldKindOk269v(r269)) {
+                    ok269 = false;
+                    tr269("selOpFoldReducibleKinds269v",
+                          rawText(ae.left().sourceRange));
+                }
+                if (ok269) {
+                    ASTContext c269(comp.getRoot(), LookupLocation::max);
+                    ConstantValue v269 = c269.tryEval(r269);
+                    // Only when the reduced width is the Lhs width: the
+                    // reducer keeps the operation's own width (an `int`
+                    // operand gives 64 bits, golden s05 `w[3:0] = P + 1`
+                    // UINT:6 size 64) where our fold sizes to the Lhs, and a
+                    // typed-parameter operand already re-emits (pristine).
+                    if (v269 && v269.isInteger() && r269.type &&
+                        ae.left().type &&
+                        r269.type->getBitWidth() == ae.left().type->getBitWidth()) {
+                        selOpFold269 = true;
+                        tr269("selLhsOpFoldFresh269", rawText(ae.left().sourceRange));
+                    }
+                }
+            }
+        }
         // ...but when that select's base walks down to a struct MEMBER access
         // (a.b[0], a[0][0].x[2] — a hier_path Lhs), Surelog does NOT re-compile
         // the RHS value the way it does for a plain vector-select LHS: the
@@ -42475,7 +42725,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             !unbasedShareRhs && !caReuseParamConst9 && !sysFold &&
             !dlyParamFresh164 &&
             ((!plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs && !selLitLhs &&
-              !callFold && !ternFold9 && !ternArm9) ||
+              !callFold && !ternFold9 && !ternArm9 && !selOpFold269) ||
              (plainLhs &&
               !containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
               !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs &&
@@ -46244,7 +46494,14 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                     retLocalDefView67 = !retTopView67;
                     syntaxRefSep = "::";
                 }
+                // § retTopRangeOwnPkg269 — see TypeEmit's binding arm.
+                const void* savedRtp269 = retTopPkg269;
+                if (retPkgScope67 && retTopView67 && pf.inst &&
+                    pf.inst->UhdmType() == UHDM::uhdmpackage &&
+                    r11u269On("R11U269_RETRANGEOWNPKG_OFF"))
+                    retTopPkg269 = pf.inst;
                 ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
+                retTopPkg269 = savedRtp269;
                 // § retNameLocalClassTsAtType234 (r11u234, map 15 N0067 / N0068
                 // on uvm_mem::get_default_map, uvm_mem_mam::reserve_region and
                 // 22 more UVM functions) — the per-reference return-name local

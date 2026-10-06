@@ -29,6 +29,7 @@
 #include "R259.h"
 #include "R265.h"
 #include "R261.h"
+#include "R269.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -10618,6 +10619,79 @@ void UhdmExporter::copyClassTdSpecParams1(UHDM::class_typespec* dst,
     // uhdm2rtlil corpus (1358 rows, every database dumped and screened) has none.
     if (dst->Parameters() && !overwrite1)
         return;
+    // § cloneTdSpecDeepCopy269 (r11u269, MiniAmiq / SeqDriver #136655, grid
+    // tools/probe/r11u269repro/cases/U) — `clone_tree` is DEEP: the § 54
+    // drain's clone owns a COPY of every object under the base's
+    // specialization, not a reference to it.  Golden's
+    // `uvm_algorithmic_comparator::type_id` (a clone whose base is the last
+    // `uvm_component_utils` expansion, svaunit_base) lists
+    //     type_parameter T -> ref -> class_typespec svaunit_base   (a copy)
+    //     param_assign  Rhs  type_parameter T -> ref -> svaunit_base (a copy,
+    //                        not the Parameters' T)
+    //                   Lhs  type_parameter T at the generic's formal 51:37
+    //                        -> ref -> class_typespec uvm_component (a copy)
+    // where ours pointed T's reference at the base's own actual, the
+    // param_assign's Rhs at the Parameters' T and its Lhs at the base's
+    // (the generic's own formal): shared objects the walk lists once, so T
+    // read unbound and the param_assign empty (195 such bindings golden lists,
+    // 65 of ours unbound).  On the § 54 drain (`overwrite1`) each clone now
+    // takes fresh copies: the class_typespec actual (its name, span, file and
+    // class_defn, its own specialization copied the same way; any other
+    // typespec kind through UHDM's clone_tree, grid U/u02 `type Q = int`), a
+    // second type_parameter for the Rhs, the Lhs formal (name and span) with
+    // a copy of its actual, and the base parameter's and param_assign's spans.
+    // Switch R11U269_TDCLONEDEEP_OFF.
+    const bool deep269 = overwrite1 && r11u269On("R11U269_TDCLONEDEEP_OFF");
+    std::function<UHDM::typespec*(UHDM::typespec*, UHDM::any*, int)> cpTs269 =
+        [&](UHDM::typespec* t, UHDM::any* par, int depth) -> UHDM::typespec* {
+        if (!deep269 || !t || depth > 8)
+            return t;
+        if (t->UhdmType() != UHDM::uhdmclass_typespec) {
+            // A non-class actual (`type Q = int`): UHDM's own clone_tree with
+            // Surelog's context, the copy Surelog's DeepClone makes.
+            UHDM::ElaboratorContext ctx269(&s, false, /*muteErrors=*/true);
+            auto* c = (UHDM::typespec*)UHDM::clone_tree(t, &ctx269);
+            if (!c)
+                return t;
+            c->VpiParent(par);
+            tr269("cloneTdSpecDeepCopy269", std::string(UHDM::UhdmName(t->UhdmType())));
+            return c;
+        }
+        auto* src = (UHDM::class_typespec*)t;
+        auto* c = s.MakeClass_typespec();
+        c->VpiName(src->VpiName());
+        c->VpiFile(src->VpiFile());
+        c->VpiLineNo(src->VpiLineNo());
+        c->VpiColumnNo(src->VpiColumnNo());
+        c->VpiEndLineNo(src->VpiEndLineNo());
+        c->VpiEndColumnNo(src->VpiEndColumnNo());
+        c->Class_defn(src->Class_defn());
+        c->VpiParent(par);
+        if (src->Parameters())
+            copyClassTdSpecParams1(c, src, /*overwrite1=*/true);
+        tr269("cloneTdSpecDeepCopy269", std::string(src->VpiName()));
+        return c;
+    };
+    auto cpTp269 = [&](const UHDM::type_parameter* b, UHDM::any* par,
+                       bool keepLoc) -> UHDM::type_parameter* {
+        auto* n = s.MakeType_parameter();
+        n->VpiName(b->VpiName());
+        n->VpiParent(par);
+        if (keepLoc) {
+            n->VpiFile(b->VpiFile());
+            n->VpiLineNo(b->VpiLineNo());
+            n->VpiColumnNo(b->VpiColumnNo());
+            n->VpiEndLineNo(b->VpiEndLineNo());
+            n->VpiEndColumnNo(b->VpiEndColumnNo());
+        }
+        if (auto* brt = b->Typespec()) {
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiParent(n);
+            rt->Actual_typespec(cpTs269((UHDM::typespec*)brt->Actual_typespec(), n, 0));
+            n->Typespec(rt);
+        }
+        return n;
+    };
     auto* params1 = s.MakeAnyVec();
     auto* pas1 = s.MakeParam_assignVec();
     auto* bpas1 = base->Param_assigns();
@@ -10631,18 +10705,40 @@ void UhdmExporter::copyClassTdSpecParams1(UHDM::class_typespec* dst,
         auto* tp1 = s.MakeType_parameter();
         tp1->VpiName(btp1->VpiName());
         tp1->VpiParent(dst);
+        if (deep269) {
+            // the copy carries the base parameter's span (empty when the
+            // base's is)
+            tp1->VpiFile(btp1->VpiFile());
+            tp1->VpiLineNo(btp1->VpiLineNo());
+            tp1->VpiColumnNo(btp1->VpiColumnNo());
+            tp1->VpiEndLineNo(btp1->VpiEndLineNo());
+            tp1->VpiEndColumnNo(btp1->VpiEndColumnNo());
+        }
         if (auto* brt1 = btp1->Typespec()) {
             auto* rt1 = s.MakeRef_typespec();
             rt1->VpiParent(tp1);
-            rt1->Actual_typespec(brt1->Actual_typespec());
+            rt1->Actual_typespec(cpTs269(brt1->Actual_typespec(), tp1, 0));
             tp1->Typespec(rt1);
         }
         params1->push_back(tp1);
         auto* pa1 = s.MakeParam_assign();
         pa1->VpiParent(dst);
-        pa1->Rhs(tp1);
-        if (bpas1 && i1 < bpas1->size() && bpas1->at(i1))
-            pa1->Lhs(bpas1->at(i1)->Lhs());
+        pa1->Rhs(deep269 ? cpTp269(btp1, pa1, true) : tp1);
+        if (bpas1 && i1 < bpas1->size() && bpas1->at(i1)) {
+            if (deep269) {
+                auto* bpa269 = bpas1->at(i1);
+                pa1->VpiFile(bpa269->VpiFile());
+                pa1->VpiLineNo(bpa269->VpiLineNo());
+                pa1->VpiColumnNo(bpa269->VpiColumnNo());
+                pa1->VpiEndLineNo(bpa269->VpiEndLineNo());
+                pa1->VpiEndColumnNo(bpa269->VpiEndColumnNo());
+            }
+            auto* bl1 = bpas1->at(i1)->Lhs();
+            if (deep269 && bl1 && bl1->UhdmType() == UHDM::uhdmtype_parameter)
+                pa1->Lhs(cpTp269((const UHDM::type_parameter*)bl1, pa1, true));
+            else
+                pa1->Lhs(bl1);
+        }
         pas1->push_back(pa1);
         i1++;
     }

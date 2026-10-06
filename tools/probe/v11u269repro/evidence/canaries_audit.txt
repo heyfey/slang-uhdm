@@ -1,0 +1,23 @@
+=== L
+  Earlgrey_0_1                   testflags CHANGED STRICT_NOTEQUAL/differ:fullname(14) -> STRICT_NOTEQUAL/differ:fullname(105)
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+=== F
+  Earlgrey_0_1                   testflags CHANGED STRICT_NOTEQUAL/differ:fullname(14) -> STRICT_NOTEQUAL/differ:fullname(105)
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+=== binary-path audit (fence-filtered cmds.txt lists)
+pristine: cmds=3315 naming=3265 other-binary=0 no-slang-line=50
+law: cmds=3315 naming=3265 other-binary=0 no-slang-line=50
+fix (final 85dd8dc9): cmds=3315 naming=3265 other-binary=0 no-slang-line=50
+=== uhdm-cmp on the six corpus movers (fix databases)
+surelog/default/Earlgrey_0_1-a898def8 lines=0
+surelog/testflags/Earlgrey_0_1-a898def8 lines=0
+surelog/default/MiniAmiq-055eab74 lines=0
+surelog/testflags/MiniAmiq-055eab74 lines=0
+surelog/default/SeqDriver-65178d3a lines=0
+surelog/testflags/SeqDriver-65178d3a lines=0

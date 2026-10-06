@@ -1,0 +1,1 @@
++define+SYNTHESIS prim_subreg.sv flash_ctrl_reg_pkg.sv flash_ctrl_reg_top.sv

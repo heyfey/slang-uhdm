@@ -1,0 +1,8 @@
+OUT o02_sub.uhdm
+selOpFoldReducibleKinds269v w[3:0]
+OUT o13_ashr.uhdm
+selOpFoldReducibleKinds269v w[3:0]
+OUT o74_add_overflow.uhdm
+selOpFoldReducibleKinds269v w[3:0]
+OUT o01_add.uhdm
+selLhsOpFoldFresh269 w[3:0]

@@ -1,0 +1,379 @@
+R/A/a01_not_nested                           P=STRICT_EQUAL_506_objects   L=STRICT_EQUAL_506_objects   F=STRICT_EQUAL_506_objects   rc=0/0/0 lawsw=-  
+R/A/a01_not_nested_el                        P=STRICT_EQUAL_536_objects   L=STRICT_EQUAL_536_objects   F=STRICT_EQUAL_536_objects   rc=0/0/0 lawsw=-  
+R/A/a02_nested_first                         P=STRICT_EQUAL_567_objects   L=STRICT_EQUAL_567_objects   F=STRICT_EQUAL_567_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a02_nested_first_el                      P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_597_objects   F=STRICT_EQUAL_597_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a03_nested_after                         P=STRICT_EQUAL_567_objects   L=STRICT_EQUAL_567_objects   F=STRICT_EQUAL_567_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a03_nested_after_el                      P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_597_objects   F=STRICT_EQUAL_597_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a04_vector_td                            P=STRICT_EQUAL_577_objects   L=STRICT_EQUAL_577_objects   F=STRICT_EQUAL_577_objects   rc=0/0/0 lawsw=-  
+R/A/a04_vector_td_el                         P=STRICT_EQUAL_607_objects   L=STRICT_EQUAL_607_objects   F=STRICT_EQUAL_607_objects   rc=0/0/0 lawsw=-  
+R/A/a05_plain_member                         P=STRICT_EQUAL_510_objects   L=STRICT_EQUAL_510_objects   F=STRICT_EQUAL_510_objects   rc=0/0/0 lawsw=-  
+R/A/a05_plain_member_el                      P=STRICT_EQUAL_535_objects   L=STRICT_EQUAL_535_objects   F=STRICT_EQUAL_535_objects   rc=0/0/0 lawsw=-  
+R/A/a06_second_user                          P=STRICT_EQUAL_721_objects   L=STRICT_EQUAL_721_objects   F=STRICT_EQUAL_721_objects   rc=0/0/0 lawsw=-  
+R/A/a06_second_user_el                       P=STRICT_EQUAL_686_objects   L=STRICT_EQUAL_686_objects   F=STRICT_EQUAL_686_objects   rc=0/0/0 lawsw=-  
+R/A/a07_reg_top                              P=STRICT_EQUAL_7306_objects  L=STRICT_EQUAL_7306_objects  F=STRICT_EQUAL_7306_objects  rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a07_reg_top_el                           P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_7354_objects  F=STRICT_EQUAL_7354_objects  rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a08_union_container                      P=STRICT_EQUAL_800_objects   L=STRICT_EQUAL_800_objects   F=STRICT_EQUAL_800_objects   rc=0/0/0 lawsw=-  
+R/A/a08_union_container_el                   P=STRICT_EQUAL_865_objects   L=STRICT_EQUAL_865_objects   F=STRICT_EQUAL_865_objects   rc=0/0/0 lawsw=-  
+R/A/a09_enum_elem                            P=STRICT_EQUAL_554_objects   L=STRICT_EQUAL_554_objects   F=STRICT_EQUAL_554_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a09_enum_elem_el                         P=STRICT_EQUAL_568_objects   L=STRICT_EQUAL_568_objects   F=STRICT_EQUAL_568_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a10_two_dims                             P=STRICT_EQUAL_604_objects   L=STRICT_EQUAL_604_objects   F=STRICT_EQUAL_604_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a10_two_dims_el                          P=STRICT_EQUAL_627_objects   L=STRICT_EQUAL_627_objects   F=STRICT_EQUAL_627_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a11_elem_other_pkg                       P=STRICT_EQUAL_537_objects   L=STRICT_EQUAL_537_objects   F=STRICT_EQUAL_537_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a11_elem_other_pkg_el                    P=STRICT_EQUAL_567_objects   L=STRICT_EQUAL_567_objects   F=STRICT_EQUAL_567_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a12_ca_rhs_path                          P=STRICT_EQUAL_561_objects   L=STRICT_EQUAL_561_objects   F=STRICT_EQUAL_561_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a12_ca_rhs_path_el                       P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_606_objects   F=STRICT_EQUAL_606_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a13_explicit_import                      P=STRICT_EQUAL_521_objects   L=STRICT_EQUAL_521_objects   F=STRICT_EQUAL_521_objects   rc=0/0/0 lawsw=-  
+R/A/a13_explicit_import_el                   P=STRICT_EQUAL_551_objects   L=STRICT_EQUAL_551_objects   F=STRICT_EQUAL_551_objects   rc=0/0/0 lawsw=-  
+R/A/a14_no_import                            P=STRICT_EQUAL_451_objects   L=STRICT_EQUAL_451_objects   F=STRICT_EQUAL_451_objects   rc=0/0/0 lawsw=-  
+R/A/a14_no_import_el                         P=STRICT_EQUAL_481_objects   L=STRICT_EQUAL_481_objects   F=STRICT_EQUAL_481_objects   rc=0/0/0 lawsw=-  
+R/A/a15_local_var                            P=STRICT_EQUAL_429_objects   L=STRICT_EQUAL_429_objects   F=STRICT_EQUAL_429_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a15_local_var_el                         P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_458_objects   F=STRICT_EQUAL_458_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a16_two_defs                             P=STRICT_EQUAL_852_objects   L=STRICT_EQUAL_852_objects   F=STRICT_EQUAL_852_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a16_two_defs_el                          P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_787_objects   F=STRICT_EQUAL_787_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a17_deeper                               P=STRICT_EQUAL_833_objects   L=STRICT_EQUAL_833_objects   F=STRICT_EQUAL_833_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a17_deeper_el                            P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_898_objects   F=STRICT_EQUAL_898_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a18_unpacked_container                   P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+R/A/a18_unpacked_container_el                P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+R/A/a19_crlf                                 P=STRICT_EQUAL_567_objects   L=STRICT_EQUAL_567_objects   F=STRICT_EQUAL_567_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a19_crlf_el                              P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_597_objects   F=STRICT_EQUAL_597_objects   rc=0/0/0 lawsw=TOPARRELEM  
+R/A/a20_interface                            P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=4/4/4 lawsw=-  
+R/A/a20_interface_el                         P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=4/4/4 lawsw=-  
+R/B/b01_shadow_port                          P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_98_objects    F=STRICT_EQUAL_98_objects    rc=0/0/0 lawsw=BINDUP  
+R/B/b01_shadow_port_el                       P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_100_objects   F=STRICT_EQUAL_100_objects   rc=0/0/0 lawsw=BINDUP  
+R/B/b02_parent_net                           P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=BINDUP  
+R/B/b02_parent_net_el                        P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_118_objects   F=STRICT_EQUAL_118_objects   rc=0/0/0 lawsw=BINDUP  
+R/B/b03_iface_parent                         P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_127_objects   F=STRICT_EQUAL_127_objects   rc=0/0/0 lawsw=BINDUP  
+R/B/b03_iface_parent_el                      P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=BINDUP  
+R/B/b04_parent_net_zz                        P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=BINDUP  
+R/B/b04_parent_net_zz_el                     P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_118_objects   F=STRICT_EQUAL_118_objects   rc=0/0/0 lawsw=BINDUP  
+R/B/b05_no_name_above                        P=STRICT_EQUAL_98_objects    L=STRICT_EQUAL_98_objects    F=STRICT_EQUAL_98_objects    rc=0/0/0 lawsw=-  
+R/B/b05_no_name_above_el                     P=STRICT_EQUAL_100_objects   L=STRICT_EQUAL_100_objects   F=STRICT_EQUAL_100_objects   rc=0/0/0 lawsw=-  
+R/B/b06_grandparent                          P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=BINDUP  
+R/B/b06_grandparent_el                       P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_145_objects   F=STRICT_EQUAL_145_objects   rc=0/0/0 lawsw=BINDUP  
+R/B/b07_parent_param                         P=STRICT_EQUAL_112_objects   L=STRICT_EQUAL_112_objects   F=STRICT_EQUAL_112_objects   rc=0/0/0 lawsw=-  
+R/B/b07_parent_param_el                      P=STRICT_EQUAL_114_objects   L=STRICT_EQUAL_114_objects   F=STRICT_EQUAL_114_objects   rc=0/0/0 lawsw=-  
+R/B/b08_iface_no_name                        P=STRICT_EQUAL_103_objects   L=STRICT_EQUAL_103_objects   F=STRICT_EQUAL_103_objects   rc=0/0/0 lawsw=-  
+R/B/b08_iface_no_name_el                     P=STRICT_EQUAL_102_objects   L=STRICT_EQUAL_102_objects   F=STRICT_EQUAL_102_objects   rc=0/0/0 lawsw=-  
+R/B/b09_gen_for                              P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=BINDUP  
+R/B/b09_gen_for_el                           P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_154_objects   F=STRICT_EQUAL_154_objects   rc=0/0/0 lawsw=BINDUP  
+R/B/b10_parent_var                           P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=BINDUP  
+R/B/b10_parent_var_el                        P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_118_objects   F=STRICT_EQUAL_118_objects   rc=0/0/0 lawsw=BINDUP  
+R/B/b11_nested_gen                           P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_126_objects   F=STRICT_EQUAL_126_objects   rc=0/0/0 lawsw=BINDUP  
+R/B/b11_nested_gen_el                        P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_125_objects   F=STRICT_EQUAL_125_objects   rc=0/0/0 lawsw=BINDUP  
+R/R/r01_imported_pkg                         P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_211_objects   F=STRICT_EQUAL_211_objects   rc=0/0/0 lawsw=RETRANGEOWNPKG  
+R/R/r01_imported_pkg_el                      P=STRICT_EQUAL_198_objects   L=STRICT_EQUAL_198_objects   F=STRICT_EQUAL_198_objects   rc=0/0/0 lawsw=-  
+R/R/r02_no_importer                          P=STRICT_EQUAL_73_objects    L=STRICT_EQUAL_73_objects    F=STRICT_EQUAL_73_objects    rc=0/0/0 lawsw=-  
+R/R/r02_no_importer_el                       P=STRICT_EQUAL_61_objects    L=STRICT_EQUAL_61_objects    F=STRICT_EQUAL_61_objects    rc=0/0/0 lawsw=-  
+R/R/r03_two_params                           P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_198_objects   F=STRICT_EQUAL_198_objects   rc=0/0/0 lawsw=RETRANGEOWNPKG  
+R/R/r03_two_params_el                        P=STRICT_EQUAL_167_objects   L=STRICT_EQUAL_167_objects   F=STRICT_EQUAL_167_objects   rc=0/0/0 lawsw=-  
+R/R/r04_two_importers                        P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_252_objects   F=STRICT_EQUAL_252_objects   rc=0/0/0 lawsw=RETRANGEOWNPKG  
+R/R/r04_two_importers_el                     P=STRICT_EQUAL_240_objects   L=STRICT_EQUAL_240_objects   F=STRICT_EQUAL_240_objects   rc=0/0/0 lawsw=-  
+R/R/r05_localparam                           P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_151_objects   F=STRICT_EQUAL_151_objects   rc=0/0/0 lawsw=RETRANGEOWNPKG  
+R/R/r05_localparam_el                        P=STRICT_EQUAL_134_objects   L=STRICT_EQUAL_134_objects   F=STRICT_EQUAL_134_objects   rc=0/0/0 lawsw=-  
+R/R/r06_return_assign                        P=STRICT_NOTEQUAL_depth      L=STRICT_NOTEQUAL_depth      F=STRICT_NOTEQUAL_depth      rc=0/0/0 lawsw=-  
+R/R/r06_return_assign_el                     P=STRICT_EQUAL_190_objects   L=STRICT_EQUAL_190_objects   F=STRICT_EQUAL_190_objects   rc=0/0/0 lawsw=-  
+R/R/r07_class_method                         P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+R/R/r07_class_method_el                      P=STRICT_EQUAL_92_objects    L=STRICT_EQUAL_92_objects    F=STRICT_EQUAL_92_objects    rc=0/0/0 lawsw=-  
+R/R/r08_called                               P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=RETRANGEOWNPKG  
+R/R/r08_called_el                            P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+R/S/s01_part_repl                            P=NOT_EQUAL_stage1           L=STRICT_EQUAL_578_objects   F=STRICT_EQUAL_578_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s01_part_repl_el                         P=NOT_EQUAL_stage1           L=STRICT_EQUAL_548_objects   F=STRICT_EQUAL_548_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s02_bit_repl                             P=NOT_EQUAL_stage1           L=STRICT_EQUAL_574_objects   F=STRICT_EQUAL_574_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s02_bit_repl_el                          P=NOT_EQUAL_stage1           L=STRICT_EQUAL_544_objects   F=STRICT_EQUAL_544_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s03_concat_repl                          P=NOT_EQUAL_stage1           L=STRICT_NOTEQUAL_depth      F=STRICT_NOTEQUAL_depth      rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s03_concat_repl_el                       P=NOT_EQUAL_stage1           L=STRICT_EQUAL_546_objects   F=STRICT_EQUAL_546_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s04_ipart_local                          P=NOT_EQUAL_stage1           L=STRICT_EQUAL_576_objects   F=STRICT_EQUAL_576_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s04_ipart_local_el                       P=NOT_EQUAL_stage1           L=STRICT_EQUAL_546_objects   F=STRICT_EQUAL_546_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s05_binop_param                          P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+R/S/s05_binop_param_el                       P=STRICT_NOTEQUAL_file       L=STRICT_NOTEQUAL_file       F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=-  
+R/S/s06_unary                                P=NOT_EQUAL_stage1           L=STRICT_EQUAL_289_objects   F=STRICT_EQUAL_289_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s06_unary_el                             P=NOT_EQUAL_stage1           L=STRICT_EQUAL_295_objects   F=STRICT_EQUAL_295_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s07_signal_operand                       P=STRICT_EQUAL_296_objects   L=STRICT_EQUAL_296_objects   F=STRICT_EQUAL_296_objects   rc=0/0/0 lawsw=-  
+R/S/s07_signal_operand_el                    P=STRICT_EQUAL_302_objects   L=STRICT_EQUAL_302_objects   F=STRICT_EQUAL_302_objects   rc=0/0/0 lawsw=-  
+R/S/s08_cast                                 P=STRICT_EQUAL_294_objects   L=STRICT_EQUAL_294_objects   F=STRICT_EQUAL_294_objects   rc=0/0/0 lawsw=-  
+R/S/s08_cast_el                              P=STRICT_EQUAL_299_objects   L=STRICT_EQUAL_299_objects   F=STRICT_EQUAL_299_objects   rc=0/0/0 lawsw=-  
+R/S/s09_unpacked_elem                        P=NOT_EQUAL_stage1           L=STRICT_EQUAL_291_objects   F=STRICT_EQUAL_291_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s09_unpacked_elem_el                     P=NOT_EQUAL_stage1           L=STRICT_EQUAL_297_objects   F=STRICT_EQUAL_297_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s10_member_select                        P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+R/S/s10_member_select_el                     P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+R/S/s11_param_index                          P=NOT_EQUAL_stage1           L=STRICT_EQUAL_291_objects   F=STRICT_EQUAL_291_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s11_param_index_el                       P=NOT_EQUAL_stage1           L=STRICT_EQUAL_297_objects   F=STRICT_EQUAL_297_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s12_multibit                             P=NOT_EQUAL_stage1           L=STRICT_EQUAL_293_objects   F=STRICT_EQUAL_293_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/S/s12_multibit_el                          P=NOT_EQUAL_stage1           L=STRICT_EQUAL_299_objects   F=STRICT_EQUAL_299_objects   rc=0/0/0 lawsw=SELOPFOLD  
+R/U/u01_class_actual                         P=STRICT_NOTEQUAL_depth      L=STRICT_NOTEQUAL_depth      F=STRICT_NOTEQUAL_depth      rc=0/0/0 lawsw=TDCLONEDEEP  
+R/U/u01_class_actual_el                      P=STRICT_NOTEQUAL_depth      L=STRICT_NOTEQUAL_depth      F=STRICT_NOTEQUAL_depth      rc=0/0/0 lawsw=TDCLONEDEEP  
+R/U/u02_int_actual                           P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_51_objects    F=STRICT_EQUAL_51_objects    rc=0/0/0 lawsw=TDCLONEDEEP  
+R/U/u02_int_actual_el                        P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_65_objects    F=STRICT_EQUAL_65_objects    rc=0/0/0 lawsw=TDCLONEDEEP  
+R/U/u03_three_clones                         P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_81_objects    F=STRICT_EQUAL_81_objects    rc=0/0/0 lawsw=TDCLONEDEEP  
+R/U/u03_three_clones_el                      P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_103_objects   F=STRICT_EQUAL_103_objects   rc=0/0/0 lawsw=TDCLONEDEEP  
+R/U/u04_spec_actual                          P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=TDCLONEDEEP  
+R/U/u04_spec_actual_el                       P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=TDCLONEDEEP  
+R/U/u05_enum_actual                          P=STRICT_NOTEQUAL_depth      L=STRICT_NOTEQUAL_fullname   F=STRICT_NOTEQUAL_fullname   rc=0/0/0 lawsw=TDCLONEDEEP  
+R/U/u05_enum_actual_el                       P=STRICT_NOTEQUAL_depth      L=STRICT_NOTEQUAL_fullname   F=STRICT_NOTEQUAL_fullname   rc=0/0/0 lawsw=TDCLONEDEEP  
+R/U/u06_two_type_params                      P=STRICT_NOTEQUAL_file       L=STRICT_NOTEQUAL_file       F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=TDCLONEDEEP  
+R/U/u06_two_type_params_el                   P=STRICT_NOTEQUAL_file       L=STRICT_NOTEQUAL_file       F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=TDCLONEDEEP  
+R/U/u07_macro_utils                          P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_78_objects    F=STRICT_EQUAL_78_objects    rc=0/0/0 lawsw=TDCLONEDEEP  
+R/U/u07_macro_utils_el                       P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_100_objects   F=STRICT_EQUAL_100_objects   rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VA/va01_alias_array_td                     P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=TOPARRELEM  
+V/VA/va01_alias_array_td_el                  P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=TOPARRELEM  
+V/VA/va02_two_importer_modules               P=STRICT_EQUAL_806_objects   L=STRICT_EQUAL_806_objects   F=STRICT_EQUAL_806_objects   rc=0/0/0 lawsw=TOPARRELEM  
+V/VA/va02_two_importer_modules_el            P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_750_objects   F=STRICT_EQUAL_750_objects   rc=0/0/0 lawsw=TOPARRELEM  
+V/VA/va03_pkg_func_user                      P=STRICT_EQUAL_333_objects   L=STRICT_EQUAL_333_objects   F=STRICT_EQUAL_333_objects   rc=0/0/0 lawsw=-  
+V/VA/va03_pkg_func_user_el                   P=STRICT_EQUAL_447_objects   L=STRICT_EQUAL_447_objects   F=STRICT_EQUAL_447_objects   rc=0/0/0 lawsw=-  
+V/VA/va04_union_member_struct                P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VA/va04_union_member_struct_el             P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VA/va05_elem_in_other_pkg                  P=STRICT_EQUAL_437_objects   L=STRICT_EQUAL_437_objects   F=STRICT_EQUAL_437_objects   rc=0/0/0 lawsw=TOPARRELEM  
+V/VA/va05_elem_in_other_pkg_el               P=STRICT_EQUAL_464_objects   L=STRICT_EQUAL_464_objects   F=STRICT_EQUAL_464_objects   rc=0/0/0 lawsw=TOPARRELEM  
+V/VA/va06_direct_elem_use                    P=STRICT_EQUAL_532_objects   L=STRICT_EQUAL_532_objects   F=STRICT_EQUAL_532_objects   rc=0/0/0 lawsw=TOPARRELEM  
+V/VA/va06_direct_elem_use_el                 P=STRICT_EQUAL_539_objects   L=STRICT_EQUAL_539_objects   F=STRICT_EQUAL_539_objects   rc=0/0/0 lawsw=TOPARRELEM  
+V/VA/va07_three_levels                       P=STRICT_EQUAL_554_objects   L=STRICT_EQUAL_554_objects   F=STRICT_EQUAL_554_objects   rc=0/0/0 lawsw=TOPARRELEM  
+V/VA/va07_three_levels_el                    P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_591_objects   F=STRICT_EQUAL_591_objects   rc=0/0/0 lawsw=TOPARRELEM  
+V/VB/vb01_parent_in_genblk                   P=STRICT_EQUAL_115_objects   L=STRICT_EQUAL_115_objects   F=STRICT_EQUAL_115_objects   rc=0/0/0 lawsw=-  
+V/VB/vb01_parent_in_genblk_el                P=STRICT_EQUAL_117_objects   L=STRICT_EQUAL_117_objects   F=STRICT_EQUAL_117_objects   rc=0/0/0 lawsw=-  
+V/VB/vb02_parent_param_named                 P=STRICT_EQUAL_112_objects   L=STRICT_EQUAL_112_objects   F=STRICT_EQUAL_112_objects   rc=0/0/0 lawsw=-  
+V/VB/vb02_parent_param_named_el              P=STRICT_EQUAL_114_objects   L=STRICT_EQUAL_114_objects   F=STRICT_EQUAL_114_objects   rc=0/0/0 lawsw=-  
+V/VB/vb03_unit_var                           P=STRICT_EQUAL_98_objects    L=STRICT_EQUAL_98_objects    F=STRICT_EQUAL_98_objects    rc=0/0/0 lawsw=-  
+V/VB/vb03_unit_var_el                        P=STRICT_EQUAL_100_objects   L=STRICT_EQUAL_100_objects   F=STRICT_EQUAL_100_objects   rc=0/0/0 lawsw=-  
+V/VB/vb04_three_levels                       P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=BINDUP  
+V/VB/vb04_three_levels_el                    P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_139_objects   F=STRICT_EQUAL_139_objects   rc=0/0/0 lawsw=BINDUP  
+V/VB/vb05_parent_gen_decl                    P=STRICT_EQUAL_115_objects   L=STRICT_EQUAL_115_objects   F=STRICT_EQUAL_115_objects   rc=0/0/0 lawsw=-  
+V/VB/vb05_parent_gen_decl_el                 P=STRICT_EQUAL_117_objects   L=STRICT_EQUAL_117_objects   F=STRICT_EQUAL_117_objects   rc=0/0/0 lawsw=-  
+V/VB/vb06_parent_iface_inst                  P=STRICT_EQUAL_120_objects   L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=-  
+V/VB/vb06_parent_iface_inst_el               P=STRICT_EQUAL_122_objects   L=STRICT_EQUAL_122_objects   F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=-  
+V/VB/vb07_nested_gen_outer                   P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VB/vb07_nested_gen_outer_el                P=STRICT_EQUAL_128_objects   L=STRICT_EQUAL_128_objects   F=STRICT_EQUAL_128_objects   rc=0/0/0 lawsw=-  
+V/VB/vb08_parent_var_after                   P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=BINDUP  
+V/VB/vb08_parent_var_after_el                P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_144_objects   F=STRICT_EQUAL_144_objects   rc=0/0/0 lawsw=BINDUP  
+V/VB/vb09_two_inst                           P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=BINDUP  
+V/VB/vb09_two_inst_el                        P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_157_objects   F=STRICT_EQUAL_157_objects   rc=0/0/0 lawsw=BINDUP  
+V/VB/vb10_parent_implicit_net                P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=BINDUP  
+V/VB/vb10_parent_implicit_net_el             P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_126_objects   F=STRICT_EQUAL_126_objects   rc=0/0/0 lawsw=BINDUP  
+V/VB/vb11_grandparent_via_loop               P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=BINDUP  
+V/VB/vb11_grandparent_via_loop_el            P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_227_objects   F=STRICT_EQUAL_227_objects   rc=0/0/0 lawsw=BINDUP  
+V/VB/vb12_parent_port_name                   P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=BINDUP  
+V/VB/vb12_parent_port_name_el                P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_127_objects   F=STRICT_EQUAL_127_objects   rc=0/0/0 lawsw=BINDUP  
+V/VB/vb13_iface_gen_parent_var               P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=BINDUP  
+V/VB/vb13_iface_gen_parent_var_el            P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_115_objects   F=STRICT_EQUAL_115_objects   rc=0/0/0 lawsw=BINDUP  
+V/VO/o01_add                                 P=NOT_EQUAL_stage1           L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o01_add_el                              P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o02_sub                                 P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o02_sub_el                              P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o03_mul                                 P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o03_mul_el                              P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o04_div                                 P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o04_div_el                              P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o05_mod                                 P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o05_mod_el                              P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o06_pow                                 P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o06_pow_el                              P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o07_and                                 P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o07_and_el                              P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o08_or                                  P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o08_or_el                               P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o09_xor                                 P=STRICT_EQUAL_122_objects   L=STRICT_NOTEQUAL_type       F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE
+V/VO/o09_xor_el                              P=STRICT_EQUAL_122_objects   L=NOT_EQUAL_stage1           F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE law-CMPLOSS
+V/VO/o10_xnor                                P=STRICT_EQUAL_122_objects   L=STRICT_NOTEQUAL_type       F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE
+V/VO/o10_xnor_el                             P=STRICT_EQUAL_122_objects   L=NOT_EQUAL_stage1           F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE law-CMPLOSS
+V/VO/o11_shl                                 P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o11_shl_el                              P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o12_shr                                 P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o12_shr_el                              P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o13_ashr                                P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o13_ashr_el                             P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o14_eq                                  P=NOT_EQUAL_stage1           L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o14_eq_el                               P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o15_neq                                 P=NOT_EQUAL_stage1           L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o15_neq_el                              P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o16_lt                                  P=NOT_EQUAL_stage1           L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o16_lt_el                               P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o17_ge                                  P=NOT_EQUAL_stage1           L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o17_ge_el                               P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o18_land                                P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o18_land_el                             P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o19_lor                                 P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o19_lor_el                              P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o20_lnot                                P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o20_lnot_el                             P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o21_bnot                                P=NOT_EQUAL_stage1           L=STRICT_EQUAL_119_objects   F=STRICT_EQUAL_119_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o21_bnot_el                             P=NOT_EQUAL_stage1           L=STRICT_EQUAL_119_objects   F=STRICT_EQUAL_119_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o22_neg                                 P=NOT_EQUAL_stage1           L=STRICT_EQUAL_121_objects   F=STRICT_EQUAL_121_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o22_neg_el                              P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_121_objects   F=STRICT_EQUAL_121_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o23_uplus                               P=STRICT_EQUAL_120_objects   L=STRICT_NOTEQUAL_type       F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE
+V/VO/o23_uplus_el                            P=STRICT_EQUAL_120_objects   L=NOT_EQUAL_stage1           F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE law-CMPLOSS
+V/VO/o24_redand                              P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o24_redand_el                           P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o25_redor                               P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o25_redor_el                            P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o26_redxor                              P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o26_redxor_el                           P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o27_repl                                P=NOT_EQUAL_stage1           L=STRICT_EQUAL_123_objects   F=STRICT_EQUAL_123_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o27_repl_el                             P=NOT_EQUAL_stage1           L=STRICT_EQUAL_123_objects   F=STRICT_EQUAL_123_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o28_repl_param                          P=NOT_EQUAL_stage1           L=STRICT_EQUAL_123_objects   F=STRICT_EQUAL_123_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o28_repl_param_el                       P=NOT_EQUAL_stage1           L=STRICT_EQUAL_123_objects   F=STRICT_EQUAL_123_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o29_caseeq                              P=STRICT_EQUAL_122_objects   L=STRICT_NOTEQUAL_type       F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE
+V/VO/o29_caseeq_el                           P=STRICT_EQUAL_122_objects   L=NOT_EQUAL_stage1           F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE law-CMPLOSS
+V/VO/o30_p_add                               P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o30_p_add_el                            P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o31_p_and                               P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o31_p_and_el                            P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o32_p_xor                               P=STRICT_EQUAL_122_objects   L=STRICT_NOTEQUAL_type       F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE
+V/VO/o32_p_xor_el                            P=STRICT_EQUAL_122_objects   L=NOT_EQUAL_stage1           F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE law-CMPLOSS
+V/VO/o33_p_shl                               P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o33_p_shl_el                            P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o34_p_eq                                P=NOT_EQUAL_stage1           L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o34_p_eq_el                             P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o35_pt_add                              P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o35_pt_add_el                           P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o36_pt_and                              P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o36_pt_and_el                           P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o37_p_bnot                              P=NOT_EQUAL_stage1           L=STRICT_EQUAL_119_objects   F=STRICT_EQUAL_119_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o37_p_bnot_el                           P=NOT_EQUAL_stage1           L=STRICT_EQUAL_119_objects   F=STRICT_EQUAL_119_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o38_p_neg                               P=NOT_EQUAL_stage1           L=STRICT_EQUAL_119_objects   F=STRICT_EQUAL_119_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o38_p_neg_el                            P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_119_objects   F=STRICT_EQUAL_119_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o39_add_unsized                         P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VO/o39_add_unsized_el                      P=STRICT_NOTEQUAL_file       L=STRICT_NOTEQUAL_file       F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=-  
+V/VO/o40_concat_op                           P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o40_concat_op_el                        P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o41_repl_op                             P=STRICT_EQUAL_128_objects   L=STRICT_NOTEQUAL_type       F=STRICT_EQUAL_128_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE
+V/VO/o41_repl_op_el                          P=STRICT_EQUAL_128_objects   L=NOT_EQUAL_stage1           F=STRICT_EQUAL_128_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE law-CMPLOSS
+V/VO/o42_p_repl                              P=NOT_EQUAL_stage1           L=STRICT_EQUAL_113_objects   F=STRICT_EQUAL_113_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o42_p_repl_el                           P=NOT_EQUAL_stage1           L=STRICT_EQUAL_113_objects   F=STRICT_EQUAL_113_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o43_eq_dec                              P=NOT_EQUAL_stage1           L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o43_eq_dec_el                           P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o44_le                                  P=NOT_EQUAL_stage1           L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o44_le_el                               P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o45_gt                                  P=NOT_EQUAL_stage1           L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o45_gt_el                               P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o46_neg_hex                             P=NOT_EQUAL_stage1           L=STRICT_EQUAL_119_objects   F=STRICT_EQUAL_119_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o46_neg_hex_el                          P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_119_objects   F=STRICT_EQUAL_119_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o47_bnot_dec                            P=NOT_EQUAL_stage1           L=STRICT_EQUAL_119_objects   F=STRICT_EQUAL_119_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o47_bnot_dec_el                         P=NOT_EQUAL_stage1           L=STRICT_EQUAL_119_objects   F=STRICT_EQUAL_119_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o48_add_dec                             P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o48_add_dec_el                          P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o49_add_signed                          P=NOT_EQUAL_stage1           L=STRICT_EQUAL_124_objects   F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o49_add_signed_el                       P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_124_objects   F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o50_add_bin                             P=NOT_EQUAL_stage1           L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o50_add_bin_el                          P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o51_bnot_nested_xor                     P=STRICT_EQUAL_124_objects   L=STRICT_NOTEQUAL_type       F=STRICT_EQUAL_124_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE
+V/VO/o51_bnot_nested_xor_el                  P=STRICT_EQUAL_124_objects   L=NOT_EQUAL_stage1           F=STRICT_EQUAL_124_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE law-CMPLOSS
+V/VO/o52_eq_nested_add                       P=NOT_EQUAL_stage1           L=STRICT_EQUAL_122_objects   F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o52_eq_nested_add_el                    P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_122_objects   F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o53_neg_nested_sub                      P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o53_neg_nested_sub_el                   P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o54_repl_nested                         P=SLANG_FAIL rc=3            L=SLANG_FAIL rc=3            F=SLANG_FAIL rc=3            rc=3/3/3 lawsw=-  
+V/VO/o54_repl_nested_el                      P=SLANG_FAIL rc=3            L=SLANG_FAIL rc=3            F=SLANG_FAIL rc=3            rc=3/3/3 lawsw=-  
+V/VO/o55_add_nested                          P=NOT_EQUAL_stage1           L=STRICT_EQUAL_122_objects   F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o55_add_nested_el                       P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_122_objects   F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o56_eq_param_typed                      P=NOT_EQUAL_stage1           L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o56_eq_param_typed_el                   P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o57_bnot_typed                          P=NOT_EQUAL_stage1           L=STRICT_EQUAL_119_objects   F=STRICT_EQUAL_119_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o57_bnot_typed_el                       P=NOT_EQUAL_stage1           L=STRICT_EQUAL_119_objects   F=STRICT_EQUAL_119_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o58_add_oct                             P=NOT_EQUAL_stage1           L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o58_add_oct_el                          P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_120_objects   F=STRICT_EQUAL_120_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o59_case_neq                            P=STRICT_EQUAL_122_objects   L=STRICT_NOTEQUAL_type       F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE
+V/VO/o59_case_neq_el                         P=STRICT_EQUAL_122_objects   L=NOT_EQUAL_stage1           F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE law-CMPLOSS
+V/VO/o60_eq_xz                               P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o60_eq_xz_el                            P=STRICT_NOTEQUAL_file       L=STRICT_NOTEQUAL_file       F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o61_wild_eq                             P=STRICT_EQUAL_122_objects   L=STRICT_NOTEQUAL_type       F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE
+V/VO/o61_wild_eq_el                          P=STRICT_EQUAL_122_objects   L=NOT_EQUAL_stage1           F=STRICT_EQUAL_122_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE law-CMPLOSS
+V/VO/o62_bnot_xz                             P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o62_bnot_xz_el                          P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o63_repl_mul_count                      P=NOT_EQUAL_stage1           L=STRICT_EQUAL_125_objects   F=STRICT_EQUAL_125_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o63_repl_mul_count_el                   P=NOT_EQUAL_stage1           L=STRICT_EQUAL_125_objects   F=STRICT_EQUAL_125_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o64_repl_add_count                      P=NOT_EQUAL_stage1           L=STRICT_EQUAL_125_objects   F=STRICT_EQUAL_125_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o64_repl_add_count_el                   P=NOT_EQUAL_stage1           L=STRICT_EQUAL_125_objects   F=STRICT_EQUAL_125_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o65_repl_xor_item                       P=STRICT_EQUAL_128_objects   L=STRICT_NOTEQUAL_type       F=STRICT_EQUAL_128_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE
+V/VO/o65_repl_xor_item_el                    P=STRICT_EQUAL_128_objects   L=NOT_EQUAL_stage1           F=STRICT_EQUAL_128_objects   rc=0/0/0 lawsw=SELOPFOLD  law-LEAVE law-CMPLOSS
+V/VO/o66_neg_neg                             P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o66_neg_neg_el                          P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o67_bnot_repl                           P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o67_bnot_repl_el                        P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o68_eq_eq                               P=NOT_EQUAL_stage1           L=STRICT_EQUAL_146_objects   F=STRICT_EQUAL_146_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o68_eq_eq_el                            P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_146_objects   F=STRICT_EQUAL_146_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o69_neg_overflow                        P=NOT_EQUAL_stage1           L=STRICT_EQUAL_145_objects   F=STRICT_EQUAL_145_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o69_neg_overflow_el                     P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_145_objects   F=STRICT_EQUAL_145_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o70_lt_signed_param                     P=NOT_EQUAL_stage1           L=STRICT_EQUAL_146_objects   F=STRICT_EQUAL_146_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o70_lt_signed_param_el                  P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_146_objects   F=STRICT_EQUAL_146_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o71_neg_signed_param                    P=NOT_EQUAL_stage1           L=STRICT_EQUAL_143_objects   F=STRICT_EQUAL_143_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o71_neg_signed_param_el                 P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_143_objects   F=STRICT_EQUAL_143_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o72_eq_width_mix                        P=NOT_EQUAL_stage1           L=STRICT_EQUAL_144_objects   F=STRICT_EQUAL_144_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o72_eq_width_mix_el                     P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_144_objects   F=STRICT_EQUAL_144_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o73_add3                                P=NOT_EQUAL_stage1           L=STRICT_EQUAL_146_objects   F=STRICT_EQUAL_146_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o73_add3_el                             P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_146_objects   F=STRICT_EQUAL_146_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o74_add_overflow                        P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o74_add_overflow_el                     P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VO/o75_repl_param_item                     P=NOT_EQUAL_stage1           L=STRICT_EQUAL_147_objects   F=STRICT_EQUAL_147_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VO/o75_repl_param_item_el                  P=NOT_EQUAL_stage1           L=STRICT_EQUAL_147_objects   F=STRICT_EQUAL_147_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VR/vr01_qual_other_pkg                     P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr01_qual_other_pkg_el                  P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr02_both_bounds                        P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr02_both_bounds_el                     P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr03_imported_name                      P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr03_imported_name_el                   P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr04_packed_2d                          P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr04_packed_2d_el                       P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr05_redefined_in_importer              P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr05_redefined_in_importer_el           P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr06_task_and_func                      P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr06_task_and_func_el                   P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr07_qual_other_pkg_swrite              P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr07_qual_other_pkg_swrite_el           P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr08_imported_param_range               P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=RETRANGEOWNPKG  
+V/VR/vr08_imported_param_range_el            P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr09_shadow_same_name                   P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr09_shadow_same_name_el                P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VR/vr10_two_funcs                          P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_331_objects   F=STRICT_EQUAL_331_objects   rc=0/0/0 lawsw=RETRANGEOWNPKG  
+V/VR/vr10_two_funcs_el                       P=STRICT_EQUAL_307_objects   L=STRICT_EQUAL_307_objects   F=STRICT_EQUAL_307_objects   rc=0/0/0 lawsw=-  
+V/VS/vs01_cmp_op                             P=NOT_EQUAL_stage1           L=STRICT_EQUAL_139_objects   F=STRICT_EQUAL_139_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs01_cmp_op_el                          P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_139_objects   F=STRICT_EQUAL_139_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs02_reduction                          P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs02_reduction_el                       P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VS/vs03_two_overrides                      P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs03_two_overrides_el                   P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs04_unpacked_elem                      P=NOT_EQUAL_stage1           L=STRICT_EQUAL_106_objects   F=STRICT_EQUAL_106_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs04_unpacked_elem_el                   P=NOT_EQUAL_stage1           L=STRICT_EQUAL_106_objects   F=STRICT_EQUAL_106_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs05_var_index                          P=SLANG_FAIL rc=3            L=SLANG_FAIL rc=3            F=SLANG_FAIL rc=3            rc=3/3/3 lawsw=-  
+V/VS/vs05_var_index_el                       P=SLANG_FAIL rc=3            L=SLANG_FAIL rc=3            F=SLANG_FAIL rc=3            rc=3/3/3 lawsw=-  
+V/VS/vs06_shift                              P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs06_shift_el                           P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VS/vs07_xz_literal                         P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs07_xz_literal_el                      P=STRICT_NOTEQUAL_file       L=STRICT_NOTEQUAL_file       F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs08_neg_signed                         P=NOT_EQUAL_stage1           L=STRICT_EQUAL_75_objects    F=STRICT_EQUAL_75_objects    rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs08_neg_signed_el                      P=NOT_EQUAL_stage1           L=STRICT_EQUAL_75_objects    F=STRICT_EQUAL_75_objects    rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs09_delay                              P=NOT_EQUAL_stage1           L=STRICT_EQUAL_75_objects    F=STRICT_EQUAL_75_objects    rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs09_delay_el                           P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_75_objects    F=STRICT_EQUAL_75_objects    rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs10_2d_net                             P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs10_2d_net_el                          P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs11_div_zero                           P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs11_div_zero_el                        P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VS/vs12_power_localparam                   P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs12_power_localparam_el                P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VS/vs13_concat_lhs                         P=NOT_EQUAL_stage1           L=STRICT_NOTEQUAL_depth      F=STRICT_NOTEQUAL_depth      rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs13_concat_lhs_el                      P=STRICT_NOTEQUAL_file       L=STRICT_EQUAL_108_objects   F=STRICT_EQUAL_108_objects   rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs14_interface                          P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VS/vs14_interface_el                       P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VS/vs15_logical                            P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs15_logical_el                         P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VS/vs16_partsel_up                         P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=SELOPFOLD  
+V/VS/vs16_partsel_up_el                      P=STRICT_NOTEQUAL_file       L=NOT_EQUAL_stage1           F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=SELOPFOLD  law-CMPLOSS
+V/VU/vu01_param_class_actual                 P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VU/vu01_param_class_actual_el              P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VU/vu02_deep_nested                        P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VU/vu02_deep_nested_el                     P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VU/vu03_struct_actual                      P=STRICT_NOTEQUAL_depth      L=STRICT_NOTEQUAL_fullname   F=STRICT_NOTEQUAL_fullname   rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VU/vu03_struct_actual_el                   P=STRICT_NOTEQUAL_depth      L=STRICT_NOTEQUAL_fullname   F=STRICT_NOTEQUAL_fullname   rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VU/vu04_module_scope                       P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VU/vu04_module_scope_el                    P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VU/vu05_vector_actual                      P=STRICT_NOTEQUAL_file       L=STRICT_NOTEQUAL_file       F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VU/vu05_vector_actual_el                   P=STRICT_NOTEQUAL_file       L=STRICT_NOTEQUAL_file       F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VU/vu06_three_pkgs_utils                   P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VU/vu06_three_pkgs_utils_el                P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           F=NOT_EQUAL_stage1           rc=0/0/0 lawsw=-  
+V/VU/vu07_crtp                               P=STRICT_EQUAL_34_objects    L=STRICT_EQUAL_34_objects    F=STRICT_EQUAL_34_objects    rc=0/0/0 lawsw=-  
+V/VU/vu07_crtp_el                            P=STRICT_EQUAL_34_objects    L=STRICT_EQUAL_34_objects    F=STRICT_EQUAL_34_objects    rc=0/0/0 lawsw=-  
+V/VU/vu08_self_spec                          P=STRICT_EQUAL_46_objects    L=STRICT_EQUAL_46_objects    F=STRICT_EQUAL_46_objects    rc=0/0/0 lawsw=-  
+V/VU/vu08_self_spec_el                       P=STRICT_EQUAL_47_objects    L=STRICT_EQUAL_47_objects    F=STRICT_EQUAL_47_objects    rc=0/0/0 lawsw=-  
+V/VU/vu09_iface_class_clone                  P=STRICT_NOTEQUAL_depth      L=STRICT_NOTEQUAL_depth      F=STRICT_NOTEQUAL_depth      rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VU/vu09_iface_class_clone_el               P=STRICT_NOTEQUAL_depth      L=STRICT_NOTEQUAL_depth      F=STRICT_NOTEQUAL_depth      rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VU/vu10_virtual_iface_actual               P=STRICT_NOTEQUAL_file       L=STRICT_NOTEQUAL_file       F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=TDCLONEDEEP  
+V/VU/vu10_virtual_iface_actual_el            P=STRICT_NOTEQUAL_file       L=STRICT_NOTEQUAL_file       F=STRICT_NOTEQUAL_file       rc=0/0/0 lawsw=TDCLONEDEEP  
+case-views=378 fix differs from law=98 fix entering STRICT_EQUAL=129 fix moving=193 law LEAVING STRICT_EQUAL=20 law LOSING uhdm-cmp=41 law entering STRICT_EQUAL=131 law moving=287

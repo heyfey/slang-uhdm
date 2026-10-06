@@ -1,0 +1,2 @@
+/tmp/r11u269_wdL (law) cmds.txt fence-filtered total=3315 naming the law binary=3265 no slang line=50 other binary=0
+/tmp/r11u269_wdP (pristine) total=3315 naming the pristine binary=3265 no slang line=50 other binary=0

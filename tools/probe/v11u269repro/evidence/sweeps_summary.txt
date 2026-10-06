@@ -1,0 +1,137 @@
+=== sweep P
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=wdP/probe.csv
+probe cases: EQUAL=3575 STRICT_NOTEQUAL=512 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3575 differ:fullname=161 differ:type=74 differ:endcol=67 differ:line=57 differ:name=57 differ:depth=43 differ:file=25 differ:col=13 differ:endline=10 differ:value=4 differ:decompile=1
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=475 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=5 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=469 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=5 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
+=== sweep L
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=wdL/probe.csv
+probe cases: EQUAL=3591 STRICT_NOTEQUAL=496 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3591 differ:fullname=161 differ:type=74 differ:endcol=67 differ:line=57 differ:name=57 differ:depth=27 differ:file=25 differ:col=13 differ:endline=10 differ:value=4 differ:decompile=1
+CONVERSION r10uvm112repro/a10_sameargs STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm112repro/a6_sortbase STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm112repro/a7_twogroups STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm112repro/a9_diffnames STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm212repro/grid_c7_cuclass_foreignpkg_and_pkgclass_design STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g10_twomacros STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g12_twoinclass STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g15_twopkg_two STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g18_arity STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g1_asciiedge STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g2_digits STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g3_fiveclasses STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g5_oneline STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v212repro/gridv_v1_ordersplit_design STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v212repro/gridv_v8_bothforeign_twopkg_design STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v212repro/gridv_v9_cu_base_pkg_clone_design STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CHANGE r10v112repro/g19_builtin STRICT_NOTEQUAL differ:file(6) -> differ:file(10) [file +4]
+regressions=0 conversions=16 changes=1 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=475 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=5 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=469 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=5 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(14) -> differ:fullname(105) [fullname +91]
+regressions=0 conversions=0 changes=1 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+EXIT=1
+=== sweep Ld
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
+=== sweep F
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=wdF/probe.csv
+probe cases: EQUAL=3591 STRICT_NOTEQUAL=496 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3591 differ:fullname=161 differ:type=74 differ:endcol=67 differ:line=57 differ:name=57 differ:depth=27 differ:file=25 differ:col=13 differ:endline=10 differ:value=4 differ:decompile=1
+CONVERSION r10uvm112repro/a10_sameargs STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm112repro/a6_sortbase STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm112repro/a7_twogroups STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm112repro/a9_diffnames STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm212repro/grid_c7_cuclass_foreignpkg_and_pkgclass_design STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g10_twomacros STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g12_twoinclass STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g15_twopkg_two STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g18_arity STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g1_asciiedge STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g2_digits STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g3_fiveclasses STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g5_oneline STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v212repro/gridv_v1_ordersplit_design STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v212repro/gridv_v8_bothforeign_twopkg_design STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v212repro/gridv_v9_cu_base_pkg_clone_design STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CHANGE r10v112repro/g19_builtin STRICT_NOTEQUAL differ:file(6) -> differ:file(10) [file +4]
+regressions=0 conversions=16 changes=1 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=475 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=5 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=469 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=5 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(14) -> differ:fullname(105) [fullname +91]
+regressions=0 conversions=0 changes=1 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
+=== byteverify (fence-filtered hard-link mirrors, SELFCHECK=1)
+-- surelog L vs P
+databases: patched=952 pristine=952
+PATH_SETS_IDENTICAL (952 paths)
+MOVER ./default/Earlgrey_0_1-a898def8/slang.uhdm  patched=5357a0d271b5 pristine=eb3a0493dc3e
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=afc1ca720aaa pristine=17429b8451e8
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=4ac609675089 pristine=c0e331161814
+MOVER ./testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=3b3a59c253f6 pristine=54d7cbfa9c68
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=afc1ca720aaa pristine=17429b8451e8
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=693620036dd1 pristine=406416eae151
+MOVERS: 6 / 952
+SELFCHECK (every file vs one fixed file): 951 / 952 flagged
+-- uhdm2rtlil L vs P
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+-- surelog F vs L
+databases: patched=952 pristine=952
+PATH_SETS_IDENTICAL (952 paths)
+MOVERS: 0 / 952
+SELFCHECK (every file vs one fixed file): 951 / 952 flagged
+-- uhdm2rtlil F vs L
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+-- surelog F vs P
+databases: patched=952 pristine=952
+PATH_SETS_IDENTICAL (952 paths)
+MOVER ./default/Earlgrey_0_1-a898def8/slang.uhdm  patched=5357a0d271b5 pristine=eb3a0493dc3e
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=afc1ca720aaa pristine=17429b8451e8
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=4ac609675089 pristine=c0e331161814
+MOVER ./testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=3b3a59c253f6 pristine=54d7cbfa9c68
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=afc1ca720aaa pristine=17429b8451e8
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=693620036dd1 pristine=406416eae151
+MOVERS: 6 / 952
+SELFCHECK (every file vs one fixed file): 951 / 952 flagged
+-- uhdm2rtlil F vs P
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+=== probe byte movers (same checkout)
+-- law vs pristine
+probe databases=4087 movers=19
+-- fix vs law
+probe databases=4087 movers=0
+=== downstream slang-lane movers
+-- law vs pristine
+slang-lane databases=805 fenced_skipped=0 movers=0
+-- fix vs pristine
+slang-lane databases=805 fenced_skipped=0 movers=0

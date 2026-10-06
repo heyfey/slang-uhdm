@@ -1,0 +1,18 @@
+// § topNestedArrElemTopTwin269 (the array one struct level down: reg2hw.ctl.cfg[0].en.q)
+package p;
+  typedef struct packed { logic [3:0] q; } addr_t;
+  typedef struct packed {
+    struct packed { logic q; } en;
+    struct packed { logic [3:0] q; } base;
+  } mreg_t;
+  typedef struct packed { addr_t a; mreg_t [1:0] cfg; } ctl_t;
+  typedef struct packed { addr_t addr; ctl_t ctl; } reg2hw_t;
+endpackage
+module sub(input logic d, output logic q); assign q = d; endmodule
+module regtop(input logic d, output p::reg2hw_t reg2hw);
+  import p::*;
+  sub u0(.d(d), .q(reg2hw.ctl.cfg[0].en.q));
+endmodule
+module top(input logic d, output p::reg2hw_t r);
+  regtop u_reg(.d(d), .reg2hw(r));
+endmodule

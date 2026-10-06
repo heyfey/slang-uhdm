@@ -1,0 +1,6 @@
+objects 1342584 vs 1342968
+fields: depth=1 type=1 name=1 fullname=14 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=14 (walk diverged)
+STRICT_NOTEQUAL fullname
+--- law
+fields: fullname=73 file=3 line=3 col=3 endline=3 endcol=32 objects_differing=105
+STRICT_NOTEQUAL fullname

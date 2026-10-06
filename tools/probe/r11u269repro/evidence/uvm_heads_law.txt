@@ -1,0 +1,24 @@
+== law MiniAmiq/default
+  A: 5	string_var	error_str		svaunit_pkg::uvm_component::new::error_str	uvm_component.svh	1729	10	1729	19		0		
+  B: 4	assignment				uvm_component.svh	1730	12	1730	15				
+objects 435559 vs 435526
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== law SeqDriver/default
+  A: 5	string_var	error_str		adpcm_pkg::uvm_component::new::error_str	uvm_component.svh	1729	10	1729	19		0		
+  B: 4	assignment				uvm_component.svh	1730	12	1730	15				
+objects 475526 vs 475512
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== law MiniAmiq/testflags
+  A: 5	string_var	error_str		svaunit_pkg::uvm_component::new::error_str	uvm_component.svh	1729	10	1729	19		0		
+  B: 4	assignment				uvm_component.svh	1730	12	1730	15				
+objects 435559 vs 435526
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+== law SeqDriver/testflags
+  A: 5	string_var	error_str		adpcm_pkg::uvm_component::new::error_str	uvm_component.svh	1729	10	1729	19		0		
+  B: 4	assignment				uvm_component.svh	1730	12	1730	15				
+objects 475538 vs 475524
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth

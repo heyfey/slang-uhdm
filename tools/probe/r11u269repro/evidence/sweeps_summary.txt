@@ -1,0 +1,60 @@
+==== PRISTINE sweep (52573f40)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u269_wdP/probe.csv
+probe cases: EQUAL=3575 STRICT_NOTEQUAL=512 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3575 differ:fullname=161 differ:type=74 differ:endcol=67 differ:line=57 differ:name=57 differ:depth=43 differ:file=25 differ:col=13 differ:endline=10 differ:value=4 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3575 STRICT_NOTEQUAL=512
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u269_wdP/surelog.csv
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=475 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=5 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=469 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=5 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u269_wdP/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
+==== LAW sweep (885a66ea)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u269_wdL/probe.csv
+probe cases: EQUAL=3591 STRICT_NOTEQUAL=496 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3591 differ:fullname=161 differ:type=74 differ:endcol=67 differ:line=57 differ:name=57 differ:depth=27 differ:file=25 differ:col=13 differ:endline=10 differ:value=4 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3591 STRICT_NOTEQUAL=496
+CONVERSION r10uvm112repro/a10_sameargs STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm112repro/a6_sortbase STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm112repro/a7_twogroups STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm112repro/a9_diffnames STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm212repro/grid_c7_cuclass_foreignpkg_and_pkgclass_design STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g10_twomacros STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g12_twoinclass STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g15_twopkg_two STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g18_arity STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g1_asciiedge STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g2_digits STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g3_fiveclasses STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v112repro/g5_oneline STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v212repro/gridv_v1_ordersplit_design STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v212repro/gridv_v8_bothforeign_twopkg_design STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v212repro/gridv_v9_cu_base_pkg_clone_design STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CHANGE r10v112repro/g19_builtin STRICT_NOTEQUAL differ:file(6) -> differ:file(10) [file +4]
+regressions=0 conversions=16 changes=1 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u269_wdL/surelog.csv
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=475 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=5 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=469 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=5 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(14) -> differ:fullname(105) [fullname +91]
+regressions=0 conversions=0 changes=1 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u269_wdL/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1

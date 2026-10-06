@@ -1,0 +1,317 @@
+#1095942 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_alert_en_class[0].reg2hw_wrap.alert_en[k].k	alert_handler_reg_wrap.sv	160	33	160	34		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_alert_en_class[0].k	alert_handler_reg_wrap.sv	160	33	160	34		0		
+#1095961 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_alert_en_class[0].reg2hw_wrap.alert_class[k].k	alert_handler_reg_wrap.sv	161	36	161	37		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_alert_en_class[0].k	alert_handler_reg_wrap.sv	161	36	161	37		0		
+#1095982 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[0].reg2hw_wrap.loc_alert_en[k].k	alert_handler_reg_wrap.sv	166	37	166	38		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[0].k	alert_handler_reg_wrap.sv	166	37	166	38		0		
+#1096001 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[0].reg2hw_wrap.loc_alert_class[k].k	alert_handler_reg_wrap.sv	167	40	167	41		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[0].k	alert_handler_reg_wrap.sv	167	40	167	41		0		
+#1096016 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[1].reg2hw_wrap.loc_alert_en[k].k	alert_handler_reg_wrap.sv	166	37	166	38		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[1].k	alert_handler_reg_wrap.sv	166	37	166	38		0		
+#1096026 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[1].reg2hw_wrap.loc_alert_class[k].k	alert_handler_reg_wrap.sv	167	40	167	41		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[1].k	alert_handler_reg_wrap.sv	167	40	167	41		0		
+#1096041 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[2].reg2hw_wrap.loc_alert_en[k].k	alert_handler_reg_wrap.sv	166	37	166	38		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[2].k	alert_handler_reg_wrap.sv	166	37	166	38		0		
+#1096051 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[2].reg2hw_wrap.loc_alert_class[k].k	alert_handler_reg_wrap.sv	167	40	167	41		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[2].k	alert_handler_reg_wrap.sv	167	40	167	41		0		
+#1096066 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[3].reg2hw_wrap.loc_alert_en[k].k	alert_handler_reg_wrap.sv	166	37	166	38		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[3].k	alert_handler_reg_wrap.sv	166	37	166	38		0		
+#1096076 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[3].reg2hw_wrap.loc_alert_class[k].k	alert_handler_reg_wrap.sv	167	40	167	41		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_en_class[3].k	alert_handler_reg_wrap.sv	167	40	167	41		0		
+#1096097 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_alert_cause_dump[0].crashdump_o.alert_cause[k].k	alert_handler_reg_wrap.sv	291	36	291	37		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_alert_cause_dump[0].k	alert_handler_reg_wrap.sv	291	36	291	37		0		
+#1096118 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_cause_dump[0].crashdump_o.loc_alert_cause[k].k	alert_handler_reg_wrap.sv	296	40	296	41		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_cause_dump[0].k	alert_handler_reg_wrap.sv	296	40	296	41		0		
+#1096133 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_cause_dump[1].crashdump_o.loc_alert_cause[k].k	alert_handler_reg_wrap.sv	296	40	296	41		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_cause_dump[1].k	alert_handler_reg_wrap.sv	296	40	296	41		0		
+#1096148 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_cause_dump[2].crashdump_o.loc_alert_cause[k].k	alert_handler_reg_wrap.sv	296	40	296	41		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_cause_dump[2].k	alert_handler_reg_wrap.sv	296	40	296	41		0		
+#1096163 fullname
+  A: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_cause_dump[3].crashdump_o.loc_alert_cause[k].k	alert_handler_reg_wrap.sv	296	40	296	41		0		
+  B: 9	ref_obj	k		work@top_earlgrey.u_alert_handler.i_reg_wrap.gen_loc_alert_cause_dump[3].k	alert_handler_reg_wrap.sv	296	40	296	41		0		
+#1141614 file
+  A: 6	int_typespec					0	0	0	0				
+  B: 6	int_typespec				usbdev.sv	83	14	83	17				
+#1141630 file
+  A: 6	int_typespec				usbdev.sv	91	14	91	17				
+  B: 6	int_typespec				usbdev_reg_pkg.sv	10	13	10	16				
+#1163456 file
+  A: 7	int_typespec					0	0	0	0				
+  B: 7	int_typespec				prim_ram_2p_async_adv.sv	66	14	66	17				
+#1238481 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	39		0		
+#1239293 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	39		0		
+#1240105 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	39		0		
+#1241264 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0]		0	0	0	0		0		
+#1241282 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0]		0	0	0	0		0		
+#1241380 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[1]		0	0	0	0		0		
+#1241398 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[1]		0	0	0	0		0		
+#1241496 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[2]		0	0	0	0		0		
+#1241514 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[2]		0	0	0	0		0		
+#1243226 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1244632 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1246373 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_18		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_18.gen_idrouting[0]		0	0	0	0		0		
+#1246391 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_18		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_18.gen_idrouting[0]		0	0	0	0		0		
+#1246489 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_18		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_18.gen_idrouting[1]		0	0	0	0		0		
+#1246507 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_18		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_18.gen_idrouting[1]		0	0	0	0		0		
+#1247625 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	39		0		
+#1248437 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	39		0		
+#1249249 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	39		0		
+#1250408 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_19		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_19.gen_idrouting[0]		0	0	0	0		0		
+#1250426 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_19		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_19.gen_idrouting[0]		0	0	0	0		0		
+#1250524 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_19		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_19.gen_idrouting[1]		0	0	0	0		0		
+#1250542 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_19		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_19.gen_idrouting[1]		0	0	0	0		0		
+#1250640 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_19		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_19.gen_idrouting[2]		0	0	0	0		0		
+#1250658 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_19		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_19.gen_idrouting[2]		0	0	0	0		0		
+#1251776 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	39		0		
+#1252588 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	39		0		
+#1253400 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	39		0		
+#1254559 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_20		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_20.gen_idrouting[0]		0	0	0	0		0		
+#1254577 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_20		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_20.gen_idrouting[0]		0	0	0	0		0		
+#1254675 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_20		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_20.gen_idrouting[1]		0	0	0	0		0		
+#1254693 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_20		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_20.gen_idrouting[1]		0	0	0	0		0		
+#1254791 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_20		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_20.gen_idrouting[2]		0	0	0	0		0		
+#1254809 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_20		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_20.gen_idrouting[2]		0	0	0	0		0		
+#1270981 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1272403 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1274160 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_23		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_23.gen_idrouting[0]		0	0	0	0		0		
+#1274178 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_23		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_23.gen_idrouting[0]		0	0	0	0		0		
+#1274276 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_23		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_23.gen_idrouting[1]		0	0	0	0		0		
+#1274294 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_23		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_23.gen_idrouting[1]		0	0	0	0		0		
+#1276006 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1277412 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1279153 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_24		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_24.gen_idrouting[0]		0	0	0	0		0		
+#1279171 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_24		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_24.gen_idrouting[0]		0	0	0	0		0		
+#1279269 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_24		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_24.gen_idrouting[1]		0	0	0	0		0		
+#1279287 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_24		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_24.gen_idrouting[1]		0	0	0	0		0		
+#1280999 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1282405 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1284146 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_25		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_25.gen_idrouting[0]		0	0	0	0		0		
+#1284164 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_25		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_25.gen_idrouting[0]		0	0	0	0		0		
+#1284262 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_25		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_25.gen_idrouting[1]		0	0	0	0		0		
+#1284280 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_25		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_25.gen_idrouting[1]		0	0	0	0		0		
+#1285992 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1287398 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1289139 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_26		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_26.gen_idrouting[0]		0	0	0	0		0		
+#1289157 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_26		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_26.gen_idrouting[0]		0	0	0	0		0		
+#1289255 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_26		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_26.gen_idrouting[1]		0	0	0	0		0		
+#1289273 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_26		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_26.gen_idrouting[1]		0	0	0	0		0		
+#1290985 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1292391 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1294132 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_27		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_27.gen_idrouting[0]		0	0	0	0		0		
+#1294150 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_27		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_27.gen_idrouting[0]		0	0	0	0		0		
+#1294248 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_27		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_27.gen_idrouting[1]		0	0	0	0		0		
+#1294266 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_27		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_27.gen_idrouting[1]		0	0	0	0		0		
+#1295978 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1297384 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1299125 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_28		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_28.gen_idrouting[0]		0	0	0	0		0		
+#1299143 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_28		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_28.gen_idrouting[0]		0	0	0	0		0		
+#1299241 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_28		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_28.gen_idrouting[1]		0	0	0	0		0		
+#1299259 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_28		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_28.gen_idrouting[1]		0	0	0	0		0		
+#1300971 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1302377 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1304118 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_29		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_29.gen_idrouting[0]		0	0	0	0		0		
+#1304136 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_29		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_29.gen_idrouting[0]		0	0	0	0		0		
+#1304234 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_29		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_29.gen_idrouting[1]		0	0	0	0		0		
+#1304252 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_29		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_29.gen_idrouting[1]		0	0	0	0		0		
+#1305964 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1307370 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1309111 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_30		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_30.gen_idrouting[0]		0	0	0	0		0		
+#1309129 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_30		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_30.gen_idrouting[0]		0	0	0	0		0		
+#1309227 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_30		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_30.gen_idrouting[1]		0	0	0	0		0		
+#1309245 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_30		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_30.gen_idrouting[1]		0	0	0	0		0		
+#1310957 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1312363 endcol
+  A: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	40		0		
+  B: 9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 1]	tlul_socket_m1.sv	97	17	97	39		0		
+#1314104 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_31		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_31.gen_idrouting[0]		0	0	0	0		0		
+#1314122 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_31		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_31.gen_idrouting[0]		0	0	0	0		0		
+#1314220 fullname
+  A: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_31		0	0	0	0		0		
+  B: 12	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_31.gen_idrouting[1]		0	0	0	0		0		
+#1314238 fullname
+  A: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_31		0	0	0	0		0		
+  B: 13	ref_typespec			work@top_earlgrey.u_xbar_main.u_sm1_31.gen_idrouting[1]		0	0	0	0		0		
+fields: fullname=73 file=3 line=3 col=3 endline=3 endcol=32 objects_differing=105
+STRICT_NOTEQUAL fullname

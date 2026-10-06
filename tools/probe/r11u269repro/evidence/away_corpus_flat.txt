@@ -1,0 +1,6 @@
+surelog/default/Earlgrey_0_1-a898def8 dist 136 -> 136 lost=0 gained=0
+surelog/default/MiniAmiq-055eab74 dist 110 -> 111 lost=0 gained=465
+surelog/default/SeqDriver-65178d3a dist 81 -> 80 lost=0 gained=418
+surelog/testflags/Earlgrey_0_1-a898def8 dist 552 -> 106 lost=0 gained=62
+surelog/testflags/MiniAmiq-055eab74 dist 110 -> 111 lost=0 gained=465
+surelog/testflags/SeqDriver-65178d3a dist 81 -> 80 lost=0 gained=418

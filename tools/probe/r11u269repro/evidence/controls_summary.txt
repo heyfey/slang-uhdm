@@ -1,0 +1,47 @@
+case-views=5286 moving=22 entering=14 leaving=0 rc-changed=0 cmplines-changed=10
+MOVER tp/r10uvm54repro/a1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 99->99
+MOVER tp/r10uvm54repro/a1_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 121->121
+MOVER tp/r11u152repro/cases/UQ/u06_union_in_pkg STRICT_EQUAL_191_objects -> STRICT_EQUAL_191_objects cmplines 0->0
+MOVER tp/r11u152repro/cases/UQ/u06_union_in_pkg_el STRICT_EQUAL_189_objects -> STRICT_EQUAL_189_objects cmplines 0->0
+MOVER tp/r11u267repro/cases/R/r11 NOT_EQUAL_stage1 -> STRICT_EQUAL_578_objects cmplines 96->0
+MOVER tp/r11u267repro/cases/R/r11_el NOT_EQUAL_stage1 -> STRICT_EQUAL_548_objects cmplines 96->0
+MOVER tp/r11u267repro/cases/R/r12 NOT_EQUAL_stage1 -> STRICT_EQUAL_574_objects cmplines 78->0
+MOVER tp/r11u267repro/cases/R/r12_el NOT_EQUAL_stage1 -> STRICT_EQUAL_544_objects cmplines 78->0
+MOVER tp/r11u267repro/cases/R/r13 NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_depth cmplines 78->0
+MOVER tp/r11u267repro/cases/R/r13_el NOT_EQUAL_stage1 -> STRICT_EQUAL_546_objects cmplines 78->0
+MOVER tp/r11u267repro/cases/R/r14 NOT_EQUAL_stage1 -> STRICT_EQUAL_576_objects cmplines 78->0
+MOVER tp/r11u267repro/cases/R/r14_el NOT_EQUAL_stage1 -> STRICT_EQUAL_546_objects cmplines 82->0
+MOVER tp/v11u267repro/cases/VA/va04 NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_depth cmplines 104->0
+MOVER tp/v11u267repro/cases/VA/va04_el NOT_EQUAL_stage1 -> STRICT_EQUAL_127_objects cmplines 78->0
+MOVER tp/v11u267repro/cases/VB/vb01 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_98_objects cmplines 0->0
+MOVER tp/v11u267repro/cases/VB/vb01_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_100_objects cmplines 0->0
+MOVER tp/v11u267repro/cases/VB/vb02 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 31->31
+MOVER tp/v11u267repro/cases/VB/vb02_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_118_objects cmplines 0->0
+MOVER tp/v11u267repro/cases/VB/vb03 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_127_objects cmplines 0->0
+MOVER tp/v11u267repro/cases/VB/vb03_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_120_objects cmplines 0->0
+MOVER tp/v11u267repro/cases/VB/vb09 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 31->31
+MOVER tp/v11u267repro/cases/VB/vb09_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_118_objects cmplines 0->0
+ENTER tp/r11u267repro/cases/R/r11
+ENTER tp/r11u267repro/cases/R/r11_el
+ENTER tp/r11u267repro/cases/R/r12
+ENTER tp/r11u267repro/cases/R/r12_el
+ENTER tp/r11u267repro/cases/R/r13_el
+ENTER tp/r11u267repro/cases/R/r14
+ENTER tp/r11u267repro/cases/R/r14_el
+ENTER tp/v11u267repro/cases/VA/va04_el
+ENTER tp/v11u267repro/cases/VB/vb01
+ENTER tp/v11u267repro/cases/VB/vb01_el
+ENTER tp/v11u267repro/cases/VB/vb02_el
+ENTER tp/v11u267repro/cases/VB/vb03
+ENTER tp/v11u267repro/cases/VB/vb03_el
+ENTER tp/v11u267repro/cases/VB/vb09_el
+CHANGED tp/r11u267repro/cases/R/r11
+CHANGED tp/r11u267repro/cases/R/r11_el
+CHANGED tp/r11u267repro/cases/R/r12
+CHANGED tp/r11u267repro/cases/R/r12_el
+CHANGED tp/r11u267repro/cases/R/r13
+CHANGED tp/r11u267repro/cases/R/r13_el
+CHANGED tp/r11u267repro/cases/R/r14
+CHANGED tp/r11u267repro/cases/R/r14_el
+CHANGED tp/v11u267repro/cases/VA/va04
+CHANGED tp/v11u267repro/cases/VA/va04_el
