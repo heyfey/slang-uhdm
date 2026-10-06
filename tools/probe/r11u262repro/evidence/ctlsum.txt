@@ -1,0 +1,179 @@
+case-views=3672 moving=106 entering=72 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/r11u198repro/cases/N/n20_child_ips STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u198repro/cases/N/n20_child_ips_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u198repro/cases/N/n24_child_for_bounds STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u198repro/cases/N/n24_child_for_bounds_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u254repro/cases/G/g03_ips STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u254repro/cases/G/g03_ips_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u254repro/cases/G/g05_lhs_ps NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/r11u254repro/cases/G/g05_lhs_ps_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_224_objects cmplines 0->0
+MOVER tp/r11u256repro/cases/G/g12_for_own_lp STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_394_objects cmplines 0->0
+MOVER tp/r11u256repro/cases/G/g12_for_own_lp_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_393_objects cmplines 0->0
+MOVER tp/r11u256repro/cases/G/g23_if_own_param STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_143_objects cmplines 0->0
+MOVER tp/r11u256repro/cases/G/g23_if_own_param_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_143_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s02_named_block STRICT_NOTEQUAL_line -> STRICT_EQUAL_149_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s02_named_block_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_147_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s03_part_sel STRICT_NOTEQUAL_line -> STRICT_EQUAL_150_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s03_part_sel_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_149_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s04_bit_sel STRICT_NOTEQUAL_line -> STRICT_EQUAL_129_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s04_bit_sel_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_128_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s05_cont_assign STRICT_NOTEQUAL_line -> STRICT_EQUAL_144_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s05_cont_assign_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_143_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s06_for_bound STRICT_NOTEQUAL_line -> STRICT_EQUAL_176_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s06_for_bound_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_175_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s07_func NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/r11u260repro/cases/S/s07_func_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/r11u260repro/cases/S/s10_top STRICT_NOTEQUAL_line -> STRICT_EQUAL_119_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s10_top_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_118_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s11_ips_base STRICT_NOTEQUAL_line -> STRICT_EQUAL_146_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s11_ips_base_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_145_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s12_call_arg STRICT_NOTEQUAL_line -> STRICT_EQUAL_166_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s12_call_arg_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_159_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s13_repl_only STRICT_NOTEQUAL_line -> STRICT_EQUAL_152_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s13_repl_only_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_151_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s14_clog2_only STRICT_NOTEQUAL_line -> STRICT_EQUAL_149_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s14_clog2_only_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_147_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s15_ca_bitsel STRICT_NOTEQUAL_line -> STRICT_EQUAL_143_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s15_ca_bitsel_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_143_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s16_ips_ternary STRICT_NOTEQUAL_line -> STRICT_EQUAL_160_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s16_ips_ternary_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_152_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s17_psel_op STRICT_NOTEQUAL_line -> STRICT_EQUAL_154_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s17_psel_op_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_149_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s18_nb_ips STRICT_NOTEQUAL_line -> STRICT_EQUAL_156_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s18_nb_ips_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_151_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s19_user_call STRICT_NOTEQUAL_line -> STRICT_EQUAL_179_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s19_user_call_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_177_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s20_size_cast STRICT_NOTEQUAL_line -> STRICT_NOTEQUAL_line cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s20_size_cast_el STRICT_NOTEQUAL_line -> STRICT_NOTEQUAL_line cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s21_ips_minus STRICT_NOTEQUAL_line -> STRICT_EQUAL_154_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s21_ips_minus_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_149_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s22_lhs_psel NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/r11u260repro/cases/S/s22_lhs_psel_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/r11u260repro/cases/S/s23_macro STRICT_NOTEQUAL_line -> STRICT_EQUAL_150_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s23_macro_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_149_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s24_ff_nb STRICT_NOTEQUAL_line -> STRICT_EQUAL_167_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s24_ff_nb_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_163_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s25_nb_clog2 STRICT_NOTEQUAL_line -> STRICT_EQUAL_151_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s25_nb_clog2_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_149_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s26_nb_repl STRICT_NOTEQUAL_line -> STRICT_EQUAL_154_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s26_nb_repl_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_153_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s27_nb_psel_paren STRICT_NOTEQUAL_line -> STRICT_EQUAL_152_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s27_nb_psel_paren_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_151_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s28_nb_bits STRICT_NOTEQUAL_line -> STRICT_EQUAL_149_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s28_nb_bits_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_147_objects cmplines 0->0
+MOVER tp/r11u260repro/cases/S/s29_for_gen NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 93->93
+MOVER tp/r11u260repro/cases/S/s29_for_gen_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 93->93
+MOVER tp/r11u260repro/cases/S/s30_iface_port_member NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 30->30
+MOVER tp/r11u260repro/cases/S/s30_iface_port_member_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 30->30
+MOVER tp/r11u263repro/decode/E/e01 STRICT_NOTEQUAL_file -> STRICT_EQUAL_280_objects cmplines 0->0
+MOVER tp/r11u263repro/decode/E/e01_el STRICT_EQUAL_280_objects -> STRICT_EQUAL_280_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs01_decl_dim STRICT_NOTEQUAL_line -> STRICT_EQUAL_174_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs01_decl_dim_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_165_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs02_param_init_clog2 STRICT_NOTEQUAL_line -> STRICT_EQUAL_172_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs02_param_init_clog2_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_168_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs04_for_gen NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 93->93
+MOVER tp/v11u260repro/cases/VS/vs04_for_gen_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 93->93
+MOVER tp/v11u260repro/cases/VS/vs05_func NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/v11u260repro/cases/VS/vs05_func_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/v11u260repro/cases/VS/vs06_two_inst_depth3 STRICT_NOTEQUAL_line -> STRICT_EQUAL_302_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs06_two_inst_depth3_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_308_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs07_clog2_in_width STRICT_NOTEQUAL_line -> STRICT_EQUAL_148_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs07_clog2_in_width_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_147_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs08_nested_repl NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/v11u260repro/cases/VS/vs08_nested_repl_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/v11u260repro/cases/VS/vs10_desc_base STRICT_NOTEQUAL_line -> STRICT_EQUAL_174_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs10_desc_base_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_172_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs11_body_import STRICT_NOTEQUAL_line -> STRICT_EQUAL_144_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs11_body_import_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_143_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs12_member_psel STRICT_NOTEQUAL_line -> STRICT_EQUAL_191_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs12_member_psel_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_195_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs13_port_actual NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/v11u260repro/cases/VS/vs13_port_actual_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/v11u260repro/cases/VS/vs14_overridable NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/v11u260repro/cases/VS/vs14_overridable_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/v11u260repro/cases/VS/vs16_bits_arg NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u260repro/cases/VS/vs16_bits_arg_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u260repro/cases/VS/vs17_task NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/v11u260repro/cases/VS/vs17_task_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/v11u260repro/cases/VS/vs18_both_bounds STRICT_NOTEQUAL_line -> STRICT_EQUAL_224_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs18_both_bounds_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_217_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs19_loop_ips STRICT_NOTEQUAL_line -> STRICT_EQUAL_188_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs19_loop_ips_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_187_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs20_gen_inst STRICT_NOTEQUAL_line -> STRICT_EQUAL_222_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs20_gen_inst_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_218_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs21_named_call STRICT_NOTEQUAL_line -> STRICT_EQUAL_203_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs21_named_call_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_200_objects cmplines 0->0
+MOVER tp/v11u260repro/cases/VS/vs22_class_method NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/v11u260repro/cases/VS/vs22_class_method_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+ENTER tp/r11u254repro/cases/G/g05_lhs_ps_el
+ENTER tp/r11u256repro/cases/G/g12_for_own_lp
+ENTER tp/r11u256repro/cases/G/g12_for_own_lp_el
+ENTER tp/r11u256repro/cases/G/g23_if_own_param
+ENTER tp/r11u256repro/cases/G/g23_if_own_param_el
+ENTER tp/r11u260repro/cases/S/s02_named_block
+ENTER tp/r11u260repro/cases/S/s02_named_block_el
+ENTER tp/r11u260repro/cases/S/s03_part_sel
+ENTER tp/r11u260repro/cases/S/s03_part_sel_el
+ENTER tp/r11u260repro/cases/S/s04_bit_sel
+ENTER tp/r11u260repro/cases/S/s04_bit_sel_el
+ENTER tp/r11u260repro/cases/S/s05_cont_assign
+ENTER tp/r11u260repro/cases/S/s05_cont_assign_el
+ENTER tp/r11u260repro/cases/S/s06_for_bound
+ENTER tp/r11u260repro/cases/S/s06_for_bound_el
+ENTER tp/r11u260repro/cases/S/s10_top
+ENTER tp/r11u260repro/cases/S/s10_top_el
+ENTER tp/r11u260repro/cases/S/s11_ips_base
+ENTER tp/r11u260repro/cases/S/s11_ips_base_el
+ENTER tp/r11u260repro/cases/S/s12_call_arg
+ENTER tp/r11u260repro/cases/S/s12_call_arg_el
+ENTER tp/r11u260repro/cases/S/s13_repl_only
+ENTER tp/r11u260repro/cases/S/s13_repl_only_el
+ENTER tp/r11u260repro/cases/S/s14_clog2_only
+ENTER tp/r11u260repro/cases/S/s14_clog2_only_el
+ENTER tp/r11u260repro/cases/S/s15_ca_bitsel
+ENTER tp/r11u260repro/cases/S/s15_ca_bitsel_el
+ENTER tp/r11u260repro/cases/S/s16_ips_ternary
+ENTER tp/r11u260repro/cases/S/s16_ips_ternary_el
+ENTER tp/r11u260repro/cases/S/s17_psel_op
+ENTER tp/r11u260repro/cases/S/s17_psel_op_el
+ENTER tp/r11u260repro/cases/S/s18_nb_ips
+ENTER tp/r11u260repro/cases/S/s18_nb_ips_el
+ENTER tp/r11u260repro/cases/S/s19_user_call
+ENTER tp/r11u260repro/cases/S/s19_user_call_el
+ENTER tp/r11u260repro/cases/S/s21_ips_minus
+ENTER tp/r11u260repro/cases/S/s21_ips_minus_el
+ENTER tp/r11u260repro/cases/S/s23_macro
+ENTER tp/r11u260repro/cases/S/s23_macro_el
+ENTER tp/r11u260repro/cases/S/s24_ff_nb
+ENTER tp/r11u260repro/cases/S/s24_ff_nb_el
+ENTER tp/r11u260repro/cases/S/s25_nb_clog2
+ENTER tp/r11u260repro/cases/S/s25_nb_clog2_el
+ENTER tp/r11u260repro/cases/S/s26_nb_repl
+ENTER tp/r11u260repro/cases/S/s26_nb_repl_el
+ENTER tp/r11u260repro/cases/S/s27_nb_psel_paren
+ENTER tp/r11u260repro/cases/S/s27_nb_psel_paren_el
+ENTER tp/r11u260repro/cases/S/s28_nb_bits
+ENTER tp/r11u260repro/cases/S/s28_nb_bits_el
+ENTER tp/r11u263repro/decode/E/e01
+ENTER tp/v11u260repro/cases/VS/vs01_decl_dim
+ENTER tp/v11u260repro/cases/VS/vs01_decl_dim_el
+ENTER tp/v11u260repro/cases/VS/vs02_param_init_clog2
+ENTER tp/v11u260repro/cases/VS/vs02_param_init_clog2_el
+ENTER tp/v11u260repro/cases/VS/vs06_two_inst_depth3
+ENTER tp/v11u260repro/cases/VS/vs06_two_inst_depth3_el
+ENTER tp/v11u260repro/cases/VS/vs07_clog2_in_width
+ENTER tp/v11u260repro/cases/VS/vs07_clog2_in_width_el
+ENTER tp/v11u260repro/cases/VS/vs10_desc_base
+ENTER tp/v11u260repro/cases/VS/vs10_desc_base_el
+ENTER tp/v11u260repro/cases/VS/vs11_body_import
+ENTER tp/v11u260repro/cases/VS/vs11_body_import_el
+ENTER tp/v11u260repro/cases/VS/vs12_member_psel
+ENTER tp/v11u260repro/cases/VS/vs12_member_psel_el
+ENTER tp/v11u260repro/cases/VS/vs18_both_bounds
+ENTER tp/v11u260repro/cases/VS/vs18_both_bounds_el
+ENTER tp/v11u260repro/cases/VS/vs19_loop_ips
+ENTER tp/v11u260repro/cases/VS/vs19_loop_ips_el
+ENTER tp/v11u260repro/cases/VS/vs20_gen_inst
+ENTER tp/v11u260repro/cases/VS/vs20_gen_inst_el
+ENTER tp/v11u260repro/cases/VS/vs21_named_call
+ENTER tp/v11u260repro/cases/VS/vs21_named_call_el

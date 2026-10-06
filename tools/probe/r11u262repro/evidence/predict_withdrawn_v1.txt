@@ -1,0 +1,10 @@
+MOVER probe r10earl105repro__g5_int105.uhdm LOOPBOUNDPA:FIRE:2
+MOVER probe r10earl85repro__g4_shadow85.uhdm SHAREDEFOWN:FIRE:2
+MOVER probe r10earl85repro__g5_noshadow85.uhdm SHAREDEFOWN:FIRE:1
+MOVER probe r10earl_repro__uf.uhdm SHAREDEFOWN:FIRE:1
+MOVER probe r10v64repro__v7_inst64.uhdm IPSOVROWN:FIRE:8
+MOVER probe r11u114repro__grid__f3__c05.uhdm IMPCONCATSHARE:FIRE:1
+MOVER surelog BlackBePipeInt/default IMPCONCATSHARE:FIRE:1
+MOVER surelog BlackBePipeInt/testflags IMPCONCATSHARE:FIRE:1
+MOVER surelog Earlgrey_0_1/default GENENUMVAR:FIRE:1 IPSOVROWN:FIRE:7 SHAREDEFOWN:FIRE:10
+MOVER surelog Earlgrey_0_1/testflags GENENUMVAR:FIRE:1 IPSOVROWN:FIRE:7 SHAREDEFOWN:FIRE:10

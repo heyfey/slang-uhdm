@@ -1,0 +1,13 @@
+det.sh <law binary> law: three concurrent harness draws per row-mode, md5 prefix and count
+law Earlgrey_0_1/default 3 6fb3637a50a0     (= the law sweep's)
+law MiniAmiq/default 3 0fd41b95c7a3
+law SeqDriver/default 3 54b63326bb77
+law SimpleUVM/default 3 3feae59a093e
+law Scoreboard/default 3 d86c89c1d399
+law BuildUVMPkg/default 3 13eb5c0dbfbb
+law Earlgrey_0_1/testflags 3 806552522879   (= the law sweep's)
+law MiniAmiq/testflags 3 0fd41b95c7a3
+law SeqDriver/testflags 3 000838794b06
+law SimpleUVM/testflags 3 21f411c289c8
+law Scoreboard/testflags (no testflags row: expected)
+law BuildUVMPkg/testflags 3 13eb5c0dbfbb

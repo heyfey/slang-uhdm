@@ -27,6 +27,16 @@
 #include "R252.h"
 #include "R256.h"
 #include "R258.h"
+#include "R262.h"
+namespace slang_uhdm {
+// § shareDefParamTsOwnNotImport262 — the elaborated Rhs references whose
+// parameter golden binds to its OWN declaration (a body parameter, or a port
+// parameter this instance overrides); marked where the share is parked.
+static std::set<const UHDM::ref_typespec*>& shareDefOwn262() {
+    static std::set<const UHDM::ref_typespec*> s;
+    return s;
+}
+}  // namespace slang_uhdm
 
 #include "slang/ast/EvalContext.h"
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
@@ -9570,6 +9580,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // distinct on both sides (golden AllMod #8029962 vs #8077804), so this is
     // an elaboration-only sharing rule.
     std::map<std::string, UHDM::parameter*> elabImpPaLhs9;
+    // § impConcatParamShared262 — the Rhs half of the same lookup.
+    std::map<std::string, UHDM::BaseClass*> elabImpPaRhs262;
+    // § impConcatShareSameDecl262v — the declaration each entry came from.
+    std::map<std::string, slang::SourceLocation> elabImpPaRhsSym262v;
     for (size_t occIx9 = 0; occIx9 < paramSyms.size(); occIx9++) {
         auto* psPtr = paramSyms[occIx9];
         const ImpOcc9* occ9 = paramImp9[occIx9];
@@ -24145,6 +24159,49 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                     }
                 }
+                // § impConcatParamShared262 (r11u262,
+                // R11U262_IMPCONCATSHARE_OFF) — the elaborated listing's
+                // SECOND materialized import copy of a parameter whose value
+                // is an unreduced concatenation (`parameter s_t [1:0] ALL =
+                // {E, D}` over struct parameters, re-listed by a package that
+                // imports the first one) holds the FIRST copy's Rhs object:
+                // the same name-keyed per-instance lookup
+                // § elabReExportPaLhsShare reads for the Lhs answers the Rhs
+                // too.  Golden's walk lists that operation once (BlackBePipeInt
+                // `all_cfgs_gp`, #331795 / #331692); the struct-pattern copies
+                // beside it stay distinct.  Grid tools/probe/r11u262repro/
+                // cases/E.
+                if (!defViewOrig9 && !inPackage && !funcScope && isImported &&
+                    rhs && rhs->UhdmType() == UHDM::uhdmoperation &&
+                    ((UHDM::operation*)rhs)->VpiOpType() == vpiConcatOp &&
+                    r11u262On("R11U262_IMPCONCATSHARE_OFF")) {
+                    auto ei262 =
+                        elabImpPaRhs262.emplace(std::string(ps.name), rhs);
+                    elabImpPaRhsSym262v.emplace(std::string(ps.name), member.location);
+                    // § impConcatShareSameDecl262v (v11u262,
+                    // R11V262_SAMEDECL_OFF) — the share holds only when the
+                    // second copy re-lists the SAME declaration (a package
+                    // re-exporting the first one's parameter).  Two UNRELATED
+                    // packages each declaring a concatenation parameter of
+                    // one name (`a::X = {A1, A2}`, `b::X = {B1, B2}`, both
+                    // wildcard-imported) keep their own Rhs in golden: the
+                    // name-keyed share handed b's copy a's operation, the
+                    // wrong span and the wrong value (tools/probe/
+                    // v11u262repro cases/VE ve01 to ve07).
+                    bool sameDecl262v = true;
+                    if (!ei262.second && getenv("R11V262_SAMEDECL_OFF") == nullptr &&
+                        getenv("R11V262_OFF") == nullptr) {
+                        auto si262v = elabImpPaRhsSym262v.find(std::string(ps.name));
+                        sameDecl262v = si262v != elabImpPaRhsSym262v.end() &&
+                                       si262v->second == member.location;
+                        if (!sameDecl262v)
+                            tr262("SAMEDECL", std::string("abstain ") + std::string(ps.name));
+                    }
+                    if (!ei262.second && sameDecl262v) {
+                        tr262("IMPCONCATSHARE", std::string(ps.name));
+                        rhs = ei262.first->second;
+                    }
+                }
                 pa->Rhs(rhs);
                 paramRhsObj[&member] = rhs;
                 // § nestedParamActualTs6 VIEW GUARD.  paramRhsObj is keyed by
@@ -32346,9 +32403,70 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
         // parameter's own typespec is still re-bound by later deferred passes.
         // Park the share rather than binding it here.
         auto shareDefParamTs = [&](UHDM::ref_typespec* rt9) {
-            if (defSym9)
+            if (defSym9) {
                 pendingShareDefParamTs.push_back(
                     {rt9, defSym9, std::string(ps->name)});
+                // ...not when an instantiated IF / CASE generate block of the
+                // body reads the name: golden's Rhs reference then keeps the
+                // package's typespec (cases/D d24, d26; v11u260 VS vs09,
+                // vs15), while for-generate reads, loop bounds and generate
+                // conditions keep the module's (d25, d27, d28).
+                auto ifGenReads262 = [&]() -> bool {
+                    auto* bsc = ps->getParentScope();
+                    if (!bsc)
+                        return false;
+                    std::string nm(ps->name);
+                    for (auto& gm : bsc->members()) {
+                        if (gm.kind != SymbolKind::GenerateBlock ||
+                            gm.as<GenerateBlockSymbol>().isUninstantiated)
+                            continue;
+                        auto* gs = gm.getSyntax();
+                        if (!gs)
+                            continue;
+                        std::string t = gs->toString();
+                        for (size_t q = t.find(nm); q != std::string::npos;
+                             q = t.find(nm, q + 1)) {
+                            auto idc = [](char c) {
+                                return isalnum((unsigned char)c) || c == '_' || c == '$';
+                            };
+                            if ((q == 0 || !idc(t[q - 1])) &&
+                                (q + nm.size() >= t.size() || !idc(t[q + nm.size()])))
+                                return true;
+                        }
+                    }
+                    return false;
+                };
+                // § bodyParamNoHdrList262v (v11u262, R11V262_HDRLIST_OFF)
+                // — a BODY parameter keeps the package's typespec in golden
+                // whenever the module declares a parameter port list at all
+                // (`#(parameter bit E = 1)`, `#(localparam ...)`,
+                // `#(parameter type T = logic)`, even an empty `#()`), with
+                // or without any generate block; only a module WITHOUT a
+                // header list reads its own declaration (tools/probe/
+                // v11u262repro cases/VH vh01 to vh13, VD vd01, vd07, vd13,
+                // vd14: pristine STRICT_EQUAL where the law moved the
+                // reference to the module's own typespec).  Port parameters
+                // are untouched (an overridden one still reads its own).
+                auto hdrList262v = [&]() -> bool {
+                    auto* bsc = ps->getParentScope();
+                    if (!bsc)
+                        return false;
+                    auto* msyn = bsc->asSymbol().getSyntax();
+                    auto* mds = msyn ? msyn->as_if<syntax::ModuleDeclarationSyntax>()
+                                     : nullptr;
+                    return mds && mds->header && mds->header->parameters;
+                };
+                bool hdrAbstain262v = false;
+                if (!ps->isPortParam() && getenv("R11V262_HDRLIST_OFF") == nullptr &&
+                    getenv("R11V262_OFF") == nullptr &&
+                    hdrList262v()) {
+                    hdrAbstain262v = true;
+                    tr262("HDRLIST", std::string("abstain ") + std::string(ps->name));
+                }
+                if ((!ps->isPortParam() || isOverriddenParam(*ps)) &&
+                    !ifGenReads262() && !hdrAbstain262v)
+                    shareDefOwn262().insert(rt9);
+            }
         };
         // A cont-assign whose LHS is an IMPLICIT (never declared) net does NOT
         // drive Surelog's read rewrite. Measured on a four-way ablation of the
@@ -34307,18 +34425,59 @@ void UhdmExporter::drainShareDefParamTs() {
         auto* dm = (UHDM::module_inst*)dit->second.mod;
         if (!dm->Parameters())
             continue;
+        // § shareDefParamTsOwnNotImport262 (r11u262,
+        // R11U262_SHAREDEFOWN_OFF) — every entry here is a MODULE's own
+        // parameter (the push sites require an instance-body parent), but a
+        // wildcard-imported package that declares the same name lists its
+        // materialized copy in the definition's Parameters() too, before the
+        // module's own: the first-by-name match bound the elaborated Rhs
+        // reference to the PACKAGE parameter's typespec.  Golden's reference
+        // reads the module's own declaration (Earlgrey flash_erase_ctrl
+        // `parameter int AddrW` beside `import flash_ctrl_pkg::*`, testflags
+        // #604623 / #604627 / #604631: golden flash_erase_ctrl.sv 9:13,
+        // ours flash_ctrl_pkg.sv 18:14).  The module's own (non-imported)
+        // object is preferred when one exists.  Grid
+        // tools/probe/r11u262repro/cases/D.
+        // ...and only where golden reads the module's own declaration: a
+        // BODY parameter, or a PORT parameter this instance overrides.  A
+        // port parameter left at its default (header `parameter` or
+        // `localparam`, typed or not) keeps the package's typespec in golden,
+        // the first-by-name answer (cases/D d03, d13, d14, d19, d20; Earlgrey
+        // flash_mp `localparam int BankW = $clog2(NumBanks)`).
+        const UHDM::any* own262 = nullptr;
+        if (r11u262On("R11U262_SHAREDEFOWN_OFF") && shareDefOwn262().count(e.rt)) {
+            bool sawImp262 = false;
+            for (auto* dp : *dm->Parameters()) {
+                if (dp->UhdmType() != UHDM::uhdmparameter || dp->VpiName() != e.name)
+                    continue;
+                if (!((UHDM::parameter*)dp)->VpiImported().empty()) {
+                    sawImp262 = true;
+                    continue;
+                }
+                if (sawImp262)
+                    own262 = dp;
+                break;
+            }
+        }
         for (auto* dp : *dm->Parameters()) {
             if (dp->UhdmType() != UHDM::uhdmparameter || dp->VpiName() != e.name)
+                continue;
+            if (own262 && dp != own262)
                 continue;
             auto* drt = ((UHDM::parameter*)dp)->Typespec();
             UHDM::typespec* dts = drt ? drt->Actual_typespec() : nullptr; if (drt) if (auto fb111 = f1DefBare111().find(drt); fb111 != f1DefBare111().end()) dts = fb111->second;
             auto* cur = e.rt->Actual_typespec();
+            // (a firing whenever the own object was chosen: the binding may
+            // differ from pristine's even where this one keeps `cur`)
+            if (own262)
+                tr262("SHAREDEFOWN", e.name);
             if (dts && cur && dts != cur && dts->UhdmType() == cur->UhdmType())
                 e.rt->Actual_typespec(dts);
             break;
         }
     }
     pendingShareDefParamTs.clear();
+    shareDefOwn262().clear();
     impPaLhsDisjointClone133(s, d);  // § impPaLhsDisjointClone133
     arrTsLhsOwnCopy140(s, d);  // § impLhsCloneArrayTsOwnCopy140
     // § tpAnonStructLastParamUser167 — A TYPE PARAMETER'S ANONYMOUS PACKED

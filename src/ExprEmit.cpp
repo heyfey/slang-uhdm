@@ -40,6 +40,7 @@
 #include "R256.h"
 #include "R258.h"
 #include "R260.h"
+#include "R262.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -26499,6 +26500,51 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     ipfx = prefix;
                                     trace198("ovrParamBoundOpSelName198");
                                 }
+                                // § genIpsOvrParamOwner262 (r11u262,
+                                // R11U262_IPSOVROWN_OFF) — the same fold as
+                                // the BASE or WIDTH of an INDEXED part select
+                                // in a top-level generate scope's continuous
+                                // assignment: the prefix this arm receives is
+                                // the generate scope, not the select base, so
+                                // the two-level strip above lands on the
+                                // instantiating scope (`work@top`).  Golden's
+                                // getValue clone is named by the owning
+                                // instance when the select is the whole right
+                                // side (`work@top.u`), and by the select's own
+                                // full name when the select is an operand
+                                // (`work@top.u.gn.a`), the rule
+                                // § genIpsBoundOwner256 gives the imported
+                                // fold.  Earlgrey prim_ram_1p_adv
+                                // `rdata_sram[0+:Width]` (#464077 / #446024);
+                                // grid tools/probe/r11u262repro/cases/B.
+                                if (parent &&
+                                    parent->UhdmType() ==
+                                        UHDM::uhdmindexed_part_select &&
+                                    contAssignView == 0 && inGenScopeCaRhs &&
+                                    !genNestedScopeEmit24 &&
+                                    r11u262On("R11U262_IPSOVROWN_OFF")) {
+                                    const UHDM::any* ipp262 = parent->VpiParent();
+                                    std::string n262;
+                                    if (ipp262 &&
+                                        ipp262->UhdmType() == UHDM::uhdmcont_assign)
+                                        n262 = ownerInstName192(parent);
+                                    else if (ipp262 &&
+                                             ipp262->UhdmType() ==
+                                                 UHDM::uhdmoperation) {
+                                        n262 = std::string(
+                                            ((const UHDM::indexed_part_select*)
+                                                 parent)
+                                                ->VpiFullName());
+                                        if (n262.compare(0, 5, "work@") != 0)
+                                            n262.clear();
+                                    }
+                                    if (!n262.empty() && n262 != ipfx) {
+                                        tr262("IPSOVROWN", ipfx + " -> " + n262);
+                                        ipfx = n262;
+                                    }
+                                    else if (n262.empty())
+                                        tr262("IPSOVROWN", "abstain " + ipfx);
+                                }
                                 rt2->VpiFullName(ipfx);
                                 rt2->VpiParent(c2);
                                 auto* it2 = s.MakeInt_typespec();
@@ -27282,8 +27328,100 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     trace169("GCACHAIN c9 abstain");
                             }
                         }
-                        else
+                        else {
                             c9->VpiParent(parent);
+                            // § genLoopDirectBoundPaConst262 (r11u262,
+                            // R11U262_LOOPBOUNDPA_OFF) — a parameter that IS
+                            // a select's bound (a part-select bound, an
+                            // indexed part select's base or width; not one
+                            // nested in a bound operation, not a bit-select
+                            // index) in a top-level for-generate body's
+                            // continuous assignment is, in golden, the
+                            // parameter's own elaborated constant: parented
+                            // at the instance's param_assign and its
+                            // reference named by the instance (`work@top.u`),
+                            // where this arm parented it at the select and
+                            // named it by the generate scope
+                            // (`work@top.u.gf[0]`).  Typed, untyped and
+                            // localparam alike; overridden or not.  Grid
+                            // tools/probe/r11u262repro/cases/B b13, b21-b34.
+                            if (inPsBound && parent &&
+                                (parent->UhdmType() == UHDM::uhdmpart_select ||
+                                 parent->UhdmType() ==
+                                     UHDM::uhdmindexed_part_select) &&
+                                r11u262On("R11U262_LOOPBOUNDPA_OFF")) {
+                                const UHDM::BaseClass* mw262 = parent;
+                                while (mw262 &&
+                                       mw262->UhdmType() != UHDM::uhdmmodule_inst &&
+                                       mw262->UhdmType() != UHDM::uhdminterface_inst)
+                                    mw262 = mw262->VpiParent();
+                                UHDM::param_assign* pa262 = nullptr;
+                                if (mw262)
+                                    if (auto* pas262 =
+                                            ((const UHDM::instance*)mw262)
+                                                ->Param_assigns())
+                                        for (auto* pax : *pas262)
+                                            if (auto* l262 = pax->Lhs();
+                                                l262 &&
+                                                l262->UhdmType() ==
+                                                    UHDM::uhdmparameter &&
+                                                ((UHDM::parameter*)l262)
+                                                        ->VpiName() ==
+                                                    nv.symbol.name) {
+                                                pa262 = pax;
+                                                break;
+                                            }
+                                // § loopBoundBinOperandPlainLhs262v (v11u262,
+                                // R11V262_LOOPOPND_OFF) — when the select is
+                                // a DIRECT operand of a BINARY operation
+                                // (`a[K +: 2] & 2'b11`, `a[h +: K] | x`) and
+                                // the assignment's left side is a plain
+                                // OUTSIDE signal (not a select or member, not
+                                // declared in the generate scope), golden
+                                // keeps the substituted constant at the
+                                // select and names its reference through the
+                                // select (`work@top.u.gf[0].a`): the law
+                                // re-parented it at the param_assign, losing
+                                // the parent line golden and pristine share
+                                // (tools/probe/v11u262repro cases/VL vl15,
+                                // vl24 to vl33, vl36, VH vh04).  A select
+                                // left side (vl34, vl35, r11u262 B/b30), the
+                                // generate-local left side (vl40), the
+                                // whole right side (vl20 to vl22) and a
+                                // unary, concatenation, replication or
+                                // conditional operand (vl08, vl10, vl13) keep
+                                // the law.
+                                if (pa262 && !genCaLhsSelect22 && !genCaLhsGenLocal113 &&
+                                    getenv("R11V262_LOOPOPND_OFF") == nullptr &&
+                                    getenv("R11V262_OFF") == nullptr)
+                                    if (auto* sp262 = parent->VpiParent();
+                                        sp262 &&
+                                        sp262->UhdmType() == UHDM::uhdmoperation) {
+                                        int ot262 = ((const UHDM::operation*)sp262)
+                                                        ->VpiOpType();
+                                        if (!(ot262 == vpiConcatOp ||
+                                              ot262 == vpiMultiConcatOp ||
+                                              ot262 == vpiConditionOp ||
+                                              (ot262 >= vpiMinusOp &&
+                                               ot262 <= vpiUnaryXNorOp))) {
+                                            tr262("LOOPOPND",
+                                                  "abstain " + tsName9);
+                                            pa262 = nullptr;
+                                        }
+                                    }
+                                if (pa262) {
+                                    std::string in262(
+                                        ((const UHDM::instance*)mw262)
+                                            ->VpiFullName());
+                                    tr262("LOOPBOUNDPA",
+                                          tsName9 + " -> " + in262);
+                                    c9->VpiParent(pa262);
+                                    tsName9 = in262;
+                                }
+                                else
+                                    tr262("LOOPBOUNDPA", "abstain " + tsName9);
+                            }
+                        }
                         auto* rtL9 = s.MakeRef_typespec();
                         rtL9->VpiFullName(tsName9);
                         rtL9->VpiParent(c9);
@@ -28372,6 +28510,49 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             r11u184Law("R11U184_GENENUM_OFF")) {
                             // § genLocalEnumConstShared184 (see its helper)
                             trace184("GENENUM");
+                            ref->Actual_group(eit->second);
+                        }
+                        else if (auto eit = enumConstMap.find(&nv.symbol);
+                            eit != enumConstMap.end() &&
+                            eit->second->UhdmType() == UHDM::uhdmenum_const &&
+                            inGenScopeCaRhs && castSiteScope57 &&
+                            castSiteScope57->asSymbol().kind ==
+                                SymbolKind::GenerateBlock &&
+                            r11u262On("R11U262_GENENUMVAR_OFF") &&
+                            [&]() -> bool {
+                                // § genEnumVarLocatedConst262 — Surelog's
+                                // UhdmWriter::lateBinding, run on the
+                                // elaborated gen_scope, scans the gen scope's
+                                // OWN Variables() for an enum_var whose enum
+                                // typespec holds a constant of this name
+                                // (after the name, parameter and typespec
+                                // scans and BEFORE the getValue mint) and
+                                // binds THAT typespec's located enum_const.
+                                // Only the first enum variable whose enum
+                                // has the name counts; nets, ancestor gen
+                                // scopes and module variables do not.
+                                for (auto& gm : castSiteScope57->members()) {
+                                    if (gm.kind != SymbolKind::Variable)
+                                        continue;
+                                    auto& ct = gm.as<VariableSymbol>()
+                                                   .getType()
+                                                   .getCanonicalType();
+                                    if (ct.kind != SymbolKind::EnumType)
+                                        continue;
+                                    for (auto& ev :
+                                         ct.as<EnumType>().values()) {
+                                        if (ev.name != nv.symbol.name)
+                                            continue;
+                                        // a same-named constant of another
+                                        // enum: abstain (golden would bind
+                                        // that other constant)
+                                        return &ev == &nv.symbol;
+                                    }
+                                }
+                                return false;
+                            }()) {
+                            tr262("GENENUMVAR",
+                                  std::string(nv.symbol.name));
                             ref->Actual_group(eit->second);
                         }
                         else if (auto eit = enumConstMap.find(&nv.symbol);

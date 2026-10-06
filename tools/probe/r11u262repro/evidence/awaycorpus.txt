@@ -1,0 +1,11 @@
+# 10 databases differ between /tmp/r11u262_wdP and /tmp/r11u262_wdL
+probe/r10earl105repro/g5_int105 away=0 toward=2 flat_away=0 flat_toward=2
+probe/r10earl85repro/g4_shadow85 away=0 toward=2 flat_away=0 flat_toward=2
+probe/r10earl85repro/g5_noshadow85 away=0 toward=1 flat_away=0 flat_toward=1
+probe/r10earl_repro/uf away=0 toward=1 flat_away=0 flat_toward=1
+probe/r10v64repro/v7_inst64 away=0 toward=0 flat_away=0 flat_toward=0
+probe/r11u114repro/grid/f3/c05 away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/BlackBePipeInt away=0 toward=0 flat_away=73 flat_toward=0
+surelog/default/Earlgrey_0_1 away=0 toward=18 flat_away=0 flat_toward=18
+surelog/testflags/BlackBePipeInt away=0 toward=0 flat_away=73 flat_toward=0
+surelog/testflags/Earlgrey_0_1 away=0 toward=17 flat_away=0 flat_toward=17

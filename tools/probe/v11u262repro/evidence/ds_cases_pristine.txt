@@ -1,0 +1,107 @@
+v11u262repro/cases/VA/va01 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VA/va02 pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=___This_indicates_a_serious_bug_in_/tmp/v11u262_ds/pristine/v11u262repro_cases_V
+v11u262repro/cases/VA/va03 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VA/va04 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VA/va05 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VA/va06 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VA/va07 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VA/va08 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VA/va09 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VA/va10 pristine STATUS_DIFF differs=- surelog=NO_GATES slang=OK detail=-
+v11u262repro/cases/VA/va11 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VA/va12 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VA/va13 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VA/va14 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VA/va15 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VA/va16 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VB/vb01 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VB/vb02 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VB/vb03 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VB/vb04 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VB/vb05 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VB/vb06 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VB/vb07 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VB/vb08 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VB/vb09 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VB/vb10 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VB/vb11 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VB/vb12 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VB/vb13 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VD/vd01 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VD/vd02 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VD/vd03 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VD/vd04 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VD/vd05 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VD/vd06 pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u262repro/cases/VD/vd07 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VD/vd08 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VD/vd09 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VD/vd10 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VD/vd11 pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+v11u262repro/cases/VD/vd12 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VD/vd13 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VD/vd14 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VE/ve01 pristine EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u262repro/cases/VE/ve02 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VE/ve03 pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u262_ds/pris
+v11u262repro/cases/VE/ve04 pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u262_ds/pris
+v11u262repro/cases/VE/ve05 pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u262_ds/pris
+v11u262repro/cases/VE/ve06 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VE/ve07 pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u262_ds/pris
+v11u262repro/cases/VH/vh01 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VH/vh02 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VH/vh03 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VH/vh04 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VH/vh05 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VH/vh06 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VH/vh07 pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u262repro/cases/VH/vh08 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VH/vh09 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VH/vh10 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VH/vh11 pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u262repro/cases/VH/vh12 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VH/vh13 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VH/vh14 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VH/vh15 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl01 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl02 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl03 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl04 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl05 pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+v11u262repro/cases/VL/vl06 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl07 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl08 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl09 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl10 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VL/vl11 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl12 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VL/vl13 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VL/vl14 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl15 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl16 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl17 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl18 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl19 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl20 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl21 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl22 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl23 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VL/vl24 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl25 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl26 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl27 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl28 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VL/vl29 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl30 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl31 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl32 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl33 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl34 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl35 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl36 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl37 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VL/vl38 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VL/vl39 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VL/vl40 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u262repro/cases/VL/vl41 pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u262repro/cases/VL/vl42 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-

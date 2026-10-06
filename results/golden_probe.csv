@@ -58,7 +58,7 @@ r10earl100repro/a1_bare100,EQUAL,,equal
 r10earl102repro/g4_neg102,EQUAL,,equal
 r10earl104repro/vb2_genfor,EQUAL,,equal
 r10earl104repro/vb4_instarr,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
-r10earl105repro/g5_int105,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10earl105repro/g5_int105,EQUAL,,equal
 r10earl105repro/h1_head105,EQUAL,,equal
 r10earl105repro/h2_child105,EQUAL,,equal
 r10earl106repro/g1_home106,EQUAL,,equal
@@ -149,8 +149,8 @@ r10earl82repro/g6_earl82,EQUAL,,equal
 r10earl83repro/g4_head83,EQUAL,,equal
 r10earl85repro/g2_earl85,EQUAL,,equal
 r10earl85repro/g3_ov85,EQUAL,,equal
-r10earl85repro/g4_shadow85,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
-r10earl85repro/g5_noshadow85,STRICT_NOTEQUAL,differ:line(1),differ:line(1)
+r10earl85repro/g4_shadow85,EQUAL,,equal
+r10earl85repro/g5_noshadow85,EQUAL,,equal
 r10earl85repro/g6_parentimp85,EQUAL,,equal
 r10earl91repro/g1_head91,EQUAL,,equal
 r10earl92repro/g2_cond92,EQUAL,,equal
@@ -237,7 +237,7 @@ r10earl_repro/u,EQUAL,,equal
 r10earl_repro/ua,EQUAL,,equal
 r10earl_repro/ud,STRICT_NOTEQUAL,differ:file(3),differ:file(3)
 r10earl_repro/ue,STRICT_NOTEQUAL,differ:file(3),differ:file(3)
-r10earl_repro/uf,STRICT_NOTEQUAL,differ:line(1),differ:line(1)
+r10earl_repro/uf,EQUAL,,equal
 r10earl_repro/ug,EQUAL,,equal
 r10earl_repro/vb,EQUAL,,equal
 r10earl_repro/vd,EQUAL,,equal
@@ -2188,7 +2188,7 @@ r11u114repro/grid/f2/b12,EQUAL,,equal
 r11u114repro/grid/f2/b13,EQUAL,,equal
 r11u114repro/grid/f3/c02,EQUAL,,equal
 r11u114repro/grid/f3/c03,EQUAL,,equal
-r11u114repro/grid/f3/c05,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
+r11u114repro/grid/f3/c05,EQUAL,,equal
 r11u115repro/grid/i/e01_elem_mp_named,EQUAL,,equal
 r11u115repro/grid/i/e02_elem_mp_named_recvA,EQUAL,,equal
 r11u115repro/grid/i/e03_elem_mp_named_gen,EQUAL,,equal

@@ -1,0 +1,3 @@
+probe databases compared=4087 (fence-filtered) movers=6:
+  r10earl105repro__g5_int105 r10earl85repro__g4_shadow85 r10earl85repro__g5_noshadow85 r10earl_repro__uf r10v64repro__v7_inst64 r11u114repro__grid__f3__c05
+downstream slang-lane databases compared=805 (fence-filtered) movers=0
