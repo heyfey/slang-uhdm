@@ -47,6 +47,7 @@
 #include "R267.h"
 #include "R269.h"
 #include "R271.h"
+#include "R273.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -1805,6 +1806,352 @@ void progViewDrain176() {
         trace176("PROGVIEW", std::string(ii->VpiName()));
     }
     progViews176.clear();
+}
+// § fnRetLitRhsSharesDefConst273 (r11u273) — A CONTINUOUS ASSIGNMENT FOLDED
+// TO A FUNCTION'S RETURNED LITERAL TAKES THE RETURN STATEMENT'S OWN CONSTANT.
+// § srlgUnvaluedActualLitRetFold8 decoded the fold (UhdmWriter::
+// writeCont_assign reduces the elaborated Rhs; ExprEval::evalFunc executes
+// the body and hands back the executed `return`'s literal) and wrote the
+// Rhs as a FRESH constant at the literal's span.  evalFunc does not copy:
+// the reduced value IS the return statement's constant object of the
+// definition's function, and writeCont_assign ends with
+// `res->VpiParent(assign)`, so golden lists that one object under the
+// function (re-parented at the elaborated cont_assign) and the walk meets
+// nothing new at the assignment: golden `cont_assign` -> Lhs only where ours
+// listed a second `constant` first (map cluster type|ref_obj, the r10rgg8
+// cells L_* / a_*, r10vrgg8 v8_structret, the generate-scope site's
+// r11u23 b17).  The law records each such fold (the module-body and the
+// generate-scope sites) and, design-final, swaps the fresh constant for the
+// definition's return-statement constant at the same span when exactly one
+// exists, the function returns a bit, int, integer, byte, shortint,
+// longint or struct type (a logic return is a copy in golden: grid FR f04,
+// f05, f22; a real return is not shared either: r10vrgg8 v8_realret), and
+// either the left side has no typespec (the
+// object is installed as it is) or our fold already reads the object's
+// value, size, decompile and constant type and that constant is not UINT
+// (adjustSize re-sizes in place, and copies a UINT: FR f07, f11).  Grid
+// tools/probe/r11u273repro/cases/FR.  Switch R11U273_RETLITSHARE_OFF.
+// writeCont_assign's `tps` for an elaborated assignment (§ paramValRhs
+// SharesParamConst273 and § fnRetLitRhsSharesDefConst273): the left side's own
+// typespec, else for a plain name the typespec of what CompileHelper::
+// bindVariable finds: the enclosing module instance's variables, then its
+// nets, by name, and on a miss the same in each ancestor instance (r11v69
+// v2_ancnamesake: a generate-local name declared one level up binds there).
+static bool lhsTyped273(const UHDM::cont_assign* ca) {
+    auto* lhs = ca->Lhs();
+    if (!lhs)
+        return true;
+    if (lhs->Typespec() && lhs->Typespec()->Actual_typespec())
+        return true;
+    if (lhs->UhdmType() != UHDM::uhdmref_obj)
+        return false;
+    for (const UHDM::BaseClass* a = ca->VpiParent(); a; a = a->VpiParent()) {
+        if (a->UhdmType() == UHDM::uhdmdesign)
+            break;
+        // An interface instance binds its own signals too (r11u88 x6_ifdefcast,
+        // r11v83 b18_xmember: golden lists a copy under `assign y = C.n;`).
+        if (a->UhdmType() != UHDM::uhdmmodule_inst &&
+            a->UhdmType() != UHDM::uhdminterface_inst)
+            continue;
+        auto* mi = (const UHDM::instance*)a;
+        const UHDM::expr* var = nullptr;
+        if (auto* v = mi->Variables())
+            for (auto* x : *v)
+                if (!var && x->VpiName() == lhs->VpiName())
+                    var = x;
+        if (!var)
+            if (auto* v = mi->Nets())
+                for (auto* x : *v)
+                    if (!var && x->VpiName() == lhs->VpiName())
+                        var = x;
+        if (var)
+            return var->Typespec() && var->Typespec()->Actual_typespec();
+    }
+    return false;
+}
+struct RetShare273 {
+    UHDM::cont_assign* ca;
+    UHDM::constant* fresh;
+};
+static std::vector<RetShare273> retShare273;
+void retLitShareDrain273(UHDM::Serializer& s) {
+    if (retShare273.empty())
+        return;
+    std::map<std::string, std::vector<UHDM::constant*>> byLoc;
+    auto key = [](const UHDM::BaseClass* c) {
+        return std::string(c->VpiFile()) + "|" + std::to_string(c->VpiLineNo()) + ":" +
+               std::to_string(c->VpiColumnNo()) + "-" + std::to_string(c->VpiEndLineNo()) +
+               ":" + std::to_string(c->VpiEndColumnNo());
+    };
+    std::vector<UHDM::BaseClass*> all;
+    for (auto& kv : s.AllObjects())
+        all.push_back((UHDM::BaseClass*)kv.first);
+    std::sort(all.begin(), all.end(), [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    // The return statements' own constants (ours carry no parent: the
+    // statement holds them as its condition).
+    for (auto* o : all)
+        if (o->UhdmType() == UHDM::uhdmreturn_stmt)
+            if (auto* c = ((UHDM::return_stmt*)o)->VpiCondition())
+                if (c->UhdmType() == UHDM::uhdmconstant)
+                    byLoc[key(c)].push_back((UHDM::constant*)c);
+    for (auto& r : retShare273) {
+        if (!r.ca || r.ca->Rhs() != r.fresh)
+            continue;
+        auto it = byLoc.find(key(r.fresh));
+        if (it == byLoc.end() || it->second.size() != 1) {
+            tr273("RETLITSHARE_ABSTAIN", key(r.fresh) + " candidates=" +
+                                             std::to_string(it == byLoc.end() ? 0 : it->second.size()));
+            continue;
+        }
+        auto* d = it->second.front();
+        // A function returning a logic type hands back a COPY (grid FR
+        // f04, f05, f22: golden lists a constant at the assignment there):
+        // the law stands aside for a logic_typespec return.
+        const UHDM::function* fn = nullptr;
+        for (const UHDM::BaseClass* a = d; a; a = a->VpiParent())
+            if (a->UhdmType() == UHDM::uhdmfunction) {
+                fn = (const UHDM::function*)a;
+                break;
+            }
+        if (!fn) {
+            // Ours leaves the constant unparented: climb from its statement.
+            for (auto* o : all)
+                if (o->UhdmType() == UHDM::uhdmreturn_stmt &&
+                    ((UHDM::return_stmt*)o)->VpiCondition() == d) {
+                    for (const UHDM::BaseClass* a = o; a; a = a->VpiParent())
+                        if (a->UhdmType() == UHDM::uhdmfunction) {
+                            fn = (const UHDM::function*)a;
+                            break;
+                        }
+                    break;
+                }
+        }
+        const UHDM::typespec* rts = nullptr;
+        if (fn && fn->Return())
+            if (auto* rrt = fn->Return()->Typespec())
+                rts = rrt->Actual_typespec();
+        // Measured to share: bit, int, integer, byte, shortint and bit-vector
+        // returns and a packed struct (FR f01-f03, f14, f15, f17, f21, f23);
+        // any other return kind (a real, r10vrgg8 v8_realret: uhdm-cmp 32 ->
+        // 36 lines when shared) stands aside.
+        auto rk = rts ? rts->UhdmType() : UHDM::uhdmlogic_typespec;
+        const bool shareKind = rk == UHDM::uhdmbit_typespec || rk == UHDM::uhdmint_typespec ||
+                               rk == UHDM::uhdminteger_typespec || rk == UHDM::uhdmbyte_typespec ||
+                               rk == UHDM::uhdmshort_int_typespec ||
+                               rk == UHDM::uhdmlong_int_typespec ||
+                               rk == UHDM::uhdmstruct_typespec;
+        if (!fn || !rts || !shareKind) {
+            tr273("RETLITSHARE_ABSTAIN", key(r.fresh) + (fn ? " retkind" : " nofunc"));
+            continue;
+        }
+        // § delayRefShareAsIs273v (v11u273) — writeCont_assign clones the
+        // assignment FIRST when its delay is a ref_obj (`assign #D o = f();`),
+        // so `cloned` is already true when the reduced value arrives: neither
+        // adjustSize nor `res->VpiParent(assign)` runs and the definition's
+        // constant is installed as it is, typed left side or not, keeping its
+        // own parent (grid VF vf14, vf15: golden lists no vpiParent on the
+        // shared constant and shares under `int a`).  Switch
+        // R11V273_DLYREF_OFF.
+        if (r.ca->Delay() && r.ca->Delay()->UhdmType() == UHDM::uhdmref_obj &&
+            v11u273On("R11V273_DLYREF_OFF")) {
+            r.ca->Rhs(d);
+            tr273("RETLITSHARE_DLYREF", key(r.fresh));
+            continue;
+        }
+        // Golden's Rhs IS the definition's object, so its fields are the
+        // definition listing's (a fresh fold sized at the left side, `return
+        // 7;` into a 32-bit net, reads the def object's size 64 in golden).
+        const bool same = d->VpiValue() == r.fresh->VpiValue() &&
+                          d->VpiSize() == r.fresh->VpiSize() &&
+                          d->VpiDecompile() == r.fresh->VpiDecompile() &&
+                          d->VpiConstType() == r.fresh->VpiConstType();
+        // writeCont_assign's adjustSize(tps, ..) copies or re-sizes the
+        // reduced value only when the left side has a typespec (lhsTyped273):
+        // an untyped left side keeps the source object as it is (grid FR
+        // f12), a typed one shares only when our fold already reads the
+        // definition object's fields.
+        const bool typed = lhsTyped273(r.ca);
+        if (!same && typed) {
+            tr273("RETLITSHARE_ABSTAIN", key(r.fresh) + " fields");
+            continue;
+        }
+        // ...and a UINT value under a typed left side is adjustSize's copy.
+        if (same && typed && d->VpiConstType() == vpiUIntConst) {
+            tr273("RETLITSHARE_ABSTAIN", key(r.fresh) + " uint");
+            continue;
+        }
+        r.ca->Rhs(d);
+        d->VpiParent(r.ca);
+        tr273("RETLITSHARE", key(r.fresh) + (same ? "" : " untyped"));
+    }
+    retShare273.clear();
+}
+// § paramValRhsSharesParamConst273 (r11u273) — AN ELABORATED CONTINUOUS
+// ASSIGNMENT WHOSE RIGHT SIDE REDUCES TO A PARAMETER'S VALUE TAKES THAT
+// VALUE'S OWN CONSTANT WHEN NOTHING RE-SIZES IT.  UhdmWriter::
+// writeCont_assign reduces the elaborated Rhs with reduceExpr, which for a
+// parameter reference (`assign o2[c] = M;`) or a member of a pattern-valued
+// parameter (`assign lv = CFG.n;`) hands back the instance's param_assign
+// value object itself (the constant, or the member's constant inside the
+// assignment pattern), then runs adjustSize(tps, .., uniquify=true) where
+// `tps` is the left side's typespec (the bound signal's for a plain name,
+// bindVariable over the instance's variables and nets, then its ancestors':
+// lhsTyped273): with no
+// such typespec (a select left side, a generate-local name no module signal
+// shares) the object is installed as it is and re-parented at the
+// assignment (`res->VpiParent(assign)`), so golden lists the value once,
+// under the param_assign, and nothing at the assignment, where ours listed
+// a fresh constant at the value's span (map cluster type|bit_select and
+// type|ref_obj under cont_assign: r11u116 grid f1 *_ms, the r11u69 /
+// r11v69 / r11u71 / r11v71 pattern-member cells).  With a typed left side
+// golden lists a copy at the assignment whatever the value's kind (grid PV
+// p02 UINT, p03 and p08 HEX: adjustSize's uniquify and the member read's
+// own reduction; an interface instance binds its own signals, r11u88
+// x6_ifdefcast; an ancestor's namesake binds too, r11v69 v2_ancnamesake), so
+// the law stands aside there.  The law, design-final per elaborated
+// instance: a constant Rhs at the span of a constant of the instance's (or
+// the generate scope's) param_assign values is replaced by that constant
+// under those conditions.  Grid tools/probe/r11u273repro/cases/PV.  Switch
+// R11U273_PARAMVALSHARE_OFF.
+void paramValShareDrain273(UHDM::design* d) {
+    if (!d || !r11u273On("R11U273_PARAMVALSHARE_OFF"))
+        return;
+    auto key = [](const UHDM::BaseClass* c) {
+        return std::string(c->VpiFile()) + "|" + std::to_string(c->VpiLineNo()) + ":" +
+               std::to_string(c->VpiColumnNo()) + "-" + std::to_string(c->VpiEndLineNo()) +
+               ":" + std::to_string(c->VpiEndColumnNo());
+    };
+    using Idx = std::map<std::string, std::vector<UHDM::constant*>>;
+    // The value object itself, or a struct member's constant inside the
+    // value's assignment pattern (a tagged_pattern's pattern, or an operand
+    // of a pattern typed by a struct or union): an element of an
+    // unpacked-array value read through a select (`assign b = x[0];`,
+    // Surelog corpus ReorderPatt, grid PV p19 / p20) is a copy in golden, so
+    // the operands of any other pattern are not indexed.
+    std::function<void(const UHDM::any*, Idx&, int, bool)> collect =
+        [&](const UHDM::any* e, Idx& idx, int depth, bool member) {
+            if (!e || depth > 16)
+                return;
+            switch (e->UhdmType()) {
+            case UHDM::uhdmconstant:
+                if (member || depth == 0)
+                    idx[key(e)].push_back((UHDM::constant*)e);
+                return;
+            case UHDM::uhdmoperation: {
+                // The elaborated value of a struct parameter is a flattened
+                // pattern whose operands are the members' constants (typed
+                // by the struct); an unpacked array's is typed by the array.
+                auto* op = (const UHDM::operation*)e;
+                const UHDM::typespec* ots =
+                    op->Typespec() ? op->Typespec()->Actual_typespec() : nullptr;
+                const bool agg = ots && (ots->UhdmType() == UHDM::uhdmstruct_typespec ||
+                                         ots->UhdmType() == UHDM::uhdmunion_typespec);
+                if (auto* v = op->Operands())
+                    for (auto* x : *v)
+                        collect(x, idx, depth + 1, agg);
+                return;
+            }
+            case UHDM::uhdmtagged_pattern:
+                collect(((const UHDM::tagged_pattern*)e)->Pattern(), idx, depth + 1, true);
+                return;
+            default:
+                return;
+            }
+        };
+    auto addPas = [&](const UHDM::VectorOfparam_assign* v, Idx& idx) {
+        if (v)
+            for (auto* pa : *v)
+                collect(pa->Rhs(), idx, 0, false);
+    };
+    std::function<void(const UHDM::any*)> inst;
+    std::function<void(const UHDM::any*, const Idx&)> scope =
+        [&](const UHDM::any* sc, const Idx& outer) {
+            Idx idx = outer;
+            const UHDM::VectorOfcont_assign* cas = nullptr;
+            const UHDM::VectorOfgen_scope_array* gas = nullptr;
+            std::vector<const UHDM::any*> kids;
+            if (sc->UhdmType() == UHDM::uhdmgen_scope) {
+                auto* g = (const UHDM::gen_scope*)sc;
+                addPas(g->Param_assigns(), idx);
+                cas = g->Cont_assigns();
+                gas = g->Gen_scope_arrays();
+                if (auto* v = g->Modules())
+                    kids.insert(kids.end(), v->begin(), v->end());
+                if (auto* v = g->Interfaces())
+                    kids.insert(kids.end(), v->begin(), v->end());
+            } else {
+                auto* m = (const UHDM::instance*)sc;
+                addPas(m->Param_assigns(), idx);
+                if (sc->UhdmType() == UHDM::uhdmmodule_inst) {
+                    auto* mi = (const UHDM::module_inst*)sc;
+                    cas = mi->Cont_assigns();
+                    gas = mi->Gen_scope_arrays();
+                    if (auto* v = mi->Modules())
+                        kids.insert(kids.end(), v->begin(), v->end());
+                    if (auto* v = mi->Interfaces())
+                        kids.insert(kids.end(), v->begin(), v->end());
+                } else if (sc->UhdmType() == UHDM::uhdminterface_inst) {
+                    auto* ii = (const UHDM::interface_inst*)sc;
+                    cas = ii->Cont_assigns();
+                    gas = ii->Gen_scope_arrays();
+                    if (auto* v = ii->Interfaces())
+                        kids.insert(kids.end(), v->begin(), v->end());
+                }
+            }
+            if (cas)
+                for (auto* ca : *cas) {
+                    auto* rhs = ca->Rhs();
+                    if (!rhs || rhs->UhdmType() != UHDM::uhdmconstant)
+                        continue;
+                    auto it = idx.find(key(rhs));
+                    if (it == idx.end() || it->second.size() != 1 || it->second[0] == rhs)
+                        continue;
+                    auto* src = it->second[0];
+                    auto* fr = (const UHDM::constant*)rhs;
+                    const bool same = src->VpiValue() == fr->VpiValue() &&
+                                      src->VpiSize() == fr->VpiSize() &&
+                                      src->VpiDecompile() == fr->VpiDecompile() &&
+                                      src->VpiConstType() == fr->VpiConstType();
+                    // § delayRefShareAsIs273v, the parameter-value site: a delay written as a
+                    // reference clones the assignment before the reduction,
+                    // so the value object is installed as it is (typed left
+                    // side or not) and keeps its param_assign parent (grid
+                    // VP vp18, vp19).  Switch R11V273_DLYREF_OFF.
+                    if (ca->Delay() && ca->Delay()->UhdmType() == UHDM::uhdmref_obj &&
+                        v11u273On("R11V273_DLYREF_OFF")) {
+                        ((UHDM::cont_assign*)ca)->Rhs(src);
+                        tr273("PARAMVALSHARE_DLYREF", key(rhs));
+                        continue;
+                    }
+                    const bool typed = lhsTyped273(ca);
+                    if (typed) {
+                        tr273("PARAMVALSHARE_ABSTAIN", key(rhs) + " typed");
+                        continue;
+                    }
+                    ((UHDM::cont_assign*)ca)->Rhs(src);
+                    src->VpiParent((UHDM::any*)ca);
+                    tr273("PARAMVALSHARE", key(rhs) + (same ? "" : " untyped"));
+                }
+            if (gas)
+                for (auto* ga : *gas)
+                    if (auto* gs = ga->Gen_scopes())
+                        for (auto* g : *gs)
+                            scope(g, idx);
+            for (auto* k : kids)
+                inst(k);
+        };
+    inst = [&](const UHDM::any* o) {
+        if (!o)
+            return;
+        if (o->UhdmType() == UHDM::uhdmmodule_inst ||
+            o->UhdmType() == UHDM::uhdminterface_inst)
+            scope(o, Idx());
+    };
+    if (auto* tops = d->TopModules())
+        for (auto* t : *tops)
+            inst(t);
 }
 void castRhsCloneDrain176(UHDM::Serializer& s) {
     for (auto& r : castClone176) {
@@ -30680,6 +31027,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
                     rawText(cfr2.lit->sourceRange).find('\'') == std::string::npos)
                     ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
+                // § fnRetLitRhsSharesDefConst273, the generate-scope site.
+                if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                    r11u273On("R11U273_RETLITSHARE_OFF"))
+                    retShare273.push_back({ca, (UHDM::constant*)rhs});
             }
             // A gen-scope call RHS (possibly cast-wrapped: int'(f())) that
             // evaluates folds to a LOC-LESS constant sized at the LHS width.
@@ -43762,6 +44113,11 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             forceConstParent = true;
             rhs = emitExpr(*constFnRet, ca, prefix, netMap);
             forceConstParent = false;
+            // § fnRetLitRhsSharesDefConst273 (the law's statement is at
+            // retLitShareDrain273): recorded here, swapped design-final.
+            if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                r11u273On("R11U273_RETLITSHARE_OFF"))
+                retShare273.push_back({ca, (UHDM::constant*)rhs});
             // § srlgUnvaluedActualLitRetFold8 — THE UNBASED-UNSIZED REWRITE.
             // `ExprEval::evalFunc` ends by masking the returned constant to the
             // FUNCTION RETURN TYPE's width, and for a `vpiBinaryConst` it keeps

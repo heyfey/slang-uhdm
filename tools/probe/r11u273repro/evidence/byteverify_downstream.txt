@@ -1,0 +1,2 @@
+MOVER ./port_chained_type_param/slang.uhdm
+databases=805 (fence-filtered path lists identical); downstream csv pristine vs law identical

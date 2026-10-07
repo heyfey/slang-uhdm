@@ -31,9 +31,11 @@
 #include "R261.h"
 #include "R269.h"
 #include "R271.h"
+#include "R273.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
+#include <tuple>
 // § pkgArrTdElemClone209 deep-clones a struct typespec as Surelog does.
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/clone_tree.h>
@@ -261,6 +263,8 @@ bool v11u171Law(const char* sw) {
     return getenv(sw) == nullptr;
 }
 void castRhsCloneDrain176(UHDM::Serializer& s); // § castRhsClonePerInst176 (ModuleEmit.cpp)
+void retLitShareDrain273(UHDM::Serializer& s); // § fnRetLitRhsSharesDefConst273 (ModuleEmit.cpp)
+void paramValShareDrain273(UHDM::design* d); // § paramValRhsSharesParamConst273 (ModuleEmit.cpp)
 void unsizedRhsCloneDrain193(UHDM::Serializer& s); // § caUnsizedRhsClonePerInst193 (ModuleEmit.cpp)
 void progViewDrain176(); // § progPlainPortViewUnparented176 (ModuleEmit.cpp)
 std::map<const UHDM::any*, std::array<size_t, 4>>& r257vHcPos(); // § ifacePortHcConnOrder257v (ModuleEmit.cpp)
@@ -2458,6 +2462,561 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
     }
     for (auto& [t, p] : moving)
         const_cast<UHDM::BaseClass*>(t)->VpiParent(p);
+}
+
+// § typeParamStructLastNetParent273 (r11u273) — A TYPE PARAMETER'S
+// ANONYMOUS STRUCT IS PARENTED AT THE LAST SIGNAL DECLARED WITH IT.
+// Surelog's NetlistElaboration::elabSignal, for a signal whose declared type
+// is a type parameter (the DummyType branch, and the PARAMETER-category
+// branch beside it), hands the signal the parameter's ONE typespec object and
+// runs `spec->VpiParent(stv)` on it: the struct_net (for a packed or
+// unpacked array, the element struct_net under the array net, so the chain
+// reads `arr.arr`), whatever its net or variable kind.  Every instance's
+// elaboration writes the same object, so the LAST signal in elaboration order
+// wins (two instances of one module: `work@dut.u2.s`, in the definition
+// listing too), and Surelog stores no full name on the struct's member
+// ref_typespecs: ComputeFullName reads them through that parent
+// (`work@dut.v.x`, `work@top.arr.arr.a`, a nested anonymous member
+// `work@dut.v.s.p`).  UhdmWriter::writeCont_assign later ends every
+// assignment with `tps->VpiParent(nullptr)` on the left side's typespec (the
+// bound net's), so an `assign v = ...` to a scalar signal of the type leaves
+// the struct unparented (§ contAssignLhsTsUnparented134 models that reset for
+// named typedefs and stands aside for type parameters).  Ours kept the
+// parameter's struct where the type parameter put it and stored the bare
+// chain name on its member refs (`x`).  The law walks the elaborated
+// instances in order (signals by source position, a generate scope's under
+// its own scope), parents each such struct at its last signal unless an
+// elaborated assignment's left side binds a scalar signal of it, and rewrites
+// every member ref full name that read the old chain to the new chain.
+// Anonymous struct and union actuals only (an overriding named typedef is
+// § contAssignLhsTsUnparented134's).  Grid tools/probe/r11u273repro/cases/TP.
+// Switch R11U273_TPSTRUCTNET_OFF.
+static void typeParamStructLastNetParent273(UHDM::design* d,
+                                            const slang::SourceManager* srcMgr = nullptr) {
+    if (!d || !r11u273On("R11U273_TPSTRUCTNET_OFF"))
+        return;
+    auto anonAgg = [](const UHDM::BaseClass* t) {
+        if (!t)
+            return false;
+        auto k = t->UhdmType();
+        return (k == UHDM::uhdmstruct_typespec || k == UHDM::uhdmunion_typespec) &&
+               t->VpiName().empty();
+    };
+    // BaseClass::ComputeFullName's per-link name and walk.
+    auto linkName = [](const UHDM::BaseClass* a,
+                       const UHDM::BaseClass* child) -> std::string_view {
+        const UHDM::BaseClass* ap = a->VpiParent();
+        auto t = a->UhdmType();
+        bool skip = (ap && ap->UhdmType() == UHDM::uhdmref_obj) ||
+                    t == UHDM::uhdmmethod_func_call ||
+                    t == UHDM::uhdmmethod_task_call || t == UHDM::uhdmfunc_call ||
+                    t == UHDM::uhdmtask_call || t == UHDM::uhdmsys_func_call ||
+                    t == UHDM::uhdmsys_task_call;
+        if (child) {
+            auto ct = child->UhdmType();
+            if (ct == UHDM::uhdmbit_select && t == UHDM::uhdmport)
+                skip = true;
+            if (ct == UHDM::uhdmref_obj &&
+                (t == UHDM::uhdmbit_select || t == UHDM::uhdmindexed_part_select ||
+                 t == UHDM::uhdmhier_path))
+                skip = true;
+        }
+        if (skip)
+            return {};
+        return a->VpiName().empty() ? a->VpiDefName() : a->VpiName();
+    };
+    auto chainName = [&](const UHDM::BaseClass* e) {
+        if (e->UhdmType() == UHDM::uhdmmodule_inst && e->VpiParent() &&
+            e->VpiParent()->UhdmType() == UHDM::uhdmmodule_inst)
+            return std::string(e->VpiDefName());
+        std::vector<std::string_view> names;
+        bool column = false;
+        const UHDM::BaseClass* child = nullptr;
+        for (const UHDM::BaseClass* a = e; a; child = a, a = a->VpiParent()) {
+            auto t = a->UhdmType();
+            if (t == UHDM::uhdmdesign)
+                break;
+            if (t == UHDM::uhdmpackage || t == UHDM::uhdmclass_defn)
+                column = true;
+            auto nm = linkName(a, child);
+            if (!nm.empty())
+                names.push_back(nm);
+        }
+        std::string out;
+        for (auto it = names.rbegin(); it != names.rend(); ++it) {
+            if (!out.empty())
+                out += column ? "::" : ".";
+            out += *it;
+        }
+        return out;
+    };
+    std::map<UHDM::BaseClass*, UHDM::BaseClass*> np;
+    std::set<const UHDM::BaseClass*> varSig; // § tpVarSigKeepsTpParent273v
+    // § tpVarSigKeepsTpParent273v, the `var` leg: a declaration written with the
+    // `var` keyword (`var T v;`) reaches makeVar_ without the DummyType data
+    // type and takes its fallback branch, which does run `tps->VpiParent(obj)`
+    // (grid VT vt21, vt23, vt24, vt26: golden parents the struct at that
+    // variable); our database does not keep the keyword, so the declaration's
+    // text is read from the previous `;` up to the signal's name, comments
+    // removed (vt25 a `var` on the line before, vt27 a comment reading var).
+    // Unreadable text counts as no `var`.
+    std::map<std::string, std::string_view> srcText;
+    auto declaredWithVar = [&](const UHDM::BaseClass* x) {
+        if (!srcMgr || x->VpiLineNo() <= 0 || x->VpiColumnNo() <= 0)
+            return false;
+        std::string file(x->VpiFile());
+        if (srcText.empty())
+            for (auto b : srcMgr->getAllBuffers())
+                srcText.emplace(srcMgr->getFullPath(b).string(), srcMgr->getSourceText(b));
+        auto it = srcText.find(file);
+        if (it == srcText.end())
+            return false;
+        std::string_view t = it->second;
+        size_t pos = 0;
+        for (int l = 1; l < x->VpiLineNo() && pos != std::string_view::npos; ++l) {
+            pos = t.find('\n', pos);
+            if (pos != std::string_view::npos)
+                ++pos;
+        }
+        if (pos == std::string_view::npos || pos + x->VpiColumnNo() - 1 > t.size())
+            return false;
+        size_t end = pos + x->VpiColumnNo() - 1;
+        size_t semi = t.rfind(';', end == 0 ? 0 : end - 1);
+        size_t beg = semi == std::string_view::npos ? 0 : semi + 1;
+        std::string head;
+        for (size_t k = beg; k < end; ++k) {
+            if (t[k] == '/' && k + 1 < end && t[k + 1] == '/') {
+                while (k < end && t[k] != '\n')
+                    ++k;
+                head += ' ';
+                continue;
+            }
+            if (t[k] == '/' && k + 1 < end && t[k + 1] == '*') {
+                size_t c = t.find("*/", k + 2);
+                if (c == std::string_view::npos || c >= end)
+                    return false;
+                k = c + 1;
+                head += ' ';
+                continue;
+            }
+            head += t[k];
+        }
+        auto idc = [](char c) { return std::isalnum((unsigned char)c) || c == '_' || c == '$'; };
+        for (size_t k = head.find("var"); k != std::string::npos; k = head.find("var", k + 1))
+            if ((k == 0 || !idc(head[k - 1])) && (k + 3 >= head.size() || !idc(head[k + 3]))) {
+                tr273("TPSTRUCTNET_VARKW", std::string(x->VpiName()));
+                return true;
+            }
+        return false;
+    };
+    // elabSignal's isNet for a struct typespec: every member a logic or
+    // struct typespec (NetlistElaboration::elabSignal, the struct_typespec
+    // branch of the isNet decision); a union is never a struct_net.
+    auto surelogVarKind = [](const UHDM::BaseClass* t) {
+        if (t->UhdmType() == UHDM::uhdmunion_typespec)
+            return true;
+        if (t->UhdmType() != UHDM::uhdmstruct_typespec)
+            return false;
+        auto* ms = ((const UHDM::struct_typespec*)t)->Members();
+        if (!ms)
+            return false;
+        for (auto* m : *ms) {
+            const UHDM::typespec* mt =
+                m->Typespec() ? m->Typespec()->Actual_typespec() : nullptr;
+            if (!mt)
+                continue;
+            if (mt->UhdmType() != UHDM::uhdmlogic_typespec &&
+                mt->UhdmType() != UHDM::uhdmstruct_typespec)
+                return true;
+        }
+        return false;
+    };
+    std::vector<UHDM::BaseClass*> order;
+    std::set<const UHDM::BaseClass*> reset;
+    // A struct whose signals hold a separate copy of ours (the same written
+    // struct, another object): which signal and which assignment golden's one
+    // object meets is not visible here, so the law stands aside.
+    std::set<const UHDM::BaseClass*> twin;
+    auto actualOf = [](const UHDM::BaseClass* x) -> UHDM::BaseClass* {
+        auto* e = dynamic_cast<const UHDM::expr*>(x);
+        if (!e || !e->Typespec())
+            return nullptr;
+        return (UHDM::BaseClass*)e->Typespec()->Actual_typespec();
+    };
+    // The element signal an array signal hands the type (Surelog's stv).
+    auto elemOf = [](const UHDM::BaseClass* x) -> const UHDM::BaseClass* {
+        switch (x->UhdmType()) {
+        case UHDM::uhdmpacked_array_net:
+            if (auto* v = ((const UHDM::packed_array_net*)x)->Elements())
+                if (!v->empty())
+                    return v->front();
+            return nullptr;
+        case UHDM::uhdmarray_net:
+            if (auto* v = ((const UHDM::array_net*)x)->Nets())
+                if (!v->empty())
+                    return v->front();
+            return nullptr;
+        case UHDM::uhdmpacked_array_var:
+            if (auto* v = ((const UHDM::packed_array_var*)x)->Elements())
+                if (!v->empty())
+                    return v->front();
+            return nullptr;
+        case UHDM::uhdmarray_var:
+            if (auto* v = ((const UHDM::array_var*)x)->Variables())
+                if (!v->empty())
+                    return v->front();
+            return nullptr;
+        default:
+            return x;
+        }
+    };
+    using TpSet = std::set<const UHDM::BaseClass*>;
+    // Every type parameter's struct is renamed below (a struct no signal
+    // takes keeps its parent and still reads its chain: golden
+    // `work@top.idx_t.p` at the type parameter, `x.W` once unparented).
+    std::set<const UHDM::BaseClass*> seenTp;
+    std::vector<UHDM::BaseClass*> tpOrder;
+    auto addTp = [&](const UHDM::VectorOfany* ps, TpSet& tp) {
+        if (ps)
+            for (auto* pa : *ps)
+                if (pa->UhdmType() == UHDM::uhdmtype_parameter)
+                    if (auto* rt = ((const UHDM::type_parameter*)pa)->Typespec())
+                        if (anonAgg(rt->Actual_typespec())) {
+                            tp.insert(rt->Actual_typespec());
+                            if (seenTp.insert(rt->Actual_typespec()).second)
+                                tpOrder.push_back((UHDM::BaseClass*)rt->Actual_typespec());
+                        }
+    };
+    const UHDM::module_inst* bindScope = nullptr;
+    std::function<void(const UHDM::BaseClass*, const TpSet&)> walk =
+        [&](const UHDM::BaseClass* o, const TpSet& inherited) {
+            if (!o)
+                return;
+            TpSet tp = inherited;
+            const UHDM::VectorOfnet* nets = nullptr;
+            const UHDM::VectorOfvariables* vars = nullptr;
+            const UHDM::VectorOfarray_net* anets = nullptr;
+            const UHDM::VectorOfcont_assign* cas = nullptr;
+            const UHDM::VectorOfgen_scope_array* gas = nullptr;
+            std::vector<const UHDM::BaseClass*> kids;
+            auto* savedScope = bindScope;
+            switch (o->UhdmType()) {
+            case UHDM::uhdmmodule_inst: {
+                auto* m = (const UHDM::module_inst*)o;
+                tp.clear();
+                addTp(m->Parameters(), tp);
+                nets = m->Nets();
+                vars = m->Variables();
+                anets = m->Array_nets();
+                cas = m->Cont_assigns();
+                gas = m->Gen_scope_arrays();
+                bindScope = m;
+                if (auto* v = m->Modules())
+                    kids.insert(kids.end(), v->begin(), v->end());
+                if (auto* v = m->Interfaces())
+                    kids.insert(kids.end(), v->begin(), v->end());
+                break;
+            }
+            case UHDM::uhdminterface_inst: {
+                auto* m = (const UHDM::interface_inst*)o;
+                tp.clear();
+                addTp(m->Parameters(), tp);
+                nets = m->Nets();
+                vars = m->Variables();
+                anets = m->Array_nets();
+                cas = m->Cont_assigns();
+                gas = m->Gen_scope_arrays();
+                bindScope = nullptr;
+                if (auto* v = m->Interfaces())
+                    kids.insert(kids.end(), v->begin(), v->end());
+                break;
+            }
+            case UHDM::uhdmgen_scope: {
+                auto* g = (const UHDM::gen_scope*)o;
+                nets = g->Nets();
+                vars = g->Variables();
+                anets = g->Array_nets();
+                cas = g->Cont_assigns();
+                gas = g->Gen_scope_arrays();
+                if (auto* v = g->Modules())
+                    kids.insert(kids.end(), v->begin(), v->end());
+                if (auto* v = g->Interfaces())
+                    kids.insert(kids.end(), v->begin(), v->end());
+                break;
+            }
+            default:
+                return;
+            }
+            if (!tp.empty()) {
+                std::vector<const UHDM::BaseClass*> sigs;
+                if (nets)
+                    sigs.insert(sigs.end(), nets->begin(), nets->end());
+                if (vars)
+                    sigs.insert(sigs.end(), vars->begin(), vars->end());
+                if (anets)
+                    sigs.insert(sigs.end(), anets->begin(), anets->end());
+                std::stable_sort(sigs.begin(), sigs.end(),
+                                 [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+                                     return a->VpiLineNo() != b->VpiLineNo()
+                                                ? a->VpiLineNo() < b->VpiLineNo()
+                                                : a->VpiColumnNo() < b->VpiColumnNo();
+                                 });
+                for (auto* x : sigs) {
+                    auto* el = elemOf(x);
+                    if (!el)
+                        continue;
+                    auto* t = actualOf(el);
+                    if (t && !tp.count(t) && anonAgg(t))
+                        for (auto* u : tp)
+                            if (u->VpiLineNo() == t->VpiLineNo() &&
+                                u->VpiColumnNo() == t->VpiColumnNo() &&
+                                u->VpiFile() == t->VpiFile())
+                                twin.insert(u);
+                    if (!t || !tp.count(t))
+                        continue;
+                    // § tpVarSigKeepsTpParent273v (v11u273) — only the net
+                    // branches of elabSignal (struct_net, the element under an
+                    // array net) run `spec->VpiParent(stv)`; a signal Surelog
+                    // makes a variable (ElaborationStep::makeVar_'s DummyType
+                    // branch) and a union in the net branch
+                    // (getSimpleVarFromTypespec) leave the struct at its type
+                    // parameter (grid VT vt02, vt14 to vt16, vt18: golden
+                    // `type_parameter work@dut.T`, members `work@dut.T.a`).
+                    // Net or variable is elabSignal's rule, not our signal's
+                    // kind: a struct is a net exactly when every member's
+                    // typespec is a logic or struct typespec (`var T v` with
+                    // logic members is still a struct_net, r11u273 TP/t22);
+                    // a union never is.  Switch R11V273_TPVARKEEP_OFF.
+                    if (surelogVarKind(t) && !declaredWithVar(x) &&
+                        v11u273On("R11V273_TPVARKEEP_OFF")) {
+                        if (varSig.insert(t).second)
+                            tr273("TPSTRUCTNET_VARSIG", std::to_string(t->VpiLineNo()) + ":" +
+                                                            std::to_string(t->VpiColumnNo()));
+                        continue;
+                    }
+                    if (!np.count(t))
+                        order.push_back(t);
+                    np[t] = (UHDM::BaseClass*)el;
+                }
+                if (cas)
+                    for (auto* ca : *cas) {
+                        auto* lhs = ca->Lhs();
+                        if (!lhs)
+                            continue;
+                        const UHDM::BaseClass* tps = actualOf(lhs);
+                        if (lhs->UhdmType() == UHDM::uhdmref_obj && bindScope) {
+                            const UHDM::BaseClass* var = nullptr;
+                            if (auto* v = bindScope->Variables())
+                                for (auto* x : *v)
+                                    if (x->VpiName() == lhs->VpiName()) {
+                                        var = x;
+                                        break;
+                                    }
+                            if (!var)
+                                if (auto* v = bindScope->Nets())
+                                    for (auto* x : *v)
+                                        if (x->VpiName() == lhs->VpiName()) {
+                                            var = x;
+                                            break;
+                                        }
+                            if (var)
+                                if (auto* t = actualOf(var))
+                                    tps = t;
+                        }
+                        // A declaration with an initializer (`my_t s = '0;`)
+                        // writes a cont_assign whose left side is the signal
+                        // object itself; ours hands that object a typespec of
+                        // its own, so the instance's signal of that name
+                        // decides (probe control r11u112repro/grid/k/k18_init
+                        // in the elaborated view: golden unparented).
+                        if (lhs->UhdmType() != UHDM::uhdmref_obj &&
+                            !(tps && tp.count(tps)) &&
+                            r11u273On("R11U273_TPNDARESET_OFF"))
+                            for (auto* x : sigs)
+                                if (x->VpiName() == lhs->VpiName()) {
+                                    auto* el = elemOf(x);
+                                    auto* t = el ? actualOf(el) : nullptr;
+                                    if (t && tp.count(t)) {
+                                        tr273("TPSTRUCTNET_NDARESET", std::string(lhs->VpiName()));
+                                        tps = t;
+                                    }
+                                    break;
+                                }
+                        if (tps && tp.count(tps))
+                            reset.insert(tps);
+                    }
+            }
+            if (gas)
+                for (auto* ga : *gas)
+                    if (auto* gs = ga->Gen_scopes())
+                        for (auto* g : *gs)
+                            walk(g, tp);
+            for (auto* k : kids)
+                walk(k, TpSet());
+            bindScope = savedScope;
+        };
+    if (auto* tops = d->TopModules())
+        for (auto* t : *tops)
+            walk(t, TpSet());
+    (void)order;
+    for (auto* t : tpOrder) {
+        if (twin.count(t)) {
+            tr273("TPSTRUCTNET_TWIN", std::to_string(t->VpiLineNo()) + ":" +
+                                          std::to_string(t->VpiColumnNo()));
+            continue;
+        }
+        UHDM::BaseClass* p = reset.count(t) ? nullptr
+                             : np.count(t)  ? np[t]
+                                            : (UHDM::BaseClass*)t->VpiParent();
+        // § tpVarSigKeepsTpParent273v: a struct only variables take and that
+        // ours left unparented sits at the definition's type parameter.
+        if (!p && !reset.count(t) && !np.count(t) && varSig.count(t)) {
+            auto scan = [&](const auto* defs) {
+                if (defs)
+                    for (auto* m : *defs)
+                        if (auto* ps = m->Parameters())
+                            for (auto* pa : *ps)
+                                if (!p && pa->UhdmType() == UHDM::uhdmtype_parameter)
+                                    if (auto* rt = ((const UHDM::type_parameter*)pa)->Typespec())
+                                        if (rt->Actual_typespec() == t)
+                                            p = (UHDM::BaseClass*)pa;
+            };
+            scan(d->AllModules());
+            scan(d->AllInterfaces());
+            tr273("TPSTRUCTNET_VARKEEP", std::to_string(t->VpiLineNo()) + ":" +
+                                             std::to_string(t->VpiColumnNo()) +
+                                             (p ? " deftp" : " none"));
+        }
+        // The member refs' names under the old chain (and with the struct
+        // unparented, the bare chain the member names alone give), then the
+        // new one.
+        std::vector<std::tuple<UHDM::ref_typespec*, std::string, std::string>> refs;
+        // Below the struct: every member ref, and every ref_obj of a bound
+        // in a member's own typespec (golden `work@dut.v.x.W`, ours the
+        // stored `work@dut.it_t.W`).
+        std::vector<std::tuple<UHDM::BaseClass*, std::string, std::string>> refObjs;
+        std::function<void(const UHDM::BaseClass*, int)> bounds =
+            [&](const UHDM::BaseClass* e, int depth) {
+                if (!e || depth > 12)
+                    return;
+                switch (e->UhdmType()) {
+                case UHDM::uhdmref_obj:
+                    refObjs.push_back({(UHDM::BaseClass*)e, chainName(e), std::string()});
+                    return;
+                case UHDM::uhdmconstant:
+                    // A folded bound's own typespec ref (golden
+                    // `work@top.u.sv.s_pkgq` through the chain, ours the
+                    // stored `work@sub.sh_t`).
+                    if (auto* rt = ((const UHDM::constant*)e)->Typespec())
+                        if (rt->VpiParent() == e)
+                            refObjs.push_back({(UHDM::BaseClass*)rt, chainName(rt), "*"});
+                    return;
+                case UHDM::uhdmoperation:
+                    if (auto* v = ((const UHDM::operation*)e)->Operands())
+                        for (auto* x : *v)
+                            if (x->VpiParent() == e)
+                                bounds(x, depth + 1);
+                    return;
+                case UHDM::uhdmrange: {
+                    auto* r = (const UHDM::range*)e;
+                    if (r->Left_expr() && r->Left_expr()->VpiParent() == e)
+                        bounds(r->Left_expr(), depth + 1);
+                    if (r->Right_expr() && r->Right_expr()->VpiParent() == e)
+                        bounds(r->Right_expr(), depth + 1);
+                    return;
+                }
+                case UHDM::uhdmlogic_typespec:
+                    if (auto* v = ((const UHDM::logic_typespec*)e)->Ranges())
+                        for (auto* x : *v)
+                            if (x->VpiParent() == e)
+                                bounds(x, depth + 1);
+                    return;
+                case UHDM::uhdmbit_typespec:
+                    if (auto* v = ((const UHDM::bit_typespec*)e)->Ranges())
+                        for (auto* x : *v)
+                            if (x->VpiParent() == e)
+                                bounds(x, depth + 1);
+                    return;
+                default:
+                    return;
+                }
+            };
+        std::function<void(const UHDM::BaseClass*, int)> collect =
+            [&](const UHDM::BaseClass* agg, int depth) {
+                if (depth > 8)
+                    return;
+                const UHDM::VectorOftypespec_member* ms =
+                    agg->UhdmType() == UHDM::uhdmstruct_typespec
+                        ? ((const UHDM::struct_typespec*)agg)->Members()
+                        : ((const UHDM::union_typespec*)agg)->Members();
+                if (!ms)
+                    return;
+                for (auto* tm : *ms) {
+                    auto* rt = (UHDM::ref_typespec*)tm->Typespec();
+                    if (!rt)
+                        continue;
+                    refs.push_back({rt, chainName(rt), std::string()});
+                    auto* mts = rt->Actual_typespec();
+                    if (mts && (mts->VpiParent() == tm || mts->VpiParent() == rt)) {
+                        if (anonAgg(mts))
+                            collect(mts, depth + 1);
+                        else
+                            bounds(mts, 0);
+                    }
+                }
+            };
+        collect(t, 0);
+        auto* tts = (UHDM::typespec*)t;
+        auto* oldParent = tts->VpiParent();
+        tts->VpiParent(nullptr);
+        for (auto& r : refs)
+            std::get<2>(r) = chainName(std::get<0>(r));
+        for (auto& r : refObjs)
+            if (std::get<2>(r) != "*")
+                std::get<2>(r) = chainName(std::get<0>(r));
+        tts->VpiParent(p);
+        int renamed = 0;
+        for (auto& [rt, oldName, bareName] : refs)
+            if (std::string_view(rt->VpiFullName()) == oldName ||
+                std::string_view(rt->VpiFullName()) == bareName) {
+                std::string nn = chainName(rt);
+                if (nn != rt->VpiFullName()) {
+                    rt->VpiFullName(nn);
+                    ++renamed;
+                }
+            }
+        // A bound's ref_obj: the old or bare chain, or a name stored with a
+        // scope prefix of its own (`<scope>.W`).
+        for (auto& [ro, oldName, bareName] : refObjs) {
+            if (bareName == "*") {
+                auto* rt = (UHDM::ref_typespec*)ro;
+                std::string nn = chainName(rt);
+                if (nn != rt->VpiFullName()) {
+                    rt->VpiFullName(nn);
+                    ++renamed;
+                }
+                continue;
+            }
+            auto* r = (UHDM::ref_obj*)ro;
+            std::string_view fn = r->VpiFullName();
+            std::string tail = "." + std::string(r->VpiName());
+            if (fn == oldName || fn == bareName ||
+                (fn.size() > tail.size() &&
+                 fn.compare(fn.size() - tail.size(), tail.size(), tail) == 0)) {
+                std::string nn = chainName(r);
+                if (nn != fn) {
+                    r->VpiFullName(nn);
+                    ++renamed;
+                }
+            }
+        }
+        if (oldParent != p || renamed)
+            tr273("TPSTRUCTNET", std::to_string(t->VpiLineNo()) + ":" +
+                                     std::to_string(t->VpiColumnNo()) + " -> " +
+                                     (p ? chainName(p) : std::string("<none>")) +
+                                     (oldParent != p ? " reparented" : "") +
+                                     " renamed=" + std::to_string(renamed));
+    }
 }
 
 // § packedArrTdElemRefName137 (r11u137) — a NAMED packed-array typedef over
@@ -18296,6 +18855,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                 unitCls235.insert(cdef);
         typedefParentModel134(d, s, keep182, unitCls235);
     }
+    // § typeParamStructLastNetParent273 (law and decode at the function).
+    typeParamStructLastNetParent273(d, sm);
     // § packedArrTdElemRefName137 — after the parent model (law and decode
     // at the function).
     packedArrTdElemRefName137(d, s);
@@ -18308,6 +18869,12 @@ UHDM::design* UhdmExporter::exportDesign() {
     // § castRhsClonePerInst176 (r11u176) — design-final, after every drain
     // that writes a definition cont_assign (law and decode at ModuleEmit.cpp).
     castRhsCloneDrain176(s);
+    // § fnRetLitRhsSharesDefConst273 (r11u273) — design-final (law and
+    // decode at ModuleEmit.cpp).
+    retLitShareDrain273(s);
+    // § paramValRhsSharesParamConst273 (r11u273) — design-final (law and
+    // decode at ModuleEmit.cpp).
+    paramValShareDrain273(d);
     // § caUnsizedRhsClonePerInst193 (r11u193) — the unsized-constant leg,
     // with the cast leg (law and decode at ModuleEmit.cpp).
     unsizedRhsCloneDrain193(s);

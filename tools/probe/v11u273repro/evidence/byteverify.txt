@@ -1,0 +1,83 @@
+== law vs pristine (fence-filtered mirrors)
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./uhdm2rtlil/default/port_chained_type_param-fceec37f/slang.uhdm  patched=cacf249db3f6 pristine=5b97cc4cf2c0
+MOVER ./uhdm2rtlil/testflags/port_chained_type_param-fceec37f/slang.uhdm  patched=557c81749f6b pristine=7cda2059b4d3
+MOVERS: 2 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+== final vs law
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVERS: 0 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+== probe law vs pristine movers (68)
+r10rgg8repro__cells__a_bitret.uhdm
+r10rgg8repro__cells__a_intret.uhdm
+r10rgg8repro__cells__L_1b1_bt.uhdm
+r10rgg8repro__cells__L_1b1_it.uhdm
+r10rgg8repro__cells__L_1d0_bt.uhdm
+r10rgg8repro__cells__L_1d0_it.uhdm
+r10rgg8repro__cells__L_2b11_bt.uhdm
+r10rgg8repro__cells__L_2b11_it.uhdm
+r10rgg8repro__cells__L_8b101010_bt.uhdm
+r10rgg8repro__cells__L_8b101010_it.uhdm
+r10rgg8repro__cells__L_8d42_bt.uhdm
+r10rgg8repro__cells__L_8d42_it.uhdm
+r10rgg8repro__cells__L_8sd3_bt.uhdm
+r10rgg8repro__cells__L_8sd3_it.uhdm
+r10rgg8repro__cells__L_u0_bt.uhdm
+r10rgg8repro__cells__L_u0_it.uhdm
+r10rgg8repro__cells__L_u1_bt.uhdm
+r10rgg8repro__cells__L_u1_it.uhdm
+r10vrgg8repro__cells__v8_structret.uhdm
+r11u107repro__grid__t01_tp_struct.uhdm
+r11u107repro__grid__t02_tp_struct_chain.uhdm
+r11u107repro__grid__t04_tp_struct_child_def.uhdm
+r11u107repro__grid__t06_tp_union.uhdm
+r11u107repro__grid__t09_localparam_type_struct.uhdm
+r11u107repro__grid__t11_tp_struct_signed.uhdm
+r11u107repro__grid__t12_tp_struct_nested.uhdm
+r11u107repro__grid__t14_tp_chain_child.uhdm
+r11u112repro__grid__k__k03_dims.uhdm
+r11u112repro__grid__k__k12_twodims.uhdm
+r11u112repro__grid__k__k16_comb_driven.uhdm
+r11u112repro__grid__k__k17_ff_driven.uhdm
+r11u112repro__grid__k__k20_hdr_param_type_ctl.uhdm
+r11u113repro__grid__c__c15_genif_structdef.uhdm
+r11u116repro__grid__f1__gl_o_ms.uhdm
+r11u116repro__grid__f1__gl_u_ms.uhdm
+r11u116repro__grid__f1__mh_o_ms.uhdm
+r11u116repro__grid__f1__mh_u_ms.uhdm
+r11u116repro__grid__f1__ml_o_ms.uhdm
+r11u116repro__grid__f1__ml_u_ms.uhdm
+r11u116repro__grid__f1__mu_o_ms.uhdm
+r11u116repro__grid__f1__mu_u_ms.uhdm
+r11u116repro__grid__f1__mv_o_ms.uhdm
+r11u116repro__grid__f1__mv_u_ms.uhdm
+r11u23repro__grid__b17_genlocal_rhs_constcall.uhdm
+r11u35repro__grid__g3_shape35.uhdm
+r11u45repro__g4.uhdm
+r11u47repro__arms__g12.uhdm
+r11u47repro__arms__g2.uhdm
+r11u47repro__arms__g8.uhdm
+r11u69repro__grid__g10_lhsbind.uhdm
+r11u71repro__grid__n3_ifacegrid.uhdm
+r11u71repro__grid__n5_declkind.uhdm
+r11u74repro__grid__b4_nonamesake.uhdm
+r11u75repro__grid__w8_unitname.uhdm
+r11v47repro__arms__v12.uhdm
+r11v47repro__arms__v28.uhdm
+r11v47repro__arms__v30.uhdm
+r11v69repro__grid__v10_arraysel.uhdm
+r11v69repro__grid__w10_sharesize.uhdm
+r11v69repro__grid__w9_sharehead.uhdm
+r11v71repro__grid__x4_genarray.uhdm
+r11v71repro__grid__x6_ifacedeep.uhdm
+r11v71repro__grid__x7_oddhomes.uhdm
+v11u93b107repro__brk__q09_two_tparams.uhdm
+v11u93b107repro__brk__q10_var_in_body.uhdm
+v11u93b107repro__brk__q11_member_access.uhdm
+v11u93b107repro__brk__q13_signed_nodim.uhdm
+v11u93b107repro__brk__q15_chain3.uhdm
+== probe final vs law movers: 0
+== downstream slang.uhdm law vs pristine: MOVER ./port_chained_type_param/slang.uhdm (1 of 805); final vs law: 0 of 805

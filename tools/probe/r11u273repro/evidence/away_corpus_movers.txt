@@ -1,0 +1,2 @@
+default cmp-lines=0 dist 30 -> 0 lost=0 gained=30 | chain away=0 toward=0 flat_away=0 flat_toward=0
+testflags cmp-lines=0 dist 30 -> 0 lost=0 gained=30 | chain away=0 toward=0 flat_away=0 flat_toward=0

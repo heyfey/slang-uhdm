@@ -1,0 +1,143 @@
+FR/f01_bin_bit P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_162_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f01_bin_bit_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_161_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f02_dec_int P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_162_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f02_dec_int_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_161_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f03_unb1_int P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_162_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f03_unb1_int_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_161_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f04_unb0_logic P=STRICT_EQUAL_163_objects L=STRICT_EQUAL_163_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f04_unb0_logic_el P=STRICT_EQUAL_162_objects L=STRICT_EQUAL_162_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f05_bin2_vec P=STRICT_EQUAL_169_objects L=STRICT_EQUAL_169_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f05_bin2_vec_el P=STRICT_EQUAL_168_objects L=STRICT_EQUAL_168_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f06_hex_int_refused P=STRICT_EQUAL_170_objects L=STRICT_EQUAL_170_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f06_hex_int_refused_el P=STRICT_EQUAL_168_objects L=STRICT_EQUAL_168_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f07_bare_int P=STRICT_EQUAL_163_objects L=STRICT_EQUAL_163_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f07_bare_int_el P=STRICT_EQUAL_162_objects L=STRICT_EQUAL_162_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f08_two_inst P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_222_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f08_two_inst_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_234_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f09_two_sites P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_216_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f09_two_sites_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_214_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f10_pkg_fn P=STRICT_EQUAL_161_objects L=STRICT_EQUAL_161_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f10_pkg_fn_el P=STRICT_EQUAL_160_objects L=STRICT_EQUAL_160_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f11_noargs_const P=STRICT_EQUAL_43_objects L=STRICT_EQUAL_43_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f11_noargs_const_el P=STRICT_EQUAL_42_objects L=STRICT_EQUAL_42_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f12_gen_local P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_65_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f12_gen_local_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_65_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f13_top_direct P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_107_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f13_top_direct_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_106_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f14_struct_ret P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_234_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f14_struct_ret_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_233_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f15_integer_ret P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_184_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f15_integer_ret_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_183_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f16_reg_ret P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f16_reg_ret_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f17_byte_ret P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_184_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f17_byte_ret_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_183_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f18_logic_signed P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f18_logic_signed_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f19_td_logic P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f19_td_logic_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f20_enum_ret P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f20_enum_ret_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f21_bit_vec P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_184_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f21_bit_vec_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_183_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f22_logic_scalar P=STRICT_EQUAL_185_objects L=STRICT_EQUAL_185_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f22_logic_scalar_el P=STRICT_EQUAL_184_objects L=STRICT_EQUAL_184_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f23_shortint P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_184_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f23_shortint_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_183_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=RETLITSHARE ENTER
+FR/f24_real_ret P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+FR/f24_real_ret_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p01_bitsel_uint P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_72_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=PARAMVALSHARE ENTER
+PV/p01_bitsel_uint_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_72_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=PARAMVALSHARE ENTER
+PV/p02_plain_typed P=STRICT_EQUAL_47_objects L=STRICT_EQUAL_47_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p02_plain_typed_el P=STRICT_EQUAL_46_objects L=STRICT_EQUAL_46_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p03_plain_hex P=STRICT_EQUAL_56_objects L=STRICT_EQUAL_56_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p03_plain_hex_el P=STRICT_EQUAL_55_objects L=STRICT_EQUAL_55_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p04_bitsel_hex P=STRICT_EQUAL_70_objects L=STRICT_EQUAL_70_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p04_bitsel_hex_el P=STRICT_EQUAL_70_objects L=STRICT_EQUAL_70_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p05_partsel P=STRICT_NOTEQUAL_type L=STRICT_NOTEQUAL_type rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p05_partsel_el P=STRICT_NOTEQUAL_type L=STRICT_NOTEQUAL_type rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p06_genlocal P=STRICT_EQUAL_70_objects L=STRICT_EQUAL_70_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p06_genlocal_el P=STRICT_EQUAL_70_objects L=STRICT_EQUAL_70_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p07_member_genlocal P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_115_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=PARAMVALSHARE ENTER
+PV/p07_member_genlocal_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_115_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=PARAMVALSHARE ENTER
+PV/p08_member_typed P=STRICT_EQUAL_178_objects L=STRICT_EQUAL_178_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p08_member_typed_el P=STRICT_EQUAL_176_objects L=STRICT_EQUAL_176_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p09_child_override P=STRICT_NOTEQUAL_type L=STRICT_NOTEQUAL_type rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p09_child_override_el P=STRICT_NOTEQUAL_type L=STRICT_NOTEQUAL_type rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p10_gen_param P=STRICT_EQUAL_61_objects L=STRICT_EQUAL_61_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p10_gen_param_el P=STRICT_EQUAL_61_objects L=STRICT_EQUAL_61_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p11_iface P=STRICT_NOTEQUAL_type L=STRICT_NOTEQUAL_type rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p11_iface_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p12_bitsel_int_signed P=STRICT_EQUAL_57_objects L=STRICT_EQUAL_57_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p12_bitsel_int_signed_el P=STRICT_EQUAL_57_objects L=STRICT_EQUAL_57_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p13_two_sites P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_99_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=PARAMVALSHARE ENTER
+PV/p13_two_sites_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_99_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=PARAMVALSHARE ENTER
+PV/p14_unbased P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_70_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=PARAMVALSHARE ENTER
+PV/p14_unbased_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_70_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=PARAMVALSHARE ENTER
+PV/p15_iface_typed_member P=STRICT_EQUAL_193_objects L=STRICT_EQUAL_193_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p15_iface_typed_member_el P=STRICT_EQUAL_192_objects L=STRICT_EQUAL_192_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p16_ancestor_namesake P=STRICT_EQUAL_167_objects L=STRICT_EQUAL_167_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p16_ancestor_namesake_el P=STRICT_EQUAL_161_objects L=STRICT_EQUAL_161_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p17_iface_bitsel P=STRICT_NOTEQUAL_type L=STRICT_NOTEQUAL_type rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p17_iface_bitsel_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p18_gen_member_hex P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_174_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=PARAMVALSHARE ENTER
+PV/p18_gen_member_hex_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_174_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=PARAMVALSHARE ENTER
+PV/p19_array_elem_sel P=STRICT_EQUAL_56_objects L=STRICT_EQUAL_56_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p19_array_elem_sel_el P=STRICT_EQUAL_56_objects L=STRICT_EQUAL_56_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p20_array_elem_bitsel P=STRICT_EQUAL_83_objects L=STRICT_EQUAL_83_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p20_array_elem_bitsel_el P=STRICT_EQUAL_83_objects L=STRICT_EQUAL_83_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p21_positional_member P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PV/p21_positional_member_el P=STRICT_NOTEQUAL_type L=STRICT_NOTEQUAL_type rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t01_net_comb P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_151_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t01_net_comb_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_143_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t02_net_assign P=STRICT_EQUAL_128_objects L=STRICT_EQUAL_128_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t02_net_assign_el P=STRICT_EQUAL_132_objects L=STRICT_EQUAL_132_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t03_packed_arr P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_134_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t03_packed_arr_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_124_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t04_two_nets P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_204_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t04_two_nets_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_181_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t05_two_nets_assign_first P=STRICT_EQUAL_196_objects L=STRICT_EQUAL_196_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t05_two_nets_assign_first_el P=STRICT_EQUAL_170_objects L=STRICT_EQUAL_170_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t06_port P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_98_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t06_port_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_103_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t07_localparam_val P=STRICT_EQUAL_145_objects L=STRICT_EQUAL_145_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t07_localparam_val_el P=STRICT_EQUAL_156_objects L=STRICT_EQUAL_156_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t08_param_then_net P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_195_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t08_param_then_net_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_184_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t09_two_inst P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_251_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t09_two_inst_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_244_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t10_unpacked P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t10_unpacked_el P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t11_iface P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t11_iface_el P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t12_cast_only P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=4 rcL=4 moved=1 off=pristine:1 by=TPSTRUCTNET
+TP/t12_cast_only_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=4 rcL=4 moved=1 off=pristine:1 by=TPSTRUCTNET
+TP/t13_override P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t13_override_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t14_enum P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t14_enum_el P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t16_ff P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_175_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t16_ff_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_169_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t17_genblk P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t17_genblk_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t18_net_init P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t18_net_init_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t19_nested P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_162_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t19_nested_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_158_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t20_chained_port P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_113_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t20_chained_port_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_112_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t21_wire_kw P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t21_wire_kw_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t22_var_kw P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET
+TP/t22_var_kw_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET
+TP/t23_child_inst P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_172_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t23_child_inst_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_158_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t24_param_bound P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_175_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t24_param_bound_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_173_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t25_param_bound_reset P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_150_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t25_param_bound_reset_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_162_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t26_bound_bare P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_169_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t26_bound_bare_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_156_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPSTRUCTNET ENTER
+TP/t27_net_init_scalar P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TP/t27_net_init_scalar_el P=STRICT_EQUAL_138_objects L=STRICT_EQUAL_138_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TOTAL attr_PARAMVALSHARE=10 attr_RETLITSHARE=24 attr_TPSTRUCTNET=30 caseviews=142 cmp_change=0 entering=60 leaving=0 moved=64 off_pristine=142 rc_change=0

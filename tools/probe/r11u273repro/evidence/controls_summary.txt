@@ -1,0 +1,35 @@
+case-views=2610 moving=32 entering=2 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/r11u47repro/arms/g11 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u47repro/arms/g11_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u71repro/grid/n1_sharewidths NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 62->62
+MOVER tp/r11u71repro/grid/n1_sharewidths_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 62->62
+MOVER tp/r11u71repro/grid/n2_bindhomes NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/r11u71repro/grid/n2_bindhomes_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/r11v47repro/arms/v1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 68->68
+MOVER tp/r11v47repro/arms/v10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 92->92
+MOVER tp/r11v47repro/arms/v10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 92->92
+MOVER tp/r11v47repro/arms/v13 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 90->90
+MOVER tp/r11v47repro/arms/v13_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 90->90
+MOVER tp/r11v47repro/arms/v14 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11v47repro/arms/v14_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 1142->1142
+MOVER tp/r11v47repro/arms/v18 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v47repro/arms/v18_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v47repro/arms/v19 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 162->162
+MOVER tp/r11v47repro/arms/v19_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 162->162
+MOVER tp/r11v47repro/arms/v1_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11v47repro/arms/v20 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11v47repro/arms/v20_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11v47repro/arms/v27 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 54->54
+MOVER tp/r11v47repro/arms/v27_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 58->58
+MOVER tp/r11v47repro/arms/v3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 68->68
+MOVER tp/r11v47repro/arms/v3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11v47repro/arms/v4 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 54->54
+MOVER tp/r11v47repro/arms/v4_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 58->58
+MOVER tp/r11v69repro/grid/w8_unitname STRICT_NOTEQUAL_type -> STRICT_EQUAL_262_objects cmplines 0->0
+MOVER tp/r11v69repro/grid/w8_unitname_el STRICT_NOTEQUAL_type -> STRICT_EQUAL_262_objects cmplines 0->0
+MOVER tp/r11v71repro/grid/x2_delayclone NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 15->15
+MOVER tp/r11v71repro/grid/x2_delayclone_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 15->15
+MOVER tp/r11v71repro/grid/x3_nofold NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/r11v71repro/grid/x3_nofold_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+ENTER tp/r11v69repro/grid/w8_unitname
+ENTER tp/r11v69repro/grid/w8_unitname_el

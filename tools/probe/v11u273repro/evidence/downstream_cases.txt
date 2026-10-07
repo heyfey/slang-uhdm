@@ -1,0 +1,183 @@
+final VF/vf01_two_calls_typed IDENTICAL  NO_GATES
+law VF/vf01_two_calls_typed IDENTICAL  NO_GATES
+pristine VF/vf01_two_calls_typed IDENTICAL  NO_GATES
+final VF/vf02_case_returns DIVERGENT nohier il synth NO_GATES
+law VF/vf02_case_returns DIVERGENT nohier il synth NO_GATES
+pristine VF/vf02_case_returns DIVERGENT nohier il synth NO_GATES
+final VF/vf03_pkg_fn_sel IDENTICAL  NO_GATES
+law VF/vf03_pkg_fn_sel IDENTICAL  NO_GATES
+pristine VF/vf03_pkg_fn_sel IDENTICAL  NO_GATES
+final VF/vf04_uint_ret IDENTICAL  NO_GATES
+law VF/vf04_uint_ret IDENTICAL  NO_GATES
+pristine VF/vf04_uint_ret IDENTICAL  NO_GATES
+final VF/vf05_bitvec_hex_wide IDENTICAL  NO_GATES
+law VF/vf05_bitvec_hex_wide IDENTICAL  NO_GATES
+pristine VF/vf05_bitvec_hex_wide IDENTICAL  NO_GATES
+final VF/vf06_gen_and_body IDENTICAL  NO_GATES
+law VF/vf06_gen_and_body IDENTICAL  NO_GATES
+pristine VF/vf06_gen_and_body IDENTICAL  NO_GATES
+final VF/vf07_iface_fn IDENTICAL  NO_GATES
+law VF/vf07_iface_fn IDENTICAL  NO_GATES
+pristine VF/vf07_iface_fn IDENTICAL  NO_GATES
+final VF/vf08_param_branch_two_inst DIVERGENT nohier il synth NO_GATES
+law VF/vf08_param_branch_two_inst DIVERGENT nohier il synth NO_GATES
+pristine VF/vf08_param_branch_two_inst DIVERGENT nohier il synth NO_GATES
+final VF/vf09_byte_ret_untyped_sel IDENTICAL  NO_GATES
+law VF/vf09_byte_ret_untyped_sel IDENTICAL  NO_GATES
+pristine VF/vf09_byte_ret_untyped_sel IDENTICAL  NO_GATES
+final VF/vf10_struct_ret_member IDENTICAL  NO_GATES
+law VF/vf10_struct_ret_member IDENTICAL  NO_GATES
+pristine VF/vf10_struct_ret_member IDENTICAL  NO_GATES
+final VF/vf11_shortint_ret_net IDENTICAL  NO_GATES
+law VF/vf11_shortint_ret_net IDENTICAL  NO_GATES
+pristine VF/vf11_shortint_ret_net IDENTICAL  NO_GATES
+final VF/vf12_nested_call IDENTICAL  NO_GATES
+law VF/vf12_nested_call IDENTICAL  NO_GATES
+pristine VF/vf12_nested_call IDENTICAL  NO_GATES
+final VF/vf13_delay_param IDENTICAL  NO_GATES
+law VF/vf13_delay_param IDENTICAL  NO_GATES
+pristine VF/vf13_delay_param IDENTICAL  NO_GATES
+final VF/vf14_delay_only IDENTICAL  NO_GATES
+law VF/vf14_delay_only IDENTICAL  NO_GATES
+pristine VF/vf14_delay_only IDENTICAL  NO_GATES
+final VF/vf15_delay_typed IDENTICAL  NO_GATES
+law VF/vf15_delay_typed IDENTICAL  NO_GATES
+pristine VF/vf15_delay_typed IDENTICAL  NO_GATES
+final VP/vp01_genvar_sel IDENTICAL  NO_GATES
+law VP/vp01_genvar_sel IDENTICAL  NO_GATES
+pristine VP/vp01_genvar_sel IDENTICAL  NO_GATES
+final VP/vp02_concat_lhs IDENTICAL  NO_GATES
+law VP/vp02_concat_lhs IDENTICAL  NO_GATES
+pristine VP/vp02_concat_lhs IDENTICAL  NO_GATES
+final VP/vp03_member_lhs IDENTICAL  NO_GATES
+law VP/vp03_member_lhs IDENTICAL  NO_GATES
+pristine VP/vp03_member_lhs IDENTICAL  NO_GATES
+final VP/vp04_implicit_net IDENTICAL  NO_GATES
+law VP/vp04_implicit_net IDENTICAL  NO_GATES
+pristine VP/vp04_implicit_net IDENTICAL  NO_GATES
+final VP/vp05_ips_lhs IDENTICAL  NO_GATES
+law VP/vp05_ips_lhs IDENTICAL  NO_GATES
+pristine VP/vp05_ips_lhs IDENTICAL  NO_GATES
+final VP/vp06_child_override_sel IDENTICAL  NO_GATES
+law VP/vp06_child_override_sel IDENTICAL  NO_GATES
+pristine VP/vp06_child_override_sel IDENTICAL  NO_GATES
+final VP/vp07_struct_member_sel IDENTICAL  NO_GATES
+law VP/vp07_struct_member_sel IDENTICAL  NO_GATES
+pristine VP/vp07_struct_member_sel IDENTICAL  NO_GATES
+final VP/vp08_import_bare IDENTICAL  NO_GATES
+law VP/vp08_import_bare IDENTICAL  NO_GATES
+pristine VP/vp08_import_bare IDENTICAL  NO_GATES
+final VP/vp09_bitsel_typed_vec IDENTICAL  NO_GATES
+law VP/vp09_bitsel_typed_vec IDENTICAL  NO_GATES
+pristine VP/vp09_bitsel_typed_vec IDENTICAL  NO_GATES
+final VP/vp10_genloop_local IDENTICAL  NO_GATES
+law VP/vp10_genloop_local IDENTICAL  NO_GATES
+pristine VP/vp10_genloop_local IDENTICAL  NO_GATES
+final VP/vp11_two_inst_same IDENTICAL  NO_GATES
+law VP/vp11_two_inst_same IDENTICAL  NO_GATES
+pristine VP/vp11_two_inst_same IDENTICAL  NO_GATES
+final VP/vp12_iface_body IDENTICAL  NO_GATES
+law VP/vp12_iface_body IDENTICAL  NO_GATES
+pristine VP/vp12_iface_body IDENTICAL  NO_GATES
+final VP/vp13_genvar_plain_genlocal IDENTICAL  NO_GATES
+law VP/vp13_genvar_plain_genlocal IDENTICAL  NO_GATES
+pristine VP/vp13_genvar_plain_genlocal IDENTICAL  NO_GATES
+final VP/vp14_param_param IDENTICAL  NO_GATES
+law VP/vp14_param_param IDENTICAL  NO_GATES
+pristine VP/vp14_param_param IDENTICAL  NO_GATES
+final VP/vp15_case_gen IDENTICAL  NO_GATES
+law VP/vp15_case_gen IDENTICAL  NO_GATES
+pristine VP/vp15_case_gen IDENTICAL  NO_GATES
+final VP/vp16_enum_param IDENTICAL  NO_GATES
+law VP/vp16_enum_param IDENTICAL  NO_GATES
+pristine VP/vp16_enum_param IDENTICAL  NO_GATES
+final VP/vp17_delay_param IDENTICAL  NO_GATES
+law VP/vp17_delay_param IDENTICAL  NO_GATES
+pristine VP/vp17_delay_param IDENTICAL  NO_GATES
+final VP/vp18_delay_only IDENTICAL  NO_GATES
+law VP/vp18_delay_only IDENTICAL  NO_GATES
+pristine VP/vp18_delay_only IDENTICAL  NO_GATES
+final VP/vp19_delay_typed IDENTICAL  NO_GATES
+law VP/vp19_delay_typed IDENTICAL  NO_GATES
+pristine VP/vp19_delay_typed IDENTICAL  NO_GATES
+final VT/vt01_gen_last DIVERGENT nohier il synth NO_GATES
+law VT/vt01_gen_last DIVERGENT nohier il synth NO_GATES
+pristine VT/vt01_gen_last DIVERGENT nohier il synth NO_GATES
+final VT/vt02_union IDENTICAL  NO_GATES
+law VT/vt02_union IDENTICAL  NO_GATES
+pristine VT/vt02_union IDENTICAL  NO_GATES
+final VT/vt03_override_anon SLANG_REJECT  
+law VT/vt03_override_anon SLANG_REJECT  
+pristine VT/vt03_override_anon SLANG_REJECT  
+final VT/vt04_member_assign IDENTICAL  NO_GATES
+law VT/vt04_member_assign IDENTICAL  NO_GATES
+pristine VT/vt04_member_assign IDENTICAL  NO_GATES
+final VT/vt05_same_line IDENTICAL  NO_GATES
+law VT/vt05_same_line IDENTICAL  NO_GATES
+pristine VT/vt05_same_line IDENTICAL  NO_GATES
+final VT/vt06_enum_member DIVERGENT nohier il synth NO_GATES
+law VT/vt06_enum_member DIVERGENT nohier il synth NO_GATES
+pristine VT/vt06_enum_member DIVERGENT nohier il synth NO_GATES
+final VT/vt07_iface_tp IDENTICAL  NO_GATES
+law VT/vt07_iface_tp IDENTICAL  NO_GATES
+pristine VT/vt07_iface_tp IDENTICAL  NO_GATES
+final VT/vt08_two_sig_one_assigned_last IDENTICAL  NO_GATES
+law VT/vt08_two_sig_one_assigned_last IDENTICAL  NO_GATES
+pristine VT/vt08_two_sig_one_assigned_last IDENTICAL  NO_GATES
+final VT/vt09_child_chain IDENTICAL  NO_GATES
+law VT/vt09_child_chain IDENTICAL  NO_GATES
+pristine VT/vt09_child_chain IDENTICAL  NO_GATES
+final VT/vt10_param_width_member IDENTICAL  CRASH
+law VT/vt10_param_width_member IDENTICAL  CRASH
+pristine VT/vt10_param_width_member IDENTICAL  CRASH
+final VT/vt11_packed_arr_gen DIVERGENT nohier il synth NO_GATES
+law VT/vt11_packed_arr_gen DIVERGENT nohier il synth NO_GATES
+pristine VT/vt11_packed_arr_gen DIVERGENT nohier il synth NO_GATES
+final VT/vt12_ff_var IDENTICAL  OK
+law VT/vt12_ff_var IDENTICAL  OK
+pristine VT/vt12_ff_var IDENTICAL  OK
+final VT/vt13_union_assign IDENTICAL  NO_GATES
+law VT/vt13_union_assign IDENTICAL  NO_GATES
+pristine VT/vt13_union_assign IDENTICAL  NO_GATES
+final VT/vt14_union_two_inst IDENTICAL  NO_GATES
+law VT/vt14_union_two_inst IDENTICAL  NO_GATES
+pristine VT/vt14_union_two_inst IDENTICAL  NO_GATES
+final VT/vt15_struct_bit_members IDENTICAL  OK
+law VT/vt15_struct_bit_members IDENTICAL  OK
+pristine VT/vt15_struct_bit_members IDENTICAL  OK
+final VT/vt16_struct_int_member IDENTICAL  NO_GATES
+law VT/vt16_struct_int_member IDENTICAL  NO_GATES
+pristine VT/vt16_struct_int_member IDENTICAL  NO_GATES
+final VT/vt17_union_gen DIVERGENT nohier il synth NO_GATES
+law VT/vt17_union_gen DIVERGENT nohier il synth NO_GATES
+pristine VT/vt17_union_gen DIVERGENT nohier il synth NO_GATES
+final VT/vt18_struct_mixed_two IDENTICAL  NO_GATES
+law VT/vt18_struct_mixed_two IDENTICAL  NO_GATES
+pristine VT/vt18_struct_mixed_two IDENTICAL  NO_GATES
+final VT/vt19_td_logic_member DIVERGENT nohier il synth NO_GATES
+law VT/vt19_td_logic_member DIVERGENT nohier il synth NO_GATES
+pristine VT/vt19_td_logic_member DIVERGENT nohier il synth NO_GATES
+final VT/vt20_packed_arr_bit DIVERGENT nohier il synth NO_GATES
+law VT/vt20_packed_arr_bit DIVERGENT nohier il synth NO_GATES
+pristine VT/vt20_packed_arr_bit DIVERGENT nohier il synth NO_GATES
+final VT/vt21_var_kw_bit IDENTICAL  NO_GATES
+law VT/vt21_var_kw_bit IDENTICAL  NO_GATES
+pristine VT/vt21_var_kw_bit IDENTICAL  NO_GATES
+final VT/vt22_nested_struct_member IDENTICAL  NO_GATES
+law VT/vt22_nested_struct_member IDENTICAL  NO_GATES
+pristine VT/vt22_nested_struct_member IDENTICAL  NO_GATES
+final VT/vt23_var_kw_union IDENTICAL  NO_GATES
+law VT/vt23_var_kw_union IDENTICAL  NO_GATES
+pristine VT/vt23_var_kw_union IDENTICAL  NO_GATES
+final VT/vt24_var_kw_multi IDENTICAL  NO_GATES
+law VT/vt24_var_kw_multi IDENTICAL  NO_GATES
+pristine VT/vt24_var_kw_multi IDENTICAL  NO_GATES
+final VT/vt25_var_kw_prevline IDENTICAL  NO_GATES
+law VT/vt25_var_kw_prevline IDENTICAL  NO_GATES
+pristine VT/vt25_var_kw_prevline IDENTICAL  NO_GATES
+final VT/vt26_bit_two_inst_var IDENTICAL  NO_GATES
+law VT/vt26_bit_two_inst_var IDENTICAL  NO_GATES
+pristine VT/vt26_bit_two_inst_var IDENTICAL  NO_GATES
+final VT/vt27_int_member_comment_var IDENTICAL  NO_GATES
+law VT/vt27_int_member_comment_var IDENTICAL  NO_GATES
+pristine VT/vt27_int_member_comment_var IDENTICAL  NO_GATES
