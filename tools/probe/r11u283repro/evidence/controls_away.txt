@@ -1,0 +1,6 @@
+tp/r10uvm226repro/grid226/a14_genregcount dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=12 flat_away=0 flat_toward=12
+tp/r10uvm226repro/grid226/a14_genregcount_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=12 flat_away=0 flat_toward=12
+tp/r10v226repro/arms/b14_param dist 0 -> 154 lost=0 gained=0 | chain away=0 toward=10 flat_away=0 flat_toward=10
+tp/r10v226repro/arms/b14_param_el dist 0 -> 160 lost=0 gained=0 | chain away=0 toward=14 flat_away=0 flat_toward=14
+tp/v11u281repro/cases/VI/vi38_two_inst_two_declarators dist 13 -> 0 lost=0 gained=8 | chain away=0 toward=8 flat_away=0 flat_toward=8
+tp/v11u281repro/cases/VI/vi38_two_inst_two_declarators_el dist 13 -> 0 lost=0 gained=8 | chain away=0 toward=8 flat_away=0 flat_toward=8

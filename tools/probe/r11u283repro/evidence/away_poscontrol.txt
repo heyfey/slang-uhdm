@@ -1,0 +1,6 @@
+P/p01_three_inst dist 0 -> 16 lost=6 gained=0 | chain away=9 toward=0 flat_away=6 flat_toward=0
+I/i01_ff_clk dist 0 -> 17 lost=8 gained=0 | chain away=8 toward=0 flat_away=8 flat_toward=0
+C/c01_forgen dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+B/b01_forgen dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+R/r01_pkg_func dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+P/p18_gendup_samebody dist 0 -> 3 lost=3 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0

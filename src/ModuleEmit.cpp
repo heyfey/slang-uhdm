@@ -51,6 +51,7 @@
 #include "R275.h"
 #include "R277.h"
 #include "R279.h"
+#include "R283.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -4235,6 +4236,136 @@ class OwnedRename188 final : public UHDM::UhdmListener {
         }
     }
 };
+// § progDefKeepsLastInstProcs283 — the renamer: every object OWNED by the
+// process (its parent chain reaches the root) whose stored full name starts
+// with the previous instance's path takes the new one; a reference's target
+// is never entered (golden keeps the first instance's binding).
+class OwnedRename283 final : public UHDM::UhdmListener {
+  public:
+    const UHDM::any* root = nullptr;
+    std::string oldP, newP;
+    size_t renamed = 0;
+    void enterAny(const UHDM::any* const o) override {
+        if (o != root) {
+            const UHDM::any* p = o->VpiParent();
+            int guard = 0;
+            while (p && p != root && guard++ < 512)
+                p = p->VpiParent();
+            if (p != root) {
+                getVisited().insert(o);
+                return;
+            }
+        }
+        auto* w = const_cast<UHDM::any*>(o);
+        auto rn = [&](auto* x) {
+            std::string fn(x->VpiFullName());
+            if (fn.empty())
+                return;
+            if (fn == oldP || (fn.size() > oldP.size() &&
+                               fn.compare(0, oldP.size(), oldP) == 0 &&
+                               (fn[oldP.size()] == '.' || fn[oldP.size()] == ':'))) {
+                x->VpiFullName(newP + fn.substr(oldP.size()));
+                renamed++;
+            }
+        };
+        if (auto* x = any_cast<UHDM::scope*>(w))
+            rn(x);
+        else if (auto* x = any_cast<UHDM::variables*>(w))
+            rn(x);
+        else if (auto* x = any_cast<UHDM::nets*>(w))
+            rn(x);
+        else
+            switch (o->UhdmType()) {
+                case UHDM::uhdmref_obj: rn((UHDM::ref_obj*)w); break;
+                case UHDM::uhdmhier_path: rn((UHDM::hier_path*)w); break;
+                case UHDM::uhdmref_typespec: rn((UHDM::ref_typespec*)w); break;
+                default: break;
+            }
+    }
+};
+std::map<const slang::ast::DefinitionSymbol*, UHDM::VectorOfprocess_stmt*>&
+ifaceFirstProcs283() {
+    static std::map<const slang::ast::DefinitionSymbol*, UHDM::VectorOfprocess_stmt*> m;
+    return m;
+}
+std::map<const UHDM::instance*, std::string>& progShare283() {
+    static std::map<const UHDM::instance*, std::string> m;
+    return m;
+}
+// § progLastInstSrcOrder283v (v11u283; R11V283_SRCORDER_OFF) — Surelog
+// elaborates a module body's members in SOURCE order, a generate block's
+// instances in their place among the module's own instances, so golden's FIRST
+// and LAST program instance are the first and last in a source-order walk of
+// the design (tops in slang's topInstances order).  Ours emits a body's direct
+// instances before its generate blocks: with `if (1) begin : g prg u_p (.a(x));
+// end prg u_q (.a(y));` (tools/probe/v11u283repro/cases/VP/vp05_gen_and_top)
+// the law bound the shared set to u_q and named it after g.u_p where golden
+// binds g.u_p's signals and names u_q (chain away 6 in both views).  The
+// same order rules § ifaceInstFirstProcsShared283's FIRST instance
+// (cases/VI/vi12_gen_then_direct: golden binds g.a's signals, the law bound
+// b's, chain away 8).  The source-order index of every program and interface
+// instance, built once.
+std::map<const slang::ast::InstanceSymbol*, int>& progSrcIdx283v() {
+    static std::map<const slang::ast::InstanceSymbol*, int> m;
+    return m;
+}
+std::map<const slang::ast::DefinitionSymbol*, int>& progSrcMin283v() {
+    static std::map<const slang::ast::DefinitionSymbol*, int> m;
+    return m;
+}
+std::map<const UHDM::instance*, int>& progShareIdx283v() {
+    static std::map<const UHDM::instance*, int> m;
+    return m;
+}
+void buildProgSrcIdx283v(const slang::ast::RootSymbol& root) {
+    static bool built = false;
+    if (built)
+        return;
+    built = true;
+    int n = 0;
+    std::function<void(const slang::ast::Symbol&)> visSym;
+    std::function<void(const slang::ast::Scope&)> visScope =
+        [&](const slang::ast::Scope& sc) {
+            for (auto& mm : sc.members())
+                visSym(mm);
+        };
+    visSym = [&](const slang::ast::Symbol& mm) {
+        using slang::ast::SymbolKind;
+        if (mm.kind == SymbolKind::Instance) {
+            auto& i = mm.as<slang::ast::InstanceSymbol>();
+            if (i.getDefinition().definitionKind ==
+                    slang::ast::DefinitionKind::Program ||
+                i.getDefinition().definitionKind ==
+                    slang::ast::DefinitionKind::Interface) {
+                const int k = n++;
+                progSrcIdx283v()[&i] = k;
+                auto mi = progSrcMin283v().find(&i.getDefinition());
+                if (mi == progSrcMin283v().end())
+                    progSrcMin283v()[&i.getDefinition()] = k;
+            }
+            visScope(i.body);
+        }
+        else if (mm.kind == SymbolKind::InstanceArray) {
+            for (auto* e : mm.as<slang::ast::InstanceArraySymbol>().elements)
+                if (e)
+                    visSym(*e);
+        }
+        else if (mm.kind == SymbolKind::GenerateBlock) {
+            auto& b = mm.as<slang::ast::GenerateBlockSymbol>();
+            if (!b.isUninstantiated)
+                visScope(b);
+        }
+        else if (mm.kind == SymbolKind::GenerateBlockArray) {
+            auto& a = mm.as<slang::ast::GenerateBlockArraySymbol>();
+            for (auto* e : a.entries)
+                if (e && !e->isUninstantiated)
+                    visScope(*e);
+        }
+    };
+    for (auto* t : root.topInstances)
+        if (t)
+            visSym(*t);
+}
 }  // namespace
 // A bind whose target NAMES AN INSTANCE (`bind u_dut chk u_chk(...)` inside
 // the module holding u_dut) is not elaborated by Surelog (the bound child
@@ -9333,6 +9464,38 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                     if (netDbg95())  // the trace sits OUTSIDE the gate
                         fprintf(stderr, "R11U95VTFDUP name=%.*s\n",
                                 (int)mem95.name.size(), mem95.name.data());
+                    // § progGenDupFirstSpan283 (r11u283, the probe residue
+                    // r11v95repro/grid/x27_proggendupfirst) — a FUNCTION's
+                    // survivor carries the FIRST declaration's SPAN (the verifier's
+                    // decode above): when the generate block's declaration
+                    // precedes the program body's in the source, the kept
+                    // body object is located at the generate declaration
+                    // (golden 5:7-5:60 where ours kept the body's 8:3-8:56);
+                    // its body stays the body declaration's (the LAST).
+                    // Switch R11U283_PROGGENDUP_OFF.
+                    // A TASK keeps the body declaration's span (grid
+                    // P/p17_gendup_task_genfirst: golden 6:3-6:34, the
+                    // body's, with the generate task first): the rule is the
+                    // function registry's.
+                    if (r11u283On("R11U283_PROGGENDUP_OFF") &&
+                        mem95.as<SubroutineSymbol>().subroutineKind ==
+                            SubroutineKind::Function)
+                        if (auto* gsyn283 = mem95.getSyntax())
+                            for (auto* kt283 : info.taskFuncs) {
+                                if (!kt283 || kt283->VpiName() != mem95.name)
+                                    continue;
+                                auto& sm283 = *comp.getSourceManager();
+                                auto gs283 = gsyn283->sourceRange().start();
+                                const uint32_t gl283 = (uint32_t)sm283.getLineNumber(gs283);
+                                const uint32_t gc283 = (uint32_t)sm283.getColumnNumber(gs283);
+                                if (gl283 < (uint32_t)kt283->VpiLineNo() ||
+                                    (gl283 == (uint32_t)kt283->VpiLineNo() &&
+                                     gc283 < (uint32_t)kt283->VpiColumnNo())) {
+                                    setLoc(kt283, gsyn283->sourceRange());
+                                    tr283("PROGGENDUP", std::string(mem95.name));
+                                }
+                                break;
+                            }
                     continue;
                 }
                 tfSeen95V.push_back(mem95.name);
@@ -19518,6 +19681,17 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 p->Low_conn(lc);
                 ifacePortLowConnByPath[std::string(lc->VpiFullName())] = lc;
                 ifacePortLowConnBySym[portBase] = lc;
+                // § bindChildDisplayScopedNames283 — the interface port's
+                // LowConn of a BOUND instance is named on the display path,
+                // as the plain port's already is (golden r10vrgg16repro/cells/
+                // v14 `work@top.b_c.p` and `work@top.g.b_c.p`, ours
+                // `work@top.l1.b_c.p`); renamed after the path-keyed record
+                // above.  Switch R11U283_BINDDISP_OFF.
+                if (!bindPath.empty() && bindPath != prefix &&
+                    r11u283On("R11U283_BINDDISP_OFF")) {
+                    lc->VpiFullName(bindPath + "." + std::string(ip.name));
+                    tr283("BINDDISP_LC", prefix + "." + std::string(ip.name));
+                }
                 auto conn = ip.getConnection();
                 std::string connRaw =
                     iconn && connectionExpr(*iconn)
@@ -23673,7 +23847,82 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // A `program` body is compiled HERE, in the elab context (see
             // emitModuleDef), then folded into the def view as one shared
             // object -- so its statement refs bind THIS instance's nets.
-            if (progInst) {
+            // § progDefKeepsLastInstProcs283 (r11u283, the probe residue:
+            // r11u105 k40 / k42, r11v105 v13 / v22, r11u95 a22 / c13, r11v95
+            // x5) — a program instantiated twice is compiled ONCE: golden's
+            // definition, its first instance and nothing else list ONE set of
+            // process objects, bound to the FIRST instance's signals (k40
+            // `f = a`: ref_obj actual work@dut.u_p.a), and every later instance
+            // lists that same set and re-stamps it as its own: the
+            // process is parented at the LAST instance (c13's begin reads
+            // work@dut.u_p2 under the definition and under u_p1) and every
+            // stored full name below it reads the last instance's path (k40
+            // ref_obj work@dut.u_q.a, v13 / v22 work@z.u_q.a with a second
+            // top).  Ours compiled the body once per instance and the
+            // definition kept the first copy.  The law applies only when the
+            // first instance's listing is the program body alone (no
+            // synthesized port initializer) and this instance has none either.
+            // Switch R11U283_PROGLAST_OFF.
+            const size_t pre283 = procs->size();
+            UHDM::instance* dp283 =
+                (progInst && it != defMap.end() && it->second.mod &&
+                 it->second.mod->UhdmType() == UHDM::uhdmprogram)
+                    ? it->second.mod
+                    : nullptr;
+            bool share283 = false;
+            // § progLastInstSrcOrder283v — this instance's source-order index
+            // (-1 when the walk did not meet it).
+            const bool srcOrd283v = r11v283On("R11V283_SRCORDER_OFF");
+            int srcIdx283v = -1;
+            if (dp283 && srcOrd283v) {
+                buildProgSrcIdx283v(comp.getRoot());
+                if (auto si = progSrcIdx283v().find(&inst);
+                    si != progSrcIdx283v().end())
+                    srcIdx283v = si->second;
+            }
+            if (dp283 && pre283 == 0 && r11u283On("R11U283_PROGLAST_OFF") &&
+                ((UHDM::program*)dp283)->Process() &&
+                !((UHDM::program*)dp283)->Process()->empty())
+                if (auto ps283 = progShare283().find(dp283);
+                    ps283 != progShare283().end()) {
+                    share283 = true;
+                    size_t n283 = 0;
+                    // § progLastInstSrcOrder283v — only an instance LATER in
+                    // source order than the current holder re-stamps the set:
+                    // the holder ends as golden's last instance.
+                    bool restamp283v = true;
+                    if (srcOrd283v) {
+                        auto hi = progShareIdx283v().find(dp283);
+                        restamp283v = srcIdx283v >= 0 &&
+                                      hi != progShareIdx283v().end() &&
+                                      srcIdx283v > hi->second;
+                        if (restamp283v)
+                            progShareIdx283v()[dp283] = srcIdx283v;
+                        else
+                            tr283("SRCORDER283V_KEEP", prefix);
+                    }
+                    if (restamp283v) {
+                    for (auto* p283 : *((UHDM::program*)dp283)->Process()) {
+                        if (ps283->second != prefix) {
+                            OwnedRename283 l283;
+                            l283.root = p283;
+                            l283.oldP = ps283->second;
+                            l283.newP = prefix;
+                            l283.listenAny(p283);
+                            n283 += l283.renamed;
+                        }
+                        p283->VpiParent(m);
+                    }
+                    tr283("PROGLAST", ps283->second + " -> " + prefix +
+                                          " renamed=" + std::to_string(n283));
+                    ps283->second = prefix;
+                    }
+                    // ...and lists the shared set itself (uhdm-cmp reads
+                    // golden u_p2's vpiProcess).
+                    for (auto* p283 : *((UHDM::program*)dp283)->Process())
+                        procs->push_back(p283);
+                }
+            if (progInst && !share283) {
                 auto* savedINM9 = implicitNetModule;
                 auto savedINP9 = implicitNetPrefix;
                 implicitNetModule = m;
@@ -23713,8 +23962,31 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // With several instances Surelog's fold is unobserved; the
                 // FIRST instance's copy is the one the def keeps.
                 if (it != defMap.end() && it->second.mod && !procs->empty() &&
-                    !((UHDM::program*)it->second.mod)->Process())
+                    !((UHDM::program*)it->second.mod)->Process()) {
                     instSetProcess(it->second.mod, procs);
+                    // § progDefKeepsLastInstProcs283 — the first instance's
+                    // prefix, when its listing is the program body alone.
+                    // § progLastInstSrcOrder283v — and only when this
+                    // instance is the FIRST in source order (golden binds the
+                    // set to the first instance's signals); otherwise every
+                    // instance keeps its own compile as on pristine.
+                    if (pre283 == 0) {
+                        bool first283v = true;
+                        if (srcOrd283v && dp283) {
+                            auto mi = progSrcMin283v().find(&inst.getDefinition());
+                            first283v = srcIdx283v >= 0 &&
+                                        mi != progSrcMin283v().end() &&
+                                        mi->second == srcIdx283v;
+                            if (!first283v)
+                                tr283("SRCORDER283V_ABSTAIN", prefix);
+                        }
+                        if (first283v) {
+                            progShare283()[it->second.mod] = prefix;
+                            if (srcOrd283v && dp283)
+                                progShareIdx283v()[it->second.mod] = srcIdx283v;
+                        }
+                    }
+                }
             }
             if (!procs->empty())
                 instSetProcess(m, procs);
@@ -23929,6 +24201,46 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         }
         if (flatTf95V && !progTfElabOrdOff95V() && tv95V && tv95V->size() > 1)
             sortUhdmBySrc95(*tv95V);
+    }
+
+    // § bindChildDisplayScopedNames283 (r11u283, the probe residue
+    // r10vearl95repro/v95f_bind, r10vearl98repro/v4b_bind98) — a BOUND
+    // instance's generate-scope arrays are named on the bind's DISPLAY path
+    // (§ bindDisplayTargetParent188: the target's parent, then the bind's
+    // name), at every depth, while the generate scopes and everything in them
+    // keep the target path: golden v95f `work@v95f_bind.u_mon.b_d1` and
+    // `work@v95f_bind.u_mon.b_d1.b_d2` over gen_scope `work@v95f_bind.u_t.
+    // u_mon.b_d1`; ours named the arrays on the target path too.  Surelog's
+    // gen_scope_array takes ModuleInstance::getFullPathName, which for a bind
+    // instance runs through the parent createBindInstance_ gave it.  The walk
+    // stays inside this instance (generate scopes only, never a child
+    // instance).  Switch R11U283_BINDDISP_OFF.
+    if (!isTop && !bindPath.empty() && bindPath != prefix &&
+        r11u283On("R11U283_BINDDISP_OFF")) {
+        std::function<void(UHDM::VectorOfgen_scope_array*)> ren283 =
+            [&](UHDM::VectorOfgen_scope_array* v) {
+                if (!v)
+                    return;
+                for (auto* ga : *v) {
+                    if (!ga)
+                        continue;
+                    std::string fn(ga->VpiFullName());
+                    if (fn.size() > prefix.size() &&
+                        fn.compare(0, prefix.size(), prefix) == 0 &&
+                        fn[prefix.size()] == '.') {
+                        ga->VpiFullName(bindPath + fn.substr(prefix.size()));
+                        tr283("BINDDISP", fn);
+                    }
+                    if (auto* gs = ga->Gen_scopes())
+                        for (auto* g : *gs)
+                            if (g)
+                                ren283(g->Gen_scope_arrays());
+                }
+            };
+        if (m->UhdmType() == UHDM::uhdmmodule_inst)
+            ren283(((UHDM::module_inst*)m)->Gen_scope_arrays());
+        else if (m->UhdmType() == UHDM::uhdminterface_inst)
+            ren283(((UHDM::interface_inst*)m)->Gen_scope_arrays());
     }
 
     if (isTop) {
@@ -53798,6 +54110,37 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         iitP != ifaceDefMap.end() ? iitP->second : iface;
     std::string procPrefix =
         iitP != ifaceDefMap.end() ? "work@" + std::string(def.name) : prefix;
+    // § ifaceInstFirstProcsShared283 (r11u283, the probe residue
+    // r10v226repro/arms/b12_multiproc, r10uvm226repro/grid226 a9_multiinst and
+    // a10_genregion) — with SEVERAL instances of one interface golden keeps
+    // ONE process set: the FIRST instance's, its references bound to that
+    // instance's signals (b12 `q = 1` in the definition binds
+    // work@bm_top.a.q), listed by the definition and by EVERY instance (the
+    // dump of golden b12 prints vpiProcess under a, b and c as the one
+    // object).  Ours compiled the body once per instance, each instance
+    // listing its own and the definition keeping the last (work@bm_top.c.q).
+    // A later instance now lists the first instance's set and compiles none.
+    // Switch R11U283_IFPROCFIRST_OFF.
+    const bool first283 =
+        iitP != ifaceDefMap.end() && r11u283On("R11U283_IFPROCFIRST_OFF");
+    // § ifacePortViewNoProcs283 (r11u283, grid I/i17_modport_use) — a PORT
+    // VIEW of an interface (the interface_inst a module's interface port
+    // lists, `work@dut.s1.m`) lists NO process in golden, where ours
+    // compiled the body again for it and, being the last writer, handed its
+    // set to the definition.  The view lists none and leaves the definition's
+    // listing alone.  Switch R11U283_IFVIEWNOPROC_OFF.
+    if (portView && r11u283On("R11U283_IFVIEWNOPROC_OFF")) {
+        tr283("IFVIEWNOPROC", prefix);
+        goto ifaceProcsDone283;
+    }
+    if (first283)
+        if (auto fp283 = ifaceFirstProcs283().find(&def);
+            fp283 != ifaceFirstProcs283().end()) {
+            instSetProcess(iface, fp283->second);
+            tr283("IFPROCFIRST", prefix);
+            goto ifaceProcsDone283;
+        }
+    {
     auto* procs = s.MakeProcess_stmtVec();
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::ProceduralBlock)
@@ -53809,7 +54152,25 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         instSetProcess(iface, procs);
         if (iitP != ifaceDefMap.end())
             instSetProcess(iitP->second, procs);
+        // § progLastInstSrcOrder283v — the set is recorded only by the
+        // FIRST instance in source order; an earlier-emitted instance that is
+        // not compiles its own as on pristine.
+        bool srcFirst283v = true;
+        if (first283 && r11v283On("R11V283_SRCORDER_OFF")) {
+            buildProgSrcIdx283v(comp.getRoot());
+            auto si = progSrcIdx283v().find(&inst);
+            auto mi = progSrcMin283v().find(&def);
+            srcFirst283v = si != progSrcIdx283v().end() &&
+                           mi != progSrcMin283v().end() &&
+                           si->second == mi->second;
+            if (!srcFirst283v)
+                tr283("SRCORDER283V_IFABSTAIN", prefix);
+        }
+        if (first283 && srcFirst283v)
+            ifaceFirstProcs283()[&def] = procs;
     }
+    }
+ifaceProcsDone283:
 
     // Elab-view ports carry both LowConn (own var) and HighConn (parent
     // signal), mirroring a module instance's port loop.
@@ -56124,6 +56485,26 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     auto* ca = s.MakeCont_assign();
                     ca->VpiParent(b);
                     setLoc(ca, asyn->sourceRange());
+                    // § defGenCaCommaListSpan283 (r11u283, the probe residue
+                    // r11u22repro d21_comma_list, r11u23repro d10_comma_list,
+                    // r10vearl106repro va3_span106 / va7_mix106,
+                    // r10vearl113repro v1_decl113) — the definition view's
+                    // generate-block cont_assigns of a comma list
+                    // (`assign a = x, b = y;`) each take the WHOLE list's
+                    // span, as the module-level and the elaborated
+                    // generate-scope emitters already write it: Surelog's
+                    // compileContinuousAssignment runs
+                    // populateCoreMembers(List_of_net_assignments, ...) on
+                    // every cont_assign it builds, and the generate block's
+                    // statement compile (CompileStmt's paContinuous_assign)
+                    // calls the same function (golden d21 7:12-7:66 on both,
+                    // ours 7:12-7:38 and 7:40-7:66).  Switch
+                    // R11U283_DEFGENCOMMA_OFF.
+                    if (cas2.assignments.size() > 1 &&
+                        r11u283On("R11U283_DEFGENCOMMA_OFF")) {
+                        setLoc(ca, cas2.assignments.sourceRange());
+                        tr283("DEFGENCOMMA", branchPrefix);
+                    }
                     syntaxRefPrefix = branchPrefix;
                     // Refs naming a branch localparam bind that parameter.
                     std::function<void(UHDM::any*)> bindP = [&](UHDM::any* e) {

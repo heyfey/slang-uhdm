@@ -1,0 +1,11 @@
+# the law (c9c78b5b) against pristine (b14ecd9c) on the order cases (drivers/awaycv.sh P L): chain-keyed away > 0
+VP/vp05_gen_and_top dist 0 -> 0 lost=0 gained=0 | chain away=6 toward=0 flat_away=6 flat_toward=0
+VP/vp05_gen_and_top_el dist 0 -> 0 lost=0 gained=0 | chain away=6 toward=0 flat_away=9 flat_toward=0
+VP/vp14_gen_then_child dist 0 -> 0 lost=0 gained=0 | chain away=6 toward=0 flat_away=6 flat_toward=0
+VP/vp14_gen_then_child_el dist 0 -> 0 lost=0 gained=0 | chain away=12 toward=0 flat_away=9 flat_toward=0
+VP/vp16_forgen_then_direct dist 0 -> 0 lost=0 gained=0 | chain away=6 toward=0 flat_away=6 flat_toward=0
+VP/vp16_forgen_then_direct_el dist 0 -> 0 lost=0 gained=0 | chain away=6 toward=6 flat_away=9 flat_toward=0
+VI/vi12_gen_then_direct dist 10 -> 9 lost=8 gained=0 | chain away=8 toward=0 flat_away=8 flat_toward=0
+VI/vi12_gen_then_direct_el dist 19 -> 2 lost=0 gained=8 | chain away=0 toward=8 flat_away=0 flat_toward=8
+VP/vp10_direct_gen_direct dist 12 -> 6 lost=2 gained=0 | chain away=0 toward=0 flat_away=2 flat_toward=0
+VP/vp10_direct_gen_direct_el dist 11 -> 6 lost=2 gained=0 | chain away=0 toward=6 flat_away=2 flat_toward=0

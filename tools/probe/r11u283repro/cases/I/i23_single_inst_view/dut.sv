@@ -1,0 +1,11 @@
+// § ifacePortViewNoProcs283
+interface ifc (input logic clk);
+  logic [3:0] d;
+  always @(posedge clk) d <= d + 1;
+  modport mp (input d);
+endinterface
+module sub (ifc.mp m, output logic [3:0] o); assign o = m.d; endmodule
+module dut (input logic clk, output logic [3:0] o);
+  ifc a (.clk(clk));
+  sub s1 (.m(a), .o(o));
+endmodule

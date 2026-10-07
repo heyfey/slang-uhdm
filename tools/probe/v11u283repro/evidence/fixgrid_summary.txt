@@ -1,0 +1,13 @@
+F!=L VI/vi12_gen_then_direct                            P=STRICT_NOTEQUAL_depth L=STRICT_NOTEQUAL_fullname F=STRICT_NOTEQUAL_depth
+F!=L VI/vi12_gen_then_direct_el                         P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname F=STRICT_NOTEQUAL_fullname
+F!=L VP/vp05_gen_and_top                                P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1
+F!=L VP/vp05_gen_and_top_el                             P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1
+F!=L VP/vp10_direct_gen_direct                          P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname F=STRICT_EQUAL_179_objects
+F!=L VP/vp10_direct_gen_direct_el                       P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname F=STRICT_EQUAL_188_objects
+F!=L VP/vp13_two_gens_direct_between                    P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1
+F!=L VP/vp13_two_gens_direct_between_el                 P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1
+F!=L VP/vp14_gen_then_child                             P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1
+F!=L VP/vp14_gen_then_child_el                          P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1
+F!=L VP/vp16_forgen_then_direct                         P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1
+F!=L VP/vp16_forgen_then_direct_el                      P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1
+case-views=302 FV==L 302/302 FU==P 302/302 P->F moving=260 entering=198 leaving=0 rc_changed=0

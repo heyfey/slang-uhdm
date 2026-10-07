@@ -1,0 +1,13 @@
+case-views=3774 moving=6 entering=4 leaving=0 rc-changed=0 cmplines-changed=2
+MOVER tp/r10uvm226repro/grid226/a14_genregcount NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 500->500
+MOVER tp/r10uvm226repro/grid226/a14_genregcount_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 500->500
+MOVER tp/r10v226repro/arms/b14_param NOT_EQUAL_stage1 -> STRICT_EQUAL_154_objects cmplines 36->0
+MOVER tp/r10v226repro/arms/b14_param_el NOT_EQUAL_stage1 -> STRICT_EQUAL_160_objects cmplines 64->0
+MOVER tp/v11u281repro/cases/VI/vi38_two_inst_two_declarators STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_228_objects cmplines 0->0
+MOVER tp/v11u281repro/cases/VI/vi38_two_inst_two_declarators_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_225_objects cmplines 0->0
+ENTER tp/r10v226repro/arms/b14_param
+ENTER tp/r10v226repro/arms/b14_param_el
+ENTER tp/v11u281repro/cases/VI/vi38_two_inst_two_declarators
+ENTER tp/v11u281repro/cases/VI/vi38_two_inst_two_declarators_el
+CHANGED tp/r10v226repro/arms/b14_param
+CHANGED tp/r10v226repro/arms/b14_param_el

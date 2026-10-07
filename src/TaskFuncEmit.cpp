@@ -29,6 +29,7 @@
 #include "R253.h"
 #include "R275.h"
 #include "R277.h"
+#include "R283.h"
 
 namespace slang_uhdm {
 
@@ -5020,6 +5021,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // `getSimpleVarFromTypespec` / named-typespec arm).  Grid
             // tools/probe/r11u200dec/cases/T.  Switch R11U200_CLASSTDRET_OFF.
             bool classTdRet200 = false;
+            bool scopedRet283 = false;  // § scopedClassRetQualSpan283
             // § classScopeTdRetBuildsOwner206 (r11u206, v11u202's V4;
             // R11U206_CLSCOPETDRET_OFF) — a return written as ANOTHER
             // class's typedef (`function K::q_t f();`, `extern function
@@ -5093,8 +5095,29 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // class reference instead of leaving it null.
                     else
                         pendingClassTsLink.push_back({cts9, &rct9});
-                    if (auto* rsyn9 = retTypeSyn175(sub))
+                    if (auto* rsyn9 = retTypeSyn175(sub)) {
                         setLoc(cts9, rsyn9->sourceRange());
+                        // § scopedClassRetQualSpan283 (r11u283, the probe
+                        // residue r10uvm56repro/v3_hierpath and
+                        // r10v150repro/v150_f1) — a return written as a
+                        // SCOPED class (`function automatic fp1::LL h2();`)
+                        // is located at its scope prefix `fp1::`, the
+                        // Class_scope node CompileType's class_scope arm
+                        // populates the typespec from (golden v150 9:22-9:27,
+                        // ours the whole 9:22-9:29), the rule TypeEmit's
+                        // scoped class reference already follows for
+                        // declarations.  Switch R11U283_SCOPEDRET_OFF.
+                        if (auto* nt283 = rsyn9->as_if<syntax::NamedTypeSyntax>())
+                            if (auto* sn283 = nt283->name->as_if<syntax::ScopedNameSyntax>();
+                                sn283 && sn283->separator.range().end() !=
+                                             SourceLocation::NoLocation &&
+                                r11u283On("R11U283_SCOPEDRET_OFF")) {
+                                setLoc(cts9, SourceRange(sn283->left->sourceRange().start(),
+                                                         sn283->separator.range().end()));
+                                scopedRet283 = true;
+                                tr283("SCOPEDRET", std::string(sub.name));
+                            }
+                    }
                     // § classHandleRetTsNameUnlessSameHomeComponent156 —
                     // the class-handle return is anonymous ONLY when Surelog's
                     // `design->getClassDefinition` fallback claims it, i.e.
@@ -5316,6 +5339,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             }
             else {
                 copyLoc(rv, ts);
+                // § scopedClassRetQualSpan283 — the return VARIABLE keeps the
+                // whole written type (golden v150 class_var 9:22-9:29):
+                // compileVariable populates it at the data type node.
+                if (scopedRet283)
+                    if (auto* rsyn283 = retTypeSyn175(sub))
+                        setLoc(rv, rsyn283->sourceRange());
                 // § classTdRetSharesTypedefTs200 — a LATE-BOUND return (the
                 // bare `ref_var` of § ownNamedAliasRetIsRefVar177, a typedef of
                 // the declaring class itself) keeps the return token's span

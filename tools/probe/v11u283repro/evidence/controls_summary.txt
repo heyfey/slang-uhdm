@@ -1,0 +1,36 @@
+implementer controls: case-views=3774 moving=6 entering=4 leaving=0 rc-changed=0 cmplines-changed=2
+  MOVER tp/r10uvm226repro/grid226/a14_genregcount NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 500->500
+  MOVER tp/r10uvm226repro/grid226/a14_genregcount_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 500->500
+  MOVER tp/r10v226repro/arms/b14_param NOT_EQUAL_stage1 -> STRICT_EQUAL_154_objects cmplines 36->0
+  MOVER tp/r10v226repro/arms/b14_param_el NOT_EQUAL_stage1 -> STRICT_EQUAL_160_objects cmplines 64->0
+  MOVER tp/v11u281repro/cases/VI/vi38_two_inst_two_declarators STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_228_objects cmplines 0->0
+  MOVER tp/v11u281repro/cases/VI/vi38_two_inst_two_declarators_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_225_objects cmplines 0->0
+widened: case-views=5308 moving=26 entering=8 leaving=0 rc-changed=0 cmplines-changed=0
+  MOVER tp/r11u173verify/cases/dl/d04_genif_literal_list NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 19->19
+  MOVER tp/r11u173verify/cases/dl/d04_genif_literal_list_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 19->19
+  MOVER tp/r11u173verify/cases/dl/d10_param_delay_genfor_list NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 15->15
+  MOVER tp/r11u173verify/cases/dl/d10_param_delay_genfor_list_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 15->15
+  MOVER tp/r11u176repro/cases/PG/g09_two_progs STRICT_NOTEQUAL_type -> STRICT_EQUAL_118_objects cmplines 0->0
+  MOVER tp/r11u176repro/cases/PG/g09_two_progs_el STRICT_NOTEQUAL_type -> STRICT_EQUAL_118_objects cmplines 0->0
+  MOVER tp/r11u185verify/cases/PG/p03_prog_in_generate NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 35->35
+  MOVER tp/r11u185verify/cases/PG/p03_prog_in_generate_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 35->35
+  MOVER tp/r11u185verify/cases/PG/p05_param_iface_twice STRICT_NOTEQUAL_type -> STRICT_EQUAL_160_objects cmplines 0->0
+  MOVER tp/r11u185verify/cases/PG/p05_param_iface_twice_el STRICT_NOTEQUAL_type -> STRICT_EQUAL_160_objects cmplines 0->0
+  MOVER tp/r11u185verify/cases/X/x02_progmp_idx_actual NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 58->58
+  MOVER tp/r11u185verify/cases/X/x02_progmp_idx_actual_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 58->58
+  MOVER tp/r11u213verify/cases/TR/r05 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 18->18
+  MOVER tp/r11u213verify/cases/TR/r05_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 18->18
+  MOVER tp/r11u234dec/cases/GF/gf02_qual NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 40->40
+  MOVER tp/r11u234dec/cases/GF/gf02_qual_el STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_40_objects cmplines 0->0
+  MOVER tp/r11v69repro/grid/w6_declorder NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 31->31
+  MOVER tp/r11v69repro/grid/w6_declorder_el STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_276_objects cmplines 0->0
+  MOVER tp/v11u164repro/cases/DL/d02_list_genif NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 19->19
+  MOVER tp/v11u164repro/cases/DL/d02_list_genif_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 19->19
+  MOVER tp/v11u176repro/cases/PG/p04_nested_twice STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_136_objects cmplines 0->0
+  MOVER tp/v11u176repro/cases/PG/p04_nested_twice_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_136_objects cmplines 0->0
+  MOVER tp/v11u196repro/cases/MG/g04 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 177->177
+  MOVER tp/v11u196repro/cases/MG/g04_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 181->181
+  MOVER tp/v11u271repro/cases/VT/vt12_extern_ret NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 22->22
+  MOVER tp/v11u271repro/cases/VT/vt12_extern_ret_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 22->22
+all: case-views=9082 moving=32 entering=12 leaving=0 rc-changed=0 cmplines-changed=2
+pristine exit codes != 0 / FAIL lines: 139 rc139: 5 fix rc139: 5
