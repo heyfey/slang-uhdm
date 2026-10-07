@@ -1,0 +1,43 @@
+sweep_pris_downstream.log:law index STALE: tests/LAWS.md (run scripts/law_index.py)
+sweep_pris_downstream.log:== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+sweep_pris_downstream.log:downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+sweep_pris_downstream.log:rc=1
+sweep_pris_probe_surelog_uhdm2rtlil.log:== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u272_wdP/probe.csv
+sweep_pris_probe_surelog_uhdm2rtlil.log:probe cases: EQUAL=3682 STRICT_NOTEQUAL=405 (of 4087); goldens built now=0, from cache=4087
+sweep_pris_probe_surelog_uhdm2rtlil.log:probe strict: equal=3682 differ:fullname=147 differ:endcol=59 differ:line=53 differ:name=43 differ:type=38 differ:file=20 differ:depth=15 differ:col=13 differ:endline=10 differ:value=4 differ:count=2 differ:decompile=1
+sweep_pris_probe_surelog_uhdm2rtlil.log:== probe vs golden_probe.csv
+sweep_pris_probe_surelog_uhdm2rtlil.log:[probe] EQUAL=3682 STRICT_NOTEQUAL=405
+sweep_pris_probe_surelog_uhdm2rtlil.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+sweep_pris_probe_surelog_uhdm2rtlil.log:== surelog: both modes, jobs=3, out=/tmp/v11u272_wdP/surelog.csv
+sweep_pris_probe_surelog_uhdm2rtlil.log:== surelog vs golden_surelog.csv
+sweep_pris_probe_surelog_uhdm2rtlil.log:[default] CMP_EQUAL=477 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=3 SURELOG_FAIL=25
+sweep_pris_probe_surelog_uhdm2rtlil.log:[testflags] CMP_EQUAL=471 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=3 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+sweep_pris_probe_surelog_uhdm2rtlil.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+sweep_pris_probe_surelog_uhdm2rtlil.log:== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u272_wdP/uhdm2rtlil.csv
+sweep_pris_probe_surelog_uhdm2rtlil.log:== uhdm2rtlil vs golden_uhdm2rtlil.csv
+sweep_pris_probe_surelog_uhdm2rtlil.log:[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+sweep_pris_probe_surelog_uhdm2rtlil.log:[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+sweep_pris_probe_surelog_uhdm2rtlil.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+sweep_pris_probe_surelog_uhdm2rtlil.log:rc=0
+sweep_law_downstream.log:law index STALE: tests/LAWS.md (run scripts/law_index.py)
+sweep_law_downstream.log:== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+sweep_law_downstream.log:downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+sweep_law_downstream.log:rc=1
+sweep_law_probe_surelog_uhdm2rtlil.log:law index STALE: tests/LAWS.md (run scripts/law_index.py)
+sweep_law_probe_surelog_uhdm2rtlil.log:== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u272_wdL/probe.csv
+sweep_law_probe_surelog_uhdm2rtlil.log:probe cases: EQUAL=3703 STRICT_NOTEQUAL=384 (of 4087); goldens built now=0, from cache=4087
+sweep_law_probe_surelog_uhdm2rtlil.log:probe strict: equal=3703 differ:fullname=126 differ:endcol=59 differ:line=53 differ:name=43 differ:type=38 differ:file=20 differ:depth=15 differ:col=13 differ:endline=10 differ:value=4 differ:count=2 differ:decompile=1
+sweep_law_probe_surelog_uhdm2rtlil.log:== probe vs golden_probe.csv
+sweep_law_probe_surelog_uhdm2rtlil.log:[probe] EQUAL=3703 STRICT_NOTEQUAL=384
+sweep_law_probe_surelog_uhdm2rtlil.log:regressions=0 conversions=21 changes=1 only-fresh=0 only-committed=0
+sweep_law_probe_surelog_uhdm2rtlil.log:== surelog: both modes, jobs=3, out=/tmp/v11u272_wdL/surelog.csv
+sweep_law_probe_surelog_uhdm2rtlil.log:== surelog vs golden_surelog.csv
+sweep_law_probe_surelog_uhdm2rtlil.log:[default] CMP_EQUAL=477 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=3 SURELOG_FAIL=25
+sweep_law_probe_surelog_uhdm2rtlil.log:[testflags] CMP_EQUAL=471 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=3 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+sweep_law_probe_surelog_uhdm2rtlil.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+sweep_law_probe_surelog_uhdm2rtlil.log:== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u272_wdL/uhdm2rtlil.csv
+sweep_law_probe_surelog_uhdm2rtlil.log:== uhdm2rtlil vs golden_uhdm2rtlil.csv
+sweep_law_probe_surelog_uhdm2rtlil.log:[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+sweep_law_probe_surelog_uhdm2rtlil.log:[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+sweep_law_probe_surelog_uhdm2rtlil.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+sweep_law_probe_surelog_uhdm2rtlil.log:rc=1

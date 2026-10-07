@@ -1,0 +1,19 @@
+# pristine sweep (tests/sweep.sh probe surelog uhdm2rtlil, then downstream), binary md5 0abca796
+sweepP_ds.log:law index STALE: tests/LAWS.md (run scripts/law_index.py)
+sweepP_ds.log:== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+sweepP_ds.log:downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+sweepP.log:law index STALE: tests/LAWS.md (run scripts/law_index.py)
+sweepP.log:== probe cases (tests/probe, cached goldens), jobs=3, out=WDP/probe.csv
+sweepP.log:probe cases: EQUAL=3682 STRICT_NOTEQUAL=405 (of 4087); goldens built now=0, from cache=4087
+sweepP.log:[probe] EQUAL=3682 STRICT_NOTEQUAL=405
+sweepP.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+sweepP.log:[default] 798 tests
+sweepP.log:[testflags] 798 tests
+sweepP.log:[default] CMP_EQUAL=477 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=3 SURELOG_FAIL=25
+sweepP.log:[testflags] CMP_EQUAL=471 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=3 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+sweepP.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+sweepP.log:[default] 871 tests
+sweepP.log:[testflags] 871 tests
+sweepP.log:[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+sweepP.log:[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+sweepP.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

@@ -1,0 +1,16 @@
+surelog/default/StructParamPatternInitCast-cec842a1 chain away=0 toward=1 flat_away=0 flat_toward=1
+surelog/testflags/StructParamPatternInitCast-cec842a1 chain away=0 toward=1 flat_away=0 flat_toward=1
+uhdm2rtlil/default/def_ctx_struct_param-b2c44da7 chain away=0 toward=6 flat_away=0 flat_toward=6
+uhdm2rtlil/default/latch_decoder_partial-a91a0d0e chain away=0 toward=3 flat_away=0 flat_toward=3
+uhdm2rtlil/default/latch_tlb_napot-58807a5d chain away=0 toward=3 flat_away=0 flat_toward=3
+uhdm2rtlil/default/portsel_struct_param-ee3c1680 chain away=0 toward=2 flat_away=0 flat_toward=2
+uhdm2rtlil/default/struct_member_cfg_width-1a008f7e chain away=0 toward=2 flat_away=0 flat_toward=2
+uhdm2rtlil/default/struct_param_func_arg-a47ad7db chain away=0 toward=2 flat_away=0 flat_toward=2
+uhdm2rtlil/default/struct_param_func_loop-3a50c32a chain away=0 toward=3 flat_away=0 flat_toward=3
+uhdm2rtlil/testflags/def_ctx_struct_param-b2c44da7 chain away=0 toward=6 flat_away=0 flat_toward=6
+uhdm2rtlil/testflags/latch_decoder_partial-a91a0d0e chain away=0 toward=3 flat_away=0 flat_toward=3
+uhdm2rtlil/testflags/latch_tlb_napot-58807a5d chain away=0 toward=3 flat_away=0 flat_toward=3
+uhdm2rtlil/testflags/portsel_struct_param-ee3c1680 chain away=0 toward=2 flat_away=0 flat_toward=2
+uhdm2rtlil/testflags/struct_member_cfg_width-1a008f7e chain away=0 toward=2 flat_away=0 flat_toward=2
+uhdm2rtlil/testflags/struct_param_func_arg-a47ad7db chain away=0 toward=2 flat_away=0 flat_toward=2
+uhdm2rtlil/testflags/struct_param_func_loop-3a50c32a chain away=0 toward=3 flat_away=0 flat_toward=3

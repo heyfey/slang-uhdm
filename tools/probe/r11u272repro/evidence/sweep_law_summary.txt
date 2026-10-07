@@ -1,0 +1,51 @@
+# law sweep, binary lawG md5 779f5183
+sweepL_ds.log:law index STALE: tests/LAWS.md (run scripts/law_index.py)
+sweepL_ds.log:== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+sweepL_ds.log:downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+sweepL.log:law index STALE: tests/LAWS.md (run scripts/law_index.py)
+sweepL.log:== probe cases (tests/probe, cached goldens), jobs=3, out=WDL/probe.csv
+sweepL.log:probe cases: EQUAL=3703 STRICT_NOTEQUAL=384 (of 4087); goldens built now=0, from cache=4087
+sweepL.log:[probe] EQUAL=3703 STRICT_NOTEQUAL=384
+sweepL.log:CONVERSION r11u24repro/n12 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11u24repro/n3 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11u26repro/m12 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11u26repro/m13 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11u26repro/m15 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11u26repro/m6 STRICT_NOTEQUAL differ:fullname(8) -> EQUAL
+sweepL.log:CONVERSION r11u26repro/m8 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11u26repro/m9 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11u28repro/a13 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+sweepL.log:CONVERSION r11u28repro/a16 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11u28repro/a4 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11u28repro/a5 STRICT_NOTEQUAL differ:fullname(8) -> EQUAL
+sweepL.log:CONVERSION r11u28repro/a6 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11u28repro/a7 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11v26repro/v12 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11v26repro/v13 STRICT_NOTEQUAL differ:fullname(8) -> EQUAL
+sweepL.log:CONVERSION r11v26repro/v15 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11v26repro/v16 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11v26repro/v18 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CONVERSION r11v26repro/v2 STRICT_NOTEQUAL differ:fullname(8) -> EQUAL
+sweepL.log:CONVERSION r11v26repro/v9 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+sweepL.log:CHANGE r11u26repro/m7 STRICT_NOTEQUAL differ:fullname(40) -> differ:fullname(38) [fullname -2]
+sweepL.log:regressions=0 conversions=21 changes=1 only-fresh=0 only-committed=0
+sweepL.log:[default] 798 tests
+sweepL.log:[testflags] 798 tests
+sweepL.log:[default] CMP_EQUAL=477 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=3 SURELOG_FAIL=25
+sweepL.log:[testflags] CMP_EQUAL=471 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=3 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+sweepL.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+sweepL.log:[default] 871 tests
+sweepL.log:[testflags] 871 tests
+sweepL.log:[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+sweepL.log:[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+sweepL.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+# row-by-row diff of the corpus csvs pristine vs law (only the LowMem workdir path in the detail text):
+844c844
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WDP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WDL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+846c846
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WDP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WDL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+# downstream csv pristine vs law: identical; vs results/downstream_uhdm2rtlil.csv: identical

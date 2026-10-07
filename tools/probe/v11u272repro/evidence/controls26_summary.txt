@@ -1,0 +1,153 @@
+case-views=2620 moving=132 entering=16 leaving=0 rc-changed=0 cmplines-changed=4
+MOVER tp/r11u167repro/cases/pc/c01 STRICT_EQUAL_221_objects -> STRICT_EQUAL_221_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c01_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_277_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c02 STRICT_EQUAL_217_objects -> STRICT_EQUAL_217_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c02_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_273_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c06 STRICT_EQUAL_243_objects -> STRICT_EQUAL_243_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c06_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c09 STRICT_EQUAL_195_objects -> STRICT_EQUAL_195_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c09_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_251_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/rs/r11 STRICT_EQUAL_339_objects -> STRICT_EQUAL_339_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/rs/r11_el STRICT_NOTEQUAL_depth -> STRICT_NOTEQUAL_depth cmplines 0->0
+MOVER tp/r11u16repro/d1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 92->92
+MOVER tp/r11u16repro/d10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 80->80
+MOVER tp/r11u16repro/d10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 88->88
+MOVER tp/r11u16repro/d11 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 66->66
+MOVER tp/r11u16repro/d11_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 74->74
+MOVER tp/r11u16repro/d13 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u16repro/d13_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u16repro/d1_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 100->100
+MOVER tp/r11u16repro/d3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u16repro/d3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u16repro/d4 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 68->68
+MOVER tp/r11u16repro/d4_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 76->76
+MOVER tp/r11u16repro/d6 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 98->98
+MOVER tp/r11u16repro/d6_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 98->98
+MOVER tp/r11u16repro/d7 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u16repro/d7_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u16repro/d8 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 66->66
+MOVER tp/r11u16repro/d8_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 74->74
+MOVER tp/r11u227repro/cases/PL/pl01_qualified_in_own NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 34->34
+MOVER tp/r11u227repro/cases/PL/pl01_qualified_in_own_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 34->34
+MOVER tp/r11u227repro/cases/PL/pl02_other_package_fn NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 34->34
+MOVER tp/r11u227repro/cases/PL/pl02_other_package_fn_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 34->34
+MOVER tp/r11u227repro/cases/PL/pl03_positional NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u227repro/cases/PL/pl03_positional_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u227repro/cases/PL/pl06_nested_pattern NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 172->172
+MOVER tp/r11u227repro/cases/PL/pl06_nested_pattern_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 172->172
+MOVER tp/r11u227repro/cases/PL/pl07_two_readers NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u227repro/cases/PL/pl07_two_readers_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u227repro/cases/PL/pl08_default_key STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_564_objects cmplines 0->0
+MOVER tp/r11u227repro/cases/PL/pl08_default_key_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_706_objects cmplines 0->0
+MOVER tp/r11u227repro/cases/PL/pl09_module_param_call NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11u227repro/cases/PL/pl09_module_param_call_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11u227repro/cases/PL/pl10_read_in_expr STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_576_objects cmplines 0->0
+MOVER tp/r11u227repro/cases/PL/pl10_read_in_expr_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_725_objects cmplines 0->0
+MOVER tp/r11u227repro/cases/PL/pl12_generate_reader NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u227repro/cases/PL/pl12_generate_reader_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u232repro/cases/OL/ol12 STRICT_EQUAL_3466_objects -> STRICT_EQUAL_3466_objects cmplines 0->0
+MOVER tp/r11u232repro/cases/OL/ol12_el STRICT_EQUAL_4089_objects -> STRICT_EQUAL_4089_objects cmplines 0->0
+MOVER tp/r11u24repro/n10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u24repro/n10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u24repro/n5 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 81->81
+MOVER tp/r11u24repro/n5_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 81->81
+MOVER tp/r11u24repro/n6 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u24repro/n6_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u24repro/n8 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u24repro/n8_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u24repro/n9 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 15->15
+MOVER tp/r11u24repro/n9_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 15->15
+MOVER tp/r11u26repro/m1 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_568_objects cmplines 0->0
+MOVER tp/r11u26repro/m1_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_710_objects cmplines 0->0
+MOVER tp/r11u26repro/m2 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_884_objects cmplines 0->0
+MOVER tp/r11u26repro/m2_el STRICT_NOTEQUAL_name -> STRICT_NOTEQUAL_name cmplines 0->0
+MOVER tp/r11u26repro/m3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u26repro/m3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u26repro/m5 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u26repro/m5_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u26repro/n10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u26repro/n10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u28repro/a1 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_1106_objects cmplines 0->0
+MOVER tp/r11u28repro/a10 STRICT_EQUAL_374_objects -> STRICT_EQUAL_374_objects cmplines 0->0
+MOVER tp/r11u28repro/a10_el STRICT_EQUAL_466_objects -> STRICT_EQUAL_466_objects cmplines 0->0
+MOVER tp/r11u28repro/a11 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_965_objects cmplines 0->0
+MOVER tp/r11u28repro/a11_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_1218_objects cmplines 0->0
+MOVER tp/r11u28repro/a14 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_568_objects cmplines 0->0
+MOVER tp/r11u28repro/a14_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_710_objects cmplines 0->0
+MOVER tp/r11u28repro/a17 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u28repro/a17_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u28repro/a18 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 52->52
+MOVER tp/r11u28repro/a18_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 52->52
+MOVER tp/r11u28repro/a19 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/r11u28repro/a19_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/r11u28repro/a1_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_1316_objects cmplines 0->0
+MOVER tp/r11u28repro/a20 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 40->40
+MOVER tp/r11u28repro/a20_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 40->40
+MOVER tp/r11u28repro/a3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 52->52
+MOVER tp/r11u28repro/a3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 52->52
+MOVER tp/r11v167repro/cases/pa/a03 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 68->68
+MOVER tp/r11v167repro/cases/pa/a03_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 68->68
+MOVER tp/r11v167repro/cases/pa/a04 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a04_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a05 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a05_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a06 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 32->32
+MOVER tp/r11v167repro/cases/pa/a06_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 32->32
+MOVER tp/r11v167repro/cases/pa/a08 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 32->32
+MOVER tp/r11v167repro/cases/pa/a08_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 32->32
+MOVER tp/r11v167repro/cases/pa/a10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a11 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a11_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a15 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 47->47
+MOVER tp/r11v167repro/cases/pa/a15_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11v26repro/v1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v26repro/v10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 120->120
+MOVER tp/r11v26repro/v10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 120->120
+MOVER tp/r11v26repro/v11 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 172->172
+MOVER tp/r11v26repro/v11_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 172->172
+MOVER tp/r11v26repro/v14 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 130->130
+MOVER tp/r11v26repro/v14_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 130->130
+MOVER tp/r11v26repro/v17 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/r11v26repro/v17_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/r11v26repro/v19 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 120->120
+MOVER tp/r11v26repro/v19_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 120->120
+MOVER tp/r11v26repro/v1_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v26repro/v3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11v26repro/v3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11v26repro/v4 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 172->172
+MOVER tp/r11v26repro/v4_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 172->172
+MOVER tp/r11v26repro/v5 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11v26repro/v5_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11v26repro/v6 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11v26repro/v6_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11v26repro/v7 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11v26repro/v7_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11v26repro/v8 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v26repro/v8_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11vu13repro/v10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 308->320
+MOVER tp/r11vu13repro/v10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 308->320
+MOVER tp/r11vu13repro/v3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 308->320
+MOVER tp/r11vu13repro/v3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 308->320
+MOVER tp/r11vu13repro/v7 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 56->56
+MOVER tp/r11vu13repro/v7_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 56->56
+ENTER tp/r11u167repro/cases/pc/c01_el
+ENTER tp/r11u167repro/cases/pc/c02_el
+ENTER tp/r11u167repro/cases/pc/c09_el
+ENTER tp/r11u227repro/cases/PL/pl08_default_key
+ENTER tp/r11u227repro/cases/PL/pl08_default_key_el
+ENTER tp/r11u227repro/cases/PL/pl10_read_in_expr
+ENTER tp/r11u227repro/cases/PL/pl10_read_in_expr_el
+ENTER tp/r11u26repro/m1
+ENTER tp/r11u26repro/m1_el
+ENTER tp/r11u26repro/m2
+ENTER tp/r11u28repro/a1
+ENTER tp/r11u28repro/a11
+ENTER tp/r11u28repro/a11_el
+ENTER tp/r11u28repro/a14
+ENTER tp/r11u28repro/a14_el
+ENTER tp/r11u28repro/a1_el
+CHANGED tp/r11vu13repro/v10
+CHANGED tp/r11vu13repro/v10_el
+CHANGED tp/r11vu13repro/v3
+CHANGED tp/r11vu13repro/v3_el

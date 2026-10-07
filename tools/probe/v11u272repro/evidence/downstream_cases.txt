@@ -1,0 +1,147 @@
+# downstream (scripts/downstream_uhdm2rtlil.py one()) on every case: <case> <binary> <verdict> ...; the slang lane's .il/_nohier.il/_synth.v byte-identical between the two binaries on all 73 cases (219 files)
+VL/vl01_instarray pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl02_gen2level pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl03_depth3 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl04_rtl_reads pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+VL/vl05_converted_value pristine EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VL/vl06_local_chain pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl07_mixed_inst pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl08_defparam pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl09_genif_cond pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl10_typeparam pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl11_explicit_import pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl12_passdown_default pristine DIVERGENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=___This_indicates_a_serious_bug_in_UHDM_import
+VL/vl13_genif_inst pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl14_implicit_net pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl16_two_pkg_params pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl17_class_bound pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u272_ds/pris
+VL/vl18_unpacked_struct pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=___This_indicates_a_serious_bug_in_UHDM_import
+VL/vl19_func_arg pristine EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VL/vl20_top_and_child pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl21_op_leftover pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl22_nested3 pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u272_ds/pris
+VL/vl23_loop_builder pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u272_ds/pris
+VL/vl24_port_typed pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+VL/vl25_genlocal pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl26_macro_inc pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl27_two_children_diff pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl28_param_in_pkgfunc_call pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl29_assign_whole pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl30_program_and_gen_two pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u272_ds/pris
+VM/vm01_instarray pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm02_gen2level pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm03_depth3 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm05_converted_value pristine EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VM/vm07_mixed_inst pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm08_defparam pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm10_typeparam pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm11_explicit_import pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm12_passdown_default pristine EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VM/vm13_genif_inst pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm14_implicit_net pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm16_two_pkg_params pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm17_class_bound pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u272_ds/pris
+VM/vm18_unpacked_struct pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+VM/vm19_func_arg pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm20_top_and_child pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm21_op_leftover pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm22_nested3 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm23_loop_builder pristine EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VM/vm25_genlocal pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm26_macro_inc pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm27_two_children_diff pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm30_program_and_gen_two pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn01_cast_default pristine EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VN/vn02_paren_default pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn03_untyped pristine EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VN/vn04_member_default pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+VN/vn05_cond_default pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+VN/vn06_ovr_same_value pristine EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VN/vn07_localparam_body pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn08_wildcard_import_mod pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn09_unit pristine EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VN/vn10_pkg_param_of_pkg_param pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn11_header_chain pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn12_assign_member_read pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn13_converted_name pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn14_converted_top pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo01_union pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo02_array_member pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo03_unpacked_real_string pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo04_instarr_range_member_ovr pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo05_two_packages pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo06_genloop_bound pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo07_call_bounds pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl01_instarray law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl02_gen2level law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl03_depth3 law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl04_rtl_reads law IDENTICAL differs=- surelog=OK slang=OK detail=-
+VL/vl05_converted_value law EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VL/vl06_local_chain law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl07_mixed_inst law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl08_defparam law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl09_genif_cond law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl10_typeparam law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl11_explicit_import law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl12_passdown_default law DIVERGENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=___This_indicates_a_serious_bug_in_UHDM_import
+VL/vl13_genif_inst law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl14_implicit_net law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl16_two_pkg_params law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl17_class_bound law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u272_ds/law/
+VL/vl18_unpacked_struct law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=___This_indicates_a_serious_bug_in_UHDM_import
+VL/vl19_func_arg law EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VL/vl20_top_and_child law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl21_op_leftover law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl22_nested3 law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u272_ds/law/
+VL/vl23_loop_builder law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u272_ds/law/
+VL/vl24_port_typed law IDENTICAL differs=- surelog=OK slang=OK detail=-
+VL/vl25_genlocal law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl26_macro_inc law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl27_two_children_diff law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl28_param_in_pkgfunc_call law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl29_assign_whole law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VL/vl30_program_and_gen_two law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u272_ds/law/
+VM/vm01_instarray law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm02_gen2level law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm03_depth3 law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm05_converted_value law EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VM/vm07_mixed_inst law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm08_defparam law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm10_typeparam law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm11_explicit_import law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm12_passdown_default law EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VM/vm13_genif_inst law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm14_implicit_net law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm16_two_pkg_params law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm17_class_bound law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u272_ds/law/
+VM/vm18_unpacked_struct law EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+VM/vm19_func_arg law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm20_top_and_child law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm21_op_leftover law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm22_nested3 law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm23_loop_builder law EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VM/vm25_genlocal law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm26_macro_inc law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm27_two_children_diff law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VM/vm30_program_and_gen_two law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn01_cast_default law EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VN/vn02_paren_default law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn03_untyped law EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VN/vn04_member_default law EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+VN/vn05_cond_default law EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+VN/vn06_ovr_same_value law EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VN/vn07_localparam_body law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn08_wildcard_import_mod law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn09_unit law EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+VN/vn10_pkg_param_of_pkg_param law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn11_header_chain law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn12_assign_member_read law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn13_converted_name law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VN/vn14_converted_top law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo01_union law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo02_array_member law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo03_unpacked_real_string law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo04_instarr_range_member_ovr law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo05_two_packages law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo06_genloop_bound law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+VO/vo07_call_bounds law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-

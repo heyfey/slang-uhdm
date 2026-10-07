@@ -1,0 +1,287 @@
+# byte controls: drivers/controls.sh over r11u118repro r11v11u118repro r11u119repro r11u120repro r11v120repro r11u124repro r11v124repro r11u131repro r11v131repro r11u24repro r11u26repro r11u28repro r11v26repro r11u232repro r11u227repro r11u82repro r11u109repro r11u13repro r11vu13repro r11u16repro r11u167repro r11v167repro r11u270repro v11u270repro r11u273repro v11u273repro (path lists filtered by $FENCED first), pristine vs law lawG, both views
+case-views=2620 moving=132 entering=16 leaving=0 rc-changed=0 cmplines-changed=4
+MOVER tp/r11u167repro/cases/pc/c01 STRICT_EQUAL_221_objects -> STRICT_EQUAL_221_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c01_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_277_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c02 STRICT_EQUAL_217_objects -> STRICT_EQUAL_217_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c02_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_273_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c06 STRICT_EQUAL_243_objects -> STRICT_EQUAL_243_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c06_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c09 STRICT_EQUAL_195_objects -> STRICT_EQUAL_195_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/pc/c09_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_251_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/rs/r11 STRICT_EQUAL_339_objects -> STRICT_EQUAL_339_objects cmplines 0->0
+MOVER tp/r11u167repro/cases/rs/r11_el STRICT_NOTEQUAL_depth -> STRICT_NOTEQUAL_depth cmplines 0->0
+MOVER tp/r11u16repro/d1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 92->92
+MOVER tp/r11u16repro/d10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 80->80
+MOVER tp/r11u16repro/d10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 88->88
+MOVER tp/r11u16repro/d11 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 66->66
+MOVER tp/r11u16repro/d11_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 74->74
+MOVER tp/r11u16repro/d13 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u16repro/d13_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u16repro/d1_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 100->100
+MOVER tp/r11u16repro/d3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u16repro/d3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u16repro/d4 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 68->68
+MOVER tp/r11u16repro/d4_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 76->76
+MOVER tp/r11u16repro/d6 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 98->98
+MOVER tp/r11u16repro/d6_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 98->98
+MOVER tp/r11u16repro/d7 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u16repro/d7_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u16repro/d8 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 66->66
+MOVER tp/r11u16repro/d8_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 74->74
+MOVER tp/r11u227repro/cases/PL/pl01_qualified_in_own NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 34->34
+MOVER tp/r11u227repro/cases/PL/pl01_qualified_in_own_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 34->34
+MOVER tp/r11u227repro/cases/PL/pl02_other_package_fn NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 34->34
+MOVER tp/r11u227repro/cases/PL/pl02_other_package_fn_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 34->34
+MOVER tp/r11u227repro/cases/PL/pl03_positional NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u227repro/cases/PL/pl03_positional_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u227repro/cases/PL/pl06_nested_pattern NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 172->172
+MOVER tp/r11u227repro/cases/PL/pl06_nested_pattern_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 172->172
+MOVER tp/r11u227repro/cases/PL/pl07_two_readers NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u227repro/cases/PL/pl07_two_readers_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u227repro/cases/PL/pl08_default_key STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_564_objects cmplines 0->0
+MOVER tp/r11u227repro/cases/PL/pl08_default_key_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_706_objects cmplines 0->0
+MOVER tp/r11u227repro/cases/PL/pl09_module_param_call NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11u227repro/cases/PL/pl09_module_param_call_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11u227repro/cases/PL/pl10_read_in_expr STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_576_objects cmplines 0->0
+MOVER tp/r11u227repro/cases/PL/pl10_read_in_expr_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_725_objects cmplines 0->0
+MOVER tp/r11u227repro/cases/PL/pl12_generate_reader NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u227repro/cases/PL/pl12_generate_reader_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u232repro/cases/OL/ol12 STRICT_EQUAL_3466_objects -> STRICT_EQUAL_3466_objects cmplines 0->0
+MOVER tp/r11u232repro/cases/OL/ol12_el STRICT_EQUAL_4089_objects -> STRICT_EQUAL_4089_objects cmplines 0->0
+MOVER tp/r11u24repro/n10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u24repro/n10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u24repro/n5 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 81->81
+MOVER tp/r11u24repro/n5_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 81->81
+MOVER tp/r11u24repro/n6 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u24repro/n6_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u24repro/n8 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u24repro/n8_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u24repro/n9 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 15->15
+MOVER tp/r11u24repro/n9_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 15->15
+MOVER tp/r11u26repro/m1 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_568_objects cmplines 0->0
+MOVER tp/r11u26repro/m1_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_710_objects cmplines 0->0
+MOVER tp/r11u26repro/m2 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_884_objects cmplines 0->0
+MOVER tp/r11u26repro/m2_el STRICT_NOTEQUAL_name -> STRICT_NOTEQUAL_name cmplines 0->0
+MOVER tp/r11u26repro/m3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u26repro/m3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u26repro/m5 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u26repro/m5_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u26repro/n10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u26repro/n10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11u28repro/a1 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_1106_objects cmplines 0->0
+MOVER tp/r11u28repro/a10 STRICT_EQUAL_374_objects -> STRICT_EQUAL_374_objects cmplines 0->0
+MOVER tp/r11u28repro/a10_el STRICT_EQUAL_466_objects -> STRICT_EQUAL_466_objects cmplines 0->0
+MOVER tp/r11u28repro/a11 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_965_objects cmplines 0->0
+MOVER tp/r11u28repro/a11_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_1218_objects cmplines 0->0
+MOVER tp/r11u28repro/a14 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_568_objects cmplines 0->0
+MOVER tp/r11u28repro/a14_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_710_objects cmplines 0->0
+MOVER tp/r11u28repro/a17 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u28repro/a17_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u28repro/a18 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 52->52
+MOVER tp/r11u28repro/a18_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 52->52
+MOVER tp/r11u28repro/a19 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/r11u28repro/a19_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/r11u28repro/a1_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_1316_objects cmplines 0->0
+MOVER tp/r11u28repro/a20 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 40->40
+MOVER tp/r11u28repro/a20_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 40->40
+MOVER tp/r11u28repro/a3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 52->52
+MOVER tp/r11u28repro/a3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 52->52
+MOVER tp/r11v167repro/cases/pa/a03 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 68->68
+MOVER tp/r11v167repro/cases/pa/a03_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 68->68
+MOVER tp/r11v167repro/cases/pa/a04 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a04_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a05 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a05_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a06 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 32->32
+MOVER tp/r11v167repro/cases/pa/a06_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 32->32
+MOVER tp/r11v167repro/cases/pa/a08 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 32->32
+MOVER tp/r11v167repro/cases/pa/a08_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 32->32
+MOVER tp/r11v167repro/cases/pa/a10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a11 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a11_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v167repro/cases/pa/a15 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 47->47
+MOVER tp/r11v167repro/cases/pa/a15_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11v26repro/v1 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v26repro/v10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 120->120
+MOVER tp/r11v26repro/v10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 120->120
+MOVER tp/r11v26repro/v11 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 172->172
+MOVER tp/r11v26repro/v11_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 172->172
+MOVER tp/r11v26repro/v14 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 130->130
+MOVER tp/r11v26repro/v14_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 130->130
+MOVER tp/r11v26repro/v17 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/r11v26repro/v17_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/r11v26repro/v19 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 120->120
+MOVER tp/r11v26repro/v19_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 120->120
+MOVER tp/r11v26repro/v1_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v26repro/v3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11v26repro/v3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11v26repro/v4 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 172->172
+MOVER tp/r11v26repro/v4_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 172->172
+MOVER tp/r11v26repro/v5 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11v26repro/v5_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11v26repro/v6 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11v26repro/v6_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28
+MOVER tp/r11v26repro/v7 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11v26repro/v7_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11v26repro/v8 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11v26repro/v8_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 11->11
+MOVER tp/r11vu13repro/v10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 308->320
+MOVER tp/r11vu13repro/v10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 308->320
+MOVER tp/r11vu13repro/v3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 308->320
+MOVER tp/r11vu13repro/v3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 308->320
+MOVER tp/r11vu13repro/v7 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 56->56
+MOVER tp/r11vu13repro/v7_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 56->56
+ENTER tp/r11u167repro/cases/pc/c01_el
+ENTER tp/r11u167repro/cases/pc/c02_el
+ENTER tp/r11u167repro/cases/pc/c09_el
+ENTER tp/r11u227repro/cases/PL/pl08_default_key
+ENTER tp/r11u227repro/cases/PL/pl08_default_key_el
+ENTER tp/r11u227repro/cases/PL/pl10_read_in_expr
+ENTER tp/r11u227repro/cases/PL/pl10_read_in_expr_el
+ENTER tp/r11u26repro/m1
+ENTER tp/r11u26repro/m1_el
+ENTER tp/r11u26repro/m2
+ENTER tp/r11u28repro/a1
+ENTER tp/r11u28repro/a11
+ENTER tp/r11u28repro/a11_el
+ENTER tp/r11u28repro/a14
+ENTER tp/r11u28repro/a14_el
+ENTER tp/r11u28repro/a1_el
+CHANGED tp/r11vu13repro/v10
+CHANGED tp/r11vu13repro/v10_el
+CHANGED tp/r11vu13repro/v3
+CHANGED tp/r11vu13repro/v3_el
+# away census over the 132 movers (drivers/awayall.sh: record census where both sides pass stage 1, dump census otherwise)
+tp/r11u167repro/cases/pc/c01 rec dist 0 -> 0 lost=0 gained=0
+tp/r11u167repro/cases/pc/c01_el rec dist 1 -> 0 lost=0 gained=1
+tp/r11u167repro/cases/pc/c02 rec dist 0 -> 0 lost=0 gained=0
+tp/r11u167repro/cases/pc/c02_el rec dist 1 -> 0 lost=0 gained=1
+tp/r11u167repro/cases/pc/c06 rec dist 0 -> 0 lost=0 gained=0
+tp/r11u167repro/cases/pc/c06_el rec dist 1 -> 1 lost=0 gained=0
+tp/r11u167repro/cases/pc/c09 rec dist 0 -> 0 lost=0 gained=0
+tp/r11u167repro/cases/pc/c09_el rec dist 1 -> 0 lost=0 gained=1
+tp/r11u167repro/cases/rs/r11 rec dist 0 -> 0 lost=0 gained=0
+tp/r11u167repro/cases/rs/r11_el rec dist 0 -> 0 lost=0 gained=0
+tp/r11u16repro/d1 dump dist 35 -> 35 lost=0 gained=61
+tp/r11u16repro/d10 dump dist 18 -> 18 lost=0 gained=61
+tp/r11u16repro/d10_el dump dist 22 -> 22 lost=0 gained=61
+tp/r11u16repro/d11 dump dist 10 -> 10 lost=0 gained=115
+tp/r11u16repro/d11_el dump dist 37 -> 37 lost=0 gained=115
+tp/r11u16repro/d13 dump dist 29 -> 38 lost=0 gained=295
+tp/r11u16repro/d13_el dump dist 85 -> 94 lost=0 gained=295
+tp/r11u16repro/d1_el dump dist 84 -> 84 lost=0 gained=61
+tp/r11u16repro/d3 dump dist 9 -> 9 lost=0 gained=183
+tp/r11u16repro/d3_el dump dist 9 -> 9 lost=0 gained=183
+tp/r11u16repro/d4 dump dist 1 -> 1 lost=0 gained=61
+tp/r11u16repro/d4_el dump dist 18 -> 19 lost=0 gained=60
+tp/r11u16repro/d6 dump dist 55 -> 57 lost=0 gained=85
+tp/r11u16repro/d6_el dump dist 147 -> 152 lost=0 gained=82
+tp/r11u16repro/d7 dump dist 4 -> 5 lost=0 gained=87
+tp/r11u16repro/d7_el dump dist 30 -> 31 lost=0 gained=87
+tp/r11u16repro/d8 dump dist 10 -> 10 lost=0 gained=88
+tp/r11u16repro/d8_el dump dist 49 -> 49 lost=0 gained=88
+tp/r11u227repro/cases/PL/pl01_qualified_in_own dump dist 9 -> 10 lost=0 gained=161
+tp/r11u227repro/cases/PL/pl01_qualified_in_own_el dump dist 13 -> 14 lost=0 gained=161
+tp/r11u227repro/cases/PL/pl02_other_package_fn dump dist 10 -> 12 lost=0 gained=160
+tp/r11u227repro/cases/PL/pl02_other_package_fn_el dump dist 16 -> 20 lost=0 gained=158
+tp/r11u227repro/cases/PL/pl03_positional dump dist 5 -> 10 lost=0 gained=143
+tp/r11u227repro/cases/PL/pl03_positional_el dump dist 5 -> 10 lost=0 gained=143
+tp/r11u227repro/cases/PL/pl06_nested_pattern dump dist 37 -> 52 lost=0 gained=107
+tp/r11u227repro/cases/PL/pl06_nested_pattern_el dump dist 37 -> 52 lost=0 gained=107
+tp/r11u227repro/cases/PL/pl07_two_readers dump dist 7 -> 16 lost=0 gained=153
+tp/r11u227repro/cases/PL/pl07_two_readers_el dump dist 7 -> 16 lost=0 gained=153
+tp/r11u227repro/cases/PL/pl08_default_key rec dist 4 -> 0 lost=0 gained=4
+tp/r11u227repro/cases/PL/pl08_default_key_el rec dist 4 -> 0 lost=0 gained=4
+tp/r11u227repro/cases/PL/pl09_module_param_call dump dist 26 -> 30 lost=0 gained=57
+tp/r11u227repro/cases/PL/pl09_module_param_call_el dump dist 26 -> 30 lost=0 gained=57
+tp/r11u227repro/cases/PL/pl10_read_in_expr rec dist 4 -> 0 lost=0 gained=4
+tp/r11u227repro/cases/PL/pl10_read_in_expr_el rec dist 4 -> 0 lost=0 gained=4
+tp/r11u227repro/cases/PL/pl12_generate_reader dump dist 24 -> 25 lost=0 gained=161
+tp/r11u227repro/cases/PL/pl12_generate_reader_el dump dist 24 -> 25 lost=0 gained=161
+tp/r11u232repro/cases/OL/ol12 rec dist 0 -> 0 lost=0 gained=0
+tp/r11u232repro/cases/OL/ol12_el rec dist 0 -> 0 lost=0 gained=0
+tp/r11u24repro/n10 dump dist 13 -> 47 lost=0 gained=210
+tp/r11u24repro/n10_el dump dist 13 -> 47 lost=0 gained=210
+tp/r11u24repro/n5 dump dist 68 -> 68 lost=0 gained=122
+tp/r11u24repro/n5_el dump dist 65 -> 65 lost=0 gained=122
+tp/r11u24repro/n6 dump dist 3 -> 4 lost=0 gained=121
+tp/r11u24repro/n6_el dump dist 3 -> 4 lost=0 gained=121
+tp/r11u24repro/n8 dump dist 19 -> 20 lost=0 gained=121
+tp/r11u24repro/n8_el dump dist 13 -> 14 lost=0 gained=121
+tp/r11u24repro/n9 dump dist 43 -> 44 lost=0 gained=175
+tp/r11u24repro/n9_el dump dist 44 -> 45 lost=0 gained=175
+tp/r11u26repro/m1 rec dist 4 -> 0 lost=0 gained=4
+tp/r11u26repro/m1_el rec dist 4 -> 0 lost=0 gained=4
+tp/r11u26repro/m2 rec dist 4 -> 0 lost=0 gained=4
+tp/r11u26repro/m2_el rec dist 4 -> 0 lost=0 gained=4
+tp/r11u26repro/m3 dump dist 7 -> 12 lost=0 gained=425
+tp/r11u26repro/m3_el dump dist 7 -> 12 lost=0 gained=425
+tp/r11u26repro/m5 dump dist 7 -> 8 lost=0 gained=161
+tp/r11u26repro/m5_el dump dist 7 -> 8 lost=0 gained=161
+tp/r11u26repro/n10 dump dist 13 -> 47 lost=0 gained=210
+tp/r11u26repro/n10_el dump dist 13 -> 47 lost=0 gained=210
+tp/r11u28repro/a1 rec dist 4 -> 0 lost=0 gained=4
+tp/r11u28repro/a10 rec dist 0 -> 0 lost=0 gained=0
+tp/r11u28repro/a10_el rec dist 0 -> 0 lost=0 gained=0
+tp/r11u28repro/a11 rec dist 4 -> 0 lost=0 gained=4
+tp/r11u28repro/a11_el rec dist 4 -> 0 lost=0 gained=4
+tp/r11u28repro/a14 rec dist 4 -> 0 lost=0 gained=4
+tp/r11u28repro/a14_el rec dist 4 -> 0 lost=0 gained=4
+tp/r11u28repro/a17 dump dist 1 -> 2 lost=0 gained=161
+tp/r11u28repro/a17_el dump dist 1 -> 2 lost=0 gained=161
+tp/r11u28repro/a18 dump dist 34 -> 40 lost=0 gained=156
+tp/r11u28repro/a18_el dump dist 34 -> 40 lost=0 gained=156
+tp/r11u28repro/a19 dump dist 37 -> 41 lost=0 gained=158
+tp/r11u28repro/a19_el dump dist 37 -> 41 lost=0 gained=158
+tp/r11u28repro/a1_el rec dist 4 -> 0 lost=0 gained=4
+tp/r11u28repro/a20 dump dist 12 -> 24 lost=0 gained=110
+tp/r11u28repro/a20_el dump dist 12 -> 24 lost=0 gained=110
+tp/r11u28repro/a3 dump dist 31 -> 37 lost=0 gained=156
+tp/r11u28repro/a3_el dump dist 31 -> 37 lost=0 gained=156
+tp/r11v167repro/cases/pa/a03 dump dist 9 -> 9 lost=0 gained=68
+tp/r11v167repro/cases/pa/a03_el dump dist 9 -> 9 lost=0 gained=68
+tp/r11v167repro/cases/pa/a04 dump dist 52 -> 52 lost=0 gained=88
+tp/r11v167repro/cases/pa/a04_el dump dist 52 -> 52 lost=0 gained=88
+tp/r11v167repro/cases/pa/a05 dump dist 13 -> 15 lost=0 gained=31
+tp/r11v167repro/cases/pa/a05_el dump dist 13 -> 15 lost=0 gained=31
+tp/r11v167repro/cases/pa/a06 dump dist 7 -> 13 lost=0 gained=28
+tp/r11v167repro/cases/pa/a06_el dump dist 7 -> 13 lost=0 gained=28
+tp/r11v167repro/cases/pa/a08 dump dist 7 -> 13 lost=0 gained=28
+tp/r11v167repro/cases/pa/a08_el dump dist 7 -> 13 lost=0 gained=28
+tp/r11v167repro/cases/pa/a10 dump dist 52 -> 52 lost=0 gained=88
+tp/r11v167repro/cases/pa/a10_el dump dist 52 -> 52 lost=0 gained=88
+tp/r11v167repro/cases/pa/a11 dump dist 13 -> 15 lost=0 gained=31
+tp/r11v167repro/cases/pa/a11_el dump dist 13 -> 15 lost=0 gained=31
+tp/r11v167repro/cases/pa/a15 dump dist 9 -> 9 lost=0 gained=34
+tp/r11v167repro/cases/pa/a15_el rec dist 2 -> 2 lost=0 gained=9
+tp/r11v26repro/v1 dump dist 49 -> 49 lost=0 gained=81
+tp/r11v26repro/v10 dump dist 45 -> 60 lost=0 gained=107
+tp/r11v26repro/v10_el dump dist 45 -> 60 lost=0 gained=107
+tp/r11v26repro/v11 dump dist 38 -> 53 lost=0 gained=107
+tp/r11v26repro/v11_el dump dist 38 -> 53 lost=0 gained=107
+tp/r11v26repro/v14 dump dist 37 -> 49 lost=0 gained=110
+tp/r11v26repro/v14_el dump dist 37 -> 49 lost=0 gained=110
+tp/r11v26repro/v17 dump dist 6 -> 7 lost=0 gained=161
+tp/r11v26repro/v17_el dump dist 6 -> 7 lost=0 gained=161
+tp/r11v26repro/v19 dump dist 53 -> 87 lost=0 gained=128
+tp/r11v26repro/v19_el dump dist 53 -> 87 lost=0 gained=128
+tp/r11v26repro/v1_el dump dist 49 -> 49 lost=0 gained=81
+tp/r11v26repro/v3 dump dist 10 -> 11 lost=0 gained=147
+tp/r11v26repro/v3_el dump dist 10 -> 11 lost=0 gained=147
+tp/r11v26repro/v4 dump dist 44 -> 59 lost=0 gained=107
+tp/r11v26repro/v4_el dump dist 44 -> 59 lost=0 gained=107
+tp/r11v26repro/v5 dump dist 35 -> 36 lost=0 gained=161
+tp/r11v26repro/v5_el dump dist 35 -> 36 lost=0 gained=161
+tp/r11v26repro/v6 dump dist 7 -> 16 lost=0 gained=153
+tp/r11v26repro/v6_el dump dist 7 -> 16 lost=0 gained=153
+tp/r11v26repro/v7 dump dist 25 -> 36 lost=0 gained=111
+tp/r11v26repro/v7_el dump dist 25 -> 36 lost=0 gained=111
+tp/r11v26repro/v8 dump dist 40 -> 48 lost=0 gained=114
+tp/r11v26repro/v8_el dump dist 40 -> 48 lost=0 gained=114
+tp/r11vu13repro/v10 dump dist 2 -> 9 lost=0 gained=257
+tp/r11vu13repro/v10_el dump dist 2 -> 9 lost=0 gained=257
+tp/r11vu13repro/v3 dump dist 2 -> 9 lost=0 gained=169
+tp/r11vu13repro/v3_el dump dist 2 -> 9 lost=0 gained=169
+tp/r11vu13repro/v7 dump dist 13 -> 15 lost=0 gained=86
+tp/r11vu13repro/v7_el dump dist 13 -> 15 lost=0 gained=86

@@ -1,0 +1,8 @@
+# downstream: 7 of 805 slang-lane databases move (the predicted uhdm2rtlil tests); their slang-lane .il/_nohier.il/_synth.v byte-identical pristine vs law
+def_ctx_struct_param,IDENTICAL,OK,OK,2,2,,
+latch_decoder_partial,IDENTICAL,OK,OK,1,1,,
+latch_tlb_napot,IDENTICAL,OK,OK,2,2,,
+portsel_struct_param,IDENTICAL,OK,OK,1,1,,
+struct_member_cfg_width,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+struct_param_func_arg,IDENTICAL,OK,OK,51,51,,
+struct_param_func_loop,IDENTICAL,OK,OK,70,70,,

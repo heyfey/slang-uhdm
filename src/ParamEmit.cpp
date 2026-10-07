@@ -32,6 +32,7 @@
 #include "R266.h"
 #include "R268.h"
 #include "R270.h"
+#include "R272.h"
 namespace slang_uhdm {
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
@@ -5639,7 +5640,325 @@ static void impPatCopyFirstListing215(UHDM::design* d, Compilation& comp) {
             inst((UHDM::module_inst*)m);
 }
 
+// § leftoverTsCopyPerElabUse272 (r11u272) — AN ELABORATED INSTANCE'S
+// PARAMETER WHOSE STRUCT TYPESPEC CARRIES EVALFUNC LEFTOVERS HOLDS ITS OWN
+// COPY OF THAT STRUCT, AND SO DOES ITS DEFAULT VALUE.  Surelog elaborates every
+// instance parameter with a clone_tree of its typespec (uniquifyTypespec), and
+// the elaborated param_assign's value constant is the reduced default with a
+// clone of its own; the clone takes the member leftovers with it (the
+// typespec_member Actual_value objects the evaluator stamped,
+// § patParamLeftoverShare26), re-parented at the copy's members, so the
+// leftover operation's ref_typespec names itself through the copy
+// (`<param>.pk::c_t.u`, `pk::c_t.u`) where ours, sharing the package's
+// listing, names it after the leftover's source param_assign (`pk`).  The
+// definition listings and the package keep the listing (golden m12: the
+// module_inst() definition's P and its param_assign bind the original), and an
+// OVERRIDDEN parameter's value keeps it too (grid L/l04: only P is a copy).
+// The law, design-final over every elaborated module instance (the top
+// included, any depth): a parameter's ref_typespec, and a non-overridden
+// param_assign's value constant's ref_typespec, bound to a struct typedef
+// listing (a struct_typespec not hanging under a ref_typespec or a parameter)
+// that carries a leftover on a member (or on a member of a nested struct),
+// take a fresh copy: the struct, its members, their ref_typespecs (nested
+// annotated structs copied the same way), and each leftover cloned field for
+// field (constants and operations over constants only; any other leftover
+// kind makes the law abstain for that struct, keeping pristine's share).
+// Grid tools/probe/r11u272repro/cases/L.  Switch R11U272_LOTSCOPY_OFF.
+static std::set<const UHDM::BaseClass*>& lotsOvr272() {
+    static std::set<const UHDM::BaseClass*> s272;
+    return s272;
+}
+void lotsValueCopyRec272(const UHDM::BaseClass* pa) { lotsOvr272().insert(pa); }
+bool lotsValueCopy272(const UHDM::BaseClass* pa) { return lotsOvr272().count(pa) != 0; }
+static void lotsCopyDrain272(UHDM::Serializer& s, UHDM::design* d) {
+    if (!d || !r11u272On("R11U272_LOTSCOPY_OFF"))
+        return;
+    using namespace UHDM;
+    // a struct that carries a leftover on a member, or on a member of a
+    // nested struct
+    std::function<bool(const typespec*, int)> annotated =
+        [&](const typespec* t, int dep) -> bool {
+        if (!t || dep > 16 || t->UhdmType() != uhdmstruct_typespec)
+            return false;
+        auto* st = (const struct_typespec*)t;
+        if (!st->Members())
+            return false;
+        for (auto* m : *st->Members()) {
+            if (!m)
+                continue;
+            if (m->Actual_value())
+                return true;
+            if (m->Typespec() && annotated(m->Typespec()->Actual_typespec(), dep + 1))
+                return true;
+        }
+        return false;
+    };
+    // the leftovers the copy can clone whole (checked before anything is made)
+    std::function<bool(const any*, int)> clonable = [&](const any* x, int dep) -> bool {
+        if (!x || dep > 32)
+            return false;
+        if (x->UhdmType() == uhdmconstant)
+            return true;
+        if (x->UhdmType() != uhdmoperation)
+            return false;
+        if (auto* ops = ((const operation*)x)->Operands())
+            for (auto* o : *ops)
+                if (!clonable(o, dep + 1))
+                    return false;
+        return true;
+    };
+    std::function<bool(const struct_typespec*, int)> copyable =
+        [&](const struct_typespec* st, int dep) -> bool {
+        if (dep > 16 || !st->Members())
+            return dep <= 16;
+        for (auto* m : *st->Members()) {
+            if (!m)
+                return false;
+            if (m->Actual_value() && !clonable(m->Actual_value(), 0))
+                return false;
+            if (m->Default_value() && m->Default_value() != m->Actual_value() &&
+                !clonable(m->Default_value(), 0))
+                return false;
+            if (m->Typespec())
+                if (auto* mt = m->Typespec()->Actual_typespec();
+                    mt && annotated(mt, 0) && !copyable((const struct_typespec*)mt, dep + 1))
+                    return false;
+        }
+        return true;
+    };
+    auto cloneRt = [&](const ref_typespec* rt, any* par, const std::string& fn,
+                       bool store = false) {
+        auto* r2 = s.MakeRef_typespec();
+        r2->VpiParent(par);
+        r2->VpiName(rt->VpiName());
+        if (!fn.empty() || store)
+            r2->VpiFullName(fn);
+        r2->Actual_typespec((typespec*)rt->Actual_typespec());
+        return r2;
+    };
+    // `fn` is the full name golden's clone gives a leftover's ref_typespec:
+    // `<param ref>.<struct>.<member>` under a parameter, `<struct>.<member>`
+    // under a value
+    std::function<expr*(const any*, any*, const std::string&)> cloneVal =
+        [&](const any* x, any* par, const std::string& fn) -> expr* {
+        if (x->UhdmType() == uhdmconstant) {
+            auto* c = (const constant*)x;
+            auto* c2 = s.MakeConstant();
+            c2->VpiValue(c->VpiValue());
+            c2->VpiDecompile(c->VpiDecompile());
+            c2->VpiSize(c->VpiSize());
+            c2->VpiConstType(c->VpiConstType());
+            c2->VpiFile(c->VpiFile());
+            c2->VpiLineNo(c->VpiLineNo());
+            c2->VpiColumnNo(c->VpiColumnNo());
+            c2->VpiEndLineNo(c->VpiEndLineNo());
+            c2->VpiEndColumnNo(c->VpiEndColumnNo());
+            c2->VpiParent(par);
+            // a member's value constant's ref_typespec keeps its source's
+            // stored full name, as § structCopyNestedAnnotDeep232's clone
+            // does (grid r11u82repro s1_modform: golden's copy reads the
+            // source's empty name); an operand of a cloned operation names
+            // itself through the copy like the operation (r11v26repro v13)
+            if (auto* rt = c->Typespec()) {
+                if (par && par->UhdmType() == uhdmoperation)
+                    c2->Typespec(cloneRt(rt, c2, fn));
+                else {
+                    std::string sfn;
+                    bool st = r215StoredFullName(rt, sfn);
+                    c2->Typespec(cloneRt(rt, c2, sfn, st));
+                }
+            }
+            return c2;
+        }
+        auto* so = (const operation*)x;
+        auto* op = s.MakeOperation();
+        op->VpiOpType(so->VpiOpType());
+        op->VpiReordered(so->VpiReordered());
+        op->VpiFlattened(so->VpiFlattened());
+        op->VpiOpStrong(so->VpiOpStrong());
+        op->VpiDecompile(so->VpiDecompile());
+        op->VpiSize(so->VpiSize());
+        op->VpiFile(so->VpiFile());
+        op->VpiLineNo(so->VpiLineNo());
+        op->VpiColumnNo(so->VpiColumnNo());
+        op->VpiEndLineNo(so->VpiEndLineNo());
+        op->VpiEndColumnNo(so->VpiEndColumnNo());
+        op->VpiParent(par);
+        if (auto* rt = so->Typespec())
+            op->Typespec(cloneRt(rt, op, fn));
+        if (auto* ops = so->Operands()) {
+            auto* nv = s.MakeAnyVec();
+            for (auto* o : *ops)
+                nv->push_back(cloneVal(o, op, fn));
+            op->Operands(nv);
+        }
+        return op;
+    };
+    std::function<struct_typespec*(const struct_typespec*, any*, const std::string&, int)> copy =
+        [&](const struct_typespec* st, any* par, const std::string& base,
+            int dep) -> struct_typespec* {
+        auto* cp = s.MakeStruct_typespec();
+        cp->VpiName(st->VpiName());
+        cp->VpiPacked(st->VpiPacked());
+        cp->VpiParent(par);
+        cp->VpiFile(st->VpiFile());
+        cp->VpiLineNo(st->VpiLineNo());
+        cp->VpiColumnNo(st->VpiColumnNo());
+        cp->VpiEndLineNo(st->VpiEndLineNo());
+        cp->VpiEndColumnNo(st->VpiEndColumnNo());
+        cp->Instance(((struct_typespec*)st)->Instance());
+        cp->Typedef_alias(((struct_typespec*)st)->Typedef_alias());
+        auto* mv = s.MakeTypespec_memberVec();
+        if (st->Members())
+            for (auto* m : *st->Members()) {
+                auto* m2 = s.MakeTypespec_member();
+                m2->VpiName(m->VpiName());
+                m2->VpiRandType(m->VpiRandType());
+                m2->VpiParent(cp);
+                m2->VpiFile(m->VpiFile());
+                m2->VpiLineNo(m->VpiLineNo());
+                m2->VpiColumnNo(m->VpiColumnNo());
+                m2->VpiEndLineNo(m->VpiEndLineNo());
+                m2->VpiEndColumnNo(m->VpiEndColumnNo());
+                m2->VpiRefFile(m->VpiRefFile());
+                m2->VpiRefLineNo(m->VpiRefLineNo());
+                m2->VpiRefColumnNo(m->VpiRefColumnNo());
+                m2->VpiRefEndLineNo(m->VpiRefEndLineNo());
+                m2->VpiRefEndColumnNo(m->VpiRefEndColumnNo());
+                std::string fn = (base.empty() ? std::string() : base + ".") +
+                                 std::string(st->VpiName()) + "." + std::string(m->VpiName());
+                // the member's ref_typespec is named through the copy as
+                // golden's clone names it (`work@dut.k0.P.pk::c_t.u`,
+                // `pk::c_t.u`; a nested copy's `pk::c_t.u.pk::in_t.a`)
+                if (auto* mr = m->Typespec()) {
+                    auto* r2 = cloneRt(mr, m2, fn);
+                    auto* mt = mr->Actual_typespec();
+                    if (mt && annotated(mt, 0))
+                        r2->Actual_typespec(copy((const struct_typespec*)mt, r2, fn, dep + 1));
+                    m2->Typespec(r2);
+                }
+                if (m->Default_value())
+                    m2->Default_value(cloneVal(m->Default_value(), m2, fn));
+                if (m->Actual_value())
+                    m2->Actual_value(m->Actual_value() == m->Default_value()
+                                         ? m2->Default_value()
+                                         : cloneVal(m->Actual_value(), m2, fn));
+                mv->push_back(m2);
+            }
+        cp->Members(mv);
+        return cp;
+    };
+    // a struct typedef listing (a copy hangs under a ref_typespec or a
+    // parameter) that carries a leftover and that the copy can clone whole
+    auto target = [&](const ref_typespec* rt) -> const struct_typespec* {
+        if (!rt)
+            return nullptr;
+        auto* t = rt->Actual_typespec();
+        if (!t || t->UhdmType() != uhdmstruct_typespec || !annotated(t, 0))
+            return nullptr;
+        if (auto* tp = t->VpiParent();
+            tp && (tp->UhdmType() == uhdmref_typespec || tp->UhdmType() == uhdmparameter))
+            return nullptr;
+        if (!copyable((const struct_typespec*)t, 0)) {
+            if (tr272On())
+                tr272("leftoverTsCopyPerElabUse272", "abstain unclonable " + std::string(t->VpiName()));
+            return nullptr;
+        }
+        return (const struct_typespec*)t;
+    };
+    // A COPY we already made (a struct under the parameter's or the value's
+    // ref_typespec) whose member still shares the listing's leftover
+    // operation (parented at its source param_assign, § patParamLeftoverShare26)
+    // takes a clone of it parented at the member (grid r11u26repro m9: the
+    // pattern-valued member `n` of a copy whose constants are already the
+    // copy's own).
+    std::function<void(const ref_typespec*, const std::string&, int)> fixCopy =
+        [&](const ref_typespec* rt, const std::string& base, int dep) {
+        if (!rt || dep > 16)
+            return;
+        auto* t = rt->Actual_typespec();
+        if (!t || t->UhdmType() != uhdmstruct_typespec || !t->VpiParent() ||
+            (t->VpiParent()->UhdmType() != uhdmref_typespec &&
+             t->VpiParent()->UhdmType() != uhdmparameter) ||
+            !annotated(t, 0))
+            return;
+        auto* st = (struct_typespec*)t;
+        if (!st->Members())
+            return;
+        for (auto* m : *st->Members()) {
+            if (!m)
+                continue;
+            auto* av = m->Actual_value();
+            if (av && av->UhdmType() == uhdmoperation && av->VpiParent() != m &&
+                av != m->Default_value() && clonable(av, 0)) {
+                std::string fn = (base.empty() ? std::string() : base + ".") +
+                                 std::string(st->VpiName()) + "." + std::string(m->VpiName());
+                m->Actual_value(cloneVal(av, m, fn));
+                if (tr272On())
+                    tr272("leftoverTsCopyPerElabUse272", "copyop " + fn);
+            }
+            fixCopy(m->Typespec(), base, dep + 1);
+        }
+    };
+    std::function<void(module_inst*, int)> walk = [&](module_inst* mi, int dep) {
+        if (!mi || dep > 64)
+            return;
+        if (auto* pas = mi->Param_assigns())
+            for (auto* pa : *pas) {
+                if (!pa)
+                    continue;
+                if (auto* p = pa->Lhs(); p && p->UhdmType() == uhdmparameter) {
+                    auto* prt = ((parameter*)p)->Typespec();
+                    if (auto* st = target(prt)) {
+                        prt->Actual_typespec(copy(st, prt, std::string(prt->VpiFullName()), 0));
+                        if (tr272On())
+                            tr272("leftoverTsCopyPerElabUse272",
+                                  "param " + std::string(prt->VpiFullName()) + " " +
+                                      std::string(st->VpiName()));
+                    }
+                    else if (prt)
+                        fixCopy(prt, std::string(prt->VpiFullName()), 0);
+                }
+                auto* r = pa->Rhs();
+                if (!r || r->UhdmType() != uhdmconstant)
+                    continue;
+                auto* crt = ((constant*)r)->Typespec();
+                if (!lotsValueCopy272(pa)) {
+                    if (crt && tr272On() && target(crt))
+                        tr272("leftoverTsCopyPerElabUse272",
+                              "abstain value-not-a-name " + std::string(mi->VpiFullName()));
+                    continue;
+                }
+                if (!target(crt)) {
+                    if (crt)
+                        fixCopy(crt, std::string(), 0);
+                    continue;
+                }
+                auto* st = target(crt);
+                crt->Actual_typespec(copy(st, crt, std::string(), 0));
+                if (tr272On())
+                    tr272("leftoverTsCopyPerElabUse272",
+                          "value " + std::string(mi->VpiFullName()) + " " + std::string(st->VpiName()));
+            }
+        if (auto* ms = mi->Modules())
+            for (auto* c : *ms)
+                walk(c, dep + 1);
+        if (auto* gas = mi->Gen_scope_arrays())
+            for (auto* ga : *gas)
+                if (ga && ga->Gen_scopes())
+                    for (auto* gs : *ga->Gen_scopes())
+                        if (gs && gs->Modules())
+                            for (auto* c : *gs->Modules())
+                                walk(c, dep + 1);
+    };
+    if (auto* tops = d->TopModules())
+        for (auto* tm : *tops)
+            if (tm && tm->UhdmType() == uhdmmodule_inst)
+                walk((module_inst*)tm, 0);
+}
 void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
+    // § leftoverTsCopyPerElabUse272 — runs last, with the deferred post-passes.
+    deferred109().push_back([this, d]() { lotsCopyDrain272(s, d); });
     // § caCallArgParamFormalTs232 (r11u232; cfg_func_width_loop #464) — A
     // PARAMETER PASSED BY BARE NAME TO A PACKAGE FUNCTION IN A MODULE'S
     // CONTINUOUS ASSIGNMENT TAKES THE FORMAL'S TYPESPEC ON ITS ELABORATED
@@ -11124,6 +11443,37 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         auto* pa = s.MakeParam_assign();
         if (topView)
             elabParamPa[&member] = pa;
+        // § leftoverTsCopyPerElabUse272 — the record (the law is at
+        // stampEvalFuncLeftovers): an overridden parameter's elaborated value
+        // keeps the listing's struct typespec (grid L/l04).
+        // A value is copied only when the instance takes the DEFAULT and the
+        // default is a bare (imported) or package-qualified name of a PACKAGE
+        // parameter: the
+        // reduced reference is a clone of the referenced value (getValue),
+        // where a value the evaluator computes here (a function call,
+        // r11u82repro s1_modform, r11u11repro a5) binds the listing itself.
+        if (topView && !inPackage && !funcScope && r11u272On("R11U272_LOTSCOPY_OFF")) {
+            bool nameInit272 = false;
+            if (!ps.isOverridden())
+                if (auto* ie272 = ps.getInitializer()) {
+                    namespace sa272 = slang::ast;
+                    const sa272::Expression* e272 = ie272;
+                    while (e272->kind == sa272::ExpressionKind::Conversion &&
+                           e272->as<sa272::ConversionExpression>().isImplicit())
+                        e272 = &e272->as<sa272::ConversionExpression>().operand();
+                    // a PACKAGE parameter only: a module-local name
+                    // (r11u82repro v2_aliaschain `B_ALIAS = M_LOC`,
+                    // r11vu13repro v4 `E = D`) binds the listing
+                    if (e272->kind == sa272::ExpressionKind::NamedValue) {
+                        auto& s272 = e272->as<sa272::NamedValueExpression>().symbol;
+                        auto* sc272 = s272.getParentScope();
+                        nameInit272 = s272.kind == sa272::SymbolKind::Parameter && sc272 &&
+                                      sc272->asSymbol().kind == sa272::SymbolKind::Package;
+                    }
+                }
+            if (nameInit272)
+                lotsValueCopyRec272(pa);
+        }
         // § paNameCopiesSrcConst38 (r11u38) — THE RECORD.  Everything here is
         // SYNTACTIC (the written initializer is a BARE NAME of a parameter);
         // whether that name has a definition-time constant to copy, and what

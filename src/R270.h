@@ -27,14 +27,8 @@ inline bool r11u270On(const char* sw) {
         return false;
     return getenv(sw) == nullptr;
 }
-// v11u270 (the adversarial verification of r11u270): every fix reads its
-// own R11V270_<FIX>_OFF switch; R11V270_OFF drops the fixes (the law's
-// bytes); R11U270_OFF still drops the laws and the fixes together.
-inline bool r11v270On(const char* sw) {
-    if (getenv("R11U270_OFF") != nullptr || getenv("R11V270_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
+// (r11u272: the r11v270On helper pre-written here for a verifier that wrote
+// no fix was never called; removed, v11u270repro README's finding.)
 // the trace is on: callers build their detail strings only then (no heap
 // traffic while the design is emitted when it is off)
 inline bool tr270On() {

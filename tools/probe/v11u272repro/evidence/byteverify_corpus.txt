@@ -1,0 +1,20 @@
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/StructParamPatternInitCast-cec842a1/slang.uhdm
+MOVER ./surelog/testflags/StructParamPatternInitCast-cec842a1/slang.uhdm
+MOVER ./uhdm2rtlil/default/def_ctx_struct_param-b2c44da7/slang.uhdm
+MOVER ./uhdm2rtlil/default/latch_decoder_partial-a91a0d0e/slang.uhdm
+MOVER ./uhdm2rtlil/default/latch_tlb_napot-58807a5d/slang.uhdm
+MOVER ./uhdm2rtlil/default/portsel_struct_param-ee3c1680/slang.uhdm
+MOVER ./uhdm2rtlil/default/struct_member_cfg_width-1a008f7e/slang.uhdm
+MOVER ./uhdm2rtlil/default/struct_param_func_arg-a47ad7db/slang.uhdm
+MOVER ./uhdm2rtlil/default/struct_param_func_loop-3a50c32a/slang.uhdm
+MOVER ./uhdm2rtlil/testflags/def_ctx_struct_param-b2c44da7/slang.uhdm
+MOVER ./uhdm2rtlil/testflags/latch_decoder_partial-a91a0d0e/slang.uhdm
+MOVER ./uhdm2rtlil/testflags/latch_tlb_napot-58807a5d/slang.uhdm
+MOVER ./uhdm2rtlil/testflags/portsel_struct_param-ee3c1680/slang.uhdm
+MOVER ./uhdm2rtlil/testflags/struct_member_cfg_width-1a008f7e/slang.uhdm
+MOVER ./uhdm2rtlil/testflags/struct_param_func_arg-a47ad7db/slang.uhdm
+MOVER ./uhdm2rtlil/testflags/struct_param_func_loop-3a50c32a/slang.uhdm
+MOVERS: 16 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
