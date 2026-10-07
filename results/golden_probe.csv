@@ -1762,7 +1762,7 @@ r11u107repro/grid/t06_tp_union,EQUAL,,equal
 r11u107repro/grid/t09_localparam_type_struct,EQUAL,,equal
 r11u107repro/grid/t11_tp_struct_signed,EQUAL,,equal
 r11u107repro/grid/t12_tp_struct_nested,EQUAL,,equal
-r11u107repro/grid/t13_iface_tp_struct,STRICT_NOTEQUAL,differ:fullname(13),differ:fullname(13)
+r11u107repro/grid/t13_iface_tp_struct,STRICT_NOTEQUAL,differ:fullname(11),differ:fullname(11)
 r11u107repro/grid/t14_tp_chain_child,EQUAL,,equal
 r11u107repro/grid/t15_tp_struct_unused,EQUAL,,equal
 r11u107repro/grid/u01_top_tp_pkg_unp,EQUAL,,equal
@@ -1907,7 +1907,7 @@ r11u110repro/grid/e1/e19_scalar_port_ctl,EQUAL,,equal
 r11u110repro/grid/e1/e22_nonansi,STRICT_NOTEQUAL,differ:line(1),differ:line(1)
 r11u110repro/grid/e1/e23_inst_array,EQUAL,,equal
 r11u110repro/grid/e1/e24_ovr_2state,EQUAL,,equal
-r11u110repro/grid/e1/e25_ovr_same_ctl,STRICT_NOTEQUAL,differ:line(4),differ:line(4)
+r11u110repro/grid/e1/e25_ovr_same_ctl,EQUAL,,equal
 r11u110repro/grid/e1/e27_ovr_signed,EQUAL,,equal
 r11u110repro/grid/e1/e28_nested_child,EQUAL,,equal
 r11u110repro/grid/e1/e29_two_same_ovr,EQUAL,,equal
@@ -1924,8 +1924,8 @@ r11u110repro/grid/f2/i02_init_child_ovr,EQUAL,,equal
 r11u110repro/grid/f2/i03_init_2state,EQUAL,,equal
 r11u110repro/grid/f2/i06_unpacked_2state,EQUAL,,equal
 r11u110repro/grid/f2/i08_unpacked_2dim,EQUAL,,equal
-r11u110repro/grid/f2/i09_unpacked_child_ovr,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
-r11u110repro/grid/f2/i11_attr_wdims_child,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
+r11u110repro/grid/f2/i09_unpacked_child_ovr,EQUAL,,equal
+r11u110repro/grid/f2/i11_attr_wdims_child,EQUAL,,equal
 r11u110repro/grid/f2/i16_var_kw_init,STRICT_NOTEQUAL,differ:endline(9),differ:endline(9)
 r11u110repro/grid/f2/i18_out_port_child_ctl,EQUAL,,equal
 r11u110repro/grid/f2/i21_two_decl_init,EQUAL,,equal
@@ -2506,7 +2506,7 @@ r11u17repro/grid/e05_tern_32bit_unsized0_truesimple,EQUAL,,equal
 r11u18repro/b4,EQUAL,,equal
 r11u18repro/t1,EQUAL,,equal
 r11u18repro/t3,EQUAL,,equal
-r11u18repro/t4,STRICT_NOTEQUAL,differ:line(6),differ:line(6)
+r11u18repro/t4,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
 r11u18repro/t5,EQUAL,,equal
 r11u18repro/t6,EQUAL,,equal
 r11u18repro/t9,EQUAL,,equal
@@ -2569,7 +2569,7 @@ r11u20repro/t1,EQUAL,,equal
 r11u20repro/t2,EQUAL,,equal
 r11u20repro/t3,EQUAL,,equal
 r11u20repro/t5,EQUAL,,equal
-r11u20repro/t6,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r11u20repro/t6,EQUAL,,equal
 r11u20repro/t8,EQUAL,,equal
 r11u21repro/t1,EQUAL,,equal
 r11u21repro/t6,EQUAL,,equal
@@ -3042,7 +3042,7 @@ r11u47repro/arms/g12,STRICT_NOTEQUAL,differ:fullname(11),differ:fullname(11)
 r11u47repro/arms/g2,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
 r11u47repro/arms/g5,EQUAL,,equal
 r11u47repro/arms/g8,EQUAL,,equal
-r11u47repro/arms/g9,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r11u47repro/arms/g9,EQUAL,,equal
 r11u48repro/g1,EQUAL,,equal
 r11u48repro/g10,EQUAL,,equal
 r11u48repro/g11,EQUAL,,equal
@@ -3494,7 +3494,7 @@ r11v47repro/arms/v23,EQUAL,,equal
 r11v47repro/arms/v28,STRICT_NOTEQUAL,differ:line(7),differ:line(7)
 r11v47repro/arms/v29,EQUAL,,equal
 r11v47repro/arms/v30,EQUAL,,equal
-r11v47repro/arms/v7,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r11v47repro/arms/v7,EQUAL,,equal
 r11v48repro/va10,EQUAL,,equal
 r11v48repro/va11,EQUAL,,equal
 r11v48repro/va2,EQUAL,,equal
@@ -3520,7 +3520,7 @@ r11v48repro/vd2,EQUAL,,equal
 r11v4repro/v5,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
 r11v4repro/v6,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
 r11v50repro/b4_width50,EQUAL,,equal
-r11v53repro/grid/x10_iface_import_shadow,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r11v53repro/grid/x10_iface_import_shadow,EQUAL,,equal
 r11v53repro/grid/x11_realistic_cva6,EQUAL,,equal
 r11v53repro/grid/x15_import_chain,EQUAL,,equal
 r11v53repro/grid/x1_import_shadow_same,EQUAL,,equal
@@ -3709,7 +3709,7 @@ v11u110repro/brk/v1/a01_rt_param_same_elem_name,EQUAL,,equal
 v11u110repro/brk/v1/a02_unnamed_genif,EQUAL,,equal
 v11u110repro/brk/v1/a06_mid_passes_own,EQUAL,,equal
 v11u110repro/brk/v1/a10_ovr_byte,EQUAL,,equal
-v11u110repro/brk/v1/a11_bit_vs_logic,STRICT_NOTEQUAL,differ:line(20),differ:line(20)
+v11u110repro/brk/v1/a11_bit_vs_logic,EQUAL,,equal
 v11u110repro/brk/v1/a16_two_type_params,EQUAL,,equal
 v11u110repro/brk/v1/a19_top_own_tp_child_default,EQUAL,,equal
 v11u110repro/brk/v1/a20_top_own_tp_child_ovr,EQUAL,,equal
@@ -3725,9 +3725,9 @@ v11u110repro/brk/v1/b11_nonlocal_param_init,EQUAL,,equal
 v11u110repro/brk/v1/b12_init_int_elem,EQUAL,,equal
 v11u110repro/brk/v1/c05_unpacked_top_default,EQUAL,,equal
 v11u110repro/brk/v1/c06_unpacked_nonlocal_overridden,EQUAL,,equal
-v11u110repro/brk/v1/c08_unpacked_2state_elem_ovr,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
-v11u110repro/brk/v1/d01_attr_two_decl,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
-v11u110repro/brk/v1/d02_attr_two_attrs,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
+v11u110repro/brk/v1/c08_unpacked_2state_elem_ovr,EQUAL,,equal
+v11u110repro/brk/v1/d01_attr_two_decl,EQUAL,,equal
+v11u110repro/brk/v1/d02_attr_two_attrs,EQUAL,,equal
 v11u110repro/brk/v1/d03_attr_dimless_two_decl_ctl,EQUAL,,equal
 v11u110repro/brk/v3/a36_escaped_inst_name,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
 v11u110repro/brk/v3/a38_iface_parent_ctl,EQUAL,,equal
@@ -3834,7 +3834,7 @@ v11u113repro/grid/f1/a13_child_overridden_mod_uses_pkg,EQUAL,,equal
 v11u113repro/grid/f1/a17_nested_gen_pkg,EQUAL,,equal
 v11u113repro/grid/f1/a19_modport_ports,EQUAL,,equal
 v11u113repro/grid/f1/a20_long,EQUAL,,equal
-v11u113repro/grid/f2/t03_iface_tp,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+v11u113repro/grid/f2/t03_iface_tp,EQUAL,,equal
 v11u113repro/grid/f2/t04_paren,EQUAL,,equal
 v11u113repro/grid/f2/t07_casedgen,EQUAL,,equal
 v11u113repro/grid/f3/e01_explicit_vals,EQUAL,,equal

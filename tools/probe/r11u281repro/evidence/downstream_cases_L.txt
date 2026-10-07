@@ -1,0 +1,39 @@
+r11u281repro/cases/TN/n01_unpacked_net L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TN/n02_unpacked_bit_elem L IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u281repro/cases/TN/n03_extra_packed L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TN/n04_two_inst_unpacked L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TN/n05_default_inst_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TN/n06_unpacked_2d L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TN/n07_genblk_inst L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TN/n08_param_depth L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TN/n09_var_kw_unpacked L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TN/n10_macro_decl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TN/n11_crlf_extra_packed L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TN/n12_two_decl_extra L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TN/n13_interface_ctl L EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+r11u281repro/cases/TN/n14_hdr_two_files L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TR/r01_same_type_override L IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u281repro/cases/TR/r02_bit_then_logic L IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u281repro/cases/TR/r03_same_override_body_net L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TR/r04_override_then_default L IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u281repro/cases/TR/r05_default_then_override L IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u281repro/cases/TR/r06_typedef_override L IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u281repro/cases/TR/r07_ordered_same_ctl L IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u281repro/cases/TR/r08_macro_override L IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u281repro/cases/TR/r09_genblk L IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u281repro/cases/TR/r10_nested_parent_override L IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u281repro/cases/TR/r11_signed_same L IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u281repro/cases/TR/r12_interface_port L DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u281_s/ds/L/
+r11u281repro/cases/TR/r13_type_ref_ctl L IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u281repro/cases/TI/i01_local_tp_struct L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TI/i02_port_tp_logic L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TI/i03_named_override_ctl L DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u281_s/ds/L/
+r11u281repro/cases/TI/i04_ordered_override L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TI/i05_two_inst L IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u281repro/cases/TI/i06_nested_in_module L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TI/i07_genblk L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TI/i08_iface_in_iface L EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u281repro/cases/TI/i09_modport_port L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TI/i10_enum_tp L EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u281repro/cases/TI/i11_inst_array L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u281repro/cases/TI/i12_struct_unused L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-

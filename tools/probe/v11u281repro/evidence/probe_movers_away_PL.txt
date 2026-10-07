@@ -1,0 +1,15 @@
+r11u107repro/grid/t13_iface_tp_struct | dist 10 -> 11 lost=2 gained=1 | chain away=0 toward=2 flat_away=0 flat_toward=2
+r11u110repro/grid/e1/e25_ovr_same_ctl | dist 4 -> 0 lost=0 gained=4 | chain away=0 toward=4 flat_away=0 flat_toward=4
+r11u110repro/grid/f2/i09_unpacked_child_ovr | dist 1 -> 0 lost=0 gained=4 | chain away=0 toward=4 flat_away=0 flat_toward=4
+r11u110repro/grid/f2/i11_attr_wdims_child | dist 2 -> 0 lost=0 gained=8 | chain away=0 toward=8 flat_away=0 flat_toward=8
+r11u18repro/t4 | dist 4 -> 2 lost=0 gained=2 | chain away=0 toward=4 flat_away=0 flat_toward=4
+r11u20repro/t6 | dist 8 -> 6 lost=0 gained=2 | chain away=0 toward=2 flat_away=0 flat_toward=2
+r11u45repro/g13 | dist 3 -> 1 lost=0 gained=2 | chain away=0 toward=4 flat_away=0 flat_toward=4
+r11u47repro/arms/g9 | dist 1 -> 0 lost=0 gained=1 | chain away=0 toward=2 flat_away=0 flat_toward=2
+r11v47repro/arms/v7 | dist 1 -> 0 lost=0 gained=1 | chain away=0 toward=2 flat_away=0 flat_toward=2
+r11v53repro/grid/x10_iface_import_shadow | dist 1 -> 0 lost=0 gained=1 | chain away=0 toward=2 flat_away=0 flat_toward=2
+v11u110repro/brk/v1/a11_bit_vs_logic | dist 20 -> 0 lost=0 gained=20 | chain away=0 toward=20 flat_away=0 flat_toward=20
+v11u110repro/brk/v1/c08_unpacked_2state_elem_ovr | dist 1 -> 0 lost=0 gained=4 | chain away=0 toward=4 flat_away=0 flat_toward=4
+v11u110repro/brk/v1/d01_attr_two_decl | dist 4 -> 0 lost=0 gained=16 | chain away=0 toward=16 flat_away=0 flat_toward=16
+v11u110repro/brk/v1/d02_attr_two_attrs | dist 2 -> 0 lost=0 gained=8 | chain away=0 toward=8 flat_away=0 flat_toward=8
+v11u113repro/grid/f2/t03_iface_tp | dist 1 -> 0 lost=0 gained=1 | chain away=0 toward=2 flat_away=0 flat_toward=2

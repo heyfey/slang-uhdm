@@ -34,6 +34,7 @@
 #include "R273.h"
 #include "R275.h"
 #include "R279.h"
+#include "R281.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -3404,7 +3405,9 @@ void defNetTpPatKeepActual275v() {
         keep(src, cp, 0);
 }
 
-static void defNetTpDimLastInstPat275(UHDM::design* d, UHDM::Serializer& s) {
+static std::set<std::string>& tyRef281();
+static void defNetTpDimLastInstPat275(UHDM::design* d, UHDM::Serializer& s,
+                                      const std::map<std::string, std::set<std::string>>* ovr281v = nullptr) {
     if (!d || !r11u275On("R11U275_DEFNETTPPAT_OFF"))
         return;
     auto namedElemPat = [](const UHDM::typespec* t) {
@@ -3483,6 +3486,49 @@ static void defNetTpDimLastInstPat275(UHDM::design* d, UHDM::Serializer& s) {
                             return x;
                 return nullptr;
             };
+            // § defNetTpPatNestedSig281 (r11u281) — THE INSTANCE'S ARRAY
+            // UNDER AN UNPACKED DIMENSION OR AN EXTRA PACKED DIMENSION.
+            // `rt_t x [2];` and `rt_t [1:0] x;` compile the same
+            // declaration of rt_t for every instance (golden i09: the
+            // definition net x reads element `logic [1:0]` at the override
+            // 8:17-8:28, c08 `bit [1:0]`; i11, d01, d02 `rt_t [1:0] x`), but
+            // our instance signal reaches that array only through its packed
+            // element variable (an array_var's vpiReg) and, with the extra
+            // dimension written on the net, the definition net's array
+            // stretches to the declarator (1:68-2:13 where the instance's own
+            // reads 1:68-1:78), so the same-span test missed it.  With the
+            // law the instance's array is read through the array_var's
+            // element variable (or an array_typespec's element) and matched
+            // to the definition's by its START (file, line, column), the
+            // declaration it was compiled from.  Grid
+            // tools/probe/r11u281repro/cases/TN.  Switch
+            // R11U281_TPPATNEST_OFF.
+            auto sameStart281 = [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+                return a->VpiFile() == b->VpiFile() && a->VpiLineNo() == b->VpiLineNo() &&
+                       a->VpiColumnNo() == b->VpiColumnNo() && a->VpiLineNo() > 0;
+            };
+            bool nest281 = false;
+            auto instArr = [&](const UHDM::expr* is, const UHDM::typespec* dflt) -> const UHDM::typespec* {
+                auto* a = is && is->Typespec() ? is->Typespec()->Actual_typespec() : nullptr;
+                if (a && namedElemPat(a) && sameSpan(a, dflt))
+                    return a;
+                if (!is || !r11u281On("R11U281_TPPATNEST_OFF"))
+                    return nullptr;
+                const UHDM::typespec* b = a;
+                if (b && b->UhdmType() == UHDM::uhdmarray_typespec) {
+                    auto* er = ((const UHDM::array_typespec*)b)->Elem_typespec();
+                    b = er ? er->Actual_typespec() : nullptr;
+                }
+                if ((!b || !namedElemPat(b)) && is->UhdmType() == UHDM::uhdmarray_var)
+                    if (auto* v = ((const UHDM::array_var*)is)->Variables())
+                        if (!v->empty() && v->front()->Typespec())
+                            b = v->front()->Typespec()->Actual_typespec();
+                if (b && namedElemPat(b) && sameStart281(b, dflt)) {
+                    nest281 = true;
+                    return b;
+                }
+                return nullptr;
+            };
             auto rebind = [&](const UHDM::expr* x) {
                 if (!x || !x->Typespec())
                     return;
@@ -3502,16 +3548,51 @@ static void defNetTpDimLastInstPat275(UHDM::design* d, UHDM::Serializer& s) {
                 // v11u110repro b11).
                 const UHDM::typespec* inst = nullptr;
                 const UHDM::module_inst* from = nullptr;
+                nest281 = false;
                 for (auto it = li->second.rbegin(); it != li->second.rend() && !inst; ++it) {
                     auto* is = instSig(*it, x->VpiName());
-                    auto* a = is && is->Typespec() ? is->Typespec()->Actual_typespec() : nullptr;
-                    if (a && namedElemPat(a) && sameSpan(a, dflt)) {
+                    auto* a = instArr(is, dflt);
+                    if (a) {
                         inst = a;
                         from = *it;
                     }
                 }
+                const bool nestFired281 = nest281;
                 if (!inst || inst == dflt)
                     return;
+                // § tpPatNestNamedChain281v (v11u281, adversarial verification
+                // of r11u281) — THE NESTED ROUTE READS A NAMED OVERRIDE ONLY.
+                // An ORDERED override registers nothing in getTypeParams(),
+                // so the instance that compiled the declaration binds the
+                // default and golden's definition net keeps the default
+                // element (grid v11u281repro VN vn08 `child #(logic [1:0]) u`
+                // with `rt_t x [2];`, vn14 `rt_t [1:0] x;`, vn15 a named then
+                // an ordered instance, vn16: golden `logic` 2:38-2:43 where
+                // the law wrote the ordered binding 8:11-8:22, chain-keyed
+                // away 1-2 on each, stage 1 on both binaries); a named
+                // override on the instance or an ancestor (vn07, vn17 a
+                // parent's named override passed down in order) reaches it,
+                // as § tpRebindSpanDiffers281's test reads it.  Switch
+                // R11V281_PATNAMED_OFF.
+                if (nestFired281 && r11v281On("R11V281_PATNAMED_OFF")) {
+                    auto* de = ((const UHDM::packed_array_typespec*)dflt)->Elem_typespec();
+                    std::string en(de ? de->VpiName() : std::string_view());
+                    std::string fn(from->VpiFullName());
+                    bool named = false, tyRef = false;
+                    for (size_t k = 0; ovr281v && k <= fn.size(); k++)
+                        if (k == fn.size() || fn[k] == '.') {
+                            std::string anc = fn.substr(0, k);
+                            if (auto f = ovr281v->find(anc); f != ovr281v->end() && f->second.count(en))
+                                named = true;
+                            if (tyRef281().count(anc + "|" + en))
+                                tyRef = true;
+                        }
+                    if (!named || tyRef) {
+                        tr281("PATNAMED281V_ABSTAIN", std::string(def->VpiDefName()) + "." +
+                                                          std::string(x->VpiName()));
+                        return;
+                    }
+                }
                 // No override reached the element: the instance's array reads
                 // the default's own element (grid TN tn04), nothing to move.
                 {
@@ -3544,6 +3625,13 @@ static void defNetTpDimLastInstPat275(UHDM::design* d, UHDM::Serializer& s) {
                 if (!cp)
                     return;
                 cp->VpiParent((UHDM::BaseClass*)tpObj);
+                // § defNetTpPatNestedSig281: the copy is the definition's
+                // object, its span the definition net's (stretched to the
+                // declarator, golden i09 1:68-2:13).
+                if (nestFired281) {
+                    cp->VpiEndLineNo(dflt->VpiEndLineNo());
+                    cp->VpiEndColumnNo(dflt->VpiEndColumnNo());
+                }
                 std::function<void(UHDM::BaseClass*, int)> unstore = [&](UHDM::BaseClass* e, int depth) {
                     if (!e || depth > 16)
                         return;
@@ -3609,14 +3697,15 @@ static void defNetTpDimLastInstPat275(UHDM::design* d, UHDM::Serializer& s) {
                     const UHDM::typespec* first = nullptr;
                     for (auto it = li->second.begin(); it != li->second.end() && !first; ++it) {
                         auto* is = instSig(*it, x->VpiName());
-                        auto* a = is && is->Typespec() ? is->Typespec()->Actual_typespec() : nullptr;
-                        if (a && namedElemPat(a) && sameSpan(a, dflt))
+                        if (auto* a = instArr(is, dflt))
                             first = a;
                     }
                     if (first)
                         defNetTpPatPairs275v().push_back({first, cp});
                 }
                 r->Actual_typespec(cp);
+                if (nestFired281)
+                    tr281("TPPATNEST", std::string(def->VpiDefName()) + "." + std::string(x->VpiName()));
                 tr275("DEFNETTPPAT", std::string(def->VpiDefName()) + "." + std::string(x->VpiName()) +
                                          " <- " + std::string(from->VpiFullName()));
             };
@@ -3817,7 +3906,34 @@ static void aliasCloneTakesTargetFile137(UHDM::Serializer& s) {
         t->VpiFile(t->Typedef_alias()->Actual_typespec()->VpiFile());
 }
 
-static void rebindTypeParamElem107(UHDM::design* d, UHDM::Serializer& s) {
+// r11u281: two typespecs written at different places (file, start, end).
+// r11u281: a binding written inside one of the instantiations on the chain
+// (the override's own text; a top module is no instantiation); a binding located elsewhere (`.id_t(type(q))`
+// binds q's declared type, grid control v11u110repro k01, stage 1 on both
+// binaries and chain-keyed away under a draft) is left alone.
+static std::set<std::string>& tyRef281() {
+    static std::set<std::string> v;
+    return v;
+}
+template <class V>
+static bool boundInChain281(const UHDM::BaseClass* b, const V& chain) {
+    for (auto* m : chain)
+        if (m && m->VpiParent() && m->VpiParent()->UhdmType() != UHDM::uhdmdesign &&
+            m->VpiFile() == b->VpiFile() &&
+            (b->VpiLineNo() > m->VpiLineNo() ||
+             (b->VpiLineNo() == m->VpiLineNo() && b->VpiColumnNo() >= m->VpiColumnNo())) &&
+            (b->VpiLineNo() < m->VpiEndLineNo() ||
+             (b->VpiLineNo() == m->VpiEndLineNo() && b->VpiColumnNo() <= m->VpiEndColumnNo())))
+            return true;
+    return false;
+}
+static bool spanDiff281(const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+    return a->VpiFile() != b->VpiFile() || a->VpiLineNo() != b->VpiLineNo() ||
+           a->VpiColumnNo() != b->VpiColumnNo() || a->VpiEndLineNo() != b->VpiEndLineNo() ||
+           a->VpiEndColumnNo() != b->VpiEndColumnNo();
+}
+static void rebindTypeParamElem107(UHDM::design* d, UHDM::Serializer& s,
+                                   const std::map<std::string, std::set<std::string>>* ovr281 = nullptr) {
     static const bool off107 = getenv("R11U107_OFF") != nullptr ||
                                getenv("R11U107_TPREBIND_OFF") != nullptr;
     static const bool dbg107 = getenv("R11U107_DBG") != nullptr;
@@ -3871,11 +3987,19 @@ static void rebindTypeParamElem107(UHDM::design* d, UHDM::Serializer& s) {
     };
     // Last contributing instance binding, per definition type_parameter.
     std::map<UHDM::type_parameter*, const UHDM::typespec*> last107;
+    // § tpRebindSpanDiffers281: whether the last binding came from a NAMED
+    // override of the element on the instance or an ancestor (bindTypespec
+    // reads getTypeParams(), which an ordered override never fills).
+    std::map<UHDM::type_parameter*, bool> lastNamed281;
+    std::vector<std::string> chain281;
+    std::vector<const UHDM::module_inst*> chainM281;
     std::function<void(const UHDM::any*)> walk107 = [&](const UHDM::any* o) {
         if (!o)
             return;
         if (o->UhdmType() == UHDM::uhdmmodule_inst) {
             auto* mi = (const UHDM::module_inst*)o;
+            chain281.push_back(std::string(mi->VpiFullName()));
+            chainM281.push_back(mi);
             auto dit = defs107.find(std::string(mi->VpiDefName()));
             if (dit != defs107.end() && dit->second != mi &&
                 dit->second->Parameters() && mi->Parameters()) {
@@ -3893,14 +4017,30 @@ static void rebindTypeParamElem107(UHDM::design* d, UHDM::Serializer& s) {
                         auto* ipa = pa107((const UHDM::type_parameter*)ip);
                         if (ipa && ipa != dpa &&
                             ipa->Elem_typespec()->VpiName() ==
-                                dpa->Elem_typespec()->VpiName())
+                                dpa->Elem_typespec()->VpiName()) {
                             last107[dtp] = ipa->Elem_typespec()->Actual_typespec();
+                            bool named = false;
+                            bool tyRef = false;
+                            if (ovr281)
+                                for (auto& anc : chain281) {
+                                    std::string en(dpa->Elem_typespec()->VpiName());
+                                    if (auto f = ovr281->find(anc); f != ovr281->end() && f->second.count(en))
+                                        named = true;
+                                    if (tyRef281().count(anc + "|" + en))
+                                        tyRef = true;
+                                }
+                            named = named && !tyRef;
+                            lastNamed281[dtp] =
+                                named && boundInChain281(ipa->Elem_typespec()->Actual_typespec(), chainM281);
+                        }
                         break;
                     }
                 }
             }
             for (auto* c : srcOrder107(mi->Modules(), mi->Gen_scope_arrays()))
                 walk107(c);
+            chain281.pop_back();
+            chainM281.pop_back();
         }
         else if (o->UhdmType() == UHDM::uhdmgen_scope_array) {
             auto* ga = (const UHDM::gen_scope_array*)o;
@@ -3939,6 +4079,30 @@ static void rebindTypeParamElem107(UHDM::design* d, UHDM::Serializer& s) {
         const UHDM::typespec* cur = dpa->Elem_typespec()->Actual_typespec();
         UHDM::CompareContext cc107;
         bool same = cur == bound || bound->Compare(cur, &cc107) == 0;
+        // § tpRebindSpanDiffers281 (r11u281) — A BINDING THE JUDGE READS
+        // EQUAL IS STILL A NEW OBJECT AT THE OVERRIDE.  elabTypeParameter_'s
+        // tail rebuilds the array for every instance that does not override
+        // the array parameter itself, whatever the binding; its element is
+        // bindTypespec's clone of the INSTANCE's binding, located where that
+        // binding is written.  An override spelling the default's own type
+        // (`.id_t(logic)` over `= logic`, golden e25: element 13:17-13:22
+        // where ours kept the default 2:27-2:32; two instances `bit [1:0]`
+        // then `logic [1:0]` over `= logic [1:0]`, a11: the last one's
+        // 12:17-12:28) reads equal to uhdm-cmp, so § tpElemRebindDefView107
+        // skipped it; the strict comparator reads the location.  With the
+        // law a binding at another location is rebound too, when it comes
+        // from a NAMED override of the element on the instance or an
+        // ancestor: an ORDERED override (`child #(logic) u`) registers
+        // nothing in getTypeParams(), so bindTypespec binds the default and
+        // golden keeps it (grid TR r07, which an early draft moved away).
+        // Grid tools/probe/r11u281repro/cases/TR.  Switch
+        // R11U281_TPREBINDSPAN_OFF.
+        if (same && cur != bound && cur && r11u281On("R11U281_TPREBINDSPAN_OFF") && spanDiff281(cur, bound) &&
+            lastNamed281[dtp]) {
+            same = false;
+            tr281("TPREBINDSPAN", std::string(dtp->VpiFullName()) + " " + std::to_string(bound->VpiLineNo()) +
+                                      ":" + std::to_string(bound->VpiColumnNo()));
+        }
         if (dbg107)
             fprintf(stderr, "R11U107 REBIND %s elem=%s same=%d\n",
                     std::string(dtp->VpiFullName()).c_str(),
@@ -4023,6 +4187,12 @@ static void shareInstTypeParams120(
     for (auto* m : *d->AllModules())
         if (m->UhdmType() == UHDM::uhdmmodule_inst)
             defs120.emplace(std::string(m->VpiDefName()), (UHDM::module_inst*)m);
+    const bool ifShare281 = r11u281On("R11U281_IFTPSHARE_OFF");
+    std::map<std::string, UHDM::interface_inst*> ifDefs281;
+    if (ifShare281 && d->AllInterfaces())
+        for (auto* m : *d->AllInterfaces())
+            if (m->UhdmType() == UHDM::uhdminterface_inst)
+                ifDefs281.emplace(std::string(m->VpiDefName()), (UHDM::interface_inst*)m);
     std::function<void(const UHDM::any*)> walk120 = [&](const UHDM::any* o) {
         if (!o)
             return;
@@ -4053,6 +4223,69 @@ static void shareInstTypeParams120(
             if (mi->Gen_scope_arrays())
                 for (auto* c : *mi->Gen_scope_arrays())
                     walk120(c);
+            if (ifShare281 && mi->Interfaces())
+                for (auto* c : *mi->Interfaces())
+                    walk120(c);
+        }
+        else if (o->UhdmType() == UHDM::uhdminterface_inst && ifShare281) {
+            // § ifaceInstTypeParamSharesDef281 (r11u281) — the INTERFACE
+            // twin.  writeElabParameters runs for interface instances too
+            // (UhdmWriter's interface branch calls it with the same
+            // instance->getTypeParams() search), so an interface instance
+            // whose instantiation does not override a type parameter BY NAME
+            // lists the definition's own type_parameter object: golden
+            // r11u107repro t13_iface_tp_struct `work@ifc.T` (the struct's
+            // member refs reading through the definition's chain) where ours
+            // listed an unlocated per-instance copy `work@dut.u.T`.  Grid
+            // tools/probe/r11u281repro/cases/TI.  Switch
+            // R11U281_IFTPSHARE_OFF.
+            auto* ii = (UHDM::interface_inst*)o;
+            auto dit = ifDefs281.find(std::string(ii->VpiDefName()));
+            if (dit != ifDefs281.end() && dit->second != ii && dit->second->Parameters() &&
+                ii->Parameters()) {
+                auto oit = ovr.find(std::string(ii->VpiFullName()));
+                for (auto& ip : *ii->Parameters()) {
+                    if (!ip || ip->UhdmType() != UHDM::uhdmtype_parameter)
+                        continue;
+                    if (oit != ovr.end() && oit->second.count(std::string(ip->VpiName())))
+                        continue;
+                    for (auto* dp : *dit->second->Parameters())
+                        if (dp && dp != ip && dp->UhdmType() == UHDM::uhdmtype_parameter &&
+                            dp->VpiName() == ip->VpiName()) {
+                            // Stand aside where the definition's object is
+                            // not the instance's in golden: a named-element
+                            // packed array (`localparam type rt_t = id_t
+                            // [3:0]`) is rebuilt per instance by
+                            // elabTypeParameter_ (§ tpElemRebindDefView107
+                            // models it for modules only; grid TN n13, TR r12
+                            // moved away under a draft) and an enum default
+                            // (grid TI i10, stage 1 on both binaries, away
+                            // under the draft) is not measured.
+                            const UHDM::typespec* da281 =
+                                ((const UHDM::type_parameter*)dp)->Typespec()
+                                    ? ((const UHDM::type_parameter*)dp)->Typespec()->Actual_typespec()
+                                    : nullptr;
+                            if (da281 && (da281->UhdmType() == UHDM::uhdmenum_typespec ||
+                                          (da281->UhdmType() == UHDM::uhdmpacked_array_typespec &&
+                                           ((const UHDM::packed_array_typespec*)da281)->Elem_typespec() &&
+                                           !((const UHDM::packed_array_typespec*)da281)
+                                                ->Elem_typespec()->VpiName().empty()))) {
+                                tr281("IFTPSHARE_ABSTAIN", std::string(ii->VpiFullName()) + "." +
+                                                               std::string(ip->VpiName()));
+                                break;
+                            }
+                            tr281("IFTPSHARE", std::string(ii->VpiFullName()) + "." + std::string(ip->VpiName()));
+                            ip = dp;
+                            break;
+                        }
+                }
+            }
+            if (ii->Interfaces())
+                for (auto* c : *ii->Interfaces())
+                    walk120(c);
+            if (ii->Gen_scope_arrays())
+                for (auto* c : *ii->Gen_scope_arrays())
+                    walk120(c);
         }
         else if (o->UhdmType() == UHDM::uhdmgen_scope_array) {
             auto* ga = (const UHDM::gen_scope_array*)o;
@@ -4067,6 +4300,9 @@ static void shareInstTypeParams120(
                     walk120(c);
             if (g->Gen_scope_arrays())
                 for (auto* c : *g->Gen_scope_arrays())
+                    walk120(c);
+            if (ifShare281 && g->Interfaces())
+                for (auto* c : *g->Interfaces())
                     walk120(c);
         }
     };
@@ -4544,6 +4780,203 @@ static void genConnTrailSelChain205(UHDM::design* d) {
     if (d->TopModules())
         for (auto* m : *d->TopModules())
             walk(m, false);
+}
+
+// § ifaceTpUseBindsDefDefault281 (r11u281) — THE INTERFACE TWIN OF
+// § tpUseBindsDefDefault160: AN ELABORATED INTERFACE SIGNAL TYPED BY A TYPE
+// PARAMETER ITS INSTANTIATION DOES NOT OVERRIDE BY NAME BINDS THE
+// DEFINITION'S DEFAULT OBJECT.
+// The producer is § tpUseBindsDefDefault160's: the declaration's written type
+// `T` is compiled against the interface instance, compileTypespec finds no
+// local data type and falls back to the definition's parameter list
+// (CompileType.cpp), whose type_parameter holds the default unless a NAMED
+// override put an instance object there.  So `T d;` in `ifc u();` reads the
+// default `logic [3:0]` at 2:36-2:47 in golden (grid TI i02, the instance
+// `work@dut.u.d`), where ours wrote a fresh typespec at the declaration's
+// type token (3:3-3:4); the definition listing's own `d` already binds the
+// default in ours.  Per elaborated interface instance (module bodies,
+// generate scopes and interface bodies walked), a variable or net whose
+// same-named definition signal binds a type parameter's default object, that
+// parameter not named by the instantiation, is re-pointed at that object
+// when UHDM's Compare (the judge's) reads the two equal, so no judged
+// content moves.  Grid tools/probe/r11u281repro/cases/TI.  Switch
+// R11U281_IFTPUSE_OFF.
+static void ifaceTpUseBindsDefDefault281(UHDM::design* d,
+                                         const std::map<std::string, std::set<std::string>>& ovr) {
+    if (!d || !d->AllInterfaces() || !d->TopModules() || !r11u281On("R11U281_IFTPUSE_OFF"))
+        return;
+    std::map<std::string, UHDM::interface_inst*> defs;
+    for (auto* m : *d->AllInterfaces())
+        if (m->UhdmType() == UHDM::uhdminterface_inst)
+            defs.emplace(std::string(m->VpiDefName()), (UHDM::interface_inst*)m);
+    auto actualOf = [](const UHDM::any* x) -> UHDM::typespec* {
+        auto* e = dynamic_cast<const UHDM::expr*>(x);
+        if (!e || !e->Typespec())
+            return nullptr;
+        return (UHDM::typespec*)e->Typespec()->Actual_typespec();
+    };
+    auto fixScope = [&](UHDM::interface_inst* ii) {
+        auto dit = defs.find(std::string(ii->VpiDefName()));
+        if (dit == defs.end() || dit->second == ii || !dit->second->Parameters())
+            return;
+        auto* def = dit->second;
+        auto oit = ovr.find(std::string(ii->VpiFullName()));
+        std::set<const UHDM::typespec*> dflt;
+        for (auto* dp : *def->Parameters())
+            if (dp && dp->UhdmType() == UHDM::uhdmtype_parameter) {
+                if (oit != ovr.end() && oit->second.count(std::string(dp->VpiName())))
+                    continue;
+                if (auto* rt = ((const UHDM::type_parameter*)dp)->Typespec())
+                    if (rt->Actual_typespec())
+                        dflt.insert(rt->Actual_typespec());
+            }
+        if (dflt.empty())
+            return;
+        auto defSig = [&](std::string_view nm) -> const UHDM::any* {
+            if (auto* v = def->Variables())
+                for (auto* x : *v)
+                    if (x->VpiName() == nm)
+                        return x;
+            if (auto* v = def->Nets())
+                for (auto* x : *v)
+                    if (x->VpiName() == nm)
+                        return x;
+            return nullptr;
+        };
+        // § ifTpUseMultiDeclShared281v reads every signal's typespec as it
+        // was before this scope's rebinds.
+        std::map<const UHDM::any*, const UHDM::typespec*> orig281v;
+        if (auto* vec = ii->Variables())
+            for (auto* y : *vec)
+                orig281v[y] = actualOf(y);
+        if (auto* vec = ii->Nets())
+            for (auto* y : *vec)
+                orig281v[y] = actualOf(y);
+        auto fix = [&](const UHDM::any* x) {
+            auto* dx = defSig(x->VpiName());
+            const UHDM::typespec* dts = dx ? actualOf(dx) : nullptr;
+            auto* its = actualOf(x);
+            if (!dts || !its)
+                return;
+            // Our definition signal may hold its own copy of the default
+            // (same kind, same span): the default object is the one bound.
+            if (!dflt.count(dts)) {
+                const UHDM::typespec* hit = nullptr;
+                for (auto* t : dflt)
+                    if (t->UhdmType() == dts->UhdmType() && t->VpiLineNo() > 0 && !spanDiff281(t, dts))
+                        hit = t;
+                if (!hit)
+                    return;
+                dts = hit;
+            }
+            // The instance's own object is the one written at the
+            // declaration's type token, unparented elsewhere: ours lists a
+            // bare `logic` there (no range, 3:3-3:4) for `T d;` where the
+            // default is `logic [3:0]`, a struct default too (t13), so
+            // neither Compare nor the kind is required: compileTypespec's
+            // fallback hands the instance the default whatever ours wrote.
+            if (its == dts)
+                return;
+            if (its->VpiParent() != x) {
+                // § ifTpUseMultiDeclShared281v (v11u281, adversarial
+                // verification of r11u281) — ONE DECLARATION, SEVERAL
+                // DECLARATORS.  `T d, q;` writes one instance typespec at
+                // the type token, parented at a sibling declarator, and
+                // every declarator's reference reads it; the law rebound only
+                // the declarator that parents it (grid v11u281repro VI vi34
+                // `T d, q;` with always_comb q = ~d: d stayed a 1-bit bare
+                // `logic` where q took the 4-bit default, the downstream
+                // verdict going EQUIVALENT -> DIVERGENT; vi28 `T d, e;`).
+                // compileTypespec's fallback hands every declarator the
+                // default, so a reference to a typespec parented at another
+                // signal of the same instance whose reference reads the same
+                // object is rebound too.  Switch R11V281_MULTIDECL_OFF.
+                bool sib = false;
+                if (r11v281On("R11V281_MULTIDECL_OFF") && its->VpiParent() && its->VpiParent() != ii) {
+                    auto* pp = its->VpiParent();
+                    auto same = [&](const auto* vec) {
+                        if (vec)
+                            for (auto* y : *vec)
+                                if (y == pp && orig281v[y] == its)
+                                    sib = true;
+                    };
+                    same(ii->Variables());
+                    same(ii->Nets());
+                }
+                if (!sib)
+                    return;
+                tr281("MULTIDECL281V", std::string(ii->VpiFullName()) + "." + std::string(x->VpiName()));
+            }
+            // § ifaceInstTypeParamSharesDef281's stand-asides: an enum
+            // default (grid TI i10, stage 1 on both binaries, chain-keyed
+            // away under a draft) and a named-element packed array.
+            if (dts->UhdmType() == UHDM::uhdmenum_typespec ||
+                (dts->UhdmType() == UHDM::uhdmpacked_array_typespec &&
+                 ((const UHDM::packed_array_typespec*)dts)->Elem_typespec() &&
+                 !((const UHDM::packed_array_typespec*)dts)->Elem_typespec()->VpiName().empty()))
+                return;
+            ((UHDM::ref_typespec*)((const UHDM::expr*)x)->Typespec())->Actual_typespec((UHDM::typespec*)dts);
+            tr281("IFTPUSE", std::string(ii->VpiFullName()) + "." + std::string(x->VpiName()));
+        };
+        if (auto* v = ii->Variables())
+            for (auto* x : *v)
+                fix(x);
+        if (auto* v = ii->Nets())
+            for (auto* x : *v)
+                fix(x);
+    };
+    std::function<void(const UHDM::any*)> walk = [&](const UHDM::any* o) {
+        if (!o)
+            return;
+        switch (o->UhdmType()) {
+        case UHDM::uhdmmodule_inst: {
+            auto* m = (const UHDM::module_inst*)o;
+            if (m->Modules())
+                for (auto* c : *m->Modules())
+                    walk(c);
+            if (m->Interfaces())
+                for (auto* c : *m->Interfaces())
+                    walk(c);
+            if (m->Gen_scope_arrays())
+                for (auto* c : *m->Gen_scope_arrays())
+                    walk(c);
+            break;
+        }
+        case UHDM::uhdminterface_inst: {
+            auto* ii = (UHDM::interface_inst*)o;
+            fixScope(ii);
+            if (ii->Interfaces())
+                for (auto* c : *ii->Interfaces())
+                    walk(c);
+            if (ii->Gen_scope_arrays())
+                for (auto* c : *ii->Gen_scope_arrays())
+                    walk(c);
+            break;
+        }
+        case UHDM::uhdmgen_scope_array:
+            if (auto* gs = ((const UHDM::gen_scope_array*)o)->Gen_scopes())
+                for (auto* g : *gs)
+                    walk(g);
+            break;
+        case UHDM::uhdmgen_scope: {
+            auto* g = (const UHDM::gen_scope*)o;
+            if (g->Modules())
+                for (auto* c : *g->Modules())
+                    walk(c);
+            if (g->Interfaces())
+                for (auto* c : *g->Interfaces())
+                    walk(c);
+            if (g->Gen_scope_arrays())
+                for (auto* c : *g->Gen_scope_arrays())
+                    walk(c);
+            break;
+        }
+        default:
+            break;
+        }
+    };
+    for (auto* t : *d->TopModules())
+        walk(t);
 }
 
 // § tpUseBindsDefDefault160 (r11u160, map N0090 + N0533,
@@ -5075,7 +5508,27 @@ static void rebindElabPortTypeParam110(
                         continue;
                     const UHDM::typespec* cur = dpa->Elem_typespec()->Actual_typespec();
                     UHDM::CompareContext cc110;
-                    if (cur == bound || bound->Compare(cur, &cc110) == 0)
+                    // § tpElabPortRebindSpanDiffers281 (r11u281) — the port
+                    // twin of § tpRebindSpanDiffers281: the elaborated port
+                    // reads the array elabTypeParameter_ rebuilt for THIS
+                    // instance, its element the clone of the instance's
+                    // binding at the override even when that binding spells
+                    // the default's type (golden e25 `work@dut.u` port
+                    // `rt_i`: element 13:17-13:22, ours the default
+                    // 2:27-2:32).  A binding at another location is rebound.
+                    // Grid tools/probe/r11u281repro/cases/TR.  Switch
+                    // R11U281_TPPORTSPAN_OFF.
+                    if (cur != bound && cur && bound->Compare(cur, &cc110) == 0) {
+                        bool tyRef = false;
+                        for (auto* anc : chain110)
+                            if (tyRef281().count(std::string(anc->VpiFullName()) + "|" + std::string(en110)))
+                                tyRef = true;
+                        if (!r11u281On("R11U281_TPPORTSPAN_OFF") || !spanDiff281(cur, bound) ||
+                            !boundInChain281(bound, chain110) || tyRef)
+                            continue;
+                        tr281("TPPORTSPAN", std::string(mi->VpiFullName()) + " " + std::string(dtp->VpiName()));
+                    }
+                    else if (cur == bound)
                         continue;
                     UHDM::packed_array_typespec* reb = nullptr;
                     for (auto* p : *mi->Ports()) {
@@ -19247,6 +19700,14 @@ UHDM::design* UhdmExporter::exportDesign() {
                                         const syntax::SyntaxNode* ex110 =
                                             pa110->as<syntax::NamedParamAssignmentSyntax>()
                                                 .expr;
+                                        // r11u281: an override written as a
+                                        // type reference (`.id_t(type(q))`)
+                                        // Surelog cannot bind (golden lists
+                                        // no instance object); the span laws
+                                        // of this pass stand aside.
+                                        if (ex110 && ex110->kind == syntax::SyntaxKind::TypeReference)
+                                            tyRef281().insert("work@" + child.getHierarchicalPath() + "|" +
+                                                              std::string(nm110));
                                         while (ex110 &&
                                                ex110->kind ==
                                                    syntax::SyntaxKind::ScopedName)
@@ -19295,7 +19756,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     }
     // § tpElemRebindDefView107 — after every instance's type parameters are
     // settled (reads only; law and decode at the function).
-    rebindTypeParamElem107(d, s);
+    rebindTypeParamElem107(d, s, ovr120Valid ? &ovr120 : nullptr);
     // § instTypeParamSharesDef120 — AFTER § 107, which reads each instance's
     // own copy to find the last binding (law and decode at the function).
     // § tpUseBindsDefDefault160 — BEFORE § 120 swaps the instance copy out
@@ -19304,6 +19765,8 @@ UHDM::design* UhdmExporter::exportDesign() {
         std::map<const UHDM::any*, std::map<const UHDM::typespec*, UHDM::typespec*>>
             e2d206;
         tpUseBindsDefDefault160(d, ovr120, &e2d206);
+        // § ifaceTpUseBindsDefDefault281 (law and decode at the function).
+        ifaceTpUseBindsDefDefault281(d, ovr120);
         // § tpCastUseBindsDefDefault206 — the casts, from 160's map.
         tpCastUseBindsDefDefault206(s, e2d206);
     }
@@ -19593,7 +20056,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // § tpPackedArrCaUnparent275 (law and decode at the function).
     tpPackedArrCaUnparent275(d, s);
     // § defNetTpDimLastInstPat275 (law and decode at the function).
-    defNetTpDimLastInstPat275(d, s);
+    defNetTpDimLastInstPat275(d, s, ovr120Valid ? &ovr120 : nullptr);
     // § packedArrTdElemRefName137 — after the parent model (law and decode
     // at the function).
     packedArrTdElemRefName137(d, s);

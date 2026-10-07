@@ -1,0 +1,15 @@
+probe r11u107repro__grid__t13_iface_tp_struct.uhdm IFTPSHARE:1
+probe r11u110repro__grid__e1__e25_ovr_same_ctl.uhdm TPPORTSPAN:1 TPREBINDSPAN:1
+probe r11u110repro__grid__f2__i09_unpacked_child_ovr.uhdm TPPATNEST:1
+probe r11u110repro__grid__f2__i11_attr_wdims_child.uhdm TPPATNEST:1
+probe r11u18repro__t4.uhdm IFTPSHARE:2
+probe r11u20repro__t6.uhdm IFTPSHARE:1
+probe r11u45repro__g13.uhdm IFTPSHARE:2
+probe r11u47repro__arms__g9.uhdm IFTPSHARE:1
+probe r11v47repro__arms__v7.uhdm IFTPSHARE:1
+probe r11v53repro__grid__x10_iface_import_shadow.uhdm IFTPSHARE:1
+probe v11u110repro__brk__v1__a11_bit_vs_logic.uhdm TPPORTSPAN:1 TPREBINDSPAN:1
+probe v11u110repro__brk__v1__c08_unpacked_2state_elem_ovr.uhdm TPPATNEST:1
+probe v11u110repro__brk__v1__d01_attr_two_decl.uhdm TPPATNEST:2
+probe v11u110repro__brk__v1__d02_attr_two_attrs.uhdm TPPATNEST:1
+probe v11u113repro__grid__f2__t03_iface_tp.uhdm IFTPSHARE:1

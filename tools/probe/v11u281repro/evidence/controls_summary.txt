@@ -1,0 +1,47 @@
+MOVE_pristine_law tp/r11u108repro/grid/f5/f5a24_wdims_override STRICT_NOTEQUAL_line -> STRICT_NOTEQUAL_fullname cmplines 0->0 rc 0->0
+MOVE_pristine_law tp/r11u108repro/grid/f5/f5a24_wdims_override_el STRICT_NOTEQUAL_line -> STRICT_NOTEQUAL_fullname cmplines 0->0 rc 0->0
+MOVE_pristine_law tp/r11u110repro/grid/f2/i19_iface_init NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 92->92 rc 0->0
+MOVE_pristine_law tp/r11u110repro/grid/f2/i19_iface_init_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 92->92 rc 0->0
+MOVE_pristine_law tp/r11u273repro/cases/TP/t11_iface STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0 rc 0->0
+MOVE_pristine_law tp/r11u273repro/cases/TP/t11_iface_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0 rc 0->0
+MOVE_pristine_law tp/r11u275repro/cases/PA/pa08_iface NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 60->60 rc 0->0
+MOVE_pristine_law tp/r11u275repro/cases/PA/pa08_iface_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 60->60 rc 0->0
+MOVE_pristine_law tp/r11u53repro/grid/w4_bits_iface NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 82->82 rc 0->0
+MOVE_pristine_law tp/r11u53repro/grid/w4_bits_iface_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 86->86 rc 0->0
+MOVE_pristine_law tp/v11u108repro/brk/f5/b03_iface NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 60->60 rc 0->0
+MOVE_pristine_law tp/v11u108repro/brk/f5/b03_iface_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 60->60 rc 0->0
+MOVE_pristine_law tp/v11u110repro/brk/v1/c02_unpacked_init NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28 rc 0->0
+MOVE_pristine_law tp/v11u110repro/brk/v1/c02_unpacked_init_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28 rc 0->0
+MOVE_pristine_law tp/v11u273repro/cases/VT/vt07_iface_tp STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0 rc 0->0
+MOVE_pristine_law tp/v11u273repro/cases/VT/vt07_iface_tp_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0 rc 0->0
+MOVE_pristine_law tp/v11u275repro/cases/VN/vn11_param_depth_two_inst STRICT_NOTEQUAL_line -> STRICT_EQUAL_250_objects cmplines 0->0 rc 0->0
+MOVE_pristine_law tp/v11u275repro/cases/VN/vn11_param_depth_two_inst_el STRICT_NOTEQUAL_line -> STRICT_NOTEQUAL_depth cmplines 0->0 rc 0->0
+MOVE_pristine_law tp/v11u275repro/cases/VP/vp04_iface NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 60->60 rc 0->0
+MOVE_pristine_law tp/v11u275repro/cases/VP/vp04_iface_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 60->60 rc 0->0
+MOVE_pristine_law tp/v11u275repro/cases/VV/vv06_iface STRICT_NOTEQUAL_endcol -> STRICT_NOTEQUAL_endcol cmplines 0->0 rc 0->0
+MOVE_pristine_law tp/v11u275repro/cases/VV/vv06_iface_el STRICT_NOTEQUAL_endcol -> STRICT_NOTEQUAL_endcol cmplines 0->0 rc 0->0
+SUMMARY pristine->law {'views': 2256, 'moving': 22, 'entering': 1, 'leaving': 0, 'rc': 0, 'cmplines': 0}
+MOVE_pristine_fix tp/r11u108repro/grid/f5/f5a24_wdims_override STRICT_NOTEQUAL_line -> STRICT_NOTEQUAL_fullname cmplines 0->0 rc 0->0
+MOVE_pristine_fix tp/r11u108repro/grid/f5/f5a24_wdims_override_el STRICT_NOTEQUAL_line -> STRICT_NOTEQUAL_fullname cmplines 0->0 rc 0->0
+MOVE_pristine_fix tp/r11u110repro/grid/f2/i19_iface_init NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 92->92 rc 0->0
+MOVE_pristine_fix tp/r11u110repro/grid/f2/i19_iface_init_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 92->92 rc 0->0
+MOVE_pristine_fix tp/r11u273repro/cases/TP/t11_iface STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0 rc 0->0
+MOVE_pristine_fix tp/r11u273repro/cases/TP/t11_iface_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0 rc 0->0
+MOVE_pristine_fix tp/r11u275repro/cases/PA/pa08_iface NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 60->60 rc 0->0
+MOVE_pristine_fix tp/r11u275repro/cases/PA/pa08_iface_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 60->60 rc 0->0
+MOVE_pristine_fix tp/r11u53repro/grid/w4_bits_iface NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 82->82 rc 0->0
+MOVE_pristine_fix tp/r11u53repro/grid/w4_bits_iface_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 86->86 rc 0->0
+MOVE_pristine_fix tp/v11u108repro/brk/f5/b03_iface NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 60->60 rc 0->0
+MOVE_pristine_fix tp/v11u108repro/brk/f5/b03_iface_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 60->60 rc 0->0
+MOVE_pristine_fix tp/v11u110repro/brk/v1/c02_unpacked_init NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28 rc 0->0
+MOVE_pristine_fix tp/v11u110repro/brk/v1/c02_unpacked_init_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 28->28 rc 0->0
+MOVE_pristine_fix tp/v11u273repro/cases/VT/vt07_iface_tp STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0 rc 0->0
+MOVE_pristine_fix tp/v11u273repro/cases/VT/vt07_iface_tp_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0 rc 0->0
+MOVE_pristine_fix tp/v11u275repro/cases/VN/vn11_param_depth_two_inst STRICT_NOTEQUAL_line -> STRICT_EQUAL_250_objects cmplines 0->0 rc 0->0
+MOVE_pristine_fix tp/v11u275repro/cases/VN/vn11_param_depth_two_inst_el STRICT_NOTEQUAL_line -> STRICT_NOTEQUAL_depth cmplines 0->0 rc 0->0
+MOVE_pristine_fix tp/v11u275repro/cases/VP/vp04_iface NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 60->60 rc 0->0
+MOVE_pristine_fix tp/v11u275repro/cases/VP/vp04_iface_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 60->60 rc 0->0
+MOVE_pristine_fix tp/v11u275repro/cases/VV/vv06_iface STRICT_NOTEQUAL_endcol -> STRICT_NOTEQUAL_endcol cmplines 0->0 rc 0->0
+MOVE_pristine_fix tp/v11u275repro/cases/VV/vv06_iface_el STRICT_NOTEQUAL_endcol -> STRICT_NOTEQUAL_endcol cmplines 0->0 rc 0->0
+SUMMARY pristine->fix {'views': 2256, 'moving': 22, 'entering': 1, 'leaving': 0, 'rc': 0, 'cmplines': 0}
+SUMMARY law->fix {'views': 2256}
