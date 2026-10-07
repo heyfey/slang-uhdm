@@ -1,0 +1,2 @@
+/tmp/r11u278_swP cmds=3315 own_binary=3265 no_slang=48 other=2
+/tmp/r11u278_swL cmds=3315 own_binary=3265 no_slang=48 other=2

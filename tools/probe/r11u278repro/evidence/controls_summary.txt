@@ -1,0 +1,3 @@
+MOVER r11u278repro/../r11u120repro/grid/gT/t08_body_localparam_type d rc=0 cmp=0 STRICT_NOTEQUAL endline -> rc=0 cmp=0 STRICT_NOTEQUAL line
+MOVER r11u278repro/../r11u120repro/grid/gT/t08_body_localparam_type e rc=0 cmp=0 STRICT_NOTEQUAL endline -> rc=0 cmp=0 STRICT_NOTEQUAL line
+case-views=2172 moving=2 entering=0 leaving=0 rc-changed=0 cmplines-changed=0

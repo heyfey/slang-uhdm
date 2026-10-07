@@ -45,6 +45,7 @@
 #include "R266.h"
 #include "R268.h"
 #include "R270.h"
+#include "R278.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -15314,7 +15315,9 @@ static void trailIdxNestedNames187(UHDM::bit_select* bs, const std::string& base
                                    const UHDM::hier_path* hp) {
     const bool onCall = r11u187LawEX("R11U187_TRAILCALL_OFF");
     const bool onSel = r11u187LawEX("R11U187_TRAILSEL_OFF");
-    if ((!onCall && !onSel) || !bs || !bs->VpiIndex())
+    // § trailIdxVarSelNamesByPath278 (its switch; the law is at its arm below).
+    static const bool onVs278 = r11u278On("R11U278_TRAILVARSEL_OFF");
+    if ((!onCall && !onSel && !onVs278) || !bs || !bs->VpiIndex())
         return;
     // A path NESTED in another path's (or select's) index derives its names
     // through the OUTER chain in golden (`r = n.w[m.q[f(k)]]`:
@@ -15355,6 +15358,8 @@ static void trailIdxNestedNames187(UHDM::bit_select* bs, const std::string& base
             ((UHDM::part_select*)o)->VpiFullName(fn);
         else if (o->UhdmType() == UHDM::uhdmindexed_part_select)
             ((UHDM::indexed_part_select*)o)->VpiFullName(fn);
+        else if (o->UhdmType() == UHDM::uhdmvar_select)
+            ((UHDM::var_select*)o)->VpiFullName(fn);  // § trailIdxVarSelNamesByPath278
     };
     // path: the name the subtree's named objects are joined to; law: the law
     // governing the subtree (the outermost call or select entered), nullptr
@@ -15381,6 +15386,38 @@ static void trailIdxNestedNames187(UHDM::bit_select* bs, const std::string& base
                     if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
                         for (auto* a : *as)
                             walk(a, e, path, law ? law : "trailIdxCallArgNamesByPath187");
+                    return;
+                }
+                // § trailIdxVarSelNamesByPath278 (r11u278) — A MULTI-LEVEL
+                // SELECT (`m[1][2]`, a UHDM var_select) inside the trailing
+                // select's index is named by the path like the one-level
+                // selects above: Surelog stores no full name on it, and
+                // ComputeFullName keeps the trailing bit_select's name above
+                // it (only a ref_obj child skips a bit_select) and keeps the
+                // var_select's own name above everything below it (a
+                // var_select is never skipped).  Golden `q.f[m[1][2]]`:
+                // `work@top.q.f.f.m`; `q.f[n + m[1][2]]`:
+                // `work@top.q.f[n + m[1][2]].f.m`; a reference inside it,
+                // `q.f[m[k][2]]`: `work@top.q.f.f.m.k`; a part select inside
+                // it, `q.f[m[1][4:0]]`: `work@top.q.f.f.m.m`; a class method
+                // `work@c::get::q.f::f::m`.  Ours stored the scope's
+                // `work@top.m` (the var_select was the one select kind the
+                // walk did not enter).  Grid
+                // tools/probe/r11u278repro/cases/VS.  Switch
+                // R11U278_TRAILVARSEL_OFF.
+                case UHDM::uhdmvar_select: {
+                    if (!onVs278)
+                        return;
+                    const char* l3 = law ? law : "trailIdxVarSelNamesByPath278";
+                    std::string nm(e->VpiName());
+                    if (nm.empty())
+                        return;
+                    const std::string fn = joinRef(path, nm);
+                    tr278("TRAILVARSEL", fn);
+                    rename(e, fn, l3);
+                    if (auto* ex = ((UHDM::var_select*)e)->Exprs())
+                        for (auto* c : *ex)
+                            walk(c, e, fn, l3);
                     return;
                 }
                 case UHDM::uhdmbit_select:

@@ -36,6 +36,7 @@
 #include "R272.h"
 #include "R274.h"
 #include "R276.h"
+#include "R278.h"
 namespace slang_uhdm {
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
@@ -336,6 +337,26 @@ static bool condArmUnreducible151(const UHDM::any* o);  // § condTakenParamRhsS
 // with the typedef they name (filled in drainDefParamTs, read in
 // shareDefAggParamTs).
 static std::map<const UHDM::ref_typespec*, const void*> defAggImportTd232;
+// § elabPkgQualRefRhsPkgTs278 — the registry: the elaborated param_assign Rhs
+// typespec references the law re-binds design-final, each with the package
+// parameter its parameter's initializer names (filled in patchParamTypespecs,
+// drained at the end of drainShareDefParamTs).
+static std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>>&
+pkgQualRhs278() {
+    static std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>> v;
+    return v;
+}
+// An untyped parameter: no type keyword, no dimension, no signing.
+static bool untypedPlain278(const slang::ast::ParameterSymbol& p) {
+    auto dt = p.getDeclaredType();
+    if (!dt)
+        return false;
+    auto* ts = dt->getTypeSyntax();
+    if (!ts || ts->kind != slang::syntax::SyntaxKind::ImplicitType)
+        return false;
+    auto& it = ts->as<slang::syntax::ImplicitTypeSyntax>();
+    return it.dimensions.empty() && !it.signing;
+}
 // § caCallArgParamFormalTs232 — the law, armed by stampEvalFuncLeftovers and
 // run at the end of drainPaNameCopySrc38.
 static std::function<void()>& caCallArgFormalTs232Run() {
@@ -27542,6 +27563,111 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         }
         return false;
     };
+    // § ifaceElabTypeParamIsDefObj278 (r11u278) — AN ELABORATED INTERFACE
+    // INSTANCE LISTS ITS NOT-OVERRIDDEN TYPE PARAMETER AS THE DEFINITION'S
+    // OWN type_parameter OBJECT.  Golden r11u20repro/t6, r11u47repro g9,
+    // r11v47repro v7, r11v53repro x10, v11u113repro t03: the interface_inst
+    // `work@top.u` lists `type_parameter T` with the full name `work@ifc.T`
+    // at the declaration's span, the definition listing's object, where ours
+    // minted an unlocated `work@top.u.T` (Surelog's interface elaboration
+    // keeps the definition's parameter list for a parameter no instance
+    // binds; a module instance mints its own, cases/I i07, already
+    // golden's); its typespec is the definition's default object.  An
+    // override gets its own (i03, i13's second instance), a chained default
+    // `U = T` the definition's U (i16), an array element, a generate-scope
+    // instance and a nested module's instance the same (i10, i11, i17).
+    // Returns the definition's object, or null where the law does not apply.
+    // Switch R11U278_IFACETP_OFF.
+    auto ifaceDefTp278 = [&](const TypeParameterSymbol& tps278) -> UHDM::type_parameter* {
+        if (!topView || !m || m->UhdmType() != UHDM::uhdminterface_inst ||
+            tps278.isOverridden() || !r11u278On("R11U278_IFACETP_OFF") ||
+            body.asSymbol().kind != SymbolKind::InstanceBody)
+            return nullptr;
+        // § ifaceTpOvrTpRefAbstain278v (v11u278, R11V278_OVRTPREF_OFF) —
+        // ABSTAIN WHEN THE DEFAULT IS NOT A BARE NAME AND NAMES A TYPE
+        // PARAMETER THIS INSTANCE OVERRIDES (`U = T [1:0]`, `U = struct
+        // packed { T a; }` with `#(.T(...))`).  Golden's instance U is the
+        // definition's name and span but its typespec's element reference is
+        // re-bound to the elaborating instance's T (Surelog re-binds the
+        // shared default's inner references per instance, last writer
+        // winning), so sharing the definition's object binds the default T
+        // and moves those records away from golden
+        // (tools/probe/v11u278repro/cases/VI vi14, vi19, vi20, vi24: chain
+        // away 4 to 8 on the law, pristine keeping the rebound element).  A
+        // bare `U = T` (vi02) and a default naming a value parameter (vi01)
+        // keep the law: golden shares the definition's object there.
+        if (r11v278On("R11V278_OVRTPREF_OFF")) {
+            // The default's type syntax of a type parameter of this body.
+            auto defSyn278 = [](const TypeParameterSymbol& t) -> const syntax::DataTypeSyntax* {
+                if (auto* x = t.getSyntax(); x && x->kind == syntax::SyntaxKind::TypeAssignment)
+                    if (auto* a = x->as<syntax::TypeAssignmentSyntax>().assignment)
+                        return a->type.get();
+                return nullptr;
+            };
+            auto bareName278 = [](const syntax::DataTypeSyntax* d) -> std::string_view {
+                if (d && d->kind == syntax::SyntaxKind::NamedType)
+                    if (auto* n = d->as<syntax::NamedTypeSyntax>().name.get();
+                        n && n->kind == syntax::SyntaxKind::IdentifierName)
+                        return n->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                return {};
+            };
+            // A composite default directly naming an overridden type parameter.
+            std::function<bool(const syntax::SyntaxNode&)> namesOvr278 =
+                [&](const syntax::SyntaxNode& n278) -> bool {
+                // `T` and `T [1:0]` (slang's IdentifierSelectName for a type
+                // written with dimensions).
+                std::string_view nm;
+                if (n278.kind == syntax::SyntaxKind::IdentifierName)
+                    nm = n278.as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                else if (n278.kind == syntax::SyntaxKind::IdentifierSelectName)
+                    nm = n278.as<syntax::IdentifierSelectNameSyntax>().identifier.valueText();
+                if (!nm.empty())
+                    if (auto* f278 = body.find(nm);
+                        f278 && f278->kind == SymbolKind::TypeParameter &&
+                        f278->as<TypeParameterSymbol>().isOverridden())
+                        return true;
+                for (size_t i = 0; i < n278.getChildCount(); i++)
+                    if (auto* c278 = n278.childNode(i); c278 && namesOvr278(*c278))
+                        return true;
+                return false;
+            };
+            // Follow bare chains through parameters this instance does not
+            // override (`V = U`, `U = T [1:0]`: vi19) to the first composite.
+            const syntax::DataTypeSyntax* d278 = defSyn278(tps278);
+            for (int hop = 0; d278 && hop < 16; hop++) {
+                std::string_view bn = bareName278(d278);
+                if (bn.empty())
+                    break;
+                auto* f278 = body.find(bn);
+                if (!f278 || f278->kind != SymbolKind::TypeParameter ||
+                    f278->as<TypeParameterSymbol>().isOverridden()) {
+                    d278 = nullptr;  // a bare overridden name (vi02) or not a type parameter
+                    break;
+                }
+                d278 = defSyn278(f278->as<TypeParameterSymbol>());
+            }
+            if (d278 && bareName278(d278).empty() && namesOvr278(*d278)) {
+                tr278("IFACETP", "abstain ovr-tp-ref " + std::string(tps278.name));
+                return nullptr;
+            }
+        }
+        UHDM::type_parameter* def278 = nullptr;
+        if (auto di278 = ifaceDefMap.find(
+                &body.asSymbol().as<InstanceBodySymbol>().getDefinition());
+            di278 != ifaceDefMap.end() && di278->second && di278->second != m &&
+            di278->second->Parameters())
+            for (auto* dp278 : *di278->second->Parameters())
+                if (dp278 && dp278->UhdmType() == UHDM::uhdmtype_parameter &&
+                    dp278->VpiName() == tps278.name) {
+                    def278 = (UHDM::type_parameter*)dp278;
+                    break;
+                }
+        if (!def278)
+            tr278("IFACETP", "abstain no-def " + std::string(tps278.name));
+        else
+            tr278("IFACETP", joinPath(prefix, tps278.name));
+        return def278;
+    };
     for (auto& member0 : body.members()) {
         if (member0.kind != SymbolKind::TypeParameter)
             continue;
@@ -27651,7 +27777,55 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         if (tpDim163 && elabPat31)
             trace163("TPDIMDEF");
         syntaxRefPrefix = savedPfx163;
-        if (elabPat31) {
+        // § bodyTypeParamChainBorrow278 (r11u278) — § typeParamChainBorrow45's
+        // borrow for a type parameter declared in the BODY (`localparam type
+        // b_t = a_t;`, `parameter type b_t = a_t;` after the header): golden
+        // points the definition view's b_t at a_t's own object there too
+        // (residue R0 of tools/probe/r11u45repro; probe r11u45repro/g9,
+        // r11v45repro/v2, grid tools/probe/r11u278repro/cases/T: a body chain
+        // of depth 1 and 2, a header a_t named by a body b_t, both in one
+        // declaration, the int, real and struct keywords, an interface body),
+        // the same Surelog arm (compileParameterDeclaration's chain resolve
+        // runs for every parameter declaration, header or body).  The
+        // definition listing's body type parameters read no default syntax
+        // here (`defTypeSyn` is the header's alone), so the borrow is taken
+        // from the declarator itself, with § typeParamChainBorrow45's gates:
+        // a bare name, a type parameter of this body already emitted, no
+        // visible typedef of that name (§ typeParamChainBorrowShadow45v).
+        // Every other body shape keeps its path.  Switch
+        // R11U278_BODYCHAIN_OFF.
+        UHDM::typespec* bodyBorrow278 = nullptr;
+        if (!topView && !defTypeSyn && !elabPat31 &&
+            r11u278On("R11U278_BODYCHAIN_OFF"))
+            if (auto* dsx278 = tps.getSyntax();
+                dsx278 && dsx278->kind == syntax::SyntaxKind::TypeAssignment)
+                if (auto* as278 = dsx278->as<syntax::TypeAssignmentSyntax>().assignment;
+                    as278 && as278->type &&
+                    as278->type->kind == syntax::SyntaxKind::NamedType)
+                    if (const syntax::NameSyntax* nm278 =
+                            as278->type->as<syntax::NamedTypeSyntax>().name;
+                        nm278 && nm278->kind == syntax::SyntaxKind::IdentifierName) {
+                        std::string_view en278 =
+                            nm278->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                        if (auto c278 = chainTs45.find(en278);
+                            c278 != chainTs45.end() && c278->second) {
+                            ASTContext ac278(body, LookupLocation::max);
+                            const Type& dt278 = comp.getType(*as278->type.get(), ac278);
+                            if (dt278.kind == SymbolKind::TypeAlias)
+                                if (auto* sp278 = typeParamOfAlias(dt278.as<TypeAliasType>()))
+                                    if (sp278->getParentScope() == &body &&
+                                        !chainNameShadowed45v(en278, body)) {
+                                        bodyBorrow278 = c278->second;
+                                        tr278("BODYCHAIN", std::string(tps.name) + " " +
+                                                               std::string(en278));
+                                    }
+                        }
+                    }
+        if (bodyBorrow278) {
+            // POINTED AT, NOT RE-PARENTED (§ typeParamChainBorrow45).
+            its = bodyBorrow278;
+        }
+        else if (elabPat31) {
             its = elabPat31;
             its->VpiParent(tp);
         }
@@ -27721,6 +27895,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     currentScope = savedCS;
                     syntaxRefPrefix = savedPfx;
                     paramTsOwnerFull9 = savedPTO20;
+                    // § ifaceElabTypeParamIsDefObj278 (the chained default)
+                    if (auto* def278 = ifaceDefTp278(tps)) {
+                        if (auto* drt278 = def278->Typespec();
+                            drt278 && drt278->Actual_typespec())
+                            typeParamElabTs[&tps] = drt278->Actual_typespec();
+                        spliceTypeParam9(def278, member0);
+                        continue;
+                    }
                     spliceTypeParam9(tp, member0);
                     continue;
                 }
@@ -27993,6 +28175,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // same record, and it too holds only the parameters already built.
         if (!topView && its)
             chainTs45[tps.name] = its;
+        // § ifaceElabTypeParamIsDefObj278 (r11u278) — AN ELABORATED INTERFACE
+        // INSTANCE LISTS ITS NOT-OVERRIDDEN TYPE PARAMETER AS THE DEFINITION'S
+        // OWN type_parameter OBJECT.  Golden r11u20repro/t6, r11u47repro g9,
+        // r11v47repro v7, r11v53repro x10, v11u113repro t03: the
+        // interface_inst `work@top.u` lists `type_parameter T` with the full
+        // name `work@ifc.T` at the declaration's span, the definition
+        // listing's object, where ours minted an unlocated `work@top.u.T`;
+        // its typespec is the definition's default object, which a variable
+        // typed T in the instance shares (cases/I i01, i05).  An override
+        // gets its own (i03, already golden's), a module instance mints its
+        // own (i07, already golden's).  Switch R11U278_IFACETP_OFF.
+        if (auto* def278 = ifaceDefTp278(tps)) {
+            if (auto* drt278 = def278->Typespec(); drt278 && drt278->Actual_typespec())
+                typeParamElabTs[&tps] = drt278->Actual_typespec();
+            spliceTypeParam9(def278, member0);
+            continue;
+        }
         spliceTypeParam9(tp, member0);
     }
     // MATERIALIZED imported params: the Parameters vec and the Param_assigns
@@ -34615,6 +34814,48 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             else {
                 rhsRt->Actual_typespec(its);
                 shareDefParamTs(rhsRt);
+                // § elabPkgQualRefRhsPkgTs278 (r11u278) — AN UNTYPED
+                // PARAMETER INITIALIZED BY A PACKAGE-QUALIFIED NAME OF AN
+                // UNTYPED PACKAGE PARAMETER (`parameter K = p::A;`) TYPES ITS
+                // ELABORATED VALUE WITH THAT PACKAGE PARAMETER'S OWN TYPESPEC.
+                // Surelog's elaboration reduces the initializer through
+                // CompileHelper::getValue's qualified-name arm, which hands
+                // back (a copy of) the package param_assign's Rhs constant,
+                // ref_typespec and all, so golden's elaborated `K` constant
+                // binds `A`'s implicit int_typespec (r10v201repro
+                // v201_k_neg: `p201vk::K_A`'s 4:3-4:21, ours K_PKGR's own
+                // 9:3-9:33); a chained `A = B` binds A's own (K/k14), a
+                // two-package chain the named package's (k22); a localparam,
+                // a header default, an interface, two instances, a macro and
+                // a parenthesized name alike (cases/K).  The definition view,
+                // a bare imported name (already the package's, k05), a typed
+                // or ranged or signed parameter on either side (k02, k03,
+                // k08, k23, k24), an override (k09) and a real value (k12)
+                // are not this law.  Bound design-final at the
+                // end of drainShareDefParamTs.  Switch R11U278_PKGQUALRHS_OFF.
+                static const bool on278 = r11u278On("R11U278_PKGQUALRHS_OFF");
+                if (on278 && rc0 && rc0->UhdmType() == UHDM::uhdmconstant &&
+                    untypedPlain278(*ps) && !isOverriddenParam(*ps))
+                    if (auto* in278 = ps->getInitializer()) {
+                        auto& si278 = stripImplicitConv(*in278);
+                        const syntax::SyntaxNode* sx278 = si278.syntax;
+                        while (sx278 &&
+                               sx278->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                            sx278 = sx278->as<syntax::ParenthesizedExpressionSyntax>()
+                                        .expression;
+                        if (si278.kind == ExpressionKind::NamedValue && sx278 &&
+                            sx278->kind == syntax::SyntaxKind::ScopedName &&
+                            sx278->as<syntax::ScopedNameSyntax>().separator.kind ==
+                                parsing::TokenKind::DoubleColon) {
+                            auto& sym278 = si278.as<NamedValueExpression>().symbol;
+                            auto* hs278 = sym278.getParentScope();
+                            if (sym278.kind == SymbolKind::Parameter && hs278 &&
+                                hs278->asSymbol().kind == SymbolKind::Package &&
+                                untypedPlain278(sym278.as<ParameterSymbol>()) &&
+                                sym278.as<ParameterSymbol>().getValue().isInteger())
+                                pkgQualRhs278().push_back({rhsRt, &sym278});
+                        }
+                    }
             }
         }
         prt->Actual_typespec(its);
@@ -36546,6 +36787,34 @@ void UhdmExporter::drainShareDefParamTs() {
         }
         uses167.clear();
     }
+    // § elabPkgQualRefRhsPkgTs278 — the drain (the law is in
+    // patchParamTypespecs' default arm): after every share above, each
+    // recorded Rhs reference binds the package parameter's own typespec, the
+    // one its definition listing's parameter references.
+    for (auto& [rt278, sym278] : pkgQualRhs278()) {
+        // The definition listing's parameter, else the elaborated package
+        // listing's: a package parameter initialized by another parameter's
+        // name has a typespec in the elaborated listing only (k14, k22).
+        UHDM::typespec* ts278 = nullptr;
+        for (auto* m278 : {&pkgParamObj, &pkgParamObjTop}) {
+            auto pit = m278->find(sym278);
+            if (pit != m278->end() && pit->second && pit->second->Typespec() &&
+                pit->second->Typespec()->Actual_typespec()) {
+                ts278 = pit->second->Typespec()->Actual_typespec();
+                break;
+            }
+        }
+        if (!ts278) {
+            tr278("PKGQUALRHS", "abstain no-ts " + std::string(sym278->name));
+            continue;
+        }
+        if (rt278->Actual_typespec() == ts278)
+            continue;
+        tr278("PKGQUALRHS", std::string(rt278->VpiFullName()) + " " +
+                                std::string(sym278->name));
+        rt278->Actual_typespec(ts278);
+    }
+    pkgQualRhs278().clear();
 }
 
 // Deferred DEF-view aggregate-typedef param ts: bind the SHARED named typedef

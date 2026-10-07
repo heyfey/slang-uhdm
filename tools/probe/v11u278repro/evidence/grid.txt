@@ -1,0 +1,1320 @@
+v11u278repro/cases/VI/vi01 d pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=402d9d8d2f85
+v11u278repro/cases/VI/vi01 d law rc=0 cmp=0 STRICT_NOTEQUAL line md5=d6187e976c34
+v11u278repro/cases/VI/vi01 d fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=d6187e976c34
+v11u278repro/cases/VI/vi01 d fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=d6187e976c34
+v11u278repro/cases/VI/vi01 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=402d9d8d2f85
+v11u278repro/cases/VI/vi01 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=d6187e976c34
+v11u278repro/cases/VI/vi01 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=d6187e976c34
+v11u278repro/cases/VI/vi01 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=d6187e976c34
+v11u278repro/cases/VI/vi01 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=d6187e976c34
+v11u278repro/cases/VI/vi01 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=402d9d8d2f85
+v11u278repro/cases/VI/vi01 e pristine rc=0 cmp=33 NOT_EQUAL stage1 md5=b287d99eb8e0
+v11u278repro/cases/VI/vi01 e law rc=0 cmp=32 NOT_EQUAL stage1 md5=9590dc0d24da
+v11u278repro/cases/VI/vi01 e fix rc=0 cmp=32 NOT_EQUAL stage1 md5=9590dc0d24da
+v11u278repro/cases/VI/vi01 e fix+R11V278_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=9590dc0d24da
+v11u278repro/cases/VI/vi01 e fix+R11U278_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=b287d99eb8e0
+v11u278repro/cases/VI/vi01 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=9590dc0d24da
+v11u278repro/cases/VI/vi01 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=9590dc0d24da
+v11u278repro/cases/VI/vi01 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=9590dc0d24da
+v11u278repro/cases/VI/vi01 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=9590dc0d24da
+v11u278repro/cases/VI/vi01 e fix+R11U278_IFACETP_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=b287d99eb8e0
+v11u278repro/cases/VI/vi02 d pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=ca737996542a
+v11u278repro/cases/VI/vi02 d law rc=0 cmp=0 STRICT_NOTEQUAL line md5=77be2f91ac8b
+v11u278repro/cases/VI/vi02 d fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=77be2f91ac8b
+v11u278repro/cases/VI/vi02 d fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=77be2f91ac8b
+v11u278repro/cases/VI/vi02 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=ca737996542a
+v11u278repro/cases/VI/vi02 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=77be2f91ac8b
+v11u278repro/cases/VI/vi02 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=77be2f91ac8b
+v11u278repro/cases/VI/vi02 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=77be2f91ac8b
+v11u278repro/cases/VI/vi02 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=77be2f91ac8b
+v11u278repro/cases/VI/vi02 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=ca737996542a
+v11u278repro/cases/VI/vi02 e pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=7c46806e7da2
+v11u278repro/cases/VI/vi02 e law rc=0 cmp=32 NOT_EQUAL stage1 md5=c17068db18d2
+v11u278repro/cases/VI/vi02 e fix rc=0 cmp=32 NOT_EQUAL stage1 md5=c17068db18d2
+v11u278repro/cases/VI/vi02 e fix+R11V278_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=c17068db18d2
+v11u278repro/cases/VI/vi02 e fix+R11U278_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=7c46806e7da2
+v11u278repro/cases/VI/vi02 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=c17068db18d2
+v11u278repro/cases/VI/vi02 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=c17068db18d2
+v11u278repro/cases/VI/vi02 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=c17068db18d2
+v11u278repro/cases/VI/vi02 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=c17068db18d2
+v11u278repro/cases/VI/vi02 e fix+R11U278_IFACETP_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=7c46806e7da2
+v11u278repro/cases/VI/vi03 d pristine rc=0 cmp=31 NOT_EQUAL stage1 md5=7b9d03195bee
+v11u278repro/cases/VI/vi03 d law rc=0 cmp=31 NOT_EQUAL stage1 md5=6424e3b0eaab
+v11u278repro/cases/VI/vi03 d fix rc=0 cmp=31 NOT_EQUAL stage1 md5=6424e3b0eaab
+v11u278repro/cases/VI/vi03 d fix+R11V278_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=6424e3b0eaab
+v11u278repro/cases/VI/vi03 d fix+R11U278_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=7b9d03195bee
+v11u278repro/cases/VI/vi03 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=6424e3b0eaab
+v11u278repro/cases/VI/vi03 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=6424e3b0eaab
+v11u278repro/cases/VI/vi03 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=6424e3b0eaab
+v11u278repro/cases/VI/vi03 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=6424e3b0eaab
+v11u278repro/cases/VI/vi03 d fix+R11U278_IFACETP_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=7b9d03195bee
+v11u278repro/cases/VI/vi03 e pristine rc=0 cmp=33 NOT_EQUAL stage1 md5=2f467eb3c2a7
+v11u278repro/cases/VI/vi03 e law rc=0 cmp=32 NOT_EQUAL stage1 md5=012079aec02d
+v11u278repro/cases/VI/vi03 e fix rc=0 cmp=32 NOT_EQUAL stage1 md5=012079aec02d
+v11u278repro/cases/VI/vi03 e fix+R11V278_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=012079aec02d
+v11u278repro/cases/VI/vi03 e fix+R11U278_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=2f467eb3c2a7
+v11u278repro/cases/VI/vi03 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=012079aec02d
+v11u278repro/cases/VI/vi03 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=012079aec02d
+v11u278repro/cases/VI/vi03 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=012079aec02d
+v11u278repro/cases/VI/vi03 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=012079aec02d
+v11u278repro/cases/VI/vi03 e fix+R11U278_IFACETP_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=2f467eb3c2a7
+v11u278repro/cases/VI/vi04 d pristine rc=0 cmp=101 NOT_EQUAL stage1 md5=be61994442d7
+v11u278repro/cases/VI/vi04 d law rc=0 cmp=101 NOT_EQUAL stage1 md5=196f90c5fc87
+v11u278repro/cases/VI/vi04 d fix rc=0 cmp=101 NOT_EQUAL stage1 md5=196f90c5fc87
+v11u278repro/cases/VI/vi04 d fix+R11V278_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=196f90c5fc87
+v11u278repro/cases/VI/vi04 d fix+R11U278_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=be61994442d7
+v11u278repro/cases/VI/vi04 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=196f90c5fc87
+v11u278repro/cases/VI/vi04 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=196f90c5fc87
+v11u278repro/cases/VI/vi04 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=196f90c5fc87
+v11u278repro/cases/VI/vi04 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=196f90c5fc87
+v11u278repro/cases/VI/vi04 d fix+R11U278_IFACETP_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=be61994442d7
+v11u278repro/cases/VI/vi04 e pristine rc=0 cmp=101 NOT_EQUAL stage1 md5=ac90f47163ee
+v11u278repro/cases/VI/vi04 e law rc=0 cmp=101 NOT_EQUAL stage1 md5=3233fc1ec3a4
+v11u278repro/cases/VI/vi04 e fix rc=0 cmp=101 NOT_EQUAL stage1 md5=3233fc1ec3a4
+v11u278repro/cases/VI/vi04 e fix+R11V278_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=3233fc1ec3a4
+v11u278repro/cases/VI/vi04 e fix+R11U278_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=ac90f47163ee
+v11u278repro/cases/VI/vi04 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=3233fc1ec3a4
+v11u278repro/cases/VI/vi04 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=3233fc1ec3a4
+v11u278repro/cases/VI/vi04 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=3233fc1ec3a4
+v11u278repro/cases/VI/vi04 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=3233fc1ec3a4
+v11u278repro/cases/VI/vi04 e fix+R11U278_IFACETP_OFF rc=0 cmp=101 NOT_EQUAL stage1 md5=ac90f47163ee
+v11u278repro/cases/VI/vi05 d pristine rc=0 cmp=31 NOT_EQUAL stage1 md5=949aa1c6cf02
+v11u278repro/cases/VI/vi05 d law rc=0 cmp=31 NOT_EQUAL stage1 md5=0e6ddbbbd3b4
+v11u278repro/cases/VI/vi05 d fix rc=0 cmp=31 NOT_EQUAL stage1 md5=0e6ddbbbd3b4
+v11u278repro/cases/VI/vi05 d fix+R11V278_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=0e6ddbbbd3b4
+v11u278repro/cases/VI/vi05 d fix+R11U278_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=949aa1c6cf02
+v11u278repro/cases/VI/vi05 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=0e6ddbbbd3b4
+v11u278repro/cases/VI/vi05 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=0e6ddbbbd3b4
+v11u278repro/cases/VI/vi05 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=0e6ddbbbd3b4
+v11u278repro/cases/VI/vi05 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=0e6ddbbbd3b4
+v11u278repro/cases/VI/vi05 d fix+R11U278_IFACETP_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=949aa1c6cf02
+v11u278repro/cases/VI/vi05 e pristine rc=0 cmp=219 NOT_EQUAL stage1 md5=0179e49b98f7
+v11u278repro/cases/VI/vi05 e law rc=0 cmp=77 NOT_EQUAL stage1 md5=e67d39386353
+v11u278repro/cases/VI/vi05 e fix rc=0 cmp=77 NOT_EQUAL stage1 md5=e67d39386353
+v11u278repro/cases/VI/vi05 e fix+R11V278_OFF rc=0 cmp=77 NOT_EQUAL stage1 md5=e67d39386353
+v11u278repro/cases/VI/vi05 e fix+R11U278_OFF rc=0 cmp=219 NOT_EQUAL stage1 md5=0179e49b98f7
+v11u278repro/cases/VI/vi05 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=77 NOT_EQUAL stage1 md5=e67d39386353
+v11u278repro/cases/VI/vi05 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=77 NOT_EQUAL stage1 md5=e67d39386353
+v11u278repro/cases/VI/vi05 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=77 NOT_EQUAL stage1 md5=e67d39386353
+v11u278repro/cases/VI/vi05 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=77 NOT_EQUAL stage1 md5=e67d39386353
+v11u278repro/cases/VI/vi05 e fix+R11U278_IFACETP_OFF rc=0 cmp=219 NOT_EQUAL stage1 md5=0179e49b98f7
+v11u278repro/cases/VI/vi06 d pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=8bd909b8a3bd
+v11u278repro/cases/VI/vi06 d law rc=0 cmp=36 NOT_EQUAL stage1 md5=36be9045e441
+v11u278repro/cases/VI/vi06 d fix rc=0 cmp=36 NOT_EQUAL stage1 md5=36be9045e441
+v11u278repro/cases/VI/vi06 d fix+R11V278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=36be9045e441
+v11u278repro/cases/VI/vi06 d fix+R11U278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=8bd909b8a3bd
+v11u278repro/cases/VI/vi06 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=36be9045e441
+v11u278repro/cases/VI/vi06 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=36be9045e441
+v11u278repro/cases/VI/vi06 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=36be9045e441
+v11u278repro/cases/VI/vi06 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=36be9045e441
+v11u278repro/cases/VI/vi06 d fix+R11U278_IFACETP_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=8bd909b8a3bd
+v11u278repro/cases/VI/vi06 e pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=ee410dd27d3a
+v11u278repro/cases/VI/vi06 e law rc=0 cmp=32 NOT_EQUAL stage1 md5=a41c099ba65c
+v11u278repro/cases/VI/vi06 e fix rc=0 cmp=32 NOT_EQUAL stage1 md5=a41c099ba65c
+v11u278repro/cases/VI/vi06 e fix+R11V278_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=a41c099ba65c
+v11u278repro/cases/VI/vi06 e fix+R11U278_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=ee410dd27d3a
+v11u278repro/cases/VI/vi06 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=a41c099ba65c
+v11u278repro/cases/VI/vi06 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=a41c099ba65c
+v11u278repro/cases/VI/vi06 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=a41c099ba65c
+v11u278repro/cases/VI/vi06 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=a41c099ba65c
+v11u278repro/cases/VI/vi06 e fix+R11U278_IFACETP_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=ee410dd27d3a
+v11u278repro/cases/VI/vi07 d pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=1742b7f08189
+v11u278repro/cases/VI/vi07 d law rc=0 cmp=64 NOT_EQUAL stage1 md5=87b81db4d469
+v11u278repro/cases/VI/vi07 d fix rc=0 cmp=64 NOT_EQUAL stage1 md5=87b81db4d469
+v11u278repro/cases/VI/vi07 d fix+R11V278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=87b81db4d469
+v11u278repro/cases/VI/vi07 d fix+R11U278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=1742b7f08189
+v11u278repro/cases/VI/vi07 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=87b81db4d469
+v11u278repro/cases/VI/vi07 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=87b81db4d469
+v11u278repro/cases/VI/vi07 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=87b81db4d469
+v11u278repro/cases/VI/vi07 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=87b81db4d469
+v11u278repro/cases/VI/vi07 d fix+R11U278_IFACETP_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=1742b7f08189
+v11u278repro/cases/VI/vi07 e pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=786a0be3318c
+v11u278repro/cases/VI/vi07 e law rc=0 cmp=64 NOT_EQUAL stage1 md5=2fba3c1732ee
+v11u278repro/cases/VI/vi07 e fix rc=0 cmp=64 NOT_EQUAL stage1 md5=2fba3c1732ee
+v11u278repro/cases/VI/vi07 e fix+R11V278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2fba3c1732ee
+v11u278repro/cases/VI/vi07 e fix+R11U278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=786a0be3318c
+v11u278repro/cases/VI/vi07 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2fba3c1732ee
+v11u278repro/cases/VI/vi07 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2fba3c1732ee
+v11u278repro/cases/VI/vi07 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2fba3c1732ee
+v11u278repro/cases/VI/vi07 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2fba3c1732ee
+v11u278repro/cases/VI/vi07 e fix+R11U278_IFACETP_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=786a0be3318c
+v11u278repro/cases/VI/vi08 d pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=6cb30b8c0573
+v11u278repro/cases/VI/vi08 d law rc=0 cmp=0 STRICT_NOTEQUAL line md5=d74eefeb65b1
+v11u278repro/cases/VI/vi08 d fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=d74eefeb65b1
+v11u278repro/cases/VI/vi08 d fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=d74eefeb65b1
+v11u278repro/cases/VI/vi08 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=6cb30b8c0573
+v11u278repro/cases/VI/vi08 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=d74eefeb65b1
+v11u278repro/cases/VI/vi08 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=d74eefeb65b1
+v11u278repro/cases/VI/vi08 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=d74eefeb65b1
+v11u278repro/cases/VI/vi08 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=d74eefeb65b1
+v11u278repro/cases/VI/vi08 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=6cb30b8c0573
+v11u278repro/cases/VI/vi08 e pristine rc=0 cmp=33 NOT_EQUAL stage1 md5=288420dd004e
+v11u278repro/cases/VI/vi08 e law rc=0 cmp=32 NOT_EQUAL stage1 md5=db090441ccd2
+v11u278repro/cases/VI/vi08 e fix rc=0 cmp=32 NOT_EQUAL stage1 md5=db090441ccd2
+v11u278repro/cases/VI/vi08 e fix+R11V278_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=db090441ccd2
+v11u278repro/cases/VI/vi08 e fix+R11U278_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=288420dd004e
+v11u278repro/cases/VI/vi08 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=db090441ccd2
+v11u278repro/cases/VI/vi08 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=db090441ccd2
+v11u278repro/cases/VI/vi08 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=db090441ccd2
+v11u278repro/cases/VI/vi08 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=db090441ccd2
+v11u278repro/cases/VI/vi08 e fix+R11U278_IFACETP_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=288420dd004e
+v11u278repro/cases/VI/vi09 d pristine rc=0 cmp=82 NOT_EQUAL stage1 md5=a3cdb1ae592a
+v11u278repro/cases/VI/vi09 d law rc=0 cmp=82 NOT_EQUAL stage1 md5=36cca51df2fc
+v11u278repro/cases/VI/vi09 d fix rc=0 cmp=82 NOT_EQUAL stage1 md5=36cca51df2fc
+v11u278repro/cases/VI/vi09 d fix+R11V278_OFF rc=0 cmp=82 NOT_EQUAL stage1 md5=36cca51df2fc
+v11u278repro/cases/VI/vi09 d fix+R11U278_OFF rc=0 cmp=82 NOT_EQUAL stage1 md5=a3cdb1ae592a
+v11u278repro/cases/VI/vi09 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=82 NOT_EQUAL stage1 md5=36cca51df2fc
+v11u278repro/cases/VI/vi09 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=82 NOT_EQUAL stage1 md5=36cca51df2fc
+v11u278repro/cases/VI/vi09 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=82 NOT_EQUAL stage1 md5=36cca51df2fc
+v11u278repro/cases/VI/vi09 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=82 NOT_EQUAL stage1 md5=36cca51df2fc
+v11u278repro/cases/VI/vi09 d fix+R11U278_IFACETP_OFF rc=0 cmp=82 NOT_EQUAL stage1 md5=a3cdb1ae592a
+v11u278repro/cases/VI/vi09 e pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=00cbaf79001f
+v11u278repro/cases/VI/vi09 e law rc=0 cmp=32 NOT_EQUAL stage1 md5=607a4a42a1d2
+v11u278repro/cases/VI/vi09 e fix rc=0 cmp=32 NOT_EQUAL stage1 md5=607a4a42a1d2
+v11u278repro/cases/VI/vi09 e fix+R11V278_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=607a4a42a1d2
+v11u278repro/cases/VI/vi09 e fix+R11U278_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=00cbaf79001f
+v11u278repro/cases/VI/vi09 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=607a4a42a1d2
+v11u278repro/cases/VI/vi09 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=607a4a42a1d2
+v11u278repro/cases/VI/vi09 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=607a4a42a1d2
+v11u278repro/cases/VI/vi09 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=607a4a42a1d2
+v11u278repro/cases/VI/vi09 e fix+R11U278_IFACETP_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=00cbaf79001f
+v11u278repro/cases/VI/vi10 d pristine rc=0 cmp=31 NOT_EQUAL stage1 md5=eff9393686ce
+v11u278repro/cases/VI/vi10 d law rc=0 cmp=31 NOT_EQUAL stage1 md5=1a36f10de2ee
+v11u278repro/cases/VI/vi10 d fix rc=0 cmp=31 NOT_EQUAL stage1 md5=1a36f10de2ee
+v11u278repro/cases/VI/vi10 d fix+R11V278_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=1a36f10de2ee
+v11u278repro/cases/VI/vi10 d fix+R11U278_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=eff9393686ce
+v11u278repro/cases/VI/vi10 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=1a36f10de2ee
+v11u278repro/cases/VI/vi10 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=1a36f10de2ee
+v11u278repro/cases/VI/vi10 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=1a36f10de2ee
+v11u278repro/cases/VI/vi10 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=1a36f10de2ee
+v11u278repro/cases/VI/vi10 d fix+R11U278_IFACETP_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=eff9393686ce
+v11u278repro/cases/VI/vi10 e pristine rc=0 cmp=33 NOT_EQUAL stage1 md5=bc71edf5a8db
+v11u278repro/cases/VI/vi10 e law rc=0 cmp=32 NOT_EQUAL stage1 md5=a76b5191f2ae
+v11u278repro/cases/VI/vi10 e fix rc=0 cmp=32 NOT_EQUAL stage1 md5=a76b5191f2ae
+v11u278repro/cases/VI/vi10 e fix+R11V278_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=a76b5191f2ae
+v11u278repro/cases/VI/vi10 e fix+R11U278_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=bc71edf5a8db
+v11u278repro/cases/VI/vi10 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=a76b5191f2ae
+v11u278repro/cases/VI/vi10 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=a76b5191f2ae
+v11u278repro/cases/VI/vi10 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=a76b5191f2ae
+v11u278repro/cases/VI/vi10 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=a76b5191f2ae
+v11u278repro/cases/VI/vi10 e fix+R11U278_IFACETP_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=bc71edf5a8db
+v11u278repro/cases/VI/vi11 d pristine rc=0 cmp=1226 NOT_EQUAL stage1 md5=fe1ab7c7d7d2
+v11u278repro/cases/VI/vi11 d law rc=0 cmp=1204 NOT_EQUAL stage1 md5=a5fe93e3b582
+v11u278repro/cases/VI/vi11 d fix rc=0 cmp=1204 NOT_EQUAL stage1 md5=a5fe93e3b582
+v11u278repro/cases/VI/vi11 d fix+R11V278_OFF rc=0 cmp=1204 NOT_EQUAL stage1 md5=a5fe93e3b582
+v11u278repro/cases/VI/vi11 d fix+R11U278_OFF rc=0 cmp=1226 NOT_EQUAL stage1 md5=fe1ab7c7d7d2
+v11u278repro/cases/VI/vi11 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=1204 NOT_EQUAL stage1 md5=a5fe93e3b582
+v11u278repro/cases/VI/vi11 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=1204 NOT_EQUAL stage1 md5=a5fe93e3b582
+v11u278repro/cases/VI/vi11 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=1204 NOT_EQUAL stage1 md5=a5fe93e3b582
+v11u278repro/cases/VI/vi11 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=1204 NOT_EQUAL stage1 md5=a5fe93e3b582
+v11u278repro/cases/VI/vi11 d fix+R11U278_IFACETP_OFF rc=0 cmp=1226 NOT_EQUAL stage1 md5=fe1ab7c7d7d2
+v11u278repro/cases/VI/vi11 e pristine rc=0 cmp=1394 NOT_EQUAL stage1 md5=9af2e4471013
+v11u278repro/cases/VI/vi11 e law rc=0 cmp=1372 NOT_EQUAL stage1 md5=c7620630b9bf
+v11u278repro/cases/VI/vi11 e fix rc=0 cmp=1372 NOT_EQUAL stage1 md5=c7620630b9bf
+v11u278repro/cases/VI/vi11 e fix+R11V278_OFF rc=0 cmp=1372 NOT_EQUAL stage1 md5=c7620630b9bf
+v11u278repro/cases/VI/vi11 e fix+R11U278_OFF rc=0 cmp=1394 NOT_EQUAL stage1 md5=9af2e4471013
+v11u278repro/cases/VI/vi11 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=1372 NOT_EQUAL stage1 md5=c7620630b9bf
+v11u278repro/cases/VI/vi11 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=1372 NOT_EQUAL stage1 md5=c7620630b9bf
+v11u278repro/cases/VI/vi11 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=1372 NOT_EQUAL stage1 md5=c7620630b9bf
+v11u278repro/cases/VI/vi11 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=1372 NOT_EQUAL stage1 md5=c7620630b9bf
+v11u278repro/cases/VI/vi11 e fix+R11U278_IFACETP_OFF rc=0 cmp=1394 NOT_EQUAL stage1 md5=9af2e4471013
+v11u278repro/cases/VI/vi12 d pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=32b69bdeaaf8
+v11u278repro/cases/VI/vi12 d law rc=0 cmp=0 STRICT_NOTEQUAL line md5=1d76c07ef61d
+v11u278repro/cases/VI/vi12 d fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=1d76c07ef61d
+v11u278repro/cases/VI/vi12 d fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=1d76c07ef61d
+v11u278repro/cases/VI/vi12 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=32b69bdeaaf8
+v11u278repro/cases/VI/vi12 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=1d76c07ef61d
+v11u278repro/cases/VI/vi12 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=1d76c07ef61d
+v11u278repro/cases/VI/vi12 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=1d76c07ef61d
+v11u278repro/cases/VI/vi12 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=1d76c07ef61d
+v11u278repro/cases/VI/vi12 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=32b69bdeaaf8
+v11u278repro/cases/VI/vi12 e pristine rc=0 cmp=33 NOT_EQUAL stage1 md5=9dc19f1f0119
+v11u278repro/cases/VI/vi12 e law rc=0 cmp=32 NOT_EQUAL stage1 md5=d00c5aa48c27
+v11u278repro/cases/VI/vi12 e fix rc=0 cmp=32 NOT_EQUAL stage1 md5=d00c5aa48c27
+v11u278repro/cases/VI/vi12 e fix+R11V278_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=d00c5aa48c27
+v11u278repro/cases/VI/vi12 e fix+R11U278_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=9dc19f1f0119
+v11u278repro/cases/VI/vi12 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=d00c5aa48c27
+v11u278repro/cases/VI/vi12 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=d00c5aa48c27
+v11u278repro/cases/VI/vi12 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=d00c5aa48c27
+v11u278repro/cases/VI/vi12 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=d00c5aa48c27
+v11u278repro/cases/VI/vi12 e fix+R11U278_IFACETP_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=9dc19f1f0119
+v11u278repro/cases/VI/vi13 d pristine rc=0 cmp=42 NOT_EQUAL stage1 md5=201c8644d042
+v11u278repro/cases/VI/vi13 d law rc=0 cmp=42 NOT_EQUAL stage1 md5=8f809afaed75
+v11u278repro/cases/VI/vi13 d fix rc=0 cmp=42 NOT_EQUAL stage1 md5=8f809afaed75
+v11u278repro/cases/VI/vi13 d fix+R11V278_OFF rc=0 cmp=42 NOT_EQUAL stage1 md5=8f809afaed75
+v11u278repro/cases/VI/vi13 d fix+R11U278_OFF rc=0 cmp=42 NOT_EQUAL stage1 md5=201c8644d042
+v11u278repro/cases/VI/vi13 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=42 NOT_EQUAL stage1 md5=8f809afaed75
+v11u278repro/cases/VI/vi13 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=42 NOT_EQUAL stage1 md5=8f809afaed75
+v11u278repro/cases/VI/vi13 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=42 NOT_EQUAL stage1 md5=8f809afaed75
+v11u278repro/cases/VI/vi13 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=42 NOT_EQUAL stage1 md5=8f809afaed75
+v11u278repro/cases/VI/vi13 d fix+R11U278_IFACETP_OFF rc=0 cmp=42 NOT_EQUAL stage1 md5=201c8644d042
+v11u278repro/cases/VI/vi13 e pristine rc=0 cmp=38 NOT_EQUAL stage1 md5=0ad98568512e
+v11u278repro/cases/VI/vi13 e law rc=0 cmp=38 NOT_EQUAL stage1 md5=3d3844555012
+v11u278repro/cases/VI/vi13 e fix rc=0 cmp=38 NOT_EQUAL stage1 md5=3d3844555012
+v11u278repro/cases/VI/vi13 e fix+R11V278_OFF rc=0 cmp=38 NOT_EQUAL stage1 md5=3d3844555012
+v11u278repro/cases/VI/vi13 e fix+R11U278_OFF rc=0 cmp=38 NOT_EQUAL stage1 md5=0ad98568512e
+v11u278repro/cases/VI/vi13 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=38 NOT_EQUAL stage1 md5=3d3844555012
+v11u278repro/cases/VI/vi13 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=38 NOT_EQUAL stage1 md5=3d3844555012
+v11u278repro/cases/VI/vi13 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=38 NOT_EQUAL stage1 md5=3d3844555012
+v11u278repro/cases/VI/vi13 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=38 NOT_EQUAL stage1 md5=3d3844555012
+v11u278repro/cases/VI/vi13 e fix+R11U278_IFACETP_OFF rc=0 cmp=38 NOT_EQUAL stage1 md5=0ad98568512e
+v11u278repro/cases/VI/vi15 d pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=0f6f2445acf6
+v11u278repro/cases/VI/vi15 d law rc=0 cmp=0 STRICT_NOTEQUAL line md5=9abe66e88b94
+v11u278repro/cases/VI/vi15 d fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=9abe66e88b94
+v11u278repro/cases/VI/vi15 d fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=9abe66e88b94
+v11u278repro/cases/VI/vi15 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=0f6f2445acf6
+v11u278repro/cases/VI/vi15 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=9abe66e88b94
+v11u278repro/cases/VI/vi15 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=9abe66e88b94
+v11u278repro/cases/VI/vi15 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=9abe66e88b94
+v11u278repro/cases/VI/vi15 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=9abe66e88b94
+v11u278repro/cases/VI/vi15 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=0f6f2445acf6
+v11u278repro/cases/VI/vi15 e pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=a169a7cfe1d9
+v11u278repro/cases/VI/vi15 e law rc=0 cmp=0 STRICT_NOTEQUAL line md5=159126b875a8
+v11u278repro/cases/VI/vi15 e fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=159126b875a8
+v11u278repro/cases/VI/vi15 e fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=159126b875a8
+v11u278repro/cases/VI/vi15 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=a169a7cfe1d9
+v11u278repro/cases/VI/vi15 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=159126b875a8
+v11u278repro/cases/VI/vi15 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=159126b875a8
+v11u278repro/cases/VI/vi15 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=159126b875a8
+v11u278repro/cases/VI/vi15 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=159126b875a8
+v11u278repro/cases/VI/vi15 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=a169a7cfe1d9
+v11u278repro/cases/VI/vi16 d pristine rc=0 cmp=31 NOT_EQUAL stage1 md5=1d5834c3d320
+v11u278repro/cases/VI/vi16 d law rc=0 cmp=31 NOT_EQUAL stage1 md5=57ec726f03e5
+v11u278repro/cases/VI/vi16 d fix rc=0 cmp=31 NOT_EQUAL stage1 md5=57ec726f03e5
+v11u278repro/cases/VI/vi16 d fix+R11V278_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=57ec726f03e5
+v11u278repro/cases/VI/vi16 d fix+R11U278_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=1d5834c3d320
+v11u278repro/cases/VI/vi16 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=57ec726f03e5
+v11u278repro/cases/VI/vi16 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=57ec726f03e5
+v11u278repro/cases/VI/vi16 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=57ec726f03e5
+v11u278repro/cases/VI/vi16 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=57ec726f03e5
+v11u278repro/cases/VI/vi16 d fix+R11U278_IFACETP_OFF rc=0 cmp=31 NOT_EQUAL stage1 md5=1d5834c3d320
+v11u278repro/cases/VI/vi16 e pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=889e8e74b467
+v11u278repro/cases/VI/vi16 e law rc=0 cmp=0 STRICT_NOTEQUAL line md5=6f6b84118658
+v11u278repro/cases/VI/vi16 e fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=6f6b84118658
+v11u278repro/cases/VI/vi16 e fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=6f6b84118658
+v11u278repro/cases/VI/vi16 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=889e8e74b467
+v11u278repro/cases/VI/vi16 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=6f6b84118658
+v11u278repro/cases/VI/vi16 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=6f6b84118658
+v11u278repro/cases/VI/vi16 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=6f6b84118658
+v11u278repro/cases/VI/vi16 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=6f6b84118658
+v11u278repro/cases/VI/vi16 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=889e8e74b467
+v11u278repro/cases/VI/vi17 d pristine rc=0 cmp=51 NOT_EQUAL stage1 md5=58c717ee620d
+v11u278repro/cases/VI/vi17 d law rc=0 cmp=51 NOT_EQUAL stage1 md5=22421e0c56c8
+v11u278repro/cases/VI/vi17 d fix rc=0 cmp=51 NOT_EQUAL stage1 md5=22421e0c56c8
+v11u278repro/cases/VI/vi17 d fix+R11V278_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=22421e0c56c8
+v11u278repro/cases/VI/vi17 d fix+R11U278_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=58c717ee620d
+v11u278repro/cases/VI/vi17 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=22421e0c56c8
+v11u278repro/cases/VI/vi17 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=22421e0c56c8
+v11u278repro/cases/VI/vi17 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=22421e0c56c8
+v11u278repro/cases/VI/vi17 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=22421e0c56c8
+v11u278repro/cases/VI/vi17 d fix+R11U278_IFACETP_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=58c717ee620d
+v11u278repro/cases/VI/vi17 e pristine rc=0 cmp=51 NOT_EQUAL stage1 md5=c90c6b59d6c3
+v11u278repro/cases/VI/vi17 e law rc=0 cmp=51 NOT_EQUAL stage1 md5=7e8294e1ff23
+v11u278repro/cases/VI/vi17 e fix rc=0 cmp=51 NOT_EQUAL stage1 md5=7e8294e1ff23
+v11u278repro/cases/VI/vi17 e fix+R11V278_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=7e8294e1ff23
+v11u278repro/cases/VI/vi17 e fix+R11U278_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=c90c6b59d6c3
+v11u278repro/cases/VI/vi17 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=7e8294e1ff23
+v11u278repro/cases/VI/vi17 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=7e8294e1ff23
+v11u278repro/cases/VI/vi17 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=7e8294e1ff23
+v11u278repro/cases/VI/vi17 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=7e8294e1ff23
+v11u278repro/cases/VI/vi17 e fix+R11U278_IFACETP_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=c90c6b59d6c3
+v11u278repro/cases/VI/vi18 d pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=6b129969016c
+v11u278repro/cases/VI/vi18 d law rc=0 cmp=0 STRICT_NOTEQUAL line md5=63cbf5ef59f2
+v11u278repro/cases/VI/vi18 d fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=63cbf5ef59f2
+v11u278repro/cases/VI/vi18 d fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=63cbf5ef59f2
+v11u278repro/cases/VI/vi18 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=6b129969016c
+v11u278repro/cases/VI/vi18 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=63cbf5ef59f2
+v11u278repro/cases/VI/vi18 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=63cbf5ef59f2
+v11u278repro/cases/VI/vi18 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=63cbf5ef59f2
+v11u278repro/cases/VI/vi18 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=63cbf5ef59f2
+v11u278repro/cases/VI/vi18 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=6b129969016c
+v11u278repro/cases/VI/vi18 e pristine rc=0 cmp=123 NOT_EQUAL stage1 md5=f9bec0c4cbbc
+v11u278repro/cases/VI/vi18 e law rc=0 cmp=51 NOT_EQUAL stage1 md5=008a1b3b60a5
+v11u278repro/cases/VI/vi18 e fix rc=0 cmp=51 NOT_EQUAL stage1 md5=008a1b3b60a5
+v11u278repro/cases/VI/vi18 e fix+R11V278_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=008a1b3b60a5
+v11u278repro/cases/VI/vi18 e fix+R11U278_OFF rc=0 cmp=123 NOT_EQUAL stage1 md5=f9bec0c4cbbc
+v11u278repro/cases/VI/vi18 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=008a1b3b60a5
+v11u278repro/cases/VI/vi18 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=008a1b3b60a5
+v11u278repro/cases/VI/vi18 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=008a1b3b60a5
+v11u278repro/cases/VI/vi18 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=008a1b3b60a5
+v11u278repro/cases/VI/vi18 e fix+R11U278_IFACETP_OFF rc=0 cmp=123 NOT_EQUAL stage1 md5=f9bec0c4cbbc
+v11u278repro/cases/VI/vi21 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=121ca7391ba2
+v11u278repro/cases/VI/vi21 d law rc=0 cmp=0 STRICT_EQUAL 76 objects md5=a3eb4622fabd
+v11u278repro/cases/VI/vi21 d fix rc=0 cmp=0 STRICT_EQUAL 76 objects md5=a3eb4622fabd
+v11u278repro/cases/VI/vi21 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 76 objects md5=a3eb4622fabd
+v11u278repro/cases/VI/vi21 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=121ca7391ba2
+v11u278repro/cases/VI/vi21 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 76 objects md5=a3eb4622fabd
+v11u278repro/cases/VI/vi21 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_EQUAL 76 objects md5=a3eb4622fabd
+v11u278repro/cases/VI/vi21 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 76 objects md5=a3eb4622fabd
+v11u278repro/cases/VI/vi21 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 76 objects md5=a3eb4622fabd
+v11u278repro/cases/VI/vi21 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=121ca7391ba2
+v11u278repro/cases/VI/vi21 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e234a07302cc
+v11u278repro/cases/VI/vi21 e law rc=0 cmp=0 STRICT_EQUAL 76 objects md5=5eb8594ebc75
+v11u278repro/cases/VI/vi21 e fix rc=0 cmp=0 STRICT_EQUAL 76 objects md5=5eb8594ebc75
+v11u278repro/cases/VI/vi21 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 76 objects md5=5eb8594ebc75
+v11u278repro/cases/VI/vi21 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e234a07302cc
+v11u278repro/cases/VI/vi21 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 76 objects md5=5eb8594ebc75
+v11u278repro/cases/VI/vi21 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_EQUAL 76 objects md5=5eb8594ebc75
+v11u278repro/cases/VI/vi21 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 76 objects md5=5eb8594ebc75
+v11u278repro/cases/VI/vi21 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 76 objects md5=5eb8594ebc75
+v11u278repro/cases/VI/vi21 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e234a07302cc
+v11u278repro/cases/VI/vi26 d pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=ec69b5b89a7a
+v11u278repro/cases/VI/vi26 d law rc=0 cmp=64 NOT_EQUAL stage1 md5=e6f66216b49b
+v11u278repro/cases/VI/vi26 d fix rc=0 cmp=64 NOT_EQUAL stage1 md5=e6f66216b49b
+v11u278repro/cases/VI/vi26 d fix+R11V278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=e6f66216b49b
+v11u278repro/cases/VI/vi26 d fix+R11U278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ec69b5b89a7a
+v11u278repro/cases/VI/vi26 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=e6f66216b49b
+v11u278repro/cases/VI/vi26 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=e6f66216b49b
+v11u278repro/cases/VI/vi26 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=e6f66216b49b
+v11u278repro/cases/VI/vi26 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=e6f66216b49b
+v11u278repro/cases/VI/vi26 d fix+R11U278_IFACETP_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ec69b5b89a7a
+v11u278repro/cases/VI/vi26 e pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=5605e62cf725
+v11u278repro/cases/VI/vi26 e law rc=0 cmp=64 NOT_EQUAL stage1 md5=ac758b347cca
+v11u278repro/cases/VI/vi26 e fix rc=0 cmp=64 NOT_EQUAL stage1 md5=ac758b347cca
+v11u278repro/cases/VI/vi26 e fix+R11V278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ac758b347cca
+v11u278repro/cases/VI/vi26 e fix+R11U278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=5605e62cf725
+v11u278repro/cases/VI/vi26 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ac758b347cca
+v11u278repro/cases/VI/vi26 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ac758b347cca
+v11u278repro/cases/VI/vi26 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ac758b347cca
+v11u278repro/cases/VI/vi26 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ac758b347cca
+v11u278repro/cases/VI/vi26 e fix+R11U278_IFACETP_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=5605e62cf725
+v11u278repro/cases/VK/vk01 d pristine rc=0 cmp=27 NOT_EQUAL stage1 md5=f1a1afd0e506
+v11u278repro/cases/VK/vk01 d law rc=0 cmp=27 NOT_EQUAL stage1 md5=76f2b98d113d
+v11u278repro/cases/VK/vk01 d fix rc=0 cmp=27 NOT_EQUAL stage1 md5=76f2b98d113d
+v11u278repro/cases/VK/vk01 d fix+R11V278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=76f2b98d113d
+v11u278repro/cases/VK/vk01 d fix+R11U278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=f1a1afd0e506
+v11u278repro/cases/VK/vk01 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=76f2b98d113d
+v11u278repro/cases/VK/vk01 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=76f2b98d113d
+v11u278repro/cases/VK/vk01 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=f1a1afd0e506
+v11u278repro/cases/VK/vk01 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=76f2b98d113d
+v11u278repro/cases/VK/vk01 d fix+R11U278_IFACETP_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=76f2b98d113d
+v11u278repro/cases/VK/vk01 e pristine rc=0 cmp=27 NOT_EQUAL stage1 md5=23c8db8ab165
+v11u278repro/cases/VK/vk01 e law rc=0 cmp=27 NOT_EQUAL stage1 md5=6d792d32220f
+v11u278repro/cases/VK/vk01 e fix rc=0 cmp=27 NOT_EQUAL stage1 md5=6d792d32220f
+v11u278repro/cases/VK/vk01 e fix+R11V278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=6d792d32220f
+v11u278repro/cases/VK/vk01 e fix+R11U278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=23c8db8ab165
+v11u278repro/cases/VK/vk01 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=6d792d32220f
+v11u278repro/cases/VK/vk01 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=6d792d32220f
+v11u278repro/cases/VK/vk01 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=23c8db8ab165
+v11u278repro/cases/VK/vk01 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=6d792d32220f
+v11u278repro/cases/VK/vk01 e fix+R11U278_IFACETP_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=6d792d32220f
+v11u278repro/cases/VK/vk02 d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=2f433fef6bf7
+v11u278repro/cases/VK/vk02 d law rc=0 cmp=17 NOT_EQUAL stage1 md5=2f433fef6bf7
+v11u278repro/cases/VK/vk02 d fix rc=0 cmp=17 NOT_EQUAL stage1 md5=2f433fef6bf7
+v11u278repro/cases/VK/vk02 d fix+R11V278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=2f433fef6bf7
+v11u278repro/cases/VK/vk02 d fix+R11U278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=2f433fef6bf7
+v11u278repro/cases/VK/vk02 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=2f433fef6bf7
+v11u278repro/cases/VK/vk02 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=2f433fef6bf7
+v11u278repro/cases/VK/vk02 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=2f433fef6bf7
+v11u278repro/cases/VK/vk02 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=2f433fef6bf7
+v11u278repro/cases/VK/vk02 d fix+R11U278_IFACETP_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=2f433fef6bf7
+v11u278repro/cases/VK/vk02 e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=53daed402f1a
+v11u278repro/cases/VK/vk02 e law rc=0 cmp=17 NOT_EQUAL stage1 md5=53daed402f1a
+v11u278repro/cases/VK/vk02 e fix rc=0 cmp=17 NOT_EQUAL stage1 md5=53daed402f1a
+v11u278repro/cases/VK/vk02 e fix+R11V278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=53daed402f1a
+v11u278repro/cases/VK/vk02 e fix+R11U278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=53daed402f1a
+v11u278repro/cases/VK/vk02 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=53daed402f1a
+v11u278repro/cases/VK/vk02 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=53daed402f1a
+v11u278repro/cases/VK/vk02 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=53daed402f1a
+v11u278repro/cases/VK/vk02 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=53daed402f1a
+v11u278repro/cases/VK/vk02 e fix+R11U278_IFACETP_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=53daed402f1a
+v11u278repro/cases/VK/vk03 d pristine rc=0 cmp=27 NOT_EQUAL stage1 md5=be77e639d2a0
+v11u278repro/cases/VK/vk03 d law rc=0 cmp=27 NOT_EQUAL stage1 md5=fe7055461faf
+v11u278repro/cases/VK/vk03 d fix rc=0 cmp=27 NOT_EQUAL stage1 md5=fe7055461faf
+v11u278repro/cases/VK/vk03 d fix+R11V278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=fe7055461faf
+v11u278repro/cases/VK/vk03 d fix+R11U278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=be77e639d2a0
+v11u278repro/cases/VK/vk03 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=fe7055461faf
+v11u278repro/cases/VK/vk03 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=fe7055461faf
+v11u278repro/cases/VK/vk03 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=be77e639d2a0
+v11u278repro/cases/VK/vk03 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=fe7055461faf
+v11u278repro/cases/VK/vk03 d fix+R11U278_IFACETP_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=fe7055461faf
+v11u278repro/cases/VK/vk03 e pristine rc=0 cmp=27 NOT_EQUAL stage1 md5=7bb7b3d10907
+v11u278repro/cases/VK/vk03 e law rc=0 cmp=27 NOT_EQUAL stage1 md5=6cf3428c3ab7
+v11u278repro/cases/VK/vk03 e fix rc=0 cmp=27 NOT_EQUAL stage1 md5=6cf3428c3ab7
+v11u278repro/cases/VK/vk03 e fix+R11V278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=6cf3428c3ab7
+v11u278repro/cases/VK/vk03 e fix+R11U278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=7bb7b3d10907
+v11u278repro/cases/VK/vk03 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=6cf3428c3ab7
+v11u278repro/cases/VK/vk03 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=6cf3428c3ab7
+v11u278repro/cases/VK/vk03 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=7bb7b3d10907
+v11u278repro/cases/VK/vk03 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=6cf3428c3ab7
+v11u278repro/cases/VK/vk03 e fix+R11U278_IFACETP_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=6cf3428c3ab7
+v11u278repro/cases/VK/vk04 d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=a441b6c9329a
+v11u278repro/cases/VK/vk04 d law rc=0 cmp=17 NOT_EQUAL stage1 md5=a441b6c9329a
+v11u278repro/cases/VK/vk04 d fix rc=0 cmp=17 NOT_EQUAL stage1 md5=a441b6c9329a
+v11u278repro/cases/VK/vk04 d fix+R11V278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=a441b6c9329a
+v11u278repro/cases/VK/vk04 d fix+R11U278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=a441b6c9329a
+v11u278repro/cases/VK/vk04 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=a441b6c9329a
+v11u278repro/cases/VK/vk04 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=a441b6c9329a
+v11u278repro/cases/VK/vk04 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=a441b6c9329a
+v11u278repro/cases/VK/vk04 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=a441b6c9329a
+v11u278repro/cases/VK/vk04 d fix+R11U278_IFACETP_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=a441b6c9329a
+v11u278repro/cases/VK/vk04 e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=7f2a23001acc
+v11u278repro/cases/VK/vk04 e law rc=0 cmp=17 NOT_EQUAL stage1 md5=7f2a23001acc
+v11u278repro/cases/VK/vk04 e fix rc=0 cmp=17 NOT_EQUAL stage1 md5=7f2a23001acc
+v11u278repro/cases/VK/vk04 e fix+R11V278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=7f2a23001acc
+v11u278repro/cases/VK/vk04 e fix+R11U278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=7f2a23001acc
+v11u278repro/cases/VK/vk04 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=7f2a23001acc
+v11u278repro/cases/VK/vk04 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=7f2a23001acc
+v11u278repro/cases/VK/vk04 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=7f2a23001acc
+v11u278repro/cases/VK/vk04 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=7f2a23001acc
+v11u278repro/cases/VK/vk04 e fix+R11U278_IFACETP_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=7f2a23001acc
+v11u278repro/cases/VK/vk05 d pristine rc=0 cmp=48 NOT_EQUAL stage1 md5=0b50f345008d
+v11u278repro/cases/VK/vk05 d law rc=0 cmp=48 NOT_EQUAL stage1 md5=0b50f345008d
+v11u278repro/cases/VK/vk05 d fix rc=0 cmp=48 NOT_EQUAL stage1 md5=0b50f345008d
+v11u278repro/cases/VK/vk05 d fix+R11V278_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=0b50f345008d
+v11u278repro/cases/VK/vk05 d fix+R11U278_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=0b50f345008d
+v11u278repro/cases/VK/vk05 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=0b50f345008d
+v11u278repro/cases/VK/vk05 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=0b50f345008d
+v11u278repro/cases/VK/vk05 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=0b50f345008d
+v11u278repro/cases/VK/vk05 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=0b50f345008d
+v11u278repro/cases/VK/vk05 d fix+R11U278_IFACETP_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=0b50f345008d
+v11u278repro/cases/VK/vk05 e pristine rc=0 cmp=48 NOT_EQUAL stage1 md5=f598a1e273d1
+v11u278repro/cases/VK/vk05 e law rc=0 cmp=48 NOT_EQUAL stage1 md5=f598a1e273d1
+v11u278repro/cases/VK/vk05 e fix rc=0 cmp=48 NOT_EQUAL stage1 md5=f598a1e273d1
+v11u278repro/cases/VK/vk05 e fix+R11V278_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=f598a1e273d1
+v11u278repro/cases/VK/vk05 e fix+R11U278_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=f598a1e273d1
+v11u278repro/cases/VK/vk05 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=f598a1e273d1
+v11u278repro/cases/VK/vk05 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=f598a1e273d1
+v11u278repro/cases/VK/vk05 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=f598a1e273d1
+v11u278repro/cases/VK/vk05 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=f598a1e273d1
+v11u278repro/cases/VK/vk05 e fix+R11U278_IFACETP_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=f598a1e273d1
+v11u278repro/cases/VK/vk06 d pristine rc=0 cmp=27 NOT_EQUAL stage1 md5=ef2864892781
+v11u278repro/cases/VK/vk06 d law rc=0 cmp=27 NOT_EQUAL stage1 md5=7242bc4cbe93
+v11u278repro/cases/VK/vk06 d fix rc=0 cmp=27 NOT_EQUAL stage1 md5=7242bc4cbe93
+v11u278repro/cases/VK/vk06 d fix+R11V278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=7242bc4cbe93
+v11u278repro/cases/VK/vk06 d fix+R11U278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=ef2864892781
+v11u278repro/cases/VK/vk06 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=7242bc4cbe93
+v11u278repro/cases/VK/vk06 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=7242bc4cbe93
+v11u278repro/cases/VK/vk06 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=ef2864892781
+v11u278repro/cases/VK/vk06 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=7242bc4cbe93
+v11u278repro/cases/VK/vk06 d fix+R11U278_IFACETP_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=7242bc4cbe93
+v11u278repro/cases/VK/vk06 e pristine rc=0 cmp=27 NOT_EQUAL stage1 md5=2ac510689131
+v11u278repro/cases/VK/vk06 e law rc=0 cmp=27 NOT_EQUAL stage1 md5=d3a7ae5be3a0
+v11u278repro/cases/VK/vk06 e fix rc=0 cmp=27 NOT_EQUAL stage1 md5=d3a7ae5be3a0
+v11u278repro/cases/VK/vk06 e fix+R11V278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=d3a7ae5be3a0
+v11u278repro/cases/VK/vk06 e fix+R11U278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=2ac510689131
+v11u278repro/cases/VK/vk06 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=d3a7ae5be3a0
+v11u278repro/cases/VK/vk06 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=d3a7ae5be3a0
+v11u278repro/cases/VK/vk06 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=2ac510689131
+v11u278repro/cases/VK/vk06 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=d3a7ae5be3a0
+v11u278repro/cases/VK/vk06 e fix+R11U278_IFACETP_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=d3a7ae5be3a0
+v11u278repro/cases/VK/vk07 d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=146cb645e0a2
+v11u278repro/cases/VK/vk07 d law rc=0 cmp=17 NOT_EQUAL stage1 md5=146cb645e0a2
+v11u278repro/cases/VK/vk07 d fix rc=0 cmp=17 NOT_EQUAL stage1 md5=146cb645e0a2
+v11u278repro/cases/VK/vk07 d fix+R11V278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=146cb645e0a2
+v11u278repro/cases/VK/vk07 d fix+R11U278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=146cb645e0a2
+v11u278repro/cases/VK/vk07 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=146cb645e0a2
+v11u278repro/cases/VK/vk07 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=146cb645e0a2
+v11u278repro/cases/VK/vk07 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=146cb645e0a2
+v11u278repro/cases/VK/vk07 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=146cb645e0a2
+v11u278repro/cases/VK/vk07 d fix+R11U278_IFACETP_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=146cb645e0a2
+v11u278repro/cases/VK/vk07 e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=112289d4ecdd
+v11u278repro/cases/VK/vk07 e law rc=0 cmp=17 NOT_EQUAL stage1 md5=112289d4ecdd
+v11u278repro/cases/VK/vk07 e fix rc=0 cmp=17 NOT_EQUAL stage1 md5=112289d4ecdd
+v11u278repro/cases/VK/vk07 e fix+R11V278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=112289d4ecdd
+v11u278repro/cases/VK/vk07 e fix+R11U278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=112289d4ecdd
+v11u278repro/cases/VK/vk07 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=112289d4ecdd
+v11u278repro/cases/VK/vk07 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=112289d4ecdd
+v11u278repro/cases/VK/vk07 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=112289d4ecdd
+v11u278repro/cases/VK/vk07 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=112289d4ecdd
+v11u278repro/cases/VK/vk07 e fix+R11U278_IFACETP_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=112289d4ecdd
+v11u278repro/cases/VK/vk08 d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=89272bf739e6
+v11u278repro/cases/VK/vk08 d law rc=0 cmp=17 NOT_EQUAL stage1 md5=7d1e120292da
+v11u278repro/cases/VK/vk08 d fix rc=0 cmp=17 NOT_EQUAL stage1 md5=7d1e120292da
+v11u278repro/cases/VK/vk08 d fix+R11V278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=7d1e120292da
+v11u278repro/cases/VK/vk08 d fix+R11U278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=89272bf739e6
+v11u278repro/cases/VK/vk08 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=7d1e120292da
+v11u278repro/cases/VK/vk08 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=7d1e120292da
+v11u278repro/cases/VK/vk08 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=89272bf739e6
+v11u278repro/cases/VK/vk08 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=7d1e120292da
+v11u278repro/cases/VK/vk08 d fix+R11U278_IFACETP_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=7d1e120292da
+v11u278repro/cases/VK/vk08 e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=0308b6765602
+v11u278repro/cases/VK/vk08 e law rc=0 cmp=17 NOT_EQUAL stage1 md5=92d86add6a70
+v11u278repro/cases/VK/vk08 e fix rc=0 cmp=17 NOT_EQUAL stage1 md5=92d86add6a70
+v11u278repro/cases/VK/vk08 e fix+R11V278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=92d86add6a70
+v11u278repro/cases/VK/vk08 e fix+R11U278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=0308b6765602
+v11u278repro/cases/VK/vk08 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=92d86add6a70
+v11u278repro/cases/VK/vk08 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=92d86add6a70
+v11u278repro/cases/VK/vk08 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=0308b6765602
+v11u278repro/cases/VK/vk08 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=92d86add6a70
+v11u278repro/cases/VK/vk08 e fix+R11U278_IFACETP_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=92d86add6a70
+v11u278repro/cases/VK/vk09 d pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=32ddf732361b
+v11u278repro/cases/VK/vk09 d law rc=0 cmp=0 STRICT_NOTEQUAL line md5=0e81dce68492
+v11u278repro/cases/VK/vk09 d fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=0e81dce68492
+v11u278repro/cases/VK/vk09 d fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=0e81dce68492
+v11u278repro/cases/VK/vk09 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=32ddf732361b
+v11u278repro/cases/VK/vk09 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=0e81dce68492
+v11u278repro/cases/VK/vk09 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=0e81dce68492
+v11u278repro/cases/VK/vk09 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=32ddf732361b
+v11u278repro/cases/VK/vk09 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=0e81dce68492
+v11u278repro/cases/VK/vk09 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=0e81dce68492
+v11u278repro/cases/VK/vk09 e pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=4624186419f7
+v11u278repro/cases/VK/vk09 e law rc=0 cmp=0 STRICT_NOTEQUAL line md5=b06a26996859
+v11u278repro/cases/VK/vk09 e fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=b06a26996859
+v11u278repro/cases/VK/vk09 e fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=b06a26996859
+v11u278repro/cases/VK/vk09 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=4624186419f7
+v11u278repro/cases/VK/vk09 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=b06a26996859
+v11u278repro/cases/VK/vk09 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=b06a26996859
+v11u278repro/cases/VK/vk09 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=4624186419f7
+v11u278repro/cases/VK/vk09 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=b06a26996859
+v11u278repro/cases/VK/vk09 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=b06a26996859
+v11u278repro/cases/VK/vk10 d pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=56f543582d10
+v11u278repro/cases/VK/vk10 d law rc=0 cmp=64 NOT_EQUAL stage1 md5=2f924b3cd8dd
+v11u278repro/cases/VK/vk10 d fix rc=0 cmp=64 NOT_EQUAL stage1 md5=2f924b3cd8dd
+v11u278repro/cases/VK/vk10 d fix+R11V278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2f924b3cd8dd
+v11u278repro/cases/VK/vk10 d fix+R11U278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=56f543582d10
+v11u278repro/cases/VK/vk10 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2f924b3cd8dd
+v11u278repro/cases/VK/vk10 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2f924b3cd8dd
+v11u278repro/cases/VK/vk10 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=56f543582d10
+v11u278repro/cases/VK/vk10 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2f924b3cd8dd
+v11u278repro/cases/VK/vk10 d fix+R11U278_IFACETP_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2f924b3cd8dd
+v11u278repro/cases/VK/vk10 e pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=a3859329693d
+v11u278repro/cases/VK/vk10 e law rc=0 cmp=64 NOT_EQUAL stage1 md5=ccdfb4580462
+v11u278repro/cases/VK/vk10 e fix rc=0 cmp=64 NOT_EQUAL stage1 md5=ccdfb4580462
+v11u278repro/cases/VK/vk10 e fix+R11V278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ccdfb4580462
+v11u278repro/cases/VK/vk10 e fix+R11U278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=a3859329693d
+v11u278repro/cases/VK/vk10 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ccdfb4580462
+v11u278repro/cases/VK/vk10 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ccdfb4580462
+v11u278repro/cases/VK/vk10 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=a3859329693d
+v11u278repro/cases/VK/vk10 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ccdfb4580462
+v11u278repro/cases/VK/vk10 e fix+R11U278_IFACETP_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ccdfb4580462
+v11u278repro/cases/VK/vk11 d pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=61837e4c27c1
+v11u278repro/cases/VK/vk11 d law rc=0 cmp=36 NOT_EQUAL stage1 md5=cc8605121338
+v11u278repro/cases/VK/vk11 d fix rc=0 cmp=36 NOT_EQUAL stage1 md5=cc8605121338
+v11u278repro/cases/VK/vk11 d fix+R11V278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=cc8605121338
+v11u278repro/cases/VK/vk11 d fix+R11U278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=61837e4c27c1
+v11u278repro/cases/VK/vk11 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=cc8605121338
+v11u278repro/cases/VK/vk11 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=cc8605121338
+v11u278repro/cases/VK/vk11 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=61837e4c27c1
+v11u278repro/cases/VK/vk11 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=cc8605121338
+v11u278repro/cases/VK/vk11 d fix+R11U278_IFACETP_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=cc8605121338
+v11u278repro/cases/VK/vk11 e pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=ca05505d293f
+v11u278repro/cases/VK/vk11 e law rc=0 cmp=36 NOT_EQUAL stage1 md5=0445b2fddaae
+v11u278repro/cases/VK/vk11 e fix rc=0 cmp=36 NOT_EQUAL stage1 md5=0445b2fddaae
+v11u278repro/cases/VK/vk11 e fix+R11V278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=0445b2fddaae
+v11u278repro/cases/VK/vk11 e fix+R11U278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=ca05505d293f
+v11u278repro/cases/VK/vk11 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=0445b2fddaae
+v11u278repro/cases/VK/vk11 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=0445b2fddaae
+v11u278repro/cases/VK/vk11 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=ca05505d293f
+v11u278repro/cases/VK/vk11 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=0445b2fddaae
+v11u278repro/cases/VK/vk11 e fix+R11U278_IFACETP_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=0445b2fddaae
+v11u278repro/cases/VK/vk12 d pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=aa2d0a2b9f18
+v11u278repro/cases/VK/vk12 d law rc=0 cmp=36 NOT_EQUAL stage1 md5=5a6fc955690e
+v11u278repro/cases/VK/vk12 d fix rc=0 cmp=36 NOT_EQUAL stage1 md5=5a6fc955690e
+v11u278repro/cases/VK/vk12 d fix+R11V278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=5a6fc955690e
+v11u278repro/cases/VK/vk12 d fix+R11U278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=aa2d0a2b9f18
+v11u278repro/cases/VK/vk12 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=5a6fc955690e
+v11u278repro/cases/VK/vk12 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=5a6fc955690e
+v11u278repro/cases/VK/vk12 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=aa2d0a2b9f18
+v11u278repro/cases/VK/vk12 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=5a6fc955690e
+v11u278repro/cases/VK/vk12 d fix+R11U278_IFACETP_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=5a6fc955690e
+v11u278repro/cases/VK/vk12 e pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=9ae0d1f7cb3b
+v11u278repro/cases/VK/vk12 e law rc=0 cmp=32 NOT_EQUAL stage1 md5=e7e61ac1d502
+v11u278repro/cases/VK/vk12 e fix rc=0 cmp=32 NOT_EQUAL stage1 md5=e7e61ac1d502
+v11u278repro/cases/VK/vk12 e fix+R11V278_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=e7e61ac1d502
+v11u278repro/cases/VK/vk12 e fix+R11U278_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=9ae0d1f7cb3b
+v11u278repro/cases/VK/vk12 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=e7e61ac1d502
+v11u278repro/cases/VK/vk12 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=e7e61ac1d502
+v11u278repro/cases/VK/vk12 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=9ae0d1f7cb3b
+v11u278repro/cases/VK/vk12 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=e7e61ac1d502
+v11u278repro/cases/VK/vk12 e fix+R11U278_IFACETP_OFF rc=0 cmp=32 NOT_EQUAL stage1 md5=e7e61ac1d502
+v11u278repro/cases/VK/vk13 d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=0dec9afb0151
+v11u278repro/cases/VK/vk13 d law rc=0 cmp=17 NOT_EQUAL stage1 md5=f663abc7adcf
+v11u278repro/cases/VK/vk13 d fix rc=0 cmp=17 NOT_EQUAL stage1 md5=f663abc7adcf
+v11u278repro/cases/VK/vk13 d fix+R11V278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=f663abc7adcf
+v11u278repro/cases/VK/vk13 d fix+R11U278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=0dec9afb0151
+v11u278repro/cases/VK/vk13 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=f663abc7adcf
+v11u278repro/cases/VK/vk13 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=f663abc7adcf
+v11u278repro/cases/VK/vk13 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=0dec9afb0151
+v11u278repro/cases/VK/vk13 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=f663abc7adcf
+v11u278repro/cases/VK/vk13 d fix+R11U278_IFACETP_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=f663abc7adcf
+v11u278repro/cases/VK/vk13 e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=14378acc0ba6
+v11u278repro/cases/VK/vk13 e law rc=0 cmp=17 NOT_EQUAL stage1 md5=41f34138953d
+v11u278repro/cases/VK/vk13 e fix rc=0 cmp=17 NOT_EQUAL stage1 md5=41f34138953d
+v11u278repro/cases/VK/vk13 e fix+R11V278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=41f34138953d
+v11u278repro/cases/VK/vk13 e fix+R11U278_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=14378acc0ba6
+v11u278repro/cases/VK/vk13 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=41f34138953d
+v11u278repro/cases/VK/vk13 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=41f34138953d
+v11u278repro/cases/VK/vk13 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=14378acc0ba6
+v11u278repro/cases/VK/vk13 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=41f34138953d
+v11u278repro/cases/VK/vk13 e fix+R11U278_IFACETP_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=41f34138953d
+v11u278repro/cases/VK/vk14 d pristine rc=0 cmp=27 NOT_EQUAL stage1 md5=2fab40437afa
+v11u278repro/cases/VK/vk14 d law rc=0 cmp=27 NOT_EQUAL stage1 md5=49364cbfbf9d
+v11u278repro/cases/VK/vk14 d fix rc=0 cmp=27 NOT_EQUAL stage1 md5=49364cbfbf9d
+v11u278repro/cases/VK/vk14 d fix+R11V278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=49364cbfbf9d
+v11u278repro/cases/VK/vk14 d fix+R11U278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=2fab40437afa
+v11u278repro/cases/VK/vk14 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=49364cbfbf9d
+v11u278repro/cases/VK/vk14 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=49364cbfbf9d
+v11u278repro/cases/VK/vk14 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=2fab40437afa
+v11u278repro/cases/VK/vk14 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=49364cbfbf9d
+v11u278repro/cases/VK/vk14 d fix+R11U278_IFACETP_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=49364cbfbf9d
+v11u278repro/cases/VK/vk14 e pristine rc=0 cmp=27 NOT_EQUAL stage1 md5=5862a0e71599
+v11u278repro/cases/VK/vk14 e law rc=0 cmp=27 NOT_EQUAL stage1 md5=8f44e69bbc64
+v11u278repro/cases/VK/vk14 e fix rc=0 cmp=27 NOT_EQUAL stage1 md5=8f44e69bbc64
+v11u278repro/cases/VK/vk14 e fix+R11V278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=8f44e69bbc64
+v11u278repro/cases/VK/vk14 e fix+R11U278_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=5862a0e71599
+v11u278repro/cases/VK/vk14 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=8f44e69bbc64
+v11u278repro/cases/VK/vk14 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=8f44e69bbc64
+v11u278repro/cases/VK/vk14 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=5862a0e71599
+v11u278repro/cases/VK/vk14 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=8f44e69bbc64
+v11u278repro/cases/VK/vk14 e fix+R11U278_IFACETP_OFF rc=0 cmp=27 NOT_EQUAL stage1 md5=8f44e69bbc64
+v11u278repro/cases/VK/vk15 d pristine rc=0 cmp=48 NOT_EQUAL stage1 md5=a7be55201942
+v11u278repro/cases/VK/vk15 d law rc=0 cmp=48 NOT_EQUAL stage1 md5=a7be55201942
+v11u278repro/cases/VK/vk15 d fix rc=0 cmp=48 NOT_EQUAL stage1 md5=a7be55201942
+v11u278repro/cases/VK/vk15 d fix+R11V278_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=a7be55201942
+v11u278repro/cases/VK/vk15 d fix+R11U278_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=a7be55201942
+v11u278repro/cases/VK/vk15 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=a7be55201942
+v11u278repro/cases/VK/vk15 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=a7be55201942
+v11u278repro/cases/VK/vk15 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=a7be55201942
+v11u278repro/cases/VK/vk15 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=a7be55201942
+v11u278repro/cases/VK/vk15 d fix+R11U278_IFACETP_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=a7be55201942
+v11u278repro/cases/VK/vk15 e pristine rc=0 cmp=48 NOT_EQUAL stage1 md5=17f6d7566c1d
+v11u278repro/cases/VK/vk15 e law rc=0 cmp=48 NOT_EQUAL stage1 md5=17f6d7566c1d
+v11u278repro/cases/VK/vk15 e fix rc=0 cmp=48 NOT_EQUAL stage1 md5=17f6d7566c1d
+v11u278repro/cases/VK/vk15 e fix+R11V278_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=17f6d7566c1d
+v11u278repro/cases/VK/vk15 e fix+R11U278_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=17f6d7566c1d
+v11u278repro/cases/VK/vk15 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=17f6d7566c1d
+v11u278repro/cases/VK/vk15 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=17f6d7566c1d
+v11u278repro/cases/VK/vk15 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=17f6d7566c1d
+v11u278repro/cases/VK/vk15 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=17f6d7566c1d
+v11u278repro/cases/VK/vk15 e fix+R11U278_IFACETP_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=17f6d7566c1d
+v11u278repro/cases/VS/vs01 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=c03bb84b6112
+v11u278repro/cases/VS/vs01 d law rc=0 cmp=0 STRICT_EQUAL 130 objects md5=21e44252932e
+v11u278repro/cases/VS/vs01 d fix rc=0 cmp=0 STRICT_EQUAL 130 objects md5=21e44252932e
+v11u278repro/cases/VS/vs01 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 130 objects md5=21e44252932e
+v11u278repro/cases/VS/vs01 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=c03bb84b6112
+v11u278repro/cases/VS/vs01 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 130 objects md5=21e44252932e
+v11u278repro/cases/VS/vs01 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=c03bb84b6112
+v11u278repro/cases/VS/vs01 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 130 objects md5=21e44252932e
+v11u278repro/cases/VS/vs01 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 130 objects md5=21e44252932e
+v11u278repro/cases/VS/vs01 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 130 objects md5=21e44252932e
+v11u278repro/cases/VS/vs01 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e15a3d3a5de2
+v11u278repro/cases/VS/vs01 e law rc=0 cmp=0 STRICT_EQUAL 135 objects md5=a6ff33ffdcf4
+v11u278repro/cases/VS/vs01 e fix rc=0 cmp=0 STRICT_EQUAL 135 objects md5=a6ff33ffdcf4
+v11u278repro/cases/VS/vs01 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 135 objects md5=a6ff33ffdcf4
+v11u278repro/cases/VS/vs01 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e15a3d3a5de2
+v11u278repro/cases/VS/vs01 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 135 objects md5=a6ff33ffdcf4
+v11u278repro/cases/VS/vs01 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e15a3d3a5de2
+v11u278repro/cases/VS/vs01 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 135 objects md5=a6ff33ffdcf4
+v11u278repro/cases/VS/vs01 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 135 objects md5=a6ff33ffdcf4
+v11u278repro/cases/VS/vs01 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 135 objects md5=a6ff33ffdcf4
+v11u278repro/cases/VS/vs02 d pristine rc=0 cmp=148 NOT_EQUAL stage1 md5=f43d9708e1c1
+v11u278repro/cases/VS/vs02 d law rc=0 cmp=148 NOT_EQUAL stage1 md5=7484b3203a0d
+v11u278repro/cases/VS/vs02 d fix rc=0 cmp=148 NOT_EQUAL stage1 md5=7484b3203a0d
+v11u278repro/cases/VS/vs02 d fix+R11V278_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=7484b3203a0d
+v11u278repro/cases/VS/vs02 d fix+R11U278_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=f43d9708e1c1
+v11u278repro/cases/VS/vs02 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=7484b3203a0d
+v11u278repro/cases/VS/vs02 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=f43d9708e1c1
+v11u278repro/cases/VS/vs02 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=7484b3203a0d
+v11u278repro/cases/VS/vs02 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=7484b3203a0d
+v11u278repro/cases/VS/vs02 d fix+R11U278_IFACETP_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=7484b3203a0d
+v11u278repro/cases/VS/vs02 e pristine rc=0 cmp=148 NOT_EQUAL stage1 md5=8bce281646da
+v11u278repro/cases/VS/vs02 e law rc=0 cmp=148 NOT_EQUAL stage1 md5=2fe1ab86a6c5
+v11u278repro/cases/VS/vs02 e fix rc=0 cmp=148 NOT_EQUAL stage1 md5=2fe1ab86a6c5
+v11u278repro/cases/VS/vs02 e fix+R11V278_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=2fe1ab86a6c5
+v11u278repro/cases/VS/vs02 e fix+R11U278_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=8bce281646da
+v11u278repro/cases/VS/vs02 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=2fe1ab86a6c5
+v11u278repro/cases/VS/vs02 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=8bce281646da
+v11u278repro/cases/VS/vs02 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=2fe1ab86a6c5
+v11u278repro/cases/VS/vs02 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=2fe1ab86a6c5
+v11u278repro/cases/VS/vs02 e fix+R11U278_IFACETP_OFF rc=0 cmp=148 NOT_EQUAL stage1 md5=2fe1ab86a6c5
+v11u278repro/cases/VS/vs03 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=d4b450b9545e
+v11u278repro/cases/VS/vs03 d law rc=0 cmp=0 STRICT_EQUAL 136 objects md5=1450891ec34c
+v11u278repro/cases/VS/vs03 d fix rc=0 cmp=0 STRICT_EQUAL 136 objects md5=1450891ec34c
+v11u278repro/cases/VS/vs03 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 136 objects md5=1450891ec34c
+v11u278repro/cases/VS/vs03 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=d4b450b9545e
+v11u278repro/cases/VS/vs03 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 136 objects md5=1450891ec34c
+v11u278repro/cases/VS/vs03 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=d4b450b9545e
+v11u278repro/cases/VS/vs03 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 136 objects md5=1450891ec34c
+v11u278repro/cases/VS/vs03 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 136 objects md5=1450891ec34c
+v11u278repro/cases/VS/vs03 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 136 objects md5=1450891ec34c
+v11u278repro/cases/VS/vs03 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=fa6d737af05e
+v11u278repro/cases/VS/vs03 e law rc=0 cmp=0 STRICT_EQUAL 142 objects md5=27eeadf3885a
+v11u278repro/cases/VS/vs03 e fix rc=0 cmp=0 STRICT_EQUAL 142 objects md5=27eeadf3885a
+v11u278repro/cases/VS/vs03 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 142 objects md5=27eeadf3885a
+v11u278repro/cases/VS/vs03 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=fa6d737af05e
+v11u278repro/cases/VS/vs03 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 142 objects md5=27eeadf3885a
+v11u278repro/cases/VS/vs03 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=fa6d737af05e
+v11u278repro/cases/VS/vs03 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 142 objects md5=27eeadf3885a
+v11u278repro/cases/VS/vs03 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 142 objects md5=27eeadf3885a
+v11u278repro/cases/VS/vs03 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 142 objects md5=27eeadf3885a
+v11u278repro/cases/VS/vs04 d pristine rc=0 cmp=156 NOT_EQUAL stage1 md5=37a05abce299
+v11u278repro/cases/VS/vs04 d law rc=0 cmp=156 NOT_EQUAL stage1 md5=37a05abce299
+v11u278repro/cases/VS/vs04 d fix rc=0 cmp=156 NOT_EQUAL stage1 md5=37a05abce299
+v11u278repro/cases/VS/vs04 d fix+R11V278_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=37a05abce299
+v11u278repro/cases/VS/vs04 d fix+R11U278_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=37a05abce299
+v11u278repro/cases/VS/vs04 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=37a05abce299
+v11u278repro/cases/VS/vs04 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=37a05abce299
+v11u278repro/cases/VS/vs04 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=37a05abce299
+v11u278repro/cases/VS/vs04 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=37a05abce299
+v11u278repro/cases/VS/vs04 d fix+R11U278_IFACETP_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=37a05abce299
+v11u278repro/cases/VS/vs04 e pristine rc=0 cmp=156 NOT_EQUAL stage1 md5=a3a4f5021153
+v11u278repro/cases/VS/vs04 e law rc=0 cmp=156 NOT_EQUAL stage1 md5=a3a4f5021153
+v11u278repro/cases/VS/vs04 e fix rc=0 cmp=156 NOT_EQUAL stage1 md5=a3a4f5021153
+v11u278repro/cases/VS/vs04 e fix+R11V278_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=a3a4f5021153
+v11u278repro/cases/VS/vs04 e fix+R11U278_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=a3a4f5021153
+v11u278repro/cases/VS/vs04 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=a3a4f5021153
+v11u278repro/cases/VS/vs04 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=a3a4f5021153
+v11u278repro/cases/VS/vs04 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=a3a4f5021153
+v11u278repro/cases/VS/vs04 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=a3a4f5021153
+v11u278repro/cases/VS/vs04 e fix+R11U278_IFACETP_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=a3a4f5021153
+v11u278repro/cases/VS/vs05 d pristine rc=0 cmp=188 NOT_EQUAL stage1 md5=4b260342353f
+v11u278repro/cases/VS/vs05 d law rc=0 cmp=188 NOT_EQUAL stage1 md5=4b260342353f
+v11u278repro/cases/VS/vs05 d fix rc=0 cmp=188 NOT_EQUAL stage1 md5=4b260342353f
+v11u278repro/cases/VS/vs05 d fix+R11V278_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=4b260342353f
+v11u278repro/cases/VS/vs05 d fix+R11U278_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=4b260342353f
+v11u278repro/cases/VS/vs05 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=4b260342353f
+v11u278repro/cases/VS/vs05 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=4b260342353f
+v11u278repro/cases/VS/vs05 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=4b260342353f
+v11u278repro/cases/VS/vs05 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=4b260342353f
+v11u278repro/cases/VS/vs05 d fix+R11U278_IFACETP_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=4b260342353f
+v11u278repro/cases/VS/vs05 e pristine rc=0 cmp=188 NOT_EQUAL stage1 md5=6b1c6d730953
+v11u278repro/cases/VS/vs05 e law rc=0 cmp=188 NOT_EQUAL stage1 md5=6b1c6d730953
+v11u278repro/cases/VS/vs05 e fix rc=0 cmp=188 NOT_EQUAL stage1 md5=6b1c6d730953
+v11u278repro/cases/VS/vs05 e fix+R11V278_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=6b1c6d730953
+v11u278repro/cases/VS/vs05 e fix+R11U278_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=6b1c6d730953
+v11u278repro/cases/VS/vs05 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=6b1c6d730953
+v11u278repro/cases/VS/vs05 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=6b1c6d730953
+v11u278repro/cases/VS/vs05 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=6b1c6d730953
+v11u278repro/cases/VS/vs05 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=6b1c6d730953
+v11u278repro/cases/VS/vs05 e fix+R11U278_IFACETP_OFF rc=0 cmp=188 NOT_EQUAL stage1 md5=6b1c6d730953
+v11u278repro/cases/VS/vs06 d pristine rc=0 cmp=156 NOT_EQUAL stage1 md5=55f1f412080b
+v11u278repro/cases/VS/vs06 d law rc=0 cmp=156 NOT_EQUAL stage1 md5=fe3adad10b57
+v11u278repro/cases/VS/vs06 d fix rc=0 cmp=156 NOT_EQUAL stage1 md5=fe3adad10b57
+v11u278repro/cases/VS/vs06 d fix+R11V278_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=fe3adad10b57
+v11u278repro/cases/VS/vs06 d fix+R11U278_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=55f1f412080b
+v11u278repro/cases/VS/vs06 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=fe3adad10b57
+v11u278repro/cases/VS/vs06 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=55f1f412080b
+v11u278repro/cases/VS/vs06 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=fe3adad10b57
+v11u278repro/cases/VS/vs06 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=fe3adad10b57
+v11u278repro/cases/VS/vs06 d fix+R11U278_IFACETP_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=fe3adad10b57
+v11u278repro/cases/VS/vs06 e pristine rc=0 cmp=156 NOT_EQUAL stage1 md5=82a577c9f474
+v11u278repro/cases/VS/vs06 e law rc=0 cmp=156 NOT_EQUAL stage1 md5=832e5fc40452
+v11u278repro/cases/VS/vs06 e fix rc=0 cmp=156 NOT_EQUAL stage1 md5=832e5fc40452
+v11u278repro/cases/VS/vs06 e fix+R11V278_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=832e5fc40452
+v11u278repro/cases/VS/vs06 e fix+R11U278_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=82a577c9f474
+v11u278repro/cases/VS/vs06 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=832e5fc40452
+v11u278repro/cases/VS/vs06 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=82a577c9f474
+v11u278repro/cases/VS/vs06 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=832e5fc40452
+v11u278repro/cases/VS/vs06 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=832e5fc40452
+v11u278repro/cases/VS/vs06 e fix+R11U278_IFACETP_OFF rc=0 cmp=156 NOT_EQUAL stage1 md5=832e5fc40452
+v11u278repro/cases/VS/vs07 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=58f1a78da1fe
+v11u278repro/cases/VS/vs07 d law rc=0 cmp=0 STRICT_EQUAL 104 objects md5=0fe402bc859c
+v11u278repro/cases/VS/vs07 d fix rc=0 cmp=0 STRICT_EQUAL 104 objects md5=0fe402bc859c
+v11u278repro/cases/VS/vs07 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 104 objects md5=0fe402bc859c
+v11u278repro/cases/VS/vs07 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=58f1a78da1fe
+v11u278repro/cases/VS/vs07 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 104 objects md5=0fe402bc859c
+v11u278repro/cases/VS/vs07 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=58f1a78da1fe
+v11u278repro/cases/VS/vs07 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 104 objects md5=0fe402bc859c
+v11u278repro/cases/VS/vs07 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 104 objects md5=0fe402bc859c
+v11u278repro/cases/VS/vs07 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 104 objects md5=0fe402bc859c
+v11u278repro/cases/VS/vs07 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ce4b66576a1f
+v11u278repro/cases/VS/vs07 e law rc=0 cmp=0 STRICT_EQUAL 109 objects md5=8e0a0259cdb3
+v11u278repro/cases/VS/vs07 e fix rc=0 cmp=0 STRICT_EQUAL 109 objects md5=8e0a0259cdb3
+v11u278repro/cases/VS/vs07 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 109 objects md5=8e0a0259cdb3
+v11u278repro/cases/VS/vs07 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ce4b66576a1f
+v11u278repro/cases/VS/vs07 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 109 objects md5=8e0a0259cdb3
+v11u278repro/cases/VS/vs07 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ce4b66576a1f
+v11u278repro/cases/VS/vs07 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 109 objects md5=8e0a0259cdb3
+v11u278repro/cases/VS/vs07 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 109 objects md5=8e0a0259cdb3
+v11u278repro/cases/VS/vs07 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 109 objects md5=8e0a0259cdb3
+v11u278repro/cases/VS/vs08 d pristine rc=0 cmp=292 NOT_EQUAL stage1 md5=91503b7a29cb
+v11u278repro/cases/VS/vs08 d law rc=0 cmp=292 NOT_EQUAL stage1 md5=91503b7a29cb
+v11u278repro/cases/VS/vs08 d fix rc=0 cmp=292 NOT_EQUAL stage1 md5=91503b7a29cb
+v11u278repro/cases/VS/vs08 d fix+R11V278_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=91503b7a29cb
+v11u278repro/cases/VS/vs08 d fix+R11U278_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=91503b7a29cb
+v11u278repro/cases/VS/vs08 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=91503b7a29cb
+v11u278repro/cases/VS/vs08 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=91503b7a29cb
+v11u278repro/cases/VS/vs08 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=91503b7a29cb
+v11u278repro/cases/VS/vs08 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=91503b7a29cb
+v11u278repro/cases/VS/vs08 d fix+R11U278_IFACETP_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=91503b7a29cb
+v11u278repro/cases/VS/vs08 e pristine rc=0 cmp=292 NOT_EQUAL stage1 md5=b08a7fffcf1d
+v11u278repro/cases/VS/vs08 e law rc=0 cmp=292 NOT_EQUAL stage1 md5=b08a7fffcf1d
+v11u278repro/cases/VS/vs08 e fix rc=0 cmp=292 NOT_EQUAL stage1 md5=b08a7fffcf1d
+v11u278repro/cases/VS/vs08 e fix+R11V278_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=b08a7fffcf1d
+v11u278repro/cases/VS/vs08 e fix+R11U278_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=b08a7fffcf1d
+v11u278repro/cases/VS/vs08 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=b08a7fffcf1d
+v11u278repro/cases/VS/vs08 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=b08a7fffcf1d
+v11u278repro/cases/VS/vs08 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=b08a7fffcf1d
+v11u278repro/cases/VS/vs08 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=b08a7fffcf1d
+v11u278repro/cases/VS/vs08 e fix+R11U278_IFACETP_OFF rc=0 cmp=292 NOT_EQUAL stage1 md5=b08a7fffcf1d
+v11u278repro/cases/VS/vs09 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=8b530bc969a7
+v11u278repro/cases/VS/vs09 d law rc=0 cmp=0 STRICT_EQUAL 128 objects md5=c395c683439e
+v11u278repro/cases/VS/vs09 d fix rc=0 cmp=0 STRICT_EQUAL 128 objects md5=c395c683439e
+v11u278repro/cases/VS/vs09 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 128 objects md5=c395c683439e
+v11u278repro/cases/VS/vs09 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=8b530bc969a7
+v11u278repro/cases/VS/vs09 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 128 objects md5=c395c683439e
+v11u278repro/cases/VS/vs09 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=8b530bc969a7
+v11u278repro/cases/VS/vs09 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 128 objects md5=c395c683439e
+v11u278repro/cases/VS/vs09 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 128 objects md5=c395c683439e
+v11u278repro/cases/VS/vs09 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 128 objects md5=c395c683439e
+v11u278repro/cases/VS/vs09 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7feb64946ab2
+v11u278repro/cases/VS/vs09 e law rc=0 cmp=0 STRICT_EQUAL 143 objects md5=e5832d8910bb
+v11u278repro/cases/VS/vs09 e fix rc=0 cmp=0 STRICT_EQUAL 143 objects md5=e5832d8910bb
+v11u278repro/cases/VS/vs09 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 143 objects md5=e5832d8910bb
+v11u278repro/cases/VS/vs09 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7feb64946ab2
+v11u278repro/cases/VS/vs09 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 143 objects md5=e5832d8910bb
+v11u278repro/cases/VS/vs09 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7feb64946ab2
+v11u278repro/cases/VS/vs09 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 143 objects md5=e5832d8910bb
+v11u278repro/cases/VS/vs09 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 143 objects md5=e5832d8910bb
+v11u278repro/cases/VS/vs09 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 143 objects md5=e5832d8910bb
+v11u278repro/cases/VS/vs10 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5d59cfacfed0
+v11u278repro/cases/VS/vs10 d law rc=0 cmp=0 STRICT_EQUAL 197 objects md5=264f83a3db94
+v11u278repro/cases/VS/vs10 d fix rc=0 cmp=0 STRICT_EQUAL 197 objects md5=264f83a3db94
+v11u278repro/cases/VS/vs10 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 197 objects md5=264f83a3db94
+v11u278repro/cases/VS/vs10 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5d59cfacfed0
+v11u278repro/cases/VS/vs10 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 197 objects md5=264f83a3db94
+v11u278repro/cases/VS/vs10 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5d59cfacfed0
+v11u278repro/cases/VS/vs10 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 197 objects md5=264f83a3db94
+v11u278repro/cases/VS/vs10 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 197 objects md5=264f83a3db94
+v11u278repro/cases/VS/vs10 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 197 objects md5=264f83a3db94
+v11u278repro/cases/VS/vs10 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=d763ea8e3082
+v11u278repro/cases/VS/vs10 e law rc=0 cmp=0 STRICT_EQUAL 196 objects md5=201f6f1e1d1a
+v11u278repro/cases/VS/vs10 e fix rc=0 cmp=0 STRICT_EQUAL 196 objects md5=201f6f1e1d1a
+v11u278repro/cases/VS/vs10 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 196 objects md5=201f6f1e1d1a
+v11u278repro/cases/VS/vs10 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=d763ea8e3082
+v11u278repro/cases/VS/vs10 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 196 objects md5=201f6f1e1d1a
+v11u278repro/cases/VS/vs10 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=d763ea8e3082
+v11u278repro/cases/VS/vs10 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 196 objects md5=201f6f1e1d1a
+v11u278repro/cases/VS/vs10 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 196 objects md5=201f6f1e1d1a
+v11u278repro/cases/VS/vs10 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 196 objects md5=201f6f1e1d1a
+v11u278repro/cases/VS/vs11 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=afa50aaa5909
+v11u278repro/cases/VS/vs11 d law rc=0 cmp=0 STRICT_EQUAL 111 objects md5=e337d258cbc6
+v11u278repro/cases/VS/vs11 d fix rc=0 cmp=0 STRICT_EQUAL 111 objects md5=e337d258cbc6
+v11u278repro/cases/VS/vs11 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 111 objects md5=e337d258cbc6
+v11u278repro/cases/VS/vs11 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=afa50aaa5909
+v11u278repro/cases/VS/vs11 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 111 objects md5=e337d258cbc6
+v11u278repro/cases/VS/vs11 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=afa50aaa5909
+v11u278repro/cases/VS/vs11 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 111 objects md5=e337d258cbc6
+v11u278repro/cases/VS/vs11 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 111 objects md5=e337d258cbc6
+v11u278repro/cases/VS/vs11 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 111 objects md5=e337d258cbc6
+v11u278repro/cases/VS/vs11 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=6097e5e7592b
+v11u278repro/cases/VS/vs11 e law rc=0 cmp=0 STRICT_EQUAL 116 objects md5=10863f298a78
+v11u278repro/cases/VS/vs11 e fix rc=0 cmp=0 STRICT_EQUAL 116 objects md5=10863f298a78
+v11u278repro/cases/VS/vs11 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 116 objects md5=10863f298a78
+v11u278repro/cases/VS/vs11 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=6097e5e7592b
+v11u278repro/cases/VS/vs11 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 116 objects md5=10863f298a78
+v11u278repro/cases/VS/vs11 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=6097e5e7592b
+v11u278repro/cases/VS/vs11 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 116 objects md5=10863f298a78
+v11u278repro/cases/VS/vs11 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 116 objects md5=10863f298a78
+v11u278repro/cases/VS/vs11 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 116 objects md5=10863f298a78
+v11u278repro/cases/VS/vs12 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=04b9101add04
+v11u278repro/cases/VS/vs12 d law rc=0 cmp=0 STRICT_EQUAL 137 objects md5=548b8e7866ba
+v11u278repro/cases/VS/vs12 d fix rc=0 cmp=0 STRICT_EQUAL 137 objects md5=548b8e7866ba
+v11u278repro/cases/VS/vs12 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 137 objects md5=548b8e7866ba
+v11u278repro/cases/VS/vs12 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=04b9101add04
+v11u278repro/cases/VS/vs12 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 137 objects md5=548b8e7866ba
+v11u278repro/cases/VS/vs12 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=04b9101add04
+v11u278repro/cases/VS/vs12 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 137 objects md5=548b8e7866ba
+v11u278repro/cases/VS/vs12 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 137 objects md5=548b8e7866ba
+v11u278repro/cases/VS/vs12 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 137 objects md5=548b8e7866ba
+v11u278repro/cases/VS/vs12 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=3efa7f964db2
+v11u278repro/cases/VS/vs12 e law rc=0 cmp=0 STRICT_EQUAL 142 objects md5=41691511c1e0
+v11u278repro/cases/VS/vs12 e fix rc=0 cmp=0 STRICT_EQUAL 142 objects md5=41691511c1e0
+v11u278repro/cases/VS/vs12 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 142 objects md5=41691511c1e0
+v11u278repro/cases/VS/vs12 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=3efa7f964db2
+v11u278repro/cases/VS/vs12 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 142 objects md5=41691511c1e0
+v11u278repro/cases/VS/vs12 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=3efa7f964db2
+v11u278repro/cases/VS/vs12 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 142 objects md5=41691511c1e0
+v11u278repro/cases/VS/vs12 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 142 objects md5=41691511c1e0
+v11u278repro/cases/VS/vs12 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 142 objects md5=41691511c1e0
+v11u278repro/cases/VS/vs13 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=925e00d87b8c
+v11u278repro/cases/VS/vs13 d law rc=0 cmp=0 STRICT_EQUAL 119 objects md5=6f82cd971ce6
+v11u278repro/cases/VS/vs13 d fix rc=0 cmp=0 STRICT_EQUAL 119 objects md5=6f82cd971ce6
+v11u278repro/cases/VS/vs13 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 119 objects md5=6f82cd971ce6
+v11u278repro/cases/VS/vs13 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=925e00d87b8c
+v11u278repro/cases/VS/vs13 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 119 objects md5=6f82cd971ce6
+v11u278repro/cases/VS/vs13 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=925e00d87b8c
+v11u278repro/cases/VS/vs13 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 119 objects md5=6f82cd971ce6
+v11u278repro/cases/VS/vs13 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 119 objects md5=6f82cd971ce6
+v11u278repro/cases/VS/vs13 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 119 objects md5=6f82cd971ce6
+v11u278repro/cases/VS/vs13 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5243f7982a1e
+v11u278repro/cases/VS/vs13 e law rc=0 cmp=0 STRICT_EQUAL 124 objects md5=22308e3035f5
+v11u278repro/cases/VS/vs13 e fix rc=0 cmp=0 STRICT_EQUAL 124 objects md5=22308e3035f5
+v11u278repro/cases/VS/vs13 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 124 objects md5=22308e3035f5
+v11u278repro/cases/VS/vs13 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5243f7982a1e
+v11u278repro/cases/VS/vs13 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 124 objects md5=22308e3035f5
+v11u278repro/cases/VS/vs13 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5243f7982a1e
+v11u278repro/cases/VS/vs13 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 124 objects md5=22308e3035f5
+v11u278repro/cases/VS/vs13 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 124 objects md5=22308e3035f5
+v11u278repro/cases/VS/vs13 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 124 objects md5=22308e3035f5
+v11u278repro/cases/VS/vs14 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=dadc5493b230
+v11u278repro/cases/VS/vs14 d law rc=0 cmp=0 STRICT_EQUAL 126 objects md5=e20a16bba778
+v11u278repro/cases/VS/vs14 d fix rc=0 cmp=0 STRICT_EQUAL 126 objects md5=e20a16bba778
+v11u278repro/cases/VS/vs14 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 126 objects md5=e20a16bba778
+v11u278repro/cases/VS/vs14 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=dadc5493b230
+v11u278repro/cases/VS/vs14 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 126 objects md5=e20a16bba778
+v11u278repro/cases/VS/vs14 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=dadc5493b230
+v11u278repro/cases/VS/vs14 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 126 objects md5=e20a16bba778
+v11u278repro/cases/VS/vs14 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 126 objects md5=e20a16bba778
+v11u278repro/cases/VS/vs14 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 126 objects md5=e20a16bba778
+v11u278repro/cases/VS/vs14 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=fac90a36abde
+v11u278repro/cases/VS/vs14 e law rc=0 cmp=0 STRICT_EQUAL 135 objects md5=88000b8da08a
+v11u278repro/cases/VS/vs14 e fix rc=0 cmp=0 STRICT_EQUAL 135 objects md5=88000b8da08a
+v11u278repro/cases/VS/vs14 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 135 objects md5=88000b8da08a
+v11u278repro/cases/VS/vs14 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=fac90a36abde
+v11u278repro/cases/VS/vs14 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 135 objects md5=88000b8da08a
+v11u278repro/cases/VS/vs14 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=fac90a36abde
+v11u278repro/cases/VS/vs14 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 135 objects md5=88000b8da08a
+v11u278repro/cases/VS/vs14 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 135 objects md5=88000b8da08a
+v11u278repro/cases/VS/vs14 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 135 objects md5=88000b8da08a
+v11u278repro/cases/VS/vs15 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=99e6743d9016
+v11u278repro/cases/VS/vs15 d law rc=0 cmp=0 STRICT_EQUAL 102 objects md5=02526a7607fe
+v11u278repro/cases/VS/vs15 d fix rc=0 cmp=0 STRICT_EQUAL 102 objects md5=02526a7607fe
+v11u278repro/cases/VS/vs15 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 102 objects md5=02526a7607fe
+v11u278repro/cases/VS/vs15 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=99e6743d9016
+v11u278repro/cases/VS/vs15 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 102 objects md5=02526a7607fe
+v11u278repro/cases/VS/vs15 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=99e6743d9016
+v11u278repro/cases/VS/vs15 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 102 objects md5=02526a7607fe
+v11u278repro/cases/VS/vs15 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 102 objects md5=02526a7607fe
+v11u278repro/cases/VS/vs15 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 102 objects md5=02526a7607fe
+v11u278repro/cases/VS/vs15 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=4bb38a6db89e
+v11u278repro/cases/VS/vs15 e law rc=0 cmp=0 STRICT_EQUAL 107 objects md5=2ba38e9c9810
+v11u278repro/cases/VS/vs15 e fix rc=0 cmp=0 STRICT_EQUAL 107 objects md5=2ba38e9c9810
+v11u278repro/cases/VS/vs15 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 107 objects md5=2ba38e9c9810
+v11u278repro/cases/VS/vs15 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=4bb38a6db89e
+v11u278repro/cases/VS/vs15 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 107 objects md5=2ba38e9c9810
+v11u278repro/cases/VS/vs15 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=4bb38a6db89e
+v11u278repro/cases/VS/vs15 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 107 objects md5=2ba38e9c9810
+v11u278repro/cases/VS/vs15 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_EQUAL 107 objects md5=2ba38e9c9810
+v11u278repro/cases/VS/vs15 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 107 objects md5=2ba38e9c9810
+v11u278repro/cases/VT/vt01 d pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=5915e640df28
+v11u278repro/cases/VT/vt01 d law rc=0 cmp=0 STRICT_EQUAL 93 objects md5=d6a215a8ea3d
+v11u278repro/cases/VT/vt01 d fix rc=0 cmp=0 STRICT_EQUAL 93 objects md5=d6a215a8ea3d
+v11u278repro/cases/VT/vt01 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 93 objects md5=d6a215a8ea3d
+v11u278repro/cases/VT/vt01 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=5915e640df28
+v11u278repro/cases/VT/vt01 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 93 objects md5=d6a215a8ea3d
+v11u278repro/cases/VT/vt01 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_EQUAL 93 objects md5=d6a215a8ea3d
+v11u278repro/cases/VT/vt01 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 93 objects md5=d6a215a8ea3d
+v11u278repro/cases/VT/vt01 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=5915e640df28
+v11u278repro/cases/VT/vt01 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 93 objects md5=d6a215a8ea3d
+v11u278repro/cases/VT/vt01 e pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=f9fe2b9b71da
+v11u278repro/cases/VT/vt01 e law rc=0 cmp=0 STRICT_EQUAL 86 objects md5=318f7e7f50ae
+v11u278repro/cases/VT/vt01 e fix rc=0 cmp=0 STRICT_EQUAL 86 objects md5=318f7e7f50ae
+v11u278repro/cases/VT/vt01 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 86 objects md5=318f7e7f50ae
+v11u278repro/cases/VT/vt01 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=f9fe2b9b71da
+v11u278repro/cases/VT/vt01 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 86 objects md5=318f7e7f50ae
+v11u278repro/cases/VT/vt01 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_EQUAL 86 objects md5=318f7e7f50ae
+v11u278repro/cases/VT/vt01 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 86 objects md5=318f7e7f50ae
+v11u278repro/cases/VT/vt01 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=f9fe2b9b71da
+v11u278repro/cases/VT/vt01 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 86 objects md5=318f7e7f50ae
+v11u278repro/cases/VT/vt02 d pristine rc=0 cmp=210 NOT_EQUAL stage1 md5=b9793b2e23a4
+v11u278repro/cases/VT/vt02 d law rc=0 cmp=210 NOT_EQUAL stage1 md5=b9793b2e23a4
+v11u278repro/cases/VT/vt02 d fix rc=0 cmp=210 NOT_EQUAL stage1 md5=b9793b2e23a4
+v11u278repro/cases/VT/vt02 d fix+R11V278_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=b9793b2e23a4
+v11u278repro/cases/VT/vt02 d fix+R11U278_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=b9793b2e23a4
+v11u278repro/cases/VT/vt02 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=b9793b2e23a4
+v11u278repro/cases/VT/vt02 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=b9793b2e23a4
+v11u278repro/cases/VT/vt02 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=b9793b2e23a4
+v11u278repro/cases/VT/vt02 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=b9793b2e23a4
+v11u278repro/cases/VT/vt02 d fix+R11U278_IFACETP_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=b9793b2e23a4
+v11u278repro/cases/VT/vt02 e pristine rc=0 cmp=210 NOT_EQUAL stage1 md5=1794155df85f
+v11u278repro/cases/VT/vt02 e law rc=0 cmp=210 NOT_EQUAL stage1 md5=1794155df85f
+v11u278repro/cases/VT/vt02 e fix rc=0 cmp=210 NOT_EQUAL stage1 md5=1794155df85f
+v11u278repro/cases/VT/vt02 e fix+R11V278_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=1794155df85f
+v11u278repro/cases/VT/vt02 e fix+R11U278_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=1794155df85f
+v11u278repro/cases/VT/vt02 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=1794155df85f
+v11u278repro/cases/VT/vt02 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=1794155df85f
+v11u278repro/cases/VT/vt02 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=1794155df85f
+v11u278repro/cases/VT/vt02 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=1794155df85f
+v11u278repro/cases/VT/vt02 e fix+R11U278_IFACETP_OFF rc=0 cmp=210 NOT_EQUAL stage1 md5=1794155df85f
+v11u278repro/cases/VT/vt03 d pristine rc=0 cmp=88 NOT_EQUAL stage1 md5=055ed1c493ba
+v11u278repro/cases/VT/vt03 d law rc=0 cmp=88 NOT_EQUAL stage1 md5=b678e6633766
+v11u278repro/cases/VT/vt03 d fix rc=0 cmp=88 NOT_EQUAL stage1 md5=b678e6633766
+v11u278repro/cases/VT/vt03 d fix+R11V278_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=b678e6633766
+v11u278repro/cases/VT/vt03 d fix+R11U278_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=055ed1c493ba
+v11u278repro/cases/VT/vt03 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=b678e6633766
+v11u278repro/cases/VT/vt03 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=b678e6633766
+v11u278repro/cases/VT/vt03 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=b678e6633766
+v11u278repro/cases/VT/vt03 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=055ed1c493ba
+v11u278repro/cases/VT/vt03 d fix+R11U278_IFACETP_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=b678e6633766
+v11u278repro/cases/VT/vt03 e pristine rc=0 cmp=88 NOT_EQUAL stage1 md5=50db7d56afa7
+v11u278repro/cases/VT/vt03 e law rc=0 cmp=88 NOT_EQUAL stage1 md5=68bf1c541d47
+v11u278repro/cases/VT/vt03 e fix rc=0 cmp=88 NOT_EQUAL stage1 md5=68bf1c541d47
+v11u278repro/cases/VT/vt03 e fix+R11V278_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=68bf1c541d47
+v11u278repro/cases/VT/vt03 e fix+R11U278_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=50db7d56afa7
+v11u278repro/cases/VT/vt03 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=68bf1c541d47
+v11u278repro/cases/VT/vt03 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=68bf1c541d47
+v11u278repro/cases/VT/vt03 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=68bf1c541d47
+v11u278repro/cases/VT/vt03 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=50db7d56afa7
+v11u278repro/cases/VT/vt03 e fix+R11U278_IFACETP_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=68bf1c541d47
+v11u278repro/cases/VT/vt04 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=43184e1da813
+v11u278repro/cases/VT/vt04 d law rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ab0330529e47
+v11u278repro/cases/VT/vt04 d fix rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ab0330529e47
+v11u278repro/cases/VT/vt04 d fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ab0330529e47
+v11u278repro/cases/VT/vt04 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=43184e1da813
+v11u278repro/cases/VT/vt04 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ab0330529e47
+v11u278repro/cases/VT/vt04 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ab0330529e47
+v11u278repro/cases/VT/vt04 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ab0330529e47
+v11u278repro/cases/VT/vt04 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=43184e1da813
+v11u278repro/cases/VT/vt04 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ab0330529e47
+v11u278repro/cases/VT/vt04 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=2f34428e0d25
+v11u278repro/cases/VT/vt04 e law rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=3e46c80b418a
+v11u278repro/cases/VT/vt04 e fix rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=3e46c80b418a
+v11u278repro/cases/VT/vt04 e fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=3e46c80b418a
+v11u278repro/cases/VT/vt04 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=2f34428e0d25
+v11u278repro/cases/VT/vt04 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=3e46c80b418a
+v11u278repro/cases/VT/vt04 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=3e46c80b418a
+v11u278repro/cases/VT/vt04 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=3e46c80b418a
+v11u278repro/cases/VT/vt04 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=2f34428e0d25
+v11u278repro/cases/VT/vt04 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=3e46c80b418a
+v11u278repro/cases/VT/vt05 d pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=9c80f3092cf9
+v11u278repro/cases/VT/vt05 d law rc=0 cmp=0 STRICT_NOTEQUAL line md5=dfa2b55fde0e
+v11u278repro/cases/VT/vt05 d fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=dfa2b55fde0e
+v11u278repro/cases/VT/vt05 d fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=dfa2b55fde0e
+v11u278repro/cases/VT/vt05 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=9c80f3092cf9
+v11u278repro/cases/VT/vt05 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=dfa2b55fde0e
+v11u278repro/cases/VT/vt05 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=dfa2b55fde0e
+v11u278repro/cases/VT/vt05 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=dfa2b55fde0e
+v11u278repro/cases/VT/vt05 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=9c80f3092cf9
+v11u278repro/cases/VT/vt05 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=dfa2b55fde0e
+v11u278repro/cases/VT/vt05 e pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=35a4f06c65bb
+v11u278repro/cases/VT/vt05 e law rc=0 cmp=0 STRICT_NOTEQUAL line md5=2424a279d6a1
+v11u278repro/cases/VT/vt05 e fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=2424a279d6a1
+v11u278repro/cases/VT/vt05 e fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=2424a279d6a1
+v11u278repro/cases/VT/vt05 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=35a4f06c65bb
+v11u278repro/cases/VT/vt05 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=2424a279d6a1
+v11u278repro/cases/VT/vt05 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=2424a279d6a1
+v11u278repro/cases/VT/vt05 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=2424a279d6a1
+v11u278repro/cases/VT/vt05 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=35a4f06c65bb
+v11u278repro/cases/VT/vt05 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=2424a279d6a1
+v11u278repro/cases/VT/vt06 d pristine rc=4 cmp=82 NOT_EQUAL stage1 md5=e68778c4d3d6
+v11u278repro/cases/VT/vt06 d law rc=4 cmp=82 NOT_EQUAL stage1 md5=6d9b78504198
+v11u278repro/cases/VT/vt06 d fix rc=4 cmp=82 NOT_EQUAL stage1 md5=6d9b78504198
+v11u278repro/cases/VT/vt06 d fix+R11V278_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=6d9b78504198
+v11u278repro/cases/VT/vt06 d fix+R11U278_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=e68778c4d3d6
+v11u278repro/cases/VT/vt06 d fix+R11V278_OVRTPREF_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=6d9b78504198
+v11u278repro/cases/VT/vt06 d fix+R11U278_TRAILVARSEL_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=6d9b78504198
+v11u278repro/cases/VT/vt06 d fix+R11U278_PKGQUALRHS_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=6d9b78504198
+v11u278repro/cases/VT/vt06 d fix+R11U278_BODYCHAIN_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=e68778c4d3d6
+v11u278repro/cases/VT/vt06 d fix+R11U278_IFACETP_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=6d9b78504198
+v11u278repro/cases/VT/vt06 e pristine rc=4 cmp=82 NOT_EQUAL stage1 md5=75570c01fc3a
+v11u278repro/cases/VT/vt06 e law rc=4 cmp=82 NOT_EQUAL stage1 md5=216817fbb68f
+v11u278repro/cases/VT/vt06 e fix rc=4 cmp=82 NOT_EQUAL stage1 md5=216817fbb68f
+v11u278repro/cases/VT/vt06 e fix+R11V278_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=216817fbb68f
+v11u278repro/cases/VT/vt06 e fix+R11U278_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=75570c01fc3a
+v11u278repro/cases/VT/vt06 e fix+R11V278_OVRTPREF_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=216817fbb68f
+v11u278repro/cases/VT/vt06 e fix+R11U278_TRAILVARSEL_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=216817fbb68f
+v11u278repro/cases/VT/vt06 e fix+R11U278_PKGQUALRHS_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=216817fbb68f
+v11u278repro/cases/VT/vt06 e fix+R11U278_BODYCHAIN_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=75570c01fc3a
+v11u278repro/cases/VT/vt06 e fix+R11U278_IFACETP_OFF rc=4 cmp=82 NOT_EQUAL stage1 md5=216817fbb68f
+v11u278repro/cases/VT/vt07 d pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=a354971b9914
+v11u278repro/cases/VT/vt07 d law rc=0 cmp=0 STRICT_NOTEQUAL line md5=0ce570935d07
+v11u278repro/cases/VT/vt07 d fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=0ce570935d07
+v11u278repro/cases/VT/vt07 d fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=0ce570935d07
+v11u278repro/cases/VT/vt07 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=a354971b9914
+v11u278repro/cases/VT/vt07 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=0ce570935d07
+v11u278repro/cases/VT/vt07 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=0ce570935d07
+v11u278repro/cases/VT/vt07 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=0ce570935d07
+v11u278repro/cases/VT/vt07 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=a354971b9914
+v11u278repro/cases/VT/vt07 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=0ce570935d07
+v11u278repro/cases/VT/vt07 e pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=943a124e403e
+v11u278repro/cases/VT/vt07 e law rc=0 cmp=0 STRICT_NOTEQUAL line md5=83d279aff469
+v11u278repro/cases/VT/vt07 e fix rc=0 cmp=0 STRICT_NOTEQUAL line md5=83d279aff469
+v11u278repro/cases/VT/vt07 e fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=83d279aff469
+v11u278repro/cases/VT/vt07 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=943a124e403e
+v11u278repro/cases/VT/vt07 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=83d279aff469
+v11u278repro/cases/VT/vt07 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=83d279aff469
+v11u278repro/cases/VT/vt07 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=83d279aff469
+v11u278repro/cases/VT/vt07 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=943a124e403e
+v11u278repro/cases/VT/vt07 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=83d279aff469
+v11u278repro/cases/VT/vt08 d pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=b51518ec894c
+v11u278repro/cases/VT/vt08 d law rc=0 cmp=0 STRICT_EQUAL 129 objects md5=6ae64792b587
+v11u278repro/cases/VT/vt08 d fix rc=0 cmp=0 STRICT_EQUAL 129 objects md5=6ae64792b587
+v11u278repro/cases/VT/vt08 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 129 objects md5=6ae64792b587
+v11u278repro/cases/VT/vt08 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=b51518ec894c
+v11u278repro/cases/VT/vt08 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 129 objects md5=6ae64792b587
+v11u278repro/cases/VT/vt08 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_EQUAL 129 objects md5=6ae64792b587
+v11u278repro/cases/VT/vt08 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 129 objects md5=6ae64792b587
+v11u278repro/cases/VT/vt08 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=b51518ec894c
+v11u278repro/cases/VT/vt08 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 129 objects md5=6ae64792b587
+v11u278repro/cases/VT/vt08 e pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=47798336950c
+v11u278repro/cases/VT/vt08 e law rc=0 cmp=0 STRICT_EQUAL 116 objects md5=86713b6b97c7
+v11u278repro/cases/VT/vt08 e fix rc=0 cmp=0 STRICT_EQUAL 116 objects md5=86713b6b97c7
+v11u278repro/cases/VT/vt08 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 116 objects md5=86713b6b97c7
+v11u278repro/cases/VT/vt08 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=47798336950c
+v11u278repro/cases/VT/vt08 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 116 objects md5=86713b6b97c7
+v11u278repro/cases/VT/vt08 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_EQUAL 116 objects md5=86713b6b97c7
+v11u278repro/cases/VT/vt08 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 116 objects md5=86713b6b97c7
+v11u278repro/cases/VT/vt08 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL line md5=47798336950c
+v11u278repro/cases/VT/vt08 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 116 objects md5=86713b6b97c7
+v11u278repro/cases/VT/vt09 d pristine rc=0 cmp=0 STRICT_NOTEQUAL endline md5=f2e7672ae850
+v11u278repro/cases/VT/vt09 d law rc=0 cmp=0 STRICT_EQUAL 115 objects md5=702bf66b0967
+v11u278repro/cases/VT/vt09 d fix rc=0 cmp=0 STRICT_EQUAL 115 objects md5=702bf66b0967
+v11u278repro/cases/VT/vt09 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 115 objects md5=702bf66b0967
+v11u278repro/cases/VT/vt09 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL endline md5=f2e7672ae850
+v11u278repro/cases/VT/vt09 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 115 objects md5=702bf66b0967
+v11u278repro/cases/VT/vt09 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_EQUAL 115 objects md5=702bf66b0967
+v11u278repro/cases/VT/vt09 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 115 objects md5=702bf66b0967
+v11u278repro/cases/VT/vt09 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endline md5=f2e7672ae850
+v11u278repro/cases/VT/vt09 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 115 objects md5=702bf66b0967
+v11u278repro/cases/VT/vt09 e pristine rc=0 cmp=0 STRICT_NOTEQUAL endline md5=4a52db518250
+v11u278repro/cases/VT/vt09 e law rc=0 cmp=0 STRICT_EQUAL 114 objects md5=17b99ae00267
+v11u278repro/cases/VT/vt09 e fix rc=0 cmp=0 STRICT_EQUAL 114 objects md5=17b99ae00267
+v11u278repro/cases/VT/vt09 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 114 objects md5=17b99ae00267
+v11u278repro/cases/VT/vt09 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL endline md5=4a52db518250
+v11u278repro/cases/VT/vt09 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 114 objects md5=17b99ae00267
+v11u278repro/cases/VT/vt09 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_EQUAL 114 objects md5=17b99ae00267
+v11u278repro/cases/VT/vt09 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_EQUAL 114 objects md5=17b99ae00267
+v11u278repro/cases/VT/vt09 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endline md5=4a52db518250
+v11u278repro/cases/VT/vt09 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_EQUAL 114 objects md5=17b99ae00267
+v11u278repro/cases/VT/vt10 d pristine rc=0 cmp=51 NOT_EQUAL stage1 md5=d61989589b04
+v11u278repro/cases/VT/vt10 d law rc=0 cmp=51 NOT_EQUAL stage1 md5=d61989589b04
+v11u278repro/cases/VT/vt10 d fix rc=0 cmp=51 NOT_EQUAL stage1 md5=d61989589b04
+v11u278repro/cases/VT/vt10 d fix+R11V278_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=d61989589b04
+v11u278repro/cases/VT/vt10 d fix+R11U278_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=d61989589b04
+v11u278repro/cases/VT/vt10 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=d61989589b04
+v11u278repro/cases/VT/vt10 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=d61989589b04
+v11u278repro/cases/VT/vt10 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=d61989589b04
+v11u278repro/cases/VT/vt10 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=d61989589b04
+v11u278repro/cases/VT/vt10 d fix+R11U278_IFACETP_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=d61989589b04
+v11u278repro/cases/VT/vt10 e pristine rc=0 cmp=51 NOT_EQUAL stage1 md5=3947e272f975
+v11u278repro/cases/VT/vt10 e law rc=0 cmp=51 NOT_EQUAL stage1 md5=3947e272f975
+v11u278repro/cases/VT/vt10 e fix rc=0 cmp=51 NOT_EQUAL stage1 md5=3947e272f975
+v11u278repro/cases/VT/vt10 e fix+R11V278_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=3947e272f975
+v11u278repro/cases/VT/vt10 e fix+R11U278_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=3947e272f975
+v11u278repro/cases/VT/vt10 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=3947e272f975
+v11u278repro/cases/VT/vt10 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=3947e272f975
+v11u278repro/cases/VT/vt10 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=3947e272f975
+v11u278repro/cases/VT/vt10 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=3947e272f975
+v11u278repro/cases/VT/vt10 e fix+R11U278_IFACETP_OFF rc=0 cmp=51 NOT_EQUAL stage1 md5=3947e272f975
+v11u278repro/cases/VI/vi14 d pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=fd34534ca90c
+v11u278repro/cases/VI/vi14 d law rc=0 cmp=36 NOT_EQUAL stage1 md5=620583ff9183
+v11u278repro/cases/VI/vi14 d fix rc=0 cmp=36 NOT_EQUAL stage1 md5=fd34534ca90c
+v11u278repro/cases/VI/vi14 d fix+R11V278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=620583ff9183
+v11u278repro/cases/VI/vi14 d fix+R11U278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=fd34534ca90c
+v11u278repro/cases/VI/vi14 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=620583ff9183
+v11u278repro/cases/VI/vi14 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=fd34534ca90c
+v11u278repro/cases/VI/vi14 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=fd34534ca90c
+v11u278repro/cases/VI/vi14 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=fd34534ca90c
+v11u278repro/cases/VI/vi14 d fix+R11U278_IFACETP_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=fd34534ca90c
+v11u278repro/cases/VI/vi14 e pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=941ce1b4789e
+v11u278repro/cases/VI/vi14 e law rc=0 cmp=36 NOT_EQUAL stage1 md5=d36d4092191f
+v11u278repro/cases/VI/vi14 e fix rc=0 cmp=36 NOT_EQUAL stage1 md5=941ce1b4789e
+v11u278repro/cases/VI/vi14 e fix+R11V278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=d36d4092191f
+v11u278repro/cases/VI/vi14 e fix+R11U278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=941ce1b4789e
+v11u278repro/cases/VI/vi14 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=d36d4092191f
+v11u278repro/cases/VI/vi14 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=941ce1b4789e
+v11u278repro/cases/VI/vi14 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=941ce1b4789e
+v11u278repro/cases/VI/vi14 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=941ce1b4789e
+v11u278repro/cases/VI/vi14 e fix+R11U278_IFACETP_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=941ce1b4789e
+v11u278repro/cases/VI/vi19 d pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=bb560ae42080
+v11u278repro/cases/VI/vi19 d law rc=0 cmp=36 NOT_EQUAL stage1 md5=f074c27b18c6
+v11u278repro/cases/VI/vi19 d fix rc=0 cmp=36 NOT_EQUAL stage1 md5=bb560ae42080
+v11u278repro/cases/VI/vi19 d fix+R11V278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=f074c27b18c6
+v11u278repro/cases/VI/vi19 d fix+R11U278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=bb560ae42080
+v11u278repro/cases/VI/vi19 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=f074c27b18c6
+v11u278repro/cases/VI/vi19 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=bb560ae42080
+v11u278repro/cases/VI/vi19 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=bb560ae42080
+v11u278repro/cases/VI/vi19 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=bb560ae42080
+v11u278repro/cases/VI/vi19 d fix+R11U278_IFACETP_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=bb560ae42080
+v11u278repro/cases/VI/vi19 e pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=cf9cfda6f29a
+v11u278repro/cases/VI/vi19 e law rc=0 cmp=36 NOT_EQUAL stage1 md5=6eca1820f7ea
+v11u278repro/cases/VI/vi19 e fix rc=0 cmp=36 NOT_EQUAL stage1 md5=cf9cfda6f29a
+v11u278repro/cases/VI/vi19 e fix+R11V278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=6eca1820f7ea
+v11u278repro/cases/VI/vi19 e fix+R11U278_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=cf9cfda6f29a
+v11u278repro/cases/VI/vi19 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=6eca1820f7ea
+v11u278repro/cases/VI/vi19 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=cf9cfda6f29a
+v11u278repro/cases/VI/vi19 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=cf9cfda6f29a
+v11u278repro/cases/VI/vi19 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=cf9cfda6f29a
+v11u278repro/cases/VI/vi19 e fix+R11U278_IFACETP_OFF rc=0 cmp=36 NOT_EQUAL stage1 md5=cf9cfda6f29a
+v11u278repro/cases/VI/vi20 d pristine rc=0 cmp=90 NOT_EQUAL stage1 md5=c5e8c9848207
+v11u278repro/cases/VI/vi20 d law rc=0 cmp=90 NOT_EQUAL stage1 md5=a4824e33f349
+v11u278repro/cases/VI/vi20 d fix rc=0 cmp=90 NOT_EQUAL stage1 md5=c5e8c9848207
+v11u278repro/cases/VI/vi20 d fix+R11V278_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=a4824e33f349
+v11u278repro/cases/VI/vi20 d fix+R11U278_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=c5e8c9848207
+v11u278repro/cases/VI/vi20 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=a4824e33f349
+v11u278repro/cases/VI/vi20 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=c5e8c9848207
+v11u278repro/cases/VI/vi20 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=c5e8c9848207
+v11u278repro/cases/VI/vi20 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=c5e8c9848207
+v11u278repro/cases/VI/vi20 d fix+R11U278_IFACETP_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=c5e8c9848207
+v11u278repro/cases/VI/vi20 e pristine rc=0 cmp=90 NOT_EQUAL stage1 md5=2b03c8757e02
+v11u278repro/cases/VI/vi20 e law rc=0 cmp=90 NOT_EQUAL stage1 md5=274c043a3caf
+v11u278repro/cases/VI/vi20 e fix rc=0 cmp=90 NOT_EQUAL stage1 md5=2b03c8757e02
+v11u278repro/cases/VI/vi20 e fix+R11V278_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=274c043a3caf
+v11u278repro/cases/VI/vi20 e fix+R11U278_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=2b03c8757e02
+v11u278repro/cases/VI/vi20 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=274c043a3caf
+v11u278repro/cases/VI/vi20 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=2b03c8757e02
+v11u278repro/cases/VI/vi20 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=2b03c8757e02
+v11u278repro/cases/VI/vi20 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=2b03c8757e02
+v11u278repro/cases/VI/vi20 e fix+R11U278_IFACETP_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=2b03c8757e02
+v11u278repro/cases/VI/vi22 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=1d3bf23cbf60
+v11u278repro/cases/VI/vi22 d law rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5a4a1c113a75
+v11u278repro/cases/VI/vi22 d fix rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=1d3bf23cbf60
+v11u278repro/cases/VI/vi22 d fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5a4a1c113a75
+v11u278repro/cases/VI/vi22 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=1d3bf23cbf60
+v11u278repro/cases/VI/vi22 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5a4a1c113a75
+v11u278repro/cases/VI/vi22 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=1d3bf23cbf60
+v11u278repro/cases/VI/vi22 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=1d3bf23cbf60
+v11u278repro/cases/VI/vi22 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=1d3bf23cbf60
+v11u278repro/cases/VI/vi22 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=1d3bf23cbf60
+v11u278repro/cases/VI/vi22 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=36f9806f345e
+v11u278repro/cases/VI/vi22 e law rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5169f3dcf409
+v11u278repro/cases/VI/vi22 e fix rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=36f9806f345e
+v11u278repro/cases/VI/vi22 e fix+R11V278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5169f3dcf409
+v11u278repro/cases/VI/vi22 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=36f9806f345e
+v11u278repro/cases/VI/vi22 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5169f3dcf409
+v11u278repro/cases/VI/vi22 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=36f9806f345e
+v11u278repro/cases/VI/vi22 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=36f9806f345e
+v11u278repro/cases/VI/vi22 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=36f9806f345e
+v11u278repro/cases/VI/vi22 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=36f9806f345e
+v11u278repro/cases/VI/vi23 d pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=a234e0378d52
+v11u278repro/cases/VI/vi23 d law rc=0 cmp=64 NOT_EQUAL stage1 md5=fd0f5b0538a4
+v11u278repro/cases/VI/vi23 d fix rc=0 cmp=64 NOT_EQUAL stage1 md5=a234e0378d52
+v11u278repro/cases/VI/vi23 d fix+R11V278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=fd0f5b0538a4
+v11u278repro/cases/VI/vi23 d fix+R11U278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=a234e0378d52
+v11u278repro/cases/VI/vi23 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=fd0f5b0538a4
+v11u278repro/cases/VI/vi23 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=a234e0378d52
+v11u278repro/cases/VI/vi23 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=a234e0378d52
+v11u278repro/cases/VI/vi23 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=a234e0378d52
+v11u278repro/cases/VI/vi23 d fix+R11U278_IFACETP_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=a234e0378d52
+v11u278repro/cases/VI/vi23 e pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=ff2316a2441e
+v11u278repro/cases/VI/vi23 e law rc=0 cmp=64 NOT_EQUAL stage1 md5=91e0e1c443c6
+v11u278repro/cases/VI/vi23 e fix rc=0 cmp=64 NOT_EQUAL stage1 md5=ff2316a2441e
+v11u278repro/cases/VI/vi23 e fix+R11V278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=91e0e1c443c6
+v11u278repro/cases/VI/vi23 e fix+R11U278_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ff2316a2441e
+v11u278repro/cases/VI/vi23 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=91e0e1c443c6
+v11u278repro/cases/VI/vi23 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ff2316a2441e
+v11u278repro/cases/VI/vi23 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ff2316a2441e
+v11u278repro/cases/VI/vi23 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ff2316a2441e
+v11u278repro/cases/VI/vi23 e fix+R11U278_IFACETP_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ff2316a2441e
+v11u278repro/cases/VI/vi24 d pristine rc=0 cmp=98 NOT_EQUAL stage1 md5=3d43055c579d
+v11u278repro/cases/VI/vi24 d law rc=0 cmp=98 NOT_EQUAL stage1 md5=f600947e1214
+v11u278repro/cases/VI/vi24 d fix rc=0 cmp=98 NOT_EQUAL stage1 md5=3d43055c579d
+v11u278repro/cases/VI/vi24 d fix+R11V278_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=f600947e1214
+v11u278repro/cases/VI/vi24 d fix+R11U278_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=3d43055c579d
+v11u278repro/cases/VI/vi24 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=f600947e1214
+v11u278repro/cases/VI/vi24 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=3d43055c579d
+v11u278repro/cases/VI/vi24 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=3d43055c579d
+v11u278repro/cases/VI/vi24 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=3d43055c579d
+v11u278repro/cases/VI/vi24 d fix+R11U278_IFACETP_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=3d43055c579d
+v11u278repro/cases/VI/vi24 e pristine rc=0 cmp=98 NOT_EQUAL stage1 md5=3a578b336cb1
+v11u278repro/cases/VI/vi24 e law rc=0 cmp=98 NOT_EQUAL stage1 md5=42e6f6a29a33
+v11u278repro/cases/VI/vi24 e fix rc=0 cmp=98 NOT_EQUAL stage1 md5=3a578b336cb1
+v11u278repro/cases/VI/vi24 e fix+R11V278_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=42e6f6a29a33
+v11u278repro/cases/VI/vi24 e fix+R11U278_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=3a578b336cb1
+v11u278repro/cases/VI/vi24 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=42e6f6a29a33
+v11u278repro/cases/VI/vi24 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=3a578b336cb1
+v11u278repro/cases/VI/vi24 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=3a578b336cb1
+v11u278repro/cases/VI/vi24 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=3a578b336cb1
+v11u278repro/cases/VI/vi24 e fix+R11U278_IFACETP_OFF rc=0 cmp=98 NOT_EQUAL stage1 md5=3a578b336cb1
+v11u278repro/cases/VI/vi25 d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=da915406dd19
+v11u278repro/cases/VI/vi25 d law rc=0 cmp=0 STRICT_EQUAL 101 objects md5=ad5fd8765dbf
+v11u278repro/cases/VI/vi25 d fix rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=526d2c78a44b
+v11u278repro/cases/VI/vi25 d fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 101 objects md5=ad5fd8765dbf
+v11u278repro/cases/VI/vi25 d fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=da915406dd19
+v11u278repro/cases/VI/vi25 d fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 101 objects md5=ad5fd8765dbf
+v11u278repro/cases/VI/vi25 d fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=526d2c78a44b
+v11u278repro/cases/VI/vi25 d fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=526d2c78a44b
+v11u278repro/cases/VI/vi25 d fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=526d2c78a44b
+v11u278repro/cases/VI/vi25 d fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=da915406dd19
+v11u278repro/cases/VI/vi25 e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=39c9930c546f
+v11u278repro/cases/VI/vi25 e law rc=0 cmp=0 STRICT_EQUAL 101 objects md5=7514139b5257
+v11u278repro/cases/VI/vi25 e fix rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=c2a8eae01f62
+v11u278repro/cases/VI/vi25 e fix+R11V278_OFF rc=0 cmp=0 STRICT_EQUAL 101 objects md5=7514139b5257
+v11u278repro/cases/VI/vi25 e fix+R11U278_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=39c9930c546f
+v11u278repro/cases/VI/vi25 e fix+R11V278_OVRTPREF_OFF rc=0 cmp=0 STRICT_EQUAL 101 objects md5=7514139b5257
+v11u278repro/cases/VI/vi25 e fix+R11U278_TRAILVARSEL_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=c2a8eae01f62
+v11u278repro/cases/VI/vi25 e fix+R11U278_PKGQUALRHS_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=c2a8eae01f62
+v11u278repro/cases/VI/vi25 e fix+R11U278_BODYCHAIN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=c2a8eae01f62
+v11u278repro/cases/VI/vi25 e fix+R11U278_IFACETP_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=39c9930c546f

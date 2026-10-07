@@ -1,0 +1,284 @@
+r10buvm13repro/v3_clone13	formalDefaultBindsLikeBody13	StmtEmit.cpp+TaskFuncEmit.cpp+	depth|module_inst|design||module_inst
+r10buvm21repro/g21b	incDecStmtOperandBinds21	StmtEmit.cpp+ExprEmit.cpp+	col|indexed_part_select|operation|function|package
+r10buvm29repro/g29_d_fence	castOverStreamKeepsCast29	ExprEmit.cpp+	fullname|part_select|operation|operation|module_inst
+r10buvm8repro/v3_argts8	pkgRetTopArgTsElabTwin8	ExprEmit.cpp+	type|constant|operation|return_stmt|package
+r10buvm8repro/v9fold8	pkgRetTopArgTsElabTwin8	ExprEmit.cpp+	depth|module_inst|design||module_inst
+r10buvm8repro/vxpkg8	pkgRetCalleeDeclaredFirst8v	ExprEmit.cpp+	line|logic_typespec|package|design|package
+r10earl104repro/vb4_instarr	replFoldElabSelRead104	ParamEmit.cpp+	fullname|bit_select|range|module_array|module_inst
+r10earl115repro/p1_pos115	patGenCaHierPathElemNoBind115	ModuleEmit.cpp+	endcol|constant|tagged_pattern|operation|module_inst
+r10earl120repro/a1_axis120	genCaTopLoopParamPaCopy105	ExprEmit.cpp+	fullname|ref_obj|operation|indexed_part_select|module_inst
+r10earl121repro/a1_axis121	genCaPatKeepTagDefView121	ModuleEmit.cpp+	endcol|constant|tagged_pattern|operation|module_inst
+r10earl29repro/a1_hp2	concatIdxDecompile29	ExprEmit.cpp+	fullname|var_select|operation|bit_select|module_inst
+r10earl29repro/a2_hp1	concatIdxDecompile29	ExprEmit.cpp+	fullname|var_select|operation|bit_select|module_inst
+r10earl29repro/b1_sites	concatIdxDecompile29	ExprEmit.cpp+	col|var_select|hier_path|assignment|module_inst
+r10earl29repro/b2_kinds	concatIdxDecompile29	ExprEmit.cpp+	fullname|var_select|bit_select|hier_path|module_inst
+r10earl29repro/b3_edges	concatIdxDecompile29	ExprEmit.cpp+	fullname|ref_typespec|operation|operation|module_inst
+r10earl29repro/v10_str	concatIdxDecompile29	ExprEmit.cpp+	endcol|typespec_member|struct_typespec|module_inst|module_inst
+r10earl29repro/v8_sites2	concatIdxDecompile29	ExprEmit.cpp+	fullname|bit_select|operation|bit_select|module_inst
+r10earl31repro/e4_ctrl	elabConnSelFoldNoTs21	ExprEmit.cpp+ModuleEmit.cpp+	endcol|named_begin|always|module_inst|module_inst
+r10earl31repro/v4_ops	psBoundPkgParamTs31	ExprEmit.cpp+	endcol|constant|operation|operation|module_inst
+r10earl31repro/v5_hier	psBoundPkgParamTs31	ExprEmit.cpp+	fullname|ref_typespec|constant|operation|module_inst
+r10earl41repro/v41v_comment	qualSelBaseNoWhitespace41	TypeEmit.cpp+	fullname|ref_obj|var_select|cont_assign|module_inst
+r10earl47repro/a3_earl47	genLpUseFoldParentScope47	ExprEmit.cpp+	fullname|ref_typespec|constant|indexed_part_select|module_inst
+r10earl52repro/a2_earl52	paramInitAdjustSizeElab52	ParamEmit.cpp+	file|int_typespec|ref_typespec|constant|module_inst
+r10earl53repro/v2_v53	connPathRootTs53	ModuleEmit.cpp+	endline|struct_typespec|package|design|package
+r10earl54repro/v13_v54	connReplFoldNested54	ModuleEmit.cpp+UhdmExporter.cpp+	fullname|ref_obj|operation|operation|module_inst
+r10earl54repro/v3_v54	connReplFoldNested54	ModuleEmit.cpp+UhdmExporter.cpp+	endcol|ref_module|module_inst|design|module_inst
+r10earl56repro/a5_earl56	genLpUseFoldParentScope47	ExprEmit.cpp+	fullname|ref_obj|operation|indexed_part_select|module_inst
+r10earl56repro/v2_nestedsel56	genScopeOwnParamNoSelFold56	ExprEmit.cpp+	fullname|part_select|indexed_part_select|operation|module_inst
+r10earl59repro/v59v2_earl59	genCaNestedModuleLhsOpRhsBinds59	ModuleEmit.cpp+	fullname|ref_typespec|constant|param_assign|module_inst
+r10earl76repro/g2_orig76	genScopeProcLoopCtrlNoFold76	StmtEmit.cpp+ExprEmit.cpp+	fullname|ref_typespec|constant|operation|module_inst
+r10earl95repro/g5_hop95	genElseArmCollapse48	ExprEmit.cpp+	fullname|ref_typespec|constant|operation|module_inst
+r10earl98repro/g3_rhs98	genCaAncestorNetShadowUnbinds98	ModuleEmit.cpp+	line|logic_typespec|ref_typespec|sys_func_call|module_inst
+r10earl_repro/pu20	defGenQualPkgCallBinds18	TypeEmit.cpp+ExprEmit.cpp+	fullname|ref_typespec|constant|func_call|module_inst
+r10earl_repro/vo	hierSelPkgParamFold	ExprEmit.cpp+	fullname|ref_typespec|constant|indexed_part_select|module_inst
+r10rgg14repro/cells/pc5	genvarIdxFoldRerender14	ExprEmit.cpp+ModuleEmit.cpp+	depth|gen_scope_array|module_inst|design|module_inst
+r10rgg3repro/f1_noovr_arr_recvp	portViewRangeRecvParams	ModuleEmit.cpp+	file|int_typespec|ref_typespec|constant|module_inst
+r10rgg3repro/n2_recv_localparam	portViewRangeRecvParams	ModuleEmit.cpp+	line|int_typespec|ref_typespec|constant|module_inst
+r10rgg4repro/a1_noovr	sizeDimOvrChain4	ModuleEmit.cpp+	fullname|ref_typespec|constant|operation|module_inst
+r10rgg4repro/b1_int_noovr	sizeDimOvrChain4	ModuleEmit.cpp+	fullname|ref_typespec|constant|operation|module_inst
+r10rgg4repro/c1_p_noovr	sizeDimOvrChain4	ModuleEmit.cpp+	fullname|ref_typespec|constant|operation|module_inst
+r10rgg4repro/c9_litarith_noovr	sizeDimOvrChain4	ModuleEmit.cpp+	endcol|constant|operation|range|module_inst
+r10rgg6repro/cells/one_none_n4_yes_typed_ca	nestedParamActualTs6	ExprEmit.cpp+ParamEmit.cpp+	type|func_call|cont_assign|module_inst|module_inst
+r10rgg6repro/cells/r2_ca_outer	nestedParamActualTs6	ExprEmit.cpp+ParamEmit.cpp+	type|func_call|cont_assign|module_inst|module_inst
+r10rgg6repro/cells/top_none_n4_yes_typed_ca	nestedParamActualTs6	ExprEmit.cpp+ParamEmit.cpp+	type|func_call|cont_assign|module_inst|module_inst
+r10rgg9repro/cells/c_iface_body	srlgCondOpInstValueTernFold9	ModuleEmit.cpp+	type|constant|cont_assign|interface_inst|module_inst
+r10rgg9repro/cells/c_paraminit	srlgCondOpInstValueTernFold9	ModuleEmit.cpp+	type|bit_select|cont_assign|module_inst|module_inst
+r10rgg9repro/cells/l_concat	srlgCondOpInstValueTernFold9	ModuleEmit.cpp+	depth|logic_net|ref_obj|operation|module_inst
+r10sd10repro/g6_typedef_elem_import			fullname|ref_typespec|typespec_member|struct_typespec|package
+r10sd10repro/v2_dynarray_struct_typedef			fullname|ref_typespec|typespec_member|struct_typespec|package
+r10sd1repro/b27_inline_method_foreign	classTdSpecParamsForeignHome1	UhdmExporter.cpp+	endcol|class_typespec|ref_typespec|class_var|package
+r10sd5repro/v6_no_import_control	importedClassVarIsOwnCopyNoInstance5	ModuleEmit.cpp+	fullname|ref_typespec|bit_typespec|ref_typespec|package
+r10sd6repro/v3_hier_path	importCopyInitRefIsOwnedAndUnbound6	ModuleEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|package
+r10svs4repro/g1_thisidx	copyClassIsNewCall4	StmtEmit.cpp+ExprEmit.cpp+	col|var_select|hier_path|assignment|class_defn
+r10svs8repro/a3_builtins	covergroupBuiltinCall8	ExprEmit.cpp+	endcol|hier_path|assignment|task|module_inst
+r10uvm116repro/g116_f	parensLessScopeRandomizeIsRefObj116	ExprEmit.cpp+	fullname|ref_obj|method_func_call|if_stmt|class_defn
+r10uvm122repro/g122_f_clone	localBlockStmtSelBinds122	StmtEmit.cpp+TypeEmit.cpp+	fullname|bit_var|ref_obj|assignment|package
+r10uvm129repro/g129_d_bases	declArrayElemVarSignedIsAtomKeyword129	StmtEmit.cpp+TaskFuncEmit.cpp+	type|enum_typespec|ref_typespec|array_typespec|package
+r10uvm147repro/g147_a	selChainElemShapeIsSyntactic147	ExprEmit.cpp+	col|var_select|hier_path|assignment|package
+r10uvm149repro/g149/homes	structMemberWrittenQueueArrayTs149	TypeEmit.cpp+UhdmExporter.cpp+	endline|struct_typespec|ref_typespec|logic_net|module_inst
+r10uvm151repro/g151_e_ctx	arrayWithIsRecvPath9	ExprEmit.cpp+	endcol|hier_path|operation|assignment|package
+r10uvm158repro/g158_a_shape	badBlockKeepsItsScope158	StmtEmit.cpp+	file|case_item|case_stmt|function|package
+r10uvm171repro/g171_a_pos	retNameSelBindsHomeReturnInCloneOnly171	TaskFuncEmit.cpp+ExprEmit.cpp+ModuleEmit.cpp+	depth|constant|operation|if_stmt|package
+r10uvm171repro/g171_b_homes	retNameSelBindsHomeReturnInCloneOnly171	TaskFuncEmit.cpp+ModuleEmit.cpp+ExprEmit.cpp+	depth|assignment|begin|function|package
+r10uvm171repro/g171_c_shapes	retNameSelBindsHomeReturnInCloneOnly171	TaskFuncEmit.cpp+ExprEmit.cpp+ModuleEmit.cpp+	depth|assignment|begin|function|package
+r10uvm175repro/g175_c_tail	withRecvIndexedStepIsBitSelect175	ExprEmit.cpp+	fullname|bit_select|hier_path|assignment|package
+r10uvm193repro/g193_c_argface	cloneArrayRecvArgMintsElemVar193	UhdmExporter.cpp+	fullname|ref_obj|bit_select|hier_path|package
+r10uvm194repro/g194_c_clone	classRetNameDefViewNoBind37	TypeEmit.cpp+ParamEmit.cpp+UhdmExporter.cpp+ModuleEmit.cpp+	depth|constant|operation|assignment|package
+r10uvm198repro/g198_a_homes	classScopedTdImportCopyLocalUnsupported198	StmtEmit.cpp+TaskFuncEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|package
+r10uvm202repro/g202_a_kinds	pkgClassTdImportCopyLocalUnsupported202	StmtEmit.cpp+TaskFuncEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|package
+r10uvm207repro/g207_c_share	cloneStructMemberBareTdAlias207	TypeEmit.cpp+	fullname|ref_typespec|bit_typespec|ref_typespec|package
+r10uvm207repro/g207_e_head	cloneStructMemberBareTdAlias207	TypeEmit.cpp+	fullname|ref_typespec|bit_typespec|ref_typespec|package
+r10uvm207repro/g207_h_foreign	cloneStructMemberBareTdAlias207	TypeEmit.cpp+	fullname|ref_typespec|bit_typespec|ref_typespec|package
+r10uvm213repro/g213_i_scopedtd	oobClassTypeParamPlaceholderPerView213	TaskFuncEmit.cpp+	line|begin|function|package|package
+r10uvm220repro/grid220/a1_uninst_if	uninstIfaceForeachHdrUnresolved220	StmtEmit.cpp+ModuleEmit.cpp+	file|array_typespec|ref_typespec|ref_var|interface_inst
+r10uvm221repro/grid221/a4_corpus	dpiExportListedAtExportItem216	TaskFuncEmit.cpp+	endcol|class_typespec|ref_typespec|logic_net|interface_inst
+r10uvm225repro/grid225/a6_headerforms	ifaceDefArrayNetIsAnyUnpackedDim225	ModuleEmit.cpp+TypeEmit.cpp+	endcol|class_typespec|ref_typespec|logic_net|interface_inst
+r10uvm226repro/grid226/a10_genregion	ifaceDefListsItsOwnProcesses226	ExprEmit.cpp+ModuleEmit.cpp+	fullname|logic_var|ref_obj|assignment|interface_inst
+r10uvm226repro/grid226/a12_pkgimport	ifaceDefArrayNetIsAnyUnpackedDim225	ModuleEmit.cpp+TypeEmit.cpp+	fullname|ref_typespec|logic_typespec|ref_typespec|package
+r10uvm226repro/grid226/a9_multiinst	ifaceDefListsItsOwnProcesses226	ExprEmit.cpp+ModuleEmit.cpp+	fullname|logic_var|ref_obj|assignment|interface_inst
+r10uvm227repro/grid227/a9_class_holder	importedFreeCallTakesFirstListingImport227	ModuleEmit.cpp+ExprEmit.cpp+	depth|int_var|ref_obj|assignment|package
+r10uvm26repro/t36c	packageVarAutomaticIsDataDeclShape26	StmtEmit.cpp+ModuleEmit.cpp+ExprEmit.cpp+ParamEmit.cpp+	fullname|ref_typespec|enum_typespec|ref_typespec|package
+r10uvm32repro/t42a	importCopyAggFormalOwnCopy32	TaskFuncEmit.cpp+TypeEmit.cpp+UhdmExporter.cpp+ParamEmit.cpp+	line|enum_typespec|package|design|package
+r10uvm36repro/t48a	importCopyAggFormalOwnCopy32	TaskFuncEmit.cpp+TypeEmit.cpp+ParamEmit.cpp+UhdmExporter.cpp+	name|logic_typespec|ref_typespec|logic_typespec|package
+r10uvm48repro/t67d	classArgBind12	ExprEmit.cpp+StmtEmit.cpp+TaskFuncEmit.cpp+	fullname|ref_obj|assignment|function|package
+r10uvm48repro/t67e	staticScopedChainDrops48	ExprEmit.cpp+	fullname|ref_obj|bit_select|assignment|package
+r10uvm52repro/a1	classInBodyRecvCallArgNoBind52	ExprEmit.cpp+	depth|function|package|design|package
+r10uvm56repro/a6_type	classRetNameDefViewNoBind37	TypeEmit.cpp+UhdmExporter.cpp+ModuleEmit.cpp+ParamEmit.cpp+	line|struct_typespec|ref_typespec|struct_var|class_defn
+r10uvm56repro/v3_hierpath	classMethodRetNameNoBind56	TypeEmit.cpp+UhdmExporter.cpp+ParamEmit.cpp+ModuleEmit.cpp+	endcol|class_typespec|ref_typespec|class_var|module_inst
+r10uvm59repro/c05_cast	typeParamScopedCallRef59	ExprEmit.cpp+UhdmExporter.cpp+	file|int_typespec|ref_typespec|operation|package
+r10uvm79repro/c2_idxkind	hpMidSelIdxDecompiled79	ExprEmit.cpp+	col|bit_select|bit_select|bit_select|class_defn
+r10uvm92repro/v92_b2_varsel	hpIdxOpPrettyPrint92	ExprEmit.cpp+	fullname|var_select|operation|bit_select|package
+r10uvm97repro/g97_a5_samename	classNestedTdOneObjectPerSurelogTypedef97	UhdmExporter.cpp+TypeEmit.cpp+	fullname|ref_typespec|class_typespec|ref_typespec|module_inst
+r10uvm99repro/g99_a2_proc	insideSetFirstRangeTruncates99	ExprEmit.cpp+	nomatch
+r10uvm99repro/g99_a7_shapes	insideSetFirstRangeTruncates99	ExprEmit.cpp+	fullname|ref_typespec|constant|operation|module_inst
+r10uvm99repro/g99_a9_fence	insideSetFirstRangeTruncates99	ExprEmit.cpp+	nomatch
+r10v100repro/v100_b3_trivia	parenStmtDelayNamelessRef100	StmtEmit.cpp+	line|ref_obj|delay_control|begin|module_inst
+r10v111repro/v111_b6	pkgVarInitCmViewClone111	UhdmExporter.cpp+ParamEmit.cpp+	type|ref_obj|cont_assign|module_inst|module_inst
+r10v112repro/g19_builtin	classTdCloneSpecOverridesOwnArgs112	UhdmExporter.cpp+	file|type_parameter|class_typespec|package|package
+r10v119repro/v119_j	memberRandomizeWithIsRecvPath119	ExprEmit.cpp+	endcol|class_typespec|ref_typespec|class_var|class_defn
+r10v122repro/q6clone	localBlockStmtSelBinds122	StmtEmit.cpp+TypeEmit.cpp+	fullname|bit_var|ref_obj|assignment|package
+r10v136repro/v136_d_homes	classPropPackedStructIsStructVar136	UhdmExporter.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|package
+r10v149repro/arms/paramtype	structMemberWrittenQueueArrayTs149	UhdmExporter.cpp+TypeEmit.cpp+	fullname|ref_typespec|array_typespec|ref_typespec|module_inst
+r10v150repro/v150_f1	rootCallEatsTheChain150	ExprEmit.cpp+	endcol|class_typespec|ref_typespec|class_var|module_inst
+r10v151repro/v151_5_ctx	stmtBuiltinBodyIsBareRecvCall151	StmtEmit.cpp+ExprEmit.cpp+	endcol|hier_path|operation|if_stmt|package
+r10v158repro/v158_d	badBlockKeepsItsScope158	StmtEmit.cpp+	file|case_item|case_stmt|function|package
+r10v169repro/v169_g_control	pkgRetClonedCallFoldIsGoldensFuncCall169v		line|int_typespec|ref_typespec|constant|package
+r10v181repro/v181_h_nofe	cloneBodyIsAScopeEvenWithNoOwnLocals181	TaskFuncEmit.cpp+	depth|package|design||package
+r10v194repro/v194_a_explicit	classRetNameDefViewNoBind37	TypeEmit.cpp+UhdmExporter.cpp+ModuleEmit.cpp+ParamEmit.cpp+	type|string_var|function|package|package
+r10v200repro/v200_5_modmat	impCloneDeclRangeNoBind200	TaskFuncEmit.cpp+TypeEmit.cpp+	fullname|ref_obj|range|logic_typespec|package
+r10v201repro/v201_k_neg	impFoldRhsMirrorsLhsTs201	ParamEmit.cpp+	line|int_typespec|ref_typespec|constant|module_inst
+r10v206repro/x206_a_dropwithmove	importedClassTsRideTheFileUnit206	ModuleEmit.cpp+UhdmExporter.cpp+	type|class_typespec|design||class_typespec
+r10v208repro/v208_f_io	cloneSharedArrayElemSplitMint208	TypeEmit.cpp+	name|bit_typespec|ref_typespec|bit_typespec|package
+r10v223repro/arms/v5_escaped	interfaceDefViewNeverLateBinds223v	ModuleEmit.cpp+	endcol|int_typespec|ref_typespec|logic_net|interface_inst
+r10v226repro/arms/b12_multiproc	ifaceDefListsItsOwnProcesses226	ExprEmit.cpp+ModuleEmit.cpp+	fullname|int_var|ref_obj|assignment|interface_inst
+r10v62repro/v62e_bind	defBodyTypedefSiteShare62	TypeEmit.cpp+UhdmExporter.cpp+	line|enum_typespec|ref_typespec|parameter|module_inst
+r10v64repro/v7_inst64	elabCaPortParamPaCopy64	ParamEmit.cpp+ExprEmit.cpp+	fullname|ref_typespec|constant|operation|module_inst
+r10v92repro/v4_arm	elabCaTernaryArmInstall92	ModuleEmit.cpp+	type|ref_obj|cont_assign|module_inst|module_inst
+r10v92repro/v5_home	elabCaTernaryArmInstall92	ModuleEmit.cpp+	depth|cont_assign|module_inst|module_inst|module_inst
+r10v97repro/v97_c3_twotd	classNestedTdDupCopiesFollowTheirDeclaration97v	UhdmExporter.cpp+	depth|assignment|function|class_defn|package
+r10v97repro/v97_c9_pkganchor	classNestedTdDupCopiesFollowTheirDeclaration97v	UhdmExporter.cpp+	depth|assignment|function|class_defn|package
+r10vearl100repro/v6_more100	structPortNetIsMemberScanOnly100	ModuleEmit.cpp+	fullname|ref_typespec|struct_typespec|package|package
+r10vearl105repro/v7_repl105	genCaTopLoopParamPaCopy105	ExprEmit.cpp+	fullname|ref_typespec|constant|indexed_part_select|module_inst
+r10vearl106repro/va3_span106	genCaCastFoldAdjustSize106	ModuleEmit.cpp+	endcol|cont_assign|named_begin|gen_if|module_inst
+r10vearl106repro/va7_mix106	genCaCastFoldAdjustSize106	ModuleEmit.cpp+	endcol|cont_assign|named_begin|gen_if|module_inst
+r10vearl113repro/v1_decl113	genScopeCaPatNoFirstSize113	ModuleEmit.cpp+ExprEmit.cpp+	endline|cont_assign|named_begin|gen_for|module_inst
+r10vearl95repro/v95f_bind	genCaParamFoldOneHopPool95	ExprEmit.cpp+ModuleEmit.cpp+	fullname|gen_scope_array|module_inst|module_inst|module_inst
+r10vearl98repro/v4b_bind98	genCaAncestorNetShadowUnbinds98	ModuleEmit.cpp+	fullname|gen_scope_array|module_inst|module_inst|module_inst
+r10vrgg14repro/cells/v5	genvarIdxFoldRerender14	ModuleEmit.cpp+ExprEmit.cpp+	name|bit_select|port|ref_module|module_inst
+r10vrgg16repro/cells/v14	bindIfaceTwinInParent46	ModuleEmit.cpp+	fullname|ref_obj|port|module_inst|module_inst
+r10vrgg17repro/v8	hpConnElemIdxFold17	ExprEmit.cpp+	fullname|ref_obj|operation|operation|module_inst
+r10vrgg3repro/xc_recv_localparam_only	portViewRangeRecvParams	ModuleEmit.cpp+	line|int_typespec|ref_typespec|constant|module_inst
+r10vrgg4repro/v5k_noovr_int_signed	sizeDimOvrChain4	ModuleEmit.cpp+	fullname|ref_typespec|constant|operation|module_inst
+r10vrgg6repro/cells/w_two_ctx_order	nestedParamActualTs6	ExprEmit.cpp+ParamEmit.cpp+	type|func_call|cont_assign|module_inst|module_inst
+r10vrgg9repro/cells/v_pred_cast	srlgCondOpInstValueTernFold9	ModuleEmit.cpp+	file|int_typespec|ref_typespec|operation|module_inst
+r10vrgg9repro/cells/v_takn_real	srlgCondOpInstValueTernFold9	ModuleEmit.cpp+	type|constant|cont_assign|module_inst|module_inst
+r10vrgg9repro/cells/w_typeparam	srlgCondOpInstValueTernFold9	ModuleEmit.cpp+	type|operation|cont_assign|module_inst|module_inst
+r11u105repro/grid/k40_B_program_inst_twice	caProgramNamesakeKeyAtEntry105	UhdmExporter.cpp+	fullname|ref_obj|assignment|initial|program
+r11u105repro/grid/k42_C_program_inst_twice_control	caProgramNamesakeKeyAtEntry105	UhdmExporter.cpp+	fullname|ref_obj|assignment|initial|program
+r11u107repro/grid/a08_anon_member	anonPackedAggDimTs107	TypeEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|module_inst
+r11u107repro/grid/a18_anon_typedef	anonPackedAggDimTs107	TypeEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|module_inst
+r11u107repro/grid/t13_iface_tp_struct	typeParamAnonAggDefault107	UhdmExporter.cpp+TypeEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|interface_inst
+r11u108repro/grid/f5/f5a20_ovr_pkgarr	tpPackedArrayTsVar108	UhdmExporter.cpp+TypeEmit.cpp+	fullname|ref_typespec|logic_typespec|package|package
+r11u108repro/grid/pk/k05_param_a	defPkgMemberTdOfNamedShares108	TypeEmit.cpp+	file|logic_typespec|ref_typespec|parameter|module_inst
+r11u108repro/grid/pk/k17_func_in_pkg			type|func_call|cont_assign|module_inst|module_inst
+r11u108repro/grid/pk/k20_cfg_func_width			type|func_call|cont_assign|module_inst|module_inst
+r11u109repro/grid/f1/c04_x64cast	memLeftStampOwnType109		value|constant|operation|param_assign|module_inst
+r11u109repro/grid/f1/c06_x64plain	memLeftStampOwnType109		value|constant|operation|param_assign|module_inst
+r11u109repro/grid/f1/p03_ready	spVoidCastValue109	ParamEmit.cpp+ModuleEmit.cpp+	type|hier_path|cont_assign|module_inst|module_inst
+r11u109repro/grid/f1/p06_plainparam	spVoidCastValue109	ParamEmit.cpp+ModuleEmit.cpp+	value|constant|operation|param_assign|module_inst
+r11u109repro/grid/f1/p07_litcast	spVoidCastValue109	ParamEmit.cpp+ModuleEmit.cpp+	value|constant|operation|param_assign|module_inst
+r11u110repro/grid/e1/e18_chain_rt	tpElemRebindElabPort110	UhdmExporter.cpp+	fullname|ref_typespec|packed_array_typespec|ref_typespec|module_inst
+r11u110repro/grid/e1/e22_nonansi	tpElemRebindElabPort110	UhdmExporter.cpp+	line|packed_array_var|module_inst|module_inst|module_inst
+r11u110repro/grid/e1/e25_ovr_same_ctl	tpElemRebindElabPort110	UhdmExporter.cpp+	line|logic_typespec|ref_typespec|packed_array_typespec|module_inst
+r11u110repro/grid/f2/i09_unpacked_child_ovr	tpPackedArrayElemReg110	TypeEmit.cpp+	line|logic_typespec|ref_typespec|packed_array_typespec|module_inst
+r11u110repro/grid/f2/i11_attr_wdims_child	tpPackedArrayTsVarAttr110	TypeEmit.cpp+	line|logic_typespec|ref_typespec|packed_array_typespec|module_inst
+r11u110repro/grid/f2/i16_var_kw_init	tpPackedArrayTsVarInit110	TypeEmit.cpp+	endline|packed_array_typespec|ref_typespec|type_parameter|module_inst
+r11u111repro/grid/f1/a10_q_chain	pkgTdQualParamCopiesListing111	ParamEmit.cpp+	fullname|ref_typespec|logic_typespec|package|package
+r11u111repro/grid/f1/a27_q_row_named_dims	pkgTdOfNamedDimsListing111		file|logic_typespec|ref_typespec|parameter|module_inst
+r11u112repro/grid/k/k14_unpacked	tpStructKindNet112	ModuleEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|module_inst
+r11u112repro/grid/v/v08_comb	defGenElemIpsVarSel112	ModuleEmit.cpp+	fullname|ref_typespec|constant|indexed_part_select|module_inst
+r11u113repro/grid/c/c09_genif_modtd_ctl	genCaTypeParamCastUnsupported113	ExprEmit.cpp+	fullname|ref_typespec|logic_typespec|ref_typespec|module_inst
+r11u113repro/grid/c/c11_genif_pkimp	genCaTypeParamCastUnsupported113	ExprEmit.cpp+	fullname|ref_typespec|logic_typespec|ref_typespec|module_inst
+r11u113repro/grid/c/c16_mod_comb	genCaTypeParamCastUnsupported113	ExprEmit.cpp+	type|logic_typespec|ref_typespec|operation|module_inst
+r11u113repro/grid/e/e05_nested	structInlineEnumMemberTs113	TypeEmit.cpp+UhdmExporter.cpp+	fullname|ref_typespec|enum_typespec|ref_typespec|module_inst
+r11u113repro/grid/v/v07_genfor_comb_ctl	caVarSelIdxOpFoldTs113	ExprEmit.cpp+	fullname|ref_typespec|constant|operation|module_inst
+r11u114repro/grid/f1/a25	leakCopyOpNoTs114	ParamEmit.cpp+	type|ref_obj|cont_assign|module_inst|module_inst
+r11u114repro/grid/f1/a28	leakCopyOpNoTs114	ParamEmit.cpp+	type|ref_obj|cont_assign|module_inst|module_inst
+r11u114repro/grid/f2/b07	imppCopyOpReadIsRef114	StmtEmit.cpp+	fullname|ref_typespec|constant|case_item|module_inst
+r11u115repro/grid/i/s01_recv_bodylp	pvExprDefaultFold115	ModuleEmit.cpp+	line|int_typespec|ref_typespec|constant|module_inst
+r11u117repro/grid/g1/g13	pkgQualSelParamFlat117	ParamEmit.cpp+TypeEmit.cpp+	endcol|hier_path|param_assign|named_begin|module_inst
+r11u117repro/grid/g1/t12	pkgFlatSurelogBits117	ParamEmit.cpp+UhdmExporter.cpp+TypeEmit.cpp+	fullname|hier_path|return_stmt|function|module_inst
+r11u13repro/b3	modStructFuncAssembleBin	ParamEmit.cpp+	line|constant|typespec_member|struct_typespec|package
+r11u18repro/t4	memLeftFormalReadTs18	ParamEmit.cpp+	line|int_typespec|ref_typespec|int_var|module_inst
+r11u1repro/grid2	ifacePortViewParamAssignsOnly	ModuleEmit.cpp+	col|ref_obj|hier_path|port|module_inst
+r11u20repro/t6	pkgBodyCallNeverListsOnHolder20	ExprEmit.cpp+	fullname|type_parameter|interface_inst|module_inst|module_inst
+r11u21repro/t9	paAsmMemberSliceFold21	ParamEmit.cpp+UhdmExporter.cpp+	col|ref_obj|hier_path|param_assign|module_inst
+r11u22repro/grid/d21_comma_list	genCaTernaryFoldGenScope22	ModuleEmit.cpp+	endcol|cont_assign|named_begin|gen_if|module_inst
+r11u23repro/grid/d10_comma_list	genCaUnboundTernFold23	ModuleEmit.cpp+	endline|cont_assign|named_begin|gen_if|module_inst
+r11u23repro/grid/e05_untaken_bare_partsel	genCaUnboundTernFold23	ModuleEmit.cpp+	file|enum_const|ref_obj|operation|module_inst
+r11u24repro/n1	pkgStructFuncAssembleNested24	ParamEmit.cpp+	col|ref_obj|hier_path|param_assign|module_inst
+r11u24repro/n11	pkgStructFuncAssembleNested24	ParamEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|module_inst
+r11u24repro/n4	pkgStructFuncAssembleNested24	ParamEmit.cpp+	line|constant|typespec_member|struct_typespec|package
+r11u26repro/m4	patParamEvalFuncRead26	ParamEmit.cpp+	fullname|ref_typespec|operation|typespec_member|package
+r11u26repro/m7	patParamEvalFuncRead26	ParamEmit.cpp+	fullname|ref_typespec|operation|typespec_member|package
+r11u28repro/a2	catParamLeftoverReduce28	ParamEmit.cpp+	fullname|ref_typespec|operation|typespec_member|package
+r11u32repro/k9b	typeParamArgNetNeedsNonAnsi32	ModuleEmit.cpp+	endline|struct_typespec|module_inst|design|module_inst
+r11u39repro/a1			col|var_select|hier_path|cont_assign|module_inst
+r11u45repro/g10	typeParamChainBorrow45	ParamEmit.cpp+	line|logic_typespec|ref_typespec|logic_var|module_inst
+r11u45repro/g12	typeParamChainBorrow45	ParamEmit.cpp+	line|real_typespec|ref_typespec|real_var|module_inst
+r11u45repro/g13	typeParamChainBorrow45	ParamEmit.cpp+	line|logic_typespec|ref_typespec|logic_var|module_inst
+r11u45repro/g9	typeParamChainBorrow45	ParamEmit.cpp+	line|logic_typespec|ref_typespec|type_parameter|module_inst
+r11u47repro/arms/g10	tpAnonAggParamTsNoStamp47	ParamEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|module_inst
+r11u47repro/arms/g12	tpAnonAggParamTsNoStamp47	ParamEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|module_inst
+r11u47repro/arms/g2	tpAnonAggParamTsNoStamp47	ParamEmit.cpp+	fullname|ref_typespec|typespec_member|union_typespec|module_inst
+r11u47repro/arms/g9	tpAnonAggParamTsNoStamp47	ParamEmit.cpp+	fullname|type_parameter|interface_inst|module_inst|module_inst
+r11u52vrepro/grid/b2_exprforms	bodyTypedefElemBoundSymbolic52	TypeEmit.cpp+	fullname|ref_obj|sys_func_call|operation|module_inst
+r11u60repro/g7	modDefImportPkgSelFlat60	ParamEmit.cpp+	fullname|ref_typespec|operation|param_assign|module_inst
+r11u69repro/grid/g2_iter	caStructParamGenScopeSubst69	ModuleEmit.cpp+	type|bit_select|cont_assign|gen_scope|module_inst
+r11u69repro/grid/g4_lhskind	caStructParamGenScopeSubst69	ModuleEmit.cpp+	type|bit_select|cont_assign|gen_scope|module_inst
+r11u69repro/grid/g5_nest	caStructParamGenScopeSubst69	ModuleEmit.cpp+	type|bit_select|cont_assign|gen_scope|module_inst
+r11u88repro/grid/a6_commadrive			col|constant|cont_assign|interface_inst|module_inst
+r11u88repro/grid/i6_ifarray			endline|struct_typespec|package|design|package
+r11u88repro/grid/j3_ifcaselect	caStructParamPatternSubst55	ModuleEmit.cpp+	type|bit_select|cont_assign|interface_inst|module_inst
+r11u88repro/grid/y2_pkgvarkind			endline|struct_typespec|package|design|package
+r11u90repro/grid.verifier/vx8_strifport	caNetDeclStrengthDropped90	ModuleEmit.cpp+	fullname|logic_net|io_decl|modport|module_inst
+r11u90repro/grid.verifier/vy5_dlyparamovrmod	caDelayParamRefSpelling90	ModuleEmit.cpp+	type|constant|cont_assign|module_inst|module_inst
+r11u93repro/grid/pb10_ifnetuse	caIfacePortDeclNetMint93	ModuleEmit.cpp+	line|logic_net|ref_obj|cont_assign|interface_inst
+r11u93repro/grid/pb19_modportview	caIfacePortDeclNetMint93	ModuleEmit.cpp+	line|logic_net|io_decl|modport|module_inst
+r11u95repro/grid/a22_progtwoinsttask	caProgTaskFuncInstIsElab95	ModuleEmit.cpp+	fullname|begin|initial|program|program
+r11u95repro/grid/c13_progtwoinstbody	caProgTaskFuncInstIsElab95	ModuleEmit.cpp+	fullname|begin|initial|program|program
+r11v105repro/grid/v13_B_prog_inst_in_two_parents	caProgramNamesakeKeyAtEntry105	UhdmExporter.cpp+	fullname|ref_obj|assignment|initial|program
+r11v105repro/grid/v22_B_prog_inst_sharedleaf	caProgramNamesakeKeyAtEntry105	UhdmExporter.cpp+	fullname|ref_obj|assignment|initial|program
+r11v11u8repro/v9	macroQuoteContLeak11	ExprEmit.cpp+	col|initial|module_inst|design|module_inst
+r11v1repro/vA			col|ref_obj|hier_path|port|module_inst
+r11v21repro/v15	paAsmMemberSliceFold21v	ParamEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|module_inst
+r11v23repro/adv/v11_concat_64bit_param	genCaUnboundTernConcatFence23	ModuleEmit.cpp+	fullname|ref_typespec|constant|operation|module_inst
+r11v23repro/adv/x09_concat_64bit_param_small	genCaUnboundTernConcatFence23	ModuleEmit.cpp+	fullname|ref_typespec|constant|operation|module_inst
+r11v32repro/w1_regression_witness	namedTypePackedDimElabVar32	ModuleEmit.cpp+TypeEmit.cpp+	line|bit_typespec|ref_typespec|bit_var|module_inst
+r11v45repro/v2	typeParamChainBorrow45	ParamEmit.cpp+	line|logic_typespec|ref_typespec|type_parameter|module_inst
+r11v45repro/v6	typeParamChainBorrowShadow45v	ParamEmit.cpp+	line|logic_typespec|ref_typespec|logic_var|module_inst
+r11v45repro/v7	typeParamChainBorrowShadow45v	ParamEmit.cpp+	line|logic_typespec|ref_typespec|logic_var|module_inst
+r11v45repro/v9	typeParamChainBorrow45	ParamEmit.cpp+	type|struct_typespec|ref_typespec|struct_var|module_inst
+r11v46repro/grid7	signedCastSysFuncCall46	TypeEmit.cpp+ModuleEmit.cpp+	fullname|ref_obj|sys_func_call|assignment|module_inst
+r11v47repro/arms/v12	tpAnonAggParamTsNoStamp47	ParamEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|module_inst
+r11v47repro/arms/v28	tpAnonAggParamTsNoStamp47	ParamEmit.cpp+	line|struct_typespec|ref_typespec|type_parameter|module_inst
+r11v47repro/arms/v7	tpAnonAggParamTsNoStamp47	ParamEmit.cpp+	fullname|type_parameter|interface_inst|module_inst|module_inst
+r11v48repro/va8	callArgSubroutineLocalOffRetExprNoTs48	ExprEmit.cpp+	depth|module_inst|design||module_inst
+r11v4repro/v5			fullname|ref_typespec|operation|param_assign|module_inst
+r11v4repro/v6			fullname|ref_typespec|operation|param_assign|module_inst
+r11v53repro/grid/x10_iface_import_shadow	bitsTypeParamArgNeverFolds53	ExprEmit.cpp+ParamEmit.cpp+	fullname|type_parameter|interface_inst|module_inst|module_inst
+r11v55repro/grid/vv1c_cast	caStructParamPatternSubstCastFence55v	ModuleEmit.cpp+	file|string_typespec|ref_typespec|tagged_pattern|package
+r11v66repro/a3_inst66	patOperandEncReduceTable66	ParamEmit.cpp+	endcol|constant|cont_assign|module_inst|module_inst
+r11v69repro/grid/v10_arraysel	caStructParamGenScopeSubst69	ModuleEmit.cpp+	type|bit_select|cont_assign|gen_scope|module_inst
+r11v70repro/v11	castNamedPatternConcat70	ParamEmit.cpp+ModuleEmit.cpp+ExprEmit.cpp+UhdmExporter.cpp+	fullname|logic_net|ref_obj|operation|module_inst
+r11v70repro/v5	castNamedPatternConcat70	ParamEmit.cpp+UhdmExporter.cpp+ExprEmit.cpp+ModuleEmit.cpp+	fullname|logic_net|ref_obj|operation|module_inst
+r11v74repro/grid/v2_kindns	caGenScopeLhsNamesakeBind74	ModuleEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|module_inst
+r11v77repro/grid/vh_arrelem	caImportedPkgHoistUnpackedIsWrappedScalar77	ModuleEmit.cpp+	endline|struct_typespec|package|design|package
+r11v83repro/grid/b14_cadelay	caIfaceBodyCaFoldKeepsDriveFields83v	ModuleEmit.cpp+	type|ref_obj|cont_assign|interface_inst|module_inst
+r11v88repro/grid/v14_ndamodport	caIfaceElabNetDeclAssignListing88	ModuleEmit.cpp+	fullname|logic_net|io_decl|modport|module_inst
+r11v93repro/grid/v15_ifdeclafterbody	caIfacePortDeclNetMint93	ModuleEmit.cpp+	line|ref_obj|port|interface_inst|interface_inst
+r11v95repro/grid/x27_proggendupfirst	caProgFlatTfNameKeyed95		line|function|program|design|program
+r11v95repro/grid/x5_progtwoinstgeninit	caProgramGenFlattensEveryKind95	ModuleEmit.cpp+	fullname|begin|initial|program|program
+v11u108repro/brk/f5/b07_param_typedef_arr	tpPackedArrayTsVar108	UhdmExporter.cpp+TypeEmit.cpp+	file|logic_typespec|ref_typespec|type_parameter|module_inst
+v11u108repro/brk/f5/b13_pkg_arr	tpPackedArrayTsVar108	UhdmExporter.cpp+TypeEmit.cpp+	fullname|ref_typespec|logic_typespec|package|package
+v11u108repro/brk/f5/b18_var_kw	tpPackedArrayTsVar108	UhdmExporter.cpp+TypeEmit.cpp+	fullname|ref_typespec|packed_array_typespec|ref_typespec|module_inst
+v11u108repro/brk/f5/b21_always_ff	tpPackedArrayTsVar108	UhdmExporter.cpp+TypeEmit.cpp+	fullname|ref_typespec|packed_array_typespec|ref_typespec|module_inst
+v11u110repro/brk/v1/a11_bit_vs_logic	tpElemRebindElabPort110	UhdmExporter.cpp+	line|logic_typespec|ref_typespec|packed_array_typespec|module_inst
+v11u110repro/brk/v1/b06_const_init	tpPackedArrayTsVarInit110	TypeEmit.cpp+	endline|packed_array_typespec|ref_typespec|type_parameter|module_inst
+v11u110repro/brk/v1/c08_unpacked_2state_elem_ovr	tpPackedArrayElemReg110	TypeEmit.cpp+	type|bit_typespec|ref_typespec|packed_array_typespec|module_inst
+v11u110repro/brk/v1/d01_attr_two_decl	tpPackedArrayTsVarAttr110	TypeEmit.cpp+	line|logic_typespec|ref_typespec|packed_array_typespec|module_inst
+v11u110repro/brk/v1/d02_attr_two_attrs	tpPackedArrayTsVarAttr110	TypeEmit.cpp+	line|logic_typespec|ref_typespec|packed_array_typespec|module_inst
+v11u110repro/brk/v3/a36_escaped_inst_name	tpElemRebindElabPort110	UhdmExporter.cpp+	endcol|ref_module|module_inst|design|module_inst
+v11u110repro/brk/v5/k11_logic_param_range	tpElemRebindElabPort110	UhdmExporter.cpp+	endcol|constant|range|logic_typespec|module_inst
+v11u110repro/brk/v5/k13_anon_enum	tpElemRebindElabPort110	UhdmExporter.cpp+	fullname|ref_typespec|enum_typespec|ref_typespec|module_inst
+v11u110repro/brk/v6/s01_single_chain2_ctl	tpElemRebindElabPort110	UhdmExporter.cpp+	fullname|ref_typespec|logic_typespec|ref_typespec|package
+v11u111repro/brk/f1/x01_class_param	pkgTdQualParamCopiesListing111	ParamEmit.cpp+	type|logic_typespec|ref_typespec|parameter|class_defn
+v11u111repro/brk/f3/x36_iface_sig	pkgTdOfNamedDimsListing111		name|logic_typespec|ref_typespec|logic_var|module_inst
+v11u111repro/brk/f3/x38_param_in_module_typed	pkgTdOfNamedDimsListing111		file|logic_typespec|ref_typespec|parameter|module_inst
+v11u111repro/brk/f3/x40_class_prop	pkgTdOfNamedDimsListing111		file|logic_typespec|package|design|package
+v11u111repro/brk/f3/y31_two_pkgs_rows	pkgTdOfNamedDimsListing111		fullname|ref_typespec|logic_typespec|package|package
+v11u111repro/brk/f6/x64_two_dims_positional	tpOvrNamedDimsDrop111		fullname|ref_typespec|sys_func_call|cont_assign|module_inst
+v11u111repro/brk/f6/x65_chain_td_dims	tpOvrNamedDimsDrop111		fullname|ref_typespec|logic_typespec|package|package
+v11u111repro/brk/f6/y61_vec_dims_extra_port_dims	tpOvrNamedDimsDrop111		name|logic_typespec|ref_typespec|packed_array_var|module_inst
+v11u111repro/brk/f6/y62_vec_dims_local_typedef_in_child	tpOvrNamedDimsDrop111		line|logic_typespec|ref_typespec|typespec_member|module_inst
+v11u111repro/brk/f6/y64_positional_vec_one_dim	tpOvrNamedDimsDrop111		line|logic_typespec|ref_typespec|logic_var|module_inst
+v11u111repro/brk/f6/y65_positional_nodims_ctl	tpOvrNamedDimsDrop111		name|logic_typespec|ref_typespec|logic_var|module_inst
+v11u111repro/brk/f6/y68_bit_td_dims	tpOvrNamedDimsDrop111		name|bit_typespec|ref_typespec|bit_var|module_inst
+v11u111repro/brk/f6/y69_vec_dims_two_inst_same	tpOvrNamedDimsDrop111		name|logic_typespec|ref_typespec|logic_var|module_inst
+v11u112repro/grid/brk/f/g1k_hop_userfn	genLpIdxOpOperandFold112	ExprEmit.cpp+	line|int_typespec|ref_typespec|constant|module_inst
+v11u112repro/grid/brk/k/b3a_multi_decl	tpStructKindNet112	ModuleEmit.cpp+	decompile|constant|cont_assign|module_inst|module_inst
+v11u112repro/grid/brk/v/b4b_opidx_minus	defGenElemIpsVarSel112	ModuleEmit.cpp+	fullname|ref_obj|indexed_part_select|var_select|module_inst
+v11u112repro/grid/brk/v/b4d_param_arr	defGenElemIpsVarSel112	ModuleEmit.cpp+	fullname|ref_obj|indexed_part_select|var_select|module_inst
+v11u112repro/grid/brk/v/b4h_port_2d	defGenElemIpsVarSel112	ModuleEmit.cpp+	fullname|ref_obj|indexed_part_select|var_select|module_inst
+v11u113repro/grid/f2/t03_iface_tp	genCaTypeParamCastUnsupported113	ExprEmit.cpp+	fullname|type_parameter|interface_inst|module_inst|module_inst
+v11u114repro/grid/set1/g25	pkgPatCatMemberFold114	ParamEmit.cpp+	type|ref_obj|cont_assign|module_inst|module_inst
+v11u115repro/grid/f1/v06_gf_vs_psel	caVarSelBareIdxTs115	ExprEmit.cpp+	fullname|ref_obj|indexed_part_select|var_select|module_inst
+v11u116repro/arms/f1t_intsig	loopCaParamReadKeepsLiteral116	ExprEmit.cpp+	endcol|int_typespec|ref_typespec|constant|module_inst
+v11u116repro/arms/g2_fcall	nestedGenProcLhsKeepsRef116	ExprEmit.cpp+	endcol|func_call|var_select|assignment|module_inst
+v11u117repro/grid/b02	pkgQselOverride117v	TypeEmit.cpp+	fullname|ref_obj|hier_path|func_call|module_inst
+v11u93b107repro/brk/p02_nested_member_dim	anonPackedAggDimTs107	TypeEmit.cpp+	fullname|ref_typespec|typespec_member|struct_typespec|module_inst
+v11u93b107repro/brk/p18_func_arg	anonPackedAggDimTs107	TypeEmit.cpp+	endcol|packed_array_typespec|ref_typespec|io_decl|module_inst
+v11u93b107repro/brk/q04_pkg_member	typeParamAnonAggDefault107	UhdmExporter.cpp+TypeEmit.cpp+	name|logic_typespec|ref_typespec|typespec_member|module_inst
+v11u93b107repro/brk/r05_rt_ovr_samename	tpElemRebindDefView107	UhdmExporter.cpp+	line|logic_typespec|ref_typespec|packed_array_typespec|module_inst
+v11u93repro/grid/b07_rv2arr	caNestedModDefKeyScoped101	UhdmExporter.cpp+	fullname|module_array|module_inst|module_inst|module_inst

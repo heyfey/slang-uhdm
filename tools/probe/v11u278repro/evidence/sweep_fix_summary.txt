@@ -1,0 +1,26 @@
+probe cases: EQUAL=3814 STRICT_NOTEQUAL=273 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=3814 STRICT_NOTEQUAL=273
+CONVERSION r10earl29repro/a1_hp2 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10earl29repro/a2_hp1 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10earl29repro/b2_kinds STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10v201repro/v201_k_neg STRICT_NOTEQUAL differ:line(1) -> EQUAL
+CONVERSION r11u20repro/t6 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11u45repro/g9 STRICT_NOTEQUAL differ:line(2) -> EQUAL
+CONVERSION r11u47repro/arms/g9 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11v45repro/v2 STRICT_NOTEQUAL differ:line(2) -> EQUAL
+CONVERSION r11v47repro/arms/v7 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11v53repro/grid/x10_iface_import_shadow STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u113repro/grid/f2/t03_iface_tp STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CHANGE r10uvm92repro/v92_b2_varsel STRICT_NOTEQUAL differ:fullname(21) -> differ:col(2)
+CHANGE r11u107repro/grid/t13_iface_tp_struct STRICT_NOTEQUAL differ:fullname(13) -> differ:fullname(11) [fullname -2]
+CHANGE r11u18repro/t4 STRICT_NOTEQUAL differ:line(6) -> differ:line(2) [line -4]
+CHANGE r11v47repro/arms/v12 STRICT_NOTEQUAL differ:fullname(4) -> differ:fullname(21) [fullname +17]
+regressions=0 conversions=11 changes=4 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=478 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=2 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=472 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=2 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0

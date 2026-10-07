@@ -1,0 +1,2 @@
+r11u120repro/grid/gT/t08_body_localparam_type d chain away=0 toward=7 flat_away=0 flat_toward=7
+r11u120repro/grid/gT/t08_body_localparam_type e chain away=0 toward=6 flat_away=0 flat_toward=6

@@ -1,0 +1,4 @@
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+ctcan2 surelog: PASS: every supplementary canary row is byte-identical to the baseline.
+ctcan2 uhdm2rtlil: PASS: every supplementary canary row is byte-identical to the baseline.

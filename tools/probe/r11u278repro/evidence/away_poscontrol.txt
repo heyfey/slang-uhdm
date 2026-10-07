@@ -1,0 +1,4 @@
+r11u278repro/cases/VS/v01 d chain away=2 toward=0 flat_away=2 flat_toward=0
+r11u278repro/cases/K/k01 d chain away=1 toward=0 flat_away=1 flat_toward=0
+r11u278repro/cases/T/t01 d chain away=16 toward=0 flat_away=16 flat_toward=0
+r11u278repro/cases/I/i02 d chain away=2 toward=0 flat_away=2 flat_toward=0

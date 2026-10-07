@@ -1,0 +1,3 @@
+swP (pris.bin): cmds.txt 3315, naming its own binary 3265, naming another slang-uhdm binary 0, with no slang line 48
+swL (law.bin): cmds.txt 3315, naming its own binary 3265, naming another slang-uhdm binary 0, with no slang line 48
+swF (fix.bin): cmds.txt 3315, naming its own binary 3265, naming another slang-uhdm binary 0, with no slang line 48
