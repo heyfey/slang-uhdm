@@ -10,6 +10,7 @@
 #include <functional>
 
 #include "UhdmExporter.h"
+#include <uhdm/UhdmListener.h>
 
 #include "EmitHelpers.h"
 #include "R218.h"
@@ -33,6 +34,7 @@
 #include "R268.h"
 #include "R270.h"
 #include "R272.h"
+#include "R274.h"
 namespace slang_uhdm {
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
@@ -5950,15 +5952,671 @@ static void lotsCopyDrain272(UHDM::Serializer& s, UHDM::design* d) {
                         if (gs && gs->Modules())
                             for (auto* c : *gs->Modules())
                                 walk(c, dep + 1);
+        // § lotsCopyNestedGenWalk274 (r11u274) — THE DRAIN WALKS GENERATE
+        // SCOPES AT EVERY DEPTH.  The walk above reaches the instances of a
+        // module's own generate scopes only; an instance two generate levels
+        // down (a for-generate inside a for-generate, v11u272repro vm02_el,
+        // vm30) kept the shared listing where golden's instance parameter
+        // holds its own copy (`<in>pk::c_t.u`, ours `pk`).  The scopes below
+        // the first level are walked here, the first level left to the loop
+        // above.  Switch R11U274_LOTSNESTGEN_OFF.
+        if (r11u274On("R11U274_LOTSNESTGEN_OFF")) {
+            std::function<void(const VectorOfgen_scope_array*, int)> nest =
+                [&](const VectorOfgen_scope_array* v, int dp) {
+                    if (!v || dp > 64)
+                        return;
+                    for (auto* ga : *v)
+                        if (ga && ga->Gen_scopes())
+                            for (auto* gs : *ga->Gen_scopes()) {
+                                if (!gs)
+                                    continue;
+                                if (dp > 0 && gs->Modules())
+                                    for (auto* c : *gs->Modules()) {
+                                        // the trace names a firing only when the
+                                        // walk re-pointed a typespec of the
+                                        // instance (a walk that moves nothing is
+                                        // an abstention)
+                                        std::vector<const any*> before;
+                                        std::function<void(const module_inst*, std::vector<const any*>&, int)> snapI =
+                                            [&](const module_inst* mi2, std::vector<const any*>& v, int d2) {
+                                            if (!mi2 || d2 > 64)
+                                                return;
+                                            if (auto* pas = mi2->Param_assigns())
+                                                for (auto* pa : *pas) {
+                                                    if (!pa)
+                                                        continue;
+                                                    if (auto* l = pa->Lhs();
+                                                        l && l->UhdmType() == uhdmparameter &&
+                                                        ((parameter*)l)->Typespec())
+                                                        v.push_back(((parameter*)l)->Typespec()->Actual_typespec());
+                                                    if (auto* r = pa->Rhs();
+                                                        r && r->UhdmType() == uhdmconstant &&
+                                                        ((constant*)r)->Typespec())
+                                                        v.push_back(((constant*)r)->Typespec()->Actual_typespec());
+                                                }
+                                            if (auto* ms2 = mi2->Modules())
+                                                for (auto* c2 : *ms2)
+                                                    snapI(c2, v, d2 + 1);
+                                            std::function<void(const VectorOfgen_scope_array*, int)> g2 =
+                                                [&](const VectorOfgen_scope_array* gv, int gd) {
+                                                    if (!gv || gd > 64)
+                                                        return;
+                                                    for (auto* ga2 : *gv)
+                                                        if (ga2 && ga2->Gen_scopes())
+                                                            for (auto* gs2 : *ga2->Gen_scopes()) {
+                                                                if (!gs2)
+                                                                    continue;
+                                                                if (gs2->Modules())
+                                                                    for (auto* c3 : *gs2->Modules())
+                                                                        snapI(c3, v, d2 + 1);
+                                                                g2(gs2->Gen_scope_arrays(), gd + 1);
+                                                            }
+                                                };
+                                            g2(mi2->Gen_scope_arrays(), 0);
+                                        };
+                                        snapI(c, before, 0);
+                                        walk(c, dep + 1);
+                                        std::vector<const any*> after;
+                                        snapI(c, after, 0);
+                                        tr274("LOTSNESTGEN", std::string(before == after ? "abstain nochange " : "fire ") +
+                                                                 std::string(c->VpiFullName()));
+                                    }
+                                nest(gs->Gen_scope_arrays(), dp + 1);
+                            }
+                };
+            nest(mi->Gen_scope_arrays(), 0);
+        }
     };
     if (auto* tops = d->TopModules())
         for (auto* tm : *tops)
             if (tm && tm->UhdmType() == uhdmmodule_inst)
                 walk((module_inst*)tm, 0);
 }
+// § elabMemberReadCopyChain274 (r11u274) — AN ELABORATED MEMBER READ OF A
+// STRUCT PARAMETER BINDS THE INSTANCE'S OWN COPY, NESTED STRUCTS INCLUDED.
+// Surelog elaborates every instance parameter with a clone_tree of its
+// typespec (uniquifyTypespec, § leftoverTsCopyPerElabUse272), a DEEP clone:
+// a member typed by another struct gets its own copy of that struct too.
+// UHDM's ElaboratorListener then binds each member of a path `P.u.a` read in
+// the elaborated instance (a task, a process, a continuous assignment) to the
+// member of the struct the previous element's typespec resolves to, so
+// golden's `a` names itself through the copies
+// (`work@dut.k0.P.pk::c_t.u.pk::in_t.a`, v11u272repro vn12_el), and `P.d` of
+// a parameter whose struct carries no leftover binds a copy as well
+// (`work@dut.k0.P.pk::c_t.d`, grid MR m02_el).  Ours copied only an annotated
+// struct, and only its annotated nested structs, so the listener bound the
+// package listing's member (`pk::pk::in_t::a`, `pk::pk::c_t::d`).  The law,
+// in the --elabuhdm view only (the listener runs there alone; the default
+// view keeps its bytes) and design-final after § leftoverTsCopyPerElabUse272:
+// for every hier_path under an elaborated module instance whose first element
+// names a parameter of the nearest enclosing scope (a gen_scope or the
+// instance) declared with a struct typespec, the parameter's struct is copied
+// when it is still the shared listing, and each later member element whose
+// own typespec is a shared struct listing and which is followed by another
+// element takes a copy of that struct, named through the member's
+// ref_typespec; an element the emitter already bound to a member of the
+// struct replaced is re-bound to the copy's member of that name.  Abstains on
+// a member leftover the copy cannot clone (anything but constants and
+// operations over constants).  Grid tools/probe/r11u274repro/cases/MR.
+// Switch R11U274_MEMREADCOPY_OFF.
+// § elabMemberReadCopyChain274 — every (copy, source) pair the drain made: the
+// source listing can still be re-located by a later last-writer pass (a module
+// subroutine's argument typed by the same package struct moves the elaborated
+// listing to that argument's span, § modAggTfArgLastWriter155 / grid MR mr14),
+// and golden's copy carries the listing's final span, so the copies re-read
+// their source's span design-final (memReadCopySync274, run from
+// drainPaNameCopySrc38).
+static std::vector<std::pair<UHDM::typespec*, const UHDM::typespec*>>& memReadCopies274() {
+    static std::vector<std::pair<UHDM::typespec*, const UHDM::typespec*>> v;
+    return v;
+}
+void memReadCopySync274() {
+    for (auto& [cp, src] : memReadCopies274()) {
+        if (!cp || !src)
+            continue;
+        if (cp->VpiLineNo() != src->VpiLineNo() || cp->VpiColumnNo() != src->VpiColumnNo() ||
+            cp->VpiEndLineNo() != src->VpiEndLineNo() ||
+            cp->VpiEndColumnNo() != src->VpiEndColumnNo())
+            tr274("MEMREADCOPY", "sync " + std::string(cp->VpiName()));
+        cp->VpiFile(src->VpiFile());
+        cp->VpiLineNo(src->VpiLineNo());
+        cp->VpiColumnNo(src->VpiColumnNo());
+        cp->VpiEndLineNo(src->VpiEndLineNo());
+        cp->VpiEndColumnNo(src->VpiEndColumnNo());
+    }
+}
+static void memReadCopyDrain274(UHDM::Serializer& s, UHDM::design* d) {
+    if (!d || !r11u274On("R11U274_MEMREADCOPY_OFF"))
+        return;
+    using namespace UHDM;
+    std::function<bool(const any*, int)> clonable = [&](const any* x, int dep) -> bool {
+        if (!x || dep > 32)
+            return false;
+        if (x->UhdmType() == uhdmconstant)
+            return true;
+        if (x->UhdmType() != uhdmoperation)
+            return false;
+        if (auto* ops = ((const operation*)x)->Operands())
+            for (auto* o : *ops)
+                if (!clonable(o, dep + 1))
+                    return false;
+        return true;
+    };
+    std::function<expr*(const any*, any*)> cloneVal = [&](const any* x, any* par) -> expr* {
+        if (x->UhdmType() == uhdmconstant) {
+            auto* c = (const constant*)x;
+            auto* c2 = s.MakeConstant();
+            c2->VpiValue(c->VpiValue());
+            c2->VpiDecompile(c->VpiDecompile());
+            c2->VpiSize(c->VpiSize());
+            c2->VpiConstType(c->VpiConstType());
+            c2->VpiFile(c->VpiFile());
+            c2->VpiLineNo(c->VpiLineNo());
+            c2->VpiColumnNo(c->VpiColumnNo());
+            c2->VpiEndLineNo(c->VpiEndLineNo());
+            c2->VpiEndColumnNo(c->VpiEndColumnNo());
+            c2->VpiParent(par);
+            if (auto* rt = c->Typespec()) {
+                auto* r2 = s.MakeRef_typespec();
+                r2->VpiParent(c2);
+                r2->VpiName(rt->VpiName());
+                std::string sfn;
+                if (r215StoredFullName(rt, sfn))
+                    r2->VpiFullName(sfn);
+                r2->Actual_typespec((typespec*)rt->Actual_typespec());
+                c2->Typespec(r2);
+            }
+            return c2;
+        }
+        auto* so = (const operation*)x;
+        auto* op = s.MakeOperation();
+        op->VpiOpType(so->VpiOpType());
+        op->VpiReordered(so->VpiReordered());
+        op->VpiFlattened(so->VpiFlattened());
+        op->VpiOpStrong(so->VpiOpStrong());
+        op->VpiDecompile(so->VpiDecompile());
+        op->VpiSize(so->VpiSize());
+        op->VpiFile(so->VpiFile());
+        op->VpiLineNo(so->VpiLineNo());
+        op->VpiColumnNo(so->VpiColumnNo());
+        op->VpiEndLineNo(so->VpiEndLineNo());
+        op->VpiEndColumnNo(so->VpiEndColumnNo());
+        op->VpiParent(par);
+        if (auto* rt = so->Typespec()) {
+            auto* r2 = s.MakeRef_typespec();
+            r2->VpiParent(op);
+            r2->VpiName(rt->VpiName());
+            std::string sfn;
+            if (r215StoredFullName(rt, sfn))
+                r2->VpiFullName(sfn);
+            r2->Actual_typespec((typespec*)rt->Actual_typespec());
+            op->Typespec(r2);
+        }
+        if (auto* ops = so->Operands()) {
+            auto* nv = s.MakeAnyVec();
+            for (auto* o : *ops)
+                nv->push_back(cloneVal(o, op));
+            op->Operands(nv);
+        }
+        return op;
+    };
+    // a struct or union (the copy chain walks both: grid MR m07)
+    auto isAgg = [](const typespec* t) {
+        return t && (t->UhdmType() == uhdmstruct_typespec ||
+                     t->UhdmType() == uhdmunion_typespec);
+    };
+    auto aggMembers = [](const typespec* t) -> const VectorOftypespec_member* {
+        if (!t)
+            return nullptr;
+        if (t->UhdmType() == uhdmstruct_typespec)
+            return ((const struct_typespec*)t)->Members();
+        if (t->UhdmType() == uhdmunion_typespec)
+            return ((const union_typespec*)t)->Members();
+        return nullptr;
+    };
+    // a struct that is still a listing: not hanging under a ref_typespec or a
+    // parameter (a copy does)
+    auto isListing = [&](const typespec* t) {
+        if (!isAgg(t))
+            return false;
+        auto* tp = t->VpiParent();
+        return !(tp && (tp->UhdmType() == uhdmref_typespec ||
+                        tp->UhdmType() == uhdmparameter));
+    };
+    auto copyableOne = [&](const typespec* st) {
+        if (!aggMembers(st))
+            return true;
+        for (auto* m : *aggMembers(st)) {
+            if (!m)
+                return false;
+            if (m->Actual_value() && !clonable(m->Actual_value(), 0))
+                return false;
+            if (m->Default_value() && !clonable(m->Default_value(), 0))
+                return false;
+        }
+        return true;
+    };
+    // one level: the struct, its members and their ref_typespecs (a member's
+    // nested struct stays shared until a read reaches through it)
+    auto copyOne = [&](const typespec* st, ref_typespec* par,
+                       const std::string& base) -> typespec* {
+        typespec* cp = nullptr;
+        if (st->UhdmType() == uhdmunion_typespec) {
+            auto* u = s.MakeUnion_typespec();
+            u->VpiPacked(((const union_typespec*)st)->VpiPacked());
+            u->VpiTagged(((const union_typespec*)st)->VpiTagged());
+            cp = u;
+        }
+        else {
+            auto* t = s.MakeStruct_typespec();
+            t->VpiPacked(((const struct_typespec*)st)->VpiPacked());
+            cp = t;
+        }
+        cp->VpiName(st->VpiName());
+        cp->VpiParent(par);
+        cp->VpiFile(st->VpiFile());
+        cp->VpiLineNo(st->VpiLineNo());
+        cp->VpiColumnNo(st->VpiColumnNo());
+        cp->VpiEndLineNo(st->VpiEndLineNo());
+        cp->VpiEndColumnNo(st->VpiEndColumnNo());
+        cp->Instance(((typespec*)st)->Instance());
+        cp->Typedef_alias(((typespec*)st)->Typedef_alias());
+        auto* mv = s.MakeTypespec_memberVec();
+        if (aggMembers(st))
+            for (auto* m : *aggMembers(st)) {
+                auto* m2 = s.MakeTypespec_member();
+                m2->VpiName(m->VpiName());
+                m2->VpiRandType(m->VpiRandType());
+                m2->VpiParent(cp);
+                m2->VpiFile(m->VpiFile());
+                m2->VpiLineNo(m->VpiLineNo());
+                m2->VpiColumnNo(m->VpiColumnNo());
+                m2->VpiEndLineNo(m->VpiEndLineNo());
+                m2->VpiEndColumnNo(m->VpiEndColumnNo());
+                m2->VpiRefFile(m->VpiRefFile());
+                m2->VpiRefLineNo(m->VpiRefLineNo());
+                m2->VpiRefColumnNo(m->VpiRefColumnNo());
+                m2->VpiRefEndLineNo(m->VpiRefEndLineNo());
+                m2->VpiRefEndColumnNo(m->VpiRefEndColumnNo());
+                if (auto* mr = m->Typespec()) {
+                    auto* r2 = s.MakeRef_typespec();
+                    r2->VpiParent(m2);
+                    r2->VpiName(mr->VpiName());
+                    r2->VpiFullName((base.empty() ? std::string() : base + ".") +
+                                    std::string(st->VpiName()) + "." +
+                                    std::string(m->VpiName()));
+                    r2->Actual_typespec((typespec*)mr->Actual_typespec());
+                    m2->Typespec(r2);
+                }
+                if (m->Default_value())
+                    m2->Default_value(cloneVal(m->Default_value(), m2));
+                if (m->Actual_value())
+                    m2->Actual_value(m->Actual_value() == m->Default_value()
+                                         ? m2->Default_value()
+                                         : cloneVal(m->Actual_value(), m2));
+                mv->push_back(m2);
+            }
+        if (cp->UhdmType() == uhdmunion_typespec)
+            ((union_typespec*)cp)->Members(mv);
+        else
+            ((struct_typespec*)cp)->Members(mv);
+        memReadCopies274().push_back({cp, st});
+        return cp;
+    };
+    auto memberOf = [&](const typespec* st, std::string_view nm) -> typespec_member* {
+        if (aggMembers(st))
+            for (auto* m : *aggMembers(st))
+                if (m && m->VpiName() == nm)
+                    return m;
+        return nullptr;
+    };
+    // a parameter of a scope (gen_scope or module_inst) by name
+    auto scopeParam = [](const any* sc, std::string_view nm) -> parameter* {
+        const VectorOfparam_assign* pas = nullptr;
+        if (sc->UhdmType() == uhdmmodule_inst)
+            pas = ((const module_inst*)sc)->Param_assigns();
+        else if (sc->UhdmType() == uhdmgen_scope)
+            pas = ((const gen_scope*)sc)->Param_assigns();
+        if (pas)
+            for (auto* pa : *pas)
+                if (pa && pa->Lhs() && pa->Lhs()->UhdmType() == uhdmparameter &&
+                    pa->Lhs()->VpiName() == nm)
+                    return (parameter*)pa->Lhs();
+        return nullptr;
+    };
+    // any scope below the definition that declares the name (a generate
+    // block's localparam, a subroutine's or a block's local): the path's
+    // root is not the definition's parameter
+    auto declaresName = [](const any* q, std::string_view nm) {
+        const scope* sc = nullptr;
+        switch (q->UhdmType()) {
+            case uhdmnamed_begin:
+            case uhdmbegin:
+            case uhdmgen_scope:
+            case uhdmtask:
+            case uhdmfunction:
+            case uhdmnamed_fork:
+            case uhdmfork_stmt:
+                sc = static_cast<const scope*>(q);
+                break;
+            default:
+                return false;
+        }
+        if (auto* pas = sc->Param_assigns())
+            for (auto* pa : *pas)
+                if (pa && pa->Lhs() && pa->Lhs()->VpiName() == nm)
+                    return true;
+        if (auto* ps = sc->Parameters())
+            for (auto* p : *ps)
+                if (p && p->VpiName() == nm)
+                    return true;
+        if (auto* vs = sc->Variables())
+            for (auto* v : *vs)
+                if (v && v->VpiName() == nm)
+                    return true;
+        return false;
+    };
+    struct HP274 final : public UhdmListener {
+        std::vector<hier_path*> hits;
+        void enterHier_path(const hier_path* const h) override {
+            hits.push_back((hier_path*)h);
+        }
+    };
+    auto nearestInst = [](const any* q) -> const any* {
+        for (int k = 0; q && k < 512; ++k, q = q->VpiParent())
+            if (q->UhdmType() == uhdmmodule_inst)
+                return q;
+        return nullptr;
+    };
+    // the elaborated module instances, at any generate depth
+    std::set<const any*> elab;
+    std::map<std::string, std::vector<module_inst*>> byDef;
+    std::function<void(module_inst*, int)> walkI = [&](module_inst* mi, int dep) {
+        if (!mi || dep > 64 || !elab.insert(mi).second)
+            return;
+        byDef[std::string(mi->VpiDefName())].push_back(mi);
+        if (auto* ms = mi->Modules())
+            for (auto* c : *ms)
+                walkI(c, dep + 1);
+        std::function<void(const VectorOfgen_scope_array*, int)> gsa =
+            [&](const VectorOfgen_scope_array* v, int dp) {
+                if (!v || dp > 64)
+                    return;
+                for (auto* ga : *v)
+                    if (ga && ga->Gen_scopes())
+                        for (auto* gs : *ga->Gen_scopes()) {
+                            if (!gs)
+                                continue;
+                            if (gs->Modules())
+                                for (auto* c : *gs->Modules())
+                                    walkI(c, dep + 1);
+                            gsa(gs->Gen_scope_arrays(), dp + 1);
+                        }
+            };
+        gsa(mi->Gen_scope_arrays(), 0);
+    };
+    if (auto* tops = d->TopModules())
+        for (auto* tm : *tops)
+            if (tm && tm->UhdmType() == uhdmmodule_inst)
+                walkI((module_inst*)tm, 0);
+    // every param_assign of the elaborated tree with its Lhs (the value
+    // constant a parameter's struct may share)
+    std::vector<std::pair<const param_assign*, const any*>> paOf;
+    {
+        struct PA274 final : public UhdmListener {
+            std::vector<std::pair<const param_assign*, const any*>>* out = nullptr;
+            void enterParam_assign(const param_assign* const pa) override {
+                out->push_back({pa, pa->Lhs()});
+            }
+        } pl;
+        pl.out = &paOf;
+        if (auto* tops = d->TopModules())
+            for (auto* tm : *tops)
+                if (tm)
+                    pl.listenAny(tm);
+    }
+    // the aggregates a subroutine argument is typed by: Surelog's
+    // compileTfPortList moves such a shared listing to the argument's span
+    // (§ tfArgTypedefLastWriter146 / § modAggTfArgLastWriter155) and ours
+    // does it after this drain, so a copy taken here would keep the old span
+    // (grid MR mr14): the law abstains on them
+    std::set<const any*> tfArgTs;
+    {
+        struct IO274 final : public UhdmListener {
+            std::set<const any*>* out = nullptr;
+            void enterIo_decl(const io_decl* const io) override {
+                if (auto* rt = io->Typespec())
+                    if (auto* t = rt->Actual_typespec())
+                        out->insert(t);
+            }
+        } il;
+        il.out = &tfArgTs;
+        if (auto* alls = d->AllModules())
+            for (auto* m : *alls)
+                if (m)
+                    il.listenAny(m);
+        if (auto* tops = d->TopModules())
+            for (auto* m : *tops)
+                if (m)
+                    il.listenAny(m);
+        if (auto* pk = d->AllPackages())
+            for (auto* m : *pk)
+                if (m)
+                    il.listenAny(m);
+    }
+    // the copy chain on one parameter along the member names of one path;
+    // `pe` is the path when its elements are the instance's own (rebind),
+    // else null
+    auto chain = [&](parameter* prm, const std::vector<std::string>& names,
+                     const VectorOfany* pe, std::string_view hn) {
+        if (!prm || !prm->Typespec())
+            return;
+        auto* prt = (ref_typespec*)prm->Typespec();
+        auto* cur = prt->Actual_typespec();
+        if (!cur || !isAgg(cur))
+            return;
+        // a copy that is not this parameter's own (one struct object shared
+        // with the value constant, grid MR mr05's generate localparam) is
+        // left alone: re-shaping it would move the value's view too
+        if (!isListing(cur) && cur->VpiParent() != prt) {
+            tr274("MEMREADCOPY", "abstain shared " + std::string(prt->VpiFullName()));
+            return;
+        }
+        if (!isListing(cur))
+            if (auto* pa = prm->VpiParent();
+                pa && pa->UhdmType() == uhdmparam_assign)
+                if (auto* rv = ((const param_assign*)pa)->Rhs();
+                    rv && rv->UhdmType() == uhdmconstant &&
+                    ((const constant*)rv)->Typespec() &&
+                    ((const constant*)rv)->Typespec()->Actual_typespec() == cur) {
+                    tr274("MEMREADCOPY", "abstain value-shared " + std::string(prt->VpiFullName()));
+                    return;
+                }
+        for (auto& [pa2, lhs2] : paOf)
+            if (lhs2 == prm)
+                if (auto* rv = pa2->Rhs();
+                    !isListing(cur) && rv && rv->UhdmType() == uhdmconstant &&
+                    ((const constant*)rv)->Typespec() &&
+                    ((const constant*)rv)->Typespec()->Actual_typespec() == cur) {
+                    tr274("MEMREADCOPY", "abstain value-shared " + std::string(prt->VpiFullName()));
+                    return;
+                }
+        if (isListing(cur) && tfArgTs.count(cur)) {
+            tr274("MEMREADCOPY", "abstain tfarg " + std::string(cur->VpiName()));
+            return;
+        }
+        if (isListing(cur)) {
+            if (!copyableOne(cur)) {
+                tr274("MEMREADCOPY", "abstain unclonable " + std::string(cur->VpiName()));
+                return;
+            }
+            auto* cp = copyOne(cur, prt, std::string(prt->VpiFullName()));
+            prt->Actual_typespec(cp);
+            tr274("MEMREADCOPY", "param " + std::string(prt->VpiFullName()) + " " +
+                                     std::string(cur->VpiName()));
+            cur = cp;
+        }
+        for (size_t i = 1; i < names.size(); ++i) {
+            if (!cur || !isAgg(cur))
+                break;
+            auto* m = memberOf(cur, names[i]);
+            if (!m)
+                break;
+            // an element the emitter bound to a member of a struct this law
+            // (or § leftoverTsCopyPerElabUse272) replaced: the copy's member
+            if (pe && i < pe->size() && (*pe)[i] && (*pe)[i]->UhdmType() == uhdmref_obj) {
+                auto* r = (ref_obj*)(*pe)[i];
+                if (auto* a = r->Actual_group();
+                    a && a != m && a->UhdmType() == uhdmtypespec_member &&
+                    a->VpiName() == m->VpiName() && a->VpiParent() &&
+                    isListing((const typespec*)a->VpiParent())) {
+                    r->Actual_group(m);
+                    tr274("MEMREADCOPY", "rebind " + std::string(hn) + " " +
+                                             std::string(m->VpiName()));
+                }
+            }
+            if (i + 1 >= names.size())
+                break;
+            auto* mr = (ref_typespec*)m->Typespec();
+            if (!mr)
+                break;
+            auto* nt = mr->Actual_typespec();
+            if (!nt || !isAgg(nt))
+                break;
+            if (!isListing(nt) && nt->VpiParent() != mr) {
+                tr274("MEMREADCOPY", "abstain shared " + std::string(mr->VpiFullName()));
+                break;
+            }
+            if (isListing(nt) && tfArgTs.count(nt)) {
+                tr274("MEMREADCOPY", "abstain tfarg " + std::string(nt->VpiName()));
+                break;
+            }
+            if (isListing(nt)) {
+                if (!copyableOne(nt)) {
+                    tr274("MEMREADCOPY", "abstain unclonable " + std::string(nt->VpiName()));
+                    break;
+                }
+                auto* cp = copyOne(nt, mr, std::string(mr->VpiFullName()));
+                mr->Actual_typespec(cp);
+                tr274("MEMREADCOPY", "nested " + std::string(mr->VpiFullName()) + " " +
+                                         std::string(nt->VpiName()));
+                nt = cp;
+            }
+            cur = nt;
+        }
+    };
+    auto pathNames = [](const hier_path* h, std::vector<std::string>& out) {
+        out.clear();
+        if (!h->Path_elems())
+            return false;
+        for (auto* e : *h->Path_elems()) {
+            if (!e || e->UhdmType() != uhdmref_obj)
+                break;
+            out.emplace_back(e->VpiName());
+        }
+        return out.size() >= 2;
+    };
+    std::vector<std::string> names;
+    // (1) the DEFINITION's paths: the listener clones them into every
+    // elaborated instance of the definition and binds them there, so each
+    // instance's parameter gets the chain.  Only a path rooted at a
+    // parameter of the definition itself, outside any generate scope that
+    // declares a parameter of that name.
+    if (auto* alls = d->AllModules())
+        for (auto* dm : *alls) {
+            if (!dm || dm->UhdmType() != uhdmmodule_inst)
+                continue;
+            auto bd = byDef.find(std::string(dm->VpiDefName()));
+            if (bd == byDef.end())
+                continue;
+            HP274 hp;
+            hp.listenAny(dm);
+            // the names each object of the definition declares directly (a
+            // generate block's localparam, a subroutine's formal or local, a
+            // block's variable): read from the declarations' own parents
+            struct Decl274 final : public UhdmListener {
+                std::map<const any*, std::set<std::string>> by;
+                void enterAny(const any* const o) override {
+                    switch (o->UhdmType()) {
+                        case uhdmparameter:
+                        case uhdmio_decl:
+                        case uhdmlogic_var:
+                        case uhdmbit_var:
+                        case uhdmint_var:
+                        case uhdmbyte_var:
+                        case uhdminteger_var:
+                        case uhdmstruct_var:
+                        case uhdmunion_var:
+                        case uhdmenum_var:
+                        case uhdmarray_var:
+                        case uhdmpacked_array_var:
+                        case uhdmreal_var:
+                        case uhdmstring_var:
+                        case uhdmlogic_net:
+                        case uhdmstruct_net:
+                            if (o->VpiParent() && !o->VpiName().empty())
+                                by[o->VpiParent()].insert(std::string(o->VpiName()));
+                            break;
+                        case uhdmparam_assign:
+                            if (auto* l = ((const param_assign*)o)->Lhs();
+                                l && o->VpiParent())
+                                by[o->VpiParent()].insert(std::string(l->VpiName()));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            } dcl;
+            dcl.listenAny(dm);
+            std::set<const hier_path*> seen;
+            for (auto* h : hp.hits) {
+                if (!h || !seen.insert(h).second || nearestInst(h) != dm ||
+                    !pathNames(h, names))
+                    continue;
+                bool shadow = false, own = scopeParam(dm, names[0]) != nullptr;
+                for (const any* q = h->VpiParent(); q && q != dm; q = q->VpiParent())
+                    if (declaresName(q, names[0]) ||
+                        (dcl.by.count(q) && dcl.by[q].count(names[0])))
+                        shadow = true;
+                if (shadow)
+                    tr274("MEMREADCOPY", "abstain shadow " + std::string(h->VpiName()));
+                if (!own || shadow)
+                    continue;
+                for (auto* mi : bd->second)
+                    chain(scopeParam(mi, names[0]), names, nullptr, h->VpiName());
+            }
+        }
+    // (2) the elaborated instances' own paths (the continuous assignments the
+    // exporter writes there): the nearest scope that declares the name
+    HP274 hp;
+    if (auto* tops = d->TopModules())
+        for (auto* tm : *tops)
+            if (tm)
+                hp.listenAny(tm);
+    std::set<const hier_path*> seen;
+    for (auto* h : hp.hits) {
+        if (!h || !seen.insert(h).second || !elab.count(nearestInst(h)) ||
+            !pathNames(h, names))
+            continue;
+        parameter* prm = nullptr;
+        for (const any* q = h->VpiParent(); q; q = q->VpiParent()) {
+            if (q->UhdmType() == uhdmgen_scope || q->UhdmType() == uhdmmodule_inst)
+                if ((prm = scopeParam(q, names[0])))
+                    break;
+            if (q->UhdmType() == uhdmmodule_inst)
+                break;
+        }
+        chain(prm, names, h->Path_elems(), h->VpiName());
+    }
+}
 void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     // § leftoverTsCopyPerElabUse272 — runs last, with the deferred post-passes.
     deferred109().push_back([this, d]() { lotsCopyDrain272(s, d); });
+    // § elabMemberReadCopyChain274 — after it, in the --elabuhdm view only.
+    deferred109().push_back([this, d]() {
+        if (elabUhdmView121)
+            memReadCopyDrain274(s, d);
+    });
     // § caCallArgParamFormalTs232 (r11u232; cfg_func_width_loop #464) — A
     // PARAMETER PASSED BY BARE NAME TO A PACKAGE FUNCTION IN A MODULE'S
     // CONTINUOUS ASSIGNMENT TAKES THE FORMAL'S TYPESPEC ON ITS ELABORATED
@@ -25802,6 +26460,42 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // ref) — the stamp belongs to the module that DECLARED the param.
         // Probe: `int PAT = '{default:1}` / `int USE = PAT + 2` in a module
         // and a package, all four views.
+        // § pkgElabUnaryFoldOpSpan274 (r11u274) — THE ELABORATED PACKAGE
+        // LISTING'S FOLD OF A UNARY INITIALIZER IS WRITTEN AT THE OPERATOR.
+        // The definition listing keeps the operation; the elaborated (top)
+        // package listing re-compiles the value with Reduce::Yes, and
+        // CompileExpression's tail stamps the reduced constant at
+        // `populateCoreMembers(child, child, result)`: the expression node's
+        // FIRST CHILD, the operator token for a prefix unary operation (the
+        // rule § patFlatMemberLeftSpan169 transcribes for a flattened member
+        // and § elabParamOpSubtreeFold86 for operand subtrees).  `parameter
+        // int A = -3;` golden 2:21-2:22, ours the whole initializer 2:21-2:23;
+        // `~8'h0F`, `!1'b0`, `&4'hF`, `- 3`, `-(3)`, `-'sd2`, `-32'sd7` the
+        // same; `(-3)` the operator inside the parentheses (golden 2:22-2:23,
+        // ours 2:21-2:25).  A module's listing keeps the operation in both
+        // views and is not touched.  Grid tools/probe/r11u274repro/cases/UN.
+        // Switch R11U274_PKGUNARYSPAN_OFF.
+        if (topView && inPackage && !funcScope && !isImported && pa->Rhs() &&
+            pa->Rhs()->UhdmType() == UHDM::uhdmconstant &&
+            pa->Rhs()->VpiParent() == pa &&
+            r11u274On("R11U274_PKGUNARYSPAN_OFF")) {
+            const syntax::SyntaxNode* sy274 = nullptr;
+            if (auto* ini274 = ps.getInitializer())
+                sy274 = ini274->syntax;
+            while (sy274 && sy274->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                sy274 = sy274->as<syntax::ParenthesizedExpressionSyntax>().expression;
+            if (sy274 && syntax::PrefixUnaryExpressionSyntax::isKind(sy274->kind)) {
+                auto r274 = sy274->as<syntax::PrefixUnaryExpressionSyntax>()
+                                .operatorToken.range();
+                if (sm->isMacroLoc(r274.start())) {
+                    tr274("PKGUNARYSPAN", "abstain macro " + std::string(ps.name));
+                }
+                else {
+                    tr274("PKGUNARYSPAN", "fire " + std::string(ps.name));
+                    setLoc(pa->Rhs(), r274);
+                }
+            }
+        }
         auto* paRhs9 = pa->Rhs();
         if (topView && !inPackage && !isImported && !rhsRt && paRhs9 &&
             paRhs9->UhdmType() == UHDM::uhdmoperation &&
@@ -28120,6 +28814,7 @@ static void pcwRefLastWriter250(
 }
 
 void UhdmExporter::drainPaNameCopySrc38() {
+    memReadCopySync274();  // § elabMemberReadCopyChain274 (r11u274)
     // § insideSetParamFoldKeepsPa270 (r11u270, ExprEmit) — design-final.
     insideSetParamPaDrain270();
     // § enumAliasCastBindsImportCopy270 (r11u270; the record at ExprEmit's
@@ -40103,6 +40798,123 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             // eight net keywords; `z3_pkgtdnet`'s anonymous struct).
             else if (!pkgNetOff79()) {
                 if (auto* ets79 = makeTypespec(vs)) {
+                    // § pkgNetTsDimEnd274 (r11u274) — THE PACKAGE'S OWN NET
+                    // LISTING TAKES WRITENETS' END-ONLY STRETCH TOO.  Surelog
+                    // lists a package net through the same
+                    // UhdmWriter::writeNets populateCoreMembers that stretches
+                    // a module's (§ defNetEndOnlyLoc130) and an importer's
+                    // copy (§ importNetTsDimEnd275, ModuleEmit): the net's
+                    // typespec END moves to the end of the FIRST unpacked
+                    // dimension (`wire [7:0] a_net [0:1];` golden 5:3-5:26,
+                    // ours 5:3-5:14; `wire n [3];` 4:3-4:17, ours 4:3-4:7),
+                    // or, with none, of the FIRST packed dimension of a
+                    // multi-dimension packed declaration (`wire [1:0][7:0]
+                    // n;` golden 2:3-2:14, ours 2:3-2:19), in both package
+                    // views.  A one-dimension declaration keeps the type
+                    // span; a dimension end written by a macro keeps the raw
+                    // column.  Only the anonymous, located typespec this
+                    // branch minted for the net is moved.  Grid
+                    // tools/probe/r11u274repro/cases/PN.  Switch
+                    // R11U274_PKGNETDIMEND_OFF.
+                    if (ets79->VpiLineNo() != 0 && ets79->VpiName().empty() &&
+                        vs.kind == SymbolKind::Net &&
+                        r11u274On("R11U274_PKGNETDIMEND_OFF")) {
+                        SourceLocation de274 = SourceLocation::NoLocation;
+                        auto dck274 = dt->getType().getCanonicalType().kind;
+                        auto* ds274 = vs.getSyntax();
+                        if (dck274 == SymbolKind::FixedSizeUnpackedArrayType ||
+                            dck274 == SymbolKind::DynamicArrayType ||
+                            dck274 == SymbolKind::AssociativeArrayType ||
+                            dck274 == SymbolKind::QueueType) {
+                            if (ds274 &&
+                                ds274->kind == syntax::SyntaxKind::Declarator) {
+                                auto& dd274 =
+                                    ds274->as<syntax::DeclaratorSyntax>();
+                                if (!dd274.dimensions.empty())
+                                    de274 = dd274.dimensions[0]
+                                                ->sourceRange()
+                                                .end();
+                            }
+                        }
+                        // § pkgNetKwTypeSignEnd274v (v11u274) — THE END IS
+                        // THE NET'S FIRST CHILD AFTER THE NET KEYWORD.  With
+                        // no unpacked dimension, Surelog's stretch ends at
+                        // the end of the first node after the net keyword:
+                        // an explicit data type (`wire logic [1:0][3:0] f;`
+                        // golden 3:8-3:24, the whole type: the law's
+                        // first-dimension end 3:19 moved a pristine-right
+                        // span away), a signing keyword (`wire signed
+                        // [1:0][3:0] d;` golden 3:3-3:14, `wire signed t;`
+                        // 4:3-4:14, `wire unsigned [3:0] u;` 5:3-5:16, any
+                        // number of packed dimensions), else the first packed
+                        // dimension.  Grid tools/probe/v11u274repro/cases/VP
+                        // (vp13 to vp22).  Switches R11V274_PKDKW_OFF (the
+                        // explicit-type abstention) and R11V274_SIGNEND_OFF
+                        // (the signing keyword end).
+                        else if (auto* tsynV =
+                                     dt->getTypeSyntax();
+                                 tsynV &&
+                                 (r11v274On("R11V274_PKDKW_OFF") ||
+                                  r11v274On("R11V274_SIGNEND_OFF")) &&
+                                 ((syntax::IntegerTypeSyntax::isKind(
+                                       tsynV->kind) &&
+                                   r11v274On("R11V274_PKDKW_OFF")) ||
+                                  (tsynV->kind ==
+                                       syntax::SyntaxKind::ImplicitType &&
+                                   (tsynV->as<syntax::ImplicitTypeSyntax>()
+                                            .signing.kind ==
+                                        parsing::TokenKind::SignedKeyword ||
+                                    tsynV->as<syntax::ImplicitTypeSyntax>()
+                                            .signing.kind ==
+                                        parsing::TokenKind::UnsignedKeyword) &&
+                                   r11v274On("R11V274_SIGNEND_OFF")))) {
+                            if (syntax::IntegerTypeSyntax::isKind(
+                                    tsynV->kind))
+                                tr274("PKGNETKWSIGN274V", "kwtype " +
+                                                              std::string(vs.name));
+                            else {
+                                tr274("PKGNETKWSIGN274V", "signend " +
+                                                              std::string(vs.name));
+                                de274 = tsynV->as<syntax::ImplicitTypeSyntax>()
+                                            .signing.range()
+                                            .end();
+                            }
+                        }
+                        else if (dt->getType().isPackedArray()) {
+                            if (auto* tsyn274 = dt->getTypeSyntax()) {
+                                if (syntax::IntegerTypeSyntax::isKind(
+                                        tsyn274->kind)) {
+                                    auto& dims274 =
+                                        tsyn274->as<syntax::IntegerTypeSyntax>()
+                                            .dimensions;
+                                    if (dims274.size() >= 2)
+                                        de274 =
+                                            dims274[0]->sourceRange().end();
+                                }
+                                else if (tsyn274->kind ==
+                                         syntax::SyntaxKind::ImplicitType) {
+                                    auto& dims274 =
+                                        tsyn274->as<syntax::ImplicitTypeSyntax>()
+                                            .dimensions;
+                                    if (dims274.size() >= 2)
+                                        de274 =
+                                            dims274[0]->sourceRange().end();
+                                }
+                            }
+                        }
+                        if (de274 == SourceLocation::NoLocation)
+                            tr274("PKGNETDIMEND", "abstain nodim " +
+                                                      std::string(vs.name));
+                        else if (sm->isMacroLoc(de274))
+                            tr274("PKGNETDIMEND", "abstain macro " +
+                                                      std::string(vs.name));
+                        else {
+                            tr274("PKGNETDIMEND", "fire " + prefix +
+                                                      std::string(vs.name));
+                            ets79->VpiEndLineNo(sm->getLineNumber(de274));
+                            ets79->VpiEndColumnNo(sm->getColumnNumber(de274));
+                        }
+                    }
                     auto* rt79 = s.MakeRef_typespec();
                     rt79->VpiFullName(prefix + std::string(vs.name));
                     rt79->VpiParent(n);

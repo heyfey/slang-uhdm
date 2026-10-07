@@ -1,0 +1,13 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[default] CMP_EQUAL=477 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=3 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=471 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=3 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+rc=1
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+rc=1
+probe strict: equal=3742 differ:fullname=121 differ:line=45 differ:name=43 differ:endcol=39 differ:type=32 differ:file=20 differ:depth=15 differ:col=13 differ:endline=10 differ:value=4 differ:count=2 differ:decompile=1
+rc=0

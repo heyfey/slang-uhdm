@@ -1,0 +1,5 @@
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/testflags/NoReducTypespec-168324f1/slang.uhdm  patched=d93d5cad06db pristine=1f9d83e8d1fe
+MOVERS: 1 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged

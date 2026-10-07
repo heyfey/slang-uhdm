@@ -785,7 +785,7 @@ r10uvm175repro/g175_f_fence,EQUAL,,equal
 r10uvm17repro/t,EQUAL,,equal
 r10uvm17repro/t29_t,EQUAL,,equal
 r10uvm180repro/g180_a_kinds,EQUAL,,equal
-r10uvm187repro/g187_a_order,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
+r10uvm187repro/g187_a_order,EQUAL,,equal
 r10uvm187repro/probe0,EQUAL,,equal
 r10uvm190repro/probe0,EQUAL,,equal
 r10uvm193repro/g193_c_argface,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
@@ -3105,7 +3105,7 @@ r11u74repro/grid/b3_rhskind,EQUAL,,equal
 r11u74repro/grid/b4_nonamesake,EQUAL,,equal
 r11u75repro/grid/g1_netkinds,EQUAL,,equal
 r11u75repro/grid/w8_unitname,EQUAL,,equal
-r11u77repro/grid/y4_bindreach,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
+r11u77repro/grid/y4_bindreach,EQUAL,,equal
 r11u79repro/grid/z6_pkgconv,EQUAL,,equal
 r11u82repro/grid/c1_order,EQUAL,,equal
 r11u82repro/grid/c3_expimp,EQUAL,,equal
@@ -3114,7 +3114,7 @@ r11u82repro/grid/s2_childpath,EQUAL,,equal
 r11u82repro/grid/v2_aliaschain,EQUAL,,equal
 r11u82repro/grid/v3_rootpath,EQUAL,,equal
 r11u82repro/grid/w2_width,EQUAL,,equal
-r11u82repro/grid/w3_arraynet,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
+r11u82repro/grid/w3_arraynet,EQUAL,,equal
 r11u82repro/grid/w4_twopkg,EQUAL,,equal
 r11u82repro/grid/w5_deepgen,EQUAL,,equal
 r11u82repro/grid/w6_multiinst,EQUAL,,equal
@@ -3129,12 +3129,12 @@ r11u88repro/grid/c2_kinds,EQUAL,,equal
 r11u88repro/grid/i1_ifkinds,EQUAL,,equal
 r11u88repro/grid/i4_portview,EQUAL,,equal
 r11u88repro/grid/i5_twoinst,EQUAL,,equal
-r11u88repro/grid/i6_ifarray,STRICT_NOTEQUAL,differ:endline(15),differ:endline(15)
+r11u88repro/grid/i6_ifarray,STRICT_NOTEQUAL,differ:endline(13),differ:endline(13)
 r11u88repro/grid/i8_modtwin,EQUAL,,equal
 r11u88repro/grid/j3_ifcaselect,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 r11u88repro/grid/q10_ndaorder,EQUAL,,equal
 r11u88repro/grid/q11_ndastrmod,EQUAL,,equal
-r11u88repro/grid/q12_ndaparamenc,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
+r11u88repro/grid/q12_ndaparamenc,EQUAL,,equal
 r11u88repro/grid/q13_ndaref,EQUAL,,equal
 r11u88repro/grid/q1_ifnda,EQUAL,,equal
 r11u88repro/grid/q2_ndakinds,EQUAL,,equal
@@ -3147,7 +3147,7 @@ r11u88repro/grid/q8_ndastr,EQUAL,,equal
 r11u88repro/grid/q9_ndatwoinst,EQUAL,,equal
 r11u88repro/grid/vf_collide,EQUAL,,equal
 r11u88repro/grid/x6_ifdefcast,EQUAL,,equal
-r11u88repro/grid/y1_pkgnetkind,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
+r11u88repro/grid/y1_pkgnetkind,EQUAL,,equal
 r11u88repro/grid/y2_pkgvarkind,STRICT_NOTEQUAL,differ:endline(21),differ:endline(21)
 r11u88repro/grid/y6_hoistconv,EQUAL,,equal
 r11u88repro/grid/z1_bothdrive,EQUAL,,equal
@@ -3562,7 +3562,7 @@ r11v75repro/grid/xl_impclimb,EQUAL,,equal
 r11v77repro/grid/va_netstructkinds,EQUAL,,equal
 r11v77repro/grid/vd_structmem,EQUAL,,equal
 r11v77repro/grid/ve_ifacenet,EQUAL,,equal
-r11v77repro/grid/vh_arrelem,STRICT_NOTEQUAL,differ:endline(35),differ:endline(35)
+r11v77repro/grid/vh_arrelem,STRICT_NOTEQUAL,differ:endline(33),differ:endline(33)
 r11v83repro/grid/b12_ifarr,EQUAL,,equal
 r11v83repro/grid/b14_cadelay,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 r11v83repro/grid/b17_topiface,EQUAL,,equal
@@ -3863,7 +3863,7 @@ v11u114repro/grid/set1/g12,EQUAL,,equal
 v11u114repro/grid/set1/g25,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 v11u114repro/grid/set1/q01,EQUAL,,equal
 v11u114repro/grid/set1/q03,EQUAL,,equal
-v11u114repro/grid/set1/q04,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
+v11u114repro/grid/set1/q04,EQUAL,,equal
 v11u114repro/grid/set1/q05,EQUAL,,equal
 v11u114repro/grid/set1/q06,EQUAL,,equal
 v11u114repro/grid/set1/q09,EQUAL,,equal

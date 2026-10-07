@@ -1,0 +1,9 @@
+r10uvm187repro/g187_a_order chain away=0 toward=2 flat_away=0 flat_toward=2
+r11u77repro/grid/y4_bindreach chain away=0 toward=2 flat_away=0 flat_toward=2
+r11u82repro/grid/w3_arraynet chain away=0 toward=2 flat_away=0 flat_toward=2
+r11u88repro/grid/i6_ifarray chain away=0 toward=2 flat_away=0 flat_toward=2
+r11u88repro/grid/q12_ndaparamenc chain away=0 toward=1 flat_away=0 flat_toward=1
+r11u88repro/grid/y1_pkgnetkind chain away=0 toward=2 flat_away=0 flat_toward=2
+r11v77repro/grid/vh_arrelem chain away=0 toward=2 flat_away=0 flat_toward=2
+v11u114repro/grid/set1/q04 chain away=0 toward=1 flat_away=0 flat_toward=1
+positive control (binaries swapped) y4_bindreach: chain away=2 toward=0 flat_away=2 flat_toward=0

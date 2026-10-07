@@ -1,0 +1,1484 @@
+v11u274repro/cases/VG/vg01_three_for d pristine rc=0 cmp=66 NOT_EQUAL stage1 md5=61c96b7ee183
+v11u274repro/cases/VG/vg01_three_for d law rc=0 cmp=66 NOT_EQUAL stage1 md5=17ae5ed8e7bb
+v11u274repro/cases/VG/vg01_three_for d law+R11U274_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=61c96b7ee183
+v11u274repro/cases/VG/vg01_three_for d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=17ae5ed8e7bb
+v11u274repro/cases/VG/vg01_three_for d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=17ae5ed8e7bb
+v11u274repro/cases/VG/vg01_three_for d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=61c96b7ee183
+v11u274repro/cases/VG/vg01_three_for d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=17ae5ed8e7bb
+v11u274repro/cases/VG/vg01_three_for e pristine rc=0 cmp=74 NOT_EQUAL stage1 md5=690450a2c6bc
+v11u274repro/cases/VG/vg01_three_for e law rc=0 cmp=74 NOT_EQUAL stage1 md5=22bdbe29d0c7
+v11u274repro/cases/VG/vg01_three_for e law+R11U274_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=690450a2c6bc
+v11u274repro/cases/VG/vg01_three_for e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=22bdbe29d0c7
+v11u274repro/cases/VG/vg01_three_for e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=22bdbe29d0c7
+v11u274repro/cases/VG/vg01_three_for e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=0f771ebcfcd5
+v11u274repro/cases/VG/vg01_three_for e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=22bdbe29d0c7
+v11u274repro/cases/VG/vg02_if_if d pristine rc=0 cmp=66 NOT_EQUAL stage1 md5=9118193fcba2
+v11u274repro/cases/VG/vg02_if_if d law rc=0 cmp=66 NOT_EQUAL stage1 md5=064312c58fa6
+v11u274repro/cases/VG/vg02_if_if d law+R11U274_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=9118193fcba2
+v11u274repro/cases/VG/vg02_if_if d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=064312c58fa6
+v11u274repro/cases/VG/vg02_if_if d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=064312c58fa6
+v11u274repro/cases/VG/vg02_if_if d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=9118193fcba2
+v11u274repro/cases/VG/vg02_if_if d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=064312c58fa6
+v11u274repro/cases/VG/vg02_if_if e pristine rc=0 cmp=74 NOT_EQUAL stage1 md5=f775685c5daf
+v11u274repro/cases/VG/vg02_if_if e law rc=0 cmp=74 NOT_EQUAL stage1 md5=8346a887ed1a
+v11u274repro/cases/VG/vg02_if_if e law+R11U274_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=f775685c5daf
+v11u274repro/cases/VG/vg02_if_if e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=8346a887ed1a
+v11u274repro/cases/VG/vg02_if_if e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=8346a887ed1a
+v11u274repro/cases/VG/vg02_if_if e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=33c7152d69b2
+v11u274repro/cases/VG/vg02_if_if e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=8346a887ed1a
+v11u274repro/cases/VG/vg03_case_for_ovr d pristine rc=0 cmp=48 NOT_EQUAL stage1 md5=69159de441ca
+v11u274repro/cases/VG/vg03_case_for_ovr d law rc=0 cmp=48 NOT_EQUAL stage1 md5=49bc62a0bf8c
+v11u274repro/cases/VG/vg03_case_for_ovr d law+R11U274_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=69159de441ca
+v11u274repro/cases/VG/vg03_case_for_ovr d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=49bc62a0bf8c
+v11u274repro/cases/VG/vg03_case_for_ovr d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=49bc62a0bf8c
+v11u274repro/cases/VG/vg03_case_for_ovr d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=69159de441ca
+v11u274repro/cases/VG/vg03_case_for_ovr d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=49bc62a0bf8c
+v11u274repro/cases/VG/vg03_case_for_ovr e pristine rc=0 cmp=48 NOT_EQUAL stage1 md5=156303dad24a
+v11u274repro/cases/VG/vg03_case_for_ovr e law rc=0 cmp=48 NOT_EQUAL stage1 md5=6a58427b2e84
+v11u274repro/cases/VG/vg03_case_for_ovr e law+R11U274_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=156303dad24a
+v11u274repro/cases/VG/vg03_case_for_ovr e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=6a58427b2e84
+v11u274repro/cases/VG/vg03_case_for_ovr e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=6a58427b2e84
+v11u274repro/cases/VG/vg03_case_for_ovr e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=6538947d9457
+v11u274repro/cases/VG/vg03_case_for_ovr e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=6a58427b2e84
+v11u274repro/cases/VG/vg04_mid_nested d pristine rc=0 cmp=66 NOT_EQUAL stage1 md5=1e17f9d9e05b
+v11u274repro/cases/VG/vg04_mid_nested d law rc=0 cmp=66 NOT_EQUAL stage1 md5=4f45f4bbbb02
+v11u274repro/cases/VG/vg04_mid_nested d law+R11U274_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=1e17f9d9e05b
+v11u274repro/cases/VG/vg04_mid_nested d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=4f45f4bbbb02
+v11u274repro/cases/VG/vg04_mid_nested d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=4f45f4bbbb02
+v11u274repro/cases/VG/vg04_mid_nested d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=1e17f9d9e05b
+v11u274repro/cases/VG/vg04_mid_nested d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=4f45f4bbbb02
+v11u274repro/cases/VG/vg04_mid_nested e pristine rc=0 cmp=74 NOT_EQUAL stage1 md5=17359f9fe64c
+v11u274repro/cases/VG/vg04_mid_nested e law rc=0 cmp=74 NOT_EQUAL stage1 md5=c9de33fd58bf
+v11u274repro/cases/VG/vg04_mid_nested e law+R11U274_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=17359f9fe64c
+v11u274repro/cases/VG/vg04_mid_nested e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=c9de33fd58bf
+v11u274repro/cases/VG/vg04_mid_nested e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=c9de33fd58bf
+v11u274repro/cases/VG/vg04_mid_nested e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=54fc140701e5
+v11u274repro/cases/VG/vg04_mid_nested e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=c9de33fd58bf
+v11u274repro/cases/VG/vg05_mixed_levels d pristine rc=0 cmp=66 NOT_EQUAL stage1 md5=fbe5af20eb0a
+v11u274repro/cases/VG/vg05_mixed_levels d law rc=0 cmp=66 NOT_EQUAL stage1 md5=242078b975c2
+v11u274repro/cases/VG/vg05_mixed_levels d law+R11U274_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=fbe5af20eb0a
+v11u274repro/cases/VG/vg05_mixed_levels d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=242078b975c2
+v11u274repro/cases/VG/vg05_mixed_levels d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=242078b975c2
+v11u274repro/cases/VG/vg05_mixed_levels d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=fbe5af20eb0a
+v11u274repro/cases/VG/vg05_mixed_levels d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=242078b975c2
+v11u274repro/cases/VG/vg05_mixed_levels e pristine rc=0 cmp=74 NOT_EQUAL stage1 md5=242ba0203bd3
+v11u274repro/cases/VG/vg05_mixed_levels e law rc=0 cmp=74 NOT_EQUAL stage1 md5=34975bdcad36
+v11u274repro/cases/VG/vg05_mixed_levels e law+R11U274_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=242ba0203bd3
+v11u274repro/cases/VG/vg05_mixed_levels e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=34975bdcad36
+v11u274repro/cases/VG/vg05_mixed_levels e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=34975bdcad36
+v11u274repro/cases/VG/vg05_mixed_levels e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=bf740a42231d
+v11u274repro/cases/VG/vg05_mixed_levels e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=34975bdcad36
+v11u274repro/cases/VG/vg06_nested_named_block d pristine rc=0 cmp=85 NOT_EQUAL stage1 md5=bbbdad5defcf
+v11u274repro/cases/VG/vg06_nested_named_block d law rc=0 cmp=85 NOT_EQUAL stage1 md5=dc9920f24fa7
+v11u274repro/cases/VG/vg06_nested_named_block d law+R11U274_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=bbbdad5defcf
+v11u274repro/cases/VG/vg06_nested_named_block d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=dc9920f24fa7
+v11u274repro/cases/VG/vg06_nested_named_block d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=dc9920f24fa7
+v11u274repro/cases/VG/vg06_nested_named_block d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=bbbdad5defcf
+v11u274repro/cases/VG/vg06_nested_named_block d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=dc9920f24fa7
+v11u274repro/cases/VG/vg06_nested_named_block e pristine rc=0 cmp=85 NOT_EQUAL stage1 md5=737952c36402
+v11u274repro/cases/VG/vg06_nested_named_block e law rc=0 cmp=85 NOT_EQUAL stage1 md5=35d2cf79664a
+v11u274repro/cases/VG/vg06_nested_named_block e law+R11U274_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=737952c36402
+v11u274repro/cases/VG/vg06_nested_named_block e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=35d2cf79664a
+v11u274repro/cases/VG/vg06_nested_named_block e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=35d2cf79664a
+v11u274repro/cases/VG/vg06_nested_named_block e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=441567128e0e
+v11u274repro/cases/VG/vg06_nested_named_block e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=35d2cf79664a
+v11u274repro/cases/VP/vp01_multiunpk d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ebd04650f719
+v11u274repro/cases/VP/vp01_multiunpk d law rc=0 cmp=0 STRICT_EQUAL 106 objects md5=7f21806b4246
+v11u274repro/cases/VP/vp01_multiunpk d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ebd04650f719
+v11u274repro/cases/VP/vp01_multiunpk d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ebd04650f719
+v11u274repro/cases/VP/vp01_multiunpk d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 106 objects md5=7f21806b4246
+v11u274repro/cases/VP/vp01_multiunpk d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 106 objects md5=7f21806b4246
+v11u274repro/cases/VP/vp01_multiunpk d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 106 objects md5=7f21806b4246
+v11u274repro/cases/VP/vp01_multiunpk e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=c718fef38cb8
+v11u274repro/cases/VP/vp01_multiunpk e law rc=0 cmp=0 STRICT_EQUAL 106 objects md5=11205d8a620b
+v11u274repro/cases/VP/vp01_multiunpk e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=c718fef38cb8
+v11u274repro/cases/VP/vp01_multiunpk e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=c718fef38cb8
+v11u274repro/cases/VP/vp01_multiunpk e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 106 objects md5=11205d8a620b
+v11u274repro/cases/VP/vp01_multiunpk e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 106 objects md5=11205d8a620b
+v11u274repro/cases/VP/vp01_multiunpk e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 106 objects md5=11205d8a620b
+v11u274repro/cases/VP/vp02_signed_pkd d pristine rc=0 cmp=28 NOT_EQUAL stage1 md5=6428b6684ac3
+v11u274repro/cases/VP/vp02_signed_pkd d law rc=0 cmp=28 NOT_EQUAL stage1 md5=067bc5983470
+v11u274repro/cases/VP/vp02_signed_pkd d law+R11U274_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=6428b6684ac3
+v11u274repro/cases/VP/vp02_signed_pkd d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=6428b6684ac3
+v11u274repro/cases/VP/vp02_signed_pkd d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=067bc5983470
+v11u274repro/cases/VP/vp02_signed_pkd d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=067bc5983470
+v11u274repro/cases/VP/vp02_signed_pkd d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=067bc5983470
+v11u274repro/cases/VP/vp02_signed_pkd e pristine rc=0 cmp=28 NOT_EQUAL stage1 md5=15c07a41fbc5
+v11u274repro/cases/VP/vp02_signed_pkd e law rc=0 cmp=28 NOT_EQUAL stage1 md5=e0111c8a3d4e
+v11u274repro/cases/VP/vp02_signed_pkd e law+R11U274_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=15c07a41fbc5
+v11u274repro/cases/VP/vp02_signed_pkd e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=15c07a41fbc5
+v11u274repro/cases/VP/vp02_signed_pkd e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=e0111c8a3d4e
+v11u274repro/cases/VP/vp02_signed_pkd e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=e0111c8a3d4e
+v11u274repro/cases/VP/vp02_signed_pkd e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=e0111c8a3d4e
+v11u274repro/cases/VP/vp03_kinds d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=292d9bad7626
+v11u274repro/cases/VP/vp03_kinds d law rc=0 cmp=0 STRICT_EQUAL 209 objects md5=3f6cb8774928
+v11u274repro/cases/VP/vp03_kinds d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=292d9bad7626
+v11u274repro/cases/VP/vp03_kinds d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=292d9bad7626
+v11u274repro/cases/VP/vp03_kinds d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 209 objects md5=3f6cb8774928
+v11u274repro/cases/VP/vp03_kinds d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 209 objects md5=3f6cb8774928
+v11u274repro/cases/VP/vp03_kinds d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 209 objects md5=3f6cb8774928
+v11u274repro/cases/VP/vp03_kinds e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=895629569a20
+v11u274repro/cases/VP/vp03_kinds e law rc=0 cmp=0 STRICT_EQUAL 200 objects md5=3f5237e6f9a9
+v11u274repro/cases/VP/vp03_kinds e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=895629569a20
+v11u274repro/cases/VP/vp03_kinds e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=895629569a20
+v11u274repro/cases/VP/vp03_kinds e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 200 objects md5=3f5237e6f9a9
+v11u274repro/cases/VP/vp03_kinds e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 200 objects md5=3f5237e6f9a9
+v11u274repro/cases/VP/vp03_kinds e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 200 objects md5=3f5237e6f9a9
+v11u274repro/cases/VP/vp04_twodecl d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b6f6dab5627d
+v11u274repro/cases/VP/vp04_twodecl d law rc=0 cmp=0 STRICT_EQUAL 197 objects md5=8b0568daedfd
+v11u274repro/cases/VP/vp04_twodecl d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b6f6dab5627d
+v11u274repro/cases/VP/vp04_twodecl d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b6f6dab5627d
+v11u274repro/cases/VP/vp04_twodecl d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 197 objects md5=8b0568daedfd
+v11u274repro/cases/VP/vp04_twodecl d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 197 objects md5=8b0568daedfd
+v11u274repro/cases/VP/vp04_twodecl d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 197 objects md5=8b0568daedfd
+v11u274repro/cases/VP/vp04_twodecl e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b8a9492ff2f8
+v11u274repro/cases/VP/vp04_twodecl e law rc=0 cmp=0 STRICT_EQUAL 182 objects md5=315aeb1585bd
+v11u274repro/cases/VP/vp04_twodecl e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b8a9492ff2f8
+v11u274repro/cases/VP/vp04_twodecl e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b8a9492ff2f8
+v11u274repro/cases/VP/vp04_twodecl e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 182 objects md5=315aeb1585bd
+v11u274repro/cases/VP/vp04_twodecl e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 182 objects md5=315aeb1585bd
+v11u274repro/cases/VP/vp04_twodecl e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 182 objects md5=315aeb1585bd
+v11u274repro/cases/VP/vp05_paramdims d pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=286aadd9cbd3
+v11u274repro/cases/VP/vp05_paramdims d law rc=0 cmp=60 NOT_EQUAL stage1 md5=f69fc3bb0b0a
+v11u274repro/cases/VP/vp05_paramdims d law+R11U274_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=286aadd9cbd3
+v11u274repro/cases/VP/vp05_paramdims d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=286aadd9cbd3
+v11u274repro/cases/VP/vp05_paramdims d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=f69fc3bb0b0a
+v11u274repro/cases/VP/vp05_paramdims d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=f69fc3bb0b0a
+v11u274repro/cases/VP/vp05_paramdims d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=f69fc3bb0b0a
+v11u274repro/cases/VP/vp05_paramdims e pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=5b1a14c3a449
+v11u274repro/cases/VP/vp05_paramdims e law rc=0 cmp=60 NOT_EQUAL stage1 md5=db6afc3b6871
+v11u274repro/cases/VP/vp05_paramdims e law+R11U274_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=5b1a14c3a449
+v11u274repro/cases/VP/vp05_paramdims e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=5b1a14c3a449
+v11u274repro/cases/VP/vp05_paramdims e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=db6afc3b6871
+v11u274repro/cases/VP/vp05_paramdims e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=db6afc3b6871
+v11u274repro/cases/VP/vp05_paramdims e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=db6afc3b6871
+v11u274repro/cases/VP/vp06_comment_dims d pristine rc=0 cmp=28 NOT_EQUAL stage1 md5=9c3ed2bebdfd
+v11u274repro/cases/VP/vp06_comment_dims d law rc=0 cmp=28 NOT_EQUAL stage1 md5=36f607492fbb
+v11u274repro/cases/VP/vp06_comment_dims d law+R11U274_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=9c3ed2bebdfd
+v11u274repro/cases/VP/vp06_comment_dims d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=9c3ed2bebdfd
+v11u274repro/cases/VP/vp06_comment_dims d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=36f607492fbb
+v11u274repro/cases/VP/vp06_comment_dims d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=36f607492fbb
+v11u274repro/cases/VP/vp06_comment_dims d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=36f607492fbb
+v11u274repro/cases/VP/vp06_comment_dims e pristine rc=0 cmp=28 NOT_EQUAL stage1 md5=9c767cc89a65
+v11u274repro/cases/VP/vp06_comment_dims e law rc=0 cmp=28 NOT_EQUAL stage1 md5=05e987d8f9e0
+v11u274repro/cases/VP/vp06_comment_dims e law+R11U274_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=9c767cc89a65
+v11u274repro/cases/VP/vp06_comment_dims e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=9c767cc89a65
+v11u274repro/cases/VP/vp06_comment_dims e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=05e987d8f9e0
+v11u274repro/cases/VP/vp06_comment_dims e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=05e987d8f9e0
+v11u274repro/cases/VP/vp06_comment_dims e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=05e987d8f9e0
+v11u274repro/cases/VP/vp07_three_pkd d pristine rc=0 cmp=28 NOT_EQUAL stage1 md5=6062327b3eae
+v11u274repro/cases/VP/vp07_three_pkd d law rc=0 cmp=28 NOT_EQUAL stage1 md5=1963cdf4af21
+v11u274repro/cases/VP/vp07_three_pkd d law+R11U274_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=6062327b3eae
+v11u274repro/cases/VP/vp07_three_pkd d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=6062327b3eae
+v11u274repro/cases/VP/vp07_three_pkd d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=1963cdf4af21
+v11u274repro/cases/VP/vp07_three_pkd d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=1963cdf4af21
+v11u274repro/cases/VP/vp07_three_pkd d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=1963cdf4af21
+v11u274repro/cases/VP/vp07_three_pkd e pristine rc=0 cmp=28 NOT_EQUAL stage1 md5=2ae4825c36ec
+v11u274repro/cases/VP/vp07_three_pkd e law rc=0 cmp=28 NOT_EQUAL stage1 md5=4db89696907c
+v11u274repro/cases/VP/vp07_three_pkd e law+R11U274_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=2ae4825c36ec
+v11u274repro/cases/VP/vp07_three_pkd e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=2ae4825c36ec
+v11u274repro/cases/VP/vp07_three_pkd e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=4db89696907c
+v11u274repro/cases/VP/vp07_three_pkd e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=4db89696907c
+v11u274repro/cases/VP/vp07_three_pkd e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=4db89696907c
+v11u274repro/cases/VP/vp08_init d pristine rc=3 NODB
+v11u274repro/cases/VP/vp08_init d law rc=3 NODB
+v11u274repro/cases/VP/vp08_init d law+R11U274_OFF rc=3 NODB
+v11u274repro/cases/VP/vp08_init d law+R11U274_PKGNETDIMEND_OFF rc=3 NODB
+v11u274repro/cases/VP/vp08_init d law+R11U274_MEMREADCOPY_OFF rc=3 NODB
+v11u274repro/cases/VP/vp08_init d law+R11U274_LOTSNESTGEN_OFF rc=3 NODB
+v11u274repro/cases/VP/vp08_init d law+R11U274_PKGUNARYSPAN_OFF rc=3 NODB
+v11u274repro/cases/VP/vp08_init e pristine rc=3 NODB
+v11u274repro/cases/VP/vp08_init e law rc=3 NODB
+v11u274repro/cases/VP/vp08_init e law+R11U274_OFF rc=3 NODB
+v11u274repro/cases/VP/vp08_init e law+R11U274_PKGNETDIMEND_OFF rc=3 NODB
+v11u274repro/cases/VP/vp08_init e law+R11U274_MEMREADCOPY_OFF rc=3 NODB
+v11u274repro/cases/VP/vp08_init e law+R11U274_LOTSNESTGEN_OFF rc=3 NODB
+v11u274repro/cases/VP/vp08_init e law+R11U274_PKGUNARYSPAN_OFF rc=3 NODB
+v11u274repro/cases/VP/vp09_multiline d pristine rc=0 cmp=28 NOT_EQUAL stage1 md5=7aa26d209138
+v11u274repro/cases/VP/vp09_multiline d law rc=0 cmp=28 NOT_EQUAL stage1 md5=25263c005088
+v11u274repro/cases/VP/vp09_multiline d law+R11U274_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=7aa26d209138
+v11u274repro/cases/VP/vp09_multiline d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=7aa26d209138
+v11u274repro/cases/VP/vp09_multiline d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=25263c005088
+v11u274repro/cases/VP/vp09_multiline d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=25263c005088
+v11u274repro/cases/VP/vp09_multiline d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=25263c005088
+v11u274repro/cases/VP/vp09_multiline e pristine rc=0 cmp=28 NOT_EQUAL stage1 md5=bfe186b97753
+v11u274repro/cases/VP/vp09_multiline e law rc=0 cmp=28 NOT_EQUAL stage1 md5=0e4e449f42e6
+v11u274repro/cases/VP/vp09_multiline e law+R11U274_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=bfe186b97753
+v11u274repro/cases/VP/vp09_multiline e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=bfe186b97753
+v11u274repro/cases/VP/vp09_multiline e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=0e4e449f42e6
+v11u274repro/cases/VP/vp09_multiline e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=0e4e449f42e6
+v11u274repro/cases/VP/vp09_multiline e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=0e4e449f42e6
+v11u274repro/cases/VP/vp10_twopkgs_iface d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5acc77da147a
+v11u274repro/cases/VP/vp10_twopkgs_iface d law rc=0 cmp=0 STRICT_EQUAL 205 objects md5=a3a04e7724e2
+v11u274repro/cases/VP/vp10_twopkgs_iface d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5acc77da147a
+v11u274repro/cases/VP/vp10_twopkgs_iface d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5acc77da147a
+v11u274repro/cases/VP/vp10_twopkgs_iface d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 205 objects md5=a3a04e7724e2
+v11u274repro/cases/VP/vp10_twopkgs_iface d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 205 objects md5=a3a04e7724e2
+v11u274repro/cases/VP/vp10_twopkgs_iface d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 205 objects md5=a3a04e7724e2
+v11u274repro/cases/VP/vp10_twopkgs_iface e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=95db1c83aa5a
+v11u274repro/cases/VP/vp10_twopkgs_iface e law rc=0 cmp=0 STRICT_EQUAL 242 objects md5=00bbb9095030
+v11u274repro/cases/VP/vp10_twopkgs_iface e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=95db1c83aa5a
+v11u274repro/cases/VP/vp10_twopkgs_iface e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=95db1c83aa5a
+v11u274repro/cases/VP/vp10_twopkgs_iface e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 242 objects md5=00bbb9095030
+v11u274repro/cases/VP/vp10_twopkgs_iface e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 242 objects md5=00bbb9095030
+v11u274repro/cases/VP/vp10_twopkgs_iface e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 242 objects md5=00bbb9095030
+v11u274repro/cases/VP/vp11_unpk_range_rev d pristine rc=0 cmp=44 NOT_EQUAL stage1 md5=4f86e62a6f2c
+v11u274repro/cases/VP/vp11_unpk_range_rev d law rc=0 cmp=44 NOT_EQUAL stage1 md5=d57f72a9bdb3
+v11u274repro/cases/VP/vp11_unpk_range_rev d law+R11U274_OFF rc=0 cmp=44 NOT_EQUAL stage1 md5=4f86e62a6f2c
+v11u274repro/cases/VP/vp11_unpk_range_rev d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=44 NOT_EQUAL stage1 md5=4f86e62a6f2c
+v11u274repro/cases/VP/vp11_unpk_range_rev d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=44 NOT_EQUAL stage1 md5=d57f72a9bdb3
+v11u274repro/cases/VP/vp11_unpk_range_rev d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=44 NOT_EQUAL stage1 md5=d57f72a9bdb3
+v11u274repro/cases/VP/vp11_unpk_range_rev d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=44 NOT_EQUAL stage1 md5=d57f72a9bdb3
+v11u274repro/cases/VP/vp11_unpk_range_rev e pristine rc=0 cmp=44 NOT_EQUAL stage1 md5=d60ba80f5380
+v11u274repro/cases/VP/vp11_unpk_range_rev e law rc=0 cmp=44 NOT_EQUAL stage1 md5=dbe824c06f70
+v11u274repro/cases/VP/vp11_unpk_range_rev e law+R11U274_OFF rc=0 cmp=44 NOT_EQUAL stage1 md5=d60ba80f5380
+v11u274repro/cases/VP/vp11_unpk_range_rev e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=44 NOT_EQUAL stage1 md5=d60ba80f5380
+v11u274repro/cases/VP/vp11_unpk_range_rev e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=44 NOT_EQUAL stage1 md5=dbe824c06f70
+v11u274repro/cases/VP/vp11_unpk_range_rev e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=44 NOT_EQUAL stage1 md5=dbe824c06f70
+v11u274repro/cases/VP/vp11_unpk_range_rev e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=44 NOT_EQUAL stage1 md5=dbe824c06f70
+v11u274repro/cases/VP/vp12_unused d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=0a3483daeae9
+v11u274repro/cases/VP/vp12_unused d law rc=0 cmp=0 STRICT_EQUAL 54 objects md5=47d0ed9296eb
+v11u274repro/cases/VP/vp12_unused d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=0a3483daeae9
+v11u274repro/cases/VP/vp12_unused d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=0a3483daeae9
+v11u274repro/cases/VP/vp12_unused d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 54 objects md5=47d0ed9296eb
+v11u274repro/cases/VP/vp12_unused d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 54 objects md5=47d0ed9296eb
+v11u274repro/cases/VP/vp12_unused d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 54 objects md5=47d0ed9296eb
+v11u274repro/cases/VP/vp12_unused e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=40ea72797296
+v11u274repro/cases/VP/vp12_unused e law rc=0 cmp=0 STRICT_EQUAL 53 objects md5=238df9e36f69
+v11u274repro/cases/VP/vp12_unused e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=40ea72797296
+v11u274repro/cases/VP/vp12_unused e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=40ea72797296
+v11u274repro/cases/VP/vp12_unused e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 53 objects md5=238df9e36f69
+v11u274repro/cases/VP/vp12_unused e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 53 objects md5=238df9e36f69
+v11u274repro/cases/VP/vp12_unused e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 53 objects md5=238df9e36f69
+v11u274repro/cases/VR/vr01_ifgen_untaken d pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=81de972d4ad6
+v11u274repro/cases/VR/vr01_ifgen_untaken d law rc=0 cmp=76 NOT_EQUAL stage1 md5=81de972d4ad6
+v11u274repro/cases/VR/vr01_ifgen_untaken d law+R11U274_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=81de972d4ad6
+v11u274repro/cases/VR/vr01_ifgen_untaken d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=81de972d4ad6
+v11u274repro/cases/VR/vr01_ifgen_untaken d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=81de972d4ad6
+v11u274repro/cases/VR/vr01_ifgen_untaken d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=81de972d4ad6
+v11u274repro/cases/VR/vr01_ifgen_untaken d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=81de972d4ad6
+v11u274repro/cases/VR/vr01_ifgen_untaken e pristine rc=0 cmp=88 NOT_EQUAL stage1 md5=5a46bbfc8c7f
+v11u274repro/cases/VR/vr01_ifgen_untaken e law rc=0 cmp=88 NOT_EQUAL stage1 md5=ff50fffb8f45
+v11u274repro/cases/VR/vr01_ifgen_untaken e law+R11U274_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=5a46bbfc8c7f
+v11u274repro/cases/VR/vr01_ifgen_untaken e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=ff50fffb8f45
+v11u274repro/cases/VR/vr01_ifgen_untaken e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=5a46bbfc8c7f
+v11u274repro/cases/VR/vr01_ifgen_untaken e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=ff50fffb8f45
+v11u274repro/cases/VR/vr01_ifgen_untaken e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=ff50fffb8f45
+v11u274repro/cases/VR/vr02_partsel_bound d pristine rc=0 cmp=0 STRICT_EQUAL 349 objects md5=3f9b37afdcf9
+v11u274repro/cases/VR/vr02_partsel_bound d law rc=0 cmp=0 STRICT_EQUAL 349 objects md5=3f9b37afdcf9
+v11u274repro/cases/VR/vr02_partsel_bound d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 349 objects md5=3f9b37afdcf9
+v11u274repro/cases/VR/vr02_partsel_bound d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 349 objects md5=3f9b37afdcf9
+v11u274repro/cases/VR/vr02_partsel_bound d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 349 objects md5=3f9b37afdcf9
+v11u274repro/cases/VR/vr02_partsel_bound d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 349 objects md5=3f9b37afdcf9
+v11u274repro/cases/VR/vr02_partsel_bound d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 349 objects md5=3f9b37afdcf9
+v11u274repro/cases/VR/vr02_partsel_bound e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ac54e98bf160
+v11u274repro/cases/VR/vr02_partsel_bound e law rc=0 cmp=0 STRICT_EQUAL 374 objects md5=5f3acdc61045
+v11u274repro/cases/VR/vr02_partsel_bound e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ac54e98bf160
+v11u274repro/cases/VR/vr02_partsel_bound e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 374 objects md5=5f3acdc61045
+v11u274repro/cases/VR/vr02_partsel_bound e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ac54e98bf160
+v11u274repro/cases/VR/vr02_partsel_bound e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 374 objects md5=5f3acdc61045
+v11u274repro/cases/VR/vr02_partsel_bound e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 374 objects md5=5f3acdc61045
+v11u274repro/cases/VR/vr03_func_formal_shadow d pristine rc=0 cmp=50 NOT_EQUAL stage1 md5=f61792886b12
+v11u274repro/cases/VR/vr03_func_formal_shadow d law rc=0 cmp=50 NOT_EQUAL stage1 md5=f61792886b12
+v11u274repro/cases/VR/vr03_func_formal_shadow d law+R11U274_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=f61792886b12
+v11u274repro/cases/VR/vr03_func_formal_shadow d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=f61792886b12
+v11u274repro/cases/VR/vr03_func_formal_shadow d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=f61792886b12
+v11u274repro/cases/VR/vr03_func_formal_shadow d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=f61792886b12
+v11u274repro/cases/VR/vr03_func_formal_shadow d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=f61792886b12
+v11u274repro/cases/VR/vr03_func_formal_shadow e pristine rc=0 cmp=50 NOT_EQUAL stage1 md5=5245dd0acfb2
+v11u274repro/cases/VR/vr03_func_formal_shadow e law rc=0 cmp=50 NOT_EQUAL stage1 md5=5245dd0acfb2
+v11u274repro/cases/VR/vr03_func_formal_shadow e law+R11U274_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=5245dd0acfb2
+v11u274repro/cases/VR/vr03_func_formal_shadow e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=5245dd0acfb2
+v11u274repro/cases/VR/vr03_func_formal_shadow e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=5245dd0acfb2
+v11u274repro/cases/VR/vr03_func_formal_shadow e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=5245dd0acfb2
+v11u274repro/cases/VR/vr03_func_formal_shadow e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=5245dd0acfb2
+v11u274repro/cases/VR/vr04_block_var_shadow d pristine rc=0 cmp=0 STRICT_EQUAL 352 objects md5=0e054ac770f0
+v11u274repro/cases/VR/vr04_block_var_shadow d law rc=0 cmp=0 STRICT_EQUAL 352 objects md5=0e054ac770f0
+v11u274repro/cases/VR/vr04_block_var_shadow d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 352 objects md5=0e054ac770f0
+v11u274repro/cases/VR/vr04_block_var_shadow d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 352 objects md5=0e054ac770f0
+v11u274repro/cases/VR/vr04_block_var_shadow d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 352 objects md5=0e054ac770f0
+v11u274repro/cases/VR/vr04_block_var_shadow d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 352 objects md5=0e054ac770f0
+v11u274repro/cases/VR/vr04_block_var_shadow d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 352 objects md5=0e054ac770f0
+v11u274repro/cases/VR/vr04_block_var_shadow e pristine rc=0 cmp=0 STRICT_NOTEQUAL depth md5=49ef24527925
+v11u274repro/cases/VR/vr04_block_var_shadow e law rc=0 cmp=0 STRICT_EQUAL 416 objects md5=8892bddc8edc
+v11u274repro/cases/VR/vr04_block_var_shadow e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL depth md5=49ef24527925
+v11u274repro/cases/VR/vr04_block_var_shadow e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 416 objects md5=8892bddc8edc
+v11u274repro/cases/VR/vr04_block_var_shadow e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL depth md5=49ef24527925
+v11u274repro/cases/VR/vr04_block_var_shadow e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 416 objects md5=8892bddc8edc
+v11u274repro/cases/VR/vr04_block_var_shadow e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 416 objects md5=8892bddc8edc
+v11u274repro/cases/VR/vr05_hier_from_top d pristine rc=0 cmp=66 NOT_EQUAL stage1 md5=4a21bf22cad0
+v11u274repro/cases/VR/vr05_hier_from_top d law rc=0 cmp=66 NOT_EQUAL stage1 md5=4a21bf22cad0
+v11u274repro/cases/VR/vr05_hier_from_top d law+R11U274_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=4a21bf22cad0
+v11u274repro/cases/VR/vr05_hier_from_top d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=4a21bf22cad0
+v11u274repro/cases/VR/vr05_hier_from_top d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=4a21bf22cad0
+v11u274repro/cases/VR/vr05_hier_from_top d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=4a21bf22cad0
+v11u274repro/cases/VR/vr05_hier_from_top d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=4a21bf22cad0
+v11u274repro/cases/VR/vr05_hier_from_top e pristine rc=0 cmp=74 NOT_EQUAL stage1 md5=54c6b58fd878
+v11u274repro/cases/VR/vr05_hier_from_top e law rc=0 cmp=74 NOT_EQUAL stage1 md5=e727e4d13ece
+v11u274repro/cases/VR/vr05_hier_from_top e law+R11U274_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=54c6b58fd878
+v11u274repro/cases/VR/vr05_hier_from_top e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=e727e4d13ece
+v11u274repro/cases/VR/vr05_hier_from_top e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=54c6b58fd878
+v11u274repro/cases/VR/vr05_hier_from_top e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=e727e4d13ece
+v11u274repro/cases/VR/vr05_hier_from_top e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=e727e4d13ece
+v11u274repro/cases/VR/vr06_inst_array d pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=fc71fecc9e39
+v11u274repro/cases/VR/vr06_inst_array d law rc=0 cmp=76 NOT_EQUAL stage1 md5=fc71fecc9e39
+v11u274repro/cases/VR/vr06_inst_array d law+R11U274_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=fc71fecc9e39
+v11u274repro/cases/VR/vr06_inst_array d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=fc71fecc9e39
+v11u274repro/cases/VR/vr06_inst_array d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=fc71fecc9e39
+v11u274repro/cases/VR/vr06_inst_array d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=fc71fecc9e39
+v11u274repro/cases/VR/vr06_inst_array d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=fc71fecc9e39
+v11u274repro/cases/VR/vr06_inst_array e pristine rc=0 cmp=88 NOT_EQUAL stage1 md5=2f156a66e48e
+v11u274repro/cases/VR/vr06_inst_array e law rc=0 cmp=88 NOT_EQUAL stage1 md5=9c50a0880d3a
+v11u274repro/cases/VR/vr06_inst_array e law+R11U274_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=2f156a66e48e
+v11u274repro/cases/VR/vr06_inst_array e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=9c50a0880d3a
+v11u274repro/cases/VR/vr06_inst_array e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=2f156a66e48e
+v11u274repro/cases/VR/vr06_inst_array e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=9c50a0880d3a
+v11u274repro/cases/VR/vr06_inst_array e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=9c50a0880d3a
+v11u274repro/cases/VR/vr07_localparam_alias d pristine rc=0 cmp=46 NOT_EQUAL stage1 md5=ddf51f9f536d
+v11u274repro/cases/VR/vr07_localparam_alias d law rc=0 cmp=46 NOT_EQUAL stage1 md5=ddf51f9f536d
+v11u274repro/cases/VR/vr07_localparam_alias d law+R11U274_OFF rc=0 cmp=46 NOT_EQUAL stage1 md5=ddf51f9f536d
+v11u274repro/cases/VR/vr07_localparam_alias d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=46 NOT_EQUAL stage1 md5=ddf51f9f536d
+v11u274repro/cases/VR/vr07_localparam_alias d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=46 NOT_EQUAL stage1 md5=ddf51f9f536d
+v11u274repro/cases/VR/vr07_localparam_alias d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=46 NOT_EQUAL stage1 md5=ddf51f9f536d
+v11u274repro/cases/VR/vr07_localparam_alias d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=46 NOT_EQUAL stage1 md5=ddf51f9f536d
+v11u274repro/cases/VR/vr07_localparam_alias e pristine rc=0 cmp=50 NOT_EQUAL stage1 md5=a7f0840d7fb6
+v11u274repro/cases/VR/vr07_localparam_alias e law rc=0 cmp=50 NOT_EQUAL stage1 md5=80af75d9773d
+v11u274repro/cases/VR/vr07_localparam_alias e law+R11U274_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=a7f0840d7fb6
+v11u274repro/cases/VR/vr07_localparam_alias e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=80af75d9773d
+v11u274repro/cases/VR/vr07_localparam_alias e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=a7f0840d7fb6
+v11u274repro/cases/VR/vr07_localparam_alias e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=80af75d9773d
+v11u274repro/cases/VR/vr07_localparam_alias e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=80af75d9773d
+v11u274repro/cases/VR/vr08_typeparam d pristine rc=0 cmp=172 NOT_EQUAL stage1 md5=c59c2ba16d53
+v11u274repro/cases/VR/vr08_typeparam d law rc=0 cmp=172 NOT_EQUAL stage1 md5=c59c2ba16d53
+v11u274repro/cases/VR/vr08_typeparam d law+R11U274_OFF rc=0 cmp=172 NOT_EQUAL stage1 md5=c59c2ba16d53
+v11u274repro/cases/VR/vr08_typeparam d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=172 NOT_EQUAL stage1 md5=c59c2ba16d53
+v11u274repro/cases/VR/vr08_typeparam d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=172 NOT_EQUAL stage1 md5=c59c2ba16d53
+v11u274repro/cases/VR/vr08_typeparam d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=172 NOT_EQUAL stage1 md5=c59c2ba16d53
+v11u274repro/cases/VR/vr08_typeparam d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=172 NOT_EQUAL stage1 md5=c59c2ba16d53
+v11u274repro/cases/VR/vr08_typeparam e pristine rc=0 cmp=172 NOT_EQUAL stage1 md5=582c35c60f86
+v11u274repro/cases/VR/vr08_typeparam e law rc=0 cmp=172 NOT_EQUAL stage1 md5=582c35c60f86
+v11u274repro/cases/VR/vr08_typeparam e law+R11U274_OFF rc=0 cmp=172 NOT_EQUAL stage1 md5=582c35c60f86
+v11u274repro/cases/VR/vr08_typeparam e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=172 NOT_EQUAL stage1 md5=582c35c60f86
+v11u274repro/cases/VR/vr08_typeparam e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=172 NOT_EQUAL stage1 md5=582c35c60f86
+v11u274repro/cases/VR/vr08_typeparam e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=172 NOT_EQUAL stage1 md5=582c35c60f86
+v11u274repro/cases/VR/vr08_typeparam e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=172 NOT_EQUAL stage1 md5=582c35c60f86
+v11u274repro/cases/VR/vr09_three_levels d pristine rc=0 cmp=86 NOT_EQUAL stage1 md5=7c150ae146d4
+v11u274repro/cases/VR/vr09_three_levels d law rc=0 cmp=86 NOT_EQUAL stage1 md5=7c150ae146d4
+v11u274repro/cases/VR/vr09_three_levels d law+R11U274_OFF rc=0 cmp=86 NOT_EQUAL stage1 md5=7c150ae146d4
+v11u274repro/cases/VR/vr09_three_levels d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=86 NOT_EQUAL stage1 md5=7c150ae146d4
+v11u274repro/cases/VR/vr09_three_levels d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=86 NOT_EQUAL stage1 md5=7c150ae146d4
+v11u274repro/cases/VR/vr09_three_levels d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=86 NOT_EQUAL stage1 md5=7c150ae146d4
+v11u274repro/cases/VR/vr09_three_levels d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=86 NOT_EQUAL stage1 md5=7c150ae146d4
+v11u274repro/cases/VR/vr09_three_levels e pristine rc=0 cmp=102 NOT_EQUAL stage1 md5=977dc48f4081
+v11u274repro/cases/VR/vr09_three_levels e law rc=0 cmp=102 NOT_EQUAL stage1 md5=6d711930e1ac
+v11u274repro/cases/VR/vr09_three_levels e law+R11U274_OFF rc=0 cmp=102 NOT_EQUAL stage1 md5=977dc48f4081
+v11u274repro/cases/VR/vr09_three_levels e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=102 NOT_EQUAL stage1 md5=6d711930e1ac
+v11u274repro/cases/VR/vr09_three_levels e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=102 NOT_EQUAL stage1 md5=977dc48f4081
+v11u274repro/cases/VR/vr09_three_levels e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=102 NOT_EQUAL stage1 md5=6d711930e1ac
+v11u274repro/cases/VR/vr09_three_levels e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=102 NOT_EQUAL stage1 md5=6d711930e1ac
+v11u274repro/cases/VR/vr10_enum_member d pristine rc=0 cmp=0 STRICT_EQUAL 346 objects md5=e26c382c2a68
+v11u274repro/cases/VR/vr10_enum_member d law rc=0 cmp=0 STRICT_EQUAL 346 objects md5=e26c382c2a68
+v11u274repro/cases/VR/vr10_enum_member d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 346 objects md5=e26c382c2a68
+v11u274repro/cases/VR/vr10_enum_member d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 346 objects md5=e26c382c2a68
+v11u274repro/cases/VR/vr10_enum_member d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 346 objects md5=e26c382c2a68
+v11u274repro/cases/VR/vr10_enum_member d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 346 objects md5=e26c382c2a68
+v11u274repro/cases/VR/vr10_enum_member d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 346 objects md5=e26c382c2a68
+v11u274repro/cases/VR/vr10_enum_member e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=97bf861f72af
+v11u274repro/cases/VR/vr10_enum_member e law rc=0 cmp=0 STRICT_EQUAL 375 objects md5=0ff1bdc56677
+v11u274repro/cases/VR/vr10_enum_member e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=97bf861f72af
+v11u274repro/cases/VR/vr10_enum_member e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 375 objects md5=0ff1bdc56677
+v11u274repro/cases/VR/vr10_enum_member e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=97bf861f72af
+v11u274repro/cases/VR/vr10_enum_member e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 375 objects md5=0ff1bdc56677
+v11u274repro/cases/VR/vr10_enum_member e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 375 objects md5=0ff1bdc56677
+v11u274repro/cases/VR/vr11_union_nested d pristine rc=0 cmp=0 STRICT_EQUAL 392 objects md5=ca0710f8b3f6
+v11u274repro/cases/VR/vr11_union_nested d law rc=0 cmp=0 STRICT_EQUAL 392 objects md5=ca0710f8b3f6
+v11u274repro/cases/VR/vr11_union_nested d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 392 objects md5=ca0710f8b3f6
+v11u274repro/cases/VR/vr11_union_nested d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 392 objects md5=ca0710f8b3f6
+v11u274repro/cases/VR/vr11_union_nested d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 392 objects md5=ca0710f8b3f6
+v11u274repro/cases/VR/vr11_union_nested d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 392 objects md5=ca0710f8b3f6
+v11u274repro/cases/VR/vr11_union_nested d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 392 objects md5=ca0710f8b3f6
+v11u274repro/cases/VR/vr11_union_nested e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=f97a692314c2
+v11u274repro/cases/VR/vr11_union_nested e law rc=0 cmp=0 STRICT_EQUAL 441 objects md5=ac335aeca7d8
+v11u274repro/cases/VR/vr11_union_nested e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=f97a692314c2
+v11u274repro/cases/VR/vr11_union_nested e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 441 objects md5=ac335aeca7d8
+v11u274repro/cases/VR/vr11_union_nested e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=f97a692314c2
+v11u274repro/cases/VR/vr11_union_nested e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 441 objects md5=ac335aeca7d8
+v11u274repro/cases/VR/vr11_union_nested e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 441 objects md5=ac335aeca7d8
+v11u274repro/cases/VR/vr12_task_arg_struct d pristine rc=0 cmp=0 STRICT_EQUAL 352 objects md5=eddd15e7b673
+v11u274repro/cases/VR/vr12_task_arg_struct d law rc=0 cmp=0 STRICT_EQUAL 352 objects md5=eddd15e7b673
+v11u274repro/cases/VR/vr12_task_arg_struct d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 352 objects md5=eddd15e7b673
+v11u274repro/cases/VR/vr12_task_arg_struct d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 352 objects md5=eddd15e7b673
+v11u274repro/cases/VR/vr12_task_arg_struct d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 352 objects md5=eddd15e7b673
+v11u274repro/cases/VR/vr12_task_arg_struct d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 352 objects md5=eddd15e7b673
+v11u274repro/cases/VR/vr12_task_arg_struct d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 352 objects md5=eddd15e7b673
+v11u274repro/cases/VR/vr12_task_arg_struct e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=23dd2f75e345
+v11u274repro/cases/VR/vr12_task_arg_struct e law rc=0 cmp=0 STRICT_NOTEQUAL name md5=9aa85558aba2
+v11u274repro/cases/VR/vr12_task_arg_struct e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=23dd2f75e345
+v11u274repro/cases/VR/vr12_task_arg_struct e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL name md5=9aa85558aba2
+v11u274repro/cases/VR/vr12_task_arg_struct e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=23dd2f75e345
+v11u274repro/cases/VR/vr12_task_arg_struct e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL name md5=9aa85558aba2
+v11u274repro/cases/VR/vr12_task_arg_struct e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL name md5=9aa85558aba2
+v11u274repro/cases/VR/vr13_depth3_override d pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=5982974c035e
+v11u274repro/cases/VR/vr13_depth3_override d law rc=0 cmp=76 NOT_EQUAL stage1 md5=5982974c035e
+v11u274repro/cases/VR/vr13_depth3_override d law+R11U274_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=5982974c035e
+v11u274repro/cases/VR/vr13_depth3_override d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=5982974c035e
+v11u274repro/cases/VR/vr13_depth3_override d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=5982974c035e
+v11u274repro/cases/VR/vr13_depth3_override d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=5982974c035e
+v11u274repro/cases/VR/vr13_depth3_override d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=5982974c035e
+v11u274repro/cases/VR/vr13_depth3_override e pristine rc=0 cmp=88 NOT_EQUAL stage1 md5=e0d233a088e8
+v11u274repro/cases/VR/vr13_depth3_override e law rc=0 cmp=88 NOT_EQUAL stage1 md5=f4a3d66869e9
+v11u274repro/cases/VR/vr13_depth3_override e law+R11U274_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=e0d233a088e8
+v11u274repro/cases/VR/vr13_depth3_override e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=f4a3d66869e9
+v11u274repro/cases/VR/vr13_depth3_override e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=e0d233a088e8
+v11u274repro/cases/VR/vr13_depth3_override e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=f4a3d66869e9
+v11u274repro/cases/VR/vr13_depth3_override e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=f4a3d66869e9
+v11u274repro/cases/VR/vr14_module_local_struct d pristine rc=0 cmp=583 NOT_EQUAL stage1 md5=b714b837e153
+v11u274repro/cases/VR/vr14_module_local_struct d law rc=0 cmp=583 NOT_EQUAL stage1 md5=b714b837e153
+v11u274repro/cases/VR/vr14_module_local_struct d law+R11U274_OFF rc=0 cmp=583 NOT_EQUAL stage1 md5=b714b837e153
+v11u274repro/cases/VR/vr14_module_local_struct d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=583 NOT_EQUAL stage1 md5=b714b837e153
+v11u274repro/cases/VR/vr14_module_local_struct d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=583 NOT_EQUAL stage1 md5=b714b837e153
+v11u274repro/cases/VR/vr14_module_local_struct d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=583 NOT_EQUAL stage1 md5=b714b837e153
+v11u274repro/cases/VR/vr14_module_local_struct d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=583 NOT_EQUAL stage1 md5=b714b837e153
+v11u274repro/cases/VR/vr14_module_local_struct e pristine rc=0 cmp=583 NOT_EQUAL stage1 md5=96d987413202
+v11u274repro/cases/VR/vr14_module_local_struct e law rc=0 cmp=583 NOT_EQUAL stage1 md5=91bc013d3c64
+v11u274repro/cases/VR/vr14_module_local_struct e law+R11U274_OFF rc=0 cmp=583 NOT_EQUAL stage1 md5=96d987413202
+v11u274repro/cases/VR/vr14_module_local_struct e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=583 NOT_EQUAL stage1 md5=91bc013d3c64
+v11u274repro/cases/VR/vr14_module_local_struct e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=583 NOT_EQUAL stage1 md5=96d987413202
+v11u274repro/cases/VR/vr14_module_local_struct e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=583 NOT_EQUAL stage1 md5=91bc013d3c64
+v11u274repro/cases/VR/vr14_module_local_struct e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=583 NOT_EQUAL stage1 md5=91bc013d3c64
+v11u274repro/cases/VR/vr15_unpacked_struct d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=32aaf70ea607
+v11u274repro/cases/VR/vr15_unpacked_struct d law rc=0 cmp=17 NOT_EQUAL stage1 md5=32aaf70ea607
+v11u274repro/cases/VR/vr15_unpacked_struct d law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=32aaf70ea607
+v11u274repro/cases/VR/vr15_unpacked_struct d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=32aaf70ea607
+v11u274repro/cases/VR/vr15_unpacked_struct d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=32aaf70ea607
+v11u274repro/cases/VR/vr15_unpacked_struct d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=32aaf70ea607
+v11u274repro/cases/VR/vr15_unpacked_struct d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=32aaf70ea607
+v11u274repro/cases/VR/vr15_unpacked_struct e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=9f8afbc01fa4
+v11u274repro/cases/VR/vr15_unpacked_struct e law rc=0 cmp=17 NOT_EQUAL stage1 md5=486a6b0df03a
+v11u274repro/cases/VR/vr15_unpacked_struct e law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=9f8afbc01fa4
+v11u274repro/cases/VR/vr15_unpacked_struct e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=486a6b0df03a
+v11u274repro/cases/VR/vr15_unpacked_struct e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=9f8afbc01fa4
+v11u274repro/cases/VR/vr15_unpacked_struct e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=486a6b0df03a
+v11u274repro/cases/VR/vr15_unpacked_struct e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=486a6b0df03a
+v11u274repro/cases/VR/vr16_nested_gen_read d pristine rc=0 cmp=106 NOT_EQUAL stage1 md5=0bff88e28682
+v11u274repro/cases/VR/vr16_nested_gen_read d law rc=0 cmp=106 NOT_EQUAL stage1 md5=0bff88e28682
+v11u274repro/cases/VR/vr16_nested_gen_read d law+R11U274_OFF rc=0 cmp=106 NOT_EQUAL stage1 md5=0bff88e28682
+v11u274repro/cases/VR/vr16_nested_gen_read d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=106 NOT_EQUAL stage1 md5=0bff88e28682
+v11u274repro/cases/VR/vr16_nested_gen_read d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=106 NOT_EQUAL stage1 md5=0bff88e28682
+v11u274repro/cases/VR/vr16_nested_gen_read d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=106 NOT_EQUAL stage1 md5=0bff88e28682
+v11u274repro/cases/VR/vr16_nested_gen_read d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=106 NOT_EQUAL stage1 md5=0bff88e28682
+v11u274repro/cases/VR/vr16_nested_gen_read e pristine rc=0 cmp=126 NOT_EQUAL stage1 md5=e059d61eb56f
+v11u274repro/cases/VR/vr16_nested_gen_read e law rc=0 cmp=126 NOT_EQUAL stage1 md5=e812c081414b
+v11u274repro/cases/VR/vr16_nested_gen_read e law+R11U274_OFF rc=0 cmp=126 NOT_EQUAL stage1 md5=e059d61eb56f
+v11u274repro/cases/VR/vr16_nested_gen_read e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=126 NOT_EQUAL stage1 md5=e812c081414b
+v11u274repro/cases/VR/vr16_nested_gen_read e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=126 NOT_EQUAL stage1 md5=e059d61eb56f
+v11u274repro/cases/VR/vr16_nested_gen_read e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=126 NOT_EQUAL stage1 md5=e812c081414b
+v11u274repro/cases/VR/vr16_nested_gen_read e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=126 NOT_EQUAL stage1 md5=e812c081414b
+v11u274repro/cases/VR/vr17_gen_localparam_shadow d pristine rc=0 cmp=66 NOT_EQUAL stage1 md5=e5d3e737ff03
+v11u274repro/cases/VR/vr17_gen_localparam_shadow d law rc=0 cmp=66 NOT_EQUAL stage1 md5=e5d3e737ff03
+v11u274repro/cases/VR/vr17_gen_localparam_shadow d law+R11U274_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=e5d3e737ff03
+v11u274repro/cases/VR/vr17_gen_localparam_shadow d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=e5d3e737ff03
+v11u274repro/cases/VR/vr17_gen_localparam_shadow d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=e5d3e737ff03
+v11u274repro/cases/VR/vr17_gen_localparam_shadow d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=e5d3e737ff03
+v11u274repro/cases/VR/vr17_gen_localparam_shadow d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=66 NOT_EQUAL stage1 md5=e5d3e737ff03
+v11u274repro/cases/VR/vr17_gen_localparam_shadow e pristine rc=0 cmp=74 NOT_EQUAL stage1 md5=42b9eed76df0
+v11u274repro/cases/VR/vr17_gen_localparam_shadow e law rc=0 cmp=74 NOT_EQUAL stage1 md5=fdcccfcbbb59
+v11u274repro/cases/VR/vr17_gen_localparam_shadow e law+R11U274_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=42b9eed76df0
+v11u274repro/cases/VR/vr17_gen_localparam_shadow e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=fdcccfcbbb59
+v11u274repro/cases/VR/vr17_gen_localparam_shadow e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=42b9eed76df0
+v11u274repro/cases/VR/vr17_gen_localparam_shadow e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=fdcccfcbbb59
+v11u274repro/cases/VR/vr17_gen_localparam_shadow e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=74 NOT_EQUAL stage1 md5=fdcccfcbbb59
+v11u274repro/cases/VR/vr18_this_free_iface d pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=90adefa990ca
+v11u274repro/cases/VR/vr18_this_free_iface d law rc=0 cmp=76 NOT_EQUAL stage1 md5=90adefa990ca
+v11u274repro/cases/VR/vr18_this_free_iface d law+R11U274_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=90adefa990ca
+v11u274repro/cases/VR/vr18_this_free_iface d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=90adefa990ca
+v11u274repro/cases/VR/vr18_this_free_iface d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=90adefa990ca
+v11u274repro/cases/VR/vr18_this_free_iface d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=90adefa990ca
+v11u274repro/cases/VR/vr18_this_free_iface d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=90adefa990ca
+v11u274repro/cases/VR/vr18_this_free_iface e pristine rc=0 cmp=33 NOT_EQUAL stage1 md5=ff3f99de7e69
+v11u274repro/cases/VR/vr18_this_free_iface e law rc=0 cmp=33 NOT_EQUAL stage1 md5=ff3f99de7e69
+v11u274repro/cases/VR/vr18_this_free_iface e law+R11U274_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=ff3f99de7e69
+v11u274repro/cases/VR/vr18_this_free_iface e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=ff3f99de7e69
+v11u274repro/cases/VR/vr18_this_free_iface e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=ff3f99de7e69
+v11u274repro/cases/VR/vr18_this_free_iface e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=ff3f99de7e69
+v11u274repro/cases/VR/vr18_this_free_iface e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=33 NOT_EQUAL stage1 md5=ff3f99de7e69
+v11u274repro/cases/VR/vr19_leftover_fn d pristine rc=3 NODB
+v11u274repro/cases/VR/vr19_leftover_fn d law rc=3 NODB
+v11u274repro/cases/VR/vr19_leftover_fn d law+R11U274_OFF rc=3 NODB
+v11u274repro/cases/VR/vr19_leftover_fn d law+R11U274_PKGNETDIMEND_OFF rc=3 NODB
+v11u274repro/cases/VR/vr19_leftover_fn d law+R11U274_MEMREADCOPY_OFF rc=3 NODB
+v11u274repro/cases/VR/vr19_leftover_fn d law+R11U274_LOTSNESTGEN_OFF rc=3 NODB
+v11u274repro/cases/VR/vr19_leftover_fn d law+R11U274_PKGUNARYSPAN_OFF rc=3 NODB
+v11u274repro/cases/VR/vr19_leftover_fn e pristine rc=3 NODB
+v11u274repro/cases/VR/vr19_leftover_fn e law rc=3 NODB
+v11u274repro/cases/VR/vr19_leftover_fn e law+R11U274_OFF rc=3 NODB
+v11u274repro/cases/VR/vr19_leftover_fn e law+R11U274_PKGNETDIMEND_OFF rc=3 NODB
+v11u274repro/cases/VR/vr19_leftover_fn e law+R11U274_MEMREADCOPY_OFF rc=3 NODB
+v11u274repro/cases/VR/vr19_leftover_fn e law+R11U274_LOTSNESTGEN_OFF rc=3 NODB
+v11u274repro/cases/VR/vr19_leftover_fn e law+R11U274_PKGUNARYSPAN_OFF rc=3 NODB
+v11u274repro/cases/VR/vr20_case_index d pristine rc=0 cmp=0 STRICT_EQUAL 308 objects md5=f8e178f97caf
+v11u274repro/cases/VR/vr20_case_index d law rc=0 cmp=0 STRICT_EQUAL 308 objects md5=f8e178f97caf
+v11u274repro/cases/VR/vr20_case_index d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 308 objects md5=f8e178f97caf
+v11u274repro/cases/VR/vr20_case_index d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 308 objects md5=f8e178f97caf
+v11u274repro/cases/VR/vr20_case_index d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 308 objects md5=f8e178f97caf
+v11u274repro/cases/VR/vr20_case_index d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 308 objects md5=f8e178f97caf
+v11u274repro/cases/VR/vr20_case_index d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 308 objects md5=f8e178f97caf
+v11u274repro/cases/VR/vr20_case_index e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=f127506bd53c
+v11u274repro/cases/VR/vr20_case_index e law rc=0 cmp=0 STRICT_EQUAL 316 objects md5=fd5d54736fb5
+v11u274repro/cases/VR/vr20_case_index e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=f127506bd53c
+v11u274repro/cases/VR/vr20_case_index e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 316 objects md5=fd5d54736fb5
+v11u274repro/cases/VR/vr20_case_index e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=f127506bd53c
+v11u274repro/cases/VR/vr20_case_index e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 316 objects md5=fd5d54736fb5
+v11u274repro/cases/VR/vr20_case_index e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 316 objects md5=fd5d54736fb5
+v11u274repro/cases/VR/vr21_repl_dims d pristine rc=0 cmp=0 STRICT_EQUAL 269 objects md5=71fe4582cd88
+v11u274repro/cases/VR/vr21_repl_dims d law rc=0 cmp=0 STRICT_EQUAL 269 objects md5=71fe4582cd88
+v11u274repro/cases/VR/vr21_repl_dims d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 269 objects md5=71fe4582cd88
+v11u274repro/cases/VR/vr21_repl_dims d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 269 objects md5=71fe4582cd88
+v11u274repro/cases/VR/vr21_repl_dims d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 269 objects md5=71fe4582cd88
+v11u274repro/cases/VR/vr21_repl_dims d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 269 objects md5=71fe4582cd88
+v11u274repro/cases/VR/vr21_repl_dims d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 269 objects md5=71fe4582cd88
+v11u274repro/cases/VR/vr21_repl_dims e pristine rc=0 cmp=0 STRICT_EQUAL 258 objects md5=3cb5eb377fc5
+v11u274repro/cases/VR/vr21_repl_dims e law rc=0 cmp=0 STRICT_EQUAL 258 objects md5=dede153de7bb
+v11u274repro/cases/VR/vr21_repl_dims e law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 258 objects md5=3cb5eb377fc5
+v11u274repro/cases/VR/vr21_repl_dims e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 258 objects md5=dede153de7bb
+v11u274repro/cases/VR/vr21_repl_dims e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 258 objects md5=3cb5eb377fc5
+v11u274repro/cases/VR/vr21_repl_dims e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 258 objects md5=dede153de7bb
+v11u274repro/cases/VR/vr21_repl_dims e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 258 objects md5=dede153de7bb
+v11u274repro/cases/VR/vr22_implicit_net d pristine rc=0 cmp=78 NOT_EQUAL stage1 md5=31d9502ed664
+v11u274repro/cases/VR/vr22_implicit_net d law rc=0 cmp=78 NOT_EQUAL stage1 md5=31d9502ed664
+v11u274repro/cases/VR/vr22_implicit_net d law+R11U274_OFF rc=0 cmp=78 NOT_EQUAL stage1 md5=31d9502ed664
+v11u274repro/cases/VR/vr22_implicit_net d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=78 NOT_EQUAL stage1 md5=31d9502ed664
+v11u274repro/cases/VR/vr22_implicit_net d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=78 NOT_EQUAL stage1 md5=31d9502ed664
+v11u274repro/cases/VR/vr22_implicit_net d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=78 NOT_EQUAL stage1 md5=31d9502ed664
+v11u274repro/cases/VR/vr22_implicit_net d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=78 NOT_EQUAL stage1 md5=31d9502ed664
+v11u274repro/cases/VR/vr22_implicit_net e pristine rc=0 cmp=90 NOT_EQUAL stage1 md5=66c9945d6156
+v11u274repro/cases/VR/vr22_implicit_net e law rc=0 cmp=90 NOT_EQUAL stage1 md5=eb6b52bc9caf
+v11u274repro/cases/VR/vr22_implicit_net e law+R11U274_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=66c9945d6156
+v11u274repro/cases/VR/vr22_implicit_net e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=eb6b52bc9caf
+v11u274repro/cases/VR/vr22_implicit_net e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=66c9945d6156
+v11u274repro/cases/VR/vr22_implicit_net e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=eb6b52bc9caf
+v11u274repro/cases/VR/vr22_implicit_net e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=eb6b52bc9caf
+v11u274repro/cases/VU/vu01_untyped d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=3d9ca84b5305
+v11u274repro/cases/VU/vu01_untyped d law rc=0 cmp=17 NOT_EQUAL stage1 md5=42e0eb5f7b6f
+v11u274repro/cases/VU/vu01_untyped d law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=3d9ca84b5305
+v11u274repro/cases/VU/vu01_untyped d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=42e0eb5f7b6f
+v11u274repro/cases/VU/vu01_untyped d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=42e0eb5f7b6f
+v11u274repro/cases/VU/vu01_untyped d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=42e0eb5f7b6f
+v11u274repro/cases/VU/vu01_untyped d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=3d9ca84b5305
+v11u274repro/cases/VU/vu01_untyped e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=2861b86f40f0
+v11u274repro/cases/VU/vu01_untyped e law rc=0 cmp=17 NOT_EQUAL stage1 md5=a364d84c615f
+v11u274repro/cases/VU/vu01_untyped e law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=2861b86f40f0
+v11u274repro/cases/VU/vu01_untyped e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=a364d84c615f
+v11u274repro/cases/VU/vu01_untyped e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=a364d84c615f
+v11u274repro/cases/VU/vu01_untyped e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=a364d84c615f
+v11u274repro/cases/VU/vu01_untyped e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=2861b86f40f0
+v11u274repro/cases/VU/vu02_negref d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=c2c3b3c35b23
+v11u274repro/cases/VU/vu02_negref d law rc=0 cmp=17 NOT_EQUAL stage1 md5=fbf5021348a3
+v11u274repro/cases/VU/vu02_negref d law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=c2c3b3c35b23
+v11u274repro/cases/VU/vu02_negref d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=fbf5021348a3
+v11u274repro/cases/VU/vu02_negref d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=fbf5021348a3
+v11u274repro/cases/VU/vu02_negref d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=fbf5021348a3
+v11u274repro/cases/VU/vu02_negref d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=c2c3b3c35b23
+v11u274repro/cases/VU/vu02_negref e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=e9fd8d2c7a91
+v11u274repro/cases/VU/vu02_negref e law rc=0 cmp=17 NOT_EQUAL stage1 md5=1e771418b919
+v11u274repro/cases/VU/vu02_negref e law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=e9fd8d2c7a91
+v11u274repro/cases/VU/vu02_negref e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=1e771418b919
+v11u274repro/cases/VU/vu02_negref e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=1e771418b919
+v11u274repro/cases/VU/vu02_negref e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=1e771418b919
+v11u274repro/cases/VU/vu02_negref e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=e9fd8d2c7a91
+v11u274repro/cases/VU/vu03_uplus d pristine rc=0 cmp=56 NOT_EQUAL stage1 md5=e2413f57adc5
+v11u274repro/cases/VU/vu03_uplus d law rc=0 cmp=56 NOT_EQUAL stage1 md5=71d365a4c809
+v11u274repro/cases/VU/vu03_uplus d law+R11U274_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=e2413f57adc5
+v11u274repro/cases/VU/vu03_uplus d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=71d365a4c809
+v11u274repro/cases/VU/vu03_uplus d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=71d365a4c809
+v11u274repro/cases/VU/vu03_uplus d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=71d365a4c809
+v11u274repro/cases/VU/vu03_uplus d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=e2413f57adc5
+v11u274repro/cases/VU/vu03_uplus e pristine rc=0 cmp=56 NOT_EQUAL stage1 md5=cfe198a46cec
+v11u274repro/cases/VU/vu03_uplus e law rc=0 cmp=56 NOT_EQUAL stage1 md5=6db2a91b6cca
+v11u274repro/cases/VU/vu03_uplus e law+R11U274_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=cfe198a46cec
+v11u274repro/cases/VU/vu03_uplus e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=6db2a91b6cca
+v11u274repro/cases/VU/vu03_uplus e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=6db2a91b6cca
+v11u274repro/cases/VU/vu03_uplus e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=6db2a91b6cca
+v11u274repro/cases/VU/vu03_uplus e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=cfe198a46cec
+v11u274repro/cases/VU/vu04_negcall d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=e9cd655e00b8
+v11u274repro/cases/VU/vu04_negcall d law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=eeee7cbab73e
+v11u274repro/cases/VU/vu04_negcall d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=e9cd655e00b8
+v11u274repro/cases/VU/vu04_negcall d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=eeee7cbab73e
+v11u274repro/cases/VU/vu04_negcall d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=eeee7cbab73e
+v11u274repro/cases/VU/vu04_negcall d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=eeee7cbab73e
+v11u274repro/cases/VU/vu04_negcall d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=e9cd655e00b8
+v11u274repro/cases/VU/vu04_negcall e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=9623f5f2d350
+v11u274repro/cases/VU/vu04_negcall e law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=dc4b80834471
+v11u274repro/cases/VU/vu04_negcall e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=9623f5f2d350
+v11u274repro/cases/VU/vu04_negcall e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=dc4b80834471
+v11u274repro/cases/VU/vu04_negcall e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=dc4b80834471
+v11u274repro/cases/VU/vu04_negcall e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=dc4b80834471
+v11u274repro/cases/VU/vu04_negcall e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=9623f5f2d350
+v11u274repro/cases/VU/vu05_unit d pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=810e07001070
+v11u274repro/cases/VU/vu05_unit d law rc=0 cmp=60 NOT_EQUAL stage1 md5=810e07001070
+v11u274repro/cases/VU/vu05_unit d law+R11U274_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=810e07001070
+v11u274repro/cases/VU/vu05_unit d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=810e07001070
+v11u274repro/cases/VU/vu05_unit d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=810e07001070
+v11u274repro/cases/VU/vu05_unit d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=810e07001070
+v11u274repro/cases/VU/vu05_unit d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=810e07001070
+v11u274repro/cases/VU/vu05_unit e pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=3df4dd4b26c2
+v11u274repro/cases/VU/vu05_unit e law rc=0 cmp=60 NOT_EQUAL stage1 md5=3df4dd4b26c2
+v11u274repro/cases/VU/vu05_unit e law+R11U274_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=3df4dd4b26c2
+v11u274repro/cases/VU/vu05_unit e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=3df4dd4b26c2
+v11u274repro/cases/VU/vu05_unit e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=3df4dd4b26c2
+v11u274repro/cases/VU/vu05_unit e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=3df4dd4b26c2
+v11u274repro/cases/VU/vu05_unit e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=3df4dd4b26c2
+v11u274repro/cases/VU/vu06_multiline d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=754845bcd914
+v11u274repro/cases/VU/vu06_multiline d law rc=0 cmp=17 NOT_EQUAL stage1 md5=9035c6c1176f
+v11u274repro/cases/VU/vu06_multiline d law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=754845bcd914
+v11u274repro/cases/VU/vu06_multiline d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=9035c6c1176f
+v11u274repro/cases/VU/vu06_multiline d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=9035c6c1176f
+v11u274repro/cases/VU/vu06_multiline d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=9035c6c1176f
+v11u274repro/cases/VU/vu06_multiline d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=754845bcd914
+v11u274repro/cases/VU/vu06_multiline e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=181c098989b3
+v11u274repro/cases/VU/vu06_multiline e law rc=0 cmp=17 NOT_EQUAL stage1 md5=f23ad3e008fd
+v11u274repro/cases/VU/vu06_multiline e law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=181c098989b3
+v11u274repro/cases/VU/vu06_multiline e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=f23ad3e008fd
+v11u274repro/cases/VU/vu06_multiline e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=f23ad3e008fd
+v11u274repro/cases/VU/vu06_multiline e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=f23ad3e008fd
+v11u274repro/cases/VU/vu06_multiline e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=181c098989b3
+v11u274repro/cases/VU/vu07_negparen_bin d pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=381d6c7d1d0d
+v11u274repro/cases/VU/vu07_negparen_bin d law rc=0 cmp=64 NOT_EQUAL stage1 md5=ef6c3950f5dd
+v11u274repro/cases/VU/vu07_negparen_bin d law+R11U274_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=381d6c7d1d0d
+v11u274repro/cases/VU/vu07_negparen_bin d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ef6c3950f5dd
+v11u274repro/cases/VU/vu07_negparen_bin d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ef6c3950f5dd
+v11u274repro/cases/VU/vu07_negparen_bin d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ef6c3950f5dd
+v11u274repro/cases/VU/vu07_negparen_bin d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=381d6c7d1d0d
+v11u274repro/cases/VU/vu07_negparen_bin e pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=c8d602d36419
+v11u274repro/cases/VU/vu07_negparen_bin e law rc=0 cmp=64 NOT_EQUAL stage1 md5=b8159b07f71b
+v11u274repro/cases/VU/vu07_negparen_bin e law+R11U274_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=c8d602d36419
+v11u274repro/cases/VU/vu07_negparen_bin e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=b8159b07f71b
+v11u274repro/cases/VU/vu07_negparen_bin e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=b8159b07f71b
+v11u274repro/cases/VU/vu07_negparen_bin e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=b8159b07f71b
+v11u274repro/cases/VU/vu07_negparen_bin e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=c8d602d36419
+v11u274repro/cases/VU/vu08_negcast d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=62031801ca08
+v11u274repro/cases/VU/vu08_negcast d law rc=0 cmp=17 NOT_EQUAL stage1 md5=f32cb166fe8c
+v11u274repro/cases/VU/vu08_negcast d law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=62031801ca08
+v11u274repro/cases/VU/vu08_negcast d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=f32cb166fe8c
+v11u274repro/cases/VU/vu08_negcast d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=f32cb166fe8c
+v11u274repro/cases/VU/vu08_negcast d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=f32cb166fe8c
+v11u274repro/cases/VU/vu08_negcast d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=62031801ca08
+v11u274repro/cases/VU/vu08_negcast e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=d4d7c40d3d63
+v11u274repro/cases/VU/vu08_negcast e law rc=0 cmp=17 NOT_EQUAL stage1 md5=28eb23dccdcd
+v11u274repro/cases/VU/vu08_negcast e law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=d4d7c40d3d63
+v11u274repro/cases/VU/vu08_negcast e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=28eb23dccdcd
+v11u274repro/cases/VU/vu08_negcast e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=28eb23dccdcd
+v11u274repro/cases/VU/vu08_negcast e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=28eb23dccdcd
+v11u274repro/cases/VU/vu08_negcast e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=d4d7c40d3d63
+v11u274repro/cases/VU/vu09_typedef d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=aa0f11928ef7
+v11u274repro/cases/VU/vu09_typedef d law rc=0 cmp=17 NOT_EQUAL stage1 md5=109cdd344ffb
+v11u274repro/cases/VU/vu09_typedef d law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=aa0f11928ef7
+v11u274repro/cases/VU/vu09_typedef d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=109cdd344ffb
+v11u274repro/cases/VU/vu09_typedef d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=109cdd344ffb
+v11u274repro/cases/VU/vu09_typedef d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=109cdd344ffb
+v11u274repro/cases/VU/vu09_typedef d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=aa0f11928ef7
+v11u274repro/cases/VU/vu09_typedef e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=53639081fced
+v11u274repro/cases/VU/vu09_typedef e law rc=0 cmp=17 NOT_EQUAL stage1 md5=33936d2ecf21
+v11u274repro/cases/VU/vu09_typedef e law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=53639081fced
+v11u274repro/cases/VU/vu09_typedef e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=33936d2ecf21
+v11u274repro/cases/VU/vu09_typedef e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=33936d2ecf21
+v11u274repro/cases/VU/vu09_typedef e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=33936d2ecf21
+v11u274repro/cases/VU/vu09_typedef e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=53639081fced
+v11u274repro/cases/VU/vu11_unused d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5134e7921c7f
+v11u274repro/cases/VU/vu11_unused d law rc=0 cmp=0 STRICT_EQUAL 50 objects md5=ced8a700c287
+v11u274repro/cases/VU/vu11_unused d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5134e7921c7f
+v11u274repro/cases/VU/vu11_unused d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 50 objects md5=ced8a700c287
+v11u274repro/cases/VU/vu11_unused d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 50 objects md5=ced8a700c287
+v11u274repro/cases/VU/vu11_unused d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 50 objects md5=ced8a700c287
+v11u274repro/cases/VU/vu11_unused d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5134e7921c7f
+v11u274repro/cases/VU/vu11_unused e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=6fee9d710a10
+v11u274repro/cases/VU/vu11_unused e law rc=0 cmp=0 STRICT_EQUAL 49 objects md5=e8486e5b654a
+v11u274repro/cases/VU/vu11_unused e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=6fee9d710a10
+v11u274repro/cases/VU/vu11_unused e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 49 objects md5=e8486e5b654a
+v11u274repro/cases/VU/vu11_unused e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 49 objects md5=e8486e5b654a
+v11u274repro/cases/VU/vu11_unused e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 49 objects md5=e8486e5b654a
+v11u274repro/cases/VU/vu11_unused e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=6fee9d710a10
+v11u274repro/cases/VU/vu12_import_chain d pristine rc=0 cmp=50 NOT_EQUAL stage1 md5=a0e9cd106fbb
+v11u274repro/cases/VU/vu12_import_chain d law rc=0 cmp=50 NOT_EQUAL stage1 md5=54e480ce3cf0
+v11u274repro/cases/VU/vu12_import_chain d law+R11U274_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=a0e9cd106fbb
+v11u274repro/cases/VU/vu12_import_chain d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=54e480ce3cf0
+v11u274repro/cases/VU/vu12_import_chain d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=54e480ce3cf0
+v11u274repro/cases/VU/vu12_import_chain d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=54e480ce3cf0
+v11u274repro/cases/VU/vu12_import_chain d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=a0e9cd106fbb
+v11u274repro/cases/VU/vu12_import_chain e pristine rc=0 cmp=50 NOT_EQUAL stage1 md5=df0c156981db
+v11u274repro/cases/VU/vu12_import_chain e law rc=0 cmp=50 NOT_EQUAL stage1 md5=afe11b28926b
+v11u274repro/cases/VU/vu12_import_chain e law+R11U274_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=df0c156981db
+v11u274repro/cases/VU/vu12_import_chain e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=afe11b28926b
+v11u274repro/cases/VU/vu12_import_chain e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=afe11b28926b
+v11u274repro/cases/VU/vu12_import_chain e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=afe11b28926b
+v11u274repro/cases/VU/vu12_import_chain e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=df0c156981db
+v11u274repro/cases/VU/vu13_modparam_default d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5e532ae71c49
+v11u274repro/cases/VU/vu13_modparam_default d law rc=0 cmp=0 STRICT_EQUAL 101 objects md5=801e53c9a165
+v11u274repro/cases/VU/vu13_modparam_default d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5e532ae71c49
+v11u274repro/cases/VU/vu13_modparam_default d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 101 objects md5=801e53c9a165
+v11u274repro/cases/VU/vu13_modparam_default d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 101 objects md5=801e53c9a165
+v11u274repro/cases/VU/vu13_modparam_default d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 101 objects md5=801e53c9a165
+v11u274repro/cases/VU/vu13_modparam_default d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5e532ae71c49
+v11u274repro/cases/VU/vu13_modparam_default e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=614b14844753
+v11u274repro/cases/VU/vu13_modparam_default e law rc=0 cmp=0 STRICT_EQUAL 100 objects md5=88999181c0ca
+v11u274repro/cases/VU/vu13_modparam_default e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=614b14844753
+v11u274repro/cases/VU/vu13_modparam_default e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 100 objects md5=88999181c0ca
+v11u274repro/cases/VU/vu13_modparam_default e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 100 objects md5=88999181c0ca
+v11u274repro/cases/VU/vu13_modparam_default e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 100 objects md5=88999181c0ca
+v11u274repro/cases/VU/vu13_modparam_default e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=614b14844753
+v11u274repro/cases/VU/vu14_slots d pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=ff1f7bca4d9c
+v11u274repro/cases/VU/vu14_slots d law rc=0 cmp=64 NOT_EQUAL stage1 md5=4a4ae195542f
+v11u274repro/cases/VU/vu14_slots d law+R11U274_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ff1f7bca4d9c
+v11u274repro/cases/VU/vu14_slots d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=4a4ae195542f
+v11u274repro/cases/VU/vu14_slots d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=4a4ae195542f
+v11u274repro/cases/VU/vu14_slots d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=4a4ae195542f
+v11u274repro/cases/VU/vu14_slots d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ff1f7bca4d9c
+v11u274repro/cases/VU/vu14_slots e pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=0cc2d0508348
+v11u274repro/cases/VU/vu14_slots e law rc=0 cmp=64 NOT_EQUAL stage1 md5=0014f24bae46
+v11u274repro/cases/VU/vu14_slots e law+R11U274_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=0cc2d0508348
+v11u274repro/cases/VU/vu14_slots e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=0014f24bae46
+v11u274repro/cases/VU/vu14_slots e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=0014f24bae46
+v11u274repro/cases/VU/vu14_slots e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=0014f24bae46
+v11u274repro/cases/VU/vu14_slots e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=0cc2d0508348
+v11u274repro/cases/VU/vu15_gen d pristine rc=0 cmp=48 NOT_EQUAL stage1 md5=58bf526128b0
+v11u274repro/cases/VU/vu15_gen d law rc=0 cmp=48 NOT_EQUAL stage1 md5=ceed4fb00324
+v11u274repro/cases/VU/vu15_gen d law+R11U274_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=58bf526128b0
+v11u274repro/cases/VU/vu15_gen d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=ceed4fb00324
+v11u274repro/cases/VU/vu15_gen d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=ceed4fb00324
+v11u274repro/cases/VU/vu15_gen d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=ceed4fb00324
+v11u274repro/cases/VU/vu15_gen d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=58bf526128b0
+v11u274repro/cases/VU/vu15_gen e pristine rc=0 cmp=48 NOT_EQUAL stage1 md5=72ecf57af79f
+v11u274repro/cases/VU/vu15_gen e law rc=0 cmp=48 NOT_EQUAL stage1 md5=6e2c68f18096
+v11u274repro/cases/VU/vu15_gen e law+R11U274_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=72ecf57af79f
+v11u274repro/cases/VU/vu15_gen e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=6e2c68f18096
+v11u274repro/cases/VU/vu15_gen e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=6e2c68f18096
+v11u274repro/cases/VU/vu15_gen e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=6e2c68f18096
+v11u274repro/cases/VU/vu15_gen e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=72ecf57af79f
+v11u274repro/cases/VU/vu16_iface_import d pristine rc=0 cmp=56 NOT_EQUAL stage1 md5=2196aeede16a
+v11u274repro/cases/VU/vu16_iface_import d law rc=0 cmp=56 NOT_EQUAL stage1 md5=a463ccb3ea7b
+v11u274repro/cases/VU/vu16_iface_import d law+R11U274_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=2196aeede16a
+v11u274repro/cases/VU/vu16_iface_import d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=a463ccb3ea7b
+v11u274repro/cases/VU/vu16_iface_import d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=a463ccb3ea7b
+v11u274repro/cases/VU/vu16_iface_import d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=a463ccb3ea7b
+v11u274repro/cases/VU/vu16_iface_import d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=2196aeede16a
+v11u274repro/cases/VU/vu16_iface_import e pristine rc=0 cmp=56 NOT_EQUAL stage1 md5=615f240fd9ca
+v11u274repro/cases/VU/vu16_iface_import e law rc=0 cmp=56 NOT_EQUAL stage1 md5=554a7cdd8141
+v11u274repro/cases/VU/vu16_iface_import e law+R11U274_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=615f240fd9ca
+v11u274repro/cases/VU/vu16_iface_import e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=554a7cdd8141
+v11u274repro/cases/VU/vu16_iface_import e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=554a7cdd8141
+v11u274repro/cases/VU/vu16_iface_import e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=554a7cdd8141
+v11u274repro/cases/VU/vu16_iface_import e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=615f240fd9ca
+v11u274repro/cases/VU/vu17_negstring_real d pristine rc=0 cmp=28 NOT_EQUAL stage1 md5=0992a1a02a88
+v11u274repro/cases/VU/vu17_negstring_real d law rc=0 cmp=28 NOT_EQUAL stage1 md5=04247247b159
+v11u274repro/cases/VU/vu17_negstring_real d law+R11U274_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=0992a1a02a88
+v11u274repro/cases/VU/vu17_negstring_real d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=04247247b159
+v11u274repro/cases/VU/vu17_negstring_real d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=04247247b159
+v11u274repro/cases/VU/vu17_negstring_real d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=04247247b159
+v11u274repro/cases/VU/vu17_negstring_real d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=0992a1a02a88
+v11u274repro/cases/VU/vu17_negstring_real e pristine rc=0 cmp=28 NOT_EQUAL stage1 md5=3453ae0884ce
+v11u274repro/cases/VU/vu17_negstring_real e law rc=0 cmp=28 NOT_EQUAL stage1 md5=ec80bb8dd3c7
+v11u274repro/cases/VU/vu17_negstring_real e law+R11U274_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=3453ae0884ce
+v11u274repro/cases/VU/vu17_negstring_real e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=ec80bb8dd3c7
+v11u274repro/cases/VU/vu17_negstring_real e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=ec80bb8dd3c7
+v11u274repro/cases/VU/vu17_negstring_real e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=ec80bb8dd3c7
+v11u274repro/cases/VU/vu17_negstring_real e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=3453ae0884ce
+v11u274repro/cases/VU/vu18_class_pkg d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=a6db0b063a58
+v11u274repro/cases/VU/vu18_class_pkg d law rc=0 cmp=17 NOT_EQUAL stage1 md5=92d9eb1a35da
+v11u274repro/cases/VU/vu18_class_pkg d law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=a6db0b063a58
+v11u274repro/cases/VU/vu18_class_pkg d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=92d9eb1a35da
+v11u274repro/cases/VU/vu18_class_pkg d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=92d9eb1a35da
+v11u274repro/cases/VU/vu18_class_pkg d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=92d9eb1a35da
+v11u274repro/cases/VU/vu18_class_pkg d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=a6db0b063a58
+v11u274repro/cases/VU/vu18_class_pkg e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=b47f01e91f5f
+v11u274repro/cases/VU/vu18_class_pkg e law rc=0 cmp=17 NOT_EQUAL stage1 md5=71289a452306
+v11u274repro/cases/VU/vu18_class_pkg e law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=b47f01e91f5f
+v11u274repro/cases/VU/vu18_class_pkg e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=71289a452306
+v11u274repro/cases/VU/vu18_class_pkg e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=71289a452306
+v11u274repro/cases/VU/vu18_class_pkg e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=71289a452306
+v11u274repro/cases/VU/vu18_class_pkg e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=b47f01e91f5f
+v11u274repro/cases/VU/vu19_redmixed d pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=91576159ac5c
+v11u274repro/cases/VU/vu19_redmixed d law rc=0 cmp=64 NOT_EQUAL stage1 md5=91576159ac5c
+v11u274repro/cases/VU/vu19_redmixed d law+R11U274_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=91576159ac5c
+v11u274repro/cases/VU/vu19_redmixed d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=91576159ac5c
+v11u274repro/cases/VU/vu19_redmixed d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=91576159ac5c
+v11u274repro/cases/VU/vu19_redmixed d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=91576159ac5c
+v11u274repro/cases/VU/vu19_redmixed d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=91576159ac5c
+v11u274repro/cases/VU/vu19_redmixed e pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=61bc37877130
+v11u274repro/cases/VU/vu19_redmixed e law rc=0 cmp=64 NOT_EQUAL stage1 md5=61bc37877130
+v11u274repro/cases/VU/vu19_redmixed e law+R11U274_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=61bc37877130
+v11u274repro/cases/VU/vu19_redmixed e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=61bc37877130
+v11u274repro/cases/VU/vu19_redmixed e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=61bc37877130
+v11u274repro/cases/VU/vu19_redmixed e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=61bc37877130
+v11u274repro/cases/VU/vu19_redmixed e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=61bc37877130
+v11u274repro/cases/VU/vu20_macro_operand d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=fb6c2de7faa1
+v11u274repro/cases/VU/vu20_macro_operand d law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b45c9be79dc8
+v11u274repro/cases/VU/vu20_macro_operand d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=fb6c2de7faa1
+v11u274repro/cases/VU/vu20_macro_operand d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b45c9be79dc8
+v11u274repro/cases/VU/vu20_macro_operand d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b45c9be79dc8
+v11u274repro/cases/VU/vu20_macro_operand d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b45c9be79dc8
+v11u274repro/cases/VU/vu20_macro_operand d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=fb6c2de7faa1
+v11u274repro/cases/VU/vu20_macro_operand e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=2fa401585f01
+v11u274repro/cases/VU/vu20_macro_operand e law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=729cefa89eea
+v11u274repro/cases/VU/vu20_macro_operand e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=2fa401585f01
+v11u274repro/cases/VU/vu20_macro_operand e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=729cefa89eea
+v11u274repro/cases/VU/vu20_macro_operand e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=729cefa89eea
+v11u274repro/cases/VU/vu20_macro_operand e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=729cefa89eea
+v11u274repro/cases/VU/vu20_macro_operand e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=2fa401585f01
+v11u274repro/cases/VG/vg01_three_for d pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=e3960de48512
+v11u274repro/cases/VG/vg01_three_for d law rc=0 cmp=0 STRICT_NOTEQUAL col md5=41f8432db125
+v11u274repro/cases/VG/vg01_three_for d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=e3960de48512
+v11u274repro/cases/VG/vg01_three_for d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=41f8432db125
+v11u274repro/cases/VG/vg01_three_for d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=41f8432db125
+v11u274repro/cases/VG/vg01_three_for d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=e3960de48512
+v11u274repro/cases/VG/vg01_three_for d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=41f8432db125
+v11u274repro/cases/VG/vg01_three_for e pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=d46e69395b26
+v11u274repro/cases/VG/vg01_three_for e law rc=0 cmp=0 STRICT_NOTEQUAL col md5=d832bf3aa005
+v11u274repro/cases/VG/vg01_three_for e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=d46e69395b26
+v11u274repro/cases/VG/vg01_three_for e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=d832bf3aa005
+v11u274repro/cases/VG/vg01_three_for e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=d832bf3aa005
+v11u274repro/cases/VG/vg01_three_for e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=4967dd131d09
+v11u274repro/cases/VG/vg01_three_for e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=d832bf3aa005
+v11u274repro/cases/VG/vg02_if_if d pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=53701569f128
+v11u274repro/cases/VG/vg02_if_if d law rc=0 cmp=0 STRICT_NOTEQUAL col md5=b38aee2b61da
+v11u274repro/cases/VG/vg02_if_if d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=53701569f128
+v11u274repro/cases/VG/vg02_if_if d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=b38aee2b61da
+v11u274repro/cases/VG/vg02_if_if d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=b38aee2b61da
+v11u274repro/cases/VG/vg02_if_if d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=53701569f128
+v11u274repro/cases/VG/vg02_if_if d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=b38aee2b61da
+v11u274repro/cases/VG/vg02_if_if e pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=c4c5150a624d
+v11u274repro/cases/VG/vg02_if_if e law rc=0 cmp=0 STRICT_NOTEQUAL col md5=39e0cd251fe8
+v11u274repro/cases/VG/vg02_if_if e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=c4c5150a624d
+v11u274repro/cases/VG/vg02_if_if e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=39e0cd251fe8
+v11u274repro/cases/VG/vg02_if_if e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=39e0cd251fe8
+v11u274repro/cases/VG/vg02_if_if e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=757ee5a0ac19
+v11u274repro/cases/VG/vg02_if_if e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=39e0cd251fe8
+v11u274repro/cases/VG/vg03_case_for_ovr d pristine rc=0 cmp=48 NOT_EQUAL stage1 md5=198453e38443
+v11u274repro/cases/VG/vg03_case_for_ovr d law rc=0 cmp=48 NOT_EQUAL stage1 md5=ad738662c1b9
+v11u274repro/cases/VG/vg03_case_for_ovr d law+R11U274_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=198453e38443
+v11u274repro/cases/VG/vg03_case_for_ovr d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=ad738662c1b9
+v11u274repro/cases/VG/vg03_case_for_ovr d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=ad738662c1b9
+v11u274repro/cases/VG/vg03_case_for_ovr d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=198453e38443
+v11u274repro/cases/VG/vg03_case_for_ovr d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=ad738662c1b9
+v11u274repro/cases/VG/vg03_case_for_ovr e pristine rc=0 cmp=48 NOT_EQUAL stage1 md5=6a0967c28a6d
+v11u274repro/cases/VG/vg03_case_for_ovr e law rc=0 cmp=48 NOT_EQUAL stage1 md5=eed369e2bc79
+v11u274repro/cases/VG/vg03_case_for_ovr e law+R11U274_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=6a0967c28a6d
+v11u274repro/cases/VG/vg03_case_for_ovr e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=eed369e2bc79
+v11u274repro/cases/VG/vg03_case_for_ovr e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=eed369e2bc79
+v11u274repro/cases/VG/vg03_case_for_ovr e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=b0fa52fae80a
+v11u274repro/cases/VG/vg03_case_for_ovr e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=48 NOT_EQUAL stage1 md5=eed369e2bc79
+v11u274repro/cases/VG/vg04_mid_nested d pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=6e97770db715
+v11u274repro/cases/VG/vg04_mid_nested d law rc=0 cmp=0 STRICT_NOTEQUAL col md5=9e5bee5fe053
+v11u274repro/cases/VG/vg04_mid_nested d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=6e97770db715
+v11u274repro/cases/VG/vg04_mid_nested d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=9e5bee5fe053
+v11u274repro/cases/VG/vg04_mid_nested d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=9e5bee5fe053
+v11u274repro/cases/VG/vg04_mid_nested d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=6e97770db715
+v11u274repro/cases/VG/vg04_mid_nested d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=9e5bee5fe053
+v11u274repro/cases/VG/vg04_mid_nested e pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=59e108213267
+v11u274repro/cases/VG/vg04_mid_nested e law rc=0 cmp=0 STRICT_NOTEQUAL col md5=60557ce7d192
+v11u274repro/cases/VG/vg04_mid_nested e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=59e108213267
+v11u274repro/cases/VG/vg04_mid_nested e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=60557ce7d192
+v11u274repro/cases/VG/vg04_mid_nested e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=60557ce7d192
+v11u274repro/cases/VG/vg04_mid_nested e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=2d92f3404b28
+v11u274repro/cases/VG/vg04_mid_nested e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=60557ce7d192
+v11u274repro/cases/VG/vg05_mixed_levels d pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=5d5ee8ec6049
+v11u274repro/cases/VG/vg05_mixed_levels d law rc=0 cmp=0 STRICT_NOTEQUAL col md5=0ab83d9bded0
+v11u274repro/cases/VG/vg05_mixed_levels d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=5d5ee8ec6049
+v11u274repro/cases/VG/vg05_mixed_levels d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=0ab83d9bded0
+v11u274repro/cases/VG/vg05_mixed_levels d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=0ab83d9bded0
+v11u274repro/cases/VG/vg05_mixed_levels d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=5d5ee8ec6049
+v11u274repro/cases/VG/vg05_mixed_levels d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=0ab83d9bded0
+v11u274repro/cases/VG/vg05_mixed_levels e pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=b41dc6f77338
+v11u274repro/cases/VG/vg05_mixed_levels e law rc=0 cmp=0 STRICT_NOTEQUAL col md5=5d195c365a55
+v11u274repro/cases/VG/vg05_mixed_levels e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=b41dc6f77338
+v11u274repro/cases/VG/vg05_mixed_levels e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=5d195c365a55
+v11u274repro/cases/VG/vg05_mixed_levels e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=5d195c365a55
+v11u274repro/cases/VG/vg05_mixed_levels e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=0ad49f8503d0
+v11u274repro/cases/VG/vg05_mixed_levels e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL col md5=5d195c365a55
+v11u274repro/cases/VG/vg06_nested_named_block d pristine rc=0 cmp=85 NOT_EQUAL stage1 md5=a2bef808613f
+v11u274repro/cases/VG/vg06_nested_named_block d law rc=0 cmp=85 NOT_EQUAL stage1 md5=03cbe31e5f31
+v11u274repro/cases/VG/vg06_nested_named_block d law+R11U274_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=a2bef808613f
+v11u274repro/cases/VG/vg06_nested_named_block d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=03cbe31e5f31
+v11u274repro/cases/VG/vg06_nested_named_block d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=03cbe31e5f31
+v11u274repro/cases/VG/vg06_nested_named_block d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=a2bef808613f
+v11u274repro/cases/VG/vg06_nested_named_block d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=03cbe31e5f31
+v11u274repro/cases/VG/vg06_nested_named_block e pristine rc=0 cmp=85 NOT_EQUAL stage1 md5=e87b9a20da21
+v11u274repro/cases/VG/vg06_nested_named_block e law rc=0 cmp=85 NOT_EQUAL stage1 md5=155d6c94e767
+v11u274repro/cases/VG/vg06_nested_named_block e law+R11U274_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=e87b9a20da21
+v11u274repro/cases/VG/vg06_nested_named_block e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=155d6c94e767
+v11u274repro/cases/VG/vg06_nested_named_block e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=155d6c94e767
+v11u274repro/cases/VG/vg06_nested_named_block e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=285a58a11ab1
+v11u274repro/cases/VG/vg06_nested_named_block e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=85 NOT_EQUAL stage1 md5=155d6c94e767
+v11u274repro/cases/VP/vp02_signed_pkd d pristine rc=0 cmp=62 NOT_EQUAL stage1 md5=0d0018c96f98
+v11u274repro/cases/VP/vp02_signed_pkd d law rc=0 cmp=62 NOT_EQUAL stage1 md5=ba25e72389c3
+v11u274repro/cases/VP/vp02_signed_pkd d law+R11U274_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=0d0018c96f98
+v11u274repro/cases/VP/vp02_signed_pkd d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=0d0018c96f98
+v11u274repro/cases/VP/vp02_signed_pkd d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=ba25e72389c3
+v11u274repro/cases/VP/vp02_signed_pkd d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=ba25e72389c3
+v11u274repro/cases/VP/vp02_signed_pkd d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=ba25e72389c3
+v11u274repro/cases/VP/vp02_signed_pkd e pristine rc=0 cmp=62 NOT_EQUAL stage1 md5=7dc45f919981
+v11u274repro/cases/VP/vp02_signed_pkd e law rc=0 cmp=62 NOT_EQUAL stage1 md5=3a7e4b366bfc
+v11u274repro/cases/VP/vp02_signed_pkd e law+R11U274_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=7dc45f919981
+v11u274repro/cases/VP/vp02_signed_pkd e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=7dc45f919981
+v11u274repro/cases/VP/vp02_signed_pkd e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=3a7e4b366bfc
+v11u274repro/cases/VP/vp02_signed_pkd e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=3a7e4b366bfc
+v11u274repro/cases/VP/vp02_signed_pkd e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=3a7e4b366bfc
+v11u274repro/cases/VP/vp05_paramdims d pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=c8fe2ab8de72
+v11u274repro/cases/VP/vp05_paramdims d law rc=0 cmp=60 NOT_EQUAL stage1 md5=871590c05310
+v11u274repro/cases/VP/vp05_paramdims d law+R11U274_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=c8fe2ab8de72
+v11u274repro/cases/VP/vp05_paramdims d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=c8fe2ab8de72
+v11u274repro/cases/VP/vp05_paramdims d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=871590c05310
+v11u274repro/cases/VP/vp05_paramdims d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=871590c05310
+v11u274repro/cases/VP/vp05_paramdims d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=871590c05310
+v11u274repro/cases/VP/vp05_paramdims e pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=a157f2787986
+v11u274repro/cases/VP/vp05_paramdims e law rc=0 cmp=60 NOT_EQUAL stage1 md5=8bac80ce1ef7
+v11u274repro/cases/VP/vp05_paramdims e law+R11U274_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=a157f2787986
+v11u274repro/cases/VP/vp05_paramdims e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=a157f2787986
+v11u274repro/cases/VP/vp05_paramdims e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=8bac80ce1ef7
+v11u274repro/cases/VP/vp05_paramdims e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=8bac80ce1ef7
+v11u274repro/cases/VP/vp05_paramdims e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=8bac80ce1ef7
+v11u274repro/cases/VP/vp06_comment_dims d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=a1aeec9f1837
+v11u274repro/cases/VP/vp06_comment_dims d law rc=0 cmp=0 STRICT_EQUAL 115 objects md5=9e5bd5099a35
+v11u274repro/cases/VP/vp06_comment_dims d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=a1aeec9f1837
+v11u274repro/cases/VP/vp06_comment_dims d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=a1aeec9f1837
+v11u274repro/cases/VP/vp06_comment_dims d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 115 objects md5=9e5bd5099a35
+v11u274repro/cases/VP/vp06_comment_dims d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 115 objects md5=9e5bd5099a35
+v11u274repro/cases/VP/vp06_comment_dims d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 115 objects md5=9e5bd5099a35
+v11u274repro/cases/VP/vp06_comment_dims e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ecccd70d9810
+v11u274repro/cases/VP/vp06_comment_dims e law rc=0 cmp=0 STRICT_EQUAL 106 objects md5=63f0112f054c
+v11u274repro/cases/VP/vp06_comment_dims e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ecccd70d9810
+v11u274repro/cases/VP/vp06_comment_dims e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ecccd70d9810
+v11u274repro/cases/VP/vp06_comment_dims e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 106 objects md5=63f0112f054c
+v11u274repro/cases/VP/vp06_comment_dims e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 106 objects md5=63f0112f054c
+v11u274repro/cases/VP/vp06_comment_dims e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 106 objects md5=63f0112f054c
+v11u274repro/cases/VP/vp07_three_pkd d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ff040446086f
+v11u274repro/cases/VP/vp07_three_pkd d law rc=0 cmp=0 STRICT_EQUAL 155 objects md5=0783d2290546
+v11u274repro/cases/VP/vp07_three_pkd d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ff040446086f
+v11u274repro/cases/VP/vp07_three_pkd d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ff040446086f
+v11u274repro/cases/VP/vp07_three_pkd d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 155 objects md5=0783d2290546
+v11u274repro/cases/VP/vp07_three_pkd d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 155 objects md5=0783d2290546
+v11u274repro/cases/VP/vp07_three_pkd d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 155 objects md5=0783d2290546
+v11u274repro/cases/VP/vp07_three_pkd e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=854b2e1da24b
+v11u274repro/cases/VP/vp07_three_pkd e law rc=0 cmp=0 STRICT_EQUAL 143 objects md5=babca4395ab3
+v11u274repro/cases/VP/vp07_three_pkd e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=854b2e1da24b
+v11u274repro/cases/VP/vp07_three_pkd e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=854b2e1da24b
+v11u274repro/cases/VP/vp07_three_pkd e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 143 objects md5=babca4395ab3
+v11u274repro/cases/VP/vp07_three_pkd e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 143 objects md5=babca4395ab3
+v11u274repro/cases/VP/vp07_three_pkd e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 143 objects md5=babca4395ab3
+v11u274repro/cases/VP/vp09_multiline d pristine rc=0 cmp=0 STRICT_NOTEQUAL endline md5=fa6440eb24c1
+v11u274repro/cases/VP/vp09_multiline d law rc=0 cmp=0 STRICT_EQUAL 115 objects md5=0ec4bc040fa1
+v11u274repro/cases/VP/vp09_multiline d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endline md5=fa6440eb24c1
+v11u274repro/cases/VP/vp09_multiline d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endline md5=fa6440eb24c1
+v11u274repro/cases/VP/vp09_multiline d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 115 objects md5=0ec4bc040fa1
+v11u274repro/cases/VP/vp09_multiline d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 115 objects md5=0ec4bc040fa1
+v11u274repro/cases/VP/vp09_multiline d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 115 objects md5=0ec4bc040fa1
+v11u274repro/cases/VP/vp09_multiline e pristine rc=0 cmp=0 STRICT_NOTEQUAL endline md5=d891a4764a62
+v11u274repro/cases/VP/vp09_multiline e law rc=0 cmp=0 STRICT_EQUAL 106 objects md5=8b839c6c977b
+v11u274repro/cases/VP/vp09_multiline e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endline md5=d891a4764a62
+v11u274repro/cases/VP/vp09_multiline e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endline md5=d891a4764a62
+v11u274repro/cases/VP/vp09_multiline e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 106 objects md5=8b839c6c977b
+v11u274repro/cases/VP/vp09_multiline e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 106 objects md5=8b839c6c977b
+v11u274repro/cases/VP/vp09_multiline e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 106 objects md5=8b839c6c977b
+v11u274repro/cases/VP/vp11_unpk_range_rev d pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=ab84b3c1d71e
+v11u274repro/cases/VP/vp11_unpk_range_rev d law rc=0 cmp=58 NOT_EQUAL stage1 md5=64e3361da5ae
+v11u274repro/cases/VP/vp11_unpk_range_rev d law+R11U274_OFF rc=0 cmp=58 NOT_EQUAL stage1 md5=ab84b3c1d71e
+v11u274repro/cases/VP/vp11_unpk_range_rev d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=58 NOT_EQUAL stage1 md5=ab84b3c1d71e
+v11u274repro/cases/VP/vp11_unpk_range_rev d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=58 NOT_EQUAL stage1 md5=64e3361da5ae
+v11u274repro/cases/VP/vp11_unpk_range_rev d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=58 NOT_EQUAL stage1 md5=64e3361da5ae
+v11u274repro/cases/VP/vp11_unpk_range_rev d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=58 NOT_EQUAL stage1 md5=64e3361da5ae
+v11u274repro/cases/VP/vp11_unpk_range_rev e pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=7d4205eaf668
+v11u274repro/cases/VP/vp11_unpk_range_rev e law rc=0 cmp=58 NOT_EQUAL stage1 md5=d5d679901233
+v11u274repro/cases/VP/vp11_unpk_range_rev e law+R11U274_OFF rc=0 cmp=58 NOT_EQUAL stage1 md5=7d4205eaf668
+v11u274repro/cases/VP/vp11_unpk_range_rev e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=58 NOT_EQUAL stage1 md5=7d4205eaf668
+v11u274repro/cases/VP/vp11_unpk_range_rev e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=58 NOT_EQUAL stage1 md5=d5d679901233
+v11u274repro/cases/VP/vp11_unpk_range_rev e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=58 NOT_EQUAL stage1 md5=d5d679901233
+v11u274repro/cases/VP/vp11_unpk_range_rev e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=58 NOT_EQUAL stage1 md5=d5d679901233
+v11u274repro/cases/VR/vr01b_ifgen_untaken d pristine rc=0 cmp=0 STRICT_EQUAL 364 objects md5=4ae65b90636e
+v11u274repro/cases/VR/vr01b_ifgen_untaken d law rc=0 cmp=0 STRICT_EQUAL 364 objects md5=4ae65b90636e
+v11u274repro/cases/VR/vr01b_ifgen_untaken d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 364 objects md5=4ae65b90636e
+v11u274repro/cases/VR/vr01b_ifgen_untaken d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 364 objects md5=4ae65b90636e
+v11u274repro/cases/VR/vr01b_ifgen_untaken d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 364 objects md5=4ae65b90636e
+v11u274repro/cases/VR/vr01b_ifgen_untaken d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 364 objects md5=4ae65b90636e
+v11u274repro/cases/VR/vr01b_ifgen_untaken d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 364 objects md5=4ae65b90636e
+v11u274repro/cases/VR/vr01b_ifgen_untaken e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=f0426c471202
+v11u274repro/cases/VR/vr01b_ifgen_untaken e law rc=0 cmp=0 STRICT_EQUAL 391 objects md5=1e8471cfbe2c
+v11u274repro/cases/VR/vr01b_ifgen_untaken e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=f0426c471202
+v11u274repro/cases/VR/vr01b_ifgen_untaken e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 391 objects md5=1e8471cfbe2c
+v11u274repro/cases/VR/vr01b_ifgen_untaken e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=f0426c471202
+v11u274repro/cases/VR/vr01b_ifgen_untaken e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 391 objects md5=1e8471cfbe2c
+v11u274repro/cases/VR/vr01b_ifgen_untaken e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 391 objects md5=1e8471cfbe2c
+v11u274repro/cases/VR/vr05b_hier_from_top d pristine rc=0 cmp=0 STRICT_EQUAL 312 objects md5=2502f530e023
+v11u274repro/cases/VR/vr05b_hier_from_top d law rc=0 cmp=0 STRICT_EQUAL 312 objects md5=2502f530e023
+v11u274repro/cases/VR/vr05b_hier_from_top d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 312 objects md5=2502f530e023
+v11u274repro/cases/VR/vr05b_hier_from_top d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 312 objects md5=2502f530e023
+v11u274repro/cases/VR/vr05b_hier_from_top d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 312 objects md5=2502f530e023
+v11u274repro/cases/VR/vr05b_hier_from_top d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 312 objects md5=2502f530e023
+v11u274repro/cases/VR/vr05b_hier_from_top d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 312 objects md5=2502f530e023
+v11u274repro/cases/VR/vr05b_hier_from_top e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=b11acea8f42c
+v11u274repro/cases/VR/vr05b_hier_from_top e law rc=0 cmp=0 STRICT_EQUAL 343 objects md5=069f8b44e449
+v11u274repro/cases/VR/vr05b_hier_from_top e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=b11acea8f42c
+v11u274repro/cases/VR/vr05b_hier_from_top e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 343 objects md5=069f8b44e449
+v11u274repro/cases/VR/vr05b_hier_from_top e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=b11acea8f42c
+v11u274repro/cases/VR/vr05b_hier_from_top e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 343 objects md5=069f8b44e449
+v11u274repro/cases/VR/vr05b_hier_from_top e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 343 objects md5=069f8b44e449
+v11u274repro/cases/VR/vr06b_inst_array d pristine rc=0 cmp=0 STRICT_EQUAL 324 objects md5=4b4e7ac2e652
+v11u274repro/cases/VR/vr06b_inst_array d law rc=0 cmp=0 STRICT_EQUAL 324 objects md5=4b4e7ac2e652
+v11u274repro/cases/VR/vr06b_inst_array d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 324 objects md5=4b4e7ac2e652
+v11u274repro/cases/VR/vr06b_inst_array d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 324 objects md5=4b4e7ac2e652
+v11u274repro/cases/VR/vr06b_inst_array d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 324 objects md5=4b4e7ac2e652
+v11u274repro/cases/VR/vr06b_inst_array d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 324 objects md5=4b4e7ac2e652
+v11u274repro/cases/VR/vr06b_inst_array d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 324 objects md5=4b4e7ac2e652
+v11u274repro/cases/VR/vr06b_inst_array e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=115e9ab1b220
+v11u274repro/cases/VR/vr06b_inst_array e law rc=0 cmp=0 STRICT_EQUAL 372 objects md5=af2c23acc8ad
+v11u274repro/cases/VR/vr06b_inst_array e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=115e9ab1b220
+v11u274repro/cases/VR/vr06b_inst_array e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 372 objects md5=af2c23acc8ad
+v11u274repro/cases/VR/vr06b_inst_array e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=115e9ab1b220
+v11u274repro/cases/VR/vr06b_inst_array e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 372 objects md5=af2c23acc8ad
+v11u274repro/cases/VR/vr06b_inst_array e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 372 objects md5=af2c23acc8ad
+v11u274repro/cases/VR/vr07b_localparam_alias d pristine rc=0 cmp=46 NOT_EQUAL stage1 md5=5ef5074366c6
+v11u274repro/cases/VR/vr07b_localparam_alias d law rc=0 cmp=46 NOT_EQUAL stage1 md5=5ef5074366c6
+v11u274repro/cases/VR/vr07b_localparam_alias d law+R11U274_OFF rc=0 cmp=46 NOT_EQUAL stage1 md5=5ef5074366c6
+v11u274repro/cases/VR/vr07b_localparam_alias d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=46 NOT_EQUAL stage1 md5=5ef5074366c6
+v11u274repro/cases/VR/vr07b_localparam_alias d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=46 NOT_EQUAL stage1 md5=5ef5074366c6
+v11u274repro/cases/VR/vr07b_localparam_alias d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=46 NOT_EQUAL stage1 md5=5ef5074366c6
+v11u274repro/cases/VR/vr07b_localparam_alias d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=46 NOT_EQUAL stage1 md5=5ef5074366c6
+v11u274repro/cases/VR/vr07b_localparam_alias e pristine rc=0 cmp=50 NOT_EQUAL stage1 md5=6f0ee984b614
+v11u274repro/cases/VR/vr07b_localparam_alias e law rc=0 cmp=50 NOT_EQUAL stage1 md5=4a6d101dba2a
+v11u274repro/cases/VR/vr07b_localparam_alias e law+R11U274_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=6f0ee984b614
+v11u274repro/cases/VR/vr07b_localparam_alias e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=4a6d101dba2a
+v11u274repro/cases/VR/vr07b_localparam_alias e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=6f0ee984b614
+v11u274repro/cases/VR/vr07b_localparam_alias e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=4a6d101dba2a
+v11u274repro/cases/VR/vr07b_localparam_alias e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=4a6d101dba2a
+v11u274repro/cases/VR/vr09b_three_levels d pristine rc=0 cmp=0 STRICT_EQUAL 396 objects md5=181735d45a25
+v11u274repro/cases/VR/vr09b_three_levels d law rc=0 cmp=0 STRICT_EQUAL 396 objects md5=181735d45a25
+v11u274repro/cases/VR/vr09b_three_levels d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 396 objects md5=181735d45a25
+v11u274repro/cases/VR/vr09b_three_levels d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 396 objects md5=181735d45a25
+v11u274repro/cases/VR/vr09b_three_levels d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 396 objects md5=181735d45a25
+v11u274repro/cases/VR/vr09b_three_levels d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 396 objects md5=181735d45a25
+v11u274repro/cases/VR/vr09b_three_levels d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 396 objects md5=181735d45a25
+v11u274repro/cases/VR/vr09b_three_levels e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=57f73b1791e4
+v11u274repro/cases/VR/vr09b_three_levels e law rc=0 cmp=0 STRICT_EQUAL 445 objects md5=0a1f67a136a6
+v11u274repro/cases/VR/vr09b_three_levels e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=57f73b1791e4
+v11u274repro/cases/VR/vr09b_three_levels e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 445 objects md5=0a1f67a136a6
+v11u274repro/cases/VR/vr09b_three_levels e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=57f73b1791e4
+v11u274repro/cases/VR/vr09b_three_levels e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 445 objects md5=0a1f67a136a6
+v11u274repro/cases/VR/vr09b_three_levels e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 445 objects md5=0a1f67a136a6
+v11u274repro/cases/VR/vr13b_depth3_override d pristine rc=0 cmp=0 STRICT_EQUAL 513 objects md5=b415259e28b6
+v11u274repro/cases/VR/vr13b_depth3_override d law rc=0 cmp=0 STRICT_EQUAL 513 objects md5=b415259e28b6
+v11u274repro/cases/VR/vr13b_depth3_override d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 513 objects md5=b415259e28b6
+v11u274repro/cases/VR/vr13b_depth3_override d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 513 objects md5=b415259e28b6
+v11u274repro/cases/VR/vr13b_depth3_override d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 513 objects md5=b415259e28b6
+v11u274repro/cases/VR/vr13b_depth3_override d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 513 objects md5=b415259e28b6
+v11u274repro/cases/VR/vr13b_depth3_override d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 513 objects md5=b415259e28b6
+v11u274repro/cases/VR/vr13b_depth3_override e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=4878ba0c0106
+v11u274repro/cases/VR/vr13b_depth3_override e law rc=0 cmp=0 STRICT_EQUAL 561 objects md5=9da7ea989890
+v11u274repro/cases/VR/vr13b_depth3_override e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=4878ba0c0106
+v11u274repro/cases/VR/vr13b_depth3_override e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 561 objects md5=9da7ea989890
+v11u274repro/cases/VR/vr13b_depth3_override e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=4878ba0c0106
+v11u274repro/cases/VR/vr13b_depth3_override e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 561 objects md5=9da7ea989890
+v11u274repro/cases/VR/vr13b_depth3_override e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 561 objects md5=9da7ea989890
+v11u274repro/cases/VR/vr16b_nested_gen_read d pristine rc=0 cmp=0 STRICT_EQUAL 361 objects md5=d4e9adbedb6b
+v11u274repro/cases/VR/vr16b_nested_gen_read d law rc=0 cmp=0 STRICT_EQUAL 361 objects md5=d4e9adbedb6b
+v11u274repro/cases/VR/vr16b_nested_gen_read d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 361 objects md5=d4e9adbedb6b
+v11u274repro/cases/VR/vr16b_nested_gen_read d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 361 objects md5=d4e9adbedb6b
+v11u274repro/cases/VR/vr16b_nested_gen_read d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 361 objects md5=d4e9adbedb6b
+v11u274repro/cases/VR/vr16b_nested_gen_read d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 361 objects md5=d4e9adbedb6b
+v11u274repro/cases/VR/vr16b_nested_gen_read d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 361 objects md5=d4e9adbedb6b
+v11u274repro/cases/VR/vr16b_nested_gen_read e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=639b639c9511
+v11u274repro/cases/VR/vr16b_nested_gen_read e law rc=0 cmp=0 STRICT_EQUAL 382 objects md5=d02380f943b5
+v11u274repro/cases/VR/vr16b_nested_gen_read e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=639b639c9511
+v11u274repro/cases/VR/vr16b_nested_gen_read e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 382 objects md5=d02380f943b5
+v11u274repro/cases/VR/vr16b_nested_gen_read e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=639b639c9511
+v11u274repro/cases/VR/vr16b_nested_gen_read e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 382 objects md5=d02380f943b5
+v11u274repro/cases/VR/vr16b_nested_gen_read e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 382 objects md5=d02380f943b5
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7b133b2fa143
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow d law rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7b133b2fa143
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7b133b2fa143
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7b133b2fa143
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7b133b2fa143
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7b133b2fa143
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7b133b2fa143
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7ff384c2bb9b
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow e law rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=662ab3247fe4
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7ff384c2bb9b
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=662ab3247fe4
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7ff384c2bb9b
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=662ab3247fe4
+v11u274repro/cases/VR/vr17b_gen_localparam_shadow e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=662ab3247fe4
+v11u274repro/cases/VR/vr19b_leftover_fn d pristine rc=0 cmp=0 STRICT_EQUAL 785 objects md5=2469fb252154
+v11u274repro/cases/VR/vr19b_leftover_fn d law rc=0 cmp=0 STRICT_EQUAL 785 objects md5=2469fb252154
+v11u274repro/cases/VR/vr19b_leftover_fn d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 785 objects md5=2469fb252154
+v11u274repro/cases/VR/vr19b_leftover_fn d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 785 objects md5=2469fb252154
+v11u274repro/cases/VR/vr19b_leftover_fn d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 785 objects md5=2469fb252154
+v11u274repro/cases/VR/vr19b_leftover_fn d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 785 objects md5=2469fb252154
+v11u274repro/cases/VR/vr19b_leftover_fn d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 785 objects md5=2469fb252154
+v11u274repro/cases/VR/vr19b_leftover_fn e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=28a77f4dff71
+v11u274repro/cases/VR/vr19b_leftover_fn e law rc=0 cmp=0 STRICT_EQUAL 1004 objects md5=8c5c6e6b23c1
+v11u274repro/cases/VR/vr19b_leftover_fn e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=28a77f4dff71
+v11u274repro/cases/VR/vr19b_leftover_fn e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 1004 objects md5=8c5c6e6b23c1
+v11u274repro/cases/VR/vr19b_leftover_fn e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=28a77f4dff71
+v11u274repro/cases/VR/vr19b_leftover_fn e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 1004 objects md5=8c5c6e6b23c1
+v11u274repro/cases/VR/vr19b_leftover_fn e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 1004 objects md5=8c5c6e6b23c1
+v11u274repro/cases/VR/vr19_leftover_fn d pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=7efba621360d
+v11u274repro/cases/VR/vr19_leftover_fn d law rc=0 cmp=76 NOT_EQUAL stage1 md5=7efba621360d
+v11u274repro/cases/VR/vr19_leftover_fn d law+R11U274_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=7efba621360d
+v11u274repro/cases/VR/vr19_leftover_fn d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=7efba621360d
+v11u274repro/cases/VR/vr19_leftover_fn d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=7efba621360d
+v11u274repro/cases/VR/vr19_leftover_fn d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=7efba621360d
+v11u274repro/cases/VR/vr19_leftover_fn d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=76 NOT_EQUAL stage1 md5=7efba621360d
+v11u274repro/cases/VR/vr19_leftover_fn e pristine rc=0 cmp=88 NOT_EQUAL stage1 md5=7475fcaf43ba
+v11u274repro/cases/VR/vr19_leftover_fn e law rc=0 cmp=88 NOT_EQUAL stage1 md5=743cc99f319e
+v11u274repro/cases/VR/vr19_leftover_fn e law+R11U274_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=7475fcaf43ba
+v11u274repro/cases/VR/vr19_leftover_fn e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=743cc99f319e
+v11u274repro/cases/VR/vr19_leftover_fn e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=7475fcaf43ba
+v11u274repro/cases/VR/vr19_leftover_fn e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=743cc99f319e
+v11u274repro/cases/VR/vr19_leftover_fn e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=88 NOT_EQUAL stage1 md5=743cc99f319e
+v11u274repro/cases/VR/vr22b_implicit_net d pristine rc=0 cmp=78 NOT_EQUAL stage1 md5=b288ef8e0278
+v11u274repro/cases/VR/vr22b_implicit_net d law rc=0 cmp=78 NOT_EQUAL stage1 md5=b288ef8e0278
+v11u274repro/cases/VR/vr22b_implicit_net d law+R11U274_OFF rc=0 cmp=78 NOT_EQUAL stage1 md5=b288ef8e0278
+v11u274repro/cases/VR/vr22b_implicit_net d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=78 NOT_EQUAL stage1 md5=b288ef8e0278
+v11u274repro/cases/VR/vr22b_implicit_net d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=78 NOT_EQUAL stage1 md5=b288ef8e0278
+v11u274repro/cases/VR/vr22b_implicit_net d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=78 NOT_EQUAL stage1 md5=b288ef8e0278
+v11u274repro/cases/VR/vr22b_implicit_net d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=78 NOT_EQUAL stage1 md5=b288ef8e0278
+v11u274repro/cases/VR/vr22b_implicit_net e pristine rc=0 cmp=90 NOT_EQUAL stage1 md5=fd30aecb74d4
+v11u274repro/cases/VR/vr22b_implicit_net e law rc=0 cmp=90 NOT_EQUAL stage1 md5=d10b416b402e
+v11u274repro/cases/VR/vr22b_implicit_net e law+R11U274_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=fd30aecb74d4
+v11u274repro/cases/VR/vr22b_implicit_net e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=d10b416b402e
+v11u274repro/cases/VR/vr22b_implicit_net e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=fd30aecb74d4
+v11u274repro/cases/VR/vr22b_implicit_net e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=d10b416b402e
+v11u274repro/cases/VR/vr22b_implicit_net e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=90 NOT_EQUAL stage1 md5=d10b416b402e
+v11u274repro/cases/VU/vu01b_untyped d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=5a3126a8ca1b
+v11u274repro/cases/VU/vu01b_untyped d law rc=0 cmp=17 NOT_EQUAL stage1 md5=d596b2f8b30b
+v11u274repro/cases/VU/vu01b_untyped d law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=5a3126a8ca1b
+v11u274repro/cases/VU/vu01b_untyped d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=d596b2f8b30b
+v11u274repro/cases/VU/vu01b_untyped d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=d596b2f8b30b
+v11u274repro/cases/VU/vu01b_untyped d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=d596b2f8b30b
+v11u274repro/cases/VU/vu01b_untyped d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=5a3126a8ca1b
+v11u274repro/cases/VU/vu01b_untyped e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=1a4e9d0b8f1d
+v11u274repro/cases/VU/vu01b_untyped e law rc=0 cmp=17 NOT_EQUAL stage1 md5=9af136bf078b
+v11u274repro/cases/VU/vu01b_untyped e law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=1a4e9d0b8f1d
+v11u274repro/cases/VU/vu01b_untyped e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=9af136bf078b
+v11u274repro/cases/VU/vu01b_untyped e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=9af136bf078b
+v11u274repro/cases/VU/vu01b_untyped e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=9af136bf078b
+v11u274repro/cases/VU/vu01b_untyped e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=1a4e9d0b8f1d
+v11u274repro/cases/VU/vu02b_negref d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=8e11a6ae5c8d
+v11u274repro/cases/VU/vu02b_negref d law rc=0 cmp=0 STRICT_EQUAL 64 objects md5=b81017f6d49e
+v11u274repro/cases/VU/vu02b_negref d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=8e11a6ae5c8d
+v11u274repro/cases/VU/vu02b_negref d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 64 objects md5=b81017f6d49e
+v11u274repro/cases/VU/vu02b_negref d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 64 objects md5=b81017f6d49e
+v11u274repro/cases/VU/vu02b_negref d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 64 objects md5=b81017f6d49e
+v11u274repro/cases/VU/vu02b_negref d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=8e11a6ae5c8d
+v11u274repro/cases/VU/vu02b_negref e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=d655502fd9bf
+v11u274repro/cases/VU/vu02b_negref e law rc=0 cmp=0 STRICT_EQUAL 63 objects md5=2b5e9622fe33
+v11u274repro/cases/VU/vu02b_negref e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=d655502fd9bf
+v11u274repro/cases/VU/vu02b_negref e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 63 objects md5=2b5e9622fe33
+v11u274repro/cases/VU/vu02b_negref e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 63 objects md5=2b5e9622fe33
+v11u274repro/cases/VU/vu02b_negref e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 63 objects md5=2b5e9622fe33
+v11u274repro/cases/VU/vu02b_negref e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=d655502fd9bf
+v11u274repro/cases/VU/vu03b_uplus d pristine rc=0 cmp=56 NOT_EQUAL stage1 md5=0791196af870
+v11u274repro/cases/VU/vu03b_uplus d law rc=0 cmp=56 NOT_EQUAL stage1 md5=c11b7f7ddc01
+v11u274repro/cases/VU/vu03b_uplus d law+R11U274_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=0791196af870
+v11u274repro/cases/VU/vu03b_uplus d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=c11b7f7ddc01
+v11u274repro/cases/VU/vu03b_uplus d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=c11b7f7ddc01
+v11u274repro/cases/VU/vu03b_uplus d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=c11b7f7ddc01
+v11u274repro/cases/VU/vu03b_uplus d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=0791196af870
+v11u274repro/cases/VU/vu03b_uplus e pristine rc=0 cmp=56 NOT_EQUAL stage1 md5=3c3c13d80e8c
+v11u274repro/cases/VU/vu03b_uplus e law rc=0 cmp=56 NOT_EQUAL stage1 md5=2ec7deb4b304
+v11u274repro/cases/VU/vu03b_uplus e law+R11U274_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=3c3c13d80e8c
+v11u274repro/cases/VU/vu03b_uplus e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=2ec7deb4b304
+v11u274repro/cases/VU/vu03b_uplus e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=2ec7deb4b304
+v11u274repro/cases/VU/vu03b_uplus e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=2ec7deb4b304
+v11u274repro/cases/VU/vu03b_uplus e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=56 NOT_EQUAL stage1 md5=3c3c13d80e8c
+v11u274repro/cases/VU/vu04b_negcall d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=9b078247f344
+v11u274repro/cases/VU/vu04b_negcall d law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=d6635648bd09
+v11u274repro/cases/VU/vu04b_negcall d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=9b078247f344
+v11u274repro/cases/VU/vu04b_negcall d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=d6635648bd09
+v11u274repro/cases/VU/vu04b_negcall d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=d6635648bd09
+v11u274repro/cases/VU/vu04b_negcall d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=d6635648bd09
+v11u274repro/cases/VU/vu04b_negcall d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=9b078247f344
+v11u274repro/cases/VU/vu04b_negcall e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ddabb6e675a9
+v11u274repro/cases/VU/vu04b_negcall e law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=0a06327e6296
+v11u274repro/cases/VU/vu04b_negcall e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ddabb6e675a9
+v11u274repro/cases/VU/vu04b_negcall e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=0a06327e6296
+v11u274repro/cases/VU/vu04b_negcall e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=0a06327e6296
+v11u274repro/cases/VU/vu04b_negcall e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=0a06327e6296
+v11u274repro/cases/VU/vu04b_negcall e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ddabb6e675a9
+v11u274repro/cases/VU/vu05b_unit d pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=3c12bb2a35fd
+v11u274repro/cases/VU/vu05b_unit d law rc=0 cmp=60 NOT_EQUAL stage1 md5=3c12bb2a35fd
+v11u274repro/cases/VU/vu05b_unit d law+R11U274_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=3c12bb2a35fd
+v11u274repro/cases/VU/vu05b_unit d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=3c12bb2a35fd
+v11u274repro/cases/VU/vu05b_unit d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=3c12bb2a35fd
+v11u274repro/cases/VU/vu05b_unit d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=3c12bb2a35fd
+v11u274repro/cases/VU/vu05b_unit d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=3c12bb2a35fd
+v11u274repro/cases/VU/vu05b_unit e pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=874acaad612b
+v11u274repro/cases/VU/vu05b_unit e law rc=0 cmp=60 NOT_EQUAL stage1 md5=874acaad612b
+v11u274repro/cases/VU/vu05b_unit e law+R11U274_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=874acaad612b
+v11u274repro/cases/VU/vu05b_unit e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=874acaad612b
+v11u274repro/cases/VU/vu05b_unit e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=874acaad612b
+v11u274repro/cases/VU/vu05b_unit e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=874acaad612b
+v11u274repro/cases/VU/vu05b_unit e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=60 NOT_EQUAL stage1 md5=874acaad612b
+v11u274repro/cases/VU/vu06b_multiline d pristine rc=0 cmp=0 STRICT_NOTEQUAL endline md5=31ab40e2df41
+v11u274repro/cases/VU/vu06b_multiline d law rc=0 cmp=0 STRICT_EQUAL 59 objects md5=801168d8fd6a
+v11u274repro/cases/VU/vu06b_multiline d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endline md5=31ab40e2df41
+v11u274repro/cases/VU/vu06b_multiline d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 59 objects md5=801168d8fd6a
+v11u274repro/cases/VU/vu06b_multiline d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 59 objects md5=801168d8fd6a
+v11u274repro/cases/VU/vu06b_multiline d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 59 objects md5=801168d8fd6a
+v11u274repro/cases/VU/vu06b_multiline d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endline md5=31ab40e2df41
+v11u274repro/cases/VU/vu06b_multiline e pristine rc=0 cmp=0 STRICT_NOTEQUAL endline md5=ed192b8faf0e
+v11u274repro/cases/VU/vu06b_multiline e law rc=0 cmp=0 STRICT_EQUAL 58 objects md5=edb111b752f7
+v11u274repro/cases/VU/vu06b_multiline e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endline md5=ed192b8faf0e
+v11u274repro/cases/VU/vu06b_multiline e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 58 objects md5=edb111b752f7
+v11u274repro/cases/VU/vu06b_multiline e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 58 objects md5=edb111b752f7
+v11u274repro/cases/VU/vu06b_multiline e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 58 objects md5=edb111b752f7
+v11u274repro/cases/VU/vu06b_multiline e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endline md5=ed192b8faf0e
+v11u274repro/cases/VU/vu07b_negparen_bin d pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=ccfe3c18d3e9
+v11u274repro/cases/VU/vu07b_negparen_bin d law rc=0 cmp=64 NOT_EQUAL stage1 md5=addba29327d4
+v11u274repro/cases/VU/vu07b_negparen_bin d law+R11U274_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ccfe3c18d3e9
+v11u274repro/cases/VU/vu07b_negparen_bin d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=addba29327d4
+v11u274repro/cases/VU/vu07b_negparen_bin d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=addba29327d4
+v11u274repro/cases/VU/vu07b_negparen_bin d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=addba29327d4
+v11u274repro/cases/VU/vu07b_negparen_bin d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=ccfe3c18d3e9
+v11u274repro/cases/VU/vu07b_negparen_bin e pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=86d081d6f795
+v11u274repro/cases/VU/vu07b_negparen_bin e law rc=0 cmp=64 NOT_EQUAL stage1 md5=2db02cb625c8
+v11u274repro/cases/VU/vu07b_negparen_bin e law+R11U274_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=86d081d6f795
+v11u274repro/cases/VU/vu07b_negparen_bin e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2db02cb625c8
+v11u274repro/cases/VU/vu07b_negparen_bin e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2db02cb625c8
+v11u274repro/cases/VU/vu07b_negparen_bin e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2db02cb625c8
+v11u274repro/cases/VU/vu07b_negparen_bin e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=86d081d6f795
+v11u274repro/cases/VU/vu08b_negcast d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=cb14f012e16f
+v11u274repro/cases/VU/vu08b_negcast d law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=1f958c6400eb
+v11u274repro/cases/VU/vu08b_negcast d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=cb14f012e16f
+v11u274repro/cases/VU/vu08b_negcast d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=1f958c6400eb
+v11u274repro/cases/VU/vu08b_negcast d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=1f958c6400eb
+v11u274repro/cases/VU/vu08b_negcast d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=1f958c6400eb
+v11u274repro/cases/VU/vu08b_negcast d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=cb14f012e16f
+v11u274repro/cases/VU/vu08b_negcast e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=fe023dfc8cad
+v11u274repro/cases/VU/vu08b_negcast e law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b1951fe60e6b
+v11u274repro/cases/VU/vu08b_negcast e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=fe023dfc8cad
+v11u274repro/cases/VU/vu08b_negcast e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b1951fe60e6b
+v11u274repro/cases/VU/vu08b_negcast e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b1951fe60e6b
+v11u274repro/cases/VU/vu08b_negcast e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b1951fe60e6b
+v11u274repro/cases/VU/vu08b_negcast e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=fe023dfc8cad
+v11u274repro/cases/VU/vu09b_typedef d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=53a4379a4e89
+v11u274repro/cases/VU/vu09b_typedef d law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=f50c64d57950
+v11u274repro/cases/VU/vu09b_typedef d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=53a4379a4e89
+v11u274repro/cases/VU/vu09b_typedef d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=f50c64d57950
+v11u274repro/cases/VU/vu09b_typedef d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=f50c64d57950
+v11u274repro/cases/VU/vu09b_typedef d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=f50c64d57950
+v11u274repro/cases/VU/vu09b_typedef d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=53a4379a4e89
+v11u274repro/cases/VU/vu09b_typedef e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=fdee0067cfc0
+v11u274repro/cases/VU/vu09b_typedef e law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=c12f120b5a55
+v11u274repro/cases/VU/vu09b_typedef e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=fdee0067cfc0
+v11u274repro/cases/VU/vu09b_typedef e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=c12f120b5a55
+v11u274repro/cases/VU/vu09b_typedef e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=c12f120b5a55
+v11u274repro/cases/VU/vu09b_typedef e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=c12f120b5a55
+v11u274repro/cases/VU/vu09b_typedef e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=fdee0067cfc0
+v11u274repro/cases/VU/vu12b_import_chain d pristine rc=0 cmp=50 NOT_EQUAL stage1 md5=06b7f4dbb366
+v11u274repro/cases/VU/vu12b_import_chain d law rc=0 cmp=50 NOT_EQUAL stage1 md5=1aee2dcbc1f3
+v11u274repro/cases/VU/vu12b_import_chain d law+R11U274_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=06b7f4dbb366
+v11u274repro/cases/VU/vu12b_import_chain d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=1aee2dcbc1f3
+v11u274repro/cases/VU/vu12b_import_chain d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=1aee2dcbc1f3
+v11u274repro/cases/VU/vu12b_import_chain d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=1aee2dcbc1f3
+v11u274repro/cases/VU/vu12b_import_chain d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=06b7f4dbb366
+v11u274repro/cases/VU/vu12b_import_chain e pristine rc=0 cmp=50 NOT_EQUAL stage1 md5=d3fba8c2f223
+v11u274repro/cases/VU/vu12b_import_chain e law rc=0 cmp=50 NOT_EQUAL stage1 md5=8bb5726afc6f
+v11u274repro/cases/VU/vu12b_import_chain e law+R11U274_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=d3fba8c2f223
+v11u274repro/cases/VU/vu12b_import_chain e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=8bb5726afc6f
+v11u274repro/cases/VU/vu12b_import_chain e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=8bb5726afc6f
+v11u274repro/cases/VU/vu12b_import_chain e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=8bb5726afc6f
+v11u274repro/cases/VU/vu12b_import_chain e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=50 NOT_EQUAL stage1 md5=d3fba8c2f223
+v11u274repro/cases/VU/vu16b_iface_import d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=47933350ed07
+v11u274repro/cases/VU/vu16b_iface_import d law rc=0 cmp=0 STRICT_EQUAL 59 objects md5=32f514435b90
+v11u274repro/cases/VU/vu16b_iface_import d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=47933350ed07
+v11u274repro/cases/VU/vu16b_iface_import d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 59 objects md5=32f514435b90
+v11u274repro/cases/VU/vu16b_iface_import d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 59 objects md5=32f514435b90
+v11u274repro/cases/VU/vu16b_iface_import d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 59 objects md5=32f514435b90
+v11u274repro/cases/VU/vu16b_iface_import d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=47933350ed07
+v11u274repro/cases/VU/vu16b_iface_import e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=33b95ffeecba
+v11u274repro/cases/VU/vu16b_iface_import e law rc=0 cmp=0 STRICT_EQUAL 58 objects md5=ed1a7ebd0671
+v11u274repro/cases/VU/vu16b_iface_import e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=33b95ffeecba
+v11u274repro/cases/VU/vu16b_iface_import e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 58 objects md5=ed1a7ebd0671
+v11u274repro/cases/VU/vu16b_iface_import e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 58 objects md5=ed1a7ebd0671
+v11u274repro/cases/VU/vu16b_iface_import e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 58 objects md5=ed1a7ebd0671
+v11u274repro/cases/VU/vu16b_iface_import e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=33b95ffeecba
+v11u274repro/cases/VU/vu17b_negstring_real d pristine rc=0 cmp=28 NOT_EQUAL stage1 md5=3119d62b6e8d
+v11u274repro/cases/VU/vu17b_negstring_real d law rc=0 cmp=28 NOT_EQUAL stage1 md5=c2c9bafcbf32
+v11u274repro/cases/VU/vu17b_negstring_real d law+R11U274_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=3119d62b6e8d
+v11u274repro/cases/VU/vu17b_negstring_real d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=c2c9bafcbf32
+v11u274repro/cases/VU/vu17b_negstring_real d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=c2c9bafcbf32
+v11u274repro/cases/VU/vu17b_negstring_real d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=c2c9bafcbf32
+v11u274repro/cases/VU/vu17b_negstring_real d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=3119d62b6e8d
+v11u274repro/cases/VU/vu17b_negstring_real e pristine rc=0 cmp=28 NOT_EQUAL stage1 md5=ba8ca497067b
+v11u274repro/cases/VU/vu17b_negstring_real e law rc=0 cmp=28 NOT_EQUAL stage1 md5=6b9c4ef99aff
+v11u274repro/cases/VU/vu17b_negstring_real e law+R11U274_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=ba8ca497067b
+v11u274repro/cases/VU/vu17b_negstring_real e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=6b9c4ef99aff
+v11u274repro/cases/VU/vu17b_negstring_real e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=6b9c4ef99aff
+v11u274repro/cases/VU/vu17b_negstring_real e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=6b9c4ef99aff
+v11u274repro/cases/VU/vu17b_negstring_real e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=28 NOT_EQUAL stage1 md5=ba8ca497067b
+v11u274repro/cases/VU/vu18b_class_pkg d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=2e6b0a6aee19
+v11u274repro/cases/VU/vu18b_class_pkg d law rc=0 cmp=17 NOT_EQUAL stage1 md5=648c98ed0ed3
+v11u274repro/cases/VU/vu18b_class_pkg d law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=2e6b0a6aee19
+v11u274repro/cases/VU/vu18b_class_pkg d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=648c98ed0ed3
+v11u274repro/cases/VU/vu18b_class_pkg d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=648c98ed0ed3
+v11u274repro/cases/VU/vu18b_class_pkg d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=648c98ed0ed3
+v11u274repro/cases/VU/vu18b_class_pkg d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=2e6b0a6aee19
+v11u274repro/cases/VU/vu18b_class_pkg e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=5536b980ef0f
+v11u274repro/cases/VU/vu18b_class_pkg e law rc=0 cmp=17 NOT_EQUAL stage1 md5=d4fe33c34f34
+v11u274repro/cases/VU/vu18b_class_pkg e law+R11U274_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=5536b980ef0f
+v11u274repro/cases/VU/vu18b_class_pkg e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=d4fe33c34f34
+v11u274repro/cases/VU/vu18b_class_pkg e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=d4fe33c34f34
+v11u274repro/cases/VU/vu18b_class_pkg e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=d4fe33c34f34
+v11u274repro/cases/VU/vu18b_class_pkg e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=17 NOT_EQUAL stage1 md5=5536b980ef0f
+v11u274repro/cases/VU/vu19b_redmixed d pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=136d857c3029
+v11u274repro/cases/VU/vu19b_redmixed d law rc=0 cmp=64 NOT_EQUAL stage1 md5=136d857c3029
+v11u274repro/cases/VU/vu19b_redmixed d law+R11U274_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=136d857c3029
+v11u274repro/cases/VU/vu19b_redmixed d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=136d857c3029
+v11u274repro/cases/VU/vu19b_redmixed d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=136d857c3029
+v11u274repro/cases/VU/vu19b_redmixed d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=136d857c3029
+v11u274repro/cases/VU/vu19b_redmixed d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=136d857c3029
+v11u274repro/cases/VU/vu19b_redmixed e pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=2d0ad7a6f993
+v11u274repro/cases/VU/vu19b_redmixed e law rc=0 cmp=64 NOT_EQUAL stage1 md5=2d0ad7a6f993
+v11u274repro/cases/VU/vu19b_redmixed e law+R11U274_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2d0ad7a6f993
+v11u274repro/cases/VU/vu19b_redmixed e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2d0ad7a6f993
+v11u274repro/cases/VU/vu19b_redmixed e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2d0ad7a6f993
+v11u274repro/cases/VU/vu19b_redmixed e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2d0ad7a6f993
+v11u274repro/cases/VU/vu19b_redmixed e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=64 NOT_EQUAL stage1 md5=2d0ad7a6f993
+v11u274repro/cases/VU/vu20b_macro_operand d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=08c726432245
+v11u274repro/cases/VU/vu20b_macro_operand d law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=55ba1dfb4931
+v11u274repro/cases/VU/vu20b_macro_operand d law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=08c726432245
+v11u274repro/cases/VU/vu20b_macro_operand d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=55ba1dfb4931
+v11u274repro/cases/VU/vu20b_macro_operand d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=55ba1dfb4931
+v11u274repro/cases/VU/vu20b_macro_operand d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=55ba1dfb4931
+v11u274repro/cases/VU/vu20b_macro_operand d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=08c726432245
+v11u274repro/cases/VU/vu20b_macro_operand e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=43e10a3359b9
+v11u274repro/cases/VU/vu20b_macro_operand e law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=833f920108bf
+v11u274repro/cases/VU/vu20b_macro_operand e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=43e10a3359b9
+v11u274repro/cases/VU/vu20b_macro_operand e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=833f920108bf
+v11u274repro/cases/VU/vu20b_macro_operand e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=833f920108bf
+v11u274repro/cases/VU/vu20b_macro_operand e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=833f920108bf
+v11u274repro/cases/VU/vu20b_macro_operand e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=43e10a3359b9
+v11u274repro/cases/VR/vr23_genif_cond d pristine rc=0 cmp=0 STRICT_EQUAL 348 objects md5=6c3a38140842
+v11u274repro/cases/VR/vr23_genif_cond d law rc=0 cmp=0 STRICT_EQUAL 348 objects md5=6c3a38140842
+v11u274repro/cases/VR/vr23_genif_cond d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 348 objects md5=6c3a38140842
+v11u274repro/cases/VR/vr23_genif_cond d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 348 objects md5=6c3a38140842
+v11u274repro/cases/VR/vr23_genif_cond d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 348 objects md5=6c3a38140842
+v11u274repro/cases/VR/vr23_genif_cond d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 348 objects md5=6c3a38140842
+v11u274repro/cases/VR/vr23_genif_cond d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 348 objects md5=6c3a38140842
+v11u274repro/cases/VR/vr23_genif_cond e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=673643887d36
+v11u274repro/cases/VR/vr23_genif_cond e law rc=0 cmp=0 STRICT_EQUAL 375 objects md5=cccbcbffe72e
+v11u274repro/cases/VR/vr23_genif_cond e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=673643887d36
+v11u274repro/cases/VR/vr23_genif_cond e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 375 objects md5=cccbcbffe72e
+v11u274repro/cases/VR/vr23_genif_cond e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=673643887d36
+v11u274repro/cases/VR/vr23_genif_cond e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 375 objects md5=cccbcbffe72e
+v11u274repro/cases/VR/vr23_genif_cond e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 375 objects md5=cccbcbffe72e
+v11u274repro/cases/VR/vr24_bits_display d pristine rc=0 cmp=62 NOT_EQUAL stage1 md5=21a0dec05d0f
+v11u274repro/cases/VR/vr24_bits_display d law rc=0 cmp=62 NOT_EQUAL stage1 md5=21a0dec05d0f
+v11u274repro/cases/VR/vr24_bits_display d law+R11U274_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=21a0dec05d0f
+v11u274repro/cases/VR/vr24_bits_display d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=21a0dec05d0f
+v11u274repro/cases/VR/vr24_bits_display d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=21a0dec05d0f
+v11u274repro/cases/VR/vr24_bits_display d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=21a0dec05d0f
+v11u274repro/cases/VR/vr24_bits_display d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=21a0dec05d0f
+v11u274repro/cases/VR/vr24_bits_display e pristine rc=0 cmp=62 NOT_EQUAL stage1 md5=b44b148555e9
+v11u274repro/cases/VR/vr24_bits_display e law rc=0 cmp=62 NOT_EQUAL stage1 md5=f0b5251bc727
+v11u274repro/cases/VR/vr24_bits_display e law+R11U274_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=b44b148555e9
+v11u274repro/cases/VR/vr24_bits_display e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=f0b5251bc727
+v11u274repro/cases/VR/vr24_bits_display e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=b44b148555e9
+v11u274repro/cases/VR/vr24_bits_display e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=f0b5251bc727
+v11u274repro/cases/VR/vr24_bits_display e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=62 NOT_EQUAL stage1 md5=f0b5251bc727
+v11u274repro/cases/VR/vr25_two_modules d pristine rc=0 cmp=0 STRICT_EQUAL 397 objects md5=9b2f016c3070
+v11u274repro/cases/VR/vr25_two_modules d law rc=0 cmp=0 STRICT_EQUAL 397 objects md5=9b2f016c3070
+v11u274repro/cases/VR/vr25_two_modules d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 397 objects md5=9b2f016c3070
+v11u274repro/cases/VR/vr25_two_modules d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 397 objects md5=9b2f016c3070
+v11u274repro/cases/VR/vr25_two_modules d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 397 objects md5=9b2f016c3070
+v11u274repro/cases/VR/vr25_two_modules d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 397 objects md5=9b2f016c3070
+v11u274repro/cases/VR/vr25_two_modules d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 397 objects md5=9b2f016c3070
+v11u274repro/cases/VR/vr25_two_modules e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e20d3c6a4dac
+v11u274repro/cases/VR/vr25_two_modules e law rc=0 cmp=0 STRICT_EQUAL 437 objects md5=34c0ba890ff9
+v11u274repro/cases/VR/vr25_two_modules e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e20d3c6a4dac
+v11u274repro/cases/VR/vr25_two_modules e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 437 objects md5=34c0ba890ff9
+v11u274repro/cases/VR/vr25_two_modules e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e20d3c6a4dac
+v11u274repro/cases/VR/vr25_two_modules e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 437 objects md5=34c0ba890ff9
+v11u274repro/cases/VR/vr25_two_modules e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 437 objects md5=34c0ba890ff9
+v11u274repro/cases/VR/vr26_import_typed d pristine rc=0 cmp=0 STRICT_EQUAL 310 objects md5=38d7fe398ca3
+v11u274repro/cases/VR/vr26_import_typed d law rc=0 cmp=0 STRICT_EQUAL 310 objects md5=38d7fe398ca3
+v11u274repro/cases/VR/vr26_import_typed d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 310 objects md5=38d7fe398ca3
+v11u274repro/cases/VR/vr26_import_typed d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 310 objects md5=38d7fe398ca3
+v11u274repro/cases/VR/vr26_import_typed d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 310 objects md5=38d7fe398ca3
+v11u274repro/cases/VR/vr26_import_typed d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 310 objects md5=38d7fe398ca3
+v11u274repro/cases/VR/vr26_import_typed d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 310 objects md5=38d7fe398ca3
+v11u274repro/cases/VR/vr26_import_typed e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=671dce3935ef
+v11u274repro/cases/VR/vr26_import_typed e law rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=671dce3935ef
+v11u274repro/cases/VR/vr26_import_typed e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=671dce3935ef
+v11u274repro/cases/VR/vr26_import_typed e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=671dce3935ef
+v11u274repro/cases/VR/vr26_import_typed e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=671dce3935ef
+v11u274repro/cases/VR/vr26_import_typed e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=671dce3935ef
+v11u274repro/cases/VR/vr26_import_typed e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=671dce3935ef
+v11u274repro/cases/VR/vr27_genfor_bound d pristine rc=0 cmp=0 STRICT_EQUAL 296 objects md5=5afe1e1f417e
+v11u274repro/cases/VR/vr27_genfor_bound d law rc=0 cmp=0 STRICT_EQUAL 296 objects md5=5afe1e1f417e
+v11u274repro/cases/VR/vr27_genfor_bound d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 296 objects md5=5afe1e1f417e
+v11u274repro/cases/VR/vr27_genfor_bound d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 296 objects md5=5afe1e1f417e
+v11u274repro/cases/VR/vr27_genfor_bound d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 296 objects md5=5afe1e1f417e
+v11u274repro/cases/VR/vr27_genfor_bound d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 296 objects md5=5afe1e1f417e
+v11u274repro/cases/VR/vr27_genfor_bound d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 296 objects md5=5afe1e1f417e
+v11u274repro/cases/VR/vr27_genfor_bound e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=229b1920cbaf
+v11u274repro/cases/VR/vr27_genfor_bound e law rc=0 cmp=0 STRICT_EQUAL 317 objects md5=3b02a6ce85b1
+v11u274repro/cases/VR/vr27_genfor_bound e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=229b1920cbaf
+v11u274repro/cases/VR/vr27_genfor_bound e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 317 objects md5=3b02a6ce85b1
+v11u274repro/cases/VR/vr27_genfor_bound e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=229b1920cbaf
+v11u274repro/cases/VR/vr27_genfor_bound e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 317 objects md5=3b02a6ce85b1
+v11u274repro/cases/VR/vr27_genfor_bound e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 317 objects md5=3b02a6ce85b1
+v11u274repro/cases/VR/vr28_func_body_read d pristine rc=0 cmp=0 STRICT_EQUAL 318 objects md5=1f65787f923b
+v11u274repro/cases/VR/vr28_func_body_read d law rc=0 cmp=0 STRICT_EQUAL 318 objects md5=1f65787f923b
+v11u274repro/cases/VR/vr28_func_body_read d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 318 objects md5=1f65787f923b
+v11u274repro/cases/VR/vr28_func_body_read d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 318 objects md5=1f65787f923b
+v11u274repro/cases/VR/vr28_func_body_read d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 318 objects md5=1f65787f923b
+v11u274repro/cases/VR/vr28_func_body_read d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 318 objects md5=1f65787f923b
+v11u274repro/cases/VR/vr28_func_body_read d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 318 objects md5=1f65787f923b
+v11u274repro/cases/VR/vr28_func_body_read e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e6cd0df92f2c
+v11u274repro/cases/VR/vr28_func_body_read e law rc=0 cmp=0 STRICT_EQUAL 337 objects md5=97544f119cc9
+v11u274repro/cases/VR/vr28_func_body_read e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e6cd0df92f2c
+v11u274repro/cases/VR/vr28_func_body_read e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 337 objects md5=97544f119cc9
+v11u274repro/cases/VR/vr28_func_body_read e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e6cd0df92f2c
+v11u274repro/cases/VR/vr28_func_body_read e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 337 objects md5=97544f119cc9
+v11u274repro/cases/VR/vr28_func_body_read e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 337 objects md5=97544f119cc9
+v11u274repro/cases/VR/vr29_lhs_index_and_streams d pristine rc=0 cmp=0 STRICT_EQUAL 358 objects md5=8696253faa0b
+v11u274repro/cases/VR/vr29_lhs_index_and_streams d law rc=0 cmp=0 STRICT_EQUAL 358 objects md5=8696253faa0b
+v11u274repro/cases/VR/vr29_lhs_index_and_streams d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 358 objects md5=8696253faa0b
+v11u274repro/cases/VR/vr29_lhs_index_and_streams d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 358 objects md5=8696253faa0b
+v11u274repro/cases/VR/vr29_lhs_index_and_streams d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 358 objects md5=8696253faa0b
+v11u274repro/cases/VR/vr29_lhs_index_and_streams d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 358 objects md5=8696253faa0b
+v11u274repro/cases/VR/vr29_lhs_index_and_streams d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 358 objects md5=8696253faa0b
+v11u274repro/cases/VR/vr29_lhs_index_and_streams e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e47e58ade87e
+v11u274repro/cases/VR/vr29_lhs_index_and_streams e law rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=03098864106d
+v11u274repro/cases/VR/vr29_lhs_index_and_streams e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e47e58ade87e
+v11u274repro/cases/VR/vr29_lhs_index_and_streams e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=03098864106d
+v11u274repro/cases/VR/vr29_lhs_index_and_streams e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e47e58ade87e
+v11u274repro/cases/VR/vr29_lhs_index_and_streams e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=03098864106d
+v11u274repro/cases/VR/vr29_lhs_index_and_streams e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=03098864106d
+v11u274repro/cases/VR/vr30_top_param d pristine rc=0 cmp=0 STRICT_EQUAL 209 objects md5=65a96749cf6f
+v11u274repro/cases/VR/vr30_top_param d law rc=0 cmp=0 STRICT_EQUAL 209 objects md5=65a96749cf6f
+v11u274repro/cases/VR/vr30_top_param d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 209 objects md5=65a96749cf6f
+v11u274repro/cases/VR/vr30_top_param d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 209 objects md5=65a96749cf6f
+v11u274repro/cases/VR/vr30_top_param d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 209 objects md5=65a96749cf6f
+v11u274repro/cases/VR/vr30_top_param d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 209 objects md5=65a96749cf6f
+v11u274repro/cases/VR/vr30_top_param d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 209 objects md5=65a96749cf6f
+v11u274repro/cases/VR/vr30_top_param e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=0186de5d784d
+v11u274repro/cases/VR/vr30_top_param e law rc=0 cmp=0 STRICT_EQUAL 229 objects md5=e7f88849812c
+v11u274repro/cases/VR/vr30_top_param e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=0186de5d784d
+v11u274repro/cases/VR/vr30_top_param e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 229 objects md5=e7f88849812c
+v11u274repro/cases/VR/vr30_top_param e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=0186de5d784d
+v11u274repro/cases/VR/vr30_top_param e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 229 objects md5=e7f88849812c
+v11u274repro/cases/VR/vr30_top_param e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 229 objects md5=e7f88849812c
+v11u274repro/cases/VR/vr31_two_paths_same_member d pristine rc=0 cmp=0 STRICT_EQUAL 395 objects md5=ba09f342499b
+v11u274repro/cases/VR/vr31_two_paths_same_member d law rc=0 cmp=0 STRICT_EQUAL 395 objects md5=ba09f342499b
+v11u274repro/cases/VR/vr31_two_paths_same_member d law+R11U274_OFF rc=0 cmp=0 STRICT_EQUAL 395 objects md5=ba09f342499b
+v11u274repro/cases/VR/vr31_two_paths_same_member d law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 395 objects md5=ba09f342499b
+v11u274repro/cases/VR/vr31_two_paths_same_member d law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_EQUAL 395 objects md5=ba09f342499b
+v11u274repro/cases/VR/vr31_two_paths_same_member d law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 395 objects md5=ba09f342499b
+v11u274repro/cases/VR/vr31_two_paths_same_member d law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 395 objects md5=ba09f342499b
+v11u274repro/cases/VR/vr31_two_paths_same_member e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5c370453730c
+v11u274repro/cases/VR/vr31_two_paths_same_member e law rc=0 cmp=0 STRICT_EQUAL 454 objects md5=5d4c3fef6217
+v11u274repro/cases/VR/vr31_two_paths_same_member e law+R11U274_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5c370453730c
+v11u274repro/cases/VR/vr31_two_paths_same_member e law+R11U274_PKGNETDIMEND_OFF rc=0 cmp=0 STRICT_EQUAL 454 objects md5=5d4c3fef6217
+v11u274repro/cases/VR/vr31_two_paths_same_member e law+R11U274_MEMREADCOPY_OFF rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5c370453730c
+v11u274repro/cases/VR/vr31_two_paths_same_member e law+R11U274_LOTSNESTGEN_OFF rc=0 cmp=0 STRICT_EQUAL 454 objects md5=5d4c3fef6217
+v11u274repro/cases/VR/vr31_two_paths_same_member e law+R11U274_PKGUNARYSPAN_OFF rc=0 cmp=0 STRICT_EQUAL 454 objects md5=5d4c3fef6217

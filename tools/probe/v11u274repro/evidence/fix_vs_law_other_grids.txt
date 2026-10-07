@@ -1,0 +1,6 @@
+FIXDIFF v11u274repro/cases/VP/vp02_signed_pkd d law:md5=ba25e72389c3 fix:rc=0 cmp=62 NOT_EQUAL stage1 md5=1b62de6e6b19
+FIXDIFF v11u274repro/cases/VP/vp02_signed_pkd e law:md5=3a7e4b366bfc fix:rc=0 cmp=62 NOT_EQUAL stage1 md5=91f73d21540a
+FIXDIFF v11u274repro/cases/VP/vp08_init d law:NODB fix:rc=3 NODB
+FIXDIFF v11u274repro/cases/VP/vp08_init e law:NODB fix:rc=3 NODB
+FIXDIFF v11u274repro/cases/VR/vr19_leftover_fn d law:NODB fix:rc=0 cmp=76 NOT_EQUAL stage1 md5=7efba621360d
+FIXDIFF v11u274repro/cases/VR/vr19_leftover_fn e law:NODB fix:rc=0 cmp=88 NOT_EQUAL stage1 md5=743cc99f319e

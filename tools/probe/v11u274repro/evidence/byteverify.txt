@@ -1,0 +1,21 @@
+# law vs pristine (fence-filtered hard-link mirrors, tools/probe/r11u272repro/drivers/bvmirror.sh)
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/testflags/NoReducTypespec-168324f1/slang.uhdm  patched=d93d5cad06db pristine=1f9d83e8d1fe
+MOVERS: 1 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+# fix vs law
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVERS: 0 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+# probe databases, law vs pristine (pristine probe stage rerun from the law worktree: /tmp/v11u274_prP)
+./r10uvm187repro__g187_a_order.uhdm
+./r11u77repro__grid__y4_bindreach.uhdm
+./r11u82repro__grid__w3_arraynet.uhdm
+./r11u88repro__grid__i6_ifarray.uhdm
+./r11u88repro__grid__q12_ndaparamenc.uhdm
+./r11u88repro__grid__y1_pkgnetkind.uhdm
+./r11v77repro__grid__vh_arrelem.uhdm
+./v11u114repro__grid__set1__q04.uhdm
+# probe databases, fix vs law: 0 of 4087
+# downstream slang-lane databases: law vs pristine 0 of 805, fix vs law 0 of 805

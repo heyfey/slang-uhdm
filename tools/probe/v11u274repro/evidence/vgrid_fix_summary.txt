@@ -1,0 +1,13 @@
+FIXMOVER v11u274repro/cases/VP/vp02_signed_pkd d: pristine[rc=0 cmp=62 NOT_EQUAL stage1] law[rc=0 cmp=62 NOT_EQUAL stage1] fix[rc=0 cmp=62 NOT_EQUAL stage1] restored-by []
+FIXMOVER v11u274repro/cases/VP/vp02_signed_pkd e: pristine[rc=0 cmp=62 NOT_EQUAL stage1] law[rc=0 cmp=62 NOT_EQUAL stage1] fix[rc=0 cmp=62 NOT_EQUAL stage1] restored-by []
+FIXMOVER v11u274repro/cases/VP/vp13_kw_shapes d: pristine[rc=0 cmp=0 STRICT_NOTEQUAL endcol] law[rc=0 cmp=0 STRICT_NOTEQUAL endcol] fix[rc=0 cmp=0 STRICT_EQUAL 126 objects] restored-by []
+FIXMOVER v11u274repro/cases/VP/vp13_kw_shapes e: pristine[rc=0 cmp=0 STRICT_NOTEQUAL endcol] law[rc=0 cmp=0 STRICT_NOTEQUAL endcol] fix[rc=0 cmp=0 STRICT_EQUAL 125 objects] restored-by []
+FIXMOVER v11u274repro/cases/VP/vp14_kw_packed_only d: pristine[rc=0 cmp=0 STRICT_EQUAL 42 objects] law[rc=0 cmp=0 STRICT_NOTEQUAL endcol] fix[rc=0 cmp=0 STRICT_EQUAL 42 objects] restored-by ['R11V274_PKDKW_OFF']
+FIXMOVER v11u274repro/cases/VP/vp14_kw_packed_only e: pristine[rc=0 cmp=0 STRICT_EQUAL 41 objects] law[rc=0 cmp=0 STRICT_NOTEQUAL endcol] fix[rc=0 cmp=0 STRICT_EQUAL 41 objects] restored-by ['R11V274_PKDKW_OFF']
+FIXMOVER v11u274repro/cases/VP/vp15_signed_packed_only d: pristine[rc=0 cmp=0 STRICT_NOTEQUAL endcol] law[rc=0 cmp=0 STRICT_NOTEQUAL endcol] fix[rc=0 cmp=0 STRICT_EQUAL 42 objects] restored-by ['R11V274_SIGNEND_OFF']
+FIXMOVER v11u274repro/cases/VP/vp15_signed_packed_only e: pristine[rc=0 cmp=0 STRICT_NOTEQUAL endcol] law[rc=0 cmp=0 STRICT_NOTEQUAL endcol] fix[rc=0 cmp=0 STRICT_EQUAL 41 objects] restored-by ['R11V274_SIGNEND_OFF']
+FIXMOVER v11u274repro/cases/VP/vp17_signed_onedim d: pristine[rc=0 cmp=0 STRICT_NOTEQUAL endcol] law[rc=0 cmp=0 STRICT_NOTEQUAL endcol] fix[rc=0 cmp=0 STRICT_EQUAL 54 objects] restored-by ['R11V274_SIGNEND_OFF']
+FIXMOVER v11u274repro/cases/VP/vp17_signed_onedim e: pristine[rc=0 cmp=0 STRICT_NOTEQUAL endcol] law[rc=0 cmp=0 STRICT_NOTEQUAL endcol] fix[rc=0 cmp=0 STRICT_EQUAL 53 objects] restored-by ['R11V274_SIGNEND_OFF']
+FIXMOVER v11u274repro/cases/VP/vp19_import_kw d: pristine[rc=0 cmp=62 NOT_EQUAL stage1] law[rc=0 cmp=62 NOT_EQUAL stage1] fix[rc=0 cmp=62 NOT_EQUAL stage1] restored-by []
+FIXMOVER v11u274repro/cases/VP/vp19_import_kw e: pristine[rc=0 cmp=62 NOT_EQUAL stage1] law[rc=0 cmp=62 NOT_EQUAL stage1] fix[rc=0 cmp=62 NOT_EQUAL stage1] restored-by []
+case-views 70; fix vs pristine: moving 57, entering STRICT_EQUAL 40, leaving 0, exit-code changes 0, uhdm-cmp line changes 0; fix+R11V274_OFF == law 70/70; fix+R11U274_OFF == pristine 70/70; fix vs law movers 12 restored by {'R11V274_PKDKW_OFF': 2, 'R11V274_SIGNEND_OFF': 4}
