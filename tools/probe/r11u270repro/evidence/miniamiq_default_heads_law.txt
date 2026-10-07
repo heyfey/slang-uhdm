@@ -1,0 +1,8 @@
+#241741 col
+  A: 5	class_var			svaunit_pkg::svaunit_immediate_assertion_details::new	svaunit_immediate_assertion_details.svh	43	23	43	29		0
+  B: 5	class_var			svaunit_pkg::svaunit_immediate_assertion_details::new	svaunit_immediate_assertion_details.svh	43	30	43	34		0
+#243118 col
+  A: 5	class_var			svaunit_pkg::svaunit_immediate_assertion_info::new	svaunit_immediate_assertion_info.svh	37	23	37	29		0
+  B: 5	class_var			svaunit_pkg::svaunit_immediate_assertion_info::new	svaunit_immediate_assertion_info.svh	37	30	37	34		0
+fields: col=2 endcol=2 objects_differing=2
+STRICT_NOTEQUAL col

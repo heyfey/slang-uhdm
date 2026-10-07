@@ -1,0 +1,6 @@
+pristine regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+pristine regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+pristine regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+law regressions=0 conversions=0 changes=1 only-fresh=0 only-committed=0
+law regressions=0 conversions=2 changes=2 only-fresh=0 only-committed=0
+law regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

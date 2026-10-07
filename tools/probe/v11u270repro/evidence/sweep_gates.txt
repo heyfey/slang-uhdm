@@ -1,0 +1,47 @@
+== sweep P (pristine 4473d181)
+law index current
+[probe] EQUAL=3634 STRICT_NOTEQUAL=453
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=476 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=4 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=470 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=4 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+rc=0
+== sweep L (law 52efc588)
+law index current
+[probe] EQUAL=3634 STRICT_NOTEQUAL=453
+CHANGE r10uvm99repro/g99_a9_fence STRICT_NOTEQUAL differ:fullname(2) -> differ:count(0)
+regressions=0 conversions=0 changes=1 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=477 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=3 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=471 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=3 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CONVERSION SeqDriver default STRICT_NOTEQUAL differ:fullname(6) -> CMP_EQUAL
+CONVERSION SeqDriver testflags STRICT_NOTEQUAL differ:fullname(6) -> CMP_EQUAL
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:fullname(4) -> differ:col(2)
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:fullname(4) -> differ:col(2)
+regressions=0 conversions=2 changes=2 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+rc=0
+== downstream L
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+rc=1
+== downstream P
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+rc=1
+== csv row diff pristine vs law (workdir paths stripped)
+surelog.csv < MiniAmiq,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+surelog.csv < MiniAmiq,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+surelog.csv > MiniAmiq,default,STRICT_NOTEQUAL,differ:col(2),,differ:col(2)
+surelog.csv > MiniAmiq,testflags,STRICT_NOTEQUAL,differ:col(2),,differ:col(2)
+surelog.csv < SeqDriver,default,STRICT_NOTEQUAL,differ:fullname(6),,differ:fullname(6)
+surelog.csv < SeqDriver,testflags,STRICT_NOTEQUAL,differ:fullname(6),,differ:fullname(6)
+surelog.csv > SeqDriver,default,CMP_EQUAL,,,equal
+surelog.csv > SeqDriver,testflags,CMP_EQUAL,,,equal
+probe.csv < r10uvm99repro/g99_a9_fence,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+probe.csv > r10uvm99repro/g99_a9_fence,STRICT_NOTEQUAL,differ:count(0),differ:count(0)
+== downstream csv: pristine vs law 0 lines differ; law vs results/downstream_uhdm2rtlil.csv 0 lines differ

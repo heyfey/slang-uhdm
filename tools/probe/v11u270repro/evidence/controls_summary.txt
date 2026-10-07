@@ -1,0 +1,8 @@
+ctl1.txt case-views 4040 moving 6 entering 6 leaving 0 rc_changes 0 cmplines_changes 0 nonzero_rc_views 14
+   tp/r11u271repro/cases/R/r01_cast_alias_iface STRICT_NOTEQUAL_depth STRICT_EQUAL_351_objects
+   tp/r11u271repro/cases/R/r01_cast_alias_iface_el STRICT_NOTEQUAL_depth STRICT_EQUAL_397_objects
+   tp/r11u271repro/cases/R/r02_inside_pkgparam_class STRICT_NOTEQUAL_fullname STRICT_EQUAL_207_objects
+   tp/r11u271repro/cases/R/r02_inside_pkgparam_class_el STRICT_NOTEQUAL_fullname STRICT_EQUAL_195_objects
+   tp/r11u271repro/cases/R/r04_inside_pkgparam_module STRICT_NOTEQUAL_fullname STRICT_EQUAL_171_objects
+   tp/r11u271repro/cases/R/r04_inside_pkgparam_module_el STRICT_NOTEQUAL_fullname STRICT_EQUAL_171_objects
+ctl2.txt case-views 2564 moving 0 entering 0 leaving 0 rc_changes 0 cmplines_changes 0 nonzero_rc_views 23

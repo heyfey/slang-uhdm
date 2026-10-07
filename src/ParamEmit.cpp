@@ -31,6 +31,7 @@
 #include "R264.h"
 #include "R266.h"
 #include "R268.h"
+#include "R270.h"
 namespace slang_uhdm {
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
@@ -27769,6 +27770,49 @@ static void pcwRefLastWriter250(
 }
 
 void UhdmExporter::drainPaNameCopySrc38() {
+    // § insideSetParamFoldKeepsPa270 (r11u270, ExprEmit) — design-final.
+    insideSetParamPaDrain270();
+    // § enumAliasCastBindsImportCopy270 (r11u270; the record at ExprEmit's
+    // explicit-cast arm) — a cast to a package enum-ALIAS typedef that bound
+    // the definition-pass clone, whose Typedef_alias is never bound (the
+    // home package never lists an alias typedef), takes the typedef's import
+    // copy: "An enum-ALIAS typedef gets exactly ONE typespec object in the
+    // design" (emitPackage's import-copy arm), the object a declaration of
+    // the type binds.  No import copy, or one without a bound alias ->
+    // unchanged (trace).
+    for (size_t i270 = 0; i270 < enumAliasCastN270(); i270++) {
+        UHDM::ref_typespec* rt270 = nullptr;
+        const slang::ast::Symbol* sym270 = nullptr;
+        enumAliasCastRec270(i270, rt270, sym270);
+        auto* a270 = rt270->Actual_typespec();
+        if (!a270 || a270->UhdmType() != UHDM::uhdmenum_typespec)
+            continue;
+        auto* al270 = ((UHDM::enum_typespec*)a270)->Typedef_alias();
+        if (!al270 || al270->Actual_typespec())
+            continue;
+        std::string nm270(a270->VpiName());
+        auto it270 = pkgImportCloneTs.find(sym270);
+        UHDM::typespec* b270 =
+            it270 != pkgImportCloneTs.end() ? it270->second : nullptr;
+        if (!b270 || b270 == a270 ||
+            b270->UhdmType() != UHDM::uhdmenum_typespec ||
+            !((UHDM::enum_typespec*)b270)->Typedef_alias() ||
+            !((UHDM::enum_typespec*)b270)->Typedef_alias()->Actual_typespec()) {
+            if (tr270On())
+                tr270("enumAliasCastBindsImportCopy270",
+                      std::string("abstain ") + (b270 ? "unbound " : "nocopy ") + nm270);
+            continue;
+        }
+        if (!r11u270On("R11U270_ENUMALIAS_OFF")) {
+            if (tr270On())
+                tr270("enumAliasCastBindsImportCopy270", "off " + nm270);
+            continue;
+        }
+        rt270->Actual_typespec(b270);
+        if (tr270On())
+            tr270("enumAliasCastBindsImportCopy270",
+                  nm270 + " " + std::string(rt270->VpiFullName()));
+    }
     pcwRefLastWriter250(s, parenCastWidthRefs);  // § pcwRefLastWriter250 (r11u250)
     pkgArrTdBindCopies250(s, comp);  // § pkgArrTdBindCopies250 (r11u250)
     pkgAliasOfKwBind250(s, comp);  // § pkgAliasOfKwBind250 (r11u250)

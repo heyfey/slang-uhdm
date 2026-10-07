@@ -1,0 +1,102 @@
+VE/ve01_module_direct                      STRICT_EQUAL_306_objects       -> STRICT_EQUAL_306_objects
+VE/ve01_module_direct_el                   STRICT_EQUAL_283_objects       -> STRICT_EQUAL_283_objects
+VE/ve02_two_modules                        STRICT_EQUAL_401_objects       -> STRICT_EQUAL_401_objects
+VE/ve02_two_modules_el                     STRICT_EQUAL_399_objects       -> STRICT_EQUAL_399_objects
+VE/ve03_home_pkg_func                      STRICT_EQUAL_408_objects       -> STRICT_EQUAL_408_objects
+VE/ve03_home_pkg_func_el                   STRICT_EQUAL_407_objects       -> STRICT_EQUAL_407_objects
+VE/ve04_module_local_alias                 STRICT_EQUAL_147_objects       -> STRICT_EQUAL_147_objects
+VE/ve04_module_local_alias_el              STRICT_EQUAL_146_objects       -> STRICT_EQUAL_146_objects
+VE/ve05_class_pkg_two_users                STRICT_NOTEQUAL_depth          -> STRICT_EQUAL_327_objects       MOVED by ENUMALIAS
+VE/ve05_class_pkg_two_users_el             STRICT_NOTEQUAL_depth          -> STRICT_EQUAL_378_objects       MOVED by ENUMALIAS
+VE/ve06_alias_struct_control               NOT_EQUAL_stage1               -> NOT_EQUAL_stage1
+VE/ve06_alias_struct_control_el            NOT_EQUAL_stage1               -> NOT_EQUAL_stage1
+VE/ve07_gen_and_param                      NOT_EQUAL_stage1               -> NOT_EQUAL_stage1
+VE/ve07_gen_and_param_el                   NOT_EQUAL_stage1               -> NOT_EQUAL_stage1
+VE/ve08_two_inst_func                      STRICT_EQUAL_387_objects       -> STRICT_EQUAL_387_objects
+VE/ve08_two_inst_func_el                   STRICT_EQUAL_535_objects       -> STRICT_EQUAL_535_objects
+VE/ve09_class_in_module_import             STRICT_NOTEQUAL_fullname       -> STRICT_NOTEQUAL_fullname
+VE/ve09_class_in_module_import_el          STRICT_NOTEQUAL_fullname       -> STRICT_NOTEQUAL_fullname
+VI/vi01_gen_local_shadow                   NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi01_gen_local_shadow_el                NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi02_gen_func                           NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi02_gen_func_el                        NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi03_class_in_module                    STRICT_EQUAL_50_objects        -> STRICT_EQUAL_50_objects
+VI/vi03_class_in_module_el                 STRICT_EQUAL_63_objects        -> STRICT_EQUAL_63_objects
+VI/vi04_constraint                         STRICT_EQUAL_90_objects        -> STRICT_EQUAL_90_objects
+VI/vi04_constraint_el                      STRICT_EQUAL_90_objects        -> STRICT_EQUAL_90_objects
+VI/vi05_param_init_slot                    NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi05_param_init_slot_el                 NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi06_two_inst_override                  STRICT_EQUAL_172_objects       -> STRICT_EQUAL_172_objects
+VI/vi06_two_inst_override_el               STRICT_EQUAL_184_objects       -> STRICT_EQUAL_184_objects
+VI/vi07_iface_modport_func                 NOT_EQUAL_stage1               -> NOT_EQUAL_stage1
+VI/vi07_iface_modport_func_el              STRICT_EQUAL_100_objects       -> STRICT_EQUAL_100_objects
+VI/vi08_class_param_and_pkg                NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi08_class_param_and_pkg_el             NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi09_array_param_member                 STRICT_EQUAL_161_objects       -> STRICT_EQUAL_161_objects
+VI/vi09_array_param_member_el              STRICT_EQUAL_158_objects       -> STRICT_EQUAL_158_objects
+VI/vi10_ternary_loop_assert                STRICT_EQUAL_180_objects       -> STRICT_EQUAL_180_objects
+VI/vi10_ternary_loop_assert_el             STRICT_EQUAL_183_objects       -> STRICT_EQUAL_183_objects
+VI/vi11_pkg_class_own                      NOT_EQUAL_stage1               -> NOT_EQUAL_stage1
+VI/vi11_pkg_class_own_el                   NOT_EQUAL_stage1               -> NOT_EQUAL_stage1
+VI/vi12_two_level_gen                      STRICT_EQUAL_152_objects       -> STRICT_EQUAL_152_objects
+VI/vi12_two_level_gen_el                   STRICT_EQUAL_152_objects       -> STRICT_EQUAL_152_objects
+VI/vi13_nested_module_inst_depth           STRICT_EQUAL_163_objects       -> STRICT_EQUAL_163_objects
+VI/vi13_nested_module_inst_depth_el        STRICT_EQUAL_159_objects       -> STRICT_EQUAL_159_objects
+VI/vi14_implicit_net_and_case              STRICT_EQUAL_121_objects       -> STRICT_EQUAL_121_objects
+VI/vi14_implicit_net_and_case_el           STRICT_EQUAL_119_objects       -> STRICT_EQUAL_119_objects
+VI/vi15_typed_vec_param                    NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi15_typed_vec_param_el                 NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi16_pkg_imports_pkg                    NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi16_pkg_imports_pkg_el                 NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi17_two_inst_local                     STRICT_EQUAL_172_objects       -> STRICT_EQUAL_172_objects
+VI/vi17_two_inst_local_el                  STRICT_EQUAL_184_objects       -> STRICT_EQUAL_184_objects
+VI/vi18_class_spec_value_param             STRICT_EQUAL_49_objects        -> STRICT_EQUAL_49_objects
+VI/vi18_class_spec_value_param_el          STRICT_EQUAL_49_objects        -> STRICT_EQUAL_49_objects
+VI/vi19_iface_seq_let                      NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi19_iface_seq_let_el                   NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi20_unit_param                         STRICT_EQUAL_83_objects        -> STRICT_EQUAL_83_objects
+VI/vi20_unit_param_el                      STRICT_EQUAL_81_objects        -> STRICT_EQUAL_81_objects
+VI/vi21_module_task_in_gen_inst            STRICT_EQUAL_189_objects       -> STRICT_EQUAL_189_objects
+VI/vi21_module_task_in_gen_inst_el         STRICT_EQUAL_203_objects       -> STRICT_EQUAL_203_objects
+VI/vi22_typed_members                      NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi22_typed_members_el                   NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi23_class_method_variants              STRICT_NOTEQUAL_fullname       -> STRICT_NOTEQUAL_fullname       MOVED by INSIDEPA
+VI/vi23_class_method_variants_el           STRICT_NOTEQUAL_fullname       -> STRICT_NOTEQUAL_fullname       MOVED by INSIDEPA
+VI/vi24_enum_param_member                  NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VI/vi24_enum_param_member_el               NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by INSIDEPA
+VN/vn01_shapes                             STRICT_NOTEQUAL_fullname       -> STRICT_NOTEQUAL_fullname       MOVED by MARGIDXPARENT
+VN/vn01_shapes_el                          STRICT_EQUAL_273_objects       -> STRICT_EQUAL_273_objects       MOVED by MARGIDXPARENT
+VN/vn02_module_iface                       NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by MARGIDXPARENT
+VN/vn02_module_iface_el                    STRICT_NOTEQUAL_fullname       -> STRICT_EQUAL_234_objects       MOVED by MARGIDXPARENT
+VN/vn03_nested_calls                       STRICT_NOTEQUAL_fullname       -> STRICT_EQUAL_117_objects       MOVED by MARGIDXPARENT
+VN/vn03_nested_calls_el                    STRICT_EQUAL_123_objects       -> STRICT_EQUAL_123_objects       MOVED by MARGIDXPARENT
+VS/vs01_static_prop_lvalue                 NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by SCOPEDEND
+VS/vs01_static_prop_lvalue_el              NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by SCOPEDEND
+VS/vs02_type_param_call                    NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by SCOPEDEND
+VS/vs02_type_param_call_el                 NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by SCOPEDEND
+VS/vs03_pkg_qualified_space                NOT_EQUAL_stage1               -> NOT_EQUAL_stage1
+VS/vs03_pkg_qualified_space_el             NOT_EQUAL_stage1               -> NOT_EQUAL_stage1
+VS/vs04_chain_and_module                   NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by SCOPEDEND
+VS/vs04_chain_and_module_el                NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by SCOPEDEND
+VS/vs05_static_reads_clean                 STRICT_NOTEQUAL_endcol         -> STRICT_EQUAL_68_objects        MOVED by SCOPEDEND
+VS/vs05_static_reads_clean_el              STRICT_NOTEQUAL_endcol         -> STRICT_EQUAL_68_objects        MOVED by SCOPEDEND
+VS/vs06_module_initial_calls               STRICT_NOTEQUAL_endcol         -> STRICT_EQUAL_61_objects        MOVED by SCOPEDEND
+VS/vs06_module_initial_calls_el            STRICT_NOTEQUAL_endcol         -> STRICT_EQUAL_58_objects        MOVED by SCOPEDEND
+VS/vs07_pkg_class_scoped                   STRICT_NOTEQUAL_endcol         -> STRICT_EQUAL_69_objects        MOVED by SCOPEDEND
+VS/vs07_pkg_class_scoped_el                STRICT_NOTEQUAL_endcol         -> STRICT_EQUAL_63_objects        MOVED by SCOPEDEND
+VT/vt01_module_contexts                    NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by TIMEKWSPAN
+VT/vt01_module_contexts_el                 NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by TIMEKWSPAN
+VT/vt02_expr_shapes                        NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by TIMEKWSPAN
+VT/vt02_expr_shapes_el                     NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by TIMEKWSPAN
+VT/vt03_class_and_macro                    NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by TIMEKWSPAN
+VT/vt03_class_and_macro_el                 NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by TIMEKWSPAN
+VT/vt04_signed_unsigned_control            STRICT_EQUAL_79_objects        -> STRICT_EQUAL_79_objects
+VT/vt04_signed_unsigned_control_el         STRICT_EQUAL_76_objects        -> STRICT_EQUAL_76_objects
+VT/vt05_clean_module                       STRICT_NOTEQUAL_endcol         -> STRICT_EQUAL_125_objects       MOVED by TIMEKWSPAN
+VT/vt05_clean_module_el                    STRICT_NOTEQUAL_endcol         -> STRICT_EQUAL_119_objects       MOVED by TIMEKWSPAN
+VT/vt06_clean_class                        STRICT_NOTEQUAL_endcol         -> STRICT_EQUAL_42_objects        MOVED by TIMEKWSPAN
+VT/vt06_clean_class_el                     STRICT_NOTEQUAL_endcol         -> STRICT_EQUAL_42_objects        MOVED by TIMEKWSPAN
+VT/vt07_gen_scope                          NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by TIMEKWSPAN
+VT/vt07_gen_scope_el                       NOT_EQUAL_stage1               -> NOT_EQUAL_stage1               MOVED by TIMEKWSPAN
+case-views 100 moving 52 entering 14 leaving 0 cmplines_changes 0 OFF==pris 100 nonzero_rc 0
+attribution {'ENUMALIAS': 2, 'INSIDEPA': 20, 'MARGIDXPARENT': 6, 'SCOPEDEND': 12, 'TIMEKWSPAN': 12} multi []

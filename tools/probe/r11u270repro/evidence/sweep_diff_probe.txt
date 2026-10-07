@@ -1,0 +1,4 @@
+1090c1090
+< r10uvm99repro/g99_a9_fence,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+---
+> r10uvm99repro/g99_a9_fence,STRICT_NOTEQUAL,differ:count(0),differ:count(0)

@@ -1,0 +1,23 @@
+// § enumAliasCastBindsImportCopy270
+package up;
+  typedef enum bit [1:0] {INFO, WARNING, ERROR, FATAL} sev;
+  typedef sev sev_t;
+  typedef sev_t sev_t2;
+endpackage
+package vp;
+  import up::*;
+  class rep;
+    function bit compose(sev severity);
+      sev_t2 st = sev_t2'(severity);
+      return st == INFO;
+    endfunction
+  endclass
+endpackage
+interface vif;
+  import up::*;
+  import vp::*;
+  rep r;
+endinterface
+module top;
+  vif v();
+endmodule

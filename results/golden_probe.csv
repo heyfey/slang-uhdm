@@ -1087,7 +1087,7 @@ r10uvm99repro/g99_a4_caseins,EQUAL,,equal
 r10uvm99repro/g99_a6_assert,EQUAL,,equal
 r10uvm99repro/g99_a7_shapes,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
 r10uvm99repro/g99_a8_class,EQUAL,,equal
-r10uvm99repro/g99_a9_fence,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10uvm99repro/g99_a9_fence,STRICT_NOTEQUAL,differ:count(0),differ:count(0)
 r10v100repro/v100_b1_expr_shapes,EQUAL,,equal
 r10v100repro/v100_b2_stmt_kinds,EQUAL,,equal
 r10v100repro/v100_b3_trivia,STRICT_NOTEQUAL,differ:line(8),differ:line(8)

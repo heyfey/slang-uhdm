@@ -1,0 +1,15 @@
+#227043 fullname
+  A: 9	ref_typespec			svaunit_pkg::svaunit_reporter		0	0	0	0		0
+  B: 9	ref_typespec			svaunit_pkg::svaunit_reporter::__m_uvm_field_automation		0	0	0	0		0
+#227046 fullname
+  A: 9	ref_typespec			svaunit_pkg::svaunit_reporter		0	0	0	0		0
+  B: 9	ref_typespec			svaunit_pkg::svaunit_reporter::__m_uvm_field_automation		0	0	0	0		0
+#227049 fullname
+  A: 9	ref_typespec			svaunit_pkg::svaunit_reporter		0	0	0	0		0
+  B: 9	ref_typespec			svaunit_pkg::svaunit_reporter::__m_uvm_field_automation		0	0	0	0		0
+#227149 depth
+  A: 11	enum_typespec	uvm_pkg::uvm_severity			uvm_sequence_item.svh	352	37	352	49
+  B: 10	ref_typespec			<in>uvm_pkg::uvm_severity_type		0	0	0	0		0
+objects 435559 vs 435549
+fields: depth=1 type=1 name=1 fullname=4 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL fullname

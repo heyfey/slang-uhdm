@@ -44,6 +44,7 @@
 #include "R264.h"
 #include "R266.h"
 #include "R268.h"
+#include "R270.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -3905,6 +3906,47 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
                 continue;
         }
         auto* ro201 = (UHDM::ref_obj*)o;  // every select kind IS-A ref_obj
+        // § methArgPathIdxAtHierPath270 (r11u270, R11U270_MARGIDXPARENT_OFF)
+        // — a reference that INDEXES a select which is a path element of a
+        // hier_path inside the method call's argument
+        // (`v.exists(v.sva_info[index].get_name())`) is parented in golden at
+        // that hier_path, not at the bit_select (measured on every shape of
+        // grid tools/probe/r11u270repro/cases/N n04: a bare path, a plain
+        // call's argument, a method call's argument), so the reader's chain
+        // skips the inner path and names it after the call it is an argument
+        // of: golden `...::get_sva_tested::vpi_vif.sva_exists::index`
+        // (MiniAmiq #245813 / #245818), ours `...::vpi_vif.sva_exists::
+        // vpi_vif.sva_info[index].get_sva_name::index`.  Only inside such an
+        // argument is the parent moved (elsewhere the name is the same
+        // either way and the parent stays).
+        if (ot == UHDM::uhdmref_obj &&
+            p->UhdmType() == UHDM::uhdmbit_select && p->VpiParent() &&
+            p->VpiParent()->UhdmType() == UHDM::uhdmhier_path &&
+            ((const UHDM::bit_select*)p)->VpiIndex() == o) {
+            auto* hp270 = (UHDM::hier_path*)p->VpiParent();
+            // ...and only when a later path element FOLLOWS the select: a
+            // path ENDING in the select (`gp.m_extensions[ext]`,
+            // `info.addr[i]`, uvm_tlm2_generic_payload 488 and uvm_reg_map
+            // 767 on every UVM row) keeps the bit_select parent and the
+            // inner path in golden's name (grid N n05).
+            bool elem270 = false;
+            if (auto* pe270 = hp270->Path_elems())
+                for (auto* e270 : *pe270)
+                    if (e270 == p)
+                        elem270 = e270 != pe270->back();
+            if (elem270 && hp270 != qp) {
+                if (r11u270On("R11U270_MARGIDXPARENT_OFF")) {
+                    ro201->VpiParent(hp270);
+                    if (tr270On())
+                        tr270("methArgPathIdxAtHierPath270",
+                              std::string(o->VpiName()) + " " +
+                                  std::string(hp270->VpiName()));
+                }
+                else if (tr270On())
+                    tr270("methArgPathIdxAtHierPath270",
+                          "off " + std::string(o->VpiName()));
+            }
+        }
         std::string have(ro201->VpiFullName());
         std::string want = chainFullName175(o);
         if (want.empty() || have.empty() || have == want)
@@ -8060,6 +8102,23 @@ static bool splitScopedName12(const slang::syntax::NameSyntax& n,
     outFirst = std::string(firstTok.valueText());
     outLast = std::string(lastTok.valueText());
     outEnd = lastTok.location();
+    // § scopedCallPrefixEndsAtColons270 (r11u270, R11U270_SCOPEDEND_OFF) —
+    // the span ends after the LAST `::` token, not at the final identifier:
+    // Surelog's class_scope node (`util::`, `X::type_id::`) ends with its
+    // `::`, so whitespace or a line break before the final identifier is
+    // outside it (golden MiniAmiq #434285 `svaunit_concurrent_assertion_info::
+    // type_id::` 239:55-239:99, the call's `create` on the next line; ours ran
+    // to 240:13).  Written without whitespace the two ends coincide.  Grid
+    // tools/probe/r11u270repro/cases/S.
+    if (sn.separator.range().end() != outEnd) {
+        if (r11u270On("R11U270_SCOPEDEND_OFF")) {
+            outEnd = sn.separator.range().end();
+            if (tr270On())
+                tr270("scopedCallPrefixEndsAtColons270", outFirst + "::" + outLast);
+        }
+        else if (tr270On())
+            tr270("scopedCallPrefixEndsAtColons270", "off " + outFirst + "::" + outLast);
+    }
     return true;
 }
 
@@ -21258,6 +21317,89 @@ static bool gcaInsideSetOn169v() {
     return !off;
 }
 
+// § enumAliasCastBindsImportCopy270 (r11u270, R11U270_ENUMALIAS_OFF) — the
+// record half (law at ParamEmit drainPaNameCopySrc38).  A fixed array: no
+// heap traffic while the design is emitted.
+struct EnumAliasCastRec270 {
+    UHDM::ref_typespec* rt;
+    const slang::ast::Symbol* sym;
+};
+static EnumAliasCastRec270 enumAliasCastRecs270[4096];
+static size_t enumAliasCastN270v = 0;
+static void enumAliasCastRecord270(UHDM::ref_typespec* rt,
+                                   const slang::ast::Symbol* sym) {
+    if (enumAliasCastN270v <
+        sizeof(enumAliasCastRecs270) / sizeof(enumAliasCastRecs270[0]))
+        enumAliasCastRecs270[enumAliasCastN270v++] = {rt, sym};
+    else if (tr270On())
+        tr270("enumAliasCastBindsImportCopy270", "abstain overflow");
+}
+
+// § insideSetParamFoldKeepsPa270 (r11u270, R11U270_INSIDEPA_OFF) — A
+// PARAMETER FOLDED AS A DIRECT MEMBER OF AN `inside` SET KEEPS ITS
+// `param_assign` PARENT.  Surelog's `CompileHelper::compileExpression`
+// (src/DesignCompile/CompileExpression.cpp, the `paINSIDE` arm) pushes every
+// set member as `compileExpression` hands it back and, unlike every other
+// binary operand (`opR->VpiParent(operation)` right below that arm), never
+// re-parents it.  A parameter read the compiler substitutes comes back as
+// `clone_tree(param_ass->Rhs())` with `result->VpiParent(param_ass)`: the
+// param_assign of the COMPONENT the read is compiled in (a module's or an
+// interface's definition, a class's import copy), so golden's ref_typespec
+// under the constant is named after that component (`work@top`,
+// `adpcm_pkg::adpcm_seq_item`) where ours, parented at the inside operation,
+// read the subroutine's (`work@top.auto`, `...::__m_uvm_field_automation`).
+// Measured: SeqDriver d/t's six records and MiniAmiq d/t #227043 / #227046 /
+// #227049 (`what__ inside {UVM_CHECK_FIELDS, ...}` in
+// `__m_uvm_field_automation`); grid tools/probe/r11u270repro/cases/I.  The
+// `==` form keeps the operation (R0/r03, I/i20); an operand of an operation
+// member (`UVM_SET + 1`) keeps it too (I/i17).  Recorded here while the set is
+// emitted (a fixed array: no heap traffic during emission), applied
+// design-final by insideSetParamPaDrain270 (ParamEmit drainPaNameCopySrc38)
+// once every component's param_assign listing exists.
+struct InsidePaRec270 {
+    UHDM::constant* c;
+    const UHDM::BaseClass* op;
+    const slang::ast::Symbol* sym;
+};
+static InsidePaRec270 insidePaRecs270[8192];
+static size_t insidePaN270 = 0;
+static size_t insidePaOverflow270 = 0;
+static void insidePaRecord270(const slang::ast::Expression& member,
+                              UHDM::any* e, const UHDM::BaseClass* op) {
+    if (!e || e->UhdmType() != UHDM::uhdmconstant || e->VpiParent() != op)
+        return;
+    const slang::ast::Expression* p = &member;
+    while (p->kind == slang::ast::ExpressionKind::Conversion &&
+           p->as<slang::ast::ConversionExpression>().isImplicit())
+        p = &p->as<slang::ast::ConversionExpression>().operand();
+    if (p->kind != slang::ast::ExpressionKind::NamedValue)
+        return;
+    auto& sym = p->as<slang::ast::NamedValueExpression>().symbol;
+    if (sym.kind != slang::ast::SymbolKind::Parameter)
+        return;
+    // § insideSetQualKeepsOp270 (R11U270_INSIDEQUAL_OFF) — a member written
+    // QUALIFIED (`pk::PQ`) goes through Surelog's package-scope arm, not the
+    // param_assign substitution: golden keeps the folded constant at the
+    // inside operation (v11u271repro VN/vn19 in an interface's net
+    // declaration; I/i04, I/i25).  Only a bare name is moved.
+    if ((!p->syntax || p->syntax->kind != slang::syntax::SyntaxKind::IdentifierName) &&
+        r11u270On("R11U270_INSIDEQUAL_OFF")) {
+        if (tr270On())
+            tr270("insideSetParamFoldKeepsPa270", "abstain qualified " + std::string(sym.name));
+        return;
+    }
+    if (!r11u270On("R11U270_INSIDEPA_OFF")) {
+        if (tr270On())
+            tr270("insideSetParamFoldKeepsPa270", "off " + std::string(sym.name));
+        return;
+    }
+    if (insidePaN270 >= sizeof(insidePaRecs270) / sizeof(insidePaRecs270[0])) {
+        ++insidePaOverflow270;
+        return;
+    }
+    insidePaRecs270[insidePaN270++] = {(UHDM::constant*)e, op, &sym};
+}
+
 static bool genCaUseSiteChainName169(const UHDM::BaseClass* parent,
                                      const std::string& scopeFull,
                                      std::string& out) {
@@ -32993,6 +33135,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     tr260("castStructInstCopy260", "abstain shape " + tsp260);
             }
             rt->Actual_typespec(cts);
+            // § enumAliasCastBindsImportCopy270 — RECORD a cast to a package
+            // enum-ALIAS typedef (`typedef sev sev_t; ... sev_t'(x)`) bound to
+            // an object whose Typedef_alias has no actual yet; the drain
+            // (ParamEmit drainPaNameCopySrc38) decides.
+            if (cts && cts->UhdmType() == UHDM::uhdmenum_typespec &&
+                expr.type && expr.type->kind == SymbolKind::TypeAlias &&
+                expr.type->as<TypeAliasType>().targetType.getType().kind ==
+                    SymbolKind::TypeAlias &&
+                ((UHDM::enum_typespec*)cts)->Typedef_alias() &&
+                !((UHDM::enum_typespec*)cts)->Typedef_alias()->Actual_typespec())
+                enumAliasCastRecord270(rt, expr.type);
             // § castPkgVecTdBareViewClone123 — RECORD, re-point design-final.
             // The target of a cast to a package RANGED bit/logic typedef is a
             // per-use clone (bare name + vpiTypedefAlias -> the listing
@@ -39869,6 +40022,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             for (auto arg : call.arguments())
                 if (arg->kind == ExpressionKind::ClockingEvent)
                     clockingArg = true;
+            // § sysCallTimeKwNameSpan270 (r11u270, R11U270_TIMEKWSPAN_OFF) —
+            // `$time()` / `$realtime()` span their NAME alone.  Surelog's
+            // grammar spells these two as KEYWORD system names
+            // (SV3_1aParser.g4 system_task_names: `DOLLAR TIME`, `DOLLAR
+            // REALTIME`, beside `$signed` / `$unsigned`), and the call written
+            // with an empty argument list is located at that name node:
+            // golden `$time()` 81:27-32 in svaunit_concurrent_assertion_info
+            // (MiniAmiq, twenty records), `$time ()` and `if ($time() > 5)`
+            // alike, where a Simple_identifier name (`$urandom()`,
+            // `$random()`, `$display()`) keeps the whole call.  Grid
+            // tools/probe/r11u270repro/cases/T.
+            bool timeKw270 = (name == "$time" || name == "$realtime") &&
+                             call.arguments().empty() &&
+                             expr.sourceRange.end() !=
+                                 expr.sourceRange.start() + name.size();
+            if (timeKw270 && !r11u270On("R11U270_TIMEKWSPAN_OFF")) {
+                timeKw270 = false;
+                if (tr270On())
+                    tr270("sysCallTimeKwNameSpan270", "off " + name);
+            }
+            if (timeKw270) {
+                setLoc(sc, SourceRange(expr.sourceRange.start(),
+                                       expr.sourceRange.start() + name.size()));
+                if (tr270On())
+                    tr270("sysCallTimeKwNameSpan270", name);
+            }
+            else
             if (clockingArg)
                 setLoc(sc, nameSpan(expr.sourceRange.start(), name));
             else if (stmtCtx || (!kNameOnlyFuncs.count(name) && !inCastSize))
@@ -47564,8 +47744,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             insideSetOps169v.insert(op);
             for (auto* rle : ie.rangeList()) {
                 if (!openRange30) {
-                    if (auto* e = emitExpr(*rle, op, prefix, netMap))
+                    if (auto* e = emitExpr(*rle, op, prefix, netMap)) {
                         operands->push_back(e);
+                        // § insideSetParamFoldKeepsPa270
+                        insidePaRecord270(*rle, e, op);
+                    }
                     continue;
                 }
                 if (rle->kind == ExpressionKind::ValueRange) {
@@ -47586,8 +47769,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         suppressConstParent = true;
                     auto* e30 = emitExpr(*rle, ol30, prefix, netMap);
                     suppressConstParent = scp30;
-                    if (e30)
+                    if (e30) {
                         one30->push_back(e30);
+                        // § insideSetParamFoldKeepsPa270 — a plain member of
+                        // an open-range set (I/i07).
+                        insidePaRecord270(*rle, e30, ol30);
+                    }
                     ol30->Operands(one30);
                     operands->push_back(ol30);
                 }
@@ -49084,6 +49271,81 @@ void UhdmExporter::stampNestedParamActualTs6(const slang::ast::Symbol& psym,
             qsym, j < gsi.argTs.size() ? gsi.argTs[j].first : nullptr, tsPfx,
             siteKey, depth + 1);
     }
+}
+
+
+// § insideSetParamFoldKeepsPa270 — the design-final half: each recorded
+// constant still parented at its set's operation moves to the param_assign
+// of the component the read sits in (the first module / interface / program
+// definition, class, or package up the operation's parent chain) whose Lhs
+// is the parameter's name, and its ref_typespec takes that component's name
+// (BaseClass::ComputeFullName's walk through the unnamed constant and
+// param_assign).  No such param_assign -> abstain (trace).
+void insideSetParamPaDrain270() {
+    if (insidePaOverflow270 && tr270On())
+        tr270("insideSetParamFoldKeepsPa270",
+              "abstain overflow " + std::to_string(insidePaOverflow270));
+    for (size_t i = 0; i < insidePaN270; i++) {
+        auto& r = insidePaRecs270[i];
+        std::string nm(r.sym->name);
+        if (r.c->VpiParent() != r.op) {
+            if (tr270On())
+                tr270("insideSetParamFoldKeepsPa270", "abstain moved " + nm);
+            continue;
+        }
+        const UHDM::any* comp = r.op;
+        for (int h = 0; comp && h < 64; h++, comp = comp->VpiParent()) {
+            auto t = comp->UhdmType();
+            if (t == UHDM::uhdmmodule_inst || t == UHDM::uhdminterface_inst ||
+                t == UHDM::uhdmprogram || t == UHDM::uhdmclass_defn ||
+                t == UHDM::uhdmpackage)
+                break;
+        }
+        if (!comp) {
+            if (tr270On())
+                tr270("insideSetParamFoldKeepsPa270", "abstain nocomp " + nm);
+            continue;
+        }
+        const UHDM::VectorOfparam_assign* pas = nullptr;
+        auto* sc = any_cast<const UHDM::scope*>(comp);
+        std::string cn = sc ? std::string(sc->VpiFullName()) : std::string();
+        if (sc)
+            pas = sc->Param_assigns();
+        UHDM::param_assign* hit = nullptr;
+        if (pas)
+            for (auto* pa : *pas)
+                if (pa && pa->Lhs() && pa->Lhs()->VpiName() == nm) {
+                    hit = pa;
+                    break;
+                }
+        if (!hit) {
+            if (tr270On())
+                tr270("insideSetParamFoldKeepsPa270",
+                      "abstain nopa " + nm + " " + cn);
+            continue;
+        }
+        r.c->VpiParent(hit);
+        if (auto* rt = r.c->Typespec())
+            rt->VpiFullName(cn);
+        if (tr270On())
+            tr270("insideSetParamFoldKeepsPa270", nm + " " + cn + " " +
+                      std::to_string(r.c->VpiLineNo()) + ":" +
+                      std::to_string(r.c->VpiColumnNo()));
+    }
+    insidePaN270 = 0;
+}
+
+
+size_t enumAliasCastN270() { return enumAliasCastN270v; }
+void enumAliasCastRec270(size_t i, UHDM::ref_typespec*& rt,
+                         const slang::ast::Symbol*& sym) {
+    rt = enumAliasCastRecs270[i].rt;
+    sym = enumAliasCastRecs270[i].sym;
+}
+
+void insidePaRecordCase270(const slang::ast::Expression& member, UHDM::BaseClass* e,
+                           const UHDM::BaseClass* op) {
+    insidePaRecord270(member, e, op);
 }
 
 } // namespace slang_uhdm

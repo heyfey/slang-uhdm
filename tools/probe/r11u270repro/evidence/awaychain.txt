@@ -1,0 +1,5 @@
+surelog/default/MiniAmiq-055eab74 chain away=0 toward=53 flat_away=0 flat_toward=52
+surelog/testflags/MiniAmiq-055eab74 chain away=0 toward=53 flat_away=0 flat_toward=52
+surelog/default/SeqDriver-65178d3a chain away=0 toward=6 flat_away=0 flat_toward=6
+surelog/testflags/SeqDriver-65178d3a chain away=0 toward=6 flat_away=0 flat_toward=6
+probe g99_a9_fence chain away=0 toward=2 flat_away=0 flat_toward=2

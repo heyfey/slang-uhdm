@@ -1,0 +1,4 @@
+surelog_default_MiniAmiq-055eab74 dist 104 -> 61 lost=0 gained=53
+surelog_default_SeqDriver-65178d3a dist 76 -> 70 lost=0 gained=6
+surelog_testflags_MiniAmiq-055eab74 dist 104 -> 61 lost=0 gained=53
+surelog_testflags_SeqDriver-65178d3a dist 76 -> 70 lost=0 gained=6

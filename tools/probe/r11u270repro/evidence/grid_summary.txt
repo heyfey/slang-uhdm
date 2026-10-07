@@ -1,0 +1,119 @@
+C/c01_input_kw                             P=STRICT_NOTEQUAL_col        L=STRICT_NOTEQUAL_col        cmplines 0->0 rc 0/0
+C/c01_input_kw_el                          P=STRICT_NOTEQUAL_col        L=STRICT_NOTEQUAL_col        cmplines 0->0 rc 0/0
+E/e01_iface_import_cast                    P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_351_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+E/e01_iface_import_cast_el                 P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_397_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+E/e02_module_import                        P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_295_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+E/e02_module_import_el                     P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_341_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+E/e03_class_only                           P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_219_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+E/e03_class_only_el                        P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_265_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+E/e04_module_var_and_cast                  P=STRICT_EQUAL_280_objects   L=STRICT_EQUAL_280_objects   cmplines 0->0 rc 0/0
+E/e04_module_var_and_cast_el               P=STRICT_EQUAL_280_objects   L=STRICT_EQUAL_280_objects   cmplines 0->0 rc 0/0
+E/e05_two_ifaces                           P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_455_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+E/e05_two_ifaces_el                        P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_501_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+E/e06_cast_only_no_var                     P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_307_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+E/e06_cast_only_no_var_el                  P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_307_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+E/e07_iface_module_func_cast               P=STRICT_EQUAL_332_objects   L=STRICT_EQUAL_332_objects   cmplines 0->0 rc 0/0
+E/e07_iface_module_func_cast_el            P=STRICT_EQUAL_332_objects   L=STRICT_EQUAL_332_objects   cmplines 0->0 rc 0/0
+E/e08_alias_of_alias                       P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 17->17 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+E/e08_alias_of_alias_el                    P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 17->17 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+E/e09_qualified_cast                       P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 36->36 rc 0/0
+E/e09_qualified_cast_el                    P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 36->36 rc 0/0
+E/e10_iface_no_up_import                   P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 286->286 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+E/e10_iface_no_up_import_el                P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 286->286 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+I/i01_mod_func_wild                        P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_169_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i01_mod_func_wild_el                     P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_169_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i02_mod_always_wild                      P=STRICT_EQUAL_185_objects   L=STRICT_EQUAL_185_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i02_mod_always_wild_el                   P=STRICT_EQUAL_183_objects   L=STRICT_EQUAL_183_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i03_mod_local_param                      P=STRICT_EQUAL_55_objects    L=STRICT_EQUAL_55_objects    cmplines 0->0 rc 0/0
+I/i03_mod_local_param_el                   P=STRICT_EQUAL_55_objects    L=STRICT_EQUAL_55_objects    cmplines 0->0 rc 0/0
+I/i04_mod_func_qual                        P=STRICT_EQUAL_81_objects    L=STRICT_EQUAL_81_objects    cmplines 0->0 rc 0/0
+I/i04_mod_func_qual_el                     P=STRICT_EQUAL_81_objects    L=STRICT_EQUAL_81_objects    cmplines 0->0 rc 0/0
+I/i05_mod_func_named_import                P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_169_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i05_mod_func_named_import_el             P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_169_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i06_class_method                         P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_206_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i06_class_method_el                      P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_194_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i07_range_and_param                      P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_165_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i07_range_and_param_el                   P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_165_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i08_cont_assign                          P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 39->39 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i08_cont_assign_el                       P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 39->39 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i09_case_inside                          P=STRICT_EQUAL_217_objects   L=STRICT_EQUAL_217_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i09_case_inside_el                       P=STRICT_EQUAL_215_objects   L=STRICT_EQUAL_215_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i10_header_param_override                P=STRICT_EQUAL_126_objects   L=STRICT_EQUAL_126_objects   cmplines 0->0 rc 0/0
+I/i10_header_param_override_el             P=STRICT_EQUAL_124_objects   L=STRICT_EQUAL_124_objects   cmplines 0->0 rc 0/0
+I/i11_mixed_literal                        P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_161_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i11_mixed_literal_el                     P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_161_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i12_class_param                          P=STRICT_EQUAL_29_objects    L=STRICT_EQUAL_29_objects    cmplines 0->0 rc 0/0
+I/i12_class_param_el                       P=STRICT_EQUAL_29_objects    L=STRICT_EQUAL_29_objects    cmplines 0->0 rc 0/0
+I/i13_iface_func                           P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_235_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i13_iface_func_el                        P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_235_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i14_pkg_func_own                         P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 50->50 rc 0/0
+I/i14_pkg_func_own_el                      P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 50->50 rc 0/0
+I/i15_gen_always                           P=STRICT_EQUAL_178_objects   L=STRICT_EQUAL_178_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i15_gen_always_el                        P=STRICT_EQUAL_178_objects   L=STRICT_EQUAL_178_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i16_macro                                P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_206_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i16_macro_el                             P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_194_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i17_op_member                            P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_173_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i17_op_member_el                         P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_166_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i18_typed_param                          P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_206_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i18_typed_param_el                       P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_206_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i19_enum_control                         P=STRICT_EQUAL_49_objects    L=STRICT_EQUAL_49_objects    cmplines 0->0 rc 0/0
+I/i19_enum_control_el                      P=STRICT_EQUAL_49_objects    L=STRICT_EQUAL_49_objects    cmplines 0->0 rc 0/0
+I/i20_eq_control                           P=STRICT_EQUAL_175_objects   L=STRICT_EQUAL_175_objects   cmplines 0->0 rc 0/0
+I/i20_eq_control_el                        P=STRICT_EQUAL_175_objects   L=STRICT_EQUAL_175_objects   cmplines 0->0 rc 0/0
+I/i21_task_inside                          P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_173_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i21_task_inside_el                       P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_173_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i22_two_inst_class_pkg                   P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_314_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i22_two_inst_class_pkg_el                P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_293_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i23_program_and_nested                   P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 29->29 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i23_program_and_nested_el                P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_401_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i24_param_left_operand                   P=STRICT_EQUAL_113_objects   L=STRICT_EQUAL_113_objects   cmplines 0->0 rc 0/0
+I/i24_param_left_operand_el                P=STRICT_EQUAL_113_objects   L=STRICT_EQUAL_113_objects   cmplines 0->0 rc 0/0
+I/i25_qual_iface_netdecl                   P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 32->32 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+I/i25_qual_iface_netdecl_el                P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 32->32 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+N/n01_nested_method_arg                    P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 201->201 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+N/n01_nested_method_arg_el                 P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 201->201 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+N/n02_class_recv                           P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_55_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+N/n02_class_recv_el                        P=STRICT_EQUAL_58_objects    L=STRICT_EQUAL_58_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+N/n03_iface_virtual_only                   P=STRICT_NOTEQUAL_fullname   L=STRICT_NOTEQUAL_endcol     cmplines 0->0 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+N/n03_iface_virtual_only_el                P=STRICT_NOTEQUAL_endcol     L=STRICT_NOTEQUAL_endcol     cmplines 0->0 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+N/n04_variants                             P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_158_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+N/n04_variants_el                          P=STRICT_EQUAL_164_objects   L=STRICT_EQUAL_164_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+N/n05_select_last                          P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_140_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+N/n05_select_last_el                       P=STRICT_EQUAL_146_objects   L=STRICT_EQUAL_146_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+N/n06_this_extern_task                     P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_151_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+N/n06_this_extern_task_el                  P=STRICT_EQUAL_154_objects   L=STRICT_EQUAL_154_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+N/n07_module_func                          P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_128_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+N/n07_module_func_el                       P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_136_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_MARGIDXPARENT_OFF
+R0/r01_cast_alias_iface                    P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_351_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+R0/r01_cast_alias_iface_el                 P=STRICT_NOTEQUAL_depth      L=STRICT_EQUAL_397_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_ENUMALIAS_OFF
+R0/r02_inside_pkgparam_class               P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_207_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+R0/r02_inside_pkgparam_class_el            P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_195_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+R0/r03_eq_pkgparam_class                   P=STRICT_EQUAL_201_objects   L=STRICT_EQUAL_201_objects   cmplines 0->0 rc 0/0
+R0/r03_eq_pkgparam_class_el                P=STRICT_EQUAL_189_objects   L=STRICT_EQUAL_189_objects   cmplines 0->0 rc 0/0
+R0/r04_inside_pkgparam_module              P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_171_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+R0/r04_inside_pkgparam_module_el           P=STRICT_NOTEQUAL_fullname   L=STRICT_EQUAL_171_objects   cmplines 0->0 rc 0/0 MOVED by R11U270_INSIDEPA_OFF
+S/s01_type_id_split                        P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 341->341 rc 0/0 MOVED by R11U270_SCOPEDEND_OFF
+S/s01_type_id_split_el                     P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 353->353 rc 0/0 MOVED by R11U270_SCOPEDEND_OFF
+S/s02_class_split                          P=STRICT_NOTEQUAL_endline    L=STRICT_EQUAL_44_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_SCOPEDEND_OFF
+S/s02_class_split_el                       P=STRICT_NOTEQUAL_endline    L=STRICT_EQUAL_44_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_SCOPEDEND_OFF
+S/s03_static_split                         P=STRICT_NOTEQUAL_endline    L=STRICT_EQUAL_49_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_SCOPEDEND_OFF
+S/s03_static_split_el                      P=STRICT_NOTEQUAL_endline    L=STRICT_EQUAL_46_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_SCOPEDEND_OFF
+S/s04_static_read_split                    P=STRICT_NOTEQUAL_endline    L=STRICT_EQUAL_31_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_SCOPEDEND_OFF
+S/s04_static_read_split_el                 P=STRICT_NOTEQUAL_endline    L=STRICT_EQUAL_31_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_SCOPEDEND_OFF
+S/s05_param_class_split                    P=STRICT_NOTEQUAL_endline    L=STRICT_EQUAL_34_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_SCOPEDEND_OFF
+S/s05_param_class_split_el                 P=STRICT_NOTEQUAL_endline    L=STRICT_EQUAL_34_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_SCOPEDEND_OFF
+T/t01_time_forms                           P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 12->12 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+T/t01_time_forms_el                        P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 12->12 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+T/t02_func_local_init                      P=STRICT_NOTEQUAL_endcol     L=STRICT_EQUAL_53_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+T/t02_func_local_init_el                   P=STRICT_NOTEQUAL_endcol     L=STRICT_EQUAL_59_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+T/t03_class_method                         P=STRICT_NOTEQUAL_endcol     L=STRICT_EQUAL_23_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+T/t03_class_method_el                      P=STRICT_NOTEQUAL_endcol     L=STRICT_EQUAL_29_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+T/t04_macro_arg                            P=STRICT_NOTEQUAL_endcol     L=STRICT_EQUAL_33_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+T/t04_macro_arg_el                         P=STRICT_NOTEQUAL_endcol     L=STRICT_EQUAL_33_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+T/t05_stmt_forms                           P=STRICT_NOTEQUAL_endcol     L=STRICT_EQUAL_73_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+T/t05_stmt_forms_el                        P=STRICT_NOTEQUAL_endcol     L=STRICT_EQUAL_67_objects    cmplines 0->0 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+T/t06_cont_and_param                       P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 17->17 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+T/t06_cont_and_param_el                    P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 17->17 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+T/t07_realtime_var                         P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 12->12 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+T/t07_realtime_var_el                      P=NOT_EQUAL_stage1           L=NOT_EQUAL_stage1           cmplines 12->12 rc 0/0 MOVED by R11U270_TIMEKWSPAN_OFF
+case-views 118 (1062 grid lines, nonzero rc 0); moved 92; entering STRICT_EQUAL 61; leaving 0; cmplines changes 0; R11U270_OFF == pristine 118/118; each mover by one switch: {'ENUMALIAS': 16, 'INSIDEPA': 38, 'MARGIDXPARENT': 14, 'SCOPEDEND': 10, 'TIMEKWSPAN': 14}

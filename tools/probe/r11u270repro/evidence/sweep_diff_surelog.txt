@@ -1,0 +1,12 @@
+857,858c857,858
+< MiniAmiq,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+< MiniAmiq,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+---
+> MiniAmiq,default,STRICT_NOTEQUAL,differ:col(2),,differ:col(2)
+> MiniAmiq,testflags,STRICT_NOTEQUAL,differ:col(2),,differ:col(2)
+1214,1215c1214,1215
+< SeqDriver,default,STRICT_NOTEQUAL,differ:fullname(6),,differ:fullname(6)
+< SeqDriver,testflags,STRICT_NOTEQUAL,differ:fullname(6),,differ:fullname(6)
+---
+> SeqDriver,default,CMP_EQUAL,,,equal
+> SeqDriver,testflags,CMP_EQUAL,,,equal

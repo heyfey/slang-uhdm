@@ -1,0 +1,100 @@
+v11u270repro/cases/VE/ve01_module_direct pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VE/ve02_two_modules pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VE/ve03_home_pkg_func pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VE/ve04_module_local_alias pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VE/ve05_class_pkg_two_users pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VE/ve06_alias_struct_control pris DIVERGENT differs=nohier il synth surelog=OK slang=OK detail=----------------------------------------------
+v11u270repro/cases/VE/ve07_gen_and_param pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi01_gen_local_shadow pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi02_gen_func pris EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_
+v11u270repro/cases/VI/vi03_class_in_module pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi04_constraint pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi05_param_init_slot pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi06_two_inst_override pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi07_iface_modport_func pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi08_class_param_and_pkg pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi09_array_param_member pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi10_ternary_loop_assert pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi11_pkg_class_own pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi12_two_level_gen pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi13_nested_module_inst_depth pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi14_implicit_net_and_case pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi15_typed_vec_param pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VN/vn01_shapes pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VN/vn02_module_iface pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VN/vn03_nested_calls pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VS/vs01_static_prop_lvalue pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VS/vs02_type_param_call pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VS/vs03_pkg_qualified_space pris EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_4_common_constant_assignments_match
+v11u270repro/cases/VS/vs04_chain_and_module pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VT/vt01_module_contexts pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_
+v11u270repro/cases/VT/vt02_expr_shapes pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VT/vt03_class_and_macro pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VT/vt04_signed_unsigned_control pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi16_pkg_imports_pkg pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi17_two_inst_local pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi18_class_spec_value_param pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi19_iface_seq_let pris EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u270repro/cases/VI/vi20_unit_param pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi21_module_task_in_gen_inst pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi22_typed_members pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi23_class_method_variants pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi24_enum_param_member pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VE/ve08_two_inst_func pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VE/ve09_class_in_module_import pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VT/vt05_clean_module pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VT/vt06_clean_class pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VT/vt07_gen_scope pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VS/vs05_static_reads_clean pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VS/vs06_module_initial_calls pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VS/vs07_pkg_class_scoped pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VE/ve01_module_direct law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VE/ve02_two_modules law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VE/ve03_home_pkg_func law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VE/ve04_module_local_alias law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VE/ve05_class_pkg_two_users law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VE/ve06_alias_struct_control law DIVERGENT differs=nohier il synth surelog=OK slang=OK detail=----------------------------------------------
+v11u270repro/cases/VE/ve07_gen_and_param law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi01_gen_local_shadow law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi02_gen_func law EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_
+v11u270repro/cases/VI/vi03_class_in_module law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi04_constraint law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi05_param_init_slot law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi06_two_inst_override law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi07_iface_modport_func law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi08_class_param_and_pkg law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi09_array_param_member law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi10_ternary_loop_assert law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi11_pkg_class_own law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi12_two_level_gen law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi13_nested_module_inst_depth law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi14_implicit_net_and_case law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi15_typed_vec_param law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VN/vn01_shapes law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VN/vn02_module_iface law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VN/vn03_nested_calls law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VS/vs01_static_prop_lvalue law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VS/vs02_type_param_call law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VS/vs03_pkg_qualified_space law EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_4_common_constant_assignments_match
+v11u270repro/cases/VS/vs04_chain_and_module law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VT/vt01_module_contexts law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_
+v11u270repro/cases/VT/vt02_expr_shapes law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VT/vt03_class_and_macro law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VT/vt04_signed_unsigned_control law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi16_pkg_imports_pkg law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi17_two_inst_local law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi18_class_spec_value_param law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi19_iface_seq_let law EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u270repro/cases/VI/vi20_unit_param law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi21_module_task_in_gen_inst law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VI/vi22_typed_members law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi23_class_method_variants law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VI/vi24_enum_param_member law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VE/ve08_two_inst_func law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u270repro/cases/VE/ve09_class_in_module_import law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VT/vt05_clean_module law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VT/vt06_clean_class law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VT/vt07_gen_scope law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VS/vs05_static_reads_clean law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VS/vs06_module_initial_calls law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u270repro/cases/VS/vs07_pkg_class_scoped law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-

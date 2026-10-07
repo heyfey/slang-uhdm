@@ -25,6 +25,7 @@
 #include "R254.h"
 #include "R258.h"
 #include "R264.h"
+#include "R270.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -6320,6 +6321,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             one->push_back(ue);
                             ol->Operands(one);
                             iops->push_back(ol);
+                            // § insideSetParamFoldKeepsPa270 — a case-inside
+                            // item member folded from a parameter (grid
+                            // tools/probe/r11u270repro/cases/I i23).
+                            insidePaRecordCase270(*e, ue, oi);
                         }
                     }
                     oi->Operands(iops);
