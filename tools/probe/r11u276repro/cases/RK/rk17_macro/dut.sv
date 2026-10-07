@@ -1,0 +1,5 @@
+// § caReduceOpKindGate276
+`define MIX(a, b) ((a) & (b))
+module dut #(parameter logic [7:0] P = 8'h3C) (input logic [7:0] n, n2, output logic [7:0] o);
+  assign o = `MIX(P, n) ^ n2;
+endmodule

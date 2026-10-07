@@ -1,0 +1,5 @@
+MOVER v11u276repro/../r11u232repro/cases/FA/fa23 d rc=0 cmp=0 STRICT_NOTEQUAL line -> rc=0 cmp=0 STRICT_NOTEQUAL type
+MOVER v11u276repro/../r11u232repro/cases/FA/fa23 e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER v11u276repro/../v11u236repro/cases/B/b03 d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER v11u276repro/../v11u236repro/cases/B/b03 e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+case-views=5062 moving=4 entering=0 leaving=0 rc-changed=0 cmplines-changed=0

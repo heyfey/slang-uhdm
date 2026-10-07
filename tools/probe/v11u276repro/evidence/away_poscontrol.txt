@@ -1,0 +1,2 @@
+POSCONTROL VC/vc05_nonconst_fn_oparg d (fix as base, law as new) chain away=4 toward=0 flat_away=4 flat_toward=0
+POSCONTROL VA/va02_netop d (fix as base, law as new) chain away=4 toward=0 flat_away=4 flat_toward=0

@@ -1,0 +1,15 @@
+mirrored=2560 fenced_skipped=8
+mirrored=2560 fenced_skipped=8
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVERS: 0 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+downstream databases 805 movers 0
+probe (pristine stage rerun from the law worktree /tmp/v11u276_wdQ, since VpiFile carries the worktree root):
+MOVER probe ./r10earl_repro__qa28.uhdm
+MOVER probe ./r10earl_repro__ss.uhdm
+MOVER probe ./r10earl_repro__tl.uhdm
+MOVER probe ./r10earl_repro__ud.uhdm
+MOVER probe ./r10earl_repro__ue.uhdm
+MOVER probe ./r11u108repro__grid__f4__c12_const_fold.uhdm
+probe databases 4087 movers 6

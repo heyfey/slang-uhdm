@@ -35,6 +35,7 @@
 #include "R270.h"
 #include "R272.h"
 #include "R274.h"
+#include "R276.h"
 namespace slang_uhdm {
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
@@ -31077,6 +31078,57 @@ void srlgHarvestSelBases50(const Expression& e0,
         }));
 }
 
+// § caReduceOpKindGate276 — ExprEval::reduceExpr's operation arm (UHDM
+// templates/ExprEval.cpp) runs the operand PRE-SCAN (every direct reference
+// handed to getValue, the rewrite of § caOperandScanRead49) for any operator,
+// but reduces the operands only inside the `switch (optype)` arm of the
+// operator; an operator the switch does not list takes `default:
+// invalidValue = true` and nothing below it is reduced.  The listed binary
+// operators are + - * / % ** & | && || == != < <= > >= << <<< >> >>>,
+// inside, ?:, concatenation, replication and casts (and every unary
+// operator); XOR, XNOR, the case and wildcard equalities and the
+// implications are not.  Golden r10earl_repro ss `assign o = Seed ^ {..} ^
+// {SDw{clk_i}}` keeps Seed's LOCATED typespec (14:13), tl `clk_i ^ A_PKG[0]
+// ^ B_MOD[0] ^ C_LIT[0]` keeps B_MOD's (21:13): the outer XOR never
+// recurses, so neither the bare name nor the select below it is reached.
+// Switch R11U276_REDUCEKIND_OFF.  Grid tools/probe/r11u276repro/cases/RK.
+// The trace's what-if: the gate open (the pristine walk), to name a firing
+// only where it changes the harvested set.
+static bool g276NoGate = false;
+static bool tracing276() {
+    static const bool t = getenv("R11U276_TRACE") != nullptr;
+    return t;
+}
+bool srlgReduceRecurses276(const Expression& e) {
+    if (g276NoGate || !r11u276On("R11U276_REDUCEKIND_OFF"))
+        return true;
+    if (e.kind != ExpressionKind::BinaryOp)
+        return true;
+    switch (e.as<BinaryExpression>().op) {
+        case BinaryOperator::BinaryXor:
+        case BinaryOperator::BinaryXnor:
+        case BinaryOperator::CaseEquality:
+        case BinaryOperator::CaseInequality:
+        case BinaryOperator::WildcardEquality:
+        case BinaryOperator::WildcardInequality:
+        case BinaryOperator::LogicalImplication:
+            return false;
+        // § equivOpIsEqOp276v (VERIFIER FIX, v11u276repro VR/vr07) —
+        // Surelog writes `a <-> b` as vpiEqOp (vpiOpType 14 in golden), an
+        // operator the reducer's switch lists, so it recurses like `==`;
+        // the law's gate lost 4 golden records there (slang-uhdm exits 4 on
+        // the unsupported LogicalEquivalence, the partial database still
+        // moving).  Switch R11V276_EQUIVOP_OFF.
+        case BinaryOperator::LogicalEquivalence:
+            if (!r11v276On("R11V276_EQUIVOP_OFF"))
+                return false;
+            tr276("equivOpIsEqOp276v");
+            return true;
+        default:
+            return true;
+    }
+}
+
 void srlgCaOperandScan49(const Expression& e0,
                          std::set<std::string_view>& names, const Scope* body,
                          ASTContext& ctx, int depth, bool genScope) {
@@ -31125,6 +31177,20 @@ void srlgCaOperandScan49(const Expression& e0,
     // ExprEval.cpp:3250 vpiBitAndOp, :1638 reduceCompOp) ...
     if (!constantOperands)
         return;
+    // § caReduceOpKindGate276 — an operator the reducer's switch does not
+    // list reduces none of its operands.
+    if (!srlgReduceRecurses276(e)) {
+        if (tracing276()) {
+            std::set<std::string_view> w(names);
+            g276NoGate = true;
+            srlgCaOperandScan49(e, w, body, ctx, depth, genScope);
+            g276NoGate = false;
+            for (auto& n : w)
+                if (!names.count(n))
+                    tr276("caReduceOpKindGate276", "scan " + std::string(n));
+        }
+        return;
+    }
     // ... but vpiConditionOp (ExprEval.cpp:3763) is the ONE exception, and it
     // is load-bearing:
     //     expr* cond = reduceExpr(operands[0], invalidValue, ...);
@@ -31209,6 +31275,56 @@ bool UhdmExporter::paramCaFoldRead(const ParameterSymbol& ps) {
                 v.visitDefault(nv);
             }));
         };
+        // § caReduceOpKindGate276 — the whole-fold harvest stops below an
+        // operator the reducer's switch does not list: only that operator's
+        // pre-scan (its direct bare-name operands, up to the first operand
+        // that stops the scan) reads a name.
+        std::function<void(const Expression&)> harvest276 =
+            [&](const Expression& e0) {
+                const Expression& e = stripImplicitConv(e0);
+                std::vector<const Expression*> ops;
+                if (!srlgOperandsOf49(e, ops)) {
+                    harvest(e0);
+                    return;
+                }
+                if (!srlgReduceRecurses276(e)) {
+                    std::set<std::string_view> before276;
+                    if (tracing276())
+                        before276 = names;
+                    for (auto* op : ops) {
+                        if (!op)
+                            break;
+                        auto k = srlgClassify49(*op);
+                        if (k == SrlgOpnd49::RefConst) {
+                            auto& sym = stripImplicitConv(*op)
+                                            .as<NamedValueExpression>()
+                                            .symbol;
+                            if (sym.kind == SymbolKind::Parameter)
+                                names.insert(sym.name);
+                            continue;
+                        }
+                        if (k == SrlgOpnd49::Skip)
+                            continue;
+                        break;
+                    }
+                    if (tracing276()) {
+                        std::set<std::string_view> w(before276);
+                        auto keep = names;
+                        names = w;
+                        harvest(e0);
+                        w = names;
+                        names = keep;
+                        for (auto& n : w)
+                            if (!names.count(n))
+                                tr276("caReduceOpKindGate276",
+                                      "fold " + std::string(n));
+                    }
+                    return;
+                }
+                for (auto* op : ops)
+                    if (op)
+                        harvest276(*op);
+            };
         // § selectReadNeedsReduce50 — the scan now walks the INSTANTIATED
         // generate blocks too, and carries the one thing that changes inside
         // them: `genScope`, which suppresses the BARE-NAME harvest.  An
@@ -31285,6 +31401,88 @@ bool UhdmExporter::paramCaFoldRead(const ParameterSymbol& ps) {
                 if (asn.kind != ExpressionKind::Assignment)
                     continue;
                 auto& rhs = asn.as<AssignmentExpression>().right();
+                // § caUserCallRhsNotReduced276 — a right side that IS a call
+                // of a MODULE-LOCAL function reads none of its bare-name
+                // arguments: the parameter keeps its LOCATED declaration
+                // typespec (golden r11u108repro c12 `assign o = sext(K)`:
+                // param_assign Rhs -> logic_typespec 4:14-4:26, our whole-
+                // right-side harvest gave K the loc-less bare one), the same
+                // rule § caCallArgParamFormalTs232 measured from the other
+                // side (its fa23: a module-local function stamps nothing),
+                // while a PACKAGE function is evaluated and its actuals are
+                // read (that law's own rows), so the law reads only a
+                // subroutine that is not a package member.  An argument that
+                // is itself an operation keeps the operation rules below.
+                // Switch R11U276_CACALLRHS_OFF.  Grid tools/probe/
+                // r11u276repro/cases/CA.
+                if (r11u276On("R11U276_CACALLRHS_OFF")) {
+                    auto& r0 = stripImplicitConv(rhs);
+                    if (r0.kind == ExpressionKind::Call &&
+                        !r0.as<CallExpression>().isSystemCall()) {
+                        auto& cx = r0.as<CallExpression>();
+                        auto* sub = std::get_if<const SubroutineSymbol*>(
+                            &cx.subroutine);
+                        // a package function is evaluated: its actuals are
+                        // read and take the formal's typespec
+                        // (§ caCallArgParamFormalTs232)
+                        const Scope* home276 =
+                            sub && *sub ? (*sub)->getParentScope() : nullptr;
+                        if (sub && *sub && home276 &&
+                            home276->asSymbol().kind != SymbolKind::Package) {
+                            for (auto* a : cx.arguments()) {
+                                if (!a)
+                                    continue;
+                                // a default argument is not written at the
+                                // call: Surelog's func_call has no argument
+                                // for it
+                                if (!(a->sourceRange.start() >=
+                                          cx.sourceRange.start() &&
+                                      a->sourceRange.end() <=
+                                          cx.sourceRange.end()))
+                                    continue;
+                                if (!srlgIsOp49(*a))
+                                    continue;
+                                // § callOpArgNotReadEither276v (VERIFIER
+                                // FIX, v11u276repro VC/vc05, r11u276repro
+                                // CA/ca04) — an OPERATION argument of a
+                                // module-local call is not read either:
+                                // golden `assign o = f(K + 1)` keeps K's
+                                // LOCATED declaration typespec (4:14-4:26)
+                                // whether f folds (ca04, wrong on pristine
+                                // and on the law alike) or reads a module
+                                // net (vc05, STRICT_EQUAL on pristine, the
+                                // law's op-argument harvest losing 4 golden
+                                // records).  Switch R11V276_CALLOPARG_OFF.
+                                if (r11v276On("R11V276_CALLOPARG_OFF")) {
+                                    tr276("callOpArgNotReadEither276v",
+                                          std::string((*sub)->name));
+                                    continue;
+                                }
+                                if (ctx.tryEval(*a)) {
+                                    if (genScope)
+                                        srlgHarvestSelBases50(*a, names, body);
+                                    else
+                                        harvest(*a);
+                                }
+                                else
+                                    srlgCaOperandScan49(*a, names, body, ctx,
+                                                        0, genScope);
+                            }
+                            if (tracing276() && ctx.tryEval(rhs)) {
+                                auto keep = names;
+                                harvest(rhs);
+                                auto w = names;
+                                names = keep;
+                                for (auto& n : w)
+                                    if (!names.count(n))
+                                        tr276("caUserCallRhsNotReduced276",
+                                              std::string((*sub)->name) + " " +
+                                                  std::string(n));
+                            }
+                            continue;
+                        }
+                    }
+                }
                 if (ctx.tryEval(rhs)) {
                     // A whole-RHS fold resolves every name it holds in the
                     // module body (r9hilo `assign o = X + 1;`), but inside a
@@ -31292,6 +31490,8 @@ bool UhdmExporter::paramCaFoldRead(const ParameterSymbol& ps) {
                     // LOCATED).
                     if (genScope)
                         srlgHarvestSelBases50(rhs, names, body);
+                    else if (r11u276On("R11U276_REDUCEKIND_OFF"))
+                        harvest276(rhs);
                     else
                         harvest(rhs);
                     continue;
@@ -36148,6 +36348,44 @@ void UhdmExporter::drainShareDefParamTs() {
             // differ from pristine's even where this one keeps `cur`)
             if (own262)
                 tr262("SHAREDEFOWN", e.name);
+            // § elabRhsOwnTsNotDefFormal276 — THE ELABORATED Rhs DOES NOT
+            // FOLLOW A DEFINITION PARAMETER RE-TYPED BY A FUNCTION FORMAL.
+            // ExprEval::evalFunc binds an actual to its formal by re-pointing
+            // the reduced value's ref_typespec (`exparg->Typespec()->
+            // Actual_typespec(tps)`): the definition listing's parameter
+            // reference then names the module function's formal typespec
+            // (golden r11u108repro c12 `assign o = sext(K)`: def K ->
+            // logic_typespec 3:33, the formal `logic [11:0] x`), but the
+            // declaration typespec OBJECT the elaborated param_assign Rhs
+            // shares is not touched, so that Rhs keeps K's own declaration
+            // (golden 4:14-4:26).  When the definition parameter's typespec
+            // is the typespec of an io_decl of one of the definition's own
+            // subroutines, the share is skipped and the Rhs keeps the
+            // parameter's own typespec.  A NAMED formal typespec (a typedef's
+            // located copy, `input b_e q`) is the typedef's last-writer
+            // object, which golden's Rhs does share (r10v62repro v62e_bind:
+            // LP / PP -> the task formal's b_e at 28:27): abstains, traced
+            // `named`.  Switch R11U276_RHSOWNTS_OFF.
+            if (dts && cur && dts != cur && r11u276On("R11U276_RHSOWNTS_OFF")) {
+                bool formal276 = false;
+                if (auto* tfs = dm->Task_funcs())
+                    for (auto* tf : *tfs) {
+                        if (!tf || !tf->Io_decls())
+                            continue;
+                        for (auto* io : *tf->Io_decls())
+                            if (io && io->Typespec() &&
+                                io->Typespec()->Actual_typespec() == dts)
+                                formal276 = true;
+                    }
+                if (formal276 && !dts->VpiName().empty()) {
+                    tr276("elabRhsOwnTsNotDefFormal276", "abstain named " + e.name);
+                    formal276 = false;
+                }
+                if (formal276) {
+                    tr276("elabRhsOwnTsNotDefFormal276", e.name);
+                    break;
+                }
+            }
             if (dts && cur && dts != cur && dts->UhdmType() == cur->UhdmType())
                 e.rt->Actual_typespec(dts);
             break;

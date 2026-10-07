@@ -1,0 +1,2 @@
+r11u276repro/cases/CA/ca01_fassign_x d chain away=4 toward=0 flat_away=4 flat_toward=0
+r11u276repro/cases/RK/rk27_and_xor_const d chain away=4 toward=0 flat_away=4 flat_toward=0

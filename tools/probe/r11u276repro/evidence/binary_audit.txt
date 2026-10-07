@@ -1,0 +1,2 @@
+audit P (fence-filtered list): 3265 of 3315 cmds.txt name pris.bin; the others with a slang line: 0
+audit L (fence-filtered list): 3265 of 3315 cmds.txt name law.bin; the others with a slang line: 0

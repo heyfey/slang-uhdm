@@ -1,0 +1,9 @@
+OTHER /tmp/v11u276_wdP/surelog/default/CoresSweRV-5696dcd7/cmds.txt
+OTHER /tmp/v11u276_wdP/surelog/default/CoresSweRVMP-9e0c3abc/cmds.txt
+wdP (pris.bin): cmds.txt 3315 (fence-filtered), naming pris.bin 3265, other slang binary 2, no slang line 48
+OTHER /tmp/v11u276_wdL/surelog/default/CoresSweRV-5696dcd7/cmds.txt
+OTHER /tmp/v11u276_wdL/surelog/default/CoresSweRVMP-9e0c3abc/cmds.txt
+wdL (law.bin): cmds.txt 3315 (fence-filtered), naming law.bin 3265, other slang binary 2, no slang line 48
+OTHER /tmp/v11u276_wdF/surelog/default/CoresSweRV-5696dcd7/cmds.txt
+OTHER /tmp/v11u276_wdF/surelog/default/CoresSweRVMP-9e0c3abc/cmds.txt
+wdF (fix.bin): cmds.txt 3315 (fence-filtered), naming fix.bin 3265, other slang binary 2, no slang line 48
