@@ -1,0 +1,3 @@
+# widened byte controls: r11u243 v11u243 r11u247 v11u247 r11u251 v11u251 r11u255 v11u255 r11u257 v11u257 r11u263 v11u263 r11u267 v11u267 r11u269 v11u269 r11u271 v11u271 r11u273 v11u273 r11u275 v11u275 r11u277 v11u277 r11u279 v11u279 r11u281 v11u281 r11u221verify (1823 dirs)
+case-views=3646 moving=0 entering=0 leaving=0 rc_changes=0 cmplines_changes=0
+rc pairs {('0', '0'): 3614, ('4', '4'): 20, ('3', '3'): 12}

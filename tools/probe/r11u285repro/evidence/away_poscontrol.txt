@@ -1,0 +1,8 @@
+tp/r11u265repro/cases/B/b01_vd01 dist 0 -> 0 lost=0 gained=0 | chain away=8 toward=0 flat_away=8 flat_toward=0
+tp/v11u265repro/cases/VE/ve14_two_methods_same_struct dist 0 -> 0 lost=0 gained=0 | chain away=8 toward=0 flat_away=8 flat_toward=0
+C/c01_assoc MISSING
+M/m04_bittd MISSING
+H/h01_member MISSING
+C/c01_assoc dist 0 -> 0 lost=0 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+M/m04_bittd dist 0 -> 0 lost=0 gained=0 | chain away=28 toward=0 flat_away=28 flat_toward=0
+H/h01_member dist 0 -> 1 lost=1 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0

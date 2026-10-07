@@ -35,6 +35,7 @@
 #include "R275.h"
 #include "R279.h"
 #include "R281.h"
+#include "R285.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -21647,6 +21648,38 @@ UHDM::design* UhdmExporter::exportDesign() {
                     ownCopy265(r, a, om265, hp, tf, pf265);
                 }
             };
+            // § cloneMembTdOwnCopy285 (r11u285; switch R11U285_CLONEMEMBTYPE_OFF)
+            // — the deep clone's member whose type is a named vector typedef
+            // (`bt207e e_min207` with `typedef bit [63:0] bt207e`) holds its own
+            // copy of that typedef, parented at the member's reference, as the
+            // copies the clone already owns do (golden r10uvm207repro
+            // g207_e_head: the function-level `range207` of the importer's copy
+            // lists bit_typespec bt207e under the member reference with its
+            // alias named `p207b_e::C207e::m_set207::range207::p207a_e::se207::
+            // e_min207::bt207e`), where § cloneAggMemberOwn241's member shared
+            // the source member's type (its alias stored `bt207e`).  The type is
+            // deep-copied (clone_tree) and § cloneOwnAggMemberChainName285
+            // names its alias through the chain.  Only a non-aggregate,
+            // non-enum named typespec with a typedef alias is copied.
+            auto cloneMembTdOwn285 = [&](UHDM::ref_typespec* t1) {
+                if (!r11u285On("R11U285_CLONEMEMBTYPE_OFF") || !t1)
+                    return;
+                auto* a0 = (UHDM::typespec*)t1->Actual_typespec();
+                if (!a0 || a0->VpiName().empty() || !a0->Typedef_alias())
+                    return;
+                auto k0 = a0->UhdmType();
+                if (k0 == UHDM::uhdmstruct_typespec || k0 == UHDM::uhdmunion_typespec ||
+                    k0 == UHDM::uhdmenum_typespec || k0 == UHDM::uhdmclass_typespec ||
+                    k0 == UHDM::uhdmarray_typespec || k0 == UHDM::uhdmimport_typespec)
+                    return;
+                UHDM::ElaboratorContext ctx285(&s, false, /*muteErrors=*/true);
+                auto* c0 = (UHDM::typespec*)UHDM::clone_tree(a0, &ctx285);
+                if (!c0 || c0 == a0)
+                    return;
+                c0->VpiParent(t1);
+                t1->Actual_typespec(c0);
+                tr285("CLONEMEMBTYPE", std::string(a0->VpiName()));
+            };
             for (auto* tf241 : g_cloneTf241) {
                 if (!tf241 || !seen241.insert(tf241).second)
                     continue;
@@ -21797,7 +21830,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                                     m1->Typespec(t1);
                                     // § cloneMembEnumAtHomeListing265 (the lambda
                                     // memberEnum265 above)
-                                    memberEnum265(t0, t1, hp241, tf241, m0);
+                                    if (!memberEnum265(t0, t1, hp241, tf241, m0))
+                                        cloneMembTdOwn285(t1);
                                 }
                                 nm241->push_back(m1);
                                 mm241[m0] = m1;
@@ -22028,6 +22062,132 @@ UHDM::design* UhdmExporter::exportDesign() {
                         mm != mt241->second.end()) {
                         ((UHDM::ref_obj*)e1)->Actual_group(mm->second);
                         tr241("cloneAggMemberOwn241", std::string(h241->VpiName()));
+                    }
+                }
+            }
+        }
+        // § cloneOwnAggMemberChainName285 (r11u285; switch
+        // R11U285_CLONEMEMBNAME_OFF) — a struct or union that an importer
+        // copy's local OWNS (parented at the local's ref_typespec, the deep
+        // clone's own object that § cloneAggLocalOwnCopy241 did not have to
+        // make because the copy already held one) names its members'
+        // references through its parent chain in golden
+        // (`sluice198::Adit198::winze198::tfPkg198::quarry198::pkgSt198::lode198`,
+        // tests/probe r10uvm198repro g198_a_homes, r10uvm202repro
+        // g202_a_kinds), as the copies § 241 makes do, where ours kept the
+        // name stored on the object it was cloned from
+        // (`quarry198::pkgSt198::lode198`).  A stored name that differs from
+        // the chain's is replaced by the chain's; only the shape
+        // variable -> ref_typespec -> struct/union -> member -> ref_typespec
+        // inside one copy is read.
+        if (r11u285On("R11U285_CLONEMEMBNAME_OFF") && !g_cloneTf241.empty()) {
+            auto chain285 = [](const UHDM::BaseClass* o) {
+                std::vector<std::string_view> names;
+                bool column = false;
+                const UHDM::BaseClass* child = nullptr;
+                for (const UHDM::BaseClass* a = o; a; child = a, a = a->VpiParent()) {
+                    auto t = a->UhdmType();
+                    if (t == UHDM::uhdmdesign)
+                        break;
+                    if (t == UHDM::uhdmpackage || t == UHDM::uhdmclass_defn)
+                        column = true;
+                    const UHDM::BaseClass* ap = a->VpiParent();
+                    bool skip = (ap && ap->UhdmType() == UHDM::uhdmref_obj) ||
+                                t == UHDM::uhdmmethod_func_call ||
+                                t == UHDM::uhdmmethod_task_call || t == UHDM::uhdmfunc_call ||
+                                t == UHDM::uhdmtask_call || t == UHDM::uhdmsys_func_call ||
+                                t == UHDM::uhdmsys_task_call;
+                    if (child) {
+                        auto ct = child->UhdmType();
+                        if (ct == UHDM::uhdmbit_select && t == UHDM::uhdmport)
+                            skip = true;
+                        if (ct == UHDM::uhdmref_obj &&
+                            (t == UHDM::uhdmbit_select || t == UHDM::uhdmindexed_part_select ||
+                             t == UHDM::uhdmhier_path))
+                            skip = true;
+                    }
+                    if (skip)
+                        continue;
+                    std::string_view nm = a->VpiName().empty() ? a->VpiDefName() : a->VpiName();
+                    if (!nm.empty())
+                        names.push_back(nm);
+                }
+                std::string out;
+                for (auto it = names.rbegin(); it != names.rend(); ++it) {
+                    if (!out.empty())
+                        out += column ? "::" : ".";
+                    out += *it;
+                }
+                return out;
+            };
+            struct Agg285 final : public UHDM::UhdmListener {
+                const UHDM::any* root = nullptr;
+                std::vector<const UHDM::typespec*> aggs;
+                bool inside(const UHDM::any* o) const {
+                    for (int k = 0; o && k < 256; ++k, o = o->VpiParent())
+                        if (o == root)
+                            return true;
+                    return false;
+                }
+                void enterAny(const UHDM::any* const o) override {
+                    if (o != root && !inside(o))
+                        visited.insert(o);
+                }
+                void enterStruct_typespec(const UHDM::struct_typespec* const t) override {
+                    aggs.push_back(t);
+                }
+                void enterUnion_typespec(const UHDM::union_typespec* const t) override {
+                    aggs.push_back(t);
+                }
+            };
+            std::set<const UHDM::any*> seen285;
+            for (auto* tf285 : g_cloneTf241) {
+                if (!tf285 || !seen285.insert(tf285).second)
+                    continue;
+                Agg285 w285;
+                w285.root = tf285;
+                w285.listenAny(tf285);
+                for (auto* a285 : w285.aggs) {
+                    auto* r285 = a285->VpiParent();
+                    if (!r285 || r285->UhdmType() != UHDM::uhdmref_typespec ||
+                        ((const UHDM::ref_typespec*)r285)->Actual_typespec() != a285 ||
+                        !w285.inside(r285) || !dynamic_cast<const UHDM::variables*>(r285->VpiParent()))
+                        continue;
+                    const UHDM::VectorOftypespec_member* ms285 =
+                        a285->UhdmType() == UHDM::uhdmstruct_typespec
+                            ? ((const UHDM::struct_typespec*)a285)->Members()
+                            : ((const UHDM::union_typespec*)a285)->Members();
+                    if (!ms285)
+                        continue;
+                    auto rename285 = [&](UHDM::ref_typespec* r, const char* tag) {
+                        std::string st285;
+                        if (!r || !r215StoredFullName(r, st285) || st285.empty())
+                            return;
+                        std::string ch285 = chain285(r);
+                        if (ch285.empty() || ch285 == st285)
+                            return;
+                        r->VpiFullName(ch285);
+                        tr285(tag, st285 + " -> " + ch285);
+                    };
+                    for (auto* m285 : *ms285) {
+                        if (!m285 || m285->VpiParent() != a285)
+                            continue;
+                        auto* mr285 = (UHDM::ref_typespec*)m285->Typespec();
+                        if (!mr285 || mr285->VpiParent() != m285)
+                            continue;
+                        rename285(mr285, "CLONEMEMBNAME");
+                        // the member's own typedef copy (a `bt207e e_min207`
+                        // member: the deep clone's bit_typespec under the
+                        // member's reference) names its alias reference
+                        // through the same chain (r10uvm207repro g207_c_share,
+                        // g207_e_head, g207_h_foreign: golden
+                        // `...::range207::p207a_e::se207::e_min207::bt207e`,
+                        // ours the stored `bt207e`).
+                        if (auto* mt285 = (UHDM::typespec*)mr285->Actual_typespec();
+                            mt285 && mt285->VpiParent() == mr285)
+                            if (auto* al285 = (UHDM::ref_typespec*)mt285->Typedef_alias();
+                                al285 && al285->VpiParent() == mt285)
+                                rename285(al285, "CLONEMEMBALIAS");
                     }
                 }
             }

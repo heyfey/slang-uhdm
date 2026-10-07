@@ -1,0 +1,6 @@
+ENTER tp/r11u259repro/cases/M/m02_pkg_only STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_141_objects
+ENTER tp/r11u265repro/cases/B/b01_vd01 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_492_objects
+ENTER tp/r11u265repro/cases/B/b01_vd01_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_629_objects
+ENTER tp/v11u259repro/cases/VM/vm12_two_pkgs_only STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_203_objects
+case-views=2832 moving=140 entering=4 leaving=0 rc_changes=0 cmplines_changes=0
+rc pairs {('0', '0'): 2818, ('4', '4'): 4, ('3', '3'): 8, ('139', '139'): 2}

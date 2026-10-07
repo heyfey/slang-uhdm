@@ -1,0 +1,11 @@
+surelog/default/MiniAmiq-055eab74 dist 59 -> 59 lost=0 gained=0
+surelog/testflags/MiniAmiq-055eab74 dist 59 -> 59 lost=0 gained=0
+surelog/default/SeqDriver-65178d3a dist 70 -> 70 lost=0 gained=0
+surelog/testflags/SeqDriver-65178d3a dist 70 -> 70 lost=0 gained=0
+# chain-keyed (awaychain.py, $SCX raw walk):
+surelog/default/MiniAmiq-055eab74 chain away=0 toward=363 flat_away=0 flat_toward=363
+surelog/testflags/MiniAmiq-055eab74 chain away=0 toward=363 flat_away=0 flat_toward=363
+surelog/default/SeqDriver-65178d3a chain away=0 toward=242 flat_away=0 flat_toward=242
+surelog/testflags/SeqDriver-65178d3a chain away=0 toward=242 flat_away=0 flat_toward=242
+# positive control (law and pristine swapped): MiniAmiq default chain away=363 toward=0; fresh VC/vc02 away=1, VM/vm07 away=24
+# twin of the selfcheck reference: downstream/1DUnpackedArray/slang.uhdm and uhdm2rtlil/testflags/1DUnpackedArray-3af704bd/slang.uhdm, md5 349c99c5 both

@@ -1,0 +1,13 @@
+probe r10sd10repro__g6_typedef_elem_import.uhdm CLSIMPTDSHARE:1
+probe r10sd10repro__v2_dynarray_struct_typedef.uhdm CLSIMPTDSHARE:1
+probe r10sd6repro__v3_hier_path.uhdm CLSIMPTDSHARE:1 IMPHPNAME:1
+probe r10uvm180repro__g180_a_kinds.uhdm CLONEMEMBNAME:4
+probe r10uvm198repro__g198_a_homes.uhdm CLONEMEMBNAME:4
+probe r10uvm202repro__g202_a_kinds.uhdm CLONEMEMBNAME:4
+probe r10uvm207repro__g207_c_share.uhdm CLONEMEMBALIAS:16 CLONEMEMBNAME:12 CLONEMEMBTYPE:8
+probe r10uvm207repro__g207_e_head.uhdm CLONEMEMBALIAS:8 CLONEMEMBNAME:6 CLONEMEMBTYPE:4
+probe r10uvm207repro__g207_h_foreign.uhdm CLONEMEMBALIAS:8 CLONEMEMBNAME:10 CLONEMEMBTYPE:2
+surelog MiniAmiq/default CLONEMEMBALIAS:52 CLONEMEMBNAME:190 CLONEMEMBTYPE:8
+surelog MiniAmiq/testflags CLONEMEMBALIAS:52 CLONEMEMBNAME:190 CLONEMEMBTYPE:8
+surelog SeqDriver/default CLONEMEMBALIAS:52 CLONEMEMBNAME:190 CLONEMEMBTYPE:8
+surelog SeqDriver/testflags CLONEMEMBALIAS:52 CLONEMEMBNAME:190 CLONEMEMBTYPE:8

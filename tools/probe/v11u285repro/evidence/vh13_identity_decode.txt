@@ -1,0 +1,85 @@
+# VH/vh13_plain_after_param_el: what each class-c reference binds (objinfo2), golden / pristine / law
+== golden
+   actual: #4:struct_typespec
+#181 ref_typespec name= full=q::c::e vpi=q::c::e at 0:0
+   actual: #163:int_typespec
+#183 ref_obj name=st full= vpi= at 3:86
+   actual: #161:struct_var
+#162 ref_typespec name= full=q::c::st vpi=q::c::st at 0:0
+   actual: #4:struct_typespec
+#184 ref_obj name=f full= vpi=q::c::e::f at 3:89
+   actual: #6:typespec_member
+#186 ref_typespec name= full=q::c::own vpi=q::c::own at 0:0
+   actual: #169:int_typespec
+#190 ref_typespec name= full=q::c::P vpi=q::c::P at 0:0
+   actual: #122:struct_typespec
+#124 ref_typespec name= full=q::c::P::p::s_t::f vpi=q::c::P::p::s_t::f at 0:0
+   actual: #125:int_typespec
+#117 ref_typespec name= full=q::c vpi=q::c at 0:0
+   actual: #118:string_typespec
+#193 ref_typespec name= full=q::c::p::s_t::f vpi=q::c::p::s_t::f at 0:0
+   actual: #5:int_typespec
+#176 ref_typespec name= full=work@m.h vpi=work@m.h at 0:0
+== P
+   actual: #116:struct_typespec
+#118 ref_typespec name= full=p::s_t::f vpi=p::s_t::f at 0:0
+   actual: #119:int_typespec
+#134 ref_typespec name= full=q::c::e vpi=q::c::e at 0:0
+   actual: #122:int_typespec
+#136 ref_obj name=st full= vpi= at 3:86
+   actual: #114:struct_var
+#115 ref_typespec name= full=q::c::st vpi=q::c::st at 0:0
+   actual: #116:struct_typespec
+#137 ref_obj name=f full= vpi=p::e::f at 3:89
+   actual: #117:typespec_member
+#139 ref_typespec name= full=q::c::own vpi=q::c::own at 0:0
+   actual: #108:int_typespec
+#143 ref_typespec name= full=q::c::P vpi=q::c::P at 0:0
+   actual: #40:struct_typespec
+#146 ref_typespec name= full=q::c::p::s_t::f vpi=q::c::p::s_t::f at 0:0
+   actual: #42:int_typespec
+#103 ref_typespec name= full=work@m.h vpi=work@m.h at 0:0
+== L
+   actual: #40:struct_typespec
+#134 ref_typespec name= full=q::c::e vpi=q::c::e at 0:0
+   actual: #122:int_typespec
+#136 ref_obj name=st full= vpi= at 3:86
+   actual: #114:struct_var
+#115 ref_typespec name= full=q::c::st vpi=q::c::st at 0:0
+   actual: #40:struct_typespec
+#137 ref_obj name=f full= vpi=q::c::e::f at 3:89
+   actual: #41:typespec_member
+#139 ref_typespec name= full=q::c::own vpi=q::c::own at 0:0
+   actual: #108:int_typespec
+#143 ref_typespec name= full=q::c::P vpi=q::c::P at 0:0
+   actual: #40:struct_typespec
+#146 ref_typespec name= full=q::c::p::s_t::f vpi=q::c::p::s_t::f at 0:0
+   actual: #42:int_typespec
+#103 ref_typespec name= full=work@m.h vpi=work@m.h at 0:0
+
+# uhdm-strictcmp (canonical) first records
+== P
+#138 fullname
+  A: 7	ref_typespec			<in>p::s_t.f		0	0	0	0		0		
+  B: 7	ref_typespec			<in>p::s_t.f		0	0	0	0		0		
+  raw fullname A: q::p::s_t::f | B: p::s_t::f
+#149 fullname
+  A: 10	ref_typespec			<in>p::s_t.f		0	0	0	0		0		
+  B: 10	ref_typespec			<in>p::s_t.f		0	0	0	0		0		
+  raw fullname A: q::p::s_t::f | B: p::s_t::f
+#151 fullname
+  A: 5	ref_obj	f		q::c::e::f	dut.sv	3	89	3	90		0		
+  B: 5	ref_obj	f		p::e::f	dut.sv	3	89	3	90		0		
+#153 fullname
+== L
+#161 depth
+  A: 6	typespec_member	f			dut.sv	3	33	3	34				
+  B: 3	param_assign				dut.sv	3	57	3	68				
+objects 182 vs 175
+fields: depth=1 type=1 name=1 col=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+
+# chain-keyed away records (awaychain.py)
+chain away=2 toward=4 flat_away=2 flat_toward=3
+  AWAY 1 typespec_member|f|||dut.sv|3|33|3|34|||| @ struct_typespec:p::s_t < ref_typespec: < parameter:P < class_defn:c < package:q < design:work@m
+  AWAY 1 int_typespec||||dut.sv|3|29|3|32|||| @ ref_typespec: < typespec_member:f < struct_typespec:p::s_t < ref_typespec: < parameter:P < class_defn:c < package:q < design:work@m

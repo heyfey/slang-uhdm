@@ -570,7 +570,7 @@ r10sd10repro/g5_no_import_control,EQUAL,,equal
 r10sd10repro/g6_class_handle_new,EQUAL,,equal
 r10sd10repro/g6_enum_td_control,EQUAL,,equal
 r10sd10repro/g6_extern_body,EQUAL,,equal
-r10sd10repro/g6_typedef_elem_import,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10sd10repro/g6_typedef_elem_import,EQUAL,,equal
 r10sd10repro/g8_sortorder_refutation,EQUAL,,equal
 r10sd10repro/grid7_g4_no_import_control,EQUAL,,equal
 r10sd10repro/q10_pkgtype_oob_local,EQUAL,,equal
@@ -588,7 +588,7 @@ r10sd10repro/qv13_clstype_flat_oob,EQUAL,,equal
 r10sd10repro/v13_root_lookup,EQUAL,,equal
 r10sd10repro/v14_early_nested_sib,EQUAL,,equal
 r10sd10repro/v1_fixedarray_elem_import,EQUAL,,equal
-r10sd10repro/v2_dynarray_struct_typedef,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10sd10repro/v2_dynarray_struct_typedef,EQUAL,,equal
 r10sd10repro/v3_elem_class_of_importing,EQUAL,,equal
 r10sd10repro/v5_oob_extern,EQUAL,,equal
 r10sd10repro/v9_nested_classes,EQUAL,,equal
@@ -616,7 +616,7 @@ r10sd5repro/v4_explicit_import,EQUAL,,equal
 r10sd5repro/v5_class_in_module,EQUAL,,equal
 r10sd5repro/v6_no_import_control,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
 r10sd6repro/v1_bitsel_index,EQUAL,,equal
-r10sd6repro/v3_hier_path,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10sd6repro/v3_hier_path,EQUAL,,equal
 r10sd6repro/v4_method_prefix,EQUAL,,equal
 r10sd6repro/v6_concat_depth,EQUAL,,equal
 r10sd6repro/v8_unpacked_sel,EQUAL,,equal
@@ -795,13 +795,13 @@ r10uvm194repro/g194_c_clone,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
 r10uvm195repro/g195_d_control,EQUAL,,equal
 r10uvm195repro/g195_e_head,EQUAL,,equal
 r10uvm196repro/g196_d_other,EQUAL,,equal
-r10uvm198repro/g198_a_homes,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+r10uvm198repro/g198_a_homes,EQUAL,,equal
 r10uvm201repro/g201_a_forms,EQUAL,,equal
 r10uvm201repro/g201_c_uvmshape,EQUAL,,equal
 r10uvm201repro/g201_d_bodyimp,EQUAL,,equal
 r10uvm201repro/g201_e_explicit,EQUAL,,equal
 r10uvm201repro/g201_f_kinds,EQUAL,,equal
-r10uvm202repro/g202_a_kinds,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+r10uvm202repro/g202_a_kinds,EQUAL,,equal
 r10uvm202repro/g202_e_head,EQUAL,,equal
 r10uvm203repro/g203_c_mult,EQUAL,,equal
 r10uvm203repro/g203_e_ctl,EQUAL,,equal
@@ -811,11 +811,11 @@ r10uvm204repro/g204_e_head,EQUAL,,equal
 r10uvm206repro/g206_a_selftd,EQUAL,,equal
 r10uvm206repro/g206_b_dedup,EQUAL,,equal
 r10uvm206repro/g206_e_two,EQUAL,,equal
-r10uvm207repro/g207_c_share,STRICT_NOTEQUAL,differ:fullname(32),differ:fullname(32)
-r10uvm207repro/g207_e_head,STRICT_NOTEQUAL,differ:fullname(16),differ:fullname(16)
+r10uvm207repro/g207_c_share,EQUAL,,equal
+r10uvm207repro/g207_e_head,EQUAL,,equal
 r10uvm207repro/g207_f_home,EQUAL,,equal
 r10uvm207repro/g207_g_class,EQUAL,,equal
-r10uvm207repro/g207_h_foreign,STRICT_NOTEQUAL,differ:fullname(32),differ:fullname(32)
+r10uvm207repro/g207_h_foreign,STRICT_NOTEQUAL,differ:fullname(16),differ:fullname(16)
 r10uvm208repro/g208_e_head,EQUAL,,equal
 r10uvm209repro/g209_d_modimport,EQUAL,,equal
 r10uvm20repro/t31_t,EQUAL,,equal

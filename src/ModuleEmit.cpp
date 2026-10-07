@@ -52,6 +52,7 @@
 #include "R277.h"
 #include "R279.h"
 #include "R283.h"
+#include "R285.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -12841,6 +12842,26 @@ void UhdmExporter::classKeyTsScopeOwner35(
 static void importCopyRefs6(UHDM::any* e, const std::string& owner, int depth) {
     if (!e || depth > 12)
         return;
+    // § impCopyInitHierPathMemberName285 (r11u285; switch
+    // R11U285_IMPHPNAME_OFF) — a member path in the copy's initializer
+    // (`int b3 = st3.f3;` copied into class c3): the LAST path element,
+    // when it carries a stored full name (the member `f3`, `p3::b3::f3` in
+    // the package), is re-named onto the copy's owner chain like the
+    // references above (golden `q3::c3::b3::f3`, tests/probe r10sd6repro
+    // v3); the root (`st3`), a middle member (`f` of `st.f.g`, grid H/h02:
+    // no full name in golden) and every binding stay as they are.
+    if (e->UhdmType() == UHDM::uhdmhier_path && r11u285On("R11U285_IMPHPNAME_OFF")) {
+        auto* pe = ((UHDM::hier_path*)e)->Path_elems();
+        auto* x = (pe && pe->size() > 1) ? pe->back() : nullptr;
+        std::string st285;
+        if (x && x->UhdmType() == UHDM::uhdmref_obj && !x->VpiName().empty() &&
+            r215StoredFullName(x, st285) && !st285.empty()) {
+            auto* ro = (UHDM::ref_obj*)x;
+            ro->VpiFullName(owner + "::" + std::string(ro->VpiName()));
+            tr285("IMPHPNAME", owner + "::" + std::string(ro->VpiName()));
+        }
+        return;
+    }
     if (auto* ro6 = any_cast<UHDM::ref_obj*>(e)) {
         if (!ro6->VpiName().empty())
             ro6->VpiFullName(owner + "::" + std::string(ro6->VpiName()));
@@ -13047,6 +13068,60 @@ static void importCopyElem8(UHDM::variables* cp, UHDM::variables* src,
     }
 }
 
+// § clsImpCopyTdBindsContainerListing285 (r11u285; switch
+// R11U285_CLSIMPTDSHARE_OFF) — a CLASS's inherited copy of an imported
+// package variable typed by a named struct or union typedef binds the
+// CONTAINER package's own listing of that typedef, the object the importing
+// package lists under its vpiTypedef (its members named on that package's
+// chain, `q6::p6::t6::a6`), where clone_tree handed our copy a private deep
+// copy of the source package's struct whose member references keep the
+// stored `p6::t6::a6` (tests/probe r10sd10repro g6 / v2, r10sd6repro v3:
+// golden's class copy of `t6 m6 [string]`, `tb mb []` and `s3_t st3` reaches
+// the importing package's struct, the database listing no other copy).  The
+// typedef is matched in the container's listing by kind, name and span; a
+// container that is not a package, or a listing without the typedef, keeps
+// the copy.
+static void clsImpTdShare285(UHDM::variables* cp, UHDM::class_defn* cd) {
+    if (!cp || !cd || !r11u285On("R11U285_CLSIMPTDSHARE_OFF"))
+        return;
+    const UHDM::any* cont = cd->VpiParent();
+    while (cont && cont->UhdmType() == UHDM::uhdmclass_defn)
+        cont = cont->VpiParent();
+    if (!cont || cont->UhdmType() != UHDM::uhdmpackage)
+        return;
+    auto* lst = ((const UHDM::package*)cont)->Typespecs();
+    if (!lst)
+        return;
+    auto fix = [&](UHDM::ref_typespec* rt) {
+        if (!rt)
+            return;
+        auto* at = rt->Actual_typespec();
+        if (!at || at->VpiParent() != rt || at->VpiName().empty())
+            return;
+        auto k = at->UhdmType();
+        if (k != UHDM::uhdmstruct_typespec && k != UHDM::uhdmunion_typespec)
+            return;
+        for (auto* t : *lst) {
+            if (!t || t == at || t->UhdmType() != k || t->VpiName() != at->VpiName() ||
+                t->VpiLineNo() != at->VpiLineNo() || t->VpiColumnNo() != at->VpiColumnNo() ||
+                t->VpiEndLineNo() != at->VpiEndLineNo() ||
+                t->VpiEndColumnNo() != at->VpiEndColumnNo() || t->VpiFile() != at->VpiFile())
+                continue;
+            rt->Actual_typespec(t);
+            tr285("CLSIMPTDSHARE", std::string(cd->VpiFullName()) + " " +
+                                       std::string(cp->VpiName()) + " " +
+                                       std::string(t->VpiName()));
+            return;
+        }
+    };
+    fix(cp->Typespec());
+    if (cp->UhdmType() == UHDM::uhdmarray_var)
+        if (auto* evs = ((UHDM::array_var*)cp)->Variables())
+            for (auto* ev : *evs)
+                if (ev && ev->VpiParent() == cp)
+                    fix(ev->Typespec());
+}
+
 static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src,
                                        UHDM::class_defn* cd,
                                        std::string_view srcPkgName) {
@@ -13136,6 +13211,7 @@ static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src
     // too: re-named onto the copy's owner chain and left UNBOUND.
     if (!fn.empty() && !nm.empty())
         importCopyRefs6(cp->Expr(), fn + "::" + nm, 0);
+    clsImpTdShare285(cp, cd);
     return cp;
 }
 

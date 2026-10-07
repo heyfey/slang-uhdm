@@ -1,0 +1,9 @@
+r10sd10repro/g6_typedef_elem_import dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=2 flat_away=0 flat_toward=2
+r10sd10repro/v2_dynarray_struct_typedef dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=2 flat_away=0 flat_toward=2
+r10sd6repro/v3_hier_path dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=2 flat_away=0 flat_toward=2
+r10uvm180repro/g180_a_kinds dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=4 flat_away=0 flat_toward=4
+r10uvm198repro/g198_a_homes dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=4 flat_away=0 flat_toward=4
+r10uvm202repro/g202_a_kinds dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=4 flat_away=0 flat_toward=4
+r10uvm207repro/g207_c_share dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=56 flat_away=0 flat_toward=56
+r10uvm207repro/g207_e_head dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=28 flat_away=0 flat_toward=28
+r10uvm207repro/g207_h_foreign dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=36 flat_away=0 flat_toward=36
