@@ -1,0 +1,42 @@
+VC/vc02_attrs dist 5 -> 0 lost=0 gained=5 | chain away=0 toward=5 flat_away=0 flat_toward=5
+VC/vc02_attrs_el dist 5 -> 0 lost=0 gained=5 | chain away=0 toward=5 flat_away=0 flat_toward=5
+VC/vc04_virt dist 9 -> 4 lost=0 gained=5 | chain away=0 toward=5 flat_away=0 flat_toward=5
+VC/vc04_virt_el dist 9 -> 4 lost=0 gained=5 | chain away=0 toward=5 flat_away=0 flat_toward=5
+VC/vc05_twohdr dist 3 -> 0 lost=0 gained=3 | chain away=0 toward=3 flat_away=0 flat_toward=3
+VC/vc05_twohdr_el dist 3 -> 0 lost=0 gained=3 | chain away=0 toward=3 flat_away=0 flat_toward=3
+VC/vc06_modoob dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=0 flat_away=0 flat_toward=0
+VC/vc06_modoob_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=0 flat_away=0 flat_toward=0
+VC/vc07_crlf dist 2 -> 0 lost=0 gained=2 | chain away=0 toward=2 flat_away=0 flat_toward=2
+VC/vc07_crlf_el dist 2 -> 0 lost=0 gained=2 | chain away=0 toward=2 flat_away=0 flat_toward=2
+VS/vs01_scalarport_vecnet dist 0 -> 42 lost=0 gained=0 | chain away=0 toward=1 flat_away=0 flat_toward=1
+VS/vs01_scalarport_vecnet_el dist 0 -> 42 lost=0 gained=0 | chain away=0 toward=1 flat_away=0 flat_toward=1
+VS/vs02_param_two_inst dist 8 -> 0 lost=0 gained=8 | chain away=0 toward=8 flat_away=0 flat_toward=8
+VS/vs02_param_two_inst_el dist 8 -> 0 lost=0 gained=8 | chain away=0 toward=8 flat_away=0 flat_toward=8
+VS/vs03_nettypes dist 0 -> 134 lost=0 gained=0 | chain away=0 toward=12 flat_away=0 flat_toward=12
+VS/vs03_nettypes_el dist 0 -> 134 lost=0 gained=0 | chain away=0 toward=12 flat_away=0 flat_toward=12
+VS/vs04_multi_decl dist 8 -> 0 lost=0 gained=8 | chain away=0 toward=8 flat_away=0 flat_toward=8
+VS/vs04_multi_decl_el dist 8 -> 0 lost=0 gained=8 | chain away=0 toward=8 flat_away=0 flat_toward=8
+VS/vs05_portexpr dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=4 flat_away=0 flat_toward=4
+VS/vs05_portexpr_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=4 flat_away=0 flat_toward=4
+VS/vs06_bind_gen dist 12 -> 0 lost=0 gained=12 | chain away=0 toward=12 flat_away=0 flat_toward=12
+VS/vs06_bind_gen_el dist 12 -> 0 lost=0 gained=12 | chain away=0 toward=12 flat_away=0 flat_toward=12
+VS/vs07_dims_order dist 8 -> 0 lost=0 gained=8 | chain away=0 toward=8 flat_away=0 flat_toward=8
+VS/vs07_dims_order_el dist 8 -> 0 lost=0 gained=8 | chain away=0 toward=8 flat_away=0 flat_toward=8
+VS/vs08_inout dist 4 -> 0 lost=0 gained=4 | chain away=0 toward=4 flat_away=0 flat_toward=4
+VS/vs08_inout_el dist 4 -> 0 lost=0 gained=4 | chain away=0 toward=4 flat_away=0 flat_toward=4
+VS/vs05_portexpr dump: dist 69 -> 61 lost=0 gained=8
+VS/vs05_portexpr_el dump: dist 69 -> 61 lost=0 gained=8
+VC/vc06_modoob dump: dist 50 -> 50 lost=0 gained=0
+VC/vc06_modoob_el dump: dist 128 -> 128 lost=0 gained=0
+VS/vs01_scalarport_vecnet dump: dist 23 -> 1 lost=0 gained=2
+VS/vs03_nettypes dump: dist 25 -> 1 lost=0 gained=25
+VS/vs10_trireg_signed dist 0 -> 123 lost=0 gained=0 | chain away=0 toward=9 flat_away=0 flat_toward=9
+VS/vs10_trireg_signed_el dist 0 -> 122 lost=0 gained=0 | chain away=0 toward=9 flat_away=0 flat_toward=9
+VC/vc09_oob_mismatch dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=4 flat_away=0 flat_toward=4
+VC/vc09_oob_mismatch_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=4 flat_away=0 flat_toward=4
+VC/vc08_macro_types dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=5 flat_away=0 flat_toward=5
+VC/vc08_macro_types_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=5 flat_away=0 flat_toward=5
+VS/vs09_delay dist 8 -> 0 lost=0 gained=8 | chain away=0 toward=8 flat_away=0 flat_toward=8
+VS/vs09_delay_el dist 8 -> 0 lost=0 gained=8 | chain away=0 toward=8 flat_away=0 flat_toward=8
+VC/vc01_types dist 9 -> 0 lost=0 gained=9 | chain away=0 toward=9 flat_away=0 flat_toward=9
+VC/vc01_types_el dist 9 -> 0 lost=0 gained=9 | chain away=0 toward=9 flat_away=0 flat_toward=9

@@ -1,0 +1,25 @@
+case-views=1302 moving=12 entering=12 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/r11u270repro/cases/C/c01_input_kw STRICT_NOTEQUAL_col -> STRICT_EQUAL_65_objects cmplines 0->0
+MOVER tp/r11u270repro/cases/C/c01_input_kw_el STRICT_NOTEQUAL_col -> STRICT_EQUAL_65_objects cmplines 0->0
+MOVER tp/r11u92repro/grid/n10_strnonansi_gen STRICT_NOTEQUAL_line -> STRICT_EQUAL_102_objects cmplines 0->0
+MOVER tp/r11u92repro/grid/n10_strnonansi_gen_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_96_objects cmplines 0->0
+MOVER tp/r11u92repro/grid/n1_strnonansi STRICT_NOTEQUAL_line -> STRICT_EQUAL_95_objects cmplines 0->0
+MOVER tp/r11u92repro/grid/n1_strnonansi_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_89_objects cmplines 0->0
+MOVER tp/r11u92repro/grid/n2_strrevorder STRICT_NOTEQUAL_line -> STRICT_EQUAL_95_objects cmplines 0->0
+MOVER tp/r11u92repro/grid/n2_strrevorder_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_89_objects cmplines 0->0
+MOVER tp/r11u92repro/grid/n7_strnonansi_in STRICT_NOTEQUAL_line -> STRICT_EQUAL_107_objects cmplines 0->0
+MOVER tp/r11u92repro/grid/n7_strnonansi_in_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_95_objects cmplines 0->0
+MOVER tp/r11u92repro/grid/n8_strtwoports STRICT_NOTEQUAL_line -> STRICT_EQUAL_151_objects cmplines 0->0
+MOVER tp/r11u92repro/grid/n8_strtwoports_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_139_objects cmplines 0->0
+ENTER tp/r11u270repro/cases/C/c01_input_kw
+ENTER tp/r11u270repro/cases/C/c01_input_kw_el
+ENTER tp/r11u92repro/grid/n10_strnonansi_gen
+ENTER tp/r11u92repro/grid/n10_strnonansi_gen_el
+ENTER tp/r11u92repro/grid/n1_strnonansi
+ENTER tp/r11u92repro/grid/n1_strnonansi_el
+ENTER tp/r11u92repro/grid/n2_strrevorder
+ENTER tp/r11u92repro/grid/n2_strrevorder_el
+ENTER tp/r11u92repro/grid/n7_strnonansi_in
+ENTER tp/r11u92repro/grid/n7_strnonansi_in_el
+ENTER tp/r11u92repro/grid/n8_strtwoports
+ENTER tp/r11u92repro/grid/n8_strtwoports_el

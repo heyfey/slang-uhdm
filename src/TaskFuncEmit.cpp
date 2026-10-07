@@ -28,6 +28,7 @@
 #include "R251.h"
 #include "R253.h"
 #include "R275.h"
+#include "R277.h"
 
 namespace slang_uhdm {
 
@@ -4252,8 +4253,91 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // class_var is never located: golden `class_var` 0:0 with no
             // file (grid f4/a03_ctor).  Switch R11U175_FSPAN_OFF.
             if (!args0.empty() && !qualCtor27 &&
-                !(protoOf && r11u175LawB("R11U175_FSPAN_OFF")))
-                setLoc(rv, nameSpan(args0[0]->location, args0[0]->name));
+                !(protoOf && r11u175LawB("R11U175_FSPAN_OFF"))) {
+                SourceRange rv277 = nameSpan(args0[0]->location, args0[0]->name);
+                // § ctorRetVarSiblingSpan277 — Surelog's
+                // compileClassConstructorDeclaration locates the class_var at
+                // Sibling(Child(first Tf_port_item)): the SECOND child of
+                // tf_port_item, whose children are attribute_instance*,
+                // tf_port_direction? (`const ref` one node), var_type?,
+                // data_type_or_implicit (always a node, zero-width at the
+                // name when empty) and the identifier.  With no attribute,
+                // direction or var keyword that is the name (the base's span);
+                // otherwise the second of those children: `input string s`
+                // the data type, `input a` zero-width at the name, `input var
+                // int v` the var keyword, `(* k *) input int a` the direction
+                // (grid tools/probe/r11u277repro/cases/C; MiniAmiq #241741 /
+                // #243118).  Switch R11U277_CTORRETSPAN_OFF.
+                if (r11u277On("R11U277_CTORRETSPAN_OFF")) {
+                    const syntax::SyntaxNode* fp277 = nullptr;
+                    for (auto q = args0[0]->getSyntax(); q; q = q->parent)
+                        if (q->kind == syntax::SyntaxKind::FunctionPort) {
+                            fp277 = q;
+                            break;
+                        }
+                    if (fp277) {
+                        auto& fps = fp277->as<syntax::FunctionPortSyntax>();
+                        std::vector<SourceRange> kids;
+                        for (auto* at : fps.attributes)
+                            kids.push_back(at->sourceRange());
+                        if (fps.direction.valid() || fps.constKeyword.valid()) {
+                            auto d0 = fps.constKeyword.valid() ? fps.constKeyword
+                                                               : fps.direction;
+                            auto d1 = fps.direction.valid() ? fps.direction
+                                                            : fps.constKeyword;
+                            kids.push_back(SourceRange(d0.location(),
+                                                       d1.range().end()));
+                        }
+                        if (fps.varKeyword.valid())
+                            kids.push_back(fps.varKeyword.range());
+                        if (kids.size() >= 1) {
+                            const char* how = "dir";
+                            SourceRange r;
+                            if (kids.size() >= 2) {
+                                r = kids[1];
+                                how = "second";
+                            }
+                            else if (fps.dataType &&
+                                     fps.dataType->kind ==
+                                         syntax::SyntaxKind::ImplicitType &&
+                                     (fps.dataType->as<syntax::ImplicitTypeSyntax>()
+                                          .signing.valid() ||
+                                      !fps.dataType->as<syntax::ImplicitTypeSyntax>()
+                                           .dimensions.empty())) {
+                                // signing / packed dimensions only: the span
+                                // stops at the last of them (the syntax's own
+                                // range runs on to its placeholder token).
+                                auto& it = fps.dataType->as<syntax::ImplicitTypeSyntax>();
+                                auto st = it.signing.valid()
+                                              ? it.signing.location()
+                                              : it.dimensions[0]->sourceRange().start();
+                                auto en = it.dimensions.empty()
+                                              ? it.signing.range().end()
+                                              : it.dimensions.back()->sourceRange().end();
+                                r = SourceRange(st, en);
+                                how = "implicit-dims";
+                            }
+                            else if (fps.dataType &&
+                                     fps.dataType->kind !=
+                                         syntax::SyntaxKind::ImplicitType &&
+                                     fps.dataType->sourceRange().start() !=
+                                         SourceLocation::NoLocation) {
+                                r = fps.dataType->sourceRange();
+                                how = "type";
+                            }
+                            else {
+                                r = SourceRange(args0[0]->location,
+                                                args0[0]->location);
+                                how = "implicit";
+                            }
+                            rv277 = r;
+                            tr277("ctorRetVarSiblingSpan277",
+                                  std::string(how) + " " + fullName);
+                        }
+                    }
+                }
+                setLoc(rv, rv277);
+            }
             auto* cts = s.MakeClass_typespec();
             // ...but only in the CLASS's own listing. The def-view package
             // CLONE of an out-of-body constructor leaves the link null:

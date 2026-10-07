@@ -1,0 +1,2 @@
+surelog/default/MiniAmiq-055eab74 dist 61 -> 59 lost=0 gained=2 | chain away=0 toward=2
+surelog/testflags/MiniAmiq-055eab74 dist 61 -> 59 lost=0 gained=2 | chain away=0 toward=2

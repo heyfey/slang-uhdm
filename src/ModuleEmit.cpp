@@ -49,6 +49,7 @@
 #include "R271.h"
 #include "R273.h"
 #include "R275.h"
+#include "R277.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -17419,7 +17420,26 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         }
         if (!ts && !implicitNet && !realVar) {
             boundOwnerFullName = fullName;
-            ts = sharedTypespec(*it.sym, netTs);
+            // § strPortNetTsFromPortDecl277 — a non-ANSI port whose body
+            // re-declaration carries a DRIVE STRENGTH (`output [31:0] o;`
+            // then `wire (strong1, weak0) [31:0] o = 32'd12;`): Surelog's
+            // compileNetDeclaration has no Drive_strength arm, so the body
+            // declaration files no Signal (§ caNetDeclStrengthDropped90) and
+            // the net the elaborated instance lists is the PORT's own
+            // Signal, typed by the port declaration (golden logic_typespec
+            // and range 3:10-3:16, the port's dims, where ours spanned the
+            // body's `wire (strong1, weak0) [31:0]` 5:3-5:31).  The net
+            // takes the merged-port typespec, as the port does.  Grid
+            // tools/probe/r11u277repro/cases/S.  Switch
+            // R11U277_STRPORTTS_OFF.
+            const PortSymbol* strPort277 = nullptr;
+            if (it.port && !it.portExprNet && netDeclStrength90(*it.sym) &&
+                mergedPortDeclTypeSyn9(*it.port, *it.sym) &&
+                r11u277On("R11U277_STRPORTTS_OFF")) {
+                strPort277 = it.port;
+                tr277("strPortNetTsFromPortDecl277", fullName);
+            }
+            ts = sharedTypespec(*it.sym, netTs, strPort277);
             boundOwnerFullName.clear();
             // ELAB net/var of a PACKAGE-homed struct/enum typedef references
             // the top (elaborated) typespec object — its Instance link reaches
