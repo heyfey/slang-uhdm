@@ -33,6 +33,7 @@
 #include "R271.h"
 #include "R273.h"
 #include "R275.h"
+#include "R279.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -264,6 +265,7 @@ bool v11u171Law(const char* sw) {
     return getenv(sw) == nullptr;
 }
 void castRhsCloneDrain176(UHDM::Serializer& s); // § castRhsClonePerInst176 (ModuleEmit.cpp)
+void structParamCaDrain279(UHDM::Serializer& s); // § structParamCaReadsPaValue279 (ModuleEmit.cpp)
 void retLitShareDrain273(UHDM::Serializer& s); // § fnRetLitRhsSharesDefConst273 (ModuleEmit.cpp)
 void paramValShareDrain273(UHDM::design* d); // § paramValRhsSharesParamConst273 (ModuleEmit.cpp)
 void unsizedRhsCloneDrain193(UHDM::Serializer& s); // § caUnsizedRhsClonePerInst193 (ModuleEmit.cpp)
@@ -10934,6 +10936,28 @@ void UhdmExporter::drainPendingExtends() {
                 else {
                     written = std::string(rawText(nameSyn->sourceRange()));
                     nameRange = nameSyn->sourceRange();
+                    // § extendsScopedBaseNameSpan279 (r11u279) — a SCOPED
+                    // base (`class ub extends rp::baseb;`) keeps its written
+                    // name but spans only the class name after the last
+                    // `::` (its identifier when parameterized), as golden's
+                    // extends and class_typespec do (r10sd1repro
+                    // b18_qualified 4:24-4:29, r10v212repro gridv_v4
+                    // 11:22-11:27; ours spanned `rp::baseb`).  Cases
+                    // tools/probe/r11u279repro/cases/C.  Switch
+                    // R11U279_EXTQUALSPAN_OFF.
+                    if (auto* sn279 = nameSyn->as_if<syntax::ScopedNameSyntax>();
+                        sn279 && r11u279On("R11U279_EXTQUALSPAN_OFF")) {
+                        const syntax::NameSyntax* rt279 = sn279->right;
+                        while (rt279 && rt279->kind == syntax::SyntaxKind::ScopedName)
+                            rt279 = rt279->as<syntax::ScopedNameSyntax>().right;
+                        if (rt279) {
+                            if (auto* rc279 = rt279->as_if<syntax::ClassNameSyntax>())
+                                nameRange = rc279->identifier.range();
+                            else
+                                nameRange = rt279->sourceRange();
+                            tr279("EXTQUALSPAN", written);
+                        }
+                    }
                 }
             }
         // `extends IF` where IF is one of this class's own type parameters.
@@ -12256,6 +12280,67 @@ void UhdmExporter::drainClassNestedTdGroups54() {
     }
 }
 
+// § clsTdMemberContainerPath279 (r11u279) — THE MEMBER PATH OF A TYPEDEF
+// DECLARED IN A NESTED CLASS, OR IN A CLASS A MODULE OR PROGRAM DECLARES.
+// Surelog's ref_typespec under a typespec_member stores no name and reads its
+// chain up the typedef to the class_defn, whose full name carries every
+// enclosing class and the container: a package (`px::outer_c::inner_c::
+// irec_t::a`), a module or program body (`work@top::outer_c::inner_c::...`,
+// `work@top::outer_c::orec_t::a` for a class the module declares directly,
+// `work@prg::...`), and $unit or an interface body as `work@<outermost
+// class>` (`work@outer_c::inner_c::irec_t::a`).  The nested and module twin of
+// § classTdStructMemberPkgPath146 (a class a package holds directly, which
+// keeps its own road) and § clsTdArrElemPkgPath249 (the array element, which
+// already names module classes).  Ours named the member from the innermost
+// class alone (`inner_c::irec_t::a`, `outer_c::orec_t::a`).  The struct,
+// union and unpacked-array arms of buildClassTypedefTs.  Cases
+// tools/probe/r11u279repro/cases/N; probe r10sd10repro g4_owner_reach,
+// v9_nested_classes, v13_root_lookup, v14_early_nested_sib.  Switch
+// R11U279_CLSTDPATH_OFF.
+static std::string clsTdContainerPath279(const ClassType& cls) {
+    std::vector<std::string> parts{std::string(cls.name)};
+    const Scope* p = cls.getParentScope();
+    // A class a MODULE or PROGRAM body declares directly is named the same
+    // way (`work@top::outer_c::orec_t::a`, grid N/n13, n17); one a package holds
+    // directly is § classTdStructMemberPkgPath146's.
+    if (!p || (p->asSymbol().kind != SymbolKind::ClassType &&
+               !(p->asSymbol().kind == SymbolKind::InstanceBody &&
+                 p->asSymbol().as<InstanceBodySymbol>().getDefinition().definitionKind !=
+                     DefinitionKind::Interface)))
+        return std::string();
+    while (p && p->asSymbol().kind == SymbolKind::ClassType) {
+        parts.push_back(std::string(p->asSymbol().name));
+        p = p->asSymbol().getParentScope();
+    }
+    // The outermost container: a package (`px::outer_c::inner_c`), a module
+    // body (`work@top::outer_c::inner_c`, grid N/n07) or $unit
+    // (`work@outer_c::inner_c`, N/n08).
+    std::string out;
+    if (p && p->asSymbol().kind == SymbolKind::Package)
+        out = std::string(p->asSymbol().name);
+    else if (p && p->asSymbol().kind == SymbolKind::InstanceBody &&
+             p->asSymbol().as<InstanceBodySymbol>().getDefinition().definitionKind !=
+                 DefinitionKind::Interface)
+        out = "work@" + std::string(p->asSymbol()
+                                        .as<InstanceBodySymbol>()
+                                        .getDefinition()
+                                        .name);
+    // ...an interface body names it like $unit (`work@outer_c::inner_c`,
+    // grid N/n15).
+    else if (p && (p->asSymbol().kind == SymbolKind::CompilationUnit ||
+                   (p->asSymbol().kind == SymbolKind::InstanceBody &&
+                    p->asSymbol().as<InstanceBodySymbol>().getDefinition().definitionKind ==
+                        DefinitionKind::Interface))) {
+        out = "work@" + parts.back();
+        parts.pop_back();
+    }
+    else
+        return std::string();
+    for (auto it = parts.rbegin(); it != parts.rend(); ++it)
+        out += "::" + *it;
+    return out;
+}
+
 void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                                        const std::string& clsName) {
     if (!buildingClassTypedefs.insert(&cls).second)
@@ -12358,9 +12443,28 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
             // same rule drainPendingExtends applies to an extends clause.
             if (typeSyn) {
                 auto r = typeSyn->sourceRange();
-                if (auto* nt = typeSyn->as_if<syntax::NamedTypeSyntax>())
+                if (auto* nt = typeSyn->as_if<syntax::NamedTypeSyntax>()) {
                     if (auto* cn = nt->name->as_if<syntax::ClassNameSyntax>())
                         r = cn->identifier.range();
+                    // § clsTdScopedTargetQualSpan279 (r11u279) — a SCOPED
+                    // target (`typedef rp::regb #(ub, "ub") tidb;` in a
+                    // class) is located at its scope prefix `rp::`, the
+                    // Class_scope node Surelog collects the typespec from (the
+                    // rule TypeEmit's scoped class reference already follows:
+                    // golden r10sd1repro b18_qualified 5:13-5:17,
+                    // r10v212repro gridv_v4 12:11-12:15, r10v112repro
+                    // g4_qualified 9:23-9:30; ours spanned the whole
+                    // specialization).  Cases tools/probe/r11u279repro/cases/
+                    // C.  Switch R11U279_CLSTDQUAL_OFF.
+                    else if (auto* sn279 = nt->name->as_if<syntax::ScopedNameSyntax>();
+                             sn279 && sn279->separator.range().end() !=
+                                          SourceLocation::NoLocation &&
+                             r11u279On("R11U279_CLSTDQUAL_OFF")) {
+                        r = SourceRange(sn279->left->sourceRange().start(),
+                                        sn279->separator.range().end());
+                        tr279("CLSTDQUAL", std::string(ta.name));
+                    }
+                }
                 setLoc(cts, r);
             }
             // § classTdSpecParamsForeignHome1 — the SPECIALIZATION.  Runs BEFORE
@@ -12539,6 +12643,13 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                             "::" + aliasFull;
                         tr249("clsTdArrElemPkgPath249_mod", arrAlias249);
                     }
+                // § clsTdMemberContainerPath279 (law above buildClassTypedefTs).
+                if (arrAlias249 == aliasFull && clsName.find("::") == std::string::npos &&
+                    clsName.rfind("work@", 0) != 0 && r11u279On("R11U279_CLSTDPATH_OFF"))
+                    if (auto np279 = clsTdContainerPath279(cls); !np279.empty()) {
+                        arrAlias249 = np279 + "::" + std::string(ta.name);
+                        tr279("CLSTDPATH", arrAlias249);
+                    }
                 ts = buildUnpackedArrayTypedefTs(ta, arrAlias249);
             }
             else if (ct.kind == SymbolKind::UnpackedStructType ||
@@ -12561,6 +12672,13 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                         pk146 && pk146->asSymbol().kind == SymbolKind::Package)
                         memAlias146 = std::string(pk146->asSymbol().name) +
                                       "::" + aliasFull;
+                // § clsTdMemberContainerPath279 (law above buildClassTypedefTs).
+                if (memAlias146 == aliasFull && clsName.find("::") == std::string::npos &&
+                    clsName.rfind("work@", 0) != 0 && r11u279On("R11U279_CLSTDPATH_OFF"))
+                    if (auto np279 = clsTdContainerPath279(cls); !np279.empty()) {
+                        memAlias146 = np279 + "::" + std::string(ta.name);
+                        tr279("CLSTDPATH", memAlias146);
+                    }
                 auto* sts =
                     ct.kind == SymbolKind::PackedStructType
                         ? buildStructTs(ct.as<PackedStructType>(), true,
@@ -12589,6 +12707,13 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                         pk237 && pk237->asSymbol().kind == SymbolKind::Package)
                         memAlias237 = std::string(pk237->asSymbol().name) +
                                       "::" + aliasFull;
+                // § clsTdMemberContainerPath279 (law above buildClassTypedefTs).
+                if (memAlias237 == aliasFull && clsName.find("::") == std::string::npos &&
+                    clsName.rfind("work@", 0) != 0 && r11u279On("R11U279_CLSTDPATH_OFF"))
+                    if (auto np279 = clsTdContainerPath279(cls); !np279.empty()) {
+                        memAlias237 = np279 + "::" + std::string(ta.name);
+                        tr279("CLSTDPATH", memAlias237);
+                    }
                 auto* uts =
                     ct.kind == SymbolKind::PackedUnionType
                         ? buildUnionTs(ct.as<PackedUnionType>(), true,
@@ -19490,6 +19615,9 @@ UHDM::design* UhdmExporter::exportDesign() {
     // § caUnsizedRhsClonePerInst193 (r11u193) — the unsized-constant leg,
     // with the cast leg (law and decode at ModuleEmit.cpp).
     unsizedRhsCloneDrain193(s);
+    // § structParamCaReadsPaValue279 (r11u279) — design-final, after the
+    // clone legs (law and decode at ModuleEmit.cpp).
+    structParamCaDrain279(s);
     // § progPlainPortViewUnparented176 (r11u176) — design-final (law and
     // decode at ModuleEmit.cpp).
     progViewDrain176();

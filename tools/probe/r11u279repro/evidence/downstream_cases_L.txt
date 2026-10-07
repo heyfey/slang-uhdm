@@ -1,0 +1,104 @@
+r11u279repro/cases/A/a01_literal_default L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a02_pkgname_default L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a03_pkgpattern_default L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a04_modlocal_name L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a05_union L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a06_literal_override L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a07_genif L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a08_chain_name L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a09_localparam L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a10_select_lhs L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a11_interface L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a12_two_reads L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a13_logic_typed_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a14_parent_name_override L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a15_wildcard_import L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a16_struct_lhs L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a17_var_lhs L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a18_concat_rhs_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a19_expr_valued L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a20_chain_to_pattern L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a21_delay L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a22_two_inst_default L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a23_paren_default L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a25_cast_default L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a28_net_decl_assign L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a29_program L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a30_bind L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a31_positional_override L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a32_port_param_passdown L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a33_alias_typed L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a34_xvalue L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a35_member_read_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a36_macro_name L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a37_pkg_two_files_hdr L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a38_unbased_zero L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a39_unbased_one L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a40_unbased_override L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/A/a41_concat_default L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/B/b01_pkgparam L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/B/b02_modvar L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/B/b03_port L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/B/b04_pkgfunc L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/B/b05_scoped_other_pkg L EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u279repro/cases/B/b06_imported_other_pkg L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/B/b07_multidim L EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u279repro/cases/B/b08_enum_elem_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/B/b09_bit_leaf_ctl L EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u279repro/cases/B/b10_union_member L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/B/b11_td_chain L EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u279repro/cases/B/b12_nodim_ctl L EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u279repro/cases/B/b13_module_struct_ctl L DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u279_ds/L/r1
+r11u279repro/cases/B/b14_plain_vec_td_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/B/b15_two_members L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/B/b16_macro_member L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/C/c01_cls_td_scoped_param L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/C/c02_cls_td_scoped_plain L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/C/c03_pkg_td_scoped_param L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/C/c04_mod_td_scoped_param L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/C/c05_cls_td_unscoped_param_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/C/c06_cls_td_scoped_macro L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/C/c07_module_cls_td_scoped L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/C/c11_extends_scoped L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/C/c12_extends_scoped_param L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/C/c13_extends_unscoped_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/C/c14_extends_scoped_module_cls L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/C/c15_extends_scoped_macro L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/C/c16_extends_scoped_multiline L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/K/k01_ansi_input L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/K/k02_ansi_output L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/K/k03_nonansi L DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u279_ds/L/r1
+r11u279repro/cases/K/k04_output_var L DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u279_ds/L/r1
+r11u279repro/cases/K/k05_signed_port L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/K/k06_union_port L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/K/k07_var_signed L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/K/k08_var_union L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/K/k09_plain_net_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/K/k10_interface_port L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/K/k11_two_instances L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/K/k12_program_port L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/K/k13_var_two_decl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/K/k14_macro_port L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/K/k15_var_init L EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+r11u279repro/cases/K/k16_inout_port L EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u279repro/cases/N/n01_struct L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n02_packed_struct L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n03_union L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n04_unpacked_array L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n05_three_levels L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n06_unused_typedef L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n07_module_class_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n08_unit_class_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n09_outer_own_td_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n10_nested_member_used_by_inner L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n11_macro_td L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n12_param_outer L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n13_module_class_direct_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n14_module_three_levels L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n15_interface_class L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n16_interface_direct L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n17_program_nested L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n18_module_direct_union L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n19_module_direct_two_inst L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n20_program_direct L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u279repro/cases/N/n21_module_direct_array L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-

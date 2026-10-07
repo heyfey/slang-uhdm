@@ -32,6 +32,7 @@
 #include "R261.h"
 #include "R269.h"
 #include "R271.h"
+#include "R279.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -414,6 +415,32 @@ static bool paramAliasBoundUnstored144 = false;
 static bool suSigningNotInSpan130() {
     static const bool on = r11u130Law("R11U130_SUSIGN_OFF");
     return on;
+}
+
+// § inlineStructPortVarKwSpan279 (r11u279) — AN INLINE PACKED STRUCT TYPING
+// A PORT, OR A DECLARATION WRITTEN WITH `var`, IS LOCATED AT THE `struct`
+// KEYWORD ALONE.  compileTypespec's struct arm populates the typespec at the
+// keyword; only a plain net declaration's Signal re-stamps its end at the
+// packed slot through writeNets' end-only populate (§ defNetEndOnlyLoc130,
+// `struct packed`).  A port's typespec (`input struct packed {..} i`, golden
+// r11u113repro e12_port 1:16-1:22; `output struct packed {..} we`,
+// r11u19repro q02 1:41-1:47) and a `var struct packed {..} x;` declaration
+// (r11u109repro f5 k07_var_nodim 2:7-2:13) keep the keyword span where ours
+// wrote `struct packed`.  A packed-array element (`var struct packed {..}
+// [1:0] x`) already spans the keyword.  Cases tools/probe/r11u279repro/cases/
+// K.  Switch R11U279_INLSTRUCTKW_OFF.
+static bool inlineStructKwOnly279(const slang::syntax::SyntaxNode* tsyn) {
+    using SK = slang::syntax::SyntaxKind;
+    if (!tsyn || !tsyn->parent || !r11u279On("R11U279_INLSTRUCTKW_OFF"))
+        return false;
+    const slang::syntax::SyntaxNode* p = tsyn->parent;
+    if (p->kind == SK::VariablePortHeader || p->kind == SK::NetPortHeader)
+        return true;
+    if (p->kind == SK::DataDeclaration)
+        for (auto tok : p->as<slang::syntax::DataDeclarationSyntax>().modifiers)
+            if (tok.kind == slang::parsing::TokenKind::VarKeyword)
+                return true;
+    return false;
 }
 
 // § spanCopyCarriesFile125 — the TypeEmit twin of ModuleEmit.cpp's helper
@@ -6155,6 +6182,12 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     else if (declSymbol.kind == SymbolKind::TypeParameter &&
                              r11u146Law("R11U146_TPSTRUCTKW_OFF")) {
                         setLoc(sts, su->keyword.range());
+                    }
+                    // § inlineStructPortVarKwSpan279 (law at
+                    // inlineStructKwOnly279).
+                    else if (inlineStructKwOnly279(ssyn)) {
+                        setLoc(sts, su->keyword.range());
+                        tr279("INLSTRUCTKW", std::string(declSymbol.name));
                     }
                     else {
                         SourceLocation e = su->keyword.range().end();
@@ -17772,6 +17805,23 @@ static bool r237vRootKwSv(const slang::SourceManager* sm, slang::SourceLocation 
     return last == 1;
 }
 
+// § topPkgMemberTdOfNamedElemShares279 (r11u279) — THE ELABORATED PACKAGE
+// LISTING'S MEMBER WRITTEN `T [d] m`, T a package typedef of a NAMED type
+// (`typedef ut_e [0:2] row_t;`), POINTS ITS WRAPPER'S ELEMENT AT T'S SHARED
+// LISTING OBJECT.  § defPkgMemberTdOfNamedShares108 decoded the producer:
+// compileDatastructureTypespec's TypeDef arm returns the package typedef's
+// own typespec (`q2::row_t`), and the elaborated listing wraps it with the
+// member's dims in a logic_typespec whose Elem is that SAME object (golden:
+// member `U` -> logic_typespec at the member's type span -> elem
+// `q2::row_t`, unlocated).  Ours built the wrapper and pointed its element
+// at a fresh bare-named clone `row_t` located at the typedef, Typedef_alias
+// -> the listing object, one level more than golden.  The law reads the
+// 108 law's decision (its typedef-of-named, four-state-scalar-leaf, home
+// package and own-package-or-scoped conditions, the name `pkg::T` asserted)
+// in the top listing (pkgTopEmit) and binds the element to that object.
+// Cases tools/probe/r11u279repro/cases/B; probe r11u111repro f3
+// t12_pat_row_dims_member, r11u114repro f1 a02, r11u117repro g1 g18 and t03,
+// v11u108repro f2 c01, c03 and c16.  Switch R11U279_TOPPKGTDELEM_OFF.
 UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, bool packed,
                                                    const std::string& aliasName,
                                                    const std::string& memberSep) {
@@ -18275,8 +18325,14 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                         }
                 }
             }
+            // § topPkgMemberTdOfNamedElemShares279 — the elaborated (top)
+            // package listing reads the same decision for the wrapper's
+            // element (law at the element site below).
+            UHDM::typespec* elemShared279 = nullptr;
+            const bool top279 = pkgTopEmit && vtaMem && vtaMemBase &&
+                                r11u279On("R11U279_TOPPKGTDELEM_OFF");
             if (!fts && ((vtaMem && vtaMemBase) || vtaMulti110) &&
-                inPkgTypedefEmit && !pkgTopEmit) {
+                inPkgTypedefEmit && (!pkgTopEmit || top279)) {
                 static const bool off108 =
                     getenv("R11U108_OFF") != nullptr ||
                     getenv("R11U108_PKGTDMEM_OFF") != nullptr;
@@ -18350,7 +18406,15 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                         !scoped108)
                         namedTgt108 = false;
                 }
-                if (!off108 && namedTgt108 && inPkg108 &&
+                if (top279) {
+                    // The elaborated listing keeps the wrapper (the vtaMem
+                    // road); only its element changes.
+                    if (namedTgt108 && inPkg108 &&
+                        shared108->UhdmType() == UHDM::uhdmlogic_typespec &&
+                        shared108->VpiName() == want108)
+                        elemShared279 = shared108;
+                }
+                else if (!off108 && namedTgt108 && inPkg108 &&
                     shared108->UhdmType() == UHDM::uhdmlogic_typespec &&
                     shared108->VpiName() == want108) {
                     fts = shared108;
@@ -18838,7 +18902,15 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             // bare base the anonymous-ts branch bound.
             if (vtaMem && vtaMemBase &&
                 fts->UhdmType() == UHDM::uhdmlogic_typespec) {
-                if (auto* et = ((UHDM::logic_typespec*)fts)->Elem_typespec()) {
+                auto* et279 = ((UHDM::logic_typespec*)fts)->Elem_typespec();
+                if (et279 && elemShared279) {
+                    // § topPkgMemberTdOfNamedElemShares279 (law above
+                    // buildStructTs).
+                    et279->Actual_typespec(elemShared279);
+                    tr279("TOPPKGTDELEM", std::string(fm.name) + " " +
+                                              std::string(elemShared279->VpiName()));
+                }
+                else if (auto* et = et279) {
                     const syntax::SyntaxNode* tgtSyn = nullptr;
                     if (auto asyn = vtaMem->getSyntax())
                         if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)

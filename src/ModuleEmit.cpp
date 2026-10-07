@@ -50,6 +50,7 @@
 #include "R273.h"
 #include "R275.h"
 #include "R277.h"
+#include "R279.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -2222,6 +2223,105 @@ void castRhsCloneDrain176(UHDM::Serializer& s) {
                                   std::to_string(c->VpiColumnNo()));
     }
     castClone176.clear();
+}
+// § structParamCaReadsPaValue279 (r11u279) — AN ELABORATED CONTINUOUS
+// ASSIGNMENT THAT READS A WHOLE STRUCT- OR UNION-TYPED PARAMETER WHOSE VALUE
+// IS WRITTEN AS THE NAME OF ANOTHER PARAMETER TAKES THE INSTANCE'S
+// PARAM_ASSIGN VALUE OBJECT ITSELF.  Surelog keeps such a parameter's
+// elaborated value as a complex value (the reduced constant its param_assign
+// lists), and elaboration hands that very object back for the read `P`: the
+// module instance lists a fresh cont_assign (its Lhs a copy of the
+// definition's, still bound to the definition's net) whose Rhs is the
+// param_assign's constant, re-parented at the assignment (the last reader
+// when several read P: grid A/a12).  A value written as a literal (`P =
+// 16'hbeef`, `.P(16'h1234)`) or a name whose chain ends in an assignment
+// pattern keeps the plain value and golden shares the definition's
+// cont_assign with its ref_obj P, as ours did (grid A/a01, a03, a06's
+// overridden instance).  The value counts as a name when the instance's
+// effective initializer (the override actual, else the default) is a
+// reference to a parameter, followed through parameters whose initializer
+// is again a name (A/a08); the module body only (a cont_assign in a generate
+// scope keeps the ref_obj in golden, A/a07), in a module instance.  The
+// decision is recorded where the elaborated view shares the definition's
+// cont_assign and applied design-final (structParamCaDrain279, after
+// castRhsCloneDrain176).  Probe bucket: the `assign o = P` struct-parameter
+// read (r11u108repro pk k10*, k11; r11u111repro f2 b03-b17; v11u111repro
+// x22, x26).  Switch R11U279_SPCAVAL_OFF.
+namespace {
+struct SpCa279 {
+    std::vector<UHDM::cont_assign*>* cas;
+    size_t idx;
+    UHDM::cont_assign* def;
+    UHDM::BaseClass* m;
+    std::string name;
+};
+std::vector<SpCa279> spCa279;
+// The instance parameter's effective value is a parameter name whose chain
+// ends in a non-pattern constant.
+bool structParamValueIsName279(const slang::ast::ParameterSymbol& ps) {
+    using namespace slang::ast;
+    auto ck = ps.getType().getCanonicalType().kind;
+    if (ck != SymbolKind::PackedStructType && ck != SymbolKind::PackedUnionType)
+        return false;
+    // (a value with unknown bits folds too: grid A/a34)
+    if (!ps.getValue().isInteger())
+        return false;
+    const Expression* e = ps.getInitializer();
+    int depth = 0;
+    for (; e && depth < 16; depth++) {
+        auto& x = stripImplicitConv(*e);
+        if (x.kind != ExpressionKind::NamedValue) {
+            if (depth == 0)
+                return false;
+            switch (x.kind) {
+            case ExpressionKind::SimpleAssignmentPattern:
+            case ExpressionKind::StructuredAssignmentPattern:
+            case ExpressionKind::ReplicatedAssignmentPattern:
+                return false;
+            default:
+                return true;
+            }
+        }
+        auto& sy = x.as<NamedValueExpression>().symbol;
+        if (sy.kind != SymbolKind::Parameter)
+            return false;
+        e = sy.as<ParameterSymbol>().getInitializer();
+    }
+    return false;
+}
+} // namespace
+void structParamCaDrain279(UHDM::Serializer& s) {
+    for (auto& r : spCa279) {
+        if (r.idx >= r.cas->size() || (*r.cas)[r.idx] != r.def) {
+            tr279("SPCAVAL_ABSTAIN", r.name + " slot");
+            continue;
+        }
+        const UHDM::param_assign* pa = nullptr;
+        if (auto* pas = ((UHDM::instance*)r.m)->Param_assigns())
+            for (auto* x : *pas)
+                if (x->Lhs() && x->Lhs()->VpiName() == r.name)
+                    pa = x;
+        if (!pa || !pa->Rhs() || pa->Rhs()->UhdmType() != UHDM::uhdmconstant) {
+            tr279("SPCAVAL_ABSTAIN", r.name + " noconst");
+            continue;
+        }
+        UHDM::ElaboratorContext ctx(&s, false, true);
+        auto* c = (UHDM::cont_assign*)UHDM::clone_tree(r.def, &ctx);
+        if (!c)
+            continue;
+        c->VpiParent(r.m);
+        auto* val = (UHDM::expr*)pa->Rhs();
+        c->Rhs(val);
+        val->VpiParent(c);
+        if (auto* l = c->Lhs())
+            if (l->UhdmType() == UHDM::uhdmref_obj)
+                ((UHDM::ref_obj*)l)->VpiFullName("");
+        (*r.cas)[r.idx] = c;
+        tr279("SPCAVAL", std::string(((UHDM::instance*)r.m)->VpiFullName()) + " " + r.name + " " +
+                             std::to_string(c->VpiLineNo()) + ":" +
+                             std::to_string(c->VpiColumnNo()));
+    }
+    spCa279.clear();
 }
 // § caUnsizedRhsClonePerInst193 (r11u193, the r10rgg9 grid's kept
 // ternaries: p_ov01, p_split, l_vecbit, ...) — the fourth leg of
@@ -43278,6 +43378,21 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                             liveCalledSubs.insert(*sp9);
             }
             cas->push_back(defInfo->contAssigns[myIdx]);
+            // § structParamCaReadsPaValue279 — the whole struct/union
+            // parameter read whose value is written as a parameter name
+            // (law and decode at structParamCaDrain279).
+            if (topView && m && m->UhdmType() == UHDM::uhdmmodule_inst &&
+                r11u279On("R11U279_SPCAVAL_OFF")) {
+                auto& r279 = stripImplicitConv(ae.right());
+                if (r279.kind == ExpressionKind::NamedValue) {
+                    auto& s279 = r279.as<NamedValueExpression>().symbol;
+                    if (s279.kind == SymbolKind::Parameter &&
+                        structParamValueIsName279(s279.as<ParameterSymbol>()))
+                        spCa279.push_back({cas, cas->size() - 1,
+                                           defInfo->contAssigns[myIdx], m,
+                                           std::string(s279.name)});
+                }
+            }
             // § castRhsClonePerInst176, the select / concatenation Lhs
             // (leg 3; a whole-name Lhs never shares a cast Rhs here).
             if (topView && m && !plainLhs && !caMemSelBase &&

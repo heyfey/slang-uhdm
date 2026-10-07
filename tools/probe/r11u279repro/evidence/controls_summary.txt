@@ -1,0 +1,123 @@
+case-views=2208 moving=100 entering=18 leaving=0 rc-changed=0 cmplines-changed=4
+MOVER tp/r11u108repro/grid/f2/m02_alias_of_td NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 34->34
+MOVER tp/r11u108repro/grid/f2/m02_alias_of_td_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 34->34
+MOVER tp/r11u108repro/grid/f2/m04_cross_pkg NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u108repro/grid/f2/m04_cross_pkg_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u108repro/grid/f2/m08_two_members NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u108repro/grid/f2/m08_two_members_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u108repro/grid/f2/m09_nested_struct NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u108repro/grid/f2/m09_nested_struct_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u108repro/grid/pk/k12_member_arr_dims NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 96->64
+MOVER tp/r11u108repro/grid/pk/k12_member_arr_dims_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 96->64
+MOVER tp/r11u108repro/grid/pk/k13_member_nested_stamp NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 100->100
+MOVER tp/r11u108repro/grid/pk/k13_member_nested_stamp_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 100->100
+MOVER tp/r11u108repro/grid/pk/k15_member_vec_dim NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 263->263
+MOVER tp/r11u108repro/grid/pk/k15_member_vec_dim_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 263->263
+MOVER tp/r11u111repro/grid/f2/b01_q_q_w16 STRICT_NOTEQUAL_name -> STRICT_EQUAL_336_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f2/b01_q_q_w16_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_329_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f2/b02_imp_imp_w16 STRICT_NOTEQUAL_name -> STRICT_EQUAL_538_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f2/b02_imp_imp_w16_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_531_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f2/b09_imp_imp_w64 STRICT_NOTEQUAL_name -> STRICT_EQUAL_538_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f2/b09_imp_imp_w64_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_531_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f2/b15_q_q_w16_bitmember NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/r11u111repro/grid/f2/b15_q_q_w16_bitmember_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/r11u111repro/grid/f2/b16_q_q_w16_litmember NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/r11u111repro/grid/f2/b16_q_q_w16_litmember_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/r11u111repro/grid/f2/b19_k10k STRICT_NOTEQUAL_name -> STRICT_EQUAL_538_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f2/b19_k10k_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_531_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f2/b20_k10l STRICT_NOTEQUAL_name -> STRICT_EQUAL_538_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f2/b20_k10l_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_531_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f2/b21_k10j STRICT_NOTEQUAL_name -> STRICT_EQUAL_538_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f2/b21_k10j_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_531_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f2/b23_k10e STRICT_NOTEQUAL_name -> STRICT_EQUAL_387_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f2/b23_k10e_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_386_objects cmplines 0->0
+MOVER tp/r11u111repro/grid/f3/k12_member_arr_dims NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 96->64
+MOVER tp/r11u111repro/grid/f3/k12_member_arr_dims_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 96->64
+MOVER tp/r11u111repro/grid/f3/k13_member_nested_stamp NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 100->100
+MOVER tp/r11u111repro/grid/f3/k13_member_nested_stamp_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 100->100
+MOVER tp/r11u111repro/grid/f3/k15_member_vec_dim NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 263->263
+MOVER tp/r11u111repro/grid/f3/k15_member_vec_dim_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 263->263
+MOVER tp/r11u111repro/grid/f3/s00_stamped_corpus NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u111repro/grid/f3/s00_stamped_corpus_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u111repro/grid/f3/t04_member_dim NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u111repro/grid/f3/t04_member_dim_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u111repro/grid/f3/t06_scalar_base NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u111repro/grid/f3/t06_scalar_base_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u111repro/grid/f3/t07_sym_range NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u111repro/grid/f3/t07_sym_range_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/r11u19repro/grid/t06_genif_packedstruct NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11u19repro/grid/t06_genif_packedstruct_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 72->72
+MOVER tp/r11u272repro/cases/L/l07_net_typed STRICT_NOTEQUAL_name -> STRICT_EQUAL_680_objects cmplines 0->0
+MOVER tp/r11u272repro/cases/L/l07_net_typed_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_806_objects cmplines 0->0
+MOVER tp/v11u108repro/brk/f2/c02_param_of_struct NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 100->100
+MOVER tp/v11u108repro/brk/f2/c02_param_of_struct_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 100->100
+MOVER tp/v11u108repro/brk/f2/c04_cast_struct NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 148->148
+MOVER tp/v11u108repro/brk/f2/c04_cast_struct_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 148->148
+MOVER tp/v11u108repro/brk/f2/c05_signed_leaf NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u108repro/brk/f2/c05_signed_leaf_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u108repro/brk/f2/c06_scalar_leaf NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u108repro/brk/f2/c06_scalar_leaf_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u108repro/brk/f2/c07_chain3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u108repro/brk/f2/c07_chain3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u108repro/brk/f2/c08_unpacked_struct NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 58->58
+MOVER tp/v11u108repro/brk/f2/c08_unpacked_struct_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 58->58
+MOVER tp/v11u108repro/brk/f2/c09_import_var NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u108repro/brk/f2/c09_import_var_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u108repro/brk/f2/c10_cross_pkg_member NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u108repro/brk/f2/c10_cross_pkg_member_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u108repro/brk/f2/c11_import_into_pkg NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u108repro/brk/f2/c11_import_into_pkg_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u108repro/brk/f2/c12_param_range NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u108repro/brk/f2/c12_param_range_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u108repro/brk/f2/c19_reg_leaf NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u108repro/brk/f2/c19_reg_leaf_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u108repro/brk/f2/c21_rangeless_alias NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 34->34
+MOVER tp/v11u108repro/brk/f2/c21_rangeless_alias_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 34->34
+MOVER tp/v11u108repro/brk/f2/c22_gen_localparam_twice NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 100->100
+MOVER tp/v11u108repro/brk/f2/c22_gen_localparam_twice_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 100->100
+MOVER tp/v11u108repro/brk/f2/c23_two_structs_share NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u108repro/brk/f2/c23_two_structs_share_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u108repro/brk/f2/c24_class_typedef NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u108repro/brk/f2/c24_class_typedef_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u108repro/brk/f2/c26_class_struct NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u108repro/brk/f2/c26_class_struct_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u108repro/brk/f2/c29_self_qualified NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u108repro/brk/f2/c29_self_qualified_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u110repro/brk/v1/e08_single_td_chain3_ctl NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 96->96
+MOVER tp/v11u110repro/brk/v1/e08_single_td_chain3_ctl_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 96->96
+MOVER tp/v11u111repro/brk/f2/x23_nested_struct_q NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u111repro/brk/f2/x23_nested_struct_q_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 64->64
+MOVER tp/v11u111repro/brk/f2/x24_otherpkg_member_q NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 126->126
+MOVER tp/v11u111repro/brk/f2/x24_otherpkg_member_q_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 126->126
+MOVER tp/v11u111repro/brk/f2/x25_union_ctl NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/v11u111repro/brk/f2/x25_union_ctl_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/v11u111repro/brk/f2/x27_imp_narrow_sub NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/v11u111repro/brk/f2/x27_imp_narrow_sub_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/v11u111repro/brk/f2/x28_q_paren_rhs NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/v11u111repro/brk/f2/x28_q_paren_rhs_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/v11u111repro/brk/f2/y21_imp_member_td_wide NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/v11u111repro/brk/f2/y21_imp_member_td_wide_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/v11u272repro/cases/VL/vl29_assign_whole STRICT_NOTEQUAL_name -> STRICT_EQUAL_802_objects cmplines 0->0
+MOVER tp/v11u272repro/cases/VL/vl29_assign_whole_el STRICT_NOTEQUAL_name -> STRICT_EQUAL_943_objects cmplines 0->0
+ENTER tp/r11u111repro/grid/f2/b01_q_q_w16
+ENTER tp/r11u111repro/grid/f2/b01_q_q_w16_el
+ENTER tp/r11u111repro/grid/f2/b02_imp_imp_w16
+ENTER tp/r11u111repro/grid/f2/b02_imp_imp_w16_el
+ENTER tp/r11u111repro/grid/f2/b09_imp_imp_w64
+ENTER tp/r11u111repro/grid/f2/b09_imp_imp_w64_el
+ENTER tp/r11u111repro/grid/f2/b19_k10k
+ENTER tp/r11u111repro/grid/f2/b19_k10k_el
+ENTER tp/r11u111repro/grid/f2/b20_k10l
+ENTER tp/r11u111repro/grid/f2/b20_k10l_el
+ENTER tp/r11u111repro/grid/f2/b21_k10j
+ENTER tp/r11u111repro/grid/f2/b21_k10j_el
+ENTER tp/r11u111repro/grid/f2/b23_k10e
+ENTER tp/r11u111repro/grid/f2/b23_k10e_el
+ENTER tp/r11u272repro/cases/L/l07_net_typed
+ENTER tp/r11u272repro/cases/L/l07_net_typed_el
+ENTER tp/v11u272repro/cases/VL/vl29_assign_whole
+ENTER tp/v11u272repro/cases/VL/vl29_assign_whole_el
+CHANGED tp/r11u108repro/grid/pk/k12_member_arr_dims
+CHANGED tp/r11u108repro/grid/pk/k12_member_arr_dims_el
+CHANGED tp/r11u111repro/grid/f3/k12_member_arr_dims
+CHANGED tp/r11u111repro/grid/f3/k12_member_arr_dims_el

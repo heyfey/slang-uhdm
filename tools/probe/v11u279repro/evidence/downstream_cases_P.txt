@@ -1,0 +1,78 @@
+v11u279repro/cases/VA/va01_cast_chain P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va02_func_chain P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va03_defparam P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<dsroot>/P/v1
+v11u279repro/cases/VA/va04_concat_chain P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va05_genfor_inst P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va06_default_and_name_override P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va07_three_level P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va08_sibling_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va09_localparam_of_literal_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va10_two_assigns_one_stmt P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va11_arith_chain P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va12_logic_typed_src P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va13_narrow_lhs P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u279repro/cases/VA/va14_wide_lhs P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u279repro/cases/VA/va15_paren_read P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va16_signed_struct P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va17_also_always P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va18_import_override_name P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va19_two_params_two_assigns P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va20_struct_member_also P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va21_inst_in_genif P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va22_same_override_twice P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va23_genblock_read_in_inst P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va24_parent_param_chain_literal P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va25_untyped_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va26_type_param_typed P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va27_cross_pkg_chain P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va28_instance_array P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va29_concat_lhs P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va30_mixed_body_gen P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va31_struct_typed_output P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va32_module_in_interface_ctx P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VA/va33_override_from_import_in_pkg_scope P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VB/vb01_nested_named P EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u279repro/cases/VB/vb02_signed_leaf P EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u279repro/cases/VB/vb03_nested_struct P EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u279repro/cases/VB/vb04_retypedef_other_pkg P EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u279repro/cases/VB/vb05_param_only P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VB/vb06_two_pkgs_same_shape P EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u279repro/cases/VB/vb07_imported_struct_in_module P EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u279repro/cases/VB/vb08_twostate_leaf P EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u279repro/cases/VB/vb09_scoped_own_pkg P EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u279repro/cases/VB/vb10_member_read P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=___This_indicates_a_serious_bug_in_UHDM_import
+v11u279repro/cases/VB/vb11_scalar_leaf_named P EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u279repro/cases/VB/vb12_two_modules P EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_<dsroot>/P/v11u279repro_cases_VB_vb
+v11u279repro/cases/VC/vc01_td_nested_scope P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VC/vc02_td_scoped_named_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VC/vc03_td_scoped_unit_space P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VC/vc04_td_scoped_in_module_class P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VC/vc05_td_scoped_two_files P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VC/vc11_extends_nested_scope P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VC/vc12_extends_named_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VC/vc13_extends_in_module P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VC/vc14_extends_crlf P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VC/vc15_extends_spaces P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VC/vc16_extends_and_implements P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VK/vk01_input_var_port P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<dsroot>/P/v1
+v11u279repro/cases/VK/vk02_input_wire_port P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<dsroot>/P/v1
+v11u279repro/cases/VK/vk03_port_packed_dim P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VK/vk04_func_local_var P EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u279repro/cases/VK/vk05_pkg_var P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VK/vk06_interface_var P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VK/vk07_unpacked_var P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VK/vk08_class_prop_var P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VK/vk09_always_block_var P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<dsroot>/P/v1
+v11u279repro/cases/VK/vk10_nonansi_var_port P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<dsroot>/P/v1
+v11u279repro/cases/VK/vk11_var_in_genblock P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VK/vk12_static_var_task P SURELOG_FAIL differs=- surelog= slang= detail=no_reference_database
+v11u279repro/cases/VN/vn01_gen_block_class P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VN/vn02_extended_nested P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VN/vn03_param_outer_two_specs P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VN/vn04_module_inst_twice P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VN/vn05_inner_td_of_outer_td P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VN/vn06_unit_three_levels P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VN/vn07_packed_union_module P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VN/vn08_nested_member_struct_typed P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VN/vn09_unpacked_array_nested P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u279repro/cases/VN/vn10_module_direct_param_class P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
