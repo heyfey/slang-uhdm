@@ -1,0 +1,2 @@
+/tmp/v11u280_swP: fence-filtered cmds.txt=3315 naming /tmp/v11u280_bin/pris.bin: 3265; naming any other slang-uhdm binary: 0; the other 50 carry no slang-uhdm line
+/tmp/v11u280_swL: fence-filtered cmds.txt=3315 naming /tmp/v11u280_bin/law.bin: 3265; naming any other slang-uhdm binary: 0; the other 50 carry no slang-uhdm line

@@ -1,0 +1,4 @@
+r11u280repro/cases/VR/r01_struct_ca d chain away=4 toward=0 flat_away=4 flat_toward=0
+r11u280repro/cases/PS/p01_struct_var d chain away=7 toward=0 flat_away=7 flat_toward=0
+r11u280repro/cases/LB/b01_repl_ips d chain away=4 toward=0 flat_away=4 flat_toward=0
+r11u280repro/cases/VR/r08_twolevel_gen e chain away=12 toward=0 flat_away=12 flat_toward=0

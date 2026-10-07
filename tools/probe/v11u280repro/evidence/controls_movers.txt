@@ -1,0 +1,22 @@
+r11u39repro/a3 d P rc=0 cmp=64 NOT_EQUAL stage1 md5=e3bc3b3db5f0 | L rc=0 cmp=64 NOT_EQUAL stage1 md5=959940a5319b
+r11u39repro/a3 e P rc=0 cmp=64 NOT_EQUAL stage1 md5=94f1e8adadcf | L rc=0 cmp=64 NOT_EQUAL stage1 md5=fa583331dd61
+r11u77repro/grid/y2_pkgvarkind d P rc=0 cmp=0 STRICT_NOTEQUAL endline md5=4db7210e1523 | L rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ca6559c11c4b
+r11u77repro/grid/y2_pkgvarkind e P rc=0 cmp=0 STRICT_NOTEQUAL endline md5=423cf22d8301 | L rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=d3f4c5a1b4cc
+r11u79repro/grid/vb_unpackedfaces d P rc=0 cmp=17 NOT_EQUAL stage1 md5=176fc20a73e6 | L rc=0 cmp=17 NOT_EQUAL stage1 md5=27e78bca5d5f
+r11u79repro/grid/vb_unpackedfaces e P rc=0 cmp=17 NOT_EQUAL stage1 md5=984f560b85ea | L rc=0 cmp=17 NOT_EQUAL stage1 md5=bc065c229d42
+r11u79repro/grid/vh_arrelem d P rc=0 cmp=0 STRICT_NOTEQUAL endline md5=cbe1fec98121 | L rc=0 cmp=0 STRICT_NOTEQUAL endline md5=b6ca62abf105
+r11u79repro/grid/vh_arrelem e P rc=0 cmp=0 STRICT_NOTEQUAL endline md5=578cd4358b03 | L rc=0 cmp=0 STRICT_NOTEQUAL endline md5=33016a6f70f1
+r11u79repro/grid/y2_pkgvarkind d P rc=0 cmp=0 STRICT_NOTEQUAL endline md5=a1616008c5fb | L rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=4c80fde969f2
+r11u79repro/grid/y2_pkgvarkind e P rc=0 cmp=0 STRICT_NOTEQUAL endline md5=3604a03bdfe4 | L rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=51c5dd2ae60c
+r11u79repro/grid/z5_pkgunpacked d P rc=0 cmp=67 NOT_EQUAL stage1 md5=e06a4bc4eb6b | L rc=0 cmp=67 NOT_EQUAL stage1 md5=b0ae9bb9a826
+r11u79repro/grid/z5_pkgunpacked e P rc=0 cmp=67 NOT_EQUAL stage1 md5=a8f1ba0c2b38 | L rc=0 cmp=67 NOT_EQUAL stage1 md5=860b166fe743
+r11v77repro/grid/vb_unpackedfaces d P rc=0 cmp=17 NOT_EQUAL stage1 md5=2e5115d80217 | L rc=0 cmp=17 NOT_EQUAL stage1 md5=09a0da1911e7
+r11v77repro/grid/vb_unpackedfaces e P rc=0 cmp=17 NOT_EQUAL stage1 md5=7666b78fa37e | L rc=0 cmp=17 NOT_EQUAL stage1 md5=8ed33aa1da4b
+v11u278repro/cases/VS/vs08 d P rc=0 cmp=292 NOT_EQUAL stage1 md5=8ec75ebcd019 | L rc=0 cmp=292 NOT_EQUAL stage1 md5=bd0a81de272c
+v11u278repro/cases/VS/vs08 e P rc=0 cmp=292 NOT_EQUAL stage1 md5=9aef837f002d | L rc=0 cmp=292 NOT_EQUAL stage1 md5=908e64351658
+r11u264repro/cases/N/n15_gen_two_selects d P rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=753aafa2f14c | L rc=0 cmp=0 STRICT_EQUAL 258 objects md5=37c80b4750c8
+r11u264repro/cases/N/n15_gen_two_selects e P rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=6cf0259d5de5 | L rc=0 cmp=0 STRICT_EQUAL 234 objects md5=2a612fb748ce
+v11u275repro/cases/VI/vi19_struct_unpacked d P rc=0 cmp=0 STRICT_NOTEQUAL endline md5=71cd522ff340 | L rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=9184a2480afd
+v11u275repro/cases/VI/vi19_struct_unpacked e P rc=0 cmp=0 STRICT_NOTEQUAL endline md5=2ae53efd06ad | L rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=f36ca456d38f
+v11u279repro/cases/VB/vb10_member_read d P rc=0 cmp=0 STRICT_NOTEQUAL col md5=3899601189b5 | L rc=0 cmp=0 STRICT_EQUAL 312 objects md5=d485f8526775
+v11u279repro/cases/VB/vb10_member_read e P rc=0 cmp=0 STRICT_NOTEQUAL col md5=1b70b6e9cce6 | L rc=0 cmp=0 STRICT_EQUAL 352 objects md5=7893a8f30ae6

@@ -1,0 +1,8 @@
+/tmp/r11u280_swP: cmds.txt=3315 naming /tmp/r11u280_bin/pris.bin: 3265; other binaries: [/home/heyfey/git-repos/slang-uhdm
+/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/+/home/heyfey/git-repos/slang-uhdm
+/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/+/home/heyfey/git-repos/slang-uhdm]
+/tmp/r11u280_swL: cmds.txt=3315 naming /tmp/r11u280_bin/law.bin: 3265; other binaries: [/home/heyfey/git-repos/slang-uhdm
+/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/+/home/heyfey/git-repos/slang-uhdm
+/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/+/home/heyfey/git-repos/slang-uhdm]
+/tmp/r11u280_swP: cmds.txt naming any slang-uhdm binary other than its own: 0 (the other 50 carry no slang-uhdm binary line)
+/tmp/r11u280_swL: cmds.txt naming any slang-uhdm binary other than its own: 0 (the other 50 carry no slang-uhdm binary line)

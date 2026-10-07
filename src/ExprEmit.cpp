@@ -46,6 +46,7 @@
 #include "R268.h"
 #include "R270.h"
 #include "R278.h"
+#include "R280.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -15562,6 +15563,356 @@ static bool caLvTrailIdx264(bool inLhs, const UHDM::BaseClass* parent,
         tr264("CALVTRAILIDX");
     return true;
 }
+// § hpMemVarSelRvalSpan280 (r11u280) — A MEMBER PATH'S TRAILING MULTI-LEVEL
+// SELECT ELEMENT STARTS AT THE FINAL MEMBER'S NAME IN AN RVALUE TOO.  For
+// `m0.sat[s_i][1]`, `rw.value[idx][3]`, `z.g[{1'b0, k[0]}][3]` read on a right
+// side, Surelog's hier_path element (a var_select) spans the member name
+// through the last bracket (golden r11u39repro/a1 `sat` 42:19-42:30), the
+// same span the lvalue arm already writes; ours spanned the whole path from
+// the root token (42:16).  Grid tools/probe/r11u280repro/cases/VR.  Switch
+// R11U280_VSRVSPAN_OFF.
+static bool hpMemVarSelRvalSpan280On() {
+    static const bool on = r11u280On("R11U280_VSRVSPAN_OFF");
+    return on;
+}
+// § hpMemVarSelIdxNamesByChain280 (r11u280) — THE INDEX OBJECTS OF A MEMBER
+// PATH'S TRAILING MULTI-LEVEL SELECT ARE NAMED BY THEIR PARENT CHAIN.
+// Surelog stores no full name on a reference (or a select) inside the index
+// list of the path's var_select element, so UHDM's ComputeFullName derives it
+// from the parents: a ref_obj directly under the var_select keeps the
+// var_select's name above it (only a bit_select, an indexed part select or a
+// hier_path is skipped above a ref_obj), and the hier_path's name is kept
+// above the var_select: golden `assign o01 = m0.sat[s_i][1]` names `s_i`
+// `work@dut.m0.sat[s_i][1].sat.s_i` (r11u39repro/a1), a class function's
+// `rw.value[idx][3]` `q147a::drv147::fa::rw.value[idx][3]::value::idx`
+// (r10uvm147repro/g147_a), a select inside a concatenation index
+// `z.g[{1'b0, k[0]}][3]` `work@b1_sites.z.g[{1'b0,}][3].g.k`
+// (r10earl29repro/b1_sites); ours stored `m0.sat[s_i][1].s_i` (the path text
+// as the prefix, no scope, no element name).  The names are built from the
+// emission prefix (the scope's full name, which the module, class and
+// package arms already join with `.` or `::`) with the same per-link rule as
+// § trailIdxNestedNames187: references and one-level selects directly under
+// the var_select or under unnamed operations below it, a reference below a
+// bit_select or an indexed part select skipping it.  A call, a nested path
+// or a nested var_select inside the index abstains for its subtree (traced).
+// Grid tools/probe/r11u280repro/cases/VR.  Switch R11U280_VSIDXNAME_OFF.
+static void hpMemVarSelIdxNames280(UHDM::var_select* vs, const std::string& prefix,
+                                   const UHDM::hier_path* hp) {
+    static const bool on = r11u280On("R11U280_VSIDXNAME_OFF");
+    if (!on || !vs || !hp || !vs->Exprs() || hp->VpiName().empty() ||
+        vs->VpiName().empty() || prefix.empty())
+        return;
+    const std::string base = joinRef(joinRef(prefix, hp->VpiName()), vs->VpiName());
+    auto setFn = [&](UHDM::any* o, const std::string& fn) {
+        switch (o->UhdmType()) {
+            case UHDM::uhdmref_obj: {
+                auto* r = (UHDM::ref_obj*)o;
+                if (std::string(r->VpiFullName()) == fn)
+                    return;
+                tr280("VSIDXNAME", fn);
+                r->VpiFullName(fn);
+                if (auto* rt = r->Typespec(); rt && rt->VpiParent() == r)
+                    rt->VpiFullName(fn);
+                return;
+            }
+            case UHDM::uhdmbit_select:
+                tr280("VSIDXNAME", fn);
+                ((UHDM::bit_select*)o)->VpiFullName(fn);
+                return;
+            case UHDM::uhdmpart_select:
+                tr280("VSIDXNAME", fn);
+                ((UHDM::part_select*)o)->VpiFullName(fn);
+                return;
+            case UHDM::uhdmindexed_part_select:
+                tr280("VSIDXNAME", fn);
+                ((UHDM::indexed_part_select*)o)->VpiFullName(fn);
+                return;
+            default:
+                return;
+        }
+    };
+    // path: the names above `e` (ComputeFullName's chain from the var_select
+    // down); skipSel: `e`'s parent is a bit_select / indexed part select,
+    // skipped above a ref_obj.
+    std::function<void(UHDM::any*, const UHDM::any*, const std::string&, const std::string&)> walk =
+        [&](UHDM::any* e, const UHDM::any* up, const std::string& path,
+            const std::string& selPath) {
+            if (!e || e->VpiParent() != up)
+                return;
+            switch (e->UhdmType()) {
+                case UHDM::uhdmconstant:
+                    return;
+                case UHDM::uhdmref_obj:
+                    setFn(e, joinRef(selPath, ((UHDM::ref_obj*)e)->VpiName()));
+                    return;
+                case UHDM::uhdmoperation:
+                    if (auto* os = ((UHDM::operation*)e)->Operands())
+                        for (auto* o : *os)
+                            walk(o, e, path, path);
+                    return;
+                case UHDM::uhdmbit_select:
+                case UHDM::uhdmindexed_part_select:
+                case UHDM::uhdmpart_select: {
+                    std::string nm(e->VpiName());
+                    if (nm.empty()) {
+                        tr280("VSIDXNAME", "abstain unnamed-select");
+                        return;
+                    }
+                    const std::string fn = joinRef(path, nm);
+                    setFn(e, fn);
+                    // Below a bit select or an indexed part select a ref_obj
+                    // skips it (the reference reads the select's parent
+                    // path); below a part select it is kept.
+                    const bool skip = e->UhdmType() != UHDM::uhdmpart_select;
+                    const std::string sp = skip ? path : fn;
+                    if (e->UhdmType() == UHDM::uhdmbit_select)
+                        walk((UHDM::any*)((UHDM::bit_select*)e)->VpiIndex(), e, fn, sp);
+                    else if (e->UhdmType() == UHDM::uhdmindexed_part_select) {
+                        auto* ip = (UHDM::indexed_part_select*)e;
+                        walk((UHDM::any*)ip->Base_expr(), e, fn, sp);
+                        walk((UHDM::any*)ip->Width_expr(), e, fn, sp);
+                    }
+                    else {
+                        auto* ps = (UHDM::part_select*)e;
+                        walk((UHDM::any*)ps->Left_range(), e, fn, sp);
+                        walk((UHDM::any*)ps->Right_range(), e, fn, sp);
+                    }
+                    return;
+                }
+                default:
+                    tr280("VSIDXNAME", std::string("abstain ") +
+                                           UHDM::UhdmName(e->UhdmType()));
+                    return;
+            }
+        };
+    for (auto* ix : *vs->Exprs())
+        walk((UHDM::any*)ix, vs, base, base);
+}
+
+// BaseClass::ComputeFullName, reimplemented for r11u280 (it is protected in
+// UHDM; the same walk as UhdmExporter's chainFullName275 and the strict
+// comparator's chainFullName).
+static std::string chainFullName280(const UHDM::BaseClass* self) {
+    if (self->UhdmType() == UHDM::uhdmmodule_inst && self->VpiParent() &&
+        self->VpiParent()->UhdmType() == UHDM::uhdmmodule_inst)
+        return std::string(self->VpiDefName());
+    std::vector<std::string_view> names;
+    const UHDM::BaseClass* child = nullptr;
+    bool column = false;
+    for (const UHDM::BaseClass* p = self; p; child = p, p = p->VpiParent()) {
+        const UHDM::BaseClass* ap = p->VpiParent();
+        auto pt = p->UhdmType();
+        if (pt == UHDM::uhdmdesign)
+            break;
+        if (pt == UHDM::uhdmpackage || pt == UHDM::uhdmclass_defn)
+            column = true;
+        std::string_view name = p->VpiName().empty() ? p->VpiDefName() : p->VpiName();
+        bool skip = (ap && ap->UhdmType() == UHDM::uhdmref_obj) ||
+                    pt == UHDM::uhdmmethod_func_call || pt == UHDM::uhdmmethod_task_call ||
+                    pt == UHDM::uhdmfunc_call || pt == UHDM::uhdmtask_call ||
+                    pt == UHDM::uhdmsys_func_call || pt == UHDM::uhdmsys_task_call;
+        if (child) {
+            auto ct = child->UhdmType();
+            if (ct == UHDM::uhdmbit_select && pt == UHDM::uhdmport)
+                skip = true;
+            if (ct == UHDM::uhdmref_obj &&
+                (pt == UHDM::uhdmbit_select || pt == UHDM::uhdmindexed_part_select ||
+                 pt == UHDM::uhdmhier_path))
+                skip = true;
+        }
+        if (!name.empty() && !skip)
+            names.push_back(name);
+    }
+    std::string out;
+    for (auto it = names.rbegin(); it != names.rend(); ++it) {
+        if (!out.empty())
+            out += column ? "::" : ".";
+        out += *it;
+    }
+    return out;
+}
+// § hpMemVarSelNamesFinal280 (r11u280) — THE SAME NAMES, DESIGN-FINAL.  The
+// names golden reads on a member path's trailing var_select and on the
+// objects of its index list are ComputeFullName's at dump time, over the
+// FINAL parent chain; the emission-time arms above use the emission prefix
+// (the scope) and the var_select's own lazily frozen name, which a chain
+// that is completed later does not reach: a process two generate levels
+// down (golden `work@top.ga[0].gb[0].z.g[k][j].g`, ours frozen as
+// `work@top.z.g[k][j].g` before the always reached its scope; grid
+// cases/VR r08) and a port actual (golden `work@top.u.a.z.g[k][1].g.k`, the
+// chain running through the port and the instance that owns it; r27).  Every
+// var_select of the site is recorded at emission and re-named at the end of
+// drainShareDefParamTs (the last pass on this ground) with ComputeFullName
+// over its final chain, and so is each object the index-name arm names
+// (references, selects, a reference's own ref_typespec); a call, a nested
+// path or a nested var_select inside an index keeps its subtree as it was.
+// Clones made before the drain keep the emission-time names.  Switch
+// R11U280_VSFINAL_OFF (the var_select's own name and the index objects
+// together; R11U280_VSIDXNAME_OFF also drops the index objects here).
+static std::vector<UHDM::var_select*>& hpMemVarSel280List() {
+    static std::vector<UHDM::var_select*> l;
+    return l;
+}
+static void hpMemVarSelRecord280(UHDM::var_select* vs) {
+    static const bool on = r11u280On("R11U280_VSFINAL_OFF");
+    if (on && vs)
+        hpMemVarSel280List().push_back(vs);
+}
+void hpMemVarSelNamesDrain280() {
+    static const bool onIdx = r11u280On("R11U280_VSIDXNAME_OFF");
+    auto set = [](UHDM::any* o) {
+        const std::string fn = chainFullName280(o);
+        if (fn.empty())
+            return;
+        switch (o->UhdmType()) {
+            case UHDM::uhdmref_obj: {
+                auto* r = (UHDM::ref_obj*)o;
+                if (std::string(r->VpiFullName()) != fn) {
+                    tr280("VSFINAL", fn);
+                    r->VpiFullName(fn);
+                }
+                if (auto* rt = r->Typespec(); rt && rt->VpiParent() == r) {
+                    const std::string tfn = chainFullName280(rt);
+                    if (!tfn.empty() && std::string(rt->VpiFullName()) != tfn)
+                        rt->VpiFullName(tfn);
+                }
+                return;
+            }
+            case UHDM::uhdmbit_select:
+                if (std::string(((UHDM::bit_select*)o)->VpiFullName()) != fn) {
+                    tr280("VSFINAL", fn);
+                    ((UHDM::bit_select*)o)->VpiFullName(fn);
+                }
+                return;
+            case UHDM::uhdmpart_select:
+                if (std::string(((UHDM::part_select*)o)->VpiFullName()) != fn) {
+                    tr280("VSFINAL", fn);
+                    ((UHDM::part_select*)o)->VpiFullName(fn);
+                }
+                return;
+            case UHDM::uhdmindexed_part_select:
+                if (std::string(((UHDM::indexed_part_select*)o)->VpiFullName()) != fn) {
+                    tr280("VSFINAL", fn);
+                    ((UHDM::indexed_part_select*)o)->VpiFullName(fn);
+                }
+                return;
+            case UHDM::uhdmvar_select:
+                if (std::string(((UHDM::var_select*)o)->VpiFullName()) != fn) {
+                    tr280("VSFINAL", fn);
+                    ((UHDM::var_select*)o)->VpiFullName(fn);
+                }
+                return;
+            default:
+                return;
+        }
+    };
+    std::function<void(UHDM::any*, const UHDM::any*)> walk = [&](UHDM::any* e,
+                                                                const UHDM::any* up) {
+        if (!e || e->VpiParent() != up)
+            return;
+        switch (e->UhdmType()) {
+            case UHDM::uhdmref_obj:
+                set(e);
+                return;
+            case UHDM::uhdmoperation:
+                if (auto* os = ((UHDM::operation*)e)->Operands())
+                    for (auto* o : *os)
+                        walk(o, e);
+                return;
+            case UHDM::uhdmbit_select:
+                if (e->VpiName().empty())
+                    return;
+                set(e);
+                walk((UHDM::any*)((UHDM::bit_select*)e)->VpiIndex(), e);
+                return;
+            case UHDM::uhdmindexed_part_select: {
+                if (e->VpiName().empty())
+                    return;
+                set(e);
+                auto* ip = (UHDM::indexed_part_select*)e;
+                walk((UHDM::any*)ip->Base_expr(), e);
+                walk((UHDM::any*)ip->Width_expr(), e);
+                return;
+            }
+            case UHDM::uhdmpart_select: {
+                if (e->VpiName().empty())
+                    return;
+                set(e);
+                auto* ps = (UHDM::part_select*)e;
+                walk((UHDM::any*)ps->Left_range(), e);
+                walk((UHDM::any*)ps->Right_range(), e);
+                return;
+            }
+            default:
+                return;
+        }
+    };
+    for (auto* vs : hpMemVarSel280List()) {
+        const UHDM::any* hp = vs->VpiParent();
+        if (!hp || hp->UhdmType() != UHDM::uhdmhier_path || vs->VpiName().empty())
+            continue;
+        set(vs);
+        if (onIdx && vs->Exprs())
+            for (auto* ix : *vs->Exprs())
+                walk((UHDM::any*)ix, vs);
+    }
+    hpMemVarSel280List().clear();
+}
+
+// § genLoopDirectBoundPaCopy280 (r11u280) — § genLoopDirectBoundPaConst262
+// FOR THE ENCODING COPY.  A parameter that IS a select's bound (a part-select
+// bound, an indexed part select's base or width) in a for-generate body's
+// continuous assignment is, in golden, Surelog's clone of the parameter's own
+// elaborated constant (CompileExpression's `clone_tree(param_ass->Rhs())`
+// with `result->VpiParent(param_ass)`): parented at the instance's
+// param_assign and its reference named by the instance.  Pass 262 wrote that
+// on the decimal mint (c9); the copy arm that reproduces a non-decimal
+// encoding (§ genCaTopLoopParamPaCopy105's c5: a parameter whose elaborated
+// value is a replication fold, `localparam logic [3:0] R4 = {2{2'b01}}`,
+// `BIN:0101`) still parented the copy at the select and named it by the
+// generate scope: golden r10vearl105repro/v7_repl105 `sig[R4 +: 2]` and
+// `sig[R4+1 : R4]` read `work@v7_repl105.u_leaf` (the instance), ours
+// `work@v7_repl105.u_leaf.gen_r[0]`.  The same gates as pass 262's, its
+// verifier's refinement included (§ loopBoundBinOperandPlainLhs262v: a select
+// that is a direct operand of a binary operation under a plain outside left
+// side keeps the select parent).  Grid tools/probe/r11u280repro/cases/LB.
+// Switch R11U280_LOOPBOUNDCOPY_OFF.
+static std::pair<UHDM::param_assign*, std::string>
+loopDirectBoundPa280(const UHDM::any* parent, std::string_view sym, bool lhsSelOrLocal) {
+    static const bool on = r11u280On("R11U280_LOOPBOUNDCOPY_OFF");
+    if (!on || !parent ||
+        (parent->UhdmType() != UHDM::uhdmpart_select &&
+         parent->UhdmType() != UHDM::uhdmindexed_part_select))
+        return {nullptr, std::string()};
+    const UHDM::any* mw = parent;
+    while (mw && mw->UhdmType() != UHDM::uhdmmodule_inst &&
+           mw->UhdmType() != UHDM::uhdminterface_inst)
+        mw = mw->VpiParent();
+    UHDM::param_assign* pa = nullptr;
+    if (mw)
+        if (auto* pas = ((const UHDM::instance*)mw)->Param_assigns())
+            for (auto* pax : *pas)
+                if (auto* l = pax->Lhs(); l && l->UhdmType() == UHDM::uhdmparameter &&
+                                          ((UHDM::parameter*)l)->VpiName() == sym) {
+                    pa = pax;
+                    break;
+                }
+    if (!pa) {
+        tr280("LOOPBOUNDCOPY", "abstain no-pa " + std::string(sym));
+        return {nullptr, std::string()};
+    }
+    if (!lhsSelOrLocal)
+        if (auto* sp = parent->VpiParent(); sp && sp->UhdmType() == UHDM::uhdmoperation) {
+            int ot = ((const UHDM::operation*)sp)->VpiOpType();
+            if (!(ot == vpiConcatOp || ot == vpiMultiConcatOp || ot == vpiConditionOp ||
+                  (ot >= vpiMinusOp && ot <= vpiUnaryXNorOp))) {
+                tr280("LOOPBOUNDCOPY", "abstain binop " + std::string(sym));
+                return {nullptr, std::string()};
+            }
+        }
+    return {pa, std::string(((const UHDM::instance*)mw)->VpiFullName())};
+}
+
 // § hpTrailSelIdxNamesByPath133 — THE INDEX OF A PATH'S TRAILING SELECT IS
 // NAMED BY ITS PARENT CHAIN.  An rvalue `tbl[r].sat[i]` / `s.sat[i]` (a
 // continuous assignment or a process) keeps its index objects parented at the
@@ -27583,8 +27934,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                 trace169("GCACHAIN c5 abstain");
                                         }
                                     }
-                                    else
+                                    else {
                                         c5->VpiParent(parent);
+                                        // § genLoopDirectBoundPaCopy280
+                                        // (law at loopDirectBoundPa280).
+                                        if (inPsBound)
+                                            if (auto [pa280, in280] = loopDirectBoundPa280(
+                                                    parent, nv.symbol.name,
+                                                    genCaLhsSelect22 || genCaLhsGenLocal113);
+                                                pa280) {
+                                                tr280("LOOPBOUNDCOPY", tsN5 + " -> " + in280);
+                                                c5->VpiParent(pa280);
+                                                tsN5 = in280;
+                                            }
+                                    }
                                     auto* rt5 = s.MakeRef_typespec();
                                     rt5->VpiFullName(tsN5);
                                     rt5->VpiParent(c5);
@@ -41008,9 +41371,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             vs->VpiName(ma.member.name);
                             vs->VpiParent(hp);
                             (void)vs->VpiFullName();
-                            setLoc(vs, inLhs ? SourceRange(memSpan.start(),
-                                                           expr.sourceRange.end())
-                                             : expr.sourceRange);
+                            // § hpMemVarSelRvalSpan280 (law at
+                            // hpMemVarSelRvalSpan280On): an rvalue's element
+                            // starts at the final member's name too.
+                            const bool rvSpan280 = !inLhs && hpMemVarSelRvalSpan280On();
+                            if (rvSpan280)
+                                tr280("VSRVSPAN", dotted);
+                            setLoc(vs, (inLhs || rvSpan280)
+                                           ? SourceRange(memSpan.start(),
+                                                         expr.sourceRange.end())
+                                           : expr.sourceRange);
                             auto* idxs = s.MakeExprVec();
                             bool savedFCP = forceConstParent;
                             for (auto it3 = sels.rbegin(); it3 != sels.rend(); ++it3) {
@@ -41020,6 +41390,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             }
                             forceConstParent = savedFCP;
                             vs->Exprs(idxs);
+                            // § hpMemVarSelIdxNamesByChain280
+                            hpMemVarSelIdxNames280(vs, prefix, hp);
+                            // § hpMemVarSelNamesFinal280 (drained design-final)
+                            hpMemVarSelRecord280(vs);
                             elems->push_back(vs);
                         }
                         hp->Path_elems(elems);

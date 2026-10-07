@@ -37,6 +37,7 @@
 #include "R274.h"
 #include "R276.h"
 #include "R278.h"
+#include "R280.h"
 namespace slang_uhdm {
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
@@ -36815,6 +36816,9 @@ void UhdmExporter::drainShareDefParamTs() {
         rt278->Actual_typespec(ts278);
     }
     pkgQualRhs278().clear();
+    // § hpMemVarSelNamesFinal280 (law at ExprEmit's hpMemVarSelNamesDrain280):
+    // the member path var_select names, over the final parent chain.
+    hpMemVarSelNamesDrain280();
 }
 
 // Deferred DEF-view aggregate-typedef param ts: bind the SHARED named typedef
@@ -41121,6 +41125,44 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         // SeqDriver (adpcm_pkg carries uvm_pkg's 33).  `emitOne9` is the
         // former loop body, unchanged; only own variables register in the
         // per-view binding maps, so a clone never displaces its home.
+        // § pkgNetNamedTsDimEnd280 — the stretch (law text at the net-road
+        // site in emitOne9): `ts` is the typedef object the listing binds.
+        auto pkgNamedDimEnd280 = [&](const ValueSymbol& vs, const DeclaredType& dt,
+                                     UHDM::typespec* ts, const std::string& prefix) {
+            if (!ts || ts->VpiLineNo() == 0 || ts->VpiName().empty() ||
+                !r11u280On("R11U280_PKGNAMEDDIMEND_OFF"))
+                return;
+            SourceLocation de280 = SourceLocation::NoLocation;
+            auto dck280 = dt.getType().getCanonicalType().kind;
+            if (dck280 == SymbolKind::FixedSizeUnpackedArrayType ||
+                dck280 == SymbolKind::DynamicArrayType ||
+                dck280 == SymbolKind::AssociativeArrayType ||
+                dck280 == SymbolKind::QueueType)
+                if (auto* ds280 = vs.getSyntax();
+                    ds280 && ds280->kind == syntax::SyntaxKind::Declarator) {
+                    auto& dd280 = ds280->as<syntax::DeclaratorSyntax>();
+                    if (!dd280.dimensions.empty())
+                        de280 = dd280.dimensions[0]->sourceRange().end();
+                }
+            // A typedef declared in ANOTHER package (`import pa::*; st_t v
+            // [0:1];`, grid PS/p11) abstains: golden stretches the home
+            // package's elaborated listing object but keeps its definition
+            // listing's unstretched, where ours lists one object in both.
+            if (std::string(ts->VpiName()).rfind(prefix, 0) != 0)
+                tr280("PKGNAMEDDIMEND", "abstain foreign " + std::string(vs.name) + " " +
+                                            std::string(ts->VpiName()));
+            else if (de280 == SourceLocation::NoLocation)
+                tr280("PKGNAMEDDIMEND", "abstain nodim " + std::string(vs.name));
+            else if (sm->isMacroLoc(de280))
+                tr280("PKGNAMEDDIMEND", "abstain macro " + std::string(vs.name));
+            else if (ts->VpiEndLineNo() != (int)sm->getLineNumber(de280) ||
+                     ts->VpiEndColumnNo() != (int)sm->getColumnNumber(de280)) {
+                tr280("PKGNAMEDDIMEND", "fire " + prefix + std::string(vs.name) + " " +
+                                            std::string(ts->VpiName()));
+                ts->VpiEndLineNo(sm->getLineNumber(de280));
+                ts->VpiEndColumnNo(sm->getColumnNumber(de280));
+            }
+        };
         auto emitOne9 = [&](const ValueSymbol& vs, bool own9) {
             const DeclaredType* dt = vs.getDeclaredType();
             if (!dt)
@@ -41422,6 +41464,37 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                             ets79->VpiEndColumnNo(sm->getColumnNumber(de274));
                         }
                     }
+                    // § pkgNetNamedTsDimEnd280 (r11u280) — A NAMED ELEMENT
+                    // TYPE TAKES THE SAME STRETCH, ON THE SHARED OBJECT.
+                    // UhdmWriter::writeNets asks compileTypespec for the
+                    // package net's type and moves the END of whatever it
+                    // returns to the end of the net's first unpacked
+                    // dimension (`fC->populateCoreMembers(InvalidNodeId,
+                    // dimensions, ts)`); for a net whose element type is a
+                    // typedef (`st_t v_sarr [0:1];`, `sl_t a [0:1]`) that is
+                    // the package's own typedef object, shared by every
+                    // listing of it, so the typedef reads stretched
+                    // everywhere: golden r11u88repro/grid/i6_ifarray
+                    // `pk::st_t` 5:11-7:27 (the end of `[0:1]` on line 7),
+                    // ours the typedef's own 5:11-5:58; with several such
+                    // nets the last one written wins (y2_pkgvarkind
+                    // 10:11-19:33).  § pkgNetTsDimEnd274 moves only the
+                    // anonymous typespec it mints; this moves the named
+                    // element typedef this branch binds, for the package's
+                    // own entries listed as nets (net declarations and the
+                    // variables the listing makes nets) with an unpacked
+                    // dimension written on the declarator (a dimension end
+                    // written by a macro abstains, as there).  Not the
+                    // variable road (emitPackageVar's array_var, an element
+                    // struct with an int member or an enum element): golden
+                    // stretches the typedef in ONE of its two package
+                    // listings there (r11v77repro vh_arrelem `si_t`, `en_t`)
+                    // where ours lists one object in both; measured, it moved
+                    // the other listing's records away, so it is left.  Grid
+                    // tools/probe/r11u280repro/cases/PS.  Switch
+                    // R11U280_PKGNAMEDDIMEND_OFF.
+                    if (own9)
+                        pkgNamedDimEnd280(vs, *dt, ets79, prefix);
                     auto* rt79 = s.MakeRef_typespec();
                     rt79->VpiFullName(prefix + std::string(vs.name));
                     rt79->VpiParent(n);

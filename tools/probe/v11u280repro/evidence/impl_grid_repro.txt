@@ -1,0 +1,1 @@
+r11u280repro grid (1040 lines) reproduced: identical in every rc, cmp and strict field (md5s differ only by the worktree path embedded in the databases)

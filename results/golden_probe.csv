@@ -78,7 +78,7 @@ r10earl29repro/a3_plain,EQUAL,,equal
 r10earl29repro/a4_ctx,EQUAL,,equal
 r10earl29repro/a5_three,EQUAL,,equal
 r10earl29repro/a6_noconcat,EQUAL,,equal
-r10earl29repro/b1_sites,STRICT_NOTEQUAL,differ:col(10),differ:col(10)
+r10earl29repro/b1_sites,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
 r10earl29repro/b2_kinds,EQUAL,,equal
 r10earl29repro/b3_edges,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
 r10earl29repro/v10_str,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
@@ -637,7 +637,7 @@ r10svs3repro/a1_newlhs,EQUAL,,equal
 r10svs3repro/a2_thisnew,EQUAL,,equal
 r10svs3repro/a3_position,EQUAL,,equal
 r10svs3repro/a5_ctornest,EQUAL,,equal
-r10svs4repro/g1_thisidx,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
+r10svs4repro/g1_thisidx,EQUAL,,equal
 r10svs4repro/g3_assoc,EQUAL,,equal
 r10svs6repro/b4_qual,EQUAL,,equal
 r10svs7repro/a1_witness,EQUAL,,equal
@@ -744,7 +744,7 @@ r10uvm144repro/g144_g,EQUAL,,equal
 r10uvm145repro/g145_a_prod,EQUAL,,equal
 r10uvm145repro/g145_b_kind,EQUAL,,equal
 r10uvm145repro/g145_e_zero,EQUAL,,equal
-r10uvm147repro/g147_a,STRICT_NOTEQUAL,differ:col(6),differ:col(6)
+r10uvm147repro/g147_a,EQUAL,,equal
 r10uvm148repro/g148_a_prod,EQUAL,,equal
 r10uvm148repro/g148_b_scope,EQUAL,,equal
 r10uvm148repro/g148_d_kind,EQUAL,,equal
@@ -1063,7 +1063,7 @@ r10uvm88repro/v88_b4_nonsub,EQUAL,,equal
 r10uvm8repro/q1,EQUAL,,equal
 r10uvm8repro/q3,EQUAL,,equal
 r10uvm90repro/g90_a2_shapes,EQUAL,,equal
-r10uvm92repro/v92_b2_varsel,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
+r10uvm92repro/v92_b2_varsel,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
 r10uvm93repro/g93_a6_case,EQUAL,,equal
 r10uvm93repro/v93_a1_types,EQUAL,,equal
 r10uvm93repro/v93_a4_case,EQUAL,,equal
@@ -1427,7 +1427,7 @@ r10vbuvm32repro/vb32s1,EQUAL,,equal
 r10vearl100repro/v1_union100,EQUAL,,equal
 r10vearl100repro/v6_more100,STRICT_NOTEQUAL,differ:fullname(21),differ:fullname(21)
 r10vearl105repro/v4_home105,EQUAL,,equal
-r10vearl105repro/v7_repl105,STRICT_NOTEQUAL,differ:fullname(8),differ:fullname(8)
+r10vearl105repro/v7_repl105,EQUAL,,equal
 r10vearl106repro/va1_word106,EQUAL,,equal
 r10vearl106repro/va3_span106,EQUAL,,equal
 r10vearl106repro/va5_scope106,EQUAL,,equal
@@ -3023,7 +3023,7 @@ r11u34repro/g6,EQUAL,,equal
 r11u34repro/u2,EQUAL,,equal
 r11u35repro/grid/g3_shape35,EQUAL,,equal
 r11u38repro/g1_memsel38,EQUAL,,equal
-r11u39repro/a1,STRICT_NOTEQUAL,differ:col(6),differ:col(6)
+r11u39repro/a1,EQUAL,,equal
 r11u3repro/g1,EQUAL,,equal
 r11u3repro/g2,EQUAL,,equal
 r11u45repro/g1,EQUAL,,equal
@@ -3129,7 +3129,7 @@ r11u88repro/grid/c2_kinds,EQUAL,,equal
 r11u88repro/grid/i1_ifkinds,EQUAL,,equal
 r11u88repro/grid/i4_portview,EQUAL,,equal
 r11u88repro/grid/i5_twoinst,EQUAL,,equal
-r11u88repro/grid/i6_ifarray,STRICT_NOTEQUAL,differ:endline(13),differ:endline(13)
+r11u88repro/grid/i6_ifarray,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
 r11u88repro/grid/i8_modtwin,EQUAL,,equal
 r11u88repro/grid/j3_ifcaselect,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 r11u88repro/grid/q10_ndaorder,EQUAL,,equal
@@ -3148,7 +3148,7 @@ r11u88repro/grid/q9_ndatwoinst,EQUAL,,equal
 r11u88repro/grid/vf_collide,EQUAL,,equal
 r11u88repro/grid/x6_ifdefcast,EQUAL,,equal
 r11u88repro/grid/y1_pkgnetkind,EQUAL,,equal
-r11u88repro/grid/y2_pkgvarkind,STRICT_NOTEQUAL,differ:endline(21),differ:endline(21)
+r11u88repro/grid/y2_pkgvarkind,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
 r11u88repro/grid/y6_hoistconv,EQUAL,,equal
 r11u88repro/grid/z1_bothdrive,EQUAL,,equal
 r11u88repro/grid/z2b_delayref,EQUAL,,equal
@@ -3562,7 +3562,7 @@ r11v75repro/grid/xl_impclimb,EQUAL,,equal
 r11v77repro/grid/va_netstructkinds,EQUAL,,equal
 r11v77repro/grid/vd_structmem,EQUAL,,equal
 r11v77repro/grid/ve_ifacenet,EQUAL,,equal
-r11v77repro/grid/vh_arrelem,STRICT_NOTEQUAL,differ:endline(33),differ:endline(33)
+r11v77repro/grid/vh_arrelem,STRICT_NOTEQUAL,differ:endline(9),differ:endline(9)
 r11v83repro/grid/b12_ifarr,EQUAL,,equal
 r11v83repro/grid/b14_cadelay,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 r11v83repro/grid/b17_topiface,EQUAL,,equal

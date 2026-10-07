@@ -1,0 +1,17 @@
+MOVER r11u280repro/../r11u39repro/a3 d rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u280repro/../r11u39repro/a3 e rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u280repro/../r11u77repro/grid/y2_pkgvarkind d rc=0 cmp=0 STRICT_NOTEQUAL endline -> rc=0 cmp=0 STRICT_NOTEQUAL endcol
+MOVER r11u280repro/../r11u77repro/grid/y2_pkgvarkind e rc=0 cmp=0 STRICT_NOTEQUAL endline -> rc=0 cmp=0 STRICT_NOTEQUAL endcol
+MOVER r11u280repro/../r11u79repro/grid/vb_unpackedfaces d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u280repro/../r11u79repro/grid/vb_unpackedfaces e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u280repro/../r11u79repro/grid/vh_arrelem d rc=0 cmp=0 STRICT_NOTEQUAL endline -> rc=0 cmp=0 STRICT_NOTEQUAL endline
+MOVER r11u280repro/../r11u79repro/grid/vh_arrelem e rc=0 cmp=0 STRICT_NOTEQUAL endline -> rc=0 cmp=0 STRICT_NOTEQUAL endline
+MOVER r11u280repro/../r11u79repro/grid/y2_pkgvarkind d rc=0 cmp=0 STRICT_NOTEQUAL endline -> rc=0 cmp=0 STRICT_NOTEQUAL endcol
+MOVER r11u280repro/../r11u79repro/grid/y2_pkgvarkind e rc=0 cmp=0 STRICT_NOTEQUAL endline -> rc=0 cmp=0 STRICT_NOTEQUAL endcol
+MOVER r11u280repro/../r11u79repro/grid/z5_pkgunpacked d rc=0 cmp=67 NOT_EQUAL stage1 -> rc=0 cmp=67 NOT_EQUAL stage1
+MOVER r11u280repro/../r11u79repro/grid/z5_pkgunpacked e rc=0 cmp=67 NOT_EQUAL stage1 -> rc=0 cmp=67 NOT_EQUAL stage1
+MOVER r11u280repro/../r11v77repro/grid/vb_unpackedfaces d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u280repro/../r11v77repro/grid/vb_unpackedfaces e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u280repro/../v11u278repro/cases/VS/vs08 d rc=0 cmp=292 NOT_EQUAL stage1 -> rc=0 cmp=292 NOT_EQUAL stage1
+MOVER r11u280repro/../v11u278repro/cases/VS/vs08 e rc=0 cmp=292 NOT_EQUAL stage1 -> rc=0 cmp=292 NOT_EQUAL stage1
+case-views=2656 moving=16 entering=0 leaving=0 rc-changed=0 cmplines-changed=0

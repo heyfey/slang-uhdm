@@ -1,0 +1,4 @@
+canaries.sh surelog: ok=52 changed=0 absent=0 (unknown-names=7, the u2r-only list)
+canaries.sh uhdm2rtlil: ok=16 changed=0 absent=0 (unknown-names=25, the surelog-only list)
+ctcan2 EXPECT_UNKNOWN=1 surelog: PASS
+ctcan2 EXPECT_UNKNOWN=6 uhdm2rtlil: PASS
