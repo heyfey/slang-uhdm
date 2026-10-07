@@ -1,0 +1,8 @@
+# v11u275 fix-vs-law mover prediction, frozen before the fix sweep (derived from the law's firing census,
+# evidence/census_predict.txt, and the refinement's condition): § defNetTpPatKeepsActual275v acts only on the pairs
+# § defNetTpDimLastInstPat275 records and only after UHDM's ElaboratorListener, which runs only under --elabuhdm.
+# DEFNETTPPAT fires on 11 probe databases (default view, no listener) and on 0 corpus databases, so:
+probe 0
+surelog 0
+uhdm2rtlil 0
+downstream 0

@@ -1,0 +1,83 @@
+tests/probe/r10uvm122repro/g122_b_shape pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+tests/probe/r10uvm122repro/g122_d_pos pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+tests/probe/r10uvm148repro/g148_a_prod pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r10uvm223repro/grid223/a3_module_wild pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r10uvm48repro/t67b pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r10v122repro/q1shapes pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+tests/probe/r10v122repro/q7extra pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+tests/probe/r10v148repro/v148_g_corpus pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r10v96repro/v96_a4_operands pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+tests/probe/r11u107repro/grid/t05_tp_struct_dim pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r11u108repro/grid/f5/f5a05_override pristine EQUIVALENT differs=nohier surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/r11u275_ds/pristine/_tmp_wt_r11u275_t
+tests/probe/r11u108repro/grid/f5/f5a16_ovr2state pristine EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/r11u275_ds/pristine/_tmp_wt_r11u275_t
+tests/probe/r11u108repro/grid/f5/f5a18_init pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+tests/probe/r11u110repro/grid/e1/e30_var_body_ctl pristine EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/r11u275_ds/pristine/_tmp_wt_r11u275_t
+tests/probe/r11u110repro/grid/f2/i02_init_child_ovr pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+tests/probe/r11u110repro/grid/f2/i03_init_2state pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+tests/probe/r11u110repro/grid/f2/i21_two_decl_init pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_4_common_constant_assignments_match
+tests/probe/r11u31repro/g5 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r11u69repro/grid/g11_iface pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r11u71repro/grid/n3_ifacegrid pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r11u82repro/grid/w9_typeshapes pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r11u88repro/grid/i1_ifkinds pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r11u88repro/grid/i8_modtwin pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r11v69repro/grid/v7_ifacemix pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r11v71repro/grid/x6_ifacedeep pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r11v75repro/grid/xe_impkind pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/r11v77repro/grid/ve_ifacenet pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/v11u108repro/brk/f5/b08_two_inst_mixed pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u275_ds/pris
+tests/probe/v11u108repro/brk/f5/b29_override_packed_elem pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u275_ds/pris
+tests/probe/v11u110repro/brk/v1/a33_parent_overrides_and_child_rt_port_bodyvar pristine EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/r11u275_ds/pristine/_tmp_wt_r11u275_t
+tests/probe/v11u110repro/brk/v1/b01_init_unbased pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/v11u110repro/brk/v1/b08_top_default_init pristine EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/r11u275_ds/pristine/_tmp_wt_r11u275_t
+tests/probe/v11u110repro/brk/v1/b11_nonlocal_param_init pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+tests/probe/v11u110repro/brk/v1/b12_init_int_elem pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+tests/probe/v11u110repro/brk/v1/d03_attr_dimless_two_decl_ctl pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u275_ds/pris
+tests/probe/v11u93b107repro/brk/q01_dim_valparam pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/v11u93b107repro/brk/q05_union_dim pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/v11u93b107repro/brk/q06_two_dims pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+tests/probe/v11u93b107repro/brk/q12_dim_one_ovr_child pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IG/ig01_genmember pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IG/ig02_toplevel_ctl pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IG/ig03_parent_namesake pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IG/ig04_param_value pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IG/ig05_nested_gen pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IG/ig06_module_ctl pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IG/ig07_funcret pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IN/in01_pkgvar_unpacked pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IN/in02_pkgnet_unpacked pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IN/in03_packed2d pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IN/in04_iface pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IN/in05_size_and_dyn pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IN/in06_onedim_ctl pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IN/in07_init_unpacked pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/IN/in08_two_modules pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/PA/pa01_port_assign pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/PA/pa02_union_body pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/PA/pa03_noassign_ctl pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u275repro/cases/PA/pa04_genscope pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/PA/pa05_child_two_inst pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/PA/pa06_init_decl pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+r11u275repro/cases/PA/pa07_named_elem_ctl pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/PA/pa08_iface pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u275repro/cases/PA/pa09_override pristine SLANG_REJECT differs=- surelog= slang= detail=-
+r11u275repro/cases/TA/ta01_func_range pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/TA/ta02_task_range pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/TA/ta03_size_ctl pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/TA/ta04_two_dims pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/TA/ta05_class_method pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/TA/ta06_size_then_range pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/TN/tn01_override pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u275_ds/pris
+r11u275repro/cases/TN/tn02_two_inst_last pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u275_ds/pris
+r11u275repro/cases/TN/tn03_last_overrides_array pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u275_ds/pris
+r11u275repro/cases/TN/tn04_no_override_ctl pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/TN/tn05_gen_inst pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/TN/tn06_chain pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u275_ds/pris
+r11u275repro/cases/TN/tn07_param_depth pristine EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/r11u275_ds/pristine/r11u275repro_case
+r11u275repro/cases/TV/tv01_named_elem_init pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+r11u275repro/cases/TV/tv02_plain_tp_init pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+r11u275repro/cases/TV/tv03_var_kw_ctl pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/TV/tv04_const_ctl pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/TV/tv05_two_decls pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_4_common_constant_assignments_match
+r11u275repro/cases/TV/tv06_child_override pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u275repro/cases/TV/tv07_int_tp pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match

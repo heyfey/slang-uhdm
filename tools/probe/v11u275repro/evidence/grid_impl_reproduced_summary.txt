@@ -1,0 +1,89 @@
+IG/ig01_genmember P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_149_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND ENTER
+IG/ig01_genmember_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_148_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND ENTER
+IG/ig02_toplevel_ctl P=STRICT_EQUAL_154_objects L=STRICT_EQUAL_154_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+IG/ig02_toplevel_ctl_el P=STRICT_EQUAL_153_objects L=STRICT_EQUAL_153_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+IG/ig03_parent_namesake P=STRICT_EQUAL_124_objects L=STRICT_EQUAL_124_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+IG/ig03_parent_namesake_el P=STRICT_EQUAL_118_objects L=STRICT_EQUAL_118_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+IG/ig04_param_value P=STRICT_EQUAL_97_objects L=STRICT_EQUAL_97_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+IG/ig04_param_value_el P=STRICT_EQUAL_96_objects L=STRICT_EQUAL_96_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+IG/ig05_nested_gen P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+IG/ig05_nested_gen_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+IG/ig06_module_ctl P=STRICT_EQUAL_103_objects L=STRICT_EQUAL_103_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+IG/ig06_module_ctl_el P=STRICT_EQUAL_96_objects L=STRICT_EQUAL_96_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+IG/ig07_funcret P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_91_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND ENTER
+IG/ig07_funcret_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_90_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND ENTER
+IN/in01_pkgvar_unpacked P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_81_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+IN/in01_pkgvar_unpacked_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_80_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+IN/in02_pkgnet_unpacked P=STRICT_NOTEQUAL_endcol L=STRICT_NOTEQUAL_endcol rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND
+IN/in02_pkgnet_unpacked_el P=STRICT_NOTEQUAL_endcol L=STRICT_NOTEQUAL_endcol rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND
+IN/in03_packed2d P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_82_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+IN/in03_packed2d_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_72_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+IN/in04_iface P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_178_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+IN/in04_iface_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_177_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+IN/in05_size_and_dyn P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND
+IN/in05_size_and_dyn_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND
+IN/in06_onedim_ctl P=STRICT_EQUAL_79_objects L=STRICT_EQUAL_79_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+IN/in06_onedim_ctl_el P=STRICT_EQUAL_72_objects L=STRICT_EQUAL_72_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+IN/in07_init_unpacked P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND
+IN/in07_init_unpacked_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND
+IN/in08_two_modules P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_221_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+IN/in08_two_modules_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_210_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+PA/pa01_port_assign P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_129_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET ENTER
+PA/pa01_port_assign_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_127_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET ENTER
+PA/pa02_union_body P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_159_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET ENTER
+PA/pa02_union_body_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_137_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET ENTER
+PA/pa03_noassign_ctl P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PA/pa03_noassign_ctl_el P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PA/pa04_genscope P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_148_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET ENTER
+PA/pa04_genscope_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_130_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET ENTER
+PA/pa05_child_two_inst P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_281_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET ENTER
+PA/pa05_child_two_inst_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_282_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET ENTER
+PA/pa06_init_decl P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT
+PA/pa06_init_decl_el P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT
+PA/pa07_named_elem_ctl P=STRICT_EQUAL_126_objects L=STRICT_EQUAL_126_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PA/pa07_named_elem_ctl_el P=STRICT_EQUAL_113_objects L=STRICT_EQUAL_113_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PA/pa08_iface P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PA/pa08_iface_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+PA/pa09_override P=SLANG_FAIL L=SLANG_FAIL rcP=3 rcL=3 moved=0 off=pristine:1 by=-
+PA/pa09_override_el P=SLANG_FAIL L=SLANG_FAIL rcP=3 rcL=3 moved=0 off=pristine:1 by=-
+TA/ta01_func_range P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+TA/ta01_func_range_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+TA/ta02_task_range P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_97_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND ENTER
+TA/ta02_task_range_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_119_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND ENTER
+TA/ta03_size_ctl P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TA/ta03_size_ctl_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TA/ta04_two_dims P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_92_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND ENTER
+TA/ta04_two_dims_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_153_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND ENTER
+TA/ta05_class_method P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_73_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND ENTER
+TA/ta05_class_method_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_98_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND ENTER
+TA/ta06_size_then_range P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_96_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND ENTER
+TA/ta06_size_then_range_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_165_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND ENTER
+TN/tn01_override P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_174_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+TN/tn01_override_el P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_161_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+TN/tn02_two_inst_last P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_257_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+TN/tn02_two_inst_last_el P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_250_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+TN/tn03_last_overrides_array P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_244_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+TN/tn03_last_overrides_array_el P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_237_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+TN/tn04_no_override_ctl P=STRICT_EQUAL_156_objects L=STRICT_EQUAL_156_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TN/tn04_no_override_ctl_el P=STRICT_EQUAL_146_objects L=STRICT_EQUAL_146_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TN/tn05_gen_inst P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_179_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+TN/tn05_gen_inst_el P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_166_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+TN/tn06_chain P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_196_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+TN/tn06_chain_el P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_183_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+TN/tn07_param_depth P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_185_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+TN/tn07_param_depth_el P=STRICT_NOTEQUAL_line L=STRICT_NOTEQUAL_depth rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT
+TV/tv01_named_elem_init P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_99_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+TV/tv01_named_elem_init_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_87_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+TV/tv02_plain_tp_init P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_62_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+TV/tv02_plain_tp_init_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_55_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+TV/tv03_var_kw_ctl P=STRICT_NOTEQUAL_endline L=STRICT_NOTEQUAL_endline rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TV/tv03_var_kw_ctl_el P=STRICT_NOTEQUAL_endline L=STRICT_NOTEQUAL_endline rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TV/tv04_const_ctl P=STRICT_NOTEQUAL_endline L=STRICT_NOTEQUAL_endline rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TV/tv04_const_ctl_el P=STRICT_NOTEQUAL_endline L=STRICT_NOTEQUAL_endline rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+TV/tv05_two_decls P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_109_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+TV/tv05_two_decls_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_95_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+TV/tv06_child_override P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT
+TV/tv06_child_override_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT
+TV/tv07_int_tp P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_35_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+TV/tv07_int_tp_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_34_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+TOTAL attr_DEFNETTPPAT=12 attr_IFGENUNBOUND=4 attr_IMPNETDIMEND=14 attr_TFARRRANGEEND=10 attr_TPPATRESET=8 attr_TPVARINIT=12 caseviews=88 cmp_change=0 entering=47 leaving=0 moved=60 off_pristine=88 rc_change=0

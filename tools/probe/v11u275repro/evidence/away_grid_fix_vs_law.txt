@@ -1,0 +1,6 @@
+TN/tn07_param_depth_el dist 1 -> 1 lost=0 gained=3 | chain away=0 toward=3 flat_away=0 flat_toward=3
+VN/vn11_param_depth_two_inst_el dist 7 -> 8 lost=0 gained=2 | chain away=0 toward=3 flat_away=0 flat_toward=2
+VN/vn12_param_bound_override_el dist 4 -> 5 lost=0 gained=2 | chain away=0 toward=3 flat_away=0 flat_toward=2
+VN/vn13_param_depth_gen_el dist 1 -> 1 lost=0 gained=3 | chain away=0 toward=3 flat_away=0 flat_toward=3
+VN/vn14_first_overrides_array_el dist 4 -> 5 lost=0 gained=2 | chain away=0 toward=3 flat_away=0 flat_toward=2
+VN/vn15_nested_first_el dist 4 -> 5 lost=0 gained=2 | chain away=0 toward=3 flat_away=0 flat_toward=2

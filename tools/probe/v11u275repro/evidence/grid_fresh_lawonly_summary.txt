@@ -1,0 +1,149 @@
+VA/va01_desc_range P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va01_desc_range_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va02_param_range P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va02_param_range_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va03_range_then_size P=STRICT_EQUAL_96_objects L=STRICT_EQUAL_96_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VA/va03_range_then_size_el P=STRICT_EQUAL_165_objects L=STRICT_EQUAL_165_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VA/va04_two_declarators P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va04_two_declarators_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va05_task_in_module P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_101_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND ENTER
+VA/va05_task_in_module_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_122_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND ENTER
+VA/va06_iface_func P=STRICT_NOTEQUAL_endcol L=STRICT_NOTEQUAL_type rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va06_iface_func_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va07_initializer P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va07_initializer_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va08_macro_range P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va08_macro_range_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va09_class_static P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_53_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND ENTER
+VA/va09_class_static_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_66_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND ENTER
+VA/va10_spaces P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va10_spaces_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va11_size_ctl P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VA/va11_size_ctl_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VA/va12_crlf P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VA/va12_crlf_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TFARRRANGEEND
+VG/vg01_case_gen P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_184_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND ENTER
+VG/vg01_case_gen_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_183_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND ENTER
+VG/vg02_genlocal P=STRICT_EQUAL_178_objects L=STRICT_EQUAL_178_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VG/vg02_genlocal_el P=STRICT_EQUAL_177_objects L=STRICT_EQUAL_177_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VG/vg03_param_plain P=STRICT_EQUAL_97_objects L=STRICT_EQUAL_97_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VG/vg03_param_plain_el P=STRICT_EQUAL_96_objects L=STRICT_EQUAL_96_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VG/vg04_iface_in_modgen P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_126_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND ENTER
+VG/vg04_iface_in_modgen_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_156_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND ENTER
+VG/vg05_namesake_typed P=STRICT_EQUAL_180_objects L=STRICT_EQUAL_180_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VG/vg05_namesake_typed_el P=STRICT_EQUAL_183_objects L=STRICT_EQUAL_183_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VG/vg06_for_gen P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND
+VG/vg06_for_gen_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND
+VG/vg07_iface_port P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND CMPCHANGE
+VG/vg07_iface_port_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND CMPCHANGE
+VG/vg08_two_ifaces P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_208_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND ENTER
+VG/vg08_two_ifaces_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_208_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IFGENUNBOUND ENTER
+VI/vi01_size_unpacked P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_87_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi01_size_unpacked_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_86_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi02_int_unpacked P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_60_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi02_int_unpacked_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_59_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi03_bit_packed2d P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_82_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi03_bit_packed2d_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_72_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi04_typedef_packed P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VI/vi04_typedef_packed_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VI/vi05_packed_and_unpacked P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_93_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi05_packed_and_unpacked_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_92_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi06_two_unpacked P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_92_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi06_two_unpacked_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_91_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi07_explicit_import P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_154_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi07_explicit_import_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_143_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi08_header_import P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND
+VI/vi08_header_import_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_148_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi09_wire_packed2d P=STRICT_NOTEQUAL_endcol L=STRICT_NOTEQUAL_endcol rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND
+VI/vi09_wire_packed2d_el P=STRICT_NOTEQUAL_endcol L=STRICT_NOTEQUAL_endcol rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND
+VI/vi10_multiline P=STRICT_NOTEQUAL_endline L=STRICT_EQUAL_93_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi10_multiline_el P=STRICT_NOTEQUAL_endline L=STRICT_EQUAL_92_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi11_crlf P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_154_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi11_crlf_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_143_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi12_signed P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_82_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi12_signed_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_72_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi13_reg P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_82_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi13_reg_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_72_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi14_scalar_unpacked P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_60_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi14_scalar_unpacked_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_59_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi15_queue P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND
+VI/vi15_queue_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND
+VI/vi16_macro_dim P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND
+VI/vi16_macro_dim_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND
+VI/vi17_two_pkgs_same_pos P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_215_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi17_two_pkgs_same_pos_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_195_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi18_three_packed P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_97_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi18_three_packed_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_84_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=IMPNETDIMEND ENTER
+VI/vi19_struct_unpacked P=STRICT_NOTEQUAL_endline L=STRICT_NOTEQUAL_endline rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VI/vi19_struct_unpacked_el P=STRICT_NOTEQUAL_endline L=STRICT_NOTEQUAL_endline rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VN/vn01_three_inst P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_340_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn01_three_inst_el P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_339_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn02_dfs_vs_bfs P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_308_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn02_dfs_vs_bfs_el P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_301_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn03_pkg_elem P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT
+VN/vn03_pkg_elem_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT
+VN/vn04_port_and_body P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_194_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn04_port_and_body_el P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_182_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn05_gen_for P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_269_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn05_gen_for_el P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_262_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn06_two_defs P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_407_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn06_two_defs_el P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_387_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn07_iface P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VN/vn07_iface_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VN/vn08_struct_elem P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_208_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn08_struct_elem_el P=STRICT_NOTEQUAL_type L=STRICT_EQUAL_192_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn09_param_not_local P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_174_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn09_param_not_local_el P=STRICT_NOTEQUAL_line L=STRICT_EQUAL_161_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT ENTER
+VN/vn10_variable_body P=STRICT_NOTEQUAL_line L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT
+VN/vn10_variable_body_el P=STRICT_NOTEQUAL_line L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=1 off=pristine:1 by=DEFNETTPPAT
+VP/vp01_two_dims P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_153_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET ENTER
+VP/vp01_two_dims_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_151_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET ENTER
+VP/vp02_bitsel_lhs P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET
+VP/vp02_bitsel_lhs_el P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET
+VP/vp03_override_parent P=SLANG_FAIL L=SLANG_FAIL rcP=3 rcL=3 moved=0 off=pristine:1 by=-
+VP/vp03_override_parent_el P=SLANG_FAIL L=SLANG_FAIL rcP=3 rcL=3 moved=0 off=pristine:1 by=-
+VP/vp04_iface P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VP/vp04_iface_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VP/vp05_always_ctl P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VP/vp05_always_ctl_el P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VP/vp06_two_tps P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET
+VP/vp06_two_tps_el P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET
+VP/vp07_union P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_159_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET ENTER
+VP/vp07_union_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_137_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET ENTER
+VP/vp08_member_lhs P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET
+VP/vp08_member_lhs_el P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname rcP=0 rcL=0 moved=1 off=pristine:1 by=TPPATRESET
+VP/vp09_named_struct_ctl P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VP/vp09_named_struct_ctl_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VP/vp10_nda P=SURELOG_FAIL L=SURELOG_FAIL rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VP/vp10_nda_el P=SURELOG_FAIL L=SURELOG_FAIL rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv01_anon_struct_tp P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv01_anon_struct_tp_el P=STRICT_EQUAL_92_objects L=STRICT_EQUAL_92_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv02_two_declarators P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_109_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+VV/vv02_two_declarators_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_95_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+VV/vv03_var_by_macro P=STRICT_NOTEQUAL_endline L=STRICT_NOTEQUAL_endline rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv03_var_by_macro_el P=STRICT_NOTEQUAL_endline L=STRICT_NOTEQUAL_endline rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv04_var_comment_semi P=STRICT_NOTEQUAL_endline L=STRICT_NOTEQUAL_endline rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv04_var_comment_semi_el P=STRICT_NOTEQUAL_endline L=STRICT_NOTEQUAL_endline rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv05_genblock P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv05_genblock_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv06_iface P=STRICT_NOTEQUAL_endcol L=STRICT_NOTEQUAL_endcol rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv06_iface_el P=STRICT_NOTEQUAL_endcol L=STRICT_NOTEQUAL_endcol rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv07_scalar_logic P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_38_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+VV/vv07_scalar_logic_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_34_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+VV/vv08_multiline_init P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT
+VV/vv08_multiline_init_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT
+VV/vv09_override_struct P=STRICT_EQUAL_111_objects L=STRICT_EQUAL_111_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv09_override_struct_el P=STRICT_EQUAL_104_objects L=STRICT_EQUAL_104_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv10_real_tp P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv10_real_tp_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv11_chain_localparam P=STRICT_NOTEQUAL_line L=STRICT_NOTEQUAL_line rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT
+VV/vv11_chain_localparam_el P=STRICT_NOTEQUAL_line L=STRICT_NOTEQUAL_line rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT
+VV/vv12_enum_tp P=STRICT_EQUAL_107_objects L=STRICT_EQUAL_107_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv12_enum_tp_el P=STRICT_EQUAL_95_objects L=STRICT_EQUAL_95_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv13_noinit_ctl P=STRICT_EQUAL_89_objects L=STRICT_EQUAL_89_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv13_noinit_ctl_el P=STRICT_EQUAL_81_objects L=STRICT_EQUAL_81_objects rcP=0 rcL=0 moved=0 off=pristine:1 by=-
+VV/vv14_crlf P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_62_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+VV/vv14_crlf_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_55_objects rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT ENTER
+VV/vv15_two_inst P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT
+VV/vv15_two_inst_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 rcP=0 rcL=0 moved=1 off=pristine:1 by=TPVARINIT
+TOTAL attr_DEFNETTPPAT=18 attr_IFGENUNBOUND=10 attr_IMPNETDIMEND=34 attr_TFARRRANGEEND=20 attr_TPPATRESET=10 attr_TPVARINIT=12 caseviews=148 cmp_change=2 entering=61 leaving=0 moved=104 off_pristine=148 rc_change=0

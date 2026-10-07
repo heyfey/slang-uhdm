@@ -1,0 +1,62 @@
+CONVERSION r10uvm122repro/g122_b_shape differ:endcol(2) -> equal | TFARRRANGEEND:2
+CONVERSION r10uvm122repro/g122_d_pos differ:endcol(2) -> equal | TFARRRANGEEND:2
+CHANGE r10uvm122repro/g122_f_clone differ:endcol(7) -> differ:fullname(3) | TFARRRANGEEND:4
+CONVERSION r10uvm148repro/g148_a_prod differ:endcol(1) -> equal | IMPNETDIMEND:1
+CONVERSION r10uvm223repro/grid223/a3_module_wild differ:endcol(2) -> equal | IMPNETDIMEND:2
+CONVERSION r10uvm48repro/t67b differ:endcol(1) -> equal | IMPNETDIMEND:1
+CONVERSION r10v122repro/q1shapes differ:endcol(2) -> equal | TFARRRANGEEND:2
+CONVERSION r10v122repro/q7extra differ:endcol(2) -> equal | TFARRRANGEEND:2
+CONVERSION r10v148repro/v148_g_corpus differ:endcol(1) -> equal | IMPNETDIMEND:1
+CONVERSION r10v96repro/v96_a4_operands differ:endcol(2) -> equal | TFARRRANGEEND:2
+CONVERSION r11u107repro/grid/t05_tp_struct_dim differ:fullname(6) -> equal | TPPATRESET:2
+CONVERSION r11u108repro/grid/f5/f5a05_override differ:line(2) -> equal | DEFNETTPPAT:1
+CONVERSION r11u108repro/grid/f5/f5a16_ovr2state differ:type(1) -> equal | DEFNETTPPAT:1
+CONVERSION r11u108repro/grid/f5/f5a18_init differ:endcol(1) -> equal | TPVARINIT:1
+CONVERSION r11u110repro/grid/e1/e30_var_body_ctl differ:line(2) -> equal | DEFNETTPPAT:1
+CONVERSION r11u110repro/grid/f2/i02_init_child_ovr differ:line(2) -> equal | DEFNETTPPAT:1 TPVARINIT:1
+CONVERSION r11u110repro/grid/f2/i03_init_2state differ:endcol(1) -> equal | TPVARINIT:1
+CONVERSION r11u110repro/grid/f2/i21_two_decl_init differ:endcol(2) -> equal | TPVARINIT:2
+CONVERSION r11u31repro/g5 differ:fullname(4) -> equal | TPPATRESET:2
+CONVERSION r11u69repro/grid/g11_iface differ:type(1) -> equal | IFGENUNBOUND:1
+CONVERSION r11u71repro/grid/n3_ifacegrid differ:type(1) -> equal | IFGENUNBOUND:3
+CHANGE r11u77repro/grid/y4_bindreach differ:endcol(4) -> differ:endcol(2) | IMPNETDIMEND:2
+CHANGE r11u82repro/grid/w3_arraynet differ:endcol(4) -> differ:endcol(2) | IMPNETDIMEND:2
+CONVERSION r11u82repro/grid/w9_typeshapes differ:endcol(1) -> equal | IMPNETDIMEND:1
+CONVERSION r11u88repro/grid/i1_ifkinds differ:endcol(2) -> equal | IMPNETDIMEND:1
+CHANGE r11u88repro/grid/i6_ifarray differ:endline(23) -> differ:endline(15) | IMPNETDIMEND:2
+CONVERSION r11u88repro/grid/i8_modtwin differ:endcol(1) -> equal | IMPNETDIMEND:1
+CHANGE r11u88repro/grid/y1_pkgnetkind differ:endcol(3) -> differ:endcol(2) | IMPNETDIMEND:1
+CHANGE r11u88repro/grid/y2_pkgvarkind differ:endline(23) -> differ:endline(21) | IMPNETDIMEND:2
+CONVERSION r11v69repro/grid/v7_ifacemix differ:type(1) -> equal | IFGENUNBOUND:2
+CONVERSION r11v71repro/grid/x6_ifacedeep differ:type(1) -> equal | IFGENUNBOUND:16
+CONVERSION r11v75repro/grid/xe_impkind differ:endcol(2) -> equal | IMPNETDIMEND:2
+CONVERSION r11v77repro/grid/ve_ifacenet differ:endcol(5) -> equal | IMPNETDIMEND:2
+CHANGE r11v77repro/grid/vh_arrelem differ:endline(37) -> differ:endline(35) | IMPNETDIMEND:2
+CONVERSION v11u108repro/brk/f5/b08_two_inst_mixed differ:line(8) -> equal | DEFNETTPPAT:1
+CONVERSION v11u108repro/brk/f5/b29_override_packed_elem differ:line(2) -> equal | DEFNETTPPAT:1
+CONVERSION v11u110repro/brk/v1/a33_parent_overrides_and_child_rt_port_bodyvar differ:line(2) -> equal | DEFNETTPPAT:1
+CONVERSION v11u110repro/brk/v1/b01_init_unbased differ:endcol(2) -> equal | TPVARINIT:2
+BYTES-ONLY v11u110repro/brk/v1/b06_const_init differ:endline(4) -> differ:endline(4) | DEFNETTPPAT:1
+CONVERSION v11u110repro/brk/v1/b08_top_default_init differ:endcol(1) -> equal | TPVARINIT:1
+CONVERSION v11u110repro/brk/v1/b11_nonlocal_param_init differ:line(2) -> equal | DEFNETTPPAT:1 TPVARINIT:2
+CONVERSION v11u110repro/brk/v1/b12_init_int_elem differ:type(1) -> equal | DEFNETTPPAT:1 TPVARINIT:1
+CONVERSION v11u110repro/brk/v1/d03_attr_dimless_two_decl_ctl differ:line(2) -> equal | DEFNETTPPAT:2
+CONVERSION v11u93b107repro/brk/q01_dim_valparam differ:fullname(6) -> equal | TPPATRESET:2
+CONVERSION v11u93b107repro/brk/q05_union_dim differ:fullname(6) -> equal | TPPATRESET:2
+CONVERSION v11u93b107repro/brk/q06_two_dims differ:fullname(6) -> equal | TPPATRESET:2
+CONVERSION v11u93b107repro/brk/q12_dim_one_ovr_child differ:fullname(6) -> equal | TPPATRESET:2
+
+6 DEFNETTPPAT:1 r11u108repro/grid/f5/f5a05_override r11u108repro/grid/f5/f5a16_ovr2state r11u110repro/grid/e1/e30_var_body_ctl v11u108repro/brk/f5/b08_two_inst_mixed v11u108repro/brk/f5/b29_override_packed_elem v11u110repro/brk/v1/a33_parent_overrides_and_child_rt_port_bodyvar
+2 DEFNETTPPAT:1 TPVARINIT:1 r11u110repro/grid/f2/i02_init_child_ovr v11u110repro/brk/v1/b12_init_int_elem
+1 DEFNETTPPAT:1 TPVARINIT:2 v11u110repro/brk/v1/b11_nonlocal_param_init
+1 DEFNETTPPAT:2 v11u110repro/brk/v1/d03_attr_dimless_two_decl_ctl
+1 IFGENUNBOUND:1 r11u69repro/grid/g11_iface
+1 IFGENUNBOUND:16 r11v71repro/grid/x6_ifacedeep
+1 IFGENUNBOUND:2 r11v69repro/grid/v7_ifacemix
+1 IFGENUNBOUND:3 r11u71repro/grid/n3_ifacegrid
+6 IMPNETDIMEND:1 r10uvm148repro/g148_a_prod r10uvm48repro/t67b r10v148repro/v148_g_corpus r11u82repro/grid/w9_typeshapes r11u88repro/grid/i1_ifkinds r11u88repro/grid/i8_modtwin
+3 IMPNETDIMEND:2 r10uvm223repro/grid223/a3_module_wild r11v75repro/grid/xe_impkind r11v77repro/grid/ve_ifacenet
+5 TFARRRANGEEND:2 r10uvm122repro/g122_b_shape r10uvm122repro/g122_d_pos r10v122repro/q1shapes r10v122repro/q7extra r10v96repro/v96_a4_operands
+6 TPPATRESET:2 r11u107repro/grid/t05_tp_struct_dim r11u31repro/g5 v11u93b107repro/brk/q01_dim_valparam v11u93b107repro/brk/q05_union_dim v11u93b107repro/brk/q06_two_dims v11u93b107repro/brk/q12_dim_one_ovr_child
+3 TPVARINIT:1 r11u108repro/grid/f5/f5a18_init r11u110repro/grid/f2/i03_init_2state v11u110repro/brk/v1/b08_top_default_init
+2 TPVARINIT:2 r11u110repro/grid/f2/i21_two_decl_init v11u110repro/brk/v1/b01_init_unbased

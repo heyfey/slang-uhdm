@@ -38,6 +38,7 @@
 
 namespace slang_uhdm {
 extern bool g_svAllFiles188;  // § svModeAllFiles188 (UhdmExporter.cpp)
+void defNetTpPatKeepActual275v();  // § defNetTpPatKeepsActual275v (UhdmExporter.cpp, v11u275)
 }
 
 using namespace slang;
@@ -1161,6 +1162,10 @@ static int realMain(int argc, char** argv) {
             UHDM::ElaboratorContext elaboratorContext(&serializer, false, false);
             elaboratorContext.m_elaborator.uniquifyTypespec(false);
             elaboratorContext.m_elaborator.listenDesigns(designs);
+            // § defNetTpPatKeepsActual275v (v11u275, law and decode at
+            // UhdmExporter's defNetTpDimLastInstPat275).  Switch
+            // R11V275_KEEPACTUAL_OFF.
+            slang_uhdm::defNetTpPatKeepActual275v();
 
             // § unsizedInnerSizeDeclines223 (r11u223, pass 219's residue: the
             // elaborated view's rc 139 on `$size` of `int md [4][]` / `int

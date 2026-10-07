@@ -1,0 +1,25 @@
+case-views=2750 moving=18 entering=6 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/r11u110repro/grid/f2/i22_init_expr NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 102->102
+MOVER tp/r11u110repro/grid/f2/i22_init_expr_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 102->102
+MOVER tp/r11u137repro/grid/tn/tn07_init NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u137repro/grid/tn/tn07_init_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u183dec/cases/a/c07 STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_46_objects cmplines 0->0
+MOVER tp/r11u183dec/cases/a/c07_el STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_83_objects cmplines 0->0
+MOVER tp/r11u77repro/grid/xe_impkind STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_382_objects cmplines 0->0
+MOVER tp/r11u77repro/grid/xe_impkind_el STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_415_objects cmplines 0->0
+MOVER tp/r11u77repro/grid/y1_pkgnetkind STRICT_NOTEQUAL_endcol -> STRICT_NOTEQUAL_endcol cmplines 0->0
+MOVER tp/r11u77repro/grid/y1_pkgnetkind_el STRICT_NOTEQUAL_endcol -> STRICT_NOTEQUAL_endcol cmplines 0->0
+MOVER tp/r11u77repro/grid/y2_pkgvarkind STRICT_NOTEQUAL_endline -> STRICT_NOTEQUAL_endline cmplines 0->0
+MOVER tp/r11u77repro/grid/y2_pkgvarkind_el STRICT_NOTEQUAL_endline -> STRICT_NOTEQUAL_endline cmplines 0->0
+MOVER tp/r11u88repro/grid/g11_iface STRICT_NOTEQUAL_type -> STRICT_EQUAL_236_objects cmplines 0->0
+MOVER tp/r11u88repro/grid/g11_iface_el STRICT_NOTEQUAL_type -> STRICT_EQUAL_234_objects cmplines 0->0
+MOVER tp/v11u108repro/brk/f5/b27_gen_loop_inst NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 128->128
+MOVER tp/v11u108repro/brk/f5/b27_gen_loop_inst_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 128->128
+MOVER tp/v11u110repro/brk/v1/b07_neg_init NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 104->104
+MOVER tp/v11u110repro/brk/v1/b07_neg_init_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 104->104
+ENTER tp/r11u183dec/cases/a/c07
+ENTER tp/r11u183dec/cases/a/c07_el
+ENTER tp/r11u77repro/grid/xe_impkind
+ENTER tp/r11u77repro/grid/xe_impkind_el
+ENTER tp/r11u88repro/grid/g11_iface
+ENTER tp/r11u88repro/grid/g11_iface_el

@@ -1,0 +1,100 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u275_swF/probe.csv
+probe cases: EQUAL=3721 STRICT_NOTEQUAL=366 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3721 differ:fullname=143 differ:line=45 differ:name=43 differ:endcol=39 differ:type=32 differ:file=20 differ:depth=15 differ:col=13 differ:endline=10 differ:value=4 differ:count=1 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3721 STRICT_NOTEQUAL=366
+CONVERSION r10uvm122repro/g122_b_shape STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r10uvm122repro/g122_d_pos STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r10uvm148repro/g148_a_prod STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10uvm223repro/grid223/a3_module_wild STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r10uvm48repro/t67b STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10v122repro/q1shapes STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r10v122repro/q7extra STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r10v148repro/v148_g_corpus STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10v96repro/v96_a4_operands STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r11u107repro/grid/t05_tp_struct_dim STRICT_NOTEQUAL differ:fullname(6) -> EQUAL
+CONVERSION r11u108repro/grid/f5/f5a05_override STRICT_NOTEQUAL differ:line(2) -> EQUAL
+CONVERSION r11u108repro/grid/f5/f5a16_ovr2state STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION r11u108repro/grid/f5/f5a18_init STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e30_var_body_ctl STRICT_NOTEQUAL differ:line(2) -> EQUAL
+CONVERSION r11u110repro/grid/f2/i02_init_child_ovr STRICT_NOTEQUAL differ:line(2) -> EQUAL
+CONVERSION r11u110repro/grid/f2/i03_init_2state STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r11u110repro/grid/f2/i21_two_decl_init STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r11u31repro/g5 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u69repro/grid/g11_iface STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION r11u71repro/grid/n3_ifacegrid STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION r11u82repro/grid/w9_typeshapes STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r11u88repro/grid/i1_ifkinds STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r11u88repro/grid/i8_modtwin STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r11v69repro/grid/v7_ifacemix STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION r11v71repro/grid/x6_ifacedeep STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION r11v75repro/grid/xe_impkind STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r11v77repro/grid/ve_ifacenet STRICT_NOTEQUAL differ:endcol(5) -> EQUAL
+CONVERSION v11u108repro/brk/f5/b08_two_inst_mixed STRICT_NOTEQUAL differ:line(8) -> EQUAL
+CONVERSION v11u108repro/brk/f5/b29_override_packed_elem STRICT_NOTEQUAL differ:line(2) -> EQUAL
+CONVERSION v11u110repro/brk/v1/a33_parent_overrides_and_child_rt_port_bodyvar STRICT_NOTEQUAL differ:line(2) -> EQUAL
+CONVERSION v11u110repro/brk/v1/b01_init_unbased STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION v11u110repro/brk/v1/b08_top_default_init STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION v11u110repro/brk/v1/b11_nonlocal_param_init STRICT_NOTEQUAL differ:line(2) -> EQUAL
+CONVERSION v11u110repro/brk/v1/b12_init_int_elem STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION v11u110repro/brk/v1/d03_attr_dimless_two_decl_ctl STRICT_NOTEQUAL differ:line(2) -> EQUAL
+CONVERSION v11u93b107repro/brk/q01_dim_valparam STRICT_NOTEQUAL differ:fullname(6) -> EQUAL
+CONVERSION v11u93b107repro/brk/q05_union_dim STRICT_NOTEQUAL differ:fullname(6) -> EQUAL
+CONVERSION v11u93b107repro/brk/q06_two_dims STRICT_NOTEQUAL differ:fullname(6) -> EQUAL
+CONVERSION v11u93b107repro/brk/q12_dim_one_ovr_child STRICT_NOTEQUAL differ:fullname(6) -> EQUAL
+CHANGE r10uvm122repro/g122_f_clone STRICT_NOTEQUAL differ:endcol(7) -> differ:fullname(3)
+CHANGE r11u77repro/grid/y4_bindreach STRICT_NOTEQUAL differ:endcol(4) -> differ:endcol(2) [endcol -2]
+CHANGE r11u82repro/grid/w3_arraynet STRICT_NOTEQUAL differ:endcol(4) -> differ:endcol(2) [endcol -2]
+CHANGE r11u88repro/grid/i6_ifarray STRICT_NOTEQUAL differ:endline(23) -> differ:endline(15) [endline -8]
+CHANGE r11u88repro/grid/y1_pkgnetkind STRICT_NOTEQUAL differ:endcol(3) -> differ:endcol(2) [endcol -1]
+CHANGE r11u88repro/grid/y2_pkgvarkind STRICT_NOTEQUAL differ:endline(23) -> differ:endline(21) [endline -2]
+CHANGE r11v77repro/grid/vh_arrelem STRICT_NOTEQUAL differ:endline(37) -> differ:endline(35) [endline -2]
+regressions=0 conversions=39 changes=7 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u275_swF/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/v11u275_bin/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 476
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  STRICT_NOTEQUAL: 4
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 470
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  STRICT_NOTEQUAL: 4
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=476 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=4 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=470 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=4 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u275_swF/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/v11u275_bin/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+exit=1

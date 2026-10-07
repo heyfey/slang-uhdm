@@ -32,6 +32,7 @@
 #include "R269.h"
 #include "R271.h"
 #include "R273.h"
+#include "R275.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -3017,6 +3018,613 @@ static void typeParamStructLastNetParent273(UHDM::design* d,
                                      (oldParent != p ? " reparented" : "") +
                                      " renamed=" + std::to_string(renamed));
     }
+}
+
+// r11u275: BaseClass::ComputeFullName, reimplemented (it is protected).
+static std::string chainFullName275(const UHDM::BaseClass* self) {
+    if (self->UhdmType() == UHDM::uhdmmodule_inst && self->VpiParent() &&
+        self->VpiParent()->UhdmType() == UHDM::uhdmmodule_inst)
+        return std::string(self->VpiDefName());
+    std::vector<std::string_view> names;
+    const UHDM::BaseClass* child = nullptr;
+    bool column = false;
+    for (const UHDM::BaseClass* p = self; p; child = p, p = p->VpiParent()) {
+        const UHDM::BaseClass* ap = p->VpiParent();
+        auto pt = p->UhdmType();
+        if (pt == UHDM::uhdmdesign)
+            break;
+        if (pt == UHDM::uhdmpackage || pt == UHDM::uhdmclass_defn)
+            column = true;
+        std::string_view name = p->VpiName().empty() ? p->VpiDefName() : p->VpiName();
+        bool skip = (ap && ap->UhdmType() == UHDM::uhdmref_obj) ||
+                    pt == UHDM::uhdmmethod_func_call || pt == UHDM::uhdmmethod_task_call ||
+                    pt == UHDM::uhdmfunc_call || pt == UHDM::uhdmtask_call ||
+                    pt == UHDM::uhdmsys_func_call || pt == UHDM::uhdmsys_task_call;
+        if (child) {
+            auto ct = child->UhdmType();
+            if (ct == UHDM::uhdmbit_select && pt == UHDM::uhdmport)
+                skip = true;
+            if (ct == UHDM::uhdmref_obj &&
+                (pt == UHDM::uhdmbit_select || pt == UHDM::uhdmindexed_part_select ||
+                 pt == UHDM::uhdmhier_path))
+                skip = true;
+        }
+        if (!name.empty() && !skip)
+            names.push_back(name);
+    }
+    std::string out;
+    for (auto it = names.rbegin(); it != names.rend(); ++it) {
+        if (!out.empty())
+            out += column ? "::" : ".";
+        out += *it;
+    }
+    return out;
+}
+
+// § tpPackedArrCaUnparent275 (r11u275) — A TYPE PARAMETER'S PACKED-ARRAY
+// TYPESPEC IS UNPARENTED BY AN ASSIGNMENT TO A SIGNAL OF THE TYPE.
+// A type parameter whose default or override is a packed array (an anonymous
+// packed struct with packed dimensions, `parameter type T = struct packed
+// {..} [1:0]`, § typeParamAnonAggDefault107's wrapper; a named element with a
+// packed dimension, `localparam type rt_t = id_t [3:0]`,
+// § typeParamNamedElemPackedDim31's wrapper) holds ONE packed_array_typespec
+// object, parented at the type parameter (ParamEmit, as Surelog's
+// CompileHelper::compileParameterDeclaration does).  NetlistElaboration::
+// elabSignal does not re-parent it (a packed_array_typespec takes the
+// getSimpleVarFromTypespec branch, which runs no `spec->VpiParent(..)`), but
+// UhdmWriter::writeCont_assign ends every elaborated assignment with
+// `tps->VpiParent(nullptr)` on the left side's typespec, so an
+// `assign o = i;` to a signal declared with the type (a port, a body net, a
+// `var` declaration) leaves the object unparented, in every instance and in
+// the definition listing that shares it (§ contAssignLhsTsUnparented134's
+// reset; § typeParamStructLastNetParent273 models it for an anonymous struct
+// without dimensions and stands aside for the array).  Surelog stores no full
+// name below the object: ComputeFullName reads the element ref_typespec
+// through the final chain, the bare element name (`id_t`, which vpi_get_str
+// reports as none) or nothing for an anonymous element, where ours stored the
+// chain through the type parameter (`work@dut.rt_t.id_t`, `work@child.T`;
+// probe cluster N0494: r11u107repro t05, r11u31repro g5, r11u110repro e18,
+// v11u108repro b18, v11u93b107repro q01, q05, q06, q12).  The law collects
+// every elaborated instance's (and generate scope's) type parameters whose
+// actual is a packed_array_typespec, binds each continuous assignment's left
+// side as § typeParamStructLastNetParent273 does (its own typespec, else the
+// module instance's variables then nets of that name; a declaration with an
+// initializer by the signal of its name), unparents every packed array so
+// assigned, and un-stores every full name below it that read the old chain,
+// so the writer computes the new one.  Grid tools/probe/r11u275repro/cases/PA.
+// Switch R11U275_TPPATRESET_OFF.
+static void tpPackedArrCaUnparent275(UHDM::design* d, UHDM::Serializer& s) {
+    if (!d || !r11u275On("R11U275_TPPATRESET_OFF"))
+        return;
+    using TpSet = std::set<const UHDM::BaseClass*>;
+    auto actualOf = [](const UHDM::BaseClass* x) -> const UHDM::BaseClass* {
+        auto* e = dynamic_cast<const UHDM::expr*>(x);
+        if (!e || !e->Typespec())
+            return nullptr;
+        return e->Typespec()->Actual_typespec();
+    };
+    auto elemOf = [](const UHDM::BaseClass* x) -> const UHDM::BaseClass* {
+        switch (x->UhdmType()) {
+        case UHDM::uhdmarray_net:
+            if (auto* v = ((const UHDM::array_net*)x)->Nets())
+                if (!v->empty())
+                    return v->front();
+            return nullptr;
+        case UHDM::uhdmarray_var:
+            if (auto* v = ((const UHDM::array_var*)x)->Variables())
+                if (!v->empty())
+                    return v->front();
+            return nullptr;
+        default:
+            return x;
+        }
+    };
+    std::set<const UHDM::BaseClass*> reset;
+    const UHDM::module_inst* bindScope = nullptr;
+    auto sameSpan = [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+        return a->VpiFile() == b->VpiFile() && a->VpiLineNo() == b->VpiLineNo() &&
+               a->VpiColumnNo() == b->VpiColumnNo() && a->VpiEndLineNo() == b->VpiEndLineNo() &&
+               a->VpiEndColumnNo() == b->VpiEndColumnNo() && a->VpiLineNo() > 0;
+    };
+    // § typeParamAnonAggDefault107's wrapper only: an anonymous packed struct
+    // or union element.  A NAMED element (§ typeParamNamedElemPackedDim31's
+    // `id_t [3:0]`) keeps its parent under a port or a plain body
+    // declaration in golden (probe r11u108repro f5 f5a01, f5a03, f5a06,
+    // v11u108repro b19 `output var rt_t o`, r11u31repro g4: the signals hold
+    // their own copy); only a body `var rt_t x;` reaches it (b18), not
+    // modelled here.
+    auto anonAggElem = [](const UHDM::BaseClass* a) {
+        auto* er = ((const UHDM::packed_array_typespec*)a)->Elem_typespec();
+        auto* et = er ? er->Actual_typespec() : nullptr;
+        return et &&
+               (et->UhdmType() == UHDM::uhdmstruct_typespec ||
+                et->UhdmType() == UHDM::uhdmunion_typespec) &&
+               et->VpiName().empty();
+    };
+    auto addTp = [&](const UHDM::VectorOfany* ps, TpSet& tp) {
+        if (ps)
+            for (auto* pa : *ps)
+                if (pa->UhdmType() == UHDM::uhdmtype_parameter)
+                    if (auto* rt = ((const UHDM::type_parameter*)pa)->Typespec())
+                        if (auto* a = rt->Actual_typespec();
+                            a && a->UhdmType() == UHDM::uhdmpacked_array_typespec &&
+                            a->VpiName().empty() && anonAggElem(a))
+                            tp.insert(a);
+    };
+    std::function<void(const UHDM::BaseClass*, const TpSet&)> walk =
+        [&](const UHDM::BaseClass* o, const TpSet& inherited) {
+            if (!o)
+                return;
+            TpSet tp = inherited;
+            const UHDM::VectorOfnet* nets = nullptr;
+            const UHDM::VectorOfvariables* vars = nullptr;
+            const UHDM::VectorOfarray_net* anets = nullptr;
+            const UHDM::VectorOfcont_assign* cas = nullptr;
+            const UHDM::VectorOfgen_scope_array* gas = nullptr;
+            std::vector<const UHDM::BaseClass*> kids;
+            auto* savedScope = bindScope;
+            switch (o->UhdmType()) {
+            case UHDM::uhdmmodule_inst: {
+                auto* m = (const UHDM::module_inst*)o;
+                tp.clear();
+                addTp(m->Parameters(), tp);
+                nets = m->Nets();
+                vars = m->Variables();
+                anets = m->Array_nets();
+                cas = m->Cont_assigns();
+                gas = m->Gen_scope_arrays();
+                bindScope = m;
+                if (auto* v = m->Modules())
+                    kids.insert(kids.end(), v->begin(), v->end());
+                if (auto* v = m->Interfaces())
+                    kids.insert(kids.end(), v->begin(), v->end());
+                break;
+            }
+            case UHDM::uhdminterface_inst: {
+                auto* m = (const UHDM::interface_inst*)o;
+                tp.clear();
+                addTp(m->Parameters(), tp);
+                nets = m->Nets();
+                vars = m->Variables();
+                anets = m->Array_nets();
+                cas = m->Cont_assigns();
+                gas = m->Gen_scope_arrays();
+                bindScope = nullptr;
+                if (auto* v = m->Interfaces())
+                    kids.insert(kids.end(), v->begin(), v->end());
+                break;
+            }
+            case UHDM::uhdmgen_scope: {
+                auto* g = (const UHDM::gen_scope*)o;
+                nets = g->Nets();
+                vars = g->Variables();
+                anets = g->Array_nets();
+                cas = g->Cont_assigns();
+                gas = g->Gen_scope_arrays();
+                if (auto* v = g->Modules())
+                    kids.insert(kids.end(), v->begin(), v->end());
+                if (auto* v = g->Interfaces())
+                    kids.insert(kids.end(), v->begin(), v->end());
+                break;
+            }
+            default:
+                return;
+            }
+            if (!tp.empty() && cas) {
+                std::vector<const UHDM::BaseClass*> sigs;
+                if (nets)
+                    sigs.insert(sigs.end(), nets->begin(), nets->end());
+                if (vars)
+                    sigs.insert(sigs.end(), vars->begin(), vars->end());
+                if (anets)
+                    sigs.insert(sigs.end(), anets->begin(), anets->end());
+                for (auto* ca : *cas) {
+                    auto* lhs = ca->Lhs();
+                    if (!lhs)
+                        continue;
+                    const UHDM::BaseClass* tps = actualOf(lhs);
+                    if (lhs->UhdmType() == UHDM::uhdmref_obj && bindScope) {
+                        const UHDM::BaseClass* var = nullptr;
+                        if (auto* v = bindScope->Variables())
+                            for (auto* x : *v)
+                                if (x->VpiName() == lhs->VpiName()) {
+                                    var = x;
+                                    break;
+                                }
+                        if (!var)
+                            if (auto* v = bindScope->Nets())
+                                for (auto* x : *v)
+                                    if (x->VpiName() == lhs->VpiName()) {
+                                        var = x;
+                                        break;
+                                    }
+                        if (var)
+                            if (auto* t = actualOf(var))
+                                tps = t;
+                    }
+                    if (lhs->UhdmType() != UHDM::uhdmref_obj && !(tps && tp.count(tps)))
+                        for (auto* x : sigs)
+                            if (x->VpiName() == lhs->VpiName()) {
+                                auto* el = elemOf(x);
+                                auto* t = el ? actualOf(el) : nullptr;
+                                if (t && t->UhdmType() == UHDM::uhdmpacked_array_typespec)
+                                    tps = t;
+                                break;
+                            }
+                    if (tps && tp.count(tps)) {
+                        reset.insert(tps);
+                        continue;
+                    }
+                    // Our signal may hold a separate copy of the parameter's
+                    // object (golden: one object): the copy at the same span
+                    // is reset with the parameter's own.
+                    if (tps && tps->UhdmType() == UHDM::uhdmpacked_array_typespec)
+                        for (auto* u : tp)
+                            if (sameSpan(u, tps)) {
+                                reset.insert(u);
+                                reset.insert(tps);
+                            }
+                }
+            }
+            if (gas)
+                for (auto* ga : *gas)
+                    if (auto* gs = ga->Gen_scopes())
+                        for (auto* g : *gs)
+                            walk(g, tp);
+            for (auto* k : kids)
+                walk(k, TpSet());
+            bindScope = savedScope;
+        };
+    if (auto* tops = d->TopModules())
+        for (auto* t : *tops)
+            walk(t, TpSet());
+    if (reset.empty())
+        return;
+    std::vector<UHDM::BaseClass*> below;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (o->UhdmType() != UHDM::uhdmref_typespec && o->UhdmType() != UHDM::uhdmref_obj)
+            continue;
+        for (auto* a = o->VpiParent(); a; a = a->VpiParent()) {
+            if (reset.count(a)) {
+                below.push_back(o);
+                break;
+            }
+            if (a->UhdmType() == UHDM::uhdmdesign)
+                break;
+        }
+    }
+    std::sort(below.begin(), below.end(), [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    std::vector<std::pair<UHDM::BaseClass*, bool>> clear;
+    for (auto* o : below) {
+        std::string stored = o->UhdmType() == UHDM::uhdmref_typespec
+                                 ? std::string(((UHDM::ref_typespec*)o)->VpiFullName())
+                                 : std::string(((UHDM::ref_obj*)o)->VpiFullName());
+        if (!stored.empty() && stored == chainFullName275(o))
+            clear.push_back({o, o->UhdmType() == UHDM::uhdmref_typespec});
+    }
+    std::vector<const UHDM::BaseClass*> rs(reset.begin(), reset.end());
+    std::sort(rs.begin(), rs.end(), [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    for (auto* t : rs) {
+        tr275("TPPATRESET", std::to_string(t->VpiLineNo()) + ":" + std::to_string(t->VpiColumnNo()) +
+                                (t->VpiParent() ? " unparented" : " already"));
+        ((UHDM::typespec*)t)->VpiParent(nullptr);
+    }
+    for (auto& [o, isTs] : clear) {
+        if (isTs)
+            ((UHDM::ref_typespec*)o)->VpiFullName(std::string_view());
+        else
+            ((UHDM::ref_obj*)o)->VpiFullName(std::string_view());
+    }
+}
+
+// § defNetTpDimLastInstPat275 (r11u275) — A DEFINITION NET DECLARED WITH A
+// NAMED-ELEMENT PACKED-ARRAY TYPE PARAMETER READS THE LAST INSTANCE'S ARRAY.
+// `localparam type rt_t = id_t [3:0]` (§ typeParamNamedElemPackedDim31's
+// wrapper) is compiled again for every elaborated instance: Surelog's
+// CompileHelper::compileParameterDeclaration (the paTYPE arm) looks the
+// element up by name through the previous type parameter's actual (the
+// instance's own `id_t`, an override included) and re-points the parameter's
+// DummyType at the new packed_array_typespec, so a body signal declared
+// `rt_t x;`, which UhdmWriter::writeNets types through that DummyType after
+// elaboration, reads the LAST elaborated instance's array in the definition
+// listing (golden `child`'s x: element `logic [1:0]` at the override
+// `child #(.id_t(logic [1:0])) u` 7:17-7:28, where ours bound the default
+// `logic` 1:38-1:43; with three instances the third's `logic [3:0]`).  The
+// definition's own type parameter keeps its default.  The law, design-final:
+// for every definition whose type parameter holds such an array, every net or
+// variable of the definition listing typed by that object is re-pointed to
+// the same-named type parameter's array of the definition's last instance
+// in elaboration order (depth first through instances and generate scopes),
+// when that array comes from the same declaration (same span); a last
+// instance overriding the array parameter itself stands aside.  Probe
+// cluster `line|logic_typespec under packed_array_typespec` (r11u108repro f5
+// f5a05, r11u110repro e30, i02, i09, i11, v11u110repro a33, b11, d01, d02,
+// d03, v11u108repro b08, b29).  Grid tools/probe/r11u275repro/cases/TN.
+// Switch R11U275_DEFNETTPPAT_OFF.
+// § defNetTpPatKeepsActual275v (v11u275): the (source, copy) pairs
+// § defNetTpDimLastInstPat275 made, in the order it made them.
+static std::vector<std::pair<const UHDM::BaseClass*, UHDM::BaseClass*>>& defNetTpPatPairs275v() {
+    static std::vector<std::pair<const UHDM::BaseClass*, UHDM::BaseClass*>> v;
+    return v;
+}
+// § defNetTpPatKeepsActual275v (v11u275) — run by uhdm_main.cpp right after
+// the ElaboratorListener (law and decode at the call in
+// defNetTpDimLastInstPat275): every ref_obj of a copy, reached through its
+// packed-array ranges and their operations, takes its source's binding.
+void defNetTpPatKeepActual275v() {
+    std::function<void(const UHDM::BaseClass*, UHDM::BaseClass*, int)> keep =
+        [&](const UHDM::BaseClass* a, UHDM::BaseClass* b, int depth) {
+            if (!a || !b || depth > 16 || a->UhdmType() != b->UhdmType())
+                return;
+            switch (a->UhdmType()) {
+            case UHDM::uhdmpacked_array_typespec: {
+                auto* va = ((const UHDM::packed_array_typespec*)a)->Ranges();
+                auto* vb = ((UHDM::packed_array_typespec*)b)->Ranges();
+                if (va && vb && va->size() == vb->size())
+                    for (size_t i = 0; i < va->size(); ++i)
+                        keep((*va)[i], (*vb)[i], depth + 1);
+                return;
+            }
+            case UHDM::uhdmrange: {
+                auto* ra = (const UHDM::range*)a;
+                auto* rb = (UHDM::range*)b;
+                keep(ra->Left_expr(), (UHDM::BaseClass*)rb->Left_expr(), depth + 1);
+                keep(ra->Right_expr(), (UHDM::BaseClass*)rb->Right_expr(), depth + 1);
+                return;
+            }
+            case UHDM::uhdmoperation: {
+                auto* va = ((const UHDM::operation*)a)->Operands();
+                auto* vb = ((UHDM::operation*)b)->Operands();
+                if (va && vb && va->size() == vb->size())
+                    for (size_t i = 0; i < va->size(); ++i)
+                        keep((*va)[i], (*vb)[i], depth + 1);
+                return;
+            }
+            case UHDM::uhdmref_obj: {
+                auto* ra = (const UHDM::ref_obj*)a;
+                auto* rb = (UHDM::ref_obj*)b;
+                if (ra->Actual_group() && rb->Actual_group() != ra->Actual_group()) {
+                    rb->Actual_group(const_cast<UHDM::any*>(ra->Actual_group()));
+                    tr275("KEEPACTUAL275V", std::string(ra->VpiName()));
+                }
+                return;
+            }
+            default:
+                return;
+            }
+        };
+    for (auto& [src, cp] : defNetTpPatPairs275v())
+        keep(src, cp, 0);
+}
+
+static void defNetTpDimLastInstPat275(UHDM::design* d, UHDM::Serializer& s) {
+    if (!d || !r11u275On("R11U275_DEFNETTPPAT_OFF"))
+        return;
+    auto namedElemPat = [](const UHDM::typespec* t) {
+        if (!t || t->UhdmType() != UHDM::uhdmpacked_array_typespec || !t->VpiName().empty())
+            return false;
+        auto* er = ((const UHDM::packed_array_typespec*)t)->Elem_typespec();
+        return er && !er->VpiName().empty() && er->Actual_typespec();
+    };
+    // The last elaborated instance of every definition (by VpiDefName).
+    std::map<std::string, std::vector<const UHDM::module_inst*>> insts;
+    std::function<void(const UHDM::BaseClass*)> walk = [&](const UHDM::BaseClass* o) {
+        if (!o)
+            return;
+        const UHDM::VectorOfgen_scope_array* gas = nullptr;
+        const UHDM::VectorOfmodule_inst* mods = nullptr;
+        if (o->UhdmType() == UHDM::uhdmmodule_inst) {
+            auto* m = (const UHDM::module_inst*)o;
+            insts[std::string(m->VpiDefName())].push_back(m);
+            gas = m->Gen_scope_arrays();
+            mods = m->Modules();
+        }
+        else if (o->UhdmType() == UHDM::uhdmgen_scope) {
+            auto* g = (const UHDM::gen_scope*)o;
+            gas = g->Gen_scope_arrays();
+            mods = g->Modules();
+        }
+        else
+            return;
+        if (mods)
+            for (auto* k : *mods)
+                walk(k);
+        if (gas)
+            for (auto* ga : *gas)
+                if (auto* gs = ga->Gen_scopes())
+                    for (auto* g : *gs)
+                        walk(g);
+    };
+    if (auto* tops = d->TopModules())
+        for (auto* t : *tops)
+            walk(t);
+    auto sameSpan = [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+        return a->VpiFile() == b->VpiFile() && a->VpiLineNo() == b->VpiLineNo() &&
+               a->VpiColumnNo() == b->VpiColumnNo() && a->VpiEndLineNo() == b->VpiEndLineNo() &&
+               a->VpiEndColumnNo() == b->VpiEndColumnNo();
+    };
+    if (auto* defs = d->AllModules())
+        for (auto* def : *defs) {
+            auto* ps = def->Parameters();
+            if (!ps)
+                continue;
+            auto li = insts.find(std::string(def->VpiDefName()));
+            if (li == insts.end())
+                continue;
+            std::set<const UHDM::typespec*> dflts;
+            for (auto* pa : *ps) {
+                if (pa->UhdmType() != UHDM::uhdmtype_parameter)
+                    continue;
+                auto* rt = ((const UHDM::type_parameter*)pa)->Typespec();
+                const UHDM::typespec* dflt = rt ? rt->Actual_typespec() : nullptr;
+                if (namedElemPat(dflt))
+                    dflts.insert(dflt);
+            }
+            if (dflts.empty())
+                continue;
+            // The instance's own signal of the same name holds the array its
+            // elaboration built (our instance lists no per-instance copy of
+            // the type parameter).
+            auto instSig = [&](const UHDM::module_inst* in, std::string_view nm) -> const UHDM::expr* {
+                if (auto* v = in->Variables())
+                    for (auto* x : *v)
+                        if (x->VpiName() == nm)
+                            return x;
+                if (auto* v = in->Nets())
+                    for (auto* x : *v)
+                        if (x->VpiName() == nm)
+                            return x;
+                return nullptr;
+            };
+            auto rebind = [&](const UHDM::expr* x) {
+                if (!x || !x->Typespec())
+                    return;
+                auto* r = (UHDM::ref_typespec*)x->Typespec();
+                auto* dflt = r->Actual_typespec();
+                // Our definition net may hold its own copy of the default
+                // (same declaration, same span).
+                bool fromTp = false;
+                if (namedElemPat(dflt))
+                    for (auto* t : dflts)
+                        if (t == dflt || sameSpan(t, dflt))
+                            fromTp = true;
+                if (!fromTp)
+                    return;
+                // The last instance that compiled the declaration (an
+                // instance overriding the array parameter itself does not:
+                // v11u110repro b11).
+                const UHDM::typespec* inst = nullptr;
+                const UHDM::module_inst* from = nullptr;
+                for (auto it = li->second.rbegin(); it != li->second.rend() && !inst; ++it) {
+                    auto* is = instSig(*it, x->VpiName());
+                    auto* a = is && is->Typespec() ? is->Typespec()->Actual_typespec() : nullptr;
+                    if (a && namedElemPat(a) && sameSpan(a, dflt)) {
+                        inst = a;
+                        from = *it;
+                    }
+                }
+                if (!inst || inst == dflt)
+                    return;
+                // No override reached the element: the instance's array reads
+                // the default's own element (grid TN tn04), nothing to move.
+                {
+                    auto* ie = ((const UHDM::packed_array_typespec*)inst)->Elem_typespec();
+                    auto* de = ((const UHDM::packed_array_typespec*)dflt)->Elem_typespec();
+                    if (ie && de && ie->Actual_typespec() && de->Actual_typespec() &&
+                        (ie->Actual_typespec() == de->Actual_typespec() ||
+                         sameSpan(ie->Actual_typespec(), de->Actual_typespec())))
+                        return;
+                }
+                // Golden's object is the instance's compile of the parameter,
+                // parented at the DEFINITION's type parameter (its element
+                // ref reads `work@child.rt_t.id_t`): a copy of our instance's
+                // array, re-parented there, every name below it read through
+                // the new chain.
+                // The parameter that declares the array (its default's
+                // parent): a chained `parameter type T2 = rt_t` points at
+                // the same object without re-parenting it (f5a12_chain).
+                const UHDM::BaseClass* tpObj = nullptr;
+                for (auto* pa : *ps)
+                    if (pa->UhdmType() == UHDM::uhdmtype_parameter)
+                        if (auto* rt = ((const UHDM::type_parameter*)pa)->Typespec())
+                            if (auto* a = rt->Actual_typespec();
+                                a && sameSpan(a, dflt) && a->VpiParent() == pa && !tpObj)
+                                tpObj = pa;
+                if (!tpObj)
+                    return;
+                UHDM::ElaboratorContext ctx(&s, false, true);
+                auto* cp = (UHDM::typespec*)UHDM::clone_tree(inst, &ctx);
+                if (!cp)
+                    return;
+                cp->VpiParent((UHDM::BaseClass*)tpObj);
+                std::function<void(UHDM::BaseClass*, int)> unstore = [&](UHDM::BaseClass* e, int depth) {
+                    if (!e || depth > 16)
+                        return;
+                    switch (e->UhdmType()) {
+                    case UHDM::uhdmpacked_array_typespec: {
+                        auto* pt = (UHDM::packed_array_typespec*)e;
+                        if (auto* v = pt->Ranges())
+                            for (auto* x : *v)
+                                if (x->VpiParent() == e)
+                                    unstore(x, depth + 1);
+                        if (auto* er = pt->Elem_typespec(); er && er->VpiParent() == e)
+                            unstore((UHDM::BaseClass*)er, depth + 1);
+                        return;
+                    }
+                    case UHDM::uhdmrange: {
+                        auto* rg = (UHDM::range*)e;
+                        if (rg->Left_expr() && rg->Left_expr()->VpiParent() == e)
+                            unstore((UHDM::BaseClass*)rg->Left_expr(), depth + 1);
+                        if (rg->Right_expr() && rg->Right_expr()->VpiParent() == e)
+                            unstore((UHDM::BaseClass*)rg->Right_expr(), depth + 1);
+                        return;
+                    }
+                    case UHDM::uhdmoperation:
+                        if (auto* v = ((UHDM::operation*)e)->Operands())
+                            for (auto* x : *v)
+                                if (x->VpiParent() == e)
+                                    unstore(x, depth + 1);
+                        return;
+                    case UHDM::uhdmref_obj:
+                        ((UHDM::ref_obj*)e)->VpiFullName(std::string_view());
+                        return;
+                    case UHDM::uhdmref_typespec:
+                        ((UHDM::ref_typespec*)e)->VpiFullName(std::string_view());
+                        return;
+                    default:
+                        return;
+                    }
+                };
+                unstore(cp, 0);
+                // § defNetTpPatKeepsActual275v (v11u275) — golden's object IS
+                // the last instance's compile, so in the --elabuhdm view the
+                // ElaboratorListener, binding that instance, binds a range
+                // bound read through a parameter (`id_t [D-1:0]`) to the
+                // INSTANCE's parameter (golden `parameter D work@dut.u.D`
+                // of the first instance under the definition net's `ref_obj
+                // D`, see below), where our copy,
+                // parented in the definition, is bound by the listener to the
+                // definition's parameter D (work@child.D; grid TN
+                // tn07_param_depth --elabuhdm: 3 golden-agreeing records lost
+                // under the law).  The pair is recorded here and, after the
+                // listener (uhdm_main.cpp), every ref_obj of the copy takes
+                // the binding its source's ref_obj holds.  Grid
+                // tools/probe/v11u275repro/cases/VN.  Switch
+                // R11V275_KEEPACTUAL_OFF.
+                // The binding comes from the FIRST instance that compiled
+                // the declaration (the listener binds the shared object while
+                // visiting it and later visits find it bound: VN vn11, vn12
+                // golden `work@dut.u.D` with the element of the last, w; VN
+                // vn14 skips an instance overriding the array itself, vn15
+                // takes a nested instance first, depth first as the
+                // instances are collected), not from the last one.
+                if (r11v275On("R11V275_KEEPACTUAL_OFF")) {
+                    const UHDM::typespec* first = nullptr;
+                    for (auto it = li->second.begin(); it != li->second.end() && !first; ++it) {
+                        auto* is = instSig(*it, x->VpiName());
+                        auto* a = is && is->Typespec() ? is->Typespec()->Actual_typespec() : nullptr;
+                        if (a && namedElemPat(a) && sameSpan(a, dflt))
+                            first = a;
+                    }
+                    if (first)
+                        defNetTpPatPairs275v().push_back({first, cp});
+                }
+                r->Actual_typespec(cp);
+                tr275("DEFNETTPPAT", std::string(def->VpiDefName()) + "." + std::string(x->VpiName()) +
+                                         " <- " + std::string(from->VpiFullName()));
+            };
+            if (auto* v = def->Nets())
+                for (auto* x : *v)
+                    rebind(x);
+            if (auto* v = def->Variables())
+                for (auto* x : *v)
+                    rebind(x);
+        }
 }
 
 // § packedArrTdElemRefName137 (r11u137) — a NAMED packed-array typedef over
@@ -18857,6 +19465,10 @@ UHDM::design* UhdmExporter::exportDesign() {
     }
     // § typeParamStructLastNetParent273 (law and decode at the function).
     typeParamStructLastNetParent273(d, sm);
+    // § tpPackedArrCaUnparent275 (law and decode at the function).
+    tpPackedArrCaUnparent275(d, s);
+    // § defNetTpDimLastInstPat275 (law and decode at the function).
+    defNetTpDimLastInstPat275(d, s);
     // § packedArrTdElemRefName137 — after the parent model (law and decode
     // at the function).
     packedArrTdElemRefName137(d, s);

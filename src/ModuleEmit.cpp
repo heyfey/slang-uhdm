@@ -48,6 +48,7 @@
 #include "R269.h"
 #include "R271.h"
 #include "R273.h"
+#include "R275.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -1853,6 +1854,25 @@ static bool lhsTyped273(const UHDM::cont_assign* ca) {
         if (a->UhdmType() != UHDM::uhdmmodule_inst &&
             a->UhdmType() != UHDM::uhdminterface_inst)
             continue;
+        // § ifaceGenCaLhsUnbound275 (r11u275) — ...but not from inside one of
+        // its generate scopes.  writeCont_assign binds a plain left-side name
+        // with CompileHelper::bindVariable, which reads the variables and nets
+        // of a module_inst only and walks every other scope up its parent
+        // chain (CompileStmt.cpp, bindVariable's switch): from a generate
+        // scope of an interface the walk passes the interface_inst and goes on
+        // to the instantiating module, so the interface's own signal is never
+        // found and the reduced value goes in untyped (probe r11u69repro g11,
+        // r11u71repro n3, r11v69repro v7, r11v71repro x6: golden lists the
+        // param_assign value once, under the param_assign, where ours listed a
+        // copy at `assign i_gen = C.n;` inside `if (1) begin : gi`).  An
+        // assignment at the interface's own level keeps the measured copy
+        // (x6_ifdefcast).  Grid tools/probe/r11u275repro/cases/IG.  Switch
+        // R11U275_IFGENUNBOUND_OFF.
+        if (a->UhdmType() == UHDM::uhdminterface_inst && a != ca->VpiParent() &&
+            r11u275On("R11U275_IFGENUNBOUND_OFF")) {
+            tr275("IFGENUNBOUND", std::string(lhs->VpiName()));
+            continue;
+        }
         auto* mi = (const UHDM::instance*)a;
         const UHDM::expr* var = nullptr;
         if (auto* v = mi->Variables())
@@ -7991,6 +8011,56 @@ void UhdmExporter::emitImportedPkgVarNets(const InstanceBodySymbol& body,
                             ts9->VpiEndColumnNo(sm->getColumnNumber(e183));
                         }
                     }
+            // § importNetTsDimEnd275 (r11u275) — THE MODULE'S RE-CREATED
+            // TYPESPEC OF AN IMPORTED PACKAGE DECLARATION TAKES WRITENETS'
+            // END-ONLY STRETCH.  The copy is listed as a definition net, so
+            // UhdmWriter::writeNets runs on it the end-only
+            // populateCoreMembers the module's own nets get (§ defNetEndOnlyLoc130,
+            // materializeDefNetTs): the typespec's END moves to the end of
+            // the FIRST unpacked dimension (`wire [7:0] a_net [0:1];` golden
+            // 5:3-5:26, ours 5:3-5:14), or, with none, of the FIRST packed
+            // dimension of a multi-dimension packed declaration
+            // (`logic [1:0][7:0] v_pkd;` golden 18:3-18:14, ours 18:3-18:19).
+            // Probe cluster N0040 (r11u77repro y4, r11u82repro w3, w9,
+            // r11u88repro i1, i8, y1, r11v75repro xe, r11v77repro ve), in the
+            // module and the interface def views alike.  Grid
+            // tools/probe/r11u275repro/cases/IN.  Switch R11U275_IMPNETDIMEND_OFF.
+            if (ts9 && ts9->VpiLineNo() != 0 && ts9->VpiName().empty() &&
+                ts9->UhdmType() != UHDM::uhdmclass_typespec && dt9 &&
+                r11u275On("R11U275_IMPNETDIMEND_OFF")) {
+                SourceLocation de275 = SourceLocation::NoLocation;
+                auto dck275 = dt9->getType().getCanonicalType().kind;
+                if (dck275 == SymbolKind::FixedSizeUnpackedArrayType ||
+                    dck275 == SymbolKind::DynamicArrayType ||
+                    dck275 == SymbolKind::AssociativeArrayType ||
+                    dck275 == SymbolKind::QueueType) {
+                    if (auto* ds275 = iv9->getSyntax();
+                        ds275 && ds275->kind == syntax::SyntaxKind::Declarator) {
+                        auto& dd275 = ds275->as<syntax::DeclaratorSyntax>();
+                        if (!dd275.dimensions.empty())
+                            de275 = dd275.dimensions[0]->sourceRange().end();
+                    }
+                }
+                else if (dt9->getType().isPackedArray()) {
+                    if (auto* tsyn275 = dt9->getTypeSyntax()) {
+                        if (syntax::IntegerTypeSyntax::isKind(tsyn275->kind)) {
+                            auto& dims275 = tsyn275->as<syntax::IntegerTypeSyntax>().dimensions;
+                            if (dims275.size() >= 2)
+                                de275 = dims275[0]->sourceRange().end();
+                        }
+                        else if (tsyn275->kind == syntax::SyntaxKind::ImplicitType) {
+                            auto& dims275 = tsyn275->as<syntax::ImplicitTypeSyntax>().dimensions;
+                            if (dims275.size() >= 2)
+                                de275 = dims275[0]->sourceRange().end();
+                        }
+                    }
+                }
+                if (de275 != SourceLocation::NoLocation && !sm->isMacroLoc(de275)) {
+                    tr275("IMPNETDIMEND", std::string(iv9->name));
+                    ts9->VpiEndLineNo(sm->getLineNumber(de275));
+                    ts9->VpiEndColumnNo(sm->getColumnNumber(de275));
+                }
+            }
             if (ts9) {
                 auto* rt9 = s.MakeRef_typespec();
                 rt9->VpiFullName(prefix + "." + std::string(iv9->name));
@@ -18651,8 +18721,31 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             if (aliasOfAlias && r11u119Law("R11U119_ALIASGATE_OFF") &&
                 !isExplicitPkgQualified(*it.sym))
                 aliasOfAlias = false;
+            // § tpTypedVarInitNameSpan275 (r11u275) — a variable declared
+            // with a TYPE PARAMETER (`rt_t x = 8'h5a;`, rt_t = id_t [3:0])
+            // keeps its NAME span: elabSignal's DummyType road hands the
+            // signal the parameter's typespec and the object is located at
+            // the name before the initializer's populateCoreMembers can
+            // stretch it (golden 2:8-2:9, ours 2:8-2:17 through the anonymous
+            // typespec arm below; probe cluster N1931: r11u108repro f5a18,
+            // r11u110repro i03, i21, v11u110repro b08).  Grid
+            // tools/probe/r11u275repro/cases/TV.  Switch R11U275_TPVARINIT_OFF.
+            bool tpTyped275 = false;
+            if (auto dtp = it.sym->getDeclaredType();
+                dtp && dtp->getInitializer() && !realVar && !aliasOfAlias && !scoped119 &&
+                dtp->getType().kind == SymbolKind::TypeAlias &&
+                typeParamOfAlias(dtp->getType().as<TypeAliasType>()) &&
+                // A `var` or `const` declaration keeps the stretch
+                // (r11u110repro i16_var_kw_init, v11u110repro b06_const_init).
+                !hasVarKeywordDecl(*it.sym) &&
+                !(it.sym->kind == SymbolKind::Variable &&
+                  it.sym->as<VariableSymbol>().flags.has(VariableFlags::Const)) &&
+                r11u275On("R11U275_TPVARINIT_OFF")) {
+                tpTyped275 = true;
+                tr275("TPVARINIT", std::string(it.sym->name));
+            }
             if (auto dtl = it.sym->getDeclaredType();
-                dtl && dtl->getInitializer() &&
+                dtl && dtl->getInitializer() && !tpTyped275 &&
                 (realVar || aliasOfAlias || scoped119 ||
                  (ts && ts->VpiName().empty()))) {
                 if (auto dsyn = it.sym->getSyntax()) {

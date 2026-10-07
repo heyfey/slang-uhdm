@@ -27,6 +27,7 @@
 #include "R241.h"
 #include "R251.h"
 #include "R253.h"
+#include "R275.h"
 
 namespace slang_uhdm {
 
@@ -7070,8 +7071,33 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         if (auto dsyn0 = fmv.getSyntax();
                             dsyn0 && dsyn0->kind == syntax::SyntaxKind::Declarator)
                             for (auto dim0 :
-                                 dsyn0->as<syntax::DeclaratorSyntax>().dimensions)
+                                 dsyn0->as<syntax::DeclaratorSyntax>().dimensions) {
                                 aEnd = dim0->sourceRange().end() - 1;
+                                // § tfLocalArrRangeDimEnd275 (r11u275) — a
+                                // RANGED unpacked dimension (`int v [0:3];`)
+                                // ends AFTER its closing bracket, a SIZE
+                                // dimension (`[4]`) before it: the quirk
+                                // emitPorts and § deferredPortUnpackedArrayTs
+                                // already model, which this subroutine-local
+                                // array site applied to every dimension
+                                // (golden 59:9-59:16 for `int v [0:3];`, ours
+                                // 59:9-59:15; probe cluster N0127:
+                                // r10uvm122repro g122_b, g122_d, g122_f,
+                                // r10v122repro q1, q7, r10v96repro a4).  Grid
+                                // tools/probe/r11u275repro/cases/TA.  Switch
+                                // R11U275_TFARRRANGEEND_OFF.
+                                if (dim0->specifier &&
+                                    dim0->specifier->kind ==
+                                        syntax::SyntaxKind::RangeDimensionSpecifier &&
+                                    dim0->specifier
+                                            ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                            .selector->kind ==
+                                        syntax::SyntaxKind::SimpleRangeSelect &&
+                                    r11u275On("R11U275_TFARRRANGEEND_OFF")) {
+                                    aEnd = dim0->sourceRange().end();
+                                    tr275("TFARRRANGEEND", std::string(fmv.name));
+                                }
+                            }
                         setLoc(ats, SourceRange(fmv.location, aEnd));
                     }
                     if (auto* arng = buildUnpackedRanges(fmv, ats))
