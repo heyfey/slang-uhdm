@@ -1,0 +1,53 @@
+case-views=3738 moving=40 entering=4 leaving=0 rc-changed=0 cmplines-changed=8
+MOVER tp/r10rgg4repro/a6_ovr_ref_to_default NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 343->343
+MOVER tp/r10rgg4repro/a6_ovr_ref_to_default_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 343->343
+MOVER tp/r10vrgg4repro/v2a_defparam NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->48
+MOVER tp/r10vrgg4repro/v2a_defparam_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->48
+MOVER tp/r10vrgg4repro/v2c_empty_hash NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 334->334
+MOVER tp/r10vrgg4repro/v2c_empty_hash_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 334->334
+MOVER tp/r10vrgg4repro/v5a_noovr_int_td NOT_EQUAL_stage1 -> STRICT_EQUAL_191_objects cmplines 36->0
+MOVER tp/r10vrgg4repro/v5a_noovr_int_td_el NOT_EQUAL_stage1 -> STRICT_EQUAL_191_objects cmplines 36->0
+MOVER tp/r10vrgg6repro/cells/w_cont_assign NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r10vrgg6repro/cells/w_cont_assign_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u131repro/inet/n08_func_blockparam NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u131repro/inet/n08_func_blockparam_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u148share/cases/E/f08_param_arith STRICT_NOTEQUAL_type -> STRICT_EQUAL_64_objects cmplines 0->0
+MOVER tp/r11u148share/cases/E/f08_param_arith_el NOT_EQUAL_stage1 -> STRICT_EQUAL_63_objects cmplines 64->0
+MOVER tp/r11u69repro/grid/g12_fencetwin NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 33->33
+MOVER tp/r11u69repro/grid/g12_fencetwin_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 33->33
+MOVER tp/r11u71repro/grid/n1_sharewidths NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 62->62
+MOVER tp/r11u71repro/grid/n1_sharewidths_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 62->62
+MOVER tp/r11u71repro/grid/n2_bindhomes NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/r11u71repro/grid/n2_bindhomes_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/r11u83repro/grid/g11_iface STRICT_EQUAL_236_objects -> STRICT_EQUAL_236_objects cmplines 0->0
+MOVER tp/r11u83repro/grid/g11_iface_el STRICT_EQUAL_234_objects -> STRICT_EQUAL_234_objects cmplines 0->0
+MOVER tp/r11u83repro/grid/j1_ifcafold NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u83repro/grid/j1_ifcafold_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 33->33
+MOVER tp/r11u88repro/grid/g11_iface STRICT_EQUAL_236_objects -> STRICT_EQUAL_236_objects cmplines 0->0
+MOVER tp/r11u88repro/grid/g11_iface_el STRICT_EQUAL_234_objects -> STRICT_EQUAL_234_objects cmplines 0->0
+MOVER tp/r11u88repro/grid/j1_ifcafold NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u88repro/grid/j1_ifcafold_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 33->33
+MOVER tp/r11u88repro/grid/n4_nestgen NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/r11u88repro/grid/n4_nestgen_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 112->112
+MOVER tp/r11v11u118repro/grid/v2/w11_pkgbound_func NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->34
+MOVER tp/r11v11u118repro/grid/v2/w11_pkgbound_func_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->34
+MOVER tp/r11v11u118repro/grid/v3/x03_vs_pkgbound_func STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11v11u118repro/grid/v3/x03_vs_pkgbound_func_el NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_fullname cmplines 34->0
+MOVER tp/r11v4repro/v10 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 38->38
+MOVER tp/r11v4repro/v10_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/r11v4repro/v3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11v4repro/v3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11v69repro/grid/w8_unitname STRICT_EQUAL_262_objects -> STRICT_EQUAL_262_objects cmplines 0->0
+MOVER tp/r11v69repro/grid/w8_unitname_el STRICT_EQUAL_262_objects -> STRICT_EQUAL_262_objects cmplines 0->0
+ENTER tp/r10vrgg4repro/v5a_noovr_int_td
+ENTER tp/r10vrgg4repro/v5a_noovr_int_td_el
+ENTER tp/r11u148share/cases/E/f08_param_arith
+ENTER tp/r11u148share/cases/E/f08_param_arith_el
+CHANGED tp/r10vrgg4repro/v2a_defparam
+CHANGED tp/r10vrgg4repro/v2a_defparam_el
+CHANGED tp/r10vrgg4repro/v5a_noovr_int_td
+CHANGED tp/r10vrgg4repro/v5a_noovr_int_td_el
+CHANGED tp/r11u148share/cases/E/f08_param_arith_el
+CHANGED tp/r11v11u118repro/grid/v2/w11_pkgbound_func
+CHANGED tp/r11v11u118repro/grid/v2/w11_pkgbound_func_el
+CHANGED tp/r11v11u118repro/grid/v3/x03_vs_pkgbound_func_el

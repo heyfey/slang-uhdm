@@ -53,6 +53,7 @@
 #include "R279.h"
 #include "R283.h"
 #include "R285.h"
+#include "R287.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -3913,6 +3914,298 @@ static bool r237PkgSelKeeps(const slang::ast::Expression& rhs0, const char* site
         return false;
     tr237("evalFuncPkgParamVarSelKeepsCall237",
           std::string(site) + " " + scope + " " + std::string(sub.name));
+    return true;
+}
+// § evalFuncUnreducedOperandKeepsCall287 (r11u287, R11U287_EVALKEEP_OFF) —
+// three more body shapes ExprEval::evalFunc does not reduce, so
+// writeCont_assign keeps the elaborated whole-Rhs call (the producer
+// § evalFuncSelectKeepsCall148 decodes; only a constant result replaces the
+// Rhs).  Measured on fresh golden cells (tools/probe/r11u287repro/cases/EV):
+//   S  inside an ASSIGNMENT's right side (the statement arm reduces it with
+//      pexpr = the assignment, so ExprEval::getObject climbs to the
+//      function's io_decl / local variable instead of the bound value and
+//      the select stays unreduced): a comparison operand, or a conditional
+//      operator's condition, that is a bit- or part-select of a formal or a
+//      local variable (`nn += ((a3[i] != 0) ? 1 : 0)`, `n = (l[2] != 0)`,
+//      `nn = nn + (a[2] ? 1 : 0)` keep; the same comparison in a return or
+//      an if condition, or the select as an add operand, folds);
+//   M  in a function declared in a MODULE (or interface, program) body: a
+//      parameter read as an operand of an operator anywhere the body
+//      executes (`r = a + NF`, `if (a > NF)`, `for (...; i < NF; ...)`,
+//      `return a + NF` keep; a bare `r = NF` / `return NF` folds);
+//   P  in a PACKAGE function: the same read outside a return statement
+//      (`r = a + NF`, `i < NF` keep; `return a + NF` folds).
+// Statements inside an if / case branch are not claimed (only executed
+// paths poison); a for-loop initializer is not read (`i = NF` folds).
+// tests/probe r10rgg6repro/cells one_none_n4_yes_typed_ca,
+// top_none_n4_yes_typed_ca, r2_ca_outer, r10vrgg6repro/cells/w_two_ctx_order,
+// r11u108repro/grid/pk k17_func_in_pkg and k20_cfg_func_width.
+static bool r287EvalPoison(const slang::ast::Expression& rhs0, const char** arm) {
+    using namespace slang::ast;
+    auto& rhs = stripImplicitConv(rhs0);
+    if (rhs.kind != ExpressionKind::Call)
+        return false;
+    auto& call = rhs.as<CallExpression>();
+    if (call.isSystemCall())
+        return false;
+    auto sp = std::get_if<const SubroutineSymbol*>(&call.subroutine);
+    if (!sp || !*sp)
+        return false;
+    const SubroutineSymbol& sub = **sp;
+    auto* ps = sub.getParentScope();
+    if (!ps)
+        return false;
+    const auto pk = ps->asSymbol().kind;
+    const bool modFn = pk == SymbolKind::InstanceBody;
+    const bool pkgFn = pk == SymbolKind::Package;
+    std::set<const Symbol*> own;   // formals and locals
+    for (auto* a : sub.getArguments())
+        own.insert(a);
+    auto isOwnVar = [&](const Symbol& s) {
+        if (own.count(&s))
+            return true;
+        if (s.kind != SymbolKind::Variable)
+            return false;
+        for (auto* sc = s.getParentScope(); sc; sc = sc->asSymbol().getParentScope()) {
+            if (&sc->asSymbol() == (const Symbol*)&sub)
+                return true;
+            auto k = sc->asSymbol().kind;
+            if (k == SymbolKind::InstanceBody || k == SymbolKind::Package ||
+                k == SymbolKind::CompilationUnit || k == SymbolKind::Root)
+                return false;
+        }
+        return false;
+    };
+    auto strip = [](const Expression& e) -> const Expression& {
+        const Expression* x = &stripImplicitConv(e);
+        return *x;
+    };
+    auto ownSel = [&](const Expression& e0) {
+        auto& e = strip(e0);
+        if (e.kind != ExpressionKind::ElementSelect && e.kind != ExpressionKind::RangeSelect)
+            return false;
+        auto& b = strip(e.kind == ExpressionKind::ElementSelect
+                            ? e.as<ElementSelectExpression>().value()
+                            : e.as<RangeSelectExpression>().value());
+        return b.kind == ExpressionKind::NamedValue &&
+               isOwnVar(b.as<NamedValueExpression>().symbol);
+    };
+    auto isCmp = [](BinaryOperator op) {
+        return op == BinaryOperator::Equality || op == BinaryOperator::Inequality ||
+               op == BinaryOperator::LessThan || op == BinaryOperator::LessThanEqual ||
+               op == BinaryOperator::GreaterThan || op == BinaryOperator::GreaterThanEqual;
+    };
+    const char* hit = nullptr;
+    // S: an assignment's right side
+    auto scanS = [&](const Expression& r) {
+        r.visit(makeVisitor(
+            [&](auto& v, const BinaryExpression& be) {
+                if (!hit && isCmp(be.op) && (ownSel(be.left()) || ownSel(be.right())))
+                    hit = "S";
+                v.visitDefault(be);
+            },
+            [&](auto& v, const ConditionalExpression& ce) {
+                if (!hit && !ce.conditions.empty() && ownSel(*ce.conditions[0].expr))
+                    hit = "S";
+                v.visitDefault(ce);
+            }));
+    };
+    // M / P: a parameter read below an operator
+    // § evalFuncKeepOwnParamAddCmp287v (v11u287, R11V287_EVALOPSCOPE_OFF) —
+    // the M / P read poisons evalFunc only as a DIRECT operand of a binary
+    // `+`, a comparison, `===` / `!==` or `^` (a select of the parameter
+    // counting as the parameter), and only for a parameter the function's own
+    // scope declares (the module, interface or program body for M, the
+    // package for P).  Golden folds the call where the parameter sits under
+    // `-`, `*`, `/`, `<<`, `&`, `|`, a unary `-` / `~` (`a * N + 1`,
+    // `a + (-N)`, `~N`, `a << N`), and wherever the read is a PACKAGE
+    // parameter reached from a module function, `p::W` or wildcard-imported
+    // (tools/probe/v11u287repro/cases/VE ve01, ve02, ve04, ve11, ve16 and
+    // the VM matrix: 35 operator x parameter-kind cells per scope); the
+    // unrefined law kept the call there and ve01, ve02, ve04 and ve16 left
+    // STRICT_EQUAL.
+    const bool ownOp287v = r11v287On("R11V287_EVALOPSCOPE_OFF");
+    auto keepOp287v = [](BinaryOperator op) {
+        return op == BinaryOperator::Add || op == BinaryOperator::BinaryXor ||
+               op == BinaryOperator::CaseEquality || op == BinaryOperator::CaseInequality ||
+               op == BinaryOperator::Equality || op == BinaryOperator::Inequality ||
+               op == BinaryOperator::LessThan || op == BinaryOperator::LessThanEqual ||
+               op == BinaryOperator::GreaterThan || op == BinaryOperator::GreaterThanEqual;
+    };
+    auto ownParam287v = [&](const Expression& x0) {
+        const Expression* xp = &stripImplicitConv(x0);
+        // a select of the parameter itself (`a + N[1:0]`) reads it too
+        if (xp->kind == ExpressionKind::ElementSelect)
+            xp = &stripImplicitConv(xp->as<ElementSelectExpression>().value());
+        else if (xp->kind == ExpressionKind::RangeSelect)
+            xp = &stripImplicitConv(xp->as<RangeSelectExpression>().value());
+        auto& x = *xp;
+        if (x.kind != ExpressionKind::NamedValue)
+            return false;
+        auto& sy = x.as<NamedValueExpression>().symbol;
+        return sy.kind == SymbolKind::Parameter && sy.getParentScope() == sub.getParentScope();
+    };
+    auto scanParam = [&](const Expression& e, const char* tag) {
+        int depth = 0;
+        e.visit(makeVisitor(
+            [&](auto& v, const NamedValueExpression& nv) {
+                if (!hit && !ownOp287v && depth > 0 && nv.symbol.kind == SymbolKind::Parameter)
+                    hit = tag;
+            },
+            [&](auto& v, const BinaryExpression& be) {
+                if (!hit && ownOp287v && keepOp287v(be.op) &&
+                    (ownParam287v(be.left()) || ownParam287v(be.right())))
+                    hit = tag;
+                ++depth;
+                v.visitDefault(be);
+                --depth;
+            },
+            [&](auto& v, const UnaryExpression& ue) {
+                ++depth;
+                v.visitDefault(ue);
+                --depth;
+            },
+            [&](auto& v, const ConditionalExpression& ce) {
+                ++depth;
+                v.visitDefault(ce);
+                --depth;
+            }));
+    };
+    // § evalFuncLoopBodyRunsOnce287 (R11U287_LOOPONCE_OFF) — a loop BODY is
+    // claimed only when its condition holds on entry, evaluated with the
+    // formals bound to this call's actuals and the loop variables at their
+    // initial values (r11u237repro/cases/FW/g15: `for (i = 0; i < n - 2; ...)
+    // r = r + ENC[i]` with n = 2 never runs and golden folds); a condition
+    // that cannot be evaluated there (a local assigned before the loop, an
+    // outer loop's variable) leaves the body unclaimed.
+    auto runsOnce = [&](const Statement& loop) {
+        if (!r11u287On("R11U287_LOOPONCE_OFF"))
+            return true;
+        EvalContext ctx(sub);
+        std::vector<slang::ConstantValue> av;
+        for (auto* a : call.arguments()) {
+            if (!a)
+                return false;
+            slang::ConstantValue v = a->eval(ctx);
+            if (!v)
+                return false;
+            av.emplace_back(std::move(v));
+        }
+        auto fs = sub.getArguments();
+        if (fs.size() != av.size())
+            return false;
+        if (!ctx.pushFrame(sub, call.sourceRange.start(), LookupLocation::max))
+            return false;
+        for (size_t i = 0; i < fs.size(); i++)
+            ctx.createLocal(fs[i], av[i]);
+        if (sub.returnValVar)
+            ctx.createLocal(sub.returnValVar);
+        const Expression* cond = nullptr;
+        if (loop.kind == StatementKind::ForLoop) {
+            auto& fl = loop.as<ForLoopStatement>();
+            for (auto* lv : fl.loopVars) {
+                auto* ie = lv->getInitializer();
+                slang::ConstantValue v = ie ? ie->eval(ctx) : slang::ConstantValue();
+                if (ie && !v)
+                    return false;
+                ctx.createLocal(lv, v ? std::move(v) : lv->getType().getDefaultValue());
+            }
+            for (auto* ie : fl.initializers)
+                if (!ie->eval(ctx))
+                    return false;
+            cond = fl.stopExpr;
+            if (!cond)
+                return true;
+        }
+        else
+            cond = &loop.as<WhileLoopStatement>().cond;
+        slang::ConstantValue cv = cond->eval(ctx);
+        if (!cv.isInteger() || cv.integer().hasUnknown())
+            return false;
+        return (bool)(cv.integer() != 0);
+    };
+    std::function<void(const Statement&, bool)> st = [&](const Statement& s, bool exec) {
+        if (hit || !exec)
+            return;
+        switch (s.kind) {
+            case StatementKind::List:
+                for (auto* it : s.as<StatementList>().list)
+                    st(*it, exec);
+                return;
+            case StatementKind::Block:
+                st(s.as<BlockStatement>().body, exec);
+                return;
+            case StatementKind::ExpressionStatement: {
+                auto& e = stripImplicitConv(s.as<ExpressionStatement>().expr);
+                if (e.kind == ExpressionKind::Assignment) {
+                    auto& r = e.as<AssignmentExpression>().right();
+                    scanS(r);
+                    if (!hit && e.as<AssignmentExpression>().isCompound() && (modFn || pkgFn))
+                        ;   // the compound operator itself is not an operand read
+                    if (!hit && modFn)
+                        scanParam(r, "M");
+                    if (!hit && pkgFn)
+                        scanParam(r, "P");
+                }
+                return;
+            }
+            case StatementKind::VariableDeclaration: {
+                auto& vd = s.as<VariableDeclStatement>();
+                if (auto* in = vd.symbol.getInitializer()) {
+                    scanS(*in);
+                    if (!hit && modFn)
+                        scanParam(*in, "M");
+                    if (!hit && pkgFn)
+                        scanParam(*in, "P");
+                }
+                return;
+            }
+            case StatementKind::Return: {
+                if (auto* e = s.as<ReturnStatement>().expr; e && modFn)
+                    scanParam(*e, "M");
+                return;
+            }
+            case StatementKind::Conditional: {
+                auto& cs = s.as<ConditionalStatement>();
+                for (auto& c : cs.conditions)
+                    if (c.expr && (modFn || pkgFn))
+                        scanParam(*c.expr, modFn ? "M" : "P");
+                return;   // branches: not claimed
+            }
+            case StatementKind::ForLoop: {
+                auto& fl = s.as<ForLoopStatement>();
+                if (fl.stopExpr && (modFn || pkgFn))
+                    scanParam(*fl.stopExpr, modFn ? "M" : "P");
+                if (!hit)
+                    st(fl.body, exec && runsOnce(s));
+                return;
+            }
+            case StatementKind::WhileLoop: {
+                auto& wl = s.as<WhileLoopStatement>();
+                if (modFn || pkgFn)
+                    scanParam(wl.cond, modFn ? "M" : "P");
+                if (!hit)
+                    st(wl.body, exec && runsOnce(s));
+                return;
+            }
+            default:
+                return;
+        }
+    };
+    st(sub.getBody(), true);
+    if (arm)
+        *arm = hit;
+    return hit != nullptr;
+}
+static bool r287EvalKeeps(const slang::ast::Expression& rhs, const char* site,
+                          const std::string& scope) {
+    if (!r11u287On("R11U287_EVALKEEP_OFF"))
+        return false;
+    const char* arm = nullptr;
+    if (!r287EvalPoison(rhs, &arm))
+        return false;
+    tr287("evalFuncUnreducedOperandKeepsCall287",
+          std::string(site) + " " + scope + " arm=" + (arm ? arm : "?"));
     return true;
 }
 static bool r196OmittedDefaultKeeps(const slang::ast::Expression& rhs0) {
@@ -28465,6 +28758,45 @@ static const Symbol* genCaLhsNamesake74(const Expression& lhsExpr,
     return nullptr;
 }
 
+// § genCaStructParamSharesPaOperand287 — the elaborated instance's
+// param_assign operand a member read `P.a.b` lands on: P's param_assign Rhs,
+// then one assignment-pattern operand per member level by field index; a
+// constant at the bottom, or nothing.
+static UHDM::constant* genCaPaOperand287(UHDM::instance* m, const Expression& rhsExpr) {
+    std::vector<const MemberAccessExpression*> chain;
+    const Expression* b = &stripImplicitConv(rhsExpr);
+    for (int hop = 0; hop < 8 && b->kind == ExpressionKind::MemberAccess; ++hop) {
+        chain.push_back(&b->as<MemberAccessExpression>());
+        b = &stripImplicitConv(b->as<MemberAccessExpression>().value());
+    }
+    if (chain.empty() || b->kind != ExpressionKind::NamedValue ||
+        b->as<NamedValueExpression>().symbol.kind != SymbolKind::Parameter || !m ||
+        !m->Param_assigns())
+        return nullptr;
+    std::string_view pn = b->as<NamedValueExpression>().symbol.name;
+    const UHDM::any* cur = nullptr;
+    for (auto* pa : *m->Param_assigns())
+        if (pa && pa->Lhs() && pa->Lhs()->VpiName() == pn) {
+            cur = pa->Rhs();
+            break;
+        }
+    for (size_t i = chain.size(); cur && i-- > 0;) {
+        if (chain[i]->member.kind != SymbolKind::Field ||
+            cur->UhdmType() != UHDM::uhdmoperation)
+            return nullptr;
+        auto* op = (const UHDM::operation*)cur;
+        if (op->VpiOpType() != vpiAssignmentPatternOp || !op->Operands())
+            return nullptr;
+        auto idx = chain[i]->member.as<FieldSymbol>().fieldIndex;
+        if (idx >= op->Operands()->size())
+            return nullptr;
+        cur = op->Operands()->at(idx);
+    }
+    if (!cur || cur->UhdmType() != UHDM::uhdmconstant)
+        return nullptr;
+    return (UHDM::constant*)cur;
+}
+
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
                                  const std::string& prefix, NetMap& netMap) {
     // An instance whose parameter override reads a member-leftover struct
@@ -31616,7 +31948,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 !rhs && (evalFuncSelectKeepsCall148(ae.right(), "genscope", fullName) ||
                          r191ConstCallKeeps(ae.right()) ||
                          r196OmittedDefaultKeeps(ae.right()) ||
-                         r237PkgSelKeeps(ae.right(), "genscope", fullName));
+                         r237PkgSelKeeps(ae.right(), "genscope", fullName) ||
+                         r287EvalKeeps(ae.right(), "genscope", fullName));
             // Constant gen-scope calls fold to the source literal, sized at
             // the LHS width.
             if (!rhs && !evalKeepGen148)
@@ -32122,6 +32455,48 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         rhs ? UHDM::UhdmName(rhs->UhdmType()).data() : "-",
                         (int)genCaSubstAdjustW71(ae.left(), blk),
                         dsps71 ? 1 : 0);
+            }
+            // § genCaStructParamSharesPaOperand287 (r11u287,
+            // R11U287_GENCASHARE_OFF) — WHERE `adjustSize` RETURNS AT ONCE
+            // THE GENERATE-SCOPE Rhs IS THE INSTANCE'S OWN VALUE OBJECT.
+            // writeCont_assign's reduce of `CFG.n` inside a generate block
+            // hands back the elaborated instance's param_assign operand
+            // itself (the flattened pattern's member constant), and with
+            // `tps` null (a bit-, part- or element-select Lhs, which
+            // bindVariable never types, or a generate-local target, pass
+            // 71's adjWt 0) nothing clones it: golden's gen-scope cont_assign
+            // Rhs IS that operand, re-parented at the last cont_assign that
+            // takes it (tests/probe r11u69repro/grid g2_iter, g4_lhskind,
+            // g5_nest and r11v69repro/grid/v10_arraysel: the operand at the
+            // package literal's 7:31 lists once under the param_assign and
+            // every select cell's Rhs is skipped by the walk).  Ours kept the
+            // definition's hier_path on a select Lhs (W1/W2 chains declined)
+            // and minted a fresh constant per generate-local cell.  The Lhs
+            // must be a select or adjWt71 must be 0, the read must resolve
+            // to a pattern element (caStructParamSetter55 with a whole-name
+            // answer), and the operand must be a constant reached through
+            // assignment-pattern operations by field index; otherwise the
+            // cell keeps its path.
+            if (!rhs && !off69() && r11u287On("R11U287_GENCASHARE_OFF") && m &&
+                (!plainLhs69 || (sps69 && adjWt71 == 0))) {
+                const Type* mt287 = nullptr;
+                bool pd287 = false, pp287 = false;
+                const Expression* sp287 =
+                    plainLhs69 ? sps69
+                               : caStructParamSetter55(
+                                     ae.right(), /*plainLhs55=*/true, mt287, pd287,
+                                     [this](const Expression& a, const Symbol& mm) {
+                                         return caPriorMembersProven68v(a, mm);
+                                     },
+                                     pp287);
+                if (sp287)
+                    if (auto* op287 = genCaPaOperand287(m, ae.right())) {
+                        tr287("genCaStructParamSharesPaOperand287",
+                              fullName + (plainLhs69 ? " local" : " select"));
+                        op287->VpiParent(ca);
+                        rhs = op287;
+                        sps69 = nullptr;
+                    }
             }
             if (sps69)
                 // r11u85 passes the READ's member-access depth and whether
@@ -42551,7 +42926,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             topView && (evalFuncSelectKeepsCall148(ae.right(), "module", prefix) ||
                         r191ConstCallKeeps(ae.right()) ||
                         r196OmittedDefaultKeeps(ae.right()) ||
-                        r237PkgSelKeeps(ae.right(), "module", prefix));
+                        r237PkgSelKeeps(ae.right(), "module", prefix) ||
+                        r287EvalKeeps(ae.right(), "module", prefix));
         CallFold cfr = (topView && !typedefRet && !sgnFormal9 && !evalKeep148)
                            ? constCallFold(stripImplicitConv(ae.right()))
                            : CallFold{};
@@ -49460,7 +49836,30 @@ bool UhdmExporter::fillSizeDimRange(UHDM::range* r,
                         pty4.getCanonicalType()
                                 .as<PredefinedIntegerType>()
                                 .integerKind == PredefinedIntegerType::Int;
+                    // § ifArrPortSizeIntTsUnlocated287 (r11u287,
+                    // R11U287_IFARRINTTS_OFF).  The type link golden writes
+                    // on this reduced value is NOT the parameter's own
+                    // located `int` typespec: its ref_typespec carries no
+                    // full name and binds a fresh, unlocated signed
+                    // int_typespec (uhdm-cmp reads only VpiSigned there, so
+                    // the binding passed the judge; uhdm-strictcmp reads
+                    // `fullname` on the reference: tests/probe r10rgg4repro
+                    // a1_noovr, b1_int_noovr, c1_p_noovr and r10vrgg4repro
+                    // v5k_noovr_int_signed, the four plain `int` cells of
+                    // the grid, every other kind already bare).
                     if (auto* srt = src->Typespec();
+                        srt && plainInt4 && !ovrChain4 &&
+                        r11u287On("R11U287_IFARRINTTS_OFF")) {
+                        tr287("ifArrPortSizeIntTsUnlocated287",
+                              std::string(sym->name));
+                        auto* rt = s.MakeRef_typespec();
+                        rt->VpiParent(c);
+                        auto* its287 = s.MakeInt_typespec();
+                        its287->VpiSigned(true);
+                        rt->Actual_typespec(its287);
+                        c->Typespec(rt);
+                    }
+                    else if (auto* srt = src->Typespec();
                         srt && plainInt4 && !ovrChain4) {
                         auto* rt = s.MakeRef_typespec();
                         rt->VpiFullName(std::string(srt->VpiFullName()));
@@ -50714,7 +51113,8 @@ static bool pvBasedInit115v(const ParameterSymbol& rp) {
 }
 static bool pvFold115(const InstanceSymbol* portView, const Scope* declScope,
                       const Scope* foldScope, bool recvOn, bool exprOn,
-                      const UHDM::parameter* lhs, UHDM::constant* c) {
+                      const UHDM::parameter* lhs, UHDM::constant* c,
+                      const ParameterSymbol** shadow287 = nullptr) {
     if (!portView || !lhs || !c)
         return false;
     std::string cur(c->VpiValue());
@@ -50760,6 +51160,8 @@ static bool pvFold115(const InstanceSymbol* portView, const Scope* declScope,
             if (pvBasedInit115v(rp) || !pvDeclFits115v(dp, v, true))
                 return false;
             pvWrite115(c, v, false);
+            if (shadow287)
+                *shadow287 = &rp;
             return true;
         }
     }
@@ -51805,10 +52207,55 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 auto* rhs6 = pa6->Rhs();
                 if (!lhs6 || !rhs6 || rhs6->UhdmType() != UHDM::uhdmconstant)
                     continue;
+                const ParameterSymbol* shadow287 = nullptr;
                 if (pvFold115(portView, declScope115, ifaceDefaultScope,
                               pvRecvOn115, pvExprOn115, lhs6,
-                              (UHDM::constant*)rhs6))
+                              (UHDM::constant*)rhs6, &shadow287)) {
+                    // § pvRecvBodyParamTs287 (r11u287,
+                    // R11U287_PVRECVBODYTS_OFF) — the shadowing value of a
+                    // parameter the receiver declares in its BODY
+                    // (`localparam int A = 5;`, `parameter int A = 5;` after
+                    // a non-parameterized header) carries THAT parameter's
+                    // own typespec in golden (tests/probe r10rgg3repro
+                    // n2_recv_localparam, r10vrgg3repro
+                    // xc_recv_localparam_only, r11u115repro/grid/i
+                    // s01_recv_bodylp: golden `int` at the receiver's
+                    // 8:14-8:17, ours the interface's 1:27-1:30; a bit [3:0],
+                    // longint, int unsigned or untyped localparam binds its
+                    // own kind and span), where a receiver HEADER parameter
+                    // leaves the interface parameter's typespec (grid
+                    // e02, e04, e07, e09, s02, s15 already equal).  The ref
+                    // binds the receiver parameter's elaborated typespec,
+                    // design-final (exportDesign's last step: a later drain
+                    // re-binds every port-view param_assign constant).
+                    // Only an initializer of literals and operators: a
+                    // system call (`$clog2(N)`, r10vrgg3repro v13_recv_clog2)
+                    // keeps the interface parameter's typespec in golden, a
+                    // reference to another parameter (`A = N`) binds an
+                    // unlocated int there (not this law).
+                    bool litInit287 = false;
+                    if (shadow287)
+                        if (auto* in287 = shadow287->getInitializer()) {
+                            litInit287 = true;
+                            in287->visit(makeVisitor(
+                                [&](auto& v, const NamedValueExpression& nv) {
+                                    litInit287 = false;
+                                    v.visitDefault(nv);
+                                },
+                                [&](auto& v, const CallExpression& ce) {
+                                    litInit287 = false;
+                                    v.visitDefault(ce);
+                                }));
+                        }
+                    if (shadow287 && !shadow287->isPortParam() && litInit287 &&
+                        r11u287On("R11U287_PVRECVBODYTS_OFF"))
+                        if (auto* rt287 = ((UHDM::constant*)rhs6)->Typespec()) {
+                            tr287("pvRecvBodyParamTs287",
+                                  std::string(shadow287->name));
+                            pvRecvTs287().push_back({rt287, shadow287});
+                        }
                     continue;
+                }
                 std::string lv6(lhs6->VpiValue());
                 // Only the plain integer forms; a sized/based literal's
                 // decompile is not its value string's tail.
@@ -52068,6 +52515,30 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                                         return true;
                         return false;
                     };
+                // § pvPatFlattenTsUnparented287 (r11u287,
+                // R11U287_PVFLATTS_OFF) — the REDUCED port-view pattern the
+                // guard below keeps (the definition still holding its
+                // tagged_patterns) is `flattenPatternAssignments`' own clone,
+                // whose operation carries a ref_typespec it creates with NO
+                // parent: golden's `work@top.a0.q` param_assign Rhs reads
+                // `ref_typespec:` with no full name (tests/probe r11v4repro
+                // v5 and v6), where the elaborated instance's own
+                // (`work@top.u`) is parented and named.  Ours parented and
+                // named the port view's like the instance's.  The reference
+                // binds the struct the view's parameter binds (golden's one
+                // object, parented at `work@top.a0.q.CFG`'s ref_typespec, so
+                // its members read `work@top.a0.q.CFG.r::bus_t.DAT`), where
+                // ours bound a private copy.  A flattened SCALAR pattern
+                // only (every operand a constant).  Applied design-final (the
+                // deferred param-typespec drain binds these refs after this
+                // walk).
+                if (hasTaggedMember4(defRhs4) && pa4->Rhs() &&
+                         pa4->Rhs()->UhdmType() == UHDM::uhdmoperation &&
+                         ((const UHDM::operation*)pa4->Rhs())->VpiOpType() ==
+                             vpiAssignmentPatternOp &&
+                         ((const UHDM::operation*)pa4->Rhs())->Typespec() &&
+                         r11u287On("R11U287_PVFLATTS_OFF"))
+                    pvFlatTs287().push_back(pa4);
                 if (((const UHDM::operation*)defRhs4)->VpiOpType() ==
                         vpiAssignmentPatternOp &&
                     !hasTaggedMember4(defRhs4)) {

@@ -1,0 +1,6 @@
+EV/k26 dist 0 -> 1 lost=7 gained=0 | chain away=7 toward=0 flat_away=7 flat_toward=0
+GS/s10_gen_bit dist 0 -> 3 lost=0 gained=0 | chain away=0 toward=0 flat_away=0 flat_toward=0
+IA/i01_int_noovr dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+DG/g01_ips_in_varsel dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+PR/r01_body_param dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+PF/p01_pkg_default dist 0 -> 1 lost=1 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0

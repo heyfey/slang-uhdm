@@ -36,6 +36,7 @@
 #include "R279.h"
 #include "R281.h"
 #include "R285.h"
+#include "R287.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -1112,6 +1113,153 @@ static bool nestLibOff101V() {
 // grid/ca (unparent).  Switches: R11U134_TDPARENT_OFF,
 // R11U134_CAUNPARENT_OFF.
 bool r11u134Law(const char* sw);
+// § defGenSelRefChainName287 (r11u287) — A NAME INSIDE A SELECT OF A
+// DEFINITION-VIEW GENERATE STATEMENT IS ITS PARENT CHAIN'S.  Golden stores no
+// full name on the references and selects it compiles inside the index,
+// bounds or width of a select written in a generate block's statement, so
+// BaseClass::ComputeFullName (BaseClass.cpp, the UHDM pin's) names each from
+// its parent chain: a reference whose parent is an indexed_part_select skips
+// that select's name and climbs to the enclosing var_select
+// (`rd[i+1][o -: 4]`: golden `work@m.g.rd.o`, ours stored
+// `work@m.g.rd.rd.o`; tests/probe v11u112repro/grid/brk/v b4b_opidx_minus,
+// b4d_param_arr, b4h_port_2d, v11u115repro/grid/f1/v06_gf_vs_psel), while an
+// operation or a nested select between them keeps the select's name
+// (`din[0 +: K1-1]`: golden `...h1.h2.din.K1`, ours `...h1.h2.K1`;
+// r10earl56repro a5_earl56 and v2_nestedsel56, r10earl120repro a1_axis120).
+// The writer is TypeEmit emitSyntaxExpr under ModuleEmit emitDefGenStmts.
+// The drain runs once over the finished design: every ref_obj, ref_typespec,
+// bit_select,
+// part_select, indexed_part_select and var_select with a STORED full name, an
+// ancestor that is one of those select kinds and, above it, a gen_for,
+// gen_if, gen_if_else or gen_case (the definition view's generate statements;
+// the elaborated tree has gen_scope_arrays) takes ComputeFullName's answer
+// when the stored name differs; an object below a hier_path (a member path's
+// elements store their own names in golden too) and the no-fullname idiom are
+// left alone.  Switch R11U287_DEFGENSELNAME_OFF.
+// The stored full-name probe for every ref_obj kind (the selects derive from
+// ref_obj in the UHDM pin; r215StoredFullName reads the ref_obj kind only):
+// the explicit instantiation r11u215 uses ([temp.explicit]).
+namespace {
+template <typename Tag, typename Tag::type M>
+struct Rob287 {
+    friend typename Tag::type get287(Tag) { return M; }
+};
+struct RobjFull287 {
+    typedef UHDM::SymbolId UHDM::ref_obj::*type;
+    friend type get287(RobjFull287);
+};
+} // namespace
+template struct Rob287<RobjFull287, &UHDM::ref_obj::vpiFullName_>;
+static bool storedRefFullName287(const UHDM::ref_obj* r, std::string& out) {
+    out.clear();
+    if (!(r->*get287(RobjFull287())))
+        return false;
+    out = std::string(r->VpiFullName());
+    return true;
+}
+// BaseClass::ComputeFullName is protected: its walk, transcribed (the same
+// transcription § cloneOwnAggMemberChainName285 carries).
+static std::string chainFullName287(const UHDM::BaseClass* o) {
+    if (o->UhdmType() == UHDM::uhdmmodule_inst && o->VpiParent() &&
+        o->VpiParent()->UhdmType() == UHDM::uhdmmodule_inst)
+        return std::string(o->VpiDefName());
+    std::vector<std::string_view> names;
+    bool column = false;
+    const UHDM::BaseClass* child = nullptr;
+    for (const UHDM::BaseClass* a = o; a; child = a, a = a->VpiParent()) {
+        auto t = a->UhdmType();
+        if (t == UHDM::uhdmdesign)
+            break;
+        if (t == UHDM::uhdmpackage || t == UHDM::uhdmclass_defn)
+            column = true;
+        const UHDM::BaseClass* ap = a->VpiParent();
+        bool skip = (ap && ap->UhdmType() == UHDM::uhdmref_obj) ||
+                    t == UHDM::uhdmmethod_func_call || t == UHDM::uhdmmethod_task_call ||
+                    t == UHDM::uhdmfunc_call || t == UHDM::uhdmtask_call ||
+                    t == UHDM::uhdmsys_func_call || t == UHDM::uhdmsys_task_call;
+        if (child) {
+            auto ct = child->UhdmType();
+            if (ct == UHDM::uhdmbit_select && t == UHDM::uhdmport)
+                skip = true;
+            if (ct == UHDM::uhdmref_obj &&
+                (t == UHDM::uhdmbit_select || t == UHDM::uhdmindexed_part_select ||
+                 t == UHDM::uhdmhier_path))
+                skip = true;
+        }
+        std::string_view nm = a->VpiName().empty() ? a->VpiDefName() : a->VpiName();
+        if (!nm.empty() && !skip)
+            names.push_back(nm);
+    }
+    std::string out;
+    for (auto it = names.rbegin(); it != names.rend(); ++it) {
+        if (!out.empty())
+            out += column ? "::" : ".";
+        out += *it;
+    }
+    return out;
+}
+static UHDM::design* defGenSelRefChainName287(UHDM::Serializer& s, UHDM::design* d) {
+    if (!d || !r11u287On("R11U287_DEFGENSELNAME_OFF"))
+        return d;
+    auto selKind = [](UHDM::UHDM_OBJECT_TYPE t) {
+        return t == UHDM::uhdmbit_select || t == UHDM::uhdmpart_select ||
+               t == UHDM::uhdmindexed_part_select || t == UHDM::uhdmvar_select;
+    };
+    std::vector<std::pair<UHDM::BaseClass*, std::string>> todo;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        auto t = o->UhdmType();
+        if (t != UHDM::uhdmref_obj && t != UHDM::uhdmref_typespec && !selKind(t))
+            continue;
+        bool sel = false, gen = false;
+        int k = 0;
+        for (const UHDM::BaseClass* a = o->VpiParent(); a && k < 512; a = a->VpiParent(), ++k) {
+            auto at = a->UhdmType();
+            // a member path keeps the names its elements store (Earlgrey's
+            // pinmux `reg2hw.periph_insel[k].q` under a generate block:
+            // golden `reg2hw.periph_insel[k]` and
+            // `...dio_data_mux.reg2hw.wkup_detector_padsel[k].k`)
+            if (at == UHDM::uhdmhier_path) {
+                sel = false;
+                break;
+            }
+            if (selKind(at))
+                sel = true;
+            if (at == UHDM::uhdmgen_for || at == UHDM::uhdmgen_if ||
+                at == UHDM::uhdmgen_if_else || at == UHDM::uhdmgen_case) {
+                gen = true;
+                break;
+            }
+            if (at == UHDM::uhdmdesign)
+                break;
+        }
+        if (!sel || !gen)
+            continue;
+        std::string st;
+        if (t == UHDM::uhdmref_typespec ? (!r215StoredFullName(o, st) || st.empty())
+                                        : (!storedRefFullName287((const UHDM::ref_obj*)o, st) ||
+                                           st.empty()))
+            continue;
+        // the no-fullname idiom (a stored name equal to the object's own
+        // name, read as none) is golden's too: kept (r10earl41repro
+        // v41v_comment's qualified part_select bases)
+        if (st == o->VpiName())
+            continue;
+        std::string ch = chainFullName287(o);
+        if (ch.empty() || ch == st)
+            continue;
+        todo.emplace_back(o, ch);
+    }
+    for (auto& [o, ch] : todo) {
+        tr287("defGenSelRefChainName287", ch);
+        if (o->UhdmType() == UHDM::uhdmref_typespec)
+            ((UHDM::ref_typespec*)o)->VpiFullName(ch);
+        else
+            ((UHDM::ref_obj*)o)->VpiFullName(ch);
+    }
+    return d;
+}
+
 // § tsHierPathElemNoName134 (r11u134) — A HIER_PATH ELEMENT INSIDE A
 // TYPESPEC'S RANGE HAS NO FULL NAME.  Golden reads every path element of a
 // member-select bound (`logic [Info.x-1:0]`, `[Cfg.XLEN-1:0]`) with an empty
@@ -22481,8 +22629,57 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
         return d241;
     };
+    // r11u287's design-final steps, after every drain above.
+    auto final287 = [&](UHDM::design* d287) -> UHDM::design* {
+        // § pvRecvBodyParamTs287 (ModuleEmit, the port view's shadowed value)
+        for (auto& [rt287, ps287] : pvRecvTs287())
+            if (auto it = elabParamOwnTs.find((const Symbol*)ps287);
+                it != elabParamOwnTs.end() && it->second)
+                ((UHDM::ref_typespec*)rt287)->Actual_typespec(it->second);
+        pvRecvTs287().clear();
+        // § pvPatFlattenTsUnparented287 (ModuleEmit, the port view's
+        // reduced pattern)
+        for (auto* pa287v : pvFlatTs287()) {
+            auto* pa287 = (UHDM::param_assign*)pa287v;
+            auto* op287 = pa287->Rhs() && pa287->Rhs()->UhdmType() == UHDM::uhdmoperation
+                              ? (UHDM::operation*)pa287->Rhs()
+                              : nullptr;
+            auto* r = op287 ? op287->Typespec() : nullptr;
+            if (!r)
+                continue;
+            // a flattened SCALAR pattern only: every operand a constant (a
+            // nested aggregate member is § ifacePortViewAggregateFlattens's
+            // face, r11u1repro grid2)
+            bool scalar287 = op287->Operands() && !op287->Operands()->empty();
+            if (scalar287)
+                for (auto* o287 : *op287->Operands())
+                    if (!o287 || o287->UhdmType() != UHDM::uhdmconstant)
+                        scalar287 = false;
+            if (!scalar287)
+                continue;
+            tr287("pvPatFlattenTsUnparented287",
+                  pa287->Lhs() ? std::string(pa287->Lhs()->VpiName()) : std::string());
+            r->VpiParent(nullptr);
+            r->VpiFullName("");
+            if (auto* lp = pa287->Lhs(); lp && lp->UhdmType() == UHDM::uhdmparameter)
+                if (auto* lrt = ((UHDM::parameter*)lp)->Typespec())
+                    // only the view's OWN copy (parented at the parameter's
+                    // ref_typespec) with the same vpiInstance as the copy
+                    // the reference held: a $unit typedef (r11v4repro v6),
+                    // whose reference golden keeps on a copy with the design
+                    // as its instance (uhdm-cmp reads typespec Instance), is
+                    // left alone
+                    if (auto* lts = lrt->Actual_typespec();
+                        lts && lts->VpiParent() == lrt && r->Actual_typespec() &&
+                        lts->UhdmType() == r->Actual_typespec()->UhdmType() &&
+                        lts->Instance() == r->Actual_typespec()->Instance())
+                        r->Actual_typespec(lts);
+        }
+        pvFlatTs287().clear();
+        return defGenSelRefChainName287(s, d287);
+    };
     if (!r11u146Law("R11U146_TFARGTD_OFF"))
-        return finish241();
+        return final287(finish241());
     // § tfArgQualOutsideWriter176 (r11u176) — a PACKAGE-QUALIFIED argument
     // type (`ibex_pkg::pmp_cfg_t region_csr_pmp_cfg`) is a writer like a bare
     // name: compileTfPortList runs the same populateCoreMembers(type, type,
@@ -22548,7 +22745,7 @@ UHDM::design* UhdmExporter::exportDesign() {
             v.push_back(sym);
     }
     if (byName.empty())
-        return finish241();
+        return final287(finish241());
     struct Writer {
         const Symbol* td;
         SourceRange tok;
@@ -23570,7 +23767,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // every name stamp (laws and decodes at the functions).
     portConnOpLeafChain209(s);
     modportOpOrphanReparent209(s, d);
-    return finish241();
+    return final287(finish241());
 }
 
 

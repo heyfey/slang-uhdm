@@ -1,0 +1,7 @@
+// § evalFuncUnreducedOperandKeepsCall287
+module m(output logic [31:0] o);
+  function automatic int f3(bit [3:0][15:0] a3);
+    int nn; nn=0; for (int i=0;i<4;++i) nn+=((a3[i]!=0)?1:0); return nn;
+  endfunction
+  assign o = f3(64'h0001000200000004);
+endmodule

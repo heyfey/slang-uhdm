@@ -1,0 +1,147 @@
+r11u287repro/cases/DG/g01_ips_in_varsel P IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u287repro/cases/DG/g02_ips_op_width P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/DG/g03_psel_in_ips P IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u287repro/cases/DG/g04_bitsel_index P IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u287repro/cases/DG/g05_case_gen P IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u287repro/cases/DG/g06_iface_gen P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/DG/g07_comment_ctl P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/DG/g08_plus_ips P IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u287repro/cases/DG/g09_always_ctl P IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u287repro/cases/DG/g10_crlf P IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u287repro/cases/DG/g11_macro P IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u287repro/cases/DG/g12_hierpath_ctl P IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u287repro/cases/DG/g13_hierpath_idx_ctl P IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u287repro/cases/EV/c01_sellhs_add P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+r11u287repro/cases/EV/c02_sellhs_lit P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+r11u287repro/cases/EV/c03_sellhs_local P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+r11u287repro/cases/EV/c04_sellhs_formalsel P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/c05_cmp_localsel P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/c06_cmp_formal_noselect P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/c07_if_formalsel P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/c08_ret_cmp_formalsel P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/c09_pkg_loop_param P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/c10_pkg_loop_lit P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/c11_pkg_ret_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/c12_pkg_cmp_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/c13_mod_loop_param P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/c14_pkg_if_formalsel P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/d01_while_param P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/d02_for_param_body P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/d03_for_param_init P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/d04_for_param_cond_zero P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/d05_for_localvar_cond P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/d06_for_formal_cond P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/d07_for_param_cond_int P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/d08_for_param_cond_outside P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/d09_for_param_cond_noincr P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/e01_assign_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/e02_if_param P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/e03_assign_param_only P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/e04_ret_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/e05_begin_assign_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/e06_assign_cmp_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/e07_ret_plus_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/e08_ret_cmp_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/e09_assign_plus_lit P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/e10_pkg_assign_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/e11_lp_assign_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/f01_loop_param P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/f02_loop_lit P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/f03_noloop P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/f04_loop_noread P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/f05_loop_cmpd P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/f06_loop_flat P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/f07_loop_noparam P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/f08_loopvar_outside P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/h01_md_ret P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+r11u287repro/cases/EV/h02_ret_bit P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/h03_local_bit P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/h04_tern P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/h05_acc P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/h06_plus P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/h07_int_local P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/h08_int_acc P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/h09_ret_whole P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/h10_ret_plus P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/h11_log_bit P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/h12_log_bit_plus P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k01_lit P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k02_flat P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k03_noplus P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k04_notern P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k05_rettern P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k06_base P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k07_flat_lit P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k08_pluseq_int P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k09_pluseq_tern P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k10_assign_tern P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k11_ret_ne P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/k12_ret_tern P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k13_h04_withlp P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k14_k07_nolp P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k15_h04_intlp P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k16_h04_lp32 P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k17_h04_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k18_k07_one P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k19_h04_zero P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k20_ret0 P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k21 P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k22 P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k23 P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k24 P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k25 P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k26 P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/k27 P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/k28 P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/k29 P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/l01_body_param_never P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/l02_pkg_sel_never P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/l03_body_param_formal_count P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/l04_body_param_local_count P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u287_ds/P/r1
+r11u287repro/cases/EV/l05_pkg_sel_runs P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/l06_cmp_sel_never P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/EV/l07_cmp_sel_runs P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/GS/s09_gen_local P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/GS/s10_gen_bit P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/GS/s12_gen_plain_hex P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/GS/s20_genfor_bit P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/GS/s21_genif_part P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/GS/s22_own_pattern_sel P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/GS/s23_nested_member P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/GS/s24_child_override P EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u287repro/cases/GS/s25_iface_gen P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/GS/s26_two_reads P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/GS/s27_mod_level_ctl P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/GS/s28_genlocal_net P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/GS/s29_hex_member P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/IA/i01_int_noovr P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u287repro/cases/IA/i02_int_ovr_ctl P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u287repro/cases/IA/i03_intu_ctl P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u287repro/cases/IA/i04_localparam_size P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u287repro/cases/IA/i05_two_inst P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u287repro/cases/IA/i06_signed_kw P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u287repro/cases/IA/i07_gen_inst P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/IA/i08_integer_ctl P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u287repro/cases/PF/p01_pkg_default P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PF/p02_unit_typedef P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PF/p03_two_members P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PF/p04_nested_ctl P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PF/p05_named_modport_ctl P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PF/p06_override P EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u287repro/cases/PF/p07_array_elem P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r01_body_param P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u287repro/cases/PR/r02_body_lp_bit4 P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r03_body_lp_untyped P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r04_body_lp_long P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r05_body_lp_intu P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r06_body_lp_op P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r07_body_lp_ref P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r08_body_lp_sized P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r09_body_lp_hex P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r10_body_lp_paren P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r11_body_lp_neg P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r20_header_ctl P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u287repro/cases/PR/r21_clog2_ctl P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r22_single_iface P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r23_two_recv P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u287repro/cases/PR/r24_generic_port P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
