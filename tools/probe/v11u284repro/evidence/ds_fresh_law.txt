@@ -1,0 +1,72 @@
+v11u284repro/cases/VA/va01_bitsel_lhs law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va02_always_comb_only law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va03_var_init law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va04_net_init law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va05_iface_assign law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va06_genif_assign law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va07_uninst_branch law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va08_two_aliases_one_written law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va09_alias_chain_written law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va10_concat_lhs law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va12_named_import_other law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va13_class_member law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va14_genfor_assign law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u284repro/cases/VA/va15_param_width law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va16_foreign_pkg_target law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va17_child_output_assigned law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va19_partsel_lhs law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va21_program_assign law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va23_modvar_genassign law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va24_iface_net_init law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va25_gen_net_init law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va26_child_mod_in_gen law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va27_iface_and_mod_assign law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VA/va28_var_init_and_net law EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u284_dsc/law/v11u284repro_cases_VA
+v11u284repro/cases/VA/va29_two_tops law EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u284repro/cases/VA/va31_iface_wire_assign law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va32_gen_var_op_rhs law IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u284repro/cases/VA/va33_genfor_net_init law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va34_mod_var_op_rhs law EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u284_dsc/law/v11u284repro_cases_VA
+v11u284repro/cases/VA/va35_prog_wire law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc03_case_genlocal law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc04_iface_sel law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc05_else_branch law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc06_multiconcat law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc07_two_inst_ovr_sel law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc10_member_param_sel_lhs_struct law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc11_depth2_inst law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc16_implicit_genif law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc17_call_member_sel law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VE/ve01_import_var law EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+v11u284repro/cases/VE/ve05_two_listings_two_users law EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_4_common_constant_assignments_match
+v11u284repro/cases/VF/vf03_inst_in_genif law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VF/vf04_body_localparam_chain law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VF/vf06_wild_import_param law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VF/vf07_two_inst_same_mod law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VF/vf08_param_and_var law EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+v11u284repro/cases/VF/vf10_select_use law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VH/vh01_inst_array law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh02_genfor_port law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh04_nested_member law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh05_depth2_inst law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh06_iface_inst_port law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh08_import_wild law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh09_genif_port law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh10_local_struct_port law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh11_same_sel_port_and_proc law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh12_same_sel_port_and_ca law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh13_two_ports_same_sel law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh14_both_bounds_pkg law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh15_implicit_net law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh17_ops_both_bounds law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh18_both_bounds_and_proc law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs01_ovr_two_inst law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs03_iface law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs05_bits_cond law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs06_int_signed_kw law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs07_used_in_range law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs08_pkg_cond law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/law
+v11u284repro/cases/VS/vs09_underscore_and_param_port law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs10_lp_in_func_unused law EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u284repro/cases/VS/vs12_wide_literal law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs13_two_lp_one_ternary law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-

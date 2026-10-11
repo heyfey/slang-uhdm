@@ -1,0 +1,6 @@
+A/a04_logic_param d chain away=4 toward=0 flat_away=4 flat_toward=0
+C/gi_l1_local_r1_cat d chain away=1 toward=0 flat_away=1 flat_toward=0
+E/e02_lptype d chain away=5 toward=0 flat_away=6 flat_toward=0
+F/f01_ovr d chain away=4 toward=0 flat_away=4 flat_toward=0
+H/h01_cast d chain away=1 toward=0 flat_away=1 flat_toward=0
+S/s01_sb1_taken_msb1 d chain away=1 toward=0 flat_away=1 flat_toward=0

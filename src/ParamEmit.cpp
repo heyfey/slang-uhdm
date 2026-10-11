@@ -39,6 +39,7 @@
 #include "R278.h"
 #include "R280.h"
 #include "R282.h"
+#include "R284.h"
 namespace slang_uhdm {
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
@@ -31983,9 +31984,119 @@ void UhdmExporter::claimParenCastWidthOwner(const Symbol& sym,
     }
 }
 
+// § ternSgnLitFreshIntTs284 (r11u284) — A CONSTANT-CONDITION TERNARY WHOSE
+// TAKEN BRANCH IS A SIGNED SIZED LITERAL GIVES THE ELABORATED VALUE A FRESH
+// INT TYPESPEC.  `localparam int T = C ? 1'sb0 : 1'sb1` (C = 0): golden's
+// elaborated param_assign Rhs constant binds a fresh unlocated signed
+// int_typespec, as § sgnLitElabFreshIntTs266 and the signed-binary arms give
+// the same literal written directly (`localparam int D = 1'sb1`); the ternary
+// only supplies the taken branch (§ ovEncTernaryTakenBranch28's decode: a
+// constant-condition ternary reads exactly as its taken branch written in
+// place), for every base (`8'shFF`, `12'sd5`, `6'so17`), every sign bit, a
+// nested ternary and a condition on a parameter, an integer localparam or a
+// literal.  Ours bound the parameter's own located int_typespec
+// (r10earl52repro/a2_earl52 `T_sb1`, grid tools/probe/r11u284repro/cases/S).
+// A taken branch that is not a signed literal (`C ? 1'sb1 : 1'b1`) keeps the
+// declaration typespec in golden too.  The gate is § sgnLitElabFreshIntTs266's:
+// a module-home parameter written with the signed `int` keyword, not
+// overridden.  Switch R11U284_TERNSGNLIT_OFF.
+static bool ternSgnLitFreshIntTs284(Compilation& comp, const ParameterSymbol& ps) {
+    static const bool on = r11u284On("R11U284_TERNSGNLIT_OFF");
+    if (!on)
+        return false;
+    auto* init = ps.getInitializer();
+    if (init)
+        init = &stripImplicitConv(*init);
+    if (!init || init->kind != ExpressionKind::ConditionalOp)
+        return false;
+    if (!loopCaLit116Typed(ps) || !ps.getType().isSigned())
+        return false;
+    auto* h = ps.getParentScope();
+    if (!h || h->asSymbol().kind == SymbolKind::Package)
+        return false;
+    if (ps.isOverridden())
+        return false;
+    const Expression* x = init;
+    ASTContext ctx(comp.getRoot(), LookupLocation::max);
+    for (int d = 0; d < 16 && x->kind == ExpressionKind::ConditionalOp; d++) {
+        auto& co = x->as<ConditionalExpression>();
+        if (co.conditions.size() != 1 || co.conditions[0].pattern)
+            return false;
+        ConstantValue cv = ctx.tryEval(*co.conditions[0].expr);
+        if (!cv || !cv.isInteger() || cv.integer().hasUnknown())
+            return false;
+        x = &stripImplicitConv(cv.isTrue() ? co.left() : co.right());
+    }
+    if (x->kind != ExpressionKind::IntegerLiteral || !x->syntax)
+        return false;
+    std::string raw(x->syntax->toString());
+    auto tk = raw.find('\'');
+    if (tk == std::string::npos || tk + 2 >= raw.size() || !(raw[tk + 1] == 's' || raw[tk + 1] == 'S') ||
+        !strchr("bBhHdDoO", raw[tk + 2]))
+        return false;
+    tr284("TERNSGNLIT", std::string(ps.name) + " " + raw);
+    return true;
+}
+
+// § f3ParamCopyDeep284 (r11u284) — AN ELABORATED PARAMETER TYPED BY A
+// PACKAGE NAMED-DIMENSION TYPEDEF COPIES ITS LISTING OBJECT DEEP, UNLOCATED.
+// `parameter q2::row_t UT` with `typedef ut_e [0:2] row_t` (FACE 3,
+// § pkgTdOfNamedDimsListing111): the elaborated parameter's typespec is
+// Surelog's elaboration clone of the package's one object L (no span), whose
+// clone_tree copies L's Elem target A and A's alias target B with it; every
+// reference inside the copy that L's own listing leaves unnamed reads the
+// copy's chain (`work@dut.u.UT.q2::row_t`), the references to ut_e keep theirs (golden grid
+// r11u111repro/grid/f1 a27, v11u111repro x38, r11u108repro pk k05: the copy
+// at 0:0 where ours sat at the typedef's type span 3:11-3:21, and A's alias
+// and elem references and B's elem reference by that chain where ours shared L's
+// A with its unnamed references).  The law copies A and B for the
+// elaborated copy (§ pkgTdQualParamCopiesListing111's q111 branch) and names
+// those three references, and the caller leaves the copy unlocated.  A
+// parameter declared in a generate block (`localparam q2::row_t UT =
+// q2::IMPL.UnitTypes[grp]` in a for-generate, the stamped_gen_param shape,
+// r11u111repro/grid/f3/s00_stamped_corpus) is left alone: golden keeps the
+// listing's unnamed references there, and the copy moved 9 records away from
+// golden in the byte controls (that abstention: R11U284_F3GENLOCAL_OFF).  Switch
+// R11U284_F3PARAMCOPY_OFF.  Returns true when it fired.
+static bool f3ParamCopyDeep284(UHDM::Serializer& s, UHDM::logic_typespec* cp) {
+    auto* er = cp ? cp->Elem_typespec() : nullptr;
+    auto* a = er ? er->Actual_typespec() : nullptr;
+    if (!a || a->UhdmType() != UHDM::uhdmlogic_typespec) {
+        tr284("F3PARAMCOPY_ABSTAIN", "no elem");
+        return false;
+    }
+    // The copy's references read the chain through the copy's own Elem
+    // reference (`work@dut.u.UT.q2::row_t`), which § pkgTdQualParamCopiesListing111
+    // already names.
+    std::string nm(er->VpiFullName());
+    auto* al = ((UHDM::logic_typespec*)a)->Typedef_alias();
+    auto* b = al ? al->Actual_typespec() : nullptr;
+    if (!b || b->UhdmType() != UHDM::uhdmlogic_typespec) {
+        tr284("F3PARAMCOPY_ABSTAIN", "no alias " + nm);
+        return false;
+    }
+    auto* a2 = copyLogicTs111(s, a, nm);
+    auto* b2 = copyLogicTs111(s, b, nm);
+    if (!a2 || !b2)
+        return false;
+    a2->VpiParent(er);
+    auto* al2 = s.MakeRef_typespec();
+    al2->VpiParent(a2);
+    al2->VpiFullName(nm);
+    al2->Actual_typespec(b2);
+    b2->VpiParent(al2);
+    a2->Typedef_alias(al2);
+    er->Actual_typespec(a2);
+    tr284("F3PARAMCOPY", nm);
+    return true;
+}
+
 UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedParam,
                                           bool parentBounds) {
     SourceRange tr(ps.location, ps.location + ps.name.size());
+    // § f3ParamCopyDeep284: the elaborated copy of a FACE 3 listing object
+    // keeps L's missing span.
+    bool f3Unloc284 = false;
     if (typedParam) {
         if (auto declared = ps.getDeclaredType())
             if (auto tsyn = declared->getTypeSyntax()) {
@@ -32648,7 +32759,7 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                     cl->VpiName(taSym.name);
                     its = cl;
                     if (tgtSyn)
-                        tr = tgtSyn->sourceRange(); auto f1r111 = packedRanges111(taSym); bool f1imp111 = pkgTdQualImpCopy111On() && ps.getParentScope() && ps.getParentScope()->asSymbol().kind == SymbolKind::Package && syntaxRefPrefix.rfind("work@", 0) == 0; if (auto* q111 = (qualPkgVecTd111(ps) == &taSym && (f1imp111 || (!defViewParamTs && ps.getParentScope() && ps.getParentScope()->asSymbol().kind != SymbolKind::Package && !ifaceHome111(ps))) && sharedTd->VpiName().find("::") != std::string_view::npos) ? copyLogicTs111(s, sharedTd, (syntaxRefPrefix.empty() ? "work@" + ps.getHierarchicalPath() : syntaxRefPrefix) + "." + std::string(sharedTd->VpiName()), &f1r111) : nullptr) { f1ElabBare111()[q111] = cl; its = q111; if (f1imp111) q111->VpiName(std::string(taSym.name)); }
+                        tr = tgtSyn->sourceRange(); auto f1r111 = packedRanges111(taSym); bool f1imp111 = pkgTdQualImpCopy111On() && ps.getParentScope() && ps.getParentScope()->asSymbol().kind == SymbolKind::Package && syntaxRefPrefix.rfind("work@", 0) == 0; if (auto* q111 = (qualPkgVecTd111(ps) == &taSym && (f1imp111 || (!defViewParamTs && ps.getParentScope() && ps.getParentScope()->asSymbol().kind != SymbolKind::Package && !ifaceHome111(ps))) && sharedTd->VpiName().find("::") != std::string_view::npos) ? copyLogicTs111(s, sharedTd, (syntaxRefPrefix.empty() ? "work@" + ps.getHierarchicalPath() : syntaxRefPrefix) + "." + std::string(sharedTd->VpiName()), &f1r111) : nullptr) { f1ElabBare111()[q111] = cl; its = q111; if (f1imp111) q111->VpiName(std::string(taSym.name)); if (namedDimsSet284().count(sharedTd)) { if ((ps.getParentScope() && ps.getParentScope()->asSymbol().kind == SymbolKind::InstanceBody) || !r11u284On("R11U284_F3GENLOCAL_OFF")) f3Unloc284 = f3ParamCopyDeep284(s, q111); else tr284("F3PARAMCOPY_ABSTAIN", "generate-local " + std::string(ps.name)); } }
                 }
             }
         }
@@ -33011,7 +33122,7 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     // the whole declaration like every other untyped int one.)
     bool untypedReal9 = !typedParam && !timeLitUntyped9 &&
                         ps.getType().getCanonicalType().isFloating();
-    if (!stringParam && !sharedAggTs && !untypedReal9)
+    if (!stringParam && !sharedAggTs && !untypedReal9 && !f3Unloc284)
         setLoc(its, tr);
     // (r11u183's law paramAggTdLastWriter183 is NOT landed: the law modAggTfArgCloneFollows180
     // (TypeEmit.cpp, R11U180_MODAGGCLONE_OFF) already gives this copy the
@@ -34629,7 +34740,7 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                 tr266("pkgTdParamValListingTs266", std::string(ps->name) + " -> " + std::string(lt266->VpiName()));
                 return lt266;
             };
-            if (signedBinFoldParams.count(ps) && rc0 &&
+            if ((signedBinFoldParams.count(ps) || ternSgnLitFreshIntTs284(comp, *ps)) && rc0 &&
                 rc0->UhdmType() == UHDM::uhdmconstant) {
                 auto* sb9 = s.MakeInt_typespec();
                 if (ps->getType().isSigned())
@@ -35994,6 +36105,326 @@ static bool patFlattened178(const UHDM::operation* op) {
     return true;
 }
 
+// § pkgAliasTdRefNameByParent284 (r11u284) — THE TYPEDEF_ALIAS REFERENCE OF
+// A PACKAGE ALIAS-OF-TYPEDEF READS ITS LISTING OBJECT'S FINAL PARENT.
+// Surelog stores no full name on a ref_typespec (every golden ref_typespec of
+// the probe reads exactly BaseClass::ComputeFullName over its final parent
+// chain: 28286 of 28286 on a quarter of the probe goldens), so the reference
+// under `typedef b_t a_t;` (CompileHelper's tpclone, whose Typedef_alias ref
+// is parented at the tpclone) reads `<parent chain>.pk::a_t`.  The tpclone is
+// the package's TypeDef typespec; UhdmWriter::writeDataTypes parents it at
+// the package (`pk::pk::a_t`), and UhdmWriter::writeCont_assign ends every
+// elaborated continuous assignment with `tps->VpiParent(nullptr)` on the left
+// side's typespec, the bound signal's declared typedef object, so a signal
+// declared `pk::a_t` that an elaborated `assign` (or a declaration
+// initializer, which NetlistElaboration turns into one) writes whole leaves
+// it unparented (`pk::a_t`).  A module, interface, program or package that
+// imports the typedef lists it in its own datatype map and becomes its parent
+// (§ typedefParentLastWriter134's road, `work@dut.pk::a_t`).  Ours built the
+// listing object parentless and stored `work@<top>.pk::a_t` on the reference
+// (an early uhdm2rtlil observation, wave 1), which no probe golden reads.
+// The law names each such reference design-final: `pk::a_t` when an
+// elaborated whole-signal continuous assignment or declaration initializer
+// writes a signal declared with the alias, else `pk::pk::a_t`, abstaining
+// when any instance body, package or compilation unit imports the package
+// (wildcard) or the alias (explicit), and when the listing object already
+// has a parent.  Grid tools/probe/r11u284repro/cases/A.  Switch
+// R11U284_ALIASPARENT_OFF.
+//
+// § pkgTdNamedDimsElemByChain284 (r11u284) — FACE 3's listing object L
+// (§ pkgTdOfNamedDimsListing111, `typedef ut_e [0:2] row_t`) carries an Elem
+// reference whose full name pass 111 always wrote as `pk::pk::row_t` (its
+// fullname note: golden's depends on the first binder).  Golden's is the
+// chain over L's final parent, which our emission already places as golden
+// does (the probe census: package, none or the parameter copy's reference
+// on every case, equal to golden's on every case); the law names the
+// reference by that chain.  Switch R11U284_F3ELEMCHAIN_OFF.
+static void pkgAliasTdNames284(Compilation& comp) {
+    // F3: the Elem reference by the chain (in record order).
+    for (auto* L : namedDimsListings284()) {
+        auto* le = L ? L->Elem_typespec() : nullptr;
+        if (!le)
+            continue;
+        std::string c = chainFullName284(le);
+        if (c.empty() || c == le->VpiFullName())
+            continue;
+        tr284("F3ELEMCHAIN", std::string(le->VpiFullName()) + " -> " + c);
+        le->VpiFullName(c);
+    }
+    namedDimsListings284().clear();
+    // § hpSelPortConnFoldChain284 (r11u284) — A PACKAGE PARAMETER FOLDED IN
+    // A HIER_PATH SELECT OF A PORT CONNECTION IS NAMED BY ITS CHAIN.  The
+    // reference of a constant folded from a package parameter in the select
+    // bound of a member path (`o.a[pk::DC-1:0]`) is named after the select
+    // (§ stampFoldedPkgParamTs's hier_path branch: `work@v5.o.a[4'h2 - 1:0].a`);
+    // in a port connection (`v5sub u1 (.a(32'(o.a[pk::DC-1:0])))`) Surelog
+    // stores no name on it and ComputeFullName reads it through the port
+    // (`work@v5.u1.a.o.a[4'h2 - 1:0].a`, r10earl31repro/v5_hier; the same
+    // select in a process keeps the select's name, which the branch already
+    // writes).  The law names each such reference whose final chain runs
+    // through a `port` by that chain.  Grid tools/probe/r11u284repro/cases/H.
+    // Switch R11U284_HPSELPORT_OFF.
+    {
+        // The chain with the port and the instance reference above it left
+        // out: the select-scoped name the emitter stored.
+        auto chainNoPort = [](const UHDM::BaseClass* o) {
+            std::vector<std::string_view> names;
+            bool column = false;
+            const UHDM::BaseClass* child = nullptr;
+            for (const UHDM::BaseClass* p = o; p; child = p, p = p->VpiParent()) {
+                auto pt = p->UhdmType();
+                if (pt == UHDM::uhdmdesign)
+                    break;
+                if (pt == UHDM::uhdmport)
+                    continue;
+                if (child && child->UhdmType() == UHDM::uhdmport &&
+                    (pt == UHDM::uhdmref_module || pt == UHDM::uhdmmodule_inst ||
+                     pt == UHDM::uhdminterface_inst))
+                    continue;
+                if (pt == UHDM::uhdmpackage || pt == UHDM::uhdmclass_defn)
+                    column = true;
+                auto* ap = p->VpiParent();
+                bool skip = (ap && ap->UhdmType() == UHDM::uhdmref_obj) ||
+                            pt == UHDM::uhdmfunc_call || pt == UHDM::uhdmsys_func_call ||
+                            pt == UHDM::uhdmmethod_func_call;
+                if (child && child->UhdmType() == UHDM::uhdmref_obj &&
+                    (pt == UHDM::uhdmbit_select || pt == UHDM::uhdmindexed_part_select ||
+                     pt == UHDM::uhdmhier_path))
+                    skip = true;
+                std::string_view nm = p->VpiName().empty() ? p->VpiDefName() : p->VpiName();
+                if (!nm.empty() && !skip)
+                    names.push_back(nm);
+            }
+            std::string f;
+            for (int i = (int)names.size() - 1; i >= 0; --i) {
+                f += names[i];
+                if (i)
+                    f += column ? "::" : ".";
+            }
+            return f;
+        };
+        std::map<std::string, std::string> renamed;
+        std::vector<UHDM::ref_typespec*> orphans;
+        std::vector<UHDM::ref_typespec*> renamedRts284v;
+        for (auto* crt : hpSelFoldRefs284()) {
+            auto* rt = (UHDM::ref_typespec*)crt;
+            bool viaPort = false;
+            for (const UHDM::BaseClass* p = rt->VpiParent(); p; p = p->VpiParent())
+                if (p->UhdmType() == UHDM::uhdmport) {
+                    viaPort = true;
+                    break;
+                }
+            std::string cur(rt->VpiFullName());
+            if (!viaPort) {
+                // A bound constant the select never parented (the right
+                // bound of a part select): renamed with its sibling below.
+                auto* c = rt->VpiParent();
+                if (c && !c->VpiParent())
+                    orphans.push_back(rt);
+                continue;
+            }
+            std::string ch = chainFullName284(rt);
+            if (ch.empty() || ch.rfind("work@", 0) != 0 || ch == cur)
+                continue;
+            if (chainNoPort(rt) != cur) {
+                tr284("HPSELPORT_ABSTAIN", cur + " chain " + ch);
+                continue;
+            }
+            tr284("HPSELPORT", cur + " -> " + ch);
+            renamed[cur] = ch;
+            renamedRts284v.push_back(rt);
+            rt->VpiFullName(ch);
+        }
+        // § hpSelPortOrphanSibling284v (v11u284, R11V284_ORPHANSIB_OFF): the
+        // orphan bound is renamed only when it IS the other bound of a select
+        // whose renamed reference sits in the port chain; the law matched the
+        // orphans by their stored name, so the same select text written in a
+        // process or a continuous assignment beside the port connection
+        // (`always_comb z = o.a[pk::DC-1:pk::LO]` and `sub u1 (.a(o.a[pk::DC-1:pk::LO]))`)
+        // had its own unparented bound renamed through the port, 2 records
+        // away from golden where pristine was right (v11u284repro VH/vh11,
+        // vh12 in both views).
+        static const bool orphSib284v = r11v284On("R11V284_ORPHANSIB_OFF");
+        if (orphSib284v) {
+            std::set<const UHDM::ref_typespec*> orphSet(orphans.begin(), orphans.end());
+            for (auto* rt : renamedRts284v) {
+                // The bound holding the renamed reference: its constant, or
+                // an operation above it (`o.a[pk::DC+1:pk::DC]`).
+                const UHDM::any* c = rt->VpiParent();
+                const UHDM::any* sel = c ? c->VpiParent() : nullptr;
+                while (c && sel && sel->UhdmType() == UHDM::uhdmoperation) {
+                    c = sel;
+                    sel = sel->VpiParent();
+                }
+                const UHDM::expr* other = nullptr;
+                if (sel && sel->UhdmType() == UHDM::uhdmpart_select) {
+                    auto* ps = (const UHDM::part_select*)sel;
+                    other = ps->Left_range() == c    ? ps->Right_range()
+                            : ps->Right_range() == c ? ps->Left_range()
+                                                     : nullptr;
+                }
+                else if (sel && sel->UhdmType() == UHDM::uhdmindexed_part_select) {
+                    auto* ps = (const UHDM::indexed_part_select*)sel;
+                    other = ps->Base_expr() == c    ? ps->Width_expr()
+                            : ps->Width_expr() == c ? ps->Base_expr()
+                                                    : nullptr;
+                }
+                auto* ort = other ? (UHDM::ref_typespec*)other->Typespec() : nullptr;
+                if (!ort || !orphSet.count(ort))
+                    continue;
+                tr284("HPSELPORT", std::string(ort->VpiFullName()) + " -> " +
+                                       std::string(rt->VpiFullName()) + " (orphan sibling)");
+                ort->VpiFullName(rt->VpiFullName());
+                orphSet.erase(ort);
+            }
+            for (auto* rt : orphSet)
+                if (renamed.count(std::string(rt->VpiFullName())))
+                    tr284("ORPHANSIB_V", "kept " + std::string(rt->VpiFullName()));
+        }
+        else
+        for (auto* rt : orphans)
+            if (auto it = renamed.find(std::string(rt->VpiFullName())); it != renamed.end()) {
+                tr284("HPSELPORT", it->first + " -> " + it->second + " (orphan bound)");
+                rt->VpiFullName(it->second);
+            }
+    }
+    hpSelFoldRefs284().clear();
+    auto& recs = pkgAliasRecs284();
+    if (recs.empty())
+        return;
+    // One walk of the elaborated design: the whole-signal continuous
+    // assignment targets and initialized declarations (declared types), and
+    // every import.
+    std::set<const Type*> written;
+    std::set<std::string> wildPkgs;
+    std::set<std::pair<std::string, std::string>> namedImports;
+    auto noteImport = [&](const Symbol& m) {
+        if (m.kind == SymbolKind::WildcardImport) {
+            if (auto* pk = m.as<WildcardImportSymbol>().getPackage())
+                wildPkgs.insert(std::string(pk->name));
+        }
+        else if (m.kind == SymbolKind::ExplicitImport) {
+            auto& ei = m.as<ExplicitImportSymbol>();
+            namedImports.insert({std::string(ei.packageName), std::string(ei.importName)});
+        }
+    };
+    // § aliasWriteModuleScope284v (v11u284, R11V284_ALIASSCOPE_OFF): golden
+    // unparents the listing only where Surelog's writeCont_assign reaches
+    // the declared typedef object: a whole-signal continuous assignment to a
+    // signal declared directly in a MODULE body (bindVariable finds module
+    // signals, also from inside a generate block) and a net declaration
+    // assignment (wire pk::a_t z = ...) at any depth; a variable initializer
+    // (pk::a_t z = 4'h3), a generate-local signal written by an assign and a
+    // signal of an interface or program body written by an assign keep the
+    // package parent (pk::pk::a_t; tools/probe/v11u284repro/cases/VA va03,
+    // va05, va06, va14, va21, va28, va32 against va04, va23, va25, va33).
+    static const bool aliasScope284v = r11v284On("R11V284_ALIASSCOPE_OFF");
+    auto modBodySym284v = [&](const Symbol& sym) {
+        auto* ps = sym.getParentScope();
+        if (!ps || ps->asSymbol().kind != SymbolKind::InstanceBody)
+            return false;
+        return ps->asSymbol().as<InstanceBodySymbol>().getDefinition().definitionKind ==
+               DefinitionKind::Module;
+    };
+    auto noteDecl = [&](const Symbol& m) {
+        if (m.kind != SymbolKind::Variable && m.kind != SymbolKind::Net)
+            return;
+        if (aliasScope284v && m.kind == SymbolKind::Variable) {
+            if (m.as<ValueSymbol>().getInitializer())
+                if (auto* dt = m.getDeclaredType())
+                    tr284("ALIASSCOPE_V", "variable initializer " + std::string(m.name) + " " +
+                                              std::string(dt->getType().toString()));
+            return;
+        }
+        auto& vs = m.as<ValueSymbol>();
+        if (!vs.getInitializer())
+            return;
+        if (auto* dt = static_cast<const Symbol&>(vs).getDeclaredType())
+            written.insert(&dt->getType());
+    };
+    std::function<void(const Scope&)> scan = [&](const Scope& sc) {
+        for (auto& mem : sc.members()) {
+            noteImport(mem);
+            noteDecl(mem);
+            if (mem.kind == SymbolKind::ContinuousAssign) {
+                auto& asn = mem.as<ContinuousAssignSymbol>().getAssignment();
+                if (asn.kind != ExpressionKind::Assignment)
+                    continue;
+                auto& lc = stripImplicitConv(asn.as<AssignmentExpression>().left());
+                if (lc.kind != ExpressionKind::NamedValue)
+                    continue;
+                if (aliasScope284v &&
+                    !modBodySym284v(lc.as<NamedValueExpression>().symbol)) {
+                    if (auto* dt = static_cast<const Symbol&>(
+                                       lc.as<NamedValueExpression>().symbol)
+                                       .getDeclaredType())
+                        tr284("ALIASSCOPE_V", "non-module-body target " +
+                                                  std::string(lc.as<NamedValueExpression>().symbol.name) +
+                                                  " " + std::string(dt->getType().toString()));
+                    continue;
+                }
+                if (auto* dt = static_cast<const Symbol&>(
+                                   lc.as<NamedValueExpression>().symbol)
+                                   .getDeclaredType())
+                    written.insert(&dt->getType());
+            }
+            else if (mem.kind == SymbolKind::GenerateBlock) {
+                auto& gb = mem.as<GenerateBlockSymbol>();
+                if (!gb.isUninstantiated)
+                    scan(gb);
+            }
+            else if (mem.kind == SymbolKind::GenerateBlockArray) {
+                for (auto* ge : mem.as<GenerateBlockArraySymbol>().entries)
+                    scan(*ge);
+            }
+            else if (mem.kind == SymbolKind::Instance) {
+                scan(mem.as<InstanceSymbol>().body);
+            }
+            else if (mem.kind == SymbolKind::InstanceArray) {
+                std::function<void(const Symbol&)> arr = [&](const Symbol& el) {
+                    if (el.kind == SymbolKind::Instance)
+                        scan(el.as<InstanceSymbol>().body);
+                    else if (el.kind == SymbolKind::InstanceArray)
+                        for (auto* e2 : el.as<InstanceArraySymbol>().elements)
+                            arr(*e2);
+                };
+                arr(mem);
+            }
+        }
+    };
+    for (auto* inst : comp.getRoot().topInstances)
+        scan(inst->body);
+    for (auto* pk : comp.getPackages())
+        for (auto& mem : pk->members())
+            noteImport(mem);
+    for (auto* cu : comp.getRoot().compilationUnits)
+        for (auto& mem : cu->members())
+            noteImport(mem);
+    for (auto& r : recs) {
+        auto* ta = (const TypeAliasType*)r.alias;
+        auto* lts = r.ref ? r.ref->VpiParent() : nullptr;
+        if (!lts || !ta)
+            continue;
+        if (lts->VpiParent()) {
+            tr284("ALIASPARENT_ABSTAIN", "parented " + std::string(r.ref->VpiFullName()));
+            continue;
+        }
+        bool unpar = written.count((const Type*)ta) != 0;
+        if (!unpar && (wildPkgs.count(r.pkg) || namedImports.count({r.pkg, std::string(ta->name)}))) {
+            tr284("ALIASPARENT_ABSTAIN", "imported " + std::string(r.ref->VpiFullName()));
+            continue;
+        }
+        std::string nm(lts->VpiName());
+        std::string fn = unpar ? nm : r.pkg + "::" + nm;
+        if (fn == r.ref->VpiFullName())
+            continue;
+        tr284("ALIASPARENT", std::string(unpar ? "unparented " : "package ") +
+                                 std::string(r.ref->VpiFullName()) + " -> " + fn);
+        r.ref->VpiFullName(fn);
+    }
+    recs.clear();
+}
+
 void UhdmExporter::drainShareDefParamTs() {
     // § pkgTypedefCastTargetTs140 — bind the deferred package-typedef cast
     // targets, now that every package lists its typedefs.
@@ -36825,6 +37256,9 @@ void UhdmExporter::drainShareDefParamTs() {
     // § genCaSelBoundNestedOwner282, § caHierSelBoundName282,
     // § genCaCastFoldOrphanName282).
     foldTsNameFinalDrain282(s);
+    // § pkgAliasTdRefNameByParent284 / § pkgTdNamedDimsElemByChain284
+    // (r11u284; decode and law at pkgAliasTdNames284).
+    pkgAliasTdNames284(comp);
 }
 
 // Deferred DEF-view aggregate-typedef param ts: bind the SHARED named typedef
@@ -39624,7 +40058,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 }
                 continue;
             }
-            if (auto* u111 = tdOfNamedDims111(ta)) { const UHDM::typespec* uDef111 = nullptr; if (auto uIt111 = typedefTs.find(u111); uIt111 != typedefTs.end()) uDef111 = uIt111->second; auto& isn111 = ta.getSyntax()->as<syntax::TypedefDeclarationSyntax>().type->as<syntax::NamedTypeSyntax>().name->as<syntax::IdentifierSelectNameSyntax>(); auto& rs111 = isn111.selectors[0]->selector->as<syntax::RangeSelectSyntax>(); auto cr111 = ta.targetType.getType().as<PackedArrayType>().range; auto lead111 = [](const syntax::ExpressionSyntax* e) { while (syntax::BinaryExpressionSyntax::isKind(e->kind)) e = e->as<syntax::BinaryExpressionSyntax>().left; return e->sourceRange(); }; auto b111 = buildTdOfNamedDims111(s, (UHDM::instance*)up, up, prefix + std::string(ta.name), prefix + prefix + std::string(ta.name), std::string(u111->name), uDef111, cr111.left, cr111.right, boundIsIntOp111(rs111.left), boundIsIntOp111(rs111.right), [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); }, ta.getSyntax()->as<syntax::TypedefDeclarationSyntax>().type->sourceRange(), isn111.selectors[0]->sourceRange(), lead111(rs111.left), lead111(rs111.right)); pendingAliasChainTgt.emplace_back(b111.u1Alias, (const Symbol*)u111); typedefTs[&ta] = b111.L; typedefClone[&ta] = nullptr; continue; }  auto& tgt9 = ta.targetType.getType().as<TypeAliasType>();
+            if (auto* u111 = tdOfNamedDims111(ta)) { const UHDM::typespec* uDef111 = nullptr; if (auto uIt111 = typedefTs.find(u111); uIt111 != typedefTs.end()) uDef111 = uIt111->second; auto& isn111 = ta.getSyntax()->as<syntax::TypedefDeclarationSyntax>().type->as<syntax::NamedTypeSyntax>().name->as<syntax::IdentifierSelectNameSyntax>(); auto& rs111 = isn111.selectors[0]->selector->as<syntax::RangeSelectSyntax>(); auto cr111 = ta.targetType.getType().as<PackedArrayType>().range; auto lead111 = [](const syntax::ExpressionSyntax* e) { while (syntax::BinaryExpressionSyntax::isKind(e->kind)) e = e->as<syntax::BinaryExpressionSyntax>().left; return e->sourceRange(); }; auto b111 = buildTdOfNamedDims111(s, (UHDM::instance*)up, up, prefix + std::string(ta.name), prefix + prefix + std::string(ta.name), std::string(u111->name), uDef111, cr111.left, cr111.right, boundIsIntOp111(rs111.left), boundIsIntOp111(rs111.right), [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); }, ta.getSyntax()->as<syntax::TypedefDeclarationSyntax>().type->sourceRange(), isn111.selectors[0]->sourceRange(), lead111(rs111.left), lead111(rs111.right)); pendingAliasChainTgt.emplace_back(b111.u1Alias, (const Symbol*)u111); if (r11u284On("R11U284_F3ELEMCHAIN_OFF")) namedDimsListings284().push_back(b111.L); if (r11u284On("R11U284_F3PARAMCOPY_OFF")) namedDimsSet284().insert(b111.L); typedefTs[&ta] = b111.L; typedefClone[&ta] = nullptr; continue; }  auto& tgt9 = ta.targetType.getType().as<TypeAliasType>();
             const syntax::SyntaxNode* tgtTypeSyn9 = nullptr;
             if (auto asyn9 = tgt9.getSyntax();
                 asyn9 && asyn9->kind == syntax::SyntaxKind::TypedefDeclaration)
@@ -39740,6 +40174,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             art9->VpiParent(lts9);
             art9->Actual_typespec(bare9);
             lts9->Typedef_alias(art9);
+            if (r11u284On("R11U284_ALIASPARENT_OFF"))
+                pkgAliasRecs284().push_back({art9, &ta, std::string(pkg.name)});
             typedefTs[&ta] = lts9;
             typedefClone[&ta] = nullptr;
             if (kwAlias250)

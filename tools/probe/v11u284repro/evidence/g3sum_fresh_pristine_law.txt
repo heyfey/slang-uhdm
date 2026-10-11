@@ -1,0 +1,145 @@
+MOVE VA/va01_bitsel_lhs d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va01_bitsel_lhs e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va02_always_comb_only d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va02_always_comb_only e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va03_var_init d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL endline -> STRICT_NOTEQUAL endline | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va03_var_init e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL endline -> STRICT_NOTEQUAL endline | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va04_net_init d rc 0 -> 0 cmp 58 -> 58 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va04_net_init e rc 0 -> 0 cmp 58 -> 58 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va05_iface_assign d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va05_iface_assign e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va06_genif_assign d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va06_genif_assign e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va07_uninst_branch d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 100 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VA/va07_uninst_branch e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 98 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VA/va08_two_aliases_one_written d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va08_two_aliases_one_written e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va09_alias_chain_written d rc 0 -> 0 cmp 67 -> 67 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va09_alias_chain_written e rc 0 -> 0 cmp 67 -> 67 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va10_concat_lhs d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va10_concat_lhs e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va12_named_import_other d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va12_named_import_other e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va13_class_member d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 96 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VA/va13_class_member e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 94 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VA/va14_genfor_assign d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va14_genfor_assign e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va15_param_width d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va15_param_width e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va16_foreign_pkg_target d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va16_foreign_pkg_target e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va17_child_output_assigned d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va17_child_output_assigned e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va19_partsel_lhs d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va19_partsel_lhs e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va21_program_assign d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va21_program_assign e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va23_modvar_genassign d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va23_modvar_genassign e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va24_iface_net_init d rc 0 -> 0 cmp 58 -> 58 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va24_iface_net_init e rc 0 -> 0 cmp 58 -> 58 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va25_gen_net_init d rc 0 -> 0 cmp 31 -> 31 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va25_gen_net_init e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 98 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VA/va26_child_mod_in_gen d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va26_child_mod_in_gen e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va27_iface_and_mod_assign d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va27_iface_and_mod_assign e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va28_var_init_and_net d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL endline -> STRICT_NOTEQUAL endline | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va28_var_init_and_net e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL endline -> STRICT_NOTEQUAL endline | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va29_two_tops d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va29_two_tops e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va31_iface_wire_assign d rc 0 -> 0 cmp 58 -> 58 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va31_iface_wire_assign e rc 0 -> 0 cmp 58 -> 58 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va32_gen_var_op_rhs d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va32_gen_var_op_rhs e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va33_genfor_net_init d rc 0 -> 0 cmp 31 -> 31 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va33_genfor_net_init e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 152 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VA/va34_mod_var_op_rhs d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va34_mod_var_op_rhs e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VA/va35_prog_wire d rc 0 -> 0 cmp 58 -> 58 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va35_prog_wire e rc 0 -> 0 cmp 58 -> 58 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VC/vc03_case_genlocal d rc 0 -> 0 cmp 31 -> 31 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VC/vc03_case_genlocal e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 122 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VC/vc04_iface_sel d rc 0 -> 0 cmp 51 -> 51 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VC/vc04_iface_sel e rc 0 -> 0 cmp 55 -> 55 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VC/vc05_else_branch d rc 0 -> 0 cmp 31 -> 31 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VC/vc05_else_branch e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 120 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VC/vc06_multiconcat d rc 0 -> 0 cmp 31 -> 31 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VC/vc06_multiconcat e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 118 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VC/vc07_two_inst_ovr_sel d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 249 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VC/vc07_two_inst_ovr_sel e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 245 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VC/vc10_member_param_sel_lhs_struct d rc 0 -> 0 cmp 31 -> 31 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VC/vc10_member_param_sel_lhs_struct e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 170 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VC/vc11_depth2_inst d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 205 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VC/vc11_depth2_inst e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 198 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VC/vc16_implicit_genif d rc 0 -> 0 cmp 31 -> 31 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VC/vc16_implicit_genif e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 88 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VC/vc17_call_member_sel d rc 0 -> 0 cmp 31 -> 31 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VC/vc17_call_member_sel e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 148 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VE/ve01_import_var d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VE/ve01_import_var e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VE/ve05_two_listings_two_users d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VE/ve05_two_listings_two_users e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL file | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VF/vf03_inst_in_genif d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 252 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VF/vf03_inst_in_genif e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 251 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VF/vf04_body_localparam_chain d rc 0 -> 0 cmp 50 -> 50 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VF/vf04_body_localparam_chain e rc 0 -> 0 cmp 50 -> 50 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VF/vf06_wild_import_param d rc 0 -> 0 cmp 100 -> 100 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VF/vf06_wild_import_param e rc 0 -> 0 cmp 100 -> 100 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VF/vf07_two_inst_same_mod d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 361 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VF/vf07_two_inst_same_mod e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 360 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VF/vf08_param_and_var d rc 0 -> 0 cmp 64 -> 64 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VF/vf08_param_and_var e rc 0 -> 0 cmp 64 -> 64 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VF/vf10_select_use d rc 0 -> 0 cmp 50 -> 50 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VF/vf10_select_use e rc 0 -> 0 cmp 50 -> 50 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh01_inst_array d rc 0 -> 0 cmp 324 -> 324 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh01_inst_array e rc 0 -> 0 cmp 324 -> 324 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh02_genfor_port d rc 0 -> 0 cmp 192 -> 192 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh02_genfor_port e rc 0 -> 0 cmp 192 -> 192 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh04_nested_member d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 303 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VH/vh04_nested_member e rc 0 -> 0 cmp 0 -> 0 | STRICT_EQUAL 315 objects -> STRICT_EQUAL 315 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh05_depth2_inst d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 406 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VH/vh05_depth2_inst e rc 0 -> 0 cmp 0 -> 0 | STRICT_EQUAL 412 objects -> STRICT_EQUAL 412 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh06_iface_inst_port d rc 0 -> 0 cmp 17 -> 17 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh06_iface_inst_port e rc 0 -> 0 cmp 17 -> 17 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh08_import_wild d rc 0 -> 0 cmp 17 -> 17 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh08_import_wild e rc 0 -> 0 cmp 17 -> 17 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh09_genif_port d rc 0 -> 0 cmp 264 -> 264 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh09_genif_port e rc 0 -> 0 cmp 264 -> 264 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh10_local_struct_port d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh10_local_struct_port e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh11_same_sel_port_and_proc d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ORPHANSIB_OFF  
+MOVE VH/vh11_same_sel_port_and_proc e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ORPHANSIB_OFF  
+MOVE VH/vh12_same_sel_port_and_ca d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ORPHANSIB_OFF  
+MOVE VH/vh12_same_sel_port_and_ca e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ORPHANSIB_OFF  
+MOVE VH/vh13_two_ports_same_sel d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ORPHANSIB_OFF  
+MOVE VH/vh13_two_ports_same_sel e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ORPHANSIB_OFF  
+MOVE VH/vh14_both_bounds_pkg d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 337 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VH/vh14_both_bounds_pkg e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 343 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VH/vh15_implicit_net d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 337 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VH/vh15_implicit_net e rc 0 -> 0 cmp 0 -> 0 | STRICT_EQUAL 341 objects -> STRICT_EQUAL 341 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh17_ops_both_bounds d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 345 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VH/vh17_ops_both_bounds e rc 0 -> 0 cmp 0 -> 0 | STRICT_EQUAL 342 objects -> STRICT_EQUAL 342 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VH/vh18_both_bounds_and_proc d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ORPHANSIB_OFF  
+MOVE VH/vh18_both_bounds_and_proc e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname | lawsw R11V284_ORPHANSIB_OFF  
+MOVE VS/vs01_ovr_two_inst d rc 0 -> 0 cmp 22 -> 22 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VS/vs01_ovr_two_inst e rc 0 -> 0 cmp 22 -> 22 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VS/vs03_iface d rc 0 -> 0 cmp 31 -> 31 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VS/vs03_iface e rc 0 -> 0 cmp 33 -> 33 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VS/vs05_bits_cond d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 63 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VS/vs05_bits_cond e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 62 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VS/vs06_int_signed_kw d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 65 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VS/vs06_int_signed_kw e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 64 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VS/vs07_used_in_range d rc 0 -> 0 cmp 60 -> 60 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VS/vs07_used_in_range e rc 0 -> 0 cmp 60 -> 60 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VS/vs08_pkg_cond d rc 0 -> 0 cmp 64 -> 64 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VS/vs08_pkg_cond e rc 0 -> 0 cmp 64 -> 64 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VS/vs09_underscore_and_param_port d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 63 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VS/vs09_underscore_and_param_port e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 62 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VS/vs10_lp_in_func_unused d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL type | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VS/vs10_lp_in_func_unused e rc 0 -> 0 cmp 34 -> 34 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF  
+MOVE VS/vs12_wide_literal d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 63 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VS/vs12_wide_literal e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 62 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VS/vs13_two_lp_one_ternary d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 104 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VS/vs13_two_lp_one_ternary e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 102 objects | lawsw R11V284_ALIASSCOPE_OFF,R11V284_ORPHANSIB_OFF | ENTER 
+pristine->law: views=198 moving=144 entering=36 leaving=0 rc_changes=0 cmp_changes=0 U284OFF!=pristine=0 V284OFF!=law=0

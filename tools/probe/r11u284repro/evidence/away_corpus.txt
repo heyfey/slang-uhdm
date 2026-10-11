@@ -1,0 +1,2 @@
+default chain away=0 toward=8 flat_away=0 flat_toward=8 uhdm-cmp lines law=64 pristine=64
+testflags chain away=0 toward=8 flat_away=0 flat_toward=8 uhdm-cmp lines law=64 pristine=64

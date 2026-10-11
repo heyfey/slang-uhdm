@@ -1,0 +1,72 @@
+v11u284repro/cases/VA/va01_bitsel_lhs pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va02_always_comb_only pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va03_var_init pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va04_net_init pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va05_iface_assign pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va06_genif_assign pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va07_uninst_branch pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va08_two_aliases_one_written pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va09_alias_chain_written pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va10_concat_lhs pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va12_named_import_other pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va13_class_member pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va14_genfor_assign pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u284repro/cases/VA/va15_param_width pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va16_foreign_pkg_target pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va17_child_output_assigned pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va19_partsel_lhs pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va21_program_assign pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va23_modvar_genassign pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va24_iface_net_init pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va25_gen_net_init pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va26_child_mod_in_gen pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va27_iface_and_mod_assign pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VA/va28_var_init_and_net pris EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u284_dsc/pris/v11u284repro_cases_V
+v11u284repro/cases/VA/va29_two_tops pris EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u284repro/cases/VA/va31_iface_wire_assign pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va32_gen_var_op_rhs pris IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u284repro/cases/VA/va33_genfor_net_init pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VA/va34_mod_var_op_rhs pris EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u284_dsc/pris/v11u284repro_cases_V
+v11u284repro/cases/VA/va35_prog_wire pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc03_case_genlocal pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc04_iface_sel pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc05_else_branch pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc06_multiconcat pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc07_two_inst_ovr_sel pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc10_member_param_sel_lhs_struct pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc11_depth2_inst pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc16_implicit_genif pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VC/vc17_call_member_sel pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VE/ve01_import_var pris EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+v11u284repro/cases/VE/ve05_two_listings_two_users pris EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_4_common_constant_assignments_match
+v11u284repro/cases/VF/vf03_inst_in_genif pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VF/vf04_body_localparam_chain pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VF/vf06_wild_import_param pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VF/vf07_two_inst_same_mod pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VF/vf08_param_and_var pris EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+v11u284repro/cases/VF/vf10_select_use pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VH/vh01_inst_array pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh02_genfor_port pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh04_nested_member pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh05_depth2_inst pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh06_iface_inst_port pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh08_import_wild pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh09_genif_port pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh10_local_struct_port pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh11_same_sel_port_and_proc pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh12_same_sel_port_and_ca pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh13_two_ports_same_sel pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh14_both_bounds_pkg pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh15_implicit_net pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh17_ops_both_bounds pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VH/vh18_both_bounds_and_proc pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs01_ovr_two_inst pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs03_iface pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs05_bits_cond pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs06_int_signed_kw pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs07_used_in_range pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs08_pkg_cond pris DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u284_dsc/pri
+v11u284repro/cases/VS/vs09_underscore_and_param_port pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs10_lp_in_func_unused pris EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u284repro/cases/VS/vs12_wide_literal pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u284repro/cases/VS/vs13_two_lp_one_ternary pris IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-

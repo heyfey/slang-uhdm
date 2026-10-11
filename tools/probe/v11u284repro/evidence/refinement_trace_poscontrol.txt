@@ -1,0 +1,10 @@
+== VA/va05_iface_assign
+ALIASSCOPE_V non-module-body target z pk::a_t
+ALIASPARENT package work@dut.pk::a_t -> pk::pk::a_t
+== VH/vh12_same_sel_port_and_ca
+HPSELPORT work@dut.o.a[4'h2 - 1:4'h0].a -> work@dut.u1.a.o.a[4'h2 - 1:4'h0].a
+HPSELPORT work@dut.o.a[4'h2 - 1:4'h0].a -> work@dut.u1.a.o.a[4'h2 - 1:4'h0].a (orphan sibling)
+ORPHANSIB_V kept work@dut.o.a[4'h2 - 1:4'h0].a
+== VA/va03_var_init
+ALIASSCOPE_V variable initializer z pk::a_t
+ALIASPARENT package work@dut.pk::a_t -> pk::pk::a_t

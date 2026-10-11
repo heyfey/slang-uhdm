@@ -48,6 +48,7 @@
 #include "R278.h"
 #include "R280.h"
 #include "R282.h"
+#include "R284.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -2048,6 +2049,35 @@ static std::string genCaReplCountInst282(const UHDM::any* parent, bool inGenCaRh
     std::string own = ownerInstName192(parent);
     if (!own.empty())
         tr282("CAREPLINST", own);
+    return own;
+}
+// § genCaCatMemberInst284 (r11u284, R11U284_CATMEMBERINST_OFF): a parameter
+// folded as a DIRECT member of a concatenation (`{P, 1'b0}`, at any depth of
+// the right side: whole, a ternary branch, an operand of `|`, under `~`, a
+// nested concatenation) in an IF-generate scope's continuous assignment whose
+// left side is a select or a generate-local name is Surelog's getValue clone
+// left at the instance's param_assign: CompileExpression's concatenation
+// branch pushes the operand without re-parenting it, and the assignment's
+// re-clone (writeCont_assign: the right side reduces to a constant)
+// copies the reference's full name the getter computed over that chain, so
+// the reference reads the instance (`work@dut`); ours wrote the scope
+// (`work@dut.g`).  A module-body whole left side keeps the scope in golden and
+// is left alone; a ternary condition `(P == 1) ? ...` is a binary operand and
+// keeps the scope.  Grid tools/probe/r11u284repro/cases/C.  Returns the
+// instance name or empty to abstain.
+static std::string genCaCatMemberInst284(const UHDM::any* parent, bool inGenCaRhs, bool lhsSel,
+                                         bool lhsGenLocal) {
+    static const bool on = r11u284On("R11U284_CATMEMBERINST_OFF");
+    if (!on || !inGenCaRhs || !parent || parent->UhdmType() != UHDM::uhdmoperation ||
+        ((const UHDM::operation*)parent)->VpiOpType() != vpiConcatOp)
+        return std::string();
+    if (!lhsSel && !lhsGenLocal) {
+        tr284("CATMEMBERINST_ABSTAIN", "module-body whole left side");
+        return std::string();
+    }
+    std::string own = ownerInstName192(parent);
+    if (!own.empty())
+        tr284("CATMEMBERINST", own);
     return own;
 }
 // § genIpsBoundOwner256 (r11u256, R11U256_GENIPSOWNER_OFF) — the BASE or
@@ -26773,6 +26803,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     }
                                 }
                                 rt->VpiFullName(fn9);
+                                // § hpSelPortConnFoldChain284 (design-final at
+                                // ParamEmit's pkgAliasTdNames284).
+                                if (r11u284On("R11U284_HPSELPORT_OFF"))
+                                    hpSelFoldRefs284().push_back(rt);
                             }
                             else if (gsProcOpFold75 &&
                                      !gsProcInstPrefix75.empty()) {
@@ -27449,6 +27483,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             }
                             stampFoldedPkgParamTs(c, nv.symbol, full31,
                                                   /*declTsOnly=*/true);
+                            // § hpSelPortConnFoldChain284 (design-final at
+                            // ParamEmit's pkgAliasTdNames284).
+                            if (hier31 && c->Typespec() && r11u284On("R11U284_HPSELPORT_OFF"))
+                                hpSelFoldRefs284().push_back(c->Typespec());
                         }
                     }
                     // § fcArgFoldParent32 (r10earl32) — WHERE THE NEW FOLDED
@@ -28365,6 +28403,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                             caLhsNotPlainName282(expr));
                                         !own282.empty())
                                         rt7->VpiFullName(own282);
+                                    // § genCaCatMemberInst284 (copy branch)
+                                    if (auto own284 = genCaCatMemberInst284(
+                                            parent, contAssignView == 0 && inGenScopeCaRhs,
+                                            caLhsNotPlainName282(expr), genCaLhsGenLocal113);
+                                        !own284.empty())
+                                        rt7->VpiFullName(own284);
                                     rt7->VpiParent(c7);
                                     if (auto* srt7 = src7->Typespec();
                                         srt7 && srt7->Actual_typespec())
@@ -28403,6 +28447,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 caLhsNotPlainName282(expr));
                             !own282.empty())
                             rt8->VpiFullName(own282);
+                        // § genCaCatMemberInst284 (mint branch)
+                        if (auto own284 = genCaCatMemberInst284(
+                                parent, contAssignView == 0 && inGenScopeCaRhs,
+                                caLhsNotPlainName282(expr), genCaLhsGenLocal113);
+                            !own284.empty())
+                            rt8->VpiFullName(own284);
                         rt8->VpiParent(c8);
                         auto* its8 = s.MakeInt_typespec();
                         bool typed8 = false;

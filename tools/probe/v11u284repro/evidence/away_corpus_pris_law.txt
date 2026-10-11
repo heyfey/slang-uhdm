@@ -1,0 +1,8 @@
+default chain away=0 toward=8 flat_away=0 flat_toward=8
+golden.dumphash
+golden.uhdm
+status
+testflags chain away=0 toward=8 flat_away=0 flat_toward=8
+golden.dumphash
+golden.uhdm
+status

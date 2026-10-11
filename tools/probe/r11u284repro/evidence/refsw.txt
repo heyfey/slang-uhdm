@@ -1,0 +1,2 @@
+r11u111repro/grid/f3/s00_stamped_corpus d chain away=9 toward=19 flat_away=9 flat_toward=16
+r11u111repro/grid/f3/s00_stamped_corpus e chain away=9 toward=19 flat_away=9 flat_toward=16

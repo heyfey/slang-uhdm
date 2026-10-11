@@ -91,7 +91,7 @@ r10earl31repro/e1_psbound,EQUAL,,equal
 r10earl31repro/e4_ctrl,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
 r10earl31repro/v3_tern,EQUAL,,equal
 r10earl31repro/v4_ops,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
-r10earl31repro/v5_hier,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+r10earl31repro/v5_hier,EQUAL,,equal
 r10earl34repro/v1_view,EQUAL,,equal
 r10earl38repro/a1_chain,EQUAL,,equal
 r10earl41repro/v41v_comment,STRICT_NOTEQUAL,differ:fullname(18),differ:fullname(18)
@@ -114,7 +114,7 @@ r10earl50repro/h6_earl50,EQUAL,,equal
 r10earl50repro/h7_earl50,EQUAL,,equal
 r10earl50repro/h8_earl50,EQUAL,,equal
 r10earl51repro/i1_earl51,EQUAL,,equal
-r10earl52repro/a2_earl52,STRICT_NOTEQUAL,differ:file(1),differ:file(1)
+r10earl52repro/a2_earl52,EQUAL,,equal
 r10earl52repro/v3_earl52,EQUAL,,equal
 r10earl53repro/v2_v53,STRICT_NOTEQUAL,differ:endline(1),differ:endline(1)
 r10earl53repro/v5_v53,EQUAL,,equal
@@ -1795,12 +1795,12 @@ r11u108repro/grid/f5/f5a14_multidim_ctl,EQUAL,,equal
 r11u108repro/grid/f5/f5a15_scalarelem,EQUAL,,equal
 r11u108repro/grid/f5/f5a16_ovr2state,EQUAL,,equal
 r11u108repro/grid/f5/f5a18_init,EQUAL,,equal
-r11u108repro/grid/f5/f5a20_ovr_pkgarr,STRICT_NOTEQUAL,differ:fullname(6),differ:fullname(6)
+r11u108repro/grid/f5/f5a20_ovr_pkgarr,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
 r11u108repro/grid/f5/f5a23_wdims_logicts_ctl,EQUAL,,equal
 r11u108repro/grid/pk/k01_param_v,EQUAL,,equal
 r11u108repro/grid/pk/k02_param_vn,EQUAL,,equal
 r11u108repro/grid/pk/k03_param_vn_default,EQUAL,,equal
-r11u108repro/grid/pk/k05_param_a,STRICT_NOTEQUAL,differ:file(4),differ:file(4)
+r11u108repro/grid/pk/k05_param_a,EQUAL,,equal
 r11u108repro/grid/pk/k07_port_vn,EQUAL,,equal
 r11u108repro/grid/pk/k08_var_vn,EQUAL,,equal
 r11u108repro/grid/pk/k09_member_v_toppar,EQUAL,,equal
@@ -1933,7 +1933,7 @@ r11u111repro/grid/f1/a03_q_sym_default,EQUAL,,equal
 r11u111repro/grid/f1/a06_q_signed,EQUAL,,equal
 r11u111repro/grid/f1/a07_q_localparam,EQUAL,,equal
 r11u111repro/grid/f1/a09_imp_explicit,EQUAL,,equal
-r11u111repro/grid/f1/a10_q_chain,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+r11u111repro/grid/f1/a10_q_chain,EQUAL,,equal
 r11u111repro/grid/f1/a12_q_multidim,EQUAL,,equal
 r11u111repro/grid/f1/a14_q_two_inst,EQUAL,,equal
 r11u111repro/grid/f1/a15_q_genblk,EQUAL,,equal
@@ -1943,7 +1943,7 @@ r11u111repro/grid/f1/a20_q_struct_ctl,EQUAL,,equal
 r11u111repro/grid/f1/a21_q_enum_ctl,EQUAL,,equal
 r11u111repro/grid/f1/a25_pkg_self_qualified,EQUAL,,equal
 r11u111repro/grid/f1/a26_q_port_ctl,EQUAL,,equal
-r11u111repro/grid/f1/a27_q_row_named_dims,STRICT_NOTEQUAL,differ:file(4),differ:file(4)
+r11u111repro/grid/f1/a27_q_row_named_dims,EQUAL,,equal
 r11u111repro/grid/f2/b03_q_imp_w16,EQUAL,,equal
 r11u111repro/grid/f2/b04_imp_q_w16,EQUAL,,equal
 r11u111repro/grid/f2/b05_q_q_w80,EQUAL,,equal
@@ -3416,7 +3416,7 @@ r11v23repro/adv/v02_unsigned_sub_wrap,EQUAL,,equal
 r11v23repro/adv/v03_shl_overflow32,EQUAL,,equal
 r11v23repro/adv/v05_mul_overflow32,EQUAL,,equal
 r11v23repro/adv/v07_unary_neg,EQUAL,,equal
-r11v23repro/adv/v11_concat_64bit_param,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r11v23repro/adv/v11_concat_64bit_param,EQUAL,,equal
 r11v23repro/adv/v12_concat_unsized_int,EQUAL,,equal
 r11v23repro/adv/v13_concat_intparam,EQUAL,,equal
 r11v23repro/adv/v30_fill1,EQUAL,,equal
@@ -3453,7 +3453,7 @@ r11v23repro/adv/x03_concat_of_concat_sized,EQUAL,,equal
 r11v23repro/adv/x04_repl_of_sized,EQUAL,,equal
 r11v23repro/adv/x05_repl_of_param,EQUAL,,equal
 r11v23repro/adv/x08_concat_specparam,EQUAL,,equal
-r11v23repro/adv/x09_concat_64bit_param_small,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+r11v23repro/adv/x09_concat_64bit_param_small,EQUAL,,equal
 r11v23repro/adv/x10_concat_in_add,EQUAL,,equal
 r11v23repro/adv/x11_concat_in_add_sized,EQUAL,,equal
 r11v23repro/adv/x21_nested_gen3,EQUAL,,equal
@@ -3694,7 +3694,7 @@ v11u108repro/brk/f5/b08_two_inst_mixed,EQUAL,,equal
 v11u108repro/brk/f5/b09_structelem_member,EQUAL,,equal
 v11u108repro/brk/f5/b10_out_always,EQUAL,,equal
 v11u108repro/brk/f5/b11_selects,EQUAL,,equal
-v11u108repro/brk/f5/b13_pkg_arr,STRICT_NOTEQUAL,differ:fullname(7),differ:fullname(7)
+v11u108repro/brk/f5/b13_pkg_arr,STRICT_NOTEQUAL,differ:name(1),differ:name(1)
 v11u108repro/brk/f5/b14_multi_decl,EQUAL,,equal
 v11u108repro/brk/f5/b15_child_ports,EQUAL,,equal
 v11u108repro/brk/f5/b18_var_kw,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
@@ -3744,7 +3744,7 @@ v11u110repro/brk/v5/k10_logic_desc_range,EQUAL,,equal
 v11u110repro/brk/v5/k11_logic_param_range,STRICT_NOTEQUAL,differ:endcol(6),differ:endcol(6)
 v11u110repro/brk/v5/k13_anon_enum,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
 v11u110repro/brk/v5/k14_pkg_union,EQUAL,,equal
-v11u110repro/brk/v6/s01_single_chain2_ctl,STRICT_NOTEQUAL,differ:fullname(6),differ:fullname(6)
+v11u110repro/brk/v6/s01_single_chain2_ctl,EQUAL,,equal
 v11u111repro/brk/f1/x01_class_param,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 v11u111repro/brk/f1/x02_pkgparam_qual_ref,EQUAL,,equal
 v11u111repro/brk/f1/x04_twodim,EQUAL,,equal
@@ -3754,9 +3754,9 @@ v11u111repro/brk/f1/z11_three_inst_gen,EQUAL,,equal
 v11u111repro/brk/f2/x22_explicit_imp_wide,EQUAL,,equal
 v11u111repro/brk/f2/x26_q_twoinst_override,EQUAL,,equal
 v11u111repro/brk/f3/x36_iface_sig,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
-v11u111repro/brk/f3/x38_param_in_module_typed,STRICT_NOTEQUAL,differ:file(4),differ:file(4)
+v11u111repro/brk/f3/x38_param_in_module_typed,EQUAL,,equal
 v11u111repro/brk/f3/x40_class_prop,STRICT_NOTEQUAL,differ:file(9),differ:file(9)
-v11u111repro/brk/f3/y31_two_pkgs_rows,STRICT_NOTEQUAL,differ:fullname(8),differ:fullname(8)
+v11u111repro/brk/f3/y31_two_pkgs_rows,STRICT_NOTEQUAL,differ:name(6),differ:name(6)
 v11u111repro/brk/f5/x51_clog2_concat,EQUAL,,equal
 v11u111repro/brk/f5/x53_nested_param_concat,EQUAL,,equal
 v11u111repro/brk/f5/x54_both_mod_and_pkg_import,EQUAL,,equal
@@ -3767,7 +3767,7 @@ v11u111repro/brk/f5/y54_sized_cast_enum,EQUAL,,equal
 v11u111repro/brk/f5/y56_otherpkg_enum_only,EQUAL,,equal
 v11u111repro/brk/f5/z51_three_mods_import,EQUAL,,equal
 v11u111repro/brk/f6/x64_two_dims_positional,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)
-v11u111repro/brk/f6/x65_chain_td_dims,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)
+v11u111repro/brk/f6/x65_chain_td_dims,EQUAL,,equal
 v11u111repro/brk/f6/x69_scalar_td_dims,EQUAL,,equal
 v11u111repro/brk/f6/y61_vec_dims_extra_port_dims,STRICT_NOTEQUAL,differ:name(1),differ:name(1)
 v11u111repro/brk/f6/y62_vec_dims_local_typedef_in_child,STRICT_NOTEQUAL,differ:line(5),differ:line(5)

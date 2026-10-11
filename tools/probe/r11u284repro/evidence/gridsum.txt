@@ -1,0 +1,225 @@
+MOVER A/a01_logic_nouse d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 77 objects
+MOVER A/a01_logic_nouse e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 75 objects
+MOVER A/a03_logic_var d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/a03_logic_var e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/a04_logic_param d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 147 objects
+MOVER A/a04_logic_param e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 146 objects
+MOVER A/a05_logic_member d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 157 objects
+MOVER A/a05_logic_member e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 156 objects
+MOVER A/a06_logic_typeovr d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 134 objects
+MOVER A/a06_logic_typeovr e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 133 objects
+MOVER A/a07_logic_pkgvar d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER A/a07_logic_pkgvar e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER A/a08_logic_pkgparam d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER A/a08_logic_pkgparam e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER A/b01_port_sub_var_top d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b01_port_sub_var_top e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b02_var_sub_port_top d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b02_var_sub_port_top e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b03_ports_two_mods d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b03_ports_two_mods e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b04_port_sub_only d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b04_port_sub_only e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b05_func_local d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b05_func_local e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b06_net d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER A/b06_net e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER A/b07_iface_var d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 143 objects
+MOVER A/b07_iface_var e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 141 objects
+MOVER A/b08_var_and_param d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b08_var_and_param e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b09_localparam d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 110 objects
+MOVER A/b09_localparam e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 109 objects
+MOVER A/b10_port_two_inst d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b10_port_two_inst e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b11_class_prop d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 72 objects
+MOVER A/b11_class_prop e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 88 objects
+MOVER A/b12_var_two_mods d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b12_var_two_mods e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b14_var_sub_only d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b14_var_sub_only e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b15_output_port d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b15_output_port e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER A/b16_pkgfunc_arg d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER A/b16_pkgfunc_arg e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C/gi_l1_local_r1_cat d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 103 objects
+MOVER C/gi_l1_local_r1_cat e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 103 objects
+MOVER C/gi_l1_local_r2_terlit d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 109 objects
+MOVER C/gi_l1_local_r2_terlit e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 106 objects
+MOVER C/gi_l1_local_r3_tersig d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C/gi_l1_local_r3_tersig e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 109 objects
+MOVER C/gi_l1_local_r4_or d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C/gi_l1_local_r4_or e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 111 objects
+MOVER C/gi_l1_local_r5_not d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 105 objects
+MOVER C/gi_l1_local_r5_not e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 105 objects
+MOVER C/gi_l1_local_r6_nest d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 110 objects
+MOVER C/gi_l1_local_r6_nest e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 110 objects
+MOVER C/gi_l1_local_r7_tercond d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 118 objects
+MOVER C/gi_l1_local_r7_tercond e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 108 objects
+MOVER C/gi_l3_sel_r1_cat d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 123 objects
+MOVER C/gi_l3_sel_r1_cat e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 116 objects
+MOVER C/gi_l3_sel_r2_terlit d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 129 objects
+MOVER C/gi_l3_sel_r2_terlit e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 119 objects
+MOVER C/gi_l3_sel_r3_tersig d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C/gi_l3_sel_r3_tersig e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 122 objects
+MOVER C/gi_l3_sel_r4_or d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C/gi_l3_sel_r4_or e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 124 objects
+MOVER C/gi_l3_sel_r5_not d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 125 objects
+MOVER C/gi_l3_sel_r5_not e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 118 objects
+MOVER C/gi_l3_sel_r6_nest d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 130 objects
+MOVER C/gi_l3_sel_r6_nest e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 123 objects
+MOVER C/gi_l3_sel_r7_tercond d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 138 objects
+MOVER C/gi_l3_sel_r7_tercond e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 121 objects
+MOVER C2/hdr_gc_l1 d: STRICT_EQUAL 98 objects -> STRICT_EQUAL 98 objects
+MOVER C2/hdr_gc_l1 e: STRICT_EQUAL 98 objects -> STRICT_EQUAL 98 objects
+MOVER C2/hdr_gc_l3 d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/hdr_gc_l3 e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/hdr_gi_l1 d: STRICT_EQUAL 94 objects -> STRICT_EQUAL 94 objects
+MOVER C2/hdr_gi_l1 e: STRICT_EQUAL 94 objects -> STRICT_EQUAL 94 objects
+MOVER C2/hdr_gi_l3 d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/hdr_gi_l3 e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lp8_gc_l1 d: STRICT_EQUAL 110 objects -> STRICT_EQUAL 110 objects
+MOVER C2/lp8_gc_l1 e: STRICT_EQUAL 110 objects -> STRICT_EQUAL 110 objects
+MOVER C2/lp8_gc_l3 d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lp8_gc_l3 e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lp8_gi_l1 d: STRICT_EQUAL 106 objects -> STRICT_EQUAL 106 objects
+MOVER C2/lp8_gi_l1 e: STRICT_EQUAL 106 objects -> STRICT_EQUAL 106 objects
+MOVER C2/lp8_gi_l11_cat_repl d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lp8_gi_l11_cat_repl e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lp8_gi_l12_cat_op_member d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 120 objects
+MOVER C2/lp8_gi_l12_cat_op_member e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 106 objects
+MOVER C2/lp8_gi_l14_child_inst d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 153 objects
+MOVER C2/lp8_gi_l14_child_inst e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 146 objects
+MOVER C2/lp8_gi_l3 d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lp8_gi_l3 e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lp8_gi_l4_member d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lp8_gi_l4_member e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lp8_gi_l5_catlhs d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lp8_gi_l5_catlhs e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lp8_gi_l6_implicit d: STRICT_EQUAL 86 objects -> STRICT_EQUAL 86 objects
+MOVER C2/lp8_gi_l6_implicit e: STRICT_EQUAL 88 objects -> STRICT_EQUAL 88 objects
+MOVER C2/lp8_gi_l9_elemsel d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lp8_gi_l9_elemsel e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lpu_gc_l1 d: STRICT_EQUAL 98 objects -> STRICT_EQUAL 98 objects
+MOVER C2/lpu_gc_l1 e: STRICT_EQUAL 98 objects -> STRICT_EQUAL 98 objects
+MOVER C2/lpu_gc_l3 d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lpu_gc_l3 e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lpu_gi_l1 d: STRICT_EQUAL 94 objects -> STRICT_EQUAL 94 objects
+MOVER C2/lpu_gi_l1 e: STRICT_EQUAL 94 objects -> STRICT_EQUAL 94 objects
+MOVER C2/lpu_gi_l3 d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C2/lpu_gi_l3 e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C3/m01_gi_local d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C3/m01_gi_local e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 101 objects
+MOVER C3/m02_gi_sel d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C3/m02_gi_sel e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 104 objects
+MOVER C3/m04_gi_member d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C3/m04_gi_member e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 170 objects
+MOVER C3/m05_gi_catlhs d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C3/m05_gi_catlhs e: STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+MOVER C3/m06_gi_implicit d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C3/m06_gi_implicit e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 97 objects
+MOVER C3/m09_gi_elemsel d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C3/m09_gi_elemsel e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 126 objects
+MOVER C3/m10_gc_local d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C3/m10_gc_local e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 105 objects
+MOVER C3/m13_hdr_local d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C3/m13_hdr_local e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 101 objects
+MOVER C3/m16_child_local d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 143 objects
+MOVER C3/m16_child_local e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 143 objects
+MOVER C3/m17_two_inst_ovr d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 226 objects
+MOVER C3/m17_two_inst_ovr e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 226 objects
+MOVER C3/m18_depth3 d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 185 objects
+MOVER C3/m18_depth3 e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 185 objects
+MOVER C3/m19_gi_local_ter d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C3/m19_gi_local_ter e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 116 objects
+MOVER C3/m20_gi_local_unary d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C3/m20_gi_local_unary e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 103 objects
+MOVER C3/m25_gi_local_macro d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER C3/m25_gi_local_macro e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 101 objects
+MOVER C3/m26_iface_local d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 181 objects
+MOVER C3/m26_iface_local e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 180 objects
+MOVER E/e02_lptype d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER E/e02_lptype e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER E/e03_var_assigned d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER E/e03_var_assigned e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL file
+MOVER E/e09_two_pkgs d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name
+MOVER E/e09_two_pkgs e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL file
+MOVER E/e11_import_var d: STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+MOVER E/e11_import_var e: STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+MOVER F/f01_ovr d: STRICT_NOTEQUAL file -> STRICT_EQUAL 247 objects
+MOVER F/f01_ovr e: STRICT_NOTEQUAL file -> STRICT_EQUAL 246 objects
+MOVER F/f02_default d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f02_default e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f03_two_inst d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f03_two_inst e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f04_depth2 d: STRICT_NOTEQUAL file -> STRICT_EQUAL 274 objects
+MOVER F/f04_depth2 e: STRICT_NOTEQUAL file -> STRICT_EQUAL 273 objects
+MOVER F/f05_gen d: STRICT_NOTEQUAL file -> STRICT_EQUAL 252 objects
+MOVER F/f05_gen e: STRICT_NOTEQUAL file -> STRICT_EQUAL 251 objects
+MOVER F/f06_localparam d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f06_localparam e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f07_hdr_top d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f07_hdr_top e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f08_import_bare d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f08_import_bare e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f09_other_dims d: STRICT_NOTEQUAL file -> STRICT_EQUAL 247 objects
+MOVER F/f09_other_dims e: STRICT_NOTEQUAL file -> STRICT_EQUAL 246 objects
+MOVER F/f11_two_params d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f11_two_params e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f12_port_and_param d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f12_port_and_param e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f14_macro d: STRICT_NOTEQUAL file -> STRICT_EQUAL 247 objects
+MOVER F/f14_macro e: STRICT_NOTEQUAL file -> STRICT_EQUAL 246 objects
+MOVER F/f15_sv_header d: STRICT_NOTEQUAL file -> STRICT_NOTEQUAL name
+MOVER F/f15_sv_header e: STRICT_NOTEQUAL file -> STRICT_NOTEQUAL name
+MOVER F/f16_array_inst d: STRICT_NOTEQUAL file -> STRICT_EQUAL 361 objects
+MOVER F/f16_array_inst e: STRICT_NOTEQUAL file -> STRICT_EQUAL 360 objects
+MOVER F/f17_genfor_localparam d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f17_genfor_localparam e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f18_genif_localparam d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER F/f18_genif_localparam e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER H/h01_cast d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 321 objects
+MOVER H/h01_cast e: STRICT_EQUAL 327 objects -> STRICT_EQUAL 327 objects
+MOVER H/h02_plain d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 315 objects
+MOVER H/h02_plain e: STRICT_EQUAL 321 objects -> STRICT_EQUAL 321 objects
+MOVER H/h04_two_bounds d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 313 objects
+MOVER H/h04_two_bounds e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 313 objects
+MOVER H/h05_positional d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER H/h05_positional e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER H/h06_gen d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER H/h06_gen e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER H/h07_depth2 d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 420 objects
+MOVER H/h07_depth2 e: STRICT_EQUAL 426 objects -> STRICT_EQUAL 426 objects
+MOVER H/h10_import d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 438 objects
+MOVER H/h10_import e: STRICT_EQUAL 444 objects -> STRICT_EQUAL 444 objects
+MOVER H/h11_op_in_port d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 319 objects
+MOVER H/h11_op_in_port e: STRICT_EQUAL 325 objects -> STRICT_EQUAL 325 objects
+MOVER H/h12_concat_port d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 346 objects
+MOVER H/h12_concat_port e: STRICT_EQUAL 343 objects -> STRICT_EQUAL 343 objects
+MOVER S/s01_sb1_taken_msb1 d: STRICT_NOTEQUAL file -> STRICT_EQUAL 64 objects
+MOVER S/s01_sb1_taken_msb1 e: STRICT_NOTEQUAL file -> STRICT_EQUAL 63 objects
+MOVER S/s02_sb_taken_msb0 d: STRICT_NOTEQUAL file -> STRICT_EQUAL 64 objects
+MOVER S/s02_sb_taken_msb0 e: STRICT_NOTEQUAL file -> STRICT_EQUAL 63 objects
+MOVER S/s03_taken_signed_other_unsigned d: STRICT_NOTEQUAL file -> STRICT_EQUAL 62 objects
+MOVER S/s03_taken_signed_other_unsigned e: STRICT_NOTEQUAL file -> STRICT_EQUAL 61 objects
+MOVER S/s05_sh_taken d: STRICT_NOTEQUAL file -> STRICT_EQUAL 64 objects
+MOVER S/s05_sh_taken e: STRICT_NOTEQUAL file -> STRICT_EQUAL 63 objects
+MOVER S/s06_sd_taken d: STRICT_NOTEQUAL file -> STRICT_EQUAL 64 objects
+MOVER S/s06_sd_taken e: STRICT_NOTEQUAL file -> STRICT_EQUAL 63 objects
+MOVER S/s07_so_taken d: STRICT_NOTEQUAL file -> STRICT_EQUAL 64 objects
+MOVER S/s07_so_taken e: STRICT_NOTEQUAL file -> STRICT_EQUAL 63 objects
+MOVER S/s08_cond_true d: STRICT_NOTEQUAL file -> STRICT_EQUAL 63 objects
+MOVER S/s08_cond_true e: STRICT_NOTEQUAL file -> STRICT_EQUAL 62 objects
+MOVER S/s09_cond_literal d: STRICT_NOTEQUAL file -> STRICT_EQUAL 62 objects
+MOVER S/s09_cond_literal e: STRICT_NOTEQUAL file -> STRICT_EQUAL 61 objects
+MOVER S/s10_nested d: STRICT_NOTEQUAL file -> STRICT_EQUAL 65 objects
+MOVER S/s10_nested e: STRICT_NOTEQUAL file -> STRICT_EQUAL 64 objects
+MOVER S/s18_both_signed_cond_param_int d: STRICT_NOTEQUAL file -> STRICT_EQUAL 80 objects
+MOVER S/s18_both_signed_cond_param_int e: STRICT_NOTEQUAL file -> STRICT_EQUAL 79 objects
+MOVER S/s20_parens d: STRICT_NOTEQUAL file -> STRICT_EQUAL 64 objects
+MOVER S/s20_parens e: STRICT_NOTEQUAL file -> STRICT_EQUAL 63 objects
+CMP S/s21_sub_inst d 18 -> 14
+MOVER S/s21_sub_inst d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+CMP S/s21_sub_inst e 18 -> 14
+MOVER S/s21_sub_inst e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+case-views=474 movers=222 entering_STRICT_EQUAL=102 leaving_STRICT_EQUAL=0 rc_changes=0 cmp_changes=2 OFF_equals_pristine=474/474

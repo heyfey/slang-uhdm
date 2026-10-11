@@ -1,0 +1,47 @@
+MOVER r11u108repro/grid/f2/m02_alias_of_td d rc=0 cmp=34 NOT_EQUAL stage1 -> rc=0 cmp=34 NOT_EQUAL stage1
+MOVER r11u108repro/grid/f2/m02_alias_of_td e rc=0 cmp=34 NOT_EQUAL stage1 -> rc=0 cmp=34 NOT_EQUAL stage1
+MOVER r11u108repro/grid/pk/k13_member_nested_stamp d rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER r11u108repro/grid/pk/k13_member_nested_stamp e rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER r11u108repro/grid/pk/k14_member_nested_nodim d rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER r11u108repro/grid/pk/k14_member_nested_nodim e rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER r11u108repro/grid/pk/k19_cross_pkg d rc=0 cmp=36 NOT_EQUAL stage1 -> rc=0 cmp=36 NOT_EQUAL stage1
+MOVER r11u108repro/grid/pk/k19_cross_pkg e rc=0 cmp=36 NOT_EQUAL stage1 -> rc=0 cmp=36 NOT_EQUAL stage1
+MOVER r11u111repro/grid/f3/k05_param_a d rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 273 objects
+MOVER r11u111repro/grid/f3/k05_param_a e rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 272 objects
+MOVER r11u111repro/grid/f3/k13_member_nested_stamp d rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER r11u111repro/grid/f3/k13_member_nested_stamp e rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER r11u111repro/grid/f3/k14_member_nested_nodim d rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER r11u111repro/grid/f3/k14_member_nested_nodim e rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER r11u111repro/grid/f3/s00_stamped_corpus d rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u111repro/grid/f3/s00_stamped_corpus e rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u111repro/grid/f3/t02_var_use d rc=0 cmp=36 NOT_EQUAL stage1 -> rc=0 cmp=36 NOT_EQUAL stage1
+MOVER r11u111repro/grid/f3/t02_var_use e rc=0 cmp=36 NOT_EQUAL stage1 -> rc=0 cmp=36 NOT_EQUAL stage1
+MOVER r11u111repro/grid/f3/t08_param_only d rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 247 objects
+MOVER r11u111repro/grid/f3/t08_param_only e rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 246 objects
+MOVER r11u119repro/grid/g1/a23_alias_alias_init d rc=0 cmp=0 STRICT_NOTEQUAL endline -> rc=0 cmp=0 STRICT_NOTEQUAL endline
+MOVER r11u119repro/grid/g1/a23_alias_alias_init e rc=0 cmp=0 STRICT_NOTEQUAL endline -> rc=0 cmp=0 STRICT_NOTEQUAL endline
+MOVER r11u266repro/cases/A/a24_chain_td_ctl d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 147 objects
+MOVER r11u266repro/cases/A/a24_chain_td_ctl e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 146 objects
+MOVER r11u266repro/cases/S/s38_ternary_ctl d rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 63 objects
+MOVER r11u266repro/cases/S/s38_ternary_ctl e rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 62 objects
+MOVER v11u108repro/brk/f2/c09_import_var d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER v11u108repro/brk/f2/c09_import_var e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER v11u108repro/brk/f2/c21_rangeless_alias d rc=0 cmp=34 NOT_EQUAL stage1 -> rc=0 cmp=34 NOT_EQUAL stage1
+MOVER v11u108repro/brk/f2/c21_rangeless_alias e rc=0 cmp=34 NOT_EQUAL stage1 -> rc=0 cmp=34 NOT_EQUAL stage1
+MOVER v11u108repro/brk/f2/c22_gen_localparam_twice d rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER v11u108repro/brk/f2/c22_gen_localparam_twice e rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/x31_port_net d rc=0 cmp=588 NOT_EQUAL stage1 -> rc=0 cmp=588 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/x31_port_net e rc=0 cmp=628 NOT_EQUAL stage1 -> rc=0 cmp=628 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/x33_chain_mat d rc=0 cmp=150 NOT_EQUAL stage1 -> rc=0 cmp=150 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/x33_chain_mat e rc=0 cmp=150 NOT_EQUAL stage1 -> rc=0 cmp=150 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/x34_desc_wide_elem d rc=0 cmp=96 NOT_EQUAL stage1 -> rc=0 cmp=96 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/x34_desc_wide_elem e rc=0 cmp=96 NOT_EQUAL stage1 -> rc=0 cmp=96 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/x39_two_rows_same_base d rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/x39_two_rows_same_base e rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/y33_param_pattern_default d rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/y33_param_pattern_default e rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=100 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/z31_local_shadow_ut d rc=0 cmp=1142 NOT_EQUAL stage1 -> rc=0 cmp=1142 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/z31_local_shadow_ut e rc=0 cmp=1142 NOT_EQUAL stage1 -> rc=0 cmp=1142 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/z32_three_inst_param d rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER v11u111repro/brk/f3/z32_three_inst_param e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+case-views=5830 moving=46 entering=8 leaving=0 rc-changed=0 cmplines-changed=0

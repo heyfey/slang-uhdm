@@ -1,0 +1,27 @@
+MOVE VA/va03_var_init d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL endline -> STRICT_NOTEQUAL endline | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va03_var_init e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL endline -> STRICT_NOTEQUAL endline | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va05_iface_assign d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 207 objects | lawsw R11V284_ALIASSCOPE_OFF | ENTER 
+MOVE VA/va05_iface_assign e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 206 objects | lawsw R11V284_ALIASSCOPE_OFF | ENTER 
+MOVE VA/va06_genif_assign d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va06_genif_assign e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va14_genfor_assign d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va14_genfor_assign e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va21_program_assign d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va21_program_assign e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL name | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va28_var_init_and_net d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL endline -> STRICT_NOTEQUAL endline | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va28_var_init_and_net e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL endline -> STRICT_NOTEQUAL endline | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va31_iface_wire_assign d rc 0 -> 0 cmp 58 -> 58 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va31_iface_wire_assign e rc 0 -> 0 cmp 58 -> 58 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va32_gen_var_op_rhs d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va32_gen_var_op_rhs e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va35_prog_wire d rc 0 -> 0 cmp 58 -> 58 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VA/va35_prog_wire e rc 0 -> 0 cmp 58 -> 58 | NOT_EQUAL stage1 -> NOT_EQUAL stage1 | lawsw R11V284_ALIASSCOPE_OFF  
+MOVE VH/vh11_same_sel_port_and_proc d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 399 objects | lawsw R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VH/vh11_same_sel_port_and_proc e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 382 objects | lawsw R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VH/vh12_same_sel_port_and_ca d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 397 objects | lawsw R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VH/vh12_same_sel_port_and_ca e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 395 objects | lawsw R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VH/vh13_two_ports_same_sel d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 447 objects | lawsw R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VH/vh13_two_ports_same_sel e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 434 objects | lawsw R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VH/vh18_both_bounds_and_proc d rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 399 objects | lawsw R11V284_ORPHANSIB_OFF | ENTER 
+MOVE VH/vh18_both_bounds_and_proc e rc 0 -> 0 cmp 0 -> 0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 382 objects | lawsw R11V284_ORPHANSIB_OFF | ENTER 
+law->fix: views=198 moving=26 entering=10 leaving=0 rc_changes=0 cmp_changes=0 U284OFF!=pristine=0 V284OFF!=law=0

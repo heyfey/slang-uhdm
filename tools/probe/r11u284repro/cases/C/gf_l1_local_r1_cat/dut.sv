@@ -1,0 +1,9 @@
+// § genCaCatMemberInst284
+module dut(input logic a, output logic [31:0] o);
+  localparam logic [63:0] P = 1;
+  generate for (genvar i = 0; i < 1; i++) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule

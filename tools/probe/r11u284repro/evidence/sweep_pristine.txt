@@ -1,0 +1,16 @@
+/tmp/r11u284_scratch/sweepP_corp.log:law index STALE: tests/LAWS.md (run scripts/law_index.py)
+/tmp/r11u284_scratch/sweepP_corp.log:[default] 798 tests
+/tmp/r11u284_scratch/sweepP_corp.log:[testflags] 798 tests
+/tmp/r11u284_scratch/sweepP_corp.log:[default] CMP_EQUAL=478 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=2 SURELOG_FAIL=25
+/tmp/r11u284_scratch/sweepP_corp.log:[testflags] CMP_EQUAL=472 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=2 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+/tmp/r11u284_scratch/sweepP_corp.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/r11u284_scratch/sweepP_corp.log:[default] 871 tests
+/tmp/r11u284_scratch/sweepP_corp.log:[testflags] 871 tests
+/tmp/r11u284_scratch/sweepP_corp.log:[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+/tmp/r11u284_scratch/sweepP_corp.log:[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+/tmp/r11u284_scratch/sweepP_corp.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/r11u284_scratch/sweepP_probe.log:law index STALE: tests/LAWS.md (run scripts/law_index.py)
+/tmp/r11u284_scratch/sweepP_probe.log:[probe] EQUAL=3863 STRICT_NOTEQUAL=224
+/tmp/r11u284_scratch/sweepP_probe.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
