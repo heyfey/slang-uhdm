@@ -54,6 +54,7 @@
 #include "R283.h"
 #include "R285.h"
 #include "R287.h"
+#include "R289.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -28797,6 +28798,220 @@ static UHDM::constant* genCaPaOperand287(UHDM::instance* m, const Expression& rh
     return (UHDM::constant*)cur;
 }
 
+// § caStructParamModSharesPaOperand289 — what Surelog's `adjustSize`
+// (CompileHelper.cpp, called with uniquify=true from UhdmWriter
+// writeCont_assign's reduce branch, `ts` = the whole-name Lhs's typespec) does
+// to the reduced operand `c`.  It CLONES only a vpiUIntConst (and an unsized
+// fill or a signed int-typed binary with its sign bit set), so for every other
+// kind the operand is handed back as is and becomes the cont_assign's Rhs,
+// mutated in place by the size branches: a binary constant on a logic Lhs keeps
+// its low Lhs-width bits when it is wider; a binary constant typed int (its
+// own unsigned int_typespec, a replication's product, or an int Lhs) narrows
+// its size to the Lhs width; a hex or octal constant takes the Lhs width (the
+// branch that ends `c->VpiSize(size)`); a decimal one keeps its own size.
+// Returns false where the operand would be cloned or the shape is not
+// measured (x/z digits, a 1-bit or unsized binary into an int, an int or
+// string constant); `newSize` / `trunc` say how to mutate.
+static bool modCaAdjustKeeps289(const UHDM::constant* c, const Expression& lhs,
+                                int& newSize, bool& trunc) {
+    const int ct = c->VpiConstType();
+    const int sz = c->VpiSize();
+    newSize = sz;
+    trunc = false;
+    if (sz <= 0 || !lhs.type)
+        return false;
+    const int lw = (int)lhs.type->getBitWidth();
+    if (lw <= 0 || lw > 64)
+        return false;
+    std::string_view v = c->VpiValue();
+    if (ct == vpiDecConst)
+        return true;
+    if (ct == vpiHexConst || ct == vpiOctConst) {
+        if (sz > 64 || v.size() < 5 ||
+            v.find_first_of("xXzZ?", 4) != std::string_view::npos)
+            return false;
+        newSize = lw;
+        return true;
+    }
+    if (ct != vpiBinaryConst || sz > 64 || v.rfind("BIN:", 0) != 0 ||
+        v.find_first_of("xXzZ?", 4) != std::string_view::npos)
+        return false;
+    const Type& lt = lhs.type->getCanonicalType();
+    bool intTs = false;
+    if (auto* rt = c->Typespec()) {
+        auto* ts = rt->Actual_typespec();
+        if (!ts || ts->UhdmType() != UHDM::uhdmint_typespec ||
+            ((const UHDM::int_typespec*)ts)->VpiSigned())
+            return false;
+        intTs = true;
+    }
+    else if (lt.kind == SymbolKind::PredefinedIntegerType) {
+        if (lt.as<PredefinedIntegerType>().integerKind != PredefinedIntegerType::Int)
+            return sz <= lw;
+        intTs = true;
+    }
+    if (intTs) {
+        if (sz == 1)
+            return false;
+        newSize = sz < lw ? sz : lw;
+        return true;
+    }
+    if (sz <= lw)
+        return true;
+    // A wider binary constant: only the logic_typespec branch truncates.
+    const Type* e = &lt;
+    while (e->kind == SymbolKind::PackedArrayType)
+        e = &e->as<PackedArrayType>().elementType.getCanonicalType();
+    if (e->kind != SymbolKind::ScalarType ||
+        e->as<ScalarType>().scalarKind == ScalarType::Bit)
+        return false;
+    newSize = lw;
+    trunc = true;
+    return true;
+}
+
+// Where the struct parameter a member read `P.a.b` lands on is declared:
+// 1 = a package (the reduce hands back the instance's param_assign operand
+// itself), 2 = the instance body (the reduce goes through getValue, which
+// hands back a CLONE of that operand), 0 = anything else.
+static int modCaParamHome289(const Expression& rhsExpr) {
+    const Expression* b = &stripImplicitConv(rhsExpr);
+    for (int hop = 0; hop < 8 && b->kind == ExpressionKind::MemberAccess; ++hop)
+        b = &stripImplicitConv(b->as<MemberAccessExpression>().value());
+    if (b->kind != ExpressionKind::NamedValue)
+        return 0;
+    auto& sym = b->as<NamedValueExpression>().symbol;
+    if (sym.kind != SymbolKind::Parameter || !sym.getParentScope())
+        return 0;
+    auto k = sym.getParentScope()->asSymbol().kind;
+    return k == SymbolKind::Package ? 1 : k == SymbolKind::InstanceBody ? 2 : 0;
+}
+
+// § caStructParamIfaceCloneReused289: the param_assign operand -> the
+// constant the first cell's read minted for it.
+static std::map<const void*, UHDM::expr*>& ifCloneReuse289() {
+    static std::map<const void*, UHDM::expr*> m;
+    return m;
+}
+
+// A clone of a constant (clone_tree's copy: the value fields, the span and a
+// reference to the same typespec).
+static UHDM::constant* cloneConst289(UHDM::Serializer& s, const UHDM::constant* op) {
+    auto* cl = s.MakeConstant();
+    cl->VpiValue(std::string(op->VpiValue()));
+    cl->VpiDecompile(std::string(op->VpiDecompile()));
+    cl->VpiSize(op->VpiSize());
+    cl->VpiConstType(op->VpiConstType());
+    cpFile125(cl, op);
+    cl->VpiLineNo(op->VpiLineNo());
+    cl->VpiColumnNo(op->VpiColumnNo());
+    cl->VpiEndLineNo(op->VpiEndLineNo());
+    cl->VpiEndColumnNo(op->VpiEndColumnNo());
+    if (auto* ort = op->Typespec()) {
+        auto* nrt = s.MakeRef_typespec();
+        nrt->VpiName(ort->VpiName());
+        nrt->VpiFullName(ort->VpiFullName());
+        nrt->VpiParent(cl);
+        nrt->Actual_typespec(const_cast<UHDM::typespec*>(ort->Actual_typespec()));
+        cl->Typespec(nrt);
+    }
+    return cl;
+}
+
+// The setter kinds the five laws are measured on: a literal, a concatenation
+// or a replication.  An enum-valued member (its operand carries our encoding
+// of the enum, golden's reduce the enum's UINT value), a `default:` fill or
+// an unbased-unsized `'1` (stamped once at the default width, pass 56) and a
+// name keep the member emitter (byte controls tools/probe r11v56repro/grid
+// x2_enum and x4_nest, r11u56repro/grid/e1_enc56 read chain away 1 under a
+// draft that took every setter).
+static bool setterKindOk289(const Expression* e) {
+    if (!e)
+        return false;
+    auto k = stripImplicitConv(*e).kind;
+    return k == ExpressionKind::IntegerLiteral || k == ExpressionKind::Concatenation ||
+           k == ExpressionKind::Replication;
+}
+
+// The operand genCaPaOperand287 reaches by field index must BE the setter's
+// own object: our elaborated pattern lists no operand for some members (an
+// 'x fill), which shifts every later index, so the operand's span must start
+// where the setter does (byte control tools/probe r11u56repro/grid/e1_enc56:
+// `hx` took `bn`'s operand under a draft).  A macro-expanded setter abstains.
+static bool opAtSetter289(const SourceManager& sm, const UHDM::constant* op,
+                          const Expression* setter) {
+    if (!op || !setter)
+        return false;
+    auto loc = setter->sourceRange.start();
+    if (!loc.valid() || sm.isMacroLoc(loc))
+        return false;
+    return op->VpiLineNo() == (int)sm.getLineNumber(loc) &&
+           op->VpiColumnNo() == (int)sm.getColumnNumber(loc);
+}
+
+// The in-place mutation `adjustSize` performs on the shared operand.
+static void shareAdjust289(UHDM::constant* c, int newSize, bool trunc) {
+    if (trunc) {
+        std::string v(c->VpiValue());
+        std::string bits = v.substr(4);
+        const int cut = c->VpiSize() - newSize;
+        if ((int)bits.size() > cut)
+            bits.erase(0, cut);
+        c->VpiValue("BIN:" + bits);
+        c->VpiDecompile(bits);
+        c->VpiConstType(vpiBinaryConst);
+    }
+    if (newSize != c->VpiSize())
+        c->VpiSize(newSize);
+}
+
+// § caDelayNameRefKeepsOperand289v (v11u289, R11V289_DLYREF_OFF) — the
+// adversarial verification of r11u289.  UhdmWriter::writeCont_assign's first
+// leg (`delay && delay->UhdmType() == uhdmref_obj`) clones the assign and sets
+// `cloned`, and the reduce branch calls `adjustSize` only while `cloned ==
+// false`: under `assign #D o = P.a;` with D a parameter golden's Rhs is the
+// reduced operand left as it was (not re-sized, not truncated, not re-parented;
+// tools/probe/v11u289repro/cases VM/vm01_pdelay_hexwide, vm02_pdelay_binwide
+// STRICT_EQUAL on pristine, stage 1 under the law; VC/vc09_own_pdelay_twoca the
+// module-body clone; VG/vg01_gen_pdelay golden's operand keeping size 12 where
+// the law wrote 4).  The three typed laws step aside on a delay written as a
+// bare unparenthesised name or a qualified name (the spellings Surelog writes
+// as a ref_obj, pass 90's decode: parameters, variables, pk::PD), a localparam
+// excepted (VM/vm21_localparam_delay_bin, converted by the law: golden adjusts
+// there), parenthesised or not (VM/vm19_paren_pdelay), a variable
+// (VM/vm24_var_delay) and pk::PD (VM/vm25_pkgqual_delay) included.
+static bool caDelayNameRef289v(const slang::syntax::TimingControlSyntax* dsyn,
+                               const slang::ast::Scope* scope) {
+    if (!dsyn)
+        return false;
+    const syntax::ExpressionSyntax* val = nullptr;
+    if (dsyn->kind == syntax::SyntaxKind::DelayControl)
+        val = dsyn->as<syntax::DelaySyntax>().delayValue;
+    else if (dsyn->kind == syntax::SyntaxKind::Delay3) {
+        auto& d3 = dsyn->as<syntax::Delay3Syntax>();
+        // `#(D)` is a ref_obj too (VM/vm19_paren_pdelay: the law read chain
+        // away 1); `#(D, E)` and `#(D:E:F)` are not this shape.
+        if (d3.delay2 || d3.delay3)
+            return false;
+        val = d3.delay1;
+    }
+    while (val && val->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        val = val->as<syntax::ParenthesizedExpressionSyntax>().expression;
+    if (!val)
+        return false;
+    if (val->kind == syntax::SyntaxKind::ScopedName)
+        return true;
+    if (val->kind != syntax::SyntaxKind::IdentifierName)
+        return false;
+    std::string_view nm = val->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    if (scope)
+        for (auto& mem : scope->members())
+            if (mem.name == nm && mem.kind == SymbolKind::Parameter &&
+                mem.as<ParameterSymbol>().isLocalParam())
+                return false;
+    return true;
+}
+
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
                                  const std::string& prefix, NetMap& netMap) {
     // An instance whose parameter override reads a member-leftover struct
@@ -32498,6 +32713,48 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         sps69 = nullptr;
                     }
             }
+            // § genCaStructParamTypedLhsShares289 (r11u289,
+            // R11U289_GENCATYPED_OFF) — the TYPED twin of the law above.  On a
+            // whole-name Lhs bindVariable does type (`tps` = the Lhs's
+            // typespec, pass 71's adjWt non-zero), and `adjustSize` still
+            // hands the operand back unless it is a vpiUIntConst: golden's
+            // generate-scope Rhs IS the instance's param_assign operand,
+            // re-sized in place as § caStructParamModSharesPaOperand289
+            // models (grid tools/probe/r11u289repro/cases/MG; MS
+            // m23_modparam_gen: a module parameter with an inline default,
+            // read in an if-generate onto the module's port).  Ours minted
+            // a fresh member-width constant.
+            const bool dly289v = [&]() {
+                auto* asyn = casym.getSyntax();
+                for (auto pp = asyn ? asyn->parent : nullptr; pp; pp = pp->parent)
+                    if (pp->kind == syntax::SyntaxKind::ContinuousAssign)
+                        return caDelayNameRef289v(
+                            pp->as<syntax::ContinuousAssignSyntax>().delay, &body);
+                return false;
+            }();
+            if (dly289v && r11v289On("R11V289_DLYREF_OFF") && !rhs && sps69 &&
+                plainLhs69 && adjWt71 != 0)
+                tr289("DLYREF289V_ABSTAIN", fullName);
+            if (!rhs && sps69 && plainLhs69 && adjWt71 != 0 && m && !ifaceHome69 &&
+                setterKindOk289(sps69) &&
+                !(dly289v && r11v289On("R11V289_DLYREF_OFF")) &&
+                r11u289On("R11U289_GENCATYPED_OFF"))
+                if (auto* op289 = genCaPaOperand287(m, ae.right());
+                    op289 && opAtSetter289(*comp.getSourceManager(), op289, sps69)) {
+                    int ns289 = 0;
+                    bool trc289 = false;
+                    const bool keep289 = modCaAdjustKeeps289(op289, ae.left(), ns289, trc289);
+                    tr289(keep289 ? "GENCATYPED" : "GENCATYPED_ABSTAIN",
+                          fullName + " ct=" + std::to_string(op289->VpiConstType()) +
+                              " size=" + std::to_string(op289->VpiSize()) + "->" +
+                              std::to_string(ns289) + (trc289 ? " trunc" : ""));
+                    if (keep289) {
+                        shareAdjust289(op289, ns289, trc289);
+                        op289->VpiParent(ca);
+                        rhs = op289;
+                        sps69 = nullptr;
+                    }
+                }
             if (sps69)
                 // r11u85 passes the READ's member-access depth and whether
                 // this generate scope's home is an INTERFACE.  `ifaceHome69`
@@ -46671,6 +46928,100 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     structParamSetter ? 1 : 0,
                     rhs ? UHDM::UhdmName(rhs->UhdmType()).data() : "-",
                     (int)plainLhs);
+        // § caStructParamModSharesPaOperand289 (r11u289,
+        // R11U289_MODCASHARE_OFF) — THE MODULE TWIN OF
+        // § genCaStructParamSharesPaOperand287.  writeCont_assign's reduce of
+        // `P.a` on a whole-name Lhs hands back the elaborated instance's own
+        // param_assign operand (the flattened pattern's member constant);
+        // `adjustSize(tps, ..., uniquify=true)` clones only a vpiUIntConst and
+        // re-sizes a binary constant in place only when it is wider than the
+        // Lhs, so for every other measured kind golden's cont_assign Rhs IS
+        // that operand, re-parented at the last cont_assign that takes it, and
+        // the walk lists it once, under the param_assign (tests/probe
+        // r11u114repro/grid/f1 a25 and a28, v11u114repro/grid/set1/g25; grid
+        // tools/probe/r11u289repro/cases/MS).  Ours minted a fresh constant
+        // at the member's width per cont_assign.  A miss (no constant operand,
+        // an unsized or UINT operand, a wider binary one) keeps the fresh one.
+        const bool dly289v = caSyn9 && caDelayNameRef289v(caSyn9->delay, &body) &&
+                             r11v289On("R11V289_DLYREF_OFF");
+        if (dly289v && !rhs && topView && structParamSetter && plainLhs55)
+            tr289("DLYREF289V_ABSTAIN", prefix);
+        if (!rhs && topView && structParamSetter && plainLhs55 && m && !dly289v &&
+            setterKindOk289(structParamSetter) &&
+            (r11u289On("R11U289_MODCASHARE_OFF") || r11u289On("R11U289_MODCACLONE_OFF")))
+            if (auto* op289 = genCaPaOperand287(m, ae.right());
+                op289 && opAtSetter289(*comp.getSourceManager(), op289, structParamSetter)) {
+                int ns289 = 0;
+                bool tr289b = false;
+                const bool keep289 = modCaAdjustKeeps289(op289, ae.left(), ns289, tr289b);
+                tr289(keep289 ? (modCaParamHome289(ae.right()) == 1 ? "MODCASHARE"
+                                 : modCaParamHome289(ae.right()) == 2 ? "MODCACLONE_CAND"
+                                                                      : "MODCASHARE_NOHOME")
+                              : "MODCASHARE_ABSTAIN",
+                      prefix + ":" + std::to_string(assign.sourceRange.start().offset()) +
+                          " ct=" + std::to_string(op289->VpiConstType()) +
+                          " size=" + std::to_string(op289->VpiSize()) + "->" +
+                          std::to_string(ns289) + (tr289b ? " trunc" : ""));
+                const int home289 = modCaParamHome289(ae.right());
+                int rns289 = 0;
+                bool rtr289 = false;
+                if (keep289 && home289 == 1 && r11u289On("R11U289_MODCASHARE_OFF")) {
+                    shareAdjust289(op289, ns289, tr289b);
+                    op289->VpiParent(ca);
+                    rhs = op289;
+                }
+                // § caStructParamModClonesPaOperand289 (r11u289,
+                // R11U289_MODCACLONE_OFF) — a parameter the instance body
+                // declares reduces through getValue, which hands back a CLONE
+                // of the param_assign operand (pass 282's decode of
+                // CompileExpression): golden's Rhs is a fresh object with the
+                // operand's encoding, size and span, re-sized by `adjustSize`
+                // exactly as the shared one is (grid MS m09_modlocal,
+                // m10_modparam_default), where ours minted the member-width
+                // UINT constant that uhdm-cmp rejects.
+                else if (keep289 && home289 == 2 &&
+                         r11u289On("R11U289_MODCACLONE_OFF") &&
+                         ifCloneReuse289().count(op289) &&
+                         ifCloneReuse289()[op289]->UhdmType() == UHDM::uhdmconstant &&
+                         modCaAdjustKeeps289((UHDM::constant*)ifCloneReuse289()[op289],
+                                             ae.left(), rns289, rtr289)) {
+                    // The clone the FIRST cell's read made is the one a later
+                    // cell reading the same member takes (grid MS
+                    // m31_modlocal_twoca), as in an interface
+                    // (§ caStructParamIfaceCloneReused289).
+                    auto* cl289 = (UHDM::constant*)ifCloneReuse289()[op289];
+                    shareAdjust289(cl289, rns289, rtr289);
+                    cl289->VpiParent(ca);
+                    rhs = cl289;
+                    tr289("MODCACLONE_REUSE", prefix);
+                }
+                else if (keep289 && home289 == 2 &&
+                         r11u289On("R11U289_MODCACLONE_OFF")) {
+                    auto* cl289 = s.MakeConstant();
+                    cl289->VpiValue(std::string(op289->VpiValue()));
+                    cl289->VpiDecompile(std::string(op289->VpiDecompile()));
+                    cl289->VpiSize(op289->VpiSize());
+                    cl289->VpiConstType(op289->VpiConstType());
+                    cpFile125(cl289, op289);
+                    cl289->VpiLineNo(op289->VpiLineNo());
+                    cl289->VpiColumnNo(op289->VpiColumnNo());
+                    cl289->VpiEndLineNo(op289->VpiEndLineNo());
+                    cl289->VpiEndColumnNo(op289->VpiEndColumnNo());
+                    if (auto* ort = op289->Typespec()) {
+                        auto* nrt = s.MakeRef_typespec();
+                        nrt->VpiName(ort->VpiName());
+                        nrt->VpiFullName(ort->VpiFullName());
+                        nrt->VpiParent(cl289);
+                        nrt->Actual_typespec(ort->Actual_typespec());
+                        cl289->Typespec(nrt);
+                    }
+                    shareAdjust289(cl289, ns289, tr289b);
+                    cl289->VpiParent(ca);
+                    rhs = cl289;
+                    ifCloneReuse289()[op289] = cl289;
+                    tr289("MODCACLONE", prefix);
+                }
+            }
         if (!rhs && topView && structParamSetter)
             // The MODULE home passes its depth for the census trace and
             // `ifaceHome85 = false`, so nothing this pass decides can reach
@@ -54410,6 +54761,77 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // object golden writes; only its Rhs has to be the folded value.
             if (sps83)
                 needsFold = true;
+            // § caIfaceSelLhsTakesSharedRhs289 (r11u289,
+            // R11U289_IFSELSHARE_OFF) — a struct-parameter member read
+            // written onto a BIT- or PART-SELECT Lhs in an interface is
+            // reduced and cloned like a whole-name cell: golden's cell is a
+            // fresh cont_assign whose select Lhs carries the elaborated name
+            // (work@dut.u_i.bitsel, its index or bounds copied), and its Rhs
+            // is the object the member's read already gave the instance —
+            // the package parameter's param_assign operand, or for the
+            // interface's own parameter the clone an earlier cell's read
+            // made (tests/probe r11u88repro/grid/j3_ifcaselect; grid
+            // tools/probe/r11u289repro/cases/MI).  Ours kept the definition's
+            // cell (hier_path Rhs, work@ifc.bitsel).  A select cell with no
+            // earlier clone to take keeps the definition's cell.
+            UHDM::expr* selShare289 = nullptr;
+            // § ifSelShareConstBounds289v (v11u289, R11V289_SELBOUNDS_OFF) —
+            // the re-list below copies a part select's bounds only when they
+            // are constants (cpBound): on `assign e[W-1:0] = K.m;` the law
+            // wrote the elaborated part_select with no left range where
+            // golden keeps the operation W-1 (tools/probe/v11u289repro/cases
+            // VI/vi01_pkg_partsel_parambounds, vi03_own_partsel_parambounds:
+            // the bound's records lost).  A part-select Lhs whose bounds are
+            // not both constants keeps the definition's cell.
+            const bool selBoundsOk289v =
+                !r11v289On("R11V289_SELBOUNDS_OFF") || !defCa->Lhs() ||
+                defCa->Lhs()->UhdmType() != UHDM::uhdmpart_select ||
+                ([](const UHDM::part_select* ps) {
+                    return ps->Left_range() && ps->Right_range() &&
+                           ps->Left_range()->UhdmType() == UHDM::uhdmconstant &&
+                           ps->Right_range()->UhdmType() == UHDM::uhdmconstant;
+                })((const UHDM::part_select*)defCa->Lhs());
+            if (!selBoundsOk289v && ae83 && iface)
+                tr289("SELBOUNDS289V_ABSTAIN", prefix);
+            if (ae83 && iface && defCa->Lhs() && selBoundsOk289v &&
+                (defCa->Lhs()->UhdmType() == UHDM::uhdmbit_select ||
+                 defCa->Lhs()->UhdmType() == UHDM::uhdmpart_select) &&
+                r11u289On("R11U289_IFSELSHARE_OFF")) {
+                auto& sl289 = stripImplicitConv(ae83->left());
+                const Expression* sv289 =
+                    sl289.kind == ExpressionKind::ElementSelect
+                        ? &sl289.as<ElementSelectExpression>().value()
+                    : sl289.kind == ExpressionKind::RangeSelect
+                        ? &sl289.as<RangeSelectExpression>().value()
+                        : nullptr;
+                const Type* t289 = nullptr;
+                bool p289 = false, q289 = false;
+                const Expression* ss289 = nullptr;
+                if (sv289 && stripImplicitConv(*sv289).kind == ExpressionKind::NamedValue &&
+                    setterKindOk289(ss289 = caStructParamSetter55(ae83->right(), /*plainLhs55=*/true, t289, p289,
+                                          [this](const Expression& a, const Symbol& mm) {
+                                              return caPriorMembersProven68v(a, mm);
+                                          },
+                                          q289)))
+                    if (auto* op289 = genCaPaOperand287(iface, ae83->right());
+                        op289 && opAtSetter289(*comp.getSourceManager(), op289, ss289)) {
+                        const int home289 = modCaParamHome289(ae83->right());
+                        if (home289 == 1)
+                            selShare289 = op289;
+                        else if (home289 == 2) {
+                            if (auto it = ifCloneReuse289().find(op289);
+                                it != ifCloneReuse289().end())
+                                selShare289 = it->second;
+                            // A select cell that comes before every
+                            // whole-name read of the member abstains (grid MI
+                            // i09_sel_first, residue).
+                        }
+                        tr289(selShare289 ? "IFSELSHARE" : "IFSELSHARE_ABSTAIN",
+                              prefix + ":" + std::to_string(defCa->VpiLineNo()) + " home=" + std::to_string(home289));
+                        if (selShare289)
+                            needsFold = true;
+                    }
+            }
             if (!needsFold) {
                 elabCas->push_back(defCa);
                 continue;
@@ -54628,6 +55050,48 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 }
                 ca->Lhs(bs);
             }
+            // § caIfaceSelLhsTakesSharedRhs289: a PART-select Lhs re-lists the
+            // same way, its two bounds copied.
+            else if (auto* dlhsP = defCa->Lhs();
+                     selShare289 && dlhsP &&
+                     dlhsP->UhdmType() == UHDM::uhdmpart_select) {
+                auto* dps = (UHDM::part_select*)dlhsP;
+                auto* ps = s.MakePart_select();
+                ps->VpiName(dps->VpiName());
+                ps->VpiDefName(dps->VpiDefName());
+                ps->VpiFullName(prefix + "." + std::string(dps->VpiName()));
+                ps->VpiConstantSelect(dps->VpiConstantSelect());
+                ps->VpiParent(ca);
+                ps->VpiLineNo(dps->VpiLineNo());
+                cpFile125(ps, dps);
+                ps->VpiColumnNo(dps->VpiColumnNo());
+                ps->VpiEndLineNo(dps->VpiEndLineNo());
+                ps->VpiEndColumnNo(dps->VpiEndColumnNo());
+                auto cpBound = [&](const UHDM::expr* b) -> UHDM::expr* {
+                    if (!b || b->UhdmType() != UHDM::uhdmconstant)
+                        return nullptr;
+                    auto* dc = (const UHDM::constant*)b;
+                    auto* ic = s.MakeConstant();
+                    ic->VpiParent(ps);
+                    ic->VpiDecompile(dc->VpiDecompile());
+                    ic->VpiSize(dc->VpiSize());
+                    ic->VpiValue(std::string(dc->VpiValue()));
+                    ic->VpiConstType(dc->VpiConstType());
+                    ic->VpiLineNo(dc->VpiLineNo());
+                    ic->VpiColumnNo(dc->VpiColumnNo());
+                    ic->VpiEndLineNo(dc->VpiEndLineNo());
+                    ic->VpiEndColumnNo(dc->VpiEndColumnNo());
+                    ic->VpiFile(std::string(dc->VpiFile()));
+                    return ic;
+                };
+                ps->Left_range(cpBound(dps->Left_range()));
+                ps->Right_range(cpBound(dps->Right_range()));
+                ca->Lhs(ps);
+            }
+            if (selShare289) {
+                selShare289->VpiParent(ca);
+                ca->Rhs(selShare289);
+            }
             // § caIfaceBodyCaFolds83 — the folded Rhs, emitted by the ONE
             // emitter § caStructParamPatternSubst55 decoded (the source
             // encoding, the setter's own span, `adjustSize`'s width and
@@ -54636,13 +55100,82 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // against the Lhs declaration.  A declined emission leaves the
             // shared Rhs exactly as this branch already set it — GOLDEN
             // WRITES NOTHING ON A MISS, and neither does this.
-            if (sps83 && ae83)
+            // § caStructParamIfaceSharesPaOperand289 (r11u289,
+            // R11U289_IFCASHARE_OFF) — IN AN INTERFACE `tps` IS NULL ON EVERY
+            // cont_assign (bindVariable's switch has no interface_inst case),
+            // so `adjustSize` returns at once and the Rhs of a whole-name
+            // struct-parameter member read IS the elaborated interface's own
+            // param_assign operand, re-parented at the last cell that takes
+            // it, whatever its kind and width, when the parameter is a
+            // PACKAGE's (grid tools/probe/r11u289repro/cases/MI i05).  An
+            // interface's own parameter reduces through getValue's clone,
+            // which ours already mints (MI i01, i03 STRICT_EQUAL on pristine
+            // and broken by a draft that shared those too).  Ours minted a
+            // fresh constant sized to the Lhs per cell.
+            bool ifShared289 = false;
+            if (sps83 && ae83 && iface && setterKindOk289(sps83) &&
+                stripImplicitConv(ae83->left()).kind == ExpressionKind::NamedValue &&
+                modCaParamHome289(ae83->right()) == 1 &&
+                r11u289On("R11U289_IFCASHARE_OFF"))
+                if (auto* op289 = genCaPaOperand287(iface, ae83->right());
+                    op289 && opAtSetter289(*comp.getSourceManager(), op289, sps83)) {
+                    tr289("IFCASHARE", prefix + " ct=" + std::to_string(op289->VpiConstType()));
+                    op289->VpiParent(ca);
+                    ca->Rhs(op289);
+                    ifShared289 = true;
+                }
+            // § caStructParamIfaceCloneReused289 (r11u289,
+            // R11U289_IFCLONEREUSE_OFF) — an INTERFACE's own parameter reduces
+            // through getValue's clone, and the clone the FIRST cell's read
+            // makes is the one every later cell of that instance reading the
+            // same member takes (tests/probe r11v83repro/grid/b14_cadelay
+            // `d_plain` lists nothing, reusing `d_del`'s 8'd6; grid MI
+            // i02_two_cells).  Ours minted one constant per cell.  The first
+            // cell's constant is ours as before; a later cell whose read lands
+            // on the same param_assign operand takes it, re-parented.
+            const UHDM::constant* ifOp289 = nullptr;
+            if (sps83 && ae83 && !ifShared289 && iface && setterKindOk289(sps83) &&
+                stripImplicitConv(ae83->left()).kind == ExpressionKind::NamedValue &&
+                modCaParamHome289(ae83->right()) == 2 &&
+                r11u289On("R11U289_IFCLONEREUSE_OFF"))
+                if ((ifOp289 = genCaPaOperand287(iface, ae83->right())) &&
+                    !opAtSetter289(*comp.getSourceManager(), ifOp289, sps83))
+                    ifOp289 = nullptr;
+                if (ifOp289) {
+                    if (auto it289 = ifCloneReuse289().find(ifOp289);
+                        it289 != ifCloneReuse289().end()) {
+                        tr289("IFCLONEREUSE", prefix);
+                        it289->second->VpiParent(ca);
+                        ca->Rhs(it289->second);
+                        ifShared289 = true;
+                    }
+                    // The FIRST cell: getValue's clone of the operand itself,
+                    // its encoding, size and span (`adjustSize` returns at
+                    // once in an interface), where the member emitter wrote
+                    // the setter's own encoding (grid MI
+                    // i07_three_cells_two_members: a concatenation member
+                    // read BIN:00010010 in golden).
+                    else if (r11u289On("R11U289_IFCLONEFIRST_OFF")) {
+                        auto* cl289 = cloneConst289(s, ifOp289);
+                        cl289->VpiParent(ca);
+                        ca->Rhs(cl289);
+                        ifCloneReuse289()[ifOp289] = cl289;
+                        ifShared289 = true;
+                        tr289("IFCLONEFIRST", prefix);
+                    }
+                }
+            if (selShare289)
+                ifShared289 = true;
+            if (sps83 && ae83 && !ifShared289)
                 if (auto* fr83 = emitCaStructParamSubst55(
                         *sps83, spsTy83, spsPure83, spsPrior83, ae83->left(),
                         ca, prefix, netMap, -1,
                         caSetterChainDepth85(ae83->right()),
-                        /*ifaceHome85=*/true))
+                        /*ifaceHome85=*/true)) {
                     ca->Rhs((UHDM::expr*)fr83);
+                    if (ifOp289 && fr83->UhdmType() == UHDM::uhdmconstant)
+                        ifCloneReuse289()[ifOp289] = (UHDM::expr*)fr83;
+                }
             elabCas->push_back(ca);
         }
         if (!elabCas->empty())

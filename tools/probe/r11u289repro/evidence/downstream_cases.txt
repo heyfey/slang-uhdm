@@ -1,0 +1,58 @@
+r11u289repro/cases/MG/g01_pkg_if P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MG/g02_modparam_pkgdef P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MG/g03_for_iter P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MG/g04_hex_wide P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MG/g05_bin_narrow P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MG/g06_unsized P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MG/g07_modlocal P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MG/g08_twoca_widths P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match | IDENTICAL differs=-
+r11u289repro/cases/MG/g09_child P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MG/g10_case_gen P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MI/i01_plain_dec P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MI/i02_two_cells P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MI/i03_unsized P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MI/i04_hex_two_inst P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MI/i05_pkg_import P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MI/i06_override P EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match | EQUIVALENT differs=nohier
+r11u289repro/cases/MI/i07_three_cells_two_members P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MI/i08_pkg_sel P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MI/i09_sel_first P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MI/i10_two_inst_sel P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_3_common_constant_assignments_match | EQUIVALENT differs=nohier
+r11u289repro/cases/MS/m01_concat_eq P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m02_hexlit P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m03_binlit P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m04_concat_wide P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match | IDENTICAL differs=-
+r11u289repro/cases/MS/m05_concat_narrow P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m06_twoca P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m07_qualified P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m08_explicit_import P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m09_modlocal P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m10_modparam_default P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m11_child_two_inst P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m12_nested P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m13_repl P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m14_decsized P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m15_unsized P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m16_concat_param P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m17_concat_bin P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m18_int_member P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m19_selLhs P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m20_var_lhs P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m21_modparam_pkgdefault P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m22_modlocal_pkgref P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m23_modparam_gen P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m24_override P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=___This_indicates_a_serious_bug_in_UHDM_import | DIVERGENT differs=nohier
+r11u289repro/cases/MS/m25_hex_wide P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m26_int_lhs P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match | IDENTICAL differs=-
+r11u289repro/cases/MS/m27_bin_into_int P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m28_octal P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m29_signed_lit P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m30_casted P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m31_modlocal_twoca P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+r11u289repro/cases/MS/m32_modlocal_twoca_widths P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_3_common_constant_assignments_match | IDENTICAL differs=-
+r11u289repro/cases/MS/m33_pkg_twoinst_widths P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+/home/heyfey/git-repos/slang-uhdm/tests/probe/r11u88repro/grid/j3_ifcaselect P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+/home/heyfey/git-repos/slang-uhdm/tests/probe/r11v83repro/grid/b14_cadelay P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+/home/heyfey/git-repos/slang-uhdm/tests/probe/r11u114repro/grid/f1/a25 P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+/home/heyfey/git-repos/slang-uhdm/tests/probe/r11u114repro/grid/f1/a28 P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-
+/home/heyfey/git-repos/slang-uhdm/tests/probe/v11u114repro/grid/set1/g25 P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=- | IDENTICAL differs=-

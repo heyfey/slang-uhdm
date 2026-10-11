@@ -1,0 +1,17 @@
+probe r11u114repro__grid__f1__a25.uhdm MODCASHARE:1
+probe r11u114repro__grid__f1__a28.uhdm MODCASHARE:1
+probe r11u51repro__grid__e1_ca_rhskind.uhdm MODCACLONE:1
+probe r11u69repro__grid__g11_iface.uhdm IFCLONEFIRST:1
+probe r11u88repro__grid__j3_ifcaselect.uhdm IFCLONEFIRST:1 IFSELSHARE:3
+probe r11v55repro__grid__vv4_singleread.uhdm MODCACLONE:9
+probe r11v55repro__grid__vv6_edge.uhdm MODCACLONE:1
+probe r11v55repro__grid__vv8_sharemut.uhdm MODCACLONE:4
+probe r11v83repro__grid__b14_cadelay.uhdm IFCLONEFIRST:2 IFCLONEREUSE:1
+probe r11v83repro__grid__b18_xmember.uhdm IFCLONEFIRST:2
+probe v11u114repro__grid__set1__g25.uhdm MODCASHARE:1
+uhdm2rtlil StructLocalParam/default MODCACLONE:1
+uhdm2rtlil StructLocalParam/testflags MODCACLONE:1
+uhdm2rtlil StructParameter/default MODCACLONE:1
+uhdm2rtlil StructParameter/testflags MODCACLONE:1
+uhdm2rtlil struct_param_pattern_packing/default MODCACLONE:4
+uhdm2rtlil struct_param_pattern_packing/testflags MODCACLONE:4

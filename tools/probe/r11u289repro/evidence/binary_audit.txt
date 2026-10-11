@@ -1,0 +1,2 @@
+pristine sweep /tmp/r11u289_P: cmds.txt 3315, naming the frozen pristine binary 3265, no slang line 50
+law sweep /tmp/r11u289_L: cmds.txt 3315, naming the frozen law binary 3265, no slang line 50

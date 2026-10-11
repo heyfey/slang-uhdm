@@ -2174,8 +2174,8 @@ r11u114repro/grid/f1/a21,EQUAL,,equal
 r11u114repro/grid/f1/a22,EQUAL,,equal
 r11u114repro/grid/f1/a23,EQUAL,,equal
 r11u114repro/grid/f1/a24,EQUAL,,equal
-r11u114repro/grid/f1/a25,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
-r11u114repro/grid/f1/a28,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+r11u114repro/grid/f1/a25,EQUAL,,equal
+r11u114repro/grid/f1/a28,EQUAL,,equal
 r11u114repro/grid/f2/b01,EQUAL,,equal
 r11u114repro/grid/f2/b02,EQUAL,,equal
 r11u114repro/grid/f2/b03,EQUAL,,equal
@@ -3131,7 +3131,7 @@ r11u88repro/grid/i4_portview,EQUAL,,equal
 r11u88repro/grid/i5_twoinst,EQUAL,,equal
 r11u88repro/grid/i6_ifarray,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
 r11u88repro/grid/i8_modtwin,EQUAL,,equal
-r11u88repro/grid/j3_ifcaselect,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+r11u88repro/grid/j3_ifcaselect,EQUAL,,equal
 r11u88repro/grid/q10_ndaorder,EQUAL,,equal
 r11u88repro/grid/q11_ndastrmod,EQUAL,,equal
 r11u88repro/grid/q12_ndaparamenc,EQUAL,,equal
@@ -3564,7 +3564,7 @@ r11v77repro/grid/vd_structmem,EQUAL,,equal
 r11v77repro/grid/ve_ifacenet,EQUAL,,equal
 r11v77repro/grid/vh_arrelem,STRICT_NOTEQUAL,differ:endline(9),differ:endline(9)
 r11v83repro/grid/b12_ifarr,EQUAL,,equal
-r11v83repro/grid/b14_cadelay,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+r11v83repro/grid/b14_cadelay,EQUAL,,equal
 r11v83repro/grid/b17_topiface,EQUAL,,equal
 r11v83repro/grid/b18_xmember,EQUAL,,equal
 r11v83repro/grid/b2_mpexpr,EQUAL,,equal
@@ -3860,7 +3860,7 @@ v11u114repro/grid/set1/e09,EQUAL,,equal
 v11u114repro/grid/set1/e12,EQUAL,,equal
 v11u114repro/grid/set1/g11,EQUAL,,equal
 v11u114repro/grid/set1/g12,EQUAL,,equal
-v11u114repro/grid/set1/g25,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+v11u114repro/grid/set1/g25,EQUAL,,equal
 v11u114repro/grid/set1/q01,EQUAL,,equal
 v11u114repro/grid/set1/q03,EQUAL,,equal
 v11u114repro/grid/set1/q04,EQUAL,,equal
