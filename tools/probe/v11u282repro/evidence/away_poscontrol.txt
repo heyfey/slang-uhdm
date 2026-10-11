@@ -1,0 +1,10 @@
+VC/vc02_cast_param_sel_if d chain away=1 toward=0 flat_away=1 flat_toward=0
+VC/vc07_port_outer_ps e chain away=1 toward=0 flat_away=1 flat_toward=0
+VL/vl02_ips_rhs_paramop d chain away=2 toward=0 flat_away=2 flat_toward=0
+VL/vl06_ips_outer_target e chain away=1 toward=0 flat_away=1 flat_toward=0
+VP/vp01_named_begin d chain away=4 toward=0 flat_away=4 flat_toward=0
+VP/vp04_sel_in_named e chain away=2 toward=0 flat_away=2 flat_toward=0
+VP/vp12_unary_named d chain away=2 toward=0 flat_away=2 flat_toward=0
+VR/vr01_repl_lhs_hier e chain away=1 toward=0 flat_away=1 flat_toward=0
+VT/vt01_child_twice_case d chain away=2 toward=0 flat_away=2 flat_toward=0
+VT/vt04_casez e chain away=2 toward=0 flat_away=2 flat_toward=0

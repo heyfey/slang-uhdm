@@ -1,0 +1,1 @@
+case-views 1354 {'UOFF==P': 1354, 'VOFF==L': 1354, 'fix_movers': 458, 'fix_enter': 391, 'fix_leave': 0, 'law_movers': 458, 'law_enter': 391, 'law_leave': 0}

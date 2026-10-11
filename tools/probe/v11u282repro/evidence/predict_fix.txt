@@ -1,0 +1,7 @@
+# v11u282 fix-binary mover prediction, frozen before the fix sweep (2026-10-11).
+# § procSelNameFinal282v changes only the § genProcOpFoldInPlace282 select branch (tag "PROCOPINPLACE select").
+# The law's firing census (byte-identical to r11u282repro/evidence/predict.txt) shows that branch firing in ONE gate
+# database: probe r11u113repro/grid/v/v07_genfor_comb_ctl (2 firings). Under trace there, the fix binary logs
+# SELFINAL work@top -> work@top.g[0].a and SELFINAL work@top -> work@top.g[1].a, the law's emission-time names,
+# and writes the law binary's bytes (md5 e5bbfc6496a0ba068db64a53ac4aa0ee on both).
+# PREDICTION: fix vs law moves 0 of 4087 probe, 0 of 2560 corpus and 0 of 805 downstream databases.

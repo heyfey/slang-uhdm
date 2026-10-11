@@ -1,0 +1,14 @@
+probe PATH_SETS_IDENTICAL 4087
+MOVER probe ./r10earl47repro__a3_earl47.uhdm
+MOVER probe ./r10earl76repro__g2_orig76.uhdm
+MOVER probe ./r10earl95repro__g5_hop95.uhdm
+MOVER probe ./r10earl_repro__pu20.uhdm
+MOVER probe ./r10earl_repro__vo.uhdm
+MOVER probe ./r10uvm99repro__g99_a7_shapes.uhdm
+MOVER probe ./r10v64repro__v7_inst64.uhdm
+MOVER probe ./r11u112repro__grid__v__v08_comb.uhdm
+MOVER probe ./r11u113repro__grid__v__v07_genfor_comb_ctl.uhdm
+MOVER probe ./r11u114repro__grid__f2__b07.uhdm
+probe movers=10
+downstream PATH_SETS_IDENTICAL 805
+downstream movers=0

@@ -38,6 +38,7 @@
 #include "R276.h"
 #include "R278.h"
 #include "R280.h"
+#include "R282.h"
 namespace slang_uhdm {
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
@@ -36819,6 +36820,11 @@ void UhdmExporter::drainShareDefParamTs() {
     // § hpMemVarSelNamesFinal280 (law at ExprEmit's hpMemVarSelNamesDrain280):
     // the member path var_select names, over the final parent chain.
     hpMemVarSelNamesDrain280();
+    // r11u282's design-final generate-scope fold names (laws at ExprEmit's
+    // foldTsNameFinalDrain282: § genCaLhsIpsBoundInPlace282,
+    // § genCaSelBoundNestedOwner282, § caHierSelBoundName282,
+    // § genCaCastFoldOrphanName282).
+    foldTsNameFinalDrain282(s);
 }
 
 // Deferred DEF-view aggregate-typedef param ts: bind the SHARED named typedef

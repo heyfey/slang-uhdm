@@ -1,0 +1,7 @@
+// § genCaSelBoundImplicitLhs282
+module top #(parameter int BW = 2) (input logic [7:0] a, output logic y);
+  struct packed { logic [7:0] addr; } st;
+  assign st.addr = a;
+  assign imp = |st.addr[BW +: 1];
+  assign y = imp;
+endmodule

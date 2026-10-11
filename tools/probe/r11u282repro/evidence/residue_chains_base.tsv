@@ -1,0 +1,390 @@
+r10buvm13repro/v3_clone13 	 depth|module_inst|design||module_inst 	 design:work@m13clone > module_inst:
+r10buvm21repro/g21b 	 col|indexed_part_select|operation|function|package 	 design:work@mh21 > package:hp21 > class_defn:k21 > function:n_inc_partsel > operation: > indexed_part_select:pvec
+r10buvm29repro/g29_d_fence 	 fullname|part_select|operation|operation|module_inst 	 design:work@d29 > module_inst: > always: > begin: > assignment: > operation: > operation: > part_select:i
+r10buvm8repro/v3_argts8 	 type|constant|operation|return_stmt|package 	 design:unnamed > package:r8 > function:c2 > return_stmt: > operation: > constant:
+r10buvm8repro/v9fold8 	 depth|module_inst|design||module_inst 	 design:work@m9 > module_inst:
+r10buvm8repro/vxpkg8 	 line|logic_typespec|package|design|package 	 design:work@m_xpkg > package:ap > logic_typespec:zp::zb_t
+r10earl104repro/vb4_instarr 	 fullname|bit_select|range|module_array|module_inst 	 design:work@vb4_instarr > module_inst:work@vb4_instarr > module_inst:u_ia > module_array:u_e > range: > bit_select:X
+r10earl115repro/p1_pos115 	 endcol|constant|tagged_pattern|operation|module_inst 	 design:work@p1_pos115 > module_inst: > gen_for: > named_begin:gen_n1 > cont_assign: > operation: > tagged_pattern: > constant:
+r10earl120repro/a1_axis120 	 fullname|ref_obj|operation|indexed_part_select|module_inst 	 design:work@a1_axis120 > module_inst: > ref_module:u_a > module_inst: > gen_for: > named_begin:gen_host_fifo > cont_assign: > indexed_part_select:a > operation: > ref_obj:IDW
+r10earl121repro/a1_axis121 	 endcol|constant|tagged_pattern|operation|module_inst 	 design:work@a1_axis121 > module_inst: > gen_for: > named_begin:gen_x1 > cont_assign: > operation: > tagged_pattern: > constant:
+r10earl29repro/b1_sites 	 fullname|bit_select|operation|bit_select|module_inst 	 design:work@b1_sites > module_inst: > always: > begin: > assignment: > hier_path:t.arr[{1'b0,}].fld[0] > bit_select:arr > operation: > bit_select:k
+r10earl29repro/b3_edges 	 fullname|ref_typespec|operation|operation|module_inst 	 design:work@b3_edges > module_inst: > always: > begin: > assignment: > hier_path:q.autoexecprogbuf[{1'b1,}] > bit_select:autoexecprogbuf > operation: > operation: > ref_typespec:
+r10earl29repro/v10_str 	 endcol|typespec_member|struct_typespec|module_inst|module_inst 	 design:work@v10_str > module_inst: > struct_typespec:sq_t > typespec_member:m
+r10earl29repro/v8_sites2 	 fullname|bit_select|operation|bit_select|module_inst 	 design:work@v8_sites2 > module_inst:work@v8_sites2 > module_inst:u > port:a > hier_path:q.autoexecprogbuf[{1'b1,}] > bit_select:autoexecprogbuf > operation: > bit_select:k
+r10earl31repro/e4_ctrl 	 endcol|named_begin|always|module_inst|module_inst 	 design:work@e4 > module_inst: > ref_module:u1 > module_inst: > always: > named_begin:blk@1
+r10earl31repro/v4_ops 	 endcol|constant|operation|operation|module_inst 	 design:work@v4 > module_inst: > always: > named_begin:blk > assignment: > operation: > part_select:d > operation: > operation: > constant:
+r10earl31repro/v5_hier 	 fullname|ref_typespec|constant|operation|module_inst 	 design:work@v5 > module_inst:work@v5 > module_inst:u1 > port:a > operation: > hier_path:o.a[4'h2 - 1:0] > part_select:a > operation: > constant: > ref_typespec:
+r10earl41repro/v41v_comment 	 fullname|ref_obj|var_select|cont_assign|module_inst 	 design:work@v41v_comment > module_inst: > gen_for: > named_begin:gb > cont_assign: > var_select:q41::A > ref_obj:g
+r10earl47repro/a3_earl47 	 fullname|ref_typespec|constant|indexed_part_select|module_inst 	 design:work@a3_earl47 > module_inst:work@a3_earl47 > gen_scope_array:gen_x[0] > gen_scope: > gen_scope_array:gen_y[0] > gen_scope: > cont_assign: > indexed_part_select:p_lhs > constant: > ref_typespec:
+r10earl52repro/a2_earl52 	 file|int_typespec|ref_typespec|constant|module_inst 	 design:work@a2_earl52 > module_inst:work@a2_earl52 > param_assign: > constant: > ref_typespec: > int_typespec:
+r10earl53repro/v2_v53 	 endline|struct_typespec|package|design|package 	 design:work@v2_v53 > package:pv2_v53 > struct_typespec:pv2_v53::sa_t
+r10earl54repro/v13_v54 	 fullname|ref_obj|operation|operation|module_inst 	 design:work@v13_v54 > module_inst:work@v13_v54 > module_inst:u_t1 > module_inst:u_bound > port:pa > operation: > operation: > ref_obj:sel
+r10earl54repro/v3_v54 	 endcol|ref_module|module_inst|design|module_inst 	 design:work@v3_v54 > module_inst: > ref_module:u.inst
+r10earl56repro/a5_earl56 	 fullname|ref_obj|operation|indexed_part_select|module_inst 	 design:work@a5_earl56 > module_inst: > ref_module:u_s > module_inst: > gen_if: > named_begin:h1 > gen_if: > named_begin:h2 > cont_assign: > operation: > indexed_part_select:din > operation: > ref_obj:K1
+r10earl56repro/v2_nestedsel56 	 fullname|part_select|indexed_part_select|operation|module_inst 	 design:work@v2_nestedsel56 > module_inst: > ref_module:u_s > module_inst: > gen_if: > named_begin:gen_n > cont_assign: > operation: > indexed_part_select:din > part_select:idx
+r10earl59repro/v59v2_earl59 	 fullname|ref_typespec|constant|param_assign|module_inst 	 design:work@a1 > module_inst:work@a1 > module_inst:u_sub > param_assign: > constant: > ref_typespec:
+r10earl76repro/g2_orig76 	 fullname|ref_typespec|constant|operation|module_inst 	 design:work@g76origtop > module_inst:work@g76origtop > module_inst:u_o > gen_scope_array:gen_o > gen_scope: > always: > begin: > assignment: > operation: > operation: > operation: > operation: > operation: > operation: > operation: > operation: > operation: > operation: > operation: > operation: > operation: > operation: > operation: > operation: > constant: > ref_typespec:
+r10earl95repro/g5_hop95 	 fullname|ref_typespec|constant|operation|module_inst 	 design:work@toph95 > module_inst:work@toph95 > module_inst:u8 > gen_scope_array:c_in > gen_scope: > cont_assign: > operation: > constant: > ref_typespec:
+r10earl98repro/g3_rhs98 	 line|logic_typespec|ref_typespec|sys_func_call|module_inst 	 design:work@g3_rhs98 > module_inst:work@g3_rhs98 > module_inst:u_leaf > gen_scope_array:gen_b > gen_scope: > cont_assign: > sys_func_call:$signed > ref_typespec: > logic_typespec:
+r10earl_repro/pu20 	 fullname|ref_typespec|constant|func_call|module_inst 	 design:work@pu20 > module_inst:work@pu20 > gen_scope_array:gi > gen_scope: > always: > named_begin:p_if > assignment: > func_call:pu20_pkg::pi > constant: > ref_typespec:
+r10earl_repro/vo 	 fullname|ref_typespec|constant|indexed_part_select|module_inst 	 design:work@votop > module_inst:work@votop > module_inst:u > cont_assign: > operation: > hier_path:st.addr[16+:1] > indexed_part_select:addr > constant: > ref_typespec:
+r10rgg14repro/cells/pc5 	 depth|gen_scope_array|module_inst|design|module_inst 	 design:work@top > module_inst:work@top > gen_scope_array:g[1]
+r10rgg3repro/f1_noovr_arr_recvp 	 file|int_typespec|ref_typespec|constant|module_inst 	 design:work@top > module_inst:work@top > interface_inst:arr[0] > param_assign: > constant: > ref_typespec: > int_typespec:
+r10rgg3repro/n2_recv_localparam 	 line|int_typespec|ref_typespec|constant|module_inst 	 design:work@top > module_inst:work@top > module_inst:u > port:p > ref_obj: > interface_array:p > interface_inst:p[0] > param_assign: > constant: > ref_typespec: > int_typespec:
+r10rgg4repro/a1_noovr 	 fullname|ref_typespec|constant|operation|module_inst 	 design:work@top > module_inst:work@top > module_inst:u > port:arr > ref_obj: > interface_array:arr > range: > operation: > constant: > ref_typespec:
+r10rgg4repro/b1_int_noovr 	 fullname|ref_typespec|constant|operation|module_inst 	 design:work@top > module_inst:work@top > module_inst:u > port:arr > ref_obj: > interface_array:arr > range: > operation: > constant: > ref_typespec:
+r10rgg4repro/c1_p_noovr 	 fullname|ref_typespec|constant|operation|module_inst 	 design:work@top > module_inst:work@top > module_inst:u > port:arr > ref_obj: > interface_array:arr > range: > operation: > constant: > ref_typespec:
+r10rgg4repro/c9_litarith_noovr 	 endcol|constant|operation|range|module_inst 	 design:work@top > module_inst:work@top > module_inst:u > port:arr > ref_obj: > interface_array:arr > range: > operation: > constant:
+r10rgg6repro/cells/one_none_n4_yes_typed_ca 	 type|func_call|cont_assign|module_inst|module_inst 	 design:work@top > module_inst:work@top > module_inst:u0 > cont_assign: > func_call:f2
+r10rgg6repro/cells/r2_ca_outer 	 type|func_call|cont_assign|module_inst|module_inst 	 design:work@m > module_inst:work@m > cont_assign: > func_call:f3
+r10rgg6repro/cells/top_none_n4_yes_typed_ca 	 type|func_call|cont_assign|module_inst|module_inst 	 design:work@m > module_inst:work@m > cont_assign: > func_call:f2
+r10rgg9repro/cells/c_iface_body 	 type|constant|cont_assign|interface_inst|module_inst 	 design:work@top > module_inst:work@top > interface_inst:bi > cont_assign: > constant:
+r10rgg9repro/cells/c_paraminit 	 type|bit_select|cont_assign|module_inst|module_inst 	 design:work@top > module_inst:work@top > module_inst:u_a > cont_assign: > bit_select:arr
+r10rgg9repro/cells/l_concat 	 depth|logic_net|ref_obj|operation|module_inst 	 design:work@top > module_inst:work@top > module_inst:u_a > cont_assign: > operation: > ref_obj:a1 > logic_net:a1
+r10sd10repro/g6_typedef_elem_import 	 fullname|ref_typespec|typespec_member|struct_typespec|package 	 design:work@top6 > package:q6 > class_defn:c6 > array_var:m6 > struct_var: > ref_typespec: > struct_typespec:p6::t6 > typespec_member:a6 > ref_typespec:
+r10sd10repro/v2_dynarray_struct_typedef 	 fullname|ref_typespec|typespec_member|struct_typespec|package 	 design:work@topb > package:qb > class_defn:cb > array_var:mb > struct_var: > ref_typespec: > struct_typespec:pb::tb > typespec_member:ab > ref_typespec:
+r10sd1repro/b27_inline_method_foreign 	 endcol|class_typespec|ref_typespec|class_var|package 	 design:work@topb > package:rp > class_defn:baseb > class_defn:ub > function:fb > class_var:lv1 > ref_typespec: > class_typespec:regb
+r10sd5repro/v6_no_import_control 	 fullname|ref_typespec|bit_typespec|ref_typespec|package 	 design:work@m6 > package:p6 > bit_var:v6 > ref_typespec: > bit_typespec:t6 > ref_typespec:
+r10sd6repro/v3_hier_path 	 fullname|ref_typespec|typespec_member|struct_typespec|package 	 design:work@m3 > package:q3 > class_defn:c3 > struct_var:st3 > ref_typespec: > struct_typespec:p3::s3_t > typespec_member:f3 > ref_typespec:
+r10svs8repro/a3_builtins 	 endcol|hier_path|assignment|task|module_inst 	 design:work@a3 > module_inst: > class_defn:cov3 > task:e7_8 > assignment: > hier_path:cgc8.cpc8.get_coverage
+r10uvm116repro/g116_f 	 fullname|ref_obj|method_func_call|if_stmt|class_defn 	 design:work@top_f > class_defn:work@picker_f > function:two > if_stmt: > method_func_call:randomize > ref_obj:slot_f
+r10uvm122repro/g122_f_clone 	 fullname|bit_var|ref_obj|assignment|package 	 design:work@m122f > package:p122f_wild > function:f122f > begin: > assignment: > ref_obj:hv > bit_var:hv
+r10uvm129repro/g129_d_bases 	 type|enum_typespec|ref_typespec|array_typespec|package 	 design:work@top129d > package:pk129d > class_defn:Tally129 > task:run129 > array_var:onePlain129 > ref_typespec: > array_typespec: > ref_typespec: > enum_typespec:pk129d::plainBase129_e
+r10uvm149repro/g149/homes 	 endline|struct_typespec|ref_typespec|logic_net|module_inst 	 design:work@homes_top > module_inst: > logic_net:anonVar > ref_typespec: > struct_typespec:
+r10uvm151repro/g151_e_ctx 	 endcol|hier_path|operation|assignment|package 	 design:unnamed > package:pkE151 > class_defn:holdE151 > task:bodyE151 > begin: > assignment: > operation: > hier_path:iq
+r10uvm158repro/g158_a_shape 	 file|case_item|case_stmt|function|package 	 design:work@topa158 > package:pa158 > class_defn:shapeA158 > function:caseBad158 > case_stmt: > case_item:
+r10uvm171repro/g171_a_pos 	 depth|constant|operation|if_stmt|package 	 design:work@pos_top_171 > package:pos_clone_171 > function:sc_shape > begin: > if_stmt: > operation: > constant:
+r10uvm171repro/g171_b_homes 	 depth|assignment|begin|function|package 	 design:work@home_top_171 > package:home_clone_171 > function:free_fn > begin: > assignment:
+r10uvm171repro/g171_c_shapes 	 depth|assignment|begin|function|package 	 design:work@shape_top_171 > package:shape_clone_171 > function:lead_blk > begin: > assignment:
+r10uvm175repro/g175_c_tail 	 fullname|bit_select|hier_path|assignment|package 	 design:unnamed > package:charlie_dock > class_defn:pier > function:survey > begin: > assignment: > hier_path:holds[berth] > bit_select:holds
+r10uvm193repro/g193_c_argface 	 fullname|ref_obj|bit_select|hier_path|package 	 design:work@top193c > package:Jetty193 > function:c7_two193 > begin: > return_stmt: > operation: > hier_path:fleet193[kink193].rub193 > bit_select:fleet193 > ref_obj:kink193
+r10uvm194repro/g194_c_clone 	 depth|constant|operation|assignment|package 	 design:work@c194_top > package:c194_clone > function:c_free > begin: > assignment: > operation: > constant:
+r10uvm198repro/g198_a_homes 	 fullname|ref_typespec|typespec_member|struct_typespec|package 	 design:unnamed > package:sluice198 > function:Adit198::winze198 > begin: > struct_var:tfPkg198 > ref_typespec: > struct_typespec:quarry198::pkgSt198 > typespec_member:lode198 > ref_typespec:
+r10uvm202repro/g202_a_kinds 	 fullname|ref_typespec|typespec_member|struct_typespec|package 	 design:unnamed > package:sluice202 > function:Adit202::winze202 > begin: > struct_var:tfSt202 > ref_typespec: > struct_typespec:quarry202::pkgSt202 > typespec_member:shaft202 > ref_typespec:
+r10uvm207repro/g207_c_share 	 fullname|ref_typespec|bit_typespec|ref_typespec|package 	 design:work@g207_c_share > package:p207b_h > function:fhome207 > struct_var:lhome207 > ref_typespec: > struct_typespec:p207a_h::sh207 > typespec_member:h_min207 > ref_typespec: > bit_typespec:bt207h > ref_typespec:
+r10uvm207repro/g207_e_head 	 fullname|ref_typespec|bit_typespec|ref_typespec|package 	 design:work@g207_e_head > package:p207b_e > function:C207e::m_set207 > struct_var:range207 > ref_typespec: > struct_typespec:p207a_e::se207 > typespec_member:e_min207 > ref_typespec: > bit_typespec:bt207e > ref_typespec:
+r10uvm207repro/g207_h_foreign 	 fullname|ref_typespec|bit_typespec|ref_typespec|package 	 design:work@g207_h_foreign > package:p207b_x > function:fx207 > struct_var:lx207 > ref_typespec: > struct_typespec:p207c_x::sx207 > typespec_member:x_min207 > ref_typespec: > bit_typespec:bt207x > ref_typespec:
+r10uvm213repro/g213_i_scopedtd 	 line|begin|function|package|package 	 design:work@top213i > package:p213i > function:c213i::gi213 > begin:
+r10uvm220repro/grid220/a1_uninst_if 	 file|array_typespec|ref_typespec|ref_var|interface_inst 	 design:work@top220u > interface_inst: > function:f220 > begin: > foreach_stmt: > ref_var:PAR220 > ref_typespec: > array_typespec:
+r10uvm221repro/grid221/a4_corpus 	 endcol|class_typespec|ref_typespec|logic_net|interface_inst 	 design:unnamed > interface_inst: > logic_net:a_lof > ref_typespec: > class_typespec:sv221_info
+r10uvm225repro/grid225/a6_headerforms 	 endcol|class_typespec|ref_typespec|logic_net|interface_inst 	 design:work@top225_hdr > interface_inst: > logic_net:a_dyncls225 > ref_typespec: > class_typespec:Ch225
+r10uvm226repro/grid226/a12_pkgimport 	 fullname|ref_typespec|logic_typespec|ref_typespec|package 	 design:work@top226_pi > package:p226i > array_var:pav226 > logic_var: > ref_typespec: > logic_typespec:tv226_t > ref_typespec:
+r10uvm227repro/grid227/a9_class_holder 	 depth|int_var|ref_obj|assignment|package 	 design:work@top > package:p3 > function:f > begin: > assignment: > ref_obj:loc > int_var:loc
+r10uvm26repro/t36c 	 fullname|ref_typespec|enum_typespec|ref_typespec|package 	 design:work@top > package:pk1 > enum_var:e_inline > ref_typespec: > enum_typespec: > ref_typespec:
+r10uvm32repro/t42a 	 line|enum_typespec|package|design|package 	 design:work@top42a > package:pa42 > enum_typespec:pa42::aen_t
+r10uvm36repro/t48a 	 name|logic_typespec|ref_typespec|logic_typespec|package 	 design:work@mm48 > package:zz48 > function:z48 > return_stmt: > func_call:w48_to_string > ref_obj:value > ref_typespec: > logic_typespec:w48_t > ref_typespec: > logic_typespec:w48_t
+r10uvm48repro/t67d 	 fullname|ref_obj|assignment|function|package 	 design:work@t67d > package:p67 > class_defn:rdr67 > function:h2 > assignment: > ref_obj:q67::@@BAD_SYMBOL@@
+r10uvm48repro/t67e 	 fullname|ref_obj|bit_select|assignment|package 	 design:work@t67e > package:p67 > class_defn:rdr67 > function:i4 > assignment: > bit_select:arr > ref_obj:base67::stat
+r10uvm52repro/a1 	 depth|function|package|design|package 	 design:work@a1_top > package:p52a > function:c8_pkghandle
+r10uvm56repro/a6_type 	 line|struct_typespec|ref_typespec|struct_var|class_defn 	 design:work@a6_top > class_defn:work@c6 > function:y_struct > struct_var: > ref_typespec: > struct_typespec:s6_t
+r10uvm59repro/c05_cast 	 file|int_typespec|ref_typespec|operation|package 	 design:unnamed > package:p59c05 > class_defn:gen59 > function:x1 > begin: > assignment: > operation: > ref_typespec: > int_typespec:
+r10uvm79repro/c2_idxkind 	 col|bit_select|bit_select|bit_select|class_defn 	 design:unnamed > class_defn:work@grid > function:probe > begin: > assignment: > hier_path:iarr[].f > bit_select:iarr > bit_select:midx > bit_select:midx
+r10uvm92repro/v92_b2_varsel 	 fullname|ref_obj|hier_path|var_select|package 	 design:unnamed > package:vsp > class_defn:probe > function:probes > begin: > assignment: > hier_path:bb.bin[n + two_d[1][]] > bit_select:bin > operation: > var_select:two_d > hier_path:bb.q > ref_obj:q
+r10uvm97repro/g97_a5_samename 	 fullname|ref_typespec|class_typespec|ref_typespec|module_inst 	 design:work@top97e > module_inst: > class_defn:dup97e > class_var:h > ref_typespec: > class_typespec:n97e > ref_typespec:
+r10uvm99repro/g99_a2_proc 	 nomatch 	 
+r10uvm99repro/g99_a7_shapes 	 fullname|ref_typespec|constant|operation|module_inst 	 design:work@iota99 > module_inst: > function:h1 > return_stmt: > operation: > operation: > constant: > ref_typespec:
+r10uvm99repro/g99_a9_fence 	 nomatch 	 
+r10v100repro/v100_b3_trivia 	 line|ref_obj|delay_control|begin|module_inst 	 design:work@v100_b3 > module_inst: > task:run > begin: > delay_control: > ref_obj:
+r10v111repro/v111_b6 	 type|ref_obj|cont_assign|module_inst|module_inst 	 design:work@v111b6top > module_inst:work@v111b6top > module_inst:u0 > cont_assign: > ref_obj:w_v6
+r10v112repro/g19_builtin 	 file|type_parameter|class_typespec|package|package 	 design:unnamed > package:p19use > class_typespec:p19use::t19 > type_parameter:Q
+r10v119repro/v119_j 	 endcol|class_typespec|ref_typespec|class_var|class_defn 	 design:work@top_j > class_defn:work@hold_j > class_var:s_j > ref_typespec: > class_typespec:box_j
+r10v122repro/q6clone 	 fullname|bit_var|ref_obj|assignment|package 	 design:work@ImpOmicron > package:WildNu_pkg > function:mixMu > begin: > assignment: > ref_obj:accMu > bit_var:accMu
+r10v136repro/v136_d_homes 	 fullname|ref_typespec|typespec_member|struct_typespec|package 	 design:work@mod_home_top > package:Pk_Homes > struct_typespec:Pk_Homes::pkgSpan_S > typespec_member:pkA > ref_typespec:
+r10v149repro/arms/paramtype 	 fullname|ref_typespec|array_typespec|ref_typespec|module_inst 	 design:work@paramtype_top > module_inst:work@paramtype_top > module_inst:i_p > struct_var:stored > ref_typespec: > struct_typespec:Eps9_pkg::payload_t > typespec_member:pArgs > ref_typespec: > array_typespec: > ref_typespec:
+r10v151repro/v151_5_ctx 	 endcol|hier_path|operation|if_stmt|package 	 design:work@Cmod5 > package:Cpk5 > class_defn:Runner5 > task:drive5 > begin: > if_stmt: > operation: > hier_path:vq
+r10v158repro/v158_d 	 file|case_item|case_stmt|function|package 	 design:work@wtop_d > package:Spk > class_defn:Shape5 > function:caseArm5 > case_stmt: > case_item:
+r10v169repro/v169_g_control 	 line|int_typespec|ref_typespec|constant|package 	 design:work@v169_g_control > package:p169ig > function:f_multi169 > begin: > return_stmt: > constant: > ref_typespec: > int_typespec:
+r10v181repro/v181_h_nofe 	 depth|package|design||package 	 design:work@trebuchet_top > package:trebuchet_home
+r10v194repro/v194_a_explicit 	 type|string_var|function|package|package 	 design:work@va194_top > package:va194_explf > function:va_free > string_var:
+r10v200repro/v200_5_modmat 	 fullname|ref_obj|range|logic_typespec|package 	 design:work@topv5 > package:pv5p > function:m5 > logic_var:l5 > ref_typespec: > logic_typespec: > range: > ref_obj:W5
+r10v206repro/x206_a_dropwithmove 	 type|class_typespec|design||class_typespec 	 design:work@xa206 > class_typespec:pb206::zb206
+r10v208repro/v208_f_io 	 name|bit_typespec|ref_typespec|bit_typespec|package 	 design:work@v208_f_io > package:p208b_vf > function:gb208vf > begin: > return_stmt: > operation: > func_call:fio208vf > ref_obj:z208 > ref_typespec: > bit_typespec:bt208vf > ref_typespec: > bit_typespec:bt208vf
+r10v223repro/arms/v5_escaped 	 endcol|int_typespec|ref_typespec|logic_net|interface_inst 	 design:unnamed > interface_inst: > logic_net:esc$var5 > ref_typespec: > int_typespec:
+r10v62repro/v62e_bind 	 line|enum_typespec|ref_typespec|parameter|module_inst 	 design:work@top62e > module_inst:work@top62e > module_inst:u_a > parameter:LP > ref_typespec: > enum_typespec:b_e
+r10v64repro/v7_inst64 	 fullname|ref_typespec|constant|operation|module_inst 	 design:work@topV7 > module_inst:work@topV7 > module_inst:k1 > gen_scope_array:g_if > gen_scope: > cont_assign: > operation: > constant: > ref_typespec:
+r10v92repro/v4_arm 	 type|ref_obj|cont_assign|module_inst|module_inst 	 design:work@v4_arm > module_inst:work@v4_arm > cont_assign: > ref_obj:y_xz
+r10v92repro/v5_home 	 depth|cont_assign|module_inst|module_inst|module_inst 	 design:work@v5_home > module_inst:work@v5_home > module_inst:u_t2 > cont_assign:
+r10v97repro/v97_c3_twotd 	 depth|assignment|function|class_defn|package 	 design:work@top97c3 > package:p97c3 > class_defn:gen97c3 > class_defn:sb97c3 > function:f > assignment:
+r10v97repro/v97_c9_pkganchor 	 depth|assignment|function|class_defn|package 	 design:work@top97c9 > package:p97c9 > class_defn:ui97c9 > function:f > assignment:
+r10vearl100repro/v6_more100 	 fullname|ref_typespec|struct_typespec|package|package 	 design:work@v6_more100 > package:vp6 > struct_typespec:vp6::alias_t > ref_typespec:
+r10vrgg14repro/cells/v5 	 name|bit_select|port|ref_module|module_inst 	 design:work@top > module_inst: > gen_for: > named_begin:g > ref_module:a > port:s > bit_select:dn
+r10vrgg17repro/v8 	 fullname|ref_obj|operation|operation|module_inst 	 design:work@bidi > module_inst: > gen_for: > named_begin:g > ref_module:u_o1 > port:o > hier_path:arr[6 + 7 * i].value[0+:4] > bit_select:arr > operation: > operation: > ref_obj:i
+r10vrgg3repro/xc_recv_localparam_only 	 line|int_typespec|ref_typespec|constant|module_inst 	 design:work@top > module_inst:work@top > module_inst:u > port:p > ref_obj: > interface_array:p > interface_inst:p[0] > param_assign: > constant: > ref_typespec: > int_typespec:
+r10vrgg4repro/v5k_noovr_int_signed 	 fullname|ref_typespec|constant|operation|module_inst 	 design:work@top > module_inst:work@top > module_inst:u > port:arr > ref_obj: > interface_array:arr > range: > operation: > constant: > ref_typespec:
+r10vrgg6repro/cells/w_two_ctx_order 	 type|func_call|cont_assign|module_inst|module_inst 	 design:work@m > module_inst:work@m > cont_assign: > func_call:f3
+r10vrgg9repro/cells/v_pred_cast 	 file|int_typespec|ref_typespec|operation|module_inst 	 design:work@top > module_inst: > cont_assign: > operation: > operation: > ref_typespec: > int_typespec:
+r10vrgg9repro/cells/v_takn_real 	 type|constant|cont_assign|module_inst|module_inst 	 design:work@top > module_inst:work@top > module_inst:u_a > cont_assign: > constant:
+r10vrgg9repro/cells/w_typeparam 	 type|operation|cont_assign|module_inst|module_inst 	 design:work@top > module_inst:work@top > module_inst:u_a > cont_assign: > operation:
+r11u107repro/grid/a08_anon_member 	 fullname|ref_typespec|typespec_member|struct_typespec|module_inst 	 design:work@dut > module_inst: > logic_net:x > ref_typespec: > struct_typespec:t_t > typespec_member:m > ref_typespec: > packed_array_typespec: > ref_typespec: > struct_typespec: > typespec_member:a > ref_typespec:
+r11u107repro/grid/a18_anon_typedef 	 fullname|ref_typespec|typespec_member|struct_typespec|module_inst 	 design:work@dut > module_inst: > logic_net:x > ref_typespec: > packed_array_typespec:t_t > ref_typespec: > struct_typespec: > typespec_member:a > ref_typespec:
+r11u107repro/grid/t13_iface_tp_struct 	 fullname|ref_typespec|typespec_member|struct_typespec|interface_inst 	 design:work@dut > interface_inst: > type_parameter:T > ref_typespec: > struct_typespec: > typespec_member:a > ref_typespec:
+r11u108repro/grid/f5/f5a20_ovr_pkgarr 	 fullname|ref_typespec|logic_typespec|package|package 	 design:work@dut > package:p > logic_typespec:p::arr_t > ref_typespec:
+r11u108repro/grid/pk/k05_param_a 	 file|logic_typespec|ref_typespec|parameter|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > parameter:M > ref_typespec: > logic_typespec:p::a_t
+r11u108repro/grid/pk/k17_func_in_pkg 	 type|func_call|cont_assign|module_inst|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > cont_assign: > func_call:p::cnt
+r11u108repro/grid/pk/k20_cfg_func_width 	 type|func_call|cont_assign|module_inst|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > cont_assign: > func_call:q::maxw
+r11u109repro/grid/f1/c04_x64cast 	 value|constant|operation|param_assign|module_inst 	 design:work@dut > module_inst:work@dut > param_assign: > operation: > constant:
+r11u109repro/grid/f1/c06_x64plain 	 value|constant|operation|param_assign|module_inst 	 design:work@dut > module_inst:work@dut > param_assign: > operation: > constant:
+r11u109repro/grid/f1/p03_ready 	 type|hier_path|cont_assign|module_inst|module_inst 	 design:work@dut > module_inst:work@dut > cont_assign: > hier_path:I.y
+r11u109repro/grid/f1/p06_plainparam 	 value|constant|operation|param_assign|module_inst 	 design:work@dut > module_inst:work@dut > param_assign: > operation: > constant:
+r11u109repro/grid/f1/p07_litcast 	 value|constant|operation|param_assign|module_inst 	 design:work@dut > module_inst:work@dut > param_assign: > operation: > constant:
+r11u110repro/grid/e1/e18_chain_rt 	 fullname|ref_typespec|packed_array_typespec|ref_typespec|module_inst 	 design:work@dut > module_inst: > type_parameter:qt_t > ref_typespec: > packed_array_typespec: > ref_typespec:rt_t > packed_array_typespec: > ref_typespec:id_t
+r11u110repro/grid/e1/e22_nonansi 	 line|packed_array_var|module_inst|module_inst|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > packed_array_var:rt_i
+r11u110repro/grid/f2/i16_var_kw_init 	 endline|packed_array_typespec|ref_typespec|type_parameter|module_inst 	 design:work@dut > module_inst: > type_parameter:rt_t > ref_typespec: > packed_array_typespec:
+r11u111repro/grid/f1/a10_q_chain 	 fullname|ref_typespec|logic_typespec|package|package 	 design:work@dut > package:q > logic_typespec:q::m2_t > ref_typespec:
+r11u111repro/grid/f1/a27_q_row_named_dims 	 file|logic_typespec|ref_typespec|parameter|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > parameter:UT > ref_typespec: > logic_typespec:q2::row_t
+r11u112repro/grid/k/k14_unpacked 	 fullname|ref_typespec|typespec_member|struct_typespec|module_inst 	 design:work@top > module_inst: > type_parameter:my_t > ref_typespec: > struct_typespec: > typespec_member:a > ref_typespec:
+r11u112repro/grid/v/v08_comb 	 fullname|ref_typespec|constant|indexed_part_select|module_inst 	 design:work@top > module_inst:work@top > gen_scope_array:g[0] > gen_scope: > always: > assignment: > var_select:cl_rdata > indexed_part_select:cl_rdata > constant: > ref_typespec:
+r11u113repro/grid/c/c09_genif_modtd_ctl 	 fullname|ref_typespec|logic_typespec|ref_typespec|module_inst 	 design:work@top > module_inst:work@top > gen_scope_array:g > gen_scope: > cont_assign: > operation: > ref_typespec: > logic_typespec:idx_t > ref_typespec:
+r11u113repro/grid/c/c11_genif_pkimp 	 fullname|ref_typespec|logic_typespec|ref_typespec|module_inst 	 design:work@top > module_inst:work@top > gen_scope_array:g > gen_scope: > cont_assign: > operation: > ref_typespec: > logic_typespec:idx_t > ref_typespec:
+r11u113repro/grid/c/c16_mod_comb 	 type|logic_typespec|ref_typespec|operation|module_inst 	 design:work@top > module_inst: > always: > assignment: > operation: > ref_typespec: > logic_typespec:
+r11u113repro/grid/e/e05_nested 	 fullname|ref_typespec|enum_typespec|ref_typespec|module_inst 	 design:work@m > module_inst: > struct_typespec:s_t > typespec_member:in > ref_typespec: > struct_typespec: > typespec_member:e > ref_typespec: > enum_typespec: > ref_typespec:
+r11u113repro/grid/v/v07_genfor_comb_ctl 	 fullname|ref_typespec|constant|operation|module_inst 	 design:work@top > module_inst:work@top > gen_scope_array:g[0] > gen_scope: > always: > assignment: > operation: > var_select:a > operation: > constant: > ref_typespec:
+r11u114repro/grid/f1/a25 	 type|ref_obj|cont_assign|module_inst|module_inst 	 design:work@top > module_inst:work@top > cont_assign: > ref_obj:o
+r11u114repro/grid/f1/a28 	 type|ref_obj|cont_assign|module_inst|module_inst 	 design:work@top > module_inst:work@top > cont_assign: > ref_obj:o
+r11u114repro/grid/f2/b07 	 fullname|ref_typespec|constant|case_item|module_inst 	 design:work@top > module_inst: > function:dec > case_stmt: > case_item: > constant: > ref_typespec:
+r11u115repro/grid/i/s01_recv_bodylp 	 line|int_typespec|ref_typespec|constant|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > interface_inst:p > param_assign: > constant: > ref_typespec: > int_typespec:
+r11u117repro/grid/g1/g13 	 endcol|hier_path|param_assign|named_begin|module_inst 	 design:work@top > module_inst: > gen_if: > named_begin:dead > param_assign: > hier_path:q2::IMPL.v
+r11u117repro/grid/g1/t12 	 fullname|hier_path|return_stmt|function|module_inst 	 design:work@top > module_inst: > function:f > return_stmt: > hier_path:
+r11u13repro/b3 	 line|constant|typespec_member|struct_typespec|package 	 design:work@top > package:p > struct_typespec:p::cfg_t > typespec_member:A > constant:
+r11u18repro/t4 	 line|int_typespec|ref_typespec|int_var|module_inst 	 design:work@dut > module_inst:work@dut > interface_inst:i0 > int_var:a > ref_typespec: > int_typespec:
+r11u1repro/grid2 	 col|ref_obj|hier_path|port|module_inst 	 design:work@top > module_inst:work@top > module_inst:a1 > port:q > hier_path:u_df.mp > ref_obj:u_df
+r11u21repro/t9 	 col|ref_obj|hier_path|param_assign|module_inst 	 design:work@dut > module_inst: > ref_module:k0 > module_inst: > param_assign: > hier_path:CFG.d[0] > ref_obj:CFG
+r11u23repro/grid/e05_untaken_bare_partsel 	 file|enum_const|ref_obj|operation|module_inst 	 design:work@top > module_inst:work@top > gen_scope_array:gb > gen_scope: > cont_assign: > operation: > operation: > ref_obj:PNone > enum_const:PNone
+r11u24repro/n1 	 col|ref_obj|hier_path|param_assign|module_inst 	 design:work@dut > module_inst: > ref_module:k0 > module_inst: > param_assign: > hier_path:CFG.d[0] > ref_obj:CFG
+r11u24repro/n11 	 fullname|ref_typespec|typespec_member|struct_typespec|module_inst 	 design:work@dut > module_inst: > parameter:L > ref_typespec: > struct_typespec:rc_t > typespec_member:a > ref_typespec:
+r11u24repro/n4 	 line|constant|typespec_member|struct_typespec|package 	 design:work@dut > package:pk > struct_typespec:pk::c_t > typespec_member:u > constant:
+r11u26repro/m4 	 fullname|ref_typespec|operation|typespec_member|package 	 design:work@dut > package:pk > struct_typespec:pk::c_t > typespec_member:u > operation: > ref_typespec:
+r11u26repro/m7 	 fullname|ref_typespec|operation|typespec_member|package 	 design:work@dut > package:pk > struct_typespec:pk::c_t > typespec_member:u > operation: > ref_typespec:
+r11u28repro/a2 	 fullname|ref_typespec|operation|typespec_member|package 	 design:work@dut > package:pk > struct_typespec:pk::c_t > typespec_member:u > operation: > ref_typespec:
+r11u32repro/k9b 	 endline|struct_typespec|module_inst|design|module_inst 	 design:work@tb > module_inst: > struct_typespec:t_t
+r11u45repro/g10 	 line|logic_typespec|ref_typespec|logic_var|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > logic_var:i > ref_typespec: > logic_typespec:
+r11u45repro/g12 	 line|real_typespec|ref_typespec|real_var|module_inst 	 design:work@dut > module_inst:work@dut > real_var:b > ref_typespec: > real_typespec:
+r11u45repro/g13 	 line|logic_typespec|ref_typespec|logic_var|module_inst 	 design:work@dut > module_inst:work@dut > interface_inst:u > logic_var:x > ref_typespec: > logic_typespec:
+r11u47repro/arms/g10 	 fullname|ref_typespec|typespec_member|struct_typespec|module_inst 	 design:work@dut > module_inst: > type_parameter:it_t > ref_typespec: > struct_typespec: > typespec_member:x > ref_typespec:
+r11u47repro/arms/g12 	 fullname|ref_typespec|typespec_member|struct_typespec|module_inst 	 design:work@dut > module_inst: > type_parameter:a_t > ref_typespec: > struct_typespec: > typespec_member:x > ref_typespec:
+r11u47repro/arms/g2 	 fullname|ref_typespec|typespec_member|union_typespec|module_inst 	 design:work@dut > module_inst: > type_parameter:it_t > ref_typespec: > union_typespec: > typespec_member:x > ref_typespec:
+r11u52vrepro/grid/b2_exprforms 	 fullname|ref_obj|sys_func_call|operation|module_inst 	 design:work@dut > module_inst: > logic_net:a_clog > ref_typespec: > array_typespec:t_clog > ref_typespec: > logic_typespec: > range: > operation: > sys_func_call:$clog2 > ref_obj:N
+r11u60repro/g7 	 fullname|ref_typespec|operation|param_assign|module_inst 	 design:work@g7top > module_inst:work@g7top > module_inst:u_q > param_assign: > operation: > ref_typespec:
+r11u69repro/grid/g2_iter 	 type|bit_select|cont_assign|gen_scope|module_inst 	 design:work@dut > module_inst:work@dut > gen_scope_array:gsame[0] > gen_scope: > cont_assign: > bit_select:o_same
+r11u69repro/grid/g4_lhskind 	 type|bit_select|cont_assign|gen_scope|module_inst 	 design:work@dut > module_inst:work@dut > gen_scope_array:gblk > gen_scope: > cont_assign: > bit_select:o_bit
+r11u69repro/grid/g5_nest 	 type|bit_select|cont_assign|gen_scope|module_inst 	 design:work@dut > module_inst:work@dut > gen_scope_array:outf[0] > gen_scope: > gen_scope_array:innf[0] > gen_scope: > cont_assign: > bit_select:o_for_in_for
+r11u88repro/grid/a6_commadrive 	 col|constant|cont_assign|interface_inst|module_inst 	 design:work@dut > module_inst:work@dut > interface_inst:u_if > cont_assign: > constant:
+r11u88repro/grid/i6_ifarray 	 endcol|struct_net|array_net|interface_inst|module_inst 	 design:work@dut > module_inst:work@dut > interface_inst:u_if > array_net:v_sarr > struct_net:v_sarr
+r11u88repro/grid/j3_ifcaselect 	 type|bit_select|cont_assign|interface_inst|module_inst 	 design:work@dut > module_inst:work@dut > interface_inst:u_i > cont_assign: > bit_select:bitsel
+r11u88repro/grid/y2_pkgvarkind 	 endcol|struct_net|array_net|module_inst|module_inst 	 design:work@dut > module_inst:work@dut > array_net:v_sarr > struct_net:v_sarr
+r11u90repro/grid.verifier/vx8_strifport 	 fullname|logic_net|io_decl|modport|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u_s > port:p > ref_obj: > modport:mp > io_decl:w_plain > logic_net:w_plain
+r11u90repro/grid.verifier/vy5_dlyparamovrmod 	 type|constant|cont_assign|module_inst|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u_b > cont_assign: > constant:
+r11u93repro/grid/pb10_ifnetuse 	 line|logic_net|ref_obj|cont_assign|interface_inst 	 design:work@dut > interface_inst: > cont_assign: > ref_obj:o > logic_net:o
+r11u93repro/grid/pb19_modportview 	 line|logic_net|io_decl|modport|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u_s > port:m > ref_obj: > modport:mp > io_decl:o > logic_net:o
+r11v11u8repro/v9 	 col|initial|module_inst|design|module_inst 	 design:work@top > module_inst: > initial:
+r11v1repro/vA 	 col|ref_obj|hier_path|port|module_inst 	 design:work@top > module_inst:work@top > module_inst:a3 > port:q > hier_path:u.mp > ref_obj:u
+r11v21repro/v15 	 fullname|ref_typespec|typespec_member|struct_typespec|module_inst 	 design:work@dut > module_inst: > parameter:LC > ref_typespec: > struct_typespec:loc_t > typespec_member:aa > ref_typespec:
+r11v23repro/adv/v11_concat_64bit_param 	 fullname|ref_typespec|constant|operation|module_inst 	 design:work@dut > module_inst:work@dut > gen_scope_array:g > gen_scope: > cont_assign: > operation: > operation: > constant: > ref_typespec:
+r11v23repro/adv/x09_concat_64bit_param_small 	 fullname|ref_typespec|constant|operation|module_inst 	 design:work@dut > module_inst:work@dut > gen_scope_array:g > gen_scope: > cont_assign: > operation: > operation: > constant: > ref_typespec:
+r11v32repro/w1_regression_witness 	 line|bit_typespec|ref_typespec|bit_var|module_inst 	 design:work@w1_top > module_inst:work@w1_top > module_inst:i0 > bit_var:d > ref_typespec: > bit_typespec:
+r11v45repro/v6 	 line|logic_typespec|ref_typespec|logic_var|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > module_inst:u > logic_var:i > ref_typespec: > logic_typespec:
+r11v45repro/v7 	 line|logic_typespec|ref_typespec|logic_var|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u1 > logic_var:i > ref_typespec: > logic_typespec:
+r11v45repro/v9 	 type|struct_typespec|ref_typespec|struct_var|module_inst 	 design:work@dut > module_inst:work@dut > gen_scope_array:gb[0] > gen_scope: > struct_var:w > ref_typespec: > struct_typespec:s_t
+r11v46repro/grid7 	 fullname|ref_obj|sys_func_call|assignment|module_inst 	 design:work@grid7 > module_inst: > gen_for: > assignment: > sys_func_call:$unsigned > ref_obj:MM
+r11v47repro/arms/v12 	 fullname|ref_typespec|typespec_member|struct_typespec|module_inst 	 design:work@dut > module_inst: > type_parameter:a_t > ref_typespec: > struct_typespec: > typespec_member:x > ref_typespec:
+r11v47repro/arms/v28 	 line|struct_typespec|ref_typespec|type_parameter|module_inst 	 design:work@dut > module_inst: > type_parameter:it_t > ref_typespec: > struct_typespec:
+r11v48repro/va8 	 depth|module_inst|design||module_inst 	 design:work@va8 > module_inst:
+r11v4repro/v5 	 fullname|ref_typespec|operation|param_assign|module_inst 	 design:work@top > module_inst:work@top > module_inst:a0 > port:q > ref_obj: > interface_inst:q > param_assign: > operation: > ref_typespec:
+r11v4repro/v6 	 fullname|ref_typespec|operation|param_assign|module_inst 	 design:work@top > module_inst:work@top > module_inst:a0 > port:q > ref_obj: > interface_inst:q > param_assign: > operation: > ref_typespec:
+r11v55repro/grid/vv1c_cast 	 file|string_typespec|ref_typespec|tagged_pattern|package 	 design:work@dut > package:p > param_assign: > operation: > operation: > tagged_pattern: > ref_typespec: > string_typespec:n
+r11v66repro/a3_inst66 	 endcol|constant|cont_assign|module_inst|module_inst 	 design:work@a3_inst66 > module_inst:work@a3_inst66 > module_inst:u1 > cont_assign: > constant:
+r11v69repro/grid/v10_arraysel 	 type|bit_select|cont_assign|gen_scope|module_inst 	 design:work@dut > module_inst:work@dut > gen_scope_array:gsel > gen_scope: > cont_assign: > bit_select:o_bit
+r11v70repro/v11 	 fullname|logic_net|ref_obj|operation|module_inst 	 design:work@v11 > module_inst:work@v11 > module_inst:u > param_assign: > operation: > operation: > ref_obj:a > logic_net:a
+r11v70repro/v5 	 fullname|logic_net|ref_obj|operation|module_inst 	 design:work@v5 > module_inst:work@v5 > module_inst:u1 > param_assign: > operation: > operation: > ref_obj:a > logic_net:a
+r11v74repro/grid/v2_kindns 	 fullname|ref_typespec|typespec_member|struct_typespec|module_inst 	 design:work@dut > module_inst:work@dut > struct_net:st > ref_typespec: > struct_typespec: > typespec_member:a > ref_typespec:
+r11v77repro/grid/vh_arrelem 	 endline|enum_typespec|package|design|package 	 design:work@dut > package:pv > enum_typespec:pv::en_t
+r11v83repro/grid/b14_cadelay 	 type|ref_obj|cont_assign|interface_inst|module_inst 	 design:work@dut > module_inst:work@dut > interface_inst:u_if > cont_assign: > ref_obj:d_plain
+r11v88repro/grid/v14_ndamodport 	 fullname|logic_net|io_decl|modport|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u_s > port:s > ref_obj: > modport:mp > io_decl:w_nd > logic_net:w_nd
+r11v93repro/grid/v15_ifdeclafterbody 	 line|ref_obj|port|interface_inst|interface_inst 	 design:work@dut > interface_inst: > port:o > ref_obj:o
+v11u108repro/brk/f5/b07_param_typedef_arr 	 file|logic_typespec|ref_typespec|type_parameter|module_inst 	 design:work@dut > module_inst: > type_parameter:T > ref_typespec: > logic_typespec:arr_t
+v11u108repro/brk/f5/b13_pkg_arr 	 fullname|ref_typespec|logic_typespec|package|package 	 design:work@dut > package:pk > logic_typespec:pk::arr_t > ref_typespec:
+v11u108repro/brk/f5/b18_var_kw 	 fullname|ref_typespec|packed_array_typespec|ref_typespec|module_inst 	 design:work@dut > module_inst: > type_parameter:rt_t > ref_typespec: > packed_array_typespec: > ref_typespec:id_t
+v11u108repro/brk/f5/b21_always_ff=== buckets
+12 fullname|ref_typespec|constant|operation|module_inst
+10 fullname|ref_typespec|typespec_member|struct_typespec|module_inst
+6 type|func_call|cont_assign|module_inst|module_inst
+6 fullname|ref_typespec|typespec_member|struct_typespec|package
+5 type|ref_obj|cont_assign|module_inst|module_inst
+5 fullname|ref_typespec|logic_typespec|package|package
+5 line|logic_typespec|ref_typespec|logic_var|module_inst
+4 line|int_typespec|ref_typespec|constant|module_inst
+4 fullname|ref_typespec|bit_typespec|ref_typespec|package
+4 value|constant|operation|param_assign|module_inst
+4 type|bit_select|cont_assign|gen_scope|module_inst
+4 fullname|ref_obj|indexed_part_select|var_select|module_inst
+3 depth|module_inst|design||module_inst
+3 fullname|ref_typespec|constant|indexed_part_select|module_inst
+3 file|logic_typespec|ref_typespec|parameter|module_inst
+3 fullname|ref_typespec|packed_array_typespec|ref_typespec|module_inst
+3 fullname|ref_typespec|operation|typespec_member|package
+3 fullname|ref_typespec|operation|param_assign|module_inst
+3 name|logic_typespec|ref_typespec|logic_var|module_inst
+2 endcol|constant|tagged_pattern|operation|module_inst
+2 fullname|ref_obj|operation|indexed_part_select|module_inst
+2 fullname|bit_select|operation|bit_select|module_inst
+2 file|int_typespec|ref_typespec|constant|module_inst
+2 fullname|ref_obj|operation|operation|module_inst
+2 endcol|ref_module|module_inst|design|module_inst
+2 fullname|bit_var|ref_obj|assignment|package
+2 file|case_item|case_stmt|function|package
+2 depth|assignment|begin|function|package
+2 endcol|class_typespec|ref_typespec|logic_net|interface_inst
+2 fullname|ref_typespec|logic_typespec|ref_typespec|package
+2 nomatch
+2 depth|assignment|function|class_defn|package
+2 type|constant|cont_assign|module_inst|module_inst
+2 endline|packed_array_typespec|ref_typespec|type_parameter|module_inst
+2 fullname|ref_typespec|logic_typespec|ref_typespec|module_inst
+2 fullname|ref_typespec|enum_typespec|ref_typespec|module_inst
+2 line|constant|typespec_member|struct_typespec|package
+2 col|ref_obj|hier_path|port|module_inst
+2 col|ref_obj|hier_path|param_assign|module_inst
+2 fullname|logic_net|io_decl|modport|module_inst
+2 fullname|logic_net|ref_obj|operation|module_inst
+1 col|indexed_part_select|operation|function|package
+1 fullname|part_select|operation|operation|module_inst
+1 type|constant|operation|return_stmt|package
+1 line|logic_typespec|package|design|package
+1 fullname|bit_select|range|module_array|module_inst
+1 fullname|ref_typespec|operation|operation|module_inst
+1 endcol|typespec_member|struct_typespec|module_inst|module_inst
+1 endcol|named_begin|always|module_inst|module_inst
+1 endcol|constant|operation|operation|module_inst
+1 fullname|ref_obj|var_select|cont_assign|module_inst
+1 endline|struct_typespec|package|design|package
+1 fullname|part_select|indexed_part_select|operation|module_inst
+1 fullname|ref_typespec|constant|param_assign|module_inst
+1 line|logic_typespec|ref_typespec|sys_func_call|module_inst
+1 fullname|ref_typespec|constant|func_call|module_inst
+1 depth|gen_scope_array|module_inst|design|module_inst
+1 endcol|constant|operation|range|module_inst
+1 type|constant|cont_assign|interface_inst|module_inst
+1 type|bit_select|cont_assign|module_inst|module_inst
+1 depth|logic_net|ref_obj|operation|module_inst
+1 endcol|class_typespec|ref_typespec|class_var|package
+1 endcol|hier_path|assignment|task|module_inst
+1 fullname|ref_obj|method_func_call|if_stmt|class_defn
+1 type|enum_typespec|ref_typespec|array_typespec|package
+1 endline|struct_typespec|ref_typespec|logic_net|module_inst
+1 endcol|hier_path|operation|assignment|package
+1 depth|constant|operation|if_stmt|package
+1 fullname|bit_select|hier_path|assignment|package
+1 fullname|ref_obj|bit_select|hier_path|package
+1 depth|constant|operation|assignment|package
+1 line|begin|function|package|package
+1 file|array_typespec|ref_typespec|ref_var|interface_inst
+1 depth|int_var|ref_obj|assignment|package
+1 fullname|ref_typespec|enum_typespec|ref_typespec|package
+1 line|enum_typespec|package|design|package
+1 name|logic_typespec|ref_typespec|logic_typespec|package
+1 fullname|ref_obj|assignment|function|package
+1 fullname|ref_obj|bit_select|assignment|package
+1 depth|function|package|design|package
+1 line|struct_typespec|ref_typespec|struct_var|class_defn
+1 file|int_typespec|ref_typespec|operation|package
+1 col|bit_select|bit_select|bit_select|class_defn
+1 fullname|ref_obj|hier_path|var_select|package
+1 fullname|ref_typespec|class_typespec|ref_typespec|module_inst
+1 line|ref_obj|delay_control|begin|module_inst
+1 file|type_parameter|class_typespec|package|package
+1 endcol|class_typespec|ref_typespec|class_var|class_defn
+1 fullname|ref_typespec|array_typespec|ref_typespec|module_inst
+1 endcol|hier_path|operation|if_stmt|package
+1 line|int_typespec|ref_typespec|constant|package
+1 depth|package|design||package
+1 type|string_var|function|package|package
+1 fullname|ref_obj|range|logic_typespec|package
+1 type|class_typespec|design||class_typespec
+1 name|bit_typespec|ref_typespec|bit_typespec|package
+1 endcol|int_typespec|ref_typespec|logic_net|interface_inst
+1 line|enum_typespec|ref_typespec|parameter|module_inst
+1 depth|cont_assign|module_inst|module_inst|module_inst
+1 fullname|ref_typespec|struct_typespec|package|package
+1 name|bit_select|port|ref_module|module_inst
+1 file|int_typespec|ref_typespec|operation|module_inst
+1 type|operation|cont_assign|module_inst|module_inst
+1 fullname|ref_typespec|typespec_member|struct_typespec|interface_inst
+1 type|hier_path|cont_assign|module_inst|module_inst
+1 line|packed_array_var|module_inst|module_inst|module_inst
+1 type|logic_typespec|ref_typespec|operation|module_inst
+1 fullname|ref_typespec|constant|case_item|module_inst
+1 endcol|hier_path|param_assign|named_begin|module_inst
+1 fullname|hier_path|return_stmt|function|module_inst
+1 line|int_typespec|ref_typespec|int_var|module_inst
+1 file|enum_const|ref_obj|operation|module_inst
+1 endline|struct_typespec|module_inst|design|module_inst
+1 line|real_typespec|ref_typespec|real_var|module_inst
+1 fullname|ref_typespec|typespec_member|union_typespec|module_inst
+1 fullname|ref_obj|sys_func_call|operation|module_inst
+1 col|constant|cont_assign|interface_inst|module_inst
+1 endcol|struct_net|array_net|interface_inst|module_inst
+1 type|bit_select|cont_assign|interface_inst|module_inst
+1 endcol|struct_net|array_net|module_inst|module_inst
+1 line|logic_net|ref_obj|cont_assign|interface_inst
+1 line|logic_net|io_decl|modport|module_inst
+1 col|initial|module_inst|design|module_inst
+1 line|bit_typespec|ref_typespec|bit_var|module_inst
+1 type|struct_typespec|ref_typespec|struct_var|module_inst
+1 fullname|ref_obj|sys_func_call|assignment|module_inst
+1 line|struct_typespec|ref_typespec|type_parameter|module_inst
+1 file|string_typespec|ref_typespec|tagged_pattern|package
+1 endcol|constant|cont_assign|module_inst|module_inst
+1 endline|enum_typespec|package|design|package
+1 type|ref_obj|cont_assign|interface_inst|module_inst
+1 line|ref_obj|port|interface_inst|interface_inst
+1 file|logic_typespec|ref_typespec|type_parameter|module_inst
+1 endcol|constant|range|logic_typespec|module_inst
+1 type|logic_typespec|ref_typespec|parameter|class_defn
+1 file|logic_typespec|package|design|package
+1 fullname|ref_typespec|sys_func_call|cont_assign|module_inst
+1 name|logic_typespec|ref_typespec|packed_array_var|module_inst
+1 line|logic_typespec|ref_typespec|typespec_member|module_inst
+1 name|bit_typespec|ref_typespec|bit_var|module_inst
+1 decompile|constant|cont_assign|module_inst|module_inst
+1 endcol|int_typespec|ref_typespec|constant|module_inst
+1 endcol|func_call|var_select|assignment|module_inst
+1 fullname|ref_obj|hier_path|func_call|module_inst
+1 endcol|packed_array_typespec|ref_typespec|io_decl|module_inst
+1 name|logic_typespec|ref_typespec|typespec_member|module_inst
+1 line|logic_typespec|ref_typespec|packed_array_typespec|module_inst
+1 fullname|module_array|module_inst|module_inst|module_inst
+ 	 fullname|ref_typespec|packed_array_typespec|ref_typespec|module_inst 	 design:work@dut > module_inst:work@dut > packed_array_var:x > ref_typespec: > packed_array_typespec: > ref_typespec:id_t
+v11u110repro/brk/v1/b06_const_init 	 endline|packed_array_typespec|ref_typespec|type_parameter|module_inst 	 design:work@dut > module_inst: > type_parameter:rt_t > ref_typespec: > packed_array_typespec:
+v11u110repro/brk/v3/a36_escaped_inst_name 	 endcol|ref_module|module_inst|design|module_inst 	 design:work@dut > module_inst: > ref_module:u$x
+v11u110repro/brk/v5/k11_logic_param_range 	 endcol|constant|range|logic_typespec|module_inst 	 design:work@dut > module_inst: > type_parameter:rt_t > ref_typespec: > packed_array_typespec: > ref_typespec:id_t > logic_typespec: > range: > constant:
+v11u110repro/brk/v5/k13_anon_enum 	 fullname|ref_typespec|enum_typespec|ref_typespec|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > type_parameter:id_t > ref_typespec: > enum_typespec: > ref_typespec:
+v11u110repro/brk/v6/s01_single_chain2_ctl 	 fullname|ref_typespec|logic_typespec|ref_typespec|package 	 design:work@dut > package:pk > struct_typespec:pk::S > typespec_member:U > ref_typespec: > logic_typespec:pk::row_t > ref_typespec:
+v11u111repro/brk/f1/x01_class_param 	 type|logic_typespec|ref_typespec|parameter|class_defn 	 design:work@dut > class_defn:work@C > parameter:M > ref_typespec: > logic_typespec:q::mask_t
+v11u111repro/brk/f3/x36_iface_sig 	 name|logic_typespec|ref_typespec|logic_var|module_inst 	 design:work@dut > module_inst:work@dut > interface_inst:ri > logic_var:r > ref_typespec: > logic_typespec:q2::row_t
+v11u111repro/brk/f3/x38_param_in_module_typed 	 file|logic_typespec|ref_typespec|parameter|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > parameter:P > ref_typespec: > logic_typespec:q2::row_t
+v11u111repro/brk/f3/x40_class_prop 	 file|logic_typespec|package|design|package 	 design:work@dut > package:q2 > logic_typespec:q2::row_t
+v11u111repro/brk/f3/y31_two_pkgs_rows 	 fullname|ref_typespec|logic_typespec|package|package 	 design:work@dut > package:q2 > logic_typespec:q2::row_t > ref_typespec:
+v11u111repro/brk/f6/x64_two_dims_positional 	 fullname|ref_typespec|sys_func_call|cont_assign|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > cont_assign: > sys_func_call:$bits > ref_typespec:
+v11u111repro/brk/f6/x65_chain_td_dims 	 fullname|ref_typespec|logic_typespec|package|package 	 design:work@dut > package:pk > logic_typespec:pk::w2_t > ref_typespec:
+v11u111repro/brk/f6/y61_vec_dims_extra_port_dims 	 name|logic_typespec|ref_typespec|packed_array_var|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > packed_array_var:a > ref_typespec: > logic_typespec:pk::w_t
+v11u111repro/brk/f6/y62_vec_dims_local_typedef_in_child 	 line|logic_typespec|ref_typespec|typespec_member|module_inst 	 design:work@dut > module_inst: > struct_typespec:s_t > typespec_member:f > ref_typespec: > logic_typespec:
+v11u111repro/brk/f6/y64_positional_vec_one_dim 	 line|logic_typespec|ref_typespec|logic_var|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > logic_var:a > ref_typespec: > logic_typespec:
+v11u111repro/brk/f6/y65_positional_nodims_ctl 	 name|logic_typespec|ref_typespec|logic_var|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > logic_var:a > ref_typespec: > logic_typespec:
+v11u111repro/brk/f6/y68_bit_td_dims 	 name|bit_typespec|ref_typespec|bit_var|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > bit_var:a > ref_typespec: > bit_typespec:pk::b_t
+v11u111repro/brk/f6/y69_vec_dims_two_inst_same 	 name|logic_typespec|ref_typespec|logic_var|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u > logic_var:a > ref_typespec: > logic_typespec:pk::w_t
+v11u112repro/grid/brk/f/g1k_hop_userfn 	 line|int_typespec|ref_typespec|constant|module_inst 	 design:work@top > module_inst:work@top > gen_scope_array:g[0] > gen_scope: > param_assign: > constant: > ref_typespec: > int_typespec:
+v11u112repro/grid/brk/k/b3a_multi_decl 	 decompile|constant|cont_assign|module_inst|module_inst 	 design:work@m > module_inst:work@m > cont_assign: > constant:
+v11u112repro/grid/brk/v/b4b_opidx_minus 	 fullname|ref_obj|indexed_part_select|var_select|module_inst 	 design:work@m > module_inst: > gen_for: > named_begin:g > cont_assign: > var_select:rd > indexed_part_select:rd > ref_obj:o
+v11u112repro/grid/brk/v/b4d_param_arr 	 fullname|ref_obj|indexed_part_select|var_select|module_inst 	 design:work@m > module_inst: > gen_for: > named_begin:g > cont_assign: > var_select:T > indexed_part_select:T > ref_obj:o
+v11u112repro/grid/brk/v/b4h_port_2d 	 fullname|ref_obj|indexed_part_select|var_select|module_inst 	 design:work@m > module_inst: > gen_for: > named_begin:g > cont_assign: > var_select:rd > indexed_part_select:rd > ref_obj:o
+v11u114repro/grid/set1/g25 	 type|ref_obj|cont_assign|module_inst|module_inst 	 design:work@top > module_inst:work@top > module_inst:u > cont_assign: > ref_obj:o
+v11u115repro/grid/f1/v06_gf_vs_psel 	 fullname|ref_obj|indexed_part_select|var_select|module_inst 	 design:work@top > module_inst: > gen_for: > named_begin:g > cont_assign: > var_select:r > indexed_part_select:r > ref_obj:W
+v11u116repro/arms/f1t_intsig 	 endcol|int_typespec|ref_typespec|constant|module_inst 	 design:work@dut > module_inst:work@dut > gen_scope_array:g[0] > gen_scope: > cont_assign: > operation: > constant: > ref_typespec: > int_typespec:
+v11u116repro/arms/g2_fcall 	 endcol|func_call|var_select|assignment|module_inst 	 design:work@dut > module_inst:work@dut > gen_scope_array:gf[0] > gen_scope: > gen_scope_array:gb[0] > gen_scope: > always: > event_control: > begin: > assignment: > var_select:v > func_call:fn
+v11u117repro/grid/b02 	 fullname|ref_obj|hier_path|func_call|module_inst 	 design:work@top > module_inst: > param_assign: > func_call:f > hier_path: > ref_obj:cfg
+v11u93b107repro/brk/p02_nested_member_dim 	 fullname|ref_typespec|typespec_member|struct_typespec|module_inst 	 design:work@dut > module_inst: > logic_net:x > ref_typespec: > struct_typespec: > typespec_member:m > ref_typespec: > packed_array_typespec: > ref_typespec: > struct_typespec: > typespec_member:a > ref_typespec:
+v11u93b107repro/brk/p18_func_arg 	 endcol|packed_array_typespec|ref_typespec|io_decl|module_inst 	 design:work@dut > module_inst: > function:f > io_decl:v > ref_typespec: > packed_array_typespec:
+v11u93b107repro/brk/q04_pkg_member 	 name|logic_typespec|ref_typespec|typespec_member|module_inst 	 design:work@dut > module_inst: > type_parameter:T > ref_typespec: > struct_typespec: > typespec_member:a > ref_typespec: > logic_typespec:pk::w_t
+v11u93b107repro/brk/r05_rt_ovr_samename 	 line|logic_typespec|ref_typespec|packed_array_typespec|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u1 > port:rt_i > ref_typespec: > packed_array_typespec: > ref_typespec:id_t > logic_typespec:
+v11u93repro/grid/b07_rv2arr 	 fullname|module_array|module_inst|module_inst|module_inst 	 design:work@dut > module_inst:work@dut > module_inst:u_b > module_array:u_i

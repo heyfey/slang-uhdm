@@ -1,0 +1,414 @@
+=== X/b4_cat_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam bit [3:0] P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/b4_cat_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam bit [3:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/b4_opr_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam bit [3:0] P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = P + 1;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/b4_opr_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam bit [3:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = P + 1;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/b4_tern2_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam bit [3:0] P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = a ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/b4_tern2_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam bit [3:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = a ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/b4_ternc_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam bit [3:0] P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = 1'b1 ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/b4_ternc_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam bit [3:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = 1'b1 ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/int_cat_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam int P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/int_cat_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam int P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/int_opr_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam int P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = P + 1;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/int_opr_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam int P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = P + 1;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/int_tern2_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam int P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = a ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/int_tern2_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam int P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = a ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/int_ternc_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam int P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = 1'b1 ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/int_ternc_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam int P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = 1'b1 ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l64_cat_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [63:0] P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l64_cat_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [63:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l64_opr_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [63:0] P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = P + 1;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l64_opr_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [63:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = P + 1;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l64_tern2_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [63:0] P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = a ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l64_tern2_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [63:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = a ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l64_ternc_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [63:0] P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = 1'b1 ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l64_ternc_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [63:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = 1'b1 ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l8_cat_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [7:0] P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l8_cat_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [7:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l8_opr_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [7:0] P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = P + 1;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l8_opr_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [7:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = P + 1;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l8_tern2_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [7:0] P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = a ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l8_tern2_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [7:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = a ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l8_ternc_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [7:0] P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = 1'b1 ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/l8_ternc_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [7:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = 1'b1 ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/u_cat_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam  P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/u_cat_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam  P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/u_opr_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam  P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = P + 1;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/u_opr_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam  P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = P + 1;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/u_tern2_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam  P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = a ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/u_tern2_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam  P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = a ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/u_ternc_for
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam  P = 1;
+  generate for (genvar w = 0; w < 1; w++) begin : g
+    logic [31:0] lv;
+    assign lv = 1'b1 ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/u_ternc_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam  P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = 1'b1 ? {P, 1'b0} : 64'd0;
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/w31_cat_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [30:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/w32_cat_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [31:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/w33_cat_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [32:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/w63_cat_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [62:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/w64_cat_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [63:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule
+=== X/w65_cat_if
+module dut(input logic a, input logic b, output logic [31:0] o);
+  localparam logic [64:0] P = 1;
+  generate if (1) begin : g
+    logic [31:0] lv;
+    assign lv = {P, 1'b0};
+    assign o = lv;
+  end endgenerate
+endmodule

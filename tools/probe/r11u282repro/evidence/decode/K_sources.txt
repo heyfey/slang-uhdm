@@ -1,0 +1,246 @@
+=== K/lp_cond_byte
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = (byte'(L)) ? 42 : 7;
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/lp_cond_int
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = (int'(L)) ? 42 : 7;
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/lp_fn_byte
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  function automatic int f(); return byte'(L); endfunction
+  assign v = f();
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/lp_fn_int
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  function automatic int f(); return int'(L); endfunction
+  assign v = f();
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/lp_opnd_byte
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = byte'(L) + 1;
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/lp_opnd_int
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = int'(L) + 1;
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/lp_rhs_byte
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = byte'(L);
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/lp_rhs_int
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = int'(L);
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/par_cond_byte
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = (byte'(P)) ? 42 : 7;
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/par_cond_int
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = (int'(P)) ? 42 : 7;
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/par_fn_byte
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  function automatic int f(); return byte'(P); endfunction
+  assign v = f();
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/par_fn_int
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  function automatic int f(); return int'(P); endfunction
+  assign v = f();
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/par_opnd_byte
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = byte'(P) + 1;
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/par_opnd_int
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = int'(P) + 1;
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/par_rhs_byte
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = byte'(P);
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/par_rhs_int
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = int'(P);
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/sig_cond_byte
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = (byte'(sig)) ? 42 : 7;
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/sig_cond_int
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = (int'(sig)) ? 42 : 7;
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/sig_fn_byte
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  function automatic int f(); return byte'(sig); endfunction
+  assign v = f();
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/sig_fn_int
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  function automatic int f(); return int'(sig); endfunction
+  assign v = f();
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/sig_opnd_byte
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = byte'(sig) + 1;
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/sig_opnd_int
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = int'(sig) + 1;
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/sig_rhs_byte
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = byte'(sig);
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule
+=== K/sig_rhs_int
+module m #(parameter bit P = 0)();
+  localparam bit L = 1;
+  logic sig;
+  logic [31:0] v;
+  assign v = int'(sig);
+endmodule
+module top;
+  m #(.P(1)) u_a();
+endmodule

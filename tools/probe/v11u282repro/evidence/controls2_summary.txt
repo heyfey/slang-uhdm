@@ -1,0 +1,11 @@
+MOVER v11u256repro/cases/B/vb06_struct_member d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 418 objects
+MOVER v11u256repro/cases/B/vb06_struct_member e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 421 objects
+MOVER v11u256repro/cases/G/vg19_if_lhs_whole d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 373 objects
+MOVER v11u256repro/cases/G/vg19_if_lhs_whole e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 372 objects
+MOVER v11u256repro/cases/G/vg20_case_lhs_whole d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER v11u256repro/cases/G/vg20_case_lhs_whole e rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER v11u264repro/cases/VG/vg04_if_case_gen d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 533 objects
+MOVER v11u264repro/cases/VG/vg04_if_case_gen e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 527 objects
+MOVER v11u264repro/cases/VG/vg05_two_level_for d rc=0 cmp=138 NOT_EQUAL stage1 -> rc=0 cmp=138 NOT_EQUAL stage1
+MOVER v11u264repro/cases/VG/vg05_two_level_for e rc=0 cmp=158 NOT_EQUAL stage1 -> rc=0 cmp=158 NOT_EQUAL stage1
+case-views=4090 moving=10 entering=6 leaving=0 rc-changed=0 cmplines-changed=0

@@ -1,0 +1,11 @@
+FIXDIFF VP/vp26_member_sel d | law: rc=0 cmp=144 NOT_EQUAL stage1 | fix: rc=0 cmp=144 NOT_EQUAL stage1
+FIXDIFF VP/vp26_member_sel e | law: rc=0 cmp=144 NOT_EQUAL stage1 | fix: rc=0 cmp=144 NOT_EQUAL stage1
+FIXDIFF VS/vs01_member_bsel_for d | law: rc=0 cmp=144 NOT_EQUAL stage1 | fix: rc=0 cmp=144 NOT_EQUAL stage1
+FIXDIFF VS/vs01_member_bsel_for e | law: rc=0 cmp=144 NOT_EQUAL stage1 | fix: rc=0 cmp=144 NOT_EQUAL stage1
+FIXDIFF VS/vs02_member_bsel_if d | law: rc=0 cmp=144 NOT_EQUAL stage1 | fix: rc=0 cmp=144 NOT_EQUAL stage1
+FIXDIFF VS/vs02_member_bsel_if e | law: rc=0 cmp=144 NOT_EQUAL stage1 | fix: rc=0 cmp=144 NOT_EQUAL stage1
+FIXDIFF VS/vs06_member_named_begin d | law: rc=0 cmp=144 NOT_EQUAL stage1 | fix: rc=0 cmp=144 NOT_EQUAL stage1
+FIXDIFF VS/vs06_member_named_begin e | law: rc=0 cmp=144 NOT_EQUAL stage1 | fix: rc=0 cmp=144 NOT_EQUAL stage1
+FIXDIFF VS/vs08_member_arr_idx d | law: rc=0 cmp=168 NOT_EQUAL stage1 | fix: rc=0 cmp=168 NOT_EQUAL stage1
+FIXDIFF VS/vs08_member_arr_idx e | law: rc=0 cmp=168 NOT_EQUAL stage1 | fix: rc=0 cmp=168 NOT_EQUAL stage1
+case-views 246 {'UOFF==P': 246, 'VOFF==L': 246, 'fix_movers': 128, 'fix_enter': 87, 'fix_leave': 0, 'law_movers': 128, 'law_enter': 87, 'law_leave': 0, 'fix_vs_law': 10}

@@ -1,0 +1,9 @@
+// § genCaSelBoundNestedOwner282
+package pk; parameter int P = 4; endpackage
+module top import pk::*;  (input logic [7:0] b, output logic [7:0] z, output logic [7:0] zz);
+  
+  for (genvar k = 0; k < 1; k++) begin : g
+    assign z = 8'(P) | b;
+  end
+endmodule
+module wrap(input logic [7:0] b, output logic [7:0] z, output logic [7:0] zz); top u (.b(b), .z(z), .zz(zz)); endmodule

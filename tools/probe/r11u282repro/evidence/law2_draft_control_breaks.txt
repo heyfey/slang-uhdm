@@ -1,0 +1,40 @@
+MOVER r11u116repro/grid/f1/pk_b_ac d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_b_ac e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_d_ac d rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_d_ac e rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_h_ac d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_h_ac e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_n_ac d rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_n_ac e rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_o_ac d rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_o_ac e rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_u_ac d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_u_ac e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_x_ac d rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_x_ac e rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u192repro/cases/B/b11_genfor_unsized d rc=0 cmp=0 STRICT_EQUAL 870 objects -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER r11u192repro/cases/B/b11_genfor_unsized e rc=0 cmp=0 STRICT_EQUAL 869 objects -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER v11u262repro/cases/VL/vl13 d rc=0 cmp=0 STRICT_EQUAL 149 objects -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER v11u262repro/cases/VL/vl13 e rc=0 cmp=0 STRICT_EQUAL 153 objects -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER v11u262repro/cases/VL/vl41 d rc=0 cmp=0 STRICT_EQUAL 138 objects -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER v11u262repro/cases/VL/vl41 e rc=0 cmp=0 STRICT_EQUAL 142 objects -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+r11u116repro/grid/f1/pk_b_ac d chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u116repro/grid/f1/pk_b_ac e chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u116repro/grid/f1/pk_d_ac d chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u116repro/grid/f1/pk_d_ac e chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u116repro/grid/f1/pk_h_ac d chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u116repro/grid/f1/pk_h_ac e chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u116repro/grid/f1/pk_n_ac d chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u116repro/grid/f1/pk_n_ac e chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u116repro/grid/f1/pk_o_ac d chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u116repro/grid/f1/pk_o_ac e chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u116repro/grid/f1/pk_u_ac d chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u116repro/grid/f1/pk_u_ac e chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u116repro/grid/f1/pk_x_ac d chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u116repro/grid/f1/pk_x_ac e chain away=2 toward=8 flat_away=4 flat_toward=8
+r11u192repro/cases/B/b11_genfor_unsized d chain away=4 toward=0 flat_away=4 flat_toward=0
+r11u192repro/cases/B/b11_genfor_unsized e chain away=4 toward=0 flat_away=4 flat_toward=0
+v11u262repro/cases/VL/vl13 d chain away=2 toward=0 flat_away=2 flat_toward=0
+v11u262repro/cases/VL/vl13 e chain away=2 toward=0 flat_away=2 flat_toward=0
+v11u262repro/cases/VL/vl41 d chain away=1 toward=0 flat_away=1 flat_toward=0
+v11u262repro/cases/VL/vl41 e chain away=1 toward=0 flat_away=1 flat_toward=0

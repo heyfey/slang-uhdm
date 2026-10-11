@@ -1,0 +1,149 @@
+MOVER r11u116repro/grid/f1/mh_b_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mh_b_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mh_d_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mh_d_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mh_h_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mh_h_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mh_n_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mh_n_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mh_o_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mh_o_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mh_u_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mh_u_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mh_x_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mh_x_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_b_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_b_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_d_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_d_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_h_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_h_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_n_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_n_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_o_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_o_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_u_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_u_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_x_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/ml_x_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_b_ac d rc=0 cmp=39 NOT_EQUAL stage1 -> rc=0 cmp=39 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_b_ac e rc=0 cmp=39 NOT_EQUAL stage1 -> rc=0 cmp=39 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_d_ac d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_d_ac e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_h_ac d rc=0 cmp=39 NOT_EQUAL stage1 -> rc=0 cmp=39 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_h_ac e rc=0 cmp=39 NOT_EQUAL stage1 -> rc=0 cmp=39 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_n_ac d rc=0 cmp=39 NOT_EQUAL stage1 -> rc=0 cmp=39 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_n_ac e rc=0 cmp=39 NOT_EQUAL stage1 -> rc=0 cmp=39 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_o_ac d rc=0 cmp=39 NOT_EQUAL stage1 -> rc=0 cmp=39 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_o_ac e rc=0 cmp=39 NOT_EQUAL stage1 -> rc=0 cmp=39 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_u_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_u_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_x_ac d rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mu_x_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_b_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_b_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_d_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_d_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_h_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_h_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_n_ac d rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_n_ac e rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_o_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_o_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_u_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_u_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_x_ac d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/mv_x_ac e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_b_ac d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_b_ac e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_d_ac d rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_d_ac e rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_h_ac d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_h_ac e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_n_ac d rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_n_ac e rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_o_ac d rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_o_ac e rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_u_ac d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_u_ac e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_x_ac d rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f1/pk_x_ac e rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_cb_e d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_cb_e e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_cb_l d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_cb_l e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_cb_m d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_cb_m e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_cb_w d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_cb_w e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_ff_e d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_ff_e e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_ff_l d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_ff_l e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_ff_m d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_ff_m e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_ff_w d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_ff_w e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_in_e d rc=0 cmp=36 NOT_EQUAL stage1 -> rc=0 cmp=36 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_in_e e rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_in_l d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_in_l e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_in_m d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_in_m e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_in_w d rc=0 cmp=36 NOT_EQUAL stage1 -> rc=0 cmp=36 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_in_w e rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f3/r1_gs_e d rc=0 cmp=86 NOT_EQUAL stage1 -> rc=0 cmp=86 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f3/r1_gs_e e rc=0 cmp=86 NOT_EQUAL stage1 -> rc=0 cmp=86 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f3/r1_gs_w d rc=0 cmp=86 NOT_EQUAL stage1 -> rc=0 cmp=86 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f3/r1_gs_w e rc=0 cmp=86 NOT_EQUAL stage1 -> rc=0 cmp=86 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f3/r3_fn_e d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f3/r3_fn_e e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f3/r3_fn_w d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f3/r3_fn_w e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u198repro/cases/N/n24_child_for_bounds d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 320 objects
+MOVER r11u198repro/cases/N/n24_child_for_bounds e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 312 objects
+MOVER r11u256repro/cases/B/b07_member_path d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 383 objects
+MOVER r11u256repro/cases/B/b07_member_path e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 386 objects
+MOVER r11u256repro/cases/G/g19_for_always d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 461 objects
+MOVER r11u256repro/cases/G/g19_for_always e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 460 objects
+MOVER r11u262repro/cases/B/b39 d rc=0 cmp=29 NOT_EQUAL stage1 -> rc=0 cmp=29 NOT_EQUAL stage1
+MOVER r11u262repro/cases/B/b39 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 209 objects
+MOVER v11u262repro/cases/VB/vb10 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 166 objects
+MOVER v11u262repro/cases/VB/vb10 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 166 objects
+MOVER v11u262repro/cases/VH/vh04 d rc=0 cmp=93 NOT_EQUAL stage1 -> rc=0 cmp=93 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VH/vh04 e rc=0 cmp=93 NOT_EQUAL stage1 -> rc=0 cmp=93 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VL/vl15 d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VL/vl15 e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VL/vl18 d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VL/vl18 e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VL/vl19 d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VL/vl19 e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VL/vl24 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 177 objects
+MOVER v11u262repro/cases/VL/vl24 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 177 objects
+MOVER v11u262repro/cases/VL/vl25 d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VL/vl25 e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VL/vl26 d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VL/vl26 e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VL/vl27 d rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VL/vl27 e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER v11u262repro/cases/VL/vl28 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 161 objects
+MOVER v11u262repro/cases/VL/vl28 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 161 objects
+MOVER v11u262repro/cases/VL/vl29 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 163 objects
+MOVER v11u262repro/cases/VL/vl29 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 163 objects
+MOVER v11u262repro/cases/VL/vl30 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 149 objects
+MOVER v11u262repro/cases/VL/vl30 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 149 objects
+MOVER v11u262repro/cases/VL/vl31 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 157 objects
+MOVER v11u262repro/cases/VL/vl31 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 157 objects
+MOVER v11u262repro/cases/VL/vl32 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 143 objects
+MOVER v11u262repro/cases/VL/vl32 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 143 objects
+MOVER v11u262repro/cases/VL/vl33 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 149 objects
+MOVER v11u262repro/cases/VL/vl33 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 149 objects
+MOVER v11u262repro/cases/VL/vl36 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 143 objects
+MOVER v11u262repro/cases/VL/vl36 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 143 objects
+MOVER v11u262repro/cases/VL/vl37 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 164 objects
+MOVER v11u262repro/cases/VL/vl37 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 164 objects
+MOVER v11u262repro/cases/VL/vl38 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 164 objects
+MOVER v11u262repro/cases/VL/vl38 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 164 objects
+MOVER v11u262repro/cases/VL/vl39 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 162 objects
+MOVER v11u262repro/cases/VL/vl39 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 162 objects
+case-views=4218 moving=148 entering=31 leaving=0 rc-changed=0 cmplines-changed=0

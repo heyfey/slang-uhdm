@@ -1,0 +1,10 @@
+probe r10earl47repro__a3_earl47.uhdm LHSIPSINPLACE:4
+probe r10earl76repro__g2_orig76.uhdm PROCOPINPLACE:13
+probe r10earl95repro__g5_hop95.uhdm CAREPLINST:2
+probe r10earl_repro__pu20.uhdm PROCSELINST:1
+probe r10earl_repro__vo.uhdm CAHIERBOUND:1
+probe r10uvm99repro__g99_a7_shapes.uhdm TFCASEINS:2
+probe r10v64repro__v7_inst64.uhdm CASELBOUND:8 CASTORPHAN:8
+probe r11u112repro__grid__v__v08_comb.uhdm PROCSELINST:4
+probe r11u113repro__grid__v__v07_genfor_comb_ctl.uhdm PROCOPINPLACE:2
+probe r11u114repro__grid__f2__b07.uhdm TFCASEINS:1

@@ -47,6 +47,7 @@
 #include "R270.h"
 #include "R278.h"
 #include "R280.h"
+#include "R282.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -1960,6 +1961,13 @@ static void tr192EX(const char* law) {
 // reads that instance's full name.  Empty (the law declines) when the chain
 // is not complete or reaches a package or class first.  Only an instance's
 // own full name is read, which the emitter always sets explicitly.
+// § genCaSelBoundNestedOwner282: the ref_typespecs of folds of generate-local
+// parameters (genLpUseFoldBound47), whose declaring-scope name the law keeps
+// where it would otherwise write the instance.
+static std::set<const UHDM::ref_typespec*>& genLocalFoldRts282() {
+    static std::set<const UHDM::ref_typespec*> v;
+    return v;
+}
 static std::string ownerInstName192(const UHDM::any* p, int* gens = nullptr,
                                     bool* viaPort = nullptr) {
     bool port = false;
@@ -1999,6 +2007,48 @@ static std::string ownerInstName192(const UHDM::any* p, int* gens = nullptr,
         }
     }
     return std::string();
+}
+// § genCaReplCountInst282's left-side test: the continuous assignment's left
+// side is anything but a plain name (a select, a member path, a
+// concatenation).
+static bool caLhsNotPlainName282(const Expression& e) {
+    const slang::syntax::SyntaxNode* p = nullptr;
+    if (e.syntax)
+        p = e.syntax->parent;
+    for (; p; p = p->parent) {
+        if (p->kind == syntax::SyntaxKind::AssignmentExpression)
+            return p->as<syntax::BinaryExpressionSyntax>().left->kind !=
+                   syntax::SyntaxKind::IdentifierName;
+        if (p->kind == syntax::SyntaxKind::ContinuousAssign)
+            return false;
+    }
+    return false;
+}
+// § genCaReplCountInst282 (r11u282, R11U282_CAREPLINST_OFF): a MODULE
+// parameter (a header parameter or a module-body localparam) folded as the
+// COUNT of a replication in a generate scope's continuous assignment
+// whose LEFT side is not a plain name (a select `assign z[w] = {P{b[0]}}`, a
+// part select, a member path `s.f`) is Surelog's
+// getValue clone left at the instance's param_assign: the reference reads the
+// instance (`work@top`), in an if-generate as in a for-generate
+// (r10earl95repro/g5_hop95 c_in, the collapsed else arm, `q[3] = {W{e_i[0]}}`:
+// `work@toph95.u8`); ours wrote the if-generate scope's name.  A WHOLE left
+// side (`assign b1 = {W{e_i[0]}}`, r10earl95repro/g2_depth95 g1; `o4 =
+// {W{1'b0}} | ...`, r10v94repro/v4_ctx94) keeps the scope: a draft without
+// that gate moved both away.  Grid tools/probe/r11u282repro/cases/C (*_repl_*,
+// rp_*).  Returns the instance name or empty to abstain.
+static std::string genCaReplCountInst282(const UHDM::any* parent, bool inGenCaRhs, bool lhsSel) {
+    static const bool on = r11u282On("R11U282_CAREPLINST_OFF");
+    if (!on || !inGenCaRhs || !lhsSel || !parent || parent->UhdmType() != UHDM::uhdmoperation ||
+        ((const UHDM::operation*)parent)->VpiOpType() != vpiMultiConcatOp)
+        return std::string();
+    auto* ops = ((const UHDM::operation*)parent)->Operands();
+    if (ops && !ops->empty())
+        return std::string();  // not the count (the first operand)
+    std::string own = ownerInstName192(parent);
+    if (!own.empty())
+        tr282("CAREPLINST", own);
+    return own;
 }
 // § genIpsBoundOwner256 (r11u256, R11U256_GENIPSOWNER_OFF) — the BASE or
 // WIDTH of an indexed part select, folded from a parameter, in an elaborated
@@ -15758,6 +15808,524 @@ static void hpMemVarSelRecord280(UHDM::var_select* vs) {
     if (on && vs)
         hpMemVarSel280List().push_back(vs);
 }
+// § genProcOpFoldUnaryKeepsInst282 / § genProcUnaryFoldInst282: a unary
+// operator (Surelog's CompileExpression paUnary_* arm pushes its operand
+// without re-parenting it, as the concatenation arm does).
+static bool unaryOp282(int ot) {
+    return ot == vpiMinusOp || ot == vpiPlusOp || ot == vpiNotOp || ot == vpiBitNegOp ||
+           ot == vpiUnaryAndOp || ot == vpiUnaryNandOp || ot == vpiUnaryOrOp ||
+           ot == vpiUnaryNorOp || ot == vpiUnaryXorOp || ot == vpiUnaryXNorOp;
+}
+// § genProcOpFoldInPlace282: the full name of the select a fold sits under.
+static std::string selFullName282(const UHDM::any* o) {
+    switch (o->UhdmType()) {
+        case UHDM::uhdmbit_select: return std::string(((const UHDM::bit_select*)o)->VpiFullName());
+        case UHDM::uhdmvar_select: return std::string(((const UHDM::var_select*)o)->VpiFullName());
+        case UHDM::uhdmpart_select: return std::string(((const UHDM::part_select*)o)->VpiFullName());
+        case UHDM::uhdmindexed_part_select:
+            return std::string(((const UHDM::indexed_part_select*)o)->VpiFullName());
+        default: return std::string();
+    }
+}
+// § procSelNameFinal282v (v11u282, R11V282_SELFINAL_OFF): the fold
+// references § genProcOpFoldInPlace282 names after the select that holds them,
+// with the select, named design-final in foldTsNameFinalDrain282 (emission
+// order).
+static std::vector<std::pair<UHDM::ref_typespec*, const UHDM::any*>>& procSelFinal282() {
+    static std::vector<std::pair<UHDM::ref_typespec*, const UHDM::any*>> v;
+    return v;
+}
+// The kind of the instance that owns `o` (the first module or interface
+// instance up its parent chain); r11u282's drain laws abstain in interfaces,
+// where golden names the instance for a plain left side too (grid D/*_iface).
+static bool inInterface282(const UHDM::any* o) {
+    for (int g = 0; o && g < 256; ++g, o = o->VpiParent()) {
+        if (o->UhdmType() == UHDM::uhdminterface_inst)
+            return true;
+        if (o->UhdmType() == UHDM::uhdmmodule_inst)
+            return false;
+    }
+    return false;
+}
+static bool rhsHasUnsized282(const UHDM::any* x, int depth = 0);
+// § genCaLhsIpsBoundCloneOnly282's test: a right side Surelog's
+// writeCont_assign reduces to a constant (constants under operations only).
+static bool rhsConstOnly282(const UHDM::any* x, int depth = 0) {
+    if (!x || depth > 64)
+        return false;
+    if (x->UhdmType() == UHDM::uhdmconstant)
+        return true;
+    if (x->UhdmType() != UHDM::uhdmoperation)
+        return false;
+    auto* v = ((const UHDM::operation*)x)->Operands();
+    if (!v || v->empty())
+        return false;
+    for (auto* o : *v)
+        if (!rhsConstOnly282(o, depth + 1))
+            return false;
+    return true;
+}
+// § genCaLhsIpsBoundInPlace282 (r11u282, R11U282_LHSIPSINPLACE_OFF): a
+// parameter folded as an indexed part select's BASE or WIDTH on the LEFT side
+// of a generate scope's continuous assignment (`assign v[P +: 2] = ...`,
+// a3_earl47 `assign p_lhs[LPX +: 4] = 4'hA;`) is golden's clone parented at the
+// select (Surelog compiles the left side against the scope, no getValue
+// substitution there), so its reference reads the select's chain
+// (`work@top.gx[0].v`, `work@a3_earl47.gen_x[0].gen_y[0].p_lhs`), where the
+// right-side rules wrote the instance or the parameter's generate block.  Our
+// three writers of the name (the ips bound fold, genLpUseFoldBound47 and the
+// module-body gen-scope copy) disagree by depth; the law sets it design-final
+// on every generate-scope cont_assign whose left side is an indexed part
+// select.  Grid tools/probe/r11u282repro/cases/L.
+static void lhsIpsBoundInPlace282(const std::vector<const UHDM::cont_assign*>& cas) {
+    static const bool on = r11u282On("R11U282_LHSIPSINPLACE_OFF");
+    if (!on)
+        return;
+    for (auto* ca : cas) {
+        if (!ca->VpiParent() || ca->VpiParent()->UhdmType() != UHDM::uhdmgen_scope)
+            continue;
+        auto* lhs = ca->Lhs();
+        if (!lhs || lhs->UhdmType() != UHDM::uhdmindexed_part_select)
+            continue;
+        if (inInterface282(ca)) {
+            tr282("LHSIPSINPLACE_ABSTAIN", "interface");
+            continue;
+        }
+        auto* ips = (const UHDM::indexed_part_select*)lhs;
+        std::string fn(ips->VpiFullName());
+        if (fn.empty())
+            continue;
+        // § genCaLhsIpsBoundCloneOnly282 (r11u282, R11U282_LHSIPSCLONE_OFF):
+        // the select's chain is golden's name only when writeCont_assign
+        // re-clones the assignment, its right side reducing to a constant
+        // (a3_earl47 `= 4'hA`) or holding an unsized constant (`= '1`);
+        // with any other right side (`= a[1:0]`, `= a[1:0] | 2'd0`) no clone
+        // is made, the getValue clone stays at the instance's param_assign
+        // and the reference reads the instance (`work@top`), in a for- as in
+        // an if-generate, where the law wrote the select's chain (a break on
+        // the for-generate, where pristine already wrote the instance) and
+        // pristine the generate block.  Grid tools/probe/r11u282repro/cases/N.
+        static const bool cloneOnly = r11u282On("R11U282_LHSIPSCLONE_OFF");
+        if (cloneOnly && !rhsConstOnly282(ca->Rhs()) && !rhsHasUnsized282(ca->Rhs(), 0)) {
+            fn = ownerInstName192(ca);
+            if (fn.empty())
+                continue;
+            tr282("LHSIPSCLONE", "noclone " + fn);
+        }
+        for (auto* b : {ips->Base_expr(), ips->Width_expr()}) {
+            if (!b || b->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* rt = ((const UHDM::constant*)b)->Typespec();
+            if (!rt || rt->VpiParent() != b || std::string(rt->VpiFullName()) == fn)
+                continue;
+            tr282("LHSIPSINPLACE", std::string(rt->VpiFullName()) + " -> " + fn);
+            const_cast<UHDM::ref_typespec*>(rt)->VpiFullName(fn);
+        }
+    }
+}
+// § genCaSelBoundNestedOwner282 (r11u282, R11U282_CASELBOUND_OFF): a
+// parameter folded as a part select's bound or an indexed part select's base
+// or width, the select NESTED under an operation (`b[P +: 2] | 8'd0`,
+// `b[P:0] | 8'd0`) on the right side of a generate scope's continuous
+// assignment: golden's reference reads the select's own full name
+// (`work@wrap.u.g[0].b`, the elaborator's clone re-parented at the select)
+// when the left side is a plain name of a signal declared OUTSIDE the
+// generate scope, and the owning instance (`work@wrap.u`, the getValue clone
+// at the instance's param_assign) when the left side is a select or member
+// path or a generate-local signal (r10v64repro/v7_inst64 `assign q2 =
+// n[P +: 1] | 4'd0` with q2 declared in g_if).  Pass 256's
+// § genIpsBoundOwner256 keyed the same choice on for- versus if-generate,
+// which its grid confounded with the left side; ours wrote the generate scope,
+// the select or the instance by emission site.  A select that is the whole
+// right side reads the instance in every grid cell and is left alone.  Grid
+// tools/probe/r11u282repro/cases/I.
+// § genCaSelBoundUnsizedClone282's test: Surelog's DetectUnsizedConstant
+// (UhdmWriter.cpp), a constant of vpiSize -1 anywhere under the right side.
+static bool rhsHasUnsized282(const UHDM::any* x, int depth) {
+    if (!x || depth > 64)
+        return false;
+    auto any = [&](const UHDM::any* a) { return rhsHasUnsized282(a, depth + 1); };
+    switch (x->UhdmType()) {
+        case UHDM::uhdmconstant: return ((const UHDM::constant*)x)->VpiSize() == -1;
+        case UHDM::uhdmoperation:
+            if (auto* v = ((const UHDM::operation*)x)->Operands())
+                for (auto* o : *v)
+                    if (any(o))
+                        return true;
+            return false;
+        case UHDM::uhdmbit_select: return any(((const UHDM::bit_select*)x)->VpiIndex());
+        case UHDM::uhdmpart_select:
+            return any(((const UHDM::part_select*)x)->Left_range()) ||
+                   any(((const UHDM::part_select*)x)->Right_range());
+        case UHDM::uhdmindexed_part_select:
+            return any(((const UHDM::indexed_part_select*)x)->Base_expr()) ||
+                   any(((const UHDM::indexed_part_select*)x)->Width_expr());
+        case UHDM::uhdmvar_select:
+            if (auto* v = ((const UHDM::var_select*)x)->Exprs())
+                for (auto* o : *v)
+                    if (any(o))
+                        return true;
+            return false;
+        case UHDM::uhdmhier_path:
+            if (auto* v = ((const UHDM::hier_path*)x)->Path_elems())
+                for (auto* o : *v)
+                    if (any(o))
+                        return true;
+            return false;
+        case UHDM::uhdmfunc_call:
+            if (auto* v = ((const UHDM::func_call*)x)->Tf_call_args())
+                for (auto* o : *v)
+                    if (any(o))
+                        return true;
+            return false;
+        case UHDM::uhdmsys_func_call:
+            if (auto* v = ((const UHDM::sys_func_call*)x)->Tf_call_args())
+                for (auto* o : *v)
+                    if (any(o))
+                        return true;
+            return false;
+        default: return false;
+    }
+}
+static void genCaSelBoundNestedOwner282(const std::vector<const UHDM::cont_assign*>& cas,
+                                        const std::set<const UHDM::any*>& defs) {
+    static const bool on = r11u282On("R11U282_CASELBOUND_OFF");
+    static const bool hierOn = r11u282On("R11U282_CAHIERBOUND_OFF");
+    if (!on && !hierOn)
+        return;
+    for (auto* ca : cas) {
+        if (!ca->VpiParent())
+            continue;
+        const bool inGen = ca->VpiParent()->UhdmType() == UHDM::uhdmgen_scope;
+        const bool inBody = ca->VpiParent()->UhdmType() == UHDM::uhdmmodule_inst &&
+                            hierOn && !defs.count(ca->VpiParent());
+        if (!inGen && !inBody)
+            continue;
+        if (inInterface282(ca)) {
+            tr282("CASELBOUND_ABSTAIN", "interface");
+            continue;
+        }
+        const UHDM::any* lhs = ca->Lhs();
+        if (!lhs || !ca->Rhs())
+            continue;
+        // the left side's class: a plain name bound to a signal outside the
+        // generate scope, or anything else
+        int lhsOuter = -1;  // -1 abstain, 1 outer plain name, 0 other
+        if (lhs->UhdmType() == UHDM::uhdmref_obj) {
+            auto* act = ((const UHDM::ref_obj*)lhs)->Actual_group();
+            if (act && act->VpiParent()) {
+                auto pt = act->VpiParent()->UhdmType();
+                if (pt == UHDM::uhdmgen_scope)
+                    lhsOuter = 0;
+                else if (pt == UHDM::uhdmmodule_inst || pt == UHDM::uhdminterface_inst)
+                    lhsOuter = 1;
+            }
+            else if (!act) {
+                // unbound: look the name up in the enclosing generate scopes
+                const std::string_view nm = lhs->VpiName();
+                bool local = false, top = false;
+                for (const UHDM::any* sc = ca->VpiParent(); sc && !nm.empty(); sc = sc->VpiParent()) {
+                    if (sc->UhdmType() == UHDM::uhdmmodule_inst ||
+                        sc->UhdmType() == UHDM::uhdminterface_inst) {
+                        top = true;
+                        // § genCaSelBoundImplicitLhs282 (r11u282,
+                        // R11U282_CAIMPLICIT_OFF): a name declared nowhere,
+                        // neither in the generate scopes nor in the
+                        // instance, is an IMPLICIT net.  Surelog's
+                        // UhdmWriter::writeCont_assign re-clones a cont_assign
+                        // with a ref_obj left side only when
+                        // bindVariable(mod, m, name) finds a variable, which
+                        // it does not for an implicit net, so the getValue
+                        // clone stays at the instance's param_assign and the
+                        // reference reads the instance (`assign imp =
+                        // ^a[W:0]`, v11u262repro VL/vl13 and vl41: golden
+                        // `work@top.u`), where the law wrote the select's
+                        // name.  Grid tools/probe/r11u282repro/cases/M.
+                        if (r11u282On("R11U282_CAIMPLICIT_OFF") &&
+                            sc->UhdmType() == UHDM::uhdmmodule_inst) {
+                            auto* mi = (const UHDM::module_inst*)sc;
+                            bool decl = false;
+                            if (auto* v = mi->Nets())
+                                for (auto* n : *v)
+                                    decl = decl || (n && n->VpiName() == nm);
+                            if (auto* v = mi->Variables())
+                                for (auto* n : *v)
+                                    decl = decl || (n && n->VpiName() == nm);
+                            if (auto* v = mi->Array_nets())
+                                for (auto* n : *v)
+                                    decl = decl || (n && n->VpiName() == nm);
+                            if (auto* v = mi->Ports())
+                                for (auto* n : *v)
+                                    decl = decl || (n && n->VpiName() == nm);
+                            if (!decl) {
+                                tr282("CAIMPLICIT", std::string(nm));
+                                top = false;
+                                local = true;
+                            }
+                        }
+                        break;
+                    }
+                    if (sc->UhdmType() != UHDM::uhdmgen_scope)
+                        continue;
+                    auto* gs = (const UHDM::gen_scope*)sc;
+                    if (auto* v = gs->Nets())
+                        for (auto* n : *v)
+                            if (n && n->VpiName() == nm)
+                                local = true;
+                    if (auto* v = gs->Variables())
+                        for (auto* n : *v)
+                            if (n && n->VpiName() == nm)
+                                local = true;
+                    if (auto* v = gs->Array_nets())
+                        for (auto* n : *v)
+                            if (n && n->VpiName() == nm)
+                                local = true;
+                    if (local)
+                        break;
+                }
+                if (local)
+                    lhsOuter = 0;
+                else if (top)
+                    lhsOuter = 1;
+            }
+        }
+        else if (lhs->UhdmType() == UHDM::uhdmlogic_net || lhs->UhdmType() == UHDM::uhdmlogic_var ||
+                 lhs->UhdmType() == UHDM::uhdmstruct_net || lhs->UhdmType() == UHDM::uhdmnet ||
+                 lhs->UhdmType() == UHDM::uhdmbit_var || lhs->UhdmType() == UHDM::uhdmstruct_var) {
+            if (auto* lp = lhs->VpiParent()) {
+                if (lp->UhdmType() == UHDM::uhdmgen_scope)
+                    lhsOuter = 0;
+                else if (lp->UhdmType() == UHDM::uhdmmodule_inst || lp->UhdmType() == UHDM::uhdminterface_inst)
+                    lhsOuter = 1;
+            }
+        }
+        else if (lhs->UhdmType() == UHDM::uhdmbit_select ||
+                 lhs->UhdmType() == UHDM::uhdmpart_select ||
+                 lhs->UhdmType() == UHDM::uhdmindexed_part_select ||
+                 lhs->UhdmType() == UHDM::uhdmvar_select ||
+                 lhs->UhdmType() == UHDM::uhdmhier_path)
+            lhsOuter = 0;
+        if (lhsOuter < 0) {
+            std::string why = UHDM::UhdmName(lhs->UhdmType());
+            const UHDM::any* lo = lhs;
+            if (lhs->UhdmType() == UHDM::uhdmref_obj)
+                lo = ((const UHDM::ref_obj*)lhs)->Actual_group();
+            why += lo ? std::string(" ") + (lo->VpiParent() ? UHDM::UhdmName(lo->VpiParent()->UhdmType()) : "noparent")
+                      : " noactual";
+            if (inGen)
+                tr282("CASELBOUND_ABSTAIN", "lhs " + why);
+            continue;
+        }
+        const std::string own = ownerInstName192(ca);
+        // § genCaSelBoundUnsizedClone282 (r11u282, R11U282_CAUNSIZED_OFF): a
+        // right side holding an UNSIZED constant (`'0`, `'1`) anywhere is
+        // re-cloned by Surelog's UhdmWriter::writeCont_assign
+        // (`DetectUnsizedConstant`, clone_tree with an ElaboratorContext),
+        // whatever the left side, and the clone re-parents the getValue
+        // constant at the cloned select: the reference then reads the
+        // select's chain as for a plain outer left side (`assign y6[g] = c[g]
+        // ? '0 : x[S:0]`, r11u192repro/cases/B/b11_genfor_unsized: golden
+        // `work@top.gb[0].x`), where the law wrote the instance.  A
+        // generate-local parameter's fold keeps its declaring scope as
+        // before.  Grid tools/probe/r11u282repro/cases/M.
+        bool cl282 = false;
+        if (lhsOuter == 0 && r11u282On("R11U282_CAUNSIZED_OFF") && rhsHasUnsized282(ca->Rhs())) {
+            cl282 = true;
+            tr282("CAUNSIZED", own);
+        }
+        const bool useSel = lhsOuter || cl282;
+        // § genCaCastFoldOrphanName282 (r11u282, R11U282_CASTORPHAN_OFF): a
+        // parameter folded as the operand of a CAST that is the whole right
+        // side (`assign q1 = W'(P)`, r10v64repro/v7_inst64) when the left side
+        // is a select or a generate-local signal: golden reaches that
+        // assignment through a cont_assign clone with no parent, so the
+        // reference's ComputeFullName reads empty; ours named the scope.  The
+        // reference is detached from its constant so that its chain reads
+        // empty too (vpiParent is read by no comparator field and by no
+        // uhdm2rtlil reader of a typespec reference).
+        // Grid tools/probe/r11u282repro/cases/I (*_cast_s_*, *_cast_l_*).
+        if (inGen && on && lhsOuter == 0 && ca->Rhs()->UhdmType() == UHDM::uhdmoperation &&
+            ((const UHDM::operation*)ca->Rhs())->VpiOpType() == vpiCastOp &&
+            r11u282On("R11U282_CASTORPHAN_OFF")) {
+            if (auto* ops = ((const UHDM::operation*)ca->Rhs())->Operands())
+                for (auto* o : *ops)
+                    if (o && o->UhdmType() == UHDM::uhdmconstant)
+                        if (auto* rt = ((const UHDM::constant*)o)->Typespec();
+                            rt && rt->VpiParent() == o) {
+                            tr282("CASTORPHAN", std::string(rt->VpiFullName()));
+                            // an empty stored name reads back through
+                            // ComputeFullName, so the reference is detached
+                            // from the constant (the constant keeps it as its
+                            // Typespec): its chain is empty as golden's is.
+                            const_cast<UHDM::ref_typespec*>(rt)->VpiFullName("");
+                            const_cast<UHDM::ref_typespec*>(rt)->VpiParent(nullptr);
+                        }
+        }
+        // fix the bound folds of one select: `want` the name to write
+        auto fixSel = [&](const UHDM::any* o, const std::string& want, const char* tag) {
+            const UHDM::any* b1 = nullptr;
+            const UHDM::any* b2 = nullptr;
+            if (o->UhdmType() == UHDM::uhdmindexed_part_select) {
+                b1 = ((const UHDM::indexed_part_select*)o)->Base_expr();
+                b2 = ((const UHDM::indexed_part_select*)o)->Width_expr();
+            }
+            else if (o->UhdmType() == UHDM::uhdmpart_select) {
+                b1 = ((const UHDM::part_select*)o)->Left_range();
+                b2 = ((const UHDM::part_select*)o)->Right_range();
+            }
+            if (want.empty() || want.compare(0, 5, "work@") != 0)
+                return;
+            for (auto* b : {b1, b2}) {
+                if (!b || b->UhdmType() != UHDM::uhdmconstant)
+                    continue;
+                auto* rt = ((const UHDM::constant*)b)->Typespec();
+                if (!rt || rt->VpiParent() != b || std::string(rt->VpiFullName()) == want)
+                    continue;
+                if (!lhsOuter && genLocalFoldRts282().count(rt)) {
+                    tr282("CASELBOUND_ABSTAIN", "genlocal");
+                    continue;
+                }
+                tr282(tag, std::string(rt->VpiFullName()) + " -> " + want);
+                const_cast<UHDM::ref_typespec*>(rt)->VpiFullName(want);
+            }
+        };
+        // § caHierSelBoundName282 (r11u282, R11U282_CAHIERBOUND_OFF): the
+        // same choice for a select that is the LAST element of a member path
+        // (`|st.addr[BW +: 1]`, r10earl_repro/vo row E): nested under an
+        // operation, a plain left side reads the chain through the path
+        // (`work@votop.u.st.addr[16+:1].addr`, ComputeFullName over the
+        // select, the path's text name and the scope) and any other left side
+        // the instance, in a module body as in a generate scope; a path that
+        // is the whole right side of a generate scope's assignment reads the
+        // instance (`work@wrap.u`; a module body's already does).  Grid
+        // tools/probe/r11u282repro/cases/H.
+        auto hier = [&](const UHDM::any* hp, bool nested) {
+            if (!hierOn)
+                return;
+            auto* els = ((const UHDM::hier_path*)hp)->Path_elems();
+            if (!els || els->empty())
+                return;
+            const UHDM::any* last = els->back();
+            if (!last || (last->UhdmType() != UHDM::uhdmindexed_part_select &&
+                          last->UhdmType() != UHDM::uhdmpart_select))
+                return;
+            if (nested)
+                fixSel(last, useSel ? chainFullName280(last) : own, "CAHIERBOUND");
+            else if (inGen)
+                fixSel(last, own, "CAHIERBOUND");
+        };
+        std::function<void(const UHDM::any*)> walk = [&](const UHDM::any* e) {
+            if (!e || e->UhdmType() != UHDM::uhdmoperation)
+                return;
+            auto* ops = ((const UHDM::operation*)e)->Operands();
+            if (!ops)
+                return;
+            for (auto* o : *ops) {
+                if (!o)
+                    continue;
+                if (o->UhdmType() == UHDM::uhdmoperation) {
+                    walk(o);
+                    continue;
+                }
+                if (o->UhdmType() == UHDM::uhdmhier_path) {
+                    hier(o, true);
+                    continue;
+                }
+                if (!on || !inGen || o->VpiParent() != e)
+                    continue;
+                if (o->UhdmType() == UHDM::uhdmindexed_part_select)
+                    fixSel(o, useSel ? std::string(((const UHDM::indexed_part_select*)o)->VpiFullName()) : own,
+                           "CASELBOUND");
+                else if (o->UhdmType() == UHDM::uhdmpart_select)
+                    fixSel(o, useSel ? std::string(((const UHDM::part_select*)o)->VpiFullName()) : own,
+                           "CASELBOUND");
+            }
+        };
+        if (ca->Rhs()->UhdmType() == UHDM::uhdmhier_path)
+            hier(ca->Rhs(), false);
+        walk(ca->Rhs());
+    }
+}
+// § genCaReplCountUnsizedClone282 (r11u282, R11U282_REPLCLONE_OFF): a
+// parameter folded as a REPLICATION COUNT in a generate scope's continuous
+// assignment whose right side holds an unsized constant (`assign z[7:0] =
+// {P{b[0]}} | '0`): writeCont_assign's DetectUnsizedConstant leg re-clones
+// the assignment and the clone re-parents the count's getValue constant at
+// the replication, so the reference reads the generate scope's chain
+// (golden `work@wrap.u.g[0]` in a for-generate, `work@wrap.u.g` in an
+// if-generate), where § genCaReplCountInst282 wrote the instance (a break in
+// the if-generate, where pristine already wrote the scope) and pristine the
+// instance in the for-generate.  Interfaces abstain.  Grid
+// tools/probe/r11u282repro/cases/N.
+static void genCaReplCountUnsizedClone282(const std::vector<const UHDM::cont_assign*>& cas) {
+    static const bool on = r11u282On("R11U282_REPLCLONE_OFF");
+    if (!on)
+        return;
+    for (auto* ca : cas) {
+        if (!ca->VpiParent() || ca->VpiParent()->UhdmType() != UHDM::uhdmgen_scope || !ca->Rhs())
+            continue;
+        if (!rhsHasUnsized282(ca->Rhs(), 0))
+            continue;
+        if (inInterface282(ca)) {
+            tr282("REPLCLONE_ABSTAIN", "interface");
+            continue;
+        }
+        const std::string want(((const UHDM::gen_scope*)ca->VpiParent())->VpiFullName());
+        if (want.empty())
+            continue;
+        std::function<void(const UHDM::any*)> walk = [&](const UHDM::any* e) {
+            if (!e || e->UhdmType() != UHDM::uhdmoperation)
+                return;
+            auto* op = (const UHDM::operation*)e;
+            auto* ops = op->Operands();
+            if (!ops)
+                return;
+            if (op->VpiOpType() == vpiMultiConcatOp && !ops->empty() && ops->front() &&
+                ops->front()->UhdmType() == UHDM::uhdmconstant) {
+                auto* rt = ((const UHDM::constant*)ops->front())->Typespec();
+                if (rt && rt->VpiParent() == ops->front() && std::string(rt->VpiFullName()) != want) {
+                    tr282("REPLCLONE", std::string(rt->VpiFullName()) + " -> " + want);
+                    const_cast<UHDM::ref_typespec*>(rt)->VpiFullName(want);
+                }
+            }
+            for (auto* o : *ops)
+                walk(o);
+        };
+        walk(ca->Rhs());
+    }
+}
+void foldTsNameFinalDrain282(UHDM::Serializer& s) {
+    if (getenv("R11U282_OFF"))
+        return;
+    // every continuous assignment, and the definition listings (design
+    // AllModules: a module body there keeps its definition-scope name, golden
+    // `work@top`); the laws rename objects independently, so the walk order
+    // does not reach the database.
+    std::vector<const UHDM::cont_assign*> cas;
+    std::set<const UHDM::any*> defs;
+    for (auto& [obj, id] : s.AllObjects()) {
+        if (!obj)
+            continue;
+        if (obj->UhdmType() == UHDM::uhdmcont_assign)
+            cas.push_back((const UHDM::cont_assign*)obj);
+        else if (obj->UhdmType() == UHDM::uhdmdesign)
+            if (auto* am = ((const UHDM::design*)obj)->AllModules())
+                for (auto* m : *am)
+                    defs.insert(m);
+    }
+    lhsIpsBoundInPlace282(cas);
+    genCaSelBoundNestedOwner282(cas, defs);
+    genCaReplCountUnsizedClone282(cas);
+    // § procSelNameFinal282v: the select names over the final parent chain.
+    for (auto& [rt, sel] : procSelFinal282()) {
+        const std::string fn = selFullName282(sel);
+        if (std::string(rt->VpiFullName()) != fn)
+            tr282("SELFINAL", std::string(rt->VpiFullName()) + " -> " + fn);
+        rt->VpiFullName(fn);
+    }
+    procSelFinal282().clear();
+}
+
 void hpMemVarSelNamesDrain280() {
     static const bool onIdx = r11u280On("R11U280_VSIDXNAME_OFF");
     auto set = [](UHDM::any* o) {
@@ -20412,6 +20980,10 @@ UHDM::constant* UhdmExporter::genLpUseFoldBound47(const Expression& e,
     rt->VpiFullName(declScope);
     rt->VpiParent(c);
     c->Typespec(rt);
+    // § genCaSelBoundNestedOwner282: a generate-local parameter's fold keeps
+    // its declaring scope's name where the instance would be written
+    // (r10earl56repro/a5_earl56 `n_bare`, a generate-local left side).
+    genLocalFoldRts282().insert(rt);
     for (auto& gl : pendingGenLpTs)
         if (gl.ps == it->second.ps) {
             gl.shareRts.push_back(rt);
@@ -26203,7 +26775,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 rt->VpiFullName(fn9);
                             }
                             else if (gsProcOpFold75 &&
-                                     !gsProcInstPrefix75.empty())
+                                     !gsProcInstPrefix75.empty()) {
                                 // § genScopeProcOpFoldTs75 — the OWNING
                                 // INSTANCE, not the gen block: golden writes
                                 // `work@p0m` where `prefix` here is
@@ -26212,6 +26784,82 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // and never VpiFullName, so this is exactness,
                                 // not a judge field.
                                 rt->VpiFullName(gsProcInstPrefix75);
+                                // § genProcOpFoldInPlace282 (r11u282,
+                                // R11U282_PROCOPINPLACE_OFF): the instance is
+                                // golden's name only when the operation that
+                                // DIRECTLY holds the fold is a CONCATENATION or
+                                // a REPLICATION (pass 75's witness `{N{x}}`: the
+                                // concatenation leaves the getValue clone at
+                                // the instance's param_assign).  Any other
+                                // operation chain keeps the clone it holds, so
+                                // the reference reads ComputeFullName in place:
+                                // under a select (`a[w][P-1]`, `b[P-1:0]`) the
+                                // select's name (`work@top.g[0].a`), under the
+                                // statement the generate block's
+                                // (`r[1] = NB + ND`, g2_orig76:
+                                // `work@g76origtop.u_o.gen_o`).  Grid
+                                // tools/probe/r11u282repro/cases/G.
+                                if (r11u282On("R11U282_PROCOPINPLACE_OFF")) {
+                                    const UHDM::any* up282 = parent;
+                                    const int ot282 = ((const UHDM::operation*)parent)->VpiOpType();
+                                    const bool cat282 = ot282 == vpiConcatOp || ot282 == vpiMultiConcatOp;
+                                    while (up282 && up282->UhdmType() == UHDM::uhdmoperation)
+                                        up282 = up282->VpiParent();
+                                    // § genProcOpFoldUnaryKeepsInst282 (r11u282,
+                                    // R11U282_PROCOPUNARY_OFF): a UNARY operator
+                                    // directly holding the fold (`~P`, `-P`,
+                                    // `!P`, `|P`, `a & ~M`) leaves the clone at
+                                    // the param_assign too: CompileExpression's
+                                    // paUnary_* arm pushes its operand without
+                                    // re-parenting it, as the concatenation arm
+                                    // does, so golden reads the instance
+                                    // (r11u116repro/grid/f1 pk_*_ac `(a[c] & ~M)
+                                    // == 32'd0`: `work@dut`), where the law wrote
+                                    // the statement's scope.  A cast holder keeps
+                                    // the law (`32'(P)`).  Grid
+                                    // tools/probe/r11u282repro/cases/U.
+                                    const bool un282 = unaryOp282(ot282) &&
+                                                       r11u282On("R11U282_PROCOPUNARY_OFF");
+                                    if (cat282)
+                                        tr282("PROCOPINPLACE_ABSTAIN", "concat");
+                                    else if (un282)
+                                        tr282("PROCOPUNARY", std::string(psym.name));
+                                    else if (up282 && (up282->UhdmType() == UHDM::uhdmvar_select ||
+                                                       up282->UhdmType() == UHDM::uhdmbit_select ||
+                                                       up282->UhdmType() == UHDM::uhdmpart_select ||
+                                                       up282->UhdmType() == UHDM::uhdmindexed_part_select)) {
+                                        tr282("PROCOPINPLACE", "select " + std::string(psym.name));
+                                        // § procSelNameFinal282v (v11u282,
+                                        // R11V282_SELFINAL_OFF): the select's
+                                        // full name is read design-final, not
+                                        // here.  Its getter caches
+                                        // ComputeFullName into the select, and
+                                        // a select that is a member path's
+                                        // element (`s.f[P-1]`) is not yet under
+                                        // its generate scope at this point: the
+                                        // law stored `work@top.s.f[4 - 1].f` on
+                                        // the bit_select itself, where pristine
+                                        // and golden read
+                                        // `work@top.g[0].s.f[4 - 1].f`
+                                        // (tools/probe/v11u282repro VP/vp26,
+                                        // chain away 2 in both views).
+                                        if (r11v282On("R11V282_SELFINAL_OFF"))
+                                            procSelFinal282().emplace_back(rt, up282);
+                                        else
+                                            rt->VpiFullName(selFullName282(up282));
+                                    }
+                                    else if (up282 && (up282->UhdmType() == UHDM::uhdmassignment ||
+                                                       up282->UhdmType() == UHDM::uhdmif_stmt ||
+                                                       up282->UhdmType() == UHDM::uhdmif_else) &&
+                                             !prefix.empty()) {
+                                        tr282("PROCOPINPLACE", "stmt " + std::string(psym.name));
+                                        rt->VpiFullName(prefix);
+                                    }
+                                    else
+                                        tr282("PROCOPINPLACE_ABSTAIN",
+                                              up282 ? UHDM::UhdmName(up282->UhdmType()) : std::string("null"));
+                                }
+                            }
                             else {
                                 std::string nm192 = prefix;
                                 // § genForReplCountOwner192 (r11u192) — the
@@ -26309,6 +26957,58 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         genCaLoopParamFold || genCaChildLoopFold21,
                                         contAssignView == 2 && !inGenScopeCaRhs &&
                                             !inProcessEmit && !currentTf);
+                                // § genProcIpsBoundInst282 (r11u282,
+                                // R11U282_PROCIPSINST_OFF): the same getValue
+                                // clone for a wildcard-imported package
+                                // parameter written directly as an indexed part
+                                // select's bound inside a generate-scope
+                                // PROCESS (`z[w] = b[w +: P]`): golden's clone
+                                // stays at the instance's param_assign and the
+                                // reference reads the instance (`work@top`),
+                                // ours the generate block.  Grid
+                                // tools/probe/r11u282repro/cases/G (*_ipsw_*).
+                                // § tfFoldCaseInsideBoundModule282 (r11u282,
+                                // R11U282_TFCASEINS_OFF): in a module
+                                // function or task, a wildcard-imported
+                                // package parameter written directly as a CASE
+                                // ITEM (`case (x) P_LIT: ...`, r11u114 b07) or
+                                // as an INSIDE RANGE bound (`x inside {[PA:PB]}`,
+                                // r10uvm99 g99_a7) is golden's getValue clone
+                                // at the module's param_assign: the reference
+                                // reads the module (`work@top`), not the
+                                // subroutine the operand rule names
+                                // (`work@top.f`).  An operand under further
+                                // arithmetic (`[P-1:P+1]`, `P-1, 2:`) and a
+                                // plain inside member (`{P, 1}`) keep the
+                                // subroutine.  Grid
+                                // tools/probe/r11u282repro/cases/F.
+                                if (currentTf && parent && !inProcessEmit &&
+                                    r11u282On("R11U282_TFCASEINS_OFF")) {
+                                    bool hit282 = parent->UhdmType() == UHDM::uhdmcase_item;
+                                    if (!hit282 && parent->UhdmType() == UHDM::uhdmoperation &&
+                                        ((const UHDM::operation*)parent)->VpiOpType() == vpiListOp &&
+                                        parent->VpiParent() &&
+                                        parent->VpiParent()->UhdmType() == UHDM::uhdmoperation &&
+                                        ((const UHDM::operation*)parent->VpiParent())->VpiOpType() ==
+                                            vpiInsideOp)
+                                        hit282 = true;
+                                    if (hit282) {
+                                        std::string own282 = ownerInstName192(currentTf);
+                                        if (!own282.empty() && own282 != nm192) {
+                                            tr282("TFCASEINS", nm192 + " -> " + own282);
+                                            nm192 = own282;
+                                        }
+                                        else if (own282.empty())
+                                            tr282("TFCASEINS_ABSTAIN", nm192);
+                                    }
+                                }
+                                if (ipsWidFold9 && inGenScopeProc && !currentSubSym &&
+                                    !gsProcInstPrefix75.empty() && !elabConnEmit21 &&
+                                    nm192 != gsProcInstPrefix75 &&
+                                    r11u282On("R11U282_PROCIPSINST_OFF")) {
+                                    tr282("PROCIPSINST", nm192 + " -> " + gsProcInstPrefix75);
+                                    nm192 = gsProcInstPrefix75;
+                                }
                                 rt->VpiFullName(nm192);
                             }
                             // § hcSelIdxTsSkipsPort254 — A HIGH-CONN SELECT'S
@@ -27659,6 +28359,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     if (auto own145 = unaryOperandOwnerName145(parent, caLhsIsSelect145(expr));
                                         !own145.empty())
                                         rt7->VpiFullName(own145);
+                                    // § genCaReplCountInst282 (copy branch)
+                                    if (auto own282 = genCaReplCountInst282(
+                                            parent, contAssignView == 0 && inGenScopeCaRhs,
+                                            caLhsNotPlainName282(expr));
+                                        !own282.empty())
+                                        rt7->VpiFullName(own282);
                                     rt7->VpiParent(c7);
                                     if (auto* srt7 = src7->Typespec();
                                         srt7 && srt7->Actual_typespec())
@@ -27691,6 +28397,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (auto own145 = unaryOperandOwnerName145(parent, caLhsIsSelect145(expr));
                             !own145.empty())
                             rt8->VpiFullName(own145);
+                        // § genCaReplCountInst282 (mint branch)
+                        if (auto own282 = genCaReplCountInst282(
+                                parent, contAssignView == 0 && inGenScopeCaRhs,
+                                caLhsNotPlainName282(expr));
+                            !own282.empty())
+                            rt8->VpiFullName(own282);
                         rt8->VpiParent(c8);
                         auto* its8 = s.MakeInt_typespec();
                         bool typed8 = false;
@@ -28560,6 +29272,35 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bool gsOn154 = r11u154On("R11U154_GSFOLDTS_OFF");
                         bool keep154 = gsOn154 && parent &&
                                        parent->UhdmType() == UHDM::uhdmoperation;
+                        // § genProcCatFoldInst282 (r11u282,
+                        // R11U282_PROCCATINST_OFF): a fold that is directly an
+                        // operand of a CONCATENATION or a REPLICATION
+                        // (`{P, 1'b0}`, `{P{1'b1}}`) is not re-parented by the
+                        // concatenation: golden's clone stays at the instance's
+                        // param_assign, the reference reading the instance
+                        // (`work@top`), not the generate block the operation
+                        // rule keeps.  Grid tools/probe/r11u282repro/cases/G
+                        // (*_cat_*, *_repl_*).
+                        bool cat282 = false;
+                        if (keep154 && genPsBound9 && currentGenBlkScope &&
+                            !gsProcInstPrefix75.empty() &&
+                            r11u282On("R11U282_PROCCATINST_OFF")) {
+                            const int ot282 = ((const UHDM::operation*)parent)->VpiOpType();
+                            cat282 = ot282 == vpiConcatOp || ot282 == vpiMultiConcatOp;
+                            // § genProcUnaryFoldInst282 (r11u282,
+                            // R11U282_PROCCATUNARY_OFF): the same for a fold
+                            // directly under a UNARY operator (`~P`, `a & ~P`):
+                            // CompileExpression's paUnary_* arm does not
+                            // re-parent its operand, so golden's clone stays at
+                            // the param_assign and reads the instance
+                            // (`work@top`), where the operation rule wrote the
+                            // generate block.  Grid tools/probe/r11u282repro/cases/U.
+                            if (!cat282 && unaryOp282(ot282) &&
+                                r11u282On("R11U282_PROCCATUNARY_OFF")) {
+                                cat282 = true;
+                                tr282("PROCCATUNARY", std::string(gsProcInstPrefix75));
+                            }
+                        }
                         if (gsOn154 && genPsBound9 && currentGenBlkScope &&
                             parent &&
                             parent->UhdmType() == UHDM::uhdmbit_select &&
@@ -28600,6 +29341,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 if (auto dp9 = rpfx9.rfind('.');
                                     dp9 != std::string::npos)
                                     rpfx9.resize(dp9);
+                            // § genProcFoldTsInstFromSelect282 (r11u282,
+                            // R11U282_PROCSELINST_OFF): the drop above counts the
+                            // generate levels from the GEN BLOCK's path, but inside
+                            // a nested select (`cl_rdata[i][{off_i, 3'b0} +: FW]`,
+                            // the width of an indexed part select that is a
+                            // var_select's element) `prefix` is the SELECT's path,
+                            // one level longer, and the drop left the gen block
+                            // (`work@top.g[0]`).  Golden's clone sits at the
+                            // instance's param_assign (CompileExpression.cpp's
+                            // netlist arm, `result->VpiParent(param_ass)`), its
+                            // reference reading the instance (`work@top`): the
+                            // instance's own name, gsProcInstPrefix75.  Grid
+                            // tools/probe/r11u282repro/cases/G.
+                            if (r11u282On("R11U282_PROCSELINST_OFF") &&
+                                !gsProcInstPrefix75.empty() &&
+                                !genBlkFullName58.empty() &&
+                                prefix != genBlkFullName58 &&
+                                prefix.compare(0, genBlkFullName58.size() + 1,
+                                               genBlkFullName58 + ".") == 0 &&
+                                rpfx9 != gsProcInstPrefix75) {
+                                tr282("PROCSELINST", rpfx9 + " -> " + gsProcInstPrefix75);
+                                rpfx9 = gsProcInstPrefix75;
+                            }
+                        }
+                        if (cat282 && rpfx9 != gsProcInstPrefix75) {
+                            tr282("PROCCATINST", rpfx9 + " -> " + gsProcInstPrefix75);
+                            rpfx9 = gsProcInstPrefix75;
                         }
                         rt->VpiFullName(rpfx9);
                         // § genProcFoldDeclTsScopeNamed167 — the declared-
