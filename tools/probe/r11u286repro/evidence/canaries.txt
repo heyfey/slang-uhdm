@@ -1,0 +1,8 @@
+== canaries surelog (law sweep csv vs results/golden_surelog.csv)
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+== canaries uhdm2rtlil
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== ctcan2 surelog EXPECT_UNKNOWN=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+== ctcan2 uhdm2rtlil EXPECT_UNKNOWN=6
+PASS: every supplementary canary row is byte-identical to the baseline.

@@ -1,0 +1,75 @@
+MOVER CK/k01_two_inst d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 282 objects
+MOVER CK/k01_two_inst e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 284 objects
+MOVER CK/k02_depth3 d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 246 objects
+MOVER CK/k02_depth3 e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 245 objects
+MOVER CK/k03_two_patterns d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 316 objects
+MOVER CK/k03_two_patterns e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 314 objects
+MOVER CK/k04_top_and_child d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 326 objects
+MOVER CK/k04_top_and_child e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 324 objects
+MOVER CK/k05_gen_inst d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER CK/k05_gen_inst e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER CK/k06_module_typedef d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER CK/k06_module_typedef e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER EB/e01_kinds d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 97 objects
+MOVER EB/e01_kinds e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 94 objects
+MOVER EB/e02_nested_end d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 128 objects
+MOVER EB/e02_nested_end e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 126 objects
+MOVER EB/e03_gen_fork d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 111 objects
+MOVER EB/e03_gen_fork e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 109 objects
+MOVER EB/e04_class_method d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 45 objects
+MOVER EB/e04_class_method e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 45 objects
+MOVER GL/g01_for_ff d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 142 objects
+MOVER GL/g01_for_ff e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 142 objects
+MOVER GL/g02_if_comb d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 98 objects
+MOVER GL/g02_if_comb e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 100 objects
+MOVER GL/g03_case_gen d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 78 objects
+MOVER GL/g03_case_gen e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 78 objects
+MOVER GL/g04_nested d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 143 objects
+MOVER GL/g04_nested e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 143 objects
+MOVER GL/g05_partsel_ctl d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 104 objects
+MOVER GL/g05_partsel_ctl e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 104 objects
+MOVER GL/g06_ops_idx d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 114 objects
+MOVER GL/g06_ops_idx e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 113 objects
+MOVER GL/g09_iface_gen d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER GL/g09_iface_gen e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER GL/g11_inst_depth d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 93 objects
+MOVER GL/g11_inst_depth e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 93 objects
+MOVER GL/g12_assoc d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 61 objects
+MOVER GL/g12_assoc e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 63 objects
+MOVER GL/g13_member_root d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 238 objects
+MOVER GL/g13_member_root e: STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL fullname
+MOVER GL/g14_named_args d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 162 objects
+MOVER GL/g14_named_args e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 162 objects
+MOVER IS/i01_hex d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 104 objects
+MOVER IS/i01_hex e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 104 objects
+MOVER IS/i02_dec d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 104 objects
+MOVER IS/i02_dec e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 104 objects
+MOVER IS/i03_localparam d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 104 objects
+MOVER IS/i03_localparam e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 104 objects
+MOVER IS/i04_select_idx d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 155 objects
+MOVER IS/i04_select_idx e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 147 objects
+MOVER IS/i07_header_param d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 132 objects
+MOVER IS/i07_header_param e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 132 objects
+MOVER IS/i09_shortint_ctl d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER IS/i09_shortint_ctl e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER WP/w01_class_task d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 73 objects
+MOVER WP/w01_class_task e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 82 objects
+CMP WP/w02_iter_arg d 63 -> 0
+MOVER WP/w02_iter_arg d: NOT_EQUAL stage1 -> STRICT_EQUAL 46 objects
+CMP WP/w02_iter_arg e 71 -> 0
+MOVER WP/w02_iter_arg e: NOT_EQUAL stage1 -> STRICT_EQUAL 61 objects
+MOVER WP/w03_ternary d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 49 objects
+MOVER WP/w03_ternary e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 58 objects
+MOVER WP/w04_module_proc d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 67 objects
+MOVER WP/w04_module_proc e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 67 objects
+CMP WP/w05_queue_methods d 63 -> 0
+MOVER WP/w05_queue_methods d: NOT_EQUAL stage1 -> STRICT_EQUAL 50 objects
+CMP WP/w05_queue_methods e 71 -> 0
+MOVER WP/w05_queue_methods e: NOT_EQUAL stage1 -> STRICT_EQUAL 62 objects
+MOVER WP/w07_multiline d: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 36 objects
+MOVER WP/w07_multiline e: STRICT_NOTEQUAL endcol -> STRICT_EQUAL 45 objects
+MOVER WP/w09_this_extern d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER WP/w09_this_extern e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER WP/w10_iface d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER WP/w10_iface e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+case-views=92 movers=70 entering_STRICT_EQUAL=57 leaving_STRICT_EQUAL=0 rc_changes=0 cmp_changes=4 OFF_equals_pristine=92/92

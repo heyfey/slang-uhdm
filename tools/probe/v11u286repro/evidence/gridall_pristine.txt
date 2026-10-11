@@ -1,0 +1,366 @@
+cases/VE/ve01_end_label d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=9b1b646c744c
+cases/VE/ve01_end_label e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=83fb9ae7d885
+cases/VE/ve02_simple_escaped d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=bc133644dc07
+cases/VE/ve02_simple_escaped e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=436c1d7b0927
+cases/VE/ve03_function d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=aea6690c3e9d
+cases/VE/ve03_function e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b2748a6a6fab
+cases/VE/ve04_nested d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=3d452fc08bb0
+cases/VE/ve04_nested e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=63a2a711522c
+cases/VE/ve05_two_spaces d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=754a7bb6236e
+cases/VE/ve05_two_spaces e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b8d943fd8b4f
+cases/VE/ve06_gen_block_proc d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=7bf89c8d749d
+cases/VE/ve06_gen_block_proc e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=4640bbfcad68
+cases/VE/ve07_task d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=217e9ca9f764
+cases/VE/ve07_task e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=a19028aafe60
+cases/VE/ve08_class_method d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=8852c6292792
+cases/VE/ve08_class_method e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b28b2cf1ff79
+cases/VE/ve09_no_space_colon d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=1b75191ce33d
+cases/VE/ve09_no_space_colon e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=cd5e68a317d8
+cases/VE/ve10_fork_ctl d pristine rc=0 cmp=0 STRICT_EQUAL 22 objects md5=7b96cdd95728
+cases/VE/ve10_fork_ctl e pristine rc=0 cmp=0 STRICT_EQUAL 19 objects md5=e88cc5ed1768
+cases/VE/ve11_for_gen_ff d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=54e563f051e5
+cases/VE/ve11_for_gen_ff e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=c0483e8d5c3f
+cases/VE/ve12_two_esc_on_line d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=589eedc67bce
+cases/VE/ve12_two_esc_on_line e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=e1ec1c503738
+cases/VE/ve13_crlf d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5342288b5271
+cases/VE/ve13_crlf e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=17dc88a1a61e
+cases/VE/ve14_plain_ctl d pristine rc=0 cmp=0 STRICT_EQUAL 22 objects md5=ee6ac025807d
+cases/VE/ve14_plain_ctl e pristine rc=0 cmp=0 STRICT_EQUAL 19 objects md5=7652a380e467
+cases/VE/ve15_escaped_gen_block_name d pristine rc=0 cmp=0 STRICT_EQUAL 22 objects md5=04fdeda924ba
+cases/VE/ve15_escaped_gen_block_name e pristine rc=0 cmp=0 STRICT_EQUAL 22 objects md5=1360b51ddd70
+cases/VE/ve16_seq_in_initial d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=21472f5275a1
+cases/VE/ve16_seq_in_initial e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=e3edb94787d9
+cases/VG/vg01_for_comb d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=215a6d578ef2
+cases/VG/vg01_for_comb e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=f373c6b96c94
+cases/VG/vg02_if_ff d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=803998ff1e90
+cases/VG/vg02_if_ff e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b8ce17f0ee92
+cases/VG/vg03_partsel d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=e35e7438c8c8
+cases/VG/vg03_partsel e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=4e395023cbd7
+cases/VG/vg04_struct_plain_root d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5899a8a45a49
+cases/VG/vg04_struct_plain_root e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=62711d5d5c39
+cases/VG/vg05_struct_inner_sel d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=a0c5fc235650
+cases/VG/vg05_struct_inner_sel e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=4e6481898d12
+cases/VG/vg06_nested_call d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=67bc3332b845
+cases/VG/vg06_nested_call e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=7f4dc4f08f99
+cases/VG/vg07_incdec d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=2513586ec3a3
+cases/VG/vg07_incdec e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=a8414e66d351
+cases/VG/vg08_concat_lv d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=3cce6f18ba3f
+cases/VG/vg08_concat_lv e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=030186d1fbb9
+cases/VG/vg09_two_level d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=354eaa88a75e
+cases/VG/vg09_two_level e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=2bd420c3f451
+cases/VG/vg10_case_gen d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b2cf1f34faba
+cases/VG/vg10_case_gen e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=90da693de641
+cases/VG/vg11_child_depth2 d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=68e367bab480
+cases/VG/vg11_child_depth2 e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=895fe80dd64c
+cases/VG/vg12_pkg_fn d pristine rc=0 cmp=0 STRICT_EQUAL 52 objects md5=02b343b4bd48
+cases/VG/vg12_pkg_fn e pristine rc=0 cmp=0 STRICT_EQUAL 54 objects md5=35fe7838ee5a
+cases/VG/vg13_sysfn_ctl d pristine rc=0 cmp=0 STRICT_EQUAL 32 objects md5=02e5aa34ffa1
+cases/VG/vg13_sysfn_ctl e pristine rc=0 cmp=0 STRICT_EQUAL 32 objects md5=8ef9e047b24a
+cases/VG/vg14_initial_for d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=fdddf7da156b
+cases/VG/vg14_initial_for e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=7eaad364935f
+cases/VG/vg15_genlocal_fn d pristine rc=0 cmp=29 NOT_EQUAL stage1 md5=212cc3ac10a5
+cases/VG/vg15_genlocal_fn e pristine rc=0 cmp=29 NOT_EQUAL stage1 md5=511e428ae031
+cases/VG/vg16_named_arg d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=24f8dff8e3f9
+cases/VG/vg16_named_arg e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=cba46c55f837
+cases/VG/vg17_rootsel_trailing d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=23b1662d5aa2
+cases/VG/vg17_rootsel_trailing e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=4f6b6acc76ea
+cases/VG/vg18_module_body_ctl d pristine rc=0 cmp=0 STRICT_EQUAL 45 objects md5=3881f1f2dcc7
+cases/VG/vg18_module_body_ctl e pristine rc=0 cmp=0 STRICT_EQUAL 49 objects md5=8c3afba0b953
+cases/VG/vg19_nb_delay d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=e8c7d507579e
+cases/VG/vg19_nb_delay e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=95570161fb54
+cases/VG/vg20_read_idx_ctl d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=0b413dff410d
+cases/VG/vg20_read_idx_ctl e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=08900eb37886
+cases/VG/vg21_iface_body d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=f992a93b544c
+cases/VG/vg21_iface_body e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=efff9f0e3e05
+cases/VG/vg22_paren_call d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=38b43962358f
+cases/VG/vg22_paren_call e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=9ab7dbfe2ddd
+cases/VG/vg23_op_index d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=0fda36cad397
+cases/VG/vg23_op_index e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=d19f0f6a51bd
+cases/VI/vi01_integer_signed d pristine rc=0 cmp=72 NOT_EQUAL stage1 md5=428c2048154e
+cases/VI/vi01_integer_signed e pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=906e99b6d519
+cases/VI/vi02_shortint_signed d pristine rc=0 cmp=72 NOT_EQUAL stage1 md5=4bf7a957d8fd
+cases/VI/vi02_shortint_signed e pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=316144a738fc
+cases/VI/vi03_byte_signed d pristine rc=0 cmp=72 NOT_EQUAL stage1 md5=badc171289f2
+cases/VI/vi03_byte_signed e pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=7a3863a46c89
+cases/VI/vi04_longint_signed d pristine rc=0 cmp=72 NOT_EQUAL stage1 md5=c73313c35a1b
+cases/VI/vi04_longint_signed e pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=be168951728d
+cases/VI/vi05_logic_signed_vec d pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=c8019b29da1e
+cases/VI/vi05_logic_signed_vec e pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=11eb331f09a8
+cases/VI/vi06_bit_signed_vec d pristine rc=0 cmp=72 NOT_EQUAL stage1 md5=aeeb7c3b89a5
+cases/VI/vi06_bit_signed_vec e pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=a80ff9f42457
+cases/VI/vi07_int_signed_neg d pristine rc=0 cmp=72 NOT_EQUAL stage1 md5=dd1d56590cc1
+cases/VI/vi07_int_signed_neg e pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=4edf7cc26f3f
+cases/VI/vi08_localparam d pristine rc=0 cmp=72 NOT_EQUAL stage1 md5=fa59fdd1ec01
+cases/VI/vi08_localparam e pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=f2db685809f2
+cases/VI/vi09_pkg_param d pristine rc=0 cmp=34 NOT_EQUAL stage1 md5=b3441b7cca6c
+cases/VI/vi09_pkg_param e pristine rc=0 cmp=34 NOT_EQUAL stage1 md5=38cb314c07e2
+cases/VI/vi10_param_list d pristine rc=0 cmp=62 NOT_EQUAL stage1 md5=fc433049805f
+cases/VI/vi10_param_list e pristine rc=0 cmp=62 NOT_EQUAL stage1 md5=bd634d23d306
+cases/VI/vi11_comment_between d pristine rc=0 cmp=72 NOT_EQUAL stage1 md5=ced5abd63084
+cases/VI/vi11_comment_between e pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=a2d23fee258f
+cases/VI/vi12_override d pristine rc=0 cmp=72 NOT_EQUAL stage1 md5=4748258247e0
+cases/VI/vi12_override e pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=af9746c87fbf
+cases/VI/vi13_nested_for d pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=026d3e0eb7db
+cases/VI/vi13_nested_for e pristine rc=0 cmp=0 STRICT_NOTEQUAL file md5=3843e4dd6f64
+cases/VI/vi14_in_loop_bound d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=78df002ed9b5
+cases/VI/vi14_in_loop_bound e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=019dd7b636ea
+cases/VI/vi15_proc_fold d pristine rc=0 cmp=0 STRICT_EQUAL 84 objects md5=4f4f276c498c
+cases/VI/vi15_proc_fold e pristine rc=0 cmp=0 STRICT_EQUAL 84 objects md5=a7a5d13403e1
+cases/VI/vi16_select_slot d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=a951783e9253
+cases/VI/vi16_select_slot e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=52207a2fc84d
+cases/VI/vi17_int_unsigned_ctl d pristine rc=0 cmp=72 NOT_EQUAL stage1 md5=cf9be6158ab1
+cases/VI/vi17_int_unsigned_ctl e pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=0c7e4c28c607
+cases/VI/vi18_signed_macro d pristine rc=0 cmp=72 NOT_EQUAL stage1 md5=857e19e74876
+cases/VI/vi18_signed_macro e pristine rc=0 cmp=76 NOT_EQUAL stage1 md5=8517b8a88729
+cases/VI/vi19_iface d pristine rc=0 cmp=92 NOT_EQUAL stage1 md5=a2d54ecb77dd
+cases/VI/vi19_iface e pristine rc=0 cmp=92 NOT_EQUAL stage1 md5=b3f1a87666aa
+cases/VJ/vj01_integer_signed d pristine rc=0 cmp=24 NOT_EQUAL stage1 md5=e39a2bba467c
+cases/VJ/vj01_integer_signed e pristine rc=0 cmp=24 NOT_EQUAL stage1 md5=a4b36413335e
+cases/VJ/vj02_shortint_signed d pristine rc=0 cmp=24 NOT_EQUAL stage1 md5=9d21c632d1af
+cases/VJ/vj02_shortint_signed e pristine rc=0 cmp=24 NOT_EQUAL stage1 md5=77d418e7a6a0
+cases/VJ/vj03_byte_signed d pristine rc=0 cmp=24 NOT_EQUAL stage1 md5=ab7df44b2653
+cases/VJ/vj03_byte_signed e pristine rc=0 cmp=24 NOT_EQUAL stage1 md5=93c0f47d35e8
+cases/VJ/vj04_longint_signed d pristine rc=0 cmp=24 NOT_EQUAL stage1 md5=383755e97c75
+cases/VJ/vj04_longint_signed e pristine rc=0 cmp=24 NOT_EQUAL stage1 md5=d41dea3fb4d9
+cases/VJ/vj05_logic_signed_vec d pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=9d8d57980023
+cases/VJ/vj05_logic_signed_vec e pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=5e0f12fbb327
+cases/VJ/vj06_bit_signed_vec d pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=9f3702d65739
+cases/VJ/vj06_bit_signed_vec e pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=0cd96123350f
+cases/VJ/vj07_int_signed_neg d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=862e9876cc0e
+cases/VJ/vj07_int_signed_neg e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=3be38d3557c0
+cases/VJ/vj08_localparam d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=be4c43a92d91
+cases/VJ/vj08_localparam e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=77b77f0fa350
+cases/VJ/vj09_pkg_param d pristine rc=0 cmp=34 NOT_EQUAL stage1 md5=6fa4b79e05d1
+cases/VJ/vj09_pkg_param e pristine rc=0 cmp=34 NOT_EQUAL stage1 md5=190d88921064
+cases/VJ/vj10_param_list d pristine rc=0 cmp=62 NOT_EQUAL stage1 md5=f5efda122942
+cases/VJ/vj10_param_list e pristine rc=0 cmp=62 NOT_EQUAL stage1 md5=0c4d522c479d
+cases/VJ/vj11_comment_between d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=bd72347704b9
+cases/VJ/vj11_comment_between e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=f94a51ec9d07
+cases/VJ/vj12_override d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=4de94cae1064
+cases/VJ/vj12_override e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ca932f5c116e
+cases/VJ/vj13_nested_for d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e02a98ad9dc9
+cases/VJ/vj13_nested_for e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=d0d1f06ce5fc
+cases/VJ/vj14_macro_type d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=44381e67625b
+cases/VJ/vj14_macro_type e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=51d6f9c10098
+cases/VJ/vj15_iface d pristine rc=0 cmp=70 NOT_EQUAL stage1 md5=fc22495397c3
+cases/VJ/vj15_iface e pristine rc=0 cmp=70 NOT_EQUAL stage1 md5=7f0212ae245d
+cases/VJ/vj16_int_unsigned_ctl d pristine rc=0 cmp=0 STRICT_EQUAL 75 objects md5=76f1ada493d9
+cases/VJ/vj16_int_unsigned_ctl e pristine rc=0 cmp=0 STRICT_EQUAL 75 objects md5=82c08711c332
+cases/VJ/vj17_int_ctl d pristine rc=0 cmp=0 STRICT_EQUAL 75 objects md5=a4303e23ae2d
+cases/VJ/vj17_int_ctl e pristine rc=0 cmp=0 STRICT_EQUAL 75 objects md5=0834f60d5e07
+cases/VJ/vj18_partsel_bounds d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=3083d64ad1e7
+cases/VJ/vj18_partsel_bounds e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=776fa253ee4d
+cases/VJ/vj19_ips_width d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5b2f2312edc1
+cases/VJ/vj19_ips_width e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=4112aca4bf97
+cases/VJ/vj20_repl_count d pristine rc=0 cmp=0 STRICT_EQUAL 78 objects md5=7de4badba5df
+cases/VJ/vj20_repl_count e pristine rc=0 cmp=0 STRICT_EQUAL 78 objects md5=c5334cc4d919
+cases/VJ/vj21_if_gen d pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=bba157473521
+cases/VJ/vj21_if_gen e pristine rc=0 cmp=64 NOT_EQUAL stage1 md5=5ee8ae3d0e8d
+cases/VJ/vj22_case_gen_in_for d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=b6ec689a9e31
+cases/VJ/vj22_case_gen_in_for e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=93cd41b755cf
+cases/VJ/vj23_proc_whole d pristine rc=0 cmp=0 STRICT_EQUAL 78 objects md5=0396a62e8e47
+cases/VJ/vj23_proc_whole e pristine rc=0 cmp=0 STRICT_EQUAL 78 objects md5=c17fe60eaddb
+cases/VJ/vj24_signed_kw_multispace d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=6163e8521f3a
+cases/VJ/vj24_signed_kw_multispace e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=64dc2fc63d37
+cases/VK/vk01_two_overrides d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=a2e4c259a1be
+cases/VK/vk01_two_overrides e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=ec79611a12df
+cases/VK/vk02_inst_array d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=3678101ba4d5
+cases/VK/vk02_inst_array e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=cefccfc3d408
+cases/VK/vk03_single_child d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=bdc97e31a148
+cases/VK/vk03_single_child e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=96e73414d553
+cases/VK/vk04_two_defs_same_key d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=2f7531f29bc2
+cases/VK/vk04_two_defs_same_key e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=3bf688819ecd
+cases/VK/vk05_two_params d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=bc78e98d90ac
+cases/VK/vk05_two_params e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=1efcf94365e1
+cases/VK/vk06_if_gen_inst d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=2d87e7b914fb
+cases/VK/vk06_if_gen_inst e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=a46ff981fc50
+cases/VK/vk07_key_is_port d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=cd8d0a3eb36c
+cases/VK/vk07_key_is_port e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=32424da03ef5
+cases/VK/vk08_two_parents d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=7c606caa754c
+cases/VK/vk08_two_parents e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=13570c4c06b2
+cases/VK/vk09_pkg_typedef d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=9bcd375c6214
+cases/VK/vk09_pkg_typedef e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=77632c8b55a4
+cases/VK/vk11_def_after_top d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=e77e79d5b6d1
+cases/VK/vk11_def_after_top e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=7d15c6b29903
+cases/VK/vk13_body_param_override d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=03f4e2355a77
+cases/VK/vk13_body_param_override e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=168474a8f203
+cases/VK/vk14_key_reads_param d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=b0a2e5cc8f3d
+cases/VK/vk14_key_reads_param e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=969263c92a3f
+cases/VL/vl01_two_overrides d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=eb47a3f40a5b
+cases/VL/vl01_two_overrides e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=1163257bc0f3
+cases/VL/vl02_inst_array d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=1e06967f0003
+cases/VL/vl02_inst_array e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=8a37cbc3c24a
+cases/VL/vl04_two_defs_same_key d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=fb386f8a8841
+cases/VL/vl04_two_defs_same_key e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=1b2e84174972
+cases/VL/vl05_two_params d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=5628629a7c9c
+cases/VL/vl05_two_params e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=22c7716b1a95
+cases/VL/vl06_if_gen_inst d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=bceda7d5a16c
+cases/VL/vl06_if_gen_inst e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e5cbc686f2dc
+cases/VL/vl07_key_is_port d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=da845e6d7b29
+cases/VL/vl07_key_is_port e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=78fa1f0917c0
+cases/VL/vl08_two_parents d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e4d740a3e7eb
+cases/VL/vl08_two_parents e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=a20cf94ef8e5
+cases/VL/vl09_for_gen_inst d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e03441b511cd
+cases/VL/vl09_for_gen_inst e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=6d80684fd4ce
+cases/VL/vl11_def_after_top d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=27ebcec4de3c
+cases/VL/vl11_def_after_top e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=bddf9458b31b
+cases/VL/vl12_key_is_net d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=c236e2ceaf1d
+cases/VL/vl12_key_is_net e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=8294c2b53c29
+cases/VL/vl14_key_reads_param d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=c8b97b2b75fa
+cases/VL/vl14_key_reads_param e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=d92fc2e4e676
+cases/VL/vl15_depth3_two d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=283e49906adb
+cases/VL/vl15_depth3_two e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=decbf82d1b7b
+cases/VL/vl16_header_param_cast d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=0f704bf9b1c4
+cases/VL/vl16_header_param_cast e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=dfb8aab82bb6
+cases/VL/vl17_override_with_cast d pristine rc=0 cmp=163 NOT_EQUAL stage1 md5=f582a65bdde2
+cases/VL/vl17_override_with_cast e pristine rc=0 cmp=163 NOT_EQUAL stage1 md5=7ac59cb28db7
+cases/VL/vl18_three_insts_interleaved d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=97c008849ff9
+cases/VL/vl18_three_insts_interleaved e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=9610424fe231
+cases/VL/vl19_iface d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=7dd5996c4591
+cases/VL/vl19_iface e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=a55e9fe88209
+cases/VL/vl20_nested_struct d pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=2023147d2f6c
+cases/VL/vl20_nested_struct e pristine rc=0 cmp=17 NOT_EQUAL stage1 md5=4e6e5b94dbfd
+cases/VQ/vq01_plainroot_mid_call d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=8ff9d1c267dc
+cases/VQ/vq01_plainroot_mid_call e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=dfdc2b9998dd
+cases/VQ/vq02_plainroot_mid_and_trail d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=6aca595c011c
+cases/VQ/vq02_plainroot_mid_and_trail e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=4e4e44053c5f
+cases/VQ/vq03_rootsel_root_call d pristine rc=0 cmp=0 STRICT_EQUAL 147 objects md5=5523ada235c4
+cases/VQ/vq03_rootsel_root_call e pristine rc=0 cmp=0 STRICT_EQUAL 155 objects md5=ee4a5b3d4d47
+cases/VQ/vq04_rootsel_both d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=fde991b1a768
+cases/VQ/vq04_rootsel_both e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=350a4a260a0a
+cases/VQ/vq05_mb_plainroot_mid_call d pristine rc=0 cmp=0 STRICT_EQUAL 144 objects md5=e9acb40b41ce
+cases/VQ/vq05_mb_plainroot_mid_call e pristine rc=0 cmp=0 STRICT_EQUAL 168 objects md5=5d712d9f61bd
+cases/VQ/vq06_mb_rootsel_root_call d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b6964ee2c58e
+cases/VQ/vq06_mb_rootsel_root_call e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ed4854b001de
+cases/VQ/vq07_plainroot_mid_const_trail_call d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e3c52e8a72ce
+cases/VQ/vq07_plainroot_mid_const_trail_call e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=8a78bc8ba59d
+cases/VQ/vq08_for_gen_plainroot_mid d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=24d841302f9b
+cases/VQ/vq08_for_gen_plainroot_mid e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b1107b1faf85
+cases/VQ/vq09_for_rootsel_trail d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=daecdf26e066
+cases/VQ/vq09_for_rootsel_trail e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=dd76b38bd7ad
+cases/VQ/vq10_three_level_trail d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=189dd91e11dd
+cases/VQ/vq10_three_level_trail e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b1f9f89ae0d2
+cases/VQ/vq11_mid_call_const_trail d pristine rc=0 cmp=0 STRICT_EQUAL 162 objects md5=6a7d7de598e0
+cases/VQ/vq11_mid_call_const_trail e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=15826858ffcd
+cases/VQ/vq12_ff_trail d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=6527e0b952d1
+cases/VQ/vq12_ff_trail e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=6269509f67a8
+cases/VQ/vq13_trail_call_in_op d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=8f86c00142c1
+cases/VQ/vq13_trail_call_in_op e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=3b9687ec966b
+cases/VW/vw01_double_paren d pristine rc=0 cmp=0 STRICT_EQUAL 45 objects md5=8ae21c47f257
+cases/VW/vw01_double_paren e pristine rc=0 cmp=0 STRICT_EQUAL 42 objects md5=846a2538d833
+cases/VW/vw02_iter_left_operand d pristine rc=0 cmp=71 NOT_EQUAL stage1 md5=e1c48fe9ec66
+cases/VW/vw02_iter_left_operand e pristine rc=0 cmp=71 NOT_EQUAL stage1 md5=93ab1367dba3
+cases/VW/vw03_call_arg d pristine rc=0 cmp=0 STRICT_EQUAL 65 objects md5=6d8ca014bfb2
+cases/VW/vw03_call_arg e pristine rc=0 cmp=0 STRICT_EQUAL 62 objects md5=18e9339afd14
+cases/VW/vw04_ternary_both d pristine rc=0 cmp=594 NOT_EQUAL stage1 md5=fa33a1709a20
+cases/VW/vw04_ternary_both e pristine rc=0 cmp=594 NOT_EQUAL stage1 md5=1eb47a9d67c8
+cases/VW/vw05_class_method d pristine rc=0 cmp=0 STRICT_EQUAL 44 objects md5=60503b260b9d
+cases/VW/vw05_class_method e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=2f29603dfd2a
+cases/VW/vw06_if_cond d pristine rc=0 cmp=0 STRICT_EQUAL 59 objects md5=fe3a8fc199b2
+cases/VW/vw06_if_cond e pristine rc=0 cmp=0 STRICT_EQUAL 56 objects md5=31ed626e8c51
+cases/VW/vw07_struct_items d pristine rc=0 cmp=0 STRICT_EQUAL 69 objects md5=1b5e0f6e1ed1
+cases/VW/vw07_struct_items e pristine rc=0 cmp=0 STRICT_EQUAL 66 objects md5=073c91aa6cd0
+cases/VW/vw08_find_paren d pristine rc=0 cmp=0 STRICT_EQUAL 48 objects md5=ddce0754306c
+cases/VW/vw08_find_paren e pristine rc=0 cmp=0 STRICT_EQUAL 45 objects md5=09ba20dfbdfc
+cases/VW/vw09_nested_with d pristine rc=0 cmp=578 NOT_EQUAL stage1 md5=f4b3ce9534ce
+cases/VW/vw09_nested_with e pristine rc=0 cmp=578 NOT_EQUAL stage1 md5=fd598bfc0804
+cases/VW/vw10_macro_paren d pristine rc=0 cmp=0 STRICT_EQUAL 45 objects md5=b56061f51a37
+cases/VW/vw10_macro_paren e pristine rc=0 cmp=0 STRICT_EQUAL 42 objects md5=0f04ea25c170
+cases/VW/vw11_pkg_func d pristine rc=0 cmp=59 NOT_EQUAL stage1 md5=736afae41988
+cases/VW/vw11_pkg_func e pristine rc=0 cmp=63 NOT_EQUAL stage1 md5=5e331b0f84a7
+cases/VW/vw12_randomize_paren d pristine rc=0 cmp=470 NOT_EQUAL stage1 md5=df3d03e2a76d
+cases/VW/vw12_randomize_paren e pristine rc=0 cmp=470 NOT_EQUAL stage1 md5=e203183bd388
+cases/VW/vw13_this_path d pristine rc=0 cmp=88 NOT_EQUAL stage1 md5=5e8ea2be42f1
+cases/VW/vw13_this_path e pristine rc=0 cmp=104 NOT_EQUAL stage1 md5=76db1becc6b1
+cases/VW/vw14_fixed_array d pristine rc=0 cmp=0 STRICT_EQUAL 51 objects md5=9bad9f78232a
+cases/VW/vw14_fixed_array e pristine rc=0 cmp=0 STRICT_EQUAL 48 objects md5=741b20e8d2ca
+cases/VW/vw15_for_cond d pristine rc=0 cmp=0 STRICT_EQUAL 63 objects md5=a3e1178b1cf2
+cases/VW/vw15_for_cond e pristine rc=0 cmp=0 STRICT_EQUAL 60 objects md5=2236828e63c3
+cases/VW/vw16_multiline d pristine rc=0 cmp=71 NOT_EQUAL stage1 md5=35e4b4c5dcec
+cases/VW/vw16_multiline e pristine rc=0 cmp=71 NOT_EQUAL stage1 md5=191ad6d3183a
+cases/VW/vw17_unparen_ctl d pristine rc=0 cmp=0 STRICT_EQUAL 45 objects md5=22812b5a32dd
+cases/VW/vw17_unparen_ctl e pristine rc=0 cmp=0 STRICT_EQUAL 42 objects md5=014c2dfc402e
+cases/VX/vx01_index d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=88233b06a5a3
+cases/VX/vx01_index e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=8e421130a534
+cases/VX/vx02_concat d pristine rc=0 cmp=0 STRICT_EQUAL 45 objects md5=18ebb25e1a64
+cases/VX/vx02_concat e pristine rc=0 cmp=0 STRICT_EQUAL 42 objects md5=b6d18db28b45
+cases/VX/vx03_inside d pristine rc=0 cmp=0 STRICT_EQUAL 47 objects md5=d0440403679a
+cases/VX/vx03_inside e pristine rc=0 cmp=0 STRICT_EQUAL 44 objects md5=7747c147b140
+cases/VX/vx05_assoc d pristine rc=0 cmp=0 STRICT_EQUAL 43 objects md5=ce1f2bf27245
+cases/VX/vx05_assoc e pristine rc=0 cmp=0 STRICT_EQUAL 40 objects md5=956f9a2cdab6
+cases/VX/vx06_cast_of_paren d pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=9bbbfba05103
+cases/VX/vx06_cast_of_paren e pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=bd70a652c044
+cases/VX/vx07_unary d pristine rc=0 cmp=0 STRICT_EQUAL 43 objects md5=32a32f53e667
+cases/VX/vx07_unary e pristine rc=0 cmp=0 STRICT_EQUAL 40 objects md5=ebdfbf9046cb
+cases/VX/vx08_cmp_both_sides d pristine rc=0 cmp=458 NOT_EQUAL stage1 md5=8da28b9ea0ac
+cases/VX/vx08_cmp_both_sides e pristine rc=0 cmp=458 NOT_EQUAL stage1 md5=41e13d9143ab
+cases/VX/vx09_index_with d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b7208dde4610
+cases/VX/vx09_index_with e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=db22f2f7e60a
+cases/VX/vx10_iter_and_index d pristine rc=0 cmp=87 NOT_EQUAL stage1 md5=9f97817e57a8
+cases/VX/vx10_iter_and_index e pristine rc=0 cmp=91 NOT_EQUAL stage1 md5=2591faba49c3
+cases/VX/vx11_min_paren d pristine rc=0 cmp=0 STRICT_EQUAL 44 objects md5=8afe3afcedb1
+cases/VX/vx11_min_paren e pristine rc=0 cmp=0 STRICT_EQUAL 41 objects md5=6f91a6c4677a
+cases/VX/vx12_func_body_return d pristine rc=0 cmp=0 STRICT_EQUAL 57 objects md5=28022a6ec942
+cases/VX/vx12_func_body_return e pristine rc=0 cmp=0 STRICT_EQUAL 54 objects md5=d1647a65da63
+cases/VX/vx13_always_comb_dyn d pristine rc=0 cmp=71 NOT_EQUAL stage1 md5=73680cb7a6be
+cases/VX/vx13_always_comb_dyn e pristine rc=0 cmp=71 NOT_EQUAL stage1 md5=621ce124e26b
+cases/VX/vx14_two_on_line d pristine rc=0 cmp=45 NOT_EQUAL stage1 md5=2041b6931cf1
+cases/VX/vx14_two_on_line e pristine rc=0 cmp=45 NOT_EQUAL stage1 md5=b2f118847b1f
+cases/VY/vy01_two_calls d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=dd6c426fcf1e
+cases/VY/vy01_two_calls e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=499ea926537f
+cases/VY/vy02_dpi d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=f11a7703102f
+cases/VY/vy02_dpi e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=1dc1dd8cbd9f
+cases/VY/vy03_struct_arr_rootsel d pristine rc=0 cmp=0 STRICT_EQUAL 83 objects md5=51eb84bd7900
+cases/VY/vy03_struct_arr_rootsel e pristine rc=0 cmp=0 STRICT_EQUAL 88 objects md5=2bd7778414d2
+cases/VY/vy04_task_body_in_gen d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=fc274f334073
+cases/VY/vy04_task_body_in_gen e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=bd44fd7e0b61
+cases/VY/vy05_for_gen_ff_two d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=04143bd278a8
+cases/VY/vy05_for_gen_ff_two e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=53f390f94f33
+cases/VY/vy06_case_stmt d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=9e5ecdddd33d
+cases/VY/vy06_case_stmt e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=766340c9f12f
+cases/VY/vy07_if_stmt d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=3d37ccc3f35c
+cases/VY/vy07_if_stmt e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=8a68a306214a
+cases/VY/vy08_ips_base d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=f1772a404308
+cases/VY/vy08_ips_base e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=fbb4adfc483c
+cases/VY/vy09_call_arg_param d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=2f426a14d2bd
+cases/VY/vy09_call_arg_param e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=521c818c153c
+cases/VY/vy10_member_trailing_plain d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=785be0294848
+cases/VY/vy10_member_trailing_plain e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=244ec946804a
+cases/VY/vy11_unpacked_member_root d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=eab84620ed69
+cases/VY/vy11_unpacked_member_root e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=81263f22e339
+cases/VY/vy12_nonblocking_initial d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=f8b39f61d2c8
+cases/VY/vy12_nonblocking_initial e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=690feb68feb2
+cases/VY/vy13_loop_var_arg d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=20bf895bf6d1
+cases/VY/vy13_loop_var_arg e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=0d659f875ad6
+cases/VY/vy14_assoc_lv d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=3d7462ec30ea
+cases/VY/vy14_assoc_lv e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=b3728fe647d7
+cases/VY/vy15_queue_lv d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=564c63f9449d
+cases/VY/vy15_queue_lv e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=95c9848f7209
+cases/VY/vy16_interface_port d pristine rc=0 cmp=120 NOT_EQUAL stage1 md5=090758771151
+cases/VY/vy16_interface_port e pristine rc=0 cmp=120 NOT_EQUAL stage1 md5=d0b997467525
+cases/VY/vy17_hier_lv d pristine rc=0 cmp=120 NOT_EQUAL stage1 md5=e79bb482e22a
+cases/VY/vy17_hier_lv e pristine rc=0 cmp=120 NOT_EQUAL stage1 md5=4905c4053a91
+cases/VY/vy18_genvar_root_index d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=d1dcc3b435a7
+cases/VY/vy18_genvar_root_index e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=819d7820edad
+cases/VY/vy19_rootsel_member_noncall_root d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=1f523abc9069
+cases/VY/vy19_rootsel_member_noncall_root e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=19f11363eed9
+cases/VZ/vz01_escaped_kw d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=820dfaf3c463
+cases/VZ/vz01_escaped_kw e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=7ebcddecd012
+cases/VZ/vz02_long_name d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=be14ed74d73a
+cases/VZ/vz02_long_name e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=836b2fb27c63
+cases/VZ/vz03_after_esc_signal_same_line d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ce02cc94243d
+cases/VZ/vz03_after_esc_signal_same_line e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=03ba796626b6
+cases/VZ/vz04_macro_written d pristine rc=0 cmp=0 STRICT_EQUAL 22 objects md5=36cd4c247297
+cases/VZ/vz04_macro_written e pristine rc=0 cmp=0 STRICT_EQUAL 19 objects md5=606c08d128ad
+cases/VZ/vz05_include_file d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=f5a0bbf52cc2
+cases/VZ/vz05_include_file e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ec7d121950d0
+cases/VZ/vz06_disable d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=a50e67190959
+cases/VZ/vz06_disable e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=bfb1665d6870
+cases/VZ/vz07_fork_inner_begin d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=444cd2e7ff87
+cases/VZ/vz07_fork_inner_begin e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=959fbe560934
+cases/VZ/vz08_final d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=2776777d18aa
+cases/VZ/vz08_final e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=7475e141e264
+cases/VZ/vz09_program d pristine rc=0 cmp=29 NOT_EQUAL stage1 md5=c2043efc3fe2
+cases/VZ/vz09_program e pristine rc=0 cmp=29 NOT_EQUAL stage1 md5=bd0a2932d8a3
+cases/VZ/vz10_interface d pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=556905e10b1d
+cases/VZ/vz10_interface e pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=d4d8ffe54200

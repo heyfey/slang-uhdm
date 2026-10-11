@@ -1,0 +1,14 @@
+cases/VG/vg17_rootsel_trailing d chain away=0 toward=2 flat_away=0 flat_toward=2
+cases/VG/vg17_rootsel_trailing e chain away=0 toward=2 flat_away=0 flat_toward=2
+cases/VQ/vq04_rootsel_both d chain away=0 toward=2 flat_away=0 flat_toward=2
+cases/VQ/vq04_rootsel_both e chain away=0 toward=2 flat_away=0 flat_toward=2
+cases/VQ/vq09_for_rootsel_trail d chain away=0 toward=3 flat_away=0 flat_toward=3
+cases/VQ/vq09_for_rootsel_trail e chain away=0 toward=3 flat_away=0 flat_toward=3
+cases/VQ/vq10_three_level_trail d chain away=0 toward=2 flat_away=0 flat_toward=2
+cases/VQ/vq10_three_level_trail e chain away=0 toward=2 flat_away=0 flat_toward=2
+cases/VQ/vq12_ff_trail d chain away=0 toward=2 flat_away=0 flat_toward=2
+cases/VQ/vq12_ff_trail e chain away=0 toward=2 flat_away=0 flat_toward=2
+cases/VQ/vq13_trail_call_in_op d chain away=0 toward=2 flat_away=0 flat_toward=2
+cases/VQ/vq13_trail_call_in_op e chain away=0 toward=1 flat_away=0 flat_toward=1
+cases/VY/vy19_rootsel_member_noncall_root d chain away=0 toward=2 flat_away=0 flat_toward=2
+cases/VY/vy19_rootsel_member_noncall_root e chain away=0 toward=2 flat_away=0 flat_toward=2

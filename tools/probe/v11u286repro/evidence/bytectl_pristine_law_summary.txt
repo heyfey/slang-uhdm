@@ -1,0 +1,23 @@
+# pristine vs law over every earlier repro case dir under tools/probe (fence-filtered path list): 451 repro dirs, 23110 case dirs, 46220 case-views
+     16 MOVE
+  46204 SAME
+  45468 rc=0/0
+     14 rc=139/139
+    460 rc=3/3
+    278 rc=4/4
+./r11u146repro/grid/ck/c2_sub d rc=0/0 535b31da05b0 42c116c46306 MOVE
+./r11u146repro/grid/ck/c2_sub e rc=0/0 631e75843aa7 bd023fe8892c MOVE
+./r11u194verify/cases/G/g02_genvar_call_index d rc=0/0 f58ade18494e 7842fc57ee39 MOVE
+./r11u194verify/cases/G/g02_genvar_call_index e rc=0/0 8c7634b9b1af 02bcecafd514 MOVE
+./r11u198repro/cases/L/l13_genscope d rc=0/0 cc7a7cb310ab c0677d78933f MOVE
+./r11u198repro/cases/L/l13_genscope e rc=0/0 2e18a1db75b4 bb063ef420e7 MOVE
+./r11u201repro/cases/N/n07 d rc=0/0 9abefea3bcb9 230ec4063d6e MOVE
+./r11u201repro/cases/N/n07 e rc=0/0 31ee7ea42b56 dbbe6f13f340 MOVE
+./r11v181repro/cases/lc/c01 d rc=0/0 6c7d4e4eb0dd 227dd208c1ea MOVE
+./r11v181repro/cases/lc/c01 e rc=0/0 95db8bd16ce2 47f9eef2ca72 MOVE
+./v11u146repro/cases/ck/k1_twoinst d rc=0/0 a6522b1cae02 cd3e2cf452d2 MOVE
+./v11u146repro/cases/ck/k1_twoinst e rc=0/0 e9021eefb51a 309fc420ac07 MOVE
+./v11u187repro/cases/T/t26 d rc=0/0 dda5c7fa57de 387581416252 MOVE
+./v11u187repro/cases/T/t26 e rc=0/0 72e63ebfadba afd8aa1694cb MOVE
+./v11u201repro/cases/N/n07_gen_depth d rc=0/0 4c0d053273ce e33220eca462 MOVE
+./v11u201repro/cases/N/n07_gen_depth e rc=0/0 006c8cc571f4 4e957b7d7470 MOVE

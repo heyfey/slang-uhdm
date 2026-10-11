@@ -1,0 +1,5 @@
+MOVER r11u146repro/grid/ck/c2_sub d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 192 objects
+MOVER r11u146repro/grid/ck/c2_sub e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 191 objects
+MOVER r11v181repro/cases/lc/c01 d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_NOTEQUAL endcol
+MOVER r11v181repro/cases/lc/c01 e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_NOTEQUAL endcol
+case-views=6258 moving=4 entering=2 leaving=0 rc-changed=0 cmplines-changed=0

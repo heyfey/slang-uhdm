@@ -1,0 +1,16 @@
+./r11u146repro/grid/ck/c2_sub d | P: rc=0 cmp=0 STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 STRICT_EQUAL 192 objects | switch=CASTKEYDEF | chain away=0 toward=2 flat_away=0 flat_toward=2
+./r11u146repro/grid/ck/c2_sub e | P: rc=0 cmp=0 STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 STRICT_EQUAL 191 objects | switch=CASTKEYDEF | chain away=0 toward=2 flat_away=0 flat_toward=2
+./r11u194verify/cases/G/g02_genvar_call_index d | P: rc=0 cmp=0 STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 STRICT_EQUAL 269 objects | switch=GENLVCALL | chain away=0 toward=3 flat_away=0 flat_toward=3
+./r11u194verify/cases/G/g02_genvar_call_index e | P: rc=0 cmp=0 STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 STRICT_EQUAL 279 objects | switch=GENLVCALL | chain away=0 toward=3 flat_away=0 flat_toward=3
+./r11u198repro/cases/L/l13_genscope d | P: rc=0 cmp=0 STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 STRICT_EQUAL 301 objects | switch=GENLVCALL | chain away=0 toward=2 flat_away=0 flat_toward=2
+./r11u198repro/cases/L/l13_genscope e | P: rc=0 cmp=0 STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 STRICT_EQUAL 296 objects | switch=GENLVCALL | chain away=0 toward=2 flat_away=0 flat_toward=2
+./r11u201repro/cases/N/n07 d | P: rc=0 cmp=0 STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 STRICT_EQUAL 345 objects | switch=GENLVCALL | chain away=0 toward=3 flat_away=0 flat_toward=3
+./r11u201repro/cases/N/n07 e | P: rc=0 cmp=0 STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 STRICT_EQUAL 336 objects | switch=GENLVCALL | chain away=0 toward=3 flat_away=0 flat_toward=3
+./r11v181repro/cases/lc/c01 d | P: rc=0 cmp=0 STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 STRICT_NOTEQUAL endcol | switch=GENLVCALL | chain away=0 toward=3 flat_away=0 flat_toward=3
+./r11v181repro/cases/lc/c01 e | P: rc=0 cmp=0 STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 STRICT_NOTEQUAL endcol | switch=GENLVCALL | chain away=0 toward=3 flat_away=0 flat_toward=3
+./v11u146repro/cases/ck/k1_twoinst d | P: rc=0 cmp=0 STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 STRICT_EQUAL 222 objects | switch=CASTKEYDEF | chain away=0 toward=2 flat_away=0 flat_toward=2
+./v11u146repro/cases/ck/k1_twoinst e | P: rc=0 cmp=0 STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 STRICT_EQUAL 224 objects | switch=CASTKEYDEF | chain away=0 toward=2 flat_away=0 flat_toward=2
+./v11u187repro/cases/T/t26 d | P: rc=0 cmp=0 STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 STRICT_EQUAL 153 objects | switch=GENLVCALL | chain away=0 toward=4 flat_away=0 flat_toward=4
+./v11u187repro/cases/T/t26 e | P: rc=0 cmp=0 STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 STRICT_EQUAL 167 objects | switch=GENLVCALL | chain away=0 toward=4 flat_away=0 flat_toward=4
+./v11u201repro/cases/N/n07_gen_depth d | P: rc=0 cmp=0 STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 STRICT_NOTEQUAL fullname | switch=GENLVCALL | chain away=0 toward=3 flat_away=0 flat_toward=3
+./v11u201repro/cases/N/n07_gen_depth e | P: rc=0 cmp=0 STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 STRICT_NOTEQUAL fullname | switch=GENLVCALL | chain away=0 toward=3 flat_away=0 flat_toward=3

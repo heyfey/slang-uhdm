@@ -1,0 +1,249 @@
+case-views 366 off==pristine 366 rc differing 0
+moving 246 entering STRICT_EQUAL 172 leaving 0
+MOVER cases/VE/ve01_end_label d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 22 objects switch=ESCBLKNAME
+MOVER cases/VE/ve01_end_label e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 19 objects switch=ESCBLKNAME
+MOVER cases/VE/ve02_simple_escaped d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 22 objects switch=ESCBLKNAME
+MOVER cases/VE/ve02_simple_escaped e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 19 objects switch=ESCBLKNAME
+MOVER cases/VE/ve03_function d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 42 objects switch=ESCBLKNAME
+MOVER cases/VE/ve03_function e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 39 objects switch=ESCBLKNAME
+MOVER cases/VE/ve04_nested d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 24 objects switch=ESCBLKNAME
+MOVER cases/VE/ve04_nested e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 21 objects switch=ESCBLKNAME
+MOVER cases/VE/ve05_two_spaces d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 22 objects switch=ESCBLKNAME
+MOVER cases/VE/ve05_two_spaces e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 19 objects switch=ESCBLKNAME
+MOVER cases/VE/ve06_gen_block_proc d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 24 objects switch=ESCBLKNAME
+MOVER cases/VE/ve06_gen_block_proc e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 24 objects switch=ESCBLKNAME
+MOVER cases/VE/ve07_task d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 26 objects switch=ESCBLKNAME
+MOVER cases/VE/ve07_task e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 23 objects switch=ESCBLKNAME
+MOVER cases/VE/ve08_class_method d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 32 objects switch=ESCBLKNAME
+MOVER cases/VE/ve08_class_method e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 32 objects switch=ESCBLKNAME
+MOVER cases/VE/ve09_no_space_colon d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 22 objects switch=ESCBLKNAME
+MOVER cases/VE/ve09_no_space_colon e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 19 objects switch=ESCBLKNAME
+MOVER cases/VE/ve11_for_gen_ff d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 76 objects switch=ESCBLKNAME
+MOVER cases/VE/ve11_for_gen_ff e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 76 objects switch=ESCBLKNAME
+MOVER cases/VE/ve12_two_esc_on_line d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 22 objects switch=ESCBLKNAME
+MOVER cases/VE/ve12_two_esc_on_line e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 19 objects switch=ESCBLKNAME
+MOVER cases/VE/ve13_crlf d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 22 objects switch=ESCBLKNAME
+MOVER cases/VE/ve13_crlf e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 19 objects switch=ESCBLKNAME
+MOVER cases/VE/ve16_seq_in_initial d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 32 objects switch=ESCBLKNAME
+MOVER cases/VE/ve16_seq_in_initial e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 29 objects switch=ESCBLKNAME
+MOVER cases/VG/vg01_for_comb d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 84 objects switch=GENLVCALL
+MOVER cases/VG/vg01_for_comb e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 84 objects switch=GENLVCALL
+MOVER cases/VG/vg02_if_ff d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 96 objects switch=GENLVCALL
+MOVER cases/VG/vg02_if_ff e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 98 objects switch=GENLVCALL
+MOVER cases/VG/vg03_partsel d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 80 objects switch=GENLVCALL
+MOVER cases/VG/vg03_partsel e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 80 objects switch=GENLVCALL
+MOVER cases/VG/vg04_struct_plain_root d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 86 objects switch=GENLVCALL
+MOVER cases/VG/vg04_struct_plain_root e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 94 objects switch=GENLVCALL
+MOVER cases/VG/vg05_struct_inner_sel d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_NOTEQUAL fullname switch=GENLVCALL
+MOVER cases/VG/vg05_struct_inner_sel e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_NOTEQUAL fullname switch=GENLVCALL
+MOVER cases/VG/vg06_nested_call d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 74 objects switch=GENLVCALL
+MOVER cases/VG/vg06_nested_call e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 76 objects switch=GENLVCALL
+MOVER cases/VG/vg07_incdec d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 74 objects switch=GENLVCALL
+MOVER cases/VG/vg07_incdec e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 76 objects switch=GENLVCALL
+MOVER cases/VG/vg08_concat_lv d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 60 objects switch=GENLVCALL
+MOVER cases/VG/vg08_concat_lv e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 62 objects switch=GENLVCALL
+MOVER cases/VG/vg09_two_level d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 128 objects switch=GENLVCALL
+MOVER cases/VG/vg09_two_level e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 128 objects switch=GENLVCALL
+MOVER cases/VG/vg10_case_gen d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 74 objects switch=GENLVCALL
+MOVER cases/VG/vg10_case_gen e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 76 objects switch=GENLVCALL
+MOVER cases/VG/vg11_child_depth2 d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 56 objects switch=GENLVCALL
+MOVER cases/VG/vg11_child_depth2 e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 58 objects switch=GENLVCALL
+MOVER cases/VG/vg14_initial_for d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 74 objects switch=GENLVCALL
+MOVER cases/VG/vg14_initial_for e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 76 objects switch=GENLVCALL
+MOVER cases/VG/vg15_genlocal_fn d rc=0 cmp=29 NOT_EQUAL stage1 -> rc=0 cmp=29 NOT_EQUAL stage1 switch=GENLVCALL
+MOVER cases/VG/vg15_genlocal_fn e rc=0 cmp=29 NOT_EQUAL stage1 -> rc=0 cmp=29 NOT_EQUAL stage1 switch=GENLVCALL
+MOVER cases/VG/vg16_named_arg d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 50 objects switch=GENLVCALL
+MOVER cases/VG/vg16_named_arg e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 52 objects switch=GENLVCALL
+MOVER cases/VG/vg17_rootsel_trailing d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 85 objects switch=GENLVCALL
+MOVER cases/VG/vg17_rootsel_trailing e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 93 objects switch=GENLVCALL
+MOVER cases/VG/vg19_nb_delay d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 109 objects switch=GENLVCALL
+MOVER cases/VG/vg19_nb_delay e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 109 objects switch=GENLVCALL
+MOVER cases/VG/vg20_read_idx_ctl d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 66 objects switch=GENLVCALL
+MOVER cases/VG/vg20_read_idx_ctl e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 68 objects switch=GENLVCALL
+MOVER cases/VG/vg21_iface_body d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 78 objects switch=GENLVCALL
+MOVER cases/VG/vg21_iface_body e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 78 objects switch=GENLVCALL
+MOVER cases/VG/vg22_paren_call d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 50 objects switch=GENLVCALL
+MOVER cases/VG/vg22_paren_call e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 52 objects switch=GENLVCALL
+MOVER cases/VG/vg23_op_index d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 54 objects switch=GENLVCALL
+MOVER cases/VG/vg23_op_index e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 51 objects switch=GENLVCALL
+MOVER cases/VI/vi01_integer_signed d rc=0 cmp=72 NOT_EQUAL stage1 -> rc=0 cmp=72 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi01_integer_signed e rc=0 cmp=76 NOT_EQUAL stage1 -> rc=0 cmp=76 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi02_shortint_signed d rc=0 cmp=72 NOT_EQUAL stage1 -> rc=0 cmp=72 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi02_shortint_signed e rc=0 cmp=76 NOT_EQUAL stage1 -> rc=0 cmp=76 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi03_byte_signed d rc=0 cmp=72 NOT_EQUAL stage1 -> rc=0 cmp=72 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi03_byte_signed e rc=0 cmp=76 NOT_EQUAL stage1 -> rc=0 cmp=76 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi04_longint_signed d rc=0 cmp=72 NOT_EQUAL stage1 -> rc=0 cmp=72 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi04_longint_signed e rc=0 cmp=76 NOT_EQUAL stage1 -> rc=0 cmp=76 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi07_int_signed_neg d rc=0 cmp=72 NOT_EQUAL stage1 -> rc=0 cmp=72 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi07_int_signed_neg e rc=0 cmp=32 NOT_EQUAL stage1 -> rc=0 cmp=32 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi08_localparam d rc=0 cmp=72 NOT_EQUAL stage1 -> rc=0 cmp=72 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi08_localparam e rc=0 cmp=76 NOT_EQUAL stage1 -> rc=0 cmp=76 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi10_param_list d rc=0 cmp=62 NOT_EQUAL stage1 -> rc=0 cmp=62 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi10_param_list e rc=0 cmp=62 NOT_EQUAL stage1 -> rc=0 cmp=62 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi11_comment_between d rc=0 cmp=72 NOT_EQUAL stage1 -> rc=0 cmp=72 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi11_comment_between e rc=0 cmp=76 NOT_EQUAL stage1 -> rc=0 cmp=76 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi12_override d rc=0 cmp=72 NOT_EQUAL stage1 -> rc=0 cmp=72 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi12_override e rc=0 cmp=32 NOT_EQUAL stage1 -> rc=0 cmp=32 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi14_in_loop_bound d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 75 objects switch=INTSIGNTRIM
+MOVER cases/VI/vi14_in_loop_bound e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 75 objects switch=INTSIGNTRIM
+MOVER cases/VI/vi16_select_slot d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 93 objects switch=INTSIGNTRIM
+MOVER cases/VI/vi16_select_slot e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 93 objects switch=INTSIGNTRIM
+MOVER cases/VI/vi18_signed_macro d rc=0 cmp=72 NOT_EQUAL stage1 -> rc=0 cmp=72 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi18_signed_macro e rc=0 cmp=76 NOT_EQUAL stage1 -> rc=0 cmp=76 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi19_iface d rc=0 cmp=92 NOT_EQUAL stage1 -> rc=0 cmp=92 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VI/vi19_iface e rc=0 cmp=92 NOT_EQUAL stage1 -> rc=0 cmp=92 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VJ/vj01_integer_signed d rc=0 cmp=24 NOT_EQUAL stage1 -> rc=0 cmp=24 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VJ/vj01_integer_signed e rc=0 cmp=24 NOT_EQUAL stage1 -> rc=0 cmp=24 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VJ/vj02_shortint_signed d rc=0 cmp=24 NOT_EQUAL stage1 -> rc=0 cmp=24 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VJ/vj02_shortint_signed e rc=0 cmp=24 NOT_EQUAL stage1 -> rc=0 cmp=24 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VJ/vj03_byte_signed d rc=0 cmp=24 NOT_EQUAL stage1 -> rc=0 cmp=24 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VJ/vj03_byte_signed e rc=0 cmp=24 NOT_EQUAL stage1 -> rc=0 cmp=24 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VJ/vj04_longint_signed d rc=0 cmp=24 NOT_EQUAL stage1 -> rc=0 cmp=24 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VJ/vj04_longint_signed e rc=0 cmp=24 NOT_EQUAL stage1 -> rc=0 cmp=24 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VJ/vj07_int_signed_neg d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 74 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj07_int_signed_neg e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 74 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj08_localparam d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 75 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj08_localparam e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 75 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj10_param_list d rc=0 cmp=62 NOT_EQUAL stage1 -> rc=0 cmp=62 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VJ/vj10_param_list e rc=0 cmp=62 NOT_EQUAL stage1 -> rc=0 cmp=62 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VJ/vj11_comment_between d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 75 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj11_comment_between e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 75 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj12_override d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 188 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj12_override e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 188 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj14_macro_type d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 75 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj14_macro_type e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 75 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj15_iface d rc=0 cmp=70 NOT_EQUAL stage1 -> rc=0 cmp=70 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VJ/vj15_iface e rc=0 cmp=70 NOT_EQUAL stage1 -> rc=0 cmp=70 NOT_EQUAL stage1 switch=INTSIGNTRIM
+MOVER cases/VJ/vj18_partsel_bounds d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 97 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj18_partsel_bounds e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 89 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj19_ips_width d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 87 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj19_ips_width e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 87 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj24_signed_kw_multispace d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 75 objects switch=INTSIGNTRIM
+MOVER cases/VJ/vj24_signed_kw_multispace e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 75 objects switch=INTSIGNTRIM
+MOVER cases/VK/vk02_inst_array d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VK/vk02_inst_array e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VK/vk03_single_child d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 132 objects switch=CASTKEYDEF
+MOVER cases/VK/vk03_single_child e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 126 objects switch=CASTKEYDEF
+MOVER cases/VK/vk04_two_defs_same_key d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VK/vk04_two_defs_same_key e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VK/vk05_two_params d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VK/vk05_two_params e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VK/vk06_if_gen_inst d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VK/vk06_if_gen_inst e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VK/vk08_two_parents d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VK/vk08_two_parents e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VK/vk09_pkg_typedef d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 178 objects switch=CASTKEYDEF
+MOVER cases/VK/vk09_pkg_typedef e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 175 objects switch=CASTKEYDEF
+MOVER cases/VK/vk11_def_after_top d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VK/vk11_def_after_top e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VK/vk13_body_param_override d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 186 objects switch=CASTKEYDEF
+MOVER cases/VK/vk13_body_param_override e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 180 objects switch=CASTKEYDEF
+MOVER cases/VL/vl02_inst_array d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 237 objects switch=CASTKEYDEF
+MOVER cases/VL/vl02_inst_array e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 234 objects switch=CASTKEYDEF
+MOVER cases/VL/vl04_two_defs_same_key d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 415 objects switch=CASTKEYDEF
+MOVER cases/VL/vl04_two_defs_same_key e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 409 objects switch=CASTKEYDEF
+MOVER cases/VL/vl05_two_params d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 361 objects switch=CASTKEYDEF
+MOVER cases/VL/vl05_two_params e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 355 objects switch=CASTKEYDEF
+MOVER cases/VL/vl06_if_gen_inst d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 228 objects switch=CASTKEYDEF
+MOVER cases/VL/vl06_if_gen_inst e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 225 objects switch=CASTKEYDEF
+MOVER cases/VL/vl08_two_parents d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 226 objects switch=CASTKEYDEF
+MOVER cases/VL/vl08_two_parents e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 223 objects switch=CASTKEYDEF
+MOVER cases/VL/vl09_for_gen_inst d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 244 objects switch=CASTKEYDEF
+MOVER cases/VL/vl09_for_gen_inst e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 241 objects switch=CASTKEYDEF
+MOVER cases/VL/vl11_def_after_top d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 282 objects switch=CASTKEYDEF
+MOVER cases/VL/vl11_def_after_top e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 282 objects switch=CASTKEYDEF
+MOVER cases/VL/vl15_depth3_two d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 227 objects switch=CASTKEYDEF
+MOVER cases/VL/vl15_depth3_two e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 224 objects switch=CASTKEYDEF
+MOVER cases/VL/vl16_header_param_cast d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 223 objects switch=CASTKEYDEF
+MOVER cases/VL/vl16_header_param_cast e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 220 objects switch=CASTKEYDEF
+MOVER cases/VL/vl18_three_insts_interleaved d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 415 objects switch=CASTKEYDEF
+MOVER cases/VL/vl18_three_insts_interleaved e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 409 objects switch=CASTKEYDEF
+MOVER cases/VL/vl20_nested_struct d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VL/vl20_nested_struct e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=CASTKEYDEF
+MOVER cases/VQ/vq01_plainroot_mid_call d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 149 objects switch=GENLVCALL
+MOVER cases/VQ/vq01_plainroot_mid_call e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 171 objects switch=GENLVCALL
+MOVER cases/VQ/vq02_plainroot_mid_and_trail d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_NOTEQUAL fullname switch=GENLVCALL
+MOVER cases/VQ/vq02_plainroot_mid_and_trail e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_NOTEQUAL fullname switch=GENLVCALL
+MOVER cases/VQ/vq04_rootsel_both d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 151 objects switch=GENLVCALL
+MOVER cases/VQ/vq04_rootsel_both e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 161 objects switch=GENLVCALL
+MOVER cases/VQ/vq07_plainroot_mid_const_trail_call d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_NOTEQUAL fullname switch=GENLVCALL
+MOVER cases/VQ/vq07_plainroot_mid_const_trail_call e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_NOTEQUAL fullname switch=GENLVCALL
+MOVER cases/VQ/vq08_for_gen_plainroot_mid d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 175 objects switch=GENLVCALL
+MOVER cases/VQ/vq08_for_gen_plainroot_mid e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 195 objects switch=GENLVCALL
+MOVER cases/VQ/vq09_for_rootsel_trail d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_NOTEQUAL fullname switch=GENLVCALL
+MOVER cases/VQ/vq09_for_rootsel_trail e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_NOTEQUAL fullname switch=GENLVCALL
+MOVER cases/VQ/vq10_three_level_trail d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 162 objects switch=GENLVCALL
+MOVER cases/VQ/vq10_three_level_trail e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 184 objects switch=GENLVCALL
+MOVER cases/VQ/vq12_ff_trail d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 176 objects switch=GENLVCALL
+MOVER cases/VQ/vq12_ff_trail e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 184 objects switch=GENLVCALL
+MOVER cases/VQ/vq13_trail_call_in_op d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 162 objects switch=GENLVCALL
+MOVER cases/VQ/vq13_trail_call_in_op e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 165 objects switch=GENLVCALL
+MOVER cases/VW/vw02_iter_left_operand d rc=0 cmp=71 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=WITHPAREN
+MOVER cases/VW/vw02_iter_left_operand e rc=0 cmp=71 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=WITHPAREN
+MOVER cases/VW/vw11_pkg_func d rc=0 cmp=59 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 79 objects switch=WITHPAREN
+MOVER cases/VW/vw11_pkg_func e rc=0 cmp=63 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 81 objects switch=WITHPAREN
+MOVER cases/VW/vw16_multiline d rc=0 cmp=71 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=WITHPAREN
+MOVER cases/VW/vw16_multiline e rc=0 cmp=71 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=WITHPAREN
+MOVER cases/VX/vx09_index_with d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 47 objects switch=WITHPAREN
+MOVER cases/VX/vx09_index_with e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 44 objects switch=WITHPAREN
+MOVER cases/VX/vx10_iter_and_index d rc=0 cmp=87 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=WITHPAREN
+MOVER cases/VX/vx10_iter_and_index e rc=0 cmp=91 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=WITHPAREN
+MOVER cases/VX/vx13_always_comb_dyn d rc=0 cmp=71 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=WITHPAREN
+MOVER cases/VX/vx13_always_comb_dyn e rc=0 cmp=71 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=WITHPAREN
+MOVER cases/VX/vx14_two_on_line d rc=0 cmp=45 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=WITHPAREN
+MOVER cases/VX/vx14_two_on_line e rc=0 cmp=45 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 switch=WITHPAREN
+MOVER cases/VY/vy01_two_calls d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 60 objects switch=GENLVCALL
+MOVER cases/VY/vy01_two_calls e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 60 objects switch=GENLVCALL
+MOVER cases/VY/vy02_dpi d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 46 objects switch=GENLVCALL
+MOVER cases/VY/vy02_dpi e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 48 objects switch=GENLVCALL
+MOVER cases/VY/vy04_task_body_in_gen d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 66 objects switch=GENLVCALL
+MOVER cases/VY/vy04_task_body_in_gen e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 68 objects switch=GENLVCALL
+MOVER cases/VY/vy05_for_gen_ff_two d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 159 objects switch=GENLVCALL
+MOVER cases/VY/vy05_for_gen_ff_two e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 159 objects switch=GENLVCALL
+MOVER cases/VY/vy06_case_stmt d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 72 objects switch=GENLVCALL
+MOVER cases/VY/vy06_case_stmt e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 76 objects switch=GENLVCALL
+MOVER cases/VY/vy07_if_stmt d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 66 objects switch=GENLVCALL
+MOVER cases/VY/vy07_if_stmt e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 70 objects switch=GENLVCALL
+MOVER cases/VY/vy08_ips_base d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 52 objects switch=GENLVCALL
+MOVER cases/VY/vy08_ips_base e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 52 objects switch=GENLVCALL
+MOVER cases/VY/vy09_call_arg_param d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 93 objects switch=GENLVCALL
+MOVER cases/VY/vy09_call_arg_param e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 97 objects switch=GENLVCALL
+MOVER cases/VY/vy10_member_trailing_plain d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 74 objects switch=GENLVCALL
+MOVER cases/VY/vy10_member_trailing_plain e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 82 objects switch=GENLVCALL
+MOVER cases/VY/vy11_unpacked_member_root d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 90 objects switch=GENLVCALL
+MOVER cases/VY/vy11_unpacked_member_root e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 102 objects switch=GENLVCALL
+MOVER cases/VY/vy12_nonblocking_initial d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 50 objects switch=GENLVCALL
+MOVER cases/VY/vy12_nonblocking_initial e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 52 objects switch=GENLVCALL
+MOVER cases/VY/vy13_loop_var_arg d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 72 objects switch=GENLVCALL
+MOVER cases/VY/vy13_loop_var_arg e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 74 objects switch=GENLVCALL
+MOVER cases/VY/vy14_assoc_lv d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 49 objects switch=GENLVCALL
+MOVER cases/VY/vy14_assoc_lv e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 51 objects switch=GENLVCALL
+MOVER cases/VY/vy15_queue_lv d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 49 objects switch=GENLVCALL
+MOVER cases/VY/vy15_queue_lv e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 51 objects switch=GENLVCALL
+MOVER cases/VY/vy16_interface_port d rc=0 cmp=120 NOT_EQUAL stage1 -> rc=0 cmp=120 NOT_EQUAL stage1 switch=GENLVCALL
+MOVER cases/VY/vy16_interface_port e rc=0 cmp=120 NOT_EQUAL stage1 -> rc=0 cmp=120 NOT_EQUAL stage1 switch=GENLVCALL
+MOVER cases/VY/vy17_hier_lv d rc=0 cmp=120 NOT_EQUAL stage1 -> rc=0 cmp=120 NOT_EQUAL stage1 switch=GENLVCALL
+MOVER cases/VY/vy17_hier_lv e rc=0 cmp=120 NOT_EQUAL stage1 -> rc=0 cmp=120 NOT_EQUAL stage1 switch=GENLVCALL
+MOVER cases/VY/vy18_genvar_root_index d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 87 objects switch=GENLVCALL
+MOVER cases/VY/vy18_genvar_root_index e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 87 objects switch=GENLVCALL
+MOVER cases/VY/vy19_rootsel_member_noncall_root d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 85 objects switch=GENLVCALL
+MOVER cases/VY/vy19_rootsel_member_noncall_root e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 93 objects switch=GENLVCALL
+MOVER cases/VZ/vz01_escaped_kw d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 22 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz01_escaped_kw e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 19 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz02_long_name d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 22 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz02_long_name e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 19 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz03_after_esc_signal_same_line d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 31 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz03_after_esc_signal_same_line e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 25 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz05_include_file d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 23 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz05_include_file e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 20 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz06_disable d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 25 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz06_disable e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 29 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz07_fork_inner_begin d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 24 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz07_fork_inner_begin e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 21 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz08_final d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 22 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz08_final e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 19 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz09_program d rc=0 cmp=29 NOT_EQUAL stage1 -> rc=0 cmp=29 NOT_EQUAL stage1 switch=ESCBLKNAME
+MOVER cases/VZ/vz09_program e rc=0 cmp=29 NOT_EQUAL stage1 -> rc=0 cmp=29 NOT_EQUAL stage1 switch=ESCBLKNAME
+MOVER cases/VZ/vz10_interface d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 37 objects switch=ESCBLKNAME
+MOVER cases/VZ/vz10_interface e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 37 objects switch=ESCBLKNAME
+attribution {'ESCBLKNAME': 44, 'GENLVCALL': 94, 'INTSIGNTRIM': 54, 'CASTKEYDEF': 40, 'WITHPAREN': 14}

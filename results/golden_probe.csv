@@ -88,7 +88,7 @@ r10earl29repro/v7_lval,EQUAL,,equal
 r10earl29repro/v8_sites2,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
 r10earl30repro/g4_ctrl,EQUAL,,equal
 r10earl31repro/e1_psbound,EQUAL,,equal
-r10earl31repro/e4_ctrl,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
+r10earl31repro/e4_ctrl,EQUAL,,equal
 r10earl31repro/v3_tern,EQUAL,,equal
 r10earl31repro/v4_ops,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
 r10earl31repro/v5_hier,EQUAL,,equal
@@ -755,7 +755,7 @@ r10uvm149repro/g149/shapes,EQUAL,,equal
 r10uvm14repro/t,EQUAL,,equal
 r10uvm14repro/t19_t,EQUAL,,equal
 r10uvm151repro/g151_a_body,EQUAL,,equal
-r10uvm151repro/g151_e_ctx,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
+r10uvm151repro/g151_e_ctx,EQUAL,,equal
 r10uvm152repro/g152_a_mech,EQUAL,,equal
 r10uvm153repro/g153_a_mech,EQUAL,,equal
 r10uvm153repro/g153_b_pos,EQUAL,,equal
@@ -1195,7 +1195,7 @@ r10v150repro/v150_f1,EQUAL,,equal
 r10v150repro/v150_g,EQUAL,,equal
 r10v151repro/v151_1_withexpr,EQUAL,,equal
 r10v151repro/v151_4_nonarray,EQUAL,,equal
-r10v151repro/v151_5_ctx,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
+r10v151repro/v151_5_ctx,EQUAL,,equal
 r10v152repro/v152_e_pos,EQUAL,,equal
 r10v152repro/v152_h_prop,EQUAL,,equal
 r10v153repro/v153_c_order,EQUAL,,equal
@@ -3541,11 +3541,11 @@ r11v69repro/grid/w10_sharesize,EQUAL,,equal
 r11v69repro/grid/w1_netlhs,EQUAL,,equal
 r11v69repro/grid/w5_ovr,EQUAL,,equal
 r11v69repro/grid/w9_sharehead,EQUAL,,equal
-r11v70repro/v11,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r11v70repro/v11,EQUAL,,equal
 r11v70repro/v16,EQUAL,,equal
 r11v70repro/v2,EQUAL,,equal
 r11v70repro/v3,EQUAL,,equal
-r11v70repro/v5,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)
+r11v70repro/v5,EQUAL,,equal
 r11v70repro/v6,EQUAL,,equal
 r11v70repro/v9,EQUAL,,equal
 r11v71repro/grid/x4_genarray,EQUAL,,equal
@@ -3970,7 +3970,7 @@ v11u116repro/arms/f1s_ovr,EQUAL,,equal
 v11u116repro/arms/f1s_twop,EQUAL,,equal
 v11u116repro/arms/f1t_intdec,EQUAL,,equal
 v11u116repro/arms/f1t_intnd,EQUAL,,equal
-v11u116repro/arms/f1t_intsig,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
+v11u116repro/arms/f1t_intsig,EQUAL,,equal
 v11u116repro/arms/f2_bare_d2ff,EQUAL,,equal
 v11u116repro/arms/f2_bare_d3cb,EQUAL,,equal
 v11u116repro/arms/f2_cat_d2ff,EQUAL,,equal
@@ -4007,7 +4007,7 @@ v11u116repro/arms/g2_cast,EQUAL,,equal
 v11u116repro/arms/g2_child,EQUAL,,equal
 v11u116repro/arms/g2_dly,EQUAL,,equal
 v11u116repro/arms/g2_enump,EQUAL,,equal
-v11u116repro/arms/g2_fcall,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
+v11u116repro/arms/g2_fcall,EQUAL,,equal
 v11u116repro/arms/g2_fork,EQUAL,,equal
 v11u116repro/arms/g2_forstep,EQUAL,,equal
 v11u116repro/arms/g2_modpar,EQUAL,,equal

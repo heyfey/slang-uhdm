@@ -49,10 +49,104 @@
 #include "R280.h"
 #include "R282.h"
 #include "R284.h"
+#include "R286.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
 namespace slang_uhdm {
+// § genProcLvIdxCallSpan286's abstention: is the call (`n`, its syntax) inside
+// an lvalue MEMBER PATH whose root is selected (`m[fn(1)].v`,
+// `ts[1].arr[fn(3)].v`)?  Climbs to the assignment's left side and reads its
+// select / member chain down to the identifier.
+static bool rootSelLvPath286(const slang::syntax::SyntaxNode* n) {
+    using namespace slang::syntax;
+    const SyntaxNode* lv = nullptr;
+    for (const SyntaxNode* q = n; q && q->parent; q = q->parent) {
+        if (SyntaxFacts::isAssignmentOperator(q->parent->kind)) {
+            auto& be = q->parent->as<BinaryExpressionSyntax>();
+            if (be.left.get() == q)
+                lv = q;
+            break;
+        }
+    }
+    if (!lv)
+        return false;
+    bool member = false, rootSel = false;
+    const SyntaxNode* q = lv;
+    for (int g = 0; q && g < 64; ++g) {
+        if (q->kind == SyntaxKind::ScopedName) {
+            auto& sn = q->as<ScopedNameSyntax>();
+            if (sn.separator.kind == slang::parsing::TokenKind::Dot)
+                member = true;
+            q = sn.left.get();
+        }
+        else if (q->kind == SyntaxKind::MemberAccessExpression) {
+            member = true;
+            q = q->as<MemberAccessExpressionSyntax>().left.get();
+        }
+        else if (q->kind == SyntaxKind::ElementSelectExpression)
+            q = q->as<ElementSelectExpressionSyntax>().left.get();
+        else if (q->kind == SyntaxKind::ParenthesizedExpression)
+            q = q->as<ParenthesizedExpressionSyntax>().expression.get();
+        else {
+            rootSel = q->kind == SyntaxKind::IdentifierSelectName;
+            break;
+        }
+    }
+    if (!(member && rootSel))
+        return false;
+    // § genLvTrailSelCallWhole286v (v11u286, R11V286_TRAILSEL_OFF): a call
+    // inside the path's TRAILING element (`m[1].v[fn(2)]`, `sa[1].f[fn(0)]`,
+    // the second call of `m[fn(1)].b[fn(0)]`) spans the whole call in golden
+    // as on a plain root (cases/VQ vq04, VG vg17, VY vy19); only a call in the
+    // root's or a middle element's select keeps the name span.
+    const SyntaxNode* trail = nullptr;
+    if (lv->kind == SyntaxKind::ScopedName)
+        trail = lv->as<ScopedNameSyntax>().right.get();
+    else if (lv->kind == SyntaxKind::ElementSelectExpression)
+        trail = lv->as<ElementSelectExpressionSyntax>().select.get();
+    bool inTrail = false;
+    if (trail && trail->kind != SyntaxKind::IdentifierName)
+        for (const SyntaxNode* t = n; t && t != lv; t = t->parent)
+            if (t == trail) {
+                inTrail = true;
+                break;
+            }
+    if (inTrail) {
+        static const bool onv286 = r11v286On("R11V286_TRAILSEL_OFF");
+        tr286(onv286 ? "TRAILSEL" : "TRAILSEL_OFF", "");
+        if (onv286)
+            return false;
+    }
+    return true;
+}
+
+// § withCallParenSyntax286 (r11u286, R11U286_WITHPAREN_OFF): the syntax of an
+// array-method call with a `with` clause, read through any parentheses slang
+// leaves on a parenthesized call's Expression::syntax.  Off (or no
+// parentheses): the syntax as given.  The trace names every unwrap.
+static const slang::syntax::SyntaxNode* withCallSyntax286(
+    const slang::syntax::SyntaxNode* n, const char* site) {
+    if (!n || n->kind != slang::syntax::SyntaxKind::ParenthesizedExpression)
+        return n;
+    static const bool on286 = r11u286On("R11U286_WITHPAREN_OFF");
+    if (!on286) {
+        tr286("WITHPAREN_OFF", site);
+        return n;
+    }
+    const slang::syntax::SyntaxNode* q = n;
+    int depth = 0;
+    while (q && q->kind == slang::syntax::SyntaxKind::ParenthesizedExpression) {
+        q = q->as<slang::syntax::ParenthesizedExpressionSyntax>().expression;
+        ++depth;
+    }
+    if (!q || q->kind != slang::syntax::SyntaxKind::ArrayOrRandomizeMethodExpression) {
+        tr286("WITHPAREN_ABSTAIN", std::string(site) + " inner-not-with-call");
+        return n;
+    }
+    tr286("WITHPAREN", std::string(site) + " depth=" + std::to_string(depth));
+    return q;
+}
 // § dpiTopCastResolvesByModImport246 (r11u246) — THE ELABORATED HOME COPY OF
 // AN `export "DPI-C"` CAST RESOLVES WHEN A MODULE IMPORTS THE TYPE.  § 170's
 // unsupported placeholder (a bare own enum/struct/union typedef name cast in
@@ -29017,8 +29111,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 tsnL9 && tsnL9->kind !=
                                              syntax::SyntaxKind::ImplicitType) {
                                 typed9 = true;
+                                // § foldIntTsSignedKwTrim286 (r11u286,
+                                // R11U286_INTSIGNTRIM_OFF) — the loop-scope
+                                // fold's int_typespec of `parameter int
+                                // signed P` ends at the `int` keyword, as
+                                // the parameter's own typespec does
+                                // (makeParamTs' trimTypeSigning; Surelog's
+                                // typespec of an integer atom never spans
+                                // `signed`): golden v11u116 f1t_intsig
+                                // 2:13-16 on every generate-scope fold, ours
+                                // 2:13-23.  `int unsigned` keeps its span.
+                                SourceRange sr286 = tsnL9->sourceRange();
+                                if (!bare266) {
+                                    SourceRange st286 = trimTypeSigning(tsnL9, sr286);
+                                    if (!(st286 == sr286)) {
+                                        static const bool on286 =
+                                            r11u286On("R11U286_INTSIGNTRIM_OFF");
+                                        tr286(on286 ? "INTSIGNTRIM" : "INTSIGNTRIM_OFF",
+                                              tsName9);
+                                        if (on286)
+                                            sr286 = st286;
+                                    }
+                                }
                                 if (!bare266)
-                                setLoc(itsL9, tsnL9->sourceRange());
+                                setLoc(itsL9, sr286);
                                 itsL9->VpiSigned(
                                     psL9.getType().getCanonicalType().isSigned());
                             }
@@ -37071,10 +37187,40 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 const bool psBound181 =
                     parent && parent->UhdmType() == UHDM::uhdmpart_select &&
                     r11v181On("R11V181_LVCALLPS_OFF");
+                // § genProcLvIdxCallSpan286 (r11u286, R11U286_GENLVCALL_OFF)
+                // — the same lvalue call in a GENERATE-SCOPE process, the
+                // elaborated gen_scope loop (inGenScopeProc) and the
+                // definition view's gen process (defGenProcessEmit), which
+                // set neither inProcessEmit nor currentSubSym: golden
+                // v11u116 g2_fcall `v[f][fn(P)] <= d[f][0];` 13:14-19 in
+                // both views, ours 13:14-16 (the module-body process
+                // already spanned the whole call).
+                // A call inside a MEMBER PATH lvalue whose ROOT is selected
+                // (`m[fn(1)].v = ...`, `ts[0].arr[fn(3)].v`) abstains:
+                // golden spans the name there, which the module-body rule
+                // does not model either (grid cases/GL g07, g13).
+                bool genLv286 = false;
+                if (inLhs && !inParamInit && !inProcessEmit && !currentSubSym &&
+                    (inGenScopeProc || defGenProcessEmit)) {
+                    static const bool on286 = r11u286On("R11U286_GENLVCALL_OFF");
+                    bool inHp286 = rootSelLvPath286(expr.syntax);
+                    genLv286 = on286 && !inHp286;
+                    if (!on286)
+                        tr286("GENLVCALL_OFF", std::string(sub.name));
+                    else if (inHp286)
+                        tr286("GENLVCALL_ABSTAIN", std::string(sub.name) + " rootsel-path");
+                    else if (rdCall181 || psBound181)
+                        tr286("GENLVCALL_ABSTAIN",
+                              std::string(sub.name) + (rdCall181 ? " rdcall" : " psbound"));
+                }
                 const bool procLvCall181 =
-                    inLhs && !inParamInit && (inProcessEmit || currentSubSym) &&
+                    inLhs && !inParamInit &&
+                    (inProcessEmit || currentSubSym || genLv286) &&
                     !rdCall181 && !psBound181 &&
                     r11u181Law("R11U181_LVCALL_OFF");
+                if (procLvCall181 && genLv286)
+                    tr286("GENLVCALL", std::string(sub.name) +
+                                           (defGenProcessEmit ? " def" : " elab"));
                 if (procLvCall181)
                     trace181("LVCALL");
                 else if (inLhs && !inParamInit && (inProcessEmit || currentSubSym) &&
@@ -40034,13 +40180,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                      // `with ( cb_.get_inst_id )`
                                                      // 19:32-19:90, ours 19:89
                                                      // (map N0097).  Grid cases/e w01.
-                                                     if (expr.syntax &&
-                                                         expr.syntax->kind ==
+                                                     // § withCallParenSyntax286 (r11u286,
+                                                     // R11U286_WITHPAREN_OFF) — slang
+                                                     // gives a PARENTHESIZED call the
+                                                     // ParenthesizedExpression as its
+                                                     // syntax (Expression::bind,
+                                                     // `result->syntax = &syntax`), so
+                                                     // `1 + (q.sum() with ( item ))`
+                                                     // missed the with-clause's `)`
+                                                     // (golden g151_e_ctx 45:16-38,
+                                                     // ours 45:37): read the call
+                                                     // through its parentheses.
+                                                     const syntax::SyntaxNode* ws286 =
+                                                         withCallSyntax286(expr.syntax, "PATHSPAN");
+                                                     if (ws286 &&
+                                                         ws286->kind ==
                                                              syntax::SyntaxKind::
                                                                  ArrayOrRandomizeMethodExpression &&
                                                          r11u183LawEX("R11U183_PATHSPAN_OFF"))
                                                          if (auto* a183 =
-                                                                 expr.syntax
+                                                                 ws286
                                                                      ->as<syntax::ArrayOrRandomizeMethodExpressionSyntax>()
                                                                      .args;
                                                              a183 && a183->closeParen &&
@@ -40444,7 +40603,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // `q.m(it) with (…)` parses as an
                             // ArrayOrRandomizeMethodExpression wrapping the
                             // invocation.
-                            const syntax::SyntaxNode* mi9 = expr.syntax;
+                            // § withCallParenSyntax286 — the iterator
+                            // argument of a PARENTHESIZED call, likewise.
+                            const syntax::SyntaxNode* mi9 =
+                                withCallSyntax286(expr.syntax, "ITERARG");
                             if (mi9->kind == syntax::SyntaxKind::
                                                  ArrayOrRandomizeMethodExpression)
                                 mi9 = mi9->as<syntax::ArrayOrRandomizeMethodExpressionSyntax>()
@@ -46426,6 +46588,76 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (auto f70 = castKeyNets70.find(ck70);
                                 f70 != castKeyNets70.end())
                                 return f70->second;
+                            // § elabCastKeyBindsDefNet286 (r11u286,
+                            // R11U286_CASTKEYDEF_OFF) — an ELABORATED
+                            // instance's key binds the DEFINITION's minted
+                            // wire, one object shared by every instance of
+                            // the definition and by its listing (golden
+                            // r11v70 v5 `sub5 u1, u2`: both keys read
+                            // logic_net work@sub5.a; ours minted work@v5.u1.a
+                            // and work@v5.u2.a).  The elaborated view is
+                            // written first, so the first instance mints the
+                            // wire under the definition's name and the
+                            // definition listing adopts it below.  The top
+                            // instance, whose own wire already reads the
+                            // definition's name, keeps it.
+                            std::string dn286;
+                            bool elab286 = false;
+                            if (castKeyNetHome70) {
+                                // the definition listing is keyed by its own
+                                // prefix (its VpiDefName is not yet set when
+                                // its parameters are written)
+                                dn286 = castKeyNetList70
+                                            ? castKeyNetPrefix70
+                                            : std::string(castKeyNetHome70->VpiDefName());
+                                if (!castKeyNetList70 && !dn286.empty() &&
+                                    dn286 + "." + knm != castKeyNetPrefix70 + "." + knm) {
+                                    static const bool on286 =
+                                        r11u286On("R11U286_CASTKEYDEF_OFF");
+                                    if (on286)
+                                        elab286 = true;
+                                    else
+                                        tr286("CASTKEYDEF_OFF", castKeyNetPrefix70 + "." + knm);
+                                }
+                            }
+                            auto& dm286 = castKeyDefNets286();
+                            auto dk286 = std::make_pair(dn286, knm);
+                            if (elab286) {
+                                if (auto df286 = dm286.find(dk286); df286 != dm286.end()) {
+                                    tr286("CASTKEYDEF", castKeyNetPrefix70 + "." + knm +
+                                                            " shares " +
+                                                            std::string(df286->second->VpiFullName()));
+                                    castKeyNets70[ck70] = df286->second;
+                                    return df286->second;
+                                }
+                                auto* en286 = s.MakeLogic_net();
+                                en286->VpiName(knm);
+                                en286->VpiFullName(dn286 + "." + knm);
+                                en286->VpiParent(castKeyNetHome70);
+                                en286->VpiNetType(1);
+                                setLoc(en286, kr);
+                                castKeyNets70[ck70] = en286;
+                                dm286.emplace(dk286, en286);
+                                castKeyAdopt286().insert(en286);
+                                tr286("CASTKEYDEF", castKeyNetPrefix70 + "." + knm +
+                                                        " mints " + dn286 + "." + knm);
+                                return en286;
+                            }
+                            // The definition listing adopts the wire its
+                            // first elaborated instance minted.
+                            if (castKeyNetList70 && castKeyNetHome70)
+                                if (auto da286 = dm286.find(dk286);
+                                    da286 != dm286.end() &&
+                                    castKeyAdopt286().count(da286->second)) {
+                                    auto* an286 = da286->second;
+                                    castKeyAdopt286().erase(an286);
+                                    an286->VpiFullName(castKeyNetPrefix70 + "." + knm);
+                                    an286->VpiParent(castKeyNetHome70);
+                                    castKeyNets70[ck70] = an286;
+                                    castKeyNetPending70[castKeyNetHome70].push_back(an286);
+                                    tr286("CASTKEYDEF_ADOPT", castKeyNetPrefix70 + "." + knm);
+                                    return an286;
+                                }
                             auto* inet70 = s.MakeLogic_net();
                             inet70->VpiName(knm);
                             inet70->VpiFullName(castKeyNetPrefix70 + "." + knm);
@@ -46436,6 +46668,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (castKeyNetList70)
                                 castKeyNetPending70[castKeyNetHome70].push_back(
                                     inet70);
+                            // § elabCastKeyBindsDefNet286 — the definition's
+                            // wire, by definition name and key.
+                            if (castKeyNetList70 && castKeyNetHome70)
+                                dm286.emplace(dk286, inet70);
                             return inet70;
                         };
                         auto* cops70 = s.MakeAnyVec();

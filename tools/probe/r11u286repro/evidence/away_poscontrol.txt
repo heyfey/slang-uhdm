@@ -1,0 +1,6 @@
+CK/k01_two_inst d chain away=2 toward=0 flat_away=2 flat_toward=0
+CK/k06_module_typedef d chain away=2 toward=0 flat_away=2 flat_toward=0
+GL/g02_if_comb d chain away=4 toward=0 flat_away=4 flat_toward=0
+GL/g09_iface_gen d chain away=1 toward=0 flat_away=1 flat_toward=0
+IS/i02_dec d chain away=2 toward=0 flat_away=2 flat_toward=0
+WP/w01_class_task d chain away=4 toward=0 flat_away=4 flat_toward=0

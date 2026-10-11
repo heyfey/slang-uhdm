@@ -26,6 +26,7 @@
 #include "R258.h"
 #include "R264.h"
 #include "R270.h"
+#include "R286.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -2460,7 +2461,32 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 else {
                     // Anchored at the block name token.
                     auto nl = blkSym158->location;
-                    setLoc(nb, SourceRange(nl, nl + blkSym158->name.size()));
+                    SourceLocation ne286 = nl + blkSym158->name.size();
+                    // § escBlockNameSpanTrailSpace286 (r11u286,
+                    // R11U286_ESCBLKNAME_OFF) — an ESCAPED block name
+                    // (`begin : \blk@1 `) spans its whole lexeme through
+                    // the terminating space, the backslash and the space
+                    // included (golden r10earl31 e4_ctrl 35:23-34, ours
+                    // 35:23-32: the token's own width is two more than
+                    // the name's; the line's column shift is
+                    // fileLineCol's, § escIdPpColumnShift146).
+                    if (!sm->isMacroLoc(nl) &&
+                        rawText(SourceRange(nl, nl + 1)) == "\\") {
+                        auto txt286 = sm->getSourceText(nl.buffer());
+                        size_t e286 = nl.offset() + 1 + blkSym158->name.size();
+                        if (e286 < txt286.size() && txt286[e286] == ' ' &&
+                            txt286.substr(nl.offset() + 1, blkSym158->name.size()) ==
+                                blkSym158->name) {
+                            static const bool on286 = r11u286On("R11U286_ESCBLKNAME_OFF");
+                            tr286(on286 ? "ESCBLKNAME" : "ESCBLKNAME_OFF",
+                                  std::string(blkSym158->name));
+                            if (on286)
+                                ne286 = SourceLocation(nl.buffer(), e286 + 1);
+                        }
+                        else
+                            tr286("ESCBLKNAME_ABSTAIN", std::string(blkSym158->name));
+                    }
+                    setLoc(nb, SourceRange(nl, ne286));
                 }
                 // § endBlockLabelAllOwners62 — `end : lbl` AND
                 // `join/join_any/join_none : lbl`.  A ParallelBlockStatement is
