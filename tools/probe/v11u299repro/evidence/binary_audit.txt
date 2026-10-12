@@ -1,0 +1,2 @@
+wP total=3315 own=3265 other=0 mainbin=0 none=50
+wL total=3315 own=3265 other=0 mainbin=0 none=50

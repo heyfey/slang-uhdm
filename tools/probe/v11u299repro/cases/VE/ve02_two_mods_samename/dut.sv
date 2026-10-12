@@ -1,0 +1,17 @@
+// § modEnumTfArgCloneFollows299
+module m (input logic [1:0] d, output logic o);
+  typedef enum logic [1:0] { BA, BB, BC } b_e;
+  localparam b_e LP = BB;
+  function automatic logic f(input b_e q); return q == BA; endfunction
+  assign o = f(b_e'(d)) ^ (LP == BC);
+endmodule
+module n (input logic [1:0] d, output logic o);
+  typedef enum logic [1:0] { CA, CB, CC } b_e;
+  localparam b_e LP = CC;
+  function automatic logic f(input b_e q); return q == CA; endfunction
+  assign o = f(b_e'(d)) ^ (LP == CB);
+endmodule
+module top (input logic [1:0] d, output logic o1, o2);
+  m u (.d(d), .o(o1));
+  n v (.d(d), .o(o2));
+endmodule

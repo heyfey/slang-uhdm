@@ -937,7 +937,7 @@ r10uvm56repro/a2_local,EQUAL,,equal
 r10uvm56repro/a3_scope,EQUAL,,equal
 r10uvm56repro/a4_kinds,EQUAL,,equal
 r10uvm56repro/a5_argpos,EQUAL,,equal
-r10uvm56repro/a6_type,STRICT_NOTEQUAL,differ:line(9),differ:line(9)
+r10uvm56repro/a6_type,EQUAL,,equal
 r10uvm56repro/a8_newlhs,EQUAL,,equal
 r10uvm56repro/v1_scopes2,EQUAL,,equal
 r10uvm56repro/v2_call,EQUAL,,equal
@@ -1369,7 +1369,7 @@ r10v226repro/arms/b02_kinds,EQUAL,,equal
 r10v226repro/arms/b09_nestediface,EQUAL,,equal
 r10v226repro/arms/b12_multiproc,EQUAL,,equal
 r10v62repro/pkg_a,EQUAL,,equal
-r10v62repro/v62e_bind,STRICT_NOTEQUAL,differ:line(7),differ:line(7)
+r10v62repro/v62e_bind,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
 r10v62repro/v62i_nobind,EQUAL,,equal
 r10v64repro/v7_inst64,EQUAL,,equal
 r10v65repro/a6_def,EQUAL,,equal
@@ -1904,7 +1904,7 @@ r11u110repro/grid/e1/e16_nonlocal_rt,EQUAL,,equal
 r11u110repro/grid/e1/e17_top_shape,EQUAL,,equal
 r11u110repro/grid/e1/e18_chain_rt,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
 r11u110repro/grid/e1/e19_scalar_port_ctl,EQUAL,,equal
-r11u110repro/grid/e1/e22_nonansi,STRICT_NOTEQUAL,differ:line(1),differ:line(1)
+r11u110repro/grid/e1/e22_nonansi,EQUAL,,equal
 r11u110repro/grid/e1/e23_inst_array,EQUAL,,equal
 r11u110repro/grid/e1/e24_ovr_2state,EQUAL,,equal
 r11u110repro/grid/e1/e25_ovr_same_ctl,EQUAL,,equal
@@ -4035,7 +4035,7 @@ v11u93b107repro/brk/p08_task_auto,EQUAL,,equal
 v11u93b107repro/brk/p10_union_of_struct,EQUAL,,equal
 v11u93b107repro/brk/p12_dim01,EQUAL,,equal
 v11u93b107repro/brk/p17_bit_struct,EQUAL,,equal
-v11u93b107repro/brk/p18_func_arg,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
+v11u93b107repro/brk/p18_func_arg,EQUAL,,equal
 v11u93b107repro/brk/p19_signed_member,EQUAL,,equal
 v11u93b107repro/brk/p20_param_child_twice,EQUAL,,equal
 v11u93b107repro/brk/q01_dim_valparam,EQUAL,,equal

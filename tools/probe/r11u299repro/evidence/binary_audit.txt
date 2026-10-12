@@ -1,0 +1,2 @@
+pristine sweep: 3265 of 3315 fence-filtered cmds.txt name /tmp/<pass>_bin/pristine, the other 50 run no slang (0 lines naming slang)
+law sweep: 3265 of 3315 name /tmp/<pass>_bin/law, the other 50 run no slang; no cmds.txt names another binary

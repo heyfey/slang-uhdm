@@ -30,6 +30,7 @@
 #include "R275.h"
 #include "R277.h"
 #include "R283.h"
+#include "R299.h"
 
 namespace slang_uhdm {
 
@@ -5536,6 +5537,36 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     }
                 }
             }
+            // § inlineAggReturnVarSpan299 (r11u299) — a function whose return
+            // type is an INLINE packed struct or union with packed dimensions
+            // (`function struct packed {..} [1:0] f(...)`) has a return
+            // variable spanning the whole written data type, dimensions
+            // included: compileVariable ends with
+            // `populateCoreMembers(declarationId, declarationId, result)` on the
+            // Data_type node (the § tfSigningSpanFollowsCompilePath200 decode);
+            // ours spanned `struct packed`.  Golden grid
+            // tools/probe/r11u299repro/cases/RF: r01 module function, r03 a
+            // union, r04 a class method, r05 a $unit function, r06 a multi-line
+            // type (golden logic_var 3:22-3:63 where ours read 3:22-3:35).  A
+            // return type without dimensions is not this shape (r02, stage 1
+            // on every binary).  Switch R11U299_INLAGGRET_OFF.
+            if (auto* rsyn299 = retTypeSyn175(sub);
+                rsyn299 && rv &&
+                (rsyn299->kind == syntax::SyntaxKind::StructType ||
+                 rsyn299->kind == syntax::SyntaxKind::UnionType) &&
+                !rsyn299->as<syntax::StructUnionTypeSyntax>().dimensions.empty() &&
+                rv->UhdmType() == UHDM::uhdmlogic_var &&
+                r11u299On("R11U299_INLAGGRET_OFF")) {
+                auto rr299 = rsyn299->sourceRange();
+                if (rr299.start() != SourceLocation::NoLocation) {
+                    auto o299 = std::make_tuple(rv->VpiLineNo(), rv->VpiColumnNo(),
+                                                rv->VpiEndLineNo(), rv->VpiEndColumnNo());
+                    setLoc(rv, rr299);
+                    if (o299 != std::make_tuple(rv->VpiLineNo(), rv->VpiColumnNo(),
+                                                rv->VpiEndLineNo(), rv->VpiEndColumnNo()))
+                        tr299("inlineAggReturnVarSpan299", std::string(sub.name));
+                }
+            }
             ((UHDM::function*)tf)->Return(rv);
             }
         }
@@ -6741,6 +6772,60 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     slot33c = (UHDM::typespec*)ts;
                 }
             io->Typespec(rt);
+            // § inlineAggFormalTypeSpan299 (r11u299, probe
+            // v11u93b107repro/brk/p18_func_arg) — a formal written with an
+            // INLINE struct or union type is located where compileTfPortList
+            // places it: `populateCoreMembers(type, type, ts)` on the node it
+            // reads as the type (CompileStmt.cpp), which is the whole data
+            // type (`struct packed {..} [1:0]`, dimensions included) when a
+            // direction keyword precedes it and the first token, the `struct`
+            // / `union` keyword, when none does (the § tfArgQualOutsideWriter176
+            // reading of the same node).  Ours spanned `struct packed` either
+            // way (the declared-signal span).  Golden grid
+            // tools/probe/r11u299repro/cases/PF: p01 a function, p02 a task,
+            // p03 a union, p09 a class method, p11 two dimensions, p14 no
+            // dimension, p15 a multi-line type, p16 an interface function,
+            // p17 a $unit function (the dimensions' typespec the typespec the
+            // formal binds), p13 no direction (the keyword).  Switch
+            // R11U299_INLAGGFORMAL_OFF.
+            if (argTsyn && rt->Actual_typespec() &&
+                (argTsyn->kind == syntax::SyntaxKind::StructType ||
+                 argTsyn->kind == syntax::SyntaxKind::UnionType) &&
+                r11u299On("R11U299_INLAGGFORMAL_OFF")) {
+                auto* t299 = rt->Actual_typespec();
+                auto k299 = t299->UhdmType();
+                const syntax::FunctionPortSyntax* fp299 = nullptr;
+                for (auto q = arg->getSyntax(); q; q = q->parent) {
+                    if (q->kind == syntax::SyntaxKind::FunctionPort) {
+                        fp299 = &q->as<syntax::FunctionPortSyntax>();
+                        break;
+                    }
+                    if (q->kind == syntax::SyntaxKind::FunctionDeclaration ||
+                        q->kind == syntax::SyntaxKind::TaskDeclaration)
+                        break;
+                }
+                if (fp299 && fp299->dataType == argTsyn &&
+                    (k299 == UHDM::uhdmstruct_typespec ||
+                     k299 == UHDM::uhdmunion_typespec ||
+                     k299 == UHDM::uhdmpacked_array_typespec)) {
+                    auto& su299 = argTsyn->as<syntax::StructUnionTypeSyntax>();
+                    SourceRange r299 = fp299->direction.valid()
+                                           ? argTsyn->sourceRange()
+                                           : su299.keyword.range();
+                    if (r299.start() != SourceLocation::NoLocation) {
+                        auto o299 = std::make_tuple(t299->VpiLineNo(), t299->VpiColumnNo(),
+                                                    t299->VpiEndLineNo(),
+                                                    t299->VpiEndColumnNo());
+                        setLoc(t299, r299);
+                        if (o299 != std::make_tuple(t299->VpiLineNo(), t299->VpiColumnNo(),
+                                                    t299->VpiEndLineNo(),
+                                                    t299->VpiEndColumnNo()))
+                            tr299("inlineAggFormalTypeSpan299",
+                                  std::string(arg->name) +
+                                      (fp299->direction.valid() ? " dir" : " nodir"));
+                    }
+                }
+            }
             // § oobClassTdFirstClassKey231 — recorded for the design-final
             // re-point (UhdmExporter; law and decode there): the written
             // bare name of an out-of-body definition's formal type.

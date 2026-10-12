@@ -1,0 +1,10 @@
+impl/UC/u01_cls_before_mod dist 0 -> 10 lost=10 gained=0 | chain away=10 toward=0 flat_away=10 flat_toward=0
+impl/PF/p01_func_struct dist 0 -> 4 lost=4 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+impl/RF/r01_ret_dims dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+impl/NA/n01_tp_arr dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+impl/ME/e01_lp_one_inst dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+VU/vu19_modcls_nested dist 0 -> 10 lost=10 gained=0 | chain away=10 toward=0 flat_away=10 flat_toward=0
+VN/vn08_two_inst dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VE/ve06_genfor_inst dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VP/vp01_dpi dist 0 -> 6 lost=6 gained=0 | chain away=6 toward=0 flat_away=6 flat_toward=0
+VR/vr02_two_dims dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0

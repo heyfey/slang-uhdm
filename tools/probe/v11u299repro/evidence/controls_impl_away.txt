@@ -1,0 +1,6 @@
+tp/r11u152repro/cases/TP/t08_nonansi dist 1 -> 0 lost=0 gained=1 | chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u152repro/cases/TP/t08_nonansi_el dist 1 -> 0 lost=0 gained=1 | chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u231repro/cases/AL/a10 dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=2 flat_away=0 flat_toward=3
+tp/r11u231repro/cases/AL/a10_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=2 flat_away=0 flat_toward=3
+tp/r11u231repro/cases/TI/t05 dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=2 flat_away=0 flat_toward=3
+tp/r11u231repro/cases/TI/t05_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=2 flat_away=0 flat_toward=3

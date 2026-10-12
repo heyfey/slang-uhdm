@@ -59,6 +59,7 @@
 #include "R293.h"
 #include "R295.h"
 #include "R297.h"
+#include "R299.h"
 
 namespace slang_uhdm {
 // § escNameSpanSites295 (r11u295) — A NAME SPAN WRITTEN BY HAND AS
@@ -18472,6 +18473,25 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         if (!implicitNet && !realVar) {
             if (auto* tpav32 =
                     emitTypeParamArrayVar(*it.sym, name, fullName, m)) {
+                // § nonAnsiTpVarAtHeader299 (r11u299, probe
+                // r11u110repro/grid/e1/e22_nonansi) — the elaborated
+                // variable of a NON-ANSI port typed by a packed-dimension
+                // type parameter (`input rt_t rt_i;` under `module child
+                // #(.., localparam type rt_t = id_t [3:0]) (rt_i, sel_o)`) is
+                // located at the port-list name, as every other elaborated
+                // port signal is (the makeVar road below: `setLocNamed(v,
+                // *it.port)`, Surelog's port-backed Signal created from the
+                // port list): golden 1:81-1:85 where ours read the body
+                // declaration 2:14-2:18.  An ANSI port is unchanged (its name
+                // is the declaration).  Grid tools/probe/r11u299repro/cases/
+                // NA (n01, n04, n06; n02, n03, n07 controls).  Switch
+                // R11U299_NATPVARHDR_OFF.
+                if (it.port && !it.bodyDecl && r11u299On("R11U299_NATPVARHDR_OFF")) {
+                    int l299 = tpav32->VpiLineNo(), c299 = tpav32->VpiColumnNo();
+                    setLocNamed(tpav32, *it.port);
+                    if (l299 != (int)tpav32->VpiLineNo() || c299 != (int)tpav32->VpiColumnNo())
+                        tr299("nonAnsiTpVarAtHeader299", fullName);
+                }
                 topNets[it.sym] = tpav32;
                 sigOrder.emplace_back(it.sym, tpav32);
                 vars->push_back(tpav32);

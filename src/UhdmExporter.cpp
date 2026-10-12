@@ -39,6 +39,7 @@
 #include "R287.h"
 #include "R291.h"
 #include "R295.h"
+#include "R299.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -15930,12 +15931,73 @@ UHDM::design* UhdmExporter::exportDesign() {
                 w155.push_back({cont, ts155->sourceRange()});
             }
         };
+        // § unitTdClassFormalWriter299 — the class writers: (compile key,
+        // formal's type token), the key Surelog's class map orders the class
+        // compiles by (`work@<class>` for a $unit class, `work@<module>::<class>`
+        // for a class a module declares; a nested class compiles inside its
+        // outermost class, in source order).
+        static const bool cls299 = r11u299On("R11U299_UNITCLSFORMAL_OFF");
+        std::vector<std::pair<std::string, SourceRange>> wc299;
+        std::function<void(const ClassType&, const std::string&)> scanCls299 =
+            [&](const ClassType& cls, const std::string& key) {
+                for (auto& cm : cls.members()) {
+                    if (cm.kind == SymbolKind::ClassType) {
+                        scanCls299(cm.as<ClassType>(), key);
+                        continue;
+                    }
+                    // the formals: a method's, or an `extern` prototype's (a
+                    // writer in the class body's source order, grid u29 and
+                    // u30; its out-of-body definition is not a winner, u06)
+                    std::span<const FormalArgumentSymbol* const> args;
+                    bool oob = false;
+                    if (cm.kind == SymbolKind::Subroutine) {
+                        auto& sub = cm.as<SubroutineSymbol>();
+                        if (sub.getPrototype() != nullptr)
+                            continue;
+                        args = sub.getArguments();
+                        oob = sub.flags.has(MethodFlags::Pure) ||
+                              sub.flags.has(MethodFlags::DPIImport);
+                    }
+                    else if (cm.kind == SymbolKind::MethodPrototype) {
+                        auto& mp = cm.as<MethodPrototypeSymbol>();
+                        args = mp.getArguments();
+                        oob = mp.flags.has(MethodFlags::Pure) ||
+                              mp.flags.has(MethodFlags::DPIImport);
+                    }
+                    else
+                        continue;
+                    for (auto* a : args) {
+                        if (&a->getType().getCanonicalType() != ct155)
+                            continue;
+                        auto* dt = static_cast<const Symbol*>(a)->getDeclaredType();
+                        auto* tsy = dt ? dt->getTypeSyntax() : nullptr;
+                        if (oob || !tsy || tsy->kind != syntax::SyntaxKind::NamedType ||
+                            tsy->as<syntax::NamedTypeSyntax>().name->kind !=
+                                syntax::SyntaxKind::IdentifierName ||
+                            tsy->as<syntax::NamedTypeSyntax>()
+                                    .name->as<syntax::IdentifierNameSyntax>()
+                                    .identifier.valueText() != ta155.name) {
+                            poison155 = true;
+                            continue;
+                        }
+                        wc299.push_back({key, tsy->sourceRange()});
+                    }
+                }
+            };
         std::function<void(const Scope&, const void*)> scanScope155 =
             [&](const Scope& sc, const void* cont) {
                 for (auto& m155 : sc.members()) {
                     if (m155.kind == SymbolKind::Subroutine)
                         scanSub155(m155.as<SubroutineSymbol>(), cont);
                     else if (m155.kind == SymbolKind::ClassType) {
+                        if (cls299) {
+                            std::string k299 = "work@";
+                            if (cont)
+                                k299 += std::string(((const DefinitionSymbol*)cont)->name) + "::";
+                            k299 += std::string(m155.name);
+                            scanCls299(m155.as<ClassType>(), k299);
+                            continue;
+                        }
                         for (auto& cm155 : m155.as<ClassType>().members())
                             if (cm155.kind == SymbolKind::Subroutine)
                                 for (auto* a155 :
@@ -15949,7 +16011,40 @@ UHDM::design* UhdmExporter::exportDesign() {
             scanScope155(*unit155, nullptr);
         for (auto& [name155, inst155] : defs)
             scanScope155(inst155->body, &inst155->getDefinition());
-        if (poison155 || w155.empty())
+        if (poison155)
+            return SourceRange::NoLocation;
+        // § unitTdClassFormalWriter299 (r11u299, pass 297's brief item (1):
+        // r10uvm56repro/a6_type) — a formal of a CLASS method (a $unit class
+        // or a class a module declares, a nested class's and a constructor's
+        // included) writes the $unit typedef's shared object like any other
+        // formal, and Surelog compiles every class AFTER the modules and
+        // programs (CompileDesign::compilation_: packages, file contents,
+        // modules, programs, then the class map, keyed `work@<class>` /
+        // `work@<module>::<class>` and compiled in key order), so the last
+        // class writer wins over every subroutine writer (an `extern`
+        // prototype in the class body's source order; the out-of-body
+        // definition is not a winner): golden a6_type's
+        // `s6_t` 24:27-24:31 (`c6::y_struct(s6_t y)`) where the module's
+        // `z_struct(s6_t y)` 47:27 also writes, and ours declined the typedef
+        // at 4:9-7:2.  Grid tools/probe/r11u299repro/cases/UC (u01 to u26:
+        // class before and after the module, two classes in key order, a
+        // module class against a $unit class both ways, a constructor, a
+        // task before a function, nested classes, a program, a header, extern
+        // prototypes u06, u29, u30).  A pure virtual, a DPI import or a
+        // spelling other than the bare name declines.  Switch
+        // R11U299_UNITCLSFORMAL_OFF (with the enum half in
+        // § tfArgTypedefLastWriter146's container check).
+        if (!wc299.empty()) {
+            size_t b = 0;
+            for (size_t i = 1; i < wc299.size(); i++)
+                if (wc299[i].first > wc299[b].first ||
+                    (wc299[i].first == wc299[b].first &&
+                     srcOrderLess(wc299[b].second.start(), wc299[i].second.start())))
+                    b = i;
+            tr299("unitTdClassFormalWriter299", std::string(ta155.name) + " " + wc299[b].first);
+            return wc299[b].second;
+        }
+        if (w155.empty())
             return SourceRange::NoLocation;
         for (auto& wv : w155)
             if (wv.first != w155.front().first)
@@ -22869,8 +22964,20 @@ UHDM::design* UhdmExporter::exportDesign() {
         const syntax::SyntaxNode* unit176 = nullptr;
         const syntax::SyntaxNode* cls176 = nullptr;
         uint64_t seq176 = 0;
+        // § unitTdClassFormalWriter299 — the formal sits in an out-of-body
+        // definition (`C::m`).
+        bool oob299 = false;
     };
     uint64_t seq176 = 0;
+    bool oob299cur = false;
+    // § modEnumTfArgCloneFollows299 — the module enum moves (the listing, its
+    // definition's name, the declaration span the copies still carry).
+    struct ModEnumMove299 {
+        UHDM::typespec* listing;
+        std::string def, file;
+        uint32_t l0, c0, l1, c1;
+    };
+    std::vector<ModEnumMove299> modEnumMoves299;
     std::map<const Symbol*, std::vector<Writer>> writers;
     std::set<const Symbol*> poisoned;
     std::function<void(const syntax::SyntaxNode&, const syntax::SyntaxNode*,
@@ -23098,10 +23205,12 @@ UHDM::design* UhdmExporter::exportDesign() {
                                            ps->asSymbol().name == qual);
                                 if (!ok)
                                     poisoned.insert(td);
-                                else
+                                else {
                                     writers[td].push_back(
                                         {td, tok, cls ? cls : unit, unit, cls,
                                          ++seq176});
+                                    writers[td].back().oob299 = oob299cur;
+                                }
                             }
                         }
                     // § tpTdFormalWritesTypedef234 (r11u234, map 15 N0266 /
@@ -23200,9 +23309,20 @@ UHDM::design* UhdmExporter::exportDesign() {
                 }
                 return;
             }
+            // § unitTdClassFormalWriter299 — note the formals of an
+            // out-of-body definition.
+            const bool sv299 = oob299cur;
+            if ((k == syntax::SyntaxKind::FunctionDeclaration ||
+                      k == syntax::SyntaxKind::TaskDeclaration) &&
+                     n.as<syntax::FunctionDeclarationSyntax>().prototype &&
+                     n.as<syntax::FunctionDeclarationSyntax>().prototype->name &&
+                     n.as<syntax::FunctionDeclarationSyntax>().prototype->name->kind ==
+                         syntax::SyntaxKind::ScopedName)
+                oob299cur = true;
             for (size_t i = 0; i < n.getChildCount(); i++)
                 if (auto* c = n.childNode(i))
                     walk(*c, unit, cls);
+            oob299cur = sv299;
         };
     for (auto tree : comp.getSyntaxTrees())
         walk(tree->root(), nullptr, nullptr);
@@ -23390,6 +23510,74 @@ UHDM::design* UhdmExporter::exportDesign() {
             trace193("tfArgOutsideCopyOrder193", std::string(td->name) + " top=" +
                                                      std::to_string(a193) + " copies=" +
                                                      std::to_string(b193));
+    };
+    // § unitTdClassFormalWriter299 (r11u299), the enum half — a $unit enum
+    // typedef written by formals in several containers, at least one of them
+    // a class method: Surelog compiles every class after the modules and
+    // programs, in the class map's key order (`work@<class>`,
+    // `work@<module>::<class>`; a nested class inside its outermost class,
+    // source order), so the last class writer wins over the subroutine
+    // writers (golden grid tools/probe/r11u299repro/cases/UC u03, u13, u19,
+    // u20, u23, u26), where § tfArgTypedefLastWriter146 declined the
+    // container mix (an `extern` prototype is a class writer, u28; an
+    // out-of-body definition is not a winner).  A class writer in a package,
+    // an interface or a program declines.
+    // Switch R11U299_UNITCLSFORMAL_OFF.
+    auto unitEnumClsWriter299 = [&](const Symbol* td,
+                                    const std::vector<Writer>& ws) -> const Writer* {
+        static const bool on299 = r11u299On("R11U299_UNITCLSFORMAL_OFF");
+        if (!on299 || !td || ws.empty())
+            return nullptr;
+        auto* ps = td->getParentScope();
+        if (!ps || ps->asSymbol().kind != SymbolKind::CompilationUnit)
+            return nullptr;
+        if (aggTd176.count(td))
+            return nullptr;
+        const Writer* best = nullptr;
+        std::string bestKey;
+        bool anyCls = false;
+        for (auto& w : ws) {
+            // an out-of-body definition's formal is not a winner (grid u28)
+            if (w.oob299 || !w.cls176)
+                continue;
+            anyCls = true;
+            const syntax::SyntaxNode* oc = w.cls176;
+            if (oc != w.unit176)
+                for (const syntax::SyntaxNode* a = oc->parent; a; a = a->parent) {
+                    if (a->kind == syntax::SyntaxKind::ClassDeclaration)
+                        oc = a;
+                    if (a == w.unit176)
+                        break;
+                }
+            std::string key = "work@";
+            if (w.unit176 && w.unit176 != oc) {
+                if (w.unit176->kind != syntax::SyntaxKind::ModuleDeclaration)
+                    return nullptr;
+                key += std::string(
+                           w.unit176->as<syntax::ModuleDeclarationSyntax>().header->name.valueText()) +
+                       "::";
+            }
+            else if (w.unit176 != oc)
+                return nullptr;
+            key += std::string(oc->as<syntax::ClassDeclarationSyntax>().name.valueText());
+            if (!best || key > bestKey ||
+                (key == bestKey && srcOrderLess(best->tok.start(), w.tok.start()))) {
+                best = &w;
+                bestKey = key;
+            }
+        }
+        if (!anyCls)
+            return nullptr;
+        // only the mix the container check declines: one container keeps
+        // the landed rule
+        bool one = true;
+        for (auto& w : ws)
+            if (w.container != ws.front().container)
+                one = false;
+        if (one)
+            return nullptr;
+        tr299("unitTdClassFormalWriter299", std::string(td->name) + " " + bestKey);
+        return best;
     };
     auto w0seq176 = [](const std::vector<Writer>& v) {
         for (auto& w : v)
@@ -23599,6 +23787,9 @@ UHDM::design* UhdmExporter::exportDesign() {
         }
         else if (splitIn176 && splitOut176) {
             last = splitOut176;
+        }
+        else if (const Writer* c299 = unitEnumClsWriter299(td, ws)) {
+            last = c299;
         }
         else {
             for (auto& w : ws)
@@ -23866,14 +24057,94 @@ UHDM::design* UhdmExporter::exportDesign() {
             continue;
         if (aggTd176.count(td))
             trace176("QUALAGG", std::string(td->name));
-        if (auto it = typedefTs.find(td); it != typedefTs.end() && !outside)
+        if (auto it = typedefTs.find(td); it != typedefTs.end() && !outside) {
+            // § modEnumTfArgCloneFollows299 — the module enum's declaration
+            // span before the move (the copies' key).
+            UHDM::typespec* l299 = it->second;
+            std::string f299(l299 ? l299->VpiFile() : "");
+            uint32_t a299 = l299 ? l299->VpiLineNo() : 0, b299 = l299 ? l299->VpiColumnNo() : 0,
+                     c299 = l299 ? l299->VpiEndLineNo() : 0,
+                     e299 = l299 ? l299->VpiEndColumnNo() : 0;
             apply(it->second);
+            if (l299 && l299->UhdmType() == UHDM::uhdmenum_typespec && !aggTd176.count(td))
+                if (auto* ps299 = td->getParentScope();
+                    ps299 && ps299->asSymbol().kind == SymbolKind::InstanceBody)
+                    modEnumMoves299.push_back(
+                        {l299,
+                         std::string(ps299->asSymbol().as<InstanceBodySymbol>().getDefinition().name),
+                         f299, a299, b299, c299, e299});
+        }
         if (auto it = pkgTopTypedefTs.find((const void*)td);
             it != pkgTopTypedefTs.end() && (typedefTs.find(td) == typedefTs.end() ||
                                              it->second != typedefTs[td])) {
             apply(it->second);
             if (outside)
                 tfArgOutsideCopyOrder193(d, td, it->second, typedefTs[td], last->container);
+        }
+    }
+    // § modEnumTfArgCloneFollows299 (r11u299, probe r10v62repro/v62e_bind) —
+    // the ENUM twin of § modAggTfArgCloneFollows180: § tfArgTypedefLastWriter146
+    // moves a module enum typedef's shared object at compile time
+    // (compileTfPortList), BEFORE elaboration, and the elaborated PARAMETER
+    // typespec Surelog clones from it afterwards (`localparam b_e LP = BB;`
+    // under each elaborated instance) copies the moved span: golden v62e_bind
+    // `work@top62e.u_a.LP` / `PP` read the task formal's 28:27-28:30 where
+    // ours kept the typedef declaration's 11:3-11:47.  Design-final, after
+    // the move: every enum_typespec of the typedef's name still at its
+    // declaration span (file included) whose nearest non-typespec ancestor
+    // is a parameter under an instance of the typedef's own definition takes
+    // the moved span and file.  Golden grid tools/probe/r11u299repro/cases/
+    // ME (e01 one instance, e02 three specializations, e04 a task, e05 two
+    // instances, e08 an override; e03 a signal and e06 a struct member
+    // already read the moved object, e07 no writer).  Switch
+    // R11U299_MODENUMCLONE_OFF.
+    if (!modEnumMoves299.empty() && r11u299On("R11U299_MODENUMCLONE_OFF")) {
+        std::vector<UHDM::typespec*> ets299;
+        for (auto& kv : s.AllObjects()) {
+            auto* o = (UHDM::any*)kv.first;
+            if (o && o->UhdmType() == UHDM::uhdmenum_typespec)
+                ets299.push_back((UHDM::typespec*)o);
+        }
+        std::sort(ets299.begin(), ets299.end(),
+                  [](const UHDM::typespec* a, const UHDM::typespec* b) {
+                      return a->UhdmId() < b->UhdmId();
+                  });
+        for (auto& mv : modEnumMoves299) {
+            for (auto* et : ets299) {
+                if (et == mv.listing || et->VpiName() != mv.listing->VpiName() ||
+                    et->VpiFile() != mv.file || et->VpiLineNo() != mv.l0 ||
+                    et->VpiColumnNo() != mv.c0 || et->VpiEndLineNo() != mv.l1 ||
+                    et->VpiEndColumnNo() != mv.c1)
+                    continue;
+                // the nearest non-typespec ancestor: a parameter
+                const UHDM::any* a = et->VpiParent();
+                while (a && (a->UhdmType() == UHDM::uhdmref_typespec ||
+                             any_cast<const UHDM::typespec*>(a)))
+                    a = a->VpiParent();
+                if (!a || a->UhdmType() != UHDM::uhdmparameter)
+                    continue;
+                const UHDM::any* inst = a->VpiParent();
+                while (inst && inst->UhdmType() != UHDM::uhdmmodule_inst &&
+                       inst->UhdmType() != UHDM::uhdminterface_inst &&
+                       inst->UhdmType() != UHDM::uhdmprogram &&
+                       inst->UhdmType() != UHDM::uhdmpackage &&
+                       inst->UhdmType() != UHDM::uhdmclass_defn)
+                    inst = inst->VpiParent();
+                if (!inst || inst->UhdmType() != UHDM::uhdmmodule_inst)
+                    continue;
+                std::string dn(((const UHDM::instance*)inst)->VpiDefName());
+                if (auto at = dn.find('@'); at != std::string::npos)
+                    dn = dn.substr(at + 1);
+                if (dn != mv.def)
+                    continue;
+                et->VpiFile(std::string(mv.listing->VpiFile()));
+                et->VpiLineNo(mv.listing->VpiLineNo());
+                et->VpiColumnNo(mv.listing->VpiColumnNo());
+                et->VpiEndLineNo(mv.listing->VpiEndLineNo());
+                et->VpiEndColumnNo(mv.listing->VpiEndColumnNo());
+                tr299("modEnumTfArgCloneFollows299",
+                      std::string(et->VpiName()) + " " + std::string(a->VpiName()));
+            }
         }
     }
     // § pkgArrTdElemClone209 — last, before the elaborator (law and decode
