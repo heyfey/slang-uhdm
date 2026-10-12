@@ -1,0 +1,34 @@
+ENTER tp/r11u120repro/grid/gD/d05_bit_vec STRICT_NOTEQUAL_col 0 -> STRICT_EQUAL_117_objects
+ENTER tp/r11u120repro/grid/gD/d05_bit_vec_el STRICT_NOTEQUAL_col 0 -> STRICT_EQUAL_116_objects
+ENTER tp/r11u120repro/grid/gT/t08_body_localparam_type STRICT_NOTEQUAL_line 0 -> STRICT_EQUAL_159_objects
+ENTER tp/r11u120repro/grid/gT/t08_body_localparam_type_el STRICT_NOTEQUAL_line 0 -> STRICT_EQUAL_155_objects
+ENTER tp/r11u160repro/cases/TV/v08 STRICT_NOTEQUAL_line 0 -> STRICT_EQUAL_110_objects
+ENTER tp/r11u160repro/cases/TV/v08_el STRICT_NOTEQUAL_line 0 -> STRICT_EQUAL_101_objects
+ENTER tp/r11u281repro/cases/TI/i03_named_override_ctl NOT_EQUAL_stage1 51 -> STRICT_EQUAL_107_objects
+CMPLINES PL tp/r11u281repro/cases/TI/i03_named_override_ctl 51 -> 0
+CMPLINES PF tp/r11u281repro/cases/TI/i03_named_override_ctl 51 -> 0
+ENTER tp/r11u281repro/cases/TI/i03_named_override_ctl_el NOT_EQUAL_stage1 51 -> STRICT_EQUAL_105_objects
+CMPLINES PL tp/r11u281repro/cases/TI/i03_named_override_ctl_el 51 -> 0
+CMPLINES PF tp/r11u281repro/cases/TI/i03_named_override_ctl_el 51 -> 0
+ENTER tp/v11u281repro/cases/VI/vi17_named_and_default_inst NOT_EQUAL_stage1 51 -> STRICT_EQUAL_167_objects
+CMPLINES PL tp/v11u281repro/cases/VI/vi17_named_and_default_inst 51 -> 0
+CMPLINES PF tp/v11u281repro/cases/VI/vi17_named_and_default_inst 51 -> 0
+ENTER tp/v11u281repro/cases/VI/vi17_named_and_default_inst_el NOT_EQUAL_stage1 51 -> STRICT_EQUAL_164_objects
+CMPLINES PL tp/v11u281repro/cases/VI/vi17_named_and_default_inst_el 51 -> 0
+CMPLINES PF tp/v11u281repro/cases/VI/vi17_named_and_default_inst_el 51 -> 0
+ENTER tp/v11u281repro/cases/VI/vi21_iface_genblk_sig STRICT_NOTEQUAL_line 0 -> STRICT_EQUAL_167_objects
+ENTER tp/v11u281repro/cases/VI/vi21_iface_genblk_sig_el STRICT_NOTEQUAL_line 0 -> STRICT_EQUAL_164_objects
+ENTER tp/v11u281repro/cases/VI/vi42_iface_two_typeparams NOT_EQUAL_stage1 51 -> STRICT_EQUAL_185_objects
+CMPLINES PL tp/v11u281repro/cases/VI/vi42_iface_two_typeparams 51 -> 0
+CMPLINES PF tp/v11u281repro/cases/VI/vi42_iface_two_typeparams 51 -> 0
+ENTER tp/v11u281repro/cases/VI/vi42_iface_two_typeparams_el NOT_EQUAL_stage1 51 -> STRICT_EQUAL_182_objects
+CMPLINES PL tp/v11u281repro/cases/VI/vi42_iface_two_typeparams_el 51 -> 0
+CMPLINES PF tp/v11u281repro/cases/VI/vi42_iface_two_typeparams_el 51 -> 0
+# PF entering 14
+# PF leaving 0
+# PF moving 68
+# PL entering 14
+# PL leaving 0
+# PL moving 68
+# nocmp 32
+# views 3100

@@ -1,0 +1,11 @@
+# LF entering 0
+# LF leaving 0
+# LF moving 2
+# PF entering 0
+# PF leaving 0
+# PF moving 8
+# PL entering 0
+# PL leaving 0
+# PL moving 10
+# nocmp 34
+# views 3968

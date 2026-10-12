@@ -1,0 +1,2 @@
+law sweep /tmp/r11u291_wdL: 3315 cmds.txt (fence-filtered), 3265 name /tmp/r11u291_bin/law (md5 c3b84092d573fedf1aac730cdd76a1d6), 50 carry no slang line
+pristine sweep /tmp/r11u291_wdP: 3315 cmds.txt (fence-filtered), 3265 name /tmp/r11u291_bin/pristine (md5 f285f238dbd51f0029dc79812e56e69d), 50 carry no slang line

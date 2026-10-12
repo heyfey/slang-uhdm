@@ -33,6 +33,7 @@
 #include "R269.h"
 #include "R271.h"
 #include "R279.h"
+#include "R291.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -4560,6 +4561,43 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 }
                                 break;
                             }
+                // § clsSpecDeclNameSpan291 (r11u291, R11U291_CLSSPECDECL_OFF)
+                // — a CLASS PROPERTY or a subroutine / block LOCAL written as
+                // an unscoped specialization `C #(...)` of a class that is not
+                // listed at this site (a $unit generic, a foreign package's
+                // generic) reaches Surelog's
+                // CompileHelper::compileDatastructureTypespec ClassDefinition
+                // arm: the class_typespec is populated at the class NAME node
+                // (`populateCoreMembers(type, type, ref)`) and its ordered
+                // arguments take that arm's spans (an identifier argument's
+                // actual at the whole `#(...)`, § classSpecExprArgUnlocated202's
+                // transcription respanSpecArgs202).  Ours spanned the whole
+                // `C #(...)` text (golden `static box_j #(8) s_j` 20:10-20:15
+                // where ours read 20:20, probe r10v119repro v119_j; `regb #(ub,
+                // "ub") lv1` in a foreign package's class method 6:7-6:11,
+                // probe r10sd1repro b27_inline_method_foreign).  The same-
+                // package local (Surelog's compileVariable fallback, unnamed
+                // and whole, § localClassTsUnnamed15) is not named here and
+                // keeps its span; module-scope variables, formals and returns
+                // keep their own rules (§ modSpecValueArgSpanAtName202,
+                // § tfArgClassSpecNameSpan231, § pureVirtRetSpecWholeSpan234).
+                // Grid tools/probe/r11u291repro/cases/CS.
+                if (!listingSite196 && !cts->VpiName().empty() &&
+                    (declSymbol.kind == SymbolKind::ClassProperty ||
+                     (declSymbol.kind == SymbolKind::Variable && nested0)) &&
+                    r11u291On("R11U291_CLSSPECDECL_OFF"))
+                    if (auto* ntD291 = tsyn0->as_if<syntax::NamedTypeSyntax>();
+                        ntD291 && ntD291->name &&
+                        ntD291->name->kind == syntax::SyntaxKind::ClassName &&
+                        ntD291->name->as<syntax::ClassNameSyntax>().parameters) {
+                        auto& cnD291 = ntD291->name->as<syntax::ClassNameSyntax>();
+                        setLoc(cts, cnD291.identifier.range());
+                        respanSpecArgs202(
+                            cts, ct0.as<ClassType>(), cnD291,
+                            [this](UHDM::BaseClass* o, SourceRange sr) { setLoc(o, sr); },
+                            "decl291");
+                        tr291("CLSSPECDECL", std::string(declSymbol.name));
+                    }
                 // A SCOPED class reference (pack::doorOpen) is named by the
                 // WRITTEN text and located at the class_scope prefix Surelog
                 // collects the node from (`pack::`).
@@ -16666,7 +16704,374 @@ static std::set<const UHDM::typespec_member*> pkgTdMemShared108;
 // children.  LESSON: a re-point law that fixes one of two pointers into the
 // same wrong package measures as ZERO.
 
+// § tpUseSigBindsTpObj291 (r11u291, R11U291_TPUSEOBJ_OFF) — A SIGNAL WRITTEN
+// WITH A TYPE PARAMETER'S NAME BINDS THE TYPE PARAMETER'S OWN TYPESPEC
+// OBJECT.  Surelog's compileTypespec resolves a NamedType that names one of
+// the component's type parameters by returning `type_parameter->Typespec()->
+// Actual_typespec()` (CompileType.cpp, the `component->getParameters()` arm):
+// no per-declaration copy is made.  So:
+//   - `input T a` / `T v;` with T = pk::w_t (an override `.T(pk::w_t)` or
+//     `.T(pk::w_t [1:0])`, a default `parameter type T = pk::w_t`, a body
+//     `localparam type`) types the elaborated variable with the package
+//     listing object `pk::w_t` itself, where LAW S re-pointed it at its bare
+//     copy `w_t` (golden `logic_typespec pk::w_t`, ours `w_t`; probe
+//     v11u111repro f6 y61, y68, y69, r11u108repro f5a20_ovr_pkgarr,
+//     v11u108repro b13_pkg_arr);
+//   - an interface variable `IT a;` binds the parameter's object (the default
+//     or the override at its own span) where ours minted a fresh typespec at
+//     the use's `IT` token (probe r11u18repro t4, r11u45repro g13; grid TB/b07,
+//     b34, b35);
+//   - a chain `b_t = a_t` binds b_t's object as the type-parameter rebind laws
+//     finally leave it (the definition's default where golden lists the
+//     definition's b_t, probe r11u45repro g10, g12, r11v45repro v6, v7), and a
+//     generate-block variable binds the enclosing instance's parameter
+//     (r11v45repro v9, grid TB/b16).
+// Keyed on the signal's full name, read off slang's instance bodies and their
+// generate blocks: a variable or net whose declared type syntax is a NamedType
+// (with or without packed dimensions, no unpacked dimension) naming a
+// TypeParameter of the instance body.  Abstains (pristine's binding kept):
+//   - a `var`-keyword body declaration: golden binds the DEFINITION's default
+//     there (grid TB/b22, b31);
+//   - an ORDERED override, which Surelog ignores (probe f6 y64, y65);
+//   - a target reached through an unqualified name that is not a type
+//     parameter of the same body (an import `.T(w_t)`: golden gives the type
+//     parameter its own bare copy, which ours does not mint, TB/b08; a chain
+//     through another instance's parameter `.T(T)`, TB/b24), and a chain
+//     through a parameter that adds packed dimensions (probe r11u108repro
+//     f5a12_chain);
+//   - a target written as an anonymous struct, union or enum (directly or
+//     through a chain of the body's type parameters): the
+//     § tpAnonStructLastParamUser167 / § typeParamStructLastNetParent273 /
+//     § tpPackedArrCaUnparent275 family's object (tools/probe r11u107repro
+//     t07_tp_enum, v11u273repro VT/vt06_enum_member, r11u275repro PA/pa06
+//     read chain away under a draft that took them);
+//   - a signal whose instance lists no type_parameter of that name (a
+//     program, TB/b15).
+// LAW S makes no copy for these signals; bindTpUseVars291 binds each to the
+// type_parameter object of its instance design-final (UhdmExporter.cpp, after
+// every type-parameter rebind).  Grid tools/probe/r11u291repro/cases/TB.
+static std::map<std::string, std::string>& tpUse291() {
+    static std::map<std::string, std::string> m;
+    return m;
+}
+// The variable's STORED full name (the getter would compute and store one).
+namespace {
+template <typename Tag, typename Tag::type M>
+struct Rob291 {
+    friend typename Tag::type get291(Tag) { return M; }
+};
+struct VarFull291 {
+    typedef UHDM::SymbolId UHDM::variables::*type;
+    friend type get291(VarFull291);
+};
+} // namespace
+template struct Rob291<VarFull291, &UHDM::variables::vpiFullName_>;
+// The instance a recorded signal lives in: its parent, or the instance
+// enclosing its generate scopes.
+static const UHDM::instance* tpInst291(const UHDM::variables* v) {
+    for (const UHDM::any* a = v ? v->VpiParent() : nullptr; a; a = a->VpiParent()) {
+        auto t = a->UhdmType();
+        if (t == UHDM::uhdmmodule_inst || t == UHDM::uhdminterface_inst ||
+            t == UHDM::uhdmprogram)
+            return (const UHDM::instance*)a;
+        if (t != UHDM::uhdmgen_scope && t != UHDM::uhdmgen_scope_array)
+            return nullptr;
+    }
+    return nullptr;
+}
+static bool isTpUse291(const UHDM::variables* v) {
+    if (tpUse291().empty() || !v || !(v->*get291(VarFull291())) || !tpInst291(v))
+        return false;
+    return tpUse291().count(std::string(v->VpiFullName())) != 0;
+}
+static void collectTpUse291(const RootSymbol& root) {
+    static bool done291 = false;
+    if (done291)
+        return;
+    done291 = true;
+    if (!r11u291On("R11U291_TPUSEOBJ_OFF"))
+        return;
+    auto ordered291 = [](const InstanceBodySymbol& b) {
+        const syntax::SyntaxNode* hs =
+            b.parentInstance ? b.parentInstance->getSyntax() : nullptr;
+        const syntax::SyntaxNode* hi = hs ? (const syntax::SyntaxNode*)hs->parent : nullptr;
+        if (!hi || hi->kind != syntax::SyntaxKind::HierarchyInstantiation)
+            return false;
+        auto* pv = hi->as<syntax::HierarchyInstantiationSyntax>().parameters;
+        if (!pv)
+            return false;
+        for (auto* pa : pv->parameters)
+            if (pa && pa->kind == syntax::SyntaxKind::OrderedParamAssignment)
+                return true;
+        return false;
+    };
+    struct Scan291 : public ASTVisitor<Scan291, VisitFlags::Symbols> {
+        std::function<void(const InstanceBodySymbol&)> fn;
+        void handle(const InstanceBodySymbol& b) {
+            fn(b);
+            visitDefault(b);
+        }
+    } scan291;
+    scan291.fn = [&](const InstanceBodySymbol& b) {
+        if (b.flags.has(InstanceFlags::Uninstantiated) || !b.parentInstance)
+            return;
+        std::function<void(const Scope&)> scope291 = [&](const Scope& sc) {
+            for (auto& m : sc.members()) {
+                if (m.kind == SymbolKind::GenerateBlock) {
+                    if (!m.as<GenerateBlockSymbol>().isUninstantiated)
+                        scope291(m.as<GenerateBlockSymbol>());
+                    continue;
+                }
+                if (m.kind == SymbolKind::GenerateBlockArray) {
+                    for (auto* en : m.as<GenerateBlockArraySymbol>().entries)
+                        if (en && !en->isUninstantiated)
+                            scope291(*en);
+                    continue;
+                }
+                if (m.kind != SymbolKind::Variable && m.kind != SymbolKind::Net)
+                    continue;
+                std::string key291 = "work@" + m.getHierarchicalPath();
+                auto* dt = m.getDeclaredType();
+                auto* tsyn = dt ? dt->getTypeSyntax() : nullptr;
+                if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+                    continue;
+                auto& nm = *tsyn->as<syntax::NamedTypeSyntax>().name;
+                std::string_view id;
+                if (nm.kind == syntax::SyntaxKind::IdentifierName)
+                    id = nm.as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                else if (nm.kind == syntax::SyntaxKind::IdentifierSelectName)
+                    id = nm.as<syntax::IdentifierSelectNameSyntax>().identifier.valueText();
+                if (id.empty())
+                    continue;
+                // a name the generate block itself declares shadows the
+                // body's parameter
+                if (&sc != (const Scope*)&b)
+                    if (auto* loc291 = sc.find(id))
+                        if (loc291->kind != SymbolKind::TypeParameter)
+                            continue;
+                // § tpUseGenShadowAbstains291v (v11u291, R11V291_GENSHADOW_OFF)
+                // — a name declared by ANY generate scope between the signal
+                // and the body (a generate-local `localparam type T`, in the
+                // signal's own block or an enclosing one) shadows the body's
+                // type parameter: golden types the signal with that local
+                // parameter's own target (`logic [1:0]` at its spelling,
+                // tools/probe/v11u291repro VT/vt04_gen_shadow_tp, vt25), which
+                // our gen_scope does not list, so the law cannot bind it; the
+                // law bound the BODY's `pk::w_t`, a 3-bit object for a 2-bit
+                // signal.  Abstains (pristine's binding kept).
+                if (&sc != (const Scope*)&b && r11v291On("R11V291_GENSHADOW_OFF")) {
+                    bool sh291v = false;
+                    for (const Scope* s291v = &sc; s291v && s291v != (const Scope*)&b;
+                         s291v = s291v->asSymbol().getParentScope())
+                        if (s291v->find(id)) {
+                            sh291v = true;
+                            break;
+                        }
+                    if (sh291v) {
+                        tr291("TPUSEOBJ_ABSTAIN", "genshadow " + key291);
+                        continue;
+                    }
+                }
+                auto* f = b.find(id);
+                if (!f || f->kind != SymbolKind::TypeParameter)
+                    continue;
+                auto* ds = m.getSyntax();
+                // an unpacked dimension types the signal with an array
+                // typespec around the parameter's object (grid TB/b21): not
+                // this law's
+                if (ds && ds->kind == syntax::SyntaxKind::Declarator &&
+                    !ds->as<syntax::DeclaratorSyntax>().dimensions.empty())
+                    continue;
+                if (ds && ds->parent &&
+                    ds->parent->kind == syntax::SyntaxKind::DataDeclaration) {
+                    bool var291 = false;
+                    for (auto tk : ds->parent->as<syntax::DataDeclarationSyntax>().modifiers)
+                        if (tk.kind == parsing::TokenKind::VarKeyword)
+                            var291 = true;
+                    if (var291) {
+                        tr291("TPUSEOBJ_ABSTAIN", "var " + key291);
+                        continue;
+                    }
+                }
+                auto& tp291 = f->as<TypeParameterSymbol>();
+                // § tpUseClassTargetAbstains291v (v11u291, R11V291_CLASSTP_OFF)
+                // — a type parameter whose target is a CLASS (`parameter type
+                // T = pk::c`): golden types `T h;` with a class_typespec at
+                // the target's spelling, which our type_parameter's object is
+                // not (tools/probe/v11u291repro VT/vt05_class_tp read chain
+                // away 1 and 4 under the law, pristine's class_typespec agreeing
+                // with golden).  Abstains.
+                if (r11v291On("R11V291_CLASSTP_OFF") &&
+                    tp291.targetType.getType().getCanonicalType().isClass()) {
+                    tr291("TPUSEOBJ_ABSTAIN", "class " + key291);
+                    continue;
+                }
+                // § tpUseBodyTdTargetAbstains291v (v11u291, R11V291_BODYTD_OFF)
+                // — a target that names (directly or through a chain of the
+                // body's type parameters) a typedef the BODY declares
+                // (`typedef logic [3:0] lt; localparam type T = lt;`, an
+                // enum typedef too): golden binds the typedef's own typespec
+                // `lt` where ours binds the parameter's object, the law moving
+                // pristine's agreeing records away (tools/probe/v11u291repro
+                // VT/vt08_body_td_target chain away 3 and downstream
+                // EQUIVALENT -> STATUS_DIFF, vt23_chain_to_body_td away 4,
+                // vt32_enum_body_td away 8).  Abstains.
+                if (r11v291On("R11V291_BODYTD_OFF")) {
+                    bool td291v = false;
+                    const syntax::DataTypeSyntax* bs291v = tp291.targetType.getTypeSyntax();
+                    for (int k = 0; bs291v && k < 16; ++k) {
+                        if (bs291v->kind != syntax::SyntaxKind::NamedType)
+                            break;
+                        auto& bn291v = *bs291v->as<syntax::NamedTypeSyntax>().name;
+                        if (bn291v.kind != syntax::SyntaxKind::IdentifierName)
+                            break;
+                        auto* bx291v =
+                            b.find(bn291v.as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                        if (!bx291v)
+                            break;
+                        if (bx291v->kind != SymbolKind::TypeParameter) {
+                            td291v = true;
+                            break;
+                        }
+                        bs291v = bx291v->as<TypeParameterSymbol>().targetType.getTypeSyntax();
+                    }
+                    if (td291v) {
+                        tr291("TPUSEOBJ_ABSTAIN", "bodytd " + key291);
+                        continue;
+                    }
+                }
+                if (tp291.targetType.getFlags().has(DeclaredTypeFlags::TypeOverridden) &&
+                    ordered291(b)) {
+                    tr291("TPUSEOBJ_ABSTAIN", "ordered " + key291);
+                    continue;
+                }
+                auto* tts = tp291.targetType.getTypeSyntax();
+                // An anonymous struct, union or enum written as the target
+                // (or reached through a chain of the body's type parameters)
+                // is the § tpAnonStructLastParamUser167 /
+                // § typeParamStructLastNetParent273 / § tpPackedArrCaUnparent275
+                // family's object, parented and shared by those laws: golden's
+                // signals there do not read the parameter's object as ours
+                // lists it (tools/probe r11u107repro t07_tp_enum and
+                // v11u273repro VT/vt06_enum_member read chain away 16 and 9,
+                // r11u275repro PA/pa06_init_decl chain away 1 under a draft
+                // that took them).
+                {
+                    const syntax::DataTypeSyntax* fs291 = tts;
+                    for (int k = 0; fs291 && k < 16; ++k) {
+                        if (fs291->kind != syntax::SyntaxKind::NamedType)
+                            break;
+                        auto& fn291 = *fs291->as<syntax::NamedTypeSyntax>().name;
+                        if (fn291.kind != syntax::SyntaxKind::IdentifierName)
+                            break;
+                        auto* fx291 =
+                            b.find(fn291.as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                        if (!fx291 || fx291->kind != SymbolKind::TypeParameter)
+                            break;
+                        fs291 = fx291->as<TypeParameterSymbol>().targetType.getTypeSyntax();
+                    }
+                    if (fs291 && (fs291->kind == syntax::SyntaxKind::StructType ||
+                                  fs291->kind == syntax::SyntaxKind::UnionType ||
+                                  fs291->kind == syntax::SyntaxKind::EnumType)) {
+                        tr291("TPUSEOBJ_ABSTAIN", "anonagg " + key291);
+                        continue;
+                    }
+                }
+                if (tts && tts->kind == syntax::SyntaxKind::NamedType &&
+                    tts->as<syntax::NamedTypeSyntax>().name->kind !=
+                        syntax::SyntaxKind::ScopedName) {
+                    auto& tt291 = tp291.targetType.getType();
+                    auto* tsc291 =
+                        tt291.kind == SymbolKind::TypeAlias ? tt291.getParentScope() : nullptr;
+                    if (!tsc291 || &tsc291->asSymbol() != &b.asSymbol()) {
+                        tr291("TPUSEOBJ_ABSTAIN", "unqual " + key291);
+                        continue;
+                    }
+                    // a chain through a type parameter whose own target adds
+                    // packed dimensions (`T2 = rt_t`, `rt_t = id_t [3:0]`):
+                    // the array object the elaborated chain lists is the
+                    // § tpElemRebindDefView107 family's, golden's copy
+                    // differing in its element reference (probe r11u108repro
+                    // f5a12_chain under a draft that took it)
+                    bool dims291 = false;
+                    const syntax::DataTypeSyntax* cs291 = tts;
+                    for (int k = 0; cs291 && k < 16; ++k) {
+                        if (cs291->kind != syntax::SyntaxKind::NamedType)
+                            break;
+                        auto& cn291 = *cs291->as<syntax::NamedTypeSyntax>().name;
+                        if (cn291.kind == syntax::SyntaxKind::IdentifierSelectName) {
+                            dims291 = true;
+                            break;
+                        }
+                        if (cn291.kind != syntax::SyntaxKind::IdentifierName)
+                            break;
+                        auto* nx291 =
+                            b.find(cn291.as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                        if (!nx291 || nx291->kind != SymbolKind::TypeParameter)
+                            break;
+                        cs291 = nx291->as<TypeParameterSymbol>().targetType.getTypeSyntax();
+                    }
+                    if (dims291) {
+                        tr291("TPUSEOBJ_ABSTAIN", "chaindims " + key291);
+                        continue;
+                    }
+                }
+                tpUse291()[key291] = std::string(id);
+                tr291("TPUSEOBJ_REC", key291 + " " + std::string(id));
+            }
+        };
+        scope291(b);
+    };
+    root.visit(scan291);
+}
+// The type_parameter object a recorded signal binds: the parameter of that
+// name listed by the signal's own instance (none for a program, whose
+// instance lists no type parameter: the law abstains there and LAW S keeps
+// its copy, grid TB/b15).
+static UHDM::typespec* tpObj291(const UHDM::variables* v) {
+    if (!isTpUse291(v))
+        return nullptr;
+    auto* inst = tpInst291(v);
+    auto it = tpUse291().find(std::string(v->VpiFullName()));
+    if (!inst || it == tpUse291().end())
+        return nullptr;
+    if (auto* ps = ((UHDM::instance*)inst)->Parameters())
+        for (auto* pp : *ps)
+            if (pp && pp->UhdmType() == UHDM::uhdmtype_parameter && pp->VpiName() == it->second)
+                if (auto* prt = ((UHDM::type_parameter*)pp)->Typespec())
+                    return prt->Actual_typespec();
+    return nullptr;
+}
+// The binding half, design-final (UhdmExporter.cpp, before the last drains).
+void bindTpUseVars291(UHDM::Serializer& s) {
+    if (tpUse291().empty())
+        return;
+    std::vector<UHDM::variables*> vs;
+    for (auto& kv : s.AllObjects())
+        if (auto* v = dynamic_cast<UHDM::variables*>((UHDM::any*)kv.first);
+            v && isTpUse291(v))
+            vs.push_back(v);
+    std::stable_sort(vs.begin(), vs.end(), [](const UHDM::any* a, const UHDM::any* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    for (auto* v : vs) {
+        UHDM::typespec* tpo = tpObj291(v);
+        auto* rt = v->Typespec();
+        if (!rt || !tpo) {
+            tr291("TPUSEOBJ_NOTP", std::string(v->VpiFullName()));
+            continue;
+        }
+        if (rt->Actual_typespec() == tpo) {
+            tr291("TPUSEOBJ_SAME", std::string(v->VpiFullName()));
+            continue;
+        }
+        rt->Actual_typespec(tpo);
+        tr291("TPUSEOBJ", std::string(v->VpiFullName()));
+    }
+}
+
 void UhdmExporter::bareScalarTypedefVarTs() {
+    collectTpUse291(comp.getRoot());
     // The rebind targets ONLY registered package-typedef listing objects: a
     // class-nested typedef also prints a `C::t` name, and no golden says it
     // takes this form.
@@ -17040,6 +17445,18 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         }
         if (auto* v = dynamic_cast<UHDM::variables*>(o)) {
             bool inst = instScopeVar(v);
+            // § tpUseSigBindsTpObj291 — an instance-scope signal WRITTEN
+            // with a type parameter's name takes no LAW-S copy: it binds the
+            // type parameter's own object (bindTpUseVars291, after LAW S).
+            if (tpObj291(v)) {
+                // the predictor's tag: LAW S would have copied here
+                if (auto* lrt291 = v->Typespec())
+                    if (auto* lat291 = lrt291->Actual_typespec();
+                        lat291 && pkgScalarTd.count(lat291) &&
+                        (!inst || rangedTd(lrt291)) && !isQualTdRt196(lrt291))
+                        tr291("TPUSEOBJ_LAWS", std::string(v->VpiFullName()));
+                continue;
+            }
             // § retPkgQualTdNoAlias196 — a package-qualified return keeps the
             // package's typedef object.
             if ((!inst || rangedTd(v->Typespec())) && !isQualTdRt196(v->Typespec()))

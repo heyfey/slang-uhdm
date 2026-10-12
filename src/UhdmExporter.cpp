@@ -37,6 +37,7 @@
 #include "R281.h"
 #include "R285.h"
 #include "R287.h"
+#include "R291.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -909,6 +910,7 @@ static std::set<const UHDM::ref_typespec*>& qualTdRt196() {
     static std::set<const UHDM::ref_typespec*> s196;
     return s196;
 }
+void bindTpUseVars291(UHDM::Serializer& s);
 void noteQualTdRt196(const UHDM::ref_typespec* rt) {
     if (rt)
         qualTdRt196().insert(rt);
@@ -1197,6 +1199,101 @@ static std::string chainFullName287(const UHDM::BaseClass* o) {
         out += *it;
     }
     return out;
+}
+// The stored full name of a ref_typespec, read without the getter (which
+// would compute and store one from the parent chain): the same explicit
+// instantiation r11u287 uses for ref_obj.
+namespace {
+struct RtsFull291 {
+    typedef UHDM::SymbolId UHDM::ref_typespec::*type;
+    friend type get287(RtsFull291);
+};
+} // namespace
+template struct Rob287<RtsFull291, &UHDM::ref_typespec::vpiFullName_>;
+static bool storedRtsFullName291(const UHDM::ref_typespec* r) {
+    return (bool)(r->*get287(RtsFull291()));
+}
+// § anonAggMemberChainName291 (r11u291, R11U291_ANONMEMBNAME_OFF) — A MEMBER
+// REFERENCE OF AN ANONYMOUS STRUCT OR UNION IS NAMED BY ITS FINAL PARENT
+// CHAIN.  Surelog stores no full name on a typespec_member's ref_typespec;
+// BaseClass::ComputeFullName synthesises it from the parent chain when the
+// database is read (pass 134's decode).  buildStructTs names an anonymous
+// aggregate's member references bare (`a`) and § anonMemberRefChainName134
+// prefixes only an anonymous type that is a member's type directly, so an
+// anonymous aggregate reached through a packed dimension (`struct packed {
+// logic a; } [1:0] m`, `typedef struct packed {...} [1:0] t_t`), an enum
+// member of a nested anonymous struct, or an anonymous struct inside a
+// packed array of a struct-typed signal kept the bare name where golden
+// reads the chain (`t_t.m.a`, `t_t.a`, `s_t.in.e`, `...m.a`; probe
+// r11u107repro a08_anon_member and a18_anon_typedef, r11u113repro
+// e05_nested, v11u93b107repro p02_nested_member_dim).  Design-final: every
+// member reference of an anonymous aggregate whose stored full name is still
+// the member's bare name takes the name ComputeFullName gives over the final
+// chain, when that differs.  Grid tools/probe/r11u291repro/cases/AN.
+static UHDM::design* anonAggMemberChainName291(UHDM::Serializer& s, UHDM::design* d) {
+    if (!d || !r11u291On("R11U291_ANONMEMBNAME_OFF"))
+        return d;
+    std::vector<std::pair<UHDM::ref_typespec*, std::string>> todo;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmtypespec_member)
+            continue;
+        auto* tm = (UHDM::typespec_member*)o;
+        auto* rt = tm->Typespec();
+        if (!rt || rt->VpiParent() != tm)
+            continue;
+        // Only an aggregate NESTED in another type (a member's type, or a
+        // named typedef): a top-level anonymous aggregate of a signal keeps
+        // buildStructTs's bare names, which golden reads too because the
+        // assignment that writes the signal unparents its struct
+        // (§ contAssignLhsTsUnparented134; probe r11u109repro
+        // k12_int_member_nodim, r11u113repro e06_anon_var under a draft
+        // that took every member).
+        bool nested291 = false;
+        for (const UHDM::BaseClass* a = tm->VpiParent(); a; a = a->VpiParent()) {
+            auto at = a->UhdmType();
+            if (at == UHDM::uhdmtypespec_member) {
+                nested291 = true;
+                break;
+            }
+            if (at == UHDM::uhdmref_typespec)
+                continue;
+            // A type parameter's anonymous default is parented by its own
+            // laws (§ tpAnonStructLastParamUser167): golden's members read
+            // bare there (probe v11u93b107repro q04_pkg_member, `T.a` under a
+            // draft that took it).
+            if (at == UHDM::uhdmtype_parameter || !dynamic_cast<const UHDM::typespec*>(a))
+                break;
+            if (!a->VpiName().empty()) {
+                nested291 = true;
+                break;
+            }
+        }
+        if (!nested291)
+            continue;
+        if (storedRtsFullName291(rt) && std::string_view(rt->VpiFullName()) == tm->VpiName()) {
+            std::string ch = chainFullName287(rt);
+            if (!ch.empty() && ch != tm->VpiName())
+                todo.emplace_back(rt, ch);
+        }
+        // An anonymous ENUM member type's base reference is named after the
+        // member the same way (`enum logic [1:0] {A, B} e`: golden
+        // `s_t.in.e`, ours `e`; probe r11u113repro e05_nested).
+        if (auto* et = rt->Actual_typespec();
+            et && et->UhdmType() == UHDM::uhdmenum_typespec && et->VpiName().empty() &&
+            et->VpiParent() == tm)
+            if (auto* brt = ((UHDM::enum_typespec*)et)->Base_typespec();
+                brt && brt->VpiParent() == et && storedRtsFullName291(brt) &&
+                std::string_view(brt->VpiFullName()) == tm->VpiName())
+                if (std::string bch = chainFullName287(brt);
+                    !bch.empty() && bch != tm->VpiName())
+                    todo.emplace_back(brt, bch);
+    }
+    for (auto& [rt, ch] : todo) {
+        tr291("ANONMEMBNAME", ch);
+        rt->VpiFullName(ch);
+    }
+    return d;
 }
 static UHDM::design* defGenSelRefChainName287(UHDM::Serializer& s, UHDM::design* d) {
     if (!d || !r11u287On("R11U287_DEFGENSELNAME_OFF"))
@@ -22676,7 +22773,11 @@ UHDM::design* UhdmExporter::exportDesign() {
                         r->Actual_typespec(lts);
         }
         pvFlatTs287().clear();
-        return defGenSelRefChainName287(s, d287);
+        // § tpUseSigBindsTpObj291 — the binding half (TypeEmit.cpp), design-
+        // final: the type parameter's object as the last type-parameter
+        // rebind left it (grid TB, probe r11u45repro g10).
+        bindTpUseVars291(s);
+        return anonAggMemberChainName291(s, defGenSelRefChainName287(s, d287));
     };
     if (!r11u146Law("R11U146_TFARGTD_OFF"))
         return final287(finish241());

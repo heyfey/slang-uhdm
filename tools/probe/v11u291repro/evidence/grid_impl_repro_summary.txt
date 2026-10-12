@@ -1,0 +1,217 @@
+MOVE AN/n01_pkg_td_arr_member P:cmp=255/101 NOT_EQUAL_stage1 rc=0 L:cmp=255/101 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n01_pkg_td_arr_member_el P:cmp=255/101 NOT_EQUAL_stage1 rc=0 L:cmp=255/101 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=ANONMEMBNAME
+same AN/n02_pkg_td_arr_top P:cmp=255/85 NOT_EQUAL_stage1 rc=0 L:cmp=255/85 NOT_EQUAL_stage1 rc=0 OFFeqP=True 
+same AN/n02_pkg_td_arr_top_el P:cmp=255/85 NOT_EQUAL_stage1 rc=0 L:cmp=255/85 NOT_EQUAL_stage1 rc=0 OFFeqP=True 
+MOVE AN/n03_mod_td_union P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_170_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n03_mod_td_union_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_145_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n04_nested_enum_pkg P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_160_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n04_nested_enum_pkg_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_134_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n05_two_dims P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_137_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n05_two_dims_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_115_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n06_three_levels P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_157_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n06_three_levels_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_130_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n07_var_anon_nested_arr P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_119_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n07_var_anon_nested_arr_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_97_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n08_var_no_assign P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_121_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n08_var_no_assign_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_99_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n09_class_td P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_44_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n09_class_td_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_44_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n10_iface P:cmp=255/53 NOT_EQUAL_stage1 rc=0 L:cmp=255/53 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n10_iface_el P:cmp=255/53 NOT_EQUAL_stage1 rc=0 L:cmp=255/53 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n11_func_local P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_152_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n11_func_local_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_167_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n12_param P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_115_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n12_param_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_114_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n13_port P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_141_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n13_port_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_157_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n14_hdr_crlf P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_126_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n14_hdr_crlf_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_107_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n15_unpacked_outer P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_100_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n15_unpacked_outer_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_119_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+same AN/n16_enum_direct_named P:cmp=0/0 STRICT_EQUAL_99_objects rc=0 L:cmp=0/0 STRICT_EQUAL_99_objects rc=0 OFFeqP=True 
+same AN/n16_enum_direct_named_el P:cmp=0/0 STRICT_EQUAL_82_objects rc=0 L:cmp=0/0 STRICT_EQUAL_82_objects rc=0 OFFeqP=True 
+MOVE AN/n17_member_access P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_124_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE AN/n17_member_access_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_122_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE CS/c01_prop P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_32_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c01_prop_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_32_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c02_static_prop P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_32_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c02_static_prop_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_32_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c03_local P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_37_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c03_local_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_40_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+same CS/c04_module_var P:cmp=0/0 STRICT_EQUAL_31_objects rc=0 L:cmp=0/0 STRICT_EQUAL_31_objects rc=0 OFFeqP=True 
+same CS/c04_module_var_el P:cmp=0/0 STRICT_EQUAL_28_objects rc=0 L:cmp=0/0 STRICT_EQUAL_28_objects rc=0 OFFeqP=True 
+same CS/c05_typedef P:cmp=0/0 STRICT_EQUAL_33_objects rc=0 L:cmp=0/0 STRICT_EQUAL_33_objects rc=0 OFFeqP=True 
+same CS/c05_typedef_el P:cmp=0/0 STRICT_EQUAL_33_objects rc=0 L:cmp=0/0 STRICT_EQUAL_33_objects rc=0 OFFeqP=True 
+same CS/c06_pkg_prop P:cmp=0/0 STRICT_EQUAL_37_objects rc=0 L:cmp=0/0 STRICT_EQUAL_37_objects rc=0 OFFeqP=True 
+same CS/c06_pkg_prop_el P:cmp=0/0 STRICT_EQUAL_34_objects rc=0 L:cmp=0/0 STRICT_EQUAL_34_objects rc=0 OFFeqP=True 
+MOVE CS/c07_type_arg P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c07_type_arg_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c08_two_props P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_35_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c08_two_props_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_35_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c09_default_spec P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_32_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c09_default_spec_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_32_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c10_task_local P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_34_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c10_task_local_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_37_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c11_local_init P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_37_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c11_local_init_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_40_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+same CS/c12_pkg_local_init P:cmp=0/0 STRICT_EQUAL_42_objects rc=0 L:cmp=0/0 STRICT_EQUAL_42_objects rc=0 OFFeqP=True 
+same CS/c12_pkg_local_init_el P:cmp=0/0 STRICT_EQUAL_42_objects rc=0 L:cmp=0/0 STRICT_EQUAL_42_objects rc=0 OFFeqP=True 
+same CS/c13_pkg_local_noinit P:cmp=0/0 STRICT_EQUAL_42_objects rc=0 L:cmp=0/0 STRICT_EQUAL_42_objects rc=0 OFFeqP=True 
+same CS/c13_pkg_local_noinit_el P:cmp=0/0 STRICT_EQUAL_42_objects rc=0 L:cmp=0/0 STRICT_EQUAL_42_objects rc=0 OFFeqP=True 
+MOVE CS/c14_prop_init P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_33_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c14_prop_init_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_33_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+same CS/c15_mod_class_prop P:cmp=0/0 STRICT_EQUAL_32_objects rc=0 L:cmp=0/0 STRICT_EQUAL_32_objects rc=0 OFFeqP=True 
+same CS/c15_mod_class_prop_el P:cmp=0/0 STRICT_EQUAL_47_objects rc=0 L:cmp=0/0 STRICT_EQUAL_47_objects rc=0 OFFeqP=True 
+same CS/c16_pkg_foreign_prop P:cmp=0/0 STRICT_EQUAL_43_objects rc=0 L:cmp=0/0 STRICT_EQUAL_43_objects rc=0 OFFeqP=True 
+same CS/c16_pkg_foreign_prop_el P:cmp=0/0 STRICT_EQUAL_40_objects rc=0 L:cmp=0/0 STRICT_EQUAL_40_objects rc=0 OFFeqP=True 
+MOVE CS/c17_unit_prop_type_arg_only P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c17_unit_prop_type_arg_only_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c18_pkg_foreign_local P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_48_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c18_pkg_foreign_local_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_48_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+NOCMP CS/c19_unit_generic_in_pkg_class SLANG_FAIL SLANG_FAIL rc 3 3
+NOCMP CS/c19_unit_generic_in_pkg_class_el SLANG_FAIL SLANG_FAIL rc 3 3
+MOVE CS/c20_mod_func_local_unit P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_57_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c20_mod_func_local_unit_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_57_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c21_pkg_func_local_foreign P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_65_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c21_pkg_func_local_foreign_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_74_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c22_mod_class_unit_generic P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_32_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c22_mod_class_unit_generic_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_36_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c23_named_arg P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_32_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c23_named_arg_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_32_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c24_string_type_arg P:cmp=255/77 NOT_EQUAL_stage1 rc=0 L:cmp=255/77 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c24_string_type_arg_el P:cmp=255/77 NOT_EQUAL_stage1 rc=0 L:cmp=255/77 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c25_prog_task_local P:cmp=255/29 NOT_EQUAL_stage1 rc=0 L:cmp=255/29 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c25_prog_task_local_el P:cmp=255/157 NOT_EQUAL_stage1 rc=0 L:cmp=255/157 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c26_block_local P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_30_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c26_block_local_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_30_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c27_macro_prop P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_32_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE CS/c27_macro_prop_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_32_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE TB/b01_named_nodims P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_100_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b01_named_nodims_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_99_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b02_named_dims P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_100_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b02_named_dims_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_99_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b03_default_port P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_109_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b03_default_port_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_108_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b04_default_bodyvar P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_133_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b04_default_bodyvar_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_126_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b05_named_bodyvar P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_124_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b05_named_bodyvar_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_120_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b06_bit_named P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_100_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b06_bit_named_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_99_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b07_iface P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_105_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b07_iface_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_103_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+same TB/b08_import_unqual P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_NOTEQUAL_name rc=0 OFFeqP=True 
+same TB/b08_import_unqual_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_NOTEQUAL_name rc=0 OFFeqP=True 
+MOVE TB/b09_bodylocalparam P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_91_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b09_bodylocalparam_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_84_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+same TB/b10_direct_ctl P:cmp=0/0 STRICT_EQUAL_121_objects rc=0 L:cmp=0/0 STRICT_EQUAL_121_objects rc=0 OFFeqP=True 
+same TB/b10_direct_ctl_el P:cmp=0/0 STRICT_EQUAL_114_objects rc=0 L:cmp=0/0 STRICT_EQUAL_114_objects rc=0 OFFeqP=True 
+same TB/b11_func_local P:cmp=255/17 NOT_EQUAL_stage1 rc=0 L:cmp=255/17 NOT_EQUAL_stage1 rc=0 OFFeqP=True 
+same TB/b11_func_local_el P:cmp=255/830 NOT_EQUAL_stage1 rc=0 L:cmp=255/830 NOT_EQUAL_stage1 rc=0 OFFeqP=True 
+MOVE TB/b12_named_dims_bodyvar P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_124_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b12_named_dims_bodyvar_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_120_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+same TB/b13_int_td P:cmp=0/0 STRICT_EQUAL_79_objects rc=0 L:cmp=0/0 STRICT_EQUAL_79_objects rc=0 OFFeqP=True 
+same TB/b13_int_td_el P:cmp=0/0 STRICT_EQUAL_78_objects rc=0 L:cmp=0/0 STRICT_EQUAL_78_objects rc=0 OFFeqP=True 
+MOVE TB/b14_portnet_view P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_111_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b14_portnet_view_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_109_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+same TB/b15_program P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_NOTEQUAL_name rc=0 OFFeqP=True 
+same TB/b15_program_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_NOTEQUAL_name rc=0 OFFeqP=True 
+MOVE TB/b16_gen_var P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_122_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b16_gen_var_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_122_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b17_two_inst_diff P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_163_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b17_two_inst_diff_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_162_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b18_direct_and_tp P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_124_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b18_direct_and_tp_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_117_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b19_chain P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_103_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b19_chain_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_102_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+same TB/b20_typedef_of_tp P:cmp=255/22 NOT_EQUAL_stage1 rc=0 L:cmp=255/22 NOT_EQUAL_stage1 rc=0 OFFeqP=True 
+same TB/b20_typedef_of_tp_el P:cmp=255/22 NOT_EQUAL_stage1 rc=0 L:cmp=255/22 NOT_EQUAL_stage1 rc=0 OFFeqP=True 
+same TB/b21_unpacked P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_NOTEQUAL_name rc=0 OFFeqP=True 
+same TB/b21_unpacked_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_NOTEQUAL_name rc=0 OFFeqP=True 
+same TB/b22_var_kw_multi P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_NOTEQUAL_name rc=0 OFFeqP=True 
+same TB/b22_var_kw_multi_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_NOTEQUAL_name rc=0 OFFeqP=True 
+MOVE TB/b23_wire_net P:cmp=255/58 NOT_EQUAL_stage1 rc=0 L:cmp=255/58 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b23_wire_net_el P:cmp=255/58 NOT_EQUAL_stage1 rc=0 L:cmp=255/58 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b24_nested P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_NOTEQUAL_name rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b24_nested_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_NOTEQUAL_name rc=0 OFFeqP=True sw=TPUSEOBJ
+NOCMP TB/b25_bind SLANG_FAIL SLANG_FAIL rc 3 3
+NOCMP TB/b25_bind_el SLANG_FAIL SLANG_FAIL rc 3 3
+MOVE TB/b26_output_port P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_117_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b26_output_port_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_115_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b27_crlf_hdr P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_101_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b27_crlf_hdr_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_100_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b28_two_params_two_pkgs P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_152_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b28_two_params_two_pkgs_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_150_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+same TB/b29_unranged_ctl P:cmp=0/0 STRICT_EQUAL_93_objects rc=0 L:cmp=0/0 STRICT_EQUAL_93_objects rc=0 OFFeqP=True 
+same TB/b29_unranged_ctl_el P:cmp=0/0 STRICT_EQUAL_88_objects rc=0 L:cmp=0/0 STRICT_EQUAL_88_objects rc=0 OFFeqP=True 
+MOVE TB/b30_macro_decl P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_124_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b30_macro_decl_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_120_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+same TB/b31_var_kw_single P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_NOTEQUAL_name rc=0 OFFeqP=True 
+same TB/b31_var_kw_single_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_NOTEQUAL_name rc=0 OFFeqP=True 
+MOVE TB/b32_multi_decl P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_148_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b32_multi_decl_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_141_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b33_input_var_port P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_100_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b33_input_var_port_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_99_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b34_iface_default_kw P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_45_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b34_iface_default_kw_el P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_45_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b35_iface_ovr_kw P:cmp=255/51 NOT_EQUAL_stage1 rc=0 L:cmp=0/0 STRICT_EQUAL_51_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b35_iface_ovr_kw_el P:cmp=255/51 NOT_EQUAL_stage1 rc=0 L:cmp=0/0 STRICT_EQUAL_51_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b36_iface_two_inst P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_151_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b36_iface_two_inst_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_151_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b37_iface_modport_port P:cmp=255/51 NOT_EQUAL_stage1 rc=0 L:cmp=255/101 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b37_iface_modport_port_el P:cmp=255/51 NOT_EQUAL_stage1 rc=0 L:cmp=255/101 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=TPUSEOBJ
+same TB/b38_iface_dims P:cmp=255/110 NOT_EQUAL_stage1 rc=0 L:cmp=255/110 NOT_EQUAL_stage1 rc=0 OFFeqP=True 
+same TB/b38_iface_dims_el P:cmp=255/110 NOT_EQUAL_stage1 rc=0 L:cmp=255/110 NOT_EQUAL_stage1 rc=0 OFFeqP=True 
+same TB/b39_iface_array P:cmp=0/0 STRICT_EQUAL_76_objects rc=0 L:cmp=0/0 STRICT_EQUAL_76_objects rc=0 OFFeqP=True 
+same TB/b39_iface_array_el P:cmp=0/0 STRICT_EQUAL_76_objects rc=0 L:cmp=0/0 STRICT_EQUAL_76_objects rc=0 OFFeqP=True 
+same TB/b40_iface_in_child P:cmp=0/0 STRICT_EQUAL_67_objects rc=0 L:cmp=0/0 STRICT_EQUAL_67_objects rc=0 OFFeqP=True 
+same TB/b40_iface_in_child_el P:cmp=0/0 STRICT_EQUAL_67_objects rc=0 L:cmp=0/0 STRICT_EQUAL_67_objects rc=0 OFFeqP=True 
+MOVE TB/b41_iface_localparam_type P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_45_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b41_iface_localparam_type_el P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_45_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b42_iface_struct_tp P:cmp=255/318 NOT_EQUAL_stage1 rc=0 L:cmp=255/318 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE TB/b42_iface_struct_tp_el P:cmp=255/318 NOT_EQUAL_stage1 rc=0 L:cmp=255/318 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE TB/b43_mod_kw_default P:cmp=0/0 STRICT_EQUAL_56_objects rc=0 L:cmp=0/0 STRICT_EQUAL_56_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b43_mod_kw_default_el P:cmp=0/0 STRICT_EQUAL_53_objects rc=0 L:cmp=0/0 STRICT_EQUAL_53_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b44_mod_struct_ovr P:cmp=255/402 NOT_EQUAL_stage1 rc=0 L:cmp=255/402 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE TB/b44_mod_struct_ovr_el P:cmp=255/402 NOT_EQUAL_stage1 rc=0 L:cmp=255/402 NOT_EQUAL_stage1 rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE TB/b45_iface_pkg_enum P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_81_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE TB/b45_iface_pkg_enum_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_81_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r10sd1repro/b27_inline_method_foreign P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_56_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE probe/r10sd1repro/b27_inline_method_foreign_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_59_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE probe/r10v119repro/v119_j P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_107_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE probe/r10v119repro/v119_j_el P:cmp=0/0 STRICT_NOTEQUAL_endcol rc=0 L:cmp=0/0 STRICT_EQUAL_116_objects rc=0 OFFeqP=True sw=CLSSPECDECL
+MOVE probe/r11u107repro/grid/a08_anon_member P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_137_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE probe/r11u107repro/grid/a08_anon_member_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_115_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE probe/r11u107repro/grid/a18_anon_typedef P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_113_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE probe/r11u107repro/grid/a18_anon_typedef_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_97_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE probe/r11u108repro/grid/f5/f5a20_ovr_pkgarr P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_257_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11u108repro/grid/f5/f5a20_ovr_pkgarr_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_250_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11u113repro/grid/e/e05_nested P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_158_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE probe/r11u113repro/grid/e/e05_nested_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_132_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE probe/r11u18repro/t4 P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_105_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11u18repro/t4_el P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_103_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11u45repro/g10 P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_93_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11u45repro/g10_el P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_92_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11u45repro/g12 P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_75_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11u45repro/g12_el P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_69_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11u45repro/g13 P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_75_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11u45repro/g13_el P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_75_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11v32repro/w1_regression_witness P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_67_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11v32repro/w1_regression_witness_el P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_61_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11v45repro/v6 P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_147_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11v45repro/v6_el P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_146_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11v45repro/v7 P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_171_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11v45repro/v7_el P:cmp=0/0 STRICT_NOTEQUAL_line rc=0 L:cmp=0/0 STRICT_EQUAL_170_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11v45repro/v9 P:cmp=0/0 STRICT_NOTEQUAL_type rc=0 L:cmp=0/0 STRICT_EQUAL_164_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/r11v45repro/v9_el P:cmp=0/0 STRICT_NOTEQUAL_type rc=0 L:cmp=0/0 STRICT_EQUAL_163_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/v11u108repro/brk/f5/b13_pkg_arr P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_283_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/v11u108repro/brk/f5/b13_pkg_arr_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_245_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/v11u111repro/brk/f6/y61_vec_dims_extra_port_dims P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_104_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/v11u111repro/brk/f6/y61_vec_dims_extra_port_dims_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_103_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/v11u111repro/brk/f6/y68_bit_td_dims P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_100_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/v11u111repro/brk/f6/y68_bit_td_dims_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_99_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/v11u111repro/brk/f6/y69_vec_dims_two_inst_same P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_150_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/v11u111repro/brk/f6/y69_vec_dims_two_inst_same_el P:cmp=0/0 STRICT_NOTEQUAL_name rc=0 L:cmp=0/0 STRICT_EQUAL_148_objects rc=0 OFFeqP=True sw=TPUSEOBJ
+MOVE probe/v11u93b107repro/brk/p02_nested_member_dim P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_119_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+MOVE probe/v11u93b107repro/brk/p02_nested_member_dim_el P:cmp=0/0 STRICT_NOTEQUAL_fullname rc=0 L:cmp=0/0 STRICT_EQUAL_97_objects rc=0 OFFeqP=True sw=ANONMEMBNAME
+TOTAL 212 moving 168 entering 144 leaving 0 rcchange 0

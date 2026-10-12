@@ -1,0 +1,10 @@
+tp/r11u20repro/t9 dist 0 -> 0 lost=0 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+tp/r11u20repro/t9_el dist 0 -> 0 lost=0 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+tp/r11u285repro/cases/C/c05_union dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=12 flat_away=0 flat_toward=12
+tp/r11u285repro/cases/C/c05_union_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=12 flat_away=0 flat_toward=12
+tp/v11u285repro/cases/VC/vc15_union_tagged_ctl dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=12 flat_away=0 flat_toward=12
+tp/v11u285repro/cases/VC/vc15_union_tagged_ctl_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=12 flat_away=0 flat_toward=12
+tp/v11u285repro/cases/VC/vc19_packed_union dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=12 flat_away=0 flat_toward=12
+tp/v11u285repro/cases/VC/vc19_packed_union_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=12 flat_away=0 flat_toward=12
+tp/v11u287repro/cases/VP/vp05_mod_typedef dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=2 flat_away=0 flat_toward=2
+tp/v11u287repro/cases/VP/vp05_mod_typedef_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=2 flat_away=0 flat_toward=2

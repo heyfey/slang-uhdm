@@ -1,0 +1,108 @@
+   tp/v11u291repro/cases/VA/va01_nested_enum_intbase P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_108_objects F=STRICT_EQUAL_108_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va01_nested_enum_intbase_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_126_objects F=STRICT_EQUAL_126_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va02_gen_td P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_93_objects F=STRICT_EQUAL_93_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va02_gen_td_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_127_objects F=STRICT_EQUAL_127_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va03_two_inst_port P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_237_objects F=STRICT_EQUAL_237_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va03_two_inst_port_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_231_objects F=STRICT_EQUAL_231_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va04_iface_modport_td P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 69/69/69 rc 4/4/4 
+   tp/v11u291repro/cases/VA/va04_iface_modport_td_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 69/69/69 rc 4/4/4 
+   tp/v11u291repro/cases/VA/va05_signed_union_nested P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname F=STRICT_NOTEQUAL_fullname cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va05_signed_union_nested_el P=STRICT_NOTEQUAL_fullname L=STRICT_NOTEQUAL_fullname F=STRICT_NOTEQUAL_fullname cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va06_anon_var_always P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_130_objects F=STRICT_EQUAL_130_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va06_anon_var_always_el P=STRICT_NOTEQUAL_fullname L=STRICT_EQUAL_127_objects F=STRICT_EQUAL_127_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va07_anon_var_unassigned_read P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 213/213/213 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va07_anon_var_unassigned_read_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 229/229/229 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va08_pkg_td_used_twice P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 67/67/67 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va08_pkg_td_used_twice_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 67/67/67 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va09_td_of_anon_arr_direct P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 30/30/30 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va09_td_of_anon_arr_direct_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 30/30/30 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va11_class_member_nested P=STRICT_NOTEQUAL_endcol L=STRICT_NOTEQUAL_endcol F=STRICT_NOTEQUAL_endcol cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va11_class_member_nested_el P=STRICT_NOTEQUAL_endcol L=STRICT_NOTEQUAL_endcol F=STRICT_NOTEQUAL_endcol cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va12_param_nested P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 253/253/253 rc 0/0/0 
+   tp/v11u291repro/cases/VA/va12_param_nested_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 269/269/269 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc01_qualifiers P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_35_objects F=STRICT_EQUAL_35_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc01_qualifiers_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_35_objects F=STRICT_EQUAL_35_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc02_multiline P=STRICT_NOTEQUAL_endline L=STRICT_EQUAL_39_objects F=STRICT_EQUAL_39_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc02_multiline_el P=STRICT_NOTEQUAL_endline L=STRICT_EQUAL_39_objects F=STRICT_EQUAL_39_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc03_ident_arg_class_param P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_47_objects F=STRICT_EQUAL_47_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc03_ident_arg_class_param_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_50_objects F=STRICT_EQUAL_50_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc05_fork_local P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_38_objects F=STRICT_EQUAL_38_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc05_fork_local_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_38_objects F=STRICT_EQUAL_38_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc06_macro_type P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_40_objects F=STRICT_EQUAL_40_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc06_macro_type_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_43_objects F=STRICT_EQUAL_43_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc07_nested_spec_type_arg P=STRICT_NOTEQUAL_endcol L=STRICT_NOTEQUAL_fullname F=STRICT_NOTEQUAL_fullname cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc07_nested_spec_type_arg_el P=STRICT_NOTEQUAL_endcol L=STRICT_NOTEQUAL_fullname F=STRICT_NOTEQUAL_fullname cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc08_program_class P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_26_objects F=STRICT_EQUAL_26_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc08_program_class_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_26_objects F=STRICT_EQUAL_26_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc09_wild_import_pkg_class_local P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_46_objects F=STRICT_EQUAL_46_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc09_wild_import_pkg_class_local_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_64_objects F=STRICT_EQUAL_64_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc10_named_import_pkg_local P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_51_objects F=STRICT_EQUAL_51_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc10_named_import_pkg_local_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_51_objects F=STRICT_EQUAL_51_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc12_initial_block_local P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_30_objects F=STRICT_EQUAL_30_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc12_initial_block_local_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_30_objects F=STRICT_EQUAL_30_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc13_extends_and_prop P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_42_objects F=STRICT_EQUAL_42_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc13_extends_and_prop_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_42_objects F=STRICT_EQUAL_42_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc14_iface_class_prop P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_43_objects F=STRICT_EQUAL_43_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VC/vc14_iface_class_prop_el P=STRICT_NOTEQUAL_endcol L=STRICT_EQUAL_49_objects F=STRICT_EQUAL_49_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt01_top_tp_default P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_91_objects F=STRICT_EQUAL_91_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt01_top_tp_default_el P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_84_objects F=STRICT_EQUAL_84_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt03_inst_array P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_174_objects F=STRICT_EQUAL_174_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt03_inst_array_el P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_173_objects F=STRICT_EQUAL_173_objects cmplines 0/0/0 rc 0/0/0 
+LF tp/v11u291repro/cases/VT/vt04_gen_shadow_tp P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 254/254/254 rc 0/0/0 GENSHADOW
+LF tp/v11u291repro/cases/VT/vt04_gen_shadow_tp_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 254/254/254 rc 0/0/0 GENSHADOW
+LF tp/v11u291repro/cases/VT/vt05_class_tp P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 26/26/26 rc 0/0/0 CLASSTP
+LF tp/v11u291repro/cases/VT/vt05_class_tp_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 26/26/26 rc 0/0/0 CLASSTP
+   tp/v11u291repro/cases/VT/vt07_mod_tp_packed_use_named P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_128_objects F=STRICT_EQUAL_128_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt07_mod_tp_packed_use_named_el P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_124_objects F=STRICT_EQUAL_124_objects cmplines 0/0/0 rc 0/0/0 
+LF tp/v11u291repro/cases/VT/vt08_body_td_target P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 90/90/90 rc 0/0/0 BODYTD
+LF tp/v11u291repro/cases/VT/vt08_body_td_target_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 94/94/94 rc 0/0/0 BODYTD
+   tp/v11u291repro/cases/VT/vt11_iface_genfor P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 26/26/26 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt11_iface_genfor_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 26/26/26 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt12_chain_override P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_121_objects F=STRICT_EQUAL_121_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt12_chain_override_el P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_117_objects F=STRICT_EQUAL_117_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt13_iface_port_tp P=NOT_EQUAL_stage1 L=STRICT_NOTEQUAL_col F=STRICT_NOTEQUAL_col cmplines 51/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt13_iface_port_tp_el P=NOT_EQUAL_stage1 L=STRICT_NOTEQUAL_col F=STRICT_NOTEQUAL_col cmplines 51/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt14_escaped_inst P=STRICT_NOTEQUAL_endcol L=STRICT_NOTEQUAL_endcol F=STRICT_NOTEQUAL_endcol cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt14_escaped_inst_el P=STRICT_NOTEQUAL_endcol L=STRICT_NOTEQUAL_endcol F=STRICT_NOTEQUAL_endcol cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt15_nonansi_redecl P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_100_objects F=STRICT_EQUAL_100_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt15_nonansi_redecl_el P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_99_objects F=STRICT_EQUAL_99_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt16_two_decl_init P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_90_objects F=STRICT_EQUAL_90_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt16_two_decl_init_el P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_84_objects F=STRICT_EQUAL_84_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt17_uninst_def P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_199_objects F=STRICT_EQUAL_199_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt17_uninst_def_el P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_191_objects F=STRICT_EQUAL_191_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt18_gen_if_child P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_198_objects F=STRICT_EQUAL_198_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt18_gen_if_child_el P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_198_objects F=STRICT_EQUAL_198_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt19_signed_kw_iface P=NOT_EQUAL_stage1 L=STRICT_EQUAL_138_objects F=STRICT_EQUAL_138_objects cmplines 53/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt19_signed_kw_iface_el P=NOT_EQUAL_stage1 L=STRICT_EQUAL_137_objects F=STRICT_EQUAL_137_objects cmplines 53/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt20_import_wild_qual_default P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_183_objects F=STRICT_EQUAL_183_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt20_import_wild_qual_default_el P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_165_objects F=STRICT_EQUAL_165_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt21_two_level_pass_qual P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_182_objects F=STRICT_EQUAL_182_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt21_two_level_pass_qual_el P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_174_objects F=STRICT_EQUAL_174_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt22_iface_in_gen P=NOT_EQUAL_stage1 L=STRICT_EQUAL_137_objects F=STRICT_EQUAL_137_objects cmplines 51/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt22_iface_in_gen_el P=NOT_EQUAL_stage1 L=STRICT_EQUAL_168_objects F=STRICT_EQUAL_168_objects cmplines 51/0/0 rc 0/0/0 
+LF tp/v11u291repro/cases/VT/vt23_chain_to_body_td P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 68/68/68 rc 0/0/0 BODYTD
+LF tp/v11u291repro/cases/VT/vt23_chain_to_body_td_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 68/68/68 rc 0/0/0 BODYTD
+LF tp/v11u291repro/cases/VT/vt25_nested_gen_shadow P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 326/326/326 rc 0/0/0 GENSHADOW
+LF tp/v11u291repro/cases/VT/vt25_nested_gen_shadow_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 326/326/326 rc 0/0/0 GENSHADOW
+LF tp/v11u291repro/cases/VT/vt28_body_lp_class P=STRICT_EQUAL_72_objects L=STRICT_EQUAL_72_objects F=STRICT_EQUAL_72_objects cmplines 0/0/0 rc 0/0/0 CLASSTP
+LF tp/v11u291repro/cases/VT/vt28_body_lp_class_el P=STRICT_EQUAL_74_objects L=STRICT_EQUAL_74_objects F=STRICT_EQUAL_74_objects cmplines 0/0/0 rc 0/0/0 CLASSTP
+   tp/v11u291repro/cases/VT/vt30_iface_two_tp_chain P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_140_objects F=STRICT_EQUAL_140_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt30_iface_two_tp_chain_el P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_139_objects F=STRICT_EQUAL_139_objects cmplines 0/0/0 rc 0/0/0 
+LF tp/v11u291repro/cases/VT/vt32_enum_body_td P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 104/104/104 rc 0/0/0 BODYTD
+LF tp/v11u291repro/cases/VT/vt32_enum_body_td_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 104/104/104 rc 0/0/0 BODYTD
+   tp/v11u291repro/cases/VT/vt34_string_tp_mod P=STRICT_EQUAL_69_objects L=STRICT_EQUAL_69_objects F=STRICT_EQUAL_69_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt34_string_tp_mod_el P=STRICT_EQUAL_65_objects L=STRICT_EQUAL_65_objects F=STRICT_EQUAL_65_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt37_gen_case_var P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_143_objects F=STRICT_EQUAL_143_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt37_gen_case_var_el P=STRICT_NOTEQUAL_name L=STRICT_EQUAL_143_objects F=STRICT_EQUAL_143_objects cmplines 0/0/0 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt38_iface_modport_two_inst_ovr P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 101/101/101 rc 0/0/0 
+   tp/v11u291repro/cases/VT/vt38_iface_modport_two_inst_ovr_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 cmplines 101/101/101 rc 0/0/0 
+# views 128
+# P->F moving 84
+# L->F moving 14
+# P->F entering 58
+# P->F leaving 0
+# FVOFF==L 128
+# FUOFF==P 128
+# L->F sw GENSHADOW 4
+# L->F sw CLASSTP 4
+# L->F sw BODYTD 6

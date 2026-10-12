@@ -1,0 +1,8 @@
+TB/b01_named_nodims dist 0 -> 1 lost=1 gained=0 | chain away=4 toward=0 flat_away=1 flat_toward=0
+TB/b07_iface dist 0 -> 1 lost=4 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+AN/n03_mod_td_union dist 0 -> 10 lost=10 gained=0 | chain away=10 toward=0 flat_away=10 flat_toward=0
+AN/n09_class_td dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+CS/c01_prop dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+CS/c18_pkg_foreign_local dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+probe/r11u45repro/g10 dist 0 -> 4 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+probe/r10v119repro/v119_j dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0

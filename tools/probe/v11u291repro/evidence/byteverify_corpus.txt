@@ -1,0 +1,19 @@
+databases: patched=3365 pristine=3365
+PATH_SETS_IDENTICAL (3365 paths)
+MOVER ./surelog/default/TypeParam-1a539dcb/slang.uhdm  patched=2efc297d0cab pristine=71bb00866a56
+MOVER ./surelog/testflags/TypeParam-1a539dcb/slang.uhdm  patched=2a5a10daf380 pristine=66890964efe3
+MOVERS: 2 / 3365
+SELFCHECK (every file vs one fixed file): 3363 / 3365 flagged
+SELFCHECK_FAILED
+--- law -> fix
+PATH_SETS_IDENTICAL (3365 paths)
+MOVERS: 0 / 3365
+SELFCHECK (every file vs one fixed file): 3363 / 3365 flagged
+SELFCHECK_FAILED
+--- pristine -> fix
+PATH_SETS_IDENTICAL (3365 paths)
+MOVER ./surelog/default/TypeParam-1a539dcb/slang.uhdm  patched=2efc297d0cab pristine=71bb00866a56
+MOVER ./surelog/testflags/TypeParam-1a539dcb/slang.uhdm  patched=2a5a10daf380 pristine=66890964efe3
+MOVERS: 2 / 3365
+SELFCHECK (every file vs one fixed file): 3363 / 3365 flagged
+SELFCHECK_FAILED

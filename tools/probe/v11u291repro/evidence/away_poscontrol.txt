@@ -1,0 +1,8 @@
+VT/vt01_top_tp_default dist 0 -> 2 lost=2 gained=0 | chain away=8 toward=0 flat_away=2 flat_toward=0
+VT/vt03_inst_array_el dist 0 -> 4 lost=4 gained=0 | chain away=16 toward=0 flat_away=4 flat_toward=0
+VT/vt12_chain_override dist 0 -> 5 lost=2 gained=0 | chain away=5 toward=0 flat_away=2 flat_toward=0
+VA/va03_two_inst_port dist 0 -> 18 lost=18 gained=0 | chain away=18 toward=0 flat_away=18 flat_toward=0
+VA/va05_signed_union_nested_el dist 13 -> 24 lost=11 gained=0 | chain away=11 toward=0 flat_away=11 flat_toward=0
+VC/vc02_multiline dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+VC/vc09_wild_import_pkg_class_local_el dist 0 -> 4 lost=4 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+VT/vt22_iface_in_gen dist 0 -> 0 lost=0 gained=0 | chain away=8 toward=0 flat_away=8 flat_toward=0
