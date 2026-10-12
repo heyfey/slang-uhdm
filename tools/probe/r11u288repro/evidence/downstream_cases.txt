@@ -1,0 +1,16 @@
+CI/ci10_good_control IDENTICAL differs=-	IDENTICAL differs=-
+ID/id01_homes IDENTICAL differs=-	IDENTICAL differs=-
+ID/id02_shapes EQUIVALENT differs=nohier	IDENTICAL differs=-
+ID/id03_macro_pkg EQUIVALENT differs=nohier	IDENTICAL differs=-
+PC/pc01_kinds_ca STATUS_DIFF differs=-	IDENTICAL differs=-
+PC/pc02_proc_func DIVERGENT differs=nohier	DIVERGENT differs=nohier
+PC/pc03_param_slots EQUIVALENT differs=nohier	EQUIVALENT differs=nohier
+PC/pc04_gen_scopes DIVERGENT differs=nohier	DIVERGENT differs=nohier
+PC/pc05_class_pkg EQUIVALENT differs=nohier	IDENTICAL differs=-
+PC/pc06_port_actual EQUIVALENT differs=nohier	IDENTICAL differs=-
+PC/pc07_macros_streams DIVERGENT differs=nohier	IDENTICAL differs=-
+PC/pc08_control_unparen IDENTICAL differs=-	IDENTICAL differs=-
+SP/sp01_contexts IDENTICAL differs=-	IDENTICAL differs=-
+SP/sp02_homes IDENTICAL differs=-	IDENTICAL differs=-
+SP/sp03_shapes IDENTICAL differs=-	IDENTICAL differs=-
+SP/sp04_members IDENTICAL differs=-	IDENTICAL differs=-

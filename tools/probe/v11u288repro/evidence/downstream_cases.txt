@@ -1,0 +1,123 @@
+pristine v11u288repro/cases/VC/vc01_unique_task pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VC/vc02_multi_expr_single pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VC/vc03_nested_inside pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VI/vi01_homes pristine EQUIVALENT differs=nohier surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u288_ds/pristine/v11u288repro_case
+pristine v11u288repro/cases/VI/vi02_multidim pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+pristine v11u288repro/cases/VI/vi03_expr_pos pristine EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+pristine v11u288repro/cases/VI/vi04_macro_select_idx pristine EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+pristine v11u288repro/cases/VI/vi05_class_only pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VP/vp01_implicit_outer pristine EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+pristine v11u288repro/cases/VP/vp02_param_slots pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+pristine v11u288repro/cases/VP/vp03_constant_slots pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+pristine v11u288repro/cases/VP/vp04_generate pristine EQUIVALENT differs=nohier il surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u288_ds/pristine/v11u288repro_case
+pristine v11u288repro/cases/VP/vp05_homes pristine EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u288_ds/pristine/v11u288repro_case
+pristine v11u288repro/cases/VP/vp06_real pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u288_ds/pris
+pristine v11u288repro/cases/VP/vp07_typed_targets pristine STATUS_DIFF differs=- surelog=OK slang=NO_GATES detail=-
+pristine v11u288repro/cases/VP/vp08_macros pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+pristine v11u288repro/cases/VP/vp09_nested_paren pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+pristine v11u288repro/cases/VP/vp10_ports_iface pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VP/vp11_case_items pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+pristine v11u288repro/cases/VP/vp12_typeparam_alias pristine DIVERGENT differs=nohier il synth surelog=OK slang=OK detail=----------------------------------------------
+pristine v11u288repro/cases/VP/vp13_stream_concat pristine EQUIVALENT differs=nohier surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u288_ds/pristine/v11u288repro_case
+pristine v11u288repro/cases/VR/vr01_concat_left pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VR/vr02_concat_right pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VR/vr03_multiconcat pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VR/vr04_inside pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VR/vr05_call_arg pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VR/vr06_cast pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VR/vr07_two_operands pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VR/vr08_loops pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VR/vr09_std_module pristine EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+pristine v11u288repro/cases/VR/vr10_obj_randomize pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VR/vr11_assert_kinds pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VR/vr12_pkg_class_task pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VR/vr13_pattern_stream pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VR/vr14_concat_module pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VS/vs01_lvalue pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VS/vs02_nested pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+pristine v11u288repro/cases/VS/vs03_homes pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VS/vs04_kinds pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VS/vs05_depths pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+pristine v11u288repro/cases/VS/vs06_class_func pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+law v11u288repro/cases/VC/vc01_unique_task law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VC/vc02_multi_expr_single law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VC/vc03_nested_inside law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VI/vi01_homes law IDENTICAL differs=- surelog=OK slang=OK detail=-
+law v11u288repro/cases/VI/vi02_multidim law IDENTICAL differs=- surelog=OK slang=OK detail=-
+law v11u288repro/cases/VI/vi03_expr_pos law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VI/vi04_macro_select_idx law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VI/vi05_class_only law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VP/vp01_implicit_outer law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VP/vp02_param_slots law EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+law v11u288repro/cases/VP/vp03_constant_slots law IDENTICAL differs=- surelog=OK slang=OK detail=-
+law v11u288repro/cases/VP/vp04_generate law IDENTICAL differs=- surelog=OK slang=OK detail=-
+law v11u288repro/cases/VP/vp05_homes law IDENTICAL differs=- surelog=OK slang=OK detail=-
+law v11u288repro/cases/VP/vp06_real law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VP/vp07_typed_targets law EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u288_ds/law/v11u288repro_cases_VP_
+law v11u288repro/cases/VP/vp08_macros law IDENTICAL differs=- surelog=OK slang=OK detail=-
+law v11u288repro/cases/VP/vp09_nested_paren law IDENTICAL differs=- surelog=OK slang=OK detail=-
+law v11u288repro/cases/VP/vp10_ports_iface law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VP/vp11_case_items law IDENTICAL differs=- surelog=OK slang=OK detail=-
+law v11u288repro/cases/VP/vp12_typeparam_alias law DIVERGENT differs=nohier il synth surelog=OK slang=OK detail=----------------------------------------------
+law v11u288repro/cases/VP/vp13_stream_concat law IDENTICAL differs=- surelog=OK slang=OK detail=-
+law v11u288repro/cases/VR/vr01_concat_left law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VR/vr02_concat_right law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VR/vr03_multiconcat law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VR/vr04_inside law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VR/vr05_call_arg law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VR/vr06_cast law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VR/vr07_two_operands law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VR/vr08_loops law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VR/vr09_std_module law EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+law v11u288repro/cases/VR/vr10_obj_randomize law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VR/vr11_assert_kinds law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VR/vr12_pkg_class_task law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VR/vr13_pattern_stream law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VR/vr14_concat_module law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VS/vs01_lvalue law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VS/vs02_nested law IDENTICAL differs=- surelog=OK slang=OK detail=-
+law v11u288repro/cases/VS/vs03_homes law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VS/vs04_kinds law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VS/vs05_depths law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+law v11u288repro/cases/VS/vs06_class_func law IDENTICAL differs=- surelog=OK slang=OK detail=-
+fix v11u288repro/cases/VC/vc01_unique_task fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VC/vc02_multi_expr_single fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VC/vc03_nested_inside fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VI/vi01_homes fix IDENTICAL differs=- surelog=OK slang=OK detail=-
+fix v11u288repro/cases/VI/vi02_multidim fix IDENTICAL differs=- surelog=OK slang=OK detail=-
+fix v11u288repro/cases/VI/vi03_expr_pos fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VI/vi04_macro_select_idx fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VI/vi05_class_only fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VP/vp01_implicit_outer fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VP/vp02_param_slots fix EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+fix v11u288repro/cases/VP/vp03_constant_slots fix IDENTICAL differs=- surelog=OK slang=OK detail=-
+fix v11u288repro/cases/VP/vp04_generate fix IDENTICAL differs=- surelog=OK slang=OK detail=-
+fix v11u288repro/cases/VP/vp05_homes fix IDENTICAL differs=- surelog=OK slang=OK detail=-
+fix v11u288repro/cases/VP/vp06_real fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VP/vp07_typed_targets fix EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u288_ds/fix/v11u288repro_cases_VP_
+fix v11u288repro/cases/VP/vp08_macros fix IDENTICAL differs=- surelog=OK slang=OK detail=-
+fix v11u288repro/cases/VP/vp09_nested_paren fix IDENTICAL differs=- surelog=OK slang=OK detail=-
+fix v11u288repro/cases/VP/vp10_ports_iface fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VP/vp11_case_items fix IDENTICAL differs=- surelog=OK slang=OK detail=-
+fix v11u288repro/cases/VP/vp12_typeparam_alias fix DIVERGENT differs=nohier il synth surelog=OK slang=OK detail=----------------------------------------------
+fix v11u288repro/cases/VP/vp13_stream_concat fix IDENTICAL differs=- surelog=OK slang=OK detail=-
+fix v11u288repro/cases/VR/vr01_concat_left fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VR/vr02_concat_right fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VR/vr03_multiconcat fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VR/vr04_inside fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VR/vr05_call_arg fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VR/vr06_cast fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VR/vr07_two_operands fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VR/vr08_loops fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VR/vr09_std_module fix EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+fix v11u288repro/cases/VR/vr10_obj_randomize fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VR/vr11_assert_kinds fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VR/vr12_pkg_class_task fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VR/vr13_pattern_stream fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VR/vr14_concat_module fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VS/vs01_lvalue fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VS/vs02_nested fix IDENTICAL differs=- surelog=OK slang=OK detail=-
+fix v11u288repro/cases/VS/vs03_homes fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VS/vs04_kinds fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VS/vs05_depths fix IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+fix v11u288repro/cases/VS/vs06_class_func fix IDENTICAL differs=- surelog=OK slang=OK detail=-

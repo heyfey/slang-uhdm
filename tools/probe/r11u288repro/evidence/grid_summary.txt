@@ -1,0 +1,61 @@
+MOVER CI/ci01_item_bad d: STRICT_NOTEQUAL file -> STRICT_EQUAL 43 objects
+MOVER CI/ci01_item_bad e: STRICT_NOTEQUAL file -> STRICT_EQUAL 46 objects
+MOVER CI/ci02_default_bad d: STRICT_NOTEQUAL file -> STRICT_EQUAL 43 objects
+MOVER CI/ci02_default_bad e: STRICT_NOTEQUAL file -> STRICT_EQUAL 46 objects
+MOVER CI/ci03_string_item d: STRICT_NOTEQUAL file -> STRICT_EQUAL 45 objects
+MOVER CI/ci03_string_item e: STRICT_NOTEQUAL file -> STRICT_EQUAL 48 objects
+MOVER CI/ci04_multi_expr d: STRICT_NOTEQUAL file -> STRICT_EQUAL 41 objects
+MOVER CI/ci04_multi_expr e: STRICT_NOTEQUAL file -> STRICT_EQUAL 44 objects
+MOVER CI/ci05_casez d: STRICT_NOTEQUAL file -> STRICT_EQUAL 54 objects
+MOVER CI/ci05_casez e: STRICT_NOTEQUAL file -> STRICT_EQUAL 60 objects
+MOVER CI/ci06_case_inside d: STRICT_NOTEQUAL file -> STRICT_EQUAL 55 objects
+MOVER CI/ci06_case_inside e: STRICT_NOTEQUAL file -> STRICT_EQUAL 61 objects
+MOVER CI/ci08_task_nested d: STRICT_NOTEQUAL file -> STRICT_EQUAL 51 objects
+MOVER CI/ci08_task_nested e: STRICT_NOTEQUAL file -> STRICT_EQUAL 57 objects
+MOVER CI/ci09_default_first d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER CI/ci09_default_first e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER CI/ci11_typed_bad_scope d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER CI/ci11_typed_bad_scope e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER ID/id01_homes d: STRICT_NOTEQUAL col -> STRICT_EQUAL 134 objects
+MOVER ID/id01_homes e: STRICT_NOTEQUAL col -> STRICT_EQUAL 127 objects
+MOVER ID/id02_shapes d: STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+MOVER ID/id02_shapes e: STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+MOVER ID/id03_macro_pkg d: STRICT_NOTEQUAL col -> STRICT_EQUAL 157 objects
+MOVER ID/id03_macro_pkg e: STRICT_NOTEQUAL col -> STRICT_EQUAL 174 objects
+CMP PC/pc01_kinds_ca d 16 -> 70
+MOVER PC/pc01_kinds_ca d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+CMP PC/pc01_kinds_ca e 16 -> 70
+MOVER PC/pc01_kinds_ca e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+CMP PC/pc02_proc_func d 16 -> 46
+MOVER PC/pc02_proc_func d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+CMP PC/pc02_proc_func e 16 -> 46
+MOVER PC/pc02_proc_func e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER PC/pc03_param_slots d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER PC/pc03_param_slots e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER PC/pc04_gen_scopes d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER PC/pc04_gen_scopes e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+CMP PC/pc05_class_pkg d 76 -> 0
+MOVER PC/pc05_class_pkg d: NOT_EQUAL stage1 -> STRICT_NOTEQUAL file
+CMP PC/pc05_class_pkg e 76 -> 0
+MOVER PC/pc05_class_pkg e: NOT_EQUAL stage1 -> STRICT_NOTEQUAL file
+CMP PC/pc06_port_actual d 12 -> 0
+MOVER PC/pc06_port_actual d: NOT_EQUAL stage1 -> STRICT_EQUAL 304 objects
+CMP PC/pc06_port_actual e 12 -> 0
+MOVER PC/pc06_port_actual e: NOT_EQUAL stage1 -> STRICT_EQUAL 299 objects
+MOVER PC/pc07_macros_streams d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER PC/pc07_macros_streams e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER RZ/rz01_positions d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 146 objects
+MOVER RZ/rz01_positions e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER RZ/rz02_multi_ident d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 110 objects
+MOVER RZ/rz02_multi_ident e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 119 objects
+MOVER RZ/rz03_pkg_class_ctl d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 134 objects
+MOVER RZ/rz03_pkg_class_ctl e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 145 objects
+MOVER SP/sp01_contexts d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 300 objects
+MOVER SP/sp01_contexts e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 295 objects
+MOVER SP/sp02_homes d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 459 objects
+MOVER SP/sp02_homes e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 442 objects
+MOVER SP/sp03_shapes d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 498 objects
+MOVER SP/sp03_shapes e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 482 objects
+MOVER SP/sp04_members d: STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+MOVER SP/sp04_members e: STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+case-views=58 movers=52 entering_STRICT_EQUAL=31 leaving_STRICT_EQUAL=0 rc_changes=0 cmp_changes=8 OFF_equals_pristine=58/58

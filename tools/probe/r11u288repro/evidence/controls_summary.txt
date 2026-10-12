@@ -1,0 +1,3 @@
+MOVER r11u181repro/cases/bx/b15 d rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 109 objects
+MOVER r11u181repro/cases/bx/b15 e rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 108 objects
+case-views=5814 moving=2 entering=2 leaving=0 rc-changed=0 cmplines-changed=0

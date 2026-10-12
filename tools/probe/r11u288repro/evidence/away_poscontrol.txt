@@ -1,0 +1,12 @@
+CI/ci01_item_bad d chain away=1 toward=0 flat_away=1 flat_toward=0
+CI/ci01_item_bad e chain away=1 toward=0 flat_away=1 flat_toward=0
+CI/ci05_casez d chain away=2 toward=0 flat_away=2 flat_toward=0
+CI/ci05_casez e chain away=2 toward=0 flat_away=2 flat_toward=0
+ID/id01_homes d chain away=7 toward=0 flat_away=7 flat_toward=0
+ID/id01_homes e chain away=7 toward=0 flat_away=7 flat_toward=0
+PC/pc06_port_actual d chain away=10 toward=0 flat_away=10 flat_toward=0
+PC/pc06_port_actual e chain away=10 toward=0 flat_away=10 flat_toward=0
+RZ/rz03_pkg_class_ctl d chain away=8 toward=0 flat_away=8 flat_toward=0
+RZ/rz03_pkg_class_ctl e chain away=8 toward=0 flat_away=8 flat_toward=0
+SP/sp01_contexts d chain away=10 toward=0 flat_away=10 flat_toward=0
+SP/sp01_contexts e chain away=5 toward=0 flat_away=5 flat_toward=0

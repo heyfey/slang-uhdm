@@ -51,6 +51,7 @@
 #include "R282.h"
 #include "R284.h"
 #include "R286.h"
+#include "R288.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -32875,6 +32876,49 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
             }
+            // § parenCastReadsCastSyntax288 (r11u288, R11U288_PARENCAST_OFF) —
+            // slang gives a PARENTHESIZED expression the parentheses node as
+            // its syntax (Expression::bind sets `result->syntax = &syntax`
+            // after binding the inner one), so a written cast inside
+            // parentheses, `(int'(P)) ? 42 : 7`, reached this arm with a
+            // ParenthesizedExpression and its target typespec was minted with
+            // no location; Surelog compiles the cast from the cast's own
+            // syntax whatever wraps it (golden v_pred_cast int_typespec
+            // 8:20-23, ours unlocated).  The arm reads the cast through any
+            // number of parentheses (§ withCallParenSyntax286's model for
+            // a with-call); the checks above this point keep pristine's
+            // reading (§ 115's typedef-parenthesis branch already unwrapped
+            // its own shape).
+            if (effCastSyn &&
+                effCastSyn->kind == syntax::SyntaxKind::ParenthesizedExpression) {
+                const syntax::SyntaxNode* in288 = effCastSyn;
+                while (in288 &&
+                       in288->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                    in288 = in288->as<syntax::ParenthesizedExpressionSyntax>()
+                                .expression;
+                // A cast to a TYPE PARAMETER (`(T'(x))`) abstains: the bare
+                // `T'(x)` is a standing residue (stage-1 `type`, exit 4 on
+                // every binary, grid PC/pc01 v13), so reading the
+                // parenthesized form as the cast would trade pristine's
+                // location-only difference for that one.
+                const TypeParameterSymbol* tp288 =
+                    expr.type && expr.type->kind == SymbolKind::TypeAlias
+                        ? typeParamOfAlias(expr.type->as<TypeAliasType>())
+                        : nullptr;
+                if (in288 && in288->kind == syntax::SyntaxKind::CastExpression &&
+                    tp288)
+                    tr288("PARENCAST_ABSTAIN", "type-parameter-target");
+                else if (in288 && in288->kind == syntax::SyntaxKind::CastExpression) {
+                    if (r11u288On("R11U288_PARENCAST_OFF")) {
+                        effCastSyn = in288;
+                        tr288("PARENCAST", "unwrap");
+                    }
+                    else
+                        tr288("PARENCAST", "off");
+                }
+                else
+                    tr288("PARENCAST_ABSTAIN", "inner-not-cast");
+            }
             if (effCastSyn && effCastSyn->kind == syntax::SyntaxKind::CastExpression) {
                 auto& cesyn = effCastSyn->as<syntax::CastExpressionSyntax>();
                 // A DEF-view gen-block PROCEDURAL cast whose target is written
@@ -39198,6 +39242,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         cons116->VpiParent(parent);
                         mfc116->With(cons116);
                         rc116 = mfc116;
+                        // § randWithCallParentByConsumer288: the record the
+                        // if-condition site and the design-final drain read.
+                        rzWith288().push_back({mfc116, cons116, parent});
                         // § randWithIdentListIsSuffixPaths116 — SURELOG'S
                         // IDENTIFIER-LIST QUIRK, decoded on arm H at two,
                         // three and four names.  `compileRandomizeCall` hands
@@ -45208,7 +45255,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // § paramIdxPartSelWholeSpan131 — and so does a select in a
                 // parameter initializer or override (the Constant_primary
                 // arm populates it from the whole node).
-                if (inLhs || (inParamInit && paramIdxPartSelWholeSpan131On() &&
+                // § incDecIpsWholeSpan288 (r11u288, R11U288_INCDECIPS_OFF) —
+                // an indexed part-select that IS an increment / decrement
+                // operand (`pvec[s+:2]++`, `--q[k-:2]`) is an lvalue in
+                // Surelog's grammar (inc_or_dec_expression over a
+                // variable_lvalue), so it spans the whole select like any
+                // assignment target (golden g21b 29:43-53); this emitter
+                // reaches it as a unary operand with `inLhs` false and spanned
+                // the selector alone (29:48-52).  Only the operand itself: a
+                // select nested in its index stays an rvalue.
+                bool incDec288 = !inLhs && incDecOperand124() == &expr;
+                if (incDec288 && !r11u288On("R11U288_INCDECIPS_OFF")) {
+                    tr288("INCDECIPS", "off");
+                    incDec288 = false;
+                }
+                else if (incDec288)
+                    tr288("INCDECIPS", std::string(nv.symbol.name));
+                if (inLhs || incDec288 ||
+                    (inParamInit && paramIdxPartSelWholeSpan131On() &&
                               constCtxWholeNode131(expr.syntax) &&  // § constCtxCallArgInner131v
                               !(ipsQualBaseRangeSpan141On() &&      // § ipsQualBaseRangeSpan141v
                                 !pkgWrittenQualSelBase41(rs.value()).empty())))
@@ -45408,8 +45472,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 trace154("GSPROCPS");
                 psel->VpiFullName(joinRef(prefix, nv.symbol.name));
             }
-            else
+            // § streamPartSelLazyName288 (r11u288, R11U288_STREAMPS_OFF) — a
+            // simple part-select written as a STREAMING concatenation's
+            // operand (`{<< 2 {i[3:0], 4'h1}}`) is emitted under the inner
+            // concat before that concat (and the stream operation) is
+            // parented (the streaming arm parents them afterwards), so the
+            // freeze below read a chain cut at the concat and stored the bare
+            // name; Surelog's part_select name is the lazy walk over the
+            // FINAL chain (golden `work@d29.i` in a module, `work@d29.mf.v`
+            // in a module function, `work@sc::cf::v` in a class method,
+            // `sp::pf::v` in a package function).  Inside a stream the name
+            // is left unfrozen, so the walk reads the chain once complete.
+            else if (streamDepth181() > 0 && r11u288On("R11U288_STREAMPS_OFF")) {
+                tr288("STREAMPS", std::string(nv.symbol.name));
+            }
+            else {
+                if (streamDepth181() > 0)
+                    tr288("STREAMPS", "off");
                 (void)psel->VpiFullName();
+            }
             // § pkgQualParamPartSelName118 — the RANGE's span alone (the
             // package-scope arm never re-locates the select).
             if (!q118.empty()) {
@@ -50979,3 +51060,80 @@ void insidePaRecordCase270(const slang::ast::Expression& member, UHDM::BaseClass
 }
 
 } // namespace slang_uhdm
+
+namespace slang_uhdm {
+// § randWithCallParentByConsumer288 (r11u288) — THE CONSUMER PARENTS THE CALL.
+// compileRandomizeCall (Surelog CompileStmt.cpp) never sets the
+// method_func_call's parent (§ scopeRandomizeIsBareCall116's parentless
+// regime), but its CONSUMERS do: compileConditionalStmt sets
+// `cond_exp->VpiParent(cond_stmt)` when the condition has none (the if site
+// in StmtEmit), and the binary / ternary arm of compileExpression re-parents
+// every operand at the operation (`opL->VpiParent(operation)`,
+// `opR->VpiParent(operation)`), the LEFT operand having been compiled before
+// the operation exists, with the operation's own pexpr, so its constraint
+// (`compileConstraintBlock` sets `VpiParent(pexpr)`) hangs at the
+// operation's parent.  A unary operand, an assignment's right side, a while
+// condition and a return value stay parentless (measured: golden g116_f
+// cells one, three, four; the grid's while, return and `!( )` cells).  With
+// a parent, the arguments' names are the parent chain's (golden
+// `work@picker_f::two::slot_f`), so the stored bare name goes.
+// R11U288_RZPARENT_OFF.
+void rzWithParentDrain288() {
+    for (auto& r : rzWith288()) {
+        if (!r.mfc || r.mfc->VpiParent())
+            continue;
+        auto* p0 = r.parent0;
+        if (!p0 || p0->UhdmType() != UHDM::uhdmoperation) {
+            tr288("RZPARENT_ABSTAIN", "parent-not-operation");
+            continue;
+        }
+        auto* op = (UHDM::operation*)p0;
+        auto* ops = op->Operands();
+        size_t idx = (size_t)-1;
+        if (ops)
+            for (size_t i = 0; i < ops->size(); ++i)
+                if ((*ops)[i] == r.mfc) {
+                    idx = i;
+                    break;
+                }
+        if (idx == (size_t)-1 || ops->size() < 2) {
+            tr288("RZPARENT_ABSTAIN", idx == (size_t)-1 ? "not-an-operand" : "unary");
+            continue;
+        }
+        if (!r11u288On("R11U288_RZPARENT_OFF")) {
+            tr288("RZPARENT", "off");
+            continue;
+        }
+        // § rzMemberNoReparentDefView288v (v11u288, R11V288_RZMEMBER_OFF) —
+        // ONLY THE BINARY AND TERNARY BRANCH RE-PARENTS.  Surelog's
+        // compileExpression re-parents an operand at the operation only in
+        // its binary / ternary branch (opL->VpiParent(operation),
+        // opR->VpiParent(operation)); the Concatenation and
+        // Multiple_concatenation branches, compileAssignmentPattern and the
+        // inside operator's Open_range_list loop push their members without
+        // re-parenting, so in the definition view the with-form call stays
+        // parentless there (fresh v11u288repro VR/vr01 and vr02 a
+        // concatenation member, vr04 an inside set member, vr13 an
+        // assignment-pattern member and vr14 two concatenation members, each
+        // STRICT_EQUAL or one record closer on pristine and chain away 1
+        // under the law in the default view).  The elaborated view keeps the
+        // law: UHDM's elaborator deep-clones the body and parents every
+        // clone at its cloned operation (golden names the arguments there).
+        if (!rzElabView288v() && r11v288On("R11V288_RZMEMBER_OFF")) {
+            const int ot = op->VpiOpType();
+            if (ot == vpiConcatOp || ot == vpiMultiConcatOp ||
+                ot == vpiAssignmentPatternOp || ot == vpiMultiAssignmentPatternOp ||
+                (ot == vpiInsideOp && idx > 0)) {
+                tr288("RZPARENT_ABSTAIN", "v288-member-not-reparented");
+                continue;
+            }
+        }
+        r.mfc->VpiParent(op);
+        if (idx == 0 && r.cons)
+            r.cons->VpiParent(op->VpiParent());
+        rzScopeArgs288(r.mfc);
+        tr288("RZPARENT", idx == 0 ? "operand-left" : "operand");
+    }
+    rzWith288().clear();
+}
+}  // namespace slang_uhdm

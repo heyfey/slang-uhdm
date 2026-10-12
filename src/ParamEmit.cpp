@@ -41,6 +41,7 @@
 #include "R280.h"
 #include "R282.h"
 #include "R284.h"
+#include "R288.h"
 namespace slang_uhdm {
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
@@ -37328,6 +37329,12 @@ void UhdmExporter::drainShareDefParamTs() {
     // § genCaSelBoundNestedOwner282, § caHierSelBoundName282,
     // § genCaCastFoldOrphanName282).
     foldTsNameFinalDrain282(s);
+    // § randWithCallParentByConsumer288 (r11u288; law at ExprEmit's
+    // rzWithParentDrain288): the with-form randomize call re-parented at the
+    // binary / ternary operation that holds it.  § rzMemberNoReparentDefView288v
+    // (v11u288) reads the view.
+    rzElabView288v() = elabUhdmView121;
+    rzWithParentDrain288();
     // § pkgAliasTdRefNameByParent284 / § pkgTdNamedDimsElemByChain284
     // (r11u284; decode and law at pkgAliasTdNames284).
     pkgAliasTdNames284(comp);

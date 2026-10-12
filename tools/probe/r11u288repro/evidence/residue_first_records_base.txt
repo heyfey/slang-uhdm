@@ -1,0 +1,994 @@
+### r10buvm29repro/g29_d_fence STRICT_NOTEQUAL ['fields: fullname=2 objects_differing=2']
+    #80 fullname
+      A: 7	part_select	i	i	work@d29.i	dut.sv	20	17	20	23		0		
+      B: 7	part_select	i	i		dut.sv	20	17	20	23		0		
+    #224 fullname
+      A: 7	part_select	i	i	work@d29.i	dut.sv	20	17	20	23		0		
+      B: 7	part_select	i	i		dut.sv	20	17	20	23		0		
+### r10buvm21repro/g21b STRICT_NOTEQUAL ['fields: col=1 endcol=1 objects_differing=1']
+    #263 col
+      A: 5	indexed_part_select	pvec	pvec	hp21::k21::n_inc_partsel::pvec	dut.sv	29	43	29	53		0		
+      B: 5	indexed_part_select	pvec	pvec	hp21::k21::n_inc_partsel::pvec	dut.sv	29	48	29	52		0		
+### r10buvm13repro/v3_clone13 STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)']
+    #228 depth
+      A: 1	module_inst		work@m13clone	work@m13clone	dut.sv	26	1	36	10				
+      B: 4	func_call	hf_earlier			dut.sv	23	51	23	64		0		
+### r10buvm8repro/v9fold8 STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)']
+    #43 depth
+      A: 1	module_inst		work@m9	work@m9	dut.sv	7	1	10	10				
+      B: 4	func_call	foldable			dut.sv	5	41	5	52		0		
+### r10buvm8repro/vxpkg8 STRICT_NOTEQUAL ['fields: type=1 name=1 fullname=1 file=1 line=6 col=7 endline=6 endcol=7 size=1 objects_differing=7 (walk diverged)']
+    #67 line
+      A: 2	logic_typespec	zp::zb_t			dut.sv	15	37	15	41				
+      B: 2	logic_typespec	zp::zb_t			dut.sv	7	11	7	22				
+    #85 line
+      A: 7	logic_typespec	zp::zb_t			dut.sv	15	37	15	41				
+      B: 7	logic_typespec	zp::zb_t			dut.sv	7	11	7	22				
+    #96 line
+### r10buvm8repro/v3_argts8 STRICT_NOTEQUAL ['fields: type=1 name=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)']
+    #336 type
+      A: 5	constant				dut.sv	29	30	29	31	0	64	UINT:0	9
+      B: 5	func_call	nofold_sys			dut.sv	29	13	29	26		0		
+### r10earl104repro/vb4_instarr STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #143 fullname
+      A: 5	bit_select	X			dut.sv	9	25	9	29		0		
+      B: 5	bit_select	X		work@vb4_instarr.u_ia.X	dut.sv	9	25	9	29		0		
+### r10earl29repro/b1_sites STRICT_NOTEQUAL ['fields: fullname=4 col=4 endcol=4 objects_differing=4']
+    #145 fullname
+      A: 8	bit_select	k		work@b1_sites.t.arr[{1'b0,}].fld[0].k	dut.sv	27	23	27	27		0		
+      B: 8	bit_select	k		work@b1_sites.k	dut.sv	27	25	27	26		0		
+    #155 fullname
+      A: 8	bit_select	k		work@b1_sites.ea[{1'b0,}].fld[0].k	dut.sv	28	20	28	24		0		
+      B: 8	bit_select	k		work@b1_sites.k	dut.sv	28	22	28	23		0		
+    #329 fullname
+### r10earl115repro/p1_pos115 STRICT_NOTEQUAL ['fields: fullname=10 col=2 endcol=10 objects_differing=18']
+    #350 endcol
+      A: 7	constant				dut.sv	52	32	52	42	3'h0	3	HEX:0	5
+      B: 7	constant				dut.sv	52	32	52	39	3'h0	3	HEX:0	5
+    #396 endcol
+      A: 7	hier_path	three_i[i].lo.f0			dut.sv	59	32	59	48		0		
+      B: 7	hier_path	three_i[i].lo.f0			dut.sv	59	32	59	39		0		
+    #400 fullname
+### r10earl29repro/b3_edges STRICT_NOTEQUAL ['fields: fullname=2 objects_differing=2']
+    #149 fullname
+      A: 9	ref_typespec			work@b3_edges.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf		0	0	0	0		0		
+      B: 9	ref_typespec			work@b3_edges		0	0	0	0		0		
+    #332 fullname
+      A: 9	ref_typespec			work@b3_edges.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf		0	0	0	0		0		
+      B: 9	ref_typespec			work@b3_edges		0	0	0	0		0		
+### r10earl121repro/a1_axis121 STRICT_NOTEQUAL ['fields: endcol=3 objects_differing=3']
+    #362 endcol
+      A: 7	constant				dut.sv	76	29	76	38	3'h4	3	HEX:4	5
+      B: 7	constant				dut.sv	76	29	76	35	3'h4	3	HEX:4	5
+    #463 endcol
+      A: 7	constant				dut.sv	87	29	87	38	3'h4	3	HEX:4	5
+      B: 7	constant				dut.sv	87	29	87	35	3'h4	3	HEX:4	5
+    #631 endcol
+### r10earl29repro/v8_sites2 STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #276 fullname
+      A: 7	bit_select	k		work@v8_sites2.u.a.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.k	dut.sv	22	43	22	44		0		
+      B: 7	bit_select	k		work@v8_sites2.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.k	dut.sv	22	43	22	44		0		
+### r10earl29repro/v10_str STRICT_NOTEQUAL ['fields: endcol=4 objects_differing=4']
+    #3 endcol
+      A: 3	typespec_member	m			dut.sv	12	31	12	40				
+      B: 3	typespec_member	m			dut.sv	12	31	12	32				
+    #13 endcol
+      A: 5	typespec_member	m			dut.sv	12	31	12	40				
+      B: 5	typespec_member	m			dut.sv	12	31	12	32				
+    #43 endcol
+### r10earl41repro/v41v_comment STRICT_NOTEQUAL ['fields: name=6 defname=3 fullname=12 objects_differing=18']
+    #91 fullname
+      A: 6	ref_obj	g		q41::A::q41::A::g	dut.sv	11	26	11	27		0		
+      B: 6	ref_obj	g		work@v41v_comment.gb.q41::A.g	dut.sv	11	26	11	27		0		
+    #94 fullname
+      A: 8	ref_obj	DW		q41::A::q41::A::q41::A::DW	dut.sv	11	29	11	31		0		
+      B: 8	ref_obj	DW		work@v41v_comment.gb.q41::A.q41::A.DW	dut.sv	11	29	11	31		0		
+    #106 name
+### r10earl31repro/v4_ops STRICT_NOTEQUAL ['fields: endcol=4 objects_differing=4']
+    #112 endcol
+      A: 9	constant				dut.sv	24	17	24	21	4'h2	4	HEX:2	5
+      B: 9	constant				dut.sv	24	17	24	23	4'h2	4	HEX:2	5
+    #119 endcol
+      A: 9	constant				dut.sv	24	35	24	39	4'h2	4	HEX:2	5
+      B: 9	constant				dut.sv	24	35	24	41	4'h2	4	HEX:2	5
+    #322 endcol
+### r10earl53repro/v2_v53 STRICT_NOTEQUAL ['fields: endline=1 endcol=1 objects_differing=1']
+    #55 endline
+      A: 2	struct_typespec	pv2_v53::sa_t			dut.sv	4	11	32	21				
+      B: 2	struct_typespec	pv2_v53::sa_t			dut.sv	4	11	4	58				
+### r10earl54repro/v13_v54 STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 defname=1 fullname=2 line=1 col=1 endline=1 endcol=1 objects_differing=2 (walk diverged)']
+    #325 fullname
+      A: 7	ref_obj	sel		work@v13_v54.u_t1.u_bound.pa.sel	dut.sv	29	40	29	43		0		
+      B: 7	ref_obj	sel		work@v13_v54.sel	dut.sv	29	40	29	43		0		
+    #326 depth
+      A: 8	logic_net	sel		work@v13_v54.sel	dut.sv	22	29	22	32		0		
+      B: 7	part_select	d	d	work@v13_v54.u_t1.u_bound.pa.d	dut.sv	29	46	29	52		0		
+### r10earl54repro/v3_v54 STRICT_NOTEQUAL ['fields: endcol=5 objects_differing=5']
+    #61 endcol
+      A: 2	ref_module	u.inst	work@snk-v3_54		dut.sv	10	19	10	32				
+      B: 2	ref_module	u.inst	work@snk-v3_54		dut.sv	10	19	10	29				
+    #162 endcol
+      A: 4	ref_obj	a.port		work@v3_v54.u.inst.a.port	dut.sv	10	34	10	46		0		
+      B: 4	ref_obj	a.port		work@v3_v54.u.inst.a.port	dut.sv	10	34	10	44		0		
+    #170 endcol
+### r10earl59repro/v59v2_earl59 STRICT_NOTEQUAL ['fields: depth=1 type=1 name=2 fullname=3 line=1 col=1 endline=1 endcol=2 size=1 objects_differing=3 (walk diverged)']
+    #486 fullname
+      A: 5	ref_typespec			work@a1.u_sub.g_a.g_b		0	0	0	0		0		
+      B: 5	ref_typespec			work@a1.u_sub		0	0	0	0		0		
+    #806 name
+      A: 8	ref_obj	mn_d2_parm		work@a1.u_sub.g_a.g_b.mn_d2_parm	dut.sv	69	14	69	24		0		
+      B: 8	ref_obj	PK		work@a1.u_sub.g_a.g_b.PK	dut.sv	69	30	69	32		0		
+    #807 depth
+### r10rgg14repro/cells/pc5 STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)']
+    #104 depth
+      A: 2	gen_scope_array	g[1]		work@top.g[1]	dut.sv	7	27	11	6				
+      B: 5	logic_net	ca1		work@top.g[0].ca1	dut.sv	9	16	9	19		0		
+### r10earl98repro/g3_rhs98 STRICT_NOTEQUAL ['fields: line=4 col=4 endline=4 endcol=4 objects_differing=4']
+    #561 line
+      A: 8	logic_typespec				dut.sv	46	3	46	14				
+      B: 8	logic_typespec				dut.sv	21	5	21	16				
+    #562 line
+      A: 9	range				dut.sv	46	9	46	14				
+      B: 9	range				dut.sv	21	11	21	16				
+    #563 line
+### r10rgg3repro/f1_noovr_arr_recvp STRICT_NOTEQUAL ['fields: file=3 line=3 col=3 endline=3 endcol=3 objects_differing=3']
+    #166 file
+      A: 6	int_typespec					0	0	0	0				
+      B: 6	int_typespec				dut.sv	2	27	2	30				
+    #229 file
+      A: 6	int_typespec					0	0	0	0				
+      B: 6	int_typespec				dut.sv	2	27	2	30				
+    #292 file
+### r10rgg4repro/c9_litarith_noovr STRICT_NOTEQUAL ['fields: endcol=1 objects_differing=1']
+    #210 endcol
+      A: 8	constant				dut.sv	9	18	9	19	6	64	INT:6	7
+      B: 8	constant				dut.sv	9	18	9	21	6	64	INT:6	7
+### r10rgg9repro/cells/c_iface_body STRICT_NOTEQUAL ['fields: type=1 col=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)']
+    #114 type
+      A: 4	constant				dut.sv	6	36	6	38	'0	-1	BIN:0	3
+      B: 4	operation				dut.sv	6	19	6	38		0		
+### r10rgg9repro/cells/c_paraminit STRICT_NOTEQUAL ['fields: type=1 name=1 fullname=1 col=1 endcol=1 objects_differing=1 (walk diverged)']
+    #78 type
+      A: 4	bit_select	arr		work@top.u_a.arr	dut.sv	9	10	9	16		0		
+      B: 4	ref_obj	Z		work@m.Z	dut.sv	9	19	9	20		0		
+### r10sd5repro/v6_no_import_control STRICT_NOTEQUAL ['fields: type=1 name=1 fullname=3 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=4 (walk diverged)']
+    #5 fullname
+      A: 5	ref_typespec			<in>t6		0	0	0	0		0		
+      B: 5	ref_typespec			<in>t6		0	0	0	0		0		
+      raw fullname A: p6::v6::t6 | B: t6
+    #23 fullname
+      A: 5	ref_typespec			<in>t6		0	0	0	0		0		
+      B: 5	ref_typespec			<in>t6		0	0	0	0		0		
+### r10rgg9repro/cells/l_concat STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)']
+    #85 depth
+      A: 6	logic_net	a1		work@m.a1	dut.sv	8	9	8	11		0		
+      B: 5	ref_obj	b1		work@top.u_a.b1	dut.sv	9	15	9	17		0		
+### r10svs8repro/a3_builtins STRICT_NOTEQUAL ['fields: endcol=1 objects_differing=1']
+    #46 endcol
+      A: 5	hier_path	cgc8.cpc8.get_coverage			dut.sv	60	12	60	36		0		
+      B: 5	hier_path	cgc8.cpc8.get_coverage			dut.sv	60	12	60	34		0		
+### r10uvm122repro/g122_f_clone STRICT_NOTEQUAL ['fields: type=1 name=1 fullname=3 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=3 (walk diverged)']
+    #93 fullname
+      A: 6	bit_var	hv		p122f_home::f122f::hv	dut.sv	6	16	6	18		0		
+      B: 6	bit_var	hv		p122f_expl::f122f::hv	dut.sv	6	16	6	18		0		
+    #94 fullname
+      A: 7	ref_typespec			p122f_home::f122f::hv		0	0	0	0		0		
+      B: 7	ref_typespec			p122f_expl::f122f::hv		0	0	0	0		0		
+    #199 type
+### r10uvm116repro/g116_f STRICT_NOTEQUAL ['fields: fullname=2 objects_differing=2']
+    #23 fullname
+      A: 5	ref_obj	slot_f		work@picker_f::two::slot_f	dut.sv	15	19	15	25		0		
+      B: 5	ref_obj	slot_f			dut.sv	15	19	15	25		0		
+    #49 fullname
+      A: 6	ref_obj	slot_f		work@picker_f::five::slot_f	dut.sv	26	23	26	29		0		
+      B: 6	ref_obj	slot_f			dut.sv	26	23	26	29		0		
+### r10uvm149repro/g149/homes STRICT_NOTEQUAL ['fields: endline=1 endcol=1 objects_differing=1']
+    #128 endline
+      A: 4	struct_typespec				dut.sv	33	3	34	24				
+      B: 4	struct_typespec				dut.sv	33	3	33	9				
+### r10uvm129repro/g129_d_bases STRICT_NOTEQUAL ['fields: type=1 name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)']
+    #122 type
+      A: 8	enum_typespec	pk129d::plainBase129_e			dut.sv	5	4	5	68				
+      B: 8	bit_typespec				dut.sv	18	10	18	24				
+### r10uvm158repro/g158_a_shape STRICT_NOTEQUAL ['fields: file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1']
+    #183 file
+      A: 5	case_item				dut.sv	114	9	117	17				
+      B: 5	case_item					0	0	0	0				
+### r10uvm171repro/g171_a_pos STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 value=1 consttype=1 objects_differing=1 (walk diverged)']
+    #140 depth
+      A: 6	constant				dut.sv	12	21	12	23	""	0	STRING:	6
+      B: 7	bit_select	sc_shape		pos_clone_171::sc_shape::sc_shape	dut.sv	16	5	16	16		0		
+### r10uvm171repro/g171_b_homes STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=1 line=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)']
+    #91 depth
+      A: 4	assignment				dut.sv	12	5	12	23				
+      B: 6	bit_select	free_fn		home_clone_171::free_fn::free_fn	dut.sv	13	5	13	15		0		
+### r10uvm171repro/g171_c_shapes STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=1 line=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)']
+    #239 depth
+      A: 4	assignment				dut.sv	14	5	14	24				
+      B: 6	bit_select	lead_blk		shape_clone_171::lead_blk::lead_blk	dut.sv	16	5	16	16		0		
+### r10uvm193repro/g193_c_argface STRICT_NOTEQUAL ['fields: fullname=4 objects_differing=4']
+    #1158 fullname
+      A: 8	ref_obj	kink193		Jetty193::c7_two193::fleet193[kink193].rub193::kink193	dut.sv	100	32	100	39		0		
+      B: 8	ref_obj	kink193		Jetty193::c7_two193::kink193	dut.sv	100	32	100	39		0		
+    #1565 fullname
+      A: 9	ref_obj	kink193		Jetty193::c11_twice193::fleet193[kink193].rub193::kink193	dut.sv	151	32	151	39		0		
+      B: 9	ref_obj	kink193		Jetty193::c11_twice193::kink193	dut.sv	151	32	151	39		0		
+    #2632 fullname
+### r10uvm194repro/g194_c_clone STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)']
+    #91 depth
+      A: 6	constant				dut.sv	17	22	17	25	" "	8	STRING: 	6
+      B: 7	bit_select	c_free		c194_clone::c_free::c_free	dut.sv	18	5	18	14		0		
+### r10uvm207repro/g207_h_foreign STRICT_NOTEQUAL ['fields: name=4 fullname=12 objects_differing=16']
+    #145 fullname
+      A: 9	ref_typespec			<in>bt207x		0	0	0	0		0		
+      B: 9	ref_typespec			<in>bt207x		0	0	0	0		0		
+      raw fullname A: p207b_x::fx207::lx207::p207c_x::sx207::x_min207::bt207x | B: bt207x
+    #156 fullname
+      A: 9	ref_typespec			<in>bt207x		0	0	0	0		0		
+      B: 9	ref_typespec			<in>bt207x		0	0	0	0		0		
+### r10uvm175repro/g175_c_tail STRICT_NOTEQUAL ['fields: fullname=2 col=1 endcol=1 objects_differing=2']
+    #150 fullname
+      A: 7	bit_select	holds		charlie_dock::pier::survey::holds[berth]::holds	dut.sv	45	19	45	24		0		
+      B: 7	bit_select	holds		holds[berth]	dut.sv	45	13	45	18		0		
+    #151 fullname
+      A: 8	ref_obj	berth		charlie_dock::pier::survey::holds[berth]::berth	dut.sv	45	19	45	24		0		
+      B: 8	ref_obj	berth		charlie_dock::pier::survey::berth	dut.sv	45	19	45	24		0		
+### r10uvm220repro/grid220/a1_uninst_if STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=1 file=2 line=2 col=2 endline=2 endcol=2 objects_differing=2 (walk diverged)']
+    #104 file
+      A: 7	array_typespec				dut.sv	13	14	13	27				
+      B: 7	array_typespec					0	0	0	0				
+    #105 depth
+      A: 8	ref_typespec			<in>		0	0	0	0		0		
+      B: 5	ref_var	i5		work@if220u.f220.i5	dut.sv	27	23	27	25		0		
+### r10uvm213repro/g213_i_scopedtd STRICT_NOTEQUAL ['fields: line=2 endline=2 endcol=2 objects_differing=2']
+    #23 line
+      A: 3	begin			p213i::c213i::gi213	dut.sv	21	5	21	24				
+      B: 3	begin			p213i::c213i::gi213	dut.sv	22	5	22	21				
+    #62 line
+      A: 4	begin			p213i::c213i::gi213	dut.sv	21	5	21	24				
+      B: 4	begin			p213i::c213i::gi213	dut.sv	22	5	22	21				
+### r10uvm225repro/grid225/a6_headerforms STRICT_NOTEQUAL ['fields: endcol=4 objects_differing=4']
+    #9 endcol
+      A: 4	class_typespec	Ch225			dut.sv	18	3	18	26				
+      B: 4	class_typespec	Ch225			dut.sv	18	3	18	8				
+    #33 endcol
+      A: 5	class_typespec	Ch225			dut.sv	18	3	18	26				
+      B: 5	class_typespec	Ch225			dut.sv	18	3	18	8				
+    #189 endcol
+### r10uvm227repro/grid227/a9_class_holder STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)']
+    #74 depth
+      A: 6	int_var	loc		p2::f::loc	dut.sv	8	9	8	12		0		
+      B: 4	return_stmt				dut.sv	10	5	10	11				
+### r10uvm226repro/grid226/a12_pkgimport STRICT_NOTEQUAL ['fields: fullname=2 objects_differing=2']
+    #13 fullname
+      A: 6	ref_typespec			<in>tv226_t		0	0	0	0		0		
+      B: 6	ref_typespec			<in>tv226_t		0	0	0	0		0		
+      raw fullname A: p226i::pav226::tv226_t | B: tv226_t
+    #37 fullname
+      A: 6	ref_typespec			<in>tv226_t		0	0	0	0		0		
+      B: 6	ref_typespec			<in>tv226_t		0	0	0	0		0		
+### r10uvm221repro/grid221/a4_corpus STRICT_NOTEQUAL ['fields: endcol=2 objects_differing=2']
+    #192 endcol
+      A: 4	class_typespec	sv221_info			dut.sv	37	4	37	23				
+      B: 4	class_typespec	sv221_info			dut.sv	37	4	37	14				
+    #210 endcol
+      A: 5	class_typespec	sv221_info			dut.sv	37	4	37	23				
+      B: 5	class_typespec	sv221_info			dut.sv	37	4	37	14				
+### r10uvm32repro/t42a STRICT_NOTEQUAL ['fields: line=29 col=29 endline=29 endcol=29 objects_differing=29']
+    #2 line
+      A: 2	enum_typespec	pa42::aen_t			dut.sv	21	29	21	34				
+      B: 2	enum_typespec	pa42::aen_t			dut.sv	18	3	18	37				
+    #27 line
+      A: 5	enum_typespec	pa42::aen_t			dut.sv	21	29	21	34				
+      B: 5	enum_typespec	pa42::aen_t			dut.sv	18	3	18	37				
+    #59 line
+### r10uvm36repro/t48a STRICT_NOTEQUAL ['fields: name=2 objects_differing=2']
+    #222 name
+      A: 9	logic_typespec	w48_t			dut.sv	22	11	22	30				
+      B: 9	logic_typespec	home48::w48_t			dut.sv	22	11	22	30				
+    #280 name
+      A: 9	logic_typespec	w48_t			dut.sv	22	11	22	30				
+      B: 9	logic_typespec	home48::w48_t			dut.sv	22	11	22	30				
+### r10uvm26repro/t36c STRICT_NOTEQUAL ['fields: fullname=5 file=1 endline=1 endcol=1 objects_differing=6']
+    #21 fullname
+      A: 5	ref_typespec			<in>		0	0	0	0		0		
+      B: 5	ref_typespec					0	0	0	0		0		
+    #50 fullname
+      A: 5	ref_typespec			<in>		0	0	0	0		0		
+      B: 5	ref_typespec					0	0	0	0		0		
+    #85 fullname
+### r10uvm48repro/t67e STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #64 fullname
+      A: 6	ref_obj	base67::stat		p67::rdr67::i4::base67::stat	dut.sv	46	11	46	19		0		
+      B: 6	ref_obj	base67::stat		p67::rdr67::i4::arr::base67::stat	dut.sv	46	11	46	19		0		
+### r10uvm48repro/t67d STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #85 fullname
+      A: 5	ref_obj	q67::@@BAD_SYMBOL@@		p67::rdr67::h2::q67::@@BAD_SYMBOL@@	dut.sv	59	7	59	14		0		
+      B: 5	ref_obj	q67::@@BAD_SYMBOL@@		p67::rdr67::h2.q67::@@BAD_SYMBOL@@	dut.sv	59	7	59	14		0		
+### r10uvm52repro/a1 STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)']
+    #230 depth
+      A: 2	function	c8_pkghandle		p52a::c8_pkghandle	dut.sv	92	3	96	14				
+      B: 4	func_call	pkgcallee52			dut.sv	89	12	89	29		0		
+### r10uvm56repro/a6_type STRICT_NOTEQUAL ['fields: line=9 col=9 endline=9 endcol=9 objects_differing=9']
+    #41 line
+      A: 5	struct_typespec	s6_t			dut.sv	24	27	24	31				
+      B: 5	struct_typespec	s6_t			dut.sv	4	9	7	2				
+    #50 line
+      A: 5	struct_typespec	s6_t			dut.sv	24	27	24	31				
+      B: 5	struct_typespec	s6_t			dut.sv	4	9	7	2				
+    #152 line
+### r10uvm59repro/c05_cast STRICT_NOTEQUAL ['fields: file=1 line=2 col=2 endline=2 endcol=2 objects_differing=2']
+    #18 file
+      A: 8	int_typespec				dut.sv	6	15	6	18				
+      B: 8	int_typespec					0	0	0	0				
+    #31 line
+      A: 8	int_typespec				dut.sv	3	26	3	29				
+      B: 8	int_typespec				dut.sv	10	15	10	16				
+### r10uvm92repro/v92_b2_varsel STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #353 fullname
+      A: 11	ref_obj	q		vsp::probe::probes::bb.bin[n + two_d[1][]]::bin::two_d::q	dut.sv	57	36	57	37		0		
+      B: 11	ref_obj	q		vsp::probe::probes::two_d::q	dut.sv	57	36	57	37		0		
+### r10uvm97repro/g97_a5_samename STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #23 fullname
+      A: 6	ref_typespec			<in>n97e		0	0	0	0		0		
+      B: 6	ref_typespec			<in>n97e		0	0	0	0		0		
+      raw fullname A: work@m2_97e::dup97e::n97e | B: work@dup97e::n97e
+### r10uvm99repro/g99_a2_proc STRICT_NOTEQUAL ['fields: objects_differing=0']
+### r10uvm79repro/c2_idxkind STRICT_NOTEQUAL ['fields: fullname=3 col=4 endcol=4 objects_differing=5']
+    #83 col
+      A: 8	bit_select	midx		work@grid::probe::iarr[].f::midx::midx	dut.sv	22	19	22	26		0		
+      B: 8	bit_select	midx		work@grid::probe::iarr[].f::midx::midx	dut.sv	22	24	22	25		0		
+    #99 fullname
+      A: 8	bit_select	midx		work@grid::probe::iarr[ + 1].f::midx	dut.sv	24	14	24	21		0		
+      B: 8	bit_select	midx		work@grid::probe::midx	dut.sv	24	19	24	20		0		
+    #100 fullname
+### r10v100repro/v100_b3_trivia STRICT_NOTEQUAL ['fields: line=2 col=6 endline=2 endcol=8 objects_differing=8']
+    #28 line
+      A: 5	ref_obj			work@v100_b3.run	dut.sv	9	7	9	12		0		
+      B: 5	ref_obj			work@v100_b3.run	dut.sv	8	7	10	5		0		
+    #33 col
+      A: 5	ref_obj			work@v100_b3.run	dut.sv	11	18	11	23		0		
+      B: 5	ref_obj			work@v100_b3.run	dut.sv	11	5	11	24		0		
+    #38 col
+### r10uvm99repro/g99_a9_fence STRICT_NOTEQUAL ['fields: objects_differing=0']
+### r10v111repro/v111_b6 STRICT_NOTEQUAL ['fields: type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)']
+    #190 type
+      A: 4	ref_obj	w_v6		work@v111b6child.w_v6	dut.sv	20	15	20	19		0		
+      B: 4	constant				dut.sv	15	14	15	25	6	32	UINT:6	9
+### r10v112repro/g19_builtin STRICT_NOTEQUAL ['fields: file=6 line=10 col=10 endline=10 endcol=10 objects_differing=10']
+    #4 file
+      A: 3	type_parameter	Q		<in>p19use::t19.Q	dut.sv	5	20	5	21				
+      B: 3	type_parameter	Q		<in>p19use::t19.Q		0	0	0	0				
+    #7 line
+      A: 3	param_assign					5	20	5	21				
+      B: 3	param_assign					0	0	0	0				
+    #23 file
+### r10v136repro/v136_d_homes STRICT_NOTEQUAL ['fields: fullname=18 objects_differing=18']
+    #18 fullname
+      A: 4	ref_typespec			<in>Pk_Homes::pkgSpan_S.pkA		0	0	0	0		0		
+      B: 4	ref_typespec			<in>Pk_Homes::pkgSpan_S.pkA		0	0	0	0		0		
+      raw fullname A: work@mod_home_top::ModHome::Pk_Homes::pkgSpan_S::pkA | B: work@mod_home_top.Pk_Homes::pkgSpan_S.pkA
+    #24 fullname
+      A: 4	ref_typespec			<in>Pk_Homes::pkgSpan_S.pkB		0	0	0	0		0		
+      B: 4	ref_typespec			<in>Pk_Homes::pkgSpan_S.pkB		0	0	0	0		0		
+### r10v122repro/q6clone STRICT_NOTEQUAL ['fields: type=1 name=1 fullname=3 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=3 (walk diverged)']
+    #102 fullname
+      A: 6	bit_var	accMu		HomeMu_pkg::mixMu::accMu	dut.sv	5	16	5	21		0		
+      B: 6	bit_var	accMu		ExplXi_pkg::mixMu::accMu	dut.sv	5	16	5	21		0		
+    #103 fullname
+      A: 7	ref_typespec			HomeMu_pkg::mixMu::accMu		0	0	0	0		0		
+      B: 7	ref_typespec			ExplXi_pkg::mixMu::accMu		0	0	0	0		0		
+    #202 type
+### r10v149repro/arms/paramtype STRICT_NOTEQUAL ['fields: fullname=2 objects_differing=2']
+    #346 fullname
+      A: 9	ref_typespec			<in>Eps9_pkg::payload_t.pArgs		0	0	0	0		0		
+      B: 9	ref_typespec					0	0	0	0		0		
+    #360 fullname
+      A: 9	ref_typespec			<in>Eps9_pkg::payload_t.pArgs		0	0	0	0		0		
+      B: 9	ref_typespec					0	0	0	0		0		
+### r10v158repro/v158_d STRICT_NOTEQUAL ['fields: file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1']
+    #80 file
+      A: 5	case_item				dut.sv	52	9	55	15				
+      B: 5	case_item					0	0	0	0				
+### r10v169repro/v169_g_control STRICT_NOTEQUAL ['fields: line=10 endline=10 objects_differing=10']
+    #154 line
+      A: 7	int_typespec				dut.sv	6	13	6	16				
+      B: 7	int_typespec				dut.sv	5	13	5	16				
+    #201 line
+      A: 7	int_typespec				dut.sv	5	13	5	16				
+      B: 7	int_typespec				dut.sv	6	13	6	16				
+    #259 line
+### r10v181repro/v181_h_nofe STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)']
+    #596 depth
+      A: 1	package	trebuchet_home	trebuchet_home	trebuchet_home::	dut.sv	15	1	76	11				
+      B: 5	typespec_member	mangonel			dut.sv	17	39	17	47				
+### r10v206repro/x206_a_dropwithmove STRICT_NOTEQUAL ['fields: type=1 name=1 line=1 endline=1 endcol=1 objects_differing=1 (walk diverged)']
+    #39 type
+      A: 1	class_typespec	pb206::zb206			dut.sv	12	11	12	16				
+      B: 1	logic_typespec	pc206::cb206			dut.sv	20	11	20	22				
+### r10v194repro/v194_a_explicit STRICT_NOTEQUAL ['fields: type=1 fullname=1 line=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)']
+    #71 type
+      A: 3	string_var			va194_src::va_free	dut.sv	23	12	23	18		0		
+      B: 3	begin			va194_explf::va_free	dut.sv	24	12	24	16				
+### r10v200repro/v200_5_modmat STRICT_NOTEQUAL ['fields: fullname=2 objects_differing=2']
+    #59 fullname
+      A: 7	ref_obj	W5		<in>W5	dut.sv	7	12	7	14		0		
+      B: 7	ref_obj	W5			dut.sv	7	12	7	14		0		
+    #156 fullname
+      A: 7	ref_obj	W5		<in>W5	dut.sv	7	12	7	14		0		
+      B: 7	ref_obj	W5			dut.sv	7	12	7	14		0		
+### r10v223repro/arms/v5_escaped STRICT_NOTEQUAL ['fields: endcol=2 objects_differing=2']
+    #30 endcol
+      A: 4	int_typespec				dut.sv	3	3	3	24				
+      B: 4	int_typespec				dut.sv	3	3	3	20				
+    #33 endcol
+      A: 4	logic_typespec				dut.sv	4	3	4	33				
+      B: 4	logic_typespec				dut.sv	4	3	4	29				
+### r10v208repro/v208_f_io STRICT_NOTEQUAL ['fields: name=3 objects_differing=3']
+    #738 name
+      A: 11	bit_typespec	bt208vf			dut.sv	6	11	6	20				
+      B: 11	bit_typespec	p208a_vf::bt208vf			dut.sv	6	11	6	20				
+    #1011 name
+      A: 11	bit_typespec	bt208vf			dut.sv	6	11	6	20				
+      B: 11	bit_typespec	p208a_vf::bt208vf			dut.sv	6	11	6	20				
+    #1294 name
+### r10v92repro/v4_arm STRICT_NOTEQUAL ['fields: type=1 name=1 fullname=1 col=1 endcol=1 objects_differing=1 (walk diverged)']
+    #414 type
+      A: 3	ref_obj	y_xz		work@v4_arm.y_xz	dut.sv	27	10	27	14		0		
+      B: 3	operation				dut.sv	27	22	27	49		0		
+### r10v92repro/v5_home STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)']
+    #635 depth
+      A: 3	cont_assign				dut.sv	18	10	18	18				
+      B: 6	logic_net	yb		work@v5_bindee.yb	dut.sv	22	15	22	17		0		
+### r10v62repro/v62e_bind STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=5 line=3 col=3 endline=3 endcol=3 size=1 objects_differing=7 (walk diverged)']
+    #499 line
+      A: 5	enum_typespec	b_e			dut.sv	28	27	28	30				
+      B: 5	enum_typespec	b_e			dut.sv	11	3	11	47				
+    #510 line
+      A: 5	enum_typespec	b_e			dut.sv	28	27	28	30				
+      B: 5	enum_typespec	b_e			dut.sv	11	3	11	47				
+    #767 fullname
+### r10v97repro/v97_c3_twotd STRICT_NOTEQUAL ['fields: depth=1 type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)']
+    #34 depth
+      A: 5	assignment				dut.sv	19	32	19	39				
+      B: 8	ref_typespec			<in>bb97c3		0	0	0	0		0		
+### r10v97repro/v97_c9_pkganchor STRICT_NOTEQUAL ['fields: depth=1 type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)']
+    #32 depth
+      A: 4	assignment				dut.sv	14	32	14	37				
+      B: 7	ref_typespec			<in>nn97c9		0	0	0	0		0		
+### r10vrgg17repro/v8 STRICT_NOTEQUAL ['fields: fullname=4 objects_differing=4']
+    #64 fullname
+      A: 10	ref_obj	i		work@top.g.u_o1.o.arr[6 + 7 * i].value[0+:4].i	dut.sv	10	27	10	28		0		
+      B: 10	ref_obj	i		work@top.g.u_o1.o.arr[6 + 7 * i].value[0+:4].arr.i	dut.sv	10	27	10	28		0		
+    #65 fullname
+      A: 7	indexed_part_select	value		arr[6 + 7 * i].value[0+:4]	dut.sv	10	30	10	40		0		
+      B: 7	indexed_part_select	value		arr[6+7*i].value[0+:4]	dut.sv	10	30	10	40		0		
+    #76 fullname
+### r10vearl100repro/v6_more100 STRICT_NOTEQUAL ['fields: fullname=21 objects_differing=21']
+    #36 fullname
+      A: 3	ref_typespec			<in>vp6::alias_t		0	0	0	0		0		
+      B: 3	ref_typespec			<in>vp6::alias_t		0	0	0	0		0		
+      raw fullname A: vp6::alias_t | B: work@v6_more100.vp6::alias_t
+    #127 fullname
+      A: 3	ref_typespec			<in>vp6::alias_t		0	0	0	0		0		
+      B: 3	ref_typespec			<in>vp6::alias_t		0	0	0	0		0		
+### r10vrgg14repro/cells/v5 STRICT_NOTEQUAL ['fields: name=12 fullname=14 objects_differing=14']
+    #82 name
+      A: 6	bit_select	dn		work@top.g.a.dn	dut.sv	19	22	19	27		0		
+      B: 6	bit_select	dn 		work@top.g.a.dn 	dut.sv	19	22	19	27		0		
+    #87 fullname
+      A: 9	ref_obj	i		work@top.g.a.dn.i	dut.sv	19	26	19	27		0		
+      B: 9	ref_obj	i		work@top.g.a.dn .i	dut.sv	19	26	19	27		0		
+    #90 name
+### r10vrgg9repro/cells/v_pred_cast STRICT_NOTEQUAL ['fields: file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1']
+    #28 file
+      A: 6	int_typespec				dut.sv	8	20	8	23				
+      B: 6	int_typespec					0	0	0	0				
+### r10vrgg9repro/cells/v_takn_real STRICT_NOTEQUAL ['fields: type=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)']
+    #66 type
+      A: 4	constant				dut.sv	8	25	8	28	1.5	64	REAL:1.5	2
+      B: 4	operation				dut.sv	8	19	8	33		0		
+### r11u107repro/grid/t13_iface_tp_struct STRICT_NOTEQUAL ['fields: type=1 fullname=10 line=1 col=1 endline=1 endcol=1 objects_differing=11 (walk diverged)']
+    #6 fullname
+      A: 6	ref_typespec			<in>a		0	0	0	0		0		
+      B: 6	ref_typespec			<in>T.a		0	0	0	0		0		
+    #12 fullname
+      A: 6	ref_typespec			<in>b		0	0	0	0		0		
+      B: 6	ref_typespec			<in>T.b		0	0	0	0		0		
+    #18 fullname
+### r10vrgg9repro/cells/w_typeparam STRICT_NOTEQUAL ['fields: type=1 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)']
+    #61 type
+      A: 4	operation				dut.sv	3	19	3	37		0		
+      B: 4	constant					0	0	0	0	16	64	INT:16	7
+### r11u109repro/grid/f1/p03_ready STRICT_NOTEQUAL ['fields: type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)']
+    #284 type
+      A: 3	hier_path	I.y			dut.sv	8	16	8	19		0		
+      B: 3	constant				dut.sv	7	45	7	57	2	64	UINT:2	9
+### r11u109repro/grid/f1/c04_x64cast STRICT_NOTEQUAL ['fields: value=2 objects_differing=2']
+    #306 value
+      A: 4	constant				dut.sv	13	34	13	46		64	UINT:0	9
+      B: 4	constant				dut.sv	13	34	13	46		64	UINT:1	9
+    #307 value
+      A: 4	constant				dut.sv	13	54	13	66		64	UINT:0	9
+      B: 4	constant				dut.sv	13	54	13	66		64	UINT:2	9
+### r11u109repro/grid/f1/c06_x64plain STRICT_NOTEQUAL ['fields: value=2 objects_differing=2']
+    #306 value
+      A: 4	constant				dut.sv	13	34	13	46		64	UINT:0	9
+      B: 4	constant				dut.sv	13	34	13	46		64	UINT:1	9
+    #307 value
+      A: 4	constant				dut.sv	13	54	13	66		64	UINT:0	9
+      B: 4	constant				dut.sv	13	54	13	66		64	UINT:2	9
+### r11u109repro/grid/f1/p06_plainparam STRICT_NOTEQUAL ['fields: value=2 objects_differing=2']
+    #150 value
+      A: 4	constant				dut.sv	3	28	3	33		64	UINT:0	9
+      B: 4	constant				dut.sv	3	28	3	33		64	UINT:1	9
+    #151 value
+      A: 4	constant				dut.sv	3	38	3	43		64	UINT:0	9
+      B: 4	constant				dut.sv	3	38	3	43		64	UINT:2	9
+### r11u109repro/grid/f1/p07_litcast STRICT_NOTEQUAL ['fields: value=2 objects_differing=2']
+    #248 value
+      A: 4	constant				dut.sv	7	28	7	34		64	UINT:0	9
+      B: 4	constant				dut.sv	7	28	7	34		64	UINT:1	9
+    #249 value
+      A: 4	constant				dut.sv	7	39	7	45		64	UINT:0	9
+      B: 4	constant				dut.sv	7	39	7	45		64	UINT:2	9
+### r11u110repro/grid/e1/e18_chain_rt STRICT_NOTEQUAL ['fields: fullname=5 objects_differing=5']
+    #27 fullname
+      A: 7	ref_typespec	id_t				0	0	0	0		0		
+      B: 7	ref_typespec	id_t		<in>rt_t.id_t		0	0	0	0		0		
+    #47 fullname
+      A: 7	ref_typespec	id_t				0	0	0	0		0		
+      B: 7	ref_typespec	id_t		<in>rt_t.id_t		0	0	0	0		0		
+    #150 fullname
+### r11u110repro/grid/e1/e22_nonansi STRICT_NOTEQUAL ['fields: line=1 col=1 endline=1 endcol=1 objects_differing=1']
+    #79 line
+      A: 3	packed_array_var	rt_i		work@dut.u.rt_i	dut.sv	1	81	1	85		0		
+      B: 3	packed_array_var	rt_i		work@dut.u.rt_i	dut.sv	2	14	2	18		0		
+### r11u110repro/grid/f2/i16_var_kw_init STRICT_NOTEQUAL ['fields: fullname=4 endline=5 endcol=5 objects_differing=9']
+    #10 endline
+      A: 4	packed_array_typespec				dut.sv	1	72	2	21				
+      B: 4	packed_array_typespec				dut.sv	1	72	1	82				
+    #14 fullname
+      A: 5	ref_typespec	id_t		<in>id_t		0	0	0	0		0		
+      B: 5	ref_typespec	id_t		<in>rt_t.id_t		0	0	0	0		0		
+    #22 endline
+### r11u112repro/grid/k/k14_unpacked STRICT_NOTEQUAL ['fields: fullname=9 endline=1 endcol=1 objects_differing=10']
+    #6 fullname
+      A: 6	ref_typespec			<in>a		0	0	0	0		0		
+      B: 6	ref_typespec			<in>a		0	0	0	0		0		
+      raw fullname A: work@top.u.u.a | B: a
+    #12 fullname
+      A: 6	ref_typespec			<in>b		0	0	0	0		0		
+      B: 6	ref_typespec			<in>b		0	0	0	0		0		
+### r11u113repro/grid/c/c09_genif_modtd_ctl STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #83 fullname
+      A: 8	ref_typespec			<in>idx_t		0	0	0	0		0		
+      B: 8	ref_typespec			<in>idx_t		0	0	0	0		0		
+      raw fullname A: work@top.g.idx_t | B: idx_t
+### r11u113repro/grid/c/c11_genif_pkimp STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #97 fullname
+      A: 8	ref_typespec			<in>idx_t		0	0	0	0		0		
+      B: 8	ref_typespec			<in>idx_t		0	0	0	0		0		
+      raw fullname A: work@top.g.idx_t | B: idx_t
+### r11u113repro/grid/c/c16_mod_comb STRICT_NOTEQUAL ['fields: type=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)']
+    #52 type
+      A: 6	logic_typespec				dut.sv	1	67	1	80				
+      B: 6	integer_typespec				dut.sv	2	19	2	24				
+### r11u117repro/grid/g1/g13 STRICT_NOTEQUAL ['fields: fullname=1 col=1 endcol=2 objects_differing=3']
+    #127 endcol
+      A: 5	hier_path	q2::IMPL.v			dut.sv	8	33	8	37		0		
+      B: 5	hier_path	q2::IMPL.v			dut.sv	8	33	8	43		0		
+    #128 col
+      A: 6	ref_obj	q2::IMPL			dut.sv	8	42	8	43		0		
+      B: 6	ref_obj	q2::IMPL			dut.sv	8	33	8	41		0		
+    #129 fullname
+### r11u117repro/grid/g1/t12 STRICT_NOTEQUAL ['fields: fullname=4 objects_differing=4']
+    #338 fullname
+      A: 4	hier_path				dut.sv	9	47	9	57		0		
+      B: 4	hier_path			work@top.f	dut.sv	9	47	9	57		0		
+    #396 fullname
+      A: 5	ref_obj	m			dut.sv	9	56	9	57		0		
+      B: 5	ref_obj	m		work@top.f.m	dut.sv	9	56	9	57		0		
+    #417 fullname
+### r11u13repro/b3 STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 line=29 col=29 endline=29 endcol=29 decompile=1 size=1 value=1 consttype=1 objects_differing=29 (walk diverged)']
+    #14 line
+      A: 4	constant				dut.sv	12	11	12	13	32	64	UINT:32	9
+      B: 4	constant				dut.sv	16	27	16	35	32	64	UINT:32	9
+    #15 line
+      A: 4	constant				dut.sv	12	11	12	13	32	64	UINT:32	9
+      B: 4	constant				dut.sv	16	27	16	35	32	64	UINT:32	9
+    #28 line
+### r11u1repro/grid2 STRICT_NOTEQUAL ['fields: fullname=1 col=1 endcol=1 objects_differing=2']
+    #403 col
+      A: 5	ref_obj	u_df			dut.sv	21	23	21	25		0		
+      B: 5	ref_obj	u_df			dut.sv	21	18	21	22		0		
+    #404 fullname
+      A: 5	ref_obj	mp			dut.sv	21	23	21	25		0		
+      B: 5	ref_obj	mp		work@top.a1.q.mp	dut.sv	21	23	21	25		0		
+### r11u21repro/t9 STRICT_NOTEQUAL ['fields: fullname=1 col=2 endcol=3 objects_differing=3']
+    #286 col
+      A: 6	ref_obj	CFG			dut.sv	17	34	17	35		0		
+      B: 6	ref_obj	CFG			dut.sv	17	30	17	33		0		
+    #287 fullname
+      A: 6	bit_select	d		work@kid.CFG.d[0].d	dut.sv	17	34	17	38		0		
+      B: 6	bit_select	d		CFG.d[0].d	dut.sv	17	36	17	37		0		
+    #383 endcol
+### r11u23repro/grid/e05_untaken_bare_partsel STRICT_NOTEQUAL ['fields: file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1']
+    #161 file
+      A: 8	enum_const	PNone				0	0	0	0				
+      B: 8	enum_const	PNone			dut.sv	2	26	2	31				
+### r11u24repro/n11 STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=7 (walk diverged)']
+    #6 fullname
+      A: 6	ref_typespec			<in>rc_t.a		0	0	0	0		0		
+      B: 6	ref_typespec			<in>rc_t.a		0	0	0	0		0		
+      raw fullname A: rc_t.a | B: work@dut.L.rc_t.a
+    #8 line
+      A: 6	constant				dut.sv	10	19	10	20	3	64	UINT:3	9
+      B: 6	constant				dut.sv	12	24	12	28	3	64	UINT:3	9
+### r11u26repro/m4 STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=31 line=9 col=9 endline=9 endcol=9 decompile=1 size=1 value=1 consttype=1 objects_differing=39 (walk diverged)']
+    #34 fullname
+      A: 5	ref_typespec					0	0	0	0		0		
+      B: 5	ref_typespec			work@dut		0	0	0	0		0		
+    #37 fullname
+      A: 8	ref_typespec			<in>pk::in_t.a		0	0	0	0		0		
+      B: 8	ref_typespec			<in>pk::in_t.a		0	0	0	0		0		
+      raw fullname A: pk::pk::in_t::a | B: work@dut.pk::in_t.a
+### r11u24repro/n1 STRICT_NOTEQUAL ['fields: fullname=1 col=2 endcol=3 objects_differing=3']
+    #286 col
+      A: 6	ref_obj	CFG			dut.sv	18	34	18	35		0		
+      B: 6	ref_obj	CFG			dut.sv	18	30	18	33		0		
+    #287 fullname
+      A: 6	bit_select	d		work@kid.CFG.d[0].d	dut.sv	18	34	18	38		0		
+      B: 6	bit_select	d		CFG.d[0].d	dut.sv	18	36	18	37		0		
+    #383 endcol
+### r11u24repro/n4 STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 line=17 col=17 endline=17 endcol=17 decompile=1 size=1 value=1 consttype=1 objects_differing=17 (walk diverged)']
+    #33 line
+      A: 4	constant				dut.sv	19	35	19	37	32	64	UINT:32	9
+      B: 4	constant				dut.sv	21	28	21	32	32	64	UINT:32	9
+    #34 line
+      A: 4	constant				dut.sv	19	35	19	37	32	64	UINT:32	9
+      B: 4	constant				dut.sv	21	28	21	32	32	64	UINT:32	9
+    #38 line
+### r11u26repro/m7 STRICT_NOTEQUAL ['fields: fullname=18 line=20 col=20 endline=20 endcol=20 objects_differing=38']
+    #74 fullname
+      A: 5	ref_typespec			pk		0	0	0	0		0		
+      B: 5	ref_typespec			work@dut		0	0	0	0		0		
+    #85 fullname
+      A: 5	ref_typespec			pk		0	0	0	0		0		
+      B: 5	ref_typespec			work@dut		0	0	0	0		0		
+    #98 line
+### r11u28repro/a2 STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=31 line=9 col=9 endline=9 endcol=9 decompile=1 size=1 value=1 consttype=1 objects_differing=39 (walk diverged)']
+    #59 fullname
+      A: 5	ref_typespec					0	0	0	0		0		
+      B: 5	ref_typespec			work@dut		0	0	0	0		0		
+    #62 fullname
+      A: 8	ref_typespec			<in>pk::in_t.a		0	0	0	0		0		
+      B: 8	ref_typespec			<in>pk::in_t.a		0	0	0	0		0		
+      raw fullname A: pk::pk::in_t::a | B: work@dut.pk::in_t.a
+### r11u47repro/arms/g10 STRICT_NOTEQUAL ['fields: fullname=4 endcol=3 objects_differing=7']
+    #6 fullname
+      A: 6	ref_typespec			<in>x		0	0	0	0		0		
+      B: 6	ref_typespec			<in>x		0	0	0	0		0		
+      raw fullname A: work@dut.I.x | B: x
+    #12 fullname
+      A: 6	ref_typespec			<in>y		0	0	0	0		0		
+      B: 6	ref_typespec			<in>y		0	0	0	0		0		
+### r11u32repro/k9b STRICT_NOTEQUAL ['fields: endline=2 endcol=4 objects_differing=4']
+    #109 endline
+      A: 2	struct_typespec	t_t			dut.sv	53	11	54	22				
+      B: 2	struct_typespec	t_t			dut.sv	53	11	53	58				
+    #988 endline
+      A: 3	struct_typespec	t_t			dut.sv	53	11	54	22				
+      B: 3	struct_typespec	t_t			dut.sv	53	11	53	58				
+    #1010 endcol
+### r11u47repro/arms/g12 STRICT_NOTEQUAL ['fields: fullname=8 endcol=3 objects_differing=11']
+    #6 fullname
+      A: 6	ref_typespec			<in>x		0	0	0	0		0		
+      B: 6	ref_typespec			<in>a_t.x		0	0	0	0		0		
+    #12 fullname
+      A: 6	ref_typespec			<in>y		0	0	0	0		0		
+      B: 6	ref_typespec			<in>a_t.y		0	0	0	0		0		
+    #21 fullname
+### r11u47repro/arms/g2 STRICT_NOTEQUAL ['fields: type=1 fullname=4 line=1 col=1 endline=1 endcol=1 objects_differing=5 (walk diverged)']
+    #9 fullname
+      A: 6	ref_typespec			<in>x		0	0	0	0		0		
+      B: 6	ref_typespec			<in>x		0	0	0	0		0		
+      raw fullname A: work@dut.I.x | B: x
+    #13 fullname
+      A: 10	ref_obj	W		<in>x.W	dut.sv	3	12	3	13		0		
+      B: 10	ref_obj	W		<in>x.W	dut.sv	3	12	3	13		0		
+### r11u60repro/g7 STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #465 fullname
+      A: 5	ref_typespec			work@g7top.u_q		0	0	0	0		0		
+      B: 5	ref_typespec					0	0	0	0		0		
+### r11u88repro/grid/a6_commadrive STRICT_NOTEQUAL ['fields: type=1 name=1 fullname=1 col=2 endcol=2 decompile=2 size=2 value=2 consttype=2 objects_differing=2 (walk diverged)']
+    #196 col
+      A: 4	constant				dut.sv	8	10	8	12	#4	64	UINT:4	9
+      B: 4	constant				dut.sv	8	28	8	33	32'd2	32	DEC:2	1
+    #197 type
+      A: 4	constant				dut.sv	8	28	8	33	32'd2	32	DEC:2	1
+      B: 4	ref_obj	q		work@dut.u_if.q	dut.sv	8	24	8	25		0		
+### r11u52vrepro/grid/b2_exprforms STRICT_NOTEQUAL ['fields: fullname=2 objects_differing=2']
+    #311 fullname
+      A: 10	ref_obj	N		<in>t_clog.N	dut.sv	20	25	20	26		0		
+      B: 10	ref_obj	N			dut.sv	20	25	20	26		0		
+    #577 fullname
+      A: 10	ref_obj	N		<in>t_clog.N	dut.sv	20	25	20	26		0		
+      B: 10	ref_obj	N			dut.sv	20	25	20	26		0		
+### r11u88repro/grid/i6_ifarray STRICT_NOTEQUAL ['fields: endcol=1 objects_differing=1']
+    #454 endcol
+      A: 4	struct_net	v_sarr		work@dut.u_if.v_sarr.v_sarr	dut.sv	7	15	7	27		0		
+      B: 4	struct_net	v_sarr		work@dut.u_if.v_sarr.v_sarr	dut.sv	7	15	7	21		0		
+### r11u88repro/grid/y2_pkgvarkind STRICT_NOTEQUAL ['fields: endcol=1 objects_differing=1']
+    #901 endcol
+      A: 3	struct_net	v_sarr		work@dut.v_sarr.v_sarr	dut.sv	19	21	19	33		0		
+      B: 3	struct_net	v_sarr		work@dut.v_sarr.v_sarr	dut.sv	19	21	19	27		0		
+### r11u90repro/grid.verifier/vx8_strifport STRICT_NOTEQUAL ['fields: fullname=2 objects_differing=2']
+    #100 fullname
+      A: 7	logic_net	w_plain			dut.sv	3	15	3	22		0		
+      B: 7	logic_net	w_plain		work@dut.u_s.p.mp.w_plain.w_plain	dut.sv	3	15	3	22		0		
+    #101 fullname
+      A: 8	ref_typespec			w_plain		0	0	0	0		0		
+      B: 8	ref_typespec			work@dut.u_s.p.mp.w_plain.w_plain		0	0	0	0		0		
+### r11u90repro/grid.verifier/vy5_dlyparamovrmod STRICT_NOTEQUAL ['fields: type=1 name=1 fullname=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)']
+    #160 type
+      A: 4	constant				dut.sv	5	17	5	23	32'd10	32	DEC:10	1
+      B: 4	ref_obj	c		work@dut.u_b.c	dut.sv	5	13	5	14		0		
+### r11u93repro/grid/pb10_ifnetuse STRICT_NOTEQUAL ['fields: line=20 col=20 endline=20 endcol=20 objects_differing=20']
+    #9 line
+      A: 4	logic_net	o		work@dut.u_if.o	dut.sv	3	17	3	18		0		
+      B: 4	logic_net	o		work@dut.u_if.o	dut.sv	5	15	5	16		0		
+    #11 line
+      A: 6	logic_typespec				dut.sv	3	10	3	16				
+      B: 6	logic_typespec				dut.sv	5	3	5	14				
+    #12 line
+### r11v11u8repro/v9 STRICT_NOTEQUAL ['fields: col=6 endcol=2 objects_differing=6']
+    #10 col
+      A: 2	initial				dut.sv	10	1	11	17				
+      B: 2	initial				dut.sv	10	3	11	17				
+    #11 col
+      A: 3	assignment				dut.sv	10	9	11	16				
+      B: 3	assignment				dut.sv	10	11	11	16				
+    #13 col
+### r11u93repro/grid/pb19_modportview STRICT_NOTEQUAL ['fields: line=14 col=14 endline=14 endcol=14 objects_differing=14']
+    #147 line
+      A: 7	logic_net	o		work@dut.u_s.m.mp.o.o	dut.sv	3	17	3	18		0		
+      B: 7	logic_net	o		work@dut.u_s.m.mp.o.o	dut.sv	5	15	5	16		0		
+    #149 line
+      A: 9	logic_typespec				dut.sv	3	10	3	16				
+      B: 9	logic_typespec				dut.sv	5	3	5	14				
+    #150 line
+### r11v21repro/v15 STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=7 (walk diverged)']
+    #6 fullname
+      A: 6	ref_typespec			<in>loc_t.aa		0	0	0	0		0		
+      B: 6	ref_typespec			<in>loc_t.aa		0	0	0	0		0		
+      raw fullname A: loc_t.aa | B: work@dut.LC.loc_t.aa
+    #8 line
+      A: 6	constant				dut.sv	10	10	10	12	11	64	UINT:11	9
+      B: 6	constant				dut.sv	16	26	16	33	11	64	UINT:11	9
+### r11v1repro/vA STRICT_NOTEQUAL ['fields: fullname=1 col=1 endcol=1 objects_differing=2']
+    #317 col
+      A: 5	ref_obj	u			dut.sv	17	18	17	20		0		
+      B: 5	ref_obj	u			dut.sv	17	16	17	17		0		
+    #318 fullname
+      A: 5	ref_obj	mp			dut.sv	17	18	17	20		0		
+      B: 5	ref_obj	mp		work@top.a3.q.mp	dut.sv	17	18	17	20		0		
+### r11v46repro/grid7 STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #135 fullname
+      A: 5	ref_obj	MM		work@cell7.MM	dut.sv	38	30	38	32		0		
+      B: 5	ref_obj	MM			dut.sv	38	30	38	32		0		
+### r11v47repro/arms/v12 STRICT_NOTEQUAL ['fields: fullname=18 endcol=3 objects_differing=21']
+    #9 fullname
+      A: 6	ref_typespec			<in>x		0	0	0	0		0		
+      B: 6	ref_typespec			<in>x		0	0	0	0		0		
+      raw fullname A: work@dut.I.x | B: x
+    #13 fullname
+      A: 10	ref_obj	W		<in>x.W	dut.sv	3	48	3	49		0		
+      B: 10	ref_obj	W		<in>x.W	dut.sv	3	48	3	49		0		
+### r11v47repro/arms/v28 STRICT_NOTEQUAL ['fields: type=1 fullname=4 line=2 col=3 endline=2 endcol=3 objects_differing=7 (walk diverged)']
+    #7 line
+      A: 4	struct_typespec				dut.sv	5	53	5	57				
+      B: 4	struct_typespec				dut.sv	3	26	3	32				
+    #9 fullname
+      A: 6	ref_typespec			<in>x		0	0	0	0		0		
+      B: 6	ref_typespec			<in>x		0	0	0	0		0		
+      raw fullname A: work@dut.I.x | B: x
+### r11v48repro/va8 STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)']
+    #75 depth
+      A: 1	module_inst		work@va8	work@va8	dut.sv	14	1	16	10				
+      B: 5	func_call	w			dut.sv	11	12	11	18		0		
+### r11v4repro/v6 STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #101 fullname
+      A: 11	ref_typespec			<in>bus_t.DAT		0	0	0	0		0		
+      B: 11	ref_typespec			<in>bus_t.DAT		0	0	0	0		0		
+      raw fullname A: work@top.a0.q.CFG.bus_t.DAT | B: work@top.a0.q.bus_t.DAT
+### r11v55repro/grid/vv1c_cast STRICT_NOTEQUAL ['fields: file=8 line=8 col=8 endline=8 endcol=8 objects_differing=8']
+    #43 file
+      A: 7	string_typespec	n			dut.sv	4	37	4	38				
+      B: 7	string_typespec	n				0	0	0	0				
+    #47 file
+      A: 7	string_typespec	h			dut.sv	4	44	4	45				
+      B: 7	string_typespec	h				0	0	0	0				
+    #110 file
+### r11v66repro/a3_inst66 STRICT_NOTEQUAL ['fields: endcol=6 objects_differing=6']
+    #305 endcol
+      A: 4	constant				dut.sv	10	34	10	35	10	32	INT:10	7
+      B: 4	constant				dut.sv	10	34	10	39	10	32	INT:10	7
+    #309 endcol
+      A: 4	constant				dut.sv	10	44	10	45	-95	32	INT:-95	7
+      B: 4	constant				dut.sv	10	44	10	51	-95	32	INT:-95	7
+    #382 endcol
+### r11v74repro/grid/v2_kindns STRICT_NOTEQUAL ['fields: fullname=2 objects_differing=2']
+    #243 fullname
+      A: 6	ref_typespec			<in>a		0	0	0	0		0		
+      B: 6	ref_typespec			<in>a		0	0	0	0		0		
+      raw fullname A: a | B: work@dut.st.a
+    #249 fullname
+      A: 6	ref_typespec			<in>b		0	0	0	0		0		
+      B: 6	ref_typespec			<in>b		0	0	0	0		0		
+### r11v77repro/grid/vh_arrelem STRICT_NOTEQUAL ['fields: endline=6 endcol=9 objects_differing=9']
+    #273 endline
+      A: 2	enum_typespec	pv::en_t			dut.sv	9	3	19	28				
+      B: 2	enum_typespec	pv::en_t			dut.sv	9	3	9	44				
+    #281 endline
+      A: 2	struct_typespec	pv::si_t			dut.sv	7	11	15	28				
+      B: 2	struct_typespec	pv::si_t			dut.sv	7	11	7	50				
+    #384 endline
+### r11v93repro/grid/v15_ifdeclafterbody STRICT_NOTEQUAL ['fields: line=4 col=4 endline=4 endcol=4 objects_differing=4']
+    #7 line
+      A: 3	ref_obj	o		work@ifc.o.o	dut.sv	3	15	3	16		0		
+      B: 3	ref_obj	o		work@ifc.o.o	dut.sv	5	17	5	18		0		
+    #9 line
+      A: 3	ref_obj	p		work@ifc.p.p	dut.sv	4	15	4	16		0		
+      B: 3	ref_obj	p		work@ifc.p.p	dut.sv	6	17	6	18		0		
+    #32 line
+### v11u108repro/brk/f5/b07_param_typedef_arr STRICT_NOTEQUAL ['fields: type=1 name=2 fullname=1 file=6 line=8 col=6 endline=8 endcol=8 size=1 objects_differing=9 (walk diverged)']
+    #4 file
+      A: 4	logic_typespec	arr_t				0	0	0	0				
+      B: 4	logic_typespec	arr_t			dut.sv	2	9	2	18				
+    #42 file
+      A: 4	logic_typespec	arr_t				0	0	0	0				
+      B: 4	logic_typespec	arr_t			dut.sv	2	9	2	18				
+    #80 file
+### r11v88repro/grid/v14_ndamodport STRICT_NOTEQUAL ['fields: fullname=2 objects_differing=2']
+    #142 fullname
+      A: 7	logic_net	w_nd			dut.sv	4	15	4	19		0		
+      B: 7	logic_net	w_nd		work@dut.u_s.s.mp.w_nd.w_nd	dut.sv	4	15	4	19		0		
+    #143 fullname
+      A: 8	ref_typespec			w_nd		0	0	0	0		0		
+      B: 8	ref_typespec			work@dut.u_s.s.mp.w_nd.w_nd		0	0	0	0		0		
+### v11u108repro/brk/f5/b18_var_kw STRICT_NOTEQUAL ['fields: fullname=4 objects_differing=4']
+    #14 fullname
+      A: 5	ref_typespec	id_t				0	0	0	0		0		
+      B: 5	ref_typespec	id_t		<in>rt_t.id_t		0	0	0	0		0		
+    #27 fullname
+      A: 5	ref_typespec	id_t				0	0	0	0		0		
+      B: 5	ref_typespec	id_t		<in>rt_t.id_t		0	0	0	0		0		
+    #76 fullname
+### v11u108repro/brk/f5/b21_always_ff STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #68 fullname
+      A: 5	ref_typespec	id_t		<in>id_t		0	0	0	0		0		
+      B: 5	ref_typespec	id_t		<in>rt_t.id_t		0	0	0	0		0		
+### v11u110repro/brk/v1/b06_const_init STRICT_NOTEQUAL ['fields: endline=4 endcol=4 objects_differing=4']
+    #7 endline
+      A: 4	packed_array_typespec				dut.sv	3	28	5	23				
+      B: 4	packed_array_typespec				dut.sv	3	28	3	38				
+    #20 endline
+      A: 4	packed_array_typespec				dut.sv	3	28	5	23				
+      B: 4	packed_array_typespec				dut.sv	3	28	3	38				
+    #108 endline
+### v11u110repro/brk/v3/a36_escaped_inst_name STRICT_NOTEQUAL ['fields: endcol=1 objects_differing=1']
+    #77 endcol
+      A: 2	ref_module	u$x	work@child		dut.sv	13	31	13	41				
+      B: 2	ref_module	u$x	work@child		dut.sv	13	31	13	38				
+### v11u110repro/brk/v5/k11_logic_param_range STRICT_NOTEQUAL ['fields: endcol=6 objects_differing=6']
+    #14 endcol
+      A: 8	constant				dut.sv	13	24	13	32	2	64	UINT:2	9
+      B: 8	constant				dut.sv	13	24	13	29	2	64	UINT:2	9
+    #28 endcol
+      A: 8	constant				dut.sv	13	24	13	32	2	64	UINT:2	9
+      B: 8	constant				dut.sv	13	24	13	29	2	64	UINT:2	9
+    #100 endcol
+### v11u110repro/brk/v5/k13_anon_enum STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #117 fullname
+      A: 6	ref_typespec			<in>id_t		0	0	0	0		0		
+      B: 6	ref_typespec					0	0	0	0		0		
+### v11u111repro/brk/f1/x01_class_param STRICT_NOTEQUAL ['fields: type=1 name=1 line=1 endline=1 endcol=1 objects_differing=1 (walk diverged)']
+    #21 type
+      A: 4	logic_typespec	q::mask_t			dut.sv	2	11	2	22				
+      B: 4	int_typespec				dut.sv	4	11	4	41				
+### v11u111repro/brk/f3/x36_iface_sig STRICT_NOTEQUAL ['fields: depth=1 type=1 name=2 fullname=1 file=2 line=2 col=2 endline=2 endcol=2 size=1 objects_differing=2 (walk diverged)']
+    #181 name
+      A: 5	logic_typespec	q2::row_t				0	0	0	0				
+      B: 5	logic_typespec	row_t			dut.sv	3	11	3	21				
+    #182 depth
+      A: 6	ref_typespec			<in>q2::row_t		0	0	0	0		0		
+      B: 3	modport	m			dut.sv	7	11	7	12				
+### v11u111repro/brk/f3/x40_class_prop STRICT_NOTEQUAL ['fields: type=1 name=4 fullname=4 file=4 line=5 col=4 endline=5 endcol=5 size=1 objects_differing=9 (walk diverged)']
+    #7 file
+      A: 2	logic_typespec	q2::row_t			dut.sv	5	5	5	10				
+      B: 2	logic_typespec	q2::row_t				0	0	0	0				
+    #48 name
+      A: 5	logic_typespec	q2::row_t			dut.sv	5	5	5	10				
+      B: 5	logic_typespec	row_t				0	0	0	0				
+    #49 fullname
+### v11u111repro/brk/f3/y31_two_pkgs_rows STRICT_NOTEQUAL ['fields: type=1 name=3 fullname=3 file=2 line=3 col=2 endline=3 endcol=3 size=1 objects_differing=6 (walk diverged)']
+    #97 name
+      A: 6	logic_typespec				dut.sv	3	11	3	21				
+      B: 6	logic_typespec	q2::row_t				0	0	0	0				
+    #98 fullname
+      A: 7	ref_typespec					0	0	0	0		0		
+      B: 7	ref_typespec			<in>q2::row_t		0	0	0	0		0		
+    #101 name
+### v11u111repro/brk/f6/y62_vec_dims_local_typedef_in_child STRICT_NOTEQUAL ['fields: line=5 col=5 endline=5 endcol=5 objects_differing=5']
+    #18 line
+      A: 5	logic_typespec				dut.sv	4	35	4	40				
+      B: 5	logic_typespec				dut.sv	5	27	5	28				
+    #26 line
+      A: 7	logic_typespec				dut.sv	4	35	4	40				
+      B: 7	logic_typespec				dut.sv	5	27	5	28				
+    #95 line
+### v11u111repro/brk/f6/x64_two_dims_positional STRICT_NOTEQUAL ['fields: fullname=3 objects_differing=3']
+    #93 fullname
+      A: 5	ref_typespec			work@child		0	0	0	0		0		
+      B: 5	ref_typespec			work@dut.u		0	0	0	0		0		
+    #95 fullname
+      A: 5	ref_obj	T		work@child.T	dut.sv	5	20	5	21		0		
+      B: 5	ref_obj	T		work@dut.u.T	dut.sv	5	20	5	21		0		
+    #96 fullname
+### v11u111repro/brk/f6/y64_positional_vec_one_dim STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 fullname=1 file=1 line=2 col=2 endline=2 endcol=2 size=1 objects_differing=2 (walk diverged)']
+    #72 line
+      A: 5	logic_typespec				dut.sv	4	35	4	40				
+      B: 5	logic_typespec				dut.sv	8	11	8	24				
+    #73 depth
+      A: 3	type_parameter	T		work@child.T	dut.sv	4	31	4	32				
+      B: 6	ref_typespec			<in>		0	0	0	0		0		
+### v11u112repro/grid/brk/k/b3a_multi_decl STRICT_NOTEQUAL ['fields: decompile=1 size=1 value=1 consttype=1 objects_differing=1']
+    #266 decompile
+      A: 3	constant				dut.sv	5	59	5	61	'1	-1	BIN:1	3
+      B: 3	constant				dut.sv	5	59	5	61	65535	16	UINT:65535	9
+### v11u112repro/grid/brk/f/g1k_hop_userfn STRICT_NOTEQUAL ['fields: line=4 col=4 endline=4 endcol=4 objects_differing=4']
+    #124 line
+      A: 7	int_typespec				dut.sv	2	28	2	31				
+      B: 7	int_typespec				dut.sv	4	16	4	28				
+    #146 line
+      A: 7	int_typespec				dut.sv	2	28	2	31				
+      B: 7	int_typespec				dut.sv	4	16	4	28				
+    #168 line
+### v11u111repro/brk/f6/y65_positional_nodims_ctl STRICT_NOTEQUAL ['fields: depth=1 type=1 name=2 fullname=1 line=2 col=2 endline=2 endcol=2 objects_differing=2 (walk diverged)']
+    #72 name
+      A: 5	logic_typespec				dut.sv	4	35	4	40				
+      B: 5	logic_typespec	w_t			dut.sv	2	11	2	22				
+    #73 depth
+      A: 3	type_parameter	T		work@child.T	dut.sv	4	31	4	32				
+      B: 6	range				dut.sv	2	17	2	22				
+### v11u93b107repro/brk/q04_pkg_member STRICT_NOTEQUAL ['fields: type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=2 (walk diverged)']
+    #17 name
+      A: 7	logic_typespec	pk::w_t			dut.sv	1	21	1	32				
+      B: 7	logic_typespec	w_t			dut.sv	1	21	1	32				
+    #18 type
+      A: 8	range				dut.sv	1	27	1	32				
+      B: 8	ref_typespec			<in>w_t		0	0	0	0		0		
+### v11u117repro/grid/b02 STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #396 fullname
+      A: 5	ref_obj	cfg		work@top.cfg	dut.sv	10	41	10	44		0		
+      B: 5	ref_obj	cfg			dut.sv	10	41	10	44		0		
+### v11u93b107repro/brk/p18_func_arg STRICT_NOTEQUAL ['fields: endcol=4 objects_differing=4']
+    #11 endcol
+      A: 5	packed_array_typespec				dut.sv	2	42	2	83				
+      B: 5	packed_array_typespec				dut.sv	2	42	2	55				
+    #45 endcol
+      A: 6	packed_array_typespec				dut.sv	2	42	2	83				
+      B: 6	packed_array_typespec				dut.sv	2	42	2	55				
+    #68 endcol
+### v11u93repro/grid/b07_rv2arr STRICT_NOTEQUAL ['fields: fullname=1 objects_differing=1']
+    #90 fullname
+      A: 3	module_array	u_i		work@bmod::innermod	dut.sv	7	12	7	15				
+      B: 3	module_array	u_i		work@innermod	dut.sv	7	12	7	15				
+### v11u93b107repro/brk/r05_rt_ovr_samename STRICT_NOTEQUAL ['fields: depth=1 type=1 name=1 line=2 col=2 endline=2 endcol=2 objects_differing=2 (walk diverged)']
+    #279 line
+      A: 7	logic_typespec				dut.sv	10	17	10	28				
+      B: 7	logic_typespec				dut.sv	2	31	2	36				
+    #280 depth
+      A: 8	range				dut.sv	10	23	10	28				
+      B: 3	port	id_i			dut.sv	5	32	5	36				

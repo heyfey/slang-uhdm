@@ -1,0 +1,15 @@
+## pristine -> law (corpus, fence-filtered mirrors)
+databases: patched=2558 pristine=2558
+PATH_SETS_IDENTICAL (2558 paths)
+MOVERS: 0 / 2558
+SELFCHECK (every file vs one fixed file): 2557 / 2558 flagged
+## law -> fix
+databases: patched=2558 pristine=2558
+PATH_SETS_IDENTICAL (2558 paths)
+MOVERS: 0 / 2558
+SELFCHECK (every file vs one fixed file): 2557 / 2558 flagged
+## pristine -> fix
+databases: patched=2558 pristine=2558
+PATH_SETS_IDENTICAL (2558 paths)
+MOVERS: 0 / 2558
+SELFCHECK (every file vs one fixed file): 2557 / 2558 flagged

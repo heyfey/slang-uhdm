@@ -27,6 +27,7 @@
 #include "R264.h"
 #include "R270.h"
 #include "R286.h"
+#include "R288.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -5768,6 +5769,18 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 if (c)
                     ie->VpiCondition((UHDM::expr*)c);
+                // § randWithCallParentByConsumer288 — the if site: Surelog's
+                // compileConditionalStmt parents a parentless condition at
+                // the if_else (law at ExprEmit's rzWithParentDrain288).
+                if (c && !c->VpiParent() && rzIsRec288(c)) {
+                    if (r11u288On("R11U288_RZPARENT_OFF")) {
+                        c->VpiParent(ie);
+                        rzScopeArgs288((UHDM::method_func_call*)c);
+                        tr288("RZPARENT", "if-else");
+                    }
+                    else
+                        tr288("RZPARENT", "off");
+                }
                 CtrlBody28 cb28(ctrlBodyDepth28);
                 if (auto* t = emitStmt(cs.ifTrue, ie, prefix, netMap))
                     ie->VpiStmt(t);
@@ -5793,6 +5806,16 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             }
             if (c8)
                 is->VpiCondition((UHDM::expr*)c8);
+            // § randWithCallParentByConsumer288 — the if site (if_stmt).
+            if (c8 && !c8->VpiParent() && rzIsRec288(c8)) {
+                if (r11u288On("R11U288_RZPARENT_OFF")) {
+                    c8->VpiParent(is);
+                    rzScopeArgs288((UHDM::method_func_call*)c8);
+                    tr288("RZPARENT", "if");
+                }
+                else
+                    tr288("RZPARENT", "off");
+            }
             {
                 CtrlBody28 cb28(ctrlBodyDepth28);
                 if (auto* t = emitStmt(cs.ifTrue, is, prefix, netMap))
@@ -6272,7 +6295,83 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
 
             // Item location comes from the case-item syntax (covers the
             // expressions through the trailing semicolon).
-            auto itemLoc = [&](const Statement& st, UHDM::BaseClass* obj) {
+            // § badItemLocThroughInvalid288 (r11u288, R11U288_BADITEMLOC_OFF)
+            // — a case item whose body slang rejected (a bad block such as
+            // `begin T v; v = T::create(...); end` over a class type
+            // parameter) comes back as an InvalidStatement with NO syntax and
+            // an empty range over a child that has neither either, so the
+            // item lost its location; Surelog locates every case item at its
+            // own syntax whatever its body compiles to (golden v158_d
+            // 52:9-55:15).  The item's syntax is found from its first
+            // expression (a StandardCaseItem holds it) or, for the default
+            // arm, from the case statement's own DefaultCaseItem.
+            auto badItemSyn288 = [&](const Statement& st0,
+                                     const Expression* e0) -> const syntax::SyntaxNode* {
+                if (st0.syntax || st0.sourceRange.start().valid())
+                    return nullptr;
+                if (st0.kind == StatementKind::Invalid) {
+                    auto* ch = st0.as<InvalidStatement>().child;
+                    if (ch && ch->syntax)
+                        return nullptr;
+                }
+                const syntax::SyntaxNode* hit = nullptr;
+                if (e0) {
+                    // an implicit conversion slang wrapped around the item
+                    // expression (a string literal against a string case
+                    // expression) carries no syntax: read its operand
+                    while (!e0->syntax && e0->kind == ExpressionKind::Conversion)
+                        e0 = &e0->as<ConversionExpression>().operand();
+                    for (auto p = e0->syntax ? e0->syntax->parent : nullptr; p; p = p->parent) {
+                        if (p->kind == syntax::SyntaxKind::StandardCaseItem) {
+                            hit = p;
+                            break;
+                        }
+                        if (p->kind == syntax::SyntaxKind::CaseStatement)
+                            break;
+                    }
+                }
+                else {
+                    // the case statement's syntax: its own, else the one
+                    // above its condition (a statement holding a rejected
+                    // arm comes back without it)
+                    const syntax::SyntaxNode* csy = cs.syntax;
+                    if (!csy || csy->kind != syntax::SyntaxKind::CaseStatement) {
+                        csy = nullptr;
+                        for (auto p = cs.expr.syntax ? cs.expr.syntax->parent : nullptr; p;
+                             p = p->parent)
+                            if (p->kind == syntax::SyntaxKind::CaseStatement) {
+                                csy = p;
+                                break;
+                            }
+                    }
+                    if (csy)
+                    for (auto* ci : csy->as<syntax::CaseStatementSyntax>().items)
+                        if (ci->kind == syntax::SyntaxKind::DefaultCaseItem) {
+                            hit = ci;
+                            break;
+                        }
+                }
+                if (!hit) {
+                    tr288("BADITEMLOC_ABSTAIN", "no-item-syntax");
+                    return nullptr;
+                }
+                if (!r11u288On("R11U288_BADITEMLOC_OFF")) {
+                    tr288("BADITEMLOC", "off");
+                    return nullptr;
+                }
+                tr288("BADITEMLOC", e0 ? "item" : "default");
+                return hit;
+            };
+            // Item location comes from the case-item syntax (covers the
+            // expressions through the trailing semicolon).
+            auto itemLoc = [&](const Statement& st, UHDM::BaseClass* obj,
+                               const Expression* e0 = nullptr, bool dflt = false) {
+                if (e0 || dflt) {
+                    if (auto* h288 = badItemSyn288(st, e0)) {
+                        setLoc(obj, h288->sourceRange());
+                        return;
+                    }
+                }
                 for (auto p = st.syntax ? st.syntax->parent : nullptr; p; p = p->parent) {
                     if (p->kind == syntax::SyntaxKind::StandardCaseItem ||
                         p->kind == syntax::SyntaxKind::DefaultCaseItem) {
@@ -6298,7 +6397,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 defDone9 = true;
                 auto* it = s.MakeCase_item();
                 it->VpiParent(uc);
-                itemLoc(*cs.defaultCase, it);
+                itemLoc(*cs.defaultCase, it, nullptr, true);
                 CtrlBody28 cb28(ctrlBodyDepth28);
                 if (auto* st = emitStmt(*cs.defaultCase, it, prefix, netMap))
                     it->Stmt(st);
@@ -6312,7 +6411,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     emitDefault9();
                 auto* it = s.MakeCase_item();
                 it->VpiParent(uc);
-                itemLoc(*g.stmt, it);
+                itemLoc(*g.stmt, it,
+                        g.expressions.empty() ? nullptr : g.expressions.front());
                 auto* exprs = s.MakeAnyVec();
                 if (cs.condition == CaseStatementCondition::Inside) {
                     // case-inside item: ONE inside-op spanning the whole item
@@ -6551,8 +6651,21 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             NoFoldCtx58 nf58ia(procNoFoldCtx58);
                             MethodWindow161 mw161(classMethodNoBind, methodWindowDepth161v);
                             return emitExpr(ia.cond, a, prefix, netMap);
-                        }())
+                        }()) {
                         a->Expr((UHDM::expr*)c);
+                        // § randWithCallParentByConsumer288 — the assertion
+                        // site: Surelog's immediate assertion sets
+                        // `expr->VpiParent(astmt)` on its condition.
+                        if (!c->VpiParent() && rzIsRec288(c)) {
+                            if (r11u288On("R11U288_RZPARENT_OFF")) {
+                                c->VpiParent(a);
+                                rzScopeArgs288((UHDM::method_func_call*)c);
+                                tr288("RZPARENT", "assertion");
+                            }
+                            else
+                                tr288("RZPARENT", "off");
+                        }
+                    }
                     if (ia.ifTrue) {
                         if (auto* t = emitStmt(*ia.ifTrue, a, prefix, netMap))
                             a->Stmt(t);
@@ -6583,8 +6696,21 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             NoFoldCtx58 nf58ia(procNoFoldCtx58);
                             MethodWindow161 mw161(classMethodNoBind, methodWindowDepth161v);
                             return emitExpr(ia.cond, a, prefix, netMap);
-                        }())
+                        }()) {
                         a->Expr((UHDM::expr*)c);
+                        // § randWithCallParentByConsumer288 — the assertion
+                        // site: Surelog's immediate assertion sets
+                        // `expr->VpiParent(astmt)` on its condition.
+                        if (!c->VpiParent() && rzIsRec288(c)) {
+                            if (r11u288On("R11U288_RZPARENT_OFF")) {
+                                c->VpiParent(a);
+                                rzScopeArgs288((UHDM::method_func_call*)c);
+                                tr288("RZPARENT", "assertion");
+                            }
+                            else
+                                tr288("RZPARENT", "off");
+                        }
+                    }
                     if (ia.ifTrue) {
                         if (auto* t = emitStmt(*ia.ifTrue, a, prefix, netMap))
                             a->Stmt(t);
@@ -6615,8 +6741,21 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             NoFoldCtx58 nf58ia(procNoFoldCtx58);
                             MethodWindow161 mw161(classMethodNoBind, methodWindowDepth161v);
                             return emitExpr(ia.cond, a, prefix, netMap);
-                        }())
+                        }()) {
                         a->Expr((UHDM::expr*)c);
+                        // § randWithCallParentByConsumer288 — the assertion
+                        // site: Surelog's immediate assertion sets
+                        // `expr->VpiParent(astmt)` on its condition.
+                        if (!c->VpiParent() && rzIsRec288(c)) {
+                            if (r11u288On("R11U288_RZPARENT_OFF")) {
+                                c->VpiParent(a);
+                                rzScopeArgs288((UHDM::method_func_call*)c);
+                                tr288("RZPARENT", "assertion");
+                            }
+                            else
+                                tr288("RZPARENT", "off");
+                        }
+                    }
                     if (ia.ifTrue) {
                         if (auto* t = emitStmt(*ia.ifTrue, a, prefix, netMap))
                             a->Stmt(t);
