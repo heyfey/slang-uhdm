@@ -1,0 +1,17 @@
+byteverify (tools/probe/r11v75repro/byteverify.sh, SELFCHECK=1, fence-filtered hard-link mirrors via drivers/bvmirror.sh; mirrored=3365 fenced_skipped=8 each):
+  law vs pristine:  PATH_SETS_IDENTICAL (3365) MOVERS 0/3365  SELFCHECK 3363/3365 (the known twin)
+  fix vs law:       PATH_SETS_IDENTICAL (3365) MOVERS 0/3365  SELFCHECK 3363/3365
+  fix vs pristine:  PATH_SETS_IDENTICAL (3365) MOVERS 0/3365  SELFCHECK 3363/3365
+probe databases (4087, fence-filtered list): pristine->law 37 movers (= predict_law.txt, byte-identical to
+  r11u301repro/evidence/predict.txt), law->fix 0, pristine->fix the same 37.
+csv row-by-row: law vs pristine: surelog 2 rows (LowMemLib / LowMemPkg testflags detail text = workdir path),
+  uhdm2rtlil 0, probe 12 (the conversions), downstream 0; fix vs law: surelog 2 (same LowMem text), others 0;
+  downstream csv of all three sweeps byte-identical to results/downstream_uhdm2rtlil.csv.
+canaries (tools/probe/r11u107repro/canaries.sh) law and fix: surelog ok=52 changed=0, uhdm2rtlil ok=16 changed=0;
+  ctcan2 EXPECT_UNKNOWN=1 surelog ok=58 PASS, EXPECT_UNKNOWN=6 uhdm2rtlil ok=2 PASS.
+binary audit (fence-filtered cmds.txt, 8 fenced paths skipped by name): P 3265/3315 name /tmp/v11u301_bin/pristine,
+  L 3265/3315 name .../law, F 3265/3315 name .../fix; the other 50 run no slang (Surelog-only rows); no cmds.txt names
+  another binary.
+firing census (drivers/tracecensus.sh, filter built from $FENCED): law 37 probe databases, 0 corpus row-modes;
+  fix (frozen before its sweep, md5 a94a551d) the same 37 lines and no refinement trace anywhere in the probe or the
+  corpora (positive control refinement_trace_poscontrol.txt: each refinement traces on its witness).

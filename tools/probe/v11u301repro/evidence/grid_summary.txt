@@ -1,0 +1,33 @@
+F enters SE 129
+F moves 168
+F!=L 26
+FU==P 248
+FV==L 248
+L enters SE 129
+L moves 194
+v/VA/va06_internal_net P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_XZLEAD_OFF'] F==P:True
+v/VA/va06_internal_net_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_XZLEAD_OFF'] F==P:True
+v/VA/va08_oct P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_XZLEAD_OFF'] F==P:True
+v/VA/va08_oct_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_XZLEAD_OFF'] F==P:True
+v/VA/va09_lead0_bin P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_XZLEAD_OFF'] F==P:True
+v/VA/va09_lead0_bin_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_XZLEAD_OFF'] F==P:True
+v/VA/va10_lead_hex_digit P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_XZLEAD_OFF'] F==P:True
+v/VA/va10_lead_hex_digit_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_XZLEAD_OFF'] F==P:True
+v/VC/vc01_paren_width P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CASTWQUAL_OFF'] F==P:True
+v/VC/vc01_paren_width_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CASTWQUAL_OFF'] F==P:True
+v/VC/vc03_pkg_param_width P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CASTWQUAL_OFF'] F==P:True
+v/VC/vc03_pkg_param_width_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CASTWQUAL_OFF'] F==P:True
+v/VV/vv01_sys_plus_user P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True
+v/VV/vv01_sys_plus_user_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True
+v/VV/vv05_tern_call P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True
+v/VV/vv05_tern_call_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True
+v/VV/vv11_unary_fn P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True
+v/VV/vv11_unary_fn_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True
+v/VV/vv12_pkgvar_nested_pkgfn P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True
+v/VV/vv12_pkgvar_nested_pkgfn_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True
+v/VV/vv13_modvar_nested_qual_pkgfn P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True
+v/VV/vv13_modvar_nested_qual_pkgfn_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True
+v/VV/vv15_two_calls P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True
+v/VV/vv15_two_calls_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True
+v/VV/vv17_sys_of_call P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True
+v/VV/vv17_sys_of_call_el P=NOT_EQUAL_stage1 L=NOT_EQUAL_stage1 F=NOT_EQUAL_stage1 restoredL_by=['R11V301_CALLTOP_OFF'] F==P:True

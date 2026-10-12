@@ -1,0 +1,11 @@
+CI/c01_top_range dist 0 -> 1 lost=0 gained=0 | chain away=0 toward=0 flat_away=0 flat_toward=0
+CI/c21_pkg_param_set dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=0 flat_away=0 flat_toward=0
+CV/c13_named_import dist 0 -> 2 lost=5 gained=0 | chain away=5 toward=0 flat_away=5 flat_toward=0
+DL/d07_signed_lit dist 2 -> 1 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+FP/p15_ansi_port dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+PA/a09_multiline dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+PV/v07_dpi_ctl dist 0 -> 5 lost=5 gained=0 | chain away=5 toward=0 flat_away=5 flat_toward=0
+SC/c07_genblock dist 0 -> 0 lost=0 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+SP/s09_two_insts dist 0 -> 2 lost=4 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+TF/r06_partsel_lhs dist 0 -> 4 lost=1 gained=0 | chain away=2 toward=0 flat_away=1 flat_toward=0
+TP/a09_nested dist 0 -> 11 lost=0 gained=0 | chain away=0 toward=0 flat_away=0 flat_toward=0

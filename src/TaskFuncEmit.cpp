@@ -31,6 +31,7 @@
 #include "R277.h"
 #include "R283.h"
 #include "R299.h"
+#include "R301.h"
 
 namespace slang_uhdm {
 
@@ -3628,6 +3629,30 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             prv->VpiFile(fullFilePath(prsyn->sourceRange().start()));
                             tr231("pureVirtRetAtTypeToken231", std::string(mp.name));
                         }
+                        // § pureProtoInlineAggSpans301 (r11u301, pass 299's
+                        // residue 3: v11u299repro VR/vr08) — the pure virtual
+                        // twin of § inlineAggReturnVarSpan299: Surelog compiles
+                        // the prototype's return through the same
+                        // compileVariable, so an inline packed struct or union
+                        // return type with packed dimensions spans its return
+                        // variable over the whole written type (golden vr08
+                        // logic_var 3:25-3:66 where ours read 3:25-3:38).
+                        // Grid tools/probe/r11u301repro/cases/PA.  Switch
+                        // R11U301_PUREAGG_OFF.
+                        if (prsyn &&
+                            (prsyn->kind == syntax::SyntaxKind::StructType ||
+                             prsyn->kind == syntax::SyntaxKind::UnionType) &&
+                            !prsyn->as<syntax::StructUnionTypeSyntax>().dimensions.empty() &&
+                            prv->UhdmType() == UHDM::uhdmlogic_var &&
+                            prsyn->sourceRange().start() != SourceLocation::NoLocation &&
+                            r11u301On("R11U301_PUREAGG_OFF")) {
+                            auto o301 = std::make_tuple(prv->VpiLineNo(), prv->VpiColumnNo(),
+                                                        prv->VpiEndLineNo(), prv->VpiEndColumnNo());
+                            setLoc(prv, prsyn->sourceRange());
+                            if (o301 != std::make_tuple(prv->VpiLineNo(), prv->VpiColumnNo(),
+                                                        prv->VpiEndLineNo(), prv->VpiEndColumnNo()))
+                                tr301("pureProtoInlineAggSpans301", "ret " + std::string(mp.name));
+                        }
                     }
                 }
                 ((UHDM::function*)pt)->Return(prv);
@@ -3790,6 +3815,53 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     if (pts0) {
                         mkPrt34()->Actual_typespec(pts0);
                         pio->Typespec(prt0);
+                        // § pureProtoInlineAggSpans301 — the formal twin of
+                        // § inlineAggFormalTypeSpan299: compileTfPortList runs
+                        // over the prototype's own list, so a formal written
+                        // with an inline struct or union type spans the whole
+                        // written type when a direction keyword precedes it
+                        // and the keyword alone when none does (golden
+                        // v11u299repro VP/vp08 packed_array_typespec
+                        // 3:45-3:86 where ours read 3:45-3:58).  Switch
+                        // R11U301_PUREAGG_OFF.
+                        if (ptsyn &&
+                            (ptsyn->kind == syntax::SyntaxKind::StructType ||
+                             ptsyn->kind == syntax::SyntaxKind::UnionType) &&
+                            (pts0->UhdmType() == UHDM::uhdmstruct_typespec ||
+                             pts0->UhdmType() == UHDM::uhdmunion_typespec ||
+                             pts0->UhdmType() == UHDM::uhdmpacked_array_typespec) &&
+                            r11u301On("R11U301_PUREAGG_OFF")) {
+                            const syntax::FunctionPortSyntax* fp301 = nullptr;
+                            for (auto q = parg->getSyntax(); q; q = q->parent) {
+                                if (q->kind == syntax::SyntaxKind::FunctionPort) {
+                                    fp301 = &q->as<syntax::FunctionPortSyntax>();
+                                    break;
+                                }
+                                if (q->kind == syntax::SyntaxKind::ClassMethodPrototype)
+                                    break;
+                            }
+                            if (fp301 && fp301->dataType == ptsyn) {
+                                SourceRange r301 =
+                                    fp301->direction.valid()
+                                        ? ptsyn->sourceRange()
+                                        : ptsyn->as<syntax::StructUnionTypeSyntax>()
+                                              .keyword.range();
+                                if (r301.start() != SourceLocation::NoLocation) {
+                                    auto o301 = std::make_tuple(
+                                        pts0->VpiLineNo(), pts0->VpiColumnNo(),
+                                        pts0->VpiEndLineNo(), pts0->VpiEndColumnNo());
+                                    setLoc(pts0, r301);
+                                    if (o301 != std::make_tuple(pts0->VpiLineNo(),
+                                                                pts0->VpiColumnNo(),
+                                                                pts0->VpiEndLineNo(),
+                                                                pts0->VpiEndColumnNo()))
+                                        tr301("pureProtoInlineAggSpans301",
+                                              "formal " + std::string(parg->name) +
+                                                  (fp301->direction.valid() ? " dir"
+                                                                            : " nodir"));
+                                }
+                            }
+                        }
                         // § tfArgScalarTdWriter223 — the pure virtual
                         // prototype's formal (compileTfPortList over the
                         // prototype's own list).

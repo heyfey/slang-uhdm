@@ -60,6 +60,7 @@
 #include "R295.h"
 #include "R297.h"
 #include "R299.h"
+#include "R301.h"
 
 namespace slang_uhdm {
 // § escNameSpanSites295 (r11u295) — A NAME SPAN WRITTEN BY HAND AS
@@ -41213,6 +41214,58 @@ static const Expression* caStructParamSetter55(const Expression& rhsExpr,
         ap = i ? structParamPattern55(set55) : nullptr;
     }
     bool whole55 = set55 && used55 == chain55.size();
+    // § caStructSetterCastMemberWidthNoFold301 (r11u301, probe
+    // r11u109repro/grid/f1/p03_ready) — a setter written as a size cast whose
+    // width is a struct-parameter member (`y: Cfg.XLEN'(2)`) is not reduced
+    // by Surelog (the cast's width does not evaluate through the member
+    // path), so the elaborated cell keeps the written member read: golden
+    // `hier_path I.y` where ours folded `UINT:2`.  A width written as a plain
+    // parameter (`W'(2)`) or a literal folds as before (grid
+    // tools/probe/r11u301repro/cases/SC).  Switch R11U301_SETCASTW_OFF.
+    if (const Expression* sx301 = whole55 ? &stripImplicitConv(*set55) : nullptr;
+        sx301 && sx301->kind == ExpressionKind::Conversion && sx301->syntax &&
+        sx301->syntax->kind == syntax::SyntaxKind::CastExpression) {
+        auto& cx301 = sx301->syntax->as<syntax::CastExpressionSyntax>();
+        const syntax::SyntaxNode* w301 = cx301.left;
+        while (w301 && w301->kind == syntax::SyntaxKind::ParenthesizedExpression)
+            w301 = w301->as<syntax::ParenthesizedExpressionSyntax>().expression;
+        // slang parses the width `Cfg.XLEN` of a cast as a ScopedName with a
+        // `.` separator.
+        const bool mem301 =
+            w301 && (w301->kind == syntax::SyntaxKind::MemberAccessExpression ||
+                     (w301->kind == syntax::SyntaxKind::ScopedName &&
+                      w301->as<syntax::ScopedNameSyntax>().separator.kind ==
+                          parsing::TokenKind::Dot));
+        // § setCastWidthParenQualFolds301v (v11u301, the adversarial
+        // verification of r11u301) — Surelog DOES reduce the cast when the
+        // member width is written in parentheses (`(Cfg.XLEN)'(2)`) or rooted
+        // at an explicit package qualifier (`cfg_pkg::DefaultCfg.XLEN'(2)`):
+        // golden folds both to `UINT:2` (v11u301repro VC/vc01_paren_width and
+        // vc03_pkg_param_width, chain away 1 in both views under the law,
+        // pristine right).  The law keeps the bare member path (vc02, vc04,
+        // vc05, vc07).  Switch R11V301_CASTWQUAL_OFF.
+        bool wq301v = false;
+        if (mem301 && r11u301On("R11U301_SETCASTW_OFF") &&
+            r11v301On("R11V301_CASTWQUAL_OFF")) {
+            if (cx301.left &&
+                cx301.left->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                wq301v = true;
+            for (const syntax::SyntaxNode* q301 = w301;
+                 q301 && q301->kind == syntax::SyntaxKind::ScopedName;
+                 q301 = q301->as<syntax::ScopedNameSyntax>().left) {
+                if (q301->as<syntax::ScopedNameSyntax>().separator.kind ==
+                    parsing::TokenKind::DoubleColon)
+                    wq301v = true;
+            }
+            if (wq301v)
+                tr301("setCastWidthParenQualFolds301v", std::string(psym.name));
+        }
+        if (mem301 && !wq301v && r11u301On("R11U301_SETCASTW_OFF")) {
+            tr301("caStructSetterCastMemberWidthNoFold301",
+                  std::string(psym.name));
+            return nullptr;
+        }
+    }
     bool bottomed55 = whole55 && stripImplicitConv(*set55).kind !=
                                      ExpressionKind::StructuredAssignmentPattern;
     if (whole55 && chain55.size() == 1 && ownPat55) {
@@ -44102,7 +44155,73 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                                         vis.visitDefault(ax);
                                     }));
                             }
-                            if (!written) {
+                            // § caConstVarFoldNeedsReducibleInit301 (r11u301,
+                            // probe r10v111repro/v111_b6) — Surelog's reduce
+                            // of the elaborated cell reads a variable's value
+                            // only where its initializer itself reduced to a
+                            // constant: an initializer calling a function (a
+                            // package, module or class static function, all
+                            // of which slang evaluates) leaves the variable
+                            // valueless, and a package-qualified read
+                            // (`p::w`) is not looked up by the value scope at
+                            // all, so the elaborated cell keeps the written
+                            // reference (golden v111_b6 `ref_obj w_v6`, ours
+                            // folded `UINT:6`).  Grid
+                            // tools/probe/r11u301repro/cases/CV.  Switch
+                            // R11U301_CONSTVARINIT_OFF.
+                            bool noFold301 = false;
+                            if (!written && r11u301On("R11U301_CONSTVARINIT_OFF")) {
+                                bool call301 = false;
+                                // § constVarNestedCallFolds301v (v11u301) —
+                                // Surelog's getValue reduces a variable's
+                                // initializer only when it is an operation,
+                                // a hier_path, a bit select or a system call
+                                // (CompileHelper::getValue's last arm): a
+                                // user call AS the whole initializer stays
+                                // unreduced (the law), but a module or
+                                // package function nested inside an
+                                // operation or a system call is evaluated by
+                                // reduceExpr and golden folds (v11u301repro
+                                // VV/vv01, vv05, vv11, vv12, vv13, vv15 and
+                                // vv17, chain away 1 under the law, pristine
+                                // right).  A nested CLASS static call is not
+                                // evaluated (golden keeps the reference:
+                                // r11u301repro CV/c12, vv14), so it keeps the
+                                // law.  Switch R11V301_CALLTOP_OFF.
+                                const bool topOnly301v =
+                                    r11v301On("R11V301_CALLTOP_OFF");
+                                const Expression& top301v = stripImplicitConv(*init);
+                                init->visit(makeVisitor(
+                                    [&](auto& v301, const CallExpression& cc301) {
+                                        if (!cc301.isSystemCall()) {
+                                            bool cls301v = false;
+                                            if (auto* sp301 = std::get_if<const SubroutineSymbol*>(
+                                                    &cc301.subroutine);
+                                                sp301 && *sp301) {
+                                                if (auto* ps301 = (*sp301)->getParentScope();
+                                                    ps301 && ps301->asSymbol().kind ==
+                                                                 SymbolKind::ClassType)
+                                                    cls301v = true;
+                                            }
+                                            if (!topOnly301v || (const Expression*)&cc301 == &top301v ||
+                                                cls301v)
+                                                call301 = true;
+                                            else
+                                                tr301("constVarNestedCallFolds301v",
+                                                      std::string(sym.name));
+                                        }
+                                        v301.visitDefault(cc301);
+                                    }));
+                                bool scoped301 =
+                                    rc.syntax &&
+                                    rc.syntax->kind == syntax::SyntaxKind::ScopedName;
+                                noFold301 = call301 || scoped301;
+                                if (noFold301)
+                                    tr301("caConstVarFoldNeedsReducibleInit301",
+                                          prefix + " " + std::string(sym.name) +
+                                              (call301 ? " call" : " scoped"));
+                            }
+                            if (!written && !noFold301) {
                                 constVarRhs = &sym;
                                 constVarInit = init;
                             }
@@ -44154,6 +44273,29 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // (RHS resized against the net width) when the RHS contains
         // operations or is a literal. Select-LHS assigns always stay shared.
         bool plainLhs = stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue;
+        // § caInsideRhsClonesCell301 (r11u301) — an `inside` right side is an
+        // OPERATION in Surelog's database (vpiInsideOp), so
+        // UhdmWriter::writeCont_assign's `rhs->UhdmType() == uhdmoperation`
+        // arm clones the cell for a plain-name Lhs bound by bindVariable and
+        // re-points the clone's Lhs at the INSTANCE's net, exactly as for any
+        // other operation; containsOperation (EmitHelpers.h) does not list
+        // ExpressionKind::Inside, so the elaborated view shared the
+        // definition's cell and its Lhs kept the definition's net (probe
+        // r10uvm99repro g99_a2_proc and g99_a9_fence: `differ:count(0)`, the
+        // definition's `logic_net` listed once more under the shared Lhs).
+        // The net-declaration twin is § ndaConstRhsFreshLhs271's `inside`
+        // branch.  Grid tools/probe/r11u301repro/cases/CI.  Switch
+        // R11U301_CAINSIDE_OFF.
+        // An `inside` whose operands are all constant reduces to a constant in
+        // the clone (golden folds it); the law stands aside there (grid CI
+        // c05_const_operand: the unfolded clone read chain away 4).
+        const bool insideRhs301 =
+            topView && plainLhs &&
+            stripImplicitConv(ae.right()).kind == ExpressionKind::Inside &&
+            r11u301On("R11U301_CAINSIDE_OFF") && [&] {
+                ASTContext ictx301(comp.getRoot(), LookupLocation::max);
+                return !ictx301.tryEval(ae.right());
+            }();
         // A dotted (member-access) LHS re-emits a FRESH elab cont_assign
         // whose Rhs SHARES the def constant — but only when the elab base is
         // VAR-backed (net bases keep the shared def cont_assign).
@@ -44509,6 +44651,26 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // Measured NECESSARY: without the term those five cells stay
         // UNMEASURED-on-our-side (no elab Rhs row at all).
         UHDM::constant* caReuseParamConst9 = nullptr;
+        bool reuseSel301 = false;
+        const bool plainLhs301 =
+            stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue;
+        const bool selLhs301 = [&] {
+            const Expression* l301 = &stripImplicitConv(ae.left());
+            if (l301->kind != ExpressionKind::ElementSelect &&
+                l301->kind != ExpressionKind::RangeSelect)
+                return false;
+            for (int g301 = 0; g301 < 32; ++g301) {
+                if (l301->kind == ExpressionKind::ElementSelect)
+                    l301 = &stripImplicitConv(
+                        l301->as<ElementSelectExpression>().value());
+                else if (l301->kind == ExpressionKind::RangeSelect)
+                    l301 = &stripImplicitConv(
+                        l301->as<RangeSelectExpression>().value());
+                else
+                    break;
+            }
+            return l301->kind == ExpressionKind::NamedValue;
+        }();
         if (topView) {
             auto& rcR9 = stripImplicitConv(ae.right());
             if (rcR9.kind == ExpressionKind::NamedValue &&
@@ -44545,6 +44707,27 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                             if (pcR9->VpiConstType() != vpiUIntConst &&
                                 pcR9->VpiSize() != -1)
                                 caReuseParamConst9 = pcR9;
+                            // § caSelLhsParamReuseAnyEnc301 (r11u301, probe
+                            // r10rgg9repro/cells/c_paraminit) — a SELECT Lhs
+                            // (`arr[0] = Z`, `v[3:0] = Z`) carries no typespec
+                            // of its own in Surelog's compiled cont_assign,
+                            // so writeCont_assign's reduce-to-constant arm
+                            // calls adjustSize with a null typespec, which
+                            // returns the parameter's own value object
+                            // untouched (CompileHelper::adjustSize's first
+                            // guard): no uniquify clone for ANY encoding, the
+                            // UINT and the unsized ones included.  The clone
+                            // set above holds only for a whole-name Lhs,
+                            // whose bound variable lends its typespec.  Grid
+                            // tools/probe/r11u301repro/cases/SP.  Switch
+                            // R11U301_SELPARAMREUSE_OFF.
+                            else if (!plainLhs301 && selLhs301 &&
+                                     r11u301On("R11U301_SELPARAMREUSE_OFF")) {
+                                caReuseParamConst9 = pcR9;
+                                reuseSel301 = true;
+                                tr301("caSelLhsParamReuseAnyEnc301",
+                                      prefix + " " + std::string(psR9.name));
+                            }
                         }
             }
         }
@@ -44616,6 +44799,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // mints for a `ref_obj` operand.
         const Expression* ternArm9 = nullptr;
         bool ternFillArm193 = false;  // § caTernFillArmKept193
+        bool ternReal301 = false;     // § caTernRealArmKept301
         if (topView && shareWithDef && defInfo &&
             myIdx < defInfo->contAssigns.size() && !unbasedShareRhs &&
             !caReuseParamConst9 && !sysFold && !plainLhs && !dottedLhs &&
@@ -44709,6 +44893,39 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                                 n9 != "$low" && n9 != "$left" &&
                                 n9 != "$right")
                                 ok = false;
+                            // § caTernTypeParamQueryNoFold301 (r11u301, probe
+                            // r10vrgg9repro/cells/w_typeparam) — a query on a
+                            // TYPE PARAMETER (`$bits(T)`) is not reduced by
+                            // the elaborated cell's reduceExpr: golden keeps
+                            // the written ternary where ours folded the arm
+                            // to `INT:16`.  Grid
+                            // tools/probe/r11u301repro/cases/TF.  Switch
+                            // R11U301_TERNTPQUERY_OFF.
+                            static const bool tpq301 =
+                                r11u301On("R11U301_TERNTPQUERY_OFF");
+                            if (ok && tpq301)
+                                for (auto* a301 : ce9.arguments()) {
+                                    auto* as301 = a301 ? a301->syntax : nullptr;
+                                    std::string_view id301;
+                                    if (as301 && as301->kind == syntax::SyntaxKind::NamedType &&
+                                        as301->as<syntax::NamedTypeSyntax>().name->kind ==
+                                            syntax::SyntaxKind::IdentifierName)
+                                        id301 = as301->as<syntax::NamedTypeSyntax>()
+                                                    .name->as<syntax::IdentifierNameSyntax>()
+                                                    .identifier.valueText();
+                                    else if (as301 &&
+                                             as301->kind == syntax::SyntaxKind::IdentifierName)
+                                        id301 = as301->as<syntax::IdentifierNameSyntax>()
+                                                    .identifier.valueText();
+                                    if (id301.empty())
+                                        continue;
+                                    if (auto* f301 = body.find(id301);
+                                        f301 && f301->kind == SymbolKind::TypeParameter) {
+                                        ok = false;
+                                        tr301("caTernTypeParamQueryNoFold301",
+                                              prefix + " " + std::string(id301));
+                                    }
+                                }
                         }
                         v9.visitDefault(ce9);
                     }));
@@ -44804,6 +45021,20 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             }
             else if (ok9 && sawTern9 && sel9->kind != ExpressionKind::ConditionalOp) {
                 ternFold9 = leafValue9(*sel9);
+                // § caTernRealArmKept301 (r11u301, probe
+                // r10vrgg9repro/cells/v_takn_real) — a REAL literal arm the
+                // condition selects is what the elaborated cell's reduce
+                // installs (golden `REAL:1.5` at the arm's own span), exactly
+                // as an x/z or wide integer arm below; ours kept the written
+                // ternary because leafValue9 answers integers only.  Grid
+                // tools/probe/r11u301repro/cases/TF.  Switch
+                // R11U301_TERNREAL_OFF.
+                if (!ternFold9 && sel9->kind == ExpressionKind::RealLiteral &&
+                    r11u301On("R11U301_TERNREAL_OFF")) {
+                    ternArm9 = sel9;
+                    ternReal301 = true;
+                    tr301("caTernRealArmKept301", prefix);
+                }
                 if (!ternFold9 &&
                     sel9->kind == ExpressionKind::IntegerLiteral) {
                     ConstantValue av9 = tctx9.tryEval(*sel9);
@@ -44933,7 +45164,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // cont_assign stays in the serializer: traced).
             tr225("ifArrElemLitCaFresh225", "nolhs " + prefix);
         }
-        if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
+        const bool shareCell301 =
+            shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             !unbasedShareRhs && !caReuseParamConst9 && !sysFold &&
             !dlyParamFresh164 &&
             ((!plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs && !selLitLhs &&
@@ -44942,7 +45174,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
               !containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
               !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs &&
               !pkgParamSel && !unpackedParamSel && !noDefOvRhs &&
-              !paramPartSelRhs && !structParamSetter))) {
+              !paramPartSelRhs && !structParamSetter));
+        // § caInsideRhsClonesCell301 — the cell this branch would share is
+        // cloned instead (the law at insideRhs301).
+        const bool insideClone301 = shareCell301 && insideRhs301;
+        if (insideClone301)
+            tr301("caInsideRhsClonesCell301",
+                  prefix + " " + std::to_string(sm->getLineNumber(ae.sourceRange.start())));
+        if (shareCell301 && !insideClone301) {
             // The elab view SHARES the def cont_assign, so the def-view
             // func_call survives into the elaborated design: that makes the
             // callee a live entry point for drainBodyOpArgTs (the def-view
@@ -45181,7 +45420,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             c9t->VpiParent(ca);
             rhs = c9t;
         }
-        else if (ternArm9 && ternFillArm193) {
+        // § caTernRealArmKept301 — the real arm is the netlist's own
+        // constant object as the fill arm is: a later instance folding to it
+        // lists nothing new (grid TF r04_two_insts).
+        else if (ternArm9 && (ternFillArm193 || ternReal301)) {
             // § caTernFillArmKept193 — the arm Surelog installs is the
             // NETLIST's own constant object, so every instance that folds
             // to it holds that one object (parented at the last one): the
@@ -45360,6 +45602,32 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                         }
                     }
                 }
+                // § caFillPackedAggElabSharesDef301 (r11u301, probe
+                // v11u112repro/grid/brk/k/b3a_multi_decl; pass 43's '1 residue)
+                // — the declaration § caUnbasedFillPackedAggregateKeepsRaw43
+                // names (a packed dimension written on a named struct, union or
+                // enum element) gets no typespec Surelog's adjustSize can size,
+                // so writeCont_assign's reduce-to-constant arm hands the
+                // elaborated cell the definition's own constant object (`'1`,
+                // BIN:1, size -1) where ours minted the all-ones UINT at
+                // slang's width: the elaborated cell now carries the
+                // definition's constant as § initHierFillKept225 does.  Grid
+                // tools/probe/r11u301repro/cases/FP.  Switch
+                // R11U301_FILLAGGELAB_OFF.
+                if (cv && !fill225 && caFillPackedAggregateKeepsRaw43(ae.left()) &&
+                    defInfo && myIdx < defInfo->contAssigns.size() &&
+                    defInfo->contAssigns[myIdx] &&
+                    defInfo->contAssigns[myIdx]->Rhs() &&
+                    defInfo->contAssigns[myIdx]->Rhs()->UhdmType() ==
+                        UHDM::uhdmconstant &&
+                    ((const UHDM::constant*)defInfo->contAssigns[myIdx]->Rhs())
+                            ->VpiSize() == -1 &&
+                    r11u301On("R11U301_FILLAGGELAB_OFF")) {
+                    tr301("caFillPackedAggElabSharesDef301", prefix);
+                    cv = nullptr;
+                    rhs = defInfo->contAssigns[myIdx]->Rhs();
+                    fill225 = true;
+                }
                 if (cellDbg43() && cv)
                     fprintf(stderr, "R11U43CELL site=elab1 w=%d claim=%d\n",
                             (int)ae.right().type->getBitWidth(),
@@ -45435,7 +45703,11 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // and a non-integral target makes its `Bits(ts)` invalid, so
             // neither a dec-const nor a string/real target resizes at all —
             // cells q6_string (24) and q7_real (64) keep their own sizes.
-            if (lbR9->type && lbR9->type->isIntegral() && ctR9 != vpiDecConst) {
+            // § caSelLhsParamReuseAnyEnc301 — adjustSize never runs on that
+            // reuse (a null typespec): the parameter's own size stays (grid
+            // SP s04: `v[3:0] = Z` keeps Z's 32).
+            if (!reuseSel301 && lbR9->type && lbR9->type->isIntegral() &&
+                ctR9 != vpiDecConst) {
                 const int32_t wR9 = (int32_t)lbR9->type->getBitWidth();
                 // adjustSize's `orig_size` is the constant's size AS THE
                 // PARAMETER LEFT IT, i.e. the parameter's own declared width.
@@ -47106,6 +47378,88 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 ternArm92 = nullptr;   // A/B gate: reproduce the base binary
                 ternFill19 = nullptr;
             }
+            // § caTernParamArmReusesPaConst301 (r11u301, probe
+            // r10v92repro/v4_arm) — a selected arm that is a bare module
+            // parameter whose value carries x or z bits (`EN ? XV : 4'h0`,
+            // `XV = 4'bx1x1`, which the INT fold above cannot value) is
+            // reduced by writeCont_assign to the parameter's OWN value
+            // constant, and adjustSize mutates a sized, unsigned based
+            // constant in place (its uniquify clone set is UINT, unsized and
+            // signed binary): the elaborated cell's Rhs is the instance's
+            // param_assign constant object (golden lists no Rhs under the
+            // cell, the object having been listed at the param_assign; ours
+            // kept the written ternary).  Only a constant already at the
+            // target width.  Grid tools/probe/r11u301repro/cases/TP.  Switch
+            // R11U301_TERNPARAMARM_OFF.
+            if (!rhs && sawTern92 && !ternArm92 &&
+                sel92->kind == ExpressionKind::NamedValue &&
+                sel92->as<NamedValueExpression>().symbol.kind ==
+                    SymbolKind::Parameter &&
+                ae.left().type && !ae.left().type->isSigned() &&
+                r11u301On("R11U301_TERNPARAMARM_OFF")) {
+                auto& ps301 = sel92->as<NamedValueExpression>().symbol;
+                bool inPkg301 = false;
+                for (auto* sc301 = ps301.getParentScope(); sc301;
+                     sc301 = sc301->asSymbol().getParentScope()) {
+                    auto k301 = sc301->asSymbol().kind;
+                    if (k301 == SymbolKind::Package ||
+                        k301 == SymbolKind::CompilationUnit) {
+                        inPkg301 = true;
+                        break;
+                    }
+                    if (k301 == SymbolKind::InstanceBody || k301 == SymbolKind::Root)
+                        break;
+                }
+                if (!inPkg301)
+                    if (auto pit301 = elabParamPa.find(&ps301);
+                        pit301 != elabParamPa.end() && pit301->second)
+                        if (auto* pr301 = pit301->second->Rhs();
+                            pr301 && pr301->UhdmType() == UHDM::uhdmconstant) {
+                            auto* pc301 = (UHDM::constant*)pr301;
+                            const int ct301 = pc301->VpiConstType();
+                            std::string_view v301 = pc301->VpiValue();
+                            bool xz301 =
+                                v301.find_first_of("xXzZ?") != std::string_view::npos;
+                            // § ternParamArmLeadXzOnly301v (v11u301, the
+                            // adversarial verification of r11u301) — UHDM's
+                            // ExprEval::get_value parses a BIN, HEX or OCT
+                            // value with NumUtils' prefix parse, so the arm is
+                            // unevaluable only when its FIRST digit is x, z or
+                            // ?: `4'b10xx` reads 2 and `6'o7x` reads 7, and
+                            // golden folds the cell to an unlocated INT
+                            // constant (v11u301repro VA/va06_internal_net
+                            // INT:2, va08_oct INT:7; the law installed the
+                            // parameter's object there and both went
+                            // downstream IDENTICAL -> DIVERGENT, pristine
+                            // IDENTICAL).  The law keeps a leading x/z digit
+                            // (a01 x1x1, a03, a04, va01 to va05, va07).
+                            // Switch R11V301_XZLEAD_OFF.
+                            if (xz301 && r11v301On("R11V301_XZLEAD_OFF")) {
+                                const size_t c301v = v301.find(':');
+                                const char h301v =
+                                    (c301v != std::string_view::npos &&
+                                     c301v + 1 < v301.size())
+                                        ? v301[c301v + 1]
+                                        : '\0';
+                                if (!(h301v == 'x' || h301v == 'X' || h301v == 'z' ||
+                                      h301v == 'Z' || h301v == '?')) {
+                                    xz301 = false;
+                                    tr301("ternParamArmLeadXzOnly301v",
+                                          prefix + " " + std::string(ps301.name));
+                                }
+                            }
+                            if ((ct301 == vpiBinaryConst || ct301 == vpiHexConst ||
+                                 ct301 == vpiOctConst) &&
+                                xz301 && pc301->VpiSize() > 0 &&
+                                pc301->VpiSize() ==
+                                    (int32_t)ae.left().type->getBitWidth()) {
+                                pc301->VpiParent(ca);
+                                rhs = pc301;
+                                tr301("caTernParamArmReusesPaConst301",
+                                      prefix + " " + std::string(ps301.name));
+                            }
+                        }
+            }
         }
         // A STRUCTURED (index/default-tagged) pattern RHS onto a PREDEFINED
         // INTEGER LHS keeps a FRESH tagged tree in the elab view
@@ -47441,7 +47795,26 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     }
                 }
             }
-            if (!signExt9 && raw.find('\'') != std::string::npos)
+            // § caDlyParamLitRhsFresh301 (r11u301, probe
+            // r11u90repro/grid.verifier/vy5_dlyparamovrmod) — a cell whose
+            // delay is a parameter name was CLONED whole by writeCont_assign's
+            // delay branch (clone_tree over the cell, its Rhs constant
+            // included) before the reduce, which then hands back that clone's
+            // own constant: every instance lists a fresh copy of the literal
+            // (golden u_a and u_b each `32'd10`), where ours shared the
+            // definition's object and the second instance listed nothing.
+            // Grid tools/probe/r11u301repro/cases/DL.  Switch
+            // R11U301_DLYLITFRESH_OFF.
+            if (!signExt9 && raw.find('\'') != std::string::npos &&
+                dlyParamFresh164 && defRhs9 &&
+                defRhs9->UhdmType() == UHDM::uhdmconstant &&
+                r11u301On("R11U301_DLYLITFRESH_OFF")) {
+                auto* c301 = cloneConst289(s, (const UHDM::constant*)defRhs9);
+                c301->VpiParent(ca);
+                rhs = c301;
+                tr301("caDlyParamLitRhsFresh301", prefix);
+            }
+            else if (!signExt9 && raw.find('\'') != std::string::npos)
                 rhs = (UHDM::any*)defInfo->contAssigns[myIdx]->Rhs();
             // § selLhsBareDecRhsShared171 (r11u171, YosysBigSimEllip's
             // structural head) — a BARE DECIMAL onto a bit-select or
@@ -48189,7 +48562,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         inLhs = true;
         elabContAssignLhs = topView;
         elabLhsReelab = topView && (literalRhs || bitsRhs ||
-                                    containsOperation(ae.right()));
+                                    containsOperation(ae.right()) || insideClone301);
         // Literal-RHS re-emits bind BOTH sides to def-view objects. An
         // unpacked-array-param select that reduced to its pattern leaf is
         // such a re-emit too (its Lhs ref binds the DEF net, so an
@@ -55632,6 +56005,21 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         cl90->VpiEndColumnNo(src90->VpiEndColumnNo());
                         bindDelayParamRef90(cl90, (UHDM::instance*)iface);
                         ca->Delay(cl90);
+                    }
+                    // § ifCaConstDelayPerCell301 (r11u301, probe
+                    // r11u88repro/grid/a6_commadrive) — a constant delay is
+                    // part of the cell clone_tree copies, so every elaborated
+                    // cell carries its own copy (golden lists `#4` under both
+                    // cells of `assign #4 p = 1, q = 2;`); ours shared the
+                    // definition's object and the second cell listed none.
+                    // Grid tools/probe/r11u301repro/cases/DL.  Switch
+                    // R11U301_IFDLYCONST_OFF.
+                    else if (dly83->UhdmType() == UHDM::uhdmconstant &&
+                             r11u301On("R11U301_IFDLYCONST_OFF")) {
+                        auto* d301 = cloneConst289(s, (const UHDM::constant*)dly83);
+                        d301->VpiParent(ca);
+                        ca->Delay(d301);
+                        tr301("ifCaConstDelayPerCell301", prefix);
                     }
                     else
                         ca->Delay(dly83);

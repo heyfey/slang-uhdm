@@ -1,0 +1,41 @@
+case-views=3808 moving=30 entering=10 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/r11u85repro/grid/a1_cadrive STRICT_EQUAL_174_objects -> STRICT_EQUAL_174_objects cmplines 0->0
+MOVER tp/r11u85repro/grid/a1_cadrive_el STRICT_EQUAL_174_objects -> STRICT_EQUAL_174_objects cmplines 0->0
+MOVER tp/r11u85repro/grid/a2_enumdrive NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u85repro/grid/a2_enumdrive_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u85repro/grid/a6_commadrive STRICT_NOTEQUAL_col -> STRICT_EQUAL_222_objects cmplines 0->0
+MOVER tp/r11u85repro/grid/a6_commadrive_el STRICT_NOTEQUAL_col -> STRICT_EQUAL_222_objects cmplines 0->0
+MOVER tp/r11u85repro/grid/b14_cadelay STRICT_EQUAL_296_objects -> STRICT_EQUAL_296_objects cmplines 0->0
+MOVER tp/r11u85repro/grid/b14_cadelay_el STRICT_EQUAL_296_objects -> STRICT_EQUAL_296_objects cmplines 0->0
+MOVER tp/r11u85repro/grid/b16_preclone NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u85repro/grid/b16_preclone_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u88repro/grid/a2_enumdrive NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u88repro/grid/a2_enumdrive_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u88repro/grid/b14_cadelay STRICT_EQUAL_296_objects -> STRICT_EQUAL_296_objects cmplines 0->0
+MOVER tp/r11u88repro/grid/b14_cadelay_el STRICT_EQUAL_296_objects -> STRICT_EQUAL_296_objects cmplines 0->0
+MOVER tp/r11u88repro/grid/b16_preclone NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u88repro/grid/b16_preclone_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u90repro/grid/w10_dlypkgparam NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u90repro/grid/w10_dlypkgparam_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u90repro/grid/w16_dlyvar NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11u90repro/grid/w16_dlyvar_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11v83repro/grid/b16_preclone NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11v83repro/grid/b16_preclone_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/v11u299repro/cases/VP/vp08_purevirt STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_61_objects cmplines 0->0
+MOVER tp/v11u299repro/cases/VP/vp08_purevirt_el STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_60_objects cmplines 0->0
+MOVER tp/v11u299repro/cases/VR/vr08_purevirt STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_61_objects cmplines 0->0
+MOVER tp/v11u299repro/cases/VR/vr08_purevirt_el STRICT_NOTEQUAL_endcol -> STRICT_EQUAL_60_objects cmplines 0->0
+MOVER tp/v11u299repro/cases/VU/vu01_purevirt_mod STRICT_NOTEQUAL_line -> STRICT_EQUAL_109_objects cmplines 0->0
+MOVER tp/v11u299repro/cases/VU/vu01_purevirt_mod_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_100_objects cmplines 0->0
+MOVER tp/v11u299repro/cases/VU/vu14_union_purevirt_only STRICT_NOTEQUAL_line -> STRICT_EQUAL_127_objects cmplines 0->0
+MOVER tp/v11u299repro/cases/VU/vu14_union_purevirt_only_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_115_objects cmplines 0->0
+ENTER tp/r11u85repro/grid/a6_commadrive
+ENTER tp/r11u85repro/grid/a6_commadrive_el
+ENTER tp/v11u299repro/cases/VP/vp08_purevirt
+ENTER tp/v11u299repro/cases/VP/vp08_purevirt_el
+ENTER tp/v11u299repro/cases/VR/vr08_purevirt
+ENTER tp/v11u299repro/cases/VR/vr08_purevirt_el
+ENTER tp/v11u299repro/cases/VU/vu01_purevirt_mod
+ENTER tp/v11u299repro/cases/VU/vu01_purevirt_mod_el
+ENTER tp/v11u299repro/cases/VU/vu14_union_purevirt_only
+ENTER tp/v11u299repro/cases/VU/vu14_union_purevirt_only_el

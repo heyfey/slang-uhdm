@@ -40,6 +40,7 @@
 #include "R291.h"
 #include "R295.h"
 #include "R299.h"
+#include "R301.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -15950,19 +15951,40 @@ UHDM::design* UhdmExporter::exportDesign() {
                     // u30; its out-of-body definition is not a winner, u06)
                     std::span<const FormalArgumentSymbol* const> args;
                     bool oob = false;
+                    // § unitTdPureProtoFormalWriter301 (r11u301, pass 299's
+                    // residue 1, v11u299repro VU/vu01 and vu14) — a `pure
+                    // virtual` prototype's formal is a writer too: Surelog's
+                    // CompileClass compiles the prototype through
+                    // compileFunction (its paMethod_prototype branch) like any
+                    // method, so compileTfPortList runs populateCoreMembers on
+                    // the shared struct or union typedef object (golden vu01
+                    // s_t at the prototype's 4:31, vu14 u_t at 4:32).  The
+                    // enum half (§ tfArgTypedefLastWriter146's writers)
+                    // already counts it (vu18).  A DPI import stays a
+                    // non-writer (§ tfArgDpiNoWrite146v).  Grid
+                    // tools/probe/r11u301repro/cases/PV.  Switch
+                    // R11U301_PUREPROTO_OFF.
+                    // An INTERFACE class's prototypes stay non-writers (grid
+                    // PV v08_iface_class: golden keeps the declaration span,
+                    // the law read chain away 4).
+                    static const bool pureOn301 = r11u301On("R11U301_PUREPROTO_OFF");
+                    const bool pureW301 = pureOn301 && !cls.isInterface;
+                    bool pure301 = false;
                     if (cm.kind == SymbolKind::Subroutine) {
                         auto& sub = cm.as<SubroutineSymbol>();
                         if (sub.getPrototype() != nullptr)
                             continue;
                         args = sub.getArguments();
-                        oob = sub.flags.has(MethodFlags::Pure) ||
+                        oob = (sub.flags.has(MethodFlags::Pure) && !pureW301) ||
                               sub.flags.has(MethodFlags::DPIImport);
+                        pure301 = sub.flags.has(MethodFlags::Pure);
                     }
                     else if (cm.kind == SymbolKind::MethodPrototype) {
                         auto& mp = cm.as<MethodPrototypeSymbol>();
                         args = mp.getArguments();
-                        oob = mp.flags.has(MethodFlags::Pure) ||
+                        oob = (mp.flags.has(MethodFlags::Pure) && !pureW301) ||
                               mp.flags.has(MethodFlags::DPIImport);
+                        pure301 = mp.flags.has(MethodFlags::Pure);
                     }
                     else
                         continue;
@@ -15980,6 +16002,9 @@ UHDM::design* UhdmExporter::exportDesign() {
                             poison155 = true;
                             continue;
                         }
+                        if (pure301 && pureW301 && !oob)
+                            tr301("unitTdPureProtoFormalWriter301",
+                                  key + " " + std::string(ta155.name));
                         wc299.push_back({key, tsy->sourceRange()});
                     }
                 }

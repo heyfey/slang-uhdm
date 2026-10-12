@@ -1,0 +1,2 @@
+/tmp/r11u301_wdP: 3265 of 3315 cmds.txt name /tmp/r11u301_bin/pris; other-binary 0
+/tmp/r11u301_wdL: 3265 of 3315 cmds.txt name /tmp/r11u301_bin/law; other-binary 0
