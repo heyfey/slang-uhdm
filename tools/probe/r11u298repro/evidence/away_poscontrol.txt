@@ -1,0 +1,12 @@
+CP/cp01_logic_vec d chain away=4 toward=0 flat_away=4 flat_toward=0
+CP/cp05_spec_override d chain away=4 toward=0 flat_away=4 flat_toward=0
+CP/cp10_nodefault_cls d chain away=1 toward=0 flat_away=1 flat_toward=0
+CP/cp14_multi_dim d chain away=7 toward=0 flat_away=7 flat_toward=0
+CP/cp18_localparam d chain away=4 toward=0 flat_away=4 flat_toward=0
+NC/nc03_twice d chain away=1 toward=0 flat_away=1 flat_toward=0
+NC/nc11_iface_outer d chain away=1 toward=0 flat_away=1 flat_toward=0
+NC/nc16_array d chain away=1 toward=0 flat_away=1 flat_toward=0
+QT/qt01_proc d chain away=4 toward=0 flat_away=4 flat_toward=0
+QT/qt05_bare_tern d chain away=4 toward=0 flat_away=4 flat_toward=0
+QT/qt09_nda d chain away=2 toward=0 flat_away=2 flat_toward=0
+QT/qt15_local_cond d chain away=2 toward=0 flat_away=2 flat_toward=0

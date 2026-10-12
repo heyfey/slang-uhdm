@@ -1,0 +1,135 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u298_swL/probe.csv
+probe cases: EQUAL=3972 STRICT_NOTEQUAL=115 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3972 differ:fullname=44 differ:type=13 differ:line=12 differ:depth=11 differ:file=7 differ:name=7 differ:endcol=6 differ:col=5 differ:value=4 differ:endline=3 differ:count=2 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3972 STRICT_NOTEQUAL=115
+CONVERSION r10earl31repro/v4_ops STRICT_NOTEQUAL differ:endcol(4) -> EQUAL
+regressions=0 conversions=1 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u298_swL/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u298_bin/uhdm-strictcmp
+  25/798
+  50/798
+  75/798
+  100/798
+  125/798
+  150/798
+  175/798
+  200/798
+  225/798
+  250/798
+  275/798
+  300/798
+  325/798
+  350/798
+  375/798
+  400/798
+  425/798
+  450/798
+  475/798
+  500/798
+  525/798
+  550/798
+  575/798
+  600/798
+  625/798
+  650/798
+  675/798
+  700/798
+  725/798
+  750/798
+  775/798
+
+[default] 798 tests
+  CMP_EQUAL: 480
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 474
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u298_swL/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u298_bin/uhdm-strictcmp
+  25/871
+  50/871
+  75/871
+  100/871
+  125/871
+  150/871
+  175/871
+  200/871
+  225/871
+  250/871
+  275/871
+  300/871
+  325/871
+  350/871
+  375/871
+  400/871
+  425/871
+  450/871
+  475/871
+  500/871
+  525/871
+  550/871
+  575/871
+  600/871
+  625/871
+  650/871
+  675/871
+  700/871
+  725/871
+  750/871
+  775/871
+  800/871
+  825/871
+  850/871
+
+[default] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+  50/871
+  100/871
+  150/871
+  200/871
+  250/871
+  300/871
+  350/871
+  400/871
+  450/871
+  500/871
+  550/871
+  600/871
+  650/871
+  700/871
+  750/871
+  800/871
+  850/871
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+rc=1

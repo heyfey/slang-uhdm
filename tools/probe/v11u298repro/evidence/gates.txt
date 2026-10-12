@@ -1,0 +1,77 @@
+# v11u298 gates (binaries frozen in /tmp/v11u298_bin before any measurement)
+008114c7de04ce314d7d97f710b435d0  /tmp/v11u298_bin/slang-uhdm.fix
+40dd231d0aaafb50a19ac7e91165026a  /tmp/v11u298_bin/slang-uhdm.law
+f084a2ac85ffae8db05ce180440a60ed  /tmp/v11u298_bin/slang-uhdm.pristine
+fa6e4f42f252ae0ab69d9845003e71c5  /tmp/v11u298_bin/uhdm-strictcmp
+main tree build at the base: f084a2ac85ffae8db05ce180440a60ed (brief); implementer law: 40dd231d0aaafb50a19ac7e91165026a
+== sweep P
+probe cases: EQUAL=3971 STRICT_NOTEQUAL=116 (of 4087); goldens built now=0, from cache=4087
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+== sweep L
+probe cases: EQUAL=3972 STRICT_NOTEQUAL=115 (of 4087); goldens built now=0, from cache=4087
+CONVERSION r10earl31repro/v4_ops STRICT_NOTEQUAL differ:endcol(4) -> EQUAL
+regressions=0 conversions=1 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+== sweep F
+probe cases: EQUAL=3972 STRICT_NOTEQUAL=115 (of 4087); goldens built now=0, from cache=4087
+CONVERSION r10earl31repro/v4_ops STRICT_NOTEQUAL differ:endcol(4) -> EQUAL
+regressions=0 conversions=1 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+== row-by-row csv diffs
+P->L probe: r10earl31repro/v4_ops,EQUAL,,equal  (LowMem detail-text lines: 0)
+P->L surelog:  (LowMem detail-text lines: 2)
+P->L uhdm2rtlil:  (LowMem detail-text lines: 0)
+P->L downstream:  (LowMem detail-text lines: 0)
+L->F probe:  (LowMem detail-text lines: 0)
+L->F surelog:  (LowMem detail-text lines: 2)
+L->F uhdm2rtlil:  (LowMem detail-text lines: 0)
+L->F downstream:  (LowMem detail-text lines: 0)
+P->F probe: r10earl31repro/v4_ops,EQUAL,,equal  (LowMem detail-text lines: 0)
+P->F surelog:  (LowMem detail-text lines: 2)
+P->F uhdm2rtlil:  (LowMem detail-text lines: 0)
+P->F downstream:  (LowMem detail-text lines: 0)
+downstream csv vs committed: P=identical L=identical F=identical 
+== byteverify (fence-filtered mirrors, 8 fenced paths skipped by name each)
+-- L vs P
+PATH_SETS_IDENTICAL (2560 paths)
+MOVERS: 0 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+-- F vs L
+PATH_SETS_IDENTICAL (2560 paths)
+MOVERS: 0 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+-- F vs P
+PATH_SETS_IDENTICAL (2560 paths)
+MOVERS: 0 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+-- probe and downstream (probe pristine rerun from the law tree, /tmp/v11u298_prP, so source paths are equal)
+law vs pristine: probe 1/4087 (r10earl31repro__v4_ops.uhdm), downstream slang-lane 0/805
+fix vs law: probe movers 0 / 4087
+fix vs law: downstream slang-lane movers 0 / 805
+fix vs pristine: probe 1/4087 (r10earl31repro__v4_ops.uhdm)
+== audit
+/tmp/v11u298_swP own=3265 other=0 noslang=50 fenced_skipped=8
+/tmp/v11u298_swL own=3265 other=0 noslang=50 fenced_skipped=8
+/tmp/v11u298_swF own=3265 other=0 noslang=50 fenced_skipped=8
+== canaries
+L surelog ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+L u2r ---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+L ctcan2 surelog PASS: every supplementary canary row is byte-identical to the baseline.
+L ctcan2 u2r PASS: every supplementary canary row is byte-identical to the baseline.
+F surelog ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+F u2r ---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+F ctcan2 surelog PASS: every supplementary canary row is byte-identical to the baseline.
+F ctcan2 u2r PASS: every supplementary canary row is byte-identical to the baseline.
+== census
+law census (frozen law binary 40dd231d) vs implementer predict.txt: byte-identical
+fix census (frozen before the fix sweep) vs law census: byte-identical

@@ -1,0 +1,17 @@
+FIX!=LAW ('VN/vn06_portconn', 'd') rc=0 cmp=0 STRICT_EQUAL 179 objects | rc=0 cmp=0 STRICT_NOTEQUAL type | rc=0 cmp=0 STRICT_EQUAL 179 objects
+FIX!=LAW ('VN/vn06_portconn', 'e') rc=0 cmp=0 STRICT_EQUAL 177 objects | rc=0 cmp=0 STRICT_NOTEQUAL type | rc=0 cmp=0 STRICT_EQUAL 177 objects
+FIX!=LAW ('VN/vn15_portconn_and_assign', 'd') rc=0 cmp=62 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_NOTEQUAL type | rc=0 cmp=0 STRICT_EQUAL 242 objects
+FIX!=LAW ('VN/vn15_portconn_and_assign', 'e') rc=0 cmp=62 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_NOTEQUAL type | rc=0 cmp=0 STRICT_EQUAL 239 objects
+FIX!=LAW ('VN/vn16_portconn_outer', 'd') rc=0 cmp=0 STRICT_EQUAL 223 objects | rc=0 cmp=0 STRICT_NOTEQUAL type | rc=0 cmp=0 STRICT_EQUAL 223 objects
+FIX!=LAW ('VN/vn16_portconn_outer', 'e') rc=0 cmp=0 STRICT_EQUAL 220 objects | rc=0 cmp=0 STRICT_NOTEQUAL type | rc=0 cmp=0 STRICT_EQUAL 220 objects
+FIX!=LAW ('VN/vn19_gate_term', 'd') rc=0 cmp=0 STRICT_NOTEQUAL fullname | rc=0 cmp=0 STRICT_NOTEQUAL fullname | rc=0 cmp=0 STRICT_NOTEQUAL fullname
+FIX!=LAW ('VN/vn19_gate_term', 'e') rc=0 cmp=0 STRICT_NOTEQUAL fullname | rc=0 cmp=0 STRICT_NOTEQUAL fullname | rc=0 cmp=0 STRICT_NOTEQUAL fullname
+FIX!=LAW ('VN/vn21_portconn_positional', 'd') rc=0 cmp=62 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_NOTEQUAL type | rc=0 cmp=0 STRICT_EQUAL 363 objects
+FIX!=LAW ('VN/vn21_portconn_positional', 'e') rc=0 cmp=62 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_NOTEQUAL type | rc=0 cmp=0 STRICT_EQUAL 362 objects
+FIX!=LAW ('VP/vp03_derived_inherit', 'd') rc=0 cmp=14 NOT_EQUAL stage1 | rc=0 cmp=14 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 26 objects
+FIX!=LAW ('VP/vp03_derived_inherit', 'e') rc=0 cmp=14 NOT_EQUAL stage1 | rc=0 cmp=14 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 26 objects
+FIX!=LAW ('VP/vp13_inner_class_outer_tp', 'd') rc=0 cmp=14 NOT_EQUAL stage1 | rc=0 cmp=58 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 23 objects
+FIX!=LAW ('VP/vp13_inner_class_outer_tp', 'e') rc=0 cmp=14 NOT_EQUAL stage1 | rc=0 cmp=58 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 23 objects
+FIX!=LAW ('VP/vp16_inner_class_int_tp', 'd') rc=0 cmp=16 NOT_EQUAL stage1 | rc=0 cmp=16 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 36 objects
+FIX!=LAW ('VP/vp16_inner_class_int_tp', 'e') rc=0 cmp=16 NOT_EQUAL stage1 | rc=0 cmp=16 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 36 objects
+views 92 law movers 72 enter 34 leave 4 | fix movers 68 enter 44 leave 0 | bad []

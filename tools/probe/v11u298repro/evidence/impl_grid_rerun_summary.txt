@@ -1,0 +1,2 @@
+compared 952 verdict diffs 0 md5-only diffs 938
+views 136 law movers 110 enter 87 leave 0 | fix movers 110 enter 87 leave 0 | bad []

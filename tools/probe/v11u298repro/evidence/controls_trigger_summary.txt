@@ -1,0 +1,3 @@
+MOVER v11u192repro/cases/Q/qk03_cast_cond d: law | rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 289 objects
+MOVER v11u192repro/cases/Q/qk03_cast_cond e: law | rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 258 objects
+case-views 454 {'law_movers': 2, 'law_enter': 2, 'fix_movers': 2, 'fix_enter': 2}

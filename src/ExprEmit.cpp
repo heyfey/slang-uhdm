@@ -55,10 +55,14 @@
 #include "R292.h"
 #include "R294.h"
 #include "R296.h"
+#include "R298.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
 namespace slang_uhdm {
+// § castClsTpOwnDefaultObj298 reads § typeParamUseSharesOwnTs183's registry
+// (UhdmExporter.cpp; type parameter alias -> the class listing's own object).
+extern std::map<const void*, UHDM::typespec*> g_typeParamOwnTs183;
 // § genProcLvIdxCallSpan286's abstention: is the call (`n`, its syntax) inside
 // an lvalue MEMBER PATH whose root is selected (`m[fn(1)].v`,
 // `ts[1].arr[fn(3)].v`)?  Climbs to the assignment's left side and reads its
@@ -26390,12 +26394,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             psc192 &&
                             psc192->asSymbol().kind == SymbolKind::Package) {
                             const UHDM::any* up192 = parent;
+                            // § pkgQualBoundSpanTernary298 (r11u298) — the
+                            // walk crosses a CONDITIONAL in the bound unless
+                            // the fold sits in its TRUE arm: golden
+                            // r10earl31repro/v4_ops `d[(pk::DC ? pk::DC :
+                            // pk::DC)-1:0]` spans the condition's and the
+                            // false arm's fold `pk::` alone (24:17-21,
+                            // 24:35-39) and the true arm's the whole name
+                            // (24:26-32), the split § psBoundPkgParamTs31
+                            // reads for the typespec stamp (ternTrueArmOps31,
+                            // pushed around the true arm's emission).  Switch
+                            // R11U298_QBTERN_OFF.
+                            bool tern298 = false;
                             for (int g = 0; g < 32 && up192 &&
-                                            up192->UhdmType() == UHDM::uhdmoperation &&
-                                            ((const UHDM::operation*)up192)->VpiOpType() != vpiConditionOp;
-                                 ++g)
+                                            up192->UhdmType() == UHDM::uhdmoperation;
+                                 ++g) {
+                                if (((const UHDM::operation*)up192)->VpiOpType() ==
+                                    vpiConditionOp) {
+                                    bool inTrue298 = false;
+                                    for (const UHDM::any* t298 : ternTrueArmOps31)
+                                        if (t298 == up192)
+                                            inTrue298 = true;
+                                    if (inTrue298 ||
+                                        !r11u298On("R11U298_QBTERN_OFF")) {
+                                        tr298(inTrue298 ? "pkgQualBoundSpanTernary298_ABSTAIN"
+                                                        : "pkgQualBoundSpanTernary298_OFF",
+                                              std::string(rawText(expr.sourceRange)));
+                                        break;
+                                    }
+                                    tern298 = true;
+                                }
                                 up192 = up192->VpiParent();
+                            }
+                            if (up192 && up192->UhdmType() == UHDM::uhdmoperation)
+                                up192 = nullptr;  // stopped at a conditional
                             if (up192 && up192->UhdmType() == UHDM::uhdmpart_select) {
+                                if (tern298)
+                                    tr298("pkgQualBoundSpanTernary298",
+                                          std::string(rawText(expr.sourceRange)));
                                 std::string rq192(rawText(expr.sourceRange));
                                 auto qp192 = rq192.rfind("::");
                                 if (qp192 != std::string::npos &&
@@ -33953,7 +33989,101 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         const TypeParameterSymbol* tp294 =
                             typeParamOfAlias(expr.type->as<TypeAliasType>());
                         const Scope* tps294 = tp294 ? tp294->getParentScope() : nullptr;
+                        // § nestedCastOuterTpPlaceholder298 (r11u298) — A CAST
+                        // WRITTEN IN A NESTED MODULE TO THE OUTER MODULE'S TYPE
+                        // PARAMETER (`module top #(type T=...); module inner;
+                        // assign z = T'(b);`) is Surelog's unresolved
+                        // placeholder in the ELABORATED instance: an
+                        // unsupported_typespec named T at the cast token
+                        // (golden v11u294repro/cases/VM/vm13_nested 5:16-17
+                        // under work@top.u, in both dump views); the
+                        // definition listing (work@top::inner, compiled
+                        // inside the outer header) keeps the outer default
+                        // logic_typespec § castModTypeParamDefaultTs294 binds,
+                        // so the law fires only where castSiteScope57 is set
+                        // (emitInstance).  The distinguisher is syntactic: the cast's
+                        // nearest enclosing module, interface or program
+                        // declaration is not the declaration of the type
+                        // parameter's definition.  Without it § castModTypeParam
+                        // DefaultTs294 bound the outer default logic_typespec.
+                        // Switch R11U298_NESTCASTTP_OFF.
+                        bool nested298 = false;
                         if (tps294 &&
+                            tps294->asSymbol().kind == SymbolKind::InstanceBody) {
+                            const syntax::SyntaxNode* dsyn298 = tps294->asSymbol()
+                                                                    .as<InstanceBodySymbol>()
+                                                                    .getDefinition()
+                                                                    .getSyntax();
+                            const syntax::SyntaxNode* up298 = cesyn.parent;
+                            while (up298 &&
+                                   up298->kind != syntax::SyntaxKind::ModuleDeclaration &&
+                                   up298->kind != syntax::SyntaxKind::InterfaceDeclaration &&
+                                   up298->kind != syntax::SyntaxKind::ProgramDeclaration)
+                                up298 = up298->parent;
+                            // Only the FIRST elaborated emission of the cast
+                            // takes the placeholder: a second instance of the
+                            // nested module (golden NC/nc03 u2) or of its
+                            // outer (nc08 o2) binds the outer default again.
+                            static std::set<const void*> seen298;
+                            // A parameter initializer abstains (golden NC/nc19
+                            // `localparam logic [2:0] K = T'(5);` folds the
+                            // value typed by K's own declaration).
+                            // § nestedCastPlaceholderCaOnly298v (v11u298) —
+                            // the placeholder is Surelog's writeCont_assign
+                            // face: only a cast inside a CONTINUOUS
+                            // ASSIGNMENT or a NET DECLARATION ASSIGNMENT of
+                            // the nested module takes it.  A cast in a port
+                            // actual (`leaf l (.x(T'(b)), ...)`, named or
+                            // positional) or a gate terminal (`buf g0 (z,
+                            // T'(b))`) keeps the outer default golden binds
+                            // there (v11u298repro VN/vn06, vn16, vn21 type
+                            // and chain away 4, pristine STRICT_EQUAL on
+                            // vn06 and vn16; vn19 chain away 1 under the
+                            // law).  Switch R11V298_CASITE_OFF.
+                            bool ca298v = false;
+                            for (const syntax::SyntaxNode* a298v = cesyn.parent;
+                                 a298v && a298v != up298; a298v = a298v->parent)
+                                if (a298v->kind == syntax::SyntaxKind::ContinuousAssign ||
+                                    a298v->kind == syntax::SyntaxKind::NetDeclaration) {
+                                    ca298v = true;
+                                    break;
+                                }
+                            bool site298 = dsyn298 && up298 && up298 != dsyn298 &&
+                                           castSiteScope57;
+                            if (site298 && !ca298v) {
+                                if (r11v298On("R11V298_CASITE_OFF")) {
+                                    tr298("nestedCastPlaceholderCaOnly298v_ABSTAIN",
+                                          std::string(tp294->name) + " not a continuous assignment");
+                                    site298 = false;
+                                }
+                                else
+                                    tr298("nestedCastPlaceholderCaOnly298v_OFF",
+                                          std::string(tp294->name));
+                            }
+                            if (site298 && inParamInit)
+                                tr298("nestedCastOuterTpPlaceholder298_ABSTAIN",
+                                      std::string(tp294->name) + " param init");
+                            const bool first298 = site298 && !inParamInit &&
+                                                  seen298.insert(&cesyn).second;
+                            if (site298 && !inParamInit && !first298)
+                                tr298("nestedCastOuterTpPlaceholder298_ABSTAIN",
+                                      std::string(tp294->name) + " later instance");
+                            if (first298) {
+                                if (r11u298On("R11U298_NESTCASTTP_OFF")) {
+                                    nested298 = true;
+                                    auto* uts298 = s.MakeUnsupported_typespec();
+                                    uts298->VpiName(std::string(rawText(lr)));
+                                    setLoc(uts298, lr);
+                                    cts = uts298;
+                                    tr298("nestedCastOuterTpPlaceholder298",
+                                          std::string(tp294->name));
+                                }
+                                else
+                                    tr298("nestedCastOuterTpPlaceholder298_OFF",
+                                          std::string(tp294->name));
+                            }
+                        }
+                        if (!nested298 && tps294 &&
                             tps294->asSymbol().kind == SymbolKind::InstanceBody) {
                             auto it294 = typeParamDefaultTs.find(
                                 {(const void*)&tps294->asSymbol()
@@ -34857,12 +34987,149 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     else if (tp292)
                         tr292("CASTTPDEF_ABSTAIN", std::string(tp292->name));
                 }
+                // § castClsTpOwnDefaultObj298 (r11u298) — a cast to a CLASS's
+                // type parameter whose default is NOT a predefined integer
+                // keyword (`type U = logic [7:0]`, `type V = n_t`, a bit
+                // vector) binds the type parameter's OWN typespec object, the
+                // one the class_defn listing's type_parameter carries
+                // (golden r11u292repro/cases/CT/ct05_tp_kinds: U'(3) ->
+                // logic_typespec 4:39-50 with its range, V'(3) -> the n_t
+                // logic_typespec 3:11-22 with its typedef alias, both the
+                // objects under type_parameter p::gen::U / ::V); ours minted
+                // a bare logic_typespec at the written name.  The object is
+                // read from § typeParamUseSharesOwnTs183's registry (keyed by
+                // the parameter's own type alias) and is NOT re-parented or
+                // instance-stamped (tpShared121).  The integer keywords keep
+                // § castTypeParamDefaultLoc292's located copy; a real,
+                // shortreal, string or class default binds its own object
+                // too (golden CP cp09 real_typespec 4:24-28, cp10
+                // class_typespec base 5:24-28).  Switch
+                // R11U298_CLSTPOBJ_OFF.
+                if (effCastSyn &&
+                    effCastSyn->kind == syntax::SyntaxKind::CastExpression &&
+                    effCastSyn->as<syntax::CastExpressionSyntax>().left->kind ==
+                        syntax::SyntaxKind::IdentifierName &&
+                    cts && expr.type && expr.type->kind == SymbolKind::TypeAlias) {
+                    const bool intKind298 =
+                        cts->UhdmType() == UHDM::uhdmint_typespec ||
+                        cts->UhdmType() == UHDM::uhdmbyte_typespec ||
+                        cts->UhdmType() == UHDM::uhdmshort_int_typespec ||
+                        cts->UhdmType() == UHDM::uhdmlong_int_typespec ||
+                        cts->UhdmType() == UHDM::uhdminteger_typespec;
+                    const TypeParameterSymbol* tp298 =
+                        typeParamOfAlias(expr.type->as<TypeAliasType>());
+                    if (tp298 && tp298->getParentScope() &&
+                        tp298->getParentScope()->asSymbol().kind ==
+                            SymbolKind::ClassType) {
+                        auto it298 = g_typeParamOwnTs183.find(
+                            (const void*)&tp298->getTypeAlias());
+                        UHDM::typespec* own298 =
+                            it298 != g_typeParamOwnTs183.end() ? it298->second : nullptr;
+                        const bool kind298 = !intKind298 &&
+                            own298 && (own298->UhdmType() == UHDM::uhdmlogic_typespec ||
+                                       own298->UhdmType() == UHDM::uhdmbit_typespec ||
+                                       own298->UhdmType() == UHDM::uhdmreal_typespec ||
+                                       own298->UhdmType() == UHDM::uhdmshort_real_typespec ||
+                                       own298->UhdmType() == UHDM::uhdmstring_typespec ||
+                                       own298->UhdmType() == UHDM::uhdmclass_typespec);
+                        // § castClsTpOutOfBodyPlaceholder298 (r11u298) — the
+                        // cast written in an OUT-OF-BODY method definition
+                        // (`function void gen::f(); y = U'(3); endfunction`,
+                        // outside the class declaration) is Surelog's
+                        // unresolved placeholder: an unsupported_typespec
+                        // named U at the cast token, stamped with the package
+                        // (golden CP/cp20_extern 8:31-32); the class header's
+                        // parameters are not in scope where Surelog compiles
+                        // that body.  Distinguisher: the cast's syntax has no
+                        // ClassDeclaration ancestor.  Switch
+                        // R11U298_CLSTPOOB_OFF (back to the law above).
+                        bool oob298 = true;
+                        for (const syntax::SyntaxNode* u298 = effCastSyn; u298;
+                             u298 = u298->parent)
+                            if (u298->kind == syntax::SyntaxKind::ClassDeclaration) {
+                                oob298 = false;
+                                break;
+                            }
+                        // § castClsTpNestedClsPlaceholder298v (v11u298) —
+                        // the same placeholder for a cast written in a
+                        // method of a class NESTED in the type parameter's
+                        // class (`class gen #(type U = ...); class inner;
+                        // function void f(); y = U'(3);`): Surelog compiles
+                        // the nested class without the enclosing header's
+                        // parameters (golden v11u298repro VP/vp13 and vp16
+                        // unsupported_typespec at the cast token, also for
+                        // an int default; the law bound the default object,
+                        // uhdm-cmp 14 -> 58 lines on vp13).  The nearest
+                        // enclosing class declaration decides; an
+                        // out-of-block body (`function void gen::f()`, a
+                        // scoped name) belongs to the type parameter's own
+                        // class (golden VP/vp01 binds the default object).
+                        // Switch R11V298_NESTCLS_OFF.
+                        bool nestCls298v = false;
+                        if (!oob298) {
+                            const Symbol& tpc298v = tp298->getParentScope()->asSymbol();
+                            for (const syntax::SyntaxNode* u298v = effCastSyn->parent; u298v;
+                                 u298v = u298v->parent) {
+                                if ((u298v->kind == syntax::SyntaxKind::FunctionDeclaration ||
+                                     u298v->kind == syntax::SyntaxKind::TaskDeclaration) &&
+                                    u298v->as<syntax::FunctionDeclarationSyntax>()
+                                            .prototype->name->kind ==
+                                        syntax::SyntaxKind::ScopedName)
+                                    break;
+                                if (u298v->kind == syntax::SyntaxKind::ClassDeclaration) {
+                                    const syntax::SyntaxNode* tps298v = tpc298v.getSyntax();
+                                    nestCls298v =
+                                        tps298v ? tps298v != u298v
+                                                : u298v->as<syntax::ClassDeclarationSyntax>()
+                                                          .name.valueText() != tpc298v.name;
+                                    break;
+                                }
+                            }
+                            if (nestCls298v && !r11v298On("R11V298_NESTCLS_OFF")) {
+                                tr298("castClsTpNestedClsPlaceholder298v_OFF",
+                                      std::string(tp298->name));
+                                nestCls298v = false;
+                            }
+                        }
+                        // An integer-keyword default (pass 292's located
+                        // copy) takes the placeholder as well (golden
+                        // CP/cp24_extern_int T'(3) with `type T = int`).
+                        if ((oob298 || nestCls298v) && r11u298On("R11U298_CLSTPOBJ_OFF") &&
+                            r11u298On("R11U298_CLSTPOOB_OFF")) {
+                            auto* uts298 = s.MakeUnsupported_typespec();
+                            auto lr298 = effCastSyn->as<syntax::CastExpressionSyntax>()
+                                             .left->sourceRange();
+                            uts298->VpiName(std::string(rawText(lr298)));
+                            setLoc(uts298, lr298);
+                            cts = uts298;
+                            tr298(nestCls298v ? "castClsTpNestedClsPlaceholder298v"
+                                              : "castClsTpOutOfBodyPlaceholder298",
+                                  std::string(tp298->name));
+                        }
+                        else if (kind298 && r11u298On("R11U298_CLSTPOBJ_OFF")) {
+                            if (oob298)
+                                tr298("castClsTpOutOfBodyPlaceholder298_OFF",
+                                      std::string(tp298->name));
+                            cts = own298;
+                            tpShared121 = true;
+                            tr298("castClsTpOwnDefaultObj298", std::string(tp298->name));
+                        }
+                        else if (kind298)
+                            tr298("castClsTpOwnDefaultObj298_OFF", std::string(tp298->name));
+                        else if (!intKind298)
+                            tr298("castClsTpOwnDefaultObj298_ABSTAIN",
+                                  std::string(tp298->name) + (own298 ? " kind" : " noobj"));
+                    }
+                }
                 // A package-scope TYPE cast's target typespec carries
                 // vpiInstance = the package, exactly like the size-cast
                 // integer_typespec above (ParamCast def-view int'(...)):
                 // typespec::Compare chases Instance(), so a missing stamp
                 // reports as `failLhs=package failRhs=<null>`.
-                if (pkgScopeInst)
+                if (tpShared121) {
+                    // § castClsTpOwnDefaultObj298: the shared own object keeps its stamps.
+                }
+                else if (pkgScopeInst)
                     cts->Instance(pkgScopeInst);
                 else if (importedInitPkgInst)
                     cts->Instance(importedInitPkgInst);

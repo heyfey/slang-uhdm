@@ -90,7 +90,7 @@ r10earl30repro/g4_ctrl,EQUAL,,equal
 r10earl31repro/e1_psbound,EQUAL,,equal
 r10earl31repro/e4_ctrl,EQUAL,,equal
 r10earl31repro/v3_tern,EQUAL,,equal
-r10earl31repro/v4_ops,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
+r10earl31repro/v4_ops,EQUAL,,equal
 r10earl31repro/v5_hier,EQUAL,,equal
 r10earl34repro/v1_view,EQUAL,,equal
 r10earl38repro/a1_chain,EQUAL,,equal

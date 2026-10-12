@@ -1,0 +1,9 @@
+MOVER r11u292repro/cases/CT/ct05_tp_kinds d rc=0 cmp=126 NOT_EQUAL stage1 -> rc=0 cmp=126 NOT_EQUAL stage1
+MOVER r11u292repro/cases/CT/ct05_tp_kinds e rc=0 cmp=126 NOT_EQUAL stage1 -> rc=0 cmp=126 NOT_EQUAL stage1
+MOVER v11u292repro/cases/VC/vc03_tp_more d rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER v11u292repro/cases/VC/vc03_tp_more e rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER v11u292repro/cases/VC/vc06_tp_nested_cls d rc=0 cmp=0 STRICT_NOTEQUAL line -> rc=0 cmp=0 STRICT_EQUAL 78 objects
+MOVER v11u292repro/cases/VC/vc06_tp_nested_cls e rc=0 cmp=0 STRICT_NOTEQUAL line -> rc=0 cmp=0 STRICT_EQUAL 78 objects
+MOVER v11u294repro/cases/VM/vm13_nested d rc=0 cmp=62 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 124 objects
+MOVER v11u294repro/cases/VM/vm13_nested e rc=0 cmp=62 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 123 objects
+case-views=2564 moving=8 entering=4 leaving=0 rc-changed=0 cmplines-changed=2

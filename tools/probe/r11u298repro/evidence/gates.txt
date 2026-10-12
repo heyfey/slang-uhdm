@@ -1,0 +1,45 @@
+## pristine sweep (/tmp/r11u298_bin/pristine md5 f084a2ac85ffae8db05ce180440a60ed)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=3971 STRICT_NOTEQUAL=116
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+
+## law sweep (/tmp/r11u298_bin/law md5 40dd231d0aaafb50a19ac7e91165026a)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=3972 STRICT_NOTEQUAL=115
+CONVERSION r10earl31repro/v4_ops STRICT_NOTEQUAL differ:endcol(4) -> EQUAL
+regressions=0 conversions=1 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+rc=1
+
+## byteverify corpus (fence-filtered mirrors)
+mirrored=2560 fenced_skipped=8 (each sweep)
+PATH_SETS_IDENTICAL (2560 paths); MOVERS: 0 / 2560; SELFCHECK 2559 / 2560 flagged
+## probe databases: 4087 compared, 1 mover: r10earl31repro__v4_ops.uhdm (predicted)
+## downstream slang-lane databases: 805 compared, 0 movers
+## canaries: surelog ok=52 changed=0; uhdm2rtlil ok=16 changed=0; ctcan2 surelog PASS (EXPECT_UNKNOWN=1); ctcan2 uhdm2rtlil PASS (EXPECT_UNKNOWN=6)
+## binary-path audit
+swP surelog own=1523 other=0 noslang=50 fenced_skipped=8; swP uhdm2rtlil own=1742 other=0
+swL surelog own=1523 other=0 noslang=50 fenced_skipped=8; swL uhdm2rtlil own=1742 other=0

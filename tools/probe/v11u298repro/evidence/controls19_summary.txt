@@ -1,0 +1,9 @@
+MOVER r11u292repro/cases/CT/ct05_tp_kinds d: law | rc=0 cmp=126 NOT_EQUAL stage1 -> rc=0 cmp=126 NOT_EQUAL stage1
+MOVER r11u292repro/cases/CT/ct05_tp_kinds e: law | rc=0 cmp=126 NOT_EQUAL stage1 -> rc=0 cmp=126 NOT_EQUAL stage1
+MOVER v11u292repro/cases/VC/vc03_tp_more d: law | rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER v11u292repro/cases/VC/vc03_tp_more e: law | rc=0 cmp=50 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER v11u292repro/cases/VC/vc06_tp_nested_cls d: law | rc=0 cmp=0 STRICT_NOTEQUAL line -> rc=0 cmp=0 STRICT_EQUAL 78 objects
+MOVER v11u292repro/cases/VC/vc06_tp_nested_cls e: law | rc=0 cmp=0 STRICT_NOTEQUAL line -> rc=0 cmp=0 STRICT_EQUAL 78 objects
+MOVER v11u294repro/cases/VM/vm13_nested d: law | rc=0 cmp=62 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 124 objects
+MOVER v11u294repro/cases/VM/vm13_nested e: law | rc=0 cmp=62 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 123 objects
+case-views 2564 {'law_movers': 8, 'fix_movers': 8, 'law_enter': 4, 'fix_enter': 4}
