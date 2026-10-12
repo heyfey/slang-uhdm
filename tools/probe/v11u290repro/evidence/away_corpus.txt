@@ -1,0 +1,10 @@
+4 dist 0 -> 0 lost=0 gained=0
+surelog_default_LogicTypespec-e2471612 dist 2 -> 0 lost=0 gained=5
+surelog_default_Scr1SvTests-fa4609ad dist 117 -> 0 lost=0 gained=78
+surelog_testflags_LogicTypespec-e2471612 dist 2 -> 0 lost=0 gained=5
+surelog_testflags_Scr1SvTests-fa4609ad dist 117 -> 0 lost=0 gained=78
+POSITIVE 4 dist 0 -> 0 lost=0 gained=0
+POSITIVE surelog_default_LogicTypespec-e2471612 dist 0 -> 2 lost=5 gained=0
+POSITIVE surelog_default_Scr1SvTests-fa4609ad dist 0 -> 117 lost=78 gained=0
+POSITIVE surelog_testflags_LogicTypespec-e2471612 dist 0 -> 2 lost=5 gained=0
+POSITIVE surelog_testflags_Scr1SvTests-fa4609ad dist 0 -> 117 lost=78 gained=0

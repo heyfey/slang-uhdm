@@ -1,0 +1,12 @@
+# v11u290 fix predictor, frozen 2026-10-12T00:33:45Z before the fix sweep's surelog stage
+# fix1 census (tracecensus.sh on /tmp/v11u290_bin/fix1, fence-filtered): the ten law tags exactly as r11u290's predict.txt, no misevalShareOperandOnly290v and no ovCloneChainSiblingOperand290v line anywhere
+# pkgTdPackedWriterKindOrder290v fires only on a SECOND pkgTdPackedDimsDefNetShares290 firing on the same typedef; the census reads at most one per row-mode (LogicTypespec d/t:1)
+PREDICTED law->fix movers: 0 corpus, 0 probe, 0 downstream
+surelog LogicTypespec/default pkgTdPackedDimsDefNetShares290:1
+surelog LogicTypespec/testflags pkgTdPackedDimsDefNetShares290:1
+surelog Scr1SvTests/default caUnitEnumUnresolvedShares290:1 elabCaBaseSelRefIdxAtElem290:28 elabConnPsBoundRefChain290:2 elabMisevalCompositeShares290:5 elabMisevalSpliceDeclTs290:26 elabMisevalSpliceRefChain290:24 elabOvMisevalCloneChain290:4 elabOvMisevalRestampFile290:1 elabOvSpliceTopCopy290:8
+surelog Scr1SvTests/testflags caUnitEnumUnresolvedShares290:1 elabCaBaseSelRefIdxAtElem290:28 elabConnPsBoundRefChain290:2 elabMisevalCompositeShares290:5 elabMisevalSpliceDeclTs290:26 elabMisevalSpliceRefChain290:24 elabOvMisevalCloneChain290:4 elabOvMisevalRestampFile290:1 elabOvSpliceTopCopy290:8
+
+# FINAL fix binary bb617459 (frozen 2026-10-12T00:52:12Z, before its sweep): adds § spliceChainSwitchOwnOnly290v, a switch-semantics change whose default path is unchanged; PREDICTED law->fix movers: 0 corpus, 0 probe, 0 downstream
+
+# FINAL fix binary 2aeed421 (frozen 2026-10-12T01:19:40Z, before its sweep): its own census (drivers/tracecensus.sh on the final binary, fence-filtered) is byte-identical to r11u290's predict.txt with no refinement tag firing anywhere; PREDICTED law->fix movers: 0 corpus, 0 probe, 0 downstream

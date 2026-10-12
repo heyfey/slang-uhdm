@@ -1,0 +1,16 @@
+pristine E/e01_ca_bare_logic {'name': 'e01_ca_bare_logic', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine E/e02_ca_bare_enum_port {'name': 'e02_ca_bare_enum_port', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine E/e12_two_inst {'name': 'e12_two_inst', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine H/h01_unary {'name': 'h01_unary', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine H/h05_shift_partsel {'name': 'h05_shift_partsel', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine T/t01_two_dims {'name': 't01_two_dims', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine T/t20_used {'name': 't20_used', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine M/m03_tcm {'name': 'm03_tcm', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law8 E/e01_ca_bare_logic {'name': 'e01_ca_bare_logic', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law8 E/e02_ca_bare_enum_port {'name': 'e02_ca_bare_enum_port', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law8 E/e12_two_inst {'name': 'e12_two_inst', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law8 H/h01_unary {'name': 'h01_unary', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law8 H/h05_shift_partsel {'name': 'h05_shift_partsel', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law8 T/t01_two_dims {'name': 't01_two_dims', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law8 T/t20_used {'name': 't20_used', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law8 M/m03_tcm {'name': 'm03_tcm', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}

@@ -1,0 +1,20 @@
+== canaries surelog
+NOTE: 7 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+== canaries uhdm2rtlil
+NOTE: 25 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+== ctcan2 surelog
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+== ctcan2 u2r
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+== canaries surelog
+  Scr1SvTests                    default   CHANGED STRICT_NOTEQUAL/differ:type(1) -> CMP_EQUAL/equal
+  Scr1SvTests                    testflags CHANGED STRICT_NOTEQUAL/differ:type(1) -> CMP_EQUAL/equal
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+== canaries uhdm2rtlil
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25

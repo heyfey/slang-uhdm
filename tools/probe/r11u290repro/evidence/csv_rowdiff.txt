@@ -1,0 +1,16 @@
+== surelog: rows differing pristine vs law sweep csv
+< LogicTypespec,default,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
+< LogicTypespec,testflags,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
+> LogicTypespec,default,CMP_EQUAL,,,equal
+> LogicTypespec,testflags,CMP_EQUAL,,,equal
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u290_wdP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u290_wdL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u290_wdP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u290_wdL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+< Scr1SvTests,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+< Scr1SvTests,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+> Scr1SvTests,default,CMP_EQUAL,,,equal
+> Scr1SvTests,testflags,CMP_EQUAL,,,equal
+== uhdm2rtlil: rows differing pristine vs law sweep csv
+== probe: rows differing pristine vs law sweep csv
+== downstream: rows differing pristine vs law sweep csv

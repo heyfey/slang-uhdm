@@ -1,0 +1,36 @@
+law8 Earlgrey_0_1/default       3 3f77d6f16c61 
+law8 MiniAmiq/default       3 6274d155ae91 
+law8 SeqDriver/default       3 0140024e994f 
+law8 SimpleUVM/default       3 57a5aaad5589 
+law8 Scoreboard/default       3 e60363ba3f2d 
+law8 BuildUVMPkg/default       3 00b6402714d5 
+law8 Rggen/default       3 1a450c2e7808 
+law8 Scr1SvTests/default       3 2bc9de12fa94 
+law8 LogicTypespec/default       3 b26b3344ceb7 
+law8 Earlgrey_0_1/testflags       3 891990462621 
+law8 MiniAmiq/testflags       3 6274d155ae91 
+law8 SeqDriver/testflags       3 dcc2c63e2e29 
+law8 SimpleUVM/testflags       3 f0c85a0be92c 
+law8 Scoreboard/testflags 
+law8 BuildUVMPkg/testflags       3 00b6402714d5 
+law8 Rggen/testflags 
+law8 Scr1SvTests/testflags       3 b006aa6569f6 
+law8 LogicTypespec/testflags       3 35c8b706df14 
+sweep Earlgrey_0_1/default 3f77d6f16c61
+sweep MiniAmiq/default 6274d155ae91
+sweep SeqDriver/default 0140024e994f
+sweep SimpleUVM/default 57a5aaad5589
+sweep Scoreboard/default e60363ba3f2d
+sweep BuildUVMPkg/default 00b6402714d5
+sweep Rggen/default 1a450c2e7808
+sweep Scr1SvTests/default 2bc9de12fa94
+sweep LogicTypespec/default b26b3344ceb7
+sweep Earlgrey_0_1/testflags 891990462621
+sweep MiniAmiq/testflags 6274d155ae91
+sweep SeqDriver/testflags dcc2c63e2e29
+sweep SimpleUVM/testflags f0c85a0be92c
+sweep Scoreboard/testflags 
+sweep BuildUVMPkg/testflags 00b6402714d5
+sweep Rggen/testflags 
+sweep Scr1SvTests/testflags b006aa6569f6
+sweep LogicTypespec/testflags 35c8b706df14

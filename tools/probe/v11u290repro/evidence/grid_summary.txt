@@ -1,0 +1,53 @@
+== implementer grid (r11u290repro): case-views 142; pristine->fix moving 73, entering STRICT_EQUAL 47, leaving 0; R11U290_OFF==pristine 142/142; R11V290_OFF==law 142/142; exit-code changes 0
+   P->F restored to pristine by PKGTDPACKED: 32
+   P->F restored to pristine by BASEIDXELEM: 20
+   P->F restored to pristine by UNITENUMSHARE: 18
+   P->F restored to pristine by the miseval family together: 2
+   P->F restored to pristine by MISEVALSHARE: 1
+   law->fix moving 0, entering STRICT_EQUAL 0
+  L->F V/VC/vc05_m03_one_port STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_346_objects ['OVSIBOP']
+  L->F V/VC/vc05_m03_one_port_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_344_objects ['OVSIBOP']
+  L->F V/VC/vc06_m03_two_tcm NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 ['OVSIBOP']
+  L->F V/VC/vc06_m03_two_tcm_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 ['OVSIBOP']
+  L->F V/VC/vc07_m03_plain_bound NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 []
+  L->F V/VC/vc07_m03_plain_bound_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 ['OVSIBOP']
+  L->F V/VC/vc10_m03_noport_bound STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_319_objects ['OVSIBOP']
+  L->F V/VC/vc10_m03_noport_bound_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_317_objects ['OVSIBOP']
+  L->F V/VC/vc11_sibling_other STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_374_objects ['OVSIBOP']
+  L->F V/VC/vc11_sibling_other_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_372_objects ['OVSIBOP']
+  L->F V/VC/vc13_body_range STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_386_objects []
+  L->F V/VC/vc13_body_range_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_374_objects []
+  L->F V/VC/vc14_sibling_bare NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 []
+  L->F V/VC/vc14_sibling_bare_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 ['OVSIBOP']
+  L->F V/VC/vc16_sibling_clog2 STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_file []
+  L->F V/VC/vc16_sibling_clog2_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_file ['OVSIBOP']
+  L->F V/VC/vc17_clog2_sib_used STRICT_NOTEQUAL_file -> STRICT_NOTEQUAL_file []
+  L->F V/VC/vc17_clog2_sib_used_el STRICT_NOTEQUAL_file -> STRICT_NOTEQUAL_file ['OVSIBOP']
+  L->F V/VC/vc19_two_sibs STRICT_NOTEQUAL_file -> STRICT_NOTEQUAL_file ['SHAREOPND']
+  L->F V/VC/vc20_body_clog2 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_383_objects ['OVSIBOP']
+  L->F V/VC/vc20_body_clog2_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_372_objects ['OVSIBOP']
+  L->F V/VC/vc21_port_plain_op STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname []
+  L->F V/VC/vc21_port_plain_op_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname []
+  L->F V/VC/vc22_body_only STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_356_objects ['OVSIBOP']
+  L->F V/VC/vc22_body_only_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_345_objects ['OVSIBOP']
+  L->F V/VT/vt05_iface_and_mod NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 ['WRITERKIND']
+  L->F V/VT/vt05_iface_and_mod_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 ['WRITERKIND']
+  L->F V/VT/vt09_program STRICT_NOTEQUAL_endline -> STRICT_EQUAL_55_objects ['WRITERKIND']
+  L->F V/VT/vt09_program_el STRICT_NOTEQUAL_endline -> STRICT_EQUAL_55_objects ['WRITERKIND']
+  L->F V/VT/vt21_mod_before_iface NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 ['WRITERKIND']
+  L->F V/VT/vt21_mod_before_iface_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 ['WRITERKIND']
+  L->F V/VT/vt22_prog_and_iface NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 ['WRITERKIND']
+  L->F V/VT/vt22_prog_and_iface_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 ['WRITERKIND']
+== verifier grid (v11u290repro): case-views 146; pristine->fix moving 129, entering STRICT_EQUAL 71, leaving 0; R11U290_OFF==pristine 146/146; R11V290_OFF==law 146/146; exit-code changes 0
+   P->F restored to pristine by PKGTDPACKED: 46
+   P->F restored to pristine by the miseval family together: 34
+   P->F restored to pristine by UNITENUMSHARE: 18
+   P->F restored to pristine by BASEIDXELEM: 18
+   P->F restored to pristine by CONNBOUNDCHAIN: 6
+   P->F restored to pristine by MISEVALSHARE: 5
+   P->F restored to pristine by OVFILE: 2
+   law->fix moving 33, entering STRICT_EQUAL 14
+   L->F restored to law by OVSIBOP: 16
+   L->F restored to law by two refinements together: 8
+   L->F restored to law by WRITERKIND: 8
+   L->F restored to law by SHAREOPND: 1

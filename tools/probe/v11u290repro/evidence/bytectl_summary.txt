@@ -1,0 +1,7 @@
+case dirs 3092, case-views 6184, pristine->law movers 6, law->fix movers 0, exit-code differences 0
+P->L r11v120repro/grid/T/t08_elem_sel_row_two_levels d
+P->L r11v120repro/grid/T/t08_elem_sel_row_two_levels e
+P->L r11u39repro/a2 d
+P->L r11u39repro/a2 e
+P->L r11u133repro/tix/t14 d
+P->L r11u133repro/tix/t14 e

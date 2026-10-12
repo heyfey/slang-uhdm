@@ -1,0 +1,12 @@
+// § elabMisevalCompositeShares290
+parameter P_LOCAL = 1'b1;
+`include "hdr.svh"
+module top(output logic o);
+localparam OP_LO = 5'd0;
+localparam OP_HI = OP_LO + P_OPW - 1;
+localparam D_LO  = OP_HI + 1;
+localparam X_LO  = OP_HI + 2;
+localparam D_HI  = D_LO + P_DW - 1;
+assign o = 1'b0;
+first_claim u();
+endmodule

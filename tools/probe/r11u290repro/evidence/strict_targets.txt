@@ -1,0 +1,4 @@
+surelog/default/LogicTypespec-e2471612 strict: STRICT_EQUAL 122 objects uhdm-cmp lines: 0
+surelog/default/Scr1SvTests-fa4609ad strict: STRICT_EQUAL 84098 objects uhdm-cmp lines: 0
+surelog/testflags/LogicTypespec-e2471612 strict: STRICT_EQUAL 32 objects uhdm-cmp lines: 0
+surelog/testflags/Scr1SvTests-fa4609ad strict: STRICT_EQUAL 83997 objects uhdm-cmp lines: 0

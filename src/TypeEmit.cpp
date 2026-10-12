@@ -14,6 +14,7 @@
 #include "EmitHelpers.h"
 #include "slang/syntax/SyntaxTree.h"
 
+#include "R290.h"
 #include "R223.h"
 #include "R225.h"
 #include "R228.h"
@@ -37,6 +38,244 @@
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
+// § elabMisevalSpliceRefChain290 (r11u290, Scr1SvTests d/t scr1_pipe_tdu
+// `logic [MTRIG_NUM-1:0] csr_addr_mcontrol`) — a reference inside a tree
+// § elabVarRangeMisevalSubst splices into an elaborated var/net range stores
+// no full name in golden (the reducer's substitution builds it fresh), so the
+// reader synthesises it from the parent chain, through the variable:
+// `work@...i_pipe_tdu.csr_addr_mcontrol.SCR1_TDU_MTRIG_NUM`; ours left it
+// bare.  Collected at the splice, named design-final (UHDM's
+// ComputeFullName replicated) where the stored name is empty or the bare name.  Grid
+// tools/probe/r11u290repro/cases/M.  Switch R11U290_SPLICECHAIN_OFF.
+// § elabOvMisevalCloneChain290 (r11u290, Scr1SvTests d/t i_dp_memory's
+// SCR1_SIZE) rides the same drain with `force`: a COPY of the override
+// actual's tree (the elaborated param_assign Rhs one instance down, and the
+// copy a sibling's splice nests) carries the names cloneUnitParamRhs copied
+// from i_tcm's tree, where golden's clone stores none, so the reader names
+// its references and ref_typespecs through the copy's own chain
+// (`...i_tcm.i_dp_memory.SCR1_TCM_ADDR_MASK`, `...i_dp_memory.ram_block`).
+static std::vector<std::pair<UHDM::any*, int>>& misevalSplice290() {
+    static std::vector<std::pair<UHDM::any*, int>> v;
+    return v;
+}
+void noteMisevalSplice290(UHDM::any* e, int force) {
+    if (e)
+        misevalSplice290().push_back({e, force});
+}
+// § elabOvSpliceTopCopy290 — (copy, source): after the source is named,
+// every reference and ref_typespec of the copy takes its twin's name (the
+// two trees walked in the same order).
+static std::vector<std::pair<UHDM::any*, const UHDM::any*>>& misevalCopyNames290() {
+    static std::vector<std::pair<UHDM::any*, const UHDM::any*>> v;
+    return v;
+}
+void noteMisevalCopyNames290(UHDM::any* c, const UHDM::any* src) {
+    if (c && src)
+        misevalCopyNames290().push_back({c, src});
+}
+static std::string chainFullName290(const UHDM::BaseClass* o) {
+    if (o->UhdmType() == UHDM::uhdmmodule_inst && o->VpiParent() &&
+        o->VpiParent()->UhdmType() == UHDM::uhdmmodule_inst)
+        return std::string(o->VpiDefName());
+    std::vector<std::string_view> names;
+    const UHDM::BaseClass* parent = o;
+    const UHDM::BaseClass* child = nullptr;
+    bool column = false;
+    while (parent) {
+        const UHDM::BaseClass* ap = parent->VpiParent();
+        auto pt = parent->UhdmType();
+        auto apt = ap ? ap->UhdmType() : UHDM::uhdmunsupported_stmt;
+        if (pt == UHDM::uhdmdesign)
+            break;
+        if (pt == UHDM::uhdmpackage || pt == UHDM::uhdmclass_defn)
+            column = true;
+        std::string_view name =
+            parent->VpiName().empty() ? parent->VpiDefName() : parent->VpiName();
+        bool skip = apt == UHDM::uhdmref_obj ||
+                    pt == UHDM::uhdmmethod_func_call ||
+                    pt == UHDM::uhdmmethod_task_call ||
+                    pt == UHDM::uhdmfunc_call || pt == UHDM::uhdmtask_call ||
+                    pt == UHDM::uhdmsys_func_call || pt == UHDM::uhdmsys_task_call;
+        if (child) {
+            auto ct = child->UhdmType();
+            if (ct == UHDM::uhdmbit_select && pt == UHDM::uhdmport)
+                skip = true;
+            if (ct == UHDM::uhdmref_obj &&
+                (pt == UHDM::uhdmbit_select || pt == UHDM::uhdmindexed_part_select ||
+                 pt == UHDM::uhdmhier_path))
+                skip = true;
+        }
+        if (!name.empty() && !skip)
+            names.emplace_back(name);
+        child = parent;
+        parent = ap;
+    }
+    std::string full;
+    for (size_t i = names.size(); i-- > 0;) {
+        full += names[i];
+        if (i > 0)
+            full += column ? "::" : ".";
+    }
+    return full;
+}
+void drainMisevalSpliceChain290() {
+    auto& v = misevalSplice290();
+    // § spliceChainSwitchOwnOnly290v (v11u290) — R11U290_SPLICECHAIN_OFF drops
+    // § elabMisevalSpliceRefChain290's own entries (force 0) only: the early
+    // return it took here also dropped § elabOvMisevalCloneChain290 (force 1),
+    // § elabConnPsBoundRefChain290 (force 2) and the § elabOvSpliceTopCopy290
+    // twin naming, so law 9 was not droppable alone (grid
+    // tools/probe/v11u290repro/cases/VC vc01, vc03, vc04: SPLICECHAIN_OFF and
+    // CONNBOUNDCHAIN_OFF each restored pristine's bytes).  With no switch set
+    // the drain is unchanged.  Switch semantics only: R11V290_SPLICESW_OFF
+    // restores the law's coupling.
+    const bool spliceOwn290 = r11u290On("R11U290_SPLICECHAIN_OFF");
+    if (!spliceOwn290 && !r11v290On("R11V290_SPLICESW_OFF")) {
+        if (!v.empty())
+            tr290("elabMisevalSpliceRefChain290", "OFF " + std::to_string(v.size()));
+        v.clear();
+        return;
+    }
+    const bool ovChain290 = r11u290On("R11U290_OVCLONECHAIN_OFF");
+    const bool connChain290 = r11u290On("R11U290_CONNBOUNDCHAIN_OFF");
+    int force = 0;
+    // § ovCloneChainSiblingOperand290v (v11u290): force 3 computes the chain
+    // names WITHOUT storing them; the § elabOvSpliceTopCopy290 twins read
+    // them below, the copy itself keeps its cloned names.
+    std::map<const UHDM::BaseClass*, std::string> pend290v;
+    auto nameTs = [&](UHDM::expr* x) {
+        if ((force != 1 && force != 3) || !x || !x->Typespec())
+            return;
+        auto* rt = (UHDM::ref_typespec*)x->Typespec();
+        if (rt->VpiParent() != x)
+            return;
+        std::string want = chainFullName290(rt);
+        if (force == 3) {
+            if (!want.empty())
+                pend290v[rt] = want;
+            return;
+        }
+        if (!want.empty() && rt->VpiFullName() != want) {
+            rt->VpiFullName(want);
+            tr290("elabOvMisevalCloneChain290", "ts " + want);
+        }
+    };
+    std::function<void(UHDM::any*, int)> walk = [&](UHDM::any* e, int d) {
+        if (!e || d > 16)
+            return;
+        switch (e->UhdmType()) {
+        case UHDM::uhdmref_obj: {
+            auto* r = (UHDM::ref_obj*)e;
+            // (a stored name equal to the bare name is the no-full-name
+            // idiom: the writer had no scope to give it)
+            if (!r->VpiName().empty() &&
+                (force || r->VpiFullName().empty() ||
+                 r->VpiFullName() == r->VpiName())) {
+                std::string want = chainFullName290(r);
+                if (force == 3) {
+                    if (!want.empty())
+                        pend290v[r] = want;
+                    return;
+                }
+                if (!want.empty() && want != r->VpiFullName()) {
+                    r->VpiFullName(want);
+                    tr290(force == 1   ? "elabOvMisevalCloneChain290"
+                          : force == 2 ? "elabConnPsBoundRefChain290"
+                                       : "elabMisevalSpliceRefChain290",
+                          want);
+                }
+            }
+            return;
+        }
+        case UHDM::uhdmoperation:
+            nameTs((UHDM::expr*)e);
+            if (auto* os = ((UHDM::operation*)e)->Operands())
+                for (auto* o : *os)
+                    if (o && o->VpiParent() == e)
+                        walk(o, d + 1);
+            return;
+        case UHDM::uhdmfunc_call:
+        case UHDM::uhdmsys_func_call:
+            nameTs((UHDM::expr*)e);
+            if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
+                for (auto* a : *as)
+                    if (a && a->VpiParent() == e)
+                        walk(a, d + 1);
+            return;
+        default:
+            return;
+        }
+    };
+    for (auto& [e, f] : v) {
+        force = f;
+        if (f == 0 && !spliceOwn290) {
+            tr290("elabMisevalSpliceRefChain290", "OFF");
+            continue;
+        }
+        if ((f == 1 || f == 3) && !ovChain290) {
+            tr290("elabOvMisevalCloneChain290", "OFF");
+            continue;
+        }
+        if (f == 2 && !connChain290) {
+            tr290("elabConnPsBoundRefChain290", "OFF");
+            continue;
+        }
+        walk(e, 0);
+    }
+    v.clear();
+    // § elabOvSpliceTopCopy290 — the copies take their source's names.
+    std::function<void(UHDM::any*, const UHDM::any*, int)> twin =
+        [&](UHDM::any* c, const UHDM::any* o, int d) {
+            if (!c || !o || d > 16 || c->UhdmType() != o->UhdmType())
+                return;
+            auto nm290v = [&](const auto* x) -> std::string {
+                auto it = pend290v.find((const UHDM::BaseClass*)x);
+                return it != pend290v.end() ? it->second
+                                            : std::string(x->VpiFullName());
+            };
+            auto tsName = [&](UHDM::expr* cx, const UHDM::expr* ox) {
+                if (cx->Typespec() && ox->Typespec() &&
+                    cx->Typespec()->VpiFullName() != nm290v(ox->Typespec()))
+                    ((UHDM::ref_typespec*)cx->Typespec())
+                        ->VpiFullName(nm290v(ox->Typespec()));
+            };
+            switch (c->UhdmType()) {
+            case UHDM::uhdmref_obj:
+                if (((UHDM::ref_obj*)c)->VpiFullName() !=
+                    nm290v((const UHDM::ref_obj*)o))
+                    ((UHDM::ref_obj*)c)->VpiFullName(
+                        nm290v((const UHDM::ref_obj*)o));
+                tsName((UHDM::expr*)c, (const UHDM::expr*)o);
+                return;
+            case UHDM::uhdmoperation: {
+                tsName((UHDM::expr*)c, (const UHDM::expr*)o);
+                auto* co = ((UHDM::operation*)c)->Operands();
+                auto* oo = ((const UHDM::operation*)o)->Operands();
+                if (co && oo && co->size() == oo->size())
+                    for (size_t i = 0; i < co->size(); ++i)
+                        twin((*co)[i], (*oo)[i], d + 1);
+                return;
+            }
+            case UHDM::uhdmfunc_call:
+            case UHDM::uhdmsys_func_call: {
+                tsName((UHDM::expr*)c, (const UHDM::expr*)o);
+                auto* ca = ((UHDM::tf_call*)c)->Tf_call_args();
+                auto* oa = ((const UHDM::tf_call*)o)->Tf_call_args();
+                if (ca && oa && ca->size() == oa->size())
+                    for (size_t i = 0; i < ca->size(); ++i)
+                        twin((*ca)[i], (*oa)[i], d + 1);
+                return;
+            }
+            default:
+                return;
+            }
+        };
+    for (auto& [c, o] : misevalCopyNames290()) {
+        twin(c, o, 0);
+        tr290("elabOvSpliceTopCopy290", "names");
+    }
+    misevalCopyNames290().clear();
+}
 
 // § kwDirectiveSvMode237v (defined beside buildStructTs).
 static bool r237vRootKwSv(const slang::SourceManager* sm, slang::SourceLocation loc);
@@ -21985,13 +22224,98 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     msym8 && msym8->kind == SymbolKind::Parameter)
                     if (auto oit8 = elabOvMisevalRhs.find(msym8);
                         oit8 != elabOvMisevalRhs.end() && oit8->second)
+                    {
+                        // § elabOvSpliceTopCopy290 (r11u290, Scr1SvTests d/t
+                        // scr1_dp_memory `logic [$clog2(SCR1_SIZE)-1:2]
+                        // addra`) — a bound that names the overridden
+                        // parameter ITSELF (not through a sibling's tree)
+                        // takes a copy re-stamped at the use site, FILE
+                        // included (golden scr1_dp_memory.sv 19:27-36),
+                        // whose references and ref_typespecs carry the
+                        // parameter's own elaborated names (golden
+                        // `...i_tcm.i_dp_memory.SCR1_TCM_ADDR_MASK`, the
+                        // param_assign copy's chain, not the bound's): the
+                        // copy is taken of the named tree.  Ours kept the
+                        // copy at the actual's span with i_tcm's names.  A
+                        // copy NESTED in a sibling's splice keeps its span
+                        // (the RAM_SIZE_WORDS level above it is re-stamped)
+                        // and is named through its own chain
+                        // (§ elabOvMisevalCloneChain290).  Switch
+                        // R11U290_OVSPLICETOP_OFF.
+                        const UHDM::any* src290 = (const UHDM::any*)oit8->second;
+                        if (misevalSpliceDepth290() == 0 &&
+                            src290->UhdmType() == UHDM::uhdmoperation) {
+                            if (r11u290On("R11U290_OVSPLICETOP_OFF")) {
+                                if (auto* cp290 = cloneUnitParamRhs(
+                                        (const UHDM::expr*)src290, parent)) {
+                                    setLoc(cp290, syn.sourceRange());
+                                    cp290->VpiFile(fullFilePath(syn.sourceRange().start()));
+                                    // ...and the copy hangs where its source
+                                    // hangs (clone_tree's parent argument):
+                                    // golden's references under it read the
+                                    // source's chain, outside the bound's
+                                    // typespec.
+                                    // § ovSpliceTopOperandStaysHome290v
+                                    // (v11u290) — only a CALL argument's
+                                    // copy hangs at its source and takes its
+                                    // names ($clog2(SIZE)-1, Scr1's addra;
+                                    // grid tools/probe/v11u290repro/cases/VC
+                                    // vc20, vc22).  When the bound reads the
+                                    // parameter as an operand of an operator
+                                    // (SIZE/16384-1, vc13 on a body net, vc21
+                                    // on a port) golden keeps the copy in the
+                                    // bound, inside the typespec, as pristine
+                                    // did, named through that chain; the
+                                    // re-stamp (file included) stays.
+                                    // Switch R11V290_SPLICEOPND_OFF.
+                                    bool opnd290v = false;
+                                    for (const syntax::SyntaxNode* q290v = syn.parent;
+                                         q290v; q290v = q290v->parent) {
+                                        if (q290v->kind ==
+                                            syntax::SyntaxKind::ParenthesizedExpression)
+                                            continue;
+                                        opnd290v =
+                                            syntax::BinaryExpressionSyntax::isKind(q290v->kind) ||
+                                            syntax::PrefixUnaryExpressionSyntax::isKind(q290v->kind);
+                                        break;
+                                    }
+                                    if (opnd290v) {
+                                        if (r11v290On("R11V290_SPLICEOPND_OFF")) {
+                                            // ...its references stored no
+                                            // name: the reader names them
+                                            // through the bound's own chain
+                                            // (`...i_dp.x.P_MASK`).
+                                            noteMisevalSplice290(cp290, 1);
+                                            tr290("ovSpliceTopOperandStaysHome290v",
+                                                  std::string(name));
+                                            return cp290;
+                                        }
+                                        tr290("ovSpliceTopOperandStaysHome290v",
+                                              "OFF " + std::string(name));
+                                    }
+                                    if (src290->VpiParent())
+                                        cp290->VpiParent(
+                                            const_cast<UHDM::BaseClass*>(src290->VpiParent()));
+                                    noteMisevalCopyNames290(cp290, src290);
+                                    tr290("elabOvSpliceTopCopy290", std::string(name));
+                                    return cp290;
+                                }
+                            }
+                            else
+                                tr290("elabOvSpliceTopCopy290", "OFF " + std::string(name));
+                        }
                         if (auto* cl8 = cloneUnitParamRhs(
                                 (const UHDM::expr*)oit8->second, parent)) {
                             if (cl8->UhdmType() == UHDM::uhdmconstant ||
                                 cl8->UhdmType() == UHDM::uhdmref_obj)
                                 setLoc(cl8, syn.sourceRange());
+                            // § elabOvMisevalCloneChain290 — the nested copy.
+                            if (misevalSpliceDepth290() > 0 &&
+                                cl8->UhdmType() == UHDM::uhdmoperation)
+                                noteMisevalSplice290(cl8, 1);
                             return cl8;
                         }
+                    }
                 if (auto* msym9 = misevalSubstScope->lookupName(name);
                     msym9 && msym9->kind == SymbolKind::Parameter &&
                     elabMisevalParams.count(msym9))
@@ -22006,13 +22330,57 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             // where a directly-written one binds.
                             noUnitParamActual = true;
                             misevalSubstScope = msym9->getParentScope();
+                            ++misevalSpliceDepth290();
                             auto* sub9 = emitSyntaxExpr(*iv9->expr, parent);
+                            --misevalSpliceDepth290();
                             misevalSubstScope = saveSc9;
                             noUnitParamActual = saveNUA9;
                             if (sub9) {
                                 setLoc((UHDM::expr*)sub9, syn.sourceRange());
+                                // § elabMisevalSpliceRefChain290 — the
+                                // spliced references are named design-final
+                                // from their chain (see the drain).
+                                noteMisevalSplice290((UHDM::any*)sub9);
                                 auto& mps9 = msym9->as<ParameterSymbol>();
                                 auto& mct9 = mps9.getType().getCanonicalType();
+                                // § elabMisevalSpliceDeclTs290 (r11u290,
+                                // Scr1SvTests d/t scr1_pipe_tdu `logic
+                                // [ALLTRIG_W-1:0] csr_tselect_ff`) — the
+                                // spliced node is typed by the substituted
+                                // parameter's OWN declaration typespec
+                                // object, the one its definition listing
+                                // holds (Surelog substitutes the value tree
+                                // whose ref_typespec reaches that object), so
+                                // a vpiExpr another law hung on it (the
+                                // paren-cast width mark `ALLTRIG_W'(...)`)
+                                // is listed under the splice too; ours minted
+                                // a fresh int_typespec at the same span.
+                                // Switch R11U290_SPLICEDECLTS_OFF.
+                                UHDM::typespec* decl290 = nullptr;
+                                if (mct9.kind == SymbolKind::PredefinedIntegerType)
+                                    if (auto* psc290 = msym9->getParentScope();
+                                        psc290 && psc290->asSymbol().kind ==
+                                                      SymbolKind::InstanceBody)
+                                        if (auto dit290 = defMap.find(
+                                                &psc290->asSymbol()
+                                                     .as<InstanceBodySymbol>()
+                                                     .getDefinition());
+                                            dit290 != defMap.end())
+                                            if (auto pit290 =
+                                                    dit290->second.paramTs.find(msym9);
+                                                pit290 != dit290->second.paramTs.end() &&
+                                                pit290->second &&
+                                                pit290->second->UhdmType() ==
+                                                    UHDM::uhdmint_typespec) {
+                                                if (r11u290On("R11U290_SPLICEDECLTS_OFF")) {
+                                                    decl290 = pit290->second;
+                                                    tr290("elabMisevalSpliceDeclTs290",
+                                                          std::string(msym9->name));
+                                                }
+                                                else
+                                                    tr290("elabMisevalSpliceDeclTs290",
+                                                          "OFF " + std::string(msym9->name));
+                                            }
                                 // The spliced node carries the SUBSTITUTED
                                 // parameter's own typespec, whatever shape the
                                 // init took: a bare ref (MTRIG_NUM) and a
@@ -22021,10 +22389,13 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                 if (mct9.kind ==
                                     SymbolKind::PredefinedIntegerType) {
                                     auto* se9 = (UHDM::expr*)sub9;
-                                    auto* its9 = s.MakeInt_typespec();
-                                    if (auto dt9 = mps9.getDeclaredType())
-                                        if (auto tsy9 = dt9->getTypeSyntax())
-                                            setLoc(its9, tsy9->sourceRange());
+                                    UHDM::typespec* its9 = decl290;
+                                    if (!its9) {
+                                        its9 = s.MakeInt_typespec();
+                                        if (auto dt9 = mps9.getDeclaredType())
+                                            if (auto tsy9 = dt9->getTypeSyntax())
+                                                setLoc(its9, tsy9->sourceRange());
+                                    }
                                     auto* rt9 = s.MakeRef_typespec();
                                     rt9->VpiParent(se9);
                                     rt9->VpiFullName(
@@ -22033,7 +22404,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                                   ((UHDM::ref_obj*)se9)
                                                       ->VpiFullName())
                                             : syntaxRefPrefix);
-                                    its9->VpiParent(rt9);
+                                    if (!decl290)
+                                        its9->VpiParent(rt9);
                                     rt9->Actual_typespec(its9);
                                     se9->Typespec(rt9);
                                 }

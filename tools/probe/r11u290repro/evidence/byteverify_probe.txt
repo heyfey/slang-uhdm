@@ -1,0 +1,2 @@
+probe databases compared=4087 movers=0
+SELFCHECK first 200 vs one fixed file: 199 flagged

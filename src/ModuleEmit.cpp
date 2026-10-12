@@ -55,6 +55,7 @@
 #include "R285.h"
 #include "R287.h"
 #include "R289.h"
+#include "R290.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -36630,6 +36631,156 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 }
             }
     }
+    // § pkgTdPackedDimsDefNetShares290 (r11u290, LogicTypespec d/t) — the
+    // PACKED-DIMENSION twin of § defNetScopedPkgVecTdShares134: a DEFINITION
+    // net typed by a package-scoped vector typedef WITH packed dimensions
+    // written after the name (`my_package::typedef_logic_typespec [1:0][7:0]
+    // my_instance;`) binds the package's own typedef object too.  Surelog's
+    // compileTypespec scoped-name arm (CompileType.cpp, paPackage_scope)
+    // returns the package DataType's typespec and wraps the written ranges
+    // in a packed_array_typespec only when that typespec is NOT a logic,
+    // bit or int typespec, so for a vector typedef the extra dimensions are
+    // dropped and the shared object is returned (a Surelog defect copied
+    // only because the strict axis reads it).  UhdmWriter::writeNets' end-
+    // only populate (`dimensions = getUnpackedDimension(); if (!dimensions)
+    // dimensions = getPackedDimension();`) then moves the END and FILE of
+    // that shared object to the first unpacked dimension, or else to the
+    // first PACKED dimension, the last net declared winning, in every
+    // listing of the elaborated package (LogicTypespec: the typedef
+    // 2:9-7:44, the end of `[1:0]`).  Ours minted a fresh unnamed
+    // logic_typespec over the whole declaration.  Grid
+    // tools/probe/r11u290repro/cases/T.  Switch: R11U290_PKGTDPACKED_OFF.
+    if (auto dt290 = pn.sym->getDeclaredType();
+        dt290 && pn.rt->VpiParent() &&
+        pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
+        r11u290On("R11U290_PKGTDPACKED_OFF")) {
+        const Type* t290 = &dt290->getType();
+        bool packed290 = false;
+        while (t290->kind == SymbolKind::PackedArrayType) {
+            t290 = &t290->as<PackedArrayType>().elementType;
+            packed290 = true;
+        }
+        auto tsyn290 = dt290->getTypeSyntax();
+        const syntax::ElementSelectSyntax* firstDim290 = nullptr;
+        bool scoped290 = false;
+        if (packed290 && tsyn290 && tsyn290->kind == syntax::SyntaxKind::NamedType) {
+            const syntax::NameSyntax* nm290 = tsyn290->as<syntax::NamedTypeSyntax>().name;
+            while (nm290 && nm290->kind == syntax::SyntaxKind::ScopedName) {
+                scoped290 = true;
+                nm290 = &*nm290->as<syntax::ScopedNameSyntax>().right;
+            }
+            if (scoped290 && nm290 &&
+                nm290->kind == syntax::SyntaxKind::IdentifierSelectName) {
+                auto& isn290 = nm290->as<syntax::IdentifierSelectNameSyntax>();
+                if (!isn290.selectors.empty())
+                    firstDim290 = isn290.selectors[0];
+            }
+        }
+        // A `var` declaration is a variable, not a net: writeNets never
+        // sees it (grid T/t03_var_kw read chain away 1 under a draft).
+        bool varKw290 = false;
+        if (firstDim290)
+            if (auto* vs290 = pn.sym->getSyntax())
+                for (const syntax::SyntaxNode* q290 = vs290->parent; q290;
+                     q290 = q290->parent)
+                    if (q290->kind == syntax::SyntaxKind::DataDeclaration) {
+                        for (auto tk290 :
+                             q290->as<syntax::DataDeclarationSyntax>().modifiers)
+                            if (tk290.kind == parsing::TokenKind::VarKeyword)
+                                varKw290 = true;
+                        break;
+                    }
+        if (varKw290) {
+            tr290("pkgTdPackedDimsDefNetShares290",
+                  "ABSTAIN " + std::string(pn.sym->name) + " var");
+            firstDim290 = nullptr;
+        }
+        if (firstDim290 && t290->kind == SymbolKind::TypeAlias)
+            if (auto sc290 = t290->as<TypeAliasType>().getParentScope();
+                sc290 && sc290->asSymbol().kind == SymbolKind::Package) {
+                UHDM::typespec* sh290 = nullptr;
+                if (auto i290 = pkgTopTypedefTs.find(t290);
+                    i290 != pkgTopTypedefTs.end())
+                    sh290 = i290->second;
+                const Type* tgt290 = &t290->as<TypeAliasType>().targetType.getType();
+                while (tgt290->kind == SymbolKind::PackedArrayType)
+                    tgt290 = &tgt290->as<PackedArrayType>().elementType;
+                bool overAlias290 = tgt290->kind == SymbolKind::TypeAlias;
+                if (sh290 && !overAlias290 &&
+                    (sh290->UhdmType() == UHDM::uhdmlogic_typespec ||
+                     sh290->UhdmType() == UHDM::uhdmbit_typespec)) {
+                    SourceLocation e290 = firstDim290->sourceRange().end();
+                    if (auto dsyn = pn.sym->getSyntax();
+                        dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
+                        auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
+                        if (!dd.dimensions.empty())
+                            e290 = dd.dimensions[0]->sourceRange().end();
+                    }
+                    uint32_t l290 = 0, c290 = 0;
+                    locLineCol(e290, l290, c290);
+                    // § pkgTdPackedWriterKindOrder290v (v11u290) — the LAST
+                    // writer is Surelog's, not ours: UhdmWriter writes the
+                    // programs, then the interfaces, then the modules
+                    // (writeProgram, writeInterface, writeModule loops, each
+                    // over a name-ordered map), so a module's net beats an
+                    // interface's or a program's whatever the names
+                    // (grid tools/probe/v11u290repro/cases/VT vt05 zif before
+                    // top, vt09 zprog before top: golden ends at top's net,
+                    // the law at the interface's or the program's).  Within a
+                    // kind the definition name orders, within a definition the
+                    // last declaration wins.  Switch R11V290_WRITERKIND_OFF.
+                    bool apply290v = true;
+                    {
+                        static std::map<const UHDM::typespec*,
+                                        std::pair<int, std::string>> best290v;
+                        int kr290v = 2;
+                        std::string dn290v;
+                        if (auto* sc290v = pn.sym->getParentScope();
+                            sc290v &&
+                            sc290v->asSymbol().kind == SymbolKind::InstanceBody) {
+                            auto& df290v = sc290v->asSymbol()
+                                               .as<InstanceBodySymbol>()
+                                               .getDefinition();
+                            kr290v = df290v.definitionKind ==
+                                             slang::ast::DefinitionKind::Program
+                                         ? 0
+                                     : df290v.definitionKind ==
+                                             slang::ast::DefinitionKind::Interface
+                                         ? 1
+                                         : 2;
+                            dn290v = std::string(df290v.name);
+                        }
+                        auto key290v = std::make_pair(kr290v, dn290v);
+                        if (auto bit290v = best290v.find(sh290);
+                            bit290v != best290v.end() && key290v < bit290v->second) {
+                            if (r11v290On("R11V290_WRITERKIND_OFF")) {
+                                apply290v = false;
+                                tr290("pkgTdPackedWriterKindOrder290v",
+                                      std::string(pn.sym->name) + " " + dn290v);
+                            }
+                            else
+                                tr290("pkgTdPackedWriterKindOrder290v",
+                                      "OFF " + std::string(pn.sym->name));
+                        }
+                        if (apply290v)
+                            best290v[sh290] = key290v;
+                    }
+                    if (apply290v) {
+                        sh290->VpiEndLineNo(l290);
+                        sh290->VpiEndColumnNo(c290);
+                        sh290->VpiFile(fullFilePath(e290));
+                    }
+                    pn.rt->Actual_typespec(sh290);
+                    tr290("pkgTdPackedDimsDefNetShares290",
+                          std::string(pn.sym->name) + " " + std::to_string(l290) +
+                              ":" + std::to_string(c290));
+                    return;
+                }
+                tr290("pkgTdPackedDimsDefNetShares290",
+                      std::string("ABSTAIN ") + std::string(pn.sym->name) +
+                          (sh290 ? (overAlias290 ? " overAlias" : " kind") : " noTop"));
+            }
+    }
     if (auto dt2 = pn.sym->getDeclaredType()) {
         auto& t2 = dt2->getType();
         if (typedefClone.count(&t2)) {
@@ -42989,6 +43140,52 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (rc.kind == ExpressionKind::NamedValue &&
                 rc.as<NamedValueExpression>().symbol.kind == SymbolKind::EnumValue)
                 enumRhs = &rc.as<NamedValueExpression>().symbol;
+        }
+        // § caUnitEnumUnresolvedShares290 (r11u290, Scr1SvTests d/t) — a
+        // continuous assignment whose whole right side is a `$unit` enum
+        // member Surelog could not resolve in this module (the guarded
+        // header declaring it was expanded in a DIFFERENT root file, the
+        // predicate of unitEnumUnresolvedHere: the definition view already
+        // reads the name as an implicit net) is not folded in the elaborated
+        // view: UhdmWriter::writeCont_assign clones a cell only for an
+        // operation right side, a constant reduce result or an unsized
+        // constant, and reduceExpr on the unresolved name returns the
+        // ref_obj, so the instance lists the DEFINITION's cell itself, its
+        // Rhs the ref_obj bound to the definition's implicit net
+        // (scr1_pipe_ifu.sv `assign ifu2imem_cmd_o = SCR1_MEM_CMD_RD;`,
+        // golden's work@scr1_pipe_ifu.SCR1_MEM_CMD_RD where ours folded the
+        // constant 1'b0).  The enum fold below is skipped, so the shared
+        // definition cell is taken where every other gate allows it.  Grid
+        // tools/probe/r11u290repro/cases/E.  Switch:
+        // R11U290_UNITENUMSHARE_OFF.
+        if (enumRhs && topView) {
+            bool unitHome290 = false;
+            for (auto* sc = enumRhs->getParentScope(); sc;
+                 sc = sc->asSymbol().getParentScope()) {
+                auto k = sc->asSymbol().kind;
+                if (k == SymbolKind::CompilationUnit) {
+                    unitHome290 = true;
+                    break;
+                }
+                if (k == SymbolKind::Package || k == SymbolKind::InstanceBody ||
+                    k == SymbolKind::GenerateBlock ||
+                    k == SymbolKind::GenerateBlockArray)
+                    break;
+            }
+            if (unitHome290) {
+                std::string modFile290 = rootFilePath(body.location);
+                if (!modFile290.empty() &&
+                    rootFilePath(enumRhs->location) != modFile290) {
+                    if (r11u290On("R11U290_UNITENUMSHARE_OFF")) {
+                        tr290("caUnitEnumUnresolvedShares290",
+                              prefix + " " + std::string(enumRhs->name));
+                        enumRhs = nullptr;
+                    }
+                    else
+                        tr290("caUnitEnumUnresolvedShares290",
+                              "OFF " + prefix + " " + std::string(enumRhs->name));
+                }
+            }
         }
         // A select of a PACKAGE parameter (pkg::A[0]) folds in the elab view
         // to a BIN constant anchored at the param init's first char.

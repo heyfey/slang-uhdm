@@ -1,0 +1,2 @@
+sweep P: 3323 cmds.txt, 3273 name /tmp/r11u290_bin/pristine, 3273 carry a slang line
+sweep L: 3323 cmds.txt, 3273 name /tmp/r11u290_bin/law8, 3273 carry a slang line

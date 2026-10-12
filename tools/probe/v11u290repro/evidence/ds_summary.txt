@@ -1,0 +1,14 @@
+pristine {'DIVERGENT': 1, 'EQUIVALENT': 19, 'IDENTICAL': 53}
+law {'DIVERGENT': 1, 'EQUIVALENT': 8, 'IDENTICAL': 64}
+fix {'DIVERGENT': 1, 'EQUIVALENT': 8, 'IDENTICAL': 64}
+better v11u290repro/cases/VE/ve01_direct_unit {'pristine': 'EQUIVALENT', 'law': 'IDENTICAL', 'fix': 'IDENTICAL'}
+better v11u290repro/cases/VE/ve02_hdr_f1_only {'pristine': 'EQUIVALENT', 'law': 'IDENTICAL', 'fix': 'IDENTICAL'}
+better v11u290repro/cases/VE/ve03_param_override {'pristine': 'EQUIVALENT', 'law': 'IDENTICAL', 'fix': 'IDENTICAL'}
+better v11u290repro/cases/VE/ve04_inst_in_gen {'pristine': 'EQUIVALENT', 'law': 'IDENTICAL', 'fix': 'IDENTICAL'}
+better v11u290repro/cases/VE/ve05_three_files {'pristine': 'EQUIVALENT', 'law': 'IDENTICAL', 'fix': 'IDENTICAL'}
+better v11u290repro/cases/VE/ve06_wide_enum {'pristine': 'EQUIVALENT', 'law': 'IDENTICAL', 'fix': 'IDENTICAL'}
+better v11u290repro/cases/VE/ve07_mixed {'pristine': 'EQUIVALENT', 'law': 'IDENTICAL', 'fix': 'IDENTICAL'}
+better v11u290repro/cases/VT/vt01_alpha_zfirst {'pristine': 'EQUIVALENT', 'law': 'IDENTICAL', 'fix': 'IDENTICAL'}
+better v11u290repro/cases/VT/vt02_alpha_afirst_ztop {'pristine': 'EQUIVALENT', 'law': 'IDENTICAL', 'fix': 'IDENTICAL'}
+better v11u290repro/cases/VT/vt17_alpha_three_inst_order {'pristine': 'EQUIVALENT', 'law': 'IDENTICAL', 'fix': 'IDENTICAL'}
+better v11u290repro/cases/VT/vt23_two_progs_mod {'pristine': 'EQUIVALENT', 'law': 'IDENTICAL', 'fix': 'IDENTICAL'}

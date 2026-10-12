@@ -829,8 +829,8 @@ LogicSize,default,CMP_EQUAL,,,equal
 LogicSize,testflags,CMP_EQUAL,,,equal
 LogicTypedef,default,CMP_EQUAL,,,equal
 LogicTypedef,testflags,CMP_EQUAL,,,equal
-LogicTypespec,default,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
-LogicTypespec,testflags,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
+LogicTypespec,default,CMP_EQUAL,,,equal
+LogicTypespec,testflags,CMP_EQUAL,,,equal
 LongHex,default,CMP_EQUAL,,,equal
 LongHex,testflags,CMP_EQUAL,,,equal
 Loop,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Loop/dut.sv:7:9: fatal error: infinitely recursive instantiation of 'u1',,
@@ -1203,8 +1203,8 @@ Scoreboard,default,CMP_EQUAL,,,equal
 Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'my_scoreboard',,
 Scr1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
 Scr1,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
-Scr1SvTests,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
-Scr1SvTests,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+Scr1SvTests,default,CMP_EQUAL,,,equal
+Scr1SvTests,testflags,CMP_EQUAL,,,equal
 SelectHierPath,default,CMP_EQUAL,,,equal
 SelectHierPath,testflags,CMP_EQUAL,,,equal
 Selects,default,CMP_EQUAL,,,equal

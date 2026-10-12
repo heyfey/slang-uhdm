@@ -1,0 +1,4 @@
+LogicTypespec,default,CMP_EQUAL,,,equal
+LogicTypespec,testflags,CMP_EQUAL,,,equal
+Scr1SvTests,default,CMP_EQUAL,,,equal
+Scr1SvTests,testflags,CMP_EQUAL,,,equal

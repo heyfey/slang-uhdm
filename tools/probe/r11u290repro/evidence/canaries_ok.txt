@@ -1,0 +1,6 @@
+== canaries surelog
+  Scr1SvTests                    default   CHANGED STRICT_NOTEQUAL/differ:type(1) -> CMP_EQUAL/equal
+  Scr1SvTests                    testflags CHANGED STRICT_NOTEQUAL/differ:type(1) -> CMP_EQUAL/equal
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+== canaries uhdm2rtlil
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25

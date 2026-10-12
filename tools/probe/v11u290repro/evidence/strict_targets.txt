@@ -1,0 +1,8 @@
+wdQ LogicTypespec default strict: STRICT_NOTEQUAL endline ; uhdm-cmp lines: 0
+wdL LogicTypespec default strict: STRICT_EQUAL 122 objects ; uhdm-cmp lines: 0
+wdQ LogicTypespec testflags strict: STRICT_NOTEQUAL endline ; uhdm-cmp lines: 0
+wdL LogicTypespec testflags strict: STRICT_EQUAL 32 objects ; uhdm-cmp lines: 0
+wdQ Scr1SvTests default strict: STRICT_NOTEQUAL type ; uhdm-cmp lines: 0
+wdL Scr1SvTests default strict: STRICT_EQUAL 84098 objects ; uhdm-cmp lines: 0
+wdQ Scr1SvTests testflags strict: STRICT_NOTEQUAL type ; uhdm-cmp lines: 0
+wdL Scr1SvTests testflags strict: STRICT_EQUAL 83997 objects ; uhdm-cmp lines: 0

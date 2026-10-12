@@ -13,6 +13,7 @@
 #include <uhdm/UhdmListener.h>
 
 #include "EmitHelpers.h"
+#include "R290.h"
 #include "R218.h"
 #include "R224.h"
 #include "R227.h"
@@ -23332,6 +23333,52 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 misevalParamRhsScope = elabMiseval9   ? ps.getParentScope()
                                        : elabOvMiseval9 ? ovMisevalScope9
                                                         : nullptr;
+                misevalOvRhs290() = elabOvMiseval9;  // § elabOvMisevalCloneChain290
+                // § ovCloneChainSiblingOperand290v (v11u290) — golden names the
+                // override road's copy through its OWN chain only when another
+                // parameter of this body reads this one as an operand of an
+                // operator, through operators only (RW = SIZE/4, SIZE/4 + 1;
+                // grid tools/probe/v11u290repro/cases/VC vc09, vc12, vc15,
+                // vc18); with no such sibling (vc05, vc10, vc13), a sibling
+                // reading another parameter (vc11), a bare sibling RW = SIZE
+                // (vc14) or one reading it inside a call, $clog2(SIZE) (vc16,
+                // vc17), the copy keeps the parent's names it was cloned with.
+                misevalOvSibOp290v() = false;
+                if (elabOvMiseval9 && ps.getParentScope()) {
+                    std::function<bool(const Expression&, bool)> rd290v =
+                        [&](const Expression& e0, bool underOp) -> bool {
+                        const Expression* e = &e0;
+                        while (e->kind == ExpressionKind::Conversion &&
+                               e->as<ConversionExpression>().isImplicit())
+                            e = &e->as<ConversionExpression>().operand();
+                        switch (e->kind) {
+                        case ExpressionKind::NamedValue:
+                            return underOp &&
+                                   &e->as<NamedValueExpression>().symbol == &ps;
+                        case ExpressionKind::BinaryOp:
+                            return rd290v(e->as<BinaryExpression>().left(), true) ||
+                                   rd290v(e->as<BinaryExpression>().right(), true);
+                        case ExpressionKind::UnaryOp:
+                            return rd290v(e->as<UnaryExpression>().operand(), true);
+                        case ExpressionKind::ConditionalOp: {
+                            auto& ce = e->as<ConditionalExpression>();
+                            for (auto& c : ce.conditions)
+                                if (rd290v(*c.expr, true))
+                                    return true;
+                            return rd290v(ce.left(), true) || rd290v(ce.right(), true);
+                        }
+                        default:
+                            return false;
+                        }
+                    };
+                    for (auto& mb290 : ps.getParentScope()->members())
+                        if (&mb290 != &ps && mb290.kind == SymbolKind::Parameter)
+                            if (auto* in290 = mb290.as<ParameterSymbol>().getInitializer();
+                                in290 && rd290v(*in290, false)) {
+                                misevalOvSibOp290v() = true;
+                                break;
+                            }
+                }
                 // Surelog compiles a MULTIDIMENSIONAL package parameter's value
                 // with Reduce::No (CompileHelper::isMultidimensional gates the
                 // reduce on the typespec carrying more than one packed range),
@@ -24311,6 +24358,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 elabMdimParamInit = false;
                 curMdimParam246v() = nullptr;  // § callArgCopyEvalCtxAbstain246v
                 misevalParamRhsScope = nullptr;
+                misevalOvRhs290() = false;
+                misevalOvSibOp290v() = false;
                 paramInitPkg = false;
                 pkgDefPatShare236() = false;
                 pkgDefPatShareScope236() = nullptr;
@@ -25053,6 +25102,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // symbols the def-view pass overwrites.
                 if (elabOvMiseval9) {
                     setLoc((UHDM::expr*)rhs, init->sourceRange);
+                    // § elabOvMisevalRestampFile290 (r11u290, Scr1SvTests d/t
+                    // i_dp_memory's SCR1_SIZE) — the re-stamp is a whole
+                    // populateCoreMembers: the FILE moves with the line and
+                    // column (golden scr1_tcm.sv 101:19-32, ours kept
+                    // scr1_top_axi.sv, the file of i_tcm's own tree, because
+                    // setLoc leaves a stamped file alone).  Grid
+                    // tools/probe/r11u290repro/cases/M.  Switch
+                    // R11U290_OVFILE_OFF.
+                    if (rhs && init->sourceRange.start() != SourceLocation::NoLocation) {
+                        std::string f290 = fullFilePath(init->sourceRange.start());
+                        if (((UHDM::BaseClass*)rhs)->VpiFile() != f290) {
+                            if (r11u290On("R11U290_OVFILE_OFF")) {
+                                ((UHDM::BaseClass*)rhs)->VpiFile(f290);
+                                tr290("elabOvMisevalRestampFile290",
+                                      std::string(member.name));
+                            }
+                            else
+                                tr290("elabOvMisevalRestampFile290",
+                                      "OFF " + std::string(member.name));
+                        }
+                    }
                     elabOvMisevalRhs[&member] = rhs;
                 }
                 // § paramInitAdjustSizeElab52 — THE ADJUSTSIZE PIPELINE IS
@@ -28367,6 +28437,7 @@ void drainCallArgCopyTs246(const std::set<UHDM::ref_typespec*>& stamped);
 
 // § hierPathSelIdxAtPath178 (r11u178) — defined in ExprEmit.cpp.
 void drainHierPathSelIdx178(UHDM::Serializer& s);
+void drainMisevalSpliceChain290();  // § elabMisevalSpliceRefChain290 (TypeEmit.cpp)
 // § rootPathFullNameByChain181 (r11u181) — defined in ExprEmit.cpp.
 void rootPathFullNameByChain181(UHDM::Serializer& s);
 // § lvSelIdxChainName181 (r11u181) — defined in ExprEmit.cpp.
@@ -29117,6 +29188,7 @@ void UhdmExporter::drainPaNameCopySrc38() {
     drainImportCloneLocalCopies175(s);
     refFullNameThroughNamedExpr175(s);
     drainHierPathSelIdx178(s);
+    drainMisevalSpliceChain290();  // § elabMisevalSpliceRefChain290 (r11u290)
     rootPathFullNameByChain181(s);
     drainLvSelChain181(s);
     drainLvIdxRead181(s);

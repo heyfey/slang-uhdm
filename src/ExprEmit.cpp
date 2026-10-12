@@ -23,6 +23,7 @@
 #include "slang/syntax/SyntaxTree.h"
 #include "slang/ast/expressions/Operator.h"
 #include "slang/ast/symbols/CoverSymbols.h"
+#include "R290.h"
 #include "R204.h"
 #include "R208.h"
 #include "R213.h"
@@ -17577,7 +17578,37 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                     // VARIABLE index refs parent at the HIER_PATH
                     // (ucsbece dll_d[i].valid); constants keep the
                     // bit_select parent.
-                    if (((UHDM::any*)ix)->UhdmType() == UHDM::uhdmref_obj)
+                    // § elabCaBaseSelRefIdxAtElem290 (r11u290, Scr1SvTests
+                    // d/t scr1_mem_axi `~req_status[req_aval_ptr].req_resp`)
+                    // — the BASE-select twin of § hierPathSelIdxCloneKeepsElem178v:
+                    // in the elaborated continuous assignment Surelog re-writes
+                    // as a clone (UhdmWriter::writeCont_assign's operation
+                    // arm), clone_tree gives a reference index of the path's
+                    // leading select the CLONE's bit_select as its parent, so
+                    // UHDM's ComputeFullName reads it through the path
+                    // (golden `work@...i_imem_axi.req_status[req_aval_ptr].
+                    // req_resp.req_aval_ptr`, ours `work@...i_imem_axi.
+                    // req_aval_ptr`).  The reference stays at its bit_select
+                    // and § hierPathSelIdxCloneKeepsElem178v's drain names it
+                    // from the chain.  Grid tools/probe/r11u290repro/cases/H.
+                    // Switch R11U290_BASEIDXELEM_OFF.
+                    bool keepElem290 = false;
+                    if (((UHDM::any*)ix)->UhdmType() == UHDM::uhdmref_obj &&
+                        !selIdx79 && mid79 && !inLhs && contAssignView == 2 &&
+                        r11v178On("R11V178_ELABCA_OFF") &&
+                        r11u178Law("R11U178_MIDIDX_OFF")) {
+                        if (r11u290On("R11U290_BASEIDXELEM_OFF")) {
+                            keepElem290 = true;
+                            tr290("elabCaBaseSelRefIdxAtElem290",
+                                  std::string(((UHDM::any*)ix)->VpiName()) + " " +
+                                      dottedAt);
+                        }
+                        else
+                            tr290("elabCaBaseSelRefIdxAtElem290",
+                                  "OFF " + std::string(((UHDM::any*)ix)->VpiName()));
+                    }
+                    if (((UHDM::any*)ix)->UhdmType() == UHDM::uhdmref_obj &&
+                        !keepElem290)
                         ((UHDM::any*)ix)->VpiParent(hp);
                     if (selIdx79) {
                         ((UHDM::any*)ix)->VpiParent(hp);
@@ -23445,11 +23476,82 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 nv.symbol.kind == SymbolKind::Parameter &&
                 nv.symbol.getParentScope() == misevalParamRhsScope) {
                 auto rit9 = paramRhsObj.find(&nv.symbol);
+                // § elabMisevalCompositeShares290 (r11u290, Scr1SvTests d/t
+                // scr1_dmi `DMI_DATA_LO = DMI_OP_HI + 1`) — the COMPOSITE
+                // shape the decode above names is transcribed: golden's
+                // operand IS the substituted parameter's own elaborated Rhs
+                // object (substituteAssignedValue hands the tree over, no
+                // clone), so the canonical walk, which lists an object once,
+                // does not list it again under the sibling's operation; ours
+                // cloned it.  A leaf keeps the fresh copy at the use site.
+                // Grid tools/probe/r11u290repro/cases/M.  Switch
+                // R11U290_MISEVALSHARE_OFF.
+                // Not in the --elabuhdm view: there UHDM's elaborator
+                // re-reduces every elaborated param_assign Rhs and golden
+                // folds the sibling's tree (grid M/m02_dmi_el, a shared
+                // object there read stage 1).
+                // § misevalShareOperandOnly290v (v11u290) — the share holds
+                // only for a DIRECT OPERAND of an operator (DMI_OP_HI + 1):
+                // read inside a call, AW = $clog2(SIZE), golden lists its own
+                // copy (grid tools/probe/v11u290repro/cases/VC vc16, vc17,
+                // vc19 lost those records under the law).  Switch
+                // R11V290_SHAREOPND_OFF.
+                bool opnd290v = true;
+                if (!(parent && parent->UhdmType() == UHDM::uhdmoperation) &&
+                    rit9 != paramRhsObj.end() && rit9->second &&
+                    !misevalOvRhs290() && !elabUhdmView121 &&
+                    ((const UHDM::any*)rit9->second)->UhdmType() ==
+                        UHDM::uhdmoperation) {
+                    if (r11v290On("R11V290_SHAREOPND_OFF")) {
+                        opnd290v = false;
+                        tr290("misevalShareOperandOnly290v",
+                              std::string(nv.symbol.name));
+                    }
+                    else
+                        tr290("misevalShareOperandOnly290v",
+                              "OFF " + std::string(nv.symbol.name));
+                }
+                if (opnd290v && rit9 != paramRhsObj.end() && rit9->second &&
+                    !misevalOvRhs290() && !elabUhdmView121 &&
+                    ((const UHDM::any*)rit9->second)->UhdmType() ==
+                        UHDM::uhdmoperation) {
+                    if (r11u290On("R11U290_MISEVALSHARE_OFF")) {
+                        tr290("elabMisevalCompositeShares290",
+                              std::string(nv.symbol.name));
+                        return (UHDM::any*)rit9->second;
+                    }
+                    tr290("elabMisevalCompositeShares290",
+                          "OFF " + std::string(nv.symbol.name));
+                }
                 if (rit9 != paramRhsObj.end() && rit9->second)
                     if (auto* cl9 = cloneUnitParamRhs(
                             (const UHDM::expr*)rit9->second, parent)) {
                         bool leaf9 = cl9->UhdmType() == UHDM::uhdmconstant ||
                                      cl9->UhdmType() == UHDM::uhdmref_obj;
+                        // § elabOvMisevalCloneChain290 — the override road's
+                        // copy of the parent's tree is named through its own
+                        // chain (drain in TypeEmit.cpp).
+                        // § ovCloneChainSiblingOperand290v (v11u290): with
+                        // no sibling reading the overridden parameter as an
+                        // operand, the copy keeps its cloned names (force 3:
+                        // the chain names are computed for the
+                        // § elabOvSpliceTopCopy290 twins only).  Switch
+                        // R11V290_OVSIBOP_OFF.
+                        if (misevalOvRhs290() &&
+                            cl9->UhdmType() == UHDM::uhdmoperation) {
+                            int f290v = 1;
+                            if (!misevalOvSibOp290v()) {
+                                if (r11v290On("R11V290_OVSIBOP_OFF")) {
+                                    f290v = 3;
+                                    tr290("ovCloneChainSiblingOperand290v",
+                                          std::string(nv.symbol.name));
+                                }
+                                else
+                                    tr290("ovCloneChainSiblingOperand290v",
+                                          "OFF " + std::string(nv.symbol.name));
+                            }
+                            noteMisevalSplice290(cl9, f290v);
+                        }
                         if (leaf9)
                             setLoc(cl9, expr.sourceRange);
                         auto& sps9 = nv.symbol.as<ParameterSymbol>();
@@ -43342,8 +43444,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // The index parents at the HIER_PATH (the dotted arm's
                         // own rule).
                         if (auto* ix109 = emitExpr(mbSel109->selector(), hp,
-                                                   prefix, netMap))
+                                                   prefix, netMap)) {
                             bs109->VpiIndex((UHDM::expr*)ix109);
+                            // § elabCaBaseSelRefIdxAtElem290 — SITE 2 of 3:
+                            // the path that ends in a RANGE select
+                            // (`req_fifo[req_proc_ptr].axi_addr[1:0]`).
+                            if (((UHDM::any*)ix109)->UhdmType() ==
+                                    UHDM::uhdmref_obj &&
+                                ((UHDM::any*)ix109)->VpiParent() == hp &&
+                                !inLhs && contAssignView == 2 &&
+                                r11v178On("R11V178_ELABCA_OFF") &&
+                                r11u178Law("R11U178_MIDIDX_OFF")) {
+                                if (r11u290On("R11U290_BASEIDXELEM_OFF")) {
+                                    ((UHDM::any*)ix109)->VpiParent(bs109);
+                                    noteHpSelIdxKeep178v(bs109);
+                                    tr290("elabCaBaseSelRefIdxAtElem290",
+                                          std::string(((UHDM::any*)ix109)->VpiName()) +
+                                              " rs " + selText);
+                                }
+                                else
+                                    tr290("elabCaBaseSelRefIdxAtElem290",
+                                          "OFF rs " + std::string(((UHDM::any*)ix109)->VpiName()));
+                            }
+                        }
                         elems->push_back(bs109);
                     }
                     else {
@@ -44754,8 +44877,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                         exprStart + co + bn.size()));
                                 // The index ref parents at the HIER_PATH.
                                 if (auto* ix =
-                                        emitExpr(*compSel[ci], hp, prefix, netMap))
+                                        emitExpr(*compSel[ci], hp, prefix, netMap)) {
                                     bsv->VpiIndex((UHDM::expr*)ix);
+                                    // § elabCaBaseSelRefIdxAtElem290 — SITE 3
+                                    // of 3: the dotted-text arm of a path
+                                    // ending in a range select
+                                    // (`req_fifo[req_proc_ptr].axi_addr[1:0]`).
+                                    if (((UHDM::any*)ix)->UhdmType() ==
+                                            UHDM::uhdmref_obj &&
+                                        ((UHDM::any*)ix)->VpiParent() == hp &&
+                                        !inLhs && contAssignView == 2 &&
+                                        r11v178On("R11V178_ELABCA_OFF") &&
+                                        r11u178Law("R11U178_MIDIDX_OFF")) {
+                                        if (r11u290On("R11U290_BASEIDXELEM_OFF")) {
+                                            ((UHDM::any*)ix)->VpiParent(bsv);
+                                            noteHpSelIdxKeep178v(bsv);
+                                            tr290("elabCaBaseSelRefIdxAtElem290",
+                                                  std::string(((UHDM::any*)ix)->VpiName()) +
+                                                      " txt " + selText);
+                                        }
+                                        else
+                                            tr290("elabCaBaseSelRefIdxAtElem290",
+                                                  "OFF txt " +
+                                                      std::string(((UHDM::any*)ix)->VpiName()));
+                                    }
+                                }
                                 elems->push_back(bsv);
                                 continue;
                             }
@@ -45359,16 +45505,35 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (r145->VpiParent() == psel)
                     r145->VpiFullName(joinRef(basePfx, r145->VpiName()));
             };
+            // § elabConnPsBoundRefChain290 (r11u290, Scr1SvTests d/t
+            // scr1_tcm `.addra(imem_addr[$clog2(SCR1_TCM_SIZE)-1:2])`) — in
+            // the ELABORATED port connection a reference that stays a
+            // reference inside a simple part-select's bound OPERATION (a
+            // parameter Surelog left unreduced) stores no full name in
+            // golden, so the reader names it through the chain, the port
+            // and the instance included (`...i_tcm.i_dp_memory.addra.
+            // imem_addr.SCR1_TCM_SIZE`); ours scoped it by the parent
+            // instance's prefix (`...i_tcm.imem_addr.SCR1_TCM_SIZE`), the
+            // definition listing already right.  Named design-final (drain
+            // in TypeEmit.cpp).  Switch R11U290_CONNBOUNDCHAIN_OFF.
+            auto connChain290 = [&](const Expression& e, UHDM::any* o) {
+                if (o && elabConnEmit21 && !connFromBind84 &&
+                    o->UhdmType() == UHDM::uhdmoperation &&
+                    stripImplicitConv(e).kind != ExpressionKind::NamedValue)
+                    noteMisevalSplice290(o, 2);
+            };
             if (auto* lf47 = genLpUseFoldBound47(rs.left(), prefix))
                 psel->Left_range(lf47);
             else if (auto* l = emitExpr(rs.left(), psel, boundPfx(rs.left()), netMap)) {
                 bareRefByBase145(rs.left(), l);
+                connChain290(rs.left(), l);
                 psel->Left_range((UHDM::expr*)l);
             }
             if (auto* rf47 = genLpUseFoldBound47(rs.right(), prefix))
                 psel->Right_range(rf47);
             else if (auto* r = emitExpr(rs.right(), psel, boundPfx(rs.right()), netMap)) {
                 bareRefByBase145(rs.right(), r);
+                connChain290(rs.right(), r);
                 psel->Right_range((UHDM::expr*)r);
             }
             inPsRangeBound = savedPsR;

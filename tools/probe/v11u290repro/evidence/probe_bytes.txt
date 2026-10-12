@@ -1,0 +1,2 @@
+probe law->fix movers 0 of 4087
+probe pristine->law movers 0 of 4087 (check_probe with each binary from the same worktree path; a positive control: the pristine sweep's probe databases, written from another worktree path, differ from the law's in bytes)

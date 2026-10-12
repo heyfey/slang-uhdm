@@ -1,0 +1,4 @@
+surelog/default/LogicTypespec-e2471612 chain: chain away=0 toward=5 flat_away=0 flat_toward=5 | swapped: chain away=5 toward=0 flat_away=5 flat_toward=0
+surelog/default/Scr1SvTests-fa4609ad chain: chain away=0 toward=78 flat_away=0 flat_toward=78 | swapped: chain away=78 toward=0 flat_away=78 flat_toward=0
+surelog/testflags/LogicTypespec-e2471612 chain: chain away=0 toward=5 flat_away=0 flat_toward=5 | swapped: chain away=5 toward=0 flat_away=5 flat_toward=0
+surelog/testflags/Scr1SvTests-fa4609ad chain: chain away=0 toward=78 flat_away=0 flat_toward=78 | swapped: chain away=78 toward=0 flat_away=78 flat_toward=0

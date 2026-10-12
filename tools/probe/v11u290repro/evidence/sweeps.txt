@@ -1,0 +1,46 @@
+Q: law index STALE: tests/LAWS.md (run scripts/law_index.py)
+Q: probe cases: EQUAL=3903 STRICT_NOTEQUAL=184 (of 4087); goldens built now=0, from cache=4087
+Q: [probe] EQUAL=3903 STRICT_NOTEQUAL=184
+Q: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+Q: [default] CMP_EQUAL=478 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=2 SURELOG_FAIL=25
+Q: [testflags] CMP_EQUAL=472 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=2 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+Q: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+Q: [default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+Q: [testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+Q: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+Q: == downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+Q: downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+Q: rc=1
+L: law index STALE: tests/LAWS.md (run scripts/law_index.py)
+L: probe cases: EQUAL=3903 STRICT_NOTEQUAL=184 (of 4087); goldens built now=0, from cache=4087
+L: [probe] EQUAL=3903 STRICT_NOTEQUAL=184
+L: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+L: [default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+L: [testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+L: CONVERSION LogicTypespec default STRICT_NOTEQUAL differ:endline(3) -> CMP_EQUAL
+L: CONVERSION LogicTypespec testflags STRICT_NOTEQUAL differ:endline(3) -> CMP_EQUAL
+L: CONVERSION Scr1SvTests default STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+L: CONVERSION Scr1SvTests testflags STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+L: regressions=0 conversions=4 changes=0 only-fresh=0 only-committed=0
+L: [default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+L: [testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+L: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+L: == downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+L: downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+L: rc=1
+H: probe cases: EQUAL=3903 STRICT_NOTEQUAL=184 (of 4087); goldens built now=0, from cache=4087
+H: [probe] EQUAL=3903 STRICT_NOTEQUAL=184
+H: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+H: [default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+H: [testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+H: CONVERSION LogicTypespec default STRICT_NOTEQUAL differ:endline(3) -> CMP_EQUAL
+H: CONVERSION LogicTypespec testflags STRICT_NOTEQUAL differ:endline(3) -> CMP_EQUAL
+H: CONVERSION Scr1SvTests default STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+H: CONVERSION Scr1SvTests testflags STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+H: regressions=0 conversions=4 changes=0 only-fresh=0 only-committed=0
+H: [default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+H: [testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+H: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+H: == downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+H: downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+H: rc=0

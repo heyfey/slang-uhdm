@@ -1,0 +1,4 @@
+surelog/default/LogicTypespec-e2471612 dist 0 -> 2 lost=5 gained=0
+surelog/default/Scr1SvTests-fa4609ad dist 0 -> 117 lost=78 gained=0
+surelog/testflags/LogicTypespec-e2471612 dist 0 -> 2 lost=5 gained=0
+surelog/testflags/Scr1SvTests-fa4609ad dist 0 -> 117 lost=78 gained=0
