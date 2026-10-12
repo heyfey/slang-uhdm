@@ -1,0 +1,11 @@
+// § pvHdrPortAtPortDecl305
+interface ifc (output logic [7:0] o);
+  assign o = 8'd3;
+  modport mp (output o);
+endinterface
+module sub (ifc.mp m);
+endmodule
+module dut (output logic [7:0] o);
+  ifc u_if (.o(o));
+  sub u_s (.m(u_if.mp));
+endmodule

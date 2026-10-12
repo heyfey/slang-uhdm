@@ -1,0 +1,74 @@
+case-views=3676 moving=34 entering=21 leaving=0 rc-changed=0 cmplines-changed=18
+MOVER tp/r11u118repro/grid/g1/p29_iface NOT_EQUAL_stage1 -> STRICT_EQUAL_273_objects cmplines 31->0
+MOVER tp/r11u118repro/grid/g1/p29_iface_el NOT_EQUAL_stage1 -> STRICT_EQUAL_271_objects cmplines 32->0
+MOVER tp/r11u176repro/cases/PG/g16_generic_mpconn_pos_two NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 30->30
+MOVER tp/r11u176repro/cases/PG/g16_generic_mpconn_pos_two_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 30->30
+MOVER tp/r11u293repro/cases/PV/pv06_header_ctl STRICT_NOTEQUAL_line -> STRICT_EQUAL_107_objects cmplines 0->0
+MOVER tp/r11u293repro/cases/PV/pv06_header_ctl_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_107_objects cmplines 0->0
+MOVER tp/r11u303repro/cases/IF/i03_split STRICT_NOTEQUAL_type -> STRICT_EQUAL_153_objects cmplines 0->0
+MOVER tp/r11u303repro/cases/IF/i03_split_el NOT_EQUAL_stage1 -> STRICT_EQUAL_153_objects cmplines 33->0
+MOVER tp/r11u303repro/cases/IF/i06_bareuntaken NOT_EQUAL_stage1 -> STRICT_EQUAL_82_objects cmplines 31->0
+MOVER tp/r11u303repro/cases/IF/i06_bareuntaken_el NOT_EQUAL_stage1 -> STRICT_EQUAL_82_objects cmplines 33->0
+MOVER tp/r11u303repro/cases/IF/i08_plainlhs NOT_EQUAL_stage1 -> STRICT_EQUAL_94_objects cmplines 31->0
+MOVER tp/r11u303repro/cases/IF/i08_plainlhs_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 33->28
+MOVER tp/v11u111repro/brk/f2/x24_otherpkg_member_q NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 126->17
+MOVER tp/v11u111repro/brk/f2/x24_otherpkg_member_q_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 126->17
+MOVER tp/v11u193repro/cases/UC/uc06_iface NOT_EQUAL_stage1 -> STRICT_EQUAL_119_objects cmplines 31->0
+MOVER tp/v11u193repro/cases/UC/uc06_iface_el NOT_EQUAL_stage1 -> STRICT_EQUAL_117_objects cmplines 32->0
+MOVER tp/v11u193repro/cases/UC/uc22_tn_iface STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_126_objects cmplines 0->0
+MOVER tp/v11u193repro/cases/UC/uc22_tn_iface_el NOT_EQUAL_stage1 -> STRICT_EQUAL_125_objects cmplines 33->0
+MOVER tp/v11u293repro/cases/VI/vi09_modport_view STRICT_NOTEQUAL_line -> STRICT_EQUAL_264_objects cmplines 0->0
+MOVER tp/v11u293repro/cases/VI/vi09_modport_view_el STRICT_NOTEQUAL_line -> STRICT_EQUAL_260_objects cmplines 0->0
+MOVER tp/v11u293repro/cases/VI/vi21_gen_iface_modport STRICT_NOTEQUAL_line -> STRICT_NOTEQUAL_line cmplines 0->0
+MOVER tp/v11u293repro/cases/VI/vi21_gen_iface_modport_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/v11u293repro/cases/VI/vi24_modport_import_func NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 31->31
+MOVER tp/v11u293repro/cases/VI/vi24_modport_import_func_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 273->273
+MOVER tp/v11u303repro/cases/VI/vi02_partsel STRICT_NOTEQUAL_type -> STRICT_NOTEQUAL_type cmplines 0->0
+MOVER tp/v11u303repro/cases/VI/vi02_partsel_el NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_type cmplines 33->0
+MOVER tp/v11u303repro/cases/VI/vi06_fillboth STRICT_NOTEQUAL_type -> STRICT_EQUAL_135_objects cmplines 0->0
+MOVER tp/v11u303repro/cases/VI/vi06_fillboth_el NOT_EQUAL_stage1 -> STRICT_EQUAL_135_objects cmplines 33->0
+MOVER tp/v11u303repro/cases/VI/vi08_vecbit NOT_EQUAL_stage1 -> STRICT_EQUAL_82_objects cmplines 31->0
+MOVER tp/v11u303repro/cases/VI/vi08_vecbit_el NOT_EQUAL_stage1 -> STRICT_EQUAL_82_objects cmplines 33->0
+MOVER tp/v11u303repro/cases/VI/vi10_paramfromparent STRICT_NOTEQUAL_type -> STRICT_EQUAL_178_objects cmplines 0->0
+MOVER tp/v11u303repro/cases/VI/vi10_paramfromparent_el NOT_EQUAL_stage1 -> STRICT_EQUAL_178_objects cmplines 33->0
+MOVER tp/v11u303repro/cases/VI/vi13_paramidx STRICT_NOTEQUAL_type -> STRICT_NOTEQUAL_type cmplines 0->0
+MOVER tp/v11u303repro/cases/VI/vi13_paramidx_el NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_type cmplines 33->0
+ENTER tp/r11u118repro/grid/g1/p29_iface
+ENTER tp/r11u118repro/grid/g1/p29_iface_el
+ENTER tp/r11u293repro/cases/PV/pv06_header_ctl
+ENTER tp/r11u293repro/cases/PV/pv06_header_ctl_el
+ENTER tp/r11u303repro/cases/IF/i03_split
+ENTER tp/r11u303repro/cases/IF/i03_split_el
+ENTER tp/r11u303repro/cases/IF/i06_bareuntaken
+ENTER tp/r11u303repro/cases/IF/i06_bareuntaken_el
+ENTER tp/r11u303repro/cases/IF/i08_plainlhs
+ENTER tp/v11u193repro/cases/UC/uc06_iface
+ENTER tp/v11u193repro/cases/UC/uc06_iface_el
+ENTER tp/v11u193repro/cases/UC/uc22_tn_iface
+ENTER tp/v11u193repro/cases/UC/uc22_tn_iface_el
+ENTER tp/v11u293repro/cases/VI/vi09_modport_view
+ENTER tp/v11u293repro/cases/VI/vi09_modport_view_el
+ENTER tp/v11u303repro/cases/VI/vi06_fillboth
+ENTER tp/v11u303repro/cases/VI/vi06_fillboth_el
+ENTER tp/v11u303repro/cases/VI/vi08_vecbit
+ENTER tp/v11u303repro/cases/VI/vi08_vecbit_el
+ENTER tp/v11u303repro/cases/VI/vi10_paramfromparent
+ENTER tp/v11u303repro/cases/VI/vi10_paramfromparent_el
+CHANGED tp/r11u118repro/grid/g1/p29_iface
+CHANGED tp/r11u118repro/grid/g1/p29_iface_el
+CHANGED tp/r11u303repro/cases/IF/i03_split_el
+CHANGED tp/r11u303repro/cases/IF/i06_bareuntaken
+CHANGED tp/r11u303repro/cases/IF/i06_bareuntaken_el
+CHANGED tp/r11u303repro/cases/IF/i08_plainlhs
+CHANGED tp/r11u303repro/cases/IF/i08_plainlhs_el
+CHANGED tp/v11u111repro/brk/f2/x24_otherpkg_member_q
+CHANGED tp/v11u111repro/brk/f2/x24_otherpkg_member_q_el
+CHANGED tp/v11u193repro/cases/UC/uc06_iface
+CHANGED tp/v11u193repro/cases/UC/uc06_iface_el
+CHANGED tp/v11u193repro/cases/UC/uc22_tn_iface_el
+CHANGED tp/v11u303repro/cases/VI/vi02_partsel_el
+CHANGED tp/v11u303repro/cases/VI/vi06_fillboth_el
+CHANGED tp/v11u303repro/cases/VI/vi08_vecbit
+CHANGED tp/v11u303repro/cases/VI/vi08_vecbit_el
+CHANGED tp/v11u303repro/cases/VI/vi10_paramfromparent_el
+CHANGED tp/v11u303repro/cases/VI/vi13_paramidx_el

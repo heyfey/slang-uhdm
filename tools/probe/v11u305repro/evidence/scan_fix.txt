@@ -1,0 +1,221 @@
+r11u118repro/grid/g1/p29_iface ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+r11u159verify/cases/cx/x08_tp_and_enum_default TDCOPY305V_ABSTAIN:1 
+r11u162verify/cases/dps/d02_cross_pkg_typedef scopedSimpleTdMemberBindsListing305:2 
+r11u162verify/cases/pvn/n01_positional_modport udpPosModportPathAtSel305:1 
+r11u176repro/cases/PG/g16_generic_mpconn_pos_two udpPosModportPathAtSel305:1 
+r11u195repro/cases/K/k08 wireScopedTdEndAtType305:1 
+r11u199verify/cases/T/t05_iface_ca ifCaUnsizedRhsClonePerInst305:1 ifTernFillSplitPerInst305:1 IFUNSIZED305_CLONE:1 
+r11u1repro/grid1 udpPosModportPathAtSel305:1 
+r11u212repro/cases/SR/s17 scopedSimpleTdMemberBindsListing305:4 
+r11u218dec/cases/IX/x08_deep_path scopedSimpleTdMemberBindsListing305:2 
+r11u246repro/cases/LN/n04_inoutport wireScopedTdEndAtType305:1 
+r11u256repro/cases/B/b12_iface_body ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+r11u293repro/cases/PV/pv06_header_ctl pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+r11u303repro/cases/IF/i03_split ifCaUnsizedRhsClonePerInst305:1 ifTernFillSplitPerInst305:1 IFUNSIZED305_CLONE:1 
+r11u303repro/cases/IF/i06_bareuntaken ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+r11u305repro/cases/IS/s01_both1 ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+r11u305repro/cases/IS/s02_rev ifCaUnsizedRhsClonePerInst305:1 ifTernFillSplitPerInst305:1 IFUNSIZED305_CLONE:1 
+r11u305repro/cases/IS/s03_three ifCaUnsizedRhsClonePerInst305:2 ifTernFillSplitPerInst305:1 IFUNSIZED305_CLONE:2 
+r11u305repro/cases/IS/s04_split ifCaUnsizedRhsClonePerInst305:1 ifTernFillSplitPerInst305:1 IFUNSIZED305_CLONE:1 
+r11u305repro/cases/IS/s09_one ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+r11u305repro/cases/IU/u02_plain_op ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+r11u305repro/cases/IU/u03_plain_split ifCaUnsizedRhsClonePerInst305:1 ifTernFillSplitPerInst305:1 IFUNSIZED305_CLONE:1 
+r11u305repro/cases/IU/u04_plain_ones IFPLAINLHS305_BIND:1 
+r11u305repro/cases/IU/u05_plain_or ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+r11u305repro/cases/IU/u06_sel_or ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+r11u305repro/cases/IU/u07_concat_lhs ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+r11u305repro/cases/IU/u08_xfill_op ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+r11u305repro/cases/IU/u09_delay ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+r11u305repro/cases/IU/u11_inmodgen ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+r11u305repro/cases/IU/u12_portview ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+r11u305repro/cases/IU/u13_unsizedhex ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+r11u305repro/cases/IU/u15_ifarray ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+r11u305repro/cases/IU/u16_constop_plain IFUNSIZED305_ABSTAIN:2 
+r11u305repro/cases/IU/u17_constop_sel IFUNSIZED305_ABSTAIN:1 
+r11u305repro/cases/IU/u18_paramop IFUNSIZED305_ABSTAIN:2 
+r11u305repro/cases/IU/u19_tern_constarms IFUNSIZED305_ABSTAIN:1 
+r11u305repro/cases/IU/u20_concat_unsized ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+r11u305repro/cases/PM/p01_first udpPosModportPathAtSel305:1 
+r11u305repro/cases/PM/p05_ingen udpPosModportPathAtSel305:1 
+r11u305repro/cases/PM/p06_twoinst udpPosModportPathAtSel305:2 
+r11u305repro/cases/PM/p07_generic udpPosModportPathAtSel305:1 
+r11u305repro/cases/PM/p09_param udpPosModportPathAtSel305:1 
+r11u305repro/cases/PM/p11_program udpPosModportPathAtSel305:1 
+r11u305repro/cases/PM/p12_macro udpPosModportPathAtSel305:1 
+r11u305repro/cases/PM/p13_child_mp udpPosModportPathAtSel305:1 
+r11u305repro/cases/PM/p16_mo udpPosModportPathAtSel305:1 
+r11u305repro/cases/PV/v01_pb19 pvHdrPortAtPortDecl305:2 pvHdrPortDeclNetFirst305:2 
+r11u305repro/cases/PV/v02_bodyfirst pvHdrBodyFirstNdaCell305:1 pvHdrPortAtPortDecl305:2 pvHdrPortDeclNetFirst305:1 
+r11u305repro/cases/PV/v03_noinit pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+r11u305repro/cases/PV/v04_logicbody pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+r11u305repro/cases/PV/v05_hdronly pvHdrPortAtPortDecl305:1 
+r11u305repro/cases/PV/v06_input pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+r11u305repro/cases/PV/v07_twoviews pvHdrPortAtPortDecl305:2 pvHdrPortDeclNetFirst305:2 
+r11u305repro/cases/PV/v08_generic pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+r11u305repro/cases/PV/v09_scalar pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+r11u305repro/cases/PV/v10_portwire pvHdrPortAtPortDecl305:1 
+r11u305repro/cases/PV/v11_plainport pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+r11u305repro/cases/PV/v12_program pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+r11u305repro/cases/PV/v13_notinmp pvHdrPortAtPortDecl305:3 pvHdrPortDeclNetFirst305:1 
+r11u305repro/cases/PV/v14_multidecl pvHdrPortAtPortDecl305:2 pvHdrPortDeclNetFirst305:2 
+r11u305repro/cases/PV/v16_twoinst pvHdrPortAtPortDecl305:2 pvHdrPortDeclNetFirst305:2 
+r11u305repro/cases/PV/v17_ingen pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+r11u305repro/cases/PV/v18_reads pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+r11u305repro/cases/TQ/s02_pkgstruct scopedSimpleTdMemberBindsListing305:2 
+r11u305repro/cases/TQ/s03_union scopedSimpleTdMemberBindsListing305:1 
+r11u305repro/cases/TQ/s04_unpacked_mem scopedSimpleTdMemberBindsListing305:1 
+r11u305repro/cases/TQ/s08_bitvec scopedSimpleTdMemberBindsListing305:1 
+r11u305repro/cases/TQ/s09_int scopedSimpleTdMemberBindsListing305:1 
+r11u305repro/cases/TQ/s10_inline_var scopedSimpleTdMemberBindsListing305:2 
+r11u305repro/cases/TQ/s11_selfscoped scopedSimpleTdMemberBindsListing305:2 
+r11u305repro/cases/TQ/s13_iface scopedSimpleTdMemberBindsListing305:1 
+r11u305repro/cases/TQ/s12_class scopedSimpleTdMemberBindsListing305:1 
+r11u305repro/cases/TQ/s14_nested scopedSimpleTdMemberBindsListing305:1 
+r11u305repro/cases/TQ/s16_port scopedSimpleTdMemberBindsListing305:2 
+r11u305repro/cases/TQ/s15_param scopedSimpleTdMemberBindsListing305:1 
+r11u305repro/cases/TQ/s19_two_members scopedSimpleTdMemberBindsListing305:2 
+r11u305repro/cases/TQ/s20_two_structs scopedSimpleTdMemberBindsListing305:2 
+r11u305repro/cases/TQ/s21_member_rw scopedSimpleTdMemberBindsListing305:1 
+r11u305repro/cases/TQ/s22_signed scopedSimpleTdMemberBindsListing305:1 
+r11u305repro/cases/TQ/s23_paramwidth scopedSimpleTdMemberBindsListing305:1 
+r11u305repro/cases/TQ/s25_cast scopedSimpleTdMemberBindsListing305:1 
+r11u305repro/cases/TQ/s26_pkgparamwidth scopedSimpleTdMemberBindsListing305:2 
+r11u305repro/cases/TQ/t01_q04 scopedSimpleTdMemberBindsListing305:2 
+r11u305repro/cases/TQ/t02_modtd scopedSimpleTdMemberBindsListing305:1 
+r11u305repro/cases/TQ/t03_lptype scopedSimpleTdMemberBindsListing305:2 
+r11u305repro/cases/TQ/t06_tp_two scopedSimpleTdMemberBindsListing305:4 
+r11u305repro/cases/TQ/t07_tp_inst scopedSimpleTdMemberBindsListing305:2 
+r11u305repro/cases/TQ/t08_tp_struct_pkg scopedSimpleTdMemberBindsListing305:2 
+r11u305repro/cases/WN/w01_wire_scoped wireScopedTdEndAtType305:1 
+r11u305repro/cases/WN/w06_two_wires wireScopedTdEndAtType305:2 
+r11u305repro/cases/WN/w08_wire_enum wireScopedTdEndAtType305:1 
+r11u305repro/cases/WN/w09_iface wireScopedTdEndAtType305:1 
+r11u305repro/cases/WN/w11_union wireScopedTdEndAtType305:1 
+r11u305repro/cases/WN/w13_comma wireScopedTdEndAtType305:2 
+r11u305repro/cases/WN/w14_macro wireScopedTdEndAtType305:1 
+r11u305repro/cases/WN/w15_wire_then_var wireScopedTdEndAtType305:1 
+r11u305repro/cases/WN/w16_twomods wireScopedTdEndAtType305:2 
+r11u305repro/cases/WN/w17_tri wireScopedTdEndAtType305:1 
+r11u305repro/cases/WN/w20_crlf wireScopedTdEndAtType305:1 
+r11u305repro/cases/WN/w21_header wireScopedTdEndAtType305:1 
+r11v154repro/pv/o2 udpPosModportPathAtSel305:1 
+v11u111repro/brk/f2/x24_otherpkg_member_q scopedSimpleTdMemberBindsListing305:2 
+v11u186repro/cases/W/x03 scopedSimpleTdMemberBindsListing305:2 
+v11u193repro/cases/UC/uc06_iface ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+v11u193repro/cases/UC/uc22_tn_iface ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+v11u195repro/cases/K/k05 wireScopedTdEndAtType305:1 
+v11u195repro/cases/K/k12 wireScopedTdEndAtType305:1 
+v11u209repro/cases/PD/v06 pvHdrPortAtPortDecl305:4 
+v11u212repro/cases/A/a13 scopedSimpleTdMemberBindsListing305:2 
+v11u239repro/cases/MA/m27 wireScopedTdEndAtType305:1 
+v11u263repro/cases/VU/vu22_var_nested_member_repl scopedSimpleTdMemberBindsListing305:1 
+v11u285repro/cases/VM/vm03_third_pkg_td scopedSimpleTdMemberBindsListing305:2 
+v11u293repro/cases/VI/vi09_modport_view pvHdrPortAtPortDecl305:2 pvHdrPortDeclNetFirst305:2 
+v11u293repro/cases/VI/vi21_gen_iface_modport pvHdrPortAtPortDecl305:3 pvHdrPortDeclNetFirst305:1 
+v11u293repro/cases/VI/vi24_modport_import_func pvHdrPortAtPortDecl305:4 
+v11u303repro/cases/VI/vi02_partsel ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+v11u303repro/cases/VI/vi06_fillboth ifTernFillSplitPerInst305:2 
+v11u303repro/cases/VI/vi08_vecbit ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+v11u303repro/cases/VI/vi10_paramfromparent ifCaUnsizedRhsClonePerInst305:1 ifTernFillSplitPerInst305:1 IFUNSIZED305_CLONE:1 
+v11u303repro/cases/VI/vi13_paramidx ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+v11u305repro/cases/VM/vm02_hashdelay udpPosModportPathAtSel305:1 
+v11u305repro/cases/VM/vm01_ifport_down udpPosModportPathAtSel305:1 
+v11u305repro/cases/VM/vm03_multi_inst udpPosModportPathAtSel305:2 
+v11u305repro/cases/VM/vm05_const_second udpPosModportPathAtSel305:1 
+v11u305repro/cases/VM/vm04_two_ifaces udpPosModportPathAtSel305:1 
+v11u305repro/cases/VM/vm06_decl_after udpPosModportPathAtSel305:1 
+v11u305repro/cases/VM/vm08_mo_first udpPosModportPathAtSel305:1 
+v11u305repro/cases/VM/vm09_twotops udpPosModportPathAtSel305:2 
+v11u305repro/cases/VM/vm07_instarr udpPosModportPathAtSel305:2 
+v11u305repro/cases/VM/vm10_wide_net udpPosModportPathAtSel305:1 
+v11u305repro/cases/VM/vm11_bind UDPBIND305V_ABSTAIN:1 
+v11u305repro/cases/VM/vm12_three_terms udpPosModportPathAtSel305:1 
+v11u305repro/cases/VM/vm13_digits udpPosModportPathAtSel305:1 
+v11u305repro/cases/VP/vp01_input_nonansi pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+v11u305repro/cases/VM/vm14_nested_mod udpPosModportPathAtSel305:2 
+v11u305repro/cases/VP/vp02_positional pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+v11u305repro/cases/VP/vp03_inout pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+v11u305repro/cases/VP/vp04_mp_expr pvHdrPortAtPortDecl305:2 
+v11u305repro/cases/VP/vp05_two_modports pvHdrPortAtPortDecl305:5 pvHdrPortDeclNetFirst305:3 
+v11u305repro/cases/VP/vp06_reg_body pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+v11u305repro/cases/VP/vp07_implicit_scalar pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+v11u305repro/cases/VP/vp08_portexpr_hdr pvHdrPortDeclNetFirst305:1 
+v11u305repro/cases/VP/vp09_typed_portdecl pvHdrPortAtPortDecl305:1 
+v11u305repro/cases/VP/vp10_two_subs pvHdrPortAtPortDecl305:2 pvHdrPortDeclNetFirst305:2 
+v11u305repro/cases/VP/vp11_bodyfirst_noinit pvHdrPortAtPortDecl305:1 
+v11u305repro/cases/VP/vp12_iface_inst_twice pvHdrPortAtPortDecl305:2 pvHdrPortDeclNetFirst305:2 
+v11u305repro/cases/VP/vp13_ifarray_view pvHdrPortAtPortDecl305:2 pvHdrPortDeclNetFirst305:2 
+v11u305repro/cases/VP/vp15_multiline_decl pvHdrPortAtPortDecl305:2 pvHdrPortDeclNetFirst305:2 
+v11u305repro/cases/VP/vp16_ingen_sub pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+v11u305repro/cases/VP/vp17_program pvHdrPortAtPortDecl305:1 pvHdrPortDeclNetFirst305:1 
+v11u305repro/cases/VT/vt01_crosspkg scopedSimpleTdMemberBindsListing305:2 
+v11u305repro/cases/VT/vt02_bit_scalar scopedSimpleTdMemberBindsListing305:1 
+v11u305repro/cases/VT/vt03_integer scopedSimpleTdMemberBindsListing305:1 
+v11u305repro/cases/VT/vt05_real_string scopedSimpleTdMemberBindsListing305:2 
+v11u305repro/cases/VT/vt06_twoinst_port scopedSimpleTdMemberBindsListing305:2 
+v11u305repro/cases/VT/vt07_multipacked scopedSimpleTdMemberBindsListing305:1 
+v11u305repro/cases/VT/vt08_shadow scopedSimpleTdMemberBindsListing305:1 
+v11u305repro/cases/VT/vt10_local_lp_struct scopedSimpleTdMemberBindsListing305:1 
+v11u305repro/cases/VT/vt09_ifc_modport scopedSimpleTdMemberBindsListing305:1 udpPosModportPathAtSel305:1 
+v11u305repro/cases/VT/vt11_init_var scopedSimpleTdMemberBindsListing305:1 
+v11u305repro/cases/VT/vt12_nested_crosspkg scopedSimpleTdMemberBindsListing305:2 
+v11u305repro/cases/VT/vt13_pkgfunc_arg scopedSimpleTdMemberBindsListing305:2 
+v11u305repro/cases/VT/vt14_import_struct scopedSimpleTdMemberBindsListing305:2 
+v11u305repro/cases/VT/vt15_two_pkgs_same scopedSimpleTdMemberBindsListing305:2 
+v11u305repro/cases/VT/vt16_module_twoinst_param scopedSimpleTdMemberBindsListing305:1 
+v11u305repro/cases/VT/vt18_class_prop_struct scopedSimpleTdMemberBindsListing305:1 
+v11u305repro/cases/VT/vt20_struct_param_mod scopedSimpleTdMemberBindsListing305:1 TDCOPY305V_ABSTAIN:1 
+v11u305repro/cases/VT/vt21_tp_ovr_pkgstruct scopedSimpleTdMemberBindsListing305:2 
+v11u305repro/cases/VT/vt22_tp_default_pkgstruct scopedSimpleTdMemberBindsListing305:2 
+v11u305repro/cases/VT/vt24_tp_ovr_modtd_port scopedSimpleTdMemberBindsListing305:1 TDCOPY305V_ABSTAIN:1 
+v11u305repro/cases/VT/vt26_td_alias scopedSimpleTdMemberBindsListing305:1 TDCOPY305V_ABSTAIN:1 
+v11u305repro/cases/VT/vt25_lptype_alias scopedSimpleTdMemberBindsListing305:2 
+v11u305repro/cases/VT/vt27_func_ret scopedSimpleTdMemberBindsListing305:1 
+v11u305repro/cases/VT/vt28_ifc_tp_ovr scopedSimpleTdMemberBindsListing305:1 TDCOPY305V_ABSTAIN:1 
+v11u305repro/cases/VT/vt29_tp_ovr_twoinst scopedSimpleTdMemberBindsListing305:1 TDCOPY305V_ABSTAIN:2 
+v11u305repro/cases/VT/vt30_tp_ovr_union scopedSimpleTdMemberBindsListing305:1 TDCOPY305V_ABSTAIN:1 
+v11u305repro/cases/VU/vu01_ifarray ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu02_twomods ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu03_ingen ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu04_constdelay ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu05_funccall IFCALL305V_ABSTAIN:2 
+v11u305repro/cases/VU/vu06_portsig ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu07_concatlhs ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu08_plain_three ifCaUnsizedRhsClonePerInst305:3 IFUNSIZED305_CLONE:3 
+v11u305repro/cases/VU/vu10_partsel_lhs ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu09_paramval ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu11_split_plain ifCaUnsizedRhsClonePerInst305:1 IFPLAINLHS305_BIND:1 ifTernFillSplitPerInst305:1 IFUNSIZED305_CLONE:1 
+v11u305repro/cases/VU/vu12_split_three ifCaUnsizedRhsClonePerInst305:1 ifTernFillSplitPerInst305:2 IFUNSIZED305_CLONE:1 
+v11u305repro/cases/VU/vu13_xfill ifCaUnsizedRhsClonePerInst305:4 IFUNSIZED305_CLONE:4 
+v11u305repro/cases/VU/vu14_nested_iface ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu15_modport_child ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu16_hierref ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu17_bitsel_rhs ifCaUnsizedRhsClonePerInst305:4 IFUNSIZED305_CLONE:4 
+v11u305repro/cases/VU/vu18_one_inst_plain ifCaUnsizedRhsClonePerInst305:1 IFUNSIZED305_CLONE:1 
+v11u305repro/cases/VU/vu19_modinst_and_if ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu20_wire_net ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu21_funccall_repl IFCALL305V_ABSTAIN:2 
+v11u305repro/cases/VU/vu22_syscall ifCaUnsizedRhsClonePerInst305:4 IFUNSIZED305_CLONE:4 
+v11u305repro/cases/VU/vu23_pkgfunc IFCALL305V_ABSTAIN:2 
+v11u305repro/cases/VU/vu24_funccall_plain IFCALL305V_ABSTAIN:2 
+v11u305repro/cases/VU/vu26_split_call IFCALL305V_ABSTAIN:2 
+v11u305repro/cases/VU/vu25_funccall_one IFCALL305V_ABSTAIN:1 
+v11u305repro/cases/VU/vu28_plain_fill_bothsame ifCaUnsizedRhsClonePerInst305:2 IFUNSIZED305_CLONE:2 
+v11u305repro/cases/VU/vu29_twocells ifCaUnsizedRhsClonePerInst305:4 IFUNSIZED305_CLONE:4 
+v11u305repro/cases/VW/vw01_wire_then_var wireScopedTdEndAtType305:1 
+v11u305repro/cases/VW/vw02_var_then_wire wireScopedTdEndAtType305:1 
+v11u305repro/cases/VW/vw03_uwire wireScopedTdEndAtType305:1 
+v11u305repro/cases/VW/vw04_unit WIREPKG305V_ABSTAIN:1 
+v11u305repro/cases/VW/vw05_trireg wireScopedTdEndAtType305:1 
+v11u305repro/cases/VW/vw06_tdchain wireScopedTdEndAtType305:1 
+v11u305repro/cases/VW/vw07_twoinst wireScopedTdEndAtType305:1 
+v11u305repro/cases/VW/vw08_port_after wireScopedTdEndAtType305:1 
+v11u305repro/cases/VW/vw09_multiline wireScopedTdEndAtType305:1 
+v11u305repro/cases/VW/vw10_spaced wireScopedTdEndAtType305:1 
+v11u305repro/cases/VW/vw11_imported_too wireScopedTdEndAtType305:1 
+v11u305repro/cases/VW/vw12_two_wires_two_mods wireScopedTdEndAtType305:2 
+v11u305repro/cases/VW/vw14_macro_type wireScopedTdEndAtType305:1 
+v11u305repro/cases/VW/vw13_struct_signed wireScopedTdEndAtType305:1 
+v11u305repro/cases/VW/vw15_unused_mod wireScopedTdEndAtType305:1 
+v11u305repro/cases/VW/vw16_class_scope WIREPKG305V_ABSTAIN:1 
+v11u305repro/cases/VW/vw17_unit_twomods WIREPKG305V_ABSTAIN:1 

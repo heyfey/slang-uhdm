@@ -1,0 +1,33 @@
+== probe P vs L diff lines: 10
+== surelog P vs L diff lines: 4
+== uhdm2rtlil P vs L diff lines: 0
+== downstream P vs L diff lines: 0
+119c119
+< r10earl53repro/v2_v53,STRICT_NOTEQUAL,differ:endline(1),differ:endline(1)
+---
+> r10earl53repro/v2_v53,EQUAL,,equal
+2559c2559
+< r11u1repro/grid2,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
+---
+> r11u1repro/grid2,EQUAL,,equal
+3243c3243
+< r11u93repro/grid/pb19_modportview,STRICT_NOTEQUAL,differ:line(14),differ:line(14)
+---
+> r11u93repro/grid/pb19_modportview,EQUAL,,equal
+3376c3376
+< r11v1repro/vA,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
+---
+> r11v1repro/vA,EQUAL,,equal
+4042c4042
+< v11u93b107repro/brk/q04_pkg_member,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+---
+> v11u93b107repro/brk/q04_pkg_member,EQUAL,,equal
+845c845
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log
+847c847
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log
+downstream csv byte-identical to results/downstream_uhdm2rtlil.csv

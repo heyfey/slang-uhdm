@@ -37,6 +37,7 @@
 #include "R291.h"
 #include "R295.h"
 #include "R303.h"
+#include "R305.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -16928,6 +16929,61 @@ void UhdmExporter::modTdClonePkgTopInstance16(UHDM::design* d) {
 // static because both of its readers live in this file (one exporter per
 // process; the header is shared ground).
 static std::set<const UHDM::typespec_member*> pkgTdMemShared108;
+// § scopedSimpleTdMemberBindsListing305 — the members that law bound to the
+// package's own typedef object; LAW S leaves them (the decode at the law).
+static std::set<const UHDM::typespec_member*> scopedTdMem305;
+// § scopedTdMemberCopyAbstains305v (v11u305) — the struct or union being built
+// is a COPY made for another name, not the typedef's own listing: a type
+// parameter's override actual (`sub #(.T(s_t)) u`, ParamEmit's override road
+// building it under bypassTypedefShare) or a typedef of the typedef
+// (`typedef s_t s2_t;`, emitTypedefs building s2_t's own struct).  Golden
+// gives such a copy's member the `w_t` clone with Instance pk (the pristine
+// road), and the law read chain away 4 to 16 on
+// tools/probe/v11u305repro/cases/VT vt20, vt24, vt26, vt28, vt29 and vt30 in
+// both views (stage 1 on every binary, uhdm-cmp 17 -> 112 lines on vt20).
+// (A $unit, package or class typedef built under bypassTypedefShare keeps the
+// law: vt18_class_prop_struct, vt21_tp_ovr_pkgstruct.)  Switch R11V305_TDCOPY_OFF.
+static bool scopedTdCopy305v(const Scope& sc, const std::string& aliasName, bool bypass,
+                             const Scope* cur) {
+    if (!r11v305On("R11V305_TDCOPY_OFF"))
+        return false;
+    // The type parameter's override actual: a MODULE-body typedef rebuilt
+    // under bypassTypedefShare while the scope being emitted is another
+    // instance body (the receiving `sub`), reached without leaving that body.
+    if (bypass && cur) {
+        const Scope* decl = sc.asSymbol().getParentScope();
+        if (decl && decl->asSymbol().kind == SymbolKind::InstanceBody) {
+            bool inside = false;
+            for (const Scope* x = cur; x; x = x->asSymbol().getParentScope()) {
+                if (x == decl) {
+                    inside = true;
+                    break;
+                }
+                if (x->asSymbol().kind == SymbolKind::InstanceBody)
+                    break;
+            }
+            if (!inside) {
+                tr305("TDCOPY305V_ABSTAIN", "override " + aliasName);
+                return true;
+            }
+        }
+    }
+    const syntax::SyntaxNode* syn = sc.asSymbol().getSyntax();
+    if (!syn || !syn->parent || syn->parent->kind != syntax::SyntaxKind::TypedefDeclaration ||
+        aliasName.empty())
+        return false;
+    std::string own(syn->parent->as<syntax::TypedefDeclarationSyntax>().name.valueText());
+    std::string last = aliasName;
+    if (auto p = last.rfind("::"); p != std::string::npos)
+        last = last.substr(p + 2);
+    if (auto p = last.rfind('.'); p != std::string::npos)
+        last = last.substr(p + 1);
+    if (last != own) {
+        tr305("TDCOPY305V_ABSTAIN", "alias " + aliasName + " of " + own);
+        return true;
+    }
+    return false;
+}
 
 // PASS-15's "MEASURED ZERO" NOTE, CORRECTED (r10earl16).  Pass 15 tried the
 // Elem_typespec descent, measured no change, and concluded the def->top MAP
@@ -17723,7 +17779,7 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         // shared `pkg::T` object of a typedef-of-a-named-type keeps it: that
         // object is Surelog's `TypeDef` typespec itself, never a LAW-S copy.
         else if (auto* tm = dynamic_cast<UHDM::typespec_member*>(o)) {
-            if (!pkgTdMemShared108.count(tm)) {
+            if (!pkgTdMemShared108.count(tm) && !scopedTdMem305.count(tm)) {
                 rebind(tm->Typespec(), true);
                 // § memberBareTdAliasNamedByUse183 (r11u183,
                 // R11U183_BITTSNAME_OFF) — Surelog copies the typedef PER
@@ -18718,9 +18774,59 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                             .getCanonicalType()
                             .as<FixedSizeUnpackedArrayType>();
             UHDM::typespec* ets9 = nullptr;
+            bool elemListing305 = false;
             if (auto ei9 = typedefTs.find(&ua9.elementType);
                 ei9 != typedefTs.end())
                 ets9 = ei9->second;
+            // § scopedSimpleTdMemberBindsListing305 — the unpacked member's
+            // element written `pk::w_t` takes the package's typedef object too
+            // (grid TQ s04_unpacked_mem: elem `pk::w_t` at the package's span,
+            // ours the `w_t` alias copy).
+            if (ets9 && ua9.elementType.kind == SymbolKind::TypeAlias &&
+                !castAggCloneCtx && !structCloneMemberRefParent &&
+                memberTypeSyn && memberTypeSyn->kind == syntax::SyntaxKind::NamedType &&
+                memberTypeSyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                    syntax::SyntaxKind::ScopedName &&
+                r11u305On("R11U305_SCOPEDTDMEM_OFF") &&
+                !scopedTdCopy305v(structScope, aliasName, bypassTypedefShare,
+                                  currentScope)) {
+                auto& e305 = ua9.elementType.as<TypeAliasType>();
+                const Scope* h305 = e305.getParentScope();
+                const syntax::SyntaxNode* ts305 = e305.getSyntax();
+                if (h305 && h305->asSymbol().kind == SymbolKind::Package && ts305 &&
+                    ts305->kind == syntax::SyntaxKind::TypedefDeclaration &&
+                    ts305->as<syntax::TypedefDeclarationSyntax>().type->kind !=
+                        syntax::SyntaxKind::NamedType &&
+                    !e305.targetType.getType().isAggregate() &&
+                    e305.targetType.getType().getCanonicalType().kind != SymbolKind::EnumType) {
+                    const std::string w305 = std::string(h305->asSymbol().name) + "::" +
+                                             std::string(e305.name);
+                    UHDM::typespec* x305 = ets9;
+                    if (x305->VpiName() != w305)
+                        if (auto* a305 = x305->Typedef_alias())
+                            if (a305->Actual_typespec())
+                                x305 = (UHDM::typespec*)a305->Actual_typespec();
+                    if (!inPkgTypedefEmit || pkgTopEmit ||
+                        [&]() {
+                            for (auto* sc = structScope.asSymbol().getParentScope(); sc;
+                                 sc = sc->asSymbol().getParentScope())
+                                if (sc->asSymbol().kind == SymbolKind::Package)
+                                    return sc != h305;
+                            return true;
+                        }())
+                        if (auto tw305 = pkgTopTypedefTs.find((const void*)&e305);
+                            tw305 != pkgTopTypedefTs.end() && tw305->second &&
+                            tw305->second->VpiName() == w305)
+                            x305 = tw305->second;
+                    if (x305->VpiName() == w305) {
+                        ets9 = x305;
+                        elemListing305 = true;
+                        scopedTdMem305.insert(tm);
+                        tr305("scopedSimpleTdMemberBindsListing305",
+                              aliasName + " " + std::string(fm.name) + " elem " + w305);
+                    }
+                }
+            }
             bool freshElem9 = false;
             if (!ets9) {
                 ets9 = anonAggregateElemTs(ua9.elementType, memberTypeSyn);
@@ -18815,7 +18921,7 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 // The elem points at a fresh NAMED alias clone
                 // (Typedef_alias -> the shared element ts) — Surelog.
                 UHDM::typespec* tgt9 = ets9;
-                if (ua9.elementType.kind == SymbolKind::TypeAlias &&
+                if (ua9.elementType.kind == SymbolKind::TypeAlias && !elemListing305 &&
                     (ets9->UhdmType() == UHDM::uhdmbit_typespec ||
                      ets9->UhdmType() == UHDM::uhdmlogic_typespec)) {
                     auto* al9 = &ua9.elementType.as<TypeAliasType>();
@@ -19189,6 +19295,82 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 if (auto titA = typedefTs.find(&fm.getDeclaredType()->getType());
                     titA != typedefTs.end() && !titA->second->VpiName().empty())
                     fts = titA->second;
+            }
+            // § scopedSimpleTdMemberBindsListing305 (r11u305) — a member
+            // written with a PACKAGE-SCOPED name of a typedef of a built-in
+            // type (`pk::w_t a;`, `typedef logic [2:0] w_t;` in a package)
+            // binds that package's typedef object itself, named `pk::w_t`:
+            // the Class_scope lookup reaches the package's TypeDef, whose
+            // typespec the package compile already set, and
+            // compileDatastructureTypespec's TypeDef branch returns it
+            // (`result = parent_tpd->getTypespec()`), where an unscoped name
+            // reaches the SimpleType branch's clone-with-alias (the jeras_union
+            // road below).  Golden grid tools/probe/r11u305repro/cases/TQ
+            // (`typedef struct packed { pk::w_t a; logic b; } s_t;` in a
+            // module, a union, an unpacked member dimension, an inline struct
+            // variable, a type-parameter or localparam type default: member
+            // `a` -> `pk::w_t` at the package's 2:21-2:32 with its range;
+            // ours a `w_t` copy with Typedef_alias -> pk::w_t), probe
+            // v11u93b107repro/brk/q04_pkg_member.  A member with its own
+            // packed dimension (`pk::w_t [1:0] a`, where golden drops the
+            // dimension), a cast clone tree and a struct parameter's
+            // per-parameter clone (golden grid TQ s15_param: that copy's
+            // member is a `w_t` clone, Instance pk, as the pristine road
+            // writes it; a draft binding the listing there read chain away
+            // 4) stand aside.  Switch R11U305_SCOPEDTDMEM_OFF.
+            if (!fts && !castAggCloneCtx && !structCloneMemberRefParent &&
+                fm.getDeclaredType() &&
+                fm.getDeclaredType()->getType().kind == SymbolKind::TypeAlias &&
+                memberTypeSyn && memberTypeSyn->kind == syntax::SyntaxKind::NamedType &&
+                memberTypeSyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                    syntax::SyntaxKind::ScopedName &&
+                r11u305On("R11U305_SCOPEDTDMEM_OFF") &&
+                !scopedTdCopy305v(structScope, aliasName, bypassTypedefShare,
+                                  currentScope)) {
+                auto& amt305 = fm.getDeclaredType()->getType().as<TypeAliasType>();
+                const Scope* home305 = amt305.getParentScope();
+                const syntax::SyntaxNode* tsyn305 = amt305.getSyntax();
+                const bool simple305 =
+                    tsyn305 && tsyn305->kind == syntax::SyntaxKind::TypedefDeclaration &&
+                    tsyn305->as<syntax::TypedefDeclarationSyntax>().type->kind !=
+                        syntax::SyntaxKind::NamedType &&
+                    !amt305.targetType.getType().isAggregate() &&
+                    amt305.targetType.getType().getCanonicalType().kind !=
+                        SymbolKind::EnumType;
+                if (simple305 && home305 &&
+                    home305->asSymbol().kind == SymbolKind::Package)
+                    if (auto t305 = typedefTs.find(&amt305); t305 != typedefTs.end()) {
+                        const std::string want305 =
+                            std::string(home305->asSymbol().name) + "::" +
+                            std::string(amt305.name);
+                        UHDM::typespec* sh305 = t305->second;
+                        if (sh305 && sh305->VpiName() != want305)
+                            if (auto* al305 = sh305->Typedef_alias())
+                                if (al305->Actual_typespec())
+                                    sh305 = (UHDM::typespec*)al305->Actual_typespec();
+                        // Outside the package's own definition listing the
+                        // binding is the ELABORATED package's twin (golden
+                        // grid TQ s23_paramwidth: `[W-1:0]` read folded,
+                        // `INT:2`).
+                        if (sh305 && (!inPkgTypedefEmit || pkgTopEmit ||
+                                      [&]() {
+                                          for (auto* sc = structScope.asSymbol().getParentScope();
+                                               sc; sc = sc->asSymbol().getParentScope())
+                                              if (sc->asSymbol().kind == SymbolKind::Package)
+                                                  return sc != home305;
+                                          return true;
+                                      }()))
+                            if (auto tw305 = pkgTopTypedefTs.find((const void*)&amt305);
+                                tw305 != pkgTopTypedefTs.end() && tw305->second &&
+                                tw305->second->VpiName() == want305)
+                                sh305 = tw305->second;
+                        if (sh305 && sh305->VpiName() == want305) {
+                            fts = sh305;
+                            scopedTdMem305.insert(tm);
+                            tr305("scopedSimpleTdMemberBindsListing305",
+                                  aliasName + " " + std::string(fm.name) + " " + want305);
+                        }
+                    }
             }
             // A DIRECT vector-typedef member (reg_addr_t rs1;): Surelog gives
             // the member its own NAMED alias clone (parent = the member,
@@ -19782,9 +19964,59 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                             .getCanonicalType()
                             .as<FixedSizeUnpackedArrayType>();
             UHDM::typespec* ets9 = nullptr;
+            bool elemListing305 = false;
             if (auto ei9 = typedefTs.find(&ua9.elementType);
                 ei9 != typedefTs.end())
                 ets9 = ei9->second;
+            // § scopedSimpleTdMemberBindsListing305 — the unpacked member's
+            // element written `pk::w_t` takes the package's typedef object too
+            // (grid TQ s04_unpacked_mem: elem `pk::w_t` at the package's span,
+            // ours the `w_t` alias copy).
+            if (ets9 && ua9.elementType.kind == SymbolKind::TypeAlias &&
+                !castAggCloneCtx && !structCloneMemberRefParent &&
+                memberTypeSyn && memberTypeSyn->kind == syntax::SyntaxKind::NamedType &&
+                memberTypeSyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                    syntax::SyntaxKind::ScopedName &&
+                r11u305On("R11U305_SCOPEDTDMEM_OFF") &&
+                !scopedTdCopy305v(unionScope, aliasName, bypassTypedefShare,
+                                  currentScope)) {
+                auto& e305 = ua9.elementType.as<TypeAliasType>();
+                const Scope* h305 = e305.getParentScope();
+                const syntax::SyntaxNode* ts305 = e305.getSyntax();
+                if (h305 && h305->asSymbol().kind == SymbolKind::Package && ts305 &&
+                    ts305->kind == syntax::SyntaxKind::TypedefDeclaration &&
+                    ts305->as<syntax::TypedefDeclarationSyntax>().type->kind !=
+                        syntax::SyntaxKind::NamedType &&
+                    !e305.targetType.getType().isAggregate() &&
+                    e305.targetType.getType().getCanonicalType().kind != SymbolKind::EnumType) {
+                    const std::string w305 = std::string(h305->asSymbol().name) + "::" +
+                                             std::string(e305.name);
+                    UHDM::typespec* x305 = ets9;
+                    if (x305->VpiName() != w305)
+                        if (auto* a305 = x305->Typedef_alias())
+                            if (a305->Actual_typespec())
+                                x305 = (UHDM::typespec*)a305->Actual_typespec();
+                    if (!inPkgTypedefEmit || pkgTopEmit ||
+                        [&]() {
+                            for (auto* sc = unionScope.asSymbol().getParentScope(); sc;
+                                 sc = sc->asSymbol().getParentScope())
+                                if (sc->asSymbol().kind == SymbolKind::Package)
+                                    return sc != h305;
+                            return true;
+                        }())
+                        if (auto tw305 = pkgTopTypedefTs.find((const void*)&e305);
+                            tw305 != pkgTopTypedefTs.end() && tw305->second &&
+                            tw305->second->VpiName() == w305)
+                            x305 = tw305->second;
+                    if (x305->VpiName() == w305) {
+                        ets9 = x305;
+                        elemListing305 = true;
+                        scopedTdMem305.insert(tm);
+                        tr305("scopedSimpleTdMemberBindsListing305",
+                              aliasName + " " + std::string(fm.name) + " elem " + w305);
+                    }
+                }
+            }
             bool freshElem9 = false;
             if (!ets9) {
                 ets9 = anonAggregateElemTs(ua9.elementType, memberTypeSyn);
@@ -19879,7 +20111,7 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                 // The elem points at a fresh NAMED alias clone
                 // (Typedef_alias -> the shared element ts) — Surelog.
                 UHDM::typespec* tgt9 = ets9;
-                if (ua9.elementType.kind == SymbolKind::TypeAlias &&
+                if (ua9.elementType.kind == SymbolKind::TypeAlias && !elemListing305 &&
                     (ets9->UhdmType() == UHDM::uhdmbit_typespec ||
                      ets9->UhdmType() == UHDM::uhdmlogic_typespec)) {
                     auto* al9 = &ua9.elementType.as<TypeAliasType>();
@@ -20086,6 +20318,82 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                 if (auto titA = typedefTs.find(&fm.getDeclaredType()->getType());
                     titA != typedefTs.end() && !titA->second->VpiName().empty())
                     fts = titA->second;
+            }
+            // § scopedSimpleTdMemberBindsListing305 (r11u305) — a member
+            // written with a PACKAGE-SCOPED name of a typedef of a built-in
+            // type (`pk::w_t a;`, `typedef logic [2:0] w_t;` in a package)
+            // binds that package's typedef object itself, named `pk::w_t`:
+            // the Class_scope lookup reaches the package's TypeDef, whose
+            // typespec the package compile already set, and
+            // compileDatastructureTypespec's TypeDef branch returns it
+            // (`result = parent_tpd->getTypespec()`), where an unscoped name
+            // reaches the SimpleType branch's clone-with-alias (the jeras_union
+            // road below).  Golden grid tools/probe/r11u305repro/cases/TQ
+            // (`typedef struct packed { pk::w_t a; logic b; } s_t;` in a
+            // module, a union, an unpacked member dimension, an inline struct
+            // variable, a type-parameter or localparam type default: member
+            // `a` -> `pk::w_t` at the package's 2:21-2:32 with its range;
+            // ours a `w_t` copy with Typedef_alias -> pk::w_t), probe
+            // v11u93b107repro/brk/q04_pkg_member.  A member with its own
+            // packed dimension (`pk::w_t [1:0] a`, where golden drops the
+            // dimension), a cast clone tree and a struct parameter's
+            // per-parameter clone (golden grid TQ s15_param: that copy's
+            // member is a `w_t` clone, Instance pk, as the pristine road
+            // writes it; a draft binding the listing there read chain away
+            // 4) stand aside.  Switch R11U305_SCOPEDTDMEM_OFF.
+            if (!fts && !castAggCloneCtx && !structCloneMemberRefParent &&
+                fm.getDeclaredType() &&
+                fm.getDeclaredType()->getType().kind == SymbolKind::TypeAlias &&
+                memberTypeSyn && memberTypeSyn->kind == syntax::SyntaxKind::NamedType &&
+                memberTypeSyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                    syntax::SyntaxKind::ScopedName &&
+                r11u305On("R11U305_SCOPEDTDMEM_OFF") &&
+                !scopedTdCopy305v(unionScope, aliasName, bypassTypedefShare,
+                                  currentScope)) {
+                auto& amt305 = fm.getDeclaredType()->getType().as<TypeAliasType>();
+                const Scope* home305 = amt305.getParentScope();
+                const syntax::SyntaxNode* tsyn305 = amt305.getSyntax();
+                const bool simple305 =
+                    tsyn305 && tsyn305->kind == syntax::SyntaxKind::TypedefDeclaration &&
+                    tsyn305->as<syntax::TypedefDeclarationSyntax>().type->kind !=
+                        syntax::SyntaxKind::NamedType &&
+                    !amt305.targetType.getType().isAggregate() &&
+                    amt305.targetType.getType().getCanonicalType().kind !=
+                        SymbolKind::EnumType;
+                if (simple305 && home305 &&
+                    home305->asSymbol().kind == SymbolKind::Package)
+                    if (auto t305 = typedefTs.find(&amt305); t305 != typedefTs.end()) {
+                        const std::string want305 =
+                            std::string(home305->asSymbol().name) + "::" +
+                            std::string(amt305.name);
+                        UHDM::typespec* sh305 = t305->second;
+                        if (sh305 && sh305->VpiName() != want305)
+                            if (auto* al305 = sh305->Typedef_alias())
+                                if (al305->Actual_typespec())
+                                    sh305 = (UHDM::typespec*)al305->Actual_typespec();
+                        // Outside the package's own definition listing the
+                        // binding is the ELABORATED package's twin (golden
+                        // grid TQ s23_paramwidth: `[W-1:0]` read folded,
+                        // `INT:2`).
+                        if (sh305 && (!inPkgTypedefEmit || pkgTopEmit ||
+                                      [&]() {
+                                          for (auto* sc = unionScope.asSymbol().getParentScope();
+                                               sc; sc = sc->asSymbol().getParentScope())
+                                              if (sc->asSymbol().kind == SymbolKind::Package)
+                                                  return sc != home305;
+                                          return true;
+                                      }()))
+                            if (auto tw305 = pkgTopTypedefTs.find((const void*)&amt305);
+                                tw305 != pkgTopTypedefTs.end() && tw305->second &&
+                                tw305->second->VpiName() == want305)
+                                sh305 = tw305->second;
+                        if (sh305 && sh305->VpiName() == want305) {
+                            fts = sh305;
+                            scopedTdMem305.insert(tm);
+                            tr305("scopedSimpleTdMemberBindsListing305",
+                                  aliasName + " " + std::string(fm.name) + " " + want305);
+                        }
+                    }
             }
             // A DIRECT vector-typedef member (reg_addr_t rs1;): Surelog gives
             // the member its own NAMED alias clone (parent = the member,

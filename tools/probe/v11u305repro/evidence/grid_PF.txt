@@ -1,0 +1,214 @@
+VM/vm01_ifport_down                           P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_175_objects c0 rc0 | MOVES ENTER
+VM/vm01_ifport_down_el                        P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_169_objects c0 rc0 | MOVES ENTER
+VM/vm02_hashdelay                             P NOT_EQUAL_stage1 c264 rc0 | F NOT_EQUAL_stage1 c264 rc0 | MOVES 
+VM/vm02_hashdelay_el                          P NOT_EQUAL_stage1 c264 rc0 | F NOT_EQUAL_stage1 c264 rc0 | MOVES 
+VM/vm03_multi_inst                            P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_NOTEQUAL_col c0 rc0 | MOVES 
+VM/vm03_multi_inst_el                         P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_NOTEQUAL_col c0 rc0 | MOVES 
+VM/vm04_two_ifaces                            P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_141_objects c0 rc0 | MOVES ENTER
+VM/vm04_two_ifaces_el                         P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_140_objects c0 rc0 | MOVES ENTER
+VM/vm05_const_second                          P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_109_objects c0 rc0 | MOVES ENTER
+VM/vm05_const_second_el                       P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_108_objects c0 rc0 | MOVES ENTER
+VM/vm06_decl_after                            P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_130_objects c0 rc0 | MOVES ENTER
+VM/vm06_decl_after_el                         P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_129_objects c0 rc0 | MOVES ENTER
+VM/vm07_instarr                               P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_176_objects c0 rc0 | MOVES ENTER
+VM/vm07_instarr_el                            P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_180_objects c0 rc0 | MOVES ENTER
+VM/vm08_mo_first                              P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_96_objects c0 rc0 | MOVES ENTER
+VM/vm08_mo_first_el                           P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_95_objects c0 rc0 | MOVES ENTER
+VM/vm09_twotops                               P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_192_objects c0 rc0 | MOVES ENTER
+VM/vm09_twotops_el                            P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_196_objects c0 rc0 | MOVES ENTER
+VM/vm10_wide_net                              P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_160_objects c0 rc0 | MOVES ENTER
+VM/vm10_wide_net_el                           P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_156_objects c0 rc0 | MOVES ENTER
+VM/vm11_bind                                  P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_NOTEQUAL_line c0 rc0 | same 
+VM/vm11_bind_el                               P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_NOTEQUAL_line c0 rc0 | same 
+VM/vm12_three_terms                           P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_132_objects c0 rc0 | MOVES ENTER
+VM/vm12_three_terms_el                        P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_132_objects c0 rc0 | MOVES ENTER
+VM/vm13_digits                                P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_92_objects c0 rc0 | MOVES ENTER
+VM/vm13_digits_el                             P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_91_objects c0 rc0 | MOVES ENTER
+VM/vm14_nested_mod                            P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_169_objects c0 rc0 | MOVES ENTER
+VM/vm14_nested_mod_el                         P STRICT_NOTEQUAL_col c0 rc0 | F STRICT_EQUAL_173_objects c0 rc0 | MOVES ENTER
+VP/vp01_input_nonansi                         P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_155_objects c0 rc0 | MOVES ENTER
+VP/vp01_input_nonansi_el                      P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_154_objects c0 rc0 | MOVES ENTER
+VP/vp02_positional                            P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_107_objects c0 rc0 | MOVES ENTER
+VP/vp02_positional_el                         P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_107_objects c0 rc0 | MOVES ENTER
+VP/vp03_inout                                 P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_99_objects c0 rc0 | MOVES ENTER
+VP/vp03_inout_el                              P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_99_objects c0 rc0 | MOVES ENTER
+VP/vp04_mp_expr                               P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_NOTEQUAL_line c0 rc0 | MOVES 
+VP/vp04_mp_expr_el                            P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_NOTEQUAL_line c0 rc0 | MOVES 
+VP/vp05_two_modports                          P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_229_objects c0 rc0 | MOVES ENTER
+VP/vp05_two_modports_el                       P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_223_objects c0 rc0 | MOVES ENTER
+VP/vp06_reg_body                              P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_109_objects c0 rc0 | MOVES ENTER
+VP/vp06_reg_body_el                           P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_109_objects c0 rc0 | MOVES ENTER
+VP/vp07_implicit_scalar                       P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_80_objects c0 rc0 | MOVES ENTER
+VP/vp07_implicit_scalar_el                    P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_80_objects c0 rc0 | MOVES ENTER
+VP/vp08_portexpr_hdr                          P NOT_EQUAL_stage1 c212 rc0 | F NOT_EQUAL_stage1 c212 rc0 | MOVES 
+VP/vp08_portexpr_hdr_el                       P NOT_EQUAL_stage1 c212 rc0 | F NOT_EQUAL_stage1 c212 rc0 | MOVES 
+VP/vp09_typed_portdecl                        P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_101_objects c0 rc0 | MOVES ENTER
+VP/vp09_typed_portdecl_el                     P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_101_objects c0 rc0 | MOVES ENTER
+VP/vp10_two_subs                              P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_136_objects c0 rc0 | MOVES ENTER
+VP/vp10_two_subs_el                           P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_136_objects c0 rc0 | MOVES ENTER
+VP/vp11_bodyfirst_noinit                      P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_109_objects c0 rc0 | MOVES ENTER
+VP/vp11_bodyfirst_noinit_el                   P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_109_objects c0 rc0 | MOVES ENTER
+VP/vp12_iface_inst_twice                      P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_191_objects c0 rc0 | MOVES ENTER
+VP/vp12_iface_inst_twice_el                   P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_191_objects c0 rc0 | MOVES ENTER
+VP/vp13_ifarray_view                          P NOT_EQUAL_stage1 c62 rc0 | F NOT_EQUAL_stage1 c62 rc0 | MOVES 
+VP/vp13_ifarray_view_el                       P NOT_EQUAL_stage1 c62 rc0 | F NOT_EQUAL_stage1 c62 rc0 | MOVES 
+VP/vp14_portdecl_after_mp                     P SLANG_FAIL c- rc3 | F SLANG_FAIL c- rc3 | same 
+VP/vp14_portdecl_after_mp_el                  P SLANG_FAIL c- rc3 | F SLANG_FAIL c- rc3 | same 
+VP/vp15_multiline_decl                        P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_209_objects c0 rc0 | MOVES ENTER
+VP/vp15_multiline_decl_el                     P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_209_objects c0 rc0 | MOVES ENTER
+VP/vp16_ingen_sub                             P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_112_objects c0 rc0 | MOVES ENTER
+VP/vp16_ingen_sub_el                          P STRICT_NOTEQUAL_line c0 rc0 | F STRICT_EQUAL_114_objects c0 rc0 | MOVES ENTER
+VP/vp17_program                               P STRICT_EQUAL_93_objects c0 rc0 | F STRICT_EQUAL_93_objects c0 rc0 | MOVES 
+VP/vp17_program_el                            P STRICT_EQUAL_93_objects c0 rc0 | F STRICT_EQUAL_93_objects c0 rc0 | MOVES 
+VT/vt01_crosspkg                              P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_149_objects c0 rc0 | MOVES ENTER
+VT/vt01_crosspkg_el                           P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_141_objects c0 rc0 | MOVES ENTER
+VT/vt02_bit_scalar                            P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_85_objects c0 rc0 | MOVES ENTER
+VT/vt02_bit_scalar_el                         P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_86_objects c0 rc0 | MOVES ENTER
+VT/vt03_integer                               P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_113_objects c0 rc0 | MOVES ENTER
+VT/vt03_integer_el                            P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_117_objects c0 rc0 | MOVES ENTER
+VT/vt04_multidim_unpacked                     P NOT_EQUAL_stage1 c71 rc0 | F NOT_EQUAL_stage1 c71 rc0 | same 
+VT/vt04_multidim_unpacked_el                  P NOT_EQUAL_stage1 c71 rc0 | F NOT_EQUAL_stage1 c71 rc0 | same 
+VT/vt05_real_string                           P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_76_objects c0 rc0 | MOVES ENTER
+VT/vt05_real_string_el                        P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_78_objects c0 rc0 | MOVES ENTER
+VT/vt06_twoinst_port                          P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_215_objects c0 rc0 | MOVES ENTER
+VT/vt06_twoinst_port_el                       P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_213_objects c0 rc0 | MOVES ENTER
+VT/vt07_multipacked                           P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_139_objects c0 rc0 | MOVES ENTER
+VT/vt07_multipacked_el                        P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_146_objects c0 rc0 | MOVES ENTER
+VT/vt08_shadow                                P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_161_objects c0 rc0 | MOVES ENTER
+VT/vt08_shadow_el                             P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_165_objects c0 rc0 | MOVES ENTER
+VT/vt09_ifc_modport                           P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_174_objects c0 rc0 | MOVES ENTER
+VT/vt09_ifc_modport_el                        P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_179_objects c0 rc0 | MOVES ENTER
+VT/vt10_local_lp_struct                       P NOT_EQUAL_stage1 c122 rc0 | F NOT_EQUAL_stage1 c122 rc0 | MOVES 
+VT/vt10_local_lp_struct_el                    P NOT_EQUAL_stage1 c122 rc0 | F NOT_EQUAL_stage1 c122 rc0 | MOVES 
+VT/vt11_init_var                              P NOT_EQUAL_stage1 c72 rc0 | F NOT_EQUAL_stage1 c72 rc0 | MOVES 
+VT/vt11_init_var_el                           P NOT_EQUAL_stage1 c72 rc0 | F NOT_EQUAL_stage1 c72 rc0 | MOVES 
+VT/vt12_nested_crosspkg                       P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_123_objects c0 rc0 | MOVES ENTER
+VT/vt12_nested_crosspkg_el                    P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_137_objects c0 rc0 | MOVES ENTER
+VT/vt13_pkgfunc_arg                           P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_173_objects c0 rc0 | MOVES ENTER
+VT/vt13_pkgfunc_arg_el                        P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_207_objects c0 rc0 | MOVES ENTER
+VT/vt14_import_struct                         P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_173_objects c0 rc0 | MOVES ENTER
+VT/vt14_import_struct_el                      P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_165_objects c0 rc0 | MOVES ENTER
+VT/vt15_two_pkgs_same                         P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_128_objects c0 rc0 | MOVES ENTER
+VT/vt15_two_pkgs_same_el                      P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_112_objects c0 rc0 | MOVES ENTER
+VT/vt16_module_twoinst_param                  P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_240_objects c0 rc0 | MOVES ENTER
+VT/vt16_module_twoinst_param_el               P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_227_objects c0 rc0 | MOVES ENTER
+VT/vt17_union_unpacked                        P NOT_EQUAL_stage1 c235 rc4 | F NOT_EQUAL_stage1 c235 rc4 | same 
+VT/vt17_union_unpacked_el                     P NOT_EQUAL_stage1 c235 rc4 | F NOT_EQUAL_stage1 c235 rc4 | same 
+VT/vt18_class_prop_struct                     P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_70_objects c0 rc0 | MOVES ENTER
+VT/vt18_class_prop_struct_el                  P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_69_objects c0 rc0 | MOVES ENTER
+VT/vt19_vec_td_of_td                          P STRICT_EQUAL_171_objects c0 rc0 | F STRICT_EQUAL_171_objects c0 rc0 | same 
+VT/vt19_vec_td_of_td_el                       P STRICT_EQUAL_164_objects c0 rc0 | F STRICT_EQUAL_164_objects c0 rc0 | same 
+VT/vt20_struct_param_mod                      P NOT_EQUAL_stage1 c17 rc0 | F NOT_EQUAL_stage1 c17 rc0 | MOVES 
+VT/vt20_struct_param_mod_el                   P NOT_EQUAL_stage1 c17 rc0 | F NOT_EQUAL_stage1 c17 rc0 | MOVES 
+VT/vt21_tp_ovr_pkgstruct                      P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_123_objects c0 rc0 | MOVES ENTER
+VT/vt21_tp_ovr_pkgstruct_el                   P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_122_objects c0 rc0 | MOVES ENTER
+VT/vt22_tp_default_pkgstruct                  P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_150_objects c0 rc0 | MOVES ENTER
+VT/vt22_tp_default_pkgstruct_el               P NOT_EQUAL_stage1 c126 rc0 | F STRICT_EQUAL_149_objects c0 rc0 | MOVES ENTER
+VT/vt23_tp_ovr_inline                         P SLANG_FAIL c- rc3 | F SLANG_FAIL c- rc3 | same 
+VT/vt23_tp_ovr_inline_el                      P SLANG_FAIL c- rc3 | F SLANG_FAIL c- rc3 | same 
+VT/vt24_tp_ovr_modtd_port                     P NOT_EQUAL_stage1 c17 rc0 | F NOT_EQUAL_stage1 c17 rc0 | MOVES 
+VT/vt24_tp_ovr_modtd_port_el                  P NOT_EQUAL_stage1 c17 rc0 | F NOT_EQUAL_stage1 c17 rc0 | MOVES 
+VT/vt25_lptype_alias                          P NOT_EQUAL_stage1 c88 rc0 | F NOT_EQUAL_stage1 c88 rc0 | MOVES 
+VT/vt25_lptype_alias_el                       P NOT_EQUAL_stage1 c88 rc0 | F NOT_EQUAL_stage1 c88 rc0 | MOVES 
+VT/vt26_td_alias                              P NOT_EQUAL_stage1 c17 rc0 | F NOT_EQUAL_stage1 c17 rc0 | MOVES 
+VT/vt26_td_alias_el                           P NOT_EQUAL_stage1 c17 rc0 | F NOT_EQUAL_stage1 c17 rc0 | MOVES 
+VT/vt27_func_ret                              P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_179_objects c0 rc0 | MOVES ENTER
+VT/vt27_func_ret_el                           P STRICT_NOTEQUAL_name c0 rc0 | F STRICT_EQUAL_166_objects c0 rc0 | MOVES ENTER
+VT/vt28_ifc_tp_ovr                            P NOT_EQUAL_stage1 c79 rc0 | F NOT_EQUAL_stage1 c79 rc0 | MOVES 
+VT/vt28_ifc_tp_ovr_el                         P NOT_EQUAL_stage1 c79 rc0 | F NOT_EQUAL_stage1 c79 rc0 | MOVES 
+VT/vt29_tp_ovr_twoinst                        P NOT_EQUAL_stage1 c17 rc0 | F NOT_EQUAL_stage1 c17 rc0 | MOVES 
+VT/vt29_tp_ovr_twoinst_el                     P NOT_EQUAL_stage1 c17 rc0 | F NOT_EQUAL_stage1 c17 rc0 | MOVES 
+VT/vt30_tp_ovr_union                          P NOT_EQUAL_stage1 c17 rc0 | F NOT_EQUAL_stage1 c17 rc0 | MOVES 
+VT/vt30_tp_ovr_union_el                       P NOT_EQUAL_stage1 c17 rc0 | F NOT_EQUAL_stage1 c17 rc0 | MOVES 
+VU/vu01_ifarray                               P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_99_objects c0 rc0 | MOVES ENTER
+VU/vu01_ifarray_el                            P NOT_EQUAL_stage1 c30 rc0 | F STRICT_EQUAL_99_objects c0 rc0 | MOVES ENTER
+VU/vu02_twomods                               P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_131_objects c0 rc0 | MOVES ENTER
+VU/vu02_twomods_el                            P NOT_EQUAL_stage1 c30 rc0 | F STRICT_EQUAL_131_objects c0 rc0 | MOVES ENTER
+VU/vu03_ingen                                 P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_114_objects c0 rc0 | MOVES ENTER
+VU/vu03_ingen_el                              P STRICT_NOTEQUAL_type c0 rc0 | F STRICT_EQUAL_114_objects c0 rc0 | MOVES ENTER
+VU/vu04_constdelay                            P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_131_objects c0 rc0 | MOVES ENTER
+VU/vu04_constdelay_el                         P NOT_EQUAL_stage1 c30 rc0 | F STRICT_EQUAL_131_objects c0 rc0 | MOVES ENTER
+VU/vu05_funccall                              P NOT_EQUAL_stage1 c60 rc0 | F NOT_EQUAL_stage1 c60 rc0 | same 
+VU/vu05_funccall_el                           P STRICT_NOTEQUAL_type c0 rc0 | F STRICT_NOTEQUAL_type c0 rc0 | same 
+VU/vu06_portsig                               P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_153_objects c0 rc0 | MOVES ENTER
+VU/vu06_portsig_el                            P NOT_EQUAL_stage1 c30 rc0 | F STRICT_EQUAL_153_objects c0 rc0 | MOVES ENTER
+VU/vu07_concatlhs                             P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_139_objects c0 rc0 | MOVES ENTER
+VU/vu07_concatlhs_el                          P NOT_EQUAL_stage1 c30 rc0 | F STRICT_EQUAL_139_objects c0 rc0 | MOVES ENTER
+VU/vu08_plain_three                           P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_104_objects c0 rc0 | MOVES ENTER
+VU/vu08_plain_three_el                        P STRICT_NOTEQUAL_fullname c0 rc0 | F STRICT_EQUAL_104_objects c0 rc0 | MOVES ENTER
+VU/vu09_paramval                              P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_171_objects c0 rc0 | MOVES ENTER
+VU/vu09_paramval_el                           P NOT_EQUAL_stage1 c33 rc0 | F STRICT_EQUAL_171_objects c0 rc0 | MOVES ENTER
+VU/vu10_partsel_lhs                           P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_91_objects c0 rc0 | MOVES ENTER
+VU/vu10_partsel_lhs_el                        P NOT_EQUAL_stage1 c30 rc0 | F STRICT_EQUAL_91_objects c0 rc0 | MOVES ENTER
+VU/vu11_split_plain                           P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_121_objects c0 rc0 | MOVES ENTER
+VU/vu11_split_plain_el                        P NOT_EQUAL_stage1 c33 rc0 | F NOT_EQUAL_stage1 c28 rc0 | MOVES 
+VU/vu12_split_three                           P STRICT_NOTEQUAL_type c0 rc0 | F STRICT_EQUAL_182_objects c0 rc0 | MOVES ENTER
+VU/vu12_split_three_el                        P NOT_EQUAL_stage1 c33 rc0 | F STRICT_EQUAL_182_objects c0 rc0 | MOVES ENTER
+VU/vu13_xfill                                 P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_155_objects c0 rc0 | MOVES ENTER
+VU/vu13_xfill_el                              P NOT_EQUAL_stage1 c28 rc0 | F STRICT_EQUAL_155_objects c0 rc0 | MOVES ENTER
+VU/vu14_nested_iface                          P NOT_EQUAL_stage1 c1720 rc0 | F NOT_EQUAL_stage1 c1936 rc0 | MOVES 
+VU/vu14_nested_iface_el                       P NOT_EQUAL_stage1 c1722 rc0 | F NOT_EQUAL_stage1 c1940 rc0 | MOVES 
+VU/vu15_modport_child                         P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_179_objects c0 rc0 | MOVES ENTER
+VU/vu15_modport_child_el                      P NOT_EQUAL_stage1 c30 rc0 | F STRICT_EQUAL_179_objects c0 rc0 | MOVES ENTER
+VU/vu16_hierref                               P STRICT_NOTEQUAL_fullname c0 rc0 | F STRICT_EQUAL_153_objects c0 rc0 | MOVES ENTER
+VU/vu16_hierref_el                            P NOT_EQUAL_stage1 c41 rc0 | F STRICT_EQUAL_153_objects c0 rc0 | MOVES ENTER
+VU/vu17_bitsel_rhs                            P STRICT_NOTEQUAL_fullname c0 rc0 | F STRICT_EQUAL_181_objects c0 rc0 | MOVES ENTER
+VU/vu17_bitsel_rhs_el                         P NOT_EQUAL_stage1 c30 rc0 | F STRICT_EQUAL_181_objects c0 rc0 | MOVES ENTER
+VU/vu18_one_inst_plain                        P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_76_objects c0 rc0 | MOVES ENTER
+VU/vu18_one_inst_plain_el                     P NOT_EQUAL_stage1 c30 rc0 | F STRICT_EQUAL_76_objects c0 rc0 | MOVES ENTER
+VU/vu19_modinst_and_if                        P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_205_objects c0 rc0 | MOVES ENTER
+VU/vu19_modinst_and_if_el                     P NOT_EQUAL_stage1 c30 rc0 | F STRICT_EQUAL_202_objects c0 rc0 | MOVES ENTER
+VU/vu20_wire_net                              P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_95_objects c0 rc0 | MOVES ENTER
+VU/vu20_wire_net_el                           P NOT_EQUAL_stage1 c30 rc0 | F STRICT_EQUAL_95_objects c0 rc0 | MOVES ENTER
+VU/vu21_funccall_repl                         P NOT_EQUAL_stage1 c60 rc0 | F NOT_EQUAL_stage1 c60 rc0 | same 
+VU/vu21_funccall_repl_el                      P NOT_EQUAL_stage1 c30 rc0 | F NOT_EQUAL_stage1 c30 rc0 | same 
+VU/vu22_syscall                               P NOT_EQUAL_stage1 c31 rc0 | F NOT_EQUAL_stage1 c31 rc0 | MOVES 
+VU/vu22_syscall_el                            P NOT_EQUAL_stage1 c30 rc0 | F STRICT_EQUAL_197_objects c0 rc0 | MOVES ENTER
+VU/vu23_pkgfunc                               P NOT_EQUAL_stage1 c60 rc0 | F NOT_EQUAL_stage1 c60 rc0 | same 
+VU/vu23_pkgfunc_el                            P STRICT_NOTEQUAL_type c0 rc0 | F STRICT_NOTEQUAL_type c0 rc0 | same 
+VU/vu24_funccall_plain                        P NOT_EQUAL_stage1 c60 rc0 | F NOT_EQUAL_stage1 c60 rc0 | same 
+VU/vu24_funccall_plain_el                     P STRICT_NOTEQUAL_fullname c0 rc0 | F STRICT_NOTEQUAL_fullname c0 rc0 | same 
+VU/vu25_funccall_one                          P NOT_EQUAL_stage1 c60 rc0 | F NOT_EQUAL_stage1 c60 rc0 | same 
+VU/vu25_funccall_one_el                       P STRICT_NOTEQUAL_type c0 rc0 | F STRICT_NOTEQUAL_type c0 rc0 | same 
+VU/vu26_split_call                            P NOT_EQUAL_stage1 c17 rc0 | F NOT_EQUAL_stage1 c17 rc0 | same 
+VU/vu26_split_call_el                         P NOT_EQUAL_stage1 c33 rc0 | F NOT_EQUAL_stage1 c33 rc0 | same 
+VU/vu27_plain_fill_one                        P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_94_objects c0 rc0 | MOVES ENTER
+VU/vu27_plain_fill_one_el                     P NOT_EQUAL_stage1 c33 rc0 | F NOT_EQUAL_stage1 c28 rc0 | MOVES 
+VU/vu28_plain_fill_bothsame                   P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_127_objects c0 rc0 | MOVES ENTER
+VU/vu28_plain_fill_bothsame_el                P NOT_EQUAL_stage1 c33 rc0 | F STRICT_EQUAL_127_objects c0 rc0 | MOVES ENTER
+VU/vu29_twocells                              P NOT_EQUAL_stage1 c31 rc0 | F STRICT_EQUAL_151_objects c0 rc0 | MOVES ENTER
+VU/vu29_twocells_el                           P NOT_EQUAL_stage1 c30 rc0 | F STRICT_EQUAL_151_objects c0 rc0 | MOVES ENTER
+VW/vw01_wire_then_var                         P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_214_objects c0 rc0 | MOVES ENTER
+VW/vw01_wire_then_var_el                      P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_188_objects c0 rc0 | MOVES ENTER
+VW/vw02_var_then_wire                         P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_214_objects c0 rc0 | MOVES ENTER
+VW/vw02_var_then_wire_el                      P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_188_objects c0 rc0 | MOVES ENTER
+VW/vw03_uwire                                 P NOT_EQUAL_stage1 c60 rc0 | F NOT_EQUAL_stage1 c60 rc0 | MOVES 
+VW/vw03_uwire_el                              P NOT_EQUAL_stage1 c60 rc0 | F NOT_EQUAL_stage1 c60 rc0 | MOVES 
+VW/vw04_unit                                  P NOT_EQUAL_stage1 c90 rc0 | F NOT_EQUAL_stage1 c90 rc0 | same 
+VW/vw04_unit_el                               P NOT_EQUAL_stage1 c90 rc0 | F NOT_EQUAL_stage1 c90 rc0 | same 
+VW/vw05_trireg                                P NOT_EQUAL_stage1 c60 rc0 | F NOT_EQUAL_stage1 c60 rc0 | MOVES 
+VW/vw05_trireg_el                             P NOT_EQUAL_stage1 c60 rc0 | F NOT_EQUAL_stage1 c60 rc0 | MOVES 
+VW/vw06_tdchain                               P NOT_EQUAL_stage1 c30 rc0 | F NOT_EQUAL_stage1 c30 rc0 | MOVES 
+VW/vw06_tdchain_el                            P NOT_EQUAL_stage1 c30 rc0 | F NOT_EQUAL_stage1 c30 rc0 | MOVES 
+VW/vw07_twoinst                               P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_302_objects c0 rc0 | MOVES ENTER
+VW/vw07_twoinst_el                            P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_281_objects c0 rc0 | MOVES ENTER
+VW/vw08_port_after                            P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_288_objects c0 rc0 | MOVES ENTER
+VW/vw08_port_after_el                         P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_261_objects c0 rc0 | MOVES ENTER
+VW/vw09_multiline                             P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_163_objects c0 rc0 | MOVES ENTER
+VW/vw09_multiline_el                          P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_152_objects c0 rc0 | MOVES ENTER
+VW/vw10_spaced                                P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_163_objects c0 rc0 | MOVES ENTER
+VW/vw10_spaced_el                             P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_152_objects c0 rc0 | MOVES ENTER
+VW/vw11_imported_too                          P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_193_objects c0 rc0 | MOVES ENTER
+VW/vw11_imported_too_el                       P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_182_objects c0 rc0 | MOVES ENTER
+VW/vw12_two_wires_two_mods                    P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_320_objects c0 rc0 | MOVES ENTER
+VW/vw12_two_wires_two_mods_el                 P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_298_objects c0 rc0 | MOVES ENTER
+VW/vw13_struct_signed                         P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_163_objects c0 rc0 | MOVES ENTER
+VW/vw13_struct_signed_el                      P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_152_objects c0 rc0 | MOVES ENTER
+VW/vw14_macro_type                            P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_163_objects c0 rc0 | MOVES ENTER
+VW/vw14_macro_type_el                         P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_152_objects c0 rc0 | MOVES ENTER
+VW/vw15_unused_mod                            P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_213_objects c0 rc0 | MOVES ENTER
+VW/vw15_unused_mod_el                         P STRICT_NOTEQUAL_endline c0 rc0 | F STRICT_EQUAL_202_objects c0 rc0 | MOVES ENTER
+VW/vw16_class_scope                           P NOT_EQUAL_stage1 c86 rc0 | F NOT_EQUAL_stage1 c86 rc0 | same 
+VW/vw16_class_scope_el                        P NOT_EQUAL_stage1 c86 rc0 | F NOT_EQUAL_stage1 c86 rc0 | same 
+VW/vw17_unit_twomods                          P NOT_EQUAL_stage1 c90 rc0 | F NOT_EQUAL_stage1 c90 rc0 | same 
+VW/vw17_unit_twomods_el                       P NOT_EQUAL_stage1 c90 rc0 | F NOT_EQUAL_stage1 c90 rc0 | same 

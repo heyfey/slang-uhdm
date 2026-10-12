@@ -1,0 +1,34 @@
+tp/r11u118repro/grid/g1/p29_iface restored by: IFUNSIZED IFPLAINLHS
+tp/r11u118repro/grid/g1/p29_iface_el restored by: IFUNSIZED IFPLAINLHS
+tp/r11u176repro/cases/PG/g16_generic_mpconn_pos_two restored by: UDPMPPATH
+tp/r11u176repro/cases/PG/g16_generic_mpconn_pos_two_el restored by: UDPMPPATH
+tp/r11u293repro/cases/PV/pv06_header_ctl restored by: (pair)
+tp/r11u293repro/cases/PV/pv06_header_ctl_el restored by: (pair)
+tp/r11u303repro/cases/IF/i03_split restored by: IFUNSIZED
+tp/r11u303repro/cases/IF/i03_split_el restored by: IFUNSIZED
+tp/r11u303repro/cases/IF/i06_bareuntaken restored by: IFUNSIZED
+tp/r11u303repro/cases/IF/i06_bareuntaken_el restored by: IFUNSIZED
+tp/r11u303repro/cases/IF/i08_plainlhs restored by: IFPLAINLHS
+tp/r11u303repro/cases/IF/i08_plainlhs_el restored by: IFPLAINLHS
+tp/v11u111repro/brk/f2/x24_otherpkg_member_q restored by: SCOPEDTDMEM
+tp/v11u111repro/brk/f2/x24_otherpkg_member_q_el restored by: SCOPEDTDMEM
+tp/v11u193repro/cases/UC/uc06_iface restored by: IFUNSIZED
+tp/v11u193repro/cases/UC/uc06_iface_el restored by: IFUNSIZED
+tp/v11u193repro/cases/UC/uc22_tn_iface restored by: IFUNSIZED
+tp/v11u193repro/cases/UC/uc22_tn_iface_el restored by: IFUNSIZED
+tp/v11u293repro/cases/VI/vi09_modport_view restored by: (pair)
+tp/v11u293repro/cases/VI/vi09_modport_view_el restored by: (pair)
+tp/v11u293repro/cases/VI/vi21_gen_iface_modport restored by: (pair)
+tp/v11u293repro/cases/VI/vi21_gen_iface_modport_el restored by: (pair)
+tp/v11u293repro/cases/VI/vi24_modport_import_func restored by: PVPORTLOC
+tp/v11u293repro/cases/VI/vi24_modport_import_func_el restored by: PVPORTLOC
+tp/v11u303repro/cases/VI/vi02_partsel restored by: IFUNSIZED
+tp/v11u303repro/cases/VI/vi02_partsel_el restored by: IFUNSIZED
+tp/v11u303repro/cases/VI/vi06_fillboth restored by: IFUNSIZED IFSPLITFILL
+tp/v11u303repro/cases/VI/vi06_fillboth_el restored by: IFUNSIZED IFSPLITFILL
+tp/v11u303repro/cases/VI/vi08_vecbit restored by: IFUNSIZED
+tp/v11u303repro/cases/VI/vi08_vecbit_el restored by: IFUNSIZED
+tp/v11u303repro/cases/VI/vi10_paramfromparent restored by: IFUNSIZED
+tp/v11u303repro/cases/VI/vi10_paramfromparent_el restored by: IFUNSIZED
+tp/v11u303repro/cases/VI/vi13_paramidx restored by: IFUNSIZED
+tp/v11u303repro/cases/VI/vi13_paramidx_el restored by: IFUNSIZED

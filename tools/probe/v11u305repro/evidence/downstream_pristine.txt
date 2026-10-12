@@ -1,0 +1,107 @@
+v11u305repro/cases/VM/vm01_ifport_down pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VM/vm02_hashdelay pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VM/vm03_multi_inst pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VM/vm04_two_ifaces pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VM/vm05_const_second pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u305repro/cases/VM/vm06_decl_after pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VM/vm07_instarr pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VM/vm08_mo_first pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VM/vm09_twotops pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VM/vm10_wide_net pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VM/vm11_bind pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VM/vm12_three_terms pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u305repro/cases/VM/vm13_digits pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VM/vm14_nested_mod pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VP/vp01_input_nonansi pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VP/vp02_positional pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VP/vp03_inout pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VP/vp04_mp_expr pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VP/vp05_two_modports pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VP/vp06_reg_body pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VP/vp07_implicit_scalar pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VP/vp08_portexpr_hdr pristine STATUS_DIFF differs=- surelog=READ_FAIL slang=NO_GATES detail=-
+v11u305repro/cases/VP/vp09_typed_portdecl pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VP/vp10_two_subs pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VP/vp11_bodyfirst_noinit pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VP/vp12_iface_inst_twice pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VP/vp13_ifarray_view pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VP/vp14_portdecl_after_mp pristine SLANG_REJECT differs=- surelog= slang= detail=-
+v11u305repro/cases/VP/vp15_multiline_decl pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VP/vp16_ingen_sub pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VP/vp17_program pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u305repro/cases/VT/vt01_crosspkg pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt02_bit_scalar pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt03_integer pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt04_multidim_unpacked pristine EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u305repro/cases/VT/vt05_real_string pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt06_twoinst_port pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt07_multipacked pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt08_shadow pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt09_ifc_modport pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt10_local_lp_struct pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt11_init_var pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt12_nested_crosspkg pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt13_pkgfunc_arg pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt14_import_struct pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt15_two_pkgs_same pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt16_module_twoinst_param pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt17_union_unpacked pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u305repro/cases/VT/vt18_class_prop_struct pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt19_vec_td_of_td pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt20_struct_param_mod pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt21_tp_ovr_pkgstruct pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt22_tp_default_pkgstruct pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt23_tp_ovr_inline pristine SLANG_REJECT differs=- surelog= slang= detail=-
+v11u305repro/cases/VT/vt24_tp_ovr_modtd_port pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt25_lptype_alias pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt26_td_alias pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+v11u305repro/cases/VT/vt27_func_ret pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt28_ifc_tp_ovr pristine EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u305repro/cases/VT/vt29_tp_ovr_twoinst pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VT/vt30_tp_ovr_union pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu01_ifarray pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu02_twomods pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu03_ingen pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu04_constdelay pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu05_funccall pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu06_portsig pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu07_concatlhs pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu08_plain_three pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu09_paramval pristine EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u305repro/cases/VU/vu10_partsel_lhs pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu11_split_plain pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u305repro/cases/VU/vu12_split_three pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u305repro/cases/VU/vu13_xfill pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu14_nested_iface pristine EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u305repro/cases/VU/vu15_modport_child pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu16_hierref pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu17_bitsel_rhs pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu18_one_inst_plain pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu19_modinst_and_if pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu20_wire_net pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu21_funccall_repl pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu22_syscall pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu23_pkgfunc pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu24_funccall_plain pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu25_funccall_one pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu26_split_call pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u305repro/cases/VU/vu27_plain_fill_one pristine EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u305repro/cases/VU/vu28_plain_fill_bothsame pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VU/vu29_twocells pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw01_wire_then_var pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw02_var_then_wire pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw03_uwire pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw04_unit pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u305_ds/pris
+v11u305repro/cases/VW/vw05_trireg pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw06_tdchain pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw07_twoinst pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw08_port_after pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw09_multiline pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw10_spaced pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw11_imported_too pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw12_two_wires_two_mods pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw13_struct_signed pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw14_macro_type pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw15_unused_mod pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u305repro/cases/VW/vw16_class_scope pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u305_ds/pris
+v11u305repro/cases/VW/vw17_unit_twomods pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u305_ds/pris

@@ -62,6 +62,7 @@
 #include "R299.h"
 #include "R301.h"
 #include "R303.h"
+#include "R305.h"
 
 namespace slang_uhdm {
 // § escNameSpanSites295 (r11u295) — A NAME SPAN WRITTEN BY HAND AS
@@ -2581,6 +2582,43 @@ void structParamCaDrain279(UHDM::Serializer& s) {
 // R11U193_UNSIZEDCLONE_OFF.
 namespace {
 std::vector<CastClone176> unsizedClone193;
+// § ifCaUnsizedRhsClonePerInst305 — the interface entries this pass pushes
+// (keyed by the instance's cell vector and slot).
+std::set<std::pair<const void*, size_t>> ifUnsized305;
+// § ifUnsizedUserCallAbstains305v (v11u305) — a user function call anywhere
+// in an interface cell's Rhs (R11V305_IFCALL_OFF: never).
+bool rhsHasUserCall305v(const UHDM::any* x, int depth = 0) {
+    if (!x || depth > 64 || !r11v305On("R11V305_IFCALL_OFF"))
+        return false;
+    switch (x->UhdmType()) {
+    case UHDM::uhdmfunc_call:
+        return true;
+    case UHDM::uhdmoperation:
+        if (auto* os = ((const UHDM::operation*)x)->Operands())
+            for (auto* o : *os)
+                if (rhsHasUserCall305v(o, depth + 1))
+                    return true;
+        return false;
+    case UHDM::uhdmsys_func_call:
+        if (auto* as = ((const UHDM::sys_func_call*)x)->Tf_call_args())
+            for (auto* a : *as)
+                if (rhsHasUserCall305v(a, depth + 1))
+                    return true;
+        return false;
+    case UHDM::uhdmbit_select:
+        return rhsHasUserCall305v(((const UHDM::bit_select*)x)->VpiIndex(), depth + 1);
+    case UHDM::uhdmpart_select:
+        return rhsHasUserCall305v(((const UHDM::part_select*)x)->Left_range(), depth + 1) ||
+               rhsHasUserCall305v(((const UHDM::part_select*)x)->Right_range(), depth + 1);
+    case UHDM::uhdmindexed_part_select:
+        return rhsHasUserCall305v(((const UHDM::indexed_part_select*)x)->Base_expr(),
+                                  depth + 1) ||
+               rhsHasUserCall305v(((const UHDM::indexed_part_select*)x)->Width_expr(),
+                                  depth + 1);
+    default:
+        return false;
+    }
+}
 bool rhsHasUnsized193(const UHDM::any* x, int depth = 0) {
     if (!x || depth > 64)
         return false;
@@ -2758,12 +2796,69 @@ void unsizedRhsCloneDrain193(UHDM::Serializer& s) {
         };
         unname(c->Lhs());
         unname(c->Rhs());
+        // § ifCaUnsizedRhsClonePerInst305 — the FIRST instance's copy is
+        // taken before the definition's references are bound: golden's
+        // definition cell binds `sig` to the first instance's variable
+        // (`work@top.b0.sig`, as ours does), the first instance's clone
+        // carries no vpiActual on any reference, and a later instance's clone
+        // copies the definition's binding (`work@top.b1.sig` -> vpiActual
+        // `work@top.b0.sig`).  A clone reference bound to a variable of its
+        // OWN instance is the first instance's: its binding is dropped.
+        if (ifUnsized305.count({(const void*)r.cas, r.idx})) {
+            std::function<void(UHDM::any*)> unbind = [&](UHDM::any* x) {
+                if (!x)
+                    return;
+                switch (x->UhdmType()) {
+                case UHDM::uhdmref_obj: {
+                    auto* ro = (UHDM::ref_obj*)x;
+                    if (auto* a = ro->Actual_group(); a && a->VpiParent() == r.m)
+                        ro->Actual_group(nullptr);
+                    break;
+                }
+                case UHDM::uhdmoperation:
+                    if (auto* os = ((UHDM::operation*)x)->Operands())
+                        for (auto* o : *os)
+                            unbind(o);
+                    break;
+                case UHDM::uhdmbit_select:
+                    if (auto* a = ((UHDM::bit_select*)x)->Actual_group(); a && a->VpiParent() == r.m)
+                        ((UHDM::bit_select*)x)->Actual_group(nullptr);
+                    unbind((UHDM::any*)((UHDM::bit_select*)x)->VpiIndex());
+                    break;
+                case UHDM::uhdmpart_select:
+                    if (auto* a = ((UHDM::part_select*)x)->Actual_group(); a && a->VpiParent() == r.m)
+                        ((UHDM::part_select*)x)->Actual_group(nullptr);
+                    unbind((UHDM::any*)((UHDM::part_select*)x)->Left_range());
+                    unbind((UHDM::any*)((UHDM::part_select*)x)->Right_range());
+                    break;
+                case UHDM::uhdmindexed_part_select:
+                    if (auto* a = ((UHDM::indexed_part_select*)x)->Actual_group(); a && a->VpiParent() == r.m)
+                        ((UHDM::indexed_part_select*)x)->Actual_group(nullptr);
+                    unbind((UHDM::any*)((UHDM::indexed_part_select*)x)->Base_expr());
+                    unbind((UHDM::any*)((UHDM::indexed_part_select*)x)->Width_expr());
+                    break;
+                case UHDM::uhdmsys_func_call:
+                    if (auto* as = ((UHDM::sys_func_call*)x)->Tf_call_args())
+                        for (auto* a : *as)
+                            unbind(a);
+                    break;
+                default:
+                    break;
+                }
+            };
+            unbind(c->Lhs());
+            unbind(c->Rhs());
+            tr305("IFUNSIZED305_CLONE", std::string(((UHDM::instance*)r.m)->VpiFullName()) + " " +
+                                            std::to_string(c->VpiLineNo()) + ":" +
+                                            std::to_string(c->VpiColumnNo()));
+        }
         (*r.cas)[r.idx] = c;
         trace193("caUnsizedRhsClonePerInst193", std::string(r.m->VpiName()) + " " +
                                                     std::to_string(c->VpiLineNo()) + ":" +
                                                     std::to_string(c->VpiColumnNo()));
     }
     unsizedClone193.clear();
+    ifUnsized305.clear();
 }
 // § hcSelIdxInstName168 — the references inside a bit_select HighConn's
 // INDEX are named through the child INSTANCE, exactly like the select
@@ -20596,6 +20691,61 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                                exprStart + coff + cname.size()));
                         elems2->push_back(r2);
                     }
+                    // § udpPosModportPathAtSel305 (r11u305) — an ordered
+                    // connection list whose first terminal is a net lvalue is a
+                    // udp_instantiation to Surelog's parser, and its FIRST
+                    // terminal `u.mp` is a Net_lvalue: Ps_or_hierarchical_
+                    // identifier `u` followed by a Constant_select holding the
+                    // StringConst `mp`.  NetlistElaboration's udp-terminal
+                    // binding finds it "selected" (isSelected reads the
+                    // StringConst's sibling as a bit select) and compiles it
+                    // through compileSelectExpression's StringConst branch,
+                    // which locates the root ref_obj at the select's FIRST
+                    // node (the `mp` token, populateCoreMembers(Bit_select))
+                    // and gives the field ref_obj no full name
+                    // (VpiFullName(field_name)).  Golden probe r11u1repro/grid2
+                    // `a1 (u_df.mp, o[1])`: u_df at 21:23-21:25, mp unnamed;
+                    // ours u_df at its own token and mp
+                    // `work@top.a1.q.mp`.  A later terminal is an Expression
+                    // compiled like a named actual and keeps the old form, as
+                    // does a single-terminal list (a module_instantiation).
+                    // Two components without blanks or selects only.  Grid
+                    // tools/probe/r11u305repro/cases/PM.  Switch
+                    // R11U305_UDPMPPATH_OFF.
+                    if (comps.size() == 2 &&
+                        connRaw.find_first_of("[ \t\r\n") == std::string::npos &&
+                        !inst.getPortConnections().empty() &&
+                        inst.getPortConnections()[0] == iconn &&
+                        udpShapedInstantiation(inst) &&
+                        r11u305On("R11U305_UDPMPPATH_OFF") &&
+                        // § udpMpPathBindAbstains305v (v11u305) — a bind
+                        // directive's instantiation (`bind top mp_pos a
+                        // (u.mp, o);`) is a bind_instantiation to Surelog's
+                        // parser, not a udp_instantiation: golden keeps the
+                        // named-actual form, and the law moved the path away
+                        // (tools/probe/v11u305repro/cases/VM/vm11_bind, line
+                        // -> col, order-blind lost 2 and chain away 2 in both
+                        // views).  Switch R11V305_UDPBIND_OFF.
+                        [&]() {
+                            if (!r11v305On("R11V305_UDPBIND_OFF"))
+                                return true;
+                            for (auto p305 = inst.getSyntax(); p305; p305 = p305->parent)
+                                if (p305->kind == syntax::SyntaxKind::BindDirective) {
+                                    tr305("UDPBIND305V_ABSTAIN", prefix + "." +
+                                                                     std::string(ip.name));
+                                    return false;
+                                }
+                            return true;
+                        }()) {
+                        auto* r0 = (UHDM::ref_obj*)(*elems2)[0];
+                        auto* r1 = (UHDM::ref_obj*)(*elems2)[1];
+                        const auto& [n1, o1] = comps[1];
+                        setLoc(r0, SourceRange(exprStart + o1,
+                                               exprStart + o1 + n1.size()));
+                        r1->VpiFullName(n1);
+                        tr305("udpPosModportPathAtSel305",
+                              prefix + "." + std::string(ip.name) + " " + connRaw);
+                    }
                     hp->Path_elems(elems2);
                     p->High_conn(hp);
                 }
@@ -36881,6 +37031,56 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             // the typedef's own end).
             if (!dd.dimensions.empty())
                 end134 = dd.dimensions[0]->sourceRange().end();
+            // § wireScopedTdEndAtType305 (r11u305) — a NET declaration
+            // written with a package-scoped type (`wire pk::sa_t sn;`) is
+            // compiled by compileNetDeclaration's non-StringConst branch: the
+            // Data_type child (`pk::sa_t`, a Class_scope) becomes the net
+            // type and the Data_type node itself the Signal's packed
+            // dimension, which is the slot writeNets' end-only populate
+            // reads when the declaration has no unpacked dimension.  The
+            // shared typedef's end moves to the end of the written type name
+            // (golden probe r10earl53repro/v2_v53 `wire pv2_v53::sa_t sn;`:
+            // sa_t 4:11-32:21, ours its own 4:11-4:58), the last net written
+            // winning.  A bare or imported type name takes the StringConst
+            // branch (no packed dimension); a `var` / data declaration is
+            // not a net; an initializer abstains (not measured: stage 1 on
+            // every binary).  Grid tools/probe/r11u305repro/cases/WN.
+            // Switch R11U305_WIRESCOPEDEND_OFF.
+            else if (!dd.initializer && dd.parent &&
+                     dd.parent->kind == syntax::SyntaxKind::NetDeclaration &&
+                     r11u305On("R11U305_WIRESCOPEDEND_OFF")) {
+                auto& nd305 = dd.parent->as<syntax::NetDeclarationSyntax>();
+                // § wireScopedTdPkgOnly305v (v11u305) — only a PACKAGE
+                // scope: `wire $unit::sa_t sn;` and `wire C::sa_t sn;` (a
+                // class-scoped typedef) take other producer roads (golden
+                // writes an unsupported_typespec for the $unit spelling), and
+                // the law moved the typedef's end away from golden there
+                // (tools/probe/v11u305repro/cases/VW vw04_unit, vw17 chain
+                // away 4 and 7, vw16_class_scope away 1, stage 1 on every
+                // binary).  Switch R11V305_WIREPKG_OFF.
+                auto pkgScope305v = [&]() {
+                    if (!r11v305On("R11V305_WIREPKG_OFF"))
+                        return true;
+                    if (!pn.sym->isValue())
+                        return false;
+                    auto& t305v = pn.sym->as<ValueSymbol>().getType();
+                    if (t305v.kind != SymbolKind::TypeAlias)
+                        return false;
+                    auto* ps305v = t305v.as<TypeAliasType>().getParentScope();
+                    if (ps305v && ps305v->asSymbol().kind == SymbolKind::Package)
+                        return true;
+                    tr305("WIREPKG305V_ABSTAIN", std::string(pn.sym->name));
+                    return false;
+                };
+                if (nd305.type->kind == syntax::SyntaxKind::NamedType &&
+                    nd305.type->as<syntax::NamedTypeSyntax>().name->kind ==
+                        syntax::SyntaxKind::ScopedName && pkgScope305v()) {
+                    end134 = nd305.type->sourceRange().end();
+                    tr305("wireScopedTdEndAtType305",
+                          std::string(ts134->VpiName()) + " " +
+                              std::string(pn.sym->name));
+                }
+            }
         }
         // § varDeclInitMovesSharedTsEnd297 — a `var` / `const` / `static`
         // declaration is a Data_declaration, whose dimension slot holds the
@@ -55255,6 +55455,49 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                             }
                             ln->Typespec(mrt);
                         }
+                        // § pvHdrPortDeclNetFirst305 (r11u305) — a header
+                        // port of a NON-ANSI interface whose port declaration
+                        // (`output [31:0] o;`) is written ABOVE its body
+                        // declaration (`wire [31:0] o = 32'd12;`) has two
+                        // Signals in the producer, the port declaration's
+                        // first (§ caIfacePortDeclNetMint93), and the
+                        // modport view's net is that first one: golden probe
+                        // r11u93repro/grid/pb19_modportview locates
+                        // `work@dut.u_s.m.mp.o.o` at the port declaration's
+                        // name 3:17 with the port declaration's own `[31:0]`
+                        // typespec (3:10-3:16, § ifacePortDeclTsAtPortDecl205's
+                        // object), ours at the body declaration 5:15 with
+                        // `wire [31:0]` 5:3-5:14.  A body declaration written
+                        // first keeps the body's net (v15_ifdeclafterbody's
+                        // order, § mintUntyped93).  Grid
+                        // tools/probe/r11u305repro/cases/PV.  Switch
+                        // R11U305_PVHDRPORTDECL_OFF.
+                        if (portBacked9 && hasBodyDecl(msym) &&
+                            r11u305On("R11U305_PVHDRPORTDECL_OFF")) {
+                            slang::SourceLocation pdl305 = SourceLocation::NoLocation;
+                            for (auto& d305 : portDeclDeclarators93(body))
+                                if (d305.first == msym.name) {
+                                    pdl305 = d305.second;
+                                    break;
+                                }
+                            const Symbol* pb305 = nullptr;
+                            for (auto pbx : body.getPortList())
+                                if (pbx->kind == SymbolKind::Port &&
+                                    pbx->as<PortSymbol>().internalSymbol == &msym) {
+                                    pb305 = pbx;
+                                    break;
+                                }
+                            auto pt305 = pb305 ? portTsPre.find(pb305) : portTsPre.end();
+                            if (pdl305 != SourceLocation::NoLocation &&
+                                pdl305.buffer() == msym.location.buffer() &&
+                                pdl305 < msym.location && pt305 != portTsPre.end() &&
+                                pt305->second && ln->Typespec()) {
+                                setLoc(ln, nameSpan(pdl305, msym.name));
+                                ((UHDM::ref_typespec*)ln->Typespec())
+                                    ->Actual_typespec(pt305->second);
+                                tr305("pvHdrPortDeclNetFirst305", dfull);
+                            }
+                        }
                         io->Expr(ln);
                         ifacePortMemberNet[mname] = ln;
                         // § portViewNdaNetCellParent293 (r11u293,
@@ -55275,7 +55518,28 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         // (pb19_modportview: golden's io_decl net is the port
                         // declaration's, under the io_decl).
                         auto* isym293 = mpp.internalSymbol;
-                        if (!portBacked9 && isym293->kind == SymbolKind::Net &&
+                        // § pvHdrBodyFirstNdaCell305 (r11u305) — the header
+                        // port stands aside above because its port
+                        // declaration's Signal comes first; when the BODY
+                        // declaration is written first (`wire [31:0] o =
+                        // 32'd12;` above `output [31:0] o;`), the body's net
+                        // is the first Signal and the modport view's net is it,
+                        // parented at its unlisted cell like any other
+                        // (golden grid PV v02_bodyfirst: `o` with no stored full
+                        // name, its ref_typespec named `o`; ours
+                        // `work@dut.u_s.m.mp.o.o`).  Switch
+                        // R11U305_PVBODYFIRSTNDA_OFF.
+                        bool bodyFirst305 = false;
+                        if (portBacked9 && hasBodyDecl(*isym293) &&
+                            r11u305On("R11U305_PVBODYFIRSTNDA_OFF"))
+                            for (auto& d305 : portDeclDeclarators93(body))
+                                if (d305.first == isym293->name) {
+                                    bodyFirst305 =
+                                        d305.second.buffer() == isym293->location.buffer() &&
+                                        isym293->location < d305.second;
+                                    break;
+                                }
+                        if ((!portBacked9 || bodyFirst305) && isym293->kind == SymbolKind::Net &&
                             isym293->getDeclaredType() &&
                             isym293->getDeclaredType()->getInitializer() &&
                             !ndaOff88() && ifaceNdaCellMinted88(*isym293) &&
@@ -55286,6 +55550,9 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                                     UHDM::uhdmcont_assign) {
                                 tr293("portViewNdaNetCellParent293",
                                       prefix + "." + std::string(isym293->name));
+                                if (bodyFirst305)
+                                    tr305("pvHdrBodyFirstNdaCell305",
+                                          prefix + "." + std::string(isym293->name));
                                 auto* ca293 = s.MakeCont_assign();
                                 ca293->VpiNetDeclAssign(true);
                                 setLoc(ca293, nameSpan(isym293->location,
@@ -56158,8 +56425,24 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // part-select Lhs with constant bounds.  Grid
             // tools/probe/r11u303repro/cases/IF.  Switch R11U303_IFTERNFILL_OFF.
             const Expression* fill303 = nullptr;
+            // § ifCaPlainLhsNoVarBind305 (r11u305) — writeCont_assign's
+            // first route (a whole-name Lhs bound by bindVariable, an
+            // operation Rhs cloned and reduced) never runs in an interface:
+            // bindVariable's switch has no interface_inst case (the decode
+            // § caStructParamIfaceSharesPaOperand289 records), so a
+            // whole-name Lhs cell goes down the same later legs a select Lhs
+            // does: the reduce leg folds a taken fill branch (golden
+            // tools/probe/r11u303repro/cases/IF/i08_plainlhs `w = (P) ?
+            // {8{sig}} : '0` with P = 0: an elaborated cell `work@top.bi.w`
+            // = the `'0` constant at 5:31-5:33, ours none) and the unsized leg
+            // clones the whole cell.  The fill and unsized laws take a
+            // whole-name Lhs too.  Grid tools/probe/r11u305repro/cases/IU.
+            // Switch R11U305_IFPLAINLHS_OFF.
+            const bool plainLhs305 =
+                defCa->Lhs() && defCa->Lhs()->UhdmType() == UHDM::uhdmref_obj &&
+                r11u305On("R11U305_IFPLAINLHS_OFF");
             if (!needsFold && ae83 && iface && defCa->Lhs() &&
-                (defCa->Lhs()->UhdmType() == UHDM::uhdmbit_select ||
+                (defCa->Lhs()->UhdmType() == UHDM::uhdmbit_select || plainLhs305 ||
                  (defCa->Lhs()->UhdmType() == UHDM::uhdmpart_select &&
                   ((const UHDM::part_select*)defCa->Lhs())->Left_range() &&
                   ((const UHDM::part_select*)defCa->Lhs())->Right_range() &&
@@ -56188,7 +56471,32 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 if (!idxOk303v) {
                 }
                 else if (auto* f303 = ifTernFillSel303(ae83->right(), comp)) {
-                    if (caSyms83[myIdx83]->getSyntax() &&
+                    // § ifTernFillSplitPerInst305 (r11u305) — the restriction
+                    // to definitions whose every instance takes the same fill
+                    // branch kept the definition's cell shared by the other
+                    // instances; under § ifCaUnsizedRhsClonePerInst305 no
+                    // instance shares it (the fill branch is itself an unsized
+                    // constant, so every other instance clones the whole cell),
+                    // and golden folds each fill instance on its own (grid
+                    // tools/probe/r11u303repro/cases/IF/i03_split: b0 P = 0
+                    // the `'0` BIN:0 clone, b1 P = 1 the whole ternary with
+                    // `work@top.b1.*` names).  Switch R11U305_IFSPLITFILL_OFF
+                    // (also off with R11U305_IFUNSIZED_OFF).
+                    const bool split305 =
+                        r11u305On("R11U305_IFUNSIZED_OFF") &&
+                        r11u305On("R11U305_IFSPLITFILL_OFF") &&
+                        !(defCa->Delay() &&
+                          defCa->Delay()->UhdmType() == UHDM::uhdmref_obj) &&
+                        !castRhsClones176(defCa) && defCa->Rhs() &&
+                        rhsHasUnsized193(defCa->Rhs()) &&
+                        !rhsHasUserCall305v(defCa->Rhs());
+                    if (caSyms83[myIdx83]->getSyntax() && split305 &&
+                        !ifTernFillAll303(comp, caSyms83[myIdx83]->getSyntax(), f303->syntax)) {
+                        fill303 = f303;
+                        needsFold = true;
+                        tr305("ifTernFillSplitPerInst305", prefix);
+                    }
+                    else if (caSyms83[myIdx83]->getSyntax() &&
                         ifTernFillAll303(comp, caSyms83[myIdx83]->getSyntax(), f303->syntax)) {
                         fill303 = f303;
                         needsFold = true;
@@ -56200,6 +56508,79 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             }
             if (!needsFold) {
                 elabCas->push_back(defCa);
+                // § ifCaUnsizedRhsClonePerInst305 (r11u305) — the interface
+                // twin of § caUnsizedRhsClonePerInst193.  The interface body's
+                // cells go through the same UhdmWriter::writeCont_assign
+                // (§ caIfaceBodyCaFolds83's decode), whose fourth leg clones a
+                // cell no earlier leg cloned or simplified when its Rhs holds
+                // an unsized constant anywhere (DetectUnsizedConstant):
+                // clone_tree(assign, ElaboratorContext(&s, false, true)) and
+                // VpiParent(m), a whole copy whose references read the
+                // instance's chain.  Golden `assign arr[0] = (P) ? {2{sig}} :
+                // '0;` with P = 1: the interface instance lists its own cell
+                // (`work@top.b0.P`, `work@top.b0.sig`, `work@top.b0.arr`)
+                // where ours shared the definition's (`work@bus_t2.*`), and a
+                // second instance listed nothing of its own.  The module
+                // leg's gates: a select or concatenation Lhs, no cast Rhs (the
+                // cast leg), no named delay (the delay leg clones first).  The
+                // module drain builds the copy.  Grid
+                // tools/probe/r11u305repro/cases/IU.  Switch
+                // R11U305_IFUNSIZED_OFF.
+                if (ae83 && iface && defCa->Lhs() && defCa->Rhs() &&
+                    (defCa->Lhs()->UhdmType() != UHDM::uhdmref_obj ||
+                     r11u305On("R11U305_IFPLAINLHS_OFF")) &&
+                    !castRhsClones176(defCa) &&
+                    !(defCa->Delay() &&
+                      defCa->Delay()->UhdmType() == UHDM::uhdmref_obj) &&
+                    rhsHasUnsized193(defCa->Rhs()) &&
+                    r11u305On("R11U305_IFUNSIZED_OFF") &&
+                    // A Rhs of constants alone that the elaborated instance
+                    // evaluates takes writeCont_assign's reduce leg (a clone
+                    // carrying the folded constant), which this law does not
+                    // build: it stands aside (grid IU u16 to u19, `'1 &
+                    // 8'h0f`, `'0 | P`, `P ? 8'h3 : '0`, stage 1 on both
+                    // binaries; a draft cloning them grew u18_el's and u19_el's
+                    // uhdm-cmp line counts 32 -> 58 and 33 -> 74).
+                    [&]() {
+                        // Only a Rhs that reads no variable or net: one that
+                        // does (`(P) ? sig : '0`) is not reducible by the
+                        // producer's operand-first reduce and takes the
+                        // unsized leg (v11u303repro VI/vi08_vecbit
+                        // STRICT_EQUAL in both views under this law).
+                        bool sig305 = false;
+                        ae83->right().visitSymbolReferences(
+                            [&](const Expression&, const Symbol& sy) {
+                                if (sy.kind == SymbolKind::Variable ||
+                                    sy.kind == SymbolKind::Net)
+                                    sig305 = true;
+                            });
+                        ASTContext c305(comp.getRoot(), LookupLocation::max);
+                        if (!sig305 && c305.tryEval(ae83->right())) {
+                            tr305("IFUNSIZED305_ABSTAIN", prefix);
+                            return false;
+                        }
+                        // § ifUnsizedUserCallAbstains305v (v11u305) — a Rhs
+                        // holding a user function call (`f(sig) | '0`, a
+                        // package function `pk::f(sig) | '0`, `{8{g(sig)}}`):
+                        // the clone broke uhdm-cmp equality in the elaborated
+                        // view (tools/probe/v11u305repro/cases/VU vu05, vu23,
+                        // vu24, vu25 `_el` judge-equal -> stage 1, vu21_el
+                        // chain away 6), the call's own re-evaluation in the
+                        // producer's clone not being transcribed.  Switch
+                        // R11V305_IFCALL_OFF.
+                        if (rhsHasUserCall305v(defCa->Rhs())) {
+                            tr305("IFCALL305V_ABSTAIN", prefix);
+                            return false;
+                        }
+                        return true;
+                    }()) {
+                    unsizedClone193.push_back(
+                        {elabCas, elabCas->size() - 1, defCa, iface});
+                    ifUnsized305.insert({(const void*)elabCas, elabCas->size() - 1});
+                    tr305("ifCaUnsizedRhsClonePerInst305",
+                          prefix + " " + std::to_string(defCa->VpiLineNo()) + ":" +
+                              std::to_string(defCa->VpiColumnNo()));
+                }
                 continue;
             }
             auto* ca = s.MakeCont_assign();
@@ -56395,6 +56776,18 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 ro->VpiColumnNo(dro->VpiColumnNo());
                 ro->VpiEndLineNo(dro->VpiEndLineNo());
                 ro->VpiEndColumnNo(dro->VpiEndColumnNo());
+                // § ifCaPlainLhsNoVarBind305 — the reduce leg's copy is a
+                // clone_tree of the definition's cell, so a later instance's
+                // whole-name Lhs carries the definition Lhs's binding, the
+                // FIRST instance's variable (golden grid IU u04_plain_ones:
+                // b1's `work@top.b1.w` -> vpiActual `work@top.b0.w`, b0's
+                // none), as § ifCaUnsizedRhsClonePerInst305's copies do.
+                if (fill303 && plainLhs305)
+                    if (auto* da305 = dro->Actual_group();
+                        da305 && da305->VpiParent() != iface) {
+                        ro->Actual_group(da305);
+                        tr305("IFPLAINLHS305_BIND", prefix + "." + std::string(dro->VpiName()));
+                    }
                 ca->Lhs(ro);
             }
             // An ELEMENT-select Lhs (assign dly[0] = 1'b1) re-lists the same
@@ -56823,6 +57216,39 @@ ifaceProcsDone283:
                 copyLoc93(lc, first293);
             copyLoc93(p, mi93->second);
         }
+        // § pvHdrPortAtPortDecl305 (r11u305) — a PORT view lists no
+        // port-declaration mint (§ caIfacePortDeclNetMint93 is a home-view
+        // object), but its port and Low_conn take the port declaration's
+        // place all the same: the elaborated port of a non-ANSI interface is
+        // populated at the port DECLARATION's name, as the home view's
+        // copyLoc93 above has it (golden probe
+        // r11u93repro/grid/pb19_modportview `work@dut.u_s.m.o` at 3:17, the
+        // `output [31:0] o;` name, ours at the header list's `o` 2:16;
+        // grid PV, a body declaration written first included).  Switch
+        // R11U305_PVPORTLOC_OFF.
+        else if (portView && r11u305On("R11U305_PVPORTLOC_OFF") &&
+                 [&]() {
+                     for (auto& d305 : portDeclDeclarators93(body))
+                         if (d305.first == ps.name)
+                             return true;
+                     return false;
+                 }()) {
+            for (auto& d305 : portDeclDeclarators93(body))
+                if (d305.first == ps.name) {
+                    setLoc(p, nameSpan(d305.second, ps.name));
+                    setLoc(lc, nameSpan(d305.second, ps.name));
+                    tr305("pvHdrPortAtPortDecl305", prefix + "." + std::string(ps.name));
+                    break;
+                }
+            // Its Low_conn binds the modport io_decl's net (golden grid PV
+            // v03_noinit `vpiActual` work@dut.u_s.m.mp.o.o), where the bare
+            // fresh net below was minted.
+            if (auto it3 = ifacePortMemberNet.find(std::string(ps.name));
+                it3 != ifacePortMemberNet.end())
+                lc->Actual_group(it3->second);
+            else if (auto it2 = netMap.find(internal); it2 != netMap.end())
+                lc->Actual_group(it2->second);
+        }
         else if (auto it2 = netMap.find(internal); it2 != netMap.end())
             lc->Actual_group(it2->second);
         else if (auto it3 = ifacePortMemberNet.find(std::string(ps.name));
@@ -56855,6 +57281,17 @@ ifaceProcsDone283:
             auto* bn = s.MakeLogic_net();
             bn->VpiName(ps.name);
             setLocNamed(bn, ps);
+            // § pvHdrPortAtPortDecl305 — the bare net of a port the modport
+            // does not expose sits at the port declaration's name too (grid
+            // PV v13_notinmp: golden 4:16, ours the header list's 2:19).
+            if (r11u305On("R11U305_PVPORTLOC_OFF"))
+                for (auto& d305 : portDeclDeclarators93(body))
+                    if (d305.first == ps.name) {
+                        setLoc(bn, nameSpan(d305.second, ps.name));
+                        tr305("pvHdrPortAtPortDecl305", "bare " + prefix + "." +
+                                                            std::string(ps.name));
+                        break;
+                    }
             if (int32_t nt0 = netTypeFor(*internal, true))
                 bn->VpiNetType(nt0);
             auto* brt = s.MakeRef_typespec();

@@ -1,0 +1,70 @@
+tp/r11u118repro/grid/g1/p29_iface             P NOT_EQUAL_stage1 c31 rc0 | L STRICT_EQUAL_273_objects c0 rc0 | MOVES ENTER
+tp/r11u118repro/grid/g1/p29_iface_el          P NOT_EQUAL_stage1 c32 rc0 | L STRICT_EQUAL_271_objects c0 rc0 | MOVES ENTER
+tp/r11u159verify/cases/cx/x08_tp_and_enum_default P STRICT_EQUAL_256_objects c0 rc0 | L STRICT_EQUAL_256_objects c0 rc0 | same 
+tp/r11u159verify/cases/cx/x08_tp_and_enum_default_el P STRICT_EQUAL_255_objects c0 rc0 | L STRICT_EQUAL_255_objects c0 rc0 | same 
+tp/r11u162verify/cases/dps/d02_cross_pkg_typedef P STRICT_EQUAL_190_objects c0 rc0 | L STRICT_EQUAL_190_objects c0 rc0 | same 
+tp/r11u162verify/cases/dps/d02_cross_pkg_typedef_el P STRICT_EQUAL_189_objects c0 rc0 | L STRICT_EQUAL_189_objects c0 rc0 | same 
+tp/r11u162verify/cases/pvn/n01_positional_modport P STRICT_NOTEQUAL_col c0 rc0 | L STRICT_EQUAL_224_objects c0 rc0 | MOVES ENTER
+tp/r11u162verify/cases/pvn/n01_positional_modport_el P STRICT_NOTEQUAL_col c0 rc0 | L STRICT_EQUAL_223_objects c0 rc0 | MOVES ENTER
+tp/r11u176repro/cases/PG/g16_generic_mpconn_pos_two P NOT_EQUAL_stage1 c30 rc0 | L NOT_EQUAL_stage1 c30 rc0 | MOVES 
+tp/r11u176repro/cases/PG/g16_generic_mpconn_pos_two_el P NOT_EQUAL_stage1 c30 rc0 | L NOT_EQUAL_stage1 c30 rc0 | MOVES 
+tp/r11u195repro/cases/K/k08                   P NOT_EQUAL_stage1 c58 rc0 | L NOT_EQUAL_stage1 c58 rc0 | MOVES 
+tp/r11u195repro/cases/K/k08_el                P NOT_EQUAL_stage1 c58 rc0 | L NOT_EQUAL_stage1 c58 rc0 | MOVES 
+tp/r11u199verify/cases/T/t05_iface_ca         P NOT_EQUAL_stage1 c31 rc0 | L STRICT_EQUAL_283_objects c0 rc0 | MOVES ENTER
+tp/r11u199verify/cases/T/t05_iface_ca_el      P NOT_EQUAL_stage1 c33 rc0 | L STRICT_EQUAL_309_objects c0 rc0 | MOVES ENTER
+tp/r11u1repro/grid1                           P NOT_EQUAL_stage1 c36 rc0 | L NOT_EQUAL_stage1 c36 rc0 | MOVES 
+tp/r11u1repro/grid1_el                        P NOT_EQUAL_stage1 c36 rc0 | L NOT_EQUAL_stage1 c36 rc0 | MOVES 
+tp/r11u212repro/cases/SR/s17                  P STRICT_EQUAL_159_objects c0 rc0 | L STRICT_EQUAL_159_objects c0 rc0 | same 
+tp/r11u212repro/cases/SR/s17_el               P STRICT_NOTEQUAL_fullname c0 rc0 | L STRICT_NOTEQUAL_fullname c0 rc0 | same 
+tp/r11u218dec/cases/IX/x08_deep_path          P STRICT_EQUAL_375_objects c0 rc0 | L STRICT_EQUAL_375_objects c0 rc0 | same 
+tp/r11u218dec/cases/IX/x08_deep_path_el       P STRICT_EQUAL_404_objects c0 rc0 | L STRICT_EQUAL_404_objects c0 rc0 | same 
+tp/r11u246repro/cases/LN/n04_inoutport        P NOT_EQUAL_stage1 c30 rc0 | L NOT_EQUAL_stage1 c30 rc0 | MOVES 
+tp/r11u246repro/cases/LN/n04_inoutport_el     P NOT_EQUAL_stage1 c30 rc0 | L NOT_EQUAL_stage1 c30 rc0 | MOVES 
+tp/r11u256repro/cases/B/b12_iface_body        P NOT_EQUAL_stage1 c31 rc0 | L NOT_EQUAL_stage1 c31 rc0 | MOVES 
+tp/r11u256repro/cases/B/b12_iface_body_el     P NOT_EQUAL_stage1 c32 rc0 | L STRICT_EQUAL_312_objects c0 rc0 | MOVES ENTER
+tp/r11u293repro/cases/PV/pv06_header_ctl      P STRICT_NOTEQUAL_line c0 rc0 | L STRICT_EQUAL_107_objects c0 rc0 | MOVES ENTER
+tp/r11u293repro/cases/PV/pv06_header_ctl_el   P STRICT_NOTEQUAL_line c0 rc0 | L STRICT_EQUAL_107_objects c0 rc0 | MOVES ENTER
+tp/r11u303repro/cases/IF/i03_split            P STRICT_NOTEQUAL_type c0 rc0 | L STRICT_EQUAL_153_objects c0 rc0 | MOVES ENTER
+tp/r11u303repro/cases/IF/i03_split_el         P NOT_EQUAL_stage1 c33 rc0 | L STRICT_EQUAL_153_objects c0 rc0 | MOVES ENTER
+tp/r11u303repro/cases/IF/i06_bareuntaken      P NOT_EQUAL_stage1 c31 rc0 | L STRICT_EQUAL_82_objects c0 rc0 | MOVES ENTER
+tp/r11u303repro/cases/IF/i06_bareuntaken_el   P NOT_EQUAL_stage1 c33 rc0 | L STRICT_EQUAL_82_objects c0 rc0 | MOVES ENTER
+tp/r11v154repro/pv/o2                         P STRICT_NOTEQUAL_col c0 rc0 | L STRICT_EQUAL_224_objects c0 rc0 | MOVES ENTER
+tp/r11v154repro/pv/o2_el                      P STRICT_NOTEQUAL_col c0 rc0 | L STRICT_EQUAL_223_objects c0 rc0 | MOVES ENTER
+tp/v11u111repro/brk/f2/x24_otherpkg_member_q  P NOT_EQUAL_stage1 c126 rc0 | L NOT_EQUAL_stage1 c17 rc0 | MOVES 
+tp/v11u111repro/brk/f2/x24_otherpkg_member_q_el P NOT_EQUAL_stage1 c126 rc0 | L NOT_EQUAL_stage1 c17 rc0 | MOVES 
+tp/v11u186repro/cases/W/x03                   P STRICT_NOTEQUAL_fullname c0 rc0 | L STRICT_NOTEQUAL_fullname c0 rc0 | same 
+tp/v11u186repro/cases/W/x03_el                P STRICT_NOTEQUAL_fullname c0 rc0 | L STRICT_NOTEQUAL_fullname c0 rc0 | same 
+tp/v11u193repro/cases/UC/uc06_iface           P NOT_EQUAL_stage1 c31 rc0 | L STRICT_EQUAL_119_objects c0 rc0 | MOVES ENTER
+tp/v11u193repro/cases/UC/uc06_iface_el        P NOT_EQUAL_stage1 c32 rc0 | L STRICT_EQUAL_117_objects c0 rc0 | MOVES ENTER
+tp/v11u193repro/cases/UC/uc22_tn_iface        P STRICT_NOTEQUAL_fullname c0 rc0 | L STRICT_EQUAL_126_objects c0 rc0 | MOVES ENTER
+tp/v11u193repro/cases/UC/uc22_tn_iface_el     P NOT_EQUAL_stage1 c33 rc0 | L STRICT_EQUAL_125_objects c0 rc0 | MOVES ENTER
+tp/v11u195repro/cases/K/k05                   P NOT_EQUAL_stage1 c58 rc0 | L NOT_EQUAL_stage1 c58 rc0 | MOVES 
+tp/v11u195repro/cases/K/k05_el                P NOT_EQUAL_stage1 c58 rc0 | L NOT_EQUAL_stage1 c58 rc0 | MOVES 
+tp/v11u195repro/cases/K/k12                   P NOT_EQUAL_stage1 c58 rc0 | L NOT_EQUAL_stage1 c58 rc0 | MOVES 
+tp/v11u195repro/cases/K/k12_el                P NOT_EQUAL_stage1 c58 rc0 | L NOT_EQUAL_stage1 c58 rc0 | MOVES 
+tp/v11u209repro/cases/PD/v06                  P NOT_EQUAL_stage1 c13 rc0 | L NOT_EQUAL_stage1 c13 rc0 | MOVES 
+tp/v11u209repro/cases/PD/v06_el               P NOT_EQUAL_stage1 c13 rc0 | L NOT_EQUAL_stage1 c13 rc0 | MOVES 
+tp/v11u212repro/cases/A/a13                   P STRICT_EQUAL_164_objects c0 rc0 | L STRICT_EQUAL_164_objects c0 rc0 | same 
+tp/v11u212repro/cases/A/a13_el                P STRICT_NOTEQUAL_fullname c0 rc0 | L STRICT_NOTEQUAL_fullname c0 rc0 | same 
+tp/v11u239repro/cases/MA/m27                  P NOT_EQUAL_stage1 c60 rc0 | L NOT_EQUAL_stage1 c60 rc0 | MOVES 
+tp/v11u239repro/cases/MA/m27_el               P NOT_EQUAL_stage1 c60 rc0 | L NOT_EQUAL_stage1 c60 rc0 | MOVES 
+tp/v11u263repro/cases/VU/vu22_var_nested_member_repl P STRICT_EQUAL_567_objects c0 rc0 | L STRICT_EQUAL_567_objects c0 rc0 | same 
+tp/v11u263repro/cases/VU/vu22_var_nested_member_repl_el P STRICT_EQUAL_565_objects c0 rc0 | L STRICT_EQUAL_565_objects c0 rc0 | same 
+tp/v11u285repro/cases/VM/vm03_third_pkg_td    P NOT_EQUAL_stage1 c122 rc0 | L NOT_EQUAL_stage1 c17 rc0 | MOVES 
+tp/v11u285repro/cases/VM/vm03_third_pkg_td_el P NOT_EQUAL_stage1 c122 rc0 | L NOT_EQUAL_stage1 c17 rc0 | MOVES 
+tp/v11u293repro/cases/VI/vi09_modport_view    P STRICT_NOTEQUAL_line c0 rc0 | L STRICT_EQUAL_264_objects c0 rc0 | MOVES ENTER
+tp/v11u293repro/cases/VI/vi09_modport_view_el P STRICT_NOTEQUAL_line c0 rc0 | L STRICT_EQUAL_260_objects c0 rc0 | MOVES ENTER
+tp/v11u293repro/cases/VI/vi21_gen_iface_modport P STRICT_NOTEQUAL_line c0 rc0 | L STRICT_NOTEQUAL_line c0 rc0 | MOVES 
+tp/v11u293repro/cases/VI/vi21_gen_iface_modport_el P STRICT_NOTEQUAL_fullname c0 rc0 | L STRICT_NOTEQUAL_fullname c0 rc0 | MOVES 
+tp/v11u293repro/cases/VI/vi24_modport_import_func P NOT_EQUAL_stage1 c31 rc0 | L NOT_EQUAL_stage1 c31 rc0 | MOVES 
+tp/v11u293repro/cases/VI/vi24_modport_import_func_el P NOT_EQUAL_stage1 c273 rc0 | L NOT_EQUAL_stage1 c273 rc0 | MOVES 
+tp/v11u303repro/cases/VI/vi02_partsel         P STRICT_NOTEQUAL_type c0 rc0 | L STRICT_NOTEQUAL_type c0 rc0 | MOVES 
+tp/v11u303repro/cases/VI/vi02_partsel_el      P NOT_EQUAL_stage1 c33 rc0 | L STRICT_NOTEQUAL_type c0 rc0 | MOVES 
+tp/v11u303repro/cases/VI/vi06_fillboth        P STRICT_NOTEQUAL_type c0 rc0 | L STRICT_EQUAL_135_objects c0 rc0 | MOVES ENTER
+tp/v11u303repro/cases/VI/vi06_fillboth_el     P NOT_EQUAL_stage1 c33 rc0 | L STRICT_EQUAL_135_objects c0 rc0 | MOVES ENTER
+tp/v11u303repro/cases/VI/vi08_vecbit          P NOT_EQUAL_stage1 c31 rc0 | L STRICT_EQUAL_82_objects c0 rc0 | MOVES ENTER
+tp/v11u303repro/cases/VI/vi08_vecbit_el       P NOT_EQUAL_stage1 c33 rc0 | L STRICT_EQUAL_82_objects c0 rc0 | MOVES ENTER
+tp/v11u303repro/cases/VI/vi10_paramfromparent P STRICT_NOTEQUAL_type c0 rc0 | L STRICT_EQUAL_178_objects c0 rc0 | MOVES ENTER
+tp/v11u303repro/cases/VI/vi10_paramfromparent_el P NOT_EQUAL_stage1 c33 rc0 | L STRICT_EQUAL_178_objects c0 rc0 | MOVES ENTER
+tp/v11u303repro/cases/VI/vi13_paramidx        P STRICT_NOTEQUAL_type c0 rc0 | L STRICT_NOTEQUAL_type c0 rc0 | MOVES 
+tp/v11u303repro/cases/VI/vi13_paramidx_el     P NOT_EQUAL_stage1 c33 rc0 | L STRICT_NOTEQUAL_type c0 rc0 | MOVES 

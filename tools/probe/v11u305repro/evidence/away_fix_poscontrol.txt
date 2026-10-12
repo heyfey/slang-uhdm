@@ -1,0 +1,12 @@
+VM/vm01_ifport_down dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VM/vm01_ifport_down_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VM/vm02_hashdelay dist 0 -> 0 lost=0 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VM/vm02_hashdelay_el dist 0 -> 0 lost=0 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VM/vm03_multi_inst dist 3 -> 5 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VM/vm03_multi_inst_el dist 3 -> 5 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VM/vm04_two_ifaces dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VM/vm04_two_ifaces_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VM/vm05_const_second dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VM/vm05_const_second_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VM/vm06_decl_after dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VM/vm06_decl_after_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0

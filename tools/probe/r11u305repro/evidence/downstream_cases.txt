@@ -1,0 +1,236 @@
+r11u305repro/cases/IS/s01_both1 law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s01_both1 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s02_rev law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s02_rev pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u305repro/cases/IS/s03_three law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s03_three pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u305repro/cases/IS/s04_split law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s04_split pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u305repro/cases/IS/s05_opnoparam law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s05_opnoparam pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s06_opparam law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s06_opparam pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s07_tern_noP law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s07_tern_noP pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s08_tern_sel law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s08_tern_sel pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s09_one law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IS/s09_one pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u01_plain_fill law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u01_plain_fill pristine EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+r11u305repro/cases/IU/u02_plain_op law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u02_plain_op pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u03_plain_split law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u03_plain_split pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+r11u305repro/cases/IU/u04_plain_ones law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u04_plain_ones pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u305_ds/pris
+r11u305repro/cases/IU/u05_plain_or law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u05_plain_or pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u06_sel_or law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u06_sel_or pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u07_concat_lhs law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u07_concat_lhs pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u08_xfill_op law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u08_xfill_op pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u09_delay law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u09_delay pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u10_genscope law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u10_genscope pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u11_inmodgen law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u11_inmodgen pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u12_portview law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u12_portview pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u13_unsizedhex law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u13_unsizedhex pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u14_cast law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u14_cast pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u15_ifarray law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u15_ifarray pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u16_constop_plain law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u16_constop_plain pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u17_constop_sel law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u17_constop_sel pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u18_paramop law EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u305repro/cases/IU/u18_paramop pristine EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u305repro/cases/IU/u19_tern_constarms law EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+r11u305repro/cases/IU/u19_tern_constarms pristine EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+r11u305repro/cases/IU/u20_concat_unsized law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/IU/u20_concat_unsized pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p01_first law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p01_first pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p02_second law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p02_second pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p03_modinst law IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u305repro/cases/PM/p03_modinst pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u305repro/cases/PM/p04_arrelem law EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+r11u305repro/cases/PM/p04_arrelem pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+r11u305repro/cases/PM/p05_ingen law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PM/p05_ingen pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PM/p06_twoinst law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p06_twoinst pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p07_generic law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p07_generic pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p08_spaced law STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+r11u305repro/cases/PM/p08_spaced pristine STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+r11u305repro/cases/PM/p09_param law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p09_param pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p10_iface_child law EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u305repro/cases/PM/p10_iface_child pristine EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u305repro/cases/PM/p11_program law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p11_program pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p12_macro law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p12_macro pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p13_child_mp law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p13_child_mp pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p14_named_ctl law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p14_named_ctl pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p15_onlyconn law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p15_onlyconn pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p16_mo law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PM/p16_mo pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PV/v01_pb19 law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v01_pb19 pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v02_bodyfirst law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v02_bodyfirst pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v03_noinit law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v03_noinit pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v04_logicbody law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v04_logicbody pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v05_hdronly law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PV/v05_hdronly pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PV/v06_input law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v06_input pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v07_twoviews law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v07_twoviews pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v08_generic law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v08_generic pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v09_scalar law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v09_scalar pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v10_portwire law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PV/v10_portwire pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PV/v11_plainport law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v11_plainport pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v12_program law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v12_program pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v13_notinmp law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v13_notinmp pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v14_multidecl law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v14_multidecl pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v15_ansi_ctl law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PV/v15_ansi_ctl pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/PV/v16_twoinst law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v16_twoinst pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v17_ingen law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v17_ingen pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v18_reads law IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/PV/v18_reads pristine IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+r11u305repro/cases/TQ/s01_signal law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s01_signal pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s02_pkgstruct law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s02_pkgstruct pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s03_union law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s03_union pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s04_unpacked_mem law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s04_unpacked_mem pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s05_packed_dim law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u305_ds/law/
+r11u305repro/cases/TQ/s05_packed_dim pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u305_ds/pris
+r11u305repro/cases/TQ/s06_samepkg law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s06_samepkg pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s07_modvec law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s07_modvec pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s08_bitvec law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s08_bitvec pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s09_int law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s09_int pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s10_inline_var law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s10_inline_var pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s11_selfscoped law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s11_selfscoped pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s12_class law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s12_class pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s13_iface law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s13_iface pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s14_nested law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s14_nested pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s15_param law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s15_param pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s16_port law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s16_port pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s17_tdchain law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s17_tdchain pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s18_namedimport law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s18_namedimport pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s19_two_members law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s19_two_members pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s20_two_structs law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s20_two_structs pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s21_member_rw law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s21_member_rw pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s22_signed law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s22_signed pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s23_paramwidth law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s23_paramwidth pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s24_func_local law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s24_func_local pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s25_cast law SURELOG_FAIL differs=- surelog= slang= detail=no_reference_database
+r11u305repro/cases/TQ/s25_cast pristine SURELOG_FAIL differs=- surelog= slang= detail=no_reference_database
+r11u305repro/cases/TQ/s26_pkgparamwidth law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/s26_pkgparamwidth pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t01_q04 law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t01_q04 pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t02_modtd law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t02_modtd pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t03_lptype law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t03_lptype pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t04_tpbare law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t04_tpbare pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t05_tpimport law EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+r11u305repro/cases/TQ/t05_tpimport pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+r11u305repro/cases/TQ/t06_tp_two law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t06_tp_two pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t07_tp_inst law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t07_tp_inst pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t08_tp_struct_pkg law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/TQ/t08_tp_struct_pkg pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w01_wire_scoped law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w01_wire_scoped pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w02_wire_imported law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w02_wire_imported pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w03_var_scoped law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w03_var_scoped pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w04_wire_scoped_dim law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w04_wire_scoped_dim pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w05_wire_local law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w05_wire_local pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w06_two_wires law IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u305repro/cases/WN/w06_two_wires pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u305repro/cases/WN/w07_wire_scoped_init law EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+r11u305repro/cases/WN/w07_wire_scoped_init pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+r11u305repro/cases/WN/w08_wire_enum law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w08_wire_enum pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w09_iface law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w09_iface pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w10_wire_scoped_vec law EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+r11u305repro/cases/WN/w10_wire_scoped_vec pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_2_common_constant_assignments_match
+r11u305repro/cases/WN/w11_union law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w11_union pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w12_delay law SURELOG_FAIL differs=- surelog= slang= detail=no_reference_database
+r11u305repro/cases/WN/w12_delay pristine SURELOG_FAIL differs=- surelog= slang= detail=no_reference_database
+r11u305repro/cases/WN/w13_comma law IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u305repro/cases/WN/w13_comma pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u305repro/cases/WN/w14_macro law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w14_macro pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w15_wire_then_var law IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u305repro/cases/WN/w15_wire_then_var pristine IDENTICAL differs=- surelog=OK slang=OK detail=-
+r11u305repro/cases/WN/w16_twomods law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w16_twomods pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w17_tri law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w17_tri pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w18_ingen law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u305_ds/law/
+r11u305repro/cases/WN/w18_ingen pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/r11u305_ds/pris
+r11u305repro/cases/WN/w19_nonansi_port law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w19_nonansi_port pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w20_crlf law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w20_crlf pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w21_header law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u305repro/cases/WN/w21_header pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-

@@ -116,7 +116,7 @@ r10earl50repro/h8_earl50,EQUAL,,equal
 r10earl51repro/i1_earl51,EQUAL,,equal
 r10earl52repro/a2_earl52,EQUAL,,equal
 r10earl52repro/v3_earl52,EQUAL,,equal
-r10earl53repro/v2_v53,STRICT_NOTEQUAL,differ:endline(1),differ:endline(1)
+r10earl53repro/v2_v53,EQUAL,,equal
 r10earl53repro/v5_v53,EQUAL,,equal
 r10earl54repro/pkC_54,EQUAL,,equal
 r10earl54repro/v10step1,EQUAL,,equal
@@ -2556,7 +2556,7 @@ r11u19repro/grid/t25_genif_signedvec,EQUAL,,equal
 r11u19repro/grid/t26_genif_unpackedstructarr,EQUAL,,equal
 r11u19repro/grid/t27_genif_packedstructarr,EQUAL,,equal
 r11u19repro/grid/t28_genif_scalar_procedural,EQUAL,,equal
-r11u1repro/grid2,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
+r11u1repro/grid2,EQUAL,,equal
 r11u20repro/b1,EQUAL,,equal
 r11u20repro/b2,EQUAL,,equal
 r11u20repro/b3,EQUAL,,equal
@@ -3240,7 +3240,7 @@ r11u93repro/grid/pb14_ifbothstr,EQUAL,,equal
 r11u93repro/grid/pb15_ifnodim,EQUAL,,equal
 r11u93repro/grid/pb16_ifdeclorder,EQUAL,,equal
 r11u93repro/grid/pb17_ifonedecl,EQUAL,,equal
-r11u93repro/grid/pb19_modportview,STRICT_NOTEQUAL,differ:line(14),differ:line(14)
+r11u93repro/grid/pb19_modportview,EQUAL,,equal
 r11u93repro/grid/pb3_ifnoredecl,EQUAL,,equal
 r11u93repro/grid/pb4_ifrevorder,EQUAL,,equal
 r11u93repro/grid/pb5_ifinput,EQUAL,,equal
@@ -3373,7 +3373,7 @@ r11v17repro/grid/w07_syscall_addop_arg_op,EQUAL,,equal
 r11v17repro/grid/w08_syscall_castinop_arg,EQUAL,,equal
 r11v17repro/grid/w09_syscall_castinconcat_arg,EQUAL,,equal
 r11v17repro/grid/w10_plain_cast_rhs_op,EQUAL,,equal
-r11v1repro/vA,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
+r11v1repro/vA,EQUAL,,equal
 r11v1repro/vE,EQUAL,,equal
 r11v1repro/vL,EQUAL,,equal
 r11v21repro/v1,EQUAL,,equal
@@ -4039,7 +4039,7 @@ v11u93b107repro/brk/p18_func_arg,EQUAL,,equal
 v11u93b107repro/brk/p19_signed_member,EQUAL,,equal
 v11u93b107repro/brk/p20_param_child_twice,EQUAL,,equal
 v11u93b107repro/brk/q01_dim_valparam,EQUAL,,equal
-v11u93b107repro/brk/q04_pkg_member,STRICT_NOTEQUAL,differ:name(2),differ:name(2)
+v11u93b107repro/brk/q04_pkg_member,EQUAL,,equal
 v11u93b107repro/brk/q05_union_dim,EQUAL,,equal
 v11u93b107repro/brk/q06_two_dims,EQUAL,,equal
 v11u93b107repro/brk/q09_two_tparams,EQUAL,,equal

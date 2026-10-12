@@ -1,0 +1,8 @@
+// § scopedSimpleTdMemberBindsListing305
+package pk; typedef bit [2:0] w_t; endpackage
+module dut (input logic [3:0] i, output logic [3:0] o);
+  typedef struct packed { pk::w_t a; logic b; } s_t;
+  s_t x;
+  assign x = i;
+  assign o = x;
+endmodule

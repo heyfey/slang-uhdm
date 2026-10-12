@@ -1,0 +1,10 @@
+case-views whose bytes move when the switch alone is off (vs the law):
+  IFPLAINLHS: 12
+  IFSPLITFILL: 8
+  IFUNSIZED: 34
+  PVBODYFIRSTNDA: 2
+  PVHDRPORTDECL: 30
+  PVPORTLOC: 34
+  SCOPEDTDMEM: 46
+  UDPMPPATH: 18
+  WIRESCOPEDEND: 24
