@@ -1,0 +1,13 @@
+VC/vc01_param_idx d chain away=0 toward=0 flat_away=0 flat_toward=0
+VC/vc06_task_out d chain away=8 toward=0 flat_away=8 flat_toward=0
+VF/vf04_string_params d chain away=1 toward=0 flat_away=1 flat_toward=0
+VH/vh01_implicit_idx d chain away=1 toward=0 flat_away=1 flat_toward=0
+VH/vh07_unary_idx d chain away=1 toward=0 flat_away=1 flat_toward=0
+VH/vh12_member_two_level d chain away=1 toward=0 flat_away=1 flat_toward=0
+VH/vh18_cast_in_port_idx d chain away=3 toward=0 flat_away=3 flat_toward=0
+VR/vr01_param_idx d chain away=2 toward=0 flat_away=2 flat_toward=0
+VR/vr06_minus_one d chain away=0 toward=0 flat_away=0 flat_toward=0
+VR/vr11_assoc_int d chain away=2 toward=0 flat_away=2 flat_toward=0
+VR/vr16_two_sites_static d chain away=2 toward=0 flat_away=2 flat_toward=0
+VT/vt06_iface_member d chain away=0 toward=0 flat_away=0 flat_toward=0
+VT/vt13_class_in_module d chain away=1 toward=0 flat_away=1 flat_toward=0

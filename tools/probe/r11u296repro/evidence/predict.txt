@@ -1,0 +1,11 @@
+probe r10earl29repro__b3_edges.uhdm CASTIDXTS:1
+probe r10earl29repro__v8_sites2.uhdm HCTRAILIDX:1
+probe r10uvm175repro__g175_c_tail.uhdm RANDLASTSEL:1
+probe r10uvm193repro__g193_c_argface.uhdm PKGFNCLONEIDX:4
+probe r10v169repro__v169_g_control.uhdm RETFOLDTS:6
+surelog Earlgrey_0_1/default HCTRAILIDX:97
+surelog Earlgrey_0_1/testflags HCTRAILIDX:97
+surelog MiniAmiq/default PKGFNCLONEIDX:16
+surelog MiniAmiq/testflags PKGFNCLONEIDX:16
+surelog SeqDriver/default PKGFNCLONEIDX:16
+surelog SeqDriver/testflags PKGFNCLONEIDX:16

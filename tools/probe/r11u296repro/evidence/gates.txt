@@ -1,0 +1,17 @@
+r11u296 gates (frozen binaries: pristine 6b20693eef699614784a0ae089571dc0, law f084a2ac85ffae8db05ce180440a60ed;
+strict comparator uhdm-strictcmp fa6e4f42f252ae0ab69d9845003e71c5, equal to the worktree's build)
+probe      pristine EQUAL=3966 STRICT_NOTEQUAL=121 regressions=0 conversions=0 changes=0
+           law      EQUAL=3971 STRICT_NOTEQUAL=116 regressions=0 conversions=5 changes=0
+surelog    pristine default 480 + 0, testflags 474 + 0, regressions=0 conversions=0 changes=0
+           law      default 480 + 0, testflags 474 + 0, regressions=0 conversions=0 changes=0
+uhdm2rtlil pristine 803/1/67 both modes, regressions=0 conversions=0 changes=0
+           law      803/1/67 both modes, regressions=0 conversions=0 changes=0
+downstream pristine IDENTICAL=803 SLANG_REJECT=66 EQUIVALENT=2 DIVERGENT=0, csv byte-identical to results/downstream_uhdm2rtlil.csv
+           law      IDENTICAL=803 SLANG_REJECT=66 EQUIVALENT=2 DIVERGENT=0, csv byte-identical to results/downstream_uhdm2rtlil.csv
+csv rows   surelog: only LowMemLib/LowMemPkg testflags detail text (workdir path); uhdm2rtlil: none; probe: the 5 conversions
+byteverify corpus (fence-filtered mirrors, 8 fenced paths skipped): MOVERS 0 / 2560, SELFCHECK 2559 / 2560 (the reference file vs itself)
+probe      databases 4087, movers 5 (b3_edges, v8_sites2, g175_c_tail, g193_c_argface, v169_g_control) = the census prediction
+downstream slang-lane databases 805, movers 0
+canaries   surelog ok=52 changed=0 absent=0; uhdm2rtlil ok=16 changed=0 absent=0; ctcan2 PASS (EXPECT_UNKNOWN=1) and PASS (EXPECT_UNKNOWN=6)
+audit      pristine own=3265 other=0 noslang=50 fenced_skipped=8; law own=3265 other=0 noslang=50 fenced_skipped=8
+determinism three concurrent draws (law): one hash per row-mode on 12 row-modes, each equal to the law sweep's

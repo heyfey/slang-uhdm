@@ -54,6 +54,7 @@
 #include "R288.h"
 #include "R292.h"
 #include "R294.h"
+#include "R296.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -255,6 +256,37 @@ static bool modImportSeesTd246(const slang::ast::Compilation& comp,
     return false;
 }
 
+// § hcTrailIdxNamesByPortChain296 (R11U296_HCTRAILIDX_OFF) — the base every
+// path-index naming rule below joins to: the scope's prefix plus the path's
+// name, unless the path is a PORT's high connection.  Such a path hangs under
+// the port, which hangs under the instance, and Surelog stores no name on the
+// references inside it, so the reader's ComputeFullName runs through both
+// (golden r10earl29repro v8_sites2 `.a(q.autoexecprogbuf[{1'b1, k[0]}])` on
+// the elaborated instance u: `work@v8_sites2.u.a.q.autoexecprogbuf[{1'b1,}].
+// autoexecprogbuf.k`); the elaborated instance's emission handed these rules
+// the PARENT's prefix (`work@v8_sites2.q...`) while the select itself, named
+// by the getter over the chain, already read `...u.a...`.  The base is the
+// path's own chain when the path is parented at a port that is itself
+// parented; `site` names the rule for the trace.
+static std::string chainFullName175(const UHDM::BaseClass* o);
+static std::string portChainBase296(const std::string& prefix, const UHDM::hier_path* hp,
+                                    const char* site) {
+    std::string base = joinRef(prefix, hp->VpiName());
+    if (auto* pp = hp->VpiParent();
+        pp && pp->UhdmType() == UHDM::uhdmport && pp->VpiParent()) {
+        const std::string chain = chainFullName175(hp);
+        if (!chain.empty() && chain != base) {
+            if (r11u296On("R11U296_HCTRAILIDX_OFF")) {
+                tr296("HCTRAILIDX", std::string(site) + " " + base + " -> " + chain);
+                base = chain;
+            }
+            else
+                tr296("HCTRAILIDX", std::string("off ") + site + " " + base);
+        }
+    }
+    return base;
+}
+
 // § pkgQualOperandSpanInParam218 (r11u218) — A PACKAGE-QUALIFIED OPERAND
 // FOLDED INSIDE A MODULE OR INTERFACE PARAMETER'S INITIALIZER, IN THE
 // DEFINITION LISTING, SPANS THE QUALIFIER WITH ITS COLONS.  Surelog compiles
@@ -356,7 +388,7 @@ static void hpTrailIpsNames218(UHDM::indexed_part_select* ips,
     static const bool on = r11u218On("R11U218_HPIPSNAME_OFF");
     if (!on || !ips || !hp || hp->VpiName().empty())
         return;
-    const std::string base = joinRef(prefix, hp->VpiName());
+    const std::string base = portChainBase296(prefix, hp, "ips218");  // § hcTrailIdxNamesByPortChain296
     std::function<void(UHDM::any*, const UHDM::any*, bool)> nm =
         [&](UHDM::any* e, const UHDM::any* owner, bool direct) {
             if (!e || e->VpiParent() != owner)
@@ -3644,6 +3676,77 @@ void noteCloneHpIdx220(UHDM::any* clone) {
     l.root = clone;
     l.listenAny(clone);
 }
+// § pkgFnCloneIdxNamesByChain296 — the clone bodies of FREE package
+// subroutines registered with the drain below (ParamEmit's importer-package
+// clone loop); the drain traces its renames under them.
+static std::set<const UHDM::any*>& pkgFnCloneRoots296() {
+    static std::set<const UHDM::any*> v;
+    return v;
+}
+void notePkgFnCloneHpIdx296(UHDM::any* clone) {
+    static const bool on220 = r11u220On("R11U220_CLONEIDX_OFF");
+    if (!on220 || !clone)
+        return;
+    if (!r11u296On("R11U296_PKGFNCLONEIDX_OFF")) {
+        tr296("PKGFNCLONEIDX", "off " + std::string(clone->VpiName()));
+        return;
+    }
+    pkgFnCloneRoots296().insert(clone);
+    noteCloneHpIdx220(clone);
+}
+// § castTsInPathIdxByChain296 (R11U296_CASTIDXTS_OFF) — A CAST'S
+// ref_typespec IN A PATH ELEMENT'S SELECT INDEX IS NAMED BY ITS CHAIN.
+// Surelog stores no full name on a ref_typespec (pass 284's census: every
+// probe golden's ref_typespec name equals ComputeFullName over the final
+// parent chain), so a cast `2'(k)` written inside the index of a path
+// element's select reads through the select and the path (golden
+// r10earl29repro b3_edges `q.autoexecprogbuf[{1'b1, 2'(k)}]`:
+// `work@b3_edges.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf`), where ours
+// stored the scope's name (`work@b3_edges`).  Design-final (the chain is
+// complete), in UhdmId order; only a cast reached from the select's index
+// through operations, under a bit_select whose parent is a hier_path, and
+// only where the stored name is the scope's prefix of the chain name.
+void castTsInPathIdxDrain296(UHDM::Serializer& s) {
+    std::vector<UHDM::ref_typespec*> rts;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmref_typespec)
+            continue;
+        auto* op = o->VpiParent();
+        if (!op || op->UhdmType() != UHDM::uhdmoperation ||
+            ((const UHDM::operation*)op)->VpiOpType() != vpiCastOp ||
+            ((const UHDM::operation*)op)->Typespec() != o)
+            continue;
+        rts.push_back((UHDM::ref_typespec*)o);
+    }
+    std::sort(rts.begin(), rts.end(), [](const UHDM::ref_typespec* a, const UHDM::ref_typespec* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    for (auto* rt : rts) {
+        const UHDM::any* below = rt->VpiParent();
+        const UHDM::any* p = below->VpiParent();
+        int g = 0;
+        while (p && g++ < 32 && p->UhdmType() == UHDM::uhdmoperation) {
+            below = p;
+            p = p->VpiParent();
+        }
+        if (!p || p->UhdmType() != UHDM::uhdmbit_select ||
+            ((const UHDM::bit_select*)p)->VpiIndex() != below || !p->VpiParent() ||
+            p->VpiParent()->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        const std::string want = chainFullName175(rt);
+        const std::string cur(rt->VpiFullName());
+        if (want.empty() || cur == want || cur.empty() ||
+            want.compare(0, cur.size(), cur) != 0)
+            continue;
+        if (!r11u296On("R11U296_CASTIDXTS_OFF")) {
+            tr296("CASTIDXTS", "off " + cur);
+            continue;
+        }
+        tr296("CASTIDXTS", cur + " -> " + want);
+        rt->VpiFullName(want);
+    }
+}
 // § cloneHpIdxSelectByChain252: the view the drain runs for (set by
 // ParamEmit before the drain); the law is the default view's.
 bool& cloneIdxSelElabView252() {
@@ -3733,6 +3836,8 @@ void cloneHpIdxDrain220(UHDM::Serializer& s) {
                     return false;
                 if (e->UhdmType() == UHDM::uhdmref_obj) {
                     if (ok(e)) {
+                        if (pkgFnCloneRoots296().count((const UHDM::any*)hpFn220[hp]))
+                            tr296("PKGFNCLONEIDX", std::string(((UHDM::ref_obj*)e)->VpiFullName()));
                         ((UHDM::ref_obj*)e)->VpiFullName(std::string());
                         e->VpiParent(up);
                         tr220("cloneHpIdxNamesByChain220", std::string(e->VpiName()));
@@ -3774,6 +3879,8 @@ void cloneHpIdxDrain220(UHDM::Serializer& s) {
                                 own = false;
                     if (!rn.empty() && own &&
                         (cur == scope + sep + rn || cur == hpFull + sep + rn)) {
+                        if (pkgFnCloneRoots296().count((const UHDM::any*)hpFn220[hp]))
+                            tr296("PKGFNCLONEIDX", "select " + cur);
                         ib->VpiFullName(std::string());
                         e->VpiParent(up);
                         tr252("cloneHpIdxSelectByChain252", rn);
@@ -15780,7 +15887,7 @@ static void hpMemVarSelIdxNames280(UHDM::var_select* vs, const std::string& pref
     if (!on || !vs || !hp || !vs->Exprs() || hp->VpiName().empty() ||
         vs->VpiName().empty() || prefix.empty())
         return;
-    const std::string base = joinRef(joinRef(prefix, hp->VpiName()), vs->VpiName());
+    const std::string base = joinRef(portChainBase296(prefix, hp, "varsel280"), vs->VpiName());  // § hcTrailIdxNamesByPortChain296
     auto setFn = [&](UHDM::any* o, const std::string& fn) {
         switch (o->UhdmType()) {
             case UHDM::uhdmref_obj: {
@@ -16625,7 +16732,8 @@ static void trailSelIdxNames133(UHDM::bit_select* bs, const std::string& prefix,
     static const bool on = r11u133On("R11U133_TRAILIDX_OFF");
     if (!on || !bs || !hp || !bs->VpiIndex() || hp->VpiName().empty())
         return;
-    const std::string base = joinRef(prefix, hp->VpiName());
+    // § hcTrailIdxNamesByPortChain296: a port connection's path names through the port.
+    const std::string base = portChainBase296(prefix, hp, "trail133");
     std::function<void(UHDM::any*, bool)> nm = [&](UHDM::any* e, bool direct) {
         if (!e)
             return;
@@ -16692,7 +16800,7 @@ static void baseSelOpIdxNames145(const std::string& prefix, const UHDM::hier_pat
     auto* ix = (UHDM::any*)((UHDM::bit_select*)e0)->VpiIndex();
     if (!ix || ix->UhdmType() != UHDM::uhdmoperation)
         return;
-    const std::string base = joinRef(prefix, hp->VpiName());
+    const std::string base = portChainBase296(prefix, hp, "basesel145");  // § hcTrailIdxNamesByPortChain296
     std::function<void(UHDM::any*)> nm = [&](UHDM::any* e) {
         if (!e)
             return;
@@ -16733,7 +16841,7 @@ static void ifaceTrailIdxNames147(UHDM::bit_select* bs, const std::string& prefi
     static const bool on = r11u147On("R11U147_IFTRAILIDX_OFF");
     if (!on || !bs || !hp || !bs->VpiIndex() || hp->VpiName().empty())
         return;
-    const std::string base = joinRef(prefix, hp->VpiName());
+    const std::string base = portChainBase296(prefix, hp, "iface147");  // § hcTrailIdxNamesByPortChain296
     std::function<void(UHDM::any*, bool)> nm = [&](UHDM::any* e, bool direct) {
         if (!e)
             return;
@@ -40741,6 +40849,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         setLoc(c74, SourceRange(io74,
                                                                 io74 + idx74.size()));
                                         bs74->VpiIndex(c74);
+                                        // § randWithLastSelChainShape296 — the
+                                        // bare-decimal index branch (golden
+                                        // `holds[2].randomize() with {...}`:
+                                        // the select located at `2`, no name)
+                                        if (memberRand119 && k74 + 1 == dots.size() &&
+                                            st74->sels.size() == 1) {
+                                            if (r11u296On("R11U296_RANDLASTSEL_OFF")) {
+                                                tr296("RANDLASTSEL", cum74);
+                                                bs74->VpiFullName(std::string());
+                                                setLoc(bs74, SourceRange(io74, io74 + idx74.size()));
+                                            }
+                                            else
+                                                tr296("RANDLASTSEL", "off " + cum74);
+                                        }
                                     }
                                     else {
                                         // Every other index goes through emitExpr
@@ -40783,6 +40905,70 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                     ? nullptr
                                                     : (UHDM::BaseClass*)hp);
                                             bs74->VpiIndex((UHDM::expr*)ix74);
+                                            // § randWithLastSelChainShape296
+                                            // (R11U296_RANDLASTSEL_OFF) — the
+                                            // member randomize-with receiver's
+                                            // LAST element written with a
+                                            // select (`holds[berth].randomize()
+                                            // with {...}`) is pushed by
+                                            // Surelog's trailing `paSelect`
+                                            // branch, the one that sets NO
+                                            // full name (the rule
+                                            // § memberRandomizeWithIsRecvPath119
+                                            // quotes for a plain last name):
+                                            // the bit_select stores none and
+                                            // is located at its INDEX, and the
+                                            // index hangs under the select with
+                                            // no stored name, so the reader's
+                                            // chain names both through the path
+                                            // (golden r10uvm175repro g175_c_tail
+                                            // `holds` 45:19-24 `...::survey::
+                                            // holds[berth]::holds`, `berth`
+                                            // `...::holds[berth]::berth`; ours
+                                            // `holds[berth]` 45:13-18 and
+                                            // `...::survey::berth`).  One
+                                            // written dimension, a reference
+                                            // index.
+                                            const auto ixk296 = ix74->UhdmType();
+                                            if (memberRand119 &&
+                                                k74 + 1 == dots.size() &&
+                                                st74->sels.size() == 1 &&
+                                                (ixk296 == UHDM::uhdmref_obj ||
+                                                 ixk296 == UHDM::uhdmoperation ||
+                                                 ixk296 == UHDM::uhdmconstant)) {
+                                                if (r11u296On("R11U296_RANDLASTSEL_OFF")) {
+                                                    tr296("RANDLASTSEL", cum74);
+                                                    bs74->VpiFullName(std::string());
+                                                    setLoc(bs74, sel74->sourceRange);
+                                                    // a reference or an operation hangs
+                                                    // under the select (a constant stays
+                                                    // unparented), and the references in
+                                                    // it store no name: the chain runs
+                                                    // through the select (golden
+                                                    // `holds[j + 1]`: `...::holds[j + 1]
+                                                    // ::holds::j`)
+                                                    if (ixk296 != UHDM::uhdmconstant)
+                                                        ((UHDM::any*)ix74)->VpiParent(bs74);
+                                                    std::function<void(UHDM::any*, int)> clr296 =
+                                                        [&](UHDM::any* x, int d) {
+                                                            if (!x || d > 16)
+                                                                return;
+                                                            if (x->UhdmType() == UHDM::uhdmref_obj)
+                                                                ((UHDM::ref_obj*)x)->VpiFullName(std::string());
+                                                            else if (x->UhdmType() == UHDM::uhdmoperation)
+                                                                if (auto* os = ((UHDM::operation*)x)->Operands())
+                                                                    for (auto* o : *os)
+                                                                        if (o && o->VpiParent() == x)
+                                                                            clr296(o, d + 1);
+                                                        };
+                                                    clr296((UHDM::any*)ix74, 0);
+                                                }
+                                                else
+                                                    tr296("RANDLASTSEL", "off " + cum74);
+                                            }
+                                            else if (memberRand119 &&
+                                                     k74 + 1 == dots.size())
+                                                tr296("RANDLASTSEL_ABSTAIN", cum74);
                                         }
                                     }
                                     elems->push_back(bs74);

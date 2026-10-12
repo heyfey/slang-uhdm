@@ -1,0 +1,11 @@
+CI/ci01_local_idx_method d chain away=4 toward=0 flat_away=4 flat_toward=0
+CI/ci07_struct_member_rhs e chain away=1 toward=0 flat_away=1 flat_toward=0
+CT/ct01_concat_cast e chain away=2 toward=0 flat_away=2 flat_toward=0
+CT/ct08_function e chain away=2 toward=0 flat_away=2 flat_toward=0
+HC/hc01_direct_ref e chain away=1 toward=0 flat_away=1 flat_toward=0
+HC/hc09_genfor e chain away=2 toward=0 flat_away=2 flat_toward=0
+HC/hc17_two_insts e chain away=2 toward=0 flat_away=2 flat_toward=0
+RF/rf01_two_params_if e chain away=3 toward=0 flat_away=3 flat_toward=0
+RF/rf08_pkg_importer e chain away=5 toward=0 flat_away=5 flat_toward=0
+RF/rf15_dim_slot e chain away=3 toward=0 flat_away=3 flat_toward=0
+RW/rw07_formal_idx e chain away=1 toward=0 flat_away=1 flat_toward=0

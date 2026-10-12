@@ -1,0 +1,141 @@
+MOVER VC/vc01_param_idx d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc01_param_idx e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc02_prop_select d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc02_prop_select e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc03_lvalue d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc03_lvalue e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc04_static_fn d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc04_static_fn e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc05_foreach d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc05_foreach e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc06_task_out d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc06_task_out e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc07_named_call d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc07_named_call e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VF/vf01_three_returns d: STRICT_NOTEQUAL line -> STRICT_EQUAL 255 objects
+MOVER VF/vf01_three_returns e: STRICT_NOTEQUAL line -> STRICT_EQUAL 242 objects
+MOVER VF/vf02_enum_params d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VF/vf02_enum_params e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VF/vf03_literal_first d: STRICT_NOTEQUAL line -> STRICT_EQUAL 102 objects
+MOVER VF/vf03_literal_first e: STRICT_NOTEQUAL line -> STRICT_EQUAL 100 objects
+MOVER VF/vf04_string_params d: STRICT_NOTEQUAL line -> STRICT_EQUAL 82 objects
+MOVER VF/vf04_string_params e: STRICT_NOTEQUAL line -> STRICT_EQUAL 78 objects
+MOVER VF/vf05_typedef_params d: STRICT_NOTEQUAL type -> STRICT_NOTEQUAL type
+MOVER VF/vf05_typedef_params e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VF/vf06_imported_param d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VF/vf06_imported_param e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VF/vf07_two_functions_shared d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VF/vf07_two_functions_shared e: STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+CMP VF/vf08_localparam_signed d 30 -> 0
+MOVER VF/vf08_localparam_signed d: NOT_EQUAL stage1 -> STRICT_EQUAL 85 objects
+CMP VF/vf08_localparam_signed e 30 -> 0
+MOVER VF/vf08_localparam_signed e: NOT_EQUAL stage1 -> STRICT_EQUAL 83 objects
+MOVER VH/vh01_implicit_idx d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh01_implicit_idx e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh02_param_idx d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh02_param_idx e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh04_two_idx_ports d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL depth
+MOVER VH/vh04_two_idx_ports e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 266 objects
+MOVER VH/vh05_ips_port d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL depth
+MOVER VH/vh05_ips_port e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 223 objects
+MOVER VH/vh06_minus_ips d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL depth
+MOVER VH/vh06_minus_ips e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 223 objects
+MOVER VH/vh07_unary_idx d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL depth
+MOVER VH/vh07_unary_idx e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 229 objects
+MOVER VH/vh08_ternary_idx d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL depth
+MOVER VH/vh08_ternary_idx e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 233 objects
+MOVER VH/vh09_sysfn_idx d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL depth
+MOVER VH/vh09_sysfn_idx e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 229 objects
+MOVER VH/vh10_in_genif d: STRICT_EQUAL 257 objects -> STRICT_EQUAL 257 objects
+MOVER VH/vh10_in_genif e: STRICT_EQUAL 292 objects -> STRICT_EQUAL 292 objects
+MOVER VH/vh11_inst_in_genfor_local d: STRICT_EQUAL 303 objects -> STRICT_EQUAL 303 objects
+MOVER VH/vh11_inst_in_genfor_local e: STRICT_EQUAL 332 objects -> STRICT_EQUAL 332 objects
+MOVER VH/vh12_member_two_level d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL depth
+MOVER VH/vh12_member_two_level e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 279 objects
+MOVER VH/vh13_macro_idx d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL depth
+MOVER VH/vh13_macro_idx e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 221 objects
+MOVER VH/vh15_depth2_param_hc d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh15_depth2_param_hc e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh16_class_spec_bound d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh16_class_spec_bound e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh17_output_port_lhs d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh17_output_port_lhs e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh18_cast_in_port_idx d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 124 objects
+MOVER VH/vh18_cast_in_port_idx e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 128 objects
+MOVER VH/vh19_bind d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh19_bind e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh20_arr_elem_member d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VH/vh20_arr_elem_member e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VH/vh21_genfor_ref_plus_genvar d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh21_genfor_ref_plus_genvar e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh22_two_level_port_chain d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL depth
+MOVER VH/vh22_two_level_port_chain e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 292 objects
+MOVER VH/vh24_iface_inst_port d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh24_iface_inst_port e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh25_program_port d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL depth
+MOVER VH/vh25_program_port e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL depth
+MOVER VH/vh26_wildcard_and_named d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL depth
+MOVER VH/vh26_wildcard_and_named e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 125 objects
+MOVER VH/vh27_inst_array_port_idx d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VH/vh27_inst_array_port_idx e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VR/vr01_param_idx d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 115 objects
+MOVER VR/vr01_param_idx e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 129 objects
+MOVER VR/vr02_enum_idx d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 115 objects
+MOVER VR/vr02_enum_idx e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 130 objects
+MOVER VR/vr03_string_key d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 115 objects
+MOVER VR/vr03_string_key e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 129 objects
+MOVER VR/vr04_queue_dollar d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 115 objects
+MOVER VR/vr04_queue_dollar e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 127 objects
+MOVER VR/vr05_args_with d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 116 objects
+MOVER VR/vr05_args_with e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 133 objects
+MOVER VR/vr06_minus_one d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VR/vr06_minus_one e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VR/vr07_if_stmt d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 120 objects
+MOVER VR/vr07_if_stmt e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 134 objects
+MOVER VR/vr08_cast_idx d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VR/vr08_cast_idx e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VR/vr09_hex_lit d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 115 objects
+MOVER VR/vr09_hex_lit e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 129 objects
+MOVER VR/vr10_unary_idx d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 116 objects
+MOVER VR/vr10_unary_idx e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 130 objects
+MOVER VR/vr11_assoc_int d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 115 objects
+MOVER VR/vr11_assoc_int e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 129 objects
+MOVER VR/vr12_member_ref_in_with d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 115 objects
+MOVER VR/vr12_member_ref_in_with e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 129 objects
+MOVER VR/vr13_module_task d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VR/vr13_module_task e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VR/vr14_extern_method d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 106 objects
+MOVER VR/vr14_extern_method e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 123 objects
+MOVER VR/vr15_super_path d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VR/vr15_super_path e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VR/vr16_two_sites_static d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VR/vr16_two_sites_static e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VT/vt01_genfor_cast d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VT/vt01_genfor_cast e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VT/vt02_task_in_module d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 120 objects
+MOVER VT/vt02_task_in_module e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 119 objects
+MOVER VT/vt03_pkg_function d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 104 objects
+MOVER VT/vt03_pkg_function e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 103 objects
+MOVER VT/vt04_nested_cast d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VT/vt04_nested_cast e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VT/vt06_iface_member d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VT/vt06_iface_member e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VT/vt07_unsized_typedef_cast d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 136 objects
+MOVER VT/vt07_unsized_typedef_cast e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 135 objects
+MOVER VT/vt08_class_member_path d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 81 objects
+MOVER VT/vt08_class_member_path e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 98 objects
+MOVER VT/vt09_two_level_inst d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 170 objects
+MOVER VT/vt09_two_level_inst e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 167 objects
+MOVER VT/vt11_genif_cast d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VT/vt11_genif_cast e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VT/vt13_class_in_module d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 79 objects
+MOVER VT/vt13_class_in_module e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 146 objects
+MOVER VT/vt14_task_lvalue d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VT/vt14_task_lvalue e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VT/vt15_genfor_nested_inst d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 209 objects
+MOVER VT/vt15_genfor_nested_inst e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 212 objects
+MOVER VT/vt16_macro_cast d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 84 objects
+MOVER VT/vt16_macro_cast e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 83 objects
+MOVER VT/vt17_rhs_and_port d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 161 objects
+MOVER VT/vt17_rhs_and_port e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 158 objects
+case-views=152 movers=138 entering_STRICT_EQUAL=60 leaving_STRICT_EQUAL=0 rc_changes=0 cmp_changes=2 OFF_equals_pristine=152/152

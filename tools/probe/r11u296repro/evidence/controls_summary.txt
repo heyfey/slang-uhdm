@@ -1,0 +1,5 @@
+MOVER r11u220repro/cases/CI/c07 d rc=0 cmp=806 NOT_EQUAL stage1 -> rc=0 cmp=806 NOT_EQUAL stage1
+MOVER r11u220repro/cases/CI/c07 e rc=0 cmp=830 NOT_EQUAL stage1 -> rc=0 cmp=830 NOT_EQUAL stage1
+MOVER v11u220repro/cases/C/c22 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER v11u220repro/cases/C/c22 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+case-views=2596 moving=4 entering=0 leaving=0 rc-changed=0 cmplines-changed=0

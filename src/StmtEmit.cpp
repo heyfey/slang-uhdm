@@ -29,6 +29,7 @@
 #include "R286.h"
 #include "R288.h"
 #include "R292.h"
+#include "R296.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -40,6 +41,17 @@ extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
 // R11U183_TRACE=<dir> names every firing of an r11u183 law (the mover
 // census): one file per process, `<dir>/<pid>.<unit>`, its first line the
 // `-o` database path read off the command line, then one law name per firing.
+// § retFoldTsKeyedByParam296 — the parameter each pre-created return-fold
+// typespec clone was made for (keyed by the subroutine symbol), and the
+// clones made for another parameter of the same subroutine.
+static std::map<const void*, const void*>& retFoldPreParam296() {
+    static std::map<const void*, const void*> m;
+    return m;
+}
+static std::map<std::pair<const void*, const void*>, UHDM::typespec*>& retFoldOwnTs296() {
+    static std::map<std::pair<const void*, const void*>, UHDM::typespec*> m;
+    return m;
+}
 static void tr183SE(const char* law) {
     static FILE* tf = [] () -> FILE* {
         const char* d = getenv("R11U183_TRACE");
@@ -6961,6 +6973,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 pit0 != pkgDefMap.end())
                                 its0->Instance(pit0->second);
                         foldCloneTs[currentSubSym] = its0;
+                        // § retFoldTsKeyedByParam296: remember which
+                        // parameter the pre-created clone was made for.
+                        retFoldPreParam296()[currentSubSym] = fp0;
                     }
                 }
                 // § pkgRetParamSubstReachesTheImportCloneDefView169
@@ -7158,6 +7173,45 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 if (auto fit = foldCloneTs.find(currentSubSym);
                                     fit != foldCloneTs.end())
                                     its2 = fit->second;
+                            // § retFoldTsKeyedByParam296 (R11U296_RETFOLDTS_OFF)
+                            // — the clone the DEF-view compile pre-created is
+                            // keyed by the SUBROUTINE and made for the
+                            // parameter of the FIRST return statement met; a
+                            // folded return of ANOTHER parameter took that
+                            // parameter's int_typespec (r10v169repro
+                            // v169_g_control: `if (s) return kg169; return
+                            // lg169;` folds the last return to lg169's
+                            // param_assign Rhs, whose ref_typespec golden binds
+                            // to lg169's own `int` at 6:13, ours to kg169's at
+                            // 5:13; f_after169 the mirror).  Surelog's clone_tree
+                            // of the matched param_assign's Rhs carries THAT
+                            // parameter's typespec, so the fold binds a clone
+                            // made for its own parameter, one per (subroutine,
+                            // parameter), shared by the home and every
+                            // importer copy as the pre-created one is.
+                            if (its2 && currentSubSym) {
+                                auto pp = retFoldPreParam296().find(currentSubSym);
+                                if (pp != retFoldPreParam296().end() &&
+                                    pp->second != &ps2) {
+                                    if (r11u296On("R11U296_RETFOLDTS_OFF")) {
+                                        auto key = std::make_pair(currentSubSym,
+                                                                  (const void*)&ps2);
+                                        auto& own = retFoldOwnTs296()[key];
+                                        if (!own) {
+                                            own = makeParamTs(ps2, /*typedParam=*/true);
+                                            if (auto sc3 = ps2.getParentScope())
+                                                if (auto pit3 = pkgDefMap.find(&sc3->asSymbol());
+                                                    pit3 != pkgDefMap.end())
+                                                    own->Instance(pit3->second);
+                                        }
+                                        its2 = own;
+                                        tr296("RETFOLDTS", std::string(ps2.name) + " in " +
+                                                               prefix);
+                                    }
+                                    else
+                                        tr296("RETFOLDTS", "off " + std::string(ps2.name));
+                                }
+                            }
                             if (!its2) {
                                 its2 = makeParamTs(ps2, /*typedParam=*/true);
                                 if (auto sc2 = ps2.getParentScope())

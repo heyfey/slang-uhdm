@@ -43,6 +43,7 @@
 #include "R284.h"
 #include "R288.h"
 #include "R294.h"
+#include "R296.h"
 namespace slang_uhdm {
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
@@ -90,6 +91,8 @@ namespace slang_uhdm {
 const slang::ast::ParameterSymbol*& curMdimParam246v();
 // § cloneHpIdxNamesByChain220 (r11u220) — defined in ExprEmit.cpp.
 void noteCloneHpIdx220(UHDM::any* clone);
+void notePkgFnCloneHpIdx296(UHDM::any* clone);  // § pkgFnCloneIdxNamesByChain296
+void castTsInPathIdxDrain296(UHDM::Serializer& s);  // § castTsInPathIdxByChain296
 // The r11u200 switches of this file (ground A; the switch table is in
 // UhdmExporter.cpp).  Local so this file's laws land and build alone:
 // R11U200_OFF drops all of them; R11U200_TRACE=<dir> appends one
@@ -29257,6 +29260,7 @@ void UhdmExporter::drainPaNameCopySrc38() {
     // (it renames only the clone bodies' select-index references).
     cloneIdxSelElabView252() = elabUhdmView121;
     cloneHpIdxDrain220(s);
+    castTsInPathIdxDrain296(s);  // § castTsInPathIdxByChain296 (r11u296)
     // § fwdPkgRefClassScopeSpan227 (r11u227): a forward package reference
     // in expression grammar spans its `Q::` (every listing is built here).
     fwdPkgRefClassScopeSpanDrain227(s);
@@ -39772,6 +39776,20 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         cp8 = (*up->Task_funcs())[before9];
                     if (!cp8)
                         continue;
+                    // § pkgFnCloneIdxNamesByChain296 (R11U296_PKGFNCLONEIDX_OFF)
+                    // — an importer package's clone of a FREE package
+                    // subroutine is UHDM's clone_tree too: it stores no full
+                    // name on a reference in a path element's select index,
+                    // so the reader's chain names it through the path
+                    // (golden r10uvm193repro g193_c_argface, Jetty193's clone
+                    // of Pier193::c7_two193 `fleet193[kink193].rub193(...)`:
+                    // `Jetty193::c7_two193::fleet193[kink193].rub193::
+                    // kink193`, ours the home-shaped `Jetty193::c7_two193::
+                    // kink193`).  § cloneHpIdxNamesByChain220's drain renames
+                    // it once the clone body is registered with it, as the
+                    // class-method clones below are (the switch is read in
+                    // ExprEmit notePkgFnCloneHpIdx296).
+                    notePkgFnCloneHpIdx296(cp8);
                     if (homeTf9 && cp8->UhdmType() == UHDM::uhdmfunction &&
                         homeTf9->UhdmType() == UHDM::uhdmfunction) {
                         ((UHDM::function*)cp8)

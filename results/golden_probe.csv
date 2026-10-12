@@ -80,12 +80,12 @@ r10earl29repro/a5_three,EQUAL,,equal
 r10earl29repro/a6_noconcat,EQUAL,,equal
 r10earl29repro/b1_sites,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
 r10earl29repro/b2_kinds,EQUAL,,equal
-r10earl29repro/b3_edges,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10earl29repro/b3_edges,EQUAL,,equal
 r10earl29repro/v10_str,EQUAL,,equal
 r10earl29repro/v5_gen,EQUAL,,equal
 r10earl29repro/v6_genvar,EQUAL,,equal
 r10earl29repro/v7_lval,EQUAL,,equal
-r10earl29repro/v8_sites2,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+r10earl29repro/v8_sites2,EQUAL,,equal
 r10earl30repro/g4_ctrl,EQUAL,,equal
 r10earl31repro/e1_psbound,EQUAL,,equal
 r10earl31repro/e4_ctrl,EQUAL,,equal
@@ -780,7 +780,7 @@ r10uvm171repro/g171_c_shapes,EQUAL,,equal
 r10uvm172repro/g172_b_name,EQUAL,,equal
 r10uvm172repro/g172_d_scope,EQUAL,,equal
 r10uvm175repro/g175_a_pos,EQUAL,,equal
-r10uvm175repro/g175_c_tail,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10uvm175repro/g175_c_tail,EQUAL,,equal
 r10uvm175repro/g175_f_fence,EQUAL,,equal
 r10uvm17repro/t,EQUAL,,equal
 r10uvm17repro/t29_t,EQUAL,,equal
@@ -788,7 +788,7 @@ r10uvm180repro/g180_a_kinds,EQUAL,,equal
 r10uvm187repro/g187_a_order,EQUAL,,equal
 r10uvm187repro/probe0,EQUAL,,equal
 r10uvm190repro/probe0,EQUAL,,equal
-r10uvm193repro/g193_c_argface,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+r10uvm193repro/g193_c_argface,EQUAL,,equal
 r10uvm193repro/g193_d_propfence,EQUAL,,equal
 r10uvm194repro/g194_a_homes,EQUAL,,equal
 r10uvm194repro/g194_c_clone,EQUAL,,equal
@@ -1285,7 +1285,7 @@ r10v167repro/probe0,EQUAL,,equal
 r10v167repro/vA_meth,EQUAL,,equal
 r10v167repro/vB_bare,EQUAL,,equal
 r10v167repro/vD_kinds,EQUAL,,equal
-r10v169repro/v169_g_control,STRICT_NOTEQUAL,differ:line(10),differ:line(10)
+r10v169repro/v169_g_control,EQUAL,,equal
 r10v172repro/v172_3_pos,EQUAL,,equal
 r10v174repro/v174_b_sysfns,EQUAL,,equal
 r10v175repro/v175_deep,EQUAL,,equal
