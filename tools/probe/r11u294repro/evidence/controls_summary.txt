@@ -1,0 +1,7 @@
+MOVER r11u113repro/grid/c/c03_mod_ref d rc=4 cmp=82 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 141 objects
+MOVER r11u113repro/grid/c/c03_mod_ref e rc=4 cmp=86 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 145 objects
+MOVER r11u24repro/n8 d rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u24repro/n8 e rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+MOVER r11u292repro/cases/CT/ct06_tp_module d rc=4 cmp=277 NOT_EQUAL stage1 -> rc=0 cmp=277 NOT_EQUAL stage1
+MOVER r11u292repro/cases/CT/ct06_tp_module e rc=4 cmp=277 NOT_EQUAL stage1 -> rc=0 cmp=277 NOT_EQUAL stage1
+case-views=2326 moving=6 entering=2 leaving=0 rc-changed=4 cmplines-changed=2

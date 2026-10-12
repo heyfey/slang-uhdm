@@ -42,6 +42,7 @@
 #include "R282.h"
 #include "R284.h"
 #include "R288.h"
+#include "R294.h"
 namespace slang_uhdm {
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
@@ -18222,6 +18223,63 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         tr252("impSizeCastFoldLocated252", std::string(ps.name));
                     if (!importedFold || castLoc252)
                         setLoc((UHDM::constant*)rhs, rhsLoc);
+                    // § paramInitMemberSelFoldBaseSpan294 (r11u294) — THE
+                    // ELABORATED FOLD OF A FUNCTION-ASSEMBLED STRUCT PARAMETER'S
+                    // MEMBER SELECT
+                    // (`localparam int BIT0 = CFG.d[0];`) IS LOCATED AT THE BASE
+                    // NAME AND LEFT UNPARENTED, the shape drainPaAsmMemberSlice
+                    // writes for the select-free member read (`CFG.u.b`, golden
+                    // 16:30-33 with no vpiParent): Surelog reduces the hier_path
+                    // compileSelectExpression built and hands back a constant
+                    // populated at the path's first node, the base name, and the
+                    // elaborated param_assign does not re-parent it (golden t9
+                    // `BIT0` 17:30-33, no parent; ours the whole initializer
+                    // 17:30-38 parented at the param_assign).  The definition
+                    // listing's path is § paramInitMemberSelLvShape294's.  One
+                    // select over a member chain of a packed struct parameter,
+                    // the instance's own initializer (not an override).  Grid
+                    // tools/probe/r11u294repro/cases/PS.  Switch
+                    // R11U294_PISELFOLD_OFF.
+                    // The base is § asmEncFollowsRef's family (asmRefFamilyBase:
+                    // a packed struct parameter whose value a member-by-member
+                    // const function assembles, through bare references): a
+                    // struct written as a pattern keeps the whole initializer's
+                    // span (grid cases/PM, PU: golden 8:22-30 for every member
+                    // and target type), so does a generate-local holder and a
+                    // qualified `pk::C.d[0]` read (the record's own exclusions,
+                    // § paAsmMemberSliceFold21).
+                    if (topView && !inPackage && !funcScope && !overridden &&
+                        !importedFold && rhs &&
+                        rhs->UhdmType() == UHDM::uhdmconstant &&
+                        scv.kind == ExpressionKind::ElementSelect) {
+                        const Expression* mv294 = &stripImplicitConv(
+                            scv.as<ElementSelectExpression>().value());
+                        bool mem294 = mv294->kind == ExpressionKind::MemberAccess;
+                        while (mv294->kind == ExpressionKind::MemberAccess)
+                            mv294 = &stripImplicitConv(
+                                mv294->as<MemberAccessExpression>().value());
+                        const Scope* hsc294 = ps.getParentScope();
+                        const bool gen294 =
+                            hsc294 &&
+                            (hsc294->asSymbol().kind == SymbolKind::GenerateBlock ||
+                             hsc294->asSymbol().kind == SymbolKind::GenerateBlockArray);
+                        if (mem294 && !gen294 &&
+                            mv294->kind == ExpressionKind::NamedValue &&
+                            rawText(mv294->sourceRange).find("::") ==
+                                std::string::npos) {
+                            if (asmRefFamilyBase(*mv294)) {
+                                if (r11u294On("R11U294_PISELFOLD_OFF")) {
+                                    setLoc((UHDM::constant*)rhs, mv294->sourceRange);
+                                    ((UHDM::constant*)rhs)->VpiParent(nullptr);
+                                    tr294("paramInitMemberSelFoldBaseSpan294",
+                                          std::string(ps.name));
+                                }
+                                else
+                                    tr294("paramInitMemberSelFoldBaseSpan294_OFF",
+                                          std::string(ps.name));
+                            }
+                        }
+                    }
                     // § impCondFlipTakenLeaf242 (r11u242; Earlgrey_0_1 d/t
                     // #122230) — THE DEFINITION LISTING OF AN IMPORTER WITH A
                     // PARAMETER PORT LIST LOCATES A FOLDED TERNARY AT ITS
@@ -24509,7 +24567,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     ((UHDM::parameter*)pp)->VpiValue();
                                 if (pv.rfind("BIN:", 0) == 0 &&
                                     pv.find_first_of("XZxz") !=
-                                        std::string_view::npos) {
+                                        std::string::npos) {
                                     auto* c2 = s.MakeConstant();
                                     std::string digs(pv.substr(4));
                                     c2->VpiDecompile("'b" + digs);

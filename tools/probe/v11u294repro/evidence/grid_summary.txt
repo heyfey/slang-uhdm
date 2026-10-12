@@ -1,0 +1,136 @@
+VD/vd01_cp_if d MOVE | rc=4 cmp=0 STRICT_NOTEQUAL endcol => rc=4 cmp=0 STRICT_EQUAL 34 objects | DOTCALLSPAN
+VD/vd01_cp_if e MOVE | rc=4 cmp=0 STRICT_NOTEQUAL endcol => rc=4 cmp=0 STRICT_EQUAL 65 objects | DOTCALLSPAN
+VD/vd02_cp_args d MOVE | rc=4 cmp=0 STRICT_NOTEQUAL endcol => rc=4 cmp=0 STRICT_EQUAL 39 objects | DOTCALLSPAN
+VD/vd02_cp_args e MOVE | rc=4 cmp=0 STRICT_NOTEQUAL endcol => rc=4 cmp=0 STRICT_EQUAL 99 objects | DOTCALLSPAN
+VD/vd03_cross_inst d MOVE | rc=4 cmp=0 STRICT_NOTEQUAL endcol => rc=4 cmp=0 STRICT_EQUAL 30 objects | DOTCALLSPAN
+VD/vd03_cross_inst e MOVE | rc=4 cmp=0 STRICT_NOTEQUAL endcol => rc=4 cmp=0 STRICT_EQUAL 57 objects | DOTCALLSPAN
+VD/vd04_cp_display d MOVE | rc=4 cmp=0 STRICT_NOTEQUAL endcol => rc=4 cmp=0 STRICT_EQUAL 30 objects | DOTCALLSPAN
+VD/vd04_cp_display e MOVE | rc=4 cmp=0 STRICT_NOTEQUAL endcol => rc=4 cmp=0 STRICT_EQUAL 57 objects | DOTCALLSPAN
+VD/vd05_cp_binop d MOVE | rc=4 cmp=0 STRICT_NOTEQUAL endcol => rc=4 cmp=0 STRICT_EQUAL 45 objects | DOTCALLSPAN
+VD/vd05_cp_binop e MOVE | rc=4 cmp=0 STRICT_NOTEQUAL endcol => rc=4 cmp=0 STRICT_EQUAL 87 objects | DOTCALLSPAN
+VD/vd06_cp_noparen d MOVE | rc=4 cmp=60 NOT_EQUAL stage1 => rc=4 cmp=60 NOT_EQUAL stage1 | DOTCALLSPAN
+VD/vd06_cp_noparen e MOVE | rc=4 cmp=79 NOT_EQUAL stage1 => rc=4 cmp=79 NOT_EQUAL stage1 | DOTCALLSPAN
+VD/vd07_iface_queue d - | rc=0 cmp=164 NOT_EQUAL stage1 =>  | 
+VD/vd07_iface_queue e - | rc=0 cmp=164 NOT_EQUAL stage1 =>  | 
+VD/vd08_inst_noparen_func d - | rc=0 cmp=116 NOT_EQUAL stage1 =>  | 
+VD/vd08_inst_noparen_func e - | rc=0 cmp=58 NOT_EQUAL stage1 =>  | 
+VD/vd09_enum_method d - | rc=0 cmp=0 STRICT_EQUAL 64 objects =>  | 
+VD/vd09_enum_method e - | rc=0 cmp=0 STRICT_EQUAL 63 objects =>  | 
+VD/vd10_cp_option d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL endcol => rc=0 cmp=0 STRICT_EQUAL 72 objects | DOTCALLSPAN
+VD/vd10_cp_option e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL endcol => rc=0 cmp=0 STRICT_EQUAL 70 objects | DOTCALLSPAN
+VD/vd11_arr_with d - | rc=0 cmp=0 STRICT_EQUAL 77 objects =>  | 
+VD/vd11_arr_with e - | rc=0 cmp=0 STRICT_EQUAL 76 objects =>  | 
+VD/vd12_cp_macro d MOVE | rc=4 cmp=43 NOT_EQUAL stage1 => rc=4 cmp=43 NOT_EQUAL stage1 | DOTCALLSPAN
+VD/vd12_cp_macro e MOVE | rc=4 cmp=43 NOT_EQUAL stage1 => rc=4 cmp=43 NOT_EQUAL stage1 | DOTCALLSPAN
+VD/vd13_hier_chain d - | rc=0 cmp=52 NOT_EQUAL stage1 =>  | 
+VD/vd13_hier_chain e - | rc=0 cmp=68 NOT_EQUAL stage1 =>  | 
+VD/vd14_cg_module_methods d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL endcol => rc=0 cmp=0 STRICT_EQUAL 121 objects | DOTCALLSPAN
+VD/vd14_cg_module_methods e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL endcol => rc=0 cmp=0 STRICT_EQUAL 118 objects | DOTCALLSPAN
+VF/vf01_fn_default_patovr d MOVE | rc=0 cmp=126 NOT_EQUAL stage1 => rc=0 cmp=126 NOT_EQUAL stage1 | 
+VF/vf01_fn_default_patovr e MOVE | rc=0 cmp=126 NOT_EQUAL stage1 => rc=0 cmp=126 NOT_EQUAL stage1 | 
+VF/vf02_pat_default_fnovr d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 552 objects | 
+VF/vf02_pat_default_fnovr e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 695 objects | 
+VF/vf03_fn_int_target d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 569 objects | 
+VF/vf03_fn_int_target e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 713 objects | 
+VF/vf04_fn_iface d MOVE | rc=0 cmp=19 NOT_EQUAL stage1 => rc=0 cmp=19 NOT_EQUAL stage1 | 
+VF/vf04_fn_iface e MOVE | rc=0 cmp=19 NOT_EQUAL stage1 => rc=0 cmp=15 NOT_EQUAL stage1 | 
+VF/vf05_fn_localfn d MOVE | rc=0 cmp=28 NOT_EQUAL stage1 => rc=0 cmp=28 NOT_EQUAL stage1 | 
+VF/vf05_fn_localfn e MOVE | rc=0 cmp=28 NOT_EQUAL stage1 => rc=0 cmp=28 NOT_EQUAL stage1 | 
+VF/vf06_fn_nested d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 559 objects | 
+VF/vf06_fn_nested e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 702 objects | 
+VF/vf07_fn_twoinst_ovr_same d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 659 objects | 
+VF/vf07_fn_twoinst_ovr_same e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 802 objects | 
+VF/vf08_fn_depth2 d MOVE | rc=0 cmp=48 NOT_EQUAL stage1 => rc=0 cmp=48 NOT_EQUAL stage1 | 
+VF/vf08_fn_depth2 e MOVE | rc=0 cmp=48 NOT_EQUAL stage1 => rc=0 cmp=48 NOT_EQUAL stage1 | 
+VM/vm01_struct_default d MOVE | rc=4 cmp=0 STRICT_NOTEQUAL type => rc=0 cmp=0 STRICT_EQUAL 299 objects | CASTMODTP
+VM/vm01_struct_default e MOVE | rc=4 cmp=0 STRICT_NOTEQUAL type => rc=0 cmp=0 STRICT_EQUAL 297 objects | CASTMODTP
+VM/vm02_kw_defaults d MOVE | rc=4 cmp=62 NOT_EQUAL stage1 => rc=0 cmp=0 STRICT_EQUAL 133 objects | CASTMODTP
+VM/vm02_kw_defaults e MOVE | rc=4 cmp=62 NOT_EQUAL stage1 => rc=0 cmp=0 STRICT_EQUAL 130 objects | CASTMODTP
+VM/vm03_iface d MOVE | rc=4 cmp=56 NOT_EQUAL stage1 => rc=0 cmp=31 NOT_EQUAL stage1 | CASTMODTP
+VM/vm03_iface e MOVE | rc=4 cmp=56 NOT_EQUAL stage1 => rc=0 cmp=0 STRICT_NOTEQUAL fullname | CASTMODTP
+VM/vm04_paraminit d MOVE | rc=4 cmp=84 NOT_EQUAL stage1 => rc=4 cmp=84 NOT_EQUAL stage1 | CASTMODTP
+VM/vm04_paraminit e MOVE | rc=4 cmp=84 NOT_EQUAL stage1 => rc=4 cmp=84 NOT_EQUAL stage1 | CASTMODTP
+VM/vm05_chain d MOVE | rc=4 cmp=0 STRICT_NOTEQUAL type => rc=0 cmp=0 STRICT_EQUAL 82 objects | CASTMODTP
+VM/vm05_chain e MOVE | rc=4 cmp=0 STRICT_NOTEQUAL type => rc=0 cmp=0 STRICT_EQUAL 80 objects | CASTMODTP
+VM/vm06_ovr_struct d MOVE | rc=4 cmp=60 NOT_EQUAL stage1 => rc=0 cmp=0 STRICT_EQUAL 390 objects | CASTMODTP
+VM/vm06_ovr_struct e MOVE | rc=4 cmp=60 NOT_EQUAL stage1 => rc=0 cmp=0 STRICT_EQUAL 389 objects | CASTMODTP
+VM/vm07_genfor d - | rc=0 cmp=0 STRICT_EQUAL 163 objects =>  | 
+VM/vm07_genfor e - | rc=0 cmp=0 STRICT_EQUAL 163 objects =>  | 
+VM/vm08_function d MOVE | rc=4 cmp=0 STRICT_NOTEQUAL type => rc=0 cmp=0 STRICT_EQUAL 119 objects | CASTMODTP
+VM/vm08_function e MOVE | rc=4 cmp=0 STRICT_NOTEQUAL type => rc=0 cmp=0 STRICT_EQUAL 117 objects | CASTMODTP
+VM/vm09_program d MOVE | rc=4 cmp=0 STRICT_NOTEQUAL type => rc=0 cmp=0 STRICT_NOTEQUAL line | CASTMODTP
+VM/vm09_program e MOVE | rc=4 cmp=0 STRICT_NOTEQUAL type => rc=0 cmp=0 STRICT_NOTEQUAL line | CASTMODTP
+VM/vm10_ovr_depth2 d MOVE | rc=4 cmp=0 STRICT_NOTEQUAL type => rc=0 cmp=0 STRICT_EQUAL 193 objects | CASTMODTP
+VM/vm10_ovr_depth2 e MOVE | rc=4 cmp=0 STRICT_NOTEQUAL type => rc=0 cmp=0 STRICT_EQUAL 191 objects | CASTMODTP
+VM/vm11_shadow_value d MOVE | rc=4 cmp=56 NOT_EQUAL stage1 => rc=0 cmp=0 STRICT_EQUAL 144 objects | CASTMODTP
+VM/vm11_shadow_value e MOVE | rc=4 cmp=60 NOT_EQUAL stage1 => rc=0 cmp=0 STRICT_EQUAL 151 objects | CASTMODTP
+VM/vm12_twocasts_ports d MOVE | rc=4 cmp=60 NOT_EQUAL stage1 => rc=0 cmp=0 STRICT_EQUAL 80 objects | CASTMODTP
+VM/vm12_twocasts_ports e MOVE | rc=4 cmp=60 NOT_EQUAL stage1 => rc=0 cmp=0 STRICT_EQUAL 79 objects | CASTMODTP
+VM/vm13_nested d MOVE | rc=4 cmp=22 NOT_EQUAL stage1 => rc=0 cmp=62 NOT_EQUAL stage1 | CASTMODTP
+VM/vm13_nested e MOVE | rc=4 cmp=22 NOT_EQUAL stage1 => rc=0 cmp=62 NOT_EQUAL stage1 | CASTMODTP
+VM/vm14_enum d MOVE | rc=4 cmp=0 STRICT_NOTEQUAL type => rc=0 cmp=0 STRICT_EQUAL 119 objects | CASTMODTP
+VM/vm14_enum e MOVE | rc=4 cmp=0 STRICT_NOTEQUAL type => rc=0 cmp=0 STRICT_EQUAL 117 objects | CASTMODTP
+VM/vm15_struct_default_ovr_logic d MOVE | rc=4 cmp=96 NOT_EQUAL stage1 => rc=0 cmp=0 STRICT_EQUAL 343 objects | CASTMODTP
+VM/vm15_struct_default_ovr_logic e MOVE | rc=4 cmp=96 NOT_EQUAL stage1 => rc=0 cmp=0 STRICT_EQUAL 347 objects | CASTMODTP
+VM/vm16_two_params_one_cast d MOVE | rc=4 cmp=60 NOT_EQUAL stage1 => rc=0 cmp=0 STRICT_EQUAL 193 objects | CASTMODTP
+VM/vm16_two_params_one_cast e MOVE | rc=4 cmp=60 NOT_EQUAL stage1 => rc=0 cmp=0 STRICT_EQUAL 190 objects | CASTMODTP
+VS/vs01_hdr_param d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_NOTEQUAL file | PISEL
+VS/vs01_hdr_param e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_NOTEQUAL file | PISEL
+VS/vs02_ternary d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 379 objects | PISEL
+VS/vs02_ternary e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 378 objects | PISEL
+VS/vs03_concat d MOVE | rc=0 cmp=64 NOT_EQUAL stage1 => rc=0 cmp=64 NOT_EQUAL stage1 | PISEL
+VS/vs03_concat e MOVE | rc=0 cmp=64 NOT_EQUAL stage1 => rc=0 cmp=64 NOT_EQUAL stage1 | PISEL
+VS/vs04_cast d MOVE | rc=0 cmp=106 NOT_EQUAL stage1 => rc=0 cmp=106 NOT_EQUAL stage1 | PISEL
+VS/vs04_cast e MOVE | rc=0 cmp=110 NOT_EQUAL stage1 => rc=0 cmp=110 NOT_EQUAL stage1 | PISEL
+VS/vs05_pkg d MOVE | rc=0 cmp=32 NOT_EQUAL stage1 => rc=0 cmp=32 NOT_EQUAL stage1 | PISEL
+VS/vs05_pkg e MOVE | rc=0 cmp=32 NOT_EQUAL stage1 => rc=0 cmp=32 NOT_EQUAL stage1 | PISEL
+VS/vs06_class d - | rc=0 cmp=17 NOT_EQUAL stage1 =>  | 
+VS/vs06_class e - | rc=0 cmp=17 NOT_EQUAL stage1 =>  | 
+VS/vs07_iface d MOVE | rc=0 cmp=31 NOT_EQUAL stage1 => rc=0 cmp=31 NOT_EQUAL stage1 | PISEL
+VS/vs07_iface e MOVE | rc=0 cmp=33 NOT_EQUAL stage1 => rc=0 cmp=33 NOT_EQUAL stage1 | PISEL
+VS/vs08_unpacked d MOVE | rc=0 cmp=32 NOT_EQUAL stage1 => rc=0 cmp=32 NOT_EQUAL stage1 | PISEL
+VS/vs08_unpacked e MOVE | rc=0 cmp=32 NOT_EQUAL stage1 => rc=0 cmp=32 NOT_EQUAL stage1 | PISEL
+VS/vs09_paramidx d MOVE | rc=0 cmp=50 NOT_EQUAL stage1 => rc=0 cmp=50 NOT_EQUAL stage1 | PISEL
+VS/vs09_paramidx e MOVE | rc=0 cmp=58 NOT_EQUAL stage1 => rc=0 cmp=58 NOT_EQUAL stage1 | PISEL
+VS/vs10_bodylocal d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_NOTEQUAL file | PISEL
+VS/vs10_bodylocal e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_NOTEQUAL file | PISEL
+VS/vs11_patovr d MOVE | rc=0 cmp=100 NOT_EQUAL stage1 => rc=0 cmp=100 NOT_EQUAL stage1 | PISEL
+VS/vs11_patovr e MOVE | rc=0 cmp=100 NOT_EQUAL stage1 => rc=0 cmp=100 NOT_EQUAL stage1 | PISEL
+VS/vs12_macro d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_NOTEQUAL file | PISEL
+VS/vs12_macro e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_NOTEQUAL file | PISEL
+VS/vs13_unary d MOVE | rc=0 cmp=66 NOT_EQUAL stage1 => rc=0 cmp=66 NOT_EQUAL stage1 | PISEL
+VS/vs13_unary e MOVE | rc=0 cmp=74 NOT_EQUAL stage1 => rc=0 cmp=74 NOT_EQUAL stage1 | PISEL
+VS/vs14_replcount d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 387 objects | PISEL
+VS/vs14_replcount e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 386 objects | PISEL
+VS/vs15_inindex d - | rc=0 cmp=0 STRICT_NOTEQUAL col =>  | 
+VS/vs15_inindex e - | rc=0 cmp=0 STRICT_NOTEQUAL col =>  | 
+VS/vs16_userfn d - | rc=0 cmp=0 STRICT_NOTEQUAL fullname =>  | 
+VS/vs16_userfn e - | rc=0 cmp=0 STRICT_NOTEQUAL fullname =>  | 
+VS/vs17_body_param d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_NOTEQUAL file | PISEL
+VS/vs17_body_param e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_NOTEQUAL file | PISEL
+VS/vs18_twoinst d MOVE | rc=0 cmp=19 NOT_EQUAL stage1 => rc=0 cmp=19 NOT_EQUAL stage1 | 
+VS/vs18_twoinst e MOVE | rc=0 cmp=19 NOT_EQUAL stage1 => rc=0 cmp=19 NOT_EQUAL stage1 | 
+VS/vs19_inside d MOVE | rc=0 cmp=86 NOT_EQUAL stage1 => rc=0 cmp=86 NOT_EQUAL stage1 | PISEL
+VS/vs19_inside e MOVE | rc=0 cmp=86 NOT_EQUAL stage1 => rc=0 cmp=86 NOT_EQUAL stage1 | PISEL
+VS/vs20_typed_hdr_dim d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 378 objects | PISEL
+VS/vs20_typed_hdr_dim e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 377 objects | PISEL
+VS/vs21_implicit d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_NOTEQUAL file | PISEL
+VS/vs21_implicit e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_NOTEQUAL file | PISEL
+VS/vs22_this_cls d - | rc=0 cmp=17 NOT_EQUAL stage1 =>  | 
+VS/vs22_this_cls e - | rc=0 cmp=17 NOT_EQUAL stage1 =>  | 
+VS/vs23_genlocal d - | rc=0 cmp=0 STRICT_NOTEQUAL col =>  | 
+VS/vs23_genlocal e - | rc=0 cmp=0 STRICT_NOTEQUAL col =>  | 
+VS/vs24_funclocal d MOVE | rc=0 cmp=159 NOT_EQUAL stage1 => rc=0 cmp=159 NOT_EQUAL stage1 | PISEL
+VS/vs24_funclocal e MOVE | rc=0 cmp=159 NOT_EQUAL stage1 => rc=0 cmp=159 NOT_EQUAL stage1 | PISEL
+VS/vs25_ovr_expr d - | rc=0 cmp=0 STRICT_EQUAL 372 objects =>  | 
+VS/vs25_ovr_expr e - | rc=0 cmp=0 STRICT_EQUAL 371 objects =>  | 
+VS/vs26_wildimport d MOVE | rc=0 cmp=11 NOT_EQUAL stage1 => rc=0 cmp=11 NOT_EQUAL stage1 | PISEL
+VS/vs26_wildimport e MOVE | rc=0 cmp=11 NOT_EQUAL stage1 => rc=0 cmp=11 NOT_EQUAL stage1 | PISEL
+VS/vs27_lp_struct_arr d MOVE | rc=0 cmp=64 NOT_EQUAL stage1 => rc=0 cmp=64 NOT_EQUAL stage1 | PISEL
+VS/vs27_lp_struct_arr e MOVE | rc=0 cmp=64 NOT_EQUAL stage1 => rc=0 cmp=64 NOT_EQUAL stage1 | PISEL
+VS/vs28_two_selects d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 397 objects | PISEL
+VS/vs28_two_selects e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_EQUAL 396 objects | PISEL
+VS/vs29_param_typed_local d MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_NOTEQUAL file | PISEL
+VS/vs29_param_typed_local e MOVE | rc=0 cmp=0 STRICT_NOTEQUAL col => rc=0 cmp=0 STRICT_NOTEQUAL file | PISEL
+VS/vs30_ovr_depth3 d MOVE | rc=0 cmp=100 NOT_EQUAL stage1 => rc=0 cmp=100 NOT_EQUAL stage1 | PISEL
+VS/vs30_ovr_depth3 e MOVE | rc=0 cmp=100 NOT_EQUAL stage1 => rc=0 cmp=100 NOT_EQUAL stage1 | PISEL

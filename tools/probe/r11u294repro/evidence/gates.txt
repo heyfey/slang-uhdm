@@ -1,0 +1,10 @@
+byteverify (fence-filtered mirrors, SELFCHECK=1): databases patched=2560 pristine=2560, PATH_SETS_IDENTICAL, MOVERS: 0 / 2560, SELFCHECK 2559 / 2560 flagged (every file against one fixed file: that file never differs from itself, the known artefact)
+probe databases (path list filtered by $FENCERE): movers 4 / 4087 (r10svs8repro__a3_builtins, r11u113repro__grid__c__c16_mod_comb, r11u21repro__t9, r11u24repro__n1)
+downstream slang-lane databases: movers 0 / 805; downstream.csv byte-identical to results/downstream_uhdm2rtlil.csv
+canaries surelog: ok=52 changed=0 absent=0 unknown-names=7; uhdm2rtlil: ok=16 changed=0 absent=0 unknown-names=25
+ctcan2 surelog (EXPECT_UNKNOWN=1): PASS; uhdm2rtlil (EXPECT_UNKNOWN=6): PASS
+binary audit: law sweep own=3265 other=0 noslang=50 fenced_skipped=8; pristine sweep own=3265 other=0 noslang=50 fenced_skipped=8
+determinism (three concurrent draws, law binary): one hash per row-mode, equal to the law sweep's:
+  Earlgrey_0_1 d 3f77d6f16c61, t 891990462621; MiniAmiq d/t 6274d155ae91; SeqDriver d 0140024e994f, t dcc2c63e2e29;
+  SimpleUVM d 57a5aaad5589, t f0c85a0be92c; Scoreboard d e60363ba3f2d (t no database, as at the base);
+  BuildUVMPkg d/t 00b6402714d5; Rggen d 1a450c2e7808 (t no database, as at the base): 3 of 3 draws each

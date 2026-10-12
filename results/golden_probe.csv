@@ -646,7 +646,7 @@ r10svs7repro/a4_escaped,EQUAL,,equal
 r10svs7repro/p3_ctorstmt,EQUAL,,equal
 r10svs8repro/a1_witness,EQUAL,,equal
 r10svs8repro/a2_args,EQUAL,,equal
-r10svs8repro/a3_builtins,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
+r10svs8repro/a3_builtins,EQUAL,,equal
 r10svs8repro/a4_context,EQUAL,,equal
 r10svs8repro/a5_escaped,EQUAL,,equal
 r10svs8repro/a6_escinlaw,EQUAL,,equal
@@ -2102,7 +2102,7 @@ r11u113repro/grid/c/c12_genif_override,EQUAL,,equal
 r11u113repro/grid/c/c13_genif_comb,EQUAL,,equal
 r11u113repro/grid/c/c14_genif_intdef,EQUAL,,equal
 r11u113repro/grid/c/c15_genif_structdef,EQUAL,,equal
-r11u113repro/grid/c/c16_mod_comb,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+r11u113repro/grid/c/c16_mod_comb,EQUAL,,equal
 r11u113repro/grid/c/c17_genif_lit,EQUAL,,equal
 r11u113repro/grid/c/c18_genif_inop,EQUAL,,equal
 r11u113repro/grid/c/c19_genif_lhs_bitsel,EQUAL,,equal
@@ -2574,7 +2574,7 @@ r11u20repro/t8,EQUAL,,equal
 r11u21repro/t1,EQUAL,,equal
 r11u21repro/t6,EQUAL,,equal
 r11u21repro/t7,EQUAL,,equal
-r11u21repro/t9,STRICT_NOTEQUAL,differ:col(3),differ:col(3)
+r11u21repro/t9,EQUAL,,equal
 r11u22repro/grid/a01_genif_fill0,EQUAL,,equal
 r11u22repro/grid/a02_mod_fill0,EQUAL,,equal
 r11u22repro/grid/a03_genif_else_fill0,EQUAL,,equal
@@ -2723,7 +2723,7 @@ r11u23repro/grid/h07_pure_inside_arm,EQUAL,,equal
 r11u23repro/grid/h08_concat_paramref_whole,EQUAL,,equal
 r11u23repro/grid/h09_concat_clog2_operand,EQUAL,,equal
 r11u23repro/grid/h10_concat_enum_operand,EQUAL,,equal
-r11u24repro/n1,STRICT_NOTEQUAL,differ:col(3),differ:col(3)
+r11u24repro/n1,EQUAL,,equal
 r11u24repro/n11,STRICT_NOTEQUAL,differ:fullname(7),differ:fullname(7)
 r11u24repro/n12,EQUAL,,equal
 r11u24repro/n2,EQUAL,,equal

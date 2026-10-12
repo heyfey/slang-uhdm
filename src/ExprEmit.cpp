@@ -53,6 +53,7 @@
 #include "R286.h"
 #include "R288.h"
 #include "R292.h"
+#include "R294.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -33821,6 +33822,51 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     auto& sizeExpr = *sizeExprP9;
                     auto lr = leftSyn->sourceRange();
+                    // § castModTypeParamDefaultTs294 (r11u294) — A CAST TO A
+                    // MODULE'S OR INTERFACE'S TYPE PARAMETER (`idx_t'(a)` with
+                    // `parameter type idx_t = logic [W-1:0]`) BINDS THE TYPE
+                    // PARAMETER'S DEFAULT TYPESPEC, the object Surelog's
+                    // definition compile built for the parameter's default
+                    // (golden r11u113repro/grid/c/c16_mod_comb logic_typespec
+                    // 1:67-80 with its range, in both views and under an
+                    // override); the name bound as a value expression fails,
+                    // and the size-cast fallback below minted an
+                    // integer_typespec at the written name (2:19-24).  The
+                    // object is the one every type-parameter-typed port
+                    // shares (`typeParamDefaultTs`, keyed by the definition);
+                    // § castTypeParamDefaultLoc292 is the class twin.  A
+                    // definition-view generate process keeps its
+                    // unsupported_typespec (golden, grid cases/MT mt12).
+                    // Grid tools/probe/r11u294repro/cases/MT.  Switch
+                    // R11U294_CASTMODTP_OFF.
+                    if (!defGenProcessEmit && sizeExpr.bad() &&
+                        leftSyn->kind == syntax::SyntaxKind::IdentifierName &&
+                        expr.type && expr.type->kind == SymbolKind::TypeAlias) {
+                        const TypeParameterSymbol* tp294 =
+                            typeParamOfAlias(expr.type->as<TypeAliasType>());
+                        const Scope* tps294 = tp294 ? tp294->getParentScope() : nullptr;
+                        if (tps294 &&
+                            tps294->asSymbol().kind == SymbolKind::InstanceBody) {
+                            auto it294 = typeParamDefaultTs.find(
+                                {(const void*)&tps294->asSymbol()
+                                     .as<InstanceBodySymbol>()
+                                     .getDefinition(),
+                                 std::string(tp294->name)});
+                            if (it294 != typeParamDefaultTs.end() && it294->second) {
+                                if (r11u294On("R11U294_CASTMODTP_OFF")) {
+                                    cts = it294->second;
+                                    tr294("castModTypeParamDefaultTs294",
+                                          std::string(tp294->name));
+                                }
+                                else
+                                    tr294("castModTypeParamDefaultTs294_OFF",
+                                          std::string(tp294->name));
+                            }
+                            else
+                                tr294("castModTypeParamDefaultTs294_ABSTAIN",
+                                      std::string(tp294->name) + " nodefault");
+                        }
+                    }
                     // DEF-view gen-block PROCEDURAL casts keep the size
                     // SYMBOLIC: an unfolded parameter width P'(x) becomes an
                     // unsupported_typespec named P at the cast-site token (no
@@ -36366,6 +36412,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         hpH->VpiFullName(calleeH);
                         hpH->VpiParent(parent);
                         setLoc(hpH, expr.sourceRange);
+                        // § dottedCallHpSpansInvocation294 (r11u294) — THE
+                        // PATH SPANS THE WHOLE WRITTEN INVOCATION, ITS
+                        // ARGUMENT LIST INCLUDED.  Surelog locates the
+                        // hier_path at the Complex_func_call node, which
+                        // holds the parentheses (golden r10svs8repro/a3_builtins
+                        // `r8 = cgc8.cpc8.get_coverage();` 60:12-36).  slang
+                        // gives a built-in method called through a coverpoint
+                        // a CallExpression ending at the method name
+                        // (60:12-34), so the range is read from the
+                        // invocation syntax when it reaches further; a user
+                        // call (`i.f()`, `top.i.blk.f(3)`) already ends at its
+                        // closing parenthesis and does not move.  Grid
+                        // tools/probe/r11u294repro/cases/DC.  Switch
+                        // R11U294_DOTCALLSPAN_OFF.
+                        {
+                            const syntax::SyntaxNode* inv294 = expr.syntax;
+                            for (int g294 = 0; g294 < 4 && inv294 &&
+                                               inv294->kind !=
+                                                   syntax::SyntaxKind::InvocationExpression;
+                                 ++g294)
+                                inv294 = inv294->parent;
+                            if (inv294 &&
+                                inv294->kind == syntax::SyntaxKind::InvocationExpression &&
+                                inv294->sourceRange().start() == expr.sourceRange.start() &&
+                                inv294->sourceRange().end() > expr.sourceRange.end()) {
+                                if (r11u294On("R11U294_DOTCALLSPAN_OFF")) {
+                                    setLoc(hpH, inv294->sourceRange());
+                                    tr294("dottedCallHpSpansInvocation294", calleeH);
+                                }
+                                else
+                                    tr294("dottedCallHpSpansInvocation294_OFF", calleeH);
+                            }
+                        }
                         auto* elemsH = s.MakeAnyVec();
                         auto posH = expr.sourceRange.start();
                         for (size_t i0 = 0; i0 + 1 < namesH.size(); i0++) {
@@ -42401,14 +42480,69 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                      r11u184Law("R11U184_LVIDXSEL_OFF");
                 if (lvRd184)
                     trace184("LVIDXSEL");
+                // § paramInitMemberSelLvShape294 (r11u294) — A STRUCT
+                // PARAMETER'S MEMBER READ ENDING IN A SELECT, IN A PARAMETER
+                // INITIALIZER, TAKES THE LVALUE PATH SHAPE.  Surelog compiles a
+                // parameter's value through CompileHelper::compileSelectExpression
+                // (CompileExpression.cpp, the paPs_or_hierarchical_identifier /
+                // slStringConst arm): the base ref_obj is located on the FIRST
+                // MEMBER's token (`fC->populateCoreMembers(Bit_select, Bit_select,
+                // r1)`), and a `field[idx]` member is a bit_select named `field`
+                // located from the field's token to the end of its bracket
+                // (`populateCoreMembers(Bit_select, last_indexed, bsel)`) with no
+                // stored full name, so the reader computes it over the final
+                // parent chain (golden `work@kid.CFG.d[0].d`).  The member arm's
+                // `paramInitStructMember` (with § paramInitUnpackedMemberPath154)
+                // gave the member-only path (`CFG.u`) that shape; the select
+                // twin (`CFG.d[0]`, probe r11u21repro/t9, r11u24repro/n1) kept
+                // the rvalue spans (`CFG` 17:30-33, the select at its index
+                // 17:36-37, its name frozen as `CFG.d[0].d` before the
+                // param_assign hung under its module).  The gate is the member
+                // arm's: a parameter of packed or unpacked struct type read in a
+                // parameter initializer.  Grid tools/probe/r11u294repro/cases/PS.
+                // Switch R11U294_PISEL_OFF.
+                // The path stands under the parameter's own initializer
+                // through operations only: inside a system call's argument
+                // (`$bits(CFG.d[1])`) golden keeps the rvalue spans (grid
+                // cases/PS ps22, the base at its own token), and a written
+                // package qualifier (`pk::C.d[0]`) is the qualified road
+                // (CompileHelper::getValue's `::` branch; grid cases/PF
+                // pf10): both abstain.
+                bool piSel294 = false;
+                if (!inLhs && inParamInit && !chain.empty() &&
+                    bnv.symbol.kind == SymbolKind::Parameter) {
+                    auto ck294 = bnv.symbol.getType().getCanonicalType().kind;
+                    if (ck294 == SymbolKind::PackedStructType ||
+                        ck294 == SymbolKind::UnpackedStructType) {
+                        const UHDM::any* up294 = parent;
+                        for (int g294 = 0; g294 < 64 && up294 &&
+                                           up294->UhdmType() == UHDM::uhdmoperation;
+                             ++g294)
+                            up294 = up294->VpiParent();
+                        const bool home294 =
+                            up294 && up294->UhdmType() == UHDM::uhdmparam_assign;
+                        const bool qual294 =
+                            rawText(base->sourceRange).find("::") != std::string::npos;
+                        if (!home294 || qual294)
+                            tr294("paramInitMemberSelLvShape294_ABSTAIN",
+                                  dotted + (qual294 ? " qualified" : " not-under-param_assign"));
+                        else {
+                            piSel294 = r11u294On("R11U294_PISEL_OFF");
+                            tr294(piSel294 ? "paramInitMemberSelLvShape294"
+                                           : "paramInitMemberSelLvShape294_OFF",
+                                  dotted);
+                        }
+                    }
+                }
                 auto* elems = s.MakeAnyVec();
                 {
                     auto* r = s.MakeRef_obj();
                     r->VpiName(bnv.symbol.name);
                     (void)r->VpiFullName();
                     r->VpiParent(hp);
-                    setLoc(r, (inLhs && !lvRd184 && !chain.empty()) ? firstMemTok
-                                                        : base->sourceRange);
+                    setLoc(r, (((inLhs && !lvRd184) || piSel294) && !chain.empty())
+                                  ? firstMemTok
+                                  : base->sourceRange);
                     elems->push_back(r);
                 }
                 for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2) {
@@ -42427,7 +42561,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* bs2 = s.MakeBit_select();
                         bs2->VpiName(ma.member.name);
                         bs2->VpiParent(hp);
-                        if (inLhs && !lvRd184) {
+                        if ((inLhs && !lvRd184) || piSel294) {
                             auto mEnd = (*it2)->sourceRange.end();
                             SourceRange mTok(mEnd - ma.member.name.size(), mEnd);
                             setLoc(bs2, SourceRange(mTok.start(),
@@ -42454,6 +42588,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // left to the reader's parent chain, as above.
                         else if (sr258.cleared)
                             tr258("lvStreamBaseKeepsActual258", "late");
+                        // § paramInitMemberSelLvShape294 — no stored name:
+                        // the reader's parent chain names it.
+                        else if (piSel294)
+                            ;
                         else
                             (void)bs2->VpiFullName();
                         if (auto* ix = emitExpr(es.selector(), bs2, prefix, netMap))
