@@ -36,6 +36,7 @@
 #include "R279.h"
 #include "R291.h"
 #include "R295.h"
+#include "R303.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -21027,6 +21028,25 @@ static UHDM::VectorOfrange* copyRangeVec(UHDM::Serializer& s,
                             return false;
                 return true;
             }
+            // § bodyTdBoundSysCallClone303 (r11u303) — a SYSTEM CALL whose
+            // arguments are themselves modelled (`[$clog2(N)-1:0]`) is
+            // cloned too: Surelog compiles the element typespec afresh for
+            // every reference, so each copy owns its call and the call's
+            // argument reference, scoped through the typedef name like a
+            // bare bound reference (golden `t_clog.N` in every per-reference
+            // copy, where ours shared the definition copy's call and its
+            // bare `N`; probe r11u52vrepro/grid/b2_exprforms, two objects).
+            // Grid tools/probe/r11u303repro/cases/BS.  Switch
+            // R11U303_BOUNDSYSCLONE_OFF.
+            if (o0->UhdmType() == UHDM::uhdmsys_func_call &&
+                r11u303On("R11U303_BOUNDSYSCLONE_OFF")) {
+                auto* sf0 = (const UHDM::sys_func_call*)o0;
+                if (sf0->Tf_call_args())
+                    for (auto* x0 : *sf0->Tf_call_args())
+                        if (!cpAble(x0))
+                            return false;
+                return true;
+            }
             return false;
         };
         // One level of operation clone is all a range bound ever needs
@@ -21059,6 +21079,24 @@ static UHDM::VectorOfrange* copyRangeVec(UHDM::Serializer& s,
                 f->VpiParent(par);
                 cpLoc(f, f0);
                 return f;
+            }
+            if (o0->UhdmType() == UHDM::uhdmsys_func_call) {
+                // § bodyTdBoundSysCallClone303 (see cpAble above).
+                auto* sf0 = (const UHDM::sys_func_call*)o0;
+                auto* sf = s.MakeSys_func_call();
+                sf->VpiName(sf0->VpiName());
+                sf->VpiParent(par);
+                cpLoc(sf, sf0);
+                if (auto* as0 = sf0->Tf_call_args()) {
+                    auto* as = s.MakeAnyVec();
+                    for (auto* x0 : *as0)
+                        if (auto* x = cpOp(x0, sf))
+                            as->push_back(x);
+                    sf->Tf_call_args(as);
+                }
+                tr303("bodyTdBoundSysCallClone303",
+                      refPrefix + " " + std::string(sf0->VpiName()));
+                return sf;
             }
             if (o0->UhdmType() == UHDM::uhdmoperation) {
                 auto* p0 = (const UHDM::operation*)o0;
@@ -24238,6 +24276,32 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         r->VpiName(argName);
                         r->VpiParent(sfc);
                         setLoc(r, argSpan);
+                        // § sysCallArgRefScopedName303 (r11u303) — a bare
+                        // identifier argument of a system call is a reference
+                        // like any other operand of the expression: where the
+                        // surrounding syntax-view expression scopes its
+                        // references (a non-empty syntaxRefPrefix, the
+                        // definition-view generate statements), the argument
+                        // takes the same full name (golden `for (genvar ce =
+                        // $unsigned(MM); ...)` ref_obj MM `work@cell7.MM`, as
+                        // the sibling `cb = MM` and `cf = unsigned'(MM)`
+                        // already were; ours stored none; probe
+                        // r11v46repro/grid7).  Only under a definition-view
+                        // generate statement (underDefGen161): a typedef or
+                        // parameter range bound keeps the unstored name its
+                        // chain gives (probe r11u5repro/g2 `<in>
+                        // lfsr_perm_t.LfsrWidth`, r11u35repro g3_shape35,
+                        // which a draft without the gate moved).  Grid
+                        // tools/probe/r11u303repro/cases/SA.  Switch
+                        // R11U303_SYSARGNAME_OFF.
+                        if (an9 && an9->kind == syntax::SyntaxKind::IdentifierName &&
+                            !syntaxRefPrefix.empty() && !paramAliasBoundUnstored144 &&
+                            underDefGen161(sfc) &&
+                            r11u303On("R11U303_SYSARGNAME_OFF")) {
+                            r->VpiFullName(syntaxRefPrefix + syntaxRefSep + argName);
+                            tr303("sysCallArgRefScopedName303",
+                                  syntaxRefPrefix + syntaxRefSep + argName);
+                        }
                         args->push_back(r);
                     }
                     if (!args->empty())
@@ -24779,6 +24843,90 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                 ec->VpiParent(parent);
                                 auto qEnd = syn.sourceRange().start() +
                                             raw.find("::") + 2;
+                                // § genCaEnumQualWholeSpan303 (r11u303) — the
+                                // qualifier span is the generate CONDITION's
+                                // (compileGenStmt compiles it through
+                                // compileExpression's paPackage_scope arm,
+                                // EnumConstConcat); inside a definition-view
+                                // generate continuous assignment the member
+                                // value is compiled by compileStmt's
+                                // expression writer, which locates the folded
+                                // constant on the whole `pkg::NAME` (golden
+                                // `m_enum: p121::OpB` 76:29-76:38, ours the
+                                // qualifier 76:29-76:35; probe
+                                // r10earl121repro/a1_axis121 and the
+                                // p1_pos115 pattern members).  A right side
+                                // written plain, in a concatenation, an
+                                // operation, a `?:` branch, a pattern member
+                                // or a default key.  Grid
+                                // tools/probe/r11u303repro/cases/EP.  Switch
+                                // R11U303_GENCAENUMSPAN_OFF.
+                                bool inCa303 = false;
+                                for (const UHDM::BaseClass* q303 = parent; q303;
+                                     q303 = q303->VpiParent()) {
+                                    auto k303 = q303->UhdmType();
+                                    if (k303 == UHDM::uhdmcont_assign) {
+                                        inCa303 = underDefGen161(q303);
+                                        break;
+                                    }
+                                    if (k303 == UHDM::uhdmgen_if ||
+                                        k303 == UHDM::uhdmgen_if_else ||
+                                        k303 == UHDM::uhdmgen_for ||
+                                        k303 == UHDM::uhdmgen_case ||
+                                        k303 == UHDM::uhdmgen_region ||
+                                        k303 == UHDM::uhdmcase_item ||
+                                        k303 == UHDM::uhdmmodule_inst ||
+                                        k303 == UHDM::uhdminterface_inst ||
+                                        k303 == UHDM::uhdmdesign)
+                                        break;
+                                }
+                                // § genCaEnumSelBoundLhsQual303v (v11u303) —
+                                // the whole-name span holds only where the
+                                // member is read as a value of the right side
+                                // or as a bit-select index or an indexed part
+                                // select's base; golden keeps the qualifier-only
+                                // span for a member written anywhere in the
+                                // cell's LEFT side (`assign o[i][p::OpB] = ...`,
+                                // `o[i][p::OpB:0]`), as a part-select bound
+                                // (`v[p::OpB:2]`, `v[7:p::OpB]`) or as an
+                                // indexed part select's width (`v[0 +: p::OpB]`):
+                                // the law moved each of those one record away
+                                // from golden (v11u303repro VE ve06, ve08, ve17,
+                                // ve18, ve19, ve21, ve24; ve06, ve18, ve19 and ve21
+                                // STRICT_EQUAL on pristine).  Read from the
+                                // syntax parents up to the assignment.  Switch
+                                // R11V303_ENUMSELQUAL_OFF.
+                                if (inCa303 && r11v303On("R11V303_ENUMSELQUAL_OFF")) {
+                                    const syntax::SyntaxNode* pv303 = &syn;
+                                    for (const syntax::SyntaxNode* q303 = syn.parent; q303;
+                                         pv303 = q303, q303 = q303->parent) {
+                                        auto qk303 = q303->kind;
+                                        if (qk303 == syntax::SyntaxKind::SimpleRangeSelect) {
+                                            inCa303 = false;
+                                            break;
+                                        }
+                                        if ((qk303 == syntax::SyntaxKind::AscendingRangeSelect ||
+                                             qk303 == syntax::SyntaxKind::DescendingRangeSelect) &&
+                                            q303->as<syntax::RangeSelectSyntax>().right.get() == pv303) {
+                                            inCa303 = false;
+                                            break;
+                                        }
+                                        if (qk303 == syntax::SyntaxKind::AssignmentExpression) {
+                                            if (q303->as<syntax::BinaryExpressionSyntax>().left.get() == pv303)
+                                                inCa303 = false;
+                                            break;
+                                        }
+                                        if (qk303 == syntax::SyntaxKind::ContinuousAssign)
+                                            break;
+                                    }
+                                    if (!inCa303)
+                                        tr303("ENUMSELQUAL303V_ABSTAIN", raw);
+                                }
+                                if (inCa303 && r11u303On("R11U303_GENCAENUMSPAN_OFF")) {
+                                    tr303("genCaEnumQualWholeSpan303", raw);
+                                    setLoc(ec, syn.sourceRange());
+                                    return ec;
+                                }
                                 setLoc(ec, SourceRange(syn.sourceRange().start(),
                                                        qEnd));
                                 return ec;

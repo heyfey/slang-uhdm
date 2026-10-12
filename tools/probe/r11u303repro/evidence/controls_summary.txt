@@ -1,0 +1,13 @@
+case-views=2574 moving=12 entering=0 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER tp/r10rgg14repro/cells/g3 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 38->38
+MOVER tp/r10rgg14repro/cells/g3_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 46->46
+MOVER tp/r10vrgg14repro/cells/v4 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 139->139
+MOVER tp/r10vrgg14repro/cells/v4_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 139->139
+MOVER tp/r11u52vrepro/grid/b11_operands NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 40->40
+MOVER tp/r11u52vrepro/grid/b11_operands_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 40->40
+MOVER tp/r11v22repro/adv/v31 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 42->42
+MOVER tp/r11v22repro/adv/v31_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 42->42
+MOVER tp/v11u115repro/grid/f1/a03_gf_bits NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 42->42
+MOVER tp/v11u115repro/grid/f1/a03_gf_bits_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 42->42
+MOVER tp/v11u115repro/grid/f1/a04_gf_clog_bare NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 42->42
+MOVER tp/v11u115repro/grid/f1/a04_gf_clog_bare_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 42->42

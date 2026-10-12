@@ -41,6 +41,7 @@
 #include "R295.h"
 #include "R299.h"
 #include "R301.h"
+#include "R303.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -11463,10 +11464,12 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
         // BuildUVMPkg census (clsparam.py kinds): golden 5 string_typespec +
         // 2 int_typespec of 7 class parameters; ours before this law 7
         // int_typespec, and every one of the 7 spans was the whole declaration.
+        bool namedType303 = false;
         {
             const syntax::DataTypeSyntax* wtSyn54 = nullptr;
             if (const DeclaredType* dt54 = ps.getDeclaredType())
                 wtSyn54 = dt54->getTypeSyntax();
+            namedType303 = wtSyn54 && wtSyn54->kind == syntax::SyntaxKind::NamedType;
             if (wtSyn54 &&
                 wtSyn54->kind != syntax::SyntaxKind::ImplicitType) {
                 auto& pct54 = ps.getType().getCanonicalType();
@@ -11512,6 +11515,22 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
                                  fullName + "::" + std::string(ps.name));
                     }
                 }
+            }
+        }
+        // § classParamNamedTypeTs303 (r11u303) — a class value parameter
+        // written with a NAMED type (`parameter q::mask_t M = 3'b010`, a
+        // typedef, package-qualified or not) is typed by that typedef's own
+        // typespec, as any declaration of the type is (golden: the parameter
+        // and its fold constant read `logic_typespec q::mask_t` 2:11-2:22,
+        // the package's typedef; ours the whole-declaration int_typespec
+        // with the literal's range; probe
+        // v11u111repro/brk/f1/x01_class_param).  makeTypespec gives the
+        // declaration's shared typedef object.  Grid
+        // tools/probe/r11u303repro/cases/CP.  Switch R11U303_CLSPARAMTD_OFF.
+        if (!dts && namedType303 && r11u303On("R11U303_CLSPARAMTD_OFF")) {
+            if (auto* nts303 = makeTypespec(ps)) {
+                dts = nts303;
+                tr303("classParamNamedTypeTs303", fullName + "::" + std::string(ps.name));
             }
         }
         if (!dts) {

@@ -1,0 +1,11 @@
+// § classParamNamedTypeTs303
+package q; typedef logic [2:0] m_t; endpackage
+class C #(parameter q::m_t M = 3'b010);
+  logic [2:0] v = M;
+endclass
+module dut (output logic [2:0] o);
+  C #(3'b110) c1;
+  C #(3'b001) c2;
+  C c3;
+  assign o = 3'b0;
+endmodule

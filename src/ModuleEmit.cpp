@@ -61,6 +61,7 @@
 #include "R297.h"
 #include "R299.h"
 #include "R301.h"
+#include "R303.h"
 
 namespace slang_uhdm {
 // § escNameSpanSites295 (r11u295) — A NAME SPAN WRITTEN BY HAND AS
@@ -114,6 +115,146 @@ struct FullNamePeek261 : UHDM::BaseClass {
 }  // namespace
 static std::string chainFullName261(const UHDM::BaseClass* o) {
     return static_cast<const FullNamePeek261*>(o)->ComputeFullName();
+}
+// § genConnSelBaseNameTrim303 (r11u303) — A DEFINITION-VIEW GENERATE PORT
+// ACTUAL WRITTEN WITH BLANKS BEFORE ITS SELECT (`.s (dn [3+2*i])`) IS NAMED BY
+// ITS IDENTIFIER, NOT BY THE TEXT UP TO THE BRACKET.  emitDefGenStmts reads
+// the actual's raw text and cut the base name at the first `[`, so the name
+// kept the blank (`dn `) and every full name built on it carried it too
+// (`work@top.g.a.dn `, the index reference `work@top.g.a.dn .i`); the
+// elaborated interface-array element connection (emitInstance) cut its
+// name the same way (`work@top.g[0].a.dn `).  Surelog names the select from
+// the identifier token (golden `dn`, `work@top.g.a.dn`, `work@top.g.a.dn.i`,
+// `work@top.g[0].a.dn`; probe r10vrgg14repro/cells/v5, fourteen objects).
+// The law trims trailing blanks, tabs and line breaks off the base at the
+// four definition-view select arms (bit_select, var_select,
+// indexed_part_select, part_select), the elaborated interface-array element
+// arm and the definition view's ref_module interface-array element arm
+// (`ileaf a (.s (dn [1]));` outside a generate block).  Grid
+// tools/probe/r11u303repro/cases/ST.
+// Switch R11U303_SELBASETRIM_OFF.
+static std::string selBase303(const std::string& act, size_t lb) {
+    std::string b = act.substr(0, lb);
+    if (!r11u303On("R11U303_SELBASETRIM_OFF"))
+        return b;
+    size_t n = b.size();
+    while (n > 0 && (b[n - 1] == ' ' || b[n - 1] == '\t' || b[n - 1] == '\n' ||
+                     b[n - 1] == '\r'))
+        --n;
+    if (n == b.size() || n == 0)
+        return b;
+    tr303("genConnSelBaseNameTrim303", b.substr(0, n));
+    return b.substr(0, n);
+}
+// § ifCaTernFillArmKept303 (r11u303; the law at its site in
+// emitInterfaceInstance) — the selected branch of a continuous assignment's
+// constant-condition ternary chain when it is an unbased unsized fill
+// literal, under the module twin's operand gate; nullptr otherwise.
+static const slang::ast::Expression* ifTernFillSel303(const slang::ast::Expression& rhs,
+                                                      slang::ast::Compilation& comp) {
+    using namespace slang::ast;
+    ASTContext tc(comp.getRoot(), LookupLocation::max);
+    auto ok = [&](const Expression& e0) {
+        auto& e = stripImplicitConv(e0);
+        switch (e.kind) {
+        case ExpressionKind::IntegerLiteral:
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+        case ExpressionKind::StringLiteral:
+        case ExpressionKind::RealLiteral:
+        case ExpressionKind::TimeLiteral:
+        case ExpressionKind::UnaryOp:
+        case ExpressionKind::BinaryOp:
+        case ExpressionKind::ConditionalOp:
+        case ExpressionKind::Concatenation:
+        case ExpressionKind::Replication:
+        case ExpressionKind::Conversion:
+        case ExpressionKind::Call:
+        case ExpressionKind::ElementSelect:
+        case ExpressionKind::HierarchicalValue:
+        case ExpressionKind::MemberAccess:
+            return true;
+        case ExpressionKind::NamedValue: {
+            auto k = e.as<NamedValueExpression>().symbol.kind;
+            if (k != SymbolKind::Parameter && k != SymbolKind::EnumValue &&
+                k != SymbolKind::Specparam && k != SymbolKind::Genvar)
+                return false;
+            return (bool)tc.tryEval(e);
+        }
+        default:
+            return false;
+        }
+    };
+    const Expression* sel = &stripImplicitConv(rhs);
+    if (sel->kind != ExpressionKind::ConditionalOp)
+        return nullptr;
+    for (int g = 0; g < 32 && sel->kind == ExpressionKind::ConditionalOp; ++g) {
+        auto& co = sel->as<ConditionalExpression>();
+        if (co.conditions.size() != 1 || co.conditions[0].pattern ||
+            !ok(*co.conditions[0].expr) || !ok(co.left()) || !ok(co.right()))
+            return nullptr;
+        auto cv = tc.tryEval(*co.conditions[0].expr);
+        if (!cv || !cv.isInteger() || cv.integer().hasUnknown())
+            return nullptr;
+        sel = &stripImplicitConv(cv.isTrue() ? co.left() : co.right());
+    }
+    return sel->kind == ExpressionKind::UnbasedUnsizedIntegerLiteral ? sel : nullptr;
+}
+// ...and whether EVERY elaborated instance of the cell's interface selects
+// the same fill branch: a definition whose instances split (one instance's
+// condition picks the fill, another's an operation) keeps the shared cell,
+// because the shared cell's references are bound through the instances that
+// take it (a draft that cloned only the fill instance moved the shared
+// cell's binding to the next instance in the elaborated view, grid IF
+// i03_split).
+static bool ifTernFillAll303(slang::ast::Compilation& comp, const slang::syntax::SyntaxNode* caSyn,
+                             const slang::syntax::SyntaxNode* branchSyn) {
+    using namespace slang::ast;
+    static std::map<const slang::syntax::SyntaxNode*, std::set<const slang::syntax::SyntaxNode*>> outc;
+    static bool built = false;
+    if (!built) {
+        built = true;
+        std::function<void(const Symbol&)> visSym;
+        std::function<void(const Scope&)> visScope = [&](const Scope& sc) {
+            for (auto& mm : sc.members())
+                visSym(mm);
+        };
+        visSym = [&](const Symbol& mm) {
+            if (mm.kind == SymbolKind::Instance) {
+                auto& i = mm.as<InstanceSymbol>();
+                if (i.getDefinition().definitionKind == DefinitionKind::Interface)
+                    for (auto& m2 : i.body.members())
+                        if (m2.kind == SymbolKind::ContinuousAssign && m2.getSyntax()) {
+                            auto& a = m2.as<ContinuousAssignSymbol>().getAssignment();
+                            const syntax::SyntaxNode* o = nullptr;
+                            if (a.kind == ExpressionKind::Assignment)
+                                if (auto* f = ifTernFillSel303(a.as<AssignmentExpression>().right(), comp))
+                                    o = f->syntax;
+                            outc[m2.getSyntax()].insert(o);
+                        }
+                visScope(i.body);
+            }
+            else if (mm.kind == SymbolKind::InstanceArray) {
+                for (auto* e : mm.as<InstanceArraySymbol>().elements)
+                    if (e)
+                        visSym(*e);
+            }
+            else if (mm.kind == SymbolKind::GenerateBlock) {
+                auto& b = mm.as<GenerateBlockSymbol>();
+                if (!b.isUninstantiated)
+                    visScope(b);
+            }
+            else if (mm.kind == SymbolKind::GenerateBlockArray) {
+                for (auto* e : mm.as<GenerateBlockArraySymbol>().entries)
+                    if (e)
+                        visSym(*e);
+            }
+        };
+        for (auto* top : comp.getRoot().topInstances)
+            visSym(*top);
+    }
+    auto it = outc.find(caSyn);
+    return it != outc.end() && it->second.size() == 1 && *it->second.begin() == branchSyn &&
+           branchSyn != nullptr;
 }
 // § rawEndLineModel295 (r11u295) — AN END WRITTEN STRAIGHT FROM slang'S
 // SourceManager (`sm->getLineNumber / getColumnNumber` of the end location)
@@ -10978,6 +11119,20 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
                     syntaxRefPrefix = prefix + "." + std::string(arr.name);
                 auto* e = emitSyntaxExpr(*bs, rng);
                 syntaxRefPrefix = sp;
+                // § modArrBoundIpsWholeSpan303 (r11u303) — an indexed part
+                // select written as a module array's dimension bound
+                // (`sub u [X[1+:2]:0]`) spans the whole select, name through
+                // closing bracket, in both views (golden 9:13-9:20, ours the
+                // selector 9:15-9:19), as compileSelectExpression locates it
+                // from the whole select node.  Grid
+                // tools/probe/r11u303repro/cases/MA.  Switch
+                // R11U303_MODARRIPSSPAN_OFF.
+                if (e && e->UhdmType() == UHDM::uhdmindexed_part_select &&
+                    r11u303On("R11U303_MODARRIPSSPAN_OFF")) {
+                    setLoc(e, bs->sourceRange());
+                    tr303("modArrBoundIpsWholeSpan303",
+                          prefix + "." + std::string(arr.name));
+                }
                 if (e)
                     return (UHDM::expr*)e;
             }
@@ -11099,6 +11254,53 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
                     if (be9 && be9->UhdmType() == UHDM::uhdmoperation)
                         foldOps((UHDM::operation*)be9);
             }
+        }
+    }
+    // § modArrBoundSelUnstored303 (r11u303) — A SELECT IN AN ELABORATED
+    // MODULE ARRAY'S DIMENSION BOUND STORES NO FULL NAME.  Surelog's
+    // compileInstantiation hands compileRanges the module_array as the
+    // ranges' parent; the elaborated array's bound is compiled afresh with
+    // the instance as the scope and a select (`sub u [X[0]:0]`, a part
+    // select, an indexed part select, under an operation too) is built by
+    // compileSelectExpression with no full name, where ours stored the
+    // scope's `<instance>.X` (golden bit_select `X` unnamed; probe
+    // r10earl104repro/vb4_instarr).  The definition view keeps the name
+    // through the array (§ modArrayBoundRefArrayPath146), as golden does.
+    // An interface array's elaborated view lists no ranges.  Grid
+    // tools/probe/r11u303repro/cases/MA.  Switch R11U303_MODARRSELNAME_OFF.
+    if (modElems && r11u303On("R11U303_MODARRSELNAME_OFF")) {
+        std::function<void(UHDM::any*)> unstore303 = [&](UHDM::any* x) {
+            if (!x)
+                return;
+            switch (x->UhdmType()) {
+            case UHDM::uhdmbit_select:
+            case UHDM::uhdmpart_select:
+            case UHDM::uhdmindexed_part_select:
+            case UHDM::uhdmvar_select:
+                if (x->UhdmType() == UHDM::uhdmbit_select)
+                    ((UHDM::bit_select*)x)->VpiFullName(std::string_view());
+                else if (x->UhdmType() == UHDM::uhdmpart_select)
+                    ((UHDM::part_select*)x)->VpiFullName(std::string_view());
+                else if (x->UhdmType() == UHDM::uhdmindexed_part_select)
+                    ((UHDM::indexed_part_select*)x)->VpiFullName(std::string_view());
+                else
+                    ((UHDM::var_select*)x)->VpiFullName(std::string_view());
+                tr303("modArrBoundSelUnstored303",
+                      prefix + "." + std::string(arr.name) + " " +
+                          std::string(x->VpiName()));
+                return;
+            case UHDM::uhdmoperation:
+                if (auto* ops303 = ((UHDM::operation*)x)->Operands())
+                    for (auto* o303 : *ops303)
+                        unstore303(o303);
+                return;
+            default:
+                return;
+            }
+        };
+        for (auto* rg303 : *rvec) {
+            unstore303(rg303->Left_expr());
+            unstore303(rg303->Right_expr());
         }
     }
     ma->Ranges(rvec);
@@ -12012,7 +12214,7 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
                         if (auto lb = rn.find('[');
                             lb != std::string::npos && !rn.empty() &&
                             rn.back() == ']') {
-                            std::string base = rn.substr(0, lb);
+                            std::string base = selBase303(rn, lb);
                             std::string idxS =
                                 rn.substr(lb + 1, rn.size() - lb - 2);
                             auto* bs = s.MakeBit_select();
@@ -20404,7 +20606,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     std::string::size_type albr;
                     if ((albr = connRaw.find('[')) != std::string::npos &&
                         !connRaw.empty() && connRaw.back() == ']') {
-                        std::string base = connRaw.substr(0, albr);
+                        std::string base = selBase303(connRaw, albr);
                         std::string idxS =
                             connRaw.substr(albr + 1, connRaw.size() - albr - 2);
                         auto* bs = s.MakeBit_select();
@@ -30981,6 +31183,62 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     ca->Rhs()->UhdmType() == UHDM::uhdmhier_path &&
                     r11u164Law("R11U164_GENNDAHP_OFF"))
                     loopScope9 = true;
+                // § genNdaSelRhsSharesNet303 (r11u303) — the generate
+                // scope's net-declaration cell keeps the SCOPE NET as its Lhs
+                // whenever the initializer is a SELECT (`wire [7:0] ca1 =
+                // arr[8*i +: 8];`, a bit, part, indexed part or variable
+                // select), ranged or scalar, in a loop or an if/named scope:
+                // writeCont_assign neither clones the cell for it (route 2
+                // wants an operation Rhs) nor reduces it to a constant, so
+                // the cell's Lhs is the net the scope already lists and
+                // golden lists no Lhs net under the cell (probe
+                // r10rgg14repro/cells/pc5, where ours minted a fresh net
+                // for the ranged `ca1`).  And § genNdaOpRhsFreshNet303: an
+                // OPERATION or CONSTANT initializer is cloned (route 2) or
+                // reduced (the trailing branch), so even a SCALAR net in a
+                // loop scope gets the fresh Lhs net (`wire w = 1'b1;`,
+                // `wire w = ~b[0];`, golden lists the net under the cell).
+                // Default view only matters: the -elabuhdm view reads equal
+                // on both binaries.  Grid tools/probe/r11u303repro/cases/GN.
+                // Switches R11U303_GENNDASEL_OFF and R11U303_GENNDAOP_OFF.
+                if (ca->Rhs()) {
+                    auto rk303 = ca->Rhs()->UhdmType();
+                    if (!loopScope9 &&
+                        (rk303 == UHDM::uhdmbit_select ||
+                         rk303 == UHDM::uhdmpart_select ||
+                         rk303 == UHDM::uhdmindexed_part_select ||
+                         rk303 == UHDM::uhdmvar_select) &&
+                        r11u303On("R11U303_GENNDASEL_OFF")) {
+                        // § genNdaSelConstReduces303v (v11u303) — a select
+                        // whose value is a constant (`wire [3:0] w = P[7:4];`,
+                        // `P[i*4 +: 4]` with P a parameter) is reduced by
+                        // writeCont_assign's trailing reduceExpr to a constant
+                        // and the cell cloned with a fresh Lhs, as any constant
+                        // initializer is; the law shared the scope net there and
+                        // moved twelve records away from golden (v11u303repro
+                        // VG vg08, vg10, chain away 12, stage 1 on both
+                        // binaries).  Switch R11V303_NDASELCONST_OFF.
+                        bool selConst303v = false;
+                        if (r11v303On("R11V303_NDASELCONST_OFF")) {
+                            ASTContext sctx303(comp.getRoot(), LookupLocation::max);
+                            if (sctx303.tryEval(*dt->getInitializer())) {
+                                selConst303v = true;
+                                tr303("NDASELCONST303V_ABSTAIN", nfull);
+                            }
+                        }
+                        if (!selConst303v) {
+                        loopScope9 = true;
+                        tr303("genNdaSelRhsSharesNet303", nfull);
+                        }
+                    }
+                    else if (loopScope9 &&
+                             (rk303 == UHDM::uhdmoperation ||
+                              rk303 == UHDM::uhdmconstant) &&
+                             r11u303On("R11U303_GENNDAOP_OFF")) {
+                        loopScope9 = false;
+                        tr303("genNdaOpRhsFreshNet303", nfull);
+                    }
+                }
                 if (loopScope9) {
                     ca->Lhs((UHDM::expr*)(UHDM::any*)n);
                 }
@@ -55884,6 +56142,62 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                             needsFold = true;
                     }
             }
+            // § ifCaTernFillArmKept303 (r11u303) — the interface twin of
+            // § caTernFillArmKept193.  writeCont_assign reduces an interface
+            // cell exactly as a module's (the same writer, § caIfaceBodyCaFolds83's
+            // decode), and ExprEval::reduceExpr's vpiConditionOp arm hands an
+            // UNBASED UNSIZED fill literal taken branch back unchanged, so a
+            // select-Lhs cell whose constant condition picks `'0` / `'1`
+            // (through nested conditionals too) is cloned with the branch's own
+            // located constant (golden `arr[0] = (P) ? {2{sig}} : '0` with P = 0:
+            // `'0` BIN:0 size -1 at 6:36-6:38; probe
+            // r10rgg9repro/cells/c_iface_body, ours the definition's
+            // operation).  The operand gate is the module's (operandOk9:
+            // every operand of every level a literal, an operation, a call, a
+            // select or path, or a name with a value).  A bit-select Lhs, or a
+            // part-select Lhs with constant bounds.  Grid
+            // tools/probe/r11u303repro/cases/IF.  Switch R11U303_IFTERNFILL_OFF.
+            const Expression* fill303 = nullptr;
+            if (!needsFold && ae83 && iface && defCa->Lhs() &&
+                (defCa->Lhs()->UhdmType() == UHDM::uhdmbit_select ||
+                 (defCa->Lhs()->UhdmType() == UHDM::uhdmpart_select &&
+                  ((const UHDM::part_select*)defCa->Lhs())->Left_range() &&
+                  ((const UHDM::part_select*)defCa->Lhs())->Right_range() &&
+                  ((const UHDM::part_select*)defCa->Lhs())->Left_range()->UhdmType() ==
+                      UHDM::uhdmconstant &&
+                  ((const UHDM::part_select*)defCa->Lhs())->Right_range()->UhdmType() ==
+                      UHDM::uhdmconstant)) &&
+                stripImplicitConv(ae83->right()).kind == ExpressionKind::ConditionalOp &&
+                r11u303On("R11U303_IFTERNFILL_OFF")) {
+                // § ifFillBitSelConstIdx303v (v11u303) — the cloned cell's
+                // bit-select Lhs below copies only a CONSTANT index, so a
+                // parameter index (`assign arr[K] = (P) ? ... : '0;`) left
+                // the elaborated bit_select with no index, where golden keeps
+                // the reference K: the law took the case-view from uhdm-cmp
+                // equal to stage 1 (v11u303repro VI/vi13_paramidx, cmp 0 ->
+                // 15 lines).  The law now fires only on a constant index.
+                // Switch R11V303_IFFILLIDX_OFF.
+                bool idxOk303v = true;
+                if (defCa->Lhs()->UhdmType() == UHDM::uhdmbit_select &&
+                    r11v303On("R11V303_IFFILLIDX_OFF")) {
+                    auto* ix303 = ((const UHDM::bit_select*)defCa->Lhs())->VpiIndex();
+                    idxOk303v = ix303 && ix303->UhdmType() == UHDM::uhdmconstant;
+                    if (!idxOk303v)
+                        tr303("IFFILLIDX303V_ABSTAIN", prefix);
+                }
+                if (!idxOk303v) {
+                }
+                else if (auto* f303 = ifTernFillSel303(ae83->right(), comp)) {
+                    if (caSyms83[myIdx83]->getSyntax() &&
+                        ifTernFillAll303(comp, caSyms83[myIdx83]->getSyntax(), f303->syntax)) {
+                        fill303 = f303;
+                        needsFold = true;
+                        tr303("ifCaTernFillArmKept303", prefix);
+                    }
+                    else
+                        tr303("IFTERNFILL303_ABSTAIN", prefix);
+                }
+            }
             if (!needsFold) {
                 elabCas->push_back(defCa);
                 continue;
@@ -56120,7 +56434,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // § caIfaceSelLhsTakesSharedRhs289: a PART-select Lhs re-lists the
             // same way, its two bounds copied.
             else if (auto* dlhsP = defCa->Lhs();
-                     selShare289 && dlhsP &&
+                     (selShare289 || fill303) && dlhsP &&
                      dlhsP->UhdmType() == UHDM::uhdmpart_select) {
                 auto* dps = (UHDM::part_select*)dlhsP;
                 auto* ps = s.MakePart_select();
@@ -56158,6 +56472,29 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             if (selShare289) {
                 selShare289->VpiParent(ca);
                 ca->Rhs(selShare289);
+            }
+            // § ifCaTernFillArmKept303 — the branch's own constant, one object
+            // per definition and branch, parented at the last cell that takes
+            // it (the module twin's rule).
+            if (fill303) {
+                static std::map<std::tuple<const void*, uint32_t, size_t>, UHDM::any*> fill303m;
+                const auto st303 = fill303->sourceRange.start();
+                const auto key303 = std::make_tuple((const void*)&body.getDefinition(),
+                                                    st303.valid() ? st303.buffer().getId() : 0u,
+                                                    st303.valid() ? (size_t)st303.offset() : (size_t)0);
+                auto f303 = fill303m.find(key303);
+                UHDM::any* r303 = nullptr;
+                if (st303.valid() && f303 != fill303m.end() && f303->second) {
+                    r303 = f303->second;
+                    r303->VpiParent(ca);
+                }
+                else {
+                    r303 = emitExpr(*fill303, ca, prefix, netMap);
+                    if (st303.valid())
+                        fill303m[key303] = r303;
+                }
+                if (r303)
+                    ca->Rhs((UHDM::expr*)r303);
             }
             // § caIfaceBodyCaFolds83 — the folded Rhs, emitted by the ONE
             // emitter § caStructParamPatternSubst55 decoded (the source
@@ -58136,7 +58473,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             // formal (prefix.<inst>.<formal>.<base>), loc at
                             // the whole select; indices are constants (digits)
                             // or refs scoped vsFull.<idx>.
-                            std::string base2 = act.substr(0, lb2);
+                            std::string base2 = selBase303(act, lb2);
                             std::string vsFull = branchPrefix + "." + iname +
                                                  "." + formal + "." + base2;
                             auto* vs = s.MakeVar_select();
@@ -58186,7 +58523,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             // FORMAL, ConstantSelect, BaseExpr/WidthExpr from
                             // the selector syntax with base-scoped refs
                             // (generate_test extra_adder).
-                            std::string base2 = act.substr(0, lb2);
+                            std::string base2 = selBase303(act, lb2);
                             std::string ipsFull = branchPrefix + "." + iname +
                                                   "." + formal + "." + base2;
                             auto* ips = s.MakeIndexed_part_select();
@@ -58311,7 +58648,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         else if (lb2 != std::string::npos && !act.empty() &&
                                  act.back() == ']' &&
                                  act.find(':', lb2) != std::string::npos) {
-                            std::string base2 = act.substr(0, lb2);
+                            std::string base2 = selBase303(act, lb2);
                             std::string psFull9 = branchPrefix + "." + iname +
                                                   "." + formal + "." + base2;
                             auto* pss9 = s.MakePart_select();
@@ -58405,7 +58742,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             // the BASE, fullname prefix.<inst>.<base> (no
                             // formal doubling), loc at the INDEX; index is a
                             // genvar ref (or a constant for digits).
-                            std::string base2 = act.substr(0, lb2);
+                            std::string base2 = selBase303(act, lb2);
                             std::string idxT =
                                 act.substr(lb2 + 1, act.size() - lb2 - 2);
                             auto idxStart =

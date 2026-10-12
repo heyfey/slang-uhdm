@@ -1,0 +1,3 @@
+binary-path audit (fence-filtered cmds.txt, corpus + downstream lanes)
+pristine sweep: 3315 cmds.txt, 3265 name /tmp/r11u303_bin/pristine (md5 0b3ca4f9), the other 50 run no slang
+law sweep: 3315 cmds.txt, 3265 name /tmp/r11u303_bin/law (md5 390233eb), the other 50 run no slang

@@ -1,0 +1,12 @@
+// § ifCaTernFillArmKept303
+interface bus_t2 #(parameter bit P = 0)();
+  logic sig;
+  logic [7:0] arr[2];
+  assign arr[0] = (P) ? {2{sig}} : '0;
+endinterface
+module user (bus_t2 b);
+endmodule
+module top;
+  bus_t2 #(.P(0)) bi();
+  user u (.b(bi));
+endmodule
