@@ -57,6 +57,7 @@
 #include "R296.h"
 #include "R298.h"
 #include "R300.h"
+#include "R302.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -23367,6 +23368,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // second, so the plain overwrite lands on the right one.
             if (rhs && pkgScopeInst && currentTf)
                 bodyAsgRhsObj[rhsExpr] = rhs;
+            // § modFnLitLeftoverAtLiteral302 — the emitted literal right side
+            // of an assignment in a NON-package subroutine (a module,
+            // interface or program function), every copy in emission order;
+            // read only by the leftover drain's literal arm.
+            if (rhs && !pkgScopeInst && currentTf &&
+                rhs->UhdmType() == UHDM::uhdmconstant) {
+                auto k302 = stripImplicitConv(*rhsExpr).kind;
+                if (k302 == ExpressionKind::IntegerLiteral ||
+                    k302 == ExpressionKind::UnbasedUnsizedIntegerLiteral)
+                    modFnBodyLit302()[rhsExpr].push_back(rhs);
+            }
             // § compoundLitWriteBackSat2 — the value Surelog's constant-function
             // evaluator left ON this literal, not the one the source wrote.  The
             // pre-pass (ParamEmit computeCompoundWriteBack) records an entry only
@@ -48765,10 +48777,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Tag key locations come from the pattern item syntax, matched
             // to member setters by name.
             const syntax::StructuredAssignmentPatternSyntax* psyn = nullptr;
-            if (expr.syntax &&
-                expr.syntax->kind == syntax::SyntaxKind::AssignmentPatternExpression) {
+            // § castPatTagKeyLocThroughParens302 (r11u302) — A PATTERN WRITTEN
+            // AS A CAST'S OPERAND (`cfg_t'('{n: 9, h: 16'h00AB})`) IS BOUND
+            // FROM THE CAST'S PARENTHESIZED OPERAND, SO ITS SYNTAX IS THE
+            // PARENTHESES: the tag keys were then never found and every
+            // member's string_typespec stayed unlocated, where golden locates
+            // it at the key exactly as for a bare pattern (r11v55repro
+            // vv1c_cast: `n` 4:37, `h` 4:44).  The parentheses are read
+            // through.  Switch R11U302_CASTPATKEY_OFF.
+            const syntax::SyntaxNode* psn302 = expr.syntax;
+            if (psn302 &&
+                psn302->kind == syntax::SyntaxKind::ParenthesizedExpression) {
+                if (r11u302On("R11U302_CASTPATKEY_OFF")) {
+                    while (psn302 &&
+                           psn302->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                        psn302 = psn302->as<syntax::ParenthesizedExpressionSyntax>()
+                                     .expression;
+                    if (psn302 &&
+                        psn302->kind == syntax::SyntaxKind::AssignmentPatternExpression)
+                        tr302("castPatTagKeyLocThroughParens302");
+                }
+                else
+                    tr302("castPatTagKeyLocThroughParens302_ABSTAIN", "off");
+            }
+            if (psn302 &&
+                psn302->kind == syntax::SyntaxKind::AssignmentPatternExpression) {
                 const syntax::AssignmentPatternSyntax* pat =
-                    expr.syntax->as<syntax::AssignmentPatternExpressionSyntax>().pattern;
+                    psn302->as<syntax::AssignmentPatternExpressionSyntax>().pattern;
                 if (pat && pat->kind == syntax::SyntaxKind::StructuredAssignmentPattern)
                     psyn = &pat->as<syntax::StructuredAssignmentPatternSyntax>();
             }

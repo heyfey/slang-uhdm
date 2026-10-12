@@ -1,0 +1,12 @@
+== Q
+  B: 6	ref_typespec			<in>loc_t.aa		0	0	0	0		0		
+  raw fullname A: loc_t.aa | B: work@dut.LC.loc_t.aa
+objects 143 vs 135
+fields: depth=1 type=1 name=1 fullname=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=7 (walk diverged)
+STRICT_NOTEQUAL fullname
+== F
+  A: 6	typespec_member	bb			dut.sv	5	16	5	18				
+  B: 7	constant				dut.sv	10	10	10	12	11	64	UINT:11	9
+objects 143 vs 147
+fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth

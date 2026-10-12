@@ -1,0 +1,15 @@
+# det.sh law (three concurrent draws per row-mode; count + hash)
+law Earlgrey_0_1/default draws:       3 fc04e7f2bb3f  law-sweep: fc04e7f2bb3f
+law MiniAmiq/default draws:       3 6274d155ae91  law-sweep: 6274d155ae91
+law SeqDriver/default draws:       3 0140024e994f  law-sweep: 0140024e994f
+law SimpleUVM/default draws:       3 57a5aaad5589  law-sweep: 57a5aaad5589
+law Scoreboard/default draws:       3 e60363ba3f2d  law-sweep: e60363ba3f2d
+law BuildUVMPkg/default draws:       3 00b6402714d5  law-sweep: 00b6402714d5
+law Rggen/default draws:       3 1a450c2e7808  law-sweep: 1a450c2e7808
+law Earlgrey_0_1/testflags draws:       3 025c86db2d2d  law-sweep: 025c86db2d2d
+law MiniAmiq/testflags draws:       3 6274d155ae91  law-sweep: 6274d155ae91
+law SeqDriver/testflags draws:       3 dcc2c63e2e29  law-sweep: dcc2c63e2e29
+law SimpleUVM/testflags draws:       3 f0c85a0be92c  law-sweep: f0c85a0be92c
+law Scoreboard/testflags draws:  law-sweep: no-file
+law BuildUVMPkg/testflags draws:       3 00b6402714d5  law-sweep: 00b6402714d5
+law Rggen/testflags draws:  law-sweep: no-file

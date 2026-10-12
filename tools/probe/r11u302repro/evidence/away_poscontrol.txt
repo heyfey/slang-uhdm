@@ -1,0 +1,12 @@
+CP/c01_pkg_cast d chain away=4 toward=0 flat_away=4 flat_toward=0
+CP/c05_contassign d chain away=2 toward=0 flat_away=2 flat_toward=0
+CP/c10_macro d chain away=4 toward=0 flat_away=4 flat_toward=0
+GF/f02_fnsel d chain away=1 toward=0 flat_away=1 flat_toward=0
+GF/f09_used_in_mod d chain away=1 toward=0 flat_away=1 flat_toward=0
+LL/l04_mod_childovr d chain away=36 toward=0 flat_away=36 flat_toward=0
+LL/l09_twocalls d chain away=22 toward=0 flat_away=22 flat_toward=0
+LL/l14_unbased d chain away=0 toward=0 flat_away=0 flat_toward=0
+PM/p04_pkg_noimport d chain away=16 toward=0 flat_away=16 flat_toward=0
+PM/p10_mod_typed_uu d chain away=14 toward=0 flat_away=16 flat_toward=0
+RT/r02_unit_fn_header d chain away=22 toward=0 flat_away=22 flat_toward=0
+RT/r06_iface d chain away=36 toward=0 flat_away=36 flat_toward=0

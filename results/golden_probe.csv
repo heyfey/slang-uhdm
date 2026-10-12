@@ -2418,7 +2418,7 @@ r11u117repro/grid/g3/r04,EQUAL,,equal
 r11u11repro/a3,EQUAL,,equal
 r11u11repro/a5,EQUAL,,equal
 r11u11repro/a8,EQUAL,,equal
-r11u13repro/b3,STRICT_NOTEQUAL,differ:line(29),differ:line(29)
+r11u13repro/b3,EQUAL,,equal
 r11u13repro/b6,EQUAL,,equal
 r11u14repro/c10,EQUAL,,equal
 r11u14repro/c3,EQUAL,,equal
@@ -2724,11 +2724,11 @@ r11u23repro/grid/h08_concat_paramref_whole,EQUAL,,equal
 r11u23repro/grid/h09_concat_clog2_operand,EQUAL,,equal
 r11u23repro/grid/h10_concat_enum_operand,EQUAL,,equal
 r11u24repro/n1,EQUAL,,equal
-r11u24repro/n11,STRICT_NOTEQUAL,differ:fullname(7),differ:fullname(7)
+r11u24repro/n11,EQUAL,,equal
 r11u24repro/n12,EQUAL,,equal
 r11u24repro/n2,EQUAL,,equal
 r11u24repro/n3,EQUAL,,equal
-r11u24repro/n4,STRICT_NOTEQUAL,differ:line(17),differ:line(17)
+r11u24repro/n4,EQUAL,,equal
 r11u25repro/grid/m01_modvar_fill0,EQUAL,,equal
 r11u25repro/grid/m02_modvar_fill1,EQUAL,,equal
 r11u25repro/grid/m03_modvar_fillx,EQUAL,,equal
@@ -2799,9 +2799,9 @@ r11u26repro/m13,EQUAL,,equal
 r11u26repro/m14,EQUAL,,equal
 r11u26repro/m15,EQUAL,,equal
 r11u26repro/m16,EQUAL,,equal
-r11u26repro/m4,STRICT_NOTEQUAL,differ:fullname(39),differ:fullname(39)
+r11u26repro/m4,EQUAL,,equal
 r11u26repro/m6,EQUAL,,equal
-r11u26repro/m7,STRICT_NOTEQUAL,differ:fullname(38),differ:fullname(38)
+r11u26repro/m7,EQUAL,,equal
 r11u26repro/m8,EQUAL,,equal
 r11u26repro/m9,EQUAL,,equal
 r11u27repro/grid/Ma01_sized_sub,EQUAL,,equal
@@ -3006,7 +3006,7 @@ r11u27repro/grid/s25_twocells,EQUAL,,equal
 r11u28repro/a12,EQUAL,,equal
 r11u28repro/a13,EQUAL,,equal
 r11u28repro/a16,EQUAL,,equal
-r11u28repro/a2,STRICT_NOTEQUAL,differ:fullname(39),differ:fullname(39)
+r11u28repro/a2,EQUAL,,equal
 r11u28repro/a4,EQUAL,,equal
 r11u28repro/a5,EQUAL,,equal
 r11u28repro/a6,EQUAL,,equal
@@ -3087,7 +3087,7 @@ r11u52vrepro/grid/b4_program,EQUAL,,equal
 r11u52vrepro/grid/b6_macro,EQUAL,,equal
 r11u5repro/g2,EQUAL,,equal
 r11u60repro/g4,EQUAL,,equal
-r11u60repro/g7,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+r11u60repro/g7,EQUAL,,equal
 r11u61repro/h1,EQUAL,,equal
 r11u69repro/grid/g10_lhsbind,EQUAL,,equal
 r11u69repro/grid/g11_iface,EQUAL,,equal
@@ -3377,7 +3377,7 @@ r11v1repro/vA,EQUAL,,equal
 r11v1repro/vE,EQUAL,,equal
 r11v1repro/vL,EQUAL,,equal
 r11v21repro/v1,EQUAL,,equal
-r11v21repro/v15,STRICT_NOTEQUAL,differ:fullname(7),differ:fullname(7)
+r11v21repro/v15,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
 r11v22repro/adv/v01,EQUAL,,equal
 r11v22repro/adv/v02,EQUAL,,equal
 r11v22repro/adv/v03,EQUAL,,equal
@@ -3525,7 +3525,7 @@ r11v53repro/grid/x11_realistic_cva6,EQUAL,,equal
 r11v53repro/grid/x15_import_chain,EQUAL,,equal
 r11v53repro/grid/x1_import_shadow_same,EQUAL,,equal
 r11v53repro/grid/x9_unit_import_shadow,EQUAL,,equal
-r11v55repro/grid/vv1c_cast,STRICT_NOTEQUAL,differ:file(8),differ:file(8)
+r11v55repro/grid/vv1c_cast,EQUAL,,equal
 r11v55repro/grid/vv4_singleread,EQUAL,,equal
 r11v55repro/grid/vv6_edge,EQUAL,,equal
 r11v55repro/grid/vv8_sharemut,EQUAL,,equal

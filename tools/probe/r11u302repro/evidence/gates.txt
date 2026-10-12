@@ -1,0 +1,21 @@
+r11u302 gates (base 0c29ccd0; pristine f050c791ecad49e641fde77e05aa7faa = the main tree's build; law 68d848f44dcb2c30d51741e98e5e1f61)
+(1) build: both binaries frozen (chmod 555) before any measurement; slang 12.0.0+545f88b2e, UHDM 1.87.
+(2) probe (tests/sweep.sh, law): EQUAL=4005 STRICT_NOTEQUAL=82; regressions=0 conversions=8 changes=1
+    (pristine sweep: EQUAL=3997 STRICT_NOTEQUAL=90; regressions=0 conversions=0 changes=0)
+(3) surelog: default CMP_EQUAL=480, testflags 474; regressions=0 conversions=0 changes=0 (both binaries)
+    uhdm2rtlil: 803/1/67 both modes; regressions=0 conversions=0 changes=0 (both binaries)
+    row-by-row csv diff law vs pristine: probe 9 rows (the 8 conversions + r11v21repro/v15), surelog 2 rows
+    (LowMemLib/LowMemPkg testflags detail text naming the workdir), uhdm2rtlil 0, downstream 0
+(4) downstream: IDENTICAL=803 SLANG_REJECT=66 EQUIVALENT=2 DIVERGENT=0; law csv byte-identical to
+    results/downstream_uhdm2rtlil.csv
+(5) uhdm-cmp: 0 lines on every probe mover (all judge-equal before and after)
+(6) byteverify (SELFCHECK=1) on fence-filtered mirrors (2560 corpus databases each, 8 fenced skipped):
+    MOVERS 0 / 2560; SELFCHECK 2559 / 2560 (the fixed reference file compared with itself is the one not
+    flagged: the self-check's own artefact, pass 201); downstream lane slang.uhdm 0 / 805 differ;
+    probe 9 / 4087 differ = exactly the 9 probe databases predict.txt names (diff empty)
+    canaries: surelog ok=52 changed=0, uhdm2rtlil ok=16 changed=0; ctcan2 EXPECT_UNKNOWN=1 PASS,
+    EXPECT_UNKNOWN=6 PASS
+    binary-path audit: law sweep own=3265 other=0 noslang=50; pristine sweep own=3265 other=0 noslang=50
+    determinism: evidence/determinism.txt (three concurrent draws, one hash per row-mode, equal to the sweep)
+    every sweep exited 1 on the law-index check alone (tests/LAWS.md stale at the base already)
+    patch check: /tmp/<pass>.patch applies clean on a fresh 0c29ccd0 worktree (git apply --check), the fence scan of its diff headers reads 0 0 0 0, and a rebuild from it gives md5 68d848f44dcb2c30d51741e98e5e1f61 = the law binary

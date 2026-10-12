@@ -1,0 +1,23 @@
+MOVER r11u195repro/cases/T/t10 d: rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 175 objects
+MOVER r11u195repro/cases/T/t10 e: rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 156 objects
+MOVER r11u260repro/cases/E/e15_unpacked d: rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 165 objects
+MOVER r11u260repro/cases/E/e15_unpacked e: rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 166 objects
+MOVER r11u26repro/n11 d: rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 169 objects
+MOVER r11u26repro/n11 e: rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 198 objects
+MOVER r11u272repro/cases/L/l08_import d: rc=0 cmp=15 NOT_EQUAL stage1 -> rc=0 cmp=15 NOT_EQUAL stage1
+MOVER r11u272repro/cases/L/l08_import e: rc=0 cmp=15 NOT_EQUAL stage1 -> rc=0 cmp=15 NOT_EQUAL stage1
+MOVER r11u272repro/cases/L/l15_import_noaa d: rc=0 cmp=15 NOT_EQUAL stage1 -> rc=0 cmp=15 NOT_EQUAL stage1
+MOVER r11u272repro/cases/L/l15_import_noaa e: rc=0 cmp=15 NOT_EQUAL stage1 -> rc=0 cmp=15 NOT_EQUAL stage1
+MOVER r11u28repro/a19 d: rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u28repro/a19 e: rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u28repro/a20 d: rc=0 cmp=40 NOT_EQUAL stage1 -> rc=0 cmp=40 NOT_EQUAL stage1
+MOVER r11u28repro/a20 e: rc=0 cmp=40 NOT_EQUAL stage1 -> rc=0 cmp=40 NOT_EQUAL stage1
+MOVER r11v140repro/tdc/t08_decl_after d: rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11v140repro/tdc/t08_decl_after e: rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11v178repro/cases/pu/u07_packed_struct d: rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 272 objects
+MOVER r11v178repro/cases/pu/u07_packed_struct e: rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 271 objects
+MOVER v11u225repro/cases/FO/h07 d: rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 119 objects
+MOVER v11u225repro/cases/FO/h07 e: rc=0 cmp=0 STRICT_NOTEQUAL file -> rc=0 cmp=0 STRICT_EQUAL 117 objects
+MOVER v11u228repro/cases/FM/f13 d: rc=0 cmp=60 NOT_EQUAL stage1 -> rc=0 cmp=60 NOT_EQUAL stage1
+MOVER v11u228repro/cases/FM/f13 e: rc=0 cmp=60 NOT_EQUAL stage1 -> rc=0 cmp=60 NOT_EQUAL stage1
+fix_enter=10 fix_leave=0 fix_movers=22 law_enter=10 law_leave=0 law_movers=22 nogolden=4 views=3616

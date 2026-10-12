@@ -1,0 +1,53 @@
+CMP law VL/vl01_branch_arg d 0 -> 28
+FIXvsLAW VL/vl01_branch_arg d | P: rc=0 cmp=0 STRICT_NOTEQUAL line | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=0 STRICT_NOTEQUAL line | restored by LITVAL 
+CMP law VL/vl01_branch_arg e 0 -> 28
+FIXvsLAW VL/vl01_branch_arg e | P: rc=0 cmp=0 STRICT_NOTEQUAL line | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=0 STRICT_NOTEQUAL line | restored by LITVAL 
+FIXvsLAW VL/vl02_two_args d | P: rc=0 cmp=28 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER 
+FIXvsLAW VL/vl02_two_args e | P: rc=0 cmp=28 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER 
+CMP law VL/vl03_trunc d 28 -> 0
+CMP fix VL/vl03_trunc d 28 -> 0
+CMP law VL/vl03_trunc e 28 -> 0
+CMP fix VL/vl03_trunc e 28 -> 0
+FIXvsLAW VL/vl14_same_val_arms d | P: rc=0 cmp=28 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER | fix==pristine
+FIXvsLAW VL/vl14_same_val_arms e | P: rc=0 cmp=28 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER | fix==pristine
+CMP law VL/vl15_signed_lit d 40 -> 64
+CMP fix VL/vl15_signed_lit d 40 -> 64
+CMP law VL/vl15_signed_lit e 40 -> 64
+CMP fix VL/vl15_signed_lit e 40 -> 64
+CMP law VL/vl16_case_arms d 0 -> 28
+FIXvsLAW VL/vl16_case_arms d | P: rc=0 cmp=0 STRICT_NOTEQUAL line | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=0 STRICT_NOTEQUAL line | restored by LITVAL 
+CMP law VL/vl16_case_arms e 0 -> 28
+FIXvsLAW VL/vl16_case_arms e | P: rc=0 cmp=0 STRICT_NOTEQUAL line | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=0 STRICT_NOTEQUAL line | restored by LITVAL 
+CMP law VL/vl17_named_default d 0 -> 28
+FIXvsLAW VL/vl17_named_default d | P: rc=0 cmp=0 STRICT_NOTEQUAL line | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=0 STRICT_NOTEQUAL line | restored by LITVAL 
+CMP law VL/vl17_named_default e 0 -> 28
+FIXvsLAW VL/vl17_named_default e | P: rc=0 cmp=0 STRICT_NOTEQUAL line | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=0 STRICT_NOTEQUAL line | restored by LITVAL 
+FIXvsLAW VL/vl18_default_omitted d | P: rc=0 cmp=15 NOT_EQUAL stage1 | L: rc=0 cmp=15 NOT_EQUAL stage1 | F: rc=0 cmp=15 NOT_EQUAL stage1 | restored by LITVAL 
+FIXvsLAW VL/vl18_default_omitted e | P: rc=0 cmp=15 NOT_EQUAL stage1 | L: rc=0 cmp=15 NOT_EQUAL stage1 | F: rc=0 cmp=15 NOT_EQUAL stage1 | restored by LITVAL 
+FIXvsLAW VQ/vq03_explicit_imp d | P: rc=0 cmp=28 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER | fix==pristine
+FIXvsLAW VQ/vq03_explicit_imp e | P: rc=0 cmp=28 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER | fix==pristine
+FIXvsLAW VQ/vq07_two_builders_swapped d | P: rc=0 cmp=28 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER | fix==pristine
+FIXvsLAW VQ/vq07_two_builders_swapped e | P: rc=0 cmp=28 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER | fix==pristine
+FIXvsLAW VQ/vq08_two_qual_builders d | P: rc=0 cmp=36 NOT_EQUAL stage1 | L: rc=0 cmp=36 NOT_EQUAL stage1 | F: rc=0 cmp=36 NOT_EQUAL stage1 | restored by SOLEWRITER | fix==pristine
+FIXvsLAW VQ/vq08_two_qual_builders e | P: rc=0 cmp=36 NOT_EQUAL stage1 | L: rc=0 cmp=36 NOT_EQUAL stage1 | F: rc=0 cmp=36 NOT_EQUAL stage1 | restored by SOLEWRITER | fix==pristine
+CMP law VR/vr01_two_lp d 32 -> 28
+CMP fix VR/vr01_two_lp d 32 -> 28
+FIXvsLAW VR/vr01_two_lp d | P: rc=0 cmp=32 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER 
+CMP law VR/vr01_two_lp e 32 -> 28
+CMP fix VR/vr01_two_lp e 32 -> 28
+FIXvsLAW VR/vr01_two_lp e | P: rc=0 cmp=32 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER 
+CMP law VR/vr02_shadow_modtd d 15 -> 36
+CMP fix VR/vr02_shadow_modtd d 15 -> 36
+CMP law VR/vr02_shadow_modtd e 15 -> 36
+CMP fix VR/vr02_shadow_modtd e 15 -> 36
+CMP law VR/vr03_iface_root d 15 -> 28
+CMP fix VR/vr03_iface_root d 15 -> 28
+FIXvsLAW VR/vr03_iface_root d | P: rc=0 cmp=15 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER 
+CMP law VR/vr03_iface_root e 15 -> 28
+CMP fix VR/vr03_iface_root e 15 -> 28
+FIXvsLAW VR/vr03_iface_root e | P: rc=0 cmp=15 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER 
+CMP law VR/vr06_two_inst_param d 62 -> 58
+CMP fix VR/vr06_two_inst_param d 62 -> 58
+CMP law VR/vr06_two_inst_param e 62 -> 58
+CMP fix VR/vr06_two_inst_param e 62 -> 58
+U_OFF_eq_pristine=108 V_OFF_eq_law=108 fix_cmp_changes=12 fix_entering=12 fix_leaving=0 fix_movers=82 fix_vs_law=22 fix_vs_law_pristine_bytes=8 law_cmp_changes=18 law_entering=12 law_leaving=0 law_movers=90 views=108

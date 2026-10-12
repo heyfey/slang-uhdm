@@ -1,0 +1,27 @@
+CMP law LL/l11_modtd d 32 -> 0
+CMP fix LL/l11_modtd d 32 -> 0
+CMP law LL/l11_modtd e 32 -> 0
+CMP fix LL/l11_modtd e 32 -> 0
+CMP law PM/p06_mod_param_ovr d 17 -> 11
+CMP fix PM/p06_mod_param_ovr d 17 -> 11
+CMP law PM/p06_mod_param_ovr e 17 -> 11
+CMP fix PM/p06_mod_param_ovr e 17 -> 11
+CMP law RT/r04_samename_pkg d 15 -> 68
+CMP fix RT/r04_samename_pkg d 15 -> 68
+CMP law RT/r04_samename_pkg e 15 -> 68
+CMP fix RT/r04_samename_pkg e 15 -> 68
+CMP law RT/r06_iface d 15 -> 19
+CMP fix RT/r06_iface d 15 -> 19
+CMP law RT/r06_iface e 15 -> 19
+CMP fix RT/r06_iface e 15 -> 19
+CMP law RT/r07_nested d 951 -> 967
+CMP fix RT/r07_nested d 951 -> 967
+CMP law RT/r07_nested e 1265 -> 1281
+CMP fix RT/r07_nested e 1265 -> 1281
+CMP law RT/r08_two_mods d 32 -> 28
+CMP fix RT/r08_two_mods d 32 -> 28
+FIXvsLAW RT/r08_two_mods d | P: rc=0 cmp=32 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER 
+CMP law RT/r08_two_mods e 32 -> 28
+CMP fix RT/r08_two_mods e 32 -> 28
+FIXvsLAW RT/r08_two_mods e | P: rc=0 cmp=32 NOT_EQUAL stage1 | L: rc=0 cmp=28 NOT_EQUAL stage1 | F: rc=0 cmp=28 NOT_EQUAL stage1 | restored by SOLEWRITER 
+U_OFF_eq_pristine=114 V_OFF_eq_law=114 fix_cmp_changes=12 fix_entering=47 fix_leaving=0 fix_movers=96 fix_vs_law=2 fix_vs_law_pristine_bytes=0 law_cmp_changes=12 law_entering=47 law_leaving=0 law_movers=96 views=114

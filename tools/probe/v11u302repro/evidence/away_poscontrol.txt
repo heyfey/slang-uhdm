@@ -1,0 +1,13 @@
+VC/vc01_paren_nocast d chain away=4 toward=0 flat_away=4 flat_toward=0
+VC/vc04_unpacked d chain away=4 toward=0 flat_away=4 flat_toward=0
+VC/vc08_macro_key d chain away=8 toward=0 flat_away=8 flat_toward=0
+VG/vg04_iface_imp d chain away=1 toward=0 flat_away=1 flat_toward=0
+VL/vl03_trunc d chain away=32 toward=0 flat_away=32 flat_toward=0
+VL/vl08_unit_twomods d chain away=28 toward=0 flat_away=28 flat_toward=0
+VL/vl11_sel_slot d chain away=32 toward=0 flat_away=32 flat_toward=0
+VL/vl15_signed_lit d chain away=112 toward=0 flat_away=112 flat_toward=0
+VP/vp03_modtd d chain away=6 toward=0 flat_away=6 flat_toward=0
+VP/vp06_shadow_pkg d chain away=36 toward=0 flat_away=36 flat_toward=0
+VQ/vq05_twopkgs d chain away=16 toward=0 flat_away=48 flat_toward=1
+VR/vr02_shadow_modtd d chain away=36 toward=0 flat_away=44 flat_toward=0
+VR/vr05_unpacked_var d chain away=36 toward=0 flat_away=36 flat_toward=0

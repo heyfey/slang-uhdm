@@ -1,0 +1,15 @@
+vl01_branch_arg.uhdm
+      1 modFnLitLeftoverAtLiteral302 share a
+      1 modFnLitLeftoverValueGate302v_ABSTAIN valuediff b
+vl02_two_args.uhdm
+      1 leftoverSlotSoleWriter302v_ABSTAIN lit b
+      2 modFnLitLeftoverAtLiteral302 share a
+      1 modFnLitLeftoverValueGate302v_ABSTAIN valuediff b
+vq03_explicit_imp.uhdm
+      2 leftoverSlotSoleWriter302v_ABSTAIN lit d
+      2 leftoverSlotSoleWriter302v_ABSTAIN pkgpat u
+      1 pkgPatLeftoverSrcPkgListing302_ABSTAIN unqualified
+vq07_two_builders_swapped.uhdm
+      2 leftoverSlotSoleWriter302v_ABSTAIN lit d
+      2 leftoverSlotSoleWriter302v_ABSTAIN pkgpat u
+      1 pkgPatLeftoverSrcPkgListing302_ABSTAIN unqualified

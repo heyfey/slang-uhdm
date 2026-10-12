@@ -44,6 +44,7 @@
 #include "R288.h"
 #include "R294.h"
 #include "R296.h"
+#include "R302.h"
 namespace slang_uhdm {
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
@@ -3171,6 +3172,22 @@ static std::map<const UHDM::operation*, std::vector<UHDM::operation*>>&
 patLeftoverClones227() {
     static std::map<const UHDM::operation*, std::vector<UHDM::operation*>> m;
     return m;
+}
+// § pkgPatLeftoverSrcPkgListing302 / § modPatLeftoverCloneNoParent302 — the
+// read parameter is declared in a PACKAGE (walking out of generate blocks);
+// anything else (a module, interface or program parameter) is module-held.
+static bool memLeftParamPkgHeld302(const slang::ast::Symbol* p) {
+    for (auto* sc = p ? p->getParentScope() : nullptr; sc;) {
+        auto& sy = sc->asSymbol();
+        if (sy.kind == slang::ast::SymbolKind::Package)
+            return true;
+        if (sy.kind == slang::ast::SymbolKind::InstanceBody ||
+            sy.kind == slang::ast::SymbolKind::CompilationUnit ||
+            sy.kind == slang::ast::SymbolKind::Root)
+            return false;
+        sc = sy.getParentScope();
+    }
+    return false;
 }
 UHDM::operation* UhdmExporter::memLeftPatParamClone26(const UHDM::any* src) {
     if (!src || src->UhdmType() != UHDM::uhdmoperation)
@@ -7377,6 +7394,74 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     // (FuncStructVal golden: 96 leftovers on a 97-member struct).  When the
     // caller's pattern was not recorded (its elab view folded the whole
     // pattern away), the slice fallback built at the param site stands.
+    // § leftoverSlotSoleWriter302v (v11u302) — A TYPESPEC MEMBER'S LEFTOVER IS
+    // A SINGLE SLOT AND THE LAST EVALUATION WRITES IT: golden v11u302repro
+    // VQ/vq03 (two module builders writing pk::c_t's `u`, `mk` from `pk::UU`
+    // then `mk2` from `UU` through `import pk::UU`) leaves mk2's clone of the
+    // module's copy (`work@dut`), and VQ/vq07 (the two localparams swapped)
+    // leaves mk's clone of the package listing (`pk`).  The stamp walk below
+    // keeps the FIRST stamp's values on a shared typedef (the landed model),
+    // so pristine's module-copy clone matched golden on vq03 by coincidence and
+    // § pkgPatLeftoverSrcPkgListing302 turned it into the package listing's
+    // (chain away 26 and 27); § modFnLitLeftoverAtLiteral302 likewise moved
+    // vq07's `d` and VL/vl02's `b` (two calls of one builder giving different
+    // values) to the first writer's literal (chain away 1).  The three drain
+    // laws (literal, module pattern, package pattern) now stand aside on a
+    // member whose slot another stamp also writes from another body
+    // expression, another parameter read or another value: a struct type
+    // written by one stamp, or by several that agree (one $unit builder called
+    // from two modules, VL/vl08), keeps the laws.  Keyed by the owner
+    // parameter's canonical struct type.  Switch R11V302_SOLEWRITER_OFF.
+    // kind 'l' (the literal law): another writer of the slot writes another
+    // literal (by its source location: two instances of one module body hold
+    // two AST copies of the same literal), a non-literal, or another value;
+    // kind 's' (the package-listing law): another writer reads from another
+    // read site or another parameter; kind 'm' (the module-pattern law):
+    // another writer is not a module-held pattern-parameter read.
+    auto slotShared302v = [&](const SrlgMemLeftStamp& me, size_t i,
+                              char kind) -> bool {
+        if (!me.owner)
+            return false;
+        auto& ct = me.owner->getType().getCanonicalType();
+        auto at = [](const auto& v, size_t k) {
+            return k < v.size() ? v[k] : nullptr;
+        };
+        auto srcLoc = [](const slang::ast::Expression* e) {
+            return e ? e->sourceRange.start() : slang::SourceLocation();
+        };
+        const UHDM::any* mv = at(me.minted, i);
+        auto ms = mv ? mintSlice302v().find(mv) : mintSlice302v().end();
+        for (auto& o : memLeftStamps) {
+            if (&o == &me || !o.owner || o.owner == me.owner)
+                continue;
+            if (&o.owner->getType().getCanonicalType() != &ct)
+                continue;
+            if (o.names.size() != me.names.size() || i >= o.names.size() ||
+                o.names[i] != me.names[i])
+                continue;
+            if (kind == 'l') {
+                if (!at(o.litRhs, i) ||
+                    srcLoc(at(o.litRhs, i)) != srcLoc(at(me.litRhs, i)))
+                    return true;
+                const UHDM::any* ov = at(o.minted, i);
+                auto os = ov ? mintSlice302v().find(ov) : mintSlice302v().end();
+                if (ms == mintSlice302v().end() || os == mintSlice302v().end() ||
+                    !exactlyEqual(ms->second, os->second))
+                    return true;
+            }
+            else if (kind == 's') {
+                if (at(o.paramRead, i) != at(me.paramRead, i) ||
+                    srcLoc(at(o.rhsExpr, i)) != srcLoc(at(me.rhsExpr, i)))
+                    return true;
+            }
+            else {
+                if (!at(o.paramRead, i) ||
+                    memLeftParamPkgHeld302(at(o.paramRead, i)))
+                    return true;
+            }
+        }
+        return false;
+    };
     for (auto& st : memLeftStamps) {
         // § patLeftoverCopyShared236 — one copy per caller element per stamp.
         std::map<const UHDM::any*, UHDM::constant*> cp236;
@@ -7622,6 +7707,107 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                     st.values[i] = (UHDM::expr*)lit->second;
                     continue;
                 }
+                // § modFnLitLeftoverAtLiteral302 (r11u302) — A LITERAL BODY
+                // RIGHT SIDE WITH NO EMITTED BODY OBJECT (a MODULE or
+                // interface function: bodyAsgRhsObj records package
+                // subroutines only) LEAVES ITS LEFTOVER AT THE LITERAL, NOT
+                // AT THE CALL.  ExprEval::setValueInInstance stamps
+                // reduceExpr(<body RHS>), and a literal reduces to itself:
+                // golden r11u26repro/m4 `c.d = 64` reads the leftover at the
+                // `64` (12:32-34, UINT:64 size 64 as ours) where ours parked
+                // the minted value at `mk()` (14:26-30); r11u24repro/n4 a
+                // nested write's last literal, r11u13repro/b3 `c.A = 32`.
+                // Only the minted constant moves (fields unchanged).  Switch
+                // R11U302_LITLOC_OFF.
+                // § modFnLitLeftoverValueGate302v (v11u302) — THE LITERAL IS
+                // THE LEFTOVER ONLY WHEN IT IS THE WRITE THE EVALUATION TOOK.
+                // The leftover collector keeps the LAST WRITTEN assignment of
+                // a member in the body's text, while setValueInInstance stamps
+                // the literal of the assignment the evaluation executed: a
+                // builder writing `b` on both branches of `if (s)` (golden
+                // v11u302repro VL/vl01, mk(1'b1): the `64` of the taken branch at
+                // 8:38) got the other branch's `99` from the law (uhdm-cmp 0 ->
+                // 28 lines, pristine's minted UINT:64 at the call matching
+                // golden's value).  The law now fires only when the literal,
+                // sized to the write target as the assignment converts it,
+                // equals the folded bits the minted constant was cut from; a
+                // truncated literal still fires (VL/vl03 `c.a = 300` into
+                // 8 bits: golden keeps UINT:300, the minted UINT:44).  Switch
+                // R11V302_LITVAL_OFF.
+                bool val302v = true;
+                if (i < st.minted.size() && st.values[i] &&
+                    st.values[i] == st.minted[i] &&
+                    st.values[i]->UhdmType() == UHDM::uhdmconstant &&
+                    r11u302On("R11U302_LITLOC_OFF")) {
+                    if (r11v302On("R11V302_LITVAL_OFF")) {
+                        auto ms302v = mintSlice302v().find(st.minted[i]);
+                        auto& le302v = stripImplicitConv(*st.litRhs[i]);
+                        std::optional<slang::SVInt> lv302v;
+                        if (le302v.kind == ExpressionKind::IntegerLiteral)
+                            lv302v = le302v.as<IntegerLiteral>().getValue();
+                        else if (le302v.kind ==
+                                 ExpressionKind::UnbasedUnsizedIntegerLiteral)
+                            lv302v = le302v.as<UnbasedUnsizedIntegerLiteral>()
+                                         .getValue();
+                        if (ms302v == mintSlice302v().end() || !lv302v)
+                            val302v = false;
+                        else {
+                            auto w302v = ms302v->second.getBitWidth();
+                            slang::SVInt sz302v =
+                                lv302v->getBitWidth() >= w302v
+                                    ? lv302v->trunc(w302v)
+                                    : lv302v->extend(w302v, lv302v->isSigned());
+                            // bits only: a signed literal's -56 and the
+                            // folded member's 200 are the same 8 bits
+                            slang::SVInt mb302v = ms302v->second;
+                            sz302v.setSigned(false);
+                            mb302v.setSigned(false);
+                            val302v = exactlyEqual(sz302v, mb302v);
+                        }
+                        if (!val302v)
+                            tr302("modFnLitLeftoverValueGate302v_ABSTAIN",
+                                  "valuediff " + st.names[i]);
+                    }
+                    if (val302v && r11v302On("R11V302_SOLEWRITER_OFF") &&
+                        slotShared302v(st, i, 'l')) {
+                        val302v = false;
+                        tr302("leftoverSlotSoleWriter302v_ABSTAIN",
+                              "lit " + st.names[i]);
+                    }
+                }
+                if (!val302v) {
+                    // a refinement abstention: pristine's minted constant stays
+                }
+                else if (i < st.minted.size() && st.values[i] &&
+                    st.values[i] == st.minted[i] &&
+                    st.values[i]->UhdmType() == UHDM::uhdmconstant) {
+                    if (r11u302On("R11U302_LITLOC_OFF")) {
+                        auto mit302 = modFnBodyLit302().find(st.litRhs[i]);
+                        // The FIRST emitted copy (the definition listing's
+                        // subroutine, which the walk meets before any
+                        // re-expansion: golden lists the shared literal there
+                        // and not again inside a later typespec copy).
+                        if (mit302 != modFnBodyLit302().end() &&
+                            !mit302->second.empty()) {
+                            auto& v302 = mit302->second;
+                            st.values[i] = (UHDM::expr*)v302.front();
+                            tr302("modFnLitLeftoverAtLiteral302",
+                                  "share " + st.names[i]);
+                        }
+                        else {
+                            auto* c302 = (UHDM::constant*)st.values[i];
+                            c302->VpiFile("");
+                            setLoc(c302, st.litRhs[i]->sourceRange);
+                            tr302("modFnLitLeftoverAtLiteral302",
+                                  "reloc " + st.names[i]);
+                        }
+                    }
+                    else
+                        tr302("modFnLitLeftoverAtLiteral302_ABSTAIN", "off");
+                }
+                else
+                    tr302("modFnLitLeftoverAtLiteral302_ABSTAIN",
+                          "notminted " + st.names[i]);
             }
             if (i < st.argWholeParam.size() && st.argWholeParam[i]) {
                 auto ait = elabParamConst.find(st.argWholeParam[i]);
@@ -7681,8 +7867,107 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                 // Rhs of every parameter, which is the copy golden's leftover
                 // is taken from.
                 auto rit = elabParamRhsObj6.find(st.paramRead[i]);
-                if (rit != elabParamRhsObj6.end() && rit->second)
-                    if (auto* pc26 = memLeftPatParamClone26(rit->second)) {
+                // § pkgPatLeftoverSrcPkgListing302 (r11u302) — A PACKAGE
+                // PATTERN PARAMETER READ WHOLE IN A MODULE'S FUNCTION LEAVES A
+                // CLONE OF THE PACKAGE LISTING'S OWN RHS.  The producer's
+                // getValue resolves `pk::UU` (or `UU` through an import) to
+                // the package's param_assign, never to the importing module's
+                // copy of it (golden r11u26repro/m7: the leftover's reference
+                // reads `pk`, ours `work@dut` from the module's import copy,
+                // which writes elabParamRhsObj6 after the package listing).
+                // Switch R11U302_PATSRCPKG_OFF.
+                const UHDM::any* src302 =
+                    (rit != elabParamRhsObj6.end()) ? rit->second : nullptr;
+                const bool pkgHeld302 = memLeftParamPkgHeld302(st.paramRead[i]);
+                // Only a QUALIFIED read: getValue resolves a bare `UU`
+                // (through an import) in the instance first, and that finds
+                // the importing module's own copy (grid PM/p03, golden's
+                // leftover a clone of `work@dut`'s copy).
+                bool qual302 = false;
+                if (i < st.rhsExpr.size() && st.rhsExpr[i]) {
+                    auto& q302 = stripImplicitConv(*st.rhsExpr[i]);
+                    qual302 = q302.syntax &&
+                              q302.syntax->kind == slang::syntax::SyntaxKind::ScopedName;
+                }
+                if (pkgHeld302 && src302 && !qual302)
+                    tr302("pkgPatLeftoverSrcPkgListing302_ABSTAIN", "unqualified");
+                // § leftoverSlotSoleWriter302v (see the helper above): a
+                // member slot another stamp also writes keeps pristine's
+                // clone for both pattern laws.
+                const bool sole302v =
+                    !(r11v302On("R11V302_SOLEWRITER_OFF") && src302 &&
+                      slotShared302v(st, i, pkgHeld302 ? 's' : 'm'));
+                if (!sole302v)
+                    tr302("leftoverSlotSoleWriter302v_ABSTAIN",
+                          std::string(pkgHeld302 ? "pkgpat " : "modpat ") +
+                              st.names[i]);
+                if (pkgHeld302 && src302 && qual302 && sole302v) {
+                    auto pit302 = pkgOwnElabRhs302().find(st.paramRead[i]);
+                    if (pit302 != pkgOwnElabRhs302().end() && pit302->second &&
+                        pit302->second != src302) {
+                        if (r11u302On("R11U302_PATSRCPKG_OFF")) {
+                            src302 = pit302->second;
+                            tr302("pkgPatLeftoverSrcPkgListing302",
+                                  std::string(st.paramRead[i]->name));
+                        }
+                        else
+                            tr302("pkgPatLeftoverSrcPkgListing302_ABSTAIN",
+                                  "off");
+                    }
+                }
+                if (src302)
+                    if (auto* pc26 = memLeftPatParamClone26(src302)) {
+                        // § modPatLeftoverCloneNoParent302 (r11u302) — A
+                        // MODULE-HELD PATTERN PARAMETER'S LEFTOVER CLONE HAS
+                        // NO PARENT AND AN UNNAMED REFERENCE.  Golden
+                        // r11u26repro/m4 and r11u28repro/a2 (`localparam
+                        // pk::in_t UU = '{...}` in the module whose function
+                        // writes `c.u = UU`): the typespec member's leftover
+                        // operation carries no vpiParent and its ref_typespec
+                        // neither a parent nor a full name, where the package-
+                        // held parameter's clone keeps the package
+                        // param_assign (§ patParamLeftoverShare26).  Switch
+                        // R11U302_PATMODNOPAR_OFF.
+                        if (!pkgHeld302 && sole302v) {
+                            if (r11u302On("R11U302_PATMODNOPAR_OFF")) {
+                                pc26->VpiParent(nullptr);
+                                if (auto* rt302 = pc26->Typespec()) {
+                                    rt302->VpiParent(nullptr);
+                                    rt302->VpiFullName("");
+                                    rt302->VpiName("");
+                                    // ExprEval mints the reference onto the
+                                    // pattern's declared type: a package
+                                    // typedef binds the package listing's
+                                    // object (golden m4: the members' refs
+                                    // read pk::pk::in_t::a), not the
+                                    // module's copy (§ pkgPatReadTsBindsTopTypedef192's
+                                    // binding, on the module road).
+                                    if (st.paramRead[i]->kind ==
+                                        SymbolKind::Parameter) {
+                                        auto& ty302 = st.paramRead[i]
+                                                          ->as<ParameterSymbol>()
+                                                          .getType();
+                                        if (ty302.isAlias())
+                                            if (auto t302 = pkgTopTypedefTs.find(
+                                                    (const void*)&ty302.as<TypeAliasType>());
+                                                t302 != pkgTopTypedefTs.end() &&
+                                                t302->second &&
+                                                rt302->Actual_typespec() &&
+                                                t302->second->UhdmType() ==
+                                                    rt302->Actual_typespec()->UhdmType()) {
+                                                rt302->Actual_typespec(t302->second);
+                                                tr302("modPatLeftoverCloneNoParent302",
+                                                      "toptd");
+                                            }
+                                    }
+                                }
+                                tr302("modPatLeftoverCloneNoParent302",
+                                      std::string(st.paramRead[i]->name));
+                            }
+                            else
+                                tr302("modPatLeftoverCloneNoParent302_ABSTAIN",
+                                      "off");
+                        }
                         st.values[i] = pc26;
                         if (st.patOpVal.size() < st.values.size())
                             st.patOpVal.resize(st.values.size(), false);
@@ -7842,6 +8127,60 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     auto tsOf = [](UHDM::ref_typespec* rt) -> UHDM::typespec* {
         return rt ? rt->Actual_typespec() : nullptr;
     };
+    // § rootTdLeftoverStamp302 (r11u302) — A COMPILATION-UNIT ($root) STRUCT
+    // TYPEDEF IS STAMPED ON THE DESIGN'S OWN TYPESPEC, AND THE STAMPED
+    // PARAMETER BINDS IT.  Golden r11u24repro/n11 (`typedef struct packed
+    // {...} rc_t;` at file scope, `localparam rc_t L = mk()` in the module):
+    // the design's rc_t object carries the leftovers and every reference to
+    // rc_t reads it (the parameter's members name `rc_t.a`, the function
+    // variable's typespec lists the stamps), where the walk below reaches
+    // only TopPackages' typespecs and TopModules' parameters.  Matched by the
+    // owner parameter's declared type: a typedef declared in the
+    // compilation unit with the typespec's name.  Switch
+    // R11U302_ROOTTDSTAMP_OFF.
+    if (d->Typespecs()) {
+        const bool on302 = r11u302On("R11U302_ROOTTDSTAMP_OFF");
+        for (auto* t : *d->Typespecs()) {
+            if (!t || t->UhdmType() != UHDM::uhdmstruct_typespec)
+                continue;
+            auto* sts = (UHDM::struct_typespec*)t;
+            if (!sts->Members() || done.count(sts))
+                continue;
+            for (auto& st : memLeftStamps) {
+                if (!st.owner || st.stamped)
+                    continue;
+                auto& oty = st.owner->getType();
+                if (!oty.isAlias())
+                    continue;
+                auto& ali = oty.as<TypeAliasType>();
+                auto* asc = ali.getParentScope();
+                if (!asc || asc->asSymbol().kind != SymbolKind::CompilationUnit ||
+                    sts->VpiName() != ali.name)
+                    continue;
+                if (sts->Members()->size() != st.names.size())
+                    continue;
+                bool match = true;
+                for (size_t i = 0; i < st.names.size(); i++)
+                    if ((*sts->Members())[i]->VpiName() != st.names[i])
+                        match = false;
+                if (!match)
+                    continue;
+                if (!on302) {
+                    tr302("rootTdLeftoverStamp302_ABSTAIN", "off");
+                    break;
+                }
+                for (size_t i = 0; i < st.names.size(); i++) {
+                    auto* tm = (*sts->Members())[i];
+                    if (st.values[i] && !tm->Actual_value())
+                        tm->Actual_value(st.values[i]);
+                }
+                st.stamped = sts;
+                done.insert(sts);
+                tr302("rootTdLeftoverStamp302", std::string(ali.name));
+                break;
+            }
+        }
+    }
     if (auto* tp = d->TopPackages())
         for (auto* p : *tp) {
             if (p->Typespecs())
@@ -16272,6 +16611,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 s, f9, whole, (*leftovers)[li9].enc,
                                 (*leftovers)[li9].selOff,
                                 (*leftovers)[li9].selWidth);
+                            // § modFnLitLeftoverValueGate302v — the bits this
+                            // minted constant was cut from (makeMemLeftConst's
+                            // own range rule), read only by the literal branch's
+                            // gate.  A record: no byte moves here.
+                            if (c9) {
+                                uint64_t w302v = (*leftovers)[li9].selWidth
+                                                     ? (*leftovers)[li9].selWidth
+                                                     : f9.getType().getBitWidth();
+                                uint64_t o302v = (*leftovers)[li9].selWidth
+                                                     ? (*leftovers)[li9].selOff
+                                                     : f9.bitOffset;
+                                if (w302v && o302v + w302v <= whole.getBitWidth())
+                                    mintSlice302v()[c9] = whole.slice(
+                                        (int32_t)(o302v + w302v - 1), (int32_t)o302v);
+                            }
                             if (!c9) {
                                 ok9 = false;
                                 break;
@@ -19794,6 +20148,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 }
                             }
                         impPkgSelFlat60 = ok60;
+                        // § elabImpSelFlatKeepsParent302 — recorded for the
+                        // elaborated listings' walk (pkgPatReadTsNoParent131).
+                        if (ok60)
+                            impSelFlat302().insert(
+                                std::string(homePkg60->name) + "::" +
+                                std::string(ps.name));
                     }
                     // § elabUnpStructOperandWidth61 (r11u61) — EVERY OPERAND OF
                     // A FLAT ELABORATED STRUCT PATTERN IS SIZED AT ITS MEMBER'S
@@ -25718,6 +26078,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // copy's DEF listing).
                 if (topView && !defViewOrig9)
                     elabParamRhsObj6[&member] = rhs;
+                // § pkgPatLeftoverSrcPkgListing302 — the package's OWN
+                // elaborated listing of its parameter (an import copy in a
+                // module listing writes elabParamRhsObj6 after it).
+                if (topView && !defViewOrig9 && inPackage && !isImported)
+                    pkgOwnElabRhs302()[&member] = rhs;
                 // A DEF-view param_assign is a DEEP-CLONED object at
                 // elaboration, so Surelog re-parents its Rhs at the
                 // param_assign. Our fold/emit fallback leaves a bare constant
@@ -25870,6 +26235,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         // § nestedParamActualTs6 VIEW GUARD (see above).
                         if (topView && !defViewOrig9)
                             elabParamRhsObj6[&member] = cc9;
+                        // § pkgPatLeftoverSrcPkgListing302 (see above).
+                        if (topView && !defViewOrig9 && inPackage && !isImported)
+                            pkgOwnElabRhs302()[&member] = cc9;
                     }
                 }
                 // The ELAB (top-view) MODULE copy of a TYPED param re-emits
@@ -36961,6 +37329,54 @@ void UhdmExporter::drainShareDefParamTs() {
                                at->UhdmType() == UHDM::uhdmbit_typespec);
                     if (!packed131)
                         continue;
+                    // § elabImpSelFlatKeepsParent302 (r11u302) — AN IMPORT
+                    // COPY THE DECLARING PACKAGE ALREADY FLATTENED KEEPS ITS
+                    // PARENTED REFERENCE.  § modDefImportPkgSelFlat60: a
+                    // member select written in the declaring package reduces
+                    // the package's param_assign in place while the package
+                    // compiles, and every module's copy is a clone_tree of
+                    // that flat Rhs, whose ref_typespec the clone re-parents
+                    // at the copy's operation; only a copy the elaborator
+                    // flattens itself (a never-selected sibling) carries the
+                    // reference ExprEval mints unparented.  Golden
+                    // r11u60repro/g7: `work@g7top.u_q`'s WSEL (96-bit,
+                    // selected by `typedef logic [WSEL.a-1:0]` in p7) reads
+                    // `work@g7top.u_q`, its never-read sibling WNON an
+                    // unnamed reference.  Switch R11U302_IMPSELFLATPAR_OFF.
+                    {
+                        std::string k302 =
+                            std::string(((const UHDM::parameter*)l)->VpiImported()) +
+                            "::" + std::string(l->VpiName());
+                        if (impSelFlat302().count(k302)) {
+                            if (r11u302On("R11U302_IMPSELFLATPAR_OFF")) {
+                                // The copy's own reference, parented at the
+                                // copy's operation and named by the chain
+                                // (golden `work@g7top.u_q`); an emitted
+                                // copy that already shares an unparented
+                                // reference takes a fresh one.
+                                if (!rt->VpiParent()) {
+                                    auto* prt302 = s.MakeRef_typespec();
+                                    prt302->VpiParent(r);
+                                    std::string fn302;
+                                    if (o->UhdmType() == UHDM::uhdmmodule_inst)
+                                        fn302 = ((const UHDM::module_inst*)o)->VpiFullName();
+                                    else if (o->UhdmType() == UHDM::uhdminterface_inst)
+                                        fn302 = ((const UHDM::interface_inst*)o)->VpiFullName();
+                                    else if (o->UhdmType() == UHDM::uhdmgen_scope)
+                                        fn302 = ((const UHDM::gen_scope*)o)->VpiFullName();
+                                    prt302->VpiFullName(fn302);
+                                    prt302->Actual_typespec(at);
+                                    ((UHDM::operation*)r)->Typespec(prt302);
+                                    tr302("elabImpSelFlatKeepsParent302",
+                                          "fresh " + k302);
+                                }
+                                else
+                                    tr302("elabImpSelFlatKeepsParent302", k302);
+                                continue;
+                            }
+                            tr302("elabImpSelFlatKeepsParent302_ABSTAIN", "off");
+                        }
+                    }
                     auto* nrt = s.MakeRef_typespec();
                     nrt->Actual_typespec(at);
                     ((UHDM::operation*)r)->Typespec(nrt);
