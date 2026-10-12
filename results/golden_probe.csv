@@ -920,8 +920,8 @@ r10uvm47repro/t65d,EQUAL,,equal
 r10uvm47repro/t66a,EQUAL,,equal
 r10uvm48repro/t67a,EQUAL,,equal
 r10uvm48repro/t67b,EQUAL,,equal
-r10uvm48repro/t67d,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
-r10uvm48repro/t67e,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+r10uvm48repro/t67d,EQUAL,,equal
+r10uvm48repro/t67e,EQUAL,,equal
 r10uvm49repro/a2,EQUAL,,equal
 r10uvm49repro/a3,EQUAL,,equal
 r10uvm49repro/a4,EQUAL,,equal
@@ -967,7 +967,7 @@ r10uvm58repro/v3_specelab,EQUAL,,equal
 r10uvm59repro/a2_position,EQUAL,,equal
 r10uvm59repro/a3_scope,EQUAL,,equal
 r10uvm59repro/c01_lvalue,EQUAL,,equal
-r10uvm59repro/c05_cast,STRICT_NOTEQUAL,differ:file(2),differ:file(2)
+r10uvm59repro/c05_cast,EQUAL,,equal
 r10uvm59repro/c09_concat,EQUAL,,equal
 r10uvm59repro/c10_esc,EQUAL,,equal
 r10uvm59repro/c11_macro,EQUAL,,equal
@@ -1090,7 +1090,7 @@ r10uvm99repro/g99_a8_class,EQUAL,,equal
 r10uvm99repro/g99_a9_fence,STRICT_NOTEQUAL,differ:count(0),differ:count(0)
 r10v100repro/v100_b1_expr_shapes,EQUAL,,equal
 r10v100repro/v100_b2_stmt_kinds,EQUAL,,equal
-r10v100repro/v100_b3_trivia,STRICT_NOTEQUAL,differ:line(8),differ:line(8)
+r10v100repro/v100_b3_trivia,EQUAL,,equal
 r10v102repro/a01_basic,EQUAL,,equal
 r10v102repro/c04_unit,EQUAL,,equal
 r10v102repro/e01_cast,EQUAL,,equal
@@ -4025,7 +4025,7 @@ v11u116repro/arms/r1_expl,EQUAL,,equal
 v11u116repro/arms/r1_imp2,EQUAL,,equal
 v11u116repro/arms/r3_expl,EQUAL,,equal
 v11u116repro/arms/r3_qual,EQUAL,,equal
-v11u117repro/grid/b02,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+v11u117repro/grid/b02,EQUAL,,equal
 v11u93b107repro/brk/p01_multidecl,EQUAL,,equal
 v11u93b107repro/brk/p02_nested_member_dim,EQUAL,,equal
 v11u93b107repro/brk/p03_func_ret,EQUAL,,equal

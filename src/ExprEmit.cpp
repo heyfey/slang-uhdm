@@ -52,6 +52,7 @@
 #include "R284.h"
 #include "R286.h"
 #include "R288.h"
+#include "R292.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -23590,7 +23591,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          : std::string(nv.symbol.name));
                 auto* qr9 = s.MakeRef_obj();
                 qr9->VpiName(nm9);
-                qr9->VpiFullName(joinPath(prefix, nm9));
+                // § pkgVarLvalueScopeSep292 (r11u292) — as an assignment
+                // TARGET the `<pkg>::@@BAD_SYMBOL@@` placeholder joins its
+                // scope with `::` when the scope is a package or class
+                // subroutine (the prefix's first separator a `::`):
+                // golden p67::rdr67::h2::q67::@@BAD_SYMBOL@@ (t67d H2),
+                // p::h::q::@@BAD_SYMBOL@@ in a package function and
+                // work@top::c::h::q::@@BAD_SYMBOL@@ in a module's class,
+                // where joinPath wrote `.`; a module or interface
+                // subroutine or process keeps `.` (joinRef's own rule, the
+                // same join § staticScopedRef12 already uses for the class
+                // arm below).  Grid tools/probe/r11u292repro/cases/PQ.
+                // Switch R11U292_PVLVSEP_OFF.
+                if (inLhs) {
+                    std::string j292 = joinRef(prefix, nm9);
+                    if (j292 != joinPath(prefix, nm9)) {
+                        if (r11u292On("R11U292_PVLVSEP_OFF")) {
+                            tr292("PVLVSEP", j292);
+                            qr9->VpiFullName(j292);
+                        }
+                        else
+                            qr9->VpiFullName(joinPath(prefix, nm9));
+                    }
+                    else
+                        qr9->VpiFullName(joinPath(prefix, nm9));
+                }
+                else
+                    qr9->VpiFullName(joinPath(prefix, nm9));
                 qr9->VpiParent(parent);
                 setLoc(qr9, expr.sourceRange);
                 // § pkgQualVarRefScopeSpan121 (r11u121, residue R5 of pass
@@ -32414,6 +32441,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 castSynOverride)
                 effCastSyn = castSynOverride;
             castSynOverride = nullptr;
+            // § castInvalidOperandSyntax292 (r11u292) — slang wraps an
+            // UNRESOLVABLE operand (`int'(T::get())` inside a generic class,
+            // the InvalidExpression § invalidScopedCallRef59 decodes) in an
+            // explicit Conversion that carries NO syntax, so the cast's target
+            // typespec was minted with no location; Surelog compiles the cast
+            // from its written syntax and locates the target at the type
+            // keyword (golden r10uvm59repro/c05_cast int_typespec 6:15-18,
+            // ours unlocated).  The cast syntax is recovered by climbing from
+            // the Invalid operand's own syntax through the call, scoped-name
+            // and parenthesis nodes to the CastExpression whose operand it
+            // is.  Grid tools/probe/r11u292repro/cases/CT.  Switch
+            // R11U292_CASTINV_OFF.
+            if (!effCastSyn && conv.operand().kind == ExpressionKind::Invalid &&
+                conv.operand().syntax) {
+                const syntax::SyntaxNode* up292 = conv.operand().syntax;
+                const syntax::SyntaxNode* cast292 = nullptr;
+                for (int g = 0; g < 8 && up292; ++g) {
+                    if (up292->kind == syntax::SyntaxKind::CastExpression) {
+                        cast292 = up292;
+                        break;
+                    }
+                    if (up292->kind != syntax::SyntaxKind::ScopedName &&
+                        up292->kind != syntax::SyntaxKind::InvocationExpression &&
+                        up292->kind != syntax::SyntaxKind::ParenthesizedExpression &&
+                        up292->kind != syntax::SyntaxKind::IdentifierName &&
+                        up292->kind != syntax::SyntaxKind::ArgumentList)
+                        break;
+                    up292 = up292->parent;
+                }
+                if (cast292) {
+                    if (r11u292On("R11U292_CASTINV_OFF")) {
+                        effCastSyn = cast292;
+                        tr292("CASTINV", rawText(cast292->sourceRange()));
+                    }
+                }
+                else
+                    tr292("CASTINV_ABSTAIN", "no-cast-ancestor");
+            }
             // A COMPILER-INSERTED string conversion of a string literal (the
             // implicit string context of {NAME, "efgh"}) carries no cast
             // syntax — Surelog emits the bare string constant, no cast op.
@@ -34516,6 +34581,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         effCastSyn->as<syntax::CastExpressionSyntax>()
                             .left->kind,
                         ct.isSigned());
+                // § castTypeParamDefaultKind292 (r11u292) — a cast to a
+                // CLASS's type parameter takes the KIND of the parameter's
+                // default keyword through the same table (golden
+                // short_int_typespec for `T'(3)` with `type T = shortint`,
+                // ours the int_typespec of the canonical type); the location
+                // is § castTypeParamDefaultLoc292's.  Switch
+                // R11U292_CASTTPKIND_OFF.
+                if (!cts && effCastSyn &&
+                    effCastSyn->kind == syntax::SyntaxKind::CastExpression &&
+                    effCastSyn->as<syntax::CastExpressionSyntax>().left->kind ==
+                        syntax::SyntaxKind::IdentifierName &&
+                    expr.type && expr.type->kind == SymbolKind::TypeAlias) {
+                    const TypeParameterSymbol* tk292 =
+                        typeParamOfAlias(expr.type->as<TypeAliasType>());
+                    if (tk292 && tk292->getParentScope() &&
+                        tk292->getParentScope()->asSymbol().kind ==
+                            SymbolKind::ClassType)
+                        if (auto* dk292 = tk292->targetType.getTypeSyntax())
+                            if (r11u292On("R11U292_CASTTPKIND_OFF"))
+                                if ((cts = castKeywordTypespec96(s, dk292->kind,
+                                                                 ct.isSigned())))
+                                    tr292("CASTTPKIND", std::string(tk292->name));
+                }
                 if (cts) {
                     // Bound by the keyword table; the shared span/instance
                     // stamps below still apply.
@@ -34574,6 +34662,47 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 if (effCastSyn && effCastSyn->kind == syntax::SyntaxKind::CastExpression)
                     setLoc(cts, effCastSyn->as<syntax::CastExpressionSyntax>().left->sourceRange());
+                // § castTypeParamDefaultLoc292 (r11u292) — a cast to a CLASS's
+                // type parameter (`T'(3)` with `class gen #(type T = int)`)
+                // mints its integer typespec at the type parameter's DEFAULT
+                // type, the object Surelog's class compiler built for the
+                // parameter and the cast reuses (golden
+                // r10uvm59repro/c05_cast int_typespec 3:26-29, ours the
+                // written T at 10:15-16).  Only a predefined integer keyword
+                // default reaches this arm; a module's type parameter (stage 1,
+                // exit 4 on every binary) is not touched.  Grid
+                // tools/probe/r11u292repro/cases/CT.  Switch
+                // R11U292_CASTTPDEF_OFF.
+                if (effCastSyn &&
+                    effCastSyn->kind == syntax::SyntaxKind::CastExpression &&
+                    effCastSyn->as<syntax::CastExpressionSyntax>().left->kind ==
+                        syntax::SyntaxKind::IdentifierName &&
+                    (cts->UhdmType() == UHDM::uhdmint_typespec ||
+                     cts->UhdmType() == UHDM::uhdmbyte_typespec ||
+                     cts->UhdmType() == UHDM::uhdmshort_int_typespec ||
+                     cts->UhdmType() == UHDM::uhdmlong_int_typespec ||
+                     cts->UhdmType() == UHDM::uhdminteger_typespec) &&
+                    expr.type && expr.type->kind == SymbolKind::TypeAlias) {
+                    const TypeParameterSymbol* tp292 =
+                        typeParamOfAlias(expr.type->as<TypeAliasType>());
+                    const syntax::SyntaxNode* dsy292 = nullptr;
+                    if (tp292 && tp292->getParentScope() &&
+                        tp292->getParentScope()->asSymbol().kind ==
+                            SymbolKind::ClassType)
+                        dsy292 = tp292->targetType.getTypeSyntax();
+                    if (dsy292 && (dsy292->kind == syntax::SyntaxKind::IntType ||
+                                   dsy292->kind == syntax::SyntaxKind::ByteType ||
+                                   dsy292->kind == syntax::SyntaxKind::ShortIntType ||
+                                   dsy292->kind == syntax::SyntaxKind::LongIntType ||
+                                   dsy292->kind == syntax::SyntaxKind::IntegerType)) {
+                        if (r11u292On("R11U292_CASTTPDEF_OFF")) {
+                            setLoc(cts, dsy292->sourceRange());
+                            tr292("CASTTPDEF", std::string(tp292->name));
+                        }
+                    }
+                    else if (tp292)
+                        tr292("CASTTPDEF_ABSTAIN", std::string(tp292->name));
+                }
                 // A package-scope TYPE cast's target typespec carries
                 // vpiInstance = the package, exactly like the size-cast
                 // integer_typespec above (ParamCast def-view int'(...)):
@@ -42954,7 +43083,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // direct index refs stay module-scoped.
             std::string idxPrefix = prefix;
             bool idxRescoped = false;
-            if (stripImplicitConv(es.selector()).kind != ExpressionKind::NamedValue) {
+            // § clsScopedChainIdxDirect292 (r11u292) — a `::`-rooted chain
+            // written as the WHOLE index (`arr[b::stat.hval]`) collapses to
+            // its base reference (§ staticScopedChainDrops48), and Surelog
+            // names that reference like a DIRECT index reference: the scope
+            // prefix, never the select base (golden p67::rdr67::i4::base67::stat
+            // on t67e I4, p::r::f5::b::stat on a read, work@top.f3.p::stat in
+            // a module function, p::r::f3::m::b::stat one level down in
+            // m[m[b::stat.hval]]), where the operation-index rescoping below
+            // added the base.  Under an operation (`arr[b::stat.hval + 1]`)
+            // the base stays (golden p::r::f4::arr::b::stat).  Grid
+            // tools/probe/r11u292repro/cases/CI.  Switch R11U292_CHAINIDX_OFF.
+            bool chainIdx292 = false;
+            if (stripImplicitConv(es.selector()).kind != ExpressionKind::NamedValue &&
+                scopedChainDropBase48(stripImplicitConv(es.selector()))) {
+                if (r11u292On("R11U292_CHAINIDX_OFF")) {
+                    chainIdx292 = true;
+                    tr292("CHAINIDX", joinRef(prefix, nv.symbol.name));
+                }
+            }
+            if (!chainIdx292 &&
+                stripImplicitConv(es.selector()).kind != ExpressionKind::NamedValue) {
                 // § selIdxNestPrefixJoinsByScope80 — the FIFTH site of the
                 // joint family (r10uvm77 fixed the trailing-step refs, r10uvm78
                 // the doubled part-select prefixes, r10uvm79 the hier-path tail
@@ -45294,6 +45443,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // same string) and wrong for every class/package one.
                 std::string basePfx = joinRef(prefix, nm118);
                 auto boundPfx = [&](const Expression& e) -> const std::string& {
+                    // § clsScopedChainIdxDirect292 — SITE 2: a `::`-rooted
+                    // chain written as the whole indexed part-select base or
+                    // width collapses to its base reference and is named like
+                    // a direct reference (golden p::r::f5::b::stat on
+                    // v[b::stat.hval +: 2], ours p::r::f5::v::b::stat).
+                    if (stripImplicitConv(e).kind != ExpressionKind::NamedValue &&
+                        scopedChainDropBase48(stripImplicitConv(e))) {
+                        if (r11u292On("R11U292_CHAINIDX_OFF")) {
+                            tr292("CHAINIDX", "ips " + prefix);
+                            return prefix;
+                        }
+                    }
                     return stripImplicitConv(e).kind == ExpressionKind::NamedValue ? prefix
                                                                                    : basePfx;
                 };
@@ -45988,6 +46149,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     scoped157 = thisForm157 != ThisRv157;
                 else if (foreachName157)
                     scoped157 = true;
+                // § paramInitCallArgLeafScoped292 (r11u292) — a parameter
+                // initializer's pkg::P.member path that stands inside a USER
+                // call's argument list (directly or under an operator) is
+                // compiled as that call's argument, not through the
+                // parameter-initializer's member-read route, so its leaf
+                // member takes the scoped full name like any rvalue leaf
+                // (golden v11u117repro/grid/b02 `localparam X =
+                // f(q2::IMPL.cfg);` ref_obj cfg work@top.cfg, ours bare); a
+                // system call's argument and a path written alone keep the
+                // bare leaf.  Grid tools/probe/r11u292repro/cases/PI.  Switch
+                // R11U292_PICALLLEAF_OFF.
+                if (!scoped157 && leaf157 && pkgQualBase9 &&
+                    paramInitStructMember && !thisPath &&
+                    callArgDepth - sysCallArgDepth22 > 0 &&
+                    // module scope only (a package initializer, PI/pi12, is
+                    // stage 1 on every binary: not touched)
+                    prefix.find("::") == std::string::npos) {
+                    if (r11u292On("R11U292_PICALLLEAF_OFF")) {
+                        scoped157 = true;
+                        tr292("PICALLLEAF", joinRef(prefix, ma.member.name));
+                    }
+                }
                 if (scoped157)
                     // A PACKAGE-scope prefix keeps :: down to the leaf
                     // (riscv_isa_i_pkg::enc32::opc — Surelog).

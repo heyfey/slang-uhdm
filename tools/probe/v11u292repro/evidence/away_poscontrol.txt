@@ -1,0 +1,15 @@
+VC/vc01_inv_kinds d chain away=26 toward=0 flat_away=25 flat_toward=0
+VC/vc03_tp_more d chain away=5 toward=0 flat_away=5 flat_toward=0
+VC/vc06_tp_nested_cls d chain away=2 toward=0 flat_away=2 flat_toward=0
+VD/vd02_macro d chain away=6 toward=0 flat_away=6 flat_toward=0
+VD/vd04_include d chain away=10 toward=0 flat_away=10 flat_toward=0
+VI/vi02_cls_kinds d chain away=6 toward=0 flat_away=6 flat_toward=0
+VI/vi04_iface d chain away=6 toward=0 flat_away=6 flat_toward=0
+VP/vp02_header d chain away=1 toward=0 flat_away=1 flat_toward=0
+VP/vp04_shapes d chain away=5 toward=0 flat_away=5 flat_toward=0
+VQ/vq02_nested_cls d chain away=4 toward=0 flat_away=4 flat_toward=0
+VQ/vq04_gen_iface d chain away=1 toward=0 flat_away=1 flat_toward=0
+VQ/vq06_stream_out d chain away=2 toward=0 flat_away=2 flat_toward=0
+VC/vc08_inv_more d chain away=5 toward=0 flat_away=5 flat_toward=0
+VD/vd06_tasks_mixed d chain away=14 toward=0 flat_away=14 flat_toward=0
+VP/vp05_sysinuser d chain away=5 toward=0 flat_away=5 flat_toward=0

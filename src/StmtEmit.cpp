@@ -28,6 +28,7 @@
 #include "R270.h"
 #include "R286.h"
 #include "R288.h"
+#include "R292.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -1029,7 +1030,69 @@ UHDM::delay_control* UhdmExporter::emitDelayControl(const TimingControl& tc,
         // every position is the INTRA-ASSIGNMENT cell (line 22 here); in
         // STATEMENT position golden keeps the whole `#(…)` and adds the
         // NAMELESS ref.
-        if (raw[numStart] == '(') {
+        // § delayParenInnerExprSpan292 (r11u292) — the parenthesised value's
+        // span is the `mintypmax_expression` node's, the written expression
+        // alone: Surelog's populateCoreMembers spans a node from its first
+        // to its last token, so a comment or a line break between the
+        // parentheses and the expression stays outside it (golden
+        // r10v100repro/v100_b3_trivia `#(\n P + 2\n )` 9:7-12,
+        // `#/*between*/(P + 3)` 11:18-23, `#( /*inner*/ P + 4 /*tail*/ )`
+        // 12:18-23, intra-assignment `<= #/*between*/(P + 1)` dc 14:23-28;
+        // ours spanned the raw text between the parentheses, and a comment
+        // after `#` sent the value to the bare-name arm).  The value is read
+        // off slang's DelaySyntax.  Grid tools/probe/r11u292repro/cases/DL.
+        // Switch R11U292_DLYPAREN_OFF.
+        const syntax::ExpressionSyntax* in292 = nullptr;
+        if (tc.syntax && syntax::DelaySyntax::isKind(tc.syntax->kind)) {
+            auto* dv292 = tc.syntax->as<syntax::DelaySyntax>().delayValue.get();
+            if (dv292 && dv292->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                in292 = dv292->as<syntax::ParenthesizedExpressionSyntax>().expression;
+        }
+        bool dly292 = false;
+        if (in292) {
+            SourceRange old292(dr.start(), dr.start());
+            {
+                size_t cl292 = raw.find_last_of(')');
+                if (raw[numStart] == '(' && cl292 != std::string::npos &&
+                    cl292 > numStart + 1)
+                    old292 = SourceRange(dr.start() + numStart + 1,
+                                         dr.start() + cl292);
+            }
+            SourceRange new292 = in292->sourceRange();
+            // Compared as LAID OUT (line and column, macro expansions placed
+            // as setLoc places them): a macro-born `#(v)` carries its range
+            // in the expansion buffer on one side and the arithmetic offset
+            // on the other with the same layout (the UVM rows' `uvm_delay).
+            uint32_t a1 = 0, a2 = 0, a3 = 0, a4 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0;
+            bool same292 = false;
+            if (old292.start() != old292.end()) {
+                locLineCol(old292.start(), a1, a2);
+                locLineCol(old292.end(), a3, a4);
+                locLineCol(new292.start(), b1, b2);
+                locLineCol(new292.end(), b3, b4);
+                same292 = a1 == b1 && a2 == b2 && a3 == b3 && a4 == b4;
+            }
+            if (!same292) {
+                if (r11u292On("R11U292_DLYPAREN_OFF")) {
+                    dly292 = true;
+                    tr292("DLYPAREN", rawText(new292));
+                }
+                else
+                    tr292("DLYPAREN", "off");
+            }
+        }
+        if (dly292) {
+            if (stmtRefPrefix) {
+                auto* ref = s.MakeRef_obj();
+                ref->VpiParent(parent);
+                setLoc(ref, in292->sourceRange());
+                dc->Delay(ref);
+            }
+            else {
+                setLoc(dc, in292->sourceRange());
+            }
+        }
+        else if (raw[numStart] == '(') {
             size_t close = raw.find_last_of(')');
             if (close != std::string::npos && close > numStart + 1) {
                 SourceRange inner(dr.start() + numStart + 1,

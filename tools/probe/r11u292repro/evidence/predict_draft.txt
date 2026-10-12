@@ -1,0 +1,12 @@
+probe r10uvm48repro__t67d.uhdm PVLVSEP:1
+probe r10uvm48repro__t67e.uhdm CHAINIDX:1
+probe r10uvm59repro__c05_cast.uhdm CASTINV:1 CASTTPDEF:1
+probe r10v100repro__v100_b3_trivia.uhdm DLYPAREN:4
+probe v11u117repro__grid__b02.uhdm PICALLLEAF:1
+surelog MiniAmiq/default DLYPAREN:6
+surelog MiniAmiq/testflags DLYPAREN:6
+surelog Scoreboard/default DLYPAREN:4
+surelog SeqDriver/default DLYPAREN:6
+surelog SeqDriver/testflags DLYPAREN:6
+surelog SimpleUVM/default DLYPAREN:4
+surelog SimpleUVM/testflags DLYPAREN:4

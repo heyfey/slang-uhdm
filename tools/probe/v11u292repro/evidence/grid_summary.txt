@@ -1,0 +1,70 @@
+MOVER VC/vc01_inv_kinds d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc01_inv_kinds e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc02_inv_ctx d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc02_inv_ctx e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc03_tp_more d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc03_tp_more e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc04_tp_spec_mod d: STRICT_NOTEQUAL type -> STRICT_EQUAL 44 objects
+MOVER VC/vc04_tp_spec_mod e: STRICT_NOTEQUAL type -> STRICT_EQUAL 44 objects
+MOVER VC/vc06_tp_nested_cls d: STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+MOVER VC/vc06_tp_nested_cls e: STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+MOVER VC/vc07_tp_alias_body d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc07_tp_alias_body e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc08_inv_more d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc08_inv_more e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc09_tp_constslots d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc09_tp_constslots e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd01_shapes d: STRICT_NOTEQUAL col -> STRICT_EQUAL 175 objects
+MOVER VD/vd01_shapes e: STRICT_NOTEQUAL col -> STRICT_EQUAL 171 objects
+MOVER VD/vd02_macro d: STRICT_NOTEQUAL col -> STRICT_EQUAL 88 objects
+MOVER VD/vd02_macro e: STRICT_NOTEQUAL col -> STRICT_EQUAL 85 objects
+MOVER VD/vd03_class_prog d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd03_class_prog e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd04_include d: STRICT_NOTEQUAL col -> STRICT_EQUAL 89 objects
+MOVER VD/vd04_include e: STRICT_NOTEQUAL col -> STRICT_EQUAL 86 objects
+MOVER VD/vd05_always_clk d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd05_always_clk e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd06_tasks_mixed d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd06_tasks_mixed e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd07_clocking d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd07_clocking e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VI/vi01_mod_proc d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VI/vi01_mod_proc e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VI/vi02_cls_kinds d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 109 objects
+MOVER VI/vi02_cls_kinds e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 112 objects
+MOVER VI/vi03_gen_task d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VI/vi03_gen_task e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VI/vi04_iface d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 141 objects
+MOVER VI/vi04_iface e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 153 objects
+MOVER VI/vi05_lv_ips d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 53 objects
+MOVER VI/vi05_lv_ips e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 53 objects
+MOVER VI/vi06_spec_this d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 74 objects
+MOVER VI/vi06_spec_this e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 97 objects
+MOVER VP/vp02_header d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VP/vp02_header e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+CMP VP/vp03_iface d 96 -> 98
+MOVER VP/vp03_iface d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VP/vp03_iface e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VP/vp04_shapes d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VP/vp04_shapes e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+CMP VP/vp05_sysinuser d 64 -> 66
+MOVER VP/vp05_sysinuser d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+CMP VP/vp05_sysinuser e 64 -> 66
+MOVER VP/vp05_sysinuser e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VP/vp06_constslots d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VP/vp06_constslots e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VQ/vq01_compound d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VQ/vq01_compound e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VQ/vq02_nested_cls d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 44 objects
+MOVER VQ/vq02_nested_cls e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 44 objects
+MOVER VQ/vq03_extern_mod d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VQ/vq03_extern_mod e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VQ/vq04_gen_iface d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VQ/vq04_gen_iface e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VQ/vq05_program_fork d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 58 objects
+MOVER VQ/vq05_program_fork e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 61 objects
+MOVER VQ/vq06_stream_out d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VQ/vq06_stream_out e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VQ/vq07_pkgtask_cls_mod d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 91 objects
+MOVER VQ/vq07_pkgtask_cls_mod e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 96 objects
+case-views=70 movers=66 entering_STRICT_EQUAL=22 leaving_STRICT_EQUAL=0 rc_changes=0 cmp_changes=3 OFF_equals_pristine=70/70

@@ -1,0 +1,30 @@
+#!/bin/bash
+# (v11u292: copied from r11u292repro/drivers; scratch paths /tmp/v11u292_*)
+# (r11u286: copied from r11u287repro/drivers)
+# (r11u287: copied from r11u285repro/drivers)
+# (r11u285: copied from r11u283repro/drivers)
+# (r11u283: copied from r11u281repro/drivers)
+# (r11u279: copied from r11u277repro/drivers)
+# (r11u277: copied from r11u275repro/drivers)
+# (r11u275: copied from r11u273repro/drivers)
+# (r11u273: copied from r11u271repro/drivers)
+# (r11u271: copied from r11u269repro/drivers)
+# (r11u269: copied from r11u267repro/drivers)
+# (r11u267: copied from r11u265repro/drivers)
+# (r11u265: copied from r11u263repro/drivers)
+# (r11u263: copied from r11u261repro/drivers)
+# (r11u261: copied from r11u259repro/drivers)
+# (r11u259: copied from r11u252repro/drivers)
+# (r11u252: copied from r11u250repro/drivers)
+# (r11u250: copied from r11u249repro/drivers)
+# (r11u249: copied from r11u247repro/drivers)
+# (r11u247: copied from r11u244repro/drivers)
+# (r11u244: copied from r11u242repro/drivers)
+# (r11u240: copied from r11u238repro/drivers)
+# (r11u242: copied from r11u240repro/drivers)
+# (r11u238 (from r11u236repro): copied from tools/probe/r11u211map/drivers/cc.sh)
+# Build the variant comparator with the uhdm_strictcmp target's exact flags (build/CMakeFiles/uhdm_strictcmp.dir).
+# usage: cc.sh <out>
+D=$(cd "$(dirname "$0")" && pwd)
+/opt/rh/gcc-toolset-14/root/usr/bin/c++ -DPLI_DLLESPEC="" -DPLI_DLLISPEC="" -isystem $HOME/.local/include -O3 -DNDEBUG -std=gnu++20 -include uhdm/config.h \
+  "$D/strictcmp_x.cpp" -o "$1" $HOME/.local/lib64/libuhdm.a $HOME/.local/lib64/libcapnp.a $HOME/.local/lib64/libkj.a -ldl -lutil -lm -lrt -lpthread
