@@ -1,0 +1,45 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== surelog: both modes, jobs=3, out=wP/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator bin/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 478
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+  STRICT_NOTEQUAL: 2
+
+[testflags] 798 tests
+  CMP_EQUAL: 472
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  STRICT_NOTEQUAL: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=478 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=2 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=472 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=2 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=wP/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator bin/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+rc=1

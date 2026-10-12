@@ -1,0 +1,12 @@
+byteverify (tools/probe/r11v75repro/byteverify.sh, SELFCHECK=1) on fence-filtered hard-link mirrors (drivers/bvmirror.sh:
+mirrored=3365 fenced_skipped=8 for each sweep), surelog + uhdm2rtlil + downstream databases:
+law vs pristine:  PATH_SETS_IDENTICAL (3365 paths)  MOVERS: 0 / 3365  SELFCHECK 3363 / 3365 (the known twin)
+fix vs law:       PATH_SETS_IDENTICAL (3365 paths)  MOVERS: 0 / 3365  SELFCHECK 3363 / 3365
+fix vs pristine:  PATH_SETS_IDENTICAL (3365 paths)  MOVERS: 0 / 3365  SELFCHECK 3363 / 3365
+probe databases (cmp, pristine probe stage rerun from the law worktree so the embedded source paths match):
+pristine vs law: 15 of 4087 move (probe_byte_movers_pristine_law.txt); law vs fix: 0 of 4087.
+csvs: probe and uhdm2rtlil law == fix byte-identical; downstream law == fix byte-identical; surelog law vs fix and
+pristine vs fix differ only in the LowMemLib / LowMemPkg testflags detail text naming the workdir.
+binary audit: each sweep 3315 cmds.txt (fence-filtered), 3265 name the sweep's own frozen binary, the other 50 carry
+no slang line.
+canaries (fix sweep): surelog ok=52 changed=0, uhdm2rtlil ok=16 changed=0; ctcan2 PASS on both.

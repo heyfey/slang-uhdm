@@ -56,6 +56,7 @@
 #include "R287.h"
 #include "R289.h"
 #include "R290.h"
+#include "R293.h"
 
 namespace slang_uhdm {
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
@@ -6869,6 +6870,20 @@ static void copyLoc93(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     dst->VpiEndColumnNo(src->VpiEndColumnNo());
 }
 
+// § ifaceFirstSignalBindsRefs293 / § ifaceLowConnFirstSignal293 (r11u293) —
+// which of an interface's two same-named nets (the non-ANSI port
+// declaration's mint and the body declaration's net, see
+// § caIfacePortDeclNetMint93) the producer's collect walk created FIRST: the
+// one written first in the source (same file, the declarations' own spans).
+static bool firstSignal293(const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+    if (!a || !b || a->VpiFile() != b->VpiFile() || a->VpiLineNo() == 0 ||
+        b->VpiLineNo() == 0)
+        return false;
+    return a->VpiLineNo() < b->VpiLineNo() ||
+           (a->VpiLineNo() == b->VpiLineNo() &&
+            a->VpiColumnNo() < b->VpiColumnNo());
+}
+
 // The body's non-ANSI PORT DECLARATIONS, in the order the producer's collect
 // walk creates their `Signal`s: source order of the declarations, declarator
 // order within one.  Port declarations are top-level members of the
@@ -8397,6 +8412,30 @@ UHDM::any* UhdmExporter::makeHoistHolder77(const Symbol& sym77, int kind77,
             }
             in77->VpiParent(an77);
             setLoc(in77, nameSpan(sym77.location, sym77.name));
+            // § pkgHoistArrNetElemDimSpan293 (r11u293,
+            // R11U293_HOISTELEMSPAN_OFF) — the element net of an imported
+            // package variable's hoisted array_net spans the declared NAME
+            // through the end of its FIRST unpacked dimension when the
+            // element is a struct_net or a NAMED (one-hop typedef) logic_net:
+            // golden `st_t v_sarr [0:1];` struct_net 19:21-19:33 and
+            // `wire w_t nw [0:1];` logic_net 8:15-8:23, where ours read the
+            // name alone; the unnamed `wire [7:0] n_uarr [0:1];` element
+            // keeps the name (probe r11u88 i6_ifarray and y2_pkgvarkind,
+            // `endcol(1)`; module and interface importers alike; a
+            // multi-dimension declaration ends at its first dimension).
+            // Grid tools/probe/r11u293repro/cases/HE.
+            if ((in77->UhdmType() == UHDM::uhdmstruct_net || named80) &&
+                !holderOff80() && r11u293On("R11U293_HOISTELEMSPAN_OFF"))
+                if (auto* ds293 = sym77.getSyntax();
+                    ds293 && ds293->kind == syntax::SyntaxKind::Declarator) {
+                    auto& dd293 = ds293->as<syntax::DeclaratorSyntax>();
+                    if (!dd293.dimensions.empty()) {
+                        tr293("pkgHoistArrNetElemDimSpan293", full77);
+                        setLoc(in77,
+                               SourceRange(nameSpan(sym77.location, sym77.name).start(),
+                                           dd293.dimensions[0]->sourceRange().end()));
+                    }
+                }
             auto* nvec77 = s.MakeNetVec();
             nvec77->push_back(in77);
             an77->Nets(nvec77);
@@ -37253,11 +37292,34 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     // 8:4..8:17 — DynArrayKind, plus a 16-case module-scope golden).
     if (auto dt3 = pn.sym->getDeclaredType()) {
         auto dck3 = dt3->getType().getCanonicalType().kind;
+        // § defNetClassArrTsDimEnd293 (r11u293, R11U293_CLSARRDIMEND_OFF) —
+        // the same end-only write lands on a class handle array's typespec:
+        // compileTypespec answers a class name with a FRESH class_typespec per
+        // declaration (no shared listing object to protect, unlike the named
+        // typedefs the empty-name gate fences), so writeNets'
+        // populateCoreMembers(InvalidNodeId, dimensions, ts) moves its end to
+        // the first unpacked dimension's (golden `C a_lof [];` 37:4-37:23
+        // where ours read the type 37:4-37:14: probe r10uvm221 a4_corpus,
+        // r10uvm225 a6_headerforms, in module and interface definitions, the
+        // scoped `pk::C` keeping its `pk::` start).  Only a class written
+        // directly (the declared element type is the ClassType itself, not a
+        // typedef or a type parameter, whose objects are shared).  Grid
+        // tools/probe/r11u293repro/cases/CA.
+        bool clsArr293 = false;
+        if (ts->UhdmType() == UHDM::uhdmclass_typespec &&
+            r11u293On("R11U293_CLSARRDIMEND_OFF")) {
+            const Type* el293 = &dt3->getType();
+            for (int g293 = 0; g293 < 16 && el293->isUnpackedArray(); g293++)
+                el293 = el293->getArrayElementType();
+            clsArr293 = el293 && el293->kind == SymbolKind::ClassType;
+            if (clsArr293)
+                tr293("defNetClassArrTsDimEnd293", std::string(pn.sym->name));
+        }
         if ((dck3 == SymbolKind::FixedSizeUnpackedArrayType ||
              dck3 == SymbolKind::DynamicArrayType ||
              dck3 == SymbolKind::AssociativeArrayType ||
              dck3 == SymbolKind::QueueType) &&
-            ts->VpiName().empty()) {
+            (ts->VpiName().empty() || clsArr293)) {
             if (auto dsyn = pn.sym->getSyntax();
                 dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
                 auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
@@ -39391,8 +39453,25 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             // DECLARATION's net, not the body declaration's.
             if (auto mi93 = ifaceMintNet93.find(internal);
                 !ifPortLowOff93() && mi93 != ifaceMintNet93.end()) {
-                lc->Actual_group(mi93->second);
-                copyLoc93(lc, mi93->second);
+                // § ifaceLowConnFirstSignal293 (r11u293,
+                // R11U293_IFLOWFIRST_OFF) — writeNets fills the port's
+                // Low_conn on the FIRST signal of the name the collect walk
+                // created, which is the BODY declaration's when it is written
+                // above the port declaration (v15_ifdeclafterbody: golden
+                // ref_obj 3:15 bound to `wire o` at 3:15 where ours read the
+                // port declaration's 5:17).  The port keeps the port
+                // declaration's span.  Grid tools/probe/r11u293repro/cases/IF.
+                const UHDM::any* first293 = mi93->second;
+                if (auto bn293 = netMap.find(internal);
+                    bn293 != netMap.end() && bn293->second != mi93->second &&
+                    bn293->second->UhdmType() == UHDM::uhdmlogic_net &&
+                    firstSignal293(bn293->second, mi93->second) &&
+                    r11u293On("R11U293_IFLOWFIRST_OFF")) {
+                    tr293("ifaceLowConnFirstSignal293", prefix + "." + std::string(ps.name));
+                    first293 = bn293->second;
+                }
+                lc->Actual_group((UHDM::any*)first293);
+                copyLoc93(lc, first293);
                 copyLoc93(p, mi93->second);
             }
             else if (auto it = netMap.find(internal); it != netMap.end())
@@ -48057,9 +48136,34 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                             t9->VpiFullName() == want9)
                             rv9 = ((UHDM::function*)t9)->Return();
             }
-            for (auto* r : pf.refs)
-                if (!funcRetSelBound.count(r))
+            for (auto* r : pf.refs) {
+                if (!funcRetSelBound.count(r)) {
                     r->Actual_group(rv9 ? rv9 : pf.bindVar);
+                    continue;
+                }
+                // § cloneRetNameSelRefBindsHomeReturn293 (r11u293,
+                // R11U293_CLONERETSEL_OFF) — in a WILDCARD-IMPORT CLONE body
+                // a bare reference to the return name that endSelTrack bound
+                // to the body's first select of that name (`f[i] = ...`)
+                // binds the HOME function's return variable like every other
+                // reference of the clone body.  Surelog compiles the clone in
+                // the importing package with every reference already bound to
+                // the home's objects, so UhdmWriter::lateBinding's first line
+                // (`if (ref->Actual_group()) continue;`) skips them and its
+                // block arm (the scan for an assignment whose Lhs is a select
+                // of the name, the source of funcRetSelBound in the HOME body)
+                // never answers: golden's p2::f reads `string_var p1::f` on
+                // all of them where ours read the clone's own bit_select
+                // (probe r10uvm171 g171_a_pos, g171_b_homes, g171_c_shapes,
+                // r10uvm194 g194_c_clone, `depth(1)`).  The home body keeps
+                // its select binding (this branch is the clone's only).
+                // Grid tools/probe/r11u293repro/cases/CR.
+                if (r11u293On("R11U293_CLONERETSEL_OFF")) {
+                    tr293("cloneRetNameSelRefBindsHomeReturn293",
+                          std::string(r->VpiFullName()));
+                    r->Actual_group(rv9 ? rv9 : pf.bindVar);
+                }
+            }
             // § retNameSelBindsHomeReturnInCloneOnly171 — the SELECT and
             // METHOD-RECEIVER references take the SAME target the bare ones
             // just took, which is what golden's single `string_var` shows: all
@@ -54237,6 +54341,65 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         }
                         io->Expr(ln);
                         ifacePortMemberNet[mname] = ln;
+                        // § portViewNdaNetCellParent293 (r11u293,
+                        // R11U293_PVNDAPARENT_OFF) — elabSignal runs for the
+                        // PORT view's signals too and, for a net declaration
+                        // assignment, builds the cell `assign->Lhs(net)` that
+                        // writeCont_assign re-parents the net to, but a port
+                        // view lists no cell (§ caIfaceElabNetDeclAssignListing88's
+                        // q6_ndaport): golden's io_decl expression is the
+                        // net parented at that unlisted cont_assign (located at
+                        // the name, vpiNetDeclAssign) with no stored full name
+                        // (vx8_strifport, v14_ndamodport: golden `w_plain` where
+                        // ours read work@dut.u_s.p.mp.w_plain.w_plain under the
+                        // io_decl).  The same cell predicate as LAW A.  Grid
+                        // tools/probe/r11u293repro/cases/PV.  A HEADER PORT
+                        // of a non-ANSI interface stands aside: its port
+                        // declaration's signal comes first and carries no cell
+                        // (pb19_modportview: golden's io_decl net is the port
+                        // declaration's, under the io_decl).
+                        auto* isym293 = mpp.internalSymbol;
+                        if (!portBacked9 && isym293->kind == SymbolKind::Net &&
+                            isym293->getDeclaredType() &&
+                            isym293->getDeclaredType()->getInitializer() &&
+                            !ndaOff88() && ifaceNdaCellMinted88(*isym293) &&
+                            r11u293On("R11U293_PVNDAPARENT_OFF")) {
+                            auto* ln293 = ln;
+                            if (!ln293->VpiParent() ||
+                                ln293->VpiParent()->UhdmType() !=
+                                    UHDM::uhdmcont_assign) {
+                                tr293("portViewNdaNetCellParent293",
+                                      prefix + "." + std::string(isym293->name));
+                                auto* ca293 = s.MakeCont_assign();
+                                ca293->VpiNetDeclAssign(true);
+                                setLoc(ca293, nameSpan(isym293->location,
+                                                       isym293->name));
+                                ca293->Lhs(ln293);
+                                ln293->VpiParent(ca293);
+                                ln293->VpiFullName("");
+                                // § pvNdaTsNameUnstored293v (v11u293,
+                                // R11V293_PVTSUNSTORED_OFF) — the ref_typespec
+                                // stores NO full name, as Surelog stores none on
+                                // a ref_typespec: golden's `w` is UHDM's
+                                // ComputeFullName over the unlisted cell, and
+                                // where -elabuhdm deep-clones a generate scope
+                                // holding the receiving module, the clone of
+                                // the view computes its own chain
+                                // (`work@top.g.u_s.p.mp.w.w`, cases VP/vp04,
+                                // vp15, vp16, vp18 elaborated; the law's stored
+                                // `w` was copied into the clone: chain away 1
+                                // to 4).  Cases tools/probe/v11u293repro/cases/VP.
+                                if (auto* rt293 = ln293->Typespec()) {
+                                    if (r11v293On("R11V293_PVTSUNSTORED_OFF")) {
+                                        tr293("pvNdaTsNameUnstored293v",
+                                              prefix + "." + std::string(isym293->name));
+                                        rt293->VpiFullName("");
+                                    }
+                                    else
+                                        rt293->VpiFullName(isym293->name);
+                                }
+                            }
+                        }
                     }
                 }
                 iodecls->push_back(io);
@@ -54421,8 +54584,28 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             std::map<const UHDM::any*, UHDM::any*> netToVar;
             for (auto& [sym, var] : netMap) {
                 auto nit = dit->second.nets.find(sym);
-                if (nit != dit->second.nets.end())
+                if (nit != dit->second.nets.end()) {
                     netToVar[nit->second] = var;
+                    // § ifaceFirstSignalBindsRefs293 (r11u293,
+                    // R11U293_IFFIRSTREF_OFF) — a name lookup answers the
+                    // FIRST signal of the name the collect walk created:
+                    // where a non-ANSI port declaration is written above the
+                    // body's net declaration, that is the port declaration's
+                    // mint (pb10_ifnetuse: golden `assign o = ...` and
+                    // `assign p = o` bind work@dut.u_if.o at 3:17, ours the
+                    // body's 5:15).  Only a body NET (a `logic` variable is
+                    // found among the variables first).  Grid
+                    // tools/probe/r11u293repro/cases/IF.
+                    if (auto mi293 = ifaceMintNet93.find(sym);
+                        mi293 != ifaceMintNet93.end() && mi293->second != var &&
+                        var->UhdmType() == UHDM::uhdmlogic_net &&
+                        firstSignal293(mi293->second, var) &&
+                        r11u293On("R11U293_IFFIRSTREF_OFF")) {
+                        tr293("ifaceFirstSignalBindsRefs293",
+                              prefix + "." + std::string(sym->name));
+                        netToVar[nit->second] = mi293->second;
+                    }
+                }
             }
             std::function<void(UHDM::any*)> rebind = [&](UHDM::any* e) {
                 if (!e)
@@ -54864,6 +55047,20 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         // same syntax) and uses it ONLY when the two lists are the same
         // length; a length mismatch declines the law outright rather than
         // risk reading another cell's expression.
+        // § ifaceFirstSignalBindsRefs293 — the elaborated reads that follow
+        // (the folded cells, processes, generate scopes) look a name up the
+        // same way: the first signal of the name.  After LAW A, whose cell
+        // Lhs is the body declaration's own net.
+        if (!portView && r11u293On("R11U293_IFFIRSTREF_OFF"))
+            for (auto& [sym293, mint293] : ifaceMintNet93)
+                if (auto bn293 = netMap.find(sym293);
+                    bn293 != netMap.end() && bn293->second != mint293 &&
+                    bn293->second->UhdmType() == UHDM::uhdmlogic_net &&
+                    firstSignal293(mint293, bn293->second)) {
+                    tr293("ifaceFirstSignalBindsRefs293",
+                          prefix + "." + std::string(sym293->name) + " elab");
+                    bn293->second = mint293;
+                }
         std::vector<const ContinuousAssignSymbol*> caSyms83;
         if (!ifCaFoldOff83()) {
             std::vector<const ContinuousAssignSymbol*> genRegion83;
@@ -55601,9 +55798,20 @@ ifaceProcsDone283:
         // name and anchor; only the actual moves.
         if (auto mi93 = ifaceMintNet93.find(internal);
             !ifPortLowOff93() && mi93 != ifaceMintNet93.end()) {
-            lc->Actual_group(mi93->second);
+            // § ifaceLowConnFirstSignal293 — the elaborated twin: the first
+            // signal of the name is the body's net when it is written first.
+            UHDM::any* first293 = mi93->second;
+            if (auto bn293 = netMap.find(internal);
+                bn293 != netMap.end() && bn293->second != mi93->second &&
+                bn293->second->UhdmType() == UHDM::uhdmlogic_net &&
+                firstSignal293(bn293->second, mi93->second) &&
+                r11u293On("R11U293_IFLOWFIRST_OFF")) {
+                tr293("ifaceLowConnFirstSignal293", prefix + "." + std::string(ps.name));
+                first293 = bn293->second;
+            }
+            lc->Actual_group(first293);
             if (portView)
-                copyLoc93(lc, mi93->second);
+                copyLoc93(lc, first293);
             copyLoc93(p, mi93->second);
         }
         else if (auto it2 = netMap.find(internal); it2 != netMap.end())

@@ -1,0 +1,83 @@
+v11u293repro/cases/VA/va01_mod_fixed L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VA/va02_two_decl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VA/va03_dyn2 L STATUS_DIFF differs=- surelog=CRASH slang=NO_GATES detail=-
+v11u293repro/cases/VA/va04_assoc_str L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VA/va05_param_spec_pkg L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VA/va06_iface_dyn L EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u293repro/cases/VA/va07_program_queue L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VA/va08_gen_block L EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u293repro/cases/VA/va09_interface_class L STATUS_DIFF differs=- surelog=CRASH slang=NO_GATES detail=-
+v11u293repro/cases/VA/va10_multiline L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VA/va11_mixed_dims L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VA/va12_virtual_iface_ctl L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VA/va13_crlf L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VA/va14_elab_two_inst L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VA/va15_param_class_default L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VC/vc01_ipsel L DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u293_ds/L/v1
+v11u293repro/cases/VC/vc02_chain_import L DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u293_ds/L/v1
+v11u293repro/cases/VC/vc03_loop_select L DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u293_ds/L/v1
+v11u293repro/cases/VC/vc04_module_wildcard_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VC/vc05_case_select L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VC/vc06_export L DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u293_ds/L/v1
+v11u293repro/cases/VC/vc07_two_funcs L DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u293_ds/L/v1
+v11u293repro/cases/VC/vc08_class_in_importer L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VC/vc09_string_two_sel L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VC/vc10_return_stmt L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VH/vh01_size_param L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VH/vh02_foreign_struct L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VH/vh03_two_hop_named L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VH/vh04_enum_elem L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VH/vh05_two_modules L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VH/vh06_multiline L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VH/vh07_macro_decl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VH/vh08_crlf L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VH/vh09_wire_named_size L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VH/vh10_iface_gen L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VH/vh11_unpacked_struct L EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u293repro/cases/VH/vh12_header_include L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VI/vi01_hier_parent L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi02_scalar_always L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi03_same_line L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi04_function_read L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi05_inout L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi06_gen_parent L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi07_multi_decl L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi08_body_multi_decl L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi09_modport_view L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi10_macro_portdecl L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi11_param_two_inst L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi12_tri L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi13_nested_iface L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi14_delay_assign L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi15_input_ff L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi16_bodyfirst_gen_proc L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi17_implicit_port_decl_type L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi18_unconnected_port L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi19_positional L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi20_mixed_dirs_body_read L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi21_gen_iface_modport L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi22_for_gen_two L IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VP/vp01_scalar L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp02_multi_decl L IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u293repro/cases/VP/vp03_wand L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp04_gen_child L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp05_pass_down L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp06_param_width L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp07_struct_net L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp08_var_init_ctl L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp09_modport_expr L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp10_iface_array L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp11_explicit_modport_conn L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp12_body_assign_reads L IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u293repro/cases/VP/vp13_program_port L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp14_output_dir L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp15_both_in_gen L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp16_for_gen L IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u293repro/cases/VP/vp17_gen_iface_hier_conn L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VP/vp18_case_gen_param L IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u293repro/cases/VI/vi23_clocking F IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi24_modport_import_func F IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi25_body_first_hier F IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi26_select_lhs F IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi27_initial_final F IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u293repro/cases/VI/vi28_unpacked_port F IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL

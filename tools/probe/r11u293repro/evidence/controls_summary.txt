@@ -1,0 +1,23 @@
+tp/r10uvm225repro/grid225/a12_modport                              rc=0/0 NOT_EQUAL_stage1           c58 -> NOT_EQUAL_stage1           c58
+tp/r10uvm225repro/grid225/a12_modport_el                           rc=0/0 NOT_EQUAL_stage1           c58 -> NOT_EQUAL_stage1           c58
+tp/r10uvm225repro/grid225/a1_ifkinds                               rc=0/0 NOT_EQUAL_stage1           c30 -> NOT_EQUAL_stage1           c30
+tp/r10uvm225repro/grid225/a1_ifkinds_el                            rc=0/0 NOT_EQUAL_stage1           c30 -> NOT_EQUAL_stage1           c30
+tp/r10uvm225repro/grid225/a3_module                                rc=0/0 NOT_EQUAL_stage1           c30 -> NOT_EQUAL_stage1           c30
+tp/r10uvm225repro/grid225/a3_module_el                             rc=0/0 NOT_EQUAL_stage1           c30 -> NOT_EQUAL_stage1           c30
+tp/r11u77repro/grid/y2_pkgvarkind                                  rc=0/0 STRICT_NOTEQUAL_endcol     c0 -> STRICT_EQUAL_1111_objects  c0
+tp/r11u77repro/grid/y2_pkgvarkind_el                               rc=0/0 STRICT_NOTEQUAL_endcol     c0 -> STRICT_EQUAL_1216_objects  c0
+tp/r11u80repro/grid/vb_unpackedfaces                               rc=0/0 NOT_EQUAL_stage1           c17 -> NOT_EQUAL_stage1           c17
+tp/r11u80repro/grid/vb_unpackedfaces_el                            rc=0/0 NOT_EQUAL_stage1           c17 -> NOT_EQUAL_stage1           c17
+tp/r11u80repro/grid/vh_arrelem                                     rc=0/0 STRICT_NOTEQUAL_endline    c0 -> STRICT_NOTEQUAL_endline    c0
+tp/r11u80repro/grid/vh_arrelem_el                                  rc=0/0 STRICT_NOTEQUAL_endline    c0 -> STRICT_NOTEQUAL_endline    c0
+tp/r11u80repro/grid/y2_pkgvarkind                                  rc=0/0 STRICT_NOTEQUAL_endcol     c0 -> STRICT_EQUAL_1111_objects  c0
+tp/r11u80repro/grid/y2_pkgvarkind_el                               rc=0/0 STRICT_NOTEQUAL_endcol     c0 -> STRICT_EQUAL_1216_objects  c0
+tp/r11u80repro/grid/z1_arrgrid                                     rc=0/0 NOT_EQUAL_stage1           c67 -> NOT_EQUAL_stage1           c67
+tp/r11u80repro/grid/z1_arrgrid_el                                  rc=0/0 NOT_EQUAL_stage1           c67 -> NOT_EQUAL_stage1           c67
+tp/r11u85repro/grid/i6_ifarray                                     rc=0/0 STRICT_NOTEQUAL_endcol     c0 -> STRICT_EQUAL_523_objects   c0
+tp/r11u85repro/grid/i6_ifarray_el                                  rc=0/0 STRICT_NOTEQUAL_endcol     c0 -> STRICT_EQUAL_522_objects   c0
+tp/r11u85repro/grid/y2_pkgvarkind                                  rc=0/0 STRICT_NOTEQUAL_endcol     c0 -> STRICT_EQUAL_1111_objects  c0
+tp/r11u85repro/grid/y2_pkgvarkind_el                               rc=0/0 STRICT_NOTEQUAL_endcol     c0 -> STRICT_EQUAL_1216_objects  c0
+tp/r11v77repro/grid/vb_unpackedfaces                               rc=0/0 NOT_EQUAL_stage1           c17 -> NOT_EQUAL_stage1           c17
+tp/r11v77repro/grid/vb_unpackedfaces_el                            rc=0/0 NOT_EQUAL_stage1           c17 -> NOT_EQUAL_stage1           c17
+case-views 2430 moving 22 entering STRICT_EQUAL 8 leaving 0 exit-code changes 0

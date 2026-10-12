@@ -1,0 +1,6 @@
+CA/ca10_program dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+CR/cr01_string_bitsel dist 0 -> 0 lost=0 gained=0 | chain away=8 toward=0 flat_away=0 flat_toward=0
+HE/he01_struct dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+IF/if01_portfirst_read dist 0 -> 20 lost=20 gained=0 | chain away=20 toward=0 flat_away=20 flat_toward=0
+IF/if02_bodyfirst dist 0 -> 4 lost=4 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+PV/pv01_basic dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
