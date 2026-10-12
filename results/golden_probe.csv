@@ -1,7 +1,7 @@
 case,status,detail,strict
 r10buvm11repro/w5v_param11,EQUAL,,equal
 r10buvm13repro/a7_dpi13,EQUAL,,equal
-r10buvm13repro/v3_clone13,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
+r10buvm13repro/v3_clone13,EQUAL,,equal
 r10buvm15repro/a1_collargs15,EQUAL,,equal
 r10buvm15repro/v3_clones15,EQUAL,,equal
 r10buvm15repro/v5_named15,EQUAL,,equal
@@ -44,12 +44,12 @@ r10buvm8repro/v21_s6,EQUAL,,equal
 r10buvm8repro/v21_s7,EQUAL,,equal
 r10buvm8repro/v21_s8,EQUAL,,equal
 r10buvm8repro/v22body8,EQUAL,,equal
-r10buvm8repro/v3_argts8,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+r10buvm8repro/v3_argts8,EQUAL,,equal
 r10buvm8repro/v4order8,EQUAL,,equal
 r10buvm8repro/v5b8,EQUAL,,equal
 r10buvm8repro/v6ctx8,EQUAL,,equal
 r10buvm8repro/v8twice8,EQUAL,,equal
-r10buvm8repro/v9fold8,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
+r10buvm8repro/v9fold8,EQUAL,,equal
 r10buvm8repro/vfwd8,EQUAL,,equal
 r10buvm8repro/vfwdts8,EQUAL,,equal
 r10buvm8repro/voob8,EQUAL,,equal
@@ -930,7 +930,7 @@ r10uvm49repro/a6,EQUAL,,equal
 r10uvm50repro/a1,EQUAL,,equal
 r10uvm50repro/a7,EQUAL,,equal
 r10uvm51repro/a4,EQUAL,,equal
-r10uvm52repro/a1,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
+r10uvm52repro/a1,EQUAL,,equal
 r10uvm55repro/a1,EQUAL,,equal
 r10uvm56repro/a1_witness,EQUAL,,equal
 r10uvm56repro/a2_local,EQUAL,,equal
@@ -3500,7 +3500,7 @@ r11v48repro/va11,EQUAL,,equal
 r11v48repro/va2,EQUAL,,equal
 r11v48repro/va4,EQUAL,,equal
 r11v48repro/va6,EQUAL,,equal
-r11v48repro/va8,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
+r11v48repro/va8,EQUAL,,equal
 r11v48repro/vb1,EQUAL,,equal
 r11v48repro/vb10,EQUAL,,equal
 r11v48repro/vb14,EQUAL,,equal

@@ -56,10 +56,100 @@
 #include "R294.h"
 #include "R296.h"
 #include "R298.h"
+#include "R300.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
 namespace slang_uhdm {
+// § pkgRetCallFoldSharesCalleeRet300 (r11u300) — the callee half of the law
+// (the law itself sits at its site in emitExpr's user-call branch).  Surelog's
+// EvalFunc runs ExprEval::evalFunc on the callee; with the arguments unvalued
+// it returns, when the body is one `return E`, `reduceExpr(E)`, and the call
+// is replaced by that object unless the evaluation set invalidValue.  This
+// classifies E over the measured shapes only:
+//   1  E is an ADD whose operands are the callee's own formals and unbased
+//      decimal literals, at least one formal: reduceExpr's vpiAddOp arm takes
+//      its unsigned path (an unbased decimal is a UINT constant), get_uvalue
+//      fails on the formal and only invalidValueI is set, so E itself comes
+//      back unreduced and VALID — the callee's own object, holding references.
+//   2  E is a no-argument $urandom / $random: reduceExpr returns the
+//      sys_func_call itself — the callee's own object, no references.
+//   0  anything else (abstain: a subtraction, a product, a comparison, a
+//      logical or bitwise operator, a ternary, a unary minus, a nested call,
+//      a declaration or a second statement in the body all keep the call or
+//      are not measured).
+static int retShareKind300(const slang::ast::SubroutineSymbol& sub, std::string& why) {
+    using namespace slang::ast;
+    const Statement* st = &sub.getBody();
+    for (int guard = 0; st && guard < 8; guard++) {
+        if (st->kind == StatementKind::List) {
+            auto& l = st->as<StatementList>().list;
+            if (l.size() != 1) {
+                why = "body-stmts";
+                return 0;
+            }
+            st = l[0];
+        }
+        else if (st->kind == StatementKind::Block)
+            st = &st->as<BlockStatement>().body;
+        else
+            break;
+    }
+    if (!st || st->kind != StatementKind::Return || !st->as<ReturnStatement>().expr) {
+        why = "body-not-return";
+        return 0;
+    }
+    const Expression& e = stripImplicitConv(*st->as<ReturnStatement>().expr);
+    if (e.kind == ExpressionKind::Call) {
+        auto& c = e.as<CallExpression>();
+        if (c.isSystemCall() && c.arguments().empty()) {
+            std::string n(c.getSubroutineName());
+            if (n == "$urandom" || n == "$random")
+                return 2;
+        }
+        why = "ret-call";
+        return 0;
+    }
+    if (e.kind != ExpressionKind::BinaryOp ||
+        e.as<BinaryExpression>().op != BinaryOperator::Add) {
+        why = "ret-not-add";
+        return 0;
+    }
+    auto& be = e.as<BinaryExpression>();
+    int formals = 0;
+    for (const Expression* o : {&be.left(), &be.right()}) {
+        const Expression& x = stripImplicitConv(*o);
+        if (x.kind == ExpressionKind::NamedValue) {
+            auto& sym = x.as<NamedValueExpression>().symbol;
+            if (sym.kind == SymbolKind::FormalArgument &&
+                sym.getParentScope() == static_cast<const Scope*>(&sub)) {
+                formals++;
+                continue;
+            }
+            why = "add-operand-ref";
+            return 0;
+        }
+        if (x.kind == ExpressionKind::IntegerLiteral && x.syntax &&
+            x.syntax->kind == slang::syntax::SyntaxKind::IntegerLiteralExpression)
+            continue;
+        why = "add-operand-kind";
+        return 0;
+    }
+    if (!formals) {
+        why = "add-no-formal";
+        return 0;
+    }
+    return 1;
+}
+// § pkgRetCallFoldSharesCalleeRet300: is the call written package-qualified
+// (`q::f(x)`)?  Such a call resolves to the callee's home listing.
+static bool qualCallSyntax300(const slang::syntax::SyntaxNode* n) {
+    if (!n)
+        return false;
+    if (auto* iv = n->as_if<slang::syntax::InvocationExpressionSyntax>())
+        n = iv->left;
+    return n && n->kind == slang::syntax::SyntaxKind::ScopedName;
+}
 // § castClsTpOwnDefaultObj298 reads § typeParamUseSharesOwnTs183's registry
 // (UhdmExporter.cpp; type parameter alias -> the class listing's own object).
 extern std::map<const void*, UHDM::typespec*> g_typeParamOwnTs183;
@@ -35296,6 +35386,350 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 bool callStmtCtx0 = callStmtContext;
                 callStmtContext = false;
                 auto& sub = *std::get<const SubroutineSymbol*>(call.subroutine);
+                // § pkgRetCallFoldSharesCalleeRet300 (r11u300) — A PACKAGE
+                // FUNCTION CALL THAT SURELOG'S EVALFUNC LEAVES UNREDUCED IS
+                // REPLACED BY THE CALLEE'S OWN RETURN EXPRESSION OBJECT, in
+                // the ELABORATED package listing.
+                //
+                // Surelog compiles the elaborated package with Reduce::Yes
+                // and the paRETURN arm of a direct body statement threads it
+                // (§ pkgRetTopCallArgFormalTs8's window).  CompileExpression's
+                // user-call arm then runs EvalFunc (ExprEval::evalFunc):
+                // getTaskFunc resolves the callee IN THE COMPONENT BEING
+                // COMPILED (the elaborated listing's own object, or the
+                // wildcard-import clone the importer's listing holds), the
+                // unvalued actuals bind the formals, the one `return E` of the
+                // body is reduced, and when the result is non-null and
+                // invalidValue stays false the func_call is discarded and the
+                // result takes its place: the callee's return-expression
+                // OBJECT ITSELF, shared (the walk sees it once; uhdm-dump
+                // prints only its header the second time).  Golden on the
+                // grid (tools/probe/r11u300repro, RF): `return f(x)` with
+                // f = `return a + 1;` shares f's operation (v9fold8, va8, a1's
+                // c7, v3_clone13 through the import clone); `== 0` around a
+                // no-argument `$urandom()` callee shares the sys_func_call and
+                // RE-PARENTS it at the comparison (v3_argts8 c2: a binary or
+                // ternary operand is re-parented by CompileExpression, a
+                // unary operand and a system-call argument are not).
+                //
+                // THE GATES (each one a measured boundary, the rest abstain
+                // and keep the call): the callee is a package function (no
+                // DPI import, no method) declared EARLIER in the same package
+                // (§ pkgRetCalleeDeclFirst8v: a later one is not registered
+                // when the body compiles) or in another package; every
+                // written actual is a bare reference to a formal or a local
+                // variable of the caller (a constant, a parameter or a package
+                // variable can be valued and fold; a call argument evaluates
+                // the call); the callee body is one return whose expression
+                // retShareKind300 classifies; the call sits directly under the
+                // return or under operations and system calls up to it; a
+                // re-parented result must hold no reference (golden's late
+                // binding then looks the name up from the caller: not
+                // modelled).
+                if (pkgRetTopExpr8 && pkgTopEmit && pkgScopeInst &&
+                    currentSubSym && !inClassBodyEmit && !pkgImportCloneEmit &&
+                    !call.thisClass() && parent &&
+                    r11u300On("R11U300_RETSHARE_OFF")) {
+                    auto* cps300 = currentSubSym->getParentScope();
+                    auto* sps300 = sub.getParentScope();
+                    const bool pkgCall300 =
+                        cps300 && sps300 &&
+                        cps300->asSymbol().kind == SymbolKind::Package &&
+                        sps300->asSymbol().kind == SymbolKind::Package &&
+                        sub.subroutineKind == SubroutineKind::Function &&
+                        !sub.flags.has(MethodFlags::DPIImport) &&
+                        &sub != currentSubSym;
+                    if (pkgCall300) {
+                        std::string why300;
+                        std::string at300 = std::string(currentSubSym->name) +
+                                            "->" + std::string(sub.name);
+                        const bool samePkg300 =
+                            &cps300->asSymbol() == &sps300->asSymbol();
+                        bool ok300 = true;
+                        if (samePkg300 &&
+                            !(currentSubSym->getIndex() > sub.getIndex())) {
+                            ok300 = false;
+                            why300 = "callee-later";
+                        }
+                        // the actuals: written ones must be bare references to
+                        // the caller's formals or locals; an omitted one takes
+                        // its default (its range lies outside the call)
+                        if (ok300) {
+                            auto fa300 = sub.getArguments();
+                            for (auto* fo300 : fa300)
+                                if (fo300->direction != ArgumentDirection::In) {
+                                    ok300 = false;
+                                    why300 = "formal-dir";
+                                }
+                            // an omitted argument in a call written with a
+                            // named or an empty argument: Surelog's
+                            // compileTfCallArguments fills the slot with an
+                            // unlocated INT:0 constant, which makes the add
+                            // take reduceExpr's signed path and EvalFunc
+                            // invalid (golden keeps the call, grid RS/s11);
+                            // a positional call that stops early leaves the
+                            // formal unset and still shares (RF/g17, RX/h02)
+                            bool namedOrEmpty300 = false;
+                            if (auto* iv300 = expr.syntax ? expr.syntax->as_if<
+                                                  syntax::InvocationExpressionSyntax>()
+                                                          : nullptr;
+                                iv300 && iv300->arguments)
+                                for (auto* ap300 : iv300->arguments->parameters)
+                                    if (ap300 &&
+                                        (ap300->kind == syntax::SyntaxKind::NamedArgument ||
+                                         ap300->kind == syntax::SyntaxKind::EmptyArgument))
+                                        namedOrEmpty300 = true;
+                            for (auto* a300 : call.arguments()) {
+                                if (!ok300)
+                                    break;
+                                auto ar300 = a300->sourceRange;
+                                bool written300 =
+                                    ar300.start() >= expr.sourceRange.start() &&
+                                    ar300.end() <= expr.sourceRange.end();
+                                if (!written300) {
+                                    if (namedOrEmpty300) {
+                                        ok300 = false;
+                                        why300 = "omitted-named";
+                                    }
+                                    continue;
+                                }
+                                const Expression& x300 = stripImplicitConv(*a300);
+                                if (x300.kind != ExpressionKind::NamedValue) {
+                                    ok300 = false;
+                                    why300 = "arg-kind";
+                                    break;
+                                }
+                                auto& as300 = x300.as<NamedValueExpression>().symbol;
+                                bool own300 = false;
+                                if (as300.kind == SymbolKind::FormalArgument)
+                                    own300 = as300.getParentScope() ==
+                                             static_cast<const Scope*>(currentSubSym);
+                                else if (as300.kind == SymbolKind::Variable &&
+                                         !as300.as<VariableSymbol>().flags.has(
+                                             VariableFlags::Const))
+                                    for (auto* sc300 = as300.getParentScope(); sc300;
+                                         sc300 = sc300->asSymbol().getParentScope()) {
+                                        if (sc300 == static_cast<const Scope*>(currentSubSym)) {
+                                            own300 = true;
+                                            break;
+                                        }
+                                        if (sc300->asSymbol().kind == SymbolKind::Package)
+                                            break;
+                                    }
+                                if (!own300) {
+                                    ok300 = false;
+                                    why300 = "arg-not-local";
+                                }
+                            }
+                        }
+                        int kind300 = ok300 ? retShareKind300(sub, why300) : 0;
+                        // § retShareActualFoldAbstain300v (v11u300, R11V300_ACTFOLD_OFF;
+                        // refines § pkgRetCallFoldSharesCalleeRet300) — EvalFunc
+                        // can VALUE an actual the law reads as an unvalued local,
+                        // and then reduceExpr folds the add to a fresh UINT
+                        // constant at the call (golden), where the law shared the
+                        // callee's operation.  Two roads, both measured on fresh
+                        // cases where pristine was STRICT_EQUAL in the elaborated
+                        // view and the law left it (v11u300repro VA):
+                        //  (1) the law decided `written` by source-range
+                        //      containment, so an actual born in a macro argument
+                        //      (`f(`ONE)`, `f(`KK)`, `` `CALLF(2) ``: another buffer)
+                        //      read as OMITTED and skipped the bare-reference test
+                        //      (va01, va02, va13).  A positional call writes the
+                        //      first N arguments of its syntax list; a named call
+                        //      writes every argument it names.
+                        //  (2) evalFunc's scope clones the param_assigns of the
+                        //      package being compiled (the CALLER's), and reduceExpr
+                        //      resolves a reference BY NAME there, so a caller
+                        //      formal or local (va04, va14, va19 a localparam, va17 an
+                        //      imported parameter) or a
+                        //      callee formal (va05, va22 across packages) spelled
+                        //      like a caller-package parameter reads its value and
+                        //      golden folds (an enum constant too, ve01; $unit,
+                        //      ve05); any such name declared before the caller
+                        //      stands aside (one declared after it shares, ve04).  A name
+                        //      shared only with the CALLEE package's parameter
+                        //      still shares (va18).
+                        bool vfold300 = false;
+                        std::string vwhy300;
+                        // (kind 2, a no-argument $urandom/$random, reads no
+                        // actual: a valued one still shares, ve06.)
+                        if (kind300 == 1 && r11v300On("R11V300_ACTFOLD_OFF")) {
+                            // the call's own invocation, read through the
+                            // parentheses slang hangs on it (`return (f(x));`,
+                            // r11u300repro RS/s19) and off a shell (§ 167)
+                            const syntax::SyntaxNode* sn300v = expr.syntax;
+                            while (sn300v &&
+                                   sn300v->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                                sn300v = sn300v->as<syntax::ParenthesizedExpressionSyntax>()
+                                             .expression;
+                            auto* iv300v = sn300v ? sn300v->as_if<
+                                               syntax::InvocationExpressionSyntax>()
+                                                  : nullptr;
+                            if (!iv300v)
+                                iv300v = callInvocation167(call);
+                            size_t nSyn300v = 0, nNonEmpty300v = 0;
+                            bool named300v = false;
+                            if (iv300v && iv300v->arguments)
+                                for (auto* ap : iv300v->arguments->parameters) {
+                                    nSyn300v++;
+                                    if (ap && ap->kind == syntax::SyntaxKind::NamedArgument)
+                                        named300v = true;
+                                    if (ap && ap->kind != syntax::SyntaxKind::EmptyArgument)
+                                        nNonEmpty300v++;
+                                }
+                            auto args300v = call.arguments();
+                            size_t nCheck300v = named300v ? args300v.size()
+                                                          : std::min(nSyn300v, args300v.size());
+                            if (!iv300v && !args300v.empty()) {
+                                vfold300 = true;
+                                vwhy300 = "no-invocation";
+                            }
+                            else if (named300v && nNonEmpty300v != args300v.size()) {
+                                vfold300 = true;
+                                vwhy300 = "named-omitted";
+                            }
+                            auto paramNamed300v = [&](std::string_view nm) {
+                                // looked up from the CALLER's package at the
+                                // caller (its wildcard imports, va17, and $unit,
+                                // ve05, included; a parameter declared after the
+                                // caller is not yet compiled, ve04 shares); an
+                                // enum constant is valued the same way (ve01); the
+                                // callee package's parameters do not shadow (va18)
+                                if (auto* hit = cps300->lookupName(
+                                        nm, LookupLocation::before(*currentSubSym));
+                                    hit && (hit->kind == SymbolKind::Parameter ||
+                                            hit->kind == SymbolKind::EnumValue))
+                                    return true;
+                                return false;
+                            };
+                            for (size_t i = 0; !vfold300 && i < nCheck300v; i++) {
+                                const Expression& x = stripImplicitConv(*args300v[i]);
+                                if (x.kind != ExpressionKind::NamedValue) {
+                                    vfold300 = true;
+                                    vwhy300 = "arg-kind";
+                                    break;
+                                }
+                                auto& as = x.as<NamedValueExpression>().symbol;
+                                bool own = false;
+                                if (as.kind == SymbolKind::FormalArgument)
+                                    own = as.getParentScope() ==
+                                          static_cast<const Scope*>(currentSubSym);
+                                else if (as.kind == SymbolKind::Variable &&
+                                         !as.as<VariableSymbol>().flags.has(VariableFlags::Const))
+                                    for (auto* sc = as.getParentScope(); sc;
+                                         sc = sc->asSymbol().getParentScope()) {
+                                        if (sc == static_cast<const Scope*>(currentSubSym)) {
+                                            own = true;
+                                            break;
+                                        }
+                                        if (sc->asSymbol().kind == SymbolKind::Package)
+                                            break;
+                                    }
+                                if (!own) {
+                                    vfold300 = true;
+                                    vwhy300 = "arg-not-local";
+                                }
+                                else if (paramNamed300v(as.name)) {
+                                    vfold300 = true;
+                                    vwhy300 = "arg-names-param";
+                                }
+                            }
+                            if (!vfold300)
+                                for (auto* fo : sub.getArguments())
+                                    if (paramNamed300v(fo->name)) {
+                                        vfold300 = true;
+                                        vwhy300 = "formal-names-param";
+                                        break;
+                                    }
+                        }
+                        // the context: up to the return through operations and
+                        // system calls; the immediate parent decides re-parenting
+                        bool reparent300 = false;
+                        if (kind300) {
+                            static const std::set<int> unary300 = {
+                                vpiMinusOp, vpiPlusOp, vpiNotOp, vpiBitNegOp,
+                                vpiUnaryAndOp, vpiUnaryNandOp, vpiUnaryOrOp,
+                                vpiUnaryNorOp, vpiUnaryXorOp, vpiUnaryXNorOp};
+                            static const std::set<int> binary300 = {
+                                vpiSubOp, vpiDivOp, vpiModOp, vpiEqOp, vpiNeqOp,
+                                vpiCaseEqOp, vpiCaseNeqOp, vpiGtOp, vpiGeOp,
+                                vpiLtOp, vpiLeOp, vpiLShiftOp, vpiRShiftOp,
+                                vpiAddOp, vpiMultOp, vpiLogAndOp, vpiLogOrOp,
+                                vpiBitAndOp, vpiBitOrOp, vpiBitXorOp,
+                                vpiBitXnorOp, vpiArithLShiftOp, vpiArithRShiftOp,
+                                vpiPowerOp, vpiConditionOp};
+                            const UHDM::any* h300 = parent;
+                            bool first300 = true, reached300 = false;
+                            for (int g300 = 0; h300 && g300 < 32; g300++) {
+                                auto t300 = h300->UhdmType();
+                                if (t300 == UHDM::uhdmreturn_stmt) {
+                                    reached300 = true;
+                                    break;
+                                }
+                                if (t300 == UHDM::uhdmoperation) {
+                                    int ot300 = ((const UHDM::operation*)h300)->VpiOpType();
+                                    if (binary300.count(ot300)) {
+                                        if (first300)
+                                            reparent300 = true;
+                                    }
+                                    else if (!unary300.count(ot300))
+                                        break;
+                                }
+                                else if (t300 != UHDM::uhdmsys_func_call)
+                                    break;
+                                first300 = false;
+                                h300 = h300->VpiParent();
+                            }
+                            if (!reached300) {
+                                kind300 = 0;
+                                why300 = "context";
+                            }
+                            else if (reparent300 && kind300 == 1) {
+                                kind300 = 0;
+                                why300 = "reparent-refs";
+                            }
+                        }
+                        UHDM::any* sh300 = nullptr;
+                        if (kind300) {
+                            if (!samePkg300 && qualCallSyntax300(expr.syntax)) {
+                                auto hit = retCondHome300().find((const void*)&sub);
+                                if (hit != retCondHome300().end())
+                                    sh300 = hit->second;
+                            }
+                            else {
+                                auto hit = retCondReg300().find(
+                                    {(const void*)pkgScopeInst, (const void*)&sub});
+                                if (hit != retCondReg300().end())
+                                    sh300 = hit->second;
+                            }
+                            if (!sh300)
+                                why300 = "not-registered";
+                            else if ((kind300 == 1 &&
+                                      sh300->UhdmType() != UHDM::uhdmoperation) ||
+                                     (kind300 == 2 &&
+                                      sh300->UhdmType() != UHDM::uhdmsys_func_call)) {
+                                why300 = "registered-kind";
+                                sh300 = nullptr;
+                            }
+                        }
+                        if (sh300 && vfold300) {
+                            // § retShareActualFoldAbstain300v: the law would share
+                            // here; the refinement keeps pristine's call.
+                            tr300("ACTFOLD300V", at300 + " " + vwhy300);
+                            sh300 = nullptr;
+                            why300 = "v-" + vwhy300;
+                        }
+                        if (sh300) {
+                            if (reparent300)
+                                sh300->VpiParent(parent);
+                            tr300("RETSHARE", at300 + (reparent300 ? " reparent" : ""));
+                            callStmtContext = callStmtCtx0;
+                            return sh300;
+                        }
+                        tr300("RETSHARE_ABSTAIN", at300 + " " + why300);
+                    }
+                }
                 // § rootCallEatsTheChain150 — a call whose RECEIVER IS ITSELF A
                 // CALL renders as THE RECEIVER CALL ALONE.  Surelog's
                 // `compileComplexFuncCall` dispatches once on the FIRST node of

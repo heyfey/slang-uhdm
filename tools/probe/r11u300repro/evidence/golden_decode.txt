@@ -1,0 +1,261 @@
+##### RF/g01_plus (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#10
+      operation#13 '' 3:34-3:39 par=10return_stmt
+        ref_obj#11 'a' 3:34-3:35 par=13operation act=7io_decl
+        constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+  tf c#3
+    return#21
+      operation#13 '' 3:34-3:39 par=10return_stmt
+        ref_obj#11 'a' 3:34-3:35 par=13operation act=7io_decl
+        constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+##### RF/g02_cmp (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#10
+      operation#13 '' 3:34-3:39 par=33operation
+        ref_obj#11 'a' 3:34-3:35 par=13operation act=-
+        constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+  tf c#3
+    return#21
+      operation#33 '' 4:34-4:43 par=21return_stmt
+        operation#13 '' 3:34-3:39 par=33operation
+          ref_obj#11 'a' 3:34-3:35 par=13operation act=-
+          constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+        constant#34 '' 4:42-4:43 par=33operation val=UINT:0
+##### RF/g03_ident (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#10
+      ref_obj#11 'a' 3:34-3:35 par=10return_stmt act=7io_decl
+  tf c#3
+    return#19
+      ref_obj#21 'x' 4:36-4:37 par=20func_call act=16io_decl
+##### RF/g04_const (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#10
+      operation#13 '' 3:34-3:39 par=10return_stmt
+        ref_obj#11 'a' 3:34-3:35 par=13operation act=7io_decl
+        constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+  tf c#3
+    return#21
+      constant#30 '' 4:34-4:38 par=- val=UINT:4
+##### RF/g06_twostmt (golden TOP listing)
+TOP package p#1
+  tf f#2
+    assign#15
+      ref_obj#17 'a' 3:38-3:39 par=15assignment act=7io_decl
+    return#18
+      operation#21 '' 3:48-3:53 par=18return_stmt
+        ref_obj#19 't' 3:48-3:49 par=21operation act=12int_var
+        constant#22 '' 3:52-3:53 par=21operation val=UINT:1
+  tf c#3
+    return#29
+      operation#21 '' 3:48-3:53 par=18return_stmt
+        ref_obj#19 't' 3:48-3:49 par=21operation act=12int_var
+        constant#22 '' 3:52-3:53 par=21operation val=UINT:1
+##### RF/g10_nested (golden TOP listing)
+TOP package p#1
+  tf g#2
+    return#11
+      operation#14 '' 3:34-3:39 par=11return_stmt
+        ref_obj#12 'a' 3:34-3:35 par=14operation act=8io_decl
+        constant#15 '' 3:38-3:39 par=14operation val=UINT:2
+  tf f#3
+    return#22
+      operation#24 '' 4:34-4:39 par=22return_stmt
+        ref_obj#23 'a' 4:34-4:35 par=24operation act=19io_decl
+        constant#25 '' 4:38-4:39 par=24operation val=UINT:1
+  tf c#4
+    return#32
+      func_call#33 'f' 5:34-5:41 par=32return_stmt
+        func_call#34 'g' 5:36-5:40 par=33func_call
+          ref_obj#35 'x' 5:38-5:39 par=34func_call act=29io_decl
+##### RF/g11_unary (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#10
+      operation#13 '' 3:34-3:39 par=10return_stmt
+        ref_obj#11 'a' 3:34-3:35 par=13operation act=7io_decl
+        constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+  tf c#3
+    return#21
+      operation#22 '' 4:34-4:39 par=21return_stmt
+        operation#13 '' 3:34-3:39 par=10return_stmt
+          ref_obj#11 'a' 3:34-3:35 par=13operation act=7io_decl
+          constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+##### RF/g12_tern (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#10
+      operation#13 '' 3:34-3:39 par=26operation
+        ref_obj#11 'a' 3:34-3:35 par=13operation act=-
+        constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+  tf c#3
+    return#24
+      operation#26 '' 4:41-4:53 par=24return_stmt
+        ref_obj#25 's' 4:41-4:42 par=26operation act=21io_decl
+        operation#13 '' 3:34-3:39 par=26operation
+          ref_obj#11 'a' 3:34-3:35 par=13operation act=-
+          constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+        constant#38 '' 4:52-4:53 par=26operation val=UINT:0
+##### RF/g15_ternbody (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#10
+      operation#13 '' 3:34-3:43 par=10return_stmt
+        ref_obj#11 'a' 3:34-3:35 par=13operation act=7io_decl
+        constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+        constant#15 '' 3:42-3:43 par=13operation val=UINT:2
+  tf c#3
+    return#22
+      func_call#23 'f' 4:34-4:38 par=22return_stmt
+        ref_obj#24 'x' 4:36-4:37 par=23func_call act=19io_decl
+##### RF/g19_chain (golden TOP listing)
+TOP package p#1
+  tf h#2
+    return#11
+      operation#14 '' 3:34-3:39 par=11return_stmt
+        ref_obj#12 'a' 3:34-3:35 par=14operation act=8io_decl
+        constant#15 '' 3:38-3:39 par=14operation val=UINT:1
+  tf f#3
+    return#22
+      func_call#23 'h' 4:34-4:38 par=22return_stmt
+        ref_obj#24 'a' 4:36-4:37 par=23func_call act=19io_decl
+  tf c#4
+    return#48
+      func_call#49 'f' 5:34-5:38 par=48return_stmt
+        ref_obj#50 'x' 5:36-5:37 par=49func_call act=45io_decl
+##### RF/g20_lit (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#10
+      constant#11 '' 3:34-3:35 par=- val=UINT:5
+  tf c#3
+    return#19
+      constant#11 '' 3:34-3:35 par=- val=UINT:5
+##### RF/g23_bitsel (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#13
+      bit_select#16 'a' 3:44-3:45 par=13return_stmt
+  tf c#3
+    return#26
+      bit_select#16 'a' 3:44-3:45 par=13return_stmt
+##### RX/h05_pkgvar (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#10
+      operation#13 '' 4:34-4:39 par=10return_stmt
+        ref_obj#11 'a' 4:34-4:35 par=13operation act=7io_decl
+        constant#14 '' 4:38-4:39 par=13operation val=UINT:1
+  tf c#3
+    return#21
+      operation#13 '' 4:34-4:39 par=10return_stmt
+        ref_obj#11 'a' 4:34-4:35 par=13operation act=7io_decl
+        constant#14 '' 4:38-4:39 par=13operation val=UINT:1
+##### RX/h27_calleelocal (golden TOP listing)
+TOP package p#1
+  tf f#2
+    assign#15
+      constant#17 '' 3:38-3:39 par=- val=UINT:2
+    return#18
+      operation#21 '' 3:48-3:53 par=18return_stmt
+        ref_obj#19 'a' 3:48-3:49 par=21operation act=7io_decl
+        constant#22 '' 3:52-3:53 par=21operation val=UINT:1
+  tf c#3
+    return#29
+      operation#21 '' 3:48-3:53 par=18return_stmt
+        ref_obj#19 'a' 3:48-3:49 par=21operation act=7io_decl
+        constant#22 '' 3:52-3:53 par=21operation val=UINT:1
+##### RX/h28_calleevar (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#10
+      operation#13 '' 4:34-4:40 par=10return_stmt
+        ref_obj#11 'a' 4:34-4:35 par=13operation act=7io_decl
+        ref_obj#14 'gb' 4:38-4:40 par=13operation act=64int_var
+  tf c#3
+    return#21
+      operation#13 '' 4:34-4:40 par=10return_stmt
+        ref_obj#11 'a' 4:34-4:35 par=13operation act=7io_decl
+        ref_obj#14 'gb' 4:38-4:40 par=13operation act=64int_var
+##### RX/h35_bitsel_arg (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#10
+      operation#13 '' 3:34-3:39 par=10return_stmt
+        ref_obj#11 'a' 3:34-3:35 par=13operation act=7io_decl
+        constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+  tf c#3
+    return#24
+      operation#13 '' 3:34-3:39 par=10return_stmt
+        ref_obj#11 'a' 3:34-3:35 par=13operation act=7io_decl
+        constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+##### RX/h03_outformal (golden TOP listing)
+TOP package p#1
+  tf f#2
+    assign#14
+      ref_obj#16 'a' 3:51-3:52 par=14assignment act=7io_decl
+    return#17
+      operation#20 '' 3:61-3:66 par=17return_stmt
+        ref_obj#18 'a' 3:61-3:62 par=20operation act=7io_decl
+        constant#21 '' 3:65-3:66 par=20operation val=UINT:1
+  tf c#3
+    return#33
+      operation#20 '' 3:61-3:66 par=17return_stmt
+        ref_obj#18 'a' 3:61-3:62 par=20operation act=7io_decl
+        constant#21 '' 3:65-3:66 par=20operation val=UINT:1
+##### RS/s11_named_default (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#14
+      operation#17 '' 3:55-3:60 par=14return_stmt
+        ref_obj#15 'a' 3:55-3:56 par=17operation act=7io_decl
+        ref_obj#18 'b' 3:59-3:60 par=17operation act=10io_decl
+  tf c#3
+    return#25
+      func_call#26 'f' 4:44-4:52 par=25return_stmt
+        ref_obj#27 'x' 4:49-4:50 par=26func_call act=22io_decl
+        constant#28 '' 0:0-0:0 par=- val=INT:0
+##### RS/s18_empty_slot (golden TOP listing)
+TOP package p#1
+  tf f#2
+    return#14
+      operation#17 '' 3:55-3:60 par=14return_stmt
+        ref_obj#15 'a' 3:55-3:56 par=17operation act=7io_decl
+        ref_obj#18 'b' 3:59-3:60 par=17operation act=10io_decl
+  tf c#3
+    return#25
+      func_call#26 'f' 4:44-4:50 par=25return_stmt
+        ref_obj#27 'x' 4:46-4:47 par=26func_call act=22io_decl
+        constant#28 '' 4:49-4:49 par=- val=INT:0
+##### RS/s25_twopkg_same_name (golden TOP listing)
+TOP package q#1
+  tf f#3
+    return#10
+      operation#13 '' 3:34-3:39 par=59operation
+        ref_obj#11 'a' 3:34-3:35 par=13operation act=-
+        constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+TOP package p#2
+  tf f#27
+    return#36
+      operation#39 '' 6:34-6:39 par=59operation
+        ref_obj#37 'a' 6:34-6:35 par=39operation act=-
+        constant#40 '' 6:38-6:39 par=39operation val=UINT:1
+  tf c#28
+    return#47
+      operation#59 '' 7:34-7:48 par=47return_stmt
+        operation#13 '' 3:34-3:39 par=59operation
+          ref_obj#11 'a' 3:34-3:35 par=13operation act=-
+          constant#14 '' 3:38-3:39 par=13operation val=UINT:1
+        operation#39 '' 6:34-6:39 par=59operation
+          ref_obj#37 'a' 6:34-6:35 par=39operation act=-
+          constant#40 '' 6:38-6:39 par=39operation val=UINT:1
+  tf d#29
+    return#77
+      operation#13 '' 3:34-3:39 par=59operation
+        ref_obj#11 'a' 3:34-3:35 par=13operation act=-
+        constant#14 '' 3:38-3:39 par=13operation val=UINT:1

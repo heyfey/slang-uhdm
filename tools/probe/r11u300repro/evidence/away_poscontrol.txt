@@ -1,0 +1,10 @@
+RF/g01_plus e chain away=5 toward=0 flat_away=5 flat_toward=0
+RF/g07_beginend e chain away=5 toward=0 flat_away=5 flat_toward=0
+RF/g08_sys e chain away=1 toward=0 flat_away=1 flat_toward=0
+RF/g11_unary e chain away=5 toward=0 flat_away=4 flat_toward=0
+RF/g13_syscall e chain away=5 toward=0 flat_away=4 flat_toward=0
+RF/g14_xpkg e chain away=5 toward=0 flat_away=5 flat_toward=0
+RF/g17_default e chain away=7 toward=0 flat_away=7 flat_toward=0
+RF/g25_local e chain away=5 toward=0 flat_away=5 flat_toward=0
+RF/g26_automatic e chain away=5 toward=0 flat_away=5 flat_toward=0
+RF/g27_import e chain away=5 toward=0 flat_away=5 flat_toward=0

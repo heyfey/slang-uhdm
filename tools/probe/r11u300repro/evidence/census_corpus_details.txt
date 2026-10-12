@@ -1,0 +1,17 @@
+      1 surelog Earlgrey_0_1/default RETSHARE_ABSTAIN aes_mul4->aes_mul2 arg-kind
+      1 surelog Earlgrey_0_1/default RETSHARE_ABSTAIN aes_mul4->aes_mul2 body-stmts
+      1 surelog Earlgrey_0_1/testflags RETSHARE_ABSTAIN aes_mul4->aes_mul2 arg-kind
+      1 surelog Earlgrey_0_1/testflags RETSHARE_ABSTAIN aes_mul4->aes_mul2 body-stmts
+      1 surelog EvalFunc/default RETSHARE_ABSTAIN vbits->_clog2 body-stmts
+      1 surelog EvalFunc/testflags RETSHARE_ABSTAIN vbits->_clog2 body-stmts
+      1 surelog MiniAmiq/default RETSHARE_ABSTAIN uvm_vector_to_string->uvm_bitstream_to_string body-stmts
+      1 surelog MiniAmiq/testflags RETSHARE_ABSTAIN uvm_vector_to_string->uvm_bitstream_to_string body-stmts
+      1 surelog Scoreboard/default RETSHARE_ABSTAIN uvm_vector_to_string->uvm_bitstream_to_string body-stmts
+      1 surelog SeqDriver/default RETSHARE_ABSTAIN uvm_vector_to_string->uvm_bitstream_to_string body-stmts
+      1 surelog SeqDriver/testflags RETSHARE_ABSTAIN uvm_vector_to_string->uvm_bitstream_to_string body-stmts
+      1 surelog SimpleUVM/default RETSHARE_ABSTAIN uvm_vector_to_string->uvm_bitstream_to_string body-stmts
+      1 surelog SimpleUVM/testflags RETSHARE_ABSTAIN uvm_vector_to_string->uvm_bitstream_to_string body-stmts
+      1 uhdm2rtlil NestedCallsOfTheSameFunction/default RETSHARE_ABSTAIN aes_mul4->aes_mul2 arg-kind
+      1 uhdm2rtlil NestedCallsOfTheSameFunction/default RETSHARE_ABSTAIN aes_mul4->aes_mul2 ret-not-add
+      1 uhdm2rtlil NestedCallsOfTheSameFunction/testflags RETSHARE_ABSTAIN aes_mul4->aes_mul2 arg-kind
+      1 uhdm2rtlil NestedCallsOfTheSameFunction/testflags RETSHARE_ABSTAIN aes_mul4->aes_mul2 ret-not-add

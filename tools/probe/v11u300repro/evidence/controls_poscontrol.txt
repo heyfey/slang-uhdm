@@ -1,0 +1,12 @@
+v11u300repro/cases/VA/va01_macro_const_actual d law rc=0 cmp=60 NOT_EQUAL stage1 md5=7ab972906488
+v11u300repro/cases/VA/va01_macro_const_actual d pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=7ab972906488
+v11u300repro/cases/VA/va01_macro_const_actual e law rc=0 cmp=0 STRICT_EQUAL 62 objects md5=38d29eb2aabf
+v11u300repro/cases/VA/va01_macro_const_actual e pristine rc=0 cmp=0 STRICT_EQUAL 62 objects md5=38d29eb2aabf
+v11u300repro/cases/VB/vb02_lit_zero d law rc=0 cmp=0 STRICT_EQUAL 64 objects md5=ebfd032343a3
+v11u300repro/cases/VB/vb02_lit_zero d pristine rc=0 cmp=0 STRICT_NOTEQUAL depth md5=83ed664cdf90
+v11u300repro/cases/VB/vb02_lit_zero e law rc=0 cmp=0 STRICT_EQUAL 66 objects md5=69278abd5625
+v11u300repro/cases/VB/vb02_lit_zero e pristine rc=0 cmp=90 NOT_EQUAL stage1 md5=d80f586d7022
+v11u300repro/cases/VE/ve08_local_named_param_in_block d law rc=0 cmp=0 STRICT_EQUAL 94 objects md5=7f9ea92ac20c
+v11u300repro/cases/VE/ve08_local_named_param_in_block d pristine rc=0 cmp=0 STRICT_EQUAL 94 objects md5=7f9ea92ac20c
+v11u300repro/cases/VE/ve08_local_named_param_in_block e law rc=0 cmp=0 STRICT_EQUAL 96 objects md5=b2b756506f2e
+v11u300repro/cases/VE/ve08_local_named_param_in_block e pristine rc=0 cmp=0 STRICT_EQUAL 96 objects md5=b2b756506f2e

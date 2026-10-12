@@ -1,0 +1,77 @@
+case-views 168 moving 76 entering STRICT_EQUAL 66 leaving 0 exit-code changes 0; R11U300_OFF==pristine 168; R11U300_RETSHARE_OFF==pristine 168
+RF/g01_plus d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 64 objects
+RF/g01_plus e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 66 objects
+RF/g07_beginend d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 66 objects
+RF/g07_beginend e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 68 objects
+RF/g08_sys d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 60 objects
+RF/g08_sys e: rc=0 cmp=58 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 58 objects
+RF/g11_unary d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 66 objects
+RF/g11_unary e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 68 objects
+RF/g13_syscall d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 66 objects
+RF/g13_syscall e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 68 objects
+RF/g14_xpkg d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 66 objects
+RF/g14_xpkg e: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 68 objects
+RF/g17_default d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 72 objects
+RF/g17_default e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 82 objects
+RF/g25_local d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 78 objects
+RF/g25_local e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 92 objects
+RF/g26_automatic d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 64 objects
+RF/g26_automatic e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 66 objects
+RF/g27_import d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 89 objects
+RF/g27_import e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 91 objects
+RS/s05_dim_bound d: rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+RS/s05_dim_bound e: rc=0 cmp=64 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1
+RS/s06_purevirtual d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 110 objects
+RS/s06_purevirtual e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 114 objects
+RS/s10_implicit d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 104 objects
+RS/s10_implicit e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 104 objects
+RS/s13_this_path d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 99 objects
+RS/s13_this_path e: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 108 objects
+RS/s14_genblk_module d: rc=0 cmp=42 NOT_EQUAL stage1 -> rc=0 cmp=42 NOT_EQUAL stage1
+RS/s14_genblk_module e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+RS/s19_paren d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 64 objects
+RS/s19_paren e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 66 objects
+RS/s21_real d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 64 objects
+RS/s21_real e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 66 objects
+RS/s24_namedblk_local d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 94 objects
+RS/s24_namedblk_local e: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 114 objects
+RS/s25_twopkg_same_name d: rc=0 cmp=29 NOT_EQUAL stage1 -> rc=0 cmp=29 NOT_EQUAL stage1
+RS/s25_twopkg_same_name e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=90 NOT_EQUAL stage1
+RS/s26_string d: rc=0 cmp=0 STRICT_NOTEQUAL type -> rc=0 cmp=0 STRICT_EQUAL 94 objects
+RS/s26_string e: rc=0 cmp=58 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 94 objects
+RX/h01_named d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 79 objects
+RX/h01_named e: rc=0 cmp=92 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 85 objects
+RX/h02_onedefault d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 72 objects
+RX/h02_onedefault e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 78 objects
+RX/h07_macrodef d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 64 objects
+RX/h07_macrodef e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 66 objects
+RX/h08_macrocall d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 64 objects
+RX/h08_macrocall e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 66 objects
+RX/h10_litfirst d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 64 objects
+RX/h10_litfirst e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 66 objects
+RX/h11_samearg d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 71 objects
+RX/h11_samearg e: rc=0 cmp=120 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 77 objects
+RX/h12_random d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 60 objects
+RX/h12_random e: rc=0 cmp=58 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 58 objects
+RX/h14_negsys d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 62 objects
+RX/h14_negsys e: rc=0 cmp=58 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 60 objects
+RX/h15_ternsys d: rc=0 cmp=0 STRICT_NOTEQUAL type -> rc=0 cmp=0 STRICT_EQUAL 66 objects
+RX/h15_ternsys e: rc=0 cmp=58 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 64 objects
+RX/h17_qualimport d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 113 objects
+RX/h17_qualimport e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 128 objects
+RX/h30_twocallers d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 88 objects
+RX/h30_twocallers e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 100 objects
+RX/h31_typedef d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 145 objects
+RX/h31_typedef e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 152 objects
+RX/h32_explicitimport d: rc=0 cmp=278 NOT_EQUAL stage1 -> rc=0 cmp=278 NOT_EQUAL stage1
+RX/h32_explicitimport e: rc=0 cmp=278 NOT_EQUAL stage1 -> rc=0 cmp=278 NOT_EQUAL stage1
+RX/h33_unsigned d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 64 objects
+RX/h33_unsigned e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 66 objects
+RX/h34_logicvec d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 97 objects
+RX/h34_logicvec e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 99 objects
+RX/h37_static_local_init d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 76 objects
+RX/h37_static_local_init e: rc=0 cmp=90 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 93 objects
+RX/h38_iface_unused d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_NOTEQUAL type
+RX/h38_iface_unused e: rc=0 cmp=74 NOT_EQUAL stage1 -> rc=0 cmp=74 NOT_EQUAL stage1
+RX/h39_unusedpkg d: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 45 objects
+RX/h39_unusedpkg e: rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 50 objects

@@ -30,6 +30,7 @@
 #include "R288.h"
 #include "R292.h"
 #include "R296.h"
+#include "R300.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -7635,6 +7636,27 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 pkgRetTopExpr8 = savedPRT8;
                 if (e) {
                     r->VpiCondition((UHDM::expr*)e);
+                    // § pkgRetCallFoldSharesCalleeRet300 (r11u300) — THE
+                    // REGISTRY.  A direct `return` of a package function in an
+                    // ELABORATED package listing records the object its
+                    // expression was emitted as, so a later Reduce::Yes call
+                    // whose EvalFunc leaves the callee's expression unreduced
+                    // can share it (ExprEmit's user-call branch, see the law).
+                    // Any return of the listing is recorded (the callee's own
+                    // Reduce window does not matter: golden shares f's object
+                    // when f's body is `begin return a + 1; end`, grid RF/g07);
+                    // the law reads an entry only for a callee whose body is
+                    // that one return.  Writes nothing to the database.
+                    if (pkgTopEmit && pkgScopeInst &&
+                        currentSubSym && !inClassBodyEmit &&
+                        r11u300On("R11U300_RETSHARE_OFF"))
+                        if (auto* ps300 = currentSubSym->getParentScope();
+                            ps300 && ps300->asSymbol().kind == SymbolKind::Package) {
+                            retCondReg300()[{(const void*)pkgScopeInst,
+                                             (const void*)currentSubSym}] = e;
+                            if (!pkgImportCloneEmit)
+                                retCondHome300()[(const void*)currentSubSym] = e;
+                        }
                     // § retUnbasedSizing — an UNBASED-UNSIZED return literal is
                     // sized to the FUNCTION RETURN TYPE and loses its QUOTE:
                     // the decompile becomes the digit repeated to the width, a

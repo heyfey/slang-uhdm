@@ -1,0 +1,230 @@
+MOVER VA/va03_macro_ref_actual d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VA/va03_macro_ref_actual e 90 -> 0
+MOVER VA/va03_macro_ref_actual e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VA/va06_caller_inout d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 73 objects
+CMP VA/va06_caller_inout e 90 -> 0
+MOVER VA/va06_caller_inout e: NOT_EQUAL stage1 -> STRICT_EQUAL 72 objects
+MOVER VA/va07_caller_output d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 73 objects
+CMP VA/va07_caller_output e 90 -> 0
+MOVER VA/va07_caller_output e: NOT_EQUAL stage1 -> STRICT_EQUAL 72 objects
+MOVER VA/va08_caller_ref d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 73 objects
+CMP VA/va08_caller_ref e 90 -> 0
+MOVER VA/va08_caller_ref e: NOT_EQUAL stage1 -> STRICT_EQUAL 72 objects
+MOVER VA/va09_caller_static_local d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 72 objects
+CMP VA/va09_caller_static_local e 90 -> 0
+MOVER VA/va09_caller_static_local e: NOT_EQUAL stage1 -> STRICT_EQUAL 83 objects
+MOVER VA/va10_local_const_init d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 76 objects
+CMP VA/va10_local_const_init e 90 -> 0
+MOVER VA/va10_local_const_init e: NOT_EQUAL stage1 -> STRICT_EQUAL 93 objects
+MOVER VA/va11_two_actuals d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 79 objects
+CMP VA/va11_two_actuals e 120 -> 0
+MOVER VA/va11_two_actuals e: NOT_EQUAL stage1 -> STRICT_EQUAL 85 objects
+MOVER VA/va12_same_formal_twice d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VA/va12_same_formal_twice e 90 -> 0
+MOVER VA/va12_same_formal_twice e: NOT_EQUAL stage1 -> STRICT_EQUAL 67 objects
+MOVER VA/va15_actual_is_callee_formal_name d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VA/va15_actual_is_callee_formal_name e 90 -> 0
+MOVER VA/va15_actual_is_callee_formal_name e: NOT_EQUAL stage1 -> STRICT_EQUAL 63 objects
+MOVER VA/va18_formal_shadows_callee_pkg_param d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 80 objects
+CMP VA/va18_formal_shadows_callee_pkg_param e 58 -> 0
+MOVER VA/va18_formal_shadows_callee_pkg_param e: NOT_EQUAL stage1 -> STRICT_EQUAL 82 objects
+MOVER VA/va21_formal_shadows_pkg_var d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 72 objects
+CMP VA/va21_formal_shadows_pkg_var e 90 -> 0
+MOVER VA/va21_formal_shadows_pkg_var e: NOT_EQUAL stage1 -> STRICT_EQUAL 74 objects
+MOVER VA/va23_positional_macro_ref_and_local d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 79 objects
+CMP VA/va23_positional_macro_ref_and_local e 120 -> 0
+MOVER VA/va23_positional_macro_ref_and_local e: NOT_EQUAL stage1 -> STRICT_EQUAL 85 objects
+MOVER VB/vb01_large_lit d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VB/vb01_large_lit e 90 -> 0
+MOVER VB/vb01_large_lit e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VB/vb02_lit_zero d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VB/vb02_lit_zero e 90 -> 0
+MOVER VB/vb02_lit_zero e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VB/vb03_lit_underscore d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VB/vb03_lit_underscore e 90 -> 0
+MOVER VB/vb03_lit_underscore e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VB/vb04_logic4 d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 97 objects
+CMP VB/vb04_logic4 e 90 -> 0
+MOVER VB/vb04_logic4 e: NOT_EQUAL stage1 -> STRICT_EQUAL 99 objects
+MOVER VB/vb05_bit1 d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VB/vb05_bit1 e 90 -> 0
+MOVER VB/vb05_bit1 e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VB/vb06_byte d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VB/vb06_byte e 90 -> 0
+MOVER VB/vb06_byte e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VB/vb07_real d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VB/vb07_real e 90 -> 0
+MOVER VB/vb07_real e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VB/vb08_signed8 d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 97 objects
+CMP VB/vb08_signed8 e 90 -> 0
+MOVER VB/vb08_signed8 e: NOT_EQUAL stage1 -> STRICT_EQUAL 99 objects
+MOVER VB/vb09_shortint d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VB/vb09_shortint e 90 -> 0
+MOVER VB/vb09_shortint e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VB/vb10_integer d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VB/vb10_integer e 90 -> 0
+MOVER VB/vb10_integer e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VB/vb11_nonansi_callee d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VB/vb11_nonansi_callee e 90 -> 0
+MOVER VB/vb11_nonansi_callee e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VB/vb12_static_callee d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VB/vb12_static_callee e 90 -> 0
+MOVER VB/vb12_static_callee e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VB/vb13_urandom_noparen d: STRICT_NOTEQUAL type -> STRICT_EQUAL 57 objects
+CMP VB/vb13_urandom_noparen e 28 -> 0
+MOVER VB/vb13_urandom_noparen e: NOT_EQUAL stage1 -> STRICT_EQUAL 55 objects
+MOVER VB/vb14_random_twice d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 56 objects
+CMP VB/vb14_random_twice e 28 -> 0
+MOVER VB/vb14_random_twice e: NOT_EQUAL stage1 -> STRICT_EQUAL 55 objects
+MOVER VB/vb15_urandom_logic8 d: STRICT_NOTEQUAL type -> STRICT_EQUAL 63 objects
+CMP VB/vb15_urandom_logic8 e 28 -> 0
+MOVER VB/vb15_urandom_logic8 e: NOT_EQUAL stage1 -> STRICT_EQUAL 61 objects
+MOVER VB/vb16_mixed_types d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 70 objects
+CMP VB/vb16_mixed_types e 90 -> 0
+MOVER VB/vb16_mixed_types e: NOT_EQUAL stage1 -> STRICT_EQUAL 75 objects
+MOVER VB/vb17_lit_first_two d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 79 objects
+CMP VB/vb17_lit_first_two e 120 -> 0
+MOVER VB/vb17_lit_first_two e: NOT_EQUAL stage1 -> STRICT_EQUAL 81 objects
+MOVER VB/vb18_default_used d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 72 objects
+CMP VB/vb18_default_used e 90 -> 0
+MOVER VB/vb18_default_used e: NOT_EQUAL stage1 -> STRICT_EQUAL 78 objects
+MOVER VB/vb19_ret_unsigned_int d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VB/vb19_ret_unsigned_int e 90 -> 0
+MOVER VB/vb19_ret_unsigned_int e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VB/vb20_random_noarg_sub d: STRICT_NOTEQUAL type -> STRICT_EQUAL 57 objects
+CMP VB/vb20_random_noarg_sub e 28 -> 0
+MOVER VB/vb20_random_noarg_sub e: NOT_EQUAL stage1 -> STRICT_EQUAL 55 objects
+MOVER VB/vb21_struct_ret d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 144 objects
+CMP VB/vb21_struct_ret e 90 -> 0
+MOVER VB/vb21_struct_ret e: NOT_EQUAL stage1 -> STRICT_EQUAL 146 objects
+MOVER VB/vb22_enum_formal d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 78 objects
+CMP VB/vb22_enum_formal e 90 -> 0
+MOVER VB/vb22_enum_formal e: NOT_EQUAL stage1 -> STRICT_EQUAL 82 objects
+MOVER VC/vc01_minus d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 78 objects
+CMP VC/vc01_minus e 90 -> 0
+MOVER VC/vc01_minus e: NOT_EQUAL stage1 -> STRICT_EQUAL 80 objects
+MOVER VC/vc02_bitneg d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 78 objects
+CMP VC/vc02_bitneg e 90 -> 0
+MOVER VC/vc02_bitneg e: NOT_EQUAL stage1 -> STRICT_EQUAL 80 objects
+MOVER VC/vc03_redand d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 78 objects
+CMP VC/vc03_redand e 90 -> 0
+MOVER VC/vc03_redand e: NOT_EQUAL stage1 -> STRICT_EQUAL 80 objects
+MOVER VC/vc04_redxor d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 78 objects
+CMP VC/vc04_redxor e 90 -> 0
+MOVER VC/vc04_redxor e: NOT_EQUAL stage1 -> STRICT_EQUAL 80 objects
+MOVER VC/vc05_uplus d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 78 objects
+CMP VC/vc05_uplus e 90 -> 0
+MOVER VC/vc05_uplus e: NOT_EQUAL stage1 -> STRICT_EQUAL 80 objects
+MOVER VC/vc06_unsigned d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 78 objects
+CMP VC/vc06_unsigned e 90 -> 0
+MOVER VC/vc06_unsigned e: NOT_EQUAL stage1 -> STRICT_EQUAL 80 objects
+MOVER VC/vc07_clog2 d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 78 objects
+CMP VC/vc07_clog2 e 90 -> 0
+MOVER VC/vc07_clog2 e: NOT_EQUAL stage1 -> STRICT_EQUAL 80 objects
+CMP VC/vc08_bits d 56 -> 68
+MOVER VC/vc08_bits d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+CMP VC/vc08_bits e 56 -> 68
+MOVER VC/vc08_bits e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VC/vc09_countones d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 78 objects
+CMP VC/vc09_countones e 76 -> 0
+MOVER VC/vc09_countones e: NOT_EQUAL stage1 -> STRICT_EQUAL 80 objects
+MOVER VC/vc10_double_minus d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 80 objects
+CMP VC/vc10_double_minus e 90 -> 0
+MOVER VC/vc10_double_minus e: NOT_EQUAL stage1 -> STRICT_EQUAL 82 objects
+MOVER VC/vc11_minus_then_add d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 82 objects
+CMP VC/vc11_minus_then_add e 90 -> 0
+MOVER VC/vc11_minus_then_add e: NOT_EQUAL stage1 -> STRICT_EQUAL 84 objects
+MOVER VC/vc12_signed_then_eq d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 82 objects
+CMP VC/vc12_signed_then_eq e 90 -> 0
+MOVER VC/vc12_signed_then_eq e: NOT_EQUAL stage1 -> STRICT_EQUAL 84 objects
+MOVER VC/vc13_k2_minus d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 77 objects
+CMP VC/vc13_k2_minus e 28 -> 0
+MOVER VC/vc13_k2_minus e: NOT_EQUAL stage1 -> STRICT_EQUAL 75 objects
+MOVER VC/vc14_k2_signed d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 77 objects
+CMP VC/vc14_k2_signed e 28 -> 0
+MOVER VC/vc14_k2_signed e: NOT_EQUAL stage1 -> STRICT_EQUAL 75 objects
+MOVER VC/vc15_k2_tern_branch d: STRICT_NOTEQUAL type -> STRICT_EQUAL 81 objects
+CMP VC/vc15_k2_tern_branch e 28 -> 0
+MOVER VC/vc15_k2_tern_branch e: NOT_EQUAL stage1 -> STRICT_EQUAL 79 objects
+MOVER VC/vc16_k2_logand d: STRICT_NOTEQUAL type -> STRICT_EQUAL 79 objects
+CMP VC/vc16_k2_logand e 28 -> 0
+MOVER VC/vc16_k2_logand e: NOT_EQUAL stage1 -> STRICT_EQUAL 77 objects
+MOVER VC/vc19_k2_shift d: STRICT_NOTEQUAL type -> STRICT_EQUAL 79 objects
+CMP VC/vc19_k2_shift e 28 -> 0
+MOVER VC/vc19_k2_shift e: NOT_EQUAL stage1 -> STRICT_EQUAL 77 objects
+MOVER VC/vc22_k2_casteq d: STRICT_NOTEQUAL type -> STRICT_EQUAL 79 objects
+CMP VC/vc22_k2_casteq e 28 -> 0
+MOVER VC/vc22_k2_casteq e: NOT_EQUAL stage1 -> STRICT_EQUAL 77 objects
+MOVER VC/vc23_k2_tern_cond d: STRICT_NOTEQUAL type -> STRICT_EQUAL 81 objects
+CMP VC/vc23_k2_tern_cond e 28 -> 0
+MOVER VC/vc23_k2_tern_cond e: NOT_EQUAL stage1 -> STRICT_EQUAL 79 objects
+MOVER VC/vc24_k1_isunknown d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 78 objects
+CMP VC/vc24_k1_isunknown e 76 -> 0
+MOVER VC/vc24_k1_isunknown e: NOT_EQUAL stage1 -> STRICT_EQUAL 80 objects
+MOVER VC/vc25_k2_under_minus_under_eq d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 81 objects
+CMP VC/vc25_k2_under_minus_under_eq e 28 -> 0
+MOVER VC/vc25_k2_under_minus_under_eq e: NOT_EQUAL stage1 -> STRICT_EQUAL 79 objects
+MOVER VC/vc29_k2_mod d: STRICT_NOTEQUAL type -> STRICT_EQUAL 79 objects
+CMP VC/vc29_k2_mod e 28 -> 0
+MOVER VC/vc29_k2_mod e: NOT_EQUAL stage1 -> STRICT_EQUAL 77 objects
+MOVER VC/vc30_k1_bitneg_then_tern d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 84 objects
+CMP VC/vc30_k1_bitneg_then_tern e 90 -> 0
+MOVER VC/vc30_k1_bitneg_then_tern e: NOT_EQUAL stage1 -> STRICT_EQUAL 86 objects
+MOVER VD/vd01_import_chain d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd01_import_chain e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd02_qual_and_local_same_name d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 112 objects
+CMP VD/vd02_qual_and_local_same_name e 90 -> 0
+MOVER VD/vd02_qual_and_local_same_name e: NOT_EQUAL stage1 -> STRICT_EQUAL 127 objects
+MOVER VD/vd03_module_import_clone d: STRICT_NOTEQUAL depth -> STRICT_NOTEQUAL type
+MOVER VD/vd03_module_import_clone e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd04_iface_import d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 174 objects
+MOVER VD/vd04_iface_import e: STRICT_NOTEQUAL depth -> STRICT_EQUAL 176 objects
+MOVER VD/vd05_class_method_caller d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 79 objects
+CMP VD/vd05_class_method_caller e 90 -> 0
+MOVER VD/vd05_class_method_caller e: NOT_EQUAL stage1 -> STRICT_EQUAL 79 objects
+MOVER VD/vd06_export d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd06_export e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd07_include_callee d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 67 objects
+MOVER VD/vd07_include_callee e: STRICT_NOTEQUAL depth -> STRICT_EQUAL 69 objects
+MOVER VD/vd08_genfor_implicit d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 225 objects
+CMP VD/vd08_genfor_implicit e 90 -> 0
+MOVER VD/vd08_genfor_implicit e: NOT_EQUAL stage1 -> STRICT_EQUAL 226 objects
+MOVER VD/vd10_two_level_callers d: STRICT_NOTEQUAL depth -> STRICT_NOTEQUAL depth
+MOVER VD/vd10_two_level_callers e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd11_pure_virtual_extern d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+CMP VD/vd11_pure_virtual_extern e 90 -> 0
+MOVER VD/vd11_pure_virtual_extern e: NOT_EQUAL stage1 -> STRICT_NOTEQUAL fullname
+MOVER VD/vd12_this_path_and_clsspec d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd12_this_path_and_clsspec e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd13_named_linked d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 79 objects
+CMP VD/vd13_named_linked e 92 -> 0
+MOVER VD/vd13_named_linked e: NOT_EQUAL stage1 -> STRICT_EQUAL 85 objects
+MOVER VD/vd14_ifgen_casegen d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 146 objects
+CMP VD/vd14_ifgen_casegen e 90 -> 0
+MOVER VD/vd14_ifgen_casegen e: NOT_EQUAL stage1 -> STRICT_EQUAL 151 objects
+MOVER VE/ve02_callee_formal_names_callee_pkg_param d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VE/ve02_callee_formal_names_callee_pkg_param e: STRICT_NOTEQUAL line -> STRICT_NOTEQUAL endcol
+MOVER VE/ve03_formal_names_type_param d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VE/ve03_formal_names_type_param e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VE/ve04_param_after_function d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 78 objects
+CMP VE/ve04_param_after_function e 58 -> 0
+MOVER VE/ve04_param_after_function e: NOT_EQUAL stage1 -> STRICT_EQUAL 80 objects
+MOVER VE/ve06_k2_macro_const_arg d: STRICT_NOTEQUAL type -> STRICT_EQUAL 64 objects
+CMP VE/ve06_k2_macro_const_arg e 58 -> 0
+MOVER VE/ve06_k2_macro_const_arg e: NOT_EQUAL stage1 -> STRICT_EQUAL 62 objects
+MOVER VE/ve07_formal_named_pkg_function d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 82 objects
+CMP VE/ve07_formal_named_pkg_function e 90 -> 0
+MOVER VE/ve07_formal_named_pkg_function e: NOT_EQUAL stage1 -> STRICT_EQUAL 84 objects
+MOVER VF/vf01_double_paren d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VF/vf01_double_paren e 90 -> 0
+MOVER VF/vf01_double_paren e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VF/vf02_paren_actual d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VF/vf02_paren_actual e 90 -> 0
+MOVER VF/vf02_paren_actual e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VF/vf03_paren_named d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 64 objects
+CMP VF/vf03_paren_named e 90 -> 0
+MOVER VF/vf03_paren_named e: NOT_EQUAL stage1 -> STRICT_EQUAL 66 objects
+MOVER VF/vf06_minus_paren d: STRICT_NOTEQUAL depth -> STRICT_EQUAL 66 objects
+CMP VF/vf06_minus_paren e 90 -> 0
+MOVER VF/vf06_minus_paren e: NOT_EQUAL stage1 -> STRICT_EQUAL 68 objects
+case-views=206 movers=158 entering_STRICT_EQUAL=140 leaving_STRICT_EQUAL=0 rc_changes=0 cmp_changes=71 OFF_equals_pristine=206/206

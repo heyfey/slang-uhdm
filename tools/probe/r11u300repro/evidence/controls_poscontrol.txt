@@ -1,0 +1,12 @@
+r11u300repro/cases/RF/g01_plus d law rc=0 cmp=0 STRICT_EQUAL 64 objects md5=7536334c15fb
+r11u300repro/cases/RF/g01_plus d pristine rc=0 cmp=0 STRICT_NOTEQUAL depth md5=681e9f8227cc
+r11u300repro/cases/RF/g01_plus e law rc=0 cmp=0 STRICT_EQUAL 66 objects md5=c1d5a66b4cb5
+r11u300repro/cases/RF/g01_plus e pristine rc=0 cmp=90 NOT_EQUAL stage1 md5=62c70522e0c6
+r11u300repro/cases/RS/s06_purevirtual d law rc=0 cmp=0 STRICT_EQUAL 110 objects md5=6960e4e9d31a
+r11u300repro/cases/RS/s06_purevirtual d pristine rc=0 cmp=0 STRICT_NOTEQUAL depth md5=09ca664948f2
+r11u300repro/cases/RS/s06_purevirtual e law rc=0 cmp=0 STRICT_EQUAL 114 objects md5=c75dcb4f8fdc
+r11u300repro/cases/RS/s06_purevirtual e pristine rc=0 cmp=90 NOT_EQUAL stage1 md5=6df711e64e99
+r11u300repro/cases/RX/h01_named d law rc=0 cmp=0 STRICT_EQUAL 79 objects md5=23ffc936c366
+r11u300repro/cases/RX/h01_named d pristine rc=0 cmp=0 STRICT_NOTEQUAL depth md5=4b36bde38fb6
+r11u300repro/cases/RX/h01_named e law rc=0 cmp=0 STRICT_EQUAL 85 objects md5=1702296f9953
+r11u300repro/cases/RX/h01_named e pristine rc=0 cmp=92 NOT_EQUAL stage1 md5=9ccc835e7c77

@@ -1,0 +1,76 @@
+r11u300repro/cases/RF/g01_plus pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RF/g07_beginend pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RF/g08_sys pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RF/g11_unary pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RF/g13_syscall pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RF/g14_xpkg pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RF/g17_default pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RF/g25_local pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RF/g26_automatic pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RF/g27_import pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RS/s05_dim_bound pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RS/s06_purevirtual pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RS/s10_implicit pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RS/s13_this_path pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RS/s14_genblk_module pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RS/s19_paren pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RS/s21_real pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RS/s24_namedblk_local pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RS/s25_twopkg_same_name pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RS/s26_string pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h01_named pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h02_onedefault pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h07_macrodef pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h08_macrocall pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h10_litfirst pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h11_samearg pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h12_random pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h14_negsys pristine EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+r11u300repro/cases/RX/h15_ternsys pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h17_qualimport pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h30_twocallers pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h31_typedef pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h32_explicitimport pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h33_unsigned pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h34_logicvec pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h37_static_local_init pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h38_iface_unused pristine DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h39_unusedpkg pristine IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RF/g01_plus law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RF/g07_beginend law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RF/g08_sys law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RF/g11_unary law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RF/g13_syscall law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RF/g14_xpkg law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RF/g17_default law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RF/g25_local law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RF/g26_automatic law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RF/g27_import law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RS/s05_dim_bound law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RS/s06_purevirtual law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RS/s10_implicit law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RS/s13_this_path law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RS/s14_genblk_module law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RS/s19_paren law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RS/s21_real law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RS/s24_namedblk_local law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RS/s25_twopkg_same_name law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RS/s26_string law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h01_named law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h02_onedefault law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h07_macrodef law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h08_macrocall law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h10_litfirst law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h11_samearg law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h12_random law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h14_negsys law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h15_ternsys law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h17_qualimport law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h30_twocallers law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h31_typedef law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h32_explicitimport law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h33_unsigned law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h34_logicvec law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h37_static_local_init law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+r11u300repro/cases/RX/h38_iface_unused law DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_<workroot>
+r11u300repro/cases/RX/h39_unusedpkg law IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
