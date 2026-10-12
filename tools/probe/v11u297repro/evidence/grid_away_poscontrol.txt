@@ -1,0 +1,8 @@
+VA/va02_two_init_one_stmt dist 0 -> 13 lost=13 gained=0 | chain away=13 toward=0 flat_away=13 flat_toward=0
+VA/va05_union_var_el dist 0 -> 4 lost=4 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+VA/va08_func_init dist 0 -> 0 lost=0 gained=0 | chain away=7 toward=0 flat_away=8 flat_toward=0
+VA/va12_tp_override_twice dist 0 -> 0 lost=0 gained=0 | chain away=5 toward=0 flat_away=5 flat_toward=0
+VA/va18_pkg_level_var dist 0 -> 0 lost=0 gained=0 | chain away=13 toward=0 flat_away=13 flat_toward=0
+VA/va24_nonansi_out_var dist 0 -> 10 lost=10 gained=0 | chain away=10 toward=0 flat_away=10 flat_toward=0
+VA/va27_var_signed_int_td_el dist 0 -> 0 lost=0 gained=0 | chain away=5 toward=0 flat_away=5 flat_toward=0
+VA/va15_iface_modport dist 0 -> 0 lost=0 gained=0 | chain away=5 toward=0 flat_away=5 flat_toward=0

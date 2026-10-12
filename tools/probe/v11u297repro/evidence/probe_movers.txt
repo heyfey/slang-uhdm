@@ -1,0 +1,7 @@
+# pristine (wQ, run from the law worktree) vs law (wL) probe databases, fence-filtered path list
+paths 4087 identical sets
+MOVER r11u110repro__grid__f2__i16_var_kw_init.uhdm
+MOVER r11u32repro__k9b.uhdm
+MOVER v11u110repro__brk__v1__b06_const_init.uhdm
+movers 3 of 4087
+positive control: pristine run from the pristine worktree (wP, other source paths) vs wQ: 4087 of 4087 differ

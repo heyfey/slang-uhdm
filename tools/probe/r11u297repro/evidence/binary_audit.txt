@@ -1,0 +1,3 @@
+P cmds=3315 naming /tmp/r11u297_bin/pristine: 3265; the other 50 carry no slang: line
+L cmds=3315 naming /tmp/r11u297_bin/law: 3265; the other 50 carry no slang: line
+(fence-filtered cmds.txt lists, surelog + uhdm2rtlil, both modes)

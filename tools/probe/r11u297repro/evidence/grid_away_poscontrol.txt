@@ -1,0 +1,8 @@
+VI/v01_mod_struct_var dist 0 -> 7 lost=7 gained=0 | chain away=7 toward=0 flat_away=7 flat_toward=0
+VI/v10_two_decls_last_el dist 0 -> 8 lost=8 gained=0 | chain away=8 toward=0 flat_away=8 flat_toward=0
+VI/v26_enum_imported dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+VI/v16_tp_vec_var dist 0 -> 4 lost=4 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+VI/v38_two_files_hdr dist 0 -> 6 lost=6 gained=0 | chain away=6 toward=0 flat_away=6 flat_toward=0
+VI/v35_iface_enum_var_el dist 0 -> 6 lost=6 gained=0 | chain away=6 toward=0 flat_away=6 flat_toward=0
+VI/v18_child_twice dist 0 -> 12 lost=12 gained=0 | chain away=12 toward=0 flat_away=12 flat_toward=0
+VI/w09_const_enum_imp dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0

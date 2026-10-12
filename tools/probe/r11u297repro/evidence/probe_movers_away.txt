@@ -1,0 +1,6 @@
+probe/r11u32repro/k9b dist 7 -> 0 lost=0 gained=7 | chain away=0 toward=7 flat_away=0 flat_toward=7
+probe/r11u110repro/grid/f2/i16_var_kw_init dist 9 -> 5 lost=0 gained=4 | chain away=0 toward=4 flat_away=0 flat_toward=4
+probe/v11u110repro/brk/v1/b06_const_init dist 4 -> 0 lost=0 gained=4 | chain away=0 toward=4 flat_away=0 flat_toward=4
+probe/r11u32repro/k9b dist 0 -> 7 lost=7 gained=0 | chain away=7 toward=0 flat_away=7 flat_toward=0
+probe/r11u110repro/grid/f2/i16_var_kw_init dist 5 -> 9 lost=4 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+probe/v11u110repro/brk/v1/b06_const_init dist 0 -> 4 lost=4 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0

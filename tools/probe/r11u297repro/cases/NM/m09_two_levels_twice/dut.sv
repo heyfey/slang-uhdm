@@ -1,0 +1,12 @@
+// § nestedDefPortsNeedShell297
+module a_m (output logic o);
+  module b_m (output logic o);
+    module c_m (output logic r); assign r = 1'b0; endmodule
+    c_m u_c (.r(o));
+  endmodule
+  b_m u_b (.o(o));
+endmodule
+module dut (output logic [1:0] o);
+  a_m u_a (.o(o[0]));
+  a_m u_b (.o(o[1]));
+endmodule

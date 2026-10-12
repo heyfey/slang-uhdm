@@ -1,0 +1,28 @@
+probe r10imex_repro__t3.uhdm VARINITSPAN:1
+probe r10uvm175repro__g175_f_fence.uhdm NESTNOSHELL:1
+probe r10uvm216repro__g216_d_iface_top.uhdm NESTNOSHELL:1
+probe r10uvm221repro__grid221__a4_corpus.uhdm NESTNOSHELL:1
+probe r10uvm223repro__grid223__a5_chain.uhdm NESTNOSHELL:1
+probe r10uvm223repro__grid223__a6_pkg_import.uhdm NESTNOSHELL:1
+probe r10uvm67repro__c3_iface.uhdm NESTNOSHELL:1
+probe r10v223repro__arms__v5_escaped.uhdm NESTNOSHELL:1
+probe r10v226repro__arms__b09_nestediface.uhdm NESTNOSHELL:1
+probe r11u101repro__grid__x13_rv2outertwice.uhdm NESTNOSHELL:1
+probe r11u105repro__grid__k33_A_topnamesake_after_instouter.uhdm NESTNOSHELL:1
+probe r11u110repro__grid__f2__i16_var_kw_init.uhdm VARINITSPAN:1 VARINITTSEND:1
+probe r11u32repro__k9b.uhdm VARINITSPAN:2 VARINITTSEND:1
+probe v11u110repro__brk__v1__b06_const_init.uhdm VARINITSPAN:1 VARINITTSEND:1
+probe v11u93repro__grid__b10_inst2.uhdm NESTNOSHELL:1
+probe v11u93repro__grid__b10_inst3.uhdm NESTNOSHELL:2
+surelog ApbSlave/default VARINITSPAN:3
+surelog ApbSlave/testflags VARINITSPAN:3
+surelog ClogCast/default VARINITSPAN:1
+surelog ClogCast/testflags VARINITSPAN:1
+surelog Earlgrey_0_1/default VARINITSPAN:1
+surelog Earlgrey_0_1/testflags VARINITSPAN:1
+surelog MiniAmiq/default NESTNOSHELL:1
+surelog MiniAmiq/testflags NESTNOSHELL:1
+uhdm2rtlil TypedefAliasInPackage/default VARINITTSEND:1
+uhdm2rtlil TypedefAliasInPackage/testflags VARINITTSEND:1
+uhdm2rtlil typedef_package/default VARINITTSEND:1
+uhdm2rtlil typedef_package/testflags VARINITTSEND:1

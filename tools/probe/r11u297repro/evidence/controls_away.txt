@@ -1,0 +1,14 @@
+tp/r11u119repro/grid/g1/a10_pkgstruct_lit dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=5 flat_away=0 flat_toward=5
+tp/r11u119repro/grid/g1/a10_pkgstruct_lit_el dist 3 -> 0 lost=0 gained=3 | chain away=0 toward=3 flat_away=0 flat_toward=3
+tp/r11u119repro/grid/g1/c_scoped_struct_concat dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=3 flat_away=0 flat_toward=4
+tp/r11u119repro/grid/g1/c_scoped_struct_concat_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=2 flat_away=0 flat_toward=3
+tp/r11u119repro/grid/g1/c_scoped_struct_fill dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=5 flat_away=0 flat_toward=5
+tp/r11u119repro/grid/g1/c_scoped_struct_fill_el dist 3 -> 0 lost=0 gained=3 | chain away=0 toward=3 flat_away=0 flat_toward=3
+tp/r11u119repro/grid/g1/c_scoped_struct_lit dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=5 flat_away=0 flat_toward=5
+tp/r11u119repro/grid/g1/c_scoped_struct_lit_el dist 3 -> 0 lost=0 gained=3 | chain away=0 toward=3 flat_away=0 flat_toward=3
+tp/r11u119repro/grid/g1/c_scoped_structvar_lit dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=3 flat_away=0 flat_toward=4
+tp/r11u119repro/grid/g1/c_scoped_structvar_lit_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=2 flat_away=0 flat_toward=3
+tp/r11u275repro/cases/TV/tv03_var_kw_ctl dist 5 -> 0 lost=0 gained=5 | chain away=0 toward=5 flat_away=0 flat_toward=5
+tp/r11u275repro/cases/TV/tv03_var_kw_ctl_el dist 4 -> 0 lost=0 gained=4 | chain away=0 toward=4 flat_away=0 flat_toward=4
+tp/r11u275repro/cases/TV/tv04_const_ctl dist 5 -> 0 lost=0 gained=5 | chain away=0 toward=5 flat_away=0 flat_toward=5
+tp/r11u275repro/cases/TV/tv04_const_ctl_el dist 4 -> 0 lost=0 gained=4 | chain away=0 toward=4 flat_away=0 flat_toward=4

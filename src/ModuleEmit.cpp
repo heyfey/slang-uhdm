@@ -58,6 +58,7 @@
 #include "R290.h"
 #include "R293.h"
 #include "R295.h"
+#include "R297.h"
 
 namespace slang_uhdm {
 // § escNameSpanSites295 (r11u295) — A NAME SPAN WRITTEN BY HAND AS
@@ -4878,6 +4879,50 @@ static bool scopedDeclSpan119(const Symbol& sym) {
         !dsyn->as<syntax::DeclaratorSyntax>().dimensions.empty())
         return false;
     return true;
+}
+
+// ===== § varDeclInitMovesSharedTsEnd297 / § varDeclInitElabSpan297 (r11u297)
+// THE INITIALIZER RIDES IN THE SIGNAL'S DIMENSION SLOT OF A DATA DECLARATION.
+// Surelog parses a body declaration whose type is a bare name (`t_t x = 8'h1;`)
+// as a NET declaration (net_type_identifier list_of_net_decl_assignments),
+// but the same declaration written with a `var`, `const` or `static`
+// qualifier (`var t_t x = 8'h1;`) as a Data_declaration:
+// CompileHelper::compileDataDeclaration (CompileHelper.cpp:2380-2381)
+// builds its Signal with `unpackedDimension = fC->Sibling(signal)`, which
+// for a declarator with an initializer and no unpacked dimension is the
+// initializer's Expression node.  Two writers then read that slot:
+//   UhdmWriter::writeNets' end-only populate (UhdmWriter.cpp:878-882,
+//     `dimensions = getUnpackedDimension(); ... populateCoreMembers(
+//     InvalidNodeId, dimensions, ts)`) moves the END and FILE of the
+//     typespec the definition net binds -- a struct, union or enum
+//     typedef's own object, or a type parameter's default object -- to the
+//     initializer's end, the last declarator written winning;
+//   NetlistElaboration::elabSignal (NetlistElaboration.cpp:2757-2762,
+//     `populateCoreMembers(id, unpackedDimension, obj)`) spans the
+//     elaborated signal from its name to the initializer's end.
+// The bare-name form keeps the typedef's end and the name span (grid
+// tools/probe/r11u297repro/cases/VI v03, v27, v28, v31).  Returns the
+// initializer's end for the qualified data-declaration form, else
+// NoLocation.
+static SourceLocation dataDeclInitEnd297(const Symbol& sym, bool scopedToo = false) {
+    auto dsyn = sym.getSyntax();
+    if (!dsyn || dsyn->kind != syntax::SyntaxKind::Declarator)
+        return SourceLocation::NoLocation;
+    auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
+    if (!dd.initializer || !dd.initializer->expr || !dd.dimensions.empty())
+        return SourceLocation::NoLocation;
+    const syntax::SyntaxNode* par = dsyn->parent;
+    if (!par || par->kind != syntax::SyntaxKind::DataDeclaration)
+        return SourceLocation::NoLocation;
+    bool kw = false;
+    for (auto mod : par->as<syntax::DataDeclarationSyntax>().modifiers)
+        if (mod.kind == parsing::TokenKind::VarKeyword ||
+            mod.kind == parsing::TokenKind::ConstKeyword ||
+            mod.kind == parsing::TokenKind::StaticKeyword)
+            kw = true;
+    if (!kw && !(scopedToo && isExplicitPkgQualified(sym)))
+        return SourceLocation::NoLocation;
+    return dd.initializer->expr->sourceRange().end();
 }
 
 static bool isPkgStructType(const Symbol& sym, bool descendUnpacked = false) {
@@ -11250,6 +11295,25 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
     // the same scoped prefix `emitModuleDef` does.
     std::string prefix = "work@" + defScopedName99(def);
     DefInfo& info = defMap[&def];
+    // § nestedDefPortsNeedShell297 (r11u297) — THE PORT PHASE NEEDS THE
+    // DEFINITION'S SHELL.  slang mints a fresh DefinitionSymbol for a nested
+    // module declaration in EVERY elaborated body of its outer
+    // (Compilation::createDefinition), and r11u99's § caNestedModDeepNoDefView99
+    // drops a module nested two levels deep from the definition table, so
+    // the instance walk can reach a definition that never got a shell: an
+    // outer instantiated twice (its second body's `inner`), or `c` inside
+    // `b` inside `a`.  Golden lists the nested definition once (the
+    // representative body's, filled by its own instance) and none at all for
+    // the deep one, while its elaborated instances are written in full; our
+    // port phase dereferenced the missing shell and exited 139 on every
+    // binary (r11u295repro NA/n02_two_levels and n07_outer_twice,
+    // v11u295repro VN/vn02_outer_in_genfor; grid
+    // tools/probe/r11u297repro/cases/NM).  Nothing is written for a
+    // definition with no shell.  Switch R11U297_NESTNOSHELL_OFF.
+    if (!info.mod && r11u297On("R11U297_NESTNOSHELL_OFF")) {
+        tr297("NESTNOSHELL", "def " + prefix);
+        return nullptr;
+    }
     currentScope = &body;
     auto* m = info.mod;
     TsCache& defTs = info.defTs;
@@ -18829,6 +18893,17 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 v->VpiConstantVariable(true);
             if (it.port && !it.bodyDecl)
                 setLocNamed(v, *it.port);
+            else if (r11u297On("R11U297_VARINITSPAN_OFF") &&
+                     dataDeclInitEnd297(*it.sym) != SourceLocation::NoLocation) {
+                // § varDeclInitElabSpan297 — a `var` / `const` / `static`
+                // Data_declaration's variable spans its name through the
+                // initializer (elabSignal's `populateCoreMembers(id,
+                // unpackedDimension, obj)`; grid
+                // tools/probe/r11u297repro/cases/VI v05, v26).  Switch
+                // R11U297_VARINITSPAN_OFF.
+                tr297("VARINITSPAN", "var " + fullName);
+                setLoc(v, regNetSpan(*it.sym));
+            }
             else
                 setLoc(v, nameSpan(it.sym->location, it.sym->name));
             // § classVarInitSpan152 (r11u152, map N0498) — an initialised
@@ -19943,12 +20018,24 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             }
             if (it.port && !it.bodyDecl)
                 setLocNamed(n, *it.port);
-            else if (patternInit && isStruct && !pkgPatTypedef)
+            else if (patternInit && isStruct && !pkgPatTypedef) {
                 // A LOCAL-typedef pattern-init struct_net spans the NAME only
                 // (the init lives in its net-decl cont_assign, not the net
                 // decl — PatternStruct); a PKG-typedef one keeps the full
                 // decl span (assignment-pattern m).
-                setLoc(n, nameSpan(it.sym->location, it.sym->name));
+                // § varDeclInitElabSpan297 — except a `var` / `const` /
+                // `static` Data_declaration: elabSignal spans it from the
+                // name to the initializer in its dimension slot (grid
+                // tools/probe/r11u297repro/cases/VI v01, v02, v10; probe
+                // r11u32repro/k9b).  Switch R11U297_VARINITSPAN_OFF.
+                if (r11u297On("R11U297_VARINITSPAN_OFF") &&
+                    dataDeclInitEnd297(*it.sym) != SourceLocation::NoLocation) {
+                    tr297("VARINITSPAN", "net " + fullName);
+                    setLoc(n, regNetSpan(*it.sym));
+                }
+                else
+                    setLoc(n, nameSpan(it.sym->location, it.sym->name));
+            }
             else
                 setLoc(n, regNetSpan(*it.sym));
             if (!isStruct) {
@@ -36516,6 +36603,18 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             if (!dd.dimensions.empty())
                 end134 = dd.dimensions[0]->sourceRange().end();
         }
+        // § varDeclInitMovesSharedTsEnd297 — a `var` / `const` / `static`
+        // declaration is a Data_declaration, whose dimension slot holds the
+        // initializer: the end moves to the initializer's end (grid
+        // tools/probe/r11u297repro/cases/VI; probe r11u32repro/k9b).
+        // Switch R11U297_VARINITTSEND_OFF.
+        if (end134 == SourceLocation::NoLocation &&
+            r11u297On("R11U297_VARINITTSEND_OFF")) {
+            end134 = dataDeclInitEnd297(*pn.sym, /*scopedToo=*/true);
+            if (end134 != SourceLocation::NoLocation)
+                tr297("VARINITTSEND", "td " + std::string(ts134->VpiName()) +
+                                          " " + std::string(pn.sym->name));
+        }
         if (end134 == SourceLocation::NoLocation)
             return;
         uint32_t l134 = 0, c134 = 0;
@@ -36705,6 +36804,18 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                             e137 = dd.dimensions[0]->sourceRange().end();
                         else if (tpPkDim144 && !tpVecNet170)
                             e137 = tpPkDim144->sourceRange().end();
+                        // § varDeclInitMovesSharedTsEnd297 — the type
+                        // parameter's default object takes the same write
+                        // (r11u110repro i16_var_kw_init, v11u110repro
+                        // b06_const_init).  Switch R11U297_VARINITTSEND_OFF.
+                        if (e137 == SourceLocation::NoLocation &&
+                            r11u297On("R11U297_VARINITTSEND_OFF")) {
+                            e137 = dataDeclInitEnd297(*pn.sym);
+                            if (e137 != SourceLocation::NoLocation)
+                                tr297("VARINITTSEND",
+                                      "tp " + std::string(tpp137->name) + " " +
+                                          std::string(pn.sym->name));
+                        }
                         if (e137 != SourceLocation::NoLocation) {
                             uint32_t l137 = 0, c137 = 0;
                             locLineCol(e137, l137, c137);
@@ -42920,9 +43031,22 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
                 setLoc(lnet, SourceRange(ns9.start(), e9));
             }
-            else if (isStructNet)
+            else if (isStructNet) {
                 // A struct_net re-elaborated LHS spans the NAME only.
-                setLoc(lnet, nameSpan(it.sym->location, it.sym->name));
+                // § varDeclInitElabSpan297 — writeCont_assign's clone_tree
+                // copies the listed net, whose `var` / `const` / `static`
+                // Data_declaration span runs through the initializer (grid
+                // tools/probe/r11u297repro/cases/VI v01, v02).  Switch
+                // R11U297_VARINITSPAN_OFF.
+                if (r11u297On("R11U297_VARINITSPAN_OFF") &&
+                    dataDeclInitEnd297(*it.sym) != SourceLocation::NoLocation) {
+                    tr297("VARINITSPAN",
+                          "ndalhs " + prefix + "." + std::string(it.sym->name));
+                    setLoc(lnet, regNetSpan(*it.sym));
+                }
+                else
+                    setLoc(lnet, nameSpan(it.sym->location, it.sym->name));
+            }
             else {
                 ((UHDM::logic_net*)lnet)->VpiNetType(mnet->VpiNetType());
                 if (mnet->VpiSigned())

@@ -1926,7 +1926,7 @@ r11u110repro/grid/f2/i06_unpacked_2state,EQUAL,,equal
 r11u110repro/grid/f2/i08_unpacked_2dim,EQUAL,,equal
 r11u110repro/grid/f2/i09_unpacked_child_ovr,EQUAL,,equal
 r11u110repro/grid/f2/i11_attr_wdims_child,EQUAL,,equal
-r11u110repro/grid/f2/i16_var_kw_init,STRICT_NOTEQUAL,differ:endline(9),differ:endline(9)
+r11u110repro/grid/f2/i16_var_kw_init,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
 r11u110repro/grid/f2/i18_out_port_child_ctl,EQUAL,,equal
 r11u110repro/grid/f2/i21_two_decl_init,EQUAL,,equal
 r11u111repro/grid/f1/a03_q_sym_default,EQUAL,,equal
@@ -3018,7 +3018,7 @@ r11u31repro/g1,EQUAL,,equal
 r11u31repro/g4,EQUAL,,equal
 r11u31repro/g5,EQUAL,,equal
 r11u32repro/k9,EQUAL,,equal
-r11u32repro/k9b,STRICT_NOTEQUAL,differ:endline(4),differ:endline(4)
+r11u32repro/k9b,EQUAL,,equal
 r11u34repro/g6,EQUAL,,equal
 r11u34repro/u2,EQUAL,,equal
 r11u35repro/grid/g3_shape35,EQUAL,,equal
@@ -3719,7 +3719,7 @@ v11u110repro/brk/v1/a30_unconnected_and_twice_dut,EQUAL,,equal
 v11u110repro/brk/v1/a31_ovr_struct_parent_local,EQUAL,,equal
 v11u110repro/brk/v1/a33_parent_overrides_and_child_rt_port_bodyvar,EQUAL,,equal
 v11u110repro/brk/v1/b01_init_unbased,EQUAL,,equal
-v11u110repro/brk/v1/b06_const_init,STRICT_NOTEQUAL,differ:endline(4),differ:endline(4)
+v11u110repro/brk/v1/b06_const_init,EQUAL,,equal
 v11u110repro/brk/v1/b08_top_default_init,EQUAL,,equal
 v11u110repro/brk/v1/b11_nonlocal_param_init,EQUAL,,equal
 v11u110repro/brk/v1/b12_init_int_elem,EQUAL,,equal
