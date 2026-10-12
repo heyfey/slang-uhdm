@@ -81,7 +81,7 @@ r10earl29repro/a6_noconcat,EQUAL,,equal
 r10earl29repro/b1_sites,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
 r10earl29repro/b2_kinds,EQUAL,,equal
 r10earl29repro/b3_edges,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
-r10earl29repro/v10_str,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
+r10earl29repro/v10_str,EQUAL,,equal
 r10earl29repro/v5_gen,EQUAL,,equal
 r10earl29repro/v6_genvar,EQUAL,,equal
 r10earl29repro/v7_lval,EQUAL,,equal
@@ -121,7 +121,7 @@ r10earl53repro/v5_v53,EQUAL,,equal
 r10earl54repro/pkC_54,EQUAL,,equal
 r10earl54repro/v10step1,EQUAL,,equal
 r10earl54repro/v13_v54,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
-r10earl54repro/v3_v54,STRICT_NOTEQUAL,differ:endcol(5),differ:endcol(5)
+r10earl54repro/v3_v54,EQUAL,,equal
 r10earl54repro/v8_v54,EQUAL,,equal
 r10earl56repro/a5_earl56,EQUAL,,equal
 r10earl56repro/v2_nestedsel56,EQUAL,,equal
@@ -1361,7 +1361,7 @@ r10v223repro/arms/v13_gen_iface,EQUAL,,equal
 r10v223repro/arms/v16_oobctor,EQUAL,,equal
 r10v223repro/arms/v1_pkg_nodata,EQUAL,,equal
 r10v223repro/arms/v3_collide,EQUAL,,equal
-r10v223repro/arms/v5_escaped,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
+r10v223repro/arms/v5_escaped,EQUAL,,equal
 r10v223repro/arms/v7_filescope_noimport_iface,EQUAL,,equal
 r10v223repro/arms/v8_inst_uninst,EQUAL,,equal
 r10v225repro/vgrid225/v2_mixed,EQUAL,,equal
@@ -3729,7 +3729,7 @@ v11u110repro/brk/v1/c08_unpacked_2state_elem_ovr,EQUAL,,equal
 v11u110repro/brk/v1/d01_attr_two_decl,EQUAL,,equal
 v11u110repro/brk/v1/d02_attr_two_attrs,EQUAL,,equal
 v11u110repro/brk/v1/d03_attr_dimless_two_decl_ctl,EQUAL,,equal
-v11u110repro/brk/v3/a36_escaped_inst_name,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
+v11u110repro/brk/v3/a36_escaped_inst_name,EQUAL,,equal
 v11u110repro/brk/v3/a38_iface_parent_ctl,EQUAL,,equal
 v11u110repro/brk/v3/a39_ovr_signed_int_type,EQUAL,,equal
 v11u110repro/brk/v4/q04_pkg_struct_nodims_ctl,EQUAL,,equal
@@ -4061,7 +4061,7 @@ v11u93repro/grid/b01_sibnested,EQUAL,,equal
 v11u93repro/grid/b02_outerparamwidth,EQUAL,,equal
 v11u93repro/grid/b04_rv2explicit,EQUAL,,equal
 v11u93repro/grid/b05_rv2explicitported,EQUAL,,equal
-v11u93repro/grid/b07_rv2arr,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+v11u93repro/grid/b07_rv2arr,EQUAL,,equal
 v11u93repro/grid/b08_outergenonly,EQUAL,,equal
 v11u93repro/grid/b09a_strength,EQUAL,,equal
 v11u93repro/grid/b09b_netdecl,EQUAL,,equal

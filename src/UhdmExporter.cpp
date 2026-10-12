@@ -38,6 +38,7 @@
 #include "R285.h"
 #include "R287.h"
 #include "R291.h"
+#include "R295.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -15394,7 +15395,21 @@ UHDM::design* UhdmExporter::exportDesign() {
                 auto* up = s.MakeParameter();
                 up->VpiName(ps.name);
                 up->VpiParent(d);
-                setLoc(up, SourceRange(ps.location, ps.location + ps.name.size()));
+                // § escNameSpanSites295 (ModuleEmit.cpp): the $unit
+                // parameter's hand-written name span, through nameSpan for an
+                // escaped name.  Switch R11U295_ESCNAMESPAN_OFF.
+                {
+                    SourceRange plain295(ps.location, ps.location + ps.name.size());
+                    SourceRange r295 = plain295;
+                    if (r11u295On("R11U295_ESCNAMESPAN_OFF") &&
+                        ps.location != SourceLocation::NoLocation &&
+                        !sm->isMacroLoc(ps.location)) {
+                        r295 = nameSpan(ps.location, ps.name);
+                        if (r295.start() != plain295.start() || r295.end() != plain295.end())
+                            tr295("escNameSpanSites295", "unit_parameter");
+                    }
+                    setLoc(up, r295);
+                }
                 auto& cv = ps.getValue();
                 // Only an EXPLICITLY typed $unit parameter carries
                 // signedness (`parameter int X` yes, `parameter X = 16` no) —

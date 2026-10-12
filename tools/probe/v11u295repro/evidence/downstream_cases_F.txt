@@ -1,0 +1,98 @@
+v11u295repro/cases/VD/vd01_assoc_typedef_idx F EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u295repro/cases/VD/vd02_comma_members F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd03_multiline_dim F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd04_dyn_of_fixed F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd05_fixed_of_assoc_ctl F EQUIVALENT differs=nohier surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u295repro/cases/VD/vd06_assoc_of_queue F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd07_union_assoc F SLANG_REJECT differs=- surelog= slang= detail=-
+v11u295repro/cases/VD/vd08_pkg_class_assoc F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd09_esc_member_name F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd10_wild_spaces F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd11_macro_dim F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd12_inline_struct_var F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd13_assoc_esc_before_line F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd14_assoc_of_struct_idx F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd15_iface_assoc F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd16_comma_assoc_members F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd17_assoc_class_idx F EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u295repro/cases/VD/vd18_assoc_member_crlf F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VD/vd19_pkg_assoc_two_lines F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve01_esc_simple_ident F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve02_esc_param_ovr F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve03_esc_after_esc_ref F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve04_two_esc_formals F IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u295repro/cases/VE/ve05_bind_esc_inst F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve06_esc_array_esc_formal F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve07_esc_inst_in_header F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve08_esc_property F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve09_unit_param_typed F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve10_uninst_gen_false F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve11_program_esc_inst F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve12_crlf_two_spaces F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve13_esc_comment_after F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve15_positional_after_esc F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve17_modport_esc_formal F DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=___This_indicates_a_serious_bug_in_UHDM_import
+v11u295repro/cases/VE/ve18_iface_esc_formal F DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=___This_indicates_a_serious_bug_in_UHDM_import
+v11u295repro/cases/VE/ve19_gen_for_esc F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve21_esc_iface_inst F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve22_esc_inst_tab_before F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve23_esc_conn_wildcard F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve24_esc_formal_in_array_inst F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VE/ve25_esc_inst_hdr_two F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VN/vn01_nested_arr_in_genif F STATUS_DIFF differs=- surelog=READ_FAIL slang=NO_GATES detail=-
+v11u295repro/cases/VN/vn02_outer_in_genfor F SLANG_REJECT differs=- surelog= slang= detail=-
+v11u295repro/cases/VN/vn04_nested_arr_param F IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u295repro/cases/VN/vn05_same_inner_two_outers F IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u295repro/cases/VN/vn06_top_has_nested F IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u295repro/cases/VN/vn07_nested_arr_2d F IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u295repro/cases/VN/vn08_toplevel_and_nested F IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u295repro/cases/VN/vn09_nested_shadows_toplevel F IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u295repro/cases/VN/vn10_nested_arr_esc_name F IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u295repro/cases/VN/vn11_shadow_top_uninst F EQUIVALENT differs=nohier il surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u295_ds/F/v11u295repro_cases_VN_vn
+v11u295repro/cases/VN/vn12_shadow_top_iface F STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+v11u295repro/cases/VR/vr01_tabs_def_init F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr02_def_init_multiline F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr03_def_init_esc_in_init F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr04_def_init_macro_args F DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=___This_indicates_a_serious_bug_in_/tmp/v11u295_ds/F/v11u295repro_cases_VR_vr04_
+v11u295repro/cases/VR/vr05_def_init_hdr_macro F DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=___This_indicates_a_serious_bug_in_/tmp/v11u295_ds/F/v11u295repro_cases_VR_vr05_
+v11u295repro/cases/VR/vr06_def_init_multiline_macro F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr07_imp_init_macro_args F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr08_imp_init_multiline F DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=❌_Constant_value_mismatch_—_circuits_are_NOT_equivalent_for_/tmp/v11u295_ds/F/v1
+v11u295repro/cases/VR/vr09_imp_dim_macro F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr10_imp_dim_whole_macro F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr13_vmode_esc_first F SURELOG_FAIL differs=- surelog= slang= detail=no_reference_database
+v11u295repro/cases/VR/vr14_vmode_macro_first F SURELOG_FAIL differs=- surelog= slang= detail=no_reference_database
+v11u295repro/cases/VR/vr15_defport_elem_esc_line F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr16_iface_def_init_esc F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr18_program_def_init F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr19_def_init_squeeze F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr21_crlf_def_init_esc F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr23_def_init_paste F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr24_imp_init_macro_mid F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr25_imp_init_macro_inner F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr26_def_init_call_lines F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr27_imp_init_esc_before F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr28_imp_dim_esc_before F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr29_imp_init_macro_iface F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr30_def_init_macro_two_on_line F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr31_imp_dim_macro_range F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr32_imp_init_strmacro F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr33_def_init_multiline_macro_args F DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=___This_indicates_a_serious_bug_in_/tmp/v11u295_ds/F/v11u295repro_cases_VR_vr33_
+v11u295repro/cases/VR/vr34_imp_init_multiline_macro_body F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr35_def_init_macro_lit_arg F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr36_imp_init_nextline F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr37_vmode_esc_single F SURELOG_FAIL differs=- surelog= slang= detail=no_reference_database
+v11u295repro/cases/VR/vr38_def_init_macro_lit_arg_lines F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr39_imp_init_macro_lit_arg F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr40_def_init_tab_esc F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr41_imp_init_tab F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr42_def_init_macro_end_twice F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr43_def_init_hdr_lit F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr45_def_init_kinds_hdr F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr46_imp_init_kinds_hdr F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr47_def_init_kinds_esc F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr48_def_init_kinds_novar_hdr F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr49_imp_init_kinds_novar_hdr F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr50_def_init_kinds_novar_esc F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr51_defport_elem_logic_esc F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u295repro/cases/VR/vr52_defport_elem_macro_type F IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-

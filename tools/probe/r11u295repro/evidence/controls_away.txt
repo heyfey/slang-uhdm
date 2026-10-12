@@ -1,0 +1,10 @@
+tp/r11u171repro/cases/K/k12_stringified_neighbour dist 1 -> 0 lost=0 gained=1 | chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u171repro/cases/K/k12_stringified_neighbour_el dist 1 -> 0 lost=0 gained=1 | chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/r11u212repro/cases/QM/q02 dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=6 flat_away=0 flat_toward=6
+tp/r11u212repro/cases/QM/q02_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=6 flat_away=0 flat_toward=6
+tp/v11u146repro/cases/esc/x11_hier dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/v11u146repro/cases/esc/x11_hier_el dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/v11u146repro/cases/esc/x2_inst dist 1 -> 0 lost=0 gained=1 | chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/v11u146repro/cases/esc/x2_inst_el dist 1 -> 0 lost=0 gained=1 | chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/v11u291repro/cases/VT/vt14_escaped_inst dist 1 -> 0 lost=0 gained=1 | chain away=0 toward=1 flat_away=0 flat_toward=1
+tp/v11u291repro/cases/VT/vt14_escaped_inst_el dist 1 -> 0 lost=0 gained=1 | chain away=0 toward=1 flat_away=0 flat_toward=1

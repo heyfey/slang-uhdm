@@ -1,0 +1,8 @@
+ES/e01_inst_one_space dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+ES/e03_formal_named dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+ER/r01_imp_init_mod dist 0 -> 3 lost=3 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+ER/r11_macro_on_line_def dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+NA/n01_nested_unique_el dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+DM/d01_mod_assoc_str dist 0 -> 4 lost=4 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+DM/d03_mod_dyn dist 0 -> 0 lost=0 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+ER/r15_esc_imp_arr_ifc dist 0 -> 0 lost=0 gained=0 | chain away=8 toward=0 flat_away=8 flat_toward=0

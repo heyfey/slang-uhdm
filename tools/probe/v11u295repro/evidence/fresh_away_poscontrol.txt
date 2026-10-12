@@ -1,0 +1,8 @@
+VE/ve01_esc_simple_ident dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+VE/ve08_esc_property_el dist 0 -> 3 lost=3 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+VR/vr09_imp_dim_macro dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+VR/vr52_defport_elem_macro_type dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+VN/vn05_same_inner_two_outers dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VN/vn10_nested_arr_esc_name_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VD/vd03_multiline_dim dist 0 -> 4 lost=4 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+VD/vd19_pkg_assoc_two_lines dist 0 -> 8 lost=8 gained=0 | chain away=8 toward=0 flat_away=8 flat_toward=0

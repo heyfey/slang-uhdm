@@ -1,0 +1,8 @@
+case dirs 103 case-views 206
+P->L: moved 178 entering 131 leaving 0 rc-changes 0
+P->F: moved 172 entering 131 leaving 0 rc-changes 0
+L->F: moved 6 entering 0 leaving 0 rc-changes 0
+   ['VN/vn09_nested_shadows_toplevel', 'VN/vn09_nested_shadows_toplevel_el', 'VN/vn11_shadow_top_uninst', 'VN/vn11_shadow_top_uninst_el', 'VN/vn12_shadow_top_iface', 'VN/vn12_shadow_top_iface_el']
+switch restoration failures 0
+P->L attribution {'DYNMEMSPAN': 34, 'ESCNAMESPAN': 44, 'NESTARRNAME': 16, 'pair:VN/vn10_nested_arr_esc_name': 1, 'pair:VN/vn10_nested_arr_esc_name_el': 1, 'RAWEND': 80, 'pair:VR/vr51_defport_elem_logic_esc': 1, 'pair:VR/vr51_defport_elem_logic_esc_el': 1}
+P rc {'0': 202, '3': 2, '139': 2} F rc {'0': 202, '3': 2, '139': 2}

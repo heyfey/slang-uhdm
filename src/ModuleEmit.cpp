@@ -57,8 +57,46 @@
 #include "R289.h"
 #include "R290.h"
 #include "R293.h"
+#include "R295.h"
 
 namespace slang_uhdm {
+// § escNameSpanSites295 (r11u295) — A NAME SPAN WRITTEN BY HAND AS
+// `location + name.size()` MISSES AN ESCAPED IDENTIFIER'S BACKSLASH, SO THE
+// SPAN ENDS ONE COLUMN SHORT OF THE LEXEME AND § escIdPpColumnShift146'S
+// CLAMP NEVER SEES IT.  slang's symbol name for `\u.x ` is `u.x` (no
+// backslash, no blank), so the hand-written end lands inside the lexeme.
+// Surelog's preprocessor writes the lexeme `\` + name + blanks back as
+// `#~@` + the text without its first and last character + `#~@`
+// (SV3_1aPpTreeShapeListener::enterEscaped_identifier), and the parser's
+// Escaped_identifier token spans that whole output: name, every blank but
+// the last, and the two markers, i.e. the column after the blank run on the
+// output line.  UhdmExporter::nameSpan already models that span (the
+// lexeme's end, which the 146 clamp moves past the blank run before the
+// line shifts), and every net, port and variable reaches it through
+// setLocNamed; the instance's ref_module stub, the module_array, the
+// named-connection LowConn ref_obj at the formal's name, the assertion
+// property_decl and the $unit parameter wrote the span by hand.  Golden
+// `child \u.x (...)` ref_module 4:9-4:18 (ours 4:9-4:16), two blanks
+// 4:9-4:20; `.\a.p (a)` LowConn 4:19-4:28 (ours -26); `child \u.arr [1:0]`
+// module_array 4:9-4:20 (ours -18) (grid tools/probe/r11u295repro/cases/ES;
+// probe r10earl54repro/v3_v54, v11u110repro/brk/v3/a36_escaped_inst_name).
+// A location inside a macro expansion keeps the hand-written span (nameSpan's
+// macro branch is not this law's).  Switch R11U295_ESCNAMESPAN_OFF.
+static bool escNameSpanOn295() {
+    static const bool on = r11u295On("R11U295_ESCNAMESPAN_OFF");
+    return on;
+}
+static slang::SourceRange escNameSpanPick295(slang::SourceRange esc, slang::SourceRange plain,
+                                             const char* site) {
+    if (esc.start() == plain.start() && esc.end() == plain.end())
+        return plain;
+    tr295("escNameSpanSites295", site);
+    return esc;
+}
+#define ESC_NAME_SPAN295(L, N, SITE)                                                     \
+    ((escNameSpanOn295() && (L) != SourceLocation::NoLocation && !sm->isMacroLoc(L))   \
+         ? escNameSpanPick295(nameSpan((L), (N)), SourceRange((L), (L) + (N).size()), SITE) \
+         : SourceRange((L), (L) + (N).size()))
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
 // about to be emitted under (see the gen-scope instance loop); consumed by
 // emitInstance on entry.
@@ -74,6 +112,57 @@ struct FullNamePeek261 : UHDM::BaseClass {
 static std::string chainFullName261(const UHDM::BaseClass* o) {
     return static_cast<const FullNamePeek261*>(o)->ComputeFullName();
 }
+// § rawEndLineModel295 (r11u295) — AN END WRITTEN STRAIGHT FROM slang'S
+// SourceManager (`sm->getLineNumber / getColumnNumber` of the end location)
+// SKIPS THE LINE MODEL setLoc APPLIES TO EVERY OTHER COLUMN, SO A SPAN THAT
+// ENDS AFTER AN ESCAPED IDENTIFIER, A SQUEEZED BASED LITERAL OR A ONE-LINE
+// MACRO CALL ON ITS LINE READS THE SOURCE COLUMN WHERE GOLDEN READS SURELOG'S
+// PREPROCESSED ONE.  Surelog's parser reads the preprocessor's output line,
+// where every escaped identifier `\name ` before the end grew four columns
+// (`#~@name#~@`, § escIdPpColumnShift146); the end-only re-stamps of the
+// definition and import-copy nets' typespecs (UhdmWriter::writeNets'
+// populateCoreMembers(InvalidNodeId, end) and compileTypespec's declarator
+// end) are positions in that output like any other.  Golden `int \v.a = 1;`
+// imported into a module: the copy's int_typespec 3:3-3:19, ours 3:3-3:15;
+// `logic [7:0] \n.y = 8'h3;` the definition net's typespec 3:3-3:30, ours
+// -26 (grid tools/probe/r11u295repro/cases/ER; probe
+// r10v223repro/arms/v5_escaped).  The end now goes through setLoc's model
+// (the start written back untouched), a macro-expanded end included: the raw
+// SourceManager reading of an expansion location is column 0 of the macro
+// buffer (golden `logic [`W-1:0] nz = `INIT;` 5:3-5:26, ours 5:3-5:0), and
+// the two import-copy stretches, which skipped a macro-expanded end
+// altogether, now take it (IMPINITMAC, IMPDIMMAC: golden `logic [7:0] vz =
+// `INIT;` imported, 4:3-4:24, ours the type alone 4:3-4:14).  Sites: § importNetTsToInitEnd183 (IMPINIT),
+// § importNetTsDimEnd275 (IMPDIM) and materializeDefNetTs' end-only writes
+// (DEFNETINIT, DEFNETFIRST, DEFNETELEM; the § netEndCol171 fallback for a
+// declaration touching a paste keeps its raw reading).  Switch
+// R11U295_RAWEND_OFF.
+static bool rawEndOn295() {
+    static const bool on = r11u295On("R11U295_RAWEND_OFF");
+    return on;
+}
+#define SET_END295(O, ST, E, SITE)                                                        \
+    do {                                                                                  \
+        const uint32_t rl295_ = (uint32_t)sm->getLineNumber(E);                           \
+        const uint32_t rc295_ = (uint32_t)sm->getColumnNumber(E);                         \
+        if (rawEndOn295() && (E) != SourceLocation::NoLocation) {                         \
+            const uint32_t l0295_ = (O)->VpiLineNo(), c0295_ = (O)->VpiColumnNo();       \
+            SourceLocation st295_ = (ST);                                                 \
+            if (st295_ == SourceLocation::NoLocation)                                     \
+                st295_ = (E);                                                             \
+            setLoc((O), SourceRange(st295_, (E)));                                        \
+            (O)->VpiLineNo(l0295_);                                                       \
+            (O)->VpiColumnNo(c0295_);                                                     \
+            if ((uint32_t)(O)->VpiEndLineNo() != rl295_ ||                                \
+                (uint32_t)(O)->VpiEndColumnNo() != rc295_)                                \
+                tr295("rawEndLineModel295", SITE);                                        \
+        }                                                                                 \
+        else {                                                                            \
+            (O)->VpiEndLineNo(rl295_);                                                    \
+            (O)->VpiEndColumnNo(rc295_);                                                  \
+        }                                                                                 \
+    } while (0)
+
 
 // § typedefDimNetDropsDims267 (r11u267; the law's statement is at its module
 // home in emitInstance): the typedef's own typespec when `sym` is a net written
@@ -8572,10 +8661,15 @@ void UhdmExporter::emitImportedPkgVarNets(const InstanceBodySymbol& body,
                     if (auto* in183 = ds183->as<syntax::DeclaratorSyntax>().initializer;
                         in183 && in183->expr) {
                         auto e183 = in183->expr->sourceRange().end();
-                        if (!sm->isMacroLoc(e183)) {
+                        // § rawEndLineModel295: an initializer ending in a
+                        // macro expansion stretches too (IMPINITMAC).
+                        if (!sm->isMacroLoc(e183) ||
+                            (rawEndOn295() && e183 != SourceLocation::NoLocation)) {
                             tr183ME("importNetTsToInitEnd183");
-                            ts9->VpiEndLineNo(sm->getLineNumber(e183));
-                            ts9->VpiEndColumnNo(sm->getColumnNumber(e183));
+                            if (sm->isMacroLoc(e183))
+                                tr295("rawEndLineModel295", "IMPINITMAC");
+                            SET_END295(ts9, ds183->sourceRange().start(), e183,
+                                       "IMPINIT");
                         }
                     }
             // § importNetTsDimEnd275 (r11u275) — THE MODULE'S RE-CREATED
@@ -8622,10 +8716,14 @@ void UhdmExporter::emitImportedPkgVarNets(const InstanceBodySymbol& body,
                         }
                     }
                 }
-                if (de275 != SourceLocation::NoLocation && !sm->isMacroLoc(de275)) {
+                // § rawEndLineModel295: a dimension ending in a macro
+                // expansion stretches too (IMPDIMMAC).
+                if (de275 != SourceLocation::NoLocation &&
+                    (!sm->isMacroLoc(de275) || rawEndOn295())) {
                     tr275("IMPNETDIMEND", std::string(iv9->name));
-                    ts9->VpiEndLineNo(sm->getLineNumber(de275));
-                    ts9->VpiEndColumnNo(sm->getColumnNumber(de275));
+                    if (sm->isMacroLoc(de275))
+                        tr295("rawEndLineModel295", "IMPDIMMAC");
+                    SET_END295(ts9, SourceLocation::NoLocation, de275, "IMPDIM");
                 }
             }
             if (ts9) {
@@ -9945,7 +10043,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             pd->VpiName(prop.name);
             pd->VpiFullName(propPrefix + "." + std::string(prop.name));
             pd->VpiParent(m);
-            setLoc(pd, SourceRange(prop.location, prop.location + prop.name.size()));
+            setLoc(pd, ESC_NAME_SPAN295(prop.location, prop.name, "property_decl"));
             auto* fdecls = s.MakeProp_formal_declVec();
             for (auto& fp : prop.membersOfType<AssertionPortSymbol>()) {
                 auto* fd = s.MakeProp_formal_decl();
@@ -10682,9 +10780,55 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     auto& adef = rep->getDefinition();
     auto* ma = s.MakeModule_array();
     ma->VpiName(arr.name);
-    ma->VpiFullName("work@" + std::string(adef.name));
+    // § nestedModArrayScopedName295 (r11u295) — THE ELABORATED MODULE ARRAY
+    // OF A NESTED MODULE IS NAMED AFTER THE DEFINITION'S SCOPED NAME.  Surelog
+    // files a module declared inside another module as `work@<outer>::<inner>`
+    // (§ caNestedModDefNameScoped99); the elaborated instance's module_array
+    // takes the full name of the definition it instantiates, so golden
+    // `module bmod; module innermod ...; innermod u_i [1:0] (...)` reads
+    // work@bmod::innermod under work@dut.u_b where ours read work@innermod,
+    // while the definition view's module_array keeps the bare
+    // work@innermod, the instantiation text, like the ref_module stub's
+    // defname (§ caNestedModRefNoActual99) (probe v11u93repro/grid/b07_rv2arr,
+    // grid tools/probe/r11u295repro/cases/NA).  The elaborated call is the one
+    // passing the element list (modElems).  Switch R11U295_NESTARRNAME_OFF.
+    {
+        static const bool on295 = r11u295On("R11U295_NESTARRNAME_OFF");
+        std::string fn295 = "work@" + std::string(adef.name);
+        if (on295 && modElems) {
+            std::string sc295 = "work@" + defScopedName99(adef);
+            // § nestArrShadowTopKeepsBare295v (v11u295, the adversarial
+            // verification of r11u295) — A FILE-SCOPE DEFINITION OF THE SAME
+            // NAME KEEPS THE BARE NAME.  Surelog's DesignElaboration looks
+            // the instantiated module up as `work@<name>` FIRST and falls
+            // back to `<parent definition>::<name>` only when that misses
+            // (the `libs` loop before the module_array is built, whose
+            // VpiFullName is the modName the lookup settled on), so beside a
+            // file-scope `module inner` golden's elaborated module_array of
+            // the nested `inner` reads work@inner (Surelog binds the
+            // file-scope module, its own defect, not copied: our instances
+            // stay on the nested one), where the law wrote work@outer::inner
+            // and moved the record away (cases/VN/vn09_nested_shadows_toplevel
+            // chain away 1 in both views).  Switch R11V295_NESTSHADOW_OFF.
+            bool shadow295v = false;
+            if (sc295 != fn295 && r11v295On("R11V295_NESTSHADOW_OFF")) {
+                auto lr295v = comp.tryGetDefinition(adef.name, comp.getRoot());
+                if (lr295v.definition &&
+                    lr295v.definition != static_cast<const Symbol*>(&adef)) {
+                    shadow295v = true;
+                    tr295("nestArrShadowTopKeepsBare295v", sc295);
+                }
+            }
+            if (!shadow295v) {
+                if (sc295 != fn295)
+                    tr295("nestedModArrayScopedName295", sc295);
+                fn295 = sc295;
+            }
+        }
+        ma->VpiFullName(fn295);
+    }
     ma->VpiParent(m);
-    setLoc(ma, SourceRange(arr.location, arr.location + arr.name.size()));
+    setLoc(ma, ESC_NAME_SPAN295(arr.location, arr.name, "module_array"));
     // Range bounds keep their SOURCE op-form (arr[2-1:0] -> LeftRange = op 2-1)
     // via emitSyntaxExpr; fall back to the folded constant if no syntax.
     const syntax::SyntaxNode* instTypeSyn9 = nullptr;
@@ -11162,7 +11306,7 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
             rm->VpiName(ud.name);
             rm->VpiDefName("work@" + std::string(ud.definitionName));
             rm->VpiParent(m);
-            setLoc(rm, SourceRange(ud.location, ud.location + ud.name.size()));
+            setLoc(rm, ESC_NAME_SPAN295(ud.location, ud.name, "ref_module_uninst"));
             for (auto& [dp9, di9] : defMap)
                 if (dp9->name == ud.definitionName) {
                     rm->Actual_group(di9.mod);
@@ -11363,7 +11507,7 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
         rm->VpiName(child.name);
         rm->VpiDefName("work@" + std::string(child.getDefinition().name));
         rm->VpiParent(m);
-        setLoc(rm, SourceRange(child.location, child.location + child.name.size()));
+        setLoc(rm, ESC_NAME_SPAN295(child.location, child.name, "ref_module"));
         if (auto iit = ifaceDefMap.find(&child.getDefinition()); iit != ifaceDefMap.end())
             rm->Actual_group(iit->second);
         // § caNestedModRefNoActual99 (LAW B5) — the stub's defname is the
@@ -20063,8 +20207,8 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     trace176("GENPLAINLOC", std::string(lc->VpiFullName()));
                 }
                 else if (auto npc = findConnSyntax(inst, ip.name))
-                    setLoc(lc, SourceRange(npc->name.location(),
-                                           npc->name.location() + ip.name.size()));
+                    setLoc(lc, ESC_NAME_SPAN295(npc->name.location(), ip.name,
+                                                "lowconn_iface"));
                 else if (iconn && connectionExpr(*iconn) &&
                          inst.getPortConnections().size() < 2)
                     setLoc(lc, connectionExpr(*iconn)->sourceRange);
@@ -21490,8 +21634,8 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 r11u137Law("R11U137_EMPTYCONN_OFF"))
                 setLocNamed(lc, ps);
             else if (npc)
-                setLoc(lc, SourceRange(npc->name.location(),
-                                       npc->name.location() + ps.name.size()));
+                setLoc(lc, ESC_NAME_SPAN295(npc->name.location(), ps.name,
+                                            "lowconn_port"));
             else if (hasOrderedConns(connInst) && conn &&
                      connectionExpr(*conn) && !udpShapedInstantiation(inst))
                 setLoc(lc, connectionExpr(*conn)->sourceRange);
@@ -37392,8 +37536,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         if (auto dsyn = pn.sym->getSyntax()) {
             auto dr = dsyn->sourceRange();
             if (dr.start() != SourceLocation::NoLocation) {
-                ts->VpiEndLineNo(sm->getLineNumber(dr.end()));
-                ts->VpiEndColumnNo(sm->getColumnNumber(dr.end()));
+                SET_END295(ts, dr.start(), dr.end(), "DEFNETINIT");
                 // § defNetEndOnlyLoc130 — the end-only write carries the end
                 // node's file (populateCoreMembers(InvalidNodeId, end, ts)).
                 if (ts->VpiFile().empty() &&
@@ -37455,8 +37598,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             if (first) {
                 auto fe = first->sourceRange().end();
                 if (fe != SourceLocation::NoLocation) {
-                    ts->VpiEndLineNo(sm->getLineNumber(fe));
-                    ts->VpiEndColumnNo(sm->getColumnNumber(fe));
+                    SET_END295(ts, first->sourceRange().start(), fe, "DEFNETFIRST");
                 }
             }
         }
@@ -37540,8 +37682,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 }
             }
             if (!done231 && er9.end() != SourceLocation::NoLocation) {
-                ts->VpiEndLineNo(sm->getLineNumber(er9.end()));
-                ts->VpiEndColumnNo(sm->getColumnNumber(er9.end()));
+                SET_END295(ts, er9.start(), er9.end(), "DEFNETELEM");
             }
         }
         auto* ert = s.MakeRef_typespec();
@@ -55726,9 +55867,8 @@ ifaceProcsDone283:
                 // one keeps the connection expression only on a SINGLE-port
                 // instance and otherwise falls back to the port declaration.
                 if (auto npc9 = findConnSyntax(inst, ip9.name))
-                    setLoc(lc9,
-                           SourceRange(npc9->name.location(),
-                                       npc9->name.location() + ip9.name.size()));
+                    setLoc(lc9, ESC_NAME_SPAN295(npc9->name.location(), ip9.name,
+                                                 "lowconn_iface9"));
                 else if (cexpr9 && inst.getPortConnections().size() < 2)
                     setLoc(lc9, cexpr9->sourceRange);
                 else
@@ -55785,8 +55925,8 @@ ifaceProcsDone283:
         if (portView)
             setLocNamed(lc, ps);
         else if (auto npc = findConnSyntax(inst, ps.name))
-            setLoc(lc, SourceRange(npc->name.location(),
-                                   npc->name.location() + ps.name.size()));
+            setLoc(lc, ESC_NAME_SPAN295(npc->name.location(), ps.name,
+                                        "lowconn_portview"));
         else if (hasOrderedConns(inst) && conn && connectionExpr(*conn))
             setLoc(lc, connectionExpr(*conn)->sourceRange);
         else

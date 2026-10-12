@@ -1,0 +1,2 @@
+pristine sweep /tmp/r11u295_wdP: 3273 of 3323 cmds.txt name /tmp/r11u295_bin/pristine, the other 50 carry no slang line, 0 name the law binary
+law sweep /tmp/r11u295_wdL: 3273 of 3323 cmds.txt name /tmp/r11u295_bin/law, the other 50 carry no slang line, 0 name the pristine binary

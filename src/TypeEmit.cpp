@@ -35,6 +35,7 @@
 #include "R271.h"
 #include "R279.h"
 #include "R291.h"
+#include "R295.h"
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
@@ -18613,10 +18614,29 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             r11u212Law("R11U212_QUEUEMEMSPAN_OFF");
         if (queueMem212)
             trace212("queueMemberSpanToDim212", std::string(fm.name));
+        // § dynAssocMemberSpanToDim295 (r11u295) — A DYNAMIC OR ASSOCIATIVE
+        // ARRAY MEMBER SPANS THROUGH ITS DIMENSION TOO.  buildTypespecMember
+        // locates every member at its Variable_decl_assignment whatever the
+        // dimension's kind (the § queueMemberSpanToDim212 decode); golden
+        // `typedef struct {logic [7:0] m[string];} sq_t;` member m 12:31-12:40,
+        // ours the name 12:31-12:32 (probe r10earl29repro/v10_str; grid
+        // tools/probe/r11u295repro/cases/DM: `[]`, `[string]`, `[int]`,
+        // `[*]`, in module, package, class and $unit typedefs).  Taken through
+        // the queue form's road (setLoc's line model).  Switch
+        // R11U295_DYNMEMSPAN_OFF.
+        bool dynAssoc295 = false;
+        if (!queueMem212 && fm.getDeclaredType()) {
+            auto k295 = fm.getDeclaredType()->getType().getCanonicalType().kind;
+            dynAssoc295 = (k295 == SymbolKind::DynamicArrayType ||
+                           k295 == SymbolKind::AssociativeArrayType) &&
+                          r11u295On("R11U295_DYNMEMSPAN_OFF");
+            if (dynAssoc295)
+                tr295("dynAssocMemberSpanToDim295", std::string(fm.name));
+        }
         if (fm.getDeclaredType() &&
             (fm.getDeclaredType()->getType().getCanonicalType().kind ==
                  SymbolKind::FixedSizeUnpackedArrayType ||
-             queueMem212))
+             queueMem212 || dynAssoc295))
             if (auto dsm9 = fm.getSyntax();
                 dsm9 && dsm9->kind == syntax::SyntaxKind::Declarator) {
                 auto& ddm9 = dsm9->as<syntax::DeclaratorSyntax>();
@@ -18628,7 +18648,7 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     // end through setLoc's location model (a member written
                     // in a macro body ends at the expanded column, grid QM
                     // q07); the fixed-size form keeps its own reading.
-                    if (queueMem212) {
+                    if (queueMem212 || dynAssoc295) {
                         setLoc(tm, SourceRange(fm.location, de9));
                     } else {
                     tm->VpiEndLineNo(sm->getLineNumber(de9));
