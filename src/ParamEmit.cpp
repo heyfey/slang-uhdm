@@ -13,38 +13,8 @@
 #include <uhdm/UhdmListener.h>
 
 #include "EmitHelpers.h"
-#include "R290.h"
-#include "R218.h"
-#include "R224.h"
-#include "R227.h"
-#include "R232.h"
-#include "R233.h"
-#include "R236.h"
-#include "R238.h"
-#include "R240.h"
-#include "R242.h"
-#include "R248.h"
-#include "R249.h"
-#include "R250.h"
-#include "R252.h"
-#include "R256.h"
-#include "R258.h"
-#include "R262.h"
-#include "R264.h"
-#include "R266.h"
-#include "R268.h"
-#include "R270.h"
-#include "R272.h"
-#include "R274.h"
-#include "R276.h"
-#include "R278.h"
-#include "R280.h"
-#include "R282.h"
-#include "R284.h"
-#include "R288.h"
-#include "R294.h"
-#include "R296.h"
-#include "R302.h"
+#include "LawSwitch.h"
+#include "LawState.h"
 namespace slang_uhdm {
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
@@ -37849,7 +37819,7 @@ void UhdmExporter::drainShareDefParamTs() {
 // (`expr.cpp:90-100`), and `ref_typespec::Compare` recurses into
 // `Actual_typespec` — so both halves are judge-visible and must move together.
 void UhdmExporter::drainUnsizedBasedRhs106() {
-    // § cloneLoopVarAssocIdxTs258 (R258.h, R11U258_CLONELVIDX_OFF): bind the
+    // § cloneLoopVarAssocIdxTs258 (LawState.h pass 258, R11U258_CLONELVIDX_OFF): bind the
     // deferred index typespecs of the clone loop variables' shared home
     // objects, after UhdmExporter's clone-body member binder, and parent each
     // at its home foreach_stmt (the elaborated body's, else the definition

@@ -9,39 +9,8 @@
 
 #include "EmitHelpers.h"
 #include "slang/syntax/SyntaxTree.h"
-#include "R217.h"
-#include "R221.h"
-#include "R223.h"
-#include "R231.h"
-#include "R234.h"
-#include "R235.h"
-#include "R237.h"
-#include "R239.h"
-#include "R241.h"
-#include "R243.h"
-#include "R245.h"
-#include "R247.h"
-#include "R249.h"
-#include "R251.h"
-#include "R253.h"
-#include "R255.h"
-#include "R257.h"
-#include "R259.h"
-#include "R265.h"
-#include "R261.h"
-#include "R269.h"
-#include "R271.h"
-#include "R273.h"
-#include "R275.h"
-#include "R279.h"
-#include "R281.h"
-#include "R285.h"
-#include "R287.h"
-#include "R291.h"
-#include "R295.h"
-#include "R299.h"
-#include "R301.h"
-#include "R303.h"
+#include "LawSwitch.h"
+#include "LawState.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -20777,7 +20746,7 @@ UHDM::design* UhdmExporter::exportDesign() {
         // the formal held, the formal's own copy).
         std::map<const UHDM::any*, std::pair<UHDM::typespec*, UHDM::typespec*>> moved231;
         // The registry is read in emission order from static storage
-        // (§ formalRegNoHeap223v, src/R223.h; switch R11V223_DETREG_OFF).
+        // (§ formalRegNoHeap223v, src/LawState.h pass 223; switch R11V223_DETREG_OFF).
         formalTdTok223().forEach([&](auto& ent223) {
             auto* rt223 = ent223.first;
             auto& rng223 = ent223.second;

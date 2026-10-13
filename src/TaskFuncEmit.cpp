@@ -16,22 +16,8 @@
 
 #include <algorithm>
 #include <vector>
-#include "R245.h"
-#include "R247.h"
-#include "R234.h"
-#include "R237.h"
-#include "R204.h"
-#include "R223.h"
-#include "R226.h"
-#include "R231.h"
-#include "R241.h"
-#include "R251.h"
-#include "R253.h"
-#include "R275.h"
-#include "R277.h"
-#include "R283.h"
-#include "R299.h"
-#include "R301.h"
+#include "LawSwitch.h"
+#include "LawState.h"
 
 namespace slang_uhdm {
 

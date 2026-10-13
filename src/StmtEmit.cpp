@@ -8,9 +8,8 @@
 #include "UhdmExporter.h"
 
 #include "EmitHelpers.h"
-#include "R217.h"
-#include "R236.h"
-#include "R238.h"
+#include "LawSwitch.h"
+#include "LawState.h"
 #include <uhdm/UhdmListener.h>
 
 #include <functional>
@@ -18,20 +17,6 @@
 
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/clone_tree.h>
-#include "R244.h"
-#include "R246.h"
-#include "R248.h"
-#include "R252.h"
-#include "R254.h"
-#include "R258.h"
-#include "R264.h"
-#include "R270.h"
-#include "R286.h"
-#include "R288.h"
-#include "R292.h"
-#include "R296.h"
-#include "R300.h"
-#include "R304.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -3671,7 +3656,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // Surelog anchors the foreach_stmt at the "foreach" keyword alone.
             setLoc(fs, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 7));
             // § cloneLoopVarAssocIdxTs258: the home foreach of every
-            // non-copy foreach, by its keyword's location (R258.h).
+            // non-copy foreach, by its keyword's location (LawState.h pass 258).
             std::string key258 = std::string(fs->VpiFile()) + ":" +
                                  std::to_string(fs->VpiLineNo()) + ":" +
                                  std::to_string(fs->VpiColumnNo());
@@ -4855,7 +4840,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             // bound only by the class listing's drain.
                             UHDM::ref_typespec* deferStr248 = nullptr;
                             // § cloneLoopVarAssocIdxTs258: the index
-                            // typespec, bound late (R258.h).
+                            // typespec, bound late (LawState.h pass 258).
                             UHDM::typespec* deferIdx258 = nullptr;
                             if (r11u183LawSE("R11U183_UVMCOPY_OFF") &&
                                 r11u183LawSE("R11U183_CLONELV_OFF")) {
@@ -5148,7 +5133,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                             // things Surelog's order gives that
                                             // ours must reproduce, so the binding
                                             // is DEFERRED to ParamEmit's
-                                            // drainUnsizedBasedRhs106 (R258.h):
+                                            // drainUnsizedBasedRhs106 (LawState.h pass 258):
                                             // (1) golden's DeepClone resolved the
                                             // copy body's `range.min` while the
                                             // home object was still unresolved,

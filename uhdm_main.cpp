@@ -6,10 +6,8 @@
 //------------------------------------------------------------------------------
 #include "BuiltinSv.h"
 #include "UhdmExporter.h"
-#include "src/R223.h"
-#include "src/R228.h"
-#include "src/R231.h"
-#include "src/R233.h"
+#include "src/LawSwitch.h"
+#include "src/LawState.h"
 
 #include <cstdio>
 #include <filesystem>
