@@ -6,6 +6,7 @@
 // `<dir>/<pid>.270`, its first line `OUT <-o path>`, then `<law> <detail>`
 // (an abstention reads `<law> abstain <detail>`).
 #pragma once
+#include "LawSwitch.h"
 #include <cstdio>
 #include <cstdlib>
 #include <set>
@@ -22,51 +23,10 @@ class Expression;
 }
 
 namespace slang_uhdm {
-inline bool r11u270On(const char* sw) {
-    if (getenv("R11U270_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // (r11u272: the r11v270On helper pre-written here for a verifier that wrote
 // no fix was never called; removed, v11u270repro README's finding.)
 // the trace is on: callers build their detail strings only then (no heap
 // traffic while the design is emitted when it is off)
-inline bool tr270On() {
-    static const bool on = getenv("R11U270_TRACE") != nullptr;
-    return on;
-}
-inline void tr270(const char* law, const std::string& detail = std::string()) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U270_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".270";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 }  // namespace slang_uhdm
 
 namespace slang_uhdm {

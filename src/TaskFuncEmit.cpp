@@ -1803,7 +1803,7 @@ std::vector<UHDM::task_func*> g_cloneTf241; // § cloneAggTsAtHomeListing241
 static void cloneLocalArrayTsParent241(bool importClone, UHDM::typespec* ats,
                                        UHDM::ref_typespec* art) {
     if (!importClone || !ats || !art || ats->VpiParent() ||
-        !r11u241Law("R11U241_CLONEARRTS_OFF"))
+        !lawOn(241, "R11U241_CLONEARRTS_OFF"))
         return;
     g_cloneArrTs241.push_back({ats, art});
 }
@@ -3624,10 +3624,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         if (prsyn && prsyn->kind == syntax::SyntaxKind::NamedType &&
                             mp.getReturnType().kind != SymbolKind::ClassType &&
                             prsyn->sourceRange().start() != SourceLocation::NoLocation &&
-                            r11u231Law("R11U231_PVRETTOK_OFF")) {
+                            lawOn(231, "R11U231_PVRETTOK_OFF")) {
                             setLoc(prv, prsyn->sourceRange());
                             prv->VpiFile(fullFilePath(prsyn->sourceRange().start()));
-                            tr231("pureVirtRetAtTypeToken231", std::string(mp.name));
+                            lawTrace(231, "pureVirtRetAtTypeToken231", std::string(mp.name));
                         }
                         // § pureProtoInlineAggSpans301 (r11u301, pass 299's
                         // residue 3: v11u299repro VR/vr08) — the pure virtual
@@ -3645,13 +3645,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             !prsyn->as<syntax::StructUnionTypeSyntax>().dimensions.empty() &&
                             prv->UhdmType() == UHDM::uhdmlogic_var &&
                             prsyn->sourceRange().start() != SourceLocation::NoLocation &&
-                            r11u301On("R11U301_PUREAGG_OFF")) {
+                            lawOn(301, "R11U301_PUREAGG_OFF")) {
                             auto o301 = std::make_tuple(prv->VpiLineNo(), prv->VpiColumnNo(),
                                                         prv->VpiEndLineNo(), prv->VpiEndColumnNo());
                             setLoc(prv, prsyn->sourceRange());
                             if (o301 != std::make_tuple(prv->VpiLineNo(), prv->VpiColumnNo(),
                                                         prv->VpiEndLineNo(), prv->VpiEndColumnNo()))
-                                tr301("pureProtoInlineAggSpans301", "ret " + std::string(mp.name));
+                                lawTrace(301, "pureProtoInlineAggSpans301", "ret " + std::string(mp.name));
                         }
                     }
                 }
@@ -3800,14 +3800,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         // § pureVirtFormalSignKwTrim247 (law at
                         // pureProtoNoDirKw247).
                         if (pts0 && pts0->VpiName().empty() &&
-                            r11u247On("R11U247_PUREFORMAL_OFF"))
+                            lawOn(247, "R11U247_PUREFORMAL_OFF"))
                             if (auto* ity247 = pureProtoNoDirKw247(*parg)) {
                                 auto kr247 = ity247->keyword.range();
                                 if (kr247.start() != SourceLocation::NoLocation &&
                                     (ity247->signing.valid() ||
                                      !ity247->dimensions.empty())) {
                                     setLoc(pts0, kr247);
-                                    tr247("pureVirtFormalSignKwTrim247",
+                                    lawTrace(247, "pureVirtFormalSignKwTrim247",
                                           std::string(parg->name));
                                 }
                             }
@@ -3830,7 +3830,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             (pts0->UhdmType() == UHDM::uhdmstruct_typespec ||
                              pts0->UhdmType() == UHDM::uhdmunion_typespec ||
                              pts0->UhdmType() == UHDM::uhdmpacked_array_typespec) &&
-                            r11u301On("R11U301_PUREAGG_OFF")) {
+                            lawOn(301, "R11U301_PUREAGG_OFF")) {
                             const syntax::FunctionPortSyntax* fp301 = nullptr;
                             for (auto q = parg->getSyntax(); q; q = q->parent) {
                                 if (q->kind == syntax::SyntaxKind::FunctionPort) {
@@ -3855,7 +3855,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                                                 pts0->VpiColumnNo(),
                                                                 pts0->VpiEndLineNo(),
                                                                 pts0->VpiEndColumnNo()))
-                                        tr301("pureProtoInlineAggSpans301",
+                                        lawTrace(301, "pureProtoInlineAggSpans301",
                                               "formal " + std::string(parg->name) +
                                                   (fp301->direction.valid() ? " dir"
                                                                             : " nodir"));
@@ -3869,7 +3869,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             ptsyn->kind == syntax::SyntaxKind::NamedType &&
                             ptsyn->as<syntax::NamedTypeSyntax>().name->kind ==
                                 syntax::SyntaxKind::IdentifierName &&
-                            r11u223Law("R11U223_SCALARTDTOK_OFF"))
+                            lawOn(223, "R11U223_SCALARTDTOK_OFF"))
                             formalTdTok223().push_back({prt0, ptsyn->sourceRange()});
                     }
                     // § pureVirtIoRanges34 — the prototype's formal carries
@@ -4342,7 +4342,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // int v` the var keyword, `(* k *) input int a` the direction
                 // (grid tools/probe/r11u277repro/cases/C; MiniAmiq #241741 /
                 // #243118).  Switch R11U277_CTORRETSPAN_OFF.
-                if (r11u277On("R11U277_CTORRETSPAN_OFF")) {
+                if (lawOn(277, "R11U277_CTORRETSPAN_OFF")) {
                     const syntax::SyntaxNode* fp277 = nullptr;
                     for (auto q = args0[0]->getSyntax(); q; q = q->parent)
                         if (q->kind == syntax::SyntaxKind::FunctionPort) {
@@ -4405,7 +4405,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                 how = "implicit";
                             }
                             rv277 = r;
-                            tr277("ctorRetVarSiblingSpan277",
+                            lawTrace(277, "ctorRetVarSiblingSpan277",
                                   std::string(how) + " " + fullName);
                         }
                     }
@@ -4928,7 +4928,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     bool shared234 = false;
                     if (retAlias->getParentScope() &&
                         retAlias->getParentScope()->asSymbol().kind == SymbolKind::ClassType &&
-                        r11u234Law("R11U234_CLSTDRET_OFF")) {
+                        lawOn(234, "R11U234_CLSTDRET_OFF")) {
                         const Type* el234 = &retAlias->targetType.getType();
                         for (int g234 = 0; g234 < 8; g234++) {
                             auto& c234 = el234->getCanonicalType();
@@ -4966,7 +4966,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     if (shared234) {
                         ts = retBase;
                         typedefRetClone = true;
-                        tr234("clsTdClassElemRetSharesListing234", std::string(rdt.name));
+                        lawTrace(234, "clsTdClassElemRetSharesListing234", std::string(rdt.name));
                     }
                     else {
                     UHDM::array_typespec* cl9 = nullptr;
@@ -5022,7 +5022,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             }
                     }
                     if (cl9 && !cl9->Elem_typespec() && !tpElem204 &&
-                        r11v204Law("R11V204_QTWINELEM_OFF")) {
+                        fixOn(204, "R11V204_QTWINELEM_OFF")) {
                         auto* cf204 = buildUnpackedArrayTypedefTs(
                             *retAlias, std::string(rdt.name), /*cloneForm=*/true);
                         // only a non-aggregate element: the clone form's struct
@@ -5038,7 +5038,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             er204->VpiParent(cl9);
                             cl9->Elem_typespec(er204);
                             cf204->Elem_typespec(nullptr);
-                            tr204("queueTwinKeepsElem204v", std::string(rdt.name));
+                            lawTrace(204, "queueTwinKeepsElem204v", std::string(rdt.name));
                         }
                     }
                     if (!cl9)
@@ -5058,9 +5058,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                       retAlias->targetType.getType()
                                               .getCanonicalType()
                                               .kind != SymbolKind::FixedSizeUnpackedArrayType &&
-                                      r11u251On("R11U251_RETTWINALIAS_OFF");
+                                      lawOn(251, "R11U251_RETTWINALIAS_OFF");
                     if (noAlias251)
-                        tr251("dynTdRetTwinNoAlias251", std::string(rdt.name));
+                        lawTrace(251, "dynTdRetTwinNoAlias251", std::string(rdt.name));
                     else {
                     auto* art = s.MakeRef_typespec();
                     art->VpiFullName(std::string(rdt.name));
@@ -5184,11 +5184,11 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             if (auto* sn283 = nt283->name->as_if<syntax::ScopedNameSyntax>();
                                 sn283 && sn283->separator.range().end() !=
                                              SourceLocation::NoLocation &&
-                                r11u283On("R11U283_SCOPEDRET_OFF")) {
+                                lawOn(283, "R11U283_SCOPEDRET_OFF")) {
                                 setLoc(cts9, SourceRange(sn283->left->sourceRange().start(),
                                                          sn283->separator.range().end()));
                                 scopedRet283 = true;
-                                tr283("SCOPEDRET", std::string(sub.name));
+                                lawTrace(283, "SCOPEDRET", std::string(sub.name));
                             }
                     }
                     // § classHandleRetTsNameUnlessSameHomeComponent156 —
@@ -5366,9 +5366,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // twin u08, u12 package, u13 module).
             const bool unionRet237 =
                 ts->UhdmType() == UHDM::uhdmunion_typespec &&
-                r11u237Law("R11U237_UNIONRET_OFF");
+                lawOn(237, "R11U237_UNIONRET_OFF");
             if (unionRet237)
-                tr237("unionRetVarAtTypeToken237", std::string(sub.name));
+                lawTrace(237, "unionRetVarAtTypeToken237", std::string(sub.name));
             // § unitTdRetVarAtTypeToken245 (r11u245, R11U245_UNITRETLOC_OFF;
             // case tools/probe/r11u245repro US/u07) — a function returning a
             // $UNIT scalar or predefined-kind typedef: golden locates the
@@ -5390,9 +5390,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                  ts->UhdmType() == UHDM::uhdmreal_typespec ||
                  ts->UhdmType() == UHDM::uhdmshort_real_typespec ||
                  ts->UhdmType() == UHDM::uhdmtime_typespec) &&
-                r11u245On("R11U245_UNITRETLOC_OFF")) {
+                lawOn(245, "R11U245_UNITRETLOC_OFF")) {
                 unitRetLoc245 = true;
-                tr245("unitTdRetVarAtTypeToken245", std::string(sub.name));
+                lawTrace(245, "unitTdRetVarAtTypeToken245", std::string(sub.name));
             }
             if (ts->UhdmType() == UHDM::uhdmstruct_typespec ||
                 ts->UhdmType() == UHDM::uhdmenum_typespec ||
@@ -5628,7 +5628,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                  rsyn299->kind == syntax::SyntaxKind::UnionType) &&
                 !rsyn299->as<syntax::StructUnionTypeSyntax>().dimensions.empty() &&
                 rv->UhdmType() == UHDM::uhdmlogic_var &&
-                r11u299On("R11U299_INLAGGRET_OFF")) {
+                lawOn(299, "R11U299_INLAGGRET_OFF")) {
                 auto rr299 = rsyn299->sourceRange();
                 if (rr299.start() != SourceLocation::NoLocation) {
                     auto o299 = std::make_tuple(rv->VpiLineNo(), rv->VpiColumnNo(),
@@ -5636,7 +5636,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     setLoc(rv, rr299);
                     if (o299 != std::make_tuple(rv->VpiLineNo(), rv->VpiColumnNo(),
                                                 rv->VpiEndLineNo(), rv->VpiEndColumnNo()))
-                        tr299("inlineAggReturnVarSpan299", std::string(sub.name));
+                        lawTrace(299, "inlineAggReturnVarSpan299", std::string(sub.name));
                 }
             }
             ((UHDM::function*)tf)->Return(rv);
@@ -6010,7 +6010,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 argTsyn->as<syntax::NamedTypeSyntax>().name->kind ==
                     syntax::SyntaxKind::IdentifierName &&
                 !(sub.flags & MethodFlags::DPIImport) &&
-                r11u223Law("R11U223_SCALARTDTOK_OFF")) {
+                lawOn(223, "R11U223_SCALARTDTOK_OFF")) {
                 bool ansi223 = false;
                 for (auto q223 = arg->getSyntax(); q223; q223 = q223->parent) {
                     if (q223->kind == syntax::SyntaxKind::FunctionPort) {
@@ -6040,13 +6040,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // export precedes the definition (r11u226 F/f11, f13, f15,
                 // f16, f17: golden 8:19-25 at the formal's type token).
                 bool ownTd226 = true;
-                if (r11v226Law("R11V226_EXPOWNTD_OFF")) {
+                if (fixOn(226, "R11V226_EXPOWNTD_OFF")) {
                     const auto& t226 = arg->getType();
                     ownTd226 = t226.isAlias() &&
                                t226.as<slang::ast::TypeAliasType>().getParentScope() ==
                                    sub.getParentScope();
                 }
-                if (ansi223 && r11u223Law("R11U223_SCALARTDEXP_OFF"))
+                if (ansi223 && lawOn(223, "R11U223_SCALARTDEXP_OFF"))
                     if (auto* sn223 = sub.getSyntax(); sn223 && sn223->parent) {
                         std::string_view fn223 = sub.name;
                         for (size_t i = 0; i < sn223->parent->getChildCount(); i++)
@@ -6060,7 +6060,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                 if (ownTd226)
                                     ansi223 = false;
                                 else
-                                    tr226("tfArgScalarTdExportOwnTd226v",
+                                    lawTrace(226, "tfArgScalarTdExportOwnTd226v",
                                           std::string(sub.name) + " " +
                                               std::string(arg->name));
                             }
@@ -6348,7 +6348,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     argTsyn->parent &&
                     argTsyn->parent->kind == syntax::SyntaxKind::FunctionPort &&
                     !argTsyn->parent->as<syntax::FunctionPortSyntax>().direction.valid() &&
-                    r11u234Law("R11U234_CLSQUALSPAN_OFF"))
+                    lawOn(234, "R11U234_CLSQUALSPAN_OFF"))
                     if (auto& qn234 = *argTsyn->as<syntax::NamedTypeSyntax>().name;
                         qn234.kind == syntax::SyntaxKind::ScopedName &&
                         qn234.as<syntax::ScopedNameSyntax>().separator.kind ==
@@ -6356,7 +6356,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         auto& sn234 = qn234.as<syntax::ScopedNameSyntax>();
                         setLoc(uts34, SourceRange(sn234.left->sourceRange().start(),
                                                   sn234.separator.range().end()));
-                        tr234("clsScopeFormalQualSpan234", csn34);
+                        lawTrace(234, "clsScopeFormalQualSpan234", csn34);
                     }
                 ts = uts34;
                 rt->Actual_typespec(ts);
@@ -6863,7 +6863,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             if (argTsyn && rt->Actual_typespec() &&
                 (argTsyn->kind == syntax::SyntaxKind::StructType ||
                  argTsyn->kind == syntax::SyntaxKind::UnionType) &&
-                r11u299On("R11U299_INLAGGFORMAL_OFF")) {
+                lawOn(299, "R11U299_INLAGGFORMAL_OFF")) {
                 auto* t299 = rt->Actual_typespec();
                 auto k299 = t299->UhdmType();
                 const syntax::FunctionPortSyntax* fp299 = nullptr;
@@ -6892,7 +6892,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         if (o299 != std::make_tuple(t299->VpiLineNo(), t299->VpiColumnNo(),
                                                     t299->VpiEndLineNo(),
                                                     t299->VpiEndColumnNo()))
-                            tr299("inlineAggFormalTypeSpan299",
+                            lawTrace(299, "inlineAggFormalTypeSpan299",
                                   std::string(arg->name) +
                                       (fp299->direction.valid() ? " dir" : " nodir"));
                     }
@@ -7363,9 +7363,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                             ->as<syntax::RangeDimensionSpecifierSyntax>()
                                             .selector->kind ==
                                         syntax::SyntaxKind::SimpleRangeSelect &&
-                                    r11u275On("R11U275_TFARRRANGEEND_OFF")) {
+                                    lawOn(275, "R11U275_TFARRRANGEEND_OFF")) {
                                     aEnd = dim0->sourceRange().end();
-                                    tr275("TFARRRANGEEND", std::string(fmv.name));
+                                    lawTrace(275, "TFARRRANGEEND", std::string(fmv.name));
                                 }
                             }
                         setLoc(ats, SourceRange(fmv.location, aEnd));
@@ -7423,9 +7423,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // Jetty193's copies of c6_select193 and c8_block193).
                     // Parented by § 241's design-final drain, with its guard.
                     if (pkgImportCloneEmit &&
-                        r11u253On("R11U253_TFFIXARRTS_OFF")) {
+                        lawOn(253, "R11U253_TFFIXARRTS_OFF")) {
                         g_cloneArrTs241.push_back({ats, art});
-                        tr253("cloneTfFixedArrTsParented253", afull);
+                        lawTrace(253, "cloneTfFixedArrTsParented253", afull);
                     }
                     // A foreach over this array binds THIS array_typespec —
                     // both for the iterated-array ref (which used to mint a

@@ -16,6 +16,7 @@
 // R11U287_TRACE=<dir> names every firing: one file per process,
 // `<dir>/<pid>.287`, its first line `OUT <-o path>`, then `<law> <detail>`.
 #pragma once
+#include "LawSwitch.h"
 #include <cstdio>
 #include <cstdlib>
 #include <string>
@@ -24,48 +25,6 @@
 #include <vector>
 
 namespace slang_uhdm {
-inline bool r11u287On(const char* sw) {
-    if (getenv("R11U287_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
-inline bool r11v287On(const char* sw) {
-    if (getenv("R11U287_OFF") != nullptr || getenv("R11V287_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
-inline void tr287(const char* law, const std::string& detail = std::string()) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U287_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".287";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // § pvRecvBodyParamTs287: (the constant's ref_typespec, the receiver's
 // ParameterSymbol), bound design-final to that parameter's elaborated typespec.
 inline std::vector<std::pair<void*, const void*>>& pvRecvTs287() {

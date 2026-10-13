@@ -5,6 +5,7 @@
 // R11U238_TRACE=<dir> names every firing: one file per process,
 // `<dir>/<pid>.238`, its first line `OUT <-o path>`, then `<law> <detail>`.
 #pragma once
+#include "LawSwitch.h"
 #include <cstdio>
 #include <cstdlib>
 #include <map>
@@ -22,51 +23,9 @@ class Symbol;
 }  // namespace slang::ast
 
 namespace slang_uhdm {
-inline bool r11u238On(const char* sw) {
-    if (getenv("R11U238_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // v11u238 (the adversarial verification, tools/probe/v11u238repro/README.md):
 // each refinement reads its own R11V238_<NAME>_OFF; R11V238_OFF drops all of
 // them, and R11U238_OFF drops them with the laws they refine.
-inline bool r11u238vOn(const char* sw) {
-    if (getenv("R11U238_OFF") != nullptr || getenv("R11V238_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
-inline void tr238(const char* law, const std::string& detail = std::string()) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U238_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".238";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // § cloneForIncBindsHomeVar238 (StmtEmit ForLoop arm, drained in ParamEmit
 // drainPaNameCopySrc38): a for-header loop variable -> the HOME listing's
 // emitted object (the last and the first emission outside any import clone),

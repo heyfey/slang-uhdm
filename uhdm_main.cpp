@@ -247,7 +247,7 @@ void elabCloneFullNameUnstored137(UHDM::design* d, UHDM::Serializer& s) {
             o->VpiParent() && o->VpiParent()->UhdmType() == UHDM::uhdmclass_defn &&
             o->VpiParent()->VpiParent() &&
             o->VpiParent()->VpiParent()->UhdmType() == UHDM::uhdmpackage &&
-            slang_uhdm::r11u231Law("R11U231_ELABCLSMETHOD_OFF");
+            slang_uhdm::lawOn(231, "R11U231_ELABCLSMETHOD_OFF");
         FullNameAcc137 acc;
         if (!fullNameAccess137(o, acc))
             continue;
@@ -255,7 +255,7 @@ void elabCloneFullNameUnstored137(UHDM::design* d, UHDM::Serializer& s) {
         if (cur.empty() || cur != chainFullName137(o))
             continue;
         if (clsMethod231) {
-            slang_uhdm::tr231("elabClassMethodKeepsName231", cur);
+            slang_uhdm::lawTrace(231, "elabClassMethodKeepsName231", cur);
             continue;
         }
         clear.push_back({o, acc});
@@ -1203,13 +1203,13 @@ static int realMain(int argc, char** argv) {
             // (R11V223_OFF drops every v11u223 refinement).
             static UHDM::ref_typespec phRt223v;
             static UHDM::chandle_typespec phTs223v;
-            if (slang_uhdm::r11v223Law("R11V223_SIZEINVALID_OFF")) {
+            if (slang_uhdm::lawFixOn(223, "R11V223_SIZEINVALID_OFF")) {
                 phRt223v.Actual_typespec(&phTs223v);
                 placeholder223.Typespec(&phRt223v);
             } else {
                 placeholder223.Typespec(nullptr);
             }
-            if (slang_uhdm::r11u223Law("R11U223_SIZEDECLINE_OFF")) {
+            if (slang_uhdm::lawOn(223, "R11U223_SIZEDECLINE_OFF")) {
                 for (auto& kv : serializer.AllObjects())
                     if (kv.first && kv.first->UhdmType() == UHDM::uhdmarray_var) {
                         auto* av223 = (UHDM::array_var*)kv.first;
@@ -1238,7 +1238,7 @@ static int realMain(int argc, char** argv) {
                 int64_t width;
             };
             std::vector<AdjSz223> adjSz223;
-            if (slang_uhdm::r11u223Law("R11U223_ADJSIZE_OFF")) {
+            if (slang_uhdm::lawOn(223, "R11U223_ADJSIZE_OFF")) {
                 std::vector<UHDM::cont_assign*> cas223;
                 for (auto& kv : serializer.AllObjects())
                     if (kv.first && kv.first->UhdmType() == UHDM::uhdmcont_assign)
@@ -1308,7 +1308,7 @@ static int realMain(int argc, char** argv) {
                 k->VpiEndLineNo(0);
                 k->VpiEndColumnNo(0);
                 k->VpiParent(a223.ca);
-                slang_uhdm::tr223("ndaAdjSizeFoldSized223", std::string(a223.ca->Lhs()->VpiName()));
+                slang_uhdm::lawTrace(223, "ndaAdjSizeFoldSized223", std::string(a223.ca->Lhs()->VpiName()));
             }
 
             // § genCaCastFoldAdjustSize106 (r10earl106) — the CONSUMER half of
@@ -1365,7 +1365,7 @@ static int realMain(int argc, char** argv) {
     // element (ExprEval reads that element unguarded; Surelog writes no
     // database there).  Switch R11U228_PVSIZE_OFF.
     if (!(elabUhdm == true) && !synthSubset &&
-        slang_uhdm::r11u228Law("R11U228_PVSIZE_OFF")) {
+        slang_uhdm::lawOn(228, "R11U228_PVSIZE_OFF")) {
         std::set<const UHDM::any*> defCas228;
         if (auto* am = design->AllModules())
             for (auto* m228 : *am)
@@ -1400,7 +1400,7 @@ static int realMain(int argc, char** argv) {
         static UHDM::chandle_typespec phTs228v;
         static std::vector<UHDM::variables*> phVec228v{&ph228v};
         std::vector<UHDM::array_var*> noElem228v;
-        if (slang_uhdm::r11v228Law("R11V228_PVSIZEDYN_OFF")) {
+        if (slang_uhdm::fixOn(228, "R11V228_PVSIZEDYN_OFF")) {
             phRt228v.Actual_typespec(&phTs228v);
             ph228v.Typespec(&phRt228v);
             for (auto& kv : serializer.AllObjects())
@@ -1425,7 +1425,7 @@ static int realMain(int argc, char** argv) {
         // the net).  Such an operand keeps the call, the base's bytes.
         // Switch R11V233_PVSIZEFWD_OFF.
         std::set<std::string> fwdTainted233;
-        const bool fwd233 = slang_uhdm::r11v233Law("R11V233_PVSIZEFWD_OFF");
+        const bool fwd233 = slang_uhdm::fixOn(233, "R11V233_PVSIZEFWD_OFF");
         bool fwdDone233 = false;
         auto fwdCompute233 = [&]() {
             if (fwdDone233)
@@ -1623,7 +1623,7 @@ static int realMain(int argc, char** argv) {
                   act->UhdmType() == UHDM::uhdmarray_net))
                 continue;
             if (operandFwd233(act)) {
-                slang_uhdm::tr233("pvSizeFwdPkgDimDeclines233v",
+                slang_uhdm::lawTrace(233, "pvSizeFwdPkgDimDeclines233v",
                                   std::string(ca->Lhs()->VpiName()));
                 continue;
             }
@@ -1685,7 +1685,7 @@ static int realMain(int argc, char** argv) {
             k->VpiEndColumnNo(0);
             k->VpiParent(ca);
             ca->Rhs(k);
-            slang_uhdm::tr228("parseViewSizeExprEval228",
+            slang_uhdm::lawTrace(228, "parseViewSizeExprEval228",
                               std::string(ca->Lhs()->VpiName()) + " " +
                                   std::to_string(uv));
         }

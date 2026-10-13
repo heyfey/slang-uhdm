@@ -202,11 +202,11 @@ static const slang::syntax::SyntaxNode* invSyn244 = nullptr;
 static slang::SourceRange invalidAnchor244(const slang::ast::Statement& st) {
     auto r = invalidStmtAnchor181(st);
     if (r.start().valid() || st.kind != slang::ast::StatementKind::Invalid ||
-        !r11u244On("R11U244_INVBLKLOC_OFF"))
+        !lawOn(244, "R11U244_INVBLKLOC_OFF"))
         return r;
     if (auto* ch = st.as<slang::ast::InvalidStatement>().child;
         ch && ch->syntax) {
-        tr244("invalidBlockLocFromSyntax244", "anchor");
+        lawTrace(244, "invalidBlockLocFromSyntax244", "anchor");
         return ch->syntax->sourceRange();
     }
     return r;
@@ -246,10 +246,10 @@ static void recordBlkElemCopy244(bool importClone, UHDM::VectorOfvariables* vars
                                  const slang::syntax::SyntaxNode* dsyn,
                                  const std::string& bfull) {
     if (!importClone || !vars || vars->empty() || !blk ||
-        !r11u244On("R11U244_BLKELEMCOPY_OFF"))
+        !lawOn(244, "R11U244_BLKELEMCOPY_OFF"))
         return;
-    if (!declHasDims244v(dsyn) && r11v244On("R11V244_TDARR_OFF")) {
-        tr244("blkElemCopyDeclDimsOnly244v", bfull);
+    if (!declHasDims244v(dsyn) && lawFixOn(244, "R11V244_TDARR_OFF")) {
+        lawTrace(244, "blkElemCopyDeclDimsOnly244v", bfull);
         return;
     }
     blkElemCopies244.emplace_back(vars, vars->size() - 1, blk);
@@ -261,19 +261,19 @@ static void drainBlkElemCopies244(UHDM::Serializer& s) {
         auto* e = (*vars)[i];
         if (!e || !e->VpiParent() ||
             e->VpiParent()->UhdmType() != UHDM::uhdmarray_var) {
-            tr244("cloneBlockArrElemOwnCopy244_shape");
+            lawTrace(244, "cloneBlockArrElemOwnCopy244_shape");
             continue;
         }
         auto* c = (UHDM::variables*)cloneLocal175(s, e, blk);
         if (!c) {
-            tr244("cloneBlockArrElemOwnCopy244_failed");
+            lawTrace(244, "cloneBlockArrElemOwnCopy244_failed");
             continue;
         }
         c->VpiFullName("");
         if (auto* rt = c->Typespec())
             rt->VpiFullName("");
         (*vars)[i] = c;
-        tr244("cloneBlockArrElemOwnCopy244");
+        lawTrace(244, "cloneBlockArrElemOwnCopy244");
     }
     blkElemCopies244.clear();
 }
@@ -1087,12 +1087,12 @@ UHDM::delay_control* UhdmExporter::emitDelayControl(const TimingControl& tc,
                 same292 = a1 == b1 && a2 == b2 && a3 == b3 && a4 == b4;
             }
             if (!same292) {
-                if (r11u292On("R11U292_DLYPAREN_OFF")) {
+                if (lawOn(292, "R11U292_DLYPAREN_OFF")) {
                     dly292 = true;
-                    tr292("DLYPAREN", rawText(new292));
+                    lawTrace(292, "DLYPAREN", rawText(new292));
                 }
                 else
-                    tr292("DLYPAREN", "off");
+                    lawTrace(292, "DLYPAREN", "off");
             }
         }
         if (dly292) {
@@ -1853,7 +1853,7 @@ UHDM::any* UhdmExporter::emitCtorBody27(const Statement& slStmt,
     // and only in an importer clone.
     const bool ctorCopy264 = ub && pkgImportCloneEmit &&
                              r11u175LawA("R11U175_MULT_OFF") &&
-                             r11u264On("R11U264_CTORCOPY_OFF");
+                             lawOn(264, "R11U264_CTORCOPY_OFF");
     size_t from = nb > 1 ? walkFrom : firstCounted;
     size_t to = nb > 1 ? el.size() : firstCounted + 1;
     // § ctorFirstBodyItemIsUnlistedNoBind144 — RECORD, before the walk and
@@ -1960,7 +1960,7 @@ UHDM::any* UhdmExporter::emitCtorBody27(const Statement& slStmt,
     // wrapper already follows; the constructor body never reached it.  Grid
     // tools/probe/r11u264repro/cases/C.
     if (ctorCopy264 && !bvars->empty()) {
-        tr264("CTORCOPY", prefix);
+        lawTrace(264, "CTORCOPY", prefix);
         CloneLocalWrap175 w264{ub, {}, {}, prefix};
         for (auto* bv : *bvars) {
             w264.vars.push_back(bv);
@@ -2232,7 +2232,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
          stmt.as<StatementList>().list.empty()) &&
         stmt.kind != StatementKind::VariableDeclaration && currentSubSym &&
         !tfBodyTfItems9 && !tfBodyCtor27 && tfBodyPa9.empty() &&
-        r11u304On("R11U304_TDBEGIN_OFF")) {
+        lawOn(304, "R11U304_TDBEGIN_OFF")) {
         const syntax::SyntaxNode* fs304 = currentSubSym->getSyntax();
         if (fs304 && syntax::FunctionDeclarationSyntax::isKind(fs304->kind)) {
             auto& it304 = fs304->as<syntax::FunctionDeclarationSyntax>().items;
@@ -2270,7 +2270,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     sts304->push_back(in304);
                     ub304->Stmts(sts304);
                 }
-                tr304("TDBEGIN", at304 + (none304
+                lawTrace(304, "TDBEGIN", at304 + (none304
                                               ? " empty"
                                               : it304[1] == stmt.syntax ? " stmt"
                                                                         : " item"));
@@ -2621,14 +2621,14 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         if (e286 < txt286.size() && txt286[e286] == ' ' &&
                             txt286.substr(nl.offset() + 1, blkSym158->name.size()) ==
                                 blkSym158->name) {
-                            static const bool on286 = r11u286On("R11U286_ESCBLKNAME_OFF");
-                            tr286(on286 ? "ESCBLKNAME" : "ESCBLKNAME_OFF",
+                            static const bool on286 = lawOn(286, "R11U286_ESCBLKNAME_OFF");
+                            lawTrace(286, on286 ? "ESCBLKNAME" : "ESCBLKNAME_OFF",
                                   std::string(blkSym158->name));
                             if (on286)
                                 ne286 = SourceLocation(nl.buffer(), e286 + 1);
                         }
                         else
-                            tr286("ESCBLKNAME_ABSTAIN", std::string(blkSym158->name));
+                            lawTrace(286, "ESCBLKNAME_ABSTAIN", std::string(blkSym158->name));
                     }
                     setLoc(nb, SourceRange(nl, ne286));
                 }
@@ -2682,8 +2682,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // § invalidBlockLocFromSyntax244 — the child of a bad block
                 else if (!stmt.sourceRange.start().valid() &&
                          invChild244 == &stmt && invSyn244 &&
-                         r11u244On("R11U244_INVBLKLOC_OFF")) {
-                    tr244("invalidBlockLocFromSyntax244", "block");
+                         lawOn(244, "R11U244_INVBLKLOC_OFF")) {
+                    lawTrace(244, "invalidBlockLocFromSyntax244", "block");
                     setLoc(ub, invSyn244->sourceRange());
                 }
                 else
@@ -2936,9 +2936,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         // design-final drain (UhdmExporter exportDesign), with
                         // its guard.
                         if (pkgImportCloneEmit &&
-                            r11u244On("R11U244_BLKFIXARRTS_OFF")) {
+                            lawOn(244, "R11U244_BLKFIXARRTS_OFF")) {
                             g_cloneArrTs241.push_back({ats0, art0});
-                            tr244("cloneBlockFixedArrTsParented244", bfull);
+                            lawTrace(244, "cloneBlockFixedArrTsParented244", bfull);
                         }
                         // § declArrayElemKindIsDeclKind12, SITE 4 of 4 — the
                         // FIXED-SIZE declarator array, BLOCK-item form.
@@ -3675,7 +3675,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             std::string key258 = std::string(fs->VpiFile()) + ":" +
                                  std::to_string(fs->VpiLineNo()) + ":" +
                                  std::to_string(fs->VpiColumnNo());
-            if (!pkgImportCloneEmit && r11u258On("R11U258_CLONELVIDX_OFF")) {
+            if (!pkgImportCloneEmit && lawOn(258, "R11U258_CLONELVIDX_OFF")) {
                 auto& hf258 = homeForeach258()[key258];
                 auto*& slot258 = pkgDefViewBody9 ? hf258.first : hf258.second;
                 if (!slot258)
@@ -4073,13 +4073,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     const UHDM::BaseClass* par304) -> UHDM::typespec* {
                 (void)from304;
                 if (!arrIsParam183 || !uninstIfaceSubBody218 ||
-                    !r11u304On("R11U304_UIPARAMTS_OFF"))
+                    !lawOn(304, "R11U304_UIPARAMTS_OFF"))
                     return nullptr;
                 const UHDM::BaseClass* up304 = par304;
                 while (up304 && up304->UhdmType() != UHDM::uhdminterface_inst)
                     up304 = up304->VpiParent();
                 if (!up304) {
-                    tr304("UIPARAMTS_ABSTAIN", std::string(arrSym->name) + " noiface");
+                    lawTrace(304, "UIPARAMTS_ABSTAIN", std::string(arrSym->name) + " noiface");
                     return nullptr;
                 }
                 auto* ii304 = (const UHDM::interface_inst*)up304;
@@ -4092,10 +4092,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 if (auto* at304 = rt304->Actual_typespec();
                                     at304 && at304->UhdmType() ==
                                                  UHDM::uhdmarray_typespec) {
-                                    tr304("UIPARAMTS", std::string(arrSym->name));
+                                    lawTrace(304, "UIPARAMTS", std::string(arrSym->name));
                                     return const_cast<UHDM::typespec*>(at304);
                                 }
-                tr304("UIPARAMTS_ABSTAIN", std::string(arrSym->name) + " noparam");
+                lawTrace(304, "UIPARAMTS_ABSTAIN", std::string(arrSym->name) + " noparam");
                 return nullptr;
             };
             // § uninstIfaceForeachHdrUnresolved220 (r10uvm220) — A `foreach`
@@ -4581,7 +4581,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         return {};
                     };
                     if (!pkgWins238 && arrSym && tfItemBodyLocal148(*arrSym) &&
-                        r11u238vOn("R11V238_PKGLISTING_OFF") && pkgScopeInst &&
+                        lawFixOn(238, "R11V238_PKGLISTING_OFF") && pkgScopeInst &&
                         pkgScopeInst->UhdmType() == UHDM::uhdmpackage &&
                         pk238Home(arrSym) == pkgScopeInst->VpiName())
                         if (auto* pvs238 =
@@ -4589,7 +4589,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             for (auto* pv238 : *pvs238)
                                 if (pv238 && pv238->VpiName() == arrSym->name) {
                                     pkgWins238 = true;
-                                    tr238("pkgListingWinsFlatLocal238v",
+                                    lawTrace(238, "pkgListingWinsFlatLocal238v",
                                           std::string(arrSym->name));
                                     break;
                                 }
@@ -4612,20 +4612,20 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // win (b08_clsprop, b11_inherited: the law's binding is
                     // golden's), so the gate is an instance body's own member.
                     if (!pkgWins238 && arrSym && tfLocalArr20 &&
-                        r11u238vOn("R11V238_INSTSHADOW_OFF"))
+                        lawFixOn(238, "R11V238_INSTSHADOW_OFF"))
                         for (const Scope* ib238 = arrSym->getParentScope(); ib238;
                              ib238 = ib238->asSymbol().getParentScope())
                             if (ib238->asSymbol().kind == SymbolKind::InstanceBody) {
                                 if (ib238->find(arrSym->name)) {
                                     pkgWins238 = true;
-                                    tr238("instBodyMemberWinsFlatLocal238v",
+                                    lawTrace(238, "instBodyMemberWinsFlatLocal238v",
                                           std::string(arrSym->name));
                                 }
                                 break;
                             }
                     UHDM::typespec* flat238 = nullptr;
                     if (!ioRt9 && tfLocalArr20 && !pkgWins238 &&
-                        r11u238On("R11U238_FLATLOCALREFTS_OFF"))
+                        lawOn(238, "R11U238_FLATLOCALREFTS_OFF"))
                         if (auto fl238 = netMap.find(arrSym);
                             fl238 != netMap.end() && fl238->second)
                             if (auto* fv238 =
@@ -4641,7 +4641,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                         ->UhdmType() !=
                                     UHDM::uhdmarray_typespec) {
                                 flat238 = fv238->Typespec()->Actual_typespec();
-                                tr238("foreachFlatLocalRefTs238",
+                                lawTrace(238, "foreachFlatLocalRefTs238",
                                       std::string(arrSym->name));
                             }
                     // § foreachLocalArrTsOwnListing246 (R11U246_FEOWNTS_OFF)
@@ -4664,7 +4664,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     UHDM::typespec* own246 = nullptr;
                     if (!flat238 && !ioRt9 && tfLocalArr20 && arrSym &&
                         curPkgEmitSym && pkgEmitTopView && !pkgImportCloneEmit &&
-                        !importCloneEmit && r11u246On("R11U246_FEOWNTS_OFF"))
+                        !importCloneEmit && lawOn(246, "R11U246_FEOWNTS_OFF"))
                         if (auto nm246 = netMap.find(arrSym);
                             nm246 != netMap.end() && nm246->second &&
                             nm246->second->UhdmType() == UHDM::uhdmarray_var)
@@ -4674,7 +4674,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 rt246->Actual_typespec()->UhdmType() ==
                                     UHDM::uhdmarray_typespec) {
                                 own246 = rt246->Actual_typespec();
-                                tr246("foreachLocalArrTsOwnListing246",
+                                lawTrace(246, "foreachLocalArrTsOwnListing246",
                                       std::string(arrSym->name));
                             }
                     if (flat238)
@@ -4917,7 +4917,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                     // shared object carries the fresh
                                     // array_typespec as well).
                                     if (!res183 &&
-                                        r11u238On("R11U238_CLONEPROPARR_OFF"))
+                                        lawOn(238, "R11U238_CLONEPROPARR_OFF"))
                                         if (auto* pcs238 = arrSym->getParentScope();
                                             pcs238 &&
                                             pcs238->asSymbol().kind ==
@@ -4943,7 +4943,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                       !pkgImportedByUnit21(
                                                           hp238->asSymbol())))) {
                                                     res183 = s.MakeArray_typespec();
-                                                    tr238("cloneLoopVarClassPropArrayTs238",
+                                                    lawTrace(238, "cloneLoopVarClassPropArrayTs238",
                                                           std::string(arrSym->name));
                                                 }
                                             }
@@ -4970,7 +4970,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                     // typedef'd string property keeps the
                                     // placeholder.  Grid cases/S.
                                     if (!res183 &&
-                                        r11u248On("R11U248_CLONEPROPSTR_OFF"))
+                                        lawOn(248, "R11U248_CLONEPROPSTR_OFF"))
                                         if (auto* pcs248 = arrSym->getParentScope();
                                             pcs248 &&
                                             pcs248->asSymbol().kind ==
@@ -5011,7 +5011,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                                         UHDM::uhdmstring_typespec &&
                                                                     pa248->VpiName().empty()) {
                                                                     res183 = pa248;
-                                                                    tr248("cloneLoopVarClassPropStringTs248",
+                                                                    lawTrace(248, "cloneLoopVarClassPropStringTs248",
                                                                           std::string("now ") +
                                                                               std::string(arrSym->name));
                                                                 }
@@ -5021,7 +5021,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                                              syntax::SyntaxKind::StringType) {
                                                                     deferStr248 =
                                                                         v248->Typespec();
-                                                                    tr248("cloneLoopVarClassPropStringTs248",
+                                                                    lawTrace(248, "cloneLoopVarClassPropStringTs248",
                                                                           std::string("defer ") +
                                                                               std::string(arrSym->name));
                                                                 }
@@ -5052,7 +5052,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                     // ref_typespec actual; a variable without
                                     // a bound actual keeps the placeholder.
                                     if (!res183 &&
-                                        r11u252On("R11U252_CLONELVLOCAL_OFF"))
+                                        lawOn(252, "R11U252_CLONELVLOCAL_OFF"))
                                         if (auto* dq252 = arrSym->getDeclaredType();
                                             dq252 &&
                                             (dq252->getType().getCanonicalType().kind ==
@@ -5086,7 +5086,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                         if (auto* vr252 = vv252->Typespec();
                                                             vr252 && vr252->Actual_typespec()) {
                                                             res183 = vr252->Actual_typespec();
-                                                            tr252("cloneLoopVarLocalElemTs252",
+                                                            lawTrace(252, "cloneLoopVarLocalElemTs252",
                                                                   std::string(arrSym->name) + " " +
                                                                       std::to_string(res183->UhdmType()));
                                                         }
@@ -5167,16 +5167,16 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                             // no home foreach was emitted before
                                             // the copy (the placeholder stays).
                                             if (!res183 && ia183 &&
-                                                r11u258On("R11U258_CLONELVIDX_OFF")) {
+                                                lawOn(258, "R11U258_CLONELVIDX_OFF")) {
                                                 if (homeForeach258().count(key258)) {
                                                     deferIdx258 = ia183;
-                                                    tr258("cloneLoopVarAssocIdxTs258",
+                                                    lawTrace(258, "cloneLoopVarAssocIdxTs258",
                                                           std::string("defer ") +
                                                               std::string(arrSym->name) + " " +
                                                               std::to_string(ia183->UhdmType()));
                                                 }
                                                 else
-                                                    tr258("cloneLoopVarAssocIdxTs258",
+                                                    lawTrace(258, "cloneLoopVarAssocIdxTs258",
                                                           std::string("nohome ") +
                                                               std::string(arrSym->name));
                                             }
@@ -5210,7 +5210,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 // object is still the unsupported
                                 // placeholder is not judged.
                                 if (arrMember9 && !dotBase137.empty() &&
-                                    r11u248On("R11U248_CLONEDOTBASE_OFF"))
+                                    lawOn(248, "R11U248_CLONEDOTBASE_OFF"))
                                     if (auto ob248 = openForeachVars.find(dotBase137);
                                         ob248 != openForeachVars.end() &&
                                         ob248->second &&
@@ -5229,7 +5229,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                         bk248 != UHDM::uhdmstruct_typespec &&
                                                         bk248 !=
                                                             UHDM::uhdmunsupported_typespec) {
-                                                        tr248("cloneDotLoopVarBaseNoDrill248",
+                                                        lawTrace(248, "cloneDotLoopVarBaseNoDrill248",
                                                               std::string(res183 ? "res "
                                                                                  : "unres ") +
                                                                   dotBase137 + " " +
@@ -5254,14 +5254,14 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 // array_typespec § cloneLoopVarClassPropArrayTs238
                                 // gives the bare spelling.  A class property
                                 // only; grid cases/K.
-                                if (r11u252On("R11U252_CLONELVSCOPED_OFF") && arrSym &&
+                                if (lawOn(252, "R11U252_CLONELVSCOPED_OFF") && arrSym &&
                                     arrSym->getParentScope() &&
                                     arrSym->getParentScope()->asSymbol().kind ==
                                         SymbolKind::ClassType) {
                                     std::string n252;
                                     slang::SourceRange r252;
                                     if (foreachScopedArrayName33(arrBase, n252, r252)) {
-                                        tr252("cloneLoopVarClassScopedInt252", n252);
+                                        lawTrace(252, "cloneLoopVarClassScopedInt252", n252);
                                         res183 = s.MakeInt_typespec();
                                         deferStr248 = nullptr;
                                     }
@@ -5274,7 +5274,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             setLoc(sh37, span);
                             UHDM::typespec* uts37 = res183;
                             if (deferIdx258 && (uts37 || deferStr248)) {
-                                tr258("cloneLoopVarAssocIdxTs258", "superseded");
+                                lawTrace(258, "cloneLoopVarAssocIdxTs258", "superseded");
                                 deferIdx258 = nullptr;
                             }
                             if (!uts37 && !deferStr248 && !deferIdx258) {
@@ -5516,7 +5516,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             // (m_name[i])`).  Read off the class_defn the
                             // property was listed in; nothing found -> the
                             // old fresh object.
-                            if (r11u238On("R11U238_PROPSTRTS_OFF"))
+                            if (lawOn(238, "R11U238_PROPSTRTS_OFF"))
                                 if (auto* pcs238 = arrSym->getParentScope();
                                     pcs238 &&
                                     pcs238->asSymbol().kind ==
@@ -5558,7 +5558,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                     deferTs238 =
                                                         v238->Typespec();
                                                 if (lts || deferTs238)
-                                                    tr238("foreachClassPropStringTsShared238",
+                                                    lawTrace(238, "foreachClassPropStringTsShared238",
                                                           std::string(arrSym->name) +
                                                               (lts ? " now"
                                                                    : " defer"));
@@ -5963,13 +5963,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // compileConditionalStmt parents a parentless condition at
                 // the if_else (law at ExprEmit's rzWithParentDrain288).
                 if (c && !c->VpiParent() && rzIsRec288(c)) {
-                    if (r11u288On("R11U288_RZPARENT_OFF")) {
+                    if (lawOn(288, "R11U288_RZPARENT_OFF")) {
                         c->VpiParent(ie);
                         rzScopeArgs288((UHDM::method_func_call*)c);
-                        tr288("RZPARENT", "if-else");
+                        lawTrace(288, "RZPARENT", "if-else");
                     }
                     else
-                        tr288("RZPARENT", "off");
+                        lawTrace(288, "RZPARENT", "off");
                 }
                 CtrlBody28 cb28(ctrlBodyDepth28);
                 if (auto* t = emitStmt(cs.ifTrue, ie, prefix, netMap))
@@ -5998,13 +5998,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 is->VpiCondition((UHDM::expr*)c8);
             // § randWithCallParentByConsumer288 — the if site (if_stmt).
             if (c8 && !c8->VpiParent() && rzIsRec288(c8)) {
-                if (r11u288On("R11U288_RZPARENT_OFF")) {
+                if (lawOn(288, "R11U288_RZPARENT_OFF")) {
                     c8->VpiParent(is);
                     rzScopeArgs288((UHDM::method_func_call*)c8);
-                    tr288("RZPARENT", "if");
+                    lawTrace(288, "RZPARENT", "if");
                 }
                 else
-                    tr288("RZPARENT", "off");
+                    lawTrace(288, "RZPARENT", "off");
             }
             {
                 CtrlBody28 cb28(ctrlBodyDepth28);
@@ -6187,7 +6187,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // Grid tools/probe/r11u254repro/cases/F.  Switch:
                     // R11U254_FORINITSEL_OFF.
                     const Expression* lb254 = &lhs0;
-                    if (r11u254On("R11U254_FORINITSEL_OFF")) {
+                    if (lawOn(254, "R11U254_FORINITSEL_OFF")) {
                         for (int g254 = 0; g254 < 32 && lb254; ++g254) {
                             if (lb254->kind == ExpressionKind::MemberAccess)
                                 lb254 = &stripImplicitConv(
@@ -6211,11 +6211,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 lb254->as<NamedValueExpression>().symbol.name != "super" &&
                                 !(lb254->syntax &&
                                   lb254->syntax->kind == syntax::SyntaxKind::ScopedName))
-                                tr254("forInitSelectLhsBase254",
+                                lawTrace(254, "forInitSelectLhsBase254",
                                       std::string(lb254->as<NamedValueExpression>()
                                                       .symbol.name));
                             else {
-                                tr254("forInitSelectLhsBase254", "abstain");
+                                lawTrace(254, "forInitSelectLhsBase254", "abstain");
                                 lb254 = &lhs0;
                             }
                         }
@@ -6249,7 +6249,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // reads unequal (grid tools/probe/r11u258repro/cases/F).
                 // Applies when every initializer is an assignment.
                 bool multi258 = fl.initializers.size() > 1 &&
-                                r11u258On("R11U258_FORMULTIINIT_OFF");
+                                lawOn(258, "R11U258_FORMULTIINIT_OFF");
                 // ...and when every initializer gets its Lhs: a base the
                 // single form leaves without one (`this.i`, an interface
                 // member `bi.v`) would hand UHDM's elaborator an assignment
@@ -6265,7 +6265,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     if (l0->kind == ExpressionKind::NamedValue)
                         return !(l0->syntax &&
                                  l0->syntax->kind == syntax::SyntaxKind::ScopedName);
-                    if (!r11u254On("R11U254_FORINITSEL_OFF"))
+                    if (!lawOn(254, "R11U254_FORINITSEL_OFF"))
                         return false;
                     for (int g258 = 0; g258 < 32 && l0; ++g258) {
                         if (l0->kind == ExpressionKind::MemberAccess)
@@ -6289,7 +6289,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 if (multi258)
                     for (auto ie : fl.initializers)
                         if (!lhsOk258(ie)) {
-                            tr258("forMultiInitAssign258", "abstain");
+                            lawTrace(258, "forMultiInitAssign258", "abstain");
                             multi258 = false;
                             break;
                         }
@@ -6301,7 +6301,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     fs->VpiForInitStmts(inits);
                 }
                 else if (multi258) {
-                    tr258("forMultiInitAssign258",
+                    lawTrace(258, "forMultiInitAssign258",
                           std::to_string(fl.initializers.size()));
                     auto* inits = s.MakeAnyVec();
                     for (auto ie : fl.initializers)
@@ -6374,9 +6374,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // is marked visited on entry, so UhdmListener's parent and
             // binding edges never leave the statement.
             if (pkgImportCloneEmit && !fl.loopVars.empty() &&
-                r11u238On("R11U238_CLONEFORINC_OFF") &&
+                lawOn(238, "R11U238_CLONEFORINC_OFF") &&
                 (pkgImportCloneHomePkg ||
-                 r11u238On("R11U238_CLONEFORINCCLS_OFF"))) {
+                 lawOn(238, "R11U238_CLONEFORINCCLS_OFF"))) {
                 struct ForRefs238 final : public UHDM::UhdmListener {
                     const UHDM::any* root = nullptr;
                     std::map<const UHDM::any*, const Symbol*> vars;
@@ -6542,14 +6542,14 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         }
                 }
                 if (!hit) {
-                    tr288("BADITEMLOC_ABSTAIN", "no-item-syntax");
+                    lawTrace(288, "BADITEMLOC_ABSTAIN", "no-item-syntax");
                     return nullptr;
                 }
-                if (!r11u288On("R11U288_BADITEMLOC_OFF")) {
-                    tr288("BADITEMLOC", "off");
+                if (!lawOn(288, "R11U288_BADITEMLOC_OFF")) {
+                    lawTrace(288, "BADITEMLOC", "off");
                     return nullptr;
                 }
-                tr288("BADITEMLOC", e0 ? "item" : "default");
+                lawTrace(288, "BADITEMLOC", e0 ? "item" : "default");
                 return hit;
             };
             // Item location comes from the case-item syntax (covers the
@@ -6760,11 +6760,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 // Switch R11V217_CASEWILDCAT_OFF.
                                 bool plain217 = false;
                                 if (pv210.isInteger() && pv210.integer().hasUnknown() &&
-                                    r11v217Law("R11V217_CASEWILDCAT_OFF") &&
+                                    fixOn(217, "R11V217_CASEWILDCAT_OFF") &&
                                     !(pp210->getInitializer() &&
                                       concatBearing114(*pp210->getInitializer()))) {
                                     plain217 = true;
-                                    tr217("caseItemWildConcatOnly217v",
+                                    lawTrace(217, "caseItemWildConcatOnly217v",
                                           std::string(pp210->name));
                                 }
                                 if (!plain217 && pv210.isInteger() &&
@@ -6847,13 +6847,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         // site: Surelog's immediate assertion sets
                         // `expr->VpiParent(astmt)` on its condition.
                         if (!c->VpiParent() && rzIsRec288(c)) {
-                            if (r11u288On("R11U288_RZPARENT_OFF")) {
+                            if (lawOn(288, "R11U288_RZPARENT_OFF")) {
                                 c->VpiParent(a);
                                 rzScopeArgs288((UHDM::method_func_call*)c);
-                                tr288("RZPARENT", "assertion");
+                                lawTrace(288, "RZPARENT", "assertion");
                             }
                             else
-                                tr288("RZPARENT", "off");
+                                lawTrace(288, "RZPARENT", "off");
                         }
                     }
                     if (ia.ifTrue) {
@@ -6892,13 +6892,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         // site: Surelog's immediate assertion sets
                         // `expr->VpiParent(astmt)` on its condition.
                         if (!c->VpiParent() && rzIsRec288(c)) {
-                            if (r11u288On("R11U288_RZPARENT_OFF")) {
+                            if (lawOn(288, "R11U288_RZPARENT_OFF")) {
                                 c->VpiParent(a);
                                 rzScopeArgs288((UHDM::method_func_call*)c);
-                                tr288("RZPARENT", "assertion");
+                                lawTrace(288, "RZPARENT", "assertion");
                             }
                             else
-                                tr288("RZPARENT", "off");
+                                lawTrace(288, "RZPARENT", "off");
                         }
                     }
                     if (ia.ifTrue) {
@@ -6937,13 +6937,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         // site: Surelog's immediate assertion sets
                         // `expr->VpiParent(astmt)` on its condition.
                         if (!c->VpiParent() && rzIsRec288(c)) {
-                            if (r11u288On("R11U288_RZPARENT_OFF")) {
+                            if (lawOn(288, "R11U288_RZPARENT_OFF")) {
                                 c->VpiParent(a);
                                 rzScopeArgs288((UHDM::method_func_call*)c);
-                                tr288("RZPARENT", "assertion");
+                                lawTrace(288, "RZPARENT", "assertion");
                             }
                             else
-                                tr288("RZPARENT", "off");
+                                lawTrace(288, "RZPARENT", "off");
                         }
                     }
                     if (ia.ifTrue) {
@@ -7276,8 +7276,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             // the home package; the home's elaborated listing
                             // keeps the package name.
                             if (pkgImportCloneEmit &&
-                                r11u236On("R11U236_CLONERETTS_OFF")) {
-                                tr236("cloneRetParamFoldTsName236", prefix);
+                                lawOn(236, "R11U236_CLONERETTS_OFF")) {
+                                lawTrace(236, "cloneRetParamFoldTsName236", prefix);
                                 pkgName = prefix;
                             }
                             rt2->VpiFullName(pkgName);
@@ -7308,7 +7308,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 auto pp = retFoldPreParam296().find(currentSubSym);
                                 if (pp != retFoldPreParam296().end() &&
                                     pp->second != &ps2) {
-                                    if (r11u296On("R11U296_RETFOLDTS_OFF")) {
+                                    if (lawOn(296, "R11U296_RETFOLDTS_OFF")) {
                                         auto key = std::make_pair(currentSubSym,
                                                                   (const void*)&ps2);
                                         auto& own = retFoldOwnTs296()[key];
@@ -7320,11 +7320,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                     own->Instance(pit3->second);
                                         }
                                         its2 = own;
-                                        tr296("RETFOLDTS", std::string(ps2.name) + " in " +
+                                        lawTrace(296, "RETFOLDTS", std::string(ps2.name) + " in " +
                                                                prefix);
                                     }
                                     else
-                                        tr296("RETFOLDTS", "off " + std::string(ps2.name));
+                                        lawTrace(296, "RETFOLDTS", "off " + std::string(ps2.name));
                                 }
                             }
                             if (!its2) {
@@ -7763,7 +7763,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // that one return.  Writes nothing to the database.
                     if (pkgTopEmit && pkgScopeInst &&
                         currentSubSym && !inClassBodyEmit &&
-                        r11u300On("R11U300_RETSHARE_OFF"))
+                        lawOn(300, "R11U300_RETSHARE_OFF"))
                         if (auto* ps300 = currentSubSym->getParentScope();
                             ps300 && ps300->asSymbol().kind == SymbolKind::Package) {
                             retCondReg300()[{(const void*)pkgScopeInst,
@@ -8046,7 +8046,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // parameter-bearing task body takes the `items9` branch above,
             // which this law leaves alone).
             auto td304Anchor = [&](UHDM::begin* ub304) -> bool {
-                if (!r11u304On("R11U304_TDITEM_OFF"))
+                if (!lawOn(304, "R11U304_TDITEM_OFF"))
                     return false;
                 if (tfBodyStmt9 != (const void*)&stmt || !currentSubSym ||
                     tfBodyTfItems9 || tfBodyCtor27 || bodyParams9)
@@ -8074,16 +8074,16 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 if (isTd304(it1) ||
                     it1->kind == syntax::SyntaxKind::DataDeclaration) {
                     setLoc(ub304, it1->sourceRange());
-                    tr304("TDITEM", at304 + (isTd304(it1) ? " typedef" : " decl"));
+                    lawTrace(304, "TDITEM", at304 + (isTd304(it1) ? " typedef" : " decl"));
                     return true;
                 }
                 for (auto st304 : sl.list)
                     if (st304->syntax == it1) {
                         setLoc(ub304, invalidAnchor244(*st304));
-                        tr304("TDITEM", at304 + " stmt");
+                        lawTrace(304, "TDITEM", at304 + " stmt");
                         return true;
                     }
-                tr304("TDITEM_ABSTAIN", at304 + " unmatched");
+                lawTrace(304, "TDITEM_ABSTAIN", at304 + " unmatched");
                 return false;
             };
             if (bodyParams9 || bodyTfItems9) {

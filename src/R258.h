@@ -9,6 +9,7 @@
 // R11V258_OFF drops it, restoring the law's bytes, and R11U258_OFF drops it
 // too, restoring pristine's.
 #pragma once
+#include "LawSwitch.h"
 #include <cstdio>
 #include <cstdlib>
 #include <string>
@@ -25,48 +26,6 @@ class typespec;
 }  // namespace UHDM
 
 namespace slang_uhdm {
-inline bool r11u258On(const char* sw) {
-    if (getenv("R11U258_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
-inline bool r11v258On(const char* sw) {
-    if (getenv("R11U258_OFF") != nullptr || getenv("R11V258_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
-inline void tr258(const char* law, const std::string& detail = std::string()) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U258_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".258";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // § cloneLoopVarAssocIdxTs258: the clone's shared loop-variable object of a
 // foreach over an associative array whose index is not a class, string or int
 // gets the index typespec only after UhdmExporter's clone-body member binder

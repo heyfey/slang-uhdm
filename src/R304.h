@@ -17,17 +17,13 @@
 // process, `<dir>/<pid>.304`, its first line `OUT <-o path>`, then
 // `<law> <detail>` (a tag ending in _ABSTAIN moves nothing).
 #pragma once
+#include "LawSwitch.h"
 #include <cstdio>
 #include <cstdlib>
 #include <string>
 #include <unistd.h>
 
 namespace slang_uhdm {
-inline bool r11u304On(const char* sw) {
-    if (getenv("R11U304_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // v11u304 (the adversarial verification, tools/probe/v11u304repro/README.md):
 // the refinements read R11V304_<X>_OFF, R11V304_OFF dropping all of them
 // (giving the law binary's bytes); R11U304_OFF still drops everything.
@@ -35,41 +31,4 @@ inline bool r11u304On(const char* sw) {
 //                                      hpOpIdxNestedSelByPath304's walk)
 //   § castAliasSignCastRhsNoClone304v  R11V304_SIGNCAST_OFF (ExprEmit,
 //                                      genCaCastTdAliasScopedName304's gate)
-inline bool r11v304On(const char* sw) {
-    if (getenv("R11V304_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
-inline void tr304(const char* law, const std::string& detail = std::string()) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U304_TRACE");
-        if (!d || !*d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".304";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 }  // namespace slang_uhdm

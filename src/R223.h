@@ -4,6 +4,7 @@
 // per process, `<dir>/<pid>.223`, its first line `OUT <-o path>`, then
 // `<law> <detail>`.
 #pragma once
+#include "LawSwitch.h"
 #include <cstdio>
 #include <cstdlib>
 #include <string>
@@ -18,52 +19,10 @@ class ref_typespec;
 }
 
 namespace slang_uhdm {
-inline bool r11u223Law(const char* sw) {
-    if (getenv("R11U223_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // v11u223 (the adversarial verification of r11u223,
 // tools/probe/v11u223repro/README.md): every refinement reads its own
 // R11V223_<NAME>_OFF switch; R11V223_OFF drops all of them, R11U223_OFF drops
 // them with the laws they refine.
-inline bool r11v223Law(const char* sw) {
-    if (getenv("R11V223_OFF") != nullptr)
-        return false;
-    return r11u223Law(sw);
-}
-inline void tr223(const char* law, const std::string& detail = std::string()) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U223_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".223";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // § tfArgScalarTdWriter223 — every subroutine formal whose data type is
 // written as a bare type identifier, with that identifier's source range, in
 // emission order (TaskFuncEmit records, the design-final pass in
@@ -106,7 +65,7 @@ struct FormalTdReg223 {
     int heapMode = -1;
     void push_back(const E& e) {
         if (heapMode < 0)
-            heapMode = r11v223Law("R11V223_DETREG_OFF") ? 0 : 1;
+            heapMode = lawFixOn(223, "R11V223_DETREG_OFF") ? 0 : 1;
         if (heapMode == 1 || n >= kCap)
             formalTdTokHeap223().push_back(e);
         else

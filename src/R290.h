@@ -16,6 +16,7 @@
 // process, `<dir>/<pid>.290`, its first line `OUT <-o path>`, then
 // `<law> <detail>`.
 #pragma once
+#include "LawSwitch.h"
 #include <cstdio>
 #include <cstdlib>
 #include <string>
@@ -25,43 +26,6 @@
 #include <uhdm/uhdm_forward_decl.h>
 
 namespace slang_uhdm {
-inline bool r11u290On(const char* sw) {
-    if (getenv("R11U290_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
-inline void tr290(const char* law, const std::string& detail = std::string()) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U290_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".290";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // v11u290 (adversarial verification of r11u290): the verifier's
 // refinements read r11v290On; R11V290_OFF drops them all (the law's bytes),
 // R11U290_OFF still drops every law and refinement (pristine's bytes).
@@ -70,11 +34,6 @@ inline void tr290(const char* law, const std::string& detail = std::string()) {
 //   R11V290_WRITERKIND_OFF § pkgTdPackedWriterKindOrder290v (ModuleEmit.cpp, materializeDefNetTs)
 //   R11V290_SPLICEOPND_OFF § ovSpliceTopOperandStaysHome290v (TypeEmit.cpp, § elabOvSpliceTopCopy290's branch)
 //   R11V290_SPLICESW_OFF   § spliceChainSwitchOwnOnly290v (TypeEmit.cpp, drainMisevalSpliceChain290; switch semantics only)
-inline bool r11v290On(const char* sw) {
-    if (getenv("R11U290_OFF") != nullptr || getenv("R11V290_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // § ovCloneChainSiblingOperand290v — set beside misevalOvRhs290(): true when
 // another parameter of the overridden parameter's own body reads it as an
 // operand of an operator (through operators only).
