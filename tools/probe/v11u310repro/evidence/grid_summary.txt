@@ -1,0 +1,26 @@
+CMPCHANGE VC/vc26_methrecv d cmp=164 -> cmp=0
+CMPCHANGE VC/vc26_methrecv e cmp=196 -> cmp=0
+CMPCHANGE VM/vm42_macro d cmp=130 -> cmp=0
+CMPCHANGE VM/vm42_macro e cmp=162 -> cmp=0
+CMPCHANGE VM/vm43_macrocall d cmp=130 -> cmp=0
+CMPCHANGE VM/vm43_macrocall e cmp=162 -> cmp=0
+CMPCHANGE VM/vm47_extern d cmp=3098 -> cmp=3096
+CMPCHANGE VM/vm47_extern e cmp=3142 -> cmp=3140
+CMPCHANGE VM/vm48_super d cmp=108 -> cmp=106
+CMPCHANGE VM/vm48_super e cmp=136 -> cmp=134
+CMPCHANGE VM/vm59_inc d cmp=130 -> cmp=0
+CMPCHANGE VM/vm59_inc e cmp=162 -> cmp=0
+CMPCHANGE VM/vm82_cum1 d cmp=164 -> cmp=0
+CMPCHANGE VM/vm82_cum1 e cmp=204 -> cmp=0
+CMPCHANGE VM/vm83_cum2 d cmp=164 -> cmp=0
+CMPCHANGE VM/vm83_cum2 e cmp=204 -> cmp=0
+CMPCHANGE VM/vm84_cum3 d cmp=160 -> cmp=0
+CMPCHANGE VM/vm84_cum3 e cmp=184 -> cmp=0
+CMPCHANGE VQ/vq30_qualrecv d cmp=120 -> cmp=0
+CMPCHANGE VQ/vq30_qualrecv e cmp=172 -> cmp=0
+VC case-views=60 moving=28 entering=26 leaving=0 equal-after=53
+VL case-views=74 moving=58 entering=37 leaving=0 equal-after=64
+VM case-views=138 moving=110 entering=97 leaving=0 equal-after=115
+VQ case-views=102 moving=58 entering=54 leaving=0 equal-after=85
+VT case-views=74 moving=46 entering=38 leaving=0 equal-after=58
+TOTAL case-views=448 moving=300 entering=252 leaving=0 equal-after=375 off!=pristine=0 rc-changed=0 cmp-changed=20

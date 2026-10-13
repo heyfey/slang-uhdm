@@ -1,0 +1,327 @@
+tools/probe/r11u191dec/cases/H/h03 METHTAIL:1 
+tools/probe/r11u194verify/cases/C/c01_pkg_method_call QUALCALLSPAN:1 
+tools/probe/r11u195repro/cases/A/a02 METHPATHSPAN:3 
+tools/probe/r11u195repro/cases/A/a04 METHPATHSPAN:1 
+tools/probe/r11u215repro/cases/R/r03 METHIDXCALL:1 
+tools/probe/r11u221verify/cases/R/r01 METHIDXCALL:1 
+tools/probe/r11u221verify/cases/R/r03 METHRECVCUM:1 
+tools/probe/r11u229verify/cases/L/l03 CASTLVIDX_ABSTAIN:1 
+tools/probe/r11u296repro/cases/CI/ci05_nested_sel_idx METHIDXSEL:4 METHIDXTEXT:4 
+tools/probe/r11u296repro/cases/CI/ci11_call_idx METHIDXCALL:4 METHIDXTEXT:4 
+tools/probe/r11u296repro/cases/CT/ct07_lvalue_idx CASTLVIDX_ABSTAIN:1 
+tools/probe/r11u306repro/cases/VH/h06_lvalue CLSLVTRAIL:3 
+tools/probe/r11u308repro/cases/VO/vo08_lv CLSLVTRAIL:2 
+tools/probe/r11u310repro/cases/CD/cd02_selcastop CASTSELIDX:1 
+tools/probe/r11u310repro/cases/CD/cd08_tern CASTSELIDX:1 
+tools/probe/r11u310repro/cases/CD/cd09_trailing CASTSELIDX:1 
+tools/probe/r11u310repro/cases/CD/cd10_lv CASTLVIDX:1 
+tools/probe/r11u310repro/cases/CD/cd12_lvop CASTLVIDX:1 
+tools/probe/r11u310repro/cases/CD/cd14_lvincdec CASTLVIDX:1 
+tools/probe/r11u310repro/cases/CD/cd15_lvcompound CASTLVIDX:1 
+tools/probe/r11u310repro/cases/CD/cd16_lvcall CASTLVIDX:1 
+tools/probe/r11u310repro/cases/CD/cd17_lvtrail CASTLVIDX_ABSTAIN:1 CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/CD/cd18_lvtwo CASTLVIDX:2 
+tools/probe/r11u310repro/cases/CD/cd19_lvnb CASTLVIDX:1 
+tools/probe/r11u310repro/cases/CD/cd20_methtail METHIDXSEL:1 METHIDXTEXT:1 
+tools/probe/r11u310repro/cases/CD/cd30_mod CASTSELIDX:1 
+tools/probe/r11u310repro/cases/CD/cd32_gen CASTSELIDX:1 
+tools/probe/r11u310repro/cases/CL/cl01_trail CASTLVIDX_ABSTAIN:1 CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/CL/cl02_trailop CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/CL/cl03_trailcall CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/CL/cl04_trailcastop CASTLVIDX_ABSTAIN:1 CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/CL/cl05_nontrail CASTLVIDX:1 
+tools/probe/r11u310repro/cases/CL/cl07_incdec CASTLVIDX_ABSTAIN:1 
+tools/probe/r11u310repro/cases/CL/cl09_castmem CASTLVIDX_ABSTAIN:1 
+tools/probe/r11u310repro/cases/CL/cl10_nb CASTLVIDX_ABSTAIN:1 CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/FX/fx01_clsspec METHTAIL:2 
+tools/probe/r11u310repro/cases/FX/fx02_namedcall METHIDXCALL:1 
+tools/probe/r11u310repro/cases/FX/fx03_extern_above METHIDXSEL:1 METHTAIL:2 
+tools/probe/r11u310repro/cases/FX/fx04_pure_virtual METHIDXSEL:1 METHTAIL:3 
+tools/probe/r11u310repro/cases/FX/fx05_task METHTAIL:1 
+tools/probe/r11u310repro/cases/FX/fx06_static METHTAIL:1 
+tools/probe/r11u310repro/cases/FX/fx07_foreach METHTAIL:1 
+tools/probe/r11u310repro/cases/FX/fx08_pkgfn METHIDXCALL:2 METHTAIL:1 QUALCALLSPAN:2 
+tools/probe/r11u310repro/cases/FX/fx10_strkey METHTAIL:2 
+tools/probe/r11u310repro/cases/FX/fx11_pkgcls CLSLVTRAIL:3 
+tools/probe/r11u310repro/cases/FX/fx12_nestedcls CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/FX/fx13_modcls CLSLVTRAIL:2 
+tools/probe/r11u310repro/cases/FX/fx14_paramcls CLSLVTRAIL:2 
+tools/probe/r11u310repro/cases/FX/fx15_macro_inc CLSLVTRAIL:2 
+tools/probe/r11u310repro/cases/FX/fx16_extern_below CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/FX/fx17_gen_lv LVNESTIDX:2 
+tools/probe/r11u310repro/cases/FX/fx18_macro_mod LVNESTIDX:2 
+tools/probe/r11u310repro/cases/FX/fx19_depth_cast CASTLVIDX_ABSTAIN:2 
+tools/probe/r11u310repro/cases/FX/fx20_iface_cls CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/FX/fx21_this_lv CASTLVIDX_ABSTAIN:1 CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/FX/fx22_super_lv CLSLVTRAIL:2 
+tools/probe/r11u310repro/cases/LN/ln01_ref LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln02_op LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln03_call LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln04_sel LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln05_member LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln08_compound LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln09_twomid LVNESTIDX:2 
+tools/probe/r11u310repro/cases/LN/ln12_lvop LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln14_ternfalse LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln16_deep LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln17_leafsel LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln18_twolv LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln19_nested2 LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln20_cast LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln23_for LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln30_mod_ff LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln31_mod_comb LVNESTIDX:2 
+tools/probe/r11u310repro/cases/LN/ln32_mod_nb_op LVNESTIDX:2 
+tools/probe/r11u310repro/cases/LN/ln33_mod_task LVNESTIDX:2 
+tools/probe/r11u310repro/cases/LN/ln34_mod_gen LVNESTIDX:3 
+tools/probe/r11u310repro/cases/LN/ln36_mod_depth LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln37_iface LVNESTIDX:1 
+tools/probe/r11u310repro/cases/LN/ln38_mod_implicit LVNESTIDX:1 
+tools/probe/r11u310repro/cases/MT/mt01_base METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt02_op METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt03_nestsel METHIDXSEL:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt04_tern METHTAIL_ABSTAIN:1 
+tools/probe/r11u310repro/cases/MT/mt05_ternfalse METHTAIL:1 METHTAIL_ABSTAIN:1 
+tools/probe/r11u310repro/cases/MT/mt06_callarg METHIDXCALL:1 
+tools/probe/r11u310repro/cases/MT/mt07_midsel METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt08_leafsel METHIDXSEL:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt09_memrecv METHRECVCUM:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt11_ifcond METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt12_assoc METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt13_queue METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt14_dyn METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt16_arg METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt17_deep METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt19_nxtail METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt20_static METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt21_argexpr METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt22_opleft METHTAIL:2 
+tools/probe/r11u310repro/cases/MT/mt23_twosel METHTAIL:2 
+tools/probe/r11u310repro/cases/MT/mt24_rand METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt25_cond METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt26_leafipsel METHIDXSEL:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt27_varsel METHIDXSEL:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt28_twomem METHIDXSEL:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt29_while METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt31_bareselnodot METHIDXSEL:1 METHIDXTEXT:1 
+tools/probe/r11u310repro/cases/MT/mt32_callnodot METHIDXCALL:1 METHIDXTEXT:1 
+tools/probe/r11u310repro/cases/MT/mt33_opsel METHNESTSEL:1 
+tools/probe/r11u310repro/cases/MT/mt35_memrecv2 METHRECVCUM:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt36_selsel METHIDXSEL:1 METHNESTSEL:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt37_opcall METHIDXCALL:1 
+tools/probe/r11u310repro/cases/MT/mt38_parensless METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt39_cast METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt40_memrecvsel METHIDXSEL:1 METHRECVCUM:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt42_psleaf METHIDXSEL:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt44_module METHIDXSEL:1 METHRECVCUM:1 METHTAIL:3 
+tools/probe/r11u310repro/cases/MT/mt45_display METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt47_extern METHIDXSEL:1 METHTAIL:2 
+tools/probe/r11u310repro/cases/MT/mt48_pkg METHIDXSEL:1 METHRECVCUM:1 METHTAIL:2 
+tools/probe/r11u310repro/cases/MT/mt49_leafselmem METHIDXSEL:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt50_nested METHPATHSPAN:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt51_memrecvop METHRECVCUM:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt52_for METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt53_case METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt54_nxsel METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt55_return METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt56_cmp METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt57_param METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt58_derived METHTAIL:2 
+tools/probe/r11u310repro/cases/MT/mt59_macro METHIDXTEXT:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt60_inc METHIDXTEXT:1 METHTAIL:1 
+tools/probe/r11u310repro/cases/MT/mt61_inpath METHPATHSPAN:1 
+tools/probe/r11u310repro/cases/MT/mt62_inpathop METHPATHSPAN:1 
+tools/probe/r11u310repro/cases/MT/mt63_inmem METHPATHSPAN:1 
+tools/probe/r11u310repro/cases/MT/mt68_tern METHPATHSPAN_ABSTAIN:1 
+tools/probe/r11u310repro/cases/MT/mt69_terncall CALLTERNTRUE:1 METHTAIL_ABSTAIN:2 
+tools/probe/r11u310repro/cases/MT/mt70_ternfcall METHIDXCALL:1 METHTAIL_ABSTAIN:1 
+tools/probe/r11u310repro/cases/MT/mt71_terncallf CALLTERNTRUE:1 
+tools/probe/r11u310repro/cases/MT/mt72_ternpathf METHPATHSPAN:1 
+tools/probe/r11u310repro/cases/QC/qc01_cls_path QUALCALLSPAN:1 
+tools/probe/r11u310repro/cases/QC/qc02_cls_meth METHIDXCALL:1 QUALCALLSPAN:1 
+tools/probe/r11u310repro/cases/QC/qc03_cls_op QUALCALLSPAN:1 
+tools/probe/r11u310repro/cases/QC/qc04_cls_tern CALLTERNTRUE:1 
+tools/probe/r11u310repro/cases/QC/qc05_cls_trail QUALCALLSPAN:1 
+tools/probe/r11u310repro/cases/QC/qc06_cls_lv QUALCALLSPAN:1 
+tools/probe/r11u310repro/cases/QC/qc08_cls_sel QUALCALLSPAN:1 
+tools/probe/r11u310repro/cases/QC/qc10_mod_comb QUALCALLSPAN:2 
+tools/probe/r11u310repro/cases/QC/qc11_mod_trail CALLTERNTRUE:1 
+tools/probe/r11u310repro/cases/QC/qc12_mod_lv QUALCALLSPAN:1 
+tools/probe/r11u310repro/cases/QC/qc13_mod_gen QUALCALLSPAN:2 
+tools/probe/r11u310repro/cases/QC/qc14_tern_plain CALLTERNTRUE:1 
+tools/probe/r11u310repro/cases/QC/qc15_tern_nested CALLTERNTRUE:2 
+tools/probe/r11u310repro/cases/QC/qc16_survey CALLTERNTRUE:1 QUALCALLSPAN:4 
+tools/probe/r11u310repro/cases/TL/tl02_op CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/TL/tl03_call CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/TL/tl04_cast CASTLVIDX_ABSTAIN:1 CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/TL/tl05_sel CLSLVTRAIL:2 
+tools/probe/r11u310repro/cases/TL/tl09_deep CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/TL/tl12_compound CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/TL/tl13_nb CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/TL/tl14_tern CLSLVTRAIL:3 
+tools/probe/r11u310repro/cases/TL/tl15_twoop CLSLVTRAIL:2 
+tools/probe/r11u310repro/cases/TL/tl16_castop CASTLVIDX_ABSTAIN:1 CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/TL/tl22_pathsel CLSLVTRAIL:2 
+tools/probe/r11u310repro/cases/TL/tl24_pathdeep CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/TL/tl25_pathsel2 CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/TL/tl27_varsel CLSLVTRAIL:4 
+tools/probe/r11u310repro/cases/TL/tl28_static CLSLVTRAIL:1 
+tools/probe/r11u310repro/cases/TL/tl29_twostmt CLSLVTRAIL:2 
+tools/probe/r11u310repro/cases/TL/tl30_mod CASTLVIDX_ABSTAIN:1 
+tools/probe/r11v184repro/cases/C/vc02_ca_gen_class QUALCALLSPAN:1 
+tools/probe/v11u195repro/cases/A/a01 METHPATHSPAN:1 
+tools/probe/v11u195repro/cases/A/a02 METHPATHSPAN:1 
+tools/probe/v11u215repro/cases/OR/r01_shapes METHTAIL_ABSTAIN:1 
+tools/probe/v11u215repro/cases/OR/r05_extern_this_nested METHPATHSPAN:1 
+tools/probe/v11u215repro/cases/OR/r07_call_index_args METHIDXCALL:3 
+tools/probe/v11u296repro/cases/VT/vt14_task_lvalue CASTLVIDX_ABSTAIN:1 
+tools/probe/v11u306repro/cases/VN/vn15_method METHTAIL:1 
+tools/probe/v11u308repro/cases/VD/vd08_midsel_lvbase LVNESTIDX:1 
+tools/probe/v11u308repro/cases/VD/vd09_midsel_ff LVNESTIDX:1 
+tools/probe/v11u308repro/cases/VK/vk02_methtail_path METHTAIL:1 
+tools/probe/v11u308repro/cases/VS/vs21_cast_comb CASTSELIDX:1 
+tools/probe/v11u308repro/cases/VW/vw11_cls_cast_deep CASTSELIDX:1 
+tools/probe/v11u308repro/cases/VW/vw12_cls_cast_lvidx CASTLVIDX:1 
+tools/probe/v11u308repro/cases/VX/vx26_lvpathidx LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VC/vc03_postinc CASTLVIDX_ABSTAIN:1 
+tools/probe/v11u310repro/cases/VC/vc04_predec CASTLVIDX_ABSTAIN:1 
+tools/probe/v11u310repro/cases/VC/vc05_compound CASTLVIDX:1 
+tools/probe/v11u310repro/cases/VC/vc07_op CASTLVIDX:1 
+tools/probe/v11u310repro/cases/VC/vc08_tdcast CASTLVIDX:1 
+tools/probe/v11u310repro/cases/VC/vc10_callarg CASTLVIDX:1 
+tools/probe/v11u310repro/cases/VC/vc11_trail CASTSELIDX:1 
+tools/probe/v11u310repro/cases/VC/vc15_lvpath CASTLVIDX:1 
+tools/probe/v11u310repro/cases/VC/vc16_nba CASTLVIDX:1 
+tools/probe/v11u310repro/cases/VC/vc17_tern CASTLVIDX:1 
+tools/probe/v11u310repro/cases/VC/vc18_twocast CASTSELIDX:2 
+tools/probe/v11u310repro/cases/VC/vc19_sizecast CASTLVIDX:1 
+tools/probe/v11u310repro/cases/VC/vc21_lvtrail CASTLVIDX_ABSTAIN:1 CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VC/vc23_pkgcast CASTLVIDX:1 CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VC/vc25_rdtrail2 CASTSELIDX:1 
+tools/probe/v11u310repro/cases/VC/vc26_methrecv METHIDXSEL:1 METHIDXTEXT:1 
+tools/probe/v11u310repro/cases/VC/vc30_ifacefn CASTLVIDX_ABSTAIN:1 
+tools/probe/v11u310repro/cases/VL/vl01_nba LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl02_op LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl03_call LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl04_sel LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl05_tail LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl07_pathidx LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl08_hh LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl10_compound LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl11_ff LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl12_comb LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl13_gen LVNESTIDX:3 
+tools/probe/v11u310repro/cases/VL/vl14_nx LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl15_op LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl17_cast LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl18_tern LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl19_call LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl20_both LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl21_task LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl22_foreach LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl23_opover LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl24_twosel LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl25_ifgen LVNESTIDX:2 
+tools/probe/v11u310repro/cases/VL/vl27_harr LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl28_twonest LVNESTIDX:2 
+tools/probe/v11u310repro/cases/VL/vl29_mid2 LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl30_unarylv LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl34_depth LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl35_iface LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VL/vl36_implicit LVNESTIDX:1 
+tools/probe/v11u310repro/cases/VM/vm01_strlen METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm02_qsize METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm04_deepnx METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm05_twomem METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm06_memsel METHIDXSEL:1 METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm07_twice METHTAIL:2 
+tools/probe/v11u310repro/cases/VM/vm08_ifcond METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm09_terntrue METHTAIL_ABSTAIN:1 
+tools/probe/v11u310repro/cases/VM/vm10_ternfalse METHTAIL:1 METHTAIL_ABSTAIN:1 
+tools/probe/v11u310repro/cases/VM/vm11_callarg METHIDXCALL:1 
+tools/probe/v11u310repro/cases/VM/vm13_rand METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm24_cast METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm26_enumname METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm28_concat METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm29_unary METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm33_deepsel METHRECVCUM:1 METHTAIL:2 
+tools/probe/v11u310repro/cases/VM/vm34_foreach METHIDXSEL:1 METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm36_strkey METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm39_argpath METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm42_macro METHIDXTEXT:1 METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm43_macrocall METHIDXTEXT:1 METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm45_pkgcls METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm46_paramcls METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm47_extern METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm48_super METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm51_module METHIDXSEL:1 METHTAIL:2 
+tools/probe/v11u310repro/cases/VM/vm52_struct METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm53_structsel METHIDXSEL:1 METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm54_iface METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm55_gen METHTAIL:5 
+tools/probe/v11u310repro/cases/VM/vm56_vif METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm57_noparen METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm58_static METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm59_inc METHIDXTEXT:1 METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm60_fork METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm61_harrsel METHRECVCUM:1 METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm63_cmp METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm64_while METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm65_ret METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm67_rhsidx_lv METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm68_case METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm69_display METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm71_qsum METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm73_hidx METHRECVCUM:1 METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm75_inwith METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm76_midsel METHTAIL:1 
+tools/probe/v11u310repro/cases/VM/vm77_callnest METHIDXCALL:1 
+tools/probe/v11u310repro/cases/VM/vm78_ternmeth METHTAIL:2 
+tools/probe/v11u310repro/cases/VM/vm79_idxops METHTAIL:2 
+tools/probe/v11u310repro/cases/VM/vm80_recvlv METHTAIL:1 
+tools/probe/v11u310repro/cases/VQ/vq01_tern CALLTERNTRUE:1 
+tools/probe/v11u310repro/cases/VQ/vq02_nested CALLTERNTRUE:1 
+tools/probe/v11u310repro/cases/VQ/vq03_ternop CALLTERNTRUE:1 
+tools/probe/v11u310repro/cases/VQ/vq08_qualtern CALLTERNTRUE:1 
+tools/probe/v11u310repro/cases/VQ/vq09_qualop QUALCALLSPAN:1 
+tools/probe/v11u310repro/cases/VQ/vq10_quallvop QUALCALLSPAN:1 
+tools/probe/v11u310repro/cases/VQ/vq11_qualnest QUALCALLSPAN:1 
+tools/probe/v11u310repro/cases/VQ/vq13_mod QUALCALLSPAN:1 
+tools/probe/v11u310repro/cases/VQ/vq14_modff QUALCALLSPAN:1 
+tools/probe/v11u310repro/cases/VQ/vq15_qualqual QUALCALLSPAN:1 
+tools/probe/v11u310repro/cases/VQ/vq18_modtern CALLTERNTRUE:1 
+tools/probe/v11u310repro/cases/VQ/vq21_blanks QUALCALLSPAN:1 
+tools/probe/v11u310repro/cases/VQ/vq22_modgen QUALCALLSPAN:3 
+tools/probe/v11u310repro/cases/VQ/vq23_modlv QUALCALLSPAN:1 
+tools/probe/v11u310repro/cases/VQ/vq24_bothcalls CALLTERNTRUE:1 
+tools/probe/v11u310repro/cases/VQ/vq25_meth_tern METHPATHSPAN_ABSTAIN:1 
+tools/probe/v11u310repro/cases/VQ/vq26_meth_op METHPATHSPAN:1 
+tools/probe/v11u310repro/cases/VQ/vq28_meth_mem METHPATHSPAN:1 
+tools/probe/v11u310repro/cases/VQ/vq30_qualrecv METHIDXCALL:1 METHIDXTEXT:1 QUALCALLSPAN:1 
+tools/probe/v11u310repro/cases/VQ/vq32_qualnb QUALCALLSPAN:1 
+tools/probe/v11u310repro/cases/VQ/vq33_ternrecv CALLTERNTRUE:1 METHTAIL_ABSTAIN:2 
+tools/probe/v11u310repro/cases/VQ/vq38_modassign QUALCALLSPAN:1 
+tools/probe/v11u310repro/cases/VQ/vq39_modnested CALLTERNTRUE:1 
+tools/probe/v11u310repro/cases/VT/vt01_base CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt03_deep CLSLVTRAIL:3 
+tools/probe/v11u310repro/cases/VT/vt04_hh CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt06_nba CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt08_local CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt09_formal CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt10_pkgparam CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt11_clsparam CLSLVTRAIL:2 
+tools/probe/v11u310repro/cases/VT/vt12_task CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt13_foreach CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt14_nested CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt16_vec CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt20_enumcast CASTLVIDX_ABSTAIN:1 CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt21_sys CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt24_struct CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt25_extern CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt26_pkgcls CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt27_thispath CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt30_ternlv CLSLVTRAIL:3 
+tools/probe/v11u310repro/cases/VT/vt31_compound CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt32_stat CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt38_globalvar CLSLVTRAIL:1 
+tools/probe/v11u310repro/cases/VT/vt39_derived CLSLVTRAIL:2 

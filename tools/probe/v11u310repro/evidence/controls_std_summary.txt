@@ -1,0 +1,25 @@
+MOVER r11u296repro/cases/CI/ci05_nested_sel_idx d rc=0 cmp=156 NOT_EQUAL stage1 -> rc=0 cmp=1432 NOT_EQUAL stage1
+MOVER r11u296repro/cases/CI/ci05_nested_sel_idx e rc=0 cmp=180 NOT_EQUAL stage1 -> rc=0 cmp=1860 NOT_EQUAL stage1
+MOVER r11u296repro/cases/CI/ci11_call_idx d rc=0 cmp=160 NOT_EQUAL stage1 -> rc=0 cmp=174 NOT_EQUAL stage1
+MOVER r11u296repro/cases/CI/ci11_call_idx e rc=0 cmp=204 NOT_EQUAL stage1 -> rc=0 cmp=190 NOT_EQUAL stage1
+MOVER r11u306repro/cases/VH/h06_lvalue d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 104 objects
+MOVER r11u306repro/cases/VH/h06_lvalue e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 107 objects
+MOVER r11u308repro/cases/VO/vo08_lv d rc=0 cmp=240 NOT_EQUAL stage1 -> rc=0 cmp=240 NOT_EQUAL stage1
+MOVER r11u308repro/cases/VO/vo08_lv e rc=0 cmp=280 NOT_EQUAL stage1 -> rc=0 cmp=280 NOT_EQUAL stage1
+MOVER v11u306repro/cases/VN/vn15_method d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 144 objects
+MOVER v11u306repro/cases/VN/vn15_method e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 158 objects
+MOVER v11u308repro/cases/VD/vd08_midsel_lvbase d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 132 objects
+MOVER v11u308repro/cases/VD/vd08_midsel_lvbase e rc=0 cmp=0 STRICT_EQUAL 154 objects -> rc=0 cmp=0 STRICT_EQUAL 154 objects
+MOVER v11u308repro/cases/VD/vd09_midsel_ff d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 418 objects
+MOVER v11u308repro/cases/VD/vd09_midsel_ff e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 456 objects
+MOVER v11u308repro/cases/VK/vk02_methtail_path d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 132 objects
+MOVER v11u308repro/cases/VK/vk02_methtail_path e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 146 objects
+MOVER v11u308repro/cases/VS/vs21_cast_comb d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 436 objects
+MOVER v11u308repro/cases/VS/vs21_cast_comb e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 430 objects
+MOVER v11u308repro/cases/VW/vw11_cls_cast_deep d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 150 objects
+MOVER v11u308repro/cases/VW/vw11_cls_cast_deep e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 175 objects
+MOVER v11u308repro/cases/VW/vw12_cls_cast_lvidx d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 145 objects
+MOVER v11u308repro/cases/VW/vw12_cls_cast_lvidx e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 173 objects
+MOVER v11u308repro/cases/VX/vx26_lvpathidx d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 151 objects
+MOVER v11u308repro/cases/VX/vx26_lvpathidx e rc=0 cmp=0 STRICT_EQUAL 179 objects -> rc=0 cmp=0 STRICT_EQUAL 179 objects
+case-views=3976 moving=24 entering=16 leaving=0 rc-changed=0 cmplines-changed=4

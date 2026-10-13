@@ -1,0 +1,21 @@
+CMPCHANGE CD/cd20_methtail d cmp=164 -> cmp=0
+CMPCHANGE CD/cd20_methtail e cmp=196 -> cmp=0
+CMPCHANGE MT/mt31_bareselnodot d cmp=116 -> cmp=0
+CMPCHANGE MT/mt31_bareselnodot e cmp=148 -> cmp=0
+CMPCHANGE MT/mt32_callnodot d cmp=120 -> cmp=0
+CMPCHANGE MT/mt32_callnodot e cmp=144 -> cmp=0
+CMPCHANGE MT/mt47_extern d cmp=662 -> cmp=660
+CMPCHANGE MT/mt47_extern e cmp=706 -> cmp=704
+CMPCHANGE MT/mt58_derived d cmp=108 -> cmp=106
+CMPCHANGE MT/mt59_macro d cmp=130 -> cmp=0
+CMPCHANGE MT/mt59_macro e cmp=162 -> cmp=0
+CMPCHANGE MT/mt60_inc d cmp=130 -> cmp=0
+CMPCHANGE MT/mt60_inc e cmp=162 -> cmp=0
+CD case-views=48 moving=28 entering=26 leaving=0 equal-after=40
+CL case-views=20 moving=12 entering=12 leaving=0 equal-after=20
+FX case-views=44 moving=40 entering=30 leaving=0 equal-after=32
+LN case-views=64 moving=46 entering=30 leaving=0 equal-after=60
+MT case-views=138 moving=114 entering=98 leaving=0 equal-after=116
+QC case-views=30 moving=22 entering=16 leaving=0 equal-after=22
+TL case-views=62 moving=32 entering=32 leaving=0 equal-after=62
+TOTAL case-views=406 moving=294 entering=244 leaving=0 equal-after=352 off!=pristine=0 rc-changed=0 cmp-changed=13

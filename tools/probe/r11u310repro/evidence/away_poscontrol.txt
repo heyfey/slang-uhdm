@@ -1,0 +1,12 @@
+CD/cd02_selcastop d chain away=1 toward=0 flat_away=1 flat_toward=0
+CD/cd30_mod d chain away=2 toward=0 flat_away=2 flat_toward=0
+FX/fx05_task d chain away=2 toward=0 flat_away=2 flat_toward=0
+FX/fx18_macro_mod d chain away=4 toward=0 flat_away=4 flat_toward=0
+LN/ln14_ternfalse d chain away=1 toward=0 flat_away=1 flat_toward=0
+LN/ln36_mod_depth d chain away=2 toward=0 flat_away=2 flat_toward=0
+MT/mt12_assoc d chain away=2 toward=0 flat_away=2 flat_toward=0
+MT/mt26_leafipsel d chain away=2 toward=0 flat_away=2 flat_toward=0
+MT/mt40_memrecvsel d chain away=4 toward=0 flat_away=4 flat_toward=0
+MT/mt55_return d chain away=2 toward=0 flat_away=2 flat_toward=0
+QC/qc01_cls_path d chain away=1 toward=0 flat_away=1 flat_toward=0
+TL/tl03_call d chain away=1 toward=0 flat_away=1 flat_toward=0

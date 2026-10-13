@@ -4933,6 +4933,22 @@ static size_t& hpComp308() {
     static thread_local size_t v = 0;
     return v;
 }
+// § methTailIdxNestShape310 (r11u310) — the hier_path a method-call
+// receiver builder is emitting a select index of (`r = iarr[h.k].get()`),
+// non-null only around that index: there the select is followed by the
+// method call, so it is a NON-TRAILING element of the path and the index
+// takes § nonTrailIdxPathNestShape306's nested shape.
+static const UHDM::any*& methTailHp310() {
+    static thread_local const UHDM::any* v = nullptr;
+    return v;
+}
+// § methIdxCallNameSpan310 — raised by the user-method receiver builder
+// around an element's index (the call site reads it like
+// § hpIdxCallNameSpan184's flag).
+static bool& methIdxCall310() {
+    static thread_local bool v = false;
+    return v;
+}
 static const slang::ast::Expression*& g306NestTop() {
     static thread_local const slang::ast::Expression* e = nullptr;
     return e;
@@ -5302,8 +5318,280 @@ static void nonTrailIdxNamesByChain308(UHDM::Serializer& s) {
         r->VpiFullName(want);
     }
 }
+// § castTsNestSelIdxByChain310 (r11u310, R11U310_CASTSELIDX_OFF) and
+// § castTsLvIdxByChain310 (r11u310, R11U310_CASTLVIDX_OFF) — THE CAST SHAPES
+// § castTsNonTrailIdxByChain308 AND § castTsInPathIdxByChain296 DO NOT
+// REACH.  (1) A cast in the index of a select NESTED in a path select's index
+// (`r = iarr[midx[int'(h.k)] + int'(j)].f`, v11u308repro VW/vw11: golden
+// `...::iarr[ + ].f::midx`, ours the select's own `work@grid::probe::midx`;
+// the trailing twin `r = h.arr[1].g[midx[int'(i)]]`, golden
+// `...::h.arr[1].g::g::midx`).  (2) A cast in an ASSIGNMENT TARGET's or an
+// inc/dec operand's select index, which hangs off the select (`h.arr[int'(hd.k)].f
+// = r`, VW/vw12: golden `work@grid::probe::h.arr[].f::arr`, ours
+// `work@grid::probe.h.arr[].f`).  Surelog stores no full name on a
+// ref_typespec, so golden reads its chain; ours is renamed to it when the
+// stored name and the chain both lie in the enclosing scope (computed, never
+// read through UHDM's getter).  Grid tools/probe/r11u310repro/cases/CD, CL.
+static void castTsNonTrailIdx310(UHDM::Serializer& s) {
+    std::vector<UHDM::ref_typespec*> rts;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmref_typespec)
+            continue;
+        auto* op = o->VpiParent();
+        if (!op || op->UhdmType() != UHDM::uhdmoperation ||
+            ((const UHDM::operation*)op)->VpiOpType() != vpiCastOp ||
+            ((const UHDM::operation*)op)->Typespec() != o)
+            continue;
+        rts.push_back((UHDM::ref_typespec*)o);
+    }
+    std::sort(rts.begin(), rts.end(), [](const UHDM::ref_typespec* a, const UHDM::ref_typespec* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    static const bool onSel = lawOn(310, "R11U310_CASTSELIDX_OFF");
+    static const bool onLv = lawOn(310, "R11U310_CASTLVIDX_OFF");
+    for (auto* rt : rts) {
+        const UHDM::any* below = rt->VpiParent();
+        const UHDM::any* p = below->VpiParent();
+        bool viaSel = false;
+        int g = 0;
+        while (p && g++ < 32) {
+            const auto k = p->UhdmType();
+            if (k == UHDM::uhdmoperation || k == UHDM::uhdmfunc_call ||
+                k == UHDM::uhdmsys_func_call || k == UHDM::uhdmmethod_func_call) {
+                below = p;
+                p = p->VpiParent();
+                continue;
+            }
+            if ((k == UHDM::uhdmbit_select || k == UHDM::uhdmpart_select ||
+                 k == UHDM::uhdmindexed_part_select) &&
+                p->VpiParent() && p->VpiParent()->UhdmType() != UHDM::uhdmhier_path) {
+                viaSel = true;
+                below = p;
+                p = p->VpiParent();
+                continue;
+            }
+            break;
+        }
+        const char* tag = nullptr;
+        bool on = false;
+        if (viaSel && nonTrailIdxElem308(p, below)) {
+            tag = "CASTSELIDX";
+            on = onSel;
+        }
+        else if (p && p->UhdmType() == UHDM::uhdmbit_select &&
+                 ((const UHDM::bit_select*)p)->VpiIndex() == below && p->VpiParent() &&
+                 p->VpiParent()->UhdmType() == UHDM::uhdmhier_path) {
+            // the index hangs off the select: an assignment target or an
+            // inc/dec operand (any element), or a read through a nested
+            // select (the trailing element, § castTsInPathIdxByChain296's
+            // twin: `r = h.arr[1].g[midx[int'(i)]]`, golden
+            // `...::h.arr[1].g::g::midx`)
+            const UHDM::any* hp = p->VpiParent();
+            const UHDM::any* as = hp->VpiParent();
+            auto* pe = ((const UHDM::hier_path*)hp)->Path_elems();
+            bool elem = false;
+            if (pe)
+                for (size_t k = 0; k < pe->size(); ++k)
+                    if ((*pe)[k] == p)
+                        elem = true;
+            bool lv = false;
+            if (as && as->UhdmType() == UHDM::uhdmassignment)
+                lv = ((const UHDM::assignment*)as)->Lhs() == hp;
+            else if (as && as->UhdmType() == UHDM::uhdmoperation) {
+                const int k = ((const UHDM::operation*)as)->VpiOpType();
+                lv = k == vpiPostIncOp || k == vpiPreIncOp || k == vpiPostDecOp ||
+                     k == vpiPreDecOp;
+            }
+            if (elem && lv) {
+                tag = "CASTLVIDX";
+                on = onLv;
+            }
+            else if (elem && viaSel) {
+                tag = "CASTSELIDX";
+                on = onSel;
+            }
+        }
+        if (!tag)
+            continue;
+        const std::string cur = storedFullName308(rt);
+        if (cur.empty())
+            continue;
+        const std::string want = chainFullName175(rt);
+        std::string scope;
+        for (const UHDM::any* a = rt->VpiParent(); a; a = a->VpiParent()) {
+            const auto k = a->UhdmType();
+            if (k == UHDM::uhdmfunction || k == UHDM::uhdmtask || k == UHDM::uhdmclass_defn ||
+                k == UHDM::uhdmmodule_inst || k == UHDM::uhdminterface_inst ||
+                k == UHDM::uhdmprogram || k == UHDM::uhdmpackage || k == UHDM::uhdmgen_scope) {
+                scope = chainFullName175(a);
+                break;
+            }
+        }
+        if (want.empty() || cur == want || scope.empty() ||
+            want.compare(0, scope.size(), scope) != 0 || cur.compare(0, scope.size(), scope) != 0) {
+            lawTrace(310, (std::string(tag) + "_ABSTAIN").c_str(), cur + " | " + want);
+            continue;
+        }
+        if (!on) {
+            lawTrace(310, (std::string(tag) + "_OFF").c_str(), cur);
+            continue;
+        }
+        lawTrace(310, tag, cur + " -> " + want);
+        rt->VpiFullName(want);
+    }
+}
+// § clsLvTrailIdxNamesByChain310 (r11u310) — IN A CLASS METHOD, THE NAMED
+// OBJECTS INSIDE AN ASSIGNMENT TARGET'S TRAILING SELECT INDEX READ THEIR
+// CHAIN.  `h.idx[i + 1] = r`, `h.idx[midx[i]] = r`, `h.idx[c ? i : j] = r`,
+// `h.idx[fn(i)] = r`, `h.idx[int'(i)] = r` (and `+=`, `<=`): Surelog's lvalue
+// arm hangs the index off the member select and stores no full name, so
+// golden reads `work@grid::probe::h.idx[i + 1]::idx::i` and the select
+// `...::h.idx[[i]]::idx::midx`; ours kept the method scope's
+// `work@grid::probe::i`.  A module process (§ lvSelIdxChainName181's drain),
+// a reference directly under the select (UHDM skips the select there) and
+// an inc/dec operand were already golden's.  Only where the stored name is
+// the scope's plus the object's own name; a path in the index is left alone.
+// Grid tools/probe/r11u310repro/cases/TL, CL, FX.  Switch R11U310_CLSLVTRAIL_OFF.
+static void clsLvTrailIdxNames310(UHDM::Serializer& s) {
+    std::vector<UHDM::hier_path*> hps;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        auto* as = o->VpiParent();
+        if (!as || as->UhdmType() != UHDM::uhdmassignment ||
+            ((const UHDM::assignment*)as)->Lhs() != o)
+            continue;
+        hps.push_back((UHDM::hier_path*)o);
+    }
+    std::sort(hps.begin(), hps.end(), [](const UHDM::hier_path* a, const UHDM::hier_path* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    static const bool on = lawOn(310, "R11U310_CLSLVTRAIL_OFF");
+    for (auto* hp : hps) {
+        auto* pe = hp->Path_elems();
+        if (!pe || pe->size() < 2 || !pe->back() ||
+            pe->back()->UhdmType() != UHDM::uhdmbit_select)
+            continue;
+        auto* last = (UHDM::bit_select*)pe->back();
+        auto* ix = (UHDM::any*)last->VpiIndex();
+        if (!ix || ix->VpiParent() != last)
+            continue;
+        const auto ik = ix->UhdmType();
+        if (ik == UHDM::uhdmref_obj || ik == UHDM::uhdmhier_path || ik == UHDM::uhdmconstant)
+            continue;
+        const UHDM::any* fn = nullptr;
+        bool cls = false;
+        for (const UHDM::any* a = hp->VpiParent(); a; a = a->VpiParent()) {
+            const auto k = a->UhdmType();
+            if (!fn && (k == UHDM::uhdmfunction || k == UHDM::uhdmtask))
+                fn = a;
+            if (k == UHDM::uhdmclass_defn) {
+                cls = true;
+                break;
+            }
+            if (k == UHDM::uhdmmodule_inst || k == UHDM::uhdminterface_inst ||
+                k == UHDM::uhdmprogram || k == UHDM::uhdmpackage || k == UHDM::uhdmdesign)
+                break;
+        }
+        if (!fn || !cls)
+            continue;
+        const std::string scope = chainFullName175(fn);
+        if (scope.empty())
+            continue;
+        // (`ups`: the stored names the enclosing selects had, which an object
+        // nested in their indices was named under: `h.idx[i + ia[midx[j]]]`)
+        auto fix = [&](UHDM::any* o, const std::vector<std::string>& ups) {
+            const std::string cur = storedFullName308(o);
+            const std::string nm(o->VpiName());
+            bool under = false;
+            for (auto& u : ups)
+                if (!u.empty() && cur == u + "::" + nm)
+                    under = true;
+            if (nm.empty() || (cur != scope + "::" + nm && cur != scope + "." + nm && !under))
+                return;
+            const std::string want = chainFullName175(o);
+            if (want.empty() || want == cur || want.compare(0, scope.size(), scope) != 0)
+                return;
+            if (!on) {
+                lawTrace(310, "CLSLVTRAIL_OFF", cur);
+                return;
+            }
+            lawTrace(310, "CLSLVTRAIL", cur + " -> " + want);
+            ((UHDM::ref_obj*)o)->VpiFullName(want);
+        };
+        std::function<void(UHDM::any*, const UHDM::any*, int, const std::vector<std::string>&)> walk =
+            [&](UHDM::any* e, const UHDM::any* par, int d, const std::vector<std::string>& up) {
+                if (!e || e->VpiParent() != par || d > 16)
+                    return;
+                switch (e->UhdmType()) {
+                case UHDM::uhdmref_obj:
+                    if (d > 0)
+                        fix(e, up);
+                    return;
+                case UHDM::uhdmbit_select:
+                case UHDM::uhdmvar_select: {
+                    std::vector<std::string> mine = up;
+                    mine.push_back(storedFullName308(e));
+                    fix(e, up);
+                    if (e->UhdmType() == UHDM::uhdmbit_select)
+                        walk((UHDM::any*)((UHDM::bit_select*)e)->VpiIndex(), e, d + 1, mine);
+                    else if (auto* xs = ((UHDM::var_select*)e)->Exprs())
+                        for (auto* x : *xs)
+                            walk(x, e, d + 1, mine);
+                    return;
+                }
+                case UHDM::uhdmoperation:
+                    if (auto* os = ((UHDM::operation*)e)->Operands())
+                        for (auto* o : *os)
+                            walk(o, e, d + 1, up);
+                    return;
+                case UHDM::uhdmfunc_call:
+                case UHDM::uhdmsys_func_call:
+                    if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
+                        for (auto* a : *as)
+                            walk(a, e, d + 1, up);
+                    return;
+                case UHDM::uhdmhier_path:
+                    // a path's TRAILING reference reads its chain too
+                    // (`bb.bin[n + two_d[1][bb.q]] = got`, r11u306repro VH/h06:
+                    // golden `...::bb.bin[n + two_d[1][]]::bin::two_d::q`,
+                    // ours the select's `...::two_d::q`); its base keeps its
+                    // stored bare name
+                    if (auto* hpe = ((UHDM::hier_path*)e)->Path_elems();
+                        d > 0 && hpe && hpe->size() > 1 && hpe->back() &&
+                        hpe->back()->UhdmType() == UHDM::uhdmref_obj &&
+                        hpe->back()->VpiParent() == e) {
+                        auto* r = hpe->back();
+                        const std::string cur = storedFullName308(r);
+                        const std::string nm(r->VpiName());
+                        const std::string want = chainFullName175(r);
+                        if (!nm.empty() && cur.size() > scope.size() + nm.size() &&
+                            cur.compare(0, scope.size(), scope) == 0 &&
+                            cur.compare(cur.size() - nm.size() - 2, nm.size() + 2, "::" + nm) == 0 &&
+                            !want.empty() && want != cur &&
+                            want.compare(0, scope.size(), scope) == 0) {
+                            if (!on)
+                                lawTrace(310, "CLSLVTRAIL_OFF", cur);
+                            else {
+                                lawTrace(310, "CLSLVTRAIL", "path " + cur + " -> " + want);
+                                ((UHDM::ref_obj*)r)->VpiFullName(want);
+                            }
+                        }
+                    }
+                    return;
+                default:
+                    return;
+                }
+            };
+        walk(ix, last, 0, std::vector<std::string>());
+    }
+}
 void nonTrailIdxDrain308(UHDM::Serializer& s, bool elabView) {
     castTsNonTrailIdx308(s);
+    castTsNonTrailIdx310(s);
+    clsLvTrailIdxNames310(s);
     nonTrailIdxNamesByChain308(s);
     if (elabView)
         elabClsNonTrailIdx308(s);
@@ -23433,7 +23721,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
     // and the parent climbs through operations only to the path's bit_select;
     // the path is built as before and then reshaped.  Grid
     // tools/probe/r11u306repro/cases/NP.  Switch R11U306_NESTSHAPE_OFF.
-    if (hpMidIdx306() && g306NestTop() != &expr && parent) {
+    if ((hpMidIdx306() || methTailHp310()) && g306NestTop() != &expr && parent) {
         const Expression& sx306 = stripImplicitConv(expr);
         // Through operations and selects nested in the index (`iarr[midx[h.k]].f`,
         // `iarr[{h.k}].f`); a conditional's TRUE branch keeps the read shape
@@ -23504,9 +23792,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                               hpIdxCtx236.hp == q306->VpiParent() && hpComp308() > 0 &&
                               lvTop308(q306->VpiParent());
         static const bool onLvMem308 = lawOn(308, "R11U308_LVMEMSEL_OFF");
-        const bool ctx306 = !tern306 && !lvVs308 && q306 && q306->UhdmType() == UHDM::uhdmbit_select &&
-                            q306->VpiParent() &&
-                            q306->VpiParent()->UhdmType() == UHDM::uhdmhier_path;
+        // § methTailIdxNestShape310 (r11u310) — A PATH ENDING IN A METHOD
+        // CALL (`r = iarr[h.k].get()`, `r = iarr[h.k + 1].put(j)`,
+        // `amap[h.k].get()`; v11u306repro VN/vn15, v11u308repro VK/vk02):
+        // Surelog compiles the receiver's select through the same
+        // compileSelectExpression (the method call is the path's last
+        // element, so the select is NOT trailing) and golden's index takes
+        // the nested shape (`h` 9:16-17 on `k`, `k` with no full name); our
+        // receiver builder emits the index with the path itself as its
+        // parent and never raised the non-trailing flag, so the read shape
+        // stayed (`h` 9:14-15, `k` `work@grid::probe::iarr[].get::k`).  The
+        // builder now names its path in methTailHp310() around the index;
+        // the climb must end at that path or at a select directly under it.
+        // Grid tools/probe/r11u310repro/cases/MT.  Switch
+        // R11U310_METHTAIL_OFF.
+        const UHDM::any* mt310 = hpMidIdx306() ? nullptr : methTailHp310();
+        bool tail310 = mt310 && q306 &&
+                       (q306 == mt310 ||
+                        (q306->UhdmType() == UHDM::uhdmbit_select && q306->VpiParent() == mt310));
+        static const bool onMt310 = lawOn(310, "R11U310_METHTAIL_OFF");
+        if (tail310 && !onMt310) {
+            lawTrace(310, "METHTAIL_OFF", std::string(mt310->VpiName()));
+            tail310 = false;
+        }
+        const bool ctx306 = !tern306 && !lvVs308 && q306 &&
+                            ((hpMidIdx306() && q306->UhdmType() == UHDM::uhdmbit_select &&
+                              q306->VpiParent() &&
+                              q306->VpiParent()->UhdmType() == UHDM::uhdmhier_path) ||
+                             tail310);
+        if (tern306 && tail310)
+            lawTrace(310, "METHTAIL_ABSTAIN", "ternary true branch");
         if (tern306 && hpMidIdx306())
             lawTrace(306, "NESTSHAPE_ABSTAIN", "ternary true branch");
         if (ctx306 && (sx306.kind == ExpressionKind::MemberAccess ||
@@ -23580,11 +23895,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (shape306 && on306 && !(lvMem308 && onLvMem308)) {
                 const Expression* svTop306 = g306NestTop();
                 const bool svMid306 = hpMidIdx306();
+                const UHDM::any* svMt310 = methTailHp310();
                 g306NestTop() = &expr;
                 hpMidIdx306() = false;
+                methTailHp310() = nullptr;
                 UHDM::any* r306 = emitExpr(expr, parent, prefix, netMap);
                 g306NestTop() = svTop306;
                 hpMidIdx306() = svMid306;
+                methTailHp310() = svMt310;
                 auto* hp306 = (r306 && r306->UhdmType() == UHDM::uhdmhier_path)
                                   ? (UHDM::hier_path*)r306
                                   : nullptr;
@@ -23656,7 +23974,46 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                 leafSel306->sourceRange.end()));
                     nestLeaf306().push_back(leaf306);
                 }
+                // § lvNestShapeMidIdxAtSel310 (r11u310) — an LVALUE path
+                // whose non-trailing select is on its BASE (`iarr[h.arr[i].f].f
+                // = r`, `always_ff sa[u.a[i].k].f <= 0`; v11u308repro VD vd08,
+                // vd09, VX/vx26) takes the nested shape, and there the nested
+                // path's own middle select keeps its index at the select as
+                // in the read form (§ hierPathSelIdxAtPath178's nested-path
+                // exception): golden `i` parented at `arr` and named through
+                // both paths (`...::iarr[].f::h.arr[i].f::i`).  §
+                // lvIdxMixedPathIsRead181 hung it on the inner path (the read
+                // built inside an lvalue's index), whose chain skips that path
+                // (`...::iarr[].f::i`).  The index goes back to its select and
+                // a reference is named from the chain by § hierPathSelIdxAtPath178's
+                // drain.  Grid tools/probe/r11u310repro/cases/LN, FX. Switch
+                // R11U310_LVNESTIDX_OFF.
+                if (q306 && hpIdxCtx236.lhs && hpIdxCtx236.hp == q306->VpiParent() &&
+                    lvTop308(q306->VpiParent()) && el306->size() > 2) {
+                    static const bool onLn310 = lawOn(310, "R11U310_LVNESTIDX_OFF");
+                    for (size_t k310 = 1; k310 + 1 < el306->size(); ++k310) {
+                        auto* bs310 = (*el306)[k310];
+                        if (!bs310 || bs310->UhdmType() != UHDM::uhdmbit_select)
+                            continue;
+                        auto* ix310 = (UHDM::any*)((UHDM::bit_select*)bs310)->VpiIndex();
+                        if (!ix310 || ix310->VpiParent() != hp306 ||
+                            ix310->UhdmType() == UHDM::uhdmconstant)
+                            continue;
+                        if (!onLn310) {
+                            lawTrace(310, "LVNESTIDX_OFF", std::string(bs310->VpiName()));
+                            continue;
+                        }
+                        lawTrace(310, "LVNESTIDX", std::string(hp306->VpiName()) + " " +
+                                                       std::string(ix310->VpiName()));
+                        ix310->VpiParent(bs310);
+                        if (ix310->UhdmType() == UHDM::uhdmref_obj)
+                            hpSelIdx178().push_back({bs310, ix310});
+                    }
+                }
                 lawTrace(306, "NESTSHAPE", std::string(hp306->VpiName()));
+                if (tail310)
+                    lawTrace(310, "METHTAIL", std::string(hp306->VpiName()) + " in " +
+                                                  std::string(mt310->VpiName()));
                 if (viaVs308)
                     lawTrace(308, "NESTVARSEL", std::string(hp306->VpiName()));
                 return r306;
@@ -37536,6 +37893,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // so that block is skipped rather than allowed to
                         // overwrite this one.
                         bool dotIdx23 = dotInBracket23(recvTx11);
+                        // § methRecvSelCallIdxDecompiled310 (r11u310) — a
+                        // SELECT or a USER CALL written as a receiver
+                        // element's index (`r = iarr[midx[i]].get()`, `r =
+                        // iarr[fn(i)].get()`) is the same compile as a dotted
+                        // index: Surelog's element (compileComplexFuncCall's
+                        // paBit_select arm) renders the DECOMPILED index in
+                        // the path's name (golden `iarr[[i]].get`,
+                        // `iarr[].get`; ours the written `iarr[midx[i]].get`,
+                        // uhdm-cmp stage 1) and hangs the index at the
+                        // HIER_PATH (ours at the bit_select), so the gate of
+                        // § dottedIdxRecvFromSyntax23 opens for it too.
+                        // Grid tools/probe/r11u310repro/cases/MT.  Switch
+                        // R11U310_METHIDXTEXT_OFF.
+                        if (!dotIdx23) {
+                            bool selCall310 = false;
+                            for (auto& sg310 : segs11) {
+                                if (!sg310.idx)
+                                    continue;
+                                const Expression& x310 = stripImplicitConv(*sg310.idx);
+                                if (x310.kind == ExpressionKind::ElementSelect ||
+                                    x310.kind == ExpressionKind::RangeSelect ||
+                                    // (a member path behind a macro, `iarr[`IDX].get()`)
+                                    x310.kind == ExpressionKind::MemberAccess ||
+                                    (x310.kind == ExpressionKind::Call &&
+                                     !x310.as<CallExpression>().isSystemCall()))
+                                    selCall310 = true;
+                            }
+                            if (selCall310) {
+                                static const bool onTx310 = lawOn(310, "R11U310_METHIDXTEXT_OFF");
+                                lawTrace(310, onTx310 ? "METHIDXTEXT" : "METHIDXTEXT_OFF", recvTx11);
+                                dotIdx23 = onTx310;
+                            }
+                        }
                         if (dotIdx23) {
                             std::string rb23;
                             bool ok23 = !segs11.empty();
@@ -37601,10 +37991,55 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         hp11->VpiFullName(dotted11);
                         hp11->VpiParent(parent);
                         setLoc(hp11, callRng11);
+                        // § methPathInIdxNameSpan310 (r11u310) — a method-call
+                        // path written in the index of a NON-TRAILING path
+                        // select (`r = iarr[iarr[h.k].get()].get()`, `r =
+                        // iarr[jarr[i].get()].f`) spans its first name, as a
+                        // call there does (§ hpIdxCallNameSpan184: golden
+                        // `iarr[].get` 9:14-18, ours the whole call 9:14-29).
+                        // Grid tools/probe/r11u310repro/cases/MT.  Switch
+                        // R11U310_METHPATHSPAN_OFF.
+                        if (!inLhs && !inParamInit && (hpMidIdx184() || methIdxCall310()) &&
+                            !segs11.empty()) {
+                            // (a conditional's TRUE branch keeps the whole
+                            // path: golden `iarr[c ? iarr[i].get() : j].f`
+                            // 9:18-31, the § hpOpIdxTernTrueKeepsIdxLoc304v twin)
+                            const UHDM::any* q310 = parent;
+                            bool tern310 = false;
+                            while (q310 &&
+                                   (q310->UhdmType() == UHDM::uhdmoperation ||
+                                    (q310->UhdmType() == UHDM::uhdmbit_select &&
+                                     q310->VpiParent() &&
+                                     q310->VpiParent()->UhdmType() != UHDM::uhdmhier_path))) {
+                                if (q310->UhdmType() == UHDM::uhdmoperation &&
+                                    ((const UHDM::operation*)q310)->VpiOpType() == vpiConditionOp)
+                                    for (const UHDM::any* t310 : ternTrueArmOps31)
+                                        if (t310 == q310)
+                                            tern310 = true;
+                                q310 = q310->VpiParent();
+                            }
+                            if (tern310) {
+                                lawTrace(310, "METHPATHSPAN_ABSTAIN", "ternary true branch");
+                                q310 = nullptr;
+                            }
+                            if (q310 && q310->UhdmType() == UHDM::uhdmbit_select &&
+                                q310->VpiParent() &&
+                                q310->VpiParent()->UhdmType() == UHDM::uhdmhier_path) {
+                                static const bool onSp310 = lawOn(310, "R11U310_METHPATHSPAN_OFF");
+                                lawTrace(310, onSp310 ? "METHPATHSPAN" : "METHPATHSPAN_OFF", dotted11);
+                                if (onSp310)
+                                    setLoc(hp11, segs11[0].nameRng);
+                            }
+                        }
                         auto* elems11 = s.MakeAnyVec();
                         size_t seg215 = 0;
+                        std::string cum310;  // § methRecvElemCumName310
                         for (auto& sg11 : segs11) {
                             const size_t i215 = seg215++;
+                            const std::string pre310 = cum310;
+                            cum310 += (cum310.empty() ? "" : ".") + sg11.name;
+                            if (sg11.idx && dotIdx23)
+                                cum310 += "[" + hpCompIdxDecompile23(*sg11.idx) + "]";
                             if (!sg11.idx) {
                                 auto* r11 = s.MakeRef_obj();
                                 r11->VpiName(sg11.name);
@@ -37627,6 +38062,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     ? sg11.name + "[" +
                                           hpCompIdxDecompile23(*sg11.idx) + "]"
                                     : rawText(sg11.node->sourceRange));
+                            // § methRecvElemCumName310 (r11u310) — a MEMBER
+                            // element's select under the gate is named by the
+                            // whole receiver text up to it, as the written
+                            // form is (golden `h.hh.arr[]` for `r =
+                            // h.hh.arr[hd.k].get()`, ours `arr[]`).  Grid
+                            // tools/probe/r11u310repro/cases/MT.  Switch
+                            // R11U310_METHRECVCUM_OFF.
+                            if (dotIdx23 && !pre310.empty()) {
+                                static const bool onCum310 = lawOn(310, "R11U310_METHRECVCUM_OFF");
+                                lawTrace(310, onCum310 ? "METHRECVCUM" : "METHRECVCUM_OFF", cum310);
+                                if (onCum310)
+                                    bs11->VpiFullName(cum310);
+                            }
                             bs11->VpiParent(hp11);
                             setLoc(bs11, sg11.nameRng);
                             // The index of a hier_path element is UNPARENTED
@@ -37636,8 +38084,55 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             bool ssx11 = suppressConstParent;
                             forceConstParent = false;
                             suppressConstParent = true;
+                            // § methTailIdxNestShape310: every receiver select
+                            // here is followed by the method call.
+                            struct MtRestore310 {
+                                const UHDM::any* v;
+                                ~MtRestore310() { methTailHp310() = v; }
+                            } mtRestore310{methTailHp310()};
+                            methTailHp310() = hp11;
+                            // § methIdxCallNameSpan310 (r11u310) — a call in
+                            // the index (`r = iarr[fn(h.k)].get()`, `r =
+                            // iarr[i + fn(j)].get()`) spans its name as in a
+                            // non-trailing path select's index (§
+                            // hpIdxCallNameSpan184: golden `fn` 9:14-16, ours
+                            // the whole call 9:14-21).  Grid
+                            // tools/probe/r11u310repro/cases/MT.  Switch
+                            // R11U310_METHIDXCALL_OFF.
+                            struct MidIdx310 {
+                                bool v;
+                                ~MidIdx310() { methIdxCall310() = v; }
+                            } midIdx310{methIdxCall310()};
+                            methIdxCall310() = !inLhs;
+                            // § methIdxSelWholeByPath310 (r11u310) — a SELECT
+                            // written as the element's index (`r =
+                            // iarr[midx[h.k]].get()`, `r = iarr[midx[i]].get()`)
+                            // is named by the path and spans its whole select
+                            // (golden `work@grid::probe::iarr[].get::midx`
+                            // 9:14-23; ours the scope's `work@grid::probe::midx`
+                            // at its index 9:19-22), § hpMidSelIdxAtPath79's
+                            // twin for the receiver.  Grid
+                            // tools/probe/r11u310repro/cases/MT.  Switch
+                            // R11U310_METHIDXSEL_OFF.
+                            const Expression& sx310 = stripImplicitConv(*sg11.idx);
+                            bool selIdx310 = dotIdx23 &&
+                                             (sx310.kind == ExpressionKind::ElementSelect ||
+                                              sx310.kind == ExpressionKind::RangeSelect);
+                            if (selIdx310) {
+                                static const bool onSel310 = lawOn(310, "R11U310_METHIDXSEL_OFF");
+                                if (!onSel310) {
+                                    lawTrace(310, "METHIDXSEL_OFF", dotted11);
+                                    selIdx310 = false;
+                                }
+                            }
                             if (auto* ix11 =
-                                    emitExpr(*sg11.idx, bs11, prefix, netMap)) {
+                                    emitExpr(*sg11.idx, bs11,
+                                             selIdx310 ? joinRef(prefix, dotted11) : prefix,
+                                             netMap)) {
+                                if (selIdx310 && ix11->UhdmType() != UHDM::uhdmconstant) {
+                                    lawTrace(310, "METHIDXSEL", dotted11);
+                                    setLoc((UHDM::any*)ix11, sg11.idx->sourceRange);
+                                }
                                 // § dottedIdxRecvFromSyntax23 — golden parents
                                 // a NON-CONSTANT element index at the
                                 // HIER_PATH, not at the bit_select
@@ -37755,6 +38250,135 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // compiled inside a CLASS BODY is handed a parentless
                             // hier_path and can only reach the class's never-drained
                             // late-binding pool, so nothing under it binds.
+                            // § methIdxNestSelWhole310 (r11u310) — a SELECT
+                            // NESTED in the element's index, under an
+                            // operation (`r = iarr[midx[i] + 1].get()`) or
+                            // under the bare select (`r =
+                            // iarr[midx[midx[h.k]]].get()`), is named by the
+                            // path and spans its whole select, the
+                            // receiver's twin of § hpOpIdxNestedSelByPath304
+                            // and § nonTrailSelNestedSelWhole306 (golden
+                            // `midx` 9:14-21 and the inner `midx` 9:19-28
+                            // named `...::iarr[].get::midx::midx`; ours at
+                            // its index); a call argument and a conditional's
+                            // true branch keep the index span.  Grid
+                            // tools/probe/r11u310repro/cases/MT.  Switch
+                            // R11U310_METHNESTSEL_OFF.
+                            if (auto* ix310 = (UHDM::any*)bs11->VpiIndex();
+                                ix310 && ix310->VpiParent() == hp11 &&
+                                ((ix310->UhdmType() == UHDM::uhdmoperation &&
+                                  (dotIdx23 || pp215)) ||
+                                 (selIdx310 && ix310->UhdmType() == UHDM::uhdmbit_select))) {
+                                std::map<std::array<uint32_t, 4>, SourceRange> whole310;
+                                sg11.idx->visit(makeVisitor(
+                                    [&](auto& v310, const ElementSelectExpression& es310) {
+                                        auto sr310 = es310.selector().sourceRange;
+                                        if (sr310.start().valid() && sr310.end().valid() &&
+                                            es310.sourceRange.start().valid() &&
+                                            !sm->isMacroLoc(es310.sourceRange.start()) &&
+                                            !sm->isMacroLoc(sr310.start())) {
+                                            std::array<uint32_t, 4> k310{};
+                                            locLineCol(sr310.start(), k310[0], k310[1]);
+                                            locLineCol(sr310.end(), k310[2], k310[3]);
+                                            whole310[k310] = es310.sourceRange;
+                                        }
+                                        v310.visitDefault(es310);
+                                    }));
+                                static const bool onNs310 = lawOn(310, "R11U310_METHNESTSEL_OFF");
+                                const std::string base310 = joinRef(prefix, dotted11);
+                                std::function<void(UHDM::any*, const std::string&, bool)> sel310;
+                                std::function<void(UHDM::any*, const std::string&, bool)> walk310 =
+                                    [&](UHDM::any* e, const std::string& outer, bool inCall) {
+                                        if (!e)
+                                            return;
+                                        if (e->UhdmType() == UHDM::uhdmoperation) {
+                                            auto* op = (UHDM::operation*)e;
+                                            const bool tern = op->VpiOpType() == vpiConditionOp;
+                                            if (auto* os = op->Operands()) {
+                                                size_t n = 0;
+                                                for (auto* o : *os) {
+                                                    const bool keep = tern && n++ == 1;
+                                                    if (o && o->VpiParent() == e)
+                                                        walk310(o, outer, inCall || keep);
+                                                }
+                                            }
+                                        }
+                                        else if (e->UhdmType() == UHDM::uhdmfunc_call ||
+                                                 e->UhdmType() == UHDM::uhdmsys_func_call) {
+                                            if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
+                                                for (auto* a : *as)
+                                                    if (a && a->VpiParent() == e)
+                                                        walk310(a, outer, true);
+                                        }
+                                        else if (e->UhdmType() == UHDM::uhdmbit_select ||
+                                                 e->UhdmType() == UHDM::uhdmpart_select)
+                                            sel310(e, outer, inCall);
+                                    };
+                                sel310 = [&](UHDM::any* e, const std::string& outer, bool inCall) {
+                                    std::string nm(e->VpiName());
+                                    if (nm.empty())
+                                        return;
+                                    const std::string nn = joinRef(outer, nm);
+                                    if (!onNs310) {
+                                        lawTrace(310, "METHNESTSEL_OFF", nn);
+                                        return;
+                                    }
+                                    if (e->UhdmType() == UHDM::uhdmpart_select) {
+                                        ((UHDM::part_select*)e)->VpiFullName(nn);
+                                        lawTrace(310, "METHNESTSEL", "part " + nn);
+                                        return;
+                                    }
+                                    auto* bs = (UHDM::bit_select*)e;
+                                    std::array<uint32_t, 4> k{bs->VpiLineNo(), bs->VpiColumnNo(),
+                                                              bs->VpiEndLineNo(), bs->VpiEndColumnNo()};
+                                    auto w = whole310.find(k);
+                                    if (w == whole310.end()) {
+                                        lawTrace(310, "METHNESTSEL_ABSTAIN", "nospan " + nn);
+                                        return;
+                                    }
+                                    bs->VpiFullName(nn);
+                                    if (!inCall)
+                                        setLoc(bs, w->second);
+                                    lawTrace(310, "METHNESTSEL", std::string(inCall ? "callarg " : "") + nn);
+                                    std::function<void(UHDM::any*, bool)> idx =
+                                        [&](UHDM::any* i, bool keep) {
+                                            if (!i)
+                                                return;
+                                            if (i->UhdmType() == UHDM::uhdmref_obj) {
+                                                auto* r = (UHDM::ref_obj*)i;
+                                                r->VpiFullName(joinRef(outer, r->VpiName()));
+                                            }
+                                            else if (i->UhdmType() == UHDM::uhdmoperation) {
+                                                auto* iop = (UHDM::operation*)i;
+                                                const bool tern = iop->VpiOpType() == vpiConditionOp;
+                                                if (auto* os = iop->Operands()) {
+                                                    size_t n = 0;
+                                                    for (auto* o : *os) {
+                                                        const bool tr = tern && n++ == 1;
+                                                        if (o && o->VpiParent() == i)
+                                                            idx(o, keep || tr);
+                                                    }
+                                                }
+                                            }
+                                            else if (i->UhdmType() == UHDM::uhdmbit_select ||
+                                                     i->UhdmType() == UHDM::uhdmpart_select)
+                                                sel310(i, nn, inCall || keep);
+                                        };
+                                    auto* ixs = (UHDM::any*)bs->VpiIndex();
+                                    if (ixs && ixs->VpiParent() == bs)
+                                        idx(ixs, false);
+                                };
+                                if (ix310->UhdmType() == UHDM::uhdmoperation)
+                                    walk310(ix310, base310, false);
+                                else if (auto* in310 = (UHDM::any*)((UHDM::bit_select*)ix310)->VpiIndex();
+                                         in310 && in310->VpiParent() == ix310 &&
+                                         (in310->UhdmType() == UHDM::uhdmoperation ||
+                                          in310->UhdmType() == UHDM::uhdmbit_select ||
+                                          in310->UhdmType() == UHDM::uhdmpart_select ||
+                                          in310->UhdmType() == UHDM::uhdmfunc_call ||
+                                          in310->UhdmType() == UHDM::uhdmsys_func_call))
+                                    walk310(in310, joinRef(base310, ix310->VpiName()), false);
+                            }
                             hpIdxClassNoBind143((UHDM::any*)bs11->VpiIndex());
                             elems11->push_back(bs11);
                         }
@@ -39286,28 +39910,66 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (rdCall181 && !inLhs && !inParamInit)
                     trace181("V181 RDCALL");
                 bool hpIdxCall184 = false;
-                if (!inLhs && !inParamInit && !rdCall181 && hpMidIdx184()) {
+                bool idxCall310 = false;
+                bool qualIdx310 = false;  // § idxQualCallNameSpan310's context
+                if (!inParamInit && !rdCall181 &&
+                    (hpMidIdx184() || methIdxCall310() || (inLhs && hpMidIdx306()))) {
                     // (through operations and plain selects nested in the
                     // index: `pb[arr[f(k)]].w[k].v` golden `f` 19:17-18)
                     const UHDM::any* q184 = parent;
+                    bool tern310 = false;
                     while (q184 &&
                            (q184->UhdmType() == UHDM::uhdmoperation ||
                             (q184->UhdmType() == UHDM::uhdmbit_select &&
                              q184->VpiParent() &&
                              q184->VpiParent()->UhdmType() !=
-                                 UHDM::uhdmhier_path)))
+                                 UHDM::uhdmhier_path))) {
+                        if (q184->UhdmType() == UHDM::uhdmoperation &&
+                            ((const UHDM::operation*)q184)->VpiOpType() == vpiConditionOp)
+                            for (const UHDM::any* t310 : ternTrueArmOps31)
+                                if (t310 == q184)
+                                    tern310 = true;
                         q184 = q184->VpiParent();
-                    hpIdxCall184 =
+                    }
+                    const bool reach184 =
                         q184 && q184->UhdmType() == UHDM::uhdmbit_select &&
                         q184->VpiParent() &&
-                        q184->VpiParent()->UhdmType() == UHDM::uhdmhier_path &&
-                        lawOn(184, "R11U184_HPIDXCALL_OFF");
+                        q184->VpiParent()->UhdmType() == UHDM::uhdmhier_path;
+                    // § idxCallTernTrueKeepsSpan310 (r11u310) — a call in a
+                    // conditional's TRUE branch keeps its whole span (golden
+                    // `iarr[c ? fn(i) : j].f` 9:18-23, ours the name 9:18-20),
+                    // the § hpOpIdxTernTrueKeepsIdxLoc304v twin for §
+                    // hpIdxCallNameSpan184.  Grid
+                    // tools/probe/r11u310repro/cases/MT, QC.  Switch
+                    // R11U310_CALLTERNTRUE_OFF.
+                    bool keep310 = false;
+                    if (reach184 && tern310 && !inLhs) {
+                        static const bool onTt310 = lawOn(310, "R11U310_CALLTERNTRUE_OFF");
+                        lawTrace(310, onTt310 ? "CALLTERNTRUE" : "CALLTERNTRUE_OFF",
+                                 std::string(sub.name));
+                        keep310 = onTt310;
+                    }
+                    qualIdx310 = reach184 && !tern310;
+                    if (inLhs)
+                        ;  // (the lvalue already spans the name; only the
+                           // qualified form below is this context's)
+                    else if (hpMidIdx184())
+                        hpIdxCall184 = reach184 && !keep310 &&
+                                       lawOn(184, "R11U184_HPIDXCALL_OFF");
+                    // § methIdxCallNameSpan310 (the receiver's index)
+                    else if (reach184 && !keep310) {
+                        static const bool onCall310 = lawOn(310, "R11U310_METHIDXCALL_OFF");
+                        lawTrace(310, onCall310 ? "METHIDXCALL" : "METHIDXCALL_OFF",
+                                 std::string(sub.name));
+                        idxCall310 = onCall310;
+                    }
                     if (hpIdxCall184)
                         trace184("HPIDXCALL");
                 }
                 if (((inParamInit || inLhs || rdCall181) && !procLvCall181) ||
-                    hpIdxCall184)
+                    hpIdxCall184 || idxCall310) {
                     setLoc(fc, nameSpan(expr.sourceRange.start(), sub.name));
+                }
                 else
                     setLoc(fc, expr.sourceRange);
                 // Package functions: qualified calls carry the scoped name
@@ -39359,6 +40021,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             raw.rfind(q + "::", 0) == 0 &&
                             constCtxWholeNode131(expr.syntax))  // § constCtxCallArgInner131v
                             return nameSpan(st, q + "::");
+                        // § idxQualCallNameSpan310 (r11u310) — in a
+                        // NON-TRAILING path select's index (an rvalue or an
+                        // lvalue path, a method-call receiver too; not in a
+                        // conditional's true branch), a PACKAGE-QUALIFIED
+                        // call spans its qualifier with the `::`, the
+                        // Constant_primary form § pkgQualCallQualSpan131
+                        // gives a parameter initializer (golden `p::` 7:14-17
+                        // for `r = iarr[p::f(i)].f`, 13:10-13 for
+                        // `iarr[p::f(i)].f = r`, 18:22-25 for `always_comb r =
+                        // sa[p::f(i)].f`; a trailing index, a plain read and a
+                        // true branch keep the package token).  Grid
+                        // tools/probe/r11u310repro/cases/QC.  Switch
+                        // R11U310_QUALCALLSPAN_OFF.
+                        if (qualIdx310 && raw.rfind(q + "::", 0) == 0) {
+                            static const bool onQ310 = lawOn(310, "R11U310_QUALCALLSPAN_OFF");
+                            lawTrace(310, onQ310 ? "QUALCALLSPAN" : "QUALCALLSPAN_OFF", q + "::");
+                            if (onQ310)
+                                return nameSpan(st, q + "::");
+                        }
                         return nameSpan(st, q);
                     };
                     if (raw.rfind(pkgName + "::", 0) == 0) {
@@ -42469,6 +43150,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         // index does not (`…::f::i`).
                                         bool simple74 =
                                             sel74->kind == ExpressionKind::NamedValue;
+                                        // § methTailIdxNestShape310: this select is
+                                        // followed by the method call (not a
+                                        // with-clause or randomize-with receiver,
+                                        // whose path ends at the select).
+                                        struct MtRestore310 {
+                                            const UHDM::any* v;
+                                            ~MtRestore310() { methTailHp310() = v; }
+                                        } mtRestore310{methTailHp310()};
+                                        methTailHp310() =
+                                            (!withExpr9 && !memberRand119) ? hp : nullptr;
                                         if (auto* ix74 = emitExpr(
                                                 *sel74, hp,
                                                 simple74 ? prefix

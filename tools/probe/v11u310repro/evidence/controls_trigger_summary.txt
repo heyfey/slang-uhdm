@@ -1,0 +1,23 @@
+MOVER r11u191dec/cases/H/h03 d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 80 objects
+MOVER r11u191dec/cases/H/h03 e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 97 objects
+MOVER r11u194verify/cases/C/c01_pkg_method_call d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 260 objects
+MOVER r11u194verify/cases/C/c01_pkg_method_call e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 292 objects
+MOVER r11u195repro/cases/A/a02 d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER r11u195repro/cases/A/a02 e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_NOTEQUAL col
+MOVER r11u195repro/cases/A/a04 d rc=0 cmp=20 NOT_EQUAL stage1 -> rc=0 cmp=20 NOT_EQUAL stage1
+MOVER r11u195repro/cases/A/a04 e rc=0 cmp=20 NOT_EQUAL stage1 -> rc=0 cmp=20 NOT_EQUAL stage1
+MOVER r11u215repro/cases/R/r03 d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 105 objects
+MOVER r11u215repro/cases/R/r03 e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 116 objects
+MOVER r11u221verify/cases/R/r01 d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 112 objects
+MOVER r11u221verify/cases/R/r01 e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 119 objects
+MOVER r11u221verify/cases/R/r03 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 101 objects
+MOVER r11u221verify/cases/R/r03 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 131 objects
+MOVER r11v184repro/cases/C/vc02_ca_gen_class d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER r11v184repro/cases/C/vc02_ca_gen_class e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER v11u195repro/cases/A/a02 d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER v11u195repro/cases/A/a02 e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 117 objects
+MOVER v11u215repro/cases/OR/r05_extern_this_nested d rc=0 cmp=114 NOT_EQUAL stage1 -> rc=0 cmp=114 NOT_EQUAL stage1
+MOVER v11u215repro/cases/OR/r05_extern_this_nested e rc=0 cmp=138 NOT_EQUAL stage1 -> rc=0 cmp=138 NOT_EQUAL stage1
+MOVER v11u215repro/cases/OR/r07_call_index_args d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 78 objects
+MOVER v11u215repro/cases/OR/r07_call_index_args e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 91 objects
+case-views=28 moving=22 entering=13 leaving=0 rc-changed=0 cmplines-changed=0
