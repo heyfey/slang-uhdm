@@ -40,59 +40,16 @@ static std::map<std::pair<const void*, const void*>, UHDM::typespec*>& retFoldOw
     return m;
 }
 static void tr183SE(const char* law) {
-    static FILE* tf = [] () -> FILE* {
-        const char* d = getenv("R11U183_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".SE";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(183, "SE");
     if (tf) {
         fprintf(tf, "%s\n", law);
         fflush(tf);
     }
 }
-static bool r11u183LawSE(const char* sw) {
-    // r11u187 landed these laws: R11U187_OFF drops them with its own.
-    if (getenv("R11U183_OFF") != nullptr || getenv("R11U187_OFF") != nullptr)
-        return false;
-    // § landingSwitchReach224: R11U224_SPLIT183A_OFF drops ground A's half.
-    if (r11u224SplitAOff(183))
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 
 // The r11u175 switches (tools/probe/r11u175uvm/README.md): every r11u175 law
 // reads its own R11U175_<LAW>_OFF switch; R11U175_OFF drops all of them.
-static bool r11u175LawA(const char* sw) {
-    // R11U178_OFF (pass r11u178, which lands these laws) drops them too.
-    if (getenv("R11U175_OFF") != nullptr || getenv("R11U178_OFF") != nullptr)
-        return false;
-    // § landingSwitchReach224: R11U224_SPLIT175A_OFF drops ground A's half.
-    if (r11u224SplitAOff(175))
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 // § importCloneBodyLocalCopies175 (r11u175) — the objects a wildcard
 // IMPORTER's listing holds for a local the home body declares.  Surelog
@@ -140,9 +97,7 @@ struct CloneLocalWrap175 {
 };
 static std::vector<CloneLocalWrap175> cloneLocalWraps175;
 // the v11u178 verifier switches (ExprEmit.cpp)
-bool r11v178On(const char* sw);
 // The r11u181 switches and census trace (ExprEmit.cpp).
-bool r11u181Law(const char* sw);
 void trace181(const char* law);
 // § invalidStmtAnchorSyntax181 (r11u181) — THE SUBROUTINE BODY'S WRAPPER
 // ANCHORS AT ITS SECOND ITEM EVEN WHEN SLANG COULD NOT BIND IT.  Surelog
@@ -158,7 +113,7 @@ void trace181(const char* law);
 // R11U181_INVSTMT_OFF.
 static slang::SourceRange invalidStmtAnchor181(const slang::ast::Statement& st) {
     if (st.sourceRange.start().valid() || !st.syntax ||
-        !r11u181Law("R11U181_INVSTMT_OFF"))
+        !lawOn(181, "R11U181_INVSTMT_OFF"))
         return st.sourceRange;
     trace181("INVSTMT");
     return st.syntax->sourceRange();
@@ -1837,7 +1792,7 @@ UHDM::any* UhdmExporter::emitCtorBody27(const Statement& slStmt,
     // § ctorBidLhsCloneCopy264 — only under the wrapper (the lists exist)
     // and only in an importer clone.
     const bool ctorCopy264 = ub && pkgImportCloneEmit &&
-                             r11u175LawA("R11U175_MULT_OFF") &&
+                             (lawOn(175, 178, "R11U175_MULT_OFF") && !splitAOff(175)) &&
                              lawOn(264, "R11U264_CTORCOPY_OFF");
     size_t from = nb > 1 ? walkFrom : firstCounted;
     size_t to = nb > 1 ? el.size() : firstCounted + 1;
@@ -2869,7 +2824,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                     if (dim0->specifier &&
                                         dim0->specifier->kind ==
                                             syntax::SyntaxKind::RangeDimensionSpecifier &&
-                                        r11u183LawSE("R11U183_IFARR_OFF"))
+                                        (lawOn(183, 187, "R11U183_IFARR_OFF") && !splitAOff(183)))
                                         if (auto& sel183 =
                                                 *dim0->specifier
                                                      ->as<syntax::RangeDimensionSpecifierSyntax>()
@@ -3313,7 +3268,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // block's Variables keep the object, the Lhs is a copy.
                     vit->second->VpiParent(asn);
                     asn->Lhs((UHDM::expr*)vit->second);
-                    if (pkgImportCloneEmit && r11u175LawA("R11U175_MULT_OFF"))
+                    if (pkgImportCloneEmit && (lawOn(175, 178, "R11U175_MULT_OFF") && !splitAOff(175)))
                         cloneLocalLhs175.emplace_back(
                             asn, (UHDM::variables*)vit->second);
                     if (auto* rhs = emitExpr(*init, asn, innerPrefix, blockMap))
@@ -3556,7 +3511,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             const syntax::SyntaxNode* dwSyn181 = stmt.syntax;
             if (!dwSyn181 && dw.cond.syntax && dw.cond.syntax->parent &&
                 dw.cond.syntax->parent->kind == syntax::SyntaxKind::DoWhileStatement &&
-                r11u181Law("R11U181_DWSYN_OFF")) {
+                lawOn(181, "R11U181_DWSYN_OFF")) {
                 trace181("DWSYN");
                 dwSyn181 = dw.cond.syntax->parent;
             }
@@ -3572,7 +3527,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // statement bodies).  Same-buffer only.  Switch R11U175_ESPAN_OFF.
             if (dwSyn181 &&
                 dwSyn181->kind == syntax::SyntaxKind::DoWhileStatement &&
-                r11u175LawA("R11U175_ESPAN_OFF")) {
+                (lawOn(175, 178, "R11U175_ESPAN_OFF") && !splitAOff(175))) {
                 auto& dws175 = dwSyn181->as<syntax::DoWhileStatementSyntax>();
                 auto cp175 = dws175.closeParen.location();
                 // § doWhileEndsAtCondEnd178v (v11u178, the adversarial
@@ -3597,7 +3552,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // keyword's own line.  Grid tools/probe/r11u181repro/cases/dw.
                 // Switch R11U181_DWMACRO_OFF.
                 bool dwMacro181 = false;
-                if (r11v178On("R11V178_DWCOND_OFF") && dws175.expr) {
+                if (fixOn(178, "R11V178_DWCOND_OFF") && dws175.expr) {
                     auto ce178 = dws175.expr->sourceRange().end();
                     if (ce178.valid() &&
                         ce178.buffer() == stmt.sourceRange.start().buffer() &&
@@ -3605,7 +3560,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         cp175 = ce178;
                     else if (ce178.valid() && sm->isMacroLoc(ce178) &&
                              !sm->isMacroLoc(stmt.sourceRange.start()) &&
-                             r11u181Law("R11U181_DWMACRO_OFF")) {
+                             lawOn(181, "R11U181_DWMACRO_OFF")) {
                         auto oe181 = sm->getFullyExpandedLoc(ce178);
                         if (oe181.valid() &&
                             oe181.buffer() == stmt.sourceRange.start().buffer() &&
@@ -4357,7 +4312,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 std::optional<SourceRange> this207;
                 if (arrThis21 && !scopedArr33 && arrBase &&
                     arrBase->kind == syntax::SyntaxKind::ScopedName &&
-                    r11u207On("R11U207_FOREACHTHIS_OFF")) {
+                    lawOn(207, "R11U207_FOREACHTHIS_OFF")) {
                     const syntax::NameSyntax* rt207 =
                         &*arrBase->as<syntax::ScopedNameSyntax>().left;
                     while (rt207->kind == syntax::SyntaxKind::ScopedName)
@@ -4842,8 +4797,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             // § cloneLoopVarAssocIdxTs258: the index
                             // typespec, bound late (LawState.h pass 258).
                             UHDM::typespec* deferIdx258 = nullptr;
-                            if (r11u183LawSE("R11U183_UVMCOPY_OFF") &&
-                                r11u183LawSE("R11U183_CLONELV_OFF")) {
+                            if ((lawOn(183, 187, "R11U183_UVMCOPY_OFF") && !splitAOff(183)) &&
+                                (lawOn(183, 187, "R11U183_CLONELV_OFF") && !splitAOff(183))) {
                                 std::string home183;
                                 if (pkgImportCloneHomePkg)
                                     home183 = std::string(pkgImportCloneHomePkg->name);
@@ -5678,8 +5633,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 if (assocIdx19 &&
                     ((tfLocalArr20 && !foreachUnres9) ||
                      (foreachUnres9 && classPropRes21)) &&
-                    r11u183LawSE("R11U183_TSSPAN_OFF") &&
-                    r11u183LawSE("R11U183_FEIDX_OFF"))
+                    (lawOn(183, 187, "R11U183_TSSPAN_OFF") && !splitAOff(183)) &&
+                    (lawOn(183, 187, "R11U183_FEIDX_OFF") && !splitAOff(183)))
                     if (auto a183 = arrayVarArrayTs.find(arrSym);
                         a183 != arrayVarArrayTs.end() && a183->second &&
                         a183->second->UhdmType() == UHDM::uhdmarray_typespec)
@@ -6726,7 +6681,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         // package's `ibex_tracer_pkg::INSN_CLW`.  Cases/C.
                         // Switch R11U210_CASEWILD_OFF.
                         if (ue->UhdmType() == UHDM::uhdmref_obj &&
-                            r11u210On("R11U210_CASEWILD_OFF")) {
+                            lawOn(210, "R11U210_CASEWILD_OFF")) {
                             bool q210 = false;
                             if (auto* pp210 = caseItemPkgParam114(*e, q210);
                                 pp210 && !q210 &&
@@ -8145,7 +8100,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // wrapper's list holds COPIES (see the law above), made
             // design-final.
             if (!bvars->empty() && pkgImportCloneEmit &&
-                r11u175LawA("R11U175_MULT_OFF")) {
+                (lawOn(175, 178, "R11U175_MULT_OFF") && !splitAOff(175))) {
                 CloneLocalWrap175 w175{ub, {}, {}, prefix};
                 for (auto* bv175 : *bvars) {
                     w175.vars.push_back(bv175);
@@ -8263,7 +8218,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // importer clone's declaration assignment is its own copy.
                     v->VpiParent(as);
                     as->Lhs((UHDM::expr*)v);
-                    if (pkgImportCloneEmit && r11u175LawA("R11U175_MULT_OFF"))
+                    if (pkgImportCloneEmit && (lawOn(175, 178, "R11U175_MULT_OFF") && !splitAOff(175)))
                         cloneLocalLhs175.emplace_back(as, v);
                 }
                 if (auto* r = emitExpr(*init, as, prefix, netMap))

@@ -28,55 +28,22 @@ namespace slang_uhdm {
 // census): one file per process, `<dir>/<pid>.TF`, its first line the
 // `-o` database path read off the command line, then one law name per firing.
 void noteQualTdRt196(const UHDM::ref_typespec* rt);
-bool r11u196Law(const char* sw);  // the r11u196 switches (UhdmExporter.cpp)
 void trace196(const char* law, const std::string& detail);
 static void tr191TF(const char* law) {
-    static FILE* tf = [] () -> FILE* {
-        const char* d = getenv("R11U191_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".TF";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(191, "TF");
     if (tf) {
         fprintf(tf, "%s\n", law);
         fflush(tf);
     }
 }
 static bool r191TF(const char* sw) {
-    if (getenv("R11U191_OFF") != nullptr || getenv("R11U196_OFF") != nullptr)
+    if (envSet("R11U191_OFF") || envSet("R11U196_OFF"))
         return false;
     return getenv(sw) == nullptr;
 }
-bool r11u137Law(const char* sw);
-bool r11u144Law(const char* sw);
-bool r11u200Law(const char* sw); // the r11u200 switches (UhdmExporter.cpp)
 void trace200(const char* law, const std::string& detail); // R11U200_TRACE
-bool r11v202Law(const char* sw); // the v11u202 switches (UhdmExporter.cpp)
 void trace202(const char* law, const std::string& detail); // R11U202_TRACE
-bool r11u206Law(const char* sw); // the r11u206 switches (UhdmExporter.cpp)
-bool r11u209Law(const char* sw); // the r11u209 switches (UhdmExporter.cpp)
-bool landingOff219(int n); // § landingSwitchReach219 (UhdmExporter.cpp)
-bool r11u214Law(const char* sw); // the r11u214 switches (UhdmExporter.cpp)
+bool landingOff(int n); // § landingSwitchReach219 (UhdmExporter.cpp)
 void trace214(const char* law, const std::string& detail);
 void trace209(const char* law, const std::string& detail); // R11U209_TRACE
 void trace206(const char* law, const std::string& detail); // R11U206_TRACE
@@ -87,11 +54,6 @@ void noteTpGroupMember234(UHDM::typespec* ts, const slang::ast::Symbol& declSymb
 
 // The r11u175 switches (tools/probe/r11u175uvm/README.md): every r11u175 law
 // reads its own R11U175_<LAW>_OFF switch; R11U175_OFF drops all of them.
-static bool r11u175LawB(const char* sw) {
-    if (getenv("R11U175_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 // § classHandleRetTsNameUnlessSameHomeComponent156 — the HOME DESIGN COMPONENT
 // of a scope, keyed the way Surelog's class REGISTRY keys it
@@ -2012,44 +1974,13 @@ void UhdmExporter::hoistAssocIdxName135(UHDM::ref_obj* ref,
 // census): one file per process, `<dir>/<pid>.<unit>`, its first line the
 // `-o` database path read off the command line, then one law name per firing.
 static void tr183TF(const char* law) {
-    static FILE* tf = [] () -> FILE* {
-        const char* d = getenv("R11U183_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".TF";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(183, "TF");
     if (tf) {
         fprintf(tf, "%s\n", law);
         fflush(tf);
     }
 }
-bool r11u186Law(const char* sw);   // the r11u186 switches (UhdmExporter.cpp)
 void trace186(const char* law, const std::string& detail); // R11U186_TRACE
-static bool r11u183LawTF(const char* sw) {
-    if (getenv("R11U183_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
                                                  const std::string& afull,
@@ -2204,7 +2135,7 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
         // law 6:9-6:10); only a declaration inside a package takes the
         // bracket.  Switch R11U186_ASSOCPKG_OFF.
         bool inPkg186 = true;
-        if (r11u186Law("R11U186_ASSOCPKG_OFF")) {
+        if (lawOn(186, "R11U186_ASSOCPKG_OFF")) {
             inPkg186 = false;
             for (auto* sc186 = vs.getParentScope(); sc186;
                  sc186 = sc186->asSymbol().getParentScope())
@@ -2214,8 +2145,8 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
                 }
         }
         const bool atBracket183 = d0 && namedIdx0(i0) && assocDim0(i0) &&
-                                  r11u183LawTF("R11U183_RANGEFILE_OFF") &&
-                                  r11u183LawTF("R11U183_ASSOCBRACKET_OFF") &&
+                                  lawOn(183, "R11U183_RANGEFILE_OFF") &&
+                                  lawOn(183, "R11U183_ASSOCBRACKET_OFF") &&
                                   (inPkg186 ||
                                    (trace186("assocBracketPkgOnly186", std::string(vs.name)),
                                     false));
@@ -2398,7 +2329,7 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
     for (size_t i183 = 0; i183 < aidx.size(); i183++)
         if (!assocDim0(i183))
             allAssoc183 = false;
-    if (allAssoc183 && r11u183LawTF("R11U183_UARANGE_OFF")) {
+    if (allAssoc183 && lawOn(183, "R11U183_UARANGE_OFF")) {
         tr183TF("foreachAssocLocalSharesDeclTs183");
         arrayVarArrayTs[&vs] = ats;
     }
@@ -3483,7 +3414,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // spanned the whole ClassMethodPrototype with its `;`.  Grid
             // tools/probe/r11u137repro/grid/pv.  Switch:
             // R11U137_PUREVIRTSPAN_OFF.
-            if (auto psyn = mp.getSyntax(); psyn && r11u137Law("R11U137_PUREVIRTSPAN_OFF")) {
+            if (auto psyn = mp.getSyntax(); psyn && lawOn(137, "R11U137_PUREVIRTSPAN_OFF")) {
                 const syntax::ClassMethodPrototypeSyntax* cmp137 = nullptr;
                 if (psyn->kind == syntax::SyntaxKind::ClassMethodPrototype)
                     cmp137 = &psyn->as<syntax::ClassMethodPrototypeSyntax>();
@@ -3499,7 +3430,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // R11U144_METHATTR_OFF.
                     if (!cmp137->attributes.empty() &&
                         !cmp137->qualifiers.empty() &&
-                        r11u144Law("R11U144_METHATTR_OFF"))
+                        lawOn(144, "R11U144_METHATTR_OFF"))
                         st137 = cmp137->qualifiers[0].range().start();
                     if (mp.subroutineKind == SubroutineKind::Function) {
                         // § pureVirtProtoSpan137, v11u137 refinement: the
@@ -3509,7 +3440,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         // f();`, where the last qualifier read 3:25).
                         // Switch: R11V137_PVQUAL_OFF.
                         bool end137 = false;
-                        if (!getenv("R11V137_PVQUAL_OFF") && !getenv("R11V137_OFF"))
+                        if (!envSet("R11V137_PVQUAL_OFF") && !envSet("R11V137_OFF"))
                             for (auto q137 : cmp137->qualifiers)
                                 if (q137.kind == parsing::TokenKind::VirtualKeyword) {
                                     end137 = true;
@@ -4238,7 +4169,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // whole declaration whatever its qualifiers (`static task`,
             // `protected virtual task`, `virtual protected task`: 2:3-3:10).
             // Switch: R11U144_METHQUALSPAN_OFF.
-            static const bool mq144 = r11u144Law("R11U144_METHQUALSPAN_OFF");
+            static const bool mq144 = lawOn(144, "R11U144_METHQUALSPAN_OFF");
             const bool isFn144 =
                 sub.subroutineKind == SubroutineKind::Function;
             if (qualHolder && mq144)
@@ -4281,7 +4212,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     virtualQual ? qualHolder->sourceRange() : syn->sourceRange();
                 // § methodSpanSkipsAttrs144 — ...but not its attributes
                 // (`(* keep *) virtual task t();` 2:14-3:10, grid at/fe).
-                if (virtualQual && r11u144Law("R11U144_METHATTR_OFF")) {
+                if (virtualQual && lawOn(144, "R11U144_METHATTR_OFF")) {
                     auto& cmd144 =
                         qualHolder->as<syntax::ClassMethodDeclarationSyntax>();
                     if (!cmd144.attributes.empty() && !cmd144.qualifiers.empty())
@@ -4313,7 +4244,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // class_var is never located: golden `class_var` 0:0 with no
             // file (grid f4/a03_ctor).  Switch R11U175_FSPAN_OFF.
             if (!args0.empty() && !qualCtor27 &&
-                !(protoOf && r11u175LawB("R11U175_FSPAN_OFF"))) {
+                !(protoOf && lawOn(175, "R11U175_FSPAN_OFF"))) {
                 SourceRange rv277 = nameSpan(args0[0]->location, args0[0]->name);
                 // § ctorRetVarSiblingSpan277 — Surelog's
                 // compileClassConstructorDeclaration locates the class_var at
@@ -4513,7 +4444,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // `bit [3:0]` 3:21-3:30).  Switch R11U175_FSPAN_OFF.
         auto retTypeSyn175 = [&](const SubroutineSymbol& s175)
             -> const syntax::SyntaxNode* {
-            if (protoOf && r11u175LawB("R11U175_FSPAN_OFF"))
+            if (protoOf && lawOn(175, "R11U175_FSPAN_OFF"))
                 if (const syntax::SyntaxNode* p175 = protoOf->getSyntax()) {
                     if (p175->kind == syntax::SyntaxKind::ClassMethodPrototype)
                         p175 = p175->as<syntax::ClassMethodPrototypeSyntax>()
@@ -5103,11 +5034,11 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // bind of § classTdRetSharesTypedefTs200 below and keeps this
                 // on-demand owner build of pass 206 (R11U202_OFF, R11U200_OFF
                 // and R11U200_CLASSTDRET_OFF keep dropping both).
-                (r11u200Law("R11U200_CLASSTDRET_OFF") ||
-                 (landingOff219(202) && getenv("R11U200_OFF") == nullptr &&
-                  getenv("R11U202_OFF") == nullptr &&
-                  getenv("R11U200_CLASSTDRET_OFF") == nullptr)) &&
-                r11u206Law("R11U206_CLSCOPETDRET_OFF"))
+                ((lawOn(200, 202, "R11U200_CLASSTDRET_OFF") && !landingOff(202)) ||
+                 (landingOff(202) && !envSet("R11U200_OFF") &&
+                  !envSet("R11U202_OFF") &&
+                  !envSet("R11U200_CLASSTDRET_OFF"))) &&
+                lawOn(206, "R11U206_CLSCOPETDRET_OFF"))
                 if (auto* osc206 = sub.getReturnType().getParentScope();
                     osc206 && osc206->asSymbol().kind == SymbolKind::ClassType &&
                     osc206 != sub.getParentScope()) {
@@ -5132,7 +5063,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 sub.getReturnType().getCanonicalType().kind == SymbolKind::ClassType &&
                 (typedefTs.count(&sub.getReturnType()) ||
                  pkgTopTypedefTs.count((const void*)&sub.getReturnType())) &&
-                r11u200Law("R11U200_CLASSTDRET_OFF")) {
+                (lawOn(200, 202, "R11U200_CLASSTDRET_OFF") && !landingOff(202))) {
                 if (auto* tts200 = makeTypespec(*sub.returnValVar, retTypeSyn175(sub));
                     tts200 && tts200->UhdmType() == UHDM::uhdmclass_typespec &&
                     !tts200->VpiName().empty()) {
@@ -5277,7 +5208,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // `P::S`; an imported `B` return keeps `B` -> `P::B`, f02).  The
             // marker set is LAW S's skip, as § dpiListingIoRt33's is.
             if (ts && sub.getReturnType().kind == SymbolKind::TypeAlias &&
-                r11u196Law("R11U196_RETQUALTD_OFF"))
+                lawOn(196, "R11U196_RETQUALTD_OFF"))
                 if (auto* rs196 = retTypeSyn175(sub);
                     rs196 && rs196->kind == syntax::SyntaxKind::NamedType)
                     if (const syntax::NameSyntax* qn196 =
@@ -5422,7 +5353,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // an existing VpiFile): map 12's AWAY records N2467 and
                 // N2468.  Grid tools/probe/v11u202repro/cases/TR.
                 const bool retVar202v =
-                    classTdRet200 && r11v202Law("R11V202_TDRETVAR_OFF");
+                    classTdRet200 && (lawFixOn(202, "R11V202_TDRETVAR_OFF") && !landingOff(202));
                 if (classTdRet200 &&
                     (rv->UhdmType() == UHDM::uhdmref_var || retVar202v))
                     if (auto* rsynT = retTypeSyn175(sub)) {
@@ -5447,7 +5378,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 if (auto* rsyn200 = retTypeSyn175(sub);
                     rsyn200 && syntax::IntegerTypeSyntax::isKind(rsyn200->kind) &&
                     rsyn200->as<syntax::IntegerTypeSyntax>().signing.valid() &&
-                    r11u200Law("R11U200_SIGNSPAN_OFF")) {
+                    (lawOn(200, 202, "R11U200_SIGNSPAN_OFF") && !landingOff(202))) {
                     auto rr200 = rsyn200->sourceRange();
                     if (rr200.start() != SourceLocation::NoLocation) {
                         int ol200 = rv->VpiEndColumnNo();
@@ -5646,7 +5577,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // formals.  Grid tools/probe/r11u175uvm/cases/f4.  Switch
         // R11U175_FSPAN_OFF (R11U175_OFF drops every r11u175 law).
         auto args175 = sub.getArguments();
-        if (protoOf && r11u175LawB("R11U175_FSPAN_OFF") &&
+        if (protoOf && lawOn(175, "R11U175_FSPAN_OFF") &&
             protoOf->getArguments().size() == args175.size())
             args175 = protoOf->getArguments();
         for (auto arg : args175) {
@@ -6513,7 +6444,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // where ours kept the typedef's uvm_object_globals.svh (setLoc
                 // fills only an EMPTY file, and makeTypespec had filed the
                 // clone at the typedef).  Grid tools/probe/r11u196repro/cases/SF.
-                if (argTsyn && r11u196Law("R11U196_FORMALCLONEFILE_OFF"))
+                if (argTsyn && lawOn(196, "R11U196_FORMALCLONEFILE_OFF"))
                     if (auto st196 = argTsyn->sourceRange().start();
                         st196 != SourceLocation::NoLocation)
                         if (auto f196 = fullFilePath(st196);
@@ -6584,7 +6515,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     setLoc((UHDM::BaseClass*)ts, argTsyn->sourceRange());
                 // § tfFormalTdCloneFile196 — the unpacked-array formal's
                 // element clone, the same compile at the type token.
-                if (argTsyn && r11u196Law("R11U196_FORMALCLONEFILE_OFF"))
+                if (argTsyn && lawOn(196, "R11U196_FORMALCLONEFILE_OFF"))
                     if (auto st196 = argTsyn->sourceRange().start();
                         st196 != SourceLocation::NoLocation)
                         if (auto f196 = fullFilePath(st196);
@@ -6771,7 +6702,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             // the same target (no stored name) and the type
                             // token's span and file.  Switch
                             // R11U214_CLONENAME_OFF.
-                            if (r11u214Law("R11U214_CLONENAME_OFF") &&
+                            if (lawOn(214, 219, "R11U214_CLONENAME_OFF") &&
                                 acp32->UhdmType() == UHDM::uhdmenum_typespec) {
                                 auto* ce214 = (UHDM::enum_typespec*)acp32;
                                 acp32->VpiParent(io);
@@ -7807,7 +7738,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // R11U209_TFINITTYPE_OFF.
                 bool initAtType209 =
                     hasInit && !blockLocal && !blockItems9 &&
-                    r11u209Law("R11U209_TFINITTYPE_OFF");
+                    lawOn(209, "R11U209_TFINITTYPE_OFF");
                 if (initAtType209)
                     trace209("tfItemInitLocalAtType209", std::string(fmv.name));
                 if (blockLocal || (hasInit && !initAtType209) || blockItems9) {

@@ -268,39 +268,14 @@ static bool r237vRootKwSv(const slang::SourceManager* sm, slang::SourceLocation 
 // census): one file per process, `<dir>/<pid>.TE`, its first line the
 // `-o` database path read off the command line, then one law name per firing.
 static void tr191TE(const char* law) {
-    static FILE* tf = [] () -> FILE* {
-        const char* d = getenv("R11U191_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".TE";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(191, "TE");
     if (tf) {
         fprintf(tf, "%s\n", law);
         fflush(tf);
     }
 }
 static bool r191TE(const char* sw) {
-    if (getenv("R11U191_OFF") != nullptr || getenv("R11U196_OFF") != nullptr)
+    if (envSet("R11U191_OFF") || envSet("R11U196_OFF"))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -312,45 +287,13 @@ extern std::map<const void*, UHDM::typespec*> g_typeParamOwnTs183;
 // census): one file per process, `<dir>/<pid>.<unit>`, its first line the
 // `-o` database path read off the command line, then one law name per firing.
 static void tr183TE(const char* law) {
-    static FILE* tf = [] () -> FILE* {
-        const char* d = getenv("R11U183_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".TE";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(183, "TE");
     if (tf) {
         fprintf(tf, "%s\n", law);
         fflush(tf);
     }
 }
-static bool r11u183LawTE(const char* sw) {
-    if (getenv("R11U183_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
-bool r11u171Law(const char* sw); // the r11u171 switches (UhdmExporter.cpp)
-bool r11u176Law(const char* sw); // the r11u176 switches (UhdmExporter.cpp)
 void trace176(const char* law, const std::string& detail); // R11U176_TRACE
 void trace171(const char* law, const std::string& detail); // R11U171_TRACE
 
@@ -358,31 +301,20 @@ void trace171(const char* law, const std::string& detail); // R11U171_TRACE
 // the pass, R11U148_I_OFF this file's one.
 static bool i148On() {
     // R11U146_OFF (the landing pass's master switch) drops it too.
-    static const bool on = getenv("R11U148_OFF") == nullptr &&
-                           getenv("R11U146_OFF") == nullptr &&
-                           getenv("R11U148_I_OFF") == nullptr;
+    static const bool on = !envSet("R11U148_OFF") &&
+                           !envSet("R11U146_OFF") &&
+                           !envSet("R11U148_I_OFF");
     return on;
 }
 
 // r11u130's gate (defined in UhdmExporter.cpp; the switch table is there).
-bool r11u130Law(const char* sw);
-bool r11u134Law(const char* sw);
-bool r11u137Law(const char* sw);
-bool r11u200Law(const char* sw); // the r11u200 switches (UhdmExporter.cpp)
 void trace200(const char* law, const std::string& detail); // R11U200_TRACE
-bool r11u202Law(const char* sw); // the r11u202 switches (UhdmExporter.cpp)
 void trace202(const char* law, const std::string& detail); // R11U202_TRACE
-bool r11u205Law(const char* sw); // the r11u205 switches (UhdmExporter.cpp)
-bool r11u209Law(const char* sw); // the r11u209 switches (UhdmExporter.cpp)
-bool r11u212Law(const char* sw); // the r11u212 switches (UhdmExporter.cpp)
-bool r11u214Law(const char* sw); // the r11u214 switches (UhdmExporter.cpp)
 void trace214(const char* law, const std::string& detail);
-bool r11u219Law(const char* sw); // the r11u219 switches (UhdmExporter.cpp)
 void trace219(const char* law, const std::string& detail); // R11U219_TRACE
 void trace212(const char* law, const std::string& detail); // R11U212_TRACE
 void trace209(const char* law, const std::string& detail); // R11U209_TRACE
 void trace205(const char* law, const std::string& detail); // R11U205_TRACE
-bool r11v202Law(const char* sw); // the v11u202 switches (UhdmExporter.cpp)
 // § defGenInitBitSelAtIndex202 — armed by ModuleEmit around a definition-view
 // generate-block variable's initializer (R11U202_GENINITBS_OFF read there).
 bool& defGenInitRvalue202() {
@@ -449,13 +381,8 @@ static bool ansiFormal200(const slang::ast::Symbol& sym,
     }
     return false;
 }
-bool r11u144Law(const char* sw);
 // § tpDefaultEndTopTwin149v (r11u149 verifier) — defined in ModuleEmit.cpp.
 void tpEndTopTwin149(const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t);
-bool r11u146Law(const char* sw);
-bool r11u152Law(const char* sw); // the r11u152 switches (UhdmExporter.cpp)
-bool r11u155Law(const char* sw); // the r11u155 switches (UhdmExporter.cpp)
-bool r11u160Law(const char* sw); // the r11u160 switches (UhdmExporter.cpp)
 
 // ===== r11u161 — the definition-view generate-scope path family and the
 // non-package enum alias clone (tools/probe/r11u161gen/README.md) =====
@@ -465,16 +392,11 @@ bool r11u160Law(const char* sw); // the r11u160 switches (UhdmExporter.cpp)
 // location it copies), R11U161_ALIAS_OFF (the alias clone).  R11U161_OFF
 // drops every one of them (pristine bytes).  R11U161_TRACE=1 prints one
 // stderr line per decision.
-bool r11u161Law(const char* sw) {
-    if (getenv("R11U161_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 static bool r161(const char* law, const char* axis) {
-    return r11u161Law(law) && r11u161Law(axis);
+    return lawOn(161, law) && lawOn(161, axis);
 }
 static bool r161Trace() {
-    static const bool t = getenv("R11U161_TRACE") != nullptr;
+    static const bool t = lawTraceOn(161);
     return t;
 }
 // § defGenPathSel161 — the cont_assign whose LHS the definition-view
@@ -532,7 +454,7 @@ static bool underDefGen161(const UHDM::BaseClass* p) {
 // (not decided here: keep the legacy form).  A `?:` or a pattern on the way
 // up abstains (its arms are split between the two writers).
 static int defGenRoute161(const UHDM::BaseClass* parent) {
-    if (!r11u161Law("R11U161_ROUTE_OFF"))
+    if (!lawOn(161, "R11U161_ROUTE_OFF"))
         return 0;
     // § defGenCfcThroughCondSel255 (r11u255, Earlgrey_0_1 #206088 / #206089 /
     // #206093 / #206094, pinmux.sv 228-230: `assign pin_value = (c) ?
@@ -634,7 +556,7 @@ static bool paramAliasBoundUnstored144 = false;
 // tools/probe/r11u130repro/grid/g8 k01-k04, k06 with `signed` on the next
 // line, k07 in an interface).  Switch: R11U130_SUSIGN_OFF.
 static bool suSigningNotInSpan130() {
-    static const bool on = r11u130Law("R11U130_SUSIGN_OFF");
+    static const bool on = lawOn(130, "R11U130_SUSIGN_OFF");
     return on;
 }
 
@@ -667,8 +589,8 @@ static bool inlineStructKwOnly279(const slang::syntax::SyntaxNode* tsyn) {
 // § spanCopyCarriesFile125 — the TypeEmit twin of ModuleEmit.cpp's helper
 // (see the law there).  Switch: R11U125_SPANFILE_OFF (and R11U125_OFF).
 static void cpFile125(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
-    static const bool off = getenv("R11U125_OFF") != nullptr ||
-                            getenv("R11U125_SPANFILE_OFF") != nullptr;
+    static const bool off = envSet("R11U125_OFF") ||
+                            envSet("R11U125_SPANFILE_OFF");
     if (off || !dst || !src || !dst->VpiFile().empty() || src->VpiFile().empty())
         return;
     dst->VpiFile(src->VpiFile());
@@ -739,12 +661,10 @@ static bool paramValueSigned89(const ParameterSymbol& p, int depth,
 // answer this pass CHANGES — so the mover set is PREDICTED BY NAME from the
 // pristine corpus before the patched sweep ever runs.
 static const bool r11u48Off = [] {
-    const char* v = getenv("R11U48_OFF");
-    return v && *v && *v != '0';
+        return envTrue("R11U48_OFF");
 }();
 static const bool r11u48Dbg = [] {
-    const char* v = getenv("R11U48_DBG");
-    return v && *v && *v != '0';
+        return envTrue("R11U48_DBG");
 }();
 
 
@@ -937,7 +857,7 @@ UHDM::constant* UhdmExporter::crossPkgBoundFoldConst9(const ParameterSymbol& psy
     // PmpAddrRst), golden's name is empty; ours stored the owner's
     // (`ibex_pkg::PmpAddrRst`).  Switch R11U152_FOLDCHAIN_OFF.
     bool chainless152 = false;
-    if (r11u152Law("R11U152_FOLDCHAIN_OFF")) {
+    if (lawOn(152, "R11U152_FOLDCHAIN_OFF")) {
         const UHDM::BaseClass* q152 = parent;
         while (q152) {
             const UHDM::BaseClass* up152 = q152->VpiParent();
@@ -1483,8 +1403,8 @@ void r11u113InlineEnumBaseInstance() {
 
 static const ParameterSymbol* typedBoundParam113(
     const syntax::ExpressionSyntax* bsyn, const Symbol& declSym) {
-    static const bool off113 = getenv("R11U113_OFF") != nullptr ||
-                               getenv("R11U113_RBND_OFF") != nullptr;
+    static const bool off113 = envSet("R11U113_OFF") ||
+                               envSet("R11U113_RBND_OFF");
     if (off113 || !bsyn || bsyn->kind != syntax::SyntaxKind::IdentifierName)
         return nullptr;
     if (declSym.kind != SymbolKind::Variable && declSym.kind != SymbolKind::Net &&
@@ -2221,9 +2141,7 @@ std::string UhdmExporter::classTpGroupDeclName87(
 // out-of-body definition's local (§ 87's fence), nor an inherited
 // parameter.  Grid
 // tools/probe/r11u180repro/cases/A.  Switch R11U180_TPUSE_OFF.
-bool r11u180Law(const char* sw);
 void trace180(const char* law, const std::string& detail);
-bool r11u186Law(const char* sw);   // the r11u186 switches (UhdmExporter.cpp)
 void trace186(const char* law, const std::string& detail); // R11U186_TRACE
 namespace {
 std::map<const Symbol*, UHDM::typespec*> tpOwnTs180;
@@ -2264,7 +2182,7 @@ static bool tpInInstanceBody271(const Symbol* tp) {
 // root of a type parameter (itself when its default is not a bare type
 // parameter name of its own class).  Switch R11U180_TPCHAIN_OFF.
 static const Symbol* tpChainRoot180(const Symbol* f) {
-    if (!f || f->kind != SymbolKind::TypeParameter || !r11u180Law("R11U180_TPCHAIN_OFF"))
+    if (!f || f->kind != SymbolKind::TypeParameter || !lawOn(180, "R11U180_TPCHAIN_OFF"))
         return f;
     const Scope* body = f->getParentScope();
     for (int guard = 0; body && guard < 16; guard++) {
@@ -2457,9 +2375,7 @@ void noteTpOwnTs180(const Symbol* tp, UHDM::typespec* ts, bool winner87) {
 // the typedef's shared one: no relocation of it here).  Switch
 // R11U188_TPKEYWORD_OFF.
 bool isQualTdRt196(const UHDM::ref_typespec* rt);
-bool r11u196Law(const char* sw);  // the r11u196 switches (UhdmExporter.cpp)
 void trace196(const char* law, const std::string& detail);
-bool r11u188Law(const char* sw);  // the r11u188 switches (UhdmExporter.cpp)
 void trace188(const char* law, const std::string& detail);
 static const syntax::DataTypeSyntax* tpDefaultSyn188(const Symbol& tp) {
     // the class HEADER's written default
@@ -2624,7 +2540,7 @@ static std::vector<std::pair<uint32_t, size_t>> inclChain188(SourceLocation loc)
         // grid tools/probe/v11u188repro/cases/M m01 m04, golden the
         // expansion's `T v` 7:26 where ours kept the plain formal before it).
         if (sm188->isMacroLoc(loc))
-            loc = r11u188Law("R11V188_MACROEXP_OFF") ? sm188->getFullyExpandedLoc(loc)
+            loc = lawOn(188, "R11V188_MACROEXP_OFF") ? sm188->getFullyExpandedLoc(loc)
                                                      : sm188->getFullyOriginalLoc(loc);
         v.push_back({loc.buffer().getId(), loc.offset()});
         auto up = sm188->getIncludedFrom(loc.buffer());
@@ -2656,7 +2572,7 @@ std::vector<std::pair<const Symbol*, UHDM::typespec*>> tpFormalAll180;
 static void noteTpUseImpl(UHDM::typespec* ts, const Symbol& declSymbol,
                           const syntax::SyntaxNode* typeSyn, bool keyword188) {
     const bool formal = declSymbol.kind == SymbolKind::FormalArgument;
-    if (!ts || !r11u180Law(formal ? "R11U180_TPFORMAL_OFF" : "R11U180_TPUSE_OFF"))
+    if (!ts || !lawOn(180, formal ? "R11U180_TPFORMAL_OFF" : "R11U180_TPUSE_OFF"))
         return;
     auto* tp = classTpOfDecl180(declSymbol, typeSyn, keyword188);
     if (!tp)
@@ -2674,12 +2590,12 @@ static void noteTpUseImpl(UHDM::typespec* ts, const Symbol& declSymbol,
         tpFormalAll180.push_back({tp, ts});
         noteTpGroup234(ts, tp, true, typeSyn);  // § tpGroupOneSpan234
         TpFormal180 f{ts, st.buffer().getId(), st.offset(), {}};
-        const bool incOrder188 = r11u188Law("R11U188_TPINCORDER_OFF");
+        const bool incOrder188 = lawOn(188, "R11U188_TPINCORDER_OFF");
         if (incOrder188) {
             f.chain = inclChain188(st);
             // § tpFormalMacroAtExpansion188v — the census names every macro
             // formal whose stream position the refinement decides.
-            if (sm188 && sm188->isMacroLoc(st) && r11u188Law("R11V188_MACROEXP_OFF"))
+            if (sm188 && sm188->isMacroLoc(st) && lawOn(188, "R11V188_MACROEXP_OFF"))
                 trace188("tpFormalMacroAtExpansion188v", std::string(tp->name) + " " +
                                                              std::string(declSymbol.name));
         }
@@ -2707,7 +2623,7 @@ void noteTpUse180(UHDM::typespec* ts, const Symbol& declSymbol,
 static void noteTpUseKeyword188(UHDM::typespec* ts, const Symbol& declSymbol,
                                 const syntax::SyntaxNode* typeSyn) {
     if (!ts || ts->UhdmType() == UHDM::uhdmclass_typespec ||
-        !r11u188Law("R11U188_TPKEYWORD_OFF"))
+        !lawOn(188, "R11U188_TPKEYWORD_OFF"))
         return;
     if (declSymbol.kind != SymbolKind::Variable &&
         declSymbol.kind != SymbolKind::ClassProperty &&
@@ -3446,7 +3362,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     sm188 = sm;  // § tpFormalIncludeOrder188
     {
         static std::set<const Symbol*> inHook188;
-        if (!inHook188.count(&declSymbol) && r11u188Law("R11U188_TPKEYWORD_OFF")) {
+        if (!inHook188.count(&declSymbol) && lawOn(188, "R11U188_TPKEYWORD_OFF")) {
             const syntax::SyntaxNode* tsyn188 = typeSynOverride;
             if (!tsyn188)
                 if (auto* dt188 = declSymbol.getDeclaredType())
@@ -3519,10 +3435,10 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     return sh234;
                 }
     }
-    const bool defer186 = r11u186Law("R11U186_TPDEFER_OFF") &&
-                          r11u180Law("R11U180_TPUSE_OFF");
-    if (!typeSynOverride && !defer186 && r11u183LawTE("R11U183_TSSPAN_OFF") &&
-        r11u183LawTE("R11U183_TYPEPARAM_OFF"))
+    const bool defer186 = lawOn(186, "R11U186_TPDEFER_OFF") &&
+                          lawOn(180, "R11U180_TPUSE_OFF");
+    if (!typeSynOverride && !defer186 && lawOn(183, "R11U183_TSSPAN_OFF") &&
+        lawOn(183, "R11U183_TYPEPARAM_OFF"))
         if (declSymbol.kind == SymbolKind::Variable ||
             declSymbol.kind == SymbolKind::ClassProperty)
             if (auto* dt183 = declSymbol.getDeclaredType())
@@ -3552,7 +3468,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     // where the law never fires.  Switch R11U186_TPGATE_OFF.
                     bool tpName186 = true;
                     if (nm183.kind == syntax::SyntaxKind::IdentifierName &&
-                        !dims183 && r11u186Law("R11U186_TPGATE_OFF")) {
+                        !dims183 && lawOn(186, "R11U186_TPGATE_OFF")) {
                         tpName186 = false;
                         auto want186 = nm183.as<syntax::IdentifierNameSyntax>()
                                            .identifier.valueText();
@@ -4048,7 +3964,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 if (dsyn0->parent &&
                     dsyn0->kind == syntax::SyntaxKind::Declarator &&
                     dsyn0->as<syntax::DeclaratorSyntax>().initializer &&
-                    r11u152Law("R11U152_CGINITEND_OFF"))
+                    lawOn(152, "R11U152_CGINITEND_OFF"))
                     setLoc(uts,
                            SourceRange(dsyn0->parent->sourceRange().start(),
                                        dsyn0->as<syntax::DeclaratorSyntax>()
@@ -4463,7 +4379,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             bool modGeneric196 = false;
             {
                 auto& cls196 = ct0.as<ClassType>();
-                if (cls196.genericClass && r11u196Law("R11U196_MODGENHANDLE_OFF"))
+                if (cls196.genericClass && lawOn(196, "R11U196_MODGENHANDLE_OFF"))
                     if (auto* gsc196 = cls196.genericClass->getParentScope()) {
                         while (gsc196 &&
                                (gsc196->asSymbol().kind == SymbolKind::GenerateBlock ||
@@ -4493,7 +4409,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // R11U209_TFSPECNAME_OFF.
             bool tfItemSpec209 = false;
             if (tfItemLocalClassTs142 && nested0 && pkgGeneric53 &&
-                r11u209Law("R11U209_TFSPECNAME_OFF")) {
+                lawOn(209, "R11U209_TFSPECNAME_OFF")) {
                 auto& cls209 = ct0.as<ClassType>();
                 const Symbol* g209 =
                     cls209.genericClass ? static_cast<const Symbol*>(cls209.genericClass)
@@ -4531,13 +4447,13 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // R11U196_MODGENHANDLE_OFF drops pass 196's; switch
             // R11U200_CLASSCRASH_OFF.
             bool modGeneric200 = false;
-            if (!modGeneric196 && !r11u196Law("R11U196_MODGENHANDLE_OFF")) {
+            if (!modGeneric196 && !lawOn(196, "R11U196_MODGENHANDLE_OFF")) {
                 auto& cls200 = ct0.as<ClassType>();
                 if (cls200.genericClass)
                     if (auto* gsc200 = cls200.genericClass->getParentScope();
                         gsc200 &&
                         gsc200->asSymbol().kind == SymbolKind::InstanceBody &&
-                        r11u200Law("R11U200_CLASSCRASH_OFF")) {
+                        (lawOn(200, 202, "R11U200_CLASSCRASH_OFF") && !landingOff(202))) {
                         modGeneric200 = true;
                         trace200("modGenericClassListedAtDefault200",
                                  "tsnoparams " + std::string(declSymbol.name));
@@ -4564,7 +4480,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // control).
             bool modPkgSpec202 = false;
             if (declInInstance53 && pkgGeneric53 &&
-                r11u202Law("R11U202_MODPKGSPEC_OFF"))
+                (lawOn(202, "R11U202_MODPKGSPEC_OFF") && !landingOff(202)))
                 if (auto tsynP202 = declared->getTypeSyntax())
                     if (auto* ntP202 = tsynP202->as_if<syntax::NamedTypeSyntax>())
                         if (auto* snP202 = ntP202->name->as_if<syntax::ScopedNameSyntax>();
@@ -4661,7 +4577,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // declaration only: a class method's local (`uvm_callback_iter
                 // #(..) iter = new(this);` in uvm_pkg) keeps the type span
                 // (golden 33527:6-33527:48; BuildUVMPkg, MiniAmiq).
-                if (!listingSite53 && r11u152Law("R11U152_CLSVARINIT_OFF") &&
+                if (!listingSite53 && lawOn(152, "R11U152_CLSVARINIT_OFF") &&
                     declSymbol.getParentScope() &&
                     declSymbol.getParentScope()->asSymbol().kind ==
                         SymbolKind::InstanceBody)
@@ -4726,7 +4642,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // canonicalised).  Grid tools/probe/v11u202repro/cases/VA
                 // a04-a07.
                 auto defMulti202v = [&](const syntax::ClassNameSyntax& cn) {
-                    if (!moduleDefEmit || !r11v202Law("R11V202_VALSPECDEF_OFF") ||
+                    if (!moduleDefEmit || !(lawFixOn(202, "R11V202_VALSPECDEF_OFF") && !landingOff(202)) ||
                         !cn.parameters || cn.parameters->parameters.size() < 2)
                         return false;
                     trace202("modSpecValueArgDefViewMultiArg202v",
@@ -4734,7 +4650,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     return true;
                 };
                 if (declInInstance53 && !cts->Parameters() &&
-                    r11u202Law("R11U202_VALSPECSPAN_OFF"))
+                    (lawOn(202, "R11U202_VALSPECSPAN_OFF") && !landingOff(202)))
                     if (auto* ntV202 = tsyn0->as_if<syntax::NamedTypeSyntax>();
                         ntV202 && ntV202->name &&
                         ntV202->name->kind == syntax::SyntaxKind::ClassName &&
@@ -4973,7 +4889,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // 603:10-603:13, ours 603:10-603:22; r11u137's bt13 read the
                 // return as a formal).  Grid tools/probe/r11u200dec/cases/S.
                 // Switch R11U200_SIGNSPAN_OFF.
-                if (tfSig137 && r11u200Law("R11U200_SIGNSPAN_OFF") &&
+                if (tfSig137 && (lawOn(200, 202, "R11U200_SIGNSPAN_OFF") && !landingOff(202)) &&
                     declSymbol.kind != SymbolKind::Subroutine &&
                     !ansiFormal200(declSymbol, tsyn)) {
                     tfSig137 = false;
@@ -4994,14 +4910,14 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // R11V137_DEFWIRE_OFF.
                 bool defBodyNet137 = false;
                 if (defNetTsScope && !portCtx && declSymbol.kind == SymbolKind::Net &&
-                    !getenv("R11V137_DEFWIRE_OFF") && !getenv("R11V137_OFF"))
+                    !envSet("R11V137_DEFWIRE_OFF") && !envSet("R11V137_OFF"))
                     if (auto ds137 = declSymbol.getSyntax();
                         ds137 && ds137->parent &&
                         ds137->parent->kind == syntax::SyntaxKind::NetDeclaration)
                         defBodyNet137 = true;
                 if (explicitType && !tfSig137 && !defBodyNet137 &&
                     syntax::IntegerTypeSyntax::isKind(tsyn->kind) &&
-                    r11u137Law("R11U137_UNSIGNEDSPAN_OFF")) {
+                    lawOn(137, "R11U137_UNSIGNEDSPAN_OFF")) {
                     auto& its137 = tsyn->as<syntax::IntegerTypeSyntax>();
                     if ((tsyn->kind == syntax::SyntaxKind::BitType ||
                          tsyn->kind == syntax::SyntaxKind::LogicType ||
@@ -5086,7 +5002,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         if (ct.kind == SymbolKind::FloatingType && mergedPort && portDeclTypeSyn &&
             portDeclTypeSyn->kind == syntax::SyntaxKind::ImplicitType &&
             portDeclTypeSyn->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
-            r11u180Law("R11U180_PORTINTREDECL_OFF") && r191TE("R11U191_REALPORT_OFF")) {
+            lawOn(180, "R11U180_PORTINTREDECL_OFF") && r191TE("R11U191_REALPORT_OFF")) {
             auto* lt191 = s.MakeLogic_typespec();
             if (portDeclTypeSyn->as<syntax::ImplicitTypeSyntax>().signing.kind ==
                 parsing::TokenKind::SignedKeyword)
@@ -5151,7 +5067,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // downstream IDENTICAL -> EQUIVALENT).
             // Switch R11V159_ELEMALIAS_OFF.
             static const bool aliasPkg159v =
-                getenv("R11V159_ELEMALIAS_OFF") == nullptr;
+                !envSet("R11V159_ELEMALIAS_OFF");
             auto aliasInPkg159v = [&]() {
                 if (!aliasPkg159v)
                     return true;
@@ -5159,7 +5075,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // emitted as golden's clone (the enum's span, Typedef_alias ->
                 // the enum), the element may name it in every scope: the
                 // guard now holds only while that law is switched off.
-                if (r11u161Law("R11U161_ALIAS_OFF"))
+                if (lawOn(161, "R11U161_ALIAS_OFF"))
                     if (auto a161 = typedefTs.find(leaf);
                         a161 != typedefTs.end() && a161->second &&
                         a161->second->UhdmType() == UHDM::uhdmenum_typespec &&
@@ -5167,13 +5083,13 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         return true;
                 auto* ps = leaf->getParentScope();
                 bool in = ps && ps->asSymbol().kind == SymbolKind::Package;
-                if (!in && getenv("R11V159_TRACE"))
+                if (!in && lawTraceOn(159))
                     fprintf(stderr, "R11V159 ELEMALIAS\n");
                 return in;
             };
             if (leaf->kind == SymbolKind::TypeAlias &&
                 lc.kind == SymbolKind::EnumType &&
-                r11u152Law("R11U152_ELEMALIAS_OFF") && aliasInPkg159v())
+                lawOn(152, "R11U152_ELEMALIAS_OFF") && aliasInPkg159v())
                 if (auto ait152 = typedefTs.find(leaf);
                     ait152 != typedefTs.end() && ait152->second)
                     elemTs = ait152->second;
@@ -5887,7 +5803,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // R11U152_PKGELEMPAT_OFF.
                 bool scopedMember152 = false;
                 if (structMemberTsCtx &&
-                    r11u152Law("R11U152_PKGELEMPAT_OFF"))
+                    lawOn(152, "R11U152_PKGELEMPAT_OFF"))
                     if (auto* dsn152 = declSymbol.getSyntax();
                         dsn152 && dsn152->parent &&
                         dsn152->parent->kind ==
@@ -5912,7 +5828,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // R11U152_PKGLEAFLOC_OFF.
                 bool bareWritten152 = false;
                 if (pkgLeaf && !structMemberTsCtx &&
-                    r11u152Law("R11U152_PKGLEAFLOC_OFF"))
+                    lawOn(152, "R11U152_PKGLEAFLOC_OFF"))
                     if (auto* tw152 = declared->getTypeSyntax();
                         tw152 && tw152->kind == syntax::SyntaxKind::NamedType &&
                         tw152->as<syntax::NamedTypeSyntax>().name &&
@@ -5936,7 +5852,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // tools/probe/r11u155repro/cases/FN.  Switch:
                 // R11U155_DIRLESSNAME_OFF.
                 if (declSymbol.kind == SymbolKind::FormalArgument &&
-                    !structMemberTsCtx && r11u155Law("R11U155_DIRLESSNAME_OFF"))
+                    !structMemberTsCtx && lawOn(155, "R11U155_DIRLESSNAME_OFF"))
                     if (auto* tw155 = declared->getTypeSyntax();
                         tw155 && tw155->kind == syntax::SyntaxKind::NamedType)
                         for (auto p155 = declSymbol.getSyntax(); p155;
@@ -6120,7 +6036,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             if (mergedPort && portDeclTypeSyn &&
                 portDeclTypeSyn->kind == syntax::SyntaxKind::ImplicitType &&
                 portDeclTypeSyn->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
-                r11u180Law("R11U180_PORTINTREDECL_OFF")) {
+                lawOn(180, "R11U180_PORTINTREDECL_OFF")) {
                 auto* lt180 = s.MakeLogic_typespec();
                 if (portDeclTypeSyn->as<syntax::ImplicitTypeSyntax>().signing.kind ==
                     parsing::TokenKind::SignedKeyword)
@@ -6175,7 +6091,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // (compileTfPortList re-populates it at the Data_type node;
                 // golden `input int signed a` 3:25-3:35, ours 3:25-3:28).
                 if (declSymbol.kind == SymbolKind::FormalArgument &&
-                    r11u200Law("R11U200_SIGNSPAN_OFF") &&
+                    (lawOn(200, 202, "R11U200_SIGNSPAN_OFF") && !landingOff(202)) &&
                     ansiFormal200(declSymbol, typeSynFor())) {
                     auto tr200 = trimTypeSigning(typeSynFor(), range);
                     if (tr200.end() != range.end())
@@ -6228,7 +6144,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // R11U137_TAGGEDSPAN_OFF.
                 else if (su->taggedOrSoft &&
                          su->taggedOrSoft.kind == parsing::TokenKind::TaggedKeyword &&
-                         r11u137Law("R11U137_TAGGEDSPAN_OFF"))
+                         lawOn(137, "R11U137_TAGGEDSPAN_OFF"))
                     setLoc(uts, SourceRange(su->keyword.range().start(),
                                             su->taggedOrSoft.range().end()));
                 else
@@ -6259,7 +6175,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         // type, result)` on the keyword node, as for a nested anonymous
         // struct).  Grid tools/probe/r11u134repro/grid/an (an08, an10).
         // Switch: R11U134_MEMUNION_OFF.
-        else if (typeSynOverride && r11u134Law("R11U134_MEMUNION_OFF"))
+        else if (typeSynOverride && lawOn(134, "R11U134_MEMUNION_OFF"))
             if (auto* su134 =
                     typeSynOverride->as_if<syntax::StructUnionTypeSyntax>())
                 setLoc(uts, su134->keyword.range());
@@ -6294,7 +6210,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
              st->kind == SymbolKind::UnpackedStructType) && !arrayElem && declSymbol.kind == SymbolKind::TypeAlias &&
             bypassTypedefShare && !syntaxRefPrefix.empty() &&
             syntaxRefPrefix == paramTsOwnerFull9 &&
-            r11u152Law("R11U152_TPOVRSTRUCT_OFF"))
+            lawOn(152, "R11U152_TPOVRSTRUCT_OFF"))
             if (auto* hs152 = declSymbol.getParentScope();
                 hs152 &&
                 hs152->asSymbol().kind == SymbolKind::InstanceBody)
@@ -6359,7 +6275,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             bool wholeLhs160 = false;
             if ((full152 || !anyUse152) && currentScope &&
                 currentScope->asSymbol().kind == SymbolKind::InstanceBody &&
-                r11u160Law("R11U160_TPWHOLELHS_OFF")) {
+                lawOn(160, "R11U160_TPWHOLELHS_OFF")) {
                 const Type* ct160 = &st->getCanonicalType();
                 std::function<void(const Scope&)> scan160 = [&](const Scope& sc) {
                     for (auto& mb : sc.members()) {
@@ -6379,7 +6295,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             // 4 differing records, the unrefined law 10).
                             // Switch R11V160_TPWHOLEUNINST_OFF.
                             static const bool uninst160v =
-                                getenv("R11V160_TPWHOLEUNINST_OFF") == nullptr;
+                                !envSet("R11V160_TPWHOLEUNINST_OFF");
                             if (uninst160v && mb.kind == SymbolKind::GenerateBlock &&
                                 mb.as<GenerateBlockSymbol>().isUninstantiated)
                                 continue;
@@ -6438,7 +6354,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     // StructParamFieldRange, port_chained_type_param, 73
                     // probe cases).  Switch R11U146_TPSTRUCTKW_OFF.
                     else if (declSymbol.kind == SymbolKind::TypeParameter &&
-                             r11u146Law("R11U146_TPSTRUCTKW_OFF")) {
+                             lawOn(146, "R11U146_TPSTRUCTKW_OFF")) {
                         setLoc(sts, su->keyword.range());
                     }
                     // § inlineStructPortVarKwSpan279 (law at
@@ -6538,7 +6454,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     if (!explicitType && !netKeywordAnchor && !implicitSigning &&
         range.start() == range.end() &&
         range.start() != SourceLocation::NoLocation &&
-        !sm->isMacroLoc(range.start()) && r11u200Law("R11U200_IMPLEND_OFF")) {
+        !sm->isMacroLoc(range.start()) && (lawOn(200, 202, "R11U200_IMPLEND_OFF") && !landingOff(202))) {
         auto txt200 = sm->getSourceText(range.start().buffer());
         size_t j200 = range.start().offset();
         size_t n200 = 0;
@@ -6562,7 +6478,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         // CRLF break counts ONE character (golden `input\r\n    a` 2:23
         // where the law counted the `\r`: 2:24).  Grid
         // tools/probe/v11u202repro/cases/IE.
-        if (nl200 && j200 > 0 && r11v202Law("R11V202_IMPLCMT_OFF")) {
+        if (nl200 && j200 > 0 && (lawFixOn(202, "R11V202_IMPLCMT_OFF") && !landingOff(202))) {
             size_t ls202 = j200;
             while (ls202 > 0 && txt200[ls202 - 1] != '\n')
                 ls202--;
@@ -6580,7 +6496,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                          std::string(declSymbol.name));
             }
         }
-        if (nl200 && j200 > 0 && r11v202Law("R11V202_IMPLCR_OFF")) {
+        if (nl200 && j200 > 0 && (lawFixOn(202, "R11V202_IMPLCR_OFF") && !landingOff(202))) {
             size_t cr202 = 0;
             for (size_t q202 = j200; q202 < range.start().offset(); q202++)
                 if (txt200[q202] == '\r')
@@ -6604,7 +6520,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     // definition near the top of this file).
     bool alias144 = false;
     if (declSymbol.kind == SymbolKind::TypeAlias && typeSynOverride &&
-        !syntaxRefPrefix.empty() && r11u144Law("R11U144_PARAMALIASREF_OFF")) {
+        !syntaxRefPrefix.empty() && lawOn(144, "R11U144_PARAMALIASREF_OFF")) {
         // The typedef CLONE a parameter's typespec takes (makeParamTs hands
         // the alias and its target syntax with the parameter's path as the
         // reference prefix): the owner is a parameter of the alias's own
@@ -6670,8 +6586,8 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     // `R11U107_ANONAGG_OFF=1` drops the law.
     auto anonAggDim107 = [&](const syntax::SyntaxNode* tsyn107,
                              const DeclaredType* dt107) -> bool {
-        static const bool off107 = getenv("R11U107_OFF") != nullptr ||
-                                   getenv("R11U107_ANONAGG_OFF") != nullptr;
+        static const bool off107 = envSet("R11U107_OFF") ||
+                                   envSet("R11U107_ANONAGG_OFF");
         if (off107 || !tsyn107 || !dt107)
             return false;
         auto* su107 = tsyn107->as_if<syntax::StructUnionTypeSyntax>();
@@ -6805,7 +6721,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     // tools/probe/r11u155repro/cases/IA.  Switch:
                     // R11U155_IMPLARGDIM_OFF.
                     if (declSymbol.kind == SymbolKind::FormalArgument &&
-                        r11u155Law("R11U155_IMPLARGDIM_OFF"))
+                        lawOn(155, "R11U155_IMPLARGDIM_OFF"))
                         for (auto p155 = declSymbol.getSyntax(); p155;
                              p155 = p155->parent)
                             if (p155->kind == syntax::SyntaxKind::FunctionPort) {
@@ -9565,7 +9481,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                             break;
                                     }
                                     if (inGen144 ||
-                                        !r11u144Law("R11U144_FOLDTSNAME_OFF"))
+                                        !lawOn(144, "R11U144_FOLDTSNAME_OFF"))
                                         rt0->VpiFullName(boundOwnerFullName);
                                     rt0->VpiParent(c);
                                     auto* its0 = s.MakeInt_typespec();
@@ -9749,8 +9665,8 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     // never fires), and an explicit `wire` declaration is refused (the pinned
     // Surelog crashes on it, grid f5a13).  `R11U110_INIT_OFF=1` drops it.
     {
-        static const bool offInit110 = getenv("R11U110_OFF") != nullptr ||
-                                       getenv("R11U110_INIT_OFF") != nullptr;
+        static const bool offInit110 = envSet("R11U110_OFF") ||
+                                       envSet("R11U110_INIT_OFF");
         auto& dt110 = declared->getType();
         if (!offInit110 && dt110.kind == SymbolKind::TypeAlias) {
             auto* syn110 = dt110.getSyntax();
@@ -10185,7 +10101,7 @@ bool UhdmExporter::boundNamesSymCallParam12(const syntax::SyntaxNode* bsyn,
 static bool tpDefaultCaLhsUnparented146(Compilation& comp,
                                         const syntax::ExpressionSyntax* bsyn,
                                         const slang::ast::Scope* homeScope) {
-    static const bool on = r11u146Law("R11U146_TPCALHS_OFF");
+    static const bool on = lawOn(146, "R11U146_TPCALHS_OFF");
     if (!on || !bsyn || !homeScope ||
         homeScope->asSymbol().kind != SymbolKind::InstanceBody)
         return false;
@@ -10197,7 +10113,7 @@ static bool tpDefaultCaLhsUnparented146(Compilation& comp,
     // measured on module definitions only.  Switch R11V146_TPCALHSIF_OFF.
     if (homeScope->asSymbol().as<InstanceBodySymbol>().getDefinition()
                 .definitionKind != DefinitionKind::Module &&
-        r11u146Law("R11V146_TPCALHSIF_OFF"))
+        lawOn(146, "R11V146_TPCALHSIF_OFF"))
         return false;
     std::string_view tpName;
     const syntax::TypeAssignmentSyntax* taSyn146 = nullptr;
@@ -10280,7 +10196,7 @@ static bool tpDefaultCaLhsUnparented146(Compilation& comp,
                     // (`<in>T.W`; tools/probe/r11u153verify/cases/tn/
                     // j03_gen_local_net).  Only a Lhs declared in the
                     // instance body itself counts.  Switch R11U153_TPCAGEN_OFF.
-                    if (t == &tps.getTypeAlias() && r11u153On("R11U153_TPCAGEN_OFF") &&
+                    if (t == &tps.getTypeAlias() && lawOn(153, "R11U153_TPCAGEN_OFF") &&
                         lhs.as<NamedValueExpression>().symbol.getParentScope() !=
                             static_cast<const Scope*>(&body))
                         continue;
@@ -10489,11 +10405,6 @@ static std::string memberRootFile171(const slang::SourceManager* sm,
 // object carries), R11U172_SPAN_OFF (a sign call's name span in the syntax
 // view); R11U172_DEPTH_OFF is ExprEmit's (the elaborated package cast's
 // typedef listing).  R11U172_OFF drops every one of them (pristine bytes).
-static bool r11u172On(const char* sw) {
-    if (getenv("R11U172_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int64_t value,
                                              UHDM::BaseClass* parent) {
@@ -10515,7 +10426,7 @@ UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int6
         // Switch R11U186_BOUNDUS_OFF.
         if (syn->kind == syntax::SyntaxKind::IntegerLiteralExpression &&
             raw.find('_') != std::string::npos &&
-            r11u186Law("R11U186_BOUNDUS_OFF")) {
+            lawOn(186, "R11U186_BOUNDUS_OFF")) {
             trace186("boundLitUnderscoreDropped186", raw);
             raw = stripSep(raw);
         }
@@ -10534,7 +10445,7 @@ UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int6
         // text.  Grid tools/probe/r11u172rp/cases/V.  Switch
         // R11U172_VALUE_OFF.
         if (syn->kind == syntax::SyntaxKind::IntegerLiteralExpression &&
-            !raw.empty() && r11u172On("R11U172_VALUE_OFF")) {
+            !raw.empty() && lawOn(172, "R11U172_VALUE_OFF")) {
             std::string dig;
             bool ok = true;
             for (char ch : raw) {
@@ -10717,8 +10628,8 @@ UHDM::typespec* UhdmExporter::makeTypeParamDefaultTs(
     // dimension search, § anonPackedAggDimTs107); an ENUM default (t07) is
     // not touched.  `R11U107_TPAGG_OFF=1` drops the law.
     auto typeParamAnonAggTs107 = [&]() -> UHDM::typespec* {
-        static const bool off107 = getenv("R11U107_OFF") != nullptr ||
-                                   getenv("R11U107_TPAGG_OFF") != nullptr;
+        static const bool off107 = envSet("R11U107_OFF") ||
+                                   envSet("R11U107_TPAGG_OFF");
         if (off107)
             return nullptr;
         auto* su107 = defSyn.as_if<syntax::StructUnionTypeSyntax>();
@@ -10926,7 +10837,7 @@ UHDM::typespec* UhdmExporter::sharedTypespec(const Symbol& declSymbol, TsCache& 
     // declaration (`output x, y;`) still share.  Grid
     // tools/probe/r11u171repro/cases/N.  Switch R11U171_SPLITPORTKEY_OFF.
     if (portCtx && hasBodyDecl(declSymbol) &&
-        r11u171Law("R11U171_SPLITPORTKEY_OFF"))
+        lawOn(171, "R11U171_SPLITPORTKEY_OFF"))
         if (auto* psyn171 = mergedPortDeclTypeSyn9(*portCtx, declSymbol)) {
             key = psyn171;
             trace171("SPLITPORTKEY", std::string(declSymbol.name));
@@ -12220,7 +12131,7 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                     // tools/probe/r11u186repro/cases/D.  Switch
                     // R11U186_ENUMUS_OFF.
                     if (raw.find('_') != std::string::npos &&
-                        r11u186Law("R11U186_ENUMUS_OFF")) {
+                        lawOn(186, "R11U186_ENUMUS_OFF")) {
                         std::string dg186 = stripSep(raw);
                         if (!dg186.empty() && dg186.size() < 20) {
                             trace186("enumConstUnderscoreDropped186", raw);
@@ -15573,8 +15484,8 @@ void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
         // right).  Such hits are not candidates; with none left the law
         // abstains.
         std::set<const UHDM::task_func*> homeTfs243v;
-        const bool homeOnly243v = getenv("R11V243_OFF") == nullptr &&
-                                  getenv("R11V243_THISHOME_OFF") == nullptr;
+        const bool homeOnly243v = !envSet("R11V243_OFF") &&
+                                  !envSet("R11V243_THISHOME_OFF");
         if (homeOnly243v) {
             auto addTfs = [&](const UHDM::module_inst* m) {
                 if (!m)
@@ -16252,7 +16163,7 @@ void UhdmExporter::pkgImportCloneLastWriter32() {
     // stamps; the clone is ExprEmit's (the one-line alternative is the file
     // copy beside its span copy there).  Grid
     // tools/probe/r11u171repro/cases/U.  Switch R11U171_CASTUNIONFILE_OFF.
-    if (r11u171Law("R11U171_CASTUNIONFILE_OFF"))
+    if (lawOn(171, "R11U171_CASTUNIONFILE_OFF"))
         for (auto& [ty, ucl] : castUnionClone) {
             if (!ty || !ucl || !std::string_view(ucl->VpiFile()).empty())
                 continue;
@@ -16303,7 +16214,7 @@ void UhdmExporter::pkgImportCloneLastWriter32() {
     // declarator that ends there, the writer written last (syntax-tree
     // order) when two files share the position and the type name.
     // Grid tools/probe/r11u172rp/cases/F.  Switch R11U172_FILE_OFF.
-    if (!r11u172On("R11U172_FILE_OFF"))
+    if (!lawOn(172, "R11U172_FILE_OFF"))
         return;
     using LC = std::pair<uint32_t, uint32_t>;
     // Writer positions keyed by (position, the type NAME written there);
@@ -16328,7 +16239,7 @@ void UhdmExporter::pkgImportCloneLastWriter32() {
     // written as `s_t` at one position in two files stay apart (grid
     // v11u171 F/h10: golden files `pa::s_t` at b_pkg.sv, the name key merged
     // it with c_pkg.sv's `pz::s_t` formal).  Switch R11U176_TDKEY_OFF.
-    static const bool tdKey176 = r11u176Law("R11U176_TDKEY_OFF");
+    static const bool tdKey176 = lawOn(176, "R11U176_TDKEY_OFF");
     std::map<std::pair<LC, const Symbol*>, Site> formalAtSym176;
     const PackageSymbol* curPkg176 = nullptr;
     // § tdEndMoveModuleOrder176 (r11u176, v11u171 residue R1) — two files
@@ -16337,7 +16248,7 @@ void UhdmExporter::pkgImportCloneLastWriter32() {
     // definition map, NAME order, so the alphabetically last MODULE is the
     // last writer (grid v11u171 F/h05, h07: golden m1.sv over dut.sv).
     // Switch R11U176_TDTIE_OFF.
-    static const bool tdTie176 = r11u176Law("R11U176_TDTIE_OFF");
+    static const bool tdTie176 = lawOn(176, "R11U176_TDTIE_OFF");
     std::map<Key, std::vector<std::pair<std::string, std::string>>> declEndMod176;
     std::string curMod176;
     auto typeName = [](const syntax::DataTypeSyntax* dt) -> std::string {
@@ -16512,7 +16423,7 @@ void UhdmExporter::pkgImportCloneLastWriter32() {
                     if (fs->second.files != f->second.files)
                         trace176("TDKEY", tn + " " + fs->second.files.back());
                     site176 = &fs->second;
-                    if (r11u176Law("R11V176_TDKEYUNRES_OFF") &&
+                    if (lawOn(176, "R11V176_TDKEYUNRES_OFF") &&
                         f->second.syms176v.size() == f->second.files.size()) {
                         for (size_t i176 = 0; i176 < f->second.files.size(); i176++)
                             if (!f->second.syms176v[i176] ||
@@ -17675,7 +17586,7 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         for (auto& kv : s.AllObjects())
             if (kv.first)
                 v186.push_back((UHDM::any*)kv.first);
-        if (r11u186Law("R11U186_LAWSSORT_OFF"))
+        if (lawOn(186, "R11U186_LAWSSORT_OFF"))
             std::stable_sort(v186.begin(), v186.end(),
                              [](const UHDM::any* a, const UHDM::any* b) {
                                  return a->UhdmId() < b->UhdmId();
@@ -17687,7 +17598,7 @@ void UhdmExporter::bareScalarTypedefVarTs() {
     // a member copy was made) are the TRIGGERS; the minted order moves with
     // the sort exactly when the triggers' address order differs from their
     // creation order.  Traced as `lawSCopyIdOrder186 reorder|same <n>`.
-    static const bool tr186 = getenv("R11U186_TRACE") != nullptr;
+    static const bool tr186 = lawTraceOn(186);
     size_t memberMint186 = 0;
     std::vector<const UHDM::any*> trig186;
     size_t pre186 = 0;
@@ -17771,7 +17682,7 @@ void UhdmExporter::bareScalarTypedefVarTs() {
                 // tools/probe/r11u183dec/cases/f g01-g04.
                 auto* mrt183 = tm->Typespec();
                 auto* mcp183 = mrt183 ? mrt183->Actual_typespec() : nullptr;
-                if (mcp183 && r11u183LawTE("R11U183_BITTSNAME_OFF") &&
+                if (mcp183 && lawOn(183, "R11U183_BITTSNAME_OFF") &&
                     !mrt183->VpiFullName().empty())
                     if (auto* al183 = [&]() -> UHDM::ref_typespec* {
                             switch (mcp183->UhdmType()) {
@@ -18400,7 +18311,7 @@ bool UhdmExporter::isTypeParamAnonAggDefault35(const Scope& aggScope) const {
 // Grid tools/probe/r11u134repro/grid/an.  Switch: R11U134_ANONMEMBER_OFF.
 static void anonMemberRefPrefix134(UHDM::typespec* fts, UHDM::typespec_member* tm,
                                    const std::string& pfx) {
-    static const bool on = r11u134Law("R11U134_ANONMEMBER_OFF");
+    static const bool on = lawOn(134, "R11U134_ANONMEMBER_OFF");
     static std::set<const UHDM::BaseClass*> done;
     if (!on || !fts || pfx.empty() || !fts->VpiName().empty() ||
         fts->VpiParent() != tm || done.count(fts))
@@ -18623,7 +18534,7 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         tm->VpiParent(sts);
         setLoc(tm, nameSpan(fm.location, fm.name));
         // § tsMemberRootFile171 (helper above makeBoundConst).
-        const bool rootFile171 = r11u171Law("R11U171_MEMBERROOTFILE_OFF");
+        const bool rootFile171 = lawOn(171, "R11U171_MEMBERROOTFILE_OFF");
         if (rootFile171)
             if (auto rf171 = memberRootFile171(sm, fm.location); !rf171.empty()) {
                 if (rf171 != std::string(tm->VpiFile()))
@@ -18646,7 +18557,7 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             fm.getDeclaredType() &&
             fm.getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::QueueType &&
-            r11u212Law("R11U212_QUEUEMEMSPAN_OFF");
+            (lawOn(212, "R11U212_QUEUEMEMSPAN_OFF") && !landingOff(212));
         if (queueMem212)
             trace212("queueMemberSpanToDim212", std::string(fm.name));
         // § dynAssocMemberSpanToDim295 (r11u295) — A DYNAMIC OR ASSOCIATIVE
@@ -19065,8 +18976,8 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             UHDM::typespec* vtaMultiBase110 = nullptr;
             {
                 static const bool offMulti110 =
-                    getenv("R11U110_OFF") != nullptr ||
-                    getenv("R11U110_PKGTDMULTI_OFF") != nullptr;
+                    envSet("R11U110_OFF") ||
+                    envSet("R11U110_PKGTDMULTI_OFF");
                 if (!offMulti110 && !fts && !vtaMem && inPkgTypedefEmit &&
                     !pkgTopEmit && fm.getDeclaredType() &&
                     fm.getDeclaredType()->getType().kind ==
@@ -19095,8 +19006,8 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             if (!fts && ((vtaMem && vtaMemBase) || vtaMulti110) &&
                 inPkgTypedefEmit && (!pkgTopEmit || top279)) {
                 static const bool off108 =
-                    getenv("R11U108_OFF") != nullptr ||
-                    getenv("R11U108_PKGTDMEM_OFF") != nullptr;
+                    envSet("R11U108_OFF") ||
+                    envSet("R11U108_PKGTDMEM_OFF");
                 const bool multi110 = !(vtaMem && vtaMemBase);
                 if (multi110) {
                     vtaMem = vtaMulti110;
@@ -19615,8 +19526,8 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 memberTypeSyn->kind == syntax::SyntaxKind::EnumType &&
                 fm.getDeclaredType()->getType().kind == SymbolKind::EnumType) {
                 static const bool off113e =
-                    getenv("R11U113_OFF") != nullptr ||
-                    getenv("R11U113_ENUM_OFF") != nullptr;
+                    envSet("R11U113_OFF") ||
+                    envSet("R11U113_ENUM_OFF");
                 if (!off113e) {
                     auto* e113 = buildEnumTs(
                         fm.getDeclaredType()->getType().as<EnumType>(),
@@ -19652,7 +19563,7 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 // question).  Grid tools/probe/r11u209repro/cases/CS.
                 // Switch R11U209_CLSENUMMEM_OFF.
                 if (!unban3 && bypassTypedefShare && fm.getDeclaredType() &&
-                    r11u209Law("R11U209_CLSENUMMEM_OFF")) {
+                    lawOn(209, "R11U209_CLSENUMMEM_OFF")) {
                     auto& mt209 = fm.getDeclaredType()->getType();
                     if (mt209.kind == SymbolKind::TypeAlias &&
                         mt209.getCanonicalType().kind == SymbolKind::EnumType)
@@ -19860,7 +19771,7 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
         tm->VpiParent(uts);
         setLoc(tm, nameSpan(fm.location, fm.name));
         // § tsMemberRootFile171 (helper above makeBoundConst).
-        const bool rootFile171 = r11u171Law("R11U171_MEMBERROOTFILE_OFF");
+        const bool rootFile171 = lawOn(171, "R11U171_MEMBERROOTFILE_OFF");
         if (rootFile171)
             if (auto rf171 = memberRootFile171(sm, fm.location); !rf171.empty()) {
                 if (rf171 != std::string(tm->VpiFile()))
@@ -20640,7 +20551,7 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                 // question).  Grid tools/probe/r11u209repro/cases/CS.
                 // Switch R11U209_CLSENUMMEM_OFF.
                 if (!unban3 && bypassTypedefShare && fm.getDeclaredType() &&
-                    r11u209Law("R11U209_CLSENUMMEM_OFF")) {
+                    lawOn(209, "R11U209_CLSENUMMEM_OFF")) {
                     auto& mt209 = fm.getDeclaredType()->getType();
                     if (mt209.kind == SymbolKind::TypeAlias &&
                         mt209.getCanonicalType().kind == SymbolKind::EnumType)
@@ -20869,7 +20780,7 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
     // through the container's own type and no range is minted.
     const Type* dynElem209 = nullptr;
     if (ct.kind != SymbolKind::FixedSizeUnpackedArrayType &&
-        r11u209Law("R11U209_TWINELEM_OFF")) {
+        lawOn(209, "R11U209_TWINELEM_OFF")) {
         if (ct.kind == SymbolKind::QueueType)
             dynElem209 = &ct.as<QueueType>().elementType;
         else if (ct.kind == SymbolKind::DynamicArrayType)
@@ -21636,9 +21547,8 @@ const syntax::SyntaxNode* enumAliasSyn161(const TypeAliasType& ta) {
 // reference named `f_t.W`; the unconditional fold gave INT:2).  Returns true
 // when the clone may fold.  Grid tools/probe/v11u164repro/cases/EA e06.
 // Switch R11V164_ALIASBASE_OFF.
-bool r11u164Law(const char* sw);
 bool enumAliasTgtBaseFolded164v(const UHDM::typespec* tgt) {
-    if (!r11u164Law("R11V164_ALIASBASE_OFF") || !tgt ||
+    if (!lawOn(164, "R11V164_ALIASBASE_OFF") || !tgt ||
         tgt->UhdmType() != UHDM::uhdmenum_typespec)
         return true;
     // A PACKAGE target's clone folds whatever our listing holds (e17: the
@@ -21738,13 +21648,8 @@ std::map<std::tuple<std::string, uint32_t, uint32_t, uint32_t, uint32_t>,
 } // namespace
 // Switches of the r11u180 verifier's refinements: R11V180_<LAW>_OFF, and
 // R11V180_OFF drops all of them.
-static bool r11v180Law(const char* sw) {
-    if (getenv("R11V180_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 static void noteModAggDecl180v(const UHDM::typespec* ts, const void* declSyn) {
-    if (!ts || !declSyn || !r11u180Law("R11U180_MODAGGCLONE_OFF"))
+    if (!ts || !declSyn || !lawOn(180, "R11U180_MODAGGCLONE_OFF"))
         return;
     modAggDecls180v[{std::string(ts->VpiFile()), ts->VpiLineNo(), ts->VpiColumnNo(),
                      ts->VpiEndLineNo(), ts->VpiEndColumnNo()}]
@@ -21752,7 +21657,7 @@ static void noteModAggDecl180v(const UHDM::typespec* ts, const void* declSyn) {
 }
 static void noteModAggMove180(UHDM::typespec* ts, uint32_t l0, uint32_t c0,
                               uint32_t l1, uint32_t c1) {
-    if (!ts || !r11u180Law("R11U180_MODAGGCLONE_OFF"))
+    if (!ts || !lawOn(180, "R11U180_MODAGGCLONE_OFF"))
         return;
     modAggMoves180.push_back({ts, std::string(ts->VpiFile()), l0, c0, l1, c1,
                               ts->VpiLineNo(), ts->VpiColumnNo(),
@@ -21782,14 +21687,14 @@ void modAggCloneDrain180(UHDM::Serializer& s) {
     // TypeDef object; every definition compiles the header text into its own).
     // A move whose declaration key holds two declarations declines (the
     // pristine bytes).  Switch R11V180_MODAGGDEF_OFF.
-    static const bool ownDef180v = r11v180Law("R11V180_MODAGGDEF_OFF");
+    static const bool ownDef180v = fixOn(180, "R11V180_MODAGGDEF_OFF");
     // § modAggCloneTakesFile180v (the r11u180 verifier, grid M m04, m01) —
     // the clones take the moved object's FILE with its span: the formal's
     // file, which § tdMoveCarriesFile172 (run before this drain) gave the
     // listing object (golden m04 `op_t dut.sv 5:42-5:46` for a typedef the
     // module `include`s from td.svh, where the drain wrote td.svh 5:42-5:46).
     // Switch R11V180_MODAGGFILE_OFF.
-    static const bool takeFile180v = r11v180Law("R11V180_MODAGGFILE_OFF");
+    static const bool takeFile180v = fixOn(180, "R11V180_MODAGGFILE_OFF");
     // § modAggClonePerDefKey191 (r11u191, R11U191_HDRTD_OFF; r11u190 new
     // finding N2, grid tools/probe/r11u191dec/cases/G) — the refinement above
     // declines a move whose declaration key holds two declarations, which is
@@ -21857,7 +21762,7 @@ void modAggCloneDrain180(UHDM::Serializer& s) {
 
 static slang::SourceRange modTfArgLastTok155(const InstanceBodySymbol& body,
                                              const TypeAliasType& ta) {
-    if (!r11u155Law("R11U155_MODAGGARG_OFF"))
+    if (!lawOn(155, "R11U155_MODAGGARG_OFF"))
         return slang::SourceRange::NoLocation;
     const Type* ct = &ta.getCanonicalType();
     slang::SourceRange last = slang::SourceRange::NoLocation;
@@ -21919,7 +21824,7 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
         const syntax::SyntaxNode* aliasSyn161 = nullptr;
         if (ct.kind == SymbolKind::EnumType &&
             ta.targetType.getType().kind == SymbolKind::TypeAlias &&
-            r11u161Law("R11U161_ALIAS_OFF"))
+            lawOn(161, "R11U161_ALIAS_OFF"))
             if (auto tIt161 = typedefTs.find(&ta.targetType.getType());
                 tIt161 != typedefTs.end() && tIt161->second &&
                 tIt161->second->UhdmType() == UHDM::uhdmenum_typespec)
@@ -23358,7 +23263,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                  pit2 != pkgParamDefRhs.end() && pit2->second &&
                                  pit2->second->UhdmType() == UHDM::uhdmconstant) {
                             ref->Actual_group(pit2->second);
-                            if (getenv("R11U148_TRACE"))
+                            if (lawTraceOn(148))
                                 fprintf(stderr, "R11U148I param=%s\n",
                                         std::string(psy.name).c_str());
                         }
@@ -23532,7 +23437,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // Grid tools/probe/r11u186repro/cases/D.  Switch
             // R11U186_SYNUS_OFF.
             if (raw.find('_') != std::string::npos &&
-                r11u186Law("R11U186_SYNUS_OFF")) {
+                lawOn(186, "R11U186_SYNUS_OFF")) {
                 std::string dg186 = stripSep(raw);
                 bool large186 = dg186.size() > 20;
                 if (!large186 && dg186.size() == 20) {
@@ -24088,7 +23993,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 // half: a `$bits(<select>)` written inside a generate block
                 // stays a sys_func_call there too (golden `gen_for >
                 // named_begin(g) > cont_assign > sys_func_call($bits)`).
-                if (selBitsArg9 && r11u200Law("R11U200_GENBITS_OFF") &&
+                if (selBitsArg9 && (lawOn(200, 202, "R11U200_GENBITS_OFF") && !landingOff(202)) &&
                     genBody200(&syn)) {
                     selBitsArg9 = nullptr;
                     trace200("genBlockBitsKeepsSelect200", "def");
@@ -24149,7 +24054,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 // Switch R11U172_SPAN_OFF.
                 const bool signName172 =
                     (sysName == "$signed" || sysName == "$unsigned") &&
-                    r11u172On("R11U172_SPAN_OFF");
+                    lawOn(172, "R11U172_SPAN_OFF");
                 if (inCastSize || signName172)
                     setLoc(sfc, SourceRange(syn.sourceRange().start(),
                                             syn.sourceRange().start() +
@@ -24287,7 +24192,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         // `$unsigned(x[W:0])`: r11u199's w1 / w2 / w8).
                         if (!exprArg9 && an9 &&
                             an9->kind == syntax::SyntaxKind::IdentifierSelectName &&
-                            r11u200Law("R11U200_GENBITS_OFF") && genBody200(&syn)) {
+                            (lawOn(200, 202, "R11U200_GENBITS_OFF") && !landingOff(202)) && genBody200(&syn)) {
                             exprArg9 = true;
                             trace200("genBlockBitsKeepsSelect200", "defarg");
                         }
@@ -24639,7 +24544,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // `q`).  A statement inside a generate block keeps the qualifier
             // alone (§ defGenQualPkgCallBinds18, fc18).  Grid
             // tools/probe/r11u137repro/grid/fc.  Switch: R11U137_CALLSPAN_OFF.
-            static const bool cc137 = r11u137Law("R11U137_CALLSPAN_OFF");
+            static const bool cc137 = lawOn(137, "R11U137_CALLSPAN_OFF");
             const syntax::ScopedNameSyntax* qsn137 =
                 inv.left->kind == syntax::SyntaxKind::ScopedName
                     ? &inv.left->as<syntax::ScopedNameSyntax>()
@@ -25249,7 +25154,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     !tfTypeScope && !structMemberAliasTs && !defNetTsScope)
                     if (const ParameterSymbol* qp9 = crossPkgBoundParam9(raw)) {
                         SourceRange sp214 = syn.sourceRange();
-                        if (r11u214Law("R11U214_QUALSPAN_OFF")) {
+                        if (lawOn(214, 219, "R11U214_QUALSPAN_OFF")) {
                             auto& sep214 =
                                 syn.as<syntax::ScopedNameSyntax>().separator;
                             if (sep214.kind == parsing::TokenKind::DoubleColon &&
@@ -25597,7 +25502,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 // Switch: R11U144_PKGQUALREF_OFF.
                 bool unstored144 = false;
                 if (curPkgEmitSym && curPkgEmitSym->kind == SymbolKind::Package &&
-                    r11u144Law("R11U144_PKGQUALREF_OFF")) {
+                    lawOn(144, "R11U144_PKGQUALREF_OFF")) {
                     auto q144 = raw.find("::");
                     if (q144 != std::string::npos &&
                         raw.substr(0, q144) != curPkgEmitSym->name)
@@ -25677,7 +25582,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 !nameParts9.empty() &&
                 (sm->isMacroLoc(exprStart) ||
                  sm->isMacroLoc(syn.sourceRange().end())) &&
-                r11u183LawTE("R11U183_PATHSPAN_OFF");
+                lawOn(183, "R11U183_PATHSPAN_OFF");
             if (macro183)
                 tr183TE("macroPathTokSpans183");
             // § macroPathTokOneBuffer186 (r11u186) — the refinement of
@@ -25694,7 +25599,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             std::vector<char> oneBuf186;
             if (macro183) {
                 oneBuf186.assign(nameParts9.size(), 1);
-                if (r11u186Law("R11U186_PATHBUF_OFF"))
+                if (lawOn(186, "R11U186_PATHBUF_OFF"))
                     for (size_t j = 0; j < nameParts9.size(); j++) {
                         auto t0 = nameParts9[j]->getFirstToken();
                         if (!t0)
@@ -25753,7 +25658,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             bool paramBase137 = false;
             if (constCtx137 && parts.size() >= 2 &&
                 parts[0].first.find('[') == std::string::npos &&
-                r11u137Law("R11U137_PATHBASE_OFF")) {
+                lawOn(137, "R11U137_PATHBASE_OFF")) {
                 const Scope* sc137 = currentScope ? currentScope : defNetTsScope;
                 if (sc137)
                     if (auto* bs137 = sc137->lookupName(parts[0].first))
@@ -25780,8 +25685,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // token and the leaf its scoped name in golden: declined.
             if (!paramBase137 && constCtx137 && parts.size() >= 2 &&
                 parts[0].first.find('[') == std::string::npos &&
-                r11u137Law("R11U137_PATHBASE_OFF") &&
-                r11u146Law("R11U146_PATHBASE_OFF")) {
+                lawOn(137, "R11U137_PATHBASE_OFF") &&
+                lawOn(146, "R11U146_PATHBASE_OFF")) {
                 bool valueBase146 = false;
                 const Scope* sc146 = currentScope ? currentScope : defNetTsScope;
                 if (sc146)
@@ -25976,7 +25881,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         // tools/probe/r11u205dec/cases/IP.  Switch
                         // R11U205_IPSNAME_OFF.
                         if (sel161 && i > 0 && name161 &&
-                            r11u205Law("R11U205_IPSNAME_OFF")) {
+                            lawOn(205, 209, "R11U205_IPSNAME_OFF")) {
                             trace205("defGenTargetIpsDefName205", dispRaw);
                             ip8->VpiDefName(base8);
                             if (!syntaxRefPrefix.empty())
@@ -26186,8 +26091,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         // R11U219_IPSSELARM_OFF (and R11U205_IPSNAME_OFF, the
                         // law it extends).
                         if (sel161 && i > 0 && name161 &&
-                            r11u205Law("R11U205_IPSNAME_OFF") &&
-                            r11u219Law("R11U219_IPSSELARM_OFF")) {
+                            lawOn(205, 209, "R11U205_IPSNAME_OFF") &&
+                            lawOn(219, "R11U219_IPSSELARM_OFF")) {
                             trace219("defGenTargetIpsSelArm219", dispRaw);
                             ip9->VpiDefName(base9);
                             if (!savedSRP9.empty())
@@ -26331,7 +26236,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 // ours 3:56-61).  Grid tools/probe/r11u181repro/cases/rt g11
                 // (that pass's residue S2).  Switch R11U186_ROOTELEM_OFF.
                 else if (i == 0 && pname == "$root" && parts.size() > 1 &&
-                         r11u186Law("R11U186_ROOTELEM_OFF")) {
+                         lawOn(186, "R11U186_ROOTELEM_OFF")) {
                     auto& [p1n, p1off] = parts[1];
                     size_t n186 = p1n.find('[');
                     if (n186 == std::string::npos)
@@ -26551,7 +26456,6 @@ static bool dottedNameBound(const slang::syntax::ExpressionSyntax* es) {
     return cur->kind == syntax::SyntaxKind::IdentifierName;
 }
 
-bool r11u168Law(const char* sw); // the r11u168 switches (UhdmExporter.cpp)
 
 // § structParamBoundAtPatternLeaf168 — a range bound that reads a STRUCT
 // PARAMETER FIELD (`logic dly [0:CFG.HSK.DLY]`) folds, in Surelog, to the
@@ -29138,7 +29042,7 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                         // range): the no-fullname idiom.  Grid
                         // tools/probe/r11u168repro/cases/R.  Switch
                         // R11U168_RNGHPNAME_OFF (and R11U168_OFF).
-                        if (r11u168Law("R11U168_RNGHPNAME_OFF"))
+                        if (lawOn(168, "R11U168_RNGHPNAME_OFF"))
                             hp9->VpiFullName(joined9);
                         hp9->VpiParent(r);
                         setLoc(hp9, es->sourceRange());
@@ -29305,7 +29209,7 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 c->VpiConstType(vpiUIntConst);
                 // § structParamBoundAtPatternLeaf168 (helper above).  Switch
                 // R11U168_SPLEAF_OFF (and R11U168_OFF).
-                static const bool spLeaf168 = r11u168Law("R11U168_SPLEAF_OFF");
+                static const bool spLeaf168 = lawOn(168, "R11U168_SPLEAF_OFF");
                 slang::SourceRange leaf168;
                 bool named168 = false;
                 uint32_t nw168 = 0;
@@ -29496,8 +29400,8 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     // `R11U110_ELEMREG_OFF=1` drops it.
     bool tpPaReg110 = false;
     {
-        static const bool offReg110 = getenv("R11U110_OFF") != nullptr ||
-                                      getenv("R11U110_ELEMREG_OFF") != nullptr;
+        static const bool offReg110 = envSet("R11U110_OFF") ||
+                                      envSet("R11U110_ELEMREG_OFF");
         const Type* ld110 = &declared->getType();
         while (ld110->getCanonicalType().kind ==
                SymbolKind::FixedSizeUnpackedArrayType)
@@ -30394,7 +30298,7 @@ UHDM::packed_array_var* UhdmExporter::emitVectorTypedefArrayVar(
                 if (lop196 && lop196->kind != syntax::SyntaxKind::IdentifierName &&
                     lop196->kind != syntax::SyntaxKind::ScopedName &&
                     !syntax::LiteralExpressionSyntax::isKind(lop196->kind) &&
-                    r11u196Law("R11U196_TPARRBOUND_OFF")) {
+                    lawOn(196, "R11U196_TPARRBOUND_OFF")) {
                     setLoc(c, lop196->sourceRange());
                     trace196("tpArrBoundAtLeftOperand196",
                              std::string(rawText(lop196->sourceRange())));
@@ -30479,8 +30383,8 @@ UHDM::packed_array_var* UhdmExporter::emitTypeParamArrayVar(
     // at, so only the variable's kind moves.  `R11U108_TPPAV_OFF=1` drops the
     // law.
     if (dt.kind == SymbolKind::TypeAlias) {
-        static const bool off108 = getenv("R11U108_OFF") != nullptr ||
-                                   getenv("R11U108_TPPAV_OFF") != nullptr;
+        static const bool off108 = envSet("R11U108_OFF") ||
+                                   envSet("R11U108_TPPAV_OFF");
         if (off108)
             return nullptr;
         auto* syn108 = dt.getSyntax();
@@ -30546,7 +30450,7 @@ UHDM::packed_array_var* UhdmExporter::emitTypeParamArrayVar(
         // A body declaration keeps the shared object (golden's copy there
         // is unparented, and ours already agrees: grid TP t03/t04).
         // Switch R11U152_TPELEMPAT_OFF.
-        if (r11u152Law("R11U152_TPELEMPAT_OFF") &&
+        if (lawOn(152, "R11U152_TPELEMPAT_OFF") &&
             !(dsx108 && dsx108->parent &&
               dsx108->parent->kind == syntax::SyntaxKind::DataDeclaration))
             if (auto* ws152 = tp108->targetType.getTypeSyntax();
@@ -30644,8 +30548,8 @@ UHDM::packed_array_var* UhdmExporter::emitTypeParamArrayVar(
     // A logic/bit-typed parameter keeps the ranged form below (pass-32 grid).
     bool tsOnly108 = false;
     {
-        static const bool off108w = getenv("R11U108_OFF") != nullptr ||
-                                    getenv("R11U108_TPPAV_OFF") != nullptr;
+        static const bool off108w = envSet("R11U108_OFF") ||
+                                    envSet("R11U108_TPPAV_OFF");
         tsOnly108 = !off108w && tit32->second->UhdmType() ==
                                     UHDM::uhdmpacked_array_typespec;
     }
@@ -30666,8 +30570,8 @@ UHDM::packed_array_var* UhdmExporter::emitTypeParamArrayVar(
         // the dimensionless cell (v11u108's fix above; Surelog `makeVar_`
         // `obj->Attributes(sig->attributes())`): grid v11u108 b25
         // `(* keep *) rt_t [1:0] x;`.  Same DataDeclaration gate.
-        static const bool offAttr110 = getenv("R11U110_OFF") != nullptr ||
-                                       getenv("R11U110_ATTR_OFF") != nullptr;
+        static const bool offAttr110 = envSet("R11U110_OFF") ||
+                                       envSet("R11U110_ATTR_OFF");
         const syntax::SyntaxNode* dsx110 = sym.getSyntax();
         if (!offAttr110 && dsx110 && dsx110->parent &&
             dsx110->parent->kind == syntax::SyntaxKind::DataDeclaration)
@@ -30734,7 +30638,7 @@ UHDM::packed_array_var* UhdmExporter::emitTypeParamArrayVar(
                 if (lop196 && lop196->kind != syntax::SyntaxKind::IdentifierName &&
                     lop196->kind != syntax::SyntaxKind::ScopedName &&
                     !syntax::LiteralExpressionSyntax::isKind(lop196->kind) &&
-                    r11u196Law("R11U196_TPARRBOUND_OFF")) {
+                    lawOn(196, "R11U196_TPARRBOUND_OFF")) {
                     setLoc(c, lop196->sourceRange());
                     trace196("tpArrBoundAtLeftOperand196",
                              std::string(rawText(lop196->sourceRange())));
@@ -32223,10 +32127,6 @@ UHDM::VectorOftypespec* UhdmExporter::makeStmtScopeTdListing157(const Scope& sc)
 
 // § r11u117 kill switches: R11U117_OFF drops every law of the pass;
 // R11U117_<LAW>_OFF drops one.
-static bool r11u117On(const char* law) {
-    static const bool all = getenv("R11U117_OFF") != nullptr;
-    return !all && getenv(law) == nullptr;
-}
 
 // § pkgFlatSurelogBits117 (r11u117) — see the declaration.  Mirrors
 // `ExprEval::size` (UHDM v1.87 templates/ExprEval.cpp 1271-1480) over the
@@ -32317,7 +32217,7 @@ uint64_t UhdmExporter::surelogBits117(const Type& t, int depth) {
 // § pkgQualSelParamFlat117 (r11u117) — see the declaration.
 bool UhdmExporter::pkgQualSelParamFlat117(const Symbol& ps, const Type& structTy,
                                           const Expression& init) {
-    if (!r11u117On("R11U117_QSEL_OFF"))
+    if (!lawOn(117, "R11U117_QSEL_OFF"))
         return false;
     const Scope* home = ps.getParentScope();
     if (!home || home->asSymbol().kind != SymbolKind::Package)
@@ -32337,7 +32237,7 @@ bool UhdmExporter::pkgQualSelParamFlat117(const Symbol& ps, const Type& structTy
         // of a module flattens in golden), so the walk dedupes on the body
         // symbol, not the shared module syntax.  R11U117_OVR_OFF restores the
         // syntax-keyed walk without the override filter.
-        const bool ovr117 = r11u117On("R11U117_OVR_OFF");
+        const bool ovr117 = lawOn(117, "R11U117_OVR_OFF");
         std::set<const void*> seenBodySym;
         auto note = [&](const Symbol& sym) {
             const syntax::SyntaxNode* sx = sym.getSyntax();
@@ -32424,7 +32324,7 @@ bool UhdmExporter::pkgQualSelParamFlat117(const Symbol& ps, const Type& structTy
         };
         for (auto& tree : comp.getSyntaxTrees())
             scan(scan, tree->root(), false);
-        if (getenv("R11U117_DBG"))
+        if (envSet("R11U117_DBG"))
             for (auto& k : pkgQualSel117)
                 fprintf(stderr, "QSEL117 %s\n", k.c_str());
     }
@@ -32454,7 +32354,7 @@ bool UhdmExporter::pkgQualSelParamFlat117(const Symbol& ps, const Type& structTy
             return false;
     }
     qselFired117.insert(&ps);
-    if (getenv("R11U117_DBG"))
+    if (envSet("R11U117_DBG"))
         fprintf(stderr, "QSELFIRE117 %s::%s\n",
                 std::string(home->asSymbol().name).c_str(),
                 std::string(ps.name).c_str());
@@ -32465,7 +32365,7 @@ bool UhdmExporter::pkgQualSelParamFlat117(const Symbol& ps, const Type& structTy
 // § pkgQualSelParamFlat117 opened is `flattenPatternAssignments`' own
 // (ExprEval.cpp 933-935): MakeRef_typespec + Actual_typespec, never a parent.
 bool UhdmExporter::pkgQselRefNoParent117(const Symbol& ps, bool topView) {
-    return topView && r11u117On("R11U117_QSELREF_OFF") && qselFired117.count(&ps);
+    return topView && lawOn(117, "R11U117_QSELREF_OFF") && qselFired117.count(&ps);
 }
 
 // § pkgFlatSurelogBits117 — the deferred write (see the recorder below).
@@ -32494,7 +32394,7 @@ void UhdmExporter::applyPkgFlatBits117() {
 void UhdmExporter::pkgFlatSurelogBits117(
     UHDM::VectorOfany* opnds, const std::vector<const Expression*>& setters,
     int bail, const Scope& fields, const Expression& pat) {
-    if (!r11u117On("R11U117_BITS_OFF") || !opnds)
+    if (!lawOn(117, "R11U117_BITS_OFF") || !opnds)
         return;
     // setter -> field
     std::map<const Expression*, const FieldSymbol*> fOf;
@@ -32535,7 +32435,7 @@ void UhdmExporter::pkgFlatSurelogBits117(
         // declared width), so the re-size must land after every reader ran —
         // and on a CLONE, because a reader may share the object instead.
         pendBits117.push_back({opnds, i, c, (int)b});
-        if (getenv("R11U117_DBG"))
+        if (envSet("R11U117_DBG"))
             fprintf(stderr, "BITS117 %s %d->%d\n",
                     std::string(it->second->name).c_str(), (int)w, (int)b);
     }

@@ -32,41 +32,11 @@ std::map<const void*, UHDM::typespec*> g_typeParamOwnTs183;
 // census): one file per process, `<dir>/<pid>.<unit>`, its first line the
 // `-o` database path read off the command line, then one law name per firing.
 static void tr183UX(const char* law) {
-    static FILE* tf = [] () -> FILE* {
-        const char* d = getenv("R11U183_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".UX";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(183, "UX");
     if (tf) {
         fprintf(tf, "%s\n", law);
         fflush(tf);
     }
-}
-static bool r11u183LawUX(const char* sw) {
-    if (getenv("R11U183_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
 }
 
 
@@ -80,11 +50,6 @@ static bool r11u183LawUX(const char* sw) {
 //   R11U119_NUMLIT_OFF      § ppIntegralNumberFold119    (UhdmExporter.cpp)
 //   R11U119_REALATTR_OFF    § attrRealRawText119         (ModuleEmit.cpp)
 // Evidence: tools/probe/r11u119repro/README.md.
-bool r11u119Law(const char* sw) {
-    if (getenv("R11U119_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 // ===== r11u130 — the module/type ground on the strict axis ==================
 // Every r11u130 law sits behind its own switch; R11U130_OFF drops them all
@@ -108,11 +73,6 @@ bool r11u119Law(const char* sw) {
 //   R11V141_INCTABACT_OFF   § includeInactiveTabNotText141v (UhdmExporter.cpp)
 // Evidence: tools/probe/r11u130repro/README.md, tools/probe/r11v130repro/README.md,
 // tools/probe/r11u141verify/README.md.
-bool r11u130Law(const char* sw) {
-    if (getenv("R11U130_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 // ===== r11u166 — the preprocessor output model ==============================
 // Surelog's locations are positions in its preprocessor's OUTPUT text; the
@@ -146,98 +106,48 @@ bool r11u130Law(const char* sw) {
 //   R11U134_SCOPEDPKGTD_OFF § defNetScopedPkgVecTdShares134 (ModuleEmit.cpp)
 //   R11U134_PKGCLONEBOUND_OFF § pkgTdCloneBoundLoc134    (ModuleEmit.cpp)
 // Evidence: tools/probe/r11u134repro/README.md.
-bool r11u134Law(const char* sw) {
-    if (getenv("R11U134_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 // ===== r11u137 — the module/type ground on the strict axis, third round =====
 // Every r11u137 law sits behind its own switch; R11U137_OFF drops them all
 // and restores the pristine bytes.  Switch names (each droppable alone) are
 // listed at each law's site; the table is tools/probe/r11u137repro/README.md.
-bool r11u137Law(const char* sw) {
-    if (getenv("R11U137_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 // ===== r11u144 — the module/type ground on the strict axis, fourth round =====
 // Every r11u144 law sits behind its own switch; R11U144_OFF drops them all
 // and restores the pristine bytes.  The table is
 // tools/probe/r11u144repro/README.md.
-bool r11u144Law(const char* sw) {
-    if (getenv("R11U144_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 // ===== r11u146 — the module/type ground on the strict axis, fifth round =====
 // Every r11u146 law sits behind its own switch; R11U146_OFF drops them all
 // and restores the pristine bytes.  The table is
 // tools/probe/r11u146repro/README.md.
-bool r11u146Law(const char* sw) {
-    if (getenv("R11U146_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 // ===== r11u152 — the module/type ground on the strict axis, sixth round =====
 // Every r11u152 law sits behind its own switch; R11U152_OFF drops them all
 // and restores the pristine bytes.  The table is
 // tools/probe/r11u152repro/README.md.
-bool r11u152Law(const char* sw) {
-    if (getenv("R11U152_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 // ===== r11u155 — the module/type ground on the strict axis, seventh round =====
 // Every r11u155 law sits behind its own switch; R11U155_OFF drops them all
 // and restores the pristine bytes.  The table is
 // tools/probe/r11u155repro/README.md.
-bool r11u155Law(const char* sw) {
-    if (getenv("R11U155_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 // Every r11u160 law sits behind its own switch; R11U160_OFF drops them all
 // (tools/probe/r11u160repro/README.md names each law and its switch).
-bool r11u160Law(const char* sw) {
-    if (getenv("R11U160_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 // The r11u164 switches (tools/probe/r11u164repro/README.md): every r11u164
 // law reads its own R11U164_<LAW>_OFF switch; R11U164_OFF drops all of them.
-bool r11u164Law(const char* sw) {
-    if (getenv("R11U164_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 // The r11u168 switches (tools/probe/r11u168repro/README.md): every r11u168
 // law reads its own R11U168_<LAW>_OFF switch; R11U168_OFF drops all of them.
-bool r11u168Law(const char* sw) {
-    if (getenv("R11U168_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 
 // The r11u171 switches (tools/probe/r11u171repro/README.md): every r11u171
 // law reads its own R11U171_<LAW>_OFF switch; R11U171_OFF drops all of them.
-bool r11u171Law(const char* sw) {
-    if (getenv("R11U171_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // The v11u171 refinements (tools/probe/v11u171repro/README.md, the adversarial
 // verification of r11u171): each reads its own R11V171_<NAME>_OFF switch;
 // R11V171_OFF drops all of them (the r11u171 laws as delivered).
 bool v11u171Law(const char* sw) {
-    if (getenv("R11V171_OFF") != nullptr)
+    if (envSet("R11V171_OFF"))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -251,69 +161,29 @@ std::map<const UHDM::any*, std::array<size_t, 4>>& r257vHcPos(); // § ifacePort
 void genPlainViewDrain176(UHDM::Serializer& s); // § genericPlainNamedView176 (ModuleEmit.cpp)
 // The r11u176 switches (tools/probe/r11u176repro/README.md): every r11u176
 // law reads its own R11U176_<LAW>_OFF switch; R11U176_OFF drops all of them.
-bool r11u176Law(const char* sw) {
-    if (getenv("R11U176_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // R11U176_TRACE=1 names every firing of an r11u176 law on stderr
 // (`R11U176 <LAW> <detail>`), for the mover attribution.
 void trace176(const char* law, const std::string& detail) {
-    static const bool on = getenv("R11U176_TRACE") != nullptr;
+    static const bool on = lawTraceOn(176);
     if (on)
         fprintf(stderr, "R11U176 %s %s\n", law, detail.c_str());
 }
 // The r11u180 switches (tools/probe/r11u180repro/README.md): every r11u180
 // law reads its own R11U180_<LAW>_OFF switch; R11U180_OFF drops all of them.
-bool r11u180Law(const char* sw) {
-    if (getenv("R11U180_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // R11U180_TRACE=1 names every firing of an r11u180 law on stderr
 // (`R11U180 <LAW> <detail>`), for the mover attribution.
 void trace180(const char* law, const std::string& detail) {
-    static const bool on = getenv("R11U180_TRACE") != nullptr;
+    static const bool on = lawTraceOn(180);
     if (on)
         fprintf(stderr, "R11U180 %s %s\n", law, detail.c_str());
 }
 // The r11u186 switches (tools/probe/r11u186repro/README.md): every r11u186
 // law reads its own R11U186_<LAW>_OFF switch; R11U186_OFF drops all of them.
-bool r11u186Law(const char* sw) {
-    if (getenv("R11U186_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // R11U186_TRACE=<dir> names every firing of an r11u186 law (the mover census):
 // one file per process, `<dir>/<pid>.186`, its first line `OUT <-o path>`,
 // then one `<law> <detail>` line per firing.  Unset, nothing is written.
 void trace186(const char* law, const std::string& detail) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U186_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".186";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(186, "186");
     if (tf) {
         fprintf(tf, "%s %s\n", law, detail.c_str());
         fflush(tf);
@@ -330,41 +200,11 @@ const slang::syntax::SyntaxNode* tpHeaderDefaultSyn188(const slang::ast::Symbol&
 //   R11U188_TPDEFSYN_OFF    § tpOwnTsAtHeaderDefault188 (UhdmExporter.cpp)
 //   R11U188_TPINCORDER_OFF  § tpFormalIncludeOrder188   (TypeEmit.cpp)
 //   R11U188_SVMODE_OFF      § svModeAllFiles188 (uhdm_main.cpp --sverilog, UhdmExporter.cpp)
-bool r11u188Law(const char* sw) {
-    if (getenv("R11U188_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // R11U188_TRACE=<dir> names every firing of an r11u188 law (the mover census):
 // one file per process, `<dir>/<pid>.188`, its first line `OUT <-o path>`,
 // then one `<law> <detail>` line per firing.  Unset, nothing is written.
 void trace188(const char* law, const std::string& detail) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U188_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".188";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(188, "188");
     if (tf) {
         fprintf(tf, "%s %s\n", law, detail.c_str());
         fflush(tf);
@@ -379,11 +219,6 @@ void trace188(const char* law, const std::string& detail) {
 //   R11U193_UNSIZEDCLONE_OFF  § caUnsizedRhsClonePerInst193   (ModuleEmit.cpp, UhdmExporter.cpp)
 //   R11U193_NESTNAME_OFF      § nestedDefChainName193         (UhdmExporter.cpp)
 //   R11U193_COPYORDER_OFF     § tfArgOutsideCopyOrder193      (UhdmExporter.cpp)
-bool r11u193Law(const char* sw) {
-    if (getenv("R11U193_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // The r11u200 switches (tools/probe/r11u200dec/README.md): every r11u200 law
 // reads its own R11U200_<LAW>_OFF switch; R11U200_OFF drops all of them.
 //   R11U200_SIGNSPAN_OFF   § tfSigningSpanFollowsCompilePath200  (TypeEmit.cpp, TaskFuncEmit.cpp)
@@ -422,51 +257,11 @@ bool r11u193Law(const char* sw) {
 // (R11U209_OFF: pass 209, v11u209 and the r11u205 ground-B laws;
 // R11U205_OFF also drops landing 210's ground-A § elabIfArrIdxChainName205),
 // 219 (R11U219_OFF: this pass and the r11u214 laws it lands).
-bool landingOff219(int n) {
-    switch (n) {
-    case 202: { static const bool o = getenv("R11U219_LANDING202_OFF") != nullptr; return o; }
-    case 212: { static const bool o = getenv("R11U219_LANDING212_OFF") != nullptr; return o; }
-    case 216: { static const bool o = getenv("R11U219_LANDING216_OFF") != nullptr; return o; }
-    }
-    return false;
-}
-bool r11u200Law(const char* sw) {
-    // r11u202 landed these laws: its pass-wide R11U202_OFF drops them too.
-    if (getenv("R11U200_OFF") != nullptr || getenv("R11U202_OFF") != nullptr ||
-        landingOff219(202))
-        return false;
-    return getenv(sw) == nullptr;
-}
 // R11U200_TRACE=<dir> names every firing of an r11u200 law (the mover census):
 // one file per process, `<dir>/<pid>.200`, its first line `OUT <-o path>`,
 // then one `<law> <detail>` line per firing.  Unset, nothing is written.
 void trace200(const char* law, const std::string& detail) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U200_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".200";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(200, "200");
     if (tf) {
         fprintf(tf, "%s %s\n", law, detail.c_str());
         fflush(tf);
@@ -483,11 +278,6 @@ void trace200(const char* law, const std::string& detail) {
 //   R11U202_VALSPECSPAN_OFF § modSpecValueArgSpanAtName202  (TypeEmit.cpp)
 //   R11U202_GENINITBIND_OFF § genVarInitOuterRefUnbound202  (ModuleEmit.cpp)
 //   R11U202_GENINITBS_OFF   § defGenInitBitSelAtIndex202    (TypeEmit.cpp, ModuleEmit.cpp)
-bool r11u202Law(const char* sw) {
-    if (getenv("R11U202_OFF") != nullptr || landingOff219(202))
-        return false;
-    return getenv(sw) == nullptr;
-}
 // The v11u202 refinements (tools/probe/v11u202repro/README.md, the
 // adversarial verification of r11u202): each reads its own
 // R11V202_<NAME>_OFF switch; R11V202_OFF (or R11U202_OFF) drops all of them.
@@ -495,12 +285,6 @@ bool r11u202Law(const char* sw) {
 //   R11V202_TDRETVAR_OFF   § classTdRetVarKeepsWrittenLoc202v    (TaskFuncEmit.cpp)
 //   R11V202_IMPLCMT_OFF    § implicitTsEndAfterLineComment202v   (TypeEmit.cpp)
 //   R11V202_IMPLCR_OFF     § implicitTsEndSkipsCarriageReturn202v (TypeEmit.cpp)
-bool r11v202Law(const char* sw) {
-    if (getenv("R11V202_OFF") != nullptr || getenv("R11U202_OFF") != nullptr ||
-        landingOff219(202))
-        return false;
-    return getenv(sw) == nullptr;
-}
 // The r11u206 switches (tools/probe/r11u206repro/README.md): every r11u206
 // law reads its own R11U206_<LAW>_OFF switch; R11U206_OFF drops all of them.
 //   R11U206_TPCASTDEF_OFF  § tpCastUseBindsDefDefault206   (UhdmExporter.cpp)
@@ -509,41 +293,11 @@ bool r11v202Law(const char* sw) {
 //   R11U206_CLSCOPETDRET_OFF § classScopeTdRetBuildsOwner206 (TaskFuncEmit.cpp)
 //   R11U206_GENCLSVAR_OFF  § genScopeClassVarListed206     (ModuleEmit.cpp)
 //   R11U206_GENCLSSPAN_OFF § genScopeClassVarSpecAtName206 (ModuleEmit.cpp)
-bool r11u206Law(const char* sw) {
-    if (getenv("R11U206_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // R11U206_TRACE=<dir> names every firing of an r11u206 law (the mover
 // census): one file per process, `<dir>/<pid>.206`, its first line
 // `OUT <-o path>`, then one `<law> <detail>` line per firing.
 void trace206(const char* law, const std::string& detail) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U206_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".206";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(206, "206");
     if (tf) {
         fprintf(tf, "%s %s\n", law, detail.c_str());
         fflush(tf);
@@ -553,32 +307,7 @@ void trace206(const char* law, const std::string& detail) {
 // census): one file per process, `<dir>/<pid>.202`, its first line
 // `OUT <-o path>`, then one `<law> <detail>` line per firing.
 void trace202(const char* law, const std::string& detail) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U202_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".202";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(202, "202");
     if (tf) {
         fprintf(tf, "%s %s\n", law, detail.c_str());
         fflush(tf);
@@ -590,38 +319,8 @@ void trace202(const char* law, const std::string& detail) {
 // pristine bytes).  R11U209_TRACE=<dir> names every firing (one file per
 // process, `<dir>/<pid>.209`, first line `OUT <-o path>`, then
 // `<law> <detail>`).
-bool r11u209Law(const char* sw) {
-    if (getenv("R11U209_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 void trace209(const char* law, const std::string& detail) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U209_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".209";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(209, "209");
     if (tf) {
         fprintf(tf, "%s %s\n", law, detail.c_str());
         fflush(tf);
@@ -636,43 +335,8 @@ void trace209(const char* law, const std::string& detail) {
 // of the adversarial verification of r11u216 reads its own R11V216_<X>_OFF
 // switch; R11V216_OFF drops all of them (r11u216's bytes).  Each runs only
 // where its r11u216 law fires, so R11U216_OFF drops them too.
-bool r11v216Law(const char* sw) {
-    if (getenv("R11V216_OFF") != nullptr || landingOff219(216))
-        return false;
-    return getenv(sw) == nullptr;
-}
-bool r11u216Law(const char* sw) {
-    if (getenv("R11U216_OFF") != nullptr || landingOff219(216))
-        return false;
-    return getenv(sw) == nullptr;
-}
 void trace216(const char* law, const std::string& detail) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U216_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".216";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(216, "216");
     if (tf) {
         fprintf(tf, "%s %s\n", law, detail.c_str());
         fflush(tf);
@@ -683,38 +347,8 @@ void trace216(const char* law, const std::string& detail) {
 // of them (the pristine bytes).  R11U212_TRACE=<dir> names every firing (one
 // file per process, `<dir>/<pid>.212`, first line `OUT <-o path>`, then
 // `<law> <detail>`).
-bool r11u212Law(const char* sw) {
-    if (getenv("R11U212_OFF") != nullptr || landingOff219(212))
-        return false;
-    return getenv(sw) == nullptr;
-}
 void trace212(const char* law, const std::string& detail) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U212_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".212";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(212, "212");
     if (tf) {
         fprintf(tf, "%s %s\n", law, detail.c_str());
         fflush(tf);
@@ -724,11 +358,6 @@ void trace212(const char* law, const std::string& detail) {
 // verification of pass r11u212): every refinement reads its own
 // R11V212_<LAW>_OFF switch; R11V212_OFF drops all of them (the pass-212 law as
 // delivered).  Firings are traced through trace212 (R11U212_TRACE).
-bool r11v212Law(const char* sw) {
-    if (getenv("R11V212_OFF") != nullptr || landingOff219(212))
-        return false;
-    return getenv(sw) == nullptr;
-}
 // The r11u205 switches (tools/probe/r11u205dec/README.md, the analyst decode
 // of map 12's ground-B heads): every law reads its own R11U205_<LAW>_OFF
 // switch; R11U205_OFF drops all of them (the pristine bytes).
@@ -737,40 +366,8 @@ bool r11v212Law(const char* sw) {
 // Landed by pass r11u209 (tools/probe/r11u209repro/README.md), which also
 // drops them under its own pass switch R11U209_OFF and traces them under
 // R11U209_TRACE.
-bool r11u205Law(const char* sw) {
-    if (getenv("R11U205_OFF") != nullptr || getenv("R11U209_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 void trace205(const char* law, const std::string& detail) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U205_TRACE");
-        if (!d)
-            d = getenv("R11U209_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".205";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(205, "205");
     if (tf) {
         fprintf(tf, "%s %s\n", law, detail.c_str());
         fflush(tf);
@@ -783,7 +380,7 @@ void trace205(const char* law, const std::string& detail) {
 //   R11V193_NESTSEL_OFF    § nestChainSelects193v        (UhdmExporter.cpp)
 //   R11V193_UCRANGE_OFF    § ucCloneUnnamesRanges193v    (ModuleEmit.cpp)
 bool v11u193Law(const char* sw) {
-    if (getenv("R11U193_OFF") != nullptr || getenv("R11V193_OFF") != nullptr)
+    if (envSet("R11U193_OFF") || envSet("R11V193_OFF"))
         return false;
     return getenv(sw) == nullptr;
 }
@@ -791,32 +388,7 @@ bool v11u193Law(const char* sw) {
 // one file per process, `<dir>/<pid>.193`, its first line `OUT <-o path>`,
 // then one `<law> <detail>` line per firing.  Unset, nothing is written.
 void trace193(const char* law, const std::string& detail) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U193_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".193";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(193, "193");
     if (tf) {
         fprintf(tf, "%s %s\n", law, detail.c_str());
         fflush(tf);
@@ -825,41 +397,11 @@ void trace193(const char* law, const std::string& detail) {
 // The r11u196 switches (tools/probe/r11u196repro/README.md): every r11u196
 // law reads its own R11U196_<LAW>_OFF switch; R11U196_OFF drops all of them.
 // The r11u191 laws landed with this pass keep their own R11U191_* switches.
-bool r11u196Law(const char* sw) {
-    if (getenv("R11U196_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // R11U196_TRACE=<dir> names every firing of an r11u196 law (the mover census):
 // one file per process, `<dir>/<pid>.196`, its first line `OUT <-o path>`,
 // then one `<law> <detail>` line per firing.  Unset, nothing is written.
 void trace196(const char* law, const std::string& detail) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U196_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".196";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(196, "196");
     if (tf) {
         fprintf(tf, "%s %s\n", law, detail.c_str());
         fflush(tf);
@@ -914,13 +456,12 @@ void modAggCloneDrain180(UHDM::Serializer& s); // § modAggTfArgCloneFollows180 
 // R11U171_TRACE=1 names every firing of an r11u171 law on stderr
 // (`R11U171 <LAW> <detail>`), for the mover attribution.
 void trace171(const char* law, const std::string& detail) {
-    static const bool on = getenv("R11U171_TRACE") != nullptr;
+    static const bool on = lawTraceOn(171);
     if (on)
         fprintf(stderr, "R11U171 %s %s\n", law, detail.c_str());
 }
 
 // § enumAliasClone161 (r11u161) — defined in TypeEmit.cpp.
-bool r11u161Law(const char* sw);
 const slang::syntax::SyntaxNode* enumAliasSyn161(const slang::ast::TypeAliasType& ta);
 void enumAliasCloneFinish161(UHDM::Serializer& s, UHDM::enum_typespec* ets,
                              const UHDM::typespec* tgt, const std::string& refName);
@@ -937,8 +478,8 @@ void r11u113InlineEnumBaseInstance();
 // the AllClasses block below for the decode and the grid.
 bool netDbg98();
 static bool ifaceClassRootOff98() {
-    static const bool v = getenv("R11U98_IFACECLASS_OFF") != nullptr ||
-                          getenv("R11U98_OFF") != nullptr;
+    static const bool v = envSet("R11U98_IFACECLASS_OFF") ||
+                          envSet("R11U98_OFF");
     return v;
 }
 
@@ -954,8 +495,8 @@ int nestDepth99(const slang::ast::DefinitionSymbol& def);
 std::string defScopedName99(const slang::ast::DefinitionSymbol& def);
 bool implicitNestedInst99(const slang::ast::InstanceSymbol& child);
 static bool ifaceRootWidenOff99() {
-    static const bool v = getenv("R11U99_IFACEROOT_OFF") != nullptr ||
-                          getenv("R11U99_OFF") != nullptr;
+    static const bool v = envSet("R11U99_IFACEROOT_OFF") ||
+                          envSet("R11U99_OFF");
     return v;
 }
 
@@ -964,13 +505,13 @@ static bool ifaceRootWidenOff99() {
 // exportDesign).  `R11U101_OFF=1` drops both; `R11U101_NETDBG=1` is the
 // trace, OUTSIDE both gates.
 static bool nestPortOff101() {
-    static const bool v = getenv("R11U101_NESTPORT_OFF") != nullptr ||
-                          getenv("R11U101_OFF") != nullptr;
+    static const bool v = envSet("R11U101_NESTPORT_OFF") ||
+                          envSet("R11U101_OFF");
     return v;
 }
 static bool nestKeyOff101() {
-    static const bool v = getenv("R11U101_NESTKEY_OFF") != nullptr ||
-                          getenv("R11U101_OFF") != nullptr;
+    static const bool v = envSet("R11U101_NESTKEY_OFF") ||
+                          envSet("R11U101_OFF");
     return v;
 }
 // LAW B/A's SHADOW face on its own switch: a nested definition whose bare
@@ -978,12 +519,12 @@ static bool nestKeyOff101() {
 // RV1 family lives on the ELABORATED side of the same shape and is not
 // touched — see the site).
 static bool nestShadowOff101() {
-    static const bool v = getenv("R11U101_NESTSHADOW_OFF") != nullptr ||
-                          getenv("R11U101_OFF") != nullptr;
+    static const bool v = envSet("R11U101_NESTSHADOW_OFF") ||
+                          envSet("R11U101_OFF");
     return v;
 }
 static bool netDbg101() {
-    static const bool v = getenv("R11U101_NETDBG") != nullptr;
+    static const bool v = envSet("R11U101_NETDBG");
     return v;
 }
 // v11u93 (verifier) § caNestedModLibUnusedNoDef101V — a nested definition
@@ -996,7 +537,7 @@ static bool netDbg101() {
 // and the unguarded LAW A published `work@sub::innermod` golden lacks.
 // `R11U101_NESTLIB_OFF=1` drops this guard alone.
 static bool nestLibOff101V() {
-    static const bool v = getenv("R11U101_NESTLIB_OFF") != nullptr;
+    static const bool v = envSet("R11U101_NESTLIB_OFF");
     return v;
 }
 // r11u103's gates (LAW A § caNestedModFileScopeKeyAtEntry103, LAW B
@@ -1087,7 +628,6 @@ static bool nestLibOff101V() {
 // or "::").  Grids tools/probe/r11u134repro/grid/pk (last writer) and
 // grid/ca (unparent).  Switches: R11U134_TDPARENT_OFF,
 // R11U134_CAUNPARENT_OFF.
-bool r11u134Law(const char* sw);
 // § defGenSelRefChainName287 (r11u287) — A NAME INSIDE A SELECT OF A
 // DEFINITION-VIEW GENERATE STATEMENT IS ITS PARENT CHAIN'S.  Golden stores no
 // full name on the references and selects it compiles inside the index,
@@ -1342,7 +882,7 @@ static UHDM::design* defGenSelRefChainName287(UHDM::Serializer& s, UHDM::design*
 // through operations to a range.  Grid tools/probe/r11u134repro/grid/hp.
 // Switch: R11U134_TSHPNAME_OFF.
 static void tsHierPathElemNoName134(UHDM::Serializer& s) {
-    if (!r11u134Law("R11U134_TSHPNAME_OFF"))
+    if (!lawOn(134, "R11U134_TSHPNAME_OFF"))
         return;
     std::vector<UHDM::ref_obj*> todo;
     for (auto& kv : s.AllObjects()) {
@@ -1380,7 +920,7 @@ static void tsHierPathElemNoName134(UHDM::Serializer& s) {
 // package component and ends with the object's own name.  Grid
 // tools/probe/r11u134repro/grid/rp.  Switch: R11U134_TSREFCHAIN_OFF.
 static void pkgTsRefObjChainName134(UHDM::Serializer& s) {
-    if (!r11u134Law("R11U134_TSREFCHAIN_OFF"))
+    if (!lawOn(134, "R11U134_TSREFCHAIN_OFF"))
         return;
     auto linkName = [](const UHDM::BaseClass* a,
                        const UHDM::BaseClass* child) -> std::string_view {
@@ -1512,12 +1052,6 @@ static void pkgTsRefObjChainName134(UHDM::Serializer& s) {
 // following its parent, a09 / b03 / c04), R11U214_CLASSTDW_OFF (the class
 // specialization-alias typedefs, § classTdAliasLastWriter214); R11U214_OFF
 // drops every r11u214 law.  R11U214_TRACE=1 names each move on stderr.
-bool r11u214Law(const char* sw) {
-    // R11U219_OFF (the landing of these laws with pass 219's) drops them too.
-    if (getenv("R11U214_OFF") != nullptr || getenv("R11U219_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // ===== r11u219 — pass 219's switches (the module/type ground) =====
 // Every law of pass 219 sits behind its own R11U219_<LAW>_OFF switch;
 // R11U219_OFF drops all of them AND the r11u214 decode's laws this pass
@@ -1526,50 +1060,12 @@ bool r11u214Law(const char* sw) {
 // R11U219_TRACE=<dir> writes one file per process, `<dir>/<pid>.219`, its
 // first line `OUT <-o path>` (the mover census,
 // tools/probe/r11u219repro/drivers/census.sh).
-bool r11u219Law(const char* sw) {
-    if (getenv("R11U219_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // ===== v11u219 — the refinements of r11u219's adversarial verification =====
 // Every refinement sits behind its own R11V219_<LAW>_OFF switch; R11V219_OFF
 // drops all of them (r11u219's bytes).  Each refines a law of pass 219 and
 // runs only where that law fires, so R11U219_OFF drops them too.
-bool r11v219Law(const char* sw) {
-    if (getenv("R11V219_OFF") != nullptr || getenv("R11U219_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 void trace219(const char* law, const std::string& detail) {
-    static const char* d = getenv("R11U219_TRACE");
-    if (!d)
-        return;
-    static FILE* tf = []() -> FILE* {
-        const char* dd = getenv("R11U219_TRACE");
-        if (!dd || std::string(dd) == "1")
-            return stderr;
-        std::string fn = std::string(dd) + "/" + std::to_string(getpid()) + ".219";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(219, "219", /*stderrWhenOne=*/true);
     if (tf) {
         fprintf(tf, "%s%s %s\n", tf == stderr ? "R11U219 " : "", law,
                 detail.c_str());
@@ -1581,35 +1077,7 @@ void trace219(const char* law, const std::string& detail) {
 // its first line `OUT <-o path>`, then one `<LAW> <detail>` line per firing
 // (the mover census, tools/probe/r11u214dec/drivers/census.sh).
 void trace214(const char* law, const std::string& detail) {
-    static const char* d = getenv("R11U214_TRACE");
-    if (!d)
-        return;
-    static FILE* tf = []() -> FILE* {
-        const char* dd = getenv("R11U214_TRACE");
-        if (!dd || std::string(dd) == "1")
-            return stderr;
-        std::string fn = std::string(dd) + "/" + std::to_string(getpid()) + ".214";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(214, "214", /*stderrWhenOne=*/true);
     if (tf) {
         fprintf(tf, "%s%s %s\n", tf == stderr ? "R11U214 " : "", law,
                 detail.c_str());
@@ -1643,10 +1111,10 @@ static void enumTdLastWriter214(
     const std::set<const UHDM::BaseClass*>& unitCls219,
     const std::function<bool(const UHDM::BaseClass*, std::string_view, std::string_view)>&
         pkgImports219) {
-    if (!d || !r11u214Law("R11U214_SEQARBNAME_OFF"))
+    if (!d || !lawOn(214, 219, "R11U214_SEQARBNAME_OFF"))
         return;
-    const bool unitOnly219 = r11u219Law("R11U219_UNITCLSONLY_OFF");
-    const bool pkgImp219 = r11u219Law("R11U219_PKGWIMPORT_OFF");
+    const bool unitOnly219 = lawOn(219, "R11U219_UNITCLSONLY_OFF");
+    const bool pkgImp219 = lawOn(219, "R11U219_PKGWIMPORT_OFF");
     std::set<size_t> unexpl219;  // § enumPkgWriterImportsType219
     // home package and bare name of a package typespec `home::name`
     auto homeName219 = [](const UHDM::typespec* t) {
@@ -1654,10 +1122,10 @@ static void enumTdLastWriter214(
         auto k = n.find("::");
         return std::make_pair(n.substr(0, k), k == std::string_view::npos ? n : n.substr(k + 2));
     };
-    const bool pkgW = r11u214Law("R11U214_ENUMPKGW_OFF");
-    const bool clsW = r11u214Law("R11U214_ENUMCLSW_OFF");
-    const bool grp = r11u214Law("R11U214_ENUMALIASGRP_OFF");
-    const bool aliasNm = r11u214Law("R11U214_ENUMALIASNAME_OFF");
+    const bool pkgW = lawOn(214, 219, "R11U214_ENUMPKGW_OFF");
+    const bool clsW = lawOn(214, 219, "R11U214_ENUMCLSW_OFF");
+    const bool grp = lawOn(214, 219, "R11U214_ENUMALIASGRP_OFF");
+    const bool aliasNm = lawOn(214, 219, "R11U214_ENUMALIASNAME_OFF");
     // BaseClass::ComputeFullName's per-link name.
     auto linkName = [](const UHDM::BaseClass* a,
                        const UHDM::BaseClass* child) -> std::string_view {
@@ -1744,7 +1212,7 @@ static void enumTdLastWriter214(
     // importing interface, module or class (§ enumImportParentLastWriter180
     // is enum-only), so for it the interface and module listings are
     // replayed here too.  Switch R11U214_CLASSTDW_OFF.
-    const bool clsTd = r11u214Law("R11U214_CLASSTDW_OFF");
+    const bool clsTd = lawOn(214, 219, "R11U214_CLASSTDW_OFF");
     // § classScopeTdPkgListingParent214 (r11u214, map 13 N1910 / N1911: 14
     // probe cases each, r10uvm112repro a8_single `typedef BoxS8 #(solo8,
     // "solo8") sid8;` inside `class solo8` of package pk8use) — a CLASS-SCOPE
@@ -1755,7 +1223,7 @@ static void enumTdLastWriter214(
     // ours `pk8use::solo8::pk8use::sid8::Q` under the class_defn); the
     // stored full names below it move with the chain.  Switch
     // R11U214_CLSSCOPETD_OFF.
-    const bool clsScope = r11u214Law("R11U214_CLSSCOPETD_OFF");
+    const bool clsScope = lawOn(214, 219, "R11U214_CLSSCOPETD_OFF");
     auto pkgClsTd = [&](const UHDM::typespec* t) {
         if (!clsTd || !t || t->UhdmType() != UHDM::uhdmclass_typespec ||
             t->VpiName().find("::") == std::string_view::npos)
@@ -1956,12 +1424,12 @@ static void enumTdLastWriter214(
 static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
                                   const std::set<const UHDM::BaseClass*>& keep182,
                                   const std::set<const UHDM::BaseClass*>& unitCls235) {
-    const bool lastWriter = r11u134Law("R11U134_TDPARENT_OFF");
-    const bool caUnparent = r11u134Law("R11U134_CAUNPARENT_OFF");
+    const bool lastWriter = lawOn(134, "R11U134_TDPARENT_OFF");
+    const bool caUnparent = lawOn(134, "R11U134_CAUNPARENT_OFF");
     // § anonMemberTdLastWriter212 (the law's statement is at its block below).
-    const bool anonMem212 = r11u212Law("R11U212_ANONMEMTD_OFF");
+    const bool anonMem212 = (lawOn(212, "R11U212_ANONMEMTD_OFF") && !landingOff(212));
     // § pkgEnumAliasListingParent212 (the law's statement is at its block).
-    const bool pkgEnumAlias212 = r11u212Law("R11U212_PKGENUMALIAS_OFF");
+    const bool pkgEnumAlias212 = (lawOn(212, "R11U212_PKGENUMALIAS_OFF") && !landingOff(212));
     if (!d || (!lastWriter && !caUnparent && !anonMem212 && !pkgEnumAlias212))
         return;
     // § packedArrTdElemRefName137 — writeDataTypes (setParent) and
@@ -1969,7 +1437,7 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
     // packed-array typedef (`typedef e_t [3:0] ea_t;`) follows the same
     // last-writer / unparent model (law and decode at
     // packedArrTdElemRefName137 below).  Switch: R11U137_PATD_OFF.
-    static const bool pa137 = r11u137Law("R11U137_PATD_OFF");
+    static const bool pa137 = lawOn(137, "R11U137_PATD_OFF");
     auto named = [](const UHDM::BaseClass* t) {
         if (!t)
             return false;
@@ -2419,7 +1887,7 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
     // view; grid tools/probe/r11u212verify/cases/F f01-f04).  A typedef whose
     // listing sits under no definition ($unit: the design) keeps the global
     // last member.  Switch R11V212_TDOWNER_OFF.
-    static const bool owner212v = r11v212Law("R11V212_TDOWNER_OFF");
+    static const bool owner212v = (fixOn(212, "R11V212_TDOWNER_OFF") && !landingOff(212));
     auto ownerDef212v = [&](const UHDM::BaseClass* o) -> std::string {
         for (auto* a = o->VpiParent(); a; a = a->VpiParent()) {
             auto k = a->UhdmType();
@@ -2496,7 +1964,7 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
     for (auto* t : order)
         if (t->VpiParent() != newParent[t])
             moving[t] = newParent[t];
-    if (getenv("R11U134_DBG"))
+    if (envSet("R11U134_DBG"))
         for (auto& [t, p] : moving)
             fprintf(stderr, "R11U134 TDPARENT %s -> %s\n", std::string(t->VpiName()).c_str(),
                     p ? std::string(p->VpiName().empty() ? p->VpiDefName() : p->VpiName()).c_str()
@@ -3954,7 +3422,7 @@ static void defNetTpDimLastInstPat275(UHDM::design* d, UHDM::Serializer& s,
 // with its chain tail to the name its final chain gives.  Grid
 // tools/probe/r11u137repro/grid/pa.  Switch: R11U137_PATD_OFF.
 static void packedArrTdElemRefName137(UHDM::design* d, UHDM::Serializer& s) {
-    if (!d || !r11u137Law("R11U137_PATD_OFF"))
+    if (!d || !lawOn(137, "R11U137_PATD_OFF"))
         return;
     std::set<const UHDM::BaseClass*> tds;
     auto listOf = [&](const UHDM::VectorOftypespec* v) {
@@ -4100,7 +3568,7 @@ static void packedArrTdElemRefName137(UHDM::design* d, UHDM::Serializer& s) {
 // span is the target's.  Grid tools/probe/r11u137repro/grid/af.  Switch:
 // R11U137_ALIASFILE_OFF.
 static void aliasCloneTakesTargetFile137(UHDM::Serializer& s) {
-    if (!r11u137Law("R11U137_ALIASFILE_OFF"))
+    if (!lawOn(137, "R11U137_ALIASFILE_OFF"))
         return;
     std::vector<UHDM::typespec*> fix;
     for (auto& kv : s.AllObjects()) {
@@ -4153,9 +3621,9 @@ static bool spanDiff281(const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
 }
 static void rebindTypeParamElem107(UHDM::design* d, UHDM::Serializer& s,
                                    const std::map<std::string, std::set<std::string>>* ovr281 = nullptr) {
-    static const bool off107 = getenv("R11U107_OFF") != nullptr ||
-                               getenv("R11U107_TPREBIND_OFF") != nullptr;
-    static const bool dbg107 = getenv("R11U107_DBG") != nullptr;
+    static const bool off107 = envSet("R11U107_OFF") ||
+                               envSet("R11U107_TPREBIND_OFF");
+    static const bool dbg107 = envSet("R11U107_DBG");
     if (off107 || !d || !d->AllModules() || !d->TopModules())
         return;
     auto pa107 = [](const UHDM::type_parameter* tp) -> UHDM::packed_array_typespec* {
@@ -4357,7 +3825,7 @@ static void rebindTypeParamElem107(UHDM::design* d, UHDM::Serializer& s,
         //   2 bits (the bound `logic [1:0]`) from golden — and that width
         //   names the specialization (`child$typaram_2_1_1`) and sizes the
         //   instance port.  Switch: R11U120_TPDEFPORT_OFF.
-        if (!getenv("R11U120_OFF") && !getenv("R11U120_TPDEFPORT_OFF"))
+        if (!envSet("R11U120_OFF") && !envSet("R11U120_TPDEFPORT_OFF"))
             if (auto* dm120 = dtp->VpiParent())
                 if (dm120->UhdmType() == UHDM::uhdmmodule_inst)
                     if (auto* dps120 = ((UHDM::module_inst*)dm120)->Ports())
@@ -4398,7 +3866,7 @@ static void rebindTypeParamElem107(UHDM::design* d, UHDM::Serializer& s,
 // tools/probe/r11u120repro/grid/gT.  `R11U120_TPSHARE_OFF=1` drops it alone.
 static void shareInstTypeParams120(
     UHDM::design* d, const std::map<std::string, std::set<std::string>>& ovr) {
-    if (getenv("R11U120_OFF") || getenv("R11U120_TPSHARE_OFF"))
+    if (envSet("R11U120_OFF") || envSet("R11U120_TPSHARE_OFF"))
         return;
     if (!d || !d->AllModules() || !d->TopModules())
         return;
@@ -4552,7 +4020,7 @@ static void shareInstTypeParams120(
 // the clone's stored full names are dropped so they read the new chain.
 // Grid tools/probe/r11u209repro/cases/HP.  Switch R11U209_ARRTDCLONE_OFF.
 static void pkgArrTdElemClone209(UHDM::Serializer& s, UHDM::design* d) {
-    if (!d || !r11u209Law("R11U209_ARRTDCLONE_OFF"))
+    if (!d || !lawOn(209, "R11U209_ARRTDCLONE_OFF"))
         return;
     std::function<void(UHDM::any*)> dropNames = [&](UHDM::any* o) {
         if (!o)
@@ -4623,7 +4091,7 @@ static void pkgArrTdElemClone209(UHDM::Serializer& s, UHDM::design* d) {
 // drops that element's stored full name.  Grid
 // tools/probe/r11u209repro/cases/IM.  Switch R11U209_OPLEAFCHAIN_OFF.
 static void portConnOpLeafChain209(UHDM::Serializer& s) {
-    if (!r11u209Law("R11U209_OPLEAFCHAIN_OFF"))
+    if (!lawOn(209, "R11U209_OPLEAFCHAIN_OFF"))
         return;
     std::function<void(const UHDM::any*, int)> walk = [&](const UHDM::any* o,
                                                            int depth) {
@@ -4683,11 +4151,6 @@ static void portConnOpLeafChain209(UHDM::Serializer& s) {
 // verification of r11u209): each reads its own R11V209_<NAME>_OFF switch;
 // R11V209_OFF drops both (the r11u209 law as delivered), R11U209_OFF drops the
 // law they refine.
-bool r11v209Law(const char* sw) {
-    if (getenv("R11V209_OFF") != nullptr || getenv("R11U209_OFF") != nullptr)
-        return false;
-    return getenv(sw) == nullptr;
-}
 // § mpOrphanLaterWriter209v — (line, column) of the last bare or one-select
 // member connection (`.c(sub.trn)`, `.d(sub.vec[1])`) of each port-view object,
 // noted by ModuleEmit's § ifaceSigConnNamedByChildPort155 (which names the
@@ -4701,7 +4164,7 @@ void noteMpWriter209v(const UHDM::any* viewObj, uint32_t line, uint32_t col) {
         mpWriter209v()[viewObj] = {line, col};
 }
 static void modportOpOrphanReparent209(UHDM::Serializer& s, UHDM::design* d) {
-    if (!d || !r11u209Law("R11U209_MPORPHAN_OFF"))
+    if (!d || !lawOn(209, "R11U209_MPORPHAN_OFF"))
         return;
     auto viewObj = [](const UHDM::module_inst* m, std::string_view pn,
                       std::string_view mn) -> UHDM::any* {
@@ -4772,7 +4235,7 @@ static void modportOpOrphanReparent209(UHDM::Serializer& s, UHDM::design* d) {
                      ot209 == vpiAssignmentPatternOp ||
                      ot209 == vpiMultiAssignmentPatternOp ||
                      ot209 == vpiStreamLROp || ot209 == vpiStreamRLOp) &&
-                    r11v209Law("R11V209_MPCONCAT_OFF")) {
+                    lawFixOn(209, "R11V209_MPCONCAT_OFF")) {
                     trace209("mpOrphanSkipConcat209v", std::to_string(ot209));
                     continue;
                 }
@@ -4788,7 +4251,7 @@ static void modportOpOrphanReparent209(UHDM::Serializer& s, UHDM::design* d) {
             // (v20: the bare connection first).  Grid
             // tools/probe/v11u209repro/cases/IM v19 v22 (v20 v25 the orphan
             // last).  Switch R11V209_MPLATER_OFF.
-            if (trig && r11v209Law("R11V209_MPLATER_OFF")) {
+            if (trig && lawFixOn(209, "R11V209_MPLATER_OFF")) {
                 const std::pair<uint32_t, uint32_t> at209{op->VpiLineNo(),
                                                           op->VpiColumnNo()};
                 red.erase(std::remove_if(red.begin(), red.end(),
@@ -4899,7 +4362,7 @@ static void modportOpOrphanReparent209(UHDM::Serializer& s, UHDM::design* d) {
 // two or more elements ending in a bit_select.  Grid
 // tools/probe/r11u205dec/cases/GS.  Switch R11U205_GENIDXSEL_OFF.
 static void genConnTrailSelChain205(UHDM::design* d) {
-    if (!d || !r11u205Law("R11U205_GENIDXSEL_OFF"))
+    if (!d || !lawOn(205, 209, "R11U205_GENIDXSEL_OFF"))
         return;
     auto fixInst = [&](const UHDM::any* o) {
         const UHDM::VectorOfport* ports = nullptr;
@@ -5225,8 +4688,8 @@ static void tpUseBindsDefDefault160(
     UHDM::design* d, const std::map<std::string, std::set<std::string>>& ovr,
     std::map<const UHDM::any*, std::map<const UHDM::typespec*, UHDM::typespec*>>*
         e2dOut206 = nullptr) {
-    static const bool def160 = r11u160Law("R11U160_TPUSEDEF_OFF");
-    static const bool unit160 = r11u160Law("R11U160_TPUSEUNIT_OFF");
+    static const bool def160 = lawOn(160, "R11U160_TPUSEDEF_OFF");
+    static const bool unit160 = lawOn(160, "R11U160_TPUSEUNIT_OFF");
     if (!def160 && !unit160)
         return;
     if (!d || !d->AllModules() || !d->TopModules())
@@ -5383,7 +4846,7 @@ static void tpUseBindsDefDefault160(
                         // Grid tools/probe/r11u206repro/cases/TE (e10,
                         // e13-e16).  Switch R11U206_TPARRELEM_OFF.
                         static const bool arrElem206 =
-                            r11u206Law("R11U206_TPARRELEM_OFF");
+                            lawOn(206, "R11U206_TPARRELEM_OFF");
                         auto fixArr206 = [&](UHDM::ref_typespec* rt) {
                             if (rt && e2d.count(rt->Actual_typespec()))
                                 trace206("tpArrayElemBindsDefDefault206",
@@ -5487,7 +4950,7 @@ static void tpCastUseBindsDefDefault206(
     UHDM::Serializer& s,
     const std::map<const UHDM::any*,
                    std::map<const UHDM::typespec*, UHDM::typespec*>>& e2d) {
-    if (e2d.empty() || !r11u206Law("R11U206_TPCASTDEF_OFF"))
+    if (e2d.empty() || !lawOn(206, "R11U206_TPCASTDEF_OFF"))
         return;
     for (auto& kv : s.AllObjects()) {
         auto* o = (UHDM::any*)kv.first;
@@ -5593,9 +5056,9 @@ static void rebindElabPortTypeParam110(
     UHDM::design* d, UHDM::Serializer& s,
     const std::map<std::string, std::set<std::string>>& ovr110,
     const std::map<std::string, std::set<std::string>>& sel110) {
-    static const bool off110 = getenv("R11U110_OFF") != nullptr ||
-                               getenv("R11U110_PORT_OFF") != nullptr;
-    static const bool dbg110 = getenv("R11U110_DBG") != nullptr;
+    static const bool off110 = envSet("R11U110_OFF") ||
+                               envSet("R11U110_PORT_OFF");
+    static const bool dbg110 = envSet("R11U110_DBG");
     if (off110 || !d || !d->AllModules() || !d->TopModules())
         return;
     auto pa110 = [](const UHDM::type_parameter* tp) -> UHDM::packed_array_typespec* {
@@ -5718,7 +5181,7 @@ static void rebindElabPortTypeParam110(
                     // enum keeps its qualified name in golden too (grid
                     // e45/e47/e53, v11u93b107 r06), so those fire.
                     static const bool pkgGateOff110 =
-                        getenv("R11U110_PKGGATE_OFF") != nullptr;
+                        envSet("R11U110_PKGGATE_OFF");
                     if (!pkgGateOff110 &&
                         bound->VpiName().find("::") != std::string_view::npos &&
                         bound->UhdmType() != UHDM::uhdmstruct_typespec &&
@@ -5807,33 +5270,33 @@ static void rebindElabPortTypeParam110(
 }
 
 static bool off103() {
-    static const bool v = getenv("R11U103_OFF") != nullptr;
+    static const bool v = envSet("R11U103_OFF");
     return v;
 }
 static bool fileKeyOff103() {
-    static const bool v = off103() || getenv("R11U103_FILEKEY_OFF") != nullptr;
+    static const bool v = off103() || envSet("R11U103_FILEKEY_OFF");
     return v;
 }
 static bool fileKeyDefOnlyOff103() {
-    static const bool v = off103() || getenv("R11U103_FILEKEY_DEFONLY_OFF") != nullptr;
+    static const bool v = off103() || envSet("R11U103_FILEKEY_DEFONLY_OFF");
     return v;
 }
 static bool unelabRoadOff103(const char* road) {
-    static const bool f = off103() || getenv("R11U103_UNELAB_F_OFF") != nullptr;
-    static const bool ni = off103() || getenv("R11U103_UNELAB_NI_OFF") != nullptr;
-    static const bool np = off103() || getenv("R11U103_UNELAB_NP_OFF") != nullptr;
+    static const bool f = off103() || envSet("R11U103_UNELAB_F_OFF");
+    static const bool ni = off103() || envSet("R11U103_UNELAB_NI_OFF");
+    static const bool np = off103() || envSet("R11U103_UNELAB_NP_OFF");
     return road[0] == 'F' ? f : (road[1] == 'I' ? ni : np);
 }
 static bool unelabLibOff103() {
-    static const bool v = getenv("R11U103_UNELAB_LIB_OFF") != nullptr;
+    static const bool v = envSet("R11U103_UNELAB_LIB_OFF");
     return v;
 }
 static bool unelabIfaceOff103() {
-    static const bool v = getenv("R11U103_UNELAB_IFACE_OFF") != nullptr;
+    static const bool v = envSet("R11U103_UNELAB_IFACE_OFF");
     return v;
 }
 static bool netDbg103() {
-    static const bool v = getenv("R11U103_NETDBG") != nullptr;
+    static const bool v = envSet("R11U103_NETDBG");
     return v;
 }
 // r11u105's gates (LAW A § caTopNamesakeKeyAtEntry105, LAW B
@@ -5842,35 +5305,35 @@ static bool netDbg103() {
 // exportDesign).  `R11U105_OFF=1` drops all; `R11U105_NETDBG=1` is the trace,
 // OUTSIDE every gate.
 static bool off105() {
-    static const bool v = getenv("R11U105_OFF") != nullptr;
+    static const bool v = envSet("R11U105_OFF");
     return v;
 }
 static bool topKeyOff105() {
-    static const bool v = off105() || getenv("R11U105_TOPKEY_OFF") != nullptr;
+    static const bool v = off105() || envSet("R11U105_TOPKEY_OFF");
     return v;
 }
 static bool progKeyOff105() {
-    static const bool v = off105() || getenv("R11U105_PROGKEY_OFF") != nullptr;
+    static const bool v = off105() || envSet("R11U105_PROGKEY_OFF");
     return v;
 }
 static bool progInstOff105() {
-    static const bool v = off105() || getenv("R11U105_PROGINST_OFF") != nullptr;
+    static const bool v = off105() || envSet("R11U105_PROGINST_OFF");
     return v;
 }
 static bool ifaceKeyOff105() {
-    static const bool v = off105() || getenv("R11U105_IFACEKEY_OFF") != nullptr;
+    static const bool v = off105() || envSet("R11U105_IFACEKEY_OFF");
     return v;
 }
 static bool netDbg105() {
-    static const bool v = getenv("R11U105_NETDBG") != nullptr;
+    static const bool v = envSet("R11U105_NETDBG");
     return v;
 }
 // r11u99's LAW B2 switch (ModuleEmit.cpp's `nestImplOff99`, read from the
 // same variables): with B2 off the implicit nested instance IS elaborated,
 // so its subtree is not an unelaborated road.
 static bool nestImplOff103() {
-    static const bool v = getenv("R11U99_NESTIMPL_OFF") != nullptr ||
-                          getenv("R11U99_OFF") != nullptr;
+    static const bool v = envSet("R11U99_NESTIMPL_OFF") ||
+                          envSet("R11U99_OFF");
     return v;
 }
 // The outer's elaborated BODY a nested definition was declared in (the walk
@@ -6022,7 +5485,7 @@ std::map<uint32_t, std::vector<std::array<uint32_t, 5>>> ppPasteChain160v;
 std::map<std::pair<uint32_t, uint32_t>, std::vector<uint8_t>> ppDropped160;
 std::set<std::string> ppDefined160;
 bool ppDefinedBuilt160 = false;
-bool ppLaw160(const char* sw) { return r11u160Law(sw); }
+bool ppLaw160(const char* sw) { return lawOn(160, sw); }
 }  // namespace
 
 // § ppMacroBodyLines160 (law above buildMacroExpansions) — the line and
@@ -6281,7 +5744,7 @@ static void ppPushLine160Adjust(SM* sm, SourceLocation lc, uint32_t& L) {
 namespace pp166 {
 
 inline bool law(const char* sw) {
-    return getenv("R11U166_OFF") == nullptr && getenv(sw) == nullptr;
+    return !envSet("R11U166_OFF") && getenv(sw) == nullptr;
 }
 
 struct Def {
@@ -6426,7 +5889,7 @@ struct Model {
         // token.  Only when the rebuilt text there reads `.` then an
         // identifier.  Grid tools/probe/r11u219repro/cases/M.  Switch
         // R11U219_PPDOTNAME_OFF.
-        if (!endQuery && o > 0 && r11u219Law("R11U219_PPDOTNAME_OFF"))
+        if (!endQuery && o > 0 && lawOn(219, "R11U219_PPDOTNAME_OFF"))
             if (const Pos* dp = dotName(b, o)) {
                 trace219("ppDotNameAfterArgToken219", "start");
                 return dp;
@@ -6447,7 +5910,7 @@ struct Model {
         // an identifier of exactly the span's length.  Grid
         // tools/probe/r11u219repro/cases/M.  Switch R11U219_PPIDENTEND_OFF.
         if (endQuery && endOf.buffer().valid() && endOf.buffer().getId() == b &&
-            o > (uint32_t)endOf.offset() && r11u219Law("R11U219_PPIDENTEND_OFF")) {
+            o > (uint32_t)endOf.offset() && lawOn(219, "R11U219_PPIDENTEND_OFF")) {
             const uint32_t so = (uint32_t)endOf.offset(), n = o - so;
             const Pos* sp = nullptr;
             auto it2 = tokPos.find({b, so});
@@ -6457,7 +5920,7 @@ struct Model {
             else if (it2 == tokPos.end() && ie2 != tokEndPos.end() && ie2->second.region >= 0)
                 sp = &ie2->second;
             else if (it2 == tokPos.end() && ie2 == tokEndPos.end() && so > 0 &&
-                     r11u219Law("R11U219_PPDOTNAME_OFF")) {
+                     lawOn(219, "R11U219_PPDOTNAME_OFF")) {
                 sp = dotName(b, so);
                 if (sp)
                     trace219("ppDotNameAfterArgToken219", "end");
@@ -7970,7 +7433,7 @@ SourceRange UhdmExporter::nameSpan(SourceLocation loc, std::string_view name) {
         // preprocessor's `#~@` spelling grew by, so the span stays on its
         // line (golden 4:11-4:23 where the buffer offset +6 crossed into
         // 5:3).  Only a space-terminated lexeme on a file line.
-        static const bool esc146 = r11u146Law("R11U146_ESCCOL_OFF");
+        static const bool esc146 = lawOn(146, "R11U146_ESCCOL_OFF");
         if (esc146 && !sm->isMacroLoc(loc)) {
             auto txt146 = sm->getSourceText(loc.buffer());
             size_t e146 = loc.offset() + 1;
@@ -8127,7 +7590,7 @@ std::string UhdmExporter::fullFilePath(SourceLocation loc) {
                     // wrong.  The file stays the pristine rule's.  Grid
                     // tools/probe/r11u168repro/cases/F.  Switch
                     // R11U168_PPFILECALL_OFF (and R11U168_OFF).
-                    static const bool callArg168 = r11u168Law("R11U168_PPFILECALL_OFF");
+                    static const bool callArg168 = lawOn(168, "R11U168_PPFILECALL_OFF");
                     if (r.group >= 0 && !(callArg168 && r.nl > 0)) {
                         gi = r.group;
                         k = r.kBase;
@@ -8147,8 +7610,8 @@ std::string UhdmExporter::fullFilePath(SourceLocation loc) {
     // is counted in (§ macroTokenFileFollowsLine125), or, with the switch
     // off, the definition file.
     if (sm->isMacroLoc(loc)) {
-        static const bool off125 = getenv("R11U125_OFF") != nullptr ||
-                                   getenv("R11U125_MACROFILE_OFF") != nullptr;
+        static const bool off125 = envSet("R11U125_OFF") ||
+                                   envSet("R11U125_MACROFILE_OFF");
         loc = off125 ? sm->getFullyOriginalLoc(loc) : macroFileLoc125(sm, loc);
     }
     return sm->getFullPath(loc.buffer()).string();
@@ -8381,7 +7844,7 @@ void UhdmExporter::emitIncludeFileInfos() {
             // 1:3, mid.svh included at dut.sv 4:4 — golden 4:12-4:23,
             // pristine 4:12-4:23, the shift law 4:15-4:26).  Switch:
             // R11V125_INCINFOCOL_OFF (and R11U125_OFF).
-            incInfoRawCol125v = getenv("R11V125_INCINFOCOL_OFF") == nullptr;
+            incInfoRawCol125v = !envSet("R11V125_INCINFOCOL_OFF");
             fileLineCol(r.start(), e.line, e.col);
             if (r.end() != SourceLocation::NoLocation)
                 fileLineCol(r.end(), e.endLine, e.endCol);
@@ -8414,7 +7877,7 @@ void UhdmExporter::emitIncludeFileInfos() {
     // `ifdef branch as disabled text).  Switch: R11U125_INCREDEF_OFF (and
     // R11U125_OFF).
     std::map<uint32_t, std::vector<uint32_t>> lost125; // buffer -> lines
-    if (!getenv("R11U125_OFF") && !getenv("R11U125_INCREDEF_OFF")) {
+    if (!envSet("R11U125_OFF") && !envSet("R11U125_INCREDEF_OFF")) {
         std::set<std::string> defined125;
         // § emptyRedefineBareLine125v (VERIFIER of r11u125) — only a BARE
         // `define line drops the output line: Surelog's `define_directive`
@@ -8426,7 +7889,7 @@ void UhdmExporter::emitIncludeFileInfos() {
         // and keeps its line (grid tools/probe/r11v125repro/grid/rd z01, z07:
         // golden = pristine, the r11u125 law one line low).  Switch:
         // R11V125_BAREDEF_OFF (and R11U125_OFF).
-        static const bool offBare125v = getenv("R11V125_BAREDEF_OFF") != nullptr;
+        static const bool offBare125v = envSet("R11V125_BAREDEF_OFF");
         auto bareDefineLine125v = [&](const syntax::DefineDirectiveSyntax& dd) {
             if (offBare125v)
                 return true;
@@ -8439,7 +7902,7 @@ void UhdmExporter::emitIncludeFileInfos() {
                     return false;
             return true;
         };
-        static const bool xroot168 = r11u168Law("R11U168_UNDEFXROOT_OFF");
+        static const bool xroot168 = lawOn(168, "R11U168_UNDEFXROOT_OFF");
         std::map<std::string, uint32_t> defRoot168; // macro -> root buffer of its definition
         auto rootOf168 = [&](SourceLocation l) -> uint32_t {
             if (l == SourceLocation::NoLocation)
@@ -8538,8 +8001,8 @@ void UhdmExporter::emitIncludeFileInfos() {
     std::map<uint32_t, std::set<uint32_t>> inactive141;
     bool inact141Built = false;
     auto inactiveIncLines141 = [&](slang::BufferID b) -> const std::set<uint32_t>* {
-        static const bool on141 = getenv("R11V141_OFF") == nullptr &&
-                                  getenv("R11V141_INCTABACT_OFF") == nullptr;
+        static const bool on141 = !envSet("R11V141_OFF") &&
+                                  !envSet("R11V141_INCTABACT_OFF");
         if (!on141 || !b)
             return nullptr;
         if (!inact141Built) {
@@ -8656,7 +8119,7 @@ void UhdmExporter::emitIncludeFileInfos() {
             // q06 a declaration first: all lines) and r11v125's rd z06 z08
             // z09 z12 (z10, z11 carry a comment: all lines).  Switch:
             // R11U130_INCNOTEXT_OFF (and R11U130_OFF).
-            if (r11u130Law("R11U130_INCNOTEXT_OFF") && e.flat > 0) {
+            if (lawOn(130, "R11U130_INCNOTEXT_OFF") && e.flat > 0) {
                 // § includeInactiveTabNotText141v — the lines of this file a
                 // skipped conditional branch covers (computed once below).
                 const auto* inact141 = inactiveIncLines141(e.incBuf);
@@ -8700,7 +8163,7 @@ void UhdmExporter::emitIncludeFileInfos() {
                     // R11V141_OFF, R11U130_OFF).
                     ++ln141;
                     const bool skip141 = inact141 && inact141->count(ln141);
-                    if (!cont && !skip141 && r11u130Law("R11V130_INCTAB_OFF")) {
+                    if (!cont && !skip141 && lawOn(130, "R11V130_INCTAB_OFF")) {
                         size_t k0 = 0;
                         while (k0 < ln.size() && (ln[k0] == ' ' || ln[k0] == '\t')) {
                             if (ln[k0] == '\t') {
@@ -8759,7 +8222,7 @@ void UhdmExporter::emitIncludeFileInfos() {
         // rule).  Switch R11U166_INCL_REINC_OFF (and R11U166_INCL_OFF,
         // R11U166_OFF).
         static const bool onRe166 = pp166::law("R11U166_INCL_OFF") &&
-                                    getenv("R11U166_INCL_REINC_OFF") == nullptr;
+                                    !envSet("R11U166_INCL_REINC_OFF");
         if (onRe166 && !e.incBuf && e.reincBuf166) {
             std::string_view tx = sm->getSourceText(e.reincBuf166);
             while (!tx.empty() && tx.back() == '\0')
@@ -10564,8 +10027,8 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType,
             // `class_var < array_var`).  A type-parameter group name
             // (above) is left as it was.  Grid cases/b u01-u03.
             if (declKey9 && !tpGroupTs87.count(cts) &&
-                r11u183LawUX("R11U183_TSSPAN_OFF") &&
-                r11u183LawUX("R11U183_PROPELEM_OFF"))
+                lawOn(183, "R11U183_TSSPAN_OFF") &&
+                lawOn(183, "R11U183_PROPELEM_OFF"))
                 if (auto* dt183 = declKey9->getDeclaredType())
                     if (auto* ts183 = dt183->getTypeSyntax();
                         ts183 && ts183->kind == syntax::SyntaxKind::NamedType) {
@@ -10585,7 +10048,7 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType,
                         if (const syntax::NameSyntax* nm196 =
                                 ts183->as<syntax::NamedTypeSyntax>().name;
                             nm196 && nm196->kind == syntax::SyntaxKind::ClassName &&
-                            r11u196Law("R11U196_ELEMCLSNAME_OFF")) {
+                            lawOn(196, "R11U196_ELEMCLSNAME_OFF")) {
                             auto& cn196 = nm196->as<syntax::ClassNameSyntax>();
                             setLoc(cts, SourceRange(ts183->sourceRange().start(),
                                                     cn196.identifier.range().end()));
@@ -10606,7 +10069,7 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType,
                         const syntax::NameSyntax* qn186 =
                             ts183->as<syntax::NamedTypeSyntax>().name;
                         if (qn186 && qn186->kind == syntax::SyntaxKind::ScopedName &&
-                            r11u186Law("R11U186_PROPELEMQUAL_OFF")) {
+                            lawOn(186, "R11U186_PROPELEMQUAL_OFF")) {
                             auto& sn186 = qn186->as<syntax::ScopedNameSyntax>();
                             std::string_view pk186;
                             if (sn186.left->kind == syntax::SyntaxKind::IdentifierName)
@@ -11107,8 +10570,8 @@ void UhdmExporter::emitAssocDims(const Symbol& cp,
             // method takes its loop variable from THIS index typespec object
             // (golden `class_typespec (e)` at the property's index, filed;
             // grid cases/d f14; UVM `foreach (m_maps[map])`).
-            if (r11u183LawUX("R11U183_TSSPAN_OFF") &&
-                r11u183LawUX("R11U183_FEIDX_OFF")) {
+            if (lawOn(183, "R11U183_TSSPAN_OFF") &&
+                lawOn(183, "R11U183_FEIDX_OFF")) {
                 tr183UX("foreachAssocLoopVarIdxTs183");
                 arrayVarArrayTs[&cp] = ats;
             }
@@ -11276,7 +10739,7 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
                 // tools/probe/r11u180repro/cases/A a04, a11, a12, a15.
                 // Switch R11U180_TPQUAL_OFF.
                 if (dsyn && dsyn->kind == syntax::SyntaxKind::NamedType &&
-                    r11u180Law("R11U180_TPQUAL_OFF")) {
+                    lawOn(180, "R11U180_TPQUAL_OFF")) {
                     const syntax::NameSyntax* qn180 =
                         dsyn->as<syntax::NamedTypeSyntax>().name;
                     if (qn180 && qn180->kind == syntax::SyntaxKind::ScopedName) {
@@ -11334,8 +10797,8 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
                 // (§ classTpKeywordTsAtDefault188's domain).  Switch
                 // R11U188_TPDEFSYN_OFF.
                 const syntax::SyntaxNode* osyn188 = dsyn;
-                if (r11u188Law("R11U188_TPKEYWORD_OFF") &&
-                    r11u188Law("R11U188_TPDEFSYN_OFF") && tpKeywordDefault188(mem))
+                if (lawOn(188, "R11U188_TPKEYWORD_OFF") &&
+                    lawOn(188, "R11U188_TPDEFSYN_OFF") && tpKeywordDefault188(mem))
                     if (auto* hd188 = tpHeaderDefaultSyn188(mem); hd188 && hd188 != dsyn) {
                         osyn188 = hd188;
                         trace188("tpOwnTsAtHeaderDefault188", std::string(tps.name));
@@ -11346,7 +10809,7 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
                 // § classTpKeywordTsAtDefault188 — a keyword default's own
                 // object (TypeEmit.cpp: the uses copy it, a formal moves it).
                 if (its && its->UhdmType() != UHDM::uhdmclass_typespec &&
-                    r11u188Law("R11U188_TPKEYWORD_OFF") && tpKeywordChainRoot188(mem))
+                    lawOn(188, "R11U188_TPKEYWORD_OFF") && tpKeywordChainRoot188(mem))
                     noteTpOwnTs180(&mem, its, false);
             }
             rt->Actual_typespec(its);
@@ -11465,7 +10928,7 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
                     // left both unsigned and the typespec unparented: a
                     // judge-visible stage-1 head (r11u196's residue R2).
                     if (wts54->UhdmType() == UHDM::uhdmint_typespec &&
-                        r11u202Law("R11U202_CLSPARAMSIGN_OFF")) {
+                        (lawOn(202, "R11U202_CLSPARAMSIGN_OFF") && !landingOff(202))) {
                         const bool sgn202 = pct54.isSigned();
                         if (sgn202)
                             ((UHDM::int_typespec*)wts54)->VpiSigned(true);
@@ -11740,7 +11203,7 @@ UHDM::class_defn* UhdmExporter::classDefnFor(const Type& ct) {
     // (directly or inside its generate blocks) resolves through the
     // definition's listing.
     if (ct.kind == SymbolKind::ClassType && !modClassListing196().empty() &&
-        r11u196Law("R11U196_MODCLSLINK_OFF")) {
+        lawOn(196, "R11U196_MODCLSLINK_OFF")) {
         auto& c196 = ct.as<ClassType>();
         const Scope* sc196 = c196.genericClass ? c196.genericClass->getParentScope()
                                                : c196.getParentScope();
@@ -11868,7 +11331,7 @@ void respanSpecArgs202(
     const std::function<void(UHDM::BaseClass*, SourceRange)>& loc,
     const char* site) {
     if (!cts || !cts->Parameters() || !cn.parameters ||
-        !r11u202Law("R11U202_SPECARGS_OFF"))
+        !(lawOn(202, "R11U202_SPECARGS_OFF") && !landingOff(202)))
         return;
     std::vector<const syntax::ExpressionSyntax*> ord;
     for (auto* pa : cn.parameters->parameters) {
@@ -11969,7 +11432,7 @@ void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType&
             // (golden 18:14-18:20 `object`, where ours spanned the whole
             // `object#(longint)`; grid CV v05).  Switch
             // R11U152_CLSNESTNAME_OFF.
-            if (dsyn && r11u152Law("R11U152_CLSNESTNAME_OFF"))
+            if (dsyn && lawOn(152, "R11U152_CLSNESTNAME_OFF"))
                 if (auto* ntN152 = dsyn->as_if<syntax::NamedTypeSyntax>();
                     ntN152 && ntN152->name &&
                     ntN152->name->kind == syntax::SyntaxKind::ClassName)
@@ -11994,7 +11457,7 @@ void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType&
         // param_assign carries the formal's line and columns but NO file
         // (golden `1:28-1:29` with an empty vpiFile on ClassParamAsParam;
         // grid CV v02/v05).  Switch R11U152_CLSPANOFILE_OFF.
-        if (r11u152Law("R11U152_CLSPANOFILE_OFF"))
+        if (lawOn(152, "R11U152_CLSPANOFILE_OFF"))
             pa->VpiFile("");
         pa->Rhs(tp);
         pas->push_back(pa);
@@ -13357,7 +12820,7 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                 std::string memAlias146 = aliasFull;
                 if (clsName.find("::") == std::string::npos &&
                     clsName.rfind("work@", 0) != 0 &&
-                    r11u146Law("R11U146_CLSTDPKG_OFF"))
+                    lawOn(146, "R11U146_CLSTDPKG_OFF"))
                     if (auto* pk146 = cls.getParentScope();
                         pk146 && pk146->asSymbol().kind == SymbolKind::Package)
                         memAlias146 = std::string(pk146->asSymbol().name) +
@@ -13392,7 +12855,7 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                 std::string memAlias237 = aliasFull;
                 if (clsName.find("::") == std::string::npos &&
                     clsName.rfind("work@", 0) != 0 &&
-                    r11u146Law("R11U146_CLSTDPKG_OFF"))
+                    lawOn(146, "R11U146_CLSTDPKG_OFF"))
                     if (auto* pk237 = cls.getParentScope();
                         pk237 && pk237->asSymbol().kind == SymbolKind::Package)
                         memAlias237 = std::string(pk237->asSymbol().name) +
@@ -15623,7 +15086,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                     // `A + B` 19:54-20:77; the leftmost leaf read 118:48 and
                     // 19:54-19:75).  Switch R11U200_UNITINIT_OFF.
                     const Expression* spanE = &ic;
-                    if (r11u200Law("R11U200_UNITINIT_OFF")) {
+                    if ((lawOn(200, 202, "R11U200_UNITINIT_OFF") && !landingOff(202))) {
                         if (spanE->kind == ExpressionKind::BinaryOp) {
                             spanE = &stripImplicitConv(
                                 spanE->as<BinaryExpression>().left());
@@ -16105,7 +15568,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                 const syntax::SyntaxNode* aliasSyn161 = nullptr;
                 if (ct.kind == SymbolKind::EnumType &&
                     ta.targetType.getType().kind == SymbolKind::TypeAlias &&
-                    r11u161Law("R11U161_ALIAS_OFF"))
+                    lawOn(161, "R11U161_ALIAS_OFF"))
                     if (auto tIt161 = typedefTs.find(&ta.targetType.getType());
                         tIt161 != typedefTs.end() && tIt161->second &&
                         tIt161->second->UhdmType() == UHDM::uhdmenum_typespec)
@@ -16173,7 +15636,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                         setLoc(ts, typeSyn->sourceRange());
                     // § unitAggTfArgLastWriter155 — the last writer wins,
                     // module-signal uses and module subroutines included.
-                    if (r11u155Law("R11U155_UNITSTRUCTARG_OFF")) {
+                    if (lawOn(155, "R11U155_UNITSTRUCTARG_OFF")) {
                         auto lw155 = lastFormalTok155(ta);
                         if (lw155.start() != SourceLocation::NoLocation)
                             setLoc(ts, lw155);
@@ -16209,7 +15672,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                     if (typeSyn)
                         setLoc(ts, typeSyn->sourceRange());
                     // § unitAggTfArgLastWriter155 — the union half.
-                    if (r11u155Law("R11U155_UNITUNIONARG_OFF")) {
+                    if (lawOn(155, "R11U155_UNITUNIONARG_OFF")) {
                         auto lw155 = lastFormalTok155(ta);
                         if (lw155.start() != SourceLocation::NoLocation)
                             setLoc(ts, lw155);
@@ -16643,7 +16106,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                                 // alike (cases CT c07, c12).  A package or
                                 // class-scope typedef already agreed (c14,
                                 // c15).
-                                if (r11u202Law("R11U202_UNITCLSTD_OFF")) {
+                                if ((lawOn(202, "R11U202_UNITCLSTD_OFF") && !landingOff(202))) {
                                     r = cn->identifier.range();
                                     trace202("unitClassTdSpecAtName202",
                                              std::string(ta.name));
@@ -16689,16 +16152,16 @@ UHDM::design* UhdmExporter::exportDesign() {
                     // `work@<name>` wins (u07 programs, u15 interfaces), an
                     // uninstantiated definition writing too (u16).
                     static const bool ifcPrg206 =
-                        r11u206Law("R11U206_UTIFCPRG_OFF");
+                        lawOn(206, "R11U206_UTIFCPRG_OFF");
                     // § landingSwitchReach219: under R11U219_LANDING202_OFF
                     // (and no old switch of landing 202) the module writers
                     // of § unitClassTdEndAtInit202 are dropped and the
                     // interface and program writers of pass 206 stay.
-                    const bool mod202 = r11u202Law("R11U202_CLSTDINITEND_OFF");
+                    const bool mod202 = (lawOn(202, "R11U202_CLSTDINITEND_OFF") && !landingOff(202));
                     const bool only206 =
-                        !mod202 && ifcPrg206 && landingOff219(202) &&
-                        getenv("R11U202_OFF") == nullptr &&
-                        getenv("R11U202_CLSTDINITEND_OFF") == nullptr;
+                        !mod202 && ifcPrg206 && landingOff(202) &&
+                        !envSet("R11U202_OFF") &&
+                        !envSet("R11U202_CLSTDINITEND_OFF");
                     if (mod202 || only206) {
                         std::string bestKey202;
                         const syntax::ExpressionSyntax* best202 = nullptr;
@@ -17038,7 +16501,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // whatever its header (golden `program p(); import pk::*; s_t x [2];`
     // lists the elaborated pk::s_t at the stretched 2:37, as pristine read).
     // Grid tools/probe/v11u155repro/cases/TE.  Switch: R11V155_TDPRG_OFF.
-    const bool prgKeeps155 = r11u155Law("R11V155_TDPRG_OFF");
+    const bool prgKeeps155 = lawOn(155, "R11V155_TDPRG_OFF");
     auto nonAnsiHdr155 = [prgKeeps155](const InstanceBodySymbol& b155) -> bool {
         auto* ds155 = b155.getDefinition().getSyntax();
         if (!ds155 ||
@@ -17056,7 +16519,7 @@ UHDM::design* UhdmExporter::exportDesign() {
         return h155->ports->kind == syntax::SyntaxKind::AnsiPortList &&
                h155->ports->as<syntax::AnsiPortListSyntax>().ports.empty();
     };
-    const bool hdrGate155 = r11u155Law("R11U155_TDSTRETCHHDR_OFF");
+    const bool hdrGate155 = lawOn(155, "R11U155_TDSTRETCHHDR_OFF");
     for (auto& [tsP, aliasT] : pendingPkgTsStretch) {
         // LAST use wins (Surelog last-writer semantics).
         for (auto& [nm9, inst9] : defs) {
@@ -18025,7 +17488,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // parameter's final value; the first same-named parameter of the
     // package wins, as importPackage's map keeps the first.  Grid
     // tools/probe/r11u214dec/cases/D/g01.  Switch R11U214_VALENC_OFF.
-    if (r11u214Law("R11U214_VALENC_OFF") && d && d->TopPackages() &&
+    if (lawOn(214, 219, "R11U214_VALENC_OFF") && d && d->TopPackages() &&
         (d->Parameters() || d->Param_assigns())) {
         std::map<std::pair<std::string, std::string>, const UHDM::parameter*> src214;
         for (auto* pk : *d->TopPackages())
@@ -18075,7 +17538,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // private ref to the same actual, with no stored name.  Grid
     // tools/probe/r11u214dec/cases/D g01-g03.  Switch
     // R11U214_UNITCOPYTS_OFF.
-    if (r11u214Law("R11U214_UNITCOPYTS_OFF") && d && d->TopPackages()) {
+    if (lawOn(214, 219, "R11U214_UNITCOPYTS_OFF") && d && d->TopPackages()) {
         std::map<std::pair<std::string, std::string>, const UHDM::parameter*> srcTs214;
         for (auto* pk : *d->TopPackages())
             if (pk && pk->Parameters())
@@ -20110,18 +19573,18 @@ UHDM::design* UhdmExporter::exportDesign() {
                         vis110(gm);
             }
         };
-        if (!getenv("R11U110_OFF"))
+        if (!envSet("R11U110_OFF"))
             for (auto inst : comp.getRoot().topInstances)
                 for (auto& m : inst->body.members())
                     vis110(m);
-        if (getenv("R11U110_DBG"))
+        if (envSet("R11U110_DBG"))
             for (auto& [i110, n110] : ovr110)
                 for (auto& t110 : n110)
                     fprintf(stderr, "R11U110 OVR %s %s\n", i110.c_str(),
                             t110.c_str());
         rebindElabPortTypeParam110(d, s, ovr110, sel110);
         ovr120 = ovr110;
-        ovr120Valid = !getenv("R11U110_OFF");
+        ovr120Valid = !envSet("R11U110_OFF");
     }
     // § tpElemRebindDefView107 — after every instance's type parameters are
     // settled (reads only; law and decode at the function).
@@ -20162,8 +19625,8 @@ UHDM::design* UhdmExporter::exportDesign() {
     // clones are kept out of the unparent key.  Grid
     // tools/probe/r11u182verify/cases/D.  Switch R11V182_UNIONPARENT_OFF.
     std::set<const UHDM::BaseClass*> keep182;
-    if (getenv("R11V182_OFF") == nullptr &&
-        getenv("R11V182_UNIONPARENT_OFF") == nullptr)
+    if (!envSet("R11V182_OFF") &&
+        !envSet("R11V182_UNIONPARENT_OFF"))
         for (auto& [ty182, ucl182] : castUnionClone)
             if (ucl182)
                 keep182.insert(ucl182);
@@ -20329,7 +19792,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // union object of that name located exactly at the declaration's type
     // span.  Grid tools/probe/r11u180repro/cases/P.  Switch
     // R11U180_PKGAGGCLONE_OFF.
-    if (r11u180Law("R11U180_PKGAGGCLONE_OFF")) {
+    if (lawOn(180, "R11U180_PKGAGGCLONE_OFF")) {
         struct PkMv180 {
             std::string name, file;
             uint32_t l0, c0, l1, c1;
@@ -20468,7 +19931,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // (golden `imm_11_0` 22:45-22:53 with no file under
     // `work@typed_named_pattern`'s NOP_CAST; map N0011, typed_named_pattern).
     // Switch R11U146_CASTKEYFILE_OFF.
-    if (r11u146Law("R11U146_CASTKEYFILE_OFF"))
+    if (lawOn(146, "R11U146_CASTKEYFILE_OFF"))
         for (auto& ck146 : castKeyNets70)
             if (ck146.second)
                 ck146.second->VpiFile("");
@@ -20517,7 +19980,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // or package between) whose stored name starts with the definition's name
     // take the outer chain in front and a `.` after it.  Grid
     // tools/probe/r11u193repro/cases/NN.  Switch R11U193_NESTNAME_OFF.
-    if (r11u193Law("R11U193_NESTNAME_OFF") && d->AllModules()) {
+    if (lawOn(193, "R11U193_NESTNAME_OFF") && d->AllModules()) {
         std::map<const UHDM::any*, std::pair<std::string, std::string>> nest193;
         for (auto* m193 : *d->AllModules()) {
             if (!m193 || m193->UhdmType() != UHDM::uhdmmodule_inst)
@@ -21737,7 +21200,7 @@ UHDM::design* UhdmExporter::exportDesign() {
         // (and pristine, which shared the package constant) binds n_t.  The
         // copy takes the source reference's actual as it stands at the end of
         // export, which is what the shared constant showed.
-        if (getenv("R11V243_OFF") == nullptr && getenv("R11V243_UNITRHSACT_OFF") == nullptr)
+        if (!envSet("R11V243_OFF") && !envSet("R11V243_UNITRHSACT_OFF"))
             for (auto& [rt, sc] : g_unitRhsAct243v) {
                 auto* srt = sc->Typespec();
                 auto* fa = srt ? srt->Actual_typespec() : nullptr;
@@ -22902,7 +22365,7 @@ UHDM::design* UhdmExporter::exportDesign() {
         bindTpUseVars291(s);
         return anonAggMemberChainName291(s, defGenSelRefChainName287(s, d287));
     };
-    if (!r11u146Law("R11U146_TFARGTD_OFF"))
+    if (!lawOn(146, "R11U146_TFARGTD_OFF"))
         return final287(finish241());
     // § tfArgQualOutsideWriter176 (r11u176) — a PACKAGE-QUALIFIED argument
     // type (`ibex_pkg::pmp_cfg_t region_csr_pmp_cfg`) is a writer like a bare
@@ -22919,7 +22382,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // writer inside the typedef's own package is not modelled (q15, stage 1
     // on every binary) and still leaves the typedef alone.  Switch
     // R11U176_QUALFORMAL_OFF.
-    const bool qual176 = r11u176Law("R11U176_QUALFORMAL_OFF");
+    const bool qual176 = lawOn(176, "R11U176_QUALFORMAL_OFF");
     // § tfArgClassMethodOrder176 (r11u176, r11u175's F3 decode) — a method
     // of a class a PACKAGE holds writes the package typedef too (§ 146's
     // decline was ours, not Surelog's): Surelog compiles a package's classes
@@ -22929,7 +22392,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // after every class, in source order; the last writer wins.  Grid
     // tools/probe/r11u175uvm/cases/f3 t1-t6 + tools/probe/r11u176repro/
     // cases/F3.  Switch R11U176_CLSMETHOD_OFF.
-    const bool clsm176 = r11u176Law("R11U176_CLSMETHOD_OFF");
+    const bool clsm176 = lawOn(176, "R11U176_CLSMETHOD_OFF");
     std::set<const Symbol*> aggTd176;
     // Emitted typedefs by name.
     std::map<std::string, std::vector<const Symbol*>> byName;
@@ -22953,9 +22416,9 @@ UHDM::design* UhdmExporter::exportDesign() {
         // drops the class-method order's struct face (v11u176 CM/c08, c18).
         // Byte-identical with every switch on.  Switch
         // R11U180_AGGSWITCH_OFF (the coupled admission, as delivered).
-        static const bool aggSplit180 = r11u180Law("R11U180_AGGSWITCH_OFF");
+        static const bool aggSplit180 = lawOn(180, "R11U180_AGGSWITCH_OFF");
         const bool aggAdmit180 =
-            qual176 || (aggSplit180 && (clsm176 || r11u176Law("R11U176_DEFTOPSPLIT_OFF")));
+            qual176 || (aggSplit180 && (clsm176 || lawOn(176, "R11U176_DEFTOPSPLIT_OFF")));
         if (ct.kind != SymbolKind::EnumType) {
             if (!(aggAdmit180 && (ct.kind == SymbolKind::PackedStructType ||
                               ct.kind == SymbolKind::PackedUnionType ||
@@ -23014,7 +22477,7 @@ UHDM::design* UhdmExporter::exportDesign() {
             // 4:41-4:44; tools/probe/v11u146repro/cases/fa/a15_dpi_pkg_only,
             // a2_dpi, a18_dpi_module_only).  Switch R11V146_TFARGDPI_OFF.
             if (k == syntax::SyntaxKind::DPIImport &&
-                r11u146Law("R11V146_TFARGDPI_OFF"))
+                lawOn(146, "R11V146_TFARGDPI_OFF"))
                 return;
             // § tfArgDpiExportFirstNoWrite153v (r11u153, verifier refinement)
             // — a subroutine whose `export "DPI-C"` declaration PRECEDES its
@@ -23029,7 +22492,7 @@ UHDM::design* UhdmExporter::exportDesign() {
             // it was (golden moves).  Switch R11U153_TFARGDPIEXP_OFF.
             if ((k == syntax::SyntaxKind::FunctionDeclaration ||
                  k == syntax::SyntaxKind::TaskDeclaration) &&
-                n.parent && r11u153On("R11U153_TFARGDPIEXP_OFF")) {
+                n.parent && lawOn(153, "R11U153_TFARGDPIEXP_OFF")) {
                 auto& fd153 = n.as<syntax::FunctionDeclarationSyntax>();
                 std::string_view fn153;
                 if (fd153.prototype && fd153.prototype->name &&
@@ -23371,7 +22834,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     auto tfArgOutsideCopyOrder193 = [&](UHDM::design* d, const Symbol* td,
                                          UHDM::typespec* moved, UHDM::typespec* twin,
                                          const syntax::SyntaxNode* writer) {
-        if (!r11u193Law("R11U193_COPYORDER_OFF") || !d || !td || !moved || !twin ||
+        if (!lawOn(193, "R11U193_COPYORDER_OFF") || !d || !td || !moved || !twin ||
             moved == twin || !writer)
             return;
         auto* ps = td->getParentScope();
@@ -23643,7 +23106,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                     oneUnit = false;
             }
             clsOrder176 = anyCls && oneUnit && ws.front().unit176 == pkgSyn176;
-            if (!clsOrder176 && anyCls && r11u216Law("R11U216_TFOUTCLS_OFF")) {
+            if (!clsOrder176 && anyCls && (lawOn(216, "R11U216_TFOUTCLS_OFF") && !landingOff(216))) {
                 bool ok216 = true, anyOwn216 = false, anyOut216 = false;
                 const syntax::SyntaxNode* modC216 = nullptr;
                 for (auto& w : ws) {
@@ -23680,7 +23143,7 @@ UHDM::design* UhdmExporter::exportDesign() {
         // modelled (the typedef is left alone).  Switch R11U176_DEFTOPSPLIT_OFF.
         const Writer* splitIn176 = nullptr;
         const Writer* splitOut176 = nullptr;
-        if (!clsOrder176 && pkgSyn176 && r11u176Law("R11U176_DEFTOPSPLIT_OFF")) {
+        if (!clsOrder176 && pkgSyn176 && lawOn(176, "R11U176_DEFTOPSPLIT_OFF")) {
             const syntax::SyntaxNode* outC = nullptr;
             bool ok = true, anyIn = false, anyOut = false;
             for (auto& w : ws) {
@@ -23749,7 +23212,7 @@ UHDM::design* UhdmExporter::exportDesign() {
             // tools/probe/v11u216repro/cases/T (t01-t04, t09, t11, t12: golden
             // the key order in every one; the r11u216 grid TW reads the same
             // under both orders).  Switch R11V216_CLSKEY_OFF.
-            const bool clsKey216v = outCls216 && r11v216Law("R11V216_CLSKEY_OFF");
+            const bool clsKey216v = outCls216 && (fixOn(216, "R11V216_CLSKEY_OFF") && !landingOff(216));
             auto clsKey216 = [&](const Writer& w) -> std::string {
                 std::string k;
                 if (w.unit176) {
@@ -23863,7 +23326,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                 // tools/probe/v11u146repro/cases/fa/a3_alias).  Only an
                 // object that starts at its own declaration can carry a
                 // moved end.  Switch R11V146_TFARGALIAS_OFF.
-                if (endMoved && r11u146Law("R11V146_TFARGALIAS_OFF")) {
+                if (endMoved && lawOn(146, "R11V146_TFARGALIAS_OFF")) {
                     uint32_t sl = 0, sc = 0;
                     locLineCol(tsyn->sourceRange().start(), sl, sc);
                     if (!(ts->VpiLineNo() == sl && ts->VpiColumnNo() == sc))
@@ -23943,7 +23406,7 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
             else
                 applyW(topTs ? topTs : defTs, lastCls176);
-            if (!dn216.empty() && d0l && r11u216Law("R11U216_TFIMPCLONE_OFF")) {
+            if (!dn216.empty() && d0l && (lawOn(216, "R11U216_TFIMPCLONE_OFF") && !landingOff(216))) {
                 std::string_view own216;
                 if (auto* ps = td->getParentScope())
                     own216 = ps->asSymbol().name;
@@ -24851,8 +24314,8 @@ void UhdmExporter::buildMacroExpansions() {
             // block comment does not start a comment.
             // Switch: R11U125_MACROCMT_OFF (and R11U125_OFF).
             static const bool offCmt125 =
-                getenv("R11U125_OFF") != nullptr ||
-                getenv("R11U125_MACROCMT_OFF") != nullptr;
+                envSet("R11U125_OFF") ||
+                envSet("R11U125_MACROCMT_OFF");
             if (!offCmt125 && !bi.multiLine) {
                 size_t cut = e;
                 bool inStr = false, inBlk = false;
@@ -25001,7 +24464,7 @@ void UhdmExporter::buildMacroExpansions() {
             // the first blank-led token's written offset stays with the
             // written layout (with a positive shift the two can coincide).
             // Switch R11V160_PASTECHAIN_OFF.
-            static const bool chain160v = getenv("R11V160_PASTECHAIN_OFF") == nullptr;
+            static const bool chain160v = !envSet("R11V160_PASTECHAIN_OFF");
             if (chain160v)
                 if (auto ts = ppTokSeq160v.find(pb); ts != ppTokSeq160v.end()) {
                     const auto& seq = ts->second;
@@ -25333,7 +24796,7 @@ void UhdmExporter::buildMacroExpansions() {
         // whose definition has no formals.  Cases
         // tools/probe/r11u160repro/cases/MA.  Switch
         // R11U160_OBJMACROPAREN_OFF (and R11U160_OFF).
-        static const bool omp160 = r11u160Law("R11U160_OBJMACROPAREN_OFF");
+        static const bool omp160 = lawOn(160, "R11U160_OBJMACROPAREN_OFF");
         if (omp160 && !bi.isArg) {
             auto ftext = sm->getSourceText(us.buffer());
             size_t k = bi.usage.end().offset();
@@ -25668,7 +25131,7 @@ static void ppFold119Line(std::string_view ln, bool& inBlock, int& macroDepth,
             // location inside it (a token END, [raw end, after the run))
             // reads the output token's end, i.e. the column after the run
             // (the `esc146` clamp window, applied before the shifts).
-            static const bool on146 = r11u146Law("R11U146_ESCCOL_OFF");
+            static const bool on146 = lawOn(146, "R11U146_ESCCOL_OFF");
             size_t b146 = i;
             while (i < n && ln[i] != ' ' && ln[i] != '\t')
                 i++;
@@ -25786,7 +25249,7 @@ const std::vector<std::pair<uint32_t, int32_t>>& UhdmExporter::numLitWsShift(
     if (!fresh)
         return it->second;
     auto text = sm->getSourceText(lc.buffer());
-    if (r11u119Law("R11U119_NUMLIT_OFF")) {
+    if (lawOn(119, "R11U119_NUMLIT_OFF")) {
         // One pass over the whole buffer (block comments and `define bodies
         // carry state across lines); every line's entries are memoized.
         static std::map<uint32_t, std::map<uint32_t, std::vector<std::pair<uint32_t, int32_t>>>>
@@ -25957,7 +25420,7 @@ RedefLines130& redefLines130() {
 uint32_t UhdmExporter_redefLost130(const SourceManager* sm,
                                    const slang::ast::Compilation& comp,
                                    uint32_t buf, uint32_t line) {
-    static const bool on = r11u130Law("R11U130_REDEFLINE_OFF");
+    static const bool on = lawOn(130, "R11U130_REDEFLINE_OFF");
     if (!on)
         return 0;
     auto& R = redefLines130();
@@ -26150,7 +25613,7 @@ void UhdmExporter::fileLineCol(SourceLocation lc, uint32_t& line,
     // none (basedLiteralSpanShrink, EmitHelpers.h).  Switch
     // R11U166_COL_LIT_OFF (and R11U166_COL_OFF, R11U166_OFF) restores both.
     static const bool onLit166 = pp166::law("R11U166_COL_OFF") &&
-                                 getenv("R11U166_COL_LIT_OFF") == nullptr;
+                                 !envSet("R11U166_COL_LIT_OFF");
     if (onLit166 && lc.buffer().valid() && !sm->isMacroLoc(lc)) {
         auto& lm = lit166Map();
         auto li = lm.find(std::make_pair(lc.buffer().getId(), line));
@@ -26170,8 +25633,8 @@ void UhdmExporter::fileLineCol(SourceLocation lc, uint32_t& line,
     // directive's own column is computed the same way, so an include on the
     // first line of an included file accumulates.  Switch:
     // R11U125_INCCOL_OFF (and R11U125_OFF).
-    static const bool offInc125 = getenv("R11U125_OFF") != nullptr ||
-                                  getenv("R11U125_INCCOL_OFF") != nullptr;
+    static const bool offInc125 = envSet("R11U125_OFF") ||
+                                  envSet("R11U125_INCCOL_OFF");
     if (!offInc125 && line == 1 && !incInfoRawCol125v) {
         SourceLocation inc = sm->getIncludedFrom(lc.buffer());
         if (inc != SourceLocation::NoLocation && inc.buffer().valid() &&

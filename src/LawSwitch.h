@@ -28,6 +28,12 @@ namespace slang_uhdm {
 
 inline bool envSet(const char* v) { return getenv(v) != nullptr; }
 
+// The earliest passes (38, 48, 92) read the value: set, non-empty and not "0".
+inline bool envTrue(const char* v) {
+    const char* s = getenv(v);
+    return s && *s && *s != '0';
+}
+
 inline bool lawOn(int pass, const char* sw) {
     char m[32];
     snprintf(m, sizeof m, "R11U%d_OFF", pass);
@@ -42,6 +48,36 @@ inline bool fixOn(int pass, const char* sw) {
 
 inline bool lawFixOn(int pass, const char* sw) {
     return lawOn(pass, sw) && fixOn(pass, sw);
+}
+
+// Two masters: a law landed by a later pass is dropped by either pass's master.
+inline bool lawOn(int pass, int landedBy, const char* sw) {
+    return lawOn(pass, sw) && lawOn(landedBy, sw);
+}
+
+// Pass 224 split one ground's half of passes 112, 175, 183 and 191 behind
+// R11U224_SPLIT<pass>A_OFF (§ landingSwitchReach224).
+inline bool splitAOff(int pass) {
+    switch (pass) {
+    case 112: return envSet("R11U224_SPLIT112A_OFF");
+    case 175: return envSet("R11U224_SPLIT175A_OFF");
+    case 183: return envSet("R11U224_SPLIT183A_OFF");
+    case 191: return envSet("R11U224_SPLIT191A_OFF");
+    default: return false;
+    }
+}
+
+// A landing switch: the pass that landed another pass's laws can drop just
+// those (pass 210 landed 201: R11U210_LANDING201_OFF; pass 219 landed 202,
+// 212 and 216: R11U219_LANDING<n>_OFF; § landingSwitchReach210/219).
+inline bool landingOff(int pass) {
+    switch (pass) {
+    case 201: return envSet("R11U210_LANDING201_OFF");
+    case 202: return envSet("R11U219_LANDING202_OFF");
+    case 212: return envSet("R11U219_LANDING212_OFF");
+    case 216: return envSet("R11U219_LANDING216_OFF");
+    default: return false;
+    }
 }
 
 namespace lawtrace_detail {
@@ -64,16 +100,11 @@ inline const char* traceDir(int pass) {
     }
     return (d && *d) ? d : nullptr;
 }
-inline FILE* open(int pass) {
-    Slot& s = slot(pass);
-    if (s.tried)
-        return s.fp;
-    s.tried = true;
+inline FILE* openFile(int pass, const std::string& suffix) {
     const char* d = traceDir(pass);
     if (!d)
         return nullptr;
-    std::string fn = std::string(d) + "/" + std::to_string(getpid()) + "." +
-                     std::to_string(pass);
+    std::string fn = std::string(d) + "/" + std::to_string(getpid()) + "." + suffix;
     FILE* fp = fopen(fn.c_str(), "a");
     if (!fp)
         return nullptr;
@@ -93,10 +124,29 @@ inline FILE* open(int pass) {
         fclose(c);
     }
     fprintf(fp, "OUT %s\n", outp.c_str());
-    s.fp = fp;
     return fp;
 }
+inline FILE* open(int pass) {
+    Slot& s = slot(pass);
+    if (s.tried)
+        return s.fp;
+    s.tried = true;
+    s.fp = openFile(pass, std::to_string(pass));
+    return s.fp;
+}
 }  // namespace lawtrace_detail
+
+// The early passes' trace files carry their own suffix (<pid>.200E for
+// ExprEmit's pass 200 trace); the caller keeps the FILE* in its own static.
+// stderrWhenOne: passes 214 and 219 print to stderr when the variable is "1".
+inline FILE* lawTraceFile(int pass, const char* suffix, bool stderrWhenOne = false) {
+    if (stderrWhenOne) {
+        const char* d = lawtrace_detail::traceDir(pass);
+        if (d && std::string(d) == "1")
+            return stderr;
+    }
+    return lawtrace_detail::openFile(pass, suffix);
+}
 
 inline bool lawTraceOn(int pass) {
     return lawtrace_detail::traceDir(pass) != nullptr;

@@ -8,6 +8,8 @@
 
 #include <uhdm/uhdm.h>
 
+#include "LawSwitch.h"
+
 #include <algorithm>
 #include <cctype>
 #include <charconv>
@@ -63,12 +65,10 @@ inline constexpr int kVpiAssignmentOp = 82; // sv_vpi_user.h vpiAssignmentOp
 //                     the patched one is ever run.
 // ---------------------------------------------------------------------------
 inline const bool cellDbg38 = [] {
-    const char* v = getenv("R11U38_CELLDBG");
-    return v && *v && *v != '0';
+        return envTrue("R11U38_CELLDBG");
 }();
 inline const bool lawOff38 = [] {
-    const char* v = getenv("R11U38_OFF");
-    return v && *v && *v != '0';
+        return envTrue("R11U38_OFF");
 }();
 
 // ---------------------------------------------------------------------------
@@ -676,9 +676,9 @@ inline size_t basedLiteralSpaceCount(std::string_view text) {
 // them (basedLiteralSpaceCount).  Switch R11U166_COL_LIT_OFF (and
 // R11U166_COL_OFF, R11U166_OFF) restores the site compaction.
 inline bool basedLiteralSitesCompact() {
-    static const bool fold = getenv("R11U166_OFF") == nullptr &&
-                             getenv("R11U166_COL_OFF") == nullptr &&
-                             getenv("R11U166_COL_LIT_OFF") == nullptr;
+    static const bool fold = !envSet("R11U166_OFF") &&
+                             !envSet("R11U166_COL_OFF") &&
+                             !envSet("R11U166_COL_LIT_OFF");
     return !fold;
 }
 inline size_t basedLiteralSpanShrink(std::string_view text) {
@@ -3219,23 +3219,16 @@ inline bool netDeclStrengthDrop92(const Symbol& sym) {
 // in) and the ANCHOR (`bodyDecl`, which is what every listing site reads to
 // choose between the port-list name and the declaration).  Either drops alone.
 inline const bool strPortOrderOff92 = [] {
-    const char* v = getenv("R11U92_STRPORTORD_OFF");
-    const char* a = getenv("R11U92_OFF");
-    return (v && *v && *v != '0') || (a && *a && *a != '0');
+        return envTrue("R11U92_STRPORTORD_OFF") || envTrue("R11U92_OFF");
 }();
 inline const bool strPortAnchorOff92 = [] {
-    const char* v = getenv("R11U92_STRPORTANCH_OFF");
-    const char* a = getenv("R11U92_OFF");
-    return (v && *v && *v != '0') || (a && *a && *a != '0');
+        return envTrue("R11U92_STRPORTANCH_OFF") || envTrue("R11U92_OFF");
 }();
 inline const bool strPortTypeOff92 = [] {
-    const char* v = getenv("R11U92_STRPORTTYPE_OFF");
-    const char* a = getenv("R11U92_OFF");
-    return (v && *v && *v != '0') || (a && *a && *a != '0');
+        return envTrue("R11U92_STRPORTTYPE_OFF") || envTrue("R11U92_OFF");
 }();
 inline const bool netOrderDbg92 = [] {
-    const char* v = getenv("R11U92_NETDBG");
-    return v && *v && *v != '0';
+        return envTrue("R11U92_NETDBG");
 }();
 
 // The THIRD face, and the one the arms needed to close: a reverted net is the
@@ -3268,9 +3261,7 @@ inline bool strPortRevertedNet92(const NetOrderItem& it) {
 //   port p  ref_obj (work@sub.p)   no vpiName   <- body re-declaration
 // One predicate, one `&&`; the law is the same sentence as the other three.
 inline const bool strPortLowConnOff92 = [] {
-    const char* v = getenv("R11U92_STRPORTLOW_OFF");
-    const char* a = getenv("R11U92_OFF");
-    return (v && *v && *v != '0') || (a && *a && *a != '0');
+        return envTrue("R11U92_STRPORTLOW_OFF") || envTrue("R11U92_OFF");
 }();
 inline bool strPortRevertedLowConn92(const Symbol& sym) {
     return !strPortLowConnOff92 && netDeclStrengthDrop92(sym);
@@ -3289,9 +3280,7 @@ inline bool strPortRevertedLowConn92(const Symbol& sym) {
 // and is untouched.  Pre-existing — the same cell is in the base's databases,
 // behind the net-order head — and the arm cannot close without it.
 inline const bool strPortInitOff92 = [] {
-    const char* v = getenv("R11U92_STRPORTINIT_OFF");
-    const char* a = getenv("R11U92_OFF");
-    return (v && *v && *v != '0') || (a && *a && *a != '0');
+        return envTrue("R11U92_STRPORTINIT_OFF") || envTrue("R11U92_OFF");
 }();
 inline bool strPortRevertedInit92(const Symbol& sym) {
     return !strPortInitOff92 && netDeclStrengthDrop92(sym);
@@ -12068,19 +12057,15 @@ inline const syntax::SyntaxNode* fieldMemberSyn106v(const FieldSymbol& f) {
 /// Every other bound that reads such a `$bits` still declines.
 /// r11u109 — switches: every law reads its own kill switch; `R11U109_OFF=1`
 /// turns them all off (the binary then writes the pristine database).
-inline bool r11u109On(const char* one) {
-    static const bool all = getenv("R11U109_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 inline std::function<bool(const syntax::ExpressionSyntax&, const Scope*,
                           int64_t, int32_t&, int32_t&)>
     boundEncHook109;
 inline bool evalOpDigits109On() {
-    static const bool on = r11u109On("R11U109_OPDIGITS_OFF");
+    static const bool on = lawOn(109, "R11U109_OPDIGITS_OFF");
     return on;
 }
 inline bool bitsAnonVecOne109On() {
-    static const bool on = r11u109On("R11U109_BITSONE_OFF");
+    static const bool on = lawOn(109, "R11U109_BITSONE_OFF");
     return on;
 }
 /// `$bits(<logic|bit|reg vector type>)` as written.
@@ -12610,7 +12595,7 @@ inline void utdVarFold106(UHDM::Serializer& s, UHDM::array_typespec* cp,
 /// and re-points its element at the shared default.  The TOP port is
 /// unchanged (the bare default).  MEASURED: tools/probe/r11u109repro/grid.
 inline bool tpUnpPortKeepsWrapper109() {
-    static const bool on = r11u109On("R11U109_TPUNP_OFF");
+    static const bool on = lawOn(109, "R11U109_TPUNP_OFF");
     return on;
 }
 
@@ -12645,7 +12630,7 @@ inline bool tpUnpPortKeepsWrapper109() {
 /// declarator (golden array_net), a tagged union, every other net keyword.
 /// Returns 0 (decline), 1 (struct_net) or 2 (packed_array_var).
 inline int anonPackedAggDimKind109(const Symbol& sym) {
-    static const bool on = r11u109On("R11U109_ANONNET_OFF");
+    static const bool on = lawOn(109, "R11U109_ANONNET_OFF");
     if (!on)
         return 0;
     if (sym.kind != SymbolKind::Variable && sym.kind != SymbolKind::Net)
@@ -12706,7 +12691,7 @@ inline int anonPackedAggDimKind109(const Symbol& sym) {
 /// match.
 inline bool memLeftStampTypeOk109(const UHDM::struct_typespec* sts,
                                   const SubroutineSymbol* fn) {
-    static const bool on = r11u109On("R11U109_STAMPTYPE_OFF");
+    static const bool on = lawOn(109, "R11U109_STAMPTYPE_OFF");
     if (!on || !sts || !fn)
         return true;
     std::string_view nm = sts->VpiName();
@@ -12746,7 +12731,7 @@ inline bool memLeftStampTypeOk109(const UHDM::struct_typespec* sts,
 /// DECLINED: an lvalue (its split shape is separately modelled), a base with
 /// two or more element selects, an interface / hierarchical / argument base.
 inline bool hpElemSelBaseVarSel109() {
-    static const bool on = r11u109On("R11U109_HPVS_OFF");
+    static const bool on = lawOn(109, "R11U109_HPVS_OFF");
     return on;
 }
 
@@ -12784,7 +12769,7 @@ inline bool hpElemSelBaseVarSel109() {
 /// operand, a `default:` / type / index setter, a post-bail member that is not
 /// a plain literal, every operator the evaluator table does not own.
 inline bool spVoidCastValue109On() {
-    static const bool on = r11u109On("R11U109_VOIDCAST_OFF");
+    static const bool on = lawOn(109, "R11U109_VOIDCAST_OFF");
     return on;
 }
 
@@ -12854,7 +12839,7 @@ inline void pkgPatCallArgFlatRecord109(Rec& rec, const Expression& pat,
 /// pattern's own element object (golden: `(Cfg.XLEN - 1)` is
 /// `op11[<Base's XLEN element 64 sz32 @30:23>, UINT:1]`).
 inline bool spVoidCastCaseB109On() {
-    static const bool on = r11u109On("R11U109_VOIDCASTB_OFF");
+    static const bool on = lawOn(109, "R11U109_VOIDCASTB_OFF");
     return on;
 }
 
@@ -12875,7 +12860,7 @@ inline bool spVoidCastCaseB109On() {
 /// operand (already golden), so only trees that hold such a member read are
 /// rebuilt.
 inline bool spCastBinQuirk109On() {
-    static const bool on = r11u109On("R11U109_CASTBIN_OFF");
+    static const bool on = lawOn(109, "R11U109_CASTBIN_OFF");
     return on;
 }
 
@@ -12900,36 +12885,32 @@ inline void runDeferred109() {
 // own kill switch; `R11U111_OFF=1` turns them all off.  Grids, cells and
 // decodes: tools/probe/r11u111repro/README.md.
 // ============================================================================
-inline bool r11u111On(const char* one) {
-    static const bool all = getenv("R11U111_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 inline bool pkgTdQualParam111On() {
-    static const bool on = r11u111On("R11U111_F1_OFF");
+    static const bool on = lawOn(111, "R11U111_F1_OFF");
     return on;
 }
 inline bool pkgTdQualParamDefShare111On() {
-    static const bool on = r11u111On("R11U111_F1D_OFF");
+    static const bool on = lawOn(111, "R11U111_F1D_OFF");
     return on;
 }
 inline bool pkgTdQualImpCopy111On() {
-    static const bool on = r11u111On("R11U111_F1B_OFF");
+    static const bool on = lawOn(111, "R11U111_F1B_OFF");
     return on;
 }
 inline bool rhsStructBareCopy111On() {
-    static const bool on = r11u111On("R11U111_F2_OFF");
+    static const bool on = lawOn(111, "R11U111_F2_OFF");
     return on;
 }
 inline bool tdOfNamedDims111On() {
-    static const bool on = r11u111On("R11U111_F3_OFF");
+    static const bool on = lawOn(111, "R11U111_F3_OFF");
     return on;
 }
 inline bool impCopyConcat111On() {
-    static const bool on = r11u111On("R11U111_F5_OFF");
+    static const bool on = lawOn(111, "R11U111_F5_OFF");
     return on;
 }
 inline bool tpOvrNamedDims111On() {
-    static const bool on = r11u111On("R11U111_F6_OFF");
+    static const bool on = lawOn(111, "R11U111_F6_OFF");
     return on;
 }
 
@@ -13474,10 +13455,6 @@ inline std::map<const void*, UHDM::typespec*>& f1DefBare111() {
 // kill switch; `R11U114_OFF=1` turns them all off.  Grids, cells and decodes:
 // tools/probe/r11u114repro/README.md.
 // ============================================================================
-inline bool r11u114On(const char* one) {
-    static const bool all = getenv("R11U114_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 
 /// § pkgPatCatMemberFold114 (FACE 1) — a CONCATENATION written as an ELEMENT
 /// of an assignment pattern (a keyed member, a `default:` value, a positional
@@ -13506,7 +13483,7 @@ inline bool r11u114On(const char* one) {
 /// `BIN:00010010` size 8, but a later pass re-sizes that listing's elements
 /// to 64, so the fold would move a wrong cell to another wrong cell.
 inline bool pkgPatCatFold114On() {
-    static const bool on = r11u114On("R11U114_F1_OFF");
+    static const bool on = lawOn(114, "R11U114_F1_OFF");
     return on;
 }
 inline bool cat114Lit(const Expression& e, std::string& out) {
@@ -13770,7 +13747,7 @@ inline int pkgPatCatFold114(UHDM::any* rhs, const Expression& init,
 /// block is its own component; not measured).  A DEF-view generate block's
 /// process reaches the module_inst directly and is covered (grid f2 b13).
 inline bool caseItemImpRef114On() {
-    static const bool on = r11u114On("R11U114_F2_OFF");
+    static const bool on = lawOn(114, "R11U114_F2_OFF");
     return on;
 }
 /// § pkgQualOpReadIsRef114 (FACE 2, qualified half) — `pkg::P` read in a
@@ -13779,7 +13756,7 @@ inline bool caseItemImpRef114On() {
 /// `pkg::P`, bound to the package parameter, spanning the QUALIFIER `pkg::`
 /// (grid f2 b03).  Same case-item-only site.
 inline bool caseItemQualRef114On() {
-    static const bool on = r11u114On("R11U114_F2Q_OFF");
+    static const bool on = lawOn(114, "R11U114_F2Q_OFF");
     return on;
 }
 /// MEASURED rule: a package value whose tree holds a vpiConcatOp or a
@@ -13890,7 +13867,7 @@ inline int impCopyRhsNonConst114(const UHDM::BaseClass* from, std::string_view n
 /// package when the home is deeper); the predicate asks that NO occurrence of
 /// the same symbol arrives directly.
 inline bool leakCopyNoOpTs114On() {
-    static const bool on = r11u114On("R11U114_F3_OFF");
+    static const bool on = lawOn(114, "R11U114_F3_OFF");
     return on;
 }
 template <class Occ>
@@ -13909,10 +13886,6 @@ inline bool leakOnlyOcc114(const Occ* occ, const void* sym,
 // switch; `R11U116_OFF=1` turns them all off.  Grids, cells and decodes:
 // tools/probe/r11u116repro/README.md.
 // ============================================================================
-inline bool r11u116On(const char* one) {
-    static const bool all = getenv("R11U116_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 
 /// § loopCaParamReadKeepsLiteral116 (FACE 1) — a module parameter read inside
 /// a TOP-LEVEL loop-generate body's continuous assignment is substituted by
@@ -13936,7 +13909,7 @@ inline bool r11u116On(const char* one) {
 /// the mint serves (operand, bare, index, compare, arithmetic, part-select
 /// bounds).  Switch: R11U116_F1_OFF.
 inline bool loopCaLit116On() {
-    static const bool on = r11u116On("R11U116_F1_OFF");
+    static const bool on = lawOn(116, "R11U116_F1_OFF");
     return on;
 }
 inline bool loopCaLit116Typed(const slang::ast::ParameterSymbol& ps) {
@@ -13980,7 +13953,7 @@ inline bool loopCaLit116Typed(const slang::ast::ParameterSymbol& ps) {
 /// an unbound ref (the law's package-scope branch) — all unchanged.
 /// Switch: R11U116_F2_OFF.
 inline bool nestedProcLhs116On() {
-    static const bool on = r11u116On("R11U116_F2_OFF");
+    static const bool on = lawOn(116, "R11U116_F2_OFF");
     return on;
 }
 
@@ -13998,7 +13971,7 @@ inline bool nestedProcLhs116On() {
 /// subroutine body, a parameter initializer and a generate-scope window are
 /// declined (not measured).  Switch: R11U116_F3R1_OFF.
 inline bool impCopyCatRef116On() {
-    static const bool on = r11u116On("R11U116_F3R1_OFF");
+    static const bool on = lawOn(116, "R11U116_F3R1_OFF");
     return on;
 }
 
@@ -14015,7 +13988,7 @@ inline bool impCopyCatRef116On() {
 /// ref.  Only an INTEGER-LITERAL initializer (caseItemTs116Lit).  Switch:
 /// R11U116_F3R3_OFF.
 inline bool caseItemTs116On() {
-    static const bool on = r11u116On("R11U116_F3R3_OFF");
+    static const bool on = lawOn(116, "R11U116_F3R3_OFF");
     return on;
 }
 /// The LITERAL fence (convicted on the verifier's own pass-114 grid, set1
@@ -14042,10 +14015,6 @@ inline bool caseItemTs116Lit(const ParameterSymbol& ps) {
 // turns them all off.  Grids, cells and decodes:
 // tools/probe/r11u118repro/README.md.
 // ============================================================================
-inline bool r11u118On(const char* one) {
-    static const bool all = getenv("R11U118_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 
 /// § pkgQualParamPartSelName118 (FACE 1) — a part-select written on a
 /// PACKAGE-QUALIFIED parameter (`mask_pkg::MASK[XLEN-1:0]`) is compiled by
@@ -14070,7 +14039,7 @@ inline bool r11u118On(const char* one) {
 /// PARAMETER (a package VARIABLE takes another arm, grid p17).
 /// Switch: R11U118_PKGPS_OFF.
 inline bool pkgQualPsName118On() {
-    static const bool on = r11u118On("R11U118_PKGPS_OFF");
+    static const bool on = lawOn(118, "R11U118_PKGPS_OFF");
     return on;
 }
 
@@ -14089,7 +14058,7 @@ inline bool pkgQualPsName118On() {
 /// reads a fullname).  GATE: the qualified spelling AND a PARAMETER base.
 /// Switch: R11U118_PKGVS_OFF.
 inline bool pkgQualVsFull118On() {
-    static const bool on = r11u118On("R11U118_PKGVS_OFF");
+    static const bool on = lawOn(118, "R11U118_PKGVS_OFF");
     return on;
 }
 
@@ -14102,7 +14071,7 @@ inline bool pkgQualVsFull118On() {
 /// the expression's `syntax`.  Grid r11v11u118repro v1/v01_paren,
 /// v2/w08_paren_right.  Switch: R11U118_PSPAREN_OFF.
 inline bool pkgQualPsParen118On() {
-    static const bool on = r11u118On("R11U118_PSPAREN_OFF");
+    static const bool on = lawOn(118, "R11U118_PSPAREN_OFF");
     return on;
 }
 
@@ -14120,7 +14089,7 @@ inline bool pkgQualPsParen118On() {
 /// trailing part_select (whose ref_typespec bytes are then pristine).
 /// Switch: R11U118_PSRTFULL_OFF.
 inline bool pkgQualPsRtFull118On() {
-    static const bool on = r11u118On("R11U118_PSRTFULL_OFF");
+    static const bool on = lawOn(118, "R11U118_PSRTFULL_OFF");
     return on;
 }
 
@@ -14129,17 +14098,9 @@ inline bool pkgQualPsRtFull118On() {
 // Every law reads its own kill switch; `R11U131_OFF=1` turns them all off.
 // Grids, cells and decodes: tools/probe/r11u131repro/README.md.
 // ============================================================================
-inline bool r11u131On(const char* one) {
-    static const bool all = getenv("R11U131_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 
 /// Pass r11u133's switches: `R11U133_OFF=1` turns every law of the pass off,
 /// `one` (its own `R11U133_<X>_OFF`) turns off one law alone.
-inline bool r11u133On(const char* one) {
-    static const bool all = getenv("R11U133_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 
 /// § paramIdxPartSelWholeSpan131 — an INDEXED part-select written in a
 /// CONSTANT-EXPRESSION context (a parameter's initializer, an instance's
@@ -14151,7 +14112,7 @@ inline bool r11u133On(const char* one) {
 /// from the Select node, which starts at the `[`.  Grid
 /// tools/probe/r11u131repro/ips.  Switch: R11U131_IPSSPAN_OFF.
 inline bool paramIdxPartSelWholeSpan131On() {
-    static const bool on = r11u131On("R11U131_IPSSPAN_OFF");
+    static const bool on = lawOn(131, "R11U131_IPSSPAN_OFF");
     return on;
 }
 
@@ -14167,8 +14128,8 @@ inline bool paramIdxPartSelWholeSpan131On() {
 /// the gate (§ pkgWrittenQualSelBase41).  Switch: R11V141_IPSQUAL_OFF (and
 /// R11V141_OFF).
 inline bool ipsQualBaseRangeSpan141On() {
-    static const bool on = getenv("R11V141_OFF") == nullptr &&
-                           getenv("R11V141_IPSQUAL_OFF") == nullptr;
+    static const bool on = !envSet("R11V141_OFF") &&
+                           !envSet("R11V141_IPSQUAL_OFF");
     return on;
 }
 
@@ -14183,8 +14144,8 @@ inline bool ipsQualBaseRangeSpan141On() {
 /// tools/probe/r11v131repro qc/ ips/).  Walks the syntax parents from the
 /// expression up to the initializer.  Switch: R11V131_ARGCTX_OFF.
 inline bool constCtxWholeNode131(const slang::syntax::SyntaxNode* n) {
-    static const bool on = getenv("R11U131_OFF") == nullptr &&
-                           getenv("R11V131_ARGCTX_OFF") == nullptr;
+    static const bool on = !envSet("R11U131_OFF") &&
+                           !envSet("R11V131_ARGCTX_OFF");
     if (!on || !n)
         return true;
     using SK = slang::syntax::SyntaxKind;
@@ -14219,7 +14180,7 @@ inline bool constCtxWholeNode131(const slang::syntax::SyntaxNode* n) {
 /// spans the package-name token.  Grid tools/probe/r11u131repro/qc.
 /// Switch: R11U131_QCALL_OFF.
 inline bool pkgQualCallQualSpan131On() {
-    static const bool on = r11u131On("R11U131_QCALL_OFF");
+    static const bool on = lawOn(131, "R11U131_QCALL_OFF");
     return on;
 }
 
@@ -14240,7 +14201,7 @@ inline std::vector<UHDM::BaseClass*>& implicitNetMints131() {
     return v;
 }
 inline void noteImplicitNetMint131(UHDM::BaseClass* n) {
-    static const bool on = r11u131On("R11U131_INETFILE_OFF");
+    static const bool on = lawOn(131, "R11U131_INETFILE_OFF");
     if (on && n)
         implicitNetMints131().push_back(n);
 }
@@ -14258,7 +14219,7 @@ inline void noteImplicitNetMint131(UHDM::BaseClass* n) {
 /// leaves no expression the span could extend to.  Switch:
 /// R11U131_KWSYS_OFF.
 inline bool sysCallKwTypeArgNameSpan131On() {
-    static const bool on = r11u131On("R11U131_KWSYS_OFF");
+    static const bool on = lawOn(131, "R11U131_KWSYS_OFF");
     return on;
 }
 
@@ -14281,10 +14242,6 @@ inline bool sysCallKwTypeArgNameSpan131On() {
 //   R11U140_DEFFILL_OFF      § defaultFillOneConstant140        (ParamEmit.cpp)
 //   R11U140_REPLCNTFILE_OFF  § replCountFoldFile140             (ParamEmit.cpp)
 // ============================================================================
-inline bool r11u140On(const char* one) {
-    static const bool all = getenv("R11U140_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 
 /// § sysArgUnaryWholeSpan140 — a unary operation that is DIRECTLY a system
 /// call's argument spans its whole expression (`$unsigned(~a)`: `~a`), in
@@ -14294,7 +14251,7 @@ inline bool r11u140On(const char* one) {
 /// token alone.  Census over every judge-equal golden and grid
 /// tools/probe/r11u140repro/sca.  Switch: R11U140_SYSUNARY_OFF.
 inline bool sysArgUnaryWholeSpan140On() {
-    static const bool on = r11u140On("R11U140_SYSUNARY_OFF");
+    static const bool on = lawOn(140, "R11U140_SYSUNARY_OFF");
     return on;
 }
 
@@ -14304,7 +14261,7 @@ inline bool sysArgUnaryWholeSpan140On() {
 /// (golden `work@dut.s.sat[i].i`, `work@dut.s.sat[i + 1].sat.i`).  Grid
 /// tools/probe/r11u140repro/plv.  Switch: R11U140_LVIDX_OFF.
 inline bool procLvTrailIdxNamesByPath140On() {
-    static const bool on = r11u140On("R11U140_LVIDX_OFF");
+    static const bool on = lawOn(140, "R11U140_LVIDX_OFF");
     return on;
 }
 
@@ -14314,7 +14271,7 @@ inline bool procLvTrailIdxNamesByPath140On() {
 /// lvalue's does; a plain base keeps the member+index span.  Grid
 /// tools/probe/r11u140repro/plv.  Switch: R11U140_LVTRAIL_OFF.
 inline bool procLvBaseSelTrailAtIdx140On() {
-    static const bool on = r11u140On("R11U140_LVTRAIL_OFF");
+    static const bool on = lawOn(140, "R11U140_LVTRAIL_OFF");
     return on;
 }
 
@@ -14325,7 +14282,7 @@ inline bool procLvBaseSelTrailAtIdx140On() {
 /// unsupported_typespecs, every one with a file; ours copied the span alone.
 /// Grid tools/probe/r11u140repro/fav.  Switch: R11U140_FEFILE_OFF.
 inline bool foreachArrayPlaceholderFile140On() {
-    static const bool on = r11u140On("R11U140_FEFILE_OFF");
+    static const bool on = lawOn(140, "R11U140_FEFILE_OFF");
     return on;
 }
 
@@ -14337,7 +14294,7 @@ inline bool foreachArrayPlaceholderFile140On() {
 /// listings), where the pristine exporter kept the package declaration's
 /// span.  Grid tools/probe/r11u140repro/pso.  Switch: R11U140_PATOPSPAN_OFF.
 inline bool elabPatOperandRefSpan140On() {
-    static const bool on = r11u140On("R11U140_PATOPSPAN_OFF");
+    static const bool on = lawOn(140, "R11U140_PATOPSPAN_OFF");
     return on;
 }
 
@@ -14349,7 +14306,7 @@ inline bool elabPatOperandRefSpan140On() {
 /// `logic [7:0] result, temp;`).  Grid tools/probe/r11u140repro/mdi.
 /// Switch: R11U140_MULTIDECL_OFF.
 inline bool multiDeclOneItem140On() {
-    static const bool on = r11u140On("R11U140_MULTIDECL_OFF");
+    static const bool on = lawOn(140, "R11U140_MULTIDECL_OFF");
     return on;
 }
 
@@ -14361,7 +14318,7 @@ inline bool multiDeclOneItem140On() {
 /// ParamFromPackage).  Grid tools/probe/r11u140repro/pfp.  Switch:
 /// R11U140_PKGREFMD_OFF.
 inline bool pkgRefFoldClonesMultiDimOnly140On() {
-    static const bool on = r11u140On("R11U140_PKGREFMD_OFF");
+    static const bool on = lawOn(140, "R11U140_PKGREFMD_OFF");
     return on;
 }
 
@@ -14372,7 +14329,7 @@ inline bool pkgRefFoldClonesMultiDimOnly140On() {
 /// size-cast fallback mints at the name token.  Grid
 /// tools/probe/r11u140repro/tdc.  Switch: R11U140_PKGTDCAST_OFF.
 inline bool pkgTypedefCastTargetTs140On() {
-    static const bool on = r11u140On("R11U140_PKGTDCAST_OFF");
+    static const bool on = lawOn(140, "R11U140_PKGTDCAST_OFF");
     return on;
 }
 
@@ -14388,10 +14345,6 @@ inline bool pkgTypedefCastTargetTs140On() {
 //   R11U145_BASESELOP_OFF    § hpBaseSelOpIdxNamesByPath145     (ExprEmit.cpp)
 //   R11U145_IMPARITH_OFF     § impElabArithWholeSpan145         (ParamEmit.cpp)
 // ============================================================================
-inline bool r11u145On(const char* one) {
-    static const bool all = getenv("R11U145_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 
 // ============================================================================
 // r11u153 — the verifier's refinements of passes 145 and 146 (fresh cases in
@@ -14402,10 +14355,6 @@ inline bool r11u145On(const char* one) {
 //   R11U153_TPCAGEN_OFF     § tpDefaultCaGenLocalLhsKeeps153v  (TypeEmit.cpp)
 //   R11U153_TFARGDPIEXP_OFF § tfArgDpiExportFirstNoWrite153v   (UhdmExporter.cpp)
 // ============================================================================
-inline bool r11u153On(const char* one) {
-    static const bool all = getenv("R11U153_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 
 /// § defaultFillImportCopies145 — § defaultFillOneConstant140 holds for a
 /// parameter DECLARED in the module (the elaborator's expansion lists one
@@ -14416,7 +14365,7 @@ inline bool r11u153On(const char* one) {
 /// listing's one shared).  Grid tools/probe/r11u145repro/dfi.  Switch:
 /// R11U145_DEFFILLIMP_OFF.
 inline bool defaultFillImportCopies145On() {
-    static const bool on = r11u145On("R11U145_DEFFILLIMP_OFF");
+    static const bool on = lawOn(145, "R11U145_DEFFILLIMP_OFF");
     return on;
 }
 
@@ -14429,7 +14378,7 @@ inline bool defaultFillImportCopies145On() {
 /// `parameter bit unsigned x_1b0`, ours 6:13-6:25).  Grid
 /// tools/probe/r11u145repro/usp.  Switch: R11U145_UNSPARAMTS_OFF.
 inline bool unsignedScalarParamTsAtKeyword145On() {
-    static const bool on = r11u145On("R11U145_UNSPARAMTS_OFF");
+    static const bool on = lawOn(145, "R11U145_UNSPARAMTS_OFF");
     return on;
 }
 
@@ -14442,7 +14391,7 @@ inline bool unsignedScalarParamTsAtKeyword145On() {
 /// member select).  Grid tools/probe/r11u145repro/psb.  Switch:
 /// R11U145_PSBAREREF_OFF.
 inline bool psBoundBareRefByBase145On() {
-    static const bool on = r11u145On("R11U145_PSBAREREF_OFF");
+    static const bool on = lawOn(145, "R11U145_PSBAREREF_OFF");
     return on;
 }
 
@@ -14460,7 +14409,7 @@ inline bool psBoundBareRefByBase145On() {
 /// full name when `parent` is a unary operation, else "".  Grid
 /// tools/probe/r11u145repro/uop.  Switch: R11U145_UNARYOWN_OFF.
 inline std::string unaryOperandOwnerName145(const UHDM::any* parent, bool lhsSelect) {
-    static const bool on = r11u145On("R11U145_UNARYOWN_OFF");
+    static const bool on = lawOn(145, "R11U145_UNARYOWN_OFF");
     if (!on || !lhsSelect || !parent || parent->UhdmType() != UHDM::uhdmoperation)
         return {};
     int op = ((const UHDM::operation*)parent)->VpiOpType();
@@ -14486,7 +14435,7 @@ inline std::string unaryOperandOwnerName145(const UHDM::any* parent, bool lhsSel
 /// none).  Grid tools/probe/r11u145repro/lpb.  Switch:
 /// R11U145_LPBOUNDOWN_OFF.
 inline std::string paOwnerFullName145(const UHDM::any* pa) {
-    static const bool on = r11u145On("R11U145_LPBOUNDOWN_OFF");
+    static const bool on = lawOn(145, "R11U145_LPBOUNDOWN_OFF");
     if (!on || !pa)
         return {};
     const UHDM::any* o = pa->VpiParent();
@@ -14511,7 +14460,7 @@ inline std::string paOwnerFullName145(const UHDM::any* pa) {
 /// own parent is an operation.  Grid tools/probe/r11v145repro/lpb.  Switch:
 /// R11V145_LPOPND_OFF.
 inline bool lpBoundOperandKeepsBase145v(const UHDM::any* sel) {
-    static const bool on = getenv("R11V145_LPOPND_OFF") == nullptr;
+    static const bool on = !envSet("R11V145_LPOPND_OFF");
     if (!on || !sel)
         return false;
     const UHDM::any* sp = sel->VpiParent();
@@ -14526,7 +14475,7 @@ inline bool lpBoundOperandKeepsBase145v(const UHDM::any* sel) {
 /// operator's LEFT operand.  Grid tools/probe/r11u145repro/iaw.  Switch:
 /// R11U145_IMPARITH_OFF.
 inline bool impElabArithWholeSpan145On() {
-    static const bool on = r11u145On("R11U145_IMPARITH_OFF");
+    static const bool on = lawOn(145, "R11U145_IMPARITH_OFF");
     return on;
 }
 
@@ -14545,20 +14494,13 @@ inline bool impElabArithWholeSpan145On() {
 // Sub-switches: ARRNB also reads R11U151_ARR_OFF, G2 R11U151_G_OFF, DCAST
 // R11U151_D_OFF.  Grids and measurements: tools/probe/r11u151struct/README.md.
 // ---------------------------------------------------------------------------
-inline bool r11u151On(const char* one) {
-    // Landed by r11u147 (pair A's refill): `R11U147_OFF=1` also drops these
-    // laws, so the one switch restores the pristine bytes of the whole pass.
-    static const bool all = getenv("R11U151_OFF") != nullptr ||
-                            getenv("R11U147_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 
 /// The census trace: `R11U151_TRACE=1` prints one `R11U151 <law>` line on
 /// stderr each time a law of this pass changes what pristine would write
 /// (tools/probe/r11u151struct/drivers/census.py reads it).  No byte of the
 /// database depends on it.
 inline void trace151(const char* law) {
-    static const bool on = getenv("R11U151_TRACE") != nullptr;
+    static const bool on = lawTraceOn(151);
     if (on)
         fprintf(stderr, "R11U151 %s\n", law);
 }
@@ -14577,7 +14519,7 @@ inline void trace151(const char* law) {
 /// latch_tlb_napot.  Grid tools/probe/r11u151struct/cases/D2.
 /// Switch: R11U151_D2_OFF.
 inline bool pkgTdCastTargetOwnView151On() {
-    static const bool on = r11u151On("R11U151_D2_OFF");
+    static const bool on = lawOn(151, 147, "R11U151_D2_OFF");
     return on;
 }
 
@@ -14591,7 +14533,7 @@ inline bool pkgTdCastTargetOwnView151On() {
 /// pa[0][0] (56:9).  Grid tools/probe/r11u151struct/cases/ARR.
 /// Switch: R11U151_ARR_OFF.
 inline bool blockLhsVarSelBindsWholeRef151On() {
-    static const bool on = r11u151On("R11U151_ARR_OFF");
+    static const bool on = lawOn(151, 147, "R11U151_ARR_OFF");
     return on;
 }
 
@@ -14605,7 +14547,7 @@ inline bool blockLhsVarSelBindsWholeRef151On() {
 /// a sibling begin (unpacked_array_shift_ff, grid a14) never answer.
 /// Switch: R11U151_ARRNB_OFF (and R11U151_ARR_OFF).
 inline bool nonblockingSelLhsBindsWholeRef151On() {
-    static const bool on = r11u151On("R11U151_ARR_OFF") && r11u151On("R11U151_ARRNB_OFF");
+    static const bool on = lawOn(151, 147, "R11U151_ARR_OFF") && lawOn(151, 147, "R11U151_ARRNB_OFF");
     return on;
 }
 
@@ -14617,7 +14559,7 @@ inline bool nonblockingSelLhsBindsWholeRef151On() {
 /// and `result = the_val`).  Golden BlackParrotComplex.  Grid
 /// tools/probe/r11u151struct/cases/G.  Switch: R11U151_G_OFF.
 inline bool condTakenParamRhsShared151On() {
-    static const bool on = r11u151On("R11U151_G_OFF");
+    static const bool on = lawOn(151, 147, "R11U151_G_OFF");
     return on;
 }
 
@@ -14628,7 +14570,7 @@ inline bool condTakenParamRhsShared151On() {
 /// tools/probe/r11u151struct/cases/G2.  Switch: R11U151_G2_OFF (and
 /// R11U151_G_OFF).
 inline bool concatArrParamDefTs151On() {
-    static const bool on = r11u151On("R11U151_G_OFF") && r11u151On("R11U151_G2_OFF");
+    static const bool on = lawOn(151, 147, "R11U151_G_OFF") && lawOn(151, 147, "R11U151_G2_OFF");
     return on;
 }
 
@@ -14641,7 +14583,7 @@ inline bool concatArrParamDefTs151On() {
 /// StructParamPatternInitCast: `XLEN` listed twice per stamped cfg_t).
 /// Grid tools/probe/r11u151struct/cases/D.  Switch: R11U151_D_OFF.
 inline bool patLeftoverOrphanCopy151On() {
-    static const bool on = r11u151On("R11U151_D_OFF");
+    static const bool on = lawOn(151, 147, "R11U151_D_OFF");
     return on;
 }
 
@@ -14652,7 +14594,7 @@ inline bool patLeftoverOrphanCopy151On() {
 /// tools/probe/r11u151struct/cases/D.  Switch: R11U151_DCAST_OFF (and
 /// R11U151_D_OFF).
 inline bool hierSizeCastBaseStructTs151On() {
-    static const bool on = r11u151On("R11U151_D_OFF") && r11u151On("R11U151_DCAST_OFF");
+    static const bool on = lawOn(151, 147, "R11U151_D_OFF") && lawOn(151, 147, "R11U151_DCAST_OFF");
     return on;
 }
 
@@ -14664,7 +14606,7 @@ inline bool hierSizeCastBaseStructTs151On() {
 /// name); the instance-connection flavour keeps it.  Grid
 /// tools/probe/r11u151struct/cases/C3.  Switch: R11U151_C3_OFF.
 inline bool nestedPatOpTsNoParent151On() {
-    static const bool on = r11u151On("R11U151_C3_OFF");
+    static const bool on = lawOn(151, 147, "R11U151_C3_OFF");
     return on;
 }
 
@@ -14687,14 +14629,10 @@ inline bool nestedPatOpTsNoParent151On() {
 //   R11U147_ENUMQSPAN_OFF    § enumQualDefaultDefSpan147        (ExprEmit.cpp)
 // R11U147_TRACE=1 prints one stderr line per firing (the census).
 // ============================================================================
-inline bool r11u147On(const char* one) {
-    static const bool all = getenv("R11U147_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 
 /// § vsIpsBaseNamesByIps147 — see the var_select arm of ExprEmit's RangeSelect.
 inline bool vsIpsBaseNamesByIps147On() {
-    static const bool on = r11u147On("R11U147_VSIPSBASE_OFF");
+    static const bool on = lawOn(147, "R11U147_VSIPSBASE_OFF");
     return on;
 }
 
@@ -14704,7 +14642,7 @@ inline bool vsIpsBaseNamesByIps147On() {
 /// indexed_part_select), or an operation chain that ends at one.  Golden
 /// anchors such a read at its index expression.  Switch: R11U147_LVIDXBS_OFF.
 inline bool lvIdxBitSelAtIndex147(const UHDM::BaseClass* parent) {
-    static const bool on = r11u147On("R11U147_LVIDXBS_OFF");
+    static const bool on = lawOn(147, "R11U147_LVIDXBS_OFF");
     if (!on)
         return false;
     const UHDM::BaseClass* p = parent;
@@ -14745,14 +14683,10 @@ inline bool lvIdxBitSelAtIndex147(const UHDM::BaseClass* parent) {
 //                           ParamEmit.cpp drainPaNameCopySrc38 applies)
 // R11U154_TRACE=1 prints one stderr line per firing (the census).
 // ============================================================================
-inline bool r11u154On(const char* one) {
-    static const bool all = getenv("R11U154_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 
 /// § elabCastSharesDeclRef154 — see the size-cast arms of ExprEmit.
 inline bool castSharesDeclRef154On() {
-    static const bool on = r11u154On("R11U154_CASTREF_OFF");
+    static const bool on = lawOn(154, "R11U154_CASTREF_OFF");
     return on;
 }
 
@@ -14785,7 +14719,7 @@ inline bool lvIdxParent154(const UHDM::BaseClass* parent) {
 }
 
 inline bool lvIdxPathIsRead154(const UHDM::BaseClass* parent) {
-    static const bool on = r11u154On("R11U154_LVIDXREAD_OFF");
+    static const bool on = lawOn(154, "R11U154_LVIDXREAD_OFF");
     if (!on)
         return false;
     const UHDM::BaseClass* p = parent;
@@ -14816,7 +14750,7 @@ inline bool lvIdxPathIsRead154(const UHDM::BaseClass* parent) {
 /// own index is a read (§ lvIdxPathIsRead154).  Grid
 /// tools/probe/r11u154repro/lv.  Switch: R11U154_LVBASEMEM_OFF.
 inline bool lvBaseAtFirstMember154(bool inLhs, const UHDM::BaseClass* parent) {
-    static const bool on = r11u154On("R11U154_LVBASEMEM_OFF");
+    static const bool on = lawOn(154, "R11U154_LVBASEMEM_OFF");
     if (!on || !inLhs || lvIdxParent154(parent))
         return false;
     trace154("LVBASEMEM");
@@ -14857,7 +14791,7 @@ inline std::optional<SourceRange> firstMemberTok154(const Expression& e) {
 /// interface path carries vpiDefName and the frozen chain name
 /// (`work@m.bs.wdtxx[3:0].wdtxx`), as the struct-member arm's already does.
 inline bool lvSelNamedByChain154(bool inLhs, const UHDM::BaseClass* parent) {
-    static const bool on = r11u154On("R11U154_LVSELNAME_OFF");
+    static const bool on = lawOn(154, "R11U154_LVSELNAME_OFF");
     if (!on || !inLhs || lvIdxParent154(parent))
         return false;
     trace154("LVSELNAME");
@@ -14869,7 +14803,7 @@ inline bool lvSelNamedByChain154(bool inLhs, const UHDM::BaseClass* parent) {
 /// 35-41), as the struct-member arm's already does; a read sits at its
 /// index.
 inline bool lvIfaceBitSelWhole154(bool inLhs, const UHDM::BaseClass* parent) {
-    static const bool on = r11u154On("R11U154_LVBSSPAN_OFF");
+    static const bool on = lawOn(154, "R11U154_LVBSSPAN_OFF");
     if (!on || !inLhs || lvIdxParent154(parent))
         return false;
     trace154("LVBSSPAN");
@@ -14887,7 +14821,7 @@ inline bool lvIfaceBitSelWhole154(bool inLhs, const UHDM::BaseClass* parent) {
 /// part_select); a path under a bound operation is another face.  Grid
 /// tools/probe/r11u154repro/pb.  Switch: R11U154_PSBOUNDPATH_OFF.
 inline bool psBoundPathFirstMember154(const UHDM::BaseClass* parent, size_t nParts) {
-    static const bool on = r11u154On("R11U154_PSBOUNDPATH_OFF");
+    static const bool on = lawOn(154, "R11U154_PSBOUNDPATH_OFF");
     if (!on || !parent || nParts < 2 || parent->UhdmType() != UHDM::uhdmpart_select)
         return false;
     trace154("PSBOUNDPATH");
@@ -14908,7 +14842,7 @@ inline std::vector<NestedPatTs154>& nestedPatTs154() {
 }
 
 inline void trace154(const char* law) {
-    static const bool on = getenv("R11U154_TRACE") != nullptr;
+    static const bool on = lawTraceOn(154);
     if (on)
         fprintf(stderr, "R11U154_TRACE %s\n", law);
 }
@@ -14927,7 +14861,7 @@ inline void trace154(const char* law) {
 inline void builtinMethodArgNames154(UHDM::VectorOfany* args,
                                      const UHDM::any* call,
                                      const std::string& base) {
-    static const bool on = r11u154On("R11U154_MARGNAME_OFF");
+    static const bool on = lawOn(154, "R11U154_MARGNAME_OFF");
     if (!on || !args || base.empty())
         return;
     std::function<void(UHDM::any*, const UHDM::any*)> nm =
@@ -14984,10 +14918,6 @@ inline bool isVariableKind154(const UHDM::any* o) {
 // The r11u157 hier_path laws (§ hpSelRoute157 ...) keep their own
 // R11U157_* switches in ExprEmit.cpp.
 // ===========================================================================
-inline bool r11u158On(const char* one) {
-    static const bool all = getenv("R11U158_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 // r11v158 — the adversarial verification's refinements of pass 158's laws
 // (tools/probe/r11v158repro).  Each refinement reads its own switch;
 // R11V158_OFF drops every one of them (the r11u158 bytes).
@@ -14995,12 +14925,8 @@ inline bool r11u158On(const char* one) {
 //   R11V158_SCSLIT_OFF    § sizeCastSignedLitAbstain158v    (ExprEmit.cpp)
 //   R11V158_SCNAMEDW_OFF  § sizeCastNamedWidthNoCast158v    (ExprEmit.cpp)
 //   R11V158_AQPARAM_OFF   § arrQueryParamArgOnly158v        (ParamEmit.cpp)
-inline bool r11v158On(const char* one) {
-    static const bool all = getenv("R11V158_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 inline void trace158(const char* law) {
-    static const bool on = getenv("R11U158_TRACE") != nullptr;
+    static const bool on = lawTraceOn(158);
     if (on)
         fprintf(stderr, "R11U158_TRACE %s\n", law);
 }
@@ -15028,10 +14954,6 @@ inline bool genCaLhsCtx158(const UHDM::BaseClass* parent) {
 //   R11V170_GCALHSUNIT_OFF  § genCaLhsUnitEnumShared170v   (ExprEmit.cpp)
 //   R11V170_TPVECNET_OFF    § defNetTpVecNetKeepsEnd170v   (ModuleEmit.cpp)
 //   R11V170_SCSCOPED_OFF    § sizeCastScopedNameUnsigned170v (ExprEmit.cpp)
-inline bool r11v170On(const char* one) {
-    static const bool all = getenv("R11V170_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 
 // ===========================================================================
 // r11u163 — the expression/parameter ground (tools/probe/r11u163repro).
@@ -15048,12 +14970,8 @@ inline bool r11v170On(const char* one) {
 //   R11U163_PATLISTCOPY_OFF   § pkgPatListingCopyWhenShared163 (ParamEmit.cpp)
 //   R11U163_FNPNETFILE_OFF    § fnParamRangeNetNoFile163       (ExprEmit.cpp)
 // ===========================================================================
-inline bool r11u163On(const char* one) {
-    static const bool all = getenv("R11U163_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 inline void trace163(const char* law) {
-    static const bool on = getenv("R11U163_TRACE") != nullptr;
+    static const bool on = lawTraceOn(163);
     if (on)
         fprintf(stderr, "R11U163_TRACE %s\n", law);
 }
@@ -15079,12 +14997,8 @@ inline int& paramRhsView163() {
 //   R11V167_S2PRECHECK_OFF    § s2ClonePrecheck167v            (ParamEmit.cpp;
 //                             the verifier's refinement of § evalFuncBodyRhsStampClone167)
 // ===========================================================================
-inline bool r11u167On(const char* one) {
-    static const bool all = getenv("R11U167_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 inline void trace167(const char* law) {
-    static const bool on = getenv("R11U167_TRACE") != nullptr;
+    static const bool on = lawTraceOn(167);
     if (on)
         fprintf(stderr, "R11U167_TRACE %s\n", law);
 }
@@ -15098,12 +15012,8 @@ inline void trace167(const char* law) {
 //   R11U169_MLARGLOC_OFF   § memLeftFormalArgLoc169      (ParamEmit.cpp)
 //   R11U169_PATFLATSPAN_OFF § patFlatMemberLeftSpan169   (ParamEmit.cpp)
 // ===========================================================================
-inline bool r11u169On(const char* one) {
-    static const bool all = getenv("R11U169_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 inline void trace169(const char* law) {
-    static const bool on = getenv("R11U169_TRACE") != nullptr;
+    static const bool on = lawTraceOn(169);
     if (on)
         fprintf(stderr, "R11U169_TRACE %s\n", law);
 }
@@ -15118,12 +15028,8 @@ inline void trace169(const char* law) {
 //   R11U174_ASMSPAN_OFF    § asmRefQualWholeSpanElab174    (ParamEmit.cpp)
 //   R11U174_MOPUNLOC_OFF   § elabStructMemberOpFoldUnlocated174 (ParamEmit.cpp)
 // ===========================================================================
-inline bool r11u174On(const char* one) {
-    static const bool all = getenv("R11U174_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 inline void trace174(const char* law) {
-    static const bool on = getenv("R11U174_TRACE") != nullptr;
+    static const bool on = lawTraceOn(174);
     if (on)
         fprintf(stderr, "R11U174_TRACE %s\n", law);
 }
@@ -15134,37 +15040,8 @@ inline void trace174(const char* law) {
 // (one file per process, `<dir>/<pid>.T198`, first line `OUT <-o path>`,
 // then one law name per firing): the firing census that predicts the movers.
 // ===========================================================================
-inline bool r11u198On(const char* one) {
-    static const bool all = getenv("R11U198_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 inline void trace198(const char* law) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U198_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".T198";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(198, "T198");
     if (tf) {
         fprintf(tf, "%s\n", law);
         fflush(tf);
@@ -15196,55 +15073,8 @@ inline void trace198(const char* law) {
 /// R11U183_OFF, R11U191_OFF and their landing passes' switches still drop
 /// both grounds); R11U224_OFF does not read these (the base keeps its
 /// landings).  The reach table is tools/probe/r11u224repro/README.md.
-inline bool r11u224SplitAOff(int pass) {
-    static const bool s112 = getenv("R11U224_SPLIT112A_OFF") != nullptr;
-    static const bool s175 = getenv("R11U224_SPLIT175A_OFF") != nullptr;
-    static const bool s183 = getenv("R11U224_SPLIT183A_OFF") != nullptr;
-    static const bool s191 = getenv("R11U224_SPLIT191A_OFF") != nullptr;
-    switch (pass) {
-        case 112: return s112;
-        case 175: return s175;
-        case 183: return s183;
-        case 191: return s191;
-        default: return false;
-    }
-}
-inline bool r11u210Landing201Off() {
-    static const bool off = getenv("R11U210_LANDING201_OFF") != nullptr;
-    return off;
-}
-inline bool r11u201On(const char* one) {
-    static const bool all = getenv("R11U201_OFF") != nullptr ||
-                            r11u210Landing201Off();
-    return !all && getenv(one) == nullptr;
-}
 inline void trace201(const char* law) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U201_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".T201";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(201, "T201");
     if (tf) {
         fprintf(tf, "%s\n", law);
         fflush(tf);
@@ -15256,11 +15086,6 @@ inline void trace201(const char* law) {
 // R11V201_<NAME>_OFF switch; R11V201_OFF drops every refinement (the r11u201
 // patch's own bytes).  Firings are traced through trace201 (R11U201_TRACE).
 // ===========================================================================
-inline bool r11v201On(const char* one) {
-    static const bool all = getenv("R11V201_OFF") != nullptr ||
-                            r11u210Landing201Off();
-    return !all && getenv(one) == nullptr;
-}
 // ===========================================================================
 // r11u207 — the expression/parameter ground (tools/probe/r11u207repro).
 // Every law reads its own R11U207_<LAW>_OFF switch; R11U207_OFF drops every
@@ -15268,44 +15093,11 @@ inline bool r11v201On(const char* one) {
 // (one file per process, `<dir>/<pid>.T207`, first line `OUT <-o path>`,
 // then one law name per firing): the firing census that predicts the movers.
 // ===========================================================================
-inline bool r11u207On(const char* one) {
-    static const bool all = getenv("R11U207_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 // r11u207's adversarial verification (tools/probe/v11u207repro): every
 // refinement reads its own R11V207_<LAW>_OFF switch; R11V207_OFF drops them
 // all (the implementer's bytes).
-inline bool r11v207On(const char* one) {
-    static const bool all = getenv("R11V207_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 inline void trace207(const char* law) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U207_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".T207";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(207, "T207");
     if (tf) {
         fprintf(tf, "%s\n", law);
         fflush(tf);
@@ -15320,10 +15112,6 @@ inline void trace207(const char* law) {
 // `<dir>/<pid>.T210`, first line `OUT <-o path>`, then one law name per
 // firing): the firing census that predicts the movers.
 // ===========================================================================
-inline bool r11u210On(const char* one) {
-    static const bool all = getenv("R11U210_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 /// The r11u205 decode's ground-A law landed by r11u210
 /// (tools/probe/r11u205dec/README.md section 3.6): its own
 /// R11U205_<LAW>_OFF switch, R11U205_OFF, and R11U210_OFF.
@@ -15335,12 +15123,6 @@ inline bool r11u210On(const char* one) {
 /// R11U220_LANDING205A_OFF drops this ground's half alone (the reach table
 /// is tools/probe/r11u220repro/README.md).  The old switches keep their
 /// meaning; R11U220_OFF does not read this one (the base keeps the law).
-inline bool r11u205aOn(const char* one) {
-    static const bool all = getenv("R11U205_OFF") != nullptr ||
-                            getenv("R11U210_OFF") != nullptr ||
-                            getenv("R11U220_LANDING205A_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 /// § pkgTopWidePatReplTsName210 — the package name while ParamEmit emits a
 /// WIDE package struct-pattern parameter's ELABORATED (uhdmtopPackages)
 /// listing down the definition path (`paramInitDef` under `structWidePkg`);
@@ -15357,32 +15139,7 @@ inline bool& pkgImpParamTs210() {
     return on;
 }
 inline void trace210(const char* law) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U210_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".T210";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(210, "T210");
     if (tf) {
         fprintf(tf, "%s\n", law);
         fflush(tf);
@@ -15396,10 +15153,6 @@ inline void trace210(const char* law) {
 // then one `<law> <detail>` line per firing): the firing census that
 // predicts the movers.
 // ===========================================================================
-inline bool r11u215On(const char* one) {
-    static const bool all = getenv("R11U215_OFF") != nullptr;
-    return !all && getenv(one) == nullptr;
-}
 /// r11u215 — the full name a ref_typespec / ref_obj STORES, without the
 /// generated getter's side effect: `VpiFullName()` computes and caches
 /// BaseClass::ComputeFullName when nothing is stored, which interns a string
@@ -15410,32 +15163,7 @@ inline bool r11u215On(const char* one) {
 /// ParamEmit.cpp.
 bool r215StoredFullName(const UHDM::BaseClass* o, std::string& out);
 inline void trace215(const char* law, const std::string& detail = std::string()) {
-    static FILE* tf = []() -> FILE* {
-        const char* d = getenv("R11U215_TRACE");
-        if (!d)
-            return nullptr;
-        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".T215";
-        FILE* fp = fopen(fn.c_str(), "a");
-        if (!fp)
-            return nullptr;
-        std::string cl, prev, outp;
-        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
-            int ch;
-            while ((ch = fgetc(c)) != EOF) {
-                if (ch == 0) {
-                    if (prev == "-o")
-                        outp = cl;
-                    prev = cl;
-                    cl.clear();
-                }
-                else
-                    cl += (char)ch;
-            }
-            fclose(c);
-        }
-        fprintf(fp, "OUT %s\n", outp.c_str());
-        return fp;
-    }();
+    static FILE* tf = lawTraceFile(215, "T215");
     if (tf) {
         fprintf(tf, "%s %s\n", law, detail.c_str());
         fflush(tf);

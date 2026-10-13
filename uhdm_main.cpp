@@ -43,9 +43,6 @@ using namespace slang;
 using namespace slang::driver;
 
 namespace slang_uhdm {
-bool r11u137Law(const char* sw);
-bool r11u144Law(const char* sw);
-bool r11u160Law(const char* sw);
 }
 
 // § elabCloneFullNameUnstored137 (r11u137) — THE --elabuhdm CLONES READ THE
@@ -149,7 +146,7 @@ std::string chainFullName137(const UHDM::BaseClass* self) {
     return out;
 }
 void elabCloneFullNameUnstored137(UHDM::design* d, UHDM::Serializer& s) {
-    if (!d || !slang_uhdm::r11u137Law("R11U137_ELABCLONE_OFF"))
+    if (!d || !slang_uhdm::lawOn(137, "R11U137_ELABCLONE_OFF"))
         return;
     std::set<const UHDM::BaseClass*> defs;
     if (auto* v = d->AllModules())
@@ -166,7 +163,7 @@ void elabCloneFullNameUnstored137(UHDM::design* d, UHDM::Serializer& s) {
     // `work@t.simple_minus.value1` where ours kept the package's
     // `my_module_types::simple_minus::value1`: EvalFuncNamed, FileList,
     // FuncStruct).
-    if (!getenv("R11U137_ELABCLONE_PKG_OFF")) {  // sub-switch of the law
+    if (!slang_uhdm::envSet("R11U137_ELABCLONE_PKG_OFF")) {  // sub-switch of the law
         if (auto* v = d->AllPackages())
             for (auto* m : *v)
                 defs.insert(m);
@@ -187,8 +184,8 @@ void elabCloneFullNameUnstored137(UHDM::design* d, UHDM::Serializer& s) {
     // chain is left unstored, which no un-cloned view can observe.  Switches:
     // R11U144_ELABINST_OFF (the instance trees), R11U144_ELABPROP_OFF (the
     // unparented property/sequence instance chains).
-    const bool inst144 = slang_uhdm::r11u144Law("R11U144_ELABINST_OFF");
-    const bool prop144 = slang_uhdm::r11u144Law("R11U144_ELABPROP_OFF");
+    const bool inst144 = slang_uhdm::lawOn(144, "R11U144_ELABINST_OFF");
+    const bool prop144 = slang_uhdm::lawOn(144, "R11U144_ELABPROP_OFF");
     if (inst144)
         if (auto* v = d->TopModules())
             for (auto* m : *v)
@@ -397,7 +394,7 @@ static int realMain(int argc, char** argv) {
 
     if (!driver.parseCommandLine(argc, argv))
         return 1;
-    if (svAllFiles == true && !getenv("R11U188_OFF") && !getenv("R11U188_SVMODE_OFF"))
+    if (svAllFiles == true && !slang_uhdm::envSet("R11U188_OFF") && !slang_uhdm::envSet("R11U188_SVMODE_OFF"))
         slang_uhdm::g_svAllFiles188 = true;
 
     if (showHelp == true) {
@@ -471,8 +468,8 @@ static int realMain(int argc, char** argv) {
     // downstream flags).  Boundary: slang also honours BLOCK comments and
     // trailing words after the keyword, Surelog neither (no corpus file has
     // either form).  `R11U120_FP_OFF=1` makes the flag a no-op.
-    const bool fpRegions120 = filterProtected == true && !getenv("R11U120_OFF") &&
-                              !getenv("R11U120_FP_OFF");
+    const bool fpRegions120 = filterProtected == true && !slang_uhdm::envSet("R11U120_OFF") &&
+                              !slang_uhdm::envSet("R11U120_FP_OFF");
     if (fpRegions120) {
         driver.options.translateOffOptions.push_back("synopsys,translate_off,translate_on");
         driver.options.translateOffOptions.push_back("synthesis,translate_off,translate_on");
@@ -615,7 +612,7 @@ static int realMain(int argc, char** argv) {
     // verdicts, x06-x19 and x21 keep L6/L7's bytes.  `R11V120_FPSPLIT_OFF=1`
     // drops it.
     bool fpSplit120v = false;
-    if (fpRegions120 && !getenv("R11V120_FPSPLIT_OFF")) {
+    if (fpRegions120 && !slang_uhdm::envSet("R11V120_FPSPLIT_OFF")) {
         static const std::regex onReV(
             R"(//\s*(synopsys|pragma|synthesis)\s+translate_on\s*)");
         static const std::regex offReV(
@@ -756,7 +753,7 @@ static int realMain(int argc, char** argv) {
                     it != loV.commentHandlers.end())
                     it->second.erase("translate_off");
             driver.syntaxTrees = driver.sourceLoader.loadAndParseSources(bagV, nullptr);
-            if (getenv("R11U120_FPDBG"))
+            if (slang_uhdm::envSet("R11U120_FPDBG"))
                 fprintf(stderr, "R11V120 FPSPLIT: re-parsed without the translate-off handlers\n");
         }
     }
@@ -818,8 +815,8 @@ static int realMain(int argc, char** argv) {
         bool resync;
     };
     std::map<std::string, std::vector<FpEv120>> fpEvents120;
-    const bool fpLines120 = filterProtected == true && !getenv("R11U120_OFF") &&
-                            !getenv("R11U120_FPLINE_OFF") && !fpSplit120v;
+    const bool fpLines120 = filterProtected == true && !slang_uhdm::envSet("R11U120_OFF") &&
+                            !slang_uhdm::envSet("R11U120_FPLINE_OFF") && !fpSplit120v;
     if (fpLines120) {
         auto& sm120 = driver.sourceManager;
         struct Buf120 {
@@ -968,7 +965,7 @@ static int realMain(int argc, char** argv) {
         for (auto& [p, evs] : fpEvents120)
             std::stable_sort(evs.begin(), evs.end(),
                              [](const FpEv120& a, const FpEv120& b) { return a.off < b.off; });
-        if (getenv("R11U120_FPDBG"))
+        if (slang_uhdm::envSet("R11U120_FPDBG"))
             for (auto& [p, evs] : fpEvents120)
                 for (auto& e : evs)
                     fprintf(stderr, "R11U120 FP %s off=%zu %s\n", p.c_str(), e.off,
@@ -1785,7 +1782,7 @@ static int realMain(int argc, char** argv) {
 // Case tools/probe/r11u160repro/cases/S7.  Switch R11U160_CATCH_OFF (and
 // R11U160_OFF): the exception propagates as before.
 int main(int argc, char** argv) {
-    if (!slang_uhdm::r11u160Law("R11U160_CATCH_OFF"))
+    if (!slang_uhdm::lawOn(160, "R11U160_CATCH_OFF"))
         return realMain(argc, argv);
     try {
         return realMain(argc, argv);
