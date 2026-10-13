@@ -1,0 +1,12 @@
+v/VE/ve01_three_level_sel dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+v/VE/ve03_sel_opidx_inner dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+v/VE/ve13_mod_three_level dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+v/VE/ve15_gen_three_level dist 0 -> 5 lost=5 gained=0 | chain away=5 toward=0 flat_away=5 flat_toward=0
+v/VH/vh17_def_escaped_base dist 0 -> 3 lost=3 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+v/VH/vh19_def_nested_sel_spaces dist 0 -> 3 lost=3 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+v/VH/vh24_def_nested_refidx_spaces dist 0 -> 4 lost=4 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+v/VF/vf12_2d_inner_opidx dist 0 -> 3 lost=3 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+v/VG/vg01_desc_ips dist 0 -> 1 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+v/VD/vd03_cast_op_inside dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+v/VF/vf02_2d_right dist 0 -> 2 lost=3 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+v/VA/va04_local_as_index dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=0 flat_away=0 flat_toward=0

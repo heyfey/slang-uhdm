@@ -1,0 +1,15 @@
+probe r10v65repro__a6_def.uhdm modConnIpsBaseByPort317:2
+probe r10v65repro__a8_orphan.uhdm modConnIpsBaseByPort317:2
+probe r11u110repro__grid__e1__e06_gen_for.uhdm modConnIpsBaseByPort317:4
+probe r11u111repro__grid__f1__a15_q_genblk.uhdm modConnIpsBaseByPort317:2
+probe v11u111repro__brk__f1__z11_three_inst_gen.uhdm modConnIpsBaseByPort317:3
+surelog Earlgrey_0_1/default modConnIpsBaseByPort317:20
+surelog Earlgrey_0_1/testflags modConnIpsBaseByPort317:20
+surelog YosysRiscv/default modConnIpsBaseByPort317:46
+surelog YosysRiscv/testflags modConnIpsBaseByPort317:46
+uhdm2rtlil gen_scope_numports/default modConnIpsBaseByPort317:4
+uhdm2rtlil gen_scope_numports/testflags modConnIpsBaseByPort317:4
+uhdm2rtlil generate_test/default modConnIpsBaseByPort317:10
+uhdm2rtlil generate_test/testflags modConnIpsBaseByPort317:10
+uhdm2rtlil stamped_gen_param/default modConnIpsBaseByPort317:4
+uhdm2rtlil stamped_gen_param/testflags modConnIpsBaseByPort317:4

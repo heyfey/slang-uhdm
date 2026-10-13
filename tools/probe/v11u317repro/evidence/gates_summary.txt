@@ -1,0 +1,10 @@
+csv row diffs (lines) between the three sweeps, workdirs of equal length:
+probe P-L 0 P-F 0 L-F 0
+surelog P-L 4 P-F 4 L-F 4
+uhdm2rtlil P-L 0 P-F 0 L-F 0
+downstream P-L 0 P-F 0 L-F 0
+(the 4 surelog lines are LowMemLib and LowMemPkg testflags, whose detail text holds the workdir)
+downstream.csv byte-identical to results/downstream_uhdm2rtlil.csv on all three sweeps
+probe databases (fence-filtered, md5): P-L 0 P-F 0 of 4087
+binary audit: each sweep 3315 fence-filtered cmds.txt, 3265 naming its own binary, 0 naming another (P, L and F)
+Earlgrey_0_1 testflags, three concurrent draws of the fix alone: 025c86db2d2d x3 (the det_fix concurrent draw timed out under load)

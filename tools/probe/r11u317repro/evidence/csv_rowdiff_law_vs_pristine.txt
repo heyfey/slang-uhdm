@@ -1,0 +1,16 @@
+== probe
+== surelog
+380c380
+< Earlgrey_0_1,testflags,TIMEOUT,slang timeout,,
+---
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,equal
+844c844
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u317_swP/surelog/testflags/LowMemLib-c27f6133
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u317_swL/surelog/testflags/LowMemLib-c27f6133
+846c846
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u317_swP/surelog/testflags/LowMemPkg-508b3015
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u317_swL/surelog/testflags/LowMemPkg-508b3015
+== uhdm2rtlil
+== downstream

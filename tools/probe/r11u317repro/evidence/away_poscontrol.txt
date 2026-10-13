@@ -1,0 +1,12 @@
+CK/k01_cast_idx_op_mod dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+CK/k06_cast_ips_base_mod dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+CM/m03_mod_cast_ips_base dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+CM/m08_mod_2d_leaf_refidx dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+CM/m13_mod_ips_top_refbase dist 0 -> 1 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+DS/d01_or_sys_right dist 0 -> 0 lost=0 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+DS/d06_nested_sel_opidx dist 0 -> 3 lost=3 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+GL/l01_and_local_left dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=0 flat_away=0 flat_toward=0
+GL/l12_local_ips_base dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=0 flat_away=0 flat_toward=0
+GS/s05_sys_ips_base dist 0 -> 0 lost=0 gained=0 | chain away=0 toward=0 flat_away=0 flat_toward=0
+OX/x01_sel_in_idx_op_mod dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+OX/x07_2d_op_mod dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0

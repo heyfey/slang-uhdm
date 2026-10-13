@@ -1,0 +1,59 @@
+pristine->law case-views=2150 moving=34 entering=18 leaving=0 rc-changed=0 cmplines-changed=6
+MOVER r315/DG/d08_sys_two_args_gen STRICT_EQUAL_98_objects -> STRICT_EQUAL_98_objects cmplines 0->0 rc 0->0
+MOVER r315/DG/d08_sys_two_args_gen_el STRICT_EQUAL_96_objects -> STRICT_EQUAL_96_objects cmplines 0->0 rc 0->0
+MOVER r315/VA/a20_sys_in_op_gen STRICT_EQUAL_90_objects -> STRICT_EQUAL_90_objects cmplines 0->0 rc 0->0
+MOVER r315/VA/a20_sys_in_op_gen_el STRICT_EQUAL_105_objects -> STRICT_EQUAL_105_objects cmplines 0->0 rc 0->0
+MOVER r315/VA/a22_sys_two_args_gen STRICT_EQUAL_103_objects -> STRICT_EQUAL_103_objects cmplines 0->0 rc 0->0
+MOVER r315/VA/a22_sys_two_args_gen_el STRICT_EQUAL_119_objects -> STRICT_EQUAL_119_objects cmplines 0->0 rc 0->0
+MOVER tp/r11u168repro/cases/H/h11 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_77_objects cmplines 0->0 rc 0->0
+MOVER tp/r11u168repro/cases/H/h11_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_76_objects cmplines 0->0 rc 0->0
+MOVER v313/VG/vg15_nested_bitsel_idx NOT_EQUAL_stage1 -> STRICT_EQUAL_174_objects cmplines 44->0 rc 0->0
+MOVER v313/VG/vg15_nested_bitsel_idx_el NOT_EQUAL_stage1 -> STRICT_EQUAL_193_objects cmplines 44->0 rc 0->0
+MOVER v313/VG/vg21_gen_local_op NOT_EQUAL_stage1 -> STRICT_EQUAL_157_objects cmplines 31->0 rc 0->0
+MOVER v313/VG/vg21_gen_local_op_el NOT_EQUAL_stage1 -> STRICT_EQUAL_176_objects cmplines 31->0 rc 0->0
+MOVER v315/VD/vd08_tern_ips_branch STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_127_objects cmplines 0->0 rc 0->0
+MOVER v315/VD/vd08_tern_ips_branch_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_125_objects cmplines 0->0 rc 0->0
+MOVER v315/VD/vd09_sys_in_binop STRICT_EQUAL_91_objects -> STRICT_EQUAL_91_objects cmplines 0->0 rc 0->0
+MOVER v315/VD/vd09_sys_in_binop_el STRICT_EQUAL_89_objects -> STRICT_EQUAL_89_objects cmplines 0->0 rc 0->0
+MOVER v315/VD/vd13_tern_sys_branch STRICT_EQUAL_105_objects -> STRICT_EQUAL_105_objects cmplines 0->0 rc 0->0
+MOVER v315/VD/vd13_tern_sys_branch_el STRICT_EQUAL_103_objects -> STRICT_EQUAL_103_objects cmplines 0->0 rc 0->0
+MOVER v315/VD/vd23_sys_signed_ips STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_109_objects cmplines 0->0 rc 0->0
+MOVER v315/VD/vd23_sys_signed_ips_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_107_objects cmplines 0->0 rc 0->0
+MOVER v315/VK/vk03_cast_in_index STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_122_objects cmplines 0->0 rc 0->0
+MOVER v315/VK/vk03_cast_in_index_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_121_objects cmplines 0->0 rc 0->0
+MOVER v315/VO/vo02_nested_bitsel_idx_mod STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_129_objects cmplines 0->0 rc 0->0
+MOVER v315/VO/vo02_nested_bitsel_idx_mod_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_127_objects cmplines 0->0 rc 0->0
+MOVER v315/VO/vo09_2d_bitsel_op STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_117_objects cmplines 0->0 rc 0->0
+MOVER v315/VO/vo09_2d_bitsel_op_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_115_objects cmplines 0->0 rc 0->0
+MOVER v315/VO/vo18_sys_bitsel_refidx_gen NOT_EQUAL_stage1 -> STRICT_EQUAL_100_objects cmplines 31->0 rc 0->0
+MOVER v315/VU/vu01_sys_and_ref_gen STRICT_EQUAL_93_objects -> STRICT_EQUAL_93_objects cmplines 0->0 rc 0->0
+MOVER v315/VU/vu01_sys_and_ref_gen_el STRICT_EQUAL_108_objects -> STRICT_EQUAL_108_objects cmplines 0->0 rc 0->0
+MOVER v315/VU/vu07_op_gen_local_313ctl NOT_EQUAL_stage1 -> STRICT_EQUAL_94_objects cmplines 31->0 rc 0->0
+MOVER v315/VU/vu08_sys_local_and_outer STRICT_EQUAL_96_objects -> STRICT_EQUAL_96_objects cmplines 0->0 rc 0->0
+MOVER v315/VU/vu08_sys_local_and_outer_el STRICT_EQUAL_118_objects -> STRICT_EQUAL_118_objects cmplines 0->0 rc 0->0
+MOVER v315/VU/vu11_sys_two_args_local_outer STRICT_EQUAL_111_objects -> STRICT_EQUAL_111_objects cmplines 0->0 rc 0->0
+MOVER v315/VU/vu11_sys_two_args_local_outer_el STRICT_EQUAL_136_objects -> STRICT_EQUAL_136_objects cmplines 0->0 rc 0->0
+ENTER tp/r11u168repro/cases/H/h11
+ENTER tp/r11u168repro/cases/H/h11_el
+ENTER v313/VG/vg15_nested_bitsel_idx
+ENTER v313/VG/vg15_nested_bitsel_idx_el
+ENTER v313/VG/vg21_gen_local_op
+ENTER v313/VG/vg21_gen_local_op_el
+ENTER v315/VD/vd08_tern_ips_branch
+ENTER v315/VD/vd08_tern_ips_branch_el
+ENTER v315/VD/vd23_sys_signed_ips
+ENTER v315/VD/vd23_sys_signed_ips_el
+ENTER v315/VK/vk03_cast_in_index
+ENTER v315/VK/vk03_cast_in_index_el
+ENTER v315/VO/vo02_nested_bitsel_idx_mod
+ENTER v315/VO/vo02_nested_bitsel_idx_mod_el
+ENTER v315/VO/vo09_2d_bitsel_op
+ENTER v315/VO/vo09_2d_bitsel_op_el
+ENTER v315/VO/vo18_sys_bitsel_refidx_gen
+ENTER v315/VU/vu07_op_gen_local_313ctl
+CMPLINES v313/VG/vg15_nested_bitsel_idx
+CMPLINES v313/VG/vg15_nested_bitsel_idx_el
+CMPLINES v313/VG/vg21_gen_local_op
+CMPLINES v313/VG/vg21_gen_local_op_el
+CMPLINES v315/VO/vo18_sys_bitsel_refidx_gen
+CMPLINES v315/VU/vu07_op_gen_local_313ctl

@@ -1,0 +1,10 @@
+// § nestSelChainName317v
+interface ifc (input logic clk);
+  logic [7:0] sig;
+endinterface
+module top (input logic [3:0] ck, input logic [1:0] k, input logic [1:0] j, input logic s, input logic t, input logic a, output logic o);
+  if (1) begin : g
+    ifc u (.clk(ck[k[s] + j[t]] | a));
+  end
+  assign o = g.u.sig[0];
+endmodule
