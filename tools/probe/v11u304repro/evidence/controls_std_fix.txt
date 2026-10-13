@@ -1,0 +1,9 @@
+MOVER r11u198repro/cases/K/k10_for_typedef d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 273 objects
+MOVER r11u198repro/cases/K/k10_for_typedef e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 273 objects
+MOVER r11v145repro/bso/x14_bitsel_in_op d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 120 objects
+MOVER r11v145repro/bso/x14_bitsel_in_op e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 122 objects
+MOVER v11u198repro/cases/K/x13_typedef_cast_concat d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 329 objects
+MOVER v11u198repro/cases/K/x13_typedef_cast_concat e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 329 objects
+MOVER v11u282repro/cases/VC/vc05_cast_typedef_sel d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 122 objects
+MOVER v11u282repro/cases/VC/vc05_cast_typedef_sel e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 122 objects
+case-views=4444 moving=8 entering=8 leaving=0 rc-changed=0 cmplines-changed=0

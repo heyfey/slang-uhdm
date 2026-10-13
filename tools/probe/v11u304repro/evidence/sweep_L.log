@@ -1,0 +1,68 @@
+#### corpus probe start 22:02:13
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u304_wdL/probe.csv
+probe cases: EQUAL=4015 STRICT_NOTEQUAL=72 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4015 differ:fullname=31 differ:line=8 differ:depth=7 differ:endcol=5 differ:file=5 differ:name=5 differ:value=4 differ:type=3 differ:endline=2 differ:col=2
+== probe vs golden_probe.csv
+[probe] EQUAL=4015 STRICT_NOTEQUAL=72
+CONVERSION r10earl29repro/b1_sites STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r10uvm213repro/g213_i_scopedtd STRICT_NOTEQUAL differ:line(2) -> EQUAL
+CONVERSION r10uvm220repro/grid220/a1_uninst_if STRICT_NOTEQUAL differ:file(2) -> EQUAL
+CONVERSION r11u113repro/grid/c/c09_genif_modtd_ctl STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u113repro/grid/c/c11_genif_pkimp STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CHANGE r10uvm79repro/c2_idxkind STRICT_NOTEQUAL differ:col(5) -> differ:col(3) [col -2]
+regressions=0 conversions=5 changes=1 only-fresh=0 only-committed=0
+golden cache: 0 of 0 runs served from the cache
+#### corpus probe rc=1 end 22:03:04
+#### corpus surelog uhdm2rtlil start 22:03:04
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== surelog: both modes, jobs=3, out=/tmp/v11u304_wdL/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/wt_v11u304/build/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 480
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 474
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u304_wdL/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/wt_v11u304/build/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+#### corpus surelog uhdm2rtlil rc=1 end 22:07:42
+#### corpus downstream start 22:07:42
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+#### corpus downstream rc=1 end 22:10:20
+ALLDONE

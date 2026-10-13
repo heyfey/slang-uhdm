@@ -1,0 +1,48 @@
+pristine binary aaf89bbe9c28f0fbf51f6ae28021ecfe, law binary 8e3a7b6bb8169cb9f720d1c82732a382
+== law sweep (tests/sweep.sh --jobs 3)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=4015 STRICT_NOTEQUAL=72 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=4015 STRICT_NOTEQUAL=72
+regressions=0 conversions=5 changes=1 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
+== pristine sweep
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=4010 STRICT_NOTEQUAL=77 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=4010 STRICT_NOTEQUAL=77
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+EXIT=1
+== byteverify (mirrors)
+databases: patched=2560 pristine=2560 / PATH_SETS_IDENTICAL (2560 paths) / MOVERS: 0 / 2560 / SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+probe databases: 6 / 4087 moving (b1_sites g213_i_scopedtd a1_uninst_if c2_idxkind c09_genif_modtd_ctl c11_genif_pkimp)
+downstream-lane slang databases: 0 / 805 moving; selfcheck 804 / 805 flagged
+== canaries
+surelog ok=52 changed=0 absent=0; uhdm2rtlil ok=16 changed=0 absent=0
+ctcan2 EXPECT_UNKNOWN=1 ok=58 PASS; EXPECT_UNKNOWN=6 ok=2 PASS
+== audit
+law own=3265 other=0 noslang=50 fenced_skipped=8; pristine own=3265 other=0 noslang=50 fenced_skipped=8
+== csv diffs law vs pristine
+probe: the six predicted rows; surelog: LowMemLib/LowMemPkg testflags detail text only; uhdm2rtlil: none; downstream: both csvs byte-identical to results/downstream_uhdm2rtlil.csv

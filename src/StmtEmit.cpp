@@ -31,6 +31,7 @@
 #include "R292.h"
 #include "R296.h"
 #include "R300.h"
+#include "R304.h"
 
 namespace slang_uhdm {
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
@@ -2211,6 +2212,72 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
     } ssGuard14{&stmtSyntax14, stmtSyntax14};
     if (stmt.syntax)
         stmtSyntax14 = stmt.syntax;
+    // § tfBodyTypedefForcesBegin304 (R11U304_TDBEGIN_OFF) — Surelog's
+    // `compileFunction` / `compileTask` (CompileStmt.cpp) synthesise the body's
+    // wrapper `begin` whenever `MoreFunction_statement_or_null` /
+    // `MoreStatement_or_null` exists: whenever the block-item body WRITES two
+    // or more items, counted off the parse tree, a `typedef` included
+    // (`subroutineBodyItemCount157` carries the count).  slang lists no
+    // statement for a typedef, so `function int g(int a); typedef ...;
+    // return a + 1; endfunction` reaches here as a bare `return` where golden
+    // has `begin` (anchored at the SECOND written item, carrying the typedef
+    // listing) around it.  Fires on a block-item, non-constructor,
+    // parameter-free body whose slang body is ONE statement (not a list, not
+    // a declaration) and whose written items hold a typedef; the
+    // wrapper is anchored exactly as § tfBodyTypedefIsItem304 anchors the
+    // list branch's.
+    static const void* tdBeginWrap304 = nullptr;
+    if (tfBodyStmt9 == (const void*)&stmt && tdBeginWrap304 != &stmt &&
+        (stmt.kind != StatementKind::List ||
+         stmt.as<StatementList>().list.empty()) &&
+        stmt.kind != StatementKind::VariableDeclaration && currentSubSym &&
+        !tfBodyTfItems9 && !tfBodyCtor27 && tfBodyPa9.empty() &&
+        r11u304On("R11U304_TDBEGIN_OFF")) {
+        const syntax::SyntaxNode* fs304 = currentSubSym->getSyntax();
+        if (fs304 && syntax::FunctionDeclarationSyntax::isKind(fs304->kind)) {
+            auto& it304 = fs304->as<syntax::FunctionDeclarationSyntax>().items;
+            bool td304 = false;
+            for (auto* n304 : it304)
+                if (n304->kind == syntax::SyntaxKind::TypedefDeclaration ||
+                    n304->kind == syntax::SyntaxKind::ForwardTypedefDeclaration)
+                    td304 = true;
+            std::string at304 = std::string(currentSubSym->name);
+            if (it304.size() >= 2 && td304) {
+                auto* ub304 = s.MakeBegin();
+                ub304->VpiFullName(prefix);
+                ub304->VpiParent(parent);
+                if (it304[1] == stmt.syntax)
+                    setLoc(ub304, invalidAnchor244(stmt));
+                else
+                    setLoc(ub304, it304[1]->sourceRange());
+                if (auto* tdl304 = makeStmtScopeTdListing157(*currentSubSym)) {
+                    ub304->Typespecs(tdl304);
+                    tfBodyTdListed157 = true;
+                }
+                auto* sts304 = s.MakeAnyVec();
+                const void* sv304 = tdBeginWrap304;
+                tdBeginWrap304 = &stmt;
+                // An EMPTY slang body (typedefs only, or a typedef and a null
+                // statement `;`): golden's begin lists no statement.
+                bool none304 = stmt.kind == StatementKind::Empty ||
+                               stmt.kind == StatementKind::List;
+                UHDM::any* in304 =
+                    none304
+                        ? nullptr
+                        : emitStmt(stmt, ub304, prefix, netMap);
+                tdBeginWrap304 = sv304;
+                if (in304) {
+                    sts304->push_back(in304);
+                    ub304->Stmts(sts304);
+                }
+                tr304("TDBEGIN", at304 + (none304
+                                              ? " empty"
+                                              : it304[1] == stmt.syntax ? " stmt"
+                                                                        : " item"));
+                return ub304;
+            }
+        }
+    }
     if (selTrackActive) {
         bool isBlock = false, compound = false;
         switch (stmt.kind) {
@@ -3986,6 +4053,51 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // golden resolves on legal SystemVerilog it has not been shown.
             const bool arrIsParam183 =
                 arrSym && arrSym->kind == SymbolKind::Parameter;
+            // § uninstIfaceForeachParamOwnTs304 (R11U304_UIPARAMTS_OFF) — the
+            // iterated PARAMETER array of a foreach inside an UNINSTANTIATED
+            // interface's subroutine binds the parameter's OWN typespec
+            // object: `compileDatastructureTypespec` scans the interface's
+            // `getParamAssignVec()` and returns that parameter's
+            // `Actual_typespec` (CompileType.cpp:750-762, the fence
+            // § uninstIfaceForeachHdrUnresolved220 reads), the array_typespec
+            // located at the declaration's type (`int PAR220[3]`, 13:14-27) that
+            // the interface's own `parameter` lists.  We deferred the bind to
+            // the pendingForeachArrayTs drain, which knows array VARIABLES and
+            // ports only and minted a bare, unlocated array_typespec (probe
+            // r10uvm220repro/grid220/a1_uninst_if `file(2)`).  Read from the
+            // interface listing the foreach sits in (its parameters are
+            // emitted before its subroutines); abstains when no parameter of
+            // the name carries an array_typespec there.
+            auto uninstIfaceParamTs304 =
+                [&](const UHDM::any* from304,
+                    const UHDM::BaseClass* par304) -> UHDM::typespec* {
+                (void)from304;
+                if (!arrIsParam183 || !uninstIfaceSubBody218 ||
+                    !r11u304On("R11U304_UIPARAMTS_OFF"))
+                    return nullptr;
+                const UHDM::BaseClass* up304 = par304;
+                while (up304 && up304->UhdmType() != UHDM::uhdminterface_inst)
+                    up304 = up304->VpiParent();
+                if (!up304) {
+                    tr304("UIPARAMTS_ABSTAIN", std::string(arrSym->name) + " noiface");
+                    return nullptr;
+                }
+                auto* ii304 = (const UHDM::interface_inst*)up304;
+                if (ii304->Parameters())
+                    for (auto* pa304 : *ii304->Parameters())
+                        if (pa304 && pa304->UhdmType() == UHDM::uhdmparameter &&
+                            pa304->VpiName() == arrSym->name)
+                            if (auto* rt304 =
+                                    ((const UHDM::parameter*)pa304)->Typespec())
+                                if (auto* at304 = rt304->Actual_typespec();
+                                    at304 && at304->UhdmType() ==
+                                                 UHDM::uhdmarray_typespec) {
+                                    tr304("UIPARAMTS", std::string(arrSym->name));
+                                    return const_cast<UHDM::typespec*>(at304);
+                                }
+                tr304("UIPARAMTS_ABSTAIN", std::string(arrSym->name) + " noparam");
+                return nullptr;
+            };
             // § uninstIfaceForeachHdrUnresolved220 (r10uvm220) — A `foreach`
             // HEADER INSIDE AN UNINSTANTIATED INTERFACE'S SUBROUTINE KEEPS
             // SURELOG'S PLACEHOLDER, ARRAY REFERENCE AND LOOP VARIABLE ALIKE.
@@ -4573,6 +4685,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         pendingLoopVarTs9.push_back({art, ioRt9});
                     else if (own246)
                         art->Actual_typespec(own246);
+                    else if (auto* uip304 = uninstIfaceParamTs304(fs, parent))
+                        art->Actual_typespec(uip304);
                     else
                         pendingForeachArrayTs.push_back(
                             {art, arrSym, implicitNetModule});
@@ -7915,6 +8029,63 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // while the block-item twin (no body io) still anchors at its
             // second item counting the local. TaskDecls and r10c4_p2 C are
             // the parameter-bearing halves of the same rule.
+            // § tfBodyTypedefIsItem304 (R11U304_TDITEM_OFF) — Surelog's
+            // `compileFunction` / `compileTask` (CompileStmt.cpp) anchor the
+            // body's wrapper `begin` at `MoreFunction_statement_or_null` /
+            // `MoreStatement_or_null`: the SECOND `Function_statement_or_null`
+            // of a block-item body, and a body `typedef` is one of them (a
+            // data_declaration the parser lists among the body's
+            // statement-or-null items).  slang lists no statement for a
+            // typedef, so the second-item count above skipped it: golden
+            // `function void c::g(); typedef ...; s_t v; v = 0;` anchors at
+            // `s_t v;`, `int b; typedef ...; s_t v;` at the typedef, where we
+            // anchored one item later (probe r10uvm213repro/g213_i_scopedtd).
+            // Read from the subroutine's own syntax item list; fires only when
+            // a typedef is the first or second item of a block-item body (a
+            // TF-ITEM body skips its typedefs as Surelog does, and a
+            // parameter-bearing task body takes the `items9` branch above,
+            // which this law leaves alone).
+            auto td304Anchor = [&](UHDM::begin* ub304) -> bool {
+                if (!r11u304On("R11U304_TDITEM_OFF"))
+                    return false;
+                if (tfBodyStmt9 != (const void*)&stmt || !currentSubSym ||
+                    tfBodyTfItems9 || tfBodyCtor27 || bodyParams9)
+                    return false;
+                auto* fsyn304 = currentSubSym->getSyntax();
+                if (!fsyn304 ||
+                    !syntax::FunctionDeclarationSyntax::isKind(fsyn304->kind))
+                    return false;
+                auto& its304 =
+                    fsyn304->as<syntax::FunctionDeclarationSyntax>().items;
+                if (its304.size() < 2)
+                    return false;
+                auto isTd304 = [](const syntax::SyntaxNode* n) {
+                    return n->kind == syntax::SyntaxKind::TypedefDeclaration ||
+                           n->kind ==
+                               syntax::SyntaxKind::ForwardTypedefDeclaration;
+                };
+                if (!isTd304(its304[0]) && !isTd304(its304[1]))
+                    return false;
+                const syntax::SyntaxNode* it1 = its304[1];
+                std::string at304 =
+                    currentSubSym->name.empty()
+                        ? std::string("?")
+                        : std::string(currentSubSym->name);
+                if (isTd304(it1) ||
+                    it1->kind == syntax::SyntaxKind::DataDeclaration) {
+                    setLoc(ub304, it1->sourceRange());
+                    tr304("TDITEM", at304 + (isTd304(it1) ? " typedef" : " decl"));
+                    return true;
+                }
+                for (auto st304 : sl.list)
+                    if (st304->syntax == it1) {
+                        setLoc(ub304, invalidAnchor244(*st304));
+                        tr304("TDITEM", at304 + " stmt");
+                        return true;
+                    }
+                tr304("TDITEM_ABSTAIN", at304 + " unmatched");
+                return false;
+            };
             if (bodyParams9 || bodyTfItems9) {
                 std::vector<SourceRange> items9;
                 if (bodyParams9)
@@ -7954,6 +8125,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 else
                     setLoc(ub, stmt.sourceRange);
             }
+            else if (td304Anchor(ub))
+                ;
             else if (anch9)
                 setLoc(ub, anch9->sourceRange());
             else if (second140 < sl.list.size())

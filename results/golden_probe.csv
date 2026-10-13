@@ -78,7 +78,7 @@ r10earl29repro/a3_plain,EQUAL,,equal
 r10earl29repro/a4_ctx,EQUAL,,equal
 r10earl29repro/a5_three,EQUAL,,equal
 r10earl29repro/a6_noconcat,EQUAL,,equal
-r10earl29repro/b1_sites,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+r10earl29repro/b1_sites,EQUAL,,equal
 r10earl29repro/b2_kinds,EQUAL,,equal
 r10earl29repro/b3_edges,EQUAL,,equal
 r10earl29repro/v10_str,EQUAL,,equal
@@ -833,7 +833,7 @@ r10uvm213repro/g213_c_pkgimp,EQUAL,,equal
 r10uvm213repro/g213_d_modimp,EQUAL,,equal
 r10uvm213repro/g213_g_freefunc,EQUAL,,equal
 r10uvm213repro/g213_h_muststay,EQUAL,,equal
-r10uvm213repro/g213_i_scopedtd,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
+r10uvm213repro/g213_i_scopedtd,EQUAL,,equal
 r10uvm214repro/g214_b_inbody,EQUAL,,equal
 r10uvm215repro/a_kinds,EQUAL,,equal
 r10uvm215repro/e_virtual,EQUAL,,equal
@@ -855,7 +855,7 @@ r10uvm21repro/t,EQUAL,,equal
 r10uvm21repro/t32b_t,EQUAL,,equal
 r10uvm21repro/t32d_t,EQUAL,,equal
 r10uvm21repro/t32g_t,EQUAL,,equal
-r10uvm220repro/grid220/a1_uninst_if,STRICT_NOTEQUAL,differ:file(2),differ:file(2)
+r10uvm220repro/grid220/a1_uninst_if,EQUAL,,equal
 r10uvm221repro/grid221/a4_corpus,EQUAL,,equal
 r10uvm223repro/grid223/a11_modport,EQUAL,,equal
 r10uvm223repro/grid223/a12_noimport,EQUAL,,equal
@@ -1017,7 +1017,7 @@ r10uvm77repro/v77x2_comment,EQUAL,,equal
 r10uvm78repro/c1_classpsel,EQUAL,,equal
 r10uvm78repro/c2_idxpsel,EQUAL,,equal
 r10uvm78repro/c3_constsel,EQUAL,,equal
-r10uvm79repro/c2_idxkind,STRICT_NOTEQUAL,differ:col(5),differ:col(5)
+r10uvm79repro/c2_idxkind,STRICT_NOTEQUAL,differ:col(3),differ:col(3)
 r10uvm79repro/v79v2_recv,EQUAL,,equal
 r10uvm79repro/v79v6_ca,EQUAL,,equal
 r10uvm80repro/c2_autokinds,EQUAL,,equal
@@ -2096,8 +2096,8 @@ r11u113repro/grid/c/c05_genif_concat,EQUAL,,equal
 r11u113repro/grid/c/c06_genif_ternary,EQUAL,,equal
 r11u113repro/grid/c/c07_genif_bodylp,EQUAL,,equal
 r11u113repro/grid/c/c08_genif_bodyparam,EQUAL,,equal
-r11u113repro/grid/c/c09_genif_modtd_ctl,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
-r11u113repro/grid/c/c11_genif_pkimp,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+r11u113repro/grid/c/c09_genif_modtd_ctl,EQUAL,,equal
+r11u113repro/grid/c/c11_genif_pkimp,EQUAL,,equal
 r11u113repro/grid/c/c12_genif_override,EQUAL,,equal
 r11u113repro/grid/c/c13_genif_comb,EQUAL,,equal
 r11u113repro/grid/c/c14_genif_intdef,EQUAL,,equal

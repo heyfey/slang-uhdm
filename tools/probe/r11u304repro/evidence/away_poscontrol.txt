@@ -1,0 +1,14 @@
+GC/k02_genif d chain away=1 toward=0 flat_away=1 flat_toward=0
+GC/k15_two_level d chain away=1 toward=0 flat_away=1 flat_toward=0
+GC/k27_unit_td d chain away=1 toward=0 flat_away=1 flat_toward=1
+GC/p03_unpacked_lhs d chain away=2 toward=0 flat_away=2 flat_toward=0
+NS/m02_base_concat d chain away=2 toward=0 flat_away=2 flat_toward=0
+NS/m12_two_sels d chain away=4 toward=0 flat_away=4 flat_toward=0
+NS/m25_child d chain away=2 toward=0 flat_away=2 flat_toward=0
+TD/t03_pkgfn d chain away=2 toward=0 flat_away=2 flat_toward=0
+TD/t12_cls_td_assign d chain away=8 toward=0 flat_away=5 flat_toward=0
+TD/t21_macro_second d chain away=2 toward=0 flat_away=2 flat_toward=0
+TD/t32_ret_param_use d chain away=25 toward=0 flat_away=15 flat_toward=0
+TD/t41_genblk_fn d chain away=9 toward=0 flat_away=5 flat_toward=0
+UI/u03_typedef d chain away=0 toward=0 flat_away=0 flat_toward=0
+UI/u12_nested_fe d chain away=3 toward=0 flat_away=3 flat_toward=0

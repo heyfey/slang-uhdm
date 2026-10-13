@@ -58,6 +58,7 @@
 #include "R298.h"
 #include "R300.h"
 #include "R302.h"
+#include "R304.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -18364,6 +18365,180 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     // index do take the path.  Switch R11U153_PSRBASESEL_OFF.
     if (!(inPsRangeBound && r11u153On("R11U153_PSRBASESEL_OFF")))
         baseSelOpIdxNames145(prefix, hp);  // § hpBaseSelOpIdxNamesByPath145 SITE 1 of 2
+    // § hpOpIdxNestedSelByPath304 (R11U304_NESTSEL_OFF) — A SELECT NESTED IN
+    // AN OPERATION THAT INDEXES ONE OF THE PATH'S SELECTS IS NAMED BY THE PATH
+    // AND SPANS ITS WHOLE SELECT.  `ea[k[0] + 1].fld`, `t.arr[{1'b0, k[0]}].fld`,
+    // `iarr[midx[i] + 1].f` in a class method: golden's bit_select `k` reads
+    // `work@top.ea[ + 1].fld.k` (`work@grid::probe::iarr[ + 1].f::midx`)
+    // located from its name to its closing bracket (8:22-26), the
+    // references in its own index named by the path too (`...fld.j`,
+    // `...f::i`), a select nested in ITS index named through it
+    // (`...fld.k.k2`, whole span); a part select there `...fld.k` (ours
+    // `...fld.ea.k`).  Ours named them by the scope (`work@top.k`) at the
+    // index (8:24-25).  Surelog compiles the operation as part of the path's
+    // element list (CompileExpression's hierarchical-path arm), where a
+    // select's name is the path's and populateCoreMembers spans the whole
+    // select.  A bare select index (`ea[k[0]].fld`) and the path's last
+    // element are untouched, and so is a path inside a simple part-select's
+    // range bound (§ psRangeBoundHpBaseSelKeeps153v's gate).  Probe
+    // r10earl29repro/b1_sites, r10uvm79repro/c2_idxkind (its d4 face).
+    if (!(inPsRangeBound && r11u153On("R11U153_PSRBASESEL_OFF")) &&
+        hp->Path_elems() && hp->Path_elems()->size() >= 2 &&
+        !hp->VpiName().empty()) {
+        // slang side: every element select under the path's selects, keyed
+        // by its SELECTOR's laid-out span, to its whole range.
+        std::map<std::array<uint32_t, 4>, SourceRange> whole304;
+        for (auto& c304 : comps)
+            for (auto& sl304 : c304.sels)
+                if (sl304.sel)
+                    sl304.sel->visit(makeVisitor(
+                        [&](auto& v304, const ElementSelectExpression& es304) {
+                            std::array<uint32_t, 4> k304{};
+                            auto sr304 = es304.selector().sourceRange;
+                            if (sr304.start().valid() && sr304.end().valid() &&
+                                es304.sourceRange.start().valid() &&
+                                !sm->isMacroLoc(es304.sourceRange.start()) &&
+                                !sm->isMacroLoc(sr304.start())) {
+                                locLineCol(sr304.start(), k304[0], k304[1]);
+                                locLineCol(sr304.end(), k304[2], k304[3]);
+                                whole304[k304] = es304.sourceRange;
+                            }
+                            v304.visitDefault(es304);
+                        }));
+        const std::string base304 = portChainBase296(prefix, hp, "nestsel304");
+        const bool on304 = r11u304On("R11U304_NESTSEL_OFF");
+        std::function<void(UHDM::any*, const std::string&, bool, bool)> sel304;
+        // `inCall304`: under a user or system call's argument (`ea[f(k[0]) +
+        // 1]`, `ea[$unsigned(k[0]) + 1]`) golden still names the select and
+        // its index references by the path but keeps the select at its index
+        // (8:26-27), Surelog compiling the argument as an ordinary expression.
+        std::function<void(UHDM::any*, const std::string&, bool)> walk304 =
+            [&](UHDM::any* e304, const std::string& outer304, bool inCall304) {
+                if (!e304)
+                    return;
+                if (e304->UhdmType() == UHDM::uhdmoperation) {
+                    // § hpOpIdxTernTrueKeepsIdxLoc304v (R11V304_TERNTRUE_OFF)
+                    // — a select anywhere in a CONDITIONAL's TRUE branch is
+                    // named by the path but keeps its index span, as a call
+                    // argument does: golden `ea[c ? k[0] : k[1]].fld` reads
+                    // `...fld.k` at 5:28-29 for k[0] (the true branch) and at
+                    // 5:33-37 for k[1] (the false branch), the condition's
+                    // select whole too (v11u304repro VN vn01, vn23 to vn35:
+                    // under +, parenthesised, a nested conditional in either
+                    // branch, a nested select in the true branch).  The law
+                    // spanned the true branch's select whole, moving a record
+                    // pristine had right away from golden (vn01 e, chain away
+                    // 1: the definition listing's `work@top.k` at 5:28-29).
+                    auto* op304 = (UHDM::operation*)e304;
+                    const bool tern304v =
+                        op304->VpiOpType() == vpiConditionOp &&
+                        r11v304On("R11V304_TERNTRUE_OFF");
+                    if (auto* os304 = op304->Operands()) {
+                        size_t n304 = 0;
+                        for (auto* o304 : *os304) {
+                            const bool keep304v = tern304v && n304 == 1;
+                            ++n304;
+                            if (o304 && o304->VpiParent() == e304) {
+                                if (keep304v && !inCall304)
+                                    tr304("NESTSEL_TERNTRUE", outer304);
+                                walk304(o304, outer304, inCall304 || keep304v);
+                            }
+                        }
+                    }
+                }
+                else if (e304->UhdmType() == UHDM::uhdmfunc_call ||
+                         e304->UhdmType() == UHDM::uhdmsys_func_call) {
+                    if (auto* as304 = ((UHDM::tf_call*)e304)->Tf_call_args())
+                        for (auto* a304 : *as304)
+                            if (a304 && a304->VpiParent() == e304)
+                                walk304(a304, outer304, true);
+                }
+                else if (e304->UhdmType() == UHDM::uhdmbit_select ||
+                         e304->UhdmType() == UHDM::uhdmpart_select)
+                    sel304(e304, outer304, true, inCall304);
+            };
+        sel304 = [&](UHDM::any* e304, const std::string& outer304, bool top304,
+                     bool inCall304) {
+            std::string nm304(e304->VpiName());
+            if (nm304.empty())
+                return;
+            std::string nn304 = joinRef(outer304, nm304);
+            if (!on304) {
+                tr304("NESTSEL", "off " + nn304);
+                return;
+            }
+            if (e304->UhdmType() == UHDM::uhdmpart_select) {
+                ((UHDM::part_select*)e304)->VpiFullName(nn304);
+                tr304("NESTSEL", "part " + nn304);
+                return;
+            }
+            auto* bs304 = (UHDM::bit_select*)e304;
+            std::array<uint32_t, 4> k304{bs304->VpiLineNo(), bs304->VpiColumnNo(),
+                                         bs304->VpiEndLineNo(),
+                                         bs304->VpiEndColumnNo()};
+            auto w304 = whole304.find(k304);
+            if (w304 == whole304.end()) {
+                tr304("NESTSEL_ABSTAIN", "nospan " + nn304);
+                return;
+            }
+            bs304->VpiFullName(nn304);
+            if (!inCall304)
+                setLoc(bs304, w304->second);
+            tr304("NESTSEL", std::string(inCall304 ? "callarg " : "") +
+                                 (top304 ? "sel " : "inner ") + nn304);
+            // its own index: a reference named by the name this select was
+            // named under (the path for a select directly under the
+            // operation, `...fld.j`; the enclosing select for a nested one,
+            // `...fld.k.j` in `k[k2[j]]`), a select by this select,
+            // operations walked through.
+            // `keep304v`: § hpOpIdxTernTrueKeepsIdxLoc304v below, a select
+            // in a conditional's true branch keeping its index span.
+            std::function<void(UHDM::any*, bool)> idx304 =
+                [&](UHDM::any* i304, bool keep304v) {
+                if (!i304)
+                    return;
+                if (i304->UhdmType() == UHDM::uhdmref_obj) {
+                    auto* r304 = (UHDM::ref_obj*)i304;
+                    r304->VpiFullName(joinRef(outer304, r304->VpiName()));
+                }
+                else if (i304->UhdmType() == UHDM::uhdmoperation) {
+                    // § hpOpIdxTernTrueKeepsIdxLoc304v inside a nested
+                    // select's own index too (v11u304repro VN vn35).
+                    auto* iop304 = (UHDM::operation*)i304;
+                    const bool tern304v =
+                        iop304->VpiOpType() == vpiConditionOp &&
+                        r11v304On("R11V304_TERNTRUE_OFF");
+                    if (auto* os304 = iop304->Operands()) {
+                        size_t n304 = 0;
+                        for (auto* o304 : *os304) {
+                            const bool true304v = tern304v && n304++ == 1;
+                            if (o304 && o304->VpiParent() == i304) {
+                                if (true304v && !keep304v && !inCall304)
+                                    tr304("NESTSEL_TERNTRUE", nn304);
+                                idx304(o304, keep304v || true304v);
+                            }
+                        }
+                    }
+                }
+                else if (i304->UhdmType() == UHDM::uhdmbit_select ||
+                         i304->UhdmType() == UHDM::uhdmpart_select)
+                    sel304(i304, nn304, false, inCall304 || keep304v);
+            };
+            auto* ix304 = (UHDM::any*)bs304->VpiIndex();
+            if (ix304 && ix304->VpiParent() == bs304)
+                idx304(ix304, false);
+        };
+        auto& pe304 = *hp->Path_elems();
+        for (size_t k304 = 0; k304 + 1 < pe304.size(); ++k304) {
+            auto* e304 = pe304[k304];
+            if (!e304 || e304->UhdmType() != UHDM::uhdmbit_select)
+                continue;
+            auto* ix304 = (UHDM::any*)((UHDM::bit_select*)e304)->VpiIndex();
+            if (!ix304 || ix304->UhdmType() != UHDM::uhdmoperation)
+                continue;
+            walk304(ix304, base304, false);
+        }
+    }
     return hp;
 }
 
@@ -33859,6 +34034,157 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 cl2->Instance(cts->Instance());
                             auto* art2 = s.MakeRef_typespec();
                             art2->VpiFullName(std::string(ta2.name));
+                            // § genCaCastTdAliasScopedName304
+                            // (R11U304_CASTALIAS_OFF) — in an ELABORATED
+                            // generate scope's continuous assignment the
+                            // clone's Typedef_alias reference is named through
+                            // the scope: golden `assign y = idx_t'(a);` in `if
+                            // (1) begin : g` reads `work@top.g.idx_t`
+                            // (`work@top.g[0].idx_t` in a for-generate,
+                            // `work@top.u.g.idx_t` in a child), where a
+                            // module-body site's elaborated copy reads
+                            // `work@top.idx_t` beside the definition's bare
+                            // `idx_t` and ours shares the bare name (judged a
+                            // shared object by the comparator there).  Surelog
+                            // elaborates the cast target in the generate
+                            // scope, where the alias reference's name is
+                            // computed over the scope's path.  Gated on the
+                            // elaborated generate-scope right side
+                            // (`inGenScopeCaRhs`); a process in the scope
+                            // (golden already bare, k07) and the module body
+                            // are untouched.  Probe r11u113repro/grid/c
+                            // c09_genif_modtd_ctl and c11_genif_pkimp.
+                            // A cast inside a select's brackets (an index,
+                            // a part-select bound) keeps the bare name in
+                            // golden (k17, k29, k30, k32: the select's
+                            // re-scoped prefix is no scope path there); a
+                            // replication count takes the scope (k31).
+                            bool inSel304 = false;
+                            for (const syntax::SyntaxNode* sp304 = expr.syntax; sp304;
+                                 sp304 = sp304->parent)
+                                if (sp304->kind ==
+                                    syntax::SyntaxKind::ElementSelect) {
+                                    inSel304 = true;
+                                    break;
+                                }
+                            // ...and only where UhdmWriter::writeCont_assign
+                            // RE-CLONES the assignment (the clone is where the
+                            // target is re-elaborated in the scope): a
+                            // bound whole-name target over an operation
+                            // right side (`caBoundLhsOpRhs17`), or a right side
+                            // that IS the cast (its `op->Typespec()` arm).  A
+                            // select, member or generate-local target over an
+                            // operation keeps the definition's bare name
+                            // (golden `assign o[i] = (b_t'(x)) + (int'(i));`,
+                            // r11u288repro PC/pc04_gen_scopes; `o[i] = b_t'(x)
+                            // + 1`, `w = b_t'(x) + x`, `{b_t'(x), x}`; grid
+                            // GC p03 to p08, the byte control that convicted
+                            // the first draft).
+                            // § castAliasSignCastRhsNoClone304v
+                            // (R11V304_SIGNCAST_OFF) — `caBoundLhsOpRhs17`
+                            // reads slang's expression kind, and a written
+                            // `signed'(...)` / `unsigned'(...)` right side is
+                            // a Conversion there but a `$signed` / `$unsigned`
+                            // sys_func_call in the database (ours and
+                            // golden's), which writeCont_assign does not
+                            // re-clone: golden keeps the bare `idx_t` for
+                            // `assign y = signed'(idx_t'(a));` in `if (1)
+                            // begin : g` where the law scoped it (v11u304repro
+                            // VC/vc20_signed_wrap, chain away 1 in both views).
+                            bool signRoot304v = false;
+                            if (caBoundLhsOpRhs17 &&
+                                r11v304On("R11V304_SIGNCAST_OFF")) {
+                                const syntax::SyntaxNode* rt304 = nullptr;
+                                for (const syntax::SyntaxNode* sp304 = expr.syntax;
+                                     sp304 && sp304->parent; sp304 = sp304->parent)
+                                    if (sp304->parent->kind ==
+                                        syntax::SyntaxKind::AssignmentExpression) {
+                                        rt304 = sp304;
+                                        break;
+                                    }
+                                while (rt304 &&
+                                       rt304->kind ==
+                                           syntax::SyntaxKind::ParenthesizedExpression)
+                                    rt304 = rt304->as<syntax::ParenthesizedExpressionSyntax>()
+                                                .expression.get();
+                                signRoot304v =
+                                    rt304 && rt304->kind ==
+                                                 syntax::SyntaxKind::SignedCastExpression;
+                                if (signRoot304v)
+                                    tr304("CASTALIAS_SIGNCAST", prefix + " " +
+                                                                    std::string(ta2.name));
+                            }
+                            const bool clone304 =
+                                (caBoundLhsOpRhs17 && !signRoot304v) ||
+                                (parent &&
+                                 parent->UhdmType() == UHDM::uhdmcont_assign);
+                            // A WRITTEN package qualifier (`pk::idx_t'(a)`,
+                            // grid k05) is another road: golden binds the
+                            // package typedef there and mints no clone at all
+                            // (stage 1 on both binaries), so the clone's alias
+                            // name has no golden answer and is left alone.
+                            bool qual304 = false;
+                            if (expr.syntax &&
+                                expr.syntax->kind ==
+                                    syntax::SyntaxKind::CastExpression)
+                                if (auto* cl304 = expr.syntax
+                                                      ->as<syntax::CastExpressionSyntax>()
+                                                      .left.get())
+                                    qual304 = cl304->kind ==
+                                              syntax::SyntaxKind::ScopedName;
+                            if (inGenScopeCaRhs && !currentSubSym &&
+                                !prefix.empty() && qual304)
+                                tr304("CASTALIAS_ABSTAIN",
+                                      prefix + " " + std::string(ta2.name) +
+                                          " qualified");
+                            else if (inGenScopeCaRhs && !currentSubSym &&
+                                !prefix.empty() && inSel304)
+                                tr304("CASTALIAS_ABSTAIN",
+                                      prefix + " " + std::string(ta2.name) +
+                                          " in-select");
+                            else if (inGenScopeCaRhs && !currentSubSym &&
+                                     !prefix.empty() && !clone304)
+                                tr304("CASTALIAS_ABSTAIN",
+                                      prefix + " " + std::string(ta2.name) +
+                                          " no-reclone");
+                            else if (inGenScopeCaRhs && !currentSubSym &&
+                                     !prefix.empty() &&
+                                     r11u304On("R11U304_CASTALIAS_OFF")) {
+                                std::string tn304(ta2.name);
+                                art2->VpiFullName(prefix + "." + tn304);
+                                tr304("CASTALIAS", prefix + "." + tn304);
+                                // ...and every reference the clone's own
+                                // ranges hold (`typedef logic [W-1:0] idx_t`:
+                                // golden `work@top.g.idx_t.W`, ours `idx_t.W`).
+                                std::function<void(UHDM::any*)> rn304 =
+                                    [&](UHDM::any* o304) {
+                                        if (!o304)
+                                            return;
+                                        if (o304->UhdmType() ==
+                                            UHDM::uhdmref_obj) {
+                                            auto* r304 = (UHDM::ref_obj*)o304;
+                                            std::string f304(r304->VpiFullName());
+                                            if (f304.rfind(tn304 + ".", 0) == 0)
+                                                r304->VpiFullName(prefix + "." +
+                                                                  f304);
+                                        }
+                                        else if (o304->UhdmType() ==
+                                                 UHDM::uhdmoperation) {
+                                            if (auto* ops304 =
+                                                    ((UHDM::operation*)o304)
+                                                        ->Operands())
+                                                for (auto* q304 : *ops304)
+                                                    rn304(q304);
+                                        }
+                                    };
+                                if (cl2->UhdmType() == UHDM::uhdmlogic_typespec)
+                                    if (auto* rg304 =
+                                            ((UHDM::logic_typespec*)cl2)->Ranges())
+                                        for (auto* r304 : *rg304) {
+                                            rn304(r304->Left_expr());
+                                            rn304(r304->Right_expr());
+                                        }
+                            }
                             art2->VpiParent(cl2);
                             art2->Actual_typespec(cts172 ? cts172 : cts);
                             if (cts172)

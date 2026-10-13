@@ -1,0 +1,16 @@
+VC/vc01_forgen_sel_whole d chain away=2 toward=0 flat_away=2 flat_toward=0
+VC/vc11_paren_sel d chain away=1 toward=0 flat_away=1 flat_toward=0
+VC/vc17_and_const d chain away=1 toward=0 flat_away=1 flat_toward=0
+VC/vc26_param_typed_td d chain away=4 toward=0 flat_away=4 flat_toward=0
+VN/vn04_packed_vec_bit d chain away=2 toward=0 flat_away=2 flat_toward=0
+VN/vn10_pkg_fn d chain away=2 toward=0 flat_away=2 flat_toward=0
+VN/vn18_task_lvalue d chain away=2 toward=0 flat_away=2 flat_toward=0
+VN/vn25_tern_false_only d chain away=2 toward=0 flat_away=2 flat_toward=0
+VN/vn31_nestedsel_true d chain away=4 toward=0 flat_away=4 flat_toward=0
+VN/vn37_lvalue_tern d chain away=4 toward=0 flat_away=4 flat_toward=0
+VT/vt04_td_case d chain away=22 toward=0 flat_away=4 flat_toward=0
+VT/vt11_this_new_drop d chain away=0 toward=0 flat_away=0 flat_toward=0
+VT/vt17_td_ret_void_task d chain away=10 toward=0 flat_away=4 flat_toward=0
+VT/vt24_extern_default_arg d chain away=18 toward=0 flat_away=10 flat_toward=0
+VT/vt30_pkg_import_clone_item d chain away=4 toward=0 flat_away=4 flat_toward=0
+VU/vu08_localparam_typed_unpacked2 d chain away=6 toward=0 flat_away=6 flat_toward=0
