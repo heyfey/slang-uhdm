@@ -1,0 +1,87 @@
+v11u307repro/cases/VA/va01_desc_slices P STATUS_DIFF differs=- surelog=OK slang=NO_GATES detail=-
+v11u307repro/cases/VA/va02_asc_slices P STATUS_DIFF differs=- surelog=OK slang=NO_GATES detail=-
+v11u307repro/cases/VA/va03_offset_range P STATUS_DIFF differs=- surelog=OK slang=NO_GATES detail=-
+v11u307repro/cases/VA/va04_genfor_array P STATUS_DIFF differs=- surelog=OK slang=NO_GATES detail=-
+v11u307repro/cases/VA/va05_param_ovr P STATUS_DIFF differs=- surelog=OK slang=NO_GATES detail=-
+v11u307repro/cases/VA/va06_recursive_body P STATUS_DIFF differs=- surelog=OK slang=NO_GATES detail=-
+v11u307repro/cases/VA/va07_parent_twice P STATUS_DIFF differs=- surelog=OK slang=NO_GATES detail=-
+v11u307repro/cases/VA/va08_iface_array_conn P DIVERGENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=___This_indicates_a_serious_bug_in_/tmp/v11u307_scr/ds/P/v11u307repro_cases_VA_v
+v11u307repro/cases/VA/va09_wildcard P STATUS_DIFF differs=- surelog=OK slang=NO_GATES detail=-
+v11u307repro/cases/VA/va10_same_mod_body_and_gen P EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u307_scr/ds/P/v11u307repro_cases_V
+v11u307repro/cases/VA/va11_gencase_array P STATUS_DIFF differs=- surelog=OK slang=NO_GATES detail=-
+v11u307repro/cases/VA/va12_single_elem P STATUS_DIFF differs=- surelog=OK slang=NO_GATES detail=-
+v11u307repro/cases/VA/va13_array_with_children P STATUS_DIFF differs=- surelog=OK slang=NO_GATES detail=-
+v11u307repro/cases/VA/va14_twodim_desc P STATUS_DIFF differs=- surelog=OK slang=NO_GATES detail=-
+v11u307repro/cases/VD/vd01_empty_slot P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd02_iface_port_pass P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd03_genfor_deep P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd04_deep_array P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd05_gencase_depth1 P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd06_nested_gen_depth1 P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd07_bmid_twice_deep P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd08_literal_and_partsel P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd09_dotname_ordered_mix P STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+v11u307repro/cases/VD/vd10_depth1_gen_outer_twice P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd11_iface_inst_gen_depth1 P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd12_deep_defparam P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd13_three_deep P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd14_concat_op_actual P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd15_xor_refs P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd16_unary_ref P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd17_syscall_arg P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd18_ternary_refs P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd19_ordered_op P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd20_ordered_concat_first P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd21_gen_depth1_op P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd22_iface_port_ordered P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd23_genfor_local_op P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd24_var_operand P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd25_second_body_op P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VD/vd26_iface_port_in_gen P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VG/vg01_iface_pos_gen P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u307repro/cases/VG/vg02_real_udp_gen P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u307repro/cases/VG/vg03_param_ident_gen P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u307repro/cases/VG/vg04_named_param_gen_ctl P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u307repro/cases/VG/vg05_first_literal P IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u307repro/cases/VG/vg06_empty_first_slot P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u307repro/cases/VG/vg07_single_iface_actual P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u307repro/cases/VG/vg08_single_expr P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u307repro/cases/VG/vg09_genfor_udpform P IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u307repro/cases/VG/vg10_genfor_single_sel P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u307repro/cases/VG/vg11_program_pos_gen P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u307repro/cases/VG/vg12_member_first P IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u307repro/cases/VG/vg13_hier_ident_single P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u307repro/cases/VG/vg14_else_branch P IDENTICAL differs=- surelog=OK slang=OK detail=-
+v11u307repro/cases/VG/vg15_single_iface_port_actual P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u307repro/cases/VG/vg16_single_member_actual P IDENTICAL differs=- surelog=NO_GATES slang=NO_GATES detail=-
+v11u307repro/cases/VP/vp02_nonansi_inner P STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+v11u307repro/cases/VP/vp03_op_literal_inputs P STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+v11u307repro/cases/VP/vp04_outer_twice P STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+v11u307repro/cases/VP/vp05_sized_delay P STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+v11u307repro/cases/VP/vp06_underscore_delay P STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+v11u307repro/cases/VP/vp07_vector_ports P STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+v11u307repro/cases/VP/vp08_mixed_udp_named P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VP/vp09_named_first_in_body P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VP/vp10_two_delay P STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+v11u307repro/cases/VP/vp11_concat_output P STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+v11u307repro/cases/VP/vp12_macro_inst P STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+v11u307repro/cases/VP/vp13_iface_terminal P STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+v11u307repro/cases/VR/vr01_outer_param_use P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VR/vr02_inner_twice_first_once_second P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VR/vr03_outer_genfor P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VR/vr04_two_parents P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VR/vr05_inner_iface_port P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VR/vr06_inner_param_from_outer P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VR/vr07_inner_task_and_var P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VR/vr08_bound_outer P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VR/vr09_inner_gen_inside P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VR/vr10_inner_outer_array P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VS/vs01_posudp_shadow P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u307repro/cases/VS/vs02_deep_shadow P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VS/vs03_gen_shadow P EQUIVALENT differs=nohier il synth surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u307_scr/ds/P/v11u307repro_cases_V
+v11u307repro/cases/VS/vs04_rep_shadow P EQUIVALENT differs=nohier il surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u307_scr/ds/P/v11u307repro_cases_V
+v11u307repro/cases/VS/vs05_posudp_shadow_after P EQUIVALENT differs=nohier il surelog=NO_GATES slang=NO_GATES detail=ℹ️__No_common_assign_statements_to_compare_—_skipping
+v11u307repro/cases/VS/vs06_gen_shadow_diff P EQUIVALENT differs=nohier il synth surelog=NO_GATES slang=NO_GATES detail=✅_All_1_common_constant_assignments_match
+v11u307repro/cases/VS/vs07_deep_posudp_shadow P IDENTICAL differs=- surelog=READ_FAIL slang=READ_FAIL detail=both_READ_FAIL
+v11u307repro/cases/VS/vs08_udp_prim_shadow P STATUS_DIFF differs=- surelog=NO_GATES slang=READ_FAIL detail=-
+v11u307repro/cases/VS/vs09_rep_shadow_twice_posudp P EQUIVALENT differs=nohier il surelog=OK slang=OK detail=✅_Formal_equivalence_check_PASSED_for_/tmp/v11u307_scr/ds/P/v11u307repro_cases_V

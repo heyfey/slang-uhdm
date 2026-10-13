@@ -1,0 +1,52 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u307_wdL/probe.csv
+probe cases: EQUAL=4002 STRICT_NOTEQUAL=85 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4002 differ:fullname=40 differ:line=11 differ:file=7 differ:depth=6 differ:endcol=5 differ:name=5 differ:value=4 differ:type=3 differ:endline=2 differ:col=2
+== probe vs golden_probe.csv
+[probe] EQUAL=4002 STRICT_NOTEQUAL=85
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u307_wdL/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator build/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 480
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 474
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u307_wdL/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator build/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+rc=1

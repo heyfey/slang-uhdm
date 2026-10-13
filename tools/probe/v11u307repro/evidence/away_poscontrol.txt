@@ -1,0 +1,12 @@
+VA/va01_desc_slices dist 0 -> 0 lost=0 gained=0 | chain away=135 toward=0 flat_away=135 flat_toward=0
+VA/va01_desc_slices_el dist 0 -> 0 lost=0 gained=0 | chain away=135 toward=0 flat_away=135 flat_toward=0
+VA/va02_asc_slices dist 0 -> 0 lost=0 gained=0 | chain away=135 toward=0 flat_away=135 flat_toward=0
+VA/va02_asc_slices_el dist 0 -> 0 lost=0 gained=0 | chain away=135 toward=0 flat_away=135 flat_toward=0
+VA/va03_offset_range dist 0 -> 0 lost=0 gained=0 | chain away=51 toward=0 flat_away=51 flat_toward=0
+VA/va03_offset_range_el dist 0 -> 0 lost=0 gained=0 | chain away=50 toward=0 flat_away=50 flat_toward=0
+VA/va04_genfor_array dist 0 -> 0 lost=0 gained=0 | chain away=157 toward=0 flat_away=157 flat_toward=0
+VA/va04_genfor_array_el dist 0 -> 0 lost=0 gained=0 | chain away=108 toward=0 flat_away=108 flat_toward=0
+VA/va05_param_ovr dist 0 -> 0 lost=0 gained=0 | chain away=67 toward=0 flat_away=67 flat_toward=0
+VA/va05_param_ovr_el dist 0 -> 0 lost=0 gained=0 | chain away=66 toward=0 flat_away=66 flat_toward=0
+VA/va06_recursive_body dist 0 -> 0 lost=0 gained=0 | chain away=169 toward=0 flat_away=169 flat_toward=0
+VA/va06_recursive_body_el dist 0 -> 0 lost=0 gained=0 | chain away=168 toward=0 flat_away=168 flat_toward=0

@@ -1,0 +1,11 @@
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u307_bin/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1

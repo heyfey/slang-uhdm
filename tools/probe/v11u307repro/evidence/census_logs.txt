@@ -1,0 +1,8 @@
+probe cases: EQUAL=4002 STRICT_NOTEQUAL=85 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4002 differ:fullname=40 differ:line=11 differ:file=7 differ:depth=6 differ:endcol=5 differ:name=5 differ:value=4 differ:type=3 differ:endline=2 differ:col=2
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1

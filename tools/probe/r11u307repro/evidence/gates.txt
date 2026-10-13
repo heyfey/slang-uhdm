@@ -1,0 +1,39 @@
+== byteverify (fence-filtered mirrors)
+mirrored=3365 fenced_skipped=8
+mirrored=3365 fenced_skipped=8
+databases: patched=3365 pristine=3365
+PATH_SETS_IDENTICAL (3365 paths)
+MOVERS: 0 / 3365
+SELFCHECK (every file vs one fixed file): 3363 / 3365 flagged
+SELFCHECK_FAILED
+== probe databases
+probe movers 0 of 4087
+== csv row diffs L vs P
+-- probe
+-- surelog
+844c844
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u307_wdP/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u307_wdL/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+846c846
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u307_wdP/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u307_wdL/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+-- uhdm2rtlil
+-- downstream
+-- downstream vs committed
+dsdiff rc=0
+== canaries
+NOTE: 7 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+NOTE: 25 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+== binary audit
+L cmds=3323 own=3273 other=2
+P cmds=3323 own=3273 other=2

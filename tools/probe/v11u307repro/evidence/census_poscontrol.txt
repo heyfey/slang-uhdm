@@ -1,0 +1,7 @@
+OUT /tmp/v11u307_scr/pc/o.uhdm
+DEEPSTUB inst work@dut.u_a.u_b.u_c
+STUBOPND307V work@dut.u_a.u_b.u_c.x
+OUT /tmp/v11u307_scr/pc/o2.uhdm
+SHADOW307V_ABSTAIN inner
+SHADOW307V_ABSTAIN inner
+SHADOW307V_ABSTAIN inner

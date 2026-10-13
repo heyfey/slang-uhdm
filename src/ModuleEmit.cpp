@@ -63,6 +63,7 @@
 #include "R301.h"
 #include "R303.h"
 #include "R305.h"
+#include "R307.h"
 
 namespace slang_uhdm {
 // § escNameSpanSites295 (r11u295) — A NAME SPAN WRITTEN BY HAND AS
@@ -11013,6 +11014,163 @@ bool UhdmExporter::foldBareParamBoundIn(const InstanceBodySymbol* body,
 // def module_typespec as element type, the array range, broadcast port
 // connections (HighConn ref_obj -> the parent net), and the per-index
 // interface instances. Surelog emits it in BOTH the def and elab views.
+// § nestedDeepInstStub307 (r11u307) — Surelog resolves an instance of a
+// nested module only through its direct outer's filing (`outer::inner`,
+// ResolveSymbols::createFastLookup) and only when the instance sits in that
+// outer's own body: a module nested two or more levels deep, or a nested
+// module instantiated inside a generate block, has no definition in
+// DesignElaboration and is written as an unresolved-instance stub (see
+// emitInstance).
+// § nestShadowFileScopeResolves307v (v11u307, the adversarial verification
+// of r11u307) — A FILE-SCOPE DEFINITION OF THE SAME NAME RESOLVES THE
+// INSTANCE.  Surelog binds an instantiation by its written name before
+// anything nested is consulted: ResolveSymbols::bindDefinition_ finds the
+// file-scope `module inner` in the file's object lookup (the nested one is
+// filed only as `outer::inner`) and retypes a udp_instantiation to a
+// module_instantiation, and DesignElaboration looks the instance up as
+// `work@inner` FIRST (the § nestArrShadowTopKeepsBare295v decode).  So beside
+// a file-scope module of the nested name golden elaborates that module in
+// full: a positional instance is no udp and an instance nested two levels
+// deep or inside a generate block is no unresolved stub (golden
+// v11u307repro VS/vs01, vs05 `module_inst: work@inner`, vs02
+// `work@c_m`, vs03 and vs06 `work@inner` with their nets and processes),
+// where § nestedPosInstUdp307 wrote a udp (vs05 chain away 9) and
+// § nestedDeepInstStub307 an empty stub (flat away 4 to 6).  Both laws stand
+// aside; the instance keeps the base's full elaboration (Surelog binding the
+// file-scope module is its own defect, not copied).  A file-scope primitive
+// of the name keeps the laws (VS/vs08).  Switch R11V307_SHADOW_OFF.
+static bool nestShadowTop307v(const InstanceSymbol& inst) {
+    if (!r11v307On("R11V307_SHADOW_OFF"))
+        return false;
+    auto& d307 = inst.getDefinition();
+    auto* ps307 = inst.getParentScope();
+    if (!ps307)
+        return false;
+    auto& comp307 = ps307->getCompilation();
+    auto lr307 = comp307.tryGetDefinition(d307.name, comp307.getRoot());
+    // a file-scope PRIMITIVE of the name keeps the laws: golden's
+    // instance is then a udp of that primitive, which the positional law's
+    // udp approaches (VS/vs08 9 records toward golden, none away)
+    if (lr307.definition &&
+        lr307.definition != static_cast<const Symbol*>(&d307) &&
+        lr307.definition->kind == SymbolKind::Definition) {
+        tr307("SHADOW307V_ABSTAIN", std::string(d307.name));
+        return true;
+    }
+    return false;
+}
+
+static bool deepStubInst307(const InstanceSymbol& inst) {
+    if (!r11u307On("R11U307_DEEPSTUB_OFF") || nestDeepOff99())
+        return false;
+    int d307 = nestDepth99(inst.getDefinition());
+    bool stub307 = false;
+    if (d307 >= 2)
+        stub307 = true;
+    else if (d307 == 1) {
+        auto* ps = inst.getParentScope();
+        while (ps && ps->asSymbol().kind == SymbolKind::InstanceArray)
+            ps = ps->asSymbol().getParentScope();
+        stub307 = ps && (ps->asSymbol().kind == SymbolKind::GenerateBlock ||
+                         ps->asSymbol().kind == SymbolKind::GenerateBlockArray);
+    }
+    // § nestShadowFileScopeResolves307v — asked only where the law fires
+    return stub307 && !nestShadowTop307v(inst);
+}
+
+// § defGenUdpFormNoStmt307 (r11u307) — a module instantiation statement
+// the udp_instantiation grammar also accepts: every instance connected by
+// two or more ordered actuals, the first a net_lvalue (the output
+// terminal), and either no `#` or a `#(...)` of one or two ordered values
+// (delay2).  Instance arrays are udp instances too.
+static bool udpGrammarStmt307(const syntax::HierarchyInstantiationSyntax& hi) {
+    if (hi.parameters) {
+        auto& pv = *hi.parameters;
+        if (pv.parameters.size() < 1 || pv.parameters.size() > 2)
+            return false;
+        for (auto* pa : pv.parameters)
+            if (pa->kind != syntax::SyntaxKind::OrderedParamAssignment)
+                return false;
+    }
+    if (hi.instances.empty())
+        return false;
+    for (auto* hinst : hi.instances) {
+        if (hinst->connections.size() < 2)
+            return false;
+        for (auto* c : hinst->connections)
+            if (c->kind != syntax::SyntaxKind::OrderedPortConnection ||
+                !c->as<syntax::OrderedPortConnectionSyntax>().expr)
+                return false;
+        if (!netLvalueSyntax176(
+                hinst->connections[0]->as<syntax::OrderedPortConnectionSyntax>().expr))
+            return false;
+    }
+    return true;
+}
+
+// § nestedPosInstUdp307 (r11u307) — a nested module instantiated with
+// ordered connections only (two or more, no parameter override: Surelog's
+// parser reads the statement as a udp_instantiation, § udpFormNetLvalueFirst176).
+// The definition view compiles it as a udp, CompileModule finding no
+// `work@<name>` module (the nested declaration is filed as `outer::inner`).
+// Elaboration finds the nested definition for a module nested one level in
+// its outer's own body and writes the instance as a udp too; anywhere else
+// (two levels deep, a generate block) it is § nestedDeepInstStub307's
+// unresolved stub.  `elab` asks for the elaborated view.
+static bool udpNestInst307(const InstanceSymbol& inst, bool elab) {
+    if (!r11u307On("R11U307_POSUDP_OFF") || !inst.arrayPath.empty())
+        return false;
+    int d307 = nestDepth99(inst.getDefinition());
+    if (d307 < 1)
+        return false;
+    const syntax::HierarchyInstantiationSyntax* hi307 = nullptr;
+    for (auto p = inst.getSyntax(); p; p = p->parent)
+        if (p->kind == syntax::SyntaxKind::HierarchyInstantiation) {
+            hi307 = &p->as<syntax::HierarchyInstantiationSyntax>();
+            break;
+        }
+    if (!hi307 || !udpGrammarStmt307(*hi307))
+        return false;
+    // a `#(...)` read as delay2: one unsized decimal literal only (the
+    // elaborated udp's vpiDelay); anything else is not modelled
+    if (hi307->parameters) {
+        auto& pv = hi307->parameters->parameters;
+        if (pv.size() != 1)
+            return false;
+        const syntax::ExpressionSyntax* e =
+            pv[0]->as<syntax::OrderedParamAssignmentSyntax>().expr.get();
+        if (e->kind != syntax::SyntaxKind::IntegerLiteralExpression)
+            return false;
+    }
+    // every ordered actual written (an empty slot is not modelled)
+    // and the first a net_lvalue (the udp grammar's output terminal: a
+    // concatenation holding a constant parses as a module instantiation).
+    if (auto* sy = inst.getSyntax();
+        sy && sy->kind == syntax::SyntaxKind::HierarchicalInstance) {
+        auto& cs = sy->as<syntax::HierarchicalInstanceSyntax>().connections;
+        for (auto* c : cs)
+            if (c->kind != syntax::SyntaxKind::OrderedPortConnection ||
+                !c->as<syntax::OrderedPortConnectionSyntax>().expr)
+                return false;
+        if (cs.empty() ||
+            !netLvalueSyntax176(cs[0]->as<syntax::OrderedPortConnectionSyntax>().expr))
+            return false;
+    }
+    else
+        return false;
+    // § nestShadowFileScopeResolves307v — a file-scope module of the name
+    // makes the statement a module_instantiation in both views (asked only
+    // where the law fires).
+    if (!elab)
+        return !nestShadowTop307v(inst);
+    if (d307 != 1 || deepStubInst307(inst))
+        return false;
+    auto* ps = inst.getParentScope();
+    return ps && ps->asSymbol().kind == SymbolKind::InstanceBody &&
+           !nestShadowTop307v(inst);
+}
+
+
 UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr,
                                                   UHDM::module_inst* m,
                                                   const std::string& prefix,
@@ -11418,7 +11576,11 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     // A MODULE array carries no broadcast port list: its per-index module_inst
     // elements hold the (already sliced) connections (Surelog).
     if (modElems) {
-        if (!modElems->empty())
+        // § nestedDeepInstStub307 — the elements of an array of a module
+        // nested two levels deep are unresolved stubs, listed by the
+        // instance but not by its module_array (golden
+        // r11u297repro NM/m03_two_levels_array).
+        if (!modElems->empty() && !deepStubInst307(*rep))
             ma->Modules(modElems);
         return ma;
     }
@@ -17275,7 +17437,37 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     UHDM::BaseClass* gp261 = genChildParent261;
     genChildParent261 = nullptr;
     auto& body = inst.body;
-    auto& def = inst.getDefinition();
+    // § nestedDefSecondBodyReadsRep307 (r11u307) — A NESTED MODULE REACHED
+    // FROM A SECOND BODY OF ITS OUTER READS THE REPRESENTATIVE DEFINITION.
+    // slang mints a fresh DefinitionSymbol for a nested module declaration
+    // in every elaborated body of its outer (Compilation::createDefinition),
+    // while Surelog files the nested declaration once
+    // (ResolveSymbols::createFastLookup, `outer::inner`) and elaborates every
+    // instance of it against that one ModuleDefinition: the second outer's
+    // `inner` instance shares the definition's cont_assign cells, processes
+    // and listings exactly like a second instance of a file-scope module.
+    // Ours keyed the definition table by the second body's own symbol, found
+    // an empty shell-less entry (§ nestedDefPortsNeedShell297) and wrote the
+    // instance's content fresh.  The definition is read through the nested
+    // definition of the same declaration that owns the shell.  Cases
+    // tools/probe/r11u307repro/cases/NR; r11u297repro NM m01, m04, m06, m12.
+    // Switch R11U307_NESTREPDEF_OFF.
+    auto& def = [&]() -> const DefinitionSymbol& {
+        auto& d0 = inst.getDefinition();
+        if (!r11u307On("R11U307_NESTREPDEF_OFF"))
+            return d0;
+        auto dit = defMap.find(&d0);
+        if (dit != defMap.end() && dit->second.mod)
+            return d0;
+        if (nestDepth99(d0) != 1 || !d0.getSyntax())
+            return d0;
+        for (auto& [dp, di] : defMap)
+            if (dp != &d0 && di.mod && di.filled && dp->getSyntax() == d0.getSyntax()) {
+                tr307("NESTREPDEF", "inst " + path);
+                return *dp;
+            }
+        return d0;
+    }();
     // A non-top elaborated instance body folds iface-port-hop range bounds to
     // their concrete per-instance width; restore the caller's view on return.
     // The DEF fill below (emitModuleDefPorts) must stay in the caller's view
@@ -17414,7 +17606,38 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             m->VpiFile(fullFilePath(stmtSyn->sourceRange().start()));
         }
     }
-    else if (!isTop) {
+    // § nestedDeepInstStub307 (r11u307) — see the stub below; decided here
+    // because the stub carries no definition file or line.
+    bool deepStub307 = false;
+    if (!isTop && bindPath.empty() && deepStubInst307(inst)) {
+        deepStub307 = true;
+        // Surelog names the unresolved definition after the instantiating
+        // scope: the definition's own scoped name in a module body
+        // (`work@a_m::b_m::c_m`), the generate scope's full name in a
+        // generate block (`work@dut.u_o.g0::inner`).
+        auto* ps307 = inst.getParentScope();
+        while (ps307 && ps307->asSymbol().kind == SymbolKind::InstanceArray)
+            ps307 = ps307->asSymbol().getParentScope();
+        if (ps307 && (ps307->asSymbol().kind == SymbolKind::GenerateBlock ||
+                      ps307->asSymbol().kind == SymbolKind::GenerateBlockArray)) {
+            if (auto d307 = prefix.rfind('.'); d307 != std::string::npos) {
+                defPrefix = prefix.substr(0, d307) + "::" + std::string(def.name);
+                m->VpiDefName(defPrefix);
+            }
+        }
+        // A parameter override reaches Surelog's unresolved-instance
+        // parameter road (a param_assign whose constant sits at column 0),
+        // not modelled: the instance keeps the base's emission.
+        for (auto p307 = inst.getSyntax(); p307; p307 = p307->parent)
+            if (p307->kind == syntax::SyntaxKind::HierarchyInstantiation) {
+                if (p307->as<syntax::HierarchyInstantiationSyntax>().parameters)
+                    deepStub307 = false;
+                break;
+            }
+        if (!deepStub307)
+            tr307("DEEPSTUB_PARAM_ABSTAIN", "inst " + prefix);
+    }
+    if (!isTop && bindPath.empty()) {
         m->VpiName(instNm);
         // § genChildParentAtBirth261 (r11u261, Earlgrey #375033 to #393091,
         // #474036 / #481420, #596152 / #596173 and testflags #373386 to
@@ -17441,8 +17664,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         // (OneNetModPort work@TOP.tb).
         if (!progInst)
             m->Module_inst(asModuleInst(parentM));
-        m->VpiDefFile(fullFilePath(def.location));
-        m->VpiDefLineNo((int32_t)sm->getLineNumber(def.location));
+        if (!deepStub307) {
+            m->VpiDefFile(fullFilePath(def.location));
+            m->VpiDefLineNo((int32_t)sm->getLineNumber(def.location));
+        }
         // The elab child carries the INSTANTIATION site's file, which can
         // differ from the def's file (multi-file: work@adders.h1 anchors in
         // adders.sv not ha_mod.sv; rp32_r5p_mouse_soc_simple_top).
@@ -17466,6 +17691,353 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     // and DesignElaboration::elaborateInstance_ creates none of its children.
     if (blackboxedInst(defPrefix, prefix))
         return m;
+
+    // § nestedDeepInstStub307 (r11u307) — AN INSTANCE OF A MODULE NESTED TWO
+    // OR MORE LEVELS DEEP IS SURELOG'S UNRESOLVED-INSTANCE STUB.
+    // ResolveSymbols::createFastLookup files a nested module declaration
+    // only under its DIRECT outer (`outer::inner`); a declaration nested in
+    // a nested module is filed nowhere (r11u99's § caNestedModDeepNoDefView99
+    // drops its definition), so DesignElaboration finds no definition for
+    // `c_m u_c (...)` inside `b_m` and NetlistElaboration writes the
+    // instance as it writes any instance of an unknown module: the header
+    // (name, full name, the scoped definition name, the instantiation's
+    // span, no definition file or line), no nets, no content, no children,
+    // and one port per WRITTEN connection in written order: a named one
+    // named and located at the formal name, an ordered one unnamed and
+    // located at its actual, each carrying only its HighConn (an empty `()`
+    // the vpiNullOp at the closing parenthesis, `.*` nothing at all); an
+    // instance-array element carries no port.  Ours elaborated the full
+    // body.  Cases tools/probe/r11u307repro/cases/ND; r11u297repro NM m02,
+    // m03, m08, m09; r11u295repro NA/n02.  Switch R11U307_DEEPSTUB_OFF.
+    if (deepStub307) {
+        tr307("DEEPSTUB", "inst " + prefix);
+        auto* isyn307 = inst.getSyntax();
+        if (!inst.arrayPath.empty() || !isyn307 ||
+            isyn307->kind != syntax::SyntaxKind::HierarchicalInstance)
+            return m;
+        auto* ports307 = s.MakePortVec();
+        auto& hi307 = isyn307->as<syntax::HierarchicalInstanceSyntax>();
+        auto* psc307 = inst.getParentScope();
+        for (auto conn307 : hi307.connections) {
+            const syntax::ExpressionSyntax* ax307 = nullptr;
+            std::string_view fn307;
+            SourceRange pl307 = conn307->sourceRange();
+            bool emptyParen307 = false;
+            SourceRange close307;
+            if (conn307->kind == syntax::SyntaxKind::NamedPortConnection) {
+                auto& np307 = conn307->as<syntax::NamedPortConnectionSyntax>();
+                fn307 = np307.name.valueText();
+                pl307 = np307.name.range();
+                if (np307.openParen) {
+                    ax307 = connActualSyntax(np307.expr);
+                    if (!np307.expr && np307.closeParen) {
+                        emptyParen307 = true;
+                        close307 = np307.closeParen.range();
+                    }
+                }
+            }
+            else if (conn307->kind == syntax::SyntaxKind::OrderedPortConnection) {
+                ax307 = connActualSyntax(
+                    conn307->as<syntax::OrderedPortConnectionSyntax>().expr);
+                if (!ax307)
+                    continue;
+                pl307 = ax307->sourceRange();
+            }
+            else
+                continue;
+            auto* p307 = s.MakePort();
+            if (!fn307.empty())
+                p307->VpiName(fn307);
+            p307->VpiParent(m);
+            setLoc(p307, pl307);
+            if (emptyParen307) {
+                auto* nop307 = s.MakeOperation();
+                nop307->VpiOpType(vpiNullOp);
+                nop307->VpiParent(p307);
+                setLoc(nop307, close307);
+                p307->High_conn(nop307);
+            }
+            else if (psc307 && parentNets) {
+                // the actual binds in the instantiating scope, a generate
+                // scope's genvar folded (§ genConnIdxFoldConnOnly21's re-arm,
+                // § connGenScope61's scope) as for any connection
+                const Scope* savedCgs307 = connGenScope61;
+                connGenScope61 = connGenBlockScope61(inst);
+                bool savedGcf307 = genvarConnFold;
+                genvarConnFold = genConnFoldOuter21;
+                struct Restore307 {
+                    const Scope*& a; const Scope* av; bool& b; bool bv;
+                    ~Restore307() { a = av; b = bv; }
+                } restore307{connGenScope61, savedCgs307, genvarConnFold, savedGcf307};
+                ASTContext ctx307(*psc307, LookupLocation::max);
+                const Expression* be307 = nullptr;
+                if (ax307)
+                    be307 = &Expression::bind(
+                        *const_cast<syntax::ExpressionSyntax*>(ax307), ctx307);
+                else if (!fn307.empty()) {
+                    // `.name`: the implicit actual is the name itself, looked
+                    // up in the instantiating scope.
+                    if (auto* sym307 = psc307->lookupName(fn307))
+                        if (sym307->isValue()) {
+                            auto* nv307 = ctx307.getCompilation()
+                                              .emplace<NamedValueExpression>(
+                                                  sym307->as<ValueSymbol>(),
+                                                  pl307);
+                            be307 = nv307;
+                        }
+                }
+                // An actual naming an INTERFACE instance of the
+                // instantiating scope is a reference bound to that
+                // interface_inst (golden r11u307repro ND/d15_iface_actual;
+                // it does not bind as an expression).
+                if (ax307 && ax307->kind == syntax::SyntaxKind::IdentifierName) {
+                    auto in307 = ax307->as<syntax::IdentifierNameSyntax>()
+                                     .identifier.valueText();
+                    if (auto* is307 = psc307->lookupName(in307);
+                        is307 && is307->kind == SymbolKind::Instance &&
+                        useInterfacePath(is307->as<InstanceSymbol>())) {
+                        auto* r307 = s.MakeRef_obj();
+                        r307->VpiParent(p307);
+                        r307->VpiName(in307);
+                        r307->VpiFullName(parentPrefix + "." + std::string(in307));
+                        setLoc(r307, ax307->sourceRange());
+                        // bound like any interface connection: the col-0
+                        // tail duplicate when one was minted
+                        if (auto td307 = ifaceTailDup.find(is307);
+                            td307 != ifaceTailDup.end())
+                            r307->Actual_group(td307->second);
+                        else if (auto ii307 = ifaceInstMap.find(is307);
+                                 ii307 != ifaceInstMap.end())
+                            r307->Actual_group(ii307->second);
+                        p307->High_conn(r307);
+                        ports307->push_back(p307);
+                        continue;
+                    }
+                    // § deepStubIfacePortActual307v (v11u307) — an actual
+                    // naming an INTERFACE PORT of the instantiating module
+                    // is a reference named by that port in the
+                    // instantiating scope and bound to the module's port
+                    // view, as for any passthrough connection (golden
+                    // v11u307repro VD/vd02 `.q(p)` and vd22 `(p, o)`:
+                    // ref_obj work@dut.u_a.u_b.p -> the port view
+                    // interface_inst); the law left the port with no
+                    // HighConn (the name binds no expression; vd02 chain
+                    // away 1).  Switch R11V307_STUBIFPORT_OFF.
+                    if (auto* ip307 = psc307->lookupName(in307);
+                        ip307 && ip307->kind == SymbolKind::InterfacePort &&
+                        r11v307On("R11V307_STUBIFPORT_OFF"))
+                        if (auto pv307 = ifacePortViewMap.find(ip307);
+                            pv307 != ifacePortViewMap.end()) {
+                            auto* r307 = s.MakeRef_obj();
+                            r307->VpiParent(p307);
+                            r307->VpiName(in307);
+                            r307->VpiFullName(parentPrefix + "." + std::string(in307));
+                            setLoc(r307, ax307->sourceRange());
+                            r307->Actual_group(pv307->second);
+                            p307->High_conn(r307);
+                            ports307->push_back(p307);
+                            tr307("STUBIFPORT307V", prefix + "." + std::string(in307));
+                            continue;
+                        }
+                }
+                if (be307 && !be307->bad())
+                    if (auto* h307 = emitExpr(*be307, p307, parentPrefix,
+                                              *parentNets)) {
+                        bindConnExprNets(h307, *be307);
+                        // The selects of the actual are named on the stub
+                        // instance: a bit select written as the whole actual
+                        // `<inst>.<name>` (golden `work@dut.u_a.u_b.u_c.o`
+                        // for `.r(o[0])`), every other select (a part or
+                        // indexed part select, any select under an operation)
+                        // `<inst>.<formal>.<name>` (`...u_c.x.i` for
+                        // `.x(i[2:1] ^ 2'b01)`); references keep the
+                        // instantiating scope's name.
+                        std::function<void(UHDM::any*, bool)> bs307 =
+                            [&](UHDM::any* x307, bool top307) {
+                                if (!x307)
+                                    return;
+                                auto k307 = x307->UhdmType();
+                                if (k307 == UHDM::uhdmbit_select ||
+                                    k307 == UHDM::uhdmpart_select ||
+                                    k307 == UHDM::uhdmindexed_part_select) {
+                                    std::string n307(x307->VpiName());
+                                    std::string f307;
+                                    if (top307 && k307 == UHDM::uhdmbit_select)
+                                        f307 = prefix + "." + n307;
+                                    else if (!fn307.empty())
+                                        f307 = prefix + "." + std::string(fn307) +
+                                               "." + n307;
+                                    if (!f307.empty()) {
+                                        if (k307 == UHDM::uhdmbit_select)
+                                            ((UHDM::bit_select*)x307)->VpiFullName(f307);
+                                        else if (k307 == UHDM::uhdmpart_select)
+                                            ((UHDM::part_select*)x307)->VpiFullName(f307);
+                                        else
+                                            ((UHDM::indexed_part_select*)x307)
+                                                ->VpiFullName(f307);
+                                    }
+                                }
+                                else if (k307 == UHDM::uhdmoperation) {
+                                    if (auto* ops307 = ((UHDM::operation*)x307)->Operands())
+                                        for (auto* o307 : *ops307)
+                                            bs307(o307, false);
+                                }
+                            };
+                        bs307(h307, true);
+                        // § deepStubOperandLeafRule307v (v11u307) — the
+                        // stub's actual is compiled by NetlistElaboration's
+                        // port-connection loop like any other, so an
+                        // OPERATION or system-call actual follows
+                        // § connLeftmostLeafElab139: every reference and
+                        // select inside it is named through the stub
+                        // (`<inst>.<formal>.<name>`, `<inst>.<name>` for an
+                        // ordered actual), and at module scope every
+                        // reference but the leaf reached through left
+                        // operands, ternary conditions and bit-select
+                        // indices binds the instantiating DEFINITION's net
+                        // (golden v11u307repro VD/vd15 `.x(i ^ j)`: i ->
+                        // work@dut.u_a.u_b.i, j -> work@a_m.work@a_m::b_m.j;
+                        // vd14, vd16 to vd19; inside a generate block the
+                        // names only, vd21).  The law named the references
+                        // in the instantiating scope and bound every one to
+                        // the elaborated net (vd14 chain away 2).  Switch
+                        // R11V307_STUBOPND_OFF.
+                        if ((h307->UhdmType() == UHDM::uhdmoperation ||
+                             h307->UhdmType() == UHDM::uhdmsys_func_call) &&
+                            r11v307On("R11V307_STUBOPND_OFF")) {
+                            tr307("STUBOPND307V", prefix + "." + std::string(fn307));
+                            std::string pfx307v =
+                                prefix + "." +
+                                (fn307.empty() ? std::string()
+                                               : std::string(fn307) + ".");
+                            auto binLike307v = [](int32_t t) {
+                                return (t >= vpiSubOp && t <= vpiConditionOp) ||
+                                       t == vpiArithLShiftOp ||
+                                       t == vpiArithRShiftOp ||
+                                       t == vpiPowerOp || t == vpiWildEqOp ||
+                                       t == vpiWildNeqOp || t == vpiInsideOp;
+                            };
+                            const UHDM::any* leaf307v = nullptr;
+                            {
+                                const UHDM::any* c307v = h307;
+                                while (c307v &&
+                                       (c307v->UhdmType() == UHDM::uhdmoperation ||
+                                        c307v->UhdmType() == UHDM::uhdmbit_select)) {
+                                    if (c307v->UhdmType() == UHDM::uhdmbit_select) {
+                                        c307v = ((const UHDM::bit_select*)c307v)
+                                                    ->VpiIndex();
+                                        continue;
+                                    }
+                                    auto* op307v = (const UHDM::operation*)c307v;
+                                    if (!binLike307v(op307v->VpiOpType()) ||
+                                        !op307v->Operands() ||
+                                        op307v->Operands()->empty())
+                                        break;
+                                    c307v = (*op307v->Operands())[0];
+                                }
+                                if (c307v && c307v->UhdmType() == UHDM::uhdmref_obj)
+                                    leaf307v = c307v;
+                            }
+                            // the instantiating definition's own nets (the
+                            // representative definition for a second body,
+                            // § nestedDefSecondBodyReadsRep307's reading)
+                            std::map<const UHDM::any*, UHDM::any*> e2d307v;
+                            if (!connGenScope61 && !genvarConnFold &&
+                                psc307->asSymbol().kind == SymbolKind::InstanceBody) {
+                                auto& pd307v = psc307->asSymbol()
+                                                   .as<InstanceBodySymbol>()
+                                                   .getDefinition();
+                                const DefInfo* pdi307v = nullptr;
+                                if (auto f307v = defMap.find(&pd307v);
+                                    f307v != defMap.end() && f307v->second.mod)
+                                    pdi307v = &f307v->second;
+                                else if (pd307v.getSyntax())
+                                    for (auto& [dp307v, di307v] : defMap)
+                                        if (dp307v != &pd307v && di307v.mod &&
+                                            di307v.filled &&
+                                            dp307v->getSyntax() == pd307v.getSyntax()) {
+                                            pdi307v = &di307v;
+                                            break;
+                                        }
+                                if (pdi307v && &pdi307v->nets != parentNets) {
+                                    NetMap dv307v = defView139(*parentNets, pdi307v->nets);
+                                    for (auto& [sy307v, o307v] : *parentNets) {
+                                        if (!sy307v || !o307v ||
+                                            (sy307v->kind != SymbolKind::Net &&
+                                             sy307v->kind != SymbolKind::Variable))
+                                            continue;
+                                        auto dd307v = dv307v.find(sy307v);
+                                        if (dd307v != dv307v.end() && dd307v->second &&
+                                            dd307v->second != o307v)
+                                            e2d307v.emplace(o307v, dd307v->second);
+                                    }
+                                }
+                            }
+                            // inside a generate block a nested reference
+                            // binds only what the block itself declares
+                            // (§ connOperandOwnScopeBind61; golden vd21's
+                            // default view leaves `a ^ b` unbound, UHDM's
+                            // elaborator re-binding the elaborated copy)
+                            std::map<const UHDM::any*, const Symbol*> o2s307v;
+                            if (connGenScope61)
+                                for (auto& [sy307v, o307v] : *parentNets)
+                                    if (sy307v && o307v)
+                                        o2s307v.emplace(o307v, sy307v);
+                            std::function<void(UHDM::any*)> w307v =
+                                [&](UHDM::any* n) {
+                                    if (!n)
+                                        return;
+                                    auto t = n->UhdmType();
+                                    if (t == UHDM::uhdmoperation) {
+                                        if (auto* os = ((UHDM::operation*)n)->Operands())
+                                            for (auto* o : *os)
+                                                w307v(o);
+                                        return;
+                                    }
+                                    if (t == UHDM::uhdmsys_func_call) {
+                                        if (auto* as = ((UHDM::sys_func_call*)n)
+                                                           ->Tf_call_args())
+                                            for (auto* a : *as)
+                                                w307v(a);
+                                        return;
+                                    }
+                                    if (t != UHDM::uhdmref_obj &&
+                                        t != UHDM::uhdmbit_select &&
+                                        t != UHDM::uhdmpart_select &&
+                                        t != UHDM::uhdmindexed_part_select)
+                                        return;
+                                    auto* r = (UHDM::ref_obj*)n;
+                                    r->VpiFullName(pfx307v + std::string(r->VpiName()));
+                                    if (t == UHDM::uhdmbit_select)
+                                        w307v(((UHDM::bit_select*)n)->VpiIndex());
+                                    if (t != UHDM::uhdmref_obj)
+                                        return;
+                                    if (connGenScope61) {
+                                        if (auto* a = r->Actual_group())
+                                            if (auto os = o2s307v.find(a);
+                                                os != o2s307v.end() &&
+                                                os->second->getParentScope() !=
+                                                    connGenScope61)
+                                                r->Actual_group(nullptr);
+                                        return;
+                                    }
+                                    if (n == leaf307v)
+                                        return;
+                                    if (auto* a = r->Actual_group())
+                                        if (auto ed = e2d307v.find(a); ed != e2d307v.end())
+                                            r->Actual_group(ed->second);
+                                };
+                            w307v(h307);
+                        }
+                        p307->High_conn((UHDM::expr*)h307);
+                    }
+            }
+            ports307->push_back(p307);
+        }
+        if (!ports307->empty())
+            instSetPorts(m, ports307);
+        return m;
+    }
 
     // Top view gets its own net objects, each carrying a typespec. The
     // typespec object is shared per declaration (Surelog's TypespecCache),
@@ -21585,6 +22157,17 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::Instance) {
             auto& child = member.as<InstanceSymbol>();
+            // § nestedPosInstUdp307 — the elaborated instance is a udp
+            // (emitGates); the definition's port phase still runs.
+            if (udpNestInst307(child, /*elab=*/true)) {
+                auto& cdef307 = child.getDefinition();
+                if (!defMap[&cdef307].filled) {
+                    defMap[&cdef307].filled = true;
+                    if (!blackboxedDef("work@" + defScopedName99(cdef307)))
+                        emitModuleDefPorts(child);
+                }
+                continue;
+            }
             // § caNestedModDeclNoRefNoInst99 (LAW B2) — the ELABORATED half.
             // slang implicitly instantiates a portless, parameterless nested
             // module declaration; Surelog does not, so golden's elaborated
@@ -31640,6 +32223,78 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         // so a single pass in declaration order suffices).
         auto* gifaces = s.MakeInterface_instVec();
         for (auto& gm : blk.members()) {
+            // § nestedDeepInstStub307 — an ARRAY of a nested module written
+            // inside a generate block: every element is an unresolved stub
+            // the gen_scope lists under vpiModule (no module_array; golden
+            // r11u295repro NA/n03_nested_in_gen).  Element names concatenate
+            // every dimension's index, outer dimension first.
+            if (gm.kind == SymbolKind::InstanceArray) {
+                std::function<const InstanceSymbol*(const InstanceArraySymbol&)>
+                    leaf307 = [&](const InstanceArraySymbol& a) -> const InstanceSymbol* {
+                    for (auto* e : a.elements) {
+                        if (!e)
+                            continue;
+                        if (e->kind == SymbolKind::Instance)
+                            return &e->as<InstanceSymbol>();
+                        if (e->kind == SymbolKind::InstanceArray)
+                            return leaf307(e->as<InstanceArraySymbol>());
+                        return nullptr;
+                    }
+                    return nullptr;
+                };
+                auto* l307 = leaf307(gm.as<InstanceArraySymbol>());
+                if (!l307 || useInterfacePath(*l307))
+                    continue;
+                // § genScopeModArrayElems307 (r11u307) — any MODULE array
+                // written in a generate block: the gen_scope lists each
+                // element, fully elaborated, under vpiModule exactly as it
+                // lists a single child (no module_array in the elaborated
+                // gen_scope; the definition-view statement keeps its
+                // module_array).  Ours wrote no element at all, the elements
+                // missing from the elaborated view and the element module's
+                // definition left without its port phase (golden
+                // r11u307repro NG/g13_array, GA).  Switch
+                // R11U307_GENMODARR_OFF.
+                bool stub307 = deepStubInst307(*l307);
+                if (!stub307 && !r11u307On("R11U307_GENMODARR_OFF"))
+                    continue;
+                std::function<void(const InstanceArraySymbol&, const std::string&)>
+                    elems307 = [&](const InstanceArraySymbol& a, const std::string& base) {
+                        int32_t lo = std::min(a.range.left, a.range.right);
+                        for (size_t i = 0; i < a.elements.size(); i++) {
+                            auto* e = a.elements[i];
+                            if (!e)
+                                continue;
+                            std::string iname =
+                                base + "[" + std::to_string(lo + (int32_t)i) + "]";
+                            if (e->kind == SymbolKind::InstanceArray) {
+                                elems307(e->as<InstanceArraySymbol>(), iname);
+                                continue;
+                            }
+                            if (e->kind != SymbolKind::Instance)
+                                continue;
+                            genvarConnFold = true;
+                            genConnPrefix = fullName;
+                            genChildParent261 = gs;
+                            auto* mi = emitInstance(e->as<InstanceSymbol>(),
+                                                    fullName + "." + iname, m, &netMap,
+                                                    nullptr, /*isTop=*/false);
+                            genChildParent261 = nullptr;
+                            genConnPrefix.clear();
+                            genvarConnFold = false;
+                            mi->VpiName(iname);
+                            mi->VpiParent(gs);
+                            mi->Instance(nullptr);
+                            mi->Module_inst(nullptr);
+                            if (auto* gmi = asModuleInst(mi))
+                                gmods->push_back(gmi);
+                        }
+                    };
+                tr307(stub307 ? "DEEPSTUB_GENARRAY" : "GENMODARR",
+                      fullName + "." + std::string(gm.name));
+                elems307(gm.as<InstanceArraySymbol>(), std::string(gm.name));
+                continue;
+            }
             if (gm.kind != SymbolKind::Instance)
                 continue;
             auto& ci = gm.as<InstanceSymbol>();
@@ -41041,6 +41696,156 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
             auto* g = buildGate(pi, pname, primType, gname,
                                 gfull, topView ? termScope171 : gfull, m, nullptr,
                                 false, *sw, isUdp);
+            if (!prims)
+                prims = s.MakePrimitiveVec();
+            prims->push_back(g);
+        }
+        // § nestedPosInstUdp307 — the udp a positional nested instance
+        // becomes.  Definition view: the BARE definition name, the
+        // terminals at the written actuals, term 0 the output, references
+        // named through the udp (`work@outer.u_in.a`).  Elaborated view: the
+        // scoped definition name and the terminal list Surelog's
+        // NetlistElaboration writes for it, one terminal per definition port
+        // located at the port's declaration followed by one per written
+        // actual, every one carrying the actual of its position, references
+        // named in the module scope.
+        else if (member.kind == SymbolKind::Instance &&
+                 udpNestInst307(member.as<InstanceSymbol>(), topView)) {
+            auto& ui = member.as<InstanceSymbol>();
+            auto* isyn = ui.getSyntax();
+            const syntax::SyntaxNode* stmt = isyn;
+            while (stmt && stmt->kind != syntax::SyntaxKind::HierarchyInstantiation)
+                stmt = stmt->parent;
+            auto* g = s.MakeUdp();
+            g->VpiParent(m);
+            g->VpiDefName(topView ? "work@" + defScopedName99(ui.getDefinition())
+                                  : std::string(ui.getDefinition().name));
+            g->VpiName(ui.name);
+            // A nested definition's listing names through its outers' chain
+            // (`work@a_m.work@a_m::b_m.u_c`), as UHDM's ComputeFullName does
+            // for its nets.
+            std::string base307 = prefix;
+            if (!topView)
+                for (auto* pp = m->VpiParent();
+                     pp && pp->UhdmType() == UHDM::uhdmmodule_inst;
+                     pp = pp->VpiParent())
+                    base307 = std::string(((UHDM::module_inst*)pp)->VpiFullName()) + "." + base307;
+            std::string gfull = base307 + "." + std::string(ui.name);
+            g->VpiFullName(gfull);
+            if (stmt) {
+                setLoc(g, stmt->sourceRange());
+                g->VpiFile(fullFilePath(stmt->sourceRange().start()));
+            }
+            std::string rscope = topView ? termScope171 : gfull;
+            if (rscope.empty())
+                rscope = prefix;
+            // The elaborated udp reads the actuals of the STATEMENT'S FIRST
+            // instance for every instance of the statement (golden
+            // `inner u_in (a, y), u_jn (b, z);` gives u_jn the terminals a
+            // and y; tools/probe/r11u307repro/cases/NP/p08).
+            const syntax::HierarchicalInstanceSyntax* asyn307 =
+                &isyn->as<syntax::HierarchicalInstanceSyntax>();
+            if (topView && stmt) {
+                auto& his307 = stmt->as<syntax::HierarchyInstantiationSyntax>();
+                if (!his307.instances.empty() &&
+                    his307.instances[0]->connections.size() ==
+                        asyn307->connections.size())
+                    asyn307 = his307.instances[0];
+            }
+            std::vector<const syntax::ExpressionSyntax*> acts;
+            for (auto* c : asyn307->connections)
+                acts.push_back(connActualSyntax(
+                    c->as<syntax::OrderedPortConnectionSyntax>().expr));
+            auto* terms = s.MakePrim_termVec();
+            int32_t idx = 0;
+            auto addTerm = [&](size_t k, SourceRange tloc) {
+                auto* t = s.MakePrim_term();
+                t->VpiParent(g);
+                t->VpiDirection(idx == 0 ? vpiOutput : vpiInput);
+                if (idx > 0)
+                    t->VpiTermIndex(idx);
+                setLoc(t, tloc);
+                if (acts[k]) {
+                    ASTContext ctx(body, LookupLocation::max);
+                    auto& be = Expression::bind(
+                        *const_cast<syntax::ExpressionSyntax*>(acts[k]), ctx);
+                    auto& se = stripImplicitConv(be);
+                    SourceRange aloc = acts[k]->sourceRange();
+                    if (se.kind == ExpressionKind::NamedValue) {
+                        auto& nv = se.as<NamedValueExpression>();
+                        auto* r = s.MakeRef_obj();
+                        r->VpiParent(g);
+                        r->VpiName(nv.symbol.name);
+                        r->VpiFullName(rscope + "." + std::string(nv.symbol.name));
+                        setLoc(r, aloc);
+                        if (auto nit = netMap.find(&nv.symbol); nit != netMap.end())
+                            r->Actual_group(nit->second);
+                        t->Expr(r);
+                    }
+                    else if (!se.bad())
+                        if (auto* e = emitExpr(se, g, gfull, netMap)) {
+                            setLoc(e, aloc);
+                            // an INPUT terminal's bit select sits at its
+                            // index (golden `y[1]` -> 4:23-4:24, NP/p12);
+                            // the output terminal's spans the whole select
+                            if (k > 0 && e->UhdmType() == UHDM::uhdmbit_select) {
+                                const syntax::ElementSelectSyntax* sel307 = nullptr;
+                                if (acts[k]->kind ==
+                                    syntax::SyntaxKind::ElementSelectExpression)
+                                    sel307 = acts[k]->as<
+                                        syntax::ElementSelectExpressionSyntax>().select;
+                                else if (acts[k]->kind ==
+                                         syntax::SyntaxKind::IdentifierSelectName) {
+                                    auto& isn307 = acts[k]->as<
+                                        syntax::IdentifierSelectNameSyntax>();
+                                    if (!isn307.selectors.empty())
+                                        sel307 = isn307.selectors.back();
+                                }
+                                if (sel307 && sel307->selector &&
+                                    sel307->selector->kind ==
+                                        syntax::SyntaxKind::BitSelect)
+                                    setLoc(e, sel307->selector
+                                                  ->as<syntax::BitSelectSyntax>()
+                                                  .expr->sourceRange());
+                            }
+                            t->Expr((UHDM::expr*)e);
+                        }
+                }
+                terms->push_back(t);
+                idx++;
+            };
+            if (topView) {
+                size_t k = 0;
+                for (auto* pb : ui.body.getPortList()) {
+                    if (k >= acts.size())
+                        break;
+                    SourceRange pl(pb->location, pb->location + pb->name.size());
+                    addTerm(k++, pl);
+                }
+            }
+            for (size_t k = 0; k < acts.size(); k++)
+                if (acts[k])
+                    addTerm(k, acts[k]->sourceRange());
+            g->Prim_terms(terms);
+            // the elaborated udp carries the delay2 literal, unparented
+            if (topView && stmt) {
+                auto& hs307 = stmt->as<syntax::HierarchyInstantiationSyntax>();
+                if (hs307.parameters && hs307.parameters->parameters.size() == 1) {
+                    const syntax::ExpressionSyntax* de307 =
+                        hs307.parameters->parameters[0]
+                             ->as<syntax::OrderedParamAssignmentSyntax>()
+                             .expr.get();
+                    std::string tx307 = rawText(de307->sourceRange());
+                    auto* dc307 = s.MakeConstant();
+                    dc307->VpiDecompile(tx307);
+                    dc307->VpiSize(64);
+                    dc307->VpiValue("UINT:" + tx307);
+                    dc307->VpiConstType(vpiUIntConst);
+                    setLoc(dc307, de307->sourceRange());
+                    g->Delay(dc307);
+                }
+            }
+            tr307(topView ? "POSUDP_ELAB" : "POSUDP_DEF", gfull);
             if (!prims)
                 prims = s.MakePrimitiveVec();
             prims->push_back(g);
@@ -58379,6 +59184,22 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     if (!hinst->decl)
                         continue;
                     std::string iname(hinst->decl->name.valueText());
+                    // § defGenUdpFormNoStmt307 (r11u307) — a statement
+                    // Surelog's parser reads as a udp_instantiation (ordered
+                    // connections only, two or more, no parameter override,
+                    // the first a net_lvalue) leaves NO statement in the
+                    // definition view of a generate block: the def-view
+                    // generate compile collects module instantiations only
+                    // (golden r11u307repro NG/g01_filescope_genif and
+                    // NP/p05_in_gen_block list an empty named_begin).  The
+                    // udp grammar admits an instance array and a `#(...)`
+                    // of one or two ordered values read as delay2 (NG/g13,
+                    // g07).  Switch R11U307_DEFGENUDP_OFF.
+                    if (udpGrammarStmt307(hi) &&
+                        r11u307On("R11U307_DEFGENUDP_OFF")) {
+                        tr307("DEFGENUDP", branchPrefix + "." + iname);
+                        continue;
+                    }
                     // An ARRAYED instance (gpr [2:1]) is a module_array:
                     // fullname = work@<def> (the DEF name), one Range per
                     // dim, Elem_typespec ref (branch-scoped inst name) ->
@@ -58471,6 +59292,68 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             setLoc(cw0, conn->sourceRange());
                             pw0->High_conn(cw0);
                             rports->push_back(pw0);
+                            continue;
+                        }
+                        // § defGenOrderedConnPorts307 (r11u307) — an
+                        // ORDERED connection of a gen-block child the
+                        // definition view keeps (one actual, or a first
+                        // actual that is no net_lvalue, so the statement is
+                        // no udp_instantiation) is an anonymous port at the
+                        // actual, its HighConn the actual: a reference named
+                        // through the instance (`work@outer.g.u_in.y`,
+                        // golden r11u307repro NG/g10_single_conn_ctl), any
+                        // other expression as the definition view writes it
+                        // (NG/g05).  This syntax-driven path skipped every
+                        // ordered connection and left the port list empty.
+                        // Switch R11U307_DEFGENORD_OFF.
+                        if (conn->kind == syntax::SyntaxKind::OrderedPortConnection &&
+                            r11u307On("R11U307_DEFGENORD_OFF")) {
+                            auto* ox307 = connActualSyntax(
+                                conn->as<syntax::OrderedPortConnectionSyntax>().expr);
+                            if (!ox307)
+                                continue;
+                            auto* po307 = s.MakePort();
+                            po307->VpiParent(iobj);
+                            setLoc(po307, ox307->sourceRange());
+                            if (ox307->kind == syntax::SyntaxKind::IdentifierName) {
+                                std::string an307(
+                                    ox307->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText());
+                                auto* r307 = s.MakeRef_obj();
+                                r307->VpiParent(po307);
+                                r307->VpiName(an307);
+                                r307->VpiFullName(branchPrefix + "." + iname + "." + an307);
+                                setLoc(r307, ox307->sourceRange());
+                                po307->High_conn(r307);
+                            }
+                            else if (auto* h307 = emitSyntaxExpr(*ox307, po307)) {
+                                // a bit select of the actual sits at its
+                                // index (golden v11u303repro VT/vt03_positional
+                                // `dn [i]` at the `i`)
+                                std::function<void(UHDM::any*)> bsAt307 =
+                                    [&](UHDM::any* x) {
+                                        if (!x)
+                                            return;
+                                        if (x->UhdmType() == UHDM::uhdmbit_select) {
+                                            auto* b = (UHDM::bit_select*)x;
+                                            if (auto* ix = b->VpiIndex(); ix && ix->VpiLineNo()) {
+                                                b->VpiLineNo(ix->VpiLineNo());
+                                                b->VpiColumnNo(ix->VpiColumnNo());
+                                                b->VpiEndLineNo(ix->VpiEndLineNo());
+                                                b->VpiEndColumnNo(ix->VpiEndColumnNo());
+                                            }
+                                        }
+                                        else if (x->UhdmType() == UHDM::uhdmoperation) {
+                                            if (auto* ops = ((UHDM::operation*)x)->Operands())
+                                                for (auto* o : *ops)
+                                                    bsAt307(o);
+                                        }
+                                    };
+                                bsAt307(h307);
+                                po307->High_conn((UHDM::expr*)h307);
+                            }
+                            tr307("DEFGENORD", branchPrefix + "." + iname);
+                            rports->push_back(po307);
                             continue;
                         }
                         if (conn->kind != syntax::SyntaxKind::NamedPortConnection)

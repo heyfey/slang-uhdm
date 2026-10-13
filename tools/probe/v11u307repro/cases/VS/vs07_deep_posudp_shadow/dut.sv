@@ -1,0 +1,12 @@
+// § nestShadowFileScopeResolves307v
+module c_m (output logic r, input logic x); assign r = ~x; endmodule
+module a_m (input logic i, output logic o);
+  module b_m (input logic i, output logic o);
+    module c_m (output logic r, input logic x); assign r = ~x; endmodule
+    c_m u_c (o, i);
+  endmodule
+  b_m u_b (.i(i), .o(o));
+endmodule
+module dut (input logic i, output logic o);
+  a_m u_a (.i(i), .o(o));
+endmodule

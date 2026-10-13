@@ -1,0 +1,12 @@
+GA/a01_genif_named dist 0 -> 0 lost=0 gained=0 | chain away=51 toward=0 flat_away=51 flat_toward=0
+GA/a01_genif_named_el dist 0 -> 0 lost=0 gained=0 | chain away=50 toward=0 flat_away=50 flat_toward=0
+GA/a02_genfor_genvar dist 0 -> 0 lost=0 gained=0 | chain away=157 toward=0 flat_away=157 flat_toward=0
+GA/a02_genfor_genvar_el dist 0 -> 0 lost=0 gained=0 | chain away=108 toward=0 flat_away=108 flat_toward=0
+GA/a03_positional dist 0 -> 0 lost=0 gained=0 | chain away=55 toward=0 flat_away=55 flat_toward=0
+GA/a03_positional_el dist 0 -> 0 lost=0 gained=0 | chain away=54 toward=0 flat_away=54 flat_toward=0
+GA/a04_param dist 0 -> 0 lost=0 gained=0 | chain away=99 toward=0 flat_away=99 flat_toward=0
+GA/a04_param_el dist 0 -> 0 lost=0 gained=0 | chain away=98 toward=0 flat_away=98 flat_toward=0
+GA/a05_two_dim dist 0 -> 0 lost=0 gained=0 | chain away=93 toward=0 flat_away=93 flat_toward=0
+GA/a05_two_dim_el dist 0 -> 0 lost=0 gained=0 | chain away=92 toward=0 flat_away=92 flat_toward=0
+GA/a06_nested_gen dist 0 -> 0 lost=0 gained=0 | chain away=51 toward=0 flat_away=51 flat_toward=0
+GA/a06_nested_gen_el dist 0 -> 0 lost=0 gained=0 | chain away=50 toward=0 flat_away=50 flat_toward=0
