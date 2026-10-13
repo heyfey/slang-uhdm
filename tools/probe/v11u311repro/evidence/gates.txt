@@ -1,0 +1,64 @@
+== sweep P (binary: P pristine f3ed5499, L law 76bb9abd, F fix 98fe398a)
+law index current
+probe strict: equal=4015 differ:fullname=31 differ:line=8 differ:depth=7 differ:endcol=5 differ:file=5 differ:name=5 differ:value=4 differ:type=3 differ:endline=2 differ:col=2
+[probe] EQUAL=4015 STRICT_NOTEQUAL=72
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+== sweep L (binary: P pristine f3ed5499, L law 76bb9abd, F fix 98fe398a)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe strict: equal=4015 differ:fullname=31 differ:line=8 differ:depth=7 differ:endcol=5 differ:file=5 differ:name=5 differ:value=4 differ:type=3 differ:endline=2 differ:col=2
+[probe] EQUAL=4015 STRICT_NOTEQUAL=72
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+== sweep F (binary: P pristine f3ed5499, L law 76bb9abd, F fix 98fe398a)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe strict: equal=4015 differ:fullname=31 differ:line=8 differ:depth=7 differ:endcol=5 differ:file=5 differ:name=5 differ:value=4 differ:type=3 differ:endline=2 differ:col=2
+[probe] EQUAL=4015 STRICT_NOTEQUAL=72
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+== row diff (workdir normalised): L vs P probe/surelog/uhdm2rtlil 0/0/0 lines; F vs P 0/0/0; downstream.csv P = L = F = results/downstream_uhdm2rtlil.csv (cmp)
+== byteverify (fence-filtered mirrors, SELFCHECK=1): L vs P MOVERS 0/3365; F vs L MOVERS 0/3365; SELFCHECK 3363/3365 flagged, twin downstream/1DUnpackedArray = uhdm2rtlil/testflags/1DUnpackedArray-3af704bd
+== probe databases: L vs P 0/4087 movers; F vs L 0/4087
+== canaries: surelog ok=52 changed=0, uhdm2rtlil ok=16 changed=0 (L and F); ctcan2 PASS both (EXPECT_UNKNOWN=1 surelog, 6 uhdm2rtlil)
+== binary audit: P 3323 cmds.txt, 3273 pristine, 0 law, 50 no slang; L 3273 law, 0 pristine; F 3273 fix, 0 other
+== firing census (fix binary, drivers/tracecensus.sh): predict.txt 0 lines; 21 HCIDXDEF_BIND_ABSTAIN lines (probe v13_v54 x2, v5_home, v95f_bind, v4b_bind98, cells/v14 x2; surelog AssertDelayError, AssertTempError d/t; uhdm2rtlil BindModule, BindModuleWithInputPorts, BindModuleWithOutputPorts, mriscv_bind_sva, sva_basic02 d/t) = the implementer's census_tags.txt

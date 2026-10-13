@@ -1,0 +1,129 @@
+MOVE GI/g01_if_two_singles P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_154_objects rcL=0 cmplines 745->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g01_if_two_singles_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_188_objects rcL=0 cmplines 921->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g02_for_arr_slice P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_275_objects rcL=0 cmplines 75->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g02_for_arr_slice_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_337_objects rcL=0 cmplines 75->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g03_range_desc P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_152_objects rcL=0 cmplines 745->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g03_range_desc_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_186_objects rcL=0 cmplines 921->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g04_range_asc P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_152_objects rcL=0 cmplines 745->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g04_range_asc_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_186_objects rcL=0 cmplines 921->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g05_unused P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_62_objects rcL=0 cmplines 157->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g05_unused_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_61_objects rcL=0 cmplines 165->0 restore=R11U311_GENIFARR_OFF
+SAME GI/g06_two_dim NOT_EQUAL_stage1 rc=0
+SAME GI/g06_two_dim_el NOT_EQUAL_stage1 rc=0
+MOVE GI/g07_used_outside P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 44->44 restore=R11U311_GENIFARR_OFF
+MOVE GI/g07_used_outside_el P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 157->44 restore=R11U311_GENIFARR_OFF
+MOVE GI/g08_case_gen P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_175_objects rcL=0 cmplines 745->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g08_case_gen_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_209_objects rcL=0 cmplines 921->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g09_nested_gen P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_252_objects rcL=0 cmplines 745->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g09_nested_gen_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_326_objects rcL=0 cmplines 921->0 restore=R11U311_GENIFARR_OFF
+SAME GI/g10_uninst_if0 NOT_EQUAL_stage1 rc=0
+SAME GI/g10_uninst_if0_el NOT_EQUAL_stage1 rc=0
+MOVE GI/g11_two_arrays P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_180_objects rcL=0 cmplines 889->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g11_two_arrays_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_214_objects rcL=0 cmplines 1073->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g12_in_submodule_twice P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_277_objects rcL=0 cmplines 745->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g12_in_submodule_twice_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_351_objects rcL=0 cmplines 921->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g13_hier_assign P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_178_objects rcL=0 cmplines 893->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g13_hier_assign_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_230_objects rcL=0 cmplines 31->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g14_param_iface P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_197_objects rcL=0 cmplines 1003->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g14_param_iface_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_245_objects rcL=0 cmplines 1257->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g15_whole_to_arrport P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 38->38 restore=R11U311_GENIFARR_OFF
+MOVE GI/g15_whole_to_arrport_el P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 38->38 restore=R11U311_GENIFARR_OFF
+MOVE GI/g16_slice_nested_sibling P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_156_objects rcL=0 cmplines 75->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g16_slice_nested_sibling_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_196_objects rcL=0 cmplines 75->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g17_slice_second_array P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_177_objects rcL=0 cmplines 75->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g17_slice_second_array_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_217_objects rcL=0 cmplines 75->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g18_generic_port P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 34->34 restore=R11U311_GENIFARR_OFF
+MOVE GI/g18_generic_port_el P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 34->34 restore=R11U311_GENIFARR_OFF
+MOVE GI/g19_modport_conn P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 38->38 restore=R11U311_GENIFARR_OFF
+MOVE GI/g19_modport_conn_el P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 42->46 restore=R11U311_GENIFARR_OFF
+SAME GI/g20_modlevel_ctl STRICT_EQUAL_149_objects rc=0
+SAME GI/g20_modlevel_ctl_el STRICT_EQUAL_153_objects rc=0
+SAME GI/g21_single_in_gen_ctl STRICT_EQUAL_96_objects rc=0
+SAME GI/g21_single_in_gen_ctl_el STRICT_EQUAL_107_objects rc=0
+MOVE GI/g22_positional P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_140_objects rcL=0 cmplines 745->0 restore=pair
+MOVE GI/g22_positional_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_174_objects rcL=0 cmplines 921->0 restore=pair
+MOVE GI/g23_genfor_index P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_228_objects rcL=0 cmplines 1617->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g23_genfor_index_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_302_objects rcL=0 cmplines 2025->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g24_param_size P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_205_objects rcL=0 cmplines 1233->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g24_param_size_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_259_objects rcL=0 cmplines 1525->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g25_program_user P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_69_objects rcL=0 cmplines 293->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g25_program_user_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_78_objects rcL=0 cmplines 309->0 restore=R11U311_GENIFARR_OFF
+MOVE GI/g26_pos_genfor_idx P=STRICT_NOTEQUAL_col rcP=0 L=STRICT_EQUAL_235_objects rcL=0 cmplines 0->0 restore=R11U311_POSELEMSPAN_OFF
+MOVE GI/g26_pos_genfor_idx_el P=STRICT_NOTEQUAL_col rcP=0 L=STRICT_EQUAL_309_objects rcL=0 cmplines 0->0 restore=R11U311_POSELEMSPAN_OFF
+MOVE GI/g27_pos_modlevel P=STRICT_NOTEQUAL_col rcP=0 L=STRICT_EQUAL_135_objects rcL=0 cmplines 0->0 restore=R11U311_POSELEMSPAN_OFF
+MOVE GI/g27_pos_modlevel_el P=STRICT_NOTEQUAL_col rcP=0 L=STRICT_EQUAL_139_objects rcL=0 cmplines 0->0 restore=R11U311_POSELEMSPAN_OFF
+MOVE GI/g28_pos_spaces P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_135_objects rcL=0 cmplines 36->0 restore=pair
+MOVE GI/g28_pos_spaces_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_139_objects rcL=0 cmplines 36->0 restore=pair
+MOVE GI/g29_named_spaces P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_149_objects rcL=0 cmplines 36->0 restore=R11U311_IFIDXTRIM_OFF
+MOVE GI/g29_named_spaces_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_153_objects rcL=0 cmplines 36->0 restore=R11U311_IFIDXTRIM_OFF
+MOVE GI/g30_pos_param_idx P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 36->36 restore=R11U311_POSELEMSPAN_OFF
+MOVE GI/g30_pos_param_idx_el P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 36->36 restore=R11U311_POSELEMSPAN_OFF
+MOVE GI/g31_pos_genfor_expr P=STRICT_NOTEQUAL_col rcP=0 L=STRICT_EQUAL_175_objects rcL=0 cmplines 0->0 restore=R11U311_POSELEMSPAN_OFF
+MOVE GI/g31_pos_genfor_expr_el P=STRICT_NOTEQUAL_col rcP=0 L=STRICT_EQUAL_209_objects rcL=0 cmplines 0->0 restore=R11U311_POSELEMSPAN_OFF
+SAME GI/g32_pos_second_port STRICT_EQUAL_135_objects rc=0
+SAME GI/g32_pos_second_port_el STRICT_EQUAL_139_objects rc=0
+SAME GI/g33_pos_single_terminal_ctl STRICT_EQUAL_110_objects rc=0
+SAME GI/g33_pos_single_terminal_ctl_el STRICT_EQUAL_112_objects rc=0
+SAME GI/g34_pos_bind_ctl STRICT_NOTEQUAL_line rc=0
+SAME GI/g34_pos_bind_ctl_el STRICT_NOTEQUAL_line rc=0
+MOVE GI/g35_pos_three_terminals P=STRICT_NOTEQUAL_col rcP=0 L=STRICT_EQUAL_180_objects rcL=0 cmplines 0->0 restore=R11U311_POSELEMSPAN_OFF
+MOVE GI/g35_pos_three_terminals_el P=STRICT_NOTEQUAL_col rcP=0 L=STRICT_EQUAL_179_objects rcL=0 cmplines 0->0 restore=R11U311_POSELEMSPAN_OFF
+MOVE GI/g36_named_tab P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_149_objects rcL=0 cmplines 36->0 restore=R11U311_IFIDXTRIM_OFF
+MOVE GI/g36_named_tab_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_153_objects rcL=0 cmplines 36->0 restore=R11U311_IFIDXTRIM_OFF
+MOVE GI/g37_gen_named_spaces P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_154_objects rcL=0 cmplines 32->0 restore=pair
+MOVE GI/g37_gen_named_spaces_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_188_objects rcL=0 cmplines 32->0 restore=pair
+MOVE GI/g38_genfor_spaces P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_164_objects rcL=0 cmplines 28->0 restore=R11U311_IFIDXTRIM_OFF
+MOVE GI/g38_genfor_spaces_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_198_objects rcL=0 cmplines 28->0 restore=R11U311_IFIDXTRIM_OFF
+MOVE GI/g39_gen_vec_port_spaces P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_155_objects rcL=0 cmplines 28->0 restore=R11U311_IFIDXTRIM_OFF
+MOVE GI/g39_gen_vec_port_spaces_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_186_objects rcL=0 cmplines 28->0 restore=R11U311_IFIDXTRIM_OFF
+MOVE HB/b01_int_idx P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_111_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b01_int_idx_el P=STRICT_EQUAL_112_objects rcP=0 L=STRICT_EQUAL_112_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b02_logic_idx P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_120_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b02_logic_idx_el P=STRICT_EQUAL_118_objects rcP=0 L=STRICT_EQUAL_118_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b03_nested_parent_twice P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_201_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b03_nested_parent_twice_el P=STRICT_EQUAL_187_objects rcP=0 L=STRICT_EQUAL_187_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+SAME HB/b04_param_idx_ctl NOT_EQUAL_stage1 rc=0
+SAME HB/b04_param_idx_ctl_el NOT_EQUAL_stage1 rc=0
+MOVE HB/b05_two_refs_op P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_128_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b05_two_refs_op_el P=STRICT_EQUAL_126_objects rcP=0 L=STRICT_EQUAL_126_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b06_reg_idx P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_173_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b06_reg_idx_el P=STRICT_EQUAL_162_objects rcP=0 L=STRICT_EQUAL_162_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b07_iface_path P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_125_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b07_iface_path_el P=STRICT_EQUAL_126_objects rcP=0 L=STRICT_EQUAL_126_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+SAME HB/b08_plain_sel_ctl STRICT_EQUAL_76_objects rc=0
+SAME HB/b08_plain_sel_ctl_el STRICT_EQUAL_74_objects rc=0
+MOVE HB/b09_nested_struct_two_idx P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_174_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b09_nested_struct_two_idx_el P=STRICT_EQUAL_187_objects rcP=0 L=STRICT_EQUAL_187_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+SAME HB/b10_genvar_child_ctl STRICT_EQUAL_164_objects rc=0
+SAME HB/b10_genvar_child_ctl_el STRICT_EQUAL_165_objects rc=0
+MOVE HB/b11_partsel_bounds P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_157_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b11_partsel_bounds_el P=STRICT_EQUAL_157_objects rcP=0 L=STRICT_EQUAL_157_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b12_program_child P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_127_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b12_program_child_el P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_125_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+SAME HB/b13_gen_parent STRICT_EQUAL_113_objects rc=0
+SAME HB/b13_gen_parent_el STRICT_EQUAL_117_objects rc=0
+MOVE HB/b15_localvar_shadow_name P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_142_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b15_localvar_shadow_name_el P=STRICT_EQUAL_145_objects rcP=0 L=STRICT_EQUAL_145_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+SAME HB/b16_bind_path NOT_EQUAL_stage1 rc=0
+SAME HB/b16_bind_path_el NOT_EQUAL_stage1 rc=0
+SAME HB/b17_const_idx_ctl STRICT_EQUAL_102_objects rc=0
+SAME HB/b17_const_idx_ctl_el STRICT_EQUAL_106_objects rc=0
+SAME HB/b18_cast_idx_ctl STRICT_EQUAL_120_objects rc=0
+SAME HB/b18_cast_idx_ctl_el STRICT_EQUAL_124_objects rc=0
+MOVE HB/b19_concat_ref P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_133_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b19_concat_ref_el P=STRICT_EQUAL_128_objects rcP=0 L=STRICT_EQUAL_128_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b20_cast_plus_ref P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_133_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b20_cast_plus_ref_el P=STRICT_EQUAL_134_objects rcP=0 L=STRICT_EQUAL_134_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b21_sys_call_idx P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_122_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b21_sys_call_idx_el P=STRICT_EQUAL_120_objects rcP=0 L=STRICT_EQUAL_120_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+SAME HB/b22_member_idx_ctl NOT_EQUAL_stage1 rc=0
+SAME HB/b22_member_idx_ctl_el NOT_EQUAL_stage1 rc=0
+SAME HB/b23_enum_idx_ctl STRICT_NOTEQUAL_fullname rc=0
+SAME HB/b23_enum_idx_ctl_el STRICT_NOTEQUAL_fullname rc=0
+MOVE HB/b24_nested_sel_idx P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_133_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b24_nested_sel_idx_el P=STRICT_EQUAL_134_objects rcP=0 L=STRICT_EQUAL_134_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b25_ternary_two_refs P=STRICT_NOTEQUAL_depth rcP=0 L=STRICT_EQUAL_139_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+MOVE HB/b25_ternary_two_refs_el P=STRICT_EQUAL_136_objects rcP=0 L=STRICT_EQUAL_136_objects rcL=0 cmplines 0->0 restore=R11U311_HCIDXDEF_OFF
+case-views 126 moving 94 entering 70 leaving 0 OFF==pristine 126
+single-switch {'R11U311_GENIFARR_OFF': 40, 'R11U311_POSELEMSPAN_OFF': 10, 'R11U311_IFIDXTRIM_OFF': 8, 'R11U311_HCIDXDEF_OFF': 30}
+pair-or-more 6 GI/g22_positional GI/g22_positional_el GI/g28_pos_spaces GI/g28_pos_spaces_el GI/g37_gen_named_spaces GI/g37_gen_named_spaces_el

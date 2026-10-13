@@ -10977,6 +10977,8 @@ static bool deepStubInst307(const InstanceSymbol& inst) {
 // two or more ordered actuals, the first a net_lvalue (the output
 // terminal), and either no `#` or a `#(...)` of one or two ordered values
 // (delay2).  Instance arrays are udp instances too.
+static std::string trimIdx311(const std::string& t, const std::string& where);
+
 static bool udpGrammarStmt307(const syntax::HierarchyInstantiationSyntax& hi) {
     if (hi.parameters) {
         auto& pv = *hi.parameters;
@@ -12368,6 +12370,17 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
                             std::string base = selBase303(rn, lb);
                             std::string idxS =
                                 rn.substr(lb + 1, rn.size() - lb - 2);
+                            // § ifaceElemIdxTextTrim311 (r11u311) — the index
+                            // constant of an interface-array element connection
+                            // is Surelog's compiled index token: blanks around
+                            // it (`.p(farr[ 0 ])`) are not part of its
+                            // decompile or value (golden r11u311repro
+                            // GI/g29_named_spaces_ctl: `0` / UINT:0, ours
+                            // ` 0 `).  Both views.  Switch
+                            // R11U311_IFIDXTRIM_OFF.
+                            if (lawOn(311, "R11U311_IFIDXTRIM_OFF"))
+                                idxS = trimIdx311(idxS, "def " + prefix + "." +
+                                                            std::string(child.name));
                             auto* bs = s.MakeBit_select();
                             bs->VpiName(base);
                             bs->VpiFullName(prefix + "." + std::string(child.name) +
@@ -17332,6 +17345,123 @@ void UhdmExporter::emitHoistedPkgListing83(
 }
 
 
+// § ifaceElemIdxTextTrim311 (r11u311): the index text with its surrounding
+// blanks removed; a trace line when it changes.
+static std::string trimIdx311(const std::string& t, const std::string& where) {
+    auto b = t.find_first_not_of(" \t\r\n");
+    auto e = t.find_last_not_of(" \t\r\n");
+    std::string r = b == std::string::npos ? std::string{} : t.substr(b, e - b + 1);
+    if (r != t)
+        lawTrace(311, "ifaceElemIdxTextTrim311", where + " [" + t + "]");
+    return r;
+}
+
+// § hcPathIdxBindsDefNet311 (r11u311): see the call site in emitInstance's
+// child loop.  Every ref_obj inside a select index of a hier_path HighConn of
+// `child` whose actual is an object of the elaborated parent `elabParent` is
+// re-bound to the object of the same name in the parent's definition view
+// `defMod` (its nets first, then its variables); nothing changes when the
+// definition lists no such object.
+static void hcPathIdxBindsDefNet311(UHDM::instance* child, UHDM::instance* elabParent,
+                                    UHDM::instance* defMod, const std::string& where) {
+    // A program child connects the same way (golden r11u311repro
+    // HB/b12_program_child).
+    UHDM::VectorOfport* ports311 = nullptr;
+    if (auto* cm = dynamic_cast<UHDM::module_inst*>(child))
+        ports311 = cm->Ports();
+    else if (auto* cp = dynamic_cast<UHDM::program*>(child))
+        ports311 = cp->Ports();
+    if (!ports311 || !defMod)
+        return;
+    auto findDef = [&](std::string_view nm) -> UHDM::any* {
+        if (auto* mi = dynamic_cast<UHDM::module_inst*>(defMod)) {
+            if (mi->Nets())
+                for (auto* n : *mi->Nets())
+                    if (n->VpiName() == nm)
+                        return n;
+        }
+        if (defMod->Variables())
+            for (auto* v : *defMod->Variables())
+                if (v->VpiName() == nm)
+                    return v;
+        return nullptr;
+    };
+    std::function<void(UHDM::any*)> walk = [&](UHDM::any* x) {
+        if (!x)
+            return;
+        switch (x->UhdmType()) {
+        case UHDM::uhdmref_obj: {
+            auto* r = (UHDM::ref_obj*)x;
+            auto* a = r->Actual_group();
+            if (!a || a->VpiParent() != elabParent)
+                return;
+            if (auto* d = findDef(r->VpiName()); d && d != a) {
+                r->Actual_group(d);
+                lawTrace(311, "hcPathIdxBindsDefNet311",
+                         where + " " + std::string(r->VpiName()));
+            }
+            return;
+        }
+        case UHDM::uhdmoperation:
+            // A cast keeps its operand bound to the elaborated object
+            // (golden tools/probe/v11u296repro VH/vh18_cast_in_port_idx and
+            // VT/vt17_rhs_and_port, r11u311repro HB/b18_cast_idx_ctl).
+            if (((UHDM::operation*)x)->VpiOpType() == vpiCastOp) {
+                lawTrace(311, "HCIDXDEF_CAST_ABSTAIN", where);
+                return;
+            }
+            if (auto* ops = ((UHDM::operation*)x)->Operands())
+                for (auto* o : *ops)
+                    walk(o);
+            return;
+        case UHDM::uhdmbit_select:
+            // A select nested in the index (`q.f[arr[i]]`): its own index
+            // follows the path (golden r11u311repro HB/b24_nested_sel_idx).
+            walk((UHDM::any*)((UHDM::bit_select*)x)->VpiIndex());
+            return;
+        case UHDM::uhdmsys_func_call:
+            // A system call's arguments follow the path (golden r11u311repro
+            // HB/b21_sys_call_idx: `$unsigned(k)`).
+            if (auto* as = ((UHDM::sys_func_call*)x)->Tf_call_args())
+                for (auto* a : *as)
+                    walk(a);
+            return;
+        default:
+            return;
+        }
+    };
+    for (auto* pt : *ports311) {
+        auto* hc = pt->High_conn();
+        if (!hc || hc->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        auto* pe = ((UHDM::hier_path*)hc)->Path_elems();
+        if (!pe)
+            continue;
+        for (auto* e : *pe) {
+            switch (e->UhdmType()) {
+            case UHDM::uhdmbit_select:
+                walk((UHDM::any*)((UHDM::bit_select*)e)->VpiIndex());
+                break;
+            case UHDM::uhdmpart_select:
+                walk((UHDM::any*)((UHDM::part_select*)e)->Left_range());
+                walk((UHDM::any*)((UHDM::part_select*)e)->Right_range());
+                break;
+            case UHDM::uhdmindexed_part_select:
+                walk((UHDM::any*)((UHDM::indexed_part_select*)e)->Base_expr());
+                walk((UHDM::any*)((UHDM::indexed_part_select*)e)->Width_expr());
+                break;
+            case UHDM::uhdmvar_select:
+                if (auto* xs = ((UHDM::var_select*)e)->Exprs())
+                    for (auto* x : *xs)
+                        walk(x);
+                break;
+            default:
+                break;
+            }
+        }
+    }
+}
+
 UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
                                            UHDM::instance* parentM, NetMap* parentNets,
                                            std::set<const Symbol*>* parentRefs, bool isTop) {
@@ -21234,6 +21364,11 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         std::string base = selBase303(connRaw, albr);
                         std::string idxS =
                             connRaw.substr(albr + 1, connRaw.size() - albr - 2);
+                        // § ifaceElemIdxTextTrim311 (r11u311): the elaborated
+                        // twin of the definition-view site.
+                        if (lawOn(311, "R11U311_IFIDXTRIM_OFF"))
+                            idxS = trimIdx311(idxS, "elab " + prefix + "." +
+                                                        std::string(ip.name));
                         auto* bs = s.MakeBit_select();
                         bs->VpiName(base);
                         bs->VpiFullName(prefix + "." + base);
@@ -21244,6 +21379,38 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         if (iconn && connectionExpr(*iconn))
                             setLoc(bs, ifaceElemIndexRange(
                                            connectionExpr(*iconn)->sourceRange));
+                        // § ifaceElemPosSelWholeSpan311 (r11u311) — an ordered
+                        // connection list whose first terminal is a net lvalue
+                        // is a udp_instantiation to Surelog's parser
+                        // (§ udpFormNetLvalueFirst176, the shape
+                        // § udpPosModportPathAtSel305 reads): its FIRST
+                        // terminal `farr[0]` is a Net_lvalue compiled through
+                        // compileSelectExpression, so the bit_select spans the
+                        // whole `farr[0]` (golden r11u311repro
+                        // GI/g22_positional 12:15-12:22) while the index
+                        // constant keeps the index span.  A later terminal
+                        // (g32_pos_second_port), a named connection and a bind
+                        // directive's instantiation keep the index-only span
+                        // above.  Switch R11U311_POSELEMSPAN_OFF.
+                        if (iconn && connectionExpr(*iconn) &&
+                            !inst.getPortConnections().empty() &&
+                            inst.getPortConnections()[0] == iconn &&
+                            udpShapedInstantiation(inst) &&
+                            lawOn(311, "R11U311_POSELEMSPAN_OFF")) {
+                            bool bind311 = false;
+                            for (auto p311 = inst.getSyntax(); p311; p311 = p311->parent)
+                                if (p311->kind == syntax::SyntaxKind::BindDirective)
+                                    bind311 = true;
+                            if (!bind311) {
+                                setLoc(bs, connectionExpr(*iconn)->sourceRange);
+                                lawTrace(311, "ifaceElemPosSelWholeSpan311",
+                                         prefix + "." + std::string(ip.name) + " " +
+                                             connRaw);
+                            }
+                            else
+                                lawTrace(311, "POSELEMSPAN_BIND_ABSTAIN",
+                                         prefix + "." + std::string(ip.name));
+                        }
                         auto* ic = s.MakeConstant();
                         ic->VpiValue("UINT:" + idxS);
                         ic->VpiDecompile(idxS);
@@ -22302,6 +22469,28 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             {
                 auto* ci9 = emitInstance(child, prefix + "." + std::string(child.name), m,
                                          &topNets, &instRefs, /*isTop=*/false);
+                // § hcPathIdxBindsDefNet311 (r11u311) — a reference in a
+                // select index of a member PATH connected to a child port
+                // (`sub u (.a(q.f[i]))`) binds the DEFINITION's object of that
+                // name, not the elaborated one: Surelog keeps the binding the
+                // definition-time compile gave the hier_path's selects, while a
+                // plain select `.a(v[i])` is re-bound to the elaborated
+                // variable (golden tools/probe/r11u296repro HC/hc01_direct_ref:
+                // the index `i` -> logic_net work@dut.i of the definition,
+                // ours the elaborated int_var; hc15_plain_vec_ctl binds the
+                // int_var on both).  UHDM's elaborator re-binds it in the
+                // -elabuhdm view.  Module-scope children only.  Switch
+                // R11U311_HCIDXDEF_OFF.  A bound instance stands aside: golden
+                // lists no bound child in r11u311repro HB/b16_bind_path, so
+                // nothing measures its binding.
+                if (fromBind && lawOn(311, "R11U311_HCIDXDEF_OFF"))
+                    lawTrace(311, "HCIDXDEF_BIND_ABSTAIN",
+                             prefix + "." + std::string(child.name));
+                if (!fromBind && lawOn(311, "R11U311_HCIDXDEF_OFF"))
+                    if (auto dit311 = defMap.find(&def);
+                        dit311 != defMap.end() && dit311->second.mod)
+                        hcPathIdxBindsDefNet311(ci9, m, dit311->second.mod,
+                                                prefix + "." + std::string(child.name));
                 // A `program` child lists under vpiProgram, not vpiModule.
                 if (ci9->UhdmType() == UHDM::uhdmprogram)
                     progChildren->push_back((UHDM::program*)ci9);
@@ -32268,6 +32457,132 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     return nullptr;
                 };
                 auto* l307 = leaf307(gm.as<InstanceArraySymbol>());
+                // § genScopeIfaceArrayElems311 (r11u311) — an INTERFACE array
+                // written in a generate block: the gen_scope lists each
+                // element, fully elaborated, under vpiInterface exactly as the
+                // module-level array lists them under the instance (golden
+                // v11u309repro VZ/vz05: gen_scope work@top.g lists
+                // interface_inst farr[0] and farr[1] at the array statement's
+                // span), carrying only the gen_scope parent like a single
+                // gen-scope interface (no vpiInstance).  Ours listed no
+                // element at all.  One dimension, as the module-level path.
+                // Switch R11U311_GENIFARR_OFF.
+                if (l307 && useInterfacePath(*l307) &&
+                    lawOn(311, "R11U311_GENIFARR_OFF")) {
+                    auto& ga311 = gm.as<InstanceArraySymbol>();
+                    int32_t lo311 = std::min(ga311.range.left, ga311.range.right);
+                    // § genScopeIfaceArrTailDup311 (r11u311) — the generate
+                    // twin of the module-level arrBareConn scan and of
+                    // § ifaceArrSliceElemName309: a sibling in the same
+                    // generate block taking the WHOLE interface array by its
+                    // bare name (a single child's interface port, or an
+                    // instance array's elements slice by slice) makes the
+                    // first element carry Surelog's col-0 duplicate, which the
+                    // receiving HighConns bind (golden r11u309repro
+                    // TS/s05_gen_inner_slice: interface_inst gf[0].farr[0] at
+                    // line:13:0).  Switch R11U311_GENIFARRDUP_OFF.
+                    bool dup311 = false;
+                    if (lawOn(311, "R11U311_GENIFARRDUP_OFF")) {
+                        auto outer311 = [](const Symbol* x) {
+                            while (x && x->getParentScope() &&
+                                   x->getParentScope()->asSymbol().kind ==
+                                       SymbolKind::InstanceArray)
+                                x = &x->getParentScope()->asSymbol();
+                            return x;
+                        };
+                        // The scan descends into instantiated generate blocks
+                        // nested in this one (golden r11u311repro
+                        // GI/g16_slice_nested_sibling).
+                        std::vector<const Symbol*> sibs311;
+                        std::function<void(const Scope&)> collect311 =
+                            [&](const Scope& sc) {
+                                for (auto& mm : sc.members()) {
+                                    if (mm.kind == SymbolKind::GenerateBlock) {
+                                        if (!mm.as<GenerateBlockSymbol>()
+                                                 .isUninstantiated)
+                                            collect311(mm.as<GenerateBlockSymbol>());
+                                    }
+                                    else if (mm.kind == SymbolKind::GenerateBlockArray)
+                                        collect311(mm.as<GenerateBlockArraySymbol>());
+                                    else
+                                        sibs311.push_back(&mm);
+                                }
+                            };
+                        collect311(blk);
+                        for (auto* sibp : sibs311) {
+                            auto& sib = *sibp;
+                            if (dup311)
+                                break;
+                            const InstanceSymbol* ci311 = nullptr;
+                            bool sibArr311 = false;
+                            if (sib.kind == SymbolKind::Instance)
+                                ci311 = &sib.as<InstanceSymbol>();
+                            else if (sib.kind == SymbolKind::InstanceArray) {
+                                const Symbol* e9 = &sib;
+                                while (e9 && e9->kind == SymbolKind::InstanceArray) {
+                                    auto& a9 = e9->as<InstanceArraySymbol>();
+                                    e9 = a9.elements.empty() ? nullptr : a9.elements[0];
+                                }
+                                if (e9 && e9->kind == SymbolKind::Instance) {
+                                    ci311 = &e9->as<InstanceSymbol>();
+                                    sibArr311 = true;
+                                }
+                            }
+                            if (!ci311 || ci311 == l307)
+                                continue;
+                            for (auto cc : ci311->getPortConnections()) {
+                                if (cc->port.kind != SymbolKind::InterfacePort)
+                                    continue;
+                                const Expression* ce = connectionExpr(*cc);
+                                if (!ce ||
+                                    rawText(ce->sourceRange) != std::string(ga311.name))
+                                    continue;
+                                const Symbol* tgt = nullptr;
+                                if (sibArr311) {
+                                    auto c9 = cc->port.as<InterfacePortSymbol>()
+                                                  .getConnection();
+                                    if (c9.first && c9.first != outer311(c9.first))
+                                        tgt = outer311(c9.first);
+                                }
+                                else
+                                    tgt = ce->getSymbolReference();
+                                if (tgt == (const Symbol*)&ga311) {
+                                    dup311 = true;
+                                    lawTrace(311, "genScopeIfaceArrTailDup311",
+                                             fullName + "." + std::string(ga311.name));
+                                }
+                            }
+                        }
+                    }
+                    for (size_t i = 0; i < ga311.elements.size(); i++) {
+                        auto* e = ga311.elements[i];
+                        if (!e || e->kind != SymbolKind::Instance ||
+                            !useInterfacePath(e->as<InstanceSymbol>()))
+                            continue;
+                        std::string iname = std::string(ga311.name) + "[" +
+                                            std::to_string(lo311 + (int32_t)i) + "]";
+                        genvarConnFold = true;
+                        genConnPrefix = fullName;
+                        auto* ii = emitInterfaceInstance(
+                            e->as<InstanceSymbol>(), fullName + "." + iname, m,
+                            &netMap, nullptr, /*portView=*/nullptr,
+                            /*connModport=*/std::string{},
+                            /*forceTailDup=*/dup311 && i == 0);
+                        genConnPrefix.clear();
+                        genvarConnFold = false;
+                        ii->VpiName(iname);
+                        if (auto dit311 = ifaceTailDup.find(&e->as<InstanceSymbol>());
+                            dit311 != ifaceTailDup.end())
+                            dit311->second->VpiName(iname);
+                        ii->VpiParent(gs);
+                        ii->Instance(nullptr);
+                        ifaceInstMap[e] = ii;
+                        gifaces->push_back(ii);
+                        lawTrace(311, "genScopeIfaceArrayElems311",
+                                 fullName + "." + iname);
+                    }
+                    continue;
+                }
                 if (!l307 || useInterfacePath(*l307))
                     continue;
                 // § genScopeModArrayElems307 (r11u307) — any MODULE array
@@ -60271,6 +60586,27 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 act.substr(lb2 + 1, act.size() - lb2 - 2);
                             auto idxStart =
                                 npc.expr->sourceRange().start() + (lb2 + 1);
+                            // § ifaceElemIdxTextTrim311 (r11u311), the
+                            // definition-view generate twin: the select and its
+                            // index sit at the index token without the blanks
+                            // around it (golden r11u311repro
+                            // GI/g37_gen_named_spaces: constant `0` at
+                            // 12:24-12:25, ours a ref_obj named ` 0 ` at
+                            // 12:23-12:26; g38_genfor_spaces `i`).
+                            // The whole text goes to trimIdx311 so an index
+                            // with leading blanks only (`farr[ 1]`, which moves
+                            // the select's location) logs its firing too
+                            // (v11u311: tools/probe/v11u311repro
+                            // VT/vt12_uninst_branch_lead_blank wrote with no
+                            // trace line); trimming the left-trimmed text gave
+                            // the same index.
+                            if (lawOn(311, "R11U311_IFIDXTRIM_OFF")) {
+                                auto b311 = idxT.find_first_not_of(" \t\r\n");
+                                if (b311 != std::string::npos && b311 > 0)
+                                    idxStart = idxStart + b311;
+                                idxT = trimIdx311(idxT, "defgen " + branchPrefix +
+                                                            "." + iname + "." + formal);
+                            }
                             auto* bs = s.MakeBit_select();
                             bs->VpiParent(p);
                             bs->VpiName(base2);

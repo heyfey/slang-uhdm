@@ -1,0 +1,52 @@
+== pristine sweep
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=4015 STRICT_NOTEQUAL=72 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=4015 STRICT_NOTEQUAL=72
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  CMP_EQUAL: 480
+  CMP_NOTEQUAL: 3
+  CMP_EQUAL: 474
+  CMP_NOTEQUAL: 3
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  CMP_EQUAL: 803
+  CMP_NOTEQUAL: 1
+  CMP_EQUAL: 803
+  CMP_NOTEQUAL: 1
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+== law sweep
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=4015 STRICT_NOTEQUAL=72 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=4015 STRICT_NOTEQUAL=72
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  CMP_EQUAL: 480
+  CMP_NOTEQUAL: 3
+  CMP_EQUAL: 474
+  CMP_NOTEQUAL: 3
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+  CMP_EQUAL: 803
+  CMP_NOTEQUAL: 1
+  CMP_EQUAL: 803
+  CMP_NOTEQUAL: 1
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+== byteverify (mirrors)
+databases: patched=3365 pristine=3365
+PATH_SETS_IDENTICAL (3365 paths)
+MOVERS: 0 / 3365
+SELFCHECK (every file vs one fixed file): 3363 / 3365 flagged
+SELFCHECK_FAILED
+selfcheck twin: downstream/1DUnpackedArray = uhdm2rtlil/testflags/1DUnpackedArray
+== probe databases: 4087 compared, 0 movers

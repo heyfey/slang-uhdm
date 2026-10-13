@@ -1,0 +1,12 @@
+// § hcPathIdxBindsDefNet311
+module sub (input logic a, output logic y);
+  assign y = a;
+endmodule
+module dut (output logic y);
+  typedef struct packed {logic [31:0] f;} st_t;
+  st_t q;
+  int i;
+  if (1) begin : gi
+    sub u (.a(q.f[i]), .y(y));
+  end
+endmodule

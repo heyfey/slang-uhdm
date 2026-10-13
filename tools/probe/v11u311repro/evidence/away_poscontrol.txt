@@ -1,0 +1,12 @@
+VG/vg03_genfor_nested_idx dist 0 -> 0 lost=0 gained=0 | chain away=36 toward=0 flat_away=36 flat_toward=0
+VG/vg05_single_elem_el dist 0 -> 0 lost=0 gained=0 | chain away=9 toward=0 flat_away=9 flat_toward=0
+VG/vg09_case_gen_two_arrays dist 0 -> 0 lost=0 gained=0 | chain away=36 toward=0 flat_away=36 flat_toward=0
+VG/vg11_else_branch_el dist 0 -> 0 lost=0 gained=0 | chain away=18 toward=0 flat_away=18 flat_toward=0
+VH/vh01_port_idx dist 0 -> 0 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+VH/vh08_array_struct_path dist 0 -> 0 lost=3 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+VH/vh13_ternary_idx dist 0 -> 0 lost=7 gained=0 | chain away=7 toward=0 flat_away=7 flat_toward=0
+VH/vh20_mixed_idx_struct_root dist 0 -> 0 lost=6 gained=0 | chain away=6 toward=0 flat_away=6 flat_toward=0
+VP/vp05_expr_second dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VP/vp09_gen_if_pos_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VT/vt01_pos_spaces_modlevel dist 0 -> 0 lost=0 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+VT/vt04_genfor_expr_spaces_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0

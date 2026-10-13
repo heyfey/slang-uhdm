@@ -1,0 +1,117 @@
+case-views=74 moving=74 entering=34 leaving=0 rc-changed=0 cmplines-changed=8
+MOVER tp/r10vrgg14repro/cells/v10 STRICT_NOTEQUAL_col -> STRICT_EQUAL_680_objects cmplines 0->0
+MOVER tp/r10vrgg14repro/cells/v10_el STRICT_NOTEQUAL_col -> STRICT_EQUAL_733_objects cmplines 0->0
+MOVER tp/r10vrgg3repro/x5_iface_in_generate NOT_EQUAL_stage1 -> STRICT_EQUAL_488_objects cmplines 467->0
+MOVER tp/r10vrgg3repro/x5_iface_in_generate_el NOT_EQUAL_stage1 -> STRICT_EQUAL_945_objects cmplines 467->0
+MOVER tp/r11u143verify/cases/p133_hpmid/hm04_port_actual STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u143verify/cases/p133_hpmid/hm04_port_actual_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u168repro/cases/H/h06 STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u168repro/cases/H/h06_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u280repro/cases/VR/r27_portactual STRICT_NOTEQUAL_depth -> STRICT_EQUAL_177_objects cmplines 0->0
+MOVER tp/r11u280repro/cases/VR/r27_portactual_el STRICT_EQUAL_168_objects -> STRICT_EQUAL_168_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc01_direct_ref STRICT_NOTEQUAL_depth -> STRICT_EQUAL_159_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc01_direct_ref_el STRICT_EQUAL_160_objects -> STRICT_EQUAL_160_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc02_op_idx STRICT_NOTEQUAL_depth -> STRICT_EQUAL_163_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc02_op_idx_el STRICT_EQUAL_164_objects -> STRICT_EQUAL_164_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc05_positional NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u296repro/cases/HC/hc05_positional_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u296repro/cases/HC/hc06_base_sel_member STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc06_base_sel_member_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc07_part_select STRICT_NOTEQUAL_depth -> STRICT_EQUAL_171_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc07_part_select_el STRICT_EQUAL_173_objects -> STRICT_EQUAL_173_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc12_depth2 STRICT_NOTEQUAL_depth -> STRICT_EQUAL_142_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc12_depth2_el STRICT_EQUAL_145_objects -> STRICT_EQUAL_145_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc13_depth3 STRICT_NOTEQUAL_depth -> STRICT_EQUAL_179_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc13_depth3_el STRICT_EQUAL_182_objects -> STRICT_EQUAL_182_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc17_two_insts STRICT_NOTEQUAL_depth -> STRICT_EQUAL_210_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc17_two_insts_el STRICT_EQUAL_208_objects -> STRICT_EQUAL_208_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc18_iface_member STRICT_NOTEQUAL_depth -> STRICT_EQUAL_125_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc18_iface_member_el STRICT_EQUAL_126_objects -> STRICT_EQUAL_126_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc19_base_op_idx STRICT_NOTEQUAL_depth -> STRICT_EQUAL_157_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc19_base_op_idx_el STRICT_EQUAL_158_objects -> STRICT_EQUAL_158_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc20_two_sel_member STRICT_NOTEQUAL_depth -> STRICT_EQUAL_137_objects cmplines 0->0
+MOVER tp/r11u296repro/cases/HC/hc20_two_sel_member_el STRICT_EQUAL_138_objects -> STRICT_EQUAL_138_objects cmplines 0->0
+MOVER tp/r11u309repro/cases/TS/s05_gen_inner_slice NOT_EQUAL_stage1 -> STRICT_EQUAL_275_objects cmplines 75->0
+MOVER tp/r11u309repro/cases/TS/s05_gen_inner_slice_el NOT_EQUAL_stage1 -> STRICT_EQUAL_337_objects cmplines 75->0
+MOVER tp/r11u39repro/a2 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u39repro/a2_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11v133repro/tix/a10_port_conn STRICT_NOTEQUAL_depth -> STRICT_EQUAL_219_objects cmplines 0->0
+MOVER tp/r11v133repro/tix/a10_port_conn_el STRICT_EQUAL_209_objects -> STRICT_EQUAL_209_objects cmplines 0->0
+MOVER tp/r11v178repro/cases/hx/x20_sub_inst_port STRICT_NOTEQUAL_depth -> STRICT_EQUAL_304_objects cmplines 0->0
+MOVER tp/r11v178repro/cases/hx/x20_sub_inst_port_el STRICT_EQUAL_303_objects -> STRICT_EQUAL_303_objects cmplines 0->0
+MOVER tp/v11u280repro/cases/VA/va25_iface_inst_actual NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u280repro/cases/VA/va25_iface_inst_actual_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u296repro/cases/VH/vh04_two_idx_ports STRICT_NOTEQUAL_depth -> STRICT_EQUAL_267_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh04_two_idx_ports_el STRICT_EQUAL_266_objects -> STRICT_EQUAL_266_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh05_ips_port STRICT_NOTEQUAL_depth -> STRICT_EQUAL_225_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh05_ips_port_el STRICT_EQUAL_223_objects -> STRICT_EQUAL_223_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh06_minus_ips STRICT_NOTEQUAL_depth -> STRICT_EQUAL_225_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh06_minus_ips_el STRICT_EQUAL_223_objects -> STRICT_EQUAL_223_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh07_unary_idx STRICT_NOTEQUAL_depth -> STRICT_EQUAL_234_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh07_unary_idx_el STRICT_EQUAL_229_objects -> STRICT_EQUAL_229_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh08_ternary_idx STRICT_NOTEQUAL_depth -> STRICT_EQUAL_238_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh08_ternary_idx_el STRICT_EQUAL_233_objects -> STRICT_EQUAL_233_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh09_sysfn_idx STRICT_NOTEQUAL_depth -> STRICT_EQUAL_234_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh09_sysfn_idx_el STRICT_EQUAL_229_objects -> STRICT_EQUAL_229_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh12_member_two_level STRICT_NOTEQUAL_depth -> STRICT_EQUAL_266_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh12_member_two_level_el STRICT_EQUAL_279_objects -> STRICT_EQUAL_279_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh13_macro_idx STRICT_NOTEQUAL_depth -> STRICT_EQUAL_223_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh13_macro_idx_el STRICT_EQUAL_221_objects -> STRICT_EQUAL_221_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh15_depth2_param_hc NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 228->228
+MOVER tp/v11u296repro/cases/VH/vh15_depth2_param_hc_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 248->248
+MOVER tp/v11u296repro/cases/VH/vh16_class_spec_bound NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u296repro/cases/VH/vh16_class_spec_bound_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u296repro/cases/VH/vh20_arr_elem_member STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh20_arr_elem_member_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh22_two_level_port_chain STRICT_NOTEQUAL_depth -> STRICT_EQUAL_301_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh22_two_level_port_chain_el STRICT_EQUAL_292_objects -> STRICT_EQUAL_292_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh25_program_port STRICT_NOTEQUAL_depth -> STRICT_EQUAL_96_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh25_program_port_el STRICT_NOTEQUAL_depth -> STRICT_EQUAL_96_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh26_wildcard_and_named STRICT_NOTEQUAL_depth -> STRICT_EQUAL_124_objects cmplines 0->0
+MOVER tp/v11u296repro/cases/VH/vh26_wildcard_and_named_el STRICT_EQUAL_125_objects -> STRICT_EQUAL_125_objects cmplines 0->0
+MOVER tp/v11u309repro/cases/VF/vf19_gen_arr_two_mods NOT_EQUAL_stage1 -> STRICT_EQUAL_193_objects cmplines 60->0
+MOVER tp/v11u309repro/cases/VF/vf19_gen_arr_two_mods_el NOT_EQUAL_stage1 -> STRICT_EQUAL_220_objects cmplines 60->0
+MOVER tp/v11u309repro/cases/VZ/vz05_iface_arr_size_in_gen NOT_EQUAL_stage1 -> STRICT_EQUAL_154_objects cmplines 745->0
+MOVER tp/v11u309repro/cases/VZ/vz05_iface_arr_size_in_gen_el NOT_EQUAL_stage1 -> STRICT_EQUAL_188_objects cmplines 921->0
+ENTER tp/r10vrgg14repro/cells/v10
+ENTER tp/r10vrgg14repro/cells/v10_el
+ENTER tp/r10vrgg3repro/x5_iface_in_generate
+ENTER tp/r10vrgg3repro/x5_iface_in_generate_el
+ENTER tp/r11u280repro/cases/VR/r27_portactual
+ENTER tp/r11u296repro/cases/HC/hc01_direct_ref
+ENTER tp/r11u296repro/cases/HC/hc02_op_idx
+ENTER tp/r11u296repro/cases/HC/hc07_part_select
+ENTER tp/r11u296repro/cases/HC/hc12_depth2
+ENTER tp/r11u296repro/cases/HC/hc13_depth3
+ENTER tp/r11u296repro/cases/HC/hc17_two_insts
+ENTER tp/r11u296repro/cases/HC/hc18_iface_member
+ENTER tp/r11u296repro/cases/HC/hc19_base_op_idx
+ENTER tp/r11u296repro/cases/HC/hc20_two_sel_member
+ENTER tp/r11u309repro/cases/TS/s05_gen_inner_slice
+ENTER tp/r11u309repro/cases/TS/s05_gen_inner_slice_el
+ENTER tp/r11v133repro/tix/a10_port_conn
+ENTER tp/r11v178repro/cases/hx/x20_sub_inst_port
+ENTER tp/v11u296repro/cases/VH/vh04_two_idx_ports
+ENTER tp/v11u296repro/cases/VH/vh05_ips_port
+ENTER tp/v11u296repro/cases/VH/vh06_minus_ips
+ENTER tp/v11u296repro/cases/VH/vh07_unary_idx
+ENTER tp/v11u296repro/cases/VH/vh08_ternary_idx
+ENTER tp/v11u296repro/cases/VH/vh09_sysfn_idx
+ENTER tp/v11u296repro/cases/VH/vh12_member_two_level
+ENTER tp/v11u296repro/cases/VH/vh13_macro_idx
+ENTER tp/v11u296repro/cases/VH/vh22_two_level_port_chain
+ENTER tp/v11u296repro/cases/VH/vh25_program_port
+ENTER tp/v11u296repro/cases/VH/vh25_program_port_el
+ENTER tp/v11u296repro/cases/VH/vh26_wildcard_and_named
+ENTER tp/v11u309repro/cases/VF/vf19_gen_arr_two_mods
+ENTER tp/v11u309repro/cases/VF/vf19_gen_arr_two_mods_el
+ENTER tp/v11u309repro/cases/VZ/vz05_iface_arr_size_in_gen
+ENTER tp/v11u309repro/cases/VZ/vz05_iface_arr_size_in_gen_el
+CHANGED tp/r10vrgg3repro/x5_iface_in_generate
+CHANGED tp/r10vrgg3repro/x5_iface_in_generate_el
+CHANGED tp/r11u309repro/cases/TS/s05_gen_inner_slice
+CHANGED tp/r11u309repro/cases/TS/s05_gen_inner_slice_el
+CHANGED tp/v11u309repro/cases/VF/vf19_gen_arr_two_mods
+CHANGED tp/v11u309repro/cases/VF/vf19_gen_arr_two_mods_el
+CHANGED tp/v11u309repro/cases/VZ/vz05_iface_arr_size_in_gen
+CHANGED tp/v11u309repro/cases/VZ/vz05_iface_arr_size_in_gen_el

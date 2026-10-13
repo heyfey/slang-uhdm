@@ -1,0 +1,12 @@
+GI/g01_if_two_singles dist 0 -> 0 lost=0 gained=0 | chain away=18 toward=0 flat_away=18 flat_toward=0
+GI/g03_range_desc_el dist 0 -> 0 lost=0 gained=0 | chain away=18 toward=0 flat_away=18 flat_toward=0
+GI/g08_case_gen dist 0 -> 0 lost=0 gained=0 | chain away=18 toward=0 flat_away=18 flat_toward=0
+GI/g11_two_arrays_el dist 0 -> 0 lost=0 gained=0 | chain away=36 toward=0 flat_away=36 flat_toward=0
+GI/g14_param_iface dist 0 -> 0 lost=0 gained=0 | chain away=32 toward=0 flat_away=32 flat_toward=0
+GI/g17_slice_second_array_el dist 0 -> 0 lost=0 gained=0 | chain away=45 toward=0 flat_away=45 flat_toward=0
+GI/g24_param_size dist 0 -> 0 lost=0 gained=0 | chain away=27 toward=0 flat_away=27 flat_toward=0
+GI/g26_pos_genfor_idx_el dist 0 -> 4 lost=4 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+GI/g29_named_spaces dist 0 -> 0 lost=0 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+GI/g35_pos_three_terminals_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+GI/g38_genfor_spaces dist 0 -> 0 lost=0 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+HB/b02_logic_idx dist 0 -> 0 lost=6 gained=0 | chain away=6 toward=0 flat_away=6 flat_toward=0
