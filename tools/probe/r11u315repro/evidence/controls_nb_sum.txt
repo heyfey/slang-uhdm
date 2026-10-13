@@ -1,0 +1,93 @@
+case-views=1670 moving=44 entering=42 leaving=0 rc-changed=0 cmplines-changed=6
+MOVER r313/GP/p37_ipsel_varbase_modlevel STRICT_NOTEQUAL_depth -> STRICT_EQUAL_181_objects cmplines 0->0
+MOVER r313/GP/p45_ipsel_desc_modlevel STRICT_NOTEQUAL_depth -> STRICT_EQUAL_181_objects cmplines 0->0
+MOVER r313/GP/p46_op_conn_modlevel STRICT_NOTEQUAL_depth -> STRICT_EQUAL_163_objects cmplines 0->0
+MOVER r313/GP/p47_concat_modlevel STRICT_NOTEQUAL_depth -> STRICT_EQUAL_149_objects cmplines 0->0
+MOVER r313/GP/p49_ternary_ifgen NOT_EQUAL_stage1 -> STRICT_EQUAL_170_objects cmplines 62->0
+MOVER r313/GP/p49_ternary_ifgen_el NOT_EQUAL_stage1 -> STRICT_EQUAL_189_objects cmplines 62->0
+MOVER tp/r11u193repro/cases/CL/s12 STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_164_objects cmplines 0->0
+MOVER tp/r11u193repro/cases/CL/s12_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_156_objects cmplines 0->0
+MOVER v313/VG/vg02_syscall_gen NOT_EQUAL_stage1 -> STRICT_EQUAL_142_objects cmplines 38->0
+MOVER v313/VG/vg02_syscall_gen_el NOT_EQUAL_stage1 -> STRICT_EQUAL_161_objects cmplines 38->0
+MOVER v313/VG/vg06_gen_in_genchild STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_229_objects cmplines 0->0
+MOVER v313/VG/vg06_gen_in_genchild_el STRICT_EQUAL_248_objects -> STRICT_EQUAL_248_objects cmplines 0->0
+MOVER v313/VG/vg09_cast_gen STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_155_objects cmplines 0->0
+MOVER v313/VG/vg09_cast_gen_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_174_objects cmplines 0->0
+MOVER v313/VG/vg16_iface_gen_in_iface STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_164_objects cmplines 0->0
+MOVER v313/VG/vg16_iface_gen_in_iface_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_163_objects cmplines 0->0
+MOVER v313/VG/vg18_modlevel_after_gen STRICT_NOTEQUAL_depth -> STRICT_EQUAL_221_objects cmplines 0->0
+MOVER v313/VG/vg20_for_in_if STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_243_objects cmplines 0->0
+MOVER v313/VG/vg20_for_in_if_el STRICT_EQUAL_281_objects -> STRICT_EQUAL_281_objects cmplines 0->0
+MOVER v313/VG/vg23_ternary_bitsel_gen NOT_EQUAL_stage1 -> STRICT_EQUAL_171_objects cmplines 126->0
+MOVER v313/VG/vg23_ternary_bitsel_gen_el NOT_EQUAL_stage1 -> STRICT_EQUAL_190_objects cmplines 126->0
+MOVER v313/VG/vg33_param_ovr_genvar STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_175_objects cmplines 0->0
+MOVER v313/VG/vg33_param_ovr_genvar_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_217_objects cmplines 0->0
+MOVER v313/VG/vg41_gen_two_level_for STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_417_objects cmplines 0->0
+MOVER v313/VG/vg41_gen_two_level_for_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_493_objects cmplines 0->0
+MOVER v313/VG/vg44_bind_into_gen_iface_mod STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_172_objects cmplines 0->0
+MOVER v313/VG/vg44_bind_into_gen_iface_mod_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_183_objects cmplines 0->0
+MOVER v313/VG/vg46_nested_iface_in_gen_iface_in_gen STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_137_objects cmplines 0->0
+MOVER v313/VG/vg46_nested_iface_in_gen_iface_in_gen_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_197_objects cmplines 0->0
+MOVER v313/VM/vm03_unary STRICT_NOTEQUAL_depth -> STRICT_EQUAL_149_objects cmplines 0->0
+MOVER v313/VM/vm04_ternary STRICT_NOTEQUAL_depth -> STRICT_EQUAL_178_objects cmplines 0->0
+MOVER v313/VM/vm05_redconcat_bitsel STRICT_NOTEQUAL_depth -> STRICT_EQUAL_176_objects cmplines 0->0
+MOVER v313/VM/vm05_redconcat_bitsel_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_171_objects cmplines 0->0
+MOVER v313/VM/vm07_syscall STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_149_objects cmplines 0->0
+MOVER v313/VM/vm07_syscall_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_144_objects cmplines 0->0
+MOVER v313/VM/vm14_bitsel_operand STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_186_objects cmplines 0->0
+MOVER v313/VM/vm14_bitsel_operand_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_181_objects cmplines 0->0
+MOVER v313/VM/vm25_nested_ops STRICT_NOTEQUAL_depth -> STRICT_EQUAL_180_objects cmplines 0->0
+MOVER v313/VM/vm26_cast STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_161_objects cmplines 0->0
+MOVER v313/VM/vm26_cast_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_157_objects cmplines 0->0
+MOVER v313/VM/vm27_replication STRICT_NOTEQUAL_depth -> STRICT_EQUAL_153_objects cmplines 0->0
+MOVER v313/VM/vm29_ipsel_opbase STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_185_objects cmplines 0->0
+MOVER v313/VM/vm29_ipsel_opbase_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_180_objects cmplines 0->0
+MOVER v313/VM/vm40_crlf_op STRICT_NOTEQUAL_depth -> STRICT_EQUAL_163_objects cmplines 0->0
+ENTER r313/GP/p37_ipsel_varbase_modlevel
+ENTER r313/GP/p45_ipsel_desc_modlevel
+ENTER r313/GP/p46_op_conn_modlevel
+ENTER r313/GP/p47_concat_modlevel
+ENTER r313/GP/p49_ternary_ifgen
+ENTER r313/GP/p49_ternary_ifgen_el
+ENTER tp/r11u193repro/cases/CL/s12
+ENTER tp/r11u193repro/cases/CL/s12_el
+ENTER v313/VG/vg02_syscall_gen
+ENTER v313/VG/vg02_syscall_gen_el
+ENTER v313/VG/vg06_gen_in_genchild
+ENTER v313/VG/vg09_cast_gen
+ENTER v313/VG/vg09_cast_gen_el
+ENTER v313/VG/vg16_iface_gen_in_iface
+ENTER v313/VG/vg16_iface_gen_in_iface_el
+ENTER v313/VG/vg18_modlevel_after_gen
+ENTER v313/VG/vg20_for_in_if
+ENTER v313/VG/vg23_ternary_bitsel_gen
+ENTER v313/VG/vg23_ternary_bitsel_gen_el
+ENTER v313/VG/vg33_param_ovr_genvar
+ENTER v313/VG/vg33_param_ovr_genvar_el
+ENTER v313/VG/vg41_gen_two_level_for
+ENTER v313/VG/vg41_gen_two_level_for_el
+ENTER v313/VG/vg44_bind_into_gen_iface_mod
+ENTER v313/VG/vg44_bind_into_gen_iface_mod_el
+ENTER v313/VG/vg46_nested_iface_in_gen_iface_in_gen
+ENTER v313/VG/vg46_nested_iface_in_gen_iface_in_gen_el
+ENTER v313/VM/vm03_unary
+ENTER v313/VM/vm04_ternary
+ENTER v313/VM/vm05_redconcat_bitsel
+ENTER v313/VM/vm05_redconcat_bitsel_el
+ENTER v313/VM/vm07_syscall
+ENTER v313/VM/vm07_syscall_el
+ENTER v313/VM/vm14_bitsel_operand
+ENTER v313/VM/vm14_bitsel_operand_el
+ENTER v313/VM/vm25_nested_ops
+ENTER v313/VM/vm26_cast
+ENTER v313/VM/vm26_cast_el
+ENTER v313/VM/vm27_replication
+ENTER v313/VM/vm29_ipsel_opbase
+ENTER v313/VM/vm29_ipsel_opbase_el
+ENTER v313/VM/vm40_crlf_op
+CHANGED r313/GP/p49_ternary_ifgen
+CHANGED r313/GP/p49_ternary_ifgen_el
+CHANGED v313/VG/vg02_syscall_gen
+CHANGED v313/VG/vg02_syscall_gen_el
+CHANGED v313/VG/vg23_ternary_bitsel_gen
+CHANGED v313/VG/vg23_ternary_bitsel_gen_el

@@ -1,0 +1,5 @@
+PATH_SETS_IDENTICAL (3365 paths)
+MOVERS: 0 / 3365
+SELFCHECK (every file vs one fixed file): 3363 / 3365 flagged
+SELFCHECK_FAILED
+probe movers 0 of 4087

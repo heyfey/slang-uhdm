@@ -1,0 +1,12 @@
+DG/d01_tern_iface_gen dist 0 -> 0 lost=0 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+DG/d05_tern_bitsel_mod_gen_el dist 0 -> 0 lost=0 gained=0 | chain away=6 toward=0 flat_away=4 flat_toward=0
+OS/o03_bitsel_refidx_mod dist 0 -> 2 lost=3 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+OS/o07_syscall_gen_el dist 0 -> 0 lost=0 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+OS/o15_nested_op_bitsel_mod dist 0 -> 1 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+TN/t02_and_nested_right dist 0 -> 0 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+TN/t11_net_decl_used dist 0 -> 0 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+TN/t18_cast_gen dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+VA/a07_hier_operand dist 0 -> 0 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+VA/a17_unbased_ops_gen_twolevel dist 0 -> 8 lost=8 gained=0 | chain away=8 toward=0 flat_away=8 flat_toward=0
+VA/a21_sys_gen_for_el dist 0 -> 0 lost=0 gained=0 | chain away=5 toward=0 flat_away=5 flat_toward=0
+VC/c04_tern_genvar_forgen dist 0 -> 0 lost=0 gained=0 | chain away=8 toward=0 flat_away=8 flat_toward=0

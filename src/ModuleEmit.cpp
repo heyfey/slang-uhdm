@@ -54547,6 +54547,204 @@ static void ifaceHcSelNamedByInst313(UHDM::any* h, const std::string& inst,
     idx(bs->VpiIndex(), inst, inst + "." + std::string(bs->VpiName()));
 }
 
+// § ifaceHcOpSelByInst315 (r11u315): see the call site in
+// emitInterfaceInstance's port loop, after § ifaceHcSelNamedByInst313.  In an
+// operation actual of an elaborated interface port (a concatenation, unary
+// or ternary operation included) every select operand is named through the
+// interface port, <instance>.<port>.<name>, as Surelog compiles the
+// connection in the instance's scope: a bit_select `ck[0]`
+// (golden r11u315repro OS/o01_xor_bitsel_mod work@top.u.clk.ck), an indexed
+// part select (o11 work@top.u.clk.ck); a reference written directly as the
+// select's index or base <instance>.<port>.<name> (o03 work@top.u.clk.s,
+// o11 work@top.u.clk.s), one inside an index operation
+// <instance>.<port>.<select>.<name> (o05 work@top.u.clk.ck.s), also under
+// an indexed part select that IS the actual (v11u313repro VM/vm29
+// `ck[s+1 +: 1]` work@top.u.clk.ck.s).  Pass 313's walker renamed only the
+// reference operands and a direct base reference.  Switch R11U315_OPSEL_OFF.
+// § ifaceHcCallArgByInst315: the arguments of a system function call, at
+// the actual's top or inside an operation, follow the same rule
+// (o06 `$signed(a)` work@top.u.clk.a, o14 `$signed(ck[1])`
+// work@top.u.clk.ck).  Switch R11U315_CALLARG_OFF.
+static void ifaceHcOpSelByInst315(UHDM::any* x, const std::string& pre, bool inCall) {
+    if (!x)
+        return;
+    auto setName = [&](UHDM::any* o, const std::string& fn, const char* law,
+                       const char* what) {
+        std::string cur;
+        switch (o->UhdmType()) {
+        case UHDM::uhdmref_obj:
+            cur = std::string(((UHDM::ref_obj*)o)->VpiFullName());
+            break;
+        case UHDM::uhdmbit_select:
+            cur = std::string(((UHDM::bit_select*)o)->VpiFullName());
+            break;
+        case UHDM::uhdmindexed_part_select:
+            cur = std::string(((UHDM::indexed_part_select*)o)->VpiFullName());
+            break;
+        default:
+            return;
+        }
+        if (cur == fn)
+            return;
+        if (!lawOn(315, inCall ? "R11U315_CALLARG_OFF" : "R11U315_OPSEL_OFF"))
+            return;
+        lawTrace(315, law, std::string(what) + " " + fn);
+        switch (o->UhdmType()) {
+        case UHDM::uhdmref_obj:
+            ((UHDM::ref_obj*)o)->VpiFullName(fn);
+            break;
+        case UHDM::uhdmbit_select:
+            ((UHDM::bit_select*)o)->VpiFullName(fn);
+            break;
+        default:
+            ((UHDM::indexed_part_select*)o)->VpiFullName(fn);
+            break;
+        }
+    };
+    const char* law = inCall ? "ifaceHcCallArgByInst315" : "ifaceHcOpSelByInst315";
+    // the index walker: a reference written directly as the index or base
+    // takes <pre>.<name>; one inside an index operation <nested>.<name>
+    std::function<void(UHDM::any*, const std::string&)> idx =
+        [&](UHDM::any* i, const std::string& nested) {
+            if (!i)
+                return;
+            if (i->UhdmType() == UHDM::uhdmref_obj)
+                setName(i, pre + "." + std::string(((UHDM::ref_obj*)i)->VpiName()), law,
+                        "index");
+            else if (i->UhdmType() == UHDM::uhdmoperation) {
+                if (auto* ops = ((UHDM::operation*)i)->Operands())
+                    for (auto* o : *ops) {
+                        if (o && o->UhdmType() == UHDM::uhdmref_obj)
+                            setName(o,
+                                    nested + "." +
+                                        std::string(((UHDM::ref_obj*)o)->VpiName()),
+                                    law, "index");
+                        else
+                            idx(o, nested);
+                    }
+            }
+        };
+    switch (x->UhdmType()) {
+    case UHDM::uhdmref_obj:
+        if (inCall)
+            setName(x, pre + "." + std::string(((UHDM::ref_obj*)x)->VpiName()), law,
+                    "ref");
+        break;
+    case UHDM::uhdmoperation:
+        if (auto* ops = ((UHDM::operation*)x)->Operands())
+            for (auto* o : *ops)
+                ifaceHcOpSelByInst315(o, pre, inCall);
+        break;
+    case UHDM::uhdmbit_select: {
+        auto* bs = (UHDM::bit_select*)x;
+        std::string fn = pre + "." + std::string(bs->VpiName());
+        setName(bs, fn, law, "bit_select");
+        idx(bs->VpiIndex(), fn);
+        break;
+    }
+    case UHDM::uhdmindexed_part_select: {
+        auto* ips = (UHDM::indexed_part_select*)x;
+        std::string fn = pre + "." + std::string(ips->VpiName());
+        setName(ips, fn, law, "ips");
+        idx(ips->Base_expr(), fn);
+        break;
+    }
+    case UHDM::uhdmsys_func_call:
+        if (auto* args = ((UHDM::sys_func_call*)x)->Tf_call_args())
+            for (auto* a : *args)
+                ifaceHcOpSelByInst315(a, pre, true);
+        break;
+    default:
+        break;
+    }
+}
+
+// § ifaceConnLeftmostLeafElab315 (r11u315): see the call site in
+// emitInterfaceInstance's port loop.  `castLeaf` holds the start of every
+// cast operand's leaf (castLeaves193).  `h` is the elaborated HighConn,
+// `parentNets` the instantiating instance's net map, `defNets` its
+// definition's.
+static void ifaceConnLeftmostLeafElab315(
+    UHDM::any* h, const NetMap139& parentNets, const NetMap139& defNets,
+    const std::set<std::pair<uint32_t, uint32_t>>& castLeaf, const std::string& where) {
+    NetMap139 dv = defView139(parentNets, defNets);
+    std::map<const UHDM::any*, UHDM::any*> e2d;
+    for (auto& [sy, ob] : parentNets) {
+        if (!sy || !ob || (sy->kind != SymbolKind::Net && sy->kind != SymbolKind::Variable))
+            continue;
+        auto d = dv.find(sy);
+        if (d != dv.end() && d->second && d->second != ob)
+            e2d.emplace(ob, d->second);
+    }
+    if (e2d.empty())
+        return;
+    auto binLike = [](int32_t t) {
+        return (t >= vpiSubOp && t <= vpiConditionOp) || t == vpiArithLShiftOp ||
+               t == vpiArithRShiftOp || t == vpiPowerOp || t == vpiWildEqOp ||
+               t == vpiWildNeqOp || t == vpiInsideOp;
+    };
+    const UHDM::any* leaf = nullptr;
+    {
+        const UHDM::any* c = h;
+        while (c && (c->UhdmType() == UHDM::uhdmoperation ||
+                     c->UhdmType() == UHDM::uhdmbit_select)) {
+            if (c->UhdmType() == UHDM::uhdmbit_select) {
+                c = ((const UHDM::bit_select*)c)->VpiIndex();
+                continue;
+            }
+            auto* op = (const UHDM::operation*)c;
+            if (!binLike(op->VpiOpType()) || !op->Operands() || op->Operands()->empty())
+                break;
+            c = (*op->Operands())[0];
+        }
+        if (c && c->UhdmType() == UHDM::uhdmref_obj)
+            leaf = c;
+    }
+    std::function<void(UHDM::any*)> walk = [&](UHDM::any* n) {
+        if (!n)
+            return;
+        switch (n->UhdmType()) {
+        case UHDM::uhdmoperation:
+            if (auto* os = ((UHDM::operation*)n)->Operands())
+                for (auto* o : *os)
+                    walk(o);
+            return;
+        case UHDM::uhdmsys_func_call:
+            if (auto* as = ((UHDM::sys_func_call*)n)->Tf_call_args())
+                for (auto* a : *as)
+                    walk(a);
+            return;
+        case UHDM::uhdmbit_select:
+            walk(((UHDM::bit_select*)n)->VpiIndex());
+            return;
+        case UHDM::uhdmindexed_part_select:
+            walk(((UHDM::indexed_part_select*)n)->Base_expr());
+            return;
+        case UHDM::uhdmref_obj: {
+            if (n == leaf)
+                return;
+            // a cast's leaf (§ castOperandLeafElab193's rule: through left
+            // operands, ternary conditions and select indices of the cast's
+            // operand) keeps the instance's object (r11u193repro CL/s12
+            // `.d(7'(r))`, r11u315repro TN/t16_cast_operand, t17, t19)
+            if (castLeaf.count({n->VpiLineNo(), n->VpiColumnNo()}))
+                return;
+            auto* r = (UHDM::ref_obj*)n;
+            auto it = r->Actual_group() ? e2d.find(r->Actual_group()) : e2d.end();
+            if (it == e2d.end())
+                return;
+            lawTrace(315, "ifaceConnLeftmostLeafElab315",
+                     where + " " + std::string(r->VpiName()));
+            r->Actual_group(it->second);
+            return;
+        }
+        default:
+            return;
+        }
+    };
+    walk(h);
+}
+
 UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& inst,
                                                           const std::string& path,
                                                           UHDM::instance* parentM,
@@ -58714,6 +58912,93 @@ ifaceProcsDone283:
                     // instantiating scope.  Switch R11U313_HCSELINST_OFF.
                     if (lawOn(313, "R11U313_HCSELINST_OFF"))
                         ifaceHcSelNamedByInst313(h, prefix, std::string(ps.name));
+                    // § ifaceHcOpSelByInst315 / § ifaceHcCallArgByInst315
+                    // (r11u315) — the select operands and call arguments
+                    // of an operation or call actual named through the
+                    // interface port (see the helper).  Switches
+                    // R11U315_OPSEL_OFF, R11U315_CALLARG_OFF.
+                    if (h->UhdmType() == UHDM::uhdmoperation ||
+                        h->UhdmType() == UHDM::uhdmsys_func_call ||
+                        h->UhdmType() == UHDM::uhdmindexed_part_select)
+                        ifaceHcOpSelByInst315(h, prefix + "." + std::string(ps.name),
+                                              false);
+                    // § ifaceConnCastTsNamedByPort315 (r11u315) — the
+                    // interface twin of § connCastTsNamedByPort193: nothing
+                    // names a cast's typespec reference in an interface
+                    // port's actual, so its full name is the parent chain's,
+                    // <instance>.<port> (golden r11u315repro
+                    // TN/t15_cast_whole `.clk(1'(a))` work@top.u.clk,
+                    // t18_cast_gen work@top.g.u.clk), at any depth of the
+                    // actual; ours carried the instantiating scope's path.
+                    // Switch R11U315_CASTTSNAME_OFF.
+                    if (lawOn(315, "R11U315_CASTTSNAME_OFF")) {
+                        const std::string cts315 = prefix + "." + std::string(ps.name);
+                        std::function<void(UHDM::any*)> ct315 = [&](UHDM::any* x) {
+                            if (!x)
+                                return;
+                            if (x->UhdmType() == UHDM::uhdmoperation) {
+                                auto* o = (UHDM::operation*)x;
+                                if (o->VpiOpType() == vpiCastOp)
+                                    if (auto* rt = o->Typespec();
+                                        rt && rt->VpiFullName() != cts315) {
+                                        lawTrace(315, "ifaceConnCastTsNamedByPort315",
+                                                 cts315);
+                                        rt->VpiFullName(cts315);
+                                    }
+                                if (auto* os = o->Operands())
+                                    for (auto* e : *os)
+                                        ct315(e);
+                            }
+                            else if (x->UhdmType() == UHDM::uhdmsys_func_call) {
+                                if (auto* as = ((UHDM::sys_func_call*)x)->Tf_call_args())
+                                    for (auto* e : *as)
+                                        ct315(e);
+                            }
+                            else if (x->UhdmType() == UHDM::uhdmbit_select)
+                                ct315(((UHDM::bit_select*)x)->VpiIndex());
+                        };
+                        ct315(h);
+                    }
+                    // § ifaceConnLeftmostLeafElab315 (r11u315) — the
+                    // interface twin of § connLeftmostLeafElab139: Surelog
+                    // compiles an interface instance's operation actual in
+                    // NetlistElaboration's port-connection loop with the
+                    // PARENT instance, so the one leaf reached through left
+                    // operands, a ternary's condition and a bit-select's
+                    // index resolves in the parent's netlist and every other
+                    // reference goes to the parent DEFINITION's late binding
+                    // and names its net (a concatenation or unary operand, a
+                    // system call's argument and an indexed part select's
+                    // base have no leaf).  golden r11u315repro TN/t01_and3
+                    // `.clk(a & b & c)` binds b and c to the definition's
+                    // logic_net (not yet walked in uhdmtopModules, the extra
+                    // object pass 313 found), a to the elaborated one.
+                    // Module scope only (in a generate block
+                    // § genIfaceHcInnerRefUnbound313 unbinds them); a
+                    // udp-shaped instantiation stands aside.  Switch
+                    // R11U315_IFLEAFDEF_OFF.
+                    if (!gen313 && parentNets && !udpShapedInstantiation(inst) &&
+                        (h->UhdmType() == UHDM::uhdmoperation ||
+                         h->UhdmType() == UHDM::uhdmsys_func_call ||
+                         h->UhdmType() == UHDM::uhdmindexed_part_select) &&
+                        lawOn(315, "R11U315_IFLEAFDEF_OFF"))
+                        if (auto* ps315 = inst.getParentScope();
+                            ps315 && ps315->asSymbol().kind == SymbolKind::InstanceBody)
+                            if (auto pd315 = defMap.find(&ps315->asSymbol()
+                                                              .as<InstanceBodySymbol>()
+                                                              .getDefinition());
+                                pd315 != defMap.end() && &pd315->second.nets != parentNets)
+                                {
+                                    std::set<std::pair<uint32_t, uint32_t>> cl315;
+                                    castLeaves193(*expr, [&](const Expression& lx) {
+                                        uint32_t l315 = 0, c315 = 0;
+                                        locLineCol(lx.sourceRange.start(), l315, c315);
+                                        cl315.insert({l315, c315});
+                                    });
+                                    ifaceConnLeftmostLeafElab315(h, *parentNets,
+                                                                 pd315->second.nets, cl315,
+                                                                 prefix);
+                                }
                     // § genIfaceHcInnerRefUnbound313 (r11u313) — in a
                     // generate block the references INSIDE an interface
                     // port's actual stay unbound in golden (the whole-name
@@ -58724,6 +59009,80 @@ ifaceProcsDone283:
                     // each to the module's net.  The module-level twins keep
                     // their bindings (p38, p46, p47).  Switch
                     // R11U313_GENIFHCUNBIND_OFF.
+                    // § genIfaceHcCallArgUnbound315 (r11u315) — the twin of
+                    // § genIfaceHcInnerRefUnbound313 for a system call: in a
+                    // generate block the references in a system call's
+                    // arguments, at the actual's top or under an operation,
+                    // stay unbound in golden too (r11u315repro
+                    // DG/d02_sys_iface_gen `.clk($signed(a))` lists ref_obj
+                    // work@top.g.u.clk.a with no vpiActual); pass 313's
+                    // walker stops at the call.  Switch
+                    // R11U315_GENCALLUNBIND_OFF.
+                    if (gen313 && lawOn(315, "R11U315_GENCALLUNBIND_OFF")) {
+                        // § genCallArgLocalKeepsBind315v (v11u315) — Surelog
+                        // compiles the actual in the generate scope, so a
+                        // name declared INSIDE a generate block (the scope of
+                        // the instance or an enclosing one) resolves there
+                        // and keeps its binding; only the module-level names
+                        // go unbound (golden v11u315repro
+                        // VU/vu04_sys_gen_local_net `$signed(l)` with
+                        // `logic l` in the block lists ref_obj
+                        // work@top.g.u.clk.l bound to logic_var work@top.g.l;
+                        // vu08 `$signed(l) & a` binds l and leaves a
+                        // unbound; vu09 a block-local `a` shadowing the
+                        // module's).  The law unbound them, moving vu08's
+                        // default view from judge-equal to uhdm-cmp stage 1.
+                        // The block-local references are found on the slang
+                        // tree and matched by their start position.  Switch
+                        // R11V315_GENLOCALBIND_OFF.
+                        std::set<std::pair<uint32_t, uint32_t>> genLocal315v;
+                        if (fixOn(315, "R11V315_GENLOCALBIND_OFF") && expr)
+                            expr->visit(makeVisitor(
+                                [&](auto& v, const NamedValueExpression& nv) {
+                                    if (auto* sc = nv.symbol.getParentScope();
+                                        sc && sc->asSymbol().kind ==
+                                                  SymbolKind::GenerateBlock) {
+                                        uint32_t l = 0, c = 0;
+                                        locLineCol(nv.sourceRange.start(), l, c);
+                                        genLocal315v.insert({l, c});
+                                    }
+                                    v.visitDefault(nv);
+                                }));
+                        std::function<void(UHDM::any*)> sc315 = [&](UHDM::any* x) {
+                            if (!x)
+                                return;
+                            if (x->UhdmType() == UHDM::uhdmsys_func_call) {
+                                if (auto* as = ((UHDM::sys_func_call*)x)->Tf_call_args())
+                                    for (auto* a : *as) {
+                                        if (a && a->UhdmType() == UHDM::uhdmref_obj &&
+                                            genLocal315v.count(
+                                                {a->VpiLineNo(), a->VpiColumnNo()})) {
+                                            if (((UHDM::ref_obj*)a)->Actual_group())
+                                                lawTrace(315, "genCallArgLocalKeepsBind315v",
+                                                         prefix + " " +
+                                                             std::string(a->VpiName()));
+                                        }
+                                        else if (a && a->UhdmType() == UHDM::uhdmref_obj &&
+                                            ((UHDM::ref_obj*)a)->Actual_group()) {
+                                            lawTrace(315, "genIfaceHcCallArgUnbound315",
+                                                     prefix + " " +
+                                                         std::string(a->VpiName()));
+                                            ((UHDM::ref_obj*)a)->Actual_group(nullptr);
+                                        }
+                                        else if (a && a->UhdmType() != UHDM::uhdmref_obj)
+                                            sc315(a);
+                                    }
+                            }
+                            else if (x->UhdmType() == UHDM::uhdmoperation) {
+                                if (auto* os = ((UHDM::operation*)x)->Operands())
+                                    for (auto* o : *os)
+                                        sc315(o);
+                            }
+                            else if (x->UhdmType() == UHDM::uhdmbit_select)
+                                sc315(((UHDM::bit_select*)x)->VpiIndex());
+                        };
+                        sc315(h);
+                    }
                     if (gen313 && h->UhdmType() != UHDM::uhdmref_obj &&
                         lawOn(313, "R11U313_GENIFHCUNBIND_OFF")) {
                         if (h->UhdmType() == UHDM::uhdmoperation) {
@@ -60286,6 +60645,24 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 mkIdxTx9(idx9, idxSt9, bs9, idxScope9));
                             return bs9;
                         };
+                        // § genConnTernSysActual315 (r11u315) — a
+                        // conditional actual (`.clk(s ? a : b)`) and a
+                        // system-call actual (`.clk($signed(a))`) of a
+                        // generate-block child in the definition view are the
+                        // next two shapes with no arm of their own: Surelog
+                        // writes operation 32 over the condition and the
+                        // branches and the sys_func_call, their references
+                        // scoped through the formal and a select operand or
+                        // argument in the select-leaf shape (golden
+                        // r11u315repro DG/d01_tern_iface_gen
+                        // work@top.g.u.clk.s, d02_sys_iface_gen
+                        // work@top.g.u.clk.a, d05_tern_bitsel_mod_gen
+                        // bit_select work@top.g.c.clk.ck at the index), for
+                        // module and interface children alike; ours fell to
+                        // the final else's ref_obj named with the actual's
+                        // text.  Switch R11U315_DEFGENTERNSYS_OFF.
+                        const bool ternSys315 =
+                            lawOn(315, "R11U315_DEFGENTERNSYS_OFF");
                         // § genConnOperatorActual (r10earl6), made RECURSIVE
                         // and select-aware by r10earl8: an operand that is
                         // itself an operator (`a & ~b`) nests, and an operand
@@ -60300,6 +60677,18 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             -> UHDM::expr* {
                             int32_t uo9 = mapSynUnaryOp9(e09.kind);
                             int32_t bo9 = mapSynBinaryOp9(e09.kind);
+                            // § genConnTernSysActual315: a conditional is
+                            // operation 32 over its condition and branches.
+                            const bool tern315 =
+                                ternSys315 &&
+                                e09.kind == syntax::SyntaxKind::ConditionalExpression &&
+                                e09.as<syntax::ConditionalExpressionSyntax>()
+                                        .predicate->conditions.size() == 1 &&
+                                !e09.as<syntax::ConditionalExpressionSyntax>()
+                                     .predicate->conditions[0]
+                                     ->matchesClause;
+                            if (tern315)
+                                bo9 = vpiConditionOp;
                             if (!uo9 && !bo9)
                                 return nullptr;
                             auto* op9 = s.MakeOperation();
@@ -60338,7 +60727,16 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                     if (auto* e9c = emitSyntaxExpr(*oe9, op9))
                                         ov9->push_back(e9c);
                                 };
-                            if (uo9)
+                            if (tern315) {
+                                auto& ce315 =
+                                    e09.as<syntax::ConditionalExpressionSyntax>();
+                                add9(ce315.predicate->conditions[0]->expr);
+                                add9(ce315.left);
+                                add9(ce315.right);
+                                lawTrace(315, "genConnTernSysActual315",
+                                         "cond " + scope9);
+                            }
+                            else if (uo9)
                                 add9(e09.as<syntax::
                                                 PrefixUnaryExpressionSyntax>()
                                          .operand);
@@ -60419,12 +60817,89 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         // keep their text parse for everything that is not an
                         // operator.
                         if (mapSynUnaryOp9(actSyn9->kind) != 0 ||
-                            mapSynBinaryOp9(actSyn9->kind) != 0) {
+                            mapSynBinaryOp9(actSyn9->kind) != 0 ||
+                            (ternSys315 &&
+                             actSyn9->kind ==
+                                 syntax::SyntaxKind::ConditionalExpression)) {
                             std::string oscope9 = branchPrefix + "." + iname +
                                                   "." + formal;
                             if (auto* op9 =
                                     mkConnOpTree9(*actSyn9, p, oscope9))
                                 p->High_conn(op9);
+                        }
+                        // § genConnTernSysActual315: the system call.
+                        else if (ternSys315 &&
+                                 actSyn9->kind ==
+                                     syntax::SyntaxKind::InvocationExpression &&
+                                 actSyn9->as<syntax::InvocationExpressionSyntax>()
+                                         .left->kind ==
+                                     syntax::SyntaxKind::SystemName) {
+                            std::string sscope315 = branchPrefix + "." + iname +
+                                                    "." + formal;
+                            // a nested system call argument takes the same
+                            // shape (VC/c06_sys_nested `$signed($unsigned(a))`)
+                            std::function<UHDM::any*(const syntax::SyntaxNode&,
+                                                     UHDM::any*)>
+                                mkSys315 = [&](const syntax::SyntaxNode& se315,
+                                               UHDM::any* par315) -> UHDM::any* {
+                                auto savedSP315 = syntaxRefPrefix;
+                                syntaxRefPrefix = sscope315;
+                                auto* e315 = emitSyntaxExpr(se315, par315);
+                                syntaxRefPrefix = savedSP315;
+                                if (!e315 ||
+                                    e315->UhdmType() != UHDM::uhdmsys_func_call)
+                                    return e315;
+                                auto* sc315 = (UHDM::sys_func_call*)e315;
+                                auto& inv315 =
+                                    se315.as<syntax::InvocationExpressionSyntax>();
+                                auto* as315 = sc315->Tf_call_args();
+                                if (as315 && inv315.arguments &&
+                                    inv315.arguments->parameters.size() ==
+                                        as315->size())
+                                    for (size_t i315 = 0; i315 < as315->size();
+                                         ++i315) {
+                                        auto* a315 =
+                                            inv315.arguments->parameters[i315];
+                                        if (a315->kind !=
+                                            syntax::SyntaxKind::OrderedArgument)
+                                            continue;
+                                        const syntax::SyntaxNode* ap315 =
+                                            a315->as<syntax::OrderedArgumentSyntax>()
+                                                .expr;
+                                        if (ap315->kind ==
+                                            syntax::SyntaxKind::SimplePropertyExpr)
+                                            ap315 = ap315->as<syntax::
+                                                                  SimplePropertyExprSyntax>()
+                                                        .expr;
+                                        if (ap315->kind ==
+                                            syntax::SyntaxKind::SimpleSequenceExpr)
+                                            ap315 = ap315->as<syntax::
+                                                                  SimpleSequenceExprSyntax>()
+                                                        .expr;
+                                        auto& ae315 = *ap315;
+                                        UHDM::any* n315 =
+                                            mkConnOpTree9(ae315, sc315, sscope315);
+                                        if (!n315)
+                                            n315 = mkOpSelLeaf9(ae315, sc315,
+                                                                sscope315);
+                                        if (!n315 &&
+                                            ae315.kind ==
+                                                syntax::SyntaxKind::InvocationExpression &&
+                                            ae315.as<syntax::InvocationExpressionSyntax>()
+                                                    .left->kind ==
+                                                syntax::SyntaxKind::SystemName)
+                                            n315 = mkSys315(ae315, sc315);
+                                        if (n315)
+                                            (*as315)[i315] = n315;
+                                    }
+                                return e315;
+                            };
+                            auto* e315 = mkSys315(*actSyn9, p);
+                            if (e315) {
+                                lawTrace(315, "genConnTernSysActual315",
+                                         "syscall " + sscope315);
+                                p->High_conn((UHDM::expr*)e315);
+                            }
                         }
                         else if (dotHp9 &&
                             dotHp9->UhdmType() == UHDM::uhdmhier_path) {

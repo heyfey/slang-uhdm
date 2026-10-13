@@ -1,0 +1,12 @@
+v/VD/vd03_sys_tern_arg dist 0 -> 0 lost=0 gained=0 | chain away=5 toward=0 flat_away=5 flat_toward=0
+v/VD/vd12_tern_unary_branch_el dist 0 -> 0 lost=0 gained=0 | chain away=6 toward=0 flat_away=6 flat_toward=0
+v/VD/vd18_crlf_tern dist 0 -> 0 lost=0 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+v/VD/vd22_tern_two_level_gen_twice_el dist 0 -> 0 lost=0 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+v/VK/vk06_cast_depth2 dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+v/VL/vl06_replication dist 0 -> 0 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+v/VL/vl15_pkg_param_operand dist 0 -> 0 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+v/VL/vl21_two_sys_calls_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+v/VO/vo04_depth2_parent_el dist 0 -> 3 lost=3 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+v/VO/vo13_macro_bitsel dist 0 -> 3 lost=3 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+v/VO/vo16_sys_nested_mod_el dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+v/VU/vu01_sys_and_ref_gen_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0

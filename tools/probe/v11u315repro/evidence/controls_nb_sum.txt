@@ -1,0 +1,1 @@
+# caseviews 1670 moving 44 entering 42 leaving 0 OFF!=P 1670 {'none': 44}

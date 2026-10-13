@@ -1,0 +1,5 @@
+MOVE v/VU/vu04_sys_gen_local_net LAW=NOT_EQUAL_stage1 L=STRICT_EQUAL_90_objects cmplines 31->0 rc 0->0 restore=R11V315_GENLOCALBIND_OFF  
+MOVE v/VU/vu08_sys_local_and_outer LAW=NOT_EQUAL_stage1 L=STRICT_EQUAL_96_objects cmplines 31->0 rc 0->0 restore=R11V315_GENLOCALBIND_OFF  
+MOVE v/VU/vu09_sys_local_shadows_outer LAW=NOT_EQUAL_stage1 L=STRICT_EQUAL_90_objects cmplines 31->0 rc 0->0 restore=R11V315_GENLOCALBIND_OFF  
+MOVE v/VU/vu11_sys_two_args_local_outer LAW=NOT_EQUAL_stage1 L=STRICT_EQUAL_111_objects cmplines 31->0 rc 0->0 restore=R11V315_GENLOCALBIND_OFF  
+# LAW -> L caseviews 178 moving 4 entering 4 leaving 0 judge_leaving 0 {'R11V315_GENLOCALBIND_OFF': 4} {'OFF==P': 178, 'VOFF==LAW': 178, 'total': 178}
