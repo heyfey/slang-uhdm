@@ -1,0 +1,31 @@
+# reproduction of the implementer's grid (its gridall.sh, case.sh and cases, this verifier's frozen binaries and golden cache)
+grid lines: 1320, all rc=0; equal to tools/probe/r11u312repro/evidence/grid.txt on 1320 of 1320 lines but the md5 field (the databases embed the case path, /tmp/wt_v11u312 vs /tmp/wt_r11u312)
+R11U312_OFF equal to pristine: 440 of 440
+gridsum312.py summary: identical to evidence/grid_summary.txt (non-MOVER lines)
+away census (awaygrid.sh): identical line for line to evidence/grid_away.txt: 298 movers, chain away 0, flat away 0, toward 689
+attribution (gridall.sh with the twelve switches + attrib312.py): identical to evidence/grid_attrib.txt
+SUMMARY movers=298 single=255 multi=43
+  single METHIDXPAR 44
+  single THISIDX 42
+  single MODTF 38
+  single LVROOTCALL 31
+  single CONCATLV 22
+  single LATECALL 22
+  single PKGTF 18
+  single IPSNAME 14
+  single IPSBASE 8
+  single LVMETHSPAN 8
+  single CONCATLV+MODTF 4
+  single IPSBASENAME 2
+  single CONCATLV+PKGTF 2
+  multi LVMETHSPAN+METHIDXPAR 10
+  multi MEMCALLIDX+METHIDXPAR 10
+  multi IPSBASE+IPSBASENAME+IPSNAME 6
+  multi IPSBASE+IPSBASENAME 6
+  multi IPSNAME+THISIDX 4
+  multi IPSNAME+METHIDXPAR 4
+  multi IPSBASENAME+IPSNAME 2
+  multi LVROOTCALL+METHIDXPAR 1
+downstream on the implementer's 46 module-scope grid dirs: 44 IDENTICAL on both, LR/lr17_modproc and LR/lr27_implicit EQUIVALENT -> IDENTICAL
+controls: the whole-tree byte scan's 81 earlier-pass movers are exactly the implementer's 45 standard + 36 trigger control movers (diff of the two lists empty)
+firing scans: excluding v11u312repro, 223 dirs (d) and 246 (e), the dir lists equal to evidence/firescan_d.txt and firescan_e.txt

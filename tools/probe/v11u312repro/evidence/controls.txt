@@ -1,0 +1,246 @@
+# strict verdicts (case.sh) of the 81 earlier-pass byte movers, pristine then law
+tools/probe/r11u170verify/cases/th/t01 d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=2cf369171be1 L: rc=0 cmp=0 STRICT_EQUAL 73 objects md5=f4894862659e
+tools/probe/r11u178repro/cases/hp/m12_lv_first_kinds d P: rc=0 cmp=52 NOT_EQUAL stage1 md5=9f9215ec1ad9 L: rc=0 cmp=52 NOT_EQUAL stage1 md5=dc75a58a5b0f
+tools/probe/r11u187repro/cases/T/t17 d P: rc=0 cmp=160 NOT_EQUAL stage1 md5=69994672916a L: rc=0 cmp=156 NOT_EQUAL stage1 md5=52f050930e3f
+tools/probe/r11u190verify/cases/RT/r01 d P: rc=0 cmp=106 NOT_EQUAL stage1 md5=6ee86a030205 L: rc=0 cmp=106 NOT_EQUAL stage1 md5=9a4627fcfc86
+tools/probe/r11u194verify/cases/C/c02_method_call_idx d P: rc=0 cmp=212 NOT_EQUAL stage1 md5=e65a8b3563c1 L: rc=0 cmp=212 NOT_EQUAL stage1 md5=f35a9b0a9717
+tools/probe/r11u194verify/cases/I/i03_compound_ops d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=61525ec6da91 L: rc=0 cmp=0 STRICT_EQUAL 243 objects md5=9c331ec34e40
+tools/probe/r11u195repro/cases/A/a02 d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=0aa24c921ea6 L: rc=0 cmp=0 STRICT_NOTEQUAL col md5=c6f948b1d416
+tools/probe/r11u229verify/cases/I/i02 d P: rc=0 cmp=180 NOT_EQUAL stage1 md5=dad31410a85f L: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=1be4888e73be
+tools/probe/r11u244repro/cases/D/d14 d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=db40a2a4c681 L: rc=0 cmp=0 STRICT_EQUAL 70 objects md5=6535a4ca6744
+tools/probe/r11u244repro/cases/L/i10 d P: rc=0 cmp=156 NOT_EQUAL stage1 md5=72696b9b1e09 L: rc=0 cmp=0 STRICT_EQUAL 99 objects md5=9549ea18db4e
+tools/probe/r11u256repro/cases/M/m18_ips_call_idx d P: rc=0 cmp=164 NOT_EQUAL stage1 md5=98ffa4977ccf L: rc=0 cmp=0 STRICT_EQUAL 105 objects md5=0e031742f2ae
+tools/probe/r11u310repro/cases/FX/fx02_namedcall d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=435a26c5e389 L: rc=0 cmp=0 STRICT_EQUAL 82 objects md5=765adce43f5a
+tools/probe/r11u310repro/cases/MT/mt61_inpath d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=a4185b6ea739 L: rc=0 cmp=0 STRICT_EQUAL 175 objects md5=87dd8e991bee
+tools/probe/r11u310repro/cases/MT/mt62_inpathop d P: rc=0 cmp=0 STRICT_NOTEQUAL col md5=fd2c7a647d32 L: rc=0 cmp=0 STRICT_NOTEQUAL col md5=2995a99a242b
+tools/probe/r11u310repro/cases/MT/mt64_trail d P: rc=0 cmp=0 STRICT_EQUAL 173 objects md5=e31c65b88625 L: rc=0 cmp=0 STRICT_EQUAL 173 objects md5=952c1b1742cc
+tools/probe/r11u310repro/cases/MT/mt65_lv d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=d62e8cbcebaa L: rc=0 cmp=0 STRICT_EQUAL 175 objects md5=a716eb0fefcd
+tools/probe/r11u310repro/cases/MT/mt66_inpathcall d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e67bda35bb84 L: rc=0 cmp=0 STRICT_EQUAL 176 objects md5=5f2dce61715c
+tools/probe/r11u310repro/cases/MT/mt67_trailpath d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=bd0542b0cbd6 L: rc=0 cmp=0 STRICT_EQUAL 175 objects md5=abdec2b6c65a
+tools/probe/r11u310repro/cases/MT/mt68_tern d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=6437162acc9f L: rc=0 cmp=0 STRICT_EQUAL 178 objects md5=8f674efe3376
+tools/probe/r11u310repro/cases/MT/mt72_ternpathf d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=274fc11970d8 L: rc=0 cmp=0 STRICT_EQUAL 178 objects md5=8c3da21059ec
+tools/probe/r11v184repro/cases/R/vr01_select_shapes d P: rc=0 cmp=150 NOT_EQUAL stage1 md5=617e2eaef3c0 L: rc=0 cmp=150 NOT_EQUAL stage1 md5=811f5cc07f60
+tools/probe/v11u187repro/cases/T/t23 d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=534d70157e7b L: rc=0 cmp=0 STRICT_EQUAL 180 objects md5=f75d68ec99da
+tools/probe/v11u195repro/cases/A/a02 d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=4d36c0c17bdf L: rc=0 cmp=0 STRICT_EQUAL 91 objects md5=c4bf7698d47e
+tools/probe/v11u207repro/cases/D/d05 d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=bbe44d19456e L: rc=0 cmp=0 STRICT_EQUAL 139 objects md5=b727b4983f32
+tools/probe/v11u224repro/cases/LX/lx16 d P: rc=0 cmp=202 NOT_EQUAL stage1 md5=01653b9a3e95 L: rc=0 cmp=200 NOT_EQUAL stage1 md5=af6f7be7a8fd
+tools/probe/v11u244repro/cases/A/a10_thissuper d P: rc=0 cmp=110 NOT_EQUAL stage1 md5=f0b0d8e5ad60 L: rc=0 cmp=110 NOT_EQUAL stage1 md5=99a832fc79ba
+tools/probe/v11u244repro/cases/A/a14_cls_forms2 d P: rc=0 cmp=152 NOT_EQUAL stage1 md5=7bd9cea0fe3c L: rc=0 cmp=152 NOT_EQUAL stage1 md5=cc864c60b3aa
+tools/probe/v11u252repro/cases/VX/vx09_extern_below_caller d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=eb66b88a3ca6 L: rc=0 cmp=0 STRICT_EQUAL 114 objects md5=4442abde8374
+tools/probe/v11u256repro/cases/M/vm13_call_bound d P: rc=0 cmp=164 NOT_EQUAL stage1 md5=bf4bd494dade L: rc=0 cmp=0 STRICT_EQUAL 129 objects md5=52edecb631bf
+tools/probe/v11u286repro/cases/VQ/vq06_mb_rootsel_root_call d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=ad93841d29cb L: rc=0 cmp=0 STRICT_EQUAL 142 objects md5=50e5330cffe0
+tools/probe/v11u296repro/cases/VT/vt14_task_lvalue d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=fde9c224c5cd L: rc=0 cmp=0 STRICT_EQUAL 105 objects md5=42a3c2aae4b2
+tools/probe/v11u308repro/cases/VX/vx06_namedcall_unlinked d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=8b9848dfab82 L: rc=0 cmp=0 STRICT_EQUAL 138 objects md5=b378b5529488
+tools/probe/v11u308repro/cases/VX/vx07_extern_above d P: rc=0 cmp=870 NOT_EQUAL stage1 md5=dfd40be8c045 L: rc=0 cmp=870 NOT_EQUAL stage1 md5=5c8d3bf4230e
+tools/probe/v11u308repro/cases/VX/vx08_purevirt d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=1c9d41e54b7f L: rc=0 cmp=0 STRICT_EQUAL 115 objects md5=c067ab0c1f70
+tools/probe/v11u308repro/cases/VX/vx25_lvidx_call d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=48a2469e6876 L: rc=0 cmp=0 STRICT_EQUAL 148 objects md5=063a7a5e1def
+tools/probe/v11u310repro/cases/VC/vc22_lvconcat d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=938918ba02a6 L: rc=0 cmp=0 STRICT_EQUAL 306 objects md5=febd24ea0762
+tools/probe/v11u310repro/cases/VQ/vq25_meth_tern d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=0e0018972465 L: rc=0 cmp=0 STRICT_EQUAL 307 objects md5=641c9c9e3022
+tools/probe/v11u310repro/cases/VQ/vq26_meth_op d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=dca875a71a80 L: rc=0 cmp=0 STRICT_EQUAL 306 objects md5=4c69a9054b3a
+tools/probe/v11u310repro/cases/VQ/vq27_meth_lv d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=e28b80ac2292 L: rc=0 cmp=0 STRICT_EQUAL 304 objects md5=b82f103d5986
+tools/probe/v11u310repro/cases/VQ/vq28_meth_mem d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=c4756630e51c L: rc=0 cmp=0 STRICT_EQUAL 305 objects md5=4cd146be8592
+tools/probe/v11u310repro/cases/VQ/vq29_meth_trail d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=7ce39db5d200 L: rc=0 cmp=0 STRICT_EQUAL 304 objects md5=c29376775ada
+tools/probe/v11u310repro/cases/VT/vt18_modtask_ctl d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=cf06da3faeab L: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=dcfabab7cdfd
+tools/probe/v11u310repro/cases/VT/vt27_thispath d P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=85d22def2df6 L: rc=0 cmp=0 STRICT_EQUAL 305 objects md5=ee02b29921f8
+tools/probe/v11u310repro/cases/VT/vt36_concat d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=d64ecc09cab4 L: rc=0 cmp=0 STRICT_EQUAL 305 objects md5=8f2b4dd679c2
+tools/probe/v11u310repro/cases/VT/vt37_memfn d P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=2aed1977e84f L: rc=0 cmp=0 STRICT_EQUAL 304 objects md5=5435c991a605
+tools/probe/v11u310repro/cases/VT/vt40_ifacefn d P: rc=0 cmp=33 NOT_EQUAL stage1 md5=f90c73a931a5 L: rc=0 cmp=33 NOT_EQUAL stage1 md5=b044f6ff1fa5
+tools/probe/r11u170verify/cases/th/t01 e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=9d2a36a3ca48 L: rc=0 cmp=0 STRICT_EQUAL 90 objects md5=6a5594b58c5e
+tools/probe/r11u178repro/cases/hp/m12_lv_first_kinds e P: rc=0 cmp=52 NOT_EQUAL stage1 md5=3671a780736e L: rc=0 cmp=52 NOT_EQUAL stage1 md5=5fa2db1f7fc5
+tools/probe/r11u187repro/cases/T/t17 e P: rc=0 cmp=160 NOT_EQUAL stage1 md5=6a689c1f7a1b L: rc=0 cmp=156 NOT_EQUAL stage1 md5=e540c856c478
+tools/probe/r11u190verify/cases/RT/r01 e P: rc=0 cmp=106 NOT_EQUAL stage1 md5=dc675f362190 L: rc=0 cmp=106 NOT_EQUAL stage1 md5=55af54e78c05
+tools/probe/r11u194verify/cases/C/c02_method_call_idx e P: rc=0 cmp=226 NOT_EQUAL stage1 md5=0d3fbe4ed0aa L: rc=0 cmp=226 NOT_EQUAL stage1 md5=915272d5b8f7
+tools/probe/r11u194verify/cases/I/i03_compound_ops e P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=4108c04dd95f L: rc=0 cmp=0 STRICT_EQUAL 240 objects md5=2249f9be36e6
+tools/probe/r11u229verify/cases/I/i02 e P: rc=0 cmp=212 NOT_EQUAL stage1 md5=40672870161d L: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=c2e2f844d806
+tools/probe/r11u244repro/cases/D/d14 e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=66f305b24958 L: rc=0 cmp=0 STRICT_EQUAL 76 objects md5=01cf75b84772
+tools/probe/r11u244repro/cases/L/i10 e P: rc=0 cmp=180 NOT_EQUAL stage1 md5=9b5f1fb8a3c6 L: rc=0 cmp=0 STRICT_EQUAL 108 objects md5=2d99f295d14b
+tools/probe/r11u256repro/cases/M/m18_ips_call_idx e P: rc=0 cmp=164 NOT_EQUAL stage1 md5=401124e5df49 L: rc=0 cmp=0 STRICT_EQUAL 98 objects md5=ef92c9afc761
+tools/probe/r11u310repro/cases/FX/fx02_namedcall e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=7913428be19f L: rc=0 cmp=0 STRICT_EQUAL 96 objects md5=584dfeaab671
+tools/probe/r11u310repro/cases/MT/mt65_lv e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5ff0b946d55a L: rc=0 cmp=0 STRICT_EQUAL 186 objects md5=404629f7f186
+tools/probe/r11u310repro/cases/MT/mt67_trailpath e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=9d776a15a421 L: rc=0 cmp=0 STRICT_EQUAL 194 objects md5=f72169b048e1
+tools/probe/r11v184repro/cases/R/vr01_select_shapes e P: rc=0 cmp=150 NOT_EQUAL stage1 md5=3b9cc36d32bc L: rc=0 cmp=150 NOT_EQUAL stage1 md5=e76b09f8388b
+tools/probe/v11u187repro/cases/T/t23 e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=f7c0f9bb63a6 L: rc=0 cmp=0 STRICT_EQUAL 187 objects md5=1ebd8d83fed9
+tools/probe/v11u207repro/cases/D/d05 e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=3900f35df10e L: rc=0 cmp=0 STRICT_EQUAL 170 objects md5=dd22b3c506e6
+tools/probe/v11u224repro/cases/LX/lx16 e P: rc=0 cmp=234 NOT_EQUAL stage1 md5=1f3b4fa904f8 L: rc=0 cmp=232 NOT_EQUAL stage1 md5=57e325467f90
+tools/probe/v11u244repro/cases/A/a10_thissuper e P: rc=0 cmp=138 NOT_EQUAL stage1 md5=7a2fd410941a L: rc=0 cmp=138 NOT_EQUAL stage1 md5=10dce56c1bcc
+tools/probe/v11u244repro/cases/A/a14_cls_forms2 e P: rc=0 cmp=184 NOT_EQUAL stage1 md5=ee91c280a8dc L: rc=0 cmp=184 NOT_EQUAL stage1 md5=74b36852451f
+tools/probe/v11u252repro/cases/VX/vx09_extern_below_caller e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=5b5245aba62e L: rc=0 cmp=0 STRICT_EQUAL 134 objects md5=062642a49eae
+tools/probe/v11u256repro/cases/M/vm13_call_bound e P: rc=0 cmp=164 NOT_EQUAL stage1 md5=550df913f811 L: rc=0 cmp=0 STRICT_EQUAL 122 objects md5=33ffc26b2a27
+tools/probe/v11u286repro/cases/VQ/vq06_mb_rootsel_root_call e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=68a127c3523b L: rc=0 cmp=0 STRICT_EQUAL 152 objects md5=b5259b388f38
+tools/probe/v11u296repro/cases/VT/vt14_task_lvalue e P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=60215b86ba1e L: rc=0 cmp=0 STRICT_EQUAL 110 objects md5=7016ab5cf1b3
+tools/probe/v11u308repro/cases/VX/vx06_namedcall_unlinked e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=4f1a851e8886 L: rc=0 cmp=0 STRICT_EQUAL 149 objects md5=21fc274b7527
+tools/probe/v11u308repro/cases/VX/vx07_extern_above e P: rc=0 cmp=902 NOT_EQUAL stage1 md5=dc47dbb7d8ff L: rc=0 cmp=902 NOT_EQUAL stage1 md5=1b42247728b4
+tools/probe/v11u308repro/cases/VX/vx08_purevirt e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=a96edc61e95b L: rc=0 cmp=0 STRICT_EQUAL 137 objects md5=b560fa1c1c52
+tools/probe/v11u308repro/cases/VX/vx25_lvidx_call e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=08ecb2682274 L: rc=0 cmp=0 STRICT_EQUAL 178 objects md5=9b7da5ad9f6b
+tools/probe/v11u310repro/cases/VC/vc22_lvconcat e P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=9cde8da73778 L: rc=0 cmp=0 STRICT_EQUAL 317 objects md5=e6f9172825fa
+tools/probe/v11u310repro/cases/VQ/vq27_meth_lv e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=319be502749c L: rc=0 cmp=0 STRICT_EQUAL 315 objects md5=8dd8ce5ccee7
+tools/probe/v11u310repro/cases/VQ/vq29_meth_trail e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=6294629aee49 L: rc=0 cmp=0 STRICT_EQUAL 323 objects md5=6efd4d659971
+tools/probe/v11u310repro/cases/VT/vt18_modtask_ctl e P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=af15b9aff702 L: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=efb407344a06
+tools/probe/v11u310repro/cases/VT/vt27_thispath e P: rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=92d6e5ff97b2 L: rc=0 cmp=0 STRICT_EQUAL 322 objects md5=c7ce1320d0a1
+tools/probe/v11u310repro/cases/VT/vt36_concat e P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=a9d8e45cb0e9 L: rc=0 cmp=0 STRICT_EQUAL 316 objects md5=c18ea14416f8
+tools/probe/v11u310repro/cases/VT/vt37_memfn e P: rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=768cb5aef7d9 L: rc=0 cmp=0 STRICT_EQUAL 323 objects md5=65284e3891f3
+tools/probe/v11u310repro/cases/VT/vt40_ifacefn e P: rc=0 cmp=58 NOT_EQUAL stage1 md5=1097c83f8068 L: rc=0 cmp=58 NOT_EQUAL stage1 md5=37ca48c4dfe4
+# chain-keyed away census on them (CB=<worktree>)
+tools/probe/r11u170verify/cases/th/t01 d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/r11u178repro/cases/hp/m12_lv_first_kinds d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/r11u187repro/cases/T/t17 d chain away=0 toward=15 flat_away=0 flat_toward=6
+tools/probe/r11u190verify/cases/RT/r01 d chain away=0 toward=0 flat_away=0 flat_toward=0
+tools/probe/r11u194verify/cases/C/c02_method_call_idx d chain away=0 toward=0 flat_away=0 flat_toward=0
+tools/probe/r11u194verify/cases/I/i03_compound_ops d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/r11u195repro/cases/A/a02 d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/r11u229verify/cases/I/i02 d chain away=0 toward=6 flat_away=0 flat_toward=2
+tools/probe/r11u244repro/cases/D/d14 d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/r11u244repro/cases/L/i10 d chain away=0 toward=6 flat_away=0 flat_toward=3
+tools/probe/r11u256repro/cases/M/m18_ips_call_idx d chain away=0 toward=12 flat_away=0 flat_toward=4
+tools/probe/r11u310repro/cases/FX/fx02_namedcall d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/r11u310repro/cases/MT/mt61_inpath d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/r11u310repro/cases/MT/mt62_inpathop d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/r11u310repro/cases/MT/mt64_trail d chain away=0 toward=0 flat_away=0 flat_toward=0
+tools/probe/r11u310repro/cases/MT/mt65_lv d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/r11u310repro/cases/MT/mt66_inpathcall d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/r11u310repro/cases/MT/mt67_trailpath d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/r11u310repro/cases/MT/mt68_tern d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/r11u310repro/cases/MT/mt72_ternpathf d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/r11v184repro/cases/R/vr01_select_shapes d chain away=0 toward=0 flat_away=0 flat_toward=0
+tools/probe/v11u187repro/cases/T/t23 d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u195repro/cases/A/a02 d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u207repro/cases/D/d05 d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u224repro/cases/LX/lx16 d chain away=0 toward=0 flat_away=0 flat_toward=2
+tools/probe/v11u244repro/cases/A/a10_thissuper d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u244repro/cases/A/a14_cls_forms2 d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u252repro/cases/VX/vx09_extern_below_caller d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u256repro/cases/M/vm13_call_bound d chain away=0 toward=12 flat_away=0 flat_toward=4
+tools/probe/v11u286repro/cases/VQ/vq06_mb_rootsel_root_call d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u296repro/cases/VT/vt14_task_lvalue d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u308repro/cases/VX/vx06_namedcall_unlinked d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u308repro/cases/VX/vx07_extern_above d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u308repro/cases/VX/vx08_purevirt d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u308repro/cases/VX/vx25_lvidx_call d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u310repro/cases/VC/vc22_lvconcat d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u310repro/cases/VQ/vq25_meth_tern d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u310repro/cases/VQ/vq26_meth_op d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u310repro/cases/VQ/vq27_meth_lv d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u310repro/cases/VQ/vq28_meth_mem d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u310repro/cases/VQ/vq29_meth_trail d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u310repro/cases/VT/vt18_modtask_ctl d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u310repro/cases/VT/vt27_thispath d chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u310repro/cases/VT/vt36_concat d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u310repro/cases/VT/vt37_memfn d chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u310repro/cases/VT/vt40_ifacefn d chain away=0 toward=3 flat_away=0 flat_toward=3
+tools/probe/r11u170verify/cases/th/t01 e chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/r11u178repro/cases/hp/m12_lv_first_kinds e chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/r11u187repro/cases/T/t17 e chain away=0 toward=18 flat_away=0 flat_toward=6
+tools/probe/r11u190verify/cases/RT/r01 e chain away=0 toward=0 flat_away=0 flat_toward=0
+tools/probe/r11u194verify/cases/C/c02_method_call_idx e chain away=0 toward=0 flat_away=0 flat_toward=0
+tools/probe/r11u194verify/cases/I/i03_compound_ops e chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/r11u229verify/cases/I/i02 e chain away=0 toward=26 flat_away=0 flat_toward=3
+tools/probe/r11u244repro/cases/D/d14 e chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/r11u244repro/cases/L/i10 e chain away=0 toward=12 flat_away=0 flat_toward=3
+tools/probe/r11u256repro/cases/M/m18_ips_call_idx e chain away=0 toward=12 flat_away=0 flat_toward=4
+tools/probe/r11u310repro/cases/FX/fx02_namedcall e chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/r11u310repro/cases/MT/mt65_lv e chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/r11u310repro/cases/MT/mt67_trailpath e chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/r11v184repro/cases/R/vr01_select_shapes e chain away=0 toward=0 flat_away=0 flat_toward=0
+tools/probe/v11u187repro/cases/T/t23 e chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u207repro/cases/D/d05 e chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u224repro/cases/LX/lx16 e chain away=0 toward=0 flat_away=0 flat_toward=2
+tools/probe/v11u244repro/cases/A/a10_thissuper e chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u244repro/cases/A/a14_cls_forms2 e chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u252repro/cases/VX/vx09_extern_below_caller e chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u256repro/cases/M/vm13_call_bound e chain away=0 toward=12 flat_away=0 flat_toward=4
+tools/probe/v11u286repro/cases/VQ/vq06_mb_rootsel_root_call e chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u296repro/cases/VT/vt14_task_lvalue e chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u308repro/cases/VX/vx06_namedcall_unlinked e chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u308repro/cases/VX/vx07_extern_above e chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u308repro/cases/VX/vx08_purevirt e chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u308repro/cases/VX/vx25_lvidx_call e chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u310repro/cases/VC/vc22_lvconcat e chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u310repro/cases/VQ/vq27_meth_lv e chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u310repro/cases/VQ/vq29_meth_trail e chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u310repro/cases/VT/vt18_modtask_ctl e chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u310repro/cases/VT/vt27_thispath e chain away=0 toward=2 flat_away=0 flat_toward=2
+tools/probe/v11u310repro/cases/VT/vt36_concat e chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u310repro/cases/VT/vt37_memfn e chain away=0 toward=1 flat_away=0 flat_toward=1
+tools/probe/v11u310repro/cases/VT/vt40_ifacefn e chain away=0 toward=3 flat_away=0 flat_toward=3
+# uhdm-dump distance on them
+tools/probe/r11u170verify/cases/th/t01 d dump P=21 L=12 TOWARD
+tools/probe/r11u178repro/cases/hp/m12_lv_first_kinds d dump P=12 L=8 TOWARD
+tools/probe/r11u187repro/cases/T/t17 d dump P=38 L=20 TOWARD
+tools/probe/r11u190verify/cases/RT/r01 d dump P=126 L=126 SAME
+tools/probe/r11u194verify/cases/C/c02_method_call_idx d dump P=146 L=146 SAME
+tools/probe/r11u194verify/cases/I/i03_compound_ops d dump P=6 L=2 TOWARD
+tools/probe/r11u195repro/cases/A/a02 d dump P=42 L=36 TOWARD
+tools/probe/r11u229verify/cases/I/i02 d dump P=36 L=20 TOWARD
+tools/probe/r11u244repro/cases/D/d14 d dump P=26 L=22 TOWARD
+tools/probe/r11u244repro/cases/L/i10 d dump P=60 L=42 TOWARD
+tools/probe/r11u256repro/cases/M/m18_ips_call_idx d dump P=64 L=50 TOWARD
+tools/probe/r11u310repro/cases/FX/fx02_namedcall d dump P=38 L=30 TOWARD
+tools/probe/r11u310repro/cases/MT/mt61_inpath d dump P=166 L=160 TOWARD
+tools/probe/r11u310repro/cases/MT/mt62_inpathop d dump P=170 L=164 TOWARD
+tools/probe/r11u310repro/cases/MT/mt64_trail d dump P=162 L=160 TOWARD
+tools/probe/r11u310repro/cases/MT/mt65_lv d dump P=172 L=160 TOWARD
+tools/probe/r11u310repro/cases/MT/mt66_inpathcall d dump P=166 L=160 TOWARD
+tools/probe/r11u310repro/cases/MT/mt67_trailpath d dump P=170 L=160 TOWARD
+tools/probe/r11u310repro/cases/MT/mt68_tern d dump P=166 L=160 TOWARD
+tools/probe/r11u310repro/cases/MT/mt72_ternpathf d dump P=166 L=160 TOWARD
+tools/probe/r11v184repro/cases/R/vr01_select_shapes d dump P=111 L=111 SAME
+tools/probe/v11u187repro/cases/T/t23 d dump P=6 L=2 TOWARD
+tools/probe/v11u195repro/cases/A/a02 d dump P=56 L=50 TOWARD
+tools/probe/v11u207repro/cases/D/d05 d dump P=52 L=44 TOWARD
+tools/probe/v11u224repro/cases/LX/lx16 d dump P=31 L=22 TOWARD
+tools/probe/v11u244repro/cases/A/a10_thissuper d dump P=111 L=102 TOWARD
+tools/probe/v11u244repro/cases/A/a14_cls_forms2 d dump P=78 L=72 TOWARD
+tools/probe/v11u252repro/cases/VX/vx09_extern_below_caller d dump P=76 L=74 TOWARD
+tools/probe/v11u256repro/cases/M/vm13_call_bound d dump P=66 L=52 TOWARD
+tools/probe/v11u286repro/cases/VQ/vq06_mb_rootsel_root_call d dump P=6 L=2 TOWARD
+tools/probe/v11u296repro/cases/VT/vt14_task_lvalue d dump P=6 L=2 TOWARD
+tools/probe/v11u308repro/cases/VX/vx06_namedcall_unlinked d dump P=138 L=134 TOWARD
+tools/probe/v11u308repro/cases/VX/vx07_extern_above d dump P=154 L=150 TOWARD
+tools/probe/v11u308repro/cases/VX/vx08_purevirt d dump P=72 L=68 TOWARD
+tools/probe/v11u308repro/cases/VX/vx25_lvidx_call d dump P=130 L=126 TOWARD
+tools/probe/v11u310repro/cases/VC/vc22_lvconcat d dump P=172 L=168 TOWARD
+tools/probe/v11u310repro/cases/VQ/vq25_meth_tern d dump P=170 L=164 TOWARD
+tools/probe/v11u310repro/cases/VQ/vq26_meth_op d dump P=172 L=166 TOWARD
+tools/probe/v11u310repro/cases/VQ/vq27_meth_lv d dump P=176 L=164 TOWARD
+tools/probe/v11u310repro/cases/VQ/vq28_meth_mem d dump P=170 L=164 TOWARD
+tools/probe/v11u310repro/cases/VQ/vq29_meth_trail d dump P=174 L=164 TOWARD
+tools/probe/v11u310repro/cases/VT/vt18_modtask_ctl d dump P=75 L=71 TOWARD
+tools/probe/v11u310repro/cases/VT/vt27_thispath d dump P=173 L=164 TOWARD
+tools/probe/v11u310repro/cases/VT/vt36_concat d dump P=168 L=164 TOWARD
+tools/probe/v11u310repro/cases/VT/vt37_memfn d dump P=170 L=164 TOWARD
+tools/probe/v11u310repro/cases/VT/vt40_ifacefn d dump P=104 L=100 TOWARD
+tools/probe/r11u170verify/cases/th/t01 e dump P=183 L=165 TOWARD
+tools/probe/r11u178repro/cases/hp/m12_lv_first_kinds e dump P=20 L=12 TOWARD
+tools/probe/r11u187repro/cases/T/t17 e dump P=72 L=36 TOWARD
+tools/probe/r11u190verify/cases/RT/r01 e dump P=224 L=224 SAME
+tools/probe/r11u194verify/cases/C/c02_method_call_idx e dump P=236 L=236 SAME
+tools/probe/r11u194verify/cases/I/i03_compound_ops e dump P=96 L=88 TOWARD
+tools/probe/r11u229verify/cases/I/i02 e dump P=145 L=111 TOWARD
+tools/probe/r11u244repro/cases/D/d14 e dump P=119 L=115 TOWARD
+tools/probe/r11u244repro/cases/L/i10 e dump P=201 L=165 TOWARD
+tools/probe/r11u256repro/cases/M/m18_ips_call_idx e dump P=78 L=50 TOWARD
+tools/probe/r11u310repro/cases/FX/fx02_namedcall e dump P=240 L=232 TOWARD
+tools/probe/r11u310repro/cases/MT/mt65_lv e dump P=905 L=899 TOWARD
+tools/probe/r11u310repro/cases/MT/mt67_trailpath e dump P=870 L=862 TOWARD
+tools/probe/r11v184repro/cases/R/vr01_select_shapes e dump P=200 L=200 SAME
+tools/probe/v11u187repro/cases/T/t23 e dump P=10 L=2 TOWARD
+tools/probe/v11u207repro/cases/D/d05 e dump P=374 L=358 TOWARD
+tools/probe/v11u224repro/cases/LX/lx16 e dump P=81 L=72 TOWARD
+tools/probe/v11u244repro/cases/A/a10_thissuper e dump P=460 L=451 TOWARD
+tools/probe/v11u244repro/cases/A/a14_cls_forms2 e dump P=335 L=323 TOWARD
+tools/probe/v11u252repro/cases/VX/vx09_extern_below_caller e dump P=337 L=333 TOWARD
+tools/probe/v11u256repro/cases/M/vm13_call_bound e dump P=80 L=52 TOWARD
+tools/probe/v11u286repro/cases/VQ/vq06_mb_rootsel_root_call e dump P=8 L=2 TOWARD
+tools/probe/v11u296repro/cases/VT/vt14_task_lvalue e dump P=10 L=2 TOWARD
+tools/probe/v11u308repro/cases/VX/vx06_namedcall_unlinked e dump P=728 L=724 TOWARD
+tools/probe/v11u308repro/cases/VX/vx07_extern_above e dump P=609 L=605 TOWARD
+tools/probe/v11u308repro/cases/VX/vx08_purevirt e dump P=607 L=603 TOWARD
+tools/probe/v11u308repro/cases/VX/vx25_lvidx_call e dump P=770 L=762 TOWARD
+tools/probe/v11u310repro/cases/VC/vc22_lvconcat e dump P=1141 L=1137 TOWARD
+tools/probe/v11u310repro/cases/VQ/vq27_meth_lv e dump P=1173 L=1167 TOWARD
+tools/probe/v11u310repro/cases/VQ/vq29_meth_trail e dump P=1144 L=1136 TOWARD
+tools/probe/v11u310repro/cases/VT/vt18_modtask_ctl e dump P=111 L=103 TOWARD
+tools/probe/v11u310repro/cases/VT/vt27_thispath e dump P=1233 L=1223 TOWARD
+tools/probe/v11u310repro/cases/VT/vt36_concat e dump P=1247 L=1243 TOWARD
+tools/probe/v11u310repro/cases/VT/vt37_memfn e dump P=1140 L=1136 TOWARD
+tools/probe/v11u310repro/cases/VT/vt40_ifacefn e dump P=136 L=132 TOWARD

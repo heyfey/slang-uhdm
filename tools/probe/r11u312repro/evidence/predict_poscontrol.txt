@@ -1,0 +1,6 @@
+positive control: R11U306_TRACE, R11U310_TRACE and R11U312_TRACE through scripts/check_probe.py --filter c2_idxkind on the final law binary (4fe9e91d18cd806568767869e80b17e0): pass 306's trace lines arrive through the harness
+OUT w/r10uvm79repro__c2_idxkind.uhdm
+BARESEL work@grid::probe::iarr[].f::midx
+NESTSHAPE h.idx[i]
+NESTSHAPE_LEAFSEL work@grid::probe::iarr[].f::h.idx[i]::idx
+Earlgrey_0_1 d/t census rerun alone after the law sweep (the census's testflags draw read TIMEOUT under load): Earlgrey_0_1,default,CMP_EQUAL Earlgrey_0_1,testflags,CMP_EQUAL  trace files: 0

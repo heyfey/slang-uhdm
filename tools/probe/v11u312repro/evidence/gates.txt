@@ -1,0 +1,102 @@
+binaries: pristine be2074e1fde43c4025b5fb2370dbb2a8 (main tree build/slang-uhdm be2074e1fde43c4025b5fb2370dbb2a8), law 4fe9e91d18cd806568767869e80b17e0 (implementer 4fe9e91d18cd806568767869e80b17e0); slang-uhdm using slang version 12.0.0+545f88b2e
+uhdm-strictcmp fa6e4f42f252ae0ab69d9845003e71c5, strictcmp_x 886f030233ecdbcce7d0e29ac0c4df2c
+== sweep P (tests/sweep.sh --jobs 3 --workdir /tmp/v11u312_wdP from /tmp/wt_v11u312pris)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=4017 STRICT_NOTEQUAL=70 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=4017 STRICT_NOTEQUAL=70
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=473 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=2 UNTRANSLATABLE=2
+REGRESSION Earlgrey_0_1 testflags CMP_EQUAL -> TIMEOUT
+regressions=1 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+(the first pristine surelog stage above ran while the law binary compiled at -j 1 and this verifier's grid ran: Earlgrey_0_1 testflags read TIMEOUT; discarded and rerun on a quiet machine:)
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== sweep L (tests/sweep.sh --jobs 3 --workdir /tmp/v11u312_wdL from /tmp/wt_v11u312)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=4017 STRICT_NOTEQUAL=70 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=4017 STRICT_NOTEQUAL=70
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+== csv row diffs law vs pristine (lines)
+probe 0
+surelog 4
+uhdm2rtlil 0
+downstream 0
+(the 4 surelog lines: LowMemLib and LowMemPkg testflags detail text naming the workdir)
+== downstream csv vs results/downstream_uhdm2rtlil.csv
+law identical
+pristine identical
+== byteverify (tools/probe/r11v75repro/byteverify.sh, SELFCHECK=1) on fence-filtered mirrors (drivers/mirror.sh: mirrored=7452 fenced_skipped=8 each)
+databases: patched=3365 pristine=3365
+PATH_SETS_IDENTICAL (3365 paths)
+MOVERS: 0 / 3365
+SELFCHECK (every file vs one fixed file): 3363 / 3365 flagged (unflagged: the reference ./downstream/1DUnpackedArray/slang.uhdm and its byte-identical twin ./uhdm2rtlil/testflags/1DUnpackedArray-3af704bd/slang.uhdm)
+probe: the pristine probe stage rerun from the law worktree (/tmp/v11u312_wdQ; a probe database embeds its worktree path): dbs=4087 movers=0, probe.csv diff 0 lines
+== canaries
+L surelog ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+L uhdm2rtlil ---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+L ctcan2 surelog ---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+L ctcan2 surelog PASS: every supplementary canary row is byte-identical to the baseline.
+L ctcan2 uhdm2rtlil ---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+L ctcan2 uhdm2rtlil PASS: every supplementary canary row is byte-identical to the baseline.
+P surelog ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+P uhdm2rtlil ---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+P ctcan2 surelog ---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+P ctcan2 surelog PASS: every supplementary canary row is byte-identical to the baseline.
+P ctcan2 uhdm2rtlil ---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+P ctcan2 uhdm2rtlil PASS: every supplementary canary row is byte-identical to the baseline.
+== binary-path audit (drivers/audit.sh)
+/tmp/v11u312_wdL own=3265 other=0 noslang=50 fenced_skipped=8
+/tmp/v11u312_wdP own=3265 other=0 noslang=50 fenced_skipped=8
+== determinism (drivers/det.sh, law binary, three concurrent draws)
+law Earlgrey_0_1/default       3 fc04e7f2bb3f 
+law MiniAmiq/default       3 6274d155ae91 
+law SeqDriver/default       3 0140024e994f 
+law SimpleUVM/default       3 57a5aaad5589 
+law Scoreboard/default       3 e60363ba3f2d 
+law BuildUVMPkg/default       3 00b6402714d5 
+law Rggen/default       3 4c21b84a350d 
+law Earlgrey_0_1/testflags       3 025c86db2d2d 
+law MiniAmiq/testflags       3 6274d155ae91 
+law SeqDriver/testflags       3 dcc2c63e2e29 
+law SimpleUVM/testflags       3 f0c85a0be92c 
+law Scoreboard/testflags 
+law BuildUVMPkg/testflags       3 00b6402714d5 
+law Rggen/testflags 
+Earlgrey_0_1/default sweepL=fc04e7f2bb3f sweepP=fc04e7f2bb3f
+MiniAmiq/default sweepL=6274d155ae91 sweepP=6274d155ae91
+SeqDriver/default sweepL=0140024e994f sweepP=0140024e994f
+SimpleUVM/default sweepL=57a5aaad5589 sweepP=57a5aaad5589
+Scoreboard/default sweepL=e60363ba3f2d sweepP=e60363ba3f2d
+BuildUVMPkg/default sweepL=00b6402714d5 sweepP=00b6402714d5
+Rggen/default sweepL=4c21b84a350d sweepP=4c21b84a350d
+Earlgrey_0_1/testflags sweepL=025c86db2d2d sweepP=025c86db2d2d
+MiniAmiq/testflags sweepL=6274d155ae91 sweepP=6274d155ae91
+SeqDriver/testflags sweepL=dcc2c63e2e29 sweepP=dcc2c63e2e29
+SimpleUVM/testflags sweepL=f0c85a0be92c sweepP=f0c85a0be92c
+Scoreboard/testflags sweepL= sweepP=
+BuildUVMPkg/testflags sweepL=00b6402714d5 sweepP=00b6402714d5
+Rggen/testflags sweepL= sweepP=
+== firing census (drivers/tracecensus.sh, law binary under R11U312_TRACE through the harness over the probe cases and both corpora in both modes, the fenced tests filtered out)
+trace files: 0; predict.txt lines: 0; Earlgrey_0_1 rows: Earlgrey_0_1,default,CMP_EQUAL Earlgrey_0_1,testflags,CMP_EQUAL 
+positive control: R11U306_TRACE + R11U312_TRACE through scripts/check_probe.py --filter c2_idxkind writes pass 306's lines:
+OUT /tmp/v11u312_pc/w/r10uvm79repro__c2_idxkind.uhdm
+BARESEL work@grid::probe::iarr[].f::midx
+NESTSHAPE h.idx[i]
+NESTSHAPE_LEAFSEL work@grid::probe::iarr[].f::h.idx[i]::idx
+and R11U312_TRACE on a grid case (r11u312repro MI) writes:
+OUT /tmp/v11u312_pc/o.uhdm
+METHIDXPAR parent i -> iarr[i].get
+METHIDXPAR work@grid::probe::i -> work@grid::probe::h.idx[]::idx::i

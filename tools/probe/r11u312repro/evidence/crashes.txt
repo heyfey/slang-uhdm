@@ -1,0 +1,10 @@
+segfault counts in the firing scans (law 4fe9e91d): definition view 1, elaborated view 8 (pass 310's scans: 1 and 8). Pass 310's nine named crash dirs on both binaries:
+d v11u112repro/grid/brk2/k/m07_hdr_enum_default pristine=139 law=139
+e r10vrgg8repro/cells/v8_recurse pristine=139 law=139
+e r10vrgg8repro/cells/v8_recurse_mutual pristine=139 law=139
+e r10vrgg8repro/cells/v8_recurse_uncond pristine=139 law=139
+e r11u254repro/cases/F/f04_class pristine=139 law=139
+e r11u300repro/cases/RS/s22_recursion pristine=139 law=139
+e v11u112repro/grid/brk2/k/m07_hdr_enum_default pristine=139 law=139
+e v11u254repro/cases/F/vf02_iface pristine=139 law=139
+e v11u254repro/cases/F/vf04_hier pristine=139 law=139

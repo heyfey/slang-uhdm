@@ -1,0 +1,12 @@
+CC/cc01_op d chain away=1 toward=0 flat_away=1 flat_toward=0
+CC/cc18_modtask e chain away=2 toward=0 flat_away=2 flat_toward=0
+IP/ip21_call d chain away=6 toward=0 flat_away=3 flat_toward=0
+LC/lc03_path e chain away=1 toward=0 flat_away=1 flat_toward=0
+LR/lr11_terfalse d chain away=1 toward=0 flat_away=1 flat_toward=0
+LS/ls01_base e chain away=1 toward=0 flat_away=1 flat_toward=0
+MD/md02_func d chain away=2 toward=0 flat_away=2 flat_toward=0
+MD/md15_cast e chain away=2 toward=0 flat_away=2 flat_toward=0
+MI/mi06_tern d chain away=1 toward=0 flat_away=1 flat_toward=0
+MI/mi40_named d chain away=1 toward=0 flat_away=1 flat_toward=0
+PK/pk05_call e chain away=2 toward=0 flat_away=2 flat_toward=0
+TH/th10_ternary d chain away=2 toward=0 flat_away=2 flat_toward=0

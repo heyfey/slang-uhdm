@@ -1,0 +1,354 @@
+# R11U312_TRACE firing tags per fresh mover (drivers/tracetags.sh)
+VC/vc02_two d CONCATLV:1 
+VC/vc02_two e CONCATLV:1 
+VC/vc07_deep d CONCATLV:1 
+VC/vc07_deep e CONCATLV:1 
+VC/vc08_catrhs d CONCATLV:1 
+VC/vc08_catrhs e CONCATLV:1 
+VC/vc09_foreach d CONCATLV:1 
+VC/vc09_foreach e CONCATLV:1 
+VC/vc10_case d CONCATLV:1 
+VC/vc10_case e CONCATLV:1 
+VC/vc12_callidx d CONCATLV:1 
+VC/vc12_callidx e CONCATLV:1 
+VC/vc13_nested3 d CONCATLV:1 
+VC/vc13_nested3 e CONCATLV:1 
+VC/vc14_sel_in_idx d CONCATLV:2 
+VC/vc14_sel_in_idx e CONCATLV:2 
+VC/vc17_param d CONCATLV:2 
+VC/vc17_param e CONCATLV:2 
+VC/vc18_enum d CONCATLV:2 
+VC/vc18_enum e CONCATLV:2 
+VC/vc19_pkgparam d CONCATLV:1 
+VC/vc19_pkgparam e CONCATLV:1 
+VC/vc20_ternrhs d CONCATLV:1 
+VC/vc20_ternrhs e CONCATLV:1 
+VF/vf02_mod_comb_root d LVROOTCALL:1 
+VF/vf02_mod_comb_root e LVROOTCALL:1 
+VF/vf06_mod_ff_root d LVROOTCALL:1 
+VF/vf06_mod_ff_root e LVROOTCALL:1 
+VF/vf09_mod_task_root d LVROOTCALL:1 
+VF/vf09_mod_task_root e LVROOTCALL:1 
+VF/vf13_cls_nba_ctl d LATECALL:1 
+VF/vf13_cls_nba_ctl e LATECALL:1 
+VF/vf15_cls_harr_both d LATECALL:1 
+VF/vf15_cls_harr_both e LATECALL:1 
+VF/vf16_cls_ips d IPSBASE:1 IPSNAME:1 
+VF/vf16_cls_ips e IPSBASE:1 IPSNAME:1 
+VF/vf17_cls_rv_ips d IPSBASE:1 IPSBASENAME:1 
+VF/vf17_cls_rv_ips e IPSBASE:1 IPSBASENAME:1 
+VF/vf18_cls_lv_twocalls d LATECALL:1 LVROOTCALL:1 
+VF/vf18_cls_lv_twocalls e LATECALL:1 LVROOTCALL:1 
+VI/vi04_fnarg d METHIDXPAR:1 
+VI/vi05_sysarg d METHIDXPAR:1 
+VI/vi07_deep d METHIDXPAR:1 
+VI/vi08_member_recv d METHIDXPAR:1 
+VI/vi09_tern d METHIDXPAR:1 
+VI/vi10_twocalls d METHIDXPAR:2 
+VI/vi11_putarg d METHIDXPAR:1 
+VI/vi13_ifcond d METHIDXPAR:1 
+VI/vi14_case d METHIDXPAR:1 
+VI/vi15_foreach d METHIDXPAR:1 
+VI/vi16_2d d METHIDXPAR:2 
+VI/vi17_sum d METHIDXPAR:2 
+VI/vi18_display d METHIDXPAR:1 
+VI/vi19_callarg d METHIDXPAR:1 
+VI/vi20_enumidx d METHIDXPAR:1 
+VI/vi21_pkgidx d METHIDXPAR:1 
+VI/vi22_lpidx d METHIDXPAR:1 
+VI/vi23_bitidx d METHIDXPAR:1 
+VI/vi24_lv_trail d METHIDXPAR:1 
+VI/vi25_lv_member d METHIDXPAR:2 
+VI/vi26_lv_root d LVMETHSPAN:1 METHIDXPAR:2 
+VI/vi26_lv_root e LVMETHSPAN:1 METHIDXPAR:1 
+VI/vi27_lips d METHIDXPAR:1 
+VI/vi28_rips d METHIDXPAR:1 
+VI/vi29_harr d METHIDXPAR:2 
+VI/vi30_cast d METHIDXPAR:1 
+VI/vi31_dowhile d METHIDXPAR:1 
+VI/vi32_whileloop d METHIDXPAR:1 
+VI/vi35_return d METHIDXPAR:1 
+VI/vi36_modfn d METHIDXPAR:1 
+VI/vi37_modtask_lv d METHIDXPAR:2 
+VI/vi38_genblk d METHIDXPAR:2 
+VI/vi39_iface d METHIDXPAR:1 
+VI/vi40_pkgfn d METHIDXPAR:2 
+VK/vk01_pkgvar_idx d PKGTF:2 
+VK/vk01_pkgvar_idx e PKGTF:2 
+VK/vk02_pkgparam_idx d PKGTF:4 
+VK/vk02_pkgparam_idx e PKGTF:4 
+VK/vk03_pkgtask d PKGTF:2 
+VK/vk03_pkgtask e PKGTF:2 
+VK/vk04_imported_use d PKGTF:2 
+VK/vk04_imported_use e PKGTF:2 
+VK/vk05_concat d CONCATLV_PKGTF:2 
+VK/vk05_concat e CONCATLV_PKGTF:2 
+VK/vk06_pkgvar_holder_local d PKGTF:2 
+VK/vk06_pkgvar_holder_local e PKGTF:2 
+VK/vk08_pkgfn_selidx d PKGTF:4 
+VK/vk08_pkgfn_selidx e PKGTF:4 
+VL/vl01_lv_root d LATECALL:1 
+VL/vl01_lv_root e LATECALL:1 
+VL/vl04_member_nontrail d LATECALL:1 
+VL/vl04_member_nontrail e LATECALL:1 
+VL/vl05_root d LATECALL:1 
+VL/vl05_root e LATECALL:1 
+VL/vl08_lv_both d LATECALL:1 
+VL/vl08_lv_both e LATECALL:1 
+VL/vl09_recv d LATECALL:1 
+VL/vl09_recv e LATECALL:1 
+VL/vl10_op d LATECALL:1 
+VL/vl10_op e LATECALL:1 
+VL/vl11_nested d LATECALL:1 
+VL/vl11_nested e LATECALL:1 
+VL/vl14_ternfalse d LATECALL:1 
+VL/vl14_ternfalse e LATECALL:1 
+VL/vl15_lv_op d LATECALL:1 
+VL/vl15_lv_op e LATECALL:1 
+VL/vl16_concat d LATECALL:1 
+VL/vl16_concat e LATECALL:1 
+VM/vm01_task_arg d MODTF:1 
+VM/vm01_task_arg e MODTF:1 
+VM/vm02_modvar_idx d MODTF:1 
+VM/vm02_modvar_idx e MODTF:1 
+VM/vm03_localparam_idx d MODTF:2 
+VM/vm03_localparam_idx e MODTF:2 
+VM/vm04_enum_idx d MODTF:2 
+VM/vm04_enum_idx e MODTF:2 
+VM/vm05_wire_idx d MODTF:1 
+VM/vm05_wire_idx e MODTF:1 
+VM/vm06_auto_local d MODTF:1 
+VM/vm06_auto_local e MODTF:1 
+VM/vm07_genblk d MODTF:1 
+VM/vm07_genblk e MODTF:1 
+VM/vm08_nba d MODTF:1 
+VM/vm08_nba e MODTF:1 
+VM/vm11_member2 d MODTF:1 
+VM/vm11_member2 e MODTF:1 
+VM/vm12_sel_idx d MODTF:2 
+VM/vm12_sel_idx e MODTF:2 
+VM/vm13_selidx_modarr d MODTF:2 
+VM/vm13_selidx_modarr e MODTF:2 
+VM/vm15_methidx d METHIDXPAR:2 
+VM/vm17_pkgparam d MODTF:1 
+VM/vm17_pkgparam e MODTF:1 
+VM/vm18_call d MODTF:1 
+VM/vm18_call e MODTF:1 
+VM/vm19_depth2 d MODTF:1 
+VM/vm19_depth2 e MODTF:1 
+VM/vm20_iface d MODTF:1 
+VM/vm20_iface e MODTF:1 
+VM/vm21_genfor d MODTF:2 
+VM/vm21_genfor e MODTF:2 
+VM/vm23_packed d MODTF:1 
+VM/vm23_packed e MODTF:1 
+VM/vm24_packed_modvar d MODTF:1 
+VM/vm24_packed_modvar e MODTF:1 
+VM/vm25_two_inst d MODTF:2 
+VM/vm25_two_inst e MODTF:2 
+VM/vm26_retvar d MODTF:1 
+VM/vm26_retvar e MODTF:1 
+VM/vm27_static_task d MODTF:1 
+VM/vm27_static_task e MODTF:1 
+VM/vm28_nested_task_call d MODTF:1 
+VM/vm28_nested_task_call e MODTF:1 
+VN/vn03_meth d MEMCALLIDX:1 METHIDXPAR:2 
+VN/vn03_meth e MEMCALLIDX:1 METHIDXPAR:1 
+VN/vn11_methnoarg_meth d MEMCALLIDX:1 METHIDXPAR:2 
+VN/vn11_methnoarg_meth e MEMCALLIDX:1 METHIDXPAR:1 
+VN/vn13_deep d MEMCALLIDX:1 METHIDXPAR:2 
+VN/vn13_deep e MEMCALLIDX:1 METHIDXPAR:1 
+VN/vn14_lv_meth d METHIDXPAR:2 
+VN/vn14_lv_meth e METHIDXPAR:1 
+VN/vn17_put d MEMCALLIDX:1 METHIDXPAR:2 
+VN/vn17_put e MEMCALLIDX:1 METHIDXPAR:1 
+VP2/vp38_lvbase d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP2/vp38_lvbase e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP2/vp39_strbase d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP2/vp39_strbase e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP2/vp40_earrbase d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP2/vp40_earrbase e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP2/vp42_fnfn d IPSBASE:1 IPSNAME:1 
+VP2/vp42_fnfn e IPSBASE:1 IPSNAME:1 
+VP2/vp43_fn_noarg_path d IPSNAME:1 
+VP2/vp43_fn_noarg_path e IPSNAME:1 
+VP/vp01_lpidx d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp01_lpidx e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp02_enumidx d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp02_enumidx e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp03_pkgidx d IPSBASE:1 IPSBASENAME:1 IPSNAME:1 
+VP/vp03_pkgidx e IPSBASE:1 IPSBASENAME:1 IPSNAME:1 
+VP/vp04_constidx d IPSBASE:1 IPSBASENAME:1 IPSNAME:1 
+VP/vp04_constidx e IPSBASE:1 IPSBASENAME:1 IPSNAME:1 
+VP/vp05_hexidx d IPSBASE:1 IPSBASENAME:1 IPSNAME:1 
+VP/vp05_hexidx e IPSBASE:1 IPSBASENAME:1 IPSNAME:1 
+VP/vp06_minus d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp06_minus e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp07_width_lp d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp07_width_lp e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp08_sfn d IPSBASE:1 IPSBASENAME:1 
+VP/vp08_sfn e IPSBASE:1 IPSBASENAME:1 
+VP/vp09_pkgfn d IPSBASE:1 IPSBASENAME:1 
+VP/vp09_pkgfn e IPSBASE:1 IPSBASENAME:1 
+VP/vp10_methbase d METHIDXPAR:2 
+VP/vp10_methbase e METHIDXPAR:1 
+VP/vp12_compound d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp12_compound e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp13_sum d IPSBASE:2 IPSBASENAME:4 
+VP/vp13_sum e IPSBASE:2 IPSBASENAME:4 
+VP/vp14_deep d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp14_deep e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp15_nestsel_ctl d IPSBASENAME:1 
+VP/vp15_nestsel_ctl e IPSBASENAME:1 
+VP/vp16_2d_ctl d IPSBASENAME:2 IPSNAME:1 
+VP/vp16_2d_ctl e IPSBASENAME:2 IPSNAME:1 
+VP/vp17_strlen d IPSNAME:1 METHIDXPAR:1 
+VP/vp17_strlen e IPSNAME:1 METHIDXPAR:1 
+VP/vp18_fnselarg d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp18_fnselarg e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp19_rv_selidx d IPSBASE:1 IPSBASENAME:2 
+VP/vp19_rv_selidx e IPSBASE:1 IPSBASENAME:2 
+VP/vp20_harr d IPSBASE:1 IPSNAME:1 
+VP/vp20_harr e IPSBASE:1 IPSNAME:1 
+VP/vp21_noarg_ctl d IPSBASE:1 
+VP/vp21_noarg_ctl e IPSBASE:1 
+VP/vp22_width_pkg d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp22_width_pkg e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp23_midx d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp23_midx e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp24_cond d IPSBASE:1 IPSBASENAME:2 
+VP/vp24_cond e IPSBASE:1 IPSBASENAME:2 
+VP/vp25_path_base d IPSNAME:1 
+VP/vp25_path_base e IPSNAME:1 
+VP/vp27_mod_comb d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp27_mod_comb e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp28_mod_assign d IPSBASE:2 IPSBASENAME:2 IPSNAME:2 
+VP/vp28_mod_assign e IPSBASE:2 IPSBASENAME:2 IPSNAME:2 
+VP/vp29_mod_depth2 d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp29_mod_depth2 e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp30_mod_gen d IPSBASE:2 IPSBASENAME:2 IPSNAME:2 
+VP/vp30_mod_gen e IPSBASE:2 IPSBASENAME:2 IPSNAME:2 
+VP/vp31_mod_genfor d IPSBASE:3 IPSNAME:3 
+VP/vp31_mod_genfor e IPSBASE:3 IPSNAME:3 
+VP/vp32_mod_param d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp32_mod_param e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp33_mod_fn d IPSBASE:1 IPSNAME:1 
+VP/vp33_mod_fn e IPSBASE:1 IPSNAME:1 
+VP/vp34_mod_rv d IPSBASE:1 IPSBASENAME:2 
+VP/vp34_mod_rv e IPSBASE:1 IPSBASENAME:2 
+VP/vp35_mod_ff d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp35_mod_ff e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp36_mod_task d IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp36_mod_task e IPSBASE:1 IPSBASENAME:2 IPSNAME:1 
+VP/vp37_mod_wire_rv d IPSBASE:1 IPSBASENAME:1 
+VP/vp37_mod_wire_rv e IPSBASE:1 IPSBASENAME:1 
+VQ/vq01_op d LVMETHSPAN:1 METHIDXPAR:2 
+VQ/vq01_op e LVMETHSPAN:1 METHIDXPAR:1 
+VQ/vq02_member_recv d LVMETHSPAN:1 METHIDXPAR:2 
+VQ/vq02_member_recv e LVMETHSPAN:1 METHIDXPAR:1 
+VQ/vq03_2d d LVMETHSPAN:1 METHIDXPAR:2 
+VQ/vq03_2d e LVMETHSPAN:1 METHIDXPAR:1 
+VQ/vq04_member2 d LVMETHSPAN:1 METHIDXPAR:2 
+VQ/vq04_member2 e LVMETHSPAN:1 METHIDXPAR:1 
+VQ/vq06_deep_recv d LVMETHSPAN:1 METHIDXPAR:2 
+VQ/vq06_deep_recv e LVMETHSPAN:1 METHIDXPAR:1 
+VQ/vq07_strlen d METHIDXPAR:1 
+VQ/vq07_strlen e METHIDXPAR:1 
+VQ/vq09_terntrue d METHIDXPAR:2 
+VQ/vq10_ternfalse d LVMETHSPAN:1 METHIDXPAR:2 
+VQ/vq10_ternfalse e LVMETHSPAN:1 METHIDXPAR:1 
+VQ/vq11_compound d LVMETHSPAN:1 METHIDXPAR:2 
+VQ/vq11_compound e LVMETHSPAN:1 METHIDXPAR:1 
+VQ/vq12_harr d LVMETHSPAN:1 METHIDXPAR:2 
+VQ/vq12_harr e LVMETHSPAN:1 METHIDXPAR:1 
+VQ/vq13_put d LVMETHSPAN:1 METHIDXPAR:2 
+VQ/vq13_put e LVMETHSPAN:1 METHIDXPAR:1 
+VQ/vq14_fnwrap d LVROOTCALL:1 METHIDXPAR:2 
+VQ/vq14_fnwrap e LVROOTCALL:1 METHIDXPAR:1 
+VQ/vq15_cast d LVMETHSPAN:1 METHIDXPAR:2 
+VQ/vq15_cast e LVMETHSPAN:1 METHIDXPAR:1 
+VQ/vq16_nba_ctl d METHIDXPAR:2 
+VS/vs01_sfn d LVROOTCALL:1 
+VS/vs01_sfn e LVROOTCALL:1 
+VS/vs04_member2 d LVROOTCALL:1 
+VS/vs04_member2 e LVROOTCALL:1 
+VS/vs05_nested d LVROOTCALL:1 
+VS/vs05_nested e LVROOTCALL:1 
+VS/vs06_twocalls d LVROOTCALL:2 
+VS/vs06_twocalls e LVROOTCALL:2 
+VS/vs07_2d d LVROOTCALL:1 
+VS/vs07_2d e LVROOTCALL:1 
+VS/vs10_compound d LVROOTCALL:1 
+VS/vs10_compound e LVROOTCALL:1 
+VS/vs11_ternfalse d LVROOTCALL:1 
+VS/vs11_ternfalse e LVROOTCALL:1 
+VS/vs15_fnsel_arg d LVROOTCALL:1 
+VS/vs15_fnsel_arg e LVROOTCALL:1 
+VS/vs16_paren d LVROOTCALL:1 
+VS/vs16_paren e LVROOTCALL:1 
+VS/vs17_named d LVROOTCALL:1 
+VS/vs17_named e LVROOTCALL:1 
+VS/vs18_cast d LVROOTCALL:1 
+VS/vs18_cast e LVROOTCALL:1 
+VS/vs19_harr_root d LVROOTCALL:1 
+VS/vs19_harr_root e LVROOTCALL:1 
+VT/vt08_nested d THISIDX:1 
+VT/vt08_nested e THISIDX:1 
+VT/vt10_foreach d THISIDX:1 
+VT/vt10_foreach e THISIDX:1 
+VT/vt11_rhs_too d THISIDX:1 
+VT/vt11_rhs_too e THISIDX:1 
+VT/vt16_unary d THISIDX:1 
+VT/vt16_unary e THISIDX:1 
+VT/vt18_tern d THISIDX:2 
+VT/vt18_tern e THISIDX:2 
+VT/vt19_compound d THISIDX:1 
+VT/vt19_compound e THISIDX:1 
+VT/vt21_postdec_idx d THISIDX_INCDEC:1 
+VT/vt21_postdec_idx e THISIDX_INCDEC:1 
+VT/vt22_member_root d THISIDX:1 
+VT/vt22_member_root e THISIDX:1 
+VT/vt23_member_two d THISIDX:2 
+VT/vt23_member_two e THISIDX:2 
+VT/vt25_lvips d THISIDX:1 
+VT/vt25_lvips e THISIDX:1 
+VT/vt26_lvps_ctl d THISIDX:1 
+VT/vt26_lvps_ctl e THISIDX:1 
+VT/vt27_assoc d THISIDX:1 
+VT/vt27_assoc e THISIDX:1 
+VT/vt28_ifbody d THISIDX:2 
+VT/vt28_ifbody e THISIDX:2 
+VT/vt29_cast d THISIDX:1 
+VT/vt29_cast e THISIDX:1 
+VT/vt30_concat_in_idx d THISIDX:2 
+VT/vt30_concat_in_idx e THISIDX:2 
+VT/vt31_macro d THISIDX:1 
+VT/vt31_macro e THISIDX:1 
+VT/vt32_fork d THISIDX:1 
+VT/vt32_fork e THISIDX:1 
+VT/vt33_derived d THISIDX:1 
+VT/vt33_derived e THISIDX:1 
+VT/vt34_paramcls d THISIDX:1 
+VT/vt34_paramcls e THISIDX:1 
+VX/vx06_unpacked_struct d MODTF:1 
+VX/vx06_unpacked_struct e MODTF:1 
+VX/vx07_packed_arr d MODTF:1 
+VX/vx07_packed_arr e MODTF:1 
+VX/vx08_vif_task d MODTF:1 
+VX/vx08_vif_task e MODTF:1 
+VX/vx10_forvar d MODTF:1 
+VX/vx10_forvar e MODTF:1 
+VX/vx11_foreach d MODTF:1 
+VX/vx11_foreach e MODTF:1 
+VX/vx13_param_inst d MODTF:2 
+VX/vx13_param_inst e MODTF:2 
+VX/vx16_retval_struct d MODTF:1 
+VX/vx16_retval_struct e MODTF:1 
+VX/vx17_rootcall_packedarr d LVROOTCALL:1 
+VX/vx17_rootcall_packedarr e LVROOTCALL:1 
+VX/vx19_rootcall_task d LVROOTCALL:1 
+VX/vx19_rootcall_task e LVROOTCALL:1 
+VX/vx22_rootcall_depth3 d LVROOTCALL:1 
+VX/vx22_rootcall_depth3 e LVROOTCALL:1 
+VX/vx23_rootcall_implicit d LVROOTCALL:1 
+VX/vx23_rootcall_implicit e LVROOTCALL:1 

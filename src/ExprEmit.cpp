@@ -4716,6 +4716,34 @@ static SourceRange memberParenIdxRange184(const Expression& sel) {
     return top->sourceRange();
 }
 
+// § memberSelCallIdxParenSpan312 (r11u312) — the same index-anchored MEMBER
+// select whose index is a CALL written with an argument list slang's range
+// stops short of (`r = h.idx[iarr[i].get()]`: golden 13:15-28 through the
+// closing parenthesis, ours 13:15-26 at the method name; a no-argument call
+// `h.idx[fn()]` alike) spans the written invocation, § callParenSpan11's and
+// § bitSelMethodCallIdxSpan207's model at this select.  Grid
+// tools/probe/r11u312repro/cases/MS.  Switch R11U312_MEMCALLIDX_OFF.
+static SourceRange callIdxRange312(const Expression& sel, SourceRange r) {
+    const Expression& x = stripImplicitConv(sel);
+    if (r != x.sourceRange || r != sel.sourceRange || x.kind != ExpressionKind::Call || !x.syntax)
+        return r;
+    const syntax::SyntaxNode* n = x.syntax;
+    for (int g = 0; g < 3 && n && n->kind != syntax::SyntaxKind::InvocationExpression; ++g)
+        n = n->parent;
+    if (!n || n->kind != syntax::SyntaxKind::InvocationExpression)
+        return r;
+    SourceRange sr = n->sourceRange();
+    if (sr.start() != r.start() || sr.end() == r.end() ||
+        sr.end().buffer() != r.end().buffer() || sr.end() < r.end())
+        return r;
+    static const bool on = lawOn(312, "R11U312_MEMCALLIDX_OFF");
+    lawTrace(312, on ? "MEMCALLIDX" : "MEMCALLIDX_OFF", "");
+    return on ? sr : r;
+}
+static SourceRange memberIdxRange312(const Expression& sel) {
+    return callIdxRange312(sel, memberParenIdxRange184(sel));
+}
+
 // § incDecMixedPathIsLvalue181 (r11u181) — AN INC/DEC OPERAND THAT IS A MEMBER
 // PATH THROUGH AN ELEMENT SELECT IS BUILT AS AN LVALUE PATH.  Surelog
 // compiles the operand of ++/-- through its Variable_lvalue arm
@@ -5453,13 +5481,53 @@ static void castTsNonTrailIdx310(UHDM::Serializer& s) {
 // an inc/dec operand were already golden's.  Only where the stored name is
 // the scope's plus the object's own name; a path in the index is left alone.
 // Grid tools/probe/r11u310repro/cases/TL, CL, FX.  Switch R11U310_CLSLVTRAIL_OFF.
+//
+// § clsLvTrailConcatTarget312 (r11u312) — the same targets written as a
+// CONCATENATION's members (`{h.idx[i + 1], r} = 2`, `{r, h.idx[midx[i]]} =
+// 2`, nested `{{h.idx[i + 1]}, r}`, `<=` too): Surelog compiles each member
+// through the same Variable_lvalue branch, so golden reads
+// `work@grid::probe::h.idx[i + 1]::idx::i` where ours kept the method
+// scope's (v11u310repro VT/vt36, VC/vc22); the concatenation and every
+// enclosing concatenation up to the assignment's Lhs are skipped.  Grid
+// tools/probe/r11u312repro/cases/CC.  Switch R11U312_CONCATLV_OFF.
+//
+// § modTfLvTrailIdxNamesByChain312 (r11u312) — the same in a MODULE,
+// INTERFACE or PROGRAM task or function (`task t(); h.idx[i + 1] = r;`:
+// golden `work@top.t.h.idx[i + 1].idx.i`, ours `work@top.t.i`, v11u310repro
+// VT/vt18): § lvSelIdxChainName181's drain reaches process lvalues only and
+// the class gate above stopped at the module, so the subroutine's targets
+// read their chain too, `.`-joined; a module process stays as it was.  Grid
+// tools/probe/r11u312repro/cases/MD.  Switch R11U312_MODTF_OFF.
+//
+// § pkgTfLvTrailIdxNamesByChain312 (r11u312) — the same in a PACKAGE
+// subroutine (`function automatic void f(holder h, int i); h.idx[i + 1] =
+// 0;`: golden `p::f::h.idx[i + 1]::idx::i`, ours `p::f::i`), `::`-joined.
+// Grid tools/probe/r11u312repro/cases/PK.  Switch R11U312_PKGTF_OFF.
 static void clsLvTrailIdxNames310(UHDM::Serializer& s) {
     std::vector<UHDM::hier_path*> hps;
+    std::set<const UHDM::hier_path*> viaCat312;
     for (auto& kv : s.AllObjects()) {
         auto* o = (UHDM::BaseClass*)kv.first;
         if (!o || o->UhdmType() != UHDM::uhdmhier_path)
             continue;
         auto* as = o->VpiParent();
+        if (as && as->UhdmType() == UHDM::uhdmoperation) {
+            // § clsLvTrailConcatTarget312: climb the concatenations
+            const UHDM::any* top = as;
+            while (top && top->UhdmType() == UHDM::uhdmoperation &&
+                   ((const UHDM::operation*)top)->VpiOpType() == vpiConcatOp &&
+                   top->VpiParent() && top->VpiParent()->UhdmType() == UHDM::uhdmoperation &&
+                   ((const UHDM::operation*)top->VpiParent())->VpiOpType() == vpiConcatOp)
+                top = top->VpiParent();
+            if (top && top->UhdmType() == UHDM::uhdmoperation &&
+                ((const UHDM::operation*)top)->VpiOpType() == vpiConcatOp && top->VpiParent() &&
+                top->VpiParent()->UhdmType() == UHDM::uhdmassignment &&
+                ((const UHDM::assignment*)top->VpiParent())->Lhs() == top) {
+                hps.push_back((UHDM::hier_path*)o);
+                viaCat312.insert((UHDM::hier_path*)o);
+            }
+            continue;
+        }
         if (!as || as->UhdmType() != UHDM::uhdmassignment ||
             ((const UHDM::assignment*)as)->Lhs() != o)
             continue;
@@ -5468,8 +5536,18 @@ static void clsLvTrailIdxNames310(UHDM::Serializer& s) {
     std::sort(hps.begin(), hps.end(), [](const UHDM::hier_path* a, const UHDM::hier_path* b) {
         return a->UhdmId() < b->UhdmId();
     });
-    static const bool on = lawOn(310, "R11U310_CLSLVTRAIL_OFF");
+    static const bool on310 = lawOn(310, "R11U310_CLSLVTRAIL_OFF");
+    static const bool onCat312 = lawOn(312, "R11U312_CONCATLV_OFF");
+    static const bool onMod312 = lawOn(312, "R11U312_MODTF_OFF");
+    static const bool onPkg312 = lawOn(312, "R11U312_PKGTF_OFF");
     for (auto* hp : hps) {
+        // which law this target is under: pass 310's class gate, or this
+        // pass's concatenation member and module subroutine (a member of a
+        // concatenation in a module subroutine needs both switches)
+        const bool cat312 = viaCat312.count(hp) != 0;
+        bool on = on310;
+        int pass = 310;
+        const char* tag = "CLSLVTRAIL";
         auto* pe = hp->Path_elems();
         if (!pe || pe->size() < 2 || !pe->back() ||
             pe->back()->UhdmType() != UHDM::uhdmbit_select)
@@ -5495,8 +5573,33 @@ static void clsLvTrailIdxNames310(UHDM::Serializer& s) {
                 k == UHDM::uhdmprogram || k == UHDM::uhdmpackage || k == UHDM::uhdmdesign)
                 break;
         }
-        if (!fn || !cls)
+        bool modTf312 = false, pkgTf312 = false;
+        if (fn && !cls) {
+            // § modTfLvTrailIdxNamesByChain312: a module, interface or
+            // program subroutine (the climb stopped below the design, not
+            // at a package)
+            const UHDM::any* a = fn;
+            while (a && a->UhdmType() != UHDM::uhdmmodule_inst &&
+                   a->UhdmType() != UHDM::uhdminterface_inst &&
+                   a->UhdmType() != UHDM::uhdmprogram && a->UhdmType() != UHDM::uhdmpackage &&
+                   a->UhdmType() != UHDM::uhdmdesign)
+                a = a->VpiParent();
+            modTf312 = a && (a->UhdmType() == UHDM::uhdmmodule_inst ||
+                             a->UhdmType() == UHDM::uhdminterface_inst ||
+                             a->UhdmType() == UHDM::uhdmprogram);
+            // § pkgTfLvTrailIdxNamesByChain312: a package subroutine
+            pkgTf312 = a && a->UhdmType() == UHDM::uhdmpackage;
+        }
+        if (!fn || (!cls && !modTf312 && !pkgTf312))
             continue;
+        if (cat312 || modTf312 || pkgTf312) {
+            pass = 312;
+            on = (!cat312 || onCat312) && (!modTf312 || onMod312) && (!pkgTf312 || onPkg312);
+            tag = modTf312 ? (cat312 ? "CONCATLV_MODTF" : "MODTF")
+                  : pkgTf312 ? (cat312 ? "CONCATLV_PKGTF" : "PKGTF")
+                             : "CONCATLV";
+        }
+        const std::string tagOff = std::string(tag) + "_OFF";
         const std::string scope = chainFullName175(fn);
         if (scope.empty())
             continue;
@@ -5515,10 +5618,10 @@ static void clsLvTrailIdxNames310(UHDM::Serializer& s) {
             if (want.empty() || want == cur || want.compare(0, scope.size(), scope) != 0)
                 return;
             if (!on) {
-                lawTrace(310, "CLSLVTRAIL_OFF", cur);
+                lawTrace(pass, tagOff.c_str(), cur);
                 return;
             }
-            lawTrace(310, "CLSLVTRAIL", cur + " -> " + want);
+            lawTrace(pass, tag, cur + " -> " + want);
             ((UHDM::ref_obj*)o)->VpiFullName(want);
         };
         std::function<void(UHDM::any*, const UHDM::any*, int, const std::vector<std::string>&)> walk =
@@ -5573,9 +5676,9 @@ static void clsLvTrailIdxNames310(UHDM::Serializer& s) {
                             !want.empty() && want != cur &&
                             want.compare(0, scope.size(), scope) == 0) {
                             if (!on)
-                                lawTrace(310, "CLSLVTRAIL_OFF", cur);
+                                lawTrace(pass, tagOff.c_str(), cur);
                             else {
-                                lawTrace(310, "CLSLVTRAIL", "path " + cur + " -> " + want);
+                                lawTrace(pass, tag, "path " + cur + " -> " + want);
                                 ((UHDM::ref_obj*)r)->VpiFullName(want);
                             }
                         }
@@ -5588,10 +5691,285 @@ static void clsLvTrailIdxNames310(UHDM::Serializer& s) {
         walk(ix, last, 0, std::vector<std::string>());
     }
 }
+// § methRecvIdxAtPath312 (r11u312) — THE INDEX OF A METHOD-CALL RECEIVER'S
+// SELECT, WHEN THE METHOD-CALL PATH IS ITSELF WRITTEN INSIDE A SELECT'S
+// INDEX, HANGS AT THE PATH IN THE DEFINITION VIEW AND READS ITS CHAIN.
+// `r = iarr[iarr[i].get()].f`, `h.idx[iarr[i].get()] = r`, `r =
+// h.arr[iarr[i].get() + 1].f`: Surelog compiles the inner path through
+// compileSelectExpression, whose element indices are parented at the
+// hier_path (golden `\_ref_obj i` under `\_hier_path iarr[i].get`), and
+// stores the name the parent chain gives, which skips that path for a
+// reference: golden `work@grid::probe::iarr[].f::i` and
+// `work@grid::probe::h.idx[]::idx::i`, ours `...::iarr[].f::iarr[i].get::i`
+// (the receiver builder's prefix) and `work@grid::probe::i` (the method
+// scope's).  In the ELABORATED view golden's class bodies carry the index
+// under the select again and the name runs through the path
+// (`...::h.idx[]::idx::iarr[i].get::i`), so there only the names move.  A
+// path not written in an index (`r = iarr[i].get()`, a call argument) is
+// not touched.  Only where the stored name and the chain lie in the same
+// enclosing scope and end in the object's own name.  r11u310repro residue
+// 1 and v11u310repro residue 1's method-path half (MT mt61, mt62, mt65 to
+// mt68, VQ vq25 to vq29, VT/vt37).  Grid tools/probe/r11u312repro/cases/MI.
+// Switch R11U312_METHIDXPAR_OFF.
+static void methRecvIdxAtPath312(UHDM::Serializer& s, bool elabView) {
+    std::vector<UHDM::hier_path*> hps;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        auto* pe = ((UHDM::hier_path*)o)->Path_elems();
+        if (!pe || pe->size() < 2 || !pe->back() ||
+            pe->back()->UhdmType() != UHDM::uhdmmethod_func_call)
+            continue;
+        hps.push_back((UHDM::hier_path*)o);
+    }
+    if (hps.empty())
+        return;
+    std::sort(hps.begin(), hps.end(), [](const UHDM::hier_path* a, const UHDM::hier_path* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    static const bool on = lawOn(312, "R11U312_METHIDXPAR_OFF");
+    for (auto* hp : hps) {
+        // written inside a select's index: the climb passes operations and
+        // call argument lists only and must reach a select or a path
+        // (a method call's argument list is not an index: `space.substr(1,
+        // m - qc.queue[i].name.len())`, BuildUVMPkg's uvm_factory::print,
+        // keeps the name through the inner path in golden; a path is reached
+        // as an index only when the child is not one of its elements)
+        bool inIdx = false;
+        const UHDM::any* a = hp->VpiParent();
+        const UHDM::any* from = hp;
+        for (int g = 0; a && g < 32; ++g, from = a, a = a->VpiParent()) {
+            const auto t = a->UhdmType();
+            if (t == UHDM::uhdmbit_select || t == UHDM::uhdmvar_select ||
+                t == UHDM::uhdmpart_select || t == UHDM::uhdmindexed_part_select) {
+                inIdx = true;
+                break;
+            }
+            if (t == UHDM::uhdmhier_path) {
+                bool elem = false;
+                if (auto* pe2 = ((const UHDM::hier_path*)a)->Path_elems())
+                    for (auto* x : *pe2)
+                        if (x == from)
+                            elem = true;
+                inIdx = !elem;
+                break;
+            }
+            if (t == UHDM::uhdmoperation || t == UHDM::uhdmfunc_call ||
+                t == UHDM::uhdmsys_func_call)
+                continue;
+            break;
+        }
+        if (!inIdx)
+            continue;
+        std::string scope;
+        for (const UHDM::any* b = hp->VpiParent(); b; b = b->VpiParent()) {
+            const auto k = b->UhdmType();
+            if (k == UHDM::uhdmfunction || k == UHDM::uhdmtask || k == UHDM::uhdmclass_defn ||
+                k == UHDM::uhdmmodule_inst || k == UHDM::uhdminterface_inst ||
+                k == UHDM::uhdmprogram || k == UHDM::uhdmpackage || k == UHDM::uhdmgen_scope) {
+                scope = chainFullName175(b);
+                break;
+            }
+        }
+        if (scope.empty())
+            continue;
+        // (the elaborated-view names are the class bodies' only: an
+        // elaborated module keeps the stored name, golden `work@top.ia.i`
+        // for `initial r = ia[iarr[i].get()]`, cases/MI mi31)
+        bool cls = false;
+        for (const UHDM::any* b = hp->VpiParent(); b && !cls; b = b->VpiParent())
+            cls = b->UhdmType() == UHDM::uhdmclass_defn;
+        if (elabView && !cls) {
+            lawTrace(312, "METHIDXPAR_ABSTAIN", "elaborated non-class " + scope);
+            continue;
+        }
+        auto ends = [](const std::string& x, const std::string& nm) {
+            return x.size() > nm.size() + 1 && x.compare(x.size() - nm.size(), nm.size(), nm) == 0 &&
+                   (x[x.size() - nm.size() - 1] == '.' || x[x.size() - nm.size() - 1] == ':');
+        };
+        auto rename = [&](UHDM::any* o) {
+            const std::string nm(o->VpiName());
+            const std::string cur = storedFullName308(o);
+            if (nm.empty() || cur.empty())
+                return;
+            const std::string want = chainFullName175(o);
+            if (want.empty() || want == cur || !ends(cur, nm) || !ends(want, nm) ||
+                cur.compare(0, scope.size(), scope) != 0 ||
+                want.compare(0, scope.size(), scope) != 0) {
+                lawTrace(312, "METHIDXPAR_ABSTAIN", cur + " | " + want);
+                return;
+            }
+            if (!on) {
+                lawTrace(312, "METHIDXPAR_OFF", cur);
+                return;
+            }
+            lawTrace(312, "METHIDXPAR", cur + " -> " + want);
+            if (o->UhdmType() == UHDM::uhdmref_obj)
+                ((UHDM::ref_obj*)o)->VpiFullName(want);
+            else
+                ((UHDM::bit_select*)o)->VpiFullName(want);
+        };
+        std::function<void(UHDM::any*, const UHDM::any*, int)> walk =
+            [&](UHDM::any* e, const UHDM::any* par, int d) {
+                if (!e || e->VpiParent() != par || d > 16)
+                    return;
+                switch (e->UhdmType()) {
+                case UHDM::uhdmref_obj:
+                    rename(e);
+                    return;
+                case UHDM::uhdmbit_select:
+                    rename(e);
+                    walk((UHDM::any*)((UHDM::bit_select*)e)->VpiIndex(), e, d + 1);
+                    return;
+                case UHDM::uhdmoperation:
+                    if (auto* os = ((UHDM::operation*)e)->Operands())
+                        for (auto* o : *os)
+                            walk(o, e, d + 1);
+                    return;
+                case UHDM::uhdmfunc_call:
+                case UHDM::uhdmsys_func_call:
+                    if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
+                        for (auto* x : *as)
+                            walk(x, e, d + 1);
+                    return;
+                default:
+                    return;
+                }
+            };
+        for (auto* el : *hp->Path_elems()) {
+            if (!el || el->UhdmType() != UHDM::uhdmbit_select || el->VpiParent() != hp)
+                continue;
+            auto* bs = (UHDM::bit_select*)el;
+            auto* ix = (UHDM::any*)bs->VpiIndex();
+            if (!ix)
+                continue;
+            const UHDM::any* par = bs;
+            if (ix->VpiParent() == bs && !elabView) {
+                if (on) {
+                    lawTrace(312, "METHIDXPAR", std::string("parent ") + std::string(ix->VpiName()) +
+                                                    " -> " + std::string(hp->VpiName()));
+                    ix->VpiParent(hp);
+                    par = hp;
+                }
+                else
+                    lawTrace(312, "METHIDXPAR_OFF", std::string("parent ") + std::string(ix->VpiName()));
+            }
+            else if (ix->VpiParent() == hp)
+                par = hp;
+            walk(ix, par, 0);
+        }
+    }
+}
+// § ipsBaseNamesByChain312 (r11u312) — THE NAMED OBJECTS INSIDE A MEMBER
+// PATH'S INDEXED PART SELECT BASE READ THEIR CHAIN when the base is a
+// select, a call or a path (`h.v[ia[i] +: 2] = 0`, `r = h.v[fn(i) +: 2]`,
+// `h.v[iarr[i].f +: 2] = 0`, `always_comb a.v[ix[i] +: 2] = 0`): Surelog
+// stores no full name there, so golden reads
+// `work@grid::probe::h.v[[i]+:2]::v::ia` and `...::v::i`, `work@top.a.v[[i]+:
+// 2].v.ix`; ours kept the scope's (`work@grid::probe::ia`, `work@top.ix`).
+// A reference written directly as the base already read its chain and is not
+// touched.  Only where the stored name is the enclosing scope's name plus the
+// object's own name and the chain lies in that scope.  Grid
+// tools/probe/r11u312repro/cases/IP.  Switch R11U312_IPSBASENAME_OFF.
+static void ipsBaseNames312(UHDM::Serializer& s) {
+    std::vector<UHDM::indexed_part_select*> ipss;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmindexed_part_select || !o->VpiParent() ||
+            o->VpiParent()->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        ipss.push_back((UHDM::indexed_part_select*)o);
+    }
+    if (ipss.empty())
+        return;
+    std::sort(ipss.begin(), ipss.end(),
+              [](const UHDM::indexed_part_select* a, const UHDM::indexed_part_select* b) {
+                  return a->UhdmId() < b->UhdmId();
+              });
+    static const bool on = lawOn(312, "R11U312_IPSBASENAME_OFF");
+    for (auto* ips : ipss) {
+        auto* b = (UHDM::any*)ips->Base_expr();
+        if (!b || b->UhdmType() == UHDM::uhdmref_obj || b->UhdmType() == UHDM::uhdmconstant ||
+            b->UhdmType() == UHDM::uhdmoperation)
+            continue;
+        std::string scope;
+        for (const UHDM::any* a = ips->VpiParent(); a; a = a->VpiParent()) {
+            const auto k = a->UhdmType();
+            if (k == UHDM::uhdmfunction || k == UHDM::uhdmtask || k == UHDM::uhdmclass_defn ||
+                k == UHDM::uhdmmodule_inst || k == UHDM::uhdminterface_inst ||
+                k == UHDM::uhdmprogram || k == UHDM::uhdmpackage || k == UHDM::uhdmgen_scope) {
+                scope = chainFullName175(a);
+                break;
+            }
+        }
+        if (scope.empty())
+            continue;
+        auto fix = [&](UHDM::any* o) {
+            const std::string nm(o->VpiName());
+            const std::string cur = storedFullName308(o);
+            if (nm.empty() || (cur != scope + "::" + nm && cur != scope + "." + nm))
+                return;
+            const std::string want = chainFullName175(o);
+            if (want.empty() || want == cur || want.compare(0, scope.size(), scope) != 0) {
+                lawTrace(312, "IPSBASENAME_ABSTAIN", cur + " | " + want);
+                return;
+            }
+            if (!on) {
+                lawTrace(312, "IPSBASENAME_OFF", cur);
+                return;
+            }
+            lawTrace(312, "IPSBASENAME", cur + " -> " + want);
+            ((UHDM::ref_obj*)o)->VpiFullName(want);
+        };
+        std::function<void(UHDM::any*, const UHDM::any*, int)> walk =
+            [&](UHDM::any* e, const UHDM::any* par, int d) {
+                if (!e || e->VpiParent() != par || d > 16)
+                    return;
+                switch (e->UhdmType()) {
+                case UHDM::uhdmref_obj:
+                    fix(e);
+                    return;
+                case UHDM::uhdmbit_select:
+                    fix(e);
+                    walk((UHDM::any*)((UHDM::bit_select*)e)->VpiIndex(), e, d + 1);
+                    return;
+                case UHDM::uhdmoperation:
+                    if (auto* os = ((UHDM::operation*)e)->Operands())
+                        for (auto* o : *os)
+                            walk(o, e, d + 1);
+                    return;
+                case UHDM::uhdmfunc_call:
+                    if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
+                        for (auto* x : *as)
+                            walk(x, e, d + 1);
+                    return;
+                case UHDM::uhdmhier_path:
+                    // a path base: the indices of its selects (hung at the
+                    // select or at the path)
+                    if (auto* pe = ((UHDM::hier_path*)e)->Path_elems())
+                        for (auto* x : *pe)
+                            if (x && x->UhdmType() == UHDM::uhdmbit_select) {
+                                auto* ix = (UHDM::any*)((UHDM::bit_select*)x)->VpiIndex();
+                                if (ix && ix->VpiParent() == x)
+                                    walk(ix, x, d + 1);
+                                else if (ix && ix->VpiParent() == e)
+                                    walk(ix, e, d + 1);
+                            }
+                    return;
+                default:
+                    return;
+                }
+            };
+        walk(b, ips, 0);
+    }
+}
 void nonTrailIdxDrain308(UHDM::Serializer& s, bool elabView) {
     castTsNonTrailIdx308(s);
     castTsNonTrailIdx310(s);
     clsLvTrailIdxNames310(s);
+    methRecvIdxAtPath312(s, elabView);
+    ipsBaseNames312(s);
     nonTrailIdxNamesByChain308(s);
     if (elabView)
         elabClsNonTrailIdx308(s);
@@ -12802,6 +13180,22 @@ static bool replaceLastBracketBody94(std::string& nm, const std::string& body) {
     return true;
 }
 
+// § lvIpsNameFollowsHpRender312 (r11u312) — when this law re-renders the
+// path's name, an ASSIGNMENT TARGET's indexed part select whose full name was
+// frozen through the path before the rename (`h.v[h.k +: 2] = 0`, ours
+// `work@grid::probe::h.v[h.k+:2]::v`) takes the re-rendered path text in that
+// name (golden `work@grid::probe::h.v[+:2]::v`; the rvalue select stores the
+// path's own name, which the loop below already followed).  Only the path's
+// old text standing whole between separators is replaced.  Grid
+// tools/probe/r11u312repro/cases/IP.  Switch R11U312_IPSNAME_OFF.
+//
+// § ipsBaseSelCallRender312 (r11u312) — decompileHelper's rows reach a
+// SELECT and a USER CALL written as the base too: a bit_select renders
+// `[` + its index + `]` without its name and a func_call renders empty
+// (`h.v[ia[i] +: 2] = 0`: golden hier_path `h.v[[i]+:2]`, ours the written
+// `h.v[ia[i]+:2]`; `h.v[fn(i) +: 2]`: golden `h.v[+:2]`), the index a
+// constant or a reference only.  Grid tools/probe/r11u312repro/cases/IP.
+// Switch R11U312_IPSBASE_OFF.
 static void hpIdxBaseHierPathEmpty94(UHDM::hier_path* hp) {
     if (!hp || !hp->Path_elems() || hp->Path_elems()->empty())
         return;
@@ -12809,13 +13203,33 @@ static void hpIdxBaseHierPathEmpty94(UHDM::hier_path* hp) {
     if (!ips)
         return;
     const UHDM::any* b = ips->Base_expr();
-    if (!b || b->UhdmType() != UHDM::uhdmhier_path)
+    if (!b)
         return;
+    std::string base312;
+    bool other312 = false;
+    if (b->UhdmType() != UHDM::uhdmhier_path) {
+        // § ipsBaseSelCallRender312
+        if (b->UhdmType() == UHDM::uhdmbit_select) {
+            const UHDM::any* x = ((const UHDM::bit_select*)b)->VpiIndex();
+            if (!x || (x->UhdmType() != UHDM::uhdmconstant && x->UhdmType() != UHDM::uhdmref_obj))
+                return;
+            base312 = "[" + dhOperandText94(x) + "]";
+        }
+        else if (b->UhdmType() != UHDM::uhdmfunc_call)
+            return;
+        other312 = true;
+    }
     const UHDM::any* w = ips->Width_expr();
     if (!w || (w->UhdmType() != UHDM::uhdmconstant &&
                w->UhdmType() != UHDM::uhdmref_obj))
         return;
-    std::string body =
+    if (other312) {
+        static const bool onB312 = lawOn(312, "R11U312_IPSBASE_OFF");
+        lawTrace(312, onB312 ? "IPSBASE" : "IPSBASE_OFF", std::string(hp->VpiName()));
+        if (!onB312)
+            return;
+    }
+    std::string body = base312 +
         std::string(ips->VpiIndexedPartSelectType() == vpiPosIndexed ? "+:" : "-:") +
         dhOperandText94(w);
     const std::string old(hp->VpiName());
@@ -12825,10 +13239,34 @@ static void hpIdxBaseHierPathEmpty94(UHDM::hier_path* hp) {
     hp->VpiName(nm);
     if (hp->VpiFullName() == old)
         hp->VpiFullName(nm);
+    static const bool onN312 = lawOn(312, "R11U312_IPSNAME_OFF");
     for (auto* e : *hp->Path_elems()) {
-        if (auto* ip2 = any_cast<UHDM::indexed_part_select*>(e))
-            if (ip2->VpiFullName() == old)
+        if (auto* ip2 = any_cast<UHDM::indexed_part_select*>(e)) {
+            // § lvIpsNameFollowsHpRender312: the stored name read without
+            // the getter (which would store a computed one)
+            const std::string st = storedFullName308(ip2);
+            if (st.empty()) {
+                // pristine's test, the getter storing the computed name
+                if (ip2->VpiFullName() == old)
+                    ip2->VpiFullName(nm);
+            }
+            else if (st == old)
                 ip2->VpiFullName(nm);
+            else {
+                const size_t at = st.find(old);
+                const bool whole =
+                    at != std::string::npos && at > 0 && st.find(old, at + 1) == std::string::npos &&
+                    (st[at - 1] == ':' || st[at - 1] == '.') &&
+                    (at + old.size() == st.size() || st[at + old.size()] == ':' ||
+                     st[at + old.size()] == '.');
+                if (!whole)
+                    continue;
+                const std::string want = st.substr(0, at) + nm + st.substr(at + old.size());
+                lawTrace(312, onN312 ? "IPSNAME" : "IPSNAME_OFF", st + " -> " + want);
+                if (onN312)
+                    ip2->VpiFullName(want);
+            }
+        }
     }
 }
 
@@ -18691,7 +19129,8 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 // lazy-frozen fullname (work@<mod>.<dotted>.<name>) anchored
                 // at the INDEX span (Surelog).
                 // § memberSelParenIdxSpan184 — with its parentheses.
-                setLoc(bs, memberParenIdxRange184(*sel.sel));
+                // § memberSelCallIdxParenSpan312 — a call's argument list too.
+                setLoc(bs, memberIdxRange312(*sel.sel));
                 (void)bs->VpiFullName();
                 if (auto* ix = emitExpr(*sel.sel, bs, idxPfx79b, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
@@ -18701,7 +19140,8 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 // lazy name; a select followed by further members keeps the
                 // member span and the dotted path (Surelog).
                 // § memberSelParenIdxSpan184 — with its parentheses.
-                setLoc(bs, memberParenIdxRange184(*sel.sel));
+                // § memberSelCallIdxParenSpan312 — a call's argument list too.
+                setLoc(bs, memberIdxRange312(*sel.sel));
                 (void)bs->VpiFullName();
                 if (auto* ix = emitExpr(*sel.sel, bs, idxPfx79b, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
@@ -37999,8 +38439,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // `iarr[].get` 9:14-18, ours the whole call 9:14-29).
                         // Grid tools/probe/r11u310repro/cases/MT.  Switch
                         // R11U310_METHPATHSPAN_OFF.
-                        if (!inLhs && !inParamInit && (hpMidIdx184() || methIdxCall310()) &&
-                            !segs11.empty()) {
+                        // § lvMethPathInIdxNameSpan312 (r11u312) — the same
+                        // path in the non-trailing select index of an
+                        // ASSIGNMENT TARGET (`iarr[iarr[i].get()].f = r`,
+                        // r11u310repro MT/mt65, v11u310repro VQ/vq27) spans
+                        // its first name too (golden 13:10-14, ours the whole
+                        // call 13:10-23): Surelog compiles a select's index as
+                        // a read whatever side the path stands on (§
+                        // lvIdxPathIsRead154's decode).  Only on the path's
+                        // BASE select: a member's select (`h.arr[iarr[i].get()]
+                        // .f = r`, cases LS ls05 and ls12) keeps the whole
+                        // call in golden, the lvalue branch hanging that index off
+                        // the select (§ lvNestShapeMidIdxAtSel310's model).  Grid
+                        // tools/probe/r11u312repro/cases/LS.  Switch
+                        // R11U312_LVMETHSPAN_OFF.
+                        if (!inParamInit && !segs11.empty() &&
+                            (!inLhs ? (hpMidIdx184() || methIdxCall310())
+                                    : (hpMidIdx306() && hpComp308() == 0 &&
+                                       lvIdxParent154(parent)))) {
                             // (a conditional's TRUE branch keeps the whole
                             // path: golden `iarr[c ? iarr[i].get() : j].f`
                             // 9:18-31, the § hpOpIdxTernTrueKeepsIdxLoc304v twin)
@@ -38026,9 +38482,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 q310->VpiParent() &&
                                 q310->VpiParent()->UhdmType() == UHDM::uhdmhier_path) {
                                 static const bool onSp310 = lawOn(310, "R11U310_METHPATHSPAN_OFF");
-                                lawTrace(310, onSp310 ? "METHPATHSPAN" : "METHPATHSPAN_OFF", dotted11);
-                                if (onSp310)
-                                    setLoc(hp11, segs11[0].nameRng);
+                                static const bool onLv312 = lawOn(312, "R11U312_LVMETHSPAN_OFF");
+                                if (inLhs) {
+                                    lawTrace(312, onLv312 ? "LVMETHSPAN" : "LVMETHSPAN_OFF", dotted11);
+                                    if (onLv312)
+                                        setLoc(hp11, segs11[0].nameRng);
+                                }
+                                else {
+                                    lawTrace(310, onSp310 ? "METHPATHSPAN" : "METHPATHSPAN_OFF", dotted11);
+                                    if (onSp310)
+                                        setLoc(hp11, segs11[0].nameRng);
+                                }
                             }
                         }
                         auto* elems11 = s.MakeAnyVec();
@@ -39456,6 +39920,52 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 sr12.end() > cr12.end())
                                 cr12 = sr12;
                         }
+                        // § lateCallIdxNameSpan312 (r11u312) — a call to a
+                        // method declared BELOW the caller (this branch) written
+                        // in a NON-TRAILING select's index or a method-call
+                        // receiver's index spans its name, as §
+                        // hpIdxCallNameSpan184 and § methIdxCallNameSpan310
+                        // span a call there in the main branch (golden `fwd`
+                        // 9:14-17 for `r = iarr[fwd(h.k)].get()`, ours the
+                        // whole call 9:14-26; r11u310repro FX/fx02); a
+                        // conditional's true branch keeps the whole call (§
+                        // idxCallTernTrueKeepsSpan310).  Grid
+                        // tools/probe/r11u312repro/cases/LC.  Switch
+                        // R11U312_LATECALL_OFF.
+                        if (!inParamInit &&
+                            (!inLhs ? (hpMidIdx184() || methIdxCall310())
+                                    : (hpMidIdx306() && hpComp308() == 0))) {
+                            // (an assignment target's ROOT select too, §
+                            // lvRootSelCallNameSpan312's twin in this branch,
+                            // under this law's switch)
+                            const UHDM::any* q312 = parent;
+                            bool tern312 = false;
+                            while (q312 &&
+                                   (q312->UhdmType() == UHDM::uhdmoperation ||
+                                    (q312->UhdmType() == UHDM::uhdmbit_select &&
+                                     q312->VpiParent() &&
+                                     q312->VpiParent()->UhdmType() != UHDM::uhdmhier_path))) {
+                                if (q312->UhdmType() == UHDM::uhdmoperation &&
+                                    ((const UHDM::operation*)q312)->VpiOpType() == vpiConditionOp)
+                                    for (const UHDM::any* t312 : ternTrueArmOps31)
+                                        if (t312 == q312)
+                                            tern312 = true;
+                                q312 = q312->VpiParent();
+                            }
+                            if (q312 && q312->UhdmType() == UHDM::uhdmbit_select &&
+                                q312->VpiParent() &&
+                                q312->VpiParent()->UhdmType() == UHDM::uhdmhier_path) {
+                                static const bool on312 = lawOn(312, "R11U312_LATECALL_OFF");
+                                if (tern312)
+                                    lawTrace(312, "LATECALL_ABSTAIN", std::string(sub.name));
+                                else {
+                                    lawTrace(312, on312 ? "LATECALL" : "LATECALL_OFF",
+                                             std::string(sub.name));
+                                    if (on312)
+                                        cr12 = nameSpan(expr.sourceRange.start(), sub.name);
+                                }
+                            }
+                        }
                         setLoc(fc0, cr12);
                         auto* cargs = s.MakeAnyVec();
                         // § blockLocalSameCtrlDepthArgBinds57 — THE §53 GATE,
@@ -39911,6 +40421,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     trace181("V181 RDCALL");
                 bool hpIdxCall184 = false;
                 bool idxCall310 = false;
+                bool lvRoot312 = false;  // § lvRootSelCallNameSpan312
                 bool qualIdx310 = false;  // § idxQualCallNameSpan310's context
                 if (!inParamInit && !rdCall181 &&
                     (hpMidIdx184() || methIdxCall310() || (inLhs && hpMidIdx306()))) {
@@ -39950,6 +40461,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         keep310 = onTt310;
                     }
                     qualIdx310 = reach184 && !tern310;
+                    // § lvRootSelCallNameSpan312 (r11u312) — a call written
+                    // in the ROOT select's index of an ASSIGNMENT TARGET path
+                    // in a process or a subroutine (`iarr[fn(i)].f = r` in a
+                    // class method, `always_comb m[fn(i)].b = 0`, a module
+                    // task; directly or under an operation) spans its name
+                    // (golden `fn` 13:10-12, ours the whole call 13:10-15,
+                    // § procLvCall181's whole span): Surelog compiles that
+                    // index as a read (§ lvIdxPathIsRead154's decode), where
+                    // a member's select (`h.arr[fn(i)].f`) and a trailing
+                    // select (`h.idx[fn(i)]`) keep the whole call, and a
+                    // conditional's true branch keeps it too.  Grid
+                    // tools/probe/r11u312repro/cases/LR.  Switch
+                    // R11U312_LVROOTCALL_OFF.
+                    if (inLhs && procLvCall181 && reach184 && !tern310 &&
+                        hpMidIdx306() && hpComp308() == 0) {
+                        static const bool onLr312 = lawOn(312, "R11U312_LVROOTCALL_OFF");
+                        lawTrace(312, onLr312 ? "LVROOTCALL" : "LVROOTCALL_OFF",
+                                 std::string(sub.name));
+                        lvRoot312 = onLr312;
+                    }
                     if (inLhs)
                         ;  // (the lvalue already spans the name; only the
                            // qualified form below is this context's)
@@ -39967,7 +40498,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         trace184("HPIDXCALL");
                 }
                 if (((inParamInit || inLhs || rdCall181) && !procLvCall181) ||
-                    hpIdxCall184 || idxCall310) {
+                    hpIdxCall184 || idxCall310 || lvRoot312) {
                     setLoc(fc, nameSpan(expr.sourceRange.start(), sub.name));
                 }
                 else
@@ -45038,7 +45569,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                     expr.sourceRange.end()));
                         }
                         else  // § memberSelParenIdxSpan184 (its parentheses)
-                            setLoc(bs2, memberParenIdxRange184(es.selector()));
+                              // § memberSelCallIdxParenSpan312 (a call's arguments)
+                            setLoc(bs2, memberIdxRange312(es.selector()));
                         // § genScopeTrailSelNameLate184 (r11u184) — in a
                         // generate scope's process the trailing member select
                         // is named through the generate scope (golden
@@ -48573,7 +49105,35 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 int pot157 = parent && parent->UhdmType() == UHDM::uhdmoperation
                                  ? ((const UHDM::operation*)parent)->VpiOpType()
                                  : 0;
-                if (inLhs)
+                // § lvIdxThisPathIsRead312 (r11u312) — a one-member `this.`
+                // path written in an ASSIGNMENT TARGET's select index
+                // (`h.idx[this.i] = r`, `h.idx[this.i + 1] = r`, `ia[this.i]
+                // += 1`) is a READ, as § lvIdxPathIsRead154 found for a
+                // dotted path there: golden spans the hier_path over the
+                // whole `this.i` (13:11-17) and keeps the member at its own
+                // token with no stored full name (the RVALUE form), where the
+                // lvalue form spanned `this` and left the member loc-less with
+                // the scope's name (v11u310repro VT/vt27).  The gate is
+                // lvIdxParent154's (the path's parent is a select, directly
+                // or through operations).  Grid
+                // tools/probe/r11u312repro/cases/TH.  Switch
+                // R11U312_THISIDX_OFF.
+                // (an inc/dec operand there, `ia[this.i++] = r`, keeps its
+                // operator's form: the postfix one spans the whole path with
+                // the member loc-less, golden 13:8-14, as a postfix operand
+                // anywhere; a prefix one stays the lvalue form)
+                if (inLhs && chain.size() == 1 && lvIdxParent154(parent)) {
+                    static const bool on312 = lawOn(312, "R11U312_THISIDX_OFF");
+                    const bool id312 = incDecOperand124() == &expr;
+                    const bool post312 =
+                        id312 && (pot157 == vpiPostIncOp || pot157 == vpiPostDecOp);
+                    lawTrace(312, on312 ? (id312 ? "THISIDX_INCDEC" : "THISIDX") : "THISIDX_OFF",
+                             dotted);
+                    thisForm157 = !on312 ? ThisLv157
+                                  : id312 ? (post312 ? ThisPost157 : ThisLv157)
+                                          : ThisRv157;
+                }
+                else if (inLhs)
                     thisForm157 = ThisLv157;
                 else if (incDec157 && (pot157 == vpiPostIncOp || pot157 == vpiPostDecOp))
                     thisForm157 = ThisPost157;
