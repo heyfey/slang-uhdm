@@ -1,0 +1,4 @@
+name,mode,status,detail,blocked_by,strict
+BuildUVMPkg,default,STRICT_NOTEQUAL,differ:fullname(308),,differ:fullname(308)
+Earlgrey_0_1,default,CMP_EQUAL,,,equal
+MiniAmiq,default,STRICT_NOTEQUAL,differ:fullname(400),,differ:fullname(400)

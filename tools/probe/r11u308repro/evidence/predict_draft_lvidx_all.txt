@@ -1,0 +1,28 @@
+probe r10buvm6repro__v5_hierpathparent.uhdm LVMEMSEL:1
+probe r10earl_repro__tj.uhdm LVMEMSEL:4
+probe r10uvm134repro__g134_d_bodies.uhdm NTIDXCHAIN:1
+probe r10uvm175repro__g175_c_tail.uhdm NTIDXCHAIN:1
+probe r10uvm193repro__g193_c_argface.uhdm NTIDXCHAIN:4
+probe r10uvm74repro__b3_context.uhdm NTIDXCHAIN:1
+probe r10uvm79repro__v79v2_recv.uhdm LVMEMSEL:2
+probe r10v134repro__v134_4bodies.uhdm NTIDXCHAIN:1
+surelog BuildUVMPkg/default NTIDXCHAIN:308
+surelog BuildUVMPkg/testflags NTIDXCHAIN:308
+surelog Earlgrey_0_1/default LVMEMSEL:290
+surelog Earlgrey_0_1/testflags LVMEMSEL:290
+surelog LhsHierPath/default LVMEMSEL:1
+surelog LhsHierPath/testflags LVMEMSEL:1
+surelog LocalScopeHierPath/testflags ELABCLSIDX:1
+surelog MiniAmiq/default LVMEMSEL:16 NTIDXCHAIN:400
+surelog MiniAmiq/testflags LVMEMSEL:16 NTIDXCHAIN:400
+surelog Scoreboard/default LVMEMSEL:8 NTIDXCHAIN:301
+surelog SeqDriver/default LVMEMSEL:16 NTIDXCHAIN:301
+surelog SeqDriver/testflags LVMEMSEL:16 NTIDXCHAIN:301
+surelog SimpleUVM/default LVMEMSEL:8 NTIDXCHAIN:301
+surelog SimpleUVM/testflags LVMEMSEL:8 NTIDXCHAIN:301
+uhdm2rtlil PackedArray/default LVMEMSEL:2
+uhdm2rtlil PackedArray/testflags LVMEMSEL:2
+uhdm2rtlil StructOfArrayOfStructs/default LVMEMSEL:1
+uhdm2rtlil StructOfArrayOfStructs/testflags LVMEMSEL:1
+uhdm2rtlil UnionCustomTypeMultirange/default LVMEMSEL:10
+uhdm2rtlil UnionCustomTypeMultirange/testflags LVMEMSEL:10

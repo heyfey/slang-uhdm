@@ -1,0 +1,57 @@
+pristine 6601ed32792b4a1efb137251e23c6ff3 (main tree build/slang-uhdm at 1e7861ae: 6601ed32792b4a1efb137251e23c6ff3)
+law 1d2cda96ada1427527d37238c3937c5c
+slang-uhdm using slang version 12.0.0+545f88b2e
+
+== pristine sweep (/tmp/r11u308_wdP)
+[probe] EQUAL=4017 STRICT_NOTEQUAL=70
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+== law sweep (/tmp/r11u308_wdL)
+[probe] EQUAL=4017 STRICT_NOTEQUAL=70
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+(both sweeps exit 1 on the law-index check alone: tests/LAWS.md is regenerated last)
+
+== csv row diff law vs pristine
+probe: 0 differing lines
+surelog: 4 differing lines
+uhdm2rtlil: 0 differing lines
+(surelog: the LowMemLib and LowMemPkg testflags SURELOG_FAIL detail text names the workdir)
+downstream: both csvs byte-identical to results/downstream_uhdm2rtlil.csv (after sort)
+
+== byteverify (fence-filtered mirrors, drivers/mirror.sh)
+databases: patched=3365 pristine=3365
+PATH_SETS_IDENTICAL (3365 paths)
+MOVERS: 0 / 3365
+SELFCHECK (every file vs one fixed file): 3363 / 3365 flagged
+SELFCHECK_FAILED
+probe databases 4087 movers 0
+
+== canaries
+surelog ok=52 changed=0; uhdm2rtlil ok=16 changed=0; ctcan2 surelog PASS (EXPECT_UNKNOWN=1); ctcan2 uhdm2rtlil PASS (EXPECT_UNKNOWN=6)
+
+== binary-path audit (drivers/audit.sh)
+/tmp/r11u308_wdP own=3265 other=0 noslang=50 fenced_skipped=8
+/tmp/r11u308_wdL own=3265 other=0 noslang=50 fenced_skipped=8

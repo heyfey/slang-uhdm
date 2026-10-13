@@ -1,0 +1,12 @@
+BI/bi01_bare d chain away=1 toward=0 flat_away=1 flat_toward=0
+BI/bi12_terntrue d chain away=2 toward=0 flat_away=2 flat_toward=0
+CT/ct07_lv d chain away=1 toward=0 flat_away=1 flat_toward=0
+CT/ct17_td d chain away=2 toward=0 flat_away=2 flat_toward=0
+EC/ec20_concat e chain away=2 toward=0 flat_away=2 flat_toward=0
+EC/ec47_castmid d chain away=1 toward=0 flat_away=1 flat_toward=0
+IP/ip02_down d chain away=2 toward=0 flat_away=2 flat_toward=0
+IP/ip11_cls e chain away=2 toward=0 flat_away=2 flat_toward=0
+MS/ms05_leafsel d chain away=3 toward=0 flat_away=3 flat_toward=0
+MS/ms20_mod e chain away=6 toward=0 flat_away=6 flat_toward=0
+NV/nv02_whole d chain away=0 toward=0 flat_away=2 flat_toward=0
+VO/vo02_call e chain away=1 toward=0 flat_away=1 flat_toward=0

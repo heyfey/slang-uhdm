@@ -1,0 +1,1 @@
+surelog LocalScopeHierPath/testflags ELABCLSIDX:1

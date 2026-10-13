@@ -28687,6 +28687,7 @@ void drainCallArgCopyTs246(const std::set<UHDM::ref_typespec*>& stamped);
 // § hierPathSelIdxAtPath178 (r11u178) — defined in ExprEmit.cpp.
 void drainHierPathSelIdx178(UHDM::Serializer& s);
 void nestShapeDrain306(bool elabView);  // § nonTrailIdxPathNestShape306 (r11u306)
+void nonTrailIdxDrain308(UHDM::Serializer& s, bool elabView);  // § elabClsNonTrailIdxUnstored308 (r11u308)
 void drainMisevalSpliceChain290();  // § elabMisevalSpliceRefChain290 (TypeEmit.cpp)
 // § rootPathFullNameByChain181 (r11u181) — defined in ExprEmit.cpp.
 void rootPathFullNameByChain181(UHDM::Serializer& s);
@@ -29450,6 +29451,7 @@ void UhdmExporter::drainPaNameCopySrc38() {
     cloneHpIdxDrain220(s);
     castTsInPathIdxDrain296(s);  // § castTsInPathIdxByChain296 (r11u296)
     nestShapeDrain306(elabUhdmView121);  // § nonTrailIdxPathNestShape306 (r11u306)
+    nonTrailIdxDrain308(s, elabUhdmView121);  // § castTsNonTrailIdxByChain308, § elabClsNonTrailIdxUnstored308 (r11u308)
     // § fwdPkgRefClassScopeSpan227 (r11u227): a forward package reference
     // in expression grammar spans its `Q::` (every listing is built here).
     fwdPkgRefClassScopeSpanDrain227(s);

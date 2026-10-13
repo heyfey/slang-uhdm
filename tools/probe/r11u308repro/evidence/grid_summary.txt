@@ -1,0 +1,16 @@
+CMPCHANGE MS/ms28_iface d cmp=760 -> cmp=758
+CMPCHANGE NV/nv02_whole d cmp=210 -> cmp=208
+CMPCHANGE NV/nv02_whole e cmp=250 -> cmp=248
+CMPCHANGE NV/nv11_mod d cmp=190 -> cmp=188
+CMPCHANGE NV/nv11_mod e cmp=190 -> cmp=188
+BI case-views=30 moving=27 entering=25 leaving=0 equal-after=28
+CA case-views=12 moving=0 entering=0 leaving=0 equal-after=6
+CS case-views=20 moving=3 entering=2 leaving=0 equal-after=6
+CT case-views=38 moving=34 entering=30 leaving=0 equal-after=34
+EC case-views=132 moving=55 entering=53 leaving=0 equal-after=116
+IP case-views=32 moving=32 entering=25 leaving=0 equal-after=25
+LM case-views=52 moving=34 entering=34 leaving=0 equal-after=52
+MS case-views=50 moving=44 entering=38 leaving=0 equal-after=42
+NV case-views=30 moving=20 entering=12 leaving=0 equal-after=12
+VO case-views=24 moving=22 entering=22 leaving=0 equal-after=22
+TOTAL case-views=420 moving=271 entering=241 leaving=0 equal-after=343 off!=pristine=0 rc-changed=0 cmp-changed=5

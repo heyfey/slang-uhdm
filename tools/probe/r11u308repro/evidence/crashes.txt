@@ -1,0 +1,13 @@
+# crashscan.sh on the law binary (exit code >= 128), then each crash dir rerun on the pristine binary
+## elaborated view (--elabuhdm)
+tools/probe/r10vrgg8repro/cells/v8_recurse_mutual rc=139
+tools/probe/r10vrgg8repro/cells/v8_recurse rc=139
+tools/probe/r10vrgg8repro/cells/v8_recurse_uncond rc=139
+tools/probe/r11u254repro/cases/F/f04_class rc=139
+tools/probe/r11u300repro/cases/RS/s22_recursion rc=139
+tools/probe/v11u112repro/grid/brk2/k/m07_hdr_enum_default rc=139
+tools/probe/v11u254repro/cases/F/vf02_iface rc=139
+tools/probe/v11u254repro/cases/F/vf04_hier rc=139
+## definition view
+tools/probe/v11u112repro/grid/brk2/k/m07_hdr_enum_default rc=139
+## pristine on the same dirs: every one rc=139 too (the e list in the elaborated view, m07_hdr_enum_default in both views)
