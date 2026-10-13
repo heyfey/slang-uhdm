@@ -1,0 +1,87 @@
+MOVE FO/f01_ones P=STRICT_EQUAL_94_objects rcP=0 L=STRICT_EQUAL_94_objects rcL=0 cmplines 0->0 restore=R11U309_IFFILLDEFOP_OFF
+MOVE FO/f01_ones_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_94_objects rcL=0 cmplines 28->0 restore=R11U309_IFFILLDEFOP_OFF
+MOVE FO/f02_nested P=STRICT_EQUAL_116_objects rcP=0 L=STRICT_EQUAL_116_objects rcL=0 cmplines 0->0 restore=R11U309_IFFILLDEFOP_OFF
+MOVE FO/f02_nested_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_116_objects rcL=0 cmplines 28->0 restore=R11U309_IFFILLDEFOP_OFF
+MOVE FO/f03_two_inst_same P=STRICT_EQUAL_114_objects rcP=0 L=STRICT_EQUAL_114_objects rcL=0 cmplines 0->0 restore=R11U309_IFFILLDEFOP_OFF
+MOVE FO/f03_two_inst_same_el P=STRICT_EQUAL_115_objects rcP=0 L=STRICT_EQUAL_115_objects rcL=0 cmplines 0->0 restore=R11U309_IFFILLDEFOP_OFF
+MOVE FO/f04_true_branch P=STRICT_EQUAL_94_objects rcP=0 L=STRICT_EQUAL_94_objects rcL=0 cmplines 0->0 restore=R11U309_IFFILLDEFOP_OFF
+MOVE FO/f04_true_branch_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_94_objects rcL=0 cmplines 28->0 restore=R11U309_IFFILLDEFOP_OFF
+MOVE FO/f05_bitsel P=STRICT_EQUAL_117_objects rcP=0 L=STRICT_EQUAL_117_objects rcL=0 cmplines 0->0 restore=R11U309_IFFILLDEFOP_OFF
+MOVE FO/f05_bitsel_el P=STRICT_EQUAL_117_objects rcP=0 L=STRICT_EQUAL_117_objects rcL=0 cmplines 0->0 restore=R11U309_IFFILLDEFOP_OFF
+MOVE FO/f06_split P=STRICT_EQUAL_141_objects rcP=0 L=STRICT_EQUAL_141_objects rcL=0 cmplines 0->0 restore=R11U309_IFFILLDEFOP_OFF
+MOVE FO/f06_split_el P=STRICT_EQUAL_142_objects rcP=0 L=STRICT_EQUAL_142_objects rcL=0 cmplines 0->0 restore=R11U309_IFFILLDEFOP_OFF
+SAME FO/f07_module_twin_ctl STRICT_EQUAL_104_objects rc=0
+SAME FO/f07_module_twin_ctl_el STRICT_EQUAL_104_objects rc=0
+MOVE FO/f08_partsel P=STRICT_EQUAL_88_objects rcP=0 L=STRICT_EQUAL_88_objects rcL=0 cmplines 0->0 restore=R11U309_IFFILLDEFOP_OFF
+MOVE FO/f08_partsel_el P=STRICT_EQUAL_88_objects rcP=0 L=STRICT_EQUAL_88_objects rcL=0 cmplines 0->0 restore=R11U309_IFFILLDEFOP_OFF
+MOVE TA/a01_mod_arr P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_152_objects rcL=0 cmplines 506->0 restore=pair
+MOVE TA/a01_mod_arr_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_153_objects rcL=0 cmplines 506->0 restore=pair
+MOVE TA/a02_arr_then_inst P=STRICT_NOTEQUAL_line rcP=0 L=STRICT_EQUAL_182_objects rcL=0 cmplines 0->0 restore=R11U309_CONNNETARR_OFF
+MOVE TA/a02_arr_then_inst_el P=STRICT_NOTEQUAL_line rcP=0 L=STRICT_EQUAL_188_objects rcL=0 cmplines 0->0 restore=R11U309_CONNNETARR_OFF
+SAME TA/a03_inst_then_arr_ctl STRICT_EQUAL_182_objects rc=0
+SAME TA/a03_inst_then_arr_ctl_el STRICT_EQUAL_188_objects rc=0
+MOVE TA/a04_two_arrays P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_224_objects rcL=0 cmplines 826->0 restore=pair
+MOVE TA/a04_two_arrays_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_235_objects rcL=0 cmplines 826->0 restore=pair
+MOVE TA/a05_2d_arr P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_194_objects rcL=0 cmplines 498->0 restore=pair
+MOVE TA/a05_2d_arr_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_205_objects rcL=0 cmplines 498->0 restore=pair
+MOVE TA/a06_gen_arr_inner_iface P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_250_objects rcL=0 cmplines 239->0 restore=pair
+MOVE TA/a06_gen_arr_inner_iface_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_294_objects rcL=0 cmplines 239->0 restore=pair
+MOVE TA/a07_gen_arr_outer_iface P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_245_objects rcL=0 cmplines 239->0 restore=pair
+MOVE TA/a07_gen_arr_outer_iface_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_292_objects rcL=0 cmplines 239->0 restore=pair
+MOVE TA/a08_gen_single_outer_iface P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_155_objects rcL=0 cmplines 833->0 restore=R11U309_TAILDUPGEN_OFF
+MOVE TA/a08_gen_single_outer_iface_el P=STRICT_EQUAL_186_objects rcP=0 L=STRICT_EQUAL_186_objects rcL=0 cmplines 0->0 restore=R11U309_TAILDUPGEN_OFF
+MOVE TA/a09_genif_arr P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_148_objects rcL=0 cmplines 161->0 restore=pair
+MOVE TA/a09_genif_arr_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_179_objects rcL=0 cmplines 161->0 restore=pair
+SAME TA/a10_modport_arr_ctl STRICT_EQUAL_154_objects rc=0
+SAME TA/a10_modport_arr_ctl_el STRICT_EQUAL_158_objects rc=0
+MOVE TA/a11_positional_udp_ctl P=NOT_EQUAL_stage1 rcP=4 L=NOT_EQUAL_stage1 rcL=4 cmplines 771->43 restore=R11U309_TAILDUPARR_OFF
+MOVE TA/a11_positional_udp_ctl_el P=NOT_EQUAL_stage1 rcP=4 L=NOT_EQUAL_stage1 rcL=4 cmplines 47->47 restore=R11U309_TAILDUPARR_OFF
+MOVE TA/a12_param_iface P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_152_objects rcL=0 cmplines 506->0 restore=pair
+MOVE TA/a12_param_iface_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_153_objects rcL=0 cmplines 506->0 restore=pair
+MOVE TA/a13_nested_gen P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_433_objects rcL=0 cmplines 4017->0 restore=R11U309_TAILDUPARR_OFF,R11U309_TAILDUPGEN_OFF
+MOVE TA/a13_nested_gen_el P=STRICT_EQUAL_472_objects rcP=0 L=STRICT_EQUAL_472_objects rcL=0 cmplines 0->0 restore=R11U309_TAILDUPARR_OFF,R11U309_TAILDUPGEN_OFF
+MOVE TA/a14_gen_param_size P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 406->406 restore=pair
+MOVE TA/a14_gen_param_size_el P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 406->406 restore=pair
+MOVE TA/a15_gen_range_ctl P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_248_objects rcL=0 cmplines 31->0 restore=R11U309_TAILDUPARR_OFF
+MOVE TA/a15_gen_range_ctl_el P=STRICT_EQUAL_292_objects rcP=0 L=STRICT_EQUAL_292_objects rcL=0 cmplines 0->0 restore=R11U309_TAILDUPARR_OFF
+MOVE TA/a16_gen_size_expr P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 265->1378 restore=pair
+MOVE TA/a16_gen_size_expr_el P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 265->1364 restore=pair
+SAME TA/a17_iface_arr_elem_ctl STRICT_NOTEQUAL_fullname rc=0
+SAME TA/a17_iface_arr_elem_ctl_el STRICT_NOTEQUAL_fullname rc=0
+MOVE TA/a18_gen_arr_and_inst P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_179_objects rcL=0 cmplines 161->0 restore=R11U309_GENARRSIZE_OFF
+MOVE TA/a18_gen_arr_and_inst_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_215_objects rcL=0 cmplines 161->0 restore=R11U309_GENARRSIZE_OFF
+MOVE TA/a19_arr_size_nogen_ctl P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_148_objects rcL=0 cmplines 466->0 restore=pair
+MOVE TA/a19_arr_size_nogen_ctl_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_149_objects rcL=0 cmplines 466->0 restore=pair
+MOVE TA/a20_gen_size_nested_iface_ctl P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_252_objects rcL=0 cmplines 259->0 restore=R11U309_GENARRSIZE_OFF
+MOVE TA/a20_gen_size_nested_iface_ctl_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_302_objects rcL=0 cmplines 259->0 restore=R11U309_GENARRSIZE_OFF
+SAME TA/a22_passthru_scalar_ctl NOT_EQUAL_stage1 rc=0
+SAME TA/a22_passthru_scalar_ctl_el NOT_EQUAL_stage1 rc=0
+MOVE TA/a23_implicit_named P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 15->15 restore=R11U309_TAILDUPARR_OFF
+MOVE TA/a23_implicit_named_el P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 15->15 restore=R11U309_TAILDUPARR_OFF
+SAME TA/a24_wildcard NOT_EQUAL_stage1 rc=0
+SAME TA/a24_wildcard_el NOT_EQUAL_stage1 rc=0
+MOVE TA/a25_genif_single_outer P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_122_objects rcL=0 cmplines 555->0 restore=R11U309_TAILDUPGEN_OFF
+MOVE TA/a25_genif_single_outer_el P=STRICT_EQUAL_133_objects rcP=0 L=STRICT_EQUAL_133_objects rcL=0 cmplines 0->0 restore=R11U309_TAILDUPGEN_OFF
+SAME TA/a26_gen_uninst_ctl NOT_EQUAL_stage1 rc=0
+SAME TA/a26_gen_uninst_ctl_el NOT_EQUAL_stage1 rc=0
+MOVE TA/a27_iface_param_ovr_arr P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_152_objects rcL=0 cmplines 506->0 restore=pair
+MOVE TA/a27_iface_param_ovr_arr_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_153_objects rcL=0 cmplines 506->0 restore=pair
+MOVE TA/a28_two_ifaces_arr P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_279_objects rcL=0 cmplines 792->0 restore=pair
+MOVE TA/a28_two_ifaces_arr_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_272_objects rcL=0 cmplines 792->0 restore=pair
+MOVE TA/a29_genfor_iface_used_outside P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_269_objects rcL=0 cmplines 161->0 restore=pair
+MOVE TA/a29_genfor_iface_used_outside_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_380_objects rcL=0 cmplines 161->0 restore=pair
+MOVE TS/s01_mod_arr_slice P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_161_objects rcL=0 cmplines 646->0 restore=R11U309_ARRSLICE_OFF
+MOVE TS/s01_mod_arr_slice_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_165_objects rcL=0 cmplines 646->0 restore=R11U309_ARRSLICE_OFF
+MOVE TS/s02_gen_arr_slice P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_157_objects rcL=0 cmplines 161->0 restore=pair
+MOVE TS/s02_gen_arr_slice_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_191_objects rcL=0 cmplines 161->0 restore=pair
+MOVE TS/s03_range_slice P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_155_objects rcL=0 cmplines 566->0 restore=R11U309_ARRSLICE_OFF
+MOVE TS/s03_range_slice_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_159_objects rcL=0 cmplines 566->0 restore=R11U309_ARRSLICE_OFF
+MOVE TS/s04_slice_and_single P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_193_objects rcL=0 cmplines 830->0 restore=R11U309_ARRSLICE_OFF
+MOVE TS/s04_slice_and_single_el P=NOT_EQUAL_stage1 rcP=0 L=STRICT_EQUAL_202_objects rcL=0 cmplines 830->0 restore=R11U309_ARRSLICE_OFF
+MOVE TS/s05_gen_inner_slice P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 89->75 restore=R11U309_GENARRSIZE_OFF
+MOVE TS/s05_gen_inner_slice_el P=NOT_EQUAL_stage1 rcP=0 L=NOT_EQUAL_stage1 rcL=0 cmplines 89->75 restore=R11U309_GENARRSIZE_OFF
+SAME TS/s06_passthru_samename_ctl NOT_EQUAL_stage1 rc=0
+SAME TS/s06_passthru_samename_ctl_el NOT_EQUAL_stage1 rc=0
+case-views 84 moving 68 entering 43 leaving 0 OFF==pristine 84
+single-switch {'R11U309_IFFILLDEFOP_OFF': 14, 'R11U309_CONNNETARR_OFF': 2, 'R11U309_TAILDUPGEN_OFF': 4, 'R11U309_TAILDUPARR_OFF': 6, 'R11U309_GENARRSIZE_OFF': 6, 'R11U309_ARRSLICE_OFF': 6}
+pair-or-more 30 TA/a01_mod_arr TA/a01_mod_arr_el TA/a04_two_arrays TA/a04_two_arrays_el TA/a05_2d_arr TA/a05_2d_arr_el TA/a06_gen_arr_inner_iface TA/a06_gen_arr_inner_iface_el TA/a07_gen_arr_outer_iface TA/a07_gen_arr_outer_iface_el TA/a09_genif_arr TA/a09_genif_arr_el TA/a12_param_iface TA/a12_param_iface_el TA/a13_nested_gen TA/a13_nested_gen_el TA/a14_gen_param_size TA/a14_gen_param_size_el TA/a16_gen_size_expr TA/a16_gen_size_expr_el TA/a19_arr_size_nogen_ctl TA/a19_arr_size_nogen_ctl_el TA/a27_iface_param_ovr_arr TA/a27_iface_param_ovr_arr_el TA/a28_two_ifaces_arr TA/a28_two_ifaces_arr_el TA/a29_genfor_iface_used_outside TA/a29_genfor_iface_used_outside_el TS/s02_gen_arr_slice TS/s02_gen_arr_slice_el

@@ -1,0 +1,12 @@
+FO/f01_ones_el dist 0 -> 0 lost=0 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+TA/a01_mod_arr dist 0 -> 0 lost=0 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+TA/a02_arr_then_inst_el dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+TA/a05_2d_arr dist 0 -> 0 lost=0 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+TA/a06_gen_arr_inner_iface_el dist 0 -> 0 lost=0 gained=0 | chain away=5 toward=0 flat_away=5 flat_toward=0
+TA/a08_gen_single_outer_iface dist 0 -> 0 lost=0 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+TA/a12_param_iface dist 0 -> 0 lost=0 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+TA/a15_gen_range_ctl dist 0 -> 0 lost=0 gained=0 | chain away=8 toward=0 flat_away=6 flat_toward=0
+TA/a19_arr_size_nogen_ctl dist 0 -> 0 lost=0 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+TA/a20_gen_size_nested_iface_ctl_el dist 0 -> 0 lost=0 gained=0 | chain away=5 toward=0 flat_away=5 flat_toward=0
+TA/a27_iface_param_ovr_arr_el dist 0 -> 0 lost=0 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+TA/a29_genfor_iface_used_outside dist 0 -> 0 lost=0 gained=0 | chain away=8 toward=0 flat_away=8 flat_toward=0

@@ -9652,19 +9652,64 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     }
     // Connection-site logic_net for each scalar interface passed to a child
     // module (bound by the child ref_module's interface port).
+    //
+    // § ifaceConnNetArrayChild309 (r11u309) — an instance ARRAY child is a
+    // module_instantiation to Surelog's parser too (`child a1 [2]
+    // (.p(inst), ...)`): the definition view compiles its named connection
+    // through the same parent implicit-net fallback, so the connection-site
+    // net is minted for it and anchored at its connection when it is the
+    // first in source order (golden r11u309repro TA/a01_mod_arr: work@top.inst
+    // logic_net at the array's `inst`, the module_array port's HighConn bound
+    // to it; TA/a02_arr_then_inst: the array written before a single child
+    // anchors the net at the array, where ours anchored it at the single
+    // child).  The array's first leaf element stands for it (every element
+    // carries the same connection syntax).  Switch R11U309_CONNNETARR_OFF.
+    static const bool on309cn = lawOn(309, "R11U309_CONNNETARR_OFF");
     for (auto& member : body.members()) {
-        if (member.kind != SymbolKind::Instance)
+        const InstanceSymbol* child309 = nullptr;
+        if (member.kind == SymbolKind::Instance)
+            child309 = &member.as<InstanceSymbol>();
+        else if (member.kind == SymbolKind::InstanceArray && on309cn) {
+            const Symbol* e309 = &member;
+            while (e309 && e309->kind == SymbolKind::InstanceArray) {
+                auto& ea309 = e309->as<InstanceArraySymbol>();
+                e309 = ea309.elements.empty() ? nullptr : ea309.elements[0];
+            }
+            if (e309 && e309->kind == SymbolKind::Instance &&
+                !useInterfacePath(e309->as<InstanceSymbol>()))
+                child309 = &e309->as<InstanceSymbol>();
+        }
+        if (!child309)
             continue;
-        auto& child = member.as<InstanceSymbol>();
+        auto& child = *child309;
+        const bool arr309 = member.kind == SymbolKind::InstanceArray;
         for (auto pb : child.body.getPortList()) {
             if (pb->kind != SymbolKind::InterfacePort)
                 continue;
             auto conn = pb->as<InterfacePortSymbol>().getConnection();
             if (!conn.first || conn.first->kind != SymbolKind::Instance)
                 continue;
+            // § ifaceArrSliceElemName309 (r11u309) — an instance array fed a
+            // WHOLE interface array through a scalar interface port
+            // (`child a2 [2] (.p(arr))`, each element taking one slice): the
+            // connection-site net is named by the interface ARRAY (golden
+            // r11u309repro TS/s01_mod_arr_slice work@top.arr at the actual).
+            // Switch R11U309_ARRSLICE_OFF.
+            const Symbol* cs309 = conn.first;
+            bool slice309 = false;
+            if (arr309 && cs309->getParentScope() &&
+                cs309->getParentScope()->asSymbol().kind ==
+                    SymbolKind::InstanceArray &&
+                lawOn(309, "R11U309_ARRSLICE_OFF")) {
+                while (cs309->getParentScope() &&
+                       cs309->getParentScope()->asSymbol().kind ==
+                           SymbolKind::InstanceArray)
+                    cs309 = &cs309->getParentScope()->asSymbol();
+                slice309 = true;
+            }
             // A PASSTHROUGH conn (the iface lives in an OUTER module) gets
             // no connection-site net here.
-            if (conn.first->getParentScope() != (const Scope*)&body)
+            if (cs309->getParentScope() != (const Scope*)&body)
                 continue;
             const PortConnection* pc = nullptr;
             for (auto cc : child.getPortConnections())
@@ -9676,6 +9721,9 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             // net; modport-qualified (.mon(s.mon)) don't.
             if (!pc || !connectionExpr(*pc) ||
                 rawText(connectionExpr(*pc)->sourceRange).find('.') != std::string::npos)
+                continue;
+            if (slice309 &&
+                rawText(connectionExpr(*pc)->sourceRange) != std::string(cs309->name))
                 continue;
             // An IMPLICIT named connection (.intf, no parenthesized actual)
             // compiles no actual expression in Surelog and mints NO
@@ -9717,19 +9765,23 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             // An interface instance connected to MULTIPLE children gets a
             // SINGLE connection-site net, anchored at the FIRST connection
             // site (source order) — Surelog. Skip later duplicates.
-            if (ifaceConnNet.count(conn.first))
+            if (ifaceConnNet.count(cs309))
                 continue;
+            if (arr309)
+                lawTrace(309, slice309 ? "ifaceArrSliceElemName309"
+                                       : "ifaceConnNetArrayChild309",
+                         prefix + "." + std::string(cs309->name));
             auto* n = s.MakeLogic_net();
-            n->VpiName(conn.first->name);
-            n->VpiFullName(prefix + "." + std::string(conn.first->name));
+            n->VpiName(cs309->name);
+            n->VpiFullName(prefix + "." + std::string(cs309->name));
             n->VpiParent(m);
             n->VpiNetType(vpiWire);
             setLoc(n, connectionExpr(*pc)->sourceRange);
             // § implicitNetNoFile119 — Surelog's parent implicit-net
             // fallback (lateBinding) mints this net: no file.
             noteLateBindNet119(n);
-            ifaceConnNet[conn.first] = n;
-            info.nets[conn.first] = n;
+            ifaceConnNet[cs309] = n;
+            info.nets[cs309] = n;
             nets->push_back(n);
         }
     }
@@ -12358,6 +12410,24 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
                             else if (auto nit = ifaceConnNet.find(cc);
                                      nit != ifaceConnNet.end())
                                 r->Actual_group(nit->second);
+                            // § ifaceArrSliceElemName309 (r11u309) — the
+                            // definition view of an instance array fed a whole
+                            // interface array binds the net named by the array.
+                            else if (cc->getParentScope() &&
+                                     cc->getParentScope()->asSymbol().kind ==
+                                         SymbolKind::InstanceArray &&
+                                     lawOn(309, "R11U309_ARRSLICE_OFF")) {
+                                const Symbol* o309 = cc;
+                                while (o309->getParentScope() &&
+                                       o309->getParentScope()->asSymbol().kind ==
+                                           SymbolKind::InstanceArray)
+                                    o309 = &o309->getParentScope()->asSymbol();
+                                if (auto nit = ifaceConnNet.find(o309);
+                                    nit != ifaceConnNet.end() &&
+                                    std::string(r->VpiName()) ==
+                                        std::string(o309->name))
+                                    r->Actual_group(nit->second);
+                            }
                         }
                         // A WHOLE interface-ARRAY connection (.m(arr)):
                         // getConnection() yields a port-named synthesized
@@ -21329,6 +21399,76 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         bs->VpiIndex(ic);
                         p->High_conn(bs);
                     }
+                    // § ifaceArrSliceElemName309 (r11u309) — an element of an
+                    // instance array fed a WHOLE interface array through a
+                    // scalar interface port (`child a2 [2] (.p(arr))`): golden's
+                    // HighConn is a ref_obj named by the ARRAY (work@top.arr,
+                    // where ours wrote the element's empty name, work@top.)
+                    // and, for every element, bound to the FIRST interface
+                    // element's col-0 tail duplicate (Surelog resolves the
+                    // name `arr` in the parent netlist's symbol table, which
+                    // holds arr[0]'s elab_interface_ duplicate; golden
+                    // r11u309repro TS/s01_mod_arr_slice, v11u307repro
+                    // VA/va08_iface_array_conn).  Switch R11U309_ARRSLICE_OFF.
+                    else if (const Symbol* sa309 =
+                                 [&]() -> const Symbol* {
+                                     if (!iconn || !connectionExpr(*iconn) ||
+                                         !conn.first->getParentScope() ||
+                                         conn.first->getParentScope()
+                                                 ->asSymbol()
+                                                 .kind != SymbolKind::InstanceArray)
+                                         return nullptr;
+                                     const Symbol* o9 = conn.first;
+                                     while (o9->getParentScope() &&
+                                            o9->getParentScope()->asSymbol().kind ==
+                                                SymbolKind::InstanceArray)
+                                         o9 = &o9->getParentScope()->asSymbol();
+                                     if (rawText(connectionExpr(*iconn)->sourceRange) !=
+                                         std::string(o9->name))
+                                         return nullptr;
+                                     // a passthrough of an interface-array
+                                     // PORT (golden binds the port's
+                                     // interface_array) stands aside: the
+                                     // array must live in the body that
+                                     // instantiates the child.
+                                     auto body9 = [](const Symbol* x) -> const Symbol* {
+                                         for (auto* sc = x->getParentScope(); sc;
+                                              sc = sc->asSymbol().getParentScope())
+                                             if (sc->asSymbol().kind ==
+                                                 SymbolKind::InstanceBody)
+                                                 return &sc->asSymbol();
+                                         return nullptr;
+                                     };
+                                     if (!body9(o9) || body9(o9) != body9(&inst))
+                                         return nullptr;
+                                     if (!lawOn(309, "R11U309_ARRSLICE_OFF"))
+                                         return nullptr;
+                                     return o9;
+                                 }();
+                             sa309) {
+                        const Symbol* e309 = sa309;
+                        while (e309 && e309->kind == SymbolKind::InstanceArray) {
+                            auto& a309 = e309->as<InstanceArraySymbol>();
+                            e309 = a309.elements.empty() ? nullptr : a309.elements[0];
+                        }
+                        auto* hc = s.MakeRef_obj();
+                        hc->VpiName(std::string(sa309->name));
+                        hc->VpiFullName(parentPrefix + "." +
+                                        std::string(sa309->name));
+                        hc->VpiParent(p);
+                        if (e309) {
+                            if (auto d309 = ifaceTailDup.find(e309);
+                                d309 != ifaceTailDup.end())
+                                hc->Actual_group(d309->second);
+                            else if (auto h309 = ifaceInstMap.find(e309);
+                                     h309 != ifaceInstMap.end())
+                                hc->Actual_group(h309->second);
+                        }
+                        setLoc(hc, connectionExpr(*iconn)->sourceRange);
+                        p->High_conn(hc);
+                        lawTrace(309, "ifaceArrSliceElemName309",
+                                 parentPrefix + "." + std::string(sa309->name));
+                    }
                     else if (auto iit = ifaceInstMap.find(conn.first);
                         iit != ifaceInstMap.end()) {
                         auto* hc = s.MakeRef_obj();
@@ -22284,6 +22424,63 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         rawText(ce->sourceRange).find('.') == std::string::npos)
                         arrBareConn = true;
                 }
+            }
+            // § ifaceArrSliceElemName309 (r11u309) — an instance ARRAY
+            // sibling (or one inside an instantiated generate block) taking
+            // the whole interface array slice by slice binds the first
+            // element's col-0 tail duplicate too, so the first element
+            // carries it.  Switch R11U309_ARRSLICE_OFF.
+            if (!arrBareConn && lawOn(309, "R11U309_ARRSLICE_OFF")) {
+                auto outer309 = [](const Symbol* x) {
+                    while (x && x->getParentScope() &&
+                           x->getParentScope()->asSymbol().kind ==
+                               SymbolKind::InstanceArray)
+                        x = &x->getParentScope()->asSymbol();
+                    return x;
+                };
+                std::function<void(const Scope&)> scan309 = [&](const Scope& sc) {
+                    for (auto& m9 : sc.members()) {
+                        if (arrBareConn)
+                            return;
+                        if (m9.kind == SymbolKind::GenerateBlock) {
+                            if (!m9.as<GenerateBlockSymbol>().isUninstantiated)
+                                scan309(m9.as<GenerateBlockSymbol>());
+                            continue;
+                        }
+                        if (m9.kind == SymbolKind::GenerateBlockArray) {
+                            scan309(m9.as<GenerateBlockArraySymbol>());
+                            continue;
+                        }
+                        if (m9.kind != SymbolKind::InstanceArray)
+                            continue;
+                        const Symbol* e9 = &m9;
+                        while (e9 && e9->kind == SymbolKind::InstanceArray) {
+                            auto& a9 = e9->as<InstanceArraySymbol>();
+                            e9 = a9.elements.empty() ? nullptr : a9.elements[0];
+                        }
+                        if (!e9 || e9->kind != SymbolKind::Instance)
+                            continue;
+                        auto& ci9 = e9->as<InstanceSymbol>();
+                        for (auto pb9 : ci9.body.getPortList()) {
+                            if (pb9->kind != SymbolKind::InterfacePort)
+                                continue;
+                            auto c9 = pb9->as<InterfacePortSymbol>().getConnection();
+                            if (!c9.first || c9.first == outer309(c9.first) ||
+                                outer309(c9.first) != (const Symbol*)&arr)
+                                continue;
+                            for (auto cc9 : ci9.getPortConnections())
+                                if (&cc9->port == pb9 && connectionExpr(*cc9) &&
+                                    rawText(connectionExpr(*cc9)->sourceRange) ==
+                                        std::string(arr.name)) {
+                                    arrBareConn = true;
+                                    lawTrace(309, "ifaceArrSliceElemName309",
+                                             "taildup " + prefix + "." +
+                                                 std::string(arr.name));
+                                }
+                        }
+                    }
+                };
+                scan309(body);
             }
             for (size_t i = 0; i < arr.elements.size(); i++) {
                 auto* e = arr.elements[i];
@@ -54464,6 +54661,90 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                             wantTailDup = true;
                 }
             }
+            // § ifaceTailDupArrayChild309 / § ifaceTailDupGenChild309
+            // (r11u309) — THE TAIL DUPLICATE IS REACHED FROM AN INSTANCE
+            // ARRAY'S ELEMENTS AND FROM CHILDREN INSIDE GENERATE BLOCKS TOO.
+            // Surelog's elab_interface_ writes the col-0 duplicate for every
+            // interface instance (NetlistElaboration, the instance's line
+            // only); a receiving port's HighConn binds it whenever the
+            // connection is resolved through the parent netlist's symbol
+            // table, which is what an element of `child a1 [2] (.p(inst))`
+            // and a child of a generate block naming an interface of an
+            // enclosing scope do (golden r11u309repro TA/a01_mod_arr,
+            // a06_gen_arr_inner_iface, a08_gen_single_outer_iface and
+            // r10vrgg16repro/cells/v12: work@top.inst at line:N:0, ours the
+            // instance itself).  The scan read only the Instance siblings of
+            // the interface's own scope.  ARR walks an InstanceArray sibling's
+            // elements; GEN descends into the instantiated generate blocks of
+            // the scope.  Switches R11U309_TAILDUPARR_OFF and
+            // R11U309_TAILDUPGEN_OFF.
+            static const bool on309a = lawOn(309, "R11U309_TAILDUPARR_OFF");
+            static const bool on309g = lawOn(309, "R11U309_TAILDUPGEN_OFF");
+            if (!wantTailDup && (on309a || on309g)) {
+                auto bare309 = [&](const InstanceSymbol& ci) {
+                    for (auto pb : ci.body.getPortList()) {
+                        if (pb->kind != SymbolKind::InterfacePort)
+                            continue;
+                        if (pb->as<InterfacePortSymbol>().getConnection().first !=
+                            (const Symbol*)&inst)
+                            continue;
+                        for (auto cc : ci.getPortConnections())
+                            if (&cc->port == pb && connectionExpr(*cc) &&
+                                rawText(connectionExpr(*cc)->sourceRange)
+                                        .find('.') == std::string::npos)
+                                return true;
+                    }
+                    return false;
+                };
+                const char* why309 = nullptr;
+                std::function<void(const Scope&, bool)> scan309 =
+                    [&](const Scope& sc, bool inGen) {
+                        for (auto& m9 : sc.members()) {
+                            if (why309)
+                                return;
+                            if (m9.kind == SymbolKind::Instance) {
+                                if (inGen &&
+                                    bare309(m9.as<InstanceSymbol>()))
+                                    why309 = "GEN";
+                            }
+                            else if (m9.kind == SymbolKind::InstanceArray) {
+                                if (!on309a)
+                                    continue;
+                                std::function<void(const InstanceArraySymbol&)>
+                                    elems9 = [&](const InstanceArraySymbol& a9) {
+                                        for (auto* e9 : a9.elements) {
+                                            if (why309 || !e9)
+                                                continue;
+                                            if (e9->kind == SymbolKind::InstanceArray)
+                                                elems9(e9->as<InstanceArraySymbol>());
+                                            else if (e9->kind == SymbolKind::Instance &&
+                                                     bare309(e9->as<InstanceSymbol>()))
+                                                why309 = inGen ? "ARRGEN" : "ARR";
+                                        }
+                                    };
+                                elems9(m9.as<InstanceArraySymbol>());
+                            }
+                            else if (on309g &&
+                                     m9.kind == SymbolKind::GenerateBlock) {
+                                if (!m9.as<GenerateBlockSymbol>().isUninstantiated)
+                                    scan309(m9.as<GenerateBlockSymbol>(), true);
+                            }
+                            else if (on309g &&
+                                     m9.kind == SymbolKind::GenerateBlockArray) {
+                                scan309(m9.as<GenerateBlockArraySymbol>(), true);
+                            }
+                        }
+                    };
+                scan309(*psc, false);
+                if (why309) {
+                    wantTailDup = true;
+                    lawTrace(309,
+                             std::string(why309) == "GEN"
+                                 ? "ifaceTailDupGenChild309"
+                                 : "ifaceTailDupArrayChild309",
+                             std::string(why309) + " " + prefix);
+                }
+            }
         }
     }
     UHDM::interface_inst* tailDupShell = wantTailDup ? s.MakeInterface_inst() : nullptr;
@@ -57504,7 +57785,63 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                                                     st303.valid() ? (size_t)st303.offset() : (size_t)0);
                 auto f303 = fill303m.find(key303);
                 UHDM::any* r303 = nullptr;
-                if (st303.valid() && f303 != fill303m.end() && f303->second) {
+                // § ifFillArmSharesDefOperand309 (r11u309) — THE FOLDED CELL'S
+                // RHS IS THE DEFINITION'S OWN BRANCH OPERAND.  Surelog's
+                // reduceExpr hands the taken `'0` / `'1` operand of the
+                // definition's conditional back unchanged and
+                // writeCont_assign re-parents that very object at the
+                // instance's cont_assign (golden r11u305repro IU/u01_plain_fill:
+                // the definition operation's `'0` operand printed with
+                // vpiParent cont_assign and the instance's Rhs the same
+                // object).  The parent is what UHDM's UhdmAdjuster reads in
+                // the -elabuhdm view: leaveConstant on an unsized constant
+                // whose parent is a cont_assign holding it as Rhs resizes it
+                // to the Lhs width (golden 8 bits), where our separate object
+                // kept size -1 (IU u01, u03 and r11u303repro IF/i08_plainlhs
+                // at uhdm-cmp stage 1 in the elaborated view).  The operand is
+                // found by walking the definition's conditional along the
+                // branches the instance selects.  Switch
+                // R11U309_IFFILLDEFOP_OFF.
+                if (lawOn(309, "R11U309_IFFILLDEFOP_OFF") && ae83 && defCa->Rhs()) {
+                    const Expression* sx309 = &stripImplicitConv(ae83->right());
+                    UHDM::any* ux309 = (UHDM::any*)defCa->Rhs();
+                    const auto fo309 = fill303->sourceRange.start();
+                    auto within309 = [&](const Expression& e) {
+                        auto a = e.sourceRange.start(), b = e.sourceRange.end();
+                        return a.valid() && b.valid() && fo309.valid() &&
+                               a.buffer() == fo309.buffer() &&
+                               a.offset() <= fo309.offset() &&
+                               fo309.offset() < b.offset();
+                    };
+                    while (sx309 != fill303 && ux309 &&
+                           sx309->kind == ExpressionKind::ConditionalOp &&
+                           ux309->UhdmType() == UHDM::uhdmoperation &&
+                           ((UHDM::operation*)ux309)->VpiOpType() == vpiConditionOp &&
+                           ((UHDM::operation*)ux309)->Operands() &&
+                           ((UHDM::operation*)ux309)->Operands()->size() == 3) {
+                        auto& co309 = sx309->as<ConditionalExpression>();
+                        auto* ov309 = ((UHDM::operation*)ux309)->Operands();
+                        if (within309(co309.left())) {
+                            sx309 = &stripImplicitConv(co309.left());
+                            ux309 = (*ov309)[1];
+                        }
+                        else if (within309(co309.right())) {
+                            sx309 = &stripImplicitConv(co309.right());
+                            ux309 = (*ov309)[2];
+                        }
+                        else
+                            ux309 = nullptr;
+                    }
+                    if (sx309 == fill303 && ux309 &&
+                        ux309->UhdmType() == UHDM::uhdmconstant) {
+                        r303 = ux309;
+                        r303->VpiParent(ca);
+                        lawTrace(309, "ifFillArmSharesDefOperand309", prefix);
+                    }
+                }
+                if (r303) {
+                }
+                else if (st303.valid() && f303 != fill303m.end() && f303->second) {
                     r303 = f303->second;
                     r303->VpiParent(ca);
                 }
@@ -59047,6 +59384,51 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 dim->specifier
                                     ->as<syntax::RangeDimensionSpecifierSyntax>()
                                     .selector;
+                            // § defGenModArraySizeRange309 (r11u309) — a
+                            // SIZE-form dimension (`child a3 [2]`) of a
+                            // generate-block instance array ranges
+                            // [0 : size-1] in the definition view as at module
+                            // scope: the range and the operation at the size
+                            // expression, an unlocated UINT 0 left bound, the
+                            // size written as is (a literal, a reference named
+                            // through the instance, an operation) beside an
+                            // unlocated INT 1 (golden r11u309repro
+                            // TA/a06_gen_arr_inner_iface, a14_gen_param_size,
+                            // a16_gen_size_expr); the syntax-driven path wrote
+                            // no range at all.  Switch R11U309_GENARRSIZE_OFF.
+                            if (sel0->kind == syntax::SyntaxKind::BitSelect &&
+                                lawOn(309, "R11U309_GENARRSIZE_OFF")) {
+                                auto& sz309 =
+                                    *sel0->as<syntax::BitSelectSyntax>().expr;
+                                auto* r309 = s.MakeRange();
+                                r309->VpiParent(ma0);
+                                setLoc(r309, sz309.sourceRange());
+                                auto* l309 = s.MakeConstant();
+                                l309->VpiDecompile("0");
+                                l309->VpiSize(64);
+                                l309->VpiValue("UINT:0");
+                                l309->VpiConstType(vpiUIntConst);
+                                l309->VpiParent(r309);
+                                r309->Left_expr(l309);
+                                auto* op309 = s.MakeOperation();
+                                op309->VpiParent(r309);
+                                op309->VpiOpType(11);
+                                setLoc(op309, sz309.sourceRange());
+                                auto* ops309 = s.MakeAnyVec();
+                                if (auto* se309 = emitSyntaxExpr(sz309, op309))
+                                    ops309->push_back(se309);
+                                auto* one309 = s.MakeConstant();
+                                one309->VpiSize(64);
+                                one309->VpiValue("INT:1");
+                                one309->VpiConstType(vpiIntConst);
+                                ops309->push_back(one309);
+                                op309->Operands(ops309);
+                                r309->Right_expr(op309);
+                                rv0->push_back(r309);
+                                lawTrace(309, "defGenModArraySizeRange309",
+                                         branchPrefix + "." + iname);
+                                continue;
+                            }
                             if (sel0->kind !=
                                 syntax::SyntaxKind::SimpleRangeSelect)
                                 continue;
