@@ -1017,7 +1017,7 @@ r10uvm77repro/v77x2_comment,EQUAL,,equal
 r10uvm78repro/c1_classpsel,EQUAL,,equal
 r10uvm78repro/c2_idxpsel,EQUAL,,equal
 r10uvm78repro/c3_constsel,EQUAL,,equal
-r10uvm79repro/c2_idxkind,STRICT_NOTEQUAL,differ:col(3),differ:col(3)
+r10uvm79repro/c2_idxkind,EQUAL,,equal
 r10uvm79repro/v79v2_recv,EQUAL,,equal
 r10uvm79repro/v79v6_ca,EQUAL,,equal
 r10uvm80repro/c2_autokinds,EQUAL,,equal
@@ -1063,7 +1063,7 @@ r10uvm88repro/v88_b4_nonsub,EQUAL,,equal
 r10uvm8repro/q1,EQUAL,,equal
 r10uvm8repro/q3,EQUAL,,equal
 r10uvm90repro/g90_a2_shapes,EQUAL,,equal
-r10uvm92repro/v92_b2_varsel,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+r10uvm92repro/v92_b2_varsel,EQUAL,,equal
 r10uvm93repro/g93_a6_case,EQUAL,,equal
 r10uvm93repro/v93_a1_types,EQUAL,,equal
 r10uvm93repro/v93_a4_case,EQUAL,,equal

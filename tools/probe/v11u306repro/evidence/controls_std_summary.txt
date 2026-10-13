@@ -1,0 +1,5 @@
+MOVER r11u178repro/cases/hp/m07_idx_kinds d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 251 objects
+MOVER r11u178repro/cases/hp/m07_idx_kinds e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 256 objects
+MOVER r11u178repro/cases/hp/m11_first_kinds d rc=0 cmp=52 NOT_EQUAL stage1 -> rc=0 cmp=52 NOT_EQUAL stage1
+MOVER r11u178repro/cases/hp/m11_first_kinds e rc=0 cmp=52 NOT_EQUAL stage1 -> rc=0 cmp=52 NOT_EQUAL stage1
+case-views=1908 moving=4 entering=2 leaving=0 rc-changed=0 cmplines-changed=0

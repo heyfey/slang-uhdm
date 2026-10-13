@@ -1,0 +1,5 @@
+positive control of the firing census (the harness carries the trace switches): verify_golden.py --corpus surelog --mode default --filter '^MiniAmiq$' with the law binary, R11U296_TRACE and R11U306_TRACE set to one directory
+trace files:       1 <pid>.296 
+lines by tag:      16 PKGFNCLONEIDX 
+row: MiniAmiq,default,CMP_EQUAL,,,equal
+(pass 296's PKGFNCLONEIDX writes its 16 lines through the harness; this pass writes none on the row, as its census reads)

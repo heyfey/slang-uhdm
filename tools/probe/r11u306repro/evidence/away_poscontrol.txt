@@ -1,0 +1,12 @@
+NB/nb01_two d chain away=1 toward=0 flat_away=1 flat_toward=0
+NB/nb09_mod e chain away=2 toward=0 flat_away=2 flat_toward=0
+NP/np03_op e chain away=2 toward=0 flat_away=2 flat_toward=0
+NP/np08_g d chain away=2 toward=0 flat_away=2 flat_toward=0
+NP/np13_modcomb e chain away=4 toward=0 flat_away=4 flat_toward=0
+NP/np21_condc d chain away=2 toward=0 flat_away=2 flat_toward=0
+NP/np34_unary e chain away=2 toward=0 flat_away=2 flat_toward=0
+NP/np41_clsrange d chain away=2 toward=0 flat_away=2 flat_toward=0
+VH/h01_plus d chain away=1 toward=0 flat_away=1 flat_toward=0
+VH/h04_threeelem e chain away=1 toward=0 flat_away=1 flat_toward=0
+VH/h13_modcomb d chain away=2 toward=0 flat_away=2 flat_toward=0
+VH/h17_modfn e chain away=2 toward=0 flat_away=2 flat_toward=0

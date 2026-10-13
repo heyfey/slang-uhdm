@@ -1,0 +1,2 @@
+probe r10uvm79repro__c2_idxkind.uhdm BARESEL:1 NESTSHAPE:1 NESTSHAPE_LEAFSEL:1
+probe r10uvm92repro__v92_b2_varsel.uhdm VSHPLEAF:1

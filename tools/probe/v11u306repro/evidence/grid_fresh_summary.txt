@@ -1,0 +1,177 @@
+MOVER VB/vb02_twoop d: STRICT_NOTEQUAL col -> STRICT_EQUAL 147 objects
+MOVER VB/vb02_twoop e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VB/vb04_tern_false d: STRICT_NOTEQUAL col -> STRICT_EQUAL 147 objects
+MOVER VB/vb04_tern_false e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VB/vb06_path d: STRICT_NOTEQUAL col -> STRICT_EQUAL 146 objects
+MOVER VB/vb06_path e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VB/vb08_both d: STRICT_NOTEQUAL col -> STRICT_EQUAL 147 objects
+MOVER VB/vb08_both e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VB/vb09_lvop d: STRICT_NOTEQUAL col -> STRICT_EQUAL 146 objects
+MOVER VB/vb09_lvop e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VB/vb10_modcomb d: STRICT_NOTEQUAL col -> STRICT_EQUAL 329 objects
+MOVER VB/vb10_modcomb e: STRICT_NOTEQUAL col -> STRICT_EQUAL 336 objects
+MOVER VB/vb11_unary d: STRICT_NOTEQUAL col -> STRICT_EQUAL 145 objects
+MOVER VB/vb11_unary e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VB/vb14_portconn d: STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+MOVER VB/vb14_portconn e: STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+MOVER VB/vb17_ffnb d: STRICT_NOTEQUAL col -> STRICT_EQUAL 331 objects
+MOVER VB/vb17_ffnb e: STRICT_NOTEQUAL col -> STRICT_EQUAL 335 objects
+MOVER VB/vb18_param d: STRICT_NOTEQUAL col -> STRICT_EQUAL 377 objects
+MOVER VB/vb18_param e: STRICT_NOTEQUAL col -> STRICT_EQUAL 382 objects
+MOVER VB/vb19_concat d: STRICT_NOTEQUAL col -> STRICT_EQUAL 145 objects
+MOVER VB/vb19_concat e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VD/vd01_depth3 d: STRICT_NOTEQUAL col -> STRICT_EQUAL 649 objects
+MOVER VD/vd01_depth3 e: STRICT_NOTEQUAL col -> STRICT_EQUAL 624 objects
+MOVER VD/vd02_nestedpath d: STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+MOVER VD/vd02_nestedpath e: STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+MOVER VD/vd03_ipsleafmod d: STRICT_NOTEQUAL col -> STRICT_NOTEQUAL defname
+MOVER VD/vd03_ipsleafmod e: STRICT_NOTEQUAL col -> STRICT_NOTEQUAL defname
+MOVER VD/vd04_ipsleafcls d: STRICT_NOTEQUAL col -> STRICT_NOTEQUAL defname
+MOVER VD/vd04_ipsleafcls e: STRICT_NOTEQUAL col -> STRICT_NOTEQUAL defname
+MOVER VD/vd05_concatleaf d: STRICT_NOTEQUAL col -> STRICT_EQUAL 154 objects
+MOVER VD/vd05_concatleaf e: STRICT_NOTEQUAL col -> STRICT_EQUAL 171 objects
+MOVER VD/vd06_pluseq d: STRICT_NOTEQUAL col -> STRICT_EQUAL 150 objects
+MOVER VD/vd06_pluseq e: STRICT_NOTEQUAL col -> STRICT_EQUAL 167 objects
+MOVER VD/vd12_static d: STRICT_NOTEQUAL col -> STRICT_EQUAL 150 objects
+MOVER VD/vd12_static e: STRICT_NOTEQUAL col -> STRICT_EQUAL 167 objects
+MOVER VD/vd13_twononTrail d: STRICT_NOTEQUAL col -> STRICT_EQUAL 165 objects
+MOVER VD/vd13_twononTrail e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VD/vd14_twononTrailNS d: STRICT_NOTEQUAL col -> STRICT_EQUAL 165 objects
+MOVER VD/vd14_twononTrailNS e: STRICT_NOTEQUAL col -> STRICT_EQUAL 190 objects
+MOVER VD/vd15_pkgfn d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd15_pkgfn e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd16_shadowarg d: STRICT_NOTEQUAL col -> STRICT_EQUAL 157 objects
+MOVER VD/vd16_shadowarg e: STRICT_NOTEQUAL col -> STRICT_EQUAL 171 objects
+MOVER VD/vd17_escaped d: STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+MOVER VD/vd17_escaped e: STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+MOVER VD/vd18_twoinst_genif d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd18_twoinst_genif e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VD/vd19_nb_class d: STRICT_NOTEQUAL col -> STRICT_EQUAL 150 objects
+MOVER VD/vd19_nb_class e: STRICT_NOTEQUAL col -> STRICT_EQUAL 167 objects
+MOVER VD/vd21_nestvs d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 148 objects
+MOVER VD/vd21_nestvs e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 151 objects
+MOVER VD/vd23_vselab d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 167 objects
+MOVER VD/vd23_vselab e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 170 objects
+MOVER VD/vd24_bsparenthesis d: STRICT_NOTEQUAL col -> STRICT_EQUAL 150 objects
+MOVER VD/vd24_bsparenthesis e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VD/vd25_bsmidmember d: STRICT_NOTEQUAL col -> STRICT_EQUAL 151 objects
+MOVER VD/vd25_bsmidmember e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+CMP VE/ve03_super d 110 -> 108
+MOVER VE/ve03_super d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+CMP VE/ve03_super e 138 -> 136
+MOVER VE/ve03_super e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VE/ve08_inside d: STRICT_NOTEQUAL col -> STRICT_EQUAL 147 objects
+MOVER VE/ve08_inside e: STRICT_NOTEQUAL col -> STRICT_EQUAL 164 objects
+MOVER VE/ve10_clslp d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VE/ve10_clslp e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VE/ve11_constprop d: STRICT_NOTEQUAL col -> STRICT_EQUAL 148 objects
+MOVER VE/ve11_constprop e: STRICT_NOTEQUAL col -> STRICT_EQUAL 165 objects
+CMP VE/ve12_taskref d 268 -> 266
+MOVER VE/ve12_taskref d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+CMP VE/ve12_taskref e 308 -> 306
+MOVER VE/ve12_taskref e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VE/ve13_vsmidsel d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 160 objects
+MOVER VE/ve13_vsmidsel e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 163 objects
+MOVER VE/ve14_bspacked d: STRICT_NOTEQUAL col -> STRICT_EQUAL 153 objects
+MOVER VE/ve14_bspacked e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VE/ve15_widemod d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VE/ve15_widemod e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VE/ve17_fork d: STRICT_NOTEQUAL col -> STRICT_EQUAL 145 objects
+MOVER VE/ve17_fork e: STRICT_NOTEQUAL col -> STRICT_EQUAL 162 objects
+MOVER VE/ve18_mult d: STRICT_NOTEQUAL col -> STRICT_EQUAL 149 objects
+MOVER VE/ve18_mult e: STRICT_NOTEQUAL col -> STRICT_EQUAL 169 objects
+MOVER VN/vn01_cast d: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VN/vn01_cast e: STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+MOVER VN/vn02_trailsel d: STRICT_NOTEQUAL col -> STRICT_EQUAL 145 objects
+MOVER VN/vn02_trailsel e: STRICT_NOTEQUAL col -> STRICT_EQUAL 167 objects
+MOVER VN/vn03_twice d: STRICT_NOTEQUAL col -> STRICT_EQUAL 151 objects
+MOVER VN/vn03_twice e: STRICT_NOTEQUAL col -> STRICT_EQUAL 171 objects
+MOVER VN/vn04_ifcond d: STRICT_NOTEQUAL col -> STRICT_EQUAL 148 objects
+MOVER VN/vn04_ifcond e: STRICT_NOTEQUAL col -> STRICT_EQUAL 165 objects
+MOVER VN/vn05_paren d: STRICT_NOTEQUAL col -> STRICT_EQUAL 144 objects
+MOVER VN/vn05_paren e: STRICT_NOTEQUAL col -> STRICT_EQUAL 161 objects
+MOVER VN/vn06_deep d: STRICT_NOTEQUAL col -> STRICT_EQUAL 146 objects
+MOVER VN/vn06_deep e: STRICT_NOTEQUAL col -> STRICT_EQUAL 163 objects
+MOVER VN/vn09_forcond d: STRICT_NOTEQUAL col -> STRICT_EQUAL 154 objects
+MOVER VN/vn09_forcond e: STRICT_NOTEQUAL col -> STRICT_EQUAL 171 objects
+MOVER VN/vn10_case d: STRICT_NOTEQUAL col -> STRICT_EQUAL 152 objects
+MOVER VN/vn10_case e: STRICT_NOTEQUAL col -> STRICT_EQUAL 169 objects
+MOVER VN/vn11_bothidx d: STRICT_NOTEQUAL col -> STRICT_EQUAL 147 objects
+MOVER VN/vn11_bothidx e: STRICT_NOTEQUAL col -> STRICT_EQUAL 169 objects
+MOVER VN/vn12_assoc d: STRICT_NOTEQUAL col -> STRICT_EQUAL 144 objects
+MOVER VN/vn12_assoc e: STRICT_NOTEQUAL col -> STRICT_EQUAL 161 objects
+MOVER VN/vn13_queue d: STRICT_NOTEQUAL col -> STRICT_EQUAL 144 objects
+MOVER VN/vn13_queue e: STRICT_NOTEQUAL col -> STRICT_EQUAL 159 objects
+MOVER VN/vn14_dyn d: STRICT_NOTEQUAL col -> STRICT_EQUAL 144 objects
+MOVER VN/vn14_dyn e: STRICT_NOTEQUAL col -> STRICT_EQUAL 159 objects
+MOVER VN/vn16_assert d: STRICT_NOTEQUAL col -> STRICT_EQUAL 145 objects
+MOVER VN/vn16_assert e: STRICT_NOTEQUAL col -> STRICT_EQUAL 162 objects
+MOVER VN/vn17_deepouter d: STRICT_NOTEQUAL col -> STRICT_EQUAL 147 objects
+MOVER VN/vn17_deepouter e: STRICT_NOTEQUAL col -> STRICT_EQUAL 156 objects
+MOVER VN/vn18_selidxsel d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VN/vn18_selidxsel e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VN/vn19_condop d: STRICT_NOTEQUAL col -> STRICT_EQUAL 147 objects
+MOVER VN/vn19_condop e: STRICT_NOTEQUAL col -> STRICT_EQUAL 164 objects
+MOVER VN/vn20_return d: STRICT_NOTEQUAL col -> STRICT_EQUAL 146 objects
+MOVER VN/vn20_return e: STRICT_NOTEQUAL col -> STRICT_EQUAL 163 objects
+MOVER VN/vn22_structparam d: STRICT_NOTEQUAL col -> STRICT_EQUAL 412 objects
+MOVER VN/vn22_structparam e: STRICT_NOTEQUAL col -> STRICT_EQUAL 423 objects
+MOVER VN/vn23_union d: STRICT_NOTEQUAL col -> STRICT_EQUAL 365 objects
+MOVER VN/vn23_union e: STRICT_NOTEQUAL col -> STRICT_EQUAL 376 objects
+MOVER VN/vn24_portconn d: STRICT_NOTEQUAL col -> STRICT_EQUAL 342 objects
+MOVER VN/vn24_portconn e: STRICT_NOTEQUAL col -> STRICT_EQUAL 354 objects
+MOVER VN/vn25_ffnb d: STRICT_NOTEQUAL col -> STRICT_EQUAL 335 objects
+MOVER VN/vn25_ffnb e: STRICT_NOTEQUAL col -> STRICT_EQUAL 345 objects
+MOVER VN/vn26_modfn d: STRICT_NOTEQUAL col -> STRICT_EQUAL 460 objects
+MOVER VN/vn26_modfn e: STRICT_NOTEQUAL col -> STRICT_EQUAL 453 objects
+MOVER VN/vn28_unpackedst d: STRICT_NOTEQUAL col -> STRICT_EQUAL 347 objects
+MOVER VN/vn28_unpackedst e: STRICT_NOTEQUAL col -> STRICT_EQUAL 358 objects
+MOVER VN/vn29_macro d: STRICT_NOTEQUAL col -> STRICT_EQUAL 322 objects
+MOVER VN/vn29_macro e: STRICT_NOTEQUAL col -> STRICT_EQUAL 333 objects
+MOVER VN/vn30_macropath d: STRICT_NOTEQUAL col -> STRICT_EQUAL 322 objects
+MOVER VN/vn30_macropath e: STRICT_NOTEQUAL col -> STRICT_EQUAL 333 objects
+MOVER VN/vn31_clsmacro d: STRICT_NOTEQUAL col -> STRICT_EQUAL 144 objects
+MOVER VN/vn31_clsmacro e: STRICT_NOTEQUAL col -> STRICT_EQUAL 161 objects
+MOVER VN/vn32_derived d: STRICT_NOTEQUAL col -> STRICT_EQUAL 152 objects
+MOVER VN/vn32_derived e: STRICT_NOTEQUAL col -> STRICT_EQUAL 161 objects
+MOVER VN/vn33_inport d: STRICT_NOTEQUAL col -> STRICT_EQUAL 397 objects
+MOVER VN/vn33_inport e: STRICT_NOTEQUAL col -> STRICT_EQUAL 408 objects
+MOVER VN/vn34_lvca d: STRICT_NOTEQUAL col -> STRICT_EQUAL 328 objects
+MOVER VN/vn34_lvca e: STRICT_NOTEQUAL col -> STRICT_EQUAL 339 objects
+MOVER VN/vn35_multidim d: STRICT_NOTEQUAL col -> STRICT_EQUAL 377 objects
+MOVER VN/vn35_multidim e: STRICT_NOTEQUAL col -> STRICT_EQUAL 423 objects
+MOVER VN/vn37_vif d: STRICT_NOTEQUAL col -> STRICT_EQUAL 152 objects
+MOVER VN/vn37_vif e: STRICT_NOTEQUAL col -> STRICT_EQUAL 164 objects
+MOVER VN/vn38_alwaysif d: STRICT_NOTEQUAL col -> STRICT_EQUAL 348 objects
+MOVER VN/vn38_alwaysif e: STRICT_NOTEQUAL col -> STRICT_EQUAL 365 objects
+MOVER VN/vn39_includemacro d: STRICT_NOTEQUAL col -> STRICT_EQUAL 340 objects
+MOVER VN/vn39_includemacro e: STRICT_NOTEQUAL col -> STRICT_EQUAL 350 objects
+CMP VN/vn40_extbelow d 588 -> 586
+MOVER VN/vn40_extbelow d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+CMP VN/vn40_extbelow e 608 -> 606
+MOVER VN/vn40_extbelow e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VN/vn41_ifacebody d: STRICT_NOTEQUAL endline -> STRICT_NOTEQUAL endline
+MOVER VN/vn41_ifacebody e: STRICT_NOTEQUAL endline -> STRICT_NOTEQUAL endline
+MOVER VN/vn42_implicit d: STRICT_NOTEQUAL col -> STRICT_EQUAL 355 objects
+MOVER VN/vn42_implicit e: STRICT_NOTEQUAL col -> STRICT_EQUAL 366 objects
+MOVER VV/vv01_firstdim d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 147 objects
+MOVER VV/vv01_firstdim e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 150 objects
+MOVER VV/vv02_deeppath d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 148 objects
+MOVER VV/vv02_deeppath e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 154 objects
+MOVER VV/vv07_three d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 148 objects
+MOVER VV/vv07_three e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 151 objects
+MOVER VV/vv08_intarr d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 147 objects
+MOVER VV/vv08_intarr e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 150 objects
+MOVER VV/vv09_mod d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 328 objects
+MOVER VV/vv09_mod e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 342 objects
+MOVER VV/vv10_modport d: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VV/vv10_modport e: NOT_EQUAL stage1 -> NOT_EQUAL stage1
+MOVER VV/vv11_bothpaths d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 150 objects
+MOVER VV/vv11_bothpaths e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 153 objects
+MOVER VV/vv12_cond d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 151 objects
+MOVER VV/vv12_cond e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 154 objects
+MOVER VV/vv13_deepouter d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 148 objects
+MOVER VV/vv13_deepouter e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 154 objects
+MOVER VV/vv14_macro d: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 147 objects
+MOVER VV/vv14_macro e: STRICT_NOTEQUAL fullname -> STRICT_EQUAL 150 objects
+case-views=238 movers=170 entering_STRICT_EQUAL=127 leaving_STRICT_EQUAL=0 rc_changes=0 cmp_changes=6 OFF_equals_pristine=238/238

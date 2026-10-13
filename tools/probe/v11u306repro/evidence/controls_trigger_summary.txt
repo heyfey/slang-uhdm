@@ -1,0 +1,33 @@
+MOVER ../../tests/probe/r10uvm79repro/c2_idxkind d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 187 objects
+MOVER ../../tests/probe/r10uvm79repro/c2_idxkind e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER ../../tests/probe/r10uvm92repro/v92_b2_varsel d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 440 objects
+MOVER ../../tests/probe/r10uvm92repro/v92_b2_varsel e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 443 objects
+MOVER r11u178repro/cases/hp/m07_idx_kinds d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 251 objects
+MOVER r11u178repro/cases/hp/m07_idx_kinds e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 256 objects
+MOVER r11u178repro/cases/hp/m11_first_kinds d rc=0 cmp=52 NOT_EQUAL stage1 -> rc=0 cmp=52 NOT_EQUAL stage1
+MOVER r11u178repro/cases/hp/m11_first_kinds e rc=0 cmp=52 NOT_EQUAL stage1 -> rc=0 cmp=52 NOT_EQUAL stage1
+MOVER r11u185verify/cases/HP/h03_idx_hierpath_with_idx d rc=0 cmp=130 NOT_EQUAL stage1 -> rc=0 cmp=130 NOT_EQUAL stage1
+MOVER r11u185verify/cases/HP/h03_idx_hierpath_with_idx e rc=0 cmp=130 NOT_EQUAL stage1 -> rc=0 cmp=130 NOT_EQUAL stage1
+MOVER r11u190verify/cases/X/x02 d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER r11u190verify/cases/X/x02 e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER r11u195repro/cases/K/k12 d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_NOTEQUAL col
+MOVER r11u195repro/cases/K/k12 e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_NOTEQUAL col
+MOVER r11u252repro/cases/X/x04_two_levels d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER r11u252repro/cases/X/x04_two_levels e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 522 objects
+MOVER r11v145repro/bso/x16_member_in_op d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 136 objects
+MOVER r11v145repro/bso/x16_member_in_op e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 144 objects
+MOVER r11v181repro/cases/lx/x03 d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER r11v181repro/cases/lx/x03 e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER r11v184repro/cases/C/vc01_nested_member_idx d rc=0 cmp=128 NOT_EQUAL stage1 -> rc=0 cmp=128 NOT_EQUAL stage1
+MOVER r11v184repro/cases/C/vc01_nested_member_idx e rc=0 cmp=156 NOT_EQUAL stage1 -> rc=0 cmp=156 NOT_EQUAL stage1
+MOVER r11v184repro/cases/C/vc03_member_sel_in_idx d rc=0 cmp=128 NOT_EQUAL stage1 -> rc=0 cmp=128 NOT_EQUAL stage1
+MOVER r11v184repro/cases/C/vc03_member_sel_in_idx e rc=0 cmp=156 NOT_EQUAL stage1 -> rc=0 cmp=156 NOT_EQUAL stage1
+MOVER v11u195repro/cases/A/a02 d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_NOTEQUAL endcol
+MOVER v11u195repro/cases/A/a02 e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_NOTEQUAL endcol
+MOVER v11u244repro/cases/A/a01_firstsel d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 234 objects
+MOVER v11u244repro/cases/A/a01_firstsel e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 244 objects
+MOVER v11u244repro/cases/A/a13_cls_firstsel d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 95 objects
+MOVER v11u244repro/cases/A/a13_cls_firstsel e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 103 objects
+MOVER v11u252repro/cases/VX/vx01_three_level d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER v11u252repro/cases/VX/vx01_three_level e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+case-views=72 moving=32 entering=12 leaving=0 rc-changed=0 cmplines-changed=0

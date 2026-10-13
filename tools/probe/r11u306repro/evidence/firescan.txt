@@ -1,0 +1,92 @@
+tests/probe/r10uvm79repro/c2_idxkind BARESEL:1 NESTSHAPE:1 NESTSHAPE_LEAFSEL:1 
+tests/probe/r10uvm92repro/v92_b2_varsel VSHPLEAF:1 
+tools/probe/r11u178repro/cases/hp/m07_idx_kinds NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u178repro/cases/hp/m11_first_kinds NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u185verify/cases/HP/h03_idx_hierpath_with_idx NESTSHAPE:2 NESTSHAPE_LEAFSEL:2 
+tools/probe/r11u190verify/cases/X/x02 NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u195repro/cases/K/k12 NESTSHAPE:1 NESTSHAPE_LEAFSEL:1 
+tools/probe/r11u252repro/cases/X/x04_two_levels BARESEL:4 
+tools/probe/r11u306repro/cases/NB/nb01_two BARESEL:1 
+tools/probe/r11u306repro/cases/NB/nb02_three BARESEL:1 
+tools/probe/r11u306repro/cases/NB/nb04_mid BARESEL:1 
+tools/probe/r11u306repro/cases/NB/nb05_opin BARESEL:1 
+tools/probe/r11u306repro/cases/NB/nb06_lv BARESEL:1 
+tools/probe/r11u306repro/cases/NB/nb07_g BARESEL:1 
+tools/probe/r11u306repro/cases/NB/nb09_mod BARESEL:1 
+tools/probe/r11u306repro/cases/NB/nb10_modcomb BARESEL:1 
+tools/probe/r11u306repro/cases/NB/nb11_genfor BARESEL:2 
+tools/probe/r11u306repro/cases/NP/np01_sel NESTSHAPE:1 NESTSHAPE_LEAFSEL:1 
+tools/probe/r11u306repro/cases/NP/np02_ref NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np03_op NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np04_three NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np05_lv NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np06_mid NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np08_g NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np10_both NESTSHAPE:1 NESTSHAPE_LEAFSEL:1 
+tools/probe/r11u306repro/cases/NP/np11_mod NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np12_modsel NESTSHAPE:1 NESTSHAPE_LEAFSEL:1 
+tools/probe/r11u306repro/cases/NP/np13_modcomb NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np14_genfor NESTSHAPE:2 NESTSHAPE_LEAFSEL:2 
+tools/probe/r11u306repro/cases/NP/np15_inst NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np16_selin NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np18_selop NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np19_cond NESTSHAPE_ABSTAIN:1 
+tools/probe/r11u306repro/cases/NP/np20_concat NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np21_condc NESTSHAPE:1 NESTSHAPE_ABSTAIN:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np22_condf NESTSHAPE:1 NESTSHAPE_ABSTAIN:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np23_nestcond NESTSHAPE_ABSTAIN:4 
+tools/probe/r11u306repro/cases/NP/np24_selcond NESTSHAPE_ABSTAIN:1 
+tools/probe/r11u306repro/cases/NP/np27_repl NESTSHAPE:1 NESTSHAPE_LEAFSEL:1 
+tools/probe/r11u306repro/cases/NP/np31_gen2 NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np32_stream NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np34_unary NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np35_twoop NESTSHAPE:2 NESTSHAPE_LEAF:2 
+tools/probe/r11u306repro/cases/NP/np36_paraminit NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np37_ifgen1 NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np38_implicit NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np39_iface NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np40_task NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11u306repro/cases/NP/np41_clsrange NESTSHAPE:1 NESTSHAPE_LEAFSEL:1 
+tools/probe/r11u306repro/cases/VH/h01_plus VSHPLEAF:1 
+tools/probe/r11u306repro/cases/VH/h02_whole VSHPLEAF:1 
+tools/probe/r11u306repro/cases/VH/h03_firstdim VSHPLEAF:1 
+tools/probe/r11u306repro/cases/VH/h04_threeelem VSHPLEAF:1 
+tools/probe/r11u306repro/cases/VH/h07_callidx VSHPLEAF:1 
+tools/probe/r11u306repro/cases/VH/h09_nested2 VSHPLEAF:1 
+tools/probe/r11u306repro/cases/VH/h12_twice VSHPLEAF:3 
+tools/probe/r11u306repro/cases/VH/h13_modcomb VSHPLEAF:1 
+tools/probe/r11u306repro/cases/VH/h14_modca VSHPLEAF:1 
+tools/probe/r11u306repro/cases/VH/h15_genfor VSHPLEAF:2 
+tools/probe/r11u306repro/cases/VH/h16_genif VSHPLEAF:2 
+tools/probe/r11u306repro/cases/VH/h17_modfn VSHPLEAF:1 
+tools/probe/r11u306repro/cases/VH/h18_pkgfn VSHPLEAF:2 
+tools/probe/r11u306repro/cases/VH/h19_lvmod VSHPLEAF:1 
+tools/probe/r11u306repro/cases/VH/h20_inst VSHPLEAF:1 
+tools/probe/r11v145repro/bso/x05_ternary_idx NESTSHAPE_ABSTAIN:2 
+tools/probe/r11v145repro/bso/x16_member_in_op NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11v178repro/cases/hx/x13_idx_kinds2 NESTSHAPE_ABSTAIN:2 
+tools/probe/r11v181repro/cases/lx/x03 NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/r11v184repro/cases/C/vc01_nested_member_idx NESTSHAPE:1 NESTSHAPE_LEAFSEL:1 
+tools/probe/r11v184repro/cases/C/vc03_member_sel_in_idx NESTSHAPE:1 NESTSHAPE_LEAFSEL:1 
+tools/probe/v11u195repro/cases/A/a02 NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/v11u244repro/cases/A/a01_firstsel NESTSHAPE:1 NESTSHAPE_LEAF:1 
+tools/probe/v11u244repro/cases/A/a13_cls_firstsel NESTSHAPE:3 NESTSHAPE_LEAF:3 
+tools/probe/v11u252repro/cases/VX/vx01_three_level BARESEL:4 
+tools/probe/v11u304repro/cases/VN/vn01_tern_idx NESTSHAPE_ABSTAIN:2 
+tools/probe/v11u304repro/cases/VN/vn15_nested_ternary_call NESTSHAPE_ABSTAIN:3 
+tools/probe/v11u304repro/cases/VN/vn23_tern_cond_sel NESTSHAPE_ABSTAIN:2 
+tools/probe/v11u304repro/cases/VN/vn24_tern_true_only NESTSHAPE_ABSTAIN:2 
+tools/probe/v11u304repro/cases/VN/vn25_tern_false_only NESTSHAPE_ABSTAIN:2 
+tools/probe/v11u304repro/cases/VN/vn26_tern_under_plus NESTSHAPE_ABSTAIN:2 
+tools/probe/v11u304repro/cases/VN/vn27_plus_in_true NESTSHAPE_ABSTAIN:5 
+tools/probe/v11u304repro/cases/VN/vn28_paren_true NESTSHAPE_ABSTAIN:2 
+tools/probe/v11u304repro/cases/VN/vn29_nested_tern_true NESTSHAPE_ABSTAIN:6 
+tools/probe/v11u304repro/cases/VN/vn30_varidx_true NESTSHAPE_ABSTAIN:2 
+tools/probe/v11u304repro/cases/VN/vn31_nestedsel_true NESTSHAPE_ABSTAIN:3 
+tools/probe/v11u304repro/cases/VN/vn32_tern_false_nested NESTSHAPE_ABSTAIN:4 
+tools/probe/v11u304repro/cases/VN/vn33_tern_ca NESTSHAPE_ABSTAIN:2 
+tools/probe/v11u304repro/cases/VN/vn34_tern_true_call NESTSHAPE_ABSTAIN:2 
+tools/probe/v11u304repro/cases/VN/vn35_nested_idx_tern NESTSHAPE_ABSTAIN:2 
+tools/probe/v11u304repro/cases/VN/vn36_true_ref_and_sel NESTSHAPE_ABSTAIN:4 
+tools/probe/v11u304repro/cases/VN/vn37_lvalue_tern NESTSHAPE_ABSTAIN:2 
+tools/probe/v11u304repro/cases/VN/vn39_pkg_import_clone_tern NESTSHAPE_ABSTAIN:8 

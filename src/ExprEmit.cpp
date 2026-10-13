@@ -4919,6 +4919,70 @@ static bool& hpMidIdx184() {
     static thread_local bool v = false;
     return v;
 }
+// § nonTrailIdxPathNestShape306 (r11u306) — raised by emitMixedHierPath
+// around each NON-TRAILING component (rvalue and lvalue alike); lowered while
+// a nested path the law reshapes is itself emitted.  The expression the
+// law's wrapper in emitExpr is re-entered for (recursion guard).
+static bool& hpMidIdx306() {
+    static thread_local bool v = false;
+    return v;
+}
+static const slang::ast::Expression*& g306NestTop() {
+    static thread_local const slang::ast::Expression* e = nullptr;
+    return e;
+}
+// The reshaped paths' leaf objects, renamed design-final (after every
+// path-index drain: § hpSelIdxPathTrailByChain244 names a trailing reference
+// of a path nested in a member select's index through the chain).
+static std::vector<UHDM::any*>& nestLeaf306() {
+    static std::vector<UHDM::any*> v;
+    return v;
+}
+// § nonTrailIdxPathNestShape306 — the leaf names, design-final (called at
+// the end of ParamEmit's drain list): a member reference keeps its bare
+// name (Surelog's Select arm sets none), a member select reads its name
+// through its final parent chain.
+void nestShapeDrain306(bool elabView) {
+    for (auto* o : nestLeaf306()) {
+        if (o->UhdmType() == UHDM::uhdmref_obj) {
+            auto* r = (UHDM::ref_obj*)o;
+            if (r->VpiFullName() != r->VpiName()) {
+                lawTrace(306, "NESTSHAPE_LEAF", std::string(r->VpiName()));
+                r->VpiFullName(r->VpiName());
+            }
+        }
+        else if (o->UhdmType() == UHDM::uhdmbit_select ||
+                 o->UhdmType() == UHDM::uhdmpart_select) {
+            auto* b = (UHDM::expr*)o;
+            // The elaborated view's class method is the elaborator's clone:
+            // golden reads its member select through the outer bit_select
+            // there (`...::f::iarr::h.idx[i]::idx`), the name ours stored.
+            bool inClass = false;
+            for (const UHDM::any* u = b->VpiParent(); u; u = u->VpiParent())
+                if (u->UhdmType() == UHDM::uhdmclass_defn) {
+                    inClass = true;
+                    break;
+                }
+            if (elabView && inClass) {
+                lawTrace(306, "NESTSHAPE_LEAFSEL_ABSTAIN", "elab class");
+                continue;
+            }
+            const std::string fn = chainFullName175(b);
+            const std::string have = o->UhdmType() == UHDM::uhdmbit_select
+                                         ? std::string(((UHDM::bit_select*)o)->VpiFullName())
+                                         : std::string(((UHDM::part_select*)o)->VpiFullName());
+            if (!fn.empty() && fn != have) {
+                lawTrace(306, "NESTSHAPE_LEAFSEL", fn);
+                if (o->UhdmType() == UHDM::uhdmbit_select)
+                    ((UHDM::bit_select*)o)->VpiFullName(fn);
+                else
+                    ((UHDM::part_select*)o)->VpiFullName(fn);
+            }
+        }
+    }
+    nestLeaf306().clear();
+}
+
 
 // A path that is (inside) a STREAMING concatenation's operand of an lvalue
 // (`{>>{m.w[k+2].v}} = x`): its parent is the stream operation, directly or
@@ -15540,6 +15604,45 @@ static void trailIdxNestedNames187(UHDM::bit_select* bs, const std::string& base
                             walk(c, e, fn, l3);
                     return;
                 }
+                // § varSelIdxHpLeafByPath306 (r11u306) — A MEMBER PATH
+                // inside a multi-level select's index (`bb.bin[n +
+                // two_d[1][bb.q]]`, a class method) names its last
+                // reference through the var_select: Surelog stores no full
+                // name on it, and ComputeFullName skips the hier_path above
+                // a ref_obj and keeps the var_select's own (path-derived)
+                // name, golden `vsp::probe::probes::bb.bin[n +
+                // two_d[1][]]::bin::two_d::q`; ours kept the name the leaf
+                // got when the path was built, before § trailIdxVarSelNamesByPath278
+                // renamed the var_select (`vsp::probe::probes::two_d::q`).
+                // Only below a var_select this walk entered; a path directly
+                // under the trailing select's operations is named at its own
+                // site.  Grid tools/probe/r11u306repro/cases/VH.  Switch
+                // R11U306_VSHPLEAF_OFF.
+                case UHDM::uhdmhier_path: {
+                    static const bool onHp306 = lawOn(306, "R11U306_VSHPLEAF_OFF");
+                    if (!law || !up || up->UhdmType() != UHDM::uhdmvar_select)
+                        return;
+                    auto* pe = ((UHDM::hier_path*)e)->Path_elems();
+                    if (!pe || pe->size() < 2)
+                        return;
+                    auto* last = pe->back();
+                    if (!last || last->VpiParent() != e ||
+                        last->UhdmType() != UHDM::uhdmref_obj)
+                        return;
+                    auto* r = (UHDM::ref_obj*)last;
+                    const std::string fn = joinRef(path, r->VpiName());
+                    if (std::string(r->VpiFullName()) == fn)
+                        return;
+                    if (!onHp306) {
+                        lawTrace(306, "VSHPLEAF-OFF", fn);
+                        return;
+                    }
+                    lawTrace(306, "VSHPLEAF", fn);
+                    r->VpiFullName(fn);
+                    if (auto* rt = r->Typespec(); rt && rt->VpiParent() == r)
+                        rt->VpiFullName(fn);
+                    return;
+                }
                 case UHDM::uhdmbit_select:
                 case UHDM::uhdmindexed_part_select:
                 case UHDM::uhdmpart_select: {
@@ -17445,6 +17548,12 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             ~MidIdx184() { hpMidIdx184() = v; }
         } midIdx184{hpMidIdx184()};
         hpMidIdx184() = mid79 && !inLhs;
+        // § nonTrailIdxPathNestShape306 — the same predicate, lvalues too.
+        struct MidIdx306 {
+            bool v;
+            ~MidIdx306() { hpMidIdx306() = v; }
+        } midIdx306{hpMidIdx306()};
+        hpMidIdx306() = mid79;
         dottedAt += (i == 0 ? comp.name : "." + comp.name);
         if (comp.isBase && baseSelMode) {
             // Base multi-dim element select: one bit_select per dim. Simple
@@ -18272,6 +18381,63 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             if (!e304 || e304->UhdmType() != UHDM::uhdmbit_select)
                 continue;
             auto* ix304 = (UHDM::any*)((UHDM::bit_select*)e304)->VpiIndex();
+            // § nonTrailSelNestedSelWhole306 (r11u306) — A SELECT NESTED IN
+            // A BARE SELECT THAT INDEXES ONE OF THE PATH'S NON-TRAILING
+            // SELECTS SPANS ITS WHOLE SELECT, at every depth: `r =
+            // iarr[midx[midx[i]]].f` golden inner `midx` 7:19-26 named
+            // `...::f::midx::midx` (ours 7:24-25, the index), three levels
+            // `iarr[midx[midx[midx[i]]]].f` each whole, through an operation
+            // `iarr[midx[midx[i] + 1]].f`, a module's `sa[m[m[i]]].f` and an
+            // lvalue alike; the bare select itself is already whole.  The
+            // same compile as § hpOpIdxNestedSelByPath304's (the path's
+            // element list), its walker reused with the bare select's name
+            // as the outer name (a call argument keeping its index span, a
+            // conditional's true branch too).  Probe r10uvm79repro/c2_idxkind
+            // (its d2 face).  Grid tools/probe/r11u306repro/cases/NB.
+            // Switch R11U306_BARESEL_OFF.
+            if (ix304 && ix304->UhdmType() == UHDM::uhdmbit_select &&
+                ix304->VpiParent() &&
+                (ix304->VpiParent() == e304 || ix304->VpiParent() == hp) &&
+                !ix304->VpiName().empty()) {
+                auto* in306 = (UHDM::any*)((UHDM::bit_select*)ix304)->VpiIndex();
+                // (only where the walker can reach a select: through
+                // operations and call arguments)
+                std::function<bool(const UHDM::any*)> hasSel306 = [&](const UHDM::any* a) {
+                    if (!a)
+                        return false;
+                    switch (a->UhdmType()) {
+                    case UHDM::uhdmbit_select:
+                    case UHDM::uhdmpart_select:
+                        return true;
+                    case UHDM::uhdmoperation:
+                        if (auto* os = ((const UHDM::operation*)a)->Operands())
+                            for (auto* o : *os)
+                                if (o && o->VpiParent() == a && hasSel306(o))
+                                    return true;
+                        return false;
+                    case UHDM::uhdmfunc_call:
+                    case UHDM::uhdmsys_func_call:
+                        if (auto* as = ((const UHDM::tf_call*)a)->Tf_call_args())
+                            for (auto* o : *as)
+                                if (o && o->VpiParent() == a && hasSel306(o))
+                                    return true;
+                        return false;
+                    default:
+                        return false;
+                    }
+                };
+                if (in306 && in306->VpiParent() == ix304 && hasSel306(in306)) {
+                    static const bool on306 = lawOn(306, "R11U306_BARESEL_OFF");
+                    const std::string ob306 = joinRef(base304, ix304->VpiName());
+                    if (!on306)
+                        lawTrace(306, "BARESEL_OFF", ob306);
+                    else {
+                        lawTrace(306, "BARESEL", ob306);
+                        walk304(in306, ob306, false);
+                    }
+                }
+                continue;
+            }
             if (!ix304 || ix304->UhdmType() != UHDM::uhdmoperation)
                 continue;
             walk304(ix304, base304, false);
@@ -22843,6 +23009,129 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 trace198("genCaCastRhsRefUnnamed198");
             }
             return r198;
+        }
+    }
+    // § nonTrailIdxPathNestShape306 (r11u306) — A MEMBER PATH WRITTEN IN
+    // THE INDEX OF A NON-TRAILING SELECT OF A PATH TAKES THE NESTED-PATH
+    // SHAPE.  `r = iarr[h.k].f`, `r = iarr[h.idx[i]].f`, `iarr[h.k].f = 3`,
+    // `r = h.arr[hd.k].f`, `assign r = sa[t.k].f` (class method, module
+    // process and continuous assignment, both views): Surelog compiles the
+    // select of a path element that further members follow through
+    // compileSelectExpression, whose index `h.k` reaches the Select-grammar
+    // arm (CompileExpression.cpp, the paPs_or_hierarchical_identifier /
+    // slStringConst branch): the base `ref_obj` is populated from the FIRST
+    // MEMBER's node (golden `h` 7:16-17 on `k`, ours 7:14-15 on `h`), a
+    // member reference gets a name only (no full name: golden `k` bare,
+    // ours `work@grid::probe::iarr[].f::k`), and a member select spans from
+    // its member name to its closing bracket (golden `idx` 7:16-22, ours the
+    // index 7:20-21).  A path in a TRAILING select's index (`got =
+    // h.arr[hd.k]`), in a call argument there (`iarr[$clog2(h.k)].f`) or in
+    // the trailing index of the nested path itself keeps the read shape.
+    // The wrapper fires when emitMixedHierPath raised the non-trailing flag
+    // and the parent climbs through operations only to the path's bit_select;
+    // the path is built as before and then reshaped.  Grid
+    // tools/probe/r11u306repro/cases/NP.  Switch R11U306_NESTSHAPE_OFF.
+    if (hpMidIdx306() && g306NestTop() != &expr && parent) {
+        const Expression& sx306 = stripImplicitConv(expr);
+        // Through operations and selects nested in the index (`iarr[midx[h.k]].f`,
+        // `iarr[{h.k}].f`); a conditional's TRUE branch keeps the read shape
+        // (`iarr[i ? h.k : j].f`, golden `h` on its own token; the condition
+        // and the false branch take the nested shape), the § hpOpIdxTernTrueKeepsIdxLoc304v twin.
+        const UHDM::any* q306 = (const UHDM::any*)parent;
+        bool tern306 = false;
+        while (q306 && (q306->UhdmType() == UHDM::uhdmoperation ||
+                        (q306->UhdmType() == UHDM::uhdmbit_select && q306->VpiParent() &&
+                         q306->VpiParent()->UhdmType() != UHDM::uhdmhier_path))) {
+            // (a conditional's operands are attached after its arms are
+            // emitted: the true arm is known from the stack the conditional
+            // arm raises around it, § psBoundPkgParamTs31's)
+            if (q306->UhdmType() == UHDM::uhdmoperation &&
+                ((const UHDM::operation*)q306)->VpiOpType() == vpiConditionOp)
+                for (const UHDM::any* t306 : ternTrueArmOps31)
+                    if (t306 == q306)
+                        tern306 = true;
+            q306 = q306->VpiParent();
+        }
+        const bool ctx306 = !tern306 && q306 && q306->UhdmType() == UHDM::uhdmbit_select &&
+                            q306->VpiParent() &&
+                            q306->VpiParent()->UhdmType() == UHDM::uhdmhier_path;
+        if (tern306 && hpMidIdx306())
+            lawTrace(306, "NESTSHAPE_ABSTAIN", "ternary true branch");
+        if (ctx306 && (sx306.kind == ExpressionKind::MemberAccess ||
+                       sx306.kind == ExpressionKind::ElementSelect ||
+                       sx306.kind == ExpressionKind::RangeSelect)) {
+            // slang side: leaf selects, then members, down to a plain base.
+            const Expression* c306 = &sx306;
+            const Expression* leafSel306 = nullptr;
+            const Expression* leafRange306 = nullptr;
+            if (c306->kind == ExpressionKind::RangeSelect) {
+                leafRange306 = c306;
+                c306 = &stripImplicitConv(c306->as<RangeSelectExpression>().value());
+            }
+            while (!leafRange306 && c306->kind == ExpressionKind::ElementSelect) {
+                leafSel306 = c306;
+                c306 = &stripImplicitConv(c306->as<ElementSelectExpression>().value());
+            }
+            std::vector<const MemberAccessExpression*> mem306;  // outer first
+            while (c306->kind == ExpressionKind::MemberAccess) {
+                mem306.push_back(&c306->as<MemberAccessExpression>());
+                c306 = &stripImplicitConv(mem306.back()->value());
+            }
+            // (a `this.` / `super.` base is the § thisPathSelectErased4 shape)
+            const bool shape306 = !mem306.empty() &&
+                                  c306->kind == ExpressionKind::NamedValue &&
+                                  c306->as<NamedValueExpression>().symbol.name != "this" &&
+                                  c306->as<NamedValueExpression>().symbol.name != "super";
+            static const bool on306 = lawOn(306, "R11U306_NESTSHAPE_OFF");
+            if (shape306 && !on306)
+                lawTrace(306, "NESTSHAPE_OFF", "switch");
+            if (shape306 && on306) {
+                const Expression* svTop306 = g306NestTop();
+                const bool svMid306 = hpMidIdx306();
+                g306NestTop() = &expr;
+                hpMidIdx306() = false;
+                UHDM::any* r306 = emitExpr(expr, parent, prefix, netMap);
+                g306NestTop() = svTop306;
+                hpMidIdx306() = svMid306;
+                auto* hp306 = (r306 && r306->UhdmType() == UHDM::uhdmhier_path)
+                                  ? (UHDM::hier_path*)r306
+                                  : nullptr;
+                auto* el306 = hp306 ? hp306->Path_elems() : nullptr;
+                if (!el306 || el306->size() != mem306.size() + 1 ||
+                    !el306->front() || el306->front()->UhdmType() != UHDM::uhdmref_obj) {
+                    lawTrace(306, "NESTSHAPE_ABSTAIN", "elems");
+                    return r306;
+                }
+                auto memSpan306 = [](const MemberAccessExpression& m) {
+                    auto e = m.sourceRange.end();
+                    return SourceRange(e - m.member.name.size(), e);
+                };
+                // the base on the first member's token
+                setLoc(el306->front(), memSpan306(*mem306.back()));
+                auto* leaf306 = el306->back();
+                if (leaf306 && leaf306->UhdmType() == UHDM::uhdmref_obj && !leafSel306) {
+                    nestLeaf306().push_back(leaf306);
+                }
+                else if (leaf306 && leaf306->UhdmType() == UHDM::uhdmpart_select &&
+                         leafRange306) {
+                    // a member part select carries its member name as its
+                    // definition name too (golden `part_select k` defname
+                    // `k`), its full name read through the chain
+                    // (its span, the member name to the last bound, is ours already)
+                    ((UHDM::part_select*)leaf306)->VpiDefName(leaf306->VpiName());
+                    nestLeaf306().push_back(leaf306);
+                }
+                else if (leaf306 && leaf306->UhdmType() == UHDM::uhdmbit_select &&
+                         leafSel306 &&
+                         stripImplicitConv(leafSel306->as<ElementSelectExpression>().value())
+                                 .kind == ExpressionKind::MemberAccess) {
+                    setLoc(leaf306, SourceRange(memSpan306(*mem306.front()).start(),
+                                                leafSel306->sourceRange.end()));
+                    nestLeaf306().push_back(leaf306);
+                }
+                lawTrace(306, "NESTSHAPE", std::string(hp306->VpiName()));
+                return r306;
+            }
         }
     }
     // § idxCallPathAtDots191 — the wrapper (the law's header is above).
