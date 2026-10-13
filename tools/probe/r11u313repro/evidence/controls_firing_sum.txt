@@ -1,0 +1,167 @@
+case-views=288 moving=152 entering=14 leaving=0 rc-changed=0 cmplines-changed=0
+MOVER r311/GI/g02_for_arr_slice STRICT_EQUAL_275_objects -> STRICT_EQUAL_275_objects cmplines 0->0
+MOVER r311/GI/g02_for_arr_slice_el STRICT_EQUAL_337_objects -> STRICT_EQUAL_337_objects cmplines 0->0
+MOVER r311/GI/g15_whole_to_arrport NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 38->38
+MOVER r311/GI/g15_whole_to_arrport_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 38->38
+MOVER r311/GI/g16_slice_nested_sibling STRICT_EQUAL_156_objects -> STRICT_EQUAL_156_objects cmplines 0->0
+MOVER r311/GI/g16_slice_nested_sibling_el STRICT_EQUAL_196_objects -> STRICT_EQUAL_196_objects cmplines 0->0
+MOVER r311/GI/g17_slice_second_array STRICT_EQUAL_177_objects -> STRICT_EQUAL_177_objects cmplines 0->0
+MOVER r311/GI/g17_slice_second_array_el STRICT_EQUAL_217_objects -> STRICT_EQUAL_217_objects cmplines 0->0
+MOVER r311/GI/g21_single_in_gen_ctl STRICT_EQUAL_96_objects -> STRICT_EQUAL_96_objects cmplines 0->0
+MOVER r311/GI/g21_single_in_gen_ctl_el STRICT_EQUAL_107_objects -> STRICT_EQUAL_107_objects cmplines 0->0
+MOVER tp/r10rgg16repro/cells/g2 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r10rgg16repro/cells/g2_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r10rgg16repro/cells/g5 STRICT_EQUAL_297_objects -> STRICT_EQUAL_297_objects cmplines 0->0
+MOVER tp/r10rgg16repro/cells/g5_el STRICT_EQUAL_375_objects -> STRICT_EQUAL_375_objects cmplines 0->0
+MOVER tp/r10v221repro/arms/v9_instshape NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 140->140
+MOVER tp/r10v221repro/arms/v9_instshape_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 140->140
+MOVER tp/r10vrgg16repro/cells/v1 STRICT_EQUAL_506_objects -> STRICT_EQUAL_506_objects cmplines 0->0
+MOVER tp/r10vrgg16repro/cells/v11 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/r10vrgg16repro/cells/v11_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 50->50
+MOVER tp/r10vrgg16repro/cells/v12 STRICT_EQUAL_769_objects -> STRICT_EQUAL_769_objects cmplines 0->0
+MOVER tp/r10vrgg16repro/cells/v12_el STRICT_NOTEQUAL_depth -> STRICT_NOTEQUAL_depth cmplines 0->0
+MOVER tp/r10vrgg16repro/cells/v13 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 293->293
+MOVER tp/r10vrgg16repro/cells/v13_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 57->57
+MOVER tp/r10vrgg16repro/cells/v1_el STRICT_NOTEQUAL_depth -> STRICT_NOTEQUAL_depth cmplines 0->0
+MOVER tp/r10vrgg16repro/cells/v4 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 207->207
+MOVER tp/r10vrgg16repro/cells/v4_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 57->57
+MOVER tp/r10vrgg16repro/cells/v6 STRICT_EQUAL_564_objects -> STRICT_EQUAL_564_objects cmplines 0->0
+MOVER tp/r10vrgg16repro/cells/v6_el STRICT_EQUAL_788_objects -> STRICT_EQUAL_788_objects cmplines 0->0
+MOVER tp/r10vrgg16repro/cells/v9 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r10vrgg16repro/cells/v9_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r10vrgg3repro/x5_iface_in_generate STRICT_EQUAL_488_objects -> STRICT_EQUAL_488_objects cmplines 0->0
+MOVER tp/r10vrgg3repro/x5_iface_in_generate_el STRICT_EQUAL_945_objects -> STRICT_EQUAL_945_objects cmplines 0->0
+MOVER tp/r11u115repro/grid/i/o07_nmp_outer_gen STRICT_EQUAL_217_objects -> STRICT_EQUAL_217_objects cmplines 0->0
+MOVER tp/r11u115repro/grid/i/o07_nmp_outer_gen_el STRICT_EQUAL_281_objects -> STRICT_EQUAL_281_objects cmplines 0->0
+MOVER tp/r11u162verify/cases/cx/x11_psel_conn_iface_in_gen STRICT_EQUAL_184_objects -> STRICT_EQUAL_184_objects cmplines 0->0
+MOVER tp/r11u162verify/cases/cx/x11_psel_conn_iface_in_gen_el STRICT_EQUAL_202_objects -> STRICT_EQUAL_202_objects cmplines 0->0
+MOVER tp/r11u173verify/cases/pv/p11_iface_in_genblock_ordered STRICT_EQUAL_89_objects -> STRICT_EQUAL_89_objects cmplines 0->0
+MOVER tp/r11u173verify/cases/pv/p11_iface_in_genblock_ordered_el STRICT_EQUAL_108_objects -> STRICT_EQUAL_108_objects cmplines 0->0
+MOVER tp/r11u185verify/cases/PG/p03_prog_in_generate STRICT_EQUAL_176_objects -> STRICT_EQUAL_176_objects cmplines 0->0
+MOVER tp/r11u185verify/cases/PG/p03_prog_in_generate_el STRICT_EQUAL_191_objects -> STRICT_EQUAL_191_objects cmplines 0->0
+MOVER tp/r11u193repro/cases/CL/s12 STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u193repro/cases/CL/s12_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u199verify/cases/C/c04_iface_bind STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u199verify/cases/C/c04_iface_bind_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u208verify/cases/OB/b07 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u208verify/cases/OB/b07_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u217verify/cases/GS/g04 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u217verify/cases/GS/g04_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u217verify/cases/GS/g05 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 102->102
+MOVER tp/r11u217verify/cases/GS/g05_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 102->102
+MOVER tp/r11u217verify/cases/PD/p06 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 62->62
+MOVER tp/r11u217verify/cases/PD/p06_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 62->62
+MOVER tp/r11u217verify/cases/PD/p07 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 30->30
+MOVER tp/r11u217verify/cases/PD/p07_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 30->30
+MOVER tp/r11u251repro/cases/BP/b06_expr_conn NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 290->290
+MOVER tp/r11u251repro/cases/BP/b06_expr_conn_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 290->290
+MOVER tp/r11u251repro/cases/BP/b09_bitsel STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_89_objects cmplines 0->0
+MOVER tp/r11u251repro/cases/BP/b09_bitsel_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_89_objects cmplines 0->0
+MOVER tp/r11u254repro/cases/H/h06_iface NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u254repro/cases/H/h06_iface_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/r11u254repro/cases/V/v02_iface_body NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 3462->3462
+MOVER tp/r11u254repro/cases/V/v02_iface_body_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 3502->3502
+MOVER tp/r11u261repro/cases/D/d08_iface_in_gen STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11u261repro/cases/D/d08_iface_in_gen_el STRICT_NOTEQUAL_type -> STRICT_NOTEQUAL_type cmplines 0->0
+MOVER tp/r11u263repro/cases/I/i10 STRICT_EQUAL_225_objects -> STRICT_EQUAL_225_objects cmplines 0->0
+MOVER tp/r11u263repro/cases/I/i10_el STRICT_EQUAL_253_objects -> STRICT_EQUAL_253_objects cmplines 0->0
+MOVER tp/r11u309repro/cases/TA/a06_gen_arr_inner_iface STRICT_EQUAL_250_objects -> STRICT_EQUAL_250_objects cmplines 0->0
+MOVER tp/r11u309repro/cases/TA/a06_gen_arr_inner_iface_el STRICT_EQUAL_294_objects -> STRICT_EQUAL_294_objects cmplines 0->0
+MOVER tp/r11u309repro/cases/TA/a14_gen_param_size NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 406->406
+MOVER tp/r11u309repro/cases/TA/a14_gen_param_size_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 406->406
+MOVER tp/r11u309repro/cases/TA/a15_gen_range_ctl STRICT_EQUAL_248_objects -> STRICT_EQUAL_248_objects cmplines 0->0
+MOVER tp/r11u309repro/cases/TA/a15_gen_range_ctl_el STRICT_EQUAL_292_objects -> STRICT_EQUAL_292_objects cmplines 0->0
+MOVER tp/r11u309repro/cases/TA/a16_gen_size_expr NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 1378->1378
+MOVER tp/r11u309repro/cases/TA/a16_gen_size_expr_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 1364->1364
+MOVER tp/r11u309repro/cases/TS/s05_gen_inner_slice STRICT_EQUAL_275_objects -> STRICT_EQUAL_275_objects cmplines 0->0
+MOVER tp/r11u309repro/cases/TS/s05_gen_inner_slice_el STRICT_EQUAL_337_objects -> STRICT_EQUAL_337_objects cmplines 0->0
+MOVER tp/r11v130repro/grid/adv/f03_pv_gen_port STRICT_EQUAL_240_objects -> STRICT_EQUAL_240_objects cmplines 0->0
+MOVER tp/r11v130repro/grid/adv/f03_pv_gen_port_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/r11v147repro/brk/pos/w5_iface_ordered NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 323->323
+MOVER tp/r11v147repro/brk/pos/w5_iface_ordered_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 323->323
+MOVER tp/r11v4repro/v4 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 1080->1080
+MOVER tp/r11v4repro/v4_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 1080->1080
+MOVER tp/r11v4repro/v9 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/r11v4repro/v9_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/v11u115repro/grid/f2b/q07_genif_in_genif_samegen STRICT_EQUAL_193_objects -> STRICT_EQUAL_193_objects cmplines 0->0
+MOVER tp/v11u115repro/grid/f2b/q07_genif_in_genif_samegen_el STRICT_EQUAL_240_objects -> STRICT_EQUAL_240_objects cmplines 0->0
+MOVER tp/v11u155repro/cases/IC/c15 STRICT_NOTEQUAL_type -> STRICT_NOTEQUAL_type cmplines 0->0
+MOVER tp/v11u155repro/cases/IC/c15_el STRICT_NOTEQUAL_type -> STRICT_NOTEQUAL_type cmplines 0->0
+MOVER tp/v11u164repro/cases/PV/p15_genblk_inscope STRICT_EQUAL_89_objects -> STRICT_EQUAL_89_objects cmplines 0->0
+MOVER tp/v11u164repro/cases/PV/p15_genblk_inscope_el STRICT_EQUAL_108_objects -> STRICT_EQUAL_108_objects cmplines 0->0
+MOVER tp/v11u176repro/cases/GV/v09_generic_plain_gen_inside STRICT_EQUAL_151_objects -> STRICT_EQUAL_151_objects cmplines 0->0
+MOVER tp/v11u176repro/cases/GV/v09_generic_plain_gen_inside_el STRICT_EQUAL_175_objects -> STRICT_EQUAL_175_objects cmplines 0->0
+MOVER tp/v11u209repro/cases/GS/v05 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u209repro/cases/GS/v05_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u209repro/cases/IM/v16 NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u209repro/cases/IM/v16_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 17->17
+MOVER tp/v11u239repro/cases/MA/m11 STRICT_EQUAL_337_objects -> STRICT_EQUAL_337_objects cmplines 0->0
+MOVER tp/v11u239repro/cases/MA/m11_el STRICT_EQUAL_432_objects -> STRICT_EQUAL_432_objects cmplines 0->0
+MOVER tp/v11u254repro/cases/H/vh04_qual_iface STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_87_objects cmplines 0->0
+MOVER tp/v11u254repro/cases/H/vh04_qual_iface_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_87_objects cmplines 0->0
+MOVER tp/v11u254repro/cases/X/vx01_iface_body NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 4184->4184
+MOVER tp/v11u254repro/cases/X/vx01_iface_body_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 4318->4318
+MOVER tp/v11u256repro/cases/G/vg25_iface_in_gen NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 152->152
+MOVER tp/v11u256repro/cases/G/vg25_iface_in_gen_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 152->152
+MOVER tp/v11u257repro/cases/R/vr01_child_iface STRICT_NOTEQUAL_type -> STRICT_NOTEQUAL_type cmplines 0->0
+MOVER tp/v11u257repro/cases/R/vr01_child_iface_el STRICT_NOTEQUAL_type -> STRICT_NOTEQUAL_type cmplines 0->0
+MOVER tp/v11u271repro/cases/VN/vn19_gen_iface_inside NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/v11u271repro/cases/VN/vn19_gen_iface_inside_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 36->36
+MOVER tp/v11u283repro/cases/VI/vi07_gen_param STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_187_objects cmplines 0->0
+MOVER tp/v11u283repro/cases/VI/vi07_gen_param_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_236_objects cmplines 0->0
+MOVER tp/v11u283repro/cases/VI/vi12_gen_then_direct STRICT_NOTEQUAL_depth -> STRICT_NOTEQUAL_depth cmplines 0->0
+MOVER tp/v11u283repro/cases/VI/vi12_gen_then_direct_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_fullname cmplines 0->0
+MOVER tp/v11u283repro/cases/VI/vi14_direct_gen_direct STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_237_objects cmplines 0->0
+MOVER tp/v11u283repro/cases/VI/vi14_direct_gen_direct_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_255_objects cmplines 0->0
+MOVER tp/v11u293repro/cases/VI/vi06_gen_parent STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_120_objects cmplines 0->0
+MOVER tp/v11u293repro/cases/VI/vi06_gen_parent_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_108_objects cmplines 0->0
+MOVER tp/v11u293repro/cases/VI/vi21_gen_iface_modport STRICT_NOTEQUAL_line -> STRICT_NOTEQUAL_line cmplines 0->0
+MOVER tp/v11u293repro/cases/VI/vi21_gen_iface_modport_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_230_objects cmplines 0->0
+MOVER tp/v11u293repro/cases/VI/vi22_for_gen_two NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 31->31
+MOVER tp/v11u293repro/cases/VI/vi22_for_gen_two_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_233_objects cmplines 0->0
+MOVER tp/v11u293repro/cases/VP/vp15_both_in_gen STRICT_EQUAL_120_objects -> STRICT_EQUAL_120_objects cmplines 0->0
+MOVER tp/v11u293repro/cases/VP/vp15_both_in_gen_el STRICT_EQUAL_119_objects -> STRICT_EQUAL_119_objects cmplines 0->0
+MOVER tp/v11u297repro/cases/VS/vs03_iface_in_gen_twice NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 48->48
+MOVER tp/v11u297repro/cases/VS/vs03_iface_in_gen_twice_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 52->52
+MOVER tp/v11u307repro/cases/VG/vg01_iface_pos_gen STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_line cmplines 0->0
+MOVER tp/v11u307repro/cases/VG/vg01_iface_pos_gen_el STRICT_NOTEQUAL_fullname -> STRICT_NOTEQUAL_line cmplines 0->0
+MOVER tp/v11u309repro/cases/VG/vg05_gen_iface_child STRICT_NOTEQUAL_line -> STRICT_NOTEQUAL_line cmplines 0->0
+MOVER tp/v11u309repro/cases/VG/vg05_gen_iface_child_el STRICT_NOTEQUAL_line -> STRICT_NOTEQUAL_line cmplines 0->0
+MOVER tp/v11u309repro/cases/VG/vg08_nested_gen_iface_in_gen STRICT_EQUAL_167_objects -> STRICT_EQUAL_167_objects cmplines 0->0
+MOVER tp/v11u309repro/cases/VG/vg08_nested_gen_iface_in_gen_el STRICT_EQUAL_195_objects -> STRICT_EQUAL_195_objects cmplines 0->0
+MOVER tp/v11u309repro/cases/VZ/vz01_localparam_size STRICT_EQUAL_269_objects -> STRICT_EQUAL_269_objects cmplines 0->0
+MOVER tp/v11u309repro/cases/VZ/vz01_localparam_size_el STRICT_EQUAL_313_objects -> STRICT_EQUAL_313_objects cmplines 0->0
+MOVER tp/v11u309repro/cases/VZ/vz03_2d_size STRICT_EQUAL_186_objects -> STRICT_EQUAL_186_objects cmplines 0->0
+MOVER tp/v11u309repro/cases/VZ/vz03_2d_size_el STRICT_EQUAL_257_objects -> STRICT_EQUAL_257_objects cmplines 0->0
+MOVER tp/v11u309repro/cases/VZ/vz04_case_gen_size STRICT_EQUAL_156_objects -> STRICT_EQUAL_156_objects cmplines 0->0
+MOVER tp/v11u309repro/cases/VZ/vz04_case_gen_size_el STRICT_EQUAL_187_objects -> STRICT_EQUAL_187_objects cmplines 0->0
+MOVER tp/v11u309repro/cases/VZ/vz12_program_arr_gen NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 287->287
+MOVER tp/v11u309repro/cases/VZ/vz12_program_arr_gen_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 345->345
+MOVER v311/VG/vg01_ifc_with_port STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_224_objects cmplines 0->0
+MOVER v311/VG/vg01_ifc_with_port_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_264_objects cmplines 0->0
+MOVER v311/VG/vg07_whole_modport_slice STRICT_EQUAL_163_objects -> STRICT_EQUAL_163_objects cmplines 0->0
+MOVER v311/VG/vg07_whole_modport_slice_el STRICT_EQUAL_206_objects -> STRICT_EQUAL_206_objects cmplines 0->0
+MOVER v311/VG/vg08_whole_arrport_single NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 94->94
+MOVER v311/VG/vg08_whole_arrport_single_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 94->94
+MOVER v311/VG/vg14_slice_two_instance_arrays STRICT_EQUAL_221_objects -> STRICT_EQUAL_221_objects cmplines 0->0
+MOVER v311/VG/vg14_slice_two_instance_arrays_el STRICT_EQUAL_301_objects -> STRICT_EQUAL_301_objects cmplines 0->0
+MOVER v311/VG/vg18_arrport_modport_whole NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 38->38
+MOVER v311/VG/vg18_arrport_modport_whole_el NOT_EQUAL_stage1 -> NOT_EQUAL_stage1 cmplines 38->38
+MOVER v311/VG/vg22_genfor_nested_slice STRICT_EQUAL_265_objects -> STRICT_EQUAL_265_objects cmplines 0->0
+MOVER v311/VG/vg22_genfor_nested_slice_el STRICT_EQUAL_327_objects -> STRICT_EQUAL_327_objects cmplines 0->0
+MOVER v311/VG/vg23_desc_range_slice STRICT_EQUAL_147_objects -> STRICT_EQUAL_147_objects cmplines 0->0
+MOVER v311/VG/vg23_desc_range_slice_el STRICT_EQUAL_187_objects -> STRICT_EQUAL_187_objects cmplines 0->0
+ENTER tp/r11u251repro/cases/BP/b09_bitsel
+ENTER tp/r11u251repro/cases/BP/b09_bitsel_el
+ENTER tp/v11u254repro/cases/H/vh04_qual_iface
+ENTER tp/v11u254repro/cases/H/vh04_qual_iface_el
+ENTER tp/v11u283repro/cases/VI/vi07_gen_param
+ENTER tp/v11u283repro/cases/VI/vi07_gen_param_el
+ENTER tp/v11u283repro/cases/VI/vi14_direct_gen_direct
+ENTER tp/v11u283repro/cases/VI/vi14_direct_gen_direct_el
+ENTER tp/v11u293repro/cases/VI/vi06_gen_parent
+ENTER tp/v11u293repro/cases/VI/vi06_gen_parent_el
+ENTER tp/v11u293repro/cases/VI/vi21_gen_iface_modport_el
+ENTER tp/v11u293repro/cases/VI/vi22_for_gen_two_el
+ENTER v311/VG/vg01_ifc_with_port
+ENTER v311/VG/vg01_ifc_with_port_el

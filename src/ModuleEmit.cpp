@@ -71,6 +71,10 @@ static slang::SourceRange escNameSpanPick295(slang::SourceRange esc, slang::Sour
 // about to be emitted under (see the gen-scope instance loop); consumed by
 // emitInstance on entry.
 static UHDM::BaseClass* genChildParent261 = nullptr;
+// § genIfaceParentAtBirth313 (r11u313) — the gen_scope an INTERFACE
+// instance is about to be emitted under (the interface twin of
+// genChildParent261); consumed by emitInterfaceInstance on entry.
+static UHDM::BaseClass* genIfaceParent313 = nullptr;
 // § pselConnArrPathName261's no-cache probe: UHDM BaseClass::ComputeFullName
 // (the getter's own walk, protected there), reached without the getter so
 // that nothing is stored.
@@ -32563,6 +32567,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                             std::to_string(lo311 + (int32_t)i) + "]";
                         genvarConnFold = true;
                         genConnPrefix = fullName;
+                        if (lawOn(313, "R11U313_GENIFBIRTH_OFF"))
+                            genIfaceParent313 = gs;
                         auto* ii = emitInterfaceInstance(
                             e->as<InstanceSymbol>(), fullName + "." + iname, m,
                             &netMap, nullptr, /*portView=*/nullptr,
@@ -32641,6 +32647,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (useInterfacePath(ci)) {
                 genvarConnFold = true;
                 genConnPrefix = fullName;
+                if (lawOn(313, "R11U313_GENIFBIRTH_OFF"))
+                    genIfaceParent313 = gs;   // § genIfaceParentAtBirth313
                 auto* ii = emitInterfaceInstance(
                     ci, fullName + "." + std::string(ci.name), m, &netMap,
                     nullptr);
@@ -54434,6 +54442,111 @@ void UhdmExporter::applyIfacePaFlatten7() {
     ifacePaFlatten7.clear();
 }
 
+// § genIfaceHcInnerRefUnbound313 (r11u313): see the call site in
+// emitInterfaceInstance's port loop.  Every reference below the actual's top
+// (an operation's operands at any depth, a bit_select's index, an indexed
+// part select's base) loses its binding.
+static void genIfaceHcInnerRefUnbound313(UHDM::any* x, const std::string& where) {
+    if (!x)
+        return;
+    switch (x->UhdmType()) {
+    case UHDM::uhdmref_obj:
+        if (((UHDM::ref_obj*)x)->Actual_group()) {
+            lawTrace(313, "genIfaceHcInnerRefUnbound313",
+                     where + " " + std::string(((UHDM::ref_obj*)x)->VpiName()));
+            ((UHDM::ref_obj*)x)->Actual_group(nullptr);
+        }
+        break;
+    case UHDM::uhdmoperation:
+        if (auto* ops = ((UHDM::operation*)x)->Operands())
+            for (auto* o : *ops)
+                genIfaceHcInnerRefUnbound313(o, where);
+        break;
+    case UHDM::uhdmbit_select:
+        genIfaceHcInnerRefUnbound313(((UHDM::bit_select*)x)->VpiIndex(), where);
+        break;
+    case UHDM::uhdmindexed_part_select:
+        genIfaceHcInnerRefUnbound313(((UHDM::indexed_part_select*)x)->Base_expr(), where);
+        break;
+    default:
+        break;
+    }
+}
+
+// § ifaceHcSelNamedByInst313 (r11u313): see the call site in
+// emitInterfaceInstance's port loop.
+static void ifaceHcSelNamedByInst313(UHDM::any* h, const std::string& inst,
+                                     const std::string& port) {
+    auto setName = [](UHDM::any* x, const std::string& fn, const char* what) {
+        std::string cur;
+        if (x->UhdmType() == UHDM::uhdmref_obj)
+            cur = std::string(((UHDM::ref_obj*)x)->VpiFullName());
+        else if (x->UhdmType() == UHDM::uhdmbit_select)
+            cur = std::string(((UHDM::bit_select*)x)->VpiFullName());
+        else if (x->UhdmType() == UHDM::uhdmindexed_part_select)
+            cur = std::string(((UHDM::indexed_part_select*)x)->VpiFullName());
+        else
+            return;
+        if (cur == fn)
+            return;
+        lawTrace(313, "ifaceHcSelNamedByInst313", std::string(what) + " " + fn);
+        if (x->UhdmType() == UHDM::uhdmref_obj)
+            ((UHDM::ref_obj*)x)->VpiFullName(fn);
+        else if (x->UhdmType() == UHDM::uhdmbit_select)
+            ((UHDM::bit_select*)x)->VpiFullName(fn);
+        else
+            ((UHDM::indexed_part_select*)x)->VpiFullName(fn);
+    };
+    // A reference written directly as the select's index (or base) skips
+    // the select; one inside an operation keeps the bit_select's name
+    // (golden GP/p32 work@top.u.s, p38 work@top.u.ck.s).
+    std::function<void(UHDM::any*, const std::string&, const std::string&)> idx =
+        [&](UHDM::any* x, const std::string& direct, const std::string& nested) {
+            if (!x)
+                return;
+            if (x->UhdmType() == UHDM::uhdmref_obj)
+                setName(x, direct + "." + std::string(((UHDM::ref_obj*)x)->VpiName()),
+                        "index");
+            else if (x->UhdmType() == UHDM::uhdmoperation && !nested.empty()) {
+                if (auto* ops = ((UHDM::operation*)x)->Operands())
+                    for (auto* o : *ops)
+                        idx(o, nested, nested);
+            }
+        };
+    if (h->UhdmType() == UHDM::uhdmindexed_part_select) {
+        auto* ips = (UHDM::indexed_part_select*)h;
+        setName(ips, inst + "." + port + "." + std::string(ips->VpiName()), "ips");
+        // golden GP/p37_ipsel_varbase_modlevel work@top.u.clk.s; an
+        // operation in the base is left as it is (not measured)
+        idx(ips->Base_expr(), inst + "." + port, std::string());
+        return;
+    }
+    // An operation actual (a concatenation included) names every operand
+    // reference <instance>.<port>.<name> (golden GP/p46_op_conn_modlevel
+    // work@top.u.clk.a, p47_concat_modlevel work@top.u.clk.ck).
+    if (h->UhdmType() == UHDM::uhdmoperation) {
+        idx(h, inst + "." + port, inst + "." + port);
+        return;
+    }
+    // A hierarchical actual `top.clk` names its last element the same way
+    // (golden GQ/q18_hier_actual_modlevel work@top.u.clk.clk); the first
+    // element keeps its bare name.
+    if (h->UhdmType() == UHDM::uhdmhier_path) {
+        auto* pe = ((UHDM::hier_path*)h)->Path_elems();
+        if (pe && pe->size() > 1 && pe->back()->UhdmType() == UHDM::uhdmref_obj)
+            setName(pe->back(),
+                    inst + "." + port + "." +
+                        std::string(((UHDM::ref_obj*)pe->back())->VpiName()),
+                    "path");
+        return;
+    }
+    if (h->UhdmType() != UHDM::uhdmbit_select)
+        return;
+    auto* bs = (UHDM::bit_select*)h;
+    setName(bs, inst + "." + std::string(bs->VpiName()), "bit_select");
+    idx(bs->VpiIndex(), inst, inst + "." + std::string(bs->VpiName()));
+}
+
 UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& inst,
                                                           const std::string& path,
                                                           UHDM::instance* parentM,
@@ -54444,6 +54557,10 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                                                           bool forceTailDup,
                                                           bool nestedIfaceView,
                                                           bool connModportFromConn) {
+    // § genIfaceParentAtBirth313: taken on entry, so no nested view
+    // (an interface-typed port's view) can inherit it.
+    UHDM::BaseClass* gp313 = genIfaceParent313;
+    genIfaceParent313 = nullptr;
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     std::string prefix = path;
@@ -54462,7 +54579,21 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     iface->VpiDefName(defPrefix);
     iface->VpiName(inst.name);
     iface->VpiFullName(prefix);
-    iface->VpiParent(parentM);
+    // § genIfaceParentAtBirth313 (r11u313) — an interface instantiated in a
+    // generate block is parented at the block's gen_scope FROM BIRTH, as
+    // § genChildParentAtBirth261 has it for a module child: a HighConn
+    // object that stores no full name (a part_select actual) has its name
+    // frozen from the parent chain while the instance is built, and through
+    // the module parent the chain skipped the generate scope (golden
+    // r11u313repro GP/p24_partsel_scalar_ifgen: work@top.g.u.clk.ck, ours
+    // work@top.u.clk.ck).  vpiInstance still names the module until the
+    // generate loop clears it.  Switch R11U313_GENIFBIRTH_OFF.
+    if (gp313) {
+        iface->VpiParent(gp313);
+        lawTrace(313, "genIfaceParentAtBirth313", prefix);
+    }
+    else
+        iface->VpiParent(parentM);
     iface->VpiFile(fullFilePath(def.location));
     // Declaration-style (home) views carry Instance/DefFile/DefLineNo; a
     // reference-style port view (work@top.m0.bus, col 0) omits them.
@@ -56978,9 +57109,16 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // when some sibling child receives the WHOLE interface via a BARE
     // connection (.bus(bus)); modport-qualified connections (.mon(s.mon))
     // create neither the dup nor the weak ref.
-    if (tailDupShell)
+    if (tailDupShell) {
         ifaceTailDup[&inst] =
             makeIfaceRefDup(inst, prefix, parentM, netMap, tailDupShell, iface);
+        // § genIfaceParentAtBirth313 — the duplicate of an interface in a
+        // generate block is parented at the gen_scope as well (golden
+        // r11u313repro GP/p19_bitsel_othername_scalar: interface_inst
+        // work@top.g.u line:11:0 under gen_scope work@top.g).
+        if (gp313)
+            ifaceTailDup[&inst]->VpiParent(gp313);
+    }
 
     // A single-instance interface's DEF cont-assign references resolve to THIS
     // instance's elab vars (Surelog quirk), not the def nets. Re-point them.
@@ -58333,6 +58471,21 @@ ifaceProcsDone283:
     std::string parentPrefix = parentM && parentM->VpiFullName().length()
                                    ? std::string(parentM->VpiFullName())
                                    : std::string();
+    // § genIfaceConnGenScopeName313 (r11u313) — the HighConn of an interface
+    // instantiated in a generate block is named through the generate scope,
+    // as emitInstance names a module child's (its parentPrefix reads
+    // genConnPrefix under genvarConnFold): golden v11u311repro
+    // VG/vg01_ifc_with_port `ifc farr [2] (.clk(clk))` in `g` names the
+    // element's HighConn work@top.g.clk, ours work@top.clk (r11u313repro GP,
+    // scalar and array, if, else, case and for generate, nested blocks).
+    // Only the HighConn site reads it.  Switch R11U313_GENIFCONN_OFF.
+    std::string hcPrefix313 = parentPrefix;
+    const bool gen313 = genvarConnFold && !genConnPrefix.empty() && !portView &&
+                        genConnPrefix != parentPrefix;
+    if (gen313 && lawOn(313, "R11U313_GENIFCONN_OFF")) {
+        hcPrefix313 = genConnPrefix;
+        lawTrace(313, "genIfaceConnGenScopeName313", prefix);
+    }
     auto* ports = s.MakePortVec();
     // ── § ifaceIfaceTypedPort — an INTERFACE-typed port OF AN INTERFACE ────
     // `interface tnoc_flit_if (tnoc_types types); ... tnoc_flit_if tnoc
@@ -58386,7 +58539,10 @@ ifaceProcsDone283:
             {
                 auto* hc9 = s.MakeRef_obj();
                 hc9->VpiName(conn9.first->name);
-                hc9->VpiFullName(parentPrefix + "." +
+                // § genIfaceConnGenScopeName313 — through the generate
+                // scope here too (golden GQ/q13_iface_port_iface_gen
+                // work@top.g.n).
+                hc9->VpiFullName(hcPrefix313 + "." +
                                  std::string(conn9.first->name));
                 hc9->VpiParent(p9);
                 if (cexpr9)
@@ -58540,8 +58696,45 @@ ifaceProcsDone283:
             if (auto expr = connectionExpr(*conn)) {
                 refCollector = parentRefs;
                 forceConstParent = true;
-                if (auto* h = emitExpr(*expr, p, parentPrefix, *parentNets))
+                if (auto* h = emitExpr(*expr, p, hcPrefix313, *parentNets)) {
                     p->High_conn(h);
+                    // § ifaceHcSelNamedByInst313 (r11u313) — a select actual
+                    // of an elaborated interface port is named through the
+                    // INTERFACE INSTANCE, as Surelog compiles the connection
+                    // in the instance's scope (the ref_module listing names
+                    // it so too): a bit_select `ck[1]` is
+                    // <instance>.ck and every reference inside its index
+                    // <instance>.<name> (golden r11u313repro
+                    // GP/p21_bitsel_scalar_modlevel_ctl work@top.u.ck,
+                    // p32_bitsel_varidx_modlevel work@top.u.s), an indexed
+                    // part select `ck[1+:1]` <instance>.<port>.ck
+                    // (p29_ipsel_scalar_modlevel work@top.u.clk.ck), the
+                    // name its part_select and var_select twins already get
+                    // from the parent chain; ours named both through the
+                    // instantiating scope.  Switch R11U313_HCSELINST_OFF.
+                    if (lawOn(313, "R11U313_HCSELINST_OFF"))
+                        ifaceHcSelNamedByInst313(h, prefix, std::string(ps.name));
+                    // § genIfaceHcInnerRefUnbound313 (r11u313) — in a
+                    // generate block the references INSIDE an interface
+                    // port's actual stay unbound in golden (the whole-name
+                    // actual `.clk(clk)` keeps its net): GP/p07_expr_conn
+                    // `.clk(a & b)` lists ref_obj work@top.g.farr[0].clk.a
+                    // with no vpiActual, p28 `{ck}`, p39 `ck[s]`, p41
+                    // `ck[s+1]`, p42 `ck[s+:1]`, p48 `~ck` alike; ours bound
+                    // each to the module's net.  The module-level twins keep
+                    // their bindings (p38, p46, p47).  Switch
+                    // R11U313_GENIFHCUNBIND_OFF.
+                    if (gen313 && h->UhdmType() != UHDM::uhdmref_obj &&
+                        lawOn(313, "R11U313_GENIFHCUNBIND_OFF")) {
+                        if (h->UhdmType() == UHDM::uhdmoperation) {
+                            if (auto* ops = ((UHDM::operation*)h)->Operands())
+                                for (auto* o : *ops)
+                                    genIfaceHcInnerRefUnbound313(o, prefix);
+                        }
+                        else
+                            genIfaceHcInnerRefUnbound313(h, prefix);
+                    }
+                }
                 forceConstParent = false;
                 refCollector = nullptr;
             }
