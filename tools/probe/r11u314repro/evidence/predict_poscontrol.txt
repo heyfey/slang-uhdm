@@ -1,0 +1,10 @@
+OUT /tmp/r11u314_census/surelog/default/BuildUVMPkg-fc55bd0c/slang.uhdm
+IPSBASEOP_SAME_ABSTAIN accesses[i0].data[i1 * 8+:8] -> accesses[i0].data[i1 * 8+:8]
+IPSBASEOP_SAME_ABSTAIN rw.value[idx][i0 * 8+:8] -> rw.value[idx][i0 * 8+:8]
+OUT /tmp/r11u314_census/surelog/testflags/BuildUVMPkg-fc55bd0c/slang.uhdm
+IPSBASEOP_SAME_ABSTAIN accesses[i0].data[i1 * 8+:8] -> accesses[i0].data[i1 * 8+:8]
+IPSBASEOP_SAME_ABSTAIN rw.value[idx][i0 * 8+:8] -> rw.value[idx][i0 * 8+:8]
+OUT /tmp/r11u314_census/surelog/default/Earlgrey_0_1-a898def8/slang.uhdm
+IPSBASEOP_SAME_ABSTAIN tl_i.a_data[8 * i+:8] -> tl_i.a_data[8 * i+:8]
+IPSBASEOP_SAME_ABSTAIN tl_h_i[i].a_source[8 - 1-:2] -> tl_h_i[i].a_source[8 - 1-:2]
+16

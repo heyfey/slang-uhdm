@@ -24,6 +24,7 @@
 #include "slang/ast/expressions/Operator.h"
 #include "slang/ast/symbols/CoverSymbols.h"
 #include "LawSwitch.h"
+#include <uhdm/ExprEval.h>
 #include "LawState.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
@@ -5603,6 +5604,27 @@ static void clsLvTrailIdxNames310(UHDM::Serializer& s) {
         const std::string scope = chainFullName175(fn);
         if (scope.empty())
             continue;
+        // § tfLvTrailIdxNamedBlkScope314 (r11u314) — the targets above
+        // written inside a NAMED BLOCK of the subroutine (`task t(input int
+        // i); begin : b int j; j = i; h.idx[j + 1] = 0; end endtask`): ours
+        // stored the name under the block's scope (`work@top.t.b.j`), which
+        // the gate below did not take for the subroutine's, so the law left
+        // it; golden reads the chain there too
+        // (`work@top.t.b.h.idx[j + 1].idx.j`, v11u312repro VX/vx09).  The
+        // gate also takes a stored name that is a named block's (named
+        // begin or fork between the target and the subroutine) plus the
+        // object's own name; everything else is the law it extends.  Grid
+        // tools/probe/r11u314repro/cases/NB.  Switch R11U314_NAMEDBLK_OFF.
+        static const bool onBlk314 = lawOn(314, "R11U314_NAMEDBLK_OFF");
+        std::vector<std::string> blk314;
+        for (const UHDM::any* a = hp->VpiParent(); a && a != fn; a = a->VpiParent()) {
+            const auto k = a->UhdmType();
+            if ((k == UHDM::uhdmnamed_begin || k == UHDM::uhdmnamed_fork) && !a->VpiName().empty()) {
+                const std::string b = chainFullName175(a);
+                if (!b.empty() && b.compare(0, scope.size(), scope) == 0)
+                    blk314.push_back(b);
+            }
+        }
         // (`ups`: the stored names the enclosing selects had, which an object
         // nested in their indices was named under: `h.idx[i + ia[midx[j]]]`)
         auto fix = [&](UHDM::any* o, const std::vector<std::string>& ups) {
@@ -5612,16 +5634,34 @@ static void clsLvTrailIdxNames310(UHDM::Serializer& s) {
             for (auto& u : ups)
                 if (!u.empty() && cur == u + "::" + nm)
                     under = true;
-            if (nm.empty() || (cur != scope + "::" + nm && cur != scope + "." + nm && !under))
+            bool inBlk314 = false;
+            for (auto& b : blk314)
+                if (cur == b + "::" + nm || cur == b + "." + nm)
+                    inBlk314 = true;
+            if (nm.empty() ||
+                (cur != scope + "::" + nm && cur != scope + "." + nm && !under && !inBlk314))
                 return;
+            const bool blkOnly314 =
+                inBlk314 && cur != scope + "::" + nm && cur != scope + "." + nm && !under;
             const std::string want = chainFullName175(o);
-            if (want.empty() || want == cur || want.compare(0, scope.size(), scope) != 0)
+            if (want.empty() || want == cur || want.compare(0, scope.size(), scope) != 0) {
+                if (blkOnly314)
+                    lawTrace(314, "NAMEDBLK_ABSTAIN", cur + " | " + want);
                 return;
+            }
             if (!on) {
                 lawTrace(pass, tagOff.c_str(), cur);
                 return;
             }
-            lawTrace(pass, tag, cur + " -> " + want);
+            if (blkOnly314) {
+                if (!onBlk314) {
+                    lawTrace(314, "NAMEDBLK_OFF", cur);
+                    return;
+                }
+                lawTrace(314, "NAMEDBLK", std::string(tag) + " " + cur + " -> " + want);
+            }
+            else
+                lawTrace(pass, tag, cur + " -> " + want);
             ((UHDM::ref_obj*)o)->VpiFullName(want);
         };
         std::function<void(UHDM::any*, const UHDM::any*, int, const std::vector<std::string>&)> walk =
@@ -5888,12 +5928,31 @@ static void ipsBaseNames312(UHDM::Serializer& s) {
                   return a->UhdmId() < b->UhdmId();
               });
     static const bool on = lawOn(312, "R11U312_IPSBASENAME_OFF");
+    // § ipsBaseNamesReach314 (r11u314) — the base names law reaches the
+    // shapes § ipsBaseOpSysRender314 now renders: an OPERATION base and a
+    // SYSTEM CALL's arguments are walked, a name ours stored under an
+    // ENCLOSING SELECT of the base (`h.v[ia[i + 1] +: 2]`: ours
+    // `work@grid::probe::ia::i`, module `work@top.ix.k`) and a cast's
+    // ref_typespec stored with the scope's or the select's name
+    // (`h.v[ia[int'(i)] +: 2]`) read their chain as golden does
+    // (`work@grid::probe::h.v[[i + 1]+:2]::v::ia::i`,
+    // `work@top.a.v[[k + 1]+:2].v.ix.k`, `...::h.v[[]+:2]::v::ia`).  Only
+    // names whose stored value is the scope's or an enclosing select's
+    // plus the object's own (the select's own for a ref_typespec) move.
+    // Grid tools/probe/r11u314repro/cases/IO.  Switch
+    // R11U314_IPSBASENAME_OFF.
+    static const bool on314 = lawOn(314, "R11U314_IPSBASENAME_OFF");
     for (auto* ips : ipss) {
         auto* b = (UHDM::any*)ips->Base_expr();
-        if (!b || b->UhdmType() == UHDM::uhdmref_obj || b->UhdmType() == UHDM::uhdmconstant ||
-            b->UhdmType() == UHDM::uhdmoperation)
+        if (!b || b->UhdmType() == UHDM::uhdmref_obj || b->UhdmType() == UHDM::uhdmconstant)
             continue;
+        // § ipsBaseNamesReach314: an operation base is this pass's
+        const bool opBase314 = b->UhdmType() == UHDM::uhdmoperation;
         std::string scope;
+        // § ipsBaseNamesReach314: the named blocks between the select and
+        // its scope (a named begin or fork; in the definition view a
+        // generate block is a named begin), whose name ours stored
+        std::vector<const UHDM::any*> blkA314;
         for (const UHDM::any* a = ips->VpiParent(); a; a = a->VpiParent()) {
             const auto k = a->UhdmType();
             if (k == UHDM::uhdmfunction || k == UHDM::uhdmtask || k == UHDM::uhdmclass_defn ||
@@ -5902,67 +5961,169 @@ static void ipsBaseNames312(UHDM::Serializer& s) {
                 scope = chainFullName175(a);
                 break;
             }
+            if ((k == UHDM::uhdmnamed_begin || k == UHDM::uhdmnamed_fork) && !a->VpiName().empty())
+                blkA314.push_back(a);
         }
         if (scope.empty())
             continue;
-        auto fix = [&](UHDM::any* o) {
+        std::vector<std::string> blk314;
+        for (auto* a : blkA314) {
+            const std::string b = chainFullName175(a);
+            if (!b.empty() && b.compare(0, scope.size(), scope) == 0)
+                blk314.push_back(b);
+        }
+        // (`ups`: the stored names of the selects enclosing `o` inside the
+        // base; `ext`: `o` reached only through § ipsBaseNamesReach314's walk)
+        auto fix = [&](UHDM::any* o, const std::vector<std::string>& ups, bool ext) {
             const std::string nm(o->VpiName());
             const std::string cur = storedFullName308(o);
-            if (nm.empty() || (cur != scope + "::" + nm && cur != scope + "." + nm))
+            const bool tsUnder = o->UhdmType() == UHDM::uhdmref_typespec;
+            bool at312 = !ext && !tsUnder && !nm.empty() &&
+                         (cur == scope + "::" + nm || cur == scope + "." + nm);
+            bool at314 = false;
+            if (!at312 && !cur.empty()) {
+                if (tsUnder)
+                    at314 = cur == scope;
+                else if (!nm.empty())
+                    at314 = cur == scope + "::" + nm || cur == scope + "." + nm;
+                for (auto& u : ups)
+                    if (!u.empty() &&
+                        (tsUnder ? cur == u : (cur == u + "::" + nm || cur == u + "." + nm)))
+                        at314 = true;
+                for (auto& u : blk314)
+                    if (tsUnder ? cur == u : (!nm.empty() && (cur == u + "::" + nm || cur == u + "." + nm)))
+                        at314 = true;
+            }
+            if (!at312 && !at314)
                 return;
             const std::string want = chainFullName175(o);
             if (want.empty() || want == cur || want.compare(0, scope.size(), scope) != 0) {
-                lawTrace(312, "IPSBASENAME_ABSTAIN", cur + " | " + want);
+                lawTrace(at312 ? 312 : 314, at312 ? "IPSBASENAME_ABSTAIN" : "IPSBASENAMEX_ABSTAIN",
+                         cur + " | " + want);
                 return;
             }
-            if (!on) {
+            if (at312 && !on) {
                 lawTrace(312, "IPSBASENAME_OFF", cur);
                 return;
             }
-            lawTrace(312, "IPSBASENAME", cur + " -> " + want);
-            ((UHDM::ref_obj*)o)->VpiFullName(want);
+            if (at314 && !on314) {
+                lawTrace(314, "IPSBASENAMEX_OFF", cur);
+                return;
+            }
+            lawTrace(at312 ? 312 : 314, at312 ? "IPSBASENAME" : "IPSBASENAMEX", cur + " -> " + want);
+            if (tsUnder)
+                ((UHDM::ref_typespec*)o)->VpiFullName(want);
+            else
+                ((UHDM::ref_obj*)o)->VpiFullName(want);
         };
-        std::function<void(UHDM::any*, const UHDM::any*, int)> walk =
-            [&](UHDM::any* e, const UHDM::any* par, int d) {
+        std::function<void(UHDM::any*, const UHDM::any*, int, const std::vector<std::string>&, bool)>
+            walk = [&](UHDM::any* e, const UHDM::any* par, int d, const std::vector<std::string>& up,
+                       bool ext) {
                 if (!e || e->VpiParent() != par || d > 16)
                     return;
                 switch (e->UhdmType()) {
                 case UHDM::uhdmref_obj:
-                    fix(e);
+                    fix(e, up, ext);
                     return;
-                case UHDM::uhdmbit_select:
-                    fix(e);
-                    walk((UHDM::any*)((UHDM::bit_select*)e)->VpiIndex(), e, d + 1);
+                case UHDM::uhdmbit_select: {
+                    // (the select's name as stored before it is renamed)
+                    std::vector<std::string> mine = up;
+                    mine.push_back(storedFullName308(e));
+                    fix(e, up, ext);
+                    walk((UHDM::any*)((UHDM::bit_select*)e)->VpiIndex(), e, d + 1, mine, ext);
                     return;
+                }
                 case UHDM::uhdmoperation:
                     if (auto* os = ((UHDM::operation*)e)->Operands())
                         for (auto* o : *os)
-                            walk(o, e, d + 1);
+                            walk(o, e, d + 1, up, ext);
+                    // § ipsBaseNamesReach314: a cast's ref_typespec
+                    if (auto* rt = ((UHDM::operation*)e)->Typespec(); rt && rt->VpiParent() == e)
+                        fix((UHDM::any*)rt, up, true);
                     return;
                 case UHDM::uhdmfunc_call:
                     if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
                         for (auto* x : *as)
-                            walk(x, e, d + 1);
+                            walk(x, e, d + 1, up, ext);
+                    return;
+                case UHDM::uhdmconstant:
+                    // § ipsBaseNamesReach314: a folded constant's ref_typespec
+                    // (`ix[k + LP]` in a generate block, golden
+                    // `work@top.g.a.v[[k + 1]+:2].v.ix`, ours the select's)
+                    if (d > 0)
+                        if (auto* rt = ((UHDM::constant*)e)->Typespec(); rt && rt->VpiParent() == e)
+                            fix((UHDM::any*)rt, up, true);
+                    return;
+                case UHDM::uhdmsys_func_call:
+                    // § ipsBaseNamesReach314: a system call's arguments
+                    if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
+                        for (auto* x : *as)
+                            walk(x, e, d + 1, up, true);
                     return;
                 case UHDM::uhdmhier_path:
                     // a path base: the indices of its selects (hung at the
                     // select or at the path)
-                    if (auto* pe = ((UHDM::hier_path*)e)->Path_elems())
+                    if (auto* pe = ((UHDM::hier_path*)e)->Path_elems()) {
                         for (auto* x : *pe)
                             if (x && x->UhdmType() == UHDM::uhdmbit_select) {
                                 auto* ix = (UHDM::any*)((UHDM::bit_select*)x)->VpiIndex();
                                 if (ix && ix->VpiParent() == x)
-                                    walk(ix, x, d + 1);
+                                    walk(ix, x, d + 1, up, ext);
                                 else if (ix && ix->VpiParent() == e)
-                                    walk(ix, e, d + 1);
+                                    walk(ix, e, d + 1, up, ext);
                             }
+                        // § ipsBaseNamesReach314: a path written inside the
+                        // base's select index (`h.v[ia[h.k] +: 2]`) names its
+                        // trailing reference by its chain; its base keeps
+                        // its stored bare name
+                        if (d > 0 && pe->size() > 1 && pe->back() &&
+                            pe->back()->UhdmType() == UHDM::uhdmref_obj &&
+                            pe->back()->VpiParent() == e)
+                            fix(pe->back(), up, true);
+                    }
                     return;
                 default:
                     return;
                 }
             };
-        walk(b, ips, 0);
+        walk(b, ips, 0, std::vector<std::string>(), opBase314);
     }
+}
+// § pkgQualIpsWidthSpanQualifier314 — the stamped width references, named
+// design-final over their final parent chain (UHDM ComputeFullName, golden
+// storing none).
+static std::vector<UHDM::ref_typespec*>& pkgIpsWidthTs314() {
+    static std::vector<UHDM::ref_typespec*> v;
+    return v;
+}
+static void pkgIpsWidthTsDrain314() {
+    for (auto* rt : pkgIpsWidthTs314()) {
+        const std::string want = chainFullName175(rt);
+        const std::string cur = storedFullName308(rt);
+        if (want.empty() || want == cur)
+            continue;
+        lawTrace(314, "PKGIPSW_CHAIN", cur + " -> " + want);
+        rt->VpiFullName(want);
+    }
+    pkgIpsWidthTs314().clear();
+}
+// § pkgQualIpsWidthSpanQualifier314 — the member-path builders' width fold
+// (§ elabHierSelWidthFold's pre-folded constant): the gate (a written
+// `pkg::P` width naming a package parameter); the caller spans the constant
+// over the qualifier and registers its stamped reference for the chain name.
+static const slang::ast::Expression* pkgIpsWidthHpGate314(const slang::ast::Expression& w0,
+                                                           const slang::ast::Symbol* sym) {
+    using namespace slang::ast;
+    const Expression* w = &w0;
+    while (w->kind == ExpressionKind::Conversion && w->as<ConversionExpression>().isImplicit())
+        w = &w->as<ConversionExpression>().operand();
+    if (!sym || w->kind != ExpressionKind::NamedValue || !w->syntax ||
+        w->syntax->kind != slang::syntax::SyntaxKind::ScopedName)
+        return nullptr;
+    auto* psc = sym->getParentScope();
+    if (!psc || psc->asSymbol().kind != SymbolKind::Package)
+        return nullptr;
+    return w;
 }
 void nonTrailIdxDrain308(UHDM::Serializer& s, bool elabView) {
     castTsNonTrailIdx308(s);
@@ -5970,6 +6131,7 @@ void nonTrailIdxDrain308(UHDM::Serializer& s, bool elabView) {
     clsLvTrailIdxNames310(s);
     methRecvIdxAtPath312(s, elabView);
     ipsBaseNames312(s);
+    pkgIpsWidthTsDrain314();
     nonTrailIdxNamesByChain308(s);
     if (elabView)
         elabClsNonTrailIdx308(s);
@@ -12911,6 +13073,50 @@ bool UhdmExporter::srlgIdxHasGenvar14(const slang::syntax::ExpressionSyntax& e,
     return found;
 }
 
+// § trailIdxStaticScopedCallName314 (r11u314) — a STATIC CLASS METHOD
+// reached through `::` with its body in the class (`item::sget()`) is
+// § staticScopedCall12's bare ref_obj named `<first segment>::<final
+// identifier>`, so decompileHelper's REF_OBJ row renders that name: as an
+// TRAILING select's index golden names the hier_path
+// `h.idx[item::sget]` and its select `...::h.idx[item::sget]::idx`, where
+// ours dropped the group as for a call (`h.idx`; r11u312repro MS/ms02,
+// uhdm-cmp stage 1).  An out-of-body method (which may keep a func_call,
+// § classScopeCallOfOutOfBodyMethodIsFuncCall26) is left alone.  An
+// assignment target's trailing select renders the same name
+// (`h.idx[item::sget()] = r`: golden `h.idx[item::sget]`, the lvalue arm's
+// decompileHelper(INDEX) reading the ref_obj row); a NON-trailing select's
+// index (`iarr[item::sget()].f`, v11u312repro VS/vs02) is another shape,
+// golden keeping a func_call there.  Grid tools/probe/r11u314repro/cases/SC.  Switch
+// R11U314_SCOPEDCALLIDX_OFF.
+static bool staticScopedCallRefName314(const slang::ast::Expression& e0, std::string& out) {
+    using namespace slang::ast;
+    const Expression* e = &e0;
+    while (e->kind == ExpressionKind::Conversion && e->as<ConversionExpression>().isImplicit())
+        e = &e->as<ConversionExpression>().operand();
+    if (e->kind != ExpressionKind::Call || !e->syntax)
+        return false;
+    auto& call = e->as<CallExpression>();
+    if (call.isSystemCall() || call.thisClass())
+        return false;
+    auto* sub = std::get_if<const SubroutineSymbol*>(&call.subroutine);
+    if (!sub || !*sub)
+        return false;
+    auto psc = (*sub)->getParentScope();
+    if (!psc || psc->asSymbol().kind != SymbolKind::ClassType || uint32_t((*sub)->outOfBlockIndex) != 0u)
+        return false;
+    const slang::syntax::SyntaxNode* cs = e->syntax;
+    if (cs->kind == slang::syntax::SyntaxKind::InvocationExpression)
+        cs = cs->as<slang::syntax::InvocationExpressionSyntax>().left;
+    auto* ns = scopedNameSyntax12(cs);
+    if (!ns)
+        return false;
+    std::string f, l;
+    slang::SourceLocation end;
+    if (!splitScopedName12(*ns, f, l, end))
+        return false;
+    out = f + "::" + l;
+    return true;
+}
 static bool isPpOperation92(const slang::ast::Expression& e);
 static bool rendersAsItself89(const slang::ast::Expression& e) {
     // § hpIdxOpPrettyPrint92 — VERIFIER FIX to uvm89's list, from ONE source of
@@ -13196,6 +13402,104 @@ static bool replaceLastBracketBody94(std::string& nm, const std::string& body) {
 // `h.v[ia[i]+:2]`; `h.v[fn(i) +: 2]`: golden `h.v[+:2]`), the index a
 // constant or a reference only.  Grid tools/probe/r11u312repro/cases/IP.
 // Switch R11U312_IPSBASE_OFF.
+// § ipsBaseOpSysRender314 (r11u314) — decompileHelper's remaining rows
+// for an indexed part select's BASE (Surelog CompileHelper::decompileHelper,
+// transcribed on the UHDM object, its operation row CALLING UHDM's own
+// ExprEval::prettyPrint as Surelog does): an OPERATION base renders its
+// prettyPrint (`r = h.v[ia[i] + 1 +: 2]`: golden `h.v[ + 1+:2]`, a
+// bit_select operand having no prettyPrint row); a BIT_SELECT base whose
+// index is an operation renders `[` + prettyPrint + `]` (`h.v[ia[i + 1] +:
+// 2] = 0`: golden `h.v[[i + 1]+:2]`, ours the written `h.v[ia[i + 1]+:2]`;
+// r11u312repro IP/ip25) and one whose index is anything but a constant, a
+// reference or an operation renders EMPTY (`h.v[ia[$clog2(i)] +: 2]`:
+// golden `h.v[+:2]`); a SYSTEM CALL, a METHOD CALL or any other kind with
+// no row renders EMPTY (`h.v[$clog2(i) +: 2] = 0`: golden `h.v[+:2]`,
+// r11u312repro IP/ip26).  A part select and an indexed part select render
+// their own bracket text.  A reference and a constant base keep pristine's
+// text (a folded constant's name is a pre-reduction fossil in golden,
+// § hpIdxBaseHierPathEmpty94's calibration).  prettyPrint dereferences an
+// operation's operands unchecked, so the render abstains on any operation
+// below the base with a missing operand.  Grid
+// tools/probe/r11u314repro/cases/IO.  Switch R11U314_IPSBASEOP_OFF.
+static bool ppSafe314(const UHDM::any* o, int d = 0) {
+    if (!o || d > 32)
+        return false;
+    if (o->UhdmType() != UHDM::uhdmoperation)
+        return true;
+    auto* os = ((const UHDM::operation*)o)->Operands();
+    if (!os || os->empty())
+        return false;
+    for (auto* x : *os)
+        if (!ppSafe314(x, d + 1))
+            return false;
+    return true;
+}
+static bool dhRender314(const UHDM::any* o, std::string& out, int d = 0) {
+    out.clear();
+    if (!o || d > 16)
+        return false;
+    switch (o->UhdmType()) {
+        case UHDM::uhdmconstant:
+        case UHDM::uhdmref_obj:
+            out = dhOperandText94(o);
+            return true;
+        case UHDM::uhdmoperation: {
+            if (!ppSafe314(o))
+                return false;
+            UHDM::ExprEval ev;
+            out = ev.prettyPrint(o);
+            return true;
+        }
+        case UHDM::uhdmbit_select: {
+            const UHDM::any* x = ((const UHDM::bit_select*)o)->VpiIndex();
+            if (!x)
+                return false;
+            if (x->UhdmType() == UHDM::uhdmoperation) {
+                std::string t;
+                if (!dhRender314(x, t, d + 1))
+                    return false;
+                out = "[" + t + "]";
+            }
+            else if (x->UhdmType() == UHDM::uhdmconstant || x->UhdmType() == UHDM::uhdmref_obj)
+                out = "[" + dhOperandText94(x) + "]";
+            return true;
+        }
+        case UHDM::uhdmpart_select: {
+            auto* ps = (const UHDM::part_select*)o;
+            std::string l, r;
+            if (!dhRender314(ps->Left_range(), l, d + 1) || !dhRender314(ps->Right_range(), r, d + 1))
+                return false;
+            out = "[" + l + ":" + r + "]";
+            return true;
+        }
+        case UHDM::uhdmindexed_part_select: {
+            auto* ps = (const UHDM::indexed_part_select*)o;
+            std::string l, r;
+            if (!dhRender314(ps->Base_expr(), l, d + 1) || !dhRender314(ps->Width_expr(), r, d + 1))
+                return false;
+            out = "[" + l + (ps->VpiIndexedPartSelectType() == vpiPosIndexed ? "+" : "-") + ":" +
+                  r + "]";
+            return true;
+        }
+        case UHDM::uhdmvar_select: {
+            auto* vs = (const UHDM::var_select*)o;
+            if (!vs->Exprs())
+                return false;
+            for (auto* e : *vs->Exprs()) {
+                std::string t;
+                if (!dhRender314(e, t, d + 1))
+                    return false;
+                if (!t.empty() && t[0] != '[')
+                    out += "[" + t + "]";
+                else
+                    out += t;
+            }
+            return true;
+        }
+        default:
+            return true;  // no row: the empty string
+    }
+}
 static void hpIdxBaseHierPathEmpty94(UHDM::hier_path* hp) {
     if (!hp || !hp->Path_elems() || hp->Path_elems()->empty())
         return;
@@ -13206,23 +13510,91 @@ static void hpIdxBaseHierPathEmpty94(UHDM::hier_path* hp) {
     if (!b)
         return;
     std::string base312;
-    bool other312 = false;
+    bool other312 = false, other314 = false;
     if (b->UhdmType() != UHDM::uhdmhier_path) {
         // § ipsBaseSelCallRender312
         if (b->UhdmType() == UHDM::uhdmbit_select) {
             const UHDM::any* x = ((const UHDM::bit_select*)b)->VpiIndex();
-            if (!x || (x->UhdmType() != UHDM::uhdmconstant && x->UhdmType() != UHDM::uhdmref_obj))
+            if (x && (x->UhdmType() == UHDM::uhdmconstant || x->UhdmType() == UHDM::uhdmref_obj))
+                base312 = "[" + dhOperandText94(x) + "]";
+            else if (!dhRender314(b, base312))
                 return;
-            base312 = "[" + dhOperandText94(x) + "]";
+            else
+                other314 = true;
         }
-        else if (b->UhdmType() != UHDM::uhdmfunc_call)
+        else if (b->UhdmType() == UHDM::uhdmfunc_call)
+            ;
+        else if (b->UhdmType() == UHDM::uhdmref_obj || b->UhdmType() == UHDM::uhdmconstant ||
+                 !dhRender314(b, base312))
             return;
-        other312 = true;
+        else
+            other314 = true;
+        other312 = !other314;
     }
     const UHDM::any* w = ips->Width_expr();
     if (!w || (w->UhdmType() != UHDM::uhdmconstant &&
                w->UhdmType() != UHDM::uhdmref_obj))
         return;
+    if (other314) {
+        // § ipsBaseOpSysRender314 (a render equal to the written text moves
+        // nothing: traced apart).  The object render may only DROP or re-space
+        // what the name's text already holds: every identifier it writes must
+        // stand in that text too.  Where the text renderer substituted a
+        // parameter's value (an elaborated generate scope's `IDW - 1`, golden
+        // `8 - 1`, ours a ref_obj `IDW`: v11u264repro VG/vg07, two records
+        // away in a first build), the render abstains and pristine's text
+        // stays (a FIX of this law, R11U314_IPSBASEOP_OFF still dropping it all).
+        {
+            const std::string o314(hp->VpiName());
+            size_t lb = std::string::npos;
+            int dep = 0;
+            for (size_t i = o314.size(); i-- > 0;) {
+                if (o314[i] == ']')
+                    dep++;
+                else if (o314[i] == '[' && --dep == 0) {
+                    lb = i;
+                    break;
+                }
+            }
+            std::string bt = lb == std::string::npos ? std::string() : o314.substr(lb);
+            auto idents = [](const std::string& t) {
+                std::set<std::string> out;
+                for (size_t i = 0; i < t.size();) {
+                    if (isalpha((unsigned char)t[i]) || t[i] == '_') {
+                        size_t j = i;
+                        while (j < t.size() && (isalnum((unsigned char)t[j]) || t[j] == '_' || t[j] == '$'))
+                            j++;
+                        if (i == 0 || !(isdigit((unsigned char)t[i - 1]) || t[i - 1] == '\''))
+                            out.insert(t.substr(i, j - i));
+                        i = j;
+                    }
+                    else
+                        i++;
+                }
+                return out;
+            };
+            // (an EMPTY bracket body, `h.v[]` for a macro-born base whose text
+            // the renderer could not read, substituted nothing: no gate)
+            const auto have = idents(bt);
+            for (auto& id : (bt == "[]" ? std::set<std::string>() : idents(base312)))
+                if (!have.count(id)) {
+                    lawTrace(314, "IPSBASEOP_ABSTAIN", "ident " + id + " " + o314);
+                    return;
+                }
+        }
+        static const bool onB314 = lawOn(314, "R11U314_IPSBASEOP_OFF");
+        std::string nm314(hp->VpiName());
+        const bool same314 =
+            !replaceLastBracketBody94(
+                nm314, base312 +
+                           std::string(ips->VpiIndexedPartSelectType() == vpiPosIndexed ? "+:" : "-:") +
+                           dhOperandText94(w)) ||
+            nm314 == std::string(hp->VpiName());
+        lawTrace(314, same314 ? "IPSBASEOP_SAME_ABSTAIN" : onB314 ? "IPSBASEOP" : "IPSBASEOP_OFF",
+                 std::string(hp->VpiName()) + " -> " + nm314);
+        if (!onB314)
+            return;
+    }
     if (other312) {
         static const bool onB312 = lawOn(312, "R11U312_IPSBASE_OFF");
         lawTrace(312, onB312 ? "IPSBASE" : "IPSBASE_OFF", std::string(hp->VpiName()));
@@ -13267,6 +13639,91 @@ static void hpIdxBaseHierPathEmpty94(UHDM::hier_path* hp) {
                     ip2->VpiFullName(want);
             }
         }
+    }
+    // § ipsBaseInnerNamesFollowRender314 (r11u314) — the objects INSIDE the
+    // indexed part select's base and width whose full names were frozen
+    // through the path's old text take the re-rendered text too, as
+    // § lvIpsNameFollowsHpRender312 does for the select itself: `h.v[h.hh.idx[i]
+    // +: 2] = 0` (golden `...::h.v[+:2]::v::h.hh.idx[i]::idx`, ours
+    // `...::h.v[h.hh.idx[i]+:2]::v::h.hh.idx[i]::idx`, v11u312repro VP2/vp43)
+    // and `h.v[lv[3:0] +: 2] = 0` (golden `...::h.v[[3:0]+:2]::v::lv`).  Only
+    // the old text standing whole between separators, once, is replaced.
+    // Grid tools/probe/r11u314repro/cases/IN.  Switch R11U314_IPSINNER_OFF.
+    {
+        static const bool onI314 = lawOn(314, "R11U314_IPSINNER_OFF");
+        std::set<const UHDM::any*> seen314;
+        std::function<void(UHDM::any*, int)> inner = [&](UHDM::any* e, int d) {
+            if (!e || d > 16 || !seen314.insert(e).second)
+                return;
+            UHDM::ref_obj* r = nullptr;
+            UHDM::ref_typespec* rt = nullptr;
+            if (dynamic_cast<UHDM::ref_obj*>(e))
+                r = (UHDM::ref_obj*)e;
+            else if (e->UhdmType() == UHDM::uhdmref_typespec)
+                rt = (UHDM::ref_typespec*)e;
+            if (r || rt || e->UhdmType() == UHDM::uhdmhier_path) {
+                const std::string st = storedFullName308(e);
+                const size_t at = st.find(old);
+                const bool whole =
+                    !st.empty() && st != old && at != std::string::npos && at > 0 &&
+                    st.find(old, at + 1) == std::string::npos &&
+                    (st[at - 1] == ':' || st[at - 1] == '.') &&
+                    (at + old.size() == st.size() || st[at + old.size()] == ':' ||
+                     st[at + old.size()] == '.');
+                if (whole) {
+                    const std::string want = st.substr(0, at) + nm + st.substr(at + old.size());
+                    lawTrace(314, onI314 ? "IPSINNER" : "IPSINNER_OFF", st + " -> " + want);
+                    if (onI314) {
+                        if (r)
+                            r->VpiFullName(want);
+                        else if (rt)
+                            rt->VpiFullName(want);
+                        else
+                            ((UHDM::hier_path*)e)->VpiFullName(want);
+                    }
+                }
+            }
+            switch (e->UhdmType()) {
+                case UHDM::uhdmhier_path:
+                    if (auto* pe = ((UHDM::hier_path*)e)->Path_elems())
+                        for (auto* x : *pe)
+                            inner(x, d + 1);
+                    return;
+                case UHDM::uhdmbit_select:
+                    inner((UHDM::any*)((UHDM::bit_select*)e)->VpiIndex(), d + 1);
+                    return;
+                case UHDM::uhdmpart_select:
+                    inner((UHDM::any*)((UHDM::part_select*)e)->Left_range(), d + 1);
+                    inner((UHDM::any*)((UHDM::part_select*)e)->Right_range(), d + 1);
+                    return;
+                case UHDM::uhdmindexed_part_select:
+                    inner((UHDM::any*)((UHDM::indexed_part_select*)e)->Base_expr(), d + 1);
+                    inner((UHDM::any*)((UHDM::indexed_part_select*)e)->Width_expr(), d + 1);
+                    return;
+                case UHDM::uhdmvar_select:
+                    if (auto* xs = ((UHDM::var_select*)e)->Exprs())
+                        for (auto* x : *xs)
+                            inner(x, d + 1);
+                    return;
+                case UHDM::uhdmoperation:
+                    if (auto* os = ((UHDM::operation*)e)->Operands())
+                        for (auto* x : *os)
+                            inner(x, d + 1);
+                    inner((UHDM::any*)((UHDM::operation*)e)->Typespec(), d + 1);
+                    return;
+                case UHDM::uhdmfunc_call:
+                case UHDM::uhdmsys_func_call:
+                case UHDM::uhdmmethod_func_call:
+                    if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
+                        for (auto* x : *as)
+                            inner(x, d + 1);
+                    return;
+                default:
+                    return;
+            }
+        };
+        inner((UHDM::any*)ips->Base_expr(), 0);
+        inner((UHDM::any*)ips->Width_expr(), 0);
     }
 }
 
@@ -19693,11 +20150,43 @@ UHDM::hier_path* UhdmExporter::emitThisPathSelectErased(const Expression& expr,
     std::string dotted("this");
     for (auto& m : mems)
         dotted += "." + m.name;
+    // § lvIdxThisSelPathIsRead314 (r11u314) — a `this.` path carrying a
+    // select, written inside an ASSIGNMENT TARGET's select index
+    // (`ia[this.ia[i]] = r`, `ia[this.i[1:0]] = r`, `h.idx[this.ia[i]] = r`,
+    // `lv[this.ia[i] +: 2] = 0`, `{ia[this.ia[i]], r} = 2`), is a READ:
+    // golden spans the hier_path over the whole written select
+    // (`this.ia[this.i]` 14:8-23) and keeps each member at its own token
+    // with a bare name, the RVALUE form below, where ours took the lvalue
+    // form (the hier_path on `this`, the members loc-less with the scope's
+    // name; v11u312repro VT/vt13 and vt17).  This is pass 312's
+    // § lvIdxThisPathIsRead312 for the select-erasing builder, and the gate
+    // is the same lvIdxParent154 (the path's parent is a select, directly
+    // or through operations).  An inc/dec operand there keeps its
+    // operator's form: a POSTFIX one (`ia[this.ia[i]++] = r`) spans the
+    // whole select with the members loc-less (golden 12:8-18), a PREFIX
+    // one stays the lvalue form (already golden's).  Grid
+    // tools/probe/r11u314repro/cases/TS.  Switch R11U314_THISSEL_OFF.
+    bool rd314 = false, post314 = false;
+    if (inLhs && lvIdxParent154(parent)) {
+        static const bool on314 = lawOn(314, "R11U314_THISSEL_OFF");
+        const bool id314 = incDecOperand124() == &expr;
+        const int pot314 = parent && parent->UhdmType() == UHDM::uhdmoperation
+                               ? ((const UHDM::operation*)parent)->VpiOpType()
+                               : 0;
+        const bool pf314 = id314 && (pot314 == vpiPostIncOp || pot314 == vpiPostDecOp);
+        lawTrace(314, !on314 ? "THISSEL_OFF" : id314 ? (pf314 ? "THISSEL_POST" : "THISSEL_PRE_ABSTAIN")
+                                                     : "THISSEL",
+                 dotted);
+        if (on314) {
+            rd314 = !id314;
+            post314 = pf314;
+        }
+    }
     auto* hp = s.MakeHier_path();
     hp->VpiName(dotted);
     hp->VpiFullName(dotted);
     hp->VpiParent(parent);
-    setLoc(hp, inLhs ? cur->sourceRange : expr.sourceRange);
+    setLoc(hp, (inLhs && !rd314 && !post314) ? cur->sourceRange : expr.sourceRange);
     auto* elems = s.MakeAnyVec();
     {
         auto* rt = s.MakeRef_obj();
@@ -19719,7 +20208,7 @@ UHDM::hier_path* UhdmExporter::emitThisPathSelectErased(const Expression& expr,
     for (auto& m : mems) {
         auto* r = s.MakeRef_obj();
         r->VpiName(m.name);
-        if (inLhs || incDec157) {
+        if ((inLhs && !rd314) || incDec157) {
             if (inLhs || thisName157)
                 r->VpiFullName(joinRef(prefix, m.name));
             else
@@ -28058,7 +28547,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             }
                             if (up192 && up192->UhdmType() == UHDM::uhdmoperation)
                                 up192 = nullptr;  // stopped at a conditional
-                            if (up192 && up192->UhdmType() == UHDM::uhdmpart_select) {
+                            // § pkgQualIpsWidthSpanQualifier314: an indexed
+                            // part select's WIDTH (its base already emitted)
+                            const bool ipsW314 =
+                                up192 && up192->UhdmType() == UHDM::uhdmindexed_part_select &&
+                                ((const UHDM::indexed_part_select*)up192)->Base_expr() != nullptr;
+                            static const bool onW314 = lawOn(314, "R11U314_PKGIPSW_OFF");
+                            if (up192 && (up192->UhdmType() == UHDM::uhdmpart_select || ipsW314)) {
                                 if (tern298)
                                     lawTrace(298, "pkgQualBoundSpanTernary298",
                                           std::string(rawText(expr.sourceRange)));
@@ -28066,10 +28561,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 auto qp192 = rq192.rfind("::");
                                 if (qp192 != std::string::npos &&
                                     qp192 + 2 < rq192.size()) {
-                                    setLoc(c, SourceRange(expr.sourceRange.start(),
-                                                          expr.sourceRange.start() +
-                                                              (qp192 + 2)));
-                                    tr192EX("pkgQualBoundSpanQualifier192");
+                                    if (ipsW314)
+                                        lawTrace(314, onW314 ? "PKGIPSW_SPAN" : "PKGIPSW_OFF", rq192);
+                                    if (!ipsW314 || onW314)
+                                        setLoc(c, SourceRange(expr.sourceRange.start(),
+                                                              expr.sourceRange.start() +
+                                                                  (qp192 + 2)));
+                                    if (!ipsW314)
+                                        tr192EX("pkgQualBoundSpanQualifier192");
                                 }
                             }
                         }
@@ -29486,6 +29985,59 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // ParamEmit's pkgAliasTdNames284).
                             if (hier31 && c->Typespec() && lawOn(284, "R11U284_HPSELPORT_OFF"))
                                 hpSelFoldRefs284().push_back(c->Typespec());
+                        }
+                    }
+                    // § pkgQualIpsWidthSpanQualifier314 (r11u314) — a written
+                    // `pkg::P` folded as an INDEXED PART SELECT's WIDTH (the
+                    // width itself or an operand of its arithmetic) is
+                    // Surelog's unreduced range compile, as a part select's
+                    // bound is (§ pkgQualBoundSpanQualifier192 and
+                    // § psBoundPkgParamTs31): the folded constant spans the
+                    // qualifier with its colons (`h.v[ia[i] +: p::N]`: golden
+                    // 13:18-21, ours the whole name 13:18-22; v11u312repro
+                    // VP/vp22, r11u312repro IP/ip11) and carries a
+                    // ref_typespec to the parameter's declaration typespec,
+                    // which golden stores no full name on (the chain:
+                    // `work@top.w` for `w[k +: p::N]`,
+                    // `work@grid::probe::h.v[[i]+:1]::v` under a path) where
+                    // ours had none on a plain select (uhdm-cmp stage 1) and
+                    // the scope's name under a path.  The base keeps the
+                    // whole name and no stamp (§ psBoundPkgParamTs31's
+                    // measured negative); a bare imported read is
+                    // § ipsWidFold9's and is left alone; a conditional's true
+                    // operand is left alone as there.  Grid
+                    // tools/probe/r11u314repro/cases/PW.  Switch
+                    // R11U314_PKGIPSW_OFF.
+                    if (expr.syntax && !inParamInit &&
+                        rawText(expr.sourceRange).find("::") != std::string::npos) {
+                        const UHDM::any* up314 = parent;
+                        bool tern314 = false;
+                        for (int g = 0; g < 32 && up314 && up314->UhdmType() == UHDM::uhdmoperation;
+                             ++g) {
+                            if (((const UHDM::operation*)up314)->VpiOpType() == vpiConditionOp)
+                                for (const UHDM::any* t : ternTrueArmOps31)
+                                    if (t == up314)
+                                        tern314 = true;
+                            up314 = up314->VpiParent();
+                        }
+                        const Scope* psc314 = nv.symbol.getParentScope();
+                        if (!tern314 && up314 &&
+                            up314->UhdmType() == UHDM::uhdmindexed_part_select &&
+                            ((const UHDM::indexed_part_select*)up314)->Base_expr() != nullptr &&
+                            psc314 && psc314->asSymbol().kind == SymbolKind::Package) {
+                            static const bool onW314 = lawOn(314, "R11U314_PKGIPSW_OFF");
+                            const bool had314 = c->Typespec() != nullptr;
+                            lawTrace(314, !onW314 ? "PKGIPSW_OFF" : had314 ? "PKGIPSW_NAME" : "PKGIPSW_STAMP",
+                                     std::string(rawText(expr.sourceRange)));
+                            if (onW314) {
+                                if (!had314)
+                                    stampFoldedPkgParamTs(
+                                        c, nv.symbol,
+                                        std::string(((const UHDM::indexed_part_select*)up314)->VpiFullName()),
+                                        /*declTsOnly=*/true);
+                                if (c->Typespec())
+                                    pkgIpsWidthTs314().push_back(c->Typespec());
+                            }
                         }
                     }
                     // § fcArgFoldParent32 (r10earl32) — WHERE THE NEW FOLDED
@@ -38453,6 +39005,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // the select (§ lvNestShapeMidIdxAtSel310's model).  Grid
                         // tools/probe/r11u312repro/cases/LS.  Switch
                         // R11U312_LVMETHSPAN_OFF.
+                        // § methPathPlainElemZeroWidth314: set when the
+                        // first-name span below fires on a path that holds a
+                        // select (a select-less path `iarr[h.hh.get()].f`
+                        // keeps its elements' widths in golden, case ZW/zw15)
+                        bool zw314 = false;
+                        bool zwSel314 = false;
+                        for (auto& sg314 : segs11)
+                            zwSel314 |= sg314.idx != nullptr;
                         if (!inParamInit && !segs11.empty() &&
                             (!inLhs ? (hpMidIdx184() || methIdxCall310())
                                     : (hpMidIdx306() && hpComp308() == 0 &&
@@ -38485,13 +39045,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 static const bool onLv312 = lawOn(312, "R11U312_LVMETHSPAN_OFF");
                                 if (inLhs) {
                                     lawTrace(312, onLv312 ? "LVMETHSPAN" : "LVMETHSPAN_OFF", dotted11);
-                                    if (onLv312)
+                                    if (onLv312) {
                                         setLoc(hp11, segs11[0].nameRng);
+                                        zw314 = zwSel314;
+                                    }
                                 }
                                 else {
                                     lawTrace(310, onSp310 ? "METHPATHSPAN" : "METHPATHSPAN_OFF", dotted11);
-                                    if (onSp310)
+                                    if (onSp310) {
                                         setLoc(hp11, segs11[0].nameRng);
+                                        zw314 = zwSel314;
+                                    }
                                 }
                             }
                         }
@@ -38510,6 +39074,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 r11->VpiFullName(sg11.name);  // name-only
                                 r11->VpiParent(hp11);
                                 setLoc(r11, sg11.nameRng);
+                                // § methPathPlainElemZeroWidth314 (r11u314) —
+                                // in a method-call path spanned to its first
+                                // name (a non-trailing select's index), a
+                                // PLAIN element (no select) sits ZERO-WIDTH
+                                // at its name's end: golden `iarr[h.arr[i]
+                                // .get()].f` `h` 13:15-15, `iarr[iarr[i].nx
+                                // .get()].f` `nx` 13:24-24, ours the name
+                                // (v11u312repro VQ/vq02, vq06, r11u312repro
+                                // MI/mi12, pass 310's mt62).  Grid
+                                // tools/probe/r11u314repro/cases/ZW.  Switch
+                                // R11U314_ZEROWIDTH_OFF.
+                                if (zw314) {
+                                    static const bool onZw314 = lawOn(314, "R11U314_ZEROWIDTH_OFF");
+                                    lawTrace(314, onZw314 ? "ZEROWIDTH" : "ZEROWIDTH_OFF", sg11.name);
+                                    if (onZw314)
+                                        setLoc(r11, SourceRange(sg11.nameRng.end(), sg11.nameRng.end()));
+                                }
                                 elems11->push_back(r11);
                                 continue;
                             }
@@ -43518,6 +44099,64 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          }
                                          return expr.sourceRange;
                                      }());
+                        // § builtinMethPathInIdxNameSpan314 (r11u314) — a
+                        // BUILT-IN method path whose receiver carries a select
+                        // (`sarr[i].len()`, `hs[i].q.size()`), written in a
+                        // NON-TRAILING path select's index, spans its first
+                        // name as a user method's path there does
+                        // (§ methPathInIdxNameSpan310, § lvMethPathInIdxNameSpan312):
+                        // golden `r = iarr[sarr[i].len()].f` 4:89-93 and the
+                        // target `iarr[sarr[i].len()].f = r` 4:85-89, ours the
+                        // whole call (v11u312repro VQ/vq07).  A receiver with no
+                        // select (`iarr[h.q.size()].f`) keeps the whole call in
+                        // golden, and so does a conditional's true branch.
+                        // Grid tools/probe/r11u314repro/cases/BM.  Switch
+                        // R11U314_BUILTINSPAN_OFF.
+                        bool zwB314 = false;  // § methPathPlainElemZeroWidth314
+                        if (!withExpr9 && !memberRand119 && !parensLess9 && !inParamInit &&
+                            stepOk23 && !stepSel74.empty() && !dots.empty() &&
+                            (!inLhs ? (hpMidIdx184() || methIdxCall310())
+                                    : (hpMidIdx306() && hpComp308() == 0 &&
+                                       lvIdxParent154(parent)))) {
+                            bool sel314 = false;
+                            for (auto& st314 : stepSel74)
+                                sel314 |= !st314.sels.empty();
+                            const UHDM::any* q314 = parent;
+                            bool tern314 = false;
+                            while (q314 &&
+                                   (q314->UhdmType() == UHDM::uhdmoperation ||
+                                    (q314->UhdmType() == UHDM::uhdmbit_select &&
+                                     q314->VpiParent() &&
+                                     q314->VpiParent()->UhdmType() != UHDM::uhdmhier_path))) {
+                                if (q314->UhdmType() == UHDM::uhdmoperation &&
+                                    ((const UHDM::operation*)q314)->VpiOpType() == vpiConditionOp)
+                                    for (const UHDM::any* t314 : ternTrueArmOps31)
+                                        if (t314 == q314)
+                                            tern314 = true;
+                                q314 = q314->VpiParent();
+                            }
+                            if (sel314 && q314 && q314->UhdmType() == UHDM::uhdmbit_select &&
+                                q314->VpiParent() &&
+                                q314->VpiParent()->UhdmType() == UHDM::uhdmhier_path) {
+                                static const bool onBs314 = lawOn(314, "R11U314_BUILTINSPAN_OFF");
+                                const std::string b314 = stepSel74[0].base;
+                                if (tern314)
+                                    lawTrace(314, "BUILTINSPAN_ABSTAIN", dotted);
+                                else if (!b314.empty() &&
+                                         rawText(SourceRange(recv->sourceRange.start(),
+                                                             recv->sourceRange.start() + b314.size())) ==
+                                             b314) {
+                                    lawTrace(314, onBs314 ? "BUILTINSPAN" : "BUILTINSPAN_OFF", dotted);
+                                    if (onBs314) {
+                                        setLoc(hp, SourceRange(recv->sourceRange.start(),
+                                                               recv->sourceRange.start() + b314.size()));
+                                        zwB314 = true;
+                                    }
+                                }
+                                else
+                                    lawTrace(314, "BUILTINSPAN_ABSTAIN", "text " + dotted);
+                            }
+                        }
                         auto* elems = s.MakeAnyVec();
                         // ONE ref_obj per dotted name (o.cn.constraint_mode ->
                         // ref_obj o, ref_obj cn, method_func_call
@@ -43858,7 +44497,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (recvMisread132)
                                 setColSpan132(r0, dotSoFar74.size() - dn0.size(),
                                               dn0.size());
-                            else
+                            else {
                                 setLoc(r0,
                                        k74 < astRecv128.size()
                                            ? SourceRange(astRecv128[k74].second -
@@ -43866,6 +44505,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                          astRecv128[k74].second)
                                            : SourceRange(nmStart0,
                                                          nmStart0 + dn0.size()));
+                                // § methPathPlainElemZeroWidth314 — the
+                                // built-in method path's plain element
+                                // (`iarr[hs[i].q.size()].f`: golden `q`
+                                // 4:90-90)
+                                if (zwB314) {
+                                    static const bool onZw314 = lawOn(314, "R11U314_ZEROWIDTH_OFF");
+                                    lawTrace(314, onZw314 ? "ZEROWIDTH" : "ZEROWIDTH_OFF", dn0);
+                                    const SourceLocation e314 =
+                                        k74 < astRecv128.size() ? astRecv128[k74].second
+                                                                : nmStart0 + dn0.size();
+                                    if (onZw314)
+                                        setLoc(r0, SourceRange(e314, e314));
+                                }
+                            }
                             // § retNameSelBindsHomeReturnInCloneOnly171 —
                             // SITE 2 of 4, the METHOD-RECEIVER spelling
                             // (`uvm_instance_scope.len()` @351:9 and
@@ -45388,8 +46041,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // procedural `assign_stmt` (StmtEmit.cpp) and of a `cont_assign`
                 // (ModuleEmit.cpp) — the three parents whose `Lhs()` is read.
                 const Expression& sx89 = stripImplicitConv(es.selector());
+                // § trailIdxStaticScopedCallName314 (switched off: the arms
+                // below, as before)
+                std::string scn314;
+                static const bool onSc314 = lawOn(314, "R11U314_SCOPEDCALLIDX_OFF");
+                const bool sc314 = !rendersAsItself89(sx89) &&
+                                   staticScopedCallRefName314(sx89, scn314);
+                if (sc314)
+                    lawTrace(314, onSc314 ? "SCOPEDCALLIDX" : "SCOPEDCALLIDX_OFF",
+                             dotted + "[" + scn314 + "]");
                 if (rendersAsItself89(sx89)) {
                     dotted += "[" + idxTxt9 + "]";
+                }
+                else if (sc314 && onSc314) {
+                    dotted += "[" + scn314 + "]";
                 }
                 else if (!inLhs) {
                     // decompileHelper(ELEMENT): no row for this index kind.
@@ -47402,6 +48067,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                           own264,
                                                           /*declTsOnly=*/false,
                                                           /*modIntAtom111=*/true);
+                                // § pkgQualIpsWidthSpanQualifier314 — the
+                                // member-path (hier_path) width fold, SITE 1
+                                if (!elabConnEmit21)
+                                    {
+                                    if (auto* q314 = pkgIpsWidthHpGate314(rs.right(), wf9.sym)) {
+                                        std::string rq314(rawText(q314->sourceRange));
+                                        auto qp314 = rq314.rfind("::");
+                                        static const bool onW314 = lawOn(314, "R11U314_PKGIPSW_OFF");
+                                        if (qp314 != std::string::npos && qp314 + 2 < rq314.size()) {
+                                            lawTrace(314, onW314 ? "PKGIPSW_HP" : "PKGIPSW_OFF", rq314);
+                                            if (onW314) {
+                                                setLoc(wc9, SourceRange(q314->sourceRange.start(),
+                                                                        q314->sourceRange.start() +
+                                                                            (qp314 + 2)));
+                                                // golden parents this
+                                                // constant at the select
+                                                if (!wc9->VpiParent())
+                                                    wc9->VpiParent(ips);
+                                                if (wc9->Typespec())
+                                                    pkgIpsWidthTs314().push_back(wc9->Typespec());
+                                            }
+                                        }
+                                    }
+                                }
                                 ips->Width_expr(wc9);
 
                             }
@@ -48477,6 +49166,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                               genCaLoopParamFold || genCaChildLoopFold21),
                                                           /*declTsOnly=*/false,
                                                           /*modIntAtom111=*/true);
+                                // § pkgQualIpsWidthSpanQualifier314 — SITE 2
+                                if (!elabConnEmit21)
+                                    {
+                                    if (auto* q314 = pkgIpsWidthHpGate314(rs.right(), wf9.sym)) {
+                                        std::string rq314(rawText(q314->sourceRange));
+                                        auto qp314 = rq314.rfind("::");
+                                        static const bool onW314 = lawOn(314, "R11U314_PKGIPSW_OFF");
+                                        if (qp314 != std::string::npos && qp314 + 2 < rq314.size()) {
+                                            lawTrace(314, onW314 ? "PKGIPSW_HP" : "PKGIPSW_OFF", rq314);
+                                            if (onW314) {
+                                                setLoc(wc9, SourceRange(q314->sourceRange.start(),
+                                                                        q314->sourceRange.start() +
+                                                                            (qp314 + 2)));
+                                                // golden parents this
+                                                // constant at the select
+                                                if (!wc9->VpiParent())
+                                                    wc9->VpiParent(ips2);
+                                                if (wc9->Typespec())
+                                                    pkgIpsWidthTs314().push_back(wc9->Typespec());
+                                            }
+                                        }
+                                    }
+                                }
                                 ips2->Width_expr(wc9);
                             }
                             else if (auto* w2 = emitExpr(rs.right(), ips2,

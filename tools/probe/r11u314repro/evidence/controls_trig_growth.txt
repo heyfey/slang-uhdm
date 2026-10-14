@@ -1,0 +1,18 @@
+=== r11u116repro/grid/f2/gi_cb_q d
+-- pristine: ref_typespec: (work@dut.gf.gn.d.d), id:68
+-- law: constant: , id:227, line:13:35, endln:13:36
+=== r11u116repro/grid/f2/gi_ff_q d
+-- pristine: ref_typespec: (work@dut.gf.gn.d.d), id:71
+-- law: constant: , id:233, line:13:36, endln:13:37
+=== r11u229verify/cases/I/i03 d
+-- pristine: hier_path: (arr[i].v[+:2]), id:75, line:5:12, endln:5:32
+-- law: decompile:
+=== v11u236repro/cases/D/d01 d
+-- pristine: ref_typespec: (work@mid.u_s.a_i.x), id:88
+-- law: constant: , id:325, line:11:44, endln:11:49
+=== v11u244repro/cases/B/b04_cls_forms d
+-- pristine: hier_path: (rw.data[ * 8+:8]), id:42, line:9:9, endln:9:29
+-- law: hier_path: (rw.data[8 * i+:4 * 2]), id:92, line:14:9, endln:14:30
+=== v11u284repro/cases/VH/vh16_ips_pkg_width d
+-- pristine: hier_path: (o.a[4'h2+:4'h2]), id:127, line:12:14, endln:12:35
+-- law: hier_path: (o.a[4'h2+:4'h2]), id:127, line:12:14, endln:12:35

@@ -1,0 +1,123 @@
+MOVER r11u116repro/grid/f2/g1_ca_q d rc=0 cmp=34 NOT_EQUAL stage1 -> rc=0 cmp=34 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_ca_q e rc=0 cmp=34 NOT_EQUAL stage1 -> rc=0 cmp=34 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g1_cb_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 308 objects
+MOVER r11u116repro/grid/f2/g1_cb_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 284 objects
+MOVER r11u116repro/grid/f2/g1_ff_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 317 objects
+MOVER r11u116repro/grid/f2/g1_ff_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 293 objects
+MOVER r11u116repro/grid/f2/g1_in_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 308 objects
+MOVER r11u116repro/grid/f2/g1_in_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 284 objects
+MOVER r11u116repro/grid/f2/g2_ca_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g2_ca_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 195 objects
+MOVER r11u116repro/grid/f2/g2_cb_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 367 objects
+MOVER r11u116repro/grid/f2/g2_cb_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 319 objects
+MOVER r11u116repro/grid/f2/g2_ff_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 379 objects
+MOVER r11u116repro/grid/f2/g2_ff_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 331 objects
+MOVER r11u116repro/grid/f2/g2_in_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 367 objects
+MOVER r11u116repro/grid/f2/g2_in_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 319 objects
+MOVER r11u116repro/grid/f2/g3_ca_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/g3_ca_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 203 objects
+MOVER r11u116repro/grid/f2/g3_cb_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 375 objects
+MOVER r11u116repro/grid/f2/g3_cb_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 327 objects
+MOVER r11u116repro/grid/f2/g3_ff_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 387 objects
+MOVER r11u116repro/grid/f2/g3_ff_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 339 objects
+MOVER r11u116repro/grid/f2/g3_in_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 375 objects
+MOVER r11u116repro/grid/f2/g3_in_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 327 objects
+MOVER r11u116repro/grid/f2/gi_ca_q d rc=0 cmp=113 NOT_EQUAL stage1 -> rc=0 cmp=113 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/gi_ca_q e rc=0 cmp=113 NOT_EQUAL stage1 -> rc=0 cmp=113 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/gi_cb_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/gi_cb_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/gi_ff_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=46 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/gi_ff_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=50 NOT_EQUAL stage1
+MOVER r11u116repro/grid/f2/gi_in_q d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 315 objects
+MOVER r11u116repro/grid/f2/gi_in_q e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 291 objects
+MOVER r11u170verify/cases/hs/h11 d rc=0 cmp=152 NOT_EQUAL stage1 -> rc=0 cmp=152 NOT_EQUAL stage1
+MOVER r11u170verify/cases/hs/h11 e rc=0 cmp=152 NOT_EQUAL stage1 -> rc=0 cmp=152 NOT_EQUAL stage1
+MOVER r11u194verify/cases/C/c02_method_call_idx d rc=0 cmp=212 NOT_EQUAL stage1 -> rc=0 cmp=212 NOT_EQUAL stage1
+MOVER r11u194verify/cases/C/c02_method_call_idx e rc=0 cmp=226 NOT_EQUAL stage1 -> rc=0 cmp=226 NOT_EQUAL stage1
+MOVER r11u195repro/cases/A/a02 d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 86 objects
+MOVER r11u195repro/cases/A/a02 e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 109 objects
+MOVER r11u205dec/cases/GS/g03 d rc=0 cmp=238 NOT_EQUAL stage1 -> rc=0 cmp=238 NOT_EQUAL stage1
+MOVER r11u205dec/cases/GS/g03 e rc=0 cmp=224 NOT_EQUAL stage1 -> rc=0 cmp=224 NOT_EQUAL stage1
+MOVER r11u209repro/cases/R5/i1 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 180 objects
+MOVER r11u209repro/cases/R5/i1 e rc=0 cmp=0 STRICT_EQUAL 173 objects -> rc=0 cmp=0 STRICT_EQUAL 173 objects
+MOVER r11u217verify/cases/GS/g03 d rc=0 cmp=234 NOT_EQUAL stage1 -> rc=0 cmp=234 NOT_EQUAL stage1
+MOVER r11u217verify/cases/GS/g03 e rc=0 cmp=220 NOT_EQUAL stage1 -> rc=0 cmp=220 NOT_EQUAL stage1
+MOVER r11u217verify/cases/IP/i03 d rc=0 cmp=216 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 311 objects
+MOVER r11u217verify/cases/IP/i03 e rc=0 cmp=144 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 309 objects
+MOVER r11u218dec/cases/IX/x11_sysfunc_width d rc=0 cmp=144 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 281 objects
+MOVER r11u218dec/cases/IX/x11_sysfunc_width e rc=0 cmp=144 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 286 objects
+MOVER r11u219repro/cases/I/i02_parambase d rc=0 cmp=236 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 218 objects
+MOVER r11u219repro/cases/I/i02_parambase e rc=0 cmp=172 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 234 objects
+MOVER r11u229verify/cases/I/i02 d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 139 objects
+MOVER r11u229verify/cases/I/i02 e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 158 objects
+MOVER r11u229verify/cases/I/i03 d rc=0 cmp=216 NOT_EQUAL stage1 -> rc=0 cmp=683 NOT_EQUAL stage1
+MOVER r11u229verify/cases/I/i03 e rc=0 cmp=232 NOT_EQUAL stage1 -> rc=0 cmp=695 NOT_EQUAL stage1
+MOVER r11u229verify/cases/I/i04 d rc=0 cmp=0 STRICT_EQUAL 176 objects -> rc=0 cmp=0 STRICT_EQUAL 176 objects
+MOVER r11u229verify/cases/I/i04 e rc=0 cmp=0 STRICT_EQUAL 195 objects -> rc=0 cmp=0 STRICT_EQUAL 195 objects
+MOVER r11u244repro/cases/L/i06 d rc=0 cmp=284 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 95 objects
+MOVER r11u244repro/cases/L/i06 e rc=0 cmp=308 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 104 objects
+MOVER r11u244repro/cases/L/i07 d rc=0 cmp=220 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 93 objects
+MOVER r11u244repro/cases/L/i07 e rc=0 cmp=252 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 102 objects
+MOVER r11u244repro/cases/L/l19 d rc=0 cmp=122 NOT_EQUAL stage1 -> rc=0 cmp=118 NOT_EQUAL stage1
+MOVER r11u244repro/cases/L/l19 e rc=0 cmp=150 NOT_EQUAL stage1 -> rc=0 cmp=146 NOT_EQUAL stage1
+MOVER r11u244repro/cases/X/x05 d rc=0 cmp=220 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 231 objects
+MOVER r11u244repro/cases/X/x05 e rc=0 cmp=220 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 241 objects
+MOVER r11u254repro/cases/G/g07_hp_ips d rc=0 cmp=240 NOT_EQUAL stage1 -> rc=0 cmp=240 NOT_EQUAL stage1
+MOVER r11u254repro/cases/G/g07_hp_ips e rc=0 cmp=176 NOT_EQUAL stage1 -> rc=0 cmp=176 NOT_EQUAL stage1
+MOVER r11u256repro/cases/B/b08_qualified d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 277 objects
+MOVER r11u256repro/cases/B/b08_qualified e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 275 objects
+MOVER r11u256repro/cases/G/g11_for_qualified d rc=0 cmp=30 NOT_EQUAL stage1 -> rc=0 cmp=30 NOT_EQUAL stage1
+MOVER r11u256repro/cases/G/g11_for_qualified e rc=0 cmp=30 NOT_EQUAL stage1 -> rc=0 cmp=30 NOT_EQUAL stage1
+MOVER r11u264repro/cases/G/g08_gvidx_concat_and_plain_operand d rc=0 cmp=244 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER r11u264repro/cases/G/g08_gvidx_concat_and_plain_operand e rc=0 cmp=172 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 627 objects
+MOVER r11u264repro/cases/G/g15_both_opbase d rc=0 cmp=244 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER r11u264repro/cases/G/g15_both_opbase e rc=0 cmp=172 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 619 objects
+MOVER r11u264repro/cases/N/n17_gen_ips_lhs d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 149 objects
+MOVER r11u264repro/cases/N/n17_gen_ips_lhs e rc=0 cmp=0 STRICT_EQUAL 146 objects -> rc=0 cmp=0 STRICT_EQUAL 146 objects
+MOVER r11u298repro/cases/QT/qt19_ips_ctl d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 126 objects
+MOVER r11u298repro/cases/QT/qt19_ips_ctl e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 115 objects
+MOVER r11v154repro/lb/i4 d rc=0 cmp=204 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 127 objects
+MOVER r11v154repro/lb/i4 e rc=0 cmp=204 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 141 objects
+MOVER r11v42repro/grid42v/v4 d rc=0 cmp=126 NOT_EQUAL stage1 -> rc=0 cmp=126 NOT_EQUAL stage1
+MOVER r11v42repro/grid42v/v4 e rc=0 cmp=112 NOT_EQUAL stage1 -> rc=0 cmp=112 NOT_EQUAL stage1
+MOVER v11u116repro/arms/f2k_mixq d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 294 objects
+MOVER v11u116repro/arms/f2k_mixq e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 270 objects
+MOVER v11u116repro/arms/f2k_qual d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 294 objects
+MOVER v11u116repro/arms/f2k_qual e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 278 objects
+MOVER v11u219repro/cases/I/i01_genvar_base d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER v11u219repro/cases/I/i01_genvar_base e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER v11u220repro/cases/X/x03 d rc=0 cmp=234 NOT_EQUAL stage1 -> rc=0 cmp=234 NOT_EQUAL stage1
+MOVER v11u220repro/cases/X/x03 e rc=0 cmp=220 NOT_EQUAL stage1 -> rc=0 cmp=220 NOT_EQUAL stage1
+MOVER v11u236repro/cases/D/d01 d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=58 NOT_EQUAL stage1
+MOVER v11u236repro/cases/D/d01 e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER v11u244repro/cases/A/a04_ips_rv d rc=0 cmp=216 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 161 objects
+MOVER v11u244repro/cases/A/a04_ips_rv e rc=0 cmp=216 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 171 objects
+MOVER v11u244repro/cases/A/a08_constslot d rc=0 cmp=216 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 282 objects
+MOVER v11u244repro/cases/A/a08_constslot e rc=0 cmp=216 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 293 objects
+MOVER v11u244repro/cases/A/a14_cls_forms2 d rc=0 cmp=152 NOT_EQUAL stage1 -> rc=0 cmp=152 NOT_EQUAL stage1
+MOVER v11u244repro/cases/A/a14_cls_forms2 e rc=0 cmp=184 NOT_EQUAL stage1 -> rc=0 cmp=184 NOT_EQUAL stage1
+MOVER v11u244repro/cases/B/b02_mod_comb d rc=0 cmp=240 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 214 objects
+MOVER v11u244repro/cases/B/b02_mod_comb e rc=0 cmp=240 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 217 objects
+MOVER v11u244repro/cases/B/b04_cls_forms d rc=0 cmp=208 NOT_EQUAL stage1 -> rc=0 cmp=240 NOT_EQUAL stage1
+MOVER v11u244repro/cases/B/b04_cls_forms e rc=0 cmp=232 NOT_EQUAL stage1 -> rc=0 cmp=204 NOT_EQUAL stage1
+MOVER v11u244repro/cases/X/x04_ifc_body d rc=0 cmp=220 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 343 objects
+MOVER v11u244repro/cases/X/x04_ifc_body e rc=0 cmp=236 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 405 objects
+MOVER v11u247repro/cases/A/a01_shadow d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 333 objects
+MOVER v11u247repro/cases/A/a01_shadow e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 436 objects
+MOVER v11u247repro/cases/A/a01_shadowq d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 553 objects
+MOVER v11u247repro/cases/A/a01_shadowq e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 797 objects
+MOVER v11u256repro/cases/B/vb13_qualified_nested d rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 379 objects
+MOVER v11u256repro/cases/B/vb13_qualified_nested e rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 377 objects
+MOVER v11u264repro/cases/VG/vg02_op_kinds d rc=0 cmp=204 NOT_EQUAL stage1 -> rc=0 cmp=204 NOT_EQUAL stage1
+MOVER v11u264repro/cases/VG/vg02_op_kinds e rc=0 cmp=204 NOT_EQUAL stage1 -> rc=0 cmp=204 NOT_EQUAL stage1
+MOVER v11u264repro/cases/VG/vg07_lhs_select_root d rc=0 cmp=172 NOT_EQUAL stage1 -> rc=0 cmp=172 NOT_EQUAL stage1
+MOVER v11u264repro/cases/VG/vg07_lhs_select_root e rc=0 cmp=172 NOT_EQUAL stage1 -> rc=0 cmp=172 NOT_EQUAL stage1
+MOVER v11u264repro/cases/VG/vg10_pkgqual_operand d rc=0 cmp=216 NOT_EQUAL stage1 -> rc=0 cmp=216 NOT_EQUAL stage1
+MOVER v11u264repro/cases/VG/vg10_pkgqual_operand e rc=0 cmp=216 NOT_EQUAL stage1 -> rc=0 cmp=216 NOT_EQUAL stage1
+MOVER v11u278repro/cases/VS/vs05 d rc=0 cmp=188 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER v11u278repro/cases/VS/vs05 e rc=0 cmp=188 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_NOTEQUAL fullname
+MOVER v11u284repro/cases/VH/vh16_ips_pkg_width d rc=0 cmp=156 NOT_EQUAL stage1 -> rc=0 cmp=160 NOT_EQUAL stage1
+MOVER v11u284repro/cases/VH/vh16_ips_pkg_width e rc=0 cmp=156 NOT_EQUAL stage1 -> rc=0 cmp=160 NOT_EQUAL stage1
+MOVER v11u287repro/cases/VD/vd01_pkgparam_idx d rc=0 cmp=48 NOT_EQUAL stage1 -> rc=0 cmp=48 NOT_EQUAL stage1
+MOVER v11u287repro/cases/VD/vd01_pkgparam_idx e rc=0 cmp=48 NOT_EQUAL stage1 -> rc=0 cmp=48 NOT_EQUAL stage1
+case-views=122 moving=122 entering=66 leaving=0 rc-changed=0 cmplines-changed=74

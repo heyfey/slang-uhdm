@@ -1,0 +1,5 @@
+// § ipsBaseOpSysRender314
+typedef struct packed { logic [7:0] v; } a_t;
+module leaf; a_t a; int ix[4]; int k; always_comb a.v[ix[k + 1] +: 2] = 0; endmodule
+module mid; leaf l(); endmodule
+module top; mid m(); endmodule

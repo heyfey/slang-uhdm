@@ -1,0 +1,16 @@
+probe r10uvm147repro__g147_a.uhdm IPSBASEOP_SAME_ABSTAIN:5
+probe r10uvm94repro__g94_a0_head.uhdm IPSBASEOP_SAME_ABSTAIN:1
+surelog BuildUVMPkg/default IPSBASEOP_SAME_ABSTAIN:6
+surelog BuildUVMPkg/testflags IPSBASEOP_SAME_ABSTAIN:6
+surelog Earlgrey_0_1/default IPSBASEOP_SAME_ABSTAIN:30
+surelog Earlgrey_0_1/testflags IPSBASEOP_SAME_ABSTAIN:30
+surelog MiniAmiq/default IPSBASEOP_SAME_ABSTAIN:2
+surelog MiniAmiq/testflags IPSBASEOP_SAME_ABSTAIN:2
+surelog Rggen/default IPSBASEOP_SAME_ABSTAIN:940
+surelog Scoreboard/default IPSBASEOP_SAME_ABSTAIN:2
+surelog SeqDriver/default IPSBASEOP_SAME_ABSTAIN:2
+surelog SeqDriver/testflags IPSBASEOP_SAME_ABSTAIN:2
+surelog SimpleUVM/default IPSBASEOP_SAME_ABSTAIN:2
+surelog SimpleUVM/testflags IPSBASEOP_SAME_ABSTAIN:2
+uhdm2rtlil iface_ff_genvar_partsel/default IPSBASEOP_SAME_ABSTAIN:8
+uhdm2rtlil iface_ff_genvar_partsel/testflags IPSBASEOP_SAME_ABSTAIN:8

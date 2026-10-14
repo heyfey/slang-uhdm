@@ -1,0 +1,63 @@
+== binaries
+4b092c61f9f3d041af67fb9ffdc4d985  /tmp/r11u314_bin/pristine
+31f5e27212d0045027a74221de9cc109  /tmp/r11u314_bin/law
+slang-uhdm using slang version 12.0.0+545f88b2e
+== pristine sweep (tests/sweep.sh --jobs 3 --workdir /tmp/r11u314_wdP)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=4017 STRICT_NOTEQUAL=70
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+SWEEP_RC=1
+== law sweep (tests/sweep.sh --jobs 3 --workdir /tmp/r11u314_wdL)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=4017 STRICT_NOTEQUAL=70
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+SWEEP_RC=1
+(both exit 1 on the law-index check alone: the new repro dir is not yet indexed)
+== csv row diffs law vs pristine
+probe 0 lines
+surelog 4 lines
+uhdm2rtlil 0 lines
+downstream 0 lines
+(surelog: the LowMemLib and LowMemPkg testflags detail text names the workdir)
+downstream csv vs results/downstream_uhdm2rtlil.csv: pristine 0 lines, law 0 lines
+== binary-path audit (drivers/audit.sh)
+/tmp/r11u314_wdP own=3265 other=0 noslang=50 fenced_skipped=8
+/tmp/r11u314_wdL own=3265 other=0 noslang=50 fenced_skipped=8
+== byteverify (tools/probe/r11v75repro/byteverify.sh on fence-filtered mirrors built by drivers/mirror.sh)
+PATH_SETS_IDENTICAL (3365 paths)
+MOVERS: 0 / 3365
+SELFCHECK (every file vs one fixed file): 3363 / 3365 flagged
+SELFCHECK_FAILED
+SELFCHECK: the reference downstream/1DUnpackedArray/slang.uhdm is byte-identical to its twin uhdm2rtlil/testflags/1DUnpackedArray-3af704bd/slang.uhdm (the same test with the same arguments), so the two unflagged files are the reference and its twin
+probe databases: 4087 compared with cmp, 0 moving
+== canaries
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.

@@ -1,0 +1,12 @@
+BM/bm01_lv_len d chain away=1 toward=0 flat_away=1 flat_toward=0
+IN/in02_path_sel_base d chain away=1 toward=0 flat_away=1 flat_toward=0
+IO/io01_selop d chain away=8 toward=0 flat_away=4 flat_toward=0
+IR/ir01_mod_gen d chain away=1 toward=0 flat_away=1 flat_toward=0
+NB/nb01_modtask d chain away=2 toward=0 flat_away=2 flat_toward=0
+PW/pw01_hp_lv d chain away=2 toward=0 flat_away=2 flat_toward=0
+PW/pw11_mod_comb d chain away=6 toward=0 flat_away=6 flat_toward=0
+SC/sc01_rv d chain away=4 toward=0 flat_away=3 flat_toward=0
+TS/ts01_thisarr_thisidx d chain away=2 toward=0 flat_away=2 flat_toward=0
+TS/ts08_postinc d chain away=1 toward=0 flat_away=1 flat_toward=0
+XT/xt03_ipsbase_named_call d chain away=7 toward=0 flat_away=4 flat_toward=0
+ZW/zw01_rv_user d chain away=1 toward=0 flat_away=1 flat_toward=0

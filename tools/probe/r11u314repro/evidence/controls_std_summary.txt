@@ -1,0 +1,49 @@
+MOVER r11u296repro/cases/CT/ct13_part_sel_bound d rc=0 cmp=232 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 143 objects
+MOVER r11u296repro/cases/CT/ct13_part_sel_bound e rc=0 cmp=232 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 133 objects
+MOVER r11u296repro/cases/CT/ct14_ips_base d rc=0 cmp=224 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 143 objects
+MOVER r11u296repro/cases/CT/ct14_ips_base e rc=0 cmp=224 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 133 objects
+MOVER r11u306repro/cases/NP/np26_ipswidth d rc=0 cmp=258 NOT_EQUAL stage1 -> rc=0 cmp=258 NOT_EQUAL stage1
+MOVER r11u306repro/cases/NP/np26_ipswidth e rc=0 cmp=258 NOT_EQUAL stage1 -> rc=0 cmp=258 NOT_EQUAL stage1
+MOVER r11u310repro/cases/MT/mt62_inpathop d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 178 objects
+MOVER r11u310repro/cases/MT/mt62_inpathop e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 200 objects
+MOVER r11u312repro/cases/IP/ip11_widthref d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 306 objects
+MOVER r11u312repro/cases/IP/ip11_widthref e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 318 objects
+MOVER r11u312repro/cases/IP/ip25_selop_ctl d rc=0 cmp=204 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 305 objects
+MOVER r11u312repro/cases/IP/ip25_selop_ctl e rc=0 cmp=236 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 314 objects
+MOVER r11u312repro/cases/IP/ip26_sys_ctl d rc=0 cmp=148 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 303 objects
+MOVER r11u312repro/cases/IP/ip26_sys_ctl e rc=0 cmp=172 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 312 objects
+MOVER r11u312repro/cases/MI/mi12_deeprecv d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 305 objects
+MOVER r11u312repro/cases/MI/mi12_deeprecv e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 319 objects
+MOVER r11u312repro/cases/MS/ms02_noarg d rc=0 cmp=92 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 301 objects
+MOVER r11u312repro/cases/MS/ms02_noarg e rc=0 cmp=108 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 312 objects
+MOVER v11u296repro/cases/VT/vt10_ips_width_cast d rc=0 cmp=180 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 95 objects
+MOVER v11u296repro/cases/VT/vt10_ips_width_cast e rc=0 cmp=180 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 94 objects
+MOVER v11u308repro/cases/VD/vd03_ipsleafop d rc=0 cmp=188 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 401 objects
+MOVER v11u308repro/cases/VD/vd03_ipsleafop e rc=0 cmp=188 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 414 objects
+MOVER v11u312repro/cases/VP/vp15_nestsel_ctl d rc=0 cmp=176 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 326 objects
+MOVER v11u312repro/cases/VP/vp15_nestsel_ctl e rc=0 cmp=216 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 335 objects
+MOVER v11u312repro/cases/VP/vp20_harr d rc=0 cmp=188 NOT_EQUAL stage1 -> rc=0 cmp=188 NOT_EQUAL stage1
+MOVER v11u312repro/cases/VP/vp20_harr e rc=0 cmp=228 NOT_EQUAL stage1 -> rc=0 cmp=228 NOT_EQUAL stage1
+MOVER v11u312repro/cases/VP/vp22_width_pkg d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 327 objects
+MOVER v11u312repro/cases/VP/vp22_width_pkg e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 336 objects
+MOVER v11u312repro/cases/VP/vp30_mod_gen d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 105 objects
+MOVER v11u312repro/cases/VP/vp30_mod_gen e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 111 objects
+MOVER v11u312repro/cases/VP/vp31_mod_genfor d rc=0 cmp=188 NOT_EQUAL stage1 -> rc=0 cmp=188 NOT_EQUAL stage1
+MOVER v11u312repro/cases/VP/vp31_mod_genfor e rc=0 cmp=188 NOT_EQUAL stage1 -> rc=0 cmp=188 NOT_EQUAL stage1
+MOVER v11u312repro/cases/VP2/vp41_psbase_ctl d rc=0 cmp=184 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 326 objects
+MOVER v11u312repro/cases/VP2/vp41_psbase_ctl e rc=0 cmp=208 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 335 objects
+MOVER v11u312repro/cases/VP2/vp43_fn_noarg_path d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 328 objects
+MOVER v11u312repro/cases/VP2/vp43_fn_noarg_path e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 340 objects
+MOVER v11u312repro/cases/VQ/vq02_member_recv d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 327 objects
+MOVER v11u312repro/cases/VQ/vq02_member_recv e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 349 objects
+MOVER v11u312repro/cases/VQ/vq06_deep_recv d rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 327 objects
+MOVER v11u312repro/cases/VQ/vq06_deep_recv e rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 341 objects
+MOVER v11u312repro/cases/VQ/vq07_strlen d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 326 objects
+MOVER v11u312repro/cases/VQ/vq07_strlen e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 345 objects
+MOVER v11u312repro/cases/VT/vt13_thisarr_in_idx d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 323 objects
+MOVER v11u312repro/cases/VT/vt13_thisarr_in_idx e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 342 objects
+MOVER v11u312repro/cases/VT/vt17_bitsel d rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 323 objects
+MOVER v11u312repro/cases/VT/vt17_bitsel e rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 337 objects
+MOVER v11u312repro/cases/VX/vx09_named_blk d rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 99 objects
+MOVER v11u312repro/cases/VX/vx09_named_blk e rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 110 objects
+case-views=5820 moving=48 entering=42 leaving=0 rc-changed=0 cmplines-changed=18

@@ -1,0 +1,29 @@
+law Earlgrey_0_1/default       3 fc04e7f2bb3f 
+law MiniAmiq/default       3 6274d155ae91 
+law SeqDriver/default       3 0140024e994f 
+law SimpleUVM/default       3 57a5aaad5589 
+law Scoreboard/default       3 e60363ba3f2d 
+law BuildUVMPkg/default       3 00b6402714d5 
+law Rggen/default       3 4c21b84a350d 
+law Earlgrey_0_1/testflags       3 025c86db2d2d 
+law MiniAmiq/testflags       3 6274d155ae91 
+law SeqDriver/testflags       3 dcc2c63e2e29 
+law SimpleUVM/testflags       3 f0c85a0be92c 
+law Scoreboard/testflags 
+law BuildUVMPkg/testflags       3 00b6402714d5 
+law Rggen/testflags 
+sweeps Earlgrey_0_1/default law fc04e7f2bb3f pristine fc04e7f2bb3f
+sweeps MiniAmiq/default law 6274d155ae91 pristine 6274d155ae91
+sweeps SeqDriver/default law 0140024e994f pristine 0140024e994f
+sweeps SimpleUVM/default law 57a5aaad5589 pristine 57a5aaad5589
+sweeps Scoreboard/default law e60363ba3f2d pristine e60363ba3f2d
+sweeps BuildUVMPkg/default law 00b6402714d5 pristine 00b6402714d5
+sweeps Rggen/default law 4c21b84a350d pristine 4c21b84a350d
+sweeps Earlgrey_0_1/testflags law 025c86db2d2d pristine 025c86db2d2d
+sweeps MiniAmiq/testflags law 6274d155ae91 pristine 6274d155ae91
+sweeps SeqDriver/testflags law dcc2c63e2e29 pristine dcc2c63e2e29
+sweeps SimpleUVM/testflags law f0c85a0be92c pristine f0c85a0be92c
+sweeps Scoreboard/testflags law  pristine 
+sweeps BuildUVMPkg/testflags law 00b6402714d5 pristine 00b6402714d5
+sweeps Rggen/testflags law  pristine 
+(Scoreboard and Rggen testflags write no database, as at the base)
