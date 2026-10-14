@@ -2776,6 +2776,23 @@ static void hcSelIdxRescope168(UHDM::any* idx, const std::string& oldScope,
                 for (auto* o : *ops)
                     hcSelIdxRescope168(o, oldScope, newScope, selFull, true);
             break;
+        // § sysCallInIdxNamedBySel319 (r11u319): a system call written in
+        // the index (`signed'(s)` is one, a $signed sys_func_call in both
+        // databases) is compiled like an index operation, so its arguments
+        // are named through the select (golden r11u319repro
+        // SC/m02_signed_cast_top `.d(ck[signed'(s)])` work@top.c.ck.s and
+        // SC/i02_signed_cast_top `.clk(ck[signed'(s)])` work@top.u.ck.s, in
+        // the definition and the elaborated view); the walker stopped at the
+        // call and left the port's chain (work@top.c.d.ck.s) or the parent's
+        // (work@top.ck.s).  Switch R11U319_SYSIDXNAME_OFF.
+        case UHDM::uhdmsys_func_call:
+            if (lawOn(319, "R11U319_SYSIDXNAME_OFF"))
+                if (auto* as = ((UHDM::sys_func_call*)idx)->Tf_call_args()) {
+                    lawTrace(319, "sysCallInIdxNamedBySel319", "rescope " + selFull);
+                    for (auto* a : *as)
+                        hcSelIdxRescope168(a, oldScope, newScope, selFull, true);
+                }
+            break;
         default:
             break;
     }
@@ -2887,11 +2904,43 @@ static void modConnIdxNestedNames317(UHDM::any* x, const std::string& port) {
                         lawTrace(317, "modConnIdxNestedNames317", "cast_ts " + sel);
                         rt->VpiFullName(sel);
                     }
+                // § modConnIdxOpNamedBySel319 (r11u319): an operation
+                // written in the index names its references through the
+                // select too, as the interface twin § ifaceHcOpSelByInst315
+                // does (golden r11u319repro GV/m15_mod_idx_op_operand
+                // `.d(ck[s + 1] | a)` ref_obj work@top.c.d.ck.s, m16 in a
+                // generate block work@top.g.c.d.ck.s, m12_gen_modop_operand
+                // `ck[s % 2] | a`); ours kept <port>.<name>.  Switch
+                // R11U319_MODIDXOP_OFF.
+                // (an instance-array element has no name of its own here:
+                // the prefix reads `<parent>..<port>`, pass 139's residue,
+                // so the law stands aside there)
+                bool op319 = false;
+                if (!deep && !cast && sel.find("..") == std::string::npos &&
+                    lawOn(319, "R11U319_MODIDXOP_OFF")) {
+                    op319 = true;
+                    lawTrace(319, "modConnIdxOpNamedBySel319", sel);
+                }
                 if (auto* os = o->Operands())
                     for (auto* e : *os)
-                        nest(e, sel, deep || cast);
+                        nest(e, sel, deep || cast || op319);
                 return;
             }
+            // § sysCallInIdxNamedBySel319 (r11u319): a system call in the
+            // index names everything below it through the select like a
+            // cast (golden r11u319repro SC/m03_sys_signed_op
+            // `.d(ck[$signed(s)] & a)` work@top.c.d.ck.s, m15
+            // `ck[k[$unsigned(t)]] | a` work@top.c.d.ck.k.t); ours kept
+            // <port>.<name>.  Switch R11U319_SYSIDXNAME_OFF.
+            case UHDM::uhdmsys_func_call:
+                if (sel.find("..") == std::string::npos &&
+                    lawOn(319, "R11U319_SYSIDXNAME_OFF"))
+                    if (auto* as = ((UHDM::sys_func_call*)i)->Tf_call_args()) {
+                        lawTrace(319, "sysCallInIdxNamedBySel319", "mod " + sel);
+                        for (auto* e : *as)
+                            nest(e, sel, true);
+                    }
+                return;
             default:
                 return;
             }
@@ -24734,7 +24783,13 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                          // `.d(v[s +: 1])` work@top.c.d.s on the definition's
                          // net)
                          (h->UhdmType() == UHDM::uhdmindexed_part_select &&
-                          lawOn(317, "R11U317_MODIPSBASE_OFF"))) &&
+                          lawOn(317, "R11U317_MODIPSBASE_OFF")) ||
+                         // § modConnSelWholeLeafElab319: a whole-actual
+                         // bit_select or multi-dimension select (binding
+                         // only, see below).
+                         ((h->UhdmType() == UHDM::uhdmbit_select ||
+                           h->UhdmType() == UHDM::uhdmvar_select) &&
+                          lawOn(319, "R11U319_MODSELWHOLELEAF_OFF"))) &&
                         parentNets && bindPath.empty()) {
                         const bool bind139 = !connGenScope61 && !genvarConnFold;
                         const DefInfo* pdi139 = nullptr;
@@ -24804,6 +24859,68 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                     d139->second != o139)
                                     e2d139.emplace(o139, d139->second);
                             }
+                            // § varSelIdxOwnLeaf319 (r11u319): the module
+                            // twin, each index of a multi-dimension select
+                            // in the leaf position has its own leftmost leaf
+                            // and every other reference in it binds the
+                            // parent definition's net (golden r11u319repro
+                            // SB/m10_vs_first_op_idx_operand
+                            // `.d(m[1+s][t] & a)` s, m09 `m[s][1+t]` t,
+                            // VS/m11_vs_op_sys_idx a call argument); only
+                            // where there is a definition net to bind.
+                            // Switch R11U319_VSIDXLEAF_OFF.
+                            std::set<const UHDM::any*> idxLeaf319;
+                            const bool perIdx319 =
+                                leafVs317 && !e2d139.empty() &&
+                                lawOn(319, "R11U319_VSIDXLEAF_OFF");
+                            // § vsIdxLeafThroughInnerVs319v (v11u319): a
+                            // multi-dimension select met on an index's
+                            // leftmost chain is in the leaf position too, so
+                            // each of ITS indices has its own leaf (golden
+                            // v11u319repro VD/vd06_m_vs_in_vs_two
+                            // `.d(m[m[s][t]][1])` keeps s and t on the
+                            // elaborated nets, vd14 `m[m[s][0] + t][1]` s;
+                            // the law bound them to the definition's, which
+                            // pristine had right).  Switch
+                            // R11V319_INNERVSLEAF_OFF.
+                            const bool innerVs319v =
+                                fixOn(319, "R11V319_INNERVSLEAF_OFF");
+                            std::function<void(const UHDM::any*)> leafOf319 =
+                                [&](const UHDM::any* c319) {
+                                    while (c319 &&
+                                           (c319->UhdmType() == UHDM::uhdmoperation ||
+                                            c319->UhdmType() == UHDM::uhdmbit_select)) {
+                                        if (c319->UhdmType() == UHDM::uhdmbit_select) {
+                                            c319 = ((const UHDM::bit_select*)c319)
+                                                       ->VpiIndex();
+                                            continue;
+                                        }
+                                        auto* o319 = (const UHDM::operation*)c319;
+                                        if (!binLike139(o319->VpiOpType()) ||
+                                            !o319->Operands() ||
+                                            o319->Operands()->empty())
+                                            break;
+                                        c319 = (*o319->Operands())[0];
+                                    }
+                                    if (c319 && c319->UhdmType() == UHDM::uhdmref_obj)
+                                        idxLeaf319.insert(c319);
+                                    else if (c319 && innerVs319v &&
+                                             c319->UhdmType() == UHDM::uhdmvar_select)
+                                        if (auto* ies319 =
+                                                ((const UHDM::var_select*)c319)->Exprs()) {
+                                            lawTrace(319, "vsIdxLeafThroughInnerVs319v",
+                                                     std::string(((const UHDM::var_select*)
+                                                                      c319)
+                                                                     ->VpiName()));
+                                            for (const UHDM::any* i319 : *ies319)
+                                                leafOf319(i319);
+                                        }
+                                };
+                            if (perIdx319)
+                                if (auto* es319 =
+                                        ((const UHDM::var_select*)leafVs317)->Exprs())
+                                    for (const UHDM::any* c319 : *es319)
+                                        leafOf319(c319);
                             const std::string& dbl139 =
                                 (genvarConnFold && !genConnPrefix.empty())
                                     ? genConnPrefix
@@ -24927,7 +25044,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                     // stopped at a var_select.  Switch
                                     // R11U317_MODVARSELLEAF_OFF.
                                     if (t139 == UHDM::uhdmvar_select) {
-                                        if (n139 != leafVs317 &&
+                                        if ((n139 != leafVs317 || perIdx319) &&
                                             lawOn(317, "R11U317_MODVARSELLEAF_OFF"))
                                             if (auto* es317 =
                                                     ((UHDM::var_select*)n139)->Exprs())
@@ -25033,8 +25150,13 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                         trace193("castOperandLeafElab193",
                                                  "conn " + pfx139 +
                                                      std::string(r139->VpiName()));
-                                    if (isElab139 && n139 != leaf139 && !cLeaf193)
+                                    if (isElab139 && n139 != leaf139 && !cLeaf193 &&
+                                        !idxLeaf319.count(n139)) {
+                                        if (perIdx319)
+                                            lawTrace(319, "varSelIdxOwnLeaf319",
+                                                     pfx139 + std::string(r139->VpiName()));
                                         r139->Actual_group(ed139->second);
+                                    }
                                     if (cLeaf193 && r139->Actual_group())
                                         castKeep193.push_back(
                                             {r139, r139->Actual_group()});
@@ -25050,6 +25172,74 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                                 (int)(isElab139 &&
                                                       n139 != leaf139));
                                 };
+                            // § modConnSelWholeLeafElab319 (r11u319) — the
+                            // module twin of § ifaceConnSelWholeLeafElab319:
+                            // a bit_select or multi-dimension select that IS
+                            // the actual binds every reference in its
+                            // indices but the leftmost leaf (each index's
+                            // own for a multi-dimension select) and a cast's
+                            // leaf to the parent definition's net (golden
+                            // r11u319repro SB/m01_bitsel_const_plus_ref
+                            // `.d(ck[1+s])`, m06 `ck[~s]`, m14
+                            // `ck[a ? s : t]`, m03 `ck[$unsigned(s)]`, VS/m09
+                            // `m[$signed(s)][1]`).  Binding only: the names
+                            // are the ones the select's own writers give.
+                            // Switch R11U319_MODSELWHOLELEAF_OFF.
+                            if (h->UhdmType() == UHDM::uhdmbit_select ||
+                                h->UhdmType() == UHDM::uhdmvar_select) {
+                                std::function<void(UHDM::any*)> bind319 =
+                                    [&](UHDM::any* n319) {
+                                        if (!n319)
+                                            return;
+                                        switch (n319->UhdmType()) {
+                                        case UHDM::uhdmoperation:
+                                            if (auto* os319 =
+                                                    ((UHDM::operation*)n319)->Operands())
+                                                for (auto* o319 : *os319)
+                                                    bind319(o319);
+                                            return;
+                                        case UHDM::uhdmsys_func_call:
+                                            if (auto* as319 = ((UHDM::sys_func_call*)n319)
+                                                                  ->Tf_call_args())
+                                                for (auto* a319 : *as319)
+                                                    bind319(a319);
+                                            return;
+                                        case UHDM::uhdmbit_select:
+                                            bind319(((UHDM::bit_select*)n319)->VpiIndex());
+                                            return;
+                                        case UHDM::uhdmindexed_part_select:
+                                            bind319(((UHDM::indexed_part_select*)n319)
+                                                        ->Base_expr());
+                                            return;
+                                        case UHDM::uhdmvar_select:
+                                            if (n319 != leafVs317 || perIdx319)
+                                                if (auto* es319 =
+                                                        ((UHDM::var_select*)n319)->Exprs())
+                                                    for (auto* e319 : *es319)
+                                                        bind319(e319);
+                                            return;
+                                        case UHDM::uhdmref_obj: {
+                                            if (n319 == leaf139 || idxLeaf319.count(n319) ||
+                                                isCastLeaf193(n319))
+                                                return;
+                                            auto* r319 = (UHDM::ref_obj*)n319;
+                                            auto ed319 = r319->Actual_group()
+                                                             ? e2d139.find(r319->Actual_group())
+                                                             : e2d139.end();
+                                            if (ed319 == e2d139.end())
+                                                return;
+                                            lawTrace(319, "modConnSelWholeLeafElab319",
+                                                     pfx139 + std::string(r319->VpiName()));
+                                            r319->Actual_group(ed319->second);
+                                            return;
+                                        }
+                                        default:
+                                            return;
+                                        }
+                                    };
+                                bind319(h);
+                            }
+                            else
                             walk139(h);
                         }
                     }
@@ -25288,6 +25478,49 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             modConnIdxNestedNames317(
                                 h, (gen317 ? genConnPrefix : hcPrefix) + "." +
                                        std::string(inst.name) + "." + std::string(ps.name));
+                        // § modConnVarSelWholeNames319 (r11u319) — a
+                        // multi-dimension select that IS a module child's
+                        // actual names everything in its indices through
+                        // it, <port>.<select>.<name>, as its operand twin
+                        // does (golden v11u317repro VF/vf07_mod_2d_top
+                        // `.d(m[s][0])` ref_obj work@top.c.d.m.s, VD/vd20
+                        // `m[1'(s)][0]` ref_typespec work@top.c.d.m;
+                        // r11u319repro VS/m08_vs_gen_ref in a generate block
+                        // work@top.g.c.d.m.s); ours carried the
+                        // instantiating scope's chain (work@top.m.s).  Module
+                        // scope and generate blocks, no bind.  Switch
+                        // R11U319_MODVSWHOLE_OFF.
+                        // A package-qualified select (`mask_pkg::PA[1][0]`)
+                        // stores no full name in golden and stays out
+                        // (r11u118repro/grid/g1/p37_twod_elem_port).
+                        else if (bindPath.empty() &&
+                                 h->UhdmType() == UHDM::uhdmvar_select &&
+                                 std::string(((UHDM::var_select*)h)->VpiName()).find("::") ==
+                                     std::string::npos &&
+                                 // an instance-array element (no name of its
+                                 // own here, GX/x09_inst_array_vs) stays out
+                                 !inst.name.empty() &&
+                                 // and so does a select whose indices are all
+                                 // constants (nothing below it to name: the
+                                 // elaborated generate-loop `data_i[0][j]` of
+                                 // NestedSelectOnVarInGenscope, Rggen and
+                                 // Earlgrey_0_1, where the rewrite of the
+                                 // select's own name moved bytes only)
+                                 [&] {
+                                     if (auto* es = ((UHDM::var_select*)h)->Exprs())
+                                         for (auto* e : *es)
+                                             if (e && e->UhdmType() != UHDM::uhdmconstant)
+                                                 return true;
+                                     return false;
+                                 }() &&
+                                 (gen317 || !genvarConnFold) &&
+                                 lawOn(319, "R11U319_MODVSWHOLE_OFF")) {
+                            const std::string pp319 =
+                                (gen317 ? genConnPrefix : hcPrefix) + "." +
+                                std::string(inst.name) + "." + std::string(ps.name);
+                            lawTrace(319, "modConnVarSelWholeNames319", pp319);
+                            modConnIdxNestedNames317(h, pp319);
+                        }
                         p->High_conn(h);
                     }
                     refCollector = nullptr;
@@ -54757,6 +54990,19 @@ static void genIfaceHcInnerRefUnbound313(
         genIfaceHcInnerRefUnbound313(((UHDM::indexed_part_select*)x)->Base_expr(), where,
                                      local317);
         break;
+    // § genIfaceVarSelUnbound319 (r11u319): the references in a
+    // multi-dimension select's indices stay unbound too (golden r11u319repro
+    // VS/i08_vs_gen_ref `.clk(m[s][1])` in a generate block lists ref_obj
+    // work@top.g.u.clk.m.s with no vpiActual; ours bound the module's net,
+    // uhdm-cmp stage 1).  Switch R11U319_GENIFVSUNBIND_OFF.
+    case UHDM::uhdmvar_select:
+        if (lawOn(319, "R11U319_GENIFVSUNBIND_OFF"))
+            if (auto* es = ((UHDM::var_select*)x)->Exprs()) {
+                lawTrace(319, "genIfaceVarSelUnbound319", where);
+                for (auto* e : *es)
+                    genIfaceHcInnerRefUnbound313(e, where, local317);
+            }
+        break;
     default:
         break;
     }
@@ -54815,6 +55061,19 @@ static void ifaceHcIdxSelByInst317(UHDM::any* x, const std::string& nested,
             for (auto* o : *os)
                 ifaceHcIdxSelByInst317(o, nested, law);
         return;
+    // § sysCallInIdxNamedBySel319 (r11u319): a system call in an index is
+    // walked like an index operation (golden r11u319repro
+    // SC/i15_sys_in_inner_sel `ck[k[$unsigned(t)]] | a`
+    // work@top.u.clk.ck.k.t, VS/i09_vs_sys_idx `m[$signed(s)][1]`
+    // work@top.u.clk.m.s).  Switch R11U319_SYSIDXNAME_OFF.
+    case UHDM::uhdmsys_func_call:
+        if (lawOn(319, "R11U319_SYSIDXNAME_OFF"))
+            if (auto* as = ((UHDM::sys_func_call*)x)->Tf_call_args()) {
+                lawTrace(319, "sysCallInIdxNamedBySel319", "nested " + nested);
+                for (auto* a : *as)
+                    ifaceHcIdxSelByInst317(a, nested, law);
+            }
+        return;
     default:
         return;
     }
@@ -54855,6 +55114,16 @@ static void genSysArgInnerUnbound317(UHDM::any* x, const std::string& where,
     case UHDM::uhdmindexed_part_select:
         genSysArgInnerUnbound317(((UHDM::indexed_part_select*)x)->Base_expr(), where, local,
                                  inArg);
+        return;
+    // § genIfaceVarSelUnbound319: the system calls in a multi-dimension
+    // select's indices too (golden r11u319repro GV/i02_gen_vs_sys_idx
+    // `.clk(m[$signed(s)][1])` in a generate block leaves s unbound).
+    // Switch R11U319_GENIFVSUNBIND_OFF.
+    case UHDM::uhdmvar_select:
+        if (lawOn(319, "R11U319_GENIFVSUNBIND_OFF"))
+            if (auto* es = ((UHDM::var_select*)x)->Exprs())
+                for (auto* e : *es)
+                    genSysArgInnerUnbound317(e, where, local, inArg);
         return;
     default:
         return;
@@ -54900,6 +55169,19 @@ static void ifaceHcSelNamedByInst313(UHDM::any* h, const std::string& inst,
                     for (auto* o : *ops)
                         idx(o, nested, nested);
             }
+            // § sysCallInIdxNamedBySel319 (r11u319): a system call in the
+            // index is walked like an index operation (golden r11u319repro
+            // SC/i04_sys_unsigned_top `.clk(ck[$unsigned(s)])`
+            // work@top.u.ck.s, i14_nested_sys_top).  Switch
+            // R11U319_SYSIDXNAME_OFF.
+            else if (x->UhdmType() == UHDM::uhdmsys_func_call && !nested.empty() &&
+                     lawOn(319, "R11U319_SYSIDXNAME_OFF")) {
+                if (auto* as = ((UHDM::sys_func_call*)x)->Tf_call_args()) {
+                    lawTrace(319, "sysCallInIdxNamedBySel319", "whole " + nested);
+                    for (auto* a : *as)
+                        idx(a, nested, nested);
+                }
+            }
         };
     if (h->UhdmType() == UHDM::uhdmindexed_part_select) {
         auto* ips = (UHDM::indexed_part_select*)h;
@@ -54926,6 +55208,30 @@ static void ifaceHcSelNamedByInst313(UHDM::any* h, const std::string& inst,
                     inst + "." + port + "." +
                         std::string(((UHDM::ref_obj*)pe->back())->VpiName()),
                     "path");
+        return;
+    }
+    // § ifaceHcVarSelWholeByInst319 (r11u319) — a multi-dimension select
+    // that IS the actual keeps its parent chain's name
+    // <instance>.<port>.<name> (as its operand twin of
+    // § ifaceHcVarSelByInst317), and everything written in its indices is
+    // named through it, <select>.<name>, at any depth (golden v11u317repro
+    // VF/vf09_2d_top_iface `.clk(m[s][1])` ref_obj work@top.u.clk.m.s,
+    // r11u319repro VS/i03_vs_two_refs `m[s][t]`, i04_vs_cast_idx
+    // `m[1'(s)][0]`, i06_vs_sel_idx `m[k[0]][1]` bit_select
+    // work@top.u.clk.m.k); ours carried the instantiating scope's chain
+    // (work@top.m.s).  Switch R11U319_IFVSWHOLE_OFF.
+    if (h->UhdmType() == UHDM::uhdmvar_select) {
+        auto* vs = (UHDM::var_select*)h;
+        // a package-qualified select stays out (its twin in
+        // § modConnVarSelWholeNames319)
+        if (!lawOn(319, "R11U319_IFVSWHOLE_OFF") ||
+            std::string(vs->VpiName()).find("::") != std::string::npos)
+            return;
+        const std::string fn = inst + "." + port + "." + std::string(vs->VpiName());
+        lawTrace(319, "ifaceHcVarSelWholeByInst319", fn);
+        if (auto* es = vs->Exprs())
+            for (auto* e : *es)
+                ifaceHcIdxSelByInst317(e, fn, "ifaceHcVarSelWholeByInst319");
         return;
     }
     if (h->UhdmType() != UHDM::uhdmbit_select)
@@ -55031,6 +55337,20 @@ static void ifaceHcOpSelByInst315(UHDM::any* x, const std::string& pre, bool inC
                         else
                             idx(o, nested);
                     }
+            }
+            // § sysCallInIdxNamedBySel319 (r11u319): a system call in the
+            // index names everything below it through the select
+            // (golden r11u319repro SC/i01_signed_cast_op
+            // `ck[signed'(s)] | ck[1]` work@top.u.clk.ck.s, i06
+            // `ck[$signed(s+t)] | a`); the walker stopped at the call.
+            // Switch R11U319_SYSIDXNAME_OFF.
+            else if (i->UhdmType() == UHDM::uhdmsys_func_call &&
+                     lawOn(319, "R11U319_SYSIDXNAME_OFF")) {
+                if (auto* as = ((UHDM::sys_func_call*)i)->Tf_call_args()) {
+                    lawTrace(319, "sysCallInIdxNamedBySel319", "operand " + nested);
+                    for (auto* a : *as)
+                        ifaceHcIdxSelByInst317(a, nested, "sysCallInIdxNamedBySel319");
+                }
             }
         };
     switch (x->UhdmType()) {
@@ -55142,7 +55462,56 @@ static void ifaceConnLeftmostLeafElab315(
         if (c && c->UhdmType() == UHDM::uhdmref_obj)
             leaf = c;
     }
+    // § varSelIdxOwnLeaf319 (r11u319) — a multi-dimension select in the leaf
+    // position does not keep the instance's objects in ALL its indices: each
+    // index has its own leftmost leaf (through left operands, a ternary's
+    // condition and a bit-select's index), which keeps the instance's
+    // object, and every other reference in the select goes to the parent
+    // definition's net (golden r11u319repro SB/i09_vs_second_op_idx
+    // `.clk(m[s][1+t])` binds t to the definition's logic_net and s to the
+    // elaborated one, i11_vs_unary_idx `m[~s][t]` binds s to the
+    // definition's, i10_vs_first_op_idx_operand `m[1+s][t] & a`,
+    // VS/i11_vs_op_sys_idx `m[$signed(s)][1] & a` a call argument);
+    // § ifaceConnLeafVarSel317 kept them all (its grid x14 `m[1][s] | a` and
+    // x17 `m[s][t] & a` have only leaves).  Switch R11U319_VSIDXLEAF_OFF.
+    std::set<const UHDM::any*> idxLeaf319;
+    const bool perIdx319 = leafVs317 && lawOn(319, "R11U319_VSIDXLEAF_OFF");
+    // § vsIdxLeafThroughInnerVs319v (v11u319): a multi-dimension select met on
+    // an index's leftmost chain is in the leaf position too, each of its
+    // indices having its own leaf (golden v11u319repro VD/vd02_i_vs_in_vs_two
+    // `.clk(m[m[s][t]][1])` keeps s and t on the elaborated nets, vd03
+    // `m[m[1+s][t]][1]` t, vd13 `m[m[a ? s : t][0]][1]` a; the law bound them
+    // to the definition's, which pristine had right).  Switch
+    // R11V319_INNERVSLEAF_OFF.
+    const bool innerVs319v = fixOn(319, "R11V319_INNERVSLEAF_OFF");
+    std::function<void(const UHDM::any*)> leafOf319 = [&](const UHDM::any* c) {
+        while (c && (c->UhdmType() == UHDM::uhdmoperation ||
+                     c->UhdmType() == UHDM::uhdmbit_select)) {
+            if (c->UhdmType() == UHDM::uhdmbit_select) {
+                c = ((const UHDM::bit_select*)c)->VpiIndex();
+                continue;
+            }
+            auto* op = (const UHDM::operation*)c;
+            if (!binLike(op->VpiOpType()) || !op->Operands() || op->Operands()->empty())
+                break;
+            c = (*op->Operands())[0];
+        }
+        if (c && c->UhdmType() == UHDM::uhdmref_obj)
+            idxLeaf319.insert(c);
+        else if (c && innerVs319v && c->UhdmType() == UHDM::uhdmvar_select)
+            if (auto* ies = ((const UHDM::var_select*)c)->Exprs()) {
+                lawTrace(319, "vsIdxLeafThroughInnerVs319v",
+                         where + " " + std::string(((const UHDM::var_select*)c)->VpiName()));
+                for (const UHDM::any* i : *ies)
+                    leafOf319(i);
+            }
+    };
+    if (perIdx319)
+        if (auto* es = ((const UHDM::var_select*)leafVs317)->Exprs())
+            for (const UHDM::any* c : *es)
+                leafOf319(c);
     bool inVs317 = false;
+    bool inLeafVs319 = false;
     std::function<void(UHDM::any*)> walk = [&](UHDM::any* n) {
         if (!n)
             return;
@@ -55170,17 +55539,19 @@ static void ifaceConnLeftmostLeafElab315(
             // binds s to the parent definition's logic_net, a call argument
             // having no leaf); pass 315's walker never entered a
             // var_select.  Switch R11U317_VARSELLEAF_OFF.
-            if (n != leafVs317 && lawOn(317, "R11U317_VARSELLEAF_OFF"))
+            if ((n != leafVs317 || perIdx319) && lawOn(317, "R11U317_VARSELLEAF_OFF"))
                 if (auto* es = ((UHDM::var_select*)n)->Exprs()) {
-                    bool was = inVs317;
+                    bool was = inVs317, wasL = inLeafVs319;
                     inVs317 = true;
+                    inLeafVs319 = n == leafVs317;
                     for (auto* e : *es)
                         walk(e);
                     inVs317 = was;
+                    inLeafVs319 = wasL;
                 }
             return;
         case UHDM::uhdmref_obj: {
-            if (n == leaf)
+            if (n == leaf || idxLeaf319.count(n))
                 return;
             // a cast's leaf (§ castOperandLeafElab193's rule: through left
             // operands, ternary conditions and select indices of the cast's
@@ -55192,6 +55563,13 @@ static void ifaceConnLeftmostLeafElab315(
             auto it = r->Actual_group() ? e2d.find(r->Actual_group()) : e2d.end();
             if (it == e2d.end())
                 return;
+            if (inLeafVs319)
+                lawTrace(319, "varSelIdxOwnLeaf319", where + " " + std::string(r->VpiName()));
+            else if (h->UhdmType() == UHDM::uhdmbit_select ||
+                     h->UhdmType() == UHDM::uhdmvar_select)
+                lawTrace(319, "ifaceConnSelWholeLeafElab319",
+                         where + " " + std::string(r->VpiName()));
+            else
             lawTrace(inVs317 ? 317 : 315,
                      inVs317 ? "ifaceConnLeafVarSel317" : "ifaceConnLeftmostLeafElab315",
                      where + " " + std::string(r->VpiName()));
@@ -59478,10 +59856,25 @@ ifaceProcsDone283:
                     // § genIfaceHcInnerRefUnbound313 unbinds them); a
                     // udp-shaped instantiation stands aside.  Switch
                     // R11U315_IFLEAFDEF_OFF.
+                    // § ifaceConnSelWholeLeafElab319 (r11u319) — the rule
+                    // reaches a select that IS the actual: a bit_select's
+                    // index and a multi-dimension select's indices have
+                    // their leftmost leaf like an operation's operand, and
+                    // every other reference binds the parent definition's
+                    // net (golden r11u319repro SB/i01_bitsel_const_plus_ref
+                    // `.clk(ck[1+s])`, i02 `ck[t+s]` for s, i06 `ck[~s]`,
+                    // i14 `ck[a ? s : t]` for s and t, SC/i04
+                    // `ck[$unsigned(s)]` a call argument; `ck[s]` and
+                    // `ck[signed'(s)]` keep the elaborated object, a leaf
+                    // and a cast's leaf).  Default view only.  Switch
+                    // R11U319_IFSELWHOLELEAF_OFF.
                     if (!gen313 && parentNets && !udpShapedInstantiation(inst) &&
                         (h->UhdmType() == UHDM::uhdmoperation ||
                          h->UhdmType() == UHDM::uhdmsys_func_call ||
-                         h->UhdmType() == UHDM::uhdmindexed_part_select) &&
+                         h->UhdmType() == UHDM::uhdmindexed_part_select ||
+                         ((h->UhdmType() == UHDM::uhdmbit_select ||
+                           h->UhdmType() == UHDM::uhdmvar_select) &&
+                          lawOn(319, "R11U319_IFSELWHOLELEAF_OFF"))) &&
                         lawOn(315, "R11U315_IFLEAFDEF_OFF"))
                         if (auto* ps315 = inst.getParentScope();
                             ps315 && ps315->asSymbol().kind == SymbolKind::InstanceBody)
@@ -61142,6 +61535,136 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             // work@top.g.u.clk.ck.s); ours one ref_obj named
                             // `2'(s)`, a uhdm-cmp stage-1 difference.  Switch
                             // R11U317_DEFGENCASTIDX_OFF.
+                            // § defGenSysInIdxLeaf319 (r11u319) — a system
+                            // call `$name(arg)` written as (or in) the index is
+                            // a sys_func_call spanning its name, and a signing
+                            // cast `signed'(arg)` / `unsigned'(arg)` a
+                            // sys_func_call `$signed` / `$unsigned` spanning
+                            // the whole cast (another call spans the whole
+                            // call, § sysSignNameSpanSyntax172's rule), its
+                            // one argument built by the
+                            // same builder in the same scope (golden
+                            // r11u319repro SC/i08_sys_gen_op
+                            // `.clk(ck[$signed(s)] | a)` in a generate block:
+                            // sys_func_call $signed at 7:20..7:27, ref_obj
+                            // work@top.g.u.clk.ck.s at 7:28..7:29;
+                            // i17_gen_signed_cast_top `ck[signed'(s)]`
+                            // $signed at 7:20..7:30, work@top.g.u.ck.s;
+                            // m13_gen_sys_top); ours one ref_obj named
+                            // `$signed(s)`, a uhdm-cmp stage-1 difference.
+                            // One argument only.  Switch
+                            // R11U319_DEFGENSYSIDX_OFF.
+                            // § defGenModParenStrip319v (v11u319): a
+                            // parenthesised index holding `%` is the
+                            // operation inside the parentheses, located
+                            // without them (golden v11u319repro
+                            // VG/vg03_mod_paren `ck[(s % 2)]` operation
+                            // vpiModOp at 7:21..7:26 over ref_obj s and
+                            // constant 2; the law split the text at `%` into
+                            // ref_objs named `(s` and `2)`).  Only where
+                            // § defGenIdxModPowOp319 reaches.  Switch
+                            // R11V319_MODPAREN_OFF.
+                            if (tx9.size() > 2 && tx9.front() == '(' && tx9.back() == ')' &&
+                                lawOn(319, "R11U319_DEFGENMODPOW_OFF") &&
+                                fixOn(319, "R11V319_MODPAREN_OFF")) {
+                                int d319v = 0;
+                                bool whole319v = false;
+                                for (size_t i = 0; i < tx9.size(); ++i) {
+                                    if (tx9[i] == '(')
+                                        ++d319v;
+                                    else if (tx9[i] == ')' && --d319v == 0) {
+                                        whole319v = i + 1 == tx9.size();
+                                        break;
+                                    }
+                                }
+                                const std::string in319v = tx9.substr(1, tx9.size() - 2);
+                                if (whole319v && in319v.find('%') != std::string::npos) {
+                                    auto [t319v, o319v] = trimI9(in319v, 1);
+                                    if (!t319v.empty()) {
+                                        lawTrace(319, "defGenModParenStrip319v", scope9 + " " + tx9);
+                                        return mkIdxTx9(t319v, st09 + o319v, par9, scope9);
+                                    }
+                                }
+                            }
+                            if (tx9.size() > 3 && tx9.back() == ')' &&
+                                lawOn(319, "R11U319_DEFGENSYSIDX_OFF")) {
+                                std::string nm319;
+                                size_t ap319 = std::string::npos;
+                                bool whole319 = false;
+                                if (tx9[0] == '$') {
+                                    size_t q = 1;
+                                    while (q < tx9.size() &&
+                                           (std::isalnum((unsigned char)tx9[q]) ||
+                                            tx9[q] == '_'))
+                                        ++q;
+                                    if (q > 1 && q < tx9.size() && tx9[q] == '(') {
+                                        nm319 = tx9.substr(0, q);
+                                        ap319 = q;
+                                    }
+                                }
+                                else if (tx9.rfind("signed'(", 0) == 0) {
+                                    nm319 = "$signed";
+                                    ap319 = 7;
+                                    whole319 = true;
+                                }
+                                else if (tx9.rfind("unsigned'(", 0) == 0) {
+                                    nm319 = "$unsigned";
+                                    ap319 = 9;
+                                    whole319 = true;
+                                }
+                                bool ok319 = ap319 != std::string::npos;
+                                if (ok319) {
+                                    int d319 = 0;
+                                    for (size_t i = ap319; i < tx9.size(); ++i) {
+                                        char ch = tx9[i];
+                                        if (ch == '(' || ch == '[' || ch == '{')
+                                            ++d319;
+                                        else if (ch == ')' || ch == ']' || ch == '}') {
+                                            if (--d319 == 0) {
+                                                ok319 = i + 1 == tx9.size();
+                                                break;
+                                            }
+                                        }
+                                        else if (ch == ',' && d319 == 1) {
+                                            ok319 = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                std::string in319;
+                                size_t io319 = 0;
+                                if (ok319) {
+                                    auto t = trimI9(
+                                        tx9.substr(ap319 + 1, tx9.size() - ap319 - 2),
+                                        ap319 + 1);
+                                    in319 = t.first;
+                                    io319 = t.second;
+                                    ok319 = !in319.empty();
+                                }
+                                if (ok319) {
+                                    auto* c319 = s.MakeSys_func_call();
+                                    c319->VpiName(nm319);
+                                    c319->VpiParent(par9);
+                                    // $signed / $unsigned keep the name
+                                    // span (§ sysSignNameSpanSyntax172's
+                                    // rule), every other call the whole
+                                    // call (v11u317repro VB/vb11
+                                    // `ck[$bits(s)]` 7:20..7:28)
+                                    if (!whole319 && nm319 != "$signed" &&
+                                        nm319 != "$unsigned")
+                                        whole319 = true;
+                                    setLoc(c319, SourceRange(st09, st09 + (whole319
+                                                                               ? tx9.size()
+                                                                               : ap319)));
+                                    auto* av319 = s.MakeAnyVec();
+                                    av319->push_back(
+                                        mkIdxTx9(in319, st09 + io319, c319, scope9));
+                                    c319->Tf_call_args(av319);
+                                    lawTrace(319, "defGenSysInIdxLeaf319",
+                                             scope9 + " " + nm319);
+                                    return c319;
+                                }
+                            }
                             if (castIdx317 && tx9.size() > 4 && tx9.back() == ')') {
                                 size_t q317 = 0;
                                 while (q317 < tx9.size() &&
@@ -61262,6 +61785,77 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                     return bs317;
                                 }
                             }
+                            // § defGenIdxModPowOp319: `**` before the
+                            // single-character operators.
+                            if (auto pw319 = tx9.find("**", 1);
+                                pw319 != std::string::npos &&
+                                std::count(tx9.begin(), tx9.end(), '*') == 2 &&
+                                tx9.find_first_of("+-/%") == std::string::npos &&
+                                lawOn(319, "R11U319_DEFGENMODPOW_OFF")) {
+                                auto* op319 = s.MakeOperation();
+                                op319->VpiOpType(vpiPowerOp);
+                                op319->VpiParent(par9);
+                                setLoc(op319, SourceRange(st09, st09 + tx9.size()));
+                                auto [l319, lo319] = trimI9(tx9.substr(0, pw319), 0);
+                                auto [r319, ro319] = trimI9(tx9.substr(pw319 + 2), pw319 + 2);
+                                auto* ov319 = s.MakeAnyVec();
+                                ov319->push_back(mkIdxTx9(l319, st09 + lo319, op319, scope9));
+                                ov319->push_back(mkIdxTx9(r319, st09 + ro319, op319, scope9));
+                                op319->Operands(ov319);
+                                lawTrace(319, "defGenIdxModPowOp319", scope9 + " " + tx9);
+                                return op319;
+                            }
+                            // § defGenModLeftAssoc319v (v11u319): `%`
+                            // shares `*` and `/`'s precedence and groups to
+                            // the left, so with `%` in a chain of them the
+                            // LAST one is the top operation (golden
+                            // v11u319repro VG/vg06_mult_mod `ck[s * 2 % 3]`
+                            // operation vpiModOp over vpiMultOp(s, 2) and 3;
+                            // the law's split at the first `*` gave
+                            // vpiMultOp(s, vpiModOp(2, 3)), farther from
+                            // golden than pristine's one ref_obj `2 % 3`).
+                            // A `**` is not a `*`.  Switch
+                            // R11V319_MODASSOC_OFF.
+                            if (tx9.find('%', 1) != std::string::npos &&
+                                tx9.find_first_of("+-", 1) == std::string::npos &&
+                                lawOn(319, "R11U319_DEFGENMODPOW_OFF") &&
+                                fixOn(319, "R11V319_MODASSOC_OFF")) {
+                                size_t last319v = std::string::npos;
+                                int n319v = 0;
+                                bool pow319v = false;
+                                for (size_t i = 1; i < tx9.size(); ++i) {
+                                    char ch = tx9[i];
+                                    if (ch == '*' && i + 1 < tx9.size() && tx9[i + 1] == '*') {
+                                        pow319v = true;
+                                        ++i;
+                                        continue;
+                                    }
+                                    if (ch == '*' || ch == '/' || ch == '%') {
+                                        last319v = i;
+                                        ++n319v;
+                                    }
+                                }
+                                if (last319v != std::string::npos && (n319v > 1 || pow319v)) {
+                                    const char c319v = tx9[last319v];
+                                    auto* op319v = s.MakeOperation();
+                                    op319v->VpiOpType(c319v == '%'   ? vpiModOp
+                                                      : c319v == '*' ? vpiMultOp
+                                                                     : vpiDivOp);
+                                    op319v->VpiParent(par9);
+                                    setLoc(op319v, SourceRange(st09, st09 + tx9.size()));
+                                    auto [l319v, lo319v] = trimI9(tx9.substr(0, last319v), 0);
+                                    auto [r319v, ro319v] =
+                                        trimI9(tx9.substr(last319v + 1), last319v + 1);
+                                    auto* ov319v = s.MakeAnyVec();
+                                    ov319v->push_back(
+                                        mkIdxTx9(l319v, st09 + lo319v, op319v, scope9));
+                                    ov319v->push_back(
+                                        mkIdxTx9(r319v, st09 + ro319v, op319v, scope9));
+                                    op319v->Operands(ov319v);
+                                    lawTrace(319, "defGenModLeftAssoc319v", scope9 + " " + tx9);
+                                    return op319v;
+                                }
+                            }
                             for (auto& k9 : kIdxOps9) {
                                 auto pos9 = tx9.find(k9.c, 1);
                                 if (pos9 == std::string::npos)
@@ -61281,6 +61875,34 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                     mkIdxTx9(r9, st09 + ro9, op9, scope9));
                                 op9->Operands(ov9);
                                 return op9;
+                            }
+                            // § defGenIdxModPowOp319 (r11u319) — `%` and
+                            // `**` in the index are operations like the four
+                            // operators kIdxOps9 lists (vpiModOp, vpiPowerOp;
+                            // golden r11u177verify X/x03_hc_index_gen_param
+                            // `v[P % 4]` in a for-generate, r10rgg14repro
+                            // cells/pc4 `arr[i % 3]` and `arr[2 ** i]`,
+                            // r11u319repro GV/i12_gen_modop_operand); ours
+                            // wrote one ref_obj named `P % 4`, or split `**`
+                            // at its first `*`.  `**` only alone with no
+                            // other operator, `%` only where no `- + * /`
+                            // matched first.  Switch
+                            // R11U319_DEFGENMODPOW_OFF.
+                            if (auto pm319 = tx9.find('%', 1);
+                                pm319 != std::string::npos &&
+                                lawOn(319, "R11U319_DEFGENMODPOW_OFF")) {
+                                auto* op319 = s.MakeOperation();
+                                op319->VpiOpType(vpiModOp);
+                                op319->VpiParent(par9);
+                                setLoc(op319, SourceRange(st09, st09 + tx9.size()));
+                                auto [l319, lo319] = trimI9(tx9.substr(0, pm319), 0);
+                                auto [r319, ro319] = trimI9(tx9.substr(pm319 + 1), pm319 + 1);
+                                auto* ov319 = s.MakeAnyVec();
+                                ov319->push_back(mkIdxTx9(l319, st09 + lo319, op319, scope9));
+                                ov319->push_back(mkIdxTx9(r319, st09 + ro319, op319, scope9));
+                                op319->Operands(ov319);
+                                lawTrace(319, "defGenIdxModPowOp319", scope9 + " " + tx9);
+                                return op319;
                             }
                             if (!tx9.empty() &&
                                 tx9.find_first_not_of("0123456789") ==
@@ -61349,6 +61971,37 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 tx9.substr(lbo9 + 1, tx9.size() - lbo9 - 2);
                             auto idxSt9 =
                                 oe9.sourceRange().start() + (lbo9 + 1);
+                            // § defGenSelIdxCallTrim319 (r11u319) — blanks
+                            // around an index that is a system call or a
+                            // cast are not part of it: the select and the
+                            // call sit at the trimmed text (golden
+                            // r11u319repro GV/m10_gen_bitsel_sys_spaces
+                            // `ck[ $signed( s ) ] | a` bit_select at
+                            // 7:21..7:33, $signed at 7:21..7:28; v11u317repro
+                            // VH/vh06 `ck[ 2'(s) ]`); ours spanned the
+                            // blanks and the builder read a ref_obj named
+                            // ` $signed( s ) `.  Switch
+                            // R11U319_DEFGENIDXTRIM_OFF.
+                            {
+                                size_t b319 = idx9.find_first_not_of(" \t");
+                                size_t e319 = idx9.find_last_not_of(" \t");
+                                if (b319 != std::string::npos &&
+                                    (b319 > 0 || e319 + 1 < idx9.size())) {
+                                    std::string t319 = idx9.substr(b319, e319 - b319 + 1);
+                                    bool call319 =
+                                        t319.back() == ')' &&
+                                        (t319[0] == '$' || t319.rfind("signed'(", 0) == 0 ||
+                                         t319.rfind("unsigned'(", 0) == 0 ||
+                                         (std::isdigit((unsigned char)t319[0]) &&
+                                          t319.find("'(") != std::string::npos));
+                                    if (call319 && lawOn(319, "R11U319_DEFGENIDXTRIM_OFF")) {
+                                        lawTrace(319, "defGenSelIdxCallTrim319",
+                                                 scope9 + "." + t319);
+                                        idx9 = t319;
+                                        idxSt9 = idxSt9 + b319;
+                                    }
+                                }
+                            }
                             auto* bs9 = s.MakeBit_select();
                             bs9->VpiParent(par9);
                             bs9->VpiName(base9);
@@ -61815,6 +62468,31 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                                        ixStart + tx9.size()));
                                     ixv->push_back(c9);
                                 }
+                                // § defGenVarSelIdxExpr319 (r11u319) — an
+                                // index that is not a plain name (a cast, a
+                                // system call, an operation, a nested select)
+                                // is built by the index builder through the
+                                // select; a nested select (the bracket groups
+                                // are split on the first `]`) and an indexed
+                                // part select `o -: 4` (v11u287repro
+                                // VD/vd06_port_conn) stay out
+                                // (golden r11u319repro
+                                // VS/i13_vs_gen_cast `.clk(m[1'(s)][0])` in a
+                                // generate block: operation 67 at 7:19..7:24,
+                                // ref_typespec work@top.g.u.clk.m, ref_obj
+                                // work@top.g.u.clk.m.s); ours one ref_obj
+                                // named `1'(s)`, a uhdm-cmp stage-1
+                                // difference.  Switch R11U319_DEFGENVSIDX_OFF.
+                                else if (tx9.find_first_of("+-*/'()$") !=
+                                             std::string::npos &&
+                                         tx9.find_first_of("[]:") == std::string::npos &&
+                                         std::count(tx9.begin(), tx9.end(), '(') ==
+                                             std::count(tx9.begin(), tx9.end(), ')') &&
+                                         lawOn(319, "R11U319_DEFGENVSIDX_OFF")) {
+                                    lawTrace(319, "defGenVarSelIdxExpr319",
+                                             vsFull + " " + tx9);
+                                    ixv->push_back(mkIdxTx9(tx9, ixStart, vs, vsFull));
+                                }
                                 else {
                                     auto* r9 = s.MakeRef_obj();
                                     r9->VpiName(tx9);
@@ -62113,7 +62791,10 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             // the base.  A PLAIN identifier index keeps the
                             // measured baseless form.
                             else if (idxT.find_first_of("+-*/") !=
-                                     std::string::npos) {
+                                         std::string::npos ||
+                                     // § defGenIdxModPowOp319 (X/x03 `v[P % 4]`)
+                                     (idxT.find('%') != std::string::npos &&
+                                      lawOn(319, "R11U319_DEFGENMODPOW_OFF"))) {
                                 bs->VpiIndex(mkIdxTx9(
                                     idxT, idxStart, bs,
                                     branchPrefix + "." + iname + "." + base2));
@@ -62129,7 +62810,14 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                      // § defGenCastInIdxLeaf317 (CK/k09)
                                      (castIdx317 && idxT.back() == ')' &&
                                       idxT.find("'(") != std::string::npos &&
-                                      std::isdigit((unsigned char)idxT[0]))) {
+                                      std::isdigit((unsigned char)idxT[0])) ||
+                                     // § defGenSysInIdxLeaf319
+                                     // (SC/m13_gen_sys_top `ck[$unsigned(s)]`,
+                                     // i17 `ck[signed'(s)]`)
+                                     (idxT.back() == ')' &&
+                                      (idxT[0] == '$' || idxT.rfind("signed'(", 0) == 0 ||
+                                       idxT.rfind("unsigned'(", 0) == 0) &&
+                                      lawOn(319, "R11U319_DEFGENSYSIDX_OFF"))) {
                                 bs->VpiIndex(mkIdxTx9(
                                     idxT, idxStart, bs,
                                     branchPrefix + "." + iname + "." + base2));

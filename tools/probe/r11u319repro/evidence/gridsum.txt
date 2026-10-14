@@ -1,0 +1,407 @@
+GV/i01_gen_vs_op_idx                             P=NOT_EQUAL_stage1(54) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=IFVSWHOLE,GENIFVSUNBIND,DEFGENVSIDX
+GV/i01_gen_vs_op_idx_el                          P=NOT_EQUAL_stage1(54) L=STRICT_EQUAL_224_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=IFVSWHOLE,DEFGENVSIDX
+GV/i02_gen_vs_sys_idx                            P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,IFVSWHOLE,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX
+GV/i02_gen_vs_sys_idx_el                         P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_222_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,IFVSWHOLE,DEFGENSYSIDX,DEFGENVSIDX
+GV/i03_gen_vs_signed_cast                        P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,IFVSWHOLE,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX
+GV/i03_gen_vs_signed_cast_el                     P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_223_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,IFVSWHOLE,DEFGENSYSIDX,DEFGENVSIDX
+GV/i04_gen_vs_nested_sel_ctl                     P=NOT_EQUAL_stage1(44) L=NOT_EQUAL_stage1(44) OFF==P=True rc=0/0 MOVE restore=- effect=IFVSWHOLE,GENIFVSUNBIND
+GV/i04_gen_vs_nested_sel_ctl_el                  P=NOT_EQUAL_stage1(44) L=NOT_EQUAL_stage1(44) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+GV/i05_gen_vs_ref_ctl                            P=NOT_EQUAL_stage1(31) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=IFVSWHOLE,GENIFVSUNBIND
+GV/i05_gen_vs_ref_ctl_el                         P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_220_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+GV/i06_gen_bitsel_sys_plus                       P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GV/i06_gen_bitsel_sys_plus_el                    P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_225_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GV/i07_gen_bitsel_bits                           P=NOT_EQUAL_stage1(38) L=STRICT_NOTEQUAL_endcol(0) OFF==P=True rc=0/0 MOVE restore=DEFGENSYSIDX effect=DEFGENSYSIDX
+GV/i07_gen_bitsel_bits_el                        P=NOT_EQUAL_stage1(38) L=STRICT_NOTEQUAL_endcol(0) OFF==P=True rc=0/0 MOVE restore=DEFGENSYSIDX effect=DEFGENSYSIDX
+GV/i08_gen_bitsel_unsigned_cast_op               P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GV/i08_gen_bitsel_unsigned_cast_op_el            P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_226_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GV/i09_gen_bitsel_nested_sys                     P=NOT_EQUAL_stage1(48) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GV/i09_gen_bitsel_nested_sys_el                  P=NOT_EQUAL_stage1(48) L=STRICT_EQUAL_223_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GV/i10_gen_bitsel_sys_spaces                     P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX,DEFGENIDXTRIM
+GV/i10_gen_bitsel_sys_spaces_el                  P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_226_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX,DEFGENIDXTRIM
+GV/i11_gen_bitsel_sys_two_args_ctl               P=NOT_EQUAL_stage1(54) L=NOT_EQUAL_stage1(54) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+GV/i11_gen_bitsel_sys_two_args_ctl_el            P=NOT_EQUAL_stage1(54) L=NOT_EQUAL_stage1(54) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+GV/i12_gen_modop_operand                         P=NOT_EQUAL_stage1(54) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=DEFGENMODPOW effect=DEFGENMODPOW
+GV/i12_gen_modop_operand_el                      P=NOT_EQUAL_stage1(54) L=STRICT_EQUAL_228_objects(0) OFF==P=True rc=0/0 MOVE restore=DEFGENMODPOW effect=DEFGENMODPOW
+GV/i13_gen_modop_top                             P=NOT_EQUAL_stage1(54) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=DEFGENMODPOW effect=DEFGENMODPOW
+GV/i13_gen_modop_top_el                          P=NOT_EQUAL_stage1(54) L=STRICT_EQUAL_222_objects(0) OFF==P=True rc=0/0 MOVE restore=DEFGENMODPOW effect=DEFGENMODPOW
+GV/i14_gen_pow_operand                           P=NOT_EQUAL_stage1(80) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=DEFGENMODPOW effect=DEFGENMODPOW
+GV/i14_gen_pow_operand_el                        P=NOT_EQUAL_stage1(80) L=STRICT_EQUAL_228_objects(0) OFF==P=True rc=0/0 MOVE restore=DEFGENMODPOW effect=DEFGENMODPOW
+GV/m01_gen_vs_op_idx                             P=NOT_EQUAL_stage1(54) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=MODVSWHOLE,DEFGENVSIDX
+GV/m01_gen_vs_op_idx_el                          P=NOT_EQUAL_stage1(54) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=MODVSWHOLE,DEFGENVSIDX
+GV/m02_gen_vs_sys_idx                            P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODVSWHOLE,DEFGENSYSIDX,DEFGENVSIDX
+GV/m02_gen_vs_sys_idx_el                         P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_204_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODVSWHOLE,DEFGENSYSIDX,DEFGENVSIDX
+GV/m03_gen_vs_signed_cast                        P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODVSWHOLE,DEFGENSYSIDX,DEFGENVSIDX
+GV/m03_gen_vs_signed_cast_el                     P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_204_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODVSWHOLE,DEFGENSYSIDX,DEFGENVSIDX
+GV/m04_gen_vs_nested_sel_ctl                     P=NOT_EQUAL_stage1(44) L=NOT_EQUAL_stage1(44) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+GV/m04_gen_vs_nested_sel_ctl_el                  P=NOT_EQUAL_stage1(44) L=NOT_EQUAL_stage1(44) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+GV/m05_gen_vs_ref_ctl                            P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_204_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+GV/m05_gen_vs_ref_ctl_el                         P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_202_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+GV/m06_gen_bitsel_sys_plus                       P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GV/m06_gen_bitsel_sys_plus_el                    P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GV/m07_gen_bitsel_bits                           P=NOT_EQUAL_stage1(38) L=STRICT_NOTEQUAL_endcol(0) OFF==P=True rc=0/0 MOVE restore=DEFGENSYSIDX effect=DEFGENSYSIDX
+GV/m07_gen_bitsel_bits_el                        P=NOT_EQUAL_stage1(38) L=STRICT_NOTEQUAL_endcol(0) OFF==P=True rc=0/0 MOVE restore=DEFGENSYSIDX effect=DEFGENSYSIDX
+GV/m08_gen_bitsel_unsigned_cast_op               P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GV/m08_gen_bitsel_unsigned_cast_op_el            P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GV/m09_gen_bitsel_nested_sys                     P=NOT_EQUAL_stage1(48) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GV/m09_gen_bitsel_nested_sys_el                  P=NOT_EQUAL_stage1(48) L=STRICT_EQUAL_204_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GV/m10_gen_bitsel_sys_spaces                     P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX,DEFGENIDXTRIM
+GV/m10_gen_bitsel_sys_spaces_el                  P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX,DEFGENIDXTRIM
+GV/m11_gen_bitsel_sys_two_args_ctl               P=NOT_EQUAL_stage1(54) L=NOT_EQUAL_stage1(54) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+GV/m11_gen_bitsel_sys_two_args_ctl_el            P=NOT_EQUAL_stage1(54) L=NOT_EQUAL_stage1(54) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+GV/m12_gen_modop_operand                         P=NOT_EQUAL_stage1(54) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=DEFGENMODPOW,MODIDXOP
+GV/m12_gen_modop_operand_el                      P=NOT_EQUAL_stage1(54) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=DEFGENMODPOW,MODIDXOP
+GV/m13_gen_modop_top                             P=NOT_EQUAL_stage1(54) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=DEFGENMODPOW effect=DEFGENMODPOW
+GV/m13_gen_modop_top_el                          P=NOT_EQUAL_stage1(54) L=STRICT_EQUAL_204_objects(0) OFF==P=True rc=0/0 MOVE restore=DEFGENMODPOW effect=DEFGENMODPOW
+GV/m14_forgen_modop_param                        P=NOT_EQUAL_stage1(54) L=NOT_EQUAL_stage1(36) OFF==P=True rc=0/0 MOVE restore=DEFGENMODPOW effect=DEFGENMODPOW
+GV/m14_forgen_modop_param_el                     P=NOT_EQUAL_stage1(54) L=NOT_EQUAL_stage1(36) OFF==P=True rc=0/0 MOVE restore=DEFGENMODPOW effect=DEFGENMODPOW
+GV/m15_mod_idx_op_operand                        P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=MODIDXOP effect=MODIDXOP
+GV/m15_mod_idx_op_operand_el                     P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_203_objects(0) OFF==P=True rc=0/0 MOVE restore=MODIDXOP effect=MODIDXOP
+GV/m16_gen_mod_idx_op_operand                    P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=MODIDXOP effect=MODIDXOP
+GV/m16_gen_mod_idx_op_operand_el                 P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=MODIDXOP effect=MODIDXOP
+GV/m17_mod_idx_tern_operand                      P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=MODIDXOP effect=MODIDXOP
+GV/m17_mod_idx_tern_operand_el                   P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_205_objects(0) OFF==P=True rc=0/0 MOVE restore=MODIDXOP effect=MODIDXOP
+GV/m18_mod_ips_opbase_ctl                        P=STRICT_EQUAL_206_objects(0) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+GV/m18_mod_ips_opbase_ctl_el                     P=STRICT_EQUAL_203_objects(0) L=STRICT_EQUAL_203_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+GV/m19_gen_vs_ips_ctl                            P=NOT_EQUAL_stage1(54) L=NOT_EQUAL_stage1(58) OFF==P=True rc=0/0 MOVE restore=- effect=MODVSWHOLE,DEFGENVSIDX
+GV/m19_gen_vs_ips_ctl_el                         P=NOT_EQUAL_stage1(54) L=NOT_EQUAL_stage1(58) OFF==P=True rc=0/0 MOVE restore=- effect=MODVSWHOLE,DEFGENVSIDX
+GX/x01_program_vs_whole                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_167_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+GX/x01_program_vs_whole_el                       P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_165_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+GX/x02_program_sys_idx                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_172_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+GX/x02_program_sys_idx_el                        P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_171_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+GX/x03_forgen_vs_genvar                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_213_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+GX/x03_forgen_vs_genvar_el                       P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+GX/x04_casegen_iface_vs                          P=NOT_EQUAL_stage1(31) L=STRICT_EQUAL_181_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=IFVSWHOLE,GENIFVSUNBIND
+GX/x04_casegen_iface_vs_el                       P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_179_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=IFVSWHOLE,GENIFVSUNBIND
+GX/x05_crlf_vs_whole                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_175_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+GX/x05_crlf_vs_whole_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_174_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+GX/x06_macro_vs_idx                              P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_175_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+GX/x06_macro_vs_idx_el                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_174_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+GX/x07_two_level_mid                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_240_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+GX/x07_two_level_mid_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_238_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+GX/x08_iface_array_vs                            P=NOT_EQUAL_stage1(143) L=NOT_EQUAL_stage1(143) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+GX/x08_iface_array_vs_el                         P=NOT_EQUAL_stage1(143) L=NOT_EQUAL_stage1(143) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+GX/x09_inst_array_vs                             P=NOT_EQUAL_stage1(17) L=NOT_EQUAL_stage1(17) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+GX/x09_inst_array_vs_el                          P=NOT_EQUAL_stage1(17) L=NOT_EQUAL_stage1(17) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+GX/x10_param_idx_vs                              P=NOT_EQUAL_stage1(46) L=NOT_EQUAL_stage1(46) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+GX/x10_param_idx_vs_el                           P=NOT_EQUAL_stage1(50) L=NOT_EQUAL_stage1(50) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+GX/x11_sys_countones_idx                         P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_171_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+GX/x11_sys_countones_idx_el                      P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_167_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+GX/x12_sys_clog2_const_ctl                       P=NOT_EQUAL_stage1(46) L=NOT_EQUAL_stage1(46) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+GX/x12_sys_clog2_const_ctl_el                    P=NOT_EQUAL_stage1(46) L=NOT_EQUAL_stage1(46) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+GX/x13_iface_two_ports_vs                        P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_185_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,IFVSWHOLE,IFSELWHOLELEAF
+GX/x13_iface_two_ports_vs_el                     P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_183_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,IFVSWHOLE
+GX/x14_vs_three_dims                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_153_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+GX/x14_vs_three_dims_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_152_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+GX/x15_vs_unpacked                               P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_115_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+GX/x15_vs_unpacked_el                            P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_113_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+GX/x16_vs_operand_sys_gen                        P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_176_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GX/x16_vs_operand_sys_gen_el                     P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_192_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+GX/x17_bitsel_tern_cond_leaf                     P=STRICT_NOTEQUAL_depth(0) L=STRICT_EQUAL_170_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+GX/x17_bitsel_tern_cond_leaf_el                  P=STRICT_EQUAL_167_objects(0) L=STRICT_EQUAL_167_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+GX/x18_bitsel_nested_bitsel_idx                  P=STRICT_EQUAL_127_objects(0) L=STRICT_EQUAL_127_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+GX/x18_bitsel_nested_bitsel_idx_el               P=STRICT_EQUAL_125_objects(0) L=STRICT_EQUAL_125_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+GX/x19_iface_bitsel_nested_bitsel_idx            P=STRICT_EQUAL_137_objects(0) L=STRICT_EQUAL_137_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+GX/x19_iface_bitsel_nested_bitsel_idx_el         P=STRICT_EQUAL_136_objects(0) L=STRICT_EQUAL_136_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+GX/x20_bitsel_param_plus_ref                     P=NOT_EQUAL_stage1(46) L=NOT_EQUAL_stage1(46) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+GX/x20_bitsel_param_plus_ref_el                  P=NOT_EQUAL_stage1(50) L=NOT_EQUAL_stage1(50) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+GX/x21_inst_array_idx_op_ctl                     P=NOT_EQUAL_stage1(179) L=NOT_EQUAL_stage1(179) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+GX/x21_inst_array_idx_op_ctl_el                  P=NOT_EQUAL_stage1(179) L=NOT_EQUAL_stage1(179) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+GX/x22_inst_array_sys_idx_ctl                    P=NOT_EQUAL_stage1(163) L=NOT_EQUAL_stage1(163) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+GX/x22_inst_array_sys_idx_ctl_el                 P=NOT_EQUAL_stage1(163) L=NOT_EQUAL_stage1(163) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SB/i01_bitsel_const_plus_ref                     P=STRICT_NOTEQUAL_depth(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=IFSELWHOLELEAF effect=IFSELWHOLELEAF
+SB/i01_bitsel_const_plus_ref_el                  P=STRICT_EQUAL_210_objects(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SB/i02_bitsel_two_refs                           P=STRICT_NOTEQUAL_depth(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=IFSELWHOLELEAF effect=IFSELWHOLELEAF
+SB/i02_bitsel_two_refs_el                        P=STRICT_EQUAL_210_objects(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SB/i03_bitsel_sys_ref                            P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,IFSELWHOLELEAF
+SB/i03_bitsel_sys_ref_el                         P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/i04_bitsel_sys_plus                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_214_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,IFSELWHOLELEAF
+SB/i04_bitsel_sys_plus_el                        P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/i05_vs_sys_second                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,IFVSWHOLE,IFSELWHOLELEAF,VSIDXLEAF
+SB/i05_vs_sys_second_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME,IFVSWHOLE effect=SYSIDXNAME,IFVSWHOLE
+SB/i06_bitsel_unary_idx                          P=STRICT_NOTEQUAL_depth(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=IFSELWHOLELEAF effect=IFSELWHOLELEAF
+SB/i06_bitsel_unary_idx_el                       P=STRICT_EQUAL_208_objects(0) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SB/i07_bitsel_signed_cast                        P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_209_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/i07_bitsel_signed_cast_el                     P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/i08_ips_top_sysbase                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/i08_ips_top_sysbase_el                        P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/i09_vs_second_op_idx                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_214_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=IFVSWHOLE,IFSELWHOLELEAF,VSIDXLEAF
+SB/i09_vs_second_op_idx_el                       P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+SB/i10_vs_first_op_idx_operand                   P=STRICT_NOTEQUAL_depth(0) L=STRICT_EQUAL_219_objects(0) OFF==P=True rc=0/0 MOVE restore=VSIDXLEAF effect=VSIDXLEAF
+SB/i10_vs_first_op_idx_operand_el                P=STRICT_EQUAL_216_objects(0) L=STRICT_EQUAL_216_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SB/i11_vs_unary_idx                              P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=IFVSWHOLE,IFSELWHOLELEAF,VSIDXLEAF
+SB/i11_vs_unary_idx_el                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+SB/i12_bitsel_signed_sys                         P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,IFSELWHOLELEAF
+SB/i12_bitsel_signed_sys_el                      P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/i13_bitsel_unsigned_operand                   P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_215_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/i13_bitsel_unsigned_operand_el                P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/i14_bitsel_tern_idx                           P=STRICT_NOTEQUAL_depth(0) L=STRICT_EQUAL_215_objects(0) OFF==P=True rc=0/0 MOVE restore=IFSELWHOLELEAF effect=IFSELWHOLELEAF
+SB/i14_bitsel_tern_idx_el                        P=STRICT_EQUAL_212_objects(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SB/i15_bitsel_right_operand                      P=STRICT_EQUAL_212_objects(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SB/i15_bitsel_right_operand_el                   P=STRICT_EQUAL_210_objects(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SB/i16_bitsel_signed_cast_operand                P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_214_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/i16_bitsel_signed_cast_operand_el             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/m01_bitsel_const_plus_ref                     P=STRICT_NOTEQUAL_depth(0) L=STRICT_EQUAL_202_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+SB/m01_bitsel_const_plus_ref_el                  P=STRICT_EQUAL_199_objects(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+SB/m02_bitsel_two_refs                           P=STRICT_NOTEQUAL_depth(0) L=STRICT_EQUAL_202_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+SB/m02_bitsel_two_refs_el                        P=STRICT_EQUAL_199_objects(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+SB/m03_bitsel_sys_ref                            P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_200_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODSELWHOLELEAF
+SB/m03_bitsel_sys_ref_el                         P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_197_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODSELWHOLELEAF
+SB/m04_bitsel_sys_plus                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_204_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODSELWHOLELEAF
+SB/m04_bitsel_sys_plus_el                        P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_201_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODSELWHOLELEAF
+SB/m05_vs_sys_second                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_202_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+SB/m05_vs_sys_second_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+SB/m06_bitsel_unary_idx                          P=STRICT_NOTEQUAL_depth(0) L=STRICT_EQUAL_200_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+SB/m06_bitsel_unary_idx_el                       P=STRICT_EQUAL_197_objects(0) L=STRICT_EQUAL_197_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+SB/m07_bitsel_signed_cast                        P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/m07_bitsel_signed_cast_el                     P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_197_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/m08_ips_top_sysbase                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_202_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/m08_ips_top_sysbase_el                        P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/m09_vs_second_op_idx                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_204_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+SB/m09_vs_second_op_idx_el                       P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_201_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+SB/m10_vs_first_op_idx_operand                   P=STRICT_NOTEQUAL_depth(0) L=STRICT_EQUAL_209_objects(0) OFF==P=True rc=0/0 MOVE restore=VSIDXLEAF effect=VSIDXLEAF
+SB/m10_vs_first_op_idx_operand_el                P=STRICT_EQUAL_205_objects(0) L=STRICT_EQUAL_205_objects(0) OFF==P=True rc=0/0 MOVE restore=VSIDXLEAF effect=VSIDXLEAF
+SB/m11_vs_unary_idx                              P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_202_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+SB/m11_vs_unary_idx_el                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+SB/m12_bitsel_signed_sys                         P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_200_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODSELWHOLELEAF
+SB/m12_bitsel_signed_sys_el                      P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_197_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODSELWHOLELEAF
+SB/m13_bitsel_unsigned_operand                   P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_205_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/m13_bitsel_unsigned_operand_el                P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_201_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/m14_bitsel_tern_idx                           P=STRICT_NOTEQUAL_depth(0) L=STRICT_EQUAL_205_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+SB/m14_bitsel_tern_idx_el                        P=STRICT_EQUAL_201_objects(0) L=STRICT_EQUAL_201_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+SB/m15_bitsel_right_operand                      P=STRICT_EQUAL_202_objects(0) L=STRICT_EQUAL_202_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SB/m15_bitsel_right_operand_el                   P=STRICT_EQUAL_199_objects(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SB/m16_bitsel_signed_cast_operand                P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_204_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/m16_bitsel_signed_cast_operand_el             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_201_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/m17_bitsel_positional                         P=STRICT_NOTEQUAL_depth(0) L=STRICT_EQUAL_192_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+SB/m17_bitsel_positional_el                      P=STRICT_EQUAL_189_objects(0) L=STRICT_EQUAL_189_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+SB/m18_bitsel_positional_op                      P=STRICT_NOTEQUAL_depth(0) L=STRICT_EQUAL_194_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+SB/m18_bitsel_positional_op_el                   P=STRICT_EQUAL_191_objects(0) L=STRICT_EQUAL_191_objects(0) OFF==P=True rc=0/0 MOVE restore=MODSELWHOLELEAF effect=MODSELWHOLELEAF
+SB/m19_bitsel_positional_cast                    P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_192_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SB/m19_bitsel_positional_cast_el                 P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_190_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i01_signed_cast_op                            P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_215_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i01_signed_cast_op_el                         P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_214_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i02_signed_cast_top                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_209_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i02_signed_cast_top_el                        P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i03_sys_signed_op                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_215_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i03_sys_signed_op_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i04_sys_unsigned_top                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,IFSELWHOLELEAF
+SC/i04_sys_unsigned_top_el                       P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i05_unsigned_cast_op                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_214_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i05_unsigned_cast_op_el                       P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i06_sys_op_arg                                P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_220_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i06_sys_op_arg_el                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_216_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i07_sys_in_idx_op                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_219_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i07_sys_in_idx_op_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_216_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i08_sys_gen_op                                P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+SC/i08_sys_gen_op_el                             P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_226_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+SC/i09_ips_sys_base                              P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_216_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i09_ips_sys_base_el                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_214_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i10_sys_two_args                              P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_219_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i10_sys_two_args_el                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_216_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i11_bitsel_ref_ctl                            P=STRICT_EQUAL_207_objects(0) L=STRICT_EQUAL_207_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SC/i11_bitsel_ref_ctl_el                         P=STRICT_EQUAL_206_objects(0) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SC/i12_bitsel_op_ctl                             P=STRICT_EQUAL_211_objects(0) L=STRICT_EQUAL_211_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SC/i12_bitsel_op_ctl_el                          P=STRICT_EQUAL_210_objects(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SC/i13_gen_sys_top                               P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+SC/i13_gen_sys_top_el                            P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_220_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+SC/i14_nested_sys_top                            P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,IFSELWHOLELEAF
+SC/i14_nested_sys_top_el                         P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i15_sys_in_inner_sel                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_217_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i15_sys_in_inner_sel_el                       P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_214_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i16_cast_sys_mix                              P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_221_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i16_cast_sys_mix_el                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_218_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/i17_gen_signed_cast_top                       P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+SC/i17_gen_signed_cast_top_el                    P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_220_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+SC/m01_signed_cast_op                            P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_205_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m01_signed_cast_op_el                         P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_203_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m02_signed_cast_top                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m02_signed_cast_top_el                        P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_197_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m03_sys_signed_op                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_205_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m03_sys_signed_op_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_201_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m04_sys_unsigned_top                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_200_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODSELWHOLELEAF
+SC/m04_sys_unsigned_top_el                       P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_197_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODSELWHOLELEAF
+SC/m05_unsigned_cast_op                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_204_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m05_unsigned_cast_op_el                       P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_201_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m06_sys_op_arg                                P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m06_sys_op_arg_el                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_205_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m07_sys_in_idx_op                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_209_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m07_sys_in_idx_op_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_205_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m08_sys_gen_op                                P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+SC/m08_sys_gen_op_el                             P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+SC/m09_ips_sys_base                              P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m09_ips_sys_base_el                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_203_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m10_sys_two_args                              P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_209_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m10_sys_two_args_el                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_205_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m11_bitsel_ref_ctl                            P=STRICT_EQUAL_197_objects(0) L=STRICT_EQUAL_197_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SC/m11_bitsel_ref_ctl_el                         P=STRICT_EQUAL_195_objects(0) L=STRICT_EQUAL_195_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SC/m12_bitsel_op_ctl                             P=STRICT_EQUAL_201_objects(0) L=STRICT_EQUAL_201_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SC/m12_bitsel_op_ctl_el                          P=STRICT_EQUAL_199_objects(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+SC/m13_gen_sys_top                               P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_204_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+SC/m13_gen_sys_top_el                            P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_202_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+SC/m14_nested_sys_top                            P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_202_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODSELWHOLELEAF
+SC/m14_nested_sys_top_el                         P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODSELWHOLELEAF
+SC/m15_sys_in_inner_sel                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_207_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m15_sys_in_inner_sel_el                       P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_203_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m16_cast_sys_mix                              P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_211_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m16_cast_sys_mix_el                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_207_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+SC/m17_gen_signed_cast_top                       P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_204_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+SC/m17_gen_signed_cast_top_el                    P=NOT_EQUAL_stage1(38) L=STRICT_EQUAL_202_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,DEFGENSYSIDX
+VS/i01_vs_ref_first                              P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_209_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i01_vs_ref_first_el                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i02_vs_ref_second                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_209_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i02_vs_ref_second_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i03_vs_two_refs                               P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_209_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i03_vs_two_refs_el                            P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i04_vs_cast_idx                               P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_215_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i04_vs_cast_idx_el                            P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_214_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i05_vs_op_idx                                 P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_213_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i05_vs_op_idx_el                              P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i06_vs_sel_idx                                P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_211_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i06_vs_sel_idx_el                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i07_vs_const_ctl                              P=STRICT_EQUAL_209_objects(0) L=STRICT_EQUAL_209_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+VS/i07_vs_const_ctl_el                           P=STRICT_EQUAL_208_objects(0) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+VS/i08_vs_gen_ref                                P=NOT_EQUAL_stage1(31) L=STRICT_EQUAL_206_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=IFVSWHOLE,GENIFVSUNBIND
+VS/i08_vs_gen_ref_el                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_219_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i09_vs_sys_idx                                P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,IFVSWHOLE,IFSELWHOLELEAF,VSIDXLEAF
+VS/i09_vs_sys_idx_el                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME,IFVSWHOLE effect=SYSIDXNAME,IFVSWHOLE
+VS/i10_vs_op_ref_idx                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_213_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i10_vs_op_ref_idx_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i11_vs_op_sys_idx                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_217_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,VSIDXLEAF
+VS/i11_vs_op_sys_idx_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_214_objects(0) OFF==P=True rc=0/0 MOVE restore=SYSIDXNAME effect=SYSIDXNAME
+VS/i12_vs_unary                                  P=STRICT_EQUAL_212_objects(0) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+VS/i12_vs_unary_el                               P=STRICT_EQUAL_210_objects(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+VS/i13_vs_gen_cast                               P=NOT_EQUAL_stage1(52) L=STRICT_EQUAL_212_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=IFVSWHOLE,GENIFVSUNBIND,DEFGENVSIDX
+VS/i13_vs_gen_cast_el                            P=NOT_EQUAL_stage1(52) L=STRICT_EQUAL_228_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=IFVSWHOLE,DEFGENVSIDX
+VS/i14_vs_nested_two                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_211_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i14_vs_nested_two_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i15_vs_positional                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_209_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i15_vs_positional_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=IFVSWHOLE effect=IFVSWHOLE
+VS/i16_vs_pkg_qual_ctl                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+VS/i16_vs_pkg_qual_ctl_el                        P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+VS/m01_vs_ref_first                              P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m01_vs_ref_first_el                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_197_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m02_vs_ref_second                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m02_vs_ref_second_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_197_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m03_vs_two_refs                               P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m03_vs_two_refs_el                            P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_197_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m04_vs_cast_idx                               P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_205_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m04_vs_cast_idx_el                            P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_203_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m05_vs_op_idx                                 P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_203_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m05_vs_op_idx_el                              P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_201_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m06_vs_sel_idx                                P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_201_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m06_vs_sel_idx_el                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m07_vs_const_ctl                              P=STRICT_EQUAL_199_objects(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+VS/m07_vs_const_ctl_el                           P=STRICT_EQUAL_197_objects(0) L=STRICT_EQUAL_197_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+VS/m08_vs_gen_ref                                P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_204_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m08_vs_gen_ref_el                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_202_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m09_vs_sys_idx                                P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_202_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+VS/m09_vs_sys_idx_el                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+VS/m10_vs_op_ref_idx                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_203_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m10_vs_op_ref_idx_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_201_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m11_vs_op_sys_idx                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_207_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,VSIDXLEAF
+VS/m11_vs_op_sys_idx_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_203_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=SYSIDXNAME,VSIDXLEAF
+VS/m12_vs_unary                                  P=STRICT_EQUAL_202_objects(0) L=STRICT_EQUAL_202_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+VS/m12_vs_unary_el                               P=STRICT_EQUAL_199_objects(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+VS/m13_vs_gen_cast                               P=NOT_EQUAL_stage1(52) L=STRICT_EQUAL_210_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=MODVSWHOLE,DEFGENVSIDX
+VS/m13_vs_gen_cast_el                            P=NOT_EQUAL_stage1(52) L=STRICT_EQUAL_208_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=MODVSWHOLE,DEFGENVSIDX
+VS/m14_vs_nested_two                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_201_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m14_vs_nested_two_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_199_objects(0) OFF==P=True rc=0/0 MOVE restore=MODVSWHOLE effect=MODVSWHOLE
+VS/m15_vs_positional                             P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_193_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=MODVSWHOLE,MODSELWHOLELEAF
+VS/m15_vs_positional_el                          P=STRICT_NOTEQUAL_fullname(0) L=STRICT_EQUAL_190_objects(0) OFF==P=True rc=0/0 MOVE restore=- effect=MODVSWHOLE,MODSELWHOLELEAF
+VS/m16_vs_pkg_qual_ctl                           P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+VS/m16_vs_pkg_qual_ctl_el                        P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) OFF==P=True rc=0/0 same restore=SYSIDXNAME,IFVSWHOLE,MODVSWHOLE,IFSELWHOLELEAF,MODSELWHOLELEAF,VSIDXLEAF,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX,DEFGENIDXTRIM,DEFGENMODPOW,MODIDXOP effect=-
+# case-views=312 moving=269 entering=239 leaving=0 uhdmcmp_grow=2 rc_change=0 OFF==P=312
+# restored by one switch alone: SYSIDXNAME 72, IFVSWHOLE 33, MODVSWHOLE 30, MODSELWHOLELEAF 16, DEFGENMODPOW 10, MODIDXOP 6, DEFGENSYSIDX 4, IFSELWHOLELEAF 4, VSIDXLEAF 3
+# needing two or more switches: 91
+#   GV/i01_gen_vs_op_idx: IFVSWHOLE,GENIFVSUNBIND,DEFGENVSIDX
+#   GV/i01_gen_vs_op_idx_el: IFVSWHOLE,DEFGENVSIDX
+#   GV/i02_gen_vs_sys_idx: SYSIDXNAME,IFVSWHOLE,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX
+#   GV/i02_gen_vs_sys_idx_el: SYSIDXNAME,IFVSWHOLE,DEFGENSYSIDX,DEFGENVSIDX
+#   GV/i03_gen_vs_signed_cast: SYSIDXNAME,IFVSWHOLE,GENIFVSUNBIND,DEFGENSYSIDX,DEFGENVSIDX
+#   GV/i03_gen_vs_signed_cast_el: SYSIDXNAME,IFVSWHOLE,DEFGENSYSIDX,DEFGENVSIDX
+#   GV/i04_gen_vs_nested_sel_ctl: IFVSWHOLE,GENIFVSUNBIND
+#   GV/i05_gen_vs_ref_ctl: IFVSWHOLE,GENIFVSUNBIND
+#   GV/i06_gen_bitsel_sys_plus: SYSIDXNAME,DEFGENSYSIDX
+#   GV/i06_gen_bitsel_sys_plus_el: SYSIDXNAME,DEFGENSYSIDX
+#   GV/i08_gen_bitsel_unsigned_cast_op: SYSIDXNAME,DEFGENSYSIDX
+#   GV/i08_gen_bitsel_unsigned_cast_op_el: SYSIDXNAME,DEFGENSYSIDX
+#   GV/i09_gen_bitsel_nested_sys: SYSIDXNAME,DEFGENSYSIDX
+#   GV/i09_gen_bitsel_nested_sys_el: SYSIDXNAME,DEFGENSYSIDX
+#   GV/i10_gen_bitsel_sys_spaces: SYSIDXNAME,DEFGENSYSIDX,DEFGENIDXTRIM
+#   GV/i10_gen_bitsel_sys_spaces_el: SYSIDXNAME,DEFGENSYSIDX,DEFGENIDXTRIM
+#   GV/m01_gen_vs_op_idx: MODVSWHOLE,DEFGENVSIDX
+#   GV/m01_gen_vs_op_idx_el: MODVSWHOLE,DEFGENVSIDX
+#   GV/m02_gen_vs_sys_idx: SYSIDXNAME,MODVSWHOLE,DEFGENSYSIDX,DEFGENVSIDX
+#   GV/m02_gen_vs_sys_idx_el: SYSIDXNAME,MODVSWHOLE,DEFGENSYSIDX,DEFGENVSIDX
+#   GV/m03_gen_vs_signed_cast: SYSIDXNAME,MODVSWHOLE,DEFGENSYSIDX,DEFGENVSIDX
+#   GV/m03_gen_vs_signed_cast_el: SYSIDXNAME,MODVSWHOLE,DEFGENSYSIDX,DEFGENVSIDX
+#   GV/m06_gen_bitsel_sys_plus: SYSIDXNAME,DEFGENSYSIDX
+#   GV/m06_gen_bitsel_sys_plus_el: SYSIDXNAME,DEFGENSYSIDX
+#   GV/m08_gen_bitsel_unsigned_cast_op: SYSIDXNAME,DEFGENSYSIDX
+#   GV/m08_gen_bitsel_unsigned_cast_op_el: SYSIDXNAME,DEFGENSYSIDX
+#   GV/m09_gen_bitsel_nested_sys: SYSIDXNAME,DEFGENSYSIDX
+#   GV/m09_gen_bitsel_nested_sys_el: SYSIDXNAME,DEFGENSYSIDX
+#   GV/m10_gen_bitsel_sys_spaces: SYSIDXNAME,DEFGENSYSIDX,DEFGENIDXTRIM
+#   GV/m10_gen_bitsel_sys_spaces_el: SYSIDXNAME,DEFGENSYSIDX,DEFGENIDXTRIM
+#   GV/m12_gen_modop_operand: DEFGENMODPOW,MODIDXOP
+#   GV/m12_gen_modop_operand_el: DEFGENMODPOW,MODIDXOP
+#   GV/m19_gen_vs_ips_ctl: MODVSWHOLE,DEFGENVSIDX
+#   GV/m19_gen_vs_ips_ctl_el: MODVSWHOLE,DEFGENVSIDX
+#   GX/x04_casegen_iface_vs: IFVSWHOLE,GENIFVSUNBIND
+#   GX/x04_casegen_iface_vs_el: IFVSWHOLE,GENIFVSUNBIND
+#   GX/x13_iface_two_ports_vs: SYSIDXNAME,IFVSWHOLE,IFSELWHOLELEAF
+#   GX/x13_iface_two_ports_vs_el: SYSIDXNAME,IFVSWHOLE
+#   GX/x16_vs_operand_sys_gen: SYSIDXNAME,DEFGENSYSIDX
+#   GX/x16_vs_operand_sys_gen_el: SYSIDXNAME,DEFGENSYSIDX
+#   SB/i03_bitsel_sys_ref: SYSIDXNAME,IFSELWHOLELEAF
+#   SB/i04_bitsel_sys_plus: SYSIDXNAME,IFSELWHOLELEAF
+#   SB/i05_vs_sys_second: SYSIDXNAME,IFVSWHOLE,IFSELWHOLELEAF,VSIDXLEAF
+#   SB/i05_vs_sys_second_el: SYSIDXNAME,IFVSWHOLE
+#   SB/i09_vs_second_op_idx: IFVSWHOLE,IFSELWHOLELEAF,VSIDXLEAF
+#   SB/i11_vs_unary_idx: IFVSWHOLE,IFSELWHOLELEAF,VSIDXLEAF
+#   SB/i12_bitsel_signed_sys: SYSIDXNAME,IFSELWHOLELEAF
+#   SB/m03_bitsel_sys_ref: SYSIDXNAME,MODSELWHOLELEAF
+#   SB/m03_bitsel_sys_ref_el: SYSIDXNAME,MODSELWHOLELEAF
+#   SB/m04_bitsel_sys_plus: SYSIDXNAME,MODSELWHOLELEAF
+#   SB/m04_bitsel_sys_plus_el: SYSIDXNAME,MODSELWHOLELEAF
+#   SB/m05_vs_sys_second: SYSIDXNAME,MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+#   SB/m05_vs_sys_second_el: SYSIDXNAME,MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+#   SB/m09_vs_second_op_idx: MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+#   SB/m09_vs_second_op_idx_el: MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+#   SB/m11_vs_unary_idx: MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+#   SB/m11_vs_unary_idx_el: MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+#   SB/m12_bitsel_signed_sys: SYSIDXNAME,MODSELWHOLELEAF
+#   SB/m12_bitsel_signed_sys_el: SYSIDXNAME,MODSELWHOLELEAF
+#   SC/i04_sys_unsigned_top: SYSIDXNAME,IFSELWHOLELEAF
+#   SC/i08_sys_gen_op: SYSIDXNAME,DEFGENSYSIDX
+#   SC/i08_sys_gen_op_el: SYSIDXNAME,DEFGENSYSIDX
+#   SC/i13_gen_sys_top: SYSIDXNAME,DEFGENSYSIDX
+#   SC/i13_gen_sys_top_el: SYSIDXNAME,DEFGENSYSIDX
+#   SC/i14_nested_sys_top: SYSIDXNAME,IFSELWHOLELEAF
+#   SC/i17_gen_signed_cast_top: SYSIDXNAME,DEFGENSYSIDX
+#   SC/i17_gen_signed_cast_top_el: SYSIDXNAME,DEFGENSYSIDX
+#   SC/m04_sys_unsigned_top: SYSIDXNAME,MODSELWHOLELEAF
+#   SC/m04_sys_unsigned_top_el: SYSIDXNAME,MODSELWHOLELEAF
+#   SC/m08_sys_gen_op: SYSIDXNAME,DEFGENSYSIDX
+#   SC/m08_sys_gen_op_el: SYSIDXNAME,DEFGENSYSIDX
+#   SC/m13_gen_sys_top: SYSIDXNAME,DEFGENSYSIDX
+#   SC/m13_gen_sys_top_el: SYSIDXNAME,DEFGENSYSIDX
+#   SC/m14_nested_sys_top: SYSIDXNAME,MODSELWHOLELEAF
+#   SC/m14_nested_sys_top_el: SYSIDXNAME,MODSELWHOLELEAF
+#   SC/m17_gen_signed_cast_top: SYSIDXNAME,DEFGENSYSIDX
+#   SC/m17_gen_signed_cast_top_el: SYSIDXNAME,DEFGENSYSIDX
+#   VS/i08_vs_gen_ref: IFVSWHOLE,GENIFVSUNBIND
+#   VS/i09_vs_sys_idx: SYSIDXNAME,IFVSWHOLE,IFSELWHOLELEAF,VSIDXLEAF
+#   VS/i09_vs_sys_idx_el: SYSIDXNAME,IFVSWHOLE
+#   VS/i11_vs_op_sys_idx: SYSIDXNAME,VSIDXLEAF
+#   VS/i13_vs_gen_cast: IFVSWHOLE,GENIFVSUNBIND,DEFGENVSIDX
+#   VS/i13_vs_gen_cast_el: IFVSWHOLE,DEFGENVSIDX
+#   VS/m09_vs_sys_idx: SYSIDXNAME,MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+#   VS/m09_vs_sys_idx_el: SYSIDXNAME,MODVSWHOLE,MODSELWHOLELEAF,VSIDXLEAF
+#   VS/m11_vs_op_sys_idx: SYSIDXNAME,VSIDXLEAF
+#   VS/m11_vs_op_sys_idx_el: SYSIDXNAME,VSIDXLEAF
+#   VS/m13_vs_gen_cast: MODVSWHOLE,DEFGENVSIDX
+#   VS/m13_vs_gen_cast_el: MODVSWHOLE,DEFGENVSIDX
+#   VS/m15_vs_positional: MODVSWHOLE,MODSELWHOLELEAF
+#   VS/m15_vs_positional_el: MODVSWHOLE,MODSELWHOLELEAF
+# switch has an effect alone (case-views): SYSIDXNAME 138, IFVSWHOLE 54, MODVSWHOLE 50, DEFGENSYSIDX 42, MODSELWHOLELEAF 36, DEFGENVSIDX 18, VSIDXLEAF 18, IFSELWHOLELEAF 14, DEFGENMODPOW 12, GENIFVSUNBIND 9, MODIDXOP 8, DEFGENIDXTRIM 4

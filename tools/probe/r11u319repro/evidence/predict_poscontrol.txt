@@ -1,0 +1,14 @@
+# census of the law binary a2c33775: 0 databases, 0 trace files
+# positive control: the same census machinery on the previous freeze 361d0bdc, whose § modConnVarSelWholeNames319 rewrote all-constant multi-dimension selects, named:
+surelog Earlgrey_0_1/default modConnVarSelWholeNames319:32
+surelog Earlgrey_0_1/testflags modConnVarSelWholeNames319:32
+surelog Rggen/default modConnVarSelWholeNames319:188
+surelog VarSelectGenStmt/default modConnVarSelWholeNames319:4
+surelog VarSelectGenStmt/testflags modConnVarSelWholeNames319:4
+uhdm2rtlil NestedGenscopesInModuleWithMultidimensionalPorts/default modConnVarSelWholeNames319:32
+uhdm2rtlil NestedGenscopesInModuleWithMultidimensionalPorts/testflags modConnVarSelWholeNames319:32
+uhdm2rtlil NestedSelectOnInputPortInGenscope/default modConnVarSelWholeNames319:4
+uhdm2rtlil NestedSelectOnInputPortInGenscope/testflags modConnVarSelWholeNames319:4
+uhdm2rtlil NestedSelectOnVarInGenscope/default modConnVarSelWholeNames319:4
+uhdm2rtlil NestedSelectOnVarInGenscope/testflags modConnVarSelWholeNames319:4
+# and byteverify of that freeze's sweep moved exactly those row-modes (identical dumps), see byteverify_361d.txt

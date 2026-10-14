@@ -1,0 +1,118 @@
+== P sweep (/tmp/v11u319_swP, binary 3d29c848 pristine)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=4017 STRICT_NOTEQUAL=70 (of 4087); goldens built now=0, from cache=4087
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+rc=1
+== L sweep (/tmp/v11u319_swL, binary a2c33775 law)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=4017 STRICT_NOTEQUAL=70 (of 4087); goldens built now=0, from cache=4087
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+rc=1
+== F sweep (/tmp/v11u319_swF, binary 8666dd7e fix)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=4017 STRICT_NOTEQUAL=70 (of 4087); goldens built now=0, from cache=4087
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+rc=1
+== pristine probe stage rerun from the law worktree (/tmp/v11u319_swQ: a probe database embeds its worktree path)
+probe cases: EQUAL=4017 STRICT_NOTEQUAL=70 (of 4087); goldens built now=0, from cache=4087
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+rc=1
+== every sweep exits 1 on the stale law-index check alone (the patch regenerates tests/LAWS.md)
+== csv row diff (workdir text normalised)
+probe law-vs-pristine 0 fix-vs-pristine 0 lines
+surelog law-vs-pristine 0 fix-vs-pristine 0 lines
+uhdm2rtlil law-vs-pristine 0 fix-vs-pristine 0 lines
+downstream law-vs-pristine 0 fix-vs-pristine 0 lines
+downstream csv vs results/downstream_uhdm2rtlil.csv: law 0 fix 0 lines
+== byteverify (fence-filtered hard-link mirrors, 8 fenced paths skipped, SELFCHECK=1)
+-- law vs pristine
+PATH_SETS_IDENTICAL (3365 paths)
+MOVERS: 0 / 3365
+SELFCHECK (every file vs one fixed file): 3363 / 3365 flagged
+SELFCHECK_FAILED
+-- fix vs pristine
+PATH_SETS_IDENTICAL (3365 paths)
+MOVERS: 0 / 3365
+SELFCHECK (every file vs one fixed file): 3363 / 3365 flagged
+SELFCHECK_FAILED
+-- fix vs law
+PATH_SETS_IDENTICAL (3365 paths)
+MOVERS: 0 / 3365
+SELFCHECK (every file vs one fixed file): 3363 / 3365 flagged
+SELFCHECK_FAILED
+== probe databases (md5 of every fence-filtered database, against the pristine probe stage run from the same worktree)
+law 4087 of 4087 compared, 0 differing; fix 4087 of 4087, 0 differing (positive control: the pristine stage from the pristine worktree differs on all 4087 through the embedded path)
+== canaries
+-- L
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+-- F
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+== binary audit (fence-filtered cmds.txt)
+pristine sweep 3315 cmds.txt: 3265 name /tmp/v11u319_bin/pristine, 0 another binary
+law sweep 3315: 3265 name /tmp/v11u319_bin/law, 0 another
+fix sweep 3315: 3265 name /tmp/v11u319_bin/fix2, 0 another
+== determinism (r11u319repro/drivers/det.sh, three concurrent draws per binary)
+fix Earlgrey_0_1/default       3 fc04e7f2bb3f 
+fix MiniAmiq/default       3 6274d155ae91 
+fix SeqDriver/default       3 0140024e994f 
+fix SimpleUVM/default       3 57a5aaad5589 
+fix Scoreboard/default       3 e60363ba3f2d 
+fix BuildUVMPkg/default       3 00b6402714d5 
+fix Rggen/default       3 4c21b84a350d 
+fix Earlgrey_0_1/testflags       3 025c86db2d2d 
+fix MiniAmiq/testflags       3 6274d155ae91 
+fix SeqDriver/testflags       3 dcc2c63e2e29 
+fix SimpleUVM/testflags       3 f0c85a0be92c 
+fix Scoreboard/testflags 
+fix BuildUVMPkg/testflags       3 00b6402714d5 
+fix Rggen/testflags 
+law Earlgrey_0_1/default       3 fc04e7f2bb3f 
+law MiniAmiq/default       3 6274d155ae91 
+law SeqDriver/default       3 0140024e994f 
+law SimpleUVM/default       3 57a5aaad5589 
+law Scoreboard/default       3 e60363ba3f2d 
+law BuildUVMPkg/default       3 00b6402714d5 
+law Rggen/default       3 4c21b84a350d 
+law Earlgrey_0_1/testflags       3 025c86db2d2d 
+law MiniAmiq/testflags       3 6274d155ae91 
+law SeqDriver/testflags       3 dcc2c63e2e29 
+law SimpleUVM/testflags       3 f0c85a0be92c 
+law Scoreboard/testflags 
+law BuildUVMPkg/testflags       3 00b6402714d5 
+law Rggen/testflags 
+== firing census (r11u319repro/drivers/tracecensus.sh with the FIX binary over the probe and both corpora in both modes, filtered by $FENCED, frozen before the fix sweep)
+trace files: 0; predicted databases: 0
+positive control (same binary, same R11U319_TRACE variable, three cases of this dir):
+  VD_vd02_i_vs_in_vs_two: ifaceHcVarSelWholeByInst319 vsIdxLeafThroughInnerVs319v 
+  VG_vg03_mod_paren: defGenModParenStrip319v defGenIdxModPowOp319 
+  VG_vg06_mult_mod: defGenModLeftAssoc319v 

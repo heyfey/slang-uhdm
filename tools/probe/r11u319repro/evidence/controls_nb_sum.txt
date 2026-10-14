@@ -1,0 +1,64 @@
+case-views=2636 moving=32 entering=20 leaving=0 rc-changed=0 cmplines-changed=11
+MOVER r313/GP/p40_bitsel_nestedop_modlevel STRICT_NOTEQUAL_depth -> STRICT_EQUAL_208_objects cmplines 0->0
+MOVER r317/CM/m08_mod_2d_leaf_refidx STRICT_EQUAL_149_objects -> STRICT_EQUAL_149_objects cmplines 0->0
+MOVER r317/CM/m08_mod_2d_leaf_refidx_el STRICT_EQUAL_146_objects -> STRICT_EQUAL_146_objects cmplines 0->0
+MOVER r317/VR/r16_gen_signed_cast_idx_ctl NOT_EQUAL_stage1 -> STRICT_EQUAL_176_objects cmplines 38->0
+MOVER r317/VR/r16_gen_signed_cast_idx_ctl_el NOT_EQUAL_stage1 -> STRICT_EQUAL_192_objects cmplines 38->0
+MOVER tp/r11u168repro/cases/H/h15 STRICT_NOTEQUAL_depth -> STRICT_EQUAL_91_objects cmplines 0->0
+MOVER tp/r11u168repro/cases/H/h15_el STRICT_EQUAL_90_objects -> STRICT_EQUAL_90_objects cmplines 0->0
+MOVER tp/r11u168repro/cases/H/h16 STRICT_NOTEQUAL_depth -> STRICT_EQUAL_78_objects cmplines 0->0
+MOVER tp/r11u168repro/cases/H/h16_el STRICT_EQUAL_77_objects -> STRICT_EQUAL_77_objects cmplines 0->0
+MOVER v317/VA/va11_local_in_sysidx NOT_EQUAL_stage1 -> STRICT_EQUAL_127_objects cmplines 38->0
+MOVER v317/VA/va11_local_in_sysidx_el NOT_EQUAL_stage1 -> STRICT_EQUAL_154_objects cmplines 38->0
+MOVER v317/VB/vb11_sysidx_bits_gen NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_endcol cmplines 38->0
+MOVER v317/VB/vb11_sysidx_bits_gen_el NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_endcol cmplines 38->0
+MOVER v317/VB/vb12_sysidx_clog2_param_gen NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_endcol cmplines 38->0
+MOVER v317/VB/vb12_sysidx_clog2_param_gen_el NOT_EQUAL_stage1 -> STRICT_NOTEQUAL_endcol cmplines 38->0
+MOVER v317/VD/vd02_signed_cast_op STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_118_objects cmplines 0->0
+MOVER v317/VD/vd02_signed_cast_op_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_117_objects cmplines 0->0
+MOVER v317/VD/vd16_cast_in_2d_mod STRICT_EQUAL_134_objects -> STRICT_EQUAL_134_objects cmplines 0->0
+MOVER v317/VD/vd16_cast_in_2d_mod_el STRICT_EQUAL_131_objects -> STRICT_EQUAL_131_objects cmplines 0->0
+MOVER v317/VD/vd20_mod_two_dim_cast STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_117_objects cmplines 0->0
+MOVER v317/VD/vd20_mod_two_dim_cast_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_115_objects cmplines 0->0
+MOVER v317/VD/vd23_mod_cast_signed_ctl STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_102_objects cmplines 0->0
+MOVER v317/VD/vd23_mod_cast_signed_ctl_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_100_objects cmplines 0->0
+MOVER v317/VF/vf05_gen_2d NOT_EQUAL_stage1 -> STRICT_EQUAL_125_objects cmplines 31->0
+MOVER v317/VF/vf07_mod_2d_top STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_102_objects cmplines 0->0
+MOVER v317/VF/vf07_mod_2d_top_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_100_objects cmplines 0->0
+MOVER v317/VF/vf09_2d_top_iface STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_112_objects cmplines 0->0
+MOVER v317/VF/vf09_2d_top_iface_el STRICT_NOTEQUAL_fullname -> STRICT_EQUAL_111_objects cmplines 0->0
+MOVER v317/VF/vf14_mod_2d_inner_opidx STRICT_EQUAL_146_objects -> STRICT_EQUAL_146_objects cmplines 0->0
+MOVER v317/VF/vf14_mod_2d_inner_opidx_el STRICT_EQUAL_143_objects -> STRICT_EQUAL_143_objects cmplines 0->0
+MOVER v317/VH/vh06_cast_spaces NOT_EQUAL_stage1 -> STRICT_EQUAL_119_objects cmplines 52->0
+MOVER v317/VH/vh06_cast_spaces_el NOT_EQUAL_stage1 -> STRICT_EQUAL_137_objects cmplines 52->0
+ENTER r313/GP/p40_bitsel_nestedop_modlevel
+ENTER r317/VR/r16_gen_signed_cast_idx_ctl
+ENTER r317/VR/r16_gen_signed_cast_idx_ctl_el
+ENTER tp/r11u168repro/cases/H/h15
+ENTER tp/r11u168repro/cases/H/h16
+ENTER v317/VA/va11_local_in_sysidx
+ENTER v317/VA/va11_local_in_sysidx_el
+ENTER v317/VD/vd02_signed_cast_op
+ENTER v317/VD/vd02_signed_cast_op_el
+ENTER v317/VD/vd20_mod_two_dim_cast
+ENTER v317/VD/vd20_mod_two_dim_cast_el
+ENTER v317/VD/vd23_mod_cast_signed_ctl
+ENTER v317/VD/vd23_mod_cast_signed_ctl_el
+ENTER v317/VF/vf05_gen_2d
+ENTER v317/VF/vf07_mod_2d_top
+ENTER v317/VF/vf07_mod_2d_top_el
+ENTER v317/VF/vf09_2d_top_iface
+ENTER v317/VF/vf09_2d_top_iface_el
+ENTER v317/VH/vh06_cast_spaces
+ENTER v317/VH/vh06_cast_spaces_el
+CHANGED r317/VR/r16_gen_signed_cast_idx_ctl
+CHANGED r317/VR/r16_gen_signed_cast_idx_ctl_el
+CHANGED v317/VA/va11_local_in_sysidx
+CHANGED v317/VA/va11_local_in_sysidx_el
+CHANGED v317/VB/vb11_sysidx_bits_gen
+CHANGED v317/VB/vb11_sysidx_bits_gen_el
+CHANGED v317/VB/vb12_sysidx_clog2_param_gen
+CHANGED v317/VB/vb12_sysidx_clog2_param_gen_el
+CHANGED v317/VF/vf05_gen_2d
+CHANGED v317/VH/vh06_cast_spaces
+CHANGED v317/VH/vh06_cast_spaces_el

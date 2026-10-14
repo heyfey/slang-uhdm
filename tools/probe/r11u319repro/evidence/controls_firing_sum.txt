@@ -1,0 +1,94 @@
+GROW tp/r10rgg14repro/cells/pc4_el 54 140
+GROW tp/r10rgg14repro/cells/pc4 54 140
+views=158 moving=62 entering=29 leaving=0 grow=2 rcchange=0
+r313/GP/p40_bitsel_nestedop_modlevel
+r317/VR/r16_gen_signed_cast_idx_ctl
+r317/VR/r16_gen_signed_cast_idx_ctl_el
+tp/r11u147repro/pos/n5_pos_var_idx
+tp/r11u168repro/cases/H/h15
+tp/r11u168repro/cases/H/h16
+tp/r11u177verify/cases/H/h03_two_dim_elem
+tp/r11u177verify/cases/H/h03_two_dim_elem_el
+tp/r11u177verify/cases/H/h08_packed2d_elem_bit
+tp/r11u177verify/cases/H/h08_packed2d_elem_bit_el
+tp/r11v147repro/brk/pos/w7_first_var_idx_mod
+tp/v11u168repro/cases/H/x05
+tp/v11u168repro/cases/H/x06
+tp/v11u168repro/cases/H/x11
+v317/VA/va11_local_in_sysidx
+v317/VA/va11_local_in_sysidx_el
+v317/VD/vd02_signed_cast_op
+v317/VD/vd02_signed_cast_op_el
+v317/VD/vd20_mod_two_dim_cast
+v317/VD/vd20_mod_two_dim_cast_el
+v317/VD/vd23_mod_cast_signed_ctl
+v317/VD/vd23_mod_cast_signed_ctl_el
+v317/VF/vf05_gen_2d
+v317/VF/vf07_mod_2d_top
+v317/VF/vf07_mod_2d_top_el
+v317/VF/vf09_2d_top_iface
+v317/VF/vf09_2d_top_iface_el
+v317/VH/vh06_cast_spaces
+v317/VH/vh06_cast_spaces_el
+r313/GP/p40_bitsel_nestedop_modlevel          STRICT_NOTEQUAL_depth              0 -> STRICT_EQUAL_208_objects           0 rc 0/0 MOVE
+r317/CM/m08_mod_2d_leaf_refidx                STRICT_EQUAL_149_objects           0 -> STRICT_EQUAL_149_objects           0 rc 0/0 MOVE
+r317/CM/m08_mod_2d_leaf_refidx_el             STRICT_EQUAL_146_objects           0 -> STRICT_EQUAL_146_objects           0 rc 0/0 MOVE
+r317/VR/r16_gen_signed_cast_idx_ctl           NOT_EQUAL_stage1                  38 -> STRICT_EQUAL_176_objects           0 rc 0/0 MOVE
+r317/VR/r16_gen_signed_cast_idx_ctl_el        NOT_EQUAL_stage1                  38 -> STRICT_EQUAL_192_objects           0 rc 0/0 MOVE
+tp/r10rgg14repro/cells/pc4                    NOT_EQUAL_stage1                  54 -> NOT_EQUAL_stage1                 140 rc 0/0 MOVE
+tp/r10rgg14repro/cells/pc4_el                 NOT_EQUAL_stage1                  54 -> NOT_EQUAL_stage1                 140 rc 0/0 MOVE
+tp/r10vrgg14repro/cells/v1                    NOT_EQUAL_stage1                  28 -> NOT_EQUAL_stage1                  28 rc 0/0 MOVE
+tp/r10vrgg14repro/cells/v13                   NOT_EQUAL_stage1                  38 -> NOT_EQUAL_stage1                  38 rc 0/0 MOVE
+tp/r10vrgg14repro/cells/v13_el                NOT_EQUAL_stage1                  38 -> NOT_EQUAL_stage1                  38 rc 0/0 MOVE
+tp/r10vrgg14repro/cells/v1_el                 NOT_EQUAL_stage1                  28 -> NOT_EQUAL_stage1                  28 rc 0/0 MOVE
+tp/r10vrgg14repro/cells/v2                    NOT_EQUAL_stage1                  28 -> NOT_EQUAL_stage1                  28 rc 0/0 MOVE
+tp/r10vrgg14repro/cells/v2_el                 NOT_EQUAL_stage1                  28 -> NOT_EQUAL_stage1                  28 rc 0/0 MOVE
+tp/r11u147repro/pos/n5_pos_var_idx            STRICT_NOTEQUAL_depth              0 -> STRICT_EQUAL_144_objects           0 rc 0/0 MOVE
+tp/r11u147repro/pos/n5_pos_var_idx_el         STRICT_EQUAL_141_objects           0 -> STRICT_EQUAL_141_objects           0 rc 0/0 MOVE
+tp/r11u168repro/cases/H/h15                   STRICT_NOTEQUAL_depth              0 -> STRICT_EQUAL_91_objects            0 rc 0/0 MOVE
+tp/r11u168repro/cases/H/h15_el                STRICT_EQUAL_90_objects            0 -> STRICT_EQUAL_90_objects            0 rc 0/0 MOVE
+tp/r11u168repro/cases/H/h16                   STRICT_NOTEQUAL_depth              0 -> STRICT_EQUAL_78_objects            0 rc 0/0 MOVE
+tp/r11u168repro/cases/H/h16_el                STRICT_EQUAL_77_objects            0 -> STRICT_EQUAL_77_objects            0 rc 0/0 MOVE
+tp/r11u177verify/cases/H/h03_two_dim_elem     STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_101_objects           0 rc 0/0 MOVE
+tp/r11u177verify/cases/H/h03_two_dim_elem_el  STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_101_objects           0 rc 0/0 MOVE
+tp/r11u177verify/cases/H/h08_packed2d_elem_bit STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_97_objects            0 rc 0/0 MOVE
+tp/r11u177verify/cases/H/h08_packed2d_elem_bit_el STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_97_objects            0 rc 0/0 MOVE
+tp/r11u177verify/cases/X/x03_hc_index_gen_param NOT_EQUAL_stage1                  54 -> NOT_EQUAL_stage1                  36 rc 0/0 MOVE
+tp/r11u177verify/cases/X/x03_hc_index_gen_param_el NOT_EQUAL_stage1                  54 -> NOT_EQUAL_stage1                  36 rc 0/0 MOVE
+tp/r11u185verify/cases/UD/u02_sel_of_sel_first STRICT_NOTEQUAL_fullname           0 -> STRICT_NOTEQUAL_fullname           0 rc 0/0 MOVE
+tp/r11u185verify/cases/UD/u02_sel_of_sel_first_el STRICT_EQUAL_229_objects           0 -> STRICT_EQUAL_229_objects           0 rc 0/0 MOVE
+tp/r11v147repro/brk/pos/w7_first_var_idx_mod  STRICT_NOTEQUAL_depth              0 -> STRICT_EQUAL_144_objects           0 rc 0/0 MOVE
+tp/r11v147repro/brk/pos/w7_first_var_idx_mod_el STRICT_EQUAL_141_objects           0 -> STRICT_EQUAL_141_objects           0 rc 0/0 MOVE
+tp/v11u168repro/cases/H/x05                   STRICT_NOTEQUAL_depth              0 -> STRICT_EQUAL_84_objects            0 rc 0/0 MOVE
+tp/v11u168repro/cases/H/x05_el                STRICT_EQUAL_83_objects            0 -> STRICT_EQUAL_83_objects            0 rc 0/0 MOVE
+tp/v11u168repro/cases/H/x06                   STRICT_NOTEQUAL_depth              0 -> STRICT_EQUAL_68_objects            0 rc 0/0 MOVE
+tp/v11u168repro/cases/H/x06_el                STRICT_EQUAL_67_objects            0 -> STRICT_EQUAL_67_objects            0 rc 0/0 MOVE
+tp/v11u168repro/cases/H/x11                   STRICT_NOTEQUAL_depth              0 -> STRICT_EQUAL_93_objects            0 rc 0/0 MOVE
+tp/v11u168repro/cases/H/x11_el                STRICT_EQUAL_92_objects            0 -> STRICT_EQUAL_92_objects            0 rc 0/0 MOVE
+tp/v11u171repro/cases/Q/c14_const_select      NOT_EQUAL_stage1                  32 -> NOT_EQUAL_stage1                  32 rc 0/0 MOVE
+tp/v11u171repro/cases/Q/c14_const_select_el   NOT_EQUAL_stage1                  36 -> NOT_EQUAL_stage1                  36 rc 0/0 MOVE
+tp/v11u287repro/cases/VD/vd06_port_conn       NOT_EQUAL_stage1                  58 -> NOT_EQUAL_stage1                  58 rc 0/0 MOVE
+tp/v11u287repro/cases/VD/vd06_port_conn_el    NOT_EQUAL_stage1                  58 -> NOT_EQUAL_stage1                  58 rc 0/0 MOVE
+v317/VA/va11_local_in_sysidx                  NOT_EQUAL_stage1                  38 -> STRICT_EQUAL_127_objects           0 rc 0/0 MOVE
+v317/VA/va11_local_in_sysidx_el               NOT_EQUAL_stage1                  38 -> STRICT_EQUAL_154_objects           0 rc 0/0 MOVE
+v317/VB/vb11_sysidx_bits_gen                  NOT_EQUAL_stage1                  38 -> STRICT_NOTEQUAL_endcol             0 rc 0/0 MOVE
+v317/VB/vb11_sysidx_bits_gen_el               NOT_EQUAL_stage1                  38 -> STRICT_NOTEQUAL_endcol             0 rc 0/0 MOVE
+v317/VB/vb12_sysidx_clog2_param_gen           NOT_EQUAL_stage1                  38 -> STRICT_NOTEQUAL_endcol             0 rc 0/0 MOVE
+v317/VB/vb12_sysidx_clog2_param_gen_el        NOT_EQUAL_stage1                  38 -> STRICT_NOTEQUAL_endcol             0 rc 0/0 MOVE
+v317/VD/vd02_signed_cast_op                   STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_118_objects           0 rc 0/0 MOVE
+v317/VD/vd02_signed_cast_op_el                STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_117_objects           0 rc 0/0 MOVE
+v317/VD/vd16_cast_in_2d_mod                   STRICT_EQUAL_134_objects           0 -> STRICT_EQUAL_134_objects           0 rc 0/0 MOVE
+v317/VD/vd16_cast_in_2d_mod_el                STRICT_EQUAL_131_objects           0 -> STRICT_EQUAL_131_objects           0 rc 0/0 MOVE
+v317/VD/vd20_mod_two_dim_cast                 STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_117_objects           0 rc 0/0 MOVE
+v317/VD/vd20_mod_two_dim_cast_el              STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_115_objects           0 rc 0/0 MOVE
+v317/VD/vd23_mod_cast_signed_ctl              STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_102_objects           0 rc 0/0 MOVE
+v317/VD/vd23_mod_cast_signed_ctl_el           STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_100_objects           0 rc 0/0 MOVE
+v317/VF/vf05_gen_2d                           NOT_EQUAL_stage1                  31 -> STRICT_EQUAL_125_objects           0 rc 0/0 MOVE
+v317/VF/vf07_mod_2d_top                       STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_102_objects           0 rc 0/0 MOVE
+v317/VF/vf07_mod_2d_top_el                    STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_100_objects           0 rc 0/0 MOVE
+v317/VF/vf09_2d_top_iface                     STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_112_objects           0 rc 0/0 MOVE
+v317/VF/vf09_2d_top_iface_el                  STRICT_NOTEQUAL_fullname           0 -> STRICT_EQUAL_111_objects           0 rc 0/0 MOVE
+v317/VF/vf14_mod_2d_inner_opidx               STRICT_EQUAL_146_objects           0 -> STRICT_EQUAL_146_objects           0 rc 0/0 MOVE
+v317/VF/vf14_mod_2d_inner_opidx_el            STRICT_EQUAL_143_objects           0 -> STRICT_EQUAL_143_objects           0 rc 0/0 MOVE
+v317/VH/vh06_cast_spaces                      NOT_EQUAL_stage1                  52 -> STRICT_EQUAL_119_objects           0 rc 0/0 MOVE
+v317/VH/vh06_cast_spaces_el                   NOT_EQUAL_stage1                  52 -> STRICT_EQUAL_137_objects           0 rc 0/0 MOVE

@@ -1,0 +1,12 @@
+GV/i01_gen_vs_op_idx dist 0 -> 0 lost=0 gained=0 | chain away=4 toward=0 flat_away=4 flat_toward=0
+GV/i14_gen_pow_operand dist 0 -> 0 lost=0 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+GV/m13_gen_modop_top dist 0 -> 0 lost=0 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+GX/x07_two_level_mid dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+SB/i05_vs_sys_second_el dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+SB/m03_bitsel_sys_ref dist 0 -> 2 lost=3 gained=0 | chain away=3 toward=0 flat_away=3 flat_toward=0
+SB/m14_bitsel_tern_idx dist 0 -> 0 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+SC/i07_sys_in_idx_op_el dist 0 -> 1 lost=1 gained=0 | chain away=1 toward=0 flat_away=1 flat_toward=0
+SC/m02_signed_cast_top_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+SC/m14_nested_sys_top_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VS/i08_vs_gen_ref_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0
+VS/m04_vs_cast_idx_el dist 0 -> 2 lost=2 gained=0 | chain away=2 toward=0 flat_away=2 flat_toward=0

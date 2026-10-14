@@ -1,0 +1,67 @@
+== whole-tree byte scan, pristine 3d29c848 vs fix 8666dd7e, every fence-filtered tools/probe dut.sv in both views (drivers/bytescan.sh)
+dirs 28591, case-views 57182
+exit codes differing: 0; nonzero exits (equal on both):       9 139     498 3     308 4 
+movers with rc 0: 590:     269 r11u319repro     259 v11u319repro      23 v11u317repro       6 v11u168repro       6 r11u177verify       6 r10vrgg14repro       4 r11u317repro       4 r11u168repro       2 v11u287repro       2 v11u171repro       2 r11v147repro       2 r11u185verify       2 r11u147repro       2 r10rgg14repro       1 r11u313repro 
+the 62 outside the two pass dirs are exactly the earlier-firing-dir movers of controls_firing.txt
+0 ./r10rgg14repro/cells/pc4
+1 ./r10rgg14repro/cells/pc4
+0 ./r10vrgg14repro/cells/v13
+0 ./r10vrgg14repro/cells/v1
+1 ./r10vrgg14repro/cells/v13
+0 ./r10vrgg14repro/cells/v2
+1 ./r10vrgg14repro/cells/v2
+1 ./r10vrgg14repro/cells/v1
+0 ./r11u147repro/pos/n5_pos_var_idx
+1 ./r11u147repro/pos/n5_pos_var_idx
+0 ./r11u168repro/cases/H/h15
+1 ./r11u168repro/cases/H/h15
+0 ./r11u168repro/cases/H/h16
+1 ./r11u168repro/cases/H/h16
+0 ./r11u177verify/cases/H/h03_two_dim_elem
+1 ./r11u177verify/cases/H/h03_two_dim_elem
+0 ./r11u177verify/cases/H/h08_packed2d_elem_bit
+1 ./r11u177verify/cases/H/h08_packed2d_elem_bit
+0 ./r11u177verify/cases/X/x03_hc_index_gen_param
+1 ./r11u177verify/cases/X/x03_hc_index_gen_param
+0 ./r11u185verify/cases/UD/u02_sel_of_sel_first
+1 ./r11u185verify/cases/UD/u02_sel_of_sel_first
+0 ./r11u313repro/cases/GP/p40_bitsel_nestedop_modlevel
+0 ./r11u317repro/cases/CM/m08_mod_2d_leaf_refidx
+1 ./r11u317repro/cases/CM/m08_mod_2d_leaf_refidx
+0 ./r11u317repro/cases/VR/r16_gen_signed_cast_idx_ctl
+1 ./r11u317repro/cases/VR/r16_gen_signed_cast_idx_ctl
+0 ./r11v147repro/brk/pos/w7_first_var_idx_mod
+1 ./r11v147repro/brk/pos/w7_first_var_idx_mod
+0 ./v11u168repro/cases/H/x05
+1 ./v11u168repro/cases/H/x05
+0 ./v11u168repro/cases/H/x06
+1 ./v11u168repro/cases/H/x06
+0 ./v11u168repro/cases/H/x11
+1 ./v11u168repro/cases/H/x11
+0 ./v11u171repro/cases/Q/c14_const_select
+1 ./v11u171repro/cases/Q/c14_const_select
+0 ./v11u287repro/cases/VD/vd06_port_conn
+1 ./v11u287repro/cases/VD/vd06_port_conn
+0 ./v11u317repro/cases/VA/va11_local_in_sysidx
+1 ./v11u317repro/cases/VA/va11_local_in_sysidx
+0 ./v11u317repro/cases/VB/vb11_sysidx_bits_gen
+1 ./v11u317repro/cases/VB/vb11_sysidx_bits_gen
+0 ./v11u317repro/cases/VB/vb12_sysidx_clog2_param_gen
+1 ./v11u317repro/cases/VB/vb12_sysidx_clog2_param_gen
+0 ./v11u317repro/cases/VD/vd02_signed_cast_op
+1 ./v11u317repro/cases/VD/vd02_signed_cast_op
+0 ./v11u317repro/cases/VD/vd16_cast_in_2d_mod
+0 ./v11u317repro/cases/VD/vd20_mod_two_dim_cast
+1 ./v11u317repro/cases/VD/vd16_cast_in_2d_mod
+1 ./v11u317repro/cases/VD/vd20_mod_two_dim_cast
+0 ./v11u317repro/cases/VD/vd23_mod_cast_signed_ctl
+1 ./v11u317repro/cases/VD/vd23_mod_cast_signed_ctl
+0 ./v11u317repro/cases/VF/vf05_gen_2d
+0 ./v11u317repro/cases/VF/vf07_mod_2d_top
+0 ./v11u317repro/cases/VF/vf09_2d_top_iface
+1 ./v11u317repro/cases/VF/vf07_mod_2d_top
+1 ./v11u317repro/cases/VF/vf09_2d_top_iface
+0 ./v11u317repro/cases/VF/vf14_mod_2d_inner_opidx
+1 ./v11u317repro/cases/VF/vf14_mod_2d_inner_opidx
+0 ./v11u317repro/cases/VH/vh06_cast_spaces
+1 ./v11u317repro/cases/VH/vh06_cast_spaces

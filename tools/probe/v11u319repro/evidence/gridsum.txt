@@ -1,0 +1,36 @@
+case-views 356 OFF!=P 0 FOFF!=L 0 nonzero rc 0
+LAW moving 269 entering 169 leaving 0
+FIX moving 259 entering 181 leaving 0
+VD/vd01_i_vs_in_vs_const P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd02_i_vs_in_vs_two P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd03_i_vs_in_vs_op_first P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd04_i_vs_in_vs_op_second P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd05_m_vs_in_vs_const P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd05_m_vs_in_vs_const_el P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd06_m_vs_in_vs_two P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd06_m_vs_in_vs_two_el P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd07_i_vs_in_vs_operand P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd11_i_vs_in_second_idx P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd12_m_vs_in_second_idx P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd12_m_vs_in_second_idx_el P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd13_i_vs_in_vs_tern P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd14_m_vs_in_op_first P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd14_m_vs_in_op_first_el P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd16_m_vs_in_vs_operand P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VD/vd16_m_vs_in_vs_operand_el P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+VE/ve01_div_mod P=NOT_EQUAL_stage1(102) L=NOT_EQUAL_stage1(132) F=STRICT_EQUAL_216_objects(0) restore=MODASSOC effect=MODASSOC
+VE/ve01_div_mod_el P=NOT_EQUAL_stage1(102) L=NOT_EQUAL_stage1(132) F=STRICT_EQUAL_233_objects(0) restore=MODASSOC effect=MODASSOC
+VE/ve03_pow_mod P=NOT_EQUAL_stage1(106) L=NOT_EQUAL_stage1(132) F=STRICT_EQUAL_216_objects(0) restore=MODASSOC effect=MODASSOC
+VE/ve03_pow_mod_el P=NOT_EQUAL_stage1(106) L=NOT_EQUAL_stage1(132) F=STRICT_EQUAL_233_objects(0) restore=MODASSOC effect=MODASSOC
+VE/ve04_mod_mod P=NOT_EQUAL_stage1(80) L=NOT_EQUAL_stage1(54) F=STRICT_EQUAL_216_objects(0) restore=MODASSOC effect=MODASSOC
+VE/ve04_mod_mod_el P=NOT_EQUAL_stage1(80) L=NOT_EQUAL_stage1(54) F=STRICT_EQUAL_233_objects(0) restore=MODASSOC effect=MODASSOC
+VE/ve05_mod_pow P=NOT_EQUAL_stage1(102) L=NOT_EQUAL_stage1(128) F=NOT_EQUAL_stage1(62) restore=MODASSOC effect=MODASSOC
+VE/ve05_mod_pow_el P=NOT_EQUAL_stage1(102) L=NOT_EQUAL_stage1(128) F=STRICT_NOTEQUAL_endcol(0) restore=MODASSOC effect=MODASSOC
+VE/ve08_mult_mod_t P=NOT_EQUAL_stage1(98) L=NOT_EQUAL_stage1(124) F=STRICT_EQUAL_216_objects(0) restore=MODASSOC effect=MODASSOC
+VE/ve08_mult_mod_t_el P=NOT_EQUAL_stage1(98) L=NOT_EQUAL_stage1(124) F=STRICT_EQUAL_234_objects(0) restore=MODASSOC effect=MODASSOC
+VG/vg03_mod_paren P=NOT_EQUAL_stage1(54) L=NOT_EQUAL_stage1(28) F=STRICT_EQUAL_212_objects(0) restore=MODPAREN effect=MODPAREN
+VG/vg03_mod_paren_el P=NOT_EQUAL_stage1(54) L=NOT_EQUAL_stage1(28) F=STRICT_EQUAL_228_objects(0) restore=MODPAREN effect=MODPAREN
+VG/vg06_mult_mod P=NOT_EQUAL_stage1(102) L=NOT_EQUAL_stage1(132) F=STRICT_EQUAL_216_objects(0) restore=MODASSOC effect=MODASSOC
+VG/vg06_mult_mod_el P=NOT_EQUAL_stage1(102) L=NOT_EQUAL_stage1(132) F=STRICT_EQUAL_233_objects(0) restore=MODASSOC effect=MODASSOC
+VN/vn24_vs_inner_vs P=STRICT_NOTEQUAL_fullname(0) L=STRICT_NOTEQUAL_fullname(0) F=STRICT_NOTEQUAL_fullname(0) restore=INNERVSLEAF effect=INNERVSLEAF
+# fix differs from law on 32 case-views; restored by one switch: {'INNERVSLEAF': 18, 'MODASSOC': 12, 'MODPAREN': 2}

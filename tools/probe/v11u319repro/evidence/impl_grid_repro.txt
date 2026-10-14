@@ -1,0 +1,7 @@
+== implementer grid reproduced (156 dirs, 312 case-views, 4680 lines; the law binary a2c33775 and pristine 3d29c848 rebuilt here)
+lines differing from r11u319repro/evidence/grid.txt with the md5 field left out (a database embeds its worktree path): 0
+gridsum319.py output identical to r11u319repro/evidence/gridsum.txt: yes
+# case-views=312 moving=269 entering=239 leaving=0 uhdmcmp_grow=2 rc_change=0 OFF==P=312
+away census on the 269 movers: case-views=269 lost=0 chain_away=0 flat_away=0 toward=553 unparsed=0
+binding census (bindcls) on the 269 movers: away 0 toward 192
+the fix binary on all 312 case-views: equal to the law on 312 of 312
