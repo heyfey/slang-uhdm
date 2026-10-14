@@ -1,0 +1,583 @@
+path,tier,kind,k1,k2,k3,raw1
+chapter-10/10.4.1--blocking-assignment.sv,plain,DIFFERENT,-      |vpiDecompile:1,+      |vpiDecompile:3,-      |UINT:_,-      |vpiDecompile:1
+chapter-11/11.3.6--two_assign_in_expr-sim.sv,plain,JUDGE_EQUAL,"-        \_operation: , line:L:C, endln:L:C","+        \_operation: , line:L:C, endln:L:C","-            \_operation: , line:L:C, endln:L:C","-        \_operation: , line:27:14, endln:27:31"
+chapter-11/11.3.6--two_assign_in_expr.sv,plain,JUDGE_EQUAL,"-        \_operation: , line:L:C, endln:L:C","+        \_operation: , line:L:C, endln:L:C","-            \_operation: , line:L:C, endln:L:C","-        \_operation: , line:26:14, endln:26:31"
+chapter-12/12.4.2--unique0_if.sv,plain,DIFFERENT,-          |vpiQualifier:1,,,-          |vpiQualifier:1
+chapter-12/12.7.3--foreach.sv,plain,DIFFERENT,"-      \_string_var: (_), line:L:C, endln:L:C","+      \_logic_var: (_), line:L:C, endln:L:C","-    \_string_var: (_), line:L:C, endln:L:C","-      \_string_var: (work@foreach_tb.test), line:17:9, endln:17:13"
+chapter-12/12.7.4--while.sv,plain,DIFFERENT,"-      \_string_var: (_), line:L:C, endln:L:C","+      \_logic_var: (_), line:L:C, endln:L:C","-    \_string_var: (_), line:L:C, endln:L:C","-      \_string_var: (work@while_tb.test), line:16:9, endln:16:13"
+chapter-12/12.7.5--dowhile.sv,plain,DIFFERENT,"-      \_string_var: (_), line:L:C, endln:L:C","+      \_logic_var: (_), line:L:C, endln:L:C","-    \_string_var: (_), line:L:C, endln:L:C","-      \_string_var: (work@dowhile_tb.test), line:16:9, endln:16:13"
+chapter-14/14.3--clocking-block-signals.sv,plain,DIFFERENT,-  |vpiClockingBlock:,"-  \_clocking_block: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiClockingBlock:
+chapter-14/14.3--clocking-block.sv,plain,DIFFERENT,-  |vpiClockingBlock:,"-  \_clocking_block: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiClockingBlock:
+chapter-15/15.4--mailbox-blocking.sv,plain,DIFFERENT,"-      \_class_typespec: (_), line:L:C, endln:L:C","+      \_class_typespec: (_), line:L:C, endln:L:C","-\_class_typespec: (_), line:L:C, endln:L:C","-      \_class_typespec: (mailbox), line:18:1, endln:18:8"
+chapter-15/15.4--mailbox-non-blocking.sv,plain,DIFFERENT,"-      \_class_typespec: (_), line:L:C, endln:L:C","+      \_class_typespec: (_), line:L:C, endln:L:C","-\_class_typespec: (_), line:L:C, endln:L:C","-      \_class_typespec: (mailbox), line:18:1, endln:18:8"
+chapter-16/16.10--sequence-local-var-fail.sv,plain,DIFFERENT,-  |vpiSequenceDecl:,"-  \_sequence_decl: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiSequenceDecl:
+chapter-16/16.10--sequence-local-var.sv,plain,DIFFERENT,-  |vpiSequenceDecl:,"-  \_sequence_decl: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiSequenceDecl:
+chapter-16/16.2--assert-final.sv,plain,DIFFERENT,+  |vpiProcess:,"+  \_always: , line:L:C, endln:L:C",+    |vpiParent:,+  |vpiProcess:
+chapter-16/16.2--assert0.sv,plain,DIFFERENT,+  |vpiProcess:,"+  \_always: , line:L:C, endln:L:C",+    |vpiParent:,+  |vpiProcess:
+chapter-16/16.2--assume-final.sv,plain,DIFFERENT,+  |vpiProcess:,"+  \_always: , line:L:C, endln:L:C",+    |vpiParent:,+  |vpiProcess:
+chapter-16/16.2--assume0.sv,plain,DIFFERENT,+  |vpiProcess:,"+  \_always: , line:L:C, endln:L:C",+    |vpiParent:,+  |vpiProcess:
+chapter-16/16.2--cover-final.sv,plain,DIFFERENT,+  |vpiProcess:,"+  \_always: , line:L:C, endln:L:C",+    |vpiParent:,+  |vpiProcess:
+chapter-16/16.2--cover0.sv,plain,DIFFERENT,+  |vpiProcess:,"+  \_always: , line:L:C, endln:L:C",+    |vpiParent:,+  |vpiProcess:
+chapter-16/16.7--sequence.sv,plain,DIFFERENT,-  |vpiSequenceDecl:,"-  \_sequence_decl: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiSequenceDecl:
+chapter-16/16.9--sequence-cons-repetition.sv,plain,DIFFERENT,-  |vpiSequenceDecl:,"-  \_sequence_decl: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiSequenceDecl:
+chapter-16/16.9--sequence-goto-repetition.sv,plain,DIFFERENT,-  |vpiSequenceDecl:,"-  \_sequence_decl: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiSequenceDecl:
+chapter-16/16.9--sequence-noncons-repetition.sv,plain,DIFFERENT,-  |vpiSequenceDecl:,"-  \_sequence_decl: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiSequenceDecl:
+chapter-18/18.12--randomization-of-scope-variables_0.sv,plain,DIFFERENT,"-        \_ref_obj: (_), line:L:C, endln:L:C","+        \_hier_path: (_), line:L:C, endln:L:C",-          |vpiName:std::randomize,"-        \_ref_obj: (work@a::do_randomize::std::randomize), line:19:19, endln:19:24"
+chapter-18/18.12.1--adding-constraints-to-scope-variables_0.sv,plain,DIFFERENT,"-        \_ref_obj: (_), line:L:C, endln:L:C","+        \_hier_path: (_), line:L:C, endln:L:C",-          |vpiName:std,"-        \_ref_obj: (work@a::do_randomize::std), line:19:19, endln:19:57"
+chapter-20/20.6--bits.sv,plain,DIFFERENT,"-        \_sys_func_call: ($bits), line:L:C, endln:L:C",-          |vpiParent:,"-          \_sys_func_call: ($display), line:L:C, endln:L:C","-        \_sys_func_call: ($bits), line:21:34, endln:21:44"
+chapter-20/20.6--isunbounded.sv,plain,DIFFERENT,-      |vpiTypespec:,-      \_ref_typespec: (_),-        |vpiParent:,-      |vpiTypespec:
+chapter-20/20.6--typename_type.sv,plain,DIFFERENT,"-        \_constant: , line:L:C, endln:L:C","+        \_sys_func_call: ($typename), line:L:C, endln:L:C",-          |vpiDecompile:logic,"-        \_constant: , line:20:41, endln:20:50"
+chapter-20/20.9--isunknown.sv,plain,DIFFERENT,-        |vpiRhs:,"-        \_constant: , line:L:C, endln:L:C",-          |vpiDecompile:4'b000x,-        |vpiRhs:
+chapter-22/22.4--check_included_definitions.sv,plain,DIFFERENT,"-      \_sys_func_call: ($display), line:L:C, endln:L:C","+      \_sys_func_call: ($display), line:L:C, endln:L:C","-        \_constant: , line:L:C, endln:L:C","-      \_sys_func_call: ($display), line:19:9, endln:19:37"
+chapter-22/22.4--include_via_define.sv,plain,JUDGE_EQUAL,"-\_include_file_info: , file:_, line:L:C, endln:L:C","+\_include_file_info: , file:_, line:L:C, endln:L:C","-\_include_file_info: , file:_, line:L:C, endln:L:C","-\_include_file_info: , file:/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.4--include_via_define.sv, line:19:10, endln:19:28"
+chapter-22/22.5.1--define-expansion_10.sv,plain,DIFFERENT,"-      \_constant: , line:L:C, endln:L:C",-        |vpiDecompile:0,-        |vpiSize:64,"-      \_constant: , line:18:20, endln:18:20"
+chapter-22/22.5.1--define-expansion_11.sv,plain,DIFFERENT,"-      \_constant: , line:L:C, endln:L:C",-        |vpiDecompile:0,-        |vpiSize:64,"-      \_constant: , line:18:20, endln:18:20"
+chapter-22/22.5.1--define-expansion_13.sv,plain,DIFFERENT,-      |vpiArgument:,"-      \_constant: , line:L:C, endln:L:C",-        |vpiDecompile:0,-      |vpiArgument:
+chapter-22/22.5.1--define-expansion_14.sv,plain,DIFFERENT,"-      \_constant: , line:L:C, endln:L:C",-        |vpiDecompile:0,-        |vpiSize:64,"-      \_constant: , line:18:20, endln:18:20"
+chapter-22/22.5.1--define-expansion_15.sv,plain,DIFFERENT,"-      \_constant: , line:L:C, endln:L:C",-        |vpiDecompile:0,-        |vpiSize:64,"-      \_constant: , line:18:20, endln:18:20"
+chapter-22/22.5.1--define-expansion_16.sv,plain,DIFFERENT,"-      \_constant: , line:L:C, endln:L:C",-        |vpiDecompile:0,-        |vpiSize:64,"-      \_constant: , line:18:20, endln:18:20"
+chapter-22/22.5.1--define-expansion_17.sv,plain,DIFFERENT,"-      \_constant: , line:L:C, endln:L:C",-        |vpiDecompile:0,-        |vpiSize:64,"-      \_constant: , line:18:20, endln:18:20"
+chapter-22/22.5.1--define-expansion_2.sv,plain,DIFFERENT,"-      \_constant: , line:L:C, endln:L:C",-        |vpiDecompile:0,-        |vpiSize:64,"-      \_constant: , line:18:37, endln:18:37"
+chapter-22/22.5.1--define-expansion_24.sv,plain,DIFFERENT,"-      \_sys_func_call: ($display), line:L:C, endln:L:C","+      \_sys_func_call: ($display), line:L:C, endln:L:C","-        \_constant: , line:L:C, endln:L:C","-      \_sys_func_call: ($display), line:21:2, endln:21:26"
+chapter-22/22.5.1--define-expansion_3.sv,plain,DIFFERENT,"-      \_constant: , line:L:C, endln:L:C",-        |vpiDecompile:0,-        |vpiSize:64,"-      \_constant: , line:18:28, endln:18:28"
+chapter-22/22.5.1--define-expansion_4.sv,plain,DIFFERENT,"-      \_constant: , line:L:C, endln:L:C",-        |vpiDecompile:0,-        |vpiSize:64,"-      \_constant: , line:18:28, endln:18:28"
+chapter-22/22.5.1--define-expansion_5.sv,plain,DIFFERENT,"-      \_constant: , line:L:C, endln:L:C",-        |vpiDecompile:0,-        |vpiSize:64,"-      \_constant: , line:18:28, endln:18:28"
+chapter-22/22.5.1--define-expansion_9.sv,plain,DIFFERENT,"-      \_constant: , line:L:C, endln:L:C",-        |vpiDecompile:0,-        |vpiSize:64,"-      \_constant: , line:18:20, endln:18:20"
+chapter-22/22.5.1--include-define-expansion.sv,plain,JUDGE_EQUAL,"-\_include_file_info: , file:_, line:L:C, endln:L:C","+\_include_file_info: , file:_, line:L:C, endln:L:C",,"-\_include_file_info: , file:/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--include-define-expansion.sv, line:17:10, endln:17:32"
+chapter-5/5.10-structure-arrays.sv,plain,DIFFERENT,"-      \_struct_var: (_), line:L:C, endln:L:C","+      \_logic_var: (_), line:L:C, endln:L:C","-    \_struct_var: (_), line:L:C, endln:L:C","-      \_struct_var: (work@top.ms), line:21:8, endln:21:10"
+chapter-5/5.10-structure-replication.sv,plain,DIFFERENT,-                |vpiSize:64,+                |vpiSize:32,-                      |vpiSize:64,-                |vpiSize:64
+chapter-5/5.11-arrays-replication.sv,plain,DIFFERENT,-            |vpiSize:64,+            |vpiSize:32,,-            |vpiSize:64
+chapter-5/5.11-arrays.sv,plain,DIFFERENT,-          |vpiSize:64,+          |vpiSize:32,,-          |vpiSize:64
+chapter-5/5.12-attributes-conditional.sv,plain,DIFFERENT,-          |vpiAttribute:,"-          \_attribute: (_), line:L:C, endln:L:C",-            |vpiParent:,-          |vpiAttribute:
+chapter-5/5.12-attributes-module.sv,plain,JUDGE_EQUAL,-    |UINT:_,-    |UINT:_,"-\_module_inst: work@topa (_), file:_, line:L:C, endln:L:C",-    |UINT:0
+chapter-5/5.12-attributes-operator.sv,plain,DIFFERENT,-          |vpiAttribute:,"-          \_attribute: (_), line:L:C, endln:L:C",-            |vpiParent:,-          |vpiAttribute:
+chapter-5/5.6.4--compiler-directives-debug-line.sv,plain,JUDGE_EQUAL,"-\_module_inst: work@directives (_), file:_, line:L:C, endln:L:C","+\_module_inst: work@directives (_), file:_, line:L:C, endln:L:C","-\_module_inst: work@directives (_), file:_, line:L:C, endln:L:C","-\_module_inst: work@directives (work@directives), file:/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.6.4--compiler-directives-debug-line.sv, line:16:1, end"
+chapter-5/5.6.4--compiler-directives-preprocessor-macro_1.sv,plain,DIFFERENT,-    |vpiExpr:,"-    \_operation: , line:L:C, endln:L:C",-      |vpiParent:,-    |vpiExpr:
+chapter-5/5.7.1--integers-underscores.sv,plain,DIFFERENT,-          |vpiDecompile:32'h12abf001,+          |vpiDecompile:32 'h12abf001,,-          |vpiDecompile:32'h12abf001
+chapter-5/5.8-time-literals.sv,plain,DIFFERENT,-  |vpiDefName:work@top,-  |vpiTop:1,-  |vpiNet:,-  |vpiDefName:work@top
+chapter-5/5.9-string-word-assignment.sv,plain,DIFFERENT,-    |vpiExpr:,"-    \_constant: , line:L:C, endln:L:C",-      |vpiParent:,-    |vpiExpr:
+chapter-6/6.10--implicit_port_connection.sv,plain,JUDGE_EQUAL,"-  \_logic_net: (_), line:L:C, endln:L:C","+  \_logic_net: (_), line:L:C, endln:L:C","-      \_logic_net: (_), line:L:C, endln:L:C","-  \_logic_net: (work@top.c), line:22:13, endln:22:14"
+chapter-6/6.12--realtime.sv,plain,DIFFERENT,"-      \_time_typespec: , line:L:C, endln:L:C","+      \_real_typespec: , line:L:C, endln:L:C","-  \_time_var: (_), line:L:C, endln:L:C","-      \_time_typespec: , line:17:2, endln:17:18"
+chapter-6/6.19--enum_xx.sv,plain,DIFFERENT,-    |INT:_,-    |vpiDecompile:{32{{1'bX}}},-    |vpiSize:64,-    |INT:0
+chapter-6/6.19.2--enum_sequence.sv,plain,DIFFERENT,"-  \_enum_const: (_), line:L:C, endln:L:C",-    |vpiParent:,-    \_enum_typespec:,"-  \_enum_const: (step), line:16:18, endln:16:26"
+chapter-6/6.19.2--enum_sequence_range.sv,plain,DIFFERENT,"-  \_enum_const: (_), line:L:C, endln:L:C",-    |vpiParent:,-    \_enum_typespec:,"-  \_enum_const: (stop), line:16:18, endln:16:29"
+chapter-6/6.20.3--parameter_type.sv,plain,DIFFERENT,+  |vpiParameter:,"+  \_type_parameter: (_), line:L:C, endln:L:C",+    |vpiParent:,+  |vpiParameter:
+chapter-6/6.24.1--cast_op.sv,plain,DIFFERENT,-    |vpiExpr:,"-    \_operation: , line:L:C, endln:L:C",-      |vpiParent:,-    |vpiExpr:
+chapter-6/6.24.3--bitstream_cast.sv,plain,DIFFERENT,-    |vpiExpr:,"-    \_operation: , line:L:C, endln:L:C",-      |vpiParent:,-    |vpiExpr:
+chapter-6/6.6.7--nettype.sv,plain,DIFFERENT,-  |vpiTypedef:,"-  \_real_typespec: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiTypedef:
+chapter-6/6.6.7--nettype_resolution_fn.sv,plain,DIFFERENT,-  |vpiTypedef:,"-  \_real_typespec: (_), line:L:C, endln:L:C",+  |vpiDefName:work@top,-  |vpiTypedef:
+chapter-6/6.6.8--interconnect.sv,plain,DIFFERENT,"-      \_logic_typespec: , line:L:C, endln:L:C","+      \_logic_typespec: , line:L:C, endln:L:C",-    |vpiNetType:12,"-      \_logic_typespec: , line:16:15, endln:16:15"
+chapter-6/6.9.2--vector_scalared.sv,plain,DIFFERENT,-    |vpiNetType:6,-    |vpiNetType:6,-      |vpiNetType:6,-    |vpiNetType:6
+chapter-6/6.9.2--vector_vectored.sv,plain,DIFFERENT,-    |vpiNetType:6,-    |vpiNetType:6,,-    |vpiNetType:6
+chapter-7/arrays/associative/alloc.sv,plain,JUDGE_EQUAL,"-    \_int_typespec: , line:L:C, endln:L:C","-\_int_typespec: , line:L:C, endln:L:C","+    \_int_typespec: , line:L:C, endln:L:C","-    \_int_typespec: , line:18:11, endln:18:14"
+chapter-7/arrays/associative/assignment.sv,plain,JUDGE_EQUAL,"-    \_int_typespec: , line:L:C, endln:L:C","-\_int_typespec: , line:L:C, endln:L:C","+    \_int_typespec: , line:L:C, endln:L:C","-    \_int_typespec: , line:18:16, endln:18:19"
+chapter-7/arrays/associative/class.sv,plain,DIFFERENT,-  |vpiNet:,"-  \_logic_net: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiNet:
+chapter-7/arrays/associative/integral.sv,plain,JUDGE_EQUAL,"-    \_integer_typespec: , line:L:C, endln:L:C","-\_integer_typespec: , line:L:C, endln:L:C","+    \_integer_typespec: , line:L:C, endln:L:C","-    \_integer_typespec: , line:17:11, endln:17:18"
+chapter-7/arrays/associative/locator-methods/unique.sv,plain,DIFFERENT,"-        \_hier_path: (_), line:L:C, endln:L:C","+        \_hier_path: (_), line:L:C, endln:L:C","-          \_ref_obj: (_), line:L:C, endln:L:C","-        \_hier_path: (s), line:23:7, endln:23:15"
+chapter-7/arrays/associative/methods/delete.sv,plain,JUDGE_EQUAL,"-    \_string_typespec: , line:L:C, endln:L:C","-\_string_typespec: , line:L:C, endln:L:C","+    \_string_typespec: , line:L:C, endln:L:C","-    \_string_typespec: , line:18:11, endln:18:17"
+chapter-7/arrays/associative/methods/exists.sv,plain,JUDGE_EQUAL,"-    \_string_typespec: , line:L:C, endln:L:C","-\_string_typespec: , line:L:C, endln:L:C","+    \_string_typespec: , line:L:C, endln:L:C","-    \_string_typespec: , line:18:11, endln:18:17"
+chapter-7/arrays/associative/methods/first.sv,plain,JUDGE_EQUAL,"-    \_string_typespec: , line:L:C, endln:L:C","-\_string_typespec: , line:L:C, endln:L:C","+    \_string_typespec: , line:L:C, endln:L:C","-    \_string_typespec: , line:18:11, endln:18:17"
+chapter-7/arrays/associative/methods/last.sv,plain,JUDGE_EQUAL,"-    \_string_typespec: , line:L:C, endln:L:C","-\_string_typespec: , line:L:C, endln:L:C","+    \_string_typespec: , line:L:C, endln:L:C","-    \_string_typespec: , line:18:11, endln:18:17"
+chapter-7/arrays/associative/methods/next.sv,plain,JUDGE_EQUAL,"-    \_string_typespec: , line:L:C, endln:L:C","-\_string_typespec: , line:L:C, endln:L:C","+    \_string_typespec: , line:L:C, endln:L:C","-    \_string_typespec: , line:18:11, endln:18:17"
+chapter-7/arrays/associative/methods/num.sv,plain,JUDGE_EQUAL,"-    \_int_typespec: , line:L:C, endln:L:C","-\_int_typespec: , line:L:C, endln:L:C","+    \_int_typespec: , line:L:C, endln:L:C","-    \_int_typespec: , line:18:11, endln:18:14"
+chapter-7/arrays/associative/methods/prev.sv,plain,JUDGE_EQUAL,"-    \_string_typespec: , line:L:C, endln:L:C","-\_string_typespec: , line:L:C, endln:L:C","+    \_string_typespec: , line:L:C, endln:L:C","-    \_string_typespec: , line:18:11, endln:18:17"
+chapter-7/arrays/associative/methods/size.sv,plain,JUDGE_EQUAL,"-    \_int_typespec: , line:L:C, endln:L:C","-\_int_typespec: , line:L:C, endln:L:C","+    \_int_typespec: , line:L:C, endln:L:C","-    \_int_typespec: , line:18:11, endln:18:14"
+chapter-7/arrays/associative/methods/traversal.sv,plain,JUDGE_EQUAL,"-    \_byte_typespec: , line:L:C, endln:L:C","-\_byte_typespec: , line:L:C, endln:L:C","+    \_byte_typespec: , line:L:C, endln:L:C","-    \_byte_typespec: , line:18:13, endln:18:17"
+chapter-7/arrays/associative/nonexistent.sv,plain,JUDGE_EQUAL,"-    \_int_typespec: , line:L:C, endln:L:C","-\_int_typespec: , line:L:C, endln:L:C","+    \_int_typespec: , line:L:C, endln:L:C","-    \_int_typespec: , line:18:11, endln:18:14"
+chapter-7/arrays/associative/string.sv,plain,JUDGE_EQUAL,"-    \_string_typespec: , line:L:C, endln:L:C","-\_string_typespec: , line:L:C, endln:L:C","+    \_string_typespec: , line:L:C, endln:L:C","-    \_string_typespec: , line:17:11, endln:17:17"
+chapter-7/arrays/associative/wildcard.sv,plain,DIFFERENT,-  |vpiIndexTypespec:,-  \_ref_typespec:,-    |vpiParent:,-  |vpiIndexTypespec:
+chapter-7/arrays/unpacked/reduction-methods/and.sv,plain,DIFFERENT,"-        \_hier_path: (_), line:L:C, endln:L:C","+        \_hier_path: (_), line:L:C, endln:L:C","-          \_ref_obj: (_), line:L:C, endln:L:C","-        \_hier_path: (b), line:24:6, endln:24:11"
+chapter-7/arrays/unpacked/reduction-methods/or.sv,plain,DIFFERENT,"-        \_hier_path: (_), line:L:C, endln:L:C","+        \_hier_path: (_), line:L:C, endln:L:C","-          \_ref_obj: (_), line:L:C, endln:L:C","-        \_hier_path: (b), line:24:6, endln:24:10"
+chapter-7/arrays/unpacked/reduction-methods/xor.sv,plain,DIFFERENT,"-        \_hier_path: (_), line:L:C, endln:L:C","+        \_hier_path: (_), line:L:C, endln:L:C","-          \_ref_obj: (_), line:L:C, endln:L:C","-        \_hier_path: (b), line:24:6, endln:24:11"
+chapter-7/queues/bounded.sv,plain,DIFFERENT,-    |vpiArrayType:1,-    |vpiRange:,"-    \_range: , line:L:C, endln:L:C",-    |vpiArrayType:1
+chapter-7/queues/delete_assign.sv,plain,DIFFERENT,"-        \_array_var: , line:L:C, endln:L:C",-          |vpiTypespec:,-          \_ref_typespec:,"-        \_array_var: , line:29:6, endln:29:8"
+chapter-7/queues/max-size.sv,plain,DIFFERENT,-    |vpiArrayType:1,-    |vpiRange:,"-    \_range: , line:L:C, endln:L:C",-    |vpiArrayType:1
+chapter-7/queues/slice.sv,plain,DIFFERENT,-    |vpiArrayType:1,-    |vpiRange:,"-    \_range: , line:L:C, endln:L:C",-    |vpiArrayType:1
+chapter-7/structures/unpacked/basic.sv,plain,JUDGE_EQUAL,"-      \_struct_typespec: , line:L:C, endln:L:C","+      \_struct_typespec: , line:L:C, endln:L:C",-  |vpiParent:,"-      \_struct_typespec: , line:18:1, endln:19:15"
+chapter-7/structures/unpacked/default-value.sv,plain,DIFFERENT,"-      \_struct_typespec: , line:L:C, endln:L:C","+      \_struct_typespec: , line:L:C, endln:L:C",-  |vpiParent:,"-      \_struct_typespec: , line:20:1, endln:21:19"
+chapter-7/unions/tagged/basic.sv,plain,DIFFERENT,"-      \_union_typespec: , line:L:C, endln:L:C","+      \_union_typespec: , line:L:C, endln:L:C","-\_union_typespec: , line:L:C, endln:L:C","-      \_union_typespec: , line:18:1, endln:18:13"
+chapter-8/8.12--shallow_copy.sv,plain,DIFFERENT,-          \_hier_path: (_),"+          \_assignment: , line:L:C, endln:L:C",+          |vpiActual:,-          \_hier_path: (test_obj1)
+chapter-8/8.22--dynamic_method_lookup.sv,plain,DIFFERENT,"-    \_class_var: (_), line:L:C, endln:L:C","+    \_logic_var: (_), line:L:C, endln:L:C","-        \_class_var: (_), line:L:C, endln:L:C","-    \_class_var: (work@class_tb.arr), line:39:11, endln:39:14"
+chapter-8/8.24--out_of_block_methods.sv,plain,DIFFERENT,-  |vpiTaskFunc:,"-  \_function: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiTaskFunc:
+chapter-8/8.26.2--implements.sv,plain,DIFFERENT,+  |vpiClassDefn:,"+  \_class_defn: (_), file:_, line:L:C, endln:L:C",+    |vpiParent:,+  |vpiClassDefn:
+chapter-8/8.26.2--implements_extends.sv,plain,DIFFERENT,+  |vpiClassDefn:,"+  \_class_defn: (_), file:_, line:L:C, endln:L:C",+    |vpiParent:,+  |vpiClassDefn:
+chapter-8/8.26.2--implements_multiple.sv,plain,DIFFERENT,+  |vpiClassDefn:,"+  \_class_defn: (_), file:_, line:L:C, endln:L:C",+    |vpiParent:,+  |vpiClassDefn:
+chapter-8/8.26.3--type_access_extends.sv,plain,DIFFERENT,+  |vpiClassDefn:,"+  \_class_defn: (_), file:_, line:L:C, endln:L:C",+    |vpiParent:,+  |vpiClassDefn:
+chapter-8/8.26.3--type_access_implements.sv,plain,DIFFERENT,"-          \_unsupported_typespec: (_), line:L:C, endln:L:C","+          \_int_typespec: , line:L:C, endln:L:C",+  |vpiClassDefn:,"-          \_unsupported_typespec: (ihello::int_t), line:24:31, endln:24:39"
+chapter-8/8.26.6.1--name_conflict_resolved.sv,plain,DIFFERENT,+  |vpiClassDefn:,"+  \_class_defn: (_), file:_, line:L:C, endln:L:C",+    |vpiParent:,+  |vpiClassDefn:
+chapter-8/8.26.6.2--parameter_type_conflict.sv,plain,DIFFERENT,+  |vpiClassDefn:,"+  \_class_defn: (_), file:_, line:L:C, endln:L:C",+    |vpiParent:,+  |vpiClassDefn:
+chapter-8/8.26.6.3--diamond_relationship.sv,plain,DIFFERENT,+  |vpiClassDefn:,"+  \_class_defn: (_), file:_, line:L:C, endln:L:C",+    |vpiParent:,+  |vpiClassDefn:
+chapter-8/8.26.7--partial_implementation.sv,plain,DIFFERENT,"+  \_class_defn: (_), file:_, line:L:C, endln:L:C",+    |vpiParent:,"+    \_module_inst: work@class_tb (_), file:_, line:L:C, endln:L:C","+  \_class_defn: (work@class_tb::ihello), file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.7--partial_implementation.sv, line:17:12, endln:20:10"
+chapter-8/8.5--properties_enum.sv,plain,DIFFERENT,"-        \_hier_path: (_), line:L:C, endln:L:C","+        \_ref_obj: (_), line:L:C, endln:L:C",+          |vpiName:C,"-        \_hier_path: (test_obj.C), line:25:12, endln:25:22"
+chapter-8/8.8--typed_constructor.sv,plain,DIFFERENT,-  |vpiNet:,"-  \_logic_net: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiNet:
+chapter-8/8.8--typed_constructor_param.sv,plain,DIFFERENT,-  |vpiNet:,"-  \_logic_net: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiNet:
+chapter-9/9.4.2.4--event_sequence.sv,plain,DIFFERENT,-  |vpiSequenceDecl:,"-  \_sequence_decl: (_), line:L:C, endln:L:C",-    |vpiParent:,-  |vpiSequenceDecl:
+chapter-9/9.4.5--event_nonblocking_assignment_event.sv,plain,DIFFERENT,-        |vpiDelayControl:,"-        \_delay_control: , line:L:C, endln:L:C",-          |vpiParent:,-        |vpiDelayControl:
+chapter-9/9.4.5--event_nonblocking_assignment_repeat.sv,plain,DIFFERENT,-        |vpiDelayControl:,"-        \_delay_control: , line:L:C, endln:L:C",-          |vpiParent:,-        |vpiDelayControl:
+chapter-9/9.4.5--event_nonblocking_assignment_repeat_int.sv,plain,DIFFERENT,-        |vpiDelayControl:,"-        \_delay_control: , line:L:C, endln:L:C",-          |vpiParent:,-        |vpiDelayControl:
+chapter-9/9.4.5--event_nonblocking_assignment_repeat_int_neg.sv,plain,DIFFERENT,-        |vpiDelayControl:,"-        \_delay_control: , line:L:C, endln:L:C",-          |vpiParent:,-        |vpiDelayControl:
+chapter-9/9.4.5--event_nonblocking_assignment_repeat_neg.sv,plain,DIFFERENT,-        |vpiDelayControl:,"-        \_delay_control: , line:L:C, endln:L:C",-          |vpiParent:,-        |vpiDelayControl:
+chapter-9/9.6.2--disable_other.sv,plain,DIFFERENT,+          |vpiExpr:,"+          \_named_begin: (_), line:L:C, endln:L:C",,+          |vpiExpr:
+chapter-9/9.7--process_cls_await.sv,plain,DIFFERENT,"-      \_ref_var: (_), line:L:C, endln:L:C","+      \_class_var: (_), line:L:C, endln:L:C","-          \_ref_var: (_), line:L:C, endln:L:C","-      \_ref_var: (work@process_tb.test.job), line:18:11, endln:18:14"
+chapter-9/9.7--process_cls_kill.sv,plain,DIFFERENT,"-      \_ref_var: (_), line:L:C, endln:L:C","+      \_class_var: (_), line:L:C, endln:L:C","-          \_ref_var: (_), line:L:C, endln:L:C","-      \_ref_var: (work@process_tb.test.job), line:18:11, endln:18:14"
+chapter-9/9.7--process_cls_self.sv,plain,DIFFERENT,"-      \_ref_var: (_), line:L:C, endln:L:C","+      \_class_var: (_), line:L:C, endln:L:C","-          \_ref_var: (_), line:L:C, endln:L:C","-      \_ref_var: (work@process_tb.test.job), line:18:11, endln:18:14"
+chapter-9/9.7--process_cls_suspend_resume.sv,plain,DIFFERENT,"-      \_ref_var: (_), line:L:C, endln:L:C","+      \_class_var: (_), line:L:C, endln:L:C","-          \_ref_var: (_), line:L:C, endln:L:C","-      \_ref_var: (work@process_tb.test.job), line:18:11, endln:18:14"
+generated/basejump/bsg_async_BaseJumpSTL_bsg_async_credit_counter.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_async_BaseJumpSTL_bsg_async_fifo.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_async_BaseJumpSTL_bsg_async_ptr_gray.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_async_BaseJumpSTL_bsg_launch_sync_sync.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_async_BaseJumpSTL_bsg_sync_sync.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_axi_BaseJumpSTL_bsg_axi_pkg.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_buffer_queue.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_decode.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_dma.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_dma_to_wormhole.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_miss.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_data_mem.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_decode.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_dma.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_mhu.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_miss_fifo.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_stat_mem.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_tag_mem.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_tl_stage.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_sbuf.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_tbuf.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_axi.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_cache_to_axi (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_axi_pkg (_), file:_, line:L:C, endln:L:C",-    \_ref_typespec: (_),"-    \_module_inst: work@bsg_cache_to_axi (work@bsg_cache_to_axi), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_cache/bsg_cache_to_ax"
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_axi_ordering.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_cache_to_axi_ordering (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_axi_pkg (_), file:_, line:L:C, endln:L:C",-    \_ref_typespec: (_),"-    \_module_inst: work@bsg_cache_to_axi_ordering (work@bsg_cache_to_axi_ordering), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_cac"
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_axi_rx.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_cache_to_axi_rx (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_axi_pkg (_), file:_, line:L:C, endln:L:C",-    \_ref_typespec: (_),"-    \_module_inst: work@bsg_cache_to_axi_rx (work@bsg_cache_to_axi_rx), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_cache/bsg_cache"
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_axi_tx.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_cache_to_axi_tx (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_axi_pkg (_), file:_, line:L:C, endln:L:C",-    \_ref_typespec: (_),"-    \_module_inst: work@bsg_cache_to_axi_tx (work@bsg_cache_to_axi_tx), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_cache/bsg_cache"
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_dram_ctrl_rx.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_dram_ctrl_tx.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram_rx.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram_rx_reorder.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram_tx.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_nonsynth_cache_axe_tracer.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_wormhole_to_cache_dma_fanout.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_wormhole_to_cache_dma_inorder.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_clk_gen (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_dmc_pkg (_), file:_, line:L:C, endln:L:C",-      \_ref_typespec: (_),"-    \_module_inst: work@bsg_clk_gen (work@bsg_clk_gen), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_clk_gen/bsg_clk_gen.sv, line:77"
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_v3.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_clk_gen_v3 (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_dmc_pkg (_), file:_, line:L:C, endln:L:C",-      \_ref_typespec: (_),"-    \_module_inst: work@bsg_clk_gen_v3 (work@bsg_clk_gen_v3), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_clk_gen/bsg_clk_gen_v3.sv"
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_dram_clk_gen.sv,cores,DIFFERENT,-      \_ref_typespec: (_),+      \_ref_typespec: (_),-        |vpiFullName:work@bsg_dram_clk_gen.bsg_tag_pkg::bsg_tag_s.clk,-      \_ref_typespec: (work@bsg_dram_clk_gen.bsg_tag_pkg::bsg_tag_s.clk)
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_edge_balanced_mux4.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_nonsynth_clk_watcher.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_assembler_in.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_assembler_out.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_comm_link.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_master.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_master_master.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_input.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_output.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_1_to_n_tagged.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_1_to_n_tagged_fifo.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_8b10b_decode_comb.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_8b10b_encode_comb.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_8b10b_shift_decoder.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_channel_narrow.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_channel_tunnel.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_channel_tunnel_in.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_channel_tunnel_out.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_channel_tunnel_wormhole.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_compare_and_swap.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_credit_to_token.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_large.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_large_banked.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_multi.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_narrowed.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_pseudo_large.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_small.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_small_credit_on_input.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_small_hardened.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_small_hardened_multi.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_small_unhardened.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1rw_large.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_bypass.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_reorder.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_shift_datapath.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_tracker.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_flatten_2D_array.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_flow_convert.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_flow_counter.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_make_2D_array.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_one_fifo.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_one_fifo_bypass.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_parallel_in_serial_out.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_parallel_in_serial_out_dynamic.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_parallel_in_serial_out_passthrough.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_permute_box.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_pipeline_stall_collapse.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_ready_to_credit_flow_converter.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_relay_fifo.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_1_to_n.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_2_to_2.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_n_to_1.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_sbox.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_scatter_gather.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_serial_in_parallel_out.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_serial_in_parallel_out_dynamic.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_serial_in_parallel_out_full.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_serial_in_parallel_out_passthrough.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_shift_reg.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_sort_4.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_sort_stable.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_two_buncher.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_two_fifo.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dmc_BaseJumpSTL_bsg_dmc.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_dmc (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_dmc_pkg (_), file:_, line:L:C, endln:L:C",-      \_ref_typespec: (_),"-    \_module_inst: work@bsg_dmc (work@bsg_dmc), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_dmc/bsg_dmc.sv, line:3:1, endln:283:10"
+generated/basejump/bsg_dmc_BaseJumpSTL_bsg_dmc_clk_rst_gen.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_dmc_clk_rst_gen (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_dmc_pkg (_), file:_, line:L:C, endln:L:C",-      \_ref_typespec: (_),"-    \_module_inst: work@bsg_dmc_clk_rst_gen (work@bsg_dmc_clk_rst_gen), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_dmc/bsg_dmc_clk"
+generated/basejump/bsg_dmc_BaseJumpSTL_bsg_dmc_controller.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_dmc_controller (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_dmc_pkg (_), file:_, line:L:C, endln:L:C",-      \_ref_typespec: (_),"-    \_module_inst: work@bsg_dmc_controller (work@bsg_dmc_controller), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_dmc/bsg_dmc_contr"
+generated/basejump/bsg_dmc_BaseJumpSTL_bsg_dmc_phy.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_dmc_BaseJumpSTL_bsg_dmc_sys_cfg_gen.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_add_sub.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_classify.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_clz.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_cmp.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_f2i.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_i2f.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_mul.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_preprocess.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_sticky.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_ddr_downstream.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_ddr_upstream.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_iddr_phy.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_isdr_phy.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_oddr_phy.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_osdr_phy.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_osdr_phy_phase_align.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_pkg.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_sdr.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_sdr_downstream.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_sdr_upstream.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_source_sync_downstream.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_source_sync_upstream.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_source_sync_upstream_sync.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_replacement.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_sync.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_sync_unmanaged.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_tag_array.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_unmanaged.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_one_hot.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_banked.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_bit.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_bit_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_byte.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_byte_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_var.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_banked.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_bit.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_bit_banked.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_bit_from_1r1w.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_bit_segmented.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_bit_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_byte.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_byte_banked.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_byte_segmented.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_byte_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_var.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_segmented.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2r1w.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2r1w_sync.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2r1w_sync_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2r1w_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2rw_sync.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2rw_sync_mask_write_bit.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2rw_sync_mask_write_bit_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2rw_sync_mask_write_byte.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2rw_sync_mask_write_byte_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2rw_sync_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_3r1w.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_3r1w_sync.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_3r1w_sync_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_3r1w_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_multiport_latch.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1r1w_sync_dma.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1r1w_sync_mask_write_byte_dma.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_mask_write_byte_assoc.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_mask_write_byte_dma.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_abs.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_adder_cin.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_adder_one_hot.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_adder_ripple_carry.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_and.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_arb_fixed.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_arb_round_robin.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_array_concentrate_static.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_array_reverse.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_binary_plus_one_to_gray.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_buf.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_buf_ctrl.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_circular_ptr.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_clkbuf.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_clkgate_optional.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_concentrate_static.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_clear_up.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_clear_up_multi.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_clear_up_one_hot.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_clear_up_saturating.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_clock_downsample.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_dynamic_limit.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_dynamic_limit_en.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_max_clear_up.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_overflow_en.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_overflow_set_en.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_set_down.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_set_en.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_up_down.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_up_down_variable.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counting_leading_zeros.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_crossbar_control_basic_o_by_i.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_crossbar_control_locking_o_by_i.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_crossbar_o_by_i.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_cycle_counter.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_decode.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_decode_thermometer.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_decode_with_v.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_defines.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_async_reset.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_chain.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_bypass.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_segmented.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_gatestack.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_negedge_reset.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset_en.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset_en_bypass.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset_set_clear.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset_var_en.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dlatch.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_edge_detect.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_encode_one_hot.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_expand_bitmask.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_gray_to_binary.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_hash_bank.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_hash_bank_reverse.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_hashing_ipoly.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_icg_neg.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_icg_pos.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_id_pool.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_id_pool_dealloc_alloc_one_hot.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_id_pool_with_reserve.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_idiv_iterative.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_idiv_iterative_controller.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_idiv_unsigned_recip.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_imod_range.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_imul_iterative.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_inv.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_less_than.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_level_shift_up_down_sink.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_level_shift_up_down_source.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_lfsr.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_locking_arb_fixed.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_lru_pseudo_tree_backup.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_lru_pseudo_tree_decode.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_lru_pseudo_tree_encode.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_add_unsigned.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_array.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_array_row.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_pipelined.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_synth.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux2_gatestack.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_bitwise.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_butterfly.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_one_hot.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_segmented.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_muxi2_gatestack.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_nand.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_nor2.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_nor3.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_popcount.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_priority_encode.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_priority_encode_one_hot_out.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_reduce.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_reduce_segmented.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_rotate_left.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_rotate_right.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_round_robin_arb.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scan.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_resource.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scoreboard_dealloc_alloc.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_strobe.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_swap.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_thermometer_count.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_tiehi.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_tielo.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_transpose.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_transpose_reduce.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_unconcentrate_static.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_wait_after_reset.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_wait_cycles.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_xnor.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_xor.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_barrier.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router_buffered.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router_decoder_dor.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_to_ring_stitch.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_noc_pkg.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_noc_repeater_node.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_ready_and_link_async_to_wormhole.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_router_crossbar_o_by_i.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_broadcast.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_in.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_out.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_adapter_in.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_adapter_out.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_decoder_dor.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_input_control.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_output_control.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_packet_parser.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_bitbang.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_client.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_tag_client (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_dmc_pkg (_), file:_, line:L:C, endln:L:C",-      \_ref_typespec: (_),"-    \_module_inst: work@bsg_tag_client (work@bsg_tag_client), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_tag/bsg_tag_client.sv, li"
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_client_unsync.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_tag_client_unsync (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_dmc_pkg (_), file:_, line:L:C, endln:L:C",-      \_ref_typespec: (_),"-    \_module_inst: work@bsg_tag_client_unsync (work@bsg_tag_client_unsync), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_tag/bsg_tag"
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_master.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_tag_master (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_dmc_pkg (_), file:_, line:L:C, endln:L:C",-      \_ref_typespec: (_),"-    \_module_inst: work@bsg_tag_master (work@bsg_tag_master), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_tag/bsg_tag_master.sv, li"
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_master_decentralized.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_tag_master_decentralized (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_dmc_pkg (_), file:_, line:L:C, endln:L:C",-      \_ref_typespec: (_),"-    \_module_inst: work@bsg_tag_master_decentralized (work@bsg_tag_master_decentralized), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/b"
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_trace_replay.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_axi_mem.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_nonsynth_axi_mem (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_axi_pkg (_), file:_, line:L:C, endln:L:C",-    \_ref_typespec: (_),"-    \_module_inst: work@bsg_nonsynth_axi_mem (work@bsg_nonsynth_axi_mem), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_test/bsg_nons"
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_clock_gen_plusarg.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_delay_line.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_clock_gen.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_cycle_counter.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_from_fifo.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_gpio.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_rom.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_to_fifo.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3_map.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_nonsynth_dramsim3_map (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_dramsim3_pkg (_), file:_, line:L:C, endln:L:C",-    \_ref_typespec: (_),"-    \_module_inst: work@bsg_nonsynth_dramsim3_map (work@bsg_nonsynth_dramsim3_map), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_tes"
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3_unmap.sv,cores,DIFFERENT,"-    \_module_inst: work@bsg_nonsynth_dramsim3_unmap (_), file:_, line:L:C, endln:L:C","+    \_package: bsg_dramsim3_pkg (_), file:_, line:L:C, endln:L:C",-    \_ref_typespec: (_),"-    \_module_inst: work@bsg_nonsynth_dramsim3_unmap (work@bsg_nonsynth_dramsim3_unmap), file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg"
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_modular_inverse.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ramulator_hbm.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_random_gen.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_reset_gen.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_sha256.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_test_rom.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_triwire.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_val_watcher_1p.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_bsg_trace_replay.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_test_assembler_defines.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/basejump/bsg_test_BaseJumpSTL_test_bsg_data_gen.sv,cores,DIFFERENT,-    |INT:_,"-    \_constant: , line:L:C, endln:L:C","+    \_ref_obj: (_), line:L:C, endln:L:C",-    |INT:0
+generated/fx68k/fx68k.sv,cores,DIFFERENT,"-                \_case_item: , line:L:C, endln:L:C","+                \_case_item: , line:L:C, endln:L:C","-                \_case_item: , line:L:C, endln:L:C","-                \_case_item: , line:536:3, endln:612:11"
+generated/hdlconv_std2012/hdlconvertor_std2012_p148.sv,plain,DIFFERENT,-    |vpiExpr:,"-    \_operation: , line:L:C, endln:L:C",-      |vpiParent:,-    |vpiExpr:
+generated/hdlconv_std2012/hdlconvertor_std2012_p154_1.sv,plain,DIFFERENT,"-    \_int_var: (_), line:L:C, endln:L:C","+    \_int_var: (_), line:L:C, endln:L:C","-        \_int_var: (_), line:L:C, endln:L:C","-    \_int_var: (work@C::f), line:5:21, endln:5:22"
+generated/hdlconv_std2012/hdlconvertor_std2012_p158.sv,plain,DIFFERENT,-    |vpiArrayType:1,-    |vpiRange:,"-    \_range: , line:L:C, endln:L:C",-    |vpiArrayType:1
+generated/hdlconv_std2012/hdlconvertor_std2012_p160_1.sv,plain,DIFFERENT,"+\_class_defn: (_), file:_, line:L:C, endln:L:C",+  |vpiParent:,+  \_design: (_),"+\_class_defn: (work@GetImp), file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2012/p160_1.sv, line:5:11, endln:7:9"
+generated/hdlconv_std2012/hdlconvertor_std2012_p753_2.sv,plain,DIFFERENT,"-            \_constant: , line:L:C, endln:L:C","+            \_ref_obj: (_), line:L:C, endln:L:C",-              |vpiDecompile:0,"-            \_constant: , line:25:23, endln:25:24"
+generated/hdlconv_std2012/hdlconvertor_std2012_p88.sv,plain,DIFFERENT,-        |vpiSize:16,+        |vpiSize:32,-  \_type_parameter: (_),-        |vpiSize:16
+generated/hdlconv_std2012/hdlconvertor_std2012_p90.sv,plain,DIFFERENT,"-      \_begin: (_), line:L:C, endln:L:C","+      \_task: (_), line:L:C, endln:L:C","-      \_begin: (_), line:L:C, endln:L:C","-      \_begin: (work@msl.t1), line:11:9, endln:11:24"
+generated/hdlconv_std2017/hdlconvertor_std2017_p124.sv,plain,DIFFERENT,-        |vpiSize:16,+        |vpiSize:32,-  \_type_parameter: (_),-        |vpiSize:16
+generated/hdlconv_std2017/hdlconvertor_std2017_p126.sv,plain,DIFFERENT,"-      \_begin: (_), line:L:C, endln:L:C","+      \_task: (_), line:L:C, endln:L:C","-      \_begin: (_), line:L:C, endln:L:C","-      \_begin: (work@msl.t1), line:10:1, endln:10:16"
+generated/hdlconv_std2017/hdlconvertor_std2017_p130.sv,plain,DIFFERENT,"-      \_int_typespec: , line:L:C, endln:L:C","+      \_logic_typespec: , line:L:C, endln:L:C","-\_int_typespec: , line:L:C, endln:L:C","-      \_int_typespec: , line:7:22, endln:7:25"
+generated/hdlconv_std2017/hdlconvertor_std2017_p168.sv,plain,DIFFERENT,"-                \_logic_net: (_), line:L:C, endln:L:C","+                \_logic_net: (_), line:L:C, endln:L:C","-              \_logic_net: (_), line:L:C, endln:L:C","-                \_logic_net: (work@top.item), line:8:19, endln:8:23"
+generated/hdlconv_std2017/hdlconvertor_std2017_p174.sv,plain,DIFFERENT,"-  \_type_parameter: (_), line:L:C, endln:L:C",-    |vpiParent:,"-    \_class_defn: (_), file:_, line:L:C, endln:L:C","-  \_type_parameter: (work@vector::T), line:1:42, endln:1:43"
+generated/hdlconv_std2017/hdlconvertor_std2017_p179.sv,plain,DIFFERENT,"-  \_class_var: (_), line:L:C, endln:L:C",-    |vpiParent:,"-    \_function: (_), line:L:C, endln:L:C","-  \_class_var: (test.xtnd1), line:13:1, endln:13:6"
+generated/hdlconv_std2017/hdlconvertor_std2017_p181_2.sv,plain,DIFFERENT,"-          \_hier_path: (_), line:L:C, endln:L:C","+          \_ref_obj: (_), line:L:C, endln:L:C",-            |vpiActual:,"-          \_hier_path: (super.value), line:12:32, endln:12:43"
+generated/hdlconv_std2017/hdlconvertor_std2017_p184.sv,plain,DIFFERENT,-    |vpiExpr:,"-    \_operation: , line:L:C, endln:L:C",-      |vpiParent:,-    |vpiExpr:
+generated/hdlconv_std2017/hdlconvertor_std2017_p189.sv,plain,DIFFERENT,+  |vpiMethod:,"+  \_function: (_), line:L:C, endln:L:C",+    |vpiParent:,+  |vpiMethod:
+generated/hdlconv_std2017/hdlconvertor_std2017_p190.sv,plain,DIFFERENT,"-    \_int_var: (_), line:L:C, endln:L:C","+    \_int_var: (_), line:L:C, endln:L:C","-        \_int_var: (_), line:L:C, endln:L:C","-    \_int_var: (work@C::f), line:4:17, endln:4:18"
+generated/hdlconv_std2017/hdlconvertor_std2017_p193_2.sv,plain,DIFFERENT,"-    \_ref_var: (_), line:L:C, endln:L:C","+    \_class_var: (_), line:L:C, endln:L:C","-        \_ref_var: (_), line:L:C, endln:L:C","-    \_ref_var: (work@C::f), line:2:24, endln:2:25"
+generated/hdlconv_std2017/hdlconvertor_std2017_p194.sv,plain,DIFFERENT,+|uhdmallClasses:,"+\_class_defn: (_), file:_, line:L:C, endln:L:C",+  |vpiParent:,+|uhdmallClasses:
+generated/hdlconv_std2017/hdlconvertor_std2017_p196.sv,plain,DIFFERENT,"+\_class_defn: (_), file:_, line:L:C, endln:L:C",+  |vpiParent:,+  \_design: (_),"+\_class_defn: (work@GetImp), file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p196.sv, line:6:11, endln:8:9"
+generated/hdlconv_std2017/hdlconvertor_std2017_p199.sv,plain,DIFFERENT,"+\_class_defn: (_), file:_, line:L:C, endln:L:C",+  |vpiParent:,+  \_design: (_),"+\_class_defn: (work@IntfBase1), file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p199.sv, line:1:11, endln:3:9"
+generated/hdlconv_std2017/hdlconvertor_std2017_p200_2.sv,plain,DIFFERENT,+|uhdmallClasses:,"+\_class_defn: (_), file:_, line:L:C, endln:L:C",+  |vpiParent:,+|uhdmallClasses:
+generated/hdlconv_std2017/hdlconvertor_std2017_p202.sv,plain,DIFFERENT,"+\_class_defn: (_), file:_, line:L:C, endln:L:C",+  |vpiParent:,+  \_design: (_),"+\_class_defn: (work@IntfClass), file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p202.sv, line:1:11, endln:4:9"
+generated/hdlconv_std2017/hdlconvertor_std2017_p203.sv,plain,DIFFERENT,"+  \_parameter: (_), line:L:C, endln:L:C",+    |vpiParent:,"+    \_class_defn: (_), file:_, line:L:C, endln:L:C","+  \_parameter: (work@C::p), line:17:21, endln:17:22"
+generated/hdlconv_std2017/hdlconvertor_std2017_p230.sv,plain,DIFFERENT,+|vpiTaskFunc:,"+\_task: (_), line:L:C, endln:L:C",+  |vpiParent:,+|vpiTaskFunc:
+generated/hdlconv_std2017/hdlconvertor_std2017_p239.sv,plain,DIFFERENT,-        |vpiArgument:,"-        \_constant: , line:L:C, endln:L:C",-          |vpiDecompile:0,-        |vpiArgument:
+generated/hdlconv_std2017/hdlconvertor_std2017_p292.sv,plain,DIFFERENT,"-        \_func_call: (_), line:L:C, endln:L:C","+        \_operation: , line:L:C, endln:L:C",-          |vpiArgument:,"-        \_func_call: (valid_arb), line:14:5, endln:14:58"
+generated/hdlconv_std2017/hdlconvertor_std2017_p332.sv,plain,DIFFERENT,+|vpiTaskFunc:,"+\_task: (_), line:L:C, endln:L:C",+  |vpiParent:,+|vpiTaskFunc:
+generated/hdlconv_std2017/hdlconvertor_std2017_p334.sv,plain,DIFFERENT,"-\_class_defn: (_), file:_, line:L:C, endln:L:C",-  |vpiParent:,-  \_design: (_),"-\_class_defn: (work@C), file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p334.sv, line:1:9, endln:17:9"
+generated/hdlconv_std2017/hdlconvertor_std2017_p488.sv,plain,DIFFERENT,+    |vpiNetType:1,+    |vpiTypedef:,+    \_ref_typespec: (_),+    |vpiNetType:1
+generated/hdlconv_std2017/hdlconvertor_std2017_p530.sv,plain,DIFFERENT,+|vpiTaskFunc:,"+\_task: (_), line:L:C, endln:L:C",+  |vpiParent:,+|vpiTaskFunc:
+generated/hdlconv_std2017/hdlconvertor_std2017_p537.sv,plain,DIFFERENT,"-        \_func_call: (_), line:L:C, endln:L:C","+        \_hier_path: (_), line:L:C, endln:L:C",-          |vpiArgument:,"-        \_func_call: (randomize), line:6:11, endln:6:41"
+generated/hdlconv_std2017/hdlconvertor_std2017_p597.sv,plain,JUDGE_EQUAL,"-  \_logic_net: (_), line:L:C, endln:L:C","+  \_logic_net: (_), line:L:C, endln:L:C","-            \_logic_net: (_), line:L:C, endln:L:C","-  \_logic_net: (work@a1_dat.o1), line:12:63, endln:12:65"
+generated/hdlconv_std2017/hdlconvertor_std2017_p599.sv,plain,DIFFERENT,-      |vpiTypespec:,-      \_ref_typespec: (_),-        |vpiParent:,-      |vpiTypespec:
+generated/hdlconv_std2017/hdlconvertor_std2017_p600.sv,plain,DIFFERENT,"-      \_constant: , line:L:C, endln:L:C","+      \_constant: , line:L:C, endln:L:C",-        |vpiDecompile:1'b1,"-      \_constant: , line:12:16, endln:12:20"
+generated/hdlconv_std2017/hdlconvertor_std2017_p707.sv,plain,DIFFERENT,"-  \_param_assign: , line:L:C, endln:L:C",-    |vpiParent:,"-    \_module_inst: work@generic_decoder (_), file:_, line:L:C, endln:L:C","-  \_param_assign: , line:2:33, endln:2:66"
+generated/hdlconv_std2017/hdlconvertor_std2017_p718.sv,plain,DIFFERENT,"-      \_logic_typespec: , line:L:C, endln:L:C","+      \_logic_typespec: , line:L:C, endln:L:C",-    |vpiNetType:12,"-      \_logic_typespec: , line:2:14, endln:2:14"
+generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv,plain,DIFFERENT,"-  \_gate: work@nand (_), line:L:C, endln:L:C","+  \_gate: work@nand (_), line:L:C, endln:L:C",-    |vpiFullName:work@dff_nested.work@dff_nested::ff1.g1b,"-  \_gate: work@nand (work@dff_nested.work@dff_nested::ff1.g1b), line:16:6, endln:16:27"
+generated/hdlconv_std2017/hdlconvertor_std2017_p733.sv,plain,DIFFERENT,-        |vpiDecompile:1,+        |vpiDecompile:5,-        |UINT:_,-        |vpiDecompile:1
+generated/hdlconv_std2017/hdlconvertor_std2017_p737.sv,plain,DIFFERENT,-design: (_),-|vpiName:work@M,+design: (_),-design: (work@M)
+generated/hdlconv_std2017/hdlconvertor_std2017_p761.sv,plain,DIFFERENT,+    |vpiVariables:,"+    \_logic_var: (_), line:L:C, endln:L:C",+    |vpiVariables:,+    |vpiVariables:
+generated/hdlconv_std2017/hdlconvertor_std2017_p762.sv,plain,DIFFERENT,+    |vpiVariables:,"+    \_logic_var: (_), line:L:C, endln:L:C",+    |vpiVariables:,+    |vpiVariables:
+generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv,plain,DIFFERENT,"-      \_func_call: (_), line:L:C, endln:L:C","+      \_task_call: (_), line:L:C, endln:L:C",+        |vpiTask:,"-      \_func_call: (countSlaves), line:26:1, endln:26:12"
+generated/hdlconv_std2017/hdlconvertor_std2017_p770.sv,plain,DIFFERENT,"-          \_bit_select: (_), line:L:C, endln:L:C","+          \_ref_obj: (_), line:L:C, endln:L:C",-            |vpiName:s,"-          \_bit_select: (work@top.s), line:32:15, endln:32:16"
+generated/hdlconv_std2017/hdlconvertor_std2017_p780.sv,plain,DIFFERENT,+  |vpiTaskFunc:,"+  \_function: (_), line:L:C, endln:L:C",+  |vpiTaskFunc:,+  |vpiTaskFunc:
+generated/hdlconv_std2017/hdlconvertor_std2017_p790.sv,plain,DIFFERENT,"-            \_constant: , line:L:C, endln:L:C","+            \_ref_obj: (_), line:L:C, endln:L:C",-              |vpiDecompile:0,"-            \_constant: , line:33:15, endln:33:16"
+generated/hdlconv_std2017/hdlconvertor_std2017_p791.sv,plain,DIFFERENT,-            |vpiActual:,"-            \_logic_net: (_), line:L:C, endln:L:C","-          \_bit_select: (_), line:L:C, endln:L:C",-            |vpiActual:
+generated/hdlconv_std2017/hdlconvertor_std2017_p835.sv,plain,DIFFERENT,-    |STRING:_,+    |STRING:_,+        |vpiDecompile:1'b1,-    |STRING:? *  : ? : -
+generated/hdlconv_std2017/hdlconvertor_std2017_p884.sv,plain,DIFFERENT,-    |STRING:_,+    |STRING:_,-    |STRING:_,-    |STRING:? *  ? ? ? : ? : -
+generated/integers/6.11--integer_signed_bit.sv,plain,DIFFERENT,-    |vpiSigned:1,,,-    |vpiSigned:1
+generated/integers/6.11--integer_signed_time.sv,plain,DIFFERENT,"-      \_time_typespec: , line:L:C, endln:L:C","+      \_time_typespec: , line:L:C, endln:L:C",-  |vpiDefName:work@top,"-      \_time_typespec: , line:7:1, endln:7:5"
+generated/integers/6.11--integer_time.sv,plain,DIFFERENT,-  |vpiDefName:work@top,-  |vpiTop:1,-  |vpiNet:,-  |vpiDefName:work@top
+generated/integers/6.11--integer_unsigned_time.sv,plain,DIFFERENT,"-      \_time_typespec: , line:L:C, endln:L:C","+      \_time_typespec: , line:L:C, endln:L:C",-  |vpiDefName:work@top,"-      \_time_typespec: , line:7:1, endln:7:5"
+generated/nets/6.6.2--net_uwire.sv,plain,DIFFERENT,-    |vpiNetType:13,-    |vpiNetType:13,,-    |vpiNetType:13
+generated/nets/6.6.3--net_triand.sv,plain,DIFFERENT,-    |vpiNetType:8,-    |vpiNetType:8,,-    |vpiNetType:8
+generated/nets/6.6.3--net_trior.sv,plain,DIFFERENT,-    |vpiNetType:9,-    |vpiNetType:9,,-    |vpiNetType:9
+generated/nets/6.6.4--net_trireg.sv,plain,DIFFERENT,-    |vpiNetType:7,-    |vpiNetType:7,,-    |vpiNetType:7
+generated/nets/6.6.5--net_tri0.sv,plain,DIFFERENT,-    |vpiNetType:5,-    |vpiNetType:5,,-    |vpiNetType:5
+generated/nets/6.6.5--net_tri1.sv,plain,DIFFERENT,-    |vpiNetType:6,-    |vpiNetType:6,,-    |vpiNetType:6
+generated/nets/6.6.6--net_supply0.sv,plain,DIFFERENT,-    |vpiNetType:11,-    |vpiNetType:11,,-    |vpiNetType:11
+generated/nets/6.6.6--net_supply1.sv,plain,DIFFERENT,-    |vpiNetType:10,-    |vpiNetType:10,,-    |vpiNetType:10
+generated/scr1/scr1.sv,cores,DIFFERENT,+          |vpiParent:,"+          \_operation: , line:L:C, endln:L:C",+          |vpiParent:,+          |vpiParent:
+generic/class/class_test_11.sv,plain,DIFFERENT,-|uhdmallClasses:,"-\_class_defn: (_), file:_, line:L:C, endln:L:C",-  |vpiParent:,-|uhdmallClasses:
+generic/class/class_test_19.sv,plain,DIFFERENT,"-          \_class_typespec: (_), line:L:C, endln:L:C","+          \_class_typespec: (_)), line:L:C, endln:L:C","+\_int_typespec: , line:L:C, endln:L:C","-          \_class_typespec: (Package::Bar), line:20:28, endln:20:31"
+generic/class/class_test_21.sv,plain,DIFFERENT,"-          \_class_typespec: (_), line:L:C, endln:L:C","+          \_class_typespec: (_)), line:L:C, endln:L:C","+\_int_typespec: , line:L:C, endln:L:C","-          \_class_typespec: (Package::Bar), line:20:28, endln:20:31"
+generic/class/class_test_25.sv,plain,DIFFERENT,+  |vpiClassDefn:,"+  \_class_defn: (_), file:_, line:L:C, endln:L:C",+    |vpiParent:,+  |vpiClassDefn:
+generic/class/class_test_28.sv,plain,DIFFERENT,+|uhdmallClasses:,"+\_class_defn: (_), file:_, line:L:C, endln:L:C",+  |vpiParent:,+|uhdmallClasses:
+generic/class/class_test_29.sv,plain,DIFFERENT,+  |vpiClassDefn:,"+  \_class_defn: (_), file:_, line:L:C, endln:L:C",+    |vpiParent:,+  |vpiClassDefn:
+generic/class/class_test_49.sv,plain,DIFFERENT,+        |vpiParent:,"+        \_operation: , line:L:C, endln:L:C",+        |vpiParent:,+        |vpiParent:
+generic/class/class_test_51.sv,plain,DIFFERENT,"-        \_constant: , line:L:C, endln:L:C","+        \_sys_func_call: ($bits), line:L:C, endln:L:C",-          |vpiDecompile:32,"-        \_constant: , line:16:25, endln:16:30"
+generic/class/class_test_53.sv,plain,DIFFERENT,"-    \_package: mypkg (_), file:_, line:L:C, endln:L:C","+    \_type_parameter: (_), line:L:C, endln:L:C",-  |vpiClassDefn:,"-    \_package: mypkg (mypkg::), file:/home/heyfey/git-repos/sv-tests/tests/generic/class/class_test_53.sv, line:15:1, endln:18:11"
+generic/class/class_test_55.sv,plain,DIFFERENT,-  |vpiParent:,"-  \_class_var: (_), line:L:C, endln:L:C",-  |vpiIndexTypespec:,-  |vpiParent:
+generic/class/class_test_56.sv,plain,DIFFERENT,-      |vpiDecompile:1'b1,-      |vpiSize:1,-      |BIN:_,-      |vpiDecompile:1'b1
+generic/class/class_test_57.sv,plain,DIFFERENT,-      |vpiDecompile:4'hf,+      |vpiDecompile:15,-      |HEX:_,-      |vpiDecompile:4'hf
+generic/class/class_test_58.sv,plain,DIFFERENT,-      |vpiDecompile:4'hf,+      |vpiDecompile:15,-      |HEX:_,-      |vpiDecompile:4'hf
+generic/class/class_test_9.sv,plain,DIFFERENT,-|uhdmallClasses:,"-\_class_defn: (_), file:_, line:L:C, endln:L:C",-  |vpiParent:,-|uhdmallClasses:
+generic/iface/iface_class_test_0.sv,plain,DIFFERENT,+|uhdmallClasses:,"+\_class_defn: (_), file:_, line:L:C, endln:L:C",+  |vpiParent:,+|uhdmallClasses:
+generic/iface/iface_class_test_1.sv,plain,DIFFERENT,+|uhdmallClasses:,"+\_class_defn: (_), file:_, line:L:C, endln:L:C",+  |vpiParent:,+|uhdmallClasses:
+generic/iface/iface_class_test_10.sv,plain,DIFFERENT,+|uhdmallClasses:,"+\_class_defn: (_), file:_, line:L:C, endln:L:C",+  |vpiParent:,+|uhdmallClasses:
+generic/iface/iface_class_test_2.sv,plain,DIFFERENT,+|uhdmallClasses:,"+\_class_defn: (_), file:_, line:L:C, endln:L:C",+  |vpiParent:,+|uhdmallClasses:
+generic/iface/iface_class_test_9.sv,plain,DIFFERENT,+|uhdmallClasses:,"+\_class_defn: (_), file:_, line:L:C, endln:L:C",+  |vpiParent:,+|uhdmallClasses:
+generic/member/class_member_test_12.sv,plain,DIFFERENT,+    |vpiTypespec:,+    \_ref_typespec: (_),+      |vpiParent:,+    |vpiTypespec:
+generic/member/class_member_test_15.sv,plain,DIFFERENT,+  |vpiMethod:,"+  \_function: (_), line:L:C, endln:L:C",+    |vpiParent:,+  |vpiMethod:
+generic/member/class_member_test_18.sv,plain,DIFFERENT,+  |vpiMethod:,"+  \_function: (_), line:L:C, endln:L:C",+    |vpiParent:,+  |vpiMethod:
+generic/member/class_member_test_19.sv,plain,DIFFERENT,"-          \_ref_obj: (_), line:L:C, endln:L:C","+          \_ref_obj: (_), line:L:C, endln:L:C",-            |vpiFullName:work@myclass::subr::x::N,"-          \_ref_obj: (work@myclass::subr::x::N), line:18:34, endln:18:35"
+generic/member/class_member_test_2.sv,plain,DIFFERENT,+  |vpiMethod:,"+  \_task: (_), line:L:C, endln:L:C",+    |vpiParent:,+  |vpiMethod:
+generic/member/class_member_test_25.sv,plain,DIFFERENT,+  |vpiMethod:,"+  \_function: (_), line:L:C, endln:L:C",+    |vpiParent:,+  |vpiMethod:
+generic/member/class_member_test_3.sv,plain,DIFFERENT,+  |vpiMethod:,"+  \_task: (_), line:L:C, endln:L:C",+    |vpiParent:,+  |vpiMethod:
+generic/member/class_member_test_4.sv,plain,DIFFERENT,+  |vpiMethod:,"+  \_task: (_), line:L:C, endln:L:C",+    |vpiParent:,+  |vpiMethod:
+generic/member/class_member_test_6.sv,plain,DIFFERENT,+  |vpiMethod:,"+  \_task: (_), line:L:C, endln:L:C",+    |vpiParent:,+  |vpiMethod:
+generic/member/class_member_test_7.sv,plain,DIFFERENT,+  |vpiMethod:,"+  \_task: (_), line:L:C, endln:L:C",+    |vpiParent:,+  |vpiMethod:
+generic/member/class_member_test_8.sv,plain,DIFFERENT,+  |vpiMethod:,"+  \_task: (_), line:L:C, endln:L:C",+    |vpiParent:,+  |vpiMethod:
+generic/member/class_member_test_9.sv,plain,DIFFERENT,"-        \_int_typespec: (_), line:L:C, endln:L:C","+        \_int_typespec: (_), line:L:C, endln:L:C",+  |vpiMethod:,"-        \_int_typespec: (arg_type), line:18:34, endln:18:42"
+generic/number/number_test_10.sv,plain,DIFFERENT,-  |BIN:_,+  |BIN:_,-    |vpiDecompile:1'bX,-  |BIN:X
+generic/number/number_test_11.sv,plain,DIFFERENT,-  |BIN:_,+  |BIN:_,-    |vpiDecompile:1'bX,-  |BIN:X
+generic/number/number_test_15.sv,plain,DIFFERENT,-  |INT:_,+  |BIN:_,-    |vpiDecompile:-1,-  |INT:-1
+generic/number/number_test_2.sv,plain,DIFFERENT,-  |BIN:_,+  |INT:_,-    |vpiDecompile:'0,-  |BIN:0
+generic/number/number_test_3.sv,plain,DIFFERENT,-  |UINT:_,+  |INT:_,-    |vpiDecompile:4294967295,-  |UINT:4294967295
+generic/number/number_test_7.sv,plain,DIFFERENT,-    |vpiDecompile:1'b0,+    |vpiDecompile:1'B0,"-\_int_typespec: , line:L:C, endln:L:C",-    |vpiDecompile:1'b0
+generic/typedef/typedef_test_0.sv,plain,DIFFERENT,-  |vpiTypedefAlias:,-  \_ref_typespec: (_),-    |vpiParent:,-  |vpiTypedefAlias:
+generic/typedef/typedef_test_14.sv,plain,DIFFERENT,"-\_bit_typespec: (_), line:L:C, endln:L:C","+\_bit_typespec: (_), line:L:C, endln:L:C",-  |vpiTypedefAlias:,"-\_bit_typespec: (myalias), line:16:12, endln:16:15"
+generic/typedef/typedef_test_18.sv,plain,DIFFERENT,"-  \_typespec_member: , line:L:C, endln:L:C","+  \_typespec_member: (_), line:L:C, endln:L:C",+    |vpiName:i,"-  \_typespec_member: , line:18:8, endln:18:11"
+generic/typedef/typedef_test_8.sv,plain,DIFFERENT,"-\_bit_typespec: (_), line:L:C, endln:L:C","+\_bit_typespec: (_), line:L:C, endln:L:C",-  |vpiTypedefAlias:,"-\_bit_typespec: (myalias), line:15:9, endln:15:12"
+generic/typedef/typedef_test_9.sv,plain,DIFFERENT,"-\_array_typespec: (_), line:L:C, endln:L:C","+\_array_typespec: (_), line:L:C, endln:L:C","-    \_array_typespec: (_), line:L:C, endln:L:C","-\_array_typespec: (my_array_t), line:19:9, endln:19:32"
