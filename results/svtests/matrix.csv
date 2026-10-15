@@ -150,87 +150,87 @@ named_event_trigger_blocking,chapter-15/15.5.1--named-event-trigger-blocking.sv,
 named_event_trigger_non_blocking,chapter-15/15.5.1--named-event-trigger-non-blocking.sv,plain,elaboration,15.5,0,120,OK,0,0.1,,DB_WITH_ERRORS,4,0.0,statement kind: Invalid/NonblockingEventTriggerStatement,,,SURELOG_ONLY,mismatch,ok
 named_event_wait,chapter-15/15.5.2--named-event-wait.sv,plain,elaboration,15.5,0,120,OK,0,0.1,,DB_WITH_ERRORS,4,0.0,timing control: Invalid,,,SURELOG_ONLY,mismatch,ok
 property_local_var_fail_test,chapter-16/16.10--property-local-var-fail.sv,plain,simulation,16.10,1,120,OK,0,0.8,,DB_WITH_ERRORS,4,0.0,assertion expr kind: SequenceWithMatch,,,SURELOG_ONLY,ok,mismatch
-property_local_var_test_uvm,chapter-16/16.10--property-local-var-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,64.8,[  ERROR] : 6,DB_WITH_ERRORS,4,6.9,assertion expr kind: SequenceWithMatch,,,BOTH_REJECT,mismatch,mismatch
+property_local_var_test_uvm,chapter-16/16.10--property-local-var-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,41.7,,DB_WITH_ERRORS,4,3.5,assertion expr kind: SequenceWithMatch,,,SURELOG_ONLY,mismatch,ok
 property_local_var_test,chapter-16/16.10--property-local-var.sv,plain,simulation,16.10,0,120,OK,0,0.8,,DB_WITH_ERRORS,4,0.0,assertion expr kind: SequenceWithMatch,,,SURELOG_ONLY,mismatch,ok
 sequence_local_var_fail_test,chapter-16/16.10--sequence-local-var-fail.sv,plain,simulation,16.10,1,120,OK,0,0.4,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,mismatch,mismatch
-sequence_local_var_test_uvm,chapter-16/16.10--sequence-local-var-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,66.8,[  ERROR] : 6,OK,0,6.9,,,,SLANG_ONLY,ok,mismatch
+sequence_local_var_test_uvm,chapter-16/16.10--sequence-local-var-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,42.1,,OK,0,3.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 sequence_local_var_test,chapter-16/16.10--sequence-local-var.sv,plain,simulation,16.10,0,120,OK,0,0.4,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
-sequence_subroutine_test_uvm,chapter-16/16.11--sequence-subroutine-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,65.2,[  ERROR] : 6,OK,0,7.0,,,,SLANG_ONLY,ok,mismatch
+sequence_subroutine_test_uvm,chapter-16/16.11--sequence-subroutine-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,42.1,,OK,0,3.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 property_disable_iff_min_test,chapter-16/16.12--property-disable-iff.sv,plain,elaboration,16.12,0,120,OK,0,0.3,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 property_disj_test,chapter-16/16.12--property-disj.sv,plain,elaboration,16.12,0,120,OK,0,0.3,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 property_iff_test,chapter-16/16.12--property-iff.sv,plain,elaboration,16.12,0,120,OK,0,0.3,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-property_interface_prec_test_uvm,chapter-16/16.12--property-interface-prec-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,65.4,[  ERROR] : 6,OK,0,7.1,,,,SLANG_ONLY,ok,mismatch
-property_interface_test_uvm,chapter-16/16.12--property-interface-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,66.6,[  ERROR] : 6,OK,0,6.6,,,,SLANG_ONLY,ok,mismatch
-property_prec_test_uvm,chapter-16/16.12--property-prec-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,65.2,[  ERROR] : 6,OK,0,6.3,,,,SLANG_ONLY,ok,mismatch
+property_interface_prec_test_uvm,chapter-16/16.12--property-interface-prec-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,42.0,,OK,0,3.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+property_interface_test_uvm,chapter-16/16.12--property-interface-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,39.8,,OK,0,3.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+property_prec_test_uvm,chapter-16/16.12--property-prec-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,39.7,,OK,0,3.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 property_prec_test,chapter-16/16.12--property-prec.sv,plain,elaboration,16.12,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-property_test_uvm,chapter-16/16.12--property-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,66.3,[  ERROR] : 6,OK,0,6.2,,,,SLANG_ONLY,ok,mismatch
+property_test_uvm,chapter-16/16.12--property-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,40.3,,OK,0,3.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 property_test,chapter-16/16.12--property.sv,plain,elaboration,16.12,0,120,OK,0,0.3,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-sequence_multiclock_test_uvm,chapter-16/16.13--sequence-multiclock-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,65.7,[  ERROR] : 6,OK,0,6.4,,,,SLANG_ONLY,ok,mismatch
-assume_property_test_uvm,chapter-16/16.14--assume-property-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,64.9,[  ERROR] : 6,OK,0,6.2,,,,SLANG_ONLY,ok,mismatch
+sequence_multiclock_test_uvm,chapter-16/16.13--sequence-multiclock-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,39.9,,OK,0,3.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+assume_property_test_uvm,chapter-16/16.14--assume-property-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,38.6,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 assume_property_test,chapter-16/16.14--assume-property.sv,plain,elaboration,16.14,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 property_disable_iff_fail_test,chapter-16/16.15--property-disable-iff-fail.sv,plain,simulation,16.15,1,120,DB_WITH_ERRORS,4,0.5,[  ERROR] : 1,OK,0,0.0,,,,SLANG_ONLY,mismatch,ok
 property_disable_iff_test,chapter-16/16.15--property-disable-iff.sv,plain,simulation,16.15,0,120,DB_WITH_ERRORS,4,0.5,[  ERROR] : 1,OK,0,0.0,,,,SLANG_ONLY,ok,mismatch
-property_disable_iff_test_uvm,chapter-16/16.15--property-iff-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,65.7,[  ERROR] : 6,OK,0,6.3,,,,SLANG_ONLY,ok,mismatch
-expect_test_uvm,chapter-16/16.17--expect-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,63.6,[  ERROR] : 6,OK,0,6.2,,,,SLANG_ONLY,ok,mismatch
+property_disable_iff_test_uvm,chapter-16/16.15--property-iff-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,38.7,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+expect_test_uvm,chapter-16/16.17--expect-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,38.1,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 expect_test,chapter-16/16.17--expect.sv,plain,elaboration,16.17,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-assert_final_test_uvm,chapter-16/16.2--assert-final-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,65.8,[  ERROR] : 6,OK,0,6.2,,,,SLANG_ONLY,ok,mismatch
+assert_final_test_uvm,chapter-16/16.2--assert-final-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,38.2,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 assert_final_test,chapter-16/16.2--assert-final.sv,plain,elaboration,16.4,0,120,OK,0,0.1,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
-assert_test_uvm,chapter-16/16.2--assert-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,63.8,[  ERROR] : 6,OK,0,5.9,,,,SLANG_ONLY,ok,mismatch
+assert_test_uvm,chapter-16/16.2--assert-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,36.7,,OK,0,3.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 assert_test,chapter-16/16.2--assert.sv,plain,elaboration,16.2,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-assert0_test_uvm,chapter-16/16.2--assert0-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,67.2,[  ERROR] : 6,OK,0,6.2,,,,SLANG_ONLY,ok,mismatch
+assert0_test_uvm,chapter-16/16.2--assert0-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,37.6,,OK,0,3.7,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 assert0_test,chapter-16/16.2--assert0.sv,plain,elaboration,16.4,0,120,OK,0,0.1,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 assume_final_test,chapter-16/16.2--assume-final.sv,plain,elaboration,16.4,0,120,OK,0,0.1,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
-assume_test_uvm,chapter-16/16.2--assume-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,65.6,[  ERROR] : 6,OK,0,6.2,,,,SLANG_ONLY,ok,mismatch
+assume_test_uvm,chapter-16/16.2--assume-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,37.5,,OK,0,3.6,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 assume_test,chapter-16/16.2--assume.sv,plain,elaboration,16.2,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 assume0_test,chapter-16/16.2--assume0.sv,plain,elaboration,16.4,0,120,OK,0,0.1,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 cover_final_test,chapter-16/16.2--cover-final.sv,plain,elaboration,16.4,0,120,OK,0,0.1,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 cover_test,chapter-16/16.2--cover.sv,plain,elaboration,16.2,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 cover0_test,chapter-16/16.2--cover0.sv,plain,elaboration,16.4,0,120,OK,0,0.1,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
-sequence_range_and_op_test_uvm,chapter-16/16.7--sequence-and-range-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,66.4,[  ERROR] : 6,OK,0,6.2,,,,SLANG_ONLY,ok,mismatch
-sequence_and_op_test_uvm,chapter-16/16.7--sequence-and-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,67.5,[  ERROR] : 6,OK,0,5.9,,,,SLANG_ONLY,ok,mismatch
-sequence_intersect_op_test_uvm,chapter-16/16.7--sequence-intersect-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,65.2,[  ERROR] : 6,OK,0,5.8,,,,SLANG_ONLY,ok,mismatch
-sequence_or_op_test_uvm,chapter-16/16.7--sequence-or-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,64.3,[  ERROR] : 6,OK,0,5.8,,,,SLANG_ONLY,ok,mismatch
-sequence_throughout_op_test_uvm,chapter-16/16.7--sequence-throughout-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,66.1,[  ERROR] : 6,OK,0,5.6,,,,SLANG_ONLY,ok,mismatch
-sequence_test_uvm,chapter-16/16.7--sequence-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,55.6,[  ERROR] : 6,OK,0,4.2,,,,SLANG_ONLY,ok,mismatch
+sequence_range_and_op_test_uvm,chapter-16/16.7--sequence-and-range-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,37.8,,OK,0,3.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+sequence_and_op_test_uvm,chapter-16/16.7--sequence-and-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,38.7,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+sequence_intersect_op_test_uvm,chapter-16/16.7--sequence-intersect-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,38.9,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+sequence_or_op_test_uvm,chapter-16/16.7--sequence-or-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,38.4,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+sequence_throughout_op_test_uvm,chapter-16/16.7--sequence-throughout-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,39.1,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+sequence_test_uvm,chapter-16/16.7--sequence-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,38.8,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 sequence_test,chapter-16/16.7--sequence.sv,plain,elaboration,16.7,0,120,OK,0,0.2,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
-sequence_changed_test_uvm,chapter-16/16.9--sequence-changed-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,55.0,[  ERROR] : 6,OK,0,4.2,,,,SLANG_ONLY,ok,mismatch
+sequence_changed_test_uvm,chapter-16/16.9--sequence-changed-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,39.0,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 sequence_consecutive_repetition_test,chapter-16/16.9--sequence-cons-repetition.sv,plain,elaboration,16.9,0,120,OK,0,0.2,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
-sequence_fell_test_uvm,chapter-16/16.9--sequence-fell-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,54.1,[  ERROR] : 6,OK,0,4.1,,,,SLANG_ONLY,ok,mismatch
+sequence_fell_test_uvm,chapter-16/16.9--sequence-fell-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,39.1,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 sequence_goto_repetition_test,chapter-16/16.9--sequence-goto-repetition.sv,plain,elaboration,16.9,0,120,OK,0,0.2,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 sequence_nonconsecutive_repetition_test,chapter-16/16.9--sequence-noncons-repetition.sv,plain,elaboration,16.9,0,120,OK,0,0.2,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
-sequence_past_test_uvm,chapter-16/16.9--sequence-past-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,52.7,[  ERROR] : 6,OK,0,4.2,,,,SLANG_ONLY,ok,mismatch
-sequence_rose_test_uvm,chapter-16/16.9--sequence-rose-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,44.7,[  ERROR] : 6,OK,0,4.1,,,,SLANG_ONLY,ok,mismatch
-sequence_stable_test_uvm,chapter-16/16.9--sequence-stable-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,DB_WITH_ERRORS,4,46.2,[  ERROR] : 6,OK,0,4.1,,,,SLANG_ONLY,ok,mismatch
-dynamic_constraint_modification_0,chapter-18/18.10--dynamic-constraint-modification_0.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,45.2,[  ERROR] : 6,OK,0,4.0,,,,SLANG_ONLY,ok,mismatch
-in-line_random_variable-control_0,chapter-18/18.11--in-line-random-variable-control_0.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,44.7,[  ERROR] : 6,OK,0,4.0,,,,SLANG_ONLY,ok,mismatch
-in-line_random_variable-control_1,chapter-18/18.11--in-line-random-variable-control_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,45.0,[  ERROR] : 6,OK,0,4.4,,,,SLANG_ONLY,ok,mismatch
-in-line_constraint_checker_0,chapter-18/18.11.1--in-line-constraint-checker_0.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,44.4,[  ERROR] : 6,OK,0,4.3,,,,SLANG_ONLY,ok,mismatch
-in-line_constraint_checker_1,chapter-18/18.11.1--in-line-constraint-checker_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,45.2,[  ERROR] : 6,OK,0,4.6,,,,SLANG_ONLY,ok,mismatch
+sequence_past_test_uvm,chapter-16/16.9--sequence-past-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,39.2,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+sequence_rose_test_uvm,chapter-16/16.9--sequence-rose-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,37.5,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+sequence_stable_test_uvm,chapter-16/16.9--sequence-stable-uvm.sv,uvm,simulation,uvm uvm-assertions,0,300,OK,0,38.0,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+dynamic_constraint_modification_0,chapter-18/18.10--dynamic-constraint-modification_0.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.9,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+in-line_random_variable-control_0,chapter-18/18.11--in-line-random-variable-control_0.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.7,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+in-line_random_variable-control_1,chapter-18/18.11--in-line-random-variable-control_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.2,,OK,0,3.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+in-line_constraint_checker_0,chapter-18/18.11.1--in-line-constraint-checker_0.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.7,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+in-line_constraint_checker_1,chapter-18/18.11.1--in-line-constraint-checker_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.5,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 randomization_of_scope_variables_0,chapter-18/18.12--randomization-of-scope-variables_0.sv,plain,elaboration,18.12,0,120,OK,0,0.2,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
-randomization_of_scope_variables_1,chapter-18/18.12--randomization-of-scope-variables_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,44.9,[  ERROR] : 6,OK,0,4.7,,,,SLANG_ONLY,ok,mismatch
+randomization_of_scope_variables_1,chapter-18/18.12--randomization-of-scope-variables_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.4,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 adding_constraints_to_scope_variables_0,chapter-18/18.12.1--adding-constraints-to-scope-variables_0.sv,plain,elaboration,18.12.1,0,120,OK,0,0.1,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
-adding_constraints_to_scope_variables_1,chapter-18/18.12.1--adding-constraints-to-scope-variables_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,55.5,[  ERROR] : 6,OK,0,5.5,,,,SLANG_ONLY,ok,mismatch
+adding_constraints_to_scope_variables_1,chapter-18/18.12.1--adding-constraints-to-scope-variables_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.3,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 urandom_0,chapter-18/18.13.1--urandom_0.sv,plain,elaboration,18.13.1,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-urandom_1,chapter-18/18.13.1--urandom_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,53.5,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
+urandom_1,chapter-18/18.13.1--urandom_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.7,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 urandom_2,chapter-18/18.13.1--urandom_2.sv,plain,elaboration,18.13.1,0,120,OK,0,0.3,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-urandom_3,chapter-18/18.13.1--urandom_3.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,54.6,[  ERROR] : 6,OK,0,5.6,,,,SLANG_ONLY,ok,mismatch
+urandom_3,chapter-18/18.13.1--urandom_3.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.9,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 urandom_range_0,chapter-18/18.13.2--urandom_range_0.sv,plain,elaboration,18.13.2,0,120,OK,0,0.3,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-urandom_range_1,chapter-18/18.13.2--urandom_range_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,55.3,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
-urandom_range_2,chapter-18/18.13.2--urandom_range_2.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,56.7,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
-urandom_range_3,chapter-18/18.13.2--urandom_range_3.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,56.8,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
-srandom_0,chapter-18/18.13.3--srandom_0.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,56.4,[  ERROR] : 6,OK,0,5.3,,,,SLANG_ONLY,ok,mismatch
-get_randstate_0,chapter-18/18.13.4--get_randstate_0.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.2,[  ERROR] : 6,OK,0,5.2,,,,SLANG_ONLY,ok,mismatch
-set_randstate_0,chapter-18/18.13.5--set_randstate_0.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,61.2,[  ERROR] : 6,OK,0,5.7,,,,SLANG_ONLY,ok,mismatch
-random_stability_0,chapter-18/18.14--random-stability_0.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,59.2,[  ERROR] : 6,OK,0,5.7,,,,SLANG_ONLY,ok,mismatch
-random_stability_1,chapter-18/18.14--random-stability_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.6,[  ERROR] : 6,OK,0,5.6,,,,SLANG_ONLY,ok,mismatch
-random_stability_2,chapter-18/18.14--random-stability_2.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,60.4,[  ERROR] : 6,DB_WITH_ERRORS,4,6.0,statement kind: RandCase,,,BOTH_REJECT,mismatch,mismatch
-random_stability_3,chapter-18/18.14--random-stability_3.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.9,[  ERROR] : 6,DB_WITH_ERRORS,4,5.4,statement kind: RandCase,,,BOTH_REJECT,mismatch,mismatch
-thread_stability_0,chapter-18/18.14.2--thread-stability_0.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.4,[  ERROR] : 6,OK,0,5.3,,,,SLANG_ONLY,ok,mismatch
-thread_stability_1,chapter-18/18.14.2--thread-stability_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,56.7,[  ERROR] : 6,OK,0,5.2,,,,SLANG_ONLY,ok,mismatch
-object_stability_0,chapter-18/18.14.3--object-stability_0.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.1,[  ERROR] : 6,OK,0,5.2,,,,SLANG_ONLY,ok,mismatch
-object_stability_1,chapter-18/18.14.3--object-stability_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.6,[  ERROR] : 6,OK,0,5.3,,,,SLANG_ONLY,ok,mismatch
+urandom_range_1,chapter-18/18.13.2--urandom_range_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.9,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+urandom_range_2,chapter-18/18.13.2--urandom_range_2.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.2,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+urandom_range_3,chapter-18/18.13.2--urandom_range_3.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.6,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+srandom_0,chapter-18/18.13.3--srandom_0.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.4,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+get_randstate_0,chapter-18/18.13.4--get_randstate_0.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.6,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+set_randstate_0,chapter-18/18.13.5--set_randstate_0.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.9,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+random_stability_0,chapter-18/18.14--random-stability_0.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.2,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+random_stability_1,chapter-18/18.14--random-stability_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.9,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+random_stability_2,chapter-18/18.14--random-stability_2.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.6,,DB_WITH_ERRORS,4,3.0,statement kind: RandCase,,,SURELOG_ONLY,mismatch,ok
+random_stability_3,chapter-18/18.14--random-stability_3.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.8,,DB_WITH_ERRORS,4,3.2,statement kind: RandCase,,,SURELOG_ONLY,mismatch,ok
+thread_stability_0,chapter-18/18.14.2--thread-stability_0.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.8,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+thread_stability_1,chapter-18/18.14.2--thread-stability_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.4,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+object_stability_0,chapter-18/18.14.3--object-stability_0.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.5,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+object_stability_1,chapter-18/18.14.3--object-stability_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.6,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 manually_seeding_randomize_0,chapter-18/18.15--manually-seeding-randomize_0.sv,plain,elaboration,18.15,0,120,OK,0,0.3,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-manually_seeding_randomize_1,chapter-18/18.15--manually-seeding-randomize_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,57.2,[  ERROR] : 6,OK,0,5.2,,,,SLANG_ONLY,ok,mismatch
+manually_seeding_randomize_1,chapter-18/18.15--manually-seeding-randomize_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.5,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 random_weighted_case_randcase_0,chapter-18/18.16--random-weighted-case-randcase_0.sv,plain,simulation,18.16,0,120,OK,0,0.3,,DB_WITH_ERRORS,4,0.0,statement kind: RandCase,,,SURELOG_ONLY,mismatch,ok
 random_weighted_case_randcase_2,chapter-18/18.16--random-weighted-case-randcase_2.sv,plain,simulation,18.16,0,120,OK,0,0.3,,DB_WITH_ERRORS,4,0.0,statement kind: RandCase,,,SURELOG_ONLY,mismatch,ok
 random_sequence_generation_randsequence_0,chapter-18/18.17--random-sequence-generation-randsequence_0.sv,plain,simulation,18.17,0,120,OK,0,0.3,,DB_WITH_ERRORS,4,0.0,statement kind: RandSequence,,,SURELOG_ONLY,mismatch,ok
@@ -252,89 +252,89 @@ value_passing_between_productions_0,chapter-18/18.17.7--value-passing-between-pr
 rand_modifier,chapter-18/18.4.1--rand-modifier.sv,plain,elaboration,18.4.1,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 randc_modifier,chapter-18/18.4.2--randc-modifier.sv,plain,elaboration,18.4.2,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 constraint_blocks_0,chapter-18/18.5--constraint-blocks_0.sv,plain,elaboration,18.5,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-constraint_blocks_1,chapter-18/18.5--constraint-blocks_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,59.4,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
+constraint_blocks_1,chapter-18/18.5--constraint-blocks_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.6,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 explicit_external_constraint_0,chapter-18/18.5.1--explicit-external-constraint_0.sv,plain,elaboration,18.5.1,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 explicit_external_constraint_1,chapter-18/18.5.1--explicit-external-constraint_1.sv,plain,simulation,18.5.1,1,120,OK,0,0.1,,REJECT,3,0.0,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.5.1--explicit-external-constraint_1.sv:20:23: error: implementation not found in parent scope for 'c' [-Wmem,,,SURELOG_ONLY,ok,mismatch
-explicit_external_constraint_2,chapter-18/18.5.1--explicit-external-constraint_2.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.6,[  ERROR] : 6,OK,0,5.2,,,,SLANG_ONLY,ok,mismatch
+explicit_external_constraint_2,chapter-18/18.5.1--explicit-external-constraint_2.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.4,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 implicit_external_constraint_0,chapter-18/18.5.1--implicit-external-constraint_0.sv,plain,elaboration,18.5.1,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 implicit_external_constraint_1,chapter-18/18.5.1--implicit-external-constraint_1.sv,plain,elaboration,18.5.1,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-implicit_external_constraint_2,chapter-18/18.5.1--implicit-external-constraint_2.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.2,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
+implicit_external_constraint_2,chapter-18/18.5.1--implicit-external-constraint_2.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.4,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 variable_ordering_0,chapter-18/18.5.10--variable-ordering_0.sv,plain,elaboration,18.5.10,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 variable_ordering_1,chapter-18/18.5.10--variable-ordering_1.sv,plain,simulation,18.5.10,1,120,OK,0,0.1,,REJECT,3,0.0,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.5.10--variable-ordering_1.sv:23:37: error: 'randc' variables cannot be used in 'solve before' constraints,,,SURELOG_ONLY,ok,mismatch
 static_constraint_blocks_0,chapter-18/18.5.11--static-constraint-blocks_0.sv,plain,elaboration,18.5.11,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-static_constraint_blocks_1,chapter-18/18.5.11--static-constraint-blocks_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,57.2,[  ERROR] : 7,OK,0,5.3,,,,SLANG_ONLY,ok,mismatch
+static_constraint_blocks_1,chapter-18/18.5.11--static-constraint-blocks_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,36.8,[  ERROR] : 1,OK,0,3.2,,,,SLANG_ONLY,ok,mismatch
 functions_in_constraints_0,chapter-18/18.5.12--functions-in-constraint_0.sv,plain,elaboration,18.5.12,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-functions_in_constraint_1,chapter-18/18.5.12--functions-in-constraint_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,59.7,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
+functions_in_constraint_1,chapter-18/18.5.12--functions-in-constraint_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.3,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 constraint_guards_0,chapter-18/18.5.13--constraint-guards_0.sv,plain,elaboration,18.5.13,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-constraint_guards_1,chapter-18/18.5.13--constraint-guards_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,57.6,[  ERROR] : 6,OK,0,5.6,,,,SLANG_ONLY,ok,mismatch
+constraint_guards_1,chapter-18/18.5.13--constraint-guards_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.5,,OK,0,3.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 soft_constraints_0,chapter-18/18.5.14--soft-constraints_0.sv,plain,elaboration,18.5.14,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-soft_constraints_1,chapter-18/18.5.14--soft-constraints_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,59.3,[  ERROR] : 6,OK,0,5.7,,,,SLANG_ONLY,ok,mismatch
+soft_constraints_1,chapter-18/18.5.14--soft-constraints_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.2,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 soft_constraints_2,chapter-18/18.5.14--soft-constraints_2.sv,plain,simulation,18.5.14,1,120,OK,0,0.1,,REJECT,3,0.0,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.5.14--soft-constraints_2.sv:23:14: error: 'randc' variables cannot be used in 'soft' constraints,,,SURELOG_ONLY,ok,mismatch
 soft_constraint_priorities_0,chapter-18/18.5.14.1--soft-constraint-priorities_0.sv,plain,elaboration,18.5.14.1,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-soft_constraint_priorities_1,chapter-18/18.5.14.1--soft-constraint-priorities_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,59.0,[  ERROR] : 6,OK,0,5.6,,,,SLANG_ONLY,ok,mismatch
+soft_constraint_priorities_1,chapter-18/18.5.14.1--soft-constraint-priorities_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.8,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 soft_constraint_priorities_2,chapter-18/18.5.14.1--soft-constraint-priorities_2.sv,plain,elaboration,18.5.14.1,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-soft_constraint_priorities_3,chapter-18/18.5.14.1--soft-constraint-priorities_3.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.1,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
-soft_constraint_priorities_4,chapter-18/18.5.14.1--soft-constraint-priorities_4.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,57.1,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
+soft_constraint_priorities_3,chapter-18/18.5.14.1--soft-constraint-priorities_3.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.1,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+soft_constraint_priorities_4,chapter-18/18.5.14.1--soft-constraint-priorities_4.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.0,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 discarding_soft_constraints_0,chapter-18/18.5.14.2--discarding-soft-constraints_0.sv,plain,elaboration,18.5.14.2,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-discarding_soft_constraints_1,chapter-18/18.5.14.2--discarding-soft-constraints_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,59.2,[  ERROR] : 6,OK,0,5.3,,,,SLANG_ONLY,ok,mismatch
+discarding_soft_constraints_1,chapter-18/18.5.14.2--discarding-soft-constraints_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.2,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 discarding_soft_constraints_2,chapter-18/18.5.14.2--discarding-soft-constraints_2.sv,plain,elaboration,18.5.14.2,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-discarding_soft_constraints_3,chapter-18/18.5.14.2--discarding-soft-constraints_3.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,57.7,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
-discarding_soft_constraints_5,chapter-18/18.5.14.2--discarding-soft-constraints_5.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.6,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
+discarding_soft_constraints_3,chapter-18/18.5.14.2--discarding-soft-constraints_3.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.1,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+discarding_soft_constraints_5,chapter-18/18.5.14.2--discarding-soft-constraints_5.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.9,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 constraint_inheritance_0,chapter-18/18.5.2--constraint-inheritance_0.sv,plain,elaboration,18.5.2,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-constraint_inheritance_1,chapter-18/18.5.2--constraint-inheritance_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,57.7,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
+constraint_inheritance_1,chapter-18/18.5.2--constraint-inheritance_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.3,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 pure_constraint_0,chapter-18/18.5.2--pure-constraint_0.sv,plain,elaboration,18.5.2,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-pure_constraint_1,chapter-18/18.5.2--pure-constraint_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,57.8,[  ERROR] : 6,OK,0,5.3,,,,SLANG_ONLY,ok,mismatch
+pure_constraint_1,chapter-18/18.5.2--pure-constraint_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.2,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 pure_constraint_2,chapter-18/18.5.2--pure-constraint_2.sv,plain,simulation,18.5.2,1,120,OK,0,0.1,,REJECT,3,0.0,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.5.2--pure-constraint_2.sv:22:10: error: 'a2' cannot inherit from virtual class 'a' without providing an impl,,,SURELOG_ONLY,ok,mismatch
 pure_constraint_3,chapter-18/18.5.2--pure-constraint_3.sv,plain,elaboration,18.5.2,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 set_membership_0,chapter-18/18.5.3--set-membership_0.sv,plain,elaboration,18.5.3,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-set_membership_1,chapter-18/18.5.3--set-membership_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,59.7,[  ERROR] : 6,OK,0,5.3,,,,SLANG_ONLY,ok,mismatch
+set_membership_1,chapter-18/18.5.3--set-membership_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.4,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 distribution_0,chapter-18/18.5.4--distribution_0.sv,plain,elaboration,18.5.4,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-distribution_1,chapter-18/18.5.4--distribution_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,59.3,[  ERROR] : 6,OK,0,5.5,,,,SLANG_ONLY,ok,mismatch
+distribution_1,chapter-18/18.5.4--distribution_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.7,,OK,0,3.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 distribution_2,chapter-18/18.5.4--distribution_2.sv,plain,simulation,18.5.4,1,120,OK,0,0.1,,REJECT,3,0.0,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.5.4--distribution_2.sv:20:20: error: 'randc' variables cannot be used in 'dist' constraints,,,SURELOG_ONLY,ok,mismatch
 uniqueness_constraints_0,chapter-18/18.5.5--uniqueness-constraints_0.sv,plain,elaboration,18.5.5,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-uniqueness_constraints_1,chapter-18/18.5.5--uniqueness-constraints_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.9,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
+uniqueness_constraints_1,chapter-18/18.5.5--uniqueness-constraints_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.5,,OK,0,3.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 implication_0,chapter-18/18.5.6--implication_0.sv,plain,elaboration,18.5.6,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-implication_1,chapter-18/18.5.6--implication_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,57.7,[  ERROR] : 6,OK,0,5.5,,,,SLANG_ONLY,ok,mismatch
+implication_1,chapter-18/18.5.6--implication_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.6,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 if_else_constraints_0,chapter-18/18.5.7--if-else-constraints_0.sv,plain,elaboration,18.5.7,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 if_else_constraints_1,chapter-18/18.5.7--if-else-constraints_1.sv,plain,elaboration,18.5.7,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 if_else_constraints_2,chapter-18/18.5.7--if-else-constraints_2.sv,plain,elaboration,18.5.7,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 if_else_constraints_3,chapter-18/18.5.7--if-else-constraints_3.sv,plain,elaboration,18.5.7,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-if_else_constraints_4,chapter-18/18.5.7--if-else-constraints_4.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.0,[  ERROR] : 6,OK,0,5.7,,,,SLANG_ONLY,ok,mismatch
+if_else_constraints_4,chapter-18/18.5.7--if-else-constraints_4.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,39.1,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 foreach_iterative_constraints_0,chapter-18/18.5.8.1--foreach-iterative-constraints_0.sv,plain,elaboration,18.5.8.1,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-foreach_iterative_constraints_1,chapter-18/18.5.8.1--foreach-iterative-constraints_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,59.2,[  ERROR] : 6,OK,0,5.3,,,,SLANG_ONLY,ok,mismatch
+foreach_iterative_constraints_1,chapter-18/18.5.8.1--foreach-iterative-constraints_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.2,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 array_reduction_iterative_constraints_0,chapter-18/18.5.8.2--array-reduction-iterative-constraints_0.sv,plain,elaboration,18.5.8.2,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-array_reduction_iterative_constraints_1,chapter-18/18.5.8.2--array-reduction-iterative-constraints_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.9,[  ERROR] : 6,OK,0,5.1,,,,SLANG_ONLY,ok,mismatch
+array_reduction_iterative_constraints_1,chapter-18/18.5.8.2--array-reduction-iterative-constraints_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.6,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 global_constraints_0,chapter-18/18.5.9--global-constraints_0.sv,plain,elaboration,18.5.9,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-global_constraints_1,chapter-18/18.5.9--global-constraints_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.4,[  ERROR] : 6,OK,0,5.2,,,,SLANG_ONLY,ok,mismatch
-randomize_method_0,chapter-18/18.6.1--randomize-method_0.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.6,[  ERROR] : 6,OK,0,5.3,,,,SLANG_ONLY,ok,mismatch
+global_constraints_1,chapter-18/18.5.9--global-constraints_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.5,,OK,0,3.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+randomize_method_0,chapter-18/18.6.1--randomize-method_0.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.8,,OK,0,3.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 post_randomize_method_0,chapter-18/18.6.2--post-randomize_method_0.sv,plain,elaboration,18.6.2,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-post_randomize_method_1,chapter-18/18.6.2--post-randomize_method_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,57.8,[  ERROR] : 6,OK,0,5.2,,,,SLANG_ONLY,ok,mismatch
+post_randomize_method_1,chapter-18/18.6.2--post-randomize_method_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.3,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 pre_randomize_method_0,chapter-18/18.6.2--pre-randomize-method_0.sv,plain,elaboration,18.6.2,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-pre_randomize_method_1,chapter-18/18.6.2--pre-randomize-method_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.9,[  ERROR] : 6,OK,0,5.1,,,,SLANG_ONLY,ok,mismatch
+pre_randomize_method_1,chapter-18/18.6.2--pre-randomize-method_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.6,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 behavior_of_randomization_methods_0,chapter-18/18.6.3--behavior-of-randomization-methods_0.sv,plain,elaboration,18.6.3,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-behavior_of_randomization_methods_1,chapter-18/18.6.3--behavior-of-randomization-methods_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,59.9,[  ERROR] : 6,OK,0,5.6,,,,SLANG_ONLY,ok,mismatch
-behavior_of_randomization_methods_2,chapter-18/18.6.3--behavior-of-randomization-methods_2.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.6,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
-behavior_of_randomization_methods_3,chapter-18/18.6.3--behavior-of-randomization-methods_3.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,60.6,[  ERROR] : 6,OK,0,5.3,,,,SLANG_ONLY,ok,mismatch
+behavior_of_randomization_methods_1,chapter-18/18.6.3--behavior-of-randomization-methods_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.2,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+behavior_of_randomization_methods_2,chapter-18/18.6.3--behavior-of-randomization-methods_2.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.1,,OK,0,3.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+behavior_of_randomization_methods_3,chapter-18/18.6.3--behavior-of-randomization-methods_3.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.1,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 behavior_of_randomization_methods_4,chapter-18/18.6.3--behavior-of-randomization-methods_4.sv,plain,simulation,18.6.3,1,120,DB_WITH_ERRORS,4,0.1,[  ERROR] : 1,REJECT,3,0.0,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.6.3--behavior-of-randomization-methods_4.sv:22:19: error: cannot override built-in method 'randomize',,,BOTH_REJECT,ok,ok
-behavior_of_randomization_methods_5,chapter-18/18.6.3--behavior-of-randomization-methods_5.sv,uvm,simulation,uvm-random uvm,1,300,DB_WITH_ERRORS,4,58.5,[  ERROR] : 7,REJECT,3,0.2,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.6.3--behavior-of-randomization-methods_5.sv:27:19: error: cannot override built-in method 'randomize',,,BOTH_REJECT,ok,ok
-in-line_constraints--randomize_0,chapter-18/18.7--in-line-constraints--randomize_0.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,59.0,[  ERROR] : 6,OK,0,6.0,,,,SLANG_ONLY,ok,mismatch
+behavior_of_randomization_methods_5,chapter-18/18.6.3--behavior-of-randomization-methods_5.sv,uvm,simulation,uvm-random uvm,1,300,DB_WITH_ERRORS,4,37.6,[  ERROR] : 1,REJECT,3,0.2,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.6.3--behavior-of-randomization-methods_5.sv:27:19: error: cannot override built-in method 'randomize',,,BOTH_REJECT,ok,ok
+in-line_constraints--randomize_0,chapter-18/18.7--in-line-constraints--randomize_0.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,36.9,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 in-line_constraints--randomize_1,chapter-18/18.7--in-line-constraints--randomize_1.sv,plain,elaboration,18.7,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-in-line_constraints--randomize_2,chapter-18/18.7--in-line-constraints--randomize_2.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.3,[  ERROR] : 6,OK,0,5.9,,,,SLANG_ONLY,ok,mismatch
+in-line_constraints--randomize_2,chapter-18/18.7--in-line-constraints--randomize_2.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.2,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 in-line_constraints--randomize_3,chapter-18/18.7--in-line-constraints--randomize_3.sv,plain,elaboration,18.7,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-in-line_constraints--randomize_4,chapter-18/18.7--in-line-constraints--randomize_4.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,59.4,[  ERROR] : 6,OK,0,5.6,,,,SLANG_ONLY,ok,mismatch
+in-line_constraints--randomize_4,chapter-18/18.7--in-line-constraints--randomize_4.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.2,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 in-line_constraints--randomize_5,chapter-18/18.7--in-line-constraints--randomize_5.sv,plain,elaboration,18.7,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-in-line_constraints--randomize_6,chapter-18/18.7--in-line-constraints--randomize_6.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,57.9,[  ERROR] : 6,OK,0,5.1,,,,SLANG_ONLY,ok,mismatch
+in-line_constraints--randomize_6,chapter-18/18.7--in-line-constraints--randomize_6.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.2,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 local_scope_resolution_0,chapter-18/18.7.1--local-scope-resolution_0.sv,plain,elaboration,18.7.1,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-local_scope_resolution_1,chapter-18/18.7.1--local-scope-resolution_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.7,[  ERROR] : 6,OK,0,5.3,,,,SLANG_ONLY,ok,mismatch
-disabling-random-variables-with-rand_mode_0,chapter-18/18.8--disabling-random-variables-with-rand_mode_0.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.1,[  ERROR] : 6,OK,0,5.2,,,,SLANG_ONLY,ok,mismatch
-disabling-random-variables-with-rand_mode_1,chapter-18/18.8--disabling-random-variables-with-rand_mode_1.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,57.6,[  ERROR] : 6,OK,0,5.4,,,,SLANG_ONLY,ok,mismatch
-disabling-random-variables-with-rand_mode_2,chapter-18/18.8--disabling-random-variables-with-rand_mode_2.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,58.9,[  ERROR] : 6,OK,0,5.1,,,,SLANG_ONLY,ok,mismatch
-disabling-random-variables-with-rand_mode_3,chapter-18/18.8--disabling-random-variables-with-rand_mode_3.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,62.2,[  ERROR] : 6,OK,0,5.2,,,,SLANG_ONLY,ok,mismatch
+local_scope_resolution_1,chapter-18/18.7.1--local-scope-resolution_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.0,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+disabling-random-variables-with-rand_mode_0,chapter-18/18.8--disabling-random-variables-with-rand_mode_0.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.1,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+disabling-random-variables-with-rand_mode_1,chapter-18/18.8--disabling-random-variables-with-rand_mode_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.9,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+disabling-random-variables-with-rand_mode_2,chapter-18/18.8--disabling-random-variables-with-rand_mode_2.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.7,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+disabling-random-variables-with-rand_mode_3,chapter-18/18.8--disabling-random-variables-with-rand_mode_3.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,37.4,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 disabling-random-variables-with-rand_mode_4,chapter-18/18.8--disabling-random-variables-with-rand_mode_4.sv,plain,simulation,18.8,1,120,DB_WITH_ERRORS,4,0.1,[  ERROR] : 1,REJECT,3,0.0,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.8--disabling-random-variables-with-rand_mode_4.sv:20:18: error: cannot override built-in method 'rand_mode',,,BOTH_REJECT,ok,ok
-disabling-random-variables-with-rand_mode_5,chapter-18/18.8--disabling-random-variables-with-rand_mode_5.sv,uvm,simulation,uvm-random uvm,1,300,DB_WITH_ERRORS,4,63.6,[  ERROR] : 7,REJECT,3,0.3,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.8--disabling-random-variables-with-rand_mode_5.sv:25:18: error: cannot override built-in method 'rand_mode',,,BOTH_REJECT,ok,ok
-controlling-constraints-with-constraint_mode_0,chapter-18/18.9--controlling-constraints-with-constraint_mode_0.sv,uvm,elaboration,uvm-random uvm,0,300,DB_WITH_ERRORS,4,61.9,[  ERROR] : 6,OK,0,5.5,,,,SLANG_ONLY,ok,mismatch
+disabling-random-variables-with-rand_mode_5,chapter-18/18.8--disabling-random-variables-with-rand_mode_5.sv,uvm,simulation,uvm-random uvm,1,300,DB_WITH_ERRORS,4,37.8,[  ERROR] : 1,REJECT,3,0.2,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.8--disabling-random-variables-with-rand_mode_5.sv:25:18: error: cannot override built-in method 'rand_mode',,,BOTH_REJECT,ok,ok
+controlling-constraints-with-constraint_mode_0,chapter-18/18.9--controlling-constraints-with-constraint_mode_0.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,38.1,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 controlling_constraints_with_constraint_mode_1,chapter-18/18.9--controlling-constraints-with-constraint_mode_1.sv,plain,simulation,18.8,1,120,DB_WITH_ERRORS,4,0.1,[  ERROR] : 1,REJECT,3,0.0,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.9--controlling-constraints-with-constraint_mode_1.sv:20:18: error: cannot override built-in method 'constrai,,,BOTH_REJECT,ok,ok
-controlling-constraints-with-constraint_mode_2,chapter-18/18.9--controlling-constraints-with-constraint_mode_2.sv,uvm,simulation,uvm-random uvm,1,300,DB_WITH_ERRORS,4,60.5,[  ERROR] : 7,REJECT,3,0.3,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.9--controlling-constraints-with-constraint_mode_2.sv:25:18: error: cannot override built-in method 'constrai,,,BOTH_REJECT,ok,ok
+controlling-constraints-with-constraint_mode_2,chapter-18/18.9--controlling-constraints-with-constraint_mode_2.sv,uvm,simulation,uvm-random uvm,1,300,DB_WITH_ERRORS,4,37.8,[  ERROR] : 1,REJECT,3,0.2,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.9--controlling-constraints-with-constraint_mode_2.sv:25:18: error: cannot override built-in method 'constrai,,,BOTH_REJECT,ok,ok
 error_task,chapter-20/20.10--error.sv,plain,parsing,20.10,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 fatal_task,chapter-20/20.10--fatal.sv,plain,parsing,20.10,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 info_task,chapter-20/20.10--info.sv,plain,simulation,20.10,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
@@ -1285,7 +1285,7 @@ bp_multicore_1_cce_ucode,generated/black-parrot/bp_multicore_1_cce_ucode.sv,core
 bp_multicore_4,generated/black-parrot/bp_multicore_4.sv,cores,elaboration,black-parrot,0,1000,CRASH,-11,0.2,,REJECT,3,24.6,slang-uhdm: error: basic_string::substr: __pos (which is 18) > this->size() (which is 17),,,SURELOG_CRASH,mismatch,mismatch
 bp_multicore_4_cce_ucode_cfg,generated/black-parrot/bp_multicore_4_cce_ucode_cfg.sv,cores,elaboration,black-parrot,0,1000,CRASH,-11,0.1,,REJECT,3,24.2,slang-uhdm: error: basic_string::substr: __pos (which is 18) > this->size() (which is 17),,,SURELOG_CRASH,mismatch,mismatch
 bp_unicore,generated/black-parrot/bp_unicore.sv,cores,elaboration,black-parrot,0,1000,CRASH,-11,0.1,,REJECT,3,17.1,slang-uhdm: error: basic_string::substr: __pos (which is 18) > this->size() (which is 17),,,SURELOG_CRASH,mismatch,mismatch
-easyUVM,generated/easyUVM/top.sv,uvm,elaboration,uvm,0,300,DB_WITH_ERRORS,4,61.8,[  ERROR] : 6,DB_WITH_ERRORS,4,5.5,typedef target: VirtualInterfaceType,,,BOTH_REJECT,mismatch,mismatch
+easyUVM,generated/easyUVM/top.sv,uvm,elaboration,uvm,0,300,OK,0,38.5,,DB_WITH_ERRORS,4,3.1,typedef target: VirtualInterfaceType,,,SURELOG_ONLY,mismatch,ok
 inherited_local_from_inside,generated/encapsulation/8.18--inherited_local_from_inside.sv,plain,simulation,8.18,1,120,OK,0,0.4,,REJECT,3,0.0,/home/heyfey/git-repos/sv-tests/tests/generated/encapsulation/8.18--inherited_local_from_inside.sv:19:18: error: 'a_loc' is a local member of 'a_cls',,,SURELOG_ONLY,ok,mismatch
 inherited_local_from_outside,generated/encapsulation/8.18--inherited_local_from_outside.sv,plain,simulation,8.18,1,120,OK,0,0.4,,REJECT,3,0.0,/home/heyfey/git-repos/sv-tests/tests/generated/encapsulation/8.18--inherited_local_from_outside.sv:25:20: error: 'a_loc' is a local member of 'a_cls',,,SURELOG_ONLY,ok,mismatch
 inherited_prot_from_inside,generated/encapsulation/8.18--inherited_prot_from_inside.sv,plain,simulation,8.18,0,120,OK,0,0.4,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
@@ -2065,73 +2065,73 @@ utd-sv_tlu_addern_32,generated/utd-sv/utd-sv_tlu_addern_32.sv,plain,parsing,utd-
 utd-sv_tlu_incr64,generated/utd-sv/utd-sv_tlu_incr64.sv,plain,parsing,utd-sv,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 utd-sv_tlu_prencoder16,generated/utd-sv/utd-sv_tlu_prencoder16.sv,plain,parsing,utd-sv,0,120,OK,0,0.2,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 utd-sv_unconnected_drive,generated/utd-sv/utd-sv_unconnected_drive.sv,plain,parsing,utd-sv,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
-apb_protocol_monitor,generated/uvm-examples/apb_protocol_monitor.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,59.7,[  ERROR] : 6,OK,0,5.1,,,,SLANG_ONLY,ok,mismatch
-biquad_example,generated/uvm-examples/biquad_example.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,62.2,[  ERROR] : 6,REJECT,3,0.3,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm/src/uvm_pkg.sv:54:9: error: design element does not have a time scale defined but others in the design do,,,BOTH_REJECT,mismatch,mismatch
-uart_example,generated/uvm-examples/uart_example.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,268.3,[  ERROR] : 16,REJECT,3,0.3,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uart_example/agents/apb_agent/apb_seq_item.svh:109:20: error: no member named 'sprint' in 'm_uvm_,,,BOTH_REJECT,mismatch,mismatch
-uvm_ac_config_db,generated/uvm-examples/uvm_ac_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,62.5,[  ERROR] : 6,OK,0,18.9,,,,SLANG_ONLY,ok,mismatch
+apb_protocol_monitor,generated/uvm-examples/apb_protocol_monitor.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,37.3,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+biquad_example,generated/uvm-examples/biquad_example.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,40.1,,REJECT,3,0.2,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,,,SURELOG_ONLY,mismatch,ok
+uart_example,generated/uvm-examples/uart_example.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,162.7,[  ERROR] : 10,REJECT,3,0.2,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uart_example/agents/apb_agent/apb_seq_item.svh:109:14: error: 'knobs' is a local member of 'uvm_p,,,BOTH_REJECT,mismatch,mismatch
+uvm_ac_config_db,generated/uvm-examples/uvm_ac_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,40.2,,OK,0,10.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 uvm_alu_config_analysis,generated/uvm-examples/uvm_alu_config_analysis.sv,uvm,simulation,uvm-examples uvm,0,360,FAIL,1,0.0,[  ERROR] : 0,REJECT,2,0.0,error: '/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_alu_config_analysis/a': No such file or directory,,,BOTH_REJECT,mismatch,mismatch
-uvm_c_stimulus_bl_example,generated/uvm-examples/uvm_c_stimulus_bl_example.sv,uvm,simulation,uvm-examples uvm,0,360,FAIL,7,54.4,[SNT:PA0207] /home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_c_stimulus_bl_example/block_level_example/rtl/spi/rtl/verilog/timescale.v:1: Syn,REJECT,3,0.3,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm/src/uvm_pkg.sv:54:9: error: design element does not have a time scale defined but others in the design do,,,BOTH_REJECT,mismatch,mismatch
-uvm_ef_vif_config_db,generated/uvm-examples/uvm_ef_vif_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,59.8,[  ERROR] : 6,OK,0,18.1,,,,SLANG_ONLY,ok,mismatch
-uvm_generation_seq_persistence,generated/uvm-examples/uvm_generation_seq_persistence.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,68.9,[  ERROR] : 6,OK,0,26.0,,,,SLANG_ONLY,ok,mismatch
-uvm_generation_seq_poly,generated/uvm-examples/uvm_generation_seq_poly.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,64.8,[  ERROR] : 6,OK,0,27.9,,,,SLANG_ONLY,ok,mismatch
-uvm_generation_seq_randomization,generated/uvm-examples/uvm_generation_seq_randomization.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,65.6,[  ERROR] : 6,OK,0,27.2,,,,SLANG_ONLY,ok,mismatch
-uvm_id_register,generated/uvm-examples/uvm_id_register.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,68.5,[  ERROR] : 6,DB_WITH_ERRORS,4,26.8,class property type: CovergroupType,,,BOTH_REJECT,mismatch,mismatch
-uvm_interrupts_parallel_processing,generated/uvm-examples/uvm_interrupts_parallel_processing.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,64.1,[  ERROR] : 10,REJECT,3,0.3,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_parallel_processing/parallel_processing/dsp_con_driver_bfm.sv:47:15: error: use of,,,BOTH_REJECT,mismatch,mismatch
-uvm_interrupts_prioritized,generated/uvm-examples/uvm_interrupts_prioritized.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,66.5,[  ERROR] : 10,REJECT,3,0.3,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_prioritized/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are requi,,,BOTH_REJECT,mismatch,mismatch
-uvm_interrupts_simple,generated/uvm-examples/uvm_interrupts_simple.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,70.1,[  ERROR] : 10,REJECT,3,0.3,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_simple/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are required w,,,BOTH_REJECT,mismatch,mismatch
-uvm_many_to_one,generated/uvm-examples/uvm_many_to_one.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,77.7,[  ERROR] : 6,OK,0,48.6,,,,SLANG_ONLY,ok,mismatch
-uvm_messaging_example,generated/uvm-examples/uvm_messaging_example.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,58.0,[  ERROR] : 6,OK,0,10.7,,,,SLANG_ONLY,ok,mismatch
-uvm_overriding,generated/uvm-examples/uvm_overriding.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,62.0,[  ERROR] : 8,OK,0,18.7,,,,SLANG_ONLY,ok,mismatch
-uvm_param_vif_config_db,generated/uvm-examples/uvm_param_vif_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,68.4,[  ERROR] : 6,OK,0,26.3,,,,SLANG_ONLY,ok,mismatch
-uvm_priority_arbitration,generated/uvm-examples/uvm_priority_arbitration.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,64.7,[  ERROR] : 6,OK,0,11.4,,,,SLANG_ONLY,ok,mismatch
-uvm_priority_grab_lock,generated/uvm-examples/uvm_priority_grab_lock.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,63.6,[  ERROR] : 6,OK,0,10.6,,,,SLANG_ONLY,ok,mismatch
-uvm_register_mem_example,generated/uvm-examples/uvm_register_mem_example.sv,uvm,simulation,uvm-examples uvm,0,360,FAIL,7,56.8,[SNT:PA0207] /home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_register_mem_example/dut/timescale.v:1:2: Syntax error: mismatched input '`times,REJECT,3,0.3,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm/src/uvm_pkg.sv:54:9: error: design element does not have a time scale defined but others in the design do,,,BOTH_REJECT,mismatch,mismatch
-uvm_register_spi_bl_tb,generated/uvm-examples/uvm_register_spi_bl_tb.sv,uvm,simulation,uvm-examples uvm,0,360,FAIL,7,57.6,[SNT:PA0207] /home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_register_spi_bl_tb/rtl/spi/rtl/verilog/timescale.v:1: Syntax error: mismatched i,REJECT,3,0.3,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm/src/uvm_pkg.sv:54:9: error: design element does not have a time scale defined but others in the design do,,,BOTH_REJECT,mismatch,mismatch
-uvm_slave_agent,generated/uvm-examples/uvm_slave_agent.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,65.3,[  ERROR] : 8,DB_WITH_ERRORS,4,18.5,statement kind: RandCase,,,BOTH_REJECT,mismatch,mismatch
-uvm_slave_agent_multi_seq_item,generated/uvm-examples/uvm_slave_agent_multi_seq_item.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,65.2,[  ERROR] : 8,DB_WITH_ERRORS,4,19.3,statement kind: RandCase,,,BOTH_REJECT,mismatch,mismatch
-uvm_tb_build_bl_tb,generated/uvm-examples/uvm_tb_build_bl_tb.sv,uvm,simulation,uvm-examples uvm,0,360,FAIL,7,59.0,[SNT:PA0207] /home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_tb_build_bl_tb/rtl/spi/rtl/verilog/timescale.v:1: Syntax error: mismatched input,REJECT,3,0.3,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm/src/uvm_pkg.sv:54:9: error: design element does not have a time scale defined but others in the design do,,,BOTH_REJECT,mismatch,mismatch
-uvm_tb_build_ss_tb,generated/uvm-examples/uvm_tb_build_ss_tb.sv,uvm,simulation,uvm-examples uvm,0,360,TIMEOUT,TIMEOUT,360.2,%exloc type definition.,REJECT,3,0.7,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm/src/uvm_pkg.sv:54:9: error: design element does not have a time scale defined but others in the design do,,,TIMEOUT,mismatch,mismatch
-uvm_test_init,generated/uvm-examples/uvm_test_init.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,112.7,[  ERROR] : 6,OK,0,92.2,,,,SLANG_ONLY,ok,mismatch
-uvm_use_models_bidir_get_put,generated/uvm-examples/uvm_use_models_bidir_get_put.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,61.3,[  ERROR] : 6,OK,0,11.4,,,,SLANG_ONLY,ok,mismatch
-uvm_use_models_bidir_item_done,generated/uvm-examples/uvm_use_models_bidir_item_done.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,59.7,[  ERROR] : 6,OK,0,11.3,,,,SLANG_ONLY,ok,mismatch
-uvm_use_models_pipelined_get_put,generated/uvm-examples/uvm_use_models_pipelined_get_put.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,65.9,[  ERROR] : 6,OK,0,19.2,,,,SLANG_ONLY,ok,mismatch
-uvm_use_models_pipelined_item_done,generated/uvm-examples/uvm_use_models_pipelined_item_done.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,66.0,[  ERROR] : 6,REJECT,3,0.3,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_use_models_pipelined_item_done/pipelined_item_done/mbus_pipelined_agent/mbus_seq_item.svh:105,,,BOTH_REJECT,mismatch,mismatch
-uvm_use_models_unidirectional,generated/uvm-examples/uvm_use_models_unidirectional.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,63.1,[  ERROR] : 6,OK,0,10.4,,,,SLANG_ONLY,ok,mismatch
-uvm_vif_config_db,generated/uvm-examples/uvm_vif_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,62.0,[  ERROR] : 6,OK,0,17.7,,,,SLANG_ONLY,ok,mismatch
-uvm_virt_seq_find_all,generated/uvm-examples/uvm_virt_seq_find_all.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,62.2,[  ERROR] : 10,REJECT,3,0.3,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_virt_seq_find_all/top.sv:247:11: error: value of type 'T' (aka 'uvm_sequence_base') cannot be,,,BOTH_REJECT,mismatch,mismatch
-uvm_wait_for_signal,generated/uvm-examples/uvm_wait_for_signal.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,60.8,[  ERROR] : 8,OK,0,10.9,,,,SLANG_ONLY,ok,mismatch
-uvm_agent_0,generated/uvm_classes_0/uvm_agent_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,56.7,[  ERROR] : 6,OK,0,4.9,,,,SLANG_ONLY,ok,mismatch
-uvm_component_0,generated/uvm_classes_0/uvm_component_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,57.8,[  ERROR] : 6,OK,0,5.0,,,,SLANG_ONLY,ok,mismatch
-uvm_driver_0,generated/uvm_classes_0/uvm_driver_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,60.8,[  ERROR] : 6,OK,0,5.0,,,,SLANG_ONLY,ok,mismatch
-uvm_env_0,generated/uvm_classes_0/uvm_env_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,58.0,[  ERROR] : 6,OK,0,4.8,,,,SLANG_ONLY,ok,mismatch
-uvm_monitor_0,generated/uvm_classes_0/uvm_monitor_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,61.0,[  ERROR] : 6,OK,0,5.1,,,,SLANG_ONLY,ok,mismatch
-uvm_scoreboard_0,generated/uvm_classes_0/uvm_scoreboard_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,59.4,[  ERROR] : 6,OK,0,5.0,,,,SLANG_ONLY,ok,mismatch
-uvm_sequencer_0,generated/uvm_classes_0/uvm_sequencer_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,60.8,[  ERROR] : 6,OK,0,5.1,,,,SLANG_ONLY,ok,mismatch
-uvm_test_0,generated/uvm_classes_0/uvm_test_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,57.9,[  ERROR] : 6,OK,0,4.9,,,,SLANG_ONLY,ok,mismatch
-uvm_agent_1,generated/uvm_classes_1/uvm_agent_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,58.8,[  ERROR] : 6,OK,0,5.1,,,,SLANG_ONLY,ok,mismatch
-uvm_component_1,generated/uvm_classes_1/uvm_component_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,58.7,[  ERROR] : 6,OK,0,5.1,,,,SLANG_ONLY,ok,mismatch
-uvm_driver_1,generated/uvm_classes_1/uvm_driver_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,61.1,[  ERROR] : 6,OK,0,5.3,,,,SLANG_ONLY,ok,mismatch
-uvm_env_1,generated/uvm_classes_1/uvm_env_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,58.7,[  ERROR] : 6,OK,0,5.1,,,,SLANG_ONLY,ok,mismatch
-uvm_monitor_1,generated/uvm_classes_1/uvm_monitor_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,59.6,[  ERROR] : 6,OK,0,4.2,,,,SLANG_ONLY,ok,mismatch
-uvm_scoreboard_1,generated/uvm_classes_1/uvm_scoreboard_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,58.0,[  ERROR] : 6,OK,0,4.1,,,,SLANG_ONLY,ok,mismatch
-uvm_sequencer_1,generated/uvm_classes_1/uvm_sequencer_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,50.0,[  ERROR] : 6,OK,0,4.0,,,,SLANG_ONLY,ok,mismatch
-uvm_test_1,generated/uvm_classes_1/uvm_test_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,48.7,[  ERROR] : 6,OK,0,3.9,,,,SLANG_ONLY,ok,mismatch
-uvm_agent_2,generated/uvm_classes_2/uvm_agent_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,45.0,[  ERROR] : 6,OK,0,3.7,,,,SLANG_ONLY,ok,mismatch
-uvm_component_2,generated/uvm_classes_2/uvm_component_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,45.0,[  ERROR] : 6,OK,0,3.7,,,,SLANG_ONLY,ok,mismatch
-uvm_driver_2,generated/uvm_classes_2/uvm_driver_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,45.4,[  ERROR] : 6,OK,0,4.1,,,,SLANG_ONLY,ok,mismatch
-uvm_env_2,generated/uvm_classes_2/uvm_env_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,45.2,[  ERROR] : 6,OK,0,4.1,,,,SLANG_ONLY,ok,mismatch
-uvm_monitor_2,generated/uvm_classes_2/uvm_monitor_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,45.0,[  ERROR] : 6,OK,0,3.9,,,,SLANG_ONLY,ok,mismatch
-uvm_scoreboard_2,generated/uvm_classes_2/uvm_scoreboard_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,44.7,[  ERROR] : 6,OK,0,3.7,,,,SLANG_ONLY,ok,mismatch
-uvm_sequencer_2,generated/uvm_classes_2/uvm_sequencer_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,45.1,[  ERROR] : 6,OK,0,3.7,,,,SLANG_ONLY,ok,mismatch
-uvm_test_2,generated/uvm_classes_2/uvm_test_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,44.9,[  ERROR] : 6,OK,0,3.7,,,,SLANG_ONLY,ok,mismatch
-uvm_agent_3,generated/uvm_classes_3/uvm_agent_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,45.0,[  ERROR] : 6,OK,0,4.0,,,,SLANG_ONLY,ok,mismatch
-uvm_component_3,generated/uvm_classes_3/uvm_component_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,44.6,[  ERROR] : 6,OK,0,4.0,,,,SLANG_ONLY,ok,mismatch
-uvm_driver_3,generated/uvm_classes_3/uvm_driver_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,46.6,[  ERROR] : 6,OK,0,3.9,,,,SLANG_ONLY,ok,mismatch
-uvm_env_3,generated/uvm_classes_3/uvm_env_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,46.6,[  ERROR] : 6,OK,0,4.0,,,,SLANG_ONLY,ok,mismatch
-uvm_monitor_3,generated/uvm_classes_3/uvm_monitor_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,46.4,[  ERROR] : 6,OK,0,3.8,,,,SLANG_ONLY,ok,mismatch
-uvm_scoreboard_3,generated/uvm_classes_3/uvm_scoreboard_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,45.1,[  ERROR] : 6,OK,0,3.7,,,,SLANG_ONLY,ok,mismatch
-uvm_sequencer_3,generated/uvm_classes_3/uvm_sequencer_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,45.2,[  ERROR] : 6,OK,0,3.9,,,,SLANG_ONLY,ok,mismatch
-uvm_test_3,generated/uvm_classes_3/uvm_test_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,44.9,[  ERROR] : 6,OK,0,3.9,,,,SLANG_ONLY,ok,mismatch
+uvm_c_stimulus_bl_example,generated/uvm-examples/uvm_c_stimulus_bl_example.sv,uvm,simulation,uvm-examples uvm,0,360,FAIL,7,35.9,[SNT:PA0207] /home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_c_stimulus_bl_example/block_level_example/rtl/spi/rtl/verilog/timescale.v:1: Syn,REJECT,3,0.3,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,,,BOTH_REJECT,mismatch,mismatch
+uvm_ef_vif_config_db,generated/uvm-examples/uvm_ef_vif_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,39.5,,OK,0,11.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_generation_seq_persistence,generated/uvm-examples/uvm_generation_seq_persistence.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,44.1,,OK,0,14.7,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_generation_seq_poly,generated/uvm-examples/uvm_generation_seq_poly.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,41.9,,OK,0,15.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_generation_seq_randomization,generated/uvm-examples/uvm_generation_seq_randomization.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,42.0,,OK,0,15.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_id_register,generated/uvm-examples/uvm_id_register.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,42.4,,DB_WITH_ERRORS,4,14.4,class property type: CovergroupType,,,SURELOG_ONLY,mismatch,ok
+uvm_interrupts_parallel_processing,generated/uvm-examples/uvm_interrupts_parallel_processing.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,39.6,[  ERROR] : 4,REJECT,3,0.2,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_parallel_processing/parallel_processing/dsp_con_driver_bfm.sv:47:15: error: use of,,,BOTH_REJECT,mismatch,mismatch
+uvm_interrupts_prioritized,generated/uvm-examples/uvm_interrupts_prioritized.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,41.6,[  ERROR] : 4,REJECT,3,0.2,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_prioritized/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are requi,,,BOTH_REJECT,mismatch,mismatch
+uvm_interrupts_simple,generated/uvm-examples/uvm_interrupts_simple.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,43.4,[  ERROR] : 4,REJECT,3,0.2,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_simple/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are required w,,,BOTH_REJECT,mismatch,mismatch
+uvm_many_to_one,generated/uvm-examples/uvm_many_to_one.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,49.0,,OK,0,26.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_messaging_example,generated/uvm-examples/uvm_messaging_example.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,38.4,,OK,0,6.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_overriding,generated/uvm-examples/uvm_overriding.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,40.0,[  ERROR] : 2,OK,0,10.1,,,,SLANG_ONLY,ok,mismatch
+uvm_param_vif_config_db,generated/uvm-examples/uvm_param_vif_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,43.7,,OK,0,14.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_priority_arbitration,generated/uvm-examples/uvm_priority_arbitration.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,39.9,,OK,0,6.6,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_priority_grab_lock,generated/uvm-examples/uvm_priority_grab_lock.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,39.4,,OK,0,6.7,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_register_mem_example,generated/uvm-examples/uvm_register_mem_example.sv,uvm,simulation,uvm-examples uvm,0,360,FAIL,7,35.5,[SNT:PA0207] /home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_register_mem_example/dut/timescale.v:1:2: Syntax error: mismatched input '`times,REJECT,3,0.2,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,,,BOTH_REJECT,mismatch,mismatch
+uvm_register_spi_bl_tb,generated/uvm-examples/uvm_register_spi_bl_tb.sv,uvm,simulation,uvm-examples uvm,0,360,FAIL,7,36.1,[SNT:PA0207] /home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_register_spi_bl_tb/rtl/spi/rtl/verilog/timescale.v:1: Syntax error: mismatched i,REJECT,3,0.2,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,,,BOTH_REJECT,mismatch,mismatch
+uvm_slave_agent,generated/uvm-examples/uvm_slave_agent.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,40.6,[  ERROR] : 2,DB_WITH_ERRORS,4,10.5,statement kind: RandCase,,,BOTH_REJECT,mismatch,mismatch
+uvm_slave_agent_multi_seq_item,generated/uvm-examples/uvm_slave_agent_multi_seq_item.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,40.6,[  ERROR] : 2,DB_WITH_ERRORS,4,10.8,statement kind: RandCase,,,BOTH_REJECT,mismatch,mismatch
+uvm_tb_build_bl_tb,generated/uvm-examples/uvm_tb_build_bl_tb.sv,uvm,simulation,uvm-examples uvm,0,360,FAIL,7,36.6,[SNT:PA0207] /home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_tb_build_bl_tb/rtl/spi/rtl/verilog/timescale.v:1: Syntax error: mismatched input,REJECT,3,0.2,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,,,BOTH_REJECT,mismatch,mismatch
+uvm_tb_build_ss_tb,generated/uvm-examples/uvm_tb_build_ss_tb.sv,uvm,simulation,uvm-examples uvm,0,360,TIMEOUT,TIMEOUT,360.1,[ERR:EL0514] /home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_tb_build_ss_tb/agents/modem_agent/modem_coverage_monitor.svh:43:4: Undefined var,REJECT,3,0.4,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,,,TIMEOUT,mismatch,mismatch
+uvm_test_init,generated/uvm-examples/uvm_test_init.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,70.1,,OK,0,47.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_use_models_bidir_get_put,generated/uvm-examples/uvm_use_models_bidir_get_put.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,36.7,,OK,0,6.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_use_models_bidir_item_done,generated/uvm-examples/uvm_use_models_bidir_item_done.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,36.6,,OK,0,6.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_use_models_pipelined_get_put,generated/uvm-examples/uvm_use_models_pipelined_get_put.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,41.9,,OK,0,10.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_use_models_pipelined_item_done,generated/uvm-examples/uvm_use_models_pipelined_item_done.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,41.1,[  ERROR] : 1,REJECT,3,0.2,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_use_models_pipelined_item_done/pipelined_item_done/top.sv:66:3: error: use of undeclared iden,,,BOTH_REJECT,mismatch,mismatch
+uvm_use_models_unidirectional,generated/uvm-examples/uvm_use_models_unidirectional.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,38.9,,OK,0,6.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_vif_config_db,generated/uvm-examples/uvm_vif_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,40.6,,OK,0,9.8,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_virt_seq_find_all,generated/uvm-examples/uvm_virt_seq_find_all.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,38.9,[  ERROR] : 4,REJECT,3,0.2,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_virt_seq_find_all/top.sv:175:5: error: use of undeclared identifier 'uvm_top',,,BOTH_REJECT,mismatch,mismatch
+uvm_wait_for_signal,generated/uvm-examples/uvm_wait_for_signal.sv,uvm,simulation,uvm-examples uvm,0,360,DB_WITH_ERRORS,4,38.2,[  ERROR] : 2,OK,0,6.3,,,,SLANG_ONLY,ok,mismatch
+uvm_agent_0,generated/uvm_classes_0/uvm_agent_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,36.3,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_component_0,generated/uvm_classes_0/uvm_component_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.0,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_driver_0,generated/uvm_classes_0/uvm_driver_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,36.5,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_env_0,generated/uvm_classes_0/uvm_env_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.6,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_monitor_0,generated/uvm_classes_0/uvm_monitor_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,36.9,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_scoreboard_0,generated/uvm_classes_0/uvm_scoreboard_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.3,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_sequencer_0,generated/uvm_classes_0/uvm_sequencer_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.4,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_test_0,generated/uvm_classes_0/uvm_test_class_0.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.2,,OK,0,2.8,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_agent_1,generated/uvm_classes_1/uvm_agent_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.6,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_component_1,generated/uvm_classes_1/uvm_component_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.0,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_driver_1,generated/uvm_classes_1/uvm_driver_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,38.0,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_env_1,generated/uvm_classes_1/uvm_env_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,39.1,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_monitor_1,generated/uvm_classes_1/uvm_monitor_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,38.3,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_scoreboard_1,generated/uvm_classes_1/uvm_scoreboard_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.6,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_sequencer_1,generated/uvm_classes_1/uvm_sequencer_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.8,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_test_1,generated/uvm_classes_1/uvm_test_class_1.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.8,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_agent_2,generated/uvm_classes_2/uvm_agent_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,OK,0,38.0,,OK,0,2.8,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_component_2,generated/uvm_classes_2/uvm_component_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,OK,0,38.0,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_driver_2,generated/uvm_classes_2/uvm_driver_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,OK,0,37.6,,OK,0,2.8,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_env_2,generated/uvm_classes_2/uvm_env_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,OK,0,36.9,,OK,0,2.8,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_monitor_2,generated/uvm_classes_2/uvm_monitor_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,OK,0,37.1,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_scoreboard_2,generated/uvm_classes_2/uvm_scoreboard_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,OK,0,37.1,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_sequencer_2,generated/uvm_classes_2/uvm_sequencer_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,OK,0,37.0,,OK,0,2.8,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_test_2,generated/uvm_classes_2/uvm_test_class_2.sv,uvm,parsing,uvm uvm-classes,0,300,OK,0,37.7,,OK,0,2.8,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_agent_3,generated/uvm_classes_3/uvm_agent_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.3,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_component_3,generated/uvm_classes_3/uvm_component_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,36.4,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_driver_3,generated/uvm_classes_3/uvm_driver_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,36.2,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_env_3,generated/uvm_classes_3/uvm_env_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.0,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_monitor_3,generated/uvm_classes_3/uvm_monitor_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,36.9,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_scoreboard_3,generated/uvm_classes_3/uvm_scoreboard_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,36.8,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_sequencer_3,generated/uvm_classes_3/uvm_sequencer_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.0,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_test_3,generated/uvm_classes_3/uvm_test_class_3.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.3,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 wildcard_const_operator_sim_0,generated/wildcard_const_operators_sim/11.4.6--wildcard_const_operator_0.sv,plain,simulation,11.4.6,0,120,OK,0,0.3,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 wildcard_const_operator_sim_1,generated/wildcard_const_operators_sim/11.4.6--wildcard_const_operator_1.sv,plain,simulation,11.4.6,0,120,OK,0,0.3,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 wildcard_const_operator_sim_2,generated/wildcard_const_operators_sim/11.4.6--wildcard_const_operator_2.sv,plain,simulation,11.4.6,0,120,OK,0,0.3,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
@@ -2333,15 +2333,15 @@ typedef_test_8__bad,generic/typedef/typedef_test_8__bad.sv,plain,simulation,6.18
 typedef_test_9,generic/typedef/typedef_test_9.sv,plain,elaboration,6.18,0,120,OK,0,0.1,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
 union_test_0,generic/union/union_test_0.sv,plain,elaboration,7.3,0,120,OK,0,0.1,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
 sanity,sanity.sv,plain,elaboration,sanity,1,120,FAIL,3,0.2,"[SNT:PA0207] /home/heyfey/git-repos/sv-tests/tests/sanity.sv:23:1: Syntax error: no viable alternative at input 'syntaxerror\n\twire',",REJECT,3,0.0,/home/heyfey/git-repos/sv-tests/tests/sanity.sv:23:9: error: expected a declaration name,,,BOTH_REJECT,ok,ok
-uvm_agent_active,testbenches/uvm_agent_active.sv,uvm,simulation,uvm uvm-agents,0,300,DB_WITH_ERRORS,4,46.2,[  ERROR] : 6,OK,0,4.4,,,,SLANG_ONLY,ok,mismatch
-uvm_agent_env,testbenches/uvm_agent_env.sv,uvm,simulation,uvm uvm-agents,0,300,DB_WITH_ERRORS,4,46.0,[  ERROR] : 6,OK,0,4.3,,,,SLANG_ONLY,ok,mismatch
-uvm_agent_passive,testbenches/uvm_agent_passive.sv,uvm,simulation,uvm uvm-agents,0,300,DB_WITH_ERRORS,4,46.6,[  ERROR] : 6,OK,0,4.1,,,,SLANG_ONLY,ok,mismatch
-uvm_driver_sequencer_env,testbenches/uvm_driver_sequencer_env.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,46.6,[  ERROR] : 6,OK,0,4.1,,,,SLANG_ONLY,ok,mismatch
-uvm_monitor_env,testbenches/uvm_monitor_env.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,45.5,[  ERROR] : 6,OK,0,4.0,,,,SLANG_ONLY,ok,mismatch
-uvm_resource_db_read_by_name,testbenches/uvm_resource_db_read_by_name.sv,uvm,simulation,uvm,0,300,DB_WITH_ERRORS,4,45.2,[  ERROR] : 6,OK,0,3.8,,,,SLANG_ONLY,ok,mismatch
-uvm_scoreboard_env,testbenches/uvm_scoreboard_env.sv,uvm,simulation,uvm uvm-scoreboards,0,300,DB_WITH_ERRORS,4,46.5,[  ERROR] : 6,OK,0,4.3,,,,SLANG_ONLY,ok,mismatch
-uvm_scoreboard_monitor_agent_env,testbenches/uvm_scoreboard_monitor_agent_env.sv,uvm,simulation,uvm uvm-scoreboards,0,300,DB_WITH_ERRORS,4,45.7,[  ERROR] : 6,OK,0,4.4,,,,SLANG_ONLY,ok,mismatch
-uvm_scoreboard_monitor_env,testbenches/uvm_scoreboard_monitor_env.sv,uvm,simulation,uvm uvm-scoreboards,0,300,DB_WITH_ERRORS,4,46.1,[  ERROR] : 6,OK,0,4.0,,,,SLANG_ONLY,ok,mismatch
-uvm_sequence,testbenches/uvm_sequence.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,45.2,[  ERROR] : 6,OK,0,3.8,,,,SLANG_ONLY,ok,mismatch
-uvm_test_run_test,testbenches/uvm_test_run_test.sv,uvm,simulation,uvm uvm-classes,0,300,DB_WITH_ERRORS,4,42.4,[  ERROR] : 6,OK,0,3.4,,,,SLANG_ONLY,ok,mismatch
-uvm_files,uvm/uvm_files.sv,uvm,elaboration,uvm,0,300,DB_WITH_ERRORS,4,41.9,[  ERROR] : 6,OK,0,3.3,,,,SLANG_ONLY,ok,mismatch
+uvm_agent_active,testbenches/uvm_agent_active.sv,uvm,simulation,uvm uvm-agents,0,300,OK,0,38.1,,OK,0,3.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_agent_env,testbenches/uvm_agent_env.sv,uvm,simulation,uvm uvm-agents,0,300,OK,0,38.2,,OK,0,3.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_agent_passive,testbenches/uvm_agent_passive.sv,uvm,simulation,uvm uvm-agents,0,300,OK,0,38.2,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_driver_sequencer_env,testbenches/uvm_driver_sequencer_env.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,38.6,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_monitor_env,testbenches/uvm_monitor_env.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,38.2,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_resource_db_read_by_name,testbenches/uvm_resource_db_read_by_name.sv,uvm,simulation,uvm,0,300,OK,0,36.4,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_scoreboard_env,testbenches/uvm_scoreboard_env.sv,uvm,simulation,uvm uvm-scoreboards,0,300,OK,0,37.1,,OK,0,3.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_scoreboard_monitor_agent_env,testbenches/uvm_scoreboard_monitor_agent_env.sv,uvm,simulation,uvm uvm-scoreboards,0,300,OK,0,37.9,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_scoreboard_monitor_env,testbenches/uvm_scoreboard_monitor_env.sv,uvm,simulation,uvm uvm-scoreboards,0,300,OK,0,38.2,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_sequence,testbenches/uvm_sequence.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,37.3,,OK,0,2.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_test_run_test,testbenches/uvm_test_run_test.sv,uvm,simulation,uvm uvm-classes,0,300,OK,0,36.7,,OK,0,2.7,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_files,uvm/uvm_files.sv,uvm,elaboration,uvm,0,300,OK,0,35.3,,OK,0,2.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok

@@ -284,6 +284,7 @@ def main():
     ap.add_argument('--exclude-regex', default='', help='tests whose path, name, tags or files match are skipped')
     ap.add_argument('--timeout-cap', type=int, default=1200)
     ap.add_argument('--limit', type=int, default=0)
+    ap.add_argument('--uvm-dir', default='', help='use this UVM tree (its src/uvm_pkg.sv and src/) for the uvm tag instead of libs.json, for both tools')
     ap.add_argument('--paths-file', default='', help='only the relative paths listed in this file (one per line)')
     ap.add_argument('--keep-golden', action='store_true', help='keep slpp_all/surelog.uhdm on non-identical rows')
     a = ap.parse_args()
@@ -293,6 +294,9 @@ def main():
     third_party = os.path.join(svtests, 'third_party')
     with open(os.path.join(svtests, 'conf', 'runners', 'libs.json')) as f:
         libs = json.load(f)
+    if a.uvm_dir:
+        d = os.path.abspath(a.uvm_dir)
+        libs['uvm'] = {'files': [os.path.join(d, 'src', 'uvm_pkg.sv')], 'incdirs': [os.path.join(d, 'src')]}
     tiers = set(a.tier.split(','))
     excl = re.compile(a.exclude_regex, re.I) if a.exclude_regex else None
 
