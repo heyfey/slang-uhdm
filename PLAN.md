@@ -518,13 +518,16 @@ Method: every `tests/**/*.sv` (2346) is run through Surelog with sv-tests' own
 `tools/runners/Surelog.py` recipe (`-nopython -parse -nonote -noinfo
 -nowarning`, `-sverilog` for the black-parrot, basejump and ivtest tags,
 `-lowmem` for black-parrot and rsd, `--top-module`, `-D`, `-I`, the `:files:`
-list, the `uvm` tag prepending sv-tests' `third_party/tests/uvm/src/uvm_pkg.sv`)
-with two changes: `-noelab` is dropped (a `-noelab` database is unelaborated
+list) with three changes: `-noelab` is dropped (a `-noelab` database is unelaborated
 and never comparable with an exporter output, so parsing and preprocessing
 tests are run elaborated like the rest) and `-noprecompiledcache` is added
 whenever `uvm_pkg.sv` is a source (as `scripts/verify_golden.py` does; without
 it Surelog substitutes its bundled 1800.2-2017 package, whose include records
-point at a different tree, and the UVM rows compare two different libraries).
+point at a different tree, and the UVM rows compare two different libraries),
+and the `uvm` tag gives BOTH tools Surelog's bundled 1800.2-2017 UVM
+(`--uvm-dir third_party/Surelog/third_party/UVM/1800.2-2017-1.0`, the library
+the corpus sweep uses) instead of sv-tests' uvm-2020 fork, which Surelog v1.87
+does not compile (see the UVM tier).
 slang-uhdm gets the same sources, `-I`, `-D`, `--top`, `--sverilog` when
 Surelog got `-sverilog`, and `--single-unit`.  Both write into the same work
 directory, as the sweep harness lays it out.  A pair is IDENTICAL when
@@ -538,9 +541,9 @@ tiers at 4 jobs, 15 minutes for the cores tier at 1 job.
 | tier  |    n | IDENTICAL | JUDGE_EQUAL | DIFFERENT | BOTH_REJECT | SURELOG_ONLY | SLANG_ONLY | SLANG_CRASH | SURELOG_CRASH | TIMEOUT |
 |-------|-----:|----------:|------------:|----------:|------------:|-------------:|-----------:|------------:|--------------:|--------:|
 | plain | 1798 |      1153 |          23 |       203 |         287 |          121 |         10 |           0 |             1 |       0 |
-| uvm   |  172 |       0 |         0 |       0 |        22 |          0 |      149 |           0 |             0 |       1 |
+| uvm   |  172 |         0 |           0 |       146 |          16 |            6 |          3 |           0 |             0 |       1 |
 | cores |  376 |         0 |           0 |       356 |           6 |            6 |          0 |           1 |             7 |       0 |
-| all   | 2346 |    1153 |        23 |     559 |       315 |        127 |      159 |           1 |             8 |       1 |
+| all   | 2346 |      1153 |          23 |       705 |         309 |          133 |         13 |           1 |             8 |       1 |
 
 SURELOG_ONLY = Surelog accepted, slang-uhdm did not; SLANG_ONLY the reverse.
 
@@ -614,13 +617,39 @@ include dirs miss `hpdcache_typedef.svh`.  rggen (1): both write a database
 with errors (ours `expression kind: Invalid`).  fx68k and scr1: DIFFERENT, one
 `hier_path` head each.
 
-**UVM tier (172 tests on sv-tests' uvm-2020 fork).**  With `-noprecompiledcache` Surelog v1.87 does not compile sv-tests' uvm-2020 fork: 166 of the 172 runs write a database with errors (`EL0514` undefined variable 229 times over the logs, `CP0317` undefined type 61, `CP0332` a method not defined on the built-in `semaphore` 58, `UH0701` unsupported statement 20), 5 stop on a syntax error and 1 times out at 300 s single-threaded, so by sv-tests' own criterion no UVM pair is comparable.  slang-uhdm accepts 149 of the 172 and rejects 23 (6 the timescale rule, 4 `randcase`, 3 overrides of a built-in method, the rest single shapes or test-setup faults such as a missing file).  A first run without the guard let Surelog substitute its bundled 1800.2-2017 package: all 146 pairs both tools accepted then differed from the first include-file record on, a library mismatch and not an exporter result, which is why the guard is part of the recipe.  The corpus campaign's UVM rows (MiniAmiq, SeqDriver, SimpleUVM, Scoreboard, BuildUVMPkg) give Surelog's bundled 1800.2-2017 UVM to both tools and are STRICT_EQUAL at HEAD.
+**UVM tier (172 tests; both tools on Surelog's bundled 1800.2-2017 UVM).**  On
+the 169 suite-legal tests Surelog accepts 152 and slang-uhdm 149.  The 146
+pairs both accept are all DIFFERENT, and all three clusters are list order:
+130 at the method list of `uvm_pkg::uvm_packer` (ours has `set_packed_bits`
+where Surelog has `get_packed_bytes`), 11 at the design's package list (ours
+lists the test's own package where Surelog lists `uvm_pkg`) and 5 at the
+package variable list (`uvm_pkg::rh` placed differently).  sv-tests' extra
+Surelog flags are not the cause: a corpus-style minimal run (`-parse
+-noprecompiledcache -I -I files`) gives a byte-equal golden.  The corpus
+campaign's UVM rows (MiniAmiq, SeqDriver, SimpleUVM, Scoreboard, BuildUVMPkg)
+on the same library are STRICT_EQUAL at HEAD, so the order rule depends on the
+design shape; it is the next law on the module/type ground for this suite.
+The 6 SURELOG_ONLY rows are exporter unsupported shapes (`randcase` 2, a
+sequence match item, a virtual-interface typedef, a covergroup property) and
+one slang reject; the 3 SLANG_ONLY rows are Surelog errors on legal SV; 13
+legal tests are rejected by both (test-setup faults, `randcase`, the timescale
+rule); 1 test times out in Surelog at 300 s single-threaded.  Two earlier
+setups were wrong and are kept out of the table: letting Surelog use its
+precompiled bundled package (every pair then differs from the first
+include-file record on, a library mismatch) and forcing both tools onto
+sv-tests' uvm-2020 fork with the guard (Surelog v1.87 does not compile it: 166
+of 172 with errors such as `EL0514` undefined variable and `CP0332` a method
+not defined on the built-in `semaphore`, 5 syntax errors, 1 timeout, while
+slang-uhdm accepts 149).
 
 **Tool-failure summary.**  slang-uhdm: 1 crash (tnoc), 1 `substr` exception
 (black-parrot, 6 rows), 58 unsupported shapes with a database still written,
 31 front-end rejects on suite-legal tests.  Surelog v1.87: 8 crashes (7 with
 `-lowmem`, 1 on hdlconvertor p612), 1 timeout (`uvm_tb_build_ss_tb`, 300 s
-single-threaded), 46 illegal tests accepted.
+single-threaded), 46 illegal tests accepted.  Of the 46 slang-uhdm rejects on
+suite-legal non-UVM tests, upstream slang rejects 40 with the same arguments
+(the 6 it accepts are the black-parrot `substr` rows), and it accepts all 56
+exporter unsupported-shape rows, so those 56 are the exporter's own.
 
 **Not covered by this measurement.**  The sv-tests expectation is only
 accept/reject, so "identical" is measured against Surelog, not against the
@@ -630,7 +659,8 @@ except by the fence filter (0 hits).  Reproduce with:
 
 ```
 scripts/svtests/svtests_matrix.py --svtests <sv-tests> --out matrix.csv \
-    --workroot <work> --jobs 4 --tier plain,uvm --keep-golden
+    --workroot <work> --jobs 4 --tier plain,uvm --keep-golden \
+    --uvm-dir third_party/Surelog/third_party/UVM/1800.2-2017-1.0
 scripts/svtests/svtests_matrix.py --svtests <sv-tests> --out cores.csv \
     --workroot <work> --jobs 1 --tier cores --keep-golden
 scripts/svtests/svtests_decode.py --svtests <sv-tests> --csv matrix.csv cores.csv \
