@@ -175,8 +175,26 @@ def one(task):
     for sub in ('slpp_all', 'slpp_unit'):
         subprocess.run(['rm', '-rf', os.path.join(sl_work, sub)])
     cmd, sverilog = surelog_cmd(params, sl_work)
-    rc, secs = run(cmd, sl_work, os.path.join(work, 'surelog.log'), timeout)
-    dbs = vg.find_uhdm(sl_work)
+    key_args = cmd[1:cmd.index('-mt')]          # the recipe without -mt/-mp/-o
+    cdir = vg.golden_cache_dir(os.path.dirname(sv_path), key_args) if vg.CACHE_ENABLED else None
+    hit = vg.cache_load(cdir) if cdir else None
+    # cmds.txt as scripts/verify_golden.py writes it (tests/sweep.sh counts the
+    # '(golden cache hit' lines in these files)
+    with open(os.path.join(work, 'cmds.txt'), 'wt') as cf:
+        if hit and hit[1]:
+            cf.write('surelog: (golden cache hit %s)\n' % cdir)
+        else:
+            cf.write('surelog: ' + shlex.join(cmd) + '\n')
+    if hit and hit[1]:
+        # the golden is immutable per Surelog binary + recipe: served from the cache
+        with open(os.path.join(work, 'surelog.log'), 'wt') as lf:
+            lf.write(shlex.join(cmd) + '\n(golden cache hit %s)\n' % cdir)
+        rc, secs, dbs = 0, 0.0, [hit[1]]
+    else:
+        rc, secs = run(cmd, sl_work, os.path.join(work, 'surelog.log'), timeout)
+        dbs = vg.find_uhdm(sl_work)
+        if cdir and dbs and isinstance(rc, int) and (rc & 0x07) == 0:
+            vg.cache_store(cdir, dbs[0], 'OK|')
     row['surelog_rc'] = rc
     row['surelog_s'] = secs
     if rc == 'TIMEOUT':
@@ -199,6 +217,8 @@ def one(task):
     except FileNotFoundError:
         pass
     cmd = slang_cmd(params, sverilog, out)
+    with open(os.path.join(work, 'cmds.txt'), 'at') as cf:
+        cf.write('slang:   ' + shlex.join(cmd) + '\n')
     rc, secs = run(cmd, work, os.path.join(work, 'slang.log'), timeout)
     row['slang_rc'] = rc
     row['slang_s'] = secs

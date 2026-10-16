@@ -6,9 +6,14 @@
 # (3) the downstream gate: uhdm2rtlil's Yosys plugin must produce the same
 # result from slang-uhdm's database as from Surelog's on every uhdm2rtlil test
 # except the ones the baseline records otherwise (scripts/downstream_uhdm2rtlil.py,
-# verdicts compared against results/downstream_uhdm2rtlil.csv).
+# verdicts compared against results/downstream_uhdm2rtlil.csv); (4) the sv-tests
+# stage: every test in results/golden_svtests.csv through scripts/check_svtests.py
+# (Surelog with sv-tests' own recipe, cached; slang-uhdm; uhdm-cmp + uhdm-strictcmp)
+# compared against that baseline, run when the sv-tests checkout is present
+# (SVTESTS_ROOT, default ../sv-tests next to this repository; else the stage is
+# skipped with a note).
 #
-#   tests/sweep.sh [--jobs N] [--workdir DIR] [--filter REGEX] [--corpus probe|surelog|uhdm2rtlil|downstream]
+#   tests/sweep.sh [--jobs N] [--workdir DIR] [--filter REGEX] [--corpus probe|surelog|uhdm2rtlil|downstream|svtests]
 #
 # First run on a machine: Surelog builds every golden database (about an hour
 # at --jobs 3) and the harness caches them under ~/.cache/slang-uhdm-goldens
@@ -25,14 +30,15 @@
 # did not produce is a regression): do not commit on a nonzero exit.
 set -u
 ROOT=$(cd "$(dirname "$(realpath "$0")")/.." && pwd)
-JOBS=3; WORKDIR=/tmp/slang-uhdm-sweep; FILTER=""; CORPORA="probe surelog uhdm2rtlil downstream"
+JOBS=3; WORKDIR=/tmp/slang-uhdm-sweep; FILTER=""; CORPORA="probe surelog uhdm2rtlil downstream svtests"
+SVTESTS_ROOT=${SVTESTS_ROOT:-$ROOT/../sv-tests}
 while [ $# -gt 0 ]; do
     case "$1" in
         --jobs) JOBS=$2; shift 2 ;;
         --workdir) WORKDIR=$2; shift 2 ;;
         --filter) FILTER=$2; shift 2 ;;
         --corpus) CORPORA=$2; shift 2 ;;
-        *) echo "usage: $0 [--jobs N] [--workdir DIR] [--filter REGEX] [--corpus probe|surelog|uhdm2rtlil|downstream]"; exit 2 ;;
+        *) echo "usage: $0 [--jobs N] [--workdir DIR] [--filter REGEX] [--corpus probe|surelog|uhdm2rtlil|downstream|svtests]"; exit 2 ;;
     esac
 done
 mkdir -p "$WORKDIR"
@@ -53,6 +59,16 @@ for c in $CORPORA; do
         else
             echo "== probe: no csv written"; rc=1
         fi
+        continue
+    fi
+    if [ "$c" = svtests ]; then
+        if [ ! -d "$SVTESTS_ROOT/tests" ]; then
+            echo "== svtests: no sv-tests checkout at $SVTESTS_ROOT (SVTESTS_ROOT), stage skipped"
+            continue
+        fi
+        echo "== svtests: results/golden_svtests.csv rows through scripts/check_svtests.py, jobs=$JOBS, out=$WORKDIR/svtests.csv"
+        python3 "$ROOT/scripts/check_svtests.py" --jobs "$JOBS" --workdir "$WORKDIR/svtests" \
+            --out "$WORKDIR/svtests.csv" --svtests "$SVTESTS_ROOT" ${FILTER:+--filter "$FILTER"} || rc=1
         continue
     fi
     if [ "$c" = downstream ]; then

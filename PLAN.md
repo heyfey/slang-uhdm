@@ -651,6 +651,23 @@ suite-legal non-UVM tests, upstream slang rejects 40 with the same arguments
 (the 6 it accepts are the black-parrot `substr` rows), and it accepts all 56
 exporter unsupported-shape rows, so those 56 are the exporter's own.
 
+**The gate (2026-10-15).**  sv-tests is the campaign's new corpus (user: what
+slang accepts, slang-uhdm must accept; both-accepted pairs must reach
+STRICT_EQUAL, at least CMP_EQUAL).  `tests/sweep.sh` has a fifth stage,
+`--corpus svtests`: `scripts/check_svtests.py` runs every row of
+`results/golden_svtests.csv` (the measured matrix above in the probe csv shape:
+EQUAL, STRICT_NOTEQUAL, DIFFERENT, SLANG_ONLY, SURELOG_ONLY, BOTH_REJECT,
+SLANG_CRASH, SURELOG_CRASH, TIMEOUT) through the runner with the Surelog side
+served from the shared golden cache, and compares: a row leaving an accepting
+status (EQUAL, STRICT_NOTEQUAL, DIFFERENT, SLANG_ONLY) for a rejecting one is a
+regression, a step down the order EQUAL > STRICT_NOTEQUAL > DIFFERENT is a
+regression, a step up a conversion, anything else a change; `--write` promotes
+at a landing.  The stage is skipped with a note when no sv-tests checkout is
+found (`SVTESTS_ROOT`, default `../sv-tests`).  Passes on this corpus carry
+numbers from 401 (pair A, expression/parameter ground) and 402 (pair B,
+module/type ground) with the same law, switch and repro-directory conventions
+as the corpus passes.
+
 **Not covered by this measurement.**  The sv-tests expectation is only
 accept/reject, so "identical" is measured against Surelog, not against the
 standard; parsing and preprocessing tests ran elaborated (see Method); the
