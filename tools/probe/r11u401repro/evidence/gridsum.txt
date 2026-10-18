@@ -1,0 +1,161 @@
+AM/am01_and_noparen d | rc=0 cmp=68 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 36 objects | moved=1 restoredBy=R11U401_KWMETHOD_OFF
+AM/am01_and_noparen e | rc=0 cmp=68 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 33 objects | moved=1 restoredBy=R11U401_KWMETHOD_OFF
+AM/am02_and_paren d | rc=0 cmp=66 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 36 objects | moved=1 restoredBy=R11U401_KWMETHOD_OFF
+AM/am02_and_paren e | rc=0 cmp=66 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 33 objects | moved=1 restoredBy=R11U401_KWMETHOD_OFF
+AM/am03_unique_noparen d | rc=0 cmp=68 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 56 objects | moved=1 restoredBy=R11U401_KWMETHOD_OFF
+AM/am03_unique_noparen e | rc=0 cmp=68 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 54 objects | moved=1 restoredBy=R11U401_KWMETHOD_OFF
+AM/am04_sum_noparen d | rc=0 cmp=0 STRICT_EQUAL 42 objects -> rc=0 cmp=0 STRICT_EQUAL 42 objects | moved=0 restoredBy=-
+AM/am04_sum_noparen e | rc=0 cmp=0 STRICT_EQUAL 39 objects -> rc=0 cmp=0 STRICT_EQUAL 39 objects | moved=0 restoredBy=-
+AP/ap01_double d | rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 50 objects | moved=1 restoredBy=R11U401_ASGPAREN_OFF
+AP/ap01_double e | rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 41 objects | moved=1 restoredBy=R11U401_ASGPAREN_OFF
+AP/ap02_single d | rc=0 cmp=0 STRICT_EQUAL 39 objects -> rc=0 cmp=0 STRICT_EQUAL 39 objects | moved=0 restoredBy=-
+AP/ap02_single e | rc=0 cmp=0 STRICT_EQUAL 33 objects -> rc=0 cmp=0 STRICT_EQUAL 33 objects | moved=0 restoredBy=-
+AP/ap03_triple d | rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 46 objects | moved=1 restoredBy=R11U401_ASGPAREN_OFF
+AP/ap03_triple e | rc=0 cmp=0 STRICT_NOTEQUAL col -> rc=0 cmp=0 STRICT_EQUAL 37 objects | moved=1 restoredBy=R11U401_ASGPAREN_OFF
+BT/bt01_blocklocal d | rc=0 cmp=42 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 27 objects | moved=1 restoredBy=R11U401_BITSBLOCKLOCAL_OFF
+BT/bt01_blocklocal e | rc=0 cmp=42 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 27 objects | moved=1 restoredBy=R11U401_BITSBLOCKLOCAL_OFF
+BT/bt02_modvar d | rc=0 cmp=0 STRICT_EQUAL 25 objects -> rc=0 cmp=0 STRICT_EQUAL 25 objects | moved=0 restoredBy=-
+BT/bt02_modvar e | rc=0 cmp=0 STRICT_EQUAL 25 objects -> rc=0 cmp=0 STRICT_EQUAL 25 objects | moved=0 restoredBy=-
+BT/bt03_assign d | rc=0 cmp=42 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 36 objects | moved=1 restoredBy=R11U401_BITSBLOCKLOCAL_OFF
+BT/bt03_assign e | rc=0 cmp=42 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 33 objects | moved=1 restoredBy=R11U401_BITSBLOCKLOCAL_OFF
+BT/bt04_type d | rc=0 cmp=32 NOT_EQUAL stage1 -> rc=0 cmp=32 NOT_EQUAL stage1 | moved=0 restoredBy=-
+BT/bt04_type e | rc=0 cmp=32 NOT_EQUAL stage1 -> rc=0 cmp=32 NOT_EQUAL stage1 | moved=0 restoredBy=-
+BT/bt05_named_block d | rc=0 cmp=42 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 27 objects | moved=1 restoredBy=R11U401_BITSBLOCKLOCAL_OFF
+BT/bt05_named_block e | rc=0 cmp=42 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 27 objects | moved=1 restoredBy=R11U401_BITSBLOCKLOCAL_OFF
+CE/ce01_display d | rc=0 cmp=89 NOT_EQUAL stage1 -> rc=0 cmp=89 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_CLSENUMPATH_OFF
+CE/ce01_display e | rc=0 cmp=89 NOT_EQUAL stage1 -> rc=0 cmp=89 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_CLSENUMPATH_OFF
+CE/ce02_assign d | rc=0 cmp=57 NOT_EQUAL stage1 -> rc=0 cmp=57 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_CLSENUMPATH_OFF
+CE/ce02_assign e | rc=0 cmp=57 NOT_EQUAL stage1 -> rc=0 cmp=57 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_CLSENUMPATH_OFF
+CE/ce03_scoped d | rc=0 cmp=57 NOT_EQUAL stage1 -> rc=0 cmp=57 NOT_EQUAL stage1 | moved=0 restoredBy=-
+CE/ce03_scoped e | rc=0 cmp=57 NOT_EQUAL stage1 -> rc=0 cmp=57 NOT_EQUAL stage1 | moved=0 restoredBy=-
+CS/cs01_concat_select d | rc=4 cmp=45 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 71 objects | moved=1 restoredBy=R11U401_CATRANGESEL_OFF
+CS/cs01_concat_select e | rc=4 cmp=45 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 53 objects | moved=1 restoredBy=R11U401_CATRANGESEL_OFF
+EA/ea01_plain d | rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 13 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea01_plain e | rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 13 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea02_two d | rc=0 cmp=144 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 26 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea02_two e | rc=0 cmp=144 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 23 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea03_lead d | rc=0 cmp=0 STRICT_EQUAL 9 objects -> rc=0 cmp=0 STRICT_EQUAL 9 objects | moved=0 restoredBy=-
+EA/ea03_lead e | rc=0 cmp=0 STRICT_EQUAL 9 objects -> rc=0 cmp=0 STRICT_EQUAL 9 objects | moved=0 restoredBy=-
+EA/ea04_macro d | rc=0 cmp=144 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 17 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea04_macro e | rc=0 cmp=144 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 17 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea05_write d | rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 25 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea05_write e | rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 25 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea06_double d | rc=0 cmp=112 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 15 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea06_double e | rc=0 cmp=112 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 15 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea07_trail d | rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 13 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea07_trail e | rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 13 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea08_trail2 d | rc=0 cmp=80 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 13 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea08_trail2 e | rc=0 cmp=80 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 13 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea10_spaces d | rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 13 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea10_spaces e | rc=0 cmp=100 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 13 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea11_macro_trail d | rc=0 cmp=132 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 15 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EA/ea11_macro_trail e | rc=0 cmp=132 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 15 objects | moved=1 restoredBy=R11U401_EMPTYARG_OFF
+EV/ev01_anyedge d | rc=4 cmp=29 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 59 objects | moved=1 restoredBy=R11U401_ANYEDGE_OFF
+EV/ev01_anyedge e | rc=4 cmp=29 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 41 objects | moved=1 restoredBy=R11U401_ANYEDGE_OFF
+EV/ev02_anyedge_list d | rc=4 cmp=102 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 67 objects | moved=1 restoredBy=R11U401_ANYEDGE_OFF
+EV/ev02_anyedge_list e | rc=4 cmp=102 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 49 objects | moved=1 restoredBy=R11U401_ANYEDGE_OFF
+IA/ia01_posedge d | rc=0 cmp=11 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 54 objects | moved=1 restoredBy=R11U401_ASGEVENT_OFF
+IA/ia01_posedge e | rc=0 cmp=11 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 39 objects | moved=1 restoredBy=R11U401_ASGEVENT_OFF
+IA/ia02_nba_repeat d | rc=0 cmp=11 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 54 objects | moved=1 restoredBy=R11U401_ASGEVENT_OFF
+IA/ia02_nba_repeat e | rc=0 cmp=11 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 39 objects | moved=1 restoredBy=R11U401_ASGEVENT_OFF
+IA/ia03_plain d | rc=0 cmp=11 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 52 objects | moved=1 restoredBy=R11U401_ASGEVENT_OFF
+IA/ia03_plain e | rc=0 cmp=11 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 37 objects | moved=1 restoredBy=R11U401_ASGEVENT_OFF
+IA/ia04_list d | rc=0 cmp=11 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_NOTEQUAL col | moved=1 restoredBy=R11U401_ASGEVENT_OFF
+IA/ia04_list e | rc=0 cmp=11 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_NOTEQUAL col | moved=1 restoredBy=R11U401_ASGEVENT_OFF
+IA/ia05_repeat_var d | rc=0 cmp=11 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 59 objects | moved=1 restoredBy=R11U401_ASGEVENT_OFF
+IA/ia05_repeat_var e | rc=0 cmp=11 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 44 objects | moved=1 restoredBy=R11U401_ASGEVENT_OFF
+IA/ia06_repeat_neg d | rc=0 cmp=11 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 52 objects | moved=1 restoredBy=R11U401_ASGEVENT_OFF
+IA/ia06_repeat_neg e | rc=0 cmp=11 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 37 objects | moved=1 restoredBy=R11U401_ASGEVENT_OFF
+LE/le01_equiv d | rc=4 cmp=45 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 44 objects | moved=1 restoredBy=R11U401_LOGEQUIV_OFF
+LE/le01_equiv e | rc=4 cmp=45 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 35 objects | moved=1 restoredBy=R11U401_LOGEQUIV_OFF
+LE/le02_equiv_bits d | rc=4 cmp=118 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 57 objects | moved=1 restoredBy=R11U401_LOGEQUIV_OFF
+LE/le02_equiv_bits e | rc=4 cmp=118 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 55 objects | moved=1 restoredBy=R11U401_LOGEQUIV_OFF
+MA/ma01_rsd d | rc=4 cmp=89 NOT_EQUAL stage1 -> rc=0 cmp=31 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_IFMEMBERCHAIN_OFF
+MA/ma01_rsd e | rc=4 cmp=89 NOT_EQUAL stage1 -> rc=0 cmp=110 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_IFMEMBERCHAIN_OFF
+PC/pc01_proc_checker d | rc=4 cmp=27 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 51 objects | moved=1 restoredBy=R11U401_PROCCHECKER_OFF
+PC/pc01_proc_checker e | rc=4 cmp=27 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 49 objects | moved=1 restoredBy=R11U401_PROCCHECKER_OFF
+PD/pd01_deassign d | rc=4 cmp=27 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 116 objects | moved=1 restoredBy=R11U401_DEASSIGN_OFF
+PD/pd01_deassign e | rc=4 cmp=27 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 111 objects | moved=1 restoredBy=R11U401_DEASSIGN_OFF
+PD/pd02_force_release d | rc=4 cmp=136 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 84 objects | moved=1 restoredBy=-
+PD/pd02_force_release e | rc=4 cmp=136 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 81 objects | moved=1 restoredBy=-
+PD/pd03_force_var d | rc=4 cmp=84 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 37 objects | moved=1 restoredBy=-
+PD/pd03_force_var e | rc=4 cmp=84 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 31 objects | moved=1 restoredBy=-
+PD/pd04_release_hier d | rc=4 cmp=112 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 60 objects | moved=1 restoredBy=-
+PD/pd04_release_hier e | rc=4 cmp=112 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 62 objects | moved=1 restoredBy=-
+PE/pe01_basejump d | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 75 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe01_basejump e | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 75 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe02_nonzero d | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 61 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe02_nonzero e | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 61 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe03_localparam d | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 61 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe03_localparam e | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 61 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe04_module d | rc=0 cmp=0 STRICT_EQUAL 96 objects -> rc=0 cmp=0 STRICT_EQUAL 96 objects | moved=0 restoredBy=-
+PE/pe04_module e | rc=0 cmp=0 STRICT_EQUAL 95 objects -> rc=0 cmp=0 STRICT_EQUAL 95 objects | moved=0 restoredBy=-
+PE/pe05_untyped d | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 35 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe05_untyped e | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 35 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe06_samepkg d | rc=0 cmp=32 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 96 objects | moved=1 restoredBy=-
+PE/pe06_samepkg e | rc=0 cmp=32 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 96 objects | moved=1 restoredBy=-
+PE/pe07_intparam d | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 37 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe07_intparam e | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 37 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe08_baseless d | rc=0 cmp=44 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 36 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe08_baseless e | rc=0 cmp=44 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 36 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe09_intbase d | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 46 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe09_intbase e | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 46 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe10_logicbase d | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 56 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe10_logicbase e | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 56 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe11_used d | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe11_used e | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe12_forward d | rc=0 cmp=0 STRICT_EQUAL 51 objects -> rc=0 cmp=0 STRICT_EQUAL 51 objects | moved=0 restoredBy=-
+PE/pe12_forward e | rc=0 cmp=0 STRICT_EQUAL 51 objects -> rc=0 cmp=0 STRICT_EQUAL 51 objects | moved=0 restoredBy=-
+PE/pe13_forward_logic d | rc=0 cmp=0 STRICT_EQUAL 47 objects -> rc=0 cmp=0 STRICT_EQUAL 47 objects | moved=0 restoredBy=-
+PE/pe13_forward_logic e | rc=0 cmp=0 STRICT_EQUAL 47 objects -> rc=0 cmp=0 STRICT_EQUAL 47 objects | moved=0 restoredBy=-
+PE/pe14_untyped_bin d | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 39 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe14_untyped_bin e | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 39 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe15_untyped_bitbase d | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 49 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe15_untyped_bitbase e | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 49 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe16_untyped_hex d | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 55 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe16_untyped_hex e | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 55 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe17_untyped_imported d | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe17_untyped_imported e | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=17 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe18_untyped_dec d | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 27 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe18_untyped_dec e | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 27 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe19_untyped_samepkg d | rc=0 cmp=32 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 54 objects | moved=1 restoredBy=-
+PE/pe19_untyped_samepkg e | rc=0 cmp=32 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 54 objects | moved=1 restoredBy=-
+PE/pe20_untyped_sizeddec d | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 33 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe20_untyped_sizeddec e | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 33 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe21_untyped_baseless d | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 25 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe21_untyped_baseless e | rc=0 cmp=17 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 25 objects | moved=1 restoredBy=R11U401_PKGENUMFOLD_OFF
+PE/pe22_same_pkg_qual_def d | rc=0 cmp=32 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 54 objects | moved=1 restoredBy=-
+PE/pe22_same_pkg_qual_def e | rc=0 cmp=32 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 54 objects | moved=1 restoredBy=-
+PU/pu01_bsgcache d | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 44 objects | moved=1 restoredBy=R11U401_UNBASEDUNTYPED_OFF
+PU/pu01_bsgcache e | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 44 objects | moved=1 restoredBy=R11U401_UNBASEDUNTYPED_OFF
+PU/pu02_alone d | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 13 objects | moved=1 restoredBy=R11U401_UNBASEDUNTYPED_OFF
+PU/pu02_alone e | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 13 objects | moved=1 restoredBy=R11U401_UNBASEDUNTYPED_OFF
+PU/pu03_used_plain d | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 25 objects | moved=1 restoredBy=R11U401_UNBASEDUNTYPED_OFF
+PU/pu03_used_plain e | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 25 objects | moved=1 restoredBy=R11U401_UNBASEDUNTYPED_OFF
+PU/pu04_ones d | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_UNBASEDUNTYPED_OFF
+PU/pu04_ones e | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=64 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_UNBASEDUNTYPED_OFF
+PU/pu05_xz d | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 21 objects | moved=1 restoredBy=R11U401_UNBASEDUNTYPED_OFF
+PU/pu05_xz e | rc=0 cmp=46 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 21 objects | moved=1 restoredBy=R11U401_UNBASEDUNTYPED_OFF
+PU/pu06_module d | rc=0 cmp=36 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 17 objects | moved=1 restoredBy=R11U401_UNBASEDUNTYPED_OFF
+PU/pu06_module e | rc=0 cmp=36 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 17 objects | moved=1 restoredBy=R11U401_UNBASEDUNTYPED_OFF
+RC/rc01_func d | rc=4 cmp=250 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 41 objects | moved=1 restoredBy=R11U401_RANDCASE_OFF
+RC/rc01_func e | rc=4 cmp=266 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 38 objects | moved=1 restoredBy=R11U401_RANDCASE_OFF
+RC/rc02_initial d | rc=4 cmp=251 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 54 objects | moved=1 restoredBy=R11U401_RANDCASE_OFF
+RC/rc02_initial e | rc=4 cmp=251 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 51 objects | moved=1 restoredBy=R11U401_RANDCASE_OFF
+RS/rs01_func d | rc=4 cmp=72 NOT_EQUAL stage1 -> rc=0 cmp=1 STRICT_EQUAL 28 objects | moved=1 restoredBy=R11U401_RANDSEQ_OFF
+RS/rs01_func e | rc=4 cmp=76 NOT_EQUAL stage1 -> rc=0 cmp=1 STRICT_EQUAL 25 objects | moved=1 restoredBy=R11U401_RANDSEQ_OFF
+RS/rs02_init_decl d | rc=4 cmp=128 NOT_EQUAL stage1 -> rc=0 cmp=1 STRICT_EQUAL 31 objects | moved=1 restoredBy=R11U401_RANDSEQ_OFF
+RS/rs02_init_decl e | rc=4 cmp=132 NOT_EQUAL stage1 -> rc=0 cmp=1 STRICT_EQUAL 28 objects | moved=1 restoredBy=R11U401_RANDSEQ_OFF
+SC/sc01_rggen d | rc=4 cmp=467 NOT_EQUAL stage1 -> rc=0 cmp=467 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_CASTSUBRBIND_OFF
+SC/sc01_rggen e | rc=4 cmp=467 NOT_EQUAL stage1 -> rc=0 cmp=467 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_CASTSUBRBIND_OFF
+SC/sc02_plainlp d | rc=4 cmp=335 NOT_EQUAL stage1 -> rc=0 cmp=335 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_CASTSUBRBIND_OFF
+SC/sc02_plainlp e | rc=4 cmp=335 NOT_EQUAL stage1 -> rc=0 cmp=335 NOT_EQUAL stage1 | moved=1 restoredBy=R11U401_CASTSUBRBIND_OFF
+SM/sm01_basic d | rc=0 cmp=36 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 15 objects | moved=1 restoredBy=R11U401_STRMACRO_OFF
+SM/sm01_basic e | rc=0 cmp=36 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 15 objects | moved=1 restoredBy=R11U401_STRMACRO_OFF
+SM/sm02_nested d | rc=0 cmp=36 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 19 objects | moved=1 restoredBy=R11U401_STRMACRO_OFF
+SM/sm02_nested e | rc=0 cmp=36 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 19 objects | moved=1 restoredBy=R11U401_STRMACRO_OFF
+SM/sm03_undefined d | rc=0 cmp=0 STRICT_EQUAL 9 objects -> rc=0 cmp=0 STRICT_EQUAL 9 objects | moved=0 restoredBy=-
+SM/sm03_undefined e | rc=0 cmp=0 STRICT_EQUAL 9 objects -> rc=0 cmp=0 STRICT_EQUAL 9 objects | moved=0 restoredBy=-
+SM/sm04_assign d | rc=0 cmp=28 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 26 objects | moved=1 restoredBy=R11U401_STRMACRO_OFF
+SM/sm04_assign e | rc=0 cmp=28 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 23 objects | moved=1 restoredBy=R11U401_STRMACRO_OFF
+case-views=160 moving=140 entering_STRICT_EQUAL=122 leaving=0 R11U401_OFF==pristine 160/160

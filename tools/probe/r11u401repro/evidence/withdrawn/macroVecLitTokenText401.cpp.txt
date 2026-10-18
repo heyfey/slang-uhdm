@@ -1,0 +1,30 @@
+            // § macroVecLitTokenText401 (r11u401, R11U401_MACROLITTOK_OFF) —
+            // a based literal expanded from a macro whose range text does not
+            // read back (black-parrot's decoder macros: the range resolves
+            // into the `define body and rawText returns "``funct12``,{5{1'",
+            // which crashed the base-digit split below with substr's
+            // out_of_range on all six generated/black-parrot rows) takes the
+            // literal's own tokens, size + base + value, as Surelog's
+            // expanded token stream reads them.  Only when the range text
+            // does not end with the value token: a readable range keeps its
+            // bytes.  Grid cases/ML.
+            if (expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::IntegerVectorExpression &&
+                expr.sourceRange.start() != SourceLocation::NoLocation &&
+                sm->isMacroLoc(expr.sourceRange.start()) &&
+                lawOn(401, "R11U401_MACROLITTOK_OFF")) {
+                auto& iv401 = expr.syntax->as<syntax::IntegerVectorExpressionSyntax>();
+                std::string vt401 = iv401.value ? std::string(iv401.value.rawText()) : "";
+                if (!vt401.empty() &&
+                    (raw.size() < vt401.size() ||
+                     raw.compare(raw.size() - vt401.size(), vt401.size(), vt401) != 0)) {
+                    std::string t401;
+                    if (iv401.size)
+                        t401 += std::string(iv401.size.rawText());
+                    if (iv401.base)
+                        t401 += std::string(iv401.base.rawText());
+                    t401 += vt401;
+                    lawTrace(401, "macroVecLitTokenText401", raw + " -> " + t401);
+                    raw = t401;
+                }
+            }

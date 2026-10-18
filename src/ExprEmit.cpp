@@ -11910,6 +11910,17 @@ bool UhdmExporter::srlgBitsFoldArg(const slang::ast::Expression& arg0,
         auto k = sc->asSymbol().kind;
         if (k == SymbolKind::Subroutine)
             return false;
+        // § bitsBlockLocalKeepsCall401 (r11u401, R11U401_BITSBLOCKLOCAL_OFF)
+        // — a variable declared in a PROCEDURAL BLOCK (`initial begin logic
+        // [31:0] val; ... $bits(val) ...`) is not one of the component's
+        // signals either, so `getTypespec` misses it and the call survives
+        // (golden 20.6--bits.sv `$bits(val)` sys_func_call 21:34-21:44 with
+        // its ref_obj argument; a module-level `val` folds).  Grid cases/BT.
+        if (k == SymbolKind::StatementBlock &&
+            lawOn(401, "R11U401_BITSBLOCKLOCAL_OFF")) {
+            lawTrace(401, "bitsBlockLocalKeepsCall401", std::string(sym->name));
+            return false;
+        }
         if (k == SymbolKind::InstanceBody) {
             homeBody = sc;
             break;
@@ -25192,8 +25203,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // The span reaches the enclosing parentheses.
                 SourceRange sr = expr.sourceRange;
                 if (expr.syntax &&
-                    expr.syntax->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                    expr.syntax->kind == syntax::SyntaxKind::ParenthesizedExpression) {
                     sr = expr.syntax->sourceRange();
+                    // § asgOpInnermostParenSpan401 (r11u401,
+                    // R11U401_ASGPAREN_OFF) — ...the INNERMOST pair of a
+                    // doubled parenthesization: `d = ((b += (a+=1) + 1));`
+                    // spans `(b += (a+=1) + 1)` (golden 11.3.6--two_assign_
+                    // in_expr.sv 26:14-26:31; slang hands the outermost
+                    // ParenthesizedExpression as the syntax).  Grid cases/AP.
+                    const syntax::SyntaxNode* in401 = expr.syntax;
+                    while (in401->kind == syntax::SyntaxKind::ParenthesizedExpression &&
+                           in401->as<syntax::ParenthesizedExpressionSyntax>()
+                                   .expression->kind ==
+                               syntax::SyntaxKind::ParenthesizedExpression)
+                        in401 = in401->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                    if (in401 != expr.syntax && lawOn(401, "R11U401_ASGPAREN_OFF")) {
+                        lawTrace(401, "asgOpInnermostParenSpan401");
+                        sr = in401->sourceRange();
+                    }
+                }
                 setLoc(op, sr);
                 auto* operands = s.MakeAnyVec();
                 // The LHS ref parents at the ENCLOSING assignment context,
@@ -25543,6 +25571,76 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Intra-assignment delay ("state <= #1 next;").
             if (ae.timingControl && ae.timingControl->kind == TimingControlKind::Delay)
                 asn->Delay_control(emitDelayControl(*ae.timingControl, asn));
+            // § intraAsgEventCtrlEmptyDelay401 (r11u401,
+            // R11U401_ASGEVENT_OFF) — an intra-assignment EVENT control
+            // (`a = @(posedge clk) b;`, `a <= repeat(3) @(posedge clk) b;`)
+            // is an EMPTY delay_control on the assignment (no delay value, no
+            // statement), located at the event expression inside the parens
+            // (`posedge clk`, `posedge clk or negedge rst`) or, under
+            // `repeat`, at the repeat COUNT
+            // (golden 9.4.5--event_nonblocking_assignment_event.sv 22:9-22:20,
+            // _repeat 22:14-22:15).  The exporter dropped it.  Grid cases/IA.
+            else if (ae.timingControl && lawOn(401, "R11U401_ASGEVENT_OFF") &&
+                     (ae.timingControl->kind == TimingControlKind::SignalEvent ||
+                      ae.timingControl->kind == TimingControlKind::EventList ||
+                      ae.timingControl->kind == TimingControlKind::RepeatedEvent)) {
+                lawTrace(401, "intraAsgEventCtrlEmptyDelay401");
+                auto* dc401 = s.MakeDelay_control();
+                dc401->VpiParent(asn);
+                if (ae.timingControl->kind == TimingControlKind::RepeatedEvent) {
+                    // ...the count's FIRST TOKEN (`repeat(-3)` 22:14-22:15,
+                    // the `-`; golden _repeat_neg).
+                    auto& rx401 = ae.timingControl->as<RepeatedEventControl>().expr;
+                    SourceRange rr401 = rx401.sourceRange;
+                    // § intraAsgEventSpanInner401v (v11u401,
+                    // R11V401_ASGEVSPAN_OFF) — ...of the count with its
+                    // parentheses stripped (`repeat ((2))` at the `2`).
+                    const syntax::SyntaxNode* rsx401 = rx401.syntax;
+                    if (fixOn(401, "R11V401_ASGEVSPAN_OFF"))
+                        while (rsx401 &&
+                               rsx401->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                            rsx401 = rsx401->as<syntax::ParenthesizedExpressionSyntax>()
+                                         .expression;
+                    if (rsx401)
+                        if (auto ft401 = rsx401->getFirstToken(); ft401 &&
+                            !sm->isMacroLoc(ft401.location()))
+                            rr401 = SourceRange(ft401.location(),
+                                                ft401.location() + ft401.rawText().size());
+                    setLoc(dc401, rr401);
+                }
+                else {
+                    // § intraAsgEventSpanInner401v — the event expression
+                    // INSIDE the parentheses for an `or` list too
+                    // (`@(posedge clk or negedge clk)`; slang's EventList
+                    // range keeps the parens) and the bare name without the
+                    // `@` (`a = @clk b;`).  tools/probe/v11u401repro cases/IA.
+                    SourceRange er401 = ae.timingControl->sourceRange;
+                    const syntax::SyntaxNode* ts401 = ae.timingControl->syntax;
+                    if (ts401 && fixOn(401, "R11V401_ASGEVSPAN_OFF")) {
+                        const syntax::SyntaxNode* in401v = nullptr;
+                        if (ts401->kind == syntax::SyntaxKind::EventControlWithExpression) {
+                            const syntax::SyntaxNode* ex401v =
+                                ts401->as<syntax::EventControlWithExpressionSyntax>().expr;
+                            while (ex401v &&
+                                   ex401v->kind ==
+                                       syntax::SyntaxKind::ParenthesizedEventExpression)
+                                ex401v = ex401v->as<syntax::ParenthesizedEventExpressionSyntax>()
+                                             .expr;
+                            in401v = ex401v;
+                        }
+                        else if (ts401->kind == syntax::SyntaxKind::EventControl)
+                            in401v = ts401->as<syntax::EventControlSyntax>().eventName;
+                        if (in401v && !sm->isMacroLoc(in401v->sourceRange().start()) &&
+                            !sm->isMacroLoc(in401v->sourceRange().end()) &&
+                            in401v->sourceRange() != er401) {
+                            lawTrace(401, "intraAsgEventSpanInner401v");
+                            er401 = in401v->sourceRange();
+                        }
+                    }
+                    setLoc(dc401, er401);
+                }
+                asn->Delay_control(dc401);
+            }
             return asn;
         }
         case ExpressionKind::ConditionalOp: {
@@ -25607,6 +25705,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& nv = expr.as<NamedValueExpression>();
             if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                 refCollector->insert(&nv.symbol);
+            // § classEnumViaHandleIsPath401 (r11u401, R11U401_CLSENUMPATH_OFF)
+            // — a class's enum member read THROUGH A HANDLE (`test_obj.C`,
+            // the enum typedef'd in the class) is the dotted hier_path
+            // [ref_obj handle, ref_obj member] Surelog's compileComplexFuncCall
+            // builds for any written `a.b`, unbound (golden 8.5--
+            // properties_enum.sv hier_path (test_obj.C) 25:12-25:22); slang
+            // resolves the name to the enum value and the exporter wrote a
+            // bound ref_obj.  Grid cases/CE.
+            if (nv.symbol.kind == SymbolKind::EnumValue && expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::ScopedName &&
+                !sm->isMacroLoc(expr.sourceRange.start()) &&
+                lawOn(401, "R11U401_CLSENUMPATH_OFF")) {
+                const Scope* es401 = nv.symbol.getParentScope();
+                while (es401 && es401->asSymbol().kind != SymbolKind::ClassType &&
+                       es401->asSymbol().kind != SymbolKind::InstanceBody &&
+                       es401->asSymbol().kind != SymbolKind::Package)
+                    es401 = es401->asSymbol().getParentScope();
+                std::string dt401(rawText(expr.sourceRange));
+                if (es401 && es401->asSymbol().kind == SymbolKind::ClassType &&
+                    dt401.find('.') != std::string::npos &&
+                    dt401.find("::") == std::string::npos &&
+                    dt401.find('[') == std::string::npos) {
+                    lawTrace(401, "classEnumViaHandleIsPath401", dt401);
+                    return buildDottedHierPath(expr, dt401, parent, prefix);
+                }
+            }
             // § shadowedImportParamFold — a module DEF listing's read of a
             // module-scope parameter whose name a wildcard-imported package
             // ALSO declares is the PACKAGE member's value in golden, never a
@@ -26109,7 +26233,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 std::string curPkg9 = prefix;
                 if (auto p9 = curPkg9.find("::"); p9 != std::string::npos)
                     curPkg9.resize(p9);
-                if (home9 && std::string(home9->asSymbol().name) != curPkg9) {
+                // § pkgOwnEnumQualRefKeepsName401 (r11u401,
+                // R11U401_OWNENUMQUAL_OFF) — the package's OWN enum member
+                // written qualified (`parameter e_t n = p2::C;` inside p2)
+                // takes the same unbound `p2::C` ref_obj (full name
+                // `p2::p2::C`, no actual) in the definition listing: Surelog
+                // reads the written package scope the same way whatever the
+                // package.  Grid tools/probe/r11u401repro/cases/PE pe06, pe19.
+                bool ownQual401 = home9 &&
+                                  std::string(home9->asSymbol().name) == curPkg9 &&
+                                  lawOn(401, "R11U401_OWNENUMQUAL_OFF");
+                if (ownQual401)
+                    lawTrace(401, "pkgOwnEnumQualRefKeepsName401",
+                             std::string(nv.symbol.name));
+                if (home9 && (std::string(home9->asSymbol().name) != curPkg9 ||
+                              ownQual401)) {
                     std::string pn9 = std::string(home9->asSymbol().name) +
                                       "::" + std::string(nv.symbol.name);
                     ref->VpiName(pn9);
@@ -34445,11 +34583,120 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             else
                 inner = inner.substr(1, inner.size() - 2);
+            // § strLitMacroRefSubst401 (r11u401, R11U401_STRMACRO_OFF) — a
+            // `NAME written INSIDE a string literal, NAME an object-like
+            // macro (no formal arguments), is expanded by Surelog's
+            // preprocessor (golden 22.4--check_included_definitions.sv
+            // ":assert:(`TWO_PLUS_TWO == 5)" -> ":assert:(5 == 5)",
+            // 22.5.1--define-expansion_24.sv "`HI, world" -> "Hello, world",
+            // a macro body's own string included); the value, decompile and
+            // size follow, the literal ends where the expanded text ends and
+            // the rest of its line moves by the difference (the
+            // § strLitPpEscIdShift224 line map, the shift negative when the
+            // text shrank).  A macro WITH arguments is left as written
+            // (`H(world)` stays "Hello, x" on both sides).  Grid cases/SM.
+            int strMac401 = 0;
+            if (!macroQuoted9 && inner.find('`') != std::string::npos &&
+                lawOn(401, "R11U401_STRMACRO_OFF")) {
+                static std::map<std::string, std::string>* objMac401 = nullptr;
+                // § strLitMacroDefBeforeUse401v (v11u401, R11V401_STRMACDEF_OFF)
+                // — Surelog's preprocessor expands only a macro DEFINED BEFORE
+                // the literal in the flattened text: a `NAME whose (last)
+                // definition comes later stays as written (cases/SM vs01 in
+                // tools/probe/v11u401repro; pristine was strict-equal there).
+                static std::map<std::string, SourceLocation>* defLoc401v = nullptr;
+                if (!objMac401) {
+                    objMac401 = new std::map<std::string, std::string>();
+                    defLoc401v = new std::map<std::string, SourceLocation>();
+                    for (auto& tree : comp.getSyntaxTrees())
+                        for (auto* dd : tree->getDefinedMacros()) {
+                            if (!dd || dd->formalArguments)
+                                continue;
+                            std::string b401;
+                            bool first401 = true;
+                            for (auto t401 : dd->body) {
+                                if (!first401)
+                                    for (auto tv401 : t401.trivia())
+                                        b401 += std::string(tv401.getRawText());
+                                first401 = false;
+                                b401 += std::string(t401.rawText());
+                            }
+                            while (!b401.empty() && (b401.back() == ' ' || b401.back() == '\t' ||
+                                                     b401.back() == '\r'))
+                                b401.pop_back();
+                            (*objMac401)[std::string(dd->name.valueText())] = b401;
+                            (*defLoc401v)[std::string(dd->name.valueText())] =
+                                dd->name.location();
+                        }
+                }
+                std::string cur401 = inner;
+                bool any401 = false;
+                for (int d401 = 0; d401 < 8 && cur401.find('`') != std::string::npos; d401++) {
+                    std::string out401;
+                    bool did401 = false;
+                    for (size_t i401 = 0; i401 < cur401.size();) {
+                        if (cur401[i401] == '`' && i401 + 1 < cur401.size() &&
+                            (std::isalpha((unsigned char)cur401[i401 + 1]) ||
+                             cur401[i401 + 1] == '_')) {
+                            size_t e401 = i401 + 1;
+                            while (e401 < cur401.size() &&
+                                   (std::isalnum((unsigned char)cur401[e401]) ||
+                                    cur401[e401] == '_' || cur401[e401] == '$'))
+                                e401++;
+                            auto mit401 = objMac401->find(cur401.substr(i401 + 1, e401 - i401 - 1));
+                            if (mit401 != objMac401->end() &&
+                                fixOn(401, "R11V401_STRMACDEF_OFF")) {
+                                auto dl401v = defLoc401v->find(mit401->first);
+                                auto& smv = *comp.getSourceManager();
+                                if (dl401v == defLoc401v->end() || !dl401v->second ||
+                                    !includeExpandedLess(
+                                        includeExpandedKey(
+                                            smv, smv.getFullyOriginalLoc(dl401v->second)),
+                                        includeExpandedKey(
+                                            smv, smv.getFullyExpandedLoc(
+                                                     expr.sourceRange.start())))) {
+                                    lawTrace(401, "strLitMacroDefBeforeUse401v",
+                                             mit401->first);
+                                    mit401 = objMac401->end();
+                                }
+                            }
+                            if (mit401 != objMac401->end()) {
+                                std::string body401 = mit401->second;
+                                // a body that is itself one string literal
+                                // splices its CONTENT
+                                if (body401.size() >= 2 && body401.front() == '"' &&
+                                    body401.back() == '"')
+                                    body401 = body401.substr(1, body401.size() - 2);
+                                out401 += body401;
+                                did401 = true;
+                                i401 = e401;
+                                continue;
+                            }
+                        }
+                        out401 += cur401[i401++];
+                    }
+                    if (!did401)
+                        break;
+                    any401 = true;
+                    cur401 = out401;
+                }
+                if (any401) {
+                    lawTrace(401, "strLitMacroRefSubst401", inner + " -> " + cur401);
+                    strMac401 = (int)cur401.size() - (int)inner.size();
+                    inner = cur401;
+                    raw = "\"" + inner + "\"";
+                }
+            }
             c->VpiDecompile(raw);
             c->VpiSize((int32_t)(inner.size() * 8));
             c->VpiValue("STRING:" + inner);
             c->VpiConstType(vpiStringConst);
             setLoc(c, expr.sourceRange);
+            if (strMac401 != 0 && c->VpiLineNo() > 0 &&
+                c->VpiEndLineNo() == c->VpiLineNo() &&
+                !sm->isMacroLoc(expr.sourceRange.start()))
+                strLitPpLines224()[{std::string(c->VpiFile()), c->VpiEndLineNo()}]
+                                  [c->VpiEndColumnNo()] += strMac401;
             if (macroQuoted9)
                 setLoc(c, SourceRange(expr.sourceRange.start(),
                                       expr.sourceRange.start() +
@@ -36296,6 +36543,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 .isFromGenvar();
                         if (!re57.bad() && !genvar57)
                             sizeExprP9 = &re57;
+                    }
+                    // § castSizeSubrLocalBind401 (r11u401,
+                    // R11U401_CASTSUBRBIND_OFF) — a size cast whose width names
+                    // a SUBROUTINE-LOCAL parameter (`localparam int VW = ...;
+                    // v = VW'(1);` in a function, rggen_bit_field_counter's
+                    // UP_VALUE_WIDTH'(0)) cannot bind in the module scope; it
+                    // binds in the subroutine being emitted.  The failed bind
+                    // left an Invalid width the exporter rejected (sv-tests
+                    // generated/rggen/rggen.sv).  Grid cases/SC.
+                    if (sizeExprP9->bad() && currentSubSym &&
+                        lawOn(401, "R11U401_CASTSUBRBIND_OFF")) {
+                        ASTContext bctx401(*(const Scope*)currentSubSym, LookupLocation::max);
+                        auto& re401 = Expression::bind(*cesyn.left, bctx401);
+                        if (!re401.bad()) {
+                            lawTrace(401, "castSizeSubrLocalBind401");
+                            sizeExprP9 = &re401;
+                        }
                     }
                     auto& sizeExpr = *sizeExprP9;
                     auto lr = leftSyn->sourceRange();
@@ -43960,7 +44224,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // § parensLessCallIsPathRefObj ref_obj.  Arm H cell
                         // `parensless_with` measures both spellings on one
                         // golden.
-                        bool parensLess9 =
+                        // § kwArrayMethodIsCallElem401 (r11u401,
+                        // R11U401_KWMETHOD_OFF) — the four array methods the
+                        // grammar spells with KEYWORDS (`and`, `or`, `xor`,
+                        // `unique`: SV3_1aParser array_method_name) reach
+                        // Surelog's `while (dotedName)` loop as keyword nodes,
+                        // not slStringConst ones, so the branch that appends
+                        // the method name to the path name never runs: the
+                        // path is named by its receiver alone, the method is a
+                        // method_func_call element written or not written with
+                        // parens, and the receiver element is stored scoped
+                        // (golden reduction-methods/and.sv `y = b.and;`
+                        // hier_path (b) [ref_obj work@top.b, method_func_call
+                        // and]) — the same three effects the with-clause form
+                        // takes (§ memberRandomizeWithIsRecvPath119,
+                        // § withRecvOnlyLastScoped157).  Grid cases/AM.
+                        const bool kwMeth401 =
+                            (name == "and" || name == "or" || name == "xor" ||
+                             name == "unique") &&
+                            lawOn(401, "R11U401_KWMETHOD_OFF");
+                        if (kwMeth401)
+                            lawTrace(401, "kwArrayMethodIsCallElem401", name);
+                        bool parensLessRaw401 =
                             !withExpr9 && !memberRand119 &&
                             (rawText(expr.sourceRange) == recvText ||
                              (dots[0] != "this" &&
@@ -43968,6 +44253,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                               !methodParensWritten77(
                                   SourceRange(mStart9, mStart9 + name.size()),
                                   name)));
+                        bool parensLess9 = parensLessRaw401 && !kwMeth401;
                         // § dottedIdxRecvFromSyntax23 — the path NAME is
                         // composed the way Surelog composes it
                         // (`CompileExpression.cpp:5586`'s `while (BitSelect)`
@@ -44001,7 +44287,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // `paMethod_call_body`.  The array-locator `with`
                         // form reaches the same answer through the same door,
                         // which is why the two share this expression.
-                        std::string dotted = (withExpr9 || memberRand119)
+                        std::string dotted = (withExpr9 || memberRand119 || kwMeth401)
                                                  ? recvTx23
                                                  : recvTx23 + "." + name;
                         hp->VpiName(dotted);
@@ -44064,7 +44350,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                          }
                                                      return withExpr9->sourceRange.end() + 1;
                                                  }())
-                               : parensLess9
+                               : (parensLess9 || (kwMeth401 && parensLessRaw401))
                                    ? SourceRange(expr.sourceRange.start(),
                                                  mStart9 + name.size())
                                    : [&]() -> SourceRange {
@@ -44479,7 +44765,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             r0->VpiFullName(
                                 ((withExpr9 &&
                                   (!withRecvOn157 || k74 + 1 == dots.size())) ||
-                                 (memberRand119 && k74 + 1 == dots.size()))
+                                 ((memberRand119 || kwMeth401) && k74 + 1 == dots.size()))
                                     ? joinRef(prefix, dn0)
                                     : dn0);
                             r0->VpiParent(hp);
@@ -45563,6 +45849,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         args->push_back(fc0);
                         continue;
                     }
+                }
+                // § sysCallEmptyArgIsIntZero401 (r11u401, R11U401_EMPTYARG_OFF)
+                // — an EMPTY argument of a system call after its first
+                // argument (`$display(a,,b,,c)`, `$display(1,2,)`) is the
+                // constant INT:0, decompile "0", size 64, vpiIntConst,
+                // UNPARENTED, located zero-width at the token that follows the
+                // empty slot (the next comma or the closing paren, where
+                // slang's missing placeholder sits): Surelog's argument loop
+                // (CompileHelper.cpp compileTfCallArguments, an Argument node
+                // with no Expression child) mints it at the empty node.  A
+                // LEADING empty argument keeps no object (`$display(,1)`,
+                // golden equal).  sv-tests chapter-22/22.5.1--define-
+                // expansion_2, _10 ...; grid cases/EA.
+                if (argE->kind == ExpressionKind::EmptyArgument &&
+                    std::find(call.arguments().begin(), call.arguments().end(), arg) !=
+                        call.arguments().begin() &&
+                    argE->sourceRange.start() != SourceLocation::NoLocation &&
+                    lawOn(401, "R11U401_EMPTYARG_OFF")) {
+                    lawTrace(401, "sysCallEmptyArgIsIntZero401", name);
+                    auto* c401 = s.MakeConstant();
+                    c401->VpiValue("INT:0");
+                    c401->VpiDecompile("0");
+                    c401->VpiSize(64);
+                    c401->VpiConstType(vpiIntConst);
+                    setLoc(c401, SourceRange(argE->sourceRange.start(),
+                                             argE->sourceRange.start()));
+                    args->push_back(c401);
+                    continue;
                 }
                 // System-call direct literal args parent to the call.
                 bool forceSaved = forceConstParent;
@@ -49217,6 +49531,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
             }
+            // § concatRangeSelIsConcat401 (r11u401, R11U401_CATRANGESEL_OFF)
+            // — a part select of a concatenation (`{b, c}[9:6]`) is the
+            // concatenation operation alone, spanning the whole select
+            // expression, the bounds dropped: Surelog's compileExpression
+            // reads the concatenation primary and never reaches the select
+            // (golden 11.4.12--concat_op-bit_select.sv `a = {b, c}[9:6];`
+            // vpiConcatOp 23:6-23:17).  The exporter rejected the base.
+            // Grid cases/CS.
+            if (stripImplicitConv(rs.value()).kind == ExpressionKind::Concatenation &&
+                lawOn(401, "R11U401_CATRANGESEL_OFF")) {
+                lawTrace(401, "concatRangeSelIsConcat401");
+                auto* c401 = emitExpr(stripImplicitConv(rs.value()), parent, prefix, netMap);
+                if (c401 && c401->UhdmType() == UHDM::uhdmoperation)
+                    setLoc((UHDM::operation*)c401, expr.sourceRange);
+                return c401;
+            }
             if (rs.value().kind != ExpressionKind::NamedValue) {
                 noteUnsupported("range select base");
                 return nullptr;
@@ -49706,6 +50036,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     std::string dotted = rawText(expr.sourceRange);
                     if (dotted.find('.') != std::string::npos)
                         return buildDottedHierPath(expr, dotted, parent, prefix);
+                }
+            }
+            // § ifacePortArrMemberChainPath401 (r11u401,
+            // R11U401_IFMEMBERCHAIN_OFF) — ...and through ANY depth of member
+            // and element selects (`w.writeSrcTag[i].regTag[0].valid`, rsd's
+            // Scheduler over a WakeupSelectIF modport): the same dotted
+            // hier_path when the chain bottoms out at an interface-port
+            // member.  The exporter rejected the base.  Grid cases/MA.
+            if (base->kind != ExpressionKind::NamedValue &&
+                lawOn(401, "R11U401_IFMEMBERCHAIN_OFF")) {
+                const Expression* r401 = base;
+                for (int g401 = 0; g401 < 64; g401++) {
+                    auto& c401 = stripImplicitConv(*r401);
+                    if (c401.kind == ExpressionKind::MemberAccess)
+                        r401 = &c401.as<MemberAccessExpression>().value();
+                    else if (c401.kind == ExpressionKind::ElementSelect)
+                        r401 = &c401.as<ElementSelectExpression>().value();
+                    else if (c401.kind == ExpressionKind::RangeSelect)
+                        r401 = &c401.as<RangeSelectExpression>().value();
+                    else {
+                        r401 = &c401;
+                        break;
+                    }
+                }
+                if (r401->kind == ExpressionKind::ArbitrarySymbol ||
+                    r401->kind == ExpressionKind::HierarchicalValue) {
+                    std::string dotted = rawText(expr.sourceRange);
+                    if (dotted.find('.') != std::string::npos) {
+                        lawTrace(401, "ifacePortArrMemberChainPath401", dotted);
+                        return buildDottedHierPath(expr, dotted, parent, prefix);
+                    }
                 }
             }
             if (base->kind != ExpressionKind::NamedValue) {
@@ -54935,6 +55296,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                           : expr.sourceRange.start());
             return nullptr;
         }
+        // § typeRefExprIsTextRef401 (r11u401, R11U401_TYPEREFEXPR_OFF) — a
+        // type operator used as an operand (`case (type(T))`, `type(T) ==
+        // type(logic[12:0])`) is written as an unbound ref_obj named by its
+        // written text at its span.  Surelog rejects the construct (a syntax
+        // error on sv-tests chapter-6/6.23--type_op_compare.sv), so there is
+        // no golden to follow; the object keeps the database accepted and
+        // honest about what was written.  Grid cases/TR.
+        case ExpressionKind::TypeReference:
+            if (lawOn(401, "R11U401_TYPEREFEXPR_OFF") &&
+                !sm->isMacroLoc(expr.sourceRange.start())) {
+                lawTrace(401, "typeRefExprIsTextRef401");
+                auto* r401 = s.MakeRef_obj();
+                r401->VpiName(std::string(rawText(expr.sourceRange)));
+                r401->VpiParent(parent);
+                setLoc(r401, expr.sourceRange);
+                return r401;
+            }
+            noteUnsupportedAt("expression kind: " + std::string(toString(expr.kind)),
+                              expr.sourceRange.start());
+            return nullptr;
         default:
             noteUnsupportedAt("expression kind: " + std::string(toString(expr.kind)),
                               expr.sourceRange.start());

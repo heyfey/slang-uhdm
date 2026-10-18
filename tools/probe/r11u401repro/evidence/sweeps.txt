@@ -1,0 +1,10 @@
+/tmp/r11u401_wP.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/r11u401_wP.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/r11u401_wP.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/r11u401_wP.log:== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+/tmp/r11u401_wP.log:downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+/tmp/r11u401_wL.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/r11u401_wL.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/r11u401_wL.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/r11u401_wL.log:== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+/tmp/r11u401_wL.log:downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0

@@ -1287,6 +1287,34 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
             // keeps the formal reference (bound to the module wire the formal
             // leaks), so unwrap and re-emit.
             auto* ch = propDeclScope ? tc.as<InvalidTimingControl>().child : nullptr;
+            // § unboundEventWaitByToken401 (r11u401, R11U401_EVWAITINV_OFF) —
+            // `@top.e;` whose hierarchical name does not bind (a module never
+            // instantiated) waits on a ref_obj named by the path's FIRST token
+            // and spanning the whole path, the way Surelog reads it as a
+            // simple name (golden 15.5.2--named-event-wait.sv inner
+            // `ref_obj (work@inner.top)` 22:4-22:9).  Grid cases/EV.
+            if (!ch && lawOn(401, "R11U401_EVWAITINV_OFF"))
+                if (auto* ich401 = tc.as<InvalidTimingControl>().child;
+                    ich401 && ich401->kind == TimingControlKind::SignalEvent) {
+                    auto& se401 = ich401->as<SignalEventControl>();
+                    const syntax::SyntaxNode* xs401 = se401.expr.syntax;
+                    if (se401.edge == EdgeKind::None && !se401.iffCondition &&
+                        se401.expr.kind == ExpressionKind::Invalid && xs401 &&
+                        xs401->kind == syntax::SyntaxKind::ScopedName) {
+                        auto tok401 = xs401->getFirstToken();
+                        if (!tok401.isMissing() &&
+                            tok401.kind == parsing::TokenKind::Identifier) {
+                            lawTrace(401, "unboundEventWaitByToken401",
+                                     std::string(tok401.valueText()));
+                            auto* r401 = s.MakeRef_obj();
+                            r401->VpiName(tok401.valueText());
+                            r401->VpiFullName(joinPath(prefix, tok401.valueText()));
+                            r401->VpiParent(parent);
+                            setLoc(r401, xs401->sourceRange());
+                            return r401;
+                        }
+                    }
+                }
             if (!ch) {
                 noteUnsupported("timing control: " + std::string(toString(tc.kind)));
                 return nullptr;
@@ -1350,6 +1378,19 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
                 case EdgeKind::NegEdge:
                     opType = vpiNegedgeOp;
                     break;
+                // § bothEdgeIsAnyEdgeOp401 (r11u401, R11U401_ANYEDGE_OFF) —
+                // `@(edge clk)` is an operation of type vpiAnyEdge (63):
+                // Surelog's CompileExpression paEdge_Edge arm; the exporter
+                // rejected the edge kind.  sv-tests
+                // chapter-9/9.4.2--event_control_edge.sv; grid cases/EV.
+                case EdgeKind::BothEdges:
+                    if (lawOn(401, "R11U401_ANYEDGE_OFF")) {
+                        lawTrace(401, "bothEdgeIsAnyEdgeOp401");
+                        opType = vpiAnyEdge;
+                        break;
+                    }
+                    noteUnsupported("edge kind");
+                    return nullptr;
                 case EdgeKind::None: {
                     // A bare `@formal` clocking event inside a property
                     // declaration: the formal ref, spanning the `@` too when
@@ -2253,6 +2294,27 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto& timed = stmt.as<TimedStatement>();
             auto& timing = timed.timing;
             switch (timing.kind) {
+                // § unboundEventWaitByToken401 — the statement half: an
+                // Invalid timing control wrapping a bare unbound `@a.b` takes
+                // the event_control arm (emitEventExpr writes the ref).
+                case TimingControlKind::Invalid: {
+                    auto* ich401 = timing.as<InvalidTimingControl>().child;
+                    bool ok401 = !propDeclScope && ich401 &&
+                                 ich401->kind == TimingControlKind::SignalEvent &&
+                                 lawOn(401, "R11U401_EVWAITINV_OFF");
+                    if (ok401) {
+                        auto& se401 = ich401->as<SignalEventControl>();
+                        ok401 = se401.edge == EdgeKind::None && !se401.iffCondition &&
+                                se401.expr.kind == ExpressionKind::Invalid &&
+                                se401.expr.syntax &&
+                                se401.expr.syntax->kind == syntax::SyntaxKind::ScopedName;
+                    }
+                    if (!ok401) {
+                        noteUnsupported("timing control: " + std::string(toString(timing.kind)));
+                        return nullptr;
+                    }
+                    [[fallthrough]];
+                }
                 case TimingControlKind::ImplicitEvent:
                 case TimingControlKind::SignalEvent:
                 case TimingControlKind::EventList: {
@@ -2409,6 +2471,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // recovered block can never be half-listed (a named block whose
             // locals were listed under the UNLABELLED prefix would be a
             // MOVED-WRONG cell, not a fix).
+            // § randSequenceDropped401 — slang's implicit scope block around
+            // a randsequence is dropped with it.
+            if (bs.body.kind == StatementKind::RandSequence &&
+                lawOn(401, "R11U401_RANDSEQ_OFF")) {
+                lawTrace(401, "randSequenceDropped401", "block");
+                return nullptr;
+            }
             const StatementBlockSymbol* blkSym158 = recoverBadBlockScope158(bs);
             bool isFork = bs.blockKind != StatementBlockKind::Sequential;
             // slang wraps for-loops with inline declarations, and every
@@ -3433,6 +3502,39 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
         }
         case StatementKind::ProceduralAssign: {
             auto& pas = stmt.as<ProceduralAssignStatement>();
+            // § forceIsForceObj401 (r11u401, R11U401_FORCE_OFF) — a
+            // procedural `force` is UHDM's `force` object (Surelog's
+            // CompileStmt paProcedural_continuous_assignment arm), laid out
+            // like the assign_stmt (Rhs, then Lhs, the span ending at the
+            // Rhs); the exporter wrote an assign_stmt.  sv-tests
+            // chapter-10/10.6.2--force-release.sv; grid cases/PD.
+            if (pas.isForce && pas.assignment.kind == ExpressionKind::Assignment &&
+                lawOn(401, "R11U401_FORCE_OFF")) {
+                lawTrace(401, "forceIsForceObj401");
+                auto& ae = pas.assignment.as<AssignmentExpression>();
+                auto* f401 = s.MakeForce();
+                f401->VpiParent(parent);
+                // ...through the WRITTEN assignment's end, a parenthesized
+                // right-hand side's `)` included (golden
+                // hdlconvertor_std2017_p243 `force d = (a | b | c);` 12:1-12:22).
+                SourceLocation fe401 = ae.right().sourceRange.end();
+                if (stmt.syntax &&
+                    stmt.syntax->kind == syntax::SyntaxKind::ProceduralForceStatement)
+                    fe401 = stmt.syntax->as<syntax::ProceduralAssignStatementSyntax>()
+                                .expr->sourceRange()
+                                .end();
+                setLoc(f401, SourceRange(stmt.sourceRange.start(), fe401));
+                bool sfcp = forceConstParent;
+                forceConstParent = true;
+                if (auto* r = emitExpr(ae.right(), f401, prefix, netMap))
+                    f401->Rhs((UHDM::expr*)r);
+                forceConstParent = sfcp;
+                inLhs = true;
+                if (auto* l = emitExpr(ae.left(), f401, prefix, netMap))
+                    f401->Lhs((UHDM::expr*)l);
+                inLhs = false;
+                return f401;
+            }
             if (pas.assignment.kind == ExpressionKind::Assignment) {
                 auto& ae = pas.assignment.as<AssignmentExpression>();
                 auto* as2 = s.MakeAssign_stmt();
@@ -3456,6 +3558,138 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             }
             noteUnsupported("procedural assign form");
             return nullptr;
+        }
+        // § randCaseIsRandCaseStmt401 (r11u401, R11U401_RANDCASE_OFF) — a
+        // `randcase` is a case_stmt with vpiRandType vpiRand and no case
+        // type, spanning the statement through `endcase`; each `weight :
+        // stmt` arm is a LOCATION-LESS case_item holding the weight as its
+        // one expression (parented at the item) and the arm's statement
+        // (Surelog CompileStmt.cpp CompileHelper::compileRandcaseStmt).
+        // sv-tests 18.16--random-weighted-case-randcase_0.sv, _2,
+        // 18.14--random-stability_2.sv, _3, uvm_slave_agent*; grid cases/RC.
+        case StatementKind::RandCase: {
+            if (!lawOn(401, "R11U401_RANDCASE_OFF")) {
+                noteUnsupportedAt("statement kind: " + std::string(toString(stmt.kind)),
+                                  stmt.syntax ? stmt.syntax->sourceRange().start()
+                                              : stmt.sourceRange.start());
+                return nullptr;
+            }
+            lawTrace(401, "randCaseIsRandCaseStmt401");
+            auto& rc = stmt.as<RandCaseStatement>();
+            auto* cs401 = s.MakeCase_stmt();
+            cs401->VpiParent(parent);
+            setLoc(cs401, stmt.syntax ? stmt.syntax->sourceRange() : stmt.sourceRange);
+            cs401->VpiRandType(vpiRand);
+            auto* items401 = s.MakeCase_itemVec();
+            cs401->Case_items(items401);
+            for (auto& item : rc.items) {
+                auto* it401 = s.MakeCase_item();
+                it401->VpiParent(cs401);
+                items401->push_back(it401);
+                auto* ex401 = s.MakeAnyVec();
+                it401->VpiExprs(ex401);
+                bool sfcp401 = forceConstParent;
+                forceConstParent = true;
+                if (auto* e = emitExpr(*item.expr, it401, prefix, netMap)) {
+                    if (!e->VpiParent())
+                        ((UHDM::any*)e)->VpiParent(it401);
+                    ex401->push_back(e);
+                }
+                forceConstParent = sfcp401;
+                if (auto* st = emitStmt(*item.stmt, it401, prefix, netMap))
+                    it401->Stmt(st);
+            }
+            return cs401;
+        }
+        // § procCheckerIsCheckerInst401 (r11u401, R11U401_PROCCHECKER_OFF) —
+        // a checker instantiated inside a procedure (`c1 check_inside(...);`
+        // in an always block) is the checker_inst the module item form
+        // writes (emitCheckerInst: name, full name under the scope, def
+        // name, the instantiation's span), parented at the enclosing
+        // statement (golden hdlconvertor_std2017_p489.sv `checker_inst c1
+        // (work@m.check_inside)` 19:7-19:45 under the begin).  The exporter
+        // rejected the statement.  Grid cases/PC.
+        case StatementKind::ProceduralChecker: {
+            auto& pc = stmt.as<ProceduralCheckerStatement>();
+            if (!lawOn(401, "R11U401_PROCCHECKER_OFF") || pc.instances.empty()) {
+                noteUnsupportedAt("statement kind: " + std::string(toString(stmt.kind)),
+                                  stmt.syntax ? stmt.syntax->sourceRange().start()
+                                              : stmt.sourceRange.start());
+                return nullptr;
+            }
+            lawTrace(401, "procCheckerIsCheckerInst401",
+                     std::string(pc.instances[0]->name));
+            return emitCheckerInst(*pc.instances[0], parent, prefix);
+        }
+        // § loneVarDeclStmtDropped401 (r11u401, R11U401_VARDECLSTMT_OFF) —
+        // a variable declaration that reaches the statement emitter as a
+        // statement of its own (a subroutine whose whole body is
+        // `report_server new_server = new;`, the declaration with its
+        // initializer and nothing else) writes no statement: the variable
+        // is listed by its scope, and golden's function carries no vpiStmt
+        // at all (sv-tests generic/member/class_member_test_27.sv).  The
+        // exporter rejected it.  Grid cases/VD.
+        case StatementKind::VariableDeclaration: {
+            if (!lawOn(401, "R11U401_VARDECLSTMT_OFF")) {
+                noteUnsupportedAt("statement kind: " + std::string(toString(stmt.kind)),
+                                  stmt.syntax ? stmt.syntax->sourceRange().start()
+                                              : stmt.sourceRange.start());
+                return nullptr;
+            }
+            lawTrace(401, "loneVarDeclStmtDropped401");
+            return nullptr;
+        }
+        // § randSequenceDropped401 (r11u401, R11U401_RANDSEQ_OFF) — Surelog
+        // writes NO object for a `randsequence` statement (golden
+        // 18.17--random-sequence-generation-randsequence_0.sv: function F's
+        // body block holds nothing where the randsequence stood), so the
+        // statement is dropped rather than rejected.  sv-tests 18.17* rows;
+        // grid cases/RS.
+        case StatementKind::RandSequence: {
+            if (!lawOn(401, "R11U401_RANDSEQ_OFF")) {
+                noteUnsupportedAt("statement kind: " + std::string(toString(stmt.kind)),
+                                  stmt.syntax ? stmt.syntax->sourceRange().start()
+                                              : stmt.sourceRange.start());
+                return nullptr;
+            }
+            lawTrace(401, "randSequenceDropped401");
+            return nullptr;
+        }
+        // § deassignReleaseObj401 (r11u401, R11U401_DEASSIGN_OFF) — a
+        // procedural `deassign x;` / `release x;` is UHDM's `deassign` /
+        // `release` object holding only the target as its Lhs, spanned from
+        // the keyword to the target's end (golden 10.6.1--assign-deassign.sv
+        // `deassign q;` 27:3-27:13).  The exporter rejected the statement.
+        // sv-tests chapter-10/10.6.1, 10.6.2, hdlconvertor_std2017_p242,
+        // p243; grid cases/PD.
+        case StatementKind::ProceduralDeassign: {
+            if (!lawOn(401, "R11U401_DEASSIGN_OFF")) {
+                noteUnsupportedAt("statement kind: " + std::string(toString(stmt.kind)),
+                                  stmt.syntax ? stmt.syntax->sourceRange().start()
+                                              : stmt.sourceRange.start());
+                return nullptr;
+            }
+            auto& pd = stmt.as<ProceduralDeassignStatement>();
+            lawTrace(401, "deassignReleaseObj401", pd.isRelease ? "release" : "deassign");
+            SourceRange r401(stmt.sourceRange.start(), pd.lvalue.sourceRange.end());
+            if (pd.isRelease) {
+                auto* rl = s.MakeRelease();
+                rl->VpiParent(parent);
+                setLoc(rl, r401);
+                inLhs = true;
+                if (auto* l = emitExpr(pd.lvalue, rl, prefix, netMap))
+                    rl->Lhs((UHDM::expr*)l);
+                inLhs = false;
+                return rl;
+            }
+            auto* da = s.MakeDeassign();
+            da->VpiParent(parent);
+            setLoc(da, r401);
+            inLhs = true;
+            if (auto* l = emitExpr(pd.lvalue, da, prefix, netMap))
+                da->Lhs((UHDM::expr*)l);
+            inLhs = false;
+            return da;
         }
         case StatementKind::RepeatLoop: {
             auto& rl = stmt.as<RepeatLoopStatement>();
@@ -7784,6 +8018,18 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             std::vector<const VariableSymbol*> declVars;
             std::vector<const Statement*> real;
             size_t initCount = 0;
+            bool randSeqCut401 = false;
+            // § randSeqListRule401v (v11u401, R11V401_RANDSEQLIST_OFF) — the
+            // cut is a SUBROUTINE-BODY rule, and there it takes the whole
+            // list: Surelog files the sequence in the body's statement group
+            // (UHDM: "adding wrong object type (sequence_decl) in a stmt
+            // group"), so the body keeps the begin wrapper its item count
+            // decides and lists NO statement, those BEFORE the randsequence
+            // included (golden v11u401repro RS vs06 `x = 0;` lost, vs07 an
+            // empty begin anchored at `y = 2;`).  A procedural block's list
+            // keeps every other statement (vs02, vs03: golden lists them).
+            const bool rsList401v = fixOn(401, "R11V401_RANDSEQLIST_OFF");
+            const bool rsTfBody401v = tfBodyStmt9 == (const void*)&stmt;
             for (auto st : sl.list) {
                 if (st->kind == StatementKind::VariableDeclaration) {
                     auto& vs = st->as<VariableDeclStatement>().symbol;
@@ -7792,7 +8038,22 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         initCount++;
                     continue;
                 }
+                // § randSequenceDropped401 — ...and Surelog's statement list
+                // ENDS at a randsequence: every statement after it is lost
+                // (golden 18.17*: `randsequence ... endsequence return x;`
+                // keeps neither the sequence nor the return; the body block
+                // spans the randsequence alone).
+                if (randSeqCut401 && !rsList401v)
+                    continue;
                 real.push_back(st);
+                if (lawOn(401, "R11U401_RANDSEQ_OFF") &&
+                    (st->kind == StatementKind::RandSequence ||
+                     (st->kind == StatementKind::Block &&
+                      st->as<BlockStatement>().body.kind ==
+                          StatementKind::RandSequence))) {
+                    lawTrace(401, "randSequenceDropped401", "cut");
+                    randSeqCut401 = true;
+                }
             }
             // A subroutine BODY whose declarations are BLOCK items (see
             // tfBodyTfItems9) always models them inside a synthesized `begin`,
@@ -7900,6 +8161,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             if (eff9 == 0 || (eff9 <= 1 && !bodyBlockDecls9 && !bodyParams9)) {
                 UHDM::any* result = nullptr;
                 for (auto st : real) {
+                    // § randSeqListRule401v — a subroutine body holding a randsequence lists nothing.
+                    if (randSeqCut401 && rsList401v && rsTfBody401v)
+                        break;
                     // § thisSuperNewAssignNoStmt3 — CALL SITE 3 of 5: a
                     // single-effective-statement list takes NO wrapper, so
                     // dropping the element here is what makes a subroutine
@@ -8223,9 +8487,18 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 if (auto* r = emitExpr(*init, as, prefix, netMap))
                     as->Rhs((UHDM::expr*)r);
+                // § randSequenceDropped401 — a list Surelog ended at a
+                // randsequence keeps NO statement, the declaration
+                // initializer's assignment included: golden 18.17.2 /
+                // 18.17.6 mint it (parented at the block) and never list it.
+                if (randSeqCut401 && (!rsList401v || rsTfBody401v))
+                    continue;
                 stmts->push_back(as);
             }
             for (auto st : real) {
+                // § randSeqListRule401v — a subroutine body holding a randsequence lists nothing.
+                if (randSeqCut401 && rsList401v && rsTfBody401v)
+                    break;
                 // § thisSuperNewAssignNoStmt3 — CALL SITE 4 of 5: THE SVSwitch
                 // SITE.  `byte_unpack`'s body is a 8-element statement list and
                 // `this.data = new[bytes.size - 4];` is element [4]; golden's
@@ -8400,6 +8673,38 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 invChild244 = sc244;
                 invSyn244 = ss244;
                 return r244;
+            }
+            // § unboundEventTriggerByToken401 (r11u401,
+            // R11U401_EVTRIGINV_OFF) — an event trigger whose hierarchical
+            // target does not bind (`-> top.e;` / `->> top.e;` in a module
+            // never instantiated: slang leaves the statement Invalid) is the
+            // same event_stmt Surelog writes for every trigger: named by the
+            // path's FIRST token, vpiBlocking set, spanning the statement
+            // (golden 15.5.1--named-event-trigger-blocking.sv inner
+            // `event_stmt (top)` 21:3-21:12).  Grid cases/EV.
+            if (stmt.syntax &&
+                (stmt.syntax->kind ==
+                     syntax::SyntaxKind::BlockingEventTriggerStatement ||
+                 stmt.syntax->kind ==
+                     syntax::SyntaxKind::NonblockingEventTriggerStatement) &&
+                lawOn(401, "R11U401_EVTRIGINV_OFF")) {
+                auto& syn401 =
+                    stmt.syntax->as<syntax::EventTriggerStatementSyntax>();
+                if (!syn401.timing) {
+                    auto tok401 = syn401.name->getFirstToken();
+                    if (!tok401.isMissing() &&
+                        (tok401.kind == parsing::TokenKind::Identifier ||
+                         tok401.kind == parsing::TokenKind::ThisKeyword)) {
+                        lawTrace(401, "unboundEventTriggerByToken401",
+                                 std::string(tok401.valueText()));
+                        auto* ev401 = s.MakeEvent_stmt();
+                        ev401->VpiParent(parent);
+                        setLoc(ev401, stmt.syntax->sourceRange());
+                        ev401->VpiName(tok401.valueText());
+                        ev401->VpiBlocking(true);
+                        return ev401;
+                    }
+                }
             }
             noteUnsupportedAt(
                 "statement kind: Invalid/" +

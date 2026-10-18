@@ -7,8 +7,8 @@ chapter-10/10.3.3--cont-assignment-delay.sv,EQUAL,,equal
 chapter-10/10.3.3--cont-assignment-net-delay.sv,EQUAL,,equal
 chapter-10/10.4.1--blocking-assignment.sv,DIFFERENT,decompile:,
 chapter-10/10.4.2--non-blocking-assignment.sv,EQUAL,,equal
-chapter-10/10.6.1--assign-deassign.sv,SURELOG_ONLY,statement kind: ProceduralDeassign,
-chapter-10/10.6.2--force-release.sv,SURELOG_ONLY,statement kind: ProceduralDeassign,
+chapter-10/10.6.1--assign-deassign.sv,EQUAL,,equal
+chapter-10/10.6.2--force-release.sv,EQUAL,,equal
 chapter-11/11.10--string_bit_array-sim.sv,EQUAL,,equal
 chapter-11/11.10--string_bit_array.sv,EQUAL,,equal
 chapter-11/11.10.1--string_compare.sv,EQUAL,,equal
@@ -28,8 +28,8 @@ chapter-11/11.3.6--assign_in_expression-sim.sv,EQUAL,,equal
 chapter-11/11.3.6--assign_in_expression.sv,EQUAL,,equal
 chapter-11/11.3.6--assignment_in_expression-sim.sv,EQUAL,,equal
 chapter-11/11.3.6--assignment_in_expression.sv,EQUAL,,equal
-chapter-11/11.3.6--two_assign_in_expr-sim.sv,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
-chapter-11/11.3.6--two_assign_in_expr.sv,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
+chapter-11/11.3.6--two_assign_in_expr-sim.sv,EQUAL,,equal
+chapter-11/11.3.6--two_assign_in_expr.sv,EQUAL,,equal
 chapter-11/11.4.1--assignment-sim.sv,EQUAL,,equal
 chapter-11/11.4.10--arith-shift-assignment-signed.sv,EQUAL,,equal
 chapter-11/11.4.10--arith-shift-assignment-unsigned.sv,EQUAL,,equal
@@ -37,7 +37,7 @@ chapter-11/11.4.10--arith-shift-signed.sv,EQUAL,,equal
 chapter-11/11.4.10--arith-shift-unsigned.sv,EQUAL,,equal
 chapter-11/11.4.11--cond_op-sim.sv,EQUAL,,equal
 chapter-11/11.4.11--cond_op.sv,EQUAL,,equal
-chapter-11/11.4.12--concat_op-bit_select.sv,SURELOG_ONLY,range select base,
+chapter-11/11.4.12--concat_op-bit_select.sv,EQUAL,,equal
 chapter-11/11.4.12--concat_op-sim.sv,EQUAL,,equal
 chapter-11/11.4.12--concat_op.sv,EQUAL,,equal
 chapter-11/11.4.12.1--nested_repl_op-sim.sv,EQUAL,,equal
@@ -146,9 +146,9 @@ chapter-14/14.3--default-clocking-block.sv,EQUAL,,equal
 chapter-14/14.3--global-clocking-block.sv,EQUAL,,equal
 chapter-15/15.4--mailbox-blocking.sv,DIFFERENT,decompile:,
 chapter-15/15.4--mailbox-non-blocking.sv,DIFFERENT,decompile:,
-chapter-15/15.5.1--named-event-trigger-blocking.sv,SURELOG_ONLY,statement kind: Invalid/BlockingEventTriggerStatement,
-chapter-15/15.5.1--named-event-trigger-non-blocking.sv,SURELOG_ONLY,statement kind: Invalid/NonblockingEventTriggerStatement,
-chapter-15/15.5.2--named-event-wait.sv,SURELOG_ONLY,timing control: Invalid,
+chapter-15/15.5.1--named-event-trigger-blocking.sv,DIFFERENT,decompile:,
+chapter-15/15.5.1--named-event-trigger-non-blocking.sv,DIFFERENT,decompile:,
+chapter-15/15.5.2--named-event-wait.sv,DIFFERENT,decompile:,
 chapter-16/16.10--property-local-var-fail.sv,SURELOG_ONLY,assertion expr kind: SequenceWithMatch,
 chapter-16/16.10--property-local-var-uvm.sv,SURELOG_ONLY,assertion expr kind: SequenceWithMatch,
 chapter-16/16.10--property-local-var.sv,SURELOG_ONLY,assertion expr kind: SequenceWithMatch,
@@ -223,32 +223,32 @@ chapter-18/18.13.4--get_randstate_0.sv,DIFFERENT,decompile:,
 chapter-18/18.13.5--set_randstate_0.sv,DIFFERENT,decompile:,
 chapter-18/18.14--random-stability_0.sv,DIFFERENT,decompile:,
 chapter-18/18.14--random-stability_1.sv,DIFFERENT,decompile:,
-chapter-18/18.14--random-stability_2.sv,SURELOG_ONLY,statement kind: RandCase,
-chapter-18/18.14--random-stability_3.sv,SURELOG_ONLY,statement kind: RandCase,
+chapter-18/18.14--random-stability_2.sv,DIFFERENT,decompile:,
+chapter-18/18.14--random-stability_3.sv,DIFFERENT,decompile:,
 chapter-18/18.14.2--thread-stability_0.sv,DIFFERENT,decompile:,
 chapter-18/18.14.2--thread-stability_1.sv,DIFFERENT,decompile:,
 chapter-18/18.14.3--object-stability_0.sv,DIFFERENT,decompile:,
 chapter-18/18.14.3--object-stability_1.sv,DIFFERENT,decompile:,
 chapter-18/18.15--manually-seeding-randomize_0.sv,EQUAL,,equal
 chapter-18/18.15--manually-seeding-randomize_1.sv,DIFFERENT,decompile:,
-chapter-18/18.16--random-weighted-case-randcase_0.sv,SURELOG_ONLY,statement kind: RandCase,
-chapter-18/18.16--random-weighted-case-randcase_2.sv,SURELOG_ONLY,statement kind: RandCase,
-chapter-18/18.17--random-sequence-generation-randsequence_0.sv,SURELOG_ONLY,statement kind: RandSequence,
-chapter-18/18.17--random-sequence-generation-randsequence_2.sv,SURELOG_ONLY,statement kind: RandSequence,
-chapter-18/18.17.1--random-production-weights_0.sv,SURELOG_ONLY,statement kind: RandSequence,
-chapter-18/18.17.2--if-else-production-statements_0.sv,SURELOG_ONLY,statement kind: RandSequence,
+chapter-18/18.16--random-weighted-case-randcase_0.sv,EQUAL,,equal
+chapter-18/18.16--random-weighted-case-randcase_2.sv,EQUAL,,equal
+chapter-18/18.17--random-sequence-generation-randsequence_0.sv,EQUAL,,equal
+chapter-18/18.17--random-sequence-generation-randsequence_2.sv,EQUAL,,equal
+chapter-18/18.17.1--random-production-weights_0.sv,EQUAL,,equal
+chapter-18/18.17.2--if-else-production-statements_0.sv,EQUAL,,equal
 chapter-18/18.17.2--if-else-production-statements_0_fail.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.17.2--if-else-production-statements_0_fail.sv:23:20: error: use of undeclared identifier 'switch',
-chapter-18/18.17.2--if-else-production-statements_2.sv,SURELOG_ONLY,statement kind: RandSequence,
+chapter-18/18.17.2--if-else-production-statements_2.sv,EQUAL,,equal
 chapter-18/18.17.2--if-else-production-statements_2_fail.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.17.2--if-else-production-statements_2_fail.sv:23:18: error: use of undeclared identifier 'switch',
-chapter-18/18.17.3--case-production-statements_0.sv,BOTH_REJECT,statement kind: RandSequence,
+chapter-18/18.17.3--case-production-statements_0.sv,SLANG_ONLY,[SNT:PA0207] /home/heyfey/git-repos/sv-tests/tests/chapter-18/18.17.3--case-production-statements_0.sv:23:18: Syntax error: extraneous input ';' expecting {''b0,
 chapter-18/18.17.3--case-production-statements_0_fail.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.17.3--case-production-statements_0_fail.sv:22:20: error: use of undeclared identifier 'switch',
-chapter-18/18.17.4--repeat-production-statements_0.sv,SURELOG_ONLY,statement kind: RandSequence,
-chapter-18/18.17.5--interleaving-productions-rand-join_0.sv,SURELOG_ONLY,statement kind: RandSequence,
-chapter-18/18.17.5--interleaving-productions-rand-join_2.sv,SURELOG_ONLY,statement kind: RandSequence,
-chapter-18/18.17.6--aborting-productions-break-and-return_0.sv,SURELOG_ONLY,statement kind: RandSequence,
-chapter-18/18.17.6--aborting-productions-break-and-return_2.sv,SURELOG_ONLY,statement kind: RandSequence,
+chapter-18/18.17.4--repeat-production-statements_0.sv,EQUAL,,equal
+chapter-18/18.17.5--interleaving-productions-rand-join_0.sv,EQUAL,,equal
+chapter-18/18.17.5--interleaving-productions-rand-join_2.sv,EQUAL,,equal
+chapter-18/18.17.6--aborting-productions-break-and-return_0.sv,EQUAL,,equal
+chapter-18/18.17.6--aborting-productions-break-and-return_2.sv,EQUAL,,equal
 chapter-18/18.17.6--aborting-productions-break-and-return_2_fail.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.17.6--aborting-productions-break-and-return_2_fail.sv:23:20: error: use of undeclared identifier 'secondi',
-chapter-18/18.17.7--value-passing-between-productions_0.sv,SURELOG_ONLY,statement kind: RandSequence,
+chapter-18/18.17.7--value-passing-between-productions_0.sv,EQUAL,,equal
 chapter-18/18.4.1--rand-modifier.sv,EQUAL,,equal
 chapter-18/18.4.2--randc-modifier.sv,EQUAL,,equal
 chapter-18/18.5--constraint-blocks_0.sv,EQUAL,,equal
@@ -361,7 +361,7 @@ chapter-20/20.5--itor.sv,EQUAL,,equal
 chapter-20/20.5--real-bits-conv.sv,EQUAL,,equal
 chapter-20/20.5--rtoi.sv,EQUAL,,equal
 chapter-20/20.5--shortreal-bits-conv.sv,EQUAL,,equal
-chapter-20/20.6--bits.sv,DIFFERENT,decompile:,
+chapter-20/20.6--bits.sv,EQUAL,,equal
 chapter-20/20.6--bits_type.sv,EQUAL,,equal
 chapter-20/20.6--isunbounded.sv,DIFFERENT,decompile:,
 chapter-20/20.6--typename.sv,EQUAL,,equal
@@ -429,38 +429,38 @@ chapter-22/22.12--line-illegal-5.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/
 chapter-22/22.3--resetall_basic.sv,EQUAL,,equal
 chapter-22/22.3--resetall_illegal.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.3--resetall_illegal.sv:19:1: error: directive is not allowed inside a design element,
 chapter-22/22.3--resetall_multiple.sv,EQUAL,,equal
-chapter-22/22.4--check_included_definitions.sv,DIFFERENT,decompile:,
+chapter-22/22.4--check_included_definitions.sv,EQUAL,,equal
 chapter-22/22.4--include_basic.sv,EQUAL,,equal
 chapter-22/22.4--include_basic_rpath.sv,EQUAL,,equal
 chapter-22/22.4--include_from_other_directory.sv,EQUAL,,equal
 chapter-22/22.4--include_via_define.sv,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
 chapter-22/22.4--include_with_comment.sv,EQUAL,,equal
 chapter-22/22.5.1--define-expansion_1.sv,EQUAL,,equal
-chapter-22/22.5.1--define-expansion_10.sv,DIFFERENT,decompile:,
-chapter-22/22.5.1--define-expansion_11.sv,DIFFERENT,decompile:,
+chapter-22/22.5.1--define-expansion_10.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_11.sv,EQUAL,,equal
 chapter-22/22.5.1--define-expansion_12.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_12.sv:19:13: error: not enough arguments provided to function-like macro,
-chapter-22/22.5.1--define-expansion_13.sv,DIFFERENT,decompile:,
-chapter-22/22.5.1--define-expansion_14.sv,DIFFERENT,decompile:,
-chapter-22/22.5.1--define-expansion_15.sv,DIFFERENT,decompile:,
-chapter-22/22.5.1--define-expansion_16.sv,DIFFERENT,decompile:,
-chapter-22/22.5.1--define-expansion_17.sv,DIFFERENT,decompile:,
+chapter-22/22.5.1--define-expansion_13.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_14.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_15.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_16.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_17.sv,EQUAL,,equal
 chapter-22/22.5.1--define-expansion_18.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_18.sv:19:8: error: expected macro arguments for function-like macro,
 chapter-22/22.5.1--define-expansion_19.sv,EQUAL,,equal
-chapter-22/22.5.1--define-expansion_2.sv,DIFFERENT,decompile:,
+chapter-22/22.5.1--define-expansion_2.sv,EQUAL,,equal
 chapter-22/22.5.1--define-expansion_20.sv,EQUAL,,equal
 chapter-22/22.5.1--define-expansion_21.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_21.sv:17:36: error: missing closing quote,
 chapter-22/22.5.1--define-expansion_22.sv,EQUAL,,equal
 chapter-22/22.5.1--define-expansion_23.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_23.sv:17:9: error: can't redefine compiler directive as a macro,
-chapter-22/22.5.1--define-expansion_24.sv,DIFFERENT,decompile:,
+chapter-22/22.5.1--define-expansion_24.sv,EQUAL,,equal
 chapter-22/22.5.1--define-expansion_25.sv,EQUAL,,equal
 chapter-22/22.5.1--define-expansion_26.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_26.sv:18:26: error: use of undeclared identifier 'clock_master',
-chapter-22/22.5.1--define-expansion_3.sv,DIFFERENT,decompile:,
-chapter-22/22.5.1--define-expansion_4.sv,DIFFERENT,decompile:,
-chapter-22/22.5.1--define-expansion_5.sv,DIFFERENT,decompile:,
+chapter-22/22.5.1--define-expansion_3.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_4.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_5.sv,EQUAL,,equal
 chapter-22/22.5.1--define-expansion_6.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_6.sv:19:10: error: not enough arguments provided to function-like macro,
 chapter-22/22.5.1--define-expansion_7.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_7.sv:18:4: error: not enough arguments provided to function-like macro,
 chapter-22/22.5.1--define-expansion_8.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_8.sv:18:3: error: too many arguments provided to function-like macro,
-chapter-22/22.5.1--define-expansion_9.sv,DIFFERENT,decompile:,
+chapter-22/22.5.1--define-expansion_9.sv,EQUAL,,equal
 chapter-22/22.5.1--define.sv,EQUAL,,equal
 chapter-22/22.5.1--define_and_resetall.sv,EQUAL,,equal
 chapter-22/22.5.1--include-define-expansion.sv,STRICT_NOTEQUAL,differ:col(1),differ:col(1)
@@ -611,7 +611,7 @@ chapter-6/6.20.5--specparam_inv.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/
 chapter-6/6.20.6--const.sv,EQUAL,,equal
 chapter-6/6.23--localparam_type_decl.sv,EQUAL,,equal
 chapter-6/6.23--type_op.sv,EQUAL,,equal
-chapter-6/6.23--type_op_compare.sv,BOTH_REJECT,expression kind: TypeReference,
+chapter-6/6.23--type_op_compare.sv,SLANG_ONLY,[SNT:PA0207] /home/heyfey/git-repos/sv-tests/tests/chapter-6/6.23--type_op_compare.sv:18:19: Syntax error: no viable alternative at input 'module top #( paramet,
 chapter-6/6.24.1--cast_op.sv,DIFFERENT,decompile:,
 chapter-6/6.24.2--cast_fn.sv,EQUAL,,equal
 chapter-6/6.24.2--cast_task.sv,EQUAL,,equal
@@ -642,7 +642,7 @@ chapter-7/arrays/associative/locator-methods/find.sv,EQUAL,,equal
 chapter-7/arrays/associative/locator-methods/max.sv,EQUAL,,equal
 chapter-7/arrays/associative/locator-methods/min.sv,EQUAL,,equal
 chapter-7/arrays/associative/locator-methods/unique-index.sv,EQUAL,,equal
-chapter-7/arrays/associative/locator-methods/unique.sv,DIFFERENT,decompile:,
+chapter-7/arrays/associative/locator-methods/unique.sv,EQUAL,,equal
 chapter-7/arrays/associative/methods/delete.sv,STRICT_NOTEQUAL,differ:col(1),differ:col(1)
 chapter-7/arrays/associative/methods/exists.sv,STRICT_NOTEQUAL,differ:col(1),differ:col(1)
 chapter-7/arrays/associative/methods/first.sv,STRICT_NOTEQUAL,differ:col(1),differ:col(1)
@@ -691,11 +691,11 @@ chapter-7/arrays/unpacked/ordering-methods/reverse.sv,EQUAL,,equal
 chapter-7/arrays/unpacked/ordering-methods/rsort.sv,EQUAL,,equal
 chapter-7/arrays/unpacked/ordering-methods/shuffle.sv,EQUAL,,equal
 chapter-7/arrays/unpacked/ordering-methods/sort.sv,EQUAL,,equal
-chapter-7/arrays/unpacked/reduction-methods/and.sv,DIFFERENT,decompile:,
-chapter-7/arrays/unpacked/reduction-methods/or.sv,DIFFERENT,decompile:,
+chapter-7/arrays/unpacked/reduction-methods/and.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/reduction-methods/or.sv,EQUAL,,equal
 chapter-7/arrays/unpacked/reduction-methods/product.sv,EQUAL,,equal
 chapter-7/arrays/unpacked/reduction-methods/sum.sv,EQUAL,,equal
-chapter-7/arrays/unpacked/reduction-methods/xor.sv,DIFFERENT,decompile:,
+chapter-7/arrays/unpacked/reduction-methods/xor.sv,EQUAL,,equal
 chapter-7/arrays/unpacked/slice-equality.sv,EQUAL,,equal
 chapter-7/arrays/unpacked/slice.sv,EQUAL,,equal
 chapter-7/arrays/unpacked/subroutines.sv,EQUAL,,equal
@@ -775,7 +775,7 @@ chapter-8/8.27--forward_declaration.sv,EQUAL,,equal
 chapter-8/8.4--instantiation.sv,EQUAL,,equal
 chapter-8/8.5--parameters.sv,EQUAL,,equal
 chapter-8/8.5--properties.sv,EQUAL,,equal
-chapter-8/8.5--properties_enum.sv,DIFFERENT,decompile:,
+chapter-8/8.5--properties_enum.sv,EQUAL,,equal
 chapter-8/8.6--methods.sv,EQUAL,,equal
 chapter-8/8.7--constructor.sv,EQUAL,,equal
 chapter-8/8.7--constructor_param.sv,EQUAL,,equal
@@ -803,7 +803,7 @@ chapter-9/9.3.5--statement_labels_seq.sv,EQUAL,,equal
 chapter-9/9.4.1--delay_control-sim.sv,EQUAL,,equal
 chapter-9/9.4.1--delay_control-two-blocks-sim.sv,EQUAL,,equal
 chapter-9/9.4.1--delay_control.sv,EQUAL,,equal
-chapter-9/9.4.2--event_control_edge.sv,SURELOG_ONLY,edge kind,
+chapter-9/9.4.2--event_control_edge.sv,EQUAL,,equal
 chapter-9/9.4.2--event_control_negedge.sv,EQUAL,,equal
 chapter-9/9.4.2--event_control_posedge.sv,EQUAL,,equal
 chapter-9/9.4.2--event_control_sim.sv,EQUAL,,equal
@@ -816,11 +816,11 @@ chapter-9/9.4.2.4--event_sequence.sv,DIFFERENT,decompile:,
 chapter-9/9.4.3--event_sequence_controls.sv,EQUAL,,equal
 chapter-9/9.4.5--event_blocking_assignment_delay.sv,EQUAL,,equal
 chapter-9/9.4.5--event_nonblocking_assignment_delay.sv,EQUAL,,equal
-chapter-9/9.4.5--event_nonblocking_assignment_event.sv,DIFFERENT,decompile:,
-chapter-9/9.4.5--event_nonblocking_assignment_repeat.sv,DIFFERENT,decompile:,
-chapter-9/9.4.5--event_nonblocking_assignment_repeat_int.sv,DIFFERENT,decompile:,
-chapter-9/9.4.5--event_nonblocking_assignment_repeat_int_neg.sv,DIFFERENT,decompile:,
-chapter-9/9.4.5--event_nonblocking_assignment_repeat_neg.sv,DIFFERENT,decompile:,
+chapter-9/9.4.5--event_nonblocking_assignment_event.sv,EQUAL,,equal
+chapter-9/9.4.5--event_nonblocking_assignment_repeat.sv,EQUAL,,equal
+chapter-9/9.4.5--event_nonblocking_assignment_repeat_int.sv,EQUAL,,equal
+chapter-9/9.4.5--event_nonblocking_assignment_repeat_int_neg.sv,EQUAL,,equal
+chapter-9/9.4.5--event_nonblocking_assignment_repeat_neg.sv,EQUAL,,equal
 chapter-9/9.6.1--wait_fork.sv,EQUAL,,equal
 chapter-9/9.6.2--disable.sv,EQUAL,,equal
 chapter-9/9.6.2--disable_other.sv,DIFFERENT,decompile:,
@@ -1272,7 +1272,7 @@ generated/binary_op/11.4.5--binary_op_log_neq.sv,EQUAL,,equal
 generated/binary_op/11.4.6--binary_op_wild_eq.sv,EQUAL,,equal
 generated/binary_op/11.4.6--binary_op_wild_neq.sv,EQUAL,,equal
 generated/binary_op/11.4.7--binary_op_log_and.sv,EQUAL,,equal
-generated/binary_op/11.4.7--binary_op_log_equiv.sv,SURELOG_ONLY,binary op: LogicalEquivalence,
+generated/binary_op/11.4.7--binary_op_log_equiv.sv,EQUAL,,equal
 generated/binary_op/11.4.7--binary_op_log_imp.sv,EQUAL,,equal
 generated/binary_op/11.4.7--binary_op_log_or.sv,EQUAL,,equal
 generated/binary_op/11.4.8--binary_op_bit_and.sv,EQUAL,,equal
@@ -1401,10 +1401,10 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p203.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p230.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p234.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p238.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p239.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p239.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p240.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p242.sv,SURELOG_ONLY,statement kind: ProceduralDeassign,
-generated/hdlconv_std2017/hdlconvertor_std2017_p243.sv,SURELOG_ONLY,statement kind: ProceduralDeassign,
+generated/hdlconv_std2017/hdlconvertor_std2017_p242.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p243.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p248.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p249.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p252.sv,EQUAL,,equal
@@ -1429,7 +1429,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p469.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p475.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p482.sv,SLANG_ONLY,[  ERROR] : 3,
 generated/hdlconv_std2017/hdlconvertor_std2017_p488.sv,DIFFERENT,decompile:,
-generated/hdlconv_std2017/hdlconvertor_std2017_p489.sv,SURELOG_ONLY,statement kind: ProceduralChecker,
+generated/hdlconv_std2017/hdlconvertor_std2017_p489.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p490.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p490.sv:7:51: error: use of undeclared identifier 'p',
 generated/hdlconv_std2017/hdlconvertor_std2017_p491.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p493.sv,EQUAL,,equal
@@ -1780,10 +1780,10 @@ generated/keywords/5.6.2--keyword_within.sv,BOTH_REJECT,/home/heyfey/git-repos/s
 generated/keywords/5.6.2--keyword_wor.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_wor.sv:8:9: error: expected a declaration name,
 generated/keywords/5.6.2--keyword_xnor.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_xnor.sv:8:9: error: expected a declaration name,
 generated/keywords/5.6.2--keyword_xor.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_xor.sv:8:9: error: expected a declaration name,
-generated/logical_equivalence_operator_sim/11.4.7--logical_equiv_operator_0.sv,SURELOG_ONLY,binary op: LogicalEquivalence,
-generated/logical_equivalence_operator_sim/11.4.7--logical_equiv_operator_1.sv,SURELOG_ONLY,binary op: LogicalEquivalence,
-generated/logical_equivalence_operator_sim/11.4.7--logical_equiv_operator_2.sv,SURELOG_ONLY,binary op: LogicalEquivalence,
-generated/logical_equivalence_operator_sim/11.4.7--logical_equiv_operator_3.sv,SURELOG_ONLY,binary op: LogicalEquivalence,
+generated/logical_equivalence_operator_sim/11.4.7--logical_equiv_operator_0.sv,EQUAL,,equal
+generated/logical_equivalence_operator_sim/11.4.7--logical_equiv_operator_1.sv,EQUAL,,equal
+generated/logical_equivalence_operator_sim/11.4.7--logical_equiv_operator_2.sv,EQUAL,,equal
+generated/logical_equivalence_operator_sim/11.4.7--logical_equiv_operator_3.sv,EQUAL,,equal
 generated/logical_implication_operator_sim/11.4.7--logical_impl_operator_0.sv,EQUAL,,equal
 generated/logical_implication_operator_sim/11.4.7--logical_impl_operator_1.sv,EQUAL,,equal
 generated/logical_implication_operator_sim/11.4.7--logical_impl_operator_2.sv,EQUAL,,equal
@@ -1871,7 +1871,7 @@ generated/projf-explore/lib_essential_xc7_projf_async_reset.sv,EQUAL,,equal
 generated/projf-explore/lib_maths_xc7_projf_clog2_tb.sv,EQUAL,,equal
 generated/projf-explore/lib_null_ice40_projf_SB_SPRAM256KA.sv,EQUAL,,equal
 generated/projf-explore/lib_null_xc7_projf_BUFG.sv,EQUAL,,equal
-generated/rggen/rggen.sv,BOTH_REJECT,expression kind: Invalid,
+generated/rggen/rggen.sv,SLANG_ONLY,[  ERROR] : 3,
 generated/rsd/rsd.sv,SURELOG_CRASH,,
 generated/sampled_functions/20.13--changed.sv,EQUAL,,equal
 generated/sampled_functions/20.13--changed_gclk.sv,EQUAL,,equal
@@ -1891,7 +1891,7 @@ generated/sampled_functions/20.13--stable_gclk.sv,EQUAL,,equal
 generated/sampled_functions/20.13--steady_gclk.sv,EQUAL,,equal
 generated/scr1/scr1.sv,DIFFERENT,decompile:,
 generated/simple_logical_operators_sim/11.4.7--simple_and_logical_operator.sv,EQUAL,,equal
-generated/simple_logical_operators_sim/11.4.7--simple_equiv_logical_operator.sv,SURELOG_ONLY,binary op: LogicalEquivalence,
+generated/simple_logical_operators_sim/11.4.7--simple_equiv_logical_operator.sv,EQUAL,,equal
 generated/simple_logical_operators_sim/11.4.7--simple_impl_logical_operator.sv,EQUAL,,equal
 generated/simple_logical_operators_sim/11.4.7--simple_or_logical_operator.sv,EQUAL,,equal
 generated/tnoc/tnoc.sv,SURELOG_ONLY,expression kind: Invalid,
@@ -2087,8 +2087,8 @@ generated/uvm-examples/uvm_priority_arbitration.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_priority_grab_lock.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_register_mem_example.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
 generated/uvm-examples/uvm_register_spi_bl_tb.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
-generated/uvm-examples/uvm_slave_agent.sv,BOTH_REJECT,statement kind: RandCase,
-generated/uvm-examples/uvm_slave_agent_multi_seq_item.sv,BOTH_REJECT,statement kind: RandCase,
+generated/uvm-examples/uvm_slave_agent.sv,SLANG_ONLY,[  ERROR] : 2,
+generated/uvm-examples/uvm_slave_agent_multi_seq_item.sv,SLANG_ONLY,[  ERROR] : 2,
 generated/uvm-examples/uvm_tb_build_bl_tb.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
 generated/uvm-examples/uvm_tb_build_ss_tb.sv,TIMEOUT,[ERR:EL0514] /home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_tb_build_ss_tb/agents/modem_agent/modem_coverage_monitor.svh:43:4: Undefined var,
 generated/uvm-examples/uvm_test_init.sv,DIFFERENT,decompile:,
@@ -2226,7 +2226,7 @@ generic/member/class_member_test_19.sv,DIFFERENT,decompile:,
 generic/member/class_member_test_2.sv,EQUAL,,equal
 generic/member/class_member_test_25.sv,EQUAL,,equal
 generic/member/class_member_test_26.sv,EQUAL,,equal
-generic/member/class_member_test_27.sv,SURELOG_ONLY,statement kind: VariableDeclaration,
+generic/member/class_member_test_27.sv,DIFFERENT,decompile:,
 generic/member/class_member_test_3.sv,EQUAL,,equal
 generic/member/class_member_test_31.sv,EQUAL,,equal
 generic/member/class_member_test_32.sv,EQUAL,,equal

@@ -1363,8 +1363,8 @@ ThisHier,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ThisHier/dut.
 ThisHier,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ThisHier/dut.sv:4:29: error: use of undeclared identifier 'uvm_phase',,
 TimeUnit,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TimeUnit/top.v:13:8: error: design element does not have a time scale defined but others in the design ,,
 TimeUnit,testflags,SLANG_REJECT,error: '50': No such file or directory,,
-Tnoc,default,SLANG_REJECT,rc=-11,,
-Tnoc,testflags,SLANG_REJECT,rc=-11,,
+Tnoc,default,CMP_NOTEQUAL,decompile:,,
+Tnoc,testflags,CMP_NOTEQUAL,decompile:,,
 TNocBadType,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TNocBadType/dut.sv:8:21: error: interface instantiation is missing port list parentheses,,
 TNocBadType,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TNocBadType/dut.sv:8:21: error: interface instantiation is missing port list parentheses,,
 TopFunc,default,CMP_EQUAL,,,equal

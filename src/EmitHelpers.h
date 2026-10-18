@@ -2027,6 +2027,16 @@ inline int32_t mapBinaryOp(BinaryOperator op) {
             return vpiLogOrOp;
         case BinaryOperator::LogicalImplication:
             return vpiImplyOp;
+        // § logEquivIsEqOp401 (r11u401, R11U401_LOGEQUIV_OFF) — `a <-> b`
+        // is vpiEqOp: Surelog's UhdmWriter maps paBinOp_Equivalence to
+        // vpiEqOp (UhdmWriter.cpp UhdmWriter::getVpiOpType); the exporter
+        // rejected the operator.  sv-tests 11.4.7 rows; grid
+        // tools/probe/r11u401repro/cases/LE.
+        case BinaryOperator::LogicalEquivalence:
+            if (!lawOn(401, "R11U401_LOGEQUIV_OFF"))
+                return 0;
+            lawTrace(401, "logEquivIsEqOp401");
+            return vpiEqOp;
         case BinaryOperator::LogicalShiftLeft:
             return vpiLShiftOp;
         case BinaryOperator::LogicalShiftRight:

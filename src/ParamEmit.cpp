@@ -25265,7 +25265,35 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         while (home9 &&
                                home9->asSymbol().kind != SymbolKind::Package)
                             home9 = home9->asSymbol().getParentScope();
+                        // § pkgEnumParamFold401 (r11u401,
+                        // R11U401_PKGENUMFOLD_OFF) — S4b holds only for a
+                        // FORWARD reference: the enum's package compiled
+                        // AFTER the reading package (FuncStructVal's
+                        // cva6_config_pkg reads config_pkg, declared below
+                        // it).  Surelog elaborates packages in compile order,
+                        // so an enum whose package is already elaborated
+                        // binds and the reading package's elaborated listing
+                        // folds it like any other enum-member default
+                        // (basejump's bsg_dramsim3_*_pkg address_mapping_p =
+                        // bsg_dramsim3_pkg::e_ro_ra_bg_ba_ch_co; cases/PE).
+                        bool backRef401 = false;
                         if (home9 && curPkgEmitSym &&
+                            &home9->asSymbol() != (const Symbol*)curPkgEmitSym &&
+                            lawOn(401, "R11U401_PKGENUMFOLD_OFF")) {
+                            auto& sm401 = *comp.getSourceManager();
+                            backRef401 = includeExpandedLess(
+                                includeExpandedKey(
+                                    sm401, sm401.getFullyOriginalLoc(
+                                               home9->asSymbol().location)),
+                                includeExpandedKey(
+                                    sm401, sm401.getFullyOriginalLoc(
+                                               curPkgEmitSym->location)));
+                            if (backRef401)
+                                lawTrace(401, "pkgEnumParamFold401",
+                                         std::string(curPkgEmitSym->name) + "." +
+                                             std::string(ps.name));
+                        }
+                        if (home9 && curPkgEmitSym && !backRef401 &&
                             &home9->asSymbol() !=
                                 (const Symbol*)curPkgEmitSym) {
                             std::string pn9 =
@@ -25279,6 +25307,210 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             setLoc(er9, ie9.sourceRange);
                             rhs = er9;
                             rhsRt = nullptr;
+                        }
+                    }
+                }
+                // § pkgEnumParamFoldQualSpan401 (r11u401,
+                // R11U401_PKGENUMQSPAN_OFF) — the elaborated package listing's
+                // fold of a WRITTEN-QUALIFIED enum member (`p1::A`, and the
+                // package's own `p2::C`) is located at the QUALIFIER (`p1::`,
+                // colons included), the span the qualified pkg-param fold
+                // takes (§ pkgQualFoldSpanByView124): the reference's
+                // paPackage_scope node populates the constant.  Grid
+                // tools/probe/r11u401repro/cases/PE.
+                if (inPackage && topView && init && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmconstant &&
+                    lawOn(401, "R11U401_PKGENUMQSPAN_OFF")) {
+                    auto& ie401 = stripImplicitConv(*init);
+                    if (ie401.kind == ExpressionKind::NamedValue &&
+                        ie401.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::EnumValue &&
+                        ie401.syntax &&
+                        ie401.syntax->kind == syntax::SyntaxKind::ScopedName &&
+                        !sm->isMacroLoc(ie401.sourceRange.start()) &&
+                        !sm->isMacroLoc(ie401.sourceRange.end())) {
+                        std::string rq401(rawText(ie401.sourceRange));
+                        auto qp401 = rq401.rfind("::");
+                        if (qp401 != std::string::npos) {
+                            auto st401 = ie401.sourceRange.start();
+                            setLoc((UHDM::constant*)rhs,
+                                   SourceRange(st401, st401 + qp401 + 2));
+                            lawTrace(401, "pkgEnumParamFoldQualSpan401",
+                                     std::string(ps.name));
+                        }
+                    }
+                }
+                // § pkgEnumUntypedParamFold401 (r11u401,
+                // R11U401_PKGENUMUNTYPED_OFF) — an UNTYPED package parameter
+                // whose default is an enum member (`parameter m = p1::B;`,
+                // `parameter n = A;`) is, in the elaborated package listing,
+                // the member's enum_const VALUE substituted whole: the
+                // member's own encoding (an implicit or based-decimal member
+                // INT:<v>, an unsized decimal one UINT:<v>, both at size 32
+                // with the bare digits; a binary / hex / octal one its written
+                // literal at its width), carried by the parameter too, and the
+                // implicit int_typespec Surelog derives from that value at the
+                // whole declaration (ranged [w-1:0] for a based literal, as
+                // `parameter m = 2'b10` gets; bounds unparented), shared by
+                // the parameter's and the constant's ts refs.  Golden basejump
+                // bsg_dramsim3_lpddr_2Gb_x16_pkg::address_mapping_p
+                // (bsg_dramsim3_pkg.sv:215); grid cases/PE pe05, pe14-pe20.
+                if (inPackage && topView && !typedParam && init && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmconstant && !overridden &&
+                    !isRangedUntypedParam(ps) &&
+                    lawOn(401, "R11U401_PKGENUMUNTYPED_OFF")) {
+                    auto& ie401 = stripImplicitConv(*init);
+                    const EnumValueSymbol* ev401 = nullptr;
+                    if (ie401.kind == ExpressionKind::NamedValue &&
+                        ie401.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::EnumValue)
+                        ev401 = &ie401.as<NamedValueExpression>()
+                                     .symbol.as<EnumValueSymbol>();
+                    std::string val401, dec401;
+                    int32_t sz401 = 0, ct401 = 0;
+                    if (ev401 && ev401->getValue().isInteger() &&
+                        !ev401->getValue().integer().hasUnknown()) {
+                        std::string dg401 = ev401->getValue().integer().toString(
+                            LiteralBase::Decimal, false);
+                        const Expression* ein401 = ev401->getInitializer();
+                        if (!ein401) {
+                            val401 = "INT:" + dg401;
+                            dec401 = dg401;
+                            sz401 = 32;
+                            ct401 = vpiIntConst;
+                        }
+                        else if (auto& lit401 = stripImplicitConv(*ein401);
+                                 lit401.kind == ExpressionKind::IntegerLiteral) {
+                            std::string raw401(rawText(lit401.sourceRange));
+                            auto tk401 = raw401.find('\'');
+                            if (tk401 == std::string::npos) {
+                                val401 = "UINT:" + dg401;
+                                dec401 = dg401;
+                                sz401 = 32;
+                                ct401 = vpiUIntConst;
+                            }
+                            else {
+                                size_t bp401 = tk401 + 1;
+                                if (bp401 < raw401.size() &&
+                                    (raw401[bp401] == 's' || raw401[bp401] == 'S'))
+                                    bp401++;
+                                char b401 = bp401 < raw401.size()
+                                                ? (char)tolower(raw401[bp401])
+                                                : 'd';
+                                std::string dgs401 = stripSep(raw401.substr(bp401 + 1));
+                                if (b401 == 'd') {
+                                    val401 = "INT:" + dg401;
+                                    dec401 = dg401;
+                                    sz401 = 32;
+                                    ct401 = vpiIntConst;
+                                }
+                                else if (b401 == 'b' || b401 == 'h' || b401 == 'o') {
+                                    val401 = (b401 == 'b'   ? "BIN:"
+                                              : b401 == 'h' ? "HEX:"
+                                                            : "OCT:") +
+                                             dgs401;
+                                    dec401 = stripSep(raw401);
+                                    sz401 = (int32_t)lit401.type->getBitWidth();
+                                    ct401 = b401 == 'b'   ? vpiBinaryConst
+                                            : b401 == 'h' ? vpiHexConst
+                                                          : vpiOctConst;
+                                }
+                            }
+                        }
+                    }
+                    const syntax::SyntaxNode* decl401 = nullptr;
+                    for (auto q = ps.getSyntax(); q; q = q->parent)
+                        if (q->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                            decl401 = q;
+                            break;
+                        }
+                    if (!val401.empty() && decl401 && sz401 > 0) {
+                        lawTrace(401, "pkgEnumUntypedParamFold401",
+                                 std::string(ps.name) + " " + val401);
+                        auto* c401 = (UHDM::constant*)rhs;
+                        c401->VpiValue(val401);
+                        c401->VpiDecompile(dec401);
+                        c401->VpiSize(sz401);
+                        c401->VpiConstType(ct401);
+                        up->VpiValue(val401);
+                        auto* its401 = s.MakeInt_typespec();
+                        setLoc(its401, decl401->sourceRange());
+                        if (sz401 != 32 && ct401 != vpiIntConst &&
+                            ct401 != vpiUIntConst) {
+                            auto* r401 = s.MakeRange();
+                            r401->VpiParent(its401);
+                            auto* l401 = s.MakeConstant();
+                            l401->VpiValue("INT:" + std::to_string(sz401 - 1));
+                            auto* rr401 = s.MakeConstant();
+                            rr401->VpiValue("INT:0");
+                            r401->Left_expr(l401);
+                            r401->Right_expr(rr401);
+                            auto* rv401 = s.MakeRangeVec();
+                            rv401->push_back(r401);
+                            its401->Ranges(rv401);
+                        }
+                        auto* prt401 = s.MakeRef_typespec();
+                        prt401->VpiFullName(joinPath(prefix, ps.name));
+                        prt401->VpiParent(up);
+                        prt401->Actual_typespec(its401);
+                        up->Typespec(prt401);
+                        std::string tsp401 = prefix;
+                        if (tsp401.size() >= 2 &&
+                            tsp401.compare(tsp401.size() - 2, 2, "::") == 0)
+                            tsp401.resize(tsp401.size() - 2);
+                        auto* crt401 = s.MakeRef_typespec();
+                        crt401->VpiFullName(tsp401);
+                        crt401->VpiParent(c401);
+                        crt401->Actual_typespec(its401);
+                        c401->Typespec(crt401);
+                        rhsRt = crt401;
+                    }
+                }
+                // § unbasedUntypedElabKeepsLiteral401 (r11u401,
+                // R11U401_UNBASEDUNTYPED_OFF) — an UNTYPED parameter whose
+                // default is an unbased-unsized literal ('0 '1 'x 'z) keeps
+                // the literal in the ELABORATED listing too: BIN:<bit>,
+                // vpiSize -1, vpiBinaryConst, never the 64-bit UINT fill the
+                // fold chain wrote.  Surelog spells the decompile per home:
+                // a module instance re-renders it `'b0` (`'bX`), a package's
+                // elaborated listing keeps the written `'0` with the bit
+                // upper-cased (`'X`), and there the constant carries a ts ref
+                // named by the package with no actual and the parameter
+                // carries the BIN:<bit> value (golden basejump
+                // bsg_cache_pkg::amo_support_level_none_lp = '0,
+                // bsg_cache_pkg.sv:25).  Grid tools/probe/r11u401repro/
+                // cases/PU.
+                if (topView && !typedParam && init && rhs && !overridden &&
+                    rhs->UhdmType() == UHDM::uhdmconstant &&
+                    !isRangedUntypedParam(ps) &&
+                    stripImplicitConv(*init).kind ==
+                        ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                    lawOn(401, "R11U401_UNBASEDUNTYPED_OFF")) {
+                    logic_t b401 = stripImplicitConv(*init)
+                                       .as<UnbasedUnsizedIntegerLiteral>()
+                                       .getLiteralValue();
+                    std::string d401 =
+                        b401.isUnknown()
+                            ? (b401.value == logic_t::X_VALUE ? "X" : "Z")
+                            : (b401.value ? "1" : "0");
+                    auto* c401 = (UHDM::constant*)rhs;
+                    lawTrace(401, "unbasedUntypedElabKeepsLiteral401",
+                             std::string(ps.name) + " " + d401);
+                    c401->VpiValue("BIN:" + d401);
+                    c401->VpiSize(-1);
+                    c401->VpiConstType(vpiBinaryConst);
+                    c401->VpiDecompile((inPackage ? "'" : "'b") + d401);
+                    if (inPackage) {
+                        up->VpiValue("BIN:" + d401);
+                        if (!c401->Typespec()) {
+                            std::string tsp401 = prefix;
+                            if (tsp401.size() >= 2 &&
+                                tsp401.compare(tsp401.size() - 2, 2, "::") == 0)
+                                tsp401.resize(tsp401.size() - 2);
+                            auto* crt401 = s.MakeRef_typespec();
+                            crt401->VpiFullName(tsp401);
+                            crt401->VpiParent(c401);
+                            c401->Typespec(crt401);
                         }
                     }
                 }
@@ -26268,11 +26500,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         // Elab-view unbased-unsized 'x/'z decompiles with an
                         // explicit 'b base ('x -> 'bX); the def view keeps the
                         // bare 'X (Surelog quirk).
+                        // ...in a MODULE's elaborated listing; a PACKAGE's
+                        // keeps the written 'X (§ unbasedUntypedElabKeepsLiteral401).
                         if (topView &&
                             v0.find_first_of("xXzZ") !=
                                 std::string_view::npos &&
                             stripImplicitConv(*init).kind ==
-                                ExpressionKind::UnbasedUnsizedIntegerLiteral)
+                                ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                            !(inPackage && !typedParam &&
+                              lawOn(401, "R11U401_UNBASEDUNTYPED_OFF")))
                             rc->VpiDecompile("'b" + std::string(v0.substr(4)));
                         if (!topView && !wantTs && !rc->Typespec()) {
                             auto* brt = s.MakeRef_typespec();
