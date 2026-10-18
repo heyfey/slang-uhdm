@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.20)
+project(uchain CXX)
+set(CMAKE_CXX_STANDARD 17)
+find_package(UHDM CONFIG REQUIRED)
+add_executable(uchain uchain.cpp)
+target_link_libraries(uchain PRIVATE uhdm::uhdm)

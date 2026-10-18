@@ -6154,7 +6154,19 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // An anonymous UNPACKED union: the ELAB clone spans the
                 // `union` keyword; the DEF object stops at the end of the
                 // FIRST member declaration (Surelog).
-                if (!tfContext)
+                // § unpackedTaggedElabSpan402 (R11U402_UTAGGEDSPAN_OFF; cases
+                // tools/probe/r11u402repro/cases/US us06) — § taggedUnionElabSpan137
+                // for an UNPACKED tagged union: the elaborated clone spans
+                // `union tagged` (golden chapter-7/unions/tagged/basic.sv
+                // 18:1-18:13; ours the `union` keyword).
+                if (!tfContext && su2->taggedOrSoft &&
+                    su2->taggedOrSoft.kind == parsing::TokenKind::TaggedKeyword &&
+                    lawOn(402, "R11U402_UTAGGEDSPAN_OFF")) {
+                    setLoc(uts, SourceRange(su2->keyword.range().start(),
+                                            su2->taggedOrSoft.range().end()));
+                    lawTrace(402, "unpackedTaggedElabSpan402", std::string(su2->keyword.valueText()));
+                }
+                else if (!tfContext)
                     setLoc(uts, su2->keyword.range());
                 else if (!su2->members.empty())
                     setLoc(uts,
@@ -9755,6 +9767,20 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     if (ct.kind == SymbolKind::PackedUnionType) {
         if (declared->getType().kind == SymbolKind::PackedUnionType)
             return nullptr;
+        auto* v = s.MakeUnion_var();
+        v->VpiVisibility(1);
+        return v;
+    }
+    // § unpackedUnionTdVar402 (R11U402_UUNIONVAR_OFF; cases
+    // tools/probe/r11u402repro/cases/UU) — a signal of a TYPEDEF'd unpacked
+    // (or tagged) union is a union_var whatever its members (Surelog's
+    // makeVar_ arm on a union_typespec), never the logic_net the net
+    // fallback gives.
+    if (ct.kind == SymbolKind::UnpackedUnionType &&
+        declared->getType().kind == SymbolKind::TypeAlias &&
+        internal.kind == SymbolKind::Variable &&
+        lawOn(402, "R11U402_UUNIONVAR_OFF")) {
+        lawTrace(402, "unpackedUnionTdVar402", std::string(internal.name));
         auto* v = s.MakeUnion_var();
         v->VpiVisibility(1);
         return v;
@@ -20658,6 +20684,23 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
             syntaxRefPrefix = savedPfx;
             syntaxRefSep = savedSep;
         }
+        // § taggedVoidMemberTs402 (R11U402_VOIDMEM_OFF; cases
+        // tools/probe/r11u402repro/cases/UU) — a tagged union's `void`
+        // member is a void_typespec spanning the type keyword through the
+        // member name; its typespec_member keeps the reference file but no
+        // reference span (Surelog).
+        bool void402 = false;
+        if (fm.getDeclaredType() &&
+            fm.getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::VoidType &&
+            memberTypeSyn && lawOn(402, "R11U402_VOIDMEM_OFF")) {
+            auto* vt402 = s.MakeVoid_typespec();
+            setLoc(vt402, SourceRange(memberTypeSyn->sourceRange().start(),
+                                      fm.location + fm.name.length()));
+            fts = vt402;
+            void402 = true;
+            lawTrace(402, "taggedVoidMemberTs402", std::string(fm.name));
+        }
         if (fts->VpiName().empty() && !ats9MainFree)
             fts->VpiParent(tm);
         // § structMemberWrittenQueueArrayTs149, the UNION half (an untagged
@@ -20685,10 +20728,12 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
             if (sr.start() != SourceLocation::NoLocation) {
                 tm->VpiRefFile(rootFile171 ? memberRootFile171(sm, sr.start())
                                            : fullFilePath(sr.start()));
+                if (!void402) {
                 tm->VpiRefLineNo(sm->getLineNumber(sr.start()));
                 tm->VpiRefColumnNo(sm->getColumnNumber(sr.start()));
                 tm->VpiRefEndLineNo(sm->getLineNumber(sr.end()));
                 tm->VpiRefEndColumnNo(sm->getColumnNumber(sr.end()));
+                }
             }
         }
         members->push_back(tm);
@@ -20698,10 +20743,68 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
 }
 
 bool g249DynRangeReq = false;
+int32_t netKindExtra402(const slang::ast::Symbol& sym);  // § netKindTypeAll402 (ModuleEmit.cpp)
 
 // § unitDynArrTd249 / § modDynArrTd249 — the one-dimension shapes the $unit
 // and module-body dynamic-array typedef arms write: `[]`, `[$]` (unbounded) and an associative index
 // written as `string` or an integer keyword, over a keyword element.
+// § assocTdIndexShapes402 (R11U402_ASSOCTD_OFF; cases
+// tools/probe/r11u402repro/cases/AA) — the $unit and module-body typedef
+// arms of pass 249 also list a one-dimension associative array whose element
+// is a typedef (`typedef data_t a_t [int]`), whose index is the wildcard
+// `[*]`, or whose index is written as a `bit`/`logic`/`reg` keyword with or
+// without packed dimensions (`[bit]`, `[bit[31:0]]`).  The marker range is
+// the one pass 249 writes; a wildcard marker carries no index typespec and a
+// keyword index carries the typespec the keyword builds, at its tokens.
+bool unitDynTdShape402(const slang::ast::TypeAliasType& ta) {
+    using namespace slang;
+    if (unitDynTdShape249(ta))
+        return true;
+    auto* syn = ta.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::TypedefDeclaration)
+        return false;
+    auto& td = syn->as<syntax::TypedefDeclarationSyntax>();
+    if (td.dimensions.size() != 1)
+        return false;
+    auto& ct = ta.targetType.getType().getCanonicalType();
+    if (ct.kind != ast::SymbolKind::AssociativeArrayType)
+        return false;
+    auto* sp = td.dimensions[0]->specifier;
+    if (!sp)
+        return false;
+    auto& aat = ct.as<ast::AssociativeArrayType>();
+    if (sp->kind == syntax::SyntaxKind::WildcardDimensionSpecifier) {
+        if (aat.indexType)
+            return false;
+    }
+    else {
+        auto* ix = aat.indexType;
+        if (!ix || sp->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
+            return false;
+        auto& sel = *sp->as<syntax::RangeDimensionSpecifierSyntax>().selector;
+        if (sel.kind != syntax::SyntaxKind::BitSelect)
+            return false;
+        const syntax::ExpressionSyntax* ex = sel.as<syntax::BitSelectSyntax>().expr;
+        if (!ex || !syntax::DataTypeSyntax::isKind(ex->kind) ||
+            ex->kind == syntax::SyntaxKind::NamedType)
+            return false;
+        auto ixk = ix->getCanonicalType().kind;
+        if (!ix->isString() && ixk != ast::SymbolKind::PredefinedIntegerType &&
+            !(ex->kind == syntax::SyntaxKind::BitType ||
+              ex->kind == syntax::SyntaxKind::LogicType ||
+              ex->kind == syntax::SyntaxKind::RegType))
+            return false;
+    }
+    auto* el = &aat.elementType;
+    if (el->getCanonicalType().isUnpackedArray())
+        return false;
+    // a typedef'd element is listed through the typedef's own object
+    if (el->kind == ast::SymbolKind::TypeAlias &&
+        !el->getCanonicalType().isIntegral())
+        return false;
+    return true;
+}
+
 bool unitDynTdShape249(const slang::ast::TypeAliasType& ta) {
     using namespace slang;
     auto* syn = ta.getSyntax();
@@ -20969,6 +21072,16 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
             m->VpiValue("STRING:$");
             m->VpiConstType(vpiUnboundedConst);
         }
+        else if (dimSyn->specifier &&
+                 dimSyn->specifier->kind == syntax::SyntaxKind::WildcardDimensionSpecifier) {
+            // § assocTdIndexShapes402 — the wildcard index: the associative
+            // marker with no index typespec.
+            setLoc(r, dimSyn->sourceRange());
+            m->VpiDecompile("associative");
+            m->VpiValue("STRING:associative");
+            m->VpiConstType(vpiStringConst);
+            lawTrace(402, "assocTdIndexShapes402", "wildcard " + std::string(ta.name));
+        }
         else {
             setLoc(r, dimSyn->sourceRange());
             m->VpiDecompile("associative");
@@ -20986,6 +21099,67 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
                 its = s.MakeString_typespec();
             else if (ix.getCanonicalType().kind == SymbolKind::PredefinedIntegerType)
                 its = predefIntTypespec(ix.getCanonicalType(), ta);
+            else if (is.kind == syntax::SyntaxKind::BitType ||
+                     is.kind == syntax::SyntaxKind::LogicType ||
+                     is.kind == syntax::SyntaxKind::RegType) {
+                if (lawOn(402, "R11U402_ASSOCTD_OFF")) {
+                    // § assocTdIndexShapes402 — a bit/logic/reg keyword
+                    // index: the keyword's own typespec at the index tokens,
+                    // one range per packed dimension (bounds at their
+                    // tokens), UNPARENTED (§ assocIndexTsSigned63's measured
+                    // index-position rule).
+                    auto& its402s = is.as<syntax::IntegerTypeSyntax>();
+                    UHDM::typespec* kts402 =
+                        is.kind == syntax::SyntaxKind::BitType
+                            ? (UHDM::typespec*)s.MakeBit_typespec()
+                            : (UHDM::typespec*)s.MakeLogic_typespec();
+                    setLoc(kts402, is.sourceRange());
+                    if (!its402s.dimensions.empty()) {
+                        auto* rv402 = s.MakeRangeVec();
+                        const Type* pt402 = &ix.getCanonicalType();
+                        for (auto* dsy : its402s.dimensions) {
+                            if (pt402->getCanonicalType().kind != SymbolKind::PackedArrayType)
+                                break;
+                            auto& pa402 = pt402->getCanonicalType().as<PackedArrayType>();
+                            auto* r402 = s.MakeRange();
+                            r402->VpiParent(kts402);
+                            setLoc(r402, dsy->sourceRange());
+                            const syntax::ExpressionSyntax *l402 = nullptr, *r402s = nullptr;
+                            if (dsy->specifier &&
+                                dsy->specifier->kind == syntax::SyntaxKind::RangeDimensionSpecifier)
+                                if (auto* rs402 = dsy->specifier
+                                                      ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                                      .selector->as_if<syntax::RangeSelectSyntax>()) {
+                                    l402 = rs402->left;
+                                    r402s = rs402->right;
+                                }
+                            auto mk402 = [&](int64_t v, const syntax::ExpressionSyntax* bs) {
+                                auto* c = s.MakeConstant();
+                                std::string dg = std::to_string(v);
+                                c->VpiDecompile(dg);
+                                c->VpiSize(64);
+                                c->VpiValue("UINT:" + dg);
+                                c->VpiConstType(vpiUIntConst);
+                                c->VpiParent(r402);
+                                if (bs)
+                                    setLoc(c, bs->sourceRange());
+                                return c;
+                            };
+                            r402->Left_expr(mk402(pa402.range.left, l402));
+                            r402->Right_expr(mk402(pa402.range.right, r402s));
+                            rv402->push_back(r402);
+                            pt402 = &pa402.elementType;
+                        }
+                        if (kts402->UhdmType() == UHDM::uhdmbit_typespec)
+                            ((UHDM::bit_typespec*)kts402)->Ranges(rv402);
+                        else
+                            ((UHDM::logic_typespec*)kts402)->Ranges(rv402);
+                    }
+                    irt->Actual_typespec(kts402);
+                    m->Typespec(irt);
+                    lawTrace(402, "assocTdIndexShapes402", "kwidx " + std::string(ta.name));
+                }
+            }
             if (its) {
                 its = assocIndexSignedAtom63(ix.getCanonicalType(), its);
                 its->VpiParent(irt);
@@ -21155,6 +21329,74 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
                 art0->Actual_typespec(ets0);
                 cl0->Typedef_alias(art0);
                 tgt0 = cl0;
+            }
+            // § arrTdAliasElemClone402 (R11U402_ALIASELEM_OFF; cases
+            // tools/probe/r11u402repro/cases/AA) — the struct rule above holds
+            // for EVERY typedef'd element: an array typedef over a typedef'd
+            // vector, atom or enum points its element at a fresh NAMED clone
+            // of that typedef (its span, no parent) whose Typedef_alias ref,
+            // named like the typedef, reaches the shared object (Surelog).
+            else if (el0->kind == SymbolKind::TypeAlias &&
+                     ets0->VpiName() == el0->as<TypeAliasType>().name &&
+                     ets0->UhdmType() != UHDM::uhdmstruct_typespec &&
+                     ets0->UhdmType() != UHDM::uhdmunion_typespec &&
+                     ets0->UhdmType() != UHDM::uhdmarray_typespec &&
+                     ets0->UhdmType() != UHDM::uhdmclass_typespec &&
+                     lawOn(402, "R11U402_ALIASELEM_OFF")) {
+                auto& ela = el0->as<TypeAliasType>();
+                const syntax::SyntaxNode* tsyn402 = nullptr;
+                if (auto asyn = ela.getSyntax();
+                    asyn && asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                    tsyn402 = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                bool sv402 = bypassTypedefShare;
+                bypassTypedefShare = true;
+                auto* cl402 = makeTypespec(ela, tsyn402);
+                bypassTypedefShare = sv402;
+                if (cl402 && cl402 != ets0 && cl402->UhdmType() == ets0->UhdmType()) {
+                    cl402->VpiName(ela.name);
+                    cl402->VpiParent(nullptr);
+                    cl402->VpiLineNo(ets0->VpiLineNo());
+                    cpFile125(cl402, ets0);
+                    cl402->VpiColumnNo(ets0->VpiColumnNo());
+                    cl402->VpiEndLineNo(ets0->VpiEndLineNo());
+                    cl402->VpiEndColumnNo(ets0->VpiEndColumnNo());
+                    auto* art402 = s.MakeRef_typespec();
+                    art402->VpiFullName(std::string(ela.name));
+                    art402->VpiParent(cl402);
+                    art402->Actual_typespec(ets0);
+                    cl402->Typedef_alias(art402);
+                    tgt0 = cl402;
+                    lawTrace(402, "arrTdAliasElemClone402", std::string(ela.name) + " in " + qname);
+                    // A $UNIT array typedef stacks TWO such clones: the
+                    // element clone's Typedef_alias reaches a second named
+                    // clone whose own Typedef_alias reaches the listing
+                    // object (golden AA/ctl_int, aa01: the chain uhdm-cmp
+                    // walks; a module-body typedef binds one level).
+                    if (auto* ps402 = ta.getParentScope();
+                        ps402 && ps402->asSymbol().kind == SymbolKind::CompilationUnit) {
+                        bool sv402b = bypassTypedefShare;
+                        bypassTypedefShare = true;
+                        if (auto* cl402b = makeTypespec(ela, tsyn402);
+                            cl402b && cl402b != ets0 && cl402b != cl402 &&
+                            cl402b->UhdmType() == ets0->UhdmType()) {
+                            cl402b->VpiName(ela.name);
+                            cl402b->VpiParent(nullptr);
+                            cl402b->VpiLineNo(ets0->VpiLineNo());
+                            cpFile125(cl402b, ets0);
+                            cl402b->VpiColumnNo(ets0->VpiColumnNo());
+                            cl402b->VpiEndLineNo(ets0->VpiEndLineNo());
+                            cl402b->VpiEndColumnNo(ets0->VpiEndColumnNo());
+                            auto* art402b = s.MakeRef_typespec();
+                            art402b->VpiFullName(std::string(ela.name));
+                            art402b->VpiParent(cl402b);
+                            art402b->Actual_typespec(ets0);
+                            cl402b->Typedef_alias(art402b);
+                            art402->Actual_typespec(cl402b);
+                            lawTrace(402, "arrTdAliasElemClone402", "unit chain " + std::string(ela.name));
+                        }
+                        bypassTypedefShare = sv402b;
+                    }
+                }
             }
             auto* ert = s.MakeRef_typespec();
             ert->VpiFullName(qname);
@@ -21939,6 +22181,22 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                 setLoc(sts, typeSyn->sourceRange());
             ts = sts;
         }
+        // § modUnpackedUnionTd402 (R11U402_UUNIONTD_OFF; cases
+        // tools/probe/r11u402repro/cases/UU) — a MODULE-BODY typedef of an
+        // UNPACKED (or tagged) union had no arm (`typedef target:
+        // UnpackedUnionType`, exit 4).  Listed as the unpacked-struct arm
+        // above lists: one union_typespec with module-scoped member refs,
+        // module parent, spanning the type syntax.
+        else if (ct.kind == SymbolKind::UnpackedUnionType &&
+                 lawOn(402, "R11U402_UUNIONTD_OFF")) {
+            auto* uts = buildUnionTs(ct.as<UnpackedUnionType>(), false,
+                                     prefix + "." + std::string(ta.name));
+            uts->VpiParent(m);
+            if (typeSyn)
+                setLoc(uts, typeSyn->sourceRange());
+            ts = uts;
+            lawTrace(402, "modUnpackedUnionTd402", prefix + "." + std::string(ta.name));
+        }
         else if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
             // § bodyTypedefElemBoundSymbolic52 (ROAD C) — this is the
             // MODULE-BODY / INTERFACE-BODY typedef route, the one Surelog
@@ -21968,7 +22226,9 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                   ct.kind == SymbolKind::QueueType ||
                   ct.kind == SymbolKind::AssociativeArrayType) &&
                  ta.targetType.getType().kind != SymbolKind::TypeAlias &&
-                 unitDynTdShape249(ta) && lawOn(249, "R11U249_MODDYNTD_OFF")) {
+                 (unitDynTdShape249(ta) ||
+                  (unitDynTdShape402(ta) && lawOn(402, "R11U402_ASSOCTD_OFF"))) &&
+                 lawOn(249, "R11U249_MODDYNTD_OFF")) {
             bool savedUfE = unfoldedTypedefElemDims;
             std::string savedPfxE = syntaxRefPrefix;
             unfoldedTypedefElemDims = true;
@@ -30158,6 +30418,8 @@ UHDM::array_net* UhdmExporter::emitArrayNet(const Symbol& sym, const std::string
             ln->VpiSigned(true);
         if (int32_t nt = netTypeFor(sym))
             ln->VpiNetType(nt);
+        else if (int32_t nt402 = netKindExtra402(sym))  // § netKindTypeAll402
+            ln->VpiNetType(nt402);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(fullName);
         rt->VpiParent(ln);

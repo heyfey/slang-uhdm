@@ -9078,6 +9078,65 @@ void UhdmExporter::emitImportedPkgVarNets(const InstanceBodySymbol& body,
     }
 }
 
+// § moduleNamedClocking402 — does this body declare a NAMED (neither default
+// nor global) clocking block?
+static bool hasNamedClocking402(const InstanceBodySymbol& body) {
+    for (auto& mb : body.members())
+        if (mb.kind == SymbolKind::ClockingBlock)
+            if (auto* cs = mb.getSyntax();
+                cs && cs->kind == syntax::SyntaxKind::ClockingDeclaration) {
+                auto gd = cs->as<syntax::ClockingDeclarationSyntax>().globalOrDefault.valueText();
+                if (gd != "default" && gd != "global")
+                    return true;
+            }
+    return false;
+}
+
+// § netKindTypeAll402 (R11U402_NETKIND_OFF; cases
+// tools/probe/r11u402repro/cases/NT) — an explicitly declared net of the
+// keywords the shared net-type map leaves unprinted (tri0, tri1, trireg,
+// triand, trior, supply0, supply1, uwire) carries its net kind in both views:
+// Surelog's getVpiNetType maps every one of them (golden vpiTri0 5 ... vpiUwire
+// 13; sv-tests generated/nets/6.6.x and chapter-6/6.9.2).  Read only where
+// the shared map answered nothing, with its explicit-declaration gate.
+int32_t netKindExtra402(const Symbol& sym) {
+    if (sym.kind != SymbolKind::Net || !lawOn(402, "R11U402_NETKIND_OFF"))
+        return 0;
+    auto& ns = sym.as<NetSymbol>();
+    if (ns.isImplicit)
+        return 0;
+    bool explicitDecl = ansiNetHeader(sym) != nullptr;
+    for (auto p = sym.getSyntax(); !explicitDecl && p; p = p->parent)
+        if (p->kind == syntax::SyntaxKind::NetDeclaration)
+            explicitDecl = true;
+    if (!explicitDecl)
+        return 0;
+    if (auto* dt = sym.getDeclaredType()) {
+        if (dt->getType().getCanonicalType().kind == SymbolKind::PredefinedIntegerType)
+            return 0;
+        if (ansiNetHeader(sym) != nullptr)
+            if (auto* ts = dt->getTypeSyntax();
+                ts && (ts->kind == syntax::SyntaxKind::LogicType ||
+                       ts->kind == syntax::SyntaxKind::RegType))
+                return 0;
+    }
+    int32_t k = 0;
+    switch (ns.netType.netKind) {
+        case NetType::TriAnd: k = vpiTriAnd; break;
+        case NetType::TriOr: k = vpiTriOr; break;
+        case NetType::Tri0: k = vpiTri0; break;
+        case NetType::Tri1: k = vpiTri1; break;
+        case NetType::TriReg: k = vpiTriReg; break;
+        case NetType::Supply0: k = vpiSupply0; break;
+        case NetType::Supply1: k = vpiSupply1; break;
+        case NetType::UWire: k = vpiUwire; break;
+        default: break;
+    }
+    if (k)
+        lawTrace(402, "netKindTypeAll402", std::string(sym.name));
+    return k;
+}
+
 UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool topDef) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
@@ -9622,6 +9681,12 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                              ? 0
                              : netTypeFor(*it.sym, true))
             n->VpiNetType(nt);
+        else if (int32_t nt402 = (aliasOfAlias0 || classScopeTypeRef(*it.sym) ||
+                                  vlogUnresolvedLogicNet(*it.sym) ||
+                                  strPortRevertedNet92(it))
+                                     ? 0
+                                     : netKindExtra402(*it.sym))
+            n->VpiNetType(nt402);
         else if (int32_t nt249 = dynNt249()) {
             n->VpiNetType(nt249);
             lawTrace(249, "dynAliasNetType249", std::string(n->VpiFullName()));
@@ -10661,6 +10726,17 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         if (auto* gc = emitScopeClocking(body, mm, prefix, info.nets,
                                          /*global=*/true))
             info.globalClocking = gc;
+        // § moduleNamedClocking402 (R11U402_MODCLOCKING_OFF; cases
+        // tools/probe/r11u402repro/cases/CK) — a NAMED (neither default nor
+        // global) clocking block in a MODULE is listed under vpiClockingBlock
+        // in both views exactly as an interface's is (the interface writer
+        // emitNamedClockingBlocks already sets the module_inst vector); golden
+        // chapter-14/14.3--clocking-block.sv.
+        if (lawOn(402, "R11U402_MODCLOCKING_OFF") &&
+            m->UhdmType() == UHDM::uhdmmodule_inst && hasNamedClocking402(body)) {
+            lawTrace(402, "moduleNamedClocking402", "def " + prefix);
+            emitNamedClockingBlocks(body, m, prefix, info.nets, /*defView=*/true);
+        }
     }
 
     // Def view: for-generates keep a gen_region placeholder (unlocated begin
@@ -17820,8 +17896,23 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         m->VpiParent(d);
         m->VpiTop(true);
         ((UHDM::module_inst*)m)->VpiTopModule(true);
-        if (auto syntax = body.getSyntax())
+        if (auto syntax = body.getSyntax()) {
             setLoc(m, syntax->sourceRange());
+            // § topModSpanSkipsAttrs402 (R11U402_TOPATTRSPAN_OFF; cases
+            // tools/probe/r11u402repro/cases/TA) — the TOP view starts at
+            // the `module` keyword too, as the definition view already does:
+            // an attribute instance written before it (`(* optimize_power *)
+            // module topa();`) is not in the span (golden
+            // chapter-5/5.12-attributes-module.sv, the uhdmtopModules entry).
+            if (syntax->kind == syntax::SyntaxKind::ModuleDeclaration &&
+                !syntax->as<syntax::ModuleDeclarationSyntax>().attributes.empty() &&
+                lawOn(402, "R11U402_TOPATTRSPAN_OFF")) {
+                auto& md402 = syntax->as<syntax::ModuleDeclarationSyntax>();
+                setLoc(m, SourceRange(md402.header->moduleKeyword.location(),
+                                      syntax->sourceRange().end()));
+                lawTrace(402, "topModSpanSkipsAttrs402", prefix);
+            }
+        }
     }
     std::string bindPath = bindDisplayPath;
     bindDisplayPath.clear();
@@ -18972,6 +19063,18 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         // listing.
         if (strNetDropped90(*it.sym, it.port != nullptr, "modelab"))
             continue;
+        // § vifVarNotElaborated402 (R11U402_VIFELAB_OFF; cases
+        // tools/probe/r11u402repro/cases/VI) — a module-body VARIABLE of a
+        // virtual interface type (written `virtual I v;` or through a
+        // typedef) has no elaborated object: Surelog's elaboration keeps only
+        // the definition view's logic_net (ctl_direct, vi01).
+        if (!it.port && it.sym->kind == SymbolKind::Variable &&
+            it.sym->as<ValueSymbol>().getType().getCanonicalType().kind ==
+                SymbolKind::VirtualInterfaceType &&
+            lawOn(402, "R11U402_VIFELAB_OFF")) {
+            lawTrace(402, "vifVarNotElaborated402", prefix + "." + std::string(it.sym->name));
+            continue;
+        }
         std::string name(it.sym->name);
         std::string fullName = prefix + "." + name;
         // Implicit nets carry no typespec (and print a bare wire net type).
@@ -21178,6 +21281,11 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                      ? 0
                                      : netTypeFor(*it.sym))
                     ((UHDM::logic_net*)n)->VpiNetType(nt);
+                else if (int32_t nt402 = (vlogUnresolvedLogicNet(*it.sym) ||
+                                          strPortRevertedNet92(it))
+                                             ? 0
+                                             : netKindExtra402(*it.sym))
+                    ((UHDM::logic_net*)n)->VpiNetType(nt402);
                 // An explicit PREDEFINED-INTEGER net decl (wire integer x)
                 // prints NO vpiSigned in the module listing (Surelog).
                 bool intBody9 =
@@ -26383,6 +26491,16 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     ldecls->push_back(e.second);
                 m->Let_decls(ldecls);
             }
+        }
+        // § moduleNamedClocking402 — the elaborated view's own blocks.
+        if (lawOn(402, "R11U402_MODCLOCKING_OFF") &&
+            m->UhdmType() == UHDM::uhdmmodule_inst && hasNamedClocking402(body)) {
+            lawTrace(402, "moduleNamedClocking402", "elab " + prefix);
+            // The event names the DEFINITION's net, as § clockingEventDefNet139
+            // measured for the default block (the elaborated block is a clone).
+            NetMap cbDef402 = it != defMap.end() ? defView139(topNets, it->second.nets)
+                                                 : topNets;
+            emitNamedClockingBlocks(body, m, prefix, cbDef402, /*defView=*/false);
         }
         // Each view gets its own clocking_block object (not shared).
         if (it != defMap.end() && it->second.defaultClocking) {
@@ -39892,6 +40010,38 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             ts->VpiFile(fullFilePath(end130));
         }
     }
+    // § anonUnpackedStructSlotEnd402 (R11U402_ANONSTRUCTEND_OFF; cases
+    // tools/probe/r11u402repro/cases/US) — § defNetEndOnlyLoc130's packed
+    // slot for an ANONYMOUS UNPACKED struct written in the declaration
+    // (`struct { bit [3:0] lo; bit [3:0] hi; } p1;`): the type node is the
+    // `struct` header, the slot after it the FIRST member, so writeNets'
+    // end-only populate ends the definition typespec at that member's end
+    // (golden 3:1-4:15; the start stays at the keyword, located by the
+    // compile).  An initializer or an unpacked dimension fills the unpacked
+    // slot first and is left to the arms above; ports go another road.
+    if (ts && ts->VpiName().empty() && ts->VpiLineNo() != 0 &&
+        ts->UhdmType() == UHDM::uhdmstruct_typespec && pn.rt->VpiParent() &&
+        pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
+        !hasVarKeywordDecl(*pn.sym) &&
+        lawOn(402, "R11U402_ANONSTRUCTEND_OFF")) {
+        auto* dt402 = pn.sym->getDeclaredType();
+        const syntax::SyntaxNode* tsyn402 = dt402 ? dt402->getTypeSyntax() : nullptr;
+        auto dsyn402 = pn.sym->getSyntax();
+        if (tsyn402 && dsyn402 && dsyn402->kind == syntax::SyntaxKind::Declarator &&
+            dsyn402->as<syntax::DeclaratorSyntax>().dimensions.empty() &&
+            !dsyn402->as<syntax::DeclaratorSyntax>().initializer &&
+            tsyn402->kind == syntax::SyntaxKind::StructType &&
+            dt402->getType().getCanonicalType().kind == SymbolKind::UnpackedStructType) {
+            auto& su402 = tsyn402->as<syntax::StructUnionTypeSyntax>();
+            if (!su402.members.empty()) {
+                uint32_t l402 = 0, c402 = 0;
+                locLineCol(su402.members[0]->sourceRange().end(), l402, c402);
+                ts->VpiEndLineNo(l402);
+                ts->VpiEndColumnNo(c402);
+                lawTrace(402, "anonUnpackedStructSlotEnd402", std::string(pn.sym->name));
+            }
+        }
+    }
     // § netSigningTsSpan130 (r11u130) — the same packed slot for a NET
     // declaration written with a signing keyword.  compileNetDeclaration
     // takes the node after the net-type keyword as the Signal's packed
@@ -42091,12 +42241,43 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
         {"rtran", vpiRtranPrim},     {"rtranif0", vpiRtranif0Prim},
         {"rtranif1", vpiRtranif1Prim}, {"tran", vpiTranPrim},
         {"tranif0", vpiTranif0Prim}, {"tranif1", vpiTranif1Prim}};
+    // § elabMosPullPrims402 (R11U402_GATEPRIM_OFF; cases
+    // tools/probe/r11u402repro/cases/GP) — the MOS switches and the pull
+    // gates reach the ELAB view too: nmos/pmos/cmos and their resistive
+    // forms as switch_tran objects with the GATE terminal rule (term 0 the
+    // output, the rest inputs), pullup/pulldown as gates with their one
+    // output terminal; the definition view writes none of them, as for the
+    // enable gates and the bidirectional switches.
+    static const std::map<std::string, int32_t> elabMos402 = {
+        {"nmos", vpiNmosPrim},   {"pmos", vpiPmosPrim},   {"cmos", vpiCmosPrim},
+        {"rnmos", vpiRnmosPrim}, {"rpmos", vpiRpmosPrim}, {"rcmos", vpiRcmosPrim}};
+    static const std::map<std::string, int32_t> elabPull402 = {
+        {"pullup", vpiPullupPrim}, {"pulldown", vpiPulldownPrim}};
+    const bool gatePrim402 = lawOn(402, "R11U402_GATEPRIM_OFF");
+    // The definition view of an elab-only primitive: Surelog writes nothing
+    // and reports nothing (cases GP/gp01, gp05: the elab-only bufif0 and
+    // tranif1 were already strict-equal but exited 4).
+    auto elabOnly402 = [&](const std::string& pname) {
+        return gatePrim402 && !topView &&
+               (elabGateMap.count(pname) || elabSwitchMap.count(pname) ||
+                elabMos402.count(pname) || elabPull402.count(pname));
+    };
     // Resolve a primitive name to (vpi prim type, is-switch) for this view.
     auto primKind = [&](const std::string& pname,
                         int32_t& primType) -> std::optional<bool> {
         if (auto it = primMap.find(pname); it != primMap.end()) {
             primType = it->second;
             return false;
+        }
+        if (topView && gatePrim402) {
+            if (auto it = elabMos402.find(pname); it != elabMos402.end()) {
+                primType = it->second;
+                return true;
+            }
+            if (auto it = elabPull402.find(pname); it != elabPull402.end()) {
+                primType = it->second;
+                return false;
+            }
         }
         if (topView) {
             if (auto it = elabGateMap.find(pname); it != elabGateMap.end()) {
@@ -42299,7 +42480,16 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
             bool isOut = outLast ? (ci + 1 < conns.size()) : idx == 0;
             // A bidirectional switch drives its first TWO terminals both
             // ways; only the trailing enable is a plain input.
-            if (isSwitch && idx < 2)
+            // § elabMosPullPrims402 — a MOS switch takes the gate rule, and a
+            // bidirectional switch marks every terminal but the LAST inout
+            // (`tran t(a, b)`: a inout, b input — golden GP/gp04, gp09).
+            const bool mos402 = gatePrim402 && isSwitch && elabMos402.count(pname);
+            const bool tran402 = gatePrim402 && isSwitch && !mos402;
+            if (mos402)
+                t->VpiDirection(isOut ? vpiOutput : vpiInput);
+            else if (tran402)
+                t->VpiDirection(ci + 1 < conns.size() ? vpiInout : vpiInput);
+            else if (isSwitch && idx < 2)
                 t->VpiDirection(vpiInout);
             else
                 t->VpiDirection(isOut ? vpiOutput : vpiInput);
@@ -42350,6 +42540,47 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
             // Its span is the whole terminal, not the selector's.
             else if (auto* e = emitExpr(se, g, gateFull, netMap)) {
                 setLoc(e, termLoc);
+                // § gateInBitSelIndexSpan402 (R11U402_GATEBITSEL_OFF; cases
+                // tools/probe/r11u402repro/cases/GP gt0*) — an INPUT
+                // terminal written as a bit select (`in[3]`) spans its INDEX
+                // expression alone in both views (Surelog locates the
+                // terminal's bit_select at the select's expression); an
+                // output terminal and a part select keep the whole terminal.
+                // § gateExprTermByGrammar402v (R11V402_GATETERM_OFF; cases
+                // tools/probe/v11u402repro/cases/VG) — "input" is the
+                // GRAMMAR's: Surelog's NetlistElaboration compiles a
+                // net_lvalue terminal (every output_terminal and both
+                // inout_terminals of a pass switch) with the whole span and
+                // only an `expression` terminal (input, enable, control) at
+                // its index.  Keyed on the connection's own position ci, not
+                // on idx (the definition view of an unnamed gate shifts idx
+                // down by one): buf/not and tranif/rtranif take only the LAST
+                // terminal, tran/rtran and pullup/pulldown none, every other
+                // gate, switch and udp every terminal after the first.
+                bool exprTerm402 = idx > 0;
+                if (fixOn(402, "R11V402_GATETERM_OFF")) {
+                    const bool last402v = ci + 1 == conns.size();
+                    if (pname == "buf" || pname == "not" || pname == "tranif0" ||
+                        pname == "tranif1" || pname == "rtranif0" || pname == "rtranif1")
+                        exprTerm402 = last402v;
+                    else if (pname == "tran" || pname == "rtran" || pname == "pullup" ||
+                             pname == "pulldown")
+                        exprTerm402 = false;
+                    else
+                        exprTerm402 = ci > 0;
+                    if (exprTerm402 != (idx > 0))
+                        lawTrace(402, "gateExprTermByGrammar402v",
+                                 gateFull + (exprTerm402 ? " expr" : " lvalue"));
+                }
+                if (exprTerm402 && se.kind == ExpressionKind::ElementSelect &&
+                    e->UhdmType() == UHDM::uhdmbit_select &&
+                    lawOn(402, "R11U402_GATEBITSEL_OFF")) {
+                    auto sr402 = se.as<ElementSelectExpression>().selector().sourceRange;
+                    if (sr402.start() != SourceLocation::NoLocation) {
+                        setLoc(e, sr402);
+                        lawTrace(402, "gateInBitSelIndexSpan402", gateFull);
+                    }
+                }
                 t->Expr((UHDM::expr*)e);
             }
             terms->push_back(t);
@@ -42537,10 +42768,16 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
                          PrimitiveSymbol::UserDefined;
             auto sw = isUdp ? std::optional<bool>(false)
                             : primKind(pname, primType);
+            if (!sw && elabOnly402(pname)) {
+                lawTrace(402, "elabMosPullPrims402", "defskip " + prefix + "." + pname);
+                continue;
+            }
             if (!sw) {
                 noteUnsupported("gate primitive: " + pname);
                 continue;
             }
+            if (gatePrim402 && (elabMos402.count(pname) || elabPull402.count(pname)))
+                lawTrace(402, "elabMosPullPrims402", prefix + "." + pname);
             // An UNNAMED gate has no identity to build a def-view scope from,
             // so Surelog falls back to the DEF name (work@mux.work@not); the
             // elab view keeps the bare dangling `work@mux.`.
@@ -42721,7 +42958,24 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
             auto& rep = arr.elements[0]->as<PrimitiveInstanceSymbol>();
             std::string pname(rep.primitiveType.name);
             auto pmIt = primMap.find(pname);
-            if (pmIt == primMap.end()) {
+            int32_t arrPrim402 = pmIt != primMap.end() ? pmIt->second : 0;
+            // § elabMosPullPrims402 — an ARRAY of enable gates or pull gates:
+            // no definition-view object, and in the elab view the gate_array
+            // the n-input gates take (case GP/gp10).  Switch arrays
+            // (switch_array) stay unsupported.
+            if (pmIt == primMap.end() && elabOnly402(pname)) {
+                lawTrace(402, "elabMosPullPrims402", "defskip array " + prefix + "." + pname);
+                continue;
+            }
+            if (pmIt == primMap.end() && topView && gatePrim402) {
+                if (auto e402 = elabGateMap.find(pname); e402 != elabGateMap.end())
+                    arrPrim402 = e402->second;
+                else if (auto p402 = elabPull402.find(pname); p402 != elabPull402.end())
+                    arrPrim402 = p402->second;
+                if (arrPrim402)
+                    lawTrace(402, "elabMosPullPrims402", "array " + prefix + "." + pname);
+            }
+            if (!arrPrim402) {
                 noteUnsupported("gate primitive: " + pname);
                 continue;
             }
@@ -42789,7 +43043,7 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
                                                   ? termScope171
                                                   : prefix)
                                            : gfull;
-            auto* g = buildGate(rep, pname, pmIt->second, std::string(arr.name),
+            auto* g = buildGate(rep, pname, arrPrim402, std::string(arr.name),
                                 gfull, refScope, ga, &stmtLoc, true);
             auto* gprims = s.MakePrimitiveVec();
             gprims->push_back(g);
@@ -52363,7 +52617,13 @@ void UhdmExporter::emitNamedClockingBlocks(const InstanceBodySymbol& body,
         // elaborated instance's var (pendingCbRefs), and every OTHER instance's
         // elab ref binds to that same object — § cbEventRefFirstInstance15.
         NetMap emptyNm9;
-        if (auto* cond = emitEventExpr(cbs.getEvent(), ec, cbFull, emptyNm9)) {
+        // § moduleNamedClocking402 — a MODULE's elaborated block binds its
+        // event refs to the instance's own nets (golden CK/ck01-ck04: both
+        // views bound); the interface rule above is untouched.
+        const bool modElab402 = !defView && m->UhdmType() == UHDM::uhdmmodule_inst &&
+                                lawOn(402, "R11U402_MODCLOCKING_OFF");
+        if (auto* cond = emitEventExpr(cbs.getEvent(), ec, cbFull,
+                                       modElab402 ? nm : emptyNm9)) {
             ec->VpiCondition(cond);
             // The event expression is a ref_obj, or an operation
             // (posedge/negedge/`or`) over them — a bare `@(clock)` is the ref
@@ -54630,6 +54890,52 @@ static bool pvFold115(const InstanceSymbol* portView, const Scope* declScope,
     return true;
 }
 
+// § uninstIfaceTdThroughPortSkip402 (R11U402_UNINSTIFTD_OFF) — an interface
+// definition whose body declares a typedef THROUGH one of its interface ports
+// (`interface a_if(types_if types); typedef types.T T;`).  A default
+// (unconnected) instance of it cannot be elaborated: slang resolves the type
+// through the unconnected port and dereferences a null connection.  Read from
+// the syntax alone (asking the body for its ports elaborates it).
+bool ifaceTdThroughPort402(const Compilation& comp, const DefinitionSymbol& d9) {
+    std::set<std::string_view> ifPorts402;
+    const syntax::ModuleDeclarationSyntax* md402 = nullptr;
+    if (auto* ds402 = d9.getSyntax())
+        md402 = ds402->as_if<syntax::ModuleDeclarationSyntax>();
+    if (!md402 || !md402->header || !md402->header->ports || !d9.getParentScope())
+        return false;
+    if (auto* ap402 = md402->header->ports->as_if<syntax::AnsiPortListSyntax>())
+        for (auto* p402 : ap402->ports) {
+            auto* ip402 = p402->as_if<syntax::ImplicitAnsiPortSyntax>();
+            if (!ip402 || !ip402->declarator)
+                continue;
+            bool isIf402 = ip402->header->kind == syntax::SyntaxKind::InterfacePortHeader;
+            if (auto* vh402 = ip402->header->as_if<syntax::VariablePortHeaderSyntax>();
+                vh402 && vh402->dataType &&
+                vh402->dataType->kind == syntax::SyntaxKind::NamedType)
+                if (auto* nm402 = vh402->dataType->as<syntax::NamedTypeSyntax>()
+                                      .name->as_if<syntax::IdentifierNameSyntax>())
+                    if (auto dl402 = comp.tryGetDefinition(nm402->identifier.valueText(),
+                                                           *d9.getParentScope());
+                        dl402.definition && dl402.definition->kind == SymbolKind::Definition &&
+                        dl402.definition->as<DefinitionSymbol>().definitionKind ==
+                            DefinitionKind::Interface)
+                        isIf402 = true;
+            if (isIf402)
+                ifPorts402.insert(ip402->declarator->name.valueText());
+        }
+    if (ifPorts402.empty())
+        return false;
+    for (auto* mem402 : md402->members)
+        if (auto* td402 = mem402->as_if<syntax::TypedefDeclarationSyntax>();
+            td402 && td402->type->kind == syntax::SyntaxKind::NamedType)
+            if (auto* sn402 = td402->type->as<syntax::NamedTypeSyntax>()
+                                  .name->as_if<syntax::ScopedNameSyntax>())
+                if (auto* l402 = sn402->left->as_if<syntax::IdentifierNameSyntax>();
+                    l402 && ifPorts402.count(l402->identifier.valueText()))
+                    return true;
+    return false;
+}
+
 const Scope* UhdmExporter::ifacePortViewFoldScope(const DefinitionSymbol& def,
                                                   const InstanceSymbol* recv) {
     // The plain default instance is both the fallback scope and the source of
@@ -56299,7 +56605,14 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // never binds it to the connected element, so there is nothing to read the
     // instance's values from.
     bool arrElemPortView9 = portView && !inst.arrayPath.empty();
-    if (portView && (arrElemPortView9 ||
+    // § uninstIfaceTdThroughPortSkip402 — an interface typed through its own
+    // interface port has no default scope to fold at (it cannot be built
+    // unconnected): its port view keeps the connected instance's values.
+    const bool tdThrough402 = portView && lawOn(402, "R11U402_UNINSTIFTD_OFF") &&
+                              ifaceTdThroughPort402(comp, def);
+    if (tdThrough402)
+        lawTrace(402, "uninstIfaceTdThroughPortSkip402", "portview " + std::string(def.name));
+    if (portView && !tdThrough402 && (arrElemPortView9 ||
                      (!multiParamIface && !textMultiIface9 && !aggOvPortView &&
                       !ifaceHasGen9 && !namedModportPortView9))) {
         ifaceDefaultScope = ifacePortViewFoldScope(def, portView);

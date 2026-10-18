@@ -1,0 +1,45 @@
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+CONVERSION chapter-11/11.9--tagged_union.sv: SURELOG_ONLY -> EQUAL
+CONVERSION chapter-11/11.9--tagged_union_member_access-sim.sv: SURELOG_ONLY -> EQUAL
+CONVERSION chapter-11/11.9--tagged_union_member_access.sv: SURELOG_ONLY -> EQUAL
+CONVERSION chapter-11/11.9--tagged_union_member_access_inv.sv: SURELOG_ONLY -> EQUAL
+CONVERSION chapter-14/14.3--clocking-block-signals.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-14/14.3--clocking-block.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-5/5.12-attributes-module.sv: STRICT_NOTEQUAL -> EQUAL
+CONVERSION chapter-6/6.9.2--vector_scalared.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-6/6.9.2--vector_vectored.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-7/structures/unpacked/basic.sv: STRICT_NOTEQUAL -> EQUAL
+CONVERSION chapter-7/unions/tagged/basic.sv: DIFFERENT -> EQUAL
+CONVERSION generated/easyUVM/top.sv: SURELOG_ONLY -> DIFFERENT
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p189.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p556.sv: SURELOG_ONLY -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p628.sv: SURELOG_ONLY -> STRICT_NOTEQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p771.sv: BOTH_REJECT -> SLANG_ONLY
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p801.sv: SURELOG_ONLY -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p827.sv: SURELOG_ONLY -> DIFFERENT
+CONVERSION generated/nets/6.6.2--net_uwire.sv: DIFFERENT -> EQUAL
+CONVERSION generated/nets/6.6.3--net_triand.sv: DIFFERENT -> EQUAL
+CONVERSION generated/nets/6.6.3--net_trior.sv: DIFFERENT -> EQUAL
+CONVERSION generated/nets/6.6.4--net_trireg.sv: DIFFERENT -> EQUAL
+CONVERSION generated/nets/6.6.5--net_tri0.sv: DIFFERENT -> EQUAL
+CONVERSION generated/nets/6.6.5--net_tri1.sv: DIFFERENT -> EQUAL
+CONVERSION generated/nets/6.6.6--net_supply0.sv: DIFFERENT -> EQUAL
+CONVERSION generated/nets/6.6.6--net_supply1.sv: DIFFERENT -> EQUAL
+CONVERSION generated/utd-sv/utd-sv_std-7.1.6-primitives.sv: SURELOG_ONLY -> DIFFERENT
+CONVERSION generated/uvm-examples/uvm_id_register.sv: SURELOG_ONLY -> DIFFERENT
+CONVERSION generic/class/class_test_54.sv: SURELOG_ONLY -> EQUAL
+CONVERSION generic/member/class_member_test_15.sv: DIFFERENT -> EQUAL
+CONVERSION generic/member/class_member_test_2.sv: DIFFERENT -> EQUAL
+CONVERSION generic/member/class_member_test_25.sv: DIFFERENT -> EQUAL
+CONVERSION generic/member/class_member_test_3.sv: DIFFERENT -> EQUAL
+CONVERSION generic/member/class_member_test_4.sv: DIFFERENT -> EQUAL
+CONVERSION generic/member/class_member_test_6.sv: DIFFERENT -> EQUAL
+CONVERSION generic/member/class_member_test_7.sv: DIFFERENT -> EQUAL
+CONVERSION generic/member/class_member_test_8.sv: DIFFERENT -> EQUAL
+CONVERSION generic/typedef/typedef_test_10.sv: SURELOG_ONLY -> EQUAL
+CONVERSION generic/typedef/typedef_test_11.sv: SURELOG_ONLY -> EQUAL
+CONVERSION generic/typedef/typedef_test_12.sv: SURELOG_ONLY -> EQUAL
+CHANGE generated/tnoc/tnoc.sv: SLANG_CRASH -> SURELOG_ONLY
+sv-tests: BOTH_REJECT=308 DIFFERENT=687 EQUAL=1187 SLANG_ONLY=14 STRICT_NOTEQUAL=22 SURELOG_CRASH=8 SURELOG_ONLY=119 TIMEOUT=1 (of 2346)
+regressions=0 conversions=40 changes=1

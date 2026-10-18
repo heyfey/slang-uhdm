@@ -22,6 +22,14 @@
 #include <uhdm/UhdmListener.h>
 
 namespace slang_uhdm {
+// § assocTdIndexShapes402 — the widened one-dimension shape (TypeEmit.cpp).
+bool unitDynTdShape402(const slang::ast::TypeAliasType& ta);
+// § unitOobFuncOnDesign402 — TaskFuncEmit.cpp's record and cursor.
+extern std::vector<std::pair<const slang::ast::Symbol*, const slang::ast::Symbol*>> g_unitOobFns402;
+extern const slang::ast::Symbol* g_unitOobEmit402;
+// § uninstIfaceTdThroughPortSkip402 — the interface shape (ModuleEmit.cpp).
+bool ifaceTdThroughPort402(const slang::ast::Compilation& comp,
+                           const slang::ast::DefinitionSymbol& d9);
 
 // The r11u183 switches (tools/probe/r11u183dec/README.md): every r11u183 law
 // reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
@@ -8685,7 +8693,22 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         // BEFORE vpiVariables, so a missing one first-fails the class).  It
         // carries name/fullname/span only — no vpiAutomatic even on a
         // non-static property, and no visibility field exists on the object.
-        if (ct.kind == SymbolKind::EventType) {
+        // § classEventArrElem402 (R11U402_CLSEVENTARR_OFF; cases
+        // tools/probe/r11u402repro/cases/CE) — a FIXED-SIZE array of events
+        // (`event revolution[4:0];`) is listed exactly as a scalar event
+        // property: one named_event at the name, the dimensions dropped
+        // (golden CE/ce01; ours exited 4 on `class array property element`).
+        bool evArr402 = false;
+        if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType &&
+            lawOn(402, "R11U402_CLSEVENTARR_OFF")) {
+            const Type* e402 = &ct;
+            while (e402->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
+                e402 = &e402->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
+            evArr402 = e402->getCanonicalType().kind == SymbolKind::EventType;
+            if (evArr402)
+                lawTrace(402, "classEventArrElem402", pfn);
+        }
+        if (ct.kind == SymbolKind::EventType || evArr402) {
             auto* ne = s.MakeNamed_event();
             ne->VpiName(cp.name);
             ne->VpiFullName(pfn);
@@ -9422,6 +9445,16 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         if (!v && ct.kind == SymbolKind::VirtualInterfaceType) {
             v = s.MakeLogic_var();
             vifProp6 = true;
+        }
+        // § classCovergroupPropSilent402 (R11U402_CLSCGPROP_OFF; cases
+        // tools/probe/r11u402repro/cases/CG) — the implicit property slang
+        // declares for an EMBEDDED covergroup (`covergroup cov1 ...` inside a
+        // class) has no variable in golden: the class listing already agreed
+        // (CG/cg01 strict-equal) and only the exit code was wrong.
+        if (!v && ct.kind == SymbolKind::CovergroupType &&
+            lawOn(402, "R11U402_CLSCGPROP_OFF")) {
+            lawTrace(402, "classCovergroupPropSilent402", std::string(cp.name));
+            continue;
         }
         if (!v) {
             noteUnsupportedAt("class property type: " +
@@ -13220,6 +13253,114 @@ bool UhdmExporter::srcOrderLess(SourceLocation a, SourceLocation b) const {
 //   * The 31 golden databases in the two corpora that carry such a listing at
 //     all are these three row-modes plus 28 SLANG_REJECT/NO_DATABASE rows.
 // ===========================================================================
+// § unitImpTdParamTsClone402 (R11U402_IMPTSCLONE_OFF; cases
+// tools/probe/r11u402repro/cases/IT) — Surelog's importPackage `clone_tree`s
+// every design copy of a `$unit`-imported package parameter (the vpiParameter
+// entry, the param_assign Lhs and its folded Rhs constant), and a deep clone of
+// a reference to a TYPEDEF'd typespec copies the whole alias chain: the copy's
+// reference reaches a fresh typespec of the same kind, named bare, parented at
+// that reference, Instanced as the source; its Typedef_alias reference is named
+// `<reference name>.<alias target's bare name>` (the bare name alone when the
+// reference has an empty name, as a folded Rhs constant's has) and reaches a
+// bare-named copy of the alias target the same way.  Measured on the sv-tests
+// UVM rows (1800.2-2017 `parameter uvm_field_flag_t UVM_PACK`): golden
+// `UVM_PACK -> uvm_field_flag_t -> UVM_PACK.uvm_field_flag_t ->
+// uvm_field_flag_t`, ours shared the package's own chain.  A reference whose
+// typespec carries no Typedef_alias keeps sharing (identity is canonicalised).
+static UHDM::typespec* impTsCopy402(UHDM::Serializer& s, const UHDM::typespec* at) {
+    UHDM::typespec* cp = nullptr;
+    switch (at->UhdmType()) {
+        case UHDM::uhdmbit_typespec: {
+            auto* c = s.MakeBit_typespec();
+            c->Ranges(((const UHDM::bit_typespec*)at)->Ranges());
+            c->VpiSigned(((const UHDM::bit_typespec*)at)->VpiSigned());
+            cp = c;
+            break;
+        }
+        case UHDM::uhdmlogic_typespec: {
+            auto* src = (const UHDM::logic_typespec*)at;
+            if (src->Elem_typespec())
+                return nullptr;
+            auto* c = s.MakeLogic_typespec();
+            c->Ranges(src->Ranges());
+            c->VpiSigned(src->VpiSigned());
+            cp = c;
+            break;
+        }
+        case UHDM::uhdmint_typespec: {
+            auto* c = s.MakeInt_typespec();
+            c->VpiSigned(((const UHDM::int_typespec*)at)->VpiSigned());
+            c->Ranges(((const UHDM::int_typespec*)at)->Ranges());
+            cp = c;
+            break;
+        }
+        case UHDM::uhdminteger_typespec: {
+            auto* c = s.MakeInteger_typespec();
+            c->VpiSigned(((const UHDM::integer_typespec*)at)->VpiSigned());
+            cp = c;
+            break;
+        }
+        default:
+            return nullptr;
+    }
+    std::string qn(at->VpiName());
+    if (auto k = qn.rfind("::"); k != std::string::npos)
+        qn = qn.substr(k + 2);
+    cp->VpiName(qn);
+    cp->Instance(((UHDM::typespec*)at)->Instance());
+    cp->VpiFile(std::string(at->VpiFile()));
+    cp->VpiLineNo(at->VpiLineNo());
+    cp->VpiColumnNo(at->VpiColumnNo());
+    cp->VpiEndLineNo(at->VpiEndLineNo());
+    cp->VpiEndColumnNo(at->VpiEndColumnNo());
+    return cp;
+}
+// Returns the copied chain under a fresh reference named `refName` (parented
+// at `owner`), or null when the source does not qualify (the caller shares).
+static UHDM::ref_typespec* impTsChain402(UHDM::Serializer& s,
+                                         const UHDM::ref_typespec* src,
+                                         UHDM::BaseClass* owner,
+                                         const std::string& refName,
+                                         int depth = 0) {
+    if (!src || !src->Actual_typespec() || depth > 4)
+        return nullptr;
+    const UHDM::typespec* at = src->Actual_typespec();
+    if (depth == 0 && (!at->Typedef_alias() || !lawOn(402, "R11U402_IMPTSCLONE_OFF")))
+        return nullptr;
+    auto* cp = impTsCopy402(s, at);
+    if (!cp)
+        return nullptr;
+    auto* rt = s.MakeRef_typespec();
+    rt->VpiFullName(refName);
+    rt->VpiParent(owner);
+    rt->Actual_typespec(cp);
+    cp->VpiParent(rt);
+    if (auto* al = at->Typedef_alias(); al && al->Actual_typespec()) {
+        std::string bn(al->Actual_typespec()->VpiName());
+        if (auto k = bn.rfind("::"); k != std::string::npos)
+            bn = bn.substr(k + 2);
+        // § impTsAliasRefOwnName402v (R11V402_IMPTSOWNNAME_OFF; cases
+        // tools/probe/v11u402repro/cases/VI2) — the alias reference takes
+        // the COPY's own bare name, not its target's: golden
+        // `parameter c_t R` with `typedef b_t c_t` names the chain
+        // R -> c_t -> R.c_t -> b_t -> R.c_t.b_t (and c_t, c_t.b_t under the
+        // folded Rhs constant's empty-named reference); the two coincide
+        // for a typedef of a plain vector (UVM_PACK.uvm_field_flag_t).
+        if (fixOn(402, "R11V402_IMPTSOWNNAME_OFF") && bn != cp->VpiName()) {
+            bn = std::string(cp->VpiName());
+            lawTrace(402, "impTsAliasRefOwnName402v", refName + " " + bn);
+        }
+        auto* rt2 = impTsChain402(s, al, cp, refName.empty() ? bn : refName + "." + bn,
+                                  depth + 1);
+        if (!rt2)
+            return nullptr;
+        cp->Typedef_alias(rt2);
+    }
+    if (depth == 0)
+        lawTrace(402, "unitImpTdParamTsClone402", refName);
+    return rt;
+}
+
 static UHDM::parameter* designImportParamCopy146(UHDM::Serializer& s,
                                                  UHDM::any* src,
                                                  UHDM::BaseClass* parent,
@@ -13702,6 +13843,22 @@ UHDM::design* UhdmExporter::exportDesign() {
             continue;
         if (defs.count(std::string(d9.name)))
             continue;
+        // § uninstIfaceTdThroughPortSkip402 (R11U402_UNINSTIFTD_OFF; case
+        // tools/probe/r11u402repro/cases/TN, sv-tests generated/tnoc) — an
+        // uninstantiated interface whose body declares a typedef THROUGH one
+        // of its interface ports (`interface a_if(types_if types); typedef
+        // types.T T; ...`) is not built from a default parameterization:
+        // elaborating that body resolves the type through the unconnected
+        // port and slang dereferences a null connection (exit 139 on tnoc's
+        // tnoc_address_decoder_if, the one shape of the 2346 sv-tests).  The
+        // definition is left out of the listing (a residue: golden lists it).
+        if (lawOn(402, "R11U402_UNINSTIFTD_OFF")) {
+            bool tdThrough402 = ifaceTdThroughPort402(comp, d9);
+            if (tdThrough402) {
+                lawTrace(402, "uninstIfaceTdThroughPortSkip402", std::string(d9.name));
+                continue;
+            }
+        }
         auto& di9 = InstanceSymbol::createDefault(comp, d9);
         defs.emplace(std::string(d9.name), &di9);
     }
@@ -16049,7 +16206,9 @@ UHDM::design* UhdmExporter::exportDesign() {
                           ct.kind == SymbolKind::QueueType ||
                           ct.kind == SymbolKind::AssociativeArrayType) &&
                          ta.targetType.getType().kind != SymbolKind::TypeAlias &&
-                         unitDynTdShape249(ta) &&
+                         (unitDynTdShape249(ta) ||
+                          (unitDynTdShape402(ta) &&
+                           lawOn(402, "R11U402_ASSOCTD_OFF"))) &&
                          lawOn(249, "R11U249_UNITDYNTD_OFF")) {
                     bool savedTf = tfContext, savedTd = typedefTsContext;
                     bool savedBy = bypassTypedefShare, savedUf = unfoldedTypedefDims;
@@ -16222,6 +16381,28 @@ UHDM::design* UhdmExporter::exportDesign() {
                         }
                     }
                     ts = cts;
+                }
+                // § virtIfaceTd402 (R11U402_VIFTD_OFF; cases
+                // tools/probe/r11u402repro/cases/VI) — a $unit typedef of a
+                // VIRTUAL INTERFACE (`typedef virtual SyncBus VI;`) had no
+                // branch (`typedef target: VirtualInterfaceType`, exit 4).
+                // Golden lists one interface_typespec named like the typedef,
+                // spanning the interface name (through the modport when one
+                // is written), parented and Instanced at the design: the
+                // virtual-interface typespec builder's own object.
+                else if (ct.kind == SymbolKind::VirtualInterfaceType && typeSyn &&
+                         typeSyn->kind == syntax::SyntaxKind::VirtualInterfaceType &&
+                         lawOn(402, "R11U402_VIFTD_OFF")) {
+                    bool savedBy402 = bypassTypedefShare;
+                    bypassTypedefShare = true;
+                    ts = makeTypespec(ta, typeSyn);
+                    bypassTypedefShare = savedBy402;
+                    if (!ts || ts->UhdmType() != UHDM::uhdminterface_typespec) {
+                        noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
+                        continue;
+                    }
+                    ts->VpiParent(d);
+                    lawTrace(402, "virtIfaceTd402", std::string(ta.name));
                 }
                 else {
                     noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
@@ -16763,6 +16944,59 @@ UHDM::design* UhdmExporter::exportDesign() {
         if (!classes->empty())
             d->AllClasses(classes);
     }
+    // § unitOobFuncOnDesign402 (R11U402_UNITOOBFN_OFF; cases
+    // tools/probe/r11u402repro/cases/UO) — a $unit class's out-of-body
+    // FUNCTION definition is listed on the DESIGN's vpiTaskFunc, named
+    // `cls::f`, vpiMethod 1, with its body (Surelog compiles it in the
+    // compilation unit; golden UO/uo01, uo04, sv-tests
+    // generic/member/class_member_test_15.sv), after the unit's own
+    // subroutines and in definition order.  Tasks and constructors are
+    // listed nowhere (§ unitOobDefsNotInClass402).
+    if (!g_unitOobFns402.empty() && lawOn(402, "R11U402_UNITOOBFN_OFF")) {
+        std::vector<std::pair<const slang::ast::Symbol*, const slang::ast::Symbol*>> fns402;
+        {
+            std::set<const slang::ast::Symbol*> seen402;
+            for (auto& e402 : g_unitOobFns402)
+                if (seen402.insert(e402.second).second)
+                    fns402.push_back(e402);
+        }
+        std::stable_sort(fns402.begin(), fns402.end(), [](auto& a, auto& b) {
+            return a.second->location < b.second->location;
+        });
+        for (auto& [cls402, fn402] : fns402) {
+            auto* prev402 = d->Task_funcs();
+            d->Task_funcs(nullptr);
+            g_unitOobEmit402 = fn402;
+            emitTaskFuncs(cls402->as<Scope>(), d, "", nullptr, false);
+            g_unitOobEmit402 = nullptr;
+            if (auto* add402 = d->Task_funcs()) {
+                if (prev402) {
+                    // in SOURCE order among the unit's own subroutines
+                    // (golden UO/uo06: `c::f` at line 6 between free1 and
+                    // free2): before the first entry of the same file that
+                    // starts later.
+                    for (auto* t402 : *add402) {
+                        auto at402 = prev402->end();
+                        for (auto it402 = prev402->begin(); it402 != prev402->end(); ++it402)
+                            if ((*it402)->VpiFile() == t402->VpiFile() &&
+                                ((*it402)->VpiLineNo() > t402->VpiLineNo() ||
+                                 ((*it402)->VpiLineNo() == t402->VpiLineNo() &&
+                                  (*it402)->VpiColumnNo() > t402->VpiColumnNo()))) {
+                                at402 = it402;
+                                break;
+                            }
+                        prev402->insert(at402, t402);
+                    }
+                    d->Task_funcs(prev402);
+                }
+            }
+            else
+                d->Task_funcs(prev402);
+            lawTrace(402, "unitOobFuncOnDesign402",
+                     std::string(cls402->name) + "::" + std::string(fn402->name));
+        }
+    }
+    g_unitOobFns402.clear();
 
 
     for (auto inst : orderedTops) {
@@ -17557,6 +17791,14 @@ UHDM::design* UhdmExporter::exportDesign() {
                                      std::string(cp->VpiName())});
             if (it == srcTs214.end() || it->second->Typespec() != cp->Typespec())
                 return;
+            // § unitImpTdParamTsClone402 — a typedef'd parameter type takes
+            // its own copied alias chain under the private reference.
+            if (auto* rt402 = impTsChain402(s, cp->Typespec(), cp, std::string(cp->VpiName()))) {
+                rt402->VpiFullName("");
+                cp->Typespec(rt402);
+                trace214("UNITCOPYTS", std::string(cp->VpiName()));
+                return;
+            }
             auto* rt = s.MakeRef_typespec();
             rt->VpiParent(cp);
             rt->Actual_typespec((UHDM::typespec*)cp->Typespec()->Actual_typespec());
@@ -17724,6 +17966,12 @@ UHDM::design* UhdmExporter::exportDesign() {
                         unitTd245.insert(ts);
                     break;
                 }
+                // § virtIfaceTd402 — the virtual-interface listing takes the
+                // same def-net copy (case VI/vi01).
+                case UHDM::uhdminterface_typespec:
+                    if (lawOn(402, "R11U402_VIFTD_OFF"))
+                        unitTd245.insert(ts);
+                    break;
                 default:
                     break;
             }
@@ -17773,6 +18021,9 @@ UHDM::design* UhdmExporter::exportDesign() {
                         break;
                     case UHDM::uhdmtime_typespec:
                         cp = s.MakeTime_typespec();
+                        break;
+                    case UHDM::uhdminterface_typespec:  // § virtIfaceTd402
+                        cp = s.MakeInterface_typespec();
                         break;
                     case UHDM::uhdmarray_typespec: {
                         // Shares the listing's ranges and element reference
@@ -21211,6 +21462,14 @@ UHDM::design* UhdmExporter::exportDesign() {
                     rt->Actual_typespec(const_cast<UHDM::typespec*>(fa));
                 }
             }
+        // § unitImpTdParamTsClone402 — the design copy's Rhs constant takes
+        // the copied alias chain too (its reference keeps no name, so the
+        // alias reference is named by the alias target alone).
+        for (auto& [rt, sc] : g_unitRhsAct243v)
+            if (auto* c402 = rt->VpiParent();
+                c402 && c402->UhdmType() == UHDM::uhdmconstant)
+                if (auto* n402 = impTsChain402(s, sc->Typespec(), c402, ""))
+                    ((UHDM::constant*)c402)->Typespec(n402);
         g_unitRhsAct243v.clear();
         // The guard both r11u241 clone drains share: an object an importer
         // copy holds is changed only when every ref_typespec binding it sits

@@ -749,7 +749,7 @@ r10uvm148repro/g148_a_prod,EQUAL,,equal
 r10uvm148repro/g148_b_scope,EQUAL,,equal
 r10uvm148repro/g148_d_kind,EQUAL,,equal
 r10uvm148repro/g148_e_early,EQUAL,,equal
-r10uvm149repro/g149/homes,STRICT_NOTEQUAL,differ:endline(1),differ:endline(1)
+r10uvm149repro/g149/homes,EQUAL,,equal
 r10uvm149repro/g149/neg,EQUAL,,equal
 r10uvm149repro/g149/shapes,EQUAL,,equal
 r10uvm14repro/t,EQUAL,,equal

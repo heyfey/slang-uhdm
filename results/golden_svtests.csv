@@ -83,10 +83,10 @@ chapter-11/11.7--signed_func-sim.sv,EQUAL,,equal
 chapter-11/11.7--signed_func.sv,EQUAL,,equal
 chapter-11/11.7--unsigned_func-sim.sv,EQUAL,,equal
 chapter-11/11.7--unsigned_func.sv,EQUAL,,equal
-chapter-11/11.9--tagged_union.sv,SURELOG_ONLY,typedef target: UnpackedUnionType,
-chapter-11/11.9--tagged_union_member_access-sim.sv,SURELOG_ONLY,typedef target: UnpackedUnionType,
-chapter-11/11.9--tagged_union_member_access.sv,SURELOG_ONLY,typedef target: UnpackedUnionType,
-chapter-11/11.9--tagged_union_member_access_inv.sv,SURELOG_ONLY,typedef target: UnpackedUnionType,
+chapter-11/11.9--tagged_union.sv,EQUAL,,equal
+chapter-11/11.9--tagged_union_member_access-sim.sv,EQUAL,,equal
+chapter-11/11.9--tagged_union_member_access.sv,EQUAL,,equal
+chapter-11/11.9--tagged_union_member_access_inv.sv,EQUAL,,equal
 chapter-11/simple/11.4.11--simple_cond_op-sim.sv,EQUAL,,equal
 chapter-11/simple/11.4.12--simple_concat_op-sim.sv,EQUAL,,equal
 chapter-11/simple/11.4.12.1--simple_repl_op-sim.sv,EQUAL,,equal
@@ -108,11 +108,11 @@ chapter-12/12.5.1--casex.sv,EQUAL,,equal
 chapter-12/12.5.1--casez.sv,EQUAL,,equal
 chapter-12/12.5.2--case_const.sv,EQUAL,,equal
 chapter-12/12.5.4--case_set.sv,EQUAL,,equal
-chapter-12/12.6.1--case_pattern.sv,SURELOG_ONLY,typedef target: UnpackedUnionType,
-chapter-12/12.6.1--casex_pattern.sv,SURELOG_ONLY,typedef target: UnpackedUnionType,
-chapter-12/12.6.1--casez_pattern.sv,SURELOG_ONLY,typedef target: UnpackedUnionType,
-chapter-12/12.6.2--if_pattern.sv,SURELOG_ONLY,typedef target: UnpackedUnionType,
-chapter-12/12.6.3--conditional_pattern.sv,SURELOG_ONLY,typedef target: UnpackedUnionType,
+chapter-12/12.6.1--case_pattern.sv,SURELOG_ONLY,statement kind: PatternCase,
+chapter-12/12.6.1--casex_pattern.sv,SURELOG_ONLY,statement kind: PatternCase,
+chapter-12/12.6.1--casez_pattern.sv,SURELOG_ONLY,statement kind: PatternCase,
+chapter-12/12.6.2--if_pattern.sv,SURELOG_ONLY,complex if condition,
+chapter-12/12.6.3--conditional_pattern.sv,SURELOG_ONLY,complex conditional,
 chapter-12/12.7.1--for.sv,EQUAL,,equal
 chapter-12/12.7.2--repeat.sv,EQUAL,,equal
 chapter-12/12.7.3--foreach-synth.sv,EQUAL,,equal
@@ -140,8 +140,8 @@ chapter-13/13.4.3--const-function.sv,EQUAL,,equal
 chapter-13/13.4.4--fork-invalid.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-13/13.4.4--fork-invalid.sv:24:9: error: statements that pass time are not allowed in this context,
 chapter-13/13.4.4--fork-valid.sv,EQUAL,,equal
 chapter-14/14.3--clocking-block-signals-error.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-14/14.3--clocking-block-signals-error.sv:28:9: error: cannot assign to a net within a procedural context,
-chapter-14/14.3--clocking-block-signals.sv,DIFFERENT,decompile:,
-chapter-14/14.3--clocking-block.sv,DIFFERENT,decompile:,
+chapter-14/14.3--clocking-block-signals.sv,EQUAL,,equal
+chapter-14/14.3--clocking-block.sv,EQUAL,,equal
 chapter-14/14.3--default-clocking-block.sv,EQUAL,,equal
 chapter-14/14.3--global-clocking-block.sv,EQUAL,,equal
 chapter-15/15.4--mailbox-blocking.sv,DIFFERENT,decompile:,
@@ -502,7 +502,7 @@ chapter-5/5.11-arrays-replication.sv,DIFFERENT,decompile:,
 chapter-5/5.11-arrays.sv,DIFFERENT,decompile:,
 chapter-5/5.12-attributes-case.sv,EQUAL,,equal
 chapter-5/5.12-attributes-conditional.sv,DIFFERENT,decompile:,
-chapter-5/5.12-attributes-module.sv,STRICT_NOTEQUAL,differ:line(3),differ:line(3)
+chapter-5/5.12-attributes-module.sv,EQUAL,,equal
 chapter-5/5.12-attributes-operator.sv,DIFFERENT,decompile:,
 chapter-5/5.12-attributes-variable.sv,EQUAL,,equal
 chapter-5/5.13-builtin-methods-strings.sv,EQUAL,,equal
@@ -624,8 +624,8 @@ chapter-6/6.6.7--nettype.sv,DIFFERENT,decompile:,
 chapter-6/6.6.7--nettype_resolution_fn.sv,DIFFERENT,decompile:,
 chapter-6/6.6.8--interconnect.sv,DIFFERENT,decompile:,
 chapter-6/6.9.1--logic_vector.sv,EQUAL,,equal
-chapter-6/6.9.2--vector_scalared.sv,DIFFERENT,decompile:,
-chapter-6/6.9.2--vector_vectored.sv,DIFFERENT,decompile:,
+chapter-6/6.9.2--vector_scalared.sv,EQUAL,,equal
+chapter-6/6.9.2--vector_vectored.sv,EQUAL,,equal
 chapter-6/6.9.2--vector_vectored_inv.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.9.2--vector_vectored_inv.sv:17:15: error: expected a declaration name,
 chapter-7/arrays/associative/alloc.sv,STRICT_NOTEQUAL,differ:col(1),differ:col(1)
 chapter-7/arrays/associative/arguments.sv,EQUAL,,equal
@@ -724,10 +724,10 @@ chapter-7/structures/packed/basic.sv,EQUAL,,equal
 chapter-7/structures/packed/default-value.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-7/structures/packed/default-value.sv:26:22: error: packed members can not have initializers,
 chapter-7/structures/packed/signed.sv,EQUAL,,equal
 chapter-7/structures/packed/unsigned.sv,EQUAL,,equal
-chapter-7/structures/unpacked/basic.sv,STRICT_NOTEQUAL,differ:endline(1),differ:endline(1)
+chapter-7/structures/unpacked/basic.sv,EQUAL,,equal
 chapter-7/structures/unpacked/default-value.sv,DIFFERENT,decompile:,
 chapter-7/unions/packed/basic.sv,EQUAL,,equal
-chapter-7/unions/tagged/basic.sv,DIFFERENT,decompile:,
+chapter-7/unions/tagged/basic.sv,EQUAL,,equal
 chapter-7/unions/tagged/packed.sv,EQUAL,,equal
 chapter-7/unions/unpacked/basic.sv,EQUAL,,equal
 chapter-8/8.10--static_methods.sv,EQUAL,,equal
@@ -1285,7 +1285,7 @@ generated/black-parrot/bp_multicore_1_cce_ucode.sv,SURELOG_CRASH,,
 generated/black-parrot/bp_multicore_4.sv,SURELOG_CRASH,,
 generated/black-parrot/bp_multicore_4_cce_ucode_cfg.sv,SURELOG_CRASH,,
 generated/black-parrot/bp_unicore.sv,SURELOG_CRASH,,
-generated/easyUVM/top.sv,SURELOG_ONLY,typedef target: VirtualInterfaceType,
+generated/easyUVM/top.sv,DIFFERENT,decompile:,
 generated/encapsulation/8.18--inherited_local_from_inside.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/encapsulation/8.18--inherited_local_from_inside.sv:19:18: error: 'a_loc' is a local member of 'a_cls',
 generated/encapsulation/8.18--inherited_local_from_outside.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/encapsulation/8.18--inherited_local_from_outside.sv:25:20: error: 'a_loc' is a local member of 'a_cls',
 generated/encapsulation/8.18--inherited_prot_from_inside.sv,EQUAL,,equal
@@ -1385,7 +1385,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p185_2.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p186.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p188.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p188_2.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p189.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p189.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p190.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p190_2.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p190_2.sv:6:22: error: method argument 'x' is of type 'C::T' (aka 'real') w,
 generated/hdlconv_std2017/hdlconvertor_std2017_p193.sv,EQUAL,,equal
@@ -1450,7 +1450,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p530.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p531.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p537.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p541.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p556.sv,SURELOG_ONLY,class property type: CovergroupType,
+generated/hdlconv_std2017/hdlconvertor_std2017_p556.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p577.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p597.sv,STRICT_NOTEQUAL,differ:line(4),differ:line(4)
 generated/hdlconv_std2017/hdlconvertor_std2017_p599.sv,DIFFERENT,decompile:,
@@ -1459,7 +1459,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p608.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p612.sv,SURELOG_CRASH,,
 generated/hdlconv_std2017/hdlconvertor_std2017_p623.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p627.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p628.sv,SURELOG_ONLY,gate primitive: pulldown,
+generated/hdlconv_std2017/hdlconvertor_std2017_p628.sv,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
 generated/hdlconv_std2017/hdlconvertor_std2017_p629.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p633.sv,SLANG_ONLY,[  ERROR] : 1,
 generated/hdlconv_std2017/hdlconvertor_std2017_p703.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p703.sv:5:2: error: top-level module 'mymod' has unconnected 'ref' port 'Y',
@@ -1487,7 +1487,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p762.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p766.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p770.sv,DIFFERENT,decompile:,
-generated/hdlconv_std2017/hdlconvertor_std2017_p771.sv,BOTH_REJECT,typedef target: VirtualInterfaceType,
+generated/hdlconv_std2017/hdlconvertor_std2017_p771.sv,SLANG_ONLY,[  ERROR] : 6,
 generated/hdlconv_std2017/hdlconvertor_std2017_p774.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p774.sv:18:12: error: no implicit conversion from 'logic signed[31:0]' to ',
 generated/hdlconv_std2017/hdlconvertor_std2017_p776.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p779.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p779.sv:14:9: error: duplicate definition of 'p' [-Wduplicate-definition],
@@ -1496,8 +1496,8 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p781.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p783.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p783.sv:34:5: error: redefinition of 'x' [-Wredefinition],
 generated/hdlconv_std2017/hdlconvertor_std2017_p790.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p791.sv,DIFFERENT,decompile:,
-generated/hdlconv_std2017/hdlconvertor_std2017_p801.sv,SURELOG_ONLY,gate primitive: bufif0,
-generated/hdlconv_std2017/hdlconvertor_std2017_p827.sv,SURELOG_ONLY,gate primitive: nmos,
+generated/hdlconv_std2017/hdlconvertor_std2017_p801.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p827.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p835.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p844.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p845.sv,EQUAL,,equal
@@ -1798,16 +1798,16 @@ generated/logical_operators_sim/11.4.7--logical_operator_6.sv,EQUAL,,equal
 generated/logical_operators_sim/11.4.7--logical_operator_7.sv,EQUAL,,equal
 generated/nets/6.6.1--net_tri.sv,EQUAL,,equal
 generated/nets/6.6.1--net_wire.sv,EQUAL,,equal
-generated/nets/6.6.2--net_uwire.sv,DIFFERENT,decompile:,
-generated/nets/6.6.3--net_triand.sv,DIFFERENT,decompile:,
-generated/nets/6.6.3--net_trior.sv,DIFFERENT,decompile:,
+generated/nets/6.6.2--net_uwire.sv,EQUAL,,equal
+generated/nets/6.6.3--net_triand.sv,EQUAL,,equal
+generated/nets/6.6.3--net_trior.sv,EQUAL,,equal
 generated/nets/6.6.3--net_wand.sv,EQUAL,,equal
 generated/nets/6.6.3--net_wor.sv,EQUAL,,equal
-generated/nets/6.6.4--net_trireg.sv,DIFFERENT,decompile:,
-generated/nets/6.6.5--net_tri0.sv,DIFFERENT,decompile:,
-generated/nets/6.6.5--net_tri1.sv,DIFFERENT,decompile:,
-generated/nets/6.6.6--net_supply0.sv,DIFFERENT,decompile:,
-generated/nets/6.6.6--net_supply1.sv,DIFFERENT,decompile:,
+generated/nets/6.6.4--net_trireg.sv,EQUAL,,equal
+generated/nets/6.6.5--net_tri0.sv,EQUAL,,equal
+generated/nets/6.6.5--net_tri1.sv,EQUAL,,equal
+generated/nets/6.6.6--net_supply0.sv,EQUAL,,equal
+generated/nets/6.6.6--net_supply1.sv,EQUAL,,equal
 generated/operators_sim/11.4.10--log_shl_operator_sim_0.sv,EQUAL,,equal
 generated/operators_sim/11.4.10--log_shl_operator_sim_1.sv,EQUAL,,equal
 generated/operators_sim/11.4.10--log_shr_operator_sim_0.sv,EQUAL,,equal
@@ -1894,7 +1894,7 @@ generated/simple_logical_operators_sim/11.4.7--simple_and_logical_operator.sv,EQ
 generated/simple_logical_operators_sim/11.4.7--simple_equiv_logical_operator.sv,SURELOG_ONLY,binary op: LogicalEquivalence,
 generated/simple_logical_operators_sim/11.4.7--simple_impl_logical_operator.sv,EQUAL,,equal
 generated/simple_logical_operators_sim/11.4.7--simple_or_logical_operator.sv,EQUAL,,equal
-generated/tnoc/tnoc.sv,SLANG_CRASH,,
+generated/tnoc/tnoc.sv,SURELOG_ONLY,expression kind: Invalid,
 generated/trig_functions/20.8--acos.sv,EQUAL,,equal
 generated/trig_functions/20.8--acosh.sv,EQUAL,,equal
 generated/trig_functions/20.8--asin.sv,EQUAL,,equal
@@ -2058,7 +2058,7 @@ generated/utd-sv/utd-sv_spu_lsurpt.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_spu_ma_mon.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_std-6.1.2-contassign.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_std-6.1.2-contassign2.sv,EQUAL,,equal
-generated/utd-sv/utd-sv_std-7.1.6-primitives.sv,SURELOG_ONLY,gate primitive: bufif0,
+generated/utd-sv/utd-sv_std-7.1.6-primitives.sv,DIFFERENT,decompile:,
 generated/utd-sv/utd-sv_terminator.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_test_stub_scan.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_tlu_addern_32.sv,EQUAL,,equal
@@ -2075,7 +2075,7 @@ generated/uvm-examples/uvm_ef_vif_config_db.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_generation_seq_persistence.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_generation_seq_poly.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_generation_seq_randomization.sv,DIFFERENT,decompile:,
-generated/uvm-examples/uvm_id_register.sv,SURELOG_ONLY,class property type: CovergroupType,
+generated/uvm-examples/uvm_id_register.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_interrupts_parallel_processing.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_parallel_processing/parallel_processing/dsp_con_driver_bfm.sv:47:15: error: use of,
 generated/uvm-examples/uvm_interrupts_prioritized.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_prioritized/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are requi,
 generated/uvm-examples/uvm_interrupts_simple.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_simple/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are required w,
@@ -2169,7 +2169,7 @@ generic/class/class_test_49.sv,DIFFERENT,decompile:,
 generic/class/class_test_51.sv,DIFFERENT,decompile:,
 generic/class/class_test_52.sv,EQUAL,,equal
 generic/class/class_test_53.sv,DIFFERENT,decompile:,
-generic/class/class_test_54.sv,SURELOG_ONLY,class array property element,
+generic/class/class_test_54.sv,EQUAL,,equal
 generic/class/class_test_55.sv,DIFFERENT,decompile:,
 generic/class/class_test_56.sv,DIFFERENT,decompile:,
 generic/class/class_test_57.sv,DIFFERENT,decompile:,
@@ -2220,24 +2220,24 @@ generic/member/class_member_test_10.sv,EQUAL,,equal
 generic/member/class_member_test_11.sv,EQUAL,,equal
 generic/member/class_member_test_12.sv,DIFFERENT,decompile:,
 generic/member/class_member_test_14.sv,EQUAL,,equal
-generic/member/class_member_test_15.sv,DIFFERENT,decompile:,
+generic/member/class_member_test_15.sv,EQUAL,,equal
 generic/member/class_member_test_18.sv,DIFFERENT,decompile:,
 generic/member/class_member_test_19.sv,DIFFERENT,decompile:,
-generic/member/class_member_test_2.sv,DIFFERENT,decompile:,
-generic/member/class_member_test_25.sv,DIFFERENT,decompile:,
+generic/member/class_member_test_2.sv,EQUAL,,equal
+generic/member/class_member_test_25.sv,EQUAL,,equal
 generic/member/class_member_test_26.sv,EQUAL,,equal
 generic/member/class_member_test_27.sv,SURELOG_ONLY,statement kind: VariableDeclaration,
-generic/member/class_member_test_3.sv,DIFFERENT,decompile:,
+generic/member/class_member_test_3.sv,EQUAL,,equal
 generic/member/class_member_test_31.sv,EQUAL,,equal
 generic/member/class_member_test_32.sv,EQUAL,,equal
 generic/member/class_member_test_39.sv,EQUAL,,equal
-generic/member/class_member_test_4.sv,DIFFERENT,decompile:,
+generic/member/class_member_test_4.sv,EQUAL,,equal
 generic/member/class_member_test_40.sv,EQUAL,,equal
 generic/member/class_member_test_41.sv,EQUAL,,equal
 generic/member/class_member_test_5.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generic/member/class_member_test_5.sv:19:19: error: pure virtual methods can only be declared in virtual classes,
-generic/member/class_member_test_6.sv,DIFFERENT,decompile:,
-generic/member/class_member_test_7.sv,DIFFERENT,decompile:,
-generic/member/class_member_test_8.sv,DIFFERENT,decompile:,
+generic/member/class_member_test_6.sv,EQUAL,,equal
+generic/member/class_member_test_7.sv,EQUAL,,equal
+generic/member/class_member_test_8.sv,EQUAL,,equal
 generic/member/class_member_test_9.sv,DIFFERENT,decompile:,
 generic/number/number_test_0.sv,EQUAL,,equal
 generic/number/number_test_1.sv,EQUAL,,equal
@@ -2304,9 +2304,9 @@ generic/preproc/preproc_test_8.sv,EQUAL,,equal
 generic/struct/struct_test_0.sv,EQUAL,,equal
 generic/typedef/typedef_test_0.sv,DIFFERENT,decompile:,
 generic/typedef/typedef_test_1.sv,EQUAL,,equal
-generic/typedef/typedef_test_10.sv,SURELOG_ONLY,typedef target: AssociativeArrayType,
-generic/typedef/typedef_test_11.sv,SURELOG_ONLY,typedef target: AssociativeArrayType,
-generic/typedef/typedef_test_12.sv,SURELOG_ONLY,typedef target: AssociativeArrayType,
+generic/typedef/typedef_test_10.sv,EQUAL,,equal
+generic/typedef/typedef_test_11.sv,EQUAL,,equal
+generic/typedef/typedef_test_12.sv,EQUAL,,equal
 generic/typedef/typedef_test_13.sv,SURELOG_ONLY,typedef target: AssociativeArrayType,
 generic/typedef/typedef_test_14.sv,DIFFERENT,decompile:,
 generic/typedef/typedef_test_16.sv,EQUAL,,equal

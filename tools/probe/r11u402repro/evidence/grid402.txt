@@ -1,0 +1,78 @@
+AA/aa01_alias_wild | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | ASSOCTD | OFF=pristine
+AA/aa02_alias_bit | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | ASSOCTD | OFF=pristine
+AA/aa03_alias_bitvec | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | ASSOCTD | OFF=pristine
+AA/aa04_kw_bit | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | ASSOCTD | OFF=pristine
+AA/aa05_alias_int | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | ASSOCTD | OFF=pristine
+AA/aa06_kw_wild | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | ASSOCTD | OFF=pristine
+AA/aa07_mod_alias_bitvec | pristine rc=4 NOT_EQUAL | law rc=0 STRICT_NOTEQUAL:fullname | moved | ASSOCTD | OFF=pristine
+AA/aa08_mod_wild | pristine rc=4 NOT_EQUAL | law rc=0 NOT_EQUAL | moved | ASSOCTD | OFF=pristine
+AA/ae_enum | pristine rc=0 NOT_EQUAL | law rc=0 NOT_EQUAL | moved | ALIASELEM | OFF=pristine
+AA/ae_fixed | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | ALIASELEM | OFF=pristine
+AA/ae_fixed_mod | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | ALIASELEM | OFF=pristine
+AA/ae_int | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | ALIASELEM | OFF=pristine
+AA/ae_vec | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | ALIASELEM | OFF=pristine
+CE/ce01_event_arr | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | CLSEVENTARR | OFF=pristine
+CE/ce02_event_2d | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | CLSEVENTARR | OFF=pristine
+CG/cg01_embedded | pristine rc=4 EQUAL | law rc=0 EQUAL | rc-only | CLSCGPROP | OFF=pristine
+CG/cg02_two_cg | pristine rc=4 EQUAL | law rc=0 EQUAL | rc-only | CLSCGPROP | OFF=pristine
+CG/cg03_cg_args | pristine rc=4 EQUAL | law rc=0 EQUAL | rc-only | CLSCGPROP | OFF=pristine
+CK/ck01_default_skews | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | MODCLOCKING | OFF=pristine
+CK/ck02_signals | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | MODCLOCKING | OFF=pristine
+CK/ck03_child | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | MODCLOCKING | OFF=pristine
+CK/ck04_with_default | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | MODCLOCKING | OFF=pristine
+GP/gp01_bufif0 | pristine rc=4 EQUAL | law rc=0 EQUAL | rc-only | GATEPRIM | OFF=pristine
+GP/gp02_pulldown | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | GATEPRIM | OFF=pristine
+GP/gp03_nmos | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | GATEPRIM | OFF=pristine
+GP/gp04_tran | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | GATEPRIM | OFF=pristine
+GP/gp05_tranif1 | pristine rc=4 EQUAL | law rc=0 EQUAL | rc-only | GATEPRIM | OFF=pristine
+GP/gp06_pullup_named | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | GATEPRIM | OFF=pristine
+GP/gp07_cmos | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | GATEPRIM | OFF=pristine
+GP/gp08_rpmos_unnamed | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | GATEPRIM | OFF=pristine
+GP/gp09_rtran | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | GATEPRIM | OFF=pristine
+GP/gp10_bufif0_arr | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved | GATEPRIM | OFF=pristine
+GP/gp11_nmos_arr | pristine rc=4 NOT_EQUAL | law rc=4 NOT_EQUAL | same | - | OFF=pristine
+GP/gp12_bufif_bitsel | pristine rc=4 STRICT_NOTEQUAL:col | law rc=0 EQUAL | moved |together:GATEBITSEL+GATEPRIM | OFF=pristine
+GP/gt01_and_partsel | pristine rc=0 EQUAL | law rc=0 EQUAL | same | - | OFF=pristine
+GP/gt02_or_concat | pristine rc=0 STRICT_NOTEQUAL:col | law rc=0 STRICT_NOTEQUAL:depth | moved | GATEBITSEL | OFF=pristine
+GP/gt03_two_bitsel | pristine rc=0 NOT_EQUAL | law rc=0 NOT_EQUAL | moved | GATEBITSEL | OFF=pristine
+GP/gt04_and_bitsel | pristine rc=0 STRICT_NOTEQUAL:col | law rc=0 EQUAL | moved | GATEBITSEL | OFF=pristine
+IT/it01_unit_import_td | pristine rc=0 NOT_EQUAL | law rc=0 NOT_EQUAL | moved | IMPTSCLONE | OFF=pristine
+IT/it02_unit_import_vec | pristine rc=0 NOT_EQUAL | law rc=0 NOT_EQUAL | moved | IMPTSCLONE | OFF=pristine
+NT/nt01_triand | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | NETKIND | OFF=pristine
+NT/nt02_tri0 | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | NETKIND | OFF=pristine
+NT/nt03_tri1_scalared | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | NETKIND | OFF=pristine
+NT/nt04_trireg | pristine rc=0 EQUAL | law rc=0 EQUAL | same | - | OFF=pristine
+NT/nt05_trior_assign | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | NETKIND | OFF=pristine
+NT/nt06_supply | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | NETKIND | OFF=pristine
+NT/nt07_uwire | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | NETKIND | OFF=pristine
+NT/nt08_port_tri0 | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | NETKIND | OFF=pristine
+NT/nt09_arr | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | NETKIND | OFF=pristine
+NT/nt10_child | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | NETKIND | OFF=pristine
+NT/nt11_vectored | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | NETKIND | OFF=pristine
+OM/om01_pkg_macro_def | pristine rc=0 NOT_EQUAL | law rc=0 NOT_EQUAL | moved | OOBMACRO | OFF=pristine
+OM/om02_two_macro_defs | pristine rc=0 NOT_EQUAL | law rc=0 NOT_EQUAL | moved | OOBMACRO | OFF=pristine
+OM/om03_module_class | pristine rc=0 NOT_EQUAL | law rc=0 NOT_EQUAL | moved | OOBMACRO | OFF=pristine
+TA/ta01_attr | pristine rc=0 STRICT_NOTEQUAL:line | law rc=0 EQUAL | moved | TOPATTRSPAN | OFF=pristine
+TA/ta02_attr_val | pristine rc=0 STRICT_NOTEQUAL:line | law rc=0 EQUAL | moved | TOPATTRSPAN | OFF=pristine
+TA/ta03_child_attr | pristine rc=0 EQUAL | law rc=0 EQUAL | same | - | OFF=pristine
+TN/tn01_iface_td_through_port | pristine rc=139 NO_DB | law rc=0 NOT_EQUAL | moved | UNINSTIFTD | OFF=pristine
+UO/uo01_func | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | UNITOOB | OFF=pristine
+UO/uo02_ctor | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | UNITOOB | OFF=pristine
+UO/uo03_task_body | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | UNITOOB | OFF=pristine
+UO/uo04_two | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | UNITOOB | OFF=pristine
+UO/uo05_member_ref | pristine rc=0 NOT_EQUAL | law rc=0 NOT_EQUAL | moved | UNITOOB | OFF=pristine
+UO/uo06_free_and_oob | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | UNITOOB | OFF=pristine
+UO/uo07_used | pristine rc=0 NOT_EQUAL | law rc=0 NOT_EQUAL | moved | UNITOOB | OFF=pristine
+US/us01_two | pristine rc=0 STRICT_NOTEQUAL:endline | law rc=0 EQUAL | moved | ANONSTRUCTEND | OFF=pristine
+US/us02_one | pristine rc=0 STRICT_NOTEQUAL:endline | law rc=0 EQUAL | moved | ANONSTRUCTEND | OFF=pristine
+US/us03_three_used | pristine rc=0 STRICT_NOTEQUAL:endcol | law rc=0 EQUAL | moved | ANONSTRUCTEND | OFF=pristine
+US/us04_init | pristine rc=0 NOT_EQUAL | law rc=0 NOT_EQUAL | same | - | OFF=pristine
+US/us05_packed_ctl | pristine rc=0 EQUAL | law rc=0 EQUAL | same | - | OFF=pristine
+US/us06_tagged_union | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved |together:UTAGGEDSPAN+VOIDMEM | OFF=pristine
+US/us07_plain_union | pristine rc=0 EQUAL | law rc=0 EQUAL | same | - | OFF=pristine
+US/us08_tagged_child | pristine rc=0 NOT_EQUAL | law rc=0 STRICT_NOTEQUAL:endcol | moved |together:UTAGGEDSPAN+VOIDMEM | OFF=pristine
+UU/uu01_tagged | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved |together:UUNIONTD+UUNIONVAR+VOIDMEM | OFF=pristine
+UU/uu02_plain | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved |together:UUNIONTD+UUNIONVAR | OFF=pristine
+UU/uu03_bits | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved |together:UUNIONTD+UUNIONVAR | OFF=pristine
+VI/vi01_unit | pristine rc=4 NOT_EQUAL | law rc=0 EQUAL | moved |together:VIFELAB+VIFTD | OFF=pristine
+VI/vi02_direct | pristine rc=0 NOT_EQUAL | law rc=0 EQUAL | moved | VIFELAB | OFF=pristine

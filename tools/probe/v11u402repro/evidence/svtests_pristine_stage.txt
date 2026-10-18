@@ -1,0 +1,4 @@
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+sv-tests: BOTH_REJECT=309 DIFFERENT=705 EQUAL=1153 SLANG_CRASH=1 SLANG_ONLY=13 STRICT_NOTEQUAL=23 SURELOG_CRASH=8 SURELOG_ONLY=133 TIMEOUT=1 (of 2346)
+regressions=0 conversions=0 changes=0

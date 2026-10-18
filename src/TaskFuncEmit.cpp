@@ -21,6 +21,13 @@
 
 namespace slang_uhdm {
 
+// § unitOobFuncOnDesign402 — the $unit classes' out-of-body FUNCTION
+// definitions withheld from the class listing (§ unitOobDefsNotInClass402),
+// in emission order, and the one the design listing is emitting right now.
+std::vector<std::pair<const slang::ast::Symbol*, const slang::ast::Symbol*>> g_unitOobFns402;
+const slang::ast::Symbol* g_unitOobEmit402 = nullptr;
+
+
 // The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
 // reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them, and
 // so does R11U196_OFF (the laws landed with pass r11u196).
@@ -2401,6 +2408,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
     std::vector<const Symbol*> items;
     if (!cloneMode)
         items = memberList;
+    // § unitOobFuncOnDesign402 — the design listing of one $unit class's
+    // out-of-body function: that definition alone.
+    if (designScope && g_unitOobEmit402)
+        items.assign(1, g_unitOobEmit402);
     // § dpiExportListedAtExportItem216 — the LISTING keys, recorded 1:1 with
     // `tfs` as it is filled and applied once the walk is over.  The walk
     // itself is NEVER reordered (creation order is load-bearing for binding).
@@ -2427,18 +2438,61 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 continue;
             oobDefs.push_back(impl0);
         }
+        // § oobMacroDefAtExpansion402 (R11U402_OOBMACRO_OFF; cases
+        // tools/probe/r11u402repro/cases/OM) — an out-of-body definition
+        // written by a MACRO (UVM 1800.2-2017's uvm_packer
+        // `M__UVM_GET_PACKED(byte)` ...) is ordered where the macro is
+        // EXPANDED: Surelog compiles the preprocessed text, so the expansion
+        // site is its place in definition-file order.  Comparing the raw
+        // locations put every macro buffer after the file's own text (130
+        // sv-tests UVM rows' first difference).
+        const bool oobMacro402 = lawOn(402, "R11U402_OOBMACRO_OFF");
+        auto oobKey402 = [&](const Symbol* x) {
+            SourceLocation l = x->location;
+            if (oobMacro402 && sm->isMacroLoc(l))
+                l = sm->getFullyExpandedLoc(l);
+            return l;
+        };
         std::stable_sort(oobDefs.begin(), oobDefs.end(),
-                         [](const Symbol* a, const Symbol* b) {
+                         [&](const Symbol* a, const Symbol* b) {
                              bool ca = a->name == "new", cb = b->name == "new";
                              if (ca != cb)
                                  return cb;
                              if (ca && cb)
                                  return false;
+                             if (oobMacro402) {
+                                 auto ka = oobKey402(a), kb = oobKey402(b);
+                                 if (ka != kb)
+                                     return ka < kb;
+                             }
                              return a->location < b->location;
                          });
+        if (oobMacro402)
+            for (auto* d402 : oobDefs)
+                if (sm->isMacroLoc(d402->location))
+                    lawTrace(402, "oobMacroDefAtExpansion402", std::string(d402->name));
+        // § unitOobDefsNotInClass402 (R11U402_UNITOOB_OFF; cases
+        // tools/probe/r11u402repro/cases/UO) — a class declared in $unit
+        // lists NONE of its out-of-body definitions: Surelog compiles them in
+        // the compilation unit, where a FUNCTION lands on the design's own
+        // vpiTaskFunc as `cls::f` (not modelled here, a residue) and a TASK
+        // or a CONSTRUCTOR is listed nowhere (golden UO/uo02, uo03).
+        const bool unitOob402 =
+            !cloneMode && body.asSymbol().getParentScope() &&
+            body.asSymbol().getParentScope()->asSymbol().kind ==
+                SymbolKind::CompilationUnit &&
+            lawOn(402, "R11U402_UNITOOB_OFF");
         for (auto* d0 : oobDefs) {
             if (cloneMode && (d0->name == "new") != pkgClassTfCloneCtors)
                 continue;
+            if (unitOob402) {
+                lawTrace(402, "unitOobDefsNotInClass402", std::string(d0->name));
+                if (d0->kind == SymbolKind::Subroutine &&
+                    d0->as<SubroutineSymbol>().subroutineKind == SubroutineKind::Function &&
+                    d0->name != "new")
+                    g_unitOobFns402.emplace_back(&body.asSymbol(), d0);
+                continue;
+            }
             items.push_back(d0);
         }
     }
@@ -4027,6 +4081,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             isFunc = true;
         std::string fullName = prefix.empty() ? std::string(sub.name)
                                               : joinPath(prefix, sub.name);
+        // § unitOobFuncOnDesign402 — named `cls::f` on the design.
+        const bool unitOobFn402 = designScope && g_unitOobEmit402 == &member;
+        if (unitOobFn402)
+            fullName = std::string(body.asSymbol().name) + "::" + std::string(sub.name);
 
         // Reuse a shell created by an early (param-init) call site. Package
         // top-view re-emission must NOT reuse the def copy — a shell is
@@ -4045,6 +4103,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         : (UHDM::task_func*)s.MakeTask();
         tf->VpiName(sub.name);
         tf->VpiFullName(fullName);
+        if (unitOobFn402)
+            tf->VpiName(fullName);
         // § qualifiedLifetimeMethodLosesNamePortsBody46 — no name, and the full
         // name stops at the CLASS (`uvm_pkg::uvm_reg_map`, not `...::ceil`),
         // because both come from the same invalid node.

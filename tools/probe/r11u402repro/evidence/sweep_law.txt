@@ -1,0 +1,8 @@
+CONVERSION r10uvm149repro/g149/homes STRICT_NOTEQUAL differ:endline(1) -> EQUAL
+regressions=0 conversions=1 changes=0 only-fresh=0 only-committed=0
+CHANGE Tnoc default SLANG_REJECT -> CMP_NOTEQUAL
+CHANGE Tnoc testflags SLANG_REJECT -> CMP_NOTEQUAL
+regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0

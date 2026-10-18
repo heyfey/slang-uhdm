@@ -1,0 +1,38 @@
+binaries (frozen chmod 555 before any counted measurement):
+  pristine /tmp/r11u402_bin/pristine md5 2982d1ee861fb421aceffc8c0cc4e18f (= main tree build/slang-uhdm at eee9c5fd)
+  law      /tmp/r11u402_bin/lawC     md5 f06cef348eb2fb71d6fa5b3124dbcced (the delivered patch)
+  (an earlier law binary lawB, md5 c292cd6490934a50efb37bf481fac695, without § unpackedTaggedElabSpan402 and
+   § unitOobFuncOnDesign402, ran the first full gate set with the same corpus readings; lawC reran every gate)
+  both: slang 12.0.0+545f88b2e (~/.local, SLANG_UHDM_USE_SYSTEM_DEPS=ON)
+
+tests/sweep.sh --jobs 3 --corpus 'probe surelog uhdm2rtlil downstream' (worktree), workdirs /tmp/r11u402_wdC (lawC; lawB's /tmp/r11u402_wdL), /tmp/r11u402_wdP (pristine):
+  law      probe regressions=0 conversions=1 changes=0  (r10uvm149repro/g149/homes STRICT_NOTEQUAL differ:endline(1) -> EQUAL)
+           surelog regressions=0 conversions=0 changes=2 (Tnoc d/t SLANG_REJECT rc=-11 -> CMP_NOTEQUAL)
+           uhdm2rtlil regressions=0 conversions=0 changes=0
+           downstream IDENTICAL=803 SLANG_REJECT=66 EQUIVALENT=2 DIVERGENT=0, not identical and not excused=0
+  pristine probe/surelog/uhdm2rtlil regressions=0 conversions=0 changes=0; downstream 803/66/2/0
+  (both sweeps exit 1 on the law-index staleness check alone; the patch regenerates tests/LAWS.md)
+  downstream verdict column: law vs pristine 0 differences, law vs results/downstream_uhdm2rtlil.csv 0 differences (871 rows)
+
+svtests stage (main-tree scripts/check_svtests.py, identical to the base's; the worktree's own copy resolves the UVM
+tree under its empty submodule and reads every UVM row BOTH_REJECT, so it is not a measurement):
+  lawC regressions=0 conversions=40 changes=1 (tnoc SLANG_CRASH -> SURELOG_ONLY)
+       BOTH_REJECT=308 DIFFERENT=687 EQUAL=1187 SLANG_ONLY=14 STRICT_NOTEQUAL=22 SURELOG_CRASH=8 SURELOG_ONLY=119 TIMEOUT=1
+  lawB regressions=0 conversions=37 changes=1 (EQUAL=1183 STRICT_NOTEQUAL=23 DIFFERENT=690)
+  base BOTH_REJECT=309 DIFFERENT=705 EQUAL=1153 SLANG_ONLY=13 STRICT_NOTEQUAL=23 SURELOG_CRASH=8 SURELOG_ONLY=133 SLANG_CRASH=1 TIMEOUT=1
+
+byteverify (tools/probe/r11v75repro/byteverify.sh, SELFCHECK=1, same-length workdir names):
+  surelog    MOVERS 0 / 960 (PATH_SETS identical once the two Tnoc databases, absent on pristine (rc=-11), are set aside); SELFCHECK 959/960
+  uhdm2rtlil MOVERS 0 / 1608; SELFCHECK 1607/1608
+  probe      1 mover of 4087 (r10uvm149repro__g149__homes.uhdm, the conversion; trace: anonUnpackedStructSlotEnd402 anonVar); selfcheck 199/200
+canaries: tools/probe/r11u107repro/canaries.sh surelog ok=52 changed=0, uhdm2rtlil ok=16 changed=0
+ctcan2 (tools/probe/r10uvm67repro): EXPECT_UNKNOWN=1 surelog PASS, EXPECT_UNKNOWN=6 uhdm2rtlil PASS
+binary-path audit: lawC sweep cmds.txt name /tmp/r11u402_bin/lawC 3273 times and any other binary 0; pristine sweep /tmp/r11u402_bin/pristine 3273 / other 0
+lawC byteverify: surelog 0 / 960 (+ the 2 Tnoc databases), uhdm2rtlil 0 / 1608, probe 1 / 4087 (g149/homes), SELFCHECK 959/960 and 1607/1608;
+  canaries ok=52 / ok=16 changed=0; ctcan2 PASS / PASS; downstream verdicts 871 of 871 equal to pristine and committed
+firing census (lawC, drivers/census402.sh over the fence-filtered pristine command lines): 8 surelog row-modes fire
+  (CarryTrans d/t, Gates d/t elabMosPullPrims402; SVSwitch d/t classCovergroupPropSilent402; Tnoc d/t
+  uninstIfaceTdThroughPortSkip402), 0 uhdm2rtlil; identical to lawB's census
+determinism: three concurrent lawB runs and three concurrent lawC runs of sv-tests chapter-16/16.12--property-interface-prec-uvm.sv (§ oobMacroDefAtExpansion402
+  and § unitImpTdParamTsClone402 fire there): one path-normalised dump hash (863ceca74efb) in 3 of 3 for each binary, equal to the lawC svtests stage database
+R11U402_OFF: byte-equal to pristine (and the same exit code) on every grid case (grid402.txt column 6)

@@ -1,0 +1,148 @@
+chapter-16/16.11--sequence-subroutine-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.10--sequence-local-var-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.12--property-interface-prec-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.12--property-prec-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.12--property-interface-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.13--sequence-multiclock-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.12--property-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.14--assume-property-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.15--property-iff-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.17--expect-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.2--assert-final-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.2--assert-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.2--assert0-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.2--assume-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.7--sequence-and-range-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.7--sequence-and-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.7--sequence-intersect-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.7--sequence-or-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.7--sequence-throughout-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.7--sequence-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.9--sequence-changed-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.9--sequence-fell-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.9--sequence-past-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.9--sequence-rose-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-16/16.9--sequence-stable-uvm.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.10--dynamic-constraint-modification_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.11--in-line-random-variable-control_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.11--in-line-random-variable-control_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.11.1--in-line-constraint-checker_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.11.1--in-line-constraint-checker_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.12--randomization-of-scope-variables_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.12.1--adding-constraints-to-scope-variables_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.13.1--urandom_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.13.1--urandom_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.13.2--urandom_range_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.13.2--urandom_range_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.13.2--urandom_range_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.13.3--srandom_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.13.4--get_randstate_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.13.5--set_randstate_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.14--random-stability_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.14--random-stability_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.14.2--thread-stability_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.14.2--thread-stability_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.14.3--object-stability_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.14.3--object-stability_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.15--manually-seeding-randomize_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5--constraint-blocks_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.1--explicit-external-constraint_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.1--implicit-external-constraint_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.12--functions-in-constraint_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.13--constraint-guards_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.14--soft-constraints_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.14.1--soft-constraint-priorities_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.14.1--soft-constraint-priorities_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.14.1--soft-constraint-priorities_4.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.14.2--discarding-soft-constraints_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.14.2--discarding-soft-constraints_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.14.2--discarding-soft-constraints_5.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.2--constraint-inheritance_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.2--pure-constraint_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.3--set-membership_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.4--distribution_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.5--uniqueness-constraints_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.6--implication_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.7--if-else-constraints_4.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.8.1--foreach-iterative-constraints_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.8.2--array-reduction-iterative-constraints_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.5.9--global-constraints_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.6.1--randomize-method_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.6.2--post-randomize_method_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.6.2--pre-randomize-method_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.6.3--behavior-of-randomization-methods_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.6.3--behavior-of-randomization-methods_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.6.3--behavior-of-randomization-methods_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.7--in-line-constraints--randomize_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.7--in-line-constraints--randomize_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.7--in-line-constraints--randomize_4.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.7--in-line-constraints--randomize_6.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.7.1--local-scope-resolution_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.8--disabling-random-variables-with-rand_mode_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.8--disabling-random-variables-with-rand_mode_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.8--disabling-random-variables-with-rand_mode_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.8--disabling-random-variables-with-rand_mode_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+chapter-18/18.9--controlling-constraints-with-constraint_mode_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/easyUVM/top.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm-examples/apb_protocol_monitor.sv|string_var: (uvm_pkg::error_str), line:1596:10, endln:1596:19
+generated/uvm-examples/uvm_ac_config_db.sv|package: uvm_pkg (uvm_pkg::), line:28:1, endln:39:11
+generated/uvm-examples/uvm_ef_vif_config_db.sv|package: uvm_pkg (uvm_pkg::), line:28:1, endln:39:11
+generated/uvm-examples/uvm_generation_seq_persistence.sv|package: test_lib_pkg (test_lib_pkg::), line:35:1, endln:154:25
+generated/uvm-examples/uvm_generation_seq_poly.sv|package: test_lib_pkg (test_lib_pkg::), line:35:1, endln:154:25
+generated/uvm-examples/uvm_generation_seq_randomization.sv|package: test_lib_pkg (test_lib_pkg::), line:35:1, endln:154:25
+generated/uvm-examples/uvm_id_register.sv|package: uvm_pkg (uvm_pkg::), line:28:1, endln:39:11
+generated/uvm-examples/uvm_many_to_one.sv|package: env_pkg (env_pkg::), line:22:1, endln:63:11
+generated/uvm-examples/uvm_messaging_example.sv|package: uvm_pkg (uvm_pkg::), line:28:1, endln:39:11
+generated/uvm-examples/uvm_param_vif_config_db.sv|package: uvm_pkg (uvm_pkg::), line:28:1, endln:39:11
+generated/uvm-examples/uvm_priority_arbitration.sv|package: uvm_pkg (uvm_pkg::), line:28:1, endln:39:11
+generated/uvm-examples/uvm_priority_grab_lock.sv|package: uvm_pkg (uvm_pkg::), line:28:1, endln:39:11
+generated/uvm-examples/uvm_use_models_bidir_get_put.sv|package: uvm_pkg (uvm_pkg::), line:28:1, endln:39:11
+generated/uvm-examples/uvm_use_models_bidir_item_done.sv|package: uvm_pkg (uvm_pkg::), line:28:1, endln:39:11
+generated/uvm-examples/uvm_use_models_pipelined_get_put.sv|package: uvm_pkg (uvm_pkg::), line:28:1, endln:39:11
+generated/uvm-examples/uvm_test_init.sv|package: test_top_pkg (test_top_pkg::), line:20:1, endln:92:25
+generated/uvm-examples/uvm_use_models_unidirectional.sv|package: uvm_pkg (uvm_pkg::), line:28:1, endln:39:11
+generated/uvm-examples/uvm_vif_config_db.sv|package: uvm_pkg (uvm_pkg::), line:28:1, endln:39:11
+generated/uvm_classes_0/uvm_agent_class_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_0/uvm_component_class_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_0/uvm_driver_class_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_0/uvm_env_class_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_0/uvm_monitor_class_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_0/uvm_scoreboard_class_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_0/uvm_sequencer_class_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_0/uvm_test_class_0.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_1/uvm_agent_class_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_1/uvm_component_class_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_1/uvm_driver_class_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_1/uvm_env_class_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_1/uvm_monitor_class_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_1/uvm_scoreboard_class_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_1/uvm_sequencer_class_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_1/uvm_test_class_1.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_2/uvm_agent_class_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_2/uvm_component_class_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_2/uvm_driver_class_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_2/uvm_env_class_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_2/uvm_monitor_class_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_2/uvm_scoreboard_class_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_2/uvm_sequencer_class_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_2/uvm_test_class_2.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_3/uvm_agent_class_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_3/uvm_component_class_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_3/uvm_driver_class_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_3/uvm_env_class_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_3/uvm_monitor_class_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_3/uvm_scoreboard_class_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_3/uvm_sequencer_class_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+generated/uvm_classes_3/uvm_test_class_3.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+testbenches/uvm_agent_env.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+testbenches/uvm_agent_active.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+testbenches/uvm_agent_passive.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+testbenches/uvm_driver_sequencer_env.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+testbenches/uvm_monitor_env.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+testbenches/uvm_resource_db_read_by_name.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+testbenches/uvm_scoreboard_env.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+testbenches/uvm_scoreboard_monitor_agent_env.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+testbenches/uvm_scoreboard_monitor_env.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+testbenches/uvm_sequence.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+testbenches/uvm_test_run_test.sv|class_var: (uvm_pkg::uvm_init::idx), line:373:29, endln:373:32
+uvm/uvm_files.sv|string_var: (uvm_pkg::error_str), line:1596:10, endln:1596:19
