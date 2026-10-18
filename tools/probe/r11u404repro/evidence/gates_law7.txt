@@ -1,0 +1,24 @@
+pristine: law index STALE: tests/LAWS.md (run scripts/law_index.py)
+pristine: probe cases: EQUAL=4018 STRICT_NOTEQUAL=69 (of 4087); goldens built now=0, from cache=4087
+pristine: [probe] EQUAL=4018 STRICT_NOTEQUAL=69
+pristine: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+pristine: [default] CMP_EQUAL=480 CMP_NOTEQUAL=4 DEFERRED=5 SLANG_REJECT=284 SURELOG_FAIL=25
+pristine: [testflags] CMP_EQUAL=474 CMP_NOTEQUAL=4 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=285 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+pristine: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+pristine: [default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+pristine: [testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+pristine: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+pristine: == downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+pristine: downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+law7: law index STALE: tests/LAWS.md (run scripts/law_index.py)
+law7: probe cases: EQUAL=4018 STRICT_NOTEQUAL=69 (of 4087); goldens built now=0, from cache=4087
+law7: [probe] EQUAL=4018 STRICT_NOTEQUAL=69
+law7: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+law7: [default] CMP_EQUAL=480 CMP_NOTEQUAL=4 DEFERRED=5 SLANG_REJECT=284 SURELOG_FAIL=25
+law7: [testflags] CMP_EQUAL=474 CMP_NOTEQUAL=4 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=285 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+law7: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+law7: [default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+law7: [testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+law7: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+law7: == downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+law7: downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0

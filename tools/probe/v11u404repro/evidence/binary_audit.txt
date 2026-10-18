@@ -1,0 +1,3 @@
+/tmp/v11u404_wdL: cmds.txt (fence-filtered) 5659, naming /tmp/v11u404_bin/law only 5609, naming another binary 0, naming none 50
+/tmp/v11u404_wdP: cmds.txt (fence-filtered) 5659, naming /tmp/v11u404_bin/pris only 5609, naming another binary 0, naming none 50
+/tmp/v11u404_wdV: cmds.txt (fence-filtered) 5659, naming /tmp/v11u404_bin/ver2 only 5609, naming another binary 0, naming none 50

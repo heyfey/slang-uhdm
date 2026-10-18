@@ -14,6 +14,7 @@
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
+#include <deque>
 #include <tuple>
 // § pkgArrTdElemClone209 deep-clones a struct typespec as Surelog does.
 #include <uhdm/ElaboratorListener.h>
@@ -13199,12 +13200,32 @@ bool UhdmExporter::srcOrderLess(SourceLocation a, SourceLocation b) const {
         return it != bufRank.end() ? it->second
                                    : (size_t)l.buffer().getId() + (1u << 20);
     };
-    size_t ra = rank(a), rb = rank(b);
-    if (ra != rb)
-        return ra < rb;
-    if (a.buffer() != b.buffer())
-        return a.buffer() < b.buffer();
-    return a.offset() < b.offset();
+    // § macroArgParamOrder404 — a declaration whose name token came in as a
+    // MACRO ARGUMENT (basejump's `BSG_INV_PARAM(p)`) sits in the source where
+    // the argument was written; Surelog orders it there.  Compare such a
+    // location at its original file position (an expansion-body token keeps
+    // its macro-buffer location, as before).
+    static const bool argOrd404 = lawOn(404, "R11U404_MACROARGORDER_OFF");
+    auto less = [&](SourceLocation x, SourceLocation y) {
+        size_t rx = rank(x), ry = rank(y);
+        if (rx != ry)
+            return rx < ry;
+        if (x.buffer() != y.buffer())
+            return x.buffer() < y.buffer();
+        return x.offset() < y.offset();
+    };
+    if (argOrd404 && (sm->isMacroArgLoc(a) || sm->isMacroArgLoc(b))) {
+        SourceLocation a2 = sm->isMacroArgLoc(a) ? sm->getFullyOriginalLoc(a) : a;
+        SourceLocation b2 = sm->isMacroArgLoc(b) ? sm->getFullyOriginalLoc(b) : b;
+        bool r404 = less(a2, b2);
+        if (r404 != less(a, b))
+            lawTrace(404, "macroArgParamOrder404",
+                     std::string(sm->getFileName(a2)) + ":" +
+                         std::to_string(sm->getLineNumber(a2)) + " vs " +
+                         std::to_string(sm->getLineNumber(b2)));
+        return r404;
+    }
+    return less(a, b);
 }
 
 
@@ -13676,7 +13697,17 @@ UHDM::design* UhdmExporter::exportDesign() {
                 allDefaulted = false;
                 break;
             }
-        if (!allDefaulted)
+        // § undefaultedDefInvalidInst404 — a definition with a parameter that
+        // has NO default (basejump's `BSG_INV_PARAM(p)` under Surelog's
+        // define set, the `__abstract` wrapper reaching it only from an
+        // `if (0)` block) is still a parsed module for Surelog: it gets its
+        // def view in uhdmallModules like any other, the parameter listed
+        // with no value and its param_assign with no rhs (the writer already
+        // gives a default-less parameter that shape).  createDefault needs
+        // every default, so each undefaulted VALUE parameter gets a
+        // placeholder initializer through slang's hierarchy-override node;
+        // the def view is written from the declarations and never reads it.
+        if (!allDefaulted && !lawOn(404, "R11U404_UNDEFPARAMDEF_OFF"))
             return;
         // § uninstDefPortedAdmit — a def harvested from a NON-TAKEN GENERATE
         // BRANCH used to be admitted only when PORTLESS, because resolving the
@@ -13690,7 +13721,86 @@ UHDM::design* UhdmExporter::exportDesign() {
         // ibex_dummy_instr/icache/multdiv_slow, prim_secded_*, prim_xilinx_*).
         // INTERFACE-ported defs stay out (below): their connection resolution
         // is a different path that is still unmeasured.
-        auto& uinst = InstanceSymbol::createDefault(comp, udef);
+        // A definition with an undefaulted TYPE parameter abstains, as before.
+        const HierarchyOverrideNode* ovr404 = nullptr;
+        if (!allDefaulted) {
+            static std::deque<HierarchyOverrideNode> ovrStore404;
+            auto& node = ovrStore404.emplace_back();
+            for (auto& up : udef.parameters) {
+                if (up.hasDefault())
+                    continue;
+                if (up.isTypeParam || !up.hasSyntax || !up.valueDecl) {
+                    lawTrace(404, "undefaultedDefInvalidInst404",
+                             "abstain " + std::string(udef.name));
+                    return;
+                }
+                // The placeholder is an initializer EXPRESSION (the literal 8
+                // of a parsed one-line module, kept alive for the run) so an
+                // implicitly typed parameter takes its type from it, as a
+                // default would give; a pre-evaluated value would leave the
+                // implicit type unresolved and every width it sets invalid.
+                // 8 rather than 1 keeps `p-1`, `p-:2` and `$clog2(p)` widths
+                // positive in the bodies the grid measured.
+                static std::shared_ptr<syntax::SyntaxTree> phTree404;
+                static const syntax::ExpressionSyntax* phExpr404 = nullptr;
+                if (!phExpr404) {
+                    phTree404 = syntax::SyntaxTree::fromText(
+                        "module m404 #(parameter p404 = 8); endmodule");
+                    std::function<void(const syntax::SyntaxNode&)> find =
+                        [&](const syntax::SyntaxNode& sn) {
+                            if (phExpr404)
+                                return;
+                            if (sn.kind == syntax::SyntaxKind::EqualsValueClause) {
+                                phExpr404 = sn.as<syntax::EqualsValueClauseSyntax>().expr;
+                                return;
+                            }
+                            for (size_t ci = 0; ci < sn.getChildCount(); ++ci)
+                                if (auto* c = sn.childNode(ci))
+                                    find(*c);
+                        };
+                    find(phTree404->root());
+                }
+                if (!phExpr404) {
+                    lawTrace(404, "undefaultedDefInvalidInst404",
+                             "abstain-noexpr " + std::string(udef.name));
+                    return;
+                }
+                HierarchyOverrideNode::ParamOverride po;
+                po.expr = phExpr404;
+                node.paramOverrides.emplace(up.valueDecl, std::move(po));
+            }
+            ovr404 = &node;
+        }
+        auto& uinst = InstanceSymbol::createDefault(comp, udef, ovr404);
+        // ...abstaining when the placeholder body holds an expression slang
+        // could not bind at all (an undeclared name read in the
+        // uninstantiated body, bsg_scheduler_dataflow's `bypass_lo`): the
+        // writer has no shape for it and the definition stays unlisted as
+        // before.  An Invalid that only WRAPS a built expression (a
+        // continuous assignment, § invalidCaAssignChild404) is not one.
+        if (ovr404) {
+            struct Bad404 : public ASTVisitor<Bad404, VisitFlags::Symbols |
+                                                          VisitFlags::Statements |
+                                                          VisitFlags::Expressions |
+                                                          VisitFlags::Bad> {
+                bool bad = false;
+                void handle(const InvalidExpression& ie) {
+                    if (!ie.child)
+                        bad = true;
+                    else
+                        visitDefault(ie);
+                }
+                void handle(const InvalidStatement&) { bad = true; }
+                void handle(const InstanceSymbol&) {}
+                void handle(const UninstantiatedDefSymbol&) {}
+            } bad404;
+            uinst.body.visit(bad404);
+            if (bad404.bad) {
+                lawTrace(404, "undefaultedDefInvalidInst404",
+                         "abstain-unbound " + std::string(udef.name));
+                return;
+            }
+        }
         bool ifacePorted = false;
         for (auto pb : uinst.body.getPortList())
             if (pb->kind == SymbolKind::InterfacePort) {
@@ -13699,6 +13809,8 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
         if (ifacePorted)
             return;
+        if (ovr404)
+            lawTrace(404, "undefaultedDefInvalidInst404", std::string(udef.name));
         if (defs.emplace(std::string(udef.name), &uinst).second) {
             unrefDefs.insert(&udef);
             // § defOnlyNoArgTs — this listing is never elaborated.
@@ -15043,6 +15155,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                     }
                 UnitEnc enc;
                 const Expression* initE = ps.getInitializer();
+                static const bool unitXzLit404 = lawOn(404, "R11U404_UNITXZ_OFF");
                 // Surelog compiles each command-line file's FileContent on its
                 // own, and a guarded header is textually included by exactly
                 // ONE of them — so a $unit parameter declared in a header owned
@@ -15124,8 +15237,66 @@ UHDM::design* UhdmExporter::exportDesign() {
                     enc.ok = true;
                     up->VpiValue(enc.value);
                 }
-                else if (initE && !unfoldableInit9 && cv.isInteger() &&
-                         !cv.integer().hasUnknown()) {
+                else if (initE && !unfoldableInit9 && unitXzLit404 &&
+                         stripImplicitConv(*initE).kind ==
+                             ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                    // § unitParamXzLiteral404 — an unbased unsized literal
+                    // ('0 '1 'x 'z) as a $unit parameter's initializer:
+                    // Surelog keeps the fill bit, uppercased, as a BIN value
+                    // (`'X`, BIN:X, at the declared width; untyped, size -1
+                    // and no parameter typespec), except a TYPED `'1`, which
+                    // it reduces to the all-ones UINT of the declared width
+                    // (int: 4294967295; logic [3:0]: 15).  Golden
+                    // number_test_2 (`parameter int foo = '0` -> BIN:0).
+                    auto& ul404 = stripImplicitConv(*initE);
+                    std::string raw404 = rawText(ul404.sourceRange);
+                    char fill404 = raw404.empty() ? '0' : (char)toupper(raw404.back());
+                    uint32_t w404 = ps.getType().getBitWidth();
+                    if (typedDecl9 && fill404 == '1') {
+                        if (w404 >= 1 && w404 <= 64) {
+                            uint64_t ones404 =
+                                w404 == 64 ? ~0ull : ((1ull << w404) - 1);
+                            enc.value = "UINT:" + std::to_string(ones404);
+                            enc.decompile = std::to_string(ones404);
+                            enc.size = (int32_t)w404;
+                            enc.constType = vpiUIntConst;
+                            enc.ok = true;
+                        }
+                        // § unitWideFillOnesBin404v — wider than 64 bits
+                        // Surelog keeps the all-ones value in BINARY (golden
+                        // `parameter logic [99:0] P = '1;` -> BIN of 100 ones,
+                        // the decompile the same digits), where the law wrote
+                        // no value and no rhs at all.
+                        else if (w404 > 64 && fixOn(404, "R11V404_WIDEFILL_OFF")) {
+                            std::string ones404(w404, '1');
+                            enc.value = "BIN:" + ones404;
+                            enc.decompile = ones404;
+                            enc.size = (int32_t)w404;
+                            enc.constType = vpiBinaryConst;
+                            enc.wantTs = true;
+                            enc.ok = true;
+                        }
+                    }
+                    else if (fill404 == '0' || fill404 == '1' || fill404 == 'X' ||
+                             fill404 == 'Z') {
+                        enc.value = std::string("BIN:") + fill404;
+                        enc.decompile = std::string("'") + fill404;
+                        enc.size = typedDecl9 ? (int32_t)w404 : -1;
+                        enc.constType = vpiBinaryConst;
+                        enc.wantTs = typedDecl9;
+                        enc.ok = true;
+                    }
+                    if (enc.ok) {
+                        up->VpiValue(enc.value);
+                        lawTrace(404, "unitParamXzLiteral404",
+                                 std::string(ps.name) + " " + enc.value);
+                    }
+                }
+                else if (initE && !unfoldableInit9 &&
+                         ((cv.isInteger() && !cv.integer().hasUnknown()) ||
+                          (unitXzLit404 &&
+                           stripImplicitConv(*initE).kind ==
+                               ExpressionKind::IntegerLiteral))) {
                     const Expression& ic = stripImplicitConv(*initE);
                     char base = 0;
                     std::string digits;
@@ -15148,10 +15319,25 @@ UHDM::design* UhdmExporter::exportDesign() {
                     }
                     else if (litParts(ic, base, digits, litSize)) {
                         if (base) {
+                            // § unitParamXzLiteral404 — a ONE-bit x literal
+                            // (`1'bx`) formats its digit uppercase in the
+                            // value and the decompile (Surelog's 1-bit fill
+                            // value; a 1-bit z and multi-bit x/z keep the
+                            // written case), as the module-scope arm does.
+                            bool x1_404 = unitXzLit404 && litSize == 1 &&
+                                          digits.size() == 1 &&
+                                          (digits[0] == 'x' || digits[0] == 'X');
+                            if (x1_404)
+                                digits = "X";
                             enc.value = std::string(baseTag(base)) + digits;
                             // rawTextLit, not rawText: a macro-sized literal's
                             // decompile is the EXPANDED text (`32'd8`).
                             enc.decompile = stripSep(rawTextLit(ic));
+                            if (x1_404 && !enc.decompile.empty()) {
+                                enc.decompile.back() = 'X';
+                                lawTrace(404, "unitParamXzLiteral404",
+                                         std::string(ps.name) + " 1bX");
+                            }
                             enc.size = litSize;
                             enc.constType = baseConstType(base);
                             // A DECIMAL-based literal, and any literal whose
@@ -17162,6 +17348,189 @@ UHDM::design* UhdmExporter::exportDesign() {
     // block comment on applyIfacePaFlatten7 (ModuleEmit.cpp) for the producer
     // and the golden grid.
     applyIfacePaFlatten7();
+
+    // § implicitNetDefLastRef404 — the DEFINITION-view net of an implicit net
+    // sits at the first reference to its name that MATERIALIZES it in
+    // Surelog's definition compile, not necessarily at its first occurrence.
+    // A reference materializes the net when it is a NAMED port connection
+    // `.x(n)`, a terminal of a NAMED logic gate, an INPUT terminal of an
+    // unnamed logic gate, a continuous assignment or procedural code; an
+    // ORDERED port connection, an unnamed logic gate's OUTPUT terminal, a
+    // pullup/pulldown terminal (named or not) and a net-declaration
+    // initializer only mention it.  Measured: p597 `buf (o1, in1)` ...
+    // `$fmonitor(..., o1)` -> o1 at the $fmonitor; chapter-6/6.10 `test mod(a,
+    // b, c); assign d = c;` -> the assign; p628 `pulldown (pd)` -> the
+    // $display; the Gates corpus row `not (a_inv, A); and (y0, c0, a_inv, ...);
+    // and (y1, c1, a_inv, B);` -> the FIRST `and` (92:12, not the last);
+    // ExplicitPorts `a a1(.a(c)); ... d d1(..., .d(c));` -> stays at a1; IN/in04
+    // `sub s1(a, p); sub s2(p, q); wire z = r | q; $display(.., p, q, r)` ->
+    // p and q at the $display, the named gate's r at its terminal.  The
+    // elaborated view keeps the first occurrence everywhere.  The listing then
+    // orders the implicit nets by that location (in04: x r p q; in06: r5 r1
+    // r3 r4 r7 r9).
+    if (lawOn(404, "R11U404_IMPNETLASTREF_OFF"))
+        for (auto& [def404, di404] : defMap) {
+            if (!di404.mod || !def404->getSyntax())
+                continue;
+            const syntax::SyntaxNode* msyn404 = def404->getSyntax();
+            // Is this occurrence one that materializes the net?
+            auto creates404 = [&](const syntax::SyntaxNode& occ) -> bool {
+                for (const syntax::SyntaxNode* q = occ.parent; q && q != msyn404;
+                     q = q->parent) {
+                    switch (q->kind) {
+                        case syntax::SyntaxKind::NamedPortConnection:
+                            return true;
+                        case syntax::SyntaxKind::OrderedPortConnection: {
+                            // an ORDERED connection of a module instance does
+                            // not; a gate terminal is decided below
+                            for (const syntax::SyntaxNode* g = q->parent; g && g != msyn404; g = g->parent) {
+                                if (g->kind == syntax::SyntaxKind::HierarchyInstantiation) {
+                                    // ...unless the instantiated name is a
+                                    // UDP: its terminals read like a gate's
+                                    // (p835 `dff1 g1 (qi, clk, d);` keeps qi
+                                    // at g1, the instance being named)
+                                    auto& hin = g->as<syntax::HierarchyInstantiationSyntax>();
+                                    auto lk = comp.tryGetDefinition(hin.type.valueText(), comp.getRoot());
+                                    // § ifacePrgOrderedConnMaterializes404v
+                                    // — an ORDERED connection of an
+                                    // INTERFACE or PROGRAM instance
+                                    // materializes the net (golden `ifc
+                                    // u(w); assign w = i;` keeps w at u;
+                                    // `prg p1(w);` at p1); only a MODULE
+                                    // instance's ordered connection does not.
+                                    if (lk.definition &&
+                                        lk.definition->kind == SymbolKind::Definition &&
+                                        lk.definition->as<DefinitionSymbol>().definitionKind !=
+                                            DefinitionKind::Module &&
+                                        fixOn(404, "R11V404_IFPRGCONN_OFF"))
+                                        return true;
+                                    if (!lk.definition || lk.definition->kind != SymbolKind::Primitive)
+                                        return false;
+                                    const syntax::HierarchicalInstanceSyntax* uhi = nullptr;
+                                    for (const syntax::SyntaxNode* h = q->parent; h && h != g; h = h->parent)
+                                        if (h->kind == syntax::SyntaxKind::HierarchicalInstance) {
+                                            uhi = &h->as<syntax::HierarchicalInstanceSyntax>();
+                                            break;
+                                        }
+                                    if (!uhi || (uhi->decl && uhi->decl->name.valueText().size()))
+                                        return true;
+                                    return !(uhi->connections.size() && uhi->connections[0] == q);
+                                }
+                                if (g->kind == syntax::SyntaxKind::PrimitiveInstantiation) {
+                                    auto& pi = g->as<syntax::PrimitiveInstantiationSyntax>();
+                                    auto tk = pi.type.kind;
+                                    if (tk == parsing::TokenKind::PullUpKeyword ||
+                                        tk == parsing::TokenKind::PullDownKeyword)
+                                        return false;
+                                    const syntax::HierarchicalInstanceSyntax* hi = nullptr;
+                                    for (const syntax::SyntaxNode* h = q->parent; h && h != g; h = h->parent)
+                                        if (h->kind == syntax::SyntaxKind::HierarchicalInstance) {
+                                            hi = &h->as<syntax::HierarchicalInstanceSyntax>();
+                                            break;
+                                        }
+                                    if (!hi || hi->decl)
+                                        return true;
+                                    // unnamed: is this terminal an output?
+                                    size_t idx = 0, n = hi->connections.size();
+                                    for (size_t i = 0; i < n; i++)
+                                        if (hi->connections[i] == q) {
+                                            idx = i;
+                                            break;
+                                        }
+                                    bool multiOut = tk == parsing::TokenKind::BufKeyword ||
+                                                    tk == parsing::TokenKind::NotKeyword;
+                                    bool output = multiOut ? (idx + 1 < n) : (idx == 0);
+                                    return !output;
+                                }
+                            }
+                            return true;
+                        }
+                        case syntax::SyntaxKind::ContinuousAssign:
+                            return true;
+                        case syntax::SyntaxKind::NetDeclaration:
+                        case syntax::SyntaxKind::DataDeclaration:
+                            return false;
+                        default:
+                            break;
+                    }
+                    if (syntax::StatementSyntax::isKind(q->kind) ||
+                        q->kind == syntax::SyntaxKind::AlwaysBlock ||
+                        q->kind == syntax::SyntaxKind::AlwaysCombBlock ||
+                        q->kind == syntax::SyntaxKind::AlwaysFFBlock ||
+                        q->kind == syntax::SyntaxKind::AlwaysLatchBlock ||
+                        q->kind == syntax::SyntaxKind::InitialBlock ||
+                        q->kind == syntax::SyntaxKind::FinalBlock)
+                        return true;
+                }
+                return true;
+            };
+            std::map<const UHDM::any*, SourceLocation> where404;
+            bool anyMoved404 = false;
+            for (auto& [sym404, obj404] : di404.nets) {
+                if (!sym404 || sym404->kind != SymbolKind::Net ||
+                    !sym404->as<NetSymbol>().isImplicit || !obj404 ||
+                    obj404->UhdmType() != UHDM::uhdmlogic_net ||
+                    obj404->VpiParent() != di404.mod)
+                    continue;
+                const std::string_view nm404 = sym404->name;
+                bool birthSeen404 = false, birthCreates404 = false;
+                parsing::Token make404;
+                std::function<void(const syntax::SyntaxNode&)> walk404 =
+                    [&](const syntax::SyntaxNode& n) {
+                        if (n.kind == syntax::SyntaxKind::IdentifierName ||
+                            n.kind == syntax::SyntaxKind::IdentifierSelectName) {
+                            parsing::Token t = n.kind == syntax::SyntaxKind::IdentifierName
+                                ? n.as<syntax::IdentifierNameSyntax>().identifier
+                                : n.as<syntax::IdentifierSelectNameSyntax>().identifier;
+                            if (t.valueText() == nm404 && !sm->isMacroLoc(t.location())) {
+                                bool c = creates404(n);
+                                if (t.location() == sym404->location) {
+                                    birthSeen404 = true;
+                                    birthCreates404 = c;
+                                }
+                                else if (c && !make404)
+                                    make404 = t;
+                            }
+                        }
+                        for (size_t i = 0; i < n.getChildCount(); i++)
+                            if (auto* c = n.childNode(i))
+                                walk404(*c);
+                    };
+                walk404(*msyn404);
+                where404[obj404] = sym404->location;
+                if (!birthSeen404 || birthCreates404 || !make404)
+                    continue;
+                where404[obj404] = make404.location();
+                anyMoved404 = true;
+                setLoc(obj404, make404.range());
+                lawTrace(404, "implicitNetDefLastRef404",
+                         std::string(def404->name) + "." + std::string(nm404));
+            }
+            if (anyMoved404 && where404.size() > 1 &&
+                di404.mod->UhdmType() == UHDM::uhdmmodule_inst)
+                if (auto* nets404 = ((UHDM::module_inst*)di404.mod)->Nets()) {
+                    std::vector<size_t> slots404;
+                    std::vector<UHDM::net*> imp404;
+                    for (size_t i = 0; i < nets404->size(); i++)
+                        if (where404.count((*nets404)[i])) {
+                            slots404.push_back(i);
+                            imp404.push_back((*nets404)[i]);
+                        }
+                    std::stable_sort(imp404.begin(), imp404.end(),
+                                     [&](UHDM::net* a, UHDM::net* b) {
+                                         return srcOrderLess(where404[a], where404[b]);
+                                     });
+                    bool changed404 = false;
+                    for (size_t k = 0; k < slots404.size(); k++) {
+                        if ((*nets404)[slots404[k]] != imp404[k])
+                            changed404 = true;
+                        (*nets404)[slots404[k]] = imp404[k];
+                    }
+                    if (changed404)
+                        lawTrace(404, "implicitNetDefLastRef404",
+                                 "order " + std::string(def404->name));
+                }
+        }
 
     // § ifaceDupSharesHomePorts — the col-0 tail dup SHARES the home view's
     // fully-connected port objects (see makeIfaceRefDup for the measurement

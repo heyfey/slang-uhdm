@@ -1,0 +1,17 @@
+// § subrBuiltinClassArrElemUnsup404
+module process_tb ();
+	task automatic test (int N);
+		process job[] = new [N];
+		foreach(job[i])
+			fork
+				automatic int k = i;
+				begin
+					job[k] = process::self();
+					$display("process %d", k);
+				end
+			join_none
+	endtask
+	initial begin
+		test(8);
+	end
+endmodule

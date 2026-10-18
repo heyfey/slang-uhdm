@@ -1,0 +1,2 @@
+/tmp/r11u404_wdL cmds.txt=5661 with a slang line=5611 naming /tmp/r11u404_bin/law7.bin=5611
+/tmp/r11u404_wdP cmds.txt=5661 with a slang line=5611 naming /tmp/r11u404_bin/pris.bin=5611

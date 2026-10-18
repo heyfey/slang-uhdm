@@ -24727,6 +24727,49 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         r->VpiName(argName);
                         r->VpiParent(sfc);
                         setLoc(r, argSpan);
+                        // § pkgStructMemberSysArgBind404 — a query-call
+                        // argument naming a parameter of the SAME package, in
+                        // a packed-struct MEMBER range of that package's own
+                        // listing that keeps the call (the copy built under
+                        // the top-view flag): Surelog resolves the argument
+                        // there as in the package's def listing, the ref_obj
+                        // chained to the parameter's Rhs constant (golden
+                        // `$clog2(num_rows_p)` in bsg_dramsim3_pkg's
+                        // dram_ch_addr_s, vpiActual constant 23:28; every
+                        // basejump row's first uhdm-cmp head).  The member
+                        // range binds no scope, so the package is the scope.
+                        if (an9 && an9->kind == syntax::SyntaxKind::IdentifierName &&
+                            curPkgEmitSym && pkgEmitTopView && structMemberTsCtx &&
+                            !currentScope && !defNetTsScope && !tfTypeScope &&
+                            !structMemberAliasTs &&
+                            curPkgEmitSym->kind == SymbolKind::Package &&
+                            lawOn(404, "R11U404_PKGMEMBERSYSARG_OFF")) {
+                            ASTContext sctx404(curPkgEmitSym->as<PackageSymbol>(),
+                                               LookupLocation::max);
+                            auto& sb404 = Expression::bind(
+                                an9->as<syntax::ExpressionSyntax>(), sctx404);
+                            if (!sb404.bad() && stripImplicitConv(sb404).kind ==
+                                                    ExpressionKind::NamedValue) {
+                                auto& ssy404 = stripImplicitConv(sb404)
+                                                   .as<NamedValueExpression>()
+                                                   .symbol;
+                                if (ssy404.kind == SymbolKind::Parameter &&
+                                    ssy404.getParentScope() &&
+                                    &ssy404.getParentScope()->asSymbol() ==
+                                        curPkgEmitSym) {
+                                    if (auto ci404 = pkgParamConst.find(&ssy404);
+                                        ci404 != pkgParamConst.end())
+                                        r->Actual_group(ci404->second);
+                                    else if (auto ri404 = pkgParamDefRhs.find(&ssy404);
+                                             ri404 != pkgParamDefRhs.end())
+                                        r->Actual_group(ri404->second);
+                                    lawTrace(404, "pkgStructMemberSysArgBind404",
+                                             std::string(curPkgEmitSym->name) + "::" +
+                                                 argName +
+                                                 (r->Actual_group() ? "" : " unbound"));
+                                }
+                            }
+                        }
                         // § sysCallArgRefScopedName303 (r11u303) — a bare
                         // identifier argument of a system call is a reference
                         // like any other operand of the expression: where the
@@ -30169,6 +30212,23 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
                 !isSharedAliasTs(*dims[0].indexType, its) &&
                 !isTdVecClone42(its)) {
                 auto dr = dimSyns[0]->sourceRange();
+                // § assocIdxSpanAtTokens404 — the index typespec spans the
+                // index's own tokens, not the bracket interior with its
+                // blanks (golden `int arr [ int ];` int_typespec 2:11-2:14,
+                // ours 2:10-2:15; the 14 chapter-7 associative rows), as the
+                // subroutine-local site already reads the selector's range.
+                const syntax::RangeDimensionSpecifierSyntax* rd404 =
+                    dimSyns[0]->specifier
+                        ? dimSyns[0]->specifier->as_if<syntax::RangeDimensionSpecifierSyntax>()
+                        : nullptr;
+                if (rd404 && rd404->selector &&
+                    lawOn(404, "R11U404_ASSOCIDXSPAN_OFF")) {
+                    auto sr404 = rd404->selector->sourceRange();
+                    if (sr404.start() != dr.start() + 1 || sr404.end() != dr.end() - 1)
+                        lawTrace(404, "assocIdxSpanAtTokens404", std::string(sym.name));
+                    setLoc(its, sr404);
+                }
+                else
                 setLoc(its, SourceRange(dr.start() + 1, dr.end() - 1));
             }
             auto* irt = s.MakeRef_typespec();
@@ -32301,13 +32361,102 @@ bool UhdmExporter::stmtScopeTdNameUnique155(std::string_view nm) {
     return it != tdNameCount155.end() && it->second == 1;
 }
 
+// § subrBuiltinClassArrElemUnsup404 — the ELEMENT of a declarator array
+// (`process job[] = new [N];`, `mailbox m[$]`, `semaphore s[3]`) declared in a
+// SUBROUTINE body, whose element type is one of the three built-in classes:
+// Surelog's procedural compileVariable does not resolve the built-in class
+// name for the element (a user class or a scalar `process p;` resolves), so the
+// element variable is a `ref_var` carrying an `unsupported_typespec` named with
+// the written type at its tokens, exactly the placeholder the statement-scope
+// typedef degrade (§ blockLocalTdDeclIsRefVarUnsupported155) builds (golden
+// chapter-9/9.7--process_cls_self.sv `ref_var (work@process_tb.test.job)` +
+// `unsupported_typespec (process) @3:3-3:10`, the four 9.7 rows).
+static std::string_view subrBuiltinClassElem404(const Symbol& declSym) {
+    const Symbol* home = nullptr;
+    for (auto* sc = declSym.getParentScope(); sc; sc = sc->asSymbol().getParentScope()) {
+        auto k = sc->asSymbol().kind;
+        if (k == SymbolKind::Subroutine) {
+            home = &sc->asSymbol();
+            break;
+        }
+        if (k == SymbolKind::InstanceBody || k == SymbolKind::ClassType ||
+            k == SymbolKind::Package || k == SymbolKind::CompilationUnit)
+            break;
+    }
+    if (!home)
+        return {};
+    // § builtinClassElemNotInClass404v — a CLASS method resolves the built-in
+    // class element as any other (golden `class worker; task run(int n);
+    // process jobs[] = new[n];` -> class_var + class_typespec, pk::C::f's
+    // `process p[2]`, a static class task's `process r[]`); only a module,
+    // interface, program or package subroutine degrades.
+    if (fixOn(404, "R11V404_BICLASSMETH_OFF"))
+        for (auto* sc = home->getParentScope(); sc; sc = sc->asSymbol().getParentScope()) {
+            auto k = sc->asSymbol().kind;
+            if (k == SymbolKind::ClassType || k == SymbolKind::GenericClassDef)
+                return {};
+            if (k == SymbolKind::InstanceBody || k == SymbolKind::Package ||
+                k == SymbolKind::CompilationUnit)
+                break;
+        }
+    auto* dsyn = declSym.getSyntax();
+    if (!dsyn || dsyn->kind != syntax::SyntaxKind::Declarator ||
+        dsyn->as<syntax::DeclaratorSyntax>().dimensions.empty())
+        return {};
+    const Type* et = declArrayElemDeclType12(declSym);
+    if (!et || et->getCanonicalType().kind != SymbolKind::ClassType)
+        return {};
+    auto* dt = declSym.getDeclaredType();
+    auto* tsyn = dt ? dt->getTypeSyntax() : nullptr;
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return {};
+    auto& nt = tsyn->as<syntax::NamedTypeSyntax>();
+    if (!nt.name || nt.name->kind != syntax::SyntaxKind::IdentifierName)
+        return {};
+    std::string_view nm = nt.name->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    if (nm != "process" && nm != "mailbox" && nm != "semaphore")
+        return {};
+    auto& ct = et->getCanonicalType();
+    if (ct.name != nm)
+        return {};
+    // the BUILT-IN class (slang's std package, or the builtin unit), never a
+    // user class that happens to share the name
+    auto* cps = ct.getParentScope();
+    bool builtin = false;
+    for (auto* sc = cps; sc && !builtin; sc = sc->asSymbol().getParentScope()) {
+        auto& ss = sc->asSymbol();
+        if (ss.kind == SymbolKind::Package && ss.name == "std")
+            builtin = true;
+        if (ss.kind == SymbolKind::CompilationUnit || ss.kind == SymbolKind::Package)
+            break;
+    }
+    if (!builtin)
+        return {};
+    if (!lawOn(404, "R11U404_BUILTINCLASSELEM_OFF"))
+        return {};
+    return nm;
+}
+
 bool UhdmExporter::stmtScopeTdDegrades155(const Symbol& declSym) {
     std::string_view nm = stmtScopeTdName155(declSym);
+    if (nm.empty() && !subrBuiltinClassElem404(declSym).empty())
+        return true;
     return !nm.empty() && stmtScopeTdNameUnique155(nm);
 }
 
 UHDM::typespec* UhdmExporter::makeStmtScopeTdUnsupTs155(const Symbol& declSym) {
     std::string_view nm = stmtScopeTdName155(declSym);
+    if (nm.empty()) {
+        std::string_view bc404 = subrBuiltinClassElem404(declSym);
+        if (!bc404.empty()) {
+            auto* dt404 = declSym.getDeclaredType();
+            auto* uts404 = s.MakeUnsupported_typespec();
+            uts404->VpiName(std::string(bc404));
+            setLoc(uts404, dt404->getTypeSyntax()->sourceRange());
+            lawTrace(404, "subrBuiltinClassArrElemUnsup404", std::string(declSym.name));
+            return uts404;
+        }
+    }
     if (nm.empty() || !stmtScopeTdNameUnique155(nm))
         return nullptr;
     auto* dt = declSym.getDeclaredType();

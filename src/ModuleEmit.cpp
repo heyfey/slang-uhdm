@@ -12051,19 +12051,82 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
                         if (aexU9)
                             plU9 = aexU9->sourceRange();
                     }
+                    // § unknownModWildcardConnPort404 — a `.*` on a stub
+                    // with no definition is a port with no name spanning
+                    // the `.*`, its High_conn a constant whose decompile and
+                    // STRING value are the text `.*` (golden
+                    // bsg_mem_1r1w's `bsg_mem_1r1w_synth ... synth (.*)`).
+                    if (connU9->kind == syntax::SyntaxKind::WildcardPortConnection &&
+                        lawOn(404, "R11U404_UNKWILDCONN_OFF")) {
+                        auto* pw404 = s.MakePort();
+                        pw404->VpiParent(rm);
+                        setLoc(pw404, plU9);
+                        auto* cw404 = s.MakeConstant();
+                        cw404->VpiParent(pw404);
+                        setLoc(cw404, plU9);
+                        cw404->VpiDecompile(".*");
+                        cw404->VpiValue("STRING:.*");
+                        pw404->High_conn(cw404);
+                        rpU9->push_back(pw404);
+                        lawTrace(404, "unknownModWildcardConnPort404",
+                                 prefix + "." + std::string(ud.name));
+                        continue;
+                    }
                     // An EXPLICITLY EMPTY connection (`.O ()`) and a `.*`
                     // carry no actual; the resolved path drops those too.
-                    if (!aexU9)
+                    // § unknownModEmptyNamedConnPort404 — but a stub with no
+                    // definition behind it keeps an EXPLICITLY EMPTY NAMED
+                    // connection as a port with NO name (the formal is
+                    // never looked up), spanning the `.O()` node, with no
+                    // High_conn, and an implicit `.O` as a port named O (golden bsg_async_credit_counter's
+                    // `.w_ptr_binary_r_o()` to the undefined
+                    // bsg_async_ptr_gray, `\_port: , line:105:6`).
+                    if (!aexU9) {
+                        if (connU9->kind == syntax::SyntaxKind::NamedPortConnection &&
+                            lawOn(404, "R11U404_UNKEMPTYCONN_OFF")) {
+                            auto* peU9 = s.MakePort();
+                            // An IMPLICIT named connection (`.clk_i`, no
+                            // parentheses) keeps the formal's name, still
+                            // with no High_conn (golden bsg_1_to_n_tagged_fifo
+                            // `.clk_i` to the undefined bsg_1_to_n_tagged).
+                            if (!connU9->as<syntax::NamedPortConnectionSyntax>().openParen)
+                                peU9->VpiName(fnU9);
+                            peU9->VpiParent(rm);
+                            setLoc(peU9, plU9);
+                            rpU9->push_back(peU9);
+                            lawTrace(404, "unknownModEmptyNamedConnPort404",
+                                     prefix + "." + std::string(ud.name) + "." +
+                                         std::string(fnU9));
+                        }
                         continue;
+                    }
                     auto* pU9 = s.MakePort();
                     if (!fnU9.empty())
                         pU9->VpiName(fnU9);
                     pU9->VpiParent(rm);
                     setLoc(pU9, plU9);
+                    // § unknownModBitSelConnScope404 — a BIT-SELECT actual
+                    // is scoped under the instance alone (golden
+                    // `.d(q[1])` -> bit_select work@child.s.q, where a part
+                    // select, a ref or a concatenation operand keeps the
+                    // formal: work@child.s.e.r).
+                    bool bitSelU404 = false;
+                    if (aexU9->kind == syntax::SyntaxKind::IdentifierSelectName) {
+                        auto& isn404 = aexU9->as<syntax::IdentifierSelectNameSyntax>();
+                        bitSelU404 = isn404.selectors.size() == 1 &&
+                                     isn404.selectors[0]->selector &&
+                                     isn404.selectors[0]->selector->kind ==
+                                         syntax::SyntaxKind::BitSelect &&
+                                     lawOn(404, "R11U404_UNKBITSELSCOPE_OFF");
+                    }
+                    if (bitSelU404)
+                        lawTrace(404, "unknownModBitSelConnScope404",
+                                 prefix + "." + std::string(ud.name) + "." +
+                                     std::string(fnU9));
                     std::string scU9 =
                         prefix + "." + std::string(ud.name) +
-                        (fnU9.empty() ? std::string{}
-                                      : "." + std::string(fnU9));
+                        (fnU9.empty() || bitSelU404 ? std::string{}
+                                                    : "." + std::string(fnU9));
                     if (auto* pscU9 = ud.getParentScope()) {
                         ASTContext ctxU9(*pscU9, LookupLocation::max);
                         auto& beU9 = Expression::bind(
@@ -20589,6 +20652,75 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         if (auto tit0 = topNets.find(&rsym); tit0 != topNets.end())
                             r0->Actual_group(tit0->second);
                         v->Expr((UHDM::expr*)r0);
+                    }
+                    // § varInitOpCastKept404 — a BINARY-operation or
+                    // explicit-CAST variable initializer (`int a = 3 + 4;`,
+                    // `int a = int'(2.1 * 3.7);`, `integer a =
+                    // integer'(s);`) keeps its unfolded expression as the
+                    // var's vpiExpr in the elaborated view; the chain above
+                    // has no arm for them and wrote no vpiExpr at all
+                    // (chapter-6/6.24.1, 6.24.3, chapter-5/5.6.4).
+                    else if ((ic.kind == ExpressionKind::BinaryOp ||
+                              (ic.kind == ExpressionKind::Conversion && ic.syntax &&
+                               ic.syntax->kind == syntax::SyntaxKind::CastExpression)) &&
+                             lawOn(404, "R11U404_VARINITOP_OFF")) {
+                        if (auto* e = emitExpr(ic, v, fullName, topNets)) {
+                            v->Expr((UHDM::expr*)e);
+                            lawTrace(404, "varInitOpCastKept404", fullName);
+                            // ...and CompileHelper::adjustSize runs over the
+                            // ROOT operation's own constant operands against
+                            // the variable's width, the split of
+                            // § varInitConcatOperandAdjustSize (UINT masked
+                            // and re-rendered, BIN truncated only when wider,
+                            // DEC untouched, the rest re-sized): `byte f =
+                            // 300 - 1` -> 44/8 and 1/8, `int c = 3 * 4 + 2`
+                            // -> the 2 at 32 while the nested 3 and 4 keep 64.
+                            const Type& tc404 = dt->getType().getCanonicalType();
+                            const bool simple404 =
+                                tc404.kind == SymbolKind::PredefinedIntegerType ||
+                                (tc404.isPackedArray() && tc404.getArrayElementType() &&
+                                 !tc404.getArrayElementType()->getCanonicalType().isPackedArray());
+                            const int32_t tw404 = (int32_t)dt->getType().getBitWidth();
+                            if (ic.kind == ExpressionKind::BinaryOp &&
+                                e->UhdmType() == UHDM::uhdmoperation &&
+                                dt->getType().isIntegral() && simple404 && tw404 > 0)
+                                if (auto* ops404 = ((UHDM::operation*)e)->Operands())
+                                    for (auto* o404 : *ops404) {
+                                        if (o404->UhdmType() != UHDM::uhdmconstant)
+                                            continue;
+                                        auto* c404 = (UHDM::constant*)o404;
+                                        const int32_t ct404 = c404->VpiConstType();
+                                        const int32_t os404 = c404->VpiSize();
+                                        if (ct404 == vpiDecConst || os404 <= 0)
+                                            continue;
+                                        if (ct404 == vpiBinaryConst) {
+                                            if (os404 > tw404) {
+                                                std::string bv404(c404->VpiValue());
+                                                if (bv404.size() > 4)
+                                                    bv404.erase(0, 4);
+                                                if ((int32_t)bv404.size() > os404 - tw404)
+                                                    bv404.erase(0, (size_t)(os404 - tw404));
+                                                c404->VpiValue("BIN:" + bv404);
+                                                c404->VpiDecompile(bv404);
+                                                c404->VpiSize(tw404);
+                                            }
+                                        }
+                                        else if (ct404 == vpiUIntConst) {
+                                            std::string_view uv404 = c404->VpiValue();
+                                            if (uv404.rfind("UINT:", 0) == 0 && tw404 < 64) {
+                                                uint64_t n404 = strtoull(
+                                                    std::string(uv404.substr(5)).c_str(),
+                                                    nullptr, 10);
+                                                n404 &= ((1ULL << tw404) - 1);
+                                                c404->VpiValue("UINT:" + std::to_string(n404));
+                                                c404->VpiDecompile(std::to_string(n404));
+                                            }
+                                            c404->VpiSize(tw404);
+                                        }
+                                        else
+                                            c404->VpiSize(tw404);
+                                    }
+                        }
                     }
                     else if (enumRef || isLiteralExpr(ic) || concatInit) {
                         bool forceSaved = forceConstParent;
@@ -45561,8 +45693,29 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
     for (auto* memberP : caOrder) {
         auto& member = *memberP;
         auto& casym = member.as<ContinuousAssignSymbol>();
-        auto& assign = casym.getAssignment();
+        const Expression* assignP = &casym.getAssignment();
         size_t myIdx = idx++;
+        // § invalidCaAssignChild404 — slang wraps a continuous assignment it
+        // could not type (an operand of an uninstantiated definition whose
+        // width folds through parameters it cannot know) in an Invalid
+        // expression around the Assignment it built; Surelog writes the
+        // cont_assign from the text either way.  Emit the wrapped Assignment.
+        if (assignP->kind == ExpressionKind::Invalid &&
+            lawOn(404, "R11U404_CAINVALID_OFF")) {
+            auto* ch = assignP->as<InvalidExpression>().child;
+            auto loc = member.location;
+            std::string where = std::string(sm->getFileName(loc)) + ":" +
+                                std::to_string(sm->getLineNumber(loc));
+            if (ch && ch->kind == ExpressionKind::Assignment) {
+                lawTrace(404, "invalidCaAssignChild404", where);
+                assignP = ch;
+            }
+            else
+                lawTrace(404, "invalidCaAssignChild404",
+                         "abstain " + where + " " +
+                             (ch ? std::string(toString(ch->kind)) : "null"));
+        }
+        auto& assign = *assignP;
         if (assign.kind != ExpressionKind::Assignment) {
             noteUnsupported("continuous assign form");
             continue;
@@ -53061,6 +53214,21 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             }
             op->Operands(operands);
             return op;
+        }
+        case AssertionExprKind::SequenceWithMatch: {
+            // § seqMatchItemsDropped404 — `(seq, x = e)`: Surelog keeps the
+            // sequence expression alone in the property (golden 16.10
+            // `(valid, x = in) |-> ...`: the implication's first operand is
+            // the ref_obj `valid`; the match item's assignment is built
+            // but listed nowhere).  A repetition on the parenthesized
+            // match abstains.
+            auto& swm = ae.as<SequenceWithMatchExpr>();
+            if (!swm.repetition && lawOn(404, "R11U404_SEQMATCH_OFF")) {
+                lawTrace(404, "seqMatchItemsDropped404", prefix);
+                return emitAssertionExpr(swm.expr, parent, prefix, netMap);
+            }
+            noteUnsupported("assertion expr kind: " + std::string(toString(ae.kind)));
+            return nullptr;
         }
         default:
             noteUnsupported("assertion expr kind: " + std::string(toString(ae.kind)));

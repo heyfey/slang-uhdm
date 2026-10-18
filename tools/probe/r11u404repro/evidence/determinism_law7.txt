@@ -1,0 +1,4 @@
+# three concurrent draws per row with law7 (ac78571fe2f25d30ae6026852f1467ca), run in the row's source dir as verify_golden.py does; md5 prefixes
+MiniAmiq default draws=6274d155ae91,6274d155ae91,6274d155ae91 sweep=6274d155ae91 pristine_sweep=6274d155ae91
+SeqDriver testflags draws=dcc2c63e2e29,dcc2c63e2e29,dcc2c63e2e29 sweep=dcc2c63e2e29 pristine_sweep=dcc2c63e2e29
+Earlgrey_0_1 default draws=fc04e7f2bb3f,fc04e7f2bb3f,fc04e7f2bb3f sweep=fc04e7f2bb3f pristine_sweep=fc04e7f2bb3f

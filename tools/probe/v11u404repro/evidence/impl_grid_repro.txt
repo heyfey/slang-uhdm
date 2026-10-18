@@ -1,0 +1,45 @@
+AI/ai01 | sl surelog rc=0 | pris rc=0 cmp=0 STRICT_NOTEQUAL col  | law rc=0 moved cmp=0 STRICT_EQUAL 172 objects | off rc=0 bytes=same
+AI/ai02 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=255 NOT_EQUAL stage1  | off rc=0 bytes=same
+BC/bc01 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 197 objects | off rc=0 bytes=same
+BC/bc02 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=255 NOT_EQUAL stage1  | off rc=0 bytes=same
+BC/bc03 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=255 NOT_EQUAL stage1  | off rc=0 bytes=same
+CA/ca01 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 129 objects | off rc=0 bytes=same
+CA/ca02 | sl surelog rc=0 | pris rc=0 cmp=0 STRICT_EQUAL 134 objects | law rc=0 unmoved cmp=0 STRICT_EQUAL 134 objects | off rc=0 bytes=same
+IN/in01 | sl surelog rc=0 | pris rc=0 cmp=0 STRICT_NOTEQUAL line  | law rc=0 moved cmp=0 STRICT_EQUAL 255 objects | off rc=0 bytes=same
+IN/in02 | sl surelog rc=0 | pris rc=0 cmp=0 STRICT_NOTEQUAL line  | law rc=0 moved cmp=0 STRICT_EQUAL 186 objects | off rc=0 bytes=same
+IN/in03 | sl surelog rc=0 | pris rc=0 cmp=0 STRICT_NOTEQUAL line  | law rc=0 moved cmp=0 STRICT_EQUAL 171 objects | off rc=0 bytes=same
+IN/in04 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=255 NOT_EQUAL stage1  | off rc=0 bytes=same
+IN/in05 | sl surelog rc=0 | pris rc=0 cmp=0 STRICT_NOTEQUAL line  | law rc=0 moved cmp=0 STRICT_EQUAL 223 objects | off rc=0 bytes=same
+IN/in06 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 231 objects | off rc=0 bytes=same
+IN/in07 | sl surelog rc=0 | pris rc=0 cmp=0 STRICT_EQUAL 258 objects | law rc=0 unmoved cmp=0 STRICT_EQUAL 258 objects | off rc=0 bytes=same
+IN/in08 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 214 objects | off rc=0 bytes=same
+IN/in09 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=255 NOT_EQUAL stage1  | off rc=0 bytes=same
+IN/in10 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 unmoved cmp=255 NOT_EQUAL stage1  | off rc=0 bytes=same
+MO/mo01 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 143 objects | off rc=0 bytes=same
+MO/mo02 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 170 objects | off rc=0 bytes=same
+PS/ps01 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 154 objects | off rc=0 bytes=same
+PS/ps02 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_NOTEQUAL endcol  | off rc=0 bytes=same
+PS/ps03 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 2254 objects | off rc=0 bytes=same
+SM/sm01 | sl surelog rc=0 | pris rc=4 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=255 NOT_EQUAL stage1  | off rc=4 bytes=same
+SM/sm02 | sl surelog rc=0 | pris rc=4 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=255 NOT_EQUAL stage1  | off rc=4 bytes=same
+UD/ud01 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 150 objects | off rc=0 bytes=same
+UD/ud02 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 unmoved cmp=255 NOT_EQUAL stage1  | off rc=0 bytes=same
+UD/ud03 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 unmoved cmp=255 NOT_EQUAL stage1  | off rc=0 bytes=same
+UD/ud04 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=255 NOT_EQUAL stage1  | off rc=0 bytes=same
+UE/ue01 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 126 objects | off rc=0 bytes=same
+UE/ue02 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 146 objects | off rc=0 bytes=same
+UE/ue03 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 193 objects | off rc=0 bytes=same
+UE/ue04 | sl surelog rc=0 | pris rc=0 cmp=0 STRICT_EQUAL 169 objects | law rc=0 unmoved cmp=0 STRICT_EQUAL 169 objects | off rc=0 bytes=same
+UE/ue05 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 117 objects | off rc=0 bytes=same
+UE/ue06 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 122 objects | off rc=0 bytes=same
+UX/ux10 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 100 objects | off rc=0 bytes=same
+UX/ux11 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 100 objects | off rc=0 bytes=same
+UX/ux2 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 100 objects | off rc=0 bytes=same
+UX/ux20 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=255 NOT_EQUAL stage1  | off rc=0 bytes=same
+UX/ux21 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 170 objects | off rc=0 bytes=same
+VI/vi01 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 105 objects | off rc=0 bytes=same
+VI/vi02 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 102 objects | off rc=0 bytes=same
+VI/vi03 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 145 objects | off rc=0 bytes=same
+VI/vi04 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=255 NOT_EQUAL stage1  | off rc=0 bytes=same
+VI/vi05 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 unmoved cmp=255 NOT_EQUAL stage1  | off rc=0 bytes=same
+VI/vi06 | sl surelog rc=0 | pris rc=0 cmp=255 NOT_EQUAL stage1  | law rc=0 moved cmp=0 STRICT_EQUAL 161 objects | off rc=0 bytes=same

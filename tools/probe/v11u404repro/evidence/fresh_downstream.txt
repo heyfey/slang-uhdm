@@ -1,0 +1,53 @@
+VN/vn01 IDENTICAL  NO_GATES NO_GATES |VN/vn01 IDENTICAL  NO_GATES NO_GATES 
+VN/vn02 IDENTICAL  NO_GATES NO_GATES |VN/vn02 IDENTICAL  NO_GATES NO_GATES 
+VN/vn03 IDENTICAL  NO_GATES NO_GATES |VN/vn03 IDENTICAL  NO_GATES NO_GATES 
+VN/vn04 IDENTICAL  NO_GATES NO_GATES |VN/vn04 IDENTICAL  NO_GATES NO_GATES 
+VN/vn05 IDENTICAL  OK OK |VN/vn05 IDENTICAL  OK OK 
+VN/vn06 IDENTICAL  NO_GATES NO_GATES |VN/vn06 IDENTICAL  NO_GATES NO_GATES 
+VN/vn07 IDENTICAL  NO_GATES NO_GATES |VN/vn07 IDENTICAL  NO_GATES NO_GATES 
+VN/vn08 IDENTICAL  NO_GATES NO_GATES |VN/vn08 IDENTICAL  NO_GATES NO_GATES 
+VN/vn09 IDENTICAL  NO_GATES NO_GATES |VN/vn09 IDENTICAL  NO_GATES NO_GATES 
+VN/vn10 IDENTICAL  NO_GATES NO_GATES |VN/vn10 IDENTICAL  NO_GATES NO_GATES 
+VN/vn11 SKIP-class|VN/vn11 SKIP-class
+VN/vn12 IDENTICAL  NO_GATES NO_GATES |VN/vn12 IDENTICAL  NO_GATES NO_GATES 
+VN/vn13 IDENTICAL  NO_GATES NO_GATES |VN/vn13 IDENTICAL  NO_GATES NO_GATES 
+VN/vn14 IDENTICAL  NO_GATES NO_GATES |VN/vn14 IDENTICAL  NO_GATES NO_GATES 
+VN/vn15 IDENTICAL  NO_GATES NO_GATES |VN/vn15 IDENTICAL  NO_GATES NO_GATES 
+VU/vu01 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu01 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu02 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu02 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu03 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu03 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu04 EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu04 EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu05 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu05 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu06 EQUIVALENT nohier il synth NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu06 EQUIVALENT nohier il synth NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu07 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu07 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu08 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu08 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu09 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu09 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu10 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu10 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu11 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu11 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu12 IDENTICAL  NO_GATES NO_GATES |VU/vu12 IDENTICAL  NO_GATES NO_GATES 
+VU/vu13 EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu13 EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu14 EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu14 EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu15 IDENTICAL  NO_GATES NO_GATES |VU/vu15 IDENTICAL  NO_GATES NO_GATES 
+VU/vu16 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu16 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VU/vu17 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VU/vu17 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VI/vi01 EQUIVALENT nohier il synth NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VI/vi01 IDENTICAL  NO_GATES NO_GATES 
+VI/vi02 EQUIVALENT nohier il synth NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VI/vi02 IDENTICAL  NO_GATES NO_GATES 
+VI/vi03 EQUIVALENT nohier il synth NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VI/vi03 EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 3 common constant assignments match
+VI/vi04 EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 2 common constant assignments match|VI/vi04 IDENTICAL  NO_GATES NO_GATES 
+VI/vi05 EQUIVALENT nohier il synth NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VI/vi05 IDENTICAL  NO_GATES NO_GATES 
+VI/vi06 SKIP-class|VI/vi06 SKIP-class
+VE/ve01 SLANG_REJECT    |VE/ve01 SLANG_REJECT    
+VE/ve02 SLANG_REJECT    |VE/ve02 SLANG_REJECT    
+VE/ve03 SLANG_REJECT    |VE/ve03 SLANG_REJECT    
+VC/vc01 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VC/vc01 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VX/vx01 DIVERGENT nohier il synth NO_GATES NO_GATES    This indicates a serious bug in /tmp/v11u404_dsP/VX_vx01/|VX/vx01 DIVERGENT nohier il synth NO_GATES NO_GATES    This indicates a serious bug in /tmp/v11u404_dsV/VX_vx01/
+VX/vx02 IDENTICAL  NO_GATES NO_GATES |VX/vx02 IDENTICAL  NO_GATES NO_GATES 
+VX/vx03 IDENTICAL  NO_GATES NO_GATES |VX/vx03 IDENTICAL  NO_GATES NO_GATES 
+VX/vx04 IDENTICAL  NO_GATES NO_GATES |VX/vx04 IDENTICAL  NO_GATES NO_GATES 
+VX/vx05 DIVERGENT nohier il synth NO_GATES NO_GATES    This indicates a serious bug in /tmp/v11u404_dsP/VX_vx05/|VX/vx05 DIVERGENT nohier il synth NO_GATES NO_GATES    This indicates a serious bug in /tmp/v11u404_dsV/VX_vx05/
+VM/vm01 EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VM/vm01 EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VM/vm02 EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VM/vm02 EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+VM/vm03 EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping|VM/vm03 IDENTICAL  NO_GATES NO_GATES 
+VA/va01 IDENTICAL  NO_GATES NO_GATES |VA/va01 IDENTICAL  NO_GATES NO_GATES 
+VA/va02 STATUS_DIFF  CRASH NO_GATES |VA/va02 STATUS_DIFF  CRASH NO_GATES 
+VA/va03 SKIP-class|VA/va03 SKIP-class
