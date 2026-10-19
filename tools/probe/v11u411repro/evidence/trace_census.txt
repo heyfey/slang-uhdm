@@ -1,0 +1,20 @@
+== trace L
+      1 enumSubstDecDecompile411 3'd0
+      2 enumSubstDecDecompile411 6'd1
+      1 enumSubstDecDecompile411 6'd3
+      1 OUT /tmp/v11u411_wL/probe/r10vearl99repro__v99_enum2.uhdm
+      1 OUT /tmp/v11u411_wL/probe/r10vearl99repro__v99_enum.uhdm
+      1 OUT /tmp/v11u411_wL/svtests/work/chapter-8/8.8--typed_constructor_param/slang.uhdm
+      1 OUT /tmp/v11u411_wL/svtests/work/chapter-8/8.8--typed_constructor/slang.uhdm
+      1 OUT /tmp/v11u411_wL/svtests/work/generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_decoder_dor/slang.uhdm
+      2 typedCtorClassArgNet411 test_cls
+== trace V
+      1 enumSubstDecDecompile411 3'd0
+      2 enumSubstDecDecompile411 6'd1
+      1 enumSubstDecDecompile411 6'd3
+      1 OUT /tmp/v11u411_wV/probe/r10vearl99repro__v99_enum2.uhdm
+      1 OUT /tmp/v11u411_wV/probe/r10vearl99repro__v99_enum.uhdm
+      1 OUT /tmp/v11u411_wV/svtests/work/chapter-8/8.8--typed_constructor_param/slang.uhdm
+      1 OUT /tmp/v11u411_wV/svtests/work/chapter-8/8.8--typed_constructor/slang.uhdm
+      1 OUT /tmp/v11u411_wV/svtests/work/generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_decoder_dor/slang.uhdm
+      2 typedCtorClassArgNet411 test_cls

@@ -1,0 +1,6 @@
+CONVERSION chapter-8/8.8--typed_constructor.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-8/8.8--typed_constructor_param.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_decoder_dor.sv: DIFFERENT -> STRICT_NOTEQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=143 EQUAL=1700 SLANG_ONLY=19 STRICT_NOTEQUAL=97 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=3 changes=0
+svtests rc=0

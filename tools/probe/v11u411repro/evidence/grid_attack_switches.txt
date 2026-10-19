@@ -1,0 +1,47 @@
+VD/vd01 | L rc=0 cmp=58 away=85 md5=cd0b42d2 | NOT_EQUAL stage1 | V rc=0 cmp=0 away=22 md5=02879350 | STRICT_EQUAL 84 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:N
+VD/vd02 | L rc=0 cmp=0 away=20 md5=e4dcf0c3 | STRICT_EQUAL 69 objects | V rc=0 cmp=0 away=20 md5=e4dcf0c3 | STRICT_EQUAL 69 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VD/vd03 | L rc=0 cmp=0 away=22 md5=0b4f03a4 | STRICT_EQUAL 84 objects | V rc=0 cmp=0 away=22 md5=0b4f03a4 | STRICT_EQUAL 84 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VD/vd04 | L rc=0 cmp=0 away=34 md5=63a0a3c0 | STRICT_NOTEQUAL col | V rc=0 cmp=0 away=22 md5=9c54fcd1 | STRICT_EQUAL 84 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:N
+VD/vd05 | L rc=0 cmp=0 away=22 md5=3cf2f9d7 | STRICT_EQUAL 96 objects | V rc=0 cmp=0 away=22 md5=3cf2f9d7 | STRICT_EQUAL 96 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VD/vd06 | L rc=0 cmp=0 away=64 md5=1f11b2ff | STRICT_EQUAL 141 objects | V rc=0 cmp=0 away=64 md5=1f11b2ff | STRICT_EQUAL 141 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VD/vd07 | L rc=0 cmp=84 away=432 md5=6a7119e5 | NOT_EQUAL stage1 | V rc=0 cmp=0 away=24 md5=afef70c2 | STRICT_EQUAL 99 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:N
+VD/vd08 | L rc=0 cmp=0 away=34 md5=6112313f | STRICT_NOTEQUAL col | V rc=0 cmp=0 away=22 md5=20e9272e | STRICT_EQUAL 84 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:N
+VD/vd09 | L rc=0 cmp=58 away=262 md5=d03e7790 | NOT_EQUAL stage1 | V rc=0 cmp=0 away=34 md5=cb7b4fbb | STRICT_NOTEQUAL col | VOFF=law:y UOFF=pris:y allfix=law:y V=L:N
+VE/ve01 | L rc=0 cmp=17 away=113 md5=9bcec386 | NOT_EQUAL stage1 | V rc=0 cmp=17 away=113 md5=9bcec386 | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VE/ve02 | L rc=0 cmp=0 away=72 md5=32f33eeb | STRICT_EQUAL 97 objects | V rc=0 cmp=0 away=72 md5=32f33eeb | STRICT_EQUAL 97 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VE/ve03 | L rc=0 cmp=205 away=221 md5=70a4bd02 | NOT_EQUAL stage1 | V rc=0 cmp=205 away=221 md5=70a4bd02 | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VE/ve04 | L rc=0 cmp=122 away=242 md5=e7bfb313 | NOT_EQUAL stage1 | V rc=0 cmp=122 away=242 md5=e7bfb313 | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VE/ve05 | L rc=0 cmp=17 away=57 md5=777292ec | NOT_EQUAL stage1 | V rc=0 cmp=17 away=57 md5=777292ec | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VE/ve06 | L rc=0 cmp=0 away=64 md5=ca317c82 | STRICT_EQUAL 264 objects | V rc=0 cmp=0 away=64 md5=ca317c82 | STRICT_EQUAL 264 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VE/ve07 | L rc=0 cmp=34 away=83 md5=4c28d3c9 | NOT_EQUAL stage1 | V rc=0 cmp=34 away=83 md5=4c28d3c9 | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VE/ve08 | L rc=0 cmp=32 away=74 md5=c4d8d277 | NOT_EQUAL stage1 | V rc=0 cmp=32 away=74 md5=c4d8d277 | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VF/vf01 | L rc=0 cmp=0 away=42 md5=4ea41195 | STRICT_EQUAL 97 objects | V rc=0 cmp=0 away=42 md5=4ea41195 | STRICT_EQUAL 97 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VF/vf02 | L rc=0 cmp=0 away=42 md5=879b1ea5 | STRICT_EQUAL 68 objects | V rc=0 cmp=0 away=42 md5=879b1ea5 | STRICT_EQUAL 68 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VF/vf03 | L rc=0 cmp=34 away=59 md5=bb26a5d1 | NOT_EQUAL stage1 | V rc=0 cmp=34 away=59 md5=bb26a5d1 | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VF/vf04 | L rc=0 cmp=17 away=59 md5=cd341e70 | NOT_EQUAL stage1 | V rc=0 cmp=17 away=59 md5=cd341e70 | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VF/vf05 | L rc=0 cmp=36 away=6 md5=552cc071 | NOT_EQUAL stage1 | V rc=0 cmp=0 away=2 md5=594c48e3 | STRICT_EQUAL 73 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:N
+VF/vf06 | L rc=0 cmp=31 away=62 md5=d5828591 | NOT_EQUAL stage1 | V rc=0 cmp=31 away=62 md5=d5828591 | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VF/vf07 | L rc=0 cmp=36 away=46 md5=bb6a09e7 | NOT_EQUAL stage1 | V rc=0 cmp=0 away=42 md5=b5854707 | STRICT_EQUAL 83 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:N
+VG/vg01 | L rc=0 cmp=0 away=86 md5=06ada385 | STRICT_EQUAL 101 objects | V rc=0 cmp=0 away=86 md5=06ada385 | STRICT_EQUAL 101 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VG/vg02 | L rc=0 cmp=0 away=28 md5=f071c63d | STRICT_EQUAL 178 objects | V rc=0 cmp=0 away=28 md5=f071c63d | STRICT_EQUAL 178 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VG/vg03 | L rc=0 cmp=0 away=114 md5=fd1f53ff | STRICT_EQUAL 126 objects | V rc=0 cmp=0 away=114 md5=fd1f53ff | STRICT_EQUAL 126 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VG/vg04 | L rc=0 cmp=120 away=188 md5=a2a35400 | NOT_EQUAL stage1 | V rc=0 cmp=120 away=188 md5=a2a35400 | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VG/vg05 | L rc=0 cmp=0 away=106 md5=161a4360 | STRICT_EQUAL 157 objects | V rc=0 cmp=0 away=106 md5=161a4360 | STRICT_EQUAL 157 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VG/vg06 | L rc=0 cmp=0 away=156 md5=5c22ef98 | STRICT_EQUAL 116 objects | V rc=0 cmp=0 away=156 md5=5c22ef98 | STRICT_EQUAL 116 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VM/vm01 | L rc=0 cmp=0 away=34 md5=f8bfe924 | STRICT_EQUAL 146 objects | V rc=0 cmp=0 away=34 md5=f8bfe924 | STRICT_EQUAL 146 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VM/vm02 | L rc=0 cmp=0 away=64 md5=9d3c8cc3 | STRICT_EQUAL 153 objects | V rc=0 cmp=0 away=64 md5=9d3c8cc3 | STRICT_EQUAL 153 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VM/vm03 | L rc=0 cmp=0 away=24 md5=19d213a5 | STRICT_EQUAL 43 objects | V rc=0 cmp=0 away=24 md5=19d213a5 | STRICT_EQUAL 43 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VM/vm04 | L rc=4 cmp=15 away=32 md5=7f0cf175 | NOT_EQUAL stage1 | V rc=4 cmp=15 away=32 md5=7f0cf175 | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VM/vm05 | L rc=0 cmp=0 away=40 md5=d8c7f0a5 | STRICT_EQUAL 146 objects | V rc=0 cmp=0 away=40 md5=d8c7f0a5 | STRICT_EQUAL 146 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VM/vm06 | L rc=0 cmp=120 away=155 md5=575998bc | NOT_EQUAL stage1 | V rc=0 cmp=120 away=155 md5=575998bc | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VT/vt01 | L rc=0 cmp=654 away=49 md5=fb3667c3 | NOT_EQUAL stage1 | V rc=0 cmp=0 away=40 md5=31b1caaa | STRICT_EQUAL 31 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:N
+VT/vt02 | L rc=0 cmp=0 away=42 md5=94380d0d | STRICT_EQUAL 52 objects | V rc=0 cmp=0 away=42 md5=94380d0d | STRICT_EQUAL 52 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VT/vt03 | L rc=0 cmp=0 away=50 md5=8723eee9 | STRICT_EQUAL 53 objects | V rc=0 cmp=0 away=50 md5=8723eee9 | STRICT_EQUAL 53 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VT/vt04 | L rc=0 cmp=0 away=46 md5=f734b179 | STRICT_EQUAL 72 objects | V rc=0 cmp=0 away=46 md5=f734b179 | STRICT_EQUAL 72 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VT/vt05 | L rc=0 cmp=298 away=65 md5=3d7fea98 | NOT_EQUAL stage1 | V rc=0 cmp=298 away=65 md5=3d7fea98 | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VT/vt06 | L rc=0 cmp=17 away=77 md5=44b7d50e | NOT_EQUAL stage1 | V rc=0 cmp=17 away=77 md5=44b7d50e | NOT_EQUAL stage1 | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VT/vt07 | L rc=0 cmp=0 away=42 md5=e188ff25 | STRICT_EQUAL 72 objects | V rc=0 cmp=0 away=42 md5=e188ff25 | STRICT_EQUAL 72 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VT/vt08 | L rc=0 cmp=0 away=62 md5=4c17a47e | STRICT_EQUAL 56 objects | V rc=0 cmp=0 away=62 md5=4c17a47e | STRICT_EQUAL 56 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VT/vt09 | L rc=0 cmp=0 away=44 md5=12118c3b | STRICT_EQUAL 63 objects | V rc=0 cmp=0 away=44 md5=12118c3b | STRICT_EQUAL 63 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:y
+VT/vt10 | L rc=0 cmp=378 away=43 md5=d272e284 | NOT_EQUAL stage1 | V rc=0 cmp=0 away=34 md5=47463a0a | STRICT_EQUAL 36 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:N
+VT/vt11 | L rc=0 cmp=374 away=55 md5=314a47d8 | NOT_EQUAL stage1 | V rc=0 cmp=0 away=44 md5=a3b8da36 | STRICT_EQUAL 43 objects | VOFF=law:y UOFF=pris:y allfix=law:y V=L:N

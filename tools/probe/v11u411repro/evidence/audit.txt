@@ -1,0 +1,6 @@
+surelog cmds all=1581 fence-filtered=1573 own=1523 other=2 noslang=48
+uhdm2rtlil cmds all=1742 fence-filtered=1740 own=1740 other=0 noslang=0
+svtests cmds all=2346 fence-filtered=2346 own=2346 other=0 noslang=0
+surelog cmds all=1581 fence-filtered=1573 own=1523 other=2 noslang=48
+uhdm2rtlil cmds all=1742 fence-filtered=1740 own=1740 other=0 noslang=0
+svtests cmds all=2346 fence-filtered=2346 own=2346 other=0 noslang=0

@@ -780,8 +780,8 @@ chapter-8/8.6--methods.sv,EQUAL,,equal
 chapter-8/8.7--constructor.sv,EQUAL,,equal
 chapter-8/8.7--constructor_param.sv,EQUAL,,equal
 chapter-8/8.7--constructor_super.sv,EQUAL,,equal
-chapter-8/8.8--typed_constructor.sv,DIFFERENT,decompile:,
-chapter-8/8.8--typed_constructor_param.sv,DIFFERENT,decompile:,
+chapter-8/8.8--typed_constructor.sv,EQUAL,,equal
+chapter-8/8.8--typed_constructor_param.sv,EQUAL,,equal
 chapter-8/8.9--static_properties.sv,EQUAL,,equal
 chapter-9/9.2.1--initial.sv,EQUAL,,equal
 chapter-9/9.2.2.1--always.sv,EQUAL,,equal
@@ -1216,7 +1216,7 @@ generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_out.sv,STRICT_N
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router.sv,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_adapter_in.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_adapter_out.sv,EQUAL,,equal
-generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_decoder_dor.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_decoder_dor.sv,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_input_control.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_output_control.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_packet_parser.sv,EQUAL,,equal

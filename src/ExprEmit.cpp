@@ -16956,6 +16956,50 @@ static bool genvarArithSigned409(const Expression& e) {
         return true;
     return genvarArithSigned409(b.left()) || genvarArithSigned409(b.right());
 }
+// § gateGenvarDivShiftFold411 (r11u411, R11U411_GATEDIVSHIFT_OFF) — the
+// same whole-index fold for a DIVISION and a SHIFT over the genvar (`a[i/2]`,
+// `y[i<<1]`, `y[i>>1]`): golden INT once a `/` takes part (as `-` and `*`),
+// UINT for a shift (the v11u409 cases VG/vg03, vg04; cases/GD).
+static bool genvarOnlyArith411(const Expression& e) {
+    auto& x = stripImplicitConv(e);
+    switch (x.kind) {
+        case ExpressionKind::IntegerLiteral:
+            return true;
+        case ExpressionKind::NamedValue: {
+            auto& sy = x.as<NamedValueExpression>().symbol;
+            return sy.kind == SymbolKind::Parameter &&
+                   sy.as<ParameterSymbol>().isFromGenvar();
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& b = x.as<BinaryExpression>();
+            if (b.op != BinaryOperator::Add && b.op != BinaryOperator::Subtract &&
+                b.op != BinaryOperator::Multiply && b.op != BinaryOperator::Divide &&
+                b.op != BinaryOperator::LogicalShiftLeft &&
+                b.op != BinaryOperator::LogicalShiftRight &&
+                b.op != BinaryOperator::ArithmeticShiftLeft &&
+                b.op != BinaryOperator::ArithmeticShiftRight &&
+                // § gateGenvarModFold411v (v11u411, R11V411_GATEMOD_OFF;
+                // cases tools/probe/v11u411repro/cases/VD/vd01, vd07) — a
+                // MODULO over the genvar (`a[i%2]`) folds as the division
+                // does: golden INT at the left operand, where the law left
+                // the operation.
+                !(b.op == BinaryOperator::Mod && fixOn(411, "R11V411_GATEMOD_OFF")))
+                return false;
+            return genvarOnlyArith411(b.left()) && genvarOnlyArith411(b.right());
+        }
+        default:
+            return false;
+    }
+}
+static bool genvarArithDiv411(const Expression& e) {
+    auto& x = stripImplicitConv(e);
+    if (x.kind != ExpressionKind::BinaryOp)
+        return false;
+    auto& b = x.as<BinaryExpression>();
+    if (b.op == BinaryOperator::Divide || b.op == BinaryOperator::Mod)
+        return true;
+    return genvarArithDiv411(b.left()) || genvarArithDiv411(b.right());
+}
 template <class Comp409>
 static UHDM::any* gateGenvarIdxFold409(UHDM::Serializer& s, Comp409& comp, const Expression& sel,
                                        UHDM::any* ix, const UHDM::BaseClass* selObj) {
@@ -16974,7 +17018,10 @@ static UHDM::any* gateGenvarIdxFold409(UHDM::Serializer& s, Comp409& comp, const
     // INT once a `-` or `*` takes part (§ srlgArithFoldSigned's rule), size
     // 64, at the top operation's LEFT operand (`2*i` for `2*i+1`).
     if (ix->UhdmType() == UHDM::uhdmoperation) {
-        if (sx.kind != ExpressionKind::BinaryOp || !genvarOnlyArith409(sx))
+        const bool ext411 = sx.kind == ExpressionKind::BinaryOp &&
+                            !genvarOnlyArith409(sx) && genvarOnlyArith411(sx) &&
+                            lawOn(411, "R11U411_GATEDIVSHIFT_OFF");
+        if (sx.kind != ExpressionKind::BinaryOp || (!genvarOnlyArith409(sx) && !ext411))
             return ix;
         auto* op = (const UHDM::operation*)ix;
         if (!op->Operands() || op->Operands()->empty())
@@ -16986,7 +17033,19 @@ static UHDM::any* gateGenvarIdxFold409(UHDM::Serializer& s, Comp409& comp, const
         if (!lawOn(409, "R11U409_GATEGENVAR_OFF"))
             return ix;
         const UHDM::any* l = (*op->Operands())[0];
-        bool sg = genvarArithSigned409(sx);
+        bool sg = genvarArithSigned409(sx) || (ext411 && genvarArithDiv411(sx));
+        // A SHIFT at the top reduces unsigned whatever its operands hold
+        // (golden cases/GD gd03 `a[i*2>>1]` UINT).
+        if (ext411) {
+            auto bop411 = sx.as<BinaryExpression>().op;
+            if (bop411 == BinaryOperator::LogicalShiftLeft ||
+                bop411 == BinaryOperator::LogicalShiftRight ||
+                bop411 == BinaryOperator::ArithmeticShiftLeft ||
+                bop411 == BinaryOperator::ArithmeticShiftRight)
+                sg = false;
+        }
+        if (ext411)
+            lawTrace(411, "gateGenvarDivShiftFold411", "op");
         std::string d = ov.integer().toString(LiteralBase::Decimal, false);
         auto* c = s.MakeConstant();
         c->VpiDecompile(d);
@@ -16999,6 +17058,48 @@ static UHDM::any* gateGenvarIdxFold409(UHDM::Serializer& s, Comp409& comp, const
         c->VpiColumnNo(l->VpiColumnNo());
         c->VpiEndLineNo(l->VpiEndLineNo());
         c->VpiEndColumnNo(l->VpiEndColumnNo());
+        // § gateGenvarParenLeftSpan411 (r11u411, R11U411_GATEPARENSPAN_OFF) —
+        // a PARENTHESIZED left operand (`y[(i+2)/2]`) keeps its parentheses
+        // in the folded constant's span (golden cases/GD gd03, gd04
+        // 6:28-6:34 over `(i<<1)`), written without inner whitespace.
+        if (sx.syntax && sx.syntax->kind != syntax::SyntaxKind::ParenthesizedExpression &&
+            syntax::BinaryExpressionSyntax::isKind(sx.syntax->kind) &&
+            lawOn(411, "R11U411_GATEPARENSPAN_OFF")) {
+            const syntax::ExpressionSyntax* lp411 =
+                sx.syntax->as<syntax::BinaryExpressionSyntax>().left;
+            int k411 = 0;
+            bool tight411 = true;
+            while (lp411->kind == syntax::SyntaxKind::ParenthesizedExpression) {
+                auto& pe411 = lp411->as<syntax::ParenthesizedExpressionSyntax>();
+                if (!pe411.closeParen.trivia().empty() ||
+                    !pe411.expression->getFirstToken().trivia().empty())
+                    tight411 = false;
+                lp411 = pe411.expression;
+                ++k411;
+            }
+            if (k411 && tight411 && c->VpiColumnNo() > (uint32_t)k411) {
+                lawTrace(411, "gateGenvarParenLeftSpan411", "paren");
+                c->VpiColumnNo(c->VpiColumnNo() - k411);
+                c->VpiEndColumnNo(c->VpiEndColumnNo() + k411);
+            } else if (k411 && !tight411 && fixOn(411, "R11V411_PARENWS_OFF")) {
+                // § gateGenvarParenWsSpan411v (v11u411, R11V411_PARENWS_OFF;
+                // cases tools/probe/v11u411repro/cases/VD/vd04, vd08) — with
+                // whitespace inside the parentheses (`y[( i+1)*2]`,
+                // `a[(i+1 )+1]`) golden still spans the whole parenthesized
+                // left operand, whitespace included (5:15-5:21 over
+                // `( i+1)`), where the law abstained.
+                auto lr411 = sx.syntax->as<syntax::BinaryExpressionSyntax>().left->sourceRange();
+                auto* sm411 = comp.getSourceManager();
+                if (sm411 && !sm411->isMacroLoc(lr411.start()) &&
+                    !sm411->isMacroLoc(lr411.end())) {
+                    lawTrace(411, "gateGenvarParenWsSpan411v", "paren");
+                    c->VpiLineNo(sm411->getLineNumber(lr411.start()));
+                    c->VpiColumnNo(sm411->getColumnNumber(lr411.start()));
+                    c->VpiEndLineNo(sm411->getLineNumber(lr411.end()));
+                    c->VpiEndColumnNo(sm411->getColumnNumber(lr411.end()));
+                }
+            }
+        }
         lawTrace(409, "genGateTermGenvarFold409", "op=" + d);
         return c;
     }
@@ -30704,6 +30805,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             c->VpiSize(src->VpiSize());
                             std::string_view v = src->VpiValue();
                             c->VpiValue(std::string(v));
+                            // § enumSubstDecDecompile411 (r11u411,
+                            // R11U411_ENUMSUBSTDEC_OFF) — a member written
+                            // with a sized DECIMAL literal (`P = 3'd0`)
+                            // carries `INT:` with the written text as its
+                            // decompile, and the substituted constant reads
+                            // the VALUE's digits (golden cases/EF ef01, ef02,
+                            // ef06, ef07: decompile `0`, `3`, `5`; the hex and
+                            // binary members keep their written text; sv-tests
+                            // bsg_wormhole_router_decoder_dor's
+                            // `bsg_noc_pkg::P == 0`).
+                            if (v.rfind("INT:", 0) == 0 &&
+                                src->VpiDecompile() != v.substr(4) &&
+                                src->VpiDecompile().find('\'') != std::string_view::npos &&
+                                lawOn(411, "R11U411_ENUMSUBSTDEC_OFF")) {
+                                lawTrace(411, "enumSubstDecDecompile411",
+                                         std::string(src->VpiDecompile()));
+                                std::string d411(v.substr(4));
+                                // § enumSubstDecLeadZero411v (v11u411,
+                                // R11V411_DECZERO_OFF; cases tools/probe/
+                                // v11u411repro/cases/VF/vf05, vf07) — the
+                                // digits are the VALUE's: a member written
+                                // with leading zeros (`8'd007`, `8'd010`)
+                                // reads `7` and `10` in golden, where the law
+                                // kept the written `007` and `010` (the value
+                                // `INT:7`, `INT:10` the same).
+                                if (fixOn(411, "R11V411_DECZERO_OFF")) {
+                                    size_t sg411 = (!d411.empty() && d411[0] == '-') ? 1 : 0;
+                                    size_t nz411 = d411.find_first_not_of('0', sg411);
+                                    if (nz411 == std::string::npos)
+                                        nz411 = d411.size() > sg411 ? d411.size() - 1 : sg411;
+                                    if (nz411 > sg411) {
+                                        lawTrace(411, "enumSubstDecLeadZero411v", d411);
+                                        d411.erase(sg411, nz411 - sg411);
+                                        c->VpiValue("INT:" + d411);
+                                    }
+                                }
+                                c->VpiDecompile(d411);
+                            }
                             // § enumSubstIntConst30 — THE vpiConstType OF A
                             // SUBSTITUTED ENUM LITERAL IS DERIVED FROM THE
                             // enum_const'S OWN VALUE-ENCODING PREFIX, and an
@@ -36423,10 +36562,52 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                           (pkgTdCastTargetOwnView151On() && pkgEmitTopView)) &&
                          [&] {
                              auto k140 = expr.type->getCanonicalType().kind;
-                             if (k140 != SymbolKind::PackedStructType &&
-                                 k140 != SymbolKind::UnpackedStructType &&
-                                 k140 != SymbolKind::PackedUnionType &&
-                                 k140 != SymbolKind::UnpackedUnionType)
+                             // § pkgEnumCastTargetTs411 (r11u411,
+                             // R11U411_PKGENUMCAST_OFF) — a package
+                             // parameter's cast to its own package's ENUM
+                             // typedef (`parameter e_t P = e_t'(1);`) targets
+                             // the listed enum_typespec as the struct and
+                             // union casts do (golden cases/EC: operation 67
+                             // with a ref_typespec onto enum_typespec p::e_t).
+                             // The name bound as a size failed and the export
+                             // exited 4 on `expression kind: Invalid` (the
+                             // v11u409 case VN/vn03) where upstream slang
+                             // accepts.
+                             // § pkgAliasCastTargetTs411 (r11u411,
+                             // R11U411_PKGALIASCAST_OFF) — the same for an
+                             // alias of any other type (`typedef int i_t;`,
+                             // `typedef logic [3:0] v_t;`): the cast binds the
+                             // package's listed typedef so the export is
+                             // accepted (cases/EC ec06, ec08, ec10); golden's
+                             // target is the alias's named twin (residue).
+                             bool str140 = k140 == SymbolKind::PackedStructType ||
+                                           k140 == SymbolKind::UnpackedStructType ||
+                                           k140 == SymbolKind::PackedUnionType ||
+                                           k140 == SymbolKind::UnpackedUnionType;
+                             // Both written only in a PARAMETER declaration's
+                             // initializer: a package subroutine's default
+                             // argument (uvm_pkg's `uvm_severity'(UVM_ERROR)`)
+                             // already resolves on the pristine path.
+                             auto inParamDecl411 = [&] {
+                                 for (const syntax::SyntaxNode* u = cesyn.parent; u; u = u->parent) {
+                                     if (u->kind == syntax::SyntaxKind::ParameterDeclaration)
+                                         return true;
+                                     if (u->kind == syntax::SyntaxKind::FunctionDeclaration ||
+                                         u->kind == syntax::SyntaxKind::TaskDeclaration ||
+                                         u->kind == syntax::SyntaxKind::ClassDeclaration ||
+                                         u->kind == syntax::SyntaxKind::PackageDeclaration ||
+                                         u->kind == syntax::SyntaxKind::ModuleDeclaration)
+                                         return false;
+                                 }
+                                 return false;
+                             };
+                             bool enum411 = k140 == SymbolKind::EnumType &&
+                                            lawOn(411, "R11U411_PKGENUMCAST_OFF") &&
+                                            inParamDecl411();
+                             bool alias411 = !str140 && k140 != SymbolKind::EnumType &&
+                                             lawOn(411, "R11U411_PKGALIASCAST_OFF") &&
+                                             inParamDecl411();
+                             if (!str140 && !enum411 && !alias411)
                                  return false;
                              auto& ta140 = expr.type->as<TypeAliasType>();
                              // A package lists its typedefs AFTER its
@@ -36439,6 +36620,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                              if (!hs140 || (const Symbol*)&hs140->asSymbol() !=
                                                curPkgEmitSym)
                                  return false;
+                             if (enum411)
+                                 lawTrace(411, "pkgEnumCastTargetTs411",
+                                          std::string(expr.type->name));
+                             if (alias411)
+                                 lawTrace(411, "pkgAliasCastTargetTs411",
+                                          std::string(expr.type->name));
                              std::string tsp140 = prefix;
                              if (tsp140.size() >= 2 &&
                                  tsp140.compare(tsp140.size() - 2, 2, "::") == 0)
@@ -37021,6 +37208,48 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (!re401.bad()) {
                             lawTrace(401, "castSizeSubrLocalBind401");
                             sizeExprP9 = &re401;
+                        }
+                    }
+                    // § genvarCastTgtUnsupTs411 (r11u411,
+                    // R11U411_GENVARCAST_OFF) — a cast whose size is a GENVAR
+                    // written bare or in parentheses (`i'(x)`, `(i)'(x)`) in a
+                    // generate body is Surelog's unresolved type name in every
+                    // view: an unsupported_typespec named by the identifier at
+                    // the identifier's own span (golden cases/GC).  The
+                    // elaborated bind of the name as a size was excluded for
+                    // genvars by § castSizeElabScopeBind57, so the bad size was
+                    // queued and the drain died on `expression kind: Invalid`
+                    // (the v11u410 case VP/vp05, exit 4 where upstream slang
+                    // accepts).
+                    if (!cts && sizeExprP9->bad() &&
+                        leftSyn->kind == syntax::SyntaxKind::IdentifierName &&
+                        lawOn(411, "R11U411_GENVARCAST_OFF")) {
+                        // The genvar is read from the enclosing loop
+                        // generate's header: an elaborated generate PROCESS
+                        // has no cast-site scope to bind it in (cases/GC
+                        // gc04).
+                        auto nm411 = leftSyn->as<syntax::IdentifierNameSyntax>()
+                                         .identifier.valueText();
+                        bool gv411 = false;
+                        for (const syntax::SyntaxNode* up411 = cesyn.parent; up411;
+                             up411 = up411->parent) {
+                            if (up411->kind == syntax::SyntaxKind::LoopGenerate &&
+                                up411->as<syntax::LoopGenerateSyntax>()
+                                        .identifier.valueText() == nm411) {
+                                gv411 = true;
+                                break;
+                            }
+                            if (up411->kind == syntax::SyntaxKind::ModuleDeclaration ||
+                                up411->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+                                up411->kind == syntax::SyntaxKind::ProgramDeclaration)
+                                break;
+                        }
+                        if (gv411) {
+                            lawTrace(411, "genvarCastTgtUnsupTs411", std::string(nm411));
+                            auto* uts411 = s.MakeUnsupported_typespec();
+                            uts411->VpiName(std::string(rawText(leftSyn->sourceRange())));
+                            setLoc(uts411, leftSyn->sourceRange());
+                            cts = uts411;
                         }
                     }
                     auto& sizeExpr = *sizeExprP9;
@@ -50827,6 +51056,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
             }
+            // § callResultMemberDropped411 (r11u411, R11U411_CALLMEMBER_OFF)
+            // — a member of a function call's result (`mk().s`,
+            // `pk::mk(x).a`, the function a module, $unit or package
+            // subroutine) is the CALL alone to Surelog: the func_call with
+            // its arguments and its function link, the member dropped, an
+            // unqualified call spanning the whole written member access
+            // (golden cases/MC mc02, mc03: func_call (mk) 7:14-7:24 over
+            // `mk(4'd3).b`).  The exporter rejected the base and exited 4
+            // where upstream slang accepts.
+            if (base->kind == ExpressionKind::Call &&
+                !base->as<CallExpression>().isSystemCall() &&
+                lawOn(411, "R11U411_CALLMEMBER_OFF")) {
+                auto* sub411 = std::get<const SubroutineSymbol*>(
+                    base->as<CallExpression>().subroutine);
+                const Scope* ss411 = sub411 ? sub411->getParentScope() : nullptr;
+                if (ss411 && ss411->asSymbol().kind != SymbolKind::ClassType) {
+                    lawTrace(411, "callResultMemberDropped411",
+                             std::string(rawText(expr.sourceRange)));
+                    auto* c411 = emitExpr(*base, parent, prefix, netMap);
+                    if (c411 && c411->UhdmType() == UHDM::uhdmfunc_call &&
+                        base->syntax &&
+                        base->syntax->kind == syntax::SyntaxKind::InvocationExpression &&
+                        base->syntax->as<syntax::InvocationExpressionSyntax>().left->kind !=
+                            syntax::SyntaxKind::ScopedName)
+                        setLoc(c411, expr.sourceRange);
+                    return c411;
+                }
+            }
             if (base->kind != ExpressionKind::NamedValue) {
                 noteUnsupported("member access base");
                 return nullptr;
@@ -55223,6 +55480,63 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // generic class's default specialization, so the database builds
             // and the five arguments vanish SILENTLY.  Surelog never
             // type-checks the construct and emits all five.
+            // § typedCtorClassArgNet411 (r11u411, R11U411_TYPEDCTOR_OFF) — a
+            // TYPED constructor call `C::new`, `C#(...)::new(...)` is to
+            // Surelog a call of `new` whose ONE argument is the class name
+            // read as a value: a ref_obj named by the class identifier,
+            // spanning the class name with its parameter list, the written
+            // constructor actuals dropped; in a module process the name
+            // resolves to the implicit module wire minted at its first
+            // reference (golden cases/TC tc01 to tc04, sv-tests
+            // chapter-8/8.8--typed_constructor.sv and
+            // 8.8--typed_constructor_param.sv), in a package subroutine it
+            // stays unbound (tc06).
+            if (!nce.isSuperClass && nce.syntax &&
+                nce.syntax->kind == syntax::SyntaxKind::NewClassExpression &&
+                lawOn(411, "R11U411_TYPEDCTOR_OFF")) {
+                auto& ns411 = nce.syntax->as<syntax::NewClassExpressionSyntax>();
+                const syntax::NameSyntax* left411 = nullptr;
+                if (ns411.scopedNew->kind == syntax::SyntaxKind::ScopedName)
+                    left411 = ns411.scopedNew->as<syntax::ScopedNameSyntax>().left;
+                std::string cn411;
+                if (left411 && left411->kind == syntax::SyntaxKind::IdentifierName)
+                    cn411 = std::string(
+                        left411->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                else if (left411 && left411->kind == syntax::SyntaxKind::ClassName)
+                    cn411 = std::string(
+                        left411->as<syntax::ClassNameSyntax>().identifier.valueText());
+                if (!cn411.empty() && !sm->isMacroLoc(left411->sourceRange().start())) {
+                    lawTrace(411, "typedCtorClassArgNet411", cn411);
+                    auto* r411 = s.MakeRef_obj();
+                    r411->VpiName(cn411);
+                    r411->VpiFullName(joinRef(prefix, cn411));
+                    r411->VpiParent(mfc);
+                    setLoc(r411, left411->sourceRange());
+                    // § typedCtorNotProgram411v (v11u411, R11V411_CTORPROG_OFF;
+                    // case tools/probe/v11u411repro/cases/VT/vt01) — inside a
+                    // PROGRAM Surelog mints no implicit wire for the class
+                    // name: golden lists the ref_obj (work@top.C) with no
+                    // vpiActual and no net under the program, where the law
+                    // minted `logic_net work@top.C` and bound it (the rule of
+                    // § assertLocalNetNotProgram407v).
+                    const bool prog411v =
+                        implicitNetModule &&
+                        implicitNetModule->UhdmType() == UHDM::uhdmprogram &&
+                        fixOn(411, "R11V411_CTORPROG_OFF");
+                    if (prog411v)
+                        lawTrace(411, "typedCtorNotProgram411v", cn411);
+                    if (implicitNetModule && !prog411v)
+                        if (auto* n411 = mintImplicitNet403(
+                                s, implicitNetModule, implicitNetPrefix, cn411,
+                                left411->sourceRange(),
+                                [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); }))
+                            r411->Actual_group(n411);
+                    auto* a411 = s.MakeAnyVec();
+                    a411->push_back(r411);
+                    mfc->Tf_call_args(a411);
+                    return mfc;
+                }
+            }
             const Expression* cc9 = nce.constructorCall();
             if (cc9 && cc9->kind == ExpressionKind::Invalid)
                 cc9 = cc9->as<InvalidExpression>().child;
