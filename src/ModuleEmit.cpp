@@ -9497,6 +9497,18 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                                      return a->name < b->name;
                                  });
         }
+        // § ifaceClassNotListed408 — a module's interface class is not listed.
+        if (lawOn(408, "R11U408_IFACECLASS_OFF"))
+            clist95.erase(std::remove_if(clist95.begin(), clist95.end(),
+                                         [&](const ClassType* c408) {
+                                             if (!c408->isInterface)
+                                                 return false;
+                                             lawTrace(408, "ifaceClassNotListed408",
+                                                      prefix + "::" +
+                                                          std::string(c408->name));
+                                             return true;
+                                         }),
+                          clist95.end());
         for (auto* cls95 : clist95) {
             mclasses->push_back(emitClassDefn(*cls95, std::string(cls95->name),
                                               prefix + "::" + std::string(cls95->name),
@@ -14657,6 +14669,11 @@ static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src
 // and golden reads `vpiImported=pinmux_pkg`).  No UVM row exercises the
 // re-export shape here — uvm_pkg imports nothing — so the class arm inherits
 // that rule rather than re-witnessing it.
+// § classImpTdParamTsClone408 (defined in UhdmExporter.cpp beside
+// § unitImpTdParamTsClone402).
+UHDM::ref_typespec* impTsChain402(UHDM::Serializer& s, const UHDM::ref_typespec* src,
+                                  UHDM::BaseClass* owner, const std::string& refName,
+                                  int depth, const char* sep);
 static UHDM::any* importParamCopy82(UHDM::Serializer& s, UHDM::any* src,
                                     UHDM::BaseClass* parent,
                                     const std::string& pkgName,
@@ -14703,6 +14720,25 @@ static UHDM::any* importParamCopy82(UHDM::Serializer& s, UHDM::any* src,
         srt183 && lawOn(183, "R11U183_UVMCOPY_OFF") &&
         lawOn(183, "R11U183_IMPCOPY_OFF")) {
         tr183ME("classImportParamOwnRefs183");
+        // § classImpTdParamTsClone408 (R11U408_CLSIMPTSCHAIN_OFF; cases
+        // tools/probe/r11u408repro/cases/UC) — the class copy is Surelog's
+        // importPackage clone_tree as the design copy is
+        // (§ unitImpTdParamTsClone402), so a reference to a TYPEDEF'd
+        // typespec reaches its own copied alias chain: a fresh typespec of
+        // the same kind named bare, its Typedef_alias reference reaching a
+        // bare-named copy of the alias target.  Golden (sv-tests UVM rows,
+        // `parameter uvm_field_flag_t UVM_ALL_ON` in every $unit class)
+        // `work@a::UVM_ALL_ON -> uvm_field_flag_t -> work@a::UVM_ALL_ON::
+        // uvm_field_flag_t -> uvm_field_flag_t`; ours shared the package's
+        // chain, whose alias target is the typedef `uvm_pkg::uvm_field_flag_t`.
+        if (lawOn(408, "R11U408_CLSIMPTSCHAIN_OFF")) {
+            if (auto* rt408 = impTsChain402(s, srt183, cp, std::string(cp->VpiFullName()),
+                                            0, "::")) {
+                lawTrace(408, "classImpTdParamTsClone408", std::string(cp->VpiFullName()));
+                cp->Typespec(rt408);
+                return cp;
+            }
+        }
         auto* rt183 = s.MakeRef_typespec();
         rt183->VpiFullName(std::string(cp->VpiFullName()));
         rt183->VpiParent(cp);
@@ -14775,11 +14811,22 @@ static UHDM::param_assign* importPaCopy82(UHDM::Serializer& s,
         c183->VpiEndColumnNo(sc183->VpiEndColumnNo());
         c183->VpiParent(cp);
         if (auto* crt183 = sc183->Typespec()) {
+            // § classImpTdParamTsClone408 — the right-hand constant's
+            // reference (named by the class) reaches its own chain too
+            // (golden `work@c -> ft_t -> work@c::ft_t -> ft_t`).
+            UHDM::ref_typespec* rt408 = nullptr;
+            if (lawOn(408, "R11U408_CLSIMPTSCHAIN_OFF") &&
+                (rt408 = impTsChain402(s, crt183, c183, ownerFull, 0, "::")))
+                lawTrace(408, "classImpTdParamTsClone408", ownerFull + " rhs");
+            if (rt408) {
+                c183->Typespec(rt408);
+            } else {
             auto* rt183 = s.MakeRef_typespec();
             rt183->VpiFullName(ownerFull);
             rt183->VpiParent(c183);
             rt183->Actual_typespec(crt183->Actual_typespec());
             c183->Typespec(rt183);
+            }
         }
         // § clsImpUnsizedBasedRhsCopy243 — an unsized based literal on an
         // UNTYPED parameter (the Lhs carries no typespec) is the un-adjusted

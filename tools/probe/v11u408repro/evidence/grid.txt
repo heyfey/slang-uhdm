@@ -1,0 +1,60 @@
+VG/vg01 | pristine: rc=0 cmp=103 NOT_EQUAL stage1 md5=7e5880e7 | law: rc=0 cmp=0 STRICT_EQUAL 9 objects md5=3271a850 | dist 38 -> 0
+VG/vg02 | pristine: rc=0 cmp=117 NOT_EQUAL stage1 md5=536e2c9e | law: rc=0 cmp=17 NOT_EQUAL stage1 md5=908901d1 | dist 68 -> 30
+VG/vg03 | pristine: rc=0 cmp=484 NOT_EQUAL stage1 md5=f1c5058c | law: rc=0 cmp=0 STRICT_EQUAL 32 objects md5=fde1b9a8 | dist 52 -> 0
+VG/vg04 | pristine: rc=0 cmp=197 NOT_EQUAL stage1 md5=ba7bde2d | law: rc=0 cmp=17 NOT_EQUAL stage1 md5=a53acbd2 | dist 93 -> 12
+VG/vg05 | pristine: rc=0 cmp=217 NOT_EQUAL stage1 md5=1355d675 | law: rc=0 cmp=0 STRICT_EQUAL 25 objects md5=e66c0fb0 | dist 52 -> 0
+VG/vg06 | pristine: rc=0 cmp=147 NOT_EQUAL stage1 md5=4ad89696 | law: rc=0 cmp=0 STRICT_EQUAL 14 objects md5=6a256858 | dist 62 -> 0
+VG/vg07 | pristine: rc=0 cmp=141 NOT_EQUAL stage1 md5=b769dbd3 | law: rc=0 cmp=141 NOT_EQUAL stage1 md5=b769dbd3 | dist 61 -> 61
+VG/vg08 | pristine: rc=0 cmp=97 NOT_EQUAL stage1 md5=597a3030 | law: rc=0 cmp=97 NOT_EQUAL stage1 md5=597a3030 | dist 50 -> 50
+VG/vg09 | pristine: rc=0 cmp=129 NOT_EQUAL stage1 md5=22ff9def | law: rc=0 cmp=0 STRICT_EQUAL 12 objects md5=d7d9c7c1 | dist 55 -> 0
+VG/vg10 | pristine: rc=0 cmp=131 NOT_EQUAL stage1 md5=af8f0824 | law: rc=0 cmp=0 STRICT_EQUAL 33 objects md5=5eb24ca3 | dist 62 -> 0
+VG/vg11 | pristine: rc=0 cmp=117 NOT_EQUAL stage1 md5=6a82c791 | law: rc=0 cmp=22 NOT_EQUAL stage1 md5=1bd8c8c5 | dist 48 -> 1
+VG/vg12 | pristine: rc=0 cmp=197 NOT_EQUAL stage1 md5=b884acfb | law: rc=0 cmp=17 NOT_EQUAL stage1 md5=fb87c72a | dist 93 -> 12
+VG/vg13 | pristine: rc=0 cmp=85 NOT_EQUAL stage1 md5=e3abed34 | law: rc=0 cmp=0 STRICT_EQUAL 33 objects md5=4ab90fb0 | dist 61 -> 4
+VG/vg14 | pristine: rc=0 cmp=165 NOT_EQUAL stage1 md5=56c6d20e | law: rc=0 cmp=165 NOT_EQUAL stage1 md5=56c6d20e | dist 72 -> 72
+VG/vg15 | pristine: rc=0 cmp=223 NOT_EQUAL stage1 md5=16176927 | law: rc=0 cmp=67 NOT_EQUAL stage1 md5=72d1a3ee | dist 131 -> 30
+VG/vg16 | pristine: rc=0 cmp=245 NOT_EQUAL stage1 md5=d8525f84 | law: rc=0 cmp=245 NOT_EQUAL stage1 md5=d8525f84 | dist 133 -> 133
+VG/vg17 | pristine: rc=0 cmp=121 NOT_EQUAL stage1 md5=7d50c43d | law: rc=0 cmp=0 STRICT_EQUAL 11 objects md5=53c691b6 | dist 51 -> 0
+VI/vi01 | pristine: rc=0 cmp=448 NOT_EQUAL stage1 md5=8eb779c6 | law: rc=0 cmp=178 NOT_EQUAL stage1 md5=62d68cd9 | dist 86 -> 67
+VI/vi02 | pristine: rc=0 cmp=560 NOT_EQUAL stage1 md5=cb11ba51 | law: rc=0 cmp=16 NOT_EQUAL stage1 md5=7e4394e0 | dist 36 -> 4
+VI/vi03 | pristine: rc=0 cmp=442 NOT_EQUAL stage1 md5=bdb74028 | law: rc=0 cmp=0 STRICT_EQUAL 23 objects md5=6a033451 | dist 15 -> 0
+VI/vi04 | pristine: rc=0 cmp=458 NOT_EQUAL stage1 md5=4f48f129 | law: rc=0 cmp=0 STRICT_EQUAL 30 objects md5=7c7a0c14 | dist 15 -> 0
+VI/vi05 | pristine: rc=0 cmp=700 NOT_EQUAL stage1 md5=8f96b2fb | law: rc=0 cmp=0 STRICT_EQUAL 34 objects md5=0c823b5a | dist 30 -> 0
+VI/vi06 | pristine: rc=0 cmp=51 NOT_EQUAL stage1 md5=63f0db4a | law: rc=0 cmp=0 STRICT_EQUAL 21 objects md5=2bd31d40 | dist 16 -> 0
+VI/vi07 | pristine: rc=0 cmp=758 NOT_EQUAL stage1 md5=b0f213ce | law: rc=0 cmp=16 NOT_EQUAL stage1 md5=7e6ac62b | dist 54 -> 35
+VI/vi08 | pristine: rc=0 cmp=256 NOT_EQUAL stage1 md5=eeb34856 | law: rc=0 cmp=0 STRICT_EQUAL 11 objects md5=6dd1f71c | dist 16 -> 0
+VI/vi09 | pristine: rc=0 cmp=386 NOT_EQUAL stage1 md5=35a1cbc4 | law: rc=0 cmp=0 STRICT_EQUAL 33 objects md5=7487b246 | dist 31 -> 0
+VI/vi10 | pristine: rc=0 cmp=788 NOT_EQUAL stage1 md5=0755dfd3 | law: rc=0 cmp=0 STRICT_EQUAL 57 objects md5=17358baf | dist 97 -> 0
+VQ/vq01 | pristine: rc=0 cmp=182 NOT_EQUAL stage1 md5=e00b44ae | law: rc=0 cmp=17 NOT_EQUAL stage1 md5=3280643f | dist 32 -> 10
+VQ/vq02 | pristine: rc=0 cmp=182 NOT_EQUAL stage1 md5=048b6b92 | law: rc=0 cmp=17 NOT_EQUAL stage1 md5=6c4d3894 | dist 80 -> 58
+VQ/vq03 | pristine: rc=0 cmp=182 NOT_EQUAL stage1 md5=7aa65889 | law: rc=0 cmp=0 STRICT_EQUAL 36 objects md5=50cab938 | dist 33 -> 0
+VQ/vq04 | pristine: rc=0 cmp=168 NOT_EQUAL stage1 md5=adb408e2 | law: rc=0 cmp=36 NOT_EQUAL stage1 md5=500819fa | dist 44 -> 12
+VQ/vq05 | pristine: rc=0 cmp=168 NOT_EQUAL stage1 md5=fc1c0c88 | law: rc=0 cmp=17 NOT_EQUAL stage1 md5=505f7ec4 | dist 77 -> 13
+VQ/vq06 | pristine: rc=0 cmp=182 NOT_EQUAL stage1 md5=c62cb0c4 | law: rc=0 cmp=64 NOT_EQUAL stage1 md5=08d6147a | dist 124 -> 79
+VQ/vq07 | pristine: rc=0 cmp=182 NOT_EQUAL stage1 md5=35f20284 | law: rc=0 cmp=0 STRICT_EQUAL 36 objects md5=c5c024cc | dist 33 -> 0
+VQ/vq08 | pristine: rc=0 cmp=164 NOT_EQUAL stage1 md5=d3cab4cd | law: rc=0 cmp=0 STRICT_EQUAL 59 objects md5=4a0ba550 | dist 70 -> 4
+VQ/vq09 | pristine: rc=0 cmp=168 NOT_EQUAL stage1 md5=9d2b7e8a | law: rc=0 cmp=0 STRICT_EQUAL 27 objects md5=b8e82a11 | dist 22 -> 0
+VQ/vq10 | pristine: rc=4 cmp=337 NOT_EQUAL stage1 md5=fe93396b | law: rc=4 cmp=337 NOT_EQUAL stage1 md5=fe93396b | dist 172 -> 172
+VT/vt01 | pristine: rc=0 cmp=52 NOT_EQUAL stage1 md5=d4bda3a1 | law: rc=0 cmp=52 NOT_EQUAL stage1 md5=d4bda3a1 | dist 4 -> 4
+VT/vt02 | pristine: rc=0 cmp=239 NOT_EQUAL stage1 md5=497ed832 | law: rc=0 cmp=0 STRICT_EQUAL 9 objects md5=58fe16db | dist 77 -> 0
+VT/vt03 | pristine: rc=0 cmp=415 NOT_EQUAL stage1 md5=c6404056 | law: rc=0 cmp=0 STRICT_EQUAL 34 objects md5=7e6deee4 | dist 41 -> 0
+VT/vt04 | pristine: rc=0 cmp=81 NOT_EQUAL stage1 md5=7883f45c | law: rc=0 cmp=81 NOT_EQUAL stage1 md5=7883f45c | dist 22 -> 22
+VT/vt05 | pristine: rc=0 cmp=60 NOT_EQUAL stage1 md5=a583a39f | law: rc=0 cmp=60 NOT_EQUAL stage1 md5=7d14e129 | dist 47 -> 46
+VT/vt06 | pristine: rc=0 cmp=17 NOT_EQUAL stage1 md5=7a8fcddc | law: rc=0 cmp=17 NOT_EQUAL stage1 md5=397f5a60 | dist 67 -> 20
+VT/vt07 | pristine: rc=0 cmp=92 NOT_EQUAL stage1 md5=76135589 | law: rc=0 cmp=92 NOT_EQUAL stage1 md5=dc85fdab | dist 77 -> 76
+VT/vt08 | pristine: rc=0 cmp=60 NOT_EQUAL stage1 md5=ec3a3f18 | law: rc=0 cmp=60 NOT_EQUAL stage1 md5=ccac143a | dist 66 -> 65
+VT/vt09 | pristine: rc=0 cmp=604 NOT_EQUAL stage1 md5=5980aa1e | law: rc=0 cmp=0 STRICT_EQUAL 32 objects md5=61fce162 | dist 8 -> 0
+VU/vu01 | pristine: rc=0 cmp=0 STRICT_EQUAL 330 objects md5=760d58cb | law: rc=0 cmp=0 STRICT_EQUAL 330 objects md5=760d58cb | dist 930 -> 930
+VU/vu02 | pristine: rc=0 cmp=0 STRICT_NOTEQUAL type md5=139d759f | law: rc=0 cmp=0 STRICT_NOTEQUAL type md5=139d759f | dist 615 -> 615
+VU/vu03 | pristine: rc=0 cmp=46 NOT_EQUAL stage1 md5=86f25091 | law: rc=0 cmp=46 NOT_EQUAL stage1 md5=de1fb697 | dist 664 -> 526
+VU/vu04 | pristine: rc=0 cmp=112 NOT_EQUAL stage1 md5=0db35129 | law: rc=0 cmp=112 NOT_EQUAL stage1 md5=442202da | dist 784 -> 670
+VU/vu05 | pristine: rc=0 cmp=36 NOT_EQUAL stage1 md5=3254b99a | law: rc=0 cmp=48 NOT_EQUAL stage1 md5=bb67e7eb | dist 566 -> 314
+VU/vu06 | pristine: rc=0 cmp=112 NOT_EQUAL stage1 md5=d455fff7 | law: rc=0 cmp=0 STRICT_EQUAL 316 objects md5=1bcfe6a3 | dist 590 -> 452
+VU/vu07 | pristine: rc=0 cmp=96 NOT_EQUAL stage1 md5=7ee9eb78 | law: rc=0 cmp=96 NOT_EQUAL stage1 md5=e27bf2cb | dist 2092 -> 1844
+VU/vu08 | pristine: rc=0 cmp=112 NOT_EQUAL stage1 md5=96af4cec | law: rc=0 cmp=0 STRICT_EQUAL 293 objects md5=f4934f30 | dist 588 -> 450
+VU/vu09 | pristine: rc=0 cmp=60 NOT_EQUAL stage1 md5=b0accc48 | law: rc=0 cmp=60 NOT_EQUAL stage1 md5=b0accc48 | dist 1535 -> 1535
+VU/vu10 | pristine: rc=0 cmp=44 NOT_EQUAL stage1 md5=7ab97421 | law: rc=0 cmp=44 NOT_EQUAL stage1 md5=7ab97421 | dist 367 -> 367
+VU/vu11 | pristine: rc=0 cmp=44 NOT_EQUAL stage1 md5=d69b4241 | law: rc=0 cmp=44 NOT_EQUAL stage1 md5=d69b4241 | dist 387 -> 387
+VU/vu12 | pristine: rc=0 cmp=116 NOT_EQUAL stage1 md5=8d99d6b1 | law: rc=0 cmp=84 NOT_EQUAL stage1 md5=3a7901ad | dist 1044 -> 894
+VU/vu13 | pristine: rc=0 cmp=112 NOT_EQUAL stage1 md5=467f7c49 | law: rc=0 cmp=0 STRICT_EQUAL 309 objects md5=fe137f91 | dist 590 -> 452
+VU/vu14 | pristine: rc=0 cmp=112 NOT_EQUAL stage1 md5=b246d7b0 | law: rc=0 cmp=17 NOT_EQUAL stage1 md5=51f2e3a2 | dist 694 -> 556

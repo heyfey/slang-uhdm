@@ -1,0 +1,87 @@
+Mon Oct 19 03:39:01 EDT 2026
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u408_lw/probe.csv
+probe cases: EQUAL=4018 STRICT_NOTEQUAL=69 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4018 differ:fullname=30 differ:line=8 differ:depth=7 differ:endcol=5 differ:file=5 differ:name=5 differ:value=4 differ:type=3 differ:col=1 differ:endline=1
+== probe vs golden_probe.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u408_lw/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/wt_v11u408/build/uhdm-strictcmp
+
+  CMP_EQUAL: 480
+  SLANG_REJECT: 284
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 4
+
+  CMP_EQUAL: 474
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  CMP_NOTEQUAL: 4
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u408_lw/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/wt_v11u408/build/uhdm-strictcmp
+
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+CORPUS_RC=0
+Mon Oct 19 03:47:56 EDT 2026
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+CONVERSION chapter-8/8.26.2--implements.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-8/8.26.2--implements_extends.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-8/8.26.2--implements_multiple.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-8/8.26.3--type_access_extends.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-8/8.26.6.1--name_conflict_resolved.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-8/8.26.6.2--parameter_type_conflict.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-8/8.26.6.3--diamond_relationship.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-8/8.26.7--partial_implementation.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2012/hdlconvertor_std2012_p158.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2012/hdlconvertor_std2012_p160_1.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p194.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p196.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p199.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p200_2.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p202.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p230.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p332.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p530.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p728.sv: DIFFERENT -> EQUAL
+CONVERSION generated/uvm_classes_2/uvm_agent_class_2.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generated/uvm_classes_2/uvm_driver_class_2.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generated/uvm_classes_2/uvm_env_class_2.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generated/uvm_classes_2/uvm_monitor_class_2.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generated/uvm_classes_2/uvm_scoreboard_class_2.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generated/uvm_classes_2/uvm_sequencer_class_2.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generated/uvm_classes_2/uvm_test_class_2.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generic/class/class_test_11.sv: DIFFERENT -> EQUAL
+CONVERSION generic/class/class_test_25.sv: DIFFERENT -> EQUAL
+CONVERSION generic/class/class_test_28.sv: DIFFERENT -> EQUAL
+CONVERSION generic/class/class_test_29.sv: DIFFERENT -> EQUAL
+CONVERSION generic/class/class_test_9.sv: DIFFERENT -> EQUAL
+CONVERSION generic/iface/iface_class_test_0.sv: DIFFERENT -> EQUAL
+CONVERSION generic/iface/iface_class_test_1.sv: DIFFERENT -> EQUAL
+CONVERSION generic/iface/iface_class_test_10.sv: DIFFERENT -> EQUAL
+CONVERSION generic/iface/iface_class_test_2.sv: DIFFERENT -> EQUAL
+CONVERSION generic/iface/iface_class_test_9.sv: DIFFERENT -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=325 EQUAL=1598 SLANG_ONLY=19 STRICT_NOTEQUAL=16 SURELOG_CRASH=8 SURELOG_ONLY=76 TIMEOUT=1 (of 2346)
+regressions=0 conversions=36 changes=0
+SVTESTS_RC=0
+Mon Oct 19 04:06:02 EDT 2026

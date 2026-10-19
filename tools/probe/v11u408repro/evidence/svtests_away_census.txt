@@ -1,0 +1,190 @@
+chapter-16/16.10--property-local-var-uvm ctl=85034 law=81068 TOWARD
+chapter-16/16.10--sequence-local-var-uvm ctl=85014 law=81048 TOWARD
+chapter-16/16.11--sequence-subroutine-uvm ctl=85014 law=81048 TOWARD
+chapter-16/16.12--property-interface-prec-uvm ctl=85218 law=81252 TOWARD
+chapter-16/16.12--property-interface-uvm ctl=85218 law=81252 TOWARD
+chapter-16/16.12--property-prec-uvm ctl=84992 law=81026 TOWARD
+chapter-16/16.13--sequence-multiclock-uvm ctl=85075 law=81109 TOWARD
+chapter-16/16.14--assume-property-uvm ctl=84992 law=81026 TOWARD
+chapter-16/16.12--property-uvm ctl=84992 law=81026 TOWARD
+chapter-16/16.17--expect-uvm ctl=84994 law=81028 TOWARD
+chapter-16/16.2--assert-final-uvm ctl=84989 law=81023 TOWARD
+chapter-16/16.15--property-iff-uvm ctl=84987 law=81021 TOWARD
+chapter-16/16.2--assert-uvm ctl=85075 law=81109 TOWARD
+chapter-16/16.2--assert0-uvm ctl=84989 law=81023 TOWARD
+chapter-16/16.2--assume-uvm ctl=85075 law=81109 TOWARD
+chapter-16/16.7--sequence-intersect-uvm ctl=84992 law=81026 TOWARD
+chapter-16/16.7--sequence-and-range-uvm ctl=85000 law=81034 TOWARD
+chapter-16/16.7--sequence-and-uvm ctl=85000 law=81034 TOWARD
+chapter-16/16.7--sequence-uvm ctl=84992 law=81026 TOWARD
+chapter-16/16.7--sequence-throughout-uvm ctl=84992 law=81026 TOWARD
+chapter-16/16.7--sequence-or-uvm ctl=84994 law=81028 TOWARD
+chapter-16/16.9--sequence-past-uvm ctl=84992 law=81026 TOWARD
+chapter-16/16.9--sequence-changed-uvm ctl=84992 law=81026 TOWARD
+chapter-16/16.9--sequence-fell-uvm ctl=84992 law=81026 TOWARD
+chapter-18/18.10--dynamic-constraint-modification_0 ctl=59838 law=51906 TOWARD
+chapter-16/16.9--sequence-rose-uvm ctl=84992 law=81026 TOWARD
+chapter-16/16.9--sequence-stable-uvm ctl=84992 law=81026 TOWARD
+chapter-18/18.11--in-line-random-variable-control_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.11.1--in-line-constraint-checker_0 ctl=59840 law=51908 TOWARD
+chapter-18/18.11--in-line-random-variable-control_0 ctl=59838 law=51906 TOWARD
+chapter-18/18.12--randomization-of-scope-variables_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.11.1--in-line-constraint-checker_1 ctl=59840 law=51908 TOWARD
+chapter-18/18.12.1--adding-constraints-to-scope-variables_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.13.1--urandom_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.13.1--urandom_3 ctl=59838 law=51906 TOWARD
+chapter-18/18.13.2--urandom_range_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.13.3--srandom_0 ctl=59838 law=51906 TOWARD
+chapter-18/18.13.2--urandom_range_2 ctl=59838 law=51906 TOWARD
+chapter-18/18.13.2--urandom_range_3 ctl=59838 law=51906 TOWARD
+chapter-18/18.13.5--set_randstate_0 ctl=59838 law=51906 TOWARD
+chapter-18/18.14--random-stability_0 ctl=49584 law=45618 TOWARD
+chapter-18/18.13.4--get_randstate_0 ctl=59838 law=51906 TOWARD
+chapter-18/18.14--random-stability_1 ctl=49592 law=45626 TOWARD
+chapter-18/18.14--random-stability_3 ctl=49584 law=45618 TOWARD
+chapter-18/18.14--random-stability_2 ctl=49582 law=45616 TOWARD
+chapter-18/18.14.2--thread-stability_0 ctl=49586 law=45620 TOWARD
+chapter-18/18.14.2--thread-stability_1 ctl=49586 law=45620 TOWARD
+chapter-18/18.14.3--object-stability_0 ctl=70094 law=58196 TOWARD
+chapter-18/18.15--manually-seeding-randomize_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.5--constraint-blocks_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.14.3--object-stability_1 ctl=70094 law=58196 TOWARD
+chapter-18/18.5.11--static-constraint-blocks_1 NOGOLDEN
+chapter-18/18.5.1--implicit-external-constraint_2 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.1--explicit-external-constraint_2 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.12--functions-in-constraint_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.14--soft-constraints_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.13--constraint-guards_1 ctl=70135 law=58237 TOWARD
+chapter-18/18.5.14.1--soft-constraint-priorities_1 ctl=70094 law=58196 TOWARD
+chapter-18/18.5.14.2--discarding-soft-constraints_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.14.1--soft-constraint-priorities_3 ctl=70094 law=58196 TOWARD
+chapter-18/18.5.14.1--soft-constraint-priorities_4 ctl=70094 law=58196 TOWARD
+chapter-18/18.5.14.2--discarding-soft-constraints_5 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.14.2--discarding-soft-constraints_3 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.2--constraint-inheritance_1 ctl=70094 law=58196 TOWARD
+chapter-18/18.5.3--set-membership_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.4--distribution_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.2--pure-constraint_1 ctl=70094 law=58196 TOWARD
+chapter-18/18.5.6--implication_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.5--uniqueness-constraints_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.7--if-else-constraints_4 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.8.2--array-reduction-iterative-constraints_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.8.1--foreach-iterative-constraints_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.5.9--global-constraints_1 ctl=70135 law=58237 TOWARD
+chapter-18/18.6.2--post-randomize_method_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.6.1--randomize-method_0 ctl=59838 law=51906 TOWARD
+chapter-18/18.6.2--pre-randomize-method_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.6.3--behavior-of-randomization-methods_3 ctl=59838 law=51906 TOWARD
+chapter-18/18.6.3--behavior-of-randomization-methods_2 ctl=59838 law=51906 TOWARD
+chapter-18/18.6.3--behavior-of-randomization-methods_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.7--in-line-constraints--randomize_4 ctl=59838 law=51906 TOWARD
+chapter-18/18.7--in-line-constraints--randomize_2 ctl=70094 law=58196 TOWARD
+chapter-18/18.7--in-line-constraints--randomize_0 ctl=59838 law=51906 TOWARD
+chapter-18/18.7--in-line-constraints--randomize_6 ctl=59838 law=51906 TOWARD
+chapter-18/18.7.1--local-scope-resolution_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.8--disabling-random-variables-with-rand_mode_0 ctl=59838 law=51906 TOWARD
+chapter-18/18.8--disabling-random-variables-with-rand_mode_1 ctl=59838 law=51906 TOWARD
+chapter-18/18.8--disabling-random-variables-with-rand_mode_2 ctl=59838 law=51906 TOWARD
+chapter-8/8.26.2--implements NOLAWDB
+chapter-8/8.26.2--implements_extends NOLAWDB
+chapter-8/8.26.2--implements_multiple NOLAWDB
+chapter-8/8.26.3--type_access_extends NOLAWDB
+chapter-8/8.26.3--type_access_implements ctl=91 law=56 TOWARD
+chapter-8/8.26.5--cast_between_interface_classes NOGOLDEN
+chapter-8/8.26.5--implemented_class_handle NOGOLDEN
+chapter-8/8.26.6.1--name_conflict_resolved NOLAWDB
+chapter-8/8.26.6.2--parameter_type_conflict NOLAWDB
+chapter-18/18.8--disabling-random-variables-with-rand_mode_3 ctl=59838 law=51906 TOWARD
+chapter-8/8.26.6.3--diamond_relationship NOLAWDB
+chapter-8/8.26.7--partial_implementation NOLAWDB
+generated/hdlconv_std2012/hdlconvertor_std2012_p158 NOLAWDB
+generated/hdlconv_std2012/hdlconvertor_std2012_p160_1 NOLAWDB
+generated/hdlconv_std2017/hdlconvertor_std2017_p194 NOLAWDB
+generated/hdlconv_std2017/hdlconvertor_std2017_p196 NOLAWDB
+generated/hdlconv_std2017/hdlconvertor_std2017_p199 NOLAWDB
+generated/hdlconv_std2017/hdlconvertor_std2017_p200_2 NOLAWDB
+generated/hdlconv_std2017/hdlconvertor_std2017_p202 NOLAWDB
+generated/hdlconv_std2017/hdlconvertor_std2017_p230 NOLAWDB
+generated/hdlconv_std2017/hdlconvertor_std2017_p332 NOLAWDB
+generated/hdlconv_std2017/hdlconvertor_std2017_p530 NOLAWDB
+generated/hdlconv_std2017/hdlconvertor_std2017_p728 NOLAWDB
+generated/hdlconv_std2017/hdlconvertor_std2017_p771 NOGOLDEN
+generated/hdlconv_std2017/hdlconvertor_std2017_p334 ctl=487 law=170 TOWARD
+chapter-18/18.9--controlling-constraints-with-constraint_mode_0 ctl=59838 law=51906 TOWARD
+generated/uvm-examples/uvm_ef_vif_config_db ctl=341133 law=323043 TOWARD
+generated/uvm-examples/uvm_ac_config_db ctl=380056 law=354730 TOWARD
+generated/uvm-examples/uvm_generation_seq_persistence ctl=587397 law=554835 TOWARD
+generated/uvm-examples/uvm_generation_seq_poly ctl=587397 law=554835 TOWARD
+generated/uvm-examples/uvm_generation_seq_randomization ctl=587397 law=554835 TOWARD
+generated/uvm-examples/uvm_messaging_example ctl=163578 law=150915 TOWARD
+generated/uvm-examples/uvm_overriding NOGOLDEN
+generated/uvm-examples/uvm_id_register ctl=520504 law=486133 TOWARD
+generated/uvm-examples/uvm_priority_arbitration ctl=158392 law=147538 TOWARD
+generated/uvm-examples/uvm_priority_grab_lock ctl=168694 law=154222 TOWARD
+generated/uvm-examples/uvm_slave_agent NOGOLDEN
+generated/uvm-examples/uvm_slave_agent_multi_seq_item NOGOLDEN
+generated/uvm-examples/uvm_param_vif_config_db ctl=581946 law=563856 TOWARD
+generated/uvm-examples/uvm_use_models_bidir_get_put ctl=161163 law=152118 TOWARD
+generated/uvm-examples/uvm_use_models_bidir_item_done ctl=161163 law=152118 TOWARD
+generated/uvm-examples/uvm_use_models_pipelined_get_put ctl=330812 law=310913 TOWARD
+generated/uvm-examples/uvm_use_models_unidirectional ctl=161067 law=152022 TOWARD
+generated/uvm-examples/uvm_vif_config_db ctl=326899 law=308809 TOWARD
+generated/uvm-examples/uvm_wait_for_signal NOGOLDEN
+generated/uvm_classes_0/uvm_agent_class_0 ctl=49582 law=45616 TOWARD
+generated/uvm_classes_0/uvm_component_class_0 ctl=54810 law=50844 TOWARD
+generated/uvm_classes_0/uvm_driver_class_0 ctl=49582 law=45616 TOWARD
+generated/uvm_classes_0/uvm_env_class_0 ctl=49582 law=45616 TOWARD
+generated/uvm_classes_0/uvm_monitor_class_0 ctl=49582 law=45616 TOWARD
+generated/uvm_classes_0/uvm_scoreboard_class_0 ctl=49582 law=45616 TOWARD
+generated/uvm_classes_0/uvm_sequencer_class_0 ctl=49582 law=45616 TOWARD
+generated/uvm_classes_0/uvm_test_class_0 ctl=49582 law=45616 TOWARD
+generated/uvm-examples/uvm_many_to_one ctl=956707 law=931381 TOWARD
+generated/uvm_classes_1/uvm_agent_class_1 ctl=104762 law=100796 TOWARD
+generated/uvm_classes_1/uvm_component_class_1 ctl=109986 law=106020 TOWARD
+generated/uvm_classes_1/uvm_driver_class_1 ctl=104776 law=100810 TOWARD
+generated/uvm_classes_1/uvm_env_class_1 ctl=104776 law=100810 TOWARD
+generated/uvm_classes_1/uvm_monitor_class_1 ctl=104776 law=100810 TOWARD
+generated/uvm_classes_1/uvm_scoreboard_class_1 ctl=104776 law=100810 TOWARD
+generated/uvm_classes_1/uvm_sequencer_class_1 ctl=104774 law=100808 TOWARD
+generated/uvm_classes_1/uvm_test_class_1 ctl=104774 law=100808 TOWARD
+generated/uvm_classes_2/uvm_component_class_2 ctl=40894 law=36928 TOWARD
+generated/uvm_classes_2/uvm_agent_class_2 ctl=35768 law=31802 TOWARD
+generated/uvm_classes_2/uvm_driver_class_2 ctl=35768 law=31802 TOWARD
+generated/uvm_classes_2/uvm_env_class_2 ctl=35768 law=31802 TOWARD
+generated/uvm_classes_2/uvm_scoreboard_class_2 ctl=35768 law=31802 TOWARD
+generated/uvm_classes_2/uvm_monitor_class_2 ctl=35768 law=31802 TOWARD
+generated/uvm_classes_2/uvm_sequencer_class_2 ctl=35768 law=31802 TOWARD
+generated/uvm_classes_2/uvm_test_class_2 ctl=35768 law=31802 TOWARD
+generated/uvm_classes_3/uvm_agent_class_3 ctl=49582 law=45616 TOWARD
+generated/uvm_classes_3/uvm_component_class_3 ctl=54810 law=50844 TOWARD
+generated/uvm_classes_3/uvm_driver_class_3 ctl=49582 law=45616 TOWARD
+generated/uvm_classes_3/uvm_env_class_3 ctl=49582 law=45616 TOWARD
+generated/uvm_classes_3/uvm_monitor_class_3 ctl=49582 law=45616 TOWARD
+generated/uvm_classes_3/uvm_scoreboard_class_3 ctl=49582 law=45616 TOWARD
+generated/uvm_classes_3/uvm_sequencer_class_3 ctl=49582 law=45616 TOWARD
+generic/class/class_test_11 NOLAWDB
+generic/class/class_test_25 NOLAWDB
+generic/class/class_test_26 NOLAWDB
+generic/class/class_test_27 NOLAWDB
+generic/class/class_test_28 NOLAWDB
+generic/class/class_test_29 NOLAWDB
+generated/uvm_classes_3/uvm_test_class_3 ctl=49582 law=45616 TOWARD
+generic/class/class_test_9 NOLAWDB
+generic/iface/iface_class_test_0 NOLAWDB
+generic/iface/iface_class_test_1 NOLAWDB
+generic/iface/iface_class_test_10 NOLAWDB
+generic/class/class_test_53 ctl=108 law=88 TOWARD
+generic/iface/iface_class_test_2 NOLAWDB
+generic/iface/iface_class_test_9 NOLAWDB
+testbenches/uvm_agent_env ctl=115018 law=107086 TOWARD
+testbenches/uvm_agent_active ctl=168821 law=141059 TOWARD
+testbenches/uvm_agent_passive ctl=138047 law=122183 TOWARD
+testbenches/uvm_driver_sequencer_env ctl=148317 law=128487 TOWARD
+testbenches/uvm_resource_db_read_by_name ctl=59838 law=51906 TOWARD
+testbenches/uvm_monitor_env ctl=127805 law=115907 TOWARD
+testbenches/uvm_scoreboard_env ctl=127839 law=115941 TOWARD
+testbenches/uvm_scoreboard_monitor_agent_env ctl=148337 law=128507 TOWARD
+testbenches/uvm_scoreboard_monitor_env ctl=138095 law=122231 TOWARD
+testbenches/uvm_sequence ctl=49582 law=45616 TOWARD
+testbenches/uvm_test_run_test ctl=49582 law=45616 TOWARD
+generated/uvm-examples/uvm_test_init ctl=1494054 law=1457874 TOWARD

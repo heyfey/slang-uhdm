@@ -8679,6 +8679,24 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
     dpiExportPkgHome170 = nullptr;
     classBodyHomePkg75 = nullptr;
     pkgFreeSubHomePkg117 = nullptr;
+    // § unitTaskNotListed408 (R11U408_UNITTASK_OFF; cases
+    // tools/probe/r11u408repro/cases/UT; sv-tests hdlconvertor std2017
+    // p230, p332, p530) — a `$unit` TASK is not on the design's vpiTaskFunc:
+    // golden lists every `$unit` function there and no task at all (UT ut01,
+    // ut04, ut05 against the function controls ut03, ut06).  The task object
+    // is still built, so a call to it keeps its link (golden writes that call
+    // as an unlinked func_call, UT ut02: the call site is the expression
+    // ground's, § unitFwdCallNoLink403's sibling); only the listing drops it.
+    if (designScope && !g_unitOobEmit402 && lawOn(408, "R11U408_UNITTASK_OFF"))
+        tfs->erase(std::remove_if(tfs->begin(), tfs->end(),
+                                  [&](UHDM::task_func* t) {
+                                      if (!t || t->UhdmType() != UHDM::uhdmtask)
+                                          return false;
+                                      lawTrace(408, "unitTaskNotListed408",
+                                               std::string(t->VpiName()));
+                                      return true;
+                                  }),
+                   tfs->end());
     if (!tfs->empty()) {
         if (cloneMode) {
             if (auto* ex0 = pkgClassTfClone->Task_funcs())

@@ -753,10 +753,10 @@ chapter-8/8.24--out_of_block_methods.sv,DIFFERENT,decompile:,
 chapter-8/8.25--parametrized_class_extend.sv,EQUAL,,equal
 chapter-8/8.25.1--parametrized_class_invalid_scope_resolution.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.25.1--parametrized_class_invalid_scope_resolution.sv:29:26: error: cannot refer to generic class with '::' wit,
 chapter-8/8.25.1--parametrized_class_scope_resolution.sv,EQUAL,,equal
-chapter-8/8.26.2--implements.sv,DIFFERENT,decompile:,
-chapter-8/8.26.2--implements_extends.sv,DIFFERENT,decompile:,
-chapter-8/8.26.2--implements_multiple.sv,DIFFERENT,decompile:,
-chapter-8/8.26.3--type_access_extends.sv,DIFFERENT,decompile:,
+chapter-8/8.26.2--implements.sv,EQUAL,,equal
+chapter-8/8.26.2--implements_extends.sv,EQUAL,,equal
+chapter-8/8.26.2--implements_multiple.sv,EQUAL,,equal
+chapter-8/8.26.3--type_access_extends.sv,EQUAL,,equal
 chapter-8/8.26.3--type_access_implements.sv,DIFFERENT,decompile:,
 chapter-8/8.26.3--type_access_implements_invalid.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.3--type_access_implements_invalid.sv:25:45: error: use of undeclared identifier 'int_t',
 chapter-8/8.26.4--illegal_forward_def_implements.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.4--illegal_forward_def_implements.sv:21:32: error: cannot extend or implement an incomplete forward typedef,
@@ -764,13 +764,13 @@ chapter-8/8.26.4--illegal_implements_parameter.sv,SURELOG_ONLY,/home/heyfey/git-
 chapter-8/8.26.5--cast_between_interface_classes.sv,SLANG_ONLY,[  ERROR] : 2,
 chapter-8/8.26.5--implemented_class_handle.sv,SLANG_ONLY,[  ERROR] : 1,
 chapter-8/8.26.5--invalid_interface_instantiation.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.5--invalid_interface_instantiation.sv:26:23: error: cannot create instance of interface class 'ihello',
-chapter-8/8.26.6.1--name_conflict_resolved.sv,DIFFERENT,decompile:,
+chapter-8/8.26.6.1--name_conflict_resolved.sv,EQUAL,,equal
 chapter-8/8.26.6.1--name_conflict_unresolved.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.6.1--name_conflict_unresolved.sv:28:39: error: return type 'void' of virtual method 'hello' does not match ,
-chapter-8/8.26.6.2--parameter_type_conflict.sv,DIFFERENT,decompile:,
+chapter-8/8.26.6.2--parameter_type_conflict.sv,EQUAL,,equal
 chapter-8/8.26.6.2--parameter_type_conflict_unresolved.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.6.2--parameter_type_conflict_unresolved.sv:26:69: error: 'T' in 'ic2' conflicts with another member already,
-chapter-8/8.26.6.3--diamond_relationship.sv,DIFFERENT,decompile:,
+chapter-8/8.26.6.3--diamond_relationship.sv,EQUAL,,equal
 chapter-8/8.26.6.3--diamond_relationship_parametrized.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.6.3--diamond_relationship_parametrized.sv:30:42: error: 'fn' in 'ic2' conflicts with another member already,
-chapter-8/8.26.7--partial_implementation.sv,DIFFERENT,decompile:,
+chapter-8/8.26.7--partial_implementation.sv,EQUAL,,equal
 chapter-8/8.27--forward_declaration.sv,EQUAL,,equal
 chapter-8/8.4--instantiation.sv,EQUAL,,equal
 chapter-8/8.5--parameters.sv,EQUAL,,equal
@@ -1350,8 +1350,8 @@ generated/hdlconv_std2012/hdlconvertor_std2012_p147.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p148.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2012/hdlconvertor_std2012_p154_1.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2012/hdlconvertor_std2012_p154_2.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2012/p154_2.sv:8:22: error: method argument 'x' is of type 'C::T' (aka 'real') w,
-generated/hdlconv_std2012/hdlconvertor_std2012_p158.sv,DIFFERENT,decompile:,
-generated/hdlconv_std2012/hdlconvertor_std2012_p160_1.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2012/hdlconvertor_std2012_p158.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p160_1.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p49.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p58.sv,SLANG_ONLY,[  ERROR] : 2,
 generated/hdlconv_std2012/hdlconvertor_std2012_p753_1.sv,EQUAL,,equal
@@ -1390,15 +1390,15 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p190.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p190_2.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p190_2.sv:6:22: error: method argument 'x' is of type 'C::T' (aka 'real') w,
 generated/hdlconv_std2017/hdlconvertor_std2017_p193.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p193_2.sv,DIFFERENT,decompile:,
-generated/hdlconv_std2017/hdlconvertor_std2017_p194.sv,DIFFERENT,decompile:,
-generated/hdlconv_std2017/hdlconvertor_std2017_p196.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p194.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p196.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p198.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p198.sv:23:25: error: cannot extend or implement an incomplete forward type,
-generated/hdlconv_std2017/hdlconvertor_std2017_p199.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p199.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p200.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p200.sv:10:20: error: return type 'bit' of virtual method 'funcBase' does n,
-generated/hdlconv_std2017/hdlconvertor_std2017_p200_2.sv,DIFFERENT,decompile:,
-generated/hdlconv_std2017/hdlconvertor_std2017_p202.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p200_2.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p202.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p203.sv,DIFFERENT,decompile:,
-generated/hdlconv_std2017/hdlconvertor_std2017_p230.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p230.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p234.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p238.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p239.sv,EQUAL,,equal
@@ -1418,7 +1418,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p327.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p328.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p330.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p331.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p332.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p332.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p334.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p347.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p347.sv:26:32: error: could not resolve hierarchical path name 'p',
 generated/hdlconv_std2017/hdlconvertor_std2017_p348.sv,EQUAL,,equal
@@ -1446,7 +1446,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p521.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p525.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p526.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p527.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p530.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p530.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p531.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p537.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p541.sv,EQUAL,,equal
@@ -1468,7 +1468,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p707.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p718.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p723.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p728.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p728.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p729.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p733.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p737.sv,DIFFERENT,decompile:,
@@ -2116,14 +2116,14 @@ generated/uvm_classes_1/uvm_monitor_class_1.sv,DIFFERENT,decompile:,
 generated/uvm_classes_1/uvm_scoreboard_class_1.sv,DIFFERENT,decompile:,
 generated/uvm_classes_1/uvm_sequencer_class_1.sv,DIFFERENT,decompile:,
 generated/uvm_classes_1/uvm_test_class_1.sv,DIFFERENT,decompile:,
-generated/uvm_classes_2/uvm_agent_class_2.sv,DIFFERENT,decompile:,
+generated/uvm_classes_2/uvm_agent_class_2.sv,STRICT_NOTEQUAL,differ:col(4),differ:col(4)
 generated/uvm_classes_2/uvm_component_class_2.sv,DIFFERENT,decompile:,
-generated/uvm_classes_2/uvm_driver_class_2.sv,DIFFERENT,decompile:,
-generated/uvm_classes_2/uvm_env_class_2.sv,DIFFERENT,decompile:,
-generated/uvm_classes_2/uvm_monitor_class_2.sv,DIFFERENT,decompile:,
-generated/uvm_classes_2/uvm_scoreboard_class_2.sv,DIFFERENT,decompile:,
-generated/uvm_classes_2/uvm_sequencer_class_2.sv,DIFFERENT,decompile:,
-generated/uvm_classes_2/uvm_test_class_2.sv,DIFFERENT,decompile:,
+generated/uvm_classes_2/uvm_driver_class_2.sv,STRICT_NOTEQUAL,differ:col(4),differ:col(4)
+generated/uvm_classes_2/uvm_env_class_2.sv,STRICT_NOTEQUAL,differ:col(4),differ:col(4)
+generated/uvm_classes_2/uvm_monitor_class_2.sv,STRICT_NOTEQUAL,differ:col(4),differ:col(4)
+generated/uvm_classes_2/uvm_scoreboard_class_2.sv,STRICT_NOTEQUAL,differ:col(4),differ:col(4)
+generated/uvm_classes_2/uvm_sequencer_class_2.sv,STRICT_NOTEQUAL,differ:col(4),differ:col(4)
+generated/uvm_classes_2/uvm_test_class_2.sv,STRICT_NOTEQUAL,differ:col(4),differ:col(4)
 generated/uvm_classes_3/uvm_agent_class_3.sv,DIFFERENT,decompile:,
 generated/uvm_classes_3/uvm_component_class_3.sv,DIFFERENT,decompile:,
 generated/uvm_classes_3/uvm_driver_class_3.sv,DIFFERENT,decompile:,
@@ -2150,18 +2150,18 @@ generated/wildcard_operators_sim/11.4.6--wildcard_operator_6.sv,EQUAL,,equal
 generated/wildcard_operators_sim/11.4.6--wildcard_operator_7.sv,EQUAL,,equal
 generic/class/class_test_0.sv,EQUAL,,equal
 generic/class/class_test_1.sv,EQUAL,,equal
-generic/class/class_test_11.sv,DIFFERENT,decompile:,
+generic/class/class_test_11.sv,EQUAL,,equal
 generic/class/class_test_12.sv,EQUAL,,equal
 generic/class/class_test_13.sv,EQUAL,,equal
 generic/class/class_test_17.sv,EQUAL,,equal
 generic/class/class_test_18.sv,EQUAL,,equal
 generic/class/class_test_19.sv,DIFFERENT,decompile:,
 generic/class/class_test_21.sv,DIFFERENT,decompile:,
-generic/class/class_test_25.sv,DIFFERENT,decompile:,
+generic/class/class_test_25.sv,EQUAL,,equal
 generic/class/class_test_26.sv,EQUAL,,equal
 generic/class/class_test_27.sv,EQUAL,,equal
-generic/class/class_test_28.sv,DIFFERENT,decompile:,
-generic/class/class_test_29.sv,DIFFERENT,decompile:,
+generic/class/class_test_28.sv,EQUAL,,equal
+generic/class/class_test_29.sv,EQUAL,,equal
 generic/class/class_test_30.sv,EQUAL,,equal
 generic/class/class_test_4.sv,EQUAL,,equal
 generic/class/class_test_48.sv,EQUAL,,equal
@@ -2188,7 +2188,7 @@ generic/class/class_test_68.sv,EQUAL,,equal
 generic/class/class_test_69.sv,EQUAL,,equal
 generic/class/class_test_7.sv,EQUAL,,equal
 generic/class/class_test_8.sv,EQUAL,,equal
-generic/class/class_test_9.sv,DIFFERENT,decompile:,
+generic/class/class_test_9.sv,EQUAL,,equal
 generic/desc/desc_test_0.sv,EQUAL,,equal
 generic/desc/desc_test_1.sv,EQUAL,,equal
 generic/desc/desc_test_10.sv,EQUAL,,equal
@@ -2210,11 +2210,11 @@ generic/empty/empty_test_2.sv,EQUAL,,equal
 generic/empty/empty_test_3.sv,EQUAL,,equal
 generic/empty/empty_test_4.sv,EQUAL,,equal
 generic/empty/empty_test_5.sv,EQUAL,,equal
-generic/iface/iface_class_test_0.sv,DIFFERENT,decompile:,
-generic/iface/iface_class_test_1.sv,DIFFERENT,decompile:,
-generic/iface/iface_class_test_10.sv,DIFFERENT,decompile:,
-generic/iface/iface_class_test_2.sv,DIFFERENT,decompile:,
-generic/iface/iface_class_test_9.sv,DIFFERENT,decompile:,
+generic/iface/iface_class_test_0.sv,EQUAL,,equal
+generic/iface/iface_class_test_1.sv,EQUAL,,equal
+generic/iface/iface_class_test_10.sv,EQUAL,,equal
+generic/iface/iface_class_test_2.sv,EQUAL,,equal
+generic/iface/iface_class_test_9.sv,EQUAL,,equal
 generic/member/class_member_test_0.sv,EQUAL,,equal
 generic/member/class_member_test_10.sv,EQUAL,,equal
 generic/member/class_member_test_11.sv,EQUAL,,equal

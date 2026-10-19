@@ -1,0 +1,102 @@
+CQ/cq01 pris rc=0 cmp=168 NOT_EQUAL stage1 md5=90a783cc
+CQ/cq01 law rc=0 cmp=0 STRICT_EQUAL 27 objects md5=c1558e62
+CQ/cq01 OFFeqP=y OWNeqP=y
+CQ/cq02 pris rc=0 cmp=164 NOT_EQUAL stage1 md5=6a888b82
+CQ/cq02 law rc=0 cmp=0 STRICT_EQUAL 34 objects md5=93a9af10
+CQ/cq02 OFFeqP=y OWNeqP=y
+CQ/cq03 pris rc=0 cmp=182 NOT_EQUAL stage1 md5=3475d88b
+CQ/cq03 law rc=0 cmp=0 STRICT_EQUAL 36 objects md5=dec3e633
+CQ/cq03 OFFeqP=y OWNeqP=y
+CQ/cq04 pris rc=0 cmp=168 NOT_EQUAL stage1 md5=794131c8
+CQ/cq04 law rc=0 cmp=0 STRICT_EQUAL 39 objects md5=4d795884
+CQ/cq04 OFFeqP=y OWNeqP=y
+CQ/cq05 pris rc=0 cmp=164 NOT_EQUAL stage1 md5=32d45401
+CQ/cq05 law rc=0 cmp=0 STRICT_EQUAL 35 objects md5=55de27ae
+CQ/cq05 OFFeqP=y OWNeqP=y
+CQ/cq06 pris rc=0 cmp=164 NOT_EQUAL stage1 md5=746fa93c
+CQ/cq06 law rc=0 cmp=0 STRICT_EQUAL 30 objects md5=8b32c8ce
+CQ/cq06 OFFeqP=y OWNeqP=y
+CQ/cq07 pris rc=0 cmp=168 NOT_EQUAL stage1 md5=01166954
+CQ/cq07 law rc=0 cmp=0 STRICT_EQUAL 33 objects md5=7db0f242
+CQ/cq07 OFFeqP=y OWNeqP=y
+CQ/cq08 pris rc=0 cmp=168 NOT_EQUAL stage1 md5=600f2594
+CQ/cq08 law rc=0 cmp=0 STRICT_EQUAL 43 objects md5=5c9866d5
+CQ/cq08 OFFeqP=y OWNeqP=y
+GC/gc01 pris rc=0 cmp=85 NOT_EQUAL stage1 md5=11865a53
+GC/gc01 law rc=0 cmp=0 STRICT_EQUAL 8 objects md5=e37bbbae
+GC/gc01 OFFeqP=y OWNeqP=y
+GC/gc02 pris rc=0 cmp=123 NOT_EQUAL stage1 md5=af3ce67e
+GC/gc02 law rc=0 cmp=0 STRICT_EQUAL 12 objects md5=77dc7480
+GC/gc02 OFFeqP=y OWNeqP=y
+GC/gc03 pris rc=0 cmp=271 NOT_EQUAL stage1 md5=8f6c567c
+GC/gc03 law rc=0 cmp=0 STRICT_EQUAL 26 objects md5=0b3bc1fd
+GC/gc03 OFFeqP=y OWNeqP=y
+GC/gc04 pris rc=0 cmp=75 NOT_EQUAL stage1 md5=cdcaf281
+GC/gc04 law rc=0 cmp=75 NOT_EQUAL stage1 md5=cdcaf281
+GC/gc04 OFFeqP=y OWNeqP=y
+GC/gc05 pris rc=0 cmp=215 NOT_EQUAL stage1 md5=3873b2a7
+GC/gc05 law rc=0 cmp=215 NOT_EQUAL stage1 md5=3873b2a7
+GC/gc05 OFFeqP=y OWNeqP=y
+GC/gc06 pris rc=0 cmp=101 NOT_EQUAL stage1 md5=2464b85f
+GC/gc06 law rc=0 cmp=0 STRICT_EQUAL 13 objects md5=48b7e18c
+GC/gc06 OFFeqP=y OWNeqP=y
+IC/ic01 pris rc=0 cmp=47 NOT_EQUAL stage1 md5=a65ac553
+IC/ic01 law rc=0 cmp=0 STRICT_EQUAL 3 objects md5=4531dc6d
+IC/ic01 OFFeqP=y OWNeqP=y
+IC/ic02 pris rc=0 cmp=155 NOT_EQUAL stage1 md5=5b1f219b
+IC/ic02 law rc=0 cmp=0 STRICT_EQUAL 4 objects md5=f0cd6dc7
+IC/ic02 OFFeqP=y OWNeqP=y
+IC/ic03 pris rc=0 cmp=438 NOT_EQUAL stage1 md5=0b7e35b1
+IC/ic03 law rc=0 cmp=0 STRICT_EQUAL 25 objects md5=af431cbc
+IC/ic03 OFFeqP=y OWNeqP=y
+IC/ic04 pris rc=0 cmp=128 NOT_EQUAL stage1 md5=9f1bd357
+IC/ic04 law rc=0 cmp=0 STRICT_EQUAL 21 objects md5=74022c2c
+IC/ic04 OFFeqP=y OWNeqP=y
+IC/ic05 pris rc=0 cmp=372 NOT_EQUAL stage1 md5=bf812fd4
+IC/ic05 law rc=0 cmp=0 STRICT_EQUAL 27 objects md5=8475fcc8
+IC/ic05 OFFeqP=y OWNeqP=y
+IC/ic06 pris rc=0 cmp=638 NOT_EQUAL stage1 md5=2b9b75ed
+IC/ic06 law rc=0 cmp=16 NOT_EQUAL stage1 md5=a3f557de
+IC/ic06 OFFeqP=y OWNeqP=y
+IC/ic07 pris rc=0 cmp=580 NOT_EQUAL stage1 md5=afbd0ce7
+IC/ic07 law rc=0 cmp=0 STRICT_EQUAL 24 objects md5=9a5b55f1
+IC/ic07 OFFeqP=y OWNeqP=y
+IC/ic08 pris rc=0 cmp=166 NOT_EQUAL stage1 md5=7f3ca819
+IC/ic08 law rc=0 cmp=0 STRICT_EQUAL 7 objects md5=235a5185
+IC/ic08 OFFeqP=y OWNeqP=y
+UC/uc01 pris rc=0 cmp=112 NOT_EQUAL stage1 md5=5c2d7a7d
+UC/uc01 law rc=0 cmp=80 NOT_EQUAL stage1 md5=dc334557
+UC/uc01 OFFeqP=y OWNeqP=y
+UC/uc02 pris rc=0 cmp=17 NOT_EQUAL stage1 md5=411a3ac2
+UC/uc02 law rc=0 cmp=17 NOT_EQUAL stage1 md5=1f2331d8
+UC/uc02 OFFeqP=y OWNeqP=y
+UC/uc03 pris rc=0 cmp=112 NOT_EQUAL stage1 md5=707225d3
+UC/uc03 law rc=0 cmp=0 STRICT_EQUAL 486 objects md5=4902575d
+UC/uc03 OFFeqP=y OWNeqP=y
+UC/uc04 pris rc=0 cmp=0 STRICT_EQUAL 170 objects md5=d5d0a22c
+UC/uc04 law rc=0 cmp=0 STRICT_EQUAL 170 objects md5=d5d0a22c
+UC/uc04 OFFeqP=y OWNeqP=y
+UC/uc05 pris rc=0 cmp=80 NOT_EQUAL stage1 md5=131f752a
+UC/uc05 law rc=0 cmp=80 NOT_EQUAL stage1 md5=39c5b3df
+UC/uc05 OFFeqP=y OWNeqP=y
+UC/uc06 pris rc=0 cmp=84 NOT_EQUAL stage1 md5=2071f143
+UC/uc06 law rc=0 cmp=84 NOT_EQUAL stage1 md5=b256800c
+UC/uc06 OFFeqP=y OWNeqP=y
+UT/ut01 pris rc=0 cmp=73 NOT_EQUAL stage1 md5=c95b76e6
+UT/ut01 law rc=0 cmp=0 STRICT_EQUAL 1 objects md5=e6cf87ee
+UT/ut01 OFFeqP=y OWNeqP=y
+UT/ut02 pris rc=0 cmp=60 NOT_EQUAL stage1 md5=c7e8f81a
+UT/ut02 law rc=0 cmp=60 NOT_EQUAL stage1 md5=53f2028a
+UT/ut02 OFFeqP=y OWNeqP=y
+UT/ut03 pris rc=0 cmp=0 STRICT_EQUAL 33 objects md5=66f560af
+UT/ut03 law rc=0 cmp=0 STRICT_EQUAL 33 objects md5=66f560af
+UT/ut03 OFFeqP=y OWNeqP=y
+UT/ut04 pris rc=0 cmp=628 NOT_EQUAL stage1 md5=d39bc695
+UT/ut04 law rc=0 cmp=0 STRICT_EQUAL 33 objects md5=a990ff98
+UT/ut04 OFFeqP=y OWNeqP=y
+UT/ut05 pris rc=0 cmp=331 NOT_EQUAL stage1 md5=8ad54887
+UT/ut05 law rc=0 cmp=0 STRICT_EQUAL 9 objects md5=443a422d
+UT/ut05 OFFeqP=y OWNeqP=y
+UT/ut06 pris rc=0 cmp=0 STRICT_EQUAL 10 objects md5=f2fc305b
+UT/ut06 law rc=0 cmp=0 STRICT_EQUAL 10 objects md5=f2fc305b
+UT/ut06 OFFeqP=y OWNeqP=y

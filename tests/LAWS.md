@@ -20,9 +20,9 @@ several laws and nothing says which one a case exercises, the case is listed und
 each of them with a trailing `?` until its author writes its LAW file. A
 verification pass owns the laws of the pass it verifies.
 
-Laws: 2888. Cases in the gate: 4087, tied to one law 3969, listed with `?`
+Laws: 2893. Cases in the gate: 4087, tied to one law 3969, listed with `?`
 under several 106, tied to no law 12 (listed at the end).
-Laws with a commit on this branch: 2216;
+Laws with a commit on this branch: 2236;
 laws with cases in the gate: 676.
 
 ## 1. Laws
@@ -857,10 +857,11 @@ laws with cases in the gate: 676.
 - also mentioned by: r10buvm27repro r10buvm2repro r10uvm133repro r10uvm62repro r10uvm63repro r10uvm68repro
 
 ### `bitsParamArgNoFold405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U403_MACROLITGUARD_OFF R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ParamEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/BU/bu01/dut.sv r11u405repro/cases/BU/bu02/dut.sv r11u405repro/cases/BU/bu03/dut.sv r11u405repro/cases/BU/bu04/dut.sv r11u405repro/cases/BU/bu05/dut.sv r11u405repro/cases/BU/bu06/dut.sv r11u405repro/cases/BU/bu07/dut.sv r11u405repro/cases/BU/bu08/dut.sv r11u405repro/cases/BU/bu09/dut.sv r11u405repro/cases/BU/bu10/dut.sv r11u405repro/cases/BU/bu11/dut.sv v11u405repro/cases/VK/vk01/dut.sv v11u405repro/cases/VK/vk02/dut.sv v11u405repro/cases/VK/vk03/dut.sv v11u405repro/cases/VK/vk04/dut.sv
 
@@ -982,10 +983,11 @@ laws with cases in the gate: 676.
 - also mentioned by: r10uvm158repro r10uvm166repro r10uvm198repro r10uvm202repro r10v166repro r10v177repro r11u271repro
 
 ### `blockParamWrittenRhs405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/StmtEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/BP/bp01/dut.sv r11u405repro/cases/BP/bp02/dut.sv r11u405repro/cases/BP/bp03/dut.sv r11u405repro/cases/BP/bp04/dut.sv r11u405repro/cases/BP/bp05/dut.sv r11u405repro/cases/BP/bp06/dut.sv r11u405repro/cases/BP/bp07/dut.sv v11u405repro/cases/VB/vb01/dut.sv v11u405repro/cases/VB/vb02/dut.sv v11u405repro/cases/VB/vb03/dut.sv v11u405repro/cases/VB/vb04/dut.sv v11u405repro/cases/VB/vb05/dut.sv v11u405repro/cases/VB/vb06/dut.sv v11u405repro/cases/VB/vb07/dut.sv v11u405repro/cases/VB/vb08/dut.sv
 
@@ -1084,10 +1086,11 @@ laws with cases in the gate: 676.
 - commits: e748204cb
 - pass: r11u406repro (verified by v11u406repro)
 - switches: R11U406_ARRELEMKIND_OFF R11U406_BOUNDEDQ_OFF R11U406_DEFERREDASSERT_OFF R11U406_OFF R11U406_SEQNEST_OFF R11V406_OFF
-- source: src/TypeEmit.cpp(1)
+- source: src/TypeEmit.cpp(1) src/UhdmExporter.cpp(1)
 - corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u406repro/cases/BQ/bq01_bounded/dut.sv r11u406repro/cases/BQ/bq02_bounded_param/dut.sv r11u406repro/cases/BQ/bq03_bounded_slice/dut.sv v11u406repro/cases/VB/vb01_logic_vec/dut.sv v11u406repro/cases/VB/vb02_string/dut.sv v11u406repro/cases/VB/vb03_expr_bound/dut.sv v11u406repro/cases/VB/vb04_init/dut.sv v11u406repro/cases/VB/vb05_gen_iface/dut.sv v11u406repro/cases/VB/vb06_func_class/dut.sv v11u406repro/cases/VB/vb07_mixed_ctl/dut.sv v11u406repro/cases/VB/vb08_child_param/dut.sv
+- also mentioned by: r11u408repro
 
 ### `builtinArrayReadBindsMintedFuncCall182`
 - commits: e5272cc86
@@ -2772,10 +2775,11 @@ laws with cases in the gate: 676.
 - also mentioned by: r10earl106repro r10earl83repro
 
 ### `castSizeGenFence405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U403_MACROLITGUARD_OFF R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ParamEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/SC/sc18/dut.sv r11u405repro/cases/SC/sc19/dut.sv r11u405repro/cases/SC/sc20/dut.sv r11u405repro/cases/SC/sc21/dut.sv r11u405repro/cases/SC/sc26/dut.sv r11u405repro/cases/SC/sc27/dut.sv r11u405repro/cases/SC/sc28/dut.sv r11u405repro/cases/SC/sc29/dut.sv r11u405repro/cases/SC/sc30/dut.sv r11u405repro/cases/SC/sc31/dut.sv v11u405repro/cases/VS/vs03/dut.sv v11u405repro/cases/VS/vs08/dut.sv v11u405repro/cases/VS/vs09/dut.sv
 
@@ -2798,10 +2802,11 @@ laws with cases in the gate: 676.
 - also mentioned by: r10earl97repro
 
 ### `castSizeParenComputed405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U403_MACROLITGUARD_OFF R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ParamEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/SC/sc32/dut.sv r11u405repro/cases/SC/sc33/dut.sv v11u405repro/cases/VS/vs11/dut.sv
 
@@ -3026,6 +3031,14 @@ laws with cases in the gate: 676.
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): none
 
+### `classBoundedQueueStatic408`
+- commits: none on this branch
+- pass: r11u408repro (verified by v11u408repro)
+- switches: R11U408_CLSBOUNDEDQ_OFF R11U408_CLSIMPTSCHAIN_OFF R11U408_GENCLSNODEF_OFF R11U408_IFACECLASS_OFF R11U408_OFF R11U408_UNITTASK_OFF
+- source: src/UhdmExporter.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u408repro/cases/CQ/cq01/dut.sv r11u408repro/cases/CQ/cq02/dut.sv r11u408repro/cases/CQ/cq03/dut.sv r11u408repro/cases/CQ/cq04/dut.sv r11u408repro/cases/CQ/cq05/dut.sv r11u408repro/cases/CQ/cq06/dut.sv r11u408repro/cases/CQ/cq07/dut.sv r11u408repro/cases/CQ/cq08/dut.sv v11u408repro/cases/VQ/vq01/dut.sv v11u408repro/cases/VQ/vq02/dut.sv v11u408repro/cases/VQ/vq03/dut.sv v11u408repro/cases/VQ/vq04/dut.sv v11u408repro/cases/VQ/vq05/dut.sv v11u408repro/cases/VQ/vq06/dut.sv v11u408repro/cases/VQ/vq07/dut.sv v11u408repro/cases/VQ/vq08/dut.sv v11u408repro/cases/VQ/vq09/dut.sv v11u408repro/cases/VQ/vq10/dut.sv
+
 ### `classCallNoLink12`
 - commits: 8a4b59a0e d3cfb2b72 9f45cc0d1 7d7c29f8e 266d3a664
 - pass: r10buvm12repro
@@ -3103,6 +3116,14 @@ laws with cases in the gate: 676.
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r10sd4repro/grid/q10_pkgtype_oob_local.sv r10sd4repro/grid/q1_cls_member_queue_struct.sv r10sd4repro/grid/q4_inbody_method_queue.sv r10sd4repro/grid/q5_pkg_var_queue.sv r10sd4repro/grid/q6_mod_cls_member_queue.sv r10sd4repro/grid/q7_cls_member_dynarray.sv r10sd4repro/grid/q8_cls_member_queue_pkgtype.sv r10sd4repro/grid/q9_clstype_oob_local.sv r10sd4repro/grid/qv12_clstype_fixedarray_oob.sv r10sd4repro/grid/qv13_clstype_flat_oob.sv
 - also mentioned by: r10sd5repro r10sd6repro r10sd7repro r10sd8repro r10uvm126repro r10uvm166repro
+
+### `classImpTdParamTsClone408`
+- commits: none on this branch
+- pass: r11u408repro (verified by v11u408repro)
+- switches: R11U408_CLSBOUNDEDQ_OFF R11U408_CLSIMPTSCHAIN_OFF R11U408_GENCLSNODEF_OFF R11U408_IFACECLASS_OFF R11U408_OFF R11U408_UNITTASK_OFF
+- source: src/ModuleEmit.cpp(3) src/UhdmExporter.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u408repro/cases/UC/uc01/dut.sv r11u408repro/cases/UC/uc02/dut.sv r11u408repro/cases/UC/uc03/dut.sv r11u408repro/cases/UC/uc04/dut.sv r11u408repro/cases/UC/uc05/dut.sv r11u408repro/cases/UC/uc06/dut.sv v11u408repro/cases/VU/vu01/dut.sv v11u408repro/cases/VU/vu02/dut.sv v11u408repro/cases/VU/vu03/dut.sv v11u408repro/cases/VU/vu04/dut.sv v11u408repro/cases/VU/vu05/dut.sv v11u408repro/cases/VU/vu06/dut.sv v11u408repro/cases/VU/vu07/dut.sv v11u408repro/cases/VU/vu08/dut.sv v11u408repro/cases/VU/vu09/dut.sv v11u408repro/cases/VU/vu10/dut.sv v11u408repro/cases/VU/vu11/dut.sv v11u408repro/cases/VU/vu12/dut.sv v11u408repro/cases/VU/vu13/dut.sv v11u408repro/cases/VU/vu14/dut.sv
 
 ### `classImportParamOwnRefs183`
 - commits: 04d369c83 c168c2095 459b7cdfc
@@ -6211,10 +6232,11 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u162verify
 
 ### `disableTargetScopeChain405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/StmtEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/DS/ds01/dut.sv r11u405repro/cases/DS/ds02/dut.sv r11u405repro/cases/DS/ds03/dut.sv r11u405repro/cases/DS/ds04/dut.sv r11u405repro/cases/DS/ds05/dut.sv v11u405repro/cases/VD/vd01/dut.sv v11u405repro/cases/VD/vd02/dut.sv v11u405repro/cases/VD/vd03/dut.sv v11u405repro/cases/VD/vd04/dut.sv v11u405repro/cases/VD/vd05/dut.sv v11u405repro/cases/VD/vd06/dut.sv v11u405repro/cases/VD/vd07/dut.sv v11u405repro/cases/VD/vd08/dut.sv
 
@@ -10335,6 +10357,14 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): none
 - also mentioned by: r11u185verify r11u190verify
 
+### `genericClassNoDefaultListed408`
+- commits: none on this branch
+- pass: r11u408repro (verified by v11u408repro)
+- switches: R11U408_CLSBOUNDEDQ_OFF R11U408_CLSIMPTSCHAIN_OFF R11U408_GENCLSNODEF_OFF R11U408_IFACECLASS_OFF R11U408_OFF R11U408_UNITTASK_OFF
+- source: src/UhdmExporter.cpp(4)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u408repro/cases/GC/gc01/dut.sv r11u408repro/cases/GC/gc02/dut.sv r11u408repro/cases/GC/gc03/dut.sv r11u408repro/cases/GC/gc04/dut.sv r11u408repro/cases/GC/gc05/dut.sv r11u408repro/cases/GC/gc06/dut.sv v11u408repro/cases/VG/vg01/dut.sv v11u408repro/cases/VG/vg02/dut.sv v11u408repro/cases/VG/vg03/dut.sv v11u408repro/cases/VG/vg04/dut.sv v11u408repro/cases/VG/vg05/dut.sv v11u408repro/cases/VG/vg06/dut.sv v11u408repro/cases/VG/vg07/dut.sv v11u408repro/cases/VG/vg08/dut.sv v11u408repro/cases/VG/vg09/dut.sv v11u408repro/cases/VG/vg10/dut.sv v11u408repro/cases/VG/vg11/dut.sv v11u408repro/cases/VG/vg12/dut.sv v11u408repro/cases/VG/vg13/dut.sv v11u408repro/cases/VG/vg14/dut.sv v11u408repro/cases/VG/vg15/dut.sv v11u408repro/cases/VG/vg16/dut.sv v11u408repro/cases/VG/vg17/dut.sv
+
 ### `genericIfacePortNameMatch`
 - commits: none on this branch
 - pass: r10imex_repro
@@ -10536,10 +10566,11 @@ laws with cases in the gate: 676.
 - also mentioned by: r10earl_repro r10uvm78repro
 
 ### `hierSelMacroBoundPretty405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U403_MACROLITGUARD_OFF R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ExprEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/HM/hm01/dut.sv r11u405repro/cases/HM/hm02/dut.sv r11u405repro/cases/HM/hm03/dut.sv r11u405repro/cases/HM/hm04/dut.sv r11u405repro/cases/HM/hm05/dut.sv v11u405repro/cases/VM/vm01/dut.sv v11u405repro/cases/VM/vm02/dut.sv v11u405repro/cases/VM/vm03/dut.sv v11u405repro/cases/VM/vm04/dut.sv
 
@@ -10553,18 +10584,20 @@ laws with cases in the gate: 676.
 - also mentioned by: r10earl29repro r10earl34repro r10earl35repro r11u39repro
 
 ### `hierSelWidthCtxModItem405v`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: - (verified by v11u405repro)
 - switches: R11V405_HSWCTX_OFF R11V405_UNBSIZE_OFF
 - source: src/ExprEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): none
 
 ### `hierSelWidthLocalKeep405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U403_MACROLITGUARD_OFF R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ExprEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/PH/ph01/dut.sv r11u405repro/cases/PH/ph02/dut.sv r11u405repro/cases/PH/ph03/dut.sv r11u405repro/cases/PH/ph04/dut.sv r11u405repro/cases/PH/ph05/dut.sv r11u405repro/cases/PH/ph06/dut.sv r11u405repro/cases/PH/ph07/dut.sv r11u405repro/cases/PH/ph08/dut.sv r11u405repro/cases/PH/ph09/dut.sv r11u405repro/cases/PH/ph10/dut.sv r11u405repro/cases/PH/ph11/dut.sv r11u405repro/cases/PH/ph12/dut.sv r11u405repro/cases/PH/ph13/dut.sv r11u405repro/cases/PH/ph14/dut.sv r11u405repro/cases/PH/ph15/dut.sv r11u405repro/cases/PH/ph16/dut.sv r11u405repro/cases/PH/ph17/dut.sv r11u405repro/cases/PH/ph18/dut.sv r11u405repro/cases/PH/ph19/dut.sv r11u405repro/cases/PH/ph20/dut.sv v11u405repro/cases/VH/vh01/dut.sv v11u405repro/cases/VH/vh02/dut.sv v11u405repro/cases/VH/vh03/dut.sv v11u405repro/cases/VH/vh04/dut.sv v11u405repro/cases/VH/vh05/dut.sv v11u405repro/cases/VH/vh06/dut.sv v11u405repro/cases/VH/vh07/dut.sv v11u405repro/cases/VH/vh08/dut.sv v11u405repro/cases/VH/vh09/dut.sv v11u405repro/cases/VH/vh10/dut.sv v11u405repro/cases/VH/vh11/dut.sv v11u405repro/cases/VH/vh12/dut.sv v11u405repro/cases/VH/vh13/dut.sv v11u405repro/cases/VH/vh14/dut.sv v11u405repro/cases/VH/vh15/dut.sv
 
@@ -11305,6 +11338,14 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): none
 - also mentioned by: r10rggen7repro
 
+### `ifaceClassNotListed408`
+- commits: none on this branch
+- pass: r11u408repro (verified by v11u408repro)
+- switches: R11U408_CLSBOUNDEDQ_OFF R11U408_CLSIMPTSCHAIN_OFF R11U408_GENCLSNODEF_OFF R11U408_IFACECLASS_OFF R11U408_OFF R11U408_UNITTASK_OFF
+- source: src/ModuleEmit.cpp(1) src/UhdmExporter.cpp(2)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u408repro/cases/IC/ic01/dut.sv r11u408repro/cases/IC/ic02/dut.sv r11u408repro/cases/IC/ic03/dut.sv r11u408repro/cases/IC/ic04/dut.sv r11u408repro/cases/IC/ic05/dut.sv r11u408repro/cases/IC/ic06/dut.sv r11u408repro/cases/IC/ic07/dut.sv r11u408repro/cases/IC/ic08/dut.sv v11u408repro/cases/VI/vi01/dut.sv v11u408repro/cases/VI/vi02/dut.sv v11u408repro/cases/VI/vi03/dut.sv v11u408repro/cases/VI/vi04/dut.sv v11u408repro/cases/VI/vi05/dut.sv v11u408repro/cases/VI/vi06/dut.sv v11u408repro/cases/VI/vi07/dut.sv v11u408repro/cases/VI/vi08/dut.sv v11u408repro/cases/VI/vi09/dut.sv v11u408repro/cases/VI/vi10/dut.sv
+
 ### `ifaceConnCastTsNamedByPort315`
 - commits: 677286884
 - pass: r11u315repro (verified by v11u315repro)
@@ -11677,10 +11718,11 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u259repro r11u261repro
 
 ### `ifacePortTdCastLogicTs405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ExprEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/TN/tn01/dut.sv r11u405repro/cases/TN/tn02/dut.sv v11u405repro/cases/VC/vc01/dut.sv v11u405repro/cases/VC/vc02/dut.sv v11u405repro/cases/VC/vc03/dut.sv v11u405repro/cases/VC/vc04/dut.sv v11u405repro/cases/VC/vc05/dut.sv v11u405repro/cases/VC/vc06/dut.sv v11u405repro/cases/VC/vc07/dut.sv v11u405repro/cases/VC/vc08/dut.sv v11u405repro/cases/VC/vc09/dut.sv v11u405repro/cases/VC/vc10/dut.sv v11u405repro/cases/VC/vc11/dut.sv
 
@@ -12135,18 +12177,20 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): v11u402repro/cases/VI2/vj03_unit_import_chain/dut.sv
 
 ### `impUnbasedLitKept405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U403_MACROLITGUARD_OFF R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ParamEmit.cpp(2)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/PZ/pz04/dut.sv r11u405repro/cases/PZ/pz05/dut.sv r11u405repro/cases/PZ/pz06/dut.sv v11u405repro/cases/VZ/vz04/dut.sv
 
 ### `impUnbasedReadIsLit405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U403_MACROLITGUARD_OFF R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ExprEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/PZ/pz01/dut.sv r11u405repro/cases/PZ/pz02/dut.sv r11u405repro/cases/PZ/pz03/dut.sv r11u405repro/cases/PZ/pz07/dut.sv r11u405repro/cases/PZ/pz08/dut.sv r11u405repro/cases/PZ/pz09/dut.sv r11u405repro/cases/PZ/pz10/dut.sv r11u405repro/cases/PZ/pz11/dut.sv r11u405repro/cases/PZ/pz12/dut.sv r11u405repro/cases/PZ/pz13/dut.sv v11u405repro/cases/VZ/vz01/dut.sv v11u405repro/cases/VZ/vz02/dut.sv v11u405repro/cases/VZ/vz03/dut.sv v11u405repro/cases/VZ/vz05/dut.sv v11u405repro/cases/VZ/vz06/dut.sv v11u405repro/cases/VZ/vz07/dut.sv
 
@@ -12224,18 +12268,20 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u130repro r11u131repro r11u146repro r11u309repro
 
 ### `implicitNetOnePerName405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ExprEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/IN/in01/dut.sv r11u405repro/cases/IN/in02/dut.sv r11u405repro/cases/IN/in03/dut.sv v11u405repro/cases/VI/vi01/dut.sv v11u405repro/cases/VI/vi02/dut.sv v11u405repro/cases/VI/vi03/dut.sv v11u405repro/cases/VI/vi04/dut.sv v11u405repro/cases/VI/vi05/dut.sv v11u405repro/cases/VI/vi06/dut.sv
 
 ### `implicitPortPaLastNoBody405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ParamEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/IP/ip01/dut.sv r11u405repro/cases/IP/ip02/dut.sv r11u405repro/cases/IP/ip03/dut.sv v11u405repro/cases/VP/vp01/dut.sv v11u405repro/cases/VP/vp02/dut.sv v11u405repro/cases/VP/vp03/dut.sv v11u405repro/cases/VP/vp04/dut.sv v11u405repro/cases/VP/vp05/dut.sv
 
@@ -14850,10 +14896,11 @@ laws with cases in the gate: 676.
 - also mentioned by: r10uvm197repro r10uvm199repro r10uvm201repro r10uvm203repro r10uvm206repro r10uvm210repro
 
 ### `modUnpackedDimArithRef405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U403_MACROLITGUARD_OFF R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ParamEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/UA/ua01/dut.sv r11u405repro/cases/UA/ua02/dut.sv r11u405repro/cases/UA/ua03/dut.sv r11u405repro/cases/UA/ua04/dut.sv r11u405repro/cases/UA/ua05/dut.sv r11u405repro/cases/UA/ua06/dut.sv r11u405repro/cases/UA/ua07/dut.sv v11u405repro/cases/VA/va01/dut.sv v11u405repro/cases/VA/va02/dut.sv v11u405repro/cases/VA/va03/dut.sv v11u405repro/cases/VA/va04/dut.sv v11u405repro/cases/VA/va05/dut.sv v11u405repro/cases/VA/va06/dut.sv
 
@@ -15586,10 +15633,11 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u311repro
 
 ### `nestedRepPatCount64_405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ExprEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/RP/rp01/dut.sv r11u405repro/cases/RP/rp02/dut.sv r11u405repro/cases/RP/rp03/dut.sv r11u405repro/cases/RP/rp04/dut.sv r11u405repro/cases/RP/rp05/dut.sv v11u405repro/cases/VR/vr01/dut.sv v11u405repro/cases/VR/vr02/dut.sv v11u405repro/cases/VR/vr03/dut.sv v11u405repro/cases/VR/vr04/dut.sv v11u405repro/cases/VR/vr05/dut.sv
 
@@ -22686,10 +22734,11 @@ laws with cases in the gate: 676.
 - also mentioned by: v11u294repro
 
 ### `tpCastBeforeTpListed405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ExprEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/TN/tn03/dut.sv v11u405repro/cases/VE/ve01/dut.sv v11u405repro/cases/VE/ve02/dut.sv v11u405repro/cases/VE/ve03/dut.sv v11u405repro/cases/VE/ve04/dut.sv
 
@@ -23445,10 +23494,11 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u137repro r11u141verify r11u180repro r11u206repro r11u212repro r11u235repro r11u281repro r11u284repro
 
 ### `typenameKwIsString405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ExprEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/TY/ty01/dut.sv r11u405repro/cases/TY/ty02/dut.sv r11u405repro/cases/TY/ty03/dut.sv v11u405repro/cases/VT/vt01/dut.sv v11u405repro/cases/VT/vt02/dut.sv v11u405repro/cases/VT/vt03/dut.sv v11u405repro/cases/VT/vt04/dut.sv v11u405repro/cases/VT/vt05/dut.sv
 
@@ -23669,18 +23719,20 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r11u403repro/cases/EV/ev03_wait_hier_uninst/dut.sv v11u403repro/cases/VE/ve04_trigger_wait_same_root/dut.sv v11u403repro/cases/VE/ve06_wait_paren_up/dut.sv v11u403repro/cases/VE/ve09_wait_in_always/dut.sv
 
 ### `unboundedElabSizeIsTypeWidth405v`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: - (verified by v11u405repro)
 - switches: R11U405_OFF R11V405_HSWCTX_OFF R11V405_OFF R11V405_UNBSIZE_OFF
 - source: src/ParamEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): none
 
 ### `unboundedTypedParamTs405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPLPORTLAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNBOUNDEDPARAM_OFF R11U405_UNPDIMARITH_OFF R11V405_HSWCTX_OFF R11V405_OFF R11V405_UNBSIZE_OFF
 - source: src/ParamEmit.cpp(1)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/UB/ub01/dut.sv r11u405repro/cases/UB/ub02/dut.sv r11u405repro/cases/UB/ub03/dut.sv v11u405repro/cases/VU/vu01/dut.sv v11u405repro/cases/VU/vu02/dut.sv v11u405repro/cases/VU/vu03/dut.sv v11u405repro/cases/VU/vu04/dut.sv v11u405repro/cases/VU/vu05/dut.sv
 
@@ -23703,19 +23755,20 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u177verify
 
 ### `undefParamCastSizeTs405`
-- commits: none on this branch
+- commits: 83aee5dc9
 - pass: r11u405repro (verified by v11u405repro)
 - switches: R11U403_MACROLITGUARD_OFF R11U405_BITSPARAM_OFF R11U405_BLKPARAM_OFF R11U405_CASTGENFENCE_OFF R11U405_CASTPARENCOMP_OFF R11U405_DISABLETGT_OFF R11U405_HSMACROBND_OFF R11U405_HSWLOCAL_OFF R11U405_IFTDCAST_OFF R11U405_IMPNETNAME_OFF R11U405_IMPUNBASEDREAD_OFF R11U405_IMPUNBASED_OFF R11U405_REPPATNEST_OFF R11U405_TPCASTEARLY_OFF R11U405_TYPENAMEKW_OFF R11U405_UNDEFCASTTS_OFF R11U405_UNPDIMARITH_OFF
 - source: src/ParamEmit.cpp(2)
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u405repro/cases/SC/sc01/dut.sv r11u405repro/cases/SC/sc02/dut.sv r11u405repro/cases/SC/sc03/dut.sv r11u405repro/cases/SC/sc04/dut.sv r11u405repro/cases/SC/sc05/dut.sv r11u405repro/cases/SC/sc06/dut.sv r11u405repro/cases/SC/sc07/dut.sv r11u405repro/cases/SC/sc08/dut.sv r11u405repro/cases/SC/sc09/dut.sv r11u405repro/cases/SC/sc10/dut.sv r11u405repro/cases/SC/sc11/dut.sv r11u405repro/cases/SC/sc12/dut.sv r11u405repro/cases/SC/sc13/dut.sv r11u405repro/cases/SC/sc14/dut.sv r11u405repro/cases/SC/sc15/dut.sv r11u405repro/cases/SC/sc16/dut.sv r11u405repro/cases/SC/sc17/dut.sv r11u405repro/cases/SC/sc22/dut.sv r11u405repro/cases/SC/sc23/dut.sv r11u405repro/cases/SC/sc24/dut.sv r11u405repro/cases/SC/sc25/dut.sv v11u405repro/cases/VS/vs01/dut.sv v11u405repro/cases/VS/vs02/dut.sv v11u405repro/cases/VS/vs04/dut.sv v11u405repro/cases/VS/vs05/dut.sv v11u405repro/cases/VS/vs06/dut.sv v11u405repro/cases/VS/vs07/dut.sv v11u405repro/cases/VS/vs10/dut.sv v11u405repro/cases/VS/vs12/dut.sv
 
 ### `undefaultedDefInvalidInst404`
-- commits: 22bc000f7
+- commits: 83aee5dc9 22bc000f7
 - pass: r11u404repro (verified by v11u404repro)
 - switches: R11U404_CAINVALID_OFF R11U404_OFF R11U404_UNDEFPARAMDEF_OFF
 - source: src/ParamEmit.cpp(1) src/UhdmExporter.cpp(1)
-- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey_0_1 Gates LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam hier_undriven_port mriscv_bind_sva prefix stamped_gen_param
+- corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey Earlgrey_0_1 Gates LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam hier_undriven_port mriscv_bind_sva prefix scopes stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u404repro/cases/UD/ud01/dut.sv r11u404repro/cases/UD/ud02/dut.sv r11u404repro/cases/UD/ud03/dut.sv r11u404repro/cases/UD/ud04/dut.sv v11u404repro/cases/VU/vu01/dut.sv v11u404repro/cases/VU/vu02/dut.sv v11u404repro/cases/VU/vu03/dut.sv v11u404repro/cases/VU/vu04/dut.sv v11u404repro/cases/VU/vu05/dut.sv v11u404repro/cases/VU/vu06/dut.sv v11u404repro/cases/VU/vu07/dut.sv v11u404repro/cases/VU/vu08/dut.sv v11u404repro/cases/VU/vu09/dut.sv v11u404repro/cases/VU/vu10/dut.sv v11u404repro/cases/VU/vu11/dut.sv v11u404repro/cases/VU/vu12/dut.sv v11u404repro/cases/VU/vu13/dut.sv v11u404repro/cases/VU/vu14/dut.sv v11u404repro/cases/VU/vu15/dut.sv v11u404repro/cases/VU/vu16/dut.sv v11u404repro/cases/VU/vu17/dut.sv
 - also mentioned by: r11u405repro r11u406repro v11u405repro
@@ -23924,10 +23977,11 @@ laws with cases in the gate: 676.
 - commits: 30acad589
 - pass: r11u403repro (verified by v11u403repro)
 - switches: R11U403_DOTPROPROOT_OFF R11U403_EVNET_OFF R11U403_EVWAITSPAN_OFF R11U403_FEUNITIMP_OFF R11U403_HOISTORDER_OFF R11U403_MACROLITGUARD_OFF R11U403_MACROLITTOK_OFF R11U403_MATCHOP_OFF R11U403_OFF R11U403_OPATTR_OFF R11U403_PATCASE_OFF R11U403_PATVARNET_OFF R11U403_PKGTFMACRO_OFF R11U403_SIZETICKSP_OFF R11U403_STDRAND_OFF R11U403_UNIQUE0IF_OFF R11U403_UNITFWDCALL_OFF
-- source: src/ExprEmit.cpp(1)
+- source: src/ExprEmit.cpp(1) src/TaskFuncEmit.cpp(1)
 - corpus tests: BlackBePipeInt BuildUVMPkg Earlgrey_0_1 LogicTypespec MiniAmiq Rggen Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u403repro/cases/UF/uf01/dut.sv r11u403repro/cases/UF/uf05/dut.sv r11u403repro/cases/UF/uf06/dut.sv v11u403repro/cases/VF/vf01_class_calls_later_unit_fn/dut.sv v11u403repro/cases/VF/vf02_back_and_forward/dut.sv v11u403repro/cases/VF/vf03_module_before_unit_fn/dut.sv v11u403repro/cases/VF/vf04_recursive_unit_fn/dut.sv v11u403repro/cases/VF/vf05_task_calls_later_fn/dut.sv v11u403repro/cases/VF/vf06_fn_in_param_default/dut.sv
+- also mentioned by: r11u408repro
 
 ### `unitImpPaRhsActualFinal243v`
 - commits: 9666f3843
@@ -23952,10 +24006,11 @@ laws with cases in the gate: 676.
 - commits: e3a76f611
 - pass: r11u402repro (verified by v11u402repro)
 - switches: R11U402_IMPTSCLONE_OFF R11U402_MODCLOCKING_OFF R11U402_NETKIND_OFF R11U402_OOBMACRO_OFF R11U402_UNINSTIFTD_OFF R11U402_UUNIONTD_OFF R11U402_UUNIONVAR_OFF R11V402_GATETERM_OFF R11V402_IMPTSOWNNAME_OFF R11V402_OFF
-- source: src/UhdmExporter.cpp(3)
+- source: src/ModuleEmit.cpp(2) src/UhdmExporter.cpp(3)
 - corpus tests: BlackBePipeInt BuildUVMPkg CarryTrans Earlgrey_0_1 Gates LogicTypespec MiniAmiq Rggen SVSwitch Scoreboard Scr1SvTests SeqDriver SimpleUVM Tnoc TypeParam stamped_gen_param
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u402repro/cases/IT/it01_unit_import_td/dut.sv r11u402repro/cases/IT/it02_unit_import_vec/dut.sv v11u402repro/cases/VI2/vj01_unit_import_logic_td/dut.sv v11u402repro/cases/VI2/vj02_unit_import_int_td/dut.sv v11u402repro/cases/VI2/vj04_unit_import_enum_ctl/dut.sv
+- also mentioned by: r11u408repro
 
 ### `unitImportClassLastWriter235`
 - commits: none on this branch
@@ -24115,6 +24170,14 @@ laws with cases in the gate: 676.
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r10uvm64repro/b2_modtwin.sv
 - also mentioned by: r10buvm21repro r10uvm122repro r10uvm64repro
+
+### `unitTaskNotListed408`
+- commits: none on this branch
+- pass: r11u408repro (verified by v11u408repro)
+- switches: R11U408_CLSBOUNDEDQ_OFF R11U408_CLSIMPTSCHAIN_OFF R11U408_GENCLSNODEF_OFF R11U408_IFACECLASS_OFF R11U408_OFF R11U408_UNITTASK_OFF
+- source: src/TaskFuncEmit.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u408repro/cases/UT/ut01/dut.sv r11u408repro/cases/UT/ut02/dut.sv r11u408repro/cases/UT/ut03/dut.sv r11u408repro/cases/UT/ut04/dut.sv r11u408repro/cases/UT/ut05/dut.sv r11u408repro/cases/UT/ut06/dut.sv v11u408repro/cases/VT/vt01/dut.sv v11u408repro/cases/VT/vt02/dut.sv v11u408repro/cases/VT/vt03/dut.sv v11u408repro/cases/VT/vt04/dut.sv v11u408repro/cases/VT/vt05/dut.sv v11u408repro/cases/VT/vt06/dut.sv v11u408repro/cases/VT/vt07/dut.sv v11u408repro/cases/VT/vt08/dut.sv v11u408repro/cases/VT/vt09/dut.sv
 
 ### `unitTdClassFormalWriter299`
 - commits: 368d0810a 5b58d3ee1
@@ -25715,6 +25778,7 @@ lists it under the law).
 | r11u404repro |  | `assocIdxSpanAtTokens404` `implicitNetDefLastRef404` `invalidCaAssignChild404` `macroArgParamOrder404` `pkgStructMemberSysArgBind404` `pkgViewsInterleaved404` `seqMatchItemsDropped404` `subrBuiltinClassArrElemUnsup404` `undefaultedDefInvalidInst404` `unitParamXzLiteral404` `unknownModBitSelConnScope404` `unknownModEmptyNamedConnPort404` `unknownModWildcardConnPort404` `varInitOpCastKept404` | 0 | 45 |
 | r11u405repro |  | `bitsParamArgNoFold405` `blockParamWrittenRhs405` `castSizeGenFence405` `castSizeParenComputed405` `disableTargetScopeChain405` `hierSelMacroBoundPretty405` `hierSelWidthLocalKeep405` `ifacePortTdCastLogicTs405` `impUnbasedLitKept405` `impUnbasedReadIsLit405` `implicitNetOnePerName405` `implicitPortPaLastNoBody405` `modUnpackedDimArithRef405` `nestedRepPatCount64_405` `placeholderValueNoFold405` `tpCastBeforeTpListed405` `typenameKwIsString405` `unboundedTypedParamTs405` `undefParamCastSizeTs405` | 0 | 121 |
 | r11u406repro |  | `aliasElemDynTd406` `arrElemVarKind406` `assocIdxParamBoundTs406` `boundedQueueVarStatic406` `deferredAssertItemDropped406` `modAssocMarkerFullName406` `seqConcatNestsRight406` `sequenceDeclListed406` `timeModVarIsNet406` `timeTsKeywordSpan406` `unitAssocTdMultiDim406` | 0 | 63 |
+| r11u408repro |  | `classBoundedQueueStatic408` `classImpTdParamTsClone408` `genericClassNoDefaultListed408` `ifaceClassNotListed408` `unitTaskNotListed408` | 0 | 34 |
 | r11u40repro |  | `ovHopBareActualElabFold40` | 0 | 4 |
 | r11u41repro |  | `tpDefaultStructIsNet41` `tpDimAggVarSharesTs41` `tpDimPortTsIsDefault41` | 0 | 1 |
 | r11u42repro |  | `hpTrailSelPkgFold42` | 0 | 2 |
@@ -26008,6 +26072,7 @@ lists it under the law).
 | v11u404repro | r11u404repro | `assocIdxSpanAtTokens404` `builtinClassElemNotInClass404v` `ifacePrgOrderedConnMaterializes404v` `implicitNetDefLastRef404` `invalidCaAssignChild404` `macroArgParamOrder404` `pkgStructMemberSysArgBind404` `pkgViewsInterleaved404` `seqMatchItemsDropped404` `subrBuiltinClassArrElemUnsup404` `undefaultedDefInvalidInst404` `unitParamXzLiteral404` `unitWideFillOnesBin404v` `unknownModBitSelConnScope404` `unknownModEmptyNamedConnPort404` `unknownModWildcardConnPort404` `varInitOpCastKept404` | 0 | 64 |
 | v11u405repro | r11u405repro | `bitsParamArgNoFold405` `blockParamWrittenRhs405` `castSizeGenFence405` `castSizeParenComputed405` `disableTargetScopeChain405` `hierSelMacroBoundPretty405` `hierSelWidthCtxModItem405v` `hierSelWidthLocalKeep405` `ifacePortTdCastLogicTs405` `impUnbasedLitKept405` `impUnbasedReadIsLit405` `implicitNetOnePerName405` `implicitPortPaLastNoBody405` `modUnpackedDimArithRef405` `nestedRepPatCount64_405` `placeholderValueNoFold405` `tpCastBeforeTpListed405` `typenameKwIsString405` `unboundedElabSizeIsTypeWidth405v` `unboundedTypedParamTs405` `undefParamCastSizeTs405` | 0 | 105 |
 | v11u406repro | r11u406repro | `aliasElemDynTd406` `arrElemVarKind406` `assocIdxParamBoundTs406` `boundedQueueVarStatic406` `deferredAssertItemDropped406` `modAssocMarkerFullName406` `seqConcatNestsRight406` `seqNestLeadingDelay406v` `seqNestRangedDelay406v` `sequenceDeclListed406` `timeModVarIsNet406` `timeNetKeywordOnly406v` `timeTsKeywordSpan406` `unitAssocTdMultiDim406` | 0 | 101 |
+| v11u408repro | r11u408repro | `classBoundedQueueStatic408` `classImpTdParamTsClone408` `genericClassNoDefaultListed408` `ifaceClassNotListed408` `unitTaskNotListed408` | 0 | 60 |
 | v11u63repro | r11u63repro | `connPathRootOwnTs63` | 0 | 3 |
 | v11u64repro | r11u64repro | `patFlatUnsizedMemberNoInstWidth64` | 0 | 5 |
 | v11u93b107repro | r11u107repro | `anonPackedAggDimTs107` `tpElemRebindDefView107` `typeParamAnonAggDefault107` | 31 | 16 |

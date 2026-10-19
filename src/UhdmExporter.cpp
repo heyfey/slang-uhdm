@@ -9066,6 +9066,116 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                 av->VpiRandType(1);
             av->VpiVisibility(vis);
             av->VpiArrayType(akind);
+            // § classBoundedQueueStatic408 (R11U408_CLSBOUNDEDQ_OFF; cases
+            // tools/probe/r11u408repro/cases/CQ; sv-tests hdlconvertor
+            // std2012 p158 / p160_1, std2017 p194 / p196) — the class-property
+            // twin of § boundedQueueVarStatic406: a BOUNDED queue property
+            // (`int q[$:3]`) is a vpiArrayType 1 array_var carrying its
+            // written dimension as a range at the brackets, the left bound the
+            // unbounded `$` constant at the `$`, the right bound the folded
+            // maximum (size 64) at its tokens: UINT for a literal and for a
+            // parameter name (whose constant carries a reference, named by the
+            // property, to an int_typespec at the parameter's `int` keyword),
+            // INT (vpiConstType 7) for any other expression (`DEPTH-1`).
+            // The vpiReg element stays (golden keeps it on every cell).
+            if (akind == 4 && lawOn(408, "R11U408_CLSBOUNDEDQ_OFF"))
+                if (auto* dsyn408 = cp.getSyntax();
+                    dsyn408 && dsyn408->kind == syntax::SyntaxKind::Declarator &&
+                    dsyn408->as<syntax::DeclaratorSyntax>().dimensions.size() == 1)
+                    if (auto* dim408 = dsyn408->as<syntax::DeclaratorSyntax>().dimensions[0];
+                        dim408->specifier &&
+                        dim408->specifier->kind ==
+                            syntax::SyntaxKind::QueueDimensionSpecifier &&
+                        dim408->specifier->as<syntax::QueueDimensionSpecifierSyntax>()
+                            .maxSizeClause) {
+                        auto& qd = dim408->specifier
+                                       ->as<syntax::QueueDimensionSpecifierSyntax>();
+                        auto& qt = ct.as<QueueType>();
+                        const syntax::ExpressionSyntax* me = qd.maxSizeClause->expr;
+                        av->VpiArrayType(1);
+                        auto* r = s.MakeRange();
+                        r->VpiParent(av);
+                        setLoc(r, dim408->sourceRange());
+                        auto* l = s.MakeConstant();
+                        l->VpiParent(r);
+                        l->VpiDecompile("$");
+                        l->VpiSize(1);
+                        l->VpiValue("STRING:$");
+                        l->VpiConstType(vpiUnboundedConst);
+                        setLoc(l, qd.dollar.range());
+                        auto* rc = s.MakeConstant();
+                        rc->VpiParent(r);
+                        std::string dg = std::to_string(qt.maxBound);
+                        rc->VpiDecompile(dg);
+                        rc->VpiSize(64);
+                        const bool lit408 = me->kind == syntax::SyntaxKind::IntegerLiteralExpression;
+                        const ParameterSymbol* pm408 = nullptr;
+                        if (me->kind == syntax::SyntaxKind::IdentifierName)
+                            if (auto* ps = cls.lookupName(
+                                    me->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                                ps && ps->kind == SymbolKind::Parameter)
+                                pm408 = &ps->as<ParameterSymbol>();
+                        // The fold's constant type is ExprEval::reduceExpr's:
+                        // a literal and a parameter are UINT, `+` stays UINT
+                        // when both operands are, `-` `*` `/` give INT
+                        // (golden CQ cq08 `M+1` UINT, `2*M` INT, cq02 `D-1` INT).
+                        std::function<bool(const syntax::ExpressionSyntax*)> uns408 =
+                            [&](const syntax::ExpressionSyntax* e) -> bool {
+                            switch (e->kind) {
+                                case syntax::SyntaxKind::IntegerLiteralExpression:
+                                    return true;
+                                case syntax::SyntaxKind::IdentifierName: {
+                                    auto* ps = cls.lookupName(
+                                        e->as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText());
+                                    return ps && ps->kind == SymbolKind::Parameter;
+                                }
+                                case syntax::SyntaxKind::ParenthesizedExpression:
+                                    return uns408(e->as<syntax::ParenthesizedExpressionSyntax>()
+                                                      .expression);
+                                case syntax::SyntaxKind::AddExpression: {
+                                    auto& b = e->as<syntax::BinaryExpressionSyntax>();
+                                    return uns408(b.left) && uns408(b.right);
+                                }
+                                default:
+                                    return false;
+                            }
+                        };
+                        if (lit408 || pm408 || uns408(me)) {
+                            rc->VpiValue("UINT:" + dg);
+                            rc->VpiConstType(vpiUIntConst);
+                        }
+                        else {
+                            rc->VpiValue("INT:" + dg);
+                            rc->VpiConstType(vpiIntConst);
+                        }
+                        // An expression's folded constant spans its LEFTMOST
+                        // token (golden `DEPTH-1` at `DEPTH`, CQ cq02).
+                        if (lit408 || pm408)
+                            setLoc(rc, me->sourceRange());
+                        else
+                            setLoc(rc, me->getFirstToken().range());
+                        if (pm408)
+                            if (auto dt = pm408->getDeclaredType())
+                                if (auto* tsy = dt->getTypeSyntax();
+                                    tsy && tsy->kind == syntax::SyntaxKind::IntType) {
+                                    auto* its = s.MakeInt_typespec();
+                                    its->VpiSigned(true);
+                                    setLoc(its, tsy->sourceRange());
+                                    auto* irt = s.MakeRef_typespec();
+                                    irt->VpiParent(rc);
+                                    irt->VpiFullName(pfn);
+                                    irt->Actual_typespec(its);
+                                    its->VpiParent(irt);
+                                    rc->Typespec(irt);
+                                }
+                        r->Left_expr(l);
+                        r->Right_expr(rc);
+                        auto* rv = s.MakeRangeVec();
+                        rv->push_back(r);
+                        av->Ranges(rv);
+                        lawTrace(408, "classBoundedQueueStatic408", pfn);
+                    }
             // NOTE § arrayVarSignedWritten8, the ADD half.  GATE: the shared
             // `arraySignedWritten8` predicate (declared above) — the element
             // type AS WRITTEN must be a signed integer atom or a signed
@@ -10738,6 +10848,28 @@ void UhdmExporter::emitAssocDims(const Symbol& cp,
     av->Ranges(rs);
 }
 
+// § genericClassNoDefaultListed408 — the invalid specializations the design
+// listing emits for parameterized classes with a default-less parameter.
+static std::set<const ClassType*> g_invalidSpec408;
+// The class to list for a generic class with no default specialization, or
+// null.  Abstains on a type parameter and on a property whose type the unset
+// parameters leave in error (GC gc04, gc05: no shape for them).
+static const ClassType* genericClassNoDefault408(const GenericClassDefSymbol& gc) {
+    if (!lawOn(408, "R11U408_GENCLSNODEF_OFF"))
+        return nullptr;
+    auto& isp = gc.getInvalidSpecialization();
+    if (isp.kind != SymbolKind::ClassType)
+        return nullptr;
+    for (auto& m408 : isp.as<ClassType>().members())
+        if (m408.kind == SymbolKind::TypeParameter ||
+            (m408.kind == SymbolKind::ClassProperty &&
+             m408.as<ClassPropertySymbol>().getType().isError()))
+            return nullptr;
+    lawTrace(408, "genericClassNoDefaultListed408", std::string(gc.name));
+    g_invalidSpec408.insert(&isp.as<ClassType>());
+    return &isp.as<ClassType>();
+}
+
 // Class-scope parameters. Surelog compiles them with Reduce::No, so only a
 // LITERAL initializer becomes a value: such a parameter carries the folded
 // value plus a synthesized int_typespec spanning its whole DECLARATION, shared
@@ -10957,6 +11089,40 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
             if (auto* dcl = dsyn->as_if<syntax::DeclaratorSyntax>();
                 dcl && dcl->initializer)
                 rhsSyn = dcl->initializer->expr;
+        // § genericClassNoDefaultListed408 — in the listing of a class whose
+        // parameter has no default (slang's invalid specialization), that
+        // parameter keeps its written `int` typespec (signed, at the type
+        // syntax, parented at the parameter) and gets a param_assign holding
+        // the Lhs alone at the parameter's name (golden GC gc01-gc03).
+        if (!rhsSyn && g_invalidSpec408.count(&cls) &&
+            lawOn(408, "R11U408_GENCLSNODEF_OFF")) {
+            if (const DeclaredType* dt408 = ps.getDeclaredType())
+                if (auto* ws408 = dt408->getTypeSyntax();
+                    ws408 && ws408->kind == syntax::SyntaxKind::IntType) {
+                    auto* its = s.MakeInt_typespec();
+                    setLoc(its, ws408->sourceRange());
+                    its->VpiSigned(true);
+                    its->VpiParent(pv);
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiParent(pv);
+                    rt->VpiFullName(std::string(pv->VpiFullName()));
+                    rt->Actual_typespec(its);
+                    pv->Typespec(rt);
+                    if (auto* dn408 = declNodeOf(ps))
+                        if (auto* pd408 = dn408->as_if<syntax::ParameterDeclarationBaseSyntax>();
+                            pd408 && (pd408->keyword.kind == parsing::TokenKind::ParameterKeyword ||
+                                      pd408->keyword.kind == parsing::TokenKind::LocalParamKeyword))
+                            pv->VpiSigned(true);
+                }
+            auto* pa = s.MakeParam_assign();
+            pa->VpiParent(cd);
+            setLoc(pa, nameSpan(ps.location, ps.name));
+            pa->Lhs(pv);
+            pas->push_back(pa);
+            lawTrace(408, "genericClassNoDefaultListed408",
+                     fullName + "::" + std::string(ps.name));
+            continue;
+        }
         if (!rhsSyn)
             continue;
         auto* pa = s.MakeParam_assign();
@@ -11131,8 +11297,22 @@ void UhdmExporter::emitPackageClasses(const PackageSymbol& pkg, UHDM::package* u
             if (auto* dsp = mem.as<GenericClassDefSymbol>().getDefaultSpecialization(pkg);
                 dsp && dsp->kind == SymbolKind::ClassType)
                 pcls.emplace_back(std::string(mem.name), &dsp->as<ClassType>());
+            // § genericClassNoDefaultListed408 — the package twin (GC gc06).
+            else if (auto* isp408 = genericClassNoDefault408(mem.as<GenericClassDefSymbol>()))
+                pcls.emplace_back(std::string(mem.name), isp408);
         }
     }
+    // § ifaceClassNotListed408 — a package's interface class is not listed.
+    if (lawOn(408, "R11U408_IFACECLASS_OFF"))
+        pcls.erase(std::remove_if(pcls.begin(), pcls.end(),
+                                  [&](const auto& e) {
+                                      if (!e.second->isInterface)
+                                          return false;
+                                      lawTrace(408, "ifaceClassNotListed408",
+                                               prefix + e.first);
+                                      return true;
+                                  }),
+                   pcls.end());
     if (pcls.empty())
         return;
     std::stable_sort(pcls.begin(), pcls.end(),
@@ -13416,11 +13596,15 @@ static UHDM::typespec* impTsCopy402(UHDM::Serializer& s, const UHDM::typespec* a
 }
 // Returns the copied chain under a fresh reference named `refName` (parented
 // at `owner`), or null when the source does not qualify (the caller shares).
-static UHDM::ref_typespec* impTsChain402(UHDM::Serializer& s,
-                                         const UHDM::ref_typespec* src,
-                                         UHDM::BaseClass* owner,
-                                         const std::string& refName,
-                                         int depth = 0) {
+// § classImpTdParamTsClone408 — also called from ModuleEmit's class import
+// copies (importParamCopy82 / importPaCopy82), there with `sep` "::": golden
+// names the class copy's alias reference `work@c::A::ft_t` (`work@c::ft_t`
+// under the right-hand constant's reference named by the class).
+UHDM::ref_typespec* impTsChain402(UHDM::Serializer& s,
+                                  const UHDM::ref_typespec* src,
+                                  UHDM::BaseClass* owner,
+                                  const std::string& refName,
+                                  int depth = 0, const char* sep = ".") {
     if (!src || !src->Actual_typespec() || depth > 4)
         return nullptr;
     const UHDM::typespec* at = src->Actual_typespec();
@@ -13449,8 +13633,8 @@ static UHDM::ref_typespec* impTsChain402(UHDM::Serializer& s,
             bn = std::string(cp->VpiName());
             lawTrace(402, "impTsAliasRefOwnName402v", refName + " " + bn);
         }
-        auto* rt2 = impTsChain402(s, al, cp, refName.empty() ? bn : refName + "." + bn,
-                                  depth + 1);
+        auto* rt2 = impTsChain402(s, al, cp, refName.empty() ? bn : refName + sep + bn,
+                                  depth + 1, sep);
         if (!rt2)
             return nullptr;
         cp->Typedef_alias(rt2);
@@ -17115,6 +17299,18 @@ UHDM::design* UhdmExporter::exportDesign() {
                     if (auto* dsp = gc.getDefaultSpecialization(*unit);
                         dsp && dsp->kind == SymbolKind::ClassType)
                         ents.push_back({&dsp->as<ClassType>(), bi});
+                    // § genericClassNoDefaultListed408 (R11U408_GENCLSNODEF_OFF;
+                    // cases tools/probe/r11u408repro/cases/GC; sv-tests
+                    // generic/class/class_test_9, class_test_11) — a
+                    // parameterized class with a parameter that has NO default
+                    // has no default specialization in slang, but Surelog
+                    // compiles its declaration all the same: allClasses lists
+                    // it, its default-less parameters with their typespec and
+                    // no value, their param_assigns with a Lhs alone.  The
+                    // listing is built from slang's invalid specialization
+                    // (every parameter unset).
+                    else if (auto* isp408 = genericClassNoDefault408(gc))
+                        ents.push_back({isp408, bi});
                 }
             }
         }
@@ -17219,6 +17415,26 @@ UHDM::design* UhdmExporter::exportDesign() {
         // Surelog compiles builtin.sv before the user sources, so its
         // class_defn objects lead the arena; the design's class LIST is then
         // ordered by SHORT class name (Surelog's multimap<name, ClassDefn*>).
+        // § ifaceClassNotListed408 (R11U408_IFACECLASS_OFF; cases
+        // tools/probe/r11u408repro/cases/IC) — an `interface class` is not in
+        // Surelog's database at all: no class_defn in allClasses, in a
+        // package or in a module, and a class that `implements` it lists no
+        // link to it (golden on 8 shapes: $unit, package, module scope, a
+        // parameterized one, one extending another, with pure virtual
+        // methods, typedefs and parameters; sv-tests generic/iface,
+        // class_test_28, chapter-8/8.26.*).  The pinned grammar files the
+        // declaration as an interface_class_declaration, which neither
+        // ResolveSymbols' fast lookup nor the class compiler collects.
+        if (lawOn(408, "R11U408_IFACECLASS_OFF"))
+            ents.erase(std::remove_if(ents.begin(), ents.end(),
+                                      [&](const ClassEnt& e) {
+                                          if (!e.cls->isInterface)
+                                              return false;
+                                          lawTrace(408, "ifaceClassNotListed408",
+                                                   "design " + std::string(e.cls->name));
+                                          return true;
+                                      }),
+                       ents.end());
         std::map<const ClassType*, UHDM::class_defn*> made;
         auto emitOne = [&](const ClassType* c, bool fromBuiltinFile) {
             std::string cname = "work@" + std::string(c->name);
