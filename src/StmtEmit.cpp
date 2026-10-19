@@ -3710,6 +3710,45 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 if (!name9.empty())
                     ev9->VpiName(name9);
+                // § oobEventTrigHoistNet409 (R11U409_OOBEVTRIG_OFF; cases
+                // tools/probe/r11u409repro/cases/OE) — inside an OUT-OF-BODY
+                // class method a bare trigger of the class's own event
+                // (`-> m_uvm_lock_model_complete;` in
+                // `uvm_reg_block::lock_model`) names a property the home
+                // package's scope cannot see, so the name falls into the late
+                // binding pool like every bare property read there (the pool
+                // of § oobRefVarLocalHoistNet107 / classPropRefs): the hoisting
+                // module mints the implicit wire at the trigger's name, in
+                // emission order, and the event_stmt itself stays unbound
+                // (golden uvm_reg_block.svh 1164:10-35 `logic_net
+                // (work@top.m_uvm_lock_model_complete)` between `locked` and
+                // `default_map` in every UVM row's definition listing).  A
+                // REF-LESS pool entry mints and binds nothing.  An in-body
+                // method binds its property and mints none.
+                {
+                    auto& tg409 = stripImplicitConv(es9.target);
+                    if (inClassBodyEmit && !name9.empty() && stmt.syntax &&
+                        tg409.kind == ExpressionKind::NamedValue &&
+                        lawOn(409, "R11U409_OOBEVTRIG_OFF")) {
+                        auto& sy409 = tg409.as<NamedValueExpression>().symbol;
+                        auto& syn409 =
+                            stmt.syntax->as<syntax::EventTriggerStatementSyntax>();
+                        auto* csc409 = sy409.getParentScope();
+                        if (csc409 && csc409->asSymbol().kind == SymbolKind::ClassType &&
+                            syn409.name->kind == syntax::SyntaxKind::IdentifierName &&
+                            sy409.name == name9) {
+                            const Symbol* hp409 = nullptr;
+                            if (auto* ps409 = csc409->asSymbol().getParentScope();
+                                ps409 && ps409->asSymbol().kind == SymbolKind::Package)
+                                hp409 = &ps409->asSymbol();
+                            if (hp409) {
+                                lawTrace(409, "oobEventTrigHoistNet409", name9);
+                                classPropRefs.push_back(
+                                    {nullptr, name9, syn409.name->sourceRange(), hp409});
+                            }
+                        }
+                    }
+                }
                 // § unboundEventImplicitNet403 (r11u403, R11U403_EVNET_OFF) —
                 // a trigger through a DOTTED path (`-> top.e;`) names the
                 // event_stmt by the path's first token, which Surelog cannot

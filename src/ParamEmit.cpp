@@ -24120,6 +24120,33 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         syntax::SyntaxKind::ImplicitType)
                     ((UHDM::constant*)rhs)
                         ->VpiSize((int32_t)ps.getType().getBitWidth());
+                // § defImpArithSize32_409 (R11U409_DEFIMPARITH_OFF; cases
+                // tools/probe/r11u409repro/cases/EW) — for an UNTYPED
+                // parameter (no type, range or signing written) the
+                // reduced import copy is the package elaboration's
+                // constant at size 32, as the two elaborated listings
+                // already write it (the pkgElabComputed BinaryOp branch),
+                // not the operation's own width: golden `parameter
+                // UVM_RECURSION = (UVM_DEEP|UVM_SHALLOW|UVM_REFERENCE)`
+                // (enum operands over `bit [27:0]`) is size 32 in every
+                // importing module's definition listing where ours wrote
+                // 28; 8-, 40- and 64-bit operands are 32 too, and so is
+                // a resolved ternary over such operands (grid EW).
+                bool untyped409 = false;
+                if (auto d409 = ps.getDeclaredType())
+                    if (auto t409 = d409->getTypeSyntax();
+                        t409 && t409->kind == syntax::SyntaxKind::ImplicitType) {
+                        auto& im409 = t409->as<syntax::ImplicitTypeSyntax>();
+                        untyped409 = !im409.signing.valid() && im409.dimensions.empty();
+                    }
+                if (!topView && !inPackage && isImported && untyped409 && (arithFold7 || condFold7) &&
+                    redInit7->kind != ExpressionKind::IntegerLiteral &&
+                    redInit7->kind != ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                    rhs && rhs->UhdmType() == UHDM::uhdmconstant && ((UHDM::constant*)rhs)->VpiSize() != 32 && lawOn(409, "R11U409_DEFIMPARITH_OFF")) {
+                    lawTrace(409, "defImpArithSize32_409",
+                             std::string(ps.name) + " " + std::to_string(((UHDM::constant*)rhs)->VpiSize()));
+                    ((UHDM::constant*)rhs)->VpiSize(32);
+                }
                 // The ELAB copy of an imported USER-CALL param quotes the very
                 // same reduction the def copy does (§ userFold7), not the
                 // generic const-call fold's function-return-width UINT.
@@ -26358,6 +26385,32 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     ps.getType().getBitWidth() > 0)
                     ((UHDM::constant*)rhs)
                         ->VpiSize((int32_t)ps.getType().getBitWidth());
+                // § impEnumParamRefNoSize409 (R11U409_IMPENUMSIZE_OFF; cases
+                // tools/probe/r11u409repro/cases/EN) — the definition
+                // listing's import copy takes the § r10fsv3 S5 re-size the
+                // elaborated listings take (the slPackedWidth block at the
+                // end of the elab fold chain) after the typed-copy sizing
+                // just above: a BASE-LESS enum (`typedef enum { ... } e_t`)
+                // has no packed width in Surelog, so the copy of `parameter
+                // e_t P = D` carries no vpiSize where ours wrote the type's
+                // 32 (golden uvm_pkg `parameter uvm_core_state
+                // UVM_CORE_POST_INIT = UVM_CORE_INITIALIZED` under every
+                // importing module's definition listing, the next head of
+                // the UVM rows after § defImpArithSize32_409).
+                if (!topView && !inPackage && isImported && typedParam && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmconstant &&
+                    ps.getType().getCanonicalType().kind == SymbolKind::EnumType) {
+                    auto* wc409 = (UHDM::constant*)rhs;
+                    int32_t sw409 = (int32_t)ps.getType().getBitWidth();
+                    int32_t cw409 = (int32_t)slPackedWidth(ps.getType());
+                    if (sw409 != cw409 && wc409->VpiSize() == sw409 &&
+                        lawOn(409, "R11U409_IMPENUMSIZE_OFF")) {
+                        lawTrace(409, "impEnumParamRefNoSize409",
+                                 std::string(ps.name) + " " + std::to_string(wc409->VpiSize()) +
+                                     " -> " + std::to_string(cw409));
+                        wc409->VpiSize(cw409);
+                    }
+                }
                 // § impCopyCastFold — a MODULE's MATERIALIZED IMPORT COPY of a
                 // TYPED package parameter whose default is a SIZE CAST folds
                 // the cast AWAY.  Golden's Rhs in BOTH module views is a plain
@@ -33145,6 +33198,141 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             }
         }
     }
+    // § modImpTdParamTsClone409 (R11U409_TDPARAMCLONE_OFF; cases
+    // tools/probe/r11u409repro/cases/IM) — a parameter declared with a
+    // typedef of a 2-state integral type (`typedef bit [3:0] ft_t`,
+    // `typedef int i_t`, `typedef byte b_t`, `typedef bit ft_t`) takes the
+    // same per-declaration NAMED clone the vector-typedef branch below writes
+    // for a LOGIC typedef: the clone named by the typedef's bare name, its
+    // Typedef_alias reference `<ref prefix>.<typedef>` reaching this view's
+    // typedef object (a materialized wildcard-import copy reaching a second
+    // bare clone instanced at the home package), every module-context clone
+    // instanced at the home package, located at the typedef's target type.
+    // Ours wrote the untyped int_typespec default at the type name (bit
+    // vector, int) or an unnamed scalar typespec (bit, byte).  Measured on
+    // golden: the module's own typedef (im07), a module parameter typed by
+    // an imported typedef (im06), the module copy of a `$unit`-imported or
+    // module-imported package parameter (im01, im02; the UVM rows' copy of
+    // `parameter uvm_field_flag_t UVM_ALL_ON`).  The package's own listing
+    // keeps § pkgParamBareTdNamedClone18 (fired above) and a qualified
+    // `p::t` in its own package shares (abstains here).
+    if (typedParam && !its && lawOn(409, "R11U409_TDPARAMCLONE_OFF"))
+        if (auto d409 = ps.getDeclaredType();
+            d409 && d409->getType().kind == SymbolKind::TypeAlias) {
+            auto& ta409 = d409->getType().as<TypeAliasType>();
+            const Scope* phs409 = ps.getParentScope();
+            const Scope* ths409 = ta409.getParentScope();
+            bool psPkg409 = phs409 && phs409->asSymbol().kind == SymbolKind::Package &&
+                            syntaxRefPrefix.rfind(std::string(phs409->asSymbol().name), 0) == 0;
+            UHDM::typespec* sh409 = nullptr;
+            if (!pkgParamOwnDefView(ps))
+                if (auto t = pkgTopTypedefTs.find((const void*)&ta409); t != pkgTopTypedefTs.end())
+                    sh409 = t->second;
+            if (!sh409)
+                if (auto t = typedefTs.find(&ta409); t != typedefTs.end())
+                    sh409 = t->second;
+            if (!sh409 && phs409 && phs409->asSymbol().kind == SymbolKind::InstanceBody) {
+                auto& defsym = phs409->asSymbol().as<InstanceBodySymbol>().getDefinition();
+                if (auto dit = defMap.find(&defsym); dit != defMap.end())
+                    for (auto* td : dit->second.typedefs)
+                        if (td->VpiName() == ta409.name) {
+                            sh409 = td;
+                            break;
+                        }
+            }
+            auto k409 = sh409 ? sh409->UhdmType() : UHDM::uhdmdesign;
+            bool kindOk409 = k409 == UHDM::uhdmbit_typespec || k409 == UHDM::uhdmint_typespec ||
+                             k409 == UHDM::uhdmbyte_typespec;
+            if (sh409 && !kindOk409) {
+                // a logic, enum or aggregate typedef: the branches below
+            }
+            else if (sh409 && psPkg409)
+                lawTrace(409, "modImpTdParamTsClone409_ABSTAIN_ownpkg", std::string(ps.name));
+            // § tdCloneNoPrefixAbstain409v (v11u409, R11V409_TDNOPREFIX_OFF;
+            // cases tools/probe/v11u409repro/cases/VI vi03, vi16, vi18) --
+            // a call with NO ref prefix (the elaborated listing's copy of a
+            // module parameter typed by a `$unit` int typedef, `typedef int
+            // i_t; module sub #(parameter i_t N = 2)`) is not a parameter
+            // declaration site: the law minted a fresh clone whose alias ref
+            // was named by the bare typedef `i_t` where golden names it
+            // `work@top.u.i_t`; pristine's copy (the declaration clone) was
+            // STRICT_EQUAL.  Keep pristine's bytes there.  Only for a typedef
+            // NOT homed in a package: a package typedef's copy (`import p::*`
+            // of `parameter u_t A`, vi06) had no chain on pristine and the
+            // law's clone moves it toward golden (NOT_EQUAL -> judge-equal,
+            // its alias ref still named `u_t` where golden writes
+            // `work@top.u_t`).
+            else if (sh409 && syntaxRefPrefix.empty() &&
+                     !(ths409 && ths409->asSymbol().kind == SymbolKind::Package) &&
+                     fixOn(409, "R11V409_TDNOPREFIX_OFF"))
+                lawTrace(409, "tdCloneNoPrefixAbstain409v", std::string(ps.name));
+            // § tdCloneQualNameAbstain409v (v11u409, R11V409_TDQUAL_OFF;
+            // cases tools/probe/v11u409repro/cases/VI vi02, vi14) -- a
+            // MODULE parameter written with a QUALIFIED type (`parameter
+            // p::ft_t W`) shares the package's typedef object in golden
+            // (`bit_typespec (p::ft_t)`, no clone, no alias), as the logic
+            // branch's § pkgTdQualParam111 family does; the law minted a clone
+            // named `ft_t` aliased `work@top.W.ft_t`, moving the dump away
+            // from golden (36 -> 54 lines).  Keep pristine's bytes there.
+            else if (sh409 && !(phs409 && phs409->asSymbol().kind == SymbolKind::Package) &&
+                     d409->getTypeSyntax() &&
+                     d409->getTypeSyntax()->kind == syntax::SyntaxKind::NamedType &&
+                     d409->getTypeSyntax()->as<syntax::NamedTypeSyntax>().name &&
+                     d409->getTypeSyntax()->as<syntax::NamedTypeSyntax>().name->kind ==
+                         syntax::SyntaxKind::ScopedName &&
+                     fixOn(409, "R11V409_TDQUAL_OFF"))
+                lawTrace(409, "tdCloneQualNameAbstain409v", std::string(ps.name));
+            else if (sh409) {
+                const syntax::SyntaxNode* tgt409 = nullptr;
+                if (auto asyn = ta409.getSyntax())
+                    if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                        tgt409 = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                bool savedBy409 = bypassTypedefShare;
+                bool savedTf409 = tfContext;
+                bypassTypedefShare = true;
+                tfContext = pkgParamOwnDefView(ps);
+                auto* cl409 = makeTypespec(ta409, tgt409);
+                UHDM::typespec* clB409 = nullptr;
+                const Symbol* tdHome409 = nullptr;
+                if (ths409 && ths409->asSymbol().kind == SymbolKind::Package && phs409 == ths409)
+                    tdHome409 = &ths409->asSymbol();
+                if (cl409 && tdHome409 && pkgDefMap.count(tdHome409))
+                    clB409 = makeTypespec(ta409, tgt409);
+                tfContext = savedTf409;
+                bypassTypedefShare = savedBy409;
+                if (cl409 && cl409->UhdmType() == k409 &&
+                    (!clB409 || clB409->UhdmType() == k409)) {
+                    bool impAlias409 = pkgImpParamTs210() && !syntaxRefPrefix.empty();
+                    auto* art409 = s.MakeRef_typespec();
+                    art409->VpiFullName(syntaxRefPrefix.empty()
+                                            ? std::string(ta409.name)
+                                            : syntaxRefPrefix + (impAlias409 ? "::" : ".") +
+                                                  std::string(ta409.name));
+                    art409->VpiParent(cl409);
+                    if (clB409) {
+                        clB409->VpiName(ta409.name);
+                        clB409->VpiParent(art409);
+                        clB409->Instance((UHDM::instance*)pkgDefMap[tdHome409]);
+                        art409->Actual_typespec(clB409);
+                    }
+                    else
+                        art409->Actual_typespec(sh409);
+                    if (ths409 && ths409->asSymbol().kind == SymbolKind::Package &&
+                        pkgDefMap.count(&ths409->asSymbol()))
+                        cl409->Instance((UHDM::instance*)pkgDefMap[&ths409->asSymbol()]);
+                    cl409->Typedef_alias(art409);
+                    cl409->VpiName(ta409.name);
+                    its = cl409;
+                    if (tgt409)
+                        tr = tgt409->sourceRange();
+                    lawTrace(409, "modImpTdParamTsClone409",
+                             syntaxRefPrefix + " " + std::string(ps.name) +
+                                 (clB409 ? " imp" : ""));
+                }
+                else
+                    lawTrace(409, "modImpTdParamTsClone409_ABSTAIN_build", std::string(ps.name));
+            }
+        }
     if (typedParam && !its) {
         auto& ct = ps.getType().getCanonicalType();
         if (ct.kind == SymbolKind::PredefinedIntegerType) {

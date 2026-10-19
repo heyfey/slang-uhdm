@@ -16915,6 +16915,119 @@ UHDM::constant* UhdmExporter::patCaGenIdxFold112(const Expression& sel) {
     return c112;
 }
 
+// § genGateTermGenvarFold409 (R11U409_GATEGENVAR_OFF; cases
+// tools/probe/r11u409repro/cases/GV) — a gate, udp or switch terminal inside
+// an ELABORATED generate scope (the gate's parent a gen_scope: Surelog lists
+// such primitives only in the elaborated instance) has every select index that
+// names the loop's genvar substituted by the genvar's value: golden
+// `xor g1 ( t[1][i], a[i], b[i]);` in `for (i = ...) begin : bitnum` writes
+// `UINT:0` (size 64, vpiUIntConst, decimal decompile, at the genvar token) as
+// the var_select's and both bit_selects' index under `bitnum[0].g1`, the
+// § genvarConnFold encoding; ours kept a ref_obj named `i`
+// (hdlconvertor_std2012_p753_2, hdlconvertor_std2017_p790).  `selObj` is the
+// select the index belongs to, already parented at the terminal's primitive.
+static bool genvarOnlyArith409(const Expression& e) {
+    auto& x = stripImplicitConv(e);
+    switch (x.kind) {
+        case ExpressionKind::IntegerLiteral:
+            return true;
+        case ExpressionKind::NamedValue: {
+            auto& sy = x.as<NamedValueExpression>().symbol;
+            return sy.kind == SymbolKind::Parameter &&
+                   sy.as<ParameterSymbol>().isFromGenvar();
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& b = x.as<BinaryExpression>();
+            if (b.op != BinaryOperator::Add && b.op != BinaryOperator::Subtract &&
+                b.op != BinaryOperator::Multiply)
+                return false;
+            return genvarOnlyArith409(b.left()) && genvarOnlyArith409(b.right());
+        }
+        default:
+            return false;
+    }
+}
+static bool genvarArithSigned409(const Expression& e) {
+    auto& x = stripImplicitConv(e);
+    if (x.kind != ExpressionKind::BinaryOp)
+        return false;
+    auto& b = x.as<BinaryExpression>();
+    if (b.op == BinaryOperator::Subtract || b.op == BinaryOperator::Multiply)
+        return true;
+    return genvarArithSigned409(b.left()) || genvarArithSigned409(b.right());
+}
+template <class Comp409>
+static UHDM::any* gateGenvarIdxFold409(UHDM::Serializer& s, Comp409& comp, const Expression& sel,
+                                       UHDM::any* ix, const UHDM::BaseClass* selObj) {
+    if (!ix || !selObj ||
+        (ix->UhdmType() != UHDM::uhdmref_obj && ix->UhdmType() != UHDM::uhdmoperation))
+        return ix;
+    const UHDM::BaseClass* g = selObj->VpiParent();
+    if (!g || (g->UhdmType() != UHDM::uhdmgate && g->UhdmType() != UHDM::uhdmudp &&
+               g->UhdmType() != UHDM::uhdmswitch_tran))
+        return ix;
+    if (!g->VpiParent() || g->VpiParent()->UhdmType() != UHDM::uhdmgen_scope)
+        return ix;
+    const Expression& sx = stripImplicitConv(sel);
+    // ...and an index that is ARITHMETIC over the genvar and literals
+    // (`c[i+1]`, `y[i*2]`, `a[2*i+1]`) folds whole: golden UINT for `+`,
+    // INT once a `-` or `*` takes part (§ srlgArithFoldSigned's rule), size
+    // 64, at the top operation's LEFT operand (`2*i` for `2*i+1`).
+    if (ix->UhdmType() == UHDM::uhdmoperation) {
+        if (sx.kind != ExpressionKind::BinaryOp || !genvarOnlyArith409(sx))
+            return ix;
+        auto* op = (const UHDM::operation*)ix;
+        if (!op->Operands() || op->Operands()->empty())
+            return ix;
+        ASTContext cx(comp.getRoot(), LookupLocation::max);
+        ConstantValue ov = cx.tryEval(sx);
+        if (!ov || !ov.isInteger() || ov.integer().hasUnknown() || ov.integer().isNegative())
+            return ix;
+        if (!lawOn(409, "R11U409_GATEGENVAR_OFF"))
+            return ix;
+        const UHDM::any* l = (*op->Operands())[0];
+        bool sg = genvarArithSigned409(sx);
+        std::string d = ov.integer().toString(LiteralBase::Decimal, false);
+        auto* c = s.MakeConstant();
+        c->VpiDecompile(d);
+        c->VpiSize(64);
+        c->VpiValue((sg ? "INT:" : "UINT:") + d);
+        c->VpiConstType(sg ? vpiIntConst : vpiUIntConst);
+        c->VpiParent((UHDM::BaseClass*)selObj);
+        c->VpiFile(std::string(l->VpiFile()));
+        c->VpiLineNo(l->VpiLineNo());
+        c->VpiColumnNo(l->VpiColumnNo());
+        c->VpiEndLineNo(l->VpiEndLineNo());
+        c->VpiEndColumnNo(l->VpiEndColumnNo());
+        lawTrace(409, "genGateTermGenvarFold409", "op=" + d);
+        return c;
+    }
+    if (sx.kind != ExpressionKind::NamedValue)
+        return ix;
+    auto& sym = sx.as<NamedValueExpression>().symbol;
+    if (sym.kind != SymbolKind::Parameter || !sym.as<ParameterSymbol>().isFromGenvar())
+        return ix;
+    auto& cv = sym.as<ParameterSymbol>().getValue();
+    if (!cv.isInteger() || cv.integer().hasUnknown() || cv.integer().isNegative())
+        return ix;
+    if (!lawOn(409, "R11U409_GATEGENVAR_OFF"))
+        return ix;
+    std::string d = cv.integer().toString(LiteralBase::Decimal, false);
+    auto* c = s.MakeConstant();
+    c->VpiDecompile(d);
+    c->VpiSize(64);
+    c->VpiValue("UINT:" + d);
+    c->VpiConstType(vpiUIntConst);
+    c->VpiParent((UHDM::BaseClass*)selObj);
+    c->VpiFile(std::string(ix->VpiFile()));
+    c->VpiLineNo(ix->VpiLineNo());
+    c->VpiColumnNo(ix->VpiColumnNo());
+    c->VpiEndLineNo(ix->VpiEndLineNo());
+    c->VpiEndColumnNo(ix->VpiEndColumnNo());
+    lawTrace(409, "genGateTermGenvarFold409", std::string(sym.name) + "=" + d);
+    return c;
+}
+
 // § streamOperandBraceSpan140 — THE BRACES AROUND A STREAMING
 // CONCATENATION'S OPERANDS.  `{ << real { q }}`: golden's stream operation
 // spans the inner `{ q }` (braces included, whitespace inside kept: r10uvm93
@@ -47185,7 +47298,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     for (auto it2 = sels.rbegin(); it2 != sels.rend(); ++it2) {
                         forceConstParent = isLiteralExpr(**it2);
                         if (auto* ix = emitExpr(**it2, vs, baseFull, netMap))
-                            idxs->push_back((UHDM::expr*)ix);
+                            idxs->push_back(
+                                (UHDM::expr*)gateGenvarIdxFold409(s, comp, **it2, ix, vs));
                     }
                     varSelIdxDepth--;
                     forceConstParent = savedFCP;
@@ -47920,6 +48034,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     f117->VpiParent(bs);
                     ix = f117;
                 }
+            ix = gateGenvarIdxFold409(s, comp, es.selector(), ix, bs);
             if (ix)
                 bs->VpiIndex((UHDM::expr*)ix);
             return bs;
@@ -54716,11 +54831,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // macro keeps § streamOperandBraceSpan140.  Grid
                 // tools/probe/r11u246repro/cases/SB.
                 std::optional<SourceRange> tok246;
-                if (expr.syntax &&
-                    expr.syntax->kind ==
+                // § streamBraceParenMacro409 (R11U409_STREAMPAREN_OFF; cases
+                // tools/probe/r11u409repro/cases/SP) — a stream written as a
+                // cast operand, `TYPE'({ << bit { __array }})`, carries the
+                // PARENTHESIZED syntax (slang strips the parentheses from the
+                // bound expression but keeps their node), so the macro-body
+                // brace law below saw no streaming syntax and the stream
+                // operation kept the operands' range +-1 (uvm_unpack_enumN,
+                // uvm_packer_defines.svh 211: golden 211:45-56, ours 46-55,
+                // the col(4) of the seven generated/uvm_classes_2 rows and
+                // uvm/uvm_files.sv).  The parentheses are looked through.
+                const syntax::SyntaxNode* syn246 = expr.syntax;
+                bool paren409 = false;
+                while (syn246 && syn246->kind == syntax::SyntaxKind::ParenthesizedExpression &&
+                       lawOn(409, "R11U409_STREAMPAREN_OFF")) {
+                    syn246 = syn246->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                    paren409 = true;
+                }
+                if (syn246 &&
+                    syn246->kind ==
                         syntax::SyntaxKind::StreamingConcatenationExpression &&
                     lawOn(246, "R11U246_STREAMBRACEMAC_OFF")) {
-                    auto& ss246 = expr.syntax->as<
+                    auto& ss246 = syn246->as<
                         syntax::StreamingConcatenationExpressionSyntax>();
                     auto ob246 = ss246.innerOpenBrace.location();
                     auto cb246 = ss246.innerCloseBrace.location();
@@ -54731,6 +54863,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         (sm->isMacroLoc(ob246) || sm->isMacroLoc(cb246))) {
                         tok246 = SourceRange(ob246, cb246 + 1);
                         lawTrace(246, "streamBraceInMacroBody246");
+                        if (paren409)
+                            lawTrace(409, "streamBraceParenMacro409");
                     }
                 }
                 // ...and with no syntax (an rvalue stream, `__var = { << int

@@ -1,0 +1,6 @@
+VI/vi19 pristine rc=0 cmp=0 away=2 md5=50ec5e6f | STRICT_EQUAL 66 objects
+VI/vi19 law rc=0 cmp=0 away=2 md5=50ec5e6f | STRICT_EQUAL 66 objects
+VI/vi19 verified rc=0 cmp=0 away=2 md5=50ec5e6f | STRICT_EQUAL 66 objects
+VI/vi20 pristine rc=0 cmp=76 away=200 md5=785e0a8b | NOT_EQUAL stage1
+VI/vi20 law rc=0 cmp=0 away=104 md5=8e603ec0 | STRICT_NOTEQUAL fullname
+VI/vi20 verified rc=0 cmp=76 away=132 md5=f01e5561 | NOT_EQUAL stage1
