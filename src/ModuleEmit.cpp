@@ -67,6 +67,33 @@ static slang::SourceRange escNameSpanPick295(slang::SourceRange esc, slang::Sour
     ((escNameSpanOn295() && (L) != SourceLocation::NoLocation && !sm->isMacroLoc(L))   \
          ? escNameSpanPick295(nameSpan((L), (N)), SourceRange((L), (L) + (N).size()), SITE) \
          : SourceRange((L), (L) + (N).size()))
+// § deferredAssertItemDropped406 (r11u406) — a DEFERRED IMMEDIATE
+// ASSERTION written as a module, interface or generate item (`assert final
+// (a);`, `l1: assume #0 (a);`, `cover final (b);`, IEEE 1800-2017 16.4.3)
+// is not in Surelog's database at all: CompileHelper::compileAssertionItem
+// (CompileAssertion.cpp) compiles only paConcurrent_assertion_item and
+// leaves the deferred branch a TODO comment, so neither the definition view
+// nor the elaborated instance lists a process, a statement or a reference
+// for it.  slang makes such an item a ProceduralBlockSymbol (an always over
+// the assertion statement, syntax ImmediateAssertionMember), which every
+// process listing used to write as `always` + `immediate_assert`.  The same
+// assertion inside a procedural block is a statement and is untouched
+// (cases tools/probe/r11u406repro/cases/DA; sv-tests chapter-16/16.2
+// assert-final, assert0, assume-final, assume0, cover-final, cover0).
+// Switch R11U406_DEFERREDASSERT_OFF.
+// § sequenceDeclListed406 — the listed declarations, by symbol, for the
+// references emitAssertionExpr writes.
+static std::map<const slang::ast::Symbol*, UHDM::sequence_decl*> g406SeqDecls;
+bool deferredAssertItemDropped406(const slang::ast::ProceduralBlockSymbol& pb) {
+    auto* syn = pb.getSyntax();
+    if (!syn || syn->kind != slang::syntax::SyntaxKind::ImmediateAssertionMember)
+        return false;
+    if (!lawOn(406, "R11U406_DEFERREDASSERT_OFF"))
+        return false;
+    lawTrace(406, "deferredAssertItemDropped406",
+             std::to_string(syn->sourceRange().start().offset()));
+    return true;
+}
 // § genChildParentAtBirth261 (r11u261) — the gen_scope a child instance is
 // about to be emitted under (see the gen-scope instance loop); consumed by
 // emitInstance on entry.
@@ -10480,6 +10507,103 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         // § propAssertLastInstPath188 — the def-time prefix the shared
         // property / assertion names are built from (the rename's source).
         sharedPropPrefix188()[&body.getDefinition()] = propPrefix;
+        // § sequenceDeclListed406 (r11u406, R11U406_SEQDECL_OFF; cases
+        // tools/probe/r11u406repro/cases/SQ; sv-tests chapter-16/16.7
+        // sequence, 16.9 consecutive, goto and non-consecutive repetition)
+        // — a module's named SEQUENCE declaration is listed in the
+        // definition view like a property declaration (Surelog's
+        // compileSequenceDecl): a sequence_decl named after the module path,
+        // located at its name, its body the vpiExpr, its formals
+        // seq_formal_decls (each spanning the whole formal list, a bare
+        // ref_typespec), every reference in the body scoped under the
+        // declaration (`work@top.seq.a`) and bound like a property body's
+        // (a formal mints its implicit module net).  A clocked body
+        // (`@(posedge clk) a ##1 b`) is a multiclock_sequence_expr at the
+        // body tokens holding one unlocated clocked_seq whose clocking event
+        // and sequence expression parent at the declaration.  Nothing was
+        // listed, and a reference to the sequence (`assert property (seq)`,
+        // `s3 |-> a` in a property) was written as a property_inst where
+        // golden writes a ref_obj bound to the declaration.
+        if (lawOn(406, "R11U406_SEQDECL_OFF")) {
+            auto* sdecls = s.MakeSequence_declVec();
+            for (auto& member : body.members()) {
+                if (member.kind != SymbolKind::Sequence)
+                    continue;
+                auto& seq = member.as<SequenceSymbol>();
+                auto* sd = s.MakeSequence_decl();
+                sd->VpiName(seq.name);
+                std::string sfull = propPrefix + "." + std::string(seq.name);
+                sd->VpiFullName(sfull);
+                sd->VpiParent(m);
+                setLoc(sd, ESC_NAME_SPAN295(seq.location, seq.name, "sequence_decl"));
+                SourceRange fr406;
+                if (auto* ssyn = seq.getSyntax();
+                    ssyn && ssyn->kind == syntax::SyntaxKind::SequenceDeclaration)
+                    if (auto* pl = ssyn->as<syntax::SequenceDeclarationSyntax>().portList;
+                        pl && !pl->ports.empty())
+                        fr406 = SourceRange(pl->ports[0]->sourceRange().start(),
+                                            pl->ports[pl->ports.size() - 1]->sourceRange().end());
+                auto* sfd = s.MakeSeq_formal_declVec();
+                for (auto& fp : seq.membersOfType<AssertionPortSymbol>()) {
+                    auto* fd = s.MakeSeq_formal_decl();
+                    fd->VpiName(fp.name);
+                    if (fr406.start() != SourceLocation::NoLocation)
+                        setLoc(fd, fr406);
+                    auto* frt = s.MakeRef_typespec();
+                    if (auto* fdt = fp.getDeclaredType())
+                        if (auto* fsyn = fdt->getTypeSyntax();
+                            fsyn && fsyn->kind != syntax::SyntaxKind::ImplicitType)
+                            if (auto* fts = makeTypespec(fp, fsyn))
+                                frt->Actual_typespec(fts);
+                    fd->Typespec(frt);
+                    sfd->push_back(fd);
+                }
+                auto& defInst = AssertionInstanceExpression::makeDefault(seq);
+                if (defInst.kind == ExpressionKind::AssertionInstance) {
+                    auto& aie = defInst.as<AssertionInstanceExpression>();
+                    auto* savedINM = implicitNetModule;
+                    auto savedINP = implicitNetPrefix;
+                    implicitNetModule = m;
+                    implicitNetPrefix = prefix;
+                    propDeclScope = &seq;
+                    propDeclRefPrefix = sfull;
+                    const AssertionExpr* sbody = &aie.body;
+                    UHDM::any* se = nullptr;
+                    if (sbody->kind == AssertionExprKind::Clocking) {
+                        auto& cae = sbody->as<ClockingAssertionExpr>();
+                        auto* mse = s.MakeMulticlock_sequence_expr();
+                        if (sbody->syntax)
+                            setLoc(mse, sbody->syntax->sourceRange());
+                        auto* cs = s.MakeClocked_seq();
+                        propSpecClockEvent = true;
+                        if (auto* clk = emitEventExpr(cae.clocking, sd, sfull, info.nets))
+                            cs->VpiClockingEvent((UHDM::expr*)clk);
+                        propSpecClockEvent = false;
+                        if (auto* e = emitAssertionExpr(cae.expr, sd, sfull, info.nets))
+                            cs->VpiSequenceExpr(e);
+                        auto* csv = s.MakeClocked_seqVec();
+                        csv->push_back(cs);
+                        mse->Clocked_seqs(csv);
+                        se = mse;
+                    }
+                    else
+                        se = emitAssertionExpr(*sbody, sd, sfull, info.nets);
+                    if (se)
+                        sd->Sequence_expr_multiclock_group(se);
+                    propDeclScope = nullptr;
+                    propDeclRefPrefix.clear();
+                    implicitNetModule = savedINM;
+                    implicitNetPrefix = savedINP;
+                }
+                if (!sfd->empty())
+                    sd->Seq_formal_decls(sfd);
+                g406SeqDecls[&seq] = sd;
+                sdecls->push_back(sd);
+                lawTrace(406, "sequenceDeclListed406", sfull);
+            }
+            if (!sdecls->empty())
+                m->Sequence_decls(sdecls);
+        }
         auto* pdecls = s.MakeProperty_declVec();
         for (auto& member : body.members()) {
             if (member.kind != SymbolKind::Property)
@@ -10643,6 +10767,8 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         if (member.kind != SymbolKind::ProceduralBlock)
             continue;
         auto& pb = member.as<ProceduralBlockSymbol>();
+        if (deferredAssertItemDropped406(pb))
+            continue;
         bool inGenRegion = false;
         for (auto q = pb.getSyntax(); q; q = q->parent)
             if (q->kind == syntax::SyntaxKind::GenerateRegion) {
@@ -26523,6 +26649,8 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     if (pbs9 && pbs9->kind ==
                                     syntax::SyntaxKind::ConcurrentAssertionMember)
                         continue;
+                    if (deferredAssertItemDropped406(*pbp95))
+                        continue;
                     if (auto* p = emitProcess(*pbp95, m, prefix, topNets))
                         procs->push_back(p);
                 }
@@ -26735,7 +26863,8 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         }
         auto* procs = s.MakeProcess_stmtVec();
         for (auto& member : body.members()) {
-            if (member.kind == SymbolKind::ProceduralBlock) {
+            if (member.kind == SymbolKind::ProceduralBlock &&
+                !deferredAssertItemDropped406(member.as<ProceduralBlockSymbol>())) {
                 if (auto* p =
                         emitProcess(member.as<ProceduralBlockSymbol>(), m, prefix, *contentNets))
                     procs->push_back(p);
@@ -38185,6 +38314,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     genAsserts->push_back(as);
                     continue;
                 }
+                if (deferredAssertItemDropped406(gpb))
+                    continue;
                 genProcSym58 = &gpb;
                 auto* p = emitProcess(gpb, m, fullName, netMap);
                 genProcSym58 = nullptr;
@@ -52899,6 +53030,30 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
                         innerParent = w;
                         break;
                     }
+            // § sequenceDeclListed406 — a bare reference to a listed
+            // sequence declaration is a ref_obj scoped under the reference's
+            // context and bound to the declaration (golden SQ/sq01
+            // `assert property (seq)` -> ref_obj work@top.seq, sq05 `s3 |->
+            // a` in property p -> ref_obj work@top.p.s3).
+            if (!sae.repetition && sae.expr.kind == ExpressionKind::AssertionInstance) {
+                auto& aie406 = sae.expr.as<AssertionInstanceExpression>();
+                if (aie406.symbol.kind == SymbolKind::Sequence && aie406.arguments.empty() &&
+                    !aie406.isRecursiveProperty)
+                    if (auto it406 = g406SeqDecls.find(&aie406.symbol);
+                        it406 != g406SeqDecls.end() && lawOn(406, "R11U406_SEQDECL_OFF")) {
+                        auto* ro = s.MakeRef_obj();
+                        ro->VpiName(aie406.symbol.name);
+                        ro->VpiFullName(prefix + "." + std::string(aie406.symbol.name));
+                        ro->VpiParent(parent);
+                        if (sae.expr.syntax)
+                            setLoc(ro, sae.expr.syntax->sourceRange());
+                        else if (ae.syntax)
+                            setLoc(ro, ae.syntax->sourceRange());
+                        ro->Actual_group(it406->second);
+                        lawTrace(406, "sequenceDeclListed406", "ref " + std::string(ro->VpiFullName()));
+                        return ro;
+                    }
+            }
             UHDM::any* inner = emitExpr(sae.expr, innerParent, prefix, netMap);
             if (!sae.repetition || !inner)
                 return inner;
@@ -53169,6 +53324,152 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
                     unboundedDelay9 = true;
             bool leadingDelay9 = sc.elements.size() == 1 &&
                                  sc.elements[0].delay.min != 0;
+            // § seqConcatNestsRight406 (r11u406, R11U406_SEQNEST_OFF; cases
+            // tools/probe/r11u406repro/cases/SQ sq03, sq08-sq11; sv-tests
+            // chapter-16/16.9 consecutive, goto and non-consecutive
+            // repetition, chapter-9/9.4.2.4 event_sequence) — in a sequence
+            // or property declaration body Surelog's sequence_expr rule is
+            // right-recursive: a concatenation of three or more elements is
+            // [e0, ##d1, (e1 ##d2 ... en)], the tail one nested `##`
+            // operation spanning its elements, recursively (`b ##1 a[->2]
+            // ##1 b ##1 c[=1] ##1 d` -> [b, 1, [a', 1, [b, 1, [c', 1, d]]]],
+            // `a ##1 b ##1 c` -> [a, 1, [b, 1, c]]); two elements stay one
+            // flat operation.  Ours listed every element flat.
+            // § seqNestLeadingDelay406v (v11u406, R11V406_SEQLEAD_OFF; cases
+            // tools/probe/v11u406repro/cases/VQ vq20, vq21, vq24) — a
+            // concatenation whose FIRST element carries a leading delay
+            // (`##1 a ##1 b ##1 c`, the consequent of `a |-> ##1 b ##1 c ##1
+            // d`) is in golden the unary cycle-delay operation (53) spanning
+            // from the leading `##` to the last element, its operands the
+            // leading delay constant and the right-nested chain; the law's
+            // chain started at element 0 and dropped the leading delay
+            // altogether (pristine kept it as the flat operation's first
+            // operand).  A RANGED leading delay (`##[1:2] a ##1 b ##1 c`)
+            // is the same operation with the range operand of
+            // § sequenceDeclListed406 (golden vq24).
+            // § seqNestRangedDelay406v (v11u406, R11V406_SEQRANGE_OFF; cases
+            // tools/probe/v11u406repro/cases/VQ vq01, vq25) — a RANGED delay
+            // inside the right-nested chain (`a ##[1:2] b ##1 c`) is the
+            // range operand at the written `1:2` as in the flat form of
+            // § sequenceDeclListed406, where the chain wrote the minimum
+            // alone as a constant spanning `##[1:2]`.
+            if (!unboundedDelay9 && !leadingDelay9 && propDeclScope &&
+                sc.elements.size() >= 3 && sc.elements.front().sequence->syntax &&
+                sc.elements.back().sequence->syntax &&
+                lawOn(406, "R11U406_SEQNEST_OFF")) {
+                lawTrace(406, "seqConcatNestsRight406", prefix);
+                auto delayC = [&](size_t j) -> UHDM::any* {
+                    auto& el = sc.elements[j];
+                    if (!el.delay.max)
+                        return nullptr;
+                    auto* c = s.MakeConstant();
+                    std::string d = std::to_string(el.delay.min);
+                    c->VpiDecompile(d);
+                    c->VpiSize(64);
+                    c->VpiValue("UINT:" + d);
+                    c->VpiConstType(vpiUIntConst);
+                    if (el.delayRange.start() != SourceLocation::NoLocation)
+                        setLoc(c, SourceRange(el.delayRange.start() - 2, el.delayRange.end()));
+                    return c;
+                };
+                // § seqNestLeadingDelay406v / § seqNestRangedDelay406v — the
+                // range operand of a ranged delay, built as the flat form's
+                // (§ sequenceDeclListed406): the range at the written `l:r`,
+                // its literal bounds at their tokens, all unparented.
+                auto rangeC406v = [&](size_t j) -> UHDM::any* {
+                    auto& el = sc.elements[j];
+                    if (!el.delay.max || *el.delay.max == el.delay.min ||
+                        el.delayRange.start() == SourceLocation::NoLocation)
+                        return nullptr;
+                    std::string t(rawText(el.delayRange));
+                    size_t cl = t.find(':');
+                    size_t ob = (!t.empty() && t.front() == '[') ? 1 : 0;
+                    size_t ce = (!t.empty() && t.back() == ']') ? t.size() - 1 : t.size();
+                    if (t.size() < 3 || cl == std::string::npos || cl <= ob || cl + 1 >= ce)
+                        return nullptr;
+                    auto tok = [&](size_t b, size_t e) {
+                        while (b < e && isspace((unsigned char)t[b]))
+                            b++;
+                        while (e > b && isspace((unsigned char)t[e - 1]))
+                            e--;
+                        return std::pair<size_t, size_t>(b, e);
+                    };
+                    auto lt = tok(ob, cl), rt = tok(cl + 1, ce);
+                    auto at = [&](size_t o) { return el.delayRange.start() + o; };
+                    auto* rg = s.MakeRange();
+                    setLoc(rg, SourceRange(at(lt.first), at(rt.second)));
+                    auto mkb = [&](uint32_t v, std::pair<size_t, size_t> tk) {
+                        auto* c = s.MakeConstant();
+                        std::string d = std::to_string(v);
+                        c->VpiDecompile(d);
+                        c->VpiSize(64);
+                        c->VpiValue("UINT:" + d);
+                        c->VpiConstType(vpiUIntConst);
+                        setLoc(c, SourceRange(at(tk.first), at(tk.second)));
+                        return c;
+                    };
+                    rg->Left_expr(mkb(el.delay.min, lt));
+                    rg->Right_expr(mkb(*el.delay.max, rt));
+                    return rg;
+                };
+                std::function<UHDM::operation*(size_t, UHDM::BaseClass*)> nest =
+                    [&](size_t i, UHDM::BaseClass* par) -> UHDM::operation* {
+                    auto* o = s.MakeOperation();
+                    o->VpiOpType(vpiCycleDelayOp);
+                    o->VpiParent(par);
+                    setLoc(o, SourceRange(
+                                  sc.elements[i].sequence->syntax->sourceRange().start(),
+                                  sc.elements.back().sequence->syntax->sourceRange().end()));
+                    auto* ops = s.MakeAnyVec();
+                    if (auto* e = emitAssertionExpr(*sc.elements[i].sequence, o, prefix, netMap))
+                        ops->push_back(e);
+                    size_t rest = sc.elements.size() - i;
+                    UHDM::any* rc406v = nullptr;
+                    if (fixOn(406, "R11V406_SEQRANGE_OFF"))
+                        if ((rc406v = rangeC406v(i + 1)))
+                            lawTrace(406, "seqNestRangedDelay406v", prefix);
+                    if (rc406v)
+                        ops->push_back(rc406v);
+                    else if (auto* c = delayC(i + 1))
+                        ops->push_back(c);
+                    if (rest >= 3)
+                        ops->push_back(nest(i + 1, o));
+                    else if (auto* e = emitAssertionExpr(*sc.elements[i + 1].sequence, o, prefix,
+                                                         netMap))
+                        ops->push_back(e);
+                    o->Operands(ops);
+                    return o;
+                };
+                if (sc.elements[0].delay.min != 0 && sc.elements[0].delay.max &&
+                    fixOn(406, "R11V406_SEQLEAD_OFF")) {
+                    lawTrace(406, "seqNestLeadingDelay406v", prefix);
+                    auto& e0 = sc.elements[0];
+                    auto* u = s.MakeOperation();
+                    u->VpiOpType(vpiUnaryCycleDelayOp);
+                    u->VpiParent(parent);
+                    auto st406v = e0.sequence->syntax->sourceRange().start();
+                    if (e0.delayRange.start() != SourceLocation::NoLocation) {
+                        st406v = e0.delayRange.start() - 2;
+                        // A ranged delay's range starts after its `[`.
+                        if (e0.delay.max && *e0.delay.max != e0.delay.min &&
+                            rawText(SourceRange(e0.delayRange.start() - 1,
+                                                e0.delayRange.start())) == "[")
+                            st406v = e0.delayRange.start() - 3;
+                    }
+                    setLoc(u, SourceRange(
+                                  st406v,
+                                  sc.elements.back().sequence->syntax->sourceRange().end()));
+                    auto* uops = s.MakeAnyVec();
+                    if (auto* r = rangeC406v(0))
+                        uops->push_back(r);
+                    else if (auto* c = delayC(0))
+                        uops->push_back(c);
+                    uops->push_back(nest(0, u));
+                    u->Operands(uops);
+                    return u;
+                }
+                return nest(0, parent);
+            }
             op->VpiOpType(unboundedDelay9 ? 60
                           : leadingDelay9 ? vpiUnaryCycleDelayOp
                                           : vpiCycleDelayOp);
@@ -53191,6 +53492,52 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             auto* operands = s.MakeAnyVec();
             bool first = true;
             for (auto& el : sc.elements) {
+                // § sequenceDeclListed406 — a RANGED delay `##[1:3]` is a
+                // range operand at the written `1:3`, its literal bounds at
+                // their tokens, all unparented (golden SQ/sq06), where the
+                // minimum alone was written as the delay constant.
+                if ((!first || el.delay.min != 0) && el.delay.max &&
+                    *el.delay.max != el.delay.min && propDeclScope &&
+                    el.delayRange.start() != SourceLocation::NoLocation &&
+                    lawOn(406, "R11U406_SEQDECL_OFF")) {
+                    std::string t406(rawText(el.delayRange));
+                    size_t c406 = t406.find(':');
+                    size_t ob406 = (!t406.empty() && t406.front() == '[') ? 1 : 0;
+                    size_t ce406 = (!t406.empty() && t406.back() == ']') ? t406.size() - 1
+                                                                          : t406.size();
+                    if (t406.size() >= 3 && c406 != std::string::npos && c406 > ob406 &&
+                        c406 + 1 < ce406) {
+                        auto tok406 = [&](size_t b, size_t e) {
+                            while (b < e && isspace((unsigned char)t406[b]))
+                                b++;
+                            while (e > b && isspace((unsigned char)t406[e - 1]))
+                                e--;
+                            return std::pair<size_t, size_t>(b, e);
+                        };
+                        auto lt = tok406(ob406, c406), rt = tok406(c406 + 1, ce406);
+                        auto at406 = [&](size_t o) { return el.delayRange.start() + o; };
+                        auto* rg = s.MakeRange();
+                        setLoc(rg, SourceRange(at406(lt.first), at406(rt.second)));
+                        auto mkb = [&](uint32_t v, std::pair<size_t, size_t> tk) {
+                            auto* c = s.MakeConstant();
+                            std::string d = std::to_string(v);
+                            c->VpiDecompile(d);
+                            c->VpiSize(64);
+                            c->VpiValue("UINT:" + d);
+                            c->VpiConstType(vpiUIntConst);
+                            setLoc(c, SourceRange(at406(tk.first), at406(tk.second)));
+                            return c;
+                        };
+                        rg->Left_expr(mkb(el.delay.min, lt));
+                        rg->Right_expr(mkb(*el.delay.max, rt));
+                        operands->push_back(rg);
+                        lawTrace(406, "sequenceDeclListed406", "delayrange");
+                        if (auto* e = emitAssertionExpr(*el.sequence, op, prefix, netMap))
+                            operands->push_back(e);
+                        first = false;
+                        continue;
+                    }
+                }
                 if ((!first || el.delay.min != 0) && el.delay.max) {
                     auto* c = s.MakeConstant();
                     std::string d = std::to_string(el.delay.min);
@@ -54507,6 +54854,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             if (auto* psyn226 = pb226.getSyntax();
                 psyn226 &&
                 psyn226->kind == syntax::SyntaxKind::ConcurrentAssertionMember)
+                continue;
+            if (deferredAssertItemDropped406(pb226))
                 continue;
             if (auto* p226 = emitProcess(pb226, iface, prefix, info.nets)) {
                 procs226->push_back(p226);
@@ -59954,7 +60303,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     {
     auto* procs = s.MakeProcess_stmtVec();
     for (auto& member : body.members()) {
-        if (member.kind == SymbolKind::ProceduralBlock)
+        if (member.kind == SymbolKind::ProceduralBlock &&
+            !deferredAssertItemDropped406(member.as<ProceduralBlockSymbol>()))
             if (auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), procParent,
                                       procPrefix, netMap))
                 procs->push_back(p);
@@ -63997,7 +64347,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         if (mb.kind == SymbolKind::ProceduralBlock &&
                             mb.getSyntax() == item)
                             pbs = &mb.as<ProceduralBlockSymbol>();
-                    if (!pbs)
+                    if (!pbs || deferredAssertItemDropped406(*pbs))
                         continue;
                     NetMap unbound;
                     suppressRefActual = true;

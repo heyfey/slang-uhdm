@@ -116,9 +116,9 @@ chapter-12/12.6.3--conditional_pattern.sv,EQUAL,,equal
 chapter-12/12.7.1--for.sv,EQUAL,,equal
 chapter-12/12.7.2--repeat.sv,EQUAL,,equal
 chapter-12/12.7.3--foreach-synth.sv,EQUAL,,equal
-chapter-12/12.7.3--foreach.sv,DIFFERENT,decompile:,
-chapter-12/12.7.4--while.sv,DIFFERENT,decompile:,
-chapter-12/12.7.5--dowhile.sv,DIFFERENT,decompile:,
+chapter-12/12.7.3--foreach.sv,EQUAL,,equal
+chapter-12/12.7.4--while.sv,EQUAL,,equal
+chapter-12/12.7.5--dowhile.sv,EQUAL,,equal
 chapter-12/12.7.6--forever.sv,EQUAL,,equal
 chapter-12/12.8--break.sv,EQUAL,,equal
 chapter-12/12.8--continue.sv,EQUAL,,equal
@@ -174,30 +174,30 @@ chapter-16/16.15--property-iff-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.17--expect-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.17--expect.sv,EQUAL,,equal
 chapter-16/16.2--assert-final-uvm.sv,DIFFERENT,decompile:,
-chapter-16/16.2--assert-final.sv,DIFFERENT,decompile:,
+chapter-16/16.2--assert-final.sv,EQUAL,,equal
 chapter-16/16.2--assert-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.2--assert.sv,EQUAL,,equal
 chapter-16/16.2--assert0-uvm.sv,DIFFERENT,decompile:,
-chapter-16/16.2--assert0.sv,DIFFERENT,decompile:,
-chapter-16/16.2--assume-final.sv,DIFFERENT,decompile:,
+chapter-16/16.2--assert0.sv,EQUAL,,equal
+chapter-16/16.2--assume-final.sv,EQUAL,,equal
 chapter-16/16.2--assume-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.2--assume.sv,EQUAL,,equal
-chapter-16/16.2--assume0.sv,DIFFERENT,decompile:,
-chapter-16/16.2--cover-final.sv,DIFFERENT,decompile:,
+chapter-16/16.2--assume0.sv,EQUAL,,equal
+chapter-16/16.2--cover-final.sv,EQUAL,,equal
 chapter-16/16.2--cover.sv,EQUAL,,equal
-chapter-16/16.2--cover0.sv,DIFFERENT,decompile:,
+chapter-16/16.2--cover0.sv,EQUAL,,equal
 chapter-16/16.7--sequence-and-range-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.7--sequence-and-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.7--sequence-intersect-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.7--sequence-or-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.7--sequence-throughout-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.7--sequence-uvm.sv,DIFFERENT,decompile:,
-chapter-16/16.7--sequence.sv,DIFFERENT,decompile:,
+chapter-16/16.7--sequence.sv,EQUAL,,equal
 chapter-16/16.9--sequence-changed-uvm.sv,DIFFERENT,decompile:,
-chapter-16/16.9--sequence-cons-repetition.sv,DIFFERENT,decompile:,
+chapter-16/16.9--sequence-cons-repetition.sv,EQUAL,,equal
 chapter-16/16.9--sequence-fell-uvm.sv,DIFFERENT,decompile:,
-chapter-16/16.9--sequence-goto-repetition.sv,DIFFERENT,decompile:,
-chapter-16/16.9--sequence-noncons-repetition.sv,DIFFERENT,decompile:,
+chapter-16/16.9--sequence-goto-repetition.sv,EQUAL,,equal
+chapter-16/16.9--sequence-noncons-repetition.sv,EQUAL,,equal
 chapter-16/16.9--sequence-past-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.9--sequence-rose-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.9--sequence-stable-uvm.sv,DIFFERENT,decompile:,
@@ -537,7 +537,7 @@ chapter-5/5.7.1--integers-unsized.sv,EQUAL,,equal
 chapter-5/5.7.2-real-constants-illegal.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.7.2-real-constants-illegal.sv:20:8: error: expected identifier,
 chapter-5/5.7.2-real-constants.sv,EQUAL,,equal
 chapter-5/5.7.2-real-token.sv,EQUAL,,equal
-chapter-5/5.8-time-literals.sv,DIFFERENT,decompile:,
+chapter-5/5.8-time-literals.sv,EQUAL,,equal
 chapter-5/5.9-string-assignment.sv,EQUAL,,equal
 chapter-5/5.9-string-basics.sv,EQUAL,,equal
 chapter-5/5.9-string-broken-line.sv,EQUAL,,equal
@@ -703,12 +703,12 @@ chapter-7/arrays/unpacked/variable-slice.sv,EQUAL,,equal
 chapter-7/memories/basic.sv,EQUAL,,equal
 chapter-7/memories/read-write.sv,EQUAL,,equal
 chapter-7/queues/basic.sv,EQUAL,,equal
-chapter-7/queues/bounded.sv,DIFFERENT,decompile:,
+chapter-7/queues/bounded.sv,EQUAL,,equal
 chapter-7/queues/delete.sv,EQUAL,,equal
 chapter-7/queues/delete_assign.sv,DIFFERENT,decompile:,
 chapter-7/queues/insert.sv,EQUAL,,equal
 chapter-7/queues/insert_assign.sv,EQUAL,,equal
-chapter-7/queues/max-size.sv,DIFFERENT,decompile:,
+chapter-7/queues/max-size.sv,EQUAL,,equal
 chapter-7/queues/persistence.sv,EQUAL,,equal
 chapter-7/queues/pop_back.sv,EQUAL,,equal
 chapter-7/queues/pop_back_assing.sv,EQUAL,,equal
@@ -719,7 +719,7 @@ chapter-7/queues/push_back_assign.sv,EQUAL,,equal
 chapter-7/queues/push_front.sv,EQUAL,,equal
 chapter-7/queues/push_front_assign.sv,EQUAL,,equal
 chapter-7/queues/size.sv,EQUAL,,equal
-chapter-7/queues/slice.sv,DIFFERENT,decompile:,
+chapter-7/queues/slice.sv,EQUAL,,equal
 chapter-7/structures/packed/basic.sv,EQUAL,,equal
 chapter-7/structures/packed/default-value.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-7/structures/packed/default-value.sv:26:22: error: packed members can not have initializers,
 chapter-7/structures/packed/signed.sv,EQUAL,,equal
@@ -1521,8 +1521,8 @@ generated/integers/6.11--integer_signed_logic.sv,EQUAL,,equal
 generated/integers/6.11--integer_signed_longint.sv,EQUAL,,equal
 generated/integers/6.11--integer_signed_reg.sv,EQUAL,,equal
 generated/integers/6.11--integer_signed_shortint.sv,EQUAL,,equal
-generated/integers/6.11--integer_signed_time.sv,DIFFERENT,decompile:,
-generated/integers/6.11--integer_time.sv,DIFFERENT,decompile:,
+generated/integers/6.11--integer_signed_time.sv,EQUAL,,equal
+generated/integers/6.11--integer_time.sv,EQUAL,,equal
 generated/integers/6.11--integer_unsigned_bit.sv,EQUAL,,equal
 generated/integers/6.11--integer_unsigned_byte.sv,EQUAL,,equal
 generated/integers/6.11--integer_unsigned_int.sv,EQUAL,,equal
@@ -1531,7 +1531,7 @@ generated/integers/6.11--integer_unsigned_logic.sv,EQUAL,,equal
 generated/integers/6.11--integer_unsigned_longint.sv,EQUAL,,equal
 generated/integers/6.11--integer_unsigned_reg.sv,EQUAL,,equal
 generated/integers/6.11--integer_unsigned_shortint.sv,EQUAL,,equal
-generated/integers/6.11--integer_unsigned_time.sv,DIFFERENT,decompile:,
+generated/integers/6.11--integer_unsigned_time.sv,EQUAL,,equal
 generated/keywords/5.6.2--keyword_accept_on.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_accept_on.sv:8:9: error: expected a declaration name,
 generated/keywords/5.6.2--keyword_alias.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_alias.sv:8:9: error: expected a declaration name,
 generated/keywords/5.6.2--keyword_always.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_always.sv:8:9: error: expected a declaration name,
@@ -2307,7 +2307,7 @@ generic/typedef/typedef_test_1.sv,EQUAL,,equal
 generic/typedef/typedef_test_10.sv,EQUAL,,equal
 generic/typedef/typedef_test_11.sv,EQUAL,,equal
 generic/typedef/typedef_test_12.sv,EQUAL,,equal
-generic/typedef/typedef_test_13.sv,SURELOG_ONLY,typedef target: AssociativeArrayType,
+generic/typedef/typedef_test_13.sv,EQUAL,,equal
 generic/typedef/typedef_test_14.sv,DIFFERENT,decompile:,
 generic/typedef/typedef_test_16.sv,EQUAL,,equal
 generic/typedef/typedef_test_18.sv,DIFFERENT,decompile:,

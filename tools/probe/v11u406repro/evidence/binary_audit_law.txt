@@ -1,0 +1,1 @@
+cmds.txt (fence-filtered) 5659: own=5609 other=0 no-slang-line=50

@@ -1,0 +1,1 @@
+uvm/uvm_files (law binary, R11U406_TRACE set, the UVM 1800.2-2017 library compiled): rc=0, no trace file written (no law of pass 406 fires); positive control: the grid's trace dirs record every firing (grid406.txt fired= column)

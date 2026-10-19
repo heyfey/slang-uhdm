@@ -1,0 +1,1 @@
+binary audit (fence-filtered path list): 5659 cmds.txt, 5609 name /tmp/r11u406_bin/law.bin, 0 name another slang-uhdm binary, the rest Surelog-only rows

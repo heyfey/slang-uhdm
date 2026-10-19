@@ -1,0 +1,23 @@
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u406_law/probe.csv
+probe cases: EQUAL=4018 STRICT_NOTEQUAL=69 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=4018 STRICT_NOTEQUAL=69
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u406_law/surelog.csv
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=4 DEFERRED=5 SLANG_REJECT=284 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=4 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=285 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u406_law/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+rc4=0
+sv-tests: BOTH_REJECT=303 DIFFERENT=370 EQUAL=1555 SLANG_ONLY=19 STRICT_NOTEQUAL=8 SURELOG_CRASH=8 SURELOG_ONLY=82 TIMEOUT=1 (of 2346)
+regressions=16 conversions=21 changes=0
+rcsv=1
+NOTE: the sv-tests stage ran the main tree's scripts/check_svtests.py, whose baseline results/golden_svtests.csv moved to pass 403's promotion (30acad589) during the run; its 16 'regressions' are pass 403's conversions; against the base 22bc000f baseline the same csv reads 0/21/0 (svtests_law_vs_base.txt)

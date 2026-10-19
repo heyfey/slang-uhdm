@@ -10008,6 +10008,67 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
                 // only non-port time variables become time_vars.
                 if (portBacked)
                     return nullptr;
+                // § timeModVarIsNet406 (r11u406, R11U406_TIMENET_OFF; cases
+                // tools/probe/r11u406repro/cases/TM; sv-tests
+                // chapter-5/5.8-time-literals.sv, generated/integers/
+                // 6.11--integer_time.sv, _signed_time, _unsigned_time) — a
+                // STATIC `time` variable declared in a module, interface or
+                // generate scope is a NET for Surelog's elaborator:
+                // NetlistElaboration::elabSignal starts every signal as a net
+                // and lists the integer atoms that make it a variable (int,
+                // integer, byte, longint, shortint, ...) but not
+                // paIntegerAtomType_Time, and `var` does not reach its
+                // isVar() either (golden TM/tm04).  The elaborated instance
+                // lists a logic_net (vpiSigned for `time signed`) where we
+                // listed a time_var.  An initialised one (`time t = 5;`)
+                // becomes a net with a net-declaration assignment in golden
+                // (TM/tm03), which the net road does not write: it abstains.
+                // Measured limits: a `var time` declaration IS a time_var
+                // (TM/tm04: Surelog's isVar() sees the keyword), and the
+                // net road lists no net for an interface or generate-scope
+                // variable (TM/tm05, tm06): only a module body's plain
+                // declaration moves.
+                bool var406 = false;
+                if (auto* dsy406 = internal.getSyntax();
+                    dsy406 && dsy406->parent &&
+                    dsy406->parent->kind == syntax::SyntaxKind::DataDeclaration)
+                    for (auto tk : dsy406->parent->as<syntax::DataDeclarationSyntax>().modifiers)
+                        if (tk.kind == parsing::TokenKind::VarKeyword)
+                            var406 = true;
+                if (internal.kind == SymbolKind::Variable && !var406 &&
+                    !declared->getInitializer() &&
+                    lawOn(406, "R11U406_TIMENET_OFF"))
+                    if (auto* ps406 = internal.getParentScope()) {
+                        auto k406 = ps406->asSymbol().kind;
+                        auto& vs406 = internal.as<VariableSymbol>();
+                        if (k406 == SymbolKind::InstanceBody &&
+                            ps406->asSymbol().as<InstanceBodySymbol>()
+                                    .getDefinition()
+                                    .definitionKind == DefinitionKind::Module &&
+                            vs406.lifetime == VariableLifetime::Static) {
+                            // § timeNetKeywordOnly406v (v11u406,
+                            // R11V406_TIMEKW_OFF; cases
+                            // tools/probe/v11u406repro/cases/VT vt07, vt13,
+                            // vt14, vt15) — the net road is taken only when
+                            // the declaration WRITES the `time` keyword: a
+                            // variable declared through a name (`typedef time
+                            // tt_t; tt_t a;`, `pk::pt_t a;`, a type parameter
+                            // defaulting to time) stays a time_var in golden,
+                            // where the law made it a logic_net (vt07 went
+                            // from STRICT_NOTEQUAL to NOT_EQUAL, its
+                            // downstream row from IDENTICAL to EQUIVALENT).
+                            auto* tsy406v = declared->getTypeSyntax();
+                            if ((!tsy406v || tsy406v->kind != syntax::SyntaxKind::TimeType) &&
+                                fixOn(406, "R11V406_TIMEKW_OFF")) {
+                                lawTrace(406, "timeNetKeywordOnly406v",
+                                         std::string(internal.name));
+                            }
+                            else {
+                                lawTrace(406, "timeModVarIsNet406", std::string(internal.name));
+                                return nullptr;
+                            }
+                        }
+                    }
                 auto* v = s.MakeTime_var();
                 v->VpiVisibility(1);
                 return v;
@@ -20859,6 +20920,134 @@ bool unitDynTdShape249(const slang::ast::TypeAliasType& ta) {
 // tokens (Surelog — mirrors the pkg-typedef form).  `qname` is the fullname
 // this object's inner refs qualify with: the module-scoped name for the
 // Typespecs LISTING, the bare typedef name for a return-value CLONE.
+// § unitAssocTdMultiDim406 (r11u406, R11U406_TDMULTIDIM_OFF; cases
+// tools/probe/r11u406repro/cases/AT; sv-tests
+// generic/typedef/typedef_test_13.sv) — a $unit or module-body typedef of
+// an unpacked array with MORE THAN ONE written dimension
+// (`typedef data_t my_ar_t [bit[31:0][k:0]][bit[j:0][l:0]];`,
+// `typedef int a_t [int][string];`, `typedef int a_t [2][3];`) is listed by
+// Surelog as ONE array_typespec spanning the element type through the FIRST
+// dimension's `]`, with one range per written dimension in written order,
+// each the range the one-dimension listing writes for that dimension's kind
+// (a size `[N]` its `0 : N-1` operation at the size token, `[l:r]` its
+// bounds, `[]`, `[$]`, `[*]` and `[<type>]` the kind markers of
+// § unitDynArrTd249 / § assocTdIndexShapes402), and the element reference
+// onto the INNERMOST element.  The listing used to stop at the first
+// dimension (a fixed outer dimension: one range, the span through the last
+// `]`) or reject the typedef (`typedef target: AssociativeArrayType`, exit
+// 4, an associative outer dimension).  The shapes admitted: every level a
+// fixed-size, dynamic, unbounded-queue or associative array (string,
+// integer keyword, bit/logic/reg keyword index or `[*]`), the innermost
+// element not an unpacked array and, when it is a typedef, an integral one.
+bool g406MultiDim = false;
+bool multiDimTdShape406(const slang::ast::TypeAliasType& ta) {
+    using namespace slang;
+    auto* syn = ta.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::TypedefDeclaration)
+        return false;
+    auto& td = syn->as<syntax::TypedefDeclarationSyntax>();
+    if (td.dimensions.size() < 2)
+        return false;
+    if (ta.targetType.getType().kind == ast::SymbolKind::TypeAlias)
+        return false;
+    const ast::Type* t = &ta.targetType.getType();
+    for (auto* ds : td.dimensions) {
+        auto& c = t->getCanonicalType();
+        auto* sp = ds->specifier;
+        switch (c.kind) {
+            case ast::SymbolKind::FixedSizeUnpackedArrayType:
+                if (!sp || sp->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
+                    return false;
+                t = &c.as<ast::FixedSizeUnpackedArrayType>().elementType;
+                break;
+            case ast::SymbolKind::DynamicArrayType:
+                if (sp)
+                    return false;
+                t = &c.as<ast::DynamicArrayType>().elementType;
+                break;
+            case ast::SymbolKind::QueueType:
+                if (!sp || sp->kind != syntax::SyntaxKind::QueueDimensionSpecifier ||
+                    sp->as<syntax::QueueDimensionSpecifierSyntax>().maxSizeClause)
+                    return false;
+                t = &c.as<ast::QueueType>().elementType;
+                break;
+            case ast::SymbolKind::AssociativeArrayType: {
+                auto& aat = c.as<ast::AssociativeArrayType>();
+                if (!sp)
+                    return false;
+                if (sp->kind == syntax::SyntaxKind::WildcardDimensionSpecifier) {
+                    if (aat.indexType)
+                        return false;
+                }
+                else {
+                    auto* ix = aat.indexType;
+                    if (!ix || sp->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
+                        return false;
+                    auto& sel = *sp->as<syntax::RangeDimensionSpecifierSyntax>().selector;
+                    if (sel.kind != syntax::SyntaxKind::BitSelect)
+                        return false;
+                    const syntax::ExpressionSyntax* ex = sel.as<syntax::BitSelectSyntax>().expr;
+                    if (!ex || !syntax::DataTypeSyntax::isKind(ex->kind) ||
+                        ex->kind == syntax::SyntaxKind::NamedType)
+                        return false;
+                    auto ixk = ix->getCanonicalType().kind;
+                    if (!ix->isString() && ixk != ast::SymbolKind::PredefinedIntegerType &&
+                        !(ex->kind == syntax::SyntaxKind::BitType ||
+                          ex->kind == syntax::SyntaxKind::LogicType ||
+                          ex->kind == syntax::SyntaxKind::RegType))
+                        return false;
+                }
+                t = &aat.elementType;
+                break;
+            }
+            default:
+                return false;
+        }
+    }
+    if (t->getCanonicalType().isUnpackedArray())
+        return false;
+    if (t->kind == ast::SymbolKind::TypeAlias && !t->getCanonicalType().isIntegral())
+        return false;
+    return true;
+}
+
+// § aliasElemDynTd406 (r11u406, R11U406_ALIASELEMDYN_OFF; cases
+// tools/probe/r11u406repro/cases/AY, pass 402's verifier VY/vy08, vy10) — a
+// $unit or module-body typedef of a DYNAMIC array or an unbounded QUEUE
+// whose element is a typedef of an integral type (`typedef n_t q_t[$];`,
+// `typedef myint_t d_t[];`) had no listing (`typedef target: QueueType`,
+// exit 4): pass 249 admits a keyword element only.  Listed as the keyword
+// shape is (the kind-marker range of § unitDynArrTd249), the element
+// reference onto the element typedef's own listing object, as the
+// fixed-size and associative listings already write a typedef'd element.
+bool aliasElemDynTdShape406(const slang::ast::TypeAliasType& ta) {
+    using namespace slang;
+    auto* syn = ta.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::TypedefDeclaration)
+        return false;
+    auto& td = syn->as<syntax::TypedefDeclarationSyntax>();
+    if (td.dimensions.size() != 1)
+        return false;
+    auto& ct = ta.targetType.getType().getCanonicalType();
+    auto* sp = td.dimensions[0]->specifier;
+    const ast::Type* el = nullptr;
+    if (ct.kind == ast::SymbolKind::DynamicArrayType) {
+        if (sp)
+            return false;
+        el = &ct.as<ast::DynamicArrayType>().elementType;
+    }
+    else if (ct.kind == ast::SymbolKind::QueueType) {
+        if (!sp || sp->kind != syntax::SyntaxKind::QueueDimensionSpecifier ||
+            sp->as<syntax::QueueDimensionSpecifierSyntax>().maxSizeClause)
+            return false;
+        el = &ct.as<ast::QueueType>().elementType;
+    }
+    else
+        return false;
+    return el->kind == ast::SymbolKind::TypeAlias && el->getCanonicalType().isIntegral() &&
+           !el->getCanonicalType().isUnpackedArray();
+}
+
 UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
     const TypeAliasType& ta, const std::string& qname, bool cloneForm) {
     const syntax::SyntaxNode* typeSyn = nullptr;
@@ -20906,9 +21095,20 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
             aE = td.dimensions[td.dimensions.size() - 1]->sourceRange().end();
         }
     }
+    // § unitAssocTdMultiDim406 — the listing spans through the FIRST
+    // dimension and carries one range per written dimension.
+    const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dims406 = nullptr;
+    if (g406MultiDim)
+        if (auto dsyn = ta.getSyntax();
+            dsyn && dsyn->kind == syntax::SyntaxKind::TypedefDeclaration &&
+            dsyn->as<syntax::TypedefDeclarationSyntax>().dimensions.size() >= 2)
+            dims406 = &dsyn->as<syntax::TypedefDeclarationSyntax>().dimensions;
+    if (dims406)
+        aE = (*dims406)[0]->sourceRange().end();
     setLoc(ats, SourceRange(aS, aE));
-    if (!dynElem209) {
-    auto* rv = s.MakeRangeVec();
+    auto* rv406 = s.MakeRangeVec();
+    auto fixedRange406 = [&](const FixedSizeUnpackedArrayType& fua,
+                             const syntax::VariableDimensionSyntax* dimSyn) -> UHDM::range* {
     auto* r = s.MakeRange();
     r->VpiParent(ats);
     const syntax::ExpressionSyntax* lSyn = nullptr;
@@ -21026,8 +21226,10 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
             r->Right_expr(mkB(fua.range.right, rSyn));
         }
     }
-    rv->push_back(r);
-    ats->Ranges(rv);
+    return r;
+    };
+    if (!dynElem209) {
+        rv406->push_back(fixedRange406(fua, dimSyn));
     }  // § twinElemOnlyNoRange209: no range for a dynamic container
     // § unitDynArrTd249 / § modDynArrTd249 (r11u249, R11U249_UNITDYNTD_OFF /
     // R11U249_MODDYNTD_OFF; cases tools/probe/r11u249repro/cases/U, M) — a
@@ -21044,7 +21246,8 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
     //              as the index type is.
     // Only when the writer asks (g249DynRangeReq), so TaskFuncEmit's
     // § queueTwinKeepsElem204v clone keeps its rangeless form.
-    if (dynElem209 && g249DynRangeReq && dimSyn) {
+    auto dynRange406 = [&](const Type& ct,
+                           const syntax::VariableDimensionSyntax* dimSyn) -> UHDM::range* {
         auto* r = s.MakeRange();
         r->VpiParent(ats);
         auto* l = s.MakeConstant();
@@ -21093,6 +21296,18 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
             auto& ix = *ct.as<AssociativeArrayType>().indexType;
             auto* irt = s.MakeRef_typespec();
             irt->VpiFullName(std::string(ta.name));
+            // § modAssocMarkerFullName406 (r11u406, R11U406_MODMARKERNAME_OFF;
+            // cases AT/at19, at20, at21) — a MODULE-body listing's associative
+            // marker names its index reference after the typedef's full path
+            // (`work@top.a_t`), as the element reference of the same listing
+            // is named; the bare typedef name is the $unit listing's (golden
+            // at21 `typedef int a_t [int];` in a module body).
+            if (auto* psc406 = ta.getParentScope();
+                psc406 && psc406->asSymbol().kind == SymbolKind::InstanceBody &&
+                lawOn(406, "R11U406_MODMARKERNAME_OFF")) {
+                irt->VpiFullName(qname);
+                lawTrace(406, "modAssocMarkerFullName406", qname);
+            }
             irt->VpiParent(m);
             UHDM::typespec* its = nullptr;
             if (ix.isString())
@@ -21133,7 +21348,34 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
                                     l402 = rs402->left;
                                     r402s = rs402->right;
                                 }
-                            auto mk402 = [&](int64_t v, const syntax::ExpressionSyntax* bs) {
+                            auto mk402 = [&](int64_t v, const syntax::ExpressionSyntax* bs) -> UHDM::expr* {
+                                // § assocIdxParamBoundTs406 — in a MODULE-body
+                                // listing (Surelog's Reduce::No route) the
+                                // bound naming a parameter stays a reference
+                                // scoped under the typedef (`work@top.a_t.k`,
+                                // no actual), as the fixed-size listing's
+                                // symbolic bounds do (case AT/at18).
+                                if (bs && bs->kind == syntax::SyntaxKind::IdentifierName &&
+                                    lawOn(406, "R11U406_ASSOCIDXPARAM_OFF"))
+                                    if (auto* psc0 = ta.getParentScope();
+                                        psc0 && psc0->asSymbol().kind != SymbolKind::CompilationUnit)
+                                        if (auto* ps0 = psc0->lookupName(
+                                                bs->as<syntax::IdentifierNameSyntax>()
+                                                    .identifier.valueText());
+                                            ps0 && ps0->kind == SymbolKind::Parameter) {
+                                            auto* ro = s.MakeRef_obj();
+                                            ro->VpiName(ps0->name);
+                                            // A one-dimension listing writes
+                                            // the bare name (golden AT/at20).
+                                            if (g406MultiDim)
+                                                ro->VpiFullName(qname + "." +
+                                                                std::string(ps0->name));
+                                            ro->VpiParent(r402);
+                                            setLoc(ro, bs->sourceRange());
+                                            lawTrace(406, "assocIdxParamBoundTs406",
+                                                     "modref " + std::string(ps0->name));
+                                            return ro;
+                                        }
                                 auto* c = s.MakeConstant();
                                 std::string dg = std::to_string(v);
                                 c->VpiDecompile(dg);
@@ -21143,6 +21385,58 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
                                 c->VpiParent(r402);
                                 if (bs)
                                     setLoc(c, bs->sourceRange());
+                                // § assocIdxParamBoundTs406 (r11u406,
+                                // R11U406_ASSOCIDXPARAM_OFF; cases AT/at02,
+                                // at08, at01) — a packed bound of the index
+                                // keyword that NAMES a value parameter folds
+                                // at the parameter's width (32 for `parameter
+                                // k = 6`, 4 for `parameter logic [3:0] w`) and
+                                // carries an unnamed reference onto a fresh
+                                // copy of the parameter's typespec: the
+                                // written type at its tokens, or for an
+                                // implicitly typed parameter an int_typespec
+                                // spanning the parameter declaration
+                                // (`parameter k = 6`), parented by the
+                                // reference (golden typedef_test_13).
+                                if (bs && bs->kind == syntax::SyntaxKind::IdentifierName &&
+                                    lawOn(406, "R11U406_ASSOCIDXPARAM_OFF"))
+                                    if (auto* psc = ta.getParentScope();
+                                        psc && psc->asSymbol().kind == SymbolKind::CompilationUnit)
+                                        if (auto* ps = psc->lookupName(
+                                                bs->as<syntax::IdentifierNameSyntax>()
+                                                    .identifier.valueText());
+                                            ps && ps->kind == SymbolKind::Parameter) {
+                                            auto& pp = ps->as<ParameterSymbol>();
+                                            UHDM::typespec* pts = nullptr;
+                                            const syntax::DataTypeSyntax* tsy =
+                                                pp.getDeclaredType()->getTypeSyntax();
+                                            if (tsy && tsy->kind == syntax::SyntaxKind::ImplicitType) {
+                                                auto& its = tsy->as<syntax::ImplicitTypeSyntax>();
+                                                if (its.dimensions.empty() &&
+                                                    its.signing.kind == parsing::TokenKind::Unknown)
+                                                    if (auto* dsy = pp.getSyntax();
+                                                        dsy && dsy->parent) {
+                                                        pts = s.MakeInt_typespec();
+                                                        setLoc(pts, dsy->parent->sourceRange());
+                                                    }
+                                            }
+                                            else if (tsy) {
+                                                bool savedB = bypassTypedefShare;
+                                                bypassTypedefShare = true;
+                                                pts = makeTypespec(pp, tsy);
+                                                bypassTypedefShare = savedB;
+                                            }
+                                            if (pts) {
+                                                c->VpiSize((int32_t)pp.getType().getBitWidth());
+                                                auto* prt = s.MakeRef_typespec();
+                                                prt->VpiParent(c);
+                                                pts->VpiParent(prt);
+                                                prt->Actual_typespec(pts);
+                                                c->Typespec(prt);
+                                                lawTrace(406, "assocIdxParamBoundTs406",
+                                                         std::string(pp.name));
+                                            }
+                                        }
                                 return c;
                             };
                             r402->Left_expr(mk402(pa402.range.left, l402));
@@ -21170,14 +21464,52 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
         }
         r->Left_expr(l);
         r->Right_expr(m);
-        auto* rv = s.MakeRangeVec();
-        rv->push_back(r);
-        ats->Ranges(rv);
+        return r;
+    };
+    if (dynElem209 && g249DynRangeReq && dimSyn)
+        rv406->push_back(dynRange406(ct, dimSyn));
+    // § unitAssocTdMultiDim406 — the later dimensions, level by level; the
+    // element is the innermost level's.
+    const Type* inner406 = nullptr;
+    if (dims406) {
+        const Type* lv = &ta.targetType.getType();
+        for (size_t d = 0; d < dims406->size(); ++d) {
+            auto& lc = lv->getCanonicalType();
+            if (d > 0) {
+                if (lc.kind == SymbolKind::FixedSizeUnpackedArrayType)
+                    rv406->push_back(
+                        fixedRange406(lc.as<FixedSizeUnpackedArrayType>(), (*dims406)[d]));
+                else
+                    rv406->push_back(dynRange406(lc, (*dims406)[d]));
+            }
+            switch (lc.kind) {
+                case SymbolKind::FixedSizeUnpackedArrayType:
+                    lv = &lc.as<FixedSizeUnpackedArrayType>().elementType;
+                    break;
+                case SymbolKind::DynamicArrayType:
+                    lv = &lc.as<DynamicArrayType>().elementType;
+                    break;
+                case SymbolKind::QueueType:
+                    lv = &lc.as<QueueType>().elementType;
+                    break;
+                case SymbolKind::AssociativeArrayType:
+                    lv = &lc.as<AssociativeArrayType>().elementType;
+                    break;
+                default:
+                    break;
+            }
+        }
+        inner406 = lv;
+        lawTrace(406, "unitAssocTdMultiDim406",
+                 qname + " dims=" + std::to_string(dims406->size()));
     }
+    if (!rv406->empty())
+        ats->Ranges(rv406);
     // Elem ref -> the ELEMENT typedef's shared ts (typedef bar_t foobar_t [2]
     // points at bar_t's struct ts) — Surelog.
     {
-        const Type* el0 = dynElem209 ? dynElem209 : &fua.elementType;
+        const Type* el0 = inner406 ? inner406
+                                   : (dynElem209 ? dynElem209 : &fua.elementType);
         UHDM::typespec* ets0 = nullptr;
         if (auto ei = typedefTs.find(el0); ei != typedefTs.end())
             ets0 = ei->second;
@@ -21579,6 +21911,21 @@ static UHDM::VectorOfrange* copyRangeVec(UHDM::Serializer& s,
             c->VpiColumnNo(c0->VpiColumnNo());
             c->VpiEndLineNo(c0->VpiEndLineNo());
             c->VpiEndColumnNo(c0->VpiEndColumnNo());
+            // § unitAssocTdMultiDim406 — the associative marker of an inner
+            // dimension keeps its index reference in the copy (golden
+            // AT/at15: `[3][int]`'s copy lists `associative` with its
+            // ref_typespec onto the index typespec; the copy dropped it).
+            if (auto* crt0 = c0->Typespec();
+                crt0 && c0->VpiValue() == "STRING:associative" &&
+                lawOn(406, "R11U406_TDMULTIDIM_OFF")) {
+                auto* crt = s.MakeRef_typespec();
+                crt->VpiName(crt0->VpiName());
+                crt->VpiFullName(crt0->VpiFullName());
+                crt->VpiParent(c);
+                crt->Actual_typespec(const_cast<UHDM::typespec*>(crt0->Actual_typespec()));
+                c->Typespec(crt);
+                lawTrace(406, "unitAssocTdMultiDim406", "markercopy");
+            }
             return c;
         };
         r->Left_expr(cpB(r0->Left_expr()));
@@ -22209,8 +22556,11 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             std::string savedPfxE = syntaxRefPrefix;
             unfoldedTypedefElemDims = true;
             syntaxRefPrefix.clear();
+            g406MultiDim = multiDimTdShape406(ta) &&
+                           lawOn(406, "R11U406_TDMULTIDIM_OFF");
             auto* ats = buildUnpackedArrayTypedefTs(
                 ta, prefix + "." + std::string(ta.name));
+            g406MultiDim = false;
             syntaxRefPrefix = savedPfxE;
             unfoldedTypedefElemDims = savedUfE;
             ats->VpiParent(m);
@@ -22227,15 +22577,23 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                   ct.kind == SymbolKind::AssociativeArrayType) &&
                  ta.targetType.getType().kind != SymbolKind::TypeAlias &&
                  (unitDynTdShape249(ta) ||
-                  (unitDynTdShape402(ta) && lawOn(402, "R11U402_ASSOCTD_OFF"))) &&
+                  (unitDynTdShape402(ta) && lawOn(402, "R11U402_ASSOCTD_OFF")) ||
+                  (multiDimTdShape406(ta) && lawOn(406, "R11U406_TDMULTIDIM_OFF")) ||
+                  (aliasElemDynTdShape406(ta) && lawOn(406, "R11U406_ALIASELEMDYN_OFF"))) &&
                  lawOn(249, "R11U249_MODDYNTD_OFF")) {
             bool savedUfE = unfoldedTypedefElemDims;
             std::string savedPfxE = syntaxRefPrefix;
             unfoldedTypedefElemDims = true;
             syntaxRefPrefix.clear();
             g249DynRangeReq = true;
+            g406MultiDim = multiDimTdShape406(ta) &&
+                           lawOn(406, "R11U406_TDMULTIDIM_OFF");
+            if (!unitDynTdShape249(ta) && aliasElemDynTdShape406(ta) &&
+                lawOn(406, "R11U406_ALIASELEMDYN_OFF"))
+                lawTrace(406, "aliasElemDynTd406", "listing " + prefix + "." + std::string(ta.name));
             auto* ats = buildUnpackedArrayTypedefTs(
                 ta, prefix + "." + std::string(ta.name));
+            g406MultiDim = false;
             g249DynRangeReq = false;
             syntaxRefPrefix = savedPfxE;
             unfoldedTypedefElemDims = savedUfE;
@@ -29725,7 +30083,48 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     // Inner reg: a var of the ELEMENT class (int/integer/logic) carrying the
     // element typespec (the shared net ts strips dims to the element span).
     UHDM::variables* reg;
-    if (tpPaReg110) {
+    // § arrElemVarKind406 (r11u406, R11U406_ARRELEMKIND_OFF; cases
+    // tools/probe/r11u406repro/cases/SE; sv-tests chapter-12/12.7.3 foreach,
+    // 12.7.4 while, 12.7.5 dowhile) — the element reg of a module-scope
+    // fixed-size unpacked array takes the element's OWN variable kind for a
+    // string, real, shortreal, byte, shortint and longint element (golden
+    // SE/se02: string_var, real_var, byte_var, short_int_var,
+    // long_int_var), where it fell to logic_var (string, real) or int_var
+    // (the integer atoms).
+    UHDM::variables* kind406 = nullptr;
+    if (!tpPaReg110 && lawOn(406, "R11U406_ARRELEMKIND_OFF")) {
+        auto& lc406 = leaf->getCanonicalType();
+        if (lc406.kind == SymbolKind::StringType)
+            kind406 = s.MakeString_var();
+        else if (lc406.kind == SymbolKind::FloatingType) {
+            auto fk406 = lc406.as<FloatingType>().floatKind;
+            if (fk406 == FloatingType::Real)
+                kind406 = s.MakeReal_var();
+            else if (fk406 == FloatingType::ShortReal)
+                kind406 = s.MakeShort_real_var();
+        }
+        else if (lc406.kind == SymbolKind::PredefinedIntegerType) {
+            switch (lc406.as<PredefinedIntegerType>().integerKind) {
+                case PredefinedIntegerType::Byte:
+                    kind406 = s.MakeByte_var();
+                    break;
+                case PredefinedIntegerType::ShortInt:
+                    kind406 = s.MakeShort_int_var();
+                    break;
+                case PredefinedIntegerType::LongInt:
+                    kind406 = s.MakeLong_int_var();
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (kind406)
+            lawTrace(406, "arrElemVarKind406", fullName);
+    }
+    if (kind406) {
+        reg = kind406;
+    }
+    else if (tpPaReg110) {
         reg = s.MakePacked_array_var();
     }
     else if (leaf->getCanonicalType().kind == SymbolKind::PredefinedIntegerType) {
@@ -29950,6 +30349,58 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
         dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
         for (auto d : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
             dimSyns.push_back(d);
+
+    // § boundedQueueVarStatic406 (r11u406, R11U406_BOUNDEDQ_OFF; cases
+    // tools/probe/r11u406repro/cases/BQ; sv-tests chapter-7/queues/bounded.sv,
+    // max-size.sv, slice.sv) — a module-scope BOUNDED queue (`int q[$:2]`)
+    // is listed by Surelog's elaborator as a vpiArrayType 1 (static)
+    // array_var carrying the written dimension as a range: the range at the
+    // brackets, its left bound the unbounded `$` constant (STRING:$, size 1,
+    // vpiUnboundedConst) at the `$`, its right bound the folded maximum
+    // (UINT, size 64) at its tokens; an unbounded queue keeps vpiArrayType 4
+    // and no range.
+    if (dims.size() == 1 && dims[0].kind == SymbolKind::QueueType && dimSyns.size() == 1 &&
+        dimSyns[0]->specifier &&
+        dimSyns[0]->specifier->kind == syntax::SyntaxKind::QueueDimensionSpecifier &&
+        dimSyns[0]->specifier->as<syntax::QueueDimensionSpecifierSyntax>().maxSizeClause &&
+        lawOn(406, "R11U406_BOUNDEDQ_OFF")) {
+        auto& qd = dimSyns[0]->specifier->as<syntax::QueueDimensionSpecifierSyntax>();
+        auto& qt = declared->getType().getCanonicalType().as<QueueType>();
+        av->VpiArrayType(1);
+        auto* r = s.MakeRange();
+        r->VpiParent(av);
+        setLoc(r, dimSyns[0]->sourceRange());
+        auto* l = s.MakeConstant();
+        l->VpiParent(r);
+        l->VpiDecompile("$");
+        l->VpiSize(1);
+        l->VpiValue("STRING:$");
+        l->VpiConstType(vpiUnboundedConst);
+        setLoc(l, qd.dollar.range());
+        auto* rc = s.MakeConstant();
+        rc->VpiParent(r);
+        std::string dg = std::to_string(qt.maxBound);
+        rc->VpiDecompile(dg);
+        rc->VpiSize(64);
+        rc->VpiValue("UINT:" + dg);
+        rc->VpiConstType(vpiUIntConst);
+        setLoc(rc, qd.maxSizeClause->expr->sourceRange());
+        // A bound naming a parameter folds at the parameter's width (golden
+        // BQ/bq02 `byte q[$:M]` with `localparam M = 7`: size 32).
+        if (const syntax::ExpressionSyntax* me = qd.maxSizeClause->expr;
+            me->kind == syntax::SyntaxKind::IdentifierName)
+            if (auto* psc = sym.getParentScope())
+                if (auto* ps = psc->lookupName(
+                        me->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                    ps && ps->kind == SymbolKind::Parameter)
+                    rc->VpiSize((int32_t)ps->as<ParameterSymbol>().getType().getBitWidth());
+        r->Left_expr(l);
+        r->Right_expr(rc);
+        auto* rv = s.MakeRangeVec();
+        rv->push_back(r);
+        av->Ranges(rv);
+        lawTrace(406, "boundedQueueVarStatic406", fullName);
+    }
 
     int32_t total = 1;
     UHDM::VectorOfrange* fixRanges = nullptr;

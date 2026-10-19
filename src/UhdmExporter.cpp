@@ -25,12 +25,70 @@
 namespace slang_uhdm {
 // § assocTdIndexShapes402 — the widened one-dimension shape (TypeEmit.cpp).
 bool unitDynTdShape402(const slang::ast::TypeAliasType& ta);
+// § unitAssocTdMultiDim406 — the multi-dimension listing (TypeEmit.cpp).
+extern bool g406MultiDim;
+bool multiDimTdShape406(const slang::ast::TypeAliasType& ta);
+bool aliasElemDynTdShape406(const slang::ast::TypeAliasType& ta);
 // § unitOobFuncOnDesign402 — TaskFuncEmit.cpp's record and cursor.
 extern std::vector<std::pair<const slang::ast::Symbol*, const slang::ast::Symbol*>> g_unitOobFns402;
 extern const slang::ast::Symbol* g_unitOobEmit402;
 // § uninstIfaceTdThroughPortSkip402 — the interface shape (ModuleEmit.cpp).
 bool ifaceTdThroughPort402(const slang::ast::Compilation& comp,
                            const slang::ast::DefinitionSymbol& d9);
+
+// § unitAssocTdMultiDim406 (TypeEmit.cpp) — an elaborated variable's copy of
+// a $unit multi-dimension array listing folds every size-form range: each
+// `N - 1` operation becomes an unlocated INT constant N-1 (golden AT/at09,
+// at14, at16), the other ranges stay the copy's own.  Ranges shared with
+// the listing only; a one-range listing is § unitArrTd245's.
+static void foldMultiDimCopy406(UHDM::Serializer& s, UHDM::array_typespec* cp,
+                                const UHDM::array_typespec* L, const std::string& who) {
+    auto* rs = L->Ranges();
+    if (!rs || rs->size() < 2 || !cp->Ranges() || cp->Ranges()->size() != rs->size() ||
+        !lawOn(406, "R11U406_TDMULTIDIM_OFF"))
+        return;
+    auto* rv406 = s.MakeRangeVec();
+    bool any406 = false;
+    for (size_t i406 = 0; i406 < rs->size(); ++i406) {
+        auto* r0 = (*rs)[i406];
+        auto* cr = (*cp->Ranges())[i406];
+        UHDM::operation* op6 = nullptr;
+        if (r0->Right_expr() && r0->Right_expr()->UhdmType() == UHDM::uhdmoperation &&
+            cr->Right_expr() == r0->Right_expr())
+            op6 = (UHDM::operation*)r0->Right_expr();
+        const UHDM::constant* n6 = nullptr;
+        if (op6 && op6->VpiOpType() == vpiSubOp && op6->Operands() &&
+            op6->Operands()->size() == 2 &&
+            (*op6->Operands())[0]->UhdmType() == UHDM::uhdmconstant)
+            n6 = (const UHDM::constant*)(*op6->Operands())[0];
+        std::string v6 = n6 ? std::string(n6->VpiValue()) : "";
+        if (!n6 || v6.rfind("UINT:", 0) != 0) {
+            rv406->push_back(cr);
+            continue;
+        }
+        long long n = std::stoll(v6.substr(5));
+        auto* r = s.MakeRange();
+        r->VpiParent(cp);
+        r->VpiFile(r0->VpiFile());
+        r->VpiLineNo(r0->VpiLineNo());
+        r->VpiColumnNo(r0->VpiColumnNo());
+        r->VpiEndLineNo(r0->VpiEndLineNo());
+        r->VpiEndColumnNo(r0->VpiEndColumnNo());
+        r->Left_expr(r0->Left_expr());
+        auto* c = s.MakeConstant();
+        c->VpiDecompile(std::to_string(n - 1));
+        c->VpiSize(64);
+        c->VpiValue("INT:" + std::to_string(n - 1));
+        c->VpiConstType(vpiIntConst);
+        r->Right_expr(c);
+        rv406->push_back(r);
+        any406 = true;
+    }
+    if (any406) {
+        cp->Ranges(rv406);
+        lawTrace(406, "unitAssocTdMultiDim406", "elabfold " + who);
+    }
+}
 
 // The r11u183 switches (tools/probe/r11u183dec/README.md): every r11u183 law
 // reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
@@ -7472,6 +7530,22 @@ SourceRange UhdmExporter::trimTypeSigning(const slang::syntax::SyntaxNode* tsyn,
         case slang::syntax::SyntaxKind::LongIntType:
         case slang::syntax::SyntaxKind::IntegerType:
             break;
+        // § timeTsKeywordSpan406 (r11u406, R11U406_TIMESPAN_OFF; cases
+        // tools/probe/r11u406repro/cases/TM/tm02) — a `time` typespec spans
+        // the keyword alone whatever signing follows it (CompileType's
+        // paIntegerAtomType_Time branch: `populateCoreMembers(type, type, var)`;
+        // golden `time signed v` 7:1-7:5, `time unsigned u` likewise, where
+        // ours ran through the signing keyword).
+        case slang::syntax::SyntaxKind::TimeType: {
+            auto* tty = tsyn->as_if<slang::syntax::IntegerTypeSyntax>();
+            if (!tty || !tty->signing || !lawOn(406, "R11U406_TIMESPAN_OFF"))
+                return r;
+            auto te = tty->keyword.range().end();
+            if (te == SourceLocation::NoLocation || !(te < r.end()))
+                return r;
+            lawTrace(406, "timeTsKeywordSpan406", "");
+            return SourceRange(r.start(), te);
+        }
         default:
             return r;
     }
@@ -8635,6 +8709,10 @@ static std::vector<std::pair<UHDM::array_var*, const slang::ast::ClassPropertySy
     g249WholeArrProps;
 // § unitDynArrTd249 — the $unit dynamic / queue / associative listings.
 static std::set<const UHDM::typespec*> g249UnitDynTs;
+// § aliasElemDynTd406 — the $unit dynamic listings whose (innermost) element
+// is a typedef: every use binds the listing itself (golden AY/ay02, AT/at06:
+// no aliased definition copy, no bare elaborated copy).
+static std::set<const UHDM::typespec*> g406AliasElemShared;
 
 static bool hasVirtualIfaceSyntax6(const slang::syntax::SyntaxNode* n) {
     if (!n)
@@ -16352,7 +16430,10 @@ UHDM::design* UhdmExporter::exportDesign() {
                     unfoldedTypedefDims = true;
                     syntaxRefPrefix = q245;
                     syntaxRefSep = "::";
+                    g406MultiDim = multiDimTdShape406(ta) &&
+                                   lawOn(406, "R11U406_TDMULTIDIM_OFF");
                     ts = buildUnpackedArrayTypedefTs(ta, q245);
+                    g406MultiDim = false;
                     syntaxRefSep = savedSep;
                     syntaxRefPrefix = savedPfx;
                     unfoldedTypedefDims = savedUf;
@@ -16394,7 +16475,11 @@ UHDM::design* UhdmExporter::exportDesign() {
                          ta.targetType.getType().kind != SymbolKind::TypeAlias &&
                          (unitDynTdShape249(ta) ||
                           (unitDynTdShape402(ta) &&
-                           lawOn(402, "R11U402_ASSOCTD_OFF"))) &&
+                           lawOn(402, "R11U402_ASSOCTD_OFF")) ||
+                          (multiDimTdShape406(ta) &&
+                           lawOn(406, "R11U406_TDMULTIDIM_OFF")) ||
+                          (aliasElemDynTdShape406(ta) &&
+                           lawOn(406, "R11U406_ALIASELEMDYN_OFF"))) &&
                          lawOn(249, "R11U249_UNITDYNTD_OFF")) {
                     bool savedTf = tfContext, savedTd = typedefTsContext;
                     bool savedBy = bypassTypedefShare, savedUf = unfoldedTypedefDims;
@@ -16407,7 +16492,10 @@ UHDM::design* UhdmExporter::exportDesign() {
                     syntaxRefPrefix = q249;
                     syntaxRefSep = "::";
                     g249DynRangeReq = true;
+                    g406MultiDim = multiDimTdShape406(ta) &&
+                                   lawOn(406, "R11U406_TDMULTIDIM_OFF");
                     ts = buildUnpackedArrayTypedefTs(ta, q249);
+                    g406MultiDim = false;
                     g249DynRangeReq = false;
                     syntaxRefSep = savedSep;
                     syntaxRefPrefix = savedPfx;
@@ -16421,6 +16509,33 @@ UHDM::design* UhdmExporter::exportDesign() {
                     }
                     ts->VpiParent(d);
                     g249UnitDynTs.insert(ts);
+                    const bool alias406 = aliasElemDynTdShape406(ta) &&
+                                          lawOn(406, "R11U406_ALIASELEMDYN_OFF");
+                    const bool multi406 = multiDimTdShape406(ta) &&
+                                          lawOn(406, "R11U406_TDMULTIDIM_OFF");
+                    if (alias406)
+                        lawTrace(406, "aliasElemDynTd406", "listing " + std::string(ta.name));
+                    if (alias406 || multi406) {
+                        const Type* lv406 = &ta.targetType.getType();
+                        while (true) {
+                            auto& lc406 = lv406->getCanonicalType();
+                            if (lc406.kind == SymbolKind::FixedSizeUnpackedArrayType)
+                                lv406 = &lc406.as<FixedSizeUnpackedArrayType>().elementType;
+                            else if (lc406.kind == SymbolKind::DynamicArrayType)
+                                lv406 = &lc406.as<DynamicArrayType>().elementType;
+                            else if (lc406.kind == SymbolKind::QueueType)
+                                lv406 = &lc406.as<QueueType>().elementType;
+                            else if (lc406.kind == SymbolKind::AssociativeArrayType)
+                                lv406 = &lc406.as<AssociativeArrayType>().elementType;
+                            else
+                                break;
+                        }
+                        if (lv406->kind == SymbolKind::TypeAlias) {
+                            g406AliasElemShared.insert(ts);
+                            lawTrace(406, alias406 ? "aliasElemDynTd406" : "unitAssocTdMultiDim406",
+                                     "shared " + std::string(ta.name));
+                        }
+                    }
                     lawTrace(249, "unitDynArrTd249", std::string(ta.name));
                 }
                 // `typedef uvm_config_db#(uvm_object, string) alias;` — the
@@ -18426,6 +18541,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                 auto* at = rt->Actual_typespec();
                 if (!at || !unitTd245.count(at))
                     return;
+                if (g406AliasElemShared.count(at))
+                    return;
                 UHDM::typespec* cp = fresh(at);
                 if (!cp)
                     return;
@@ -18517,6 +18634,16 @@ UHDM::design* UhdmExporter::exportDesign() {
                         else if (at && g249UnitDynTs.count(at) &&
                                  lawOn(249, "R11U249_UNITDYNTD_OFF")) {
                             mk(rt, 2);
+                            // § unitAssocTdMultiDim406 — a dynamic-outer
+                            // listing's copy folds its size-form ranges too
+                            // (golden AT/at14, at16).
+                            if (auto* cp406 = rt->Actual_typespec();
+                                cp406 && cp406 != at &&
+                                cp406->UhdmType() == UHDM::uhdmarray_typespec &&
+                                at->UhdmType() == UHDM::uhdmarray_typespec)
+                                foldMultiDimCopy406(s, (UHDM::array_typespec*)cp406,
+                                                    (UHDM::array_typespec*)at,
+                                                    std::string(v->VpiFullName()));
                             lawTrace(249, "unitDynArrTd249_elabvar", std::string(v->VpiFullName()));
                         }
                         // A SIZE-form fixed array (`typedef int ia_t[4];`):
@@ -18535,6 +18662,10 @@ UHDM::design* UhdmExporter::exportDesign() {
                             auto* L = unitArrByName245[std::string(at->VpiName())];
                             auto* rs = L->Ranges();
                             auto* cp = (UHDM::array_typespec*)at;
+                            // § unitAssocTdMultiDim406 — a multi-dimension
+                            // listing's copy folds EVERY size-form range.
+                            if (cp != L)
+                                foldMultiDimCopy406(s, cp, L, std::string(v->VpiFullName()));
                             UHDM::operation* op = nullptr;
                             if (cp != L && rs && rs->size() == 1 && cp->Ranges() &&
                                 cp->Ranges()->size() == 1 && (*rs)[0]->Right_expr() &&

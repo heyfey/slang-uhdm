@@ -1,0 +1,10 @@
+VQ/vq01_ranged_three R11V406_SEQRANGE_OFF: restores law
+VQ/vq25_ranged_inner_prop R11V406_SEQRANGE_OFF: restores law
+VQ/vq20_leading_delay_three R11V406_SEQLEAD_OFF: restores law
+VQ/vq21_prop_conseq_leading R11V406_SEQLEAD_OFF: restores law
+VQ/vq24_ranged_leading R11V406_SEQLEAD_OFF: restores law
+VQ/vq26_ranged_lead_and_inner R11V406_SEQLEAD_OFF: partial
+VT/vt07_signed_typedef_func R11V406_TIMEKW_OFF: restores law
+VT/vt13_typeparam_time R11V406_TIMEKW_OFF: restores law
+VT/vt14_typedef_unsigned R11V406_TIMEKW_OFF: restores law
+VT/vt15_pkg_typedef_time R11V406_TIMEKW_OFF: restores law

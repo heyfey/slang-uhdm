@@ -1,0 +1,23 @@
+CONVERSION chapter-12/12.7.3--foreach.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-12/12.7.4--while.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-12/12.7.5--dowhile.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.2--assert-final.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.2--assert0.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.2--assume-final.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.2--assume0.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.2--cover-final.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.2--cover0.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.7--sequence.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.9--sequence-cons-repetition.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.9--sequence-goto-repetition.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.9--sequence-noncons-repetition.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-5/5.8-time-literals.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-7/queues/bounded.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-7/queues/max-size.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-7/queues/slice.sv: DIFFERENT -> EQUAL
+CONVERSION generated/integers/6.11--integer_signed_time.sv: DIFFERENT -> EQUAL
+CONVERSION generated/integers/6.11--integer_time.sv: DIFFERENT -> EQUAL
+CONVERSION generated/integers/6.11--integer_unsigned_time.sv: DIFFERENT -> EQUAL
+CONVERSION generic/typedef/typedef_test_13.sv: SURELOG_ONLY -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=370 EQUAL=1555 SLANG_ONLY=19 STRICT_NOTEQUAL=8 SURELOG_CRASH=8 SURELOG_ONLY=82 TIMEOUT=1 (of 2346)
+regressions=0 conversions=21 changes=0
