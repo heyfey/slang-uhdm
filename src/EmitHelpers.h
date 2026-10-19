@@ -29,6 +29,7 @@
 #include "slang/ast/expressions/OperatorExpressions.h"
 #include "slang/ast/expressions/SelectExpressions.h"
 #include "slang/ast/statements/ConditionalStatements.h"
+#include "slang/ast/Patterns.h"
 #include "slang/ast/statements/LoopStatements.h"
 #include "slang/ast/statements/MiscStatements.h"
 #include "slang/ast/symbols/CompilationUnitSymbols.h"
@@ -3502,6 +3503,38 @@ inline void collectOobCtorLocalsIn(const slang::ast::PackageSymbol& pkg,
                      });
 }
 
+// § oobCtorHoistSourceOrder403 (r11u403, R11U403_HOISTORDER_OFF) — the
+// hoisted out-of-body constructor locals take their place in the package's
+// ONE source-ordered pass, so among themselves they are in include-expanded
+// SOURCE order too, not in the order their classes are declared:
+// uvm_component.svh includes uvm_root.svh at :1579, before
+// uvm_component::new's body (:1596), so golden lists uvm_root::new's `rh`
+// (uvm_root.svh:366) BEFORE error_str / top / cs / bld / common, where the
+// class-order collection put it after them and every flush loop (which stops
+// at the first local not yet passed) emitted it late.  Applied at the three
+// listings that flush the collection: the package's own, a transitive package
+// clone and a module's materialized copy.  sv-tests UVM rows; grid cases/HO.
+inline void sortOobCtorLocals403(const slang::SourceManager& sm,
+                                 std::vector<const Symbol*>& h,
+                                 std::string_view pkgName) {
+    if (h.size() < 2 || !lawOn(403, "R11U403_HOISTORDER_OFF"))
+        return;
+    std::vector<std::pair<std::vector<std::pair<uint32_t, uint64_t>>, size_t>> k;
+    for (size_t i = 0; i < h.size(); i++)
+        k.push_back({includeExpandedKey(sm, h[i]->location), i});
+    std::stable_sort(k.begin(), k.end(),
+                     [](auto& a, auto& b) { return includeExpandedLess(a.first, b.first); });
+    std::vector<const Symbol*> o = h;
+    bool moved = false;
+    for (size_t i = 0; i < k.size(); i++) {
+        if (k[i].second != i)
+            moved = true;
+        h[i] = o[k[i].second];
+    }
+    if (moved)
+        lawTrace(403, "oobCtorHoistSourceOrder403", std::string(pkgName));
+}
+
 // The whole package list rides, in PACKAGE DECLARATION order and whether or
 // not the module reads any of them (Surelog-measured, r10apb2 repro 1: an
 // unread `const string`/`int` pair both materialize) — repeated once per
@@ -3687,6 +3720,7 @@ inline std::vector<const slang::ast::VariableSymbol*> collectImportedPkgVars(
                          std::vector<const slang::ast::Symbol*>& one203) {
             std::vector<const Symbol*> hoist203;
             collectOobCtorLocalsIn(p, hoist203);
+            sortOobCtorLocals403(sm, hoist203, p.name);  // § oobCtorHoistSourceOrder403
             size_t hIdx203 = 0;
             auto flush203 = [&](slang::SourceLocation upto, bool all) {
                 while (hIdx203 < hoist203.size() &&
@@ -15178,5 +15212,180 @@ inline void trace215(const char* law, const std::string& detail = std::string())
         fprintf(tf, "%s %s\n", law, detail.c_str());
         fflush(tf);
     }
+}
+
+// § matchesOpPattern403 (r11u403, R11U403_MATCHOP_OFF) — the pattern operand
+// of a `matches` operator as Surelog's CompileExpression writes it (golden
+// 12.6.2--if_pattern.sv, 12.6.3--conditional_pattern.sv; grid cases/PM):
+//   * `tagged m p`: a tagged_pattern named m, located at the `tagged`
+//     keyword alone, its vpiPattern the value pattern (none for a void
+//     member);
+//   * `'{e0, e1, ...}` holding a `.v` or `.*`: a vpiListOp operation over the
+//     braces (the grammar's pattern list), `'{...}` of constants only: the
+//     vpiAssignmentPatternOp the expression grammar takes;
+//   * a list's FIRST element is compiled from its first token: `.v` is an
+//     unsupported_expr over the dot, `.*` one over `.*`, each valued with the
+//     whole source line as a STRING; a later `.v` is a ref_obj over the name,
+//     unbound and with no stored full name (the getter reads the parent
+//     chain, `work@top.a.v`); a constant element is unparented;
+//   * a tagged member's direct `.v` is that ref_obj, its `.*` the
+//     unsupported_expr.
+// Named structure members, nested lists, a bare constant or a bare list as
+// the whole pattern are outside the grid: patternShape403 refuses them and the
+// caller keeps the exporter's rejection.
+inline bool patternShape403(const slang::ast::Pattern& p, int pos) {
+    using namespace slang::ast;
+    switch (p.kind) {
+        case PatternKind::Tagged: {
+            if (pos >= 0)
+                return false;
+            auto* v = p.as<TaggedPattern>().valuePattern;
+            if (!p.syntax || p.syntax->kind != slang::syntax::SyntaxKind::TaggedPattern)
+                return false;
+            return !v || (v->kind != PatternKind::Tagged && v->kind != PatternKind::Constant &&
+                          patternShape403(*v, -2));
+        }
+        case PatternKind::Structure: {
+            if (pos != -2 || !p.syntax ||
+                p.syntax->kind != slang::syntax::SyntaxKind::StructurePattern)
+                return false;
+            auto& sy = p.syntax->as<slang::syntax::StructurePatternSyntax>();
+            for (auto* m : sy.members)
+                if (m->kind != slang::syntax::SyntaxKind::OrderedStructurePatternMember)
+                    return false;
+            int i = 0;
+            for (auto& fp : p.as<StructurePattern>().patterns)
+                if (fp.pattern->kind == PatternKind::Structure ||
+                    fp.pattern->kind == PatternKind::Tagged ||
+                    fp.pattern->kind == PatternKind::Invalid ||
+                    !patternShape403(*fp.pattern, i++))
+                    return false;
+            return true;
+        }
+        case PatternKind::Variable:
+            return p.syntax && p.syntax->kind == slang::syntax::SyntaxKind::VariablePattern;
+        case PatternKind::Wildcard:
+            return true;
+        case PatternKind::Constant:
+            return pos >= 0;
+        default:
+            return false;
+    }
+}
+
+template<class EmitConst, class SetLoc, class LineOf>
+UHDM::any* matchPattern403(UHDM::Serializer& s, const slang::ast::Pattern& p,
+                           UHDM::any* parent, int pos, EmitConst emitConst,
+                           SetLoc setLoc, LineOf lineOf) {
+    using namespace slang::ast;
+    auto unsup = [&](slang::SourceRange r) {
+        auto* u = s.MakeUnsupported_expr();
+        u->VpiParent(parent);
+        setLoc(u, r);
+        u->VpiValue("STRING:" + lineOf(r.start()));
+        return (UHDM::any*)u;
+    };
+    switch (p.kind) {
+        case PatternKind::Tagged: {
+            auto& tp = p.as<TaggedPattern>();
+            auto& sy = p.syntax->as<slang::syntax::TaggedPatternSyntax>();
+            auto* t = s.MakeTagged_pattern();
+            t->VpiName(tp.member.name);
+            t->VpiParent(parent);
+            setLoc(t, sy.tagged.range());
+            if (tp.valuePattern)
+                t->Pattern(matchPattern403(s, *tp.valuePattern, t, -2, emitConst, setLoc,
+                                           lineOf));
+            return t;
+        }
+        case PatternKind::Structure: {
+            auto& sp = p.as<StructurePattern>();
+            bool allConst = true;
+            for (auto& fp : sp.patterns)
+                if (fp.pattern->kind != PatternKind::Constant)
+                    allConst = false;
+            auto* op = s.MakeOperation();
+            op->VpiOpType(allConst ? vpiAssignmentPatternOp : vpiListOp);
+            op->VpiParent(parent);
+            setLoc(op, p.syntax->sourceRange());
+            auto* ops = s.MakeAnyVec();
+            op->Operands(ops);
+            int i = 0;
+            for (auto& fp : sp.patterns)
+                if (auto* e = matchPattern403(s, *fp.pattern, op, i++, emitConst, setLoc,
+                                              lineOf))
+                    ops->push_back(e);
+            return op;
+        }
+        case PatternKind::Variable: {
+            auto& vs = p.syntax->as<slang::syntax::VariablePatternSyntax>();
+            if (pos == 0)
+                return unsup(vs.dot.range());
+            auto* r = s.MakeRef_obj();
+            r->VpiName(p.as<VariablePattern>().variable.name);
+            r->VpiParent(parent);
+            setLoc(r, vs.variableName.range());
+            return r;
+        }
+        case PatternKind::Wildcard:
+            return unsup(p.sourceRange);
+        case PatternKind::Constant: {
+            UHDM::any* c = emitConst(stripImplicitConv(p.as<ConstantPattern>().expr), parent);
+            if (c && c->UhdmType() == UHDM::uhdmconstant)
+                ((UHDM::constant*)c)->VpiParent(nullptr);
+            return c;
+        }
+        default:
+            return nullptr;
+    }
+}
+
+// § matchesOpPattern403 — the operation itself: vpiMatchOp [e, pattern] from
+// e's start through the pattern's end, parented at `parent`.
+template<class EmitE, class SetLoc, class LineOf>
+UHDM::operation* buildMatchOp403(UHDM::Serializer& s, const slang::ast::Expression& e,
+                                 const slang::ast::Pattern& p, UHDM::any* parent,
+                                 EmitE emitE, SetLoc setLoc, LineOf lineOf) {
+    auto* op = s.MakeOperation();
+    op->VpiOpType(vpiMatchOp);
+    op->VpiParent(parent);
+    setLoc(op, slang::SourceRange(e.sourceRange.start(), p.sourceRange.end()));
+    auto* ops = s.MakeAnyVec();
+    op->Operands(ops);
+    if (auto* l = emitE(e, op))
+        ops->push_back(l);
+    if (auto* r = matchPattern403(s, p, op, -1, emitE, setLoc, lineOf))
+        ops->push_back(r);
+    return op;
+}
+
+// The implicit module wire Surelog's netlist elaboration mints for a name it
+// cannot resolve (by name: an existing logic_net of that name is reused),
+// located at `r`, vpiNetType 1, no file (§ implicitNetMintNoFile131).  Used
+// by § patternVarImplicitNet403's siblings § unboundEventImplicitNet403.
+template<class SetLoc>
+UHDM::logic_net* mintImplicitNet403(UHDM::Serializer& s, UHDM::instance* mod,
+                                    const std::string& modPrefix, std::string_view nm,
+                                    slang::SourceRange r, SetLoc setLoc) {
+    if (!mod)
+        return nullptr;
+    if (mod->Nets())
+        for (auto* n : *mod->Nets())
+            if (n->VpiName() == nm && n->UhdmType() == UHDM::uhdmlogic_net)
+                return (UHDM::logic_net*)n;
+    auto* in = s.MakeLogic_net();
+    in->VpiName(nm);
+    in->VpiFullName(modPrefix + "." + std::string(nm));
+    in->VpiParent(mod);
+    in->VpiNetType(1);
+    setLoc(in, r);
+    noteImplicitNetMint131(in);  // § implicitNetMintNoFile131
+    auto* nets = mod->Nets();
+    if (!nets) {
+        nets = s.MakeNetVec();
+        mod->Nets(nets);
+    }
+    nets->push_back(in);
+    return in;
 }
 } // namespace slang_uhdm

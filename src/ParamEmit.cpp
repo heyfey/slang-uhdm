@@ -42154,6 +42154,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         // vector is strictly ascending by declaration position).
         std::vector<const Symbol*> hoist9;
         collectOobCtorLocals(pkg, hoist9);
+        sortOobCtorLocals403(*sm, hoist9, pkg.name);  // § oobCtorHoistSourceOrder403
         size_t hIdx9 = 0;
         // The comparison is FLATTENED-text order, not (buffer, offset): the
         // hoisted local may come from an `include`d file whose contents sit
@@ -42591,6 +42592,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 // same 33).
                 std::vector<const Symbol*> qh9;
                 collectOobCtorLocals(q9, qh9);
+                sortOobCtorLocals403(*sm, qh9, q9.name);  // § oobCtorHoistSourceOrder403
                 size_t qi9 = 0;
                 auto qflush9 = [&](SourceLocation upto9, bool all9) {
                     while (qi9 < qh9.size() &&
@@ -43577,8 +43579,24 @@ bool UhdmExporter::pkgTfListingLess(const UHDM::BaseClass* a,
     auto& kb = pkgTfOrder9[b];
     if (ka.first != kb.first)
         return ka.first < kb.first;
-    auto ea = includeExpandedKey(*sm, ka.second);
-    auto eb = includeExpandedKey(*sm, kb.second);
+    // § pkgTfMacroDefAtExpansion403 (r11u403, R11U403_PKGTFMACRO_OFF) — the
+    // package listing's twin of § oobMacroDefAtExpansion402: an out-of-body
+    // definition written by a MACRO (UVM 1800.2-2017's uvm_packer
+    // `M__UVM_GET_PACKED(byte)` ...) takes the macro's EXPANSION site as its
+    // place in the package's one source-ordered pass, where the raw macro
+    // location sorted every macro buffer after the file's own text (golden
+    // uvm_pkg lists uvm_packer::get_packed_bytes/ints/longints at
+    // uvm_packer.svh:551's expansion, ours at the end; the sv-tests UVM rows'
+    // next head after the hoisted locals).  Grid cases/OM.
+    SourceLocation la = ka.second, lb = kb.second;
+    if (lawOn(403, "R11U403_PKGTFMACRO_OFF")) {
+        if (la.valid() && sm->isMacroLoc(la))
+            la = sm->getFullyExpandedLoc(la);
+        if (lb.valid() && sm->isMacroLoc(lb))
+            lb = sm->getFullyExpandedLoc(lb);
+    }
+    auto ea = includeExpandedKey(*sm, la);
+    auto eb = includeExpandedKey(*sm, lb);
     if (includeExpandedLess(ea, eb))
         return true;
     if (includeExpandedLess(eb, ea))

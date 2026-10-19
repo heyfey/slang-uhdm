@@ -1,0 +1,50 @@
+# case | pristine (d90254f4) | law (da9ae4cb) ; recipe: Surelog -parse -nobuiltin -nocache -sv dut.sv -mt 0 -mp 0 vs slang-uhdm dut.sv --single-unit --nobuiltin
+AT/at01_binary_string_attr | rc=0 cmp=57 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 73 objects
+AT/at02_conditional_bare_attr | rc=0 cmp=71 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 69 objects
+EV/ev01_trigger_hier_uninst | rc=0 cmp=49 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 18 objects
+EV/ev02_nb_trigger_two_paths | rc=0 cmp=71 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 22 objects
+EV/ev03_wait_hier_uninst | rc=0 cmp=61 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 21 objects
+EV/ev04_handle_member_abstains | rc=0 cmp=0 strict=STRICT_EQUAL 31 objects | rc=0 cmp=0 strict=STRICT_EQUAL 31 objects
+FD/fd01_prop_root_unit_import | rc=0 cmp=776 strict=NOT_EQUAL stage1 | rc=0 cmp=776 strict=NOT_EQUAL stage1
+FD/fd02_formal_then_prop_root | rc=0 cmp=1080 strict=NOT_EQUAL stage1 | rc=0 cmp=1080 strict=NOT_EQUAL stage1
+FD/fd03_distinct_names | rc=0 cmp=1080 strict=NOT_EQUAL stage1 | rc=0 cmp=1080 strict=NOT_EQUAL stage1
+FD/fd04_nested_if_selfassign | rc=0 cmp=1488 strict=NOT_EQUAL stage1 | rc=0 cmp=1488 strict=NOT_EQUAL stage1
+FD/fd05_prior_assign | rc=0 cmp=944 strict=NOT_EQUAL stage1 | rc=0 cmp=944 strict=NOT_EQUAL stage1
+FD/fd06_prop_root_no_import | rc=0 cmp=0 strict=STRICT_NOTEQUAL line | rc=0 cmp=0 strict=STRICT_NOTEQUAL line
+FD/fd07_formal_prop_no_import | rc=0 cmp=0 strict=STRICT_EQUAL 92 objects | rc=0 cmp=0 strict=STRICT_EQUAL 92 objects
+FE/fe01_unit_import_class_queue | rc=0 cmp=56 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 93 objects
+FE/fe02_unit_import_after_pkg | rc=0 cmp=56 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 59 objects
+FE/fe03_module_import_keeps_array | rc=0 cmp=0 strict=STRICT_EQUAL 76 objects | rc=0 cmp=0 strict=STRICT_EQUAL 76 objects
+FE/fe04_other_pkg_import_keeps_array | rc=0 cmp=0 strict=STRICT_NOTEQUAL type | rc=0 cmp=0 strict=STRICT_NOTEQUAL type
+FE/fe05_unit_import_queue_dyn_fixed | rc=0 cmp=56 strict=NOT_EQUAL stage1 | rc=0 cmp=1608 strict=NOT_EQUAL stage1
+FE/fe06_explicit_unit_import_keeps_array | rc=0 cmp=56 strict=NOT_EQUAL stage1 | rc=0 cmp=56 strict=NOT_EQUAL stage1
+FE/fe07_unit_import_other_pkg | rc=0 cmp=56 strict=NOT_EQUAL stage1 | rc=0 cmp=1644 strict=NOT_EQUAL stage1
+HO/ho01_ctor_bodies_reverse | rc=0 cmp=0 strict=STRICT_EQUAL 68 objects | rc=0 cmp=0 strict=STRICT_EQUAL 68 objects
+HO/ho02_import_materialized | rc=0 cmp=0 strict=STRICT_EQUAL 122 objects | rc=0 cmp=0 strict=STRICT_EQUAL 122 objects
+HO/ho03_include_before_body | rc=0 cmp=68 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 69 objects
+ML/ml01_macro_paste_lit | rc=0 cmp=28 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol
+OM/om01_macro_oob_pkg_listing | rc=0 cmp=40 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 17 objects
+PC/pc01_case_matches | rc=4 cmp=29 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 133 objects
+PC/pc02_casex_matches | rc=4 cmp=29 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 133 objects
+PC/pc03_casez_unique | rc=4 cmp=31 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 143 objects
+PC/pc04_in_begin_with_stmts | rc=4 cmp=212 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 150 objects
+PM/pm01 | rc=4 cmp=522 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 151 objects
+PM/pm02 | rc=4 cmp=562 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 160 objects
+PM/pm03 | rc=4 cmp=137 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 154 objects
+PM/pm04 | rc=4 cmp=582 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 162 objects
+PM/pm05 | rc=4 cmp=73 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 153 objects
+PM/pm06 | rc=4 cmp=522 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 154 objects
+PM/pm08 | rc=4 cmp=520 strict=NOT_EQUAL stage1 | rc=4 cmp=520 strict=NOT_EQUAL stage1
+PM/pm09 | rc=4 cmp=87 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 146 objects
+PM/pm10 | rc=4 cmp=520 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 154 objects
+PM/pm11 | rc=4 cmp=99 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 148 objects
+PM/pm12 | rc=4 cmp=121 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 152 objects
+PV/pv01_two_refs | rc=4 cmp=664 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 182 objects
+PV/pv02_ref_after_decl_name | rc=4 cmp=642 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 174 objects
+SR/sr01_class_method | rc=0 cmp=46 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 26 objects
+SR/sr02_module_initial | rc=0 cmp=548 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 48 objects
+SZ/sz01_size_tick_space | rc=0 cmp=28 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 55 objects
+UF/uf01 | rc=4 cmp=376 strict=NOT_EQUAL stage1 | rc=0 cmp=398 strict=NOT_EQUAL stage1
+UF/uf05 | rc=4 cmp=78 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 26 objects
+UF/uf06 | rc=4 cmp=41 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 54 objects
+UQ/uq01_unique0_if | rc=0 cmp=366 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 103 objects

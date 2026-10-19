@@ -101,18 +101,18 @@ chapter-12/12.4--if.sv,EQUAL,,equal
 chapter-12/12.4--if_else.sv,EQUAL,,equal
 chapter-12/12.4.1--if_else_if.sv,EQUAL,,equal
 chapter-12/12.4.2--priority_if.sv,EQUAL,,equal
-chapter-12/12.4.2--unique0_if.sv,DIFFERENT,decompile:,
+chapter-12/12.4.2--unique0_if.sv,EQUAL,,equal
 chapter-12/12.4.2--unique_if.sv,EQUAL,,equal
 chapter-12/12.5--case.sv,EQUAL,,equal
 chapter-12/12.5.1--casex.sv,EQUAL,,equal
 chapter-12/12.5.1--casez.sv,EQUAL,,equal
 chapter-12/12.5.2--case_const.sv,EQUAL,,equal
 chapter-12/12.5.4--case_set.sv,EQUAL,,equal
-chapter-12/12.6.1--case_pattern.sv,SURELOG_ONLY,statement kind: PatternCase,
-chapter-12/12.6.1--casex_pattern.sv,SURELOG_ONLY,statement kind: PatternCase,
-chapter-12/12.6.1--casez_pattern.sv,SURELOG_ONLY,statement kind: PatternCase,
-chapter-12/12.6.2--if_pattern.sv,SURELOG_ONLY,complex if condition,
-chapter-12/12.6.3--conditional_pattern.sv,SURELOG_ONLY,complex conditional,
+chapter-12/12.6.1--case_pattern.sv,EQUAL,,equal
+chapter-12/12.6.1--casex_pattern.sv,EQUAL,,equal
+chapter-12/12.6.1--casez_pattern.sv,EQUAL,,equal
+chapter-12/12.6.2--if_pattern.sv,EQUAL,,equal
+chapter-12/12.6.3--conditional_pattern.sv,EQUAL,,equal
 chapter-12/12.7.1--for.sv,EQUAL,,equal
 chapter-12/12.7.2--repeat.sv,EQUAL,,equal
 chapter-12/12.7.3--foreach-synth.sv,EQUAL,,equal
@@ -146,9 +146,9 @@ chapter-14/14.3--default-clocking-block.sv,EQUAL,,equal
 chapter-14/14.3--global-clocking-block.sv,EQUAL,,equal
 chapter-15/15.4--mailbox-blocking.sv,DIFFERENT,decompile:,
 chapter-15/15.4--mailbox-non-blocking.sv,DIFFERENT,decompile:,
-chapter-15/15.5.1--named-event-trigger-blocking.sv,DIFFERENT,decompile:,
-chapter-15/15.5.1--named-event-trigger-non-blocking.sv,DIFFERENT,decompile:,
-chapter-15/15.5.2--named-event-wait.sv,DIFFERENT,decompile:,
+chapter-15/15.5.1--named-event-trigger-blocking.sv,EQUAL,,equal
+chapter-15/15.5.1--named-event-trigger-non-blocking.sv,EQUAL,,equal
+chapter-15/15.5.2--named-event-wait.sv,EQUAL,,equal
 chapter-16/16.10--property-local-var-fail.sv,DIFFERENT,decompile:,
 chapter-16/16.10--property-local-var-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.10--property-local-var.sv,DIFFERENT,decompile:,
@@ -206,9 +206,9 @@ chapter-18/18.11--in-line-random-variable-control_0.sv,DIFFERENT,decompile:,
 chapter-18/18.11--in-line-random-variable-control_1.sv,DIFFERENT,decompile:,
 chapter-18/18.11.1--in-line-constraint-checker_0.sv,DIFFERENT,decompile:,
 chapter-18/18.11.1--in-line-constraint-checker_1.sv,DIFFERENT,decompile:,
-chapter-18/18.12--randomization-of-scope-variables_0.sv,DIFFERENT,decompile:,
+chapter-18/18.12--randomization-of-scope-variables_0.sv,EQUAL,,equal
 chapter-18/18.12--randomization-of-scope-variables_1.sv,DIFFERENT,decompile:,
-chapter-18/18.12.1--adding-constraints-to-scope-variables_0.sv,DIFFERENT,decompile:,
+chapter-18/18.12.1--adding-constraints-to-scope-variables_0.sv,EQUAL,,equal
 chapter-18/18.12.1--adding-constraints-to-scope-variables_1.sv,DIFFERENT,decompile:,
 chapter-18/18.13.1--urandom_0.sv,EQUAL,,equal
 chapter-18/18.13.1--urandom_1.sv,DIFFERENT,decompile:,
@@ -501,9 +501,9 @@ chapter-5/5.11-arrays-key-index.sv,EQUAL,,equal
 chapter-5/5.11-arrays-replication.sv,DIFFERENT,decompile:,
 chapter-5/5.11-arrays.sv,DIFFERENT,decompile:,
 chapter-5/5.12-attributes-case.sv,EQUAL,,equal
-chapter-5/5.12-attributes-conditional.sv,DIFFERENT,decompile:,
+chapter-5/5.12-attributes-conditional.sv,EQUAL,,equal
 chapter-5/5.12-attributes-module.sv,EQUAL,,equal
-chapter-5/5.12-attributes-operator.sv,DIFFERENT,decompile:,
+chapter-5/5.12-attributes-operator.sv,EQUAL,,equal
 chapter-5/5.12-attributes-variable.sv,EQUAL,,equal
 chapter-5/5.13-builtin-methods-strings.sv,EQUAL,,equal
 chapter-5/5.4--coments.sv,EQUAL,,equal
@@ -531,7 +531,7 @@ chapter-5/5.7.1--integers-signed-illegal.sv,BOTH_REJECT,/home/heyfey/git-repos/s
 chapter-5/5.7.1--integers-signed.sv,EQUAL,,equal
 chapter-5/5.7.1--integers-sized.sv,EQUAL,,equal
 chapter-5/5.7.1--integers-token.sv,EQUAL,,equal
-chapter-5/5.7.1--integers-underscores.sv,DIFFERENT,decompile:,
+chapter-5/5.7.1--integers-underscores.sv,EQUAL,,equal
 chapter-5/5.7.1--integers-unsized-illegal.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.7.1--integers-unsized-illegal.sv:20:10: error: expected ';',
 chapter-5/5.7.1--integers-unsized.sv,EQUAL,,equal
 chapter-5/5.7.2-real-constants-illegal.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.7.2-real-constants-illegal.sv:20:8: error: expected identifier,
@@ -1468,7 +1468,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p707.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p718.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p723.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p728.sv,SURELOG_ONLY,user function call,
+generated/hdlconv_std2017/hdlconvertor_std2017_p728.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p729.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p733.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p737.sv,DIFFERENT,decompile:,
@@ -2344,4 +2344,4 @@ testbenches/uvm_scoreboard_monitor_agent_env.sv,DIFFERENT,decompile:,
 testbenches/uvm_scoreboard_monitor_env.sv,DIFFERENT,decompile:,
 testbenches/uvm_sequence.sv,DIFFERENT,decompile:,
 testbenches/uvm_test_run_test.sv,DIFFERENT,decompile:,
-uvm/uvm_files.sv,DIFFERENT,decompile:,
+uvm/uvm_files.sv,STRICT_NOTEQUAL,differ:col(4),differ:col(4)

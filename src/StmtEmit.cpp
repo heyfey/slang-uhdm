@@ -1311,6 +1311,23 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
                             r401->VpiFullName(joinPath(prefix, tok401.valueText()));
                             r401->VpiParent(parent);
                             setLoc(r401, xs401->sourceRange());
+                            // § unboundEventImplicitNet403 (r11u403,
+                            // R11U403_EVNET_OFF) — and binds the implicit
+                            // wire Surelog mints for it over the whole path
+                            // (golden 15.5.2 inner `logic_net
+                            // (work@inner.top) 22:4-22:9`, the ref's
+                            // vpiActual).  Grid cases/EV.
+                            if (implicitNetModule && lawOn(403, "R11U403_EVNET_OFF")) {
+                                lawTrace(403, "unboundEventImplicitNet403",
+                                         "wait " + std::string(tok401.valueText()));
+                                if (auto* n403 = mintImplicitNet403(
+                                        s, implicitNetModule, implicitNetPrefix,
+                                        tok401.valueText(), xs401->sourceRange(),
+                                        [&](UHDM::BaseClass* o, SourceRange r) {
+                                            setLoc(o, r);
+                                        }))
+                                    r401->Actual_group(n403);
+                            }
                             return r401;
                         }
                     }
@@ -2341,6 +2358,22 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             auto end = timing.sourceRange.end();
                             if (timing.kind == TimingControlKind::SignalEvent)
                                 end = end + 1;
+                            // § unboundEventWaitSpan403 (r11u403,
+                            // R11U403_EVWAITSPAN_OFF) — the unbound `@a.b`
+                            // event_control spans the `@` through the end of
+                            // the written path (golden 15.5.2 inner
+                            // 22:3-22:9); the Invalid timing control carries
+                            // no end of its own.  Grid cases/EV.
+                            if (timing.kind == TimingControlKind::Invalid &&
+                                lawOn(403, "R11U403_EVWAITSPAN_OFF"))
+                                if (auto* ich403 = timing.as<InvalidTimingControl>().child;
+                                    ich403 && ich403->kind == TimingControlKind::SignalEvent &&
+                                    ich403->as<SignalEventControl>().expr.syntax) {
+                                    end = ich403->as<SignalEventControl>()
+                                              .expr.syntax->sourceRange()
+                                              .end();
+                                    lawTrace(403, "unboundEventWaitSpan403");
+                                }
                             ecRange = SourceRange(stmt.sourceRange.start(), end);
                         }
                         setLoc(ec, ecRange);
@@ -2383,6 +2416,36 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             ctrlBodyDepth28 == 0 && incDecOpaqueDepth21 == 0;
                         auto* cond = emitEventExpr(timing, ec, prefix, netMap);
                         evCtrlBindPos108 = evSave108;
+                        // § unboundEventImplicitNet403 (r11u403,
+                        // R11U403_EVNET_OFF) — a bare `@a.b` wait on a dotted
+                        // path that slang binds is the same unresolved name to
+                        // Surelog: the ref named by the first token binds the
+                        // implicit wire minted over the whole path (golden
+                        // 15.5.2 inner `ref_obj (work@inner.top)` -> `logic_net
+                        // (work@inner.top) 22:4-22:9`).  Grid cases/EV.
+                        if (cond && cond->UhdmType() == UHDM::uhdmref_obj &&
+                            !((UHDM::ref_obj*)cond)->Actual_group() && implicitNetModule &&
+                            timing.kind == TimingControlKind::SignalEvent &&
+                            lawOn(403, "R11U403_EVNET_OFF")) {
+                            auto& se403 = timing.as<SignalEventControl>();
+                            auto* xs403 = se403.expr.syntax;
+                            auto& sx403 = stripImplicitConv(se403.expr);
+                            if (se403.edge == EdgeKind::None && !se403.iffCondition && xs403 &&
+                                sx403.kind == ExpressionKind::HierarchicalValue &&
+                                xs403->kind == syntax::SyntaxKind::ScopedName &&
+                                xs403->as<syntax::ScopedNameSyntax>().separator.kind ==
+                                    parsing::TokenKind::Dot &&
+                                ((UHDM::ref_obj*)cond)->VpiName() ==
+                                    xs403->getFirstToken().valueText()) {
+                                lawTrace(403, "unboundEventImplicitNet403",
+                                         "wait-bound " + std::string(((UHDM::ref_obj*)cond)->VpiName()));
+                                if (auto* n403 = mintImplicitNet403(
+                                        s, implicitNetModule, implicitNetPrefix,
+                                        ((UHDM::ref_obj*)cond)->VpiName(), xs403->sourceRange(),
+                                        [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); }))
+                                    ((UHDM::ref_obj*)cond)->Actual_group(n403);
+                            }
+                        }
                         if (cond)
                             ec->VpiCondition(cond);
                     }
@@ -3496,6 +3559,33 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 if (!name9.empty())
                     ev9->VpiName(name9);
+                // § unboundEventImplicitNet403 (r11u403, R11U403_EVNET_OFF) —
+                // a trigger through a DOTTED path (`-> top.e;`) names the
+                // event_stmt by the path's first token, which Surelog cannot
+                // resolve as a module signal: its netlist elaboration leaks
+                // the implicit wire of that name over the whole written path
+                // (golden 15.5.1 inner `logic_net (work@inner.top)
+                // 21:6-21:11`), whether or not slang binds the path.  Grid
+                // cases/EV.
+                // (only a HIERARCHICAL reference: a path rooted at a
+                // declared handle, `h.own`, is a member access and resolves)
+                auto& tg403 = stripImplicitConv(es9.target);
+                if (!name9.empty() && implicitNetModule && stmt.syntax &&
+                    tg403.kind == ExpressionKind::HierarchicalValue &&
+                    lawOn(403, "R11U403_EVNET_OFF")) {
+                    auto& syn403 = stmt.syntax->as<syntax::EventTriggerStatementSyntax>();
+                    if (syn403.name->kind == syntax::SyntaxKind::ScopedName &&
+                        syn403.name->as<syntax::ScopedNameSyntax>().separator.kind ==
+                            parsing::TokenKind::Dot &&
+                        syn403.name->getFirstToken().kind == parsing::TokenKind::Identifier) {
+                        lawTrace(403, "unboundEventImplicitNet403", "trigger-bound " + name9);
+                        mintImplicitNet403(s, implicitNetModule, implicitNetPrefix, name9,
+                                           syn403.name->sourceRange(),
+                                           [&](UHDM::BaseClass* o, SourceRange r) {
+                                               setLoc(o, r);
+                                           });
+                    }
+                }
             }
             ev9->VpiBlocking(true);
             return ev9;
@@ -4414,8 +4504,32 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // `uvm_mem_mam::reserve_region`'s `foreach (this.in_use[i])` is an
             // array_var in BuildUVMPkg and an int_var in Scoreboard.
             bool classPropRes21 = false;
+            // § dottedPropRootUnitImport403 (r11u403, R11U403_DOTPROPROOT_OFF)
+            // — the dotted exemption holds for a path rooted at a formal or a
+            // local; a path rooted at a CLASS PROPERTY read through the
+            // implicit `this` (`foreach (m_end_node.m_successors[succ])` in
+            // the out-of-body uvm_phase::add) needs the class scope exactly
+            // as the bare spelling does, so under a $unit import of the home
+            // package the FileContent pass cannot resolve its root and golden
+            // writes the int_var fallback (sv-tests UVM rows after
+            // uvm_init::idx; grid cases/FD fd01-fd05 int_var with the import,
+            // class_var without it).
+            bool dotPropRoot403 = false;
+            if (classPropArr9 && arrDotted21 && arrRef134 &&
+                arrRef134->kind == ExpressionKind::MemberAccess) {
+                const Expression* r403 =
+                    &stripImplicitConv(arrRef134->as<MemberAccessExpression>().value());
+                while (r403->kind == ExpressionKind::MemberAccess)
+                    r403 = &stripImplicitConv(r403->as<MemberAccessExpression>().value());
+                while (r403->kind == ExpressionKind::ElementSelect)
+                    r403 = &stripImplicitConv(r403->as<ElementSelectExpression>().value());
+                if (r403->kind == ExpressionKind::NamedValue &&
+                    r403->as<NamedValueExpression>().symbol.kind == SymbolKind::ClassProperty &&
+                    lawOn(403, "R11U403_DOTPROPROOT_OFF"))
+                    dotPropRoot403 = true;
+            }
             if (classPropArr9) {
-                if (arrDotted21)
+                if (arrDotted21 && !dotPropRoot403)
                     classPropRes21 = true;
                 else {
                     const Scope* hp21 = arrSym->getParentScope();
@@ -4423,6 +4537,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         hp21 = hp21->asSymbol().getParentScope();
                     classPropRes21 =
                         hp21 && !pkgImportedByUnit21(hp21->asSymbol());
+                    if (dotPropRoot403 && !classPropRes21)
+                        lawTrace(403, "dottedPropRootUnitImport403",
+                                 std::string(arrSym->name));
                 }
             }
             // § foreachLocalArrayVar20 — is the iterated array a SUBROUTINE
@@ -5793,9 +5910,69 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                      SymbolKind::FixedSizeUnpackedArrayType)
                                 el25 = &ct25.as<FixedSizeUnpackedArrayType>()
                                             .elementType;
+                            // § foreachUnitImportElemVar403 (r11u403,
+                            // R11U403_FEUNITIMP_OFF) — the array_var arm
+                            // is the no-import answer only.  When the home
+                            // package is WILDCARD-imported at $unit scope
+                            // (`import uvm_pkg::*;` at the top of every
+                            // sv-tests UVM test), Surelog's
+                            // swapForSpecifiedVar -> decodeHierPath resolves
+                            // the iterated name through the compilation
+                            // unit's import, which hands back the ELEMENT
+                            // typespec, so getSimpleVarFromTypespec makes a
+                            // class_var bound to the element's
+                            // class_typespec (golden 16.12--property-
+                            // interface-prec-uvm.sv: uvm_init's
+                            // `foreach (uvm_deferred_init[idx])` lists
+                            // class_var idx -> class_typespec
+                            // uvm_object_wrapper at 717:1).  The import
+                            // inside a module or another package does not
+                            // count (grid cases/FE fe03, fe04) unless that
+                            // package is itself wildcard-imported at $unit
+                            // (fe07); an explicit $unit import keeps the
+                            // array_var (fe06, golden int_var there: a
+                            // residue).  The drill below then takes the
+                            // element.
+                            bool unitWild403 = false;
                             if (el25 &&
                                 el25->getCanonicalType().kind ==
-                                    SymbolKind::ClassType) {
+                                    SymbolKind::ClassType &&
+                                lawOn(403, "R11U403_FEUNITIMP_OFF"))
+                            {
+                                // the $unit wildcard imports and, through
+                                // them, every package those packages
+                                // wildcard-import (cases/FE fe07: `import
+                                // q::*;` where q imports p reaches p)
+                                std::vector<const Symbol*> todo403;
+                                std::set<const Symbol*> seen403;
+                                for (auto* cu403 : comp.getRoot().compilationUnits)
+                                    for (auto& m403 : cu403->members())
+                                        if (m403.kind == SymbolKind::WildcardImport)
+                                            if (auto* pk403 = m403.as<WildcardImportSymbol>()
+                                                                  .getPackage())
+                                                todo403.push_back(pk403);
+                                while (!todo403.empty() && !unitWild403) {
+                                    auto* pk403 = todo403.back();
+                                    todo403.pop_back();
+                                    if (!seen403.insert(pk403).second)
+                                        continue;
+                                    if (pk403 == &as25->asSymbol()) {
+                                        unitWild403 = true;
+                                        break;
+                                    }
+                                    for (auto& m403 : pk403->as<PackageSymbol>().members())
+                                        if (m403.kind == SymbolKind::WildcardImport)
+                                            if (auto* q403 = m403.as<WildcardImportSymbol>()
+                                                                 .getPackage())
+                                                todo403.push_back(q403);
+                                }
+                            }
+                            if (unitWild403)
+                                lawTrace(403, "foreachUnitImportElemVar403",
+                                         std::string(arrSym->name));
+                            if (el25 &&
+                                el25->getCanonicalType().kind ==
+                                    SymbolKind::ClassType && !unitWild403) {
                                 lts = s.MakeArray_typespec();
                                 lv = s.MakeArray_var();
                             }
@@ -6101,17 +6278,63 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
         }
         case StatementKind::Conditional: {
             auto& cs = stmt.as<ConditionalStatement>();
-            if (cs.conditions.size() != 1 || cs.conditions[0].pattern) {
+            // § matchesOpPattern403 (r11u403, R11U403_MATCHOP_OFF) — `if (e
+            // matches p)` is an if whose condition is the vpiMatchOp
+            // operation [e, p] spanning e through the pattern, parented at
+            // the enclosing scope like any if condition; a `&&& guard`
+            // after the pattern is not written (golden pm06).  The pattern
+            // operand is EmitHelpers.h matchPattern403.  sv-tests
+            // chapter-12/12.6.2--if_pattern.sv; grid cases/PM.
+            const bool match403 =
+                cs.conditions.size() >= 1 && cs.conditions[0].pattern &&
+                (cs.conditions.size() == 1 ||
+                 (cs.conditions.size() == 2 && !cs.conditions[1].pattern)) &&
+                patternShape403(*cs.conditions[0].pattern, -1) &&
+                lawOn(403, "R11U403_MATCHOP_OFF");
+            if (!match403 &&
+                (cs.conditions.size() != 1 || cs.conditions[0].pattern)) {
                 noteUnsupported("complex if condition");
                 return nullptr;
             }
+            // § matchesOpPattern403 — slang wraps the branch of a pattern
+            // `if` in an implicit block holding the pattern variables; the
+            // written statement is its body (golden pm09: the assignment
+            // directly under the if).
+            auto unwrap403 = [&](const Statement* st) -> const Statement* {
+                if (match403 && st && st->kind == StatementKind::Block &&
+                    st->as<BlockStatement>().blockSymbol &&
+                    (!st->syntax ||
+                     (st->syntax->kind != syntax::SyntaxKind::SequentialBlockStatement &&
+                      st->syntax->kind != syntax::SyntaxKind::ParallelBlockStatement)))
+                    return &st->as<BlockStatement>().body;
+                return st;
+            };
+            auto cond403 = [&](UHDM::BaseClass* cpar) -> UHDM::any* {
+                if (!match403)
+                    return emitExpr(*cs.conditions[0].expr, cpar, prefix, netMap);
+                lawTrace(403, "matchesOpPattern403", "if");
+                return buildMatchOp403(
+                    s, *cs.conditions[0].expr, *cs.conditions[0].pattern, (UHDM::any*)cpar,
+                    [&](const Expression& e403, UHDM::any* p403) -> UHDM::any* {
+                        return emitExpr(e403, p403, prefix, netMap);
+                    },
+                    [&](UHDM::BaseClass* o403, SourceRange r403) { setLoc(o403, r403); },
+                    [&](SourceLocation l403) { return std::string(sm->getSourceLine(l403)); });
+            };
             // Surelog parents the condition expression at the if's enclosing
             // scope, not the if statement itself.
             if (cs.ifFalse) {
                 auto* ie = s.MakeIf_else();
                 ie->VpiParent(parent);
                 setLoc(ie, stmt.sourceRange);
-                if (cs.check == UniquePriorityCheck::Unique)
+                // § unique0IfIsUnique403 (r11u403, R11U403_UNIQUE0IF_OFF) —
+                // an `unique0 if` carries vpiUniqueQualifier: Surelog's
+                // compileConditionalStmt maps paUNIQUE0 to it (the case
+                // statement maps it to none; golden 12.4.2--unique0_if.sv
+                // `if_else vpiQualifier:1`).  Grid cases/UQ.
+                if (cs.check == UniquePriorityCheck::Unique ||
+                    (cs.check == UniquePriorityCheck::Unique0 &&
+                     lawOn(403, "R11U403_UNIQUE0IF_OFF")))
                     ie->VpiQualifier(vpiUniqueQualifier);
                 else if (cs.check == UniquePriorityCheck::Priority)
                     ie->VpiQualifier(vpiPriorityQualifier);
@@ -6129,7 +6352,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // package function, an out-of-body method and a process.
                     MethodWindow161 mw164(classMethodNoBind,
                                           condMethodWindowDepth164);
-                    c = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap);
+                    c = cond403(parent);
                 }
                 if (c)
                     ie->VpiCondition((UHDM::expr*)c);
@@ -6146,16 +6369,19 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         lawTrace(288, "RZPARENT", "off");
                 }
                 CtrlBody28 cb28(ctrlBodyDepth28);
-                if (auto* t = emitStmt(cs.ifTrue, ie, prefix, netMap))
+                if (auto* t = emitStmt(*unwrap403(&cs.ifTrue), ie, prefix, netMap))
                     ie->VpiStmt(t);
-                if (auto* f = emitStmt(*cs.ifFalse, ie, prefix, netMap))
+                if (auto* f = emitStmt(*unwrap403(cs.ifFalse), ie, prefix, netMap))
                     ie->VpiElseStmt(f);
                 return ie;
             }
             auto* is = s.MakeIf_stmt();
             is->VpiParent(parent);
             setLoc(is, stmt.sourceRange);
-            if (cs.check == UniquePriorityCheck::Unique)
+            // § unique0IfIsUnique403 — the else-less twin.
+            if (cs.check == UniquePriorityCheck::Unique ||
+                (cs.check == UniquePriorityCheck::Unique0 &&
+                 lawOn(403, "R11U403_UNIQUE0IF_OFF")))
                 is->VpiQualifier(vpiUniqueQualifier);
             else if (cs.check == UniquePriorityCheck::Priority)
                 is->VpiQualifier(vpiPriorityQualifier);
@@ -6166,7 +6392,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // comment carries the reasoning).
                 MethodWindow161 mw164(classMethodNoBind,
                                       condMethodWindowDepth164);
-                c8 = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap);
+                c8 = cond403(parent);
             }
             if (c8)
                 is->VpiCondition((UHDM::expr*)c8);
@@ -6182,7 +6408,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             }
             {
                 CtrlBody28 cb28(ctrlBodyDepth28);
-                if (auto* t = emitStmt(cs.ifTrue, is, prefix, netMap))
+                if (auto* t = emitStmt(*unwrap403(&cs.ifTrue), is, prefix, netMap))
                     is->VpiStmt(t);
             }
             return is;
@@ -6586,6 +6812,66 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
             }
             return fs;
+        }
+        // § patternCaseNoItems403 (r11u403, R11U403_PATCASE_OFF) — a
+        // `case (e) matches` statement is a case_stmt with its case type
+        // (case / casex / casez) and qualifier, the condition parented at
+        // the enclosing scope like a plain case's, and an EMPTY item list:
+        // Surelog's CompileHelper::compileCaseStmt builds items only for
+        // case_item and case_inside_item nodes, and every arm of a pattern
+        // case (default included) is a case_pattern_item, so nothing is
+        // written for the arms or their statements (golden
+        // 12.6.1--case_pattern.sv `case_stmt 31:10-36:9 vpiCaseType 1`,
+        // condition `tmp` under the initial).  The exporter rejected the
+        // statement.  sv-tests chapter-12/12.6.1 case, casex, casez; grid
+        // cases/PC.
+        case StatementKind::PatternCase: {
+            if (!lawOn(403, "R11U403_PATCASE_OFF")) {
+                noteUnsupportedAt("statement kind: " + std::string(toString(stmt.kind)),
+                                  stmt.syntax ? stmt.syntax->sourceRange().start()
+                                              : stmt.sourceRange.start());
+                return nullptr;
+            }
+            auto& pcs = stmt.as<PatternCaseStatement>();
+            lawTrace(403, "patternCaseNoItems403");
+            auto* uc403 = s.MakeCase_stmt();
+            uc403->VpiParent(parent);
+            setLoc(uc403, stmt.sourceRange);
+            switch (pcs.check) {
+                case UniquePriorityCheck::Unique:
+                    uc403->VpiQualifier(vpiUniqueQualifier);
+                    break;
+                case UniquePriorityCheck::Priority:
+                    uc403->VpiQualifier(vpiPriorityQualifier);
+                    break;
+                default:
+                    break;
+            }
+            switch (pcs.condition) {
+                case CaseStatementCondition::WildcardXOrZ:
+                    uc403->VpiCaseType(vpiCaseX);
+                    break;
+                case CaseStatementCondition::WildcardJustZ:
+                    uc403->VpiCaseType(vpiCaseZ);
+                    break;
+                default:
+                    uc403->VpiCaseType(vpiCaseExact);
+                    break;
+            }
+            UHDM::any* c403 = nullptr;
+            {
+                CondWindow5 cw5(condBindDepth5);
+                MethodWindow161 mw164(classMethodNoBind,
+                                      condMethodWindowDepth164);
+                c403 = emitExpr(pcs.expr, parent, prefix, netMap);
+            }
+            if (c403) {
+                if (c403->UhdmType() == UHDM::uhdmconstant)
+                    ((UHDM::constant*)c403)->VpiParent(uc403);
+                uc403->VpiCondition((UHDM::expr*)c403);
+            }
+            uc403->Case_items(s.MakeCase_itemVec());
+            return uc403;
         }
         case StatementKind::Case: {
             auto& cs = stmt.as<CaseStatement>();
@@ -8702,6 +8988,21 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         setLoc(ev401, stmt.syntax->sourceRange());
                         ev401->VpiName(tok401.valueText());
                         ev401->VpiBlocking(true);
+                        // § unboundEventImplicitNet403 (r11u403,
+                        // R11U403_EVNET_OFF) — the unresolved first token
+                        // also leaks Surelog's implicit module wire, located
+                        // over the whole written path (golden 15.5.1 inner
+                        // `logic_net (work@inner.top) 21:6-21:11 vpiNetType
+                        // 1`); the trigger itself stays unbound.  Grid
+                        // cases/EV.
+                        if (implicitNetModule && lawOn(403, "R11U403_EVNET_OFF")) {
+                            lawTrace(403, "unboundEventImplicitNet403",
+                                     "trigger " + std::string(tok401.valueText()));
+                            mintImplicitNet403(
+                                s, implicitNetModule, implicitNetPrefix, tok401.valueText(),
+                                syn401.name->sourceRange(),
+                                [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); });
+                        }
                         return ev401;
                     }
                 }

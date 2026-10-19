@@ -24563,6 +24563,61 @@ static slang::SourceRange tagPatParenSpan195(const slang::ast::Expression& val) 
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
+    // § operatorAttrsListed403 (r11u403, R11U403_OPATTR_OFF) — attributes
+    // written on an operator (`b + (* mode = "cla" *) c`, `b ? (* no_glitch
+    // *) c : d`) are listed on the operation as vpiAttribute objects parented
+    // at it, each spanning its attribute spec, a string value as STRING:
+    // (golden 5.12-attributes-operator.sv `attribute (mode) 22:16-22:28
+    // STRING:cla`, 5.12-attributes-conditional.sv `(no_glitch)` with no
+    // value).  Any other value form abstains for the whole operation.
+    // Grid cases/AT.
+    {
+        static const Expression* attrWrap403 = nullptr;
+        if (&expr != attrWrap403 &&
+            (expr.kind == ExpressionKind::BinaryOp ||
+             expr.kind == ExpressionKind::ConditionalOp)) {
+            auto attrs403 = comp.getAttributes(expr);
+            bool ok403 = !attrs403.empty();
+            for (auto* a403 : attrs403) {
+                auto* sy403 = a403->getSyntax();
+                if (!sy403 || sy403->kind != syntax::SyntaxKind::AttributeSpec) {
+                    ok403 = false;
+                    break;
+                }
+                auto* vc403 = sy403->as<syntax::AttributeSpecSyntax>().value;
+                if (vc403 && vc403->expr->kind != syntax::SyntaxKind::StringLiteralExpression)
+                    ok403 = false;
+            }
+            if (ok403 && lawOn(403, "R11U403_OPATTR_OFF")) {
+                auto* save403 = attrWrap403;
+                attrWrap403 = &expr;
+                UHDM::any* r403 = emitExpr(expr, parent, prefix, netMap);
+                attrWrap403 = save403;
+                if (r403 && r403->UhdmType() == UHDM::uhdmoperation &&
+                    !((UHDM::operation*)r403)->Attributes()) {
+                    lawTrace(403, "operatorAttrsListed403");
+                    auto* av403 = s.MakeAttributeVec();
+                    for (auto* a403 : attrs403) {
+                        auto* ua403 = s.MakeAttribute();
+                        ua403->VpiName(a403->name);
+                        auto* sy403 = a403->getSyntax();
+                        setLoc(ua403, sy403->sourceRange());
+                        ua403->VpiParent(r403);
+                        if (auto* vc403 = sy403->as<syntax::AttributeSpecSyntax>().value) {
+                            std::string raw403 = rawText(vc403->expr->sourceRange());
+                            if (raw403.size() >= 2 && raw403.front() == '"' &&
+                                raw403.back() == '"')
+                                raw403 = raw403.substr(1, raw403.size() - 2);
+                            ua403->VpiValue("STRING:" + raw403);
+                        }
+                        av403->push_back(ua403);
+                    }
+                    ((UHDM::operation*)r403)->Attributes(av403);
+                }
+                return r403;
+            }
+        }
+    }
     // § incDecSelCallArgRead194v — see incDecSelArgDepth194.
     struct LhsGuard194 {
         bool& r; bool v; bool on;
@@ -25645,6 +25700,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::ConditionalOp: {
             auto& cond = expr.as<ConditionalExpression>();
+            // § matchesOpPattern403 (r11u403, R11U403_MATCHOP_OFF) — `e
+            // matches p ? a : b` is written as the vpiMatchOp operation [e,
+            // p] alone, in the conditional's place: Surelog drops the two
+            // arms (golden 12.6.3--conditional_pattern.sv: the assignment's
+            // Rhs is the match 34:17-34:52, nothing of `? 1 : 2`).  Grid
+            // cases/PM pm05.
+            if (cond.conditions.size() == 1 && cond.conditions[0].pattern &&
+                patternShape403(*cond.conditions[0].pattern, -1) &&
+                lawOn(403, "R11U403_MATCHOP_OFF")) {
+                lawTrace(403, "matchesOpPattern403", "conditional");
+                return buildMatchOp403(
+                    s, *cond.conditions[0].expr, *cond.conditions[0].pattern,
+                    (UHDM::any*)parent,
+                    [&](const Expression& e403, UHDM::any* p403) -> UHDM::any* {
+                        return emitExpr(e403, p403, prefix, netMap);
+                    },
+                    [&](UHDM::BaseClass* o403, SourceRange r403) { setLoc(o403, r403); },
+                    [&](SourceLocation l403) { return std::string(sm->getSourceLine(l403)); });
+            }
             if (cond.conditions.size() != 1 || cond.conditions[0].pattern) {
                 noteUnsupported("complex conditional");
                 return nullptr;
@@ -25705,6 +25779,51 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& nv = expr.as<NamedValueExpression>();
             if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                 refCollector->insert(&nv.symbol);
+            // § patternVarImplicitNet403 (r11u403, R11U403_PATVARNET_OFF) — a
+            // read of a pattern variable (`.v` of a `matches` pattern) is a
+            // name Surelog cannot resolve, so its netlist elaboration mints
+            // the implicit module wire at the FIRST reference's span and
+            // binds every reference by name to it, exactly as for a
+            // property formal (emitPropFormalRef): golden if_pattern
+            // `logic_net (work@case_tb.v) 32:20-32:21 vpiNetType 1` and the
+            // $display argument's ref_obj bound to it.  Grid cases/PM.
+            if (nv.symbol.kind == SymbolKind::PatternVar &&
+                lawOn(403, "R11U403_PATVARNET_OFF")) {
+                lawTrace(403, "patternVarImplicitNet403", std::string(nv.symbol.name));
+                auto* r403 = s.MakeRef_obj();
+                r403->VpiName(nv.symbol.name);
+                r403->VpiFullName(joinRef(prefix, std::string(nv.symbol.name)));
+                r403->VpiParent(parent);
+                setLoc(r403, expr.sourceRange);
+                if (implicitNetModule) {
+                    UHDM::logic_net* in403 = nullptr;
+                    if (implicitNetModule->Nets())
+                        for (auto* n403 : *implicitNetModule->Nets())
+                            if (n403->VpiName() == nv.symbol.name &&
+                                n403->UhdmType() == UHDM::uhdmlogic_net) {
+                                in403 = (UHDM::logic_net*)n403;
+                                break;
+                            }
+                    if (!in403) {
+                        in403 = s.MakeLogic_net();
+                        in403->VpiName(nv.symbol.name);
+                        in403->VpiFullName(implicitNetPrefix + "." +
+                                           std::string(nv.symbol.name));
+                        in403->VpiParent(implicitNetModule);
+                        in403->VpiNetType(1);
+                        setLoc(in403, expr.sourceRange);
+                        noteImplicitNetMint131(in403);  // § implicitNetMintNoFile131
+                        auto* nets403 = implicitNetModule->Nets();
+                        if (!nets403) {
+                            nets403 = s.MakeNetVec();
+                            implicitNetModule->Nets(nets403);
+                        }
+                        nets403->push_back(in403);
+                    }
+                    r403->Actual_group(in403);
+                }
+                return r403;
+            }
             // § classEnumViaHandleIsPath401 (r11u401, R11U401_CLSENUMPATH_OFF)
             // — a class's enum member read THROUGH A HANDLE (`test_obj.C`,
             // the enum typedef'd in the class) is the dotted hier_path
@@ -34257,6 +34376,53 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& il = expr.as<IntegerLiteral>();
             auto* c = s.MakeConstant();
             std::string raw = rawTextLit(expr);
+            // § macroVecLitTokenText403 (r11u403, R11U403_MACROLITTOK_OFF;
+            // decoded and withdrawn by r11u401 as macroVecLitTokenText401) —
+            // a based literal expanded from a macro whose range text does
+            // not read back (black-parrot's decoder macro
+            // `{``funct12``,{5{1'b?}},...}`: the literal's range resolves
+            // into the `define body and the text reads "``funct12``,{5{1'",
+            // which crashed the base-digit split below with substr's
+            // out_of_range on all six generated/black-parrot rows) takes the
+            // literal's own tokens, size + base + value, as Surelog's
+            // expanded token stream reads them.  Only when the range text
+            // does not end with the value token: a readable range keeps its
+            // bytes.  THE SIZE GUARD (R11U403_MACROLITGUARD_OFF lifts it):
+            // when the loaded source text exceeds 1 MB the law abstains and
+            // the exporter rejects the design as pristine does, because the
+            // only designs that reach this shape at that size are the
+            // black-parrot cores, which then export at 10 to 11 GB each and
+            // are killed for memory on the 15 GB gate machine (bp_multicore_4
+            // even alone), turning SURELOG_CRASH into SLANG_CRASH.  Grid
+            // cases/ML.
+            if (expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::IntegerVectorExpression &&
+                expr.sourceRange.start() != SourceLocation::NoLocation &&
+                sm->isMacroLoc(expr.sourceRange.start()) &&
+                lawOn(403, "R11U403_MACROLITTOK_OFF")) {
+                auto& iv403 = expr.syntax->as<syntax::IntegerVectorExpressionSyntax>();
+                std::string vt403 = iv403.value ? std::string(iv403.value.rawText()) : "";
+                if (!vt403.empty() &&
+                    (raw.size() < vt403.size() ||
+                     raw.compare(raw.size() - vt403.size(), vt403.size(), vt403) != 0)) {
+                    std::string t403;
+                    if (iv403.size)
+                        t403 += std::string(iv403.size.rawText());
+                    if (iv403.base)
+                        t403 += std::string(iv403.base.rawText());
+                    t403 += vt403;
+                    const size_t srcBytes403 = sm->getMemoryUsage();
+                    if (srcBytes403 > 1000000 &&
+                        lawOn(403, "R11U403_MACROLITGUARD_OFF")) {
+                        lawTrace(403, "macroVecLitTokenText403_GUARD",
+                                 raw + " src=" + std::to_string(srcBytes403));
+                    }
+                    else {
+                        lawTrace(403, "macroVecLitTokenText403", raw + " -> " + t403);
+                        raw = t403;
+                    }
+                }
+            }
             // Spaced based literals (8'd 3) re-lex compactly; the span
             // shrinks by the removed whitespace.
             size_t spc = basedLiteralSpaceCount(raw);
@@ -34287,6 +34453,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // both the decompile and the value (Surelog quirk).
             if (raw.find('\'') != std::string::npos)
                 raw.erase(std::remove(raw.begin(), raw.end(), '_'), raw.end());
+            // § sizeTickSpaceDropped403 (r11u403, R11U403_SIZETICKSP_OFF) — a
+            // based literal written with blanks between its SIZE and the tick
+            // (`32 'h 12ab_f001`) decompiles without them, as Surelog's lexer
+            // joins the size, base and digits into one token text (golden
+            // 5.7.1--integers-underscores.sv `32'h12abf001`; the blanks after
+            // the base were already dropped above).  Grid cases/SZ.
+            if (auto tk403 = raw.find('\'');
+                tk403 != std::string::npos && tk403 > 0 &&
+                (raw[tk403 - 1] == ' ' || raw[tk403 - 1] == '\t') &&
+                lawOn(403, "R11U403_SIZETICKSP_OFF")) {
+                size_t b403 = tk403;
+                while (b403 > 0 && (raw[b403 - 1] == ' ' || raw[b403 - 1] == '\t'))
+                    b403--;
+                if (b403 > 0 && isdigit((unsigned char)raw[b403 - 1])) {
+                    lawTrace(403, "sizeTickSpaceDropped403", raw);
+                    raw.erase(b403, tk403 - b403);
+                }
+            }
             c->VpiDecompile(raw);
             c->VpiSize((int32_t)expr.type->getBitWidth());
             // § ppBasedLitWsAfter166: the span shrink is the location
@@ -37866,6 +38050,48 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::Call: {
             auto& call = expr.as<CallExpression>();
+            // § stdRandomizeIsScopeRef403 (r11u403, R11U403_STDRAND_OFF) —
+            // `std::randomize(...)` is not a call in Surelog's database: the
+            // scope-qualified name compiles to ONE ref_obj.  Without a `with`
+            // block it is named `std::randomize` and spans `std::` alone
+            // (golden 18.12--randomization-of-scope-variables_0.sv 19:19-19:24);
+            // with one it is named `std` and spans through the constraint
+            // block's `}` (18.12.1 19:19-19:57), and in a MODULE that name
+            // leaks the implicit wire, bound (grid cases/SR sr02); the
+            // arguments are not written.  The exporter wrote a hier_path
+            // `x.randomize`.  README residue R1 of pass 116; grid cases/SR.
+            if (call.isSystemCall() && call.getSubroutineName() == "randomize" &&
+                expr.syntax && expr.sourceRange.start().valid() &&
+                !sm->isMacroLoc(expr.sourceRange.start()) &&
+                rawText(SourceRange(expr.sourceRange.start(),
+                                    expr.sourceRange.start() + 5)) == "std::" &&
+                lawOn(403, "R11U403_STDRAND_OFF")) {
+                const slang::ast::Constraint* ic403 = nullptr;
+                {
+                    auto& sci403 = std::get<CallExpression::SystemCallInfo>(call.subroutine);
+                    if (auto* ri403 =
+                            std::get_if<CallExpression::RandomizeCallInfo>(&sci403.extraInfo))
+                        ic403 = ri403->inlineConstraints;
+                }
+                auto* r403 = s.MakeRef_obj();
+                r403->VpiParent(parent);
+                std::string nm403 = ic403 ? "std" : "std::randomize";
+                r403->VpiName(nm403);
+                r403->VpiFullName(joinRef(prefix, nm403));
+                SourceRange sr403(expr.sourceRange.start(), expr.sourceRange.start() + 5);
+                if (ic403)
+                    sr403 = SourceRange(expr.sourceRange.start(),
+                                        ic403->syntax ? ic403->syntax->sourceRange().end()
+                                                      : expr.sourceRange.end());
+                setLoc(r403, sr403);
+                lawTrace(403, "stdRandomizeIsScopeRef403", nm403);
+                if (ic403 && implicitNetModule)
+                    if (auto* n403 = mintImplicitNet403(
+                            s, implicitNetModule, implicitNetPrefix, "std", sr403,
+                            [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); }))
+                        r403->Actual_group(n403);
+                return r403;
+            }
             // § ndaCallFoldIsEvalFunc102 — the same fold where the call's own
             // type IS the net's and slang wrapped no conversion around it.
             if (ndaRhsEmit && parent &&
@@ -40957,11 +41183,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // carry their ARGUMENTS but NO vpiFunction link
                     // (DelayAssign; the same import inside a module binds
                     // normally).
+                    // § unitFwdCallNoLink403 (r11u403, R11U403_UNITFWDCALL_OFF)
+                    // — a call to a $unit FUNCTION declared further down the
+                    // compilation unit (not emitted yet) is the same name-only
+                    // func_call with its written arguments and no vpiFunction:
+                    // Surelog is single-pass and has not seen the callee
+                    // (golden uf05 `g` calling the later `f`: func_call (f)
+                    // 3:8-3:12, argument `a`, no link).  The exporter rejected
+                    // the call ('user function call', sv-tests
+                    // hdlconvertor_std2017_p728.sv).  Grid cases/UF.
                     else if (pscope &&
                              pscope->asSymbol().kind ==
                                  SymbolKind::CompilationUnit &&
-                             (sub.flags & MethodFlags::DPIImport) !=
-                                 MethodFlags::None) {
+                             ((sub.flags & MethodFlags::DPIImport) !=
+                                  MethodFlags::None ||
+                              (sub.subroutineKind == SubroutineKind::Function &&
+                               lawOn(403, "R11U403_UNITFWDCALL_OFF")))) {
+                        if ((sub.flags & MethodFlags::DPIImport) == MethodFlags::None)
+                            lawTrace(403, "unitFwdCallNoLink403", std::string(sub.name));
                         auto* fc0 = sub.subroutineKind == SubroutineKind::Function
                                         ? (UHDM::tf_call*)s.MakeFunc_call()
                                         : (UHDM::tf_call*)s.MakeTask_call();

@@ -1,0 +1,50 @@
+VA/va01_int_attr_abstains IDENTICAL 
+VA/va02_two_attrs_cont_assign IDENTICAL 
+VA/va03_nested_ops IDENTICAL 
+VA/va04_param_fold EQUIVALENT nohier il synth
+VA/va05_in_always_cond IDENTICAL 
+VC/vc01_unique_case_in_function IDENTICAL 
+VC/vc02_always_comb_begin EQUIVALENT nohier
+VE/ve01_trigger_down_inst IDENTICAL 
+VE/ve02_wait_down_inst IDENTICAL 
+VE/ve03_trigger_genblk IDENTICAL 
+VE/ve04_trigger_wait_same_root EQUIVALENT nohier
+VE/ve05_nb_trigger_up EQUIVALENT nohier
+VE/ve06_wait_paren_up IDENTICAL 
+VE/ve07_trigger_in_task EQUIVALENT nohier
+VE/ve09_wait_in_always EQUIVALENT nohier
+VF/vf02_back_and_forward DIVERGENT nohier il synth
+VF/vf03_module_before_unit_fn IDENTICAL 
+VF/vf04_recursive_unit_fn IDENTICAL 
+VF/vf05_task_calls_later_fn EQUIVALENT nohier il synth
+VF/vf06_fn_in_param_default IDENTICAL 
+VI/vi02_int_queue_control IDENTICAL 
+VL/vl01_macro_lit_plain EQUIVALENT nohier
+VL/vl02_macro_arg_lit IDENTICAL 
+VL/vl03_paste_size DIVERGENT nohier il synth
+VM/vm01_begin_body EQUIVALENT nohier il synth
+VM/vm02_else_if_chain EQUIVALENT nohier il synth
+VM/vm03_in_module_function IDENTICAL 
+VM/vm04_guard_uses_var EQUIVALENT nohier il synth
+VM/vm05_shadows_module_var EQUIVALENT nohier il synth
+VM/vm06_cont_assign_cond IDENTICAL 
+VM/vm07_wildcard_member EQUIVALENT nohier il synth
+VM/vm08_shadows_module_wire EQUIVALENT nohier il synth
+VM/vm10_labeled_else EQUIVALENT nohier il synth
+VM/vm11_named_begin_body EQUIVALENT nohier il synth
+VM/vm12_labeled_else_plain_if IDENTICAL 
+VO/vo01_pkg_fn_by_macro IDENTICAL 
+VP/vp01_unique_pattern_case_casex EQUIVALENT nohier
+VQ/vq01_unique0_else_if_chain EQUIVALENT nohier il
+VQ/vq02_unique0_case_control EQUIVALENT nohier il
+VQ/vq03_unique0_in_function IDENTICAL 
+VS/vs01_if_not_randomize EQUIVALENT nohier il synth
+VS/vs03_no_args EQUIVALENT nohier il synth
+VS/vs04_two_with_blocks EQUIVALENT nohier il synth
+VS/vs05_void_cast_stmt IDENTICAL 
+VS/vs06_pkg_function IDENTICAL 
+VS/vs07_with_in_task_module EQUIVALENT nohier il synth
+VZ/vz01_signed_and_tab IDENTICAL 
+VZ/vz02_param_and_cont IDENTICAL 
+VZ/vz03_case_item IDENTICAL 
+VZ/vz04_wide_and_unsized IDENTICAL 

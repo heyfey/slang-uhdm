@@ -1,0 +1,67 @@
+VA/va01_int_attr_abstains | rc=0 cmp=57 strict=NOT_EQUAL stage1 | rc=0 cmp=57 strict=NOT_EQUAL stage1
+VA/va02_two_attrs_cont_assign | rc=0 cmp=67 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 82 objects
+VA/va03_nested_ops | rc=0 cmp=57 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 108 objects
+VA/va04_param_fold | rc=0 cmp=57 strict=NOT_EQUAL stage1 | rc=0 cmp=41 strict=NOT_EQUAL stage1
+VA/va05_in_always_cond | rc=0 cmp=71 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 98 objects
+VC/vc01_unique_case_in_function | rc=4 cmp=92 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 169 objects
+VC/vc02_always_comb_begin | rc=4 cmp=132 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 157 objects
+VC/vc03_in_class_method | rc=4 cmp=25 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 33 objects
+VD/vd01_explicit_this_root | rc=0 cmp=50 strict=NOT_EQUAL stage1 | rc=0 cmp=50 strict=NOT_EQUAL stage1
+VD/vd02_inbody_prop_root | rc=0 cmp=0 strict=STRICT_EQUAL 26 objects | rc=0 cmp=0 strict=STRICT_EQUAL 26 objects
+VD/vd03_oob_prop_root_elem | rc=0 cmp=520 strict=NOT_EQUAL stage1 | rc=0 cmp=520 strict=NOT_EQUAL stage1
+VE/ve01_trigger_down_inst | rc=0 cmp=65 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 15 objects
+VE/ve02_wait_down_inst | rc=0 cmp=0 strict=STRICT_EQUAL 28 objects | rc=0 cmp=0 strict=STRICT_EQUAL 28 objects
+VE/ve03_trigger_genblk | rc=0 cmp=123 strict=NOT_EQUAL stage1 | rc=0 cmp=53 strict=NOT_EQUAL stage1
+VE/ve04_trigger_wait_same_root | rc=0 cmp=107 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 30 objects
+VE/ve05_nb_trigger_up | rc=0 cmp=49 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 15 objects
+VE/ve06_wait_paren_up | rc=0 cmp=0 strict=STRICT_EQUAL 28 objects | rc=0 cmp=0 strict=STRICT_EQUAL 28 objects
+VE/ve07_trigger_in_task | rc=0 cmp=81 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 19 objects
+VE/ve08_trigger_in_class | rc=0 cmp=0 strict=STRICT_EQUAL 17 objects | rc=0 cmp=0 strict=STRICT_EQUAL 17 objects
+VE/ve09_wait_in_always | rc=0 cmp=298 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 46 objects
+VF/vf01_class_calls_later_unit_fn | rc=0 cmp=0 strict=STRICT_EQUAL 34 objects | rc=0 cmp=0 strict=STRICT_EQUAL 34 objects
+VF/vf02_back_and_forward | rc=4 cmp=114 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 61 objects
+VF/vf03_module_before_unit_fn | rc=0 cmp=0 strict=STRICT_EQUAL 33 objects | rc=0 cmp=0 strict=STRICT_EQUAL 33 objects
+VF/vf04_recursive_unit_fn | rc=0 cmp=0 strict=STRICT_EQUAL 41 objects | rc=0 cmp=0 strict=STRICT_EQUAL 41 objects
+VF/vf05_task_calls_later_fn | rc=4 cmp=60 strict=NOT_EQUAL stage1 | rc=0 cmp=60 strict=NOT_EQUAL stage1
+VF/vf06_fn_in_param_default | rc=4 cmp=25 strict=NOT_EQUAL stage1 | rc=0 cmp=17 strict=NOT_EQUAL stage1
+VH/vh01_inc_body_after_inline | rc=0 cmp=68 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 81 objects
+VH/vh02_inc_nested | rc=0 cmp=66 strict=NOT_EQUAL stage1 | rc=0 cmp=1296 strict=NOT_EQUAL stage1
+VI/vi01_pkg_fn_dyn_array | rc=0 cmp=56 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 89 objects
+VI/vi02_int_queue_control | rc=0 cmp=126 strict=NOT_EQUAL stage1 | rc=0 cmp=126 strict=NOT_EQUAL stage1
+VI/vi03_import_at_end | rc=0 cmp=56 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 89 objects
+VI/vi04_two_pkgs_one_imported | rc=0 cmp=56 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 137 objects
+VI/vi05_class_method_in_pkg | rc=0 cmp=0 strict=STRICT_EQUAL 72 objects | rc=0 cmp=0 strict=STRICT_EQUAL 72 objects
+VI/vi06_assoc_array | rc=0 cmp=15 strict=NOT_EQUAL stage1 | rc=0 cmp=15 strict=NOT_EQUAL stage1
+VL/vl01_macro_lit_plain | rc=0 cmp=28 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 79 objects
+VL/vl02_macro_arg_lit | rc=0 cmp=0 strict=STRICT_EQUAL 32 objects | rc=0 cmp=0 strict=STRICT_EQUAL 32 objects
+VL/vl03_paste_size | rc=0 cmp=38 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_NOTEQUAL endline
+VM/vm01_begin_body | rc=4 cmp=488 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 165 objects
+VM/vm02_else_if_chain | rc=4 cmp=602 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 183 objects
+VM/vm03_in_module_function | rc=4 cmp=144 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 181 objects
+VM/vm04_guard_uses_var | rc=4 cmp=518 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 169 objects
+VM/vm05_shadows_module_var | rc=4 cmp=103 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 179 objects
+VM/vm06_cont_assign_cond | rc=4 cmp=51 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 158 objects
+VM/vm07_wildcard_member | rc=4 cmp=97 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 161 objects
+VM/vm08_shadows_module_wire | rc=4 cmp=103 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 179 objects
+VM/vm09_class_method_if | rc=4 cmp=136 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 41 objects
+VM/vm10_labeled_else | rc=4 cmp=520 strict=NOT_EQUAL stage1 | rc=0 cmp=86 strict=NOT_EQUAL stage1
+VM/vm11_named_begin_body | rc=4 cmp=540 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 173 objects
+VM/vm12_labeled_else_plain_if | rc=0 cmp=98 strict=NOT_EQUAL stage1 | rc=0 cmp=98 strict=NOT_EQUAL stage1
+VO/vo01_pkg_fn_by_macro | rc=0 cmp=0 strict=STRICT_EQUAL 43 objects | rc=0 cmp=0 strict=STRICT_EQUAL 43 objects
+VO/vo02_oob_macro_before_plain | rc=0 cmp=40 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 17 objects
+VO/vo03_two_line_macro_body | rc=0 cmp=132 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 54 objects
+VP/vp01_unique_pattern_case_casex | rc=4 cmp=31 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 71 objects
+VQ/vq01_unique0_else_if_chain | rc=0 cmp=446 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 83 objects
+VQ/vq02_unique0_case_control | rc=0 cmp=186 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 95 objects
+VQ/vq03_unique0_in_function | rc=0 cmp=186 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 52 objects
+VS/vs01_if_not_randomize | rc=0 cmp=62 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 27 objects
+VS/vs02_class_with_block | rc=0 cmp=46 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 22 objects
+VS/vs03_no_args | rc=4 cmp=15 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 20 objects
+VS/vs04_two_with_blocks | rc=0 cmp=438 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 42 objects
+VS/vs05_void_cast_stmt | rc=0 cmp=38 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 13 objects
+VS/vs06_pkg_function | rc=0 cmp=46 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 25 objects
+VS/vs07_with_in_task_module | rc=0 cmp=50 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 38 objects
+VZ/vz01_signed_and_tab | rc=0 cmp=52 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 83 objects
+VZ/vz02_param_and_cont | rc=0 cmp=64 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 84 objects
+VZ/vz03_case_item | rc=0 cmp=36 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 62 objects
+VZ/vz04_wide_and_unsized | rc=0 cmp=28 strict=NOT_EQUAL stage1 | rc=0 cmp=0 strict=STRICT_EQUAL 61 objects
