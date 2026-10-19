@@ -1475,6 +1475,90 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
                         }
                         return r9;
                     }
+                    // § seqEventCtrlRefDecl407 (r11u407, R11U407_SEQEVREF_OFF;
+                    // cases tools/probe/r11u407repro/cases/SE; sv-tests
+                    // chapter-9/9.4.2.4--event_sequence.sv) — `@seq` naming a
+                    // sequence declared in the enclosing scope, with no
+                    // argument list, is the event_control's condition: a
+                    // ref_obj named after the sequence, located at its name,
+                    // scoped under the reference's context and bound to the
+                    // listed sequence_decl (golden `ref_obj work@seq_tb.seq`
+                    // vpiActual `sequence_decl work@seq_tb.seq`).  We wrote
+                    // no condition.  Fires only when the declaration is
+                    // listed (§ sequenceDeclListed406) on an enclosing scope.
+                    if (sec.expr.kind == ExpressionKind::AssertionInstance &&
+                        lawOn(407, "R11U407_SEQEVREF_OFF")) {
+                        auto& aie407 = sec.expr.as<AssertionInstanceExpression>();
+                        const syntax::SyntaxNode* xs407 = sec.expr.syntax;
+                        if (aie407.symbol.kind == SymbolKind::Sequence &&
+                            aie407.arguments.empty() && xs407 &&
+                            xs407->kind == syntax::SyntaxKind::IdentifierName) {
+                            // § seqEvGenRefUnbound407v (v11u407,
+                            // R11V407_SEQEVGEN_OFF; cases
+                            // tools/probe/v11u407repro/cases/VE/ve02, ve03,
+                            // ve09, ve10; ve11 its control: a bare
+                            // generate/endgenerate region is not a scope and
+                            // binds as at module level) — a reference written
+                            // inside a generate BLOCK (if, case or loop
+                            // generate) is listed by golden with NO vpiActual
+                            // in the definition view (ve02 and ve03) and in
+                            // the elaborated gen scope when the sequence sits
+                            // outside it (ve02): the ref_obj at the name,
+                            // scoped as usual, unbound.  The law bound the
+                            // definition view's ref to the module's
+                            // sequence_decl and wrote no condition in the gen
+                            // scope.
+                            bool gen407v = false;
+                            for (const syntax::SyntaxNode* sp407 = xs407->parent; sp407 && !gen407v;
+                                 sp407 = sp407->parent) {
+                                const auto k407 = sp407->kind;
+                                if (k407 == syntax::SyntaxKind::ModuleDeclaration ||
+                                    k407 == syntax::SyntaxKind::InterfaceDeclaration ||
+                                    k407 == syntax::SyntaxKind::ProgramDeclaration)
+                                    break;
+                                gen407v = k407 == syntax::SyntaxKind::GenerateBlock ||
+                                          k407 == syntax::SyntaxKind::IfGenerate ||
+                                          k407 == syntax::SyntaxKind::LoopGenerate ||
+                                          k407 == syntax::SyntaxKind::CaseGenerate;
+                            }
+                            if (gen407v && fixOn(407, "R11V407_SEQEVGEN_OFF")) {
+                                lawTrace(407, "seqEvGenRefUnbound407v",
+                                         std::string(aie407.symbol.name));
+                                auto* g407 = s.MakeRef_obj();
+                                g407->VpiName(aie407.symbol.name);
+                                g407->VpiFullName(
+                                    joinRef(prefix, std::string(aie407.symbol.name)));
+                                g407->VpiParent(parent);
+                                setLoc(g407, xs407->sourceRange());
+                                return g407;
+                            }
+                            UHDM::sequence_decl* sd407 = nullptr;
+                            for (const UHDM::BaseClass* w407 = parent; w407 && !sd407;
+                                 w407 = w407->VpiParent()) {
+                                auto* sc407 = dynamic_cast<const UHDM::scope*>(w407);
+                                if (!sc407 || !sc407->Sequence_decls())
+                                    continue;
+                                for (auto* d407 : *sc407->Sequence_decls())
+                                    if (d407->VpiName() == aie407.symbol.name) {
+                                        sd407 = d407;
+                                        break;
+                                    }
+                            }
+                            if (sd407) {
+                                lawTrace(407, "seqEventCtrlRefDecl407",
+                                         std::string(sd407->VpiFullName()));
+                                auto* r407 = s.MakeRef_obj();
+                                r407->VpiName(aie407.symbol.name);
+                                r407->VpiFullName(
+                                    joinRef(prefix, std::string(aie407.symbol.name)));
+                                r407->VpiParent(parent);
+                                setLoc(r407, xs407->sourceRange());
+                                r407->Actual_group(sd407);
+                                return r407;
+                            }
+                            lawTrace(407, "seqEventCtrlRefDecl407", "abstain nodecl");
+                        }
+                    }
                     return emitExpr(sec.expr, parent, prefix, netMap);
                 }
                 default:
@@ -8274,9 +8358,200 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 auto* e = emitExpr(*rs.expr, r, prefix, netMap);
                 pkgRetFoldExpr30 = savedPRF30;
+                const bool retTop407 = pkgRetTopExpr8;
                 pkgRetTopExpr8 = savedPRT8;
                 if (e) {
                     r->VpiCondition((UHDM::expr*)e);
+                    // § pkgRetEnumOperandFold407 (r11u407,
+                    // R11U407_RETENUMFOLD_OFF; cases
+                    // tools/probe/r11u407repro/cases/EF; sv-tests
+                    // generated/tnoc/tnoc.sv tnoc_pkg::is_valid_packet_type)
+                    // — in a package's ELABORATED listing (uhdmtopPackages)
+                    // a package subroutine's direct `return` whose expression
+                    // is an OPERATION (`return (x != A);`, `x == B ? v : B`)
+                    // is compiled under Reduce::Yes: every enum-constant
+                    // reference among the operation's operands, nested
+                    // operations included, is replaced by the constant
+                    // getValue builds from the enum value (golden tnoc
+                    // `constant 'b00000000` size -1 BIN at 200:28-200:47 where
+                    // we wrote `ref_obj TNOC_INVALID_PACKET`): the value, size
+                    // and decompile of the enum_const (an INT/UINT decompile
+                    // its digits), no typespec.  A bare `return A;`, a return
+                    // inside an if or loop, the definition listing, class
+                    // methods and module functions keep the ref_obj (EF/ef07,
+                    // ef08, ef04).
+                    // § pkgRetBitSelParamFold407 (r11u407,
+                    // R11U407_RETBSPARAM_OFF; cases
+                    // tools/probe/r11u407repro/cases/BS; sv-tests
+                    // generated/tnoc/tnoc.sv tnoc_pkg::is_request_packet_type
+                    // `!packet_type[TNOC_PACKET_TYPE_RESPONSE_BIT]`) — the same
+                    // Reduce::Yes window reduces a bit_select's INDEX that
+                    // names a parameter of the subroutine's own package (the
+                    // bit_select the returned expression itself, or reached
+                    // through its operations): a constant at the reference
+                    // holding the parameter's value at the parameter type's
+                    // width (the written literal's base and decompile,
+                    // `7`/UINT/32 for `localparam int RB = 7`, `4'd2`/DEC/4
+                    // for `logic [3:0] LB = 4'd2`) with a ref_typespec named
+                    // after the bit_select onto a copy of the parameter's
+                    // typespec (golden bs03 `ref_typespec (p::f::x)` ->
+                    // `int_typespec 3:14-3:17`).  An index that is an
+                    // expression (`x[RB-1]`), a part-select range, a
+                    // parameter whose initializer is not a literal and an
+                    // assignment's rhs are not reached (BS/bs04, bs06, bs05).
+                    auto bsFold407 = [&](UHDM::bit_select* bs407) {
+                        auto* ix407 = bs407->VpiIndex();
+                        if (!ix407 || ix407->UhdmType() != UHDM::uhdmref_obj)
+                            return;
+                        auto* ri407 = (UHDM::ref_obj*)ix407;
+                        auto* ra407 = ri407->Actual_group();
+                        if (!ra407 || ra407->UhdmType() != UHDM::uhdmconstant)
+                            return;
+                        auto* rc407 = (const UHDM::constant*)ra407;
+                        std::string nm407(ri407->VpiName());
+                        if (nm407.empty() || nm407.find(':') != std::string::npos)
+                            return;
+                        auto* pk407 = currentSubSym->getParentScope();
+                        if (!pk407 || pk407->asSymbol().kind != SymbolKind::Package)
+                            return;
+                        if (currentSubSym->find(nm407))
+                            return;
+                        // § pkgRetBsParamTargetKeep407v (v11u407,
+                        // R11V407_BSTARGET_OFF; case
+                        // tools/probe/v11u407repro/cases/VB/vb04) — a select
+                        // OF a package parameter (`MASK[RB]`) is reduced by
+                        // golden as a whole to one constant (`1'b1`); the law
+                        // rewrote only its index and listed a typespec copy
+                        // golden does not hold.  The bit_select keeps its
+                        // index ref_obj there.
+                        if (auto* tg407 = pk407->find(bs407->VpiName());
+                            tg407 && tg407->kind == SymbolKind::Parameter &&
+                            !currentSubSym->find(bs407->VpiName()) &&
+                            fixOn(407, "R11V407_BSTARGET_OFF"))
+                            return;
+                        auto* sy407 = pk407->find(nm407);
+                        if (!sy407 || sy407->kind != SymbolKind::Parameter)
+                            return;
+                        auto& pp407 = sy407->as<ParameterSymbol>();
+                        auto& pv407 = pp407.getValue();
+                        if (!pv407.isInteger() || pv407.integer().hasUnknown())
+                            return;
+                        const int32_t w407 = (int32_t)pp407.getType().getBitWidth();
+                        std::string rv407(rc407->VpiValue());
+                        auto cp407 = rv407.find(':');
+                        if (cp407 == std::string::npos || w407 <= 0)
+                            return;
+                        const int32_t ct407 = rc407->VpiConstType();
+                        if (ct407 != vpiUIntConst && ct407 != vpiIntConst &&
+                            ct407 != vpiDecConst)
+                            return;
+                        auto* c407 = s.MakeConstant();
+                        c407->VpiParent(bs407);
+                        c407->VpiFile(ri407->VpiFile());
+                        c407->VpiLineNo(ri407->VpiLineNo());
+                        c407->VpiColumnNo(ri407->VpiColumnNo());
+                        c407->VpiEndLineNo(ri407->VpiEndLineNo());
+                        c407->VpiEndColumnNo(ri407->VpiEndColumnNo());
+                        c407->VpiValue(rv407);
+                        c407->VpiDecompile(rc407->VpiDecompile());
+                        c407->VpiSize(w407);
+                        c407->VpiConstType(ct407);
+                        bool typed407 = false;
+                        if (auto dt407 = pp407.getDeclaredType())
+                            if (auto* ts407 = dt407->getTypeSyntax())
+                                typed407 = ts407->kind != syntax::SyntaxKind::ImplicitType;
+                        if (auto* its407 = makeParamTs(pp407, typed407)) {
+                            if (auto pit407 = pkgDefMap.find(&pk407->asSymbol());
+                                typed407 && pit407 != pkgDefMap.end())
+                                its407->Instance(pit407->second);
+                            auto* rt407 = s.MakeRef_typespec();
+                            rt407->VpiParent(c407);
+                            rt407->VpiFullName(bs407->VpiFullName());
+                            rt407->Actual_typespec(its407);
+                            its407->VpiParent(rt407);
+                            c407->Typespec(rt407);
+                        }
+                        lawTrace(407, "pkgRetBitSelParamFold407", nm407);
+                        bs407->VpiIndex(c407);
+                        s.Erase(ri407);
+                    };
+                    if (retTop407 && pkgTopEmit && pkgScopeInst && currentSubSym &&
+                        !inClassBodyEmit && e->UhdmType() == UHDM::uhdmbit_select &&
+                        lawOn(407, "R11U407_RETBSPARAM_OFF"))
+                        bsFold407((UHDM::bit_select*)e);
+                    const bool bsOn407 = lawOn(407, "R11U407_RETBSPARAM_OFF");
+                    const bool enOn407 = lawOn(407, "R11U407_RETENUMFOLD_OFF");
+                    if (retTop407 && pkgTopEmit && pkgScopeInst && currentSubSym &&
+                        !inClassBodyEmit && e->UhdmType() == UHDM::uhdmoperation &&
+                        (bsOn407 || enOn407))
+                        if (auto* ps407 = currentSubSym->getParentScope();
+                            ps407 && ps407->asSymbol().kind == SymbolKind::Package) {
+                            std::function<void(UHDM::operation*)> walk407 =
+                                [&](UHDM::operation* op407) {
+                                    auto* ov407 = op407->Operands();
+                                    if (!ov407)
+                                        return;
+                                    for (auto& o407 : *ov407) {
+                                        if (o407->UhdmType() == UHDM::uhdmoperation) {
+                                            walk407((UHDM::operation*)o407);
+                                            continue;
+                                        }
+                                        if (o407->UhdmType() == UHDM::uhdmbit_select) {
+                                            if (bsOn407)
+                                                bsFold407((UHDM::bit_select*)o407);
+                                            continue;
+                                        }
+                                        if (!enOn407 ||
+                                            o407->UhdmType() != UHDM::uhdmref_obj)
+                                            continue;
+                                        auto* ro407 = (UHDM::ref_obj*)o407;
+                                        auto* ac407 = ro407->Actual_group();
+                                        if (!ac407 ||
+                                            ac407->UhdmType() != UHDM::uhdmenum_const)
+                                            continue;
+                                        auto* ec407 = (const UHDM::enum_const*)ac407;
+                                        std::string v407(ec407->VpiValue());
+                                        auto c407p = v407.find(':');
+                                        if (c407p == std::string::npos)
+                                            continue;
+                                        std::string k407 = v407.substr(0, c407p);
+                                        int32_t ct407 = 0;
+                                        std::string dc407(ec407->VpiDecompile());
+                                        if (k407 == "BIN")
+                                            ct407 = vpiBinaryConst;
+                                        else if (k407 == "HEX")
+                                            ct407 = vpiHexConst;
+                                        else if (k407 == "OCT")
+                                            ct407 = vpiOctConst;
+                                        else if (k407 == "INT") {
+                                            ct407 = vpiIntConst;
+                                            dc407 = v407.substr(c407p + 1);
+                                        }
+                                        else if (k407 == "UINT") {
+                                            ct407 = vpiUIntConst;
+                                            dc407 = v407.substr(c407p + 1);
+                                        }
+                                        else
+                                            continue;
+                                        auto* c407 = s.MakeConstant();
+                                        c407->VpiParent(op407);
+                                        c407->VpiFile(ro407->VpiFile());
+                                        c407->VpiLineNo(ro407->VpiLineNo());
+                                        c407->VpiColumnNo(ro407->VpiColumnNo());
+                                        c407->VpiEndLineNo(ro407->VpiEndLineNo());
+                                        c407->VpiEndColumnNo(ro407->VpiEndColumnNo());
+                                        c407->VpiValue(v407);
+                                        c407->VpiSize(ec407->VpiSize());
+                                        c407->VpiDecompile(dc407);
+                                        c407->VpiConstType(ct407);
+                                        lawTrace(407, "pkgRetEnumOperandFold407",
+                                                 std::string(ec407->VpiName()));
+                                        o407 = c407;
+                                        s.Erase(ro407);
+                                    }
+                                };
+                            walk407((UHDM::operation*)e);
+                        }
                     // § pkgRetCallFoldSharesCalleeRet300 (r11u300) — THE
                     // REGISTRY.  A direct `return` of a package function in an
                     // ELABORATED package listing records the object its

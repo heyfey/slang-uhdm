@@ -25779,6 +25779,62 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& nv = expr.as<NamedValueExpression>();
             if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                 refCollector->insert(&nv.symbol);
+            // § assertLocalVarImplicitNet407 (r11u407, R11U407_ASSERTLOCALNET_OFF;
+            // cases tools/probe/r11u407repro/cases/LV; sv-tests
+            // chapter-16/16.10--sequence-local-var.sv and its -fail twin,
+            // 16.10--property-local-var.sv and its -fail twin) — a read of a
+            // sequence or property declaration's LOCAL variable (`int x;` in
+            // the declaration, `x + 4` in its body) is a name Surelog's
+            // netlist elaboration cannot resolve: it mints the implicit
+            // module wire at the first reference's span (vpiNetType 1, no
+            // file) and binds the scoped ref_obj (`work@top.seq.x`) to it by
+            // name, as for a property formal (emitPropFormalRef; golden
+            // `logic_net (work@top.x) 65:52-65:53`).  We wrote the ref_obj
+            // with no vpiActual.  Only inside a listed declaration
+            // (implicitNetModule and propDeclScope set).
+            // § assertLocalNetNotProgram407v (v11u407, R11V407_LVPROG_OFF;
+            // cases tools/probe/v11u407repro/cases/VL/vl06, vl10) — inside a
+            // PROGRAM Surelog mints no implicit wire for the local variable:
+            // golden lists the ref_obj (work@top.p.seq.x) with no vpiActual
+            // and no net under the program, where the law minted
+            // `logic_net work@prg.x` and bound it.  The law abstains there.
+            // § assertLocalNetParamNameKeep407v (v11u407,
+            // R11V407_LVPARAM_OFF; cases tools/probe/v11u407repro/cases/VL/
+            // vl09, vl13, vl17) — when the module declares a PARAMETER of
+            // the local variable's name, golden's ref_obj stays unbound and
+            // no wire is minted (the netlist lookup meets the parameter, not
+            // a net): pristine's bytes, STRICT_EQUAL, which the law broke by
+            // minting `logic_net work@top.x` beside `parameter work@top.x`.
+            auto paramNamed407v = [&]() {
+                for (auto* sc = propDeclScope->asSymbol().getParentScope(); sc;
+                     sc = sc->asSymbol().getParentScope()) {
+                    if (auto* f = sc->find(nv.symbol.name);
+                        f && f->kind == SymbolKind::Parameter)
+                        return true;
+                    if (sc->asSymbol().kind == SymbolKind::InstanceBody)
+                        break;
+                }
+                return false;
+            };
+            if (nv.symbol.kind == SymbolKind::LocalAssertionVar && propDeclScope &&
+                implicitNetModule &&
+                !(implicitNetModule->UhdmType() == UHDM::uhdmprogram &&
+                  fixOn(407, "R11V407_LVPROG_OFF")) &&
+                !(paramNamed407v() && fixOn(407, "R11V407_LVPARAM_OFF")) &&
+                lawOn(407, "R11U407_ASSERTLOCALNET_OFF")) {
+                lawTrace(407, "assertLocalVarImplicitNet407", std::string(nv.symbol.name));
+                auto* r407 = s.MakeRef_obj();
+                r407->VpiName(nv.symbol.name);
+                r407->VpiFullName(joinRef(prefix, std::string(nv.symbol.name)));
+                r407->VpiParent(parent);
+                setLoc(r407, expr.sourceRange);
+                if (auto* n407 = mintImplicitNet403(
+                        s, implicitNetModule, implicitNetPrefix, nv.symbol.name,
+                        expr.sourceRange,
+                        [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); }))
+                    r407->Actual_group(n407);
+                return r407;
+            }
             // § patternVarImplicitNet403 (r11u403, R11U403_PATVARNET_OFF) — a
             // read of a pattern variable (`.v` of a `matches` pattern) is a
             // name Surelog cannot resolve, so its netlist elaboration mints
@@ -37015,6 +37071,45 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 if (inParamInit && !reemitting &&
                                     tp294->isPortParam() &&
                                     lawOn(405, "R11U405_TPCASTEARLY_OFF")) {
+                                    // § tpCastOverrideKeepsDefault407 (r11u407,
+                                    // R11U407_TPCASTDEFAULT_OFF; cases
+                                    // tools/probe/r11u407repro/cases/TD;
+                                    // v11u405repro VE/ve01) — when the
+                                    // instance OVERRIDES the type parameter,
+                                    // golden's cast typespec is still the
+                                    // header DEFAULT (Surelog compiles the
+                                    // initializer in compileParameterDeclaration
+                                    // before the override binds: ve01
+                                    // `logic_typespec 2:31-2:42` under
+                                    // `u`, where the law built the overriding
+                                    // `logic [3:0]` at 6:10-6:21).  Built from
+                                    // the header declarator's written default
+                                    // with makeTypeParamDefaultTs.
+                                    const syntax::DataTypeSyntax* dflt407 = nullptr;
+                                    if (auto* msyn407 = tps294->asSymbol().getSyntax())
+                                        if (auto* mds407 = msyn407->as_if<
+                                                syntax::ModuleDeclarationSyntax>())
+                                            if (auto* ppl407 = mds407->header->parameters)
+                                                for (auto* dc407 : ppl407->declarations)
+                                                    if (auto* tpd407 = dc407->as_if<
+                                                            syntax::TypeParameterDeclarationSyntax>())
+                                                        for (auto* d407 : tpd407->declarators)
+                                                            if (d407->name.valueText() ==
+                                                                    tp294->name &&
+                                                                d407->assignment)
+                                                                dflt407 = d407->assignment->type;
+                                    if (dflt407 &&
+                                        tp294->targetType.getTypeSyntax() != dflt407 &&
+                                        lawOn(407, "R11U407_TPCASTDEFAULT_OFF")) {
+                                        if (auto* ts407 = makeTypeParamDefaultTs(
+                                                *dflt407, tps294->asSymbol()
+                                                              .as<InstanceBodySymbol>())) {
+                                            lawTrace(407, "tpCastOverrideKeepsDefault407",
+                                                     std::string(tp294->name));
+                                            cts = ts407;
+                                        }
+                                    }
+                                    if (!cts)
                                     if (auto* ts405 = makeTypespec(*tp294)) {
                                         lawTrace(405, "tpCastBeforeTpListed405",
                                                  std::string(tp294->name));

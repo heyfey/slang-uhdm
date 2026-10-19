@@ -1,0 +1,18 @@
+surelog/testflags/Tnoc-87c94014/slang.uhdm	RETENUM	\_enum_const: (TNOC_INVALID_PACKET), line:175:5, endln:175:42
+surelog/testflags/Tnoc-87c94014/slang.uhdm	RETBS	|vpiFullName:tnoc_pkg::is_request_packet_type::TNOC_PACKET_TYPE_RESPONSE_BIT
+surelog/testflags/Tnoc-87c94014/slang.uhdm	RETBS	|vpiFullName:tnoc_pkg::is_response_packet_type::TNOC_PACKET_TYPE_RESPONSE_BIT
+surelog/testflags/Tnoc-87c94014/slang.uhdm	RETBS	|vpiFullName:tnoc_pkg::is_packet_with_payload_type::TNOC_PACKET_TYPE_PAYLOAD_BIT
+surelog/testflags/Tnoc-87c94014/slang.uhdm	RETBS	|vpiFullName:tnoc_pkg::is_header_only_packet_type::TNOC_PACKET_TYPE_PAYLOAD_BIT
+surelog/testflags/Tnoc-87c94014/slang.uhdm	RETBS	|vpiFullName:tnoc_pkg::is_posted_request_packet_type::TNOC_PACKET_TYPE_NON_POSTED_BIT
+surelog/testflags/Tnoc-87c94014/slang.uhdm	RETBS	|vpiFullName:tnoc_pkg::is_non_posted_request_packet_type::TNOC_PACKET_TYPE_NON_POSTED_BIT
+surelog/testflags/Tnoc-87c94014/slang.uhdm	RETENUM	\_enum_const: (TNOC_LOCAL_PORT), line:374:5, endln:374:31
+surelog/testflags/Tnoc-87c94014/slang.uhdm	RETENUM	\_enum_const: (TNOC_INTERNAL_PORT), line:375:5, endln:375:31
+surelog/default/Tnoc-87c94014/slang.uhdm	RETENUM	\_enum_const: (TNOC_INVALID_PACKET), line:175:5, endln:175:42
+surelog/default/Tnoc-87c94014/slang.uhdm	RETBS	|vpiFullName:tnoc_pkg::is_request_packet_type::TNOC_PACKET_TYPE_RESPONSE_BIT
+surelog/default/Tnoc-87c94014/slang.uhdm	RETBS	|vpiFullName:tnoc_pkg::is_response_packet_type::TNOC_PACKET_TYPE_RESPONSE_BIT
+surelog/default/Tnoc-87c94014/slang.uhdm	RETBS	|vpiFullName:tnoc_pkg::is_packet_with_payload_type::TNOC_PACKET_TYPE_PAYLOAD_BIT
+surelog/default/Tnoc-87c94014/slang.uhdm	RETBS	|vpiFullName:tnoc_pkg::is_header_only_packet_type::TNOC_PACKET_TYPE_PAYLOAD_BIT
+surelog/default/Tnoc-87c94014/slang.uhdm	RETBS	|vpiFullName:tnoc_pkg::is_posted_request_packet_type::TNOC_PACKET_TYPE_NON_POSTED_BIT
+surelog/default/Tnoc-87c94014/slang.uhdm	RETBS	|vpiFullName:tnoc_pkg::is_non_posted_request_packet_type::TNOC_PACKET_TYPE_NON_POSTED_BIT
+surelog/default/Tnoc-87c94014/slang.uhdm	RETENUM	\_enum_const: (TNOC_LOCAL_PORT), line:374:5, endln:374:31
+surelog/default/Tnoc-87c94014/slang.uhdm	RETENUM	\_enum_const: (TNOC_INTERNAL_PORT), line:375:5, endln:375:31

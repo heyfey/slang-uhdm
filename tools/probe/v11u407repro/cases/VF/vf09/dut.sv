@@ -1,0 +1,15 @@
+// § pkgRetEnumOperandFold407
+package p;
+  typedef enum logic [7:0] { A = 'h01, B = 'h20 } t_e;
+  class c;
+    function logic f(t_e x);
+      return x != A;
+    endfunction
+  endclass
+  function automatic logic g(t_e x);
+    return x != B;
+  endfunction
+endpackage
+module top(input p::t_e i, output logic o);
+  assign o = p::g(i);
+endmodule

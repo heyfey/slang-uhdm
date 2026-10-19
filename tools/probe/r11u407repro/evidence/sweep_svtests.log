@@ -1,0 +1,8 @@
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+CONVERSION chapter-16/16.10--sequence-local-var-fail.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.10--sequence-local-var.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-9/9.4.2.4--event_sequence.sv: DIFFERENT -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=312 EQUAL=1615 SLANG_ONLY=19 STRICT_NOTEQUAL=13 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=3 changes=0
+SVT_RC=0

@@ -26682,6 +26682,33 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rc405->VpiConstType(vpiStringConst);
                     }
                 }
+                // § typedParamXzLitSize407 (r11u407, R11U407_XZLITSIZE_OFF;
+                // cases tools/probe/r11u407repro/cases/XZ; pass 401's open
+                // item `parameter int ma = 1'bx`) — in a MODULE's ELABORATED
+                // listing a TYPED parameter whose default is a SIZED based
+                // literal with x or z digits keeps the literal's own width on
+                // its Rhs constant: Surelog's value for an unknown literal is
+                // a string Value the parameter type never resizes (golden
+                // `1'bX` vpiSize 1 under `parameter int`, `4'bz` 4,
+                // `logic [7:0] mc = 1'bx` 1), where we wrote the type's
+                // width.  A known literal and an unbased-unsized one are
+                // resized as before.
+                if (typedParam && !defViewOrig9 && !inPackage && !isImported &&
+                    rhs->UhdmType() == UHDM::uhdmconstant)
+                    if (auto& li407 = stripImplicitConv(*init);
+                        li407.kind == ExpressionKind::IntegerLiteral && li407.type &&
+                        li407.as<IntegerLiteral>().getValue().hasUnknown()) {
+                        auto* rc407 = (UHDM::constant*)rhs;
+                        std::string_view v407 = rc407->VpiValue();
+                        const int32_t lw407 = (int32_t)li407.type->getBitWidth();
+                        if (v407.rfind("BIN:", 0) == 0 && lw407 > 0 &&
+                            rc407->VpiSize() != lw407 &&
+                            lawOn(407, "R11U407_XZLITSIZE_OFF")) {
+                            lawTrace(407, "typedParamXzLitSize407",
+                                     std::string(ps.name) + " " + std::to_string(lw407));
+                            rc407->VpiSize(lw407);
+                        }
+                    }
                 // Literal inits of typed params carry the param typespec
                 // (patched late together with the param ref).
                 // Unknown ('x/'z) defaults: uppercase digits and a BARE
