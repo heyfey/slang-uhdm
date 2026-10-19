@@ -1,0 +1,29 @@
+FN | slang-uhdm/third_party/Surelog/tests/ClassFuncProto/top.v | REQ get_current_item() | REQ t
+FN | slang-uhdm/third_party/Surelog/tests/PackageHierRef/packages.sv | void f() | int x
+FN | slang-uhdm/third_party/Surelog/tests/PackageHierRef/packages.sv | void f() | int x
+FN | slang-uhdm/third_party/Surelog/tests/PackageHierRef/packages.sv | void f() | int x
+FN | slang-uhdm/third_party/Surelog/tests/PackageHierRef/packages.sv | void f() | int x
+FN | slang-uhdm/third_party/Surelog/tests/UnitThisNew/dut.sv | automatic bit uvm_string_to_action (string action_str, outpu | string actions[$]
+FN | slang-uhdm/third_party/Surelog/third_party/tests/Google/generic/member/class_member_test_15.sv | void subroutine | endclass
+
+function void myclass::subroutine
+FN | slang-uhdm/third_party/Surelog/third_party/tests/Google/generic/member/class_member_test_25.sv | integer subroutine | endclass
+
+function integer myclass::subroutine
+FN | slang-uhdm/tests/probe/r10v195repro/v195_d_tfitem/dut.sv | void sedge195v | process se_p195v
+FN | slang-uhdm/tests/probe/r10v157repro/v157_p3_fn/dut.sv | int tallyFn157 | typedef bit [3:0] markFn157
+FN | slang-uhdm/tests/probe/r10uvm27repro/t37c/dut.sv | new() | int t
+FN | sv-tests/tests/generic/member/class_member_test_15.sv | void subroutine | endclass
+
+function void myclass::subroutine
+FN | sv-tests/tests/generic/member/class_member_test_25.sv | integer subroutine | endclass
+
+function integer myclass::subroutine
+SB slang-uhdm/third_party/Surelog/tests/SignedBinConst/dut.sv
+SB slang-uhdm/third_party/Surelog/tests/GenCaseStmt/dut.sv
+SB slang-uhdm/third_party/Surelog/tests/GenCase/dut.sv
+SB slang-uhdm/third_party/Surelog/third_party/tests/Google/generic/number/number_test_16.sv
+SB slang-uhdm/third_party/Surelog/third_party/tests/Google/generic/number/number_test_15.sv
+SB slang-uhdm/tests/probe/r10earl52repro/a2_earl52/dut.sv
+SB sv-tests/tests/generic/number/number_test_16.sv
+SB sv-tests/tests/generic/number/number_test_15.sv

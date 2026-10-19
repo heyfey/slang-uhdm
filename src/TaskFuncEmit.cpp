@@ -21,6 +21,17 @@
 
 namespace slang_uhdm {
 
+// r11u412: a return type naming a TYPEDEF (a typedef declaration), never a
+// type parameter (slang models `type T` as a TypeAliasType of the class too;
+// probe r10uvm52repro/a1 c3_typeparam, the UVM generic classes).
+static bool retIsTypedef412(const slang::ast::SubroutineSymbol& sub) {
+    auto& rt = sub.getReturnType();
+    if (rt.kind != slang::ast::SymbolKind::TypeAlias)
+        return false;
+    auto* syn = rt.getSyntax();
+    return syn && syn->kind == slang::syntax::SyntaxKind::TypedefDeclaration;
+}
+
 // § unitOobFuncOnDesign402 — the $unit classes' out-of-body FUNCTION
 // definitions withheld from the class listing (§ unitOobDefsNotInClass402),
 // in emission order, and the one the design listing is emitting right now.
@@ -5457,6 +5468,120 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             }
             else {
                 copyLoc(rv, ts);
+                // § classTdRetVarAtTypeToken412 (r11u412,
+                // R11U412_CLSTDRETLOC_OFF; cases
+                // tools/probe/r11u412repro/cases/OR) — a function whose
+                // return type names a typedef the CLASS declares, of a
+                // scalar or predefined kind (`typedef int T; function T
+                // h();`, its `extern` prototype, its out-of-body
+                // `function C::T C::f()`): golden locates the return
+                // variable at the written return type (or01 h 7:14-7:15,
+                // f's prototype 5:21-5:22, the definition's class_var
+                // 10:10-10:14 over `C::T`), as § unitTdRetVarAtTypeToken245
+                // does for a $unit typedef; ours copied the typedef's span.
+                if (sub.getReturnType().kind == SymbolKind::TypeAlias &&
+                    !crossImplicitRet &&
+                    (ts->UhdmType() == UHDM::uhdmlogic_typespec ||
+                     ts->UhdmType() == UHDM::uhdmbit_typespec ||
+                     ts->UhdmType() == UHDM::uhdmint_typespec ||
+                     ts->UhdmType() == UHDM::uhdminteger_typespec ||
+                     ts->UhdmType() == UHDM::uhdmbyte_typespec ||
+                     ts->UhdmType() == UHDM::uhdmshort_int_typespec ||
+                     ts->UhdmType() == UHDM::uhdmlong_int_typespec ||
+                     ts->UhdmType() == UHDM::uhdmstring_typespec ||
+                     ts->UhdmType() == UHDM::uhdmreal_typespec ||
+                     ts->UhdmType() == UHDM::uhdmshort_real_typespec ||
+                     ts->UhdmType() == UHDM::uhdmtime_typespec) &&
+                    lawOn(412, "R11U412_CLSTDRETLOC_OFF"))
+                    if (auto* tsc412 = sub.getReturnType().getParentScope();
+                        tsc412 && tsc412->asSymbol().kind == SymbolKind::ClassType &&
+                        sub.getParentScope() &&
+                        &sub.getParentScope()->asSymbol() == &tsc412->asSymbol() &&
+                        retIsTypedef412(sub))
+                        if (auto* rsyn412 = retTypeSyn175(sub);
+                            rsyn412 && rsyn412->kind == syntax::SyntaxKind::NamedType) {
+                            auto rr412 = rsyn412->sourceRange();
+                            std::string rw412 = rawText(rr412);
+                            auto re412 = rr412.end();
+                            while (!rw412.empty() &&
+                                   (rw412.back() == ' ' || rw412.back() == '\t')) {
+                                rw412.pop_back();
+                                re412 = re412 - 1;
+                            }
+                            setLoc(rv, SourceRange(rr412.start(), re412));
+                            lawTrace(412, "classTdRetVarAtTypeToken412",
+                                     std::string(sub.name));
+                        }
+                // § tdAtomRetAliasTwin412 (r11u412, R11U412_RETALIASTWIN_OFF;
+                // cases tools/probe/r11u412repro/cases/OR) — a function whose
+                // return type names a CLASS- or MODULE-scope typedef of an
+                // integer atom, string, real or time kind binds, once per
+                // function (its first listing: the class body, or the module
+                // definition), a twin of the typedef's typespec: same kind,
+                // named after the typedef, at the typedef's span, its
+                // vpiTypedefAlias a ref_typespec to the typedef's own object
+                // (golden or01 two `int_typespec (T)` twins for f and h, or04
+                // S/R/B, or05 T and U twice; hdlconvertor p154_1 and p190);
+                // every later listing of the same function binds the
+                // typedef's own object, as before.
+                if (sub.getReturnType().kind == SymbolKind::TypeAlias &&
+                    !crossImplicitRet && sub.returnValVar &&
+                    (ts->UhdmType() == UHDM::uhdmint_typespec ||
+                     ts->UhdmType() == UHDM::uhdminteger_typespec ||
+                     ts->UhdmType() == UHDM::uhdmbyte_typespec ||
+                     ts->UhdmType() == UHDM::uhdmshort_int_typespec ||
+                     ts->UhdmType() == UHDM::uhdmlong_int_typespec ||
+                     ts->UhdmType() == UHDM::uhdmstring_typespec ||
+                     ts->UhdmType() == UHDM::uhdmreal_typespec ||
+                     ts->UhdmType() == UHDM::uhdmshort_real_typespec ||
+                     ts->UhdmType() == UHDM::uhdmtime_typespec) &&
+                    lawOn(412, "R11U412_RETALIASTWIN_OFF"))
+                    if (auto* asc412 = sub.getReturnType().getParentScope();
+                        asc412 && (asc412->asSymbol().kind == SymbolKind::ClassType ||
+                                   asc412->asSymbol().kind == SymbolKind::InstanceBody) &&
+                        retIsTypedef412(sub)) {
+                        static std::set<const void*> seen412;
+                        if (seen412.insert((const void*)&sub).second) {
+                            UHDM::typespec* tw412 = nullptr;
+                            switch (ts->UhdmType()) {
+                                case UHDM::uhdmint_typespec: tw412 = s.MakeInt_typespec(); break;
+                                case UHDM::uhdminteger_typespec: tw412 = s.MakeInteger_typespec(); break;
+                                case UHDM::uhdmbyte_typespec: tw412 = s.MakeByte_typespec(); break;
+                                case UHDM::uhdmshort_int_typespec: tw412 = s.MakeShort_int_typespec(); break;
+                                case UHDM::uhdmlong_int_typespec: tw412 = s.MakeLong_int_typespec(); break;
+                                case UHDM::uhdmstring_typespec: tw412 = s.MakeString_typespec(); break;
+                                case UHDM::uhdmreal_typespec: tw412 = s.MakeReal_typespec(); break;
+                                case UHDM::uhdmshort_real_typespec: tw412 = s.MakeShort_real_typespec(); break;
+                                case UHDM::uhdmtime_typespec: tw412 = s.MakeTime_typespec(); break;
+                                default: break;
+                            }
+                            if (tw412) {
+                                tw412->VpiName(sub.getReturnType().name);
+                                copyLoc(tw412, ts);
+                                tw412->VpiFile(ts->VpiFile());
+                                switch (ts->UhdmType()) {
+                                    case UHDM::uhdmint_typespec:
+                                        ((UHDM::int_typespec*)tw412)->VpiSigned(((UHDM::int_typespec*)ts)->VpiSigned()); break;
+                                    case UHDM::uhdminteger_typespec:
+                                        ((UHDM::integer_typespec*)tw412)->VpiSigned(((UHDM::integer_typespec*)ts)->VpiSigned()); break;
+                                    case UHDM::uhdmbyte_typespec:
+                                        ((UHDM::byte_typespec*)tw412)->VpiSigned(((UHDM::byte_typespec*)ts)->VpiSigned()); break;
+                                    case UHDM::uhdmshort_int_typespec:
+                                        ((UHDM::short_int_typespec*)tw412)->VpiSigned(((UHDM::short_int_typespec*)ts)->VpiSigned()); break;
+                                    case UHDM::uhdmlong_int_typespec:
+                                        ((UHDM::long_int_typespec*)tw412)->VpiSigned(((UHDM::long_int_typespec*)ts)->VpiSigned()); break;
+                                    default: break;
+                                }
+                                auto* ar412 = s.MakeRef_typespec();
+                                ar412->VpiFullName(std::string(sub.getReturnType().name));
+                                ar412->VpiParent(tw412);
+                                ar412->Actual_typespec(ts);
+                                tw412->Typedef_alias(ar412);
+                                rt->Actual_typespec(tw412);
+                                lawTrace(412, "tdAtomRetAliasTwin412", std::string(sub.name));
+                            }
+                        }
+                    }
                 // § scopedClassRetQualSpan283 — the return VARIABLE keeps the
                 // whole written type (golden v150 class_var 9:22-9:29):
                 // compileVariable populates it at the data type node.
@@ -5517,6 +5642,50 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     }
                 }
             }
+            // § oobScopedClsTdRetUnsup412 (r11u412, R11U412_OOBSCOPEDRET_OFF;
+            // cases tools/probe/r11u412repro/cases/OR) — the out-of-body
+            // definition of a method of a `$unit` class whose return type is
+            // written `C::T` (T a typedef of that class, any kind): golden
+            // binds an unsupported_typespec named as written and spanned at
+            // `C::` (or01 `C::T`, or03 `C::V` and `C::S`, or04 `C::B` and
+            // `C::L`; hdlconvertor p154_1, p190).  Surelog compiles the
+            // definition in $unit, where the class typedef is not in scope,
+            // and the design-level function is never repaired; a package home
+            // resolves it (or02).
+            if (!protoOf && !crossImplicitRet && rv->Typespec() &&
+                sub.getReturnType().kind == SymbolKind::TypeAlias &&
+                lawOn(412, "R11U412_OOBSCOPEDRET_OFF"))
+                if (auto* tsc412 = sub.getReturnType().getParentScope();
+                    tsc412 && tsc412->asSymbol().kind == SymbolKind::ClassType &&
+                    sub.getParentScope() &&
+                    &sub.getParentScope()->asSymbol() == &tsc412->asSymbol() &&
+                    tsc412->asSymbol().getParentScope() &&
+                    tsc412->asSymbol().getParentScope()->asSymbol().kind ==
+                        SymbolKind::CompilationUnit &&
+                    retIsTypedef412(sub))
+                    if (auto* rsyn412 = retTypeSyn175(sub);
+                        rsyn412 && rsyn412->kind == syntax::SyntaxKind::NamedType &&
+                        rsyn412->as<syntax::NamedTypeSyntax>().name->kind ==
+                            syntax::SyntaxKind::ScopedName) {
+                        auto rr412 = rsyn412->sourceRange();
+                        auto& sn412 = rsyn412->as<syntax::NamedTypeSyntax>()
+                                          .name->as<syntax::ScopedNameSyntax>();
+                        if (sn412.left->kind == syntax::SyntaxKind::IdentifierName &&
+                            sn412.right->kind == syntax::SyntaxKind::IdentifierName) {
+                            auto* uts412 = s.MakeUnsupported_typespec();
+                            uts412->VpiName(
+                                std::string(sn412.left->as<syntax::IdentifierNameSyntax>()
+                                                .identifier.valueText()) +
+                                "::" +
+                                std::string(sn412.right->as<syntax::IdentifierNameSyntax>()
+                                                .identifier.valueText()));
+                            setLoc(uts412, SourceRange(rr412.start(),
+                                                       sn412.right->sourceRange().start()));
+                            rv->Typespec()->Actual_typespec(uts412);
+                            lawTrace(412, "oobScopedClsTdRetUnsup412",
+                                     std::string(uts412->VpiName()));
+                        }
+                    }
             // A packed-array-of-VECTOR return (word[1:0], element a named
             // vector typedef) is a packed_array_var carrying the ARRAY range
             // and a bare logic_var element — Surelog. makeEnumArrayVar only
@@ -8645,6 +8814,95 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         unitSubNoBind9 = savedUSNB9;
         pkgDefViewBody9 = savedPDV9;
         pkgRetFoldHome86 = savedPRF86;
+        // § tfDeclOnlyBodyBegin412 (r11u412, R11U412_DECLONLYBODY_OFF; cases
+        // tools/probe/r11u412repro/cases/TB; sv-tests hdlconvertor
+        // std2012/p90, std2017/p126) — a BLOCK-ITEM body holding
+        // declarations and NO statement: Surelog compiles each declaration
+        // as a body item, so with two or more of them its synthesised
+        // `begin` (the statement-list wrapper the body with statements
+        // already gets) is built anyway, located at the SECOND item and
+        // holding the locals, which it parents (golden TB tb01 t2/t3, tb02
+        // f1); with exactly one declaration of a task or void function there
+        // is no wrapper and the subroutine lists its locals TWICE, once from
+        // its own scope and once from the body item (tb01 t1, tb02 t7).  A
+        // non-void function's single multi-declarator item (tb02 f2, where
+        // golden hangs the second local under an assignment) abstains.
+        if (!body && !qualLifetime46 && blockItems9 && fvarsAll71 &&
+            !fvarsAll71->empty() && tf->Variables() == fvarsAll71 &&
+            (sub.flags & MethodFlags::Constructor) == MethodFlags::None &&
+            lawOn(412, "R11U412_DECLONLYBODY_OFF"))
+            if (auto fsyn412 = sub.getSyntax())
+                if (auto* fd412 = fsyn412->as_if<syntax::FunctionDeclarationSyntax>()) {
+                    std::vector<const syntax::SyntaxNode*> it412;
+                    bool decl412 = true;
+                    for (auto* i412 : fd412->items) {
+                        if (i412->kind == syntax::SyntaxKind::PortDeclaration)
+                            continue;
+                        if (i412->kind != syntax::SyntaxKind::DataDeclaration)
+                            decl412 = false;
+                        it412.push_back(i412);
+                    }
+                    bool voidOrTask412 = sub.subroutineKind == SubroutineKind::Task ||
+                                         sub.getReturnType().isVoid();
+                    if (decl412 && it412.size() >= 2) {
+                        auto* bb412 = s.MakeBegin();
+                        bb412->VpiFullName(fullName);
+                        bb412->VpiParent(tf);
+                        setLoc(bb412, it412[1]->sourceRange());
+                        auto* bv412 = s.MakeVariablesVec();
+                        for (auto* v412 : *fvarsAll71) {
+                            v412->VpiParent(bb412);
+                            bv412->push_back(v412);
+                        }
+                        bb412->Variables(bv412);
+                        body = bb412;
+                        lawTrace(412, "tfDeclOnlyBodyBegin412", "begin " + fullName);
+                    }
+                    // § fnDeclOnlyFirstTwice412v (v11u412,
+                    // R11V412_FNFIRSTTWICE_OFF; cases
+                    // tools/probe/v11u412repro/cases/VD) — a FUNCTION
+                    // (void or not) whose one declaration item is its whole
+                    // body lists every declarator once and then the FIRST
+                    // again, the second and later declarators each parented
+                    // at an unlisted blocking assignment at the declarator
+                    // (golden VD vd06 `function void f(); int a, b;` lists
+                    // a b a, vd10 a b c a, vd09 `function int f(); int a;`
+                    // a a, r11u412 TB tb02 f2); only a TASK lists the whole
+                    // item twice (vd11 a b c a b c).  The law listed a void
+                    // function's item twice and left a non-void one alone.
+                    else if (decl412 && it412.size() == 1 &&
+                             sub.subroutineKind == SubroutineKind::Function &&
+                             fixOn(412, "R11V412_FNFIRSTTWICE_OFF")) {
+                        auto* dv412 = s.MakeVariablesVec();
+                        bool first412 = true;
+                        for (auto* v412 : *fvarsAll71) {
+                            dv412->push_back(v412);
+                            if (first412) {
+                                first412 = false;
+                                continue;
+                            }
+                            auto* as412 = s.MakeAssignment();
+                            as412->VpiOpType(vpiAssignmentOp);
+                            as412->VpiBlocking(true);
+                            as412->VpiParent(tf);
+                            copyLoc(as412, v412);
+                            as412->Lhs(v412);
+                            v412->VpiParent(as412);
+                        }
+                        dv412->push_back(fvarsAll71->front());
+                        tf->Variables(dv412);
+                        lawTrace(412, "fnDeclOnlyFirstTwice412v", fullName);
+                    }
+                    else if (decl412 && it412.size() == 1 && voidOrTask412) {
+                        auto* dv412 = s.MakeVariablesVec();
+                        for (auto* v412 : *fvarsAll71)
+                            dv412->push_back(v412);
+                        for (auto* v412 : *fvarsAll71)
+                            dv412->push_back(v412);
+                        tf->Variables(dv412);
+                        lawTrace(412, "tfDeclOnlyBodyBegin412", "twice " + fullName);
+                    }
+                }
         if (body)
             tf->Stmt(body);
         // § stmtScopeTdListedOnEnclosingScope157, SITE 3 of 3 — the SUBROUTINE

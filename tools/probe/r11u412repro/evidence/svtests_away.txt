@@ -1,0 +1,5 @@
+chapter-16/16.10--property-local-var-uvm control=198575 final=199845
+generated/hdlconv_std2017/hdlconvertor_std2017_p203 control=130 final=104
+generated/hdlconv_std2017/hdlconvertor_std2017_p600 control=154 final=150
+generated/hdlconv_std2017/hdlconvertor_std2017_p737 control=159 final=145
+generated/hdlconv_std2017/hdlconvertor_std2017_p884 control=133 final=125

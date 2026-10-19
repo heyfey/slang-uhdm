@@ -1,0 +1,35 @@
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+CONVERSION chapter-15/15.4--mailbox-blocking.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-15/15.4--mailbox-non-blocking.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.10--property-local-var-fail.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.10--property-local-var.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-5/5.10-structure-arrays.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-6/6.19--enum_xx.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-6/6.19.2--enum_sequence.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-6/6.19.2--enum_sequence_range.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-6/6.20.3--parameter_type.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-6/6.6.7--nettype.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-6/6.6.7--nettype_resolution_fn.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-6/6.6.8--interconnect.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-7/arrays/associative/class.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-7/arrays/associative/wildcard.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2012/hdlconvertor_std2012_p154_1.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2012/hdlconvertor_std2012_p90.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p126.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p174.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p190.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p718.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p761.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p762.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p780.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p835.sv: DIFFERENT -> EQUAL
+CONVERSION generated/integers/6.11--integer_signed_bit.sv: DIFFERENT -> EQUAL
+CONVERSION generic/class/class_test_19.sv: DIFFERENT -> EQUAL
+CONVERSION generic/class/class_test_21.sv: DIFFERENT -> EQUAL
+CONVERSION generic/member/class_member_test_27.sv: DIFFERENT -> EQUAL
+CONVERSION generic/number/number_test_15.sv: DIFFERENT -> EQUAL
+CONVERSION generic/number/number_test_7.sv: DIFFERENT -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=223 EQUAL=1696 SLANG_ONLY=19 STRICT_NOTEQUAL=21 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=30 changes=0
+svtests rc=0

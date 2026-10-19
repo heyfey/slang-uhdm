@@ -28,6 +28,7 @@ bool unitDynTdShape402(const slang::ast::TypeAliasType& ta);
 // § unitAssocTdMultiDim406 — the multi-dimension listing (TypeEmit.cpp).
 extern bool g406MultiDim;
 extern bool g410AliasClone;  // § dynTdAliasClone410 (TypeEmit.cpp)
+extern std::vector<std::tuple<UHDM::typespec*, UHDM::instance*, std::string>> g412NettypeFns;  // § modNettypeTypedef412 (TypeEmit.cpp)
 extern std::set<const UHDM::typespec*> g410ModVifTs;  // § modVirtIfaceTd410 (TypeEmit.cpp)
 bool multiDimTdShape406(const slang::ast::TypeAliasType& ta);
 bool aliasElemDynTdShape406(const slang::ast::TypeAliasType& ta);
@@ -11801,6 +11802,59 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
         crt->Actual_typespec(dts);
         rc->Typespec(crt);
     }
+    // § classKwParamsLast412 (r11u412, R11U412_CLSKWPARAMLAST_OFF; cases
+    // tools/probe/r11u412repro/cases/CP; sv-tests hdlconvertor std2017/p174,
+    // p203) — Surelog lists a class's parameters written WITHOUT a keyword
+    // (`int a = 1`, `type T = int`) before those written with `parameter` /
+    // `localparam` (`parameter width = 7`, `parameter type T`), each group in
+    // declaration order, and its param_assigns the same way (golden CP cp03:
+    // `#(int a, parameter b, type T, int c)` lists a T c b; `#(parameter w,
+    // parameter type T)` keeps w T).
+    if (lawOn(412, "R11U412_CLSKWPARAMLAST_OFF")) {
+        std::map<std::string, bool> kw412;
+        for (auto& mem : cls.members()) {
+            if (mem.kind != SymbolKind::Parameter && mem.kind != SymbolKind::TypeParameter)
+                continue;
+            bool k412 = false;
+            if (auto* dn412 = declNodeOf(mem))
+                if (auto* pd412 = dn412->as_if<syntax::ParameterDeclarationBaseSyntax>())
+                    k412 = pd412->keyword.kind == parsing::TokenKind::ParameterKeyword ||
+                           pd412->keyword.kind == parsing::TokenKind::LocalParamKeyword;
+            kw412[std::string(mem.name)] = k412;
+        }
+        auto isKw412 = [&](std::string_view nm) {
+            auto it = kw412.find(std::string(nm));
+            return it != kw412.end() && it->second;
+        };
+        bool moved412 = false;
+        auto part412 = [&](auto* vec, auto nameOf) {
+            if (!vec)
+                return;
+            auto keep = *vec;
+            std::stable_partition(vec->begin(), vec->end(),
+                                  [&](auto* o) { return !isKw412(nameOf(o)); });
+            if (keep != *vec)
+                moved412 = true;
+        };
+        part412(params, [](UHDM::any* o) -> std::string_view {
+            if (o->UhdmType() == UHDM::uhdmtype_parameter)
+                return ((UHDM::type_parameter*)o)->VpiName();
+            if (o->UhdmType() == UHDM::uhdmparameter)
+                return ((UHDM::parameter*)o)->VpiName();
+            return {};
+        });
+        part412(pas, [](UHDM::param_assign* o) -> std::string_view {
+            if (auto* l = o->Lhs()) {
+                if (l->UhdmType() == UHDM::uhdmparameter)
+                    return ((UHDM::parameter*)l)->VpiName();
+                if (l->UhdmType() == UHDM::uhdmtype_parameter)
+                    return ((UHDM::type_parameter*)l)->VpiName();
+            }
+            return {};
+        });
+        if (moved412)
+            lawTrace(412, "classKwParamsLast412", fullName);
+    }
     if (!params->empty())
         cd->Parameters(params);
     if (!pas->empty())
@@ -11918,8 +11972,23 @@ void UhdmExporter::drainPendingExtends() {
                         while (rt279 && rt279->kind == syntax::SyntaxKind::ScopedName)
                             rt279 = rt279->as<syntax::ScopedNameSyntax>().right;
                         if (rt279) {
-                            if (auto* rc279 = rt279->as_if<syntax::ClassNameSyntax>())
+                            if (auto* rc279 = rt279->as_if<syntax::ClassNameSyntax>()) {
                                 nameRange = rc279->identifier.range();
+                                // § extScopedParamBaseName412 (r11u412,
+                                // R11U412_EXTSCOPEDPARAM_OFF; cases
+                                // tools/probe/r11u412repro/cases/EP) — a
+                                // scoped PARAMETERIZED base (`extends
+                                // Package::Bar #(x,y,z)`) is named without
+                                // its parameter assignment, as the unscoped
+                                // one above (golden `Package::Bar`,
+                                // generic/class/class_test_19 and _21).
+                                if (lawOn(412, "R11U412_EXTSCOPEDPARAM_OFF")) {
+                                    written = std::string(rawText(SourceRange(
+                                        nameSyn->sourceRange().start(),
+                                        rc279->identifier.range().end())));
+                                    lawTrace(412, "extScopedParamBaseName412", written);
+                                }
+                            }
                             else
                                 nameRange = rt279->sourceRange();
                             lawTrace(279, "EXTQUALSPAN", written);
@@ -16146,6 +16215,143 @@ UHDM::design* UhdmExporter::exportDesign() {
                                 typedDecl9 || (base != 'd' && litSize >= 0);
                             if (typedDecl9)
                                 enc.size = (int32_t)ps.getType().getBitWidth();
+                            // § unitParamBasedLitFold412 (r11u412,
+                            // R11U412_UNITLITFOLD_OFF; cases
+                            // tools/probe/r11u412repro/cases/UP) — two
+                            // Surelog literal rules the $unit branch missed:
+                            // (a) `1'B0`/`1'B1`/`1'Bx` are the grammar's
+                            //     ONE_TICK tokens, whose decompile is the
+                            //     normalised `1'b0`/`1'b1`/`1'bX`
+                            //     (CompileExpression's paNumber_1TickB0;
+                            //     generic/number/number_test_7);
+                            // (b) a SIGNED binary literal whose top written
+                            //     bit is 1 (`4'sb1111`, `3'SB101`) is
+                            //     reduced: sign-extended to the parameter's
+                            //     width (the literal's own when untyped) and
+                            //     written as an INT constant, negative under
+                            //     `int` and unsigned under every other type
+                            //     (int -1, integer and int unsigned
+                            //     4294967295, byte 255, untyped 15 at size
+                            //     4; generic/number/number_test_15).  A
+                            //     positive one (`4'sb0111`) and a signed hex
+                            //     (`4'shF`) keep the literal.
+                            if (lawOn(412, "R11U412_UNITLITFOLD_OFF")) {
+                                std::string rw412 = stripSep(rawTextLit(ic));
+                                if (base == 'b' && litSize == 1 && rw412.size() == 4 &&
+                                    rw412[0] == '1' && rw412[1] == '\'' &&
+                                    (rw412[2] == 'b' || rw412[2] == 'B') &&
+                                    (rw412[3] == '0' || rw412[3] == '1' ||
+                                     rw412[3] == 'x' || rw412[3] == 'X')) {
+                                    char d412 = rw412[3] == 'x' ? 'X' : rw412[3];
+                                    std::string n412 = std::string("1'b") + d412;
+                                    if (n412 != enc.decompile) {
+                                        enc.decompile = n412;
+                                        lawTrace(412, "unitParamBasedLitFold412",
+                                                 std::string(ps.name) + " " + n412);
+                                    }
+                                }
+                                auto q412 = rw412.find('\'');
+                                bool sgn412 = q412 != std::string::npos &&
+                                              q412 + 1 < rw412.size() &&
+                                              (rw412[q412 + 1] == 's' ||
+                                               rw412[q412 + 1] == 'S');
+                                int32_t w412 = typedDecl9
+                                                   ? (int32_t)ps.getType().getBitWidth()
+                                                   : litSize;
+                                if (base == 'b' && sgn412 && litSize > 0 && litSize <= 64 &&
+                                    (int32_t)digits.size() == litSize && digits[0] == '1' &&
+                                    digits.find_first_not_of("01") == std::string::npos &&
+                                    w412 >= litSize &&
+                                    w412 <= (fixOn(412, "R11V412_SBINPAD_OFF") ? (typedDecl9 ? 64 : 63) : 32)) {
+                                    // § unitSignedBinPadOnes412v (v11u412,
+                                    // R11V412_SBINPAD_OFF; cases
+                                    // tools/probe/v11u412repro/cases/VL) —
+                                    // Surelog's adjustSize does not
+                                    // sign-extend the literal: under a
+                                    // SIGNED int, logic or bit typespec it
+                                    // writes the literal's own negative
+                                    // value (-(2^n - v): bit signed [7:0]
+                                    // = 4'sb1000 is INT:-8), under every
+                                    // other type it appends ones to the
+                                    // RIGHT of the written digits up to the
+                                    // parameter's width (shortint =
+                                    // 4'sb1000 is 1000 and twelve ones,
+                                    // INT:36863; int unsigned = 3'SB101 is
+                                    // INT:3221225471), and past 63 bits it
+                                    // keeps that digit string as a BIN
+                                    // constant (longint = 4'sb1100); an
+                                    // untyped parameter keeps the literal's
+                                    // value and width to 63 bits (40'sb1..1
+                                    // INT:549755813889 at size 40).  The
+                                    // law sign-extended on the left, which
+                                    // only an all-ones literal survives.
+                                    if (fixOn(412, "R11V412_SBINPAD_OFF")) {
+                                        auto& pq412 = ps.getType().getCanonicalType();
+                                        bool sLhs412 = false;
+                                        if (typedDecl9 && pq412.isSigned()) {
+                                            if (pq412.kind == SymbolKind::PredefinedIntegerType)
+                                                sLhs412 = pq412.as<PredefinedIntegerType>().integerKind ==
+                                                          PredefinedIntegerType::Int;
+                                            else if (pq412.kind == SymbolKind::ScalarType ||
+                                                     pq412.kind == SymbolKind::PackedArrayType)
+                                                sLhs412 = true;
+                                        }
+                                        uint64_t u412 = 0;
+                                        for (char ch : digits)
+                                            u412 = (u412 << 1) | (uint64_t)(ch - '0');
+                                        std::string pad412 = digits;
+                                        if (w412 > litSize)
+                                            pad412 += std::string((size_t)(w412 - litSize), '1');
+                                        if (sLhs412) {
+                                            int64_t n412 = litSize >= 64
+                                                               ? (int64_t)u412
+                                                               : (int64_t)u412 - (int64_t)(1ull << litSize);
+                                            enc.value = "INT:" + std::to_string(n412);
+                                            enc.decompile = std::to_string(n412);
+                                            enc.constType = vpiIntConst;
+                                        }
+                                        else if (w412 > 63) {
+                                            enc.value = "BIN:" + pad412;
+                                            enc.decompile = pad412;
+                                            enc.constType = vpiBinaryConst;
+                                        }
+                                        else {
+                                            uint64_t p412 = 0;
+                                            for (char ch : pad412)
+                                                p412 = (p412 << 1) | (uint64_t)(ch - '0');
+                                            enc.value = "INT:" + std::to_string(p412);
+                                            enc.decompile = std::to_string(p412);
+                                            enc.constType = vpiIntConst;
+                                        }
+                                        enc.size = w412;
+                                        lawTrace(412, "unitSignedBinPadOnes412v",
+                                                 std::string(ps.name) + " " + enc.value);
+                                    }
+                                    else {
+                                    uint64_t v412 = 0;
+                                    for (char ch : digits)
+                                        v412 = (v412 << 1) | (uint64_t)(ch - '0');
+                                    for (int32_t b = litSize; b < w412; b++)
+                                        v412 |= (1ull << b);
+                                    auto& pt412 = ps.getType().getCanonicalType();
+                                    bool asInt412 =
+                                        typedDecl9 &&
+                                        pt412.kind == SymbolKind::PredefinedIntegerType &&
+                                        pt412.as<PredefinedIntegerType>().integerKind ==
+                                            PredefinedIntegerType::Int &&
+                                        pt412.isSigned();
+                                    std::string dg412 =
+                                        asInt412 ? std::to_string((int64_t)(int32_t)(uint32_t)v412)
+                                                 : std::to_string(v412);
+                                    enc.value = "INT:" + dg412;
+                                    enc.decompile = dg412;
+                                    enc.size = w412;
+                                    enc.constType = vpiIntConst;
+                                    lawTrace(412, "unitParamBasedLitFold412",
+                                             std::string(ps.name) + " INT:" + dg412);
+                                    }
+                                }
+                            }
                         }
                         else {
                             enc.value = "UINT:" + digits;
@@ -19214,6 +19420,103 @@ UHDM::design* UhdmExporter::exportDesign() {
     // ownership has to be read off the BINDING ref).  After both alias passes
     // above, whose deliberate targets it must not disturb.
     cloneAliasTopTarget19();
+    // § modNettypeTypedef412 — the resolution function of a module-body
+    // nettype, now that the module's functions exist.
+    for (auto& [ts412, m412, fn412] : g412NettypeFns) {
+        if (ts412->UhdmType() != UHDM::uhdmreal_typespec || !m412->Task_funcs())
+            continue;
+        for (auto* tf412 : *m412->Task_funcs())
+            if (tf412->UhdmType() == UHDM::uhdmfunction && tf412->VpiName() == fn412) {
+                ((UHDM::real_typespec*)ts412)->Resolution_func((UHDM::function*)tf412);
+                break;
+            }
+    }
+    // § modKwlessTypeParamDropped412 (r11u412, R11U412_KWLESSTP_OFF; cases
+    // tools/probe/r11u412repro/cases/TP; sv-tests
+    // chapter-6/6.20.3--parameter_type.sv) — a MODULE header's type
+    // parameter written WITHOUT the `parameter` / `localparam` keyword
+    // (`module top #(type T = real);`, `#(parameter type T, type U = int)`)
+    // is not a parameter of Surelog's module: golden lists no type_parameter
+    // for it in the definition or in any instance (TP tp01, tp03; the
+    // keyword form `parameter type T` stays).  The listing objects are
+    // ParamEmit's; this design-final filter drops them from every module
+    // listing.  (Its USES are the parameter emitter's face: golden writes an
+    // unsupported_typespec named after it and a net where we resolve the
+    // default, tp02/tp03.)
+    if (lawOn(412, "R11U412_KWLESSTP_OFF")) {
+        std::map<std::string, std::set<std::string>> drop412;
+        for (auto* ds412 : comp.getDefinitions()) {
+            if (!ds412 || ds412->kind != SymbolKind::Definition)
+                continue;
+            auto& def412 = ds412->as<DefinitionSymbol>();
+            if (def412.definitionKind != DefinitionKind::Module)
+                continue;
+            auto* syn412 = def412.getSyntax();
+            if (!syn412 || syn412->kind != syntax::SyntaxKind::ModuleDeclaration)
+                continue;
+            auto* pl412 = syn412->as<syntax::ModuleDeclarationSyntax>().header->parameters;
+            if (!pl412)
+                continue;
+            for (auto* pd412 : pl412->declarations) {
+                if (pd412->kind != syntax::SyntaxKind::TypeParameterDeclaration ||
+                    pd412->keyword.kind == parsing::TokenKind::ParameterKeyword ||
+                    pd412->keyword.kind == parsing::TokenKind::LocalParamKeyword)
+                    continue;
+                for (auto* ta412 : pd412->as<syntax::TypeParameterDeclarationSyntax>().declarators)
+                    drop412["work@" + std::string(def412.name)].insert(
+                        std::string(ta412->name.valueText()));
+            }
+        }
+        if (!drop412.empty()) {
+            std::set<const UHDM::any*> done412;
+            std::function<void(UHDM::module_inst*)> walk412 = [&](UHDM::module_inst* mi) {
+                if (!mi || !done412.insert(mi).second)
+                    return;
+                if (auto dit = drop412.find(std::string(mi->VpiDefName()));
+                    dit != drop412.end() && mi->Parameters()) {
+                    auto* ps412 = mi->Parameters();
+                    size_t n0 = ps412->size();
+                    ps412->erase(std::remove_if(ps412->begin(), ps412->end(),
+                                                [&](UHDM::any* a) {
+                                                    return a->UhdmType() == UHDM::uhdmtype_parameter &&
+                                                           dit->second.count(std::string(
+                                                               ((UHDM::type_parameter*)a)->VpiName()));
+                                                }),
+                                 ps412->end());
+                    if (ps412->size() != n0) {
+                        lawTrace(412, "modKwlessTypeParamDropped412", std::string(mi->VpiFullName()));
+                        if (ps412->empty())
+                            mi->Parameters(nullptr);
+                    }
+                }
+                if (auto* ms = mi->Modules())
+                    for (auto* c : *ms)
+                        walk412(c);
+                if (auto* gas = mi->Gen_scope_arrays())
+                    for (auto* ga : *gas)
+                        if (auto* gss = ga->Gen_scopes())
+                            for (auto* gs : *gss) {
+                                std::function<void(UHDM::gen_scope*)> gw = [&](UHDM::gen_scope* g) {
+                                    if (auto* gm = g->Modules())
+                                        for (auto* c : *gm)
+                                            walk412(c);
+                                    if (auto* ga2 = g->Gen_scope_arrays())
+                                        for (auto* a2 : *ga2)
+                                            if (auto* g2s = a2->Gen_scopes())
+                                                for (auto* g2 : *g2s)
+                                                    gw(g2);
+                                };
+                                gw(gs);
+                            }
+            };
+            if (auto* am = d->AllModules())
+                for (auto* mi : *am)
+                    walk412(mi);
+            if (auto* tm = d->TopModules())
+                for (auto* mi : *tm)
+                    walk412(mi);
+        }
+    }
     // § modTdClonePkgTopInstance16 — LAW S and its alias fix-ups are the last
     // writers of a module listing's typespec clones, so the clone-instance
     // stamp runs after them.
@@ -27684,6 +27987,17 @@ UHDM::udp_defn* UhdmExporter::buildUdpDefn(const PrimitiveSymbol& prim) {
                 else {
                     val += row.inputs[i];
                     val += ' ';
+                    // § udpSeqStarTwoSpaces412 (r11u412, R11U412_UDPSTAR_OFF;
+                    // cases tools/probe/r11u412repro/cases/UD; sv-tests
+                    // hdlconvertor std2017/p835, p884) — in a SEQUENTIAL
+                    // row a `*` is an edge indicator, which Surelog writes
+                    // as its symbol `* ` and then the indicator's own
+                    // separator (`? *  : ? : -`).
+                    if (row.inputs[i] == '*' && row.state &&
+                        lawOn(412, "R11U412_UDPSTAR_OFF")) {
+                        val += ' ';
+                        lawTrace(412, "udpSeqStarTwoSpaces412", qname);
+                    }
                 }
                 nfields++;
             }
@@ -27730,8 +28044,22 @@ UHDM::udp_defn* UhdmExporter::buildUdpDefn(const PrimitiveSymbol& prim) {
         auto* c = s.MakeConstant();
         c->VpiParent(asg);
         std::string dec = rawText(is.value->sourceRange());
-        c->VpiValue("UINT:" + dec);
-        c->VpiDecompile(dec);
+        // § udpInitTickValEmpty412 (r11u412, R11U412_UDPINITTICK_OFF; cases
+        // tools/probe/r11u412repro/cases/UD; sv-tests hdlconvertor
+        // std2017/p835) — Surelog writes the UDP initial value as the init
+        // node's own symbol name, which the grammar's one-bit literal tokens
+        // (`initial q = 1'b1;`) do not have: golden's value is `UINT:` and
+        // Surelog's bad-symbol marker, with no decompile (uhdm-dump prints
+        // `UINT:0`); the digits only for a plain number.
+        if (!dec.empty() && dec.find_first_not_of("0123456789") != std::string::npos &&
+            lawOn(412, "R11U412_UDPINITTICK_OFF")) {
+            c->VpiValue("UINT:@@BAD_SYMBOL@@");
+            lawTrace(412, "udpInitTickValEmpty412", qname);
+        }
+        else {
+            c->VpiValue("UINT:" + dec);
+            c->VpiDecompile(dec);
+        }
         c->VpiSize(64);
         c->VpiConstType(vpiUIntConst);
         setLoc(c, is.value->sourceRange());

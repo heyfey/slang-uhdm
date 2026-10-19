@@ -9161,6 +9161,13 @@ int32_t netKindExtra402(const Symbol& sym) {
     }
     if (k)
         lawTrace(402, "netKindTypeAll402", std::string(sym.name));
+    // § interconnectNetNone412 — the net half: `interconnect bus;` carries
+    // vpiNetType 12 (Surelog's getVpiNetType default, vpiNone) in both views.
+    if (!k && ns.netType.netKind == NetType::Interconnect &&
+        lawOn(412, "R11U412_INTERCONNECT_OFF")) {
+        k = 12;
+        lawTrace(412, "interconnectNetNone412", "net " + std::string(sym.name));
+    }
     return k;
 }
 
@@ -10298,6 +10305,64 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         }
         castKeyNetPending70.erase(ck70);
     }
+    // § assocClassIdxNet412 — the net half: Surelog reads the class name
+    // written as an associative index (`int arr [ C ];`) as an undeclared
+    // identifier and the definition listing mints a wire of that name at the
+    // index token, after every declaration (golden AC ac01: `logic_net
+    // work@top.C 21:11-21:12`, vpiNetType 1; the elaborated instance lists
+    // none).
+    if (lawOn(412, "R11U412_ASSOCCLASSIDX_OFF")) {
+        std::set<std::string> have412;
+        for (auto* n412 : *nets)
+            have412.insert(std::string(n412->VpiName()));
+        for (auto& mem412 : body.members()) {
+            if (mem412.kind != SymbolKind::Variable)
+                continue;
+            auto* dsy412 = mem412.getSyntax();
+            if (!dsy412 || dsy412->kind != syntax::SyntaxKind::Declarator)
+                continue;
+            const Type* t412 = &mem412.as<VariableSymbol>().getType();
+            for (auto* dim412 : dsy412->as<syntax::DeclaratorSyntax>().dimensions) {
+                auto& c412 = t412->getCanonicalType();
+                if (c412.kind == SymbolKind::AssociativeArrayType) {
+                    auto& aa412 = c412.as<AssociativeArrayType>();
+                    auto* rd412 = dim412->specifier
+                                      ? dim412->specifier->as_if<syntax::RangeDimensionSpecifierSyntax>()
+                                      : nullptr;
+                    if (aa412.indexType &&
+                        aa412.indexType->getCanonicalType().kind == SymbolKind::ClassType &&
+                        rd412 && rd412->selector &&
+                        rd412->selector->kind == syntax::SyntaxKind::BitSelect) {
+                        auto& ex412 = *rd412->selector->as<syntax::BitSelectSyntax>().expr;
+                        if (ex412.kind == syntax::SyntaxKind::IdentifierName) {
+                            auto tk412 = ex412.as<syntax::IdentifierNameSyntax>().identifier;
+                            std::string nm412(tk412.valueText());
+                            if (have412.insert(nm412).second) {
+                                auto* n412 = s.MakeLogic_net();
+                                n412->VpiName(nm412);
+                                n412->VpiFullName(prefix + "." + nm412);
+                                n412->VpiParent(m);
+                                n412->VpiNetType(1);
+                                setLoc(n412, tk412.range());
+                                noteLateBindNet119(n412);
+                                nets->push_back(n412);
+                                lawTrace(412, "assocClassIdxNet412", "net " + prefix + "." + nm412);
+                            }
+                        }
+                    }
+                    t412 = &aa412.elementType;
+                }
+                else if (c412.kind == SymbolKind::FixedSizeUnpackedArrayType)
+                    t412 = &c412.as<FixedSizeUnpackedArrayType>().elementType;
+                else if (c412.kind == SymbolKind::DynamicArrayType)
+                    t412 = &c412.as<DynamicArrayType>().elementType;
+                else if (c412.kind == SymbolKind::QueueType)
+                    t412 = &c412.as<QueueType>().elementType;
+                else
+                    break;
+            }
+        }
+    }
     if (!nets->empty())
         m->Nets(nets);
     // ...then the names the HOISTED class method bodies could not resolve
@@ -10667,6 +10732,70 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             auto& defInst = AssertionInstanceExpression::makeDefault(prop);
             for (auto& [sym0, syn0] : savedDefaults)
                 sym0->defaultValueSyntax = syn0;
+            const AssertionInstanceExpression* aie412 =
+                defInst.kind == ExpressionKind::AssertionInstance
+                    ? &defInst.as<AssertionInstanceExpression>()
+                    : nullptr;
+            // § propLocalVarListed412 (r11u412, R11U412_PROPLOCALVAR_OFF;
+            // cases tools/probe/r11u412repro/cases/PL; sv-tests
+            // chapter-16/16.10--property-local-var.sv and its -fail twin) —
+            // a property's local variable (`property prop; int x; ...`) is
+            // listed under the property_decl's vpiVariables: a variable named
+            // by the bare name (full name `x`) at the name token, parented at
+            // an unlisted blocking assignment (opType 82) that holds it as its
+            // Lhs at the same span — Surelog compiles the declaration as a
+            // statement — typed through a ref_typespec (full name `x`) by an
+            // unparented typespec at the written type.  Integer-atom, logic
+            // and bit types are written; any other type abstains.
+            if (aie412 && lawOn(412, "R11U412_PROPLOCALVAR_OFF")) {
+                auto* pv412 = s.MakeVariablesVec();
+                for (auto* lvp : aie412->localVars) {
+                    auto& lv = *lvp;
+                    const DeclaredType* dt412 = lv.getDeclaredType();
+                    auto* ts412syn = dt412 ? dt412->getTypeSyntax() : nullptr;
+                    if (!ts412syn || ts412syn->kind == syntax::SyntaxKind::ImplicitType)
+                        continue;
+                    auto& ct412 = lv.getType().getCanonicalType();
+                    UHDM::variables* v412 = nullptr;
+                    if (ct412.kind == SymbolKind::PredefinedIntegerType) {
+                        switch (ct412.as<PredefinedIntegerType>().integerKind) {
+                            case PredefinedIntegerType::Int: v412 = s.MakeInt_var(); break;
+                            case PredefinedIntegerType::Integer: v412 = s.MakeInteger_var(); break;
+                            case PredefinedIntegerType::Byte: v412 = s.MakeByte_var(); break;
+                            case PredefinedIntegerType::ShortInt: v412 = s.MakeShort_int_var(); break;
+                            case PredefinedIntegerType::LongInt: v412 = s.MakeLong_int_var(); break;
+                            default: break;
+                        }
+                        if (v412 && ct412.isSigned())
+                            v412->VpiSigned(true);
+                    }
+                    if (!v412)
+                        continue;
+                    auto* ts412 = makeTypespec(lv, ts412syn);
+                    if (!ts412)
+                        continue;
+                    ts412->VpiParent(nullptr);
+                    v412->VpiName(lv.name);
+                    v412->VpiFullName(lv.name);
+                    setLoc(v412, nameSpan(lv.location, lv.name));
+                    auto* rt412 = s.MakeRef_typespec();
+                    rt412->VpiFullName(std::string(lv.name));
+                    rt412->VpiParent(v412);
+                    rt412->Actual_typespec(ts412);
+                    v412->Typespec(rt412);
+                    auto* as412 = s.MakeAssignment();
+                    as412->VpiOpType(vpiAssignmentOp);
+                    as412->VpiBlocking(true);
+                    setLoc(as412, nameSpan(lv.location, lv.name));
+                    as412->Lhs(v412);
+                    v412->VpiParent(as412);
+                    pv412->push_back(v412);
+                    lawTrace(412, "propLocalVarListed412",
+                             std::string(prop.name) + "." + std::string(lv.name));
+                }
+                if (!pv412->empty())
+                    pd->Variables(pv412);
+            }
             if (defInst.kind == ExpressionKind::AssertionInstance) {
                 auto& aie = defInst.as<AssertionInstanceExpression>();
                 auto* psSpec = s.MakeProperty_spec();
@@ -16178,6 +16307,44 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 if (grp9.empty())
                     continue;
             }
+            // § importFnNameFirstWins412 (r11u412, R11U412_IMPFNNAME_OFF;
+            // cases tools/probe/r11u412repro/cases/IF; sv-tests hdlconvertor
+            // std2017/p780) — two wildcard-imported packages declaring a
+            // subroutine of the SAME NAME list it once: the module's task_func
+            // map is keyed by the name, so the earlier import's subroutine
+            // stays and the later package's namesake drops out of its group
+            // (golden IF if01: `import p::*; ... import p2::*;` lists p::f,
+            // p2::g, never p2::f).
+            if (lawOn(412, "R11U412_IMPFNNAME_OFF")) {
+                std::set<std::string> nm412;
+                // free package subroutines only (`pkg::f`): a class
+                // method's out-of-body definition (`uvm_pkg::uvm_root::
+                // run_test`) shares a free function's bare name
+                auto free412 = [](const UHDM::task_func* t) {
+                    std::string_view fn = t->VpiFullName();
+                    auto a = fn.find("::");
+                    return t->VpiParent() &&
+                           t->VpiParent()->UhdmType() == UHDM::uhdmpackage &&
+                           a != std::string_view::npos &&
+                           fn.find("::", a + 2) == std::string_view::npos;
+                };
+                for (auto* e412 : *v)
+                    if (free412(e412))
+                        nm412.insert(std::string(e412->VpiName()));
+                std::vector<UHDM::task_func*> keep412;
+                for (auto* e412 : grp9) {
+                    if (free412(e412) && nm412.count(std::string(e412->VpiName())) &&
+                        std::find(v->begin(), v->end(), e412) == v->end()) {
+                        lawTrace(412, "importFnNameFirstWins412",
+                                 std::string(e412->VpiFullName()));
+                        continue;
+                    }
+                    keep412.push_back(e412);
+                }
+                grp9.swap(keep412);
+                if (grp9.empty())
+                    continue;
+            }
             bool placed9 = false;
             size_t at9 = v->size();
             for (size_t i9 = 0; i9 < v->size(); i9++)
@@ -16250,6 +16417,23 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 auto hs9 = tfHomeSub9.find(tf9);
                 if (hs9 != tfHomeSub9.end() && !haveSub9.insert(hs9->second).second)
                     continue;
+                // § importFnNameFirstWins412 — the same name rule here.
+                auto free412 = [](const UHDM::task_func* t) {
+                    std::string_view fn = t->VpiFullName();
+                    auto a = fn.find("::");
+                    return t->VpiParent() &&
+                           t->VpiParent()->UhdmType() == UHDM::uhdmpackage &&
+                           a != std::string_view::npos &&
+                           fn.find("::", a + 2) == std::string_view::npos;
+                };
+                if (free412(tf9) && lawOn(412, "R11U412_IMPFNNAME_OFF") &&
+                    std::any_of(hoist9.begin(), hoist9.end(), [&](UHDM::task_func* h412) {
+                        return free412(h412) && h412->VpiName() == tf9->VpiName();
+                    })) {
+                    lawTrace(412, "importFnNameFirstWins412",
+                             "hoist " + std::string(tf9->VpiFullName()));
+                    continue;
+                }
                 hoist9.push_back(tf9);
             }
         }
@@ -20552,6 +20736,24 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         // (StringMethod).
                         if (auto* e = emitExpr(ic, v, fullName, topNets))
                             v->Expr((UHDM::expr*)e);
+                    }
+                    // § elabVarSysCallInit412 (r11u412, R11U412_VARSYSCALL_OFF;
+                    // cases tools/probe/r11u412repro/cases/VI; sv-tests
+                    // hdlconvertor std2017/p762) — an argument-less system
+                    // function call initializer (`logic [7:0] raddr =
+                    // $random();`, `int r = $urandom;`) keeps the sys_func_call
+                    // as the elaborated var's vpiExpr, parented at the var, as
+                    // a user call does (golden VI vi01); we wrote none.
+                    else if (ic.kind == ExpressionKind::Call &&
+                             ic.as<CallExpression>().isSystemCall() &&
+                             !ic.as<CallExpression>().getSubroutineName().empty() &&
+                             ic.as<CallExpression>().getSubroutineName()[0] == '$' &&
+                             ic.as<CallExpression>().arguments().empty() &&
+                             lawOn(412, "R11U412_VARSYSCALL_OFF")) {
+                        if (auto* e = emitExpr(ic, v, fullName, topNets)) {
+                            v->Expr((UHDM::expr*)e);
+                            lawTrace(412, "elabVarSysCallInit412", fullName);
+                        }
                     }
                     else if (ic.kind == ExpressionKind::StructuredAssignmentPattern &&
                              v->UhdmType() == UHDM::uhdmstruct_var) {
@@ -58385,11 +58587,33 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 dblVars9 = true;
         }
     }
-    else
+    else {
+        // § genericIfacePosConnNoDouble412 (r11u412,
+        // R11U412_GENPOSNODBL_OFF; cases tools/probe/r11u412repro/cases/GI;
+        // sv-tests hdlconvertor std2017/p761, p762) — the doubling is a
+        // NAMED connection's: an interface handed POSITIONALLY to an unbound
+        // generic port (`memMod mem(sb_intf);`) lists its variables once
+        // (golden GI gi01, gi02, gi06), as § genericIfacePortPositionalNoView
+        // already gives that port no view; a named `.a(s)` still doubles.
+        const bool posOnce412 = lawOn(412, "R11U412_GENPOSNODBL_OFF");
+        bool posSeen412 = false;
         dblVars9 = boundToPlainGenericIfacePort(
-            inst, [this](const InterfacePortSymbol& ip9) {
-                return isUnboundGenericIfacePort(ip9);
+            inst, [this, posOnce412, &posSeen412](const InterfacePortSymbol& ip9) {
+                if (!isUnboundGenericIfacePort(ip9))
+                    return false;
+                if (posOnce412)
+                    if (auto* ps412 = ip9.getParentScope();
+                        ps412 && ps412->asSymbol().kind == SymbolKind::InstanceBody)
+                        if (auto* pi412 = ps412->asSymbol().as<InstanceBodySymbol>().parentInstance;
+                            pi412 && !findConnSyntax(*pi412, ip9.name)) {
+                            posSeen412 = true;
+                            return false;
+                        }
+                return true;
             });
+        if (posSeen412 && !dblVars9)
+            lawTrace(412, "genericIfacePosConnNoDouble412", prefix);
+    }
     if (!vars->empty() && dblVars9) {
         size_t half9 = vars->size();
         for (size_t i9 = 0; i9 < half9; i9++)

@@ -144,14 +144,14 @@ chapter-14/14.3--clocking-block-signals.sv,EQUAL,,equal
 chapter-14/14.3--clocking-block.sv,EQUAL,,equal
 chapter-14/14.3--default-clocking-block.sv,EQUAL,,equal
 chapter-14/14.3--global-clocking-block.sv,EQUAL,,equal
-chapter-15/15.4--mailbox-blocking.sv,DIFFERENT,decompile:,
-chapter-15/15.4--mailbox-non-blocking.sv,DIFFERENT,decompile:,
+chapter-15/15.4--mailbox-blocking.sv,EQUAL,,equal
+chapter-15/15.4--mailbox-non-blocking.sv,EQUAL,,equal
 chapter-15/15.5.1--named-event-trigger-blocking.sv,EQUAL,,equal
 chapter-15/15.5.1--named-event-trigger-non-blocking.sv,EQUAL,,equal
 chapter-15/15.5.2--named-event-wait.sv,EQUAL,,equal
-chapter-16/16.10--property-local-var-fail.sv,DIFFERENT,decompile:,
+chapter-16/16.10--property-local-var-fail.sv,EQUAL,,equal
 chapter-16/16.10--property-local-var-uvm.sv,DIFFERENT,decompile:,
-chapter-16/16.10--property-local-var.sv,DIFFERENT,decompile:,
+chapter-16/16.10--property-local-var.sv,EQUAL,,equal
 chapter-16/16.10--sequence-local-var-fail.sv,EQUAL,,equal
 chapter-16/16.10--sequence-local-var-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.10--sequence-local-var.sv,EQUAL,,equal
@@ -494,7 +494,7 @@ chapter-25/25.3-interface.sv,EQUAL,,equal
 chapter-26/26.2--package-decl.sv,EQUAL,,equal
 chapter-26/26.3--package-ref.sv,EQUAL,,equal
 chapter-5/5.10-structure-arrays-illegal.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.10-structure-arrays-illegal.sv:24:20: error: value of type 'int' cannot be assigned to type 'ms_t',
-chapter-5/5.10-structure-arrays.sv,DIFFERENT,decompile:,
+chapter-5/5.10-structure-arrays.sv,EQUAL,,equal
 chapter-5/5.10-structure-replication.sv,DIFFERENT,decompile:,
 chapter-5/5.10-structures.sv,EQUAL,,equal
 chapter-5/5.11-arrays-key-index.sv,EQUAL,,equal
@@ -577,12 +577,12 @@ chapter-6/6.17--event.sv,EQUAL,,equal
 chapter-6/6.18--typedef.sv,EQUAL,,equal
 chapter-6/6.19--enum_anon.sv,EQUAL,,equal
 chapter-6/6.19--enum_value_inv.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.19--enum_value_inv.sv:24:20: error: expression width of 4 does not exactly match declared enum type width of 3,
-chapter-6/6.19--enum_xx.sv,DIFFERENT,decompile:,
+chapter-6/6.19--enum_xx.sv,EQUAL,,equal
 chapter-6/6.19--enum_xx_inv.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.19--enum_xx_inv.sv:18:32: error: value of 2'bxx is invalid for enum with base type 'bit[1:0]',
 chapter-6/6.19--enum_xx_inv_order.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.19--enum_xx_inv_order.sv:18:42: error: cannot increment previous value 32'sdx because it has unknown bits,
 chapter-6/6.19.1--enum_typedef.sv,EQUAL,,equal
-chapter-6/6.19.2--enum_sequence.sv,DIFFERENT,decompile:,
-chapter-6/6.19.2--enum_sequence_range.sv,DIFFERENT,decompile:,
+chapter-6/6.19.2--enum_sequence.sv,EQUAL,,equal
+chapter-6/6.19.2--enum_sequence_range.sv,EQUAL,,equal
 chapter-6/6.19.3--enum_type_checking.sv,EQUAL,,equal
 chapter-6/6.19.3--enum_type_checking_inv.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.19.3--enum_type_checking_inv.sv:22:21: error: no implicit conversion from 'int' to 'e'; explicit conversion ex,
 chapter-6/6.19.4--enum_numerical_expr.sv,EQUAL,,equal
@@ -600,7 +600,7 @@ chapter-6/6.20.2--parameter_dep.sv,EQUAL,,equal
 chapter-6/6.20.2--parameter_port_list.sv,EQUAL,,equal
 chapter-6/6.20.2--parameter_range.sv,EQUAL,,equal
 chapter-6/6.20.2--parameter_real.sv,EQUAL,,equal
-chapter-6/6.20.3--parameter_type.sv,DIFFERENT,decompile:,
+chapter-6/6.20.3--parameter_type.sv,EQUAL,,equal
 chapter-6/6.20.4--localparam.sv,EQUAL,,equal
 chapter-6/6.20.4--localparam_int.sv,EQUAL,,equal
 chapter-6/6.20.4--localparam_logic.sv,EQUAL,,equal
@@ -620,9 +620,9 @@ chapter-6/6.5--variable_assignment.sv,EQUAL,,equal
 chapter-6/6.5--variable_mixed_assignments.sv,EQUAL,,equal
 chapter-6/6.5--variable_multiple_assignments.sv,EQUAL,,equal
 chapter-6/6.5--variable_redeclare.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.5--variable_redeclare.sv:19:14: error: redefinition of 'v' [-Wredefinition],
-chapter-6/6.6.7--nettype.sv,DIFFERENT,decompile:,
-chapter-6/6.6.7--nettype_resolution_fn.sv,DIFFERENT,decompile:,
-chapter-6/6.6.8--interconnect.sv,DIFFERENT,decompile:,
+chapter-6/6.6.7--nettype.sv,EQUAL,,equal
+chapter-6/6.6.7--nettype_resolution_fn.sv,EQUAL,,equal
+chapter-6/6.6.8--interconnect.sv,EQUAL,,equal
 chapter-6/6.9.1--logic_vector.sv,EQUAL,,equal
 chapter-6/6.9.2--vector_scalared.sv,EQUAL,,equal
 chapter-6/6.9.2--vector_vectored.sv,EQUAL,,equal
@@ -630,7 +630,7 @@ chapter-6/6.9.2--vector_vectored_inv.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-te
 chapter-7/arrays/associative/alloc.sv,EQUAL,,equal
 chapter-7/arrays/associative/arguments.sv,EQUAL,,equal
 chapter-7/arrays/associative/assignment.sv,EQUAL,,equal
-chapter-7/arrays/associative/class.sv,DIFFERENT,decompile:,
+chapter-7/arrays/associative/class.sv,EQUAL,,equal
 chapter-7/arrays/associative/integral.sv,EQUAL,,equal
 chapter-7/arrays/associative/literals.sv,EQUAL,,equal
 chapter-7/arrays/associative/locator-methods/find-first-index.sv,EQUAL,,equal
@@ -655,7 +655,7 @@ chapter-7/arrays/associative/methods/traversal.sv,EQUAL,,equal
 chapter-7/arrays/associative/nonexistent.sv,EQUAL,,equal
 chapter-7/arrays/associative/other.sv,EQUAL,,equal
 chapter-7/arrays/associative/string.sv,EQUAL,,equal
-chapter-7/arrays/associative/wildcard.sv,DIFFERENT,decompile:,
+chapter-7/arrays/associative/wildcard.sv,EQUAL,,equal
 chapter-7/arrays/dynamic/basic.sv,EQUAL,,equal
 chapter-7/arrays/dynamic/op-delete.sv,EQUAL,,equal
 chapter-7/arrays/dynamic/op-new.sv,EQUAL,,equal
@@ -1348,7 +1348,7 @@ generated/hdlconv_std2012/hdlconvertor_std2012_p141.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p142.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p147.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p148.sv,DIFFERENT,decompile:,
-generated/hdlconv_std2012/hdlconvertor_std2012_p154_1.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2012/hdlconvertor_std2012_p154_1.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p154_2.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2012/p154_2.sv:8:22: error: method argument 'x' is of type 'C::T' (aka 'real') w,
 generated/hdlconv_std2012/hdlconvertor_std2012_p158.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p160_1.sv,EQUAL,,equal
@@ -1358,19 +1358,19 @@ generated/hdlconv_std2012/hdlconvertor_std2012_p753_1.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p753_2.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p84.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p88.sv,DIFFERENT,decompile:,
-generated/hdlconv_std2012/hdlconvertor_std2012_p90.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2012/hdlconvertor_std2012_p90.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p91.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p94.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2012/p94.sv:28:15: error: no implicit conversion from 'sub.t_5' to 'sub.t_5'; ex,
 generated/hdlconv_std2017/hdlconvertor_std2017_p124.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p125.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p126.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p126.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p127.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p130.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p137_2.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p140.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p168.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p170.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p174.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p174.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p175.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p177.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p178.sv,EQUAL,,equal
@@ -1386,7 +1386,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p186.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p188.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p188_2.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p189.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p190.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p190.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p190_2.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p190_2.sv:6:22: error: method argument 'x' is of type 'C::T' (aka 'real') w,
 generated/hdlconv_std2017/hdlconvertor_std2017_p193.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p193_2.sv,DIFFERENT,decompile:,
@@ -1465,7 +1465,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p633.sv,SLANG_ONLY,[  ERROR] : 1,
 generated/hdlconv_std2017/hdlconvertor_std2017_p703.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p703.sv:5:2: error: top-level module 'mymod' has unconnected 'ref' port 'Y',
 generated/hdlconv_std2017/hdlconvertor_std2017_p705.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p705.sv:16:23: error: top-level module 'mh20' has unconnected 'ref' port 'x,
 generated/hdlconv_std2017/hdlconvertor_std2017_p707.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p718.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p718.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p723.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p728.sv,EQUAL,,equal
@@ -1482,8 +1482,8 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p757.sv,SURELOG_ONLY,/home/heyfey
 generated/hdlconv_std2017/hdlconvertor_std2017_p758.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p759.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p759.sv:8:14: error: cannot read from output clocking signal 'req',
 generated/hdlconv_std2017/hdlconvertor_std2017_p760.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p760.sv:6:24: error: top-level module 'dtype' has unconnected interface por,
-generated/hdlconv_std2017/hdlconvertor_std2017_p761.sv,DIFFERENT,decompile:,
-generated/hdlconv_std2017/hdlconvertor_std2017_p762.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p761.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p762.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p766.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p770.sv,DIFFERENT,decompile:,
@@ -1491,14 +1491,14 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p771.sv,SLANG_ONLY,[  ERROR] : 6,
 generated/hdlconv_std2017/hdlconvertor_std2017_p774.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p774.sv:18:12: error: no implicit conversion from 'logic signed[31:0]' to ',
 generated/hdlconv_std2017/hdlconvertor_std2017_p776.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p779.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p779.sv:14:9: error: duplicate definition of 'p' [-Wduplicate-definition],
-generated/hdlconv_std2017/hdlconvertor_std2017_p780.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p780.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p781.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p783.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p783.sv:34:5: error: redefinition of 'x' [-Wredefinition],
 generated/hdlconv_std2017/hdlconvertor_std2017_p790.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p791.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p801.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p827.sv,DIFFERENT,decompile:,
-generated/hdlconv_std2017/hdlconvertor_std2017_p835.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p835.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p844.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p845.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p847.sv,EQUAL,,equal
@@ -1513,7 +1513,7 @@ generated/integers/6.11--integer_logic.sv,EQUAL,,equal
 generated/integers/6.11--integer_longint.sv,EQUAL,,equal
 generated/integers/6.11--integer_reg.sv,EQUAL,,equal
 generated/integers/6.11--integer_shortint.sv,EQUAL,,equal
-generated/integers/6.11--integer_signed_bit.sv,DIFFERENT,decompile:,
+generated/integers/6.11--integer_signed_bit.sv,EQUAL,,equal
 generated/integers/6.11--integer_signed_byte.sv,EQUAL,,equal
 generated/integers/6.11--integer_signed_int.sv,EQUAL,,equal
 generated/integers/6.11--integer_signed_integer.sv,EQUAL,,equal
@@ -2155,8 +2155,8 @@ generic/class/class_test_12.sv,EQUAL,,equal
 generic/class/class_test_13.sv,EQUAL,,equal
 generic/class/class_test_17.sv,EQUAL,,equal
 generic/class/class_test_18.sv,EQUAL,,equal
-generic/class/class_test_19.sv,DIFFERENT,decompile:,
-generic/class/class_test_21.sv,DIFFERENT,decompile:,
+generic/class/class_test_19.sv,EQUAL,,equal
+generic/class/class_test_21.sv,EQUAL,,equal
 generic/class/class_test_25.sv,EQUAL,,equal
 generic/class/class_test_26.sv,EQUAL,,equal
 generic/class/class_test_27.sv,EQUAL,,equal
@@ -2226,7 +2226,7 @@ generic/member/class_member_test_19.sv,EQUAL,,equal
 generic/member/class_member_test_2.sv,EQUAL,,equal
 generic/member/class_member_test_25.sv,EQUAL,,equal
 generic/member/class_member_test_26.sv,EQUAL,,equal
-generic/member/class_member_test_27.sv,DIFFERENT,decompile:,
+generic/member/class_member_test_27.sv,EQUAL,,equal
 generic/member/class_member_test_3.sv,EQUAL,,equal
 generic/member/class_member_test_31.sv,EQUAL,,equal
 generic/member/class_member_test_32.sv,EQUAL,,equal
@@ -2246,7 +2246,7 @@ generic/number/number_test_11.sv,EQUAL,,equal
 generic/number/number_test_12.sv,EQUAL,,equal
 generic/number/number_test_13.sv,EQUAL,,equal
 generic/number/number_test_14.sv,EQUAL,,equal
-generic/number/number_test_15.sv,DIFFERENT,decompile:,
+generic/number/number_test_15.sv,EQUAL,,equal
 generic/number/number_test_16.sv,EQUAL,,equal
 generic/number/number_test_2.sv,EQUAL,,equal
 generic/number/number_test_24.sv,EQUAL,,equal
@@ -2288,7 +2288,7 @@ generic/number/number_test_66.sv,EQUAL,,equal
 generic/number/number_test_67.sv,EQUAL,,equal
 generic/number/number_test_68.sv,EQUAL,,equal
 generic/number/number_test_69.sv,EQUAL,,equal
-generic/number/number_test_7.sv,DIFFERENT,decompile:,
+generic/number/number_test_7.sv,EQUAL,,equal
 generic/number/number_test_70.sv,EQUAL,,equal
 generic/number/number_test_71.sv,EQUAL,,equal
 generic/number/number_test_72.sv,EQUAL,,equal

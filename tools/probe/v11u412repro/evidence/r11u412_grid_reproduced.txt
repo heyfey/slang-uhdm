@@ -1,0 +1,136 @@
+IMP/AC_ac01 | p rc=0 cmp=182 NOT_EQUAL d=19 a6b00b4e | l rc=0 cmp=0 STRICT_EQUAL d=2 3e8bd2a1
+IMP/AC_ac01 | v rc=0 cmp=0 STRICT_EQUAL d=2 3e8bd2a1 | vo rc=0 3e8bd2a1 | uo rc=0 a6b00b4e | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/AC_ac02 | p rc=0 cmp=322 NOT_EQUAL d=65 6f353ad8 | l rc=0 cmp=56 NOT_EQUAL d=28 066a7377
+IMP/AC_ac02 | v rc=0 cmp=56 NOT_EQUAL d=28 066a7377 | vo rc=0 066a7377 | uo rc=0 6f353ad8 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/BS_bs01 | p rc=0 cmp=62 NOT_EQUAL d=4 0422a9e4 | l rc=0 cmp=0 STRICT_EQUAL d=2 4637cf67
+IMP/BS_bs01 | v rc=0 cmp=0 STRICT_EQUAL d=2 4637cf67 | vo rc=0 4637cf67 | uo rc=0 0422a9e4 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/BS_bs02 | p rc=0 cmp=30 NOT_EQUAL d=121 3c9a5cfc | l rc=0 cmp=30 NOT_EQUAL d=117 458a674f
+IMP/BS_bs02 | v rc=0 cmp=30 NOT_EQUAL d=117 458a674f | vo rc=0 458a674f | uo rc=0 3c9a5cfc | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/BS_bs03 | p rc=0 cmp=94 NOT_EQUAL d=4 b931c13a | l rc=0 cmp=0 STRICT_EQUAL d=2 fec40025
+IMP/BS_bs03 | v rc=0 cmp=0 STRICT_EQUAL d=2 fec40025 | vo rc=0 fec40025 | uo rc=0 b931c13a | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/BS_bs04 | p rc=0 cmp=94 NOT_EQUAL d=6 529c3660 | l rc=0 cmp=94 NOT_EQUAL d=4 c51f4817
+IMP/BS_bs04 | v rc=0 cmp=94 NOT_EQUAL d=4 c51f4817 | vo rc=0 c51f4817 | uo rc=0 529c3660 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/BS_bs05 | p rc=0 cmp=66 NOT_EQUAL d=12 26f5e2f4 | l rc=0 cmp=0 STRICT_EQUAL d=10 2a44ffb8
+IMP/BS_bs05 | v rc=0 cmp=0 STRICT_EQUAL d=10 2a44ffb8 | vo rc=0 2a44ffb8 | uo rc=0 26f5e2f4 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/BS_bs06 | p rc=0 cmp=94 NOT_EQUAL d=8 baa8e635 | l rc=0 cmp=94 NOT_EQUAL d=8 baa8e635
+IMP/BS_bs06 | v rc=0 cmp=94 NOT_EQUAL d=8 baa8e635 | vo rc=0 baa8e635 | uo rc=0 baa8e635 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/CP_cp01 | p rc=0 cmp=58 NOT_EQUAL d=38 8fe2c509 | l rc=0 cmp=0 STRICT_EQUAL d=12 ee2f640e
+IMP/CP_cp01 | v rc=0 cmp=0 STRICT_EQUAL d=12 ee2f640e | vo rc=0 ee2f640e | uo rc=0 8fe2c509 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/CP_cp02 | p rc=0 cmp=0 STRICT_EQUAL d=4 a79bf1ca | l rc=0 cmp=0 STRICT_EQUAL d=4 a79bf1ca
+IMP/CP_cp02 | v rc=0 cmp=0 STRICT_EQUAL d=4 a79bf1ca | vo rc=0 a79bf1ca | uo rc=0 a79bf1ca | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/CP_cp03 | p rc=0 cmp=60 NOT_EQUAL d=155 b3417e54 | l rc=0 cmp=58 NOT_EQUAL d=17 8ad8529d
+IMP/CP_cp03 | v rc=0 cmp=58 NOT_EQUAL d=17 8ad8529d | vo rc=0 8ad8529d | uo rc=0 b3417e54 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/EP_ep01 | p rc=0 cmp=24 NOT_EQUAL d=14 9d031754 | l rc=0 cmp=0 STRICT_EQUAL d=8 a6e06a48
+IMP/EP_ep01 | v rc=0 cmp=0 STRICT_EQUAL d=8 a6e06a48 | vo rc=0 a6e06a48 | uo rc=0 9d031754 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/EP_ep02 | p rc=0 cmp=24 NOT_EQUAL d=18 f586a83f | l rc=0 cmp=0 STRICT_EQUAL d=12 b8187d8f
+IMP/EP_ep02 | v rc=0 cmp=0 STRICT_EQUAL d=12 b8187d8f | vo rc=0 b8187d8f | uo rc=0 f586a83f | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/EP_ep03 | p rc=0 cmp=24 NOT_EQUAL d=22 5f88adbf | l rc=0 cmp=0 STRICT_EQUAL d=18 92caf677
+IMP/EP_ep03 | v rc=0 cmp=0 STRICT_EQUAL d=18 92caf677 | vo rc=0 92caf677 | uo rc=0 5f88adbf | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/ER_er01 | p rc=0 cmp=236 NOT_EQUAL d=234 1d830a3b | l rc=0 cmp=0 STRICT_EQUAL d=2 232f894e
+IMP/ER_er01 | v rc=0 cmp=0 STRICT_EQUAL d=2 232f894e | vo rc=0 232f894e | uo rc=0 1d830a3b | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/ER_er02 | p rc=0 cmp=112 NOT_EQUAL d=38 c59eada2 | l rc=0 cmp=0 STRICT_EQUAL d=2 a9ade04d
+IMP/ER_er02 | v rc=0 cmp=0 STRICT_EQUAL d=2 a9ade04d | vo rc=0 a9ade04d | uo rc=0 c59eada2 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/ER_er03 | p rc=0 cmp=112 NOT_EQUAL d=38 e78e3107 | l rc=0 cmp=0 STRICT_EQUAL d=2 d21453a4
+IMP/ER_er03 | v rc=0 cmp=0 STRICT_EQUAL d=2 d21453a4 | vo rc=0 d21453a4 | uo rc=0 e78e3107 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/ER_er04 | p rc=0 cmp=36 NOT_EQUAL d=18 a70ad5b8 | l rc=0 cmp=0 STRICT_EQUAL d=2 9750f5ad
+IMP/ER_er04 | v rc=0 cmp=0 STRICT_EQUAL d=2 9750f5ad | vo rc=0 9750f5ad | uo rc=0 a70ad5b8 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/ER_er05 | p rc=0 cmp=358 NOT_EQUAL d=51 f54d036c | l rc=0 cmp=358 NOT_EQUAL d=11 f0d02b8b
+IMP/ER_er05 | v rc=0 cmp=358 NOT_EQUAL d=11 f0d02b8b | vo rc=0 f0d02b8b | uo rc=0 f54d036c | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/ER_er06 | p rc=0 cmp=36 NOT_EQUAL d=35 c937db35 | l rc=0 cmp=85 NOT_EQUAL d=23 4771612d
+IMP/ER_er06 | v rc=0 cmp=85 NOT_EQUAL d=23 4771612d | vo rc=0 4771612d | uo rc=0 c937db35 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/ER_er07 | p rc=0 cmp=36 NOT_EQUAL d=42 60e612a8 | l rc=0 cmp=36 NOT_EQUAL d=6 94ded928
+IMP/ER_er07 | v rc=0 cmp=36 NOT_EQUAL d=6 94ded928 | vo rc=0 94ded928 | uo rc=0 60e612a8 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/GI_gi01 | p rc=0 cmp=280 NOT_EQUAL d=8 6a0b0458 | l rc=0 cmp=0 STRICT_EQUAL d=4 d39fc88d
+IMP/GI_gi01 | v rc=0 cmp=0 STRICT_EQUAL d=4 d39fc88d | vo rc=0 d39fc88d | uo rc=0 6a0b0458 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/GI_gi02 | p rc=0 cmp=280 NOT_EQUAL d=14 eadc9023 | l rc=0 cmp=0 STRICT_EQUAL d=10 511afb86
+IMP/GI_gi02 | v rc=0 cmp=0 STRICT_EQUAL d=10 511afb86 | vo rc=0 511afb86 | uo rc=0 eadc9023 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/GI_gi03 | p rc=0 cmp=0 STRICT_EQUAL d=28 e2c7103d | l rc=0 cmp=0 STRICT_EQUAL d=28 e2c7103d
+IMP/GI_gi03 | v rc=0 cmp=0 STRICT_EQUAL d=28 e2c7103d | vo rc=0 e2c7103d | uo rc=0 e2c7103d | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/GI_gi04 | p rc=0 cmp=0 STRICT_EQUAL d=10 37dd3363 | l rc=0 cmp=0 STRICT_EQUAL d=10 37dd3363
+IMP/GI_gi04 | v rc=0 cmp=0 STRICT_EQUAL d=10 37dd3363 | vo rc=0 37dd3363 | uo rc=0 37dd3363 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/GI_gi05 | p rc=0 cmp=414 NOT_EQUAL d=66 4994912b | l rc=0 cmp=414 NOT_EQUAL d=66 4994912b
+IMP/GI_gi05 | v rc=0 cmp=414 NOT_EQUAL d=66 4994912b | vo rc=0 4994912b | uo rc=0 4994912b | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/GI_gi06 | p rc=0 cmp=108 NOT_EQUAL d=8 d590e4e5 | l rc=0 cmp=0 STRICT_EQUAL d=4 5fe56262
+IMP/GI_gi06 | v rc=0 cmp=0 STRICT_EQUAL d=4 5fe56262 | vo rc=0 5fe56262 | uo rc=0 d590e4e5 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/IC_ic01 | p rc=0 cmp=58 NOT_EQUAL d=12 d6877474 | l rc=0 cmp=0 STRICT_EQUAL d=2 251b49a5
+IMP/IC_ic01 | v rc=0 cmp=0 STRICT_EQUAL d=2 251b49a5 | vo rc=0 251b49a5 | uo rc=0 d6877474 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/IC_ic02 | p rc=0 cmp=47 NOT_EQUAL d=100 837ffeb7 | l rc=0 cmp=47 NOT_EQUAL d=76 08f7ede3
+IMP/IC_ic02 | v rc=0 cmp=47 NOT_EQUAL d=76 08f7ede3 | vo rc=0 08f7ede3 | uo rc=0 837ffeb7 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/IF_if01 | p rc=0 cmp=516 NOT_EQUAL d=14 b32743e2 | l rc=0 cmp=0 STRICT_EQUAL d=10 0ebff4a1
+IMP/IF_if01 | v rc=0 cmp=0 STRICT_EQUAL d=10 0ebff4a1 | vo rc=0 0ebff4a1 | uo rc=0 b32743e2 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/IF_if02 | p rc=0 cmp=0 STRICT_EQUAL d=2 bcef73b4 | l rc=0 cmp=0 STRICT_EQUAL d=2 bcef73b4
+IMP/IF_if02 | v rc=0 cmp=0 STRICT_EQUAL d=2 bcef73b4 | vo rc=0 bcef73b4 | uo rc=0 bcef73b4 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/MB_mb01 | p rc=0 cmp=51 NOT_EQUAL d=100 817f9282 | l rc=0 cmp=0 STRICT_EQUAL d=10 a412091a
+IMP/MB_mb01 | v rc=0 cmp=0 STRICT_EQUAL d=10 a412091a | vo rc=0 a412091a | uo rc=0 817f9282 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/MB_mb02 | p rc=0 cmp=0 STRICT_EQUAL d=2 d3b9e4e9 | l rc=0 cmp=0 STRICT_EQUAL d=2 d3b9e4e9
+IMP/MB_mb02 | v rc=0 cmp=0 STRICT_EQUAL d=2 d3b9e4e9 | vo rc=0 d3b9e4e9 | uo rc=0 d3b9e4e9 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/MB_mb03 | p rc=0 cmp=62 NOT_EQUAL d=103 2e6a9ee8 | l rc=0 cmp=62 NOT_EQUAL d=59 2d1685b0
+IMP/MB_mb03 | v rc=0 cmp=62 NOT_EQUAL d=59 2d1685b0 | vo rc=0 2d1685b0 | uo rc=0 2e6a9ee8 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/NT_nt01 | p rc=0 cmp=29 NOT_EQUAL d=11 ddd1b9f8 | l rc=0 cmp=0 STRICT_EQUAL d=2 24c18e15
+IMP/NT_nt01 | v rc=0 cmp=0 STRICT_EQUAL d=2 24c18e15 | vo rc=0 24c18e15 | uo rc=0 ddd1b9f8 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/NT_nt02 | p rc=0 cmp=658 NOT_EQUAL d=244 0f7fc764 | l rc=0 cmp=0 STRICT_EQUAL d=3 f4976ad8
+IMP/NT_nt02 | v rc=0 cmp=0 STRICT_EQUAL d=3 f4976ad8 | vo rc=0 f4976ad8 | uo rc=0 0f7fc764 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/NT_nt03 | p rc=0 cmp=110 NOT_EQUAL d=56 930b3148 | l rc=0 cmp=17 NOT_EQUAL d=16 ff468f18
+IMP/NT_nt03 | v rc=0 cmp=17 NOT_EQUAL d=16 ff468f18 | vo rc=0 ff468f18 | uo rc=0 930b3148 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/OR_or01 | p rc=0 cmp=17 NOT_EQUAL d=44 851ea727 | l rc=0 cmp=0 STRICT_EQUAL d=12 4afba151
+IMP/OR_or01 | v rc=0 cmp=0 STRICT_EQUAL d=12 4afba151 | vo rc=0 4afba151 | uo rc=0 851ea727 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/OR_or02 | p rc=0 cmp=17 NOT_EQUAL d=80 d4c16135 | l rc=0 cmp=17 NOT_EQUAL d=64 dcb22b64
+IMP/OR_or02 | v rc=0 cmp=17 NOT_EQUAL d=64 dcb22b64 | vo rc=0 dcb22b64 | uo rc=0 d4c16135 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/OR_or03 | p rc=0 cmp=70 NOT_EQUAL d=43 6d3f4dcb | l rc=0 cmp=28 NOT_EQUAL d=14 b2d00874
+IMP/OR_or03 | v rc=0 cmp=28 NOT_EQUAL d=14 b2d00874 | vo rc=0 b2d00874 | uo rc=0 6d3f4dcb | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/OR_or04 | p rc=0 cmp=496 NOT_EQUAL d=65 be3d9ad5 | l rc=0 cmp=496 NOT_EQUAL d=38 a03d5cb3
+IMP/OR_or04 | v rc=0 cmp=496 NOT_EQUAL d=38 a03d5cb3 | vo rc=0 a03d5cb3 | uo rc=0 be3d9ad5 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/OR_or05 | p rc=0 cmp=314 NOT_EQUAL d=107 4241a131 | l rc=0 cmp=314 NOT_EQUAL d=88 e9049193
+IMP/OR_or05 | v rc=0 cmp=314 NOT_EQUAL d=88 e9049193 | vo rc=0 e9049193 | uo rc=0 4241a131 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/PL_pl01 | p rc=0 cmp=191 NOT_EQUAL d=22 72a279c0 | l rc=0 cmp=0 STRICT_EQUAL d=2 3fc0bb1b
+IMP/PL_pl01 | v rc=0 cmp=0 STRICT_EQUAL d=2 3fc0bb1b | vo rc=0 3fc0bb1b | uo rc=0 72a279c0 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/PL_pl02 | p rc=0 cmp=217 NOT_EQUAL d=62 599b9d58 | l rc=0 cmp=0 STRICT_EQUAL d=2 2320968e
+IMP/PL_pl02 | v rc=0 cmp=0 STRICT_EQUAL d=2 2320968e | vo rc=0 2320968e | uo rc=0 599b9d58 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/TB_tb01 | p rc=0 cmp=104 NOT_EQUAL d=34 ae8ae16a | l rc=0 cmp=0 STRICT_EQUAL d=2 f1c20ac5
+IMP/TB_tb01 | v rc=0 cmp=0 STRICT_EQUAL d=2 f1c20ac5 | vo rc=0 f1c20ac5 | uo rc=0 ae8ae16a | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/TB_tb02 | p rc=0 cmp=69 NOT_EQUAL d=30 67455e78 | l rc=0 cmp=208 NOT_EQUAL d=13 e66aeeef
+IMP/TB_tb02 | v rc=0 cmp=0 STRICT_EQUAL d=2 0913d8df | vo rc=0 e66aeeef | uo rc=0 67455e78 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/TB_tb03 | p rc=0 cmp=67 NOT_EQUAL d=61 f3f6765d | l rc=0 cmp=55 NOT_EQUAL d=18 46c266e4
+IMP/TB_tb03 | v rc=0 cmp=55 NOT_EQUAL d=18 46c266e4 | vo rc=0 46c266e4 | uo rc=0 f3f6765d | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/TB_tb04 | p rc=0 cmp=69 NOT_EQUAL d=15 1281cd31 | l rc=0 cmp=0 STRICT_EQUAL d=2 2eee6d7b
+IMP/TB_tb04 | v rc=0 cmp=0 STRICT_EQUAL d=2 2eee6d7b | vo rc=0 2eee6d7b | uo rc=0 1281cd31 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/TP_tp01 | p rc=0 cmp=41 NOT_EQUAL d=21 be9dc782 | l rc=0 cmp=0 STRICT_EQUAL d=2 d0e55484
+IMP/TP_tp01 | v rc=0 cmp=0 STRICT_EQUAL d=2 d0e55484 | vo rc=0 d0e55484 | uo rc=0 be9dc782 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/TP_tp02 | p rc=0 cmp=119 NOT_EQUAL d=127 ba1a2b7a | l rc=0 cmp=18 NOT_EQUAL d=39 4e4b74ee
+IMP/TP_tp02 | v rc=0 cmp=18 NOT_EQUAL d=39 4e4b74ee | vo rc=0 4e4b74ee | uo rc=0 ba1a2b7a | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/TP_tp03 | p rc=0 cmp=350 NOT_EQUAL d=56 70699687 | l rc=0 cmp=20 NOT_EQUAL d=55 01a21766
+IMP/TP_tp03 | v rc=0 cmp=20 NOT_EQUAL d=55 01a21766 | vo rc=0 01a21766 | uo rc=0 70699687 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/UD_ud01 | p rc=0 cmp=34 NOT_EQUAL d=16 6ddb8965 | l rc=0 cmp=662 NOT_EQUAL d=11 1c94666f
+IMP/UD_ud01 | v rc=0 cmp=662 NOT_EQUAL d=11 1c94666f | vo rc=0 1c94666f | uo rc=0 6ddb8965 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/UD_ud02 | p rc=0 cmp=34 NOT_EQUAL d=9 c4950ff2 | l rc=0 cmp=0 STRICT_EQUAL d=2 db0e9501
+IMP/UD_ud02 | v rc=0 cmp=0 STRICT_EQUAL d=2 db0e9501 | vo rc=0 db0e9501 | uo rc=0 c4950ff2 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/UP_up01 | p rc=0 cmp=60 NOT_EQUAL d=4 9a7f41bc | l rc=0 cmp=0 STRICT_EQUAL d=2 361a43aa
+IMP/UP_up01 | v rc=0 cmp=0 STRICT_EQUAL d=2 361a43aa | vo rc=0 361a43aa | uo rc=0 9a7f41bc | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/UP_up02 | p rc=0 cmp=60 NOT_EQUAL d=10 0441cab4 | l rc=0 cmp=0 STRICT_EQUAL d=2 3e5fa5c9
+IMP/UP_up02 | v rc=0 cmp=0 STRICT_EQUAL d=2 3e5fa5c9 | vo rc=0 3e5fa5c9 | uo rc=0 0441cab4 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/UP_up03 | p rc=0 cmp=64 NOT_EQUAL d=8 0e94dcf3 | l rc=0 cmp=64 NOT_EQUAL d=8 0e94dcf3
+IMP/UP_up03 | v rc=0 cmp=64 NOT_EQUAL d=8 0e94dcf3 | vo rc=0 0e94dcf3 | uo rc=0 0e94dcf3 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/UP_up04 | p rc=0 cmp=60 NOT_EQUAL d=10 7005a5e1 | l rc=0 cmp=0 STRICT_EQUAL d=2 8f49104d
+IMP/UP_up04 | v rc=0 cmp=0 STRICT_EQUAL d=2 8f49104d | vo rc=0 8f49104d | uo rc=0 7005a5e1 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/UP_up05 | p rc=0 cmp=60 NOT_EQUAL d=42 43240fdd | l rc=0 cmp=0 STRICT_EQUAL d=2 1b71f038
+IMP/UP_up05 | v rc=0 cmp=0 STRICT_EQUAL d=2 1b71f038 | vo rc=0 1b71f038 | uo rc=0 43240fdd | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/UP_up06 | p rc=0 cmp=28 NOT_EQUAL d=8 96a5dfb9 | l rc=0 cmp=28 NOT_EQUAL d=8 96a5dfb9
+IMP/UP_up06 | v rc=0 cmp=28 NOT_EQUAL d=8 96a5dfb9 | vo rc=0 96a5dfb9 | uo rc=0 96a5dfb9 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/UP_up07 | p rc=0 cmp=60 NOT_EQUAL d=28 4b8f7c43 | l rc=0 cmp=60 NOT_EQUAL d=8 66ebeae1
+IMP/UP_up07 | v rc=0 cmp=0 STRICT_EQUAL d=2 882b1165 | vo rc=0 66ebeae1 | uo rc=0 4b8f7c43 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/US_us01 | p rc=0 cmp=208 NOT_EQUAL d=12 5b9b9879 | l rc=0 cmp=0 STRICT_EQUAL d=2 c9adc128
+IMP/US_us01 | v rc=0 cmp=0 STRICT_EQUAL d=2 c9adc128 | vo rc=0 c9adc128 | uo rc=0 5b9b9879 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/US_us02 | p rc=0 cmp=952 NOT_EQUAL d=53 b4c599be | l rc=0 cmp=952 NOT_EQUAL d=47 2f322495
+IMP/US_us02 | v rc=0 cmp=952 NOT_EQUAL d=47 2f322495 | vo rc=0 2f322495 | uo rc=0 b4c599be | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/US_us03 | p rc=0 cmp=890 NOT_EQUAL d=74 528b2061 | l rc=0 cmp=890 NOT_EQUAL d=64 8b7265fd
+IMP/US_us03 | v rc=0 cmp=890 NOT_EQUAL d=64 8b7265fd | vo rc=0 8b7265fd | uo rc=0 528b2061 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/US_us04 | p rc=0 cmp=824 NOT_EQUAL d=282 2f7930c7 | l rc=0 cmp=824 NOT_EQUAL d=282 2f7930c7
+IMP/US_us04 | v rc=0 cmp=824 NOT_EQUAL d=282 2f7930c7 | vo rc=0 2f7930c7 | uo rc=0 2f7930c7 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/VI_vi01 | p rc=0 cmp=13 NOT_EQUAL d=17 c1c36f11 | l rc=0 cmp=0 STRICT_EQUAL d=2 194868de
+IMP/VI_vi01 | v rc=0 cmp=0 STRICT_EQUAL d=2 194868de | vo rc=0 194868de | uo rc=0 c1c36f11 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/WI_wi01 | p rc=0 cmp=11 NOT_EQUAL d=6 b0bb40e3 | l rc=0 cmp=0 STRICT_EQUAL d=2 5a5bb18e
+IMP/WI_wi01 | v rc=0 cmp=0 STRICT_EQUAL d=2 5a5bb18e | vo rc=0 5a5bb18e | uo rc=0 b0bb40e3 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/WI_wi02 | p rc=0 cmp=11 NOT_EQUAL d=40 8e8d59f4 | l rc=0 cmp=56 NOT_EQUAL d=28 30c21ed4
+IMP/WI_wi02 | v rc=0 cmp=56 NOT_EQUAL d=28 30c21ed4 | vo rc=0 30c21ed4 | uo rc=0 8e8d59f4 | R11V412_OFF==law yes | R11U412_OFF==pristine yes
+IMP/WI_wi03 | p rc=0 cmp=11 NOT_EQUAL d=203 102a82b8 | l rc=0 cmp=11 NOT_EQUAL d=201 af8268d3
+IMP/WI_wi03 | v rc=0 cmp=11 NOT_EQUAL d=201 af8268d3 | vo rc=0 af8268d3 | uo rc=0 102a82b8 | R11V412_OFF==law yes | R11U412_OFF==pristine yes

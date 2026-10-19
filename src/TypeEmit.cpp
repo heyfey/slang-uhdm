@@ -4500,8 +4500,41 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             nmS0 &&
                             nmS0->kind == syntax::SyntaxKind::ClassName;
                     }
+                // § builtinMailboxSpecBare412 (r11u412,
+                // R11U412_MAILBOXSPEC_OFF; cases
+                // tools/probe/r11u412repro/cases/MB; sv-tests
+                // chapter-15/15.4--mailbox-blocking.sv, -non-blocking) — the
+                // built-in `mailbox #(string) m;`: Surelog's builtin mailbox
+                // class has no parameter port list, so golden's class_typespec
+                // carries no specialization listing and spans the class name
+                // alone (18:1-18:8), where ours listed slang's std::mailbox
+                // type parameter and spanned the `#(...)` too.
+                bool builtinMbx412 = false;
+                if (writtenSpec0 && ct0.name == "mailbox")
+                    if (auto tsynM412 = declared->getTypeSyntax())
+                        if (auto* ntM412 = tsynM412->as_if<syntax::NamedTypeSyntax>();
+                            ntM412 && ntM412->name &&
+                            ntM412->name->kind == syntax::SyntaxKind::ClassName) {
+                            bool std412 = false;
+                            for (auto* sc412 = ct0.getParentScope(); sc412;
+                                 sc412 = sc412->asSymbol().getParentScope()) {
+                                auto& ss412 = sc412->asSymbol();
+                                if (ss412.kind == SymbolKind::Package && ss412.name == "std")
+                                    std412 = true;
+                                if (ss412.kind == SymbolKind::CompilationUnit ||
+                                    ss412.kind == SymbolKind::Package)
+                                    break;
+                            }
+                            if (std412 && lawOn(412, "R11U412_MAILBOXSPEC_OFF")) {
+                                builtinMbx412 = true;
+                                setLoc(cts, ntM412->name->as<syntax::ClassNameSyntax>()
+                                                .identifier.range());
+                                lawTrace(412, "builtinMailboxSpecBare412",
+                                         std::string(declSymbol.name));
+                            }
+                        }
                 // NOTE § classPkgGenericSpecListing53 — the SUPPRESS half.
-                if (writtenSpec0 && !suppressParams163 && !modPkgSpec202) {
+                if (writtenSpec0 && !suppressParams163 && !modPkgSpec202 && !builtinMbx412) {
                     if (foreignPkgHome163)
                         emitClassPropSpecParams163(cts, ct0.as<ClassType>(),
                                                    declared->getTypeSyntax(),
@@ -4942,6 +4975,32 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 if (p->kind == syntax::SyntaxKind::NetDeclaration) {
                     range = p->as<syntax::NetDeclarationSyntax>().netType.range();
                     netKeywordAnchor = true;
+                    // § interconnectNetNone412 (r11u412,
+                    // R11U412_INTERCONNECT_OFF; cases
+                    // tools/probe/r11u412repro/cases/IC; sv-tests
+                    // chapter-6/6.6.8--interconnect.sv) — an `interconnect`
+                    // net's implicit logic typespec spans its packed
+                    // dimensions, or is zero-width at the first declarator
+                    // when there are none (golden 16:15-16:15 at `bus` after
+                    // `interconnect` 16:2-16:14; IC ic02 `[3:0]` 3:15-3:20),
+                    // and the net's kind is vpiNone 12 (ModuleEmit's
+                    // netKindExtra402).
+                    if (p->as<syntax::NetDeclarationSyntax>().netType.kind ==
+                            parsing::TokenKind::InterconnectKeyword &&
+                        lawOn(412, "R11U412_INTERCONNECT_OFF")) {
+                        auto& nd412 = p->as<syntax::NetDeclarationSyntax>();
+                        SourceLocation at412 = nd412.declarators.empty()
+                                                   ? range.end()
+                                                   : nd412.declarators[0]->sourceRange().start();
+                        range = SourceRange(at412, at412);
+                        if (nd412.type && nd412.type->kind == syntax::SyntaxKind::ImplicitType &&
+                            !nd412.type->as<syntax::ImplicitTypeSyntax>().dimensions.empty()) {
+                            auto& dm412 = nd412.type->as<syntax::ImplicitTypeSyntax>().dimensions;
+                            range = SourceRange(dm412[0]->sourceRange().start(),
+                                                dm412.back()->sourceRange().end());
+                        }
+                        lawTrace(412, "interconnectNetNone412", "ts " + std::string(declSymbol.name));
+                    }
                     break;
                 }
             }
@@ -9800,6 +9859,18 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
             !blc.isFourState()) {
             auto* v = s.MakeBit_var();
             v->VpiVisibility(1);
+            // § bitSignedElabVar412 (r11u412, R11U412_BITSIGNED_OFF; cases
+            // tools/probe/r11u412repro/cases/BS) — a `bit signed` variable
+            // written with the keyword (scalar or packed vector) carries
+            // vpiSigned on the bit_var itself, as the logic_var branch below
+            // does; a typedef'd bit keeps its signing on the typespec only.
+            // A `var bit signed n;` declaration stays unsigned on the var
+            // (golden, case bs03).
+            if (ct.isSigned() && declared->getType().kind != SymbolKind::TypeAlias &&
+                !hasVarKeywordDecl(internal) && lawOn(412, "R11U412_BITSIGNED_OFF")) {
+                v->VpiSigned(true);
+                lawTrace(412, "bitSignedElabVar412", std::string(internal.name));
+            }
             return v;
         }
     }
@@ -11977,12 +12048,154 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
     bool unitEnum9 = false;
     if (auto* usc9 = et.getParentScope())
         unitEnum9 = usc9->asSymbol().kind == SymbolKind::CompilationUnit;
+    // § enumRangedMemberSurelogVal412 (r11u412, R11U412_ENUMRANGED_OFF;
+    // cases tools/probe/r11u412repro/cases/ER; sv-tests
+    // chapter-6/6.19.2--enum_sequence.sv, _range) — Surelog's enum compile
+    // has no branch for a RANGED member (`step[10]`, `stop[11:13]`): the
+    // declaration is ONE enum_const named by its identifier, spanning the
+    // declaration, and its value, when not written, is the compiler's running
+    // counter `val` (CompileHelper::compileTypespec for a TYPEDEF enum: an
+    // explicit constant value sets the counter, every declaration then
+    // increments it; CompileType's branch for an anonymous inline enum: the
+    // counter is the declaration's index, explicit values never set it).
+    // An unwritten member whose counter differs from slang's value (one
+    // following a ranged member, or any member after an explicit value in an
+    // inline enum: `enum {x=5, z}` -> z INT:1) takes the counter too, as
+    // INT:<val> at the base width (64 with no base).  slang expands a ranged
+    // member into step0..step9; the later expansions are not written and
+    // resolve to the first one's object.
+    struct Ev412 {
+        bool ranged = false, first = true, init = false;
+        int64_t val = 0;
+        std::string_view id;
+    };
+    std::map<const EnumValueSymbol*, Ev412> ev412;
+    const UHDM::enum_const* firstEc412 = nullptr;
+    const bool on412 = lawOn(412, "R11U412_ENUMRANGED_OFF");
+    if (on412) {
+        bool typedefPath412 = false;
+        if (auto* esyn412 = et.getSyntax())
+            for (const syntax::SyntaxNode* pp412 = esyn412->parent; pp412; pp412 = pp412->parent) {
+                if (pp412->kind == syntax::SyntaxKind::TypedefDeclaration) {
+                    typedefPath412 = true;
+                    break;
+                }
+                if (!syntax::DataTypeSyntax::isKind(pp412->kind))
+                    break;
+            }
+        int64_t val412 = 0, idx412 = 0;
+        const syntax::SyntaxNode* prev412 = nullptr;
+        for (auto& ev : et.values()) {
+            Ev412 r;
+            auto* sy = ev.getSyntax();
+            if (sy && sy->kind == syntax::SyntaxKind::Declarator) {
+                auto& dc = sy->as<syntax::DeclaratorSyntax>();
+                r.ranged = !dc.dimensions.empty();
+                r.id = dc.name.valueText();
+                r.init = dc.initializer != nullptr;
+            }
+            else
+                r.init = ev.getInitializer() != nullptr;
+            r.first = !(sy && sy == prev412);
+            if (r.first) {
+                if (r.init) {
+                    auto& cv412 = ev.getValue();
+                    if (typedefPath412 && cv412.isInteger() &&
+                        !cv412.integer().hasUnknown())
+                        if (auto v412 = cv412.integer().as<int64_t>())
+                            val412 = *v412;
+                }
+                r.val = typedefPath412 ? val412 : idx412;
+                val412++;
+                idx412++;
+            }
+            prev412 = sy;
+            ev412[&ev] = r;
+        }
+    }
     for (auto& ev : et.values()) {
+        Ev412* r412 = nullptr;
+        if (on412)
+            if (auto it412 = ev412.find(&ev); it412 != ev412.end())
+                r412 = &it412->second;
+        if (r412 && r412->ranged && !r412->first) {
+            lawTrace(412, "enumRangedMemberSurelogVal412",
+                     "fold " + std::string(ev.name));
+            if (firstEc412 && !enumConstMap.count(&ev))
+                enumConstMap[&ev] = (UHDM::enum_const*)firstEc412;
+            continue;
+        }
         auto* ec = s.MakeEnum_const();
         ec->VpiName(ev.name);
         ec->VpiParent(ets);
         if (auto syn = ev.getSyntax())
             setLoc(ec, syn->sourceRange());
+        if (r412 && r412->ranged) {
+            ec->VpiName(r412->id);
+            firstEc412 = ec;
+            lawTrace(412, "enumRangedMemberSurelogVal412", "name " + std::string(r412->id));
+        }
+        if (r412 && !r412->init) {
+            auto& cv412 = ev.getValue();
+            std::optional<int64_t> sv412;
+            if (cv412.isInteger() && !cv412.integer().hasUnknown())
+                sv412 = cv412.integer().as<int64_t>();
+            if (r412->ranged || !sv412 || *sv412 != r412->val) {
+                int32_t bw412 = 64;
+                if (baseSyn)
+                    bw412 = (int32_t)et.baseType.getBitWidth();
+                std::string d412 = std::to_string(r412->val);
+                ec->VpiDecompile(d412);
+                ec->VpiSize(bw412);
+                ec->VpiValue("INT:" + d412);
+                consts->push_back(ec);
+                if (!enumConstMap.count(&ev))
+                    enumConstMap[&ev] = ec;
+                lawTrace(412, "enumRangedMemberSurelogVal412",
+                         std::string(ev.name) + " INT:" + d412);
+                continue;
+            }
+        }
+        // § enumXzReplInitZero412 (r11u412, R11U412_ENUMXZREPL_OFF; cases
+        // tools/probe/r11u412repro/cases/ER er07; sv-tests
+        // chapter-6/6.19--enum_xx.sv) — a member initialised by a
+        // REPLICATION of one x/z literal (`b={32{1'bx}}`) is not a constant
+        // to Surelog's enum compile: the value goes through
+        // ExprBuilder::evalExpr, which reads the unknown bits as 0 (INT:0 at
+        // 64 bits), and the decompile is ExprEval::prettyPrint of the
+        // compiled replication, which braces its operand (`{32{{1'bX}}}`;
+        // the one-bit x literal is the grammar's ONE_TICK token, printed
+        // `1'bX`).  A `$unit` enum (its own law) abstains.
+        if (!unitEnum9 && lawOn(412, "R11U412_ENUMXZREPL_OFF"))
+            if (auto* ri412 = ev.getInitializer()) {
+                auto& rr412 = stripImplicitConv(*ri412);
+                auto& cv412 = ev.getValue();
+                if (rr412.kind == ExpressionKind::Replication && cv412.isInteger() &&
+                    cv412.integer().hasUnknown()) {
+                    auto& re412 = rr412.as<ReplicationExpression>();
+                    auto& op412 = stripImplicitConv(re412.concat());
+                    const Expression* lit412 = &op412;
+                    if (op412.kind == ExpressionKind::Concatenation &&
+                        op412.as<ConcatenationExpression>().operands().size() == 1)
+                        lit412 = &stripImplicitConv(
+                            *op412.as<ConcatenationExpression>().operands()[0]);
+                    if (lit412->kind == ExpressionKind::IntegerLiteral) {
+                        std::string lt412 = stripSep(rawText(lit412->sourceRange));
+                        if (lt412 == "1'bx" || lt412 == "1'Bx" || lt412 == "1'bX" ||
+                            lt412 == "1'BX")
+                            lt412 = "1'bX";
+                        std::string ct412 = stripSep(rawText(re412.count().sourceRange));
+                        ec->VpiDecompile("{" + ct412 + "{{" + lt412 + "}}}");
+                        ec->VpiSize(64);
+                        ec->VpiValue("INT:0");
+                        consts->push_back(ec);
+                        if (!enumConstMap.count(&ev))
+                            enumConstMap[&ev] = ec;
+                        lawTrace(412, "enumXzReplInitZero412", std::string(ev.name));
+                        continue;
+                    }
+                }
+            }
         auto& cv = ev.getValue();
         std::string value;
         // § enumCastInitNotEvaluated — an enum constant whose initializer is
@@ -22457,10 +22670,43 @@ static slang::SourceRange modTfArgLastTok155(const InstanceBodySymbol& body,
     return last;
 }
 
+// § modNettypeTypedef412 (r11u412, R11U412_MODNETTYPE_OFF; cases
+// tools/probe/r11u412repro/cases/NT; sv-tests chapter-6/6.6.7--nettype.sv,
+// 6.6.7--nettype_resolution_fn.sv) — a MODULE-body `nettype real real_net
+// [with fn];` is a typedef of the module, as the $unit one is of the design
+// (§ FileResolutionFunction above in UhdmExporter): the data type's typespec
+// named after the nettype, parented at and instanced by the module, spanning
+// the written data type, listed with the module's typedefs in both views,
+// its vpiFunction the module's resolution function (bound design-final, the
+// function is emitted after the typedefs).  Where it fell through: no
+// listing at all.
+std::vector<std::tuple<UHDM::typespec*, UHDM::instance*, std::string>> g412NettypeFns;
+
 void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* m,
                                 const std::string& prefix, DefInfo& info) {
     auto* tds = s.MakeTypespecVec();
     for (auto& member : body.members()) {
+        if (member.kind == SymbolKind::NetType &&
+            !member.as<NetType>().isBuiltIn() &&
+            lawOn(412, "R11U412_MODNETTYPE_OFF")) {
+            auto& nt412 = member.as<NetType>();
+            const syntax::SyntaxNode* dt412 = nullptr;
+            if (auto syn412 = nt412.getSyntax();
+                syn412 && syn412->kind == syntax::SyntaxKind::NetTypeDeclaration)
+                dt412 = syn412->as<syntax::NetTypeDeclarationSyntax>().type;
+            if (auto* ts412 = dt412 ? makeTypespec(nt412, dt412) : nullptr) {
+                ts412->VpiName(nt412.name);
+                ts412->VpiParent(m);
+                ts412->Instance(m);
+                setLoc(ts412, dt412->sourceRange());
+                if (auto* rf412 = nt412.getResolutionFunction())
+                    g412NettypeFns.emplace_back(ts412, m, std::string(rf412->name));
+                info.typedefs.push_back(ts412);
+                tds->push_back(ts412);
+                lawTrace(412, "modNettypeTypedef412", std::string(nt412.name));
+            }
+            continue;
+        }
         if (member.kind != SymbolKind::TypeAlias)
             continue;
         auto& ta = member.as<TypeAliasType>();
@@ -30309,6 +30555,17 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
         if (kind406)
             lawTrace(406, "arrElemVarKind406", fullName);
     }
+    // § unpStructArrElemVar412 (r11u412, R11U412_UNPSTRUCTELEM_OFF; cases
+    // tools/probe/r11u412repro/cases/US; sv-tests
+    // chapter-5/5.10-structure-arrays.sv) — an UNPACKED struct element
+    // (`ms_t ms[1:0]`, ms_t an unpacked struct) is a struct_var, where it
+    // fell to logic_var.
+    if (!kind406 && !tpPaReg110 &&
+        leaf->getCanonicalType().kind == SymbolKind::UnpackedStructType &&
+        lawOn(412, "R11U412_UNPSTRUCTELEM_OFF")) {
+        kind406 = s.MakeStruct_var();
+        lawTrace(412, "unpStructArrElemVar412", fullName);
+    }
     if (kind406) {
         reg = kind406;
     }
@@ -30838,6 +31095,21 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
         }
         else if (ick.isIntegral())
             its = s.MakeLogic_typespec();
+        // § assocClassIdxNet412 (r11u412, R11U412_ASSOCCLASSIDX_OFF; cases
+        // tools/probe/r11u412repro/cases/AC; sv-tests
+        // chapter-7/arrays/associative/class.sv) — a CLASS index (`int arr
+        // [ C ];`) is a class_typespec named as written and linked to the
+        // class, at the index token (the module also mints an implicit net
+        // of that name, ModuleEmit's half).
+        else if (ick.kind == SymbolKind::ClassType &&
+                 lawOn(412, "R11U412_ASSOCCLASSIDX_OFF")) {
+            auto* cts412 = s.MakeClass_typespec();
+            cts412->VpiName(ick.name);
+            if (auto* cd412 = classDefnFor(ick))
+                cts412->Class_defn(cd412);
+            its = cts412;
+            lawTrace(412, "assocClassIdxNet412", "ts " + std::string(sym.name));
+        }
         if (its) {
             // § sharedAliasNoStamp41 / § arrayElemTdClone42 — the stamp is the
             // pass-40 hazard and it is INHERITED here the moment the registry
@@ -30875,6 +31147,20 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
             irt->Actual_typespec(its);
             ats->Index_typespec(irt);
         }
+    }
+    // § assocWildcardIdxRefTs412 (r11u412, R11U412_WILDCARDIDX_OFF; cases
+    // tools/probe/r11u412repro/cases/WI) — a WILDCARD associative array
+    // `int arr [*];` (no index type) still gets an index ref_typespec on
+    // the instance-level array_typespec in golden, one with no actual
+    // (chapter-7/arrays/associative/wildcard.sv).
+    else if (leadingUnsized && aKind == 3 && !dims[0].indexType &&
+             !dimSyns.empty() && dimSyns[0]->specifier &&
+             dimSyns[0]->specifier->kind == syntax::SyntaxKind::WildcardDimensionSpecifier &&
+             lawOn(412, "R11U412_WILDCARDIDX_OFF")) {
+        auto* irt = s.MakeRef_typespec();
+        irt->VpiParent(ats);
+        ats->Index_typespec(irt);
+        lawTrace(412, "assocWildcardIdxRefTs412", std::string(sym.name));
     }
     arrayVarArrayTs[&sym] = ats;
     return av;
