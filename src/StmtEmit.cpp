@@ -3333,7 +3333,42 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         setLoc(up, syn->sourceRange());
                     }
                     pa->Lhs(up);
-                    if (auto pinit = ps.getInitializer()) {
+                    // § blockParamWrittenRhs405 (r11u405, R11U405_BLKPARAM_OFF)
+                    // — a block-scoped parameter's param_assign holds the
+                    // WRITTEN initializer (a literal as written, 4'b000x
+                    // included; an operation unfolded), and a parameter
+                    // written with a type or a packed range carries its
+                    // typespec (int_typespec at the range for `[3:0]`, at the
+                    // keyword for `int`), weakly referenced (golden sv-tests
+                    // chapter-20/20.9--isunknown; cases/BP).  A bare untyped
+                    // one keeps no typespec, as before.
+                    bool blk405 = false;
+                    if (auto pinit = ps.getInitializer();
+                        pinit && paramDefaultSyn(ps) && lawOn(405, "R11U405_BLKPARAM_OFF")) {
+                        blk405 = true;
+                        lawTrace(405, "blockParamWrittenRhs405", std::string(ps.name));
+                        const Expression* w405 = pinit;
+                        if (auto* r405 = emitExpr(*w405, pa, innerPrefix, netMap))
+                            pa->Rhs((UHDM::expr*)r405);
+                        bool typed405 = false, ranged405 = false;
+                        if (auto dt405 = ps.getDeclaredType())
+                            if (auto ts405 = dt405->getTypeSyntax()) {
+                                if (ts405->kind != syntax::SyntaxKind::ImplicitType)
+                                    typed405 = true;
+                                else if (!ts405->as<syntax::ImplicitTypeSyntax>().dimensions.empty() ||
+                                         ts405->as<syntax::ImplicitTypeSyntax>().signing.valid())
+                                    ranged405 = true;
+                            }
+                        if (typed405 || ranged405)
+                            if (auto* its405 = makeParamTs(ps, typed405)) {
+                                auto* rt405 = s.MakeRef_typespec();
+                                rt405->VpiParent(up);
+                                rt405->VpiFullName(up->VpiFullName());
+                                rt405->Actual_typespec(its405);
+                                up->Typespec(rt405);
+                            }
+                    }
+                    if (auto pinit = ps.getInitializer(); pinit && !blk405) {
                         auto& cv = ps.getValue();
                         if (cv.isInteger() && !cv.integer().hasUnknown()) {
                             auto& iv = cv.integer();
@@ -3472,9 +3507,41 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 tgt = &t.as<NamedValueExpression>().symbol;
             else if (t.kind == ExpressionKind::ArbitrarySymbol)
                 tgt = t.as<ArbitrarySymbolExpression>().symbol;
-            if (tgt)
+            // § disableTargetScopeChain405 (r11u405, R11U405_DISABLETGT_OFF)
+            // — Surelog binds a disable's target by looking the name up the
+            // ENCLOSING scope chain: a named block that encloses the disable
+            // (`begin : outer ... disable outer;`) and a task are bound
+            // (the task's own object), a sibling block (`fork begin : b ...
+            // end disable b; join`, sv-tests chapter-9/9.6.2--disable_other)
+            // or a named fork beside the disable is not (cases/DS).
+            const bool tgt405 = lawOn(405, "R11U405_DISABLETGT_OFF");
+            bool sibling405 = false;
+            if (tgt && tgt405 && tgt->kind == SymbolKind::StatementBlock) {
+                const syntax::SyntaxNode* bsyn405 = tgt->getSyntax();
+                bool encl405 = false;
+                if (bsyn405 && stmt.syntax)
+                    for (const syntax::SyntaxNode* up405 = stmt.syntax->parent; up405;
+                         up405 = up405->parent)
+                        if (up405 == bsyn405) {
+                            encl405 = true;
+                            break;
+                        }
+                if (bsyn405 && stmt.syntax && !encl405) {
+                    sibling405 = true;
+                    lawTrace(405, "disableTargetScopeChain405", "sibling " + std::string(tgt->name));
+                }
+            }
+            if (tgt && !sibling405)
                 if (auto it2 = namedBlockMap.find(tgt); it2 != namedBlockMap.end())
                     d->VpiExpr((UHDM::expr*)(UHDM::any*)it2->second);
+            if (tgt && tgt405 && !d->VpiExpr() && tgt->kind == SymbolKind::Subroutine &&
+                tgt->as<SubroutineSymbol>().subroutineKind == SubroutineKind::Task)
+                if (auto it3 = subMap.find(&tgt->as<SubroutineSymbol>());
+                    it3 != subMap.end() && it3->second.tf &&
+                    it3->second.tf->UhdmType() == UHDM::uhdmtask) {
+                    lawTrace(405, "disableTargetScopeChain405", "task " + std::string(tgt->name));
+                    d->VpiExpr((UHDM::expr*)(UHDM::any*)it3->second.tf);
+                }
             // Surelog can't resolve the block label: it also mints an implicit
             // module wire named after the target (at the label token).
             if (tgt && implicitNetModule) {

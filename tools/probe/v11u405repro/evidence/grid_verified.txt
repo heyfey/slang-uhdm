@@ -1,0 +1,106 @@
+VA/va01 pristine rc=0 cmp=0 STRICT_NOTEQUAL file dist=4 | law rc=0 cmp=0 STRICT_NOTEQUAL file dist=4 | bytes-same
+VA/va02 pristine rc=0 cmp=58 NOT_EQUAL stage1 dist=67 | law rc=0 cmp=0 STRICT_EQUAL 84 objects dist=4 | bytes-moved
+VA/va03 pristine rc=0 cmp=76 NOT_EQUAL stage1 dist=118 | law rc=0 cmp=76 NOT_EQUAL stage1 dist=118 | bytes-same
+VA/va04 pristine rc=0 cmp=58 NOT_EQUAL stage1 dist=242 | law rc=0 cmp=104 NOT_EQUAL stage1 dist=179 | bytes-moved
+VA/va05 pristine rc=0 cmp=58 NOT_EQUAL stage1 dist=126 | law rc=0 cmp=58 NOT_EQUAL stage1 dist=126 | bytes-same
+VA/va06 pristine rc=0 cmp=58 NOT_EQUAL stage1 dist=67 | law rc=0 cmp=0 STRICT_NOTEQUAL file dist=4 | bytes-moved
+VB/vb01 pristine rc=0 cmp=58 NOT_EQUAL stage1 dist=35 | law rc=0 cmp=0 STRICT_EQUAL 29 objects dist=0 | bytes-moved
+VB/vb02 pristine rc=0 cmp=28 NOT_EQUAL stage1 dist=37 | law rc=0 cmp=0 STRICT_EQUAL 31 objects dist=0 | bytes-moved
+VB/vb03 pristine rc=0 cmp=58 NOT_EQUAL stage1 dist=25 | law rc=0 cmp=0 STRICT_EQUAL 49 objects dist=0 | bytes-moved
+VB/vb04 pristine rc=0 cmp=38 NOT_EQUAL stage1 dist=25 | law rc=0 cmp=0 STRICT_EQUAL 37 objects dist=0 | bytes-moved
+VB/vb05 pristine rc=0 cmp=56 NOT_EQUAL stage1 dist=55 | law rc=0 cmp=56 NOT_EQUAL stage1 dist=26 | bytes-moved
+VB/vb06 pristine rc=0 cmp=15 NOT_EQUAL stage1 dist=14 | law rc=0 cmp=0 STRICT_EQUAL 34 objects dist=0 | bytes-moved
+VB/vb07 pristine rc=0 cmp=15 NOT_EQUAL stage1 dist=14 | law rc=0 cmp=0 STRICT_EQUAL 38 objects dist=0 | bytes-moved
+VB/vb08 pristine rc=0 cmp=444 NOT_EQUAL stage1 dist=49 | law rc=0 cmp=0 STRICT_EQUAL 61 objects dist=0 | bytes-moved
+VC/vc01 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=65 | law rc=0 cmp=17 NOT_EQUAL stage1 dist=65 | bytes-same
+VC/vc02 pristine rc=0 cmp=0 STRICT_NOTEQUAL line dist=114 | law rc=0 cmp=0 STRICT_NOTEQUAL line dist=114 | bytes-same
+VC/vc03 pristine rc=0 cmp=57 NOT_EQUAL stage1 dist=77 | law rc=0 cmp=57 NOT_EQUAL stage1 dist=77 | bytes-same
+VC/vc04 pristine rc=0 cmp=0 STRICT_EQUAL 145 objects dist=127 | law rc=0 cmp=0 STRICT_EQUAL 145 objects dist=127 | bytes-same
+VC/vc05 pristine rc=0 cmp=57 NOT_EQUAL stage1 dist=68 | law rc=0 cmp=57 NOT_EQUAL stage1 dist=68 | bytes-same
+VC/vc06 pristine rc=0 cmp=57 NOT_EQUAL stage1 dist=115 | law rc=0 cmp=57 NOT_EQUAL stage1 dist=115 | bytes-same
+VC/vc07 pristine rc=0 cmp=102 NOT_EQUAL stage1 dist=131 | law rc=0 cmp=102 NOT_EQUAL stage1 dist=131 | bytes-same
+VC/vc08 pristine rc=0 cmp=113 NOT_EQUAL stage1 dist=152 | law rc=0 cmp=113 NOT_EQUAL stage1 dist=152 | bytes-same
+VC/vc09 pristine rc=4 cmp=102 NOT_EQUAL stage1 dist=311 | law rc=0 cmp=102 NOT_EQUAL stage1 dist=309 | bytes-moved
+VC/vc10 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=178 | law rc=0 cmp=17 NOT_EQUAL stage1 dist=178 | bytes-same
+VC/vc11 pristine rc=0 cmp=79 NOT_EQUAL stage1 dist=105 | law rc=0 cmp=79 NOT_EQUAL stage1 dist=105 | bytes-same
+VD/vd01 pristine rc=0 cmp=71 NOT_EQUAL stage1 dist=2 | law rc=0 cmp=0 STRICT_EQUAL 40 objects dist=0 | bytes-moved
+VD/vd02 pristine rc=0 cmp=117 NOT_EQUAL stage1 dist=2 | law rc=0 cmp=117 NOT_EQUAL stage1 dist=2 | bytes-same
+VD/vd03 pristine rc=0 cmp=32 NOT_EQUAL stage1 dist=8 | law rc=0 cmp=32 NOT_EQUAL stage1 dist=6 | bytes-moved
+VD/vd04 pristine rc=0 cmp=157 NOT_EQUAL stage1 dist=2 | law rc=0 cmp=0 STRICT_EQUAL 46 objects dist=0 | bytes-moved
+VD/vd05 pristine rc=0 cmp=65 NOT_EQUAL stage1 dist=2 | law rc=0 cmp=0 STRICT_EQUAL 34 objects dist=0 | bytes-moved
+VD/vd06 pristine rc=0 cmp=65 NOT_EQUAL stage1 dist=2 | law rc=0 cmp=0 STRICT_EQUAL 40 objects dist=0 | bytes-moved
+VD/vd07 pristine rc=0 cmp=65 NOT_EQUAL stage1 dist=2 | law rc=0 cmp=0 STRICT_EQUAL 38 objects dist=0 | bytes-moved
+VD/vd08 pristine rc=0 cmp=71 NOT_EQUAL stage1 dist=2 | law rc=0 cmp=0 STRICT_EQUAL 42 objects dist=0 | bytes-moved
+VE/ve01 pristine rc=4 cmp=60 NOT_EQUAL stage1 dist=58 | law rc=0 cmp=60 NOT_EQUAL stage1 dist=78 | bytes-moved
+VE/ve02 pristine rc=4 cmp=62 NOT_EQUAL stage1 dist=41 | law rc=0 cmp=62 NOT_EQUAL stage1 dist=40 | bytes-moved
+VE/ve03 pristine rc=0 cmp=84 NOT_EQUAL stage1 dist=60 | law rc=0 cmp=84 NOT_EQUAL stage1 dist=60 | bytes-same
+VE/ve04 pristine rc=4 cmp=172 NOT_EQUAL stage1 dist=209 | law rc=0 cmp=172 NOT_EQUAL stage1 dist=206 | bytes-moved
+VH/vh01 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=12 | law rc=0 cmp=17 NOT_EQUAL stage1 dist=12 | bytes-same
+VH/vh02 pristine rc=0 cmp=124 NOT_EQUAL stage1 dist=22 | law rc=0 cmp=0 STRICT_EQUAL 104 objects dist=0 | bytes-moved
+VH/vh03 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=12 | law rc=0 cmp=0 STRICT_EQUAL 108 objects dist=5 | bytes-moved
+VH/vh04 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=33 | law rc=0 cmp=17 NOT_EQUAL stage1 dist=11 | bytes-moved
+VH/vh05 pristine rc=0 cmp=124 NOT_EQUAL stage1 dist=36 | law rc=0 cmp=17 NOT_EQUAL stage1 dist=14 | bytes-moved
+VH/vh06 pristine rc=0 cmp=124 NOT_EQUAL stage1 dist=22 | law rc=0 cmp=0 STRICT_EQUAL 165 objects dist=0 | bytes-moved
+VH/vh07 pristine rc=0 cmp=124 NOT_EQUAL stage1 dist=22 | law rc=0 cmp=0 STRICT_EQUAL 122 objects dist=0 | bytes-moved
+VH/vh08 pristine rc=0 cmp=124 NOT_EQUAL stage1 dist=22 | law rc=0 cmp=0 STRICT_EQUAL 121 objects dist=0 | bytes-moved
+VH/vh09 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=16 | law rc=0 cmp=17 NOT_EQUAL stage1 dist=16 | bytes-same
+VH/vh10 pristine rc=0 cmp=0 STRICT_EQUAL 170 objects dist=0 | law rc=0 cmp=0 STRICT_EQUAL 170 objects dist=0 | bytes-same
+VH/vh11 pristine rc=0 cmp=58 NOT_EQUAL stage1 dist=37 | law rc=0 cmp=58 NOT_EQUAL stage1 dist=37 | bytes-same
+VH/vh12 pristine rc=0 cmp=128 NOT_EQUAL stage1 dist=24 | law rc=0 cmp=0 STRICT_EQUAL 110 objects dist=2 | bytes-moved
+VH/vh13 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=12 | law rc=0 cmp=17 NOT_EQUAL stage1 dist=12 | bytes-same
+VH/vh14 pristine rc=0 cmp=124 NOT_EQUAL stage1 dist=22 | law rc=0 cmp=0 STRICT_EQUAL 229 objects dist=0 | bytes-moved
+VH/vh15 pristine rc=0 cmp=283 NOT_EQUAL stage1 dist=23 | law rc=0 cmp=283 NOT_EQUAL stage1 dist=23 | bytes-same
+VI/vi01 pristine rc=0 cmp=698 NOT_EQUAL stage1 dist=17 | law rc=0 cmp=0 STRICT_EQUAL 73 objects dist=8 | bytes-moved
+VI/vi02 pristine rc=0 cmp=942 NOT_EQUAL stage1 dist=21 | law rc=0 cmp=0 STRICT_EQUAL 105 objects dist=12 | bytes-moved
+VI/vi03 pristine rc=0 cmp=762 NOT_EQUAL stage1 dist=17 | law rc=0 cmp=0 STRICT_EQUAL 75 objects dist=8 | bytes-moved
+VI/vi04 pristine rc=0 cmp=888 NOT_EQUAL stage1 dist=28 | law rc=0 cmp=0 STRICT_EQUAL 94 objects dist=10 | bytes-moved
+VI/vi05 pristine rc=0 cmp=0 STRICT_EQUAL 53 objects dist=10 | law rc=0 cmp=0 STRICT_EQUAL 53 objects dist=10 | bytes-same
+VI/vi06 pristine rc=0 cmp=650 NOT_EQUAL stage1 dist=21 | law rc=0 cmp=0 STRICT_EQUAL 110 objects dist=12 | bytes-moved
+VK/vk01 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=37 | law rc=0 cmp=17 NOT_EQUAL stage1 dist=10 | bytes-moved
+VK/vk02 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=39 | law rc=0 cmp=17 NOT_EQUAL stage1 dist=12 | bytes-moved
+VK/vk03 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=37 | law rc=0 cmp=17 NOT_EQUAL stage1 dist=10 | bytes-moved
+VK/vk04 pristine rc=0 cmp=0 STRICT_EQUAL 53 objects dist=0 | law rc=0 cmp=0 STRICT_EQUAL 53 objects dist=0 | bytes-same
+VM/vm01 pristine rc=0 cmp=136 NOT_EQUAL stage1 dist=18 | law rc=0 cmp=0 STRICT_EQUAL 88 objects dist=0 | bytes-moved
+VM/vm02 pristine rc=0 cmp=168 NOT_EQUAL stage1 dist=20 | law rc=0 cmp=0 STRICT_EQUAL 106 objects dist=2 | bytes-moved
+VM/vm03 pristine rc=0 cmp=220 NOT_EQUAL stage1 dist=20 | law rc=0 cmp=0 STRICT_EQUAL 98 objects dist=6 | bytes-moved
+VM/vm04 pristine rc=0 cmp=0 STRICT_EQUAL 88 objects dist=0 | law rc=0 cmp=0 STRICT_EQUAL 88 objects dist=0 | bytes-same
+VP/vp01 pristine rc=0 cmp=110 NOT_EQUAL stage1 dist=32 | law rc=0 cmp=28 NOT_EQUAL stage1 dist=4 | bytes-moved
+VP/vp02 pristine rc=0 cmp=64 NOT_EQUAL stage1 dist=32 | law rc=0 cmp=0 STRICT_EQUAL 69 objects dist=0 | bytes-moved
+VP/vp03 pristine rc=0 cmp=0 STRICT_EQUAL 69 objects dist=0 | law rc=0 cmp=0 STRICT_EQUAL 69 objects dist=0 | bytes-same
+VP/vp04 pristine rc=0 cmp=50 NOT_EQUAL stage1 dist=42 | law rc=0 cmp=0 STRICT_EQUAL 61 objects dist=0 | bytes-moved
+VP/vp05 pristine rc=0 cmp=0 STRICT_EQUAL 69 objects dist=0 | law rc=0 cmp=0 STRICT_EQUAL 69 objects dist=0 | bytes-same
+VR/vr01 pristine rc=0 cmp=110 NOT_EQUAL stage1 dist=27 | law rc=0 cmp=110 NOT_EQUAL stage1 dist=27 | bytes-same
+VR/vr02 pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol dist=10 | law rc=0 cmp=0 STRICT_NOTEQUAL endcol dist=10 | bytes-same
+VR/vr03 pristine rc=0 cmp=28 NOT_EQUAL stage1 dist=2 | law rc=0 cmp=0 STRICT_EQUAL 53 objects dist=0 | bytes-moved
+VR/vr04 pristine rc=0 cmp=0 STRICT_EQUAL 80 objects dist=4 | law rc=0 cmp=0 STRICT_EQUAL 80 objects dist=4 | bytes-same
+VR/vr05 pristine rc=0 cmp=28 NOT_EQUAL stage1 dist=4 | law rc=0 cmp=0 STRICT_EQUAL 62 objects dist=0 | bytes-moved
+VS/vs01 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=29 | law rc=0 cmp=0 STRICT_EQUAL 64 objects dist=0 | bytes-moved
+VS/vs02 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=29 | law rc=0 cmp=0 STRICT_EQUAL 60 objects dist=20 | bytes-moved
+VS/vs03 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=20 | law rc=0 cmp=0 STRICT_EQUAL 46 objects dist=0 | bytes-moved
+VS/vs04 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=26 | law rc=0 cmp=0 STRICT_EQUAL 60 objects dist=0 | bytes-moved
+VS/vs05 pristine rc=0 cmp=0 STRICT_EQUAL 38 objects dist=0 | law rc=0 cmp=0 STRICT_EQUAL 38 objects dist=0 | bytes-same
+VS/vs06 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=49 | law rc=0 cmp=0 STRICT_EQUAL 64 objects dist=0 | bytes-moved
+VS/vs07 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=24 | law rc=0 cmp=17 NOT_EQUAL stage1 dist=24 | bytes-same
+VS/vs08 pristine rc=0 cmp=0 STRICT_NOTEQUAL line dist=40 | law rc=0 cmp=0 STRICT_EQUAL 142 objects dist=24 | bytes-moved
+VS/vs09 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=53 | law rc=0 cmp=18 NOT_EQUAL stage1 dist=14 | bytes-moved
+VS/vs10 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=29 | law rc=0 cmp=0 STRICT_EQUAL 49 objects dist=0 | bytes-moved
+VS/vs11 pristine rc=0 cmp=50 NOT_EQUAL stage1 dist=41 | law rc=0 cmp=50 NOT_EQUAL stage1 dist=23 | bytes-moved
+VS/vs12 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=20 | law rc=0 cmp=0 STRICT_EQUAL 57 objects dist=20 | bytes-moved
+VT/vt01 pristine rc=0 cmp=38 NOT_EQUAL stage1 dist=11 | law rc=0 cmp=0 STRICT_EQUAL 13 objects dist=0 | bytes-moved
+VT/vt02 pristine rc=0 cmp=28 NOT_EQUAL stage1 dist=12 | law rc=0 cmp=0 STRICT_EQUAL 15 objects dist=0 | bytes-moved
+VT/vt03 pristine rc=0 cmp=52 NOT_EQUAL stage1 dist=16 | law rc=0 cmp=0 STRICT_EQUAL 25 objects dist=0 | bytes-moved
+VT/vt04 pristine rc=0 cmp=34 NOT_EQUAL stage1 dist=19 | law rc=0 cmp=0 STRICT_EQUAL 25 objects dist=2 | bytes-moved
+VT/vt05 pristine rc=0 cmp=38 NOT_EQUAL stage1 dist=21 | law rc=0 cmp=0 STRICT_EQUAL 18 objects dist=5 | bytes-moved
+VU/vu01 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=90 | law rc=0 cmp=76 NOT_EQUAL stage1 dist=72 | bytes-moved
+VU/vu02 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=41 | law rc=0 cmp=17 NOT_EQUAL stage1 dist=23 | bytes-moved
+VU/vu03 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=18 | law rc=0 cmp=0 STRICT_EQUAL 40 objects dist=0 | bytes-moved
+VU/vu04 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=36 | law rc=0 cmp=0 STRICT_EQUAL 60 objects dist=0 | bytes-moved
+VU/vu05 pristine rc=0 cmp=17 NOT_EQUAL stage1 dist=18 | law rc=0 cmp=0 STRICT_EQUAL 52 objects dist=0 | bytes-moved
+VZ/vz01 pristine rc=0 cmp=56 NOT_EQUAL stage1 dist=17 | law rc=0 cmp=0 STRICT_EQUAL 83 objects dist=0 | bytes-moved
+VZ/vz02 pristine rc=0 cmp=36 NOT_EQUAL stage1 dist=32 | law rc=0 cmp=0 STRICT_EQUAL 105 objects dist=0 | bytes-moved
+VZ/vz03 pristine rc=0 cmp=56 NOT_EQUAL stage1 dist=58 | law rc=0 cmp=0 STRICT_EQUAL 117 objects dist=0 | bytes-moved
+VZ/vz04 pristine rc=0 cmp=56 NOT_EQUAL stage1 dist=60 | law rc=0 cmp=0 STRICT_EQUAL 104 objects dist=0 | bytes-moved
+VZ/vz05 pristine rc=0 cmp=56 NOT_EQUAL stage1 dist=17 | law rc=0 cmp=46 NOT_EQUAL stage1 dist=13 | bytes-moved
+VZ/vz06 pristine rc=0 cmp=46 NOT_EQUAL stage1 dist=27 | law rc=0 cmp=36 NOT_EQUAL stage1 dist=16 | bytes-moved
+VZ/vz07 pristine rc=0 cmp=56 NOT_EQUAL stage1 dist=30 | law rc=0 cmp=0 STRICT_EQUAL 112 objects dist=0 | bytes-moved
+cases=105 own-switch-restores-pristine=105 R11U405_OFF-restores-pristine=105

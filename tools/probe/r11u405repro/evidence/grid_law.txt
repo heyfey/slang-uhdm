@@ -1,0 +1,122 @@
+BP/bp01 pristine rc=0 cmp=15 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 33 objects
+BP/bp02 pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 33 objects
+BP/bp03 pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 41 objects
+BP/bp04 pristine rc=0 cmp=0 STRICT_EQUAL 21 objects | law rc=0 cmp=0 STRICT_EQUAL 21 objects
+BP/bp05 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 25 objects
+BP/bp06 pristine rc=0 cmp=58 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 35 objects
+BP/bp07 pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 31 objects
+BU/bu01 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 39 objects
+BU/bu02 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 46 objects
+BU/bu03 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 37 objects
+BU/bu04 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=17 NOT_EQUAL stage1
+BU/bu05 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 51 objects
+BU/bu06 pristine rc=0 cmp=64 NOT_EQUAL stage1 | law rc=0 cmp=64 NOT_EQUAL stage1
+BU/bu07 pristine rc=0 cmp=0 STRICT_EQUAL 42 objects | law rc=0 cmp=0 STRICT_EQUAL 42 objects
+BU/bu08 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 78 objects
+BU/bu09 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 78 objects
+BU/bu10 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 90 objects
+BU/bu11 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 77 objects
+DS/ds01 pristine rc=0 cmp=65 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 36 objects
+DS/ds02 pristine rc=0 cmp=65 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 36 objects
+DS/ds03 pristine rc=0 cmp=0 STRICT_EQUAL 32 objects | law rc=0 cmp=0 STRICT_EQUAL 32 objects
+DS/ds04 pristine rc=0 cmp=67 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 34 objects
+DS/ds05 pristine rc=0 cmp=71 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 38 objects
+HM/hm01 pristine rc=0 cmp=172 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 117 objects
+HM/hm02 pristine rc=0 cmp=0 STRICT_EQUAL 117 objects | law rc=0 cmp=0 STRICT_EQUAL 117 objects
+HM/hm03 pristine rc=0 cmp=124 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 101 objects
+HM/hm04 pristine rc=0 cmp=120 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 101 objects
+HM/hm05 pristine rc=0 cmp=0 STRICT_EQUAL 101 objects | law rc=0 cmp=0 STRICT_EQUAL 101 objects
+IN/in01 pristine rc=0 cmp=850 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 127 objects
+IN/in02 pristine rc=0 cmp=0 STRICT_EQUAL 69 objects | law rc=0 cmp=0 STRICT_EQUAL 69 objects
+IN/in03 pristine rc=0 cmp=734 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 85 objects
+IP/ip01 pristine rc=0 cmp=50 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 71 objects
+IP/ip02 pristine rc=0 cmp=64 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 77 objects
+IP/ip03 pristine rc=0 cmp=62 NOT_EQUAL stage1 | law rc=0 cmp=62 NOT_EQUAL stage1
+PH/ph01 pristine rc=0 cmp=42 NOT_EQUAL stage1 | law rc=0 cmp=42 NOT_EQUAL stage1
+PH/ph02 pristine rc=0 cmp=0 STRICT_EQUAL 37 objects | law rc=0 cmp=0 STRICT_EQUAL 37 objects
+PH/ph03 pristine rc=0 cmp=0 STRICT_EQUAL 46 objects | law rc=0 cmp=0 STRICT_EQUAL 46 objects
+PH/ph04 pristine rc=0 cmp=0 STRICT_EQUAL 46 objects | law rc=0 cmp=0 STRICT_EQUAL 46 objects
+PH/ph05 pristine rc=0 cmp=0 STRICT_EQUAL 45 objects | law rc=0 cmp=0 STRICT_EQUAL 45 objects
+PH/ph06 pristine rc=0 cmp=0 STRICT_EQUAL 92 objects | law rc=0 cmp=0 STRICT_EQUAL 92 objects
+PH/ph07 pristine rc=0 cmp=0 STRICT_EQUAL 43 objects | law rc=0 cmp=0 STRICT_EQUAL 43 objects
+PH/ph08 pristine rc=0 cmp=124 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 84 objects
+PH/ph09 pristine rc=0 cmp=124 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 161 objects
+PH/ph10 pristine rc=0 cmp=124 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 163 objects
+PH/ph11 pristine rc=0 cmp=124 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 156 objects
+PH/ph12 pristine rc=0 cmp=124 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 157 objects
+PH/ph13 pristine rc=0 cmp=124 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 160 objects
+PH/ph14 pristine rc=0 cmp=124 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 155 objects
+PH/ph15 pristine rc=0 cmp=124 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 163 objects
+PH/ph16 pristine rc=0 cmp=0 STRICT_EQUAL 190 objects | law rc=0 cmp=0 STRICT_EQUAL 190 objects
+PH/ph17 pristine rc=0 cmp=124 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 116 objects
+PH/ph18 pristine rc=0 cmp=124 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 116 objects
+PH/ph19 pristine rc=0 cmp=124 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 104 objects
+PH/ph20 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=17 NOT_EQUAL stage1
+PZ/pz01 pristine rc=0 cmp=56 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 109 objects
+PZ/pz02 pristine rc=0 cmp=46 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 73 objects
+PZ/pz03 pristine rc=0 cmp=46 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 56 objects
+PZ/pz04 pristine rc=0 cmp=56 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 123 objects
+PZ/pz05 pristine rc=0 cmp=46 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 92 objects
+PZ/pz06 pristine rc=0 cmp=46 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 137 objects
+PZ/pz07 pristine rc=0 cmp=0 STRICT_EQUAL 63 objects | law rc=0 cmp=0 STRICT_EQUAL 63 objects
+PZ/pz08 pristine rc=0 cmp=56 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 178 objects
+PZ/pz09 pristine rc=0 cmp=36 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 66 objects
+PZ/pz10 pristine rc=0 cmp=56 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 197 objects
+PZ/pz11 pristine rc=0 cmp=56 NOT_EQUAL stage1 | law rc=0 cmp=42 NOT_EQUAL stage1
+PZ/pz12 pristine rc=0 cmp=36 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 105 objects
+PZ/pz13 pristine rc=0 cmp=56 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 102 objects
+RP/rp01 pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 27 objects
+RP/rp02 pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 26 objects
+RP/rp03 pristine rc=0 cmp=0 STRICT_EQUAL 19 objects | law rc=0 cmp=0 STRICT_EQUAL 19 objects
+RP/rp04 pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 50 objects
+RP/rp05 pristine rc=0 cmp=0 STRICT_EQUAL 57 objects | law rc=0 cmp=0 STRICT_EQUAL 57 objects
+SC/sc01 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 38 objects
+SC/sc02 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 46 objects
+SC/sc03 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 55 objects
+SC/sc04 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 60 objects
+SC/sc05 pristine rc=0 cmp=0 STRICT_EQUAL 39 objects | law rc=0 cmp=0 STRICT_EQUAL 39 objects
+SC/sc06 pristine rc=0 cmp=0 STRICT_EQUAL 38 objects | law rc=0 cmp=0 STRICT_EQUAL 38 objects
+SC/sc07 pristine rc=0 cmp=0 STRICT_EQUAL 37 objects | law rc=0 cmp=0 STRICT_EQUAL 37 objects
+SC/sc08 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 54 objects
+SC/sc09 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 59 objects
+SC/sc10 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=17 NOT_EQUAL stage1
+SC/sc11 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=17 NOT_EQUAL stage1
+SC/sc12 pristine rc=0 cmp=64 NOT_EQUAL stage1 | law rc=0 cmp=64 NOT_EQUAL stage1
+SC/sc13 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 46 objects
+SC/sc14 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 63 objects
+SC/sc15 pristine rc=0 cmp=0 STRICT_EQUAL 53 objects | law rc=0 cmp=0 STRICT_EQUAL 53 objects
+SC/sc16 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 71 objects
+SC/sc17 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 54 objects
+SC/sc18 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 85 objects
+SC/sc19 pristine rc=0 cmp=0 STRICT_NOTEQUAL line | law rc=0 cmp=0 STRICT_EQUAL 142 objects
+SC/sc20 pristine rc=0 cmp=0 STRICT_EQUAL 142 objects | law rc=0 cmp=0 STRICT_EQUAL 142 objects
+SC/sc21 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 43 objects
+SC/sc22 pristine rc=0 cmp=0 STRICT_EQUAL 45 objects | law rc=0 cmp=0 STRICT_EQUAL 45 objects
+SC/sc23 pristine rc=0 cmp=26 NOT_EQUAL stage1 | law rc=0 cmp=26 NOT_EQUAL stage1
+SC/sc24 pristine rc=0 cmp=26 NOT_EQUAL stage1 | law rc=0 cmp=26 NOT_EQUAL stage1
+SC/sc25 pristine rc=0 cmp=0 STRICT_EQUAL 48 objects | law rc=0 cmp=0 STRICT_EQUAL 48 objects
+SC/sc26 pristine rc=0 cmp=0 STRICT_EQUAL 42 objects | law rc=0 cmp=0 STRICT_EQUAL 42 objects
+SC/sc27 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 41 objects
+SC/sc28 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=32 NOT_EQUAL stage1
+SC/sc29 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=28 NOT_EQUAL stage1
+SC/sc30 pristine rc=0 cmp=19 NOT_EQUAL stage1 | law rc=0 cmp=19 NOT_EQUAL stage1
+SC/sc31 pristine rc=0 cmp=0 STRICT_EQUAL 119 objects | law rc=0 cmp=0 STRICT_EQUAL 119 objects
+SC/sc32 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 111 objects
+SC/sc33 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 50 objects
+TN/tn01 pristine rc=0 cmp=0 STRICT_NOTEQUAL line | law rc=0 cmp=0 STRICT_NOTEQUAL line
+TN/tn02 pristine rc=0 cmp=106 NOT_EQUAL stage1 | law rc=0 cmp=106 NOT_EQUAL stage1
+TN/tn03 pristine rc=4 cmp=82 NOT_EQUAL stage1 | law rc=0 cmp=82 NOT_EQUAL stage1
+TY/ty01 pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 13 objects
+TY/ty02 pristine rc=0 cmp=34 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 30 objects
+TY/ty03 pristine rc=0 cmp=0 STRICT_EQUAL 24 objects | law rc=0 cmp=0 STRICT_EQUAL 24 objects
+UA/ua01 pristine rc=0 cmp=58 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_NOTEQUAL file
+UA/ua02 pristine rc=0 cmp=58 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 47 objects
+UA/ua03 pristine rc=0 cmp=58 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 49 objects
+UA/ua04 pristine rc=0 cmp=58 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_NOTEQUAL file
+UA/ua05 pristine rc=0 cmp=58 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_NOTEQUAL file
+UA/ua06 pristine rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_NOTEQUAL file
+UA/ua07 pristine rc=0 cmp=58 NOT_EQUAL stage1 | law rc=0 cmp=58 NOT_EQUAL stage1
+UB/ub01 pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 27 objects
+UB/ub02 pristine rc=0 cmp=13 NOT_EQUAL stage1 | law rc=0 cmp=13 NOT_EQUAL stage1
+UB/ub03 pristine rc=0 cmp=33 NOT_EQUAL stage1 | law rc=0 cmp=33 NOT_EQUAL stage1
+cases=121 own-switch-restores-pristine=121 R11U405_OFF-restores-pristine=121

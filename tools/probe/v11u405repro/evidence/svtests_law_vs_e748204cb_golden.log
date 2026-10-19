@@ -1,0 +1,74 @@
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+REGRESSION chapter-12/12.7.3--foreach.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-12/12.7.4--while.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-12/12.7.5--dowhile.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-16/16.2--assert-final.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-16/16.2--assert0.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-16/16.2--assume-final.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-16/16.2--assume0.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-16/16.2--cover-final.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-16/16.2--cover0.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-16/16.7--sequence.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-16/16.9--sequence-cons-repetition.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-16/16.9--sequence-goto-repetition.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-16/16.9--sequence-noncons-repetition.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-5/5.8-time-literals.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-7/queues/bounded.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-7/queues/max-size.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION chapter-7/queues/slice.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION generated/integers/6.11--integer_signed_time.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION generated/integers/6.11--integer_time.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION generated/integers/6.11--integer_unsigned_time.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION generic/typedef/typedef_test_13.sv: EQUAL -> SURELOG_ONLY typedef target: AssociativeArrayType
+CONVERSION chapter-20/20.6--isunbounded.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-20/20.6--typename_type.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-20/20.9--isunknown.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-5/5.11-arrays-replication.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-5/5.11-arrays.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-9/9.6.2--disable_other.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-9/9.7--process_cls_await.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-9/9.7--process_cls_kill.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-9/9.7--process_cls_suspend_resume.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_decode.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_dma.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_miss.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_dma.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_miss_fifo.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_sbuf.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_tbuf.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_axi.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generated/basejump/bsg_cache_BaseJumpSTL_bsg_nonsynth_cache_axe_tracer.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_channel_tunnel_out.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_permute_box.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_serial_in_parallel_out.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_f2i.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_i2f.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_array_concentrate_static.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_circular_ptr.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_concentrate_static.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_clear_up_one_hot.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_dynamic_limit.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_set_down.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_set_en.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_async_reset.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_negedge_reset.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset_en.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_lfsr.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_scoreboard_dealloc_alloc.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router_buffered.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_to_ring_stitch.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_noc_BaseJumpSTL_bsg_router_crossbar_o_by_i.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_broadcast.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_out.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_master.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_master_decentralized.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_test_BaseJumpSTL_test_bsg_data_gen.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p168.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p707.sv: DIFFERENT -> EQUAL
+CONVERSION generated/tnoc/tnoc.sv: SURELOG_ONLY -> DIFFERENT
+sv-tests: BOTH_REJECT=303 DIFFERENT=335 EQUAL=1591 SLANG_ONLY=19 STRICT_NOTEQUAL=13 SURELOG_CRASH=8 SURELOG_ONLY=76 TIMEOUT=1 (of 2346)
+regressions=21 conversions=48 changes=0
+SVTESTS rc=1

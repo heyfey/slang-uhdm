@@ -10583,6 +10583,44 @@ static std::optional<SourceRange> ternPickedLeaf250(const Expression& e0,
     }
 }
 
+// § undefParamCastSizeTs405 — the first `P'(x)` or `(P)'(x)` size cast
+// under `n`, as the cast's type-name node (inside the parentheses for the
+// second form: golden bsg_dff_async_reset `(width_p)'(reset_val_p)` anchors
+// the minted int_typespec at `width_p`, 22:20-27).
+static const slang::syntax::SyntaxNode* findParamSizeCastParen405(
+    const slang::syntax::SyntaxNode& n, std::string_view name, bool parens = true) {
+    using SK = slang::syntax::SyntaxKind;
+    if (n.kind == SK::CastExpression) {
+        auto& ce = n.as<slang::syntax::CastExpressionSyntax>();
+        const slang::syntax::ExpressionSyntax* l = ce.left;
+        while (parens && l && l->kind == SK::ParenthesizedExpression)
+            l = l->as<slang::syntax::ParenthesizedExpressionSyntax>().expression;
+        if (l && l->kind == SK::IdentifierName &&
+            l->as<slang::syntax::IdentifierNameSyntax>().identifier.valueText() == name)
+            return l;
+    }
+    // A cast inside a generate construct is compiled in the generate
+    // block's own component, where the module's param_assigns are not
+    // searched: it mints nothing on the parameter (golden
+    // bsg_mesh_router_buffered `width_p ' (0)` in `rof`, the parameter
+    // typespec-less).
+    if (n.kind == SK::LoopGenerate || n.kind == SK::IfGenerate ||
+        n.kind == SK::CaseGenerate || n.kind == SK::GenerateBlock ||
+        n.kind == SK::GenerateRegion)
+        return nullptr;
+    // ...nor does a cast in a NET or VARIABLE declaration's initializer
+    // (`wire [ring_width:0] ring_bytes = ring_width ' (num_channels_p);`,
+    // golden basejump test_bsg_data_gen; cases/SC sc27-sc30): Surelog
+    // compiles a declaration initializer through its own typespec lookup.
+    if (n.kind == SK::NetDeclaration || n.kind == SK::DataDeclaration)
+        return nullptr;
+    for (size_t i = 0; i < n.getChildCount(); i++)
+        if (auto* c = n.childNode(i))
+            if (auto* r = findParamSizeCastParen405(*c, name, parens))
+                return r;
+    return nullptr;
+}
+
 void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::string& prefix,
                                   NetMap& netMap, bool topView, DefInfo* di, bool inPackage,
                                   bool topShareTs, bool funcScope) {
@@ -11852,6 +11890,30 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     ps.getValue().isInteger() &&
                     !ps.getValue().integer().hasUnknown())
                     bitsFoldInit = true;
+                // § bitsParamArgNoFold405 (r11u405, R11U405_BITSPARAM_OFF) —
+                // `$bits(k)` whose argument is a PARAMETER (typed or not,
+                // module parameter or localparam) is not a definition-time
+                // fold: Surelog's compileBits finds no typespec for a
+                // parameter name, so the untyped parameter keeps no
+                // typespec in either view and its elaborated value is an
+                // ordinary computed fold (golden basejump bsg_permute_box
+                // `lg_items_lp=$bits(items_p)`; cases/BU).
+                if (bitsFoldInit) {
+                    auto& call405 = sb9.as<CallExpression>();
+                    if (!call405.arguments().empty()) {
+                        auto& a405 = stripImplicitConv(*call405.arguments()[0]);
+                        if (a405.kind == ExpressionKind::NamedValue &&
+                            a405.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter) {
+                            if (lawOn(405, "R11U405_BITSPARAM_OFF")) {
+                                lawTrace(405, "bitsParamArgNoFold405", std::string(ps.name));
+                                bitsFoldInit = false;
+                            }
+                            else
+                                lawTrace(405, "bitsParamArgNoFold405_OFF", std::string(ps.name));
+                        }
+                    }
+                }
             }
             modPkgRefIntTsRhs9 = modPkgRefIntTs9 && !typedParam;
             wantTs = (ctw.isIntegral() || ctw.isFloating() || ctw.isStruct() ||
@@ -11886,13 +11948,73 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // the first `SCR1_IFU_QUEUE_ADR_W'(`). Only for the no-typespec
             // case: a LITERAL-init parameter keeps its declaration typespec
             // and the cast mints a separate one (ExprEmit's litWidthParam9).
+            // § undefParamCastSizeTs405 (r11u405, R11U405_UNDEFCASTTS_OFF) —
+            // a DEFAULT-LESS untyped module parameter (basejump's
+            // `BSG_INV_PARAM(width_p)`, the definition listed through
+            // § undefaultedDefInvalidInst404) takes the same cast-minted
+            // typespec: Surelog's compileDatastructureTypespec finds the
+            // parameter's param_assign with no typespec, builds an
+            // int_typespec named after it at the FIRST `P'(x)` cast's name
+            // token and sets it as the parameter's typespec, every later
+            // cast sharing it (golden bsg_dff_reset `width_p'(reset_val_p)`
+            // 17:21-28).  Definition view only (the elaborated instance of an
+            // overridden default-less parameter is a different shape, cases
+            // SC/sc10, sc11).  Grid tools/probe/r11u405repro/cases/SC.
+            bool undefCast405 = !hasDefault && !topView && !funcScope &&
+                                body.asSymbol().kind == SymbolKind::InstanceBody &&
+                                body.asSymbol().as<InstanceBodySymbol>()
+                                        .getDefinition().definitionKind ==
+                                    DefinitionKind::Module;
             if (!wantTs && !inPackage && !isImported && !typedParam &&
-                defaultInit && ctw.isIntegral() && !unknownDefault) {
+                (defaultInit || undefCast405) && ctw.isIntegral() &&
+                !unknownDefault) {
                 if (auto* bsy = body.asSymbol().getSyntax())
-                    if (auto* cl = findParamSizeCast(*bsy, ps.name)) {
-                        wantTs = true;
-                        castSizeFold = true;
-                        castSizeParamTs[&ps] = cl;
+                    // § castSizeGenFence405 (r11u405, R11U405_CASTGENFENCE_OFF)
+                    // — a COMPUTED-init parameter owes the cast-minted
+                    // typespec only to a cast in the module's OWN items: a
+                    // cast inside a generate construct is compiled with the
+                    // generate block, never against the module's
+                    // param_assigns (golden basejump bsg_circular_ptr
+                    // `ptr_width_lp ' (ptr_r + add_i)` inside its if-generate,
+                    // test_bsg_data_gen `ring_width ' (num_channels_p)`: the
+                    // parameter typespec-less).  Grid cases/SC sc18-sc20.
+                    if (auto* cl = [&]() -> const syntax::SyntaxNode* {
+                            if (!defaultInit)
+                                return findParamSizeCastParen405(*bsy, ps.name);
+                            // § castSizeParenComputed405 (r11u405,
+                            // R11U405_CASTPARENCOMP_OFF) — the PARENTHESIZED
+                            // spelling `(P)'(x)` mints the same object for a
+                            // computed-init parameter (golden basejump
+                            // bsg_counter_set_en `(lg_max_val_lp)'(reset_val_p)`
+                            // 25:19-32 named lg_max_val_lp; cases/SC sc32).
+                            const bool fence405 = lawOn(405, "R11U405_CASTGENFENCE_OFF");
+                            const bool paren405 = lawOn(405, "R11U405_CASTPARENCOMP_OFF");
+                            auto* any405 = findParamSizeCast(*bsy, ps.name);
+                            const syntax::SyntaxNode* pick405 = any405;
+                            if (fence405)
+                                pick405 = findParamSizeCastParen405(*bsy, ps.name, paren405);
+                            else if (paren405 && !any405)
+                                pick405 = nullptr;  // the paren form rides on the fenced finder only
+                            if (pick405 != any405)
+                                lawTrace(405, pick405 && pick405->parent &&
+                                                      pick405->parent->kind !=
+                                                          syntax::SyntaxKind::CastExpression
+                                                  ? "castSizeParenComputed405"
+                                                  : "castSizeGenFence405",
+                                         std::string(ps.name) +
+                                             (pick405 ? " own" : " none"));
+                            return pick405;
+                        }()) {
+                        if (!defaultInit && !lawOn(405, "R11U405_UNDEFCASTTS_OFF")) {
+                            lawTrace(405, "undefParamCastSizeTs405_OFF", std::string(ps.name));
+                        }
+                        else {
+                            if (!defaultInit)
+                                lawTrace(405, "undefParamCastSizeTs405", std::string(ps.name));
+                            wantTs = true;
+                            castSizeFold = true;
+                            castSizeParamTs[&ps] = cl;
+                        }
                     }
             }
         }
@@ -12011,6 +12133,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             {
                 bool ovr9 = false;
                 bool pkgDimSym9 = false;
+                bool anyParam405 = false;
                 if (auto dsyn9 = ps.getSyntax();
                     dsyn9 && dsyn9->kind == syntax::SyntaxKind::Declarator) {
                     for (auto dim9 :
@@ -12029,6 +12152,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                             SymbolKind::Parameter &&
                                         isOverriddenParam(*hit9))
                                         ovr9 = true;
+                                    else if (hit9 &&
+                                             hit9->kind == SymbolKind::Parameter &&
+                                             !hit9->as<ParameterSymbol>().isFromGenvar())
+                                        anyParam405 = true;
                                 }
                                 for (size_t i9 = 0;
                                      i9 < sn9.getChildCount(); i9++)
@@ -12148,6 +12275,24 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 }
                             }
                     }
+                }
+                // § modUnpackedDimArithRef405 (r11u405,
+                // R11U405_UNPDIMARITH_OFF) — a MODULE parameter's unpacked
+                // dimension whose bound is ARITHMETIC over another parameter
+                // (`parameter int fifo_els_p[dirs_lp-1:0]`, `[n*2]`) keeps the
+                // bound symbolic in every view too, whether or not that
+                // parameter is overridden: golden holds the vpiMinusOp /
+                // vpiMultOp with the unbound ref_obj <module>.<holder>.<bound>
+                // for a port parameter, a body localparam and an overridden
+                // one alike (cases/UA; basejump bsg_mesh_router_buffered,
+                // bsg_router_crossbar_o_by_i, bsg_nonsynth_dpi_rom).
+                if (!ovr9 && anyParam405 && !inPackage && !isImported) {
+                    if (lawOn(405, "R11U405_UNPDIMARITH_OFF")) {
+                        lawTrace(405, "modUnpackedDimArithRef405", afull);
+                        ovr9 = true;
+                    }
+                    else
+                        lawTrace(405, "modUnpackedDimArithRef405_OFF", afull);
                 }
                 if (ovr9)
                     dimPrefix9 = afull;
@@ -17688,6 +17833,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                          // the operation in the elab view too (Surelog).
                          !(isImported && stripImplicitConv(*init).kind ==
                                              ExpressionKind::Concatenation) &&
+                         // § impUnbasedLitKept405 (r11u405,
+                         // R11U405_IMPUNBASED_OFF) — a materialized IMPORTED
+                         // untyped parameter whose package default is an
+                         // unbased-unsized literal ('0 '1 'x 'z) is never
+                         // folded: the copy is the package literal itself,
+                         // located at it with size -1 (golden basejump
+                         // bsg_cache `amo_support_level_none_lp = '0`
+                         // 25:48-50; cases/PZ).
+                         !(isImported && !typedParam &&
+                           stripImplicitConv(*init).kind ==
+                               ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                           [&] {
+                               if (!lawOn(405, "R11U405_IMPUNBASED_OFF")) {
+                                   lawTrace(405, "impUnbasedLitKept405_OFF", std::string(ps.name));
+                                   return false;
+                               }
+                               lawTrace(405, "impUnbasedLitKept405", std::string(ps.name));
+                               return true;
+                           }()) &&
                          // § multiDimPackedParamNoFold — a parameter whose own
                          // declaration writes TWO OR MORE packed dimensions
                          // keeps a CONCAT / assignment-PATTERN initializer as
@@ -26474,6 +26638,50 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         // ...and the same chaining for a plain param
                         // reference that lands on a BASED literal.
                         paramOriginBaseRecode((UHDM::constant*)rhs, init);
+                // § unboundedTypedParamTs405 (r11u405,
+                // R11U405_UNBOUNDEDPARAM_OFF) — a TYPED parameter whose
+                // default is `$` (`parameter int i = $;`) keeps the `$`
+                // constant and, like any literal init of a typed parameter,
+                // carries the parameter's typespec; the elaborated listing
+                // re-encodes it as a 32-bit STRING constant (golden sv-tests
+                // chapter-20/20.6--isunbounded; cases/UB).
+                if (typedParam && !inPackage && rhs->UhdmType() == UHDM::uhdmconstant &&
+                    ((UHDM::constant*)rhs)->VpiConstType() == vpiUnboundedConst &&
+                    !((UHDM::constant*)rhs)->Typespec() && !rhsRt &&
+                    stripImplicitConv(*init).kind == ExpressionKind::UnboundedLiteral &&
+                    lawOn(405, "R11U405_UNBOUNDEDPARAM_OFF")) {
+                    auto* rc405 = (UHDM::constant*)rhs;
+                    lawTrace(405, "unboundedTypedParamTs405",
+                             std::string(ps.name) + (defViewOrig9 ? " def" : " elab"));
+                    auto* rt405 = s.MakeRef_typespec();
+                    std::string tp405 = prefix;
+                    if (tp405.size() >= 2 &&
+                        tp405.compare(tp405.size() - 2, 2, "::") == 0)
+                        tp405.resize(tp405.size() - 2);
+                    rt405->VpiFullName(tp405);
+                    rt405->VpiParent(rc405);
+                    rc405->Typespec(rt405);
+                    rhsRt = rt405;
+                    if (!defViewOrig9) {
+                        // § unboundedElabSizeIsTypeWidth405v (v11u405,
+                        // verifier refinement, R11V405_UNBSIZE_OFF) — the
+                        // elaborated STRING re-encoding is sized by the
+                        // parameter's TYPE, not 32: golden `parameter longint
+                        // q = $` reads vpiSize 64 there (v11u405repro VU/vu03;
+                        // int and integer stay 32).
+                        uint64_t w405v = 32;
+                        if (fixOn(405, "R11V405_UNBSIZE_OFF")) {
+                            const uint64_t tw405v = ps.getType().getBitWidth();
+                            if (tw405v > 0 && tw405v != 32) {
+                                lawTrace(405, "unboundedElabSizeIsTypeWidth405v",
+                                         std::string(ps.name) + " " + std::to_string(tw405v));
+                                w405v = tw405v;
+                            }
+                        }
+                        rc405->VpiSize((int)w405v);
+                        rc405->VpiConstType(vpiStringConst);
+                    }
+                }
                 // Literal inits of typed params carry the param typespec
                 // (patched late together with the param ref).
                 // Unknown ('x/'z) defaults: uppercase digits and a BARE
@@ -26502,15 +26710,39 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         // bare 'X (Surelog quirk).
                         // ...in a MODULE's elaborated listing; a PACKAGE's
                         // keeps the written 'X (§ unbasedUntypedElabKeepsLiteral401).
-                        if (topView &&
-                            v0.find_first_of("xXzZ") !=
-                                std::string_view::npos &&
+                        // § impUnbasedLitKept405 — the import copy follows
+                        // the PHYSICAL view: a module's def listing (even one
+                        // § modDefImportShape flipped) keeps the package's
+                        // def form ('0 'X with the dangling ts ref), the
+                        // elaborated listing spells every digit with 'b
+                        // ('b0 'b1 'bX 'bZ, no ts).
+                        const bool impUb405 =
+                            isImported && !inPackage && !typedParam &&
+                            stripImplicitConv(*init).kind ==
+                                ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                            lawOn(405, "R11U405_IMPUNBASED_OFF");
+                        const bool elabView405 =
+                            impUb405 ? (topView && !defViewOrig9) : topView;
+                        if (elabView405 &&
+                            (v0.find_first_of("xXzZ") !=
+                                 std::string_view::npos ||
+                             impUb405) &&
                             stripImplicitConv(*init).kind ==
                                 ExpressionKind::UnbasedUnsizedIntegerLiteral &&
                             !(inPackage && !typedParam &&
                               lawOn(401, "R11U401_UNBASEDUNTYPED_OFF")))
                             rc->VpiDecompile("'b" + std::string(v0.substr(4)));
-                        if (!topView && !wantTs && !rc->Typespec()) {
+                        if (impUb405) {
+                            // Both views: the package literal's own span and
+                            // the unsized -1; the def view the written digit.
+                            lawTrace(405, "impUnbasedLitKept405_shape",
+                                     std::string(ps.name) + (elabView405 ? " elab" : " def"));
+                            if (!elabView405)
+                                rc->VpiDecompile("'" + std::string(v0.substr(4)));
+                            rc->VpiSize(-1);
+                            setLoc(rc, stripImplicitConv(*init).sourceRange);
+                        }
+                        if (!elabView405 && !wantTs && !rc->Typespec()) {
                             auto* brt = s.MakeRef_typespec();
                             std::string tsPrefix = prefix;
                             if (tsPrefix.size() >= 2 &&
@@ -28817,8 +29049,36 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // Nothing else in either corpus demotes: the remaining order anomalies are
     // macro-expansion locations (BlackConst's `easy` reports the macro's
     // line 12) or the materialized-imported-package pattern above.
+    // § implicitPortPaLastNoBody405 (r11u405, R11U405_IMPLPORTLAST_OFF) —
+    // the demotion holds with no body parameter at all: a port list mixing a
+    // keyword-less entry and a `localparam` (`#(num_code_bits = 3,
+    // localparam num_out_bits = 1 << num_code_bits)`) lists the localparam's
+    // param_assign first in the elaborated instance (golden sv-tests
+    // hdlconvertor_std2017_p707; cases/IP).
+    bool mixImpl405 = false;
     if (topView && !inPackage && !portPa9.empty() &&
-        portPa9.size() < passigns->size()) {
+        portPa9.size() == passigns->size() && m &&
+        m->UhdmType() == UHDM::uhdmmodule_inst) {
+        bool anyImpl405 = false, anyExpl405 = false;
+        for (auto& mb405 : body.members())
+            if (mb405.kind == SymbolKind::Parameter &&
+                mb405.as<ParameterSymbol>().isPortParam()) {
+                if (isImplicitPortParam(mb405.as<ParameterSymbol>()))
+                    anyImpl405 = true;
+                else
+                    anyExpl405 = true;
+            }
+        if (anyImpl405 && anyExpl405) {
+            if (lawOn(405, "R11U405_IMPLPORTLAST_OFF")) {
+                lawTrace(405, "implicitPortPaLastNoBody405", prefix);
+                mixImpl405 = true;
+            }
+            else
+                lawTrace(405, "implicitPortPaLastNoBody405_OFF", prefix);
+        }
+    }
+    if (topView && !inPackage && !portPa9.empty() &&
+        (portPa9.size() < passigns->size() || mixImpl405)) {
         // Rank 0: port-list pa's (resolved at instantiation, first). Rank 1:
         // body pa's. Rank 2: IMPLICIT (keyword-less) module port-list pa's —
         // the late substitution re-creates them last. An EXPLICIT

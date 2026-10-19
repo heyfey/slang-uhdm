@@ -1,0 +1,153 @@
+chapter-10/10.4.1--blocking-assignment.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:18:11, endln:18:12 || RHS: decompile: | constant: , line:18:11, endln:18:12
+chapter-12/12.7.3--foreach.sv :: DIFFERENT decompile: :: LHS: decompile: | string_var: (work@foreach_tb.test), line:17:9, endln:17:13 || RHS: decompile: | logic_var: (work@foreach_tb.test), line:17:9, endln:17:13
+chapter-12/12.7.4--while.sv :: DIFFERENT decompile: :: LHS: decompile: | string_var: (work@while_tb.test), line:16:9, endln:16:13 || RHS: decompile: | logic_var: (work@while_tb.test), line:16:9, endln:16:13
+chapter-12/12.7.5--dowhile.sv :: DIFFERENT decompile: :: LHS: decompile: | string_var: (work@dowhile_tb.test), line:16:9, endln:16:13 || RHS: decompile: | logic_var: (work@dowhile_tb.test), line:16:9, endln:16:13
+chapter-15/15.4--mailbox-blocking.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | class_typespec: (mailbox), line:18:1, endln:18:18
+chapter-15/15.4--mailbox-non-blocking.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | class_typespec: (mailbox), line:18:1, endln:18:18
+chapter-16/16.10--property-local-var-fail.sv :: DIFFERENT decompile: :: LHS: decompile: | property_decl: (work@top.prop), line:64:14, endln:64:18 || RHS: decompile: | property_decl: (work@top.prop), line:64:14, endln:64:18
+chapter-16/16.10--property-local-var.sv :: DIFFERENT decompile: :: LHS: decompile: | property_decl: (work@top.prop), line:63:14, endln:63:18 || RHS: decompile: | property_decl: (work@top.prop), line:63:14, endln:63:18
+chapter-16/16.10--sequence-local-var-fail.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-16/16.10--sequence-local-var-fail.sv, line:48:1, endln:
+chapter-16/16.10--sequence-local-var.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-16/16.10--sequence-local-var.sv, line:47:1, endln:83:10 || R
+chapter-16/16.2--assert-final.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-16/16.2--assert-final.sv, line:15:1, endl
+chapter-16/16.2--assert0.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-16/16.2--assert0.sv, line:15:1, endln:21:10
+chapter-16/16.2--assume-final.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-16/16.2--assume-final.sv, line:15:1, endl
+chapter-16/16.2--assume0.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-16/16.2--assume0.sv, line:15:1, endln:19:10
+chapter-16/16.2--cover-final.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-16/16.2--cover-final.sv, line:15:1, endln:
+chapter-16/16.2--cover0.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-16/16.2--cover0.sv, line:15:1, endln:21:10
+chapter-16/16.7--sequence.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-16/16.7--sequence.sv, line:17:1, endln:29:10 || RHS: decompile: | modul
+chapter-16/16.9--sequence-cons-repetition.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-16/16.9--sequence-cons-repetition.sv, line:17:1, endln:
+chapter-16/16.9--sequence-goto-repetition.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-16/16.9--sequence-goto-repetition.sv, line:17:1, endln:
+chapter-16/16.9--sequence-noncons-repetition.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-16/16.9--sequence-noncons-repetition.sv, line:17:1, 
+chapter-20/20.6--isunbounded.sv :: DIFFERENT decompile: :: LHS: decompile: | ref_typespec: (work@top), id:6 || RHS: decompile: | ref_typespec: (work@top), id:6
+chapter-20/20.6--typename_type.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:20:41, endln:20:50 || RHS: decompile: | sys_func_call: ($typename), line:20:41, endln:20:50
+chapter-20/20.9--isunknown.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:20:25, endln:20:32 || RHS: decompile: | constant: , line:20:25, endln:20:32
+chapter-22/22.4--include_via_define.sv :: JUDGE_EQUAL differ:col(2) :: 
+chapter-22/22.5.1--include-define-expansion.sv :: JUDGE_EQUAL differ:col(1) :: 
+chapter-5/5.10-structure-arrays.sv :: DIFFERENT decompile: :: LHS: decompile: | struct_var: (work@top.ms), line:21:8, endln:21:10 || RHS: decompile: | logic_var: (work@top.ms), line:21:8, endln:21:10
+chapter-5/5.10-structure-replication.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:22:16, endln:22:17 || RHS: decompile: | constant: , line:22:16, endln:22:17
+chapter-5/5.11-arrays-replication.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:16:27, endln:16:28 || RHS: decompile: | constant: , line:16:27, endln:16:28
+chapter-5/5.11-arrays.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:16:34, endln:16:35 || RHS: decompile: | constant: , line:16:34, endln:16:35
+chapter-5/5.6.4--compiler-directives-debug-line.sv :: JUDGE_EQUAL differ:endline(2) :: 
+chapter-5/5.8-time-literals.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.8-time-literals.sv, line:19:1, endln:35
+chapter-5/5.9-string-word-assignment.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:19:24, endln:19:29 || RHS: decompile: | constant: , line:19:24, endln:19:29
+chapter-6/6.12--realtime.sv :: DIFFERENT decompile: :: LHS: decompile: | time_typespec: , line:17:2, endln:17:18 || RHS: decompile: | real_typespec: , line:17:2, endln:17:18
+chapter-6/6.19--enum_xx.sv :: DIFFERENT decompile: :: LHS: decompile: | enum_const: (b), line:16:21, endln:16:33 || RHS: decompile: | enum_const: (b), line:16:21, endln:16:33
+chapter-6/6.19.2--enum_sequence.sv :: DIFFERENT decompile: :: LHS: decompile: | enum_typespec: , id:96 || RHS: decompile: | enum_typespec: , id:105
+chapter-6/6.19.2--enum_sequence_range.sv :: DIFFERENT decompile: :: LHS: decompile: | enum_typespec: , id:96 || RHS: decompile: | enum_typespec: , id:98
+chapter-6/6.20.3--parameter_type.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.20.3--parameter_type.sv, line:16:1
+chapter-6/6.6.7--nettype.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.6.7--nettype.sv, line:15:1, endln:17:10 || RHS: decompile: | module_
+chapter-6/6.6.7--nettype_resolution_fn.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.6.7--nettype_resolution_fn.sv, line:16:1, endln:24:10 
+chapter-6/6.6.8--interconnect.sv :: DIFFERENT decompile: :: LHS: decompile: | logic_net: (work@top.bus), line:16:15, endln:16:18 || RHS: decompile: | logic_net: (work@top.bus), line:16:15, endln:16:18
+chapter-7/arrays/associative/class.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/chapter-7/arrays/associative/class.sv, line:15:1, endln:23:10 || RHS: 
+chapter-7/arrays/associative/wildcard.sv :: DIFFERENT decompile: :: LHS: decompile: | ref_typespec: , id:93 || RHS: decompile: | ref_typespec: , id:93
+chapter-7/queues/bounded.sv :: DIFFERENT decompile: :: LHS: decompile: | array_var: (work@top.q), line:18:5, endln:18:6 || RHS: decompile: | array_var: (work@top.q), line:18:5, endln:18:6
+chapter-7/queues/delete_assign.sv :: DIFFERENT decompile: :: LHS: decompile: | array_var: , line:29:6, endln:29:8 || RHS: decompile: | operation: , line:29:6, endln:29:8
+chapter-7/queues/max-size.sv :: DIFFERENT decompile: :: LHS: decompile: | array_var: (work@top.q), line:18:5, endln:18:6 || RHS: decompile: | array_var: (work@top.q), line:18:5, endln:18:6
+chapter-7/queues/slice.sv :: DIFFERENT decompile: :: LHS: decompile: | array_var: (work@top.q), line:19:5, endln:19:6 || RHS: decompile: | array_var: (work@top.q), line:19:5, endln:19:6
+chapter-7/structures/unpacked/default-value.sv :: DIFFERENT decompile: :: LHS: decompile: | ref_obj: (c), line:21:17, endln:21:18 || RHS: decompile: | ref_obj: (c), line:21:17, endln:21:18
+chapter-8/8.12--shallow_copy.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | logic_net: (work@class_tb.test_obj1), line:26:11, endln:26:20
+chapter-8/8.22--dynamic_method_lookup.sv :: DIFFERENT decompile: :: LHS: decompile: | class_var: (work@class_tb.arr), line:39:11, endln:39:14 || RHS: decompile: | logic_var: (work@class_tb.arr), line:39:11, endln:39:14
+chapter-8/8.24--out_of_block_methods.sv :: DIFFERENT decompile: :: LHS: decompile: | class_defn: (work@class_tb::test_cls), file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.24--out_of_block_methods.sv, line:17:2, endln:20:10
+chapter-8/8.26.2--implements.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@class_tb (work@class_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.2--implements.sv, line:16:1, endln:33:10 || RHS: de
+chapter-8/8.26.2--implements_extends.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@class_tb (work@class_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.2--implements_extends.sv, line:16:1, endln:
+chapter-8/8.26.2--implements_multiple.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@class_tb (work@class_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.2--implements_multiple.sv, line:16:1, endl
+chapter-8/8.26.3--type_access_extends.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@class_tb (work@class_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.3--type_access_e
+chapter-8/8.26.3--type_access_implements.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@class_tb (work@class_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.3--type_access_implements.sv, line:17:1
+chapter-8/8.26.6.1--name_conflict_resolved.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@class_tb (work@class_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.6.1--name_conflict_resolved.sv, line:
+chapter-8/8.26.6.2--parameter_type_conflict.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@class_tb (work@class_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.6.2--param
+chapter-8/8.26.6.3--diamond_relationship.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@class_tb (work@class_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.6.3--diamond_
+chapter-8/8.26.7--partial_implementation.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@class_tb (work@class_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.7--partial_implementation.sv, line:16:1
+chapter-8/8.8--typed_constructor.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@class_tb (work@class_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.8--typed_constructor.sv, line:16:1, endln:39:10 ||
+chapter-8/8.8--typed_constructor_param.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@class_tb (work@class_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.8--typed_constructor_param.sv, line:16:1, en
+chapter-9/9.4.2.4--event_sequence.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@seq_tb (work@seq_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-9/9.4.2.4--event_sequence.sv, line:17:1, endln:47:10 || R
+chapter-9/9.6.2--disable_other.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | named_begin: (work@fork_tb.block), line:21:10, endln:21:15
+chapter-9/9.7--process_cls_await.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@process_tb (work@process_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-9/9.7--process_cls_await.sv, line:16:1, endln:39:1
+chapter-9/9.7--process_cls_kill.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@process_tb (work@process_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-9/9.7--process_cls_kill.sv, line:16:1, endln:43:10 
+chapter-9/9.7--process_cls_suspend_resume.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@process_tb (work@process_tb), file:/home/heyfey/git-repos/sv-tests/tests/chapter-9/9.7--process_cls_suspend_resume.sv, lin
+fx68k/fx68k.sv :: DIFFERENT decompile: :: LHS: decompile: | parameter: (CF), line:22:12, endln:22:14 || RHS: decompile: | parameter: (CF), line:22:12, endln:22:14
+hdlconv_std2012/hdlconvertor_std2012_p148.sv :: DIFFERENT decompile: :: LHS: decompile: | operation: , line:2:26, endln:2:34 || RHS: decompile: | operation: , line:2:26, endln:2:34
+hdlconv_std2012/hdlconvertor_std2012_p154_1.sv :: DIFFERENT decompile: :: LHS: decompile: | ref_typespec: (T), id:96 || RHS: decompile: | ref_typespec: (T), id:96
+hdlconv_std2012/hdlconvertor_std2012_p158.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (unnamed), id:160 || RHS: decompile: | design: (unnamed), id:1
+hdlconv_std2012/hdlconvertor_std2012_p160_1.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (unnamed), id:140 || RHS: decompile: | design: (unnamed), id:1
+hdlconv_std2012/hdlconvertor_std2012_p753_2.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:25:23, endln:25:24 || RHS: decompile: | ref_obj: (work@addergen1.bitnum[0].g1.t.i), line:25:23, endln:25:24
+hdlconv_std2012/hdlconvertor_std2012_p88.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:3:10, endln:3:11 || RHS: decompile: | constant: , line:3:10, endln:3:11
+hdlconv_std2012/hdlconvertor_std2012_p90.sv :: DIFFERENT decompile: :: LHS: decompile: | begin: (work@msl.t1), line:11:9, endln:11:24 || RHS: decompile: | begin: (work@msl.t1), line:11:9, endln:11:24
+hdlconv_std2017/hdlconvertor_std2017_p124.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:4:8, endln:4:9 || RHS: decompile: | constant: , line:4:8, endln:4:9
+hdlconv_std2017/hdlconvertor_std2017_p126.sv :: DIFFERENT decompile: :: LHS: decompile: | begin: (work@msl.t1), line:10:1, endln:10:16 || RHS: decompile: | begin: (work@msl.t1), line:10:1, endln:10:16
+hdlconv_std2017/hdlconvertor_std2017_p130.sv :: DIFFERENT decompile: :: LHS: decompile: | int_typespec: , line:7:22, endln:7:25 || RHS: decompile: | logic_typespec: , line:14:12, endln:14:15
+hdlconv_std2017/hdlconvertor_std2017_p168.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p168.sv, line:1:
+hdlconv_std2017/hdlconvertor_std2017_p174.sv :: DIFFERENT decompile: :: LHS: decompile: | type_parameter: (work@vector::T), line:1:42, endln:1:43 || RHS: decompile: | parameter: (work@vector::width), line:1:26, endln:1:31
+hdlconv_std2017/hdlconvertor_std2017_p179.sv :: DIFFERENT decompile: :: LHS: decompile: | class_var: (test.xtnd1), line:13:1, endln:13:6 || RHS: decompile: | class_var: (test.xtnd1), line:13:7, endln:13:12
+hdlconv_std2017/hdlconvertor_std2017_p181_2.sv :: DIFFERENT decompile: :: LHS: decompile: | hier_path: (super.value), line:12:32, endln:12:43 || RHS: decompile: | ref_obj: (work@LinkedPacket::delay::value), line:12:32, endln:12:43
+hdlconv_std2017/hdlconvertor_std2017_p184.sv :: DIFFERENT decompile: :: LHS: decompile: | operation: , line:2:22, endln:2:30 || RHS: decompile: | operation: , line:2:22, endln:2:30
+hdlconv_std2017/hdlconvertor_std2017_p190.sv :: DIFFERENT decompile: :: LHS: decompile: | ref_typespec: (T), id:96 || RHS: decompile: | ref_typespec: (T), id:96
+hdlconv_std2017/hdlconvertor_std2017_p193_2.sv :: DIFFERENT decompile: :: LHS: decompile: | ref_var: (work@C::f), line:2:24, endln:2:25 || RHS: decompile: | class_var: (work@C::f), line:2:24, endln:2:25
+hdlconv_std2017/hdlconvertor_std2017_p194.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (unnamed), id:166 || RHS: decompile: | design: (unnamed), id:1
+hdlconv_std2017/hdlconvertor_std2017_p196.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (unnamed), id:140 || RHS: decompile: | design: (unnamed), id:1
+hdlconv_std2017/hdlconvertor_std2017_p199.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (unnamed), id:101 || RHS: decompile: | design: (unnamed), id:1
+hdlconv_std2017/hdlconvertor_std2017_p200_2.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (unnamed), id:85 || RHS: decompile: | design: (unnamed), id:1
+hdlconv_std2017/hdlconvertor_std2017_p202.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (unnamed), id:107 || RHS: decompile: | design: (unnamed), id:1
+hdlconv_std2017/hdlconvertor_std2017_p203.sv :: DIFFERENT decompile: :: LHS: decompile: | type_parameter: (work@C::T), line:17:33, endln:17:34 || RHS: decompile: | parameter: (work@C::p), line:17:21, endln:17:22
+hdlconv_std2017/hdlconvertor_std2017_p230.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | design: (unnamed), id:1
+hdlconv_std2017/hdlconvertor_std2017_p292.sv :: DIFFERENT decompile: :: LHS: decompile: | func_call: (valid_arb), line:14:5, endln:14:58 || RHS: decompile: | operation: , line:2:43, endln:2:73
+hdlconv_std2017/hdlconvertor_std2017_p332.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | design: (unnamed), id:1
+hdlconv_std2017/hdlconvertor_std2017_p334.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (unnamed), id:172 || RHS: decompile: | design: (unnamed), id:1
+hdlconv_std2017/hdlconvertor_std2017_p488.sv :: DIFFERENT decompile: :: LHS: decompile: | logic_net: (work@m.bus), line:5:22, endln:5:25 || RHS: decompile: | logic_net: (work@m.bus), line:5:22, endln:5:25
+hdlconv_std2017/hdlconvertor_std2017_p489.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@m (work@m), file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p489.sv, line:12:1, 
+hdlconv_std2017/hdlconvertor_std2017_p530.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | design: (unnamed), id:1
+hdlconv_std2017/hdlconvertor_std2017_p537.sv :: DIFFERENT decompile: :: LHS: decompile: | func_call: (randomize), line:6:11, endln:6:41 || RHS: decompile: | hier_path: (addr.randomize), line:6:11, endln:6:41
+hdlconv_std2017/hdlconvertor_std2017_p599.sv :: DIFFERENT decompile: :: LHS: decompile: | ref_typespec: (work@driver), id:162 || RHS: decompile: | ref_typespec: (work@driver), id:162
+hdlconv_std2017/hdlconvertor_std2017_p600.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:12:16, endln:12:20 || RHS: decompile: | constant: , line:12:16, endln:12:17
+hdlconv_std2017/hdlconvertor_std2017_p707.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:2:48, endln:2:66 || RHS: decompile: | constant: , line:2:19, endln:2:20
+hdlconv_std2017/hdlconvertor_std2017_p718.sv :: DIFFERENT decompile: :: LHS: decompile: | logic_net: (work@netlist.iwire), line:2:14, endln:2:19 || RHS: decompile: | logic_net: (work@netlist.iwire), line:2:14, endln:2:19
+hdlconv_std2017/hdlconvertor_std2017_p719.sv :: DIFFERENT decompile: :: LHS: decompile: | logic_net: (work@dff_nested.i1.nq1), line:16:11, endln:16:14 || RHS: decompile: | logic_net: (work@dff_nested.i1.nq1), line:16:11, endln:16:
+hdlconv_std2017/hdlconvertor_std2017_p728.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (work@a), id:168 || RHS: decompile: | design: (work@a), id:1
+hdlconv_std2017/hdlconvertor_std2017_p733.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:16:10, endln:16:14 || RHS: decompile: | constant: , line:16:10, endln:16:14
+hdlconv_std2017/hdlconvertor_std2017_p737.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (work@M), id:108 || RHS: decompile: | design: (unnamed), id:1
+hdlconv_std2017/hdlconvertor_std2017_p761.sv :: DIFFERENT decompile: :: LHS: decompile: | interface_inst: work@simple_bus (work@top.sb_intf), file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std201
+hdlconv_std2017/hdlconvertor_std2017_p762.sv :: DIFFERENT decompile: :: LHS: decompile: | interface_inst: work@simple_bus (work@top.sb_intf), file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std201
+hdlconv_std2017/hdlconvertor_std2017_p765.sv :: DIFFERENT decompile: :: LHS: decompile: | func_call: (countSlaves), line:26:1, endln:26:12 || RHS: decompile: | task_call: (countSlaves), line:26:1, endln:26:12
+hdlconv_std2017/hdlconvertor_std2017_p770.sv :: DIFFERENT decompile: :: LHS: decompile: | bit_select: (work@top.s), line:32:15, endln:32:16 || RHS: decompile: | ref_obj: (work@top.s[1]), line:32:13, endln:32:17
+hdlconv_std2017/hdlconvertor_std2017_p780.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p780.sv, line:11
+hdlconv_std2017/hdlconvertor_std2017_p790.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:33:15, endln:33:16 || RHS: decompile: | ref_obj: (work@addergen1.bitnum[0].g1.t.i), line:33:15, endln:33:16
+hdlconv_std2017/hdlconvertor_std2017_p791.sv :: DIFFERENT decompile: :: LHS: decompile: | logic_net: (work@addergen1.bitnum[0].t1), line:15:6, endln:15:8 || RHS: decompile: | logic_net: (work@addergen1.bitnum[0].t1), line:15:6, en
+hdlconv_std2017/hdlconvertor_std2017_p827.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@capacitor (work@capacitor), file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p827
+hdlconv_std2017/hdlconvertor_std2017_p835.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:4:13, endln:4:17 || RHS: decompile: | constant: , line:4:13, endln:4:17
+hdlconv_std2017/hdlconvertor_std2017_p884.sv :: DIFFERENT decompile: :: LHS: decompile: | module_inst: work@dff (work@dff), file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p884.sv, line:28
+integers/6.11--integer_signed_bit.sv :: DIFFERENT decompile: :: LHS: decompile: | bit_var: (work@top.v), line:7:12, endln:7:13 || RHS: decompile: | bit_var: (work@top.v), line:7:12, endln:7:13
+integers/6.11--integer_signed_time.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/generated/integers/6.11--integer_signed_time
+integers/6.11--integer_time.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/generated/integers/6.11--integer_time.sv, line:6:1,
+integers/6.11--integer_unsigned_time.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | module_inst: work@top (work@top), file:/home/heyfey/git-repos/sv-tests/tests/generated/integers/6.11--integer_unsigned_
+scr1/scr1.sv :: DIFFERENT decompile: :: LHS: decompile: | hier_path: (exu_queue.rs1_addr[5 - 1:0]), line:862:24, endln:862:49 || RHS: decompile: | hier_path: (exu_queue.rs1_addr[]), line:862:24, endln:862:49
+utd-sv/utd-sv_std-7.1.6-primitives.sv :: DIFFERENT decompile: :: LHS: decompile: | operation: , line:12:25, endln:12:42 || RHS: decompile: | ref_obj: (work@busdriver_equiv.busar.out.buslow), line:12:35, endln:12:41
+generic/class/class_test_11.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (work@test), id:94 || RHS: decompile: | design: (work@test), id:1
+generic/class/class_test_19.sv :: DIFFERENT decompile: :: LHS: decompile: | class_typespec: (Package::Bar), line:20:28, endln:20:31 || RHS: decompile: | class_typespec: (Package::Bar #(x,y,z)), line:20:28, endln:20:31
+generic/class/class_test_21.sv :: DIFFERENT decompile: :: LHS: decompile: | class_typespec: (Package::Bar), line:20:28, endln:20:31 || RHS: decompile: | class_typespec: (Package::Bar #(x,y,z)), line:20:28, endln:20:31
+generic/class/class_test_25.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | package: Package (Package::), file:/home/heyfey/git-repos/sv-tests/tests/generic/class/class_test_25.sv, line:15:1, endln:17:11
+generic/class/class_test_28.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (work@test), id:91 || RHS: decompile: | design: (work@test), id:1
+generic/class/class_test_29.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | package: Pkg (Pkg::), file:/home/heyfey/git-repos/sv-tests/tests/generic/class/class_test_29.sv, line:16:1, endln:18:11
+generic/class/class_test_49.sv :: DIFFERENT decompile: :: LHS: decompile: | logic_typespec: , line:26:13, endln:26:16 || RHS: decompile: | int_typespec: , line:26:3, endln:26:23
+generic/class/class_test_51.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:16:25, endln:16:30 || RHS: decompile: | sys_func_call: ($bits), line:16:25, endln:16:35
+generic/class/class_test_53.sv :: DIFFERENT decompile: :: LHS: decompile: | package: mypkg (mypkg::), file:/home/heyfey/git-repos/sv-tests/tests/generic/class/class_test_53.sv, line:15:1, endln:18:11 || RHS: decompile: | package: 
+generic/class/class_test_55.sv :: DIFFERENT decompile: :: LHS: decompile: | ref_typespec: , id:95 || RHS: decompile: | ref_typespec: , id:95
+generic/class/class_test_56.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:19:35, endln:19:39 || RHS: decompile: | constant: , line:19:35, endln:19:39
+generic/class/class_test_57.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:18:41, endln:18:45 || RHS: decompile: | constant: , line:18:41, endln:18:45
+generic/class/class_test_58.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:18:48, endln:18:52 || RHS: decompile: | constant: , line:18:48, endln:18:52
+generic/class/class_test_9.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (work@test), id:90 || RHS: decompile: | design: (work@test), id:1
+generic/iface/iface_class_test_0.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (work@test), id:85 || RHS: decompile: | design: (work@test), id:1
+generic/iface/iface_class_test_1.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (work@test), id:85 || RHS: decompile: | design: (work@test), id:1
+generic/iface/iface_class_test_10.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (work@test), id:85 || RHS: decompile: | design: (work@test), id:1
+generic/iface/iface_class_test_2.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (work@test), id:85 || RHS: decompile: | design: (work@test), id:1
+generic/iface/iface_class_test_9.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (work@test), id:86 || RHS: decompile: | design: (work@test), id:1
+generic/member/class_member_test_12.sv :: DIFFERENT decompile: :: LHS: RHS: | decompile: || RHS: decompile: | ref_typespec: (work@semaphore::p_handle), id:89
+generic/member/class_member_test_18.sv :: DIFFERENT decompile: :: LHS: decompile: | unsupported_typespec: (bool), line:20:41, endln:20:45 || RHS: decompile: | logic_typespec: (bool), line:20:41, endln:20:45
+generic/member/class_member_test_19.sv :: DIFFERENT decompile: :: LHS: decompile: | unsupported_typespec: (bool), line:21:29, endln:21:33 || RHS: decompile: | logic_typespec: (bool), line:21:29, endln:21:33
+generic/member/class_member_test_27.sv :: DIFFERENT decompile: :: LHS: decompile: | function: (work@myclass::starter), line:20:1, endln:20:8 || RHS: decompile: | function: (work@myclass::starter), line:20:1, endln:20:8
+generic/member/class_member_test_9.sv :: DIFFERENT decompile: :: LHS: decompile: | ref_typespec: (arg_type), id:84 || RHS: decompile: | ref_typespec: (arg_type), id:84
+generic/number/number_test_15.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:15:21, endln:15:29 || RHS: decompile: | constant: , line:15:21, endln:15:29
+generic/number/number_test_7.sv :: DIFFERENT decompile: :: LHS: decompile: | constant: , line:15:21, endln:15:25 || RHS: decompile: | constant: , line:15:21, endln:15:25
+generic/typedef/typedef_test_0.sv :: DIFFERENT decompile: :: LHS: decompile: | design: (work@test), id:99 || RHS: decompile: | design: (work@test), id:1
+generic/typedef/typedef_test_14.sv :: DIFFERENT decompile: :: LHS: decompile: | ref_typespec: (myalias), id:91 || RHS: decompile: | ref_typespec: (myalias), id:91
+generic/typedef/typedef_test_18.sv :: DIFFERENT decompile: :: LHS: decompile: | typespec_member: , line:18:8, endln:18:11 || RHS: decompile: | typespec_member: (i), line:18:12, endln:18:13
+generic/typedef/typedef_test_8.sv :: DIFFERENT decompile: :: LHS: decompile: | ref_typespec: (myalias), id:5 || RHS: decompile: | ref_typespec: (myalias), id:5
+generic/typedef/typedef_test_9.sv :: DIFFERENT decompile: :: LHS: decompile: | array_typespec: (my_array_t), line:19:9, endln:19:32 || RHS: decompile: | array_typespec: (my_array_t), line:19:9, endln:19:37

@@ -28139,6 +28139,60 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(ref, expr.sourceRange);
                     return ref;
                 }
+                // § impUnbasedReadIsLit405 (r11u405, R11U405_IMPUNBASEDREAD_OFF)
+                // — a module-body OPERAND reading an untyped PACKAGE parameter
+                // whose default is an unbased-unsized literal ('0 '1 'x 'z) is
+                // Surelog's substituted package literal at the reference:
+                // size -1, BIN:<digit>, vpiBinaryConst.  Read through a
+                // wildcard import it keeps the written spelling ('0 'X) with a
+                // dangling ref_typespec named after the reading scope; written
+                // `pkg::P` it is spelled 'b<digit> with no typespec (golden
+                // cases/PZ pz08-pz10; basejump bsg_cache's
+                // `amo_support_level_none_lp`).  The fold below wrote the
+                // 2-state value at 32 bits, and an 'x/'z read stayed a ref_obj.
+                if (parent && parent->UhdmType() == UHDM::uhdmoperation &&
+                    !inParamInit && !currentTf && !inGenScopeProc &&
+                    !inGenScopeCaRhs && psym.getParentScope() &&
+                    psym.getParentScope()->asSymbol().kind == SymbolKind::Package &&
+                    psym.getInitializer() &&
+                    stripImplicitConv(*psym.getInitializer()).kind ==
+                        ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                    [&] {
+                        auto dt405 = psym.getDeclaredType();
+                        auto* ts405 = dt405 ? dt405->getTypeSyntax() : nullptr;
+                        return ts405 && ts405->kind == syntax::SyntaxKind::ImplicitType &&
+                               ts405->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                               !ts405->as<syntax::ImplicitTypeSyntax>().signing.valid();
+                    }()) {
+                    if (lawOn(405, "R11U405_IMPUNBASEDREAD_OFF")) {
+                        const bool qual405 =
+                            expr.syntax ? expr.syntax->kind == syntax::SyntaxKind::ScopedName
+                                        : rawText(expr.sourceRange).find("::") != std::string::npos;
+                        logic_t b405 = stripImplicitConv(*psym.getInitializer())
+                                           .as<UnbasedUnsizedIntegerLiteral>()
+                                           .getLiteralValue();
+                        std::string d405 = b405.isUnknown()
+                                               ? (b405.value == logic_t::X_VALUE ? "X" : "Z")
+                                               : (b405.value ? "1" : "0");
+                        lawTrace(405, "impUnbasedReadIsLit405",
+                                 std::string(psym.name) + (qual405 ? " qual" : " wild"));
+                        auto* c405 = s.MakeConstant();
+                        c405->VpiDecompile((qual405 ? "'b" : "'") + d405);
+                        c405->VpiSize(-1);
+                        c405->VpiValue("BIN:" + d405);
+                        c405->VpiConstType(vpiBinaryConst);
+                        setLoc(c405, expr.sourceRange);
+                        c405->VpiParent(parent);
+                        if (!qual405) {
+                            auto* rt405 = s.MakeRef_typespec();
+                            rt405->VpiFullName(prefix);
+                            rt405->VpiParent(c405);
+                            c405->Typespec(rt405);
+                        }
+                        return c405;
+                    }
+                    lawTrace(405, "impUnbasedReadIsLit405_OFF", std::string(psym.name));
+                }
                 auto& cv = psym.getValue();
                 // § unknownOperandDeclinesFold102 (r11u102) — LAW C, r11v100's
                 // RV100-5.  An unbased `'x`/`'z` (and, its own flag, a based
@@ -33542,6 +33596,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // a scope member -- see tfBodyPa9): refs bind an implicit
                     // module wire minted at the first reference.
                     auto& inet = implicitNetMap[&nv.symbol];
+                    // § implicitNetOnePerName405 (r11u405,
+                    // R11U405_IMPNETNAME_OFF) — Surelog keys these implicit
+                    // wires by NAME in the module: a second foreach loop over
+                    // `i` (another iterator symbol) binds the wire the first
+                    // reference minted, located there (golden sv-tests
+                    // chapter-9/9.7--process_cls_kill `work@process_tb.i`
+                    // 22:23 for all three loops; cases/IN).
+                    if (!inet && lawOn(405, "R11U405_IMPNETNAME_OFF"))
+                        for (auto& [sy405, n405] : implicitNetMap)
+                            if (n405 && sy405 != &nv.symbol &&
+                                n405->VpiParent() == implicitNetModule &&
+                                n405->VpiName() == nv.symbol.name &&
+                                (sy405->kind == SymbolKind::Iterator ||
+                                 sy405->kind == SymbolKind::Parameter)) {
+                                lawTrace(405, "implicitNetOnePerName405",
+                                         std::string(nv.symbol.name));
+                                inet = n405;
+                                break;
+                            }
                     if (!inet) {
                         inet = s.MakeLogic_net();
                         inet->VpiName(nv.symbol.name);
@@ -36230,6 +36303,42 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // tools/probe/r11u140repro/tdc.  Switch:
                     // R11U140_PKGTDCAST_OFF.
                 }
+                // § ifacePortTdCastLogicTs405 (r11u405,
+                // R11U405_IFTDCAST_OFF) — a cast to a typedef declared
+                // THROUGH an interface port (`typedef types.tnoc_common_header
+                // tnoc_common_header;` in an interface whose port `types` is
+                // an interface) has no listed typedef object in an elaborated
+                // instance: Surelog cannot resolve the port's type there and
+                // writes a logic_typespec NAMED after the typedef, located at
+                // the typedef's first written type token (golden tnoc
+                // `work@tnoc.receiver_if[0].g_debug[0]` 128:25 ->
+                // logic_typespec (tnoc_common_header) 120:11-16).  The bind
+                // of the name as a size failed and the cast died as
+                // `expression kind: Invalid` (sv-tests generated/tnoc).
+                else if (expr.type && expr.type->kind == SymbolKind::TypeAlias &&
+                         !typedefTs.count(expr.type) &&
+                         cesyn.left->kind == syntax::SyntaxKind::IdentifierName &&
+                         cesyn.left->as<syntax::IdentifierNameSyntax>()
+                                 .identifier.valueText() == expr.type->name &&
+                         [&] {
+                             auto* asyn405 = expr.type->getSyntax();
+                             if (!asyn405 ||
+                                 asyn405->kind != syntax::SyntaxKind::TypedefDeclaration)
+                                 return false;
+                             const syntax::SyntaxNode* ty405 = asyn405->as<syntax::TypedefDeclarationSyntax>().type;
+                             return ty405 &&
+                                    rawText(ty405->sourceRange()).find('.') != std::string::npos;
+                         }() &&
+                         lawOn(405, "R11U405_IFTDCAST_OFF")) {
+                    lawTrace(405, "ifacePortTdCastLogicTs405", std::string(expr.type->name));
+                    const syntax::SyntaxNode* ty405 = expr.type->getSyntax()
+                                      ->as<syntax::TypedefDeclarationSyntax>()
+                                      .type;
+                    auto* lts405 = s.MakeLogic_typespec();
+                    lts405->VpiName(std::string(expr.type->name));
+                    setLoc(lts405, ty405->getFirstToken().range());
+                    cts = lts405;
+                }
                 else if (expr.type && expr.type->kind == SymbolKind::TypeAlias &&
                          typedefTs.count(expr.type)) {
                     // A cast to a NAMED typedef (my_struct'(a)): the shared
@@ -36881,9 +36990,38 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     lawTrace(294, "castModTypeParamDefaultTs294_OFF",
                                           std::string(tp294->name));
                             }
-                            else
+                            else {
                                 lawTrace(294, "castModTypeParamDefaultTs294_ABSTAIN",
                                       std::string(tp294->name) + " nodefault");
+                                // § tpCastBeforeTpListed405 (r11u405,
+                                // R11U405_TPCASTEARLY_OFF) — a value
+                                // parameter's initializer casting to a type
+                                // parameter of the SAME header (tnoc
+                                // tbcm_demux `parameter DATA_TYPE DEFAULT =
+                                // DATA_TYPE'(0)`) is emitted before the
+                                // type-parameter loop records the default
+                                // typespec, so the bind found nothing and the
+                                // cast died as `expression kind: Invalid`.
+                                // The type parameter's default typespec is
+                                // built here from the same declaration
+                                // (golden logic_typespec 4:30-47, the type
+                                // parameter's own; typespec identity is
+                                // canonicalised).  Cases/TN.
+                                // A body `localparam type` (probe
+                                // r11u47repro/arms/g2, a union) abstains:
+                                // the copy's member records read further
+                                // from golden's shared object than the
+                                // pristine integer_typespec did.
+                                if (inParamInit && !reemitting &&
+                                    tp294->isPortParam() &&
+                                    lawOn(405, "R11U405_TPCASTEARLY_OFF")) {
+                                    if (auto* ts405 = makeTypespec(*tp294)) {
+                                        lawTrace(405, "tpCastBeforeTpListed405",
+                                                 std::string(tp294->name));
+                                        cts = ts405;
+                                    }
+                                }
+                            }
                         }
                     }
                     // DEF-view gen-block PROCEDURAL casts keep the size
@@ -45927,6 +46065,59 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     return c;
                 }
             }
+            // § typenameKwIsString405 (r11u405, R11U405_TYPENAMEKW_OFF) —
+            // `$typename(<built-in type keyword>)` is Surelog's
+            // compileTypename constant: decompile and STRING value the
+            // keyword (logic bit reg byte shortint int integer longint time
+            // shortreal real realtime), vpiStringConst, no size, spanning the
+            // `$typename` name (golden sv-tests chapter-20/20.6--typename_type
+            // 20:41-50; cases/TY).  Any other argument keeps the sys call.
+            if (name == "$typename" && call.syntax &&
+                call.syntax->kind == syntax::SyntaxKind::InvocationExpression) {
+                auto& inv405 = call.syntax->as<syntax::InvocationExpressionSyntax>();
+                const syntax::SyntaxNode* a405 = nullptr;
+                if (inv405.arguments && inv405.arguments->parameters.size() == 1 &&
+                    inv405.arguments->parameters[0]->kind ==
+                        syntax::SyntaxKind::OrderedArgument)
+                    a405 = inv405.arguments->parameters[0]
+                               ->as<syntax::OrderedArgumentSyntax>()
+                               .expr;
+                if (a405 && a405->kind == syntax::SyntaxKind::SimplePropertyExpr)
+                    a405 = a405->as<syntax::SimplePropertyExprSyntax>().expr;
+                if (a405 && a405->kind == syntax::SyntaxKind::SimpleSequenceExpr)
+                    a405 = a405->as<syntax::SimpleSequenceExprSyntax>().expr;
+                const char* kw405 = nullptr;
+                if (a405) {
+                    switch (a405->kind) {
+                        case syntax::SyntaxKind::LogicType: kw405 = "logic"; break;
+                        case syntax::SyntaxKind::BitType: kw405 = "bit"; break;
+                        case syntax::SyntaxKind::RegType: kw405 = "reg"; break;
+                        case syntax::SyntaxKind::ByteType: kw405 = "byte"; break;
+                        case syntax::SyntaxKind::ShortIntType: kw405 = "shortint"; break;
+                        case syntax::SyntaxKind::IntType: kw405 = "int"; break;
+                        case syntax::SyntaxKind::IntegerType: kw405 = "integer"; break;
+                        case syntax::SyntaxKind::LongIntType: kw405 = "longint"; break;
+                        case syntax::SyntaxKind::TimeType: kw405 = "time"; break;
+                        case syntax::SyntaxKind::ShortRealType: kw405 = "shortreal"; break;
+                        case syntax::SyntaxKind::RealType: kw405 = "real"; break;
+                        case syntax::SyntaxKind::RealTimeType: kw405 = "realtime"; break;
+                        default: break;
+                    }
+                }
+                if (kw405) {
+                    if (lawOn(405, "R11U405_TYPENAMEKW_OFF")) {
+                        lawTrace(405, "typenameKwIsString405", kw405);
+                        auto* c405 = s.MakeConstant();
+                        c405->VpiDecompile(kw405);
+                        c405->VpiValue(std::string("STRING:") + kw405);
+                        c405->VpiConstType(vpiStringConst);
+                        c405->VpiParent(parent);
+                        setLoc(c405, inv405.left->sourceRange());
+                        return c405;
+                    }
+                    lawTrace(405, "typenameKwIsString405_OFF", kw405);
+                }
+            }
             auto* sc = s.MakeSys_func_call();
             sc->VpiName(name);
             sc->VpiParent(parent);
@@ -48357,6 +48548,94 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto wf9 = rs.getSelectionKind() == RangeSelectionKind::Simple
                                    ? SelWidthFold{}
                                    : selWidthParamFold(rs.right());
+                    // § hierSelWidthLocalKeep405 (r11u405,
+                    // R11U405_HSWLOCAL_OFF) — a MODULE localparam width
+                    // substitutes only inside a NET DECLARATION's initializer
+                    // (BlackBePipeInt `wire [..] pc = reservation.pc[0+:
+                    // vaddr_width_p]`, the witness of the fold); in a
+                    // continuous assignment, a procedural statement or any
+                    // other module item golden keeps the name and the
+                    // vpiWidthExpr ref_obj in both views (cases/PH ph10-ph19,
+                    // ph20 the net-declaration control; basejump bsg_cache
+                    // `cache_pkt.addr[way_offset_width_lp+:lg_ways_lp]`).
+                    if (wf9.ok && wf9.sym &&
+                        wf9.sym->as<ParameterSymbol>().isLocalParam() &&
+                        wf9.sym->getParentScope() &&
+                        wf9.sym->getParentScope()->asSymbol().kind !=
+                            SymbolKind::Package &&
+                        expr.syntax) {
+                        bool inNetDecl405 = false;
+                        for (const syntax::SyntaxNode* up405 = expr.syntax->parent; up405; up405 = up405->parent) {
+                            if (up405->kind == syntax::SyntaxKind::NetDeclaration) {
+                                inNetDecl405 = true;
+                                break;
+                            }
+                            if (up405->kind == syntax::SyntaxKind::ModuleDeclaration ||
+                                up405->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+                                up405->kind == syntax::SyntaxKind::ProgramDeclaration)
+                                break;
+                        }
+                        // § hierSelWidthCtxModItem405v (v11u405, verifier
+                        // refinement, R11V405_HSWCTX_OFF) — the substituting
+                        // contexts are a MODULE-ITEM declaration's initializer
+                        // (a net OR a variable declaration whose parent is the
+                        // module, interface or program, a `generate` region
+                        // transparent: golden `logic [2:0] w = p.addr[0+:3]`)
+                        // and an ELABORATED child port's actual (§
+                        // elabConnSelFoldNoTs21's view: golden's elaborated
+                        // `s u(.a(p.addr[0+:3]))` where the definition view
+                        // keeps `l`); a net declaration inside a generate
+                        // BLOCK keeps the name (golden `wire [2:0] w =
+                        // p.addr[2+:l]` in `g`).  The law kept the name in a
+                        // module-item variable declaration and in the
+                        // elaborated connection, where pristine had been right
+                        // (v11u405repro VH/vh10 STRICT_EQUAL -> NOT_EQUAL;
+                        // vh01, vh06, vh09, vh11, vh13, vh14 away from golden).
+                        if (fixOn(405, "R11V405_HSWCTX_OFF")) {
+                            const syntax::SyntaxNode* decl405v = nullptr;
+                            for (const syntax::SyntaxNode* up405 = expr.syntax->parent; up405;
+                                 up405 = up405->parent) {
+                                if (up405->kind == syntax::SyntaxKind::NetDeclaration ||
+                                    up405->kind == syntax::SyntaxKind::DataDeclaration) {
+                                    decl405v = up405;
+                                    break;
+                                }
+                                if (up405->kind == syntax::SyntaxKind::ModuleDeclaration ||
+                                    up405->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+                                    up405->kind == syntax::SyntaxKind::ProgramDeclaration)
+                                    break;
+                            }
+                            bool modItem405v = false;
+                            if (decl405v) {
+                                const syntax::SyntaxNode* p405v = decl405v->parent;
+                                while (p405v && p405v->kind == syntax::SyntaxKind::GenerateRegion)
+                                    p405v = p405v->parent;
+                                modItem405v =
+                                    p405v && (p405v->kind == syntax::SyntaxKind::ModuleDeclaration ||
+                                              p405v->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+                                              p405v->kind == syntax::SyntaxKind::ProgramDeclaration);
+                            }
+                            const bool sub405v = elabConnEmit21 || (decl405v && modItem405v);
+                            if (sub405v != inNetDecl405) {
+                                lawTrace(405, "hierSelWidthCtxModItem405v",
+                                         std::string(wf9.sym->name) +
+                                             (elabConnEmit21 ? " elabconn"
+                                              : sub405v      ? " moditemdecl"
+                                                             : " gennetdecl"));
+                                inNetDecl405 = sub405v;
+                            }
+                        }
+                        if (!inNetDecl405) {
+                            if (lawOn(405, "R11U405_HSWLOCAL_OFF")) {
+                                lawTrace(405, "hierSelWidthLocalKeep405",
+                                         std::string(wf9.sym->name));
+                                wf9 = SelWidthFold{};
+                            }
+                            else
+                                lawTrace(405, "hierSelWidthLocalKeep405_OFF",
+                                         std::string(wf9.sym->name));
+                        }
+                    }
                     // § hierSelPkgParamFold — the bound text renders the
                     // package parameters this select reads at their VALUES
                     // (vo.sv rows D/E/F); a module-scope one stays spelled
@@ -48378,6 +48657,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                   SourceRange(rs.left().sourceRange.start(),
                                               rs.right().sourceRange.end()),
                                   pf9)));
+                    // § hierSelMacroBoundPretty405 (r11u405,
+                    // R11U405_HSMACROBND_OFF) — a select bound written
+                    // through a MACRO (`exu_queue.rs1_addr[`SCR1_MPRF_AWIDTH-1:0]`)
+                    // has no source spelling at the select; Surelog names the
+                    // path from the bound OBJECTS' decompile, operators
+                    // spaced: `exu_queue.rs1_addr[5 - 1:0]` (golden sv-tests
+                    // generated/scr1/scr1.sv 862:24; cases/HM).  The raw-text
+                    // rendering came out empty (`[]`).
+                    if (!wf9.ok && sm &&
+                        (sm->isMacroLoc(rs.left().sourceRange.start()) ||
+                         sm->isMacroLoc(rs.right().sourceRange.start()))) {
+                        std::string l405, r405;
+                        if (ppIdxText92(rs.left(), &pf9, 0, l405) &&
+                            ppIdxText92(rs.right(), &pf9, 0, r405) &&
+                            !l405.empty() && !r405.empty()) {
+                            const char* mid405 =
+                                rs.getSelectionKind() == RangeSelectionKind::IndexedUp
+                                    ? "+:"
+                                    : rs.getSelectionKind() == RangeSelectionKind::IndexedDown
+                                          ? "-:"
+                                          : ":";
+                            if (lawOn(405, "R11U405_HSMACROBND_OFF")) {
+                                lawTrace(405, "hierSelMacroBoundPretty405",
+                                         dotted + "[" + l405 + mid405 + r405 + "]");
+                                selText = l405 + mid405 + r405;
+                            }
+                            else
+                                lawTrace(405, "hierSelMacroBoundPretty405_OFF", dotted);
+                        }
+                    }
                     dotted += "[" + selText + "]";
                     hp->VpiName(dotted);
                     hp->VpiFullName(dotted);
@@ -51081,9 +51390,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (auto* c = emitExpr(rap.count(), op, prefix, netMap)) {
                 // The replication count is a 32-bit constant in INIT
                 // contexts only (plain/re-emitted CAs keep 64).
+                // § nestedRepPatCount64_405 (r11u405, R11U405_REPPATNEST_OFF)
+                // — a replicated pattern NESTED in another pattern or in a
+                // replication's concatenation (`'{'{0,1},'{3{4}}}`,
+                // `'{2{'{3{4, 5}}}}`) keeps its count at 64 bits in every
+                // context: only the outermost pattern's count is the 32-bit
+                // INIT constant (golden sv-tests chapter-5/5.11-arrays,
+                // 5.11-arrays-replication, 5.10-structure-replication;
+                // cases/RP).  The nested call saw the outer pattern's own
+                // temporary suppressConstParent and shrank its count.
+                bool nested405 =
+                    parent && parent->UhdmType() == UHDM::uhdmoperation &&
+                    (((UHDM::operation*)parent)->VpiOpType() == vpiAssignmentPatternOp ||
+                     ((UHDM::operation*)parent)->VpiOpType() == vpiMultiAssignmentPatternOp ||
+                     ((UHDM::operation*)parent)->VpiOpType() == vpiConcatOp);
                 if (sup0 && c->UhdmType() == UHDM::uhdmconstant &&
-                    ((UHDM::expr*)c)->VpiSize() == 64)
-                    ((UHDM::expr*)c)->VpiSize(32);
+                    ((UHDM::expr*)c)->VpiSize() == 64) {
+                    if (nested405 && lawOn(405, "R11U405_REPPATNEST_OFF"))
+                        lawTrace(405, "nestedRepPatCount64_405", rawText(expr.sourceRange));
+                    else
+                        ((UHDM::expr*)c)->VpiSize(32);
+                }
                 operands->push_back(c);
             }
             auto* inner = s.MakeOperation();

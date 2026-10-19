@@ -1,0 +1,96 @@
+VA/va01 {'name': 'VA_va01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VA/va02 {'name': 'VA_va02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VA/va03 {'name': 'VA_va03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VA/va04 {'name': 'VA_va04', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u405_dsL/VA_va04/equiv/VA_va04'}
+VA/va05 {'name': 'VA_va05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VA/va06 {'name': 'VA_va06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VB/vb01 {'name': 'VB_vb01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VB/vb02 {'name': 'VB_vb02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VB/vb03 {'name': 'VB_vb03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VB/vb04 {'name': 'VB_vb04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VB/vb05 {'name': 'VB_vb05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VB/vb06 {'name': 'VB_vb06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VB/vb07 {'name': 'VB_vb07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VB/vb08 {'name': 'VB_vb08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VC/vc01 {'name': 'VC_vc01', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+VC/vc02 {'name': 'VC_vc02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VC/vc03 {'name': 'VC_vc03', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+VD/vd01 {'name': 'VD_vd01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd02 {'name': 'VD_vd02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd03 {'name': 'VD_vd03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd04 {'name': 'VD_vd04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd05 {'name': 'VD_vd05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd06 {'name': 'VD_vd06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd07 {'name': 'VD_vd07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd08 {'name': 'VD_vd08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VE/ve01 {'name': 'VE_ve01', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': '✅ All 1 common constant assignments match'}
+VE/ve02 {'name': 'VE_ve02', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': '✅ All 1 common constant assignments match'}
+VE/ve03 {'name': 'VE_ve03', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u405_dsL/VE_ve03/equiv/VE_ve03'}
+VE/ve04 {'name': 'VE_ve04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VH/vh01 {'name': 'VH_vh01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VH/vh02 {'name': 'VH_vh02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VH/vh03 {'name': 'VH_vh03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VH/vh04 {'name': 'VH_vh04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VH/vh05 {'name': 'VH_vh05', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 12, 'slang_gates': 12, 'differs': '', 'detail': ''}
+VH/vh06 {'name': 'VH_vh06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VH/vh07 {'name': 'VH_vh07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VH/vh08 {'name': 'VH_vh08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VH/vh09 {'name': 'VH_vh09', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VH/vh10 {'name': 'VH_vh10', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VH/vh11 {'name': 'VH_vh11', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 6, 'slang_gates': 6, 'differs': '', 'detail': ''}
+VH/vh12 {'name': 'VH_vh12', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VH/vh13 {'name': 'VH_vh13', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VH/vh14 {'name': 'VH_vh14', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VH/vh15 {'name': 'VH_vh15', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VI/vi01 {'name': 'VI_vi01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VI/vi02 {'name': 'VI_vi02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VI/vi03 {'name': 'VI_vi03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VI/vi04 {'name': 'VI_vi04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VI/vi06 {'name': 'VI_vi06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VK/vk01 {'name': 'VK_vk01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VK/vk02 {'name': 'VK_vk02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VK/vk03 {'name': 'VK_vk03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VK/vk04 {'name': 'VK_vk04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VM/vm01 {'name': 'VM_vm01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VM/vm02 {'name': 'VM_vm02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VM/vm03 {'name': 'VM_vm03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VM/vm04 {'name': 'VM_vm04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VP/vp01 {'name': 'VP_vp01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VP/vp02 {'name': 'VP_vp02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VP/vp03 {'name': 'VP_vp03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VP/vp04 {'name': 'VP_vp04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VP/vp05 {'name': 'VP_vp05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VR/vr01 {'name': 'VR_vr01', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u405_dsL/VR_vr01/equiv/VR_vr01'}
+VR/vr02 {'name': 'VR_vr02', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '✅ All 2 common constant assignments match'}
+VR/vr03 {'name': 'VR_vr03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VR/vr04 {'name': 'VR_vr04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VR/vr05 {'name': 'VR_vr05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VS/vs01 {'name': 'VS_vs01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VS/vs02 {'name': 'VS_vs02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VS/vs03 {'name': 'VS_vs03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VS/vs04 {'name': 'VS_vs04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VS/vs05 {'name': 'VS_vs05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VS/vs06 {'name': 'VS_vs06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VS/vs07 {'name': 'VS_vs07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VS/vs08 {'name': 'VS_vs08', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 12, 'slang_gates': 12, 'differs': '', 'detail': ''}
+VS/vs09 {'name': 'VS_vs09', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 2, 'slang_gates': 2, 'differs': '', 'detail': ''}
+VS/vs10 {'name': 'VS_vs10', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VS/vs11 {'name': 'VS_vs11', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u405_dsL/VS_vs11/equiv/VS_vs11'}
+VS/vs12 {'name': 'VS_vs12', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VT/vt01 {'name': 'VT_vt01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VT/vt02 {'name': 'VT_vt02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VT/vt03 {'name': 'VT_vt03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VT/vt04 {'name': 'VT_vt04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VT/vt05 {'name': 'VT_vt05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VU/vu01 {'name': 'VU_vu01', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u405_dsL/VU_vu01/equiv/VU_vu01'}
+VU/vu02 {'name': 'VU_vu02', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u405_dsL/VU_vu02/equiv/VU_vu02'}
+VU/vu03 {'name': 'VU_vu03', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': '✅ All 1 common constant assignments match'}
+VU/vu04 {'name': 'VU_vu04', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': '✅ All 1 common constant assignments match'}
+VU/vu05 {'name': 'VU_vu05', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': '✅ All 1 common constant assignments match'}
+VZ/vz01 {'name': 'VZ_vz01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VZ/vz02 {'name': 'VZ_vz02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VZ/vz03 {'name': 'VZ_vz03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VZ/vz04 {'name': 'VZ_vz04', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 7, 'slang_gates': 7, 'differs': '', 'detail': ''}
+VZ/vz05 {'name': 'VZ_vz05', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 1 common constant assignments match'}
+VZ/vz06 {'name': 'VZ_vz06', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 6, 'slang_gates': 6, 'differs': '', 'detail': ''}
+VZ/vz07 {'name': 'VZ_vz07', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 11, 'slang_gates': 11, 'differs': '', 'detail': ''}
