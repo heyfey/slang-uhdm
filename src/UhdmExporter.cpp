@@ -27,8 +27,11 @@ namespace slang_uhdm {
 bool unitDynTdShape402(const slang::ast::TypeAliasType& ta);
 // § unitAssocTdMultiDim406 — the multi-dimension listing (TypeEmit.cpp).
 extern bool g406MultiDim;
+extern bool g410AliasClone;  // § dynTdAliasClone410 (TypeEmit.cpp)
+extern std::set<const UHDM::typespec*> g410ModVifTs;  // § modVirtIfaceTd410 (TypeEmit.cpp)
 bool multiDimTdShape406(const slang::ast::TypeAliasType& ta);
 bool aliasElemDynTdShape406(const slang::ast::TypeAliasType& ta);
+bool boundedQTdShape410(const slang::ast::TypeAliasType& ta);  // § unitBoundedQTd410 (TypeEmit.cpp)
 // § unitOobFuncOnDesign402 — TaskFuncEmit.cpp's record and cursor.
 extern std::vector<std::pair<const slang::ast::Symbol*, const slang::ast::Symbol*>> g_unitOobFns402;
 extern const slang::ast::Symbol* g_unitOobEmit402;
@@ -7936,6 +7939,51 @@ void UhdmExporter::emitIncludeFileInfos() {
                 e.endLine = e.line;
                 e.endCol = e.col;
             }
+            // § macroIncludeCol410 (R11U410_MACROINCCOL_OFF; cases
+            // tools/probe/r11u410repro/cases/MI; sv-tests
+            // chapter-22/22.4--include_via_define.sv and
+            // 22.5.1--include-define-expansion.sv) — an `include whose file
+            // name comes out of a macro: Surelog columns it in the expanded
+            // text.  The name starts one past the directive keyword and its
+            // separating blank (`include + 1 + the blanks: column 10 for a
+            // single space); it ends after the WRITTEN macro call when the
+            // directive is written in the file (`include `foo(x.sv)`, the
+            // call's own length), after the substituted name when the
+            // directive itself is a macro's body (`define INC(F) `include F`).
+            {
+                auto kw410 = im.syntax->directive;
+                auto fn410 = im.syntax->fileName;
+                const bool kwMacro = sm->isMacroLoc(kw410.location());
+                const bool fnMacro = sm->isMacroLoc(fn410.location());
+                if ((kwMacro || fnMacro) && lawOn(410, "R11U410_MACROINCCOL_OFF")) {
+                    uint32_t gap = 0;
+                    for (auto& tv : fn410.trivia())
+                        if (tv.kind == slang::parsing::TriviaKind::Whitespace)
+                            gap += (uint32_t)tv.getRawText().size();
+                    if (!gap)
+                        gap = 1;
+                    uint32_t kwCol = 1;
+                    if (!kwMacro)
+                        kwCol = (uint32_t)sm->getColumnNumber(kw410.location());
+                    uint32_t c0 = kwCol + (uint32_t)kw410.rawText().size() + gap;
+                    uint32_t len = (uint32_t)fn410.rawText().size();
+                    if (!kwMacro && fnMacro) {
+                        auto er = sm->getExpansionRange(fn410.location());
+                        for (int k = 0; k < 16 && sm->isMacroLoc(er.start()); k++)
+                            er = sm->getExpansionRange(er.start());
+                        if (er.start().buffer() == er.end().buffer() &&
+                            er.end().offset() > er.start().offset()) {
+                            len = (uint32_t)(er.end().offset() - er.start().offset());
+                            c0 = (uint32_t)sm->getColumnNumber(er.start());
+                        }
+                    }
+                    e.col = c0;
+                    e.endCol = c0 + len;
+                    lawTrace(410, "macroIncludeCol410",
+                             std::string(im.path) + " " + std::to_string(e.col) + "-" +
+                                 std::to_string(e.endCol));
+                }
+            }
             if (e.incBuf)
                 evOfIncluded.emplace(e.incBuf.getId(), evs.size());
             evs.push_back(std::move(e));
@@ -8979,6 +9027,233 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                         break;
                 }
         }
+        // § classBoundedQueueMultiDim410 (R11U410_CLSQMULTI_OFF; cases
+        // tools/probe/r11u410repro/cases/QM) — a class property whose written
+        // unpacked dimensions MIX a bounded queue `[$:N]` with fixed dims, or
+        // put a fixed or bounded dim under an unsized one (`int q[$:3][2]`,
+        // `int r[2][$:3]`, `int s[$][2]`, `int d[2][]`) exited 4 ("class array
+        // property element" / "class property type:
+        // FixedSizeUnpackedArrayType"; the v11u408 case VQ/vq10).  Golden
+        // (Surelog compiles every written dim into a range, then
+        // ElaborationStep's array_var pass erases the FIRST unsized marker,
+        // which sets the array kind) writes ONE array_var: vpiArrayType 1
+        // when no dim is unsized (a bounded queue counts as a range), else
+        // the first unsized dim's kind (queue 4, dynamic 2); vpiSize the
+        // product of the FIXED dims' counts (a bounded queue counts nothing);
+        // when the first unsized dim is the OUTERMOST one, a range per
+        // remaining written dim in written order (a bounded queue's range:
+        // the unbounded `$` at the `$`, the folded bound at its tokens, as
+        // § classBoundedQueueStatic408 writes it) and the INNERMOST element
+        // under vpiReg; when it is an inner dim, NO range and NO element.
+        // Abstains on associative dims, a second unsized dim after a leading
+        // one, and typedef-contributed dims.
+        bool mixed410 = false, noElem410 = false;
+        int32_t akind410 = 1, size410 = 1;
+        const Type* elem410 = nullptr;
+        if (!foreignTd73 && !fixedElem6 &&
+            cp.getType().kind != SymbolKind::TypeAlias &&
+            (ct.kind == SymbolKind::FixedSizeUnpackedArrayType ||
+             ct.kind == SymbolKind::QueueType ||
+             ct.kind == SymbolKind::DynamicArrayType) &&
+            lawOn(410, "R11U410_CLSQMULTI_OFF"))
+            if (auto* dsyn410 = cp.getSyntax();
+                dsyn410 && dsyn410->kind == syntax::SyntaxKind::Declarator &&
+                dsyn410->as<syntax::DeclaratorSyntax>().dimensions.size() >= 2) {
+                auto& dims = dsyn410->as<syntax::DeclaratorSyntax>().dimensions;
+                const Type* t = &ct;
+                bool ok = true, anyB = false;
+                int firstUnsized = -1, nUnsized = 0;
+                int32_t sz = 1;
+                for (size_t i = 0; i < dims.size() && ok; i++) {
+                    auto& tc = t->getCanonicalType();
+                    if (tc.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                        auto& ua = tc.as<FixedSizeUnpackedArrayType>();
+                        bool paramSized = false;
+                        if (dims[i]->specifier &&
+                            dims[i]->specifier->kind ==
+                                syntax::SyntaxKind::RangeDimensionSpecifier) {
+                            auto& sel = *dims[i]
+                                             ->specifier
+                                             ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                             .selector;
+                            if (auto* bss = sel.as_if<syntax::BitSelectSyntax>())
+                                paramSized = bss->expr->kind !=
+                                             syntax::SyntaxKind::IntegerLiteralExpression;
+                            else if (misevalRangeDim(sel.as_if<syntax::RangeSelectSyntax>()))
+                                paramSized = true;
+                        }
+                        if (!paramSized)
+                            sz *= (int32_t)ua.range.width();
+                        t = &ua.elementType;
+                    }
+                    else if (tc.kind == SymbolKind::QueueType) {
+                        auto* qd = dims[i]->specifier
+                                       ? dims[i]->specifier->as_if<
+                                             syntax::QueueDimensionSpecifierSyntax>()
+                                       : nullptr;
+                        if (!qd)
+                            ok = false;
+                        else if (qd->maxSizeClause)
+                            anyB = true;
+                        else {
+                            if (firstUnsized < 0) {
+                                firstUnsized = (int)i;
+                                akind410 = 4;
+                            }
+                            nUnsized++;
+                        }
+                        t = &tc.as<QueueType>().elementType;
+                    }
+                    else if (tc.kind == SymbolKind::DynamicArrayType) {
+                        if (firstUnsized < 0) {
+                            firstUnsized = (int)i;
+                            akind410 = 2;
+                        }
+                        nUnsized++;
+                        t = &tc.as<DynamicArrayType>().elementType;
+                    }
+                    else
+                        ok = false;
+                }
+                switch (t->getCanonicalType().kind) {
+                    case SymbolKind::FixedSizeUnpackedArrayType:
+                    case SymbolKind::DynamicArrayType:
+                    case SymbolKind::QueueType:
+                    case SymbolKind::AssociativeArrayType:
+                        ok = false;
+                        break;
+                    default:
+                        break;
+                }
+                // A leading unsized dim keeps the remaining ranges only when
+                // they are all fixed or bounded; with no unsized dim the shape
+                // is new only when a bounded queue is present (the all-fixed
+                // shape is § fixedClassPropIsArrayVar6's).
+                if (firstUnsized == 0 && nUnsized > 1)
+                    ok = false;
+                if (firstUnsized < 0 && !anyB)
+                    ok = false;
+                // An inner unsized dim: measured only as the LAST dim over a
+                // predefined integer element (QM/qm08).
+                if (firstUnsized > 0 &&
+                    ((size_t)firstUnsized + 1 != dims.size() ||
+                     t->getCanonicalType().kind != SymbolKind::PredefinedIntegerType ||
+                     t->getCanonicalType().as<PredefinedIntegerType>().integerKind ==
+                         PredefinedIntegerType::Time))
+                    ok = false;
+                if (ok) {
+                    mixed410 = true;
+                    noElem410 = firstUnsized > 0;
+                    size410 = sz;
+                    elem410 = t;
+                    lawTrace(410, "classBoundedQueueMultiDim410", pfn);
+                }
+            }
+        if (mixed410 && noElem410) {
+            auto* av410 = s.MakeArray_var();
+            av410->VpiName(cp.name);
+            av410->VpiFullName(pfn);
+            av410->VpiParent(cd);
+            setLoc(av410, nameSpan(cp.location, cp.name));
+            av410->VpiSize(size410);
+            if (cp.flags.has(VariableFlags::Const))
+                av410->VpiConstantVariable(true);
+            if (cp.lifetime != VariableLifetime::Static)
+                av410->VpiAutomatic(true);
+            if (randTy) {
+                av410->VpiIsRandomized(true);
+                av410->VpiRandType(randTy);
+            }
+            else
+                av410->VpiRandType(1);
+            av410->VpiVisibility(vis);
+            av410->VpiArrayType(akind410);
+            if (arraySignedWritten8(cp.getType(), *elem410))
+                av410->VpiSigned(true);
+            // The typespec keeps the written structure: an array_typespec
+            // of the unsized kind whose element is an array_typespec holding
+            // the ranges of the dims before it (parented to the array_var)
+            // over a bare element typespec.
+            auto* ats410 = s.MakeArray_typespec();
+            ats410->VpiArrayType(akind410);
+            auto* art410 = s.MakeRef_typespec();
+            art410->VpiParent(av410);
+            art410->Actual_typespec(ats410);
+            av410->Typespec(art410);
+            auto* inner410 = s.MakeArray_typespec();
+            auto* ier410 = s.MakeRef_typespec();
+            ier410->VpiParent(ats410);
+            ier410->Actual_typespec(inner410);
+            ats410->Elem_typespec(ier410);
+            NonFixedDimHook225 hookNe410 =
+                [&](const syntax::VariableDimensionSyntax& dim,
+                    const Type& canon, UHDM::BaseClass* parent,
+                    const Type*& next) -> UHDM::range* {
+                if (canon.kind != SymbolKind::QueueType)
+                    return nullptr;
+                auto& qt = canon.as<QueueType>();
+                auto* qd = dim.specifier
+                               ? dim.specifier->as_if<
+                                     syntax::QueueDimensionSpecifierSyntax>()
+                               : nullptr;
+                if (!qd || !qd->maxSizeClause ||
+                    qd->maxSizeClause->expr->kind !=
+                        syntax::SyntaxKind::IntegerLiteralExpression)
+                    return nullptr;
+                next = &qt.elementType;
+                auto* r = s.MakeRange();
+                r->VpiParent(parent);
+                setLoc(r, dim.sourceRange());
+                auto* l = s.MakeConstant();
+                l->VpiParent(r);
+                l->VpiDecompile("$");
+                l->VpiSize(1);
+                l->VpiValue("STRING:$");
+                l->VpiConstType(vpiUnboundedConst);
+                setLoc(l, qd->dollar.range());
+                auto* rc = s.MakeConstant();
+                rc->VpiParent(r);
+                std::string dg = std::to_string(qt.maxBound);
+                rc->VpiDecompile(dg);
+                rc->VpiSize(64);
+                rc->VpiValue("UINT:" + dg);
+                rc->VpiConstType(vpiUIntConst);
+                setLoc(rc, qd->maxSizeClause->expr->sourceRange());
+                r->Left_expr(l);
+                r->Right_expr(rc);
+                return r;
+            };
+            if (auto* rngsNe410 = buildUnpackedRanges(cp, av410, {}, &hookNe410))
+                inner410->Ranges(rngsNe410);
+            UHDM::typespec* ets410 = nullptr;
+            switch (elem410->getCanonicalType().as<PredefinedIntegerType>().integerKind) {
+                case PredefinedIntegerType::Integer:
+                    ets410 = s.MakeInteger_typespec();
+                    break;
+                case PredefinedIntegerType::Int:
+                    ets410 = s.MakeInt_typespec();
+                    break;
+                case PredefinedIntegerType::ShortInt:
+                    ets410 = s.MakeShort_int_typespec();
+                    break;
+                case PredefinedIntegerType::LongInt:
+                    ets410 = s.MakeLong_int_typespec();
+                    break;
+                case PredefinedIntegerType::Byte:
+                    ets410 = s.MakeByte_typespec();
+                    break;
+                default:
+                    break;
+            }
+            if (ets410) {
+                auto* eer410 = s.MakeRef_typespec();
+                eer410->VpiParent(inner410);
+                eer410->Actual_typespec(ets410);
+                inner410->Elem_typespec(eer410);
+            }
+            vars->push_back(av410);
+            continue;
+        }
         // A DYNAMIC-array / QUEUE / ASSOC property is an array_var carrying a
         // bare array_typespec, with the ELEMENT variable under vpiReg.
         // § classScopedTypedefPropIsBareLogicVar73 outranks this arm: the
@@ -8990,11 +9265,44 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         // (`holder::e_t x[]`, `x[$]`) is NOT a typedef name, so it keeps this
         // arm and stays byte-identical to golden (a5 c_qual_dyn / c_qual_q).
         if (!foreignTd73 &&
-            (fixedElem6 || ct.kind == SymbolKind::DynamicArrayType ||
+            (fixedElem6 || mixed410 || ct.kind == SymbolKind::DynamicArrayType ||
              ct.kind == SymbolKind::QueueType ||
              ct.kind == SymbolKind::AssociativeArrayType)) {
             const Type* et = nullptr;
             int32_t akind = 2;
+            // § clsQBoundUntypedParamTs410 (R11U410_QBOUNDUNTYPED_OFF; cases
+            // tools/probe/r11u410repro/cases/QU, the v11u408 case VQ/vq01) — a
+            // class bounded-queue bound naming an UNTYPED parameter
+            // (`parameter N = 5; int q[$:N];`) is golden's UINT constant
+            // carrying a reference, named by the property, to an UNSIGNED
+            // int_typespec spanning the parameter declaration (keyword to
+            // initializer, the same span the parameter's own typespec has);
+            // only the `int`-typed parameter had its reference.
+            auto clsQBoundUntypedTs410 = [&](const ParameterSymbol* pmu,
+                                             UHDM::constant* rcu) {
+                auto dtu = pmu->getDeclaredType();
+                auto* tsyu = dtu ? dtu->getTypeSyntax() : nullptr;
+                if (!tsyu || tsyu->kind != syntax::SyntaxKind::ImplicitType)
+                    return;
+                auto& imp = tsyu->as<syntax::ImplicitTypeSyntax>();
+                if (imp.signing || !imp.dimensions.empty())
+                    return;
+                auto* psyn = pmu->getSyntax();
+                if (!psyn || !psyn->parent ||
+                    psyn->parent->kind != syntax::SyntaxKind::ParameterDeclaration)
+                    return;
+                if (!lawOn(410, "R11U410_QBOUNDUNTYPED_OFF"))
+                    return;
+                auto* its = s.MakeInt_typespec();
+                setLoc(its, psyn->parent->sourceRange());
+                auto* irt = s.MakeRef_typespec();
+                irt->VpiParent(rcu);
+                irt->VpiFullName(pfn);
+                irt->Actual_typespec(its);
+                its->VpiParent(irt);
+                rcu->Typespec(irt);
+                lawTrace(410, "clsQBoundUntypedParamTs410", pfn);
+            };
             // Every ASSOCIATIVE dimension of the declaration, outermost
             // first.  Surelog compiles ALL unpacked dims into `range`
             // objects whose Right_expr is a `STRING:associative` marker
@@ -9011,7 +9319,11 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             // § fixedClassPropIsArrayVar6 — the element is the INNERMOST one
             // (a 2-D `int x[4][2]` has an int_var element, arm b3 c05_2d) and
             // the array kind is vpiArrayType 1.
-            if (fixedElem6) {
+            if (mixed410) {
+                et = elem410;
+                akind = akind410;
+            }
+            else if (fixedElem6) {
                 et = fixedElem6;
                 akind = 1;
             }
@@ -9032,7 +9344,7 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                     cur = et;
                 }
             }
-            auto* reg = fixedElem6 ? classFixedElemVar6(cp, *et, cls)
+            auto* reg = (fixedElem6 || mixed410) ? classFixedElemVar6(cp, *et, cls)
                                    : classAssocElemVar(cp, *et, cls);
             if (!reg) {
                 noteUnsupported("class array property element");
@@ -9047,7 +9359,7 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             // fixed array (4 for `[4]`, 8 for `[4][2]`, and 1 for a PARAM-sized
             // `[N]` — arm b3 cells c01_size / c05_2d / c11_paramsz), against the
             // flat 1 a dynamic/queue/assoc property carries.
-            av->VpiSize(fixedElem6 ? fixedUnpackedCount6(cp) : 1);
+            av->VpiSize(mixed410 ? size410 : fixedElem6 ? fixedUnpackedCount6(cp) : 1);
             // § constClassPropIsConstantVariable27 reaches the ARRAY property
             // too: `const int x[4] = '{...}` carries vpiConstantVariable:1 on the
             // array_var (arm b4 cell c06_const, read at own child depth).  The
@@ -9169,6 +9481,8 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                                     its->VpiParent(irt);
                                     rc->Typespec(irt);
                                 }
+                                else
+                                    clsQBoundUntypedTs410(pm408, rc);
                         r->Left_expr(l);
                         r->Right_expr(rc);
                         auto* rv = s.MakeRangeVec();
@@ -9217,9 +9531,113 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             // the same rule — the whole `[0:3]` for a range dim (b3 c02_rng03,
             // 9:16-9:21) and the SIZE TOKEN alone for a `[4]` dim (b3 c01_size,
             // 8:16-8:17; SVSwitch witness 1, 17:43-17:44).
-            if (fixedElem6)
+            if (fixedElem6) {
                 if (auto* rngs6 = buildUnpackedRanges(cp, av))
                     av->Ranges(rngs6);
+            }
+            else if (mixed410) {
+                // § classBoundedQueueMultiDim410 — the fixed dims through the
+                // shared builder; a bounded queue dim answered by this hook
+                // with § classBoundedQueueStatic408's range; a LEADING
+                // unsized dim (the marker ElaborationStep erases) skipped.
+                NonFixedDimHook225 hook410 =
+                    [&](const syntax::VariableDimensionSyntax& dim,
+                        const Type& canon, UHDM::BaseClass* parent,
+                        const Type*& next) -> UHDM::range* {
+                    if (canon.kind == SymbolKind::DynamicArrayType) {
+                        next = &canon.as<DynamicArrayType>().elementType;
+                        return nullptr;
+                    }
+                    if (canon.kind != SymbolKind::QueueType)
+                        return nullptr;
+                    auto& qt = canon.as<QueueType>();
+                    next = &qt.elementType;
+                    auto* qd = dim.specifier
+                                   ? dim.specifier->as_if<
+                                         syntax::QueueDimensionSpecifierSyntax>()
+                                   : nullptr;
+                    if (!qd || !qd->maxSizeClause)
+                        return nullptr;
+                    const syntax::ExpressionSyntax* me = qd->maxSizeClause->expr;
+                    auto* r = s.MakeRange();
+                    r->VpiParent(parent);
+                    setLoc(r, dim.sourceRange());
+                    auto* l = s.MakeConstant();
+                    l->VpiParent(r);
+                    l->VpiDecompile("$");
+                    l->VpiSize(1);
+                    l->VpiValue("STRING:$");
+                    l->VpiConstType(vpiUnboundedConst);
+                    setLoc(l, qd->dollar.range());
+                    auto* rc = s.MakeConstant();
+                    rc->VpiParent(r);
+                    std::string dg = std::to_string(qt.maxBound);
+                    rc->VpiDecompile(dg);
+                    rc->VpiSize(64);
+                    const bool lit = me->kind == syntax::SyntaxKind::IntegerLiteralExpression;
+                    const ParameterSymbol* pm = nullptr;
+                    if (me->kind == syntax::SyntaxKind::IdentifierName)
+                        if (auto* ps = cls.lookupName(
+                                me->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                            ps && ps->kind == SymbolKind::Parameter)
+                            pm = &ps->as<ParameterSymbol>();
+                    std::function<bool(const syntax::ExpressionSyntax*)> uns =
+                        [&](const syntax::ExpressionSyntax* e) -> bool {
+                        switch (e->kind) {
+                            case syntax::SyntaxKind::IntegerLiteralExpression:
+                                return true;
+                            case syntax::SyntaxKind::IdentifierName: {
+                                auto* ps = cls.lookupName(
+                                    e->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText());
+                                return ps && ps->kind == SymbolKind::Parameter;
+                            }
+                            case syntax::SyntaxKind::ParenthesizedExpression:
+                                return uns(e->as<syntax::ParenthesizedExpressionSyntax>()
+                                               .expression);
+                            case syntax::SyntaxKind::AddExpression: {
+                                auto& b = e->as<syntax::BinaryExpressionSyntax>();
+                                return uns(b.left) && uns(b.right);
+                            }
+                            default:
+                                return false;
+                        }
+                    };
+                    if (lit || pm || uns(me)) {
+                        rc->VpiValue("UINT:" + dg);
+                        rc->VpiConstType(vpiUIntConst);
+                    }
+                    else {
+                        rc->VpiValue("INT:" + dg);
+                        rc->VpiConstType(vpiIntConst);
+                    }
+                    if (lit || pm)
+                        setLoc(rc, me->sourceRange());
+                    else
+                        setLoc(rc, me->getFirstToken().range());
+                    if (pm)
+                        if (auto dt = pm->getDeclaredType())
+                            if (auto* tsy = dt->getTypeSyntax();
+                                tsy && tsy->kind == syntax::SyntaxKind::IntType) {
+                                auto* its = s.MakeInt_typespec();
+                                its->VpiSigned(true);
+                                setLoc(its, tsy->sourceRange());
+                                auto* irt = s.MakeRef_typespec();
+                                irt->VpiParent(rc);
+                                irt->VpiFullName(pfn);
+                                irt->Actual_typespec(its);
+                                its->VpiParent(irt);
+                                rc->Typespec(irt);
+                            }
+                            else
+                                clsQBoundUntypedTs410(pm, rc);
+                    r->Left_expr(l);
+                    r->Right_expr(rc);
+                    return r;
+                };
+                if (auto* rngs410 = buildUnpackedRanges(cp, av, {}, &hook410))
+                    av->Ranges(rngs410);
+            }
             // NOTE § bitElemSharesArrayRanges11 — the ELEMENT variable of a
             // CLASS-PROPERTY `array_var` carries `vpiRange` = THE ARRAY_VAR'S
             // OWN RANGE VECTOR, and it does so if and only if that element is a
@@ -9747,6 +10165,110 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                             : (int32_t)cp.getType().getBitWidth());
                     c0->VpiValue("UINT:" + d0);
                     c0->VpiConstType(vpiUIntConst);
+                    // § classPropBasedLitKept410 (R11U410_CLSBASEDLIT_OFF;
+                    // cases tools/probe/r11u410repro/cases/CB; sv-tests
+                    // generic/class/class_test_56.sv, _57, _58) — a BASED
+                    // literal initializer of a class property keeps its
+                    // written form in golden: the source text as decompile,
+                    // the digits as written under the base's value kind (BIN
+                    // 3, OCT 4, DEC 1, HEX 5), sized by the LITERAL for a
+                    // binary or decimal base and by the PROPERTY for an octal
+                    // or hex one (Surelog CB cb01-cb03: `int b = 4'hf` size
+                    // 32, `int d = 4'd5` size 4).  A signed, unsized-binary or
+                    // -decimal, underscored or x/z literal abstains.
+                    if (!foreignTd73 && lawOn(410, "R11U410_CLSBASEDLIT_OFF")) {
+                        std::string raw410 = rawText(ic0.sourceRange);
+                        auto tq = raw410.find('\'');
+                        if (tq != std::string::npos && tq + 1 < raw410.size() &&
+                            raw410.find('_') == std::string::npos) {
+                            size_t bq = tq + 1;
+                            bool sg410 = false;
+                            if (std::tolower((unsigned char)raw410[bq]) == 's' &&
+                                bq + 1 < raw410.size()) {
+                                sg410 = true;
+                                bq++;
+                            }
+                            char bc = (char)std::tolower((unsigned char)raw410[bq]);
+                            std::string dg410 = raw410.substr(bq + 1);
+                            // A signed literal: measured for hex (CB cb02
+                            // `byte e = 8'sh7f`, plus a reference named by the
+                            // property to an unlocated signed int_typespec).
+                            if (sg410 && bc != 'h')
+                                bc = 0;
+                            bool okDigits = !dg410.empty();
+                            for (char ch : dg410)
+                                if (!std::isxdigit((unsigned char)ch))
+                                    okDigits = false;
+                            const bool sized410 = tq > 0;
+                            int32_t ct410 = bc == 'b' ? 3 : bc == 'o' ? 4 : bc == 'd' ? 1
+                                                                       : bc == 'h' ? 5 : 0;
+                            if (okDigits && ct410 &&
+                                (sized410 || ct410 == 4 || ct410 == 5)) {
+                                c0->VpiDecompile(raw410);
+                                c0->VpiValue(std::string(ct410 == 3   ? "BIN:"
+                                                         : ct410 == 4 ? "OCT:"
+                                                         : ct410 == 1 ? "DEC:"
+                                                                      : "HEX:") +
+                                             dg410);
+                                c0->VpiConstType(ct410);
+                                if (ct410 == 3 || ct410 == 1)
+                                    c0->VpiSize((int32_t)ic0.type->getBitWidth());
+                                // § clsPropBinLitTrunc410v (R11V410_BINTRUNC_OFF;
+                                // cases tools/probe/v11u410repro/cases/VB vb02,
+                                // vb05, vb08, vb09) — Surelog's adjustSize
+                                // (CompileHelper.cpp, the vpiBinaryConst branch)
+                                // sizes a binary literal WIDER than the
+                                // property: under a logic_typespec (a logic or
+                                // reg scalar or vector, through a typedef too)
+                                // the constant is cut to the property width,
+                                // the leading digits dropped when there are more
+                                // digits than the excess (`logic [3:0] a =
+                                // 8'b10101010` -> BIN:1010, decompile 1010,
+                                // size 4; `8'b101` -> BIN:101, size 4); under
+                                // an int_typespec only the size drops to 32
+                                // (the digits kept).  A bit vector or another
+                                // atom keeps the literal's size (vb07).
+                                if (ct410 == 3 && fixOn(410, "R11V410_BINTRUNC_OFF")) {
+                                    const int32_t osz410 = (int32_t)ic0.type->getBitWidth();
+                                    const int32_t psz410 = (int32_t)cp.getType().getBitWidth();
+                                    const Type* pe410 = &cp.getType().getCanonicalType();
+                                    const bool isInt410 =
+                                        pe410->kind == SymbolKind::PredefinedIntegerType &&
+                                        pe410->as<PredefinedIntegerType>().integerKind ==
+                                            PredefinedIntegerType::Int;
+                                    while (pe410->kind == SymbolKind::PackedArrayType)
+                                        pe410 = &pe410->as<PackedArrayType>()
+                                                     .elementType.getCanonicalType();
+                                    const bool logic410 =
+                                        pe410->kind == SymbolKind::ScalarType &&
+                                        pe410->as<ScalarType>().scalarKind != ScalarType::Bit;
+                                    if (osz410 > psz410 && psz410 > 0 && logic410) {
+                                        std::string v410 = dg410;
+                                        if (v410.size() > (size_t)(osz410 - psz410))
+                                            v410.erase(0, (size_t)(osz410 - psz410));
+                                        c0->VpiDecompile(v410);
+                                        c0->VpiValue("BIN:" + v410);
+                                        c0->VpiSize(psz410);
+                                        lawTrace(410, "clsPropBinLitTrunc410v", pfn0);
+                                    }
+                                    else if (osz410 > psz410 && isInt410) {
+                                        c0->VpiSize(psz410);
+                                        lawTrace(410, "clsPropBinLitTrunc410v", pfn0);
+                                    }
+                                }
+                                if (sg410) {
+                                    auto* its410 = s.MakeInt_typespec();
+                                    its410->VpiSigned(true);
+                                    auto* irt410 = s.MakeRef_typespec();
+                                    irt410->VpiParent(c0);
+                                    irt410->VpiFullName(pfn0);
+                                    irt410->Actual_typespec(its410);
+                                    c0->Typespec(irt410);
+                                }
+                                lawTrace(410, "classPropBasedLitKept410", pfn0);
+                            }
+                        }
+                    }
                     c0->VpiParent(foreignTd73 ? (UHDM::any*)cd : (UHDM::any*)v);
                     setLoc(c0, ic0.sourceRange);
                     v->Expr(c0);
@@ -16352,9 +16874,28 @@ UHDM::design* UhdmExporter::exportDesign() {
                     // not the `ustr_t` name at 4:9) — with a Typedef_alias
                     // reference named `ual_t` bound to the target's listing
                     // object (Surelog's typedef-of-a-typedef clone).
+                    // § unitScalarTdAliasChain410 (R11U410_UNITALIASCHAIN_OFF;
+                    // cases tools/probe/r11u410repro/cases/TA; sv-tests
+                    // generic/typedef/typedef_test_8.sv, _14) — the same
+                    // clone for a target of a SCALAR or plain VECTOR kind
+                    // (`typedef bit b_t; typedef b_t c_t;`, `typedef logic
+                    // [3:0] n_t; typedef n_t m_t;`): the listing at the
+                    // target's tokens with the target's ranges, aliasing a
+                    // per-use copy of the target; a target that is itself an
+                    // alias is bound directly (TA ta05 `d_t` -> `c_t`), and a
+                    // PACKAGE target's listing is bound directly with the
+                    // package as vpiInstance (ta02).
+                    const bool vec410 =
+                        (ct.kind == SymbolKind::ScalarType ||
+                         ct.kind == SymbolKind::PackedArrayType) &&
+                        ta.targetType.getType().kind == SymbolKind::TypeAlias &&
+                        (!typeSyn || typeSyn->kind == syntax::SyntaxKind::NamedType) &&
+                        lawOn(410, "R11U410_UNITALIASCHAIN_OFF");
+                    if (vec410)
+                        lawTrace(410, "unitScalarTdAliasChain410", std::string(ta.name));
                     if ((ct.kind == SymbolKind::StringType ||
                          ct.kind == SymbolKind::PredefinedIntegerType ||
-                         ct.kind == SymbolKind::FloatingType) &&
+                         ct.kind == SymbolKind::FloatingType || vec410) &&
                         ta.targetType.getType().kind == SymbolKind::TypeAlias &&
                         lawOn(245, "R11U245_UNITPREDEF_OFF") &&
                         lawOn(245, "R11U245_UNITPREDEFAOA_OFF"))
@@ -16374,6 +16915,38 @@ UHDM::design* UhdmExporter::exportDesign() {
                             // the `ual_t` alias's actual carries an alias
                             // back to `ustr_t`'s listing).
                             UHDM::typespec* tcp245 = nullptr;
+                            // § unitScalarTdAliasChain410 — the target's
+                            // ranges ride on the listing and the copy; a
+                            // target that is itself an alias, or a package's
+                            // listing, is bound directly (no copy), the latter
+                            // making the package the vpiInstance.
+                            bool direct410 = false;
+                            auto rangesOf410 = [](const UHDM::typespec* t) -> UHDM::VectorOfrange* {
+                                if (t->UhdmType() == UHDM::uhdmlogic_typespec)
+                                    return ((const UHDM::logic_typespec*)t)->Ranges();
+                                if (t->UhdmType() == UHDM::uhdmbit_typespec)
+                                    return ((const UHDM::bit_typespec*)t)->Ranges();
+                                return nullptr;
+                            };
+                            auto setRanges410 = [](UHDM::typespec* t, UHDM::VectorOfrange* r) {
+                                if (!r)
+                                    return;
+                                if (t->UhdmType() == UHDM::uhdmlogic_typespec)
+                                    ((UHDM::logic_typespec*)t)->Ranges(r);
+                                else if (t->UhdmType() == UHDM::uhdmbit_typespec)
+                                    ((UHDM::bit_typespec*)t)->Ranges(r);
+                            };
+                            if (vec410) {
+                                setRanges410(ts, rangesOf410(tg245->second));
+                                const UHDM::BaseClass* in410 = tg245->second->Instance();
+                                if (tg245->second->Typedef_alias() ||
+                                    (in410 && in410->UhdmType() == UHDM::uhdmpackage)) {
+                                    direct410 = true;
+                                    if (in410 && in410->UhdmType() == UHDM::uhdmpackage)
+                                        aliasTgt161 = tg245->second;
+                                }
+                            }
+                            if (!direct410)
                             switch (tg245->second->UhdmType()) {
                                 case UHDM::uhdmreal_typespec:
                                     tcp245 = s.MakeReal_typespec();
@@ -16405,6 +16978,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                                 tal245->VpiParent(tcp245);
                                 tal245->Actual_typespec(tg245->second);
                                 tcp245->Typedef_alias(tal245);
+                                if (vec410)
+                                    setRanges410(tcp245, rangesOf410(tg245->second));
                                 al245->Actual_typespec(tcp245);
                             }
                             else
@@ -16663,7 +17238,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                           (multiDimTdShape406(ta) &&
                            lawOn(406, "R11U406_TDMULTIDIM_OFF")) ||
                           (aliasElemDynTdShape406(ta) &&
-                           lawOn(406, "R11U406_ALIASELEMDYN_OFF"))) &&
+                           lawOn(406, "R11U406_ALIASELEMDYN_OFF")) ||
+                          boundedQTdShape410(ta)) &&
                          lawOn(249, "R11U249_UNITDYNTD_OFF")) {
                     bool savedTf = tfContext, savedTd = typedefTsContext;
                     bool savedBy = bypassTypedefShare, savedUf = unfoldedTypedefDims;
@@ -16693,8 +17269,11 @@ UHDM::design* UhdmExporter::exportDesign() {
                     }
                     ts->VpiParent(d);
                     g249UnitDynTs.insert(ts);
-                    const bool alias406 = aliasElemDynTdShape406(ta) &&
-                                          lawOn(406, "R11U406_ALIASELEMDYN_OFF");
+                    const bool alias406 = (aliasElemDynTdShape406(ta) &&
+                                           lawOn(406, "R11U406_ALIASELEMDYN_OFF")) ||
+                                          (boundedQTdShape410(ta) &&
+                                           ct.as<QueueType>().elementType.kind ==
+                                               SymbolKind::TypeAlias);
                     const bool multi406 = multiDimTdShape406(ta) &&
                                           lawOn(406, "R11U406_TDMULTIDIM_OFF");
                     if (alias406)
@@ -16726,6 +17305,75 @@ UHDM::design* UhdmExporter::exportDesign() {
                 // same rule as a class-SCOPE class alias: one class_typespec
                 // named after the ALIAS, carrying the specialization, which
                 // every declaration of the alias then shares (ClassTypeParam).
+                // § dynTdAliasClone410 (R11U410_DYNTDALIAS_OFF; cases
+                // tools/probe/r11u410repro/cases/YA, the v11u402 case
+                // VY/vy05) — a typedef NAMING a listed dynamic, queue or
+                // associative array typedef (`typedef b_t c_t;`) had no branch
+                // (`typedef target: AssociativeArrayType`, exit 4).  Golden
+                // lists a CLONE of the named typedef's array_typespec (its
+                // span, ranges and element, every reference named after the
+                // new typedef) named by the new typedef, with a vpiTypedefAlias
+                // reference to the named typedef's listing object.
+                else if ((ct.kind == SymbolKind::DynamicArrayType ||
+                          ct.kind == SymbolKind::QueueType ||
+                          ct.kind == SymbolKind::AssociativeArrayType) &&
+                         ta.targetType.getType().kind == SymbolKind::TypeAlias &&
+                         typedefTs.count(&ta.targetType.getType()) &&
+                         g249UnitDynTs.count(typedefTs[&ta.targetType.getType()]) &&
+                         lawOn(410, "R11U410_DYNTDALIAS_OFF")) {
+                    auto& ta0 = ta.targetType.getType().as<TypeAliasType>();
+                    auto* tgt410 = typedefTs[&ta0];
+                    bool savedTf = tfContext, savedTd = typedefTsContext;
+                    bool savedBy = bypassTypedefShare, savedUf = unfoldedTypedefDims;
+                    std::string savedPfx = syntaxRefPrefix, savedSep = syntaxRefSep;
+                    const std::string q410(ta.name);
+                    tfContext = true;
+                    typedefTsContext = true;
+                    bypassTypedefShare = true;
+                    unfoldedTypedefDims = true;
+                    syntaxRefPrefix = q410;
+                    syntaxRefSep = "::";
+                    g249DynRangeReq = true;
+                    g406MultiDim = multiDimTdShape406(ta0) &&
+                                   lawOn(406, "R11U406_TDMULTIDIM_OFF");
+                    g410AliasClone = true;
+                    ts = buildUnpackedArrayTypedefTs(ta0, q410);
+                    g410AliasClone = false;
+                    // At $unit the alias reference reaches the listing
+                    // through an unparented COPY of the named typedef (named
+                    // by it, its own vpiTypedefAlias onto the listing).
+                    UHDM::typespec* cp410 = nullptr;
+                    if (ts && ts->UhdmType() == UHDM::uhdmarray_typespec)
+                        cp410 = buildUnpackedArrayTypedefTs(ta0, std::string(ta0.name));
+                    if (cp410) {
+                        cp410->VpiName(ta0.name);
+                        auto* crt410 = s.MakeRef_typespec();
+                        crt410->VpiParent(cp410);
+                        crt410->VpiFullName(std::string(ta0.name));
+                        crt410->Actual_typespec(tgt410);
+                        cp410->Typedef_alias(crt410);
+                        tgt410 = cp410;
+                    }
+                    g406MultiDim = false;
+                    g249DynRangeReq = false;
+                    syntaxRefSep = savedSep;
+                    syntaxRefPrefix = savedPfx;
+                    unfoldedTypedefDims = savedUf;
+                    bypassTypedefShare = savedBy;
+                    typedefTsContext = savedTd;
+                    tfContext = savedTf;
+                    if (!ts || ts->UhdmType() != UHDM::uhdmarray_typespec) {
+                        noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
+                        continue;
+                    }
+                    ts->VpiParent(d);
+                    auto* art410 = s.MakeRef_typespec();
+                    art410->VpiParent(ts);
+                    art410->VpiFullName(q410);
+                    art410->Actual_typespec(tgt410);
+                    ts->Typedef_alias(art410);
+                    lawTrace(410, "dynTdAliasClone410", q410);
+                }
                 else if (ct.kind == SymbolKind::ClassType) {
                     auto* cts = s.MakeClass_typespec();
                     if (auto* bcd = classDefnFor(ct))
@@ -18676,6 +19324,45 @@ UHDM::design* UhdmExporter::exportDesign() {
                     break;
             }
         }
+        // § modVirtIfaceTd410 — a definition variable typed by a module-body
+        // virtual-interface typedef binds its own copy of the listing (named
+        // by the typedef, at its span, Instanced at the module, aliasing the
+        // listing): golden's weakly-referenced `interface_typespec (vi_t)`,
+        // one per variable (cases VF/vf01, vf02).
+        if (!g410ModVifTs.empty()) {
+            std::vector<UHDM::any*> objs410;
+            for (auto& kv : s.AllObjects())
+                if (kv.first && ((UHDM::any*)kv.first)->UhdmType() == UHDM::uhdmref_typespec)
+                    objs410.push_back((UHDM::any*)kv.first);
+            std::stable_sort(objs410.begin(), objs410.end(),
+                             [](const UHDM::any* a, const UHDM::any* b) {
+                                 return a->UhdmId() < b->UhdmId();
+                             });
+            for (auto* o : objs410) {
+                auto* rt = (UHDM::ref_typespec*)o;
+                auto* at = rt->Actual_typespec();
+                if (!at || !g410ModVifTs.count(at) || !rt->VpiParent())
+                    continue;
+                auto pk = rt->VpiParent()->UhdmType();
+                if (pk != UHDM::uhdmlogic_net && pk != UHDM::uhdmlogic_var)
+                    continue;
+                auto* cp = s.MakeInterface_typespec();
+                cp->VpiName(at->VpiName());
+                cp->VpiFile(at->VpiFile());
+                cp->VpiLineNo(at->VpiLineNo());
+                cp->VpiColumnNo(at->VpiColumnNo());
+                cp->VpiEndLineNo(at->VpiEndLineNo());
+                cp->VpiEndColumnNo(at->VpiEndColumnNo());
+                cp->Instance(at->Instance());
+                auto* crt = s.MakeRef_typespec();
+                crt->VpiParent(cp);
+                crt->VpiFullName(std::string(at->VpiName()));
+                crt->Actual_typespec((UHDM::typespec*)at);
+                cp->Typedef_alias(crt);
+                rt->Actual_typespec(cp);
+                lawTrace(410, "modVirtIfaceTd410", "copy " + std::string(rt->VpiFullName()));
+            }
+        }
         if (!unitTd245.empty()) {
             std::vector<UHDM::any*> objs245;
             for (auto& kv : s.AllObjects())
@@ -18918,8 +19605,30 @@ UHDM::design* UhdmExporter::exportDesign() {
                             }
                         }
                     }
-                    else
+                    else {
                         mk(v->Typespec(), 1);
+                        // § unitTdClassPropAliasName410 (R11U410_UNITCLSPROPALIAS_OFF;
+                        // cases tools/probe/r11u410repro/cases/CU; sv-tests
+                        // generic/class/class_test_56.sv, _57, _58) — a CLASS
+                        // PROPERTY's copy of a $unit typedef is parented at the
+                        // property and its alias reference named by it
+                        // (`work@C::a::t_t`), the $unit twin of
+                        // § clsPropLawSAliasName243.
+                        if (auto* rt410 = v->Typespec();
+                            rt410 && v->VpiParent() &&
+                            v->VpiParent()->UhdmType() == UHDM::uhdmclass_defn &&
+                            lawOn(410, "R11U410_UNITCLSPROPALIAS_OFF"))
+                            if (auto* cp410 = rt410->Actual_typespec();
+                                cp410 && !unitTd245.count(cp410) && cp410->Typedef_alias() &&
+                                unitTd245.count(cp410->Typedef_alias()->Actual_typespec())) {
+                                cp410->VpiParent(v);
+                                ((UHDM::ref_typespec*)cp410->Typedef_alias())
+                                    ->VpiFullName(std::string(v->VpiFullName()) + "::" +
+                                                  std::string(cp410->VpiName()));
+                                lawTrace(410, "unitTdClassPropAliasName410",
+                                         std::string(v->VpiFullName()));
+                            }
+                    }
                 }
                 else if (auto* io = dynamic_cast<UHDM::io_decl*>(o))
                     mk(io->Typespec(), 1);

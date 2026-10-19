@@ -20804,6 +20804,14 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
 }
 
 bool g249DynRangeReq = false;
+// § dynTdAliasClone410 — set while a typedef-alias clone is built: the
+// associative marker reference takes the CLONE's name (qname).
+bool g410AliasClone = false;
+// § modStructMemberBitsTypeFold410 — set while a module-body packed struct
+// typedef's members are built.
+bool g410ModStructTd = false;
+// § modVirtIfaceTd410 — the module-body virtual-interface listings.
+std::set<const UHDM::typespec*> g410ModVifTs;
 int32_t netKindExtra402(const slang::ast::Symbol& sym);  // § netKindTypeAll402 (ModuleEmit.cpp)
 
 // § unitDynArrTd249 / § modDynArrTd249 — the one-dimension shapes the $unit
@@ -21048,6 +21056,41 @@ bool aliasElemDynTdShape406(const slang::ast::TypeAliasType& ta) {
            !el->getCanonicalType().isUnpackedArray();
 }
 
+// § unitBoundedQTd410 (r11u410, R11U410_BOUNDEDQTD_OFF; cases
+// tools/probe/r11u410repro/cases/AQ, the r11u406 case AY/ay06) — a $unit or
+// module-body typedef of a BOUNDED queue with a literal bound
+// (`typedef int q_t [$:4];`, `typedef p_t q_t [$:4];`) had no branch
+// (`typedef target: QueueType`, exit 4).  Golden lists it exactly as the
+// unbounded queue typedef of § unitDynArrTd249 / § aliasElemDynTd406 (a
+// named array_typespec with no array kind, its element the keyword's
+// typespec or the element typedef's listing object), the one range being
+// the written `[$:4]`: at the brackets, the unbounded `$` constant at the
+// `$`, the bound a UINT constant of size 64 at its token.
+bool boundedQTdShape410(const slang::ast::TypeAliasType& ta) {
+    using namespace slang;
+    auto* syn = ta.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::TypedefDeclaration)
+        return false;
+    auto& td = syn->as<syntax::TypedefDeclarationSyntax>();
+    if (td.dimensions.size() != 1)
+        return false;
+    auto& ct = ta.targetType.getType().getCanonicalType();
+    if (ct.kind != ast::SymbolKind::QueueType)
+        return false;
+    auto* sp = td.dimensions[0]->specifier;
+    if (!sp || sp->kind != syntax::SyntaxKind::QueueDimensionSpecifier)
+        return false;
+    auto* mc = sp->as<syntax::QueueDimensionSpecifierSyntax>().maxSizeClause;
+    if (!mc || mc->expr->kind != syntax::SyntaxKind::IntegerLiteralExpression)
+        return false;
+    auto* el = &ct.as<ast::QueueType>().elementType;
+    if (el->getCanonicalType().isUnpackedArray())
+        return false;
+    if (el->kind == ast::SymbolKind::TypeAlias && !el->getCanonicalType().isIntegral())
+        return false;
+    return lawOn(410, "R11U410_BOUNDEDQTD_OFF");
+}
+
 UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
     const TypeAliasType& ta, const std::string& qname, bool cloneForm) {
     const syntax::SyntaxNode* typeSyn = nullptr;
@@ -21266,6 +21309,27 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
             m->VpiValue("STRING:unsized");
             m->VpiConstType(vpiStringConst);
         }
+        else if (ct.kind == SymbolKind::QueueType &&
+                 dimSyn->specifier->as<syntax::QueueDimensionSpecifierSyntax>()
+                     .maxSizeClause &&
+                 boundedQTdShape410(ta)) {
+            // § unitBoundedQTd410 — `[$:N]`: the range at the brackets, `$`
+            // then the bound.
+            auto& qs = dimSyn->specifier->as<syntax::QueueDimensionSpecifierSyntax>();
+            setLoc(r, dimSyn->sourceRange());
+            setLoc(l, qs.dollar.range());
+            l->VpiDecompile("$");
+            l->VpiSize(1);
+            l->VpiValue("STRING:$");
+            l->VpiConstType(vpiUnboundedConst);
+            std::string dg = std::to_string(ct.as<QueueType>().maxBound);
+            setLoc(m, qs.maxSizeClause->expr->sourceRange());
+            m->VpiDecompile(dg);
+            m->VpiSize(64);
+            m->VpiValue("UINT:" + dg);
+            m->VpiConstType(vpiUIntConst);
+            lawTrace(410, "unitBoundedQTd410", std::string(ta.name));
+        }
         else if (ct.kind == SymbolKind::QueueType) {
             auto& qs = dimSyn->specifier->as<syntax::QueueDimensionSpecifierSyntax>();
             setLoc(r, qs.dollar.range());
@@ -21295,7 +21359,7 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
                             .expr;
             auto& ix = *ct.as<AssociativeArrayType>().indexType;
             auto* irt = s.MakeRef_typespec();
-            irt->VpiFullName(std::string(ta.name));
+            irt->VpiFullName(g410AliasClone ? qname : std::string(ta.name));
             // § modAssocMarkerFullName406 (r11u406, R11U406_MODMARKERNAME_OFF;
             // cases AT/at19, at20, at21) — a MODULE-body listing's associative
             // marker names its index reference after the typedef's full path
@@ -22493,7 +22557,9 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                 modulePrefixedStructs.insert(&ct);
             std::string alias = bareRefs ? std::string(ta.name)
                                          : prefix + "." + std::string(ta.name);
+            g410ModStructTd = true;
             auto* sts = buildStructTs(ct.as<PackedStructType>(), true, alias);
+            g410ModStructTd = false;
             if (!bareRefs)
                 sts->VpiParent(m);
             if (typeSyn)
@@ -22579,7 +22645,8 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                  (unitDynTdShape249(ta) ||
                   (unitDynTdShape402(ta) && lawOn(402, "R11U402_ASSOCTD_OFF")) ||
                   (multiDimTdShape406(ta) && lawOn(406, "R11U406_TDMULTIDIM_OFF")) ||
-                  (aliasElemDynTdShape406(ta) && lawOn(406, "R11U406_ALIASELEMDYN_OFF"))) &&
+                  (aliasElemDynTdShape406(ta) && lawOn(406, "R11U406_ALIASELEMDYN_OFF")) ||
+                  boundedQTdShape410(ta)) &&
                  lawOn(249, "R11U249_MODDYNTD_OFF")) {
             bool savedUfE = unfoldedTypedefElemDims;
             std::string savedPfxE = syntaxRefPrefix;
@@ -22600,6 +22667,50 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             ats->VpiParent(m);
             ts = ats;
             lawTrace(249, "modDynArrTd249", prefix + "." + std::string(ta.name));
+        }
+        // § dynTdAliasClone410 (R11U410_DYNTDALIAS_OFF; cases
+        // tools/probe/r11u410repro/cases/YA) — the module-body twin of the
+        // $unit branch (UhdmExporter.cpp): a typedef naming a module-body
+        // dynamic, queue or associative typedef this branch listed is a clone
+        // of that listing named by the new typedef, its references named
+        // `<module>.<new typedef>`, with a vpiTypedefAlias reference to the
+        // named typedef's listing object.
+        else if ((ct.kind == SymbolKind::DynamicArrayType ||
+                  ct.kind == SymbolKind::QueueType ||
+                  ct.kind == SymbolKind::AssociativeArrayType) &&
+                 ta.targetType.getType().kind == SymbolKind::TypeAlias &&
+                 ta.targetType.getType().as<TypeAliasType>().targetType.getType().kind !=
+                     SymbolKind::TypeAlias &&
+                 typedefTs.count(&ta.targetType.getType()) &&
+                 typedefTs[&ta.targetType.getType()] &&
+                 typedefTs[&ta.targetType.getType()]->UhdmType() ==
+                     UHDM::uhdmarray_typespec &&
+                 (unitDynTdShape249(ta.targetType.getType().as<TypeAliasType>()) ||
+                  (unitDynTdShape402(ta.targetType.getType().as<TypeAliasType>()) &&
+                   lawOn(402, "R11U402_ASSOCTD_OFF")) ||
+                  boundedQTdShape410(ta.targetType.getType().as<TypeAliasType>())) &&
+                 lawOn(249, "R11U249_MODDYNTD_OFF") &&
+                 lawOn(410, "R11U410_DYNTDALIAS_OFF")) {
+            auto& ta0 = ta.targetType.getType().as<TypeAliasType>();
+            auto* tgt410 = typedefTs[&ta0];
+            bool savedUfE = unfoldedTypedefElemDims;
+            std::string savedPfxE = syntaxRefPrefix;
+            unfoldedTypedefElemDims = true;
+            syntaxRefPrefix.clear();
+            g249DynRangeReq = true;
+            const std::string q410 = prefix + "." + std::string(ta.name);
+            auto* ats = buildUnpackedArrayTypedefTs(ta0, q410);
+            g249DynRangeReq = false;
+            syntaxRefPrefix = savedPfxE;
+            unfoldedTypedefElemDims = savedUfE;
+            ats->VpiParent(m);
+            auto* art410 = s.MakeRef_typespec();
+            art410->VpiParent(ats);
+            art410->VpiFullName(q410);
+            art410->Actual_typespec(tgt410);
+            ats->Typedef_alias(art410);
+            ts = ats;
+            lawTrace(410, "dynTdAliasClone410", q410);
         }
         else if (ct.kind == SymbolKind::PackedUnionType) {
             // Packed unions mirror packed structs: WHOLE-assigned unions keep
@@ -22864,6 +22975,30 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             ats4->VpiParent(m);
             typedefClone[&ta] = nullptr;
             ts = ats4;
+        }
+        // § modVirtIfaceTd410 (R11U410_MODVIFTD_OFF; cases
+        // tools/probe/r11u410repro/cases/VF, the v11u402 case VV/vv05) — the
+        // module-body twin of § virtIfaceTd402: a module typedef of a virtual
+        // interface (`typedef virtual I vi_t;`) had no branch (`typedef target:
+        // VirtualInterfaceType`, exit 4); golden lists the interface_typespec
+        // the $unit branch builds, parented and Instanced at the module.
+        else if (ct.kind == SymbolKind::VirtualInterfaceType && typeSyn &&
+                 typeSyn->kind == syntax::SyntaxKind::VirtualInterfaceType &&
+                 lawOn(410, "R11U410_MODVIFTD_OFF")) {
+            bool savedBy410 = bypassTypedefShare;
+            bypassTypedefShare = true;
+            auto* vts410 = makeTypespec(ta, typeSyn);
+            bypassTypedefShare = savedBy410;
+            if (!vts410 || vts410->UhdmType() != UHDM::uhdminterface_typespec) {
+                noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
+                continue;
+            }
+            vts410->VpiParent(m);
+            ts = vts410;
+            // The definition's variables typed by it bind a per-variable
+            // aliased copy (the end-of-design pass in UhdmExporter.cpp).
+            g410ModVifTs.insert(vts410);
+            lawTrace(410, "modVirtIfaceTd410", prefix + "." + std::string(ta.name));
         }
         else {
             noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
@@ -24611,6 +24746,30 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 // half: a `$bits(<select>)` written inside a generate block
                 // stays a sys_func_call there too (golden `gen_for >
                 // named_begin(g) > cont_assign > sys_func_call($bits)`).
+                // § modStructMemberBitsTypeFold410 (R11U410_STRUCTBITS_OFF;
+                // cases tools/probe/r11u410repro/cases/SB; sv-tests basejump
+                // bsg_cache_dma_to_wormhole, bsg_wormhole_to_cache_dma_fanout,
+                // _inorder) — inside a MODULE-body packed struct typedef's
+                // member dimensions, `$bits(<typedef name>)` folds to the
+                // type's width (UINT, size 64, at the call) as in a package
+                // typedef: golden SB sb01-sb04 (an imported or local enum,
+                // through a macro or not, instantiated or not).  A keyword
+                // type argument (`$bits(logic [3:0])`, golden UINT:1 at the
+                // name) abstains.
+                if (!foldQuery && g410ModStructTd && currentScope && inv.arguments &&
+                    sysName == "$bits" && inv.arguments->parameters.size() == 1)
+                    if (std::string an410(rawText(inv.arguments->parameters[0]->sourceRange()));
+                        !an410.empty() &&
+                        std::all_of(an410.begin(), an410.end(), [](char ch) {
+                            return std::isalnum((unsigned char)ch) || ch == '_';
+                        }))
+                        if (auto* ty410 = Lookup::unqualified(*currentScope, an410);
+                            ty410 && ty410->kind == SymbolKind::TypeAlias &&
+                            lawOn(410, "R11U410_STRUCTBITS_OFF")) {
+                            foldQuery = true;
+                            lawTrace(410, "modStructMemberBitsTypeFold410",
+                                     std::string(ty410->name));
+                        }
                 if (selBitsArg9 && (lawOn(200, 202, "R11U200_GENBITS_OFF") && !landingOff(202)) &&
                     genBody200(&syn)) {
                     selBitsArg9 = nullptr;
@@ -25437,6 +25596,27 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 }
                 default:
                     break;
+            }
+            // § parenCastNameUnsupTs410 (R11U410_PARENCASTNAME_OFF; cases
+            // tools/probe/r11u410repro/cases/PC, the r11u405 cases SC/sc23,
+            // sc24; sv-tests basejump bsg_decode, bsg_round_robin_n_to_1,
+            // ...) — a PARENTHESIZED name as the cast size (`(w) ' (x)`) is
+            // the bare name's cast to golden: an unsupported_typespec named by
+            // the inner identifier at its own span, not the size-cast
+            // integer_typespec over an expression.
+            if (!cts && ce.left->kind == syntax::SyntaxKind::ParenthesizedExpression &&
+                lawOn(410, "R11U410_PARENCASTNAME_OFF")) {
+                const syntax::SyntaxNode* in410 = ce.left;
+                while (in410->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                    in410 = in410->as<syntax::ParenthesizedExpressionSyntax>()
+                                .expression;
+                if (in410->kind == syntax::SyntaxKind::IdentifierName) {
+                    auto* t = s.MakeUnsupported_typespec();
+                    t->VpiName(std::string(rawText(in410->sourceRange())));
+                    cts = t;
+                    ctsRange = in410->sourceRange();
+                    lawTrace(410, "parenCastNameUnsupTs410", std::string(t->VpiName()));
+                }
             }
             if (!cts) {
                 // Size cast. Parens around the size expression are not part
@@ -28340,6 +28520,14 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                     ranges->push_back(nfr225);
                     if (!next225)
                         break;
+                    dt = next225;
+                    continue;
+                }
+                // § classBoundedQueueMultiDim410 — a hook that answers no
+                // range but names the next level SKIPS this dim (the leading
+                // unsized marker Surelog erases).  The ModuleEmit hook never
+                // answers that way, so its callers are unchanged.
+                if (next225) {
                     dt = next225;
                     continue;
                 }

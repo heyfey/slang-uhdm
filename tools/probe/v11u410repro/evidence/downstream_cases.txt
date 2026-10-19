@@ -1,0 +1,42 @@
+VA_va01 | pristine EQUIVALENT | verified IDENTICAL | 
+VA_va02 | pristine IDENTICAL | verified IDENTICAL | 
+VA_va03 | pristine EQUIVALENT | verified IDENTICAL | 
+VA_va04 | pristine IDENTICAL | verified IDENTICAL | 
+VA_va05 | pristine EQUIVALENT | verified IDENTICAL | 
+VA_va06 | pristine EQUIVALENT | verified EQUIVALENT | nohier
+VA_va07 | pristine DIVERGENT | verified DIVERGENT | nohier il synth
+VG_vg01 | pristine IDENTICAL | verified IDENTICAL | 
+VG_vg02 | pristine IDENTICAL | verified IDENTICAL | 
+VG_vg03 | pristine IDENTICAL | verified IDENTICAL | 
+VG_vg04 | pristine IDENTICAL | verified IDENTICAL | 
+VG_vg05 | pristine IDENTICAL | verified IDENTICAL | 
+VG_vg06 | pristine IDENTICAL | verified IDENTICAL | 
+VG_vg07 | pristine IDENTICAL | verified IDENTICAL | 
+VM_vm01 | pristine IDENTICAL | verified IDENTICAL | 
+VM_vm02 | pristine IDENTICAL | verified IDENTICAL | 
+VM_vm03 | pristine EQUIVALENT | verified EQUIVALENT | nohier
+VM_vm04 | pristine EQUIVALENT | verified EQUIVALENT | nohier
+VP_vp01 | pristine EQUIVALENT | verified EQUIVALENT | nohier il synth
+VP_vp02 | pristine EQUIVALENT | verified EQUIVALENT | nohier il synth
+VP_vp03 | pristine IDENTICAL | verified IDENTICAL | 
+VP_vp04 | pristine EQUIVALENT | verified EQUIVALENT | nohier il synth
+VP_vp05 | pristine EQUIVALENT | verified EQUIVALENT | nohier il synth
+VP_vp06 | pristine STATUS_DIFF | verified STATUS_DIFF | 
+VP_vp07 | pristine EQUIVALENT | verified EQUIVALENT | nohier il synth
+VP_vp08 | pristine EQUIVALENT | verified EQUIVALENT | nohier il
+VS_vs01 | pristine IDENTICAL | verified IDENTICAL | 
+VS_vs02 | pristine IDENTICAL | verified IDENTICAL | 
+VS_vs03 | pristine IDENTICAL | verified IDENTICAL | 
+VS_vs04 | pristine EQUIVALENT | verified IDENTICAL | 
+VS_vs05 | pristine EQUIVALENT | verified IDENTICAL | 
+VU_vu01 | pristine EQUIVALENT | verified IDENTICAL | 
+VU_vu02 | pristine EQUIVALENT | verified EQUIVALENT | nohier
+VU_vu03 | pristine EQUIVALENT | verified IDENTICAL | 
+VV_vv01 | pristine IDENTICAL | verified IDENTICAL | 
+VV_vv02 | pristine EQUIVALENT | verified STATUS_DIFF | 
+VV_vv03 | pristine IDENTICAL | verified IDENTICAL | 
+VY_vy01 | pristine EQUIVALENT | verified IDENTICAL | 
+VY_vy02 | pristine IDENTICAL | verified IDENTICAL | 
+VY_vy03 | pristine EQUIVALENT | verified IDENTICAL | 
+VV_vv04 | pristine STATUS_DIFF | verified STATUS_DIFF | (the $unit twin, Yosys width assert on both)
+VV_vv05 | pristine EQUIVALENT (rc 4 partial db) | verified STATUS_DIFF | Yosys width assert

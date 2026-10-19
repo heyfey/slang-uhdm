@@ -433,7 +433,7 @@ chapter-22/22.4--check_included_definitions.sv,EQUAL,,equal
 chapter-22/22.4--include_basic.sv,EQUAL,,equal
 chapter-22/22.4--include_basic_rpath.sv,EQUAL,,equal
 chapter-22/22.4--include_from_other_directory.sv,EQUAL,,equal
-chapter-22/22.4--include_via_define.sv,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
+chapter-22/22.4--include_via_define.sv,EQUAL,,equal
 chapter-22/22.4--include_with_comment.sv,EQUAL,,equal
 chapter-22/22.5.1--define-expansion_1.sv,EQUAL,,equal
 chapter-22/22.5.1--define-expansion_10.sv,EQUAL,,equal
@@ -463,7 +463,7 @@ chapter-22/22.5.1--define-expansion_8.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-t
 chapter-22/22.5.1--define-expansion_9.sv,EQUAL,,equal
 chapter-22/22.5.1--define.sv,EQUAL,,equal
 chapter-22/22.5.1--define_and_resetall.sv,EQUAL,,equal
-chapter-22/22.5.1--include-define-expansion.sv,STRICT_NOTEQUAL,differ:col(1),differ:col(1)
+chapter-22/22.5.1--include-define-expansion.sv,EQUAL,,equal
 chapter-22/22.5.2--undef-basic.sv,EQUAL,,equal
 chapter-22/22.5.2--undef-nonexisting.sv,EQUAL,,equal
 chapter-22/22.5.3--undefineall-and-redefine.sv,EQUAL,,equal
@@ -901,7 +901,7 @@ generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache.sv,DIFFERENT,decompile:,
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_buffer_queue.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_decode.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_dma.sv,EQUAL,,equal
-generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_dma_to_wormhole.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_dma_to_wormhole.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_miss.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_data_mem.sv,DIFFERENT,decompile:,
@@ -925,8 +925,8 @@ generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram_rx.sv,EQUAL,,equ
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram_rx_reorder.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram_tx.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_nonsynth_cache_axe_tracer.sv,EQUAL,,equal
-generated/basejump/bsg_cache_BaseJumpSTL_bsg_wormhole_to_cache_dma_fanout.sv,DIFFERENT,decompile:,
-generated/basejump/bsg_cache_BaseJumpSTL_bsg_wormhole_to_cache_dma_inorder.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_wormhole_to_cache_dma_fanout.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_wormhole_to_cache_dma_inorder.sv,EQUAL,,equal
 generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen.sv,EQUAL,,equal
 generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_osc.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_osc.sv:10:8: error: design element does not have a time scale defin,
 generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_osc_v3.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_osc_v3.sv:10:8: error: design element does not have a time scale de,
@@ -977,7 +977,7 @@ generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_flow_counter.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_make_2D_array.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_one_fifo.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_one_fifo_bypass.sv,EQUAL,,equal
-generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_parallel_in_serial_out.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_parallel_in_serial_out.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_parallel_in_serial_out_dynamic.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_parallel_in_serial_out_passthrough.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_permute_box.sv,EQUAL,,equal
@@ -987,7 +987,7 @@ generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_relay_fifo.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_1_to_n.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_2_to_2.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo.sv,DIFFERENT,decompile:,
-generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_n_to_1.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_n_to_1.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_sbox.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_scatter_gather.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_serial_in_parallel_out.sv,EQUAL,,equal
@@ -1015,7 +1015,7 @@ generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_mul.sv,EQUAL,,equal
 generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_preprocess.sv,EQUAL,,equal
 generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_sticky.sv,EQUAL,,equal
 generated/basejump/bsg_link_BaseJumpSTL_bsg_link_ddr_downstream.sv,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
-generated/basejump/bsg_link_BaseJumpSTL_bsg_link_ddr_upstream.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_ddr_upstream.sv,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
 generated/basejump/bsg_link_BaseJumpSTL_bsg_link_iddr_phy.sv,EQUAL,,equal
 generated/basejump/bsg_link_BaseJumpSTL_bsg_link_isdr_phy.sv,EQUAL,,equal
 generated/basejump/bsg_link_BaseJumpSTL_bsg_link_oddr_phy.sv,EQUAL,,equal
@@ -1029,7 +1029,7 @@ generated/basejump/bsg_link_BaseJumpSTL_bsg_link_source_sync_downstream.sv,EQUAL
 generated/basejump/bsg_link_BaseJumpSTL_bsg_link_source_sync_upstream.sv,EQUAL,,equal
 generated/basejump/bsg_link_BaseJumpSTL_bsg_link_source_sync_upstream_sync.sv,EQUAL,,equal
 generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w.sv,EQUAL,,equal
-generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_replacement.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_replacement.sv,EQUAL,,equal
 generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_sync.sv,EQUAL,,equal
 generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_sync_unmanaged.sv,EQUAL,,equal
 generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_tag_array.sv,EQUAL,,equal
@@ -1115,7 +1115,7 @@ generated/basejump/bsg_misc_BaseJumpSTL_bsg_crossbar_control_basic_o_by_i.sv,EQU
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_crossbar_control_locking_o_by_i.sv,STRICT_NOTEQUAL,differ:col(1),differ:col(1)
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_crossbar_o_by_i.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_cycle_counter.sv,EQUAL,,equal
-generated/basejump/bsg_misc_BaseJumpSTL_bsg_decode.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_decode.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_decode_thermometer.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_decode_with_v.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_defines.sv,EQUAL,,equal
@@ -1134,11 +1134,11 @@ generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset_set_clear.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset_var_en.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_dlatch.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_edge_detect.sv,EQUAL,,equal
-generated/basejump/bsg_misc_BaseJumpSTL_bsg_encode_one_hot.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_encode_one_hot.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_expand_bitmask.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_gray_to_binary.sv,EQUAL,,equal
-generated/basejump/bsg_misc_BaseJumpSTL_bsg_hash_bank.sv,DIFFERENT,decompile:,
-generated/basejump/bsg_misc_BaseJumpSTL_bsg_hash_bank_reverse.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_hash_bank.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_hash_bank_reverse.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_hashing_ipoly.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_icg_neg.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_icg_pos.sv,EQUAL,,equal
@@ -1200,9 +1200,9 @@ generated/basejump/bsg_misc_BaseJumpSTL_bsg_wait_cycles.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_xnor.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_xor.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_barrier.sv,EQUAL,,equal
-generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router.sv,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router_buffered.sv,EQUAL,,equal
-generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router_decoder_dor.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router_decoder_dor.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch.sv,DIFFERENT,decompile:,
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_to_ring_stitch.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_noc_pkg.sv,EQUAL,,equal
@@ -1213,7 +1213,7 @@ generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_broadcast.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_in.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_out.sv,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
-generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router.sv,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_adapter_in.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_adapter_out.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_decoder_dor.sv,DIFFERENT,decompile:,
@@ -1239,9 +1239,9 @@ generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_rom.sv,DIFFERENT,decomp
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_to_fifo.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3.sv,DIFFERENT,decompile:,
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3_map.sv,EQUAL,,equal
-generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3_unmap.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3_unmap.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_modular_inverse.sv,EQUAL,,equal
-generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ramulator_hbm.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ramulator_hbm.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_random_gen.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_reset_gen.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_sha256.sv,EQUAL,,equal
@@ -2171,9 +2171,9 @@ generic/class/class_test_52.sv,EQUAL,,equal
 generic/class/class_test_53.sv,DIFFERENT,decompile:,
 generic/class/class_test_54.sv,EQUAL,,equal
 generic/class/class_test_55.sv,DIFFERENT,decompile:,
-generic/class/class_test_56.sv,DIFFERENT,decompile:,
-generic/class/class_test_57.sv,DIFFERENT,decompile:,
-generic/class/class_test_58.sv,DIFFERENT,decompile:,
+generic/class/class_test_56.sv,EQUAL,,equal
+generic/class/class_test_57.sv,EQUAL,,equal
+generic/class/class_test_58.sv,EQUAL,,equal
 generic/class/class_test_59.sv,EQUAL,,equal
 generic/class/class_test_6.sv,EQUAL,,equal
 generic/class/class_test_60.sv,EQUAL,,equal
@@ -2221,8 +2221,8 @@ generic/member/class_member_test_11.sv,EQUAL,,equal
 generic/member/class_member_test_12.sv,DIFFERENT,decompile:,
 generic/member/class_member_test_14.sv,EQUAL,,equal
 generic/member/class_member_test_15.sv,EQUAL,,equal
-generic/member/class_member_test_18.sv,DIFFERENT,decompile:,
-generic/member/class_member_test_19.sv,DIFFERENT,decompile:,
+generic/member/class_member_test_18.sv,EQUAL,,equal
+generic/member/class_member_test_19.sv,EQUAL,,equal
 generic/member/class_member_test_2.sv,EQUAL,,equal
 generic/member/class_member_test_25.sv,EQUAL,,equal
 generic/member/class_member_test_26.sv,EQUAL,,equal
@@ -2308,7 +2308,7 @@ generic/typedef/typedef_test_10.sv,EQUAL,,equal
 generic/typedef/typedef_test_11.sv,EQUAL,,equal
 generic/typedef/typedef_test_12.sv,EQUAL,,equal
 generic/typedef/typedef_test_13.sv,EQUAL,,equal
-generic/typedef/typedef_test_14.sv,DIFFERENT,decompile:,
+generic/typedef/typedef_test_14.sv,EQUAL,,equal
 generic/typedef/typedef_test_16.sv,EQUAL,,equal
 generic/typedef/typedef_test_18.sv,DIFFERENT,decompile:,
 generic/typedef/typedef_test_19.sv,EQUAL,,equal
@@ -2328,7 +2328,7 @@ generic/typedef/typedef_test_4.sv,EQUAL,,equal
 generic/typedef/typedef_test_5.sv,EQUAL,,equal
 generic/typedef/typedef_test_6.sv,EQUAL,,equal
 generic/typedef/typedef_test_7.sv,EQUAL,,equal
-generic/typedef/typedef_test_8.sv,DIFFERENT,decompile:,
+generic/typedef/typedef_test_8.sv,EQUAL,,equal
 generic/typedef/typedef_test_8__bad.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generic/typedef/typedef_test_8__bad.sv:18:9: error: use of undeclared identifier 'some_other_type',
 generic/typedef/typedef_test_9.sv,DIFFERENT,decompile:,
 generic/union/union_test_0.sv,EQUAL,,equal

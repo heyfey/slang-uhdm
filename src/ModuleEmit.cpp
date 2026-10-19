@@ -61354,9 +61354,31 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     }
                     else
                         its2 = makeParamTs(*psym, typedP2);
+                    // § genLpUntypedDefNoTs410 (R11U410_GENLPNOTS_OFF; cases
+                    // tools/probe/r11u410repro/cases/GP; sv-tests basejump
+                    // bsg_encode_one_hot, bsg_mesh_router, ...) — in the
+                    // DEFINITION view an UNTYPED generate-block parameter
+                    // carries no typespec at all, whatever its initializer
+                    // reads (golden GP gp01-gp06: a literal `T = 3`, a
+                    // module-parameter fold `S = W >> 1`, inside a loop, an if
+                    // and in an uninstantiated module alike); the clause
+                    // above only dropped it for a genvar-reading initializer.
+                    bool untypedNoTs410 = false;
+                    // A packed range or signing on the implicit type
+                    // (`localparam [31:0] blocks_lp = ...`) keeps it
+                    // (golden bsg_mul_pipelined, GP gp07).
+                    const bool bare410 =
+                        pd.type->kind == syntax::SyntaxKind::ImplicitType &&
+                        pd.type->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                        !pd.type->as<syntax::ImplicitTypeSyntax>().signing;
+                    if (!typedP2 && bare410 && !genvarInit2 &&
+                        lawOn(410, "R11U410_GENLPNOTS_OFF")) {
+                        untypedNoTs410 = true;
+                        lawTrace(410, "genLpUntypedDefNoTs410", branchPrefix + "." + pname);
+                    }
                     if (its2) {
                         defGenLpTs[psym] = its2; // shared into the elab ref
-                        if (!genvarInit2) {
+                        if (!genvarInit2 && !untypedNoTs410) {
                             auto* prt2 = s.MakeRef_typespec();
                             prt2->VpiFullName(branchPrefix + "." + pname);
                             prt2->VpiParent(up2);

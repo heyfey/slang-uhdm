@@ -2544,6 +2544,50 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             return id31;
         return {};
     };
+    // § oobUnitClsTdUnsupported410 (R11U410_OOBUNITCLSTD_OFF; cases
+    // tools/probe/r11u410repro/cases/OT; sv-tests
+    // generic/member/class_member_test_18.sv, _19) — the same placeholder
+    // for a TYPEDEF the class body declares, when the class's home is
+    // `$unit` (its out-of-body FUNCTION listed on the design by
+    // § unitOobFuncOnDesign402): the definition is compiled in `$unit`, where
+    // the class typedef is not in scope, and ElaborationStep's repair map
+    // (typedefs of struct, enum and union kinds) never names a scalar,
+    // vector, atom or string typedef, so `bool x` stays an
+    // unsupported_typespec named as written (golden OT ot01, ot06; a struct
+    // or enum typedef resolves, ot05; a package or module home resolves,
+    // ot02, ot03).
+    auto unitClsTdName410 = [&](const syntax::DataTypeSyntax* tsyn,
+                                const Symbol& sub) -> std::string_view {
+        if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+            return {};
+        auto& nt = tsyn->as<syntax::NamedTypeSyntax>();
+        if (nt.name->kind != syntax::SyntaxKind::IdentifierName)
+            return {};
+        auto id = nt.name->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        auto* cs = sub.getParentScope();
+        if (id.empty() || !cs || cs->asSymbol().kind != SymbolKind::ClassType ||
+            !cs->asSymbol().getParentScope() ||
+            cs->asSymbol().getParentScope()->asSymbol().kind != SymbolKind::CompilationUnit)
+            return {};
+        const Symbol* f = cs->find(id);
+        if (!f || f->kind != SymbolKind::TypeAlias || f->getParentScope() != cs)
+            return {};
+        switch (f->as<TypeAliasType>().targetType.getType().getCanonicalType().kind) {
+            case SymbolKind::EnumType:
+            case SymbolKind::PackedStructType:
+            case SymbolKind::UnpackedStructType:
+            case SymbolKind::PackedUnionType:
+            case SymbolKind::UnpackedUnionType:
+            case SymbolKind::ClassType:
+                return {};
+            default:
+                break;
+        }
+        if (!lawOn(410, "R11U410_OOBUNITCLSTD_OFF"))
+            return {};
+        lawTrace(410, "oobUnitClsTdUnsupported410", std::string(id));
+        return id;
+    };
     // § oobClassTypeParamLocalUnsupported105 — THE BODY-LOCAL HALF OF
     // § oobParamClassTypeParamFormalUnsupported31, decoded from Surelog and
     // measured on golden in both views.
@@ -3167,8 +3211,32 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             arg->getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::FixedSizeUnpackedArrayType)
             if (auto* ranges = buildUnpackedRanges(
-                    *arg, io, ioFull))
+                    *arg, io, ioFull)) {
                 io->Ranges(ranges);
+                // § clsMethodDimRefColons410 (R11U410_CLSDIMREF_OFF; cases
+                // tools/probe/r11u410repro/cases/PD; sv-tests
+                // generic/member/class_member_test_19.sv) — inside a CLASS
+                // method (prototype, in-body or package class) a param-sized
+                // formal dim's reference is named `<formal>::N`, the class
+                // separator, where a module subroutine's is `<formal>.N`.
+                if (classScope && lawOn(410, "R11U410_CLSDIMREF_OFF"))
+                    for (auto* r410 : *ranges) {
+                        auto* ro410 = r410 ? r410->Right_expr() : nullptr;
+                        if (ro410 && ro410->UhdmType() == UHDM::uhdmoperation &&
+                            ((UHDM::operation*)ro410)->Operands())
+                            for (auto* o410 : *((UHDM::operation*)ro410)->Operands())
+                                if (o410->UhdmType() == UHDM::uhdmref_obj) {
+                                    auto* rr = (UHDM::ref_obj*)o410;
+                                    std::string dotted = ioFull + "." + std::string(rr->VpiName());
+                                    if (rr->VpiFullName() == dotted) {
+                                        rr->VpiFullName(ioFull + "::" +
+                                                        std::string(rr->VpiName()));
+                                        lawTrace(410, "clsMethodDimRefColons410",
+                                                 std::string(rr->VpiFullName()));
+                                    }
+                                }
+                    }
+            }
         // A DYNAMIC-array formal (`input real driver []`) gets the
         // unsized range Surelog mints for an unsized_dimension:
         // [0 : "unsized"] (CompileExpression.cpp paUnsized_dimension).
@@ -6124,7 +6192,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // UVM-4, all four tests (`uvm_sequencer`'s REQ/RSP methods, every
             // view).  See the lambda for the matrix and the two open cells.
             std::string_view oobTp31 =
-                oob ? oobClassTypeParamName31(argTsyn) : std::string_view{};
+                oob ? oobClassTypeParamName31(argTsyn)
+                    : (unitOobFn402 ? unitClsTdName410(argTsyn, member)
+                                    : std::string_view{});
             // § classTypeParamTdGroupLastWins33c — see the lambda for the law.
             // IN-BODY only: every measured cell is, and an out-of-body formal
             // written as a type parameter is already owned by
@@ -7911,6 +7981,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                     oobTpLoc105 = {};
                             }
                     }
+                // § oobUnitClsTdUnsupported410 — the body-local half (OT ot04).
+                if (!oob && unitOobFn402)
+                    if (auto* ldt410 = fmv.getDeclaredType())
+                        if (auto& lct410 = ldt410->getType().getCanonicalType();
+                            !lct410.isUnpackedArray())
+                            if (auto* lsyn410 = ldt410->getTypeSyntax())
+                                oobTpLoc105 = unitClsTdName410(lsyn410, member);
                 // § builtinClassLocalUnsupportedBeforeClassPhase115 — the
                 // TYPESPEC half.  Only the KIND, the NAME and the INSTANCE
                 // move; the variable's own span, parent, full name and
