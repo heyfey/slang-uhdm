@@ -150,48 +150,48 @@ chapter-15/15.5.1--named-event-trigger-blocking.sv,EQUAL,,equal
 chapter-15/15.5.1--named-event-trigger-non-blocking.sv,EQUAL,,equal
 chapter-15/15.5.2--named-event-wait.sv,EQUAL,,equal
 chapter-16/16.10--property-local-var-fail.sv,EQUAL,,equal
-chapter-16/16.10--property-local-var-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.10--property-local-var-uvm.sv,EQUAL,,equal
 chapter-16/16.10--property-local-var.sv,EQUAL,,equal
 chapter-16/16.10--sequence-local-var-fail.sv,EQUAL,,equal
-chapter-16/16.10--sequence-local-var-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.10--sequence-local-var-uvm.sv,EQUAL,,equal
 chapter-16/16.10--sequence-local-var.sv,EQUAL,,equal
-chapter-16/16.11--sequence-subroutine-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.11--sequence-subroutine-uvm.sv,EQUAL,,equal
 chapter-16/16.12--property-disable-iff.sv,EQUAL,,equal
 chapter-16/16.12--property-disj.sv,EQUAL,,equal
 chapter-16/16.12--property-iff.sv,EQUAL,,equal
 chapter-16/16.12--property-interface-prec-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.12--property-interface-uvm.sv,DIFFERENT,decompile:,
-chapter-16/16.12--property-prec-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.12--property-prec-uvm.sv,EQUAL,,equal
 chapter-16/16.12--property-prec.sv,EQUAL,,equal
-chapter-16/16.12--property-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.12--property-uvm.sv,EQUAL,,equal
 chapter-16/16.12--property.sv,EQUAL,,equal
-chapter-16/16.13--sequence-multiclock-uvm.sv,DIFFERENT,decompile:,
-chapter-16/16.14--assume-property-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.13--sequence-multiclock-uvm.sv,EQUAL,,equal
+chapter-16/16.14--assume-property-uvm.sv,EQUAL,,equal
 chapter-16/16.14--assume-property.sv,EQUAL,,equal
 chapter-16/16.15--property-disable-iff-fail.sv,SLANG_ONLY,[  ERROR] : 1,
 chapter-16/16.15--property-disable-iff.sv,SLANG_ONLY,[  ERROR] : 1,
 chapter-16/16.15--property-iff-uvm.sv,EQUAL,,equal
 chapter-16/16.17--expect-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.17--expect.sv,EQUAL,,equal
-chapter-16/16.2--assert-final-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.2--assert-final-uvm.sv,EQUAL,,equal
 chapter-16/16.2--assert-final.sv,EQUAL,,equal
-chapter-16/16.2--assert-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.2--assert-uvm.sv,EQUAL,,equal
 chapter-16/16.2--assert.sv,EQUAL,,equal
-chapter-16/16.2--assert0-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.2--assert0-uvm.sv,EQUAL,,equal
 chapter-16/16.2--assert0.sv,EQUAL,,equal
 chapter-16/16.2--assume-final.sv,EQUAL,,equal
-chapter-16/16.2--assume-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.2--assume-uvm.sv,EQUAL,,equal
 chapter-16/16.2--assume.sv,EQUAL,,equal
 chapter-16/16.2--assume0.sv,EQUAL,,equal
 chapter-16/16.2--cover-final.sv,EQUAL,,equal
 chapter-16/16.2--cover.sv,EQUAL,,equal
 chapter-16/16.2--cover0.sv,EQUAL,,equal
-chapter-16/16.7--sequence-and-range-uvm.sv,DIFFERENT,decompile:,
-chapter-16/16.7--sequence-and-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.7--sequence-and-range-uvm.sv,EQUAL,,equal
+chapter-16/16.7--sequence-and-uvm.sv,EQUAL,,equal
 chapter-16/16.7--sequence-intersect-uvm.sv,EQUAL,,equal
-chapter-16/16.7--sequence-or-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.7--sequence-or-uvm.sv,EQUAL,,equal
 chapter-16/16.7--sequence-throughout-uvm.sv,EQUAL,,equal
-chapter-16/16.7--sequence-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.7--sequence-uvm.sv,EQUAL,,equal
 chapter-16/16.7--sequence.sv,EQUAL,,equal
 chapter-16/16.9--sequence-changed-uvm.sv,EQUAL,,equal
 chapter-16/16.9--sequence-cons-repetition.sv,EQUAL,,equal
@@ -495,7 +495,7 @@ chapter-26/26.2--package-decl.sv,EQUAL,,equal
 chapter-26/26.3--package-ref.sv,EQUAL,,equal
 chapter-5/5.10-structure-arrays-illegal.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.10-structure-arrays-illegal.sv:24:20: error: value of type 'int' cannot be assigned to type 'ms_t',
 chapter-5/5.10-structure-arrays.sv,EQUAL,,equal
-chapter-5/5.10-structure-replication.sv,DIFFERENT,decompile:,
+chapter-5/5.10-structure-replication.sv,EQUAL,,equal
 chapter-5/5.10-structures.sv,EQUAL,,equal
 chapter-5/5.11-arrays-key-index.sv,EQUAL,,equal
 chapter-5/5.11-arrays-replication.sv,EQUAL,,equal
@@ -749,7 +749,7 @@ chapter-8/8.21--abstract_class.sv,EQUAL,,equal
 chapter-8/8.21--abstract_class_inst.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.21--abstract_class_inst.sv:33:28: error: cannot create instance of virtual class 'base_cls',
 chapter-8/8.22--dynamic_method_lookup.sv,EQUAL,,equal
 chapter-8/8.23--scope_resolution.sv,EQUAL,,equal
-chapter-8/8.24--out_of_block_methods.sv,DIFFERENT,decompile:,
+chapter-8/8.24--out_of_block_methods.sv,EQUAL,,equal
 chapter-8/8.25--parametrized_class_extend.sv,EQUAL,,equal
 chapter-8/8.25.1--parametrized_class_invalid_scope_resolution.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.25.1--parametrized_class_invalid_scope_resolution.sv:29:26: error: cannot refer to generic class with '::' wit,
 chapter-8/8.25.1--parametrized_class_scope_resolution.sv,EQUAL,,equal
@@ -1428,7 +1428,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p454.sv,SURELOG_ONLY,/home/heyfey
 generated/hdlconv_std2017/hdlconvertor_std2017_p469.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p475.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p482.sv,SLANG_ONLY,[  ERROR] : 3,
-generated/hdlconv_std2017/hdlconvertor_std2017_p488.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p488.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p489.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p490.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p490.sv:7:51: error: use of undeclared identifier 'p',
 generated/hdlconv_std2017/hdlconvertor_std2017_p491.sv,EQUAL,,equal

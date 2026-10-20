@@ -24700,7 +24700,841 @@ UHDM::design* UhdmExporter::exportDesign() {
         // final: the type parameter's object as the last type-parameter
         // rebind left it (grid TB, probe r11u45repro g10).
         bindTpUseVars291(s);
-        return anonAggMemberChainName291(s, defGenSelRefChainName287(s, d287));
+        UHDM::design* d420 =
+            anonAggMemberChainName291(s, defGenSelRefChainName287(s, d287));
+        // § pkgLateTsNetCapture420 (r11u420) — A PACKAGE FOREACH'S ARRAY
+        // TYPESPEC IS CAPTURED BY THE FIRST IMPORTING INSTANCE'S SAME-NAMED
+        // NET.  Surelog compiles a foreach's array identifier with
+        // compileVariable (CompileStmt.cpp paFOREACH -> CompileType.cpp): a
+        // plain name that is no type reads as a ref_var over an
+        // unsupported_typespec named after the identifier, registered with
+        // needLateTypedefBinding on the component being compiled -- the
+        // ELABORATED package for the subroutines and class methods of the
+        // topPackages listing.  importPackage (CompileHelper.cpp) copies the
+        // package's whole late-typedef list into every design component that
+        // imports it (a file-level import item of the component's file, or an
+        // import in its body; the object filter of an explicit import is not
+        // applied to that list), and ElaborationStep::bindTypedefsPostElab_
+        // walks the instance tree breadth first from the top instances,
+        // resolving each listed name against the instance's netlist nets,
+        // then its variables: the first instance holding a net or variable
+        // of the array's name wins (swap map emplace, first writer) and the
+        // reference takes THAT net's typespec, where the late binder would
+        // have read the array declaration's own.  sv-tests chapter-16
+        // `*-uvm.sv`: `import uvm_pkg::*;` above `interface adder_if(output
+        // reg [7:0] b, ...)` makes uvm_reg_block::find_blocks's
+        // `foreach (b[i])` over `uvm_reg_block b[$]` bind work@top.dif.b's
+        // logic_typespec in the topPackages copy of uvm_pkg (golden 38:12),
+        // ours the queue's array_typespec at uvm_reg_block.svh 1304:22 (the
+        // rows' uhdm-cmp head; uvm_mem::get_addresses's `addr` the same with
+        // an interface net addr).  The allPackages copy is compiled against
+        // the unelaborated package and keeps the array's typespec.  Grid
+        // tools/probe/r11u420repro/cases/FN.  Switch R11U420_FOREACHNETCAP_OFF.
+        const bool arrCap420 = lawOn(420, "R11U420_FOREACHNETCAP_OFF");
+        if (d420 && d420->TopPackages() && d420->TopModules() &&
+            (arrCap420 || lawOn(420, "R11U420_LOOPVARCAP_OFF"))) {
+            std::set<const UHDM::any*> topPk420;
+            for (auto* p420 : *d420->TopPackages())
+                topPk420.insert(p420);
+            // the candidate references, per top package, in id order
+            std::vector<UHDM::foreach_stmt*> fes420;
+            for (auto& kv : s.AllObjects()) {
+                auto* o = (UHDM::any*)kv.first;
+                if (o && o->UhdmType() == UHDM::uhdmforeach_stmt)
+                    fes420.push_back((UHDM::foreach_stmt*)o);
+            }
+            std::sort(fes420.begin(), fes420.end(),
+                      [](const UHDM::any* a, const UHDM::any* b) {
+                          return a->UhdmId() < b->UhdmId();
+                      });
+            std::map<std::string, std::vector<UHDM::ref_var*>> cand420;
+            std::map<std::string, std::vector<std::pair<UHDM::foreach_stmt*, size_t>>>
+                lvCand420;
+            for (auto* fe : fes420) {
+                const UHDM::any* a = fe->VpiParent();
+                for (int g = 0; a && g < 256 && !topPk420.count(a); g++) {
+                    auto k = a->UhdmType();
+                    if (k == UHDM::uhdmpackage || k == UHDM::uhdmmodule_inst ||
+                        k == UHDM::uhdminterface_inst || k == UHDM::uhdmprogram ||
+                        k == UHDM::uhdmdesign) {
+                        a = nullptr;
+                        break;
+                    }
+                    a = a->VpiParent();
+                }
+                if (!a || !topPk420.count(a))
+                    continue;
+                // § pkgLateTsLoopVarCapture420 — the loop variables are on the
+                // same list (CompileStmt.cpp paFOREACH: a ref_var over an
+                // unsupported_typespec of its name per loop variable)
+                if (auto* lvs = fe->VpiLoopVars())
+                    for (size_t li = 0; li < lvs->size(); li++) {
+                        auto* lv = (*lvs)[li];
+                        if (!lv || lv->UhdmType() == UHDM::uhdmoperation ||
+                            !any_cast<UHDM::variables*>(lv))
+                            continue;
+                        // an in-body class method's loop variable keeps its
+                        // placeholder (not on the package's list, FN/fn01)
+                        if (auto* lrt = ((UHDM::variables*)lv)->Typespec();
+                            lv->UhdmType() == UHDM::uhdmref_var &&
+                            (!lrt || !lrt->Actual_typespec() ||
+                             lrt->Actual_typespec()->UhdmType() ==
+                                 UHDM::uhdmunsupported_typespec))
+                            continue;
+                        std::string ln(lv->VpiName());
+                        if (ln.empty() || ln.find_first_of(".:[") != std::string::npos)
+                            continue;
+                        lvCand420[std::string(a->VpiName()) + "|" + ln].push_back({fe, li});
+                    }
+                auto* v = fe->Variable();
+                if (!arrCap420 || !v || v->UhdmType() != UHDM::uhdmref_var)
+                    continue;
+                auto* rv = (UHDM::ref_var*)v;
+                std::string nm(rv->VpiName());
+                if (nm.empty() || nm.find_first_of(".:[") != std::string::npos ||
+                    !rv->Typespec())
+                    continue;
+                // an in-body class method is compiled against its CLASS, whose
+                // late list no instance reads: its reference keeps Surelog's
+                // unsupported_typespec placeholder (probe FN/fn01); only the
+                // package's own subroutines and its out-of-body methods are on
+                // the package's list
+                if (auto* act = rv->Typespec()->Actual_typespec();
+                    !act || act->UhdmType() == UHDM::uhdmunsupported_typespec)
+                    continue;
+                cand420[std::string(a->VpiName()) + "|" + nm].push_back(rv);
+            }
+            std::set<std::string> keys420;
+            for (auto& kv : cand420)
+                keys420.insert(kv.first);
+            if (lawOn(420, "R11U420_LOOPVARCAP_OFF"))
+                for (auto& kv : lvCand420)
+                    keys420.insert(kv.first);
+            if (!keys420.empty()) {
+                // each definition's imported packages: an import item in its
+                // own declaration (header or body, nested declarations
+                // excluded) or at file level in its file
+                std::map<std::string, std::set<std::string>> fileImp420;
+                for (auto* unit : comp.getCompilationUnits())
+                    for (auto& mem : unit->members())
+                        if (mem.kind == SymbolKind::WildcardImport)
+                            fileImp420[rootFilePath(mem.location)].insert(
+                                std::string(mem.as<WildcardImportSymbol>().packageName));
+                        else if (mem.kind == SymbolKind::ExplicitImport)
+                            fileImp420[rootFilePath(mem.location)].insert(
+                                std::string(mem.as<ExplicitImportSymbol>().packageName));
+                std::map<std::string, std::set<std::string>> defImp420;
+                for (auto* dsym : comp.getDefinitions()) {
+                    if (!dsym || dsym->kind != SymbolKind::Definition)
+                        continue;
+                    auto& def = dsym->as<DefinitionSymbol>();
+                    auto& imps = defImp420[std::string(def.name)];
+                    if (auto fit = fileImp420.find(rootFilePath(def.location));
+                        fit != fileImp420.end())
+                        imps.insert(fit->second.begin(), fit->second.end());
+                    if (auto* syn = def.getSyntax()) {
+                        std::function<void(const syntax::SyntaxNode&, bool)> w =
+                            [&](const syntax::SyntaxNode& n, bool top) {
+                                auto k = n.kind;
+                                if (!top && (k == syntax::SyntaxKind::ModuleDeclaration ||
+                                             k == syntax::SyntaxKind::InterfaceDeclaration ||
+                                             k == syntax::SyntaxKind::ProgramDeclaration ||
+                                             k == syntax::SyntaxKind::ClassDeclaration))
+                                    return;
+                                if (k == syntax::SyntaxKind::PackageImportItem) {
+                                    imps.insert(std::string(
+                                        n.as<syntax::PackageImportItemSyntax>()
+                                            .package.valueText()));
+                                    return;
+                                }
+                                for (size_t i = 0; i < n.getChildCount(); i++)
+                                    if (auto* c = n.childNode(i))
+                                        w(*c, false);
+                            };
+                        w(*syn, true);
+                    }
+                }
+                // breadth first over the elaborated instances, children in
+                // instantiation (source) order, generate scopes transparent
+                std::map<std::string, const UHDM::typespec*> cap420;
+                std::set<std::string> seen420;
+                std::deque<const UHDM::instance*> q420;
+                for (auto* t : *d420->TopModules())
+                    q420.push_back(t);
+                auto kids420 = [](const UHDM::instance* in) {
+                    std::vector<const UHDM::instance*> out;
+                    std::function<void(const UHDM::any*)> add =
+                        [&](const UHDM::any* sc) {
+                            auto take = [&](auto* vec) {
+                                if (vec)
+                                    for (auto* x : *vec)
+                                        out.push_back(x);
+                            };
+                            if (sc->UhdmType() == UHDM::uhdmgen_scope) {
+                                auto* g = (const UHDM::gen_scope*)sc;
+                                take(g->Modules());
+                                take(g->Interfaces());
+                                take(g->Programs());
+                                if (g->Gen_scope_arrays())
+                                    for (auto* ga : *g->Gen_scope_arrays())
+                                        if (ga->Gen_scopes())
+                                            for (auto* gs : *ga->Gen_scopes())
+                                                add(gs);
+                                return;
+                            }
+                            auto* i = (const UHDM::instance*)sc;
+                            take(i->Programs());
+                            const UHDM::VectorOfgen_scope_array* gsa = nullptr;
+                            if (sc->UhdmType() == UHDM::uhdmmodule_inst) {
+                                auto* m = (const UHDM::module_inst*)sc;
+                                take(m->Modules());
+                                take(m->Interfaces());
+                                gsa = m->Gen_scope_arrays();
+                            } else if (sc->UhdmType() == UHDM::uhdminterface_inst) {
+                                auto* m = (const UHDM::interface_inst*)sc;
+                                take(m->Interfaces());
+                                gsa = m->Gen_scope_arrays();
+                            }
+                            if (gsa)
+                                for (auto* ga : *gsa)
+                                    if (ga->Gen_scopes())
+                                        for (auto* gs : *ga->Gen_scopes())
+                                            add(gs);
+                        };
+                    add(in);
+                    std::stable_sort(out.begin(), out.end(),
+                                     [](const UHDM::instance* a, const UHDM::instance* b) {
+                                         if (a->VpiLineNo() != b->VpiLineNo())
+                                             return a->VpiLineNo() < b->VpiLineNo();
+                                         return a->VpiColumnNo() < b->VpiColumnNo();
+                                     });
+                    return out;
+                };
+                while (!q420.empty()) {
+                    auto* in = q420.front();
+                    q420.pop_front();
+                    for (auto* k : kids420(in))
+                        q420.push_back(k);
+                    std::string dn(in->VpiDefName());
+                    if (auto at = dn.find('@'); at != std::string::npos)
+                        dn = dn.substr(at + 1);
+                    auto dit = defImp420.find(dn);
+                    if (dit == defImp420.end() || dit->second.empty())
+                        continue;
+                    for (auto& key : keys420) {
+                        auto bar = key.find('|');
+                        std::string pk = key.substr(0, bar), nm = key.substr(bar + 1);
+                        if (seen420.count(key) || !dit->second.count(pk))
+                            continue;
+                        const UHDM::typespec* ts = nullptr;
+                        bool found = false;
+                        if (in->Nets())
+                            for (auto* n : *in->Nets())
+                                if (n->VpiName() == nm) {
+                                    found = true;
+                                    if (n->Typespec())
+                                        ts = n->Typespec()->Actual_typespec();
+                                    break;
+                                }
+                        if (!ts && in->Variables())
+                            for (auto* v : *in->Variables())
+                                if (v->VpiName() == nm) {
+                                    found = true;
+                                    if (v->Typespec())
+                                        ts = v->Typespec()->Actual_typespec();
+                                    break;
+                                }
+                        if (!found)
+                            continue;
+                        seen420.insert(key);
+                        if (ts)
+                            cap420[key] = ts;
+                        else
+                            lawTrace(420, "pkgLateTsNetCapture420",
+                                     "abstain-no-typespec " + key + " " +
+                                         std::string(in->VpiFullName()));
+                    }
+                }
+                std::map<const UHDM::any*, UHDM::any*> lvRebind420;
+                for (auto& [key, ts] : cap420) {
+                    if (auto it = cand420.find(key); it != cand420.end())
+                        for (auto* rv : it->second) {
+                            if (rv->Typespec()->Actual_typespec() == ts)
+                                continue;
+                            rv->Typespec()->Actual_typespec((UHDM::typespec*)ts);
+                            lawTrace(420, "pkgLateTsNetCapture420",
+                                     key + " " + std::string(rv->VpiFullName()));
+                        }
+                    // § pkgLateTsLoopVarCapture420 (r11u420) — A CAPTURED
+                    // LOOP VARIABLE STAYS A ref_var.  The loop variable's
+                    // typespec is swapped like the array's, so the writer's
+                    // late typedef binder (UhdmWriter::lateTypedefBinding)
+                    // no longer sees an unsupported_typespec and never runs
+                    // swapForSpecifiedVar: golden keeps the ref_var over
+                    // the captured net's typespec where ours writes the
+                    // swapped int_var / array_var.  The body's references
+                    // to it are then left to the late binder, whose foreach
+                    // branch skips a ref_var: the first module definition that
+                    // imports the package (the design's module order, as for
+                    // § hoistNetsFirstModule418) binds them to its own net of
+                    // that name (sv-tests chapter-16/16.2--assert-uvm.sv:
+                    // uvm_component::m_set_full_name's `foreach
+                    // (m_children[c])` with adder_if's `input [8:0] c`: golden
+                    // ref_var c over 39:11's logic_typespec, `m_children[c]`'s
+                    // c bound to work@adder.c).  When that module declares no
+                    // such net golden mints one (probe FN/fn06); not written,
+                    // the law abstains there.  Grid tools/probe/r11u420repro/
+                    // cases/FN.  Switch R11U420_LOOPVARCAP_OFF.
+                    auto lit = lvCand420.find(key);
+                    if (lit == lvCand420.end() || !lawOn(420, "R11U420_LOOPVARCAP_OFF"))
+                        continue;
+                    std::string pk = key.substr(0, key.find('|'));
+                    std::string nm = key.substr(key.find('|') + 1);
+                    UHDM::any* bind = nullptr;
+                    UHDM::module_inst* mintIn = nullptr;
+                    if (d420->AllModules())
+                        for (auto* md : *d420->AllModules()) {
+                            std::string dn(md->VpiDefName());
+                            if (auto at = dn.find('@'); at != std::string::npos)
+                                dn = dn.substr(at + 1);
+                            auto dit = defImp420.find(dn);
+                            if (dit == defImp420.end() || !dit->second.count(pk))
+                                continue;
+                            if (md->Nets())
+                                for (auto* n : *md->Nets())
+                                    if (n->VpiName() == nm) {
+                                        bind = n;
+                                        break;
+                                    }
+                            if (!bind)
+                                mintIn = md;
+                            break;
+                        }
+                    if (!bind && !mintIn) {
+                        lawTrace(420, "pkgLateTsLoopVarCapture420",
+                                 "abstain-no-module " + key);
+                        continue;
+                    }
+                    if (!bind) {
+                        // the late binder's mint (UhdmWriter::lateBinding):
+                        // a bare wire in that module at the first reference,
+                        // no file (§ implicitNetNoFile119), every reference
+                        // bound to it (probe FN/fn06, fn14)
+                        std::set<const UHDM::any*> olds;
+                        for (auto& [fe, li] : lit->second)
+                            olds.insert((*fe->VpiLoopVars())[li]);
+                        const UHDM::ref_obj* first = nullptr;
+                        for (auto& kv : s.AllObjects()) {
+                            auto* o = (const UHDM::any*)kv.first;
+                            if (!o || o->UhdmType() != UHDM::uhdmref_obj ||
+                                !olds.count(((const UHDM::ref_obj*)o)->Actual_group()))
+                                continue;
+                            if (!first || o->UhdmId() < first->UhdmId())
+                                first = (const UHDM::ref_obj*)o;
+                        }
+                        if (!first) {
+                            lawTrace(420, "pkgLateTsLoopVarCapture420",
+                                     "abstain-no-reference " + key);
+                            continue;
+                        }
+                        auto* inet = s.MakeLogic_net();
+                        inet->VpiName(nm);
+                        std::string mdn(mintIn->VpiDefName());
+                        inet->VpiFullName(mdn + "." + nm);
+                        inet->VpiParent(mintIn);
+                        inet->VpiNetType(1);
+                        inet->VpiLineNo(first->VpiLineNo());
+                        inet->VpiColumnNo(first->VpiColumnNo());
+                        inet->VpiEndLineNo(first->VpiEndLineNo());
+                        inet->VpiEndColumnNo(first->VpiEndColumnNo());
+                        auto* nv = mintIn->Nets();
+                        if (!nv) {
+                            nv = s.MakeNetVec();
+                            mintIn->Nets(nv);
+                        }
+                        nv->push_back(inet);
+                        bind = inet;
+                        lawTrace(420, "pkgLateTsLoopVarCapture420",
+                                 "mint " + mdn + "." + nm);
+                    }
+                    for (auto& [fe, li] : lit->second) {
+                        auto* old = (UHDM::variables*)(*fe->VpiLoopVars())[li];
+                        auto* nrv = s.MakeRef_var();
+                        nrv->VpiName(std::string(old->VpiName()));
+                        nrv->VpiFullName(std::string(old->VpiFullName()));
+                        nrv->VpiFile(std::string(old->VpiFile()));
+                        nrv->VpiLineNo(old->VpiLineNo());
+                        nrv->VpiColumnNo(old->VpiColumnNo());
+                        nrv->VpiEndLineNo(old->VpiEndLineNo());
+                        nrv->VpiEndColumnNo(old->VpiEndColumnNo());
+                        nrv->VpiParent(fe);
+                        auto* rt = s.MakeRef_typespec();
+                        rt->VpiFullName(std::string(old->VpiFullName()));
+                        rt->VpiParent(nrv);
+                        rt->Actual_typespec((UHDM::typespec*)ts);
+                        nrv->Typespec(rt);
+                        (*fe->VpiLoopVars())[li] = nrv;
+                        lvRebind420[old] = bind;
+                        lawTrace(420, "pkgLateTsLoopVarCapture420",
+                                 key + " " + std::string(old->VpiFullName()));
+                    }
+                }
+                if (!lvRebind420.empty()) {
+                    std::vector<UHDM::ref_obj*> ros420;
+                    for (auto& kv : s.AllObjects()) {
+                        auto* o = (UHDM::any*)kv.first;
+                        if (o && o->UhdmType() == UHDM::uhdmref_obj)
+                            ros420.push_back((UHDM::ref_obj*)o);
+                    }
+                    std::sort(ros420.begin(), ros420.end(),
+                              [](const UHDM::any* a, const UHDM::any* b) {
+                                  return a->UhdmId() < b->UhdmId();
+                              });
+                    for (auto* ro : ros420)
+                        if (auto it = lvRebind420.find(ro->Actual_group());
+                            it != lvRebind420.end())
+                            ro->Actual_group(it->second);
+                }
+            }
+        }
+        // § contAssignVarInitRhsShared420 (r11u420) — AN ELABORATED
+        // CONTINUOUS ASSIGNMENT WITH AN UNTYPED LEFT SIDE READING AN INTEGER
+        // VARIABLE TAKES THE VARIABLE'S OWN INITIALIZER CONSTANT.
+        // UhdmWriter::writeCont_assign reduces the elaborated right side with
+        // reduceExpr, whose ref_obj branch reaches CompileHelper::getObject
+        // (CompileExpression.cpp): an instance netlist VARIABLE of kind int,
+        // integer, real, shortint or longint with an initializer answers the
+        // initializer expression ITSELF.  A constant result is installed as
+        // the right side after adjustSize(tps, ..., uniquify) with `tps` the
+        // left side's typespec; a hier_path left side carries none (an
+        // interface member, `assign dif.in = cycle;`), so the very object is
+        // installed and re-parented at the assignment: golden lists the
+        // variable's initializer constant as the right side, its vpiParent
+        // the cont_assign (the last such assignment when several read it),
+        // where ours kept the ref_obj (sv-tests chapter-16/16.10--property-
+        // local-var-uvm.sv, 16.10--sequence-local-var-uvm.sv and 16.11--
+        // sequence-subroutine-uvm.sv: `int cycle = 0; ... assign dif.in =
+        // cycle;`, their last strict face).  A logic, bit or byte variable is
+        // not answered (cases/CR/cr06); a ref_obj left side is typed and
+        // takes a resized copy (pristine's answer, cr02).  Elaborated module
+        // and interface instances only; generate scopes are not reached.
+        // Grid tools/probe/r11u420repro/cases/CR.  Switch
+        // R11U420_CAVARINIT_OFF.
+        if (d420 && d420->TopModules() && lawOn(420, "R11U420_CAVARINIT_OFF")) {
+            std::set<const UHDM::any*> defCas;
+            auto addDef = [&](auto* vec) {
+                if (vec)
+                    for (auto* md : *vec)
+                        if (md->Cont_assigns())
+                            for (auto* ca : *md->Cont_assigns())
+                                defCas.insert(ca);
+            };
+            addDef(d420->AllModules());
+            addDef(d420->AllInterfaces());
+            std::function<void(const UHDM::any*)> walk = [&](const UHDM::any* sc) {
+                const UHDM::VectorOfcont_assign* cas = nullptr;
+                const UHDM::VectorOfvariables* vars = nullptr;
+                std::vector<const UHDM::any*> kids;
+                auto take = [&](auto* vec) {
+                    if (vec)
+                        for (auto* x : *vec)
+                            kids.push_back(x);
+                };
+                if (sc->UhdmType() == UHDM::uhdmmodule_inst) {
+                    auto* m = (const UHDM::module_inst*)sc;
+                    cas = m->Cont_assigns();
+                    vars = m->Variables();
+                    take(m->Modules());
+                    take(m->Interfaces());
+                } else if (sc->UhdmType() == UHDM::uhdminterface_inst) {
+                    auto* m = (const UHDM::interface_inst*)sc;
+                    cas = m->Cont_assigns();
+                    vars = m->Variables();
+                    take(m->Interfaces());
+                }
+                if (cas && vars)
+                    for (size_t ci = 0; ci < cas->size(); ci++) {
+                        auto* ca = (*cas)[ci];
+                        if (!ca->Lhs() || !ca->Rhs() ||
+                            ca->Lhs()->UhdmType() != UHDM::uhdmhier_path ||
+                            ca->Rhs()->UhdmType() != UHDM::uhdmref_obj)
+                            continue;
+                        auto* ro = (const UHDM::ref_obj*)ca->Rhs();
+                        for (auto* v : *vars) {
+                            if (v->VpiName() != ro->VpiName())
+                                continue;
+                            auto k = v->UhdmType();
+                            auto* ex = v->Expr();
+                            if ((k == UHDM::uhdmint_var || k == UHDM::uhdminteger_var ||
+                                 k == UHDM::uhdmreal_var || k == UHDM::uhdmshort_int_var ||
+                                 k == UHDM::uhdmlong_int_var) &&
+                                ex && ex->UhdmType() == UHDM::uhdmconstant) {
+                                // the elaborated assignment is Surelog's
+                                // clone (writeCont_assign's clone_tree) where
+                                // ours shares the definition's object: write
+                                // the clone, its left side a copy of the
+                                // written hier_path
+                                UHDM::cont_assign* el = (UHDM::cont_assign*)ca;
+                                if (defCas.count(ca)) {
+                                    el = s.MakeCont_assign();
+                                    el->VpiFile(std::string(ca->VpiFile()));
+                                    el->VpiLineNo(ca->VpiLineNo());
+                                    el->VpiColumnNo(ca->VpiColumnNo());
+                                    el->VpiEndLineNo(ca->VpiEndLineNo());
+                                    el->VpiEndColumnNo(ca->VpiEndColumnNo());
+                                    el->VpiNetDeclAssign(ca->VpiNetDeclAssign());
+                                    el->VpiStrength0(ca->VpiStrength0());
+                                    el->VpiStrength1(ca->VpiStrength1());
+                                    el->Delay((UHDM::expr*)ca->Delay());
+                                    UHDM::ElaboratorContext ctx(&s, false, true);
+                                    auto* lc = (UHDM::expr*)UHDM::clone_tree(
+                                        (UHDM::any*)ca->Lhs(), &ctx);
+                                    lc->VpiParent(el);
+                                    el->Lhs(lc);
+                                    el->VpiParent((UHDM::any*)sc);
+                                    (*(UHDM::VectorOfcont_assign*)cas)[ci] = el;
+                                }
+                                el->Rhs((UHDM::expr*)ex);
+                                ((UHDM::any*)ex)->VpiParent(el);
+                                lawTrace(420, "contAssignVarInitRhsShared420",
+                                         std::string(v->VpiFullName()));
+                            }
+                            break;
+                        }
+                    }
+                for (auto* k : kids)
+                    walk(k);
+            };
+            for (auto* t : *d420->TopModules())
+                walk(t);
+        }
+        // § ansiNoDirNetPortUntyped420 (r11u420) — A DIRECTION-LESS ANSI
+        // PORT WRITTEN WITH A NET TYPE KEEPS NO TYPE.  In a module header
+        // `module m(wire [31:0] bus, logic clk);` the first port names a net
+        // type but no direction: Surelog's ANSI port compile records the
+        // inout default and drops the written net type and its data type,
+        // so golden lists the port with no vpiTypedef and its net with no
+        // typespec and no vpiNetType, in the definition and in every
+        // elaborated instance; a following port written with no direction
+        // and no type (`wire [7:0] a, b`) inherits the same nothing.  A port
+        // with a direction (`input wire [7:0] a`) or a variable type
+        // (`logic clk`) is unaffected (sv-tests generated/hdlconv_std2017/
+        // hdlconvertor_std2017_p488.sv, its uhdm-cmp head at work@m.bus;
+        // cases AP/ap01, ap02 the inherited port, ap05 a read of the port;
+        // ap03, ap04 controls).  Modules only.  Switch R11U420_ANSINODIR_OFF.
+        if (d420 && lawOn(420, "R11U420_ANSINODIR_OFF")) {
+            std::map<std::string, std::set<std::string>> nodir420;
+            for (auto* dsym : comp.getDefinitions()) {
+                if (!dsym || dsym->kind != SymbolKind::Definition)
+                    continue;
+                auto& def = dsym->as<DefinitionSymbol>();
+                auto* syn = def.getSyntax();
+                if (!syn || syn->kind != syntax::SyntaxKind::ModuleDeclaration)
+                    continue;
+                auto& md = syn->as<syntax::ModuleDeclarationSyntax>();
+                if (!md.header || !md.header->ports ||
+                    md.header->ports->kind != syntax::SyntaxKind::AnsiPortList)
+                    continue;
+                bool inherit = false;
+                for (auto* pm : md.header->ports->as<syntax::AnsiPortListSyntax>().ports) {
+                    if (!pm || pm->kind != syntax::SyntaxKind::ImplicitAnsiPort) {
+                        inherit = false;
+                        continue;
+                    }
+                    auto& ip = pm->as<syntax::ImplicitAnsiPortSyntax>();
+                    bool hit = false;
+                    if (ip.header->kind == syntax::SyntaxKind::NetPortHeader) {
+                        auto& nh = ip.header->as<syntax::NetPortHeaderSyntax>();
+                        hit = !nh.direction && nh.netType;
+                    } else if (ip.header->kind == syntax::SyntaxKind::VariablePortHeader) {
+                        auto& vh = ip.header->as<syntax::VariablePortHeaderSyntax>();
+                        bool bare = !vh.constKeyword && !vh.direction && !vh.varKeyword &&
+                                    vh.dataType->kind == syntax::SyntaxKind::ImplicitType &&
+                                    vh.dataType->as<syntax::ImplicitTypeSyntax>()
+                                        .dimensions.empty() &&
+                                    !vh.dataType->as<syntax::ImplicitTypeSyntax>().signing;
+                        hit = bare && inherit;
+                    }
+                    inherit = hit;
+                    if (hit)
+                        nodir420["work@" + std::string(def.name)].insert(
+                            std::string(ip.declarator->name.valueText()));
+                }
+            }
+            if (!nodir420.empty()) {
+                auto apply = [&](const UHDM::module_inst* m) {
+                    auto it = nodir420.find(std::string(m->VpiDefName()));
+                    if (it == nodir420.end())
+                        return;
+                    if (m->Ports())
+                        for (auto* p : *m->Ports())
+                            if (it->second.count(std::string(p->VpiName())) && p->Typespec()) {
+                                p->Typespec(nullptr);
+                                lawTrace(420, "ansiNoDirNetPortUntyped420",
+                                         std::string(m->VpiFullName()) + "." +
+                                             std::string(p->VpiName()));
+                            }
+                    if (m->Nets())
+                        for (auto* n : *m->Nets())
+                            if (it->second.count(std::string(n->VpiName()))) {
+                                n->Typespec(nullptr);
+                                n->VpiNetType(0);
+                            }
+                };
+                std::function<void(const UHDM::any*)> walk = [&](const UHDM::any* sc) {
+                    if (sc->UhdmType() != UHDM::uhdmmodule_inst)
+                        return;
+                    auto* m = (const UHDM::module_inst*)sc;
+                    apply(m);
+                    if (m->Modules())
+                        for (auto* k : *m->Modules())
+                            walk(k);
+                };
+                if (d420->AllModules())
+                    for (auto* m : *d420->AllModules())
+                        apply(m);
+                if (d420->TopModules())
+                    for (auto* m : *d420->TopModules())
+                        walk(m);
+            }
+        }
+        // § modOutOfBodyMethodIsModuleTf420 (r11u420) — AN OUT-OF-BODY
+        // METHOD DEFINED IN A MODULE IS THE MODULE'S SUBROUTINE.  For a class
+        // declared in a module, `function void C::m(...) ... endfunction`
+        // written in the module body is compiled by CompileModule as one of
+        // the module's own functions, named by its written `C::m`: golden
+        // lists it in the module's vpiTaskFunc (definition and elaborated
+        // instances, one object) as `C::m` with the full name
+        // work@<mod>.C::m and the module as parent and instance, its
+        // locals and references named under that (work@<mod>.C::m.val),
+        // and the class keeps only the extern prototype; a class property
+        // the body reads does not resolve from the module and is minted as
+        // the module's implicit wire at the first reference (late binding)
+        // the reference binds.  Ours listed the definition among the
+        // class's methods (sv-tests chapter-8/8.24--out_of_block_methods.sv,
+        // its uhdm-cmp head at the class_defn; cases OB).  The law abstains
+        // when the body references anything but its own formals and
+        // locals or the class's variables.  Switch R11U420_MODOOBMETHOD_OFF.
+        if (d420 && d420->AllModules() && lawOn(420, "R11U420_MODOOBMETHOD_OFF")) {
+            struct Oob { std::string mod, cls, meth; uint32_t line; };
+            std::vector<Oob> oobs;
+            for (auto* dsym : comp.getDefinitions()) {
+                if (!dsym || dsym->kind != SymbolKind::Definition)
+                    continue;
+                auto& def = dsym->as<DefinitionSymbol>();
+                auto* syn = def.getSyntax();
+                if (!syn || syn->kind != syntax::SyntaxKind::ModuleDeclaration)
+                    continue;
+                for (auto* mem : syn->as<syntax::ModuleDeclarationSyntax>().members) {
+                    if (!mem || (mem->kind != syntax::SyntaxKind::FunctionDeclaration &&
+                                 mem->kind != syntax::SyntaxKind::TaskDeclaration))
+                        continue;
+                    auto& fd = mem->as<syntax::FunctionDeclarationSyntax>();
+                    if (!fd.prototype || !fd.prototype->name ||
+                        fd.prototype->name->kind != syntax::SyntaxKind::ScopedName)
+                        continue;
+                    std::string nm;
+                    for (char ch : fd.prototype->name->toString())
+                        if (!isspace((unsigned char)ch))
+                            nm += ch;
+                    auto cc = nm.find("::");
+                    if (cc == std::string::npos || nm.find("::", cc + 2) != std::string::npos)
+                        continue;
+                    oobs.push_back({"work@" + std::string(def.name), nm.substr(0, cc),
+                                    nm.substr(cc + 2),
+                                    (uint32_t)sm->getLineNumber(
+                                        fd.sourceRange().start())});
+                }
+            }
+            for (auto& ob : oobs) {
+                UHDM::module_inst* md = nullptr;
+                for (auto* m : *d420->AllModules())
+                    if (m->VpiDefName() == ob.mod) {
+                        md = m;
+                        break;
+                    }
+                if (!md || !md->Class_defns())
+                    continue;
+                UHDM::class_defn* cd = nullptr;
+                for (auto* c : *md->Class_defns())
+                    if (c->VpiName() == ob.cls)
+                        cd = c;
+                if (!cd || !cd->Task_funcs())
+                    continue;
+                UHDM::task_func* tf = nullptr;
+                size_t ti = 0;
+                for (size_t i = 0; i < cd->Task_funcs()->size(); i++) {
+                    auto* f = (*cd->Task_funcs())[i];
+                    if (f->VpiName() == ob.meth && f->VpiLineNo() == ob.line && f->Stmt()) {
+                        tf = f;
+                        ti = i;
+                    }
+                }
+                if (!tf)
+                    continue;
+                // the body's references: formals, locals or class variables
+                std::vector<UHDM::ref_obj*> refs, clsRefs;
+                bool other = false;
+                for (auto& kv : s.AllObjects()) {
+                    auto* o = (UHDM::any*)kv.first;
+                    if (!o || o->UhdmType() != UHDM::uhdmref_obj)
+                        continue;
+                    const UHDM::any* a = o->VpiParent();
+                    for (int g = 0; a && a != tf && g < 128; g++)
+                        a = a->VpiParent();
+                    if (a != tf)
+                        continue;
+                    auto* ro = (UHDM::ref_obj*)o;
+                    refs.push_back(ro);
+                    auto* act = ro->Actual_group();
+                    if (!act) {
+                        // a class property the body names, left unbound
+                        if (cd->Variables())
+                            for (auto* cv : *cd->Variables())
+                                if (cv->VpiName() == ro->VpiName()) {
+                                    clsRefs.push_back(ro);
+                                    break;
+                                }
+                        continue;
+                    }
+                    const UHDM::any* ap = act->VpiParent();
+                    if (ap == cd && any_cast<const UHDM::variables*>(act))
+                        clsRefs.push_back(ro);
+                    else {
+                        const UHDM::any* b = ap;
+                        for (int g = 0; b && b != tf && g < 128; g++)
+                            b = b->VpiParent();
+                        if (b != tf)
+                            other = true;
+                    }
+                }
+                if (other) {
+                    lawTrace(420, "modOutOfBodyMethodIsModuleTf420",
+                             "abstain " + ob.mod + "." + ob.cls + "::" + ob.meth);
+                    continue;
+                }
+                std::sort(refs.begin(), refs.end(), [](const UHDM::any* a, const UHDM::any* b) {
+                    return a->UhdmId() < b->UhdmId();
+                });
+                std::sort(clsRefs.begin(), clsRefs.end(),
+                          [](const UHDM::any* a, const UHDM::any* b) {
+                              return a->UhdmId() < b->UhdmId();
+                          });
+                const std::string oldFull(tf->VpiFullName());
+                const std::string newFull = ob.mod + "." + ob.cls + "::" + ob.meth;
+                auto rename = [&](UHDM::BaseClass* o, std::string_view fn,
+                                  auto&& setter) {
+                    std::string f(fn);
+                    if (f == oldFull)
+                        setter(newFull);
+                    else if (f.rfind(oldFull + "::", 0) == 0) {
+                        std::string rest = f.substr(oldFull.size() + 2);
+                        for (size_t p; (p = rest.find("::")) != std::string::npos;)
+                            rest.replace(p, 2, ".");
+                        setter(newFull + "." + rest);
+                    }
+                    (void)o;
+                };
+                // every object under the function (and the function itself)
+                for (auto& kv : s.AllObjects()) {
+                    auto* o = (UHDM::any*)kv.first;
+                    if (!o)
+                        continue;
+                    const UHDM::any* a = o;
+                    for (int g = 0; a && a != tf && g < 128; g++)
+                        a = a->VpiParent();
+                    if (a != tf)
+                        continue;
+#define R420(T)                                                                    \
+    if (o->UhdmType() == UHDM::uhdm##T) {                                          \
+        auto* x = (UHDM::T*)o;                                                     \
+        rename(o, x->VpiFullName(), [&](const std::string& v) { x->VpiFullName(v); }); \
+        continue;                                                                  \
+    }
+                    R420(ref_obj)
+                    R420(bit_select)
+                    R420(part_select)
+                    R420(indexed_part_select)
+                    R420(hier_path)
+                    R420(ref_typespec)
+                    R420(ref_var)
+#undef R420
+                    if (auto* va = any_cast<UHDM::variables*>(o)) {
+                        rename(o, va->VpiFullName(), [&](const std::string& v) { va->VpiFullName(v); });
+                        continue;
+                    }
+                    if (auto* sc = any_cast<UHDM::scope*>(o))
+                        rename(o, sc->VpiFullName(), [&](const std::string& v) { sc->VpiFullName(v); });
+                }
+                tf->VpiName(ob.cls + "::" + ob.meth);
+                tf->VpiFullName(newFull);
+                tf->VpiParent(md);
+                tf->Instance(md);
+                cd->Task_funcs()->erase(cd->Task_funcs()->begin() + ti);
+                auto addTf = [&](UHDM::instance* in) {
+                    auto* v = in->Task_funcs();
+                    if (!v) {
+                        v = s.MakeTask_funcVec();
+                        in->Task_funcs(v);
+                    }
+                    v->push_back(tf);
+                };
+                addTf(md);
+                if (d420->TopModules()) {
+                    std::function<void(UHDM::module_inst*)> walk = [&](UHDM::module_inst* m) {
+                        if (m->VpiDefName() == ob.mod)
+                            addTf(m);
+                        if (m->Modules())
+                            for (auto* k : *m->Modules())
+                                walk(k);
+                    };
+                    for (auto* t : *d420->TopModules())
+                        walk(t);
+                }
+                // class variables read by the body: the module's late-bound
+                // wire at the first reference
+                std::map<std::string, UHDM::any*> minted;
+                for (auto* ro : clsRefs) {
+                    std::string vn(ro->VpiName());
+                    auto it = minted.find(vn);
+                    // a name the module itself declares binds there
+                    if (it == minted.end()) {
+                        UHDM::any* own = nullptr;
+                        if (md->Nets())
+                            for (auto* n : *md->Nets())
+                                if (n->VpiName() == vn)
+                                    own = n;
+                        if (!own && md->Variables())
+                            for (auto* v : *md->Variables())
+                                if (v->VpiName() == vn)
+                                    own = v;
+                        if (own)
+                            it = minted.emplace(vn, own).first;
+                    }
+                    if (it == minted.end()) {
+                        auto* n = s.MakeLogic_net();
+                        n->VpiName(vn);
+                        n->VpiFullName(ob.mod + "." + vn);
+                        n->VpiParent(md);
+                        n->VpiNetType(1);
+                        n->VpiLineNo(ro->VpiLineNo());
+                        n->VpiColumnNo(ro->VpiColumnNo());
+                        n->VpiEndLineNo(ro->VpiEndLineNo());
+                        n->VpiEndColumnNo(ro->VpiEndColumnNo());
+                        auto* nv = md->Nets();
+                        if (!nv) {
+                            nv = s.MakeNetVec();
+                            md->Nets(nv);
+                        }
+                        nv->push_back(n);
+                        it = minted.emplace(vn, n).first;
+                    }
+                    ro->Actual_group(it->second);
+                }
+                lawTrace(420, "modOutOfBodyMethodIsModuleTf420", newFull);
+            }
+        }
+        return d420;
     };
     if (!lawOn(146, "R11U146_TFARGTD_OFF"))
         return final287(finish241());

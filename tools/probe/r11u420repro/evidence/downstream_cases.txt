@@ -1,0 +1,84 @@
+AP/ap01 pristine EQUIVALENT nohier | final IDENTICAL 
+AP/ap02 pristine EQUIVALENT nohier | final IDENTICAL 
+AP/ap03 pristine IDENTICAL  | final IDENTICAL 
+AP/ap04 pristine IDENTICAL  | final IDENTICAL 
+AP/ap05 pristine EQUIVALENT nohier | final IDENTICAL 
+CR/cr01 pristine EQUIVALENT nohier | final IDENTICAL 
+CR/cr02 pristine IDENTICAL  | final IDENTICAL 
+CR/cr03 pristine IDENTICAL  | final IDENTICAL 
+CR/cr04 pristine IDENTICAL  | final IDENTICAL 
+CR/cr05 pristine EQUIVALENT nohier | final IDENTICAL 
+CR/cr06 pristine IDENTICAL  | final IDENTICAL 
+CR/cr07 pristine EQUIVALENT nohier | final EQUIVALENT nohier
+CR/cr08 pristine EQUIVALENT nohier | final IDENTICAL 
+CR/cr09 pristine IDENTICAL  | final IDENTICAL 
+CR/cr10 pristine EQUIVALENT nohier | final IDENTICAL 
+CR/cr11 pristine EQUIVALENT nohier | final IDENTICAL 
+FN/fn01 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+FN/fn02 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+FN/fn03 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+FN/fn04 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+FN/fn05 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+FN/fn06 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+FN/fn07 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+FN/fn08 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+FN/fn09 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+FN/fn10 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+FN/fn11 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+FN/fn12 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+FN/fn13 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+FN/fn14 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+IA/ia01 pristine DIVERGENT nohier | final DIVERGENT nohier
+IA/ia02 pristine EQUIVALENT nohier | final EQUIVALENT nohier
+IA/ia03 pristine EQUIVALENT nohier | final EQUIVALENT nohier
+OB/ob01 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+OB/ob02 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+OB/ob03 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+OB/ob04 pristine SKIP-class-or-package  | final SKIP-class-or-package 
+SA/sa01 pristine IDENTICAL  | final IDENTICAL 
+SA/sa02 pristine IDENTICAL  | final IDENTICAL 
+SA/sa03 pristine IDENTICAL  | final IDENTICAL 
+SA/sa04 pristine IDENTICAL  | final IDENTICAL 
+SA/sa05 pristine IDENTICAL  | final IDENTICAL 
+SA/sa06 pristine IDENTICAL  | final IDENTICAL 
+SA/sa07 pristine IDENTICAL  | final IDENTICAL 
+SA/sa08 pristine IDENTICAL  | final IDENTICAL 
+SA/sa09 pristine IDENTICAL  | final IDENTICAL 
+SA/sa10 pristine IDENTICAL  | final IDENTICAL 
+SA/sa11 pristine IDENTICAL  | final IDENTICAL 
+SA/sa12 pristine IDENTICAL  | final IDENTICAL 
+SA/sa13 pristine IDENTICAL  | final IDENTICAL 
+SA/sa14 pristine IDENTICAL  | final IDENTICAL 
+SA/sa15 pristine IDENTICAL  | final IDENTICAL 
+SA/sa16 pristine IDENTICAL  | final IDENTICAL 
+SA/sa17 pristine IDENTICAL  | final IDENTICAL 
+SA/sa18 pristine IDENTICAL  | final IDENTICAL 
+SA/sa19 pristine IDENTICAL  | final IDENTICAL 
+SA/sa20 pristine IDENTICAL  | final IDENTICAL 
+SA/sa21 pristine EQUIVALENT nohier | final EQUIVALENT nohier
+SQ/sq01 pristine IDENTICAL  | final IDENTICAL 
+SQ/sq02 pristine IDENTICAL  | final IDENTICAL 
+SQ/sq03 pristine IDENTICAL  | final IDENTICAL 
+SQ/sq04 pristine IDENTICAL  | final IDENTICAL 
+SQ/sq05 pristine IDENTICAL  | final IDENTICAL 
+SQ/sq06 pristine IDENTICAL  | final IDENTICAL 
+SQ/sq07 pristine IDENTICAL  | final IDENTICAL 
+SQ/sq08 pristine IDENTICAL  | final IDENTICAL 
+SQ/sq09 pristine IDENTICAL  | final IDENTICAL 
+ST/st01 pristine DIVERGENT nohier | final IDENTICAL 
+ST/st02 pristine IDENTICAL  | final IDENTICAL 
+ST/st03 pristine EQUIVALENT nohier | final EQUIVALENT nohier
+ST/st04 pristine DIVERGENT nohier | final IDENTICAL 
+ST/st05 pristine DIVERGENT nohier | final IDENTICAL 
+ST/st06 pristine EQUIVALENT nohier | final IDENTICAL 
+ST/st07 pristine EQUIVALENT nohier | final EQUIVALENT nohier
+UL/ul01 pristine IDENTICAL  | final IDENTICAL 
+UL/ul02 pristine IDENTICAL  | final IDENTICAL 
+UL/ul03 pristine IDENTICAL  | final IDENTICAL 
+UL/ul04 pristine IDENTICAL  | final IDENTICAL 
+UL/ul05 pristine IDENTICAL  | final IDENTICAL 
+UL/ul06 pristine IDENTICAL  | final IDENTICAL 
+UL/ul07 pristine IDENTICAL  | final IDENTICAL 
+UL/ul08 pristine IDENTICAL  | final IDENTICAL 
+UL/ul09 pristine IDENTICAL  | final IDENTICAL 
+UL/ul10 pristine IDENTICAL  | final IDENTICAL 

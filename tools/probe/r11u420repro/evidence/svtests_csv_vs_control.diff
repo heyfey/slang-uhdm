@@ -1,0 +1,66 @@
+154c154
+< chapter-16/16.10--property-local-var-uvm.sv,DIFFERENT,decompile:,
+---
+> chapter-16/16.10--property-local-var-uvm.sv,EQUAL,,equal
+157,158c157,158
+< chapter-16/16.10--sequence-local-var-uvm.sv,DIFFERENT,decompile:,
+< chapter-16/16.11--sequence-subroutine-uvm.sv,DIFFERENT,decompile:,
+---
+> chapter-16/16.10--sequence-local-var-uvm.sv,EQUAL,,equal
+> chapter-16/16.11--sequence-subroutine-uvm.sv,EQUAL,,equal
+165c165
+< chapter-16/16.12--property-prec-uvm.sv,DIFFERENT,decompile:,
+---
+> chapter-16/16.12--property-prec-uvm.sv,EQUAL,,equal
+167,168c167,168
+< chapter-16/16.12--property-uvm.sv,DIFFERENT,decompile:,
+< chapter-16/16.13--sequence-multiclock-uvm.sv,DIFFERENT,decompile:,
+---
+> chapter-16/16.12--property-uvm.sv,EQUAL,,equal
+> chapter-16/16.13--sequence-multiclock-uvm.sv,EQUAL,,equal
+170c170
+< chapter-16/16.14--assume-property-uvm.sv,DIFFERENT,decompile:,
+---
+> chapter-16/16.14--assume-property-uvm.sv,EQUAL,,equal
+177c177
+< chapter-16/16.2--assert0-uvm.sv,DIFFERENT,decompile:,
+---
+> chapter-16/16.2--assert0-uvm.sv,EQUAL,,equal
+179c179
+< chapter-16/16.2--assert-final-uvm.sv,DIFFERENT,decompile:,
+---
+> chapter-16/16.2--assert-final-uvm.sv,EQUAL,,equal
+181c181
+< chapter-16/16.2--assert-uvm.sv,DIFFERENT,decompile:,
+---
+> chapter-16/16.2--assert-uvm.sv,EQUAL,,equal
+185c185
+< chapter-16/16.2--assume-uvm.sv,DIFFERENT,decompile:,
+---
+> chapter-16/16.2--assume-uvm.sv,EQUAL,,equal
+189,190c189,190
+< chapter-16/16.7--sequence-and-range-uvm.sv,DIFFERENT,decompile:,
+< chapter-16/16.7--sequence-and-uvm.sv,DIFFERENT,decompile:,
+---
+> chapter-16/16.7--sequence-and-range-uvm.sv,EQUAL,,equal
+> chapter-16/16.7--sequence-and-uvm.sv,EQUAL,,equal
+192c192
+< chapter-16/16.7--sequence-or-uvm.sv,DIFFERENT,decompile:,
+---
+> chapter-16/16.7--sequence-or-uvm.sv,EQUAL,,equal
+195c195
+< chapter-16/16.7--sequence-uvm.sv,DIFFERENT,decompile:,
+---
+> chapter-16/16.7--sequence-uvm.sv,EQUAL,,equal
+498c498
+< chapter-5/5.10-structure-replication.sv,DIFFERENT,decompile:,
+---
+> chapter-5/5.10-structure-replication.sv,EQUAL,,equal
+752c752
+< chapter-8/8.24--out_of_block_methods.sv,DIFFERENT,decompile:,
+---
+> chapter-8/8.24--out_of_block_methods.sv,EQUAL,,equal
+1431c1431
+< generated/hdlconv_std2017/hdlconvertor_std2017_p488.sv,DIFFERENT,decompile:,
+---
+> generated/hdlconv_std2017/hdlconvertor_std2017_p488.sv,EQUAL,,equal

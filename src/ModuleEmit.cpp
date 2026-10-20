@@ -5157,6 +5157,13 @@ void clearImplicitNetFiles119() {
     implicitNoFile119().clear();
 }
 
+// § unitVarNetSourceOrder420 — the definition-view wires § unitVarRefMintsNet418
+// minted (see emitModuleDef's end).
+static std::set<const UHDM::any*>& unitVarNets420() {
+    static std::set<const UHDM::any*> v;
+    return v;
+}
+
 // The late-binding mints this file models (a wire minted for a name nothing
 // declares) are the same UhdmWriter.cpp:3987-4005 object: no file either.
 static void noteLateBindNet119(UHDM::BaseClass* n) {
@@ -11012,6 +11019,53 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // branches re-emitted from SYNTAX (unbound refs, name-only calls).
     emitDefGenStmts(body, m, prefix);
 
+    // § unitVarNetSourceOrder420 (r11u420) — A `$unit` VARIABLE'S WIRE TAKES
+    // ITS PLACE AMONG THE LATE-BOUND WIRES BY SOURCE ORDER.  The wire
+    // § unitVarRefMintsNet418 mints is UhdmWriter::lateBinding's, minted when
+    // the module's late-binding list reaches the reference, and the list
+    // holds the module's references in compile order: a property or sequence
+    // local variable's wire (§ assertLocalVarImplicitNet407, minted at its
+    // first reference inside the declaration) that is written BEFORE the
+    // `$unit` variable's first reference is listed before it (sv-tests
+    // chapter-16/16.10--property-local-var-uvm.sv, 16.10--sequence-local-var-
+    // uvm.sv, 16.11--sequence-subroutine-uvm.sv: golden work@top.x 107:72
+    // then work@top.label 118:46, ours label minted ahead of the process
+    // emission and x after it; the rows' uhdm-cmp head).  The wire moves
+    // after the last later-minted wire of the module's file that is written
+    // before it; one written after it stays after it (probe UL/ul02, ul04).
+    // Definition view only (the elaborated view lists neither).  Grid
+    // tools/probe/r11u420repro/cases/UL.  Switch R11U420_UNITVARORDER_OFF.
+    if (m->Nets() && !unitVarNets420().empty() &&
+        lawOn(420, "R11U420_UNITVARORDER_OFF")) {
+        auto* nv = m->Nets();
+        for (size_t i = 0; i < nv->size(); i++) {
+            auto* L = (*nv)[i];
+            if (!unitVarNets420().count(L))
+                continue;
+            size_t last = i;
+            for (size_t j = i + 1; j < nv->size(); j++) {
+                auto* o = (*nv)[j];
+                // the wire's own reference is in the module's text (its
+                // file may name a macro's file when the name is a macro
+                // argument): compare with wires minted in the module's file
+                if (o->VpiFile() != m->VpiFile() || unitVarNets420().count(o))
+                    continue;
+                if (o->VpiLineNo() < L->VpiLineNo() ||
+                    (o->VpiLineNo() == L->VpiLineNo() &&
+                     o->VpiColumnNo() < L->VpiColumnNo()))
+                    last = j;
+            }
+            if (last == i)
+                continue;
+            nv->erase(nv->begin() + i);
+            nv->insert(nv->begin() + last, L);
+            lawTrace(420, "unitVarNetSourceOrder420",
+                     prefix + "." + std::string(L->VpiName()) + " after " +
+                         std::string((*nv)[last - 1]->VpiName()));
+            i--;  // the slot now holds the next net
+        }
+    }
+
     (void)netTsAtEntry;
     (void)topDef;
 
@@ -12092,9 +12146,31 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
             // but the module_array's broadcast HighConn names the WHOLE
             // actual: Surelog builds it from syntax, before elaboration.
             rsym = ax->getSymbolReference();
-        if (!rsym)
-            continue;
         auto* npcA = findConnSyntax(*rep, conn->port.name);
+        // § arrayBcastConcatActual420 (r11u420) — A MODULE ARRAY'S
+        // BROADCAST CONNECTION WRITTEN AS A CONCATENATION KEEPS IT.  Surelog
+        // compiles the module_array's port connection from the syntax
+        // (above), so `.out({bushigh, buslow})` is the concatenation
+        // operation (33) spanning the braces, its operands the written refs
+        // scoped through the array and formal (work@busdriver_equiv.busar.
+        // out.bushigh) and bound to the nets, where ours wrote the slice's
+        // last symbol alone as a ref_obj (sv-tests generated/utd-sv/
+        // utd-sv_std-7.1.6-primitives.sv, its uhdm-cmp head at 12:25; cases
+        // IA/ia01 to ia03).  Named connections of module arrays only.
+        // Switch R11U420_ARRCONCAT_OFF.
+        const syntax::SyntaxNode* cs420 = npcA ? (const syntax::SyntaxNode*)npcA->expr
+                                               : nullptr;
+        if (cs420 && cs420->kind == syntax::SyntaxKind::SimplePropertyExpr)
+            cs420 = cs420->as<syntax::SimplePropertyExprSyntax>().expr;
+        if (cs420 && cs420->kind == syntax::SyntaxKind::SimpleSequenceExpr)
+            cs420 = cs420->as<syntax::SimpleSequenceExprSyntax>().expr;
+        const bool concat420 =
+            !ifaceArr && !orderedA && cs420 &&
+            (cs420->kind == syntax::SyntaxKind::ConcatenationExpression ||
+             cs420->kind == syntax::SyntaxKind::MultipleConcatenationExpression) &&
+            lawOn(420, "R11U420_ARRCONCAT_OFF");
+        if (!rsym && !concat420)
+            continue;
         auto* p = s.MakePort();
         // § arrayBcastPortPositionalNoFormal12: nameless for a POSITIONAL
         // connection, anchored at the ACTUAL (there is no `.formal(actual)`
@@ -12138,15 +12214,22 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
         // different rule (it folds, or keeps a bound ref).
         bool dotA37 = csA && csA->kind == syntax::SyntaxKind::ScopedName &&
                       rawText(csA->sourceRange()).find('.') != std::string::npos;
+        if (concat420)
+            lawTrace(420, "arrayBcastConcatActual420",
+                     prefix + "." + std::string(arr.name) + "." +
+                         std::string(conn->port.name));
         if (!ifaceArr && csA && ax->kind != ExpressionKind::NamedValue &&
             (csA->kind == syntax::SyntaxKind::ElementSelectExpression ||
-             csA->kind == syntax::SyntaxKind::IdentifierSelectName || dotA37)) {
+             csA->kind == syntax::SyntaxKind::IdentifierSelectName || dotA37 ||
+             concat420)) {
             std::string spA = syntaxRefPrefix;
             syntaxRefPrefix = prefix + "." + std::string(arr.name) + "." +
                               std::string(conn->port.name);
             hcA = emitSyntaxExpr(*csA, p);
             syntaxRefPrefix = spA;
         }
+        if (!hcA && !rsym)
+            continue;
         if (!hcA) {
             // § arrayBcastPortPositionalNoFormal12: Surelog leaves this ref's
             // fullname UNSET and lets UHDM compute it at write time by walking
@@ -16858,6 +16941,8 @@ void UhdmExporter::mintUnitEnumNets(const InstanceBodySymbol& body,
                     }
                     nets->push_back(inet);
                     slot[sym] = inet;
+                    if (unitVar418 && defView)
+                        unitVarNets420().insert(inet);
                     // Registering the wire in the view's NetMap is what binds
                     // every reference to it — including inside a named block,
                     // whose emitter works on a COPY of the map.
@@ -21803,6 +21888,31 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 if (!structuredPkgPat && isUnpackedStruct && !it.port)
                     structuredPkgPat = true;
             }
+            // § unpackedStructVarPosInit420 (r11u420) — AN UNPACKED STRUCT
+            // VARIABLE WHOSE MEMBERS MAKE IT A VARIABLE KEEPS A POSITIONAL OR
+            // REPLICATED PATTERN INITIALIZER AS ITS vpiExpr.  The struct_var
+            // route above was taken for a STRUCTURED (`'{X:1, ...}`) pattern
+            // only; a positional `'{1, 2}` or replicated `'{3{1}}` pattern
+            // on an unpacked struct whose member scan demotes it to a
+            // variable (an int member) went the net-decl route, a struct_net
+            // with a cont_assign, where golden lists the struct_var in the
+            // elaborated module's vpiVariables carrying the pattern as its
+            // vpiExpr (sv-tests chapter-5/5.10-structure-replication.sv,
+            // `struct {int X,Y,Z;} XYZ = '{3{1}};`, the row's uhdm-cmp head;
+            // cases ST/st01 replicated, st05 positional anonymous, st04 a
+            // local typedef).  The variable spans its declarator when the
+            // struct is written inline and its name when written through a
+            // typedef (st04 4:8-4:10).  Switch R11U420_USTRUCTPOSINIT_OFF.
+            bool posInit420 = false;
+            if (patternInit && !structuredPkgPat && isUnpackedStruct &&
+                memberDemotesToVar && !it.port &&
+                stripImplicitConv(*it.sym->getDeclaredType()->getInitializer()).kind !=
+                    ExpressionKind::StructuredAssignmentPattern &&
+                !literalInitNet && lawOn(420, "R11U420_USTRUCTPOSINIT_OFF")) {
+                posInit420 = true;
+                structuredPkgPat = true;
+                lawTrace(420, "unpackedStructVarPosInit420", fullName);
+            }
             if (isStruct && it.sym->getDeclaredType()->getInitializer() &&
                 (!patternInit || structuredPkgPat)) {
                 auto* sv = s.MakeStruct_var();
@@ -21813,6 +21923,9 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // written form decides (c_import_structvar_pat spans the
                 // name, c_scoped_structvar_pat the declarator).
                 bool declSpan119 = structuredPkgPat;
+                if (posInit420 &&
+                    it.sym->getDeclaredType()->getType().kind == SymbolKind::TypeAlias)
+                    declSpan119 = false;
                 if (lawOn(119, "R11U119_SCOPEDSPAN_OFF") && !it.port) {
                     auto& dtS = it.sym->getDeclaredType()->getType();
                     if (dtS.kind == SymbolKind::TypeAlias) {
@@ -21830,9 +21943,14 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     rt->VpiParent(sv);
                     sv->Typespec(rt);
                 }
+                // an inline (anonymous) struct's elaborated typespec parents
+                // at the variable (golden st05, st01)
+                if (posInit420 && ts && ts->UhdmType() == UHDM::uhdmstruct_typespec &&
+                    it.sym->getDeclaredType()->getType().kind != SymbolKind::TypeAlias)
+                    ts->VpiParent(sv);
                 bool savedS = suppressConstParent, savedF = forceConstParent;
-                suppressConstParent = !structuredPkgPat;
-                forceConstParent = structuredPkgPat;
+                suppressConstParent = !structuredPkgPat || posInit420;
+                forceConstParent = structuredPkgPat && !posInit420;
                 bool savedRe8 = reemitting;
                 if (structuredPkgPat)
                     reemitting = true;
@@ -21854,6 +21972,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 if (auto* e = initE8) {
                     sv->Expr((UHDM::expr*)e);
                     e->VpiParent(sv);
+
                     // Structured-pkg-pattern var Expr: unsized-decimal
                     // member values keep the 64-bit default size, and the
                     // op carries a NAMELESS ts ref to the shared struct ts
@@ -21882,6 +22001,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         // are [r's 1, th's 170]) is the A/B: EQUAL with the
                         // flatten disabled, unequal with it enabled and this
                         // permute unguarded.
+                        if (!posInit420) {
                         auto& apo8 =
                             stripImplicitConv(*it.sym->getDeclaredType()
                                                    ->getInitializer())
@@ -21906,7 +22026,8 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             if (no8->size() == op8->Operands()->size())
                                 op8->Operands(no8);
                         }
-                        if (!op8->Typespec() && rt && rt->Actual_typespec()) {
+                        }
+                        if (!posInit420 && !op8->Typespec() && rt && rt->Actual_typespec()) {
                             auto* rt8 = s.MakeRef_typespec();
                             rt8->Actual_typespec(rt->Actual_typespec());
                             op8->Typespec(rt8);
@@ -21916,6 +22037,17 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 reemitting = savedRe8;
                 suppressConstParent = savedS;
                 forceConstParent = savedF;
+                // § unpackedStructVarPosInit420 — a replicated pattern's
+                // count constant is sized at the struct's whole width
+                // (golden st01 `'{3{1}}` on three ints: vpiSize 96, st06)
+                if (posInit420 && initE8 && initE8->UhdmType() == UHDM::uhdmoperation &&
+                    stripImplicitConv(*it.sym->getDeclaredType()->getInitializer()).kind ==
+                        ExpressionKind::ReplicatedAssignmentPattern)
+                    if (auto* ops420 = ((UHDM::operation*)initE8)->Operands();
+                        ops420 && !ops420->empty() &&
+                        (*ops420)[0]->UhdmType() == UHDM::uhdmconstant)
+                        ((UHDM::constant*)(*ops420)[0])
+                            ->VpiSize((int)it.sym->getDeclaredType()->getType().getBitstreamWidth());
                 topNets[it.sym] = sv;
                 sigOrder.emplace_back(it.sym, sv);
                 vars->push_back(sv);
@@ -53690,7 +53822,29 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             if (!propDeclScope || tc9->kind != TimingControlKind::SignalEvent)
                 return emitAssertionExpr(cae.expr, parent, prefix, netMap);
             auto* cs = s.MakeClocked_seq();
-            if (tc9->sourceRange.start() != SourceLocation::NoLocation)
+            // § clockedSeqEventSpanBare420 (r11u420) — A NESTED CLOCKED
+            // SEQUENCE SPANS ITS WHOLE WRITTEN EVENT AND NAMES EVERY
+            // REFERENCE BARE.  The clocked_seq is located at the event
+            // control as written, `@(posedge dif.clk1)` from the `@` through
+            // the closing parenthesis (97:46-97:65 in sv-tests chapter-16/
+            // 16.13--sequence-multiclock-uvm.sv), where ours took the timing
+            // control's own range, the event expression inside the
+            // parentheses (97:48-97:64); a parenthesis-less `@clkx` is the
+            // same text either way.  And not only formals: every ref_obj under
+            // it, a member of a hier_path (`dif.clk1`'s clk1) or a module
+            // signal (`b`), has no full name in golden where ours wrote
+            // work@top.seq.<name>, a bit-select's too (the row's last strict
+            // faces after § seqLeadDelayPairUnary420; cases SQ/sq03, sq07,
+            // sq08, sq09).
+            // Switch R11U420_CLOCKEDSEQ_OFF.
+            const bool cs420 = lawOn(420, "R11U420_CLOCKEDSEQ_OFF");
+            const syntax::SyntaxNode* ev420 = nullptr;
+            if (cs420 && ae.syntax &&
+                ae.syntax->kind == syntax::SyntaxKind::ClockingSequenceExpr)
+                ev420 = ae.syntax->as<syntax::ClockingSequenceExprSyntax>().event;
+            if (ev420)
+                setLoc(cs, ev420->sourceRange());
+            else if (tc9->sourceRange.start() != SourceLocation::NoLocation)
                 setLoc(cs, tc9->sourceRange);
             // Every formal ref under a clocked_seq is BARE-named (Surelog
             // scopes them out of the property path: `(clkx)`, `(x)`, `(y)`).
@@ -53701,6 +53855,42 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             if (auto* se9 = emitAssertionExpr(cae.expr, cs, prefix, netMap))
                 cs->VpiSequenceExpr(se9);
             bareFormalRefNames = savedBare9;
+            if (cs420) {
+                std::function<void(UHDM::any*)> bare420 = [&](UHDM::any* x) {
+                    if (!x)
+                        return;
+                    switch (x->UhdmType()) {
+                    case UHDM::uhdmref_obj:
+                        ((UHDM::ref_obj*)x)->VpiFullName("");
+                        return;
+                    case UHDM::uhdmhier_path:
+                        if (auto* v = ((UHDM::hier_path*)x)->Path_elems())
+                            for (auto* e : *v)
+                                bare420(e);
+                        return;
+                    case UHDM::uhdmbit_select:
+                        ((UHDM::bit_select*)x)->VpiFullName("");
+                        bare420(((UHDM::bit_select*)x)->VpiIndex());
+                        return;
+                    case UHDM::uhdmpart_select:
+                        ((UHDM::part_select*)x)->VpiFullName("");
+                        return;
+                    case UHDM::uhdmoperation:
+                        if (auto* v = ((UHDM::operation*)x)->Operands())
+                            for (auto* o : *v)
+                                bare420(o);
+                        return;
+                    case UHDM::uhdmclocked_seq:
+                        bare420(((UHDM::clocked_seq*)x)->VpiClockingEvent());
+                        bare420(((UHDM::clocked_seq*)x)->VpiSequenceExpr());
+                        return;
+                    default:
+                        return;
+                    }
+                };
+                bare420(cs);
+                lawTrace(420, "clockedSeqEventSpanBare420", prefix);
+            }
             return cs;
         }
         case AssertionExprKind::Binary: {
@@ -53754,11 +53944,62 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
                 noteUnsupported("assertion binary op");
                 return nullptr;
             }
+            // § seqAndOrLogOp420 (r11u420) — A SEQUENCE OR PROPERTY `and` /
+            // `or` IS vpiLogAndOp / vpiLogOrOp.  Surelog maps paAND and paOR
+            // through UhdmWriter::getVpiOpType to vpiLogAndOp (26) and
+            // vpiLogOrOp (27) in every assertion context (CompileExpression's
+            // sequence branch and its paProperty_expr branch alike) and never
+            // writes vpiCompAndOp / vpiCompOrOp; ours wrote 79 / 80 (sv-tests
+            // chapter-16/16.7--sequence-and-uvm.sv, 16.7--sequence-or-uvm.sv,
+            // 16.7--sequence-and-range-uvm.sv: `((dif.req ##5 dif.gnt0) and
+            // (dif.req ##8 dif.gnt1)) ##0 dif.gnt2`, the rows' uhdm-cmp head
+            // at 120:29).  Grid tools/probe/r11u420repro/cases/SA.  Switch
+            // R11U420_SEQANDOR_OFF.
+            if ((bae.op == BinaryAssertionOperator::And ||
+                 bae.op == BinaryAssertionOperator::Or) &&
+                lawOn(420, "R11U420_SEQANDOR_OFF")) {
+                opt = bae.op == BinaryAssertionOperator::And ? vpiLogAndOp : vpiLogOrOp;
+                lawTrace(420, "seqAndOrLogOp420",
+                         ae.syntax ? std::string(ae.syntax->toString().substr(0, 60))
+                                   : std::string());
+            }
             auto* op = s.MakeOperation();
             op->VpiOpType(opt);
             op->VpiParent(parent);
-            if (ae.syntax)
-                setLocCompact(op, ae.syntax->sourceRange());
+            if (ae.syntax) {
+                // § assertBinParenSpanInner420 (r11u420) — A PARENTHESIZED
+                // BINARY SEQUENCE OR PROPERTY EXPRESSION SPANS ITS INSIDE.
+                // Surelog locates the operation at the expression node that
+                // holds the two operands and the operator
+                // (populateCoreMembers over the sequence_expr / property_expr
+                // node), and the parentheses belong to the enclosing node:
+                // `((a ##1 b) and (c ##2 d)) ##0 e` puts the `and` at 5:21-
+                // 5:44 where ours took the parenthesized node's 5:20-5:45
+                // (cases SA/sa01, sa05, sa07 intersect, sa10 an implication
+                // operand, sa12; the 16.7 rows' next column).  A parenthesis
+                // carrying a match list or a repetition is its own node and
+                // keeps its span.  Switch R11U420_ASSERTBINPAREN_OFF.
+                const syntax::SyntaxNode* sn420 = ae.syntax;
+                if (lawOn(420, "R11U420_ASSERTBINPAREN_OFF"))
+                    while (true) {
+                        if (sn420->kind == syntax::SyntaxKind::ParenthesizedSequenceExpr) {
+                            auto& ps = sn420->as<syntax::ParenthesizedSequenceExprSyntax>();
+                            if (ps.matchList || ps.repetition)
+                                break;
+                            sn420 = ps.expr;
+                        } else if (sn420->kind ==
+                                   syntax::SyntaxKind::ParenthesizedPropertyExpr) {
+                            auto& pp = sn420->as<syntax::ParenthesizedPropertyExprSyntax>();
+                            if (pp.matchList)
+                                break;
+                            sn420 = pp.expr;
+                        } else
+                            break;
+                        lawTrace(420, "assertBinParenSpanInner420",
+                                 std::string(sn420->toString().substr(0, 60)));
+                    }
+                setLocCompact(op, sn420->sourceRange());
+            }
             auto* operands = s.MakeAnyVec();
             // Surelog builds `throughout`'s left operand in the enclosing
             // context, so it keeps the grandparent as its vpiParent.
@@ -53769,6 +54010,88 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             if (auto* r = emitAssertionExpr(bae.right, op, prefix, netMap))
                 operands->push_back(r);
             op->Operands(operands);
+            // § propAndOrUnparented420 (r11u420) — A PROPERTY-LEVEL `and` /
+            // `or` IS UNPARENTED AND ITS REFERENCES CARRY NO FULL NAME.  When
+            // an operand is a property (an implication, a followed-by,
+            // until, iff, implies, a property `not` / `always` /
+            // `nexttime` / `eventually`, if or case, accept/reject, strong /
+            // weak, disable iff), Surelog reaches the and/or through
+            // CompileExpression's paProperty_expr branch, which builds the
+            // operation (populateCoreMembers over the node) and never sets
+            // its vpiParent, and compiles both operands against the caller's
+            // expression parent, so every reference below it is written with
+            // no full name (cases SA/sa10, sa11, sa14 a bit-select, sa15 and
+            // sa16 a sequence beside a property, sa17 nested under an
+            // implication: golden `ref_obj (a)` where ours wrote
+            // work@top.p.a).  Two sequence operands stay on the sequence branch
+            // (sa02, sa12).  Switch R11U420_PROPANDOR_OFF.
+            if ((bae.op == BinaryAssertionOperator::And ||
+                 bae.op == BinaryAssertionOperator::Or) &&
+                lawOn(420, "R11U420_PROPANDOR_OFF")) {
+                std::function<bool(const AssertionExpr&)> propOnly =
+                    [&](const AssertionExpr& x) -> bool {
+                    switch (x.kind) {
+                    case AssertionExprKind::Unary:
+                    case AssertionExprKind::Conditional:
+                    case AssertionExprKind::Case:
+                    case AssertionExprKind::Abort:
+                    case AssertionExprKind::StrongWeak:
+                    case AssertionExprKind::DisableIff:
+                        return true;
+                    case AssertionExprKind::Clocking:
+                        return propOnly(x.as<ClockingAssertionExpr>().expr);
+                    case AssertionExprKind::Binary: {
+                        auto& b = x.as<BinaryAssertionExpr>();
+                        switch (b.op) {
+                        case BinaryAssertionOperator::And:
+                        case BinaryAssertionOperator::Or:
+                            return propOnly(b.left) || propOnly(b.right);
+                        case BinaryAssertionOperator::Intersect:
+                        case BinaryAssertionOperator::Throughout:
+                        case BinaryAssertionOperator::Within:
+                            return false;
+                        default:
+                            return true;
+                        }
+                    }
+                    default:
+                        return false;
+                    }
+                };
+                if (propOnly(bae.left) || propOnly(bae.right)) {
+                    op->VpiParent(nullptr);
+                    std::function<void(UHDM::any*)> bare = [&](UHDM::any* x) {
+                        if (!x)
+                            return;
+                        switch (x->UhdmType()) {
+                        case UHDM::uhdmref_obj:
+                            ((UHDM::ref_obj*)x)->VpiFullName("");
+                            return;
+                        case UHDM::uhdmbit_select:
+                            ((UHDM::bit_select*)x)->VpiFullName("");
+                            bare(((UHDM::bit_select*)x)->VpiIndex());
+                            return;
+                        case UHDM::uhdmpart_select:
+                            ((UHDM::part_select*)x)->VpiFullName("");
+                            return;
+                        case UHDM::uhdmhier_path:
+                            ((UHDM::hier_path*)x)->VpiFullName("");
+                            return;
+                        case UHDM::uhdmoperation:
+                            if (auto* v = ((UHDM::operation*)x)->Operands())
+                                for (auto* o : *v)
+                                    bare(o);
+                            return;
+                        default:
+                            return;
+                        }
+                    };
+                    bare(op);
+                    lawTrace(420, "propAndOrUnparented420",
+                             ae.syntax ? std::string(ae.syntax->toString().substr(0, 60))
+                                       : std::string());
+                }
+            }
             return op;
         }
         case AssertionExprKind::Unary: {
@@ -53863,11 +54186,34 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             // range operand at the written `1:2` as in the flat form of
             // § sequenceDeclListed406, where the chain wrote the minimum
             // alone as a constant spanning `##[1:2]`.
+            // § seqLeadDelayPairUnary420 (r11u420) — A TWO-ELEMENT
+            // CONCATENATION WITH A LEADING DELAY IS THE UNARY CYCLE-DELAY
+            // OPERATION TOO.  § seqNestLeadingDelay406v's shape holds for two
+            // elements: `@(posedge clk) ##1 a ##1 b` is in golden the unary
+            // operation (53) from the leading `##` to the last element, its
+            // operands the leading delay (or range) and the flat `a ##1 b`
+            // operation spanning its elements, where ours wrote one flat
+            // operation starting at `a` with the leading delay as its first
+            // operand (sv-tests chapter-16/16.13--sequence-multiclock-uvm.sv:
+            // `@(posedge dif.clk0) ##1 dif.out0 ##1 @(posedge dif.clk1)
+            // dif.out1`, the row's uhdm-cmp head at 97:29; cases SQ/sq01,
+            // sq02 unclocked, sq03 the multiclock shape, sq05 a ranged
+            // leading delay; sq04's single element and sq06's undelayed pair
+            // stay as they were).  Switch R11U420_SEQLEADPAIR_OFF.
+            const bool leadPair420 =
+                sc.elements.size() == 2 && sc.elements[0].delay.min != 0 &&
+                sc.elements[0].delay.max && lawOn(406, "R11U406_SEQNEST_OFF") &&
+                fixOn(406, "R11V406_SEQLEAD_OFF") &&
+                lawOn(420, "R11U420_SEQLEADPAIR_OFF");
+            if (leadPair420 && !unboundedDelay9 && propDeclScope)
+                lawTrace(420, "seqLeadDelayPairUnary420", prefix);
             if (!unboundedDelay9 && !leadingDelay9 && propDeclScope &&
-                sc.elements.size() >= 3 && sc.elements.front().sequence->syntax &&
+                (sc.elements.size() >= 3 || leadPair420) &&
+                sc.elements.front().sequence->syntax &&
                 sc.elements.back().sequence->syntax &&
                 lawOn(406, "R11U406_SEQNEST_OFF")) {
-                lawTrace(406, "seqConcatNestsRight406", prefix);
+                if (!leadPair420)
+                    lawTrace(406, "seqConcatNestsRight406", prefix);
                 auto delayC = [&](size_t j) -> UHDM::any* {
                     auto& el = sc.elements[j];
                     if (!el.delay.max)
@@ -53952,7 +54298,8 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
                 };
                 if (sc.elements[0].delay.min != 0 && sc.elements[0].delay.max &&
                     fixOn(406, "R11V406_SEQLEAD_OFF")) {
-                    lawTrace(406, "seqNestLeadingDelay406v", prefix);
+                    if (!leadPair420)
+                        lawTrace(406, "seqNestLeadingDelay406v", prefix);
                     auto& e0 = sc.elements[0];
                     auto* u = s.MakeOperation();
                     u->VpiOpType(vpiUnaryCycleDelayOp);

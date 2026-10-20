@@ -1,0 +1,88 @@
+AP/ap01 | ansiNoDirNetPortUntyped420 | pristine rc=0 cmp=30 NOT_EQUAL stage1 md5=7d1cd2bc | law rc=0 cmp=0 STRICT_EQUAL 17 objects md5=6aff2f0a | OFF same | R11U420_ANSINODIR_OFF same
+AP/ap02 | ansiNoDirNetPortUntyped420 | pristine rc=0 cmp=30 NOT_EQUAL stage1 md5=a25de50d | law rc=0 cmp=0 STRICT_EQUAL 15 objects md5=14261fbf | OFF same | R11U420_ANSINODIR_OFF same
+AP/ap03 | ansiNoDirNetPortUntyped420 | pristine rc=0 cmp=0 STRICT_EQUAL 32 objects md5=69271d51 | law rc=0 cmp=0 STRICT_EQUAL 32 objects md5=69271d51 | OFF same | R11U420_ANSINODIR_OFF same
+AP/ap04 | ansiNoDirNetPortUntyped420 | pristine rc=0 cmp=0 STRICT_EQUAL 11 objects md5=d6c1c474 | law rc=0 cmp=0 STRICT_EQUAL 11 objects md5=d6c1c474 | OFF same | R11U420_ANSINODIR_OFF same
+AP/ap05 | ansiNoDirNetPortUntyped420 | pristine rc=0 cmp=30 NOT_EQUAL stage1 md5=6bcf27b4 | law rc=0 cmp=0 STRICT_EQUAL 43 objects md5=54740426 | OFF same | R11U420_ANSINODIR_OFF same
+CR/cr01 | contAssignVarInitRhsShared420 | pristine rc=0 cmp=0 STRICT_NOTEQUAL type md5=d28d7855 | law rc=0 cmp=0 STRICT_EQUAL 41 objects md5=7f76f400 | OFF same | R11U420_CAVARINIT_OFF same
+CR/cr02 | contAssignVarInitRhsShared420 | pristine rc=0 cmp=0 STRICT_EQUAL 34 objects md5=de0a837f | law rc=0 cmp=0 STRICT_EQUAL 34 objects md5=de0a837f | OFF same | R11U420_CAVARINIT_OFF same
+CR/cr03 | contAssignVarInitRhsShared420 | pristine rc=0 cmp=0 STRICT_EQUAL 44 objects md5=073c9972 | law rc=0 cmp=0 STRICT_EQUAL 44 objects md5=073c9972 | OFF same | R11U420_CAVARINIT_OFF same
+CR/cr04 | contAssignVarInitRhsShared420 | pristine rc=0 cmp=0 STRICT_EQUAL 58 objects md5=c15b1d11 | law rc=0 cmp=0 STRICT_EQUAL 58 objects md5=c15b1d11 | OFF same | R11U420_CAVARINIT_OFF same
+CR/cr05 | contAssignVarInitRhsShared420 | pristine rc=0 cmp=0 STRICT_NOTEQUAL type md5=0ed66e92 | law rc=0 cmp=0 STRICT_EQUAL 87 objects md5=9dd139d7 | OFF same | R11U420_CAVARINIT_OFF same
+CR/cr06 | contAssignVarInitRhsShared420 | pristine rc=0 cmp=0 STRICT_EQUAL 54 objects md5=36215100 | law rc=0 cmp=0 STRICT_EQUAL 54 objects md5=36215100 | OFF same | R11U420_CAVARINIT_OFF same
+CR/cr07 | contAssignVarInitRhsShared420 | pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=959942cc | law rc=0 cmp=36 NOT_EQUAL stage1 md5=959942cc | OFF same | R11U420_CAVARINIT_OFF same
+CR/cr08 | contAssignVarInitRhsShared420 | pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=a6a75407 | law rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=4a62e807 | OFF same | R11U420_CAVARINIT_OFF same
+CR/cr09 | contAssignVarInitRhsShared420 | pristine rc=0 cmp=0 STRICT_EQUAL 61 objects md5=30a0e3ff | law rc=0 cmp=0 STRICT_EQUAL 61 objects md5=30a0e3ff | OFF same | R11U420_CAVARINIT_OFF same
+CR/cr10 | contAssignVarInitRhsShared420 | pristine rc=0 cmp=0 STRICT_NOTEQUAL type md5=40f4a9d4 | law rc=0 cmp=0 STRICT_EQUAL 34 objects md5=90340f1d | OFF same | R11U420_CAVARINIT_OFF same
+CR/cr11 | contAssignVarInitRhsShared420 | pristine rc=0 cmp=0 STRICT_NOTEQUAL type md5=b958088d | law rc=0 cmp=0 STRICT_EQUAL 68 objects md5=5c456faa | OFF same | R11U420_CAVARINIT_OFF same
+FN/fn01 | pkgLateTsNetCapture420 | pristine rc=0 cmp=0 STRICT_EQUAL 53 objects md5=0804f539 | law rc=0 cmp=0 STRICT_EQUAL 53 objects md5=0804f539 | OFF same | R11U420_FOREACHNETCAP_OFF same
+FN/fn02 | pkgLateTsNetCapture420 | pristine rc=0 cmp=108 NOT_EQUAL stage1 md5=0fd1382c | law rc=0 cmp=0 STRICT_EQUAL 192 objects md5=ffcf1c66 | OFF same | R11U420_FOREACHNETCAP_OFF same
+FN/fn03 | pkgLateTsNetCapture420 | pristine rc=0 cmp=108 NOT_EQUAL stage1 md5=472a1c79 | law rc=0 cmp=0 STRICT_EQUAL 186 objects md5=856f7c74 | OFF same | R11U420_FOREACHNETCAP_OFF same
+FN/fn04 | pkgLateTsNetCapture420 | pristine rc=0 cmp=0 STRICT_EQUAL 86 objects md5=e691ff55 | law rc=0 cmp=0 STRICT_EQUAL 86 objects md5=e691ff55 | OFF same | R11U420_FOREACHNETCAP_OFF same
+FN/fn05 | pkgLateTsNetCapture420 | pristine rc=0 cmp=128 NOT_EQUAL stage1 md5=2c5a3928 | law rc=0 cmp=0 STRICT_EQUAL 178 objects md5=527bb960 | OFF same | R11U420_FOREACHNETCAP_OFF same
+FN/fn06 | pkgLateTsLoopVarCapture420 | pristine rc=0 cmp=56 NOT_EQUAL stage1 md5=7f7eb0e2 | law rc=0 cmp=0 STRICT_EQUAL 184 objects md5=aeb78f93 | OFF same | R11U420_LOOPVARCAP_OFF same
+FN/fn07 | pkgLateTsNetCapture420 | pristine rc=0 cmp=108 NOT_EQUAL stage1 md5=ab219665 | law rc=0 cmp=0 STRICT_EQUAL 219 objects md5=a80ceb6e | OFF same | R11U420_FOREACHNETCAP_OFF same
+FN/fn08 | pkgLateTsNetCapture420 | pristine rc=0 cmp=0 STRICT_EQUAL 174 objects md5=2f410244 | law rc=0 cmp=0 STRICT_EQUAL 174 objects md5=2f410244 | OFF same | R11U420_FOREACHNETCAP_OFF same
+FN/fn09 | pkgLateTsNetCapture420 | pristine rc=0 cmp=476 NOT_EQUAL stage1 md5=ec7fd648 | law rc=0 cmp=476 NOT_EQUAL stage1 md5=2ef8bc77 | OFF same | R11U420_FOREACHNETCAP_OFF same
+FN/fn10 | pkgLateTsNetCapture420 | pristine rc=0 cmp=62 NOT_EQUAL stage1 md5=f2ae25bd | law rc=0 cmp=0 STRICT_EQUAL 133 objects md5=0436acc2 | OFF same | R11U420_FOREACHNETCAP_OFF same
+FN/fn11 | pkgLateTsNetCapture420 | pristine rc=0 cmp=108 NOT_EQUAL stage1 md5=8402b5f5 | law rc=0 cmp=0 STRICT_EQUAL 137 objects md5=8a50b10d | OFF same | R11U420_FOREACHNETCAP_OFF same
+FN/fn12 | pkgLateTsNetCapture420 | pristine rc=0 cmp=108 NOT_EQUAL stage1 md5=9b268d3a | law rc=0 cmp=0 STRICT_EQUAL 168 objects md5=7f71ae16 | OFF same | R11U420_FOREACHNETCAP_OFF same
+FN/fn13 | pkgLateTsLoopVarCapture420 | pristine rc=0 cmp=56 NOT_EQUAL stage1 md5=66ee0991 | law rc=0 cmp=0 STRICT_EQUAL 243 objects md5=50545625 | OFF same | R11U420_LOOPVARCAP_OFF same
+FN/fn14 | pkgLateTsLoopVarCapture420 | pristine rc=0 cmp=56 NOT_EQUAL stage1 md5=a49b89cb | law rc=0 cmp=0 STRICT_EQUAL 244 objects md5=9678bf9d | OFF same | R11U420_LOOPVARCAP_OFF same
+IA/ia01 | arrayBcastConcatActual420 | pristine rc=0 cmp=62 NOT_EQUAL stage1 md5=ad8d90d5 | law rc=0 cmp=15 NOT_EQUAL stage1 md5=3e6b90ab | OFF same | R11U420_ARRCONCAT_OFF same
+IA/ia02 | arrayBcastConcatActual420 | pristine rc=0 cmp=336 NOT_EQUAL stage1 md5=b372f23b | law rc=0 cmp=15 NOT_EQUAL stage1 md5=c8b8123f | OFF same | R11U420_ARRCONCAT_OFF same
+IA/ia03 | arrayBcastConcatActual420 | pristine rc=4 cmp=246 NOT_EQUAL stage1 md5=bb43da78 | law rc=4 cmp=15 NOT_EQUAL stage1 md5=be22a75f | OFF same | R11U420_ARRCONCAT_OFF same
+OB/ob01 | modOutOfBodyMethodIsModuleTf420 | pristine rc=0 cmp=296 NOT_EQUAL stage1 md5=2b36aff3 | law rc=0 cmp=0 STRICT_EQUAL 79 objects md5=ed19c50a | OFF same | R11U420_MODOOBMETHOD_OFF same
+OB/ob02 | modOutOfBodyMethodIsModuleTf420 | pristine rc=0 cmp=684 NOT_EQUAL stage1 md5=27459b7d | law rc=0 cmp=0 STRICT_EQUAL 111 objects md5=b26c14e8 | OFF same | R11U420_MODOOBMETHOD_OFF same
+OB/ob03 | modOutOfBodyMethodIsModuleTf420 | pristine rc=0 cmp=246 NOT_EQUAL stage1 md5=d0b24dd3 | law rc=0 cmp=0 STRICT_EQUAL 45 objects md5=f4d36cde | OFF same | R11U420_MODOOBMETHOD_OFF same
+OB/ob04 | modOutOfBodyMethodIsModuleTf420 | pristine rc=0 cmp=260 NOT_EQUAL stage1 md5=197cc550 | law rc=0 cmp=0 STRICT_EQUAL 56 objects md5=56572974 | OFF same | R11U420_MODOOBMETHOD_OFF same
+SA/sa01 | seqAndOrLogOp420 | pristine rc=0 cmp=240 NOT_EQUAL stage1 md5=7ff7932a | law rc=0 cmp=0 STRICT_EQUAL 97 objects md5=f6d1bba2 | OFF same | R11U420_SEQANDOR_OFF DIFF
+SA/sa02 | seqAndOrLogOp420 | pristine rc=0 cmp=240 NOT_EQUAL stage1 md5=1516d1bd | law rc=0 cmp=0 STRICT_EQUAL 88 objects md5=4e4e9a4f | OFF same | R11U420_SEQANDOR_OFF same
+SA/sa03 | seqAndOrLogOp420 | pristine rc=0 cmp=240 NOT_EQUAL stage1 md5=6d85e7ff | law rc=0 cmp=0 STRICT_EQUAL 97 objects md5=00883557 | OFF same | R11U420_SEQANDOR_OFF DIFF
+SA/sa04 | seqAndOrLogOp420 | pristine rc=0 cmp=240 NOT_EQUAL stage1 md5=25b36aed | law rc=0 cmp=0 STRICT_EQUAL 88 objects md5=148cd916 | OFF same | R11U420_SEQANDOR_OFF same
+SA/sa05 | seqAndOrLogOp420 | pristine rc=0 cmp=240 NOT_EQUAL stage1 md5=fe03f328 | law rc=0 cmp=0 STRICT_EQUAL 88 objects md5=ff2f29e5 | OFF same | R11U420_SEQANDOR_OFF DIFF
+SA/sa06 | seqAndOrLogOp420 | pristine rc=0 cmp=272 NOT_EQUAL stage1 md5=3bc7a4f8 | law rc=0 cmp=0 STRICT_EQUAL 101 objects md5=e614e2fb | OFF same | R11U420_SEQANDOR_OFF DIFF
+SA/sa07 | assertBinParenSpanInner420 | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=20acb55d | law rc=0 cmp=0 STRICT_EQUAL 97 objects md5=3c88e0e6 | OFF same | R11U420_ASSERTBINPAREN_OFF same
+SA/sa08 | seqAndOrLogOp420 | pristine rc=0 cmp=88 NOT_EQUAL stage1 md5=171ad636 | law rc=0 cmp=0 STRICT_EQUAL 79 objects md5=44b2d049 | OFF same | R11U420_SEQANDOR_OFF DIFF
+SA/sa09 | seqAndOrLogOp420 | pristine rc=0 cmp=240 NOT_EQUAL stage1 md5=7fc1c4ef | law rc=0 cmp=0 STRICT_EQUAL 97 objects md5=bfcead35 | OFF same | R11U420_SEQANDOR_OFF DIFF
+SA/sa10 | propAndOrUnparented420 | pristine rc=0 cmp=180 NOT_EQUAL stage1 md5=72304176 | law rc=0 cmp=0 STRICT_EQUAL 82 objects md5=4d75bb70 | OFF same | R11U420_PROPANDOR_OFF DIFF
+SA/sa11 | propAndOrUnparented420 | pristine rc=0 cmp=180 NOT_EQUAL stage1 md5=769c2cde | law rc=0 cmp=0 STRICT_EQUAL 82 objects md5=4fe43640 | OFF same | R11U420_PROPANDOR_OFF DIFF
+SA/sa12 | seqAndOrLogOp420 | pristine rc=0 cmp=240 NOT_EQUAL stage1 md5=a313262d | law rc=0 cmp=0 STRICT_EQUAL 93 objects md5=ee180234 | OFF same | R11U420_SEQANDOR_OFF DIFF
+SA/sa13 | seqAndOrLogOp420 | pristine rc=0 cmp=0 STRICT_EQUAL 44 objects md5=f458da46 | law rc=0 cmp=0 STRICT_EQUAL 44 objects md5=f458da46 | OFF same | R11U420_SEQANDOR_OFF same
+SA/sa14 | propAndOrUnparented420 | pristine rc=0 cmp=204 NOT_EQUAL stage1 md5=05520533 | law rc=0 cmp=0 STRICT_EQUAL 93 objects md5=ba995a55 | OFF same | R11U420_PROPANDOR_OFF DIFF
+SA/sa15 | propAndOrUnparented420 | pristine rc=0 cmp=204 NOT_EQUAL stage1 md5=0a1ab0fe | law rc=0 cmp=0 STRICT_EQUAL 96 objects md5=2db8d910 | OFF same | R11U420_PROPANDOR_OFF DIFF
+SA/sa16 | propAndOrUnparented420 | pristine rc=0 cmp=204 NOT_EQUAL stage1 md5=5b58d1f4 | law rc=0 cmp=0 STRICT_EQUAL 96 objects md5=23ce5648 | OFF same | R11U420_PROPANDOR_OFF DIFF
+SA/sa17 | propAndOrUnparented420 | pristine rc=0 cmp=180 NOT_EQUAL stage1 md5=36869d55 | law rc=0 cmp=0 STRICT_EQUAL 101 objects md5=ffe9e7da | OFF same | R11U420_PROPANDOR_OFF DIFF
+SA/sa18 | assertBinParenSpanInner420 | pristine rc=0 cmp=0 STRICT_EQUAL 44 objects md5=c8c0c495 | law rc=0 cmp=0 STRICT_EQUAL 44 objects md5=c8c0c495 | OFF same | R11U420_ASSERTBINPAREN_OFF same
+SA/sa19 | propAndOrUnparented420 | pristine rc=0 cmp=0 STRICT_EQUAL 44 objects md5=b8861ac4 | law rc=0 cmp=0 STRICT_EQUAL 44 objects md5=b8861ac4 | OFF same | R11U420_PROPANDOR_OFF same
+SA/sa20 | propAndOrUnparented420 | pristine rc=0 cmp=180 NOT_EQUAL stage1 md5=e8af252f | law rc=0 cmp=0 STRICT_EQUAL 74 objects md5=a757c360 | OFF same | R11U420_PROPANDOR_OFF DIFF
+SA/sa21 | seqAndOrLogOp420 | pristine rc=0 cmp=365 NOT_EQUAL stage1 md5=e23b41f1 | law rc=0 cmp=365 NOT_EQUAL stage1 md5=e23b41f1 | OFF same | R11U420_SEQANDOR_OFF same
+SQ/sq01 | seqLeadDelayPairUnary420 | pristine rc=0 cmp=146 NOT_EQUAL stage1 md5=8409af5f | law rc=0 cmp=0 STRICT_EQUAL 64 objects md5=4c068115 | OFF same | R11U420_SEQLEADPAIR_OFF same
+SQ/sq02 | seqLeadDelayPairUnary420 | pristine rc=0 cmp=146 NOT_EQUAL stage1 md5=5c1f9362 | law rc=0 cmp=0 STRICT_EQUAL 53 objects md5=2be32f3c | OFF same | R11U420_SEQLEADPAIR_OFF same
+SQ/sq03 | seqLeadDelayPairUnary420 | pristine rc=0 cmp=202 NOT_EQUAL stage1 md5=dca623a3 | law rc=0 cmp=0 STRICT_EQUAL 73 objects md5=3b347f49 | OFF same | R11U420_SEQLEADPAIR_OFF DIFF
+SQ/sq04 | seqLeadDelayPairUnary420 | pristine rc=0 cmp=0 STRICT_EQUAL 55 objects md5=8053586f | law rc=0 cmp=0 STRICT_EQUAL 55 objects md5=8053586f | OFF same | R11U420_SEQLEADPAIR_OFF same
+SQ/sq05 | seqLeadDelayPairUnary420 | pristine rc=0 cmp=178 NOT_EQUAL stage1 md5=92180ef9 | law rc=0 cmp=0 STRICT_EQUAL 68 objects md5=f8985a86 | OFF same | R11U420_SEQLEADPAIR_OFF same
+SQ/sq06 | seqLeadDelayPairUnary420 | pristine rc=0 cmp=0 STRICT_EQUAL 60 objects md5=a09362c6 | law rc=0 cmp=0 STRICT_EQUAL 60 objects md5=a09362c6 | OFF same | R11U420_SEQLEADPAIR_OFF same
+SQ/sq07 | clockedSeqEventSpanBare420 | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=d66e3eef | law rc=0 cmp=0 STRICT_EQUAL 96 objects md5=3353c2d0 | OFF same | R11U420_CLOCKEDSEQ_OFF same
+SQ/sq08 | clockedSeqEventSpanBare420 | pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=9277d268 | law rc=0 cmp=0 STRICT_EQUAL 85 objects md5=03f03705 | OFF same | R11U420_CLOCKEDSEQ_OFF same
+SQ/sq09 | clockedSeqEventSpanBare420 | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=5b7ce0ee | law rc=0 cmp=0 STRICT_EQUAL 86 objects md5=e527ae8a | OFF same | R11U420_CLOCKEDSEQ_OFF same
+ST/st01 | unpackedStructVarPosInit420 | pristine rc=0 cmp=91 NOT_EQUAL stage1 md5=b9380757 | law rc=0 cmp=0 STRICT_EQUAL 31 objects md5=4e2e10c7 | OFF same | R11U420_USTRUCTPOSINIT_OFF same
+ST/st02 | unpackedStructVarPosInit420 | pristine rc=0 cmp=0 STRICT_EQUAL 27 objects md5=7b6220a3 | law rc=0 cmp=0 STRICT_EQUAL 27 objects md5=7b6220a3 | OFF same | R11U420_USTRUCTPOSINIT_OFF same
+ST/st03 | unpackedStructVarPosInit420 | pristine rc=0 cmp=72 NOT_EQUAL stage1 md5=2176df69 | law rc=0 cmp=72 NOT_EQUAL stage1 md5=2176df69 | OFF same | R11U420_USTRUCTPOSINIT_OFF same
+ST/st04 | unpackedStructVarPosInit420 | pristine rc=0 cmp=163 NOT_EQUAL stage1 md5=443a5b5e | law rc=0 cmp=0 STRICT_EQUAL 38 objects md5=1978e6bb | OFF same | R11U420_USTRUCTPOSINIT_OFF same
+ST/st05 | unpackedStructVarPosInit420 | pristine rc=0 cmp=81 NOT_EQUAL stage1 md5=28ff68f1 | law rc=0 cmp=0 STRICT_EQUAL 24 objects md5=3358db3c | OFF same | R11U420_USTRUCTPOSINIT_OFF same
+ST/st06 | unpackedStructVarPosInit420 | pristine rc=0 cmp=91 NOT_EQUAL stage1 md5=8ac4619e | law rc=0 cmp=0 STRICT_EQUAL 25 objects md5=7c40058e | OFF same | R11U420_USTRUCTPOSINIT_OFF same
+ST/st07 | unpackedStructVarPosInit420 | pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=65134830 | law rc=0 cmp=32 NOT_EQUAL stage1 md5=65134830 | OFF same | R11U420_USTRUCTPOSINIT_OFF same
+UL/ul01 | unitVarNetSourceOrder420 | pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=14c2f574 | law rc=0 cmp=0 STRICT_EQUAL 63 objects md5=fb80f19a | OFF same | R11U420_UNITVARORDER_OFF same
+UL/ul02 | unitVarNetSourceOrder420 | pristine rc=0 cmp=0 STRICT_EQUAL 65 objects md5=ea0f10ca | law rc=0 cmp=0 STRICT_EQUAL 65 objects md5=ea0f10ca | OFF same | R11U420_UNITVARORDER_OFF same
+UL/ul03 | unitVarNetSourceOrder420 | pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=ff2cd9a3 | law rc=0 cmp=0 STRICT_EQUAL 65 objects md5=4e04177b | OFF same | R11U420_UNITVARORDER_OFF same
+UL/ul04 | unitVarNetSourceOrder420 | pristine rc=0 cmp=0 STRICT_EQUAL 63 objects md5=b24a9456 | law rc=0 cmp=0 STRICT_EQUAL 63 objects md5=b24a9456 | OFF same | R11U420_UNITVARORDER_OFF same
+UL/ul05 | unitVarNetSourceOrder420 | pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=7a877048 | law rc=0 cmp=0 STRICT_EQUAL 57 objects md5=51718b9a | OFF same | R11U420_UNITVARORDER_OFF same
+UL/ul06 | unitVarNetSourceOrder420 | pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=8767ea82 | law rc=0 cmp=0 STRICT_EQUAL 99 objects md5=3008c6a9 | OFF same | R11U420_UNITVARORDER_OFF same
+UL/ul07 | unitVarNetSourceOrder420 | pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=96cda977 | law rc=0 cmp=0 STRICT_EQUAL 71 objects md5=a655c322 | OFF same | R11U420_UNITVARORDER_OFF same
+UL/ul08 | unitVarNetSourceOrder420 | pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=3a29c36b | law rc=0 cmp=0 STRICT_EQUAL 71 objects md5=1066d51c | OFF same | R11U420_UNITVARORDER_OFF same
+UL/ul09 | unitVarNetSourceOrder420 | pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=0f07939f | law rc=0 cmp=32 NOT_EQUAL stage1 md5=4334aabd | OFF same | R11U420_UNITVARORDER_OFF same
+UL/ul10 | unitVarNetSourceOrder420 | pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=deba412d | law rc=0 cmp=32 NOT_EQUAL stage1 md5=f49df117 | OFF same | R11U420_UNITVARORDER_OFF same
+# co-firing cases, combined switches (each restores pristine's bytes):
+SA/sa01 sa03 sa05 sa06 sa08 sa09 sa12: R11U420_SEQANDOR_OFF + R11U420_ASSERTBINPAREN_OFF same
+SA/sa10 sa11 sa14 sa15 sa16 sa17 sa20: R11U420_PROPANDOR_OFF + R11U420_SEQANDOR_OFF + R11U420_ASSERTBINPAREN_OFF same
+SQ/sq03: R11U420_SEQLEADPAIR_OFF + R11U420_CLOCKEDSEQ_OFF same
