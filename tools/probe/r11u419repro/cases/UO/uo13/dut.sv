@@ -1,0 +1,7 @@
+// § implicitPortParamListedFirst419
+module m #(parameter A = 4, int B = 2, parameter C = 3, logic [3:0] D = 4) (input [A-1:0] x);
+endmodule
+module top;
+  logic [3:0] x;
+  m u(x);
+endmodule

@@ -29136,9 +29136,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // param_assign first in the elaborated instance (golden sv-tests
     // hdlconvertor_std2017_p707; cases/IP).
     bool mixImpl405 = false;
+    // § implicitPortPaLastIface419 (R11U419_IMPLPALAST_OFF) — the demotion
+    // below holds for an INTERFACE too, and the demoted keyword-less entries
+    // follow the materialized imports: golden lists an elaborated
+    // `interface ifc #(parameter A = 4, int B = 2)` instance's param_assigns
+    // A, L (body), B (grid tools/probe/r11u419repro/cases/UO uo17), and
+    // `module m import pk::*; #(parameter A = 4, int B = 2)` A, L, Q (the
+    // import), B (uo16), where ours ranked an interface's keyword-less entry
+    // with the explicit ones and a module's ahead of the imports.
+    static const bool implLast419 = lawOn(419, "R11U419_IMPLPALAST_OFF");
+    const bool implKind419 =
+        m && (m->UhdmType() == UHDM::uhdmmodule_inst ||
+              (implLast419 && m->UhdmType() == UHDM::uhdminterface_inst));
     if (topView && !inPackage && !portPa9.empty() &&
-        portPa9.size() == passigns->size() && m &&
-        m->UhdmType() == UHDM::uhdmmodule_inst) {
+        portPa9.size() == passigns->size() && m && implKind419) {
         bool anyImpl405 = false, anyExpl405 = false;
         for (auto& mb405 : body.members())
             if (mb405.kind == SymbolKind::Parameter &&
@@ -29171,7 +29182,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // the override form was never the distinguisher — the corpus scan
         // above finds no keyword-ful demotion anywhere in either corpus.)
         auto implicitPort9 = [&](UHDM::param_assign* pa9) -> bool {
-            if (m->UhdmType() != UHDM::uhdmmodule_inst || !pa9->Lhs())
+            if (!implKind419 || !pa9->Lhs())
                 return false;
             for (auto& mb9 : body.members()) {
                 if (mb9.kind != SymbolKind::Parameter ||
@@ -29201,9 +29212,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             if (!portPa9.count(pa9))
                 return importedPa9(pa9) ? 3 : 1;
             if (implicitPort9(pa9))
-                return 2;
+                return implLast419 ? 4 : 2;
             return 0;
         };
+        if (implLast419 && m->UhdmType() == UHDM::uhdminterface_inst)
+            for (auto* pa419 : *passigns)
+                if (portPa9.count(pa419) && implicitPort9(pa419)) {
+                    lawTrace(419, "implicitPortPaLastIface419", prefix);
+                    break;
+                }
         std::stable_sort(passigns->begin(), passigns->end(),
                          [&](UHDM::param_assign* a9, UHDM::param_assign* b9) {
                              return rank9(a9) < rank9(b9);
@@ -29234,6 +29251,79 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             pa9->Rhs(src9);
         }
+    }
+    // § implicitPortParamListedFirst419 (R11U419_IMPLFIRST_OFF) — A KEYWORD-
+    // LESS PARAMETER PORT ENTRY IS LISTED AHEAD OF THE `parameter` /
+    // `localparam` ENTRIES.  Surelog compiles the parameter port list's
+    // `data_type list_of_param_assignments` form (`int B = 2`, and an entry
+    // that continues it, `int B = 2, C = 3`; slang leaves its
+    // ParameterDeclarationSyntax keyword invalid, isImplicitPortParam) ahead
+    // of the keyword-ful declarations, so a module's and an interface's
+    // Parameters vector, in the definition and the elaborated listing, and
+    // the definition's Param_assigns vector list those entries first, in
+    // source order, after the materialized imports and before the body
+    // parameters; the elaborated Param_assigns keep the ranks above.
+    // Measured (grid tools/probe/r11u419repro/cases/UO): `#(parameter A, int
+    // B = 1, C = 2)` lists B C A (uo01), `#(parameter A = 4, B = 2, int C =
+    // 1, D = 3)` C D A B (uo10), `#(parameter A = 4, int B = 2, parameter C
+    // = 3, logic [3:0] D = 4)` B D A C (uo13), an interface the same (uo17);
+    // all keyword-ful or all keyword-less keep source order (uo02-uo04,
+    // uo06-uo08, uo11, uo12).  Corpus: generated/basejump bsg_mux_one_hot's
+    // `#(parameter `BSG_INV_PARAM(width_p), int els_p=1, harden_p=1)` (golden
+    // els_p, harden_p, width_p).
+    static const bool implFirst419 = lawOn(419, "R11U419_IMPLFIRST_OFF");
+    if (implFirst419 && !inPackage && !funcScope && m &&
+        (m->UhdmType() == UHDM::uhdmmodule_inst ||
+         m->UhdmType() == UHDM::uhdminterface_inst)) {
+        // 1 = keyword-less port entry, 2 = keyword-ful port entry, 0 = other.
+        auto kind419 = [&](const UHDM::any* o) -> int {
+            if (!o || o->UhdmType() != UHDM::uhdmparameter ||
+                !((const UHDM::parameter*)o)->VpiImported().empty())
+                return 0;
+            std::string_view nm(o->VpiName());
+            for (auto& mb : body.members()) {
+                if (mb.kind != SymbolKind::Parameter || mb.name != nm)
+                    continue;
+                auto& ps = mb.as<ParameterSymbol>();
+                if (!ps.isPortParam())
+                    return 0;
+                return isImplicitPortParam(ps) ? 1 : 2;
+            }
+            return 0;
+        };
+        auto reorder = [&](auto& vec, auto key) -> bool {
+            std::vector<size_t> pos;
+            bool sawExpl = false, moved = false;
+            for (size_t i = 0; i < vec.size(); i++) {
+                int k = kind419(key(vec[i]));
+                if (!k)
+                    continue;
+                if (k == 2)
+                    sawExpl = true;
+                else if (sawExpl)
+                    moved = true;
+                pos.push_back(i);
+            }
+            if (!moved)
+                return false;
+            std::vector<std::remove_reference_t<decltype(vec[0])>> sel;
+            for (size_t i : pos)
+                sel.push_back(vec[i]);
+            std::stable_sort(sel.begin(), sel.end(), [&](auto a, auto b) {
+                return kind419(key(a)) < kind419(key(b));
+            });
+            for (size_t k = 0; k < pos.size(); k++)
+                vec[pos[k]] = sel[k];
+            return true;
+        };
+        if (reorder(*params, [](UHDM::any* o) -> const UHDM::any* { return o; }))
+            lawTrace(419, "implicitPortParamListedFirst419",
+                     prefix + (topView ? " elab params" : " def params"));
+        if (!topView &&
+            reorder(*passigns, [](UHDM::param_assign* pa) -> const UHDM::any* {
+                return pa ? pa->Lhs() : nullptr;
+            }))
+            lawTrace(419, "implicitPortParamListedFirst419", prefix + " def param_assigns");
     }
     if (!params->empty())
         m->Parameters(params);
@@ -37477,6 +37567,275 @@ static void pkgAliasTdNames284(Compilation& comp) {
     recs.clear();
 }
 
+// § ifPortViewArithIntForm419 / § ifPortViewPaLhsOwn419 (r11u419) — AN
+// INTERFACE PORT VIEW'S PARAM_ASSIGNS ARE ITS DEFINITION'S, ONE LHS EACH,
+// RHS IN ITS OWN CONSTANT TYPE'S FORM.  Surelog v1.87 builds a port view's
+// param_assigns with elab_parameters_ on a fresh ModuleInstance of the
+// interface definition (NetlistElaboration::elab_interface_, quoted at
+// ModuleEmit's § ifacePortViewParamAssignsOnly): every entry is the
+// definition's reduction, and every entry's vpiLhs is its own parameter
+// object (the definition view keeps the two `$unit`-import occurrences of a
+// package parameter distinct, see § elabReExportPaLhsShare).
+//  (a) § ifPortViewArithIntForm419 (R11U419_PVINTFORM_OFF): the port view's
+//      Rhs constant is restamped from its Lhs parameter's value at emission
+//      (ModuleEmit, the default-scope fold), while that value is still the
+//      emission-time `UINT:` fold of an untyped arithmetic package
+//      parameter; § paramValueIsDefRhs124 rewrites the Lhs to the
+//      definition's `INT:` form design-final but not the Rhs, which keeps
+//      vpiIntConst (7) with a `UINT:` value.  Golden reads INT:959 const
+//      type 7 (`parameter UVM_SMALL_STRING = UVM_LINE_WIDTH*8-1`, the 8
+//      generated/uvm_classes_1 rows' and testbenches/uvm_agent_env's last
+//      value face; grid tools/probe/r11u419repro/cases/IA).  A port-view
+//      Rhs constant of type vpiIntConst whose value is `UINT:<n>` is
+//      written `INT:<n>`.
+//  (b) § ifPortViewPaLhsOwn419 (R11U419_PVLHSOWN_OFF): the elaborated
+//      listing's share of one Lhs object between the two occurrences
+//      (§ elabReExportPaLhsShare, right for a home view) is not the port
+//      view's: golden walks a fresh parameter under each of the view's
+//      param_assigns.  A Lhs already taken by an earlier param_assign of
+//      the same port view is replaced by its own copy (name, full name,
+//      value, import, local flag, signing, constant type, span, parent and
+//      a ref_typespec to the same actual).
+//  (c) § ifPortViewTdAliasDefName419 (R11U419_PVTDALIAS_OFF): a typedef
+//      typed parameter's typespec copy that a port-view param_assign's Rhs
+//      constant (or its Lhs) references names its typedef-alias reference
+//      after the view (work@top.d.x.A.f_t), where
+//      the Lhs itself already reads the definition's name
+//      (§ portViewParamDefName130: work@i.A); golden names the alias after
+//      the Lhs (work@i.A.f_t; golden writes no work@top.d.x.A.f_t anywhere,
+//      grid IA/ia13; the 58 uvm_field_flag_t aliases of the UVM rows'
+//      `parameter uvm_field_flag_t UVM_DEFAULT = ...` copies).  An alias
+//      reference whose full name is <view>.<parameter>.<alias> under a Lhs
+//      named otherwise is renamed <Lhs full name>.<alias>.
+// A port view is an interface_inst listed under an elaborated instance's
+// interfaces with param_assigns and no parameters (ModuleEmit drops a port
+// view's Parameters(); a home view keeps them).
+static void ifPortViewPas419(UHDM::Serializer& s, UHDM::design* d) {
+    static const bool onA = lawOn(419, "R11U419_PVINTFORM_OFF");
+    static const bool onB = lawOn(419, "R11U419_PVLHSOWN_OFF");
+    static const bool onC = lawOn(419, "R11U419_PVTDALIAS_OFF");
+    if (!d || !d->TopModules() || (!onA && !onB && !onC))
+        return;
+    std::set<const UHDM::any*> done;
+    auto view = [&](UHDM::interface_inst* ii) {
+        auto* pas = ii->Param_assigns();
+        if (!pas || pas->empty() || (ii->Parameters() && !ii->Parameters()->empty()))
+            return;
+        // An interface-ARRAY element view (`i.port x[2]`, work@top.d.x[0])
+        // shares its Lhs with the other elements in golden (grid IA/ia15):
+        // the copy form below abstains there.
+        std::string vfn(ii->VpiFullName());
+        const bool elem = !vfn.empty() && vfn.back() == ']';
+        // (b), first form: every Lhs of the view is named as the definition's
+        // (§ portViewParamDefName130) and the definition listing's
+        // param_assigns line up one for one (name, import, occurrence): the
+        // view's param_assign takes the matching definition Lhs, the object
+        // golden's port view lists (one fresh parameter per entry, shared by
+        // every port view of that definition: IA/ia15's second array
+        // element and a second view of the same interface walk none).
+        // Only a view that holds the face: some Lhs object taken by two of its
+        // param_assigns (the `$unit` import's two occurrences).  A view with
+        // one Lhs per entry already lists as golden does, and its Lhs objects
+        // may be walked elsewhere first (Rggen default: a first sweep that
+        // swapped every definition-named view's Lhs read STRICT_NOTEQUAL
+        // differ:depth(1) there).
+        bool dup = false;
+        {
+            std::set<const UHDM::any*> seen0;
+            for (auto* pa : *pas)
+                if (pa && pa->Lhs() && !seen0.insert(pa->Lhs()).second)
+                    dup = true;
+        }
+        bool defShare = false;
+        if (onB && dup && d->AllInterfaces()) {
+            const UHDM::interface_inst* di = nullptr;
+            for (auto* c : *d->AllInterfaces())
+                if (c && c->VpiDefName() == ii->VpiDefName()) {
+                    di = c;
+                    break;
+                }
+            auto* dpas = di ? di->Param_assigns() : nullptr;
+            // Keyed by (name, import, occurrence): the definition listing
+            // leads with the materialized imports where the elaborated view
+            // ranks them after the port and body entries (IA/ia16).
+            auto keyOf = [](const UHDM::any* l, std::map<std::string, int>& occ) {
+                std::string k = std::string(l->VpiName()) + '\x01' +
+                                std::string(((const UHDM::parameter*)l)->VpiImported());
+                return k + '\x01' + std::to_string(occ[k]++);
+            };
+            if (dpas && dpas->size() == pas->size()) {
+                std::map<std::string, const UHDM::any*> dk;
+                std::map<std::string, int> docc, vocc;
+                defShare = true;
+                for (auto* dpa : *dpas) {
+                    auto* dl = dpa ? dpa->Lhs() : nullptr;
+                    if (!dl || dl->UhdmType() != UHDM::uhdmparameter) {
+                        defShare = false;
+                        break;
+                    }
+                    dk[keyOf(dl, docc)] = dl;
+                }
+                std::vector<const UHDM::any*> to(pas->size(), nullptr);
+                for (size_t k = 0; k < pas->size() && defShare; k++) {
+                    auto* vl = (*pas)[k] ? (*pas)[k]->Lhs() : nullptr;
+                    if (!vl || vl->UhdmType() != UHDM::uhdmparameter) {
+                        defShare = false;
+                        break;
+                    }
+                    auto it = dk.find(keyOf(vl, vocc));
+                    if (it == dk.end() ||
+                        ((const UHDM::parameter*)vl)->VpiFullName() !=
+                            ((const UHDM::parameter*)it->second)->VpiFullName())
+                        defShare = false;
+                    else
+                        to[k] = it->second;
+                }
+                if (defShare)
+                    for (size_t k = 0; k < pas->size(); k++)
+                        if ((*pas)[k]->Lhs() != to[k]) {
+                            lawTrace(419, "ifPortViewPaLhsOwn419",
+                                     "def " + vfn + " " + std::string((*pas)[k]->Lhs()->VpiName()));
+                            (*pas)[k]->Lhs(const_cast<UHDM::any*>(to[k]));
+                        }
+            }
+        }
+        std::set<const UHDM::any*> taken;
+        for (auto* pa : *pas) {
+            if (!pa)
+                continue;
+            if (onA)
+                if (auto* r = pa->Rhs(); r && r->UhdmType() == UHDM::uhdmconstant) {
+                    auto* c = (UHDM::constant*)r;
+                    std::string v(c->VpiValue());
+                    if (c->VpiConstType() == vpiIntConst && v.rfind("UINT:", 0) == 0) {
+                        lawTrace(419, "ifPortViewArithIntForm419",
+                                 std::string(ii->VpiFullName()) + " " +
+                                     std::string(pa->Lhs() ? pa->Lhs()->VpiName() : "") + " " + v);
+                        c->VpiValue("INT:" + v.substr(5));
+                    }
+                }
+            auto* l = pa->Lhs();
+            if (!l || l->UhdmType() != UHDM::uhdmparameter)
+                continue;
+            if (onC) {
+                auto* lp = (const UHDM::parameter*)l;
+                std::string vn = std::string(ii->VpiFullName()) + "." + std::string(lp->VpiName());
+                const UHDM::ref_typespec* rr = nullptr;
+                if (auto* r = pa->Rhs(); r && r->UhdmType() == UHDM::uhdmconstant)
+                    rr = ((const UHDM::constant*)r)->Typespec();
+                if (!lp->VpiName().empty() && lp->VpiFullName() != vn)
+                    for (auto* lr : {lp->Typespec(), rr})
+                        if (lr)
+                            if (auto* at = lr->Actual_typespec())
+                                if (auto* al = const_cast<UHDM::ref_typespec*>(at->Typedef_alias())) {
+                                    std::string an(at->VpiName());
+                                    if (!an.empty() && al->VpiFullName() == vn + "." + an) {
+                                        lawTrace(419, "ifPortViewTdAliasDefName419",
+                                                 vn + "." + an + " -> " + std::string(lp->VpiFullName()) + "." + an);
+                                        al->VpiFullName(std::string(lp->VpiFullName()) + "." + an);
+                                    }
+                                }
+            }
+            if (taken.insert(l).second || !onB || defShare)
+                continue;
+            if (elem) {
+                lawTrace(419, "ifPortViewPaLhsOwn419", "abstain element view " + vfn);
+                continue;
+            }
+            // The copy is for a view whose Lhs keep the VIEW's names (the
+            // named-modport view, IA/ia10); a definition-named Lhs whose
+            // definition listing did not line up is left alone (IA/ia17, a
+            // re-exported package whose listing differs before this).
+            if (((const UHDM::parameter*)l)->VpiFullName() != vfn + "." + std::string(l->VpiName())) {
+                lawTrace(419, "ifPortViewPaLhsOwn419", "abstain unaligned " + vfn + " " +
+                                                           std::string(l->VpiName()));
+                continue;
+            }
+            auto* o = (const UHDM::parameter*)l;
+            auto* n = s.MakeParameter();
+            n->VpiName(std::string(o->VpiName()));
+            n->VpiFullName(std::string(o->VpiFullName()));
+            n->VpiValue(std::string(o->VpiValue()));
+            n->VpiDecompile(std::string(o->VpiDecompile()));
+            n->VpiImported(std::string(o->VpiImported()));
+            n->VpiLocalParam(o->VpiLocalParam());
+            n->VpiSigned(o->VpiSigned());
+            n->VpiConstType(o->VpiConstType());
+            n->VpiSize(o->VpiSize());
+            n->VpiFile(std::string(o->VpiFile()));
+            n->VpiLineNo(o->VpiLineNo());
+            n->VpiColumnNo(o->VpiColumnNo());
+            n->VpiEndLineNo(o->VpiEndLineNo());
+            n->VpiEndColumnNo(o->VpiEndColumnNo());
+            n->VpiParent(const_cast<UHDM::BaseClass*>(o->VpiParent()));
+            n->Ranges(o->Ranges());
+            if (auto* ot = o->Typespec()) {
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiName(std::string(ot->VpiName()));
+                rt->VpiFullName(std::string(ot->VpiFullName()));
+                rt->VpiFile(std::string(ot->VpiFile()));
+                rt->VpiLineNo(ot->VpiLineNo());
+                rt->VpiColumnNo(ot->VpiColumnNo());
+                rt->VpiEndLineNo(ot->VpiEndLineNo());
+                rt->VpiEndColumnNo(ot->VpiEndColumnNo());
+                rt->Actual_typespec(const_cast<UHDM::typespec*>(ot->Actual_typespec()));
+                rt->VpiParent(n);
+                n->Typespec(rt);
+            }
+            lawTrace(419, "ifPortViewPaLhsOwn419",
+                     std::string(ii->VpiFullName()) + " " + std::string(o->VpiName()));
+            pa->Lhs(n);
+        }
+    };
+    std::function<void(const UHDM::any*)> walk = [&](const UHDM::any* o) {
+        if (!o || !done.insert(o).second)
+            return;
+        auto ifs = [&](const UHDM::VectorOfinterface_inst* v) {
+            if (v)
+                for (auto* c : *v) {
+                    view(c);
+                    walk(c);
+                }
+        };
+        auto gens = [&](const UHDM::VectorOfgen_scope_array* v) {
+            if (v)
+                for (auto* ga : *v)
+                    if (ga && ga->Gen_scopes())
+                        for (auto* gs : *ga->Gen_scopes())
+                            walk(gs);
+        };
+        switch (o->UhdmType()) {
+        case UHDM::uhdmmodule_inst: {
+            auto* m = (const UHDM::module_inst*)o;
+            if (m->Modules())
+                for (auto* c : *m->Modules())
+                    walk(c);
+            ifs(m->Interfaces());
+            gens(m->Gen_scope_arrays());
+            break;
+        }
+        case UHDM::uhdminterface_inst: {
+            auto* m = (const UHDM::interface_inst*)o;
+            ifs(m->Interfaces());
+            gens(m->Gen_scope_arrays());
+            break;
+        }
+        case UHDM::uhdmgen_scope: {
+            auto* m = (const UHDM::gen_scope*)o;
+            if (m->Modules())
+                for (auto* c : *m->Modules())
+                    walk(c);
+            ifs(m->Interfaces());
+            gens(m->Gen_scope_arrays());
+            break;
+        }
+        default:
+            break;
+        }
+    };
+    for (auto* t : *d->TopModules())
+        walk(t);
+}
 void UhdmExporter::drainShareDefParamTs() {
     // § pkgTypedefCastTargetTs140 — bind the deferred package-typedef cast
     // targets, now that every package lists its typedefs.
@@ -38365,6 +38724,8 @@ void UhdmExporter::drainShareDefParamTs() {
     // § pkgAliasTdRefNameByParent284 / § pkgTdNamedDimsElemByChain284
     // (r11u284; decode and law at pkgAliasTdNames284).
     pkgAliasTdNames284(comp);
+    // § ifPortViewArithIntForm419 / § ifPortViewPaLhsOwn419 (r11u419).
+    ifPortViewPas419(s, d);
 }
 
 // Deferred DEF-view aggregate-typedef param ts: bind the SHARED named typedef

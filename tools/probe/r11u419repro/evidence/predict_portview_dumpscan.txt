@@ -1,0 +1,3 @@
+listed 6659 kept 6649
+processed 6649
+firings: 0 (Tnoc d/t dumps 870 MB not scanned, the scan stopped; Tnoc default traced with the final binary instead: 3736 implicitPortPaLastIface419 lines, no port-view law)

@@ -1,0 +1,9 @@
+r11u404repro/cases/UE/ue05 | P rc=3 NO_DB   ^~~~~~ | F rc=3 NO_DB   ^~~~~~
+r11u404repro/cases/UE/ue03 | P rc=3 NO_DB   ^~~~~~ | F rc=3 NO_DB   ^~~~~~
+r11u404repro/cases/UE/ue02 | P rc=3 NO_DB   ^~~~~~~ | F rc=3 NO_DB   ^~~~~~~
+r11u404repro/cases/UE/ue06 | P rc=3 NO_DB   ^~~~~~~ | F rc=3 NO_DB   ^~~~~~~
+r11u405repro/cases/IP/ip03 | P rc=0 cmp=62 away=102 md5=534a0ec7 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=14 md5=acbdb177 | STRICT_EQUAL 77 objects
+v11u404repro/cases/VE/ve02 | P rc=3 NO_DB   ^~~~~~~ | F rc=3 NO_DB   ^~~~~~~
+v11u404repro/cases/VE/ve03 | P rc=3 NO_DB   ^~~~~~ | F rc=3 NO_DB   ^~~~~~
+v11u404repro/cases/VE/ve01 | P rc=3 NO_DB   ^~~~~~ | F rc=3 NO_DB   ^~~~~~
+v11u401repro/cases/EA/vs02_nested | P rc=3 NO_DB                                   ~~     ^ | F rc=3 NO_DB                                   ~~     ^

@@ -1169,7 +1169,7 @@ generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux2_gatestack.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_bitwise.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_butterfly.sv,EQUAL,,equal
-generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_one_hot.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_one_hot.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_segmented.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_muxi2_gatestack.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_nand.sv,EQUAL,,equal
@@ -2108,14 +2108,14 @@ generated/uvm_classes_0/uvm_monitor_class_0.sv,EQUAL,,equal
 generated/uvm_classes_0/uvm_scoreboard_class_0.sv,EQUAL,,equal
 generated/uvm_classes_0/uvm_sequencer_class_0.sv,EQUAL,,equal
 generated/uvm_classes_0/uvm_test_class_0.sv,EQUAL,,equal
-generated/uvm_classes_1/uvm_agent_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
+generated/uvm_classes_1/uvm_agent_class_1.sv,EQUAL,,equal
 generated/uvm_classes_1/uvm_component_class_1.sv,DIFFERENT,decompile:,
-generated/uvm_classes_1/uvm_driver_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
-generated/uvm_classes_1/uvm_env_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
-generated/uvm_classes_1/uvm_monitor_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
-generated/uvm_classes_1/uvm_scoreboard_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
-generated/uvm_classes_1/uvm_sequencer_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
-generated/uvm_classes_1/uvm_test_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
+generated/uvm_classes_1/uvm_driver_class_1.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_env_class_1.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_monitor_class_1.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_scoreboard_class_1.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_sequencer_class_1.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_test_class_1.sv,EQUAL,,equal
 generated/uvm_classes_2/uvm_agent_class_2.sv,EQUAL,,equal
 generated/uvm_classes_2/uvm_component_class_2.sv,DIFFERENT,decompile:,
 generated/uvm_classes_2/uvm_driver_class_2.sv,EQUAL,,equal
@@ -2334,7 +2334,7 @@ generic/typedef/typedef_test_9.sv,DIFFERENT,decompile:,
 generic/union/union_test_0.sv,EQUAL,,equal
 sanity.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/sanity.sv:23:9: error: expected a declaration name,
 testbenches/uvm_agent_active.sv,DIFFERENT,decompile:,
-testbenches/uvm_agent_env.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
+testbenches/uvm_agent_env.sv,EQUAL,,equal
 testbenches/uvm_agent_passive.sv,DIFFERENT,decompile:,
 testbenches/uvm_driver_sequencer_env.sv,DIFFERENT,decompile:,
 testbenches/uvm_monitor_env.sv,DIFFERENT,decompile:,
