@@ -15446,6 +15446,42 @@ void enumImportParentDrain180(UHDM::design* d) {
 
 void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::instance* m) {
     auto* tds = m->Typespecs();
+    // § ifcFileScopeImportListing418 (r11u418) — AN INTERFACE LISTS ITS FILE'S
+    // `$unit` IMPORTS EXACTLY AS A MODULE DOES.  CompileInterface replays the
+    // paPackage_import_item records of its FileContent through importPackage
+    // as CompileModule does, so a file-scope `import p::*;` copies the
+    // package's data types and subroutines into the interface too: golden
+    // lists the same typedefs (class keys included) and the same task_funcs,
+    // in the same order, as the module beside it (sv-tests chapter-16
+    // `*-uvm.sv`, generated/uvm_classes_1/*, testbenches/uvm_agent_env.sv:
+    // `import uvm_pkg::*;` above `interface clk_gen_if (...)`, golden 127
+    // typedefs and 979 task_funcs in the interface listing, ours none, the
+    // rows' uhdm-cmp head; probe IF/if01, if02).  The three module-only branches
+    // below (the class-key publication, the typedef listing and the
+    // subroutine hoist) take an interface whose body has no import of its
+    // own (the body-import branch above is the interface's and is not mixed in).
+    // Grid tools/probe/r11u418repro/cases/IF.  Switch R11U418_IFCFILEIMP_OFF.
+    bool ifcFile418 = false;
+    if (m->UhdmType() == UHDM::uhdminterface_inst &&
+        lawOn(418, "R11U418_IFCFILEIMP_OFF")) {
+        bool bodyImp418 = false;
+        for (auto& mem418 : body.members())
+            if (mem418.kind == SymbolKind::WildcardImport ||
+                mem418.kind == SymbolKind::ExplicitImport)
+                bodyImp418 = true;
+        std::string mf418 = rootFilePath(body.getDefinition().location);
+        bool fileImp418 = false;
+        if (!bodyImp418 && !mf418.empty())
+            for (auto* unit418 : comp.getCompilationUnits())
+                for (auto& mem418 : unit418->members())
+                    if ((mem418.kind == SymbolKind::WildcardImport ||
+                         mem418.kind == SymbolKind::ExplicitImport) &&
+                        rootFilePath(mem418.location) == mf418)
+                        fileImp418 = true;
+        ifcFile418 = fileImp418;
+        if (ifcFile418)
+            lawTrace(418, "ifcFileScopeImportListing418", std::string(m->VpiDefName()));
+    }
     // § modulePublishesPackageClasses45 — record this view's DIRECT import set
     // for the design-final class-key publication.
     //
@@ -15487,7 +15523,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
         // file-scope import would publish keys for a package whose typedefs are
         // absent — a shape no golden here exercises.  t62a witnesses the
         // interface's BODY-import half only.
-        if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+        if (m->UhdmType() == UHDM::uhdmmodule_inst || ifcFile418) {
             std::string mf45 = rootFilePath(body.getDefinition().location);
             if (!mf45.empty())
                 for (auto* unit45 : comp.getCompilationUnits())
@@ -15676,7 +15712,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
     // the SHARED top-view package typespec in its Typespecs (before the
     // import_typespec) and re-parents it to the module; fullnames keep their
     // pkg:: scoping (unlike the interface re-scope above).
-    if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+    if (m->UhdmType() == UHDM::uhdmmodule_inst || ifcFile418) {
         // Collect imported typedef symbols: explicit imports name one; a
         // WILDCARD import lists every package typedef (name-sorted, matching
         // the package's own list order).
@@ -15692,6 +15728,8 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
         // for the same item. So these go last, past the import_typespecs.
         std::set<const Symbol*> enumCtsTd9;
         for (auto& mem : body.members()) {
+            if (ifcFile418)
+                break;
             if (mem.kind == SymbolKind::ExplicitImport) {
                 auto* imported = mem.as<ExplicitImportSymbol>().importedSymbol();
                 if (imported && imported->kind == SymbolKind::TypeAlias)
@@ -16404,7 +16442,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
     // goldens (r10apb2 repro 1, r10uvm3 repro 3) and on ApbSlave (23 hoisted
     // + 7 own) and SimpleUVM (894 = 58 package-parented interleaved with 836
     // class-parented).
-    if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+    if (m->UhdmType() == UHDM::uhdmmodule_inst || ifcFile418) {
         std::vector<UHDM::task_func*> hoist9;
         std::set<const Symbol*> haveSub9;
         for (auto& [pkg9, cnt9] : collectMaterializedPkgs(body)) {
@@ -16473,9 +16511,42 @@ void UhdmExporter::bindHoistedClassPropRefs(const InstanceBodySymbol& body,
     }
     if (pkgs9.empty())
         return;
+    // § hoistNetsFirstModule418 (r11u418) — THE FORWARDED LATE BINDING RUNS
+    // ONCE: the first definition that materializes the package mints the
+    // wires and binds the shared references, and a later definition finds
+    // them bound and mints nothing.  The hoisted class-method bodies are ONE
+    // set of objects shared by every listing (§ materializedPkgTfGroup), so
+    // `UhdmWriter::lateBinding` of the first module (the design's module
+    // order) resolves each unbound name there and the next module's pass has
+    // nothing left to resolve (sv-tests chapter-16 `*-uvm.sv`: golden's
+    // `clk_gen`, declared before `top` in the file whose `$unit` imports
+    // uvm_pkg, holds the 170 forwarded wires and `top` holds only its own 55
+    // nets, where ours minted the 170 in both and bound the references to
+    // top's; § thisNetFirstListingModule418 is the same rule for `this`).
+    // Keyed per reference site; a module that re-enters for the same site
+    // (it owns it) proceeds as before.  Grid tools/probe/r11u418repro/cases/
+    // HN.  Switch R11U418_HOISTFIRSTMOD_OFF.
+    static std::map<std::tuple<const void*, std::string, uint32_t, uint64_t>,
+                    const UHDM::instance*>
+        owner418;
+    const bool first418 = lawOn(418, "R11U418_HOISTFIRSTMOD_OFF");
     for (auto& cpr : classPropRefs) {
         if (!cpr.homePkg || !pkgs9.count(cpr.homePkg))
             continue;
+        if (first418) {
+            auto key418 = std::make_tuple((const void*)cpr.homePkg, cpr.name,
+                                          cpr.range.start().buffer().getId(),
+                                          (uint64_t)cpr.range.start().offset());
+            auto oit418 = owner418.find(key418);
+            if (oit418 == owner418.end())
+                owner418.emplace(key418, m);
+            else if (oit418->second != m) {
+                lawTrace(418, "hoistNetsFirstModule418",
+                         prefix + " " + cpr.name + " (owner " +
+                             std::string(oit418->second->VpiDefName()) + ")");
+                continue;
+            }
+        }
         UHDM::net* bind9 = nullptr;
         for (auto* n9 : *nets)
             if (n9->VpiName() == cpr.name) {
@@ -16672,6 +16743,21 @@ void UhdmExporter::mintUnitEnumNets(const InstanceBodySymbol& body,
         }
     }
     auto& slot = unitEnumNetsByDef[defKey];
+    // § unitVarRefMintsNet418's fence: every name declared anywhere in the
+    // module's own text.
+    std::set<std::string> declNames418;
+    {
+        std::function<void(const syntax::SyntaxNode&)> dwalk =
+            [&](const syntax::SyntaxNode& n) {
+                if (n.kind == syntax::SyntaxKind::Declarator)
+                    declNames418.insert(std::string(
+                        n.as<syntax::DeclaratorSyntax>().name.valueText()));
+                for (size_t i = 0; i < n.getChildCount(); i++)
+                    if (auto* c = n.childNode(i))
+                        dwalk(*c);
+            };
+        dwalk(*bsy);
+    }
     std::function<void(const syntax::SyntaxNode&)> walk =
         [&](const syntax::SyntaxNode& n) {
             if (n.kind == syntax::SyntaxKind::IdentifierName) {
@@ -16697,8 +16783,67 @@ void UhdmExporter::mintUnitEnumNets(const InstanceBodySymbol& body,
                     }
                 if (unitHome && localEnums.count(&sym->getParentScope()->asSymbol()))
                     unitHome = false;
-                if (unitHome && !slot.count(sym) &&
-                    rootFilePath(sym->location) != modFile) {
+                // § unitVarRefMintsNet418 (r11u418) — a `$unit` VARIABLE
+                // never resolves from a module either, in ANY file: Surelog
+                // lists no object for `string label = "...";` written at
+                // compilation-unit scope, and a module reading it late-binds
+                // the name to a bare wire minted at the first reference, as
+                // for an enum constant of another file (sv-tests chapter-16
+                // `*-uvm.sv`: `string label` above the testbench, golden
+                // logic_net work@top.label at the first `label` of top's
+                // `uvm_info`, ours an unbound reference and no net; probe
+                // UV).  Grid tools/probe/r11u418repro/cases/UV.  Switch
+                // R11U418_UNITVARNET_OFF.
+                // The name is looked up from the module body, so a nested
+                // scope's own declaration of it (a subroutine local, a block
+                // or generate-block variable) would read as the `$unit`
+                // variable: such a name abstains (probe r10uvm148repro
+                // g148_b_scope, r11u75repro/grid/w8_unitname), and so does a
+                // method-call or member receiver (`ud_pat.size()`, probe
+                // r10vbuvm31repro gv31a6: golden mints nothing there).
+                bool unitVar418 = false;
+                if (!unitHome && sym && sym->kind == SymbolKind::Variable &&
+                    sym->getParentScope() &&
+                    sym->getParentScope()->asSymbol().kind == SymbolKind::CompilationUnit &&
+                    !declNames418.count(std::string(nm)) &&
+                    !(n.parent && (n.parent->kind == syntax::SyntaxKind::MemberAccessExpression ||
+                                   n.parent->kind == syntax::SyntaxKind::ScopedName)) &&
+                    lawOn(418, "R11U418_UNITVARNET_OFF"))
+                    unitVar418 = true;
+                // § unitVarNestedScopeAbstain418v (v11u418) — the late-binding
+                // wire is minted only for a reference the MODULE itself
+                // compiles (its processes, continuous assigns, subroutines and
+                // their blocks).  A reference inside a GENERATE construct
+                // (a loop, if or case generate, with or without a begin
+                // block) belongs to the gen_scope and one inside a CLASS
+                // declared in the module to the class: golden leaves both
+                // ref_objs unbound and mints no net (probe
+                // tools/probe/v11u418repro/cases/VU vu04, vu07, vu13, vu18,
+                // STRICT_EQUAL on pristine and NOT_EQUAL under the law),
+                // and when the module also reads the name, golden's wire sits
+                // at the module's own reference (vu16, vu17).  Switch
+                // R11V418_UNITVARSCOPE_OFF.
+                if (unitVar418 && fixOn(418, "R11V418_UNITVARSCOPE_OFF"))
+                    for (const syntax::SyntaxNode* a418 = n.parent; a418 && a418 != bsy; a418 = a418->parent) {
+                        auto k418 = a418->kind;
+                        if (k418 == syntax::SyntaxKind::GenerateBlock ||
+                            k418 == syntax::SyntaxKind::LoopGenerate ||
+                            k418 == syntax::SyntaxKind::IfGenerate ||
+                            k418 == syntax::SyntaxKind::CaseGenerate ||
+                            k418 == syntax::SyntaxKind::ClassDeclaration ||
+                            k418 == syntax::SyntaxKind::ModuleDeclaration ||
+                            k418 == syntax::SyntaxKind::InterfaceDeclaration ||
+                            k418 == syntax::SyntaxKind::ProgramDeclaration) {
+                            unitVar418 = false;
+                            lawTrace(418, "unitVarNestedScopeAbstain418v",
+                                     prefix + "." + std::string(nm));
+                            break;
+                        }
+                    }
+                if (unitVar418 && !slot.count(sym))
+                    lawTrace(418, "unitVarRefMintsNet418", prefix + "." + std::string(nm));
+                if ((unitHome || unitVar418) && !slot.count(sym) &&
+                    (unitVar418 || rootFilePath(sym->location) != modFile)) {
                     auto* inet = s.MakeLogic_net();
                     inet->VpiName(nm);
                     inet->VpiFullName(prefix + "." + std::string(nm));
@@ -43087,6 +43232,27 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
                 setLoc(r, termLoc);
                 if (auto nit = netMap.find(&nv.symbol); nit != netMap.end())
                     r->Actual_group(nit->second);
+                // § genGateTermGenNetBind418 (r11u418) — a gate terminal
+                // naming a net declared in a GENERATE block binds that net in
+                // the elaborated gen_scope.  emitGenScopes files a plain
+                // gen-scope `logic_net` in genScopeNets and puts it in netMap
+                // only for a net-ified reg, so the terminal's lookup above
+                // missed and the ref_obj stayed unbound, where Surelog's
+                // NetlistElaboration binds it like any other terminal (sv-tests
+                // generated/hdlconv_std2017/hdlconvertor_std2017_p791.sv:
+                // `for (...) begin : bitnum wire t1, t2, t3; xor g1(t1, ...);`,
+                // golden ref_obj t1 -> logic_net work@addergen1.bitnum[0].t1,
+                // ours no actual; uhdm-cmp's head).  The store the cont-assign
+                // branch already consults (§ caGenScopeNetNamesakeStore75).
+                // Grid tools/probe/r11u418repro/cases/GG.  Switch
+                // R11U418_GENGATENET_OFF.
+                else if (topView && lawOn(418, "R11U418_GENGATENET_OFF"))
+                    if (auto git = genScopeNets.find(&nv.symbol);
+                        git != genScopeNets.end() && git->second) {
+                        r->Actual_group(git->second);
+                        lawTrace(418, "genGateTermGenNetBind418",
+                                 refScope + "." + std::string(nv.symbol.name));
+                    }
                 t->Expr(r);
             }
             // Any other terminal expression (`y[0]`, `{a,b}`, a constant)
@@ -43098,7 +43264,28 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
             // scope and leaves a selected terminal's fullname as the def-view
             // compile wrote it (`work@m.o1.y` next to a sibling `work@m.i1`).
             // Its span is the whole terminal, not the selector's.
-            else if (auto* e = emitExpr(se, g, gateFull, netMap)) {
+            // § unnamedGateTermDefName418 (r11u418) — an UNNAMED gate's
+            // selected terminal names through the gate's DEFINITION name:
+            // ComputeFullName takes VpiDefName when a link's VpiName is
+            // empty, so golden reads `work@m.b[0].work@xor.a` for
+            // `xor (t1, a[i], a[0]);` where the gate prefix gave
+            // `work@m.b[0]..a` (the gate itself keeps its stored
+            // `work@m.b[0].`).  Pass 402's VG/vg16 face.  Grid
+            // tools/probe/r11u418repro/cases/UG.  Switch
+            // R11U418_UNNAMEDGATETERM_OFF.
+            std::string termPfx418 = gateFull;
+            // A udp instance is left out (its definition name differs by
+            // view; probe UG/ug08 reads neither form).
+            if (se.kind != ExpressionKind::NamedValue && gateName.empty() && !isUdp &&
+                !gateFull.empty() && gateFull.back() == '.' &&
+                !g->VpiDefName().empty() &&
+                lawOn(418, "R11U418_UNNAMEDGATETERM_OFF")) {
+                termPfx418 = gateFull + std::string(g->VpiDefName());
+                lawTrace(418, "unnamedGateTermDefName418", termPfx418);
+            }
+            if (se.kind == ExpressionKind::NamedValue) {
+            }
+            else if (auto* e = emitExpr(se, g, termPfx418, netMap)) {
                 setLoc(e, termLoc);
                 // § gateInBitSelIndexSpan402 (R11U402_GATEBITSEL_OFF; cases
                 // tools/probe/r11u402repro/cases/GP gt0*) — an INPUT
@@ -59001,8 +59188,32 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         // § ifaceDupSharesHomePorts closed.  0 (a kind that
                         // prints no net type at all) keeps the old constant, so
                         // no net silently loses its tag.
+                        // § modportImplicitHdrNoNetType418 (r11u418) — ...and
+                        // an IMPLICIT-typed header port (`interface i(input
+                        // clk)`, no net keyword and no data type) is one of
+                        // those kinds: its modport clone prints no net type
+                        // in golden (sv-tests generated/uvm_classes_1/*,
+                        // `interface input_if(input clk); ... modport
+                        // port(input clk, data);`, golden
+                        // work@top.d.in.port.clk.clk without vpiNetType where
+                        // ours wrote 36; `input logic clk` and `input wire
+                        // clk` keep 36 and 1).  Grid
+                        // tools/probe/r11u418repro/cases/MP.  Switch
+                        // R11U418_MPIMPLNETTYPE_OFF.
+                        bool implHdr418 = false;
+                        if (msym.kind == SymbolKind::Net &&
+                            !msym.as<NetSymbol>().isImplicit &&
+                            lawOn(418, "R11U418_MPIMPLNETTYPE_OFF")) {
+                            auto* dt418 = msym.getDeclaredType();
+                            auto* ts418 = dt418 ? dt418->getTypeSyntax() : nullptr;
+                            implHdr418 = (!ts418 || ts418->kind ==
+                                                        syntax::SyntaxKind::ImplicitType) &&
+                                         ansiNetHeader(msym) == nullptr;
+                        }
                         if (int32_t nt9 = netTypeFor(msym))
                             ln->VpiNetType(nt9);
+                        else if (implHdr418)
+                            lawTrace(418, "modportImplicitHdrNoNetType418", dfull);
                         else
                             ln->VpiNetType(vpiNet);
                         setLoc(ln, nameSpan(msym.location, msym.name));

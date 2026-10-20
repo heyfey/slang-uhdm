@@ -170,7 +170,7 @@ chapter-16/16.14--assume-property-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.14--assume-property.sv,EQUAL,,equal
 chapter-16/16.15--property-disable-iff-fail.sv,SLANG_ONLY,[  ERROR] : 1,
 chapter-16/16.15--property-disable-iff.sv,SLANG_ONLY,[  ERROR] : 1,
-chapter-16/16.15--property-iff-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.15--property-iff-uvm.sv,EQUAL,,equal
 chapter-16/16.17--expect-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.17--expect.sv,EQUAL,,equal
 chapter-16/16.2--assert-final-uvm.sv,DIFFERENT,decompile:,
@@ -188,19 +188,19 @@ chapter-16/16.2--cover.sv,EQUAL,,equal
 chapter-16/16.2--cover0.sv,EQUAL,,equal
 chapter-16/16.7--sequence-and-range-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.7--sequence-and-uvm.sv,DIFFERENT,decompile:,
-chapter-16/16.7--sequence-intersect-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.7--sequence-intersect-uvm.sv,EQUAL,,equal
 chapter-16/16.7--sequence-or-uvm.sv,DIFFERENT,decompile:,
-chapter-16/16.7--sequence-throughout-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.7--sequence-throughout-uvm.sv,EQUAL,,equal
 chapter-16/16.7--sequence-uvm.sv,DIFFERENT,decompile:,
 chapter-16/16.7--sequence.sv,EQUAL,,equal
-chapter-16/16.9--sequence-changed-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.9--sequence-changed-uvm.sv,EQUAL,,equal
 chapter-16/16.9--sequence-cons-repetition.sv,EQUAL,,equal
-chapter-16/16.9--sequence-fell-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.9--sequence-fell-uvm.sv,EQUAL,,equal
 chapter-16/16.9--sequence-goto-repetition.sv,EQUAL,,equal
 chapter-16/16.9--sequence-noncons-repetition.sv,EQUAL,,equal
-chapter-16/16.9--sequence-past-uvm.sv,DIFFERENT,decompile:,
-chapter-16/16.9--sequence-rose-uvm.sv,DIFFERENT,decompile:,
-chapter-16/16.9--sequence-stable-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.9--sequence-past-uvm.sv,EQUAL,,equal
+chapter-16/16.9--sequence-rose-uvm.sv,EQUAL,,equal
+chapter-16/16.9--sequence-stable-uvm.sv,EQUAL,,equal
 chapter-18/18.10--dynamic-constraint-modification_0.sv,EQUAL,,equal
 chapter-18/18.11--in-line-random-variable-control_0.sv,EQUAL,,equal
 chapter-18/18.11--in-line-random-variable-control_1.sv,EQUAL,,equal
@@ -920,7 +920,7 @@ generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_axi_rx.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_axi_tx.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_dram_ctrl_rx.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_dram_ctrl_tx.sv,EQUAL,,equal
-generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram.sv,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram_rx.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram_rx_reorder.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram_tx.sv,EQUAL,,equal
@@ -932,7 +932,7 @@ generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_osc.sv,SURELOG_ONLY,/home
 generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_osc_v3.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_osc_v3.sv:10:8: error: design element does not have a time scale de,
 generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_v3.sv,EQUAL,,equal
 generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_dly_line.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_dly_line.sv:10:8: error: design element does not have a time scale defined ,
-generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_dram_clk_gen.sv,STRICT_NOTEQUAL,differ:fullname(138),differ:fullname(138)
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_dram_clk_gen.sv,EQUAL,,equal
 generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_edge_balanced_mux4.sv,EQUAL,,equal
 generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_nonsynth_clk_watcher.sv,EQUAL,,equal
 generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_assembler_in.sv,EQUAL,,equal
@@ -1213,7 +1213,7 @@ generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_broadcast.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_in.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_out.sv,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
-generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router.sv,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_adapter_in.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_adapter_out.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_decoder_dor.sv,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
@@ -1495,7 +1495,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p780.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p781.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p783.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p783.sv:34:5: error: redefinition of 'x' [-Wredefinition],
 generated/hdlconv_std2017/hdlconvertor_std2017_p790.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p791.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p791.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p801.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p827.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p835.sv,EQUAL,,equal
@@ -2108,14 +2108,14 @@ generated/uvm_classes_0/uvm_monitor_class_0.sv,EQUAL,,equal
 generated/uvm_classes_0/uvm_scoreboard_class_0.sv,EQUAL,,equal
 generated/uvm_classes_0/uvm_sequencer_class_0.sv,EQUAL,,equal
 generated/uvm_classes_0/uvm_test_class_0.sv,EQUAL,,equal
-generated/uvm_classes_1/uvm_agent_class_1.sv,DIFFERENT,decompile:,
+generated/uvm_classes_1/uvm_agent_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
 generated/uvm_classes_1/uvm_component_class_1.sv,DIFFERENT,decompile:,
-generated/uvm_classes_1/uvm_driver_class_1.sv,DIFFERENT,decompile:,
-generated/uvm_classes_1/uvm_env_class_1.sv,DIFFERENT,decompile:,
-generated/uvm_classes_1/uvm_monitor_class_1.sv,DIFFERENT,decompile:,
-generated/uvm_classes_1/uvm_scoreboard_class_1.sv,DIFFERENT,decompile:,
-generated/uvm_classes_1/uvm_sequencer_class_1.sv,DIFFERENT,decompile:,
-generated/uvm_classes_1/uvm_test_class_1.sv,DIFFERENT,decompile:,
+generated/uvm_classes_1/uvm_driver_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
+generated/uvm_classes_1/uvm_env_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
+generated/uvm_classes_1/uvm_monitor_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
+generated/uvm_classes_1/uvm_scoreboard_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
+generated/uvm_classes_1/uvm_sequencer_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
+generated/uvm_classes_1/uvm_test_class_1.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
 generated/uvm_classes_2/uvm_agent_class_2.sv,EQUAL,,equal
 generated/uvm_classes_2/uvm_component_class_2.sv,DIFFERENT,decompile:,
 generated/uvm_classes_2/uvm_driver_class_2.sv,EQUAL,,equal
@@ -2168,7 +2168,7 @@ generic/class/class_test_48.sv,EQUAL,,equal
 generic/class/class_test_49.sv,DIFFERENT,decompile:,
 generic/class/class_test_51.sv,DIFFERENT,decompile:,
 generic/class/class_test_52.sv,EQUAL,,equal
-generic/class/class_test_53.sv,DIFFERENT,decompile:,
+generic/class/class_test_53.sv,EQUAL,,equal
 generic/class/class_test_54.sv,EQUAL,,equal
 generic/class/class_test_55.sv,EQUAL,,equal
 generic/class/class_test_56.sv,EQUAL,,equal
@@ -2334,7 +2334,7 @@ generic/typedef/typedef_test_9.sv,DIFFERENT,decompile:,
 generic/union/union_test_0.sv,EQUAL,,equal
 sanity.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/sanity.sv:23:9: error: expected a declaration name,
 testbenches/uvm_agent_active.sv,DIFFERENT,decompile:,
-testbenches/uvm_agent_env.sv,DIFFERENT,decompile:,
+testbenches/uvm_agent_env.sv,STRICT_NOTEQUAL,differ:value(3),differ:value(3)
 testbenches/uvm_agent_passive.sv,DIFFERENT,decompile:,
 testbenches/uvm_driver_sequencer_env.sv,DIFFERENT,decompile:,
 testbenches/uvm_monitor_env.sv,DIFFERENT,decompile:,

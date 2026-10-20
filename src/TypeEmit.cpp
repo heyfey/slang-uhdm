@@ -15736,6 +15736,55 @@ void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
     }
     if (hits38.empty())
         return;
+    // § thisNetFirstListingModule418 (r11u418) — THE WIRE'S HOME IS THE FIRST
+    // DEFINITION THAT LISTS THE ROUTINE, not the top.  Every module of the
+    // file a `$unit` `import p::*;` sits in lists p's routines
+    // (§ materializedPkgTfGroup), and each module's late binding runs in the
+    // definition order the design's module list carries: the FIRST of them
+    // mints `this` and binds the shared references, so the later listings
+    // find them bound and mint nothing.  Golden grid
+    // tools/probe/r11u418repro/cases/TN: `module sub` declared before `top`
+    // (tn01) and `asub` after it (tn03) hold work@sub.this /
+    // work@asub.this, `top` before `zsub` (tn02) holds work@top.this; the
+    // sv-tests chapter-16 `*-uvm.sv` rows' `clk_gen` (before `top`) holds
+    // work@clk_gen.this where ours minted work@top.this.  The home is the
+    // first AllModules entry whose listing (or a class it lists) holds the
+    // routine of a qualifying reference; with none the top stays.  Switch
+    // R11U418_THISFIRSTMOD_OFF.
+    if (lawOn(418, "R11U418_THISFIRSTMOD_OFF") && d->AllModules()) {
+        std::set<const UHDM::task_func*> hitTfs418;
+        for (auto* r : hits38)
+            for (const UHDM::BaseClass* q = r->VpiParent(); q; q = q->VpiParent())
+                if (q->UhdmType() == UHDM::uhdmfunction ||
+                    q->UhdmType() == UHDM::uhdmtask) {
+                    hitTfs418.insert((const UHDM::task_func*)q);
+                    break;
+                }
+        auto lists418 = [&](const UHDM::module_inst* m) {
+            if (m->Task_funcs())
+                for (auto* f : *m->Task_funcs())
+                    if (hitTfs418.count(f))
+                        return true;
+            if (m->Class_defns())
+                for (auto* c : *m->Class_defns())
+                    if (c && c->Task_funcs())
+                        for (auto* f : *c->Task_funcs())
+                            if (hitTfs418.count(f))
+                                return true;
+            return false;
+        };
+        for (auto* m : *d->AllModules()) {
+            if (!m || !lists418(m))
+                continue;
+            if (m != home38) {
+                lawTrace(418, "thisNetFirstListingModule418",
+                         std::string(home38->VpiDefName()) + " -> " +
+                             std::string(m->VpiDefName()));
+                home38 = m;
+            }
+            break;
+        }
+    }
     // `Serializer::AllObjects` is keyed by POINTER, so its order is allocation-
     // dependent: the net's own span has to be picked by a total order on the
     // SOURCE, not by "the first hit", or the dump is nondeterministic run to
@@ -27224,6 +27273,23 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     std::string boundScope9 =
                         savedSRP9.empty() ? std::string()
                                           : savedSRP9 + "." + dispRaw;
+                    // § defGenPartSelBoundRefMember418 (r11u418) — the member
+                    // repetition is dropped only under an INDEXED part select
+                    // (and a bit select): ComputeFullName skips the parent's
+                    // name for a ref_obj child of a bit_select or an
+                    // indexed_part_select, never of a part_select, so a
+                    // [l:r] bound that IS one reference reads
+                    // `...addr[A - 1:B].addr.B` like a reference nested in an
+                    // operation (sv-tests generated/basejump
+                    // bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram, a
+                    // definition-view generate block's
+                    // `dma_pkt_n.addr[cache_bank_addr_width_p-1:
+                    // dram_byte_offset_width_lp]`, golden
+                    // `...dram_byte_offset_width_lp].addr.
+                    // dram_byte_offset_width_lp`, ours without `.addr`).
+                    // Grid tools/probe/r11u418repro/cases/PS.  Switch
+                    // R11U418_PSBOUNDREF_OFF.
+                    bool psMember418 = false;
                     auto mkBound9 = [&](const syntax::ExpressionSyntax& e9,
                                         UHDM::BaseClass* par9) -> UHDM::expr* {
                         if (!boundScope9.empty())
@@ -27236,10 +27302,21 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         if (x9->UhdmType() == UHDM::uhdmconstant)
                             ((UHDM::any*)x9)->VpiParent(nullptr);
                         if (x9->UhdmType() == UHDM::uhdmref_obj &&
-                            !boundScope9.empty())
-                            ((UHDM::ref_obj*)x9)
-                                ->VpiFullName(boundScope9 + "." +
-                                              std::string(x9->VpiName()));
+                            !boundScope9.empty()) {
+                            if (psMember418) {
+                                ((UHDM::ref_obj*)x9)
+                                    ->VpiFullName(boundScope9 + "." + base9 +
+                                                  "." +
+                                                  std::string(x9->VpiName()));
+                                lawTrace(418, "defGenPartSelBoundRefMember418",
+                                         boundScope9 + "." + base9 + "." +
+                                             std::string(x9->VpiName()));
+                            }
+                            else
+                                ((UHDM::ref_obj*)x9)
+                                    ->VpiFullName(boundScope9 + "." +
+                                                  std::string(x9->VpiName()));
+                        }
                         return (UHDM::expr*)x9;
                     };
                     if (sel9 &&
@@ -27300,10 +27377,12 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         ps9->VpiParent(hp);
                         ps9->VpiConstantSelect(true);
                         setLoc(ps9, espan9);
+                        psMember418 = lawOn(418, "R11U418_PSBOUNDREF_OFF");
                         if (auto* lx9 = mkBound9(*rs9.left, ps9))
                             ps9->Left_range(lx9);
                         if (auto* rx9 = mkBound9(*rs9.right, ps9))
                             ps9->Right_range(rx9);
+                        psMember418 = false;
                         // § defGenPathSel161 — as the literal arm.
                         if (sel161 && i > 0 && name161) {
                             ps9->VpiDefName(base9);

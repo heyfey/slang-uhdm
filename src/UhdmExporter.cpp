@@ -2040,8 +2040,47 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
             fprintf(stderr, "R11U134 TDPARENT %s -> %s\n", std::string(t->VpiName()).c_str(),
                     p ? std::string(p->VpiName().empty() ? p->VpiDefName() : p->VpiName()).c_str()
                       : "(none)");
-    if (moving.empty())
+    // § tdKeptParentMemberNames418 (r11u418) — A LISTING OBJECT WHOSE LAST
+    // WRITER IS ALREADY ITS PARENT STILL TAKES THE NAMES OF ITS CHAIN.
+    // Surelog stores no full name on a struct or union typedef's member
+    // ref_typespecs: ComputeFullName reads them through the typedef's final
+    // parent (`work@m.p::s_t.clk` once a module's listing wrote it last).
+    // The rename below runs only for the objects whose parent CHANGES here;
+    // a package typedef's shared import clone (built with the package-style
+    // `p::s_t::clk` member names, ParamEmit's clone branch) that ModuleEmit's
+    // listing already parented at its DEFINITION-view module kept those
+    // names when no elaborated instance moved it in between: a module that
+    // only the definition view lists (an uninstantiated module behind
+    // --top, in its own file, reached by a file-scope `import p::s_t;`;
+    // sv-tests generated/basejump bsg_clk_gen_BaseJumpSTL_bsg_dram_clk_gen,
+    // golden `work@bsg_dram_clk_gen.bsg_tag_pkg::bsg_tag_s.clk`, ours
+    // `bsg_tag_pkg::bsg_tag_s::clk`).  The law hands such an object to the
+    // same rename (struct and union typedefs whose last writer is a module,
+    // interface or program and is already the parent); a name that already
+    // reads the chain is left alone.  Grid tools/probe/r11u418repro/cases/KN.
+    // Switch R11U418_KEPTTDNAMES_OFF.
+    std::map<const UHDM::BaseClass*, UHDM::BaseClass*> kept418;
+    if (lastWriter && lawOn(418, "R11U418_KEPTTDNAMES_OFF"))
+        for (auto* t : order) {
+            auto k = t->UhdmType();
+            if (k != UHDM::uhdmstruct_typespec && k != UHDM::uhdmunion_typespec)
+                continue;
+            auto* p = newParent[t];
+            if (!p || t->VpiParent() != p || moving.count(t))
+                continue;
+            auto pk = p->UhdmType();
+            if (pk != UHDM::uhdmmodule_inst && pk != UHDM::uhdminterface_inst &&
+                pk != UHDM::uhdmprogram)
+                continue;
+            kept418[t] = p;
+        }
+    if (moving.empty() && kept418.empty())
         return;
+    auto parentOf418 = [&](const UHDM::BaseClass* own) -> UHDM::BaseClass* {
+        if (auto it = moving.find(own); it != moving.end())
+            return it->second;
+        return kept418.at(own);
+    };
     // BaseClass::ComputeFullName's per-link name.
     auto linkName = [](const UHDM::BaseClass* a,
                        const UHDM::BaseClass* child) -> std::string_view {
@@ -2088,7 +2127,7 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
             if (!nm.empty())
                 names.push_back(nm);
             child = a;
-            a = (a == own) ? moving.at(own) : a->VpiParent();
+            a = (a == own) ? parentOf418(own) : a->VpiParent();
         }
         std::string out;
         for (auto it = names.rbegin(); it != names.rend(); ++it) {
@@ -2141,7 +2180,7 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
             if (a->UhdmType() == UHDM::uhdmdesign)
                 break;
         }
-        if (!own || !moving.count(own))
+        if (!own || (!moving.count(own) && !kept418.count(own)))
             continue;
         // A struct/union typedef's names below a typespec_member follow the
         // chain; an unparented enum's base-type ref follows it too (grid
@@ -2162,14 +2201,35 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
         case UHDM::uhdmref_obj:
             cur = std::string(((UHDM::ref_obj*)o)->VpiFullName());
             break;
+        // § tdMoveRenamesBitSelect418 (r11u418) — a BIT SELECT is a ref_obj
+        // too and its stored name follows the chain the same way: a
+        // module-body struct typedef's member range bound `P[D]` written
+        // `logic [P[D]-1:0] cord;` keeps `h_s.cord.P` from the build where
+        // golden's ComputeFullName reads through the typedef's last-writer
+        // parent, `work@m.h_s.cord.P` (sv-tests generated/basejump
+        // bsg_noc_BaseJumpSTL_bsg_wormhole_router, a definition-only module
+        // whose generate-for variable lists the typedef:
+        // `work@bsg_wormhole_router.bsg_wormhole_router_header_s.cord.
+        // cord_markers_pos_p`).  Grid tools/probe/r11u418repro/cases/BS.
+        // Switch R11U418_TDMOVEBITSEL_OFF.
+        case UHDM::uhdmbit_select:
+            if (!lawOn(418, "R11U418_TDMOVEBITSEL_OFF"))
+                continue;
+            cur = std::string(((UHDM::ref_obj*)o)->VpiFullName());
+            break;
         default:
             continue;
         }
         if (!endsAt(cur, tailOf(o, own, ".")) && !endsAt(cur, tailOf(o, own, "::")))
             continue;
         std::string nf = newFull(o, own);
-        if (!nf.empty() && nf != cur)
+        if (!nf.empty() && nf != cur) {
             renames.push_back({o, nf});
+            if (kept418.count(own))
+                lawTrace(418, "tdKeptParentMemberNames418", cur + " -> " + nf);
+            if (o->UhdmType() == UHDM::uhdmbit_select)
+                lawTrace(418, "tdMoveRenamesBitSelect418", cur + " -> " + nf);
+        }
     }
     // § unitClsAggTdLastWriter235, the member CLONE half: a member written
     // with a package vector typedef binds a bare per-member copy (LAW S /
@@ -11658,7 +11718,72 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
                         trace188("tpOwnTsAtHeaderDefault188", std::string(tps.name));
                     }
                 its = makeTypespec(mem, osyn188);
-                if (its)
+                // § classTpUnitTdAliasClone418 (r11u418) — a class type
+                // parameter whose default NAMES a `$unit` typedef of a
+                // built-in type binds a CLONE of the typedef's listing
+                // object, not the listing object itself: Surelog's
+                // compileTypespec for the default mints a copy named after
+                // the typedef at the typedef's span, parented at the type
+                // parameter, with a vpiTypedefAlias ref (full name
+                // `<param>::<typedef>`) to the design listing (sv-tests
+                // generic/class/class_test_53.sv: `parameter type BT =
+                // BrickType;` golden ref -> int_typespec BrickType (parent
+                // work@param_types_as_class_item::BT, alias
+                // work@param_types_as_class_item::BT::BrickType -> the
+                // listing), where ours bound the listing and re-parented it
+                // at the parameter, leaving the design listing parented
+                // there too).  A package typedef binds its listing and keeps
+                // the package parent (golden GT = mypkg::GlueType); an alias
+                // of an alias, an aggregate or a class typedef is not
+                // reached.  Grid tools/probe/r11u418repro/cases/CT.  Switch
+                // R11U418_CLSTPUNITTD_OFF.
+                UHDM::typespec* clone418 = nullptr;
+                if (its && dt.kind == SymbolKind::TypeAlias &&
+                    lawOn(418, "R11U418_CLSTPUNITTD_OFF")) {
+                    auto& ta418 = dt.as<TypeAliasType>();
+                    auto* sc418 = ta418.getParentScope();
+                    auto tit418 = typedefTs.find(&dt);
+                    if (sc418 && sc418->asSymbol().kind == SymbolKind::CompilationUnit &&
+                        ta418.targetType.getType().kind != SymbolKind::TypeAlias &&
+                        tit418 != typedefTs.end() && tit418->second == its &&
+                        !its->Typedef_alias())
+                        switch (its->UhdmType()) {
+                            case UHDM::uhdmlogic_typespec:
+                            case UHDM::uhdmbit_typespec:
+                            case UHDM::uhdmint_typespec:
+                            case UHDM::uhdminteger_typespec:
+                            case UHDM::uhdmbyte_typespec:
+                            case UHDM::uhdmshort_int_typespec:
+                            case UHDM::uhdmlong_int_typespec:
+                            case UHDM::uhdmstring_typespec:
+                                clone418 = bareScalarTdCopyOfFresh16(its);
+                                break;
+                            default:
+                                break;
+                        }
+                    if (clone418) {
+                        clone418->VpiName(its->VpiName());
+                        clone418->VpiFile(its->VpiFile());
+                        clone418->VpiLineNo(its->VpiLineNo());
+                        clone418->VpiColumnNo(its->VpiColumnNo());
+                        clone418->VpiEndLineNo(its->VpiEndLineNo());
+                        clone418->VpiEndColumnNo(its->VpiEndColumnNo());
+                        clone418->Instance(nullptr);
+                        clone418->VpiParent(tp);
+                        auto* al418 = s.MakeRef_typespec();
+                        al418->VpiFullName(std::string(tp->VpiFullName()) + "::" +
+                                           std::string(its->VpiName()));
+                        al418->VpiParent(clone418);
+                        al418->Actual_typespec(its);
+                        clone418->Typedef_alias(al418);
+                        lawTrace(418, "classTpUnitTdAliasClone418",
+                                 std::string(tp->VpiFullName()) + " " +
+                                     std::string(its->VpiName()));
+                    }
+                }
+                if (clone418)
+                    its = clone418;
+                else if (its)
                     its->VpiParent(tp);
                 // § classTpKeywordTsAtDefault188 — a keyword default's own
                 // object (TypeEmit.cpp: the uses copy it, a formal moves it).
