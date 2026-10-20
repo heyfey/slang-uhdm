@@ -8665,6 +8665,32 @@ void UhdmExporter::emitClassPropInit29(const PendingPropInit29& pi) {
         pi.var->Expr((UHDM::expr*)r59);
         return;
     }
+    // § classPropBinOpInit414 (r11u414, R11U414_CLSPROPBINOP_OFF; cases
+    // tools/probe/r11u414repro/cases/CI; sv-tests
+    // generated/hdlconv_std2012/hdlconvertor_std2012_p148.sv and
+    // generated/hdlconv_std2017/hdlconvertor_std2017_p184.sv) — a
+    // BINARY-operation initializer of a scalar integral property (`const
+    // int max_size = 9 * 1024;`) rides the variable unfolded (the class body
+    // compiles with Reduce::No), its DIRECT bare-decimal constant operands
+    // sized at the property's width by makeVar_'s adjustSize (golden 9 and
+    // 1024 at 32), nested operands left at 64 — the module variable's
+    // § varInitOpCastKept404 shape.  This function returned on it.
+    if (ic.kind == ExpressionKind::BinaryOp && !pi.elem &&
+        cp.getType().getCanonicalType().isIntegral() &&
+        lawOn(414, "R11U414_CLSPROPBINOP_OFF")) {
+        if (auto* eb414 = emitExpr(ic, pi.var, pi.pfn, nm29);
+            eb414 && eb414->UhdmType() == UHDM::uhdmoperation) {
+            const int32_t w414 = (int32_t)cp.getType().getBitWidth();
+            if (w414 > 0)
+                if (auto* os414 = ((UHDM::operation*)eb414)->Operands())
+                    for (auto* o414 : *os414)
+                        if (bareDecimalDefault64_31(o414))
+                            ((UHDM::expr*)o414)->VpiSize(w414);
+            pi.var->Expr((UHDM::expr*)eb414);
+            lawTrace(414, "classPropBinOpInit414", pi.pfn);
+        }
+        return;
+    }
     if (ic.kind != ExpressionKind::Call)
         return;
     // § classPropSysCallInit2 — a SYSTEM function call initializer stays a
@@ -10499,6 +10525,20 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             vars->push_back(v);
             continue;
         }
+        // § classChandlePropNoTs414 (r11u414, R11U414_CHANDLEPROP_OFF; cases
+        // tools/probe/r11u414repro/cases/CH; sv-tests
+        // generic/member/class_member_test_12.sv) — a `chandle` class
+        // property is a chandle_var with NO typespec: TestbenchElaboration's
+        // makeVar_ reaches it through the subnettype fallback chain
+        // (paChandle_type) that never links one, the same object
+        // § classPropNullInitParentedByTypespec2 decodes for `= null`.
+        if (ct.kind == SymbolKind::CHandleType &&
+            v->UhdmType() == UHDM::uhdmchandle_var &&
+            lawOn(414, "R11U414_CHANDLEPROP_OFF")) {
+            lawTrace(414, "classChandlePropNoTs414", fullName + "::" + std::string(cp.name));
+            vars->push_back(v);
+            continue;
+        }
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(fullName + "::" + std::string(cp.name));
         rt->VpiParent(v);
@@ -11321,6 +11361,20 @@ void UhdmExporter::emitAssocDims(const Symbol& cp,
                 arrayVarArrayTs[&cp] = ats;
             }
         }
+    }
+    // § classWildcardIdxRefTs414 (r11u414, R11U414_CLSWILDCARDIDX_OFF; cases
+    // tools/probe/r11u414repro/cases/WC; sv-tests
+    // generic/class/class_test_55.sv) — a WILDCARD associative class
+    // property (`Packet pNP [*];`, `int a [*];`) still carries an index
+    // ref_typespec with no actual on its array_typespec, the class half of
+    // the module site's § assocWildcardIdxRefTs412.
+    else if (!idx[0] && dimAt(0) && dimAt(0)->specifier &&
+             dimAt(0)->specifier->kind == syntax::SyntaxKind::WildcardDimensionSpecifier &&
+             lawOn(414, "R11U414_CLSWILDCARDIDX_OFF")) {
+        auto* irt = s.MakeRef_typespec();
+        irt->VpiParent(ats);
+        ats->Index_typespec(irt);
+        lawTrace(414, "classWildcardIdxRefTs414", std::string(cp.name));
     }
     if (idx.size() < 2)
         return;
@@ -17885,6 +17939,86 @@ UHDM::design* UhdmExporter::exportDesign() {
                              });
             if (!ordered9.empty()) {
                 auto* tds = s.MakeTypespecVec();
+                // § unitFwdTypedefTwin414 (r11u414, R11U414_FWDTDTWIN_OFF;
+                // cases tools/probe/r11u414repro/cases/FT; sv-tests
+                // generic/typedef/typedef_test_0.sv) — the FIRST bare
+                // forward typedef of $unit (`typedef t;`, before or after
+                // `typedef int t;`; a `typedef class` / `typedef enum` one
+                // never counts) makes compileTypeDef's named-type branch
+                // list `tpclone = clone_tree(ts)` named `t` with a
+                // Typedef_alias back to the real object, AHEAD of the
+                // name-sorted listing (ft06: t-twin, a, b, c, t); every
+                // later forward typedef adds no listed twin (ft03, ft07,
+                // ft10).
+                if (lawOn(414, "R11U414_FWDTDTWIN_OFF")) {
+                    const ForwardingTypedefSymbol* first414 = nullptr;
+                    const TypeAliasType* firstTa414 = nullptr;
+                    // § fwdClassFirstAbstain414v (v11u414,
+                    // R11V414_FWDCLASSFIRST_OFF; cases
+                    // tools/probe/v11u414repro/cases/VF/vf05, vf15) — a bare
+                    // `typedef C;` naming a CLASS counts as a forward typedef
+                    // too: when it is the first one, golden's listed twin is
+                    // the class_typespec C at the forward declaration and the
+                    // later `typedef t;` adds nothing, so the law abstains
+                    // (it cloned t's object instead).
+                    const ForwardingTypedefSymbol* firstCls414v = nullptr;
+                    if (fixOn(414, "R11V414_FWDCLASSFIRST_OFF"))
+                        for (auto unit414 : comp.getCompilationUnits())
+                            for (auto& m414 : unit414->members()) {
+                                const ForwardingTypedefSymbol* cf414 = nullptr;
+                                if (m414.kind == SymbolKind::ClassType)
+                                    cf414 = m414.as<ClassType>().getFirstForwardDecl();
+                                else if (m414.kind == SymbolKind::GenericClassDef)
+                                    cf414 = m414.as<GenericClassDefSymbol>().getFirstForwardDecl();
+                                for (; cf414; cf414 = cf414->getNextForwardDecl())
+                                    if (cf414->typeRestriction == ForwardTypeRestriction::None &&
+                                        (!firstCls414v ||
+                                         srcOrderLess(cf414->location, firstCls414v->location)))
+                                        firstCls414v = cf414;
+                            }
+                    for (auto unit414 : comp.getCompilationUnits())
+                        for (auto& m414 : unit414->members()) {
+                            if (m414.kind != SymbolKind::TypeAlias)
+                                continue;
+                            auto& ta414 = m414.as<TypeAliasType>();
+                            for (auto* f414 = ta414.getFirstForwardDecl(); f414;
+                                 f414 = f414->getNextForwardDecl()) {
+                                if (f414->typeRestriction != ForwardTypeRestriction::None)
+                                    continue;
+                                if (!first414 ||
+                                    srcOrderLess(f414->location, first414->location)) {
+                                    first414 = f414;
+                                    firstTa414 = &ta414;
+                                }
+                            }
+                        }
+                    if (firstTa414 && firstCls414v &&
+                        srcOrderLess(firstCls414v->location, first414->location))
+                        firstTa414 = nullptr;
+                    if (firstTa414)
+                        if (auto bit414 = byName.find(std::string(firstTa414->name));
+                            bit414 != byName.end() && bit414->second &&
+                            bit414->second->UhdmType() != UHDM::uhdmclass_typespec &&
+                            bit414->second->UhdmType() != UHDM::uhdmunsupported_typespec) {
+                            auto* real414 = bit414->second;
+                            UHDM::ElaboratorContext ctx414(&s, false, true);
+                            auto* tw414 = (UHDM::typespec*)UHDM::clone_tree(real414, &ctx414);
+                            if (tw414) {
+                                tw414->VpiParent((UHDM::BaseClass*)d);
+                                tw414->VpiName(real414->VpiName());
+                                if (real414->Instance())
+                                    tw414->Instance((UHDM::instance*)real414->Instance());
+                                auto* ar414 = s.MakeRef_typespec();
+                                ar414->VpiParent(tw414);
+                                ar414->VpiFullName(std::string(real414->VpiName()));
+                                ar414->Actual_typespec(real414);
+                                tw414->Typedef_alias(ar414);
+                                tds->push_back(tw414);
+                                lawTrace(414, "unitFwdTypedefTwin414",
+                                         std::string(firstTa414->name));
+                            }
+                        }
+                }
                 for (auto& [nm, ts] : ordered9)
                     tds->push_back(ts);
                 d->Typespecs(tds);

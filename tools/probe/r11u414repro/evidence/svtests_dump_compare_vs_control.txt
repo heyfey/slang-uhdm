@@ -1,0 +1,4 @@
+      1 DIFF
+    250 SAME
+DIFF ./generated/tnoc/tnoc/slang.uhdm
+tnoc: uhdm-cmp law vs control rc=0, 0 lines; no firing; no realtime in its :files: (the 900 s dump timeout truncated the DIFF reading)

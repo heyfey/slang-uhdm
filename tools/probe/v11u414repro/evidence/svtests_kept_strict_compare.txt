@@ -1,0 +1,8 @@
+# uhdm-strictcmp on the sv-tests databases both sweeps keep (tnoc with --no-canon: the canonical walk overflows)
+## control (/tmp/intr11u412) vs law
+    250 STRICT_EQUAL
+## law vs verified
+      1 canon
+    250 STRICT_EQUAL
+tnoc law vs verified: uhdm-cmp rc=0 0 lines; strictcmp --no-canon STRICT_EQUAL 2603030 objects
+tnoc control vs law: strictcmp --no-canon STRICT_EQUAL 2603030 objects

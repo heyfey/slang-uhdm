@@ -1,0 +1,15 @@
+VV/vv17 dump 32 -> 28 toward
+VV/vv20 dump 4 -> 4 same
+VV/vv21 dump 11 -> 3 toward
+VB/vb13 dump 12 -> 12 same
+VP/vp19 dump 23 -> 6 toward
+VP/vp22 dump 23 -> 4 toward
+VC/vc13 dump 31 -> 25 toward
+VC/vc15 dump 12 -> 6 toward
+VC/vc16 dump 31 -> 31 same
+VF/vf13 dump 51 -> 36 toward
+VF/vf15 dump 11 -> 16 AWAY
+VF/vf16 dump 27 -> 12 toward
+VF/vf17 dump 112 -> 78 toward
+VQ/vq08 dump 46 -> 6 toward
+VQ/vq09 dump 41 -> 2 toward

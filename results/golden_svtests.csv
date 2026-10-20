@@ -5,7 +5,7 @@ chapter-10/10.3.1--one-net.sv,EQUAL,,equal
 chapter-10/10.3.2--cont-assignment.sv,EQUAL,,equal
 chapter-10/10.3.3--cont-assignment-delay.sv,EQUAL,,equal
 chapter-10/10.3.3--cont-assignment-net-delay.sv,EQUAL,,equal
-chapter-10/10.4.1--blocking-assignment.sv,DIFFERENT,decompile:,
+chapter-10/10.4.1--blocking-assignment.sv,EQUAL,,equal
 chapter-10/10.4.2--non-blocking-assignment.sv,EQUAL,,equal
 chapter-10/10.6.1--assign-deassign.sv,EQUAL,,equal
 chapter-10/10.6.2--force-release.sv,EQUAL,,equal
@@ -541,7 +541,7 @@ chapter-5/5.8-time-literals.sv,EQUAL,,equal
 chapter-5/5.9-string-assignment.sv,EQUAL,,equal
 chapter-5/5.9-string-basics.sv,EQUAL,,equal
 chapter-5/5.9-string-broken-line.sv,EQUAL,,equal
-chapter-5/5.9-string-word-assignment.sv,DIFFERENT,decompile:,
+chapter-5/5.9-string-word-assignment.sv,EQUAL,,equal
 chapter-5/5.9.1-string-special-chars.sv,EQUAL,,equal
 chapter-6/6.10--implicit_continuous_assignment.sv,EQUAL,,equal
 chapter-6/6.10--implicit_port.sv,EQUAL,,equal
@@ -550,7 +550,7 @@ chapter-6/6.12--real.sv,EQUAL,,equal
 chapter-6/6.12--real_bit_select.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.12--real_bit_select.sv:22:22: error: value of type 'real' cannot be indexed,
 chapter-6/6.12--real_bit_select_idx.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.12--real_bit_select_idx.sv:23:22: error: expression type 'real' is not integral,
 chapter-6/6.12--real_edge.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.12--real_edge.sv:20:26: error: expression type 'real' is not integral,
-chapter-6/6.12--realtime.sv,DIFFERENT,decompile:,
+chapter-6/6.12--realtime.sv,EQUAL,,equal
 chapter-6/6.12--shortreal.sv,EQUAL,,equal
 chapter-6/6.13--void.sv,EQUAL,,equal
 chapter-6/6.14--chandle.sv,EQUAL,,equal
@@ -747,7 +747,7 @@ chapter-8/8.19--instance_constant.sv,EQUAL,,equal
 chapter-8/8.20--virtual_method.sv,EQUAL,,equal
 chapter-8/8.21--abstract_class.sv,EQUAL,,equal
 chapter-8/8.21--abstract_class_inst.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.21--abstract_class_inst.sv:33:28: error: cannot create instance of virtual class 'base_cls',
-chapter-8/8.22--dynamic_method_lookup.sv,DIFFERENT,decompile:,
+chapter-8/8.22--dynamic_method_lookup.sv,EQUAL,,equal
 chapter-8/8.23--scope_resolution.sv,EQUAL,,equal
 chapter-8/8.24--out_of_block_methods.sv,DIFFERENT,decompile:,
 chapter-8/8.25--parametrized_class_extend.sv,EQUAL,,equal
@@ -757,7 +757,7 @@ chapter-8/8.26.2--implements.sv,EQUAL,,equal
 chapter-8/8.26.2--implements_extends.sv,EQUAL,,equal
 chapter-8/8.26.2--implements_multiple.sv,EQUAL,,equal
 chapter-8/8.26.3--type_access_extends.sv,EQUAL,,equal
-chapter-8/8.26.3--type_access_implements.sv,DIFFERENT,decompile:,
+chapter-8/8.26.3--type_access_implements.sv,EQUAL,,equal
 chapter-8/8.26.3--type_access_implements_invalid.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.3--type_access_implements_invalid.sv:25:45: error: use of undeclared identifier 'int_t',
 chapter-8/8.26.4--illegal_forward_def_implements.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.4--illegal_forward_def_implements.sv:21:32: error: cannot extend or implement an incomplete forward typedef,
 chapter-8/8.26.4--illegal_implements_parameter.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.4--illegal_implements_parameter.sv:24:51: error: cannot extend or implement a type parameter,
@@ -1347,7 +1347,7 @@ generated/hdlconv_std2012/hdlconvertor_std2012_p139.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p141.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p142.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p147.sv,EQUAL,,equal
-generated/hdlconv_std2012/hdlconvertor_std2012_p148.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2012/hdlconvertor_std2012_p148.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p154_1.sv,EQUAL,,equal
 generated/hdlconv_std2012/hdlconvertor_std2012_p154_2.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2012/p154_2.sv:8:22: error: method argument 'x' is of type 'C::T' (aka 'real') w,
 generated/hdlconv_std2012/hdlconvertor_std2012_p158.sv,EQUAL,,equal
@@ -1378,7 +1378,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p179.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p181.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p181_2.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p183.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p184.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p184.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p184_2.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p185.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p185_2.sv,EQUAL,,equal
@@ -2170,7 +2170,7 @@ generic/class/class_test_51.sv,DIFFERENT,decompile:,
 generic/class/class_test_52.sv,EQUAL,,equal
 generic/class/class_test_53.sv,DIFFERENT,decompile:,
 generic/class/class_test_54.sv,EQUAL,,equal
-generic/class/class_test_55.sv,DIFFERENT,decompile:,
+generic/class/class_test_55.sv,EQUAL,,equal
 generic/class/class_test_56.sv,EQUAL,,equal
 generic/class/class_test_57.sv,EQUAL,,equal
 generic/class/class_test_58.sv,EQUAL,,equal
@@ -2218,7 +2218,7 @@ generic/iface/iface_class_test_9.sv,EQUAL,,equal
 generic/member/class_member_test_0.sv,EQUAL,,equal
 generic/member/class_member_test_10.sv,EQUAL,,equal
 generic/member/class_member_test_11.sv,EQUAL,,equal
-generic/member/class_member_test_12.sv,DIFFERENT,decompile:,
+generic/member/class_member_test_12.sv,EQUAL,,equal
 generic/member/class_member_test_14.sv,EQUAL,,equal
 generic/member/class_member_test_15.sv,EQUAL,,equal
 generic/member/class_member_test_18.sv,EQUAL,,equal
@@ -2238,7 +2238,7 @@ generic/member/class_member_test_5.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tes
 generic/member/class_member_test_6.sv,EQUAL,,equal
 generic/member/class_member_test_7.sv,EQUAL,,equal
 generic/member/class_member_test_8.sv,EQUAL,,equal
-generic/member/class_member_test_9.sv,DIFFERENT,decompile:,
+generic/member/class_member_test_9.sv,EQUAL,,equal
 generic/number/number_test_0.sv,EQUAL,,equal
 generic/number/number_test_1.sv,EQUAL,,equal
 generic/number/number_test_10.sv,EQUAL,,equal
@@ -2302,7 +2302,7 @@ generic/preproc/preproc_test_6.sv,EQUAL,,equal
 generic/preproc/preproc_test_7.sv,EQUAL,,equal
 generic/preproc/preproc_test_8.sv,EQUAL,,equal
 generic/struct/struct_test_0.sv,EQUAL,,equal
-generic/typedef/typedef_test_0.sv,DIFFERENT,decompile:,
+generic/typedef/typedef_test_0.sv,EQUAL,,equal
 generic/typedef/typedef_test_1.sv,EQUAL,,equal
 generic/typedef/typedef_test_10.sv,EQUAL,,equal
 generic/typedef/typedef_test_11.sv,EQUAL,,equal
@@ -2310,7 +2310,7 @@ generic/typedef/typedef_test_12.sv,EQUAL,,equal
 generic/typedef/typedef_test_13.sv,EQUAL,,equal
 generic/typedef/typedef_test_14.sv,EQUAL,,equal
 generic/typedef/typedef_test_16.sv,EQUAL,,equal
-generic/typedef/typedef_test_18.sv,DIFFERENT,decompile:,
+generic/typedef/typedef_test_18.sv,EQUAL,,equal
 generic/typedef/typedef_test_19.sv,EQUAL,,equal
 generic/typedef/typedef_test_2.sv,EQUAL,,equal
 generic/typedef/typedef_test_20.sv,EQUAL,,equal

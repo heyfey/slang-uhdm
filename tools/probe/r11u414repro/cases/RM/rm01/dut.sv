@@ -1,0 +1,8 @@
+// § structRandMemberVoid414
+parameter K = 9;
+typedef struct {
+  rand bit i;
+  randc integer b[K:0];
+} randstruct;
+module test;
+endmodule

@@ -5686,6 +5686,39 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                      std::string(uts412->VpiName()));
                         }
                     }
+            // § ifaceClsScopedArgUnsup414, the RETURN half (IT/it03
+            // `function ic::i_t g();`) — a return written `ic::T` with `ic` an
+            // interface class binds an unsupported_typespec named as written,
+            // spanned at `ic::`.
+            if (!crossImplicitRet && rv->Typespec() &&
+                sub.getReturnType().kind == SymbolKind::TypeAlias &&
+                lawOn(414, "R11U414_IFCLSARG_OFF"))
+                if (auto* tsc414 = sub.getReturnType().getParentScope();
+                    tsc414 && tsc414->asSymbol().kind == SymbolKind::ClassType &&
+                    tsc414->asSymbol().as<ClassType>().isInterface)
+                    if (auto* rsyn414 = retTypeSyn175(sub);
+                        rsyn414 && rsyn414->kind == syntax::SyntaxKind::NamedType &&
+                        rsyn414->as<syntax::NamedTypeSyntax>().name->kind ==
+                            syntax::SyntaxKind::ScopedName) {
+                        auto rr414 = rsyn414->sourceRange();
+                        auto& sn414 = rsyn414->as<syntax::NamedTypeSyntax>()
+                                          .name->as<syntax::ScopedNameSyntax>();
+                        if (sn414.left->kind == syntax::SyntaxKind::IdentifierName &&
+                            sn414.right->kind == syntax::SyntaxKind::IdentifierName) {
+                            auto* u414 = s.MakeUnsupported_typespec();
+                            u414->VpiName(
+                                std::string(sn414.left->as<syntax::IdentifierNameSyntax>()
+                                                .identifier.valueText()) +
+                                "::" +
+                                std::string(sn414.right->as<syntax::IdentifierNameSyntax>()
+                                                .identifier.valueText()));
+                            setLoc(u414, SourceRange(rr414.start(),
+                                                     sn414.right->sourceRange().start()));
+                            rv->Typespec()->Actual_typespec(u414);
+                            lawTrace(414, "ifaceClsScopedArgUnsup414",
+                                     "ret " + std::string(sub.name));
+                        }
+                    }
             // A packed-array-of-VECTOR return (word[1:0], element a named
             // vector typedef) is a packed_array_var carrying the ARRAY range
             // and a bare logic_var element — Surelog. makeEnumArrayVar only
@@ -7058,6 +7091,130 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     ((UHDM::typespec*)ts)
                         ->VpiName(tpGroupWinner33c[grpKey33c]->name);
                     slot33c = (UHDM::typespec*)ts;
+                }
+            // § clsTdArgAliasTwin414 (r11u414, R11U414_ARGALIASTWIN_OFF; cases
+            // tools/probe/r11u414repro/cases/TA; sv-tests
+            // generic/member/class_member_test_9.sv) — a formal typed by a
+            // CLASS- or MODULE-scope typedef of an integer atom, scalar bit,
+            // string, real or time kind binds a twin compiled at the formal's
+            // type token: same kind, named after the typedef, its
+            // vpiTypedefAlias a ref_typespec to the typedef's own object, no
+            // parent (compileTfPortList's per-formal compile; the vector kinds
+            // already take § tfFormalTs's named clone above).  A package or
+            // $unit typedef binds the shared object (TA/ta07); a typedef of a
+            // type parameter or of another typedef abstains (TA/ta08).
+            if (auto adt414 = arg->getDeclaredType();
+                adt414 && adt414->getType().kind == SymbolKind::TypeAlias && argTsyn &&
+                rt->Actual_typespec() &&
+                lawOn(414, "R11U414_ARGALIASTWIN_OFF"))
+                if (auto* asc414 = adt414->getType().getParentScope();
+                    asc414 && (asc414->asSymbol().kind == SymbolKind::ClassType ||
+                               asc414->asSymbol().kind == SymbolKind::InstanceBody) &&
+                    // § tdArgTwinOwnScope414v (v11u414, R11V414_ARGTWINSCOPE_OFF;
+                    // cases tools/probe/v11u414repro/cases/VA) — golden binds
+                    // the typedef's own object, no twin, when the typedef is
+                    // not declared in the subroutine's own class or module (an
+                    // inherited typedef VA/va13 and va25, an enclosing class's
+                    // typedef va20, another class's D::T VI/vi05), when the
+                    // type is written scoped (C::i_t: golden an
+                    // unsupported_typespec, VA/va19), for a DPI import (va14,
+                    // va21, va26, va31) and for a subroutine whose DPI export
+                    // item precedes its definition (va22, va30: the export's
+                    // compileFunctionPrototype makes the object first).
+                    (!fixOn(414, "R11V414_ARGTWINSCOPE_OFF") ||
+                     (asc414 == sub.getParentScope() &&
+                      argTsyn->kind == syntax::SyntaxKind::NamedType &&
+                      argTsyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                          syntax::SyntaxKind::IdentifierName &&
+                      (sub.flags & MethodFlags::DPIImport) == MethodFlags::None &&
+                      !dpiExportItem216(sub))))
+                    if (auto* asyn414 = adt414->getType().getSyntax();
+                        asyn414 && asyn414->kind == syntax::SyntaxKind::TypedefDeclaration &&
+                        // a typedef of a TYPE PARAMETER or of another typedef
+                        // (uvm_imps.svh `typedef IMP this_imp_type;`, the
+                        // § classTypeParamTdGroupLastWins33c group) abstains
+                        adt414->getType().as<TypeAliasType>().targetType.getType().kind !=
+                            SymbolKind::TypeAlias &&
+                        !grpKey33c)
+                        if (auto tit414 = typedefTs.find(&adt414->getType());
+                            tit414 != typedefTs.end() && tit414->second &&
+                            rt->Actual_typespec() == tit414->second) {
+                            auto* tsd414 = tit414->second;
+                            UHDM::typespec* tw414 = nullptr;
+                            switch (tsd414->UhdmType()) {
+                                case UHDM::uhdmint_typespec: tw414 = s.MakeInt_typespec(); ((UHDM::int_typespec*)tw414)->VpiSigned(((UHDM::int_typespec*)tsd414)->VpiSigned()); break;
+                                case UHDM::uhdminteger_typespec: tw414 = s.MakeInteger_typespec(); ((UHDM::integer_typespec*)tw414)->VpiSigned(((UHDM::integer_typespec*)tsd414)->VpiSigned()); break;
+                                case UHDM::uhdmbyte_typespec: tw414 = s.MakeByte_typespec(); ((UHDM::byte_typespec*)tw414)->VpiSigned(((UHDM::byte_typespec*)tsd414)->VpiSigned()); break;
+                                case UHDM::uhdmshort_int_typespec: tw414 = s.MakeShort_int_typespec(); ((UHDM::short_int_typespec*)tw414)->VpiSigned(((UHDM::short_int_typespec*)tsd414)->VpiSigned()); break;
+                                case UHDM::uhdmlong_int_typespec: tw414 = s.MakeLong_int_typespec(); ((UHDM::long_int_typespec*)tw414)->VpiSigned(((UHDM::long_int_typespec*)tsd414)->VpiSigned()); break;
+                                case UHDM::uhdmstring_typespec: tw414 = s.MakeString_typespec(); break;
+                                case UHDM::uhdmreal_typespec: tw414 = s.MakeReal_typespec(); break;
+                                case UHDM::uhdmshort_real_typespec: tw414 = s.MakeShort_real_typespec(); break;
+                                case UHDM::uhdmtime_typespec: tw414 = s.MakeTime_typespec(); break;
+                                case UHDM::uhdmbit_typespec:
+                                    if (!((UHDM::bit_typespec*)tsd414)->Ranges()) {
+                                        tw414 = s.MakeBit_typespec();
+                                        ((UHDM::bit_typespec*)tw414)->VpiSigned(((UHDM::bit_typespec*)tsd414)->VpiSigned());
+                                    }
+                                    break;
+                                default: break;
+                            }
+                            if (tw414) {
+                                tw414->VpiName(adt414->getType().name);
+                                setLoc((UHDM::BaseClass*)tw414, argTsyn->sourceRange());
+                                if (auto st414 = argTsyn->sourceRange().start();
+                                    st414 != SourceLocation::NoLocation)
+                                    tw414->VpiFile(fullFilePath(st414));
+                                auto* ar414 = s.MakeRef_typespec();
+                                ar414->VpiFullName(std::string(adt414->getType().name));
+                                ar414->VpiParent(tw414);
+                                ar414->Actual_typespec(tsd414);
+                                tw414->Typedef_alias(ar414);
+                                rt->Actual_typespec(tw414);
+                                lawTrace(414, "clsTdArgAliasTwin414", std::string(arg->name));
+                            }
+                        }
+            // § ifaceClsScopedArgUnsup414 (r11u414, R11U414_IFCLSARG_OFF; cases
+            // tools/probe/r11u414repro/cases/IT; sv-tests
+            // chapter-8/8.26.3--type_access_implements.sv) — a formal written
+            // `ic::T` with `ic` an INTERFACE class binds an
+            // unsupported_typespec named as written: Surelog never lists an
+            // interface class (§ ifaceClassNotListed408), so the scoped name
+            // does not resolve.  It spans `ic::` (to the type name's start),
+            // or the whole type when a direction keyword is written (IT/it02
+            // `input ic::v_t c`), compileTfPortList's two placements.
+            if (auto adt414b = arg->getDeclaredType();
+                adt414b && adt414b->getType().kind == SymbolKind::TypeAlias && argTsyn &&
+                argTsyn->kind == syntax::SyntaxKind::NamedType &&
+                argTsyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                    syntax::SyntaxKind::ScopedName &&
+                lawOn(414, "R11U414_IFCLSARG_OFF"))
+                if (auto* asc414b = adt414b->getType().getParentScope();
+                    asc414b && asc414b->asSymbol().kind == SymbolKind::ClassType &&
+                    asc414b->asSymbol().as<ClassType>().isInterface) {
+                    auto& sn414 = argTsyn->as<syntax::NamedTypeSyntax>()
+                                      .name->as<syntax::ScopedNameSyntax>();
+                    if (sn414.left->kind == syntax::SyntaxKind::IdentifierName &&
+                        sn414.right->kind == syntax::SyntaxKind::IdentifierName) {
+                        bool dir414 = false;
+                        if (auto* ds414 = arg->getSyntax(); ds414 && ds414->parent &&
+                            ds414->parent->kind == syntax::SyntaxKind::FunctionPort)
+                            dir414 = ds414->parent->as<syntax::FunctionPortSyntax>()
+                                         .direction.valid();
+                        auto* u414 = s.MakeUnsupported_typespec();
+                        u414->VpiName(
+                            std::string(sn414.left->as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText()) +
+                            "::" +
+                            std::string(sn414.right->as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText()));
+                        auto rr414 = argTsyn->sourceRange();
+                        setLoc(u414, dir414 ? rr414
+                                            : SourceRange(rr414.start(),
+                                                          sn414.right->sourceRange().start()));
+                        rt->Actual_typespec(u414);
+                        lawTrace(414, "ifaceClsScopedArgUnsup414", std::string(arg->name));
+                    }
                 }
             io->Typespec(rt);
             // § inlineAggFormalTypeSpan299 (r11u299, probe

@@ -20442,7 +20442,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         // The elab ts is a FRESH real_typespec spanning the DATA-TYPE syntax
         // only (`real`, or `type(a+b)` for a type-operator decl) — the def
         // view's net keeps its own ts spanning the whole declaration.
-        UHDM::real_typespec* realElabTs = nullptr;
+        UHDM::typespec* realElabTs = nullptr;
         if (rt == nullptr && realVar && !implicitNet && !bareImplicit) {
             auto* dtR = it.sym->getDeclaredType();
             auto& ctR = dtR->getType().getCanonicalType();
@@ -20464,6 +20464,25 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         rt->Actual_typespec(itS->second);
                         lawTrace(245, "unitRealTdElabShares245", fullName);
                     }
+            // § realtimeVarIsTime414 (r11u414, R11U414_REALTIME_OFF; cases
+            // tools/probe/r11u414repro/cases/RT; sv-tests
+            // chapter-6/6.12--realtime.sv) — a `realtime` signal is
+            // Surelog's time_var (paNonIntType_RealTime), and its elaborated
+            // reference is a fresh time_typespec spanning the data type, as
+            // the `real` rule's real_typespec (TypeEmit makes the var).
+            if (ctR.kind == SymbolKind::FloatingType &&
+                ctR.as<FloatingType>().floatKind == FloatingType::RealTime &&
+                dtR->getType().kind != SymbolKind::TypeAlias &&
+                lawOn(414, "R11U414_REALTIME_OFF")) {
+                auto* tt414 = s.MakeTime_typespec();
+                if (auto* tsyn414 = dtR->getTypeSyntax())
+                    setLoc(tt414, tsyn414->sourceRange());
+                realElabTs = tt414;
+                rt = s.MakeRef_typespec();
+                rt->VpiFullName(fullName);
+                rt->Actual_typespec(tt414);
+                lawTrace(414, "realtimeVarIsTime414", fullName);
+            }
             if (ctR.kind == SymbolKind::FloatingType &&
                 ctR.as<FloatingType>().floatKind == FloatingType::Real) {
                 // § unitRealTdElabShares245 (r11u245, R11U245_UNITREALTD_OFF;
@@ -21216,9 +21235,37 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             // (string literals keep their 8*len size).
                             if (e->UhdmType() == UHDM::uhdmconstant &&
                                 ic.kind != ExpressionKind::StringLiteral &&
-                                rawText(ic.sourceRange).find('\'') == std::string::npos)
+                                rawText(ic.sourceRange).find('\'') == std::string::npos) {
                                 ((UHDM::constant*)e)->VpiSize(
                                     (int32_t)dt->getType().getBitWidth());
+                                // § varInitUintMask414 (r11u414,
+                                // R11U414_VARINITMASK_OFF; cases
+                                // tools/probe/r11u414repro/cases/VM; sv-tests
+                                // chapter-10/10.4.1--blocking-assignment.sv)
+                                // — CompileHelper::adjustSize's UINT branch also
+                                // MASKS the value to the variable's width and
+                                // re-renders it (`logic a = 3` -> UINT:1,
+                                // `byte a = 300` -> 44); the size alone was
+                                // adjusted here.
+                                auto* cm414 = (UHDM::constant*)e;
+                                const int32_t w414 =
+                                    (int32_t)dt->getType().getBitWidth();
+                                std::string_view uv414 = cm414->VpiValue();
+                                if (cm414->VpiConstType() == vpiUIntConst &&
+                                    dt->getType().isIntegral() && w414 > 0 &&
+                                    w414 < 64 && uv414.rfind("UINT:", 0) == 0 &&
+                                    lawOn(414, "R11U414_VARINITMASK_OFF")) {
+                                    uint64_t n414 = strtoull(
+                                        std::string(uv414.substr(5)).c_str(),
+                                        nullptr, 10);
+                                    uint64_t m414 = n414 & ((1ULL << w414) - 1);
+                                    if (m414 != n414) {
+                                        cm414->VpiValue("UINT:" + std::to_string(m414));
+                                        cm414->VpiDecompile(std::to_string(m414));
+                                        lawTrace(414, "varInitUintMask414", fullName);
+                                    }
+                                }
+                            }
                             // A SIGNED based literal var init re-encodes as its
                             // signed decimal value (INT:<v>, vpiIntConst) and
                             // — unlike the net/param forms — keeps the
@@ -45778,8 +45825,34 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         if (rhs) {
             // Surelog sizes a bare-decimal RHS (default 64) to the net width.
             if (rhs->UhdmType() == UHDM::uhdmconstant &&
-                ((UHDM::expr*)rhs)->VpiSize() == 64)
+                ((UHDM::expr*)rhs)->VpiSize() == 64) {
                 ((UHDM::expr*)rhs)->VpiSize((int32_t)dt->getType().getBitWidth());
+                // § varInitUintMask414 (the net-declaration half; cases
+                // VM/vm07, vm08) — writeCont_assign's adjustSize masks a
+                // bare-decimal UINT to the net (`wire a = 3` -> UINT:1,
+                // `reg r = 2` -> UINT:0); a based literal keeps its value.
+                auto* cm414 = (UHDM::constant*)rhs;
+                const int32_t w414 = (int32_t)dt->getType().getBitWidth();
+                std::string_view uv414 = cm414->VpiValue();
+                if (cm414->VpiConstType() == vpiUIntConst && w414 > 0 && w414 < 64 &&
+                    dt->getType().isIntegral() && uv414.rfind("UINT:", 0) == 0 &&
+                    dt->getInitializer() &&
+                    stripImplicitConv(*dt->getInitializer()).kind ==
+                        ExpressionKind::IntegerLiteral &&
+                    rawText(stripImplicitConv(*dt->getInitializer()).sourceRange)
+                            .find('\'') == std::string::npos &&
+                    lawOn(414, "R11U414_VARINITMASK_OFF")) {
+                    uint64_t n414 =
+                        strtoull(std::string(uv414.substr(5)).c_str(), nullptr, 10);
+                    uint64_t m414 = n414 & ((1ULL << w414) - 1);
+                    if (m414 != n414) {
+                        cm414->VpiValue("UINT:" + std::to_string(m414));
+                        cm414->VpiDecompile(std::to_string(m414));
+                        lawTrace(414, "varInitUintMask414",
+                                 "net " + prefix + "." + std::string(it.sym->name));
+                    }
+                }
+            }
             // Unbased-unsized inits: '0 keeps BIN:0 but sizes at the net
             // width; '1 UINT-folds at the width; 'x/'z stay unsized.
             if (rhs->UhdmType() == UHDM::uhdmconstant &&

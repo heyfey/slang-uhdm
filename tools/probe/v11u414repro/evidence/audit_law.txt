@@ -1,0 +1,4 @@
+surelog: cmds.txt total=1581 fence-filtered=1573 naming-binary=1523 other-binary=2 no-slang-line=48
+uhdm2rtlil: cmds.txt total=1742 fence-filtered=1742 naming-binary=1742 other-binary=0 no-slang-line=0
+downstream: cmds.txt total=0 fence-filtered=0 naming-binary=0 other-binary=0 no-slang-line=0
+svtests: cmds.txt total=2346 fence-filtered=2346 naming-binary=2346 other-binary=0 no-slang-line=0

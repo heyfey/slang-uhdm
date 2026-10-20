@@ -5071,9 +5071,15 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             return lt191;
         }
         if (ct.kind == SymbolKind::FloatingType) {
-            UHDM::typespec* t = ct.as<FloatingType>().floatKind == FloatingType::ShortReal
-                                    ? (UHDM::typespec*)s.MakeShort_real_typespec()
-                                    : (UHDM::typespec*)s.MakeReal_typespec();
+            // § realtimeVarIsTime414 — `realtime` is a time_typespec in
+            // Surelog (paNonIntType_RealTime), never a real one.
+            UHDM::typespec* t =
+                ct.as<FloatingType>().floatKind == FloatingType::ShortReal
+                    ? (UHDM::typespec*)s.MakeShort_real_typespec()
+                : (ct.as<FloatingType>().floatKind == FloatingType::RealTime &&
+                   lawOn(414, "R11U414_REALTIME_OFF"))
+                    ? (UHDM::typespec*)s.MakeTime_typespec()
+                    : (UHDM::typespec*)s.MakeReal_typespec();
             setLoc(t, range);
             return t;
         }
@@ -9876,8 +9882,13 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     }
     // Real/shortreal signals are variables, never nets.
     if (ct.kind == SymbolKind::FloatingType) {
+        // § realtimeVarIsTime414 — a `realtime` signal is a time_var.
         auto* v = ct.as<FloatingType>().floatKind == FloatingType::ShortReal
                       ? (UHDM::variables*)s.MakeShort_real_var()
+                  : (ct.as<FloatingType>().floatKind == FloatingType::RealTime &&
+                     declared->getType().kind != SymbolKind::TypeAlias &&
+                     lawOn(414, "R11U414_REALTIME_OFF"))
+                      ? (UHDM::variables*)s.MakeTime_var()
                       : (UHDM::variables*)s.MakeReal_var();
         v->VpiVisibility(1);
         return v;
@@ -18902,6 +18913,40 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     }
                 }
             }
+        // § structMemberDefault414 (r11u414, R11U414_MEMBERDEFAULT_OFF; cases
+        // tools/probe/r11u414repro/cases/SD; sv-tests
+        // chapter-7/structures/unpacked/default-value.sv) — an UNPACKED
+        // struct member written with a default (`bit [3:0] lo = c;`) spans
+        // its Variable_decl_assignment through the default and carries it
+        // as vpiDefaultValue: the literal as compiled (`3` UINT size 64,
+        // `8'hAB`).  Any other default is not written (residue: a parameter
+        // name is folded in one of golden's two struct objects and an
+        // unbound ref_obj in the other, SD/sd01, where ours shares one).
+        if (!packed && lawOn(414, "R11U414_MEMBERDEFAULT_OFF"))
+            if (auto dsd414 = fm.getSyntax();
+                dsd414 && dsd414->kind == syntax::SyntaxKind::Declarator &&
+                dsd414->as<syntax::DeclaratorSyntax>().initializer)
+                if (const syntax::ExpressionSyntax* ie414 = dsd414->as<syntax::DeclaratorSyntax>().initializer->expr.get()) {
+                    UHDM::expr* dv414 = nullptr;
+                    if (ie414->kind == syntax::SyntaxKind::IntegerLiteralExpression ||
+                             ie414->kind == syntax::SyntaxKind::IntegerVectorExpression) {
+                        if (auto* fin414 = fm.as<FieldSymbol>().getInitializer()) {
+                            NetMap none414;
+                            auto& fc414 = stripImplicitConv(*fin414);
+                            if (fc414.kind == ExpressionKind::IntegerLiteral)
+                                if (auto* e414 = emitExpr(fc414, nullptr, "", none414);
+                                    e414 && e414->UhdmType() == UHDM::uhdmconstant)
+                                    dv414 = (UHDM::expr*)e414;
+                        }
+                    }
+                    if (dv414) {
+                        tm->Default_value(dv414);
+                        auto ee414 = ie414->sourceRange().end();
+                        tm->VpiEndLineNo(sm->getLineNumber(ee414));
+                        tm->VpiEndColumnNo(sm->getColumnNumber(ee414));
+                        lawTrace(414, "structMemberDefault414", std::string(fm.name));
+                    }
+                }
         // The canonical struct's fields may lose their type-syntax link;
         // recover it from the member declaration syntax.
         const syntax::SyntaxNode* memberTypeSyn = nullptr;
@@ -20023,6 +20068,43 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 tm->VpiRefEndColumnNo(sm->getColumnNumber(sr.end()));
             }
         }
+        // § structRandMemberVoid414 (r11u414, R11U414_RANDMEMBER_OFF; cases
+        // tools/probe/r11u414repro/cases/RM; sv-tests
+        // generic/typedef/typedef_test_18.sv) — a struct member written with
+        // `rand` / `randc` is Surelog's unnamed member: its
+        // Struct_union_member walk reads the qualifier where it expects the
+        // data type, so the member has no name, spans the written type, its
+        // reference is named after the struct and binds a void_typespec
+        // spanning the qualifier through the type, and only vpiRefFile is
+        // recorded.
+        if (lawOn(414, "R11U414_RANDMEMBER_OFF"))
+            for (auto p414 = fm.getSyntax(); p414; p414 = p414->parent)
+                if (p414->kind == syntax::SyntaxKind::StructUnionMember) {
+                    auto& sum414 = p414->as<syntax::StructUnionMemberSyntax>();
+                    if (sum414.randomQualifier.valid()) {
+                        auto tr414 = sum414.type->sourceRange();
+                        tm->VpiName("");
+                        tm->VpiLineNo(0);
+                        tm->VpiColumnNo(0);
+                        tm->VpiEndLineNo(0);
+                        tm->VpiEndColumnNo(0);
+                        setLoc(tm, tr414);
+                        auto* vt414 = s.MakeVoid_typespec();
+                        setLoc(vt414, SourceRange(sum414.randomQualifier.range().start(),
+                                                  tr414.end()));
+                        vt414->VpiParent(tm);
+                        if (auto* r414 = tm->Typespec()) {
+                            r414->VpiFullName(aliasName);
+                            r414->Actual_typespec(vt414);
+                        }
+                        tm->VpiRefLineNo(0);
+                        tm->VpiRefColumnNo(0);
+                        tm->VpiRefEndLineNo(0);
+                        tm->VpiRefEndColumnNo(0);
+                        lawTrace(414, "structRandMemberVoid414", std::string(fm.name));
+                    }
+                    break;
+                }
         members->push_back(tm);
     }
     structMemberSymBound = savedSymBound;
@@ -30536,6 +30618,11 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
                 kind406 = s.MakeReal_var();
             else if (fk406 == FloatingType::ShortReal)
                 kind406 = s.MakeShort_real_var();
+            // § realtimeVarIsTime414 — a `realtime` element is a time_var
+            // (RT/rt05).
+            else if (fk406 == FloatingType::RealTime &&
+                     lawOn(414, "R11U414_REALTIME_OFF"))
+                kind406 = s.MakeTime_var();
         }
         else if (lc406.kind == SymbolKind::PredefinedIntegerType) {
             switch (lc406.as<PredefinedIntegerType>().integerKind) {
@@ -30565,6 +30652,20 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
         lawOn(412, "R11U412_UNPSTRUCTELEM_OFF")) {
         kind406 = s.MakeStruct_var();
         lawTrace(412, "unpStructArrElemVar412", fullName);
+    }
+    // § classArrElemVar414 (r11u414, R11U414_CLASSARRELEM_OFF; cases
+    // tools/probe/r11u414repro/cases/CA; sv-tests
+    // chapter-8/8.22--dynamic_method_lookup.sv) — a CLASS-handle element
+    // (`base_cls arr[3];`) is a class_var whose class_typespec keeps no
+    // parent (golden lists it unparented), where it fell to logic_var.
+    bool classElem414 = false;
+    if (!kind406 && !tpPaReg110 && !aggElemTs &&
+        leaf->getCanonicalType().kind == SymbolKind::ClassType &&
+        elemTs && elemTs->UhdmType() == UHDM::uhdmclass_typespec &&
+        lawOn(414, "R11U414_CLASSARRELEM_OFF")) {
+        kind406 = s.MakeClass_var();
+        classElem414 = true;
+        lawTrace(414, "classArrElemVar414", fullName);
     }
     if (kind406) {
         reg = kind406;
@@ -30608,7 +30709,8 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     }
     else {
         regRt->Actual_typespec(elemTs);
-        elemTs->VpiParent(reg);
+        if (!classElem414)
+            elemTs->VpiParent(reg);
     }
     reg->Typespec(regRt);
     auto* rvars = s.MakeVariablesVec();
@@ -30632,6 +30734,27 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
                 reg->Expr((UHDM::expr*)e);
             }
             suppressConstParent = savedSCP;
+        }
+        // § arrStringInitAtElem414 (r11u414, R11U414_ARRSTRINIT_OFF; cases
+        // tools/probe/r11u414repro/cases/AI; sv-tests
+        // chapter-5/5.9-string-word-assignment.sv) — a STRING literal
+        // initializing an unpacked byte array (`byte b[3:0] = "hi2";`) is the
+        // string constant parented at the element reg, sized at the
+        // element's width, and referenced by both the array_var and the reg
+        // (the pattern initializer's carrier pair).
+        else if (ic.kind == ExpressionKind::StringLiteral &&
+                 leaf->getCanonicalType().isIntegral() &&
+                 lawOn(414, "R11U414_ARRSTRINIT_OFF")) {
+            NetMap none414;
+            if (auto* e414 = emitExpr(ic, reg, fullName, none414);
+                e414 && e414->UhdmType() == UHDM::uhdmconstant) {
+                ((UHDM::constant*)e414)->VpiParent(reg);
+                ((UHDM::constant*)e414)->VpiSize(
+                    (int32_t)leaf->getCanonicalType().getBitWidth());
+                av->Expr((UHDM::expr*)e414);
+                reg->Expr((UHDM::expr*)e414);
+                lawTrace(414, "arrStringInitAtElem414", fullName);
+            }
         }
     }
 
@@ -30673,6 +30796,10 @@ static UHDM::typespec* bareElemTypespec(UHDM::Serializer& s, const Type& leaf) {
     if (c.kind == SymbolKind::FloatingType)
         return c.as<FloatingType>().floatKind == FloatingType::ShortReal
                    ? (UHDM::typespec*)s.MakeShort_real_typespec()
+               // § realtimeVarIsTime414 — the element typespec too (RT/rt05).
+               : (c.as<FloatingType>().floatKind == FloatingType::RealTime &&
+                  lawOn(414, "R11U414_REALTIME_OFF"))
+                   ? (UHDM::typespec*)s.MakeTime_typespec()
                    : (UHDM::typespec*)s.MakeReal_typespec();
     if (c.kind == SymbolKind::StringType)
         return s.MakeString_typespec();

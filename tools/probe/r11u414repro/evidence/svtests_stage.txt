@@ -1,0 +1,14 @@
+CONVERSION chapter-10/10.4.1--blocking-assignment.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-5/5.9-string-word-assignment.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-6/6.12--realtime.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-8/8.22--dynamic_method_lookup.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-8/8.26.3--type_access_implements.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2012/hdlconvertor_std2012_p148.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p184.sv: DIFFERENT -> EQUAL
+CONVERSION generic/class/class_test_55.sv: DIFFERENT -> EQUAL
+CONVERSION generic/member/class_member_test_12.sv: DIFFERENT -> EQUAL
+CONVERSION generic/member/class_member_test_9.sv: DIFFERENT -> EQUAL
+CONVERSION generic/typedef/typedef_test_0.sv: DIFFERENT -> EQUAL
+CONVERSION generic/typedef/typedef_test_18.sv: DIFFERENT -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=134 EQUAL=1710 SLANG_ONLY=19 STRICT_NOTEQUAL=96 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=12 changes=0
