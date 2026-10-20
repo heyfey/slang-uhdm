@@ -1,0 +1,10 @@
+### law
+surelog cmds 1581 fence-filtered 1573 naming 1523 foreign-slang-lines 0
+uhdm2rtlil cmds 1742 fence-filtered 1740 naming 1740 foreign-slang-lines 0
+downstream cmds 0 fence-filtered 0 naming 0 foreign-slang-lines 0
+svtests cmds 2346 fence-filtered 2346 naming 2346 foreign-slang-lines 0
+### verified
+surelog cmds 1581 fence-filtered 1573 naming 1523 foreign-slang-lines 0
+uhdm2rtlil cmds 1742 fence-filtered 1740 naming 1740 foreign-slang-lines 0
+downstream cmds 0 fence-filtered 0 naming 0 foreign-slang-lines 0
+svtests cmds 2346 fence-filtered 2346 naming 2346 foreign-slang-lines 0

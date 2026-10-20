@@ -1,0 +1,3 @@
+SLANG_UHDM=/tmp/v11u421_bin/law.bin tests/sweep.sh --jobs 3 --workdir /tmp/v11u421law
+SLANG_UHDM=/tmp/v11u421_bin/law.bin main-tree scripts/check_svtests.py --baseline /tmp/wt_v11u421/results/golden_svtests.csv
+SLANG_UHDM=/tmp/v11u421_bin/verified.bin tests/sweep.sh --jobs 3 --workdir /tmp/v11u421ver; then main-tree check_svtests.py

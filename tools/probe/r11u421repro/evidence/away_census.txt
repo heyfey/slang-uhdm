@@ -1,0 +1,10 @@
+# away census (drivers/away.sh): the law sweep's sv-tests database against the master's control database at the base (/tmp/intr11u419), distance to golden
+# by uhdm-cmp lines and by the multiset distance of id- and path-normalized sorted dumps.
+# The laws fired on 10 sv-tests rows (trace census, evidence/trace_census.txt):
+#   3 converted to EQUAL (the runner deletes our database on an IDENTICAL row, so there is nothing to measure: the sweep's EQUAL is the reading),
+#   6 black-parrot rows SURELOG_CRASH on both binaries (no comparison; our exporter exits 3 under pass 403's size guard after the law fired),
+#   1 still DIFFERENT:
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_trace_replay cmp 17 -> 50 multiset 43 -> 35 toward
+#   (uhdm-cmp grows because the head moved LATER in the walk: from the parameter's typespec (ParamEmit, this pass's § bitsDefNoFoldNoTs421)
+#    to a definition-view generate-block port connection `tr_data_lo[(max_payload_width_p+bsg_tag_header_width_lp)...]` written as a raw-text
+#    ref_obj by TypeEmit's emitSyntaxExpr, the sister's face; the multiset distance shrinks 43 -> 35)

@@ -1,0 +1,32 @@
+# prediction trace run: law binary 22d95ce83451d22560ae8990578e4ff7, R11U421_TRACE set
+## uhdm2rtlil (all rows, both modes)
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+## probe (all cases)
+probe cases: EQUAL=4018 STRICT_NOTEQUAL=69 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4018 differ:fullname=30 differ:line=8 differ:depth=7 differ:endcol=5 differ:file=5 differ:name=5 differ:value=4 differ:type=3 differ:col=1 differ:endline=1
+## surelog candidate rows (filter in drivers/predict.sh), both modes
+[default] 45 tests
+  SLANG_REJECT: 21
+  CMP_EQUAL: 18
+  DEFERRED: 3
+  SURELOG_FAIL: 2
+  CMP_NOTEQUAL: 1
+
+[testflags] 45 tests
+  SLANG_REJECT: 20
+  CMP_EQUAL: 17
+  SURELOG_FAIL: 3
+  DEFERRED: 3
+  NO_DATABASE: 1
+  CMP_NOTEQUAL: 1
+## trace files written: 0
+## positive control: cases/BF/bf02 run directly with R11U421_TRACE wrote 2 lines (bitsDefNoFoldNoTs421 width_lp x2)
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

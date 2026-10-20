@@ -1,0 +1,5 @@
+# cmds.txt audit of the law sweep /tmp/r11u421_sw (the path list built first and filtered on the fence list before any file was opened)
+surelog: 1581 cmds.txt, 1573 after the fence filter; 1523 name /tmp/r11u421_law.bin, the other 50 hold only a Surelog line (no slang run: SURELOG_FAIL / DEFERRED / NO_DATABASE rows; two of them, CoresSweRV and CoresSweRVMP, match "slang" only through the slang-uhdm checkout path in their Surelog arguments)
+uhdm2rtlil: 1742 cmds.txt, 1740 after the fence filter; 1740 name /tmp/r11u421_law.bin
+svtests: 2346 cmds.txt, 2346 after the fence filter; 2346 name /tmp/r11u421_law.bin
+probe and downstream stages write no cmds.txt (check_probe.py and downstream_uhdm2rtlil.py run SLANG_UHDM, exported as /tmp/r11u421_law.bin, md5-checked by drivers/fullrun.sh before launch)

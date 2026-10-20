@@ -470,6 +470,25 @@ static void hpTrailIpsNames218(UHDM::indexed_part_select* ips,
                     for (auto* o : *os)
                         nm(o, e, false);
             }
+            // § hpTrailIpsSysArgNames421 (r11u421) — a reference that is an
+            // argument of a SYSTEM CALL in the base or the width is named
+            // through the path too: the writer's ComputeFullName walks
+            // ref_obj -> sys_func_call -> indexed_part_select -> hier_path
+            // exactly as it walks an operation, `work@top.d.i.h.cid[0+:].
+            // cid.num_in_p` for `.i(h.cid[0+:$clog2(num_in_p)])` (sv-tests
+            // bsg_wormhole_concentrator_out's `BSG_SAFE_CLOG2 width, ours the
+            // scope's `work@top.d.i.num_in_p`).  Grid tools/probe/
+            // r11u421repro/cases/HS.  Switch R11U421_HPIPSSYSARG_OFF.
+            else if (e->UhdmType() == UHDM::uhdmsys_func_call &&
+                     lawOn(421, "R11U421_HPIPSSYSARG_OFF")) {
+                if (auto* as = ((UHDM::sys_func_call*)e)->Tf_call_args()) {
+                    lawTrace(421, "hpTrailIpsSysArgNames421",
+                             std::string(((UHDM::sys_func_call*)e)->VpiName()) +
+                                 " in " + std::string(hp->VpiName()));
+                    for (auto* o : *as)
+                        nm(o, e, false);
+                }
+            }
         };
     nm((UHDM::any*)ips->Base_expr(), ips, true);
     nm((UHDM::any*)ips->Width_expr(), ips, true);
@@ -48511,8 +48530,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                      lawOn(184, "R11U184_STREAMRD_OFF");
             if (streamRd184)
                 trace184("STREAMRD select");
+            // § paramInitSysArgBitSelAtIndex421 (r11u421) — a PARAM-INIT
+            // bit_select that is itself an ARGUMENT of a system call
+            // (`localparam W = $bits(P[1]);`, `$clog2(P[1])`, sv-tests
+            // bsg_mesh_router's `BSG_COUNTONES_SYNTH(routing_matrix_p[i])`
+            // whose $bits(y) reads it) takes the rvalue anchor, its index,
+            // as every rvalue does (golden 143:57-58 where ours spanned the
+            // whole select 143:40-59); the whole-select param-init rule
+            // stays for operation operands and every other parent.  Grid
+            // tools/probe/r11u421repro/cases/PB.  Switch R11U421_PISYSBS_OFF.
+            const bool piSysArg421 =
+                inParamInit && !inLhs && parent &&
+                parent->UhdmType() == UHDM::uhdmsys_func_call &&
+                lawOn(421, "R11U421_PISYSBS_OFF");
+            if (piSysArg421)
+                lawTrace(421, "paramInitSysArgBitSelAtIndex421",
+                         std::string(bs->VpiName()));
             setLoc(bs, ((inLhs && !lvIdx147 && !newLhs181 && !streamRd184) ||
-                        inParamInit ||
+                        (inParamInit && !piSysArg421) ||
                         firstPos147 || incDecSel181)
                            ? expr.sourceRange
                            : methodCallIdxRange207(es.selector()));

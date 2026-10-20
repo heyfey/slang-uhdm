@@ -11914,6 +11914,83 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                     }
                 }
+                // § bitsDefNoFoldNoTs421 (r11u421) — the same for EVERY
+                // `$bits(...)` argument the DEFINITION compile cannot fold
+                // (srlgBitsFoldArg's def-view answer, the predicate the
+                // expression emitter keeps the sys_func_call on): a typedef
+                // or struct whose width reads a parameter, a signal of
+                // parameter width, a type parameter.  Golden keeps the call
+                // in the definition listing, the untyped parameter carries
+                // no typespec in either view and its elaborated value is the
+                // computed fold, UINT size 64 with no typespec (sv-tests
+                // bsg_ready_and_link_async_to_wormhole `wormhole_width_lp =
+                // $bits(wormhole_packet_s)`, bsg_tag_trace_replay
+                // `bsg_tag_header_width_lp`; ours the declaration's int_
+                // typespec and size 32).  Grid tools/probe/r11u421repro/
+                // cases/BF.  Switch R11U421_BITSDEFNOFOLD_OFF.
+                if (bitsFoldInit) {
+                    auto& call421 = sb9.as<CallExpression>();
+                    // § bitsConcatLastResolvesAbstain421v (v11u421) — a
+                    // CONCATENATION argument is not one srlgBitsFoldArg
+                    // judges (the expression emitter folds it by the old
+                    // rule).  Surelog's compileBits walks the concatenation's
+                    // elements (CompileExpression.cpp, its paConcatenation
+                    // branch): each element's getTypespec, the first fully
+                    // specified one promoting the compile to Reduce::Yes, and
+                    // the call folds with the declaration's int_typespec
+                    // whenever the LAST element resolves to a signal's
+                    // typespec once the compile was promoted ($bits({a, b}),
+                    // $bits({w, b}) with w of parameter width, $bits({4'b0,
+                    // a}); golden UINT with the int_typespec, pristine right,
+                    // the law wrote none).  A concatenation ending in a
+                    // literal or a parameter, or with no fully specified
+                    // element, keeps the call and the law ($bits({a, 4'b0}),
+                    // {w, v} both of parameter width).  Grid tools/probe/
+                    // v11u421repro/cases/VB.  Switch R11V421_BITSCONCAT_OFF.
+                    bool concatFolds421v = false;
+                    if (!call421.arguments().empty()) {
+                        auto& a421 = stripImplicitConv(*call421.arguments()[0]);
+                        if (a421.kind == ExpressionKind::Concatenation) {
+                            auto ops421 = a421.as<ConcatenationExpression>().operands();
+                            auto resolves421 = [](const Expression& e0) {
+                                const Expression* r = &stripImplicitConv(e0);
+                                while (true) {
+                                    if (r->kind == ExpressionKind::MemberAccess)
+                                        r = &stripImplicitConv(r->as<MemberAccessExpression>().value());
+                                    else if (r->kind == ExpressionKind::ElementSelect)
+                                        r = &stripImplicitConv(r->as<ElementSelectExpression>().value());
+                                    else if (r->kind == ExpressionKind::RangeSelect)
+                                        r = &stripImplicitConv(r->as<RangeSelectExpression>().value());
+                                    else
+                                        break;
+                                }
+                                const Symbol* sy = nullptr;
+                                if (r->kind == ExpressionKind::NamedValue)
+                                    sy = &r->as<NamedValueExpression>().symbol;
+                                else if (r->kind == ExpressionKind::HierarchicalValue)
+                                    sy = &r->as<HierarchicalValueExpression>().symbol;
+                                return sy && (sy->kind == SymbolKind::Net ||
+                                              sy->kind == SymbolKind::Variable);
+                            };
+                            if (!ops421.empty() && resolves421(*ops421.back()))
+                                for (auto* o421 : ops421)
+                                    if (srlgBitsFoldArg(*o421, false)) {
+                                        concatFolds421v = true;
+                                        break;
+                                    }
+                        }
+                    }
+                    if (concatFolds421v && lawOn(421, "R11U421_BITSDEFNOFOLD_OFF") &&
+                        fixOn(421, "R11V421_BITSCONCAT_OFF")) {
+                        lawTrace(421, "bitsConcatLastResolvesAbstain421v", std::string(ps.name));
+                    }
+                    else if (!call421.arguments().empty() &&
+                        !srlgBitsFoldArg(*call421.arguments()[0], false) &&
+                        lawOn(421, "R11U421_BITSDEFNOFOLD_OFF")) {
+                        lawTrace(421, "bitsDefNoFoldNoTs421", std::string(ps.name));
+                        bitsFoldInit = false;
+                    }
+                }
             }
             modPkgRefIntTsRhs9 = modPkgRefIntTs9 && !typedParam;
             wantTs = (ctw.isIntegral() || ctw.isFloating() || ctw.isStruct() ||

@@ -9520,7 +9520,27 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                         stmt.sourceRange.end() -
                                             basedLiteralSpanShrink(
                                                 rawText(stmt.sourceRange))));
-                if (ca.ifFalse)
+                // § expectActionBlockStmts421 (r11u421) — Surelog's
+                // paExpect_property_statement branch (CompileStmt.cpp) compiles
+                // the action block's pass statement into vpiStmt and the
+                // statement after `else` into vpiElseStmt: `expect (p) else
+                // $error(..)` has no vpiStmt at all (sv-tests 16.17--expect-
+                // uvm's `uvm_error action block; ours wrote the else action
+                // as vpiStmt and dropped a pass action).  Grid
+                // tools/probe/r11u421repro/cases/EX.  Switch
+                // R11U421_EXPECTACT_OFF.
+                if (lawOn(421, "R11U421_EXPECTACT_OFF")) {
+                    if (ca.ifTrue)
+                        if (auto* st9 = emitStmt(*ca.ifTrue, ex9, prefix, netMap)) {
+                            ex9->Stmt(st9);
+                            lawTrace(421, "expectActionBlockStmts421", "stmt");
+                        }
+                    if (ca.ifFalse)
+                        if (auto* st9 = emitStmt(*ca.ifFalse, ex9, prefix, netMap)) {
+                            ex9->Else_stmt(st9);
+                            lawTrace(421, "expectActionBlockStmts421", "else");
+                        }
+                } else if (ca.ifFalse)
                     if (auto* st9 = emitStmt(*ca.ifFalse, ex9, prefix, netMap))
                         ex9->Stmt(st9);
                 auto* ps9 = s.MakeProperty_spec();

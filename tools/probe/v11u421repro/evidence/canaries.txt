@@ -1,0 +1,14 @@
+### law sweep
+== canaries surelog
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+== canaries uhdm2rtlil
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+== ctcan2 surelog
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+== ctcan2 u2r
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+### verified sweep: same readings (ok=52, ok=16, ctcan2 ok=58 PASS, ok=2 PASS)

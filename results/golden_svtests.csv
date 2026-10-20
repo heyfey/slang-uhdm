@@ -171,7 +171,7 @@ chapter-16/16.14--assume-property.sv,EQUAL,,equal
 chapter-16/16.15--property-disable-iff-fail.sv,SLANG_ONLY,[  ERROR] : 1,
 chapter-16/16.15--property-disable-iff.sv,SLANG_ONLY,[  ERROR] : 1,
 chapter-16/16.15--property-iff-uvm.sv,EQUAL,,equal
-chapter-16/16.17--expect-uvm.sv,DIFFERENT,decompile:,
+chapter-16/16.17--expect-uvm.sv,EQUAL,,equal
 chapter-16/16.17--expect.sv,EQUAL,,equal
 chapter-16/16.2--assert-final-uvm.sv,EQUAL,,equal
 chapter-16/16.2--assert-final.sv,EQUAL,,equal
@@ -1207,12 +1207,12 @@ generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch.sv,DIFFERENT,decompile:,
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_to_ring_stitch.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_noc_pkg.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_noc_repeater_node.sv,EQUAL,,equal
-generated/basejump/bsg_noc_BaseJumpSTL_bsg_ready_and_link_async_to_wormhole.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_ready_and_link_async_to_wormhole.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_router_crossbar_o_by_i.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_broadcast.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_in.sv,EQUAL,,equal
-generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_out.sv,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_out.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_adapter_in.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_adapter_out.sv,EQUAL,,equal

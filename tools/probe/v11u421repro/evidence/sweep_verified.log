@@ -1,0 +1,17 @@
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u421ver/probe.csv
+== probe vs golden_probe.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u421ver/surelog.csv
+== surelog vs golden_surelog.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u421ver/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+done
+CONVERSION chapter-16/16.17--expect-uvm.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_noc_BaseJumpSTL_bsg_ready_and_link_async_to_wormhole.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_out.sv: STRICT_NOTEQUAL -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=84 EQUAL=1854 SLANG_ONLY=19 STRICT_NOTEQUAL=2 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=3 changes=0

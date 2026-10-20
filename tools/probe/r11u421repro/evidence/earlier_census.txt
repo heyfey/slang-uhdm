@@ -1,0 +1,8 @@
+# earlier-pass census (drivers/earlier.sh): every case dir of tools/probe/{r,v}11u4{00..20}repro, path list fence-filtered first; pristine vs law exit code and database md5
+r11u405repro/cases/BU/bu04 rc=0/0 MOVED
+v11u420repro/cases/VS/vs33 rc=0/0 MOVED
+listed 2908 fence-filtered 2908 processed 2908
+# all other 2906 case dirs: same exit code and byte-identical database (8 of them exit 3 or 1 on both binaries and write no database)
+# the two movers judged with drivers/case.sh:
+#   v11u420repro/cases/VS/vs33 (an expect with an else action): NOT_EQUAL cmp=29 -> STRICT_EQUAL (§ expectActionBlockStmts421)
+#   r11u405repro/cases/BU/bu04 ($bits(n+1) over a default-less parameter): NOT_EQUAL cmp 17 -> 100, dump distance 42 -> 34; the head moved LATER in the walk, from the parameter l's typespec (golden none, now none: § bitsDefNoFoldNoTs421) to its param_assign's $bits call, where golden parses n+1 as three arguments (ref_obj n, unsupported_expr, constant 1)
