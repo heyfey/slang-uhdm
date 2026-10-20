@@ -49628,6 +49628,55 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 lawTrace(405, "hierSelMacroBoundPretty405_OFF", dotted);
                         }
                     }
+                    // § hierSelParenBoundPretty417 (r11u417,
+                    // R11U417_HSPARENBND_OFF) — a select bound written in
+                    // PARENTHESES or with `**` (`s.data[0+:(8*(2**i))]`,
+                    // `s.data[i+:(8*2)]`) is named by Surelog's
+                    // decompileHelper from the bound OBJECTS: an operation
+                    // through ExprEval::prettyPrint, which never writes a
+                    // parenthesis and spaces every binary operator
+                    // (golden `s.data[0+:8 * 2 ** i]`, `s.data[i+:8 * 2]`).
+                    // The raw-text rendering kept the opening parenthesis
+                    // the bound's range starts after, lost the closing one,
+                    // and split `**` into `* *` (`s.data[i+:(8 * 2]`,
+                    // `s.data[0+:8 * 2 *  * i]`).  sv-tests generated/basejump/
+                    // bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_data_mem.sv
+                    // 110:62; grid tools/probe/r11u417repro/cases/HP.
+                    {
+                        std::string raw417 = rawText(
+                            SourceRange(rs.left().sourceRange.start(),
+                                        rs.right().sourceRange.end()));
+                        if (raw417.find_first_of("()") != std::string::npos ||
+                            raw417.find("**") != std::string::npos) {
+                            std::string l417, r417;
+                            const bool lp417 = ppIdxText92(rs.left(), &pf9, 0, l417);
+                            const bool rp417 =
+                                wf9.ok || ppIdxText92(rs.right(), &pf9, 0, r417);
+                            if (lp417 && rp417 && !l417.empty() &&
+                                (wf9.ok || !r417.empty())) {
+                                const char* mid417 =
+                                    rs.getSelectionKind() == RangeSelectionKind::IndexedUp
+                                        ? "+:"
+                                        : rs.getSelectionKind() ==
+                                                  RangeSelectionKind::IndexedDown
+                                              ? "-:"
+                                              : ":";
+                                std::string n417 =
+                                    l417 + mid417 + (wf9.ok ? wf9.text : r417);
+                                if (n417 != selText) {
+                                    if (lawOn(417, "R11U417_HSPARENBND_OFF")) {
+                                        lawTrace(417, "hierSelParenBoundPretty417",
+                                                 dotted + "[" + selText + "] -> [" +
+                                                     n417 + "]");
+                                        selText = n417;
+                                    }
+                                    else
+                                        lawTrace(417, "hierSelParenBoundPretty417_OFF",
+                                                 dotted);
+                                }
+                            }
+                        }
+                    }
                     dotted += "[" + selText + "]";
                     hp->VpiName(dotted);
                     hp->VpiFullName(dotted);

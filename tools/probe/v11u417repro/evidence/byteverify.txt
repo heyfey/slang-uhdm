@@ -1,0 +1,9 @@
+swL surelog vs control: PATH_SETS_IDENTICAL (962 paths) MOVERS: 0 / 962 
+swL uhdm2rtlil vs control: PATH_SETS_IDENTICAL (1608 paths) MOVERS: 0 / 1608 
+swL downstream vs control: PATH_SETS_IDENTICAL (805 paths) MOVERS: 0 / 805 
+swV surelog vs control: PATH_SETS_IDENTICAL (962 paths) MOVERS: 0 / 962 
+swV uhdm2rtlil vs control: PATH_SETS_IDENTICAL (1608 paths) MOVERS: 0 / 1608 
+swV downstream vs control: PATH_SETS_IDENTICAL (805 paths) MOVERS: 0 / 805 
+verified vs law surelog: MOVERS: 0 / 962 SELFCHECK (every file vs one fixed file): 961 / 962 flagged 
+verified vs law uhdm2rtlil: MOVERS: 0 / 1608 SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged 
+verified vs law downstream: MOVERS: 0 / 805 SELFCHECK (every file vs one fixed file): 804 / 805 flagged 

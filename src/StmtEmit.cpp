@@ -2124,6 +2124,144 @@ UHDM::any* UhdmExporter::emitCtorBody27(const Statement& slStmt,
 // The UNQUALIFIED spelling is untouched: it has no `paClass_scope` node, takes
 // `compileVariable`'s `slStringConst` arm, and is the `ref_var` we already
 // emit (controls A6/A7, B6, P3, M3 — `both` before and after).
+// § foreachArrayNamesClass417 (r11u417, R11U417_FOREACHCLASS_OFF) — the
+// LOOKUP.  Surelog compiles a foreach's array identifier with
+// CompileHelper::compileVariable (CompileStmt.cpp, the paFOREACH branch), whose
+// slStringConst branch reads the identifier as a TYPE NAME before anything else:
+// component->getDataType(name) first (a typedef: not this law, it abstains),
+// then design->getClassDefinition(name), then "<component>::name" and
+// "<parent>::name" (CompileType.cpp, compileVariable).  A class of that name
+// found there makes the array an unnamed class_var whatever the array really
+// is.  The scope walk below stands for those keys: a class declared in any
+// scope enclosing the array's declaration, in a package one of them imports,
+// or in a compilation unit ($unit).  A typedef of the name anywhere on the
+// same walk, a parameterized class, or nothing at all returns null.  Grid
+// tools/probe/r11u417repro/cases/FC (fc13: a package class nobody imports
+// does not resolve; fc14: a class nested in another class does not).
+//
+// Which branch found it decides the class_typespec.  A class DECLARED in a scope
+// enclosing the array (a package or module member: the "<component>::name"
+// and "<parent>::name" keys) is found first and gets compileVariable's own
+// fresh class_typespec, with neither name nor instance (fc06, fc15; and it
+// wins over a $unit class of the same name, fc20).  Otherwise a $unit class
+// or one reached through an import is what compileTypespec resolved the
+// identifier to (the `ts` branch), the class's own typespec: named, and in a
+// package view stamped with the package instance (`byBareKey`; fc01, fc02,
+// fc09, fc19).
+//
+// § foreachArrayNamesTypedef417 (R11U417_FOREACHTD_OFF) — the getDataType branch
+// that comes first: a TYPEDEF of the name on the same walk is returned in
+// `alias` (the class branches are then not asked), and golden's array is
+// getSimpleVarFromTypespec of the typedef's own typespec, NAMED as written
+// (fc16: `typedef int b;` -> int_var `b` over int_typespec (b)).
+static const slang::ast::Type* foreachArrNamesClass417(
+    const slang::ast::Compilation& comp, const slang::ast::Symbol& arr,
+    bool& byBareKey, const slang::ast::Type** alias = nullptr) {
+    using namespace slang::ast;
+    std::string_view nm = arr.name;
+    byBareKey = false;
+    if (alias)
+        *alias = nullptr;
+    if (nm.empty())
+        return nullptr;
+    const Type* found = nullptr;
+    const Type* foundMember = nullptr;
+    const Type* foundAlias = nullptr;
+    bool typedefSeen = false, genericSeen = false;
+    bool viaMember = false;
+    bool notFound417v = false;
+    auto take = [&](const Symbol* sy) {
+        if (!sy)
+            return;
+        if (sy->kind == SymbolKind::ClassType) {
+            // § foreachIfaceClassAbstain417v (v11u417, R11V417_IFCLASS_OFF)
+            // — an INTERFACE class is no class definition to Surelog
+            // (ResolveSymbols registers paInterface_class_declaration in its
+            // default branch, as a module definition) and compileTypespec
+            // binds no class_typespec to it: golden keeps the ref_var over
+            // the array_typespec, pristine's bytes (v11u417repro VC/vc02:
+            // pristine STRICT_EQUAL, the law NOT_EQUAL).
+            if (sy->as<ClassType>().isInterface &&
+                fixOn(417, "R11V417_IFCLASS_OFF")) {
+                lawTrace(417, "foreachIfaceClassAbstain417v", std::string(nm));
+                notFound417v = true;
+                return;
+            }
+            // § foreachNestedClassAbstain417v (v11u417,
+            // R11V417_NESTEDCLASS_OFF) — a class NESTED in a class is never
+            // registered (ResolveSymbols' sl_collect_all stops at a
+            // class_declaration) and the enclosing class's methods do not
+            // resolve it either: golden keeps the ref_var over an
+            // unsupported_typespec, pristine's bytes (VC/vc07: pristine
+            // STRICT_EQUAL, the law NOT_EQUAL).
+            if (const Scope* ps417 = sy->getParentScope();
+                ps417 && ps417->asSymbol().kind == SymbolKind::ClassType &&
+                fixOn(417, "R11V417_NESTEDCLASS_OFF")) {
+                lawTrace(417, "foreachNestedClassAbstain417v", std::string(nm));
+                notFound417v = true;
+                return;
+            }
+            if (viaMember) {
+                if (!foundMember)
+                    foundMember = &sy->as<ClassType>();
+            }
+            else if (!found)
+                found = &sy->as<ClassType>();
+        }
+        else if (sy->kind == SymbolKind::GenericClassDef)
+            genericSeen = true;
+        else if (sy->kind == SymbolKind::TypeAlias) {
+            typedefSeen = true;
+            // Measured homes only: a typedef declared at $unit or in a
+            // package, of a non-class type.  A typedef of a class leaves
+            // golden's ref_var as it is (getTypespec() of the class
+            // datatype answers nothing; FT/ft05), and a module typedef's
+            // variable binds Surelog's elaborated clone with a typedef alias
+            // we do not build (FT/ft06): both abstain.
+            const Scope* hs = sy->getParentScope();
+            const auto hk = hs ? hs->asSymbol().kind : SymbolKind::Unknown;
+            if (!foundAlias &&
+                (hk == SymbolKind::CompilationUnit || hk == SymbolKind::Package) &&
+                !sy->as<TypeAliasType>().getCanonicalType().isClass())
+                foundAlias = &sy->as<TypeAliasType>();
+        }
+        else if (sy->kind == SymbolKind::ForwardingTypedef)
+            typedefSeen = true;
+    };
+    auto scan = [&](const Scope& sc) {
+        viaMember = sc.asSymbol().kind != SymbolKind::CompilationUnit;
+        take(sc.find(nm));
+        viaMember = false;
+        for (auto& m : sc.members()) {
+            if (m.kind == SymbolKind::WildcardImport) {
+                if (auto* pk = m.as<WildcardImportSymbol>().getPackage())
+                    take(pk->find(nm));
+            }
+            else if (m.kind == SymbolKind::ExplicitImport) {
+                auto& ei = m.as<ExplicitImportSymbol>();
+                if (ei.importName == nm)
+                    take(ei.importedSymbol());
+            }
+        }
+    };
+    for (const Scope* sc = arr.getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope())
+        scan(*sc);
+    for (auto* cu : comp.getCompilationUnits())
+        scan(*cu);
+    if (typedefSeen) {
+        if (alias && foundAlias && !genericSeen)
+            *alias = foundAlias;
+        return nullptr;
+    }
+    if (genericSeen || notFound417v)
+        return nullptr;
+    if (foundMember)
+        return foundMember;
+    byBareKey = found != nullptr;
+    return found;
+}
+
 bool UhdmExporter::foreachScopedArrayName33(
     const slang::syntax::ExpressionSyntax* arrBase, std::string& outName33,
     slang::SourceRange& outSpan33) {
@@ -4928,9 +5066,56 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 !arrMember9 &&
                 foreachScopedArrayName33(arrBase134, scopedArrName33,
                                          scopedArrSpan33);
+            // § foreachArrayNamesClass417 (r11u417, R11U417_FOREACHCLASS_OFF)
+            // — a BARE array identifier that is also the name of a class
+            // Surelog's compileVariable finds (foreachArrNamesClass417 above)
+            // is golden's class_var: no name and no full name of its own
+            // (the dump prints the enclosing scope's), at the identifier,
+            // over a ref_typespec to a class_typespec named after the class,
+            // at the identifier, linked to its class_defn.  The loop
+            // variables then take swapForSpecifiedVar's int_var fallback
+            // wherever Surelog resolves them at all (UhdmWriter.cpp: a
+            // class_var listed variable is neither a hier_path nor a
+            // ref_var, so indexTypespec stays null), exactly as for the
+            // `::`-written spelling (§ foreachScopedArrayLoopVarIntFallback34
+            // below).  sv-tests chapter-18/18.5.9--global-constraints_1,
+            // 18.5.13--constraint-guards_1 and 18.14--random-stability_1
+            // (uvm_reg_block::find_blocks' `foreach (b[idx])` against the
+            // test's `class b`); grid tools/probe/r11u417repro/cases/FC.
+            const slang::ast::Type* cls417 = nullptr;
+            bool bare417 = false;
+            // § foreachArrayNamesTypedef417 — the typedef branch's variable.
+            UHDM::variables* tdVar417 = nullptr;
+            UHDM::typespec* tdTs417 = nullptr;
+            if (arrSym && !arrMember9 && !scopedArr33 && !arrThis21 && arrBase &&
+                arrBase->kind == syntax::SyntaxKind::IdentifierName) {
+                const slang::ast::Type* al417 = nullptr;
+                const slang::ast::Type* c417 =
+                    foreachArrNamesClass417(comp, *arrSym, bare417, &al417);
+                if (c417 && lawOn(417, "R11U417_FOREACHCLASS_OFF")) {
+                    cls417 = c417;
+                    lawTrace(417, "foreachArrayNamesClass417",
+                             std::string(arrSym->name));
+                }
+                else if (al417 && lawOn(417, "R11U417_FOREACHTD_OFF"))
+                    if (auto* ts417 = sharedAliasTs(*al417))
+                        if (auto* v417 = varForTypespec(s, ts417)) {
+                            tdVar417 = v417;
+                            tdTs417 = ts417;
+                            lawTrace(417, "foreachArrayNamesTypedef417",
+                                     std::string(arrSym->name));
+                        }
+            }
             if (arrSym && !arrMember9) {
                 UHDM::variables* rv = nullptr;
-                if (scopedArr33) {
+                if (cls417) {
+                    rv = s.MakeClass_var();
+                }
+                else if (tdVar417) {
+                    tdVar417->VpiName(arrSym->name);
+                    rv = tdVar417;
+                }
+                else if (scopedArr33) {
                     // Surelog's `paClass_scope` arm mints a `class_var` as its
                     // DEFAULT (CompileType.cpp:614) — no lookup succeeds for a
                     // data member, so this is unconditional.
@@ -4946,7 +5131,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 std::string afn =
                     joinRef(prefix, scopedArr33 ? scopedArrName33
                                                 : std::string(arrSym->name));
-                rv->VpiFullName(afn);
+                if (!cls417)
+                    rv->VpiFullName(afn);
                 rv->VpiParent(fs);
                 // § foreachThisArrAtThisToken207 — `foreach (this.<name>[i])`:
                 // golden's iterated ref_var spans the `this` keyword alone
@@ -4975,7 +5161,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                      arrSym->name)
                                           : arrRef134->sourceRange));
                 auto* art = s.MakeRef_typespec();
-                art->VpiFullName(afn);
+                if (!cls417)
+                    art->VpiFullName(afn);
                 art->VpiParent(rv);
                 // Inside a CLASS METHOD Surelog never resolves the iterated
                 // name: its class-body CompileType falls through to the
@@ -4984,7 +5171,33 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // dynamic AND fixed-size arrays alike — a module function's
                 // foreach still binds the real array_typespec (ClassVar,
                 // LocalScopeHierPath).
-                if (scopedArr33) {
+                if (tdTs417) {
+                    // § foreachArrayNamesTypedef417 — the typedef's own
+                    // typespec object.
+                    art->Actual_typespec(tdTs417);
+                }
+                else if (cls417) {
+                    // § foreachArrayNamesClass417 — the class_typespec
+                    // compileVariable mints beside the class_var.
+                    auto* cts417 = s.MakeClass_typespec();
+                    if (bare417)
+                        cts417->VpiName(std::string(cls417->name));
+                    cts417->VpiFile(std::string(rv->VpiFile()));
+                    cts417->VpiLineNo(rv->VpiLineNo());
+                    cts417->VpiColumnNo(rv->VpiColumnNo());
+                    cts417->VpiEndLineNo(rv->VpiEndLineNo());
+                    cts417->VpiEndColumnNo(rv->VpiEndColumnNo());
+                    if (auto* cd417 = classDefnFor(*cls417))
+                        cts417->Class_defn(cd417);
+                    else
+                        pendingClassTsLink.push_back({cts417, cls417});
+                    if (auto* ui417 = importCopyTsInst ? importCopyTsInst
+                                                       : pkgScopeInst;
+                        ui417 && bare417)
+                        cts417->Instance(ui417);
+                    art->Actual_typespec(cts417);
+                }
+                else if (scopedArr33) {
                     // § foreachScopedArrayWrittenClassVar33 — `compileTypespec`
                     // reaches its own `paClass_scope` arm
                     // (CompileType.cpp:1518) and falls through at `:1618` to an
@@ -5284,7 +5497,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // unsupported_typespec: Surelog compiles the `this` handle
                 // select, finds no typespec for the selected member and binds
                 // nothing rather than minting the catch-all.
-                if (scopedArr33 || (!arrThis21 && !dropArrTs19))
+                if (cls417 || tdTs417 || scopedArr33 || (!arrThis21 && !dropArrTs19))
                     rv->Typespec(art);
                 fs->Variable(rv);
             }
@@ -6010,6 +6223,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 if (scopedArr33) {
                     lv = s.MakeInt_var();
                     lts = s.MakeInt_typespec();
+                }
+                // § foreachArrayNamesClass417 — the same fallback when the
+                // listed variable is the class_var of a class-named array.
+                if (!lv && (cls417 || tdTs417)) {
+                    lv = s.MakeInt_var();
+                    lts = s.MakeInt_typespec();
+                    lawTrace(417, "foreachArrayNamesClass417", "loopvar " + std::string(name));
                 }
                 // A SUBROUTINE-LOCAL fixed-size unpacked array hands its whole
                 // array_typespec to the loop variable — shared, not drilled —

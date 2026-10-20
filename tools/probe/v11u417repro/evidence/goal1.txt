@@ -1,0 +1,5 @@
+bp_unicore alone (sv-tests runner command, verified binary, guard on): rc 3 secs 16.5 maxrss_MB 780; slang-uhdm: error: basic_string::substr: __pos (which is 18) > this->size() (which is 17)
+v11u413 VC/vc04 C::mk().arr[1]: ours rc 4 (element select base), upstream slang rc 0, Surelog rc 3 SNT:PA0207 10:25
+v11u413 VI/vi06 u.mk(x).a[2]: ours rc 4 (element select base), upstream slang rc 0, Surelog rc 3 SNT:PA0207 13:22
+v11u415 VT/vt03 this.mk().inner.s: ours rc 0, upstream rc 0
+SURELOG_ONLY rows: 75, every detail an upstream slang error: line, none the exporter unsupported-constructs note; no BOTH_REJECT/SLANG_CRASH detail names the exporter

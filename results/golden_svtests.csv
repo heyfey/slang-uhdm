@@ -266,7 +266,7 @@ chapter-18/18.5.11--static-constraint-blocks_1.sv,SLANG_ONLY,[  ERROR] : 1,
 chapter-18/18.5.12--functions-in-constraint_0.sv,EQUAL,,equal
 chapter-18/18.5.12--functions-in-constraint_1.sv,EQUAL,,equal
 chapter-18/18.5.13--constraint-guards_0.sv,EQUAL,,equal
-chapter-18/18.5.13--constraint-guards_1.sv,DIFFERENT,decompile:,
+chapter-18/18.5.13--constraint-guards_1.sv,EQUAL,,equal
 chapter-18/18.5.14--soft-constraints_0.sv,EQUAL,,equal
 chapter-18/18.5.14--soft-constraints_1.sv,EQUAL,,equal
 chapter-18/18.5.14--soft-constraints_2.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.5.14--soft-constraints_2.sv:23:14: error: 'randc' variables cannot be used in 'soft' constraints,
@@ -305,7 +305,7 @@ chapter-18/18.5.8.1--foreach-iterative-constraints_1.sv,EQUAL,,equal
 chapter-18/18.5.8.2--array-reduction-iterative-constraints_0.sv,EQUAL,,equal
 chapter-18/18.5.8.2--array-reduction-iterative-constraints_1.sv,EQUAL,,equal
 chapter-18/18.5.9--global-constraints_0.sv,EQUAL,,equal
-chapter-18/18.5.9--global-constraints_1.sv,DIFFERENT,decompile:,
+chapter-18/18.5.9--global-constraints_1.sv,EQUAL,,equal
 chapter-18/18.6.1--randomize-method_0.sv,EQUAL,,equal
 chapter-18/18.6.2--post-randomize_method_0.sv,EQUAL,,equal
 chapter-18/18.6.2--post-randomize_method_1.sv,EQUAL,,equal

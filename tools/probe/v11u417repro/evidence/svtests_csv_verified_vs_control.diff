@@ -1,0 +1,8 @@
+269c269
+< chapter-18/18.5.13--constraint-guards_1.sv,DIFFERENT,decompile:,
+---
+> chapter-18/18.5.13--constraint-guards_1.sv,EQUAL,,equal
+308c308
+< chapter-18/18.5.9--global-constraints_1.sv,DIFFERENT,decompile:,
+---
+> chapter-18/18.5.9--global-constraints_1.sv,EQUAL,,equal
