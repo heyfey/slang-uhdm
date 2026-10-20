@@ -1,0 +1,10 @@
+slang-uhdm/third_party/Surelog/third_party/tests/Earlgrey_Verilator_01_05_21/src/lowrisc_ip_keymgr_0.1/rtl/keymgr_ctrl.sv
+slang-uhdm/third_party/Surelog/third_party/tests/IncompTitan/src/lowrisc_ip_keymgr_0.1/rtl/keymgr_ctrl.sv
+slang-uhdm/third_party/Surelog/third_party/tests/Earlgrey_nexysvideo/src/lowrisc_ip_keymgr_0.1/rtl/keymgr_ctrl.sv
+slang-uhdm/third_party/Surelog/third_party/tests/Ibex/dv/uvm/icache/dv/ibex_icache_core_agent/seq_lib/ibex_icache_core_base_seq.sv
+sv-tests/third_party/tools/Surelog/third_party/tests/Earlgrey_Verilator_01_05_21/src/lowrisc_ip_keymgr_0.1/rtl/keymgr_ctrl.sv
+sv-tests/third_party/tools/Surelog/third_party/tests/IncompTitan/src/lowrisc_ip_keymgr_0.1/rtl/keymgr_ctrl.sv
+sv-tests/third_party/tools/Surelog/third_party/tests/Earlgrey_nexysvideo/src/lowrisc_ip_keymgr_0.1/rtl/keymgr_ctrl.sv
+sv-tests/third_party/tools/Surelog/third_party/tests/Ibex/dv/uvm/icache/dv/ibex_icache_core_agent/seq_lib/ibex_icache_core_base_seq.sv
+sv-tests/third_party/cores/ibex/dv/uvm/icache/dv/ibex_icache_core_agent/seq_lib/ibex_icache_core_base_seq.sv
+sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p765.sv

@@ -2660,6 +2660,66 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     if (lst.size() == 1)
                         inner = lst[0];
                 }
+                // § labeledCallStmtLabelDropped415 (r11u415,
+                // R11U415_LABELCALL_OFF) — a LABELED call statement
+                // (`callr: b.Read(raddr);`, `cf: f(a);`, `callr: t(a);`,
+                // `sys: $display(...)`) has no named_begin and no name in
+                // Surelog: the label is dropped and the call is written as
+                // the plain statement, its references scoped WITHOUT the label
+                // (golden sv-tests generated/hdlconv_std2017/
+                // hdlconvertor_std2017_p765.sv method_func_call (Read)
+                // 61:9-61:13 with ref_obj work@cpuMod.raddr; cases/LB lb01,
+                // lb03, lb04, lb06).
+                // § labelHierModCallKeep415v (v11u415, R11V415_LABELHIER_OFF)
+                // — a labeled HIERARCHICAL call to a task or function of a
+                // MODULE instance (`lh: u.t(5);`) keeps pristine's
+                // named_begin: golden writes that call as an unlinked
+                // method_func_call with the prefix `u`, a face the unlabeled
+                // `u.t(5);` misses too (we write a task_call bound to
+                // work@sub.t, downstream EQUIVALENT); the label's wrapper had
+                // kept uhdm2rtlil from inlining it, so dropping the label moved
+                // the fresh case v11u415 cases/VA va08 downstream
+                // IDENTICAL -> EQUIVALENT.  Interface and class method calls
+                // (`callr: b.Read(raddr);`, `lc: h.run(3);`) are unaffected.
+                bool hierModCall415v = false;
+                if (inner->kind == StatementKind::ExpressionStatement &&
+                    inner->as<ExpressionStatement>().expr.kind == ExpressionKind::Call &&
+                    fixOn(415, "R11V415_LABELHIER_OFF")) {
+                    auto& call415v =
+                        inner->as<ExpressionStatement>().expr.as<CallExpression>();
+                    const syntax::SyntaxNode* cs415v = call415v.syntax;
+                    if (cs415v && cs415v->kind == syntax::SyntaxKind::InvocationExpression)
+                        cs415v = cs415v->as<syntax::InvocationExpressionSyntax>().left.get();
+                    if (!call415v.isSystemCall() && cs415v &&
+                        cs415v->kind == syntax::SyntaxKind::ScopedName &&
+                        cs415v->as<syntax::ScopedNameSyntax>().separator.kind ==
+                            parsing::TokenKind::Dot &&
+                        cs415v->as<syntax::ScopedNameSyntax>().left->kind !=
+                            syntax::SyntaxKind::ThisHandle &&
+                        cs415v->as<syntax::ScopedNameSyntax>().left->kind !=
+                            syntax::SyntaxKind::SuperHandle) {
+                        auto* sub415v = std::get<0>(call415v.subroutine);
+                        auto* ps415v = sub415v ? sub415v->getParentScope() : nullptr;
+                        if (ps415v &&
+                            ps415v->asSymbol().kind == SymbolKind::InstanceBody &&
+                            ps415v->asSymbol()
+                                    .as<InstanceBodySymbol>()
+                                    .getDefinition()
+                                    .definitionKind == slang::ast::DefinitionKind::Module) {
+                            hierModCall415v = true;
+                            lawTrace(415, "labelHierModCallKeep415v",
+                                     std::string(blkSym158->name));
+                        }
+                    }
+                }
+                if (inner->kind == StatementKind::ExpressionStatement &&
+                    inner->as<ExpressionStatement>().expr.kind == ExpressionKind::Call &&
+                    !hierModCall415v &&
+                    lawOn(415, "R11U415_LABELCALL_OFF")) {
+                    lawTrace(415, "labeledCallStmtLabelDropped415",
+                             std::string(blkSym158->name));
+                    return emitStmt(*inner, parent, prefix, netMap);
+                }
                 // A labelled CONCURRENT assertion inside a statement block
                 // (`else begin a3: assert property(...); end`) is not wrapped
                 // either: the block statement IS the assert_stmt, named and
@@ -3618,7 +3678,22 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             if (tgt && !sibling405)
                 if (auto it2 = namedBlockMap.find(tgt); it2 != namedBlockMap.end())
                     d->VpiExpr((UHDM::expr*)(UHDM::any*)it2->second);
-            if (tgt && tgt405 && !d->VpiExpr() && tgt->kind == SymbolKind::Subroutine &&
+            // § disableHierNoTaskExpr415 (r11u415, R11U415_DISABLEHIERTASK_OFF)
+            // — a task named through a HIERARCHICAL path (`disable
+            // sb.Write;`, `disable u1.Read;`) is not linked: golden's
+            // disable carries no vpiExpr there, only the implicit net
+            // (cases/DN dn01, dn02, dn05).
+            bool hierTask415 = false;
+            if (stmt.syntax && stmt.syntax->kind == syntax::SyntaxKind::DisableStatement &&
+                stmt.syntax->as<syntax::DisableStatementSyntax>().name->kind ==
+                    syntax::SyntaxKind::ScopedName &&
+                tgt && tgt->kind == SymbolKind::Subroutine &&
+                lawOn(415, "R11U415_DISABLEHIERTASK_OFF")) {
+                hierTask415 = true;
+                lawTrace(415, "disableHierNoTaskExpr415", std::string(tgt->name));
+            }
+            if (tgt && tgt405 && !hierTask415 && !d->VpiExpr() &&
+                tgt->kind == SymbolKind::Subroutine &&
                 tgt->as<SubroutineSymbol>().subroutineKind == SubroutineKind::Task)
                 if (auto it3 = subMap.find(&tgt->as<SubroutineSymbol>());
                     it3 != subMap.end() && it3->second.tf &&
@@ -3629,11 +3704,41 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // Surelog can't resolve the block label: it also mints an implicit
             // module wire named after the target (at the label token).
             if (tgt && implicitNetModule) {
-                auto& inet = implicitNetMap[tgt];
+                // § disableHierNetFirstName415 (r11u415,
+                // R11U415_DISABLEHIER_OFF) — a HIERARCHICAL target
+                // (`disable mem1.a.Read;`, `disable sb_intf.Write;`) mints
+                // the net named for the path's FIRST written identifier, the
+                // name Surelog's expression compile copies, ONE net per name
+                // however many disables go through it (golden sv-tests
+                // generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv
+                // logic_net work@top.mem1 75:9-75:20; cases/DN dn01, dn02,
+                // dn04, dn05).  The span stays the whole path.
+                std::string nm415(tgt->name);
+                bool hier415 = false;
+                const syntax::NameSyntax* tn415 =
+                    stmt.syntax && stmt.syntax->kind == syntax::SyntaxKind::DisableStatement
+                        ? stmt.syntax->as<syntax::DisableStatementSyntax>().name.get()
+                        : nullptr;
+                if (tn415 && tn415->kind == syntax::SyntaxKind::ScopedName &&
+                    lawOn(415, "R11U415_DISABLEHIER_OFF")) {
+                    auto tok415 = tn415->getFirstToken();
+                    if (tok415.kind == parsing::TokenKind::Identifier &&
+                        !tok415.valueText().empty()) {
+                        nm415 = std::string(tok415.valueText());
+                        hier415 = true;
+                    }
+                }
+                static std::map<std::pair<const void*, std::string>, UHDM::logic_net*>
+                    hierNets415;
+                auto& inet = hier415 ? hierNets415[{implicitNetModule, nm415}]
+                                     : implicitNetMap[tgt];
+                if (hier415)
+                    lawTrace(415, "disableHierNetFirstName415",
+                             nm415 + (inet ? " shared" : " minted"));
                 if (!inet) {
                     inet = s.MakeLogic_net();
-                    inet->VpiName(tgt->name);
-                    inet->VpiFullName(implicitNetPrefix + "." + std::string(tgt->name));
+                    inet->VpiName(nm415);
+                    inet->VpiFullName(implicitNetPrefix + "." + nm415);
                     inet->VpiParent(implicitNetModule);
                     inet->VpiNetType(1);
                     auto tl = ds.target.sourceRange;

@@ -1,0 +1,36 @@
+BC/bc01 | P rc=4 cmp=0 away=6 md5=8528d874 | STRICT_EQUAL 236 objects | F rc=0 cmp=0 away=6 md5=8528d874 | STRICT_EQUAL 236 objects | OFF=pris:y own(R11U415_BADCASTSIZE_OFF)=pris:y
+BC/bc02 | P rc=4 cmp=0 away=4 md5=9d7ddeea | STRICT_EQUAL 172 objects | F rc=0 cmp=0 away=4 md5=9d7ddeea | STRICT_EQUAL 172 objects | OFF=pris:y own(R11U415_BADCASTSIZE_OFF)=pris:y
+BC/bc03 | P rc=4 cmp=0 away=6 md5=9891f83f | STRICT_EQUAL 236 objects | F rc=0 cmp=0 away=6 md5=9891f83f | STRICT_EQUAL 236 objects | OFF=pris:y own(R11U415_BADCASTSIZE_OFF)=pris:y
+BC/bc04 | P rc=4 cmp=0 away=6 md5=bbe46bae | STRICT_EQUAL 231 objects | F rc=0 cmp=0 away=6 md5=bbe46bae | STRICT_EQUAL 231 objects | OFF=pris:y own(R11U415_BADCASTSIZE_OFF)=pris:y
+BC/bc05 | P rc=4 cmp=0 away=9 md5=856d535a | STRICT_EQUAL 107 objects | F rc=0 cmp=0 away=9 md5=856d535a | STRICT_EQUAL 107 objects | OFF=pris:y own(R11U415_BADCASTSIZE_OFF)=pris:y
+BC/bc06 | P rc=0 cmp=0 away=2 md5=18b4519a | STRICT_EQUAL 222 objects | F rc=0 cmp=0 away=2 md5=18b4519a | STRICT_EQUAL 222 objects | OFF=pris:y own(R11U415_BADCASTSIZE_OFF)=pris:y
+DN/dn01 | P rc=0 cmp=31 away=10 md5=f2bcfc74 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=163ed86b | STRICT_EQUAL 19 objects | OFF=pris:y own(R11U415_DISABLEHIER_OFF+R11U415_DISABLEHIERTASK_OFF)=pris:y
+DN/dn02 | P rc=0 cmp=226 away=19 md5=e584ba5c | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=ed24d426 | STRICT_EQUAL 23 objects | OFF=pris:y own(R11U415_DISABLEHIER_OFF+R11U415_DISABLEHIERTASK_OFF)=pris:y
+DN/dn03 | P rc=0 cmp=0 away=2 md5=ae74f6c3 | STRICT_EQUAL 12 objects | F rc=0 cmp=0 away=2 md5=ae74f6c3 | STRICT_EQUAL 12 objects | OFF=pris:y own(R11U415_DISABLEHIER_OFF+R11U415_DISABLEHIERTASK_OFF)=pris:y
+DN/dn04 | P rc=0 cmp=32 away=8 md5=870a34d9 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=5ab1d536 | STRICT_EQUAL 18 objects | OFF=pris:y own(R11U415_DISABLEHIER_OFF+R11U415_DISABLEHIERTASK_OFF)=pris:y
+DN/dn05 | P rc=0 cmp=32 away=10 md5=cba79aaa | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=063114ed | STRICT_EQUAL 18 objects | OFF=pris:y own(R11U415_DISABLEHIER_OFF+R11U415_DISABLEHIERTASK_OFF)=pris:y
+FJ/fj01 | P rc=0 cmp=28 away=22 md5=722c69d3 | NOT_EQUAL stage1 | F rc=0 cmp=85 away=16 md5=c5cbf912 | NOT_EQUAL stage1 | OFF=pris:y own(R11U415_EXTERNCALL_OFF)=pris:y
+FJ/fj02 | P rc=0 cmp=60 away=24 md5=f33c410e | NOT_EQUAL stage1 | F rc=0 cmp=85 away=18 md5=8b5afa4f | NOT_EQUAL stage1 | OFF=pris:y own(R11U415_EXTERNCALL_OFF)=pris:y
+LB/lb01 | P rc=0 cmp=76 away=30 md5=1b203994 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=2242b820 | STRICT_EQUAL 79 objects | OFF=pris:y own(R11U415_LABELCALL_OFF)=pris:y
+LB/lb02 | P rc=0 cmp=76 away=30 md5=415bd47a | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=501978f6 | STRICT_EQUAL 95 objects | OFF=pris:y own(R11U415_LABELCALL_OFF)=pris:y
+LB/lb03 | P rc=0 cmp=100 away=42 md5=e0f04180 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=7aaf29c7 | STRICT_EQUAL 67 objects | OFF=pris:y own(R11U415_LABELCALL_OFF)=pris:y
+LB/lb04 | P rc=0 cmp=131 away=98 md5=dd34784f | NOT_EQUAL stage1 | F rc=0 cmp=131 away=62 md5=6833073f | NOT_EQUAL stage1 | OFF=pris:y own(R11U415_LABELCALL_OFF)=pris:y
+LB/lb05 | P rc=0 cmp=92 away=38 md5=01a8bd88 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=1fafe7da | STRICT_EQUAL 36 objects | OFF=pris:y own(R11U415_LABELCALL_OFF)=pris:y
+LB/lb06 | P rc=0 cmp=76 away=30 md5=445962e5 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=bbf42bb8 | STRICT_EQUAL 79 objects | OFF=pris:y own(R11U415_LABELCALL_OFF)=pris:y
+LB/lb07 | P rc=0 cmp=106 away=43 md5=ea090bed | NOT_EQUAL stage1 | F rc=0 cmp=106 away=43 md5=ea090bed | NOT_EQUAL stage1 | OFF=pris:y own(R11U415_LABELCALL_OFF)=pris:y
+LB/lb08 | P rc=0 cmp=258 away=107 md5=a97a7832 | NOT_EQUAL stage1 | F rc=0 cmp=258 away=107 md5=a97a7832 | NOT_EQUAL stage1 | OFF=pris:y own(R11U415_LABELCALL_OFF)=pris:y
+LT/lt01 | P rc=0 cmp=140 away=52 md5=51560c14 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=18215a2b | STRICT_EQUAL 70 objects | OFF=pris:y own(R11U415_PKGLET_OFF)=pris:y
+LT/lt02 | P rc=0 cmp=88 away=49 md5=b75d5c4c | NOT_EQUAL stage1 | F rc=0 cmp=0 away=33 md5=0e53ac55 | STRICT_EQUAL 85 objects | OFF=pris:y own(R11U415_PKGLET_OFF)=pris:y
+LT/lt03 | P rc=0 cmp=58 away=54 md5=e9cbfaf2 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=18 md5=516e89bf | STRICT_EQUAL 75 objects | OFF=pris:y own(R11U415_PKGLET_OFF)=pris:y
+LT/lt04 | P rc=0 cmp=88 away=18 md5=56d64663 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=951d4906 | STRICT_EQUAL 91 objects | OFF=pris:y own(R11U415_PKGLET_OFF)=pris:y
+LT/lt05 | P rc=0 cmp=0 away=19 md5=95dda32f | STRICT_NOTEQUAL type | F rc=0 cmp=0 away=19 md5=95dda32f | STRICT_NOTEQUAL type | OFF=pris:y own(R11U415_PKGLET_OFF)=pris:y
+LT/lt06 | P rc=0 cmp=104 away=26 md5=08560297 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=75536631 | STRICT_EQUAL 62 objects | OFF=pris:y own(R11U415_PKGLET_OFF)=pris:y
+LT/lt07 | P rc=0 cmp=140 away=66 md5=46d91fa5 | NOT_EQUAL stage1 | F rc=0 cmp=140 away=66 md5=46d91fa5 | NOT_EQUAL stage1 | OFF=pris:y own(R11U415_PKGLET_OFF)=pris:y
+LT/lt08 | P rc=0 cmp=88 away=96 md5=50d0d06e | NOT_EQUAL stage1 | F rc=0 cmp=0 away=64 md5=b3e2b096 | STRICT_EQUAL 139 objects | OFF=pris:y own(R11U415_PKGLET_OFF)=pris:y
+LT/lt09 | P rc=0 cmp=88 away=96 md5=5d0b0cde | NOT_EQUAL stage1 | F rc=0 cmp=88 away=96 md5=5d0b0cde | NOT_EQUAL stage1 | OFF=pris:y own(R11U415_PKGLET_OFF)=pris:y
+TC/tc01 | P rc=4 cmp=25 away=13 md5=b527c164 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=8ff52f14 | STRICT_EQUAL 64 objects | OFF=pris:y own(R11U415_THISCALLMEMBER_OFF)=pris:y
+TC/tc02 | P rc=4 cmp=63 away=32 md5=16201240 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=0d52eafc | STRICT_EQUAL 80 objects | OFF=pris:y own(R11U415_THISCALLMEMBER_OFF)=pris:y
+TC/tc03 | P rc=4 cmp=78 away=13 md5=6c8f89b6 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=050e39b9 | STRICT_EQUAL 48 objects | OFF=pris:y own(R11U415_THISCALLMEMBER_OFF)=pris:y
+TC/tc04 | P rc=4 cmp=25 away=21 md5=030bd497 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=10 md5=780e2846 | STRICT_EQUAL 68 objects | OFF=pris:y own(R11U415_THISCALLMEMBER_OFF)=pris:y
+TC/tc05 | P rc=4 cmp=78 away=13 md5=a38d0757 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=83cbe5d1 | STRICT_EQUAL 50 objects | OFF=pris:y own(R11U415_THISCALLMEMBER_OFF)=pris:y
+TC/tc06 | P rc=0 cmp=0 away=2 md5=93d1ae1c | STRICT_EQUAL 66 objects | F rc=0 cmp=0 away=2 md5=93d1ae1c | STRICT_EQUAL 66 objects | OFF=pris:y own(R11U415_THISCALLMEMBER_OFF)=pris:y

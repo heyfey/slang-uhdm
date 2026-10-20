@@ -1,0 +1,38 @@
+pristine BC/bc01 {'name': 'BC_bc01', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 1 common constant assignments match'}
+pristine BC/bc02 {'name': 'BC_bc02', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 1 common constant assignments match'}
+pristine BC/bc03 {'name': 'BC_bc03', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 1 common constant assignments match'}
+pristine BC/bc04 {'name': 'BC_bc04', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 1 common constant assignments match'}
+pristine BC/bc05 {'name': 'BC_bc05', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 1 common constant assignments match'}
+pristine BC/bc06 {'name': 'BC_bc06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine LT/lt02 {'name': 'LT_lt02', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'OK', 'surelog_gates': 0, 'slang_gates': 17, 'differs': '', 'detail': ''}
+pristine LT/lt03 {'name': 'LT_lt03', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'OK', 'surelog_gates': 0, 'slang_gates': 17, 'differs': '', 'detail': ''}
+pristine LT/lt04 {'name': 'LT_lt04', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'OK', 'surelog_gates': 0, 'slang_gates': 17, 'differs': '', 'detail': ''}
+pristine LT/lt06 {'name': 'LT_lt06', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'OK', 'surelog_gates': 0, 'slang_gates': 1, 'differs': '', 'detail': ''}
+pristine LT/lt08 {'name': 'LT_lt08', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'OK', 'surelog_gates': 0, 'slang_gates': 35, 'differs': '', 'detail': ''}
+pristine LB/lb01 {'name': 'LB_lb01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine LB/lb03 {'name': 'LB_lb03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine LB/lb06 {'name': 'LB_lb06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DN/dn01 {'name': 'DN_dn01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DN/dn02 {'name': 'DN_dn02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DN/dn04 {'name': 'DN_dn04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DN/dn05 {'name': 'DN_dn05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine FJ/fj02 {'name': 'FJ_fj02', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': '✅ All 2 common constant assignments match'}
+law7 BC/bc01 {'name': 'BC_bc01', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 1 common constant assignments match'}
+law7 BC/bc02 {'name': 'BC_bc02', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 1 common constant assignments match'}
+law7 BC/bc03 {'name': 'BC_bc03', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 1 common constant assignments match'}
+law7 BC/bc04 {'name': 'BC_bc04', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 1 common constant assignments match'}
+law7 BC/bc05 {'name': 'BC_bc05', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 1 common constant assignments match'}
+law7 BC/bc06 {'name': 'BC_bc06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law7 LT/lt02 {'name': 'LT_lt02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law7 LT/lt03 {'name': 'LT_lt03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law7 LT/lt04 {'name': 'LT_lt04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law7 LT/lt06 {'name': 'LT_lt06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law7 LT/lt08 {'name': 'LT_lt08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law7 LB/lb01 {'name': 'LB_lb01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law7 LB/lb03 {'name': 'LB_lb03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law7 LB/lb06 {'name': 'LB_lb06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law7 DN/dn01 {'name': 'DN_dn01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law7 DN/dn02 {'name': 'DN_dn02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law7 DN/dn04 {'name': 'DN_dn04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law7 DN/dn05 {'name': 'DN_dn05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law7 FJ/fj02 {'name': 'FJ_fj02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}

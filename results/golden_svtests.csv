@@ -1412,7 +1412,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p269.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p278.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p284.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p289.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p292.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p292.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p322.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p327.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p328.sv,EQUAL,,equal

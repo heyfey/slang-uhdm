@@ -1,0 +1,61 @@
+VA/va01 upstream=0 | P rc=0 cmp=76 away=69 dmd5=161ea3c4 sz=5001 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=2f5b9e64 sz=4820 | STRICT_EQUAL 83 objects | OFF=pris:y own=pris:y | trace:  1 c1; 1 c2; 
+VA/va02 upstream=0 | P rc=0 cmp=100 away=41 dmd5=48b905f7 sz=5309 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=6ddda604 sz=5149 | STRICT_EQUAL 107 objects | OFF=pris:y own=pris:y | trace:  1 l1; 
+VA/va03 upstream=0 | P rc=0 cmp=76 away=29 dmd5=bbcc2afc sz=4622 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=d8a15a9b sz=4515 | STRICT_EQUAL 73 objects | OFF=pris:y own=pris:y | trace:  1 lab; 
+VA/va04 upstream=0 | P rc=0 cmp=92 away=65 dmd5=ba2c89be sz=3599 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=247fddce sz=3427 | STRICT_EQUAL 41 objects | OFF=pris:y own=pris:y | trace:  1 lc; 1 lf; 
+VA/va05 upstream=0 | P rc=0 cmp=48 away=99 dmd5=6917e2f0 sz=9065 | NOT_EQUAL stage1 | F rc=0 cmp=36 away=45 dmd5=0ccf6994 sz=8796 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  3 cl; 
+VA/va06 upstream=0 | P rc=0 cmp=92 away=37 dmd5=e10f0cb6 sz=5158 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=dfc461b3 sz=5031 | STRICT_EQUAL 80 objects | OFF=pris:y own=pris:y | trace:  1 pb; 
+VA/va07 upstream=0 | P rc=0 cmp=104 away=39 dmd5=cd309646 sz=5605 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=32ef597a sz=5510 | STRICT_EQUAL 111 objects | OFF=pris:y own=pris:y | trace:  1 lt; 
+VA/va08 upstream=0 | P rc=0 cmp=84 away=33 dmd5=e750b4c8 sz=2480 | NOT_EQUAL stage1 | F rc=0 cmp=84 away=33 dmd5=e750b4c8 sz=2480 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  1 lh; 
+VA/va09 upstream=0 | P rc=0 cmp=76 away=39 dmd5=1d981d07 sz=4848 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=fc88adcb sz=4645 | STRICT_EQUAL 77 objects | OFF=pris:y own=pris:y | trace:  1 lf; 1 lt; 
+VA/va10 upstream=0 | P rc=0 cmp=76 away=57 dmd5=f9ef00cf sz=5228 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=4df0e967 sz=5004 | STRICT_EQUAL 91 objects | OFF=pris:y own=pris:y | trace:  1 le; 1 lt; 
+VA/va11 upstream=0 | P rc=0 cmp=76 away=70 dmd5=b7ba0517 sz=5116 | NOT_EQUAL stage1 | F rc=0 cmp=106 away=42 dmd5=148bd888 sz=4976 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  1 lt; 
+VA/va12 upstream=0 | P rc=0 cmp=94 away=58 dmd5=60eac9cb sz=3689 | NOT_EQUAL stage1 | F rc=0 cmp=94 away=36 dmd5=eb34863c sz=3547 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  1 ls; 1 lsr; 
+VA/va13 upstream=0 | P rc=0 cmp=76 away=29 dmd5=26612a00 sz=4875 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=6f066cb2 sz=4839 | STRICT_EQUAL 84 objects | OFF=pris:y own=pris:y | trace:  1 lt; 
+VA/va15 upstream=0 | P rc=0 cmp=84 away=33 dmd5=e9a989f4 sz=3499 | NOT_EQUAL stage1 | F rc=0 cmp=84 away=33 dmd5=e9a989f4 sz=3499 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  1 lf; 
+VA/va16 upstream=0 | P rc=0 cmp=92 away=37 dmd5=fa8ea3f9 sz=3060 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=854db0d3 sz=2964 | STRICT_EQUAL 53 objects | OFF=pris:y own=pris:y | trace:  1 lp; 
+VB/vb01 upstream=0 | P rc=4 cmp=0 away=5 dmd5=a117c4e8 sz=15021 | STRICT_EQUAL 260 objects | F rc=0 cmp=0 away=5 dmd5=a117c4e8 sz=15021 | STRICT_EQUAL 260 objects | OFF=pris:y own=pris:y | trace:   4 W'(x[i]);
+VB/vb02 upstream=0 | P rc=0 cmp=0 away=1 dmd5=38a9e2c7 sz=13653 | STRICT_EQUAL 238 objects | F rc=0 cmp=0 away=1 dmd5=38a9e2c7 sz=13653 | STRICT_EQUAL 238 objects | OFF=pris:y own=pris:y | trace: 
+VB/vb03 upstream=0 | P rc=0 cmp=18 away=21 dmd5=f11b9062 sz=10810 | NOT_EQUAL stage1 | F rc=0 cmp=18 away=21 dmd5=f11b9062 sz=10810 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace: 
+VB/vb04 upstream=0 | P rc=0 cmp=0 away=1 dmd5=f4d50db4 sz=9339 | STRICT_EQUAL 149 objects | F rc=0 cmp=0 away=1 dmd5=f4d50db4 sz=9339 | STRICT_EQUAL 149 objects | OFF=pris:y own=pris:y | trace: 
+VB/vb05 upstream=0 | P rc=4 cmp=0 away=145 dmd5=74a87882 sz=14975 | STRICT_EQUAL 269 objects | F rc=0 cmp=0 away=145 dmd5=74a87882 sz=14975 | STRICT_EQUAL 269 objects | OFF=pris:y own=pris:y | trace:  4 L'(x[i]); 
+VB/vb06 upstream=0 | P rc=0 cmp=18 away=55 dmd5=3b83244b sz=14768 | NOT_EQUAL stage1 | F rc=0 cmp=18 away=55 dmd5=3b83244b sz=14768 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace: 
+VD/vd01 upstream=0 | P rc=0 cmp=32 away=7 dmd5=a2a1e02f sz=2128 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=9f762968 sz=2108 | STRICT_EQUAL 20 objects | OFF=pris:y own=pris:y | trace:  1 minted; 
+VD/vd02 upstream=0 | P rc=0 cmp=32 away=7 dmd5=1a9a9a46 sz=2266 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=bd7f7dde sz=2242 | STRICT_EQUAL 21 objects | OFF=pris:y own=pris:y | trace:  1 minted; 
+VD/vd03 upstream=0 | P rc=0 cmp=302 away=24 dmd5=87d7713b sz=2835 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=ae364f4a sz=2729 | STRICT_EQUAL 28 objects | OFF=pris:y own=pris:y | trace:  2 minted; 1 Read; 1 shared;  2 Write;
+VD/vd04 upstream=0 | P rc=0 cmp=71 away=19 dmd5=567725e9 sz=3707 | NOT_EQUAL stage1 | F rc=0 cmp=57 away=8 dmd5=ac1a18e6 sz=3641 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  1 minted; 3 Read; 2 shared; 
+VD/vd05 upstream=0 | P rc=0 cmp=32 away=9 dmd5=ad77e6b1 sz=2475 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=ce833311 sz=2469 | STRICT_EQUAL 18 objects | OFF=pris:y own=pris:y | trace:  1 minted; 1 Read; 
+VD/vd06 upstream=0 | P rc=0 cmp=32 away=13 dmd5=2b3f01ab sz=3010 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=e1a934ce sz=3006 | STRICT_EQUAL 28 objects | OFF=pris:y own=pris:y | trace:  2 minted; 2 Read; 
+VD/vd07 upstream=0 | P rc=0 cmp=31 away=9 dmd5=b5c474c5 sz=2318 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=dba11c9f sz=2281 | STRICT_EQUAL 22 objects | OFF=pris:y own=pris:y | trace:  1 minted; 1 Read; 
+VD/vd08 upstream=0 | P rc=0 cmp=32 away=9 dmd5=e94e00aa sz=2556 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=bf4c4f58 sz=2544 | STRICT_EQUAL 24 objects | OFF=pris:y own=pris:y | trace:  1 minted; 1 Read; 
+VD/vd09 upstream=0 | P rc=0 cmp=32 away=13 dmd5=a2267eb6 sz=2704 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=db2c1930 sz=2686 | STRICT_EQUAL 28 objects | OFF=pris:y own=pris:y | trace:  2 minted; 
+VD/vd10 upstream=0 | P rc=0 cmp=32 away=7 dmd5=42dcfeb7 sz=2210 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=8e564fa4 sz=2235 | STRICT_EQUAL 24 objects | OFF=pris:y own=pris:y | trace:  1 minted; 1 shared; 
+VL/vl01 upstream=0 | P rc=0 cmp=32 away=150 dmd5=f3eb37c4 sz=6724 | NOT_EQUAL stage1 | F rc=0 cmp=32 away=150 dmd5=f3eb37c4 sz=6724 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  4 sum2; 
+VL/vl02 upstream=0 | P rc=0 cmp=88 away=48 dmd5=bb36b067 sz=5332 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=32 dmd5=ccab7c65 sz=5280 | STRICT_EQUAL 85 objects | OFF=pris:y own=pris:y | trace:  2 sum2; 
+VL/vl03 upstream=0 | P rc=0 cmp=88 away=95 dmd5=5e3b46a8 sz=10070 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=63 dmd5=5a9707fc sz=10147 | STRICT_NOTEQUAL fullname | OFF=pris:y own=pris:y | trace:  4 sum2; 
+VL/vl04 upstream=0 | P rc=0 cmp=88 away=95 dmd5=b659d804 sz=10059 | NOT_EQUAL stage1 | F rc=0 cmp=88 away=95 dmd5=b659d804 sz=10059 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  4 sum2; 
+VL/vl05 upstream=0 | P rc=0 cmp=0 away=1 dmd5=4df2e892 sz=4019 | STRICT_EQUAL 54 objects | F rc=0 cmp=0 away=1 dmd5=4df2e892 sz=4019 | STRICT_EQUAL 54 objects | OFF=pris:y own=pris:y | trace: 
+VL/vl06 upstream=0 | P rc=0 cmp=88 away=100 dmd5=bf8c07d3 sz=11982 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=84 dmd5=738b8bd0 sz=11975 | STRICT_NOTEQUAL fullname | OFF=pris:y own=pris:y | trace:  3 sum2; 
+VL/vl07 upstream=0 | P rc=0 cmp=98 away=84 dmd5=7bb1a633 sz=4761 | NOT_EQUAL stage1 | F rc=0 cmp=98 away=84 dmd5=7bb1a633 sz=4761 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  2 dbl; 2 inc; 
+VL/vl08 upstream=0 | P rc=0 cmp=140 away=53 dmd5=1a93b0b4 sz=3969 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=ef8cd22e sz=3903 | STRICT_EQUAL 70 objects | OFF=pris:y own=pris:y | trace:   1 valid_arb;
+VL/vl09 upstream=0 | P rc=0 cmp=88 away=17 dmd5=9545d96d sz=4066 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=11c6949e sz=4074 | STRICT_EQUAL 65 objects | OFF=pris:y own=pris:y | trace:  1 sum2; 
+VL/vl10 upstream=0 | P rc=0 cmp=88 away=35 dmd5=57b8b4ba sz=4922 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=19 dmd5=a588f26d sz=4901 | STRICT_NOTEQUAL type | OFF=pris:y own=pris:y | trace:  1 sum2; 
+VL/vl11 upstream=0 | P rc=0 cmp=72 away=33 dmd5=67894211 sz=7822 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=e8083308 sz=7849 | STRICT_EQUAL 125 objects | OFF=pris:y own=pris:y | trace:  2 sum2; 
+VL/vl12 upstream=0 | P rc=0 cmp=58 away=85 dmd5=04c6726e sz=5495 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=32373163 sz=5119 | STRICT_EQUAL 78 objects | OFF=pris:y own=pris:y | trace:  4 pex::sum2; 
+VL/vl13 upstream=0 | P rc=0 cmp=88 away=95 dmd5=0039015f sz=6852 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=63 dmd5=158bf25a sz=6865 | STRICT_EQUAL 117 objects | OFF=pris:y own=pris:y | trace:  4 sum2; 
+VL/vl14 upstream=0 | P rc=0 cmp=88 away=17 dmd5=9535970d sz=5974 | NOT_EQUAL stage1 | F rc=0 cmp=88 away=17 dmd5=9535970d sz=5974 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  1 sum2; 
+VL/vl15 upstream=0 | P rc=0 cmp=72 away=29 dmd5=97618b30 sz=5204 | NOT_EQUAL stage1 | F rc=0 cmp=72 away=29 dmd5=97618b30 sz=5204 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  1 sum2; 
+VL/vl16 upstream=0 | P rc=0 cmp=88 away=138 dmd5=9d554a7a sz=6957 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=106 dmd5=413dfacb sz=6992 | STRICT_EQUAL 159 objects | OFF=pris:y own=pris:y | trace:  2 sum2; 
+VL/vl17 upstream=0 | P rc=0 cmp=32 away=297 dmd5=c311d348 sz=9361 | NOT_EQUAL stage1 | F rc=0 cmp=32 away=281 dmd5=2f605e15 sz=9528 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  6 sum2; 
+VT/vt01 upstream=0 | P rc=4 cmp=78 away=12 dmd5=6bb12bda sz=3482 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=0419cefd sz=3588 | STRICT_EQUAL 43 objects | OFF=pris:y own=pris:y | trace:  1 this.mk().s; 
+VT/vt02 upstream=0 | P rc=4 cmp=78 away=12 dmd5=85cf4569 sz=4492 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=dc040d68 sz=4608 | STRICT_EQUAL 66 objects | OFF=pris:y own=pris:y | trace:  1 this.mk().s; 
+VT/vt03 upstream=0 | P rc=4 NO_GOLDEN | F rc=0 NO_GOLDEN | OFF=pris:y own=pris:y | trace:  1 this.mk().inner.s; 
+VT/vt04 upstream=0 | P rc=4 cmp=25 away=20 dmd5=460facae sz=4555 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=9 dmd5=0a0daaed sz=4654 | STRICT_EQUAL 68 objects | OFF=pris:y own=pris:y | trace:  1 super.mk().s; 
+VT/vt05 upstream=0 | P rc=4 cmp=37 away=30 dmd5=99368b71 sz=5081 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=13 dmd5=970ca1de sz=5302 | STRICT_EQUAL 80 objects | OFF=pris:y own=pris:y | trace:  1 this.mk(k).s; 
+VT/vt06 upstream=0 | P rc=0 cmp=0 away=1 dmd5=91a23c8f sz=4873 | STRICT_EQUAL 70 objects | F rc=0 cmp=0 away=1 dmd5=91a23c8f sz=4873 | STRICT_EQUAL 70 objects | OFF=pris:y own=pris:y | trace: 
+VT/vt07 upstream=0 | P rc=4 cmp=78 away=23 dmd5=ec8e198e sz=4666 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=487c840e sz=4902 | STRICT_EQUAL 69 objects | OFF=pris:y own=pris:y | trace:  2 this.mk().s; 
+VT/vt08 upstream=0 | P rc=4 cmp=25 away=12 dmd5=83d63bb6 sz=5015 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1 dmd5=fdcf02ac sz=5131 | STRICT_EQUAL 89 objects | OFF=pris:y own=pris:y | trace:  1 this.mk().b; 
+VX/vx01 upstream=0 | P rc=0 cmp=9 away=56 dmd5=8602dd94 sz=3955 | NOT_EQUAL stage1 | F rc=0 cmp=111 away=52 dmd5=b244eb32 sz=3883 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  2 f; 
+VX/vx02 upstream=0 | P rc=0 cmp=60 away=45 dmd5=9ae7b53a sz=4011 | NOT_EQUAL stage1 | F rc=0 cmp=85 away=37 dmd5=5fb2b271 sz=3937 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:   2 Write;
+VX/vx03 upstream=0 | P rc=0 cmp=41 away=63 dmd5=5506899b sz=5396 | NOT_EQUAL stage1 | F rc=0 cmp=41 away=63 dmd5=5506899b sz=5396 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace: 
+VX/vx04 upstream=0 | P rc=0 cmp=60 away=25 dmd5=66d6122f sz=5038 | NOT_EQUAL stage1 | F rc=0 cmp=85 away=17 dmd5=59bd11e0 sz=5022 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:  2 countSlaves; 
+VX/vx05 upstream=0 | P rc=0 cmp=92 away=59 dmd5=9e1a598d sz=3839 | NOT_EQUAL stage1 | F rc=0 cmp=85 away=37 dmd5=25c01f0c sz=3834 | NOT_EQUAL stage1 | OFF=pris:y own=pris:y | trace:   4 Write;

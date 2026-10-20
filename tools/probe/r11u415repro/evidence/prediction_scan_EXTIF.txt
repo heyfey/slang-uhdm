@@ -1,0 +1,2 @@
+slang-uhdm/third_party/Surelog/third_party/tests/Verilator/t_interface_modport_export.v
+sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p765.sv

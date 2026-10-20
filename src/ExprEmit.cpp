@@ -24898,6 +24898,205 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
         }
     }
+    // § pkgLetCallFuncCall415 (r11u415, R11U415_PKGLET_OFF) — a call to a
+    // `let` declared in a PACKAGE is not substituted by Surelog: its
+    // compileTfCall finds no let in the calling scope, so an unqualified call
+    // reached through an import (`valid_arb(.request(req), ...)`,
+    // `sum2(a, b)`) is an unresolved func_call named by the let, spanning the
+    // whole call, with the written arguments as its arguments in written
+    // order bound at their call-site spans (golden sv-tests
+    // generated/hdlconv_std2017/hdlconvertor_std2017_p292.sv func_call
+    // (valid_arb) 14:5-14:58; cases/LT lt01, lt02, lt04, lt06), and a
+    // package-qualified call (`pex::sum2(a, b)`) is an unbound ref_obj named
+    // `pex::sum2` spanning the written scope through its last `::`, the
+    // arguments dropped (cases/LT lt03).  slang expands the call in place
+    // (the expansion's syntax is the let's BODY, the call syntax is gone), so
+    // the call site is found among the design's invocations of that name by
+    // its arguments: every written argument a plain identifier naming the
+    // net or variable slang substituted for that formal, exactly one call
+    // site matching.  Anything else abstains; module-local lets keep
+    // emitLetInlined.  The exporter wrote the substituted body.
+    if (expr.syntax && lawOn(415, "R11U415_PKGLET_OFF")) {
+        static bool init415 = false;
+        static std::map<const syntax::SyntaxNode*, const LetDeclSymbol*> pkgLets415;
+        static std::multimap<std::string_view, const syntax::InvocationExpressionSyntax*>
+            letCalls415;
+        if (!init415) {
+            init415 = true;
+            for (auto* pk415 : comp.getPackages())
+                for (auto& m415 : pk415->members())
+                    if (m415.kind == SymbolKind::LetDecl)
+                        pkgLets415[&*m415.as<LetDeclSymbol>().exprSyntax] =
+                            &m415.as<LetDeclSymbol>();
+            if (!pkgLets415.empty()) {
+                std::set<std::string_view> names415;
+                for (auto& kv415 : pkgLets415)
+                    names415.insert(kv415.second->name);
+                std::function<void(const syntax::SyntaxNode&)> walk415 =
+                    [&](const syntax::SyntaxNode& n415) {
+                        if (n415.kind == syntax::SyntaxKind::InvocationExpression) {
+                            auto& iv415 = n415.as<syntax::InvocationExpressionSyntax>();
+                            const syntax::SyntaxNode* l415 = iv415.left.get();
+                            if (l415->kind == syntax::SyntaxKind::ScopedName)
+                                l415 = l415->as<syntax::ScopedNameSyntax>().right.get();
+                            if (l415->kind == syntax::SyntaxKind::IdentifierName) {
+                                auto nm415 = l415->as<syntax::IdentifierNameSyntax>()
+                                                 .identifier.valueText();
+                                if (auto f415 = names415.find(nm415); f415 != names415.end())
+                                    letCalls415.emplace(*f415, &iv415);
+                            }
+                        }
+                        for (size_t i415 = 0; i415 < n415.getChildCount(); i415++)
+                            if (auto* c415 = n415.childNode(i415))
+                                walk415(*c415);
+                    };
+                for (auto& t415 : comp.getSyntaxTrees())
+                    walk415(t415->root());
+            }
+        }
+        auto pl415 = pkgLets415.empty() ? pkgLets415.end() : pkgLets415.find(expr.syntax);
+        if (pl415 != pkgLets415.end()) {
+            auto* ld415 = pl415->second;
+            LetActualFinder f415;
+            f415.ld = ld415;
+            expr.visit(f415);
+            // The actual's name for a formal, or empty when it is not a plain
+            // net or variable read.
+            auto actualName415 = [&](const Symbol* formal) -> std::string_view {
+                auto it = f415.byFormal.find(formal);
+                if (it == f415.byFormal.end())
+                    return {};
+                auto& a = stripImplicitConv(*it->second);
+                if (a.kind != ExpressionKind::NamedValue)
+                    return {};
+                auto& sy = a.as<NamedValueExpression>().symbol;
+                if (sy.kind != SymbolKind::Net && sy.kind != SymbolKind::Variable)
+                    return {};
+                return sy.name;
+            };
+            auto argExpr415 = [](const syntax::SyntaxNode* a) -> const syntax::SyntaxNode* {
+                if (a && a->kind == syntax::SyntaxKind::SimplePropertyExpr)
+                    a = a->as<syntax::SimplePropertyExprSyntax>().expr;
+                if (a && a->kind == syntax::SyntaxKind::SimpleSequenceExpr)
+                    a = a->as<syntax::SimpleSequenceExprSyntax>().expr;
+                return a;
+            };
+            // For one call site: the written argument per formal (written
+            // order kept), or empty when the site does not match.
+            using Arg415 = std::pair<const Symbol*, const syntax::SyntaxNode*>;
+            auto match415 = [&](const syntax::InvocationExpressionSyntax& iv)
+                -> std::vector<Arg415> {
+                std::vector<Arg415> out;
+                if (!iv.arguments ||
+                    iv.arguments->parameters.size() != ld415->ports.size())
+                    return {};
+                size_t pos = 0;
+                for (auto* a : iv.arguments->parameters) {
+                    const Symbol* formal = nullptr;
+                    const syntax::SyntaxNode* ae = nullptr;
+                    if (a->kind == syntax::SyntaxKind::OrderedArgument) {
+                        formal = ld415->ports[pos];
+                        ae = argExpr415(a->as<syntax::OrderedArgumentSyntax>().expr.get());
+                    }
+                    else if (a->kind == syntax::SyntaxKind::NamedArgument) {
+                        auto& na = a->as<syntax::NamedArgumentSyntax>();
+                        for (auto* p : ld415->ports)
+                            if (p->name == na.name.valueText())
+                                formal = p;
+                        ae = argExpr415(na.expr);
+                    }
+                    pos++;
+                    if (!formal || !ae || ae->kind != syntax::SyntaxKind::IdentifierName)
+                        return {};
+                    auto an = actualName415(formal);
+                    if (an.empty() ||
+                        an != ae->as<syntax::IdentifierNameSyntax>().identifier.valueText())
+                        return {};
+                    out.push_back({formal, ae});
+                }
+                return out;
+            };
+            const syntax::InvocationExpressionSyntax* site415 = nullptr;
+            std::vector<Arg415> args415;
+            int n415 = 0;
+            auto [lo415, hi415] = letCalls415.equal_range(ld415->name);
+            for (auto it = lo415; it != hi415; ++it) {
+                auto m = match415(*it->second);
+                if (m.empty())
+                    continue;
+                n415++;
+                site415 = it->second;
+                args415 = std::move(m);
+            }
+            // § pkgLetOwnPkgAbstain415v (v11u415, R11V415_LETOWNPKG_OFF) —
+            // a call written INSIDE the let's own package (a package
+            // function's `return sum2(a, b);`) finds the let in Surelog's
+            // calling scope and IS substituted: golden writes the let_decl's
+            // own body there (operation parented at the let_decl, operands
+            // ref_obj sum2.x and sum2.y; v11u415 cases/VL vl01, vl17), the
+            // inlining pristine already did.  The law had written a
+            // func_call there and moved away from golden (vl01 uhdm-cmp
+            // 32 -> 80 lines, dump 151 -> 175 lines away).  When the one
+            // matching call site lies inside the let's package, abstain.
+            bool ownPkg415v = false;
+            if (n415 == 1 && fixOn(415, "R11V415_LETOWNPKG_OFF")) {
+                if (auto* ps415 = ld415->getParentScope();
+                    ps415 && ps415->asSymbol().kind == SymbolKind::Package) {
+                    if (auto* psy415 = ps415->asSymbol().getSyntax()) {
+                        auto pr415 = psy415->sourceRange();
+                        auto st415 = site415->sourceRange().start();
+                        if (st415.buffer() == pr415.start().buffer() &&
+                            st415.offset() >= pr415.start().offset() &&
+                            st415.offset() <= pr415.end().offset()) {
+                            ownPkg415v = true;
+                            lawTrace(415, "pkgLetOwnPkgAbstain415v",
+                                     std::string(ld415->name));
+                        }
+                    }
+                }
+            }
+            if (n415 == 1 && !ownPkg415v &&
+                !sm->isMacroLoc(site415->sourceRange().start())) {
+                const syntax::SyntaxNode* left415 = site415->left.get();
+                if (left415->kind == syntax::SyntaxKind::ScopedName) {
+                    auto& sn415 = left415->as<syntax::ScopedNameSyntax>();
+                    if (sn415.separator.kind == slang::parsing::TokenKind::DoubleColon &&
+                        sn415.left->kind == syntax::SyntaxKind::IdentifierName) {
+                        std::string nm415 =
+                            std::string(sn415.left->as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText()) +
+                            "::" + std::string(ld415->name);
+                        lawTrace(415, "pkgLetCallFuncCall415", "scoped " + nm415);
+                        auto* r415 = s.MakeRef_obj();
+                        r415->VpiName(nm415);
+                        r415->VpiFullName(joinRef(prefix, nm415));
+                        r415->VpiParent(parent);
+                        setLoc(r415, SourceRange(sn415.sourceRange().start(),
+                                                 sn415.right->sourceRange().start()));
+                        return r415;
+                    }
+                }
+                else if (left415->kind == syntax::SyntaxKind::IdentifierName) {
+                    lawTrace(415, "pkgLetCallFuncCall415", std::string(ld415->name));
+                    auto* fc415 = s.MakeFunc_call();
+                    fc415->VpiName(ld415->name);
+                    fc415->VpiParent(parent);
+                    setLoc(fc415, site415->sourceRange());
+                    auto* av415 = s.MakeAnyVec();
+                    for (auto& [formal, ae] : args415) {
+                        if (auto* a = emitExpr(*f415.byFormal[formal], fc415, prefix, netMap)) {
+                            setLoc(a, ae->sourceRange());
+                            av415->push_back(a);
+                        }
+                    }
+                    if (!av415->empty())
+                        fc415->Tf_call_args(av415);
+                    return fc415;
+                }
+            }
+            lawTrace(415, "pkgLetCallFuncCall415", "abstain " + std::string(ld415->name));
+        }
+    }
     // § incDecSelCallArgRead194v — see incDecSelArgDepth194.
     struct LhsGuard194 {
         bool& r; bool v; bool on;
@@ -38236,8 +38435,41 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(its, lr);
                         bool savedCS = inCastSize;
                         inCastSize = true;
-                        if (auto* e = emitExpr(sizeExpr, op, prefix, netMap))
-                            setCastSizeTsExpr(its, e);
+                        // § badCastSizeNoExpr415 (r11u415,
+                        // R11U415_BADCASTSIZE_OFF) — a size cast whose written
+                        // width NAME did not bind in any scope the exporter
+                        // tries (`W'(x[i])` in a port connection of an
+                        // instance inside a generate loop: the instance's
+                        // content binds in the CHILD's body) while slang
+                        // resolved the conversion is Surelog's bare
+                        // integer_typespec at the name with no vpiExpr in the
+                        // elaborated view (golden cases/BC bc01 7:15-7:16
+                        // under work@top.g[0].u).  The object was already
+                        // written that way; the emission of the unbound
+                        // width only noted `expression kind: Invalid` and
+                        // exited 4 where upstream slang accepts (r11u416
+                        // DC/dc13).  The emission is unchanged; the note it
+                        // added is withdrawn, so every byte stays.
+                        const syntax::ExpressionSyntax* bn415 = cesyn.left;
+                        while (bn415->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                            bn415 = bn415->as<syntax::ParenthesizedExpressionSyntax>()
+                                        .expression;
+                        const bool cand415 =
+                            sizeExpr.kind == ExpressionKind::Invalid && expr.type &&
+                            !expr.type->isError() &&
+                            (bn415->kind == syntax::SyntaxKind::IdentifierName ||
+                             bn415->kind == syntax::SyntaxKind::ScopedName) &&
+                            !unsupportedKinds.count("expression kind: Invalid");
+                        auto* e415 = emitExpr(sizeExpr, op, prefix, netMap);
+                        if (e415)
+                            setCastSizeTsExpr(its, e415);
+                        else if (cand415 &&
+                                 unsupportedKinds.count("expression kind: Invalid") &&
+                                 lawOn(415, "R11U415_BADCASTSIZE_OFF")) {
+                            lawTrace(415, "badCastSizeNoExpr415",
+                                     std::string(rawText(cesyn.sourceRange())));
+                            unsupportedKinds.erase("expression kind: Invalid");
+                        }
                         inCastSize = savedCS;
                         // A package-scope size cast's integer_typespec carries
                         // vpiInstance = the package, exactly like the
@@ -41548,6 +41780,81 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     SymbolKind::ClassType &&
                                 (curSubOob9 ||
                                  &callee9->asSymbol() != &caller9->asSymbol());
+                // § externTaskCallUnlinked415 (r11u415,
+                // R11U415_EXTERNCALL_OFF) — a call to an interface's EXTERN
+                // subroutine prototype (`extern forkjoin task countSlaves();`
+                // called as `countSlaves;`, `extern task Write(...)` called
+                // as `Write(8'h5)`), whose body lives in an exporting module,
+                // is an unresolved func_call in Surelog: named by the
+                // prototype, spanning the call, with its written arguments
+                // and NO vpiTask/vpiFunction link, even for a task (golden
+                // sv-tests generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv
+                // func_call (countSlaves) 26:1-26:12; cases/FJ).  We wrote a
+                // task_call linked to a name-only task shell.
+                if ((sub.flags & MethodFlags::InterfaceExtern) != MethodFlags::None &&
+                    !subMap.count(&sub) && lawOn(415, "R11U415_EXTERNCALL_OFF")) {
+                    lawTrace(415, "externTaskCallUnlinked415", std::string(sub.name));
+                    auto* fc415 = s.MakeFunc_call();
+                    fc415->VpiName(sub.name);
+                    fc415->VpiParent(parent);
+                    setLoc(fc415, expr.sourceRange);
+                    auto* uargs415 = s.MakeAnyVec();
+                    std::vector<const syntax::ArgumentSyntax*> es415;
+                    emptyArgSlots24(callArgList24(call), es415);
+                    size_t esi415 = 0;
+                    // § externCallNamedWritten415v (v11u415,
+                    // R11V415_EXTNAMEDORDER_OFF) — the call is one golden
+                    // leaves unresolved, so a named-association call lists
+                    // its actuals in WRITTEN order (§ namedUnlinkedWrittenOrder207;
+                    // golden v11u415 cases/VX vx05 `Write(.e(2), .d(1))`:
+                    // 2 at 6:20, then 1 at 6:27), where the law kept
+                    // slang's formal order.
+                    std::vector<const Expression*> wr415v;
+                    if (fixOn(415, "R11V415_EXTNAMEDORDER_OFF")) {
+                        auto all415v = call.arguments();
+                        for (size_t fi415v : namedWrittenOrder207(call))
+                            wr415v.push_back(all415v[fi415v]);
+                        if (!wr415v.empty())
+                            lawTrace(415, "externCallNamedWritten415v",
+                                     std::string(sub.name));
+                    }
+                    auto wa415 = writtenArgs16(call);
+                    std::span<const Expression* const> seq415 =
+                        wr415v.empty() ? wa415
+                                       : std::span<const Expression* const>(
+                                             wr415v.data(), wr415v.size());
+                    for (auto arg : seq415) {
+                        bool eh415 = false;
+                        if (auto* ez415 = emptySlotArg24(es415, esi415++, eh415))
+                            uargs415->push_back(ez415);
+                        if (eh415)
+                            continue;
+                        if (arg->kind == ExpressionKind::Assignment) {
+                            auto& ae415 = arg->as<AssignmentExpression>();
+                            if (ae415.right().kind == ExpressionKind::EmptyArgument)
+                                arg = &ae415.left();
+                        }
+                        if (auto* a415 = emitExpr(*arg, fc415, prefix, netMap)) {
+                            // § externCallArgParent415v (v11u415,
+                            // R11V415_EXTARGPARENT_OFF) — every written
+                            // argument is parented at the func_call (golden
+                            // v11u415 cases/VX vx01 constant 1 under
+                            // func_call (f)); a literal argument came back
+                            // with no parent, where pristine's linked call
+                            // had parented it.
+                            if (!a415->VpiParent() &&
+                                fixOn(415, "R11V415_EXTARGPARENT_OFF")) {
+                                a415->VpiParent(fc415);
+                                lawTrace(415, "externCallArgParent415v",
+                                         std::string(sub.name));
+                            }
+                            uargs415->push_back(a415);
+                        }
+                    }
+                    if (!uargs415->empty())
+                        fc415->Tf_call_args(uargs415);
+                    return fc415;
+                }
                 auto it = subMap.find(&sub);
                 // § elabInstCallDefSub — ANY call in an ELAB instance body
                 // binds the shared DEF function (the elab view lists it and
@@ -51409,6 +51716,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* c413 = emitExpr(*base, parent, prefix, netMap);
                         callMemberElem413(c413, "classCallResultMemberRef413 handle");
                         return c413;
+                    }
+                    // § thisCallResultMemberDropped415 (r11u415,
+                    // R11U415_THISCALLMEMBER_OFF) — a member of a call made
+                    // through `this` or `super` (`this.mk().s`,
+                    // `super.mk().s`) is the CALL alone to Surelog: the
+                    // method_func_call the call writes without the member
+                    // (golden cases/TC tc01 method_func_call (mk) 9:17-9:19
+                    // with its prefix constant `this`, tc04 `super`), the
+                    // member dropped.  The exporter rejected the base
+                    // ('member access base') and exited 4 where upstream
+                    // slang accepts (v11u413 VC/vc13).
+                    else if (left413->kind == syntax::SyntaxKind::ScopedName &&
+                             left413->as<syntax::ScopedNameSyntax>().separator.kind ==
+                                 slang::parsing::TokenKind::Dot &&
+                             (left413->as<syntax::ScopedNameSyntax>().left->kind ==
+                                  syntax::SyntaxKind::ThisHandle ||
+                              left413->as<syntax::ScopedNameSyntax>().left->kind ==
+                                  syntax::SyntaxKind::SuperHandle) &&
+                             lawOn(415, "R11U415_THISCALLMEMBER_OFF")) {
+                        lawTrace(415, "thisCallResultMemberDropped415",
+                                 std::string(rawText(expr.sourceRange)));
+                        return emitExpr(*base, parent, prefix, netMap);
                     }
                     else if (left413->kind == syntax::SyntaxKind::IdentifierName) {
                         lawTrace(413, "classCallResultMemberRef413",

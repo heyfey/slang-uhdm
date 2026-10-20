@@ -1,0 +1,17 @@
+slang-uhdm/third_party/Surelog/tests/LetInlined/dut.sv
+slang-uhdm/third_party/Surelog/tests/SystemCall/dut.sv
+slang-uhdm/third_party/Surelog/tests/LetExpr/dut.sv
+slang-uhdm/third_party/Surelog/tests/Assertions/dut.sv
+slang-uhdm/third_party/Surelog/third_party/tests/Google/chapter-11/11.12--let_construct.sv
+sv-tests/tests/chapter-11/11.12--let_construct.sv
+sv-tests/third_party/tools/Surelog/third_party/tests/Google/chapter-11/11.12--let_construct.sv
+sv-tests/third_party/tools/Surelog/tests/LetInlined/dut.sv
+sv-tests/third_party/tools/Surelog/tests/SystemCall/dut.sv
+sv-tests/third_party/tools/Surelog/tests/LetExpr/dut.sv
+sv-tests/third_party/tools/Surelog/tests/Assertions/dut.sv
+sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p294.sv
+sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p296.sv
+sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p612.sv
+sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p295.sv
+sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p502.sv
+sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p292.sv

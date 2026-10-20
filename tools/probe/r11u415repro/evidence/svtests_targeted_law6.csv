@@ -1,0 +1,3 @@
+path,cmp,strict,agreement
+generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv,NOTEQUAL,decompile:,DIFFERENT
+generated/hdlconv_std2017/hdlconvertor_std2017_p292.sv,EQUAL,equal,IDENTICAL

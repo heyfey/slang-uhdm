@@ -1,0 +1,7 @@
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p292.sv: DIFFERENT -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=125 EQUAL=1809 SLANG_ONLY=19 STRICT_NOTEQUAL=6 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=1 changes=0
+rc=0
+generated/hdlconv_std2017/hdlconvertor_std2017_p292.sv,EQUAL,,equal
