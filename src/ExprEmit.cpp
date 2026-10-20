@@ -14441,6 +14441,72 @@ static bool isPpOperation92(const slang::ast::Expression& e0) {
 // The BINARY table, `ExprEval.cpp:1017-1082`.  A row this table does not carry
 // is an operator prettyPrint has no row for, and the WHOLE operation renders
 // empty (a1 c39/c40: `i==?j` and `i!=?j` are golden's `hh.aidx[]`).
+// § ifaceCallResultMemberElem413's argument copy: a ref_obj, constant or
+// operation tree carrying no typespec is copied field by field (names, span,
+// value, binding); any other object answers nullptr and the law abstains.
+static UHDM::any* copyArgExpr413(UHDM::Serializer& s, const UHDM::any* a,
+                                 UHDM::any* parent) {
+    if (!a)
+        return nullptr;
+    auto loc = [&](UHDM::BaseClass* d) {
+        d->VpiFile(a->VpiFile());
+        d->VpiLineNo(a->VpiLineNo());
+        d->VpiColumnNo(a->VpiColumnNo());
+        d->VpiEndLineNo(a->VpiEndLineNo());
+        d->VpiEndColumnNo(a->VpiEndColumnNo());
+        d->VpiParent(parent);
+    };
+    switch (a->UhdmType()) {
+        case UHDM::uhdmref_obj: {
+            auto* r = (const UHDM::ref_obj*)a;
+            if (r->Typespec())
+                return nullptr;
+            auto* d = s.MakeRef_obj();
+            loc(d);
+            d->VpiName(r->VpiName());
+            d->VpiFullName(r->VpiFullName());
+            d->VpiDefName(r->VpiDefName());
+            d->Actual_group(const_cast<UHDM::any*>(r->Actual_group()));
+            return d;
+        }
+        case UHDM::uhdmconstant: {
+            auto* c = (const UHDM::constant*)a;
+            if (c->Typespec())
+                return nullptr;
+            auto* d = s.MakeConstant();
+            loc(d);
+            d->VpiDecompile(c->VpiDecompile());
+            d->VpiSize(c->VpiSize());
+            d->VpiValue(c->VpiValue());
+            d->VpiConstType(c->VpiConstType());
+            return d;
+        }
+        case UHDM::uhdmoperation: {
+            auto* o = (const UHDM::operation*)a;
+            if (o->Typespec())
+                return nullptr;
+            auto* d = s.MakeOperation();
+            loc(d);
+            d->VpiOpType(o->VpiOpType());
+            d->VpiDecompile(o->VpiDecompile());
+            d->VpiSize(o->VpiSize());
+            if (auto* ops = o->Operands()) {
+                auto* v = s.MakeAnyVec();
+                for (auto* op : *ops) {
+                    auto* c = copyArgExpr413(s, op, d);
+                    if (!c)
+                        return nullptr;
+                    v->push_back(c);
+                }
+                d->Operands(v);
+            }
+            return d;
+        }
+        default:
+            return nullptr;
+    }
+}
+
 static const char* ppBinTok92(slang::ast::BinaryOperator op) {
     using B = slang::ast::BinaryOperator;
     switch (op) {
@@ -25650,9 +25716,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // the control: they already matched golden before this pass and
                 // must not move — they take the § invalidNewCallFromSyntax55
                 // clause, never this one, because the two kinds are disjoint.
+                // § shallowCopyLhsUnbound413 (r11u413, R11U413_COPYLHS_OFF)
+                // — and the SHALLOW COPY `y = new x;` too: golden's Lhs ref
+                // is unbound under the same artifact hier_path(y) (cases/SC
+                // sc01, sc03, sc04 in module processes and functions, sc02 in
+                // a class method; sv-tests chapter-8/8.12--shallow_copy.sv
+                // `test_obj1 = new test_obj0;`), where ours bound it to the
+                // module's net.
+                const bool copy413 =
+                    stripImplicitConv(*rhsExpr).kind == ExpressionKind::CopyClass &&
+                    lhs->UhdmType() == UHDM::uhdmref_obj &&
+                    lawOn(413, "R11U413_COPYLHS_OFF");
+                if (copy413)
+                    lawTrace(413, "shallowCopyLhsUnbound413",
+                             std::string(((UHDM::ref_obj*)lhs)->VpiName()));
                 if ((sourceIsNewClassExpr55(stripImplicitConv(*rhsExpr)) ||
                      stripImplicitConv(*rhsExpr).kind ==
-                         ExpressionKind::NewCovergroup) &&
+                         ExpressionKind::NewCovergroup || copy413) &&
                     lhs->UhdmType() == UHDM::uhdmref_obj) {
                     auto* hp = s.MakeHier_path();
                     hp->VpiName(((UHDM::ref_obj*)lhs)->VpiName());
@@ -25993,6 +26073,55 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& nv = expr.as<NamedValueExpression>();
             if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                 refCollector->insert(&nv.symbol);
+            // § superMemberHierPath413 (r11u413, R11U413_SUPERMEMBER_OFF) — a
+            // base-class PROPERTY read through `super.` (`super.value`, slang's
+            // plain NamedValue whose syntax keeps the handle) is golden's
+            // hier_path `super.value` spanning the written chain, its two
+            // elements bare ref_objs `super` and `value` both at the MEMBER
+            // token (golden cases/SU su01, su02, su04; sv-tests hdlconvertor
+            // std2017 p181_2 `value * super.value`); written as an lvalue
+            // (su03 `super.value = 3;`) the hier_path spans `super` alone and
+            // its member element is the unlocated scoped ref
+            // (`work@L::f::value`).  Ours was one scoped ref_obj.
+            if (expr.syntax && expr.syntax->kind == syntax::SyntaxKind::ScopedName &&
+                !sm->isMacroLoc(expr.sourceRange.start()) &&
+                lawOn(413, "R11U413_SUPERMEMBER_OFF")) {
+                auto& sn413 = expr.syntax->as<syntax::ScopedNameSyntax>();
+                if (sn413.separator.kind == slang::parsing::TokenKind::Dot &&
+                    sn413.left->kind == syntax::SyntaxKind::SuperHandle &&
+                    sn413.right->kind == syntax::SyntaxKind::IdentifierName) {
+                    std::string mn413(sn413.right->as<syntax::IdentifierNameSyntax>()
+                                          .identifier.valueText());
+                    lawTrace(413, "superMemberHierPath413",
+                             (inLhs ? "lhs " : "rhs ") + mn413);
+                    auto* hp413 = s.MakeHier_path();
+                    hp413->VpiName("super." + mn413);
+                    hp413->VpiFullName("super." + mn413);
+                    hp413->VpiParent(parent);
+                    auto* sr413 = s.MakeRef_obj();
+                    sr413->VpiName("super");
+                    sr413->VpiFullName("super");
+                    sr413->VpiParent(hp413);
+                    setLoc(sr413, sn413.right->sourceRange());
+                    auto* mr413 = s.MakeRef_obj();
+                    mr413->VpiName(mn413);
+                    mr413->VpiParent(hp413);
+                    if (inLhs) {
+                        setLoc(hp413, sn413.left->sourceRange());
+                        mr413->VpiFullName(joinRef(prefix, mn413));
+                    }
+                    else {
+                        setLoc(hp413, expr.sourceRange);
+                        setLoc(mr413, sn413.right->sourceRange());
+                        mr413->VpiFullName(mn413);
+                    }
+                    auto* el413 = s.MakeAnyVec();
+                    el413->push_back(sr413);
+                    el413->push_back(mr413);
+                    hp413->Path_elems(el413);
+                    return hp413;
+                }
+            }
             // § assertLocalVarImplicitNet407 (r11u407, R11U407_ASSERTLOCALNET_OFF;
             // cases tools/probe/r11u407repro/cases/LV; sv-tests
             // chapter-16/16.10--sequence-local-var.sv and its -fail twin,
@@ -38667,6 +38796,50 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         r403->Actual_group(n403);
                 return r403;
             }
+            // § stdRandomizeFuncCall413 (r11u413, R11U413_UNQRAND_OFF) — the
+            // UNQUALIFIED scope randomize `randomize(a, b)` outside a class
+            // (a module process or subroutine) is golden's plain func_call
+            // `randomize` spanning the whole call, every written argument an
+            // ordinary bound reference (golden cases/RZ rz01, rz03; sv-tests
+            // hdlconvertor std2017 p537 `success = randomize( addr, data,
+            // rd_wr );`), where ours made the first argument a receiver
+            // (`hier_path addr.randomize`).  The `std::` spelling stays
+            // § stdRandomizeIsScopeRef403's; a `with` block abstains.
+            if (call.isSystemCall() && call.getSubroutineName() == "randomize" &&
+                !call.arguments().empty() && expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::InvocationExpression &&
+                expr.syntax->as<syntax::InvocationExpressionSyntax>().left->kind ==
+                    syntax::SyntaxKind::IdentifierName &&
+                !inClassBodyEmit && !inBodyClassMethod88 &&
+                !sm->isMacroLoc(expr.sourceRange.start()) &&
+                [&] {
+                    for (const syntax::SyntaxNode* a = expr.syntax->parent; a; a = a->parent)
+                        if (a->kind == syntax::SyntaxKind::ClassDeclaration ||
+                            a->kind == syntax::SyntaxKind::ClassMethodDeclaration)
+                            return false;
+                    return true;
+                }() &&
+                lawOn(413, "R11U413_UNQRAND_OFF")) {
+                const slang::ast::Constraint* ic413 = nullptr;
+                auto& sci413 = std::get<CallExpression::SystemCallInfo>(call.subroutine);
+                if (auto* ri413 =
+                        std::get_if<CallExpression::RandomizeCallInfo>(&sci413.extraInfo))
+                    ic413 = ri413->inlineConstraints;
+                if (!ic413) {
+                    lawTrace(413, "stdRandomizeFuncCall413",
+                             std::string(rawText(expr.sourceRange)));
+                    auto* fc413 = s.MakeFunc_call();
+                    fc413->VpiName("randomize");
+                    fc413->VpiParent(parent);
+                    setLoc(fc413, expr.sourceRange);
+                    auto* av413 = s.MakeAnyVec();
+                    for (auto* a413 : call.arguments())
+                        if (auto* e413 = emitExpr(*a413, fc413, prefix, netMap))
+                            av413->push_back(e413);
+                    fc413->Tf_call_args(av413);
+                    return fc413;
+                }
+            }
             // § ndaCallFoldIsEvalFunc102 — the same fold where the call's own
             // type IS the net's and slang wrapped no conversion around it.
             if (ndaRhsEmit && parent &&
@@ -46761,6 +46934,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::Concatenation: {
             auto& ce = expr.as<ConcatenationExpression>();
+            // § emptyConcatArrayVar413 (r11u413, R11U413_EMPTYCONCAT_OFF) —
+            // the EMPTY concatenation `{}` (clearing a queue or a dynamic
+            // array) is to Surelog an unnamed, UNPARENTED array_var at the
+            // braces, vpiArrayType 4 whatever the target, typed through an
+            // unnamed ref_typespec onto an empty array_typespec (golden
+            // cases/EQ eq01-eq05; sv-tests chapter-7/queues/delete_assign.sv
+            // `q = {};`), where ours was an operand-less concat operation.
+            if (ce.operands().empty() && expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::EmptyQueueExpression &&
+                lawOn(413, "R11U413_EMPTYCONCAT_OFF")) {
+                lawTrace(413, "emptyConcatArrayVar413",
+                         std::string(rawText(expr.sourceRange)));
+                auto* av413 = s.MakeArray_var();
+                setLoc(av413, expr.sourceRange);
+                auto* at413 = s.MakeArray_typespec();
+                auto* rt413 = s.MakeRef_typespec();
+                rt413->VpiParent(av413);
+                rt413->Actual_typespec(at413);
+                av413->Typespec(rt413);
+                av413->VpiArrayType(4);
+                return av413;
+            }
             auto* op = s.MakeOperation();
             op->VpiOpType(vpiConcatOp);
             op->VpiParent(parent);
@@ -51056,6 +51251,176 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
             }
+            // The third path element of § ifaceCallResultMemberElem413 (and of
+            // § classCallResultMemberRef413's handle form): the nameless
+            // method_func_call at the member name with a copy of the call's
+            // arguments, the hier_path re-spanned over the whole access.
+            auto callMemberElem413 = [&](UHDM::any* c411, const char* law413) {
+                    if (c411 && c411->UhdmType() == UHDM::uhdmhier_path) {
+                        auto* hp413 = (UHDM::hier_path*)c411;
+                        auto* pe413 = hp413->Path_elems();
+                        if (pe413 && !pe413->empty() &&
+                            pe413->back()->UhdmType() ==
+                                UHDM::uhdmmethod_func_call) {
+                            auto* m0413 = (UHDM::method_func_call*)pe413->back();
+                            auto* m1413 = s.MakeMethod_func_call();
+                            m1413->VpiParent(hp413);
+                            bool ok413 = true;
+                            if (auto* a0413 = m0413->Tf_call_args()) {
+                                auto* a1413 = s.MakeAnyVec();
+                                for (auto* a : *a0413) {
+                                    auto* c = copyArgExpr413(s, a, m1413);
+                                    if (!c) {
+                                        ok413 = false;
+                                        break;
+                                    }
+                                    a1413->push_back(c);
+                                }
+                                m1413->Tf_call_args(a1413);
+                            }
+                            if (ok413) {
+                                lawTrace(413, law413,
+                                         std::string(rawText(expr.sourceRange)));
+                                // The arguments of both elements are named
+                                // through the call path (golden mi01, mi05
+                                // `work@top.u.mk.x`, as a plain `u.mk(x)`
+                                // already reads), where this road wrote the
+                                // module scope's `work@top.x`.
+                                const std::string hn413(hp413->VpiName());
+                                std::function<void(UHDM::any*)> rn413 =
+                                    [&](UHDM::any* o) {
+                                        if (!o)
+                                            return;
+                                        if (o->UhdmType() == UHDM::uhdmref_obj) {
+                                            auto* r = (UHDM::ref_obj*)o;
+                                            std::string nm(r->VpiName());
+                                            if (r->VpiFullName() == joinRef(prefix, nm))
+                                                r->VpiFullName(joinRef(
+                                                    prefix, hn413 + "." + nm));
+                                        }
+                                        else if (o->UhdmType() == UHDM::uhdmoperation) {
+                                            if (auto* ops = ((UHDM::operation*)o)->Operands())
+                                                for (auto* x : *ops)
+                                                    rn413(x);
+                                        }
+                                    };
+                                if (!hn413.empty()) {
+                                    if (auto* aa = m0413->Tf_call_args())
+                                        for (auto* x : *aa)
+                                            rn413(x);
+                                    if (auto* aa = m1413->Tf_call_args())
+                                        for (auto* x : *aa)
+                                            rn413(x);
+                                }
+                                auto mn413 =
+                                    expr.as<MemberAccessExpression>().member.name;
+                                auto me413 = expr.sourceRange.end();
+                                setLoc(m1413, SourceRange(me413 - mn413.size(), me413));
+                                pe413->push_back(m1413);
+                                setLoc(hp413, expr.sourceRange);
+                            }
+                        }
+                    }
+            };
+            // § classCallResultMemberRef413 (r11u413,
+            // R11U413_CLSCALLMEMBER_OFF) — a member of a CLASS method call's
+            // result, the call written with a class scope (`C::mk().s`,
+            // `C#(2)::mk().s`, `pk::C::mk().s`), is to Surelog a bare unbound
+            // ref_obj named by the scope's FIRST name and the method name
+            // (`C::mk`, `pk::mk`), spanning the written scope through its last
+            // `::` (golden cases/CM cm01 10:15-10:18 over `C::`, cm02
+            // `Abcd::` 12:9-12:15, cm03 `pk::C::` 12:15-12:22 named `pk::mk`,
+            // cm06 `C#(2)::` 10:15-10:22), no net minted, the member and the
+            // arguments dropped; the same call written UNSCOPED inside the
+            // class (`mk().s`, cm05) is § callResultMemberDropped411's
+            // func_call spanning the whole member access.  A call through a
+            // handle (`h.mk().s`, golden a hier_path, cm08) abstains.  The
+            // exporter rejected the base ('member access base') and exited 4
+            // where upstream slang accepts (v11u411 VM/vm04).
+            if (base->kind == ExpressionKind::Call &&
+                !base->as<CallExpression>().isSystemCall() && base->syntax &&
+                base->syntax->kind == syntax::SyntaxKind::InvocationExpression &&
+                !sm->isMacroLoc(expr.sourceRange.start()) &&
+                lawOn(413, "R11U413_CLSCALLMEMBER_OFF")) {
+                auto* sp413 = std::get_if<const SubroutineSymbol*>(
+                    &base->as<CallExpression>().subroutine);
+                const Scope* ss413 =
+                    sp413 && *sp413 ? (*sp413)->getParentScope() : nullptr;
+                const syntax::ExpressionSyntax* left413 =
+                    base->syntax->as<syntax::InvocationExpressionSyntax>().left.get();
+                if (ss413 && ss413->asSymbol().kind == SymbolKind::ClassType &&
+                    left413) {
+                    bool colons413 = left413->kind == syntax::SyntaxKind::ScopedName;
+                    for (const syntax::SyntaxNode* q413 = left413;
+                         colons413 && q413 &&
+                         q413->kind == syntax::SyntaxKind::ScopedName;
+                         q413 = q413->as<syntax::ScopedNameSyntax>().left.get())
+                        if (q413->as<syntax::ScopedNameSyntax>().separator.kind !=
+                            slang::parsing::TokenKind::DoubleColon)
+                            colons413 = false;
+                    if (colons413) {
+                        auto& sn413 = left413->as<syntax::ScopedNameSyntax>();
+                        const syntax::NameSyntax* first413 = sn413.left.get();
+                        while (first413 &&
+                               first413->kind == syntax::SyntaxKind::ScopedName)
+                            first413 =
+                                first413->as<syntax::ScopedNameSyntax>().left.get();
+                        std::string fn413;
+                        if (first413 &&
+                            first413->kind == syntax::SyntaxKind::IdentifierName)
+                            fn413 = std::string(
+                                first413->as<syntax::IdentifierNameSyntax>()
+                                    .identifier.valueText());
+                        else if (first413 &&
+                                 first413->kind == syntax::SyntaxKind::ClassName)
+                            fn413 = std::string(
+                                first413->as<syntax::ClassNameSyntax>()
+                                    .identifier.valueText());
+                        const syntax::NameSyntax* last413 = sn413.right.get();
+                        std::string mn413;
+                        if (last413 &&
+                            last413->kind == syntax::SyntaxKind::IdentifierName)
+                            mn413 = std::string(
+                                last413->as<syntax::IdentifierNameSyntax>()
+                                    .identifier.valueText());
+                        if (!fn413.empty() && !mn413.empty()) {
+                            std::string nm413 = fn413 + "::" + mn413;
+                            lawTrace(413, "classCallResultMemberRef413",
+                                     std::string(rawText(expr.sourceRange)));
+                            auto* r413 = s.MakeRef_obj();
+                            r413->VpiName(nm413);
+                            r413->VpiFullName(joinRef(prefix, nm413));
+                            r413->VpiParent(parent);
+                            setLoc(r413,
+                                   SourceRange(left413->sourceRange().start(),
+                                               last413->sourceRange().start()));
+                            return r413;
+                        }
+                    }
+                    else if (left413->kind == syntax::SyntaxKind::ScopedName &&
+                             left413->as<syntax::ScopedNameSyntax>().separator.kind ==
+                                 slang::parsing::TokenKind::Dot &&
+                             left413->as<syntax::ScopedNameSyntax>().left->kind ==
+                                 syntax::SyntaxKind::IdentifierName &&
+                             lawOn(413, "R11U413_IFCALLMEMBER_OFF")) {
+                        // A call through a HANDLE (`h.mk().s`, golden cm08) is
+                        // the interface form's hier_path `h.mk` with its third,
+                        // nameless method_func_call element.
+                        auto* c413 = emitExpr(*base, parent, prefix, netMap);
+                        callMemberElem413(c413, "classCallResultMemberRef413 handle");
+                        return c413;
+                    }
+                    else if (left413->kind == syntax::SyntaxKind::IdentifierName) {
+                        lawTrace(413, "classCallResultMemberRef413",
+                                 "unscoped " +
+                                     std::string(rawText(expr.sourceRange)));
+                        auto* c413 = emitExpr(*base, parent, prefix, netMap);
+                        if (c413 && c413->UhdmType() == UHDM::uhdmfunc_call)
+                            setLoc(c413, expr.sourceRange);
+                        return c413;
+                    }
+                }
+            }
             // § callResultMemberDropped411 (r11u411, R11U411_CALLMEMBER_OFF)
             // — a member of a function call's result (`mk().s`,
             // `pk::mk(x).a`, the function a module, $unit or package
@@ -51075,6 +51440,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     lawTrace(411, "callResultMemberDropped411",
                              std::string(rawText(expr.sourceRange)));
                     auto* c411 = emitExpr(*base, parent, prefix, netMap);
+                    // § ifaceCallResultMemberElem413 (r11u413,
+                    // R11U413_IFCALLMEMBER_OFF) — through an INTERFACE
+                    // instance (`u.mk(x).a`) the call is golden's hier_path
+                    // `u.mk` spanning the whole member access, with a THIRD
+                    // path element: a nameless method_func_call at the member
+                    // name carrying a copy of the call's arguments (golden
+                    // cases/MI mi01 16:22-16:23 over `.a`, mi02 two
+                    // arguments, mi03 a constant, mi04 none, mi05 an
+                    // operation).  The copy is written only for argument
+                    // trees of ref_obj, constant and operation objects
+                    // without a typespec; anything else abstains.
+                    if (lawOn(413, "R11U413_IFCALLMEMBER_OFF"))
+                        callMemberElem413(c411, "ifaceCallResultMemberElem413");
                     if (c411 && c411->UhdmType() == UHDM::uhdmfunc_call &&
                         base->syntax &&
                         base->syntax->kind == syntax::SyntaxKind::InvocationExpression &&
@@ -55276,6 +55654,65 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::ArbitrarySymbol: {
             std::string dotted = rawText(expr.sourceRange);
+            // § ifaceArrElemArgBitSel413 (r11u413, R11U413_IFARRELEM_OFF) —
+            // an ELEMENT of an interface instance array written with one
+            // literal or simple-name index (`s[1]`, `s[P]`) read as a value
+            // (a constructor or call argument, a virtual-interface
+            // assignment) is golden's bit_select named by the array, full
+            // name `<scope>.s`, spanning the INDEX alone, its index a UINT
+            // constant at size 64 (a name: an unbound ref_obj) at the same
+            // span (cases/AI ai01-ai04, sv-tests hdlconvertor std2017
+            // p770's `new( s[1] )`); ours was a ref_obj named `s[1]`.  Only
+            // as a call argument or an assignment's operand: a port
+            // connection (r11u4repro/g2, v11u412 VG/vg04) and a system
+            // call's argument keep their own rules.
+            if (dotted.find('.') == std::string::npos && parent &&
+                (parent->UhdmType() == UHDM::uhdmmethod_func_call ||
+                 parent->UhdmType() == UHDM::uhdmmethod_task_call ||
+                 parent->UhdmType() == UHDM::uhdmfunc_call ||
+                 parent->UhdmType() == UHDM::uhdmtask_call ||
+                 parent->UhdmType() == UHDM::uhdmassignment) &&
+                !sm->isMacroLoc(expr.sourceRange.start()) &&
+                lawOn(413, "R11U413_IFARRELEM_OFF")) {
+                static const std::regex re413(
+                    R"(^([A-Za-z_][A-Za-z0-9_$]*)\[\s*([0-9]+|[A-Za-z_][A-Za-z0-9_$]*)\s*\]$)");
+                std::smatch m413;
+                if (std::regex_match(dotted, m413, re413)) {
+                    const std::string an413 = m413[1].str();
+                    const std::string ix413 = m413[2].str();
+                    const size_t off413 = (size_t)m413.position(2);
+                    SourceRange ir413(expr.sourceRange.start() + off413,
+                                      expr.sourceRange.start() + off413 +
+                                          ix413.size());
+                    lawTrace(413, "ifaceArrElemArgBitSel413", dotted);
+                    auto* bs413 = s.MakeBit_select();
+                    bs413->VpiName(an413);
+                    bs413->VpiFullName(joinRef(prefix, an413));
+                    bs413->VpiParent(parent);
+                    setLoc(bs413, ir413);
+                    if (std::isdigit((unsigned char)ix413[0])) {
+                        auto* c413 = s.MakeConstant();
+                        std::string d413 = std::to_string(
+                            strtoull(ix413.c_str(), nullptr, 10));
+                        c413->VpiDecompile(d413);
+                        c413->VpiSize(64);
+                        c413->VpiValue("UINT:" + d413);
+                        c413->VpiConstType(vpiUIntConst);
+                        c413->VpiParent(bs413);
+                        setLoc(c413, ir413);
+                        bs413->VpiIndex(c413);
+                    }
+                    else {
+                        auto* x413 = s.MakeRef_obj();
+                        x413->VpiName(ix413);
+                        x413->VpiFullName(joinRef(prefix, ix413));
+                        x413->VpiParent(bs413);
+                        setLoc(x413, ir413);
+                        bs413->VpiIndex(x413);
+                    }
+                    return bs413;
+                }
+            }
             // A bare interface reference (no dot) is a plain ref_obj.
             if (dotted.find('.') == std::string::npos) {
                 auto* r = s.MakeRef_obj();

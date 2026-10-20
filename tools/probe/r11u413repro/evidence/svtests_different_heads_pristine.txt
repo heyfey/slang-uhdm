@@ -1,0 +1,216 @@
+chapter-10/10.4.1--blocking-assignment n=36
+   L: decompile: constant: , id:98, line:18:11, endln:18:12 |vpiParent: \_logic_var: (work@top.a), id:99, line:18:7, endln:18:12 |vpiDecompile:1 |vpiSize:1 
+   R: RHS: decompile: constant: , id:107, line:18:11, endln:18:12 |vpiParent: \_logic_var: (work@top.a), id:106, line:18:7, endln:18:12 |vpiDecompile:3 
+chapter-5/5.10-structure-replication n=1078
+   L: decompile: module_inst: work@top (work@top), id:177, file:/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.10-structure-replication.sv, line:15:1, endln:25:10 |vpiParent: \_design: (work@top), id:153 |vpiName:work@top |
+   R: RHS: decompile: module_inst: work@top (work@top), id:138, file:/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.10-structure-replication.sv, line:15:1, endln:25:10 |vpiParent: \_design: (work@top), id:1 |vpiName:work@to
+chapter-5/5.9-string-word-assignment n=19
+   L: decompile: constant: , id:112, line:19:24, endln:19:29 |vpiParent: \_byte_var: (work@top.b), id:113, line:19:13, endln:19:14 |vpiDecompile:"hi2" |vpiSize:8 
+   R: RHS: <null> 
+chapter-6/6.12--realtime n=12
+   L: decompile: time_typespec: , id:94, line:17:2, endln:17:18 decompile: time_typespec: , id:94, line:17:2, endln:17:18 
+   R: RHS: decompile: real_typespec: , id:92, line:17:2, endln:17:18 decompile: real_typespec: , id:92, line:17:2, endln:17:18 
+chapter-7/queues/delete_assign n=32
+   L: decompile: array_var: , id:29, line:29:6, endln:29:8 |vpiTypespec: \_ref_typespec: , id:30 |vpiParent: \_array_var: , id:29, line:29:6, endln:29:8 
+   R: RHS: decompile: operation: , id:42, line:29:6, endln:29:8 |vpiParent: \_assignment: , id:40, line:29:2, endln:29:8 |vpiOpType:33 
+chapter-7/structures/unpacked/default-value n=9
+   L: decompile: ref_obj: (c), id:143, line:21:17, endln:21:18 |vpiName:c decompile: ref_obj: (c), id:143, line:21:17, endln:21:18 |vpiName:c 
+   R: RHS: <null> 
+chapter-8/8.12--shallow_copy n=15
+   L: 
+   R: RHS: decompile: logic_net: (work@class_tb.test_obj1), id:24, line:26:11, endln:26:20 |vpiParent: \_module_inst: work@class_tb (work@class_tb), id:9, file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.12--shallow_copy
+chapter-8/8.22--dynamic_method_lookup n=52
+   L: decompile: class_var: (work@class_tb.arr), id:141, line:39:11, endln:39:14 |vpiParent: \_array_var: (work@class_tb.arr), id:143, line:39:11, endln:39:14 |vpiTypespec: \_ref_typespec: (work@class_tb.arr), id:142 
+   R: RHS: decompile: logic_var: (work@class_tb.arr), id:145, line:39:11, endln:39:14 |vpiParent: \_array_var: (work@class_tb.arr), id:139, line:39:11, endln:39:14 |vpiTypespec: 
+chapter-8/8.24--out_of_block_methods n=296
+   L: decompile: class_defn: (work@class_tb::test_cls), id:1, file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.24--out_of_block_methods.sv, line:17:2, endln:20:10 |vpiParent: \_module_inst: work@class_tb (work@class_tb),
+   R: RHS: decompile: class_defn: (work@class_tb::test_cls), id:10, file:/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.24--out_of_block_methods.sv, line:17:2, endln:20:10 |vpiParent: \_module_inst: work@class_tb (work@clas
+chapter-8/8.26.3--type_access_implements n=16
+   L: decompile: unsupported_typespec: (ihello::int_t), id:91, line:24:31, endln:24:39 |vpiName:ihello::int_t decompile: unsupported_typespec: (ihello::int_t), id:91, line:24:31, endln:24:39 |vpiName:ihello::int_t 
+   R: RHS: decompile: int_typespec: , id:14, line:24:31, endln:24:44 |vpiSigned:1 decompile: int_typespec: , id:14, line:24:31, endln:24:44 
+generated/basejump/bsg_async_BaseJumpSTL_bsg_async_fifo n=54
+   L: decompile: operation: , id:8235, line:99:34, endln:99:43 |vpiParent: \_indexed_part_select: w_data_i (work@bsg_async_fifo.ctrl.MSYNC_1r1w.w_data_i.w_data_i), id:8233, line:99:33, endln:99:61 |vpiOpType:11 |vpiOperand: 
+   R: RHS: decompile: ref_obj: (work@bsg_async_fifo.ctrl.MSYNC_1r1w.w_data_i.(width_p-1)), id:4180, line:99:33, endln:99:44 |vpiParent: \_indexed_part_select: w_data_i (work@bsg_async_fifo.ctrl.MSYNC_1r1w.w_data_i.w_data_i), i
+generated/basejump/bsg_async_BaseJumpSTL_bsg_launch_sync_sync n=54
+   L: decompile: operation: , id:8192, line:206:68, endln:206:77 |vpiParent: \_indexed_part_select: iclk_data_i (work@bsg_launch_sync_sync.sync.n.z.blss.iclk_data_i.iclk_data_i), id:8190, line:206:68, endln:206:80 |vpiOpType:1
+   R: RHS: decompile: ref_obj: (work@bsg_launch_sync_sync.sync.n.z.blss.iclk_data_i.width_p-1), id:4131, line:206:68, endln:206:77 |vpiParent: \_indexed_part_select: iclk_data_i (work@bsg_launch_sync_sync.sync.n.z.blss.iclk_da
+generated/basejump/bsg_async_BaseJumpSTL_bsg_sync_sync n=32
+   L: decompile: constant: , id:8174, line:105:42, endln:105:43 |vpiParent: \_operation: , id:8173, line:105:40, endln:105:43 |vpiDecompile:8 |vpiSize:64 
+   R: RHS: decompile: ref_obj: (work@bsg_sync_sync.maxb.bss8.iclk_data_i.iclk_data_i.`bss_max_block), id:4085, line:105:42, endln:105:43 |vpiParent: \_operation: , id:4083, line:105:40, endln:105:43 |vpiName:`bss_max_block 
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache n=136
+   L: decompile: operation: , id:9493, line:766:25, endln:766:90 |vpiParent: \_indexed_part_select: addr_v_r (work@bsg_cache.sbuf_in_sel.dec.i.addr_v_r), id:9486, line:766:21, endln:766:91 |vpiOpType:32 |vpiOperand: 
+   R: RHS: decompile: ref_obj: (work@bsg_cache.sbuf_in_sel.dec.i.`BSG_MAX(lg_data_mask_width_lp-i,1)), id:6179, line:766:24, endln:766:91 |vpiParent: \_indexed_part_select: addr_v_r (work@bsg_cache.sbuf_in_sel.dec.i.addr_v_r),
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_data_mem n=228
+   L: decompile: hier_path: (data_mem_pkt.data[0+:8 * 2 ** i]), id:8506, line:110:62, endln:110:94 |vpiParent: \_operation: , id:8505, line:110:61, endln:110:95 |vpiActual: \_ref_obj: (data_mem_pkt), id:8507, line:110:62, endl
+   R: RHS: decompile: hier_path: (data_mem_pkt.data[0+:8 * 2 * * i]), id:4417, line:110:62, endln:110:94 |vpiParent: \_operation: , id:4416, line:110:61, endln:110:95 |vpiActual: 
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_comm_link n=42
+   L: decompile: sys_func_call: ($clog2), id:8346, line:794:22, endln:794:45 |vpiParent: \_operation: , id:8348, line:794:21, endln:794:50 |vpiArgument: \_ref_obj: (work@bsg_comm_link.bsg_comm_link_active_in_vec_t.core_channel
+   R: RHS: decompile: constant: , id:4210, line:794:22, endln:794:45 |vpiParent: \_operation: , id:4209, line:794:21, endln:794:50 |vpiDecompile:3 
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_master n=42
+   L: decompile: sys_func_call: ($bits), id:8277, line:143:53, endln:143:74 |vpiParent: \_operation: , id:8279, line:143:53, endln:143:76 |vpiArgument: \_ref_obj: (work@bsg_source_sync_channel_control_master.out_calib_code.out
+   R: RHS: decompile: constant: , id:4600, line:143:53, endln:143:74 |vpiParent: \_operation: , id:4599, line:143:53, endln:143:76 |vpiDecompile:5 
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave n=84902
+   L: decompile: design: (work@top), id:8666 |vpiName:work@top |vpiIncludeFileInfo: \_include_file_info: , id:8580, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_test/bsg_dramsim3_pkg.sv, line:2:10, e
+   R: RHS: decompile: design: (work@top), id:1 |vpiName:work@top |vpiIncludeFileInfo: \_include_file_info: , id:2, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_test/bsg_dramsim3_pkg.sv, line:2:10, en
+generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker n=82034
+   L: decompile: design: (work@top), id:8481 |vpiName:work@top |vpiIncludeFileInfo: \_include_file_info: , id:8395, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_test/bsg_dramsim3_pkg.sv, line:2:10, e
+   R: RHS: decompile: design: (work@top), id:1 |vpiName:work@top |vpiIncludeFileInfo: \_include_file_info: , id:2, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_test/bsg_dramsim3_pkg.sv, line:2:10, en
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_pipeline_stall_collapse n=68
+   L: decompile: assignment: , id:8206, line:53:30, endln:53:34 |vpiParent: \_gen_for: , id:8197 |vpiOpType:24 |vpiRhs: 
+   R: RHS: decompile: operation: , id:4116, line:53:30, endln:53:31 |vpiParent: \_gen_for: , id:4107 |vpiOpType:62 
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo n=80
+   L: decompile: operation: , id:9073, line:339:19, endln:339:38 |vpiParent: \_range: , id:9072, line:339:18, endln:339:41 |vpiOpType:11 |vpiOperand: 
+   R: RHS: decompile: constant: , id:4815, line:339:19, endln:339:36 |vpiParent: \_range: , id:4814, line:339:18, endln:339:41 |vpiDecompile:7 
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_var n=120
+   L: decompile: operation: , id:8228, line:42:27, endln:42:45 |vpiParent: \_operation: , id:8230, line:42:27, endln:42:47 |vpiOpType:25 |vpiOperand: 
+   R: RHS: decompile: operation: , id:4135, line:42:27, endln:42:45 |vpiParent: \_operation: , id:4134, line:42:27, endln:42:47 |vpiOpType:24 
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_var n=120
+   L: decompile: operation: , id:8207, line:32:23, endln:32:41 |vpiParent: \_operation: , id:8209, line:32:23, endln:32:43 |vpiOpType:25 |vpiOperand: 
+   R: RHS: decompile: operation: , id:4113, line:32:23, endln:32:41 |vpiParent: \_operation: , id:4112, line:32:23, endln:32:43 |vpiOpType:24 
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc n=79266
+   L: decompile: design: (work@top), id:8282 |vpiName:work@top |vpiIncludeFileInfo: \_include_file_info: , id:8196, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_test/bsg_dramsim3_pkg.sv, line:2:10, e
+   R: RHS: decompile: design: (work@top), id:1 |vpiName:work@top |vpiIncludeFileInfo: \_include_file_info: , id:2, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_test/bsg_dramsim3_pkg.sv, line:2:10, en
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_mask_write_byte_assoc n=28
+   L: decompile: ref_obj: (work@bsg_nonsynth_mem_1rw_sync_mask_write_byte_assoc.bk.mem_1rw_sync.data_i.data_i.i), id:8177, line:40:24, endln:40:25 |vpiParent: \_operation: , id:8178, line:40:24, endln:40:27 |vpiName:i |vpiFull
+   R: RHS: decompile: ref_obj: (work@bsg_nonsynth_mem_1rw_sync_mask_write_byte_assoc.bk.mem_1rw_sync.data_i.data_i.(i), id:4086, line:40:23, endln:40:25 |vpiParent: \_operation: , id:4085, line:40:23, endln:40:28 |vpiName:(i 
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_segmented n=79996
+   L: decompile: design: (work@top), id:8368 |vpiName:work@top |vpiIncludeFileInfo: \_include_file_info: , id:8282, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_test/bsg_dramsim3_pkg.sv, line:2:10, e
+   R: RHS: decompile: design: (work@top), id:1 |vpiName:work@top |vpiIncludeFileInfo: \_include_file_info: , id:2, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_test/bsg_dramsim3_pkg.sv, line:2:10, en
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_imod_range n=2162
+   L: decompile: module_inst: work@bsg_imod_range (work@bsg_imod_range), id:8303, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_misc/bsg_imod_range.sv, line:6:1, endln:60:10 |vpiParent: \_design: (wor
+   R: RHS: decompile: module_inst: work@bsg_imod_range (work@bsg_imod_range), id:4045, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_misc/bsg_imod_range.sv, line:6:1, endln:60:10 |vpiParent: \_design:
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_array n=82
+   L: decompile: part_select: prod_accum (work@bsg_mul_array.first_row.prod_accum_o.prod_accum.prod_accum), id:8215, line:55:38, endln:55:43 |vpiParent: \_var_select: (work@bsg_mul_array.first_row.prod_accum_o.prod_accum), id:
+   R: RHS: decompile: ref_obj: (work@bsg_mul_array.first_row.prod_accum_o.prod_accum.i+1:0), id:4163, line:55:38, endln:55:43 |vpiParent: \_var_select: (work@bsg_mul_array.first_row.prod_accum_o.prod_accum), id:4161, line:55:2
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_pipelined n=708
+   L: decompile: named_begin: (work@bsg_dff_en_rep_rep.rof), id:8272 |vpiParent: \_gen_for: , id:8212 |vpiName:rof |vpiFullName:work@bsg_dff_en_rep_rep.rof 
+   R: RHS: decompile: named_begin: (work@bsg_dff_en_rep_rep.rof), id:4399 |vpiParent: \_gen_for: , id:4385 |vpiName:rof 
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_one_hot n=44
+   L: decompile: parameter: (work@bsg_mux_one_hot.els_p), id:8151, line:5:32, endln:5:37 |vpiParent: \_module_inst: work@bsg_mux_one_hot (work@bsg_mux_one_hot), id:8307, file:/home/heyfey/git-repos/sv-tests/third_party/cores/b
+   R: RHS: decompile: parameter: (work@bsg_mux_one_hot.width_p), id:4049, line:4:36, endln:4:43 |vpiParent: \_module_inst: work@bsg_mux_one_hot (work@bsg_mux_one_hot), id:4046, file:/home/heyfey/git-repos/sv-tests/third_party/
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow n=82202
+   L: decompile: design: (work@top), id:8436 |vpiName:work@top |vpiIncludeFileInfo: \_include_file_info: , id:8350, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_test/bsg_dramsim3_pkg.sv, line:2:10, e
+   R: RHS: decompile: design: (work@top), id:1 |vpiName:work@top |vpiIncludeFileInfo: \_include_file_info: , id:2, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_test/bsg_dramsim3_pkg.sv, line:2:10, en
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch n=283
+   L: decompile: logic_typespec: , id:8307, line:18:14, endln:18:27 |vpiRange: \_range: , id:8284, line:18:14, endln:18:27 |vpiParent: \_logic_typespec: , id:8307, line:18:14, endln:18:27 
+   R: RHS: <null> 
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_ready_and_link_async_to_wormhole n=17
+   L: 
+   R: RHS: decompile: ref_typespec: (work@bsg_ready_and_link_async_to_wormhole.wormhole_width_lp), id:4097 |vpiParent: \_parameter: (work@bsg_ready_and_link_async_to_wormhole.wormhole_width_lp), id:4096, line:71:14, endln:71:3
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_trace_replay n=17
+   L: 
+   R: RHS: decompile: ref_typespec: (work@bsg_tag_trace_replay.bsg_tag_header_width_lp), id:4098 |vpiParent: \_parameter: (work@bsg_tag_trace_replay.bsg_tag_header_width_lp), id:4097, line:78:16, endln:78:39 |vpiFullName:work@
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer n=79614
+   L: decompile: design: (work@top), id:8320 |vpiName:work@top |vpiIncludeFileInfo: \_include_file_info: , id:8234, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_test/bsg_dramsim3_pkg.sv, line:2:10, e
+   R: RHS: decompile: design: (work@top), id:1 |vpiName:work@top |vpiIncludeFileInfo: \_include_file_info: , id:2, file:/home/heyfey/git-repos/sv-tests/third_party/cores/basejump_stl/bsg_test/bsg_dramsim3_pkg.sv, line:2:10, en
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_axi_mem n=206
+   L: decompile: operation: , id:8416, line:201:29, endln:203:27 |vpiParent: \_cont_assign: , id:8410, line:201:12, endln:203:27 |vpiOpType:32 |vpiOperand: 
+   R: RHS: decompile: operation: , id:4697, line:201:29, endln:203:27 |vpiParent: \_cont_assign: , id:4694, line:201:12, endln:203:27 |vpiOpType:32 
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_rom n=56
+   L: decompile: operation: , id:8267, line:31:22, endln:31:31 |vpiParent: \_range: , id:8265, line:31:21, endln:31:34 |vpiOpType:11 |vpiOperand: 
+   R: RHS: decompile: constant: , id:4069, line:31:22, endln:31:31 |vpiParent: \_range: , id:4068, line:31:21, endln:31:34 |vpiDecompile:0 
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3 n=82
+   L: decompile: part_select: read_addr_li (work@bsg_nonsynth_dramsim3.channels.channel.r_addr_i.read_addr_li.read_addr_li), id:8573, line:248:34, endln:248:77 |vpiParent: \_var_select: (work@bsg_nonsynth_dramsim3.channels.cha
+   R: RHS: decompile: ref_obj: (work@bsg_nonsynth_dramsim3.channels.channel.r_addr_i.read_addr_li.channel_addr_width_p-1:byte_offset_width_lp), id:4644, line:248:34, endln:248:77 |vpiParent: \_var_select: (work@bsg_nonsynth_dr
+generated/hdlconv_std2012/hdlconvertor_std2012_p148 n=45
+   L: decompile: operation: , id:126, line:2:26, endln:2:34 |vpiParent: \_int_var: (work@Jumbo_Packet::max_size), id:128, line:2:15, endln:2:23 |vpiOpType:25 |vpiOperand: 
+   R: RHS: <null> 
+generated/hdlconv_std2012/hdlconvertor_std2012_p88 n=36
+   L: decompile: constant: , id:162, line:3:10, endln:3:11 |vpiParent: \_int_var: (work@mb.u1.j), id:163, line:3:6, endln:3:7 |vpiDecompile:0 |vpiSize:16 
+   R: RHS: decompile: constant: , id:157, line:3:10, endln:3:11 |vpiParent: \_int_var: (work@mb.u1.j), id:156, line:3:6, endln:3:7 |vpiDecompile:0 
+generated/hdlconv_std2017/hdlconvertor_std2017_p124 n=36
+   L: decompile: constant: , id:162, line:4:8, endln:4:9 |vpiParent: \_int_var: (work@mb.u1.j), id:163, line:4:4, endln:4:5 |vpiDecompile:0 |vpiSize:16 
+   R: RHS: decompile: constant: , id:157, line:4:8, endln:4:9 |vpiParent: \_int_var: (work@mb.u1.j), id:156, line:4:4, endln:4:5 |vpiDecompile:0 
+generated/hdlconv_std2017/hdlconvertor_std2017_p130 n=18
+   L: decompile: int_typespec: , id:18, line:7:22, endln:7:25 |vpiParent: \_type_parameter: (work@sub.t_3), id:17, line:7:16, endln:7:19 |vpiSigned:1 decompile: 
+   R: RHS: decompile: logic_typespec: , id:27, line:14:12, endln:14:15 decompile: logic_typespec: , id:27, line:14:12, endln:14:15 
+generated/hdlconv_std2017/hdlconvertor_std2017_p179 n=58
+   L: decompile: class_var: (test.xtnd1), id:10, line:13:1, endln:13:6 |vpiParent: \_function: (test), id:4, line:12:1, endln:25:12 |vpiTypespec: \_ref_typespec: (test.xtnd1), id:11 
+   R: RHS: decompile: class_var: (test.xtnd1), id:14, line:13:7, endln:13:12 |vpiParent: \_begin: (test), id:28, line:18:1, endln:18:13 |vpiTypespec: 
+generated/hdlconv_std2017/hdlconvertor_std2017_p181_2 n=46
+   L: decompile: hier_path: (super.value), id:93, line:12:32, endln:12:43 |vpiParent: \_operation: , id:92, line:12:24, endln:12:43 |vpiActual: \_ref_obj: (super), id:94, line:12:38, endln:12:43 
+   R: RHS: decompile: ref_obj: (work@LinkedPacket::delay::value), id:112, line:12:32, endln:12:43 |vpiParent: \_operation: , id:110, line:12:24, endln:12:43 |vpiName:value 
+generated/hdlconv_std2017/hdlconvertor_std2017_p184 n=45
+   L: decompile: operation: , id:104, line:2:22, endln:2:30 |vpiParent: \_int_var: (work@Jumbo_Packet::max_size), id:106, line:2:11, endln:2:19 |vpiOpType:25 |vpiOperand: 
+   R: RHS: <null> 
+generated/hdlconv_std2017/hdlconvertor_std2017_p193_2 n=52
+   L: decompile: ref_var: (work@C::f), id:98, line:2:24, endln:2:25 |vpiParent: \_function: (work@C::f), id:97, line:2:1, endln:2:7 |vpiTypespec: \_ref_typespec: (work@C::f), id:99 
+   R: RHS: decompile: class_var: (work@C::f), id:97, line:2:24, endln:2:25 |vpiParent: \_function: (work@C::f), id:96, line:2:1, endln:2:7 |vpiTypespec: 
+generated/hdlconv_std2017/hdlconvertor_std2017_p203 n=56
+   L: decompile: type_parameter: (C.p), id:124, line:17:21, endln:17:22 |vpiParent: \_class_typespec: (C), id:121, line:12:1, endln:12:12 |vpiName:p |vpiFullName:C.p 
+   R: RHS: decompile: type_parameter: (C.T), id:125, line:17:33, endln:17:34 |vpiParent: \_class_typespec: (C), id:124, line:12:1, endln:12:12 |vpiName:T 
+generated/hdlconv_std2017/hdlconvertor_std2017_p292 n=140
+   L: decompile: func_call: (valid_arb), id:33, line:14:5, endln:14:58 |vpiParent: \_begin: (work@my_checker), id:32, line:13:9, endln:16:4 |vpiArgument: \_ref_obj: (work@my_checker.req), id:34, line:14:24, endln:14:27 
+   R: RHS: decompile: operation: , id:25, line:2:43, endln:2:73 |vpiParent: \_begin: (work@my_checker), id:23, line:13:9, endln:16:4 |vpiOpType:27 
+generated/hdlconv_std2017/hdlconvertor_std2017_p334 n=67
+   L: decompile: logic_typespec: , id:97, line:2:17, endln:2:37 |vpiRange: \_range: , id:92, line:2:23, endln:2:37 |vpiParent: \_logic_typespec: , id:97, line:2:17, endln:2:37 
+   R: RHS: <null> 
+generated/hdlconv_std2017/hdlconvertor_std2017_p488 n=30
+   L: decompile: logic_net: (work@m.bus), id:111, line:5:22, endln:5:25 |vpiParent: \_module_inst: work@m (work@m), id:108, file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p488.sv, lin
+   R: RHS: decompile: logic_net: (work@m.bus), id:10, line:5:22, endln:5:25 |vpiParent: \_module_inst: work@m (work@m), id:9, file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p488.sv, l
+generated/hdlconv_std2017/hdlconvertor_std2017_p489 n=1700
+   L: decompile: module_inst: work@m (work@m), id:182, file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p489.sv, line:12:1, endln:30:14 |vpiParent: \_design: (work@m), id:157 |vpiName:w
+   R: RHS: decompile: module_inst: work@m (work@m), id:149, file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p489.sv, line:12:1, endln:30:14 |vpiParent: \_design: (work@m), id:1 |vpiNam
+generated/hdlconv_std2017/hdlconvertor_std2017_p537 n=124
+   L: decompile: func_call: (randomize), id:68, line:6:11, endln:6:41 |vpiParent: \_assignment: , id:66, line:6:1, endln:6:41 |vpiArgument: \_ref_obj: (work@stim.gen_stim.addr), id:69, line:6:22, endln:6:26 
+   R: RHS: decompile: hier_path: (addr.randomize), id:69, line:6:11, endln:6:41 |vpiParent: \_assignment: , id:67, line:6:1, endln:6:41 |vpiActual: 
+generated/hdlconv_std2017/hdlconvertor_std2017_p599 n=17
+   L: decompile: ref_typespec: (work@driver), id:162 |vpiParent: \_sys_func_call: ($realtobits), id:107, line:4:21, endln:4:35 |vpiFullName:work@driver |vpiActual: 
+   R: RHS: <null> 
+generated/hdlconv_std2017/hdlconvertor_std2017_p600 n=36
+   L: decompile: constant: , id:10, line:12:16, endln:12:20 |vpiParent: \_range: , id:8, line:12:13, endln:12:21 |vpiDecompile:1'b1 |vpiSize:1 
+   R: RHS: decompile: constant: , id:18, line:12:16, endln:12:17 |vpiParent: \_range: , id:16, line:12:13, endln:12:21 |vpiDecompile:1 
+generated/hdlconv_std2017/hdlconvertor_std2017_p719 n=17
+   L: decompile: logic_net: (work@dff_nested.i1.nq1), id:330, line:16:11, endln:16:14 |vpiParent: \_module_inst: work@dff_nested::ff1 (work@dff_nested.i1), id:519, file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconv
+   R: RHS: <null> 
+generated/hdlconv_std2017/hdlconvertor_std2017_p733 n=36
+   L: decompile: constant: , id:184, line:16:10, endln:16:14 |vpiParent: \_range: , id:179, line:16:7, endln:16:17 |vpiDecompile:0 |vpiSize:64 
+   R: RHS: decompile: constant: , id:175, line:16:10, endln:16:14 |vpiParent: \_range: , id:173, line:16:7, endln:16:17 |vpiDecompile:4 
+generated/hdlconv_std2017/hdlconvertor_std2017_p737 n=2386
+   L: decompile: design: (work@M), id:108 |vpiName:work@M |uhdmallPackages: \_package: builtin (builtin::), id:109 |vpiParent: 
+   R: RHS: decompile: design: (unnamed), id:1 |vpiName:unnamed |uhdmallPackages: \_package: builtin (builtin::), id:8 
+generated/hdlconv_std2017/hdlconvertor_std2017_p765 n=28
+   L: decompile: func_call: (countSlaves), id:88, line:26:1, endln:26:12 |vpiParent: \_begin: (work@simple_bus), id:84, line:24:9, endln:28:4 |vpiName:countSlaves decompile: 
+   R: RHS: decompile: task_call: (countSlaves), id:340, line:26:1, endln:26:12 |vpiParent: \_begin: (work@simple_bus), id:335, line:24:9, endln:28:4 |vpiName:countSlaves 
+generated/hdlconv_std2017/hdlconvertor_std2017_p770 n=44
+   L: decompile: bit_select: (work@top.s), id:42, line:32:15, endln:32:16 |vpiParent: \_method_func_call: (new), id:40 |vpiName:s |vpiFullName:work@top.s 
+   R: RHS: decompile: ref_obj: (work@top.s[1]), id:39, line:32:13, endln:32:17 |vpiParent: \_method_func_call: (new), id:38 |vpiName:s[1] 
+generated/hdlconv_std2017/hdlconvertor_std2017_p791 n=31
+   L: decompile: logic_net: (work@addergen1.bitnum[0].t1), id:258, line:15:6, endln:15:8 |vpiParent: \_gen_scope: (work@addergen1.bitnum[0]), id:681, line:14:25, endln:21:4 |vpiTypespec: \_ref_typespec: (work@addergen1.bitnum[
+   R: RHS: <null> 
+generated/hdlconv_std2017/hdlconvertor_std2017_p827 n=854
+   L: decompile: module_inst: work@capacitor (work@capacitor), id:127, file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p827.sv, line:1:1, endln:16:10 |vpiParent: \_design: (work@capaci
+   R: RHS: decompile: module_inst: work@capacitor (work@capacitor), id:9, file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p827.sv, line:1:1, endln:16:10 |vpiParent: \_design: (work@cap
+generated/hdlconv_std2017/hdlconvertor_std2017_p884 n=1260
+   L: decompile: module_inst: work@dff (work@dff), id:189, file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p884.sv, line:28:1, endln:59:10 |vpiParent: \_design: (work@dff), id:187 |vpi
+   R: RHS: decompile: module_inst: work@dff (work@dff), id:9, file:/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p884.sv, line:28:1, endln:59:10 |vpiParent: \_design: (work@dff), id:1 |vp
+generated/utd-sv/utd-sv_std-7.1.6-primitives n=62
+   L: decompile: operation: , id:8, line:12:25, endln:12:42 |vpiParent: \_port: (out), id:7, line:12:20, endln:12:43 |vpiOpType:33 |vpiOperand: 
+   R: RHS: decompile: ref_obj: (work@busdriver_equiv.busar.out.buslow), id:103, line:12:35, endln:12:41 |vpiParent: \_port: (out), id:102, line:12:20, endln:12:43 |vpiName:buslow 
+generic/class/class_test_49 n=16
+   L: decompile: logic_typespec: , id:179, line:26:13, endln:26:16 |vpiParent: \_parameter: (work@params_as_class_item::P), id:180, line:26:17, endln:26:18 decompile: logic_typespec: , id:179, line:26:13, endln:26:16 
+   R: RHS: decompile: int_typespec: , id:138, line:26:3, endln:26:23 decompile: int_typespec: , id:138, line:26:3, endln:26:23 
+generic/class/class_test_51 n=42
+   L: decompile: constant: , id:85, line:16:25, endln:16:30 |vpiParent: \_operation: , id:86, line:16:25, endln:16:39 |vpiDecompile:32 |vpiSize:64 
+   R: RHS: decompile: sys_func_call: ($bits), id:92, line:16:25, endln:16:35 |vpiParent: \_operation: , id:91, line:16:25, endln:16:39 |vpiArgument: 
+generic/class/class_test_53 n=17
+   L: decompile: ref_typespec: (work@param_types_as_class_item::BT::BrickType), id:123 |vpiParent: \_int_typespec: (BrickType), id:122, line:20:9, endln:20:12 |vpiFullName:work@param_types_as_class_item::BT::BrickType |vpiActu
+   R: RHS: <null> 
+generic/class/class_test_55 n=11
+   L: decompile: ref_typespec: , id:95 |vpiParent: \_array_typespec: , id:94 decompile: ref_typespec: , id:95 
+   R: RHS: <null> 
+generic/member/class_member_test_12 n=17
+   L: 
+   R: RHS: decompile: ref_typespec: (work@semaphore::p_handle), id:89 |vpiParent: \_chandle_var: (work@semaphore::p_handle), id:88, line:17:17, endln:17:25 |vpiFullName:work@semaphore::p_handle 
+generic/member/class_member_test_9 n=17
+   L: decompile: ref_typespec: (arg_type), id:84 |vpiParent: \_int_typespec: (arg_type), id:83, line:18:34, endln:18:42 |vpiFullName:arg_type |vpiActual: 
+   R: RHS: <null> 
+generic/typedef/typedef_test_0 n=2066
+   L: decompile: design: (work@test), id:99 |vpiName:work@test |uhdmallPackages: \_package: builtin (builtin::), id:100 |vpiParent: 
+   R: RHS: decompile: design: (work@test), id:1 |vpiName:work@test |uhdmallPackages: \_package: builtin (builtin::), id:8 
+generic/typedef/typedef_test_18 n=62
+   L: decompile: typespec_member: , id:15, line:18:8, endln:18:11 |vpiParent: \_struct_typespec: (randstruct), id:13, line:17:9, endln:20:2 |vpiTypespec: \_ref_typespec: (randstruct), id:16 
+   R: RHS: decompile: typespec_member: (i), id:15, line:18:12, endln:18:13 |vpiParent: \_struct_typespec: (randstruct), id:14, line:17:9, endln:20:2 |vpiName:i 
+generic/typedef/typedef_test_9 n=46
+   L: decompile: constant: , id:27, line:19:28, endln:19:29 |vpiParent: \_range: , id:26, line:19:27, endln:19:32 |vpiDecompile:2 |vpiSize:32 
+   R: RHS: decompile: ref_obj: (my_array_t::k), id:22, line:19:28, endln:19:29 |vpiParent: \_range: , id:21, line:19:27, endln:19:32 |vpiName:k 

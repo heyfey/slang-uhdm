@@ -705,7 +705,7 @@ chapter-7/memories/read-write.sv,EQUAL,,equal
 chapter-7/queues/basic.sv,EQUAL,,equal
 chapter-7/queues/bounded.sv,EQUAL,,equal
 chapter-7/queues/delete.sv,EQUAL,,equal
-chapter-7/queues/delete_assign.sv,DIFFERENT,decompile:,
+chapter-7/queues/delete_assign.sv,EQUAL,,equal
 chapter-7/queues/insert.sv,EQUAL,,equal
 chapter-7/queues/insert_assign.sv,EQUAL,,equal
 chapter-7/queues/max-size.sv,EQUAL,,equal
@@ -733,7 +733,7 @@ chapter-7/unions/unpacked/basic.sv,EQUAL,,equal
 chapter-8/8.10--static_methods.sv,EQUAL,,equal
 chapter-8/8.11--this.sv,EQUAL,,equal
 chapter-8/8.12--assignment.sv,EQUAL,,equal
-chapter-8/8.12--shallow_copy.sv,DIFFERENT,decompile:,
+chapter-8/8.12--shallow_copy.sv,EQUAL,,equal
 chapter-8/8.13--inheritance.sv,EQUAL,,equal
 chapter-8/8.14--override_member.sv,EQUAL,,equal
 chapter-8/8.15--super-default-new.sv,EQUAL,,equal
@@ -1376,7 +1376,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p177.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p178.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p179.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p181.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p181_2.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p181_2.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p183.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p184.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p184_2.sv,EQUAL,,equal
@@ -1448,7 +1448,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p526.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p527.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p530.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p531.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p537.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p537.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p541.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p556.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p577.sv,EQUAL,,equal
@@ -1486,7 +1486,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p761.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p762.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv,DIFFERENT,decompile:,
 generated/hdlconv_std2017/hdlconvertor_std2017_p766.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p770.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p770.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p771.sv,SLANG_ONLY,[  ERROR] : 6,
 generated/hdlconv_std2017/hdlconvertor_std2017_p774.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p774.sv:18:12: error: no implicit conversion from 'logic signed[31:0]' to ',
 generated/hdlconv_std2017/hdlconvertor_std2017_p776.sv,EQUAL,,equal

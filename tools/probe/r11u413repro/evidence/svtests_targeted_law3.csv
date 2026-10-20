@@ -1,0 +1,76 @@
+name,path,tier,mode,tags,should_fail,timeout,surelog,surelog_rc,surelog_s,surelog_msg,slang,slang_rc,slang_s,slang_msg,cmp,strict,agreement,slang_vs_expect,surelog_vs_expect
+blocking_assignment,chapter-10/10.4.1--blocking-assignment.sv,plain,simulation,10.4.1,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+constraint_guards_1,chapter-18/18.5.13--constraint-guards_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,69.4,,OK,0,5.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+random_stability_1,chapter-18/18.14--random-stability_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,70.3,,OK,0,5.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+structure-replication,chapter-5/5.10-structure-replication.sv,plain,elaboration,5.10,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+string-word-assignment,chapter-5/5.9-string-word-assignment.sv,plain,elaboration,5.9,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+realtime,chapter-6/6.12--realtime.sv,plain,elaboration,6.12,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+delete-assign,chapter-7/queues/delete_assign.sv,plain,simulation,7.10.4,0,120,OK,0,0.0,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
+unpacked-structures-members-default-value,chapter-7/structures/unpacked/default-value.sv,plain,simulation,7.2.2,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+shallow_copy,chapter-8/8.12--shallow_copy.sv,plain,elaboration,8.12,0,120,OK,0,0.0,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
+dynamic_method_lookup,chapter-8/8.22--dynamic_method_lookup.sv,plain,elaboration,8.22,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+out_of_block_methods,chapter-8/8.24--out_of_block_methods.sv,plain,elaboration,8.24,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+type_access_implements,chapter-8/8.26.3--type_access_implements.sv,plain,simulation,8.26.3,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_async_BaseJumpSTL_bsg_async_fifo,generated/basejump/bsg_async_BaseJumpSTL_bsg_async_fifo.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_async_BaseJumpSTL_bsg_launch_sync_sync,generated/basejump/bsg_async_BaseJumpSTL_bsg_launch_sync_sync.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_async_BaseJumpSTL_bsg_sync_sync,generated/basejump/bsg_async_BaseJumpSTL_bsg_sync_sync.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_cache_BaseJumpSTL_bsg_cache,generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_data_mem,generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_data_mem.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_comm_link_BaseJumpSTL_bsg_comm_link,generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_comm_link.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_master,generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_master.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave,generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker,generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_dataflow_BaseJumpSTL_bsg_pipeline_stall_collapse,generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_pipeline_stall_collapse.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo,generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_var,generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_var.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_var,generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_var.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc,generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_mask_write_byte_assoc,generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_mask_write_byte_assoc.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_misc_BaseJumpSTL_bsg_dff_en_segmented,generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_segmented.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_misc_BaseJumpSTL_bsg_imod_range,generated/basejump/bsg_misc_BaseJumpSTL_bsg_imod_range.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_misc_BaseJumpSTL_bsg_mul_array,generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_array.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_misc_BaseJumpSTL_bsg_mul_pipelined,generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_pipelined.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_misc_BaseJumpSTL_bsg_mux_one_hot,generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_one_hot.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow,generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_noc_BaseJumpSTL_bsg_mesh_stitch,generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_noc_BaseJumpSTL_bsg_ready_and_link_async_to_wormhole,generated/basejump/bsg_noc_BaseJumpSTL_bsg_ready_and_link_async_to_wormhole.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_tag_BaseJumpSTL_bsg_tag_trace_replay,generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_trace_replay.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer,generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_test_BaseJumpSTL_bsg_nonsynth_axi_mem,generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_axi_mem.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_rom,generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_rom.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3,generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2012_p148,generated/hdlconv_std2012/hdlconvertor_std2012_p148.sv,plain,parsing,hdlconv_std2012,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2012_p88,generated/hdlconv_std2012/hdlconvertor_std2012_p88.sv,plain,parsing,hdlconv_std2012,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p124,generated/hdlconv_std2017/hdlconvertor_std2017_p124.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p130,generated/hdlconv_std2017/hdlconvertor_std2017_p130.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p179,generated/hdlconv_std2017/hdlconvertor_std2017_p179.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p181_2,generated/hdlconv_std2017/hdlconvertor_std2017_p181_2.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
+hdlconvertor_std2017_p184,generated/hdlconv_std2017/hdlconvertor_std2017_p184.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p193_2,generated/hdlconv_std2017/hdlconvertor_std2017_p193_2.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p203,generated/hdlconv_std2017/hdlconvertor_std2017_p203.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p292,generated/hdlconv_std2017/hdlconvertor_std2017_p292.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p334,generated/hdlconv_std2017/hdlconvertor_std2017_p334.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p488,generated/hdlconv_std2017/hdlconvertor_std2017_p488.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p489,generated/hdlconv_std2017/hdlconvertor_std2017_p489.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p537,generated/hdlconv_std2017/hdlconvertor_std2017_p537.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
+hdlconvertor_std2017_p599,generated/hdlconv_std2017/hdlconvertor_std2017_p599.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p600,generated/hdlconv_std2017/hdlconvertor_std2017_p600.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p719,generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p733,generated/hdlconv_std2017/hdlconvertor_std2017_p733.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p737,generated/hdlconv_std2017/hdlconvertor_std2017_p737.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p765,generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p770,generated/hdlconv_std2017/hdlconvertor_std2017_p770.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,EQUAL,equal,IDENTICAL,ok,ok
+hdlconvertor_std2017_p791,generated/hdlconv_std2017/hdlconvertor_std2017_p791.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p827,generated/hdlconv_std2017/hdlconvertor_std2017_p827.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p884,generated/hdlconv_std2017/hdlconvertor_std2017_p884.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+utd-sv_std-7.1.6-primitives,generated/utd-sv/utd-sv_std-7.1.6-primitives.sv,plain,parsing,utd-sv,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+class_test_49,generic/class/class_test_49.sv,plain,elaboration,6.15 8.3,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+class_test_51,generic/class/class_test_51.sv,plain,elaboration,6.15 8.3,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+class_test_53,generic/class/class_test_53.sv,plain,elaboration,6.15 8.3,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+class_test_55,generic/class/class_test_55.sv,plain,elaboration,6.15 8.3,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+class_member_test_12,generic/member/class_member_test_12.sv,plain,elaboration,8.3,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+class_member_test_9,generic/member/class_member_test_9.sv,plain,elaboration,8.3,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+typedef_test_0,generic/typedef/typedef_test_0.sv,plain,elaboration,6.18,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+typedef_test_18,generic/typedef/typedef_test_18.sv,plain,elaboration,6.18,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+typedef_test_9,generic/typedef/typedef_test_9.sv,plain,elaboration,6.18,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+global_constraints_1,chapter-18/18.5.9--global-constraints_1.sv,uvm,elaboration,uvm-random uvm,0,300,OK,0,73.6,,OK,0,5.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok

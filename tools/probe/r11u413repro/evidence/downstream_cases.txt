@@ -1,0 +1,28 @@
+pristine MI/mi01 {'name': 'mi01', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'OK', 'surelog_gates': 0, 'slang_gates': 4, 'differs': '', 'detail': ''}
+pristine MI/mi02 {'name': 'mi02', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine MI/mi03 {'name': 'mi03', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine MI/mi04 {'name': 'mi04', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine MI/mi05 {'name': 'mi05', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'OK', 'surelog_gates': 0, 'slang_gates': 4, 'differs': '', 'detail': ''}
+pristine MI/mi06 {'name': 'mi06', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 4, 'slang_gates': 4, 'differs': '', 'detail': ''}
+pristine NU/nu01 {'name': 'nu01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NU/nu02 {'name': 'nu02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NU/nu03 {'name': 'nu03', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u413_ds_pristine/nu03/equiv/nu03'}
+pristine NU/nu04 {'name': 'nu04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NU/nu05 {'name': 'nu05', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': '✅ All 1 common constant assignments match'}
+pristine NU/nu06 {'name': 'nu06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine EQ/eq01 {'name': 'eq01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine EQ/eq06 {'name': 'eq06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law5 MI/mi01 {'name': 'mi01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law5 MI/mi02 {'name': 'mi02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law5 MI/mi03 {'name': 'mi03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law5 MI/mi04 {'name': 'mi04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law5 MI/mi05 {'name': 'mi05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law5 MI/mi06 {'name': 'mi06', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 4, 'slang_gates': 4, 'differs': '', 'detail': ''}
+law5 NU/nu01 {'name': 'nu01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law5 NU/nu02 {'name': 'nu02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law5 NU/nu03 {'name': 'nu03', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u413_ds_law5/nu03/equiv/nu03'}
+law5 NU/nu04 {'name': 'nu04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law5 NU/nu05 {'name': 'nu05', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': '✅ All 1 common constant assignments match'}
+law5 NU/nu06 {'name': 'nu06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law5 EQ/eq01 {'name': 'eq01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law5 EQ/eq06 {'name': 'eq06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}

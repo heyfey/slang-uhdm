@@ -1,0 +1,3 @@
+v11u409repro/cases/VI/vi20 P: rc=0 cmp=76 away=86 md5=b309f100 | NOT_EQUAL stage1 | L: rc=0 cmp=0 away=58 md5=46a0f93f | STRICT_NOTEQUAL fullname
+v11u411repro/cases/VM/vm04 P: rc=4 cmp=15 away=8 md5=8d1e31b9 | NOT_EQUAL stage1 | L: rc=0 cmp=0 away=2 md5=e2f3a765 | STRICT_EQUAL 39 objects
+v11u411repro/cases/VM/vm06 P: rc=0 cmp=120 away=107 md5=9529bdec | NOT_EQUAL stage1 | L: rc=0 cmp=0 away=89 md5=75b03025 | STRICT_EQUAL 235 objects

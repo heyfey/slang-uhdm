@@ -33262,8 +33262,24 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             // law's clone moves it toward golden (NOT_EQUAL -> judge-equal,
             // its alias ref still named `u_t` where golden writes
             // `work@top.u_t`).
+            // § unitTdCloneNoPrefixBit413 (r11u413,
+            // R11U413_UNITBITCLONE_OFF; cases tools/probe/r11u413repro/
+            // cases/NU) -- ...except a `$unit` BIT typedef (`typedef bit
+            // [7:0] i_t`, v11u409 VI/vi20): there pristine's copy is
+            // uhdm-cmp unequal (76 lines) and the law's clone is judge-equal
+            // with the one alias-ref full name left (golden
+            // `work@top.u.i_t`, ours `i_t`); the int and byte twins keep the
+            // abstention (STRICT_EQUAL on pristine, nu02, nu04).
             else if (sh409 && syntaxRefPrefix.empty() &&
                      !(ths409 && ths409->asSymbol().kind == SymbolKind::Package) &&
+                     !(k409 == UHDM::uhdmbit_typespec &&
+                       ((UHDM::bit_typespec*)sh409)->Ranges() &&
+                       !((UHDM::bit_typespec*)sh409)->Ranges()->empty() && ths409 &&
+                       ths409->asSymbol().kind == SymbolKind::CompilationUnit &&
+                       lawOn(413, "R11U413_UNITBITCLONE_OFF") &&
+                       (lawTrace(413, "unitTdCloneNoPrefixBit413",
+                                 std::string(ps.name)),
+                        true)) &&
                      fixOn(409, "R11V409_TDNOPREFIX_OFF"))
                 lawTrace(409, "tdCloneNoPrefixAbstain409v", std::string(ps.name));
             // § tdCloneQualNameAbstain409v (v11u409, R11V409_TDQUAL_OFF;

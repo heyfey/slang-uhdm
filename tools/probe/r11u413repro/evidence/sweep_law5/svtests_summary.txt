@@ -1,0 +1,7 @@
+CONVERSION chapter-7/queues/delete_assign.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-8/8.12--shallow_copy.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p181_2.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p537.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p770.sv: DIFFERENT -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=138 EQUAL=1705 SLANG_ONLY=19 STRICT_NOTEQUAL=97 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=5 changes=0
